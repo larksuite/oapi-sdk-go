@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks"
+// GET /open-apis/task/v1/tasks
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larktask.NewListTaskReqBuilder().
-		PageSize(0).
-		PageToken("").
-		StartCreateTime("").
-		EndCreateTime("").
+		PageSize(10).
+		PageToken("MTYzMTg3ODUxNQ==").
+		StartCreateTime("1652323331").
+		EndCreateTime("1652323335").
 		TaskCompleted(false).
 		UserIdType("user_id").
 		Build()
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

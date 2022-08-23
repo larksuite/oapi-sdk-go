@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/tasks/approve"
+// POST /open-apis/approval/v4/tasks/approve
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -34,6 +34,7 @@ func main() {
 			UserId("f7cb567e").
 			Comment("OK").
 			TaskId("12345").
+			Form("").
 			Build()).
 		Build()
 	// 发起请求
@@ -51,6 +52,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

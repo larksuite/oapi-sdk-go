@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/departments/parent"
+// GET /open-apis/contact/v3/departments/parent
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewParentDepartmentReqBuilder().
 		UserIdType("user_id").
-		DepartmentIdType("department_id").
-		DepartmentId("").
-		PageToken("").
+		DepartmentIdType("open_department_id").
+		DepartmentId("od-4e6ac4d14bcd5071a37a39de902c7141").
+		PageToken("AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

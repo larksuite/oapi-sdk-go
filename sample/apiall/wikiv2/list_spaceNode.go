@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
-// HTTP PATH: /open-apis/wiki/v2/spaces/:space_id/nodes"
+// GET /open-apis/wiki/v2/spaces/:space_id/nodes
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewListSpaceNodeReqBuilder().
-		SpaceId("").
-		PageSize(0).
-		PageToken("").
-		ParentNodeToken("").
+		SpaceId("6946843325487906839").
+		PageSize(10).
+		PageToken("6946843325487456878").
+		ParentNodeToken("wikcnKQ1k3pcuo5uSK4t8VN6kVf").
 		Build()
 	// 发起请求
 	resp, err := client.Wiki.SpaceNode.List(context.Background(), req)
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

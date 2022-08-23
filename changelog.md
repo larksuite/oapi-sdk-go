@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v3.0.0-beta-8-2022-08-23
+Added
+- API方法，消息事件，各种结构体添加文字描述注释
+
 ## v3.0.0-beta-7-2022-08-12
 Added
 - 消息卡片添加MessageCardEmbedImage结构体

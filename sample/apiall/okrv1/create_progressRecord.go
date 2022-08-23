@@ -16,20 +16,21 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 )
 
-// HTTP PATH: /open-apis/okr/v1/progress_records"
+// POST /open-apis/okr/v1/progress_records
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkokr.NewCreateProgressRecordReqBuilder().
 		Body(larkokr.NewCreateProgressRecordReqBodyBuilder().
-			SourceTitle("2021.12.20~2021.12.26 周报").
-			SourceUrl("www.baidu.com").
+			SourceTitle("周报系统").
+			SourceUrl("https://www.zhoubao.com").
 			TargetId("7041430377642082323").
 			TargetType(1).
 			Content(larkokr.NewContentBlockBuilder().Build()).
@@ -50,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

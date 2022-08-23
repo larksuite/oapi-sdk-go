@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete"
+// POST /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewBatchDeleteAppRoleMemberReqBuilder().
-		AppToken("").
-		RoleId("").
+		AppToken("bascnnKKvcoUblgmmhZkYqabcef").
+		RoleId("rolNGhPqks").
 		Body(larkbitable.NewBatchDeleteAppRoleMemberReqBodyBuilder().
 			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/freebusy/list"
+// POST /open-apis/calendar/v4/freebusy/list
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,10 +29,10 @@ func main() {
 	req := larkcalendar.NewListFreebusyReqBuilder().
 		UserIdType("user_id").
 		Body(larkcalendar.NewListFreebusyReqBodyBuilder().
-			TimeMin("").
-			TimeMax("").
-			UserId("").
-			RoomId("").
+			TimeMin("2020-10-28T12:00:00+08:00").
+			TimeMax("2020-12-28T12:00:00+08:00").
+			UserId("ou_xxxxxxxxxx").
+			RoomId("omm_xxxxxxxxxx").
 			Build()).
 		Build()
 	// 发起请求
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

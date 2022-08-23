@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/batch_messages/:batch_message_id"
+// DELETE /open-apis/im/v1/batch_messages/:batch_message_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkim.NewDeleteBatchMessageReqBuilder().
-		BatchMessageId("bm_dc13264520392913993dd051dba21dcf").
+		BatchMessageId("bm-dc13264520392913993dd051dba21dcf").
 		Build()
 	// 发起请求
 	resp, err := client.Im.BatchMessage.Delete(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

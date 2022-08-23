@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/instances/:instance_id/comments/remove"
+// POST /open-apis/approval/v4/instances/:instance_id/comments/remove
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkapproval.NewRemoveInstanceCommentReqBuilder().
-		InstanceId("").
-		UserIdType("open_id").
-		UserId("").
+		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
+		UserIdType("user_id").
+		UserId("ou_806a18fb5bdf525e38ba219733bdbd73").
 		Build()
 	// 发起请求
 	resp, err := client.Approval.InstanceComment.Remove(context.Background(), req)
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

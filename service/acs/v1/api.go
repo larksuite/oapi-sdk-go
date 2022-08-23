@@ -21,7 +21,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *AcsService {
 	a := &AcsService{config: config}
 	a.AccessRecord = &accessRecord{service: a}
@@ -32,17 +31,15 @@ func NewService(config *larkcore.Config) *AcsService {
 	return a
 }
 
-// 业务域服务定义
 type AcsService struct {
 	config                  *larkcore.Config
-	AccessRecord            *accessRecord
-	AccessRecordAccessPhoto *accessRecordAccessPhoto
-	Device                  *device
-	User                    *user
-	UserFace                *userFace
+	AccessRecord            *accessRecord            // 门禁记录
+	AccessRecordAccessPhoto *accessRecordAccessPhoto // 识别图片
+	Device                  *device                  // 门禁设备
+	User                    *user                    // 用户
+	UserFace                *userFace                // 人脸图片
 }
 
-// 资源服务定义
 type accessRecord struct {
 	service *AcsService
 }
@@ -59,7 +56,13 @@ type userFace struct {
 	service *AcsService
 }
 
-// 资源服务方法定义
+// 获取门禁记录列表
+//
+// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录。;;该接口返回满足查询参数的识别记录
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//list_accessRecord.go
 func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, options ...larkcore.RequestOptionFunc) (*ListAccessRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -86,6 +89,14 @@ func (a *accessRecord) ListByIterator(ctx context.Context, req *ListAccessRecord
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 下载人脸识别图片
+//
+// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录，对于使用人脸识别方式进行开门的识别记录，还会有抓拍图。;;可以用该接口下载开门时的人脸识别照片
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record-access_photo/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//get_accessRecordAccessPhoto.go
 func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordAccessPhotoReq, options ...larkcore.RequestOptionFunc) (*GetAccessRecordAccessPhotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -110,6 +121,14 @@ func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordA
 	}
 	return resp, err
 }
+
+// 获取设备列表
+//
+// - 使用该接口获取租户内所有设备
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/device/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//list_device.go
 func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListDeviceResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -131,6 +150,16 @@ func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc
 	}
 	return resp, err
 }
+
+// 获取单个用户信息
+//
+// - 该接口用于获取智能门禁中单个用户的信息。
+//
+// - 只能获取已加入智能门禁权限组的用户
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//get_user.go
 func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.RequestOptionFunc) (*GetUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -149,6 +178,16 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 	}
 	return resp, err
 }
+
+// 获取用户列表
+//
+// - 使用该接口获取智能门禁中所有用户信息
+//
+// - 只能获取已加入智能门禁权限组的用户
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//list_user.go
 func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -175,6 +214,14 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 修改用户部分信息
+//
+// - 飞书智能门禁在人脸识别成功后会有韦根信号输出，输出用户的卡号。;对于使用韦根协议的门禁系统，企业可使用该接口录入用户卡号。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//patch_user.go
 func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore.RequestOptionFunc) (*PatchUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -193,6 +240,14 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 下载人脸图片
+//
+// - 对于已经录入人脸图片的用户，可以使用该接口下载用户人脸图片
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//get_userFace.go
 func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...larkcore.RequestOptionFunc) (*GetUserFaceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -217,6 +272,14 @@ func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...lark
 	}
 	return resp, err
 }
+
+// 上传人脸图片
+//
+// - 用户需要录入人脸图片才可以使用门禁考勤机。使用该 API 上传门禁用户的人脸图片。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1//update_userFace.go
 func (u *userFace) Update(ctx context.Context, req *UpdateUserFaceReq, options ...larkcore.RequestOptionFunc) (*UpdateUserFaceResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求

@@ -29,44 +29,62 @@ import (
 )
 
 const (
-	MsgTypeText        = "text"
-	MsgTypePost        = "post"
-	MsgTypeImage       = "image"
-	MsgTypeInteractive = "interactive"
+	MsgTypeText        = "text"        // 普通文本
+	MsgTypePost        = "post"        // 富文本
+	MsgTypeImage       = "image"       // 图片
+	MsgTypeInteractive = "interactive" // 卡片消息
 )
 
 const (
-	ReceiveTypeChat = "chat"
-	ReceiveTypeUser = "user"
+	ReceiveTypeChat = "chat" // 通过服务台专属群发送
+	ReceiveTypeUser = "user" // 通过服务台机器人私聊发送
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeNotificationCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeNotificationCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeNotificationCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeNotificationGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeNotificationGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeNotificationGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeNotificationPatchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeNotificationPatchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeNotificationPatchOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Agent struct {
-	Id          *string `json:"id,omitempty"`
-	AvatarUrl   *string `json:"avatar_url,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Email       *string `json:"email,omitempty"`
-	Department  *string `json:"department,omitempty"`
-	CompanyName *string `json:"company_name,omitempty"`
+	Id          *string `json:"id,omitempty"`           // user id
+	AvatarUrl   *string `json:"avatar_url,omitempty"`   // user avatar url
+	Name        *string `json:"name,omitempty"`         // user name
+	Email       *string `json:"email,omitempty"`        // user email
+	Department  *string `json:"department,omitempty"`   // user department
+	CompanyName *string `json:"company_name,omitempty"` // company
 }
 
 type AgentBuilder struct {
-	id              string
+	id              string // user id
 	idFlag          bool
-	avatarUrl       string
+	avatarUrl       string // user avatar url
 	avatarUrlFlag   bool
-	name            string
+	name            string // user name
 	nameFlag        bool
-	email           string
+	email           string // user email
 	emailFlag       bool
-	department      string
+	department      string // user department
 	departmentFlag  bool
-	companyName     string
+	companyName     string // company
 	companyNameFlag bool
 }
 
@@ -75,31 +93,48 @@ func NewAgentBuilder() *AgentBuilder {
 	return builder
 }
 
+// user id
+// 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentBuilder) Id(id string) *AgentBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// user avatar url
+// 示例值：https://avatar-url.com/test.png
 func (builder *AgentBuilder) AvatarUrl(avatarUrl string) *AgentBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// user name
+// 示例值：test-user
 func (builder *AgentBuilder) Name(name string) *AgentBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// user email
+// 示例值：
 func (builder *AgentBuilder) Email(email string) *AgentBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// user department
+// 示例值：
 func (builder *AgentBuilder) Department(department string) *AgentBuilder {
 	builder.department = department
 	builder.departmentFlag = true
 	return builder
 }
+
+// company
+// 示例值：
 func (builder *AgentBuilder) CompanyName(companyName string) *AgentBuilder {
 	builder.companyName = companyName
 	builder.companyNameFlag = true
@@ -136,20 +171,20 @@ func (builder *AgentBuilder) Build() *Agent {
 }
 
 type AgentSchedules struct {
-	Status      *int                  `json:"status,omitempty"`
-	Agent       *AgentUser            `json:"agent,omitempty"`
-	Schedule    []*WeekdaySchedule    `json:"schedule,omitempty"`
-	AgentSkills []*AgentSkillLessInfo `json:"agent_skills,omitempty"`
+	Status      *int                  `json:"status,omitempty"`       // status of agent
+	Agent       *AgentUser            `json:"agent,omitempty"`        // agent info
+	Schedule    []*WeekdaySchedule    `json:"schedule,omitempty"`     // day schedule
+	AgentSkills []*AgentSkillLessInfo `json:"agent_skills,omitempty"` // agent skills
 }
 
 type AgentSchedulesBuilder struct {
-	status          int
+	status          int // status of agent
 	statusFlag      bool
-	agent           *AgentUser
+	agent           *AgentUser // agent info
 	agentFlag       bool
-	schedule        []*WeekdaySchedule
+	schedule        []*WeekdaySchedule // day schedule
 	scheduleFlag    bool
-	agentSkills     []*AgentSkillLessInfo
+	agentSkills     []*AgentSkillLessInfo // agent skills
 	agentSkillsFlag bool
 }
 
@@ -158,21 +193,32 @@ func NewAgentSchedulesBuilder() *AgentSchedulesBuilder {
 	return builder
 }
 
+// status of agent
+// 示例值：
 func (builder *AgentSchedulesBuilder) Status(status int) *AgentSchedulesBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// agent info
+// 示例值：
 func (builder *AgentSchedulesBuilder) Agent(agent *AgentUser) *AgentSchedulesBuilder {
 	builder.agent = agent
 	builder.agentFlag = true
 	return builder
 }
+
+// day schedule
+// 示例值：
 func (builder *AgentSchedulesBuilder) Schedule(schedule []*WeekdaySchedule) *AgentSchedulesBuilder {
 	builder.schedule = schedule
 	builder.scheduleFlag = true
 	return builder
 }
+
+// agent skills
+// 示例值：
 func (builder *AgentSchedulesBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentSchedulesBuilder {
 	builder.agentSkills = agentSkills
 	builder.agentSkillsFlag = true
@@ -198,20 +244,20 @@ func (builder *AgentSchedulesBuilder) Build() *AgentSchedules {
 }
 
 type AgentSchedule struct {
-	Status      *int                  `json:"status,omitempty"`
-	Agent       *AgentUser            `json:"agent,omitempty"`
-	Schedule    []*WeekdaySchedule    `json:"schedule,omitempty"`
-	AgentSkills []*AgentSkillLessInfo `json:"agent_skills,omitempty"`
+	Status      *int                  `json:"status,omitempty"`       // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
+	Agent       *AgentUser            `json:"agent,omitempty"`        // 客服信息
+	Schedule    []*WeekdaySchedule    `json:"schedule,omitempty"`     // 工作日程列表
+	AgentSkills []*AgentSkillLessInfo `json:"agent_skills,omitempty"` // 客服技能
 }
 
 type AgentScheduleBuilder struct {
-	status          int
+	status          int // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
 	statusFlag      bool
-	agent           *AgentUser
+	agent           *AgentUser // 客服信息
 	agentFlag       bool
-	schedule        []*WeekdaySchedule
+	schedule        []*WeekdaySchedule // 工作日程列表
 	scheduleFlag    bool
-	agentSkills     []*AgentSkillLessInfo
+	agentSkills     []*AgentSkillLessInfo // 客服技能
 	agentSkillsFlag bool
 }
 
@@ -220,21 +266,32 @@ func NewAgentScheduleBuilder() *AgentScheduleBuilder {
 	return builder
 }
 
+// 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
+// 示例值：1
 func (builder *AgentScheduleBuilder) Status(status int) *AgentScheduleBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 客服信息
+// 示例值：
 func (builder *AgentScheduleBuilder) Agent(agent *AgentUser) *AgentScheduleBuilder {
 	builder.agent = agent
 	builder.agentFlag = true
 	return builder
 }
+
+// 工作日程列表
+// 示例值：
 func (builder *AgentScheduleBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleBuilder {
 	builder.schedule = schedule
 	builder.scheduleFlag = true
 	return builder
 }
+
+// 客服技能
+// 示例值：
 func (builder *AgentScheduleBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentScheduleBuilder {
 	builder.agentSkills = agentSkills
 	builder.agentSkillsFlag = true
@@ -260,17 +317,17 @@ func (builder *AgentScheduleBuilder) Build() *AgentSchedule {
 }
 
 type AgentScheduleUpdateInfo struct {
-	AgentId       *string            `json:"agent_id,omitempty"`
-	Schedule      []*WeekdaySchedule `json:"schedule,omitempty"`
-	AgentSkillIds []string           `json:"agent_skill_ids,omitempty"`
+	AgentId       *string            `json:"agent_id,omitempty"`        // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+	Schedule      []*WeekdaySchedule `json:"schedule,omitempty"`        // 工作日程列表
+	AgentSkillIds []string           `json:"agent_skill_ids,omitempty"` // 客服技能 ids
 }
 
 type AgentScheduleUpdateInfoBuilder struct {
-	agentId           string
+	agentId           string // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
 	agentIdFlag       bool
-	schedule          []*WeekdaySchedule
+	schedule          []*WeekdaySchedule // 工作日程列表
 	scheduleFlag      bool
-	agentSkillIds     []string
+	agentSkillIds     []string // 客服技能 ids
 	agentSkillIdsFlag bool
 }
 
@@ -279,16 +336,24 @@ func NewAgentScheduleUpdateInfoBuilder() *AgentScheduleUpdateInfoBuilder {
 	return builder
 }
 
+// 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+// 示例值：agent-id
 func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentId = agentId
 	builder.agentIdFlag = true
 	return builder
 }
+
+// 工作日程列表
+// 示例值：
 func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleUpdateInfoBuilder {
 	builder.schedule = schedule
 	builder.scheduleFlag = true
 	return builder
 }
+
+// 客服技能 ids
+// 示例值：[]
 func (builder *AgentScheduleUpdateInfoBuilder) AgentSkillIds(agentSkillIds []string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentSkillIds = agentSkillIds
 	builder.agentSkillIdsFlag = true
@@ -311,29 +376,29 @@ func (builder *AgentScheduleUpdateInfoBuilder) Build() *AgentScheduleUpdateInfo 
 }
 
 type AgentSkill struct {
-	Id         *string           `json:"id,omitempty"`
-	HelpdeskId *string           `json:"helpdesk_id,omitempty"`
-	Name       *string           `json:"name,omitempty"`
-	Rules      []*AgentSkillRule `json:"rules,omitempty"`
-	AgentIds   []string          `json:"agent_ids,omitempty"`
-	IsDefault  *bool             `json:"is_default,omitempty"`
-	Agents     []*Agent          `json:"agents,omitempty"`
+	Id         *string           `json:"id,omitempty"`          // 技能id
+	HelpdeskId *string           `json:"helpdesk_id,omitempty"` // helpdesk id
+	Name       *string           `json:"name,omitempty"`        // 技能名
+	Rules      []*AgentSkillRule `json:"rules,omitempty"`       // 技能rules
+	AgentIds   []string          `json:"agent_ids,omitempty"`   // 具有此技能的客服ids
+	IsDefault  *bool             `json:"is_default,omitempty"`  // 默认技能
+	Agents     []*Agent          `json:"agents,omitempty"`      // 客服 info
 }
 
 type AgentSkillBuilder struct {
-	id             string
+	id             string // 技能id
 	idFlag         bool
-	helpdeskId     string
+	helpdeskId     string // helpdesk id
 	helpdeskIdFlag bool
-	name           string
+	name           string // 技能名
 	nameFlag       bool
-	rules          []*AgentSkillRule
+	rules          []*AgentSkillRule // 技能rules
 	rulesFlag      bool
-	agentIds       []string
+	agentIds       []string // 具有此技能的客服ids
 	agentIdsFlag   bool
-	isDefault      bool
+	isDefault      bool // 默认技能
 	isDefaultFlag  bool
-	agents         []*Agent
+	agents         []*Agent // 客服 info
 	agentsFlag     bool
 }
 
@@ -342,36 +407,56 @@ func NewAgentSkillBuilder() *AgentSkillBuilder {
 	return builder
 }
 
+// 技能id
+// 示例值：test-skill-id
 func (builder *AgentSkillBuilder) Id(id string) *AgentSkillBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// helpdesk id
+// 示例值：
 func (builder *AgentSkillBuilder) HelpdeskId(helpdeskId string) *AgentSkillBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 技能名
+// 示例值：skill-name
 func (builder *AgentSkillBuilder) Name(name string) *AgentSkillBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 技能rules
+// 示例值：
 func (builder *AgentSkillBuilder) Rules(rules []*AgentSkillRule) *AgentSkillBuilder {
 	builder.rules = rules
 	builder.rulesFlag = true
 	return builder
 }
+
+// 具有此技能的客服ids
+// 示例值：["ou_ea21d7f018e1155d960e40d33191f966"]
 func (builder *AgentSkillBuilder) AgentIds(agentIds []string) *AgentSkillBuilder {
 	builder.agentIds = agentIds
 	builder.agentIdsFlag = true
 	return builder
 }
+
+// 默认技能
+// 示例值：false
 func (builder *AgentSkillBuilder) IsDefault(isDefault bool) *AgentSkillBuilder {
 	builder.isDefault = isDefault
 	builder.isDefaultFlag = true
 	return builder
 }
+
+// 客服 info
+// 示例值：
 func (builder *AgentSkillBuilder) Agents(agents []*Agent) *AgentSkillBuilder {
 	builder.agents = agents
 	builder.agentsFlag = true
@@ -409,17 +494,17 @@ func (builder *AgentSkillBuilder) Build() *AgentSkill {
 }
 
 type AgentSkillLessInfo struct {
-	Id        *string `json:"id,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	IsDefault *bool   `json:"is_default,omitempty"`
+	Id        *string `json:"id,omitempty"`         // 客服技能 id
+	Name      *string `json:"name,omitempty"`       // 客服技能名
+	IsDefault *bool   `json:"is_default,omitempty"` // 是默认技能
 }
 
 type AgentSkillLessInfoBuilder struct {
-	id            string
+	id            string // 客服技能 id
 	idFlag        bool
-	name          string
+	name          string // 客服技能名
 	nameFlag      bool
-	isDefault     bool
+	isDefault     bool // 是默认技能
 	isDefaultFlag bool
 }
 
@@ -428,16 +513,24 @@ func NewAgentSkillLessInfoBuilder() *AgentSkillLessInfoBuilder {
 	return builder
 }
 
+// 客服技能 id
+// 示例值：agent-skill-id
 func (builder *AgentSkillLessInfoBuilder) Id(id string) *AgentSkillLessInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 客服技能名
+// 示例值：agent-skill
 func (builder *AgentSkillLessInfoBuilder) Name(name string) *AgentSkillLessInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 是默认技能
+// 示例值：false
 func (builder *AgentSkillLessInfoBuilder) IsDefault(isDefault bool) *AgentSkillLessInfoBuilder {
 	builder.isDefault = isDefault
 	builder.isDefaultFlag = true
@@ -462,26 +555,26 @@ func (builder *AgentSkillLessInfoBuilder) Build() *AgentSkillLessInfo {
 }
 
 type AgentSkillRule struct {
-	Id               *string `json:"id,omitempty"`
-	SelectedOperator *int    `json:"selected_operator,omitempty"`
-	OperatorOptions  []int   `json:"operator_options,omitempty"`
-	Operand          *string `json:"operand,omitempty"`
-	Category         *int    `json:"category,omitempty"`
-	DisplayName      *string `json:"display_name,omitempty"`
+	Id               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+	SelectedOperator *int    `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	OperatorOptions  []int   `json:"operator_options,omitempty"`  // rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	Operand          *string `json:"operand,omitempty"`           // rule 操作数的值
+	Category         *int    `json:"category,omitempty"`          // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
+	DisplayName      *string `json:"display_name,omitempty"`      // rule 名
 }
 
 type AgentSkillRuleBuilder struct {
-	id                   string
+	id                   string // rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
 	idFlag               bool
-	selectedOperator     int
+	selectedOperator     int // 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	selectedOperatorFlag bool
-	operatorOptions      []int
+	operatorOptions      []int // rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	operatorOptionsFlag  bool
-	operand              string
+	operand              string // rule 操作数的值
 	operandFlag          bool
-	category             int
+	category             int // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
 	categoryFlag         bool
-	displayName          string
+	displayName          string // rule 名
 	displayNameFlag      bool
 }
 
@@ -490,31 +583,48 @@ func NewAgentSkillRuleBuilder() *AgentSkillRuleBuilder {
 	return builder
 }
 
+// rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+// 示例值：test-skill-id
 func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+// 示例值：8
 func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *AgentSkillRuleBuilder {
 	builder.selectedOperator = selectedOperator
 	builder.selectedOperatorFlag = true
 	return builder
 }
+
+// rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+// 示例值：[3]
 func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *AgentSkillRuleBuilder {
 	builder.operatorOptions = operatorOptions
 	builder.operatorOptionsFlag = true
 	return builder
 }
+
+// rule 操作数的值
+// 示例值：{;				"selected_departments": [;					{;						"id": "部门ID",;						"name": "IT";					};				];			}
 func (builder *AgentSkillRuleBuilder) Operand(operand string) *AgentSkillRuleBuilder {
 	builder.operand = operand
 	builder.operandFlag = true
 	return builder
 }
+
+// rule 类型，1-知识库，2-工单信息，3-用户飞书信息
+// 示例值：3
 func (builder *AgentSkillRuleBuilder) Category(category int) *AgentSkillRuleBuilder {
 	builder.category = category
 	builder.categoryFlag = true
 	return builder
 }
+
+// rule 名
+// 示例值：中文知识库分类
 func (builder *AgentSkillRuleBuilder) DisplayName(displayName string) *AgentSkillRuleBuilder {
 	builder.displayName = displayName
 	builder.displayNameFlag = true
@@ -550,26 +660,26 @@ func (builder *AgentSkillRuleBuilder) Build() *AgentSkillRule {
 }
 
 type AgentUser struct {
-	Id          *string `json:"id,omitempty"`
-	AvatarUrl   *string `json:"avatar_url,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Email       *string `json:"email,omitempty"`
-	Department  *string `json:"department,omitempty"`
-	CompanyName *string `json:"company_name,omitempty"`
+	Id          *string `json:"id,omitempty"`           // 客服 id
+	AvatarUrl   *string `json:"avatar_url,omitempty"`   // avatar url
+	Name        *string `json:"name,omitempty"`         // 客服名字
+	Email       *string `json:"email,omitempty"`        // email
+	Department  *string `json:"department,omitempty"`   // 部门
+	CompanyName *string `json:"company_name,omitempty"` // 公司名
 }
 
 type AgentUserBuilder struct {
-	id              string
+	id              string // 客服 id
 	idFlag          bool
-	avatarUrl       string
+	avatarUrl       string // avatar url
 	avatarUrlFlag   bool
-	name            string
+	name            string // 客服名字
 	nameFlag        bool
-	email           string
+	email           string // email
 	emailFlag       bool
-	department      string
+	department      string // 部门
 	departmentFlag  bool
-	companyName     string
+	companyName     string // 公司名
 	companyNameFlag bool
 }
 
@@ -578,31 +688,48 @@ func NewAgentUserBuilder() *AgentUserBuilder {
 	return builder
 }
 
+// 客服 id
+// 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentUserBuilder) Id(id string) *AgentUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// avatar url
+// 示例值：https://avatar-url.com/test.png
 func (builder *AgentUserBuilder) AvatarUrl(avatarUrl string) *AgentUserBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 客服名字
+// 示例值：test-user
 func (builder *AgentUserBuilder) Name(name string) *AgentUserBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// email
+// 示例值：test@bytedance.com
 func (builder *AgentUserBuilder) Email(email string) *AgentUserBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 部门
+// 示例值：测试部门
 func (builder *AgentUserBuilder) Department(department string) *AgentUserBuilder {
 	builder.department = department
 	builder.departmentFlag = true
 	return builder
 }
+
+// 公司名
+// 示例值：test-company
 func (builder *AgentUserBuilder) CompanyName(companyName string) *AgentUserBuilder {
 	builder.companyName = companyName
 	builder.companyNameFlag = true
@@ -639,20 +766,20 @@ func (builder *AgentUserBuilder) Build() *AgentUser {
 }
 
 type BotMessage struct {
-	MsgType     *string `json:"msg_type,omitempty"`
-	Content     *string `json:"content,omitempty"`
-	ReceiverId  *string `json:"receiver_id,omitempty"`
-	ReceiveType *string `json:"receive_type,omitempty"`
+	MsgType     *string `json:"msg_type,omitempty"`     // 消息类型
+	Content     *string `json:"content,omitempty"`      // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	ReceiverId  *string `json:"receiver_id,omitempty"`  // 接收消息用户id
+	ReceiveType *string `json:"receive_type,omitempty"` // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
 }
 
 type BotMessageBuilder struct {
-	msgType         string
+	msgType         string // 消息类型
 	msgTypeFlag     bool
-	content         string
+	content         string // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	contentFlag     bool
-	receiverId      string
+	receiverId      string // 接收消息用户id
 	receiverIdFlag  bool
-	receiveType     string
+	receiveType     string // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
 	receiveTypeFlag bool
 }
 
@@ -661,21 +788,32 @@ func NewBotMessageBuilder() *BotMessageBuilder {
 	return builder
 }
 
+// 消息类型
+// 示例值：post
 func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
 	return builder
 }
+
+// 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 示例值：{\"post\":{\"zh_cn\":{\"title\":\"some title\",\"content\":[[{\"tag\":\"text\",\"text\":\"some content\"}]]}}}
 func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 接收消息用户id
+// 示例值：ou_7346484524
 func (builder *BotMessageBuilder) ReceiverId(receiverId string) *BotMessageBuilder {
 	builder.receiverId = receiverId
 	builder.receiverIdFlag = true
 	return builder
 }
+
+// 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
+// 示例值：chat
 func (builder *BotMessageBuilder) ReceiveType(receiveType string) *BotMessageBuilder {
 	builder.receiveType = receiveType
 	builder.receiveTypeFlag = true
@@ -704,26 +842,26 @@ func (builder *BotMessageBuilder) Build() *BotMessage {
 }
 
 type Category struct {
-	CategoryId *string `json:"category_id,omitempty"`
-	Id         *string `json:"id,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	ParentId   *string `json:"parent_id,omitempty"`
-	HelpdeskId *string `json:"helpdesk_id,omitempty"`
-	Language   *string `json:"language,omitempty"`
+	CategoryId *string `json:"category_id,omitempty"` // 知识库分类ID
+	Id         *string `json:"id,omitempty"`          // 知识库分类ID，（旧版，请使用category_id）
+	Name       *string `json:"name,omitempty"`        // 名称
+	ParentId   *string `json:"parent_id,omitempty"`   // 父知识库分类ID
+	HelpdeskId *string `json:"helpdesk_id,omitempty"` // 服务台ID
+	Language   *string `json:"language,omitempty"`    // 语言
 }
 
 type CategoryBuilder struct {
-	categoryId     string
+	categoryId     string // 知识库分类ID
 	categoryIdFlag bool
-	id             string
+	id             string // 知识库分类ID，（旧版，请使用category_id）
 	idFlag         bool
-	name           string
+	name           string // 名称
 	nameFlag       bool
-	parentId       string
+	parentId       string // 父知识库分类ID
 	parentIdFlag   bool
-	helpdeskId     string
+	helpdeskId     string // 服务台ID
 	helpdeskIdFlag bool
-	language       string
+	language       string // 语言
 	languageFlag   bool
 }
 
@@ -732,31 +870,48 @@ func NewCategoryBuilder() *CategoryBuilder {
 	return builder
 }
 
+// 知识库分类ID
+// 示例值：6948728206392295444
 func (builder *CategoryBuilder) CategoryId(categoryId string) *CategoryBuilder {
 	builder.categoryId = categoryId
 	builder.categoryIdFlag = true
 	return builder
 }
+
+// 知识库分类ID，（旧版，请使用category_id）
+// 示例值：6948728206392295444
 func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 名称
+// 示例值：创建团队和邀请成员
 func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 父知识库分类ID
+// 示例值：0
 func (builder *CategoryBuilder) ParentId(parentId string) *CategoryBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
 	return builder
 }
+
+// 服务台ID
+// 示例值：6939771743531696147
 func (builder *CategoryBuilder) HelpdeskId(helpdeskId string) *CategoryBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 语言
+// 示例值：zh_cn
 func (builder *CategoryBuilder) Language(language string) *CategoryBuilder {
 	builder.language = language
 	builder.languageFlag = true
@@ -793,26 +948,26 @@ func (builder *CategoryBuilder) Build() *Category {
 }
 
 type Comments struct {
-	Content       *string `json:"content,omitempty"`
-	CreatedAt     *int    `json:"created_at,omitempty"`
-	Id            *int    `json:"id,omitempty"`
-	UserAvatarUrl *string `json:"user_avatar_url,omitempty"`
-	UserName      *string `json:"user_name,omitempty"`
-	UserId        *int    `json:"user_id,omitempty"`
+	Content       *string `json:"content,omitempty"`         // 备注
+	CreatedAt     *int    `json:"created_at,omitempty"`      // 备注时间，单位毫秒
+	Id            *int    `json:"id,omitempty"`              // 备注ID
+	UserAvatarUrl *string `json:"user_avatar_url,omitempty"` // 备注人头像
+	UserName      *string `json:"user_name,omitempty"`       // 备注人姓名
+	UserId        *int    `json:"user_id,omitempty"`         // 备注人ID
 }
 
 type CommentsBuilder struct {
-	content           string
+	content           string // 备注
 	contentFlag       bool
-	createdAt         int
+	createdAt         int // 备注时间，单位毫秒
 	createdAtFlag     bool
-	id                int
+	id                int // 备注ID
 	idFlag            bool
-	userAvatarUrl     string
+	userAvatarUrl     string // 备注人头像
 	userAvatarUrlFlag bool
-	userName          string
+	userName          string // 备注人姓名
 	userNameFlag      bool
-	userId            int
+	userId            int // 备注人ID
 	userIdFlag        bool
 }
 
@@ -821,31 +976,48 @@ func NewCommentsBuilder() *CommentsBuilder {
 	return builder
 }
 
+// 备注
+// 示例值：备注内容
 func (builder *CommentsBuilder) Content(content string) *CommentsBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 备注时间，单位毫秒
+// 示例值：备注时间
 func (builder *CommentsBuilder) CreatedAt(createdAt int) *CommentsBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 备注ID
+// 示例值：备注id
 func (builder *CommentsBuilder) Id(id int) *CommentsBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 备注人头像
+// 示例值：备注人头像
 func (builder *CommentsBuilder) UserAvatarUrl(userAvatarUrl string) *CommentsBuilder {
 	builder.userAvatarUrl = userAvatarUrl
 	builder.userAvatarUrlFlag = true
 	return builder
 }
+
+// 备注人姓名
+// 示例值：备注人姓名
 func (builder *CommentsBuilder) UserName(userName string) *CommentsBuilder {
 	builder.userName = userName
 	builder.userNameFlag = true
 	return builder
 }
+
+// 备注人ID
+// 示例值：备注人id
 func (builder *CommentsBuilder) UserId(userId int) *CommentsBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -882,29 +1054,29 @@ func (builder *CommentsBuilder) Build() *Comments {
 }
 
 type CustomizedFieldDisplayItem struct {
-	Id          *string `json:"id,omitempty"`
-	Value       *string `json:"value,omitempty"`
-	KeyName     *string `json:"key_name,omitempty"`
-	DisplayName *string `json:"display_name,omitempty"`
-	Position    *int    `json:"position,omitempty"`
-	Required    *bool   `json:"required,omitempty"`
-	Editable    *bool   `json:"editable,omitempty"`
+	Id          *string `json:"id,omitempty"`           // 自定义字段ID
+	Value       *string `json:"value,omitempty"`        // 自定义字段值
+	KeyName     *string `json:"key_name,omitempty"`     // 键名
+	DisplayName *string `json:"display_name,omitempty"` // 展示名称
+	Position    *int    `json:"position,omitempty"`     // 展示位置
+	Required    *bool   `json:"required,omitempty"`     // 是否必填
+	Editable    *bool   `json:"editable,omitempty"`     // 是否可修改
 }
 
 type CustomizedFieldDisplayItemBuilder struct {
-	id              string
+	id              string // 自定义字段ID
 	idFlag          bool
-	value           string
+	value           string // 自定义字段值
 	valueFlag       bool
-	keyName         string
+	keyName         string // 键名
 	keyNameFlag     bool
-	displayName     string
+	displayName     string // 展示名称
 	displayNameFlag bool
-	position        int
+	position        int // 展示位置
 	positionFlag    bool
-	required        bool
+	required        bool // 是否必填
 	requiredFlag    bool
-	editable        bool
+	editable        bool // 是否可修改
 	editableFlag    bool
 }
 
@@ -913,36 +1085,56 @@ func NewCustomizedFieldDisplayItemBuilder() *CustomizedFieldDisplayItemBuilder {
 	return builder
 }
 
+// 自定义字段ID
+// 示例值：123
 func (builder *CustomizedFieldDisplayItemBuilder) Id(id string) *CustomizedFieldDisplayItemBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 自定义字段值
+// 示例值：value
 func (builder *CustomizedFieldDisplayItemBuilder) Value(value string) *CustomizedFieldDisplayItemBuilder {
 	builder.value = value
 	builder.valueFlag = true
 	return builder
 }
+
+// 键名
+// 示例值：key
 func (builder *CustomizedFieldDisplayItemBuilder) KeyName(keyName string) *CustomizedFieldDisplayItemBuilder {
 	builder.keyName = keyName
 	builder.keyNameFlag = true
 	return builder
 }
+
+// 展示名称
+// 示例值：display name
 func (builder *CustomizedFieldDisplayItemBuilder) DisplayName(displayName string) *CustomizedFieldDisplayItemBuilder {
 	builder.displayName = displayName
 	builder.displayNameFlag = true
 	return builder
 }
+
+// 展示位置
+// 示例值：1
 func (builder *CustomizedFieldDisplayItemBuilder) Position(position int) *CustomizedFieldDisplayItemBuilder {
 	builder.position = position
 	builder.positionFlag = true
 	return builder
 }
+
+// 是否必填
+// 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Required(required bool) *CustomizedFieldDisplayItemBuilder {
 	builder.required = required
 	builder.requiredFlag = true
 	return builder
 }
+
+// 是否可修改
+// 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Editable(editable bool) *CustomizedFieldDisplayItemBuilder {
 	builder.editable = editable
 	builder.editableFlag = true
@@ -983,14 +1175,14 @@ func (builder *CustomizedFieldDisplayItemBuilder) Build() *CustomizedFieldDispla
 }
 
 type Event struct {
-	Type    *string `json:"type,omitempty"`
-	Subtype *string `json:"subtype,omitempty"`
+	Type    *string `json:"type,omitempty"`    // 事件类型
+	Subtype *string `json:"subtype,omitempty"` // 事件子类型
 }
 
 type EventBuilder struct {
-	type_       string
+	type_       string // 事件类型
 	typeFlag    bool
-	subtype     string
+	subtype     string // 事件子类型
 	subtypeFlag bool
 }
 
@@ -999,11 +1191,16 @@ func NewEventBuilder() *EventBuilder {
 	return builder
 }
 
+// 事件类型
+// 示例值：helpdesk.ticket_message
 func (builder *EventBuilder) Type(type_ string) *EventBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 事件子类型
+// 示例值：ticket_message.created_v1
 func (builder *EventBuilder) Subtype(subtype string) *EventBuilder {
 	builder.subtype = subtype
 	builder.subtypeFlag = true
@@ -1024,47 +1221,47 @@ func (builder *EventBuilder) Build() *Event {
 }
 
 type Faq struct {
-	FaqId          *string     `json:"faq_id,omitempty"`
-	Id             *string     `json:"id,omitempty"`
-	HelpdeskId     *string     `json:"helpdesk_id,omitempty"`
-	Question       *string     `json:"question,omitempty"`
-	Answer         *string     `json:"answer,omitempty"`
-	AnswerRichtext []*Richtext `json:"answer_richtext,omitempty"`
-	CreateTime     *int        `json:"create_time,omitempty"`
-	UpdateTime     *int        `json:"update_time,omitempty"`
-	Categories     []*Category `json:"categories,omitempty"`
-	Tags           []string    `json:"tags,omitempty"`
-	ExpireTime     *int        `json:"expire_time,omitempty"`
-	UpdateUser     *TicketUser `json:"update_user,omitempty"`
-	CreateUser     *TicketUser `json:"create_user,omitempty"`
+	FaqId          *string     `json:"faq_id,omitempty"`          // 知识库ID
+	Id             *string     `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
+	HelpdeskId     *string     `json:"helpdesk_id,omitempty"`     // 服务台ID
+	Question       *string     `json:"question,omitempty"`        // 问题
+	Answer         *string     `json:"answer,omitempty"`          // 答案
+	AnswerRichtext []*Richtext `json:"answer_richtext,omitempty"` // 富文本答案
+	CreateTime     *int        `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     *int        `json:"update_time,omitempty"`     // 修改时间
+	Categories     []*Category `json:"categories,omitempty"`      // 分类
+	Tags           []string    `json:"tags,omitempty"`            // 相似问题列表
+	ExpireTime     *int        `json:"expire_time,omitempty"`     // 失效时间
+	UpdateUser     *TicketUser `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *TicketUser `json:"create_user,omitempty"`     // 创建用户
 }
 
 type FaqBuilder struct {
-	faqId              string
+	faqId              string // 知识库ID
 	faqIdFlag          bool
-	id                 string
+	id                 string // 知识库旧版ID，请使用faq_id
 	idFlag             bool
-	helpdeskId         string
+	helpdeskId         string // 服务台ID
 	helpdeskIdFlag     bool
-	question           string
+	question           string // 问题
 	questionFlag       bool
-	answer             string
+	answer             string // 答案
 	answerFlag         bool
-	answerRichtext     []*Richtext
+	answerRichtext     []*Richtext // 富文本答案
 	answerRichtextFlag bool
-	createTime         int
+	createTime         int // 创建时间
 	createTimeFlag     bool
-	updateTime         int
+	updateTime         int // 修改时间
 	updateTimeFlag     bool
-	categories         []*Category
+	categories         []*Category // 分类
 	categoriesFlag     bool
-	tags               []string
+	tags               []string // 相似问题列表
 	tagsFlag           bool
-	expireTime         int
+	expireTime         int // 失效时间
 	expireTimeFlag     bool
-	updateUser         *TicketUser
+	updateUser         *TicketUser // 更新用户
 	updateUserFlag     bool
-	createUser         *TicketUser
+	createUser         *TicketUser // 创建用户
 	createUserFlag     bool
 }
 
@@ -1073,66 +1270,104 @@ func NewFaqBuilder() *FaqBuilder {
 	return builder
 }
 
+// 知识库ID
+// 示例值：6936004780707807231
 func (builder *FaqBuilder) FaqId(faqId string) *FaqBuilder {
 	builder.faqId = faqId
 	builder.faqIdFlag = true
 	return builder
 }
+
+// 知识库旧版ID，请使用faq_id
+// 示例值：6936004780707807231
 func (builder *FaqBuilder) Id(id string) *FaqBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 服务台ID
+// 示例值：6936004780707807251
 func (builder *FaqBuilder) HelpdeskId(helpdeskId string) *FaqBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 问题
+// 示例值：问题
 func (builder *FaqBuilder) Question(question string) *FaqBuilder {
 	builder.question = question
 	builder.questionFlag = true
 	return builder
 }
+
+// 答案
+// 示例值：答案
 func (builder *FaqBuilder) Answer(answer string) *FaqBuilder {
 	builder.answer = answer
 	builder.answerFlag = true
 	return builder
 }
+
+// 富文本答案
+// 示例值：
 func (builder *FaqBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqBuilder {
 	builder.answerRichtext = answerRichtext
 	builder.answerRichtextFlag = true
 	return builder
 }
+
+// 创建时间
+// 示例值：1596379008
 func (builder *FaqBuilder) CreateTime(createTime int) *FaqBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 修改时间
+// 示例值：1596379008
 func (builder *FaqBuilder) UpdateTime(updateTime int) *FaqBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 分类
+// 示例值：
 func (builder *FaqBuilder) Categories(categories []*Category) *FaqBuilder {
 	builder.categories = categories
 	builder.categoriesFlag = true
 	return builder
 }
+
+// 相似问题列表
+// 示例值：
 func (builder *FaqBuilder) Tags(tags []string) *FaqBuilder {
 	builder.tags = tags
 	builder.tagsFlag = true
 	return builder
 }
+
+// 失效时间
+// 示例值：1596379008
 func (builder *FaqBuilder) ExpireTime(expireTime int) *FaqBuilder {
 	builder.expireTime = expireTime
 	builder.expireTimeFlag = true
 	return builder
 }
+
+// 更新用户
+// 示例值：
 func (builder *FaqBuilder) UpdateUser(updateUser *TicketUser) *FaqBuilder {
 	builder.updateUser = updateUser
 	builder.updateUserFlag = true
 	return builder
 }
+
+// 创建用户
+// 示例值：
 func (builder *FaqBuilder) CreateUser(createUser *TicketUser) *FaqBuilder {
 	builder.createUser = createUser
 	builder.createUserFlag = true
@@ -1192,23 +1427,23 @@ func (builder *FaqBuilder) Build() *Faq {
 }
 
 type FaqUpdateInfo struct {
-	CategoryId     *string  `json:"category_id,omitempty"`
-	Question       *string  `json:"question,omitempty"`
-	Answer         *string  `json:"answer,omitempty"`
-	AnswerRichtext *string  `json:"answer_richtext,omitempty"`
-	Tags           []string `json:"tags,omitempty"`
+	CategoryId     *string  `json:"category_id,omitempty"`     // 知识库分类ID
+	Question       *string  `json:"question,omitempty"`        // 问题
+	Answer         *string  `json:"answer,omitempty"`          // 答案
+	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+	Tags           []string `json:"tags,omitempty"`            // 相似问题
 }
 
 type FaqUpdateInfoBuilder struct {
-	categoryId         string
+	categoryId         string // 知识库分类ID
 	categoryIdFlag     bool
-	question           string
+	question           string // 问题
 	questionFlag       bool
-	answer             string
+	answer             string // 答案
 	answerFlag         bool
-	answerRichtext     string
+	answerRichtext     string // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
 	answerRichtextFlag bool
-	tags               []string
+	tags               []string // 相似问题
 	tagsFlag           bool
 }
 
@@ -1217,26 +1452,40 @@ func NewFaqUpdateInfoBuilder() *FaqUpdateInfoBuilder {
 	return builder
 }
 
+// 知识库分类ID
+// 示例值：6836004780707807251
 func (builder *FaqUpdateInfoBuilder) CategoryId(categoryId string) *FaqUpdateInfoBuilder {
 	builder.categoryId = categoryId
 	builder.categoryIdFlag = true
 	return builder
 }
+
+// 问题
+// 示例值：问题
 func (builder *FaqUpdateInfoBuilder) Question(question string) *FaqUpdateInfoBuilder {
 	builder.question = question
 	builder.questionFlag = true
 	return builder
 }
+
+// 答案
+// 示例值：答案
 func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder {
 	builder.answer = answer
 	builder.answerFlag = true
 	return builder
 }
+
+// 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+// 示例值：[{;						"content": "这只是一个测试，医保问题",;						"type": "text";					}]
 func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqUpdateInfoBuilder {
 	builder.answerRichtext = answerRichtext
 	builder.answerRichtextFlag = true
 	return builder
 }
+
+// 相似问题
+// 示例值：["tag1","tag2","tag3"]
 func (builder *FaqUpdateInfoBuilder) Tags(tags []string) *FaqUpdateInfoBuilder {
 	builder.tags = tags
 	builder.tagsFlag = true
@@ -1268,68 +1517,68 @@ func (builder *FaqUpdateInfoBuilder) Build() *FaqUpdateInfo {
 }
 
 type Notification struct {
-	Id                          *string                   `json:"id,omitempty"`
-	JobName                     *string                   `json:"job_name,omitempty"`
-	Status                      *int                      `json:"status,omitempty"`
-	CreateUser                  *NotificationUser         `json:"create_user,omitempty"`
-	CreatedAt                   *string                   `json:"created_at,omitempty"`
-	UpdateUser                  *NotificationUser         `json:"update_user,omitempty"`
-	UpdatedAt                   *string                   `json:"updated_at,omitempty"`
-	TargetUserCount             *int                      `json:"target_user_count,omitempty"`
-	SentUserCount               *int                      `json:"sent_user_count,omitempty"`
-	ReadUserCount               *int                      `json:"read_user_count,omitempty"`
-	SendAt                      *string                   `json:"send_at,omitempty"`
-	PushContent                 *string                   `json:"push_content,omitempty"`
-	PushType                    *int                      `json:"push_type,omitempty"`
-	PushScopeType               *int                      `json:"push_scope_type,omitempty"`
-	NewStaffScopeType           *int                      `json:"new_staff_scope_type,omitempty"`
-	NewStaffScopeDepartmentList []*NotificationDepartment `json:"new_staff_scope_department_list,omitempty"`
-	UserList                    []*NotificationUser       `json:"user_list,omitempty"`
-	DepartmentList              []*NotificationDepartment `json:"department_list,omitempty"`
-	ChatList                    []*NotificationChat       `json:"chat_list,omitempty"`
-	Ext                         *string                   `json:"ext,omitempty"`
+	Id                          *string                   `json:"id,omitempty"`                              // 非必填，创建成功后返回
+	JobName                     *string                   `json:"job_name,omitempty"`                        // 必填，任务名称
+	Status                      *int                      `json:"status,omitempty"`                          // 非必填，创建成功后返回
+	CreateUser                  *NotificationUser         `json:"create_user,omitempty"`                     // 非必填，创建人
+	CreatedAt                   *string                   `json:"created_at,omitempty"`                      // 非必填，创建时间（毫秒时间戳）
+	UpdateUser                  *NotificationUser         `json:"update_user,omitempty"`                     // 非必填，更新用户
+	UpdatedAt                   *string                   `json:"updated_at,omitempty"`                      // 非必填，更新时间（毫秒时间戳）
+	TargetUserCount             *int                      `json:"target_user_count,omitempty"`               // 非必填，目标推送用户总数
+	SentUserCount               *int                      `json:"sent_user_count,omitempty"`                 // 非必填，已推送用户总数
+	ReadUserCount               *int                      `json:"read_user_count,omitempty"`                 // 非必填，已读用户总数
+	SendAt                      *string                   `json:"send_at,omitempty"`                         // 非必填，推送任务触发时间（毫秒时间戳）
+	PushContent                 *string                   `json:"push_content,omitempty"`                    // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
+	PushType                    *int                      `json:"push_type,omitempty"`                       // 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
+	PushScopeType               *int                      `json:"push_scope_type,omitempty"`                 // 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
+	NewStaffScopeType           *int                      `json:"new_staff_scope_type,omitempty"`            // 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
+	NewStaffScopeDepartmentList []*NotificationDepartment `json:"new_staff_scope_department_list,omitempty"` // 非必填，新人入职生效部门列表
+	UserList                    []*NotificationUser       `json:"user_list,omitempty"`                       // 非必填，push推送到成员列表
+	DepartmentList              []*NotificationDepartment `json:"department_list,omitempty"`                 // 非必填，push推送到的部门信息列表
+	ChatList                    []*NotificationChat       `json:"chat_list,omitempty"`                       // 非必填，push推送到的会话列表(群)
+	Ext                         *string                   `json:"ext,omitempty"`                             // 非必填，预留扩展字段
 }
 
 type NotificationBuilder struct {
-	id                              string
+	id                              string // 非必填，创建成功后返回
 	idFlag                          bool
-	jobName                         string
+	jobName                         string // 必填，任务名称
 	jobNameFlag                     bool
-	status                          int
+	status                          int // 非必填，创建成功后返回
 	statusFlag                      bool
-	createUser                      *NotificationUser
+	createUser                      *NotificationUser // 非必填，创建人
 	createUserFlag                  bool
-	createdAt                       string
+	createdAt                       string // 非必填，创建时间（毫秒时间戳）
 	createdAtFlag                   bool
-	updateUser                      *NotificationUser
+	updateUser                      *NotificationUser // 非必填，更新用户
 	updateUserFlag                  bool
-	updatedAt                       string
+	updatedAt                       string // 非必填，更新时间（毫秒时间戳）
 	updatedAtFlag                   bool
-	targetUserCount                 int
+	targetUserCount                 int // 非必填，目标推送用户总数
 	targetUserCountFlag             bool
-	sentUserCount                   int
+	sentUserCount                   int // 非必填，已推送用户总数
 	sentUserCountFlag               bool
-	readUserCount                   int
+	readUserCount                   int // 非必填，已读用户总数
 	readUserCountFlag               bool
-	sendAt                          string
+	sendAt                          string // 非必填，推送任务触发时间（毫秒时间戳）
 	sendAtFlag                      bool
-	pushContent                     string
+	pushContent                     string // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
 	pushContentFlag                 bool
-	pushType                        int
+	pushType                        int // 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
 	pushTypeFlag                    bool
-	pushScopeType                   int
+	pushScopeType                   int // 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
 	pushScopeTypeFlag               bool
-	newStaffScopeType               int
+	newStaffScopeType               int // 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
 	newStaffScopeTypeFlag           bool
-	newStaffScopeDepartmentList     []*NotificationDepartment
+	newStaffScopeDepartmentList     []*NotificationDepartment // 非必填，新人入职生效部门列表
 	newStaffScopeDepartmentListFlag bool
-	userList                        []*NotificationUser
+	userList                        []*NotificationUser // 非必填，push推送到成员列表
 	userListFlag                    bool
-	departmentList                  []*NotificationDepartment
+	departmentList                  []*NotificationDepartment // 非必填，push推送到的部门信息列表
 	departmentListFlag              bool
-	chatList                        []*NotificationChat
+	chatList                        []*NotificationChat // 非必填，push推送到的会话列表(群)
 	chatListFlag                    bool
-	ext                             string
+	ext                             string // 非必填，预留扩展字段
 	extFlag                         bool
 }
 
@@ -1338,101 +1587,160 @@ func NewNotificationBuilder() *NotificationBuilder {
 	return builder
 }
 
+// 非必填，创建成功后返回
+// 示例值：6981801914270744596
 func (builder *NotificationBuilder) Id(id string) *NotificationBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 必填，任务名称
+// 示例值：测试推送任务
 func (builder *NotificationBuilder) JobName(jobName string) *NotificationBuilder {
 	builder.jobName = jobName
 	builder.jobNameFlag = true
 	return builder
 }
+
+// 非必填，创建成功后返回
+// 示例值：0
 func (builder *NotificationBuilder) Status(status int) *NotificationBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 非必填，创建人
+// 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) CreateUser(createUser *NotificationUser) *NotificationBuilder {
 	builder.createUser = createUser
 	builder.createUserFlag = true
 	return builder
 }
+
+// 非必填，创建时间（毫秒时间戳）
+// 示例值：1626332244719
 func (builder *NotificationBuilder) CreatedAt(createdAt string) *NotificationBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 非必填，更新用户
+// 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) UpdateUser(updateUser *NotificationUser) *NotificationBuilder {
 	builder.updateUser = updateUser
 	builder.updateUserFlag = true
 	return builder
 }
+
+// 非必填，更新时间（毫秒时间戳）
+// 示例值：1626332244719
 func (builder *NotificationBuilder) UpdatedAt(updatedAt string) *NotificationBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
 	return builder
 }
+
+// 非必填，目标推送用户总数
+// 示例值：1
 func (builder *NotificationBuilder) TargetUserCount(targetUserCount int) *NotificationBuilder {
 	builder.targetUserCount = targetUserCount
 	builder.targetUserCountFlag = true
 	return builder
 }
+
+// 非必填，已推送用户总数
+// 示例值：1
 func (builder *NotificationBuilder) SentUserCount(sentUserCount int) *NotificationBuilder {
 	builder.sentUserCount = sentUserCount
 	builder.sentUserCountFlag = true
 	return builder
 }
+
+// 非必填，已读用户总数
+// 示例值：1
 func (builder *NotificationBuilder) ReadUserCount(readUserCount int) *NotificationBuilder {
 	builder.readUserCount = readUserCount
 	builder.readUserCountFlag = true
 	return builder
 }
+
+// 非必填，推送任务触发时间（毫秒时间戳）
+// 示例值：1626332244719
 func (builder *NotificationBuilder) SendAt(sendAt string) *NotificationBuilder {
 	builder.sendAt = sendAt
 	builder.sendAtFlag = true
 	return builder
 }
+
+// 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
+// 示例值：{   \"config\": {	 \"wide_screen_mode\": true   },   \"elements\": [	 {	   \"tag\": \"div\",	   \"text\": {		 \"tag\": \"lark_md\",		 \"content\": \"[飞书](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"	   }	 }   ] }
 func (builder *NotificationBuilder) PushContent(pushContent string) *NotificationBuilder {
 	builder.pushContent = pushContent
 	builder.pushContentFlag = true
 	return builder
 }
+
+// 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
+// 示例值：0
 func (builder *NotificationBuilder) PushType(pushType int) *NotificationBuilder {
 	builder.pushType = pushType
 	builder.pushTypeFlag = true
 	return builder
 }
+
+// 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
+// 示例值：0
 func (builder *NotificationBuilder) PushScopeType(pushScopeType int) *NotificationBuilder {
 	builder.pushScopeType = pushScopeType
 	builder.pushScopeTypeFlag = true
 	return builder
 }
+
+// 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
+// 示例值：0
 func (builder *NotificationBuilder) NewStaffScopeType(newStaffScopeType int) *NotificationBuilder {
 	builder.newStaffScopeType = newStaffScopeType
 	builder.newStaffScopeTypeFlag = true
 	return builder
 }
+
+// 非必填，新人入职生效部门列表
+// 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) NewStaffScopeDepartmentList(newStaffScopeDepartmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.newStaffScopeDepartmentList = newStaffScopeDepartmentList
 	builder.newStaffScopeDepartmentListFlag = true
 	return builder
 }
+
+// 非必填，push推送到成员列表
+// 示例值：[{"user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}]
 func (builder *NotificationBuilder) UserList(userList []*NotificationUser) *NotificationBuilder {
 	builder.userList = userList
 	builder.userListFlag = true
 	return builder
 }
+
+// 非必填，push推送到的部门信息列表
+// 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) DepartmentList(departmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.departmentList = departmentList
 	builder.departmentListFlag = true
 	return builder
 }
+
+// 非必填，push推送到的会话列表(群)
+// 示例值：[{"chat_id":"oc_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) ChatList(chatList []*NotificationChat) *NotificationBuilder {
 	builder.chatList = chatList
 	builder.chatListFlag = true
 	return builder
 }
+
+// 非必填，预留扩展字段
+// 示例值：{}
 func (builder *NotificationBuilder) Ext(ext string) *NotificationBuilder {
 	builder.ext = ext
 	builder.extFlag = true
@@ -1519,14 +1827,14 @@ func (builder *NotificationBuilder) Build() *Notification {
 }
 
 type NotificationChat struct {
-	ChatId *string `json:"chat_id,omitempty"`
-	Name   *string `json:"name,omitempty"`
+	ChatId *string `json:"chat_id,omitempty"` // 非必填，会话ID
+	Name   *string `json:"name,omitempty"`    // 非必填，会话名称
 }
 
 type NotificationChatBuilder struct {
-	chatId     string
+	chatId     string // 非必填，会话ID
 	chatIdFlag bool
-	name       string
+	name       string // 非必填，会话名称
 	nameFlag   bool
 }
 
@@ -1535,11 +1843,16 @@ func NewNotificationChatBuilder() *NotificationChatBuilder {
 	return builder
 }
 
+// 非必填，会话ID
+// 示例值：oc_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationChatBuilder) ChatId(chatId string) *NotificationChatBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
+
+// 非必填，会话名称
+// 示例值：测试群聊
 func (builder *NotificationChatBuilder) Name(name string) *NotificationChatBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1560,14 +1873,14 @@ func (builder *NotificationChatBuilder) Build() *NotificationChat {
 }
 
 type NotificationDepartment struct {
-	DepartmentId *string `json:"department_id,omitempty"`
-	Name         *string `json:"name,omitempty"`
+	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	Name         *string `json:"name,omitempty"`          // 非必填，部门名称
 }
 
 type NotificationDepartmentBuilder struct {
-	departmentId     string
+	departmentId     string // 部门ID
 	departmentIdFlag bool
-	name             string
+	name             string // 非必填，部门名称
 	nameFlag         bool
 }
 
@@ -1576,11 +1889,16 @@ func NewNotificationDepartmentBuilder() *NotificationDepartmentBuilder {
 	return builder
 }
 
+// 部门ID
+// 示例值：od_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationDepartmentBuilder) DepartmentId(departmentId string) *NotificationDepartmentBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 非必填，部门名称
+// 示例值：测试部门
 func (builder *NotificationDepartmentBuilder) Name(name string) *NotificationDepartmentBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1601,17 +1919,17 @@ func (builder *NotificationDepartmentBuilder) Build() *NotificationDepartment {
 }
 
 type NotificationUser struct {
-	UserId    *string `json:"user_id,omitempty"`
-	AvatarUrl *string `json:"avatar_url,omitempty"`
-	Name      *string `json:"name,omitempty"`
+	UserId    *string `json:"user_id,omitempty"`    // 非必填，用户id
+	AvatarUrl *string `json:"avatar_url,omitempty"` // 非必填，头像地址
+	Name      *string `json:"name,omitempty"`       // 非必填，用户名称
 }
 
 type NotificationUserBuilder struct {
-	userId        string
+	userId        string // 非必填，用户id
 	userIdFlag    bool
-	avatarUrl     string
+	avatarUrl     string // 非必填，头像地址
 	avatarUrlFlag bool
-	name          string
+	name          string // 非必填，用户名称
 	nameFlag      bool
 }
 
@@ -1620,16 +1938,24 @@ func NewNotificationUserBuilder() *NotificationUserBuilder {
 	return builder
 }
 
+// 非必填，用户id
+// 示例值：ou_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationUserBuilder) UserId(userId string) *NotificationUserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 非必填，头像地址
+// 示例值：http://*.com/*.png
 func (builder *NotificationUserBuilder) AvatarUrl(avatarUrl string) *NotificationUserBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 非必填，用户名称
+// 示例值：test
 func (builder *NotificationUserBuilder) Name(name string) *NotificationUserBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1654,14 +1980,14 @@ func (builder *NotificationUserBuilder) Build() *NotificationUser {
 }
 
 type Richtext struct {
-	Content *string `json:"content,omitempty"`
-	Type    *string `json:"type,omitempty"`
+	Content *string `json:"content,omitempty"` // 内容
+	Type    *string `json:"type,omitempty"`    // 类型
 }
 
 type RichtextBuilder struct {
-	content     string
+	content     string // 内容
 	contentFlag bool
-	type_       string
+	type_       string // 类型
 	typeFlag    bool
 }
 
@@ -1670,11 +1996,16 @@ func NewRichtextBuilder() *RichtextBuilder {
 	return builder
 }
 
+// 内容
+// 示例值：我的答案
 func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 类型
+// 示例值：text
 func (builder *RichtextBuilder) Type(type_ string) *RichtextBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -1695,86 +2026,86 @@ func (builder *RichtextBuilder) Build() *Richtext {
 }
 
 type Ticket struct {
-	TicketId                   *string                       `json:"ticket_id,omitempty"`
-	HelpdeskId                 *string                       `json:"helpdesk_id,omitempty"`
-	Guest                      *TicketUser                   `json:"guest,omitempty"`
-	Comments                   *Comments                     `json:"comments,omitempty"`
-	TicketType                 *int                          `json:"ticket_type,omitempty"`
-	Status                     *int                          `json:"status,omitempty"`
-	Score                      *int                          `json:"score,omitempty"`
-	CreatedAt                  *int                          `json:"created_at,omitempty"`
-	UpdatedAt                  *int                          `json:"updated_at,omitempty"`
-	ClosedAt                   *int                          `json:"closed_at,omitempty"`
-	DissatisfactionReason      []string                      `json:"dissatisfaction_reason,omitempty"`
-	Agents                     []*TicketUser                 `json:"agents,omitempty"`
-	Channel                    *int                          `json:"channel,omitempty"`
-	Solve                      *int                          `json:"solve,omitempty"`
-	ClosedBy                   *TicketUser                   `json:"closed_by,omitempty"`
-	Collaborators              []*TicketUser                 `json:"collaborators,omitempty"`
-	CustomizedFields           []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`
-	AgentServiceDuration       *float64                      `json:"agent_service_duration,omitempty"`
-	AgentFirstResponseDuration *int                          `json:"agent_first_response_duration,omitempty"`
-	BotServiceDuration         *int                          `json:"bot_service_duration,omitempty"`
-	AgentResolutionTime        *int                          `json:"agent_resolution_time,omitempty"`
-	ActualProcessingTime       *int                          `json:"actual_processing_time,omitempty"`
-	AgentEntryTime             *int                          `json:"agent_entry_time,omitempty"`
-	AgentFirstResponseTime     *int                          `json:"agent_first_response_time,omitempty"`
-	AgentLastResponseTime      *int                          `json:"agent_last_response_time,omitempty"`
-	AgentOwner                 *TicketUser                   `json:"agent_owner,omitempty"`
+	TicketId                   *string                       `json:"ticket_id,omitempty"`                     // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	HelpdeskId                 *string                       `json:"helpdesk_id,omitempty"`                   // 服务台ID
+	Guest                      *TicketUser                   `json:"guest,omitempty"`                         // 工单创建用户
+	Comments                   *Comments                     `json:"comments,omitempty"`                      // 备注
+	TicketType                 *int                          `json:"ticket_type,omitempty"`                   // 工单阶段：1. 机器人 2. 人工
+	Status                     *int                          `json:"status,omitempty"`                        // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	Score                      *int                          `json:"score,omitempty"`                         // 工单评分，1：不满意，2:一般，3:满意
+	CreatedAt                  *int                          `json:"created_at,omitempty"`                    // 工单创建时间
+	UpdatedAt                  *int                          `json:"updated_at,omitempty"`                    // 工单更新时间，没有值时为-1
+	ClosedAt                   *int                          `json:"closed_at,omitempty"`                     // 工单结束时间
+	DissatisfactionReason      []string                      `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
+	Agents                     []*TicketUser                 `json:"agents,omitempty"`                        // 工单客服
+	Channel                    *int                          `json:"channel,omitempty"`                       // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	Solve                      *int                          `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
+	ClosedBy                   *TicketUser                   `json:"closed_by,omitempty"`                     // 关单用户ID
+	Collaborators              []*TicketUser                 `json:"collaborators,omitempty"`                 // 工单协作者
+	CustomizedFields           []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	AgentServiceDuration       *float64                      `json:"agent_service_duration,omitempty"`        // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
+	AgentFirstResponseDuration *int                          `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
+	BotServiceDuration         *int                          `json:"bot_service_duration,omitempty"`          // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+	AgentResolutionTime        *int                          `json:"agent_resolution_time,omitempty"`         // 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+	ActualProcessingTime       *int                          `json:"actual_processing_time,omitempty"`        // 工单实际处理时间：从客服进入到关单，单位秒
+	AgentEntryTime             *int                          `json:"agent_entry_time,omitempty"`              // 客服进入时间，单位毫秒
+	AgentFirstResponseTime     *int                          `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间，单位毫秒
+	AgentLastResponseTime      *int                          `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间，单位毫秒
+	AgentOwner                 *TicketUser                   `json:"agent_owner,omitempty"`                   // 主责客服
 }
 
 type TicketBuilder struct {
-	ticketId                       string
+	ticketId                       string // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	ticketIdFlag                   bool
-	helpdeskId                     string
+	helpdeskId                     string // 服务台ID
 	helpdeskIdFlag                 bool
-	guest                          *TicketUser
+	guest                          *TicketUser // 工单创建用户
 	guestFlag                      bool
-	comments                       *Comments
+	comments                       *Comments // 备注
 	commentsFlag                   bool
-	ticketType                     int
+	ticketType                     int // 工单阶段：1. 机器人 2. 人工
 	ticketTypeFlag                 bool
-	status                         int
+	status                         int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
 	statusFlag                     bool
-	score                          int
+	score                          int // 工单评分，1：不满意，2:一般，3:满意
 	scoreFlag                      bool
-	createdAt                      int
+	createdAt                      int // 工单创建时间
 	createdAtFlag                  bool
-	updatedAt                      int
+	updatedAt                      int // 工单更新时间，没有值时为-1
 	updatedAtFlag                  bool
-	closedAt                       int
+	closedAt                       int // 工单结束时间
 	closedAtFlag                   bool
-	dissatisfactionReason          []string
+	dissatisfactionReason          []string // 不满意原因
 	dissatisfactionReasonFlag      bool
-	agents                         []*TicketUser
+	agents                         []*TicketUser // 工单客服
 	agentsFlag                     bool
-	channel                        int
+	channel                        int // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
 	channelFlag                    bool
-	solve                          int
+	solve                          int // 工单是否解决 1:没解决 2:已解决
 	solveFlag                      bool
-	closedBy                       *TicketUser
+	closedBy                       *TicketUser // 关单用户ID
 	closedByFlag                   bool
-	collaborators                  []*TicketUser
+	collaborators                  []*TicketUser // 工单协作者
 	collaboratorsFlag              bool
-	customizedFields               []*CustomizedFieldDisplayItem
+	customizedFields               []*CustomizedFieldDisplayItem // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	customizedFieldsFlag           bool
-	agentServiceDuration           float64
+	agentServiceDuration           float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
 	agentServiceDurationFlag       bool
-	agentFirstResponseDuration     int
+	agentFirstResponseDuration     int // 客服首次回复时间距离客服进入时间的间隔(秒)
 	agentFirstResponseDurationFlag bool
-	botServiceDuration             int
+	botServiceDuration             int // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
 	botServiceDurationFlag         bool
-	agentResolutionTime            int
+	agentResolutionTime            int // 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
 	agentResolutionTimeFlag        bool
-	actualProcessingTime           int
+	actualProcessingTime           int // 工单实际处理时间：从客服进入到关单，单位秒
 	actualProcessingTimeFlag       bool
-	agentEntryTime                 int
+	agentEntryTime                 int // 客服进入时间，单位毫秒
 	agentEntryTimeFlag             bool
-	agentFirstResponseTime         int
+	agentFirstResponseTime         int // 客服首次回复时间，单位毫秒
 	agentFirstResponseTimeFlag     bool
-	agentLastResponseTime          int
+	agentLastResponseTime          int // 客服最后回复时间，单位毫秒
 	agentLastResponseTimeFlag      bool
-	agentOwner                     *TicketUser
+	agentOwner                     *TicketUser // 主责客服
 	agentOwnerFlag                 bool
 }
 
@@ -1783,131 +2114,208 @@ func NewTicketBuilder() *TicketBuilder {
 	return builder
 }
 
+// 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+// 示例值：6626871355780366331
 func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
 	builder.ticketId = ticketId
 	builder.ticketIdFlag = true
 	return builder
 }
+
+// 服务台ID
+// 示例值：6626871355780366330
 func (builder *TicketBuilder) HelpdeskId(helpdeskId string) *TicketBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 工单创建用户
+// 示例值：
 func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 	builder.guest = guest
 	builder.guestFlag = true
 	return builder
 }
+
+// 备注
+// 示例值：
 func (builder *TicketBuilder) Comments(comments *Comments) *TicketBuilder {
 	builder.comments = comments
 	builder.commentsFlag = true
 	return builder
 }
+
+// 工单阶段：1. 机器人 2. 人工
+// 示例值：1
 func (builder *TicketBuilder) TicketType(ticketType int) *TicketBuilder {
 	builder.ticketType = ticketType
 	builder.ticketTypeFlag = true
 	return builder
 }
+
+// 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+// 示例值：50
 func (builder *TicketBuilder) Status(status int) *TicketBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 工单评分，1：不满意，2:一般，3:满意
+// 示例值：1
 func (builder *TicketBuilder) Score(score int) *TicketBuilder {
 	builder.score = score
 	builder.scoreFlag = true
 	return builder
 }
+
+// 工单创建时间
+// 示例值：1616920429000
 func (builder *TicketBuilder) CreatedAt(createdAt int) *TicketBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 工单更新时间，没有值时为-1
+// 示例值：1616920429000
 func (builder *TicketBuilder) UpdatedAt(updatedAt int) *TicketBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
 	return builder
 }
+
+// 工单结束时间
+// 示例值：1616920429000
 func (builder *TicketBuilder) ClosedAt(closedAt int) *TicketBuilder {
 	builder.closedAt = closedAt
 	builder.closedAtFlag = true
 	return builder
 }
+
+// 不满意原因
+// 示例值：
 func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason []string) *TicketBuilder {
 	builder.dissatisfactionReason = dissatisfactionReason
 	builder.dissatisfactionReasonFlag = true
 	return builder
 }
+
+// 工单客服
+// 示例值：
 func (builder *TicketBuilder) Agents(agents []*TicketUser) *TicketBuilder {
 	builder.agents = agents
 	builder.agentsFlag = true
 	return builder
 }
+
+// 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+// 示例值：0
 func (builder *TicketBuilder) Channel(channel int) *TicketBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
 	return builder
 }
+
+// 工单是否解决 1:没解决 2:已解决
+// 示例值：1
 func (builder *TicketBuilder) Solve(solve int) *TicketBuilder {
 	builder.solve = solve
 	builder.solveFlag = true
 	return builder
 }
+
+// 关单用户ID
+// 示例值：
 func (builder *TicketBuilder) ClosedBy(closedBy *TicketUser) *TicketBuilder {
 	builder.closedBy = closedBy
 	builder.closedByFlag = true
 	return builder
 }
+
+// 工单协作者
+// 示例值：
 func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *TicketBuilder {
 	builder.collaborators = collaborators
 	builder.collaboratorsFlag = true
 	return builder
 }
+
+// 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+// 示例值：
 func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
 	return builder
 }
+
+// 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
+// 示例值：42624.95
 func (builder *TicketBuilder) AgentServiceDuration(agentServiceDuration float64) *TicketBuilder {
 	builder.agentServiceDuration = agentServiceDuration
 	builder.agentServiceDurationFlag = true
 	return builder
 }
+
+// 客服首次回复时间距离客服进入时间的间隔(秒)
+// 示例值：123869
 func (builder *TicketBuilder) AgentFirstResponseDuration(agentFirstResponseDuration int) *TicketBuilder {
 	builder.agentFirstResponseDuration = agentFirstResponseDuration
 	builder.agentFirstResponseDurationFlag = true
 	return builder
 }
+
+// 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+// 示例值：1
 func (builder *TicketBuilder) BotServiceDuration(botServiceDuration int) *TicketBuilder {
 	builder.botServiceDuration = botServiceDuration
 	builder.botServiceDurationFlag = true
 	return builder
 }
+
+// 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+// 示例值：66
 func (builder *TicketBuilder) AgentResolutionTime(agentResolutionTime int) *TicketBuilder {
 	builder.agentResolutionTime = agentResolutionTime
 	builder.agentResolutionTimeFlag = true
 	return builder
 }
+
+// 工单实际处理时间：从客服进入到关单，单位秒
+// 示例值：68
 func (builder *TicketBuilder) ActualProcessingTime(actualProcessingTime int) *TicketBuilder {
 	builder.actualProcessingTime = actualProcessingTime
 	builder.actualProcessingTimeFlag = true
 	return builder
 }
+
+// 客服进入时间，单位毫秒
+// 示例值：1636444596000
 func (builder *TicketBuilder) AgentEntryTime(agentEntryTime int) *TicketBuilder {
 	builder.agentEntryTime = agentEntryTime
 	builder.agentEntryTimeFlag = true
 	return builder
 }
+
+// 客服首次回复时间，单位毫秒
+// 示例值：1636444696000
 func (builder *TicketBuilder) AgentFirstResponseTime(agentFirstResponseTime int) *TicketBuilder {
 	builder.agentFirstResponseTime = agentFirstResponseTime
 	builder.agentFirstResponseTimeFlag = true
 	return builder
 }
+
+// 客服最后回复时间，单位毫秒
+// 示例值：1636444796000
 func (builder *TicketBuilder) AgentLastResponseTime(agentLastResponseTime int) *TicketBuilder {
 	builder.agentLastResponseTime = agentLastResponseTime
 	builder.agentLastResponseTimeFlag = true
 	return builder
 }
+
+// 主责客服
+// 示例值：
 func (builder *TicketBuilder) AgentOwner(agentOwner *TicketUser) *TicketBuilder {
 	builder.agentOwner = agentOwner
 	builder.agentOwnerFlag = true
@@ -2016,32 +2424,32 @@ func (builder *TicketBuilder) Build() *Ticket {
 }
 
 type TicketMessage struct {
-	Id          *string `json:"id,omitempty"`
-	MessageId   *string `json:"message_id,omitempty"`
-	MessageType *string `json:"message_type,omitempty"`
-	CreatedAt   *int    `json:"created_at,omitempty"`
-	Content     *string `json:"content,omitempty"`
-	UserName    *string `json:"user_name,omitempty"`
-	AvatarUrl   *string `json:"avatar_url,omitempty"`
-	UserId      *string `json:"user_id,omitempty"`
+	Id          *string `json:"id,omitempty"`           // 工单消息ID
+	MessageId   *string `json:"message_id,omitempty"`   // chat消息ID
+	MessageType *string `json:"message_type,omitempty"` // 消息类型；text：纯文本；post：富文本
+	CreatedAt   *int    `json:"created_at,omitempty"`   // 创建时间
+	Content     *string `json:"content,omitempty"`      // 内容
+	UserName    *string `json:"user_name,omitempty"`    // 用户名
+	AvatarUrl   *string `json:"avatar_url,omitempty"`   // 用户图片url
+	UserId      *string `json:"user_id,omitempty"`      // 用户open ID
 }
 
 type TicketMessageBuilder struct {
-	id              string
+	id              string // 工单消息ID
 	idFlag          bool
-	messageId       string
+	messageId       string // chat消息ID
 	messageIdFlag   bool
-	messageType     string
+	messageType     string // 消息类型；text：纯文本；post：富文本
 	messageTypeFlag bool
-	createdAt       int
+	createdAt       int // 创建时间
 	createdAtFlag   bool
-	content         string
+	content         string // 内容
 	contentFlag     bool
-	userName        string
+	userName        string // 用户名
 	userNameFlag    bool
-	avatarUrl       string
+	avatarUrl       string // 用户图片url
 	avatarUrlFlag   bool
-	userId          string
+	userId          string // 用户open ID
 	userIdFlag      bool
 }
 
@@ -2050,41 +2458,64 @@ func NewTicketMessageBuilder() *TicketMessageBuilder {
 	return builder
 }
 
+// 工单消息ID
+// 示例值：6948728206392295444
 func (builder *TicketMessageBuilder) Id(id string) *TicketMessageBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// chat消息ID
+// 示例值：6949088236610273307
 func (builder *TicketMessageBuilder) MessageId(messageId string) *TicketMessageBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
 	return builder
 }
+
+// 消息类型；text：纯文本；post：富文本
+// 示例值：text
 func (builder *TicketMessageBuilder) MessageType(messageType string) *TicketMessageBuilder {
 	builder.messageType = messageType
 	builder.messageTypeFlag = true
 	return builder
 }
+
+// 创建时间
+// 示例值：1617960686000
 func (builder *TicketMessageBuilder) CreatedAt(createdAt int) *TicketMessageBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 内容
+// 示例值："{\"content\":\"进入人工服务。 @李宁  为你提供服务，开始聊起来吧~\",\"msg_type\":\"text\"}"
 func (builder *TicketMessageBuilder) Content(content string) *TicketMessageBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 用户名
+// 示例值：李宁
 func (builder *TicketMessageBuilder) UserName(userName string) *TicketMessageBuilder {
 	builder.userName = userName
 	builder.userNameFlag = true
 	return builder
 }
+
+// 用户图片url
+// 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/3e73cdce-54b0-4c6a-8226-b131fb2825dj~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp
 func (builder *TicketMessageBuilder) AvatarUrl(avatarUrl string) *TicketMessageBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 用户open ID
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketMessageBuilder) UserId(userId string) *TicketMessageBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -2129,53 +2560,53 @@ func (builder *TicketMessageBuilder) Build() *TicketMessage {
 }
 
 type TicketCustomizedField struct {
-	TicketCustomizedFieldId *string     `json:"ticket_customized_field_id,omitempty"`
-	HelpdeskId              *string     `json:"helpdesk_id,omitempty"`
-	KeyName                 *string     `json:"key_name,omitempty"`
-	DisplayName             *string     `json:"display_name,omitempty"`
-	Position                *string     `json:"position,omitempty"`
-	FieldType               *string     `json:"field_type,omitempty"`
-	Description             *string     `json:"description,omitempty"`
-	Visible                 *bool       `json:"visible,omitempty"`
-	Editable                *bool       `json:"editable,omitempty"`
-	Required                *bool       `json:"required,omitempty"`
-	CreatedAt               *string     `json:"created_at,omitempty"`
-	UpdatedAt               *string     `json:"updated_at,omitempty"`
-	CreatedBy               *TicketUser `json:"created_by,omitempty"`
-	UpdatedBy               *TicketUser `json:"updated_by,omitempty"`
-	DropdownAllowMultiple   *bool       `json:"dropdown_allow_multiple,omitempty"`
+	TicketCustomizedFieldId *string     `json:"ticket_customized_field_id,omitempty"` // 工单自定义字段ID
+	HelpdeskId              *string     `json:"helpdesk_id,omitempty"`                // 服务台ID
+	KeyName                 *string     `json:"key_name,omitempty"`                   // 键名
+	DisplayName             *string     `json:"display_name,omitempty"`               // 名称
+	Position                *string     `json:"position,omitempty"`                   // 字段在列表后台管理列表中的位置
+	FieldType               *string     `json:"field_type,omitempty"`                 // 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
+	Description             *string     `json:"description,omitempty"`                // 描述
+	Visible                 *bool       `json:"visible,omitempty"`                    // 是否可见
+	Editable                *bool       `json:"editable,omitempty"`                   // 是否可以修改
+	Required                *bool       `json:"required,omitempty"`                   // 是否必填
+	CreatedAt               *string     `json:"created_at,omitempty"`                 // 创建时间
+	UpdatedAt               *string     `json:"updated_at,omitempty"`                 // 更新时间
+	CreatedBy               *TicketUser `json:"created_by,omitempty"`                 // 创建用户
+	UpdatedBy               *TicketUser `json:"updated_by,omitempty"`                 // 更新用户
+	DropdownAllowMultiple   *bool       `json:"dropdown_allow_multiple,omitempty"`    // 是否支持多选，仅在字段类型是dropdown的时候有效
 }
 
 type TicketCustomizedFieldBuilder struct {
-	ticketCustomizedFieldId     string
+	ticketCustomizedFieldId     string // 工单自定义字段ID
 	ticketCustomizedFieldIdFlag bool
-	helpdeskId                  string
+	helpdeskId                  string // 服务台ID
 	helpdeskIdFlag              bool
-	keyName                     string
+	keyName                     string // 键名
 	keyNameFlag                 bool
-	displayName                 string
+	displayName                 string // 名称
 	displayNameFlag             bool
-	position                    string
+	position                    string // 字段在列表后台管理列表中的位置
 	positionFlag                bool
-	fieldType                   string
+	fieldType                   string // 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
 	fieldTypeFlag               bool
-	description                 string
+	description                 string // 描述
 	descriptionFlag             bool
-	visible                     bool
+	visible                     bool // 是否可见
 	visibleFlag                 bool
-	editable                    bool
+	editable                    bool // 是否可以修改
 	editableFlag                bool
-	required                    bool
+	required                    bool // 是否必填
 	requiredFlag                bool
-	createdAt                   string
+	createdAt                   string // 创建时间
 	createdAtFlag               bool
-	updatedAt                   string
+	updatedAt                   string // 更新时间
 	updatedAtFlag               bool
-	createdBy                   *TicketUser
+	createdBy                   *TicketUser // 创建用户
 	createdByFlag               bool
-	updatedBy                   *TicketUser
+	updatedBy                   *TicketUser // 更新用户
 	updatedByFlag               bool
-	dropdownAllowMultiple       bool
+	dropdownAllowMultiple       bool // 是否支持多选，仅在字段类型是dropdown的时候有效
 	dropdownAllowMultipleFlag   bool
 }
 
@@ -2184,76 +2615,120 @@ func NewTicketCustomizedFieldBuilder() *TicketCustomizedFieldBuilder {
 	return builder
 }
 
+// 工单自定义字段ID
+// 示例值：6834320707288072194
 func (builder *TicketCustomizedFieldBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *TicketCustomizedFieldBuilder {
 	builder.ticketCustomizedFieldId = ticketCustomizedFieldId
 	builder.ticketCustomizedFieldIdFlag = true
 	return builder
 }
+
+// 服务台ID
+// 示例值：1542164574896126
 func (builder *TicketCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *TicketCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 键名
+// 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) KeyName(keyName string) *TicketCustomizedFieldBuilder {
 	builder.keyName = keyName
 	builder.keyNameFlag = true
 	return builder
 }
+
+// 名称
+// 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) DisplayName(displayName string) *TicketCustomizedFieldBuilder {
 	builder.displayName = displayName
 	builder.displayNameFlag = true
 	return builder
 }
+
+// 字段在列表后台管理列表中的位置
+// 示例值：3
 func (builder *TicketCustomizedFieldBuilder) Position(position string) *TicketCustomizedFieldBuilder {
 	builder.position = position
 	builder.positionFlag = true
 	return builder
 }
+
+// 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
+// 示例值：dropdown
 func (builder *TicketCustomizedFieldBuilder) FieldType(fieldType string) *TicketCustomizedFieldBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeFlag = true
 	return builder
 }
+
+// 描述
+// 示例值：下拉示例
 func (builder *TicketCustomizedFieldBuilder) Description(description string) *TicketCustomizedFieldBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 是否可见
+// 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Visible(visible bool) *TicketCustomizedFieldBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
 	return builder
 }
+
+// 是否可以修改
+// 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Editable(editable bool) *TicketCustomizedFieldBuilder {
 	builder.editable = editable
 	builder.editableFlag = true
 	return builder
 }
+
+// 是否必填
+// 示例值：false
 func (builder *TicketCustomizedFieldBuilder) Required(required bool) *TicketCustomizedFieldBuilder {
 	builder.required = required
 	builder.requiredFlag = true
 	return builder
 }
+
+// 创建时间
+// 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) CreatedAt(createdAt string) *TicketCustomizedFieldBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 更新时间
+// 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) UpdatedAt(updatedAt string) *TicketCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
 	return builder
 }
+
+// 创建用户
+// 示例值：
 func (builder *TicketCustomizedFieldBuilder) CreatedBy(createdBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.createdBy = createdBy
 	builder.createdByFlag = true
 	return builder
 }
+
+// 更新用户
+// 示例值：
 func (builder *TicketCustomizedFieldBuilder) UpdatedBy(updatedBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.updatedBy = updatedBy
 	builder.updatedByFlag = true
 	return builder
 }
+
+// 是否支持多选，仅在字段类型是dropdown的时候有效
+// 示例值：true
 func (builder *TicketCustomizedFieldBuilder) DropdownAllowMultiple(dropdownAllowMultiple bool) *TicketCustomizedFieldBuilder {
 	builder.dropdownAllowMultiple = dropdownAllowMultiple
 	builder.dropdownAllowMultipleFlag = true
@@ -2324,56 +2799,56 @@ func (builder *TicketCustomizedFieldBuilder) Build() *TicketCustomizedField {
 }
 
 type TicketEvent struct {
-	TicketId         *string                       `json:"ticket_id,omitempty"`
-	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`
-	Guest            *TicketUserEvent              `json:"guest,omitempty"`
-	Stage            *int                          `json:"stage,omitempty"`
-	Status           *int                          `json:"status,omitempty"`
-	Score            *int                          `json:"score,omitempty"`
-	CreatedAt        *int                          `json:"created_at,omitempty"`
-	UpdatedAt        *int                          `json:"updated_at,omitempty"`
-	ClosedAt         *int                          `json:"closed_at,omitempty"`
-	Agents           []*TicketUserEvent            `json:"agents,omitempty"`
-	Channel          *int                          `json:"channel,omitempty"`
-	Solve            *int                          `json:"solve,omitempty"`
-	ClosedBy         *TicketUserEvent              `json:"closed_by,omitempty"`
-	Collaborators    []*TicketUserEvent            `json:"collaborators,omitempty"`
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`
-	ChatId           *string                       `json:"chat_id,omitempty"`
+	TicketId         *string                       `json:"ticket_id,omitempty"`         // 6626871355780366331
+	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 6626871355780366330
+	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // abc
+	Stage            *int                          `json:"stage,omitempty"`             // 1
+	Status           *int                          `json:"status,omitempty"`            // 50
+	Score            *int                          `json:"score,omitempty"`             // 1
+	CreatedAt        *int                          `json:"created_at,omitempty"`        // 1616920429000
+	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 1616920429000
+	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 1616920429000
+	Agents           []*TicketUserEvent            `json:"agents,omitempty"`            // agents of this ticket
+	Channel          *int                          `json:"channel,omitempty"`           // 0
+	Solve            *int                          `json:"solve,omitempty"`             // 1
+	ClosedBy         *TicketUserEvent              `json:"closed_by,omitempty"`         // closed user of this ticket
+	Collaborators    []*TicketUserEvent            `json:"collaborators,omitempty"`     // collaborators of this ticket
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // []
+	ChatId           *string                       `json:"chat_id,omitempty"`           // oc_xxxxxxx
 }
 
 type TicketEventBuilder struct {
-	ticketId             string
+	ticketId             string // 6626871355780366331
 	ticketIdFlag         bool
-	helpdeskId           string
+	helpdeskId           string // 6626871355780366330
 	helpdeskIdFlag       bool
-	guest                *TicketUserEvent
+	guest                *TicketUserEvent // abc
 	guestFlag            bool
-	stage                int
+	stage                int // 1
 	stageFlag            bool
-	status               int
+	status               int // 50
 	statusFlag           bool
-	score                int
+	score                int // 1
 	scoreFlag            bool
-	createdAt            int
+	createdAt            int // 1616920429000
 	createdAtFlag        bool
-	updatedAt            int
+	updatedAt            int // 1616920429000
 	updatedAtFlag        bool
-	closedAt             int
+	closedAt             int // 1616920429000
 	closedAtFlag         bool
-	agents               []*TicketUserEvent
+	agents               []*TicketUserEvent // agents of this ticket
 	agentsFlag           bool
-	channel              int
+	channel              int // 0
 	channelFlag          bool
-	solve                int
+	solve                int // 1
 	solveFlag            bool
-	closedBy             *TicketUserEvent
+	closedBy             *TicketUserEvent // closed user of this ticket
 	closedByFlag         bool
-	collaborators        []*TicketUserEvent
+	collaborators        []*TicketUserEvent // collaborators of this ticket
 	collaboratorsFlag    bool
-	customizedFields     []*CustomizedFieldDisplayItem
+	customizedFields     []*CustomizedFieldDisplayItem // []
 	customizedFieldsFlag bool
-	chatId               string
+	chatId               string // oc_xxxxxxx
 	chatIdFlag           bool
 }
 
@@ -2382,81 +2857,128 @@ func NewTicketEventBuilder() *TicketEventBuilder {
 	return builder
 }
 
+// 6626871355780366331
+// 示例值：6626871355780366331
 func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder {
 	builder.ticketId = ticketId
 	builder.ticketIdFlag = true
 	return builder
 }
+
+// 6626871355780366330
+// 示例值：6626871355780366330
 func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// abc
+// 示例值：
 func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBuilder {
 	builder.guest = guest
 	builder.guestFlag = true
 	return builder
 }
+
+// 1
+// 示例值：1
 func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	builder.stage = stage
 	builder.stageFlag = true
 	return builder
 }
+
+// 50
+// 示例值：1
 func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 1
+// 示例值：1
 func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	builder.score = score
 	builder.scoreFlag = true
 	return builder
 }
+
+// 1616920429000
+// 示例值：1616920429000
 func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 1616920429000
+// 示例值：1616920429000
 func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
 	return builder
 }
+
+// 1616920429000
+// 示例值：1616920429000
 func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
 	builder.closedAt = closedAt
 	builder.closedAtFlag = true
 	return builder
 }
+
+// agents of this ticket
+// 示例值：
 func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEventBuilder {
 	builder.agents = agents
 	builder.agentsFlag = true
 	return builder
 }
+
+// 0
+// 示例值：0
 func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
 	return builder
 }
+
+// 1
+// 示例值：1
 func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
 	builder.solve = solve
 	builder.solveFlag = true
 	return builder
 }
+
+// closed user of this ticket
+// 示例值：
 func (builder *TicketEventBuilder) ClosedBy(closedBy *TicketUserEvent) *TicketEventBuilder {
 	builder.closedBy = closedBy
 	builder.closedByFlag = true
 	return builder
 }
+
+// collaborators of this ticket
+// 示例值：
 func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEvent) *TicketEventBuilder {
 	builder.collaborators = collaborators
 	builder.collaboratorsFlag = true
 	return builder
 }
+
+// []
+// 示例值：
 func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketEventBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
 	return builder
 }
+
+// oc_xxxxxxx
+// 示例值：oc_xxxxxxx
 func (builder *TicketEventBuilder) ChatId(chatId string) *TicketEventBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -2528,17 +3050,17 @@ func (builder *TicketEventBuilder) Build() *TicketEvent {
 }
 
 type TicketEventUpdateInfo struct {
-	Stage     *int `json:"stage,omitempty"`
-	Status    *int `json:"status,omitempty"`
-	UpdatedAt *int `json:"updated_at,omitempty"`
+	Stage     *int `json:"stage,omitempty"`      // ticket stage
+	Status    *int `json:"status,omitempty"`     // ticket status
+	UpdatedAt *int `json:"updated_at,omitempty"` // ticket update time
 }
 
 type TicketEventUpdateInfoBuilder struct {
-	stage         int
+	stage         int // ticket stage
 	stageFlag     bool
-	status        int
+	status        int // ticket status
 	statusFlag    bool
-	updatedAt     int
+	updatedAt     int // ticket update time
 	updatedAtFlag bool
 }
 
@@ -2547,16 +3069,24 @@ func NewTicketEventUpdateInfoBuilder() *TicketEventUpdateInfoBuilder {
 	return builder
 }
 
+// ticket stage
+// 示例值：1
 func (builder *TicketEventUpdateInfoBuilder) Stage(stage int) *TicketEventUpdateInfoBuilder {
 	builder.stage = stage
 	builder.stageFlag = true
 	return builder
 }
+
+// ticket status
+// 示例值：50
 func (builder *TicketEventUpdateInfoBuilder) Status(status int) *TicketEventUpdateInfoBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// ticket update time
+// 示例值：1616920429000
 func (builder *TicketEventUpdateInfoBuilder) UpdatedAt(updatedAt int) *TicketEventUpdateInfoBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
@@ -2581,20 +3111,20 @@ func (builder *TicketEventUpdateInfoBuilder) Build() *TicketEventUpdateInfo {
 }
 
 type TicketMessageContent struct {
-	Content   *string  `json:"content,omitempty"`
-	MsgType   *string  `json:"msg_type,omitempty"`
-	ImageKeys []string `json:"image_keys,omitempty"`
-	ImageKey  *string  `json:"image_key,omitempty"`
+	Content   *string  `json:"content,omitempty"`    // 内容
+	MsgType   *string  `json:"msg_type,omitempty"`   // 消息类型；text：纯文本；post：富文本；image：图片
+	ImageKeys []string `json:"image_keys,omitempty"` // 图片ID
+	ImageKey  *string  `json:"image_key,omitempty"`  // 图片ID
 }
 
 type TicketMessageContentBuilder struct {
-	content       string
+	content       string // 内容
 	contentFlag   bool
-	msgType       string
+	msgType       string // 消息类型；text：纯文本；post：富文本；image：图片
 	msgTypeFlag   bool
-	imageKeys     []string
+	imageKeys     []string // 图片ID
 	imageKeysFlag bool
-	imageKey      string
+	imageKey      string // 图片ID
 	imageKeyFlag  bool
 }
 
@@ -2603,21 +3133,32 @@ func NewTicketMessageContentBuilder() *TicketMessageContentBuilder {
 	return builder
 }
 
+// 内容
+// 示例值：请问vpn怎么下载
 func (builder *TicketMessageContentBuilder) Content(content string) *TicketMessageContentBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 消息类型；text：纯文本；post：富文本；image：图片
+// 示例值：text
 func (builder *TicketMessageContentBuilder) MsgType(msgType string) *TicketMessageContentBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
 	return builder
 }
+
+// 图片ID
+// 示例值：
 func (builder *TicketMessageContentBuilder) ImageKeys(imageKeys []string) *TicketMessageContentBuilder {
 	builder.imageKeys = imageKeys
 	builder.imageKeysFlag = true
 	return builder
 }
+
+// 图片ID
+// 示例值：xxx
 func (builder *TicketMessageContentBuilder) ImageKey(imageKey string) *TicketMessageContentBuilder {
 	builder.imageKey = imageKey
 	builder.imageKeyFlag = true
@@ -2645,41 +3186,41 @@ func (builder *TicketMessageContentBuilder) Build() *TicketMessageContent {
 }
 
 type TicketMessageEvent struct {
-	TicketMessageId *string               `json:"ticket_message_id,omitempty"`
-	MessageId       *string               `json:"message_id,omitempty"`
-	MsgType         *string               `json:"msg_type,omitempty"`
-	Position        *string               `json:"position,omitempty"`
-	SenderId        *UserId               `json:"sender_id,omitempty"`
-	SenderType      *int                  `json:"sender_type,omitempty"`
-	Text            *string               `json:"text,omitempty"`
-	Ticket          *Ticket               `json:"ticket,omitempty"`
-	EventId         *string               `json:"event_id,omitempty"`
-	ChatId          *string               `json:"chat_id,omitempty"`
-	Content         *TicketMessageContent `json:"content,omitempty"`
+	TicketMessageId *string               `json:"ticket_message_id,omitempty"` // ticket message id
+	MessageId       *string               `json:"message_id,omitempty"`        // open message id
+	MsgType         *string               `json:"msg_type,omitempty"`          // message type, text is the only supported type
+	Position        *string               `json:"position,omitempty"`          // position of the message
+	SenderId        *UserId               `json:"sender_id,omitempty"`         // 用户 ID
+	SenderType      *int                  `json:"sender_type,omitempty"`       // sender type, 1 for bot, 2 for guest, 3 for agent
+	Text            *string               `json:"text,omitempty"`              // message content
+	Ticket          *Ticket               `json:"ticket,omitempty"`            // ticket related information
+	EventId         *string               `json:"event_id,omitempty"`          // event id
+	ChatId          *string               `json:"chat_id,omitempty"`           // chat id
+	Content         *TicketMessageContent `json:"content,omitempty"`           // message content
 }
 
 type TicketMessageEventBuilder struct {
-	ticketMessageId     string
+	ticketMessageId     string // ticket message id
 	ticketMessageIdFlag bool
-	messageId           string
+	messageId           string // open message id
 	messageIdFlag       bool
-	msgType             string
+	msgType             string // message type, text is the only supported type
 	msgTypeFlag         bool
-	position            string
+	position            string // position of the message
 	positionFlag        bool
-	senderId            *UserId
+	senderId            *UserId // 用户 ID
 	senderIdFlag        bool
-	senderType          int
+	senderType          int // sender type, 1 for bot, 2 for guest, 3 for agent
 	senderTypeFlag      bool
-	text                string
+	text                string // message content
 	textFlag            bool
-	ticket              *Ticket
+	ticket              *Ticket // ticket related information
 	ticketFlag          bool
-	eventId             string
+	eventId             string // event id
 	eventIdFlag         bool
-	chatId              string
+	chatId              string // chat id
 	chatIdFlag          bool
-	content             *TicketMessageContent
+	content             *TicketMessageContent // message content
 	contentFlag         bool
 }
 
@@ -2688,56 +3229,88 @@ func NewTicketMessageEventBuilder() *TicketMessageEventBuilder {
 	return builder
 }
 
+// ticket message id
+// 示例值：6949088240624222236
 func (builder *TicketMessageEventBuilder) TicketMessageId(ticketMessageId string) *TicketMessageEventBuilder {
 	builder.ticketMessageId = ticketMessageId
 	builder.ticketMessageIdFlag = true
 	return builder
 }
+
+// open message id
+// 示例值：om_8baa3656c7b41900d29bf9104bf5310b
 func (builder *TicketMessageEventBuilder) MessageId(messageId string) *TicketMessageEventBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
 	return builder
 }
+
+// message type, text is the only supported type
+// 示例值：text
 func (builder *TicketMessageEventBuilder) MsgType(msgType string) *TicketMessageEventBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
 	return builder
 }
+
+// position of the message
+// 示例值：10
 func (builder *TicketMessageEventBuilder) Position(position string) *TicketMessageEventBuilder {
 	builder.position = position
 	builder.positionFlag = true
 	return builder
 }
+
+// 用户 ID
+// 示例值：
 func (builder *TicketMessageEventBuilder) SenderId(senderId *UserId) *TicketMessageEventBuilder {
 	builder.senderId = senderId
 	builder.senderIdFlag = true
 	return builder
 }
+
+// sender type, 1 for bot, 2 for guest, 3 for agent
+// 示例值：1
 func (builder *TicketMessageEventBuilder) SenderType(senderType int) *TicketMessageEventBuilder {
 	builder.senderType = senderType
 	builder.senderTypeFlag = true
 	return builder
 }
+
+// message content
+// 示例值：请问vpn怎么下载
 func (builder *TicketMessageEventBuilder) Text(text string) *TicketMessageEventBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
+
+// ticket related information
+// 示例值：
 func (builder *TicketMessageEventBuilder) Ticket(ticket *Ticket) *TicketMessageEventBuilder {
 	builder.ticket = ticket
 	builder.ticketFlag = true
 	return builder
 }
+
+// event id
+// 示例值：118a6492-122d-04ad-4370-010a3bb384d3
 func (builder *TicketMessageEventBuilder) EventId(eventId string) *TicketMessageEventBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
 	return builder
 }
+
+// chat id
+// 示例值：6949088236610273307
 func (builder *TicketMessageEventBuilder) ChatId(chatId string) *TicketMessageEventBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
+
+// message content
+// 示例值：
 func (builder *TicketMessageEventBuilder) Content(content *TicketMessageContent) *TicketMessageEventBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -2791,29 +3364,29 @@ func (builder *TicketMessageEventBuilder) Build() *TicketMessageEvent {
 }
 
 type TicketUser struct {
-	Id         *string `json:"id,omitempty"`
-	AvatarUrl  *string `json:"avatar_url,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Email      *string `json:"email,omitempty"`
-	Department *string `json:"department,omitempty"`
-	City       *string `json:"city,omitempty"`
-	Country    *string `json:"country,omitempty"`
+	Id         *string `json:"id,omitempty"`         // 用户ID
+	AvatarUrl  *string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       *string `json:"name,omitempty"`       // 用户名
+	Email      *string `json:"email,omitempty"`      // 用户邮箱
+	Department *string `json:"department,omitempty"` // 所在部门名称
+	City       *string `json:"city,omitempty"`       // 城市
+	Country    *string `json:"country,omitempty"`    // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
 }
 
 type TicketUserBuilder struct {
-	id             string
+	id             string // 用户ID
 	idFlag         bool
-	avatarUrl      string
+	avatarUrl      string // 用户头像url
 	avatarUrlFlag  bool
-	name           string
+	name           string // 用户名
 	nameFlag       bool
-	email          string
+	email          string // 用户邮箱
 	emailFlag      bool
-	department     string
+	department     string // 所在部门名称
 	departmentFlag bool
-	city           string
+	city           string // 城市
 	cityFlag       bool
-	country        string
+	country        string // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
 	countryFlag    bool
 }
 
@@ -2822,36 +3395,56 @@ func NewTicketUserBuilder() *TicketUserBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketUserBuilder) Id(id string) *TicketUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户头像url
+// 示例值：https://xxxx
 func (builder *TicketUserBuilder) AvatarUrl(avatarUrl string) *TicketUserBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 用户名
+// 示例值：abc
 func (builder *TicketUserBuilder) Name(name string) *TicketUserBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 用户邮箱
+// 示例值：xxxx@abc.com
 func (builder *TicketUserBuilder) Email(email string) *TicketUserBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 所在部门名称
+// 示例值：用户部门名称(有权限才展示)
 func (builder *TicketUserBuilder) Department(department string) *TicketUserBuilder {
 	builder.department = department
 	builder.departmentFlag = true
 	return builder
 }
+
+// 城市
+// 示例值：城市
 func (builder *TicketUserBuilder) City(city string) *TicketUserBuilder {
 	builder.city = city
 	builder.cityFlag = true
 	return builder
 }
+
+// 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
+// 示例值：国家
 func (builder *TicketUserBuilder) Country(country string) *TicketUserBuilder {
 	builder.country = country
 	builder.countryFlag = true
@@ -2892,20 +3485,20 @@ func (builder *TicketUserBuilder) Build() *TicketUser {
 }
 
 type TicketUserEvent struct {
-	Id        *UserId `json:"id,omitempty"`
-	AvatarUrl *string `json:"avatar_url,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Email     *string `json:"email,omitempty"`
+	Id        *UserId `json:"id,omitempty"`         // 6626871355780366332
+	AvatarUrl *string `json:"avatar_url,omitempty"` // user avartal url
+	Name      *string `json:"name,omitempty"`       // 6626871355780366333
+	Email     *string `json:"email,omitempty"`      // user email
 }
 
 type TicketUserEventBuilder struct {
-	id            *UserId
+	id            *UserId // 6626871355780366332
 	idFlag        bool
-	avatarUrl     string
+	avatarUrl     string // user avartal url
 	avatarUrlFlag bool
-	name          string
+	name          string // 6626871355780366333
 	nameFlag      bool
-	email         string
+	email         string // user email
 	emailFlag     bool
 }
 
@@ -2914,21 +3507,32 @@ func NewTicketUserEventBuilder() *TicketUserEventBuilder {
 	return builder
 }
 
+// 6626871355780366332
+// 示例值：
 func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// user avartal url
+// 示例值：
 func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEventBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 6626871355780366333
+// 示例值：abc
 func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// user email
+// 示例值：
 func (builder *TicketUserEventBuilder) Email(email string) *TicketUserEventBuilder {
 	builder.email = email
 	builder.emailFlag = true
@@ -2956,47 +3560,47 @@ func (builder *TicketUserEventBuilder) Build() *TicketUserEvent {
 }
 
 type UserCustomizedField struct {
-	UserCustomizedFieldId *string `json:"user_customized_field_id,omitempty"`
-	Id                    *string `json:"id,omitempty"`
-	HelpdeskId            *string `json:"helpdesk_id,omitempty"`
-	KeyName               *string `json:"key_name,omitempty"`
-	DisplayName           *string `json:"display_name,omitempty"`
-	Position              *string `json:"position,omitempty"`
-	FieldType             *string `json:"field_type,omitempty"`
-	Description           *string `json:"description,omitempty"`
-	Visible               *bool   `json:"visible,omitempty"`
-	Editable              *bool   `json:"editable,omitempty"`
-	Required              *bool   `json:"required,omitempty"`
-	CreatedAt             *string `json:"created_at,omitempty"`
-	UpdatedAt             *string `json:"updated_at,omitempty"`
+	UserCustomizedFieldId *string `json:"user_customized_field_id,omitempty"` // 字段ID
+	Id                    *string `json:"id,omitempty"`                       // 旧字段ID，向后兼容用
+	HelpdeskId            *string `json:"helpdesk_id,omitempty"`              // 服务台ID
+	KeyName               *string `json:"key_name,omitempty"`                 // 字段键
+	DisplayName           *string `json:"display_name,omitempty"`             // 字段展示名称
+	Position              *string `json:"position,omitempty"`                 // 字段在列表中的展示位置
+	FieldType             *string `json:"field_type,omitempty"`               // 字段类型
+	Description           *string `json:"description,omitempty"`              // 字段描述信息
+	Visible               *bool   `json:"visible,omitempty"`                  // 字段是否可见
+	Editable              *bool   `json:"editable,omitempty"`                 // 字段是否可编辑
+	Required              *bool   `json:"required,omitempty"`                 // 字段是否必填
+	CreatedAt             *string `json:"created_at,omitempty"`               // 字段创建时间
+	UpdatedAt             *string `json:"updated_at,omitempty"`               // 字段修改时间
 }
 
 type UserCustomizedFieldBuilder struct {
-	userCustomizedFieldId     string
+	userCustomizedFieldId     string // 字段ID
 	userCustomizedFieldIdFlag bool
-	id                        string
+	id                        string // 旧字段ID，向后兼容用
 	idFlag                    bool
-	helpdeskId                string
+	helpdeskId                string // 服务台ID
 	helpdeskIdFlag            bool
-	keyName                   string
+	keyName                   string // 字段键
 	keyNameFlag               bool
-	displayName               string
+	displayName               string // 字段展示名称
 	displayNameFlag           bool
-	position                  string
+	position                  string // 字段在列表中的展示位置
 	positionFlag              bool
-	fieldType                 string
+	fieldType                 string // 字段类型
 	fieldTypeFlag             bool
-	description               string
+	description               string // 字段描述信息
 	descriptionFlag           bool
-	visible                   bool
+	visible                   bool // 字段是否可见
 	visibleFlag               bool
-	editable                  bool
+	editable                  bool // 字段是否可编辑
 	editableFlag              bool
-	required                  bool
+	required                  bool // 字段是否必填
 	requiredFlag              bool
-	createdAt                 string
+	createdAt                 string // 字段创建时间
 	createdAtFlag             bool
-	updatedAt                 string
+	updatedAt                 string // 字段修改时间
 	updatedAtFlag             bool
 }
 
@@ -3005,66 +3609,104 @@ func NewUserCustomizedFieldBuilder() *UserCustomizedFieldBuilder {
 	return builder
 }
 
+// 字段ID
+// 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) UserCustomizedFieldId(userCustomizedFieldId string) *UserCustomizedFieldBuilder {
 	builder.userCustomizedFieldId = userCustomizedFieldId
 	builder.userCustomizedFieldIdFlag = true
 	return builder
 }
+
+// 旧字段ID，向后兼容用
+// 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) Id(id string) *UserCustomizedFieldBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 服务台ID
+// 示例值：1542164574896126
 func (builder *UserCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *UserCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
 	builder.helpdeskIdFlag = true
 	return builder
 }
+
+// 字段键
+// 示例值：company_id3
 func (builder *UserCustomizedFieldBuilder) KeyName(keyName string) *UserCustomizedFieldBuilder {
 	builder.keyName = keyName
 	builder.keyNameFlag = true
 	return builder
 }
+
+// 字段展示名称
+// 示例值：Company ID
 func (builder *UserCustomizedFieldBuilder) DisplayName(displayName string) *UserCustomizedFieldBuilder {
 	builder.displayName = displayName
 	builder.displayNameFlag = true
 	return builder
 }
+
+// 字段在列表中的展示位置
+// 示例值：1
 func (builder *UserCustomizedFieldBuilder) Position(position string) *UserCustomizedFieldBuilder {
 	builder.position = position
 	builder.positionFlag = true
 	return builder
 }
+
+// 字段类型
+// 示例值：string
 func (builder *UserCustomizedFieldBuilder) FieldType(fieldType string) *UserCustomizedFieldBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeFlag = true
 	return builder
 }
+
+// 字段描述信息
+// 示例值：租户ID
 func (builder *UserCustomizedFieldBuilder) Description(description string) *UserCustomizedFieldBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 字段是否可见
+// 示例值：false
 func (builder *UserCustomizedFieldBuilder) Visible(visible bool) *UserCustomizedFieldBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
 	return builder
 }
+
+// 字段是否可编辑
+// 示例值：false
 func (builder *UserCustomizedFieldBuilder) Editable(editable bool) *UserCustomizedFieldBuilder {
 	builder.editable = editable
 	builder.editableFlag = true
 	return builder
 }
+
+// 字段是否必填
+// 示例值：false
 func (builder *UserCustomizedFieldBuilder) Required(required bool) *UserCustomizedFieldBuilder {
 	builder.required = required
 	builder.requiredFlag = true
 	return builder
 }
+
+// 字段创建时间
+// 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) CreatedAt(createdAt string) *UserCustomizedFieldBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 字段修改时间
+// 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) UpdatedAt(updatedAt string) *UserCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
@@ -3129,17 +3771,17 @@ func (builder *UserCustomizedFieldBuilder) Build() *UserCustomizedField {
 }
 
 type UserId struct {
-	UserId  *string `json:"user_id,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
 }
 
 type UserIdBuilder struct {
-	userId      string
+	userId      string //
 	userIdFlag  bool
-	openId      string
+	openId      string //
 	openIdFlag  bool
-	unionId     string
+	unionId     string //
 	unionIdFlag bool
 }
 
@@ -3148,16 +3790,24 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
@@ -3182,14 +3832,14 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type UserQueryFaqInfo struct {
-	Id    *string  `json:"id,omitempty"`
-	Score *float64 `json:"score,omitempty"`
+	Id    *string  `json:"id,omitempty"`    // faq服务台内唯一标识
+	Score *float64 `json:"score,omitempty"` // faq匹配得分
 }
 
 type UserQueryFaqInfoBuilder struct {
-	id        string
+	id        string // faq服务台内唯一标识
 	idFlag    bool
-	score     float64
+	score     float64 // faq匹配得分
 	scoreFlag bool
 }
 
@@ -3198,11 +3848,16 @@ func NewUserQueryFaqInfoBuilder() *UserQueryFaqInfoBuilder {
 	return builder
 }
 
+// faq服务台内唯一标识
+// 示例值：12345
 func (builder *UserQueryFaqInfoBuilder) Id(id string) *UserQueryFaqInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// faq匹配得分
+// 示例值：0.9
 func (builder *UserQueryFaqInfoBuilder) Score(score float64) *UserQueryFaqInfoBuilder {
 	builder.score = score
 	builder.scoreFlag = true
@@ -3223,17 +3878,17 @@ func (builder *UserQueryFaqInfoBuilder) Build() *UserQueryFaqInfo {
 }
 
 type WeekdaySchedule struct {
-	StartTime *string `json:"start_time,omitempty"`
-	EndTime   *string `json:"end_time,omitempty"`
-	Weekday   *int    `json:"weekday,omitempty"`
+	StartTime *string `json:"start_time,omitempty"` // 开始时间, format 00:00 - 23:59
+	EndTime   *string `json:"end_time,omitempty"`   // 结束时间, format 00:00 - 23:59
+	Weekday   *int    `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
 }
 
 type WeekdayScheduleBuilder struct {
-	startTime     string
+	startTime     string // 开始时间, format 00:00 - 23:59
 	startTimeFlag bool
-	endTime       string
+	endTime       string // 结束时间, format 00:00 - 23:59
 	endTimeFlag   bool
-	weekday       int
+	weekday       int // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
 	weekdayFlag   bool
 }
 
@@ -3242,16 +3897,24 @@ func NewWeekdayScheduleBuilder() *WeekdayScheduleBuilder {
 	return builder
 }
 
+// 开始时间, format 00:00 - 23:59
+// 示例值：00:00
 func (builder *WeekdayScheduleBuilder) StartTime(startTime string) *WeekdayScheduleBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
+
+// 结束时间, format 00:00 - 23:59
+// 示例值：24:00
 func (builder *WeekdayScheduleBuilder) EndTime(endTime string) *WeekdayScheduleBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
+// 示例值：9
 func (builder *WeekdayScheduleBuilder) Weekday(weekday int) *WeekdayScheduleBuilder {
 	builder.weekday = weekday
 	builder.weekdayFlag = true
@@ -3276,13 +3939,13 @@ func (builder *WeekdayScheduleBuilder) Build() *WeekdaySchedule {
 }
 
 type AgentEmailAgentRespData struct {
-	Agents *string `json:"agents,omitempty"`
+	Agents *string `json:"agents,omitempty"` // agent emails
 }
 
 type AgentEmailAgentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *AgentEmailAgentRespData `json:"data"`
+	Data *AgentEmailAgentRespData `json:"data"` // 业务数据
 }
 
 func (resp *AgentEmailAgentResp) Success() bool {
@@ -3290,7 +3953,7 @@ func (resp *AgentEmailAgentResp) Success() bool {
 }
 
 type PatchAgentReqBodyBuilder struct {
-	status     int
+	status     int // agent status
 	statusFlag bool
 }
 
@@ -3299,6 +3962,9 @@ func NewPatchAgentReqBodyBuilder() *PatchAgentReqBodyBuilder {
 	return builder
 }
 
+// agent status
+//
+//示例值：1：在线；2：离线
 func (builder *PatchAgentReqBodyBuilder) Status(status int) *PatchAgentReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -3314,7 +3980,7 @@ func (builder *PatchAgentReqBodyBuilder) Build() *PatchAgentReqBody {
 }
 
 type PatchAgentPathReqBodyBuilder struct {
-	status     int
+	status     int // agent status
 	statusFlag bool
 }
 
@@ -3322,6 +3988,10 @@ func NewPatchAgentPathReqBodyBuilder() *PatchAgentPathReqBodyBuilder {
 	builder := &PatchAgentPathReqBodyBuilder{}
 	return builder
 }
+
+// agent status
+//
+// 示例值：1：在线；2：离线
 func (builder *PatchAgentPathReqBodyBuilder) Status(status int) *PatchAgentPathReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -3350,10 +4020,15 @@ func NewPatchAgentReqBuilder() *PatchAgentReqBuilder {
 	return builder
 }
 
+// 客服id
+//
+// 示例值：ou_14777d82ffef0f707de5a8c7ff2c5ebe
 func (builder *PatchAgentReqBuilder) AgentId(agentId string) *PatchAgentReqBuilder {
 	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
 	return builder
 }
+
+// 更新客服状态等信息
 func (builder *PatchAgentReqBuilder) Body(body *PatchAgentReqBody) *PatchAgentReqBuilder {
 	builder.body = body
 	return builder
@@ -3368,7 +4043,7 @@ func (builder *PatchAgentReqBuilder) Build() *PatchAgentReq {
 }
 
 type PatchAgentReqBody struct {
-	Status *int `json:"status,omitempty"`
+	Status *int `json:"status,omitempty"` // agent status
 }
 
 type PatchAgentReq struct {
@@ -3398,6 +4073,9 @@ func NewDeleteAgentSchedulesReqBuilder() *DeleteAgentSchedulesReqBuilder {
 	return builder
 }
 
+// agent user id
+//
+// 示例值：12345
 func (builder *DeleteAgentSchedulesReqBuilder) AgentId(agentId string) *DeleteAgentSchedulesReqBuilder {
 	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
 	return builder
@@ -3436,6 +4114,9 @@ func NewGetAgentSchedulesReqBuilder() *GetAgentSchedulesReqBuilder {
 	return builder
 }
 
+// 	客服 id
+//
+// 示例值：	客服 id
 func (builder *GetAgentSchedulesReqBuilder) AgentId(agentId string) *GetAgentSchedulesReqBuilder {
 	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
 	return builder
@@ -3453,13 +4134,13 @@ type GetAgentSchedulesReq struct {
 }
 
 type GetAgentSchedulesRespData struct {
-	AgentSchedule *AgentSchedule `json:"agent_schedule,omitempty"`
+	AgentSchedule *AgentSchedule `json:"agent_schedule,omitempty"` // 客服日程
 }
 
 type GetAgentSchedulesResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAgentSchedulesRespData `json:"data"`
+	Data *GetAgentSchedulesRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAgentSchedulesResp) Success() bool {
@@ -3467,7 +4148,7 @@ func (resp *GetAgentSchedulesResp) Success() bool {
 }
 
 type PatchAgentSchedulesReqBodyBuilder struct {
-	agentSchedule     *AgentScheduleUpdateInfo
+	agentSchedule     *AgentScheduleUpdateInfo // 工作日程列表
 	agentScheduleFlag bool
 }
 
@@ -3476,6 +4157,9 @@ func NewPatchAgentSchedulesReqBodyBuilder() *PatchAgentSchedulesReqBodyBuilder {
 	return builder
 }
 
+// 工作日程列表
+//
+//示例值：
 func (builder *PatchAgentSchedulesReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
 	builder.agentScheduleFlag = true
@@ -3491,7 +4175,7 @@ func (builder *PatchAgentSchedulesReqBodyBuilder) Build() *PatchAgentSchedulesRe
 }
 
 type PatchAgentSchedulesPathReqBodyBuilder struct {
-	agentSchedule     *AgentScheduleUpdateInfo
+	agentSchedule     *AgentScheduleUpdateInfo // 工作日程列表
 	agentScheduleFlag bool
 }
 
@@ -3499,6 +4183,10 @@ func NewPatchAgentSchedulesPathReqBodyBuilder() *PatchAgentSchedulesPathReqBodyB
 	builder := &PatchAgentSchedulesPathReqBodyBuilder{}
 	return builder
 }
+
+// 工作日程列表
+//
+// 示例值：
 func (builder *PatchAgentSchedulesPathReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesPathReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
 	builder.agentScheduleFlag = true
@@ -3527,10 +4215,15 @@ func NewPatchAgentSchedulesReqBuilder() *PatchAgentSchedulesReqBuilder {
 	return builder
 }
 
+// 客服 id
+//
+// 示例值：123456
 func (builder *PatchAgentSchedulesReqBuilder) AgentId(agentId string) *PatchAgentSchedulesReqBuilder {
 	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
 	return builder
 }
+
+// 该接口用于更新客服的日程
 func (builder *PatchAgentSchedulesReqBuilder) Body(body *PatchAgentSchedulesReqBody) *PatchAgentSchedulesReqBuilder {
 	builder.body = body
 	return builder
@@ -3545,7 +4238,7 @@ func (builder *PatchAgentSchedulesReqBuilder) Build() *PatchAgentSchedulesReq {
 }
 
 type PatchAgentSchedulesReqBody struct {
-	AgentSchedule *AgentScheduleUpdateInfo `json:"agent_schedule,omitempty"`
+	AgentSchedule *AgentScheduleUpdateInfo `json:"agent_schedule,omitempty"` // 工作日程列表
 }
 
 type PatchAgentSchedulesReq struct {
@@ -3563,7 +4256,7 @@ func (resp *PatchAgentSchedulesResp) Success() bool {
 }
 
 type CreateAgentScheduleReqBodyBuilder struct {
-	agentSchedules     []*AgentScheduleUpdateInfo
+	agentSchedules     []*AgentScheduleUpdateInfo // 新客服日程
 	agentSchedulesFlag bool
 }
 
@@ -3572,6 +4265,9 @@ func NewCreateAgentScheduleReqBodyBuilder() *CreateAgentScheduleReqBodyBuilder {
 	return builder
 }
 
+// 新客服日程
+//
+//示例值：
 func (builder *CreateAgentScheduleReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentScheduleReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
 	builder.agentSchedulesFlag = true
@@ -3587,7 +4283,7 @@ func (builder *CreateAgentScheduleReqBodyBuilder) Build() *CreateAgentScheduleRe
 }
 
 type CreateAgentSchedulePathReqBodyBuilder struct {
-	agentSchedules     []*AgentScheduleUpdateInfo
+	agentSchedules     []*AgentScheduleUpdateInfo // 新客服日程
 	agentSchedulesFlag bool
 }
 
@@ -3595,6 +4291,10 @@ func NewCreateAgentSchedulePathReqBodyBuilder() *CreateAgentSchedulePathReqBodyB
 	builder := &CreateAgentSchedulePathReqBodyBuilder{}
 	return builder
 }
+
+// 新客服日程
+//
+// 示例值：
 func (builder *CreateAgentSchedulePathReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentSchedulePathReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
 	builder.agentSchedulesFlag = true
@@ -3623,6 +4323,7 @@ func NewCreateAgentScheduleReqBuilder() *CreateAgentScheduleReqBuilder {
 	return builder
 }
 
+// 该接口用于创建客服
 func (builder *CreateAgentScheduleReqBuilder) Body(body *CreateAgentScheduleReqBody) *CreateAgentScheduleReqBuilder {
 	builder.body = body
 	return builder
@@ -3636,7 +4337,7 @@ func (builder *CreateAgentScheduleReqBuilder) Build() *CreateAgentScheduleReq {
 }
 
 type CreateAgentScheduleReqBody struct {
-	AgentSchedules []*AgentScheduleUpdateInfo `json:"agent_schedules,omitempty"`
+	AgentSchedules []*AgentScheduleUpdateInfo `json:"agent_schedules,omitempty"` // 新客服日程
 }
 
 type CreateAgentScheduleReq struct {
@@ -3666,6 +4367,9 @@ func NewListAgentScheduleReqBuilder() *ListAgentScheduleReqBuilder {
 	return builder
 }
 
+// 筛选条件, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)客服, 4 - 移除客服
+//
+// 示例值：status=1&status=2
 func (builder *ListAgentScheduleReqBuilder) Status(status []int) *ListAgentScheduleReqBuilder {
 	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
@@ -3683,13 +4387,13 @@ type ListAgentScheduleReq struct {
 }
 
 type ListAgentScheduleRespData struct {
-	AgentSchedules []*AgentSchedule `json:"agent_schedules,omitempty"`
+	AgentSchedules []*AgentSchedule `json:"agent_schedules,omitempty"` // 客服列表
 }
 
 type ListAgentScheduleResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAgentScheduleRespData `json:"data"`
+	Data *ListAgentScheduleRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAgentScheduleResp) Success() bool {
@@ -3697,11 +4401,11 @@ func (resp *ListAgentScheduleResp) Success() bool {
 }
 
 type CreateAgentSkillReqBodyBuilder struct {
-	name         string
+	name         string // 技能名
 	nameFlag     bool
-	rules        []*AgentSkillRule
+	rules        []*AgentSkillRule // 技能rules
 	rulesFlag    bool
-	agentIds     []string
+	agentIds     []string // 客服 ids
 	agentIdsFlag bool
 }
 
@@ -3710,16 +4414,27 @@ func NewCreateAgentSkillReqBodyBuilder() *CreateAgentSkillReqBodyBuilder {
 	return builder
 }
 
+// 技能名
+//
+//示例值：test-skill
 func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSkillReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 技能rules
+//
+//示例值：
 func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillReqBodyBuilder {
 	builder.rules = rules
 	builder.rulesFlag = true
 	return builder
 }
+
+// 客服 ids
+//
+//示例值：["客服ID"]
 func (builder *CreateAgentSkillReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillReqBodyBuilder {
 	builder.agentIds = agentIds
 	builder.agentIdsFlag = true
@@ -3741,11 +4456,11 @@ func (builder *CreateAgentSkillReqBodyBuilder) Build() *CreateAgentSkillReqBody 
 }
 
 type CreateAgentSkillPathReqBodyBuilder struct {
-	name         string
+	name         string // 技能名
 	nameFlag     bool
-	rules        []*AgentSkillRule
+	rules        []*AgentSkillRule // 技能rules
 	rulesFlag    bool
-	agentIds     []string
+	agentIds     []string // 客服 ids
 	agentIdsFlag bool
 }
 
@@ -3753,16 +4468,28 @@ func NewCreateAgentSkillPathReqBodyBuilder() *CreateAgentSkillPathReqBodyBuilder
 	builder := &CreateAgentSkillPathReqBodyBuilder{}
 	return builder
 }
+
+// 技能名
+//
+// 示例值：test-skill
 func (builder *CreateAgentSkillPathReqBodyBuilder) Name(name string) *CreateAgentSkillPathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 技能rules
+//
+// 示例值：
 func (builder *CreateAgentSkillPathReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillPathReqBodyBuilder {
 	builder.rules = rules
 	builder.rulesFlag = true
 	return builder
 }
+
+// 客服 ids
+//
+// 示例值：["客服ID"]
 func (builder *CreateAgentSkillPathReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillPathReqBodyBuilder {
 	builder.agentIds = agentIds
 	builder.agentIdsFlag = true
@@ -3797,6 +4524,7 @@ func NewCreateAgentSkillReqBuilder() *CreateAgentSkillReqBuilder {
 	return builder
 }
 
+// 该接口用于创建客服技能
 func (builder *CreateAgentSkillReqBuilder) Body(body *CreateAgentSkillReqBody) *CreateAgentSkillReqBuilder {
 	builder.body = body
 	return builder
@@ -3810,9 +4538,9 @@ func (builder *CreateAgentSkillReqBuilder) Build() *CreateAgentSkillReq {
 }
 
 type CreateAgentSkillReqBody struct {
-	Name     *string           `json:"name,omitempty"`
-	Rules    []*AgentSkillRule `json:"rules,omitempty"`
-	AgentIds []string          `json:"agent_ids,omitempty"`
+	Name     *string           `json:"name,omitempty"`      // 技能名
+	Rules    []*AgentSkillRule `json:"rules,omitempty"`     // 技能rules
+	AgentIds []string          `json:"agent_ids,omitempty"` // 客服 ids
 }
 
 type CreateAgentSkillReq struct {
@@ -3821,13 +4549,13 @@ type CreateAgentSkillReq struct {
 }
 
 type CreateAgentSkillRespData struct {
-	AgentSkillId *string `json:"agent_skill_id,omitempty"`
+	AgentSkillId *string `json:"agent_skill_id,omitempty"` // 客服技能id
 }
 
 type CreateAgentSkillResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAgentSkillRespData `json:"data"`
+	Data *CreateAgentSkillRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAgentSkillResp) Success() bool {
@@ -3847,6 +4575,9 @@ func NewDeleteAgentSkillReqBuilder() *DeleteAgentSkillReqBuilder {
 	return builder
 }
 
+// agent group id
+//
+// 示例值：test-skill-id
 func (builder *DeleteAgentSkillReqBuilder) AgentSkillId(agentSkillId string) *DeleteAgentSkillReqBuilder {
 	builder.apiReq.PathParams.Set("agent_skill_id", fmt.Sprint(agentSkillId))
 	return builder
@@ -3885,6 +4616,9 @@ func NewGetAgentSkillReqBuilder() *GetAgentSkillReqBuilder {
 	return builder
 }
 
+// agent skill id
+//
+// 示例值：6941215891786825756
 func (builder *GetAgentSkillReqBuilder) AgentSkillId(agentSkillId string) *GetAgentSkillReqBuilder {
 	builder.apiReq.PathParams.Set("agent_skill_id", fmt.Sprint(agentSkillId))
 	return builder
@@ -3902,13 +4636,13 @@ type GetAgentSkillReq struct {
 }
 
 type GetAgentSkillRespData struct {
-	AgentSkill *AgentSkill `json:"agent_skill,omitempty"`
+	AgentSkill *AgentSkill `json:"agent_skill,omitempty"` // 技能
 }
 
 type GetAgentSkillResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAgentSkillRespData `json:"data"`
+	Data *GetAgentSkillRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAgentSkillResp) Success() bool {
@@ -3916,13 +4650,13 @@ func (resp *GetAgentSkillResp) Success() bool {
 }
 
 type ListAgentSkillRespData struct {
-	AgentSkills []*AgentSkill `json:"agent_skills,omitempty"`
+	AgentSkills []*AgentSkill `json:"agent_skills,omitempty"` // 客服技能列表
 }
 
 type ListAgentSkillResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAgentSkillRespData `json:"data"`
+	Data *ListAgentSkillRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAgentSkillResp) Success() bool {
@@ -3930,7 +4664,7 @@ func (resp *ListAgentSkillResp) Success() bool {
 }
 
 type PatchAgentSkillReqBodyBuilder struct {
-	agentSkill     *AgentSkill
+	agentSkill     *AgentSkill // 更新技能
 	agentSkillFlag bool
 }
 
@@ -3939,6 +4673,9 @@ func NewPatchAgentSkillReqBodyBuilder() *PatchAgentSkillReqBodyBuilder {
 	return builder
 }
 
+// 更新技能
+//
+//示例值：
 func (builder *PatchAgentSkillReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillReqBodyBuilder {
 	builder.agentSkill = agentSkill
 	builder.agentSkillFlag = true
@@ -3954,7 +4691,7 @@ func (builder *PatchAgentSkillReqBodyBuilder) Build() *PatchAgentSkillReqBody {
 }
 
 type PatchAgentSkillPathReqBodyBuilder struct {
-	agentSkill     *AgentSkill
+	agentSkill     *AgentSkill // 更新技能
 	agentSkillFlag bool
 }
 
@@ -3962,6 +4699,10 @@ func NewPatchAgentSkillPathReqBodyBuilder() *PatchAgentSkillPathReqBodyBuilder {
 	builder := &PatchAgentSkillPathReqBodyBuilder{}
 	return builder
 }
+
+// 更新技能
+//
+// 示例值：
 func (builder *PatchAgentSkillPathReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillPathReqBodyBuilder {
 	builder.agentSkill = agentSkill
 	builder.agentSkillFlag = true
@@ -3990,10 +4731,15 @@ func NewPatchAgentSkillReqBuilder() *PatchAgentSkillReqBuilder {
 	return builder
 }
 
+// agent skill id
+//
+// 示例值：test-skill-id
 func (builder *PatchAgentSkillReqBuilder) AgentSkillId(agentSkillId string) *PatchAgentSkillReqBuilder {
 	builder.apiReq.PathParams.Set("agent_skill_id", fmt.Sprint(agentSkillId))
 	return builder
 }
+
+// 该接口用于更新客服技能
 func (builder *PatchAgentSkillReqBuilder) Body(body *PatchAgentSkillReqBody) *PatchAgentSkillReqBuilder {
 	builder.body = body
 	return builder
@@ -4008,7 +4754,7 @@ func (builder *PatchAgentSkillReqBuilder) Build() *PatchAgentSkillReq {
 }
 
 type PatchAgentSkillReqBody struct {
-	AgentSkill *AgentSkill `json:"agent_skill,omitempty"`
+	AgentSkill *AgentSkill `json:"agent_skill,omitempty"` // 更新技能
 }
 
 type PatchAgentSkillReq struct {
@@ -4026,13 +4772,13 @@ func (resp *PatchAgentSkillResp) Success() bool {
 }
 
 type ListAgentSkillRuleRespData struct {
-	Rules []*AgentSkillRule `json:"rules,omitempty"`
+	Rules []*AgentSkillRule `json:"rules,omitempty"` // rules列表
 }
 
 type ListAgentSkillRuleResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAgentSkillRuleRespData `json:"data"`
+	Data *ListAgentSkillRuleRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAgentSkillRuleResp) Success() bool {
@@ -4053,10 +4799,15 @@ func NewCreateBotMessageReqBuilder() *CreateBotMessageReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateBotMessageReqBuilder) UserIdType(userIdType string) *CreateBotMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 通过服务台机器人给指定用户的服务台专属群或私聊发送消息，支持文本、富文本、卡片、图片。
 func (builder *CreateBotMessageReqBuilder) BotMessage(botMessage *BotMessage) *CreateBotMessageReqBuilder {
 	builder.botMessage = botMessage
 	return builder
@@ -4076,13 +4827,13 @@ type CreateBotMessageReq struct {
 }
 
 type CreateBotMessageRespData struct {
-	MessageId *string `json:"message_id,omitempty"`
+	MessageId *string `json:"message_id,omitempty"` // chat消息open_id
 }
 
 type CreateBotMessageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateBotMessageRespData `json:"data"`
+	Data *CreateBotMessageRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateBotMessageResp) Success() bool {
@@ -4103,6 +4854,7 @@ func NewCreateCategoryReqBuilder() *CreateCategoryReqBuilder {
 	return builder
 }
 
+// 该接口用于创建知识库分类。
 func (builder *CreateCategoryReqBuilder) Category(category *Category) *CreateCategoryReqBuilder {
 	builder.category = category
 	return builder
@@ -4121,13 +4873,13 @@ type CreateCategoryReq struct {
 }
 
 type CreateCategoryRespData struct {
-	Category *Category `json:"category,omitempty"`
+	Category *Category `json:"category,omitempty"` // 知识库分类
 }
 
 type CreateCategoryResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateCategoryRespData `json:"data"`
+	Data *CreateCategoryRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateCategoryResp) Success() bool {
@@ -4147,6 +4899,9 @@ func NewDeleteCategoryReqBuilder() *DeleteCategoryReqBuilder {
 	return builder
 }
 
+// 知识库分类ID
+//
+// 示例值：6948728206392295444
 func (builder *DeleteCategoryReqBuilder) Id(id string) *DeleteCategoryReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
@@ -4185,6 +4940,9 @@ func NewGetCategoryReqBuilder() *GetCategoryReqBuilder {
 	return builder
 }
 
+// 知识库分类ID
+//
+// 示例值：6948728206392295444
 func (builder *GetCategoryReqBuilder) Id(id string) *GetCategoryReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
@@ -4202,17 +4960,17 @@ type GetCategoryReq struct {
 }
 
 type GetCategoryRespData struct {
-	CategoryId *string `json:"category_id,omitempty"`
-	Id         *string `json:"id,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	HelpdeskId *string `json:"helpdesk_id,omitempty"`
-	Language   *string `json:"language,omitempty"`
+	CategoryId *string `json:"category_id,omitempty"` // category id
+	Id         *string `json:"id,omitempty"`          // category id, for backward compatibility
+	Name       *string `json:"name,omitempty"`        // category name
+	HelpdeskId *string `json:"helpdesk_id,omitempty"` // helpdesk id
+	Language   *string `json:"language,omitempty"`    // category language
 }
 
 type GetCategoryResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetCategoryRespData `json:"data"`
+	Data *GetCategoryRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetCategoryResp) Success() bool {
@@ -4232,14 +4990,25 @@ func NewListCategoryReqBuilder() *ListCategoryReqBuilder {
 	return builder
 }
 
+// 知识库分类语言
+//
+// 示例值：zh_cn
 func (builder *ListCategoryReqBuilder) Lang(lang string) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
+
+// 排序键。1: 根据知识库分类更新时间排序
+//
+// 示例值：1
 func (builder *ListCategoryReqBuilder) OrderBy(orderBy int) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("order_by", fmt.Sprint(orderBy))
 	return builder
 }
+
+// 顺序。true: 正序；false：反序
+//
+// 示例值：true
 func (builder *ListCategoryReqBuilder) Asc(asc bool) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("asc", fmt.Sprint(asc))
 	return builder
@@ -4257,13 +5026,13 @@ type ListCategoryReq struct {
 }
 
 type ListCategoryRespData struct {
-	Categories []*Category `json:"categories,omitempty"`
+	Categories []*Category `json:"categories,omitempty"` // 知识库分类列表
 }
 
 type ListCategoryResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListCategoryRespData `json:"data"`
+	Data *ListCategoryRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListCategoryResp) Success() bool {
@@ -4284,10 +5053,15 @@ func NewPatchCategoryReqBuilder() *PatchCategoryReqBuilder {
 	return builder
 }
 
+// category id
+//
+// 示例值：6948728206392295444
 func (builder *PatchCategoryReqBuilder) Id(id string) *PatchCategoryReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
 }
+
+// 该接口用于更新知识库分类详情。
 func (builder *PatchCategoryReqBuilder) Category(category *Category) *PatchCategoryReqBuilder {
 	builder.category = category
 	return builder
@@ -4316,7 +5090,7 @@ func (resp *PatchCategoryResp) Success() bool {
 }
 
 type SubscribeEventReqBodyBuilder struct {
-	events     []*Event
+	events     []*Event // 可订阅的事件列表
 	eventsFlag bool
 }
 
@@ -4325,6 +5099,9 @@ func NewSubscribeEventReqBodyBuilder() *SubscribeEventReqBodyBuilder {
 	return builder
 }
 
+// 可订阅的事件列表
+//
+//示例值：
 func (builder *SubscribeEventReqBodyBuilder) Events(events []*Event) *SubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -4340,7 +5117,7 @@ func (builder *SubscribeEventReqBodyBuilder) Build() *SubscribeEventReqBody {
 }
 
 type SubscribeEventPathReqBodyBuilder struct {
-	events     []*Event
+	events     []*Event // 可订阅的事件列表
 	eventsFlag bool
 }
 
@@ -4348,6 +5125,10 @@ func NewSubscribeEventPathReqBodyBuilder() *SubscribeEventPathReqBodyBuilder {
 	builder := &SubscribeEventPathReqBodyBuilder{}
 	return builder
 }
+
+// 可订阅的事件列表
+//
+// 示例值：
 func (builder *SubscribeEventPathReqBodyBuilder) Events(events []*Event) *SubscribeEventPathReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -4376,6 +5157,7 @@ func NewSubscribeEventReqBuilder() *SubscribeEventReqBuilder {
 	return builder
 }
 
+// 用于订阅服务台事件
 func (builder *SubscribeEventReqBuilder) Body(body *SubscribeEventReqBody) *SubscribeEventReqBuilder {
 	builder.body = body
 	return builder
@@ -4389,7 +5171,7 @@ func (builder *SubscribeEventReqBuilder) Build() *SubscribeEventReq {
 }
 
 type SubscribeEventReqBody struct {
-	Events []*Event `json:"events,omitempty"`
+	Events []*Event `json:"events,omitempty"` // 可订阅的事件列表
 }
 
 type SubscribeEventReq struct {
@@ -4407,7 +5189,7 @@ func (resp *SubscribeEventResp) Success() bool {
 }
 
 type UnsubscribeEventReqBodyBuilder struct {
-	events     []*Event
+	events     []*Event // event list to unsubscribe
 	eventsFlag bool
 }
 
@@ -4416,6 +5198,9 @@ func NewUnsubscribeEventReqBodyBuilder() *UnsubscribeEventReqBodyBuilder {
 	return builder
 }
 
+// event list to unsubscribe
+//
+//示例值：
 func (builder *UnsubscribeEventReqBodyBuilder) Events(events []*Event) *UnsubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -4431,7 +5216,7 @@ func (builder *UnsubscribeEventReqBodyBuilder) Build() *UnsubscribeEventReqBody 
 }
 
 type UnsubscribeEventPathReqBodyBuilder struct {
-	events     []*Event
+	events     []*Event // event list to unsubscribe
 	eventsFlag bool
 }
 
@@ -4439,6 +5224,10 @@ func NewUnsubscribeEventPathReqBodyBuilder() *UnsubscribeEventPathReqBodyBuilder
 	builder := &UnsubscribeEventPathReqBodyBuilder{}
 	return builder
 }
+
+// event list to unsubscribe
+//
+// 示例值：
 func (builder *UnsubscribeEventPathReqBodyBuilder) Events(events []*Event) *UnsubscribeEventPathReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -4467,6 +5256,7 @@ func NewUnsubscribeEventReqBuilder() *UnsubscribeEventReqBuilder {
 	return builder
 }
 
+// 用于取消订阅服务台事件
 func (builder *UnsubscribeEventReqBuilder) Body(body *UnsubscribeEventReqBody) *UnsubscribeEventReqBuilder {
 	builder.body = body
 	return builder
@@ -4480,7 +5270,7 @@ func (builder *UnsubscribeEventReqBuilder) Build() *UnsubscribeEventReq {
 }
 
 type UnsubscribeEventReqBody struct {
-	Events []*Event `json:"events,omitempty"`
+	Events []*Event `json:"events,omitempty"` // event list to unsubscribe
 }
 
 type UnsubscribeEventReq struct {
@@ -4498,7 +5288,7 @@ func (resp *UnsubscribeEventResp) Success() bool {
 }
 
 type CreateFaqReqBodyBuilder struct {
-	faq     *FaqUpdateInfo
+	faq     *FaqUpdateInfo // 知识库详情
 	faqFlag bool
 }
 
@@ -4507,6 +5297,9 @@ func NewCreateFaqReqBodyBuilder() *CreateFaqReqBodyBuilder {
 	return builder
 }
 
+// 知识库详情
+//
+//示例值：
 func (builder *CreateFaqReqBodyBuilder) Faq(faq *FaqUpdateInfo) *CreateFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -4522,7 +5315,7 @@ func (builder *CreateFaqReqBodyBuilder) Build() *CreateFaqReqBody {
 }
 
 type CreateFaqPathReqBodyBuilder struct {
-	faq     *FaqUpdateInfo
+	faq     *FaqUpdateInfo // 知识库详情
 	faqFlag bool
 }
 
@@ -4530,6 +5323,10 @@ func NewCreateFaqPathReqBodyBuilder() *CreateFaqPathReqBodyBuilder {
 	builder := &CreateFaqPathReqBodyBuilder{}
 	return builder
 }
+
+// 知识库详情
+//
+// 示例值：
 func (builder *CreateFaqPathReqBodyBuilder) Faq(faq *FaqUpdateInfo) *CreateFaqPathReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -4558,6 +5355,7 @@ func NewCreateFaqReqBuilder() *CreateFaqReqBuilder {
 	return builder
 }
 
+// 该接口用于创建知识库。
 func (builder *CreateFaqReqBuilder) Body(body *CreateFaqReqBody) *CreateFaqReqBuilder {
 	builder.body = body
 	return builder
@@ -4571,7 +5369,7 @@ func (builder *CreateFaqReqBuilder) Build() *CreateFaqReq {
 }
 
 type CreateFaqReqBody struct {
-	Faq *FaqUpdateInfo `json:"faq,omitempty"`
+	Faq *FaqUpdateInfo `json:"faq,omitempty"` // 知识库详情
 }
 
 type CreateFaqReq struct {
@@ -4580,13 +5378,13 @@ type CreateFaqReq struct {
 }
 
 type CreateFaqRespData struct {
-	Faq *Faq `json:"faq,omitempty"`
+	Faq *Faq `json:"faq,omitempty"` // 知识库详情
 }
 
 type CreateFaqResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateFaqRespData `json:"data"`
+	Data *CreateFaqRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateFaqResp) Success() bool {
@@ -4606,6 +5404,9 @@ func NewDeleteFaqReqBuilder() *DeleteFaqReqBuilder {
 	return builder
 }
 
+// id
+//
+// 示例值：12345
 func (builder *DeleteFaqReqBuilder) Id(id string) *DeleteFaqReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
@@ -4644,10 +5445,17 @@ func NewFaqImageFaqReqBuilder() *FaqImageFaqReqBuilder {
 	return builder
 }
 
+// 知识库ID
+//
+// 示例值：12345
 func (builder *FaqImageFaqReqBuilder) Id(id string) *FaqImageFaqReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
 }
+
+// 图像key
+//
+// 示例值：img_b07ffac0-19c1-48a3-afca-599f8ea825fj
 func (builder *FaqImageFaqReqBuilder) ImageKey(imageKey string) *FaqImageFaqReqBuilder {
 	builder.apiReq.PathParams.Set("image_key", fmt.Sprint(imageKey))
 	return builder
@@ -4701,6 +5509,9 @@ func NewGetFaqReqBuilder() *GetFaqReqBuilder {
 	return builder
 }
 
+// 知识库ID
+//
+// 示例值：6856395634652479491
 func (builder *GetFaqReqBuilder) Id(id string) *GetFaqReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
@@ -4718,13 +5529,13 @@ type GetFaqReq struct {
 }
 
 type GetFaqRespData struct {
-	Faq *Faq `json:"faq,omitempty"`
+	Faq *Faq `json:"faq,omitempty"` // 知识库详情
 }
 
 type GetFaqResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetFaqRespData `json:"data"`
+	Data *GetFaqRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetFaqResp) Success() bool {
@@ -4733,7 +5544,7 @@ func (resp *GetFaqResp) Success() bool {
 
 type ListFaqReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListFaqReqBuilder() *ListFaqReqBuilder {
@@ -4745,26 +5556,47 @@ func NewListFaqReqBuilder() *ListFaqReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListFaqReqBuilder) Limit(limit int) *ListFaqReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+//  知识库分类ID
+//
+// 示例值：6856395522433908739
 func (builder *ListFaqReqBuilder) CategoryId(categoryId string) *ListFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("category_id", fmt.Sprint(categoryId))
 	return builder
 }
+
+// 搜索条件: 知识库状态 1:在线 0:删除，可恢复 2：删除，不可恢复
+//
+// 示例值：1
 func (builder *ListFaqReqBuilder) Status(status string) *ListFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
+
+// 搜索条件: 关键词，匹配问题标题，问题关键字，用户姓名
+//
+// 示例值：点餐
 func (builder *ListFaqReqBuilder) Search(search string) *ListFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("search", fmt.Sprint(search))
 	return builder
 }
+
+//
+//
+// 示例值：6856395634652479491
 func (builder *ListFaqReqBuilder) PageToken(pageToken string) *ListFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListFaqReqBuilder) PageSize(pageSize int) *ListFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -4780,21 +5612,22 @@ func (builder *ListFaqReqBuilder) Build() *ListFaqReq {
 
 type ListFaqReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListFaqRespData struct {
-	HasMore   *bool   `json:"has_more,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	PageSize  *int    `json:"page_size,omitempty"`
-	Total     *int    `json:"total,omitempty"`
-	Items     []*Faq  `json:"items,omitempty"`
+	HasMore   *bool   `json:"has_more,omitempty"`   // if there's next page
+	PageToken *string `json:"page_token,omitempty"` // the next page token
+	PageSize  *int    `json:"page_size,omitempty"`  // 实际返回的FAQ数量
+	Total     *int    `json:"total,omitempty"`      // 总数
+	Items     []*Faq  `json:"items,omitempty"`      // 知识库列表
 }
 
 type ListFaqResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListFaqRespData `json:"data"`
+	Data *ListFaqRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListFaqResp) Success() bool {
@@ -4802,7 +5635,7 @@ func (resp *ListFaqResp) Success() bool {
 }
 
 type PatchFaqReqBodyBuilder struct {
-	faq     *FaqUpdateInfo
+	faq     *FaqUpdateInfo // 修改的知识库内容
 	faqFlag bool
 }
 
@@ -4811,6 +5644,9 @@ func NewPatchFaqReqBodyBuilder() *PatchFaqReqBodyBuilder {
 	return builder
 }
 
+// 修改的知识库内容
+//
+//示例值：
 func (builder *PatchFaqReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -4826,7 +5662,7 @@ func (builder *PatchFaqReqBodyBuilder) Build() *PatchFaqReqBody {
 }
 
 type PatchFaqPathReqBodyBuilder struct {
-	faq     *FaqUpdateInfo
+	faq     *FaqUpdateInfo // 修改的知识库内容
 	faqFlag bool
 }
 
@@ -4834,6 +5670,10 @@ func NewPatchFaqPathReqBodyBuilder() *PatchFaqPathReqBodyBuilder {
 	builder := &PatchFaqPathReqBodyBuilder{}
 	return builder
 }
+
+// 修改的知识库内容
+//
+// 示例值：
 func (builder *PatchFaqPathReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqPathReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -4862,10 +5702,15 @@ func NewPatchFaqReqBuilder() *PatchFaqReqBuilder {
 	return builder
 }
 
+// 知识库ID
+//
+// 示例值：6856395634652479491
 func (builder *PatchFaqReqBuilder) Id(id string) *PatchFaqReqBuilder {
 	builder.apiReq.PathParams.Set("id", fmt.Sprint(id))
 	return builder
 }
+
+// 该接口用于修改知识库。
 func (builder *PatchFaqReqBuilder) Body(body *PatchFaqReqBody) *PatchFaqReqBuilder {
 	builder.body = body
 	return builder
@@ -4880,7 +5725,7 @@ func (builder *PatchFaqReqBuilder) Build() *PatchFaqReq {
 }
 
 type PatchFaqReqBody struct {
-	Faq *FaqUpdateInfo `json:"faq,omitempty"`
+	Faq *FaqUpdateInfo `json:"faq,omitempty"` // 修改的知识库内容
 }
 
 type PatchFaqReq struct {
@@ -4899,7 +5744,7 @@ func (resp *PatchFaqResp) Success() bool {
 
 type SearchFaqReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewSearchFaqReqBuilder() *SearchFaqReqBuilder {
@@ -4911,22 +5756,39 @@ func NewSearchFaqReqBuilder() *SearchFaqReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *SearchFaqReqBuilder) Limit(limit int) *SearchFaqReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 搜索query;，query内容如果不是英文，包含中文空格等有两种编码策略：1. url编码 2. base64编码，同时加上base64=true参数
+//
+// 示例值：wifi
 func (builder *SearchFaqReqBuilder) Query(query string) *SearchFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("query", fmt.Sprint(query))
 	return builder
 }
+
+// 是否转换为base64,输入true表示是，不填写表示否，中文需要转换为base64
+//
+// 示例值：5bel5Y2V
 func (builder *SearchFaqReqBuilder) Base64(base64 string) *SearchFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("base64", fmt.Sprint(base64))
 	return builder
 }
+
+//
+//
+// 示例值：6936004780707807251
 func (builder *SearchFaqReqBuilder) PageToken(pageToken string) *SearchFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *SearchFaqReqBuilder) PageSize(pageSize int) *SearchFaqReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -4942,19 +5804,20 @@ func (builder *SearchFaqReqBuilder) Build() *SearchFaqReq {
 
 type SearchFaqReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type SearchFaqRespData struct {
-	HasMore   *bool   `json:"has_more,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	Items     []*Faq  `json:"items,omitempty"`
+	HasMore   *bool   `json:"has_more,omitempty"`   // if there's next page
+	PageToken *string `json:"page_token,omitempty"` // the next page token
+	Items     []*Faq  `json:"items,omitempty"`      // 知识库列表
 }
 
 type SearchFaqResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *SearchFaqRespData `json:"data"`
+	Data *SearchFaqRespData `json:"data"` // 业务数据
 }
 
 func (resp *SearchFaqResp) Success() bool {
@@ -4974,6 +5837,9 @@ func NewCancelApproveNotificationReqBuilder() *CancelApproveNotificationReqBuild
 	return builder
 }
 
+// 唯一ID
+//
+// 示例值：6981801914270744596
 func (builder *CancelApproveNotificationReqBuilder) NotificationId(notificationId string) *CancelApproveNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
@@ -5000,7 +5866,7 @@ func (resp *CancelApproveNotificationResp) Success() bool {
 }
 
 type CancelSendNotificationReqBodyBuilder struct {
-	isRecall     bool
+	isRecall     bool // 是否召回已发送的消息,新人入职消息同样适用
 	isRecallFlag bool
 }
 
@@ -5009,6 +5875,9 @@ func NewCancelSendNotificationReqBodyBuilder() *CancelSendNotificationReqBodyBui
 	return builder
 }
 
+// 是否召回已发送的消息,新人入职消息同样适用
+//
+//示例值：true
 func (builder *CancelSendNotificationReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationReqBodyBuilder {
 	builder.isRecall = isRecall
 	builder.isRecallFlag = true
@@ -5024,7 +5893,7 @@ func (builder *CancelSendNotificationReqBodyBuilder) Build() *CancelSendNotifica
 }
 
 type CancelSendNotificationPathReqBodyBuilder struct {
-	isRecall     bool
+	isRecall     bool // 是否召回已发送的消息,新人入职消息同样适用
 	isRecallFlag bool
 }
 
@@ -5032,6 +5901,10 @@ func NewCancelSendNotificationPathReqBodyBuilder() *CancelSendNotificationPathRe
 	builder := &CancelSendNotificationPathReqBodyBuilder{}
 	return builder
 }
+
+// 是否召回已发送的消息,新人入职消息同样适用
+//
+// 示例值：true
 func (builder *CancelSendNotificationPathReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationPathReqBodyBuilder {
 	builder.isRecall = isRecall
 	builder.isRecallFlag = true
@@ -5060,10 +5933,15 @@ func NewCancelSendNotificationReqBuilder() *CancelSendNotificationReqBuilder {
 	return builder
 }
 
+// 唯一ID
+//
+// 示例值：6981801914270744596
 func (builder *CancelSendNotificationReqBuilder) NotificationId(notificationId string) *CancelSendNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
 }
+
+// 取消推送接口，审核通过后待调度可以调用，发送过程中可以调用（会撤回已发送的消息），发送完成后可以需要推送（会撤回所有已发送的消息）
 func (builder *CancelSendNotificationReqBuilder) Body(body *CancelSendNotificationReqBody) *CancelSendNotificationReqBuilder {
 	builder.body = body
 	return builder
@@ -5078,7 +5956,7 @@ func (builder *CancelSendNotificationReqBuilder) Build() *CancelSendNotification
 }
 
 type CancelSendNotificationReqBody struct {
-	IsRecall *bool `json:"is_recall,omitempty"`
+	IsRecall *bool `json:"is_recall,omitempty"` // 是否召回已发送的消息,新人入职消息同样适用
 }
 
 type CancelSendNotificationReq struct {
@@ -5109,10 +5987,15 @@ func NewCreateNotificationReqBuilder() *CreateNotificationReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateNotificationReqBuilder) UserIdType(userIdType string) *CreateNotificationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 调用接口创建推送，创建成功后为草稿状态
 func (builder *CreateNotificationReqBuilder) Notification(notification *Notification) *CreateNotificationReqBuilder {
 	builder.notification = notification
 	return builder
@@ -5132,14 +6015,14 @@ type CreateNotificationReq struct {
 }
 
 type CreateNotificationRespData struct {
-	NotificationId *string `json:"notification_id,omitempty"`
-	Status         *int    `json:"status,omitempty"`
+	NotificationId *string `json:"notification_id,omitempty"` // 创建成功后的唯一id
+	Status         *int    `json:"status,omitempty"`          // 当前状态
 }
 
 type CreateNotificationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateNotificationRespData `json:"data"`
+	Data *CreateNotificationRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateNotificationResp) Success() bool {
@@ -5147,7 +6030,7 @@ func (resp *CreateNotificationResp) Success() bool {
 }
 
 type ExecuteSendNotificationReqBodyBuilder struct {
-	sendAt     string
+	sendAt     string // 发送时间戳(毫秒)
 	sendAtFlag bool
 }
 
@@ -5156,6 +6039,9 @@ func NewExecuteSendNotificationReqBodyBuilder() *ExecuteSendNotificationReqBodyB
 	return builder
 }
 
+// 发送时间戳(毫秒)
+//
+//示例值：1624326025000
 func (builder *ExecuteSendNotificationReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationReqBodyBuilder {
 	builder.sendAt = sendAt
 	builder.sendAtFlag = true
@@ -5171,7 +6057,7 @@ func (builder *ExecuteSendNotificationReqBodyBuilder) Build() *ExecuteSendNotifi
 }
 
 type ExecuteSendNotificationPathReqBodyBuilder struct {
-	sendAt     string
+	sendAt     string // 发送时间戳(毫秒)
 	sendAtFlag bool
 }
 
@@ -5179,6 +6065,10 @@ func NewExecuteSendNotificationPathReqBodyBuilder() *ExecuteSendNotificationPath
 	builder := &ExecuteSendNotificationPathReqBodyBuilder{}
 	return builder
 }
+
+// 发送时间戳(毫秒)
+//
+// 示例值：1624326025000
 func (builder *ExecuteSendNotificationPathReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationPathReqBodyBuilder {
 	builder.sendAt = sendAt
 	builder.sendAtFlag = true
@@ -5207,10 +6097,15 @@ func NewExecuteSendNotificationReqBuilder() *ExecuteSendNotificationReqBuilder {
 	return builder
 }
 
+// 创建接口返回的唯一id
+//
+// 示例值：6985032626234982420
 func (builder *ExecuteSendNotificationReqBuilder) NotificationId(notificationId string) *ExecuteSendNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
 }
+
+// 审核通过后调用此接口设置推送时间，等待调度系统调度，发送消息
 func (builder *ExecuteSendNotificationReqBuilder) Body(body *ExecuteSendNotificationReqBody) *ExecuteSendNotificationReqBuilder {
 	builder.body = body
 	return builder
@@ -5225,7 +6120,7 @@ func (builder *ExecuteSendNotificationReqBuilder) Build() *ExecuteSendNotificati
 }
 
 type ExecuteSendNotificationReqBody struct {
-	SendAt *string `json:"send_at,omitempty"`
+	SendAt *string `json:"send_at,omitempty"` // 发送时间戳(毫秒)
 }
 
 type ExecuteSendNotificationReq struct {
@@ -5255,10 +6150,17 @@ func NewGetNotificationReqBuilder() *GetNotificationReqBuilder {
 	return builder
 }
 
+// 唯一ID
+//
+// 示例值：1624326025000
 func (builder *GetNotificationReqBuilder) NotificationId(notificationId string) *GetNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetNotificationReqBuilder) UserIdType(userIdType string) *GetNotificationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5277,14 +6179,14 @@ type GetNotificationReq struct {
 }
 
 type GetNotificationRespData struct {
-	Notification    *Notification `json:"notification,omitempty"`
-	ApprovalAppLink *string       `json:"approval_app_link,omitempty"`
+	Notification    *Notification `json:"notification,omitempty"`      // push任务详情
+	ApprovalAppLink *string       `json:"approval_app_link,omitempty"` // 审批链接
 }
 
 type GetNotificationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetNotificationRespData `json:"data"`
+	Data *GetNotificationRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetNotificationResp) Success() bool {
@@ -5305,14 +6207,23 @@ func NewPatchNotificationReqBuilder() *PatchNotificationReqBuilder {
 	return builder
 }
 
+// push任务唯一id
+//
+// 示例值：6985032626234982420
 func (builder *PatchNotificationReqBuilder) NotificationId(notificationId string) *PatchNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *PatchNotificationReqBuilder) UserIdType(userIdType string) *PatchNotificationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 更新推送信息，只有在草稿状态下才可以调用此接口进行更新
 func (builder *PatchNotificationReqBuilder) Notification(notification *Notification) *PatchNotificationReqBuilder {
 	builder.notification = notification
 	return builder
@@ -5354,6 +6265,9 @@ func NewPreviewNotificationReqBuilder() *PreviewNotificationReqBuilder {
 	return builder
 }
 
+// 创建推送接口成功后返回的唯一id
+//
+// 示例值：6985032626234982420
 func (builder *PreviewNotificationReqBuilder) NotificationId(notificationId string) *PreviewNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
@@ -5380,7 +6294,7 @@ func (resp *PreviewNotificationResp) Success() bool {
 }
 
 type SubmitApproveNotificationReqBodyBuilder struct {
-	reason     string
+	reason     string // 提交审批理由
 	reasonFlag bool
 }
 
@@ -5389,6 +6303,9 @@ func NewSubmitApproveNotificationReqBodyBuilder() *SubmitApproveNotificationReqB
 	return builder
 }
 
+// 提交审批理由
+//
+//示例值：测试发送消息
 func (builder *SubmitApproveNotificationReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -5404,7 +6321,7 @@ func (builder *SubmitApproveNotificationReqBodyBuilder) Build() *SubmitApproveNo
 }
 
 type SubmitApproveNotificationPathReqBodyBuilder struct {
-	reason     string
+	reason     string // 提交审批理由
 	reasonFlag bool
 }
 
@@ -5412,6 +6329,10 @@ func NewSubmitApproveNotificationPathReqBodyBuilder() *SubmitApproveNotification
 	builder := &SubmitApproveNotificationPathReqBodyBuilder{}
 	return builder
 }
+
+// 提交审批理由
+//
+// 示例值：测试发送消息
 func (builder *SubmitApproveNotificationPathReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationPathReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -5440,10 +6361,15 @@ func NewSubmitApproveNotificationReqBuilder() *SubmitApproveNotificationReqBuild
 	return builder
 }
 
+// 创建接口返回的唯一id
+//
+// 示例值：6985032626234982420
 func (builder *SubmitApproveNotificationReqBuilder) NotificationId(notificationId string) *SubmitApproveNotificationReqBuilder {
 	builder.apiReq.PathParams.Set("notification_id", fmt.Sprint(notificationId))
 	return builder
 }
+
+// 正常情况下调用创建推送接口后，就可以调用提交审核接口，如果创建人是服务台owner则会自动审核通过，否则会通知服务台owner审核此推送信息
 func (builder *SubmitApproveNotificationReqBuilder) Body(body *SubmitApproveNotificationReqBody) *SubmitApproveNotificationReqBuilder {
 	builder.body = body
 	return builder
@@ -5458,7 +6384,7 @@ func (builder *SubmitApproveNotificationReqBuilder) Build() *SubmitApproveNotifi
 }
 
 type SubmitApproveNotificationReqBody struct {
-	Reason *string `json:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty"` // 提交审批理由
 }
 
 type SubmitApproveNotificationReq struct {
@@ -5467,13 +6393,13 @@ type SubmitApproveNotificationReq struct {
 }
 
 type SubmitApproveNotificationRespData struct {
-	HasAccess *bool `json:"has_access,omitempty"`
+	HasAccess *bool `json:"has_access,omitempty"` // 是否有权限创建或者管理审批流程 （有两种情况会导致没有权限： 1：用户没有安装服务台小程序，需要在https://app.feishu.cn/app/cli_9f9f8825d53b900d 安装小程序 2：用户安装的服务台小程序版本过低）
 }
 
 type SubmitApproveNotificationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *SubmitApproveNotificationRespData `json:"data"`
+	Data *SubmitApproveNotificationRespData `json:"data"` // 业务数据
 }
 
 func (resp *SubmitApproveNotificationResp) Success() bool {
@@ -5481,9 +6407,9 @@ func (resp *SubmitApproveNotificationResp) Success() bool {
 }
 
 type AnswerUserQueryTicketReqBodyBuilder struct {
-	eventId     string
+	eventId     string // 事件ID,可从订阅事件中提取
 	eventIdFlag bool
-	faqs        []*UserQueryFaqInfo
+	faqs        []*UserQueryFaqInfo // faq结果列表
 	faqsFlag    bool
 }
 
@@ -5492,11 +6418,18 @@ func NewAnswerUserQueryTicketReqBodyBuilder() *AnswerUserQueryTicketReqBodyBuild
 	return builder
 }
 
+// 事件ID,可从订阅事件中提取
+//
+//示例值：abcd
 func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
 	return builder
 }
+
+// faq结果列表
+//
+//示例值：
 func (builder *AnswerUserQueryTicketReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.faqs = faqs
 	builder.faqsFlag = true
@@ -5515,9 +6448,9 @@ func (builder *AnswerUserQueryTicketReqBodyBuilder) Build() *AnswerUserQueryTick
 }
 
 type AnswerUserQueryTicketPathReqBodyBuilder struct {
-	eventId     string
+	eventId     string // 事件ID,可从订阅事件中提取
 	eventIdFlag bool
-	faqs        []*UserQueryFaqInfo
+	faqs        []*UserQueryFaqInfo // faq结果列表
 	faqsFlag    bool
 }
 
@@ -5525,11 +6458,19 @@ func NewAnswerUserQueryTicketPathReqBodyBuilder() *AnswerUserQueryTicketPathReqB
 	builder := &AnswerUserQueryTicketPathReqBodyBuilder{}
 	return builder
 }
+
+// 事件ID,可从订阅事件中提取
+//
+// 示例值：abcd
 func (builder *AnswerUserQueryTicketPathReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketPathReqBodyBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
 	return builder
 }
+
+// faq结果列表
+//
+// 示例值：
 func (builder *AnswerUserQueryTicketPathReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketPathReqBodyBuilder {
 	builder.faqs = faqs
 	builder.faqsFlag = true
@@ -5561,10 +6502,15 @@ func NewAnswerUserQueryTicketReqBuilder() *AnswerUserQueryTicketReqBuilder {
 	return builder
 }
 
+// 工单ID
+//
+// 示例值：6945345902185807891
 func (builder *AnswerUserQueryTicketReqBuilder) TicketId(ticketId string) *AnswerUserQueryTicketReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 该接口用于回复用户提问结果至工单，需要工单仍处于进行中且未接入人工状态。仅支持自建应用。
 func (builder *AnswerUserQueryTicketReqBuilder) Body(body *AnswerUserQueryTicketReqBody) *AnswerUserQueryTicketReqBuilder {
 	builder.body = body
 	return builder
@@ -5579,8 +6525,8 @@ func (builder *AnswerUserQueryTicketReqBuilder) Build() *AnswerUserQueryTicketRe
 }
 
 type AnswerUserQueryTicketReqBody struct {
-	EventId *string             `json:"event_id,omitempty"`
-	Faqs    []*UserQueryFaqInfo `json:"faqs,omitempty"`
+	EventId *string             `json:"event_id,omitempty"` // 事件ID,可从订阅事件中提取
+	Faqs    []*UserQueryFaqInfo `json:"faqs,omitempty"`     // faq结果列表
 }
 
 type AnswerUserQueryTicketReq struct {
@@ -5610,6 +6556,9 @@ func NewCustomizedFieldsTicketReqBuilder() *CustomizedFieldsTicketReqBuilder {
 	return builder
 }
 
+// visible only
+//
+// 示例值：true
 func (builder *CustomizedFieldsTicketReqBuilder) VisibleOnly(visibleOnly bool) *CustomizedFieldsTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("visible_only", fmt.Sprint(visibleOnly))
 	return builder
@@ -5627,14 +6576,14 @@ type CustomizedFieldsTicketReq struct {
 }
 
 type CustomizedFieldsTicketRespData struct {
-	UserCustomizedFields   []*UserCustomizedField   `json:"user_customized_fields,omitempty"`
-	TicketCustomizedFields []*TicketCustomizedField `json:"ticket_customized_fields,omitempty"`
+	UserCustomizedFields   []*UserCustomizedField   `json:"user_customized_fields,omitempty"`   // 用户自定义字段
+	TicketCustomizedFields []*TicketCustomizedField `json:"ticket_customized_fields,omitempty"` // 自定义工单字段
 }
 
 type CustomizedFieldsTicketResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CustomizedFieldsTicketRespData `json:"data"`
+	Data *CustomizedFieldsTicketRespData `json:"data"` // 业务数据
 }
 
 func (resp *CustomizedFieldsTicketResp) Success() bool {
@@ -5654,6 +6603,9 @@ func NewGetTicketReqBuilder() *GetTicketReqBuilder {
 	return builder
 }
 
+// ticket id
+//
+// 示例值：123456
 func (builder *GetTicketReqBuilder) TicketId(ticketId string) *GetTicketReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
@@ -5671,13 +6623,13 @@ type GetTicketReq struct {
 }
 
 type GetTicketRespData struct {
-	Ticket *Ticket `json:"ticket,omitempty"`
+	Ticket *Ticket `json:"ticket,omitempty"` // 工单详情
 }
 
 type GetTicketResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTicketRespData `json:"data"`
+	Data *GetTicketRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTicketResp) Success() bool {
@@ -5697,70 +6649,137 @@ func NewListTicketReqBuilder() *ListTicketReqBuilder {
 	return builder
 }
 
+// 搜索条件：工单ID
+//
+// 示例值：123456
 func (builder *ListTicketReqBuilder) TicketId(ticketId string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 搜索条件: 客服id
+//
+// 示例值：ou_b5de90429xxx
 func (builder *ListTicketReqBuilder) AgentId(agentId string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("agent_id", fmt.Sprint(agentId))
 	return builder
 }
+
+// 搜索条件: 关单客服id
+//
+// 示例值：ou_b5de90429xxx
 func (builder *ListTicketReqBuilder) ClosedById(closedById string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("closed_by_id", fmt.Sprint(closedById))
 	return builder
 }
+
+// 搜索条件: 工单类型 1:bot 2:人工
+//
+// 示例值：1
 func (builder *ListTicketReqBuilder) Type(type_ int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
+
+// 搜索条件: 工单渠道
+//
+// 示例值：0
 func (builder *ListTicketReqBuilder) Channel(channel int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("channel", fmt.Sprint(channel))
 	return builder
 }
+
+// 搜索条件: 工单是否解决 1:没解决 2:已解决
+//
+// 示例值：1
 func (builder *ListTicketReqBuilder) Solved(solved int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("solved", fmt.Sprint(solved))
 	return builder
 }
+
+// 搜索条件: 工单评分
+//
+// 示例值：1
 func (builder *ListTicketReqBuilder) Score(score int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("score", fmt.Sprint(score))
 	return builder
 }
+
+// 搜索条件: 工单状态列表
+//
+// 示例值：1
 func (builder *ListTicketReqBuilder) StatusList(statusList []int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("status_list", fmt.Sprint(statusList))
 	return builder
 }
+
+// 搜索条件: 用户名称
+//
+// 示例值：abc
 func (builder *ListTicketReqBuilder) GuestName(guestName string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("guest_name", fmt.Sprint(guestName))
 	return builder
 }
+
+// 搜索条件: 用户id
+//
+// 示例值：ou_b5de90429xxx
 func (builder *ListTicketReqBuilder) GuestId(guestId string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("guest_id", fmt.Sprint(guestId))
 	return builder
 }
+
+// 搜索条件: 用户标签列表
+//
+// 示例值：备注
 func (builder *ListTicketReqBuilder) Tags(tags []string) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("tags", fmt.Sprint(tags))
 	return builder
 }
+
+// 页数, 从1开始, 默认为1
+//
+// 示例值：1
 func (builder *ListTicketReqBuilder) Page(page int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("page", fmt.Sprint(page))
 	return builder
 }
+
+// 当前页大小，最大为200， 默认为20。分页查询最多累计返回一万条数据，超过一万条请更改查询条件，推荐通过时间查询。
+//
+// 示例值：20
 func (builder *ListTicketReqBuilder) PageSize(pageSize int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end)，相当于>=create_time_start
+//
+// 示例值：1616920429000
 func (builder *ListTicketReqBuilder) CreateTimeStart(createTimeStart int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("create_time_start", fmt.Sprint(createTimeStart))
 	return builder
 }
+
+// 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start)，相当于<=create_time_end
+//
+// 示例值：1616920429000
 func (builder *ListTicketReqBuilder) CreateTimeEnd(createTimeEnd int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("create_time_end", fmt.Sprint(createTimeEnd))
 	return builder
 }
+
+// 搜索条件: 工单修改起始时间 ms (也需要填上update_time_end)
+//
+// 示例值：1616920429000
 func (builder *ListTicketReqBuilder) UpdateTimeStart(updateTimeStart int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("update_time_start", fmt.Sprint(updateTimeStart))
 	return builder
 }
+
+// 搜索条件: 工单修改结束时间 ms(也需要填上update_time_start)
+//
+// 示例值：1616920429000
 func (builder *ListTicketReqBuilder) UpdateTimeEnd(updateTimeEnd int) *ListTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("update_time_end", fmt.Sprint(updateTimeEnd))
 	return builder
@@ -5778,14 +6797,14 @@ type ListTicketReq struct {
 }
 
 type ListTicketRespData struct {
-	Total   *int      `json:"total,omitempty"`
-	Tickets []*Ticket `json:"tickets,omitempty"`
+	Total   *int      `json:"total,omitempty"`   // 工单总数 (单次请求最大为10000条)
+	Tickets []*Ticket `json:"tickets,omitempty"` // 工单
 }
 
 type ListTicketResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTicketRespData `json:"data"`
+	Data *ListTicketRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTicketResp) Success() bool {
@@ -5793,13 +6812,13 @@ func (resp *ListTicketResp) Success() bool {
 }
 
 type StartServiceTicketReqBodyBuilder struct {
-	humanService        bool
+	humanService        bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 	humanServiceFlag    bool
-	appointedAgents     []string
+	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 	appointedAgentsFlag bool
-	openId              string
+	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 	openIdFlag          bool
-	customizedInfo      string
+	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 	customizedInfoFlag  bool
 }
 
@@ -5808,21 +6827,36 @@ func NewStartServiceTicketReqBodyBuilder() *StartServiceTicketReqBodyBuilder {
 	return builder
 }
 
+// 是否直接进入人工(若appointed_agents填写了，该值为必填)
+//
+//示例值：false
 func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketReqBodyBuilder {
 	builder.humanService = humanService
 	builder.humanServiceFlag = true
 	return builder
 }
+
+// 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+//
+//示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
 	builder.appointedAgentsFlag = true
 	return builder
 }
+
+// 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+//
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartServiceTicketReqBodyBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+//
+//示例值：测试自定义字段信息
 func (builder *StartServiceTicketReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
 	builder.customizedInfoFlag = true
@@ -5847,13 +6881,13 @@ func (builder *StartServiceTicketReqBodyBuilder) Build() *StartServiceTicketReqB
 }
 
 type StartServiceTicketPathReqBodyBuilder struct {
-	humanService        bool
+	humanService        bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 	humanServiceFlag    bool
-	appointedAgents     []string
+	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 	appointedAgentsFlag bool
-	openId              string
+	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 	openIdFlag          bool
-	customizedInfo      string
+	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 	customizedInfoFlag  bool
 }
 
@@ -5861,21 +6895,37 @@ func NewStartServiceTicketPathReqBodyBuilder() *StartServiceTicketPathReqBodyBui
 	builder := &StartServiceTicketPathReqBodyBuilder{}
 	return builder
 }
+
+// 是否直接进入人工(若appointed_agents填写了，该值为必填)
+//
+// 示例值：false
 func (builder *StartServiceTicketPathReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketPathReqBodyBuilder {
 	builder.humanService = humanService
 	builder.humanServiceFlag = true
 	return builder
 }
+
+// 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+//
+// 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketPathReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketPathReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
 	builder.appointedAgentsFlag = true
 	return builder
 }
+
+// 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketPathReqBodyBuilder) OpenId(openId string) *StartServiceTicketPathReqBodyBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+//
+// 示例值：测试自定义字段信息
 func (builder *StartServiceTicketPathReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketPathReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
 	builder.customizedInfoFlag = true
@@ -5913,6 +6963,7 @@ func NewStartServiceTicketReqBuilder() *StartServiceTicketReqBuilder {
 	return builder
 }
 
+// 该接口用于创建服务台对话。
 func (builder *StartServiceTicketReqBuilder) Body(body *StartServiceTicketReqBody) *StartServiceTicketReqBuilder {
 	builder.body = body
 	return builder
@@ -5926,10 +6977,10 @@ func (builder *StartServiceTicketReqBuilder) Build() *StartServiceTicketReq {
 }
 
 type StartServiceTicketReqBody struct {
-	HumanService    *bool    `json:"human_service,omitempty"`
-	AppointedAgents []string `json:"appointed_agents,omitempty"`
-	OpenId          *string  `json:"open_id,omitempty"`
-	CustomizedInfo  *string  `json:"customized_info,omitempty"`
+	HumanService    *bool    `json:"human_service,omitempty"`    // 是否直接进入人工(若appointed_agents填写了，该值为必填)
+	AppointedAgents []string `json:"appointed_agents,omitempty"` // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	OpenId          *string  `json:"open_id,omitempty"`          // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	CustomizedInfo  *string  `json:"customized_info,omitempty"`  // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 }
 
 type StartServiceTicketReq struct {
@@ -5938,13 +6989,13 @@ type StartServiceTicketReq struct {
 }
 
 type StartServiceTicketRespData struct {
-	ChatId *string `json:"chat_id,omitempty"`
+	ChatId *string `json:"chat_id,omitempty"` // 客服群open ID
 }
 
 type StartServiceTicketResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *StartServiceTicketRespData `json:"data"`
+	Data *StartServiceTicketRespData `json:"data"` // 业务数据
 }
 
 func (resp *StartServiceTicketResp) Success() bool {
@@ -5964,14 +7015,25 @@ func NewTicketImageTicketReqBuilder() *TicketImageTicketReqBuilder {
 	return builder
 }
 
+// 工单ID
+//
+// 示例值：12345
 func (builder *TicketImageTicketReqBuilder) TicketId(ticketId string) *TicketImageTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 消息ID;;[查询消息ID](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list)
+//
+// 示例值：12345
 func (builder *TicketImageTicketReqBuilder) MsgId(msgId string) *TicketImageTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("msg_id", fmt.Sprint(msgId))
 	return builder
 }
+
+// index，当消息类型为post时，需指定图片index，index从0开始。当消息类型为img时，无需index
+//
+// 示例值：0
 func (builder *TicketImageTicketReqBuilder) Index(index int) *TicketImageTicketReqBuilder {
 	builder.apiReq.QueryParams.Set("index", fmt.Sprint(index))
 	return builder
@@ -6013,19 +7075,19 @@ func (resp *TicketImageTicketResp) WriteFile(fileName string) error {
 }
 
 type UpdateTicketReqBodyBuilder struct {
-	status               int
+	status               int // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
 	statusFlag           bool
-	tagNames             []string
+	tagNames             []string // 新标签名
 	tagNamesFlag         bool
-	comment              string
+	comment              string // 新评论
 	commentFlag          bool
-	customizedFields     []*CustomizedFieldDisplayItem
+	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
 	customizedFieldsFlag bool
-	ticketType           int
+	ticketType           int // ticket stage
 	ticketTypeFlag       bool
-	solved               int
+	solved               int // 工单是否解决，1: 未解决, 2: 已解决
 	solvedFlag           bool
-	channel              int
+	channel              int // 工单来源渠道ID
 	channelFlag          bool
 }
 
@@ -6034,36 +7096,63 @@ func NewUpdateTicketReqBodyBuilder() *UpdateTicketReqBodyBuilder {
 	return builder
 }
 
+// new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
+//
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 新标签名
+//
+//示例值：abc
 func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketReqBodyBuilder {
 	builder.tagNames = tagNames
 	builder.tagNamesFlag = true
 	return builder
 }
+
+// 新评论
+//
+//示例值：good
 func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicketReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
 	return builder
 }
+
+// 自定义字段
+//
+//示例值：
 func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketReqBodyBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
 	return builder
 }
+
+// ticket stage
+//
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTicketReqBodyBuilder {
 	builder.ticketType = ticketType
 	builder.ticketTypeFlag = true
 	return builder
 }
+
+// 工单是否解决，1: 未解决, 2: 已解决
+//
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBodyBuilder {
 	builder.solved = solved
 	builder.solvedFlag = true
 	return builder
 }
+
+// 工单来源渠道ID
+//
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Channel(channel int) *UpdateTicketReqBodyBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
@@ -6097,19 +7186,19 @@ func (builder *UpdateTicketReqBodyBuilder) Build() *UpdateTicketReqBody {
 }
 
 type UpdateTicketPathReqBodyBuilder struct {
-	status               int
+	status               int // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
 	statusFlag           bool
-	tagNames             []string
+	tagNames             []string // 新标签名
 	tagNamesFlag         bool
-	comment              string
+	comment              string // 新评论
 	commentFlag          bool
-	customizedFields     []*CustomizedFieldDisplayItem
+	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
 	customizedFieldsFlag bool
-	ticketType           int
+	ticketType           int // ticket stage
 	ticketTypeFlag       bool
-	solved               int
+	solved               int // 工单是否解决，1: 未解决, 2: 已解决
 	solvedFlag           bool
-	channel              int
+	channel              int // 工单来源渠道ID
 	channelFlag          bool
 }
 
@@ -6117,36 +7206,64 @@ func NewUpdateTicketPathReqBodyBuilder() *UpdateTicketPathReqBodyBuilder {
 	builder := &UpdateTicketPathReqBodyBuilder{}
 	return builder
 }
+
+// new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
+//
+// 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Status(status int) *UpdateTicketPathReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 新标签名
+//
+// 示例值：abc
 func (builder *UpdateTicketPathReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketPathReqBodyBuilder {
 	builder.tagNames = tagNames
 	builder.tagNamesFlag = true
 	return builder
 }
+
+// 新评论
+//
+// 示例值：good
 func (builder *UpdateTicketPathReqBodyBuilder) Comment(comment string) *UpdateTicketPathReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
 	return builder
 }
+
+// 自定义字段
+//
+// 示例值：
 func (builder *UpdateTicketPathReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketPathReqBodyBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
 	return builder
 }
+
+// ticket stage
+//
+// 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) TicketType(ticketType int) *UpdateTicketPathReqBodyBuilder {
 	builder.ticketType = ticketType
 	builder.ticketTypeFlag = true
 	return builder
 }
+
+// 工单是否解决，1: 未解决, 2: 已解决
+//
+// 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Solved(solved int) *UpdateTicketPathReqBodyBuilder {
 	builder.solved = solved
 	builder.solvedFlag = true
 	return builder
 }
+
+// 工单来源渠道ID
+//
+// 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Channel(channel int) *UpdateTicketPathReqBodyBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
@@ -6193,10 +7310,15 @@ func NewUpdateTicketReqBuilder() *UpdateTicketReqBuilder {
 	return builder
 }
 
+// 工单ID
+//
+// 示例值：6945345902185807891
 func (builder *UpdateTicketReqBuilder) TicketId(ticketId string) *UpdateTicketReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 该接口用于更新服务台工单详情。只会更新数据，不会触发相关操作。如修改工单状态到关单，不会关闭聊天页面。仅支持自建应用。要更新的工单字段必须至少输入一项。
 func (builder *UpdateTicketReqBuilder) Body(body *UpdateTicketReqBody) *UpdateTicketReqBuilder {
 	builder.body = body
 	return builder
@@ -6211,13 +7333,13 @@ func (builder *UpdateTicketReqBuilder) Build() *UpdateTicketReq {
 }
 
 type UpdateTicketReqBody struct {
-	Status           *int                          `json:"status,omitempty"`
-	TagNames         []string                      `json:"tag_names,omitempty"`
-	Comment          *string                       `json:"comment,omitempty"`
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`
-	TicketType       *int                          `json:"ticket_type,omitempty"`
-	Solved           *int                          `json:"solved,omitempty"`
-	Channel          *int                          `json:"channel,omitempty"`
+	Status           *int                          `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
+	TagNames         []string                      `json:"tag_names,omitempty"`         // 新标签名
+	Comment          *string                       `json:"comment,omitempty"`           // 新评论
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // 自定义字段
+	TicketType       *int                          `json:"ticket_type,omitempty"`       // ticket stage
+	Solved           *int                          `json:"solved,omitempty"`            // 工单是否解决，1: 未解决, 2: 已解决
+	Channel          *int                          `json:"channel,omitempty"`           // 工单来源渠道ID
 }
 
 type UpdateTicketReq struct {
@@ -6235,9 +7357,9 @@ func (resp *UpdateTicketResp) Success() bool {
 }
 
 type CreateTicketMessageReqBodyBuilder struct {
-	msgType     string
+	msgType     string // 消息类型；text：纯文本；post：富文本
 	msgTypeFlag bool
-	content     string
+	content     string // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 	contentFlag bool
 }
 
@@ -6246,11 +7368,18 @@ func NewCreateTicketMessageReqBodyBuilder() *CreateTicketMessageReqBodyBuilder {
 	return builder
 }
 
+// 消息类型；text：纯文本；post：富文本
+//
+//示例值：post
 func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *CreateTicketMessageReqBodyBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
 	return builder
 }
+
+// - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+//
+//示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessageReqBodyBuilder) Content(content string) *CreateTicketMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -6269,9 +7398,9 @@ func (builder *CreateTicketMessageReqBodyBuilder) Build() *CreateTicketMessageRe
 }
 
 type CreateTicketMessagePathReqBodyBuilder struct {
-	msgType     string
+	msgType     string // 消息类型；text：纯文本；post：富文本
 	msgTypeFlag bool
-	content     string
+	content     string // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 	contentFlag bool
 }
 
@@ -6279,11 +7408,19 @@ func NewCreateTicketMessagePathReqBodyBuilder() *CreateTicketMessagePathReqBodyB
 	builder := &CreateTicketMessagePathReqBodyBuilder{}
 	return builder
 }
+
+// 消息类型；text：纯文本；post：富文本
+//
+// 示例值：post
 func (builder *CreateTicketMessagePathReqBodyBuilder) MsgType(msgType string) *CreateTicketMessagePathReqBodyBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
 	return builder
 }
+
+// - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+//
+// 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessagePathReqBodyBuilder) Content(content string) *CreateTicketMessagePathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -6315,10 +7452,15 @@ func NewCreateTicketMessageReqBuilder() *CreateTicketMessageReqBuilder {
 	return builder
 }
 
+// 工单ID
+//
+// 示例值：6948728206392295444
 func (builder *CreateTicketMessageReqBuilder) TicketId(ticketId string) *CreateTicketMessageReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 该接口用于工单发送消息。
 func (builder *CreateTicketMessageReqBuilder) Body(body *CreateTicketMessageReqBody) *CreateTicketMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -6333,8 +7475,8 @@ func (builder *CreateTicketMessageReqBuilder) Build() *CreateTicketMessageReq {
 }
 
 type CreateTicketMessageReqBody struct {
-	MsgType *string `json:"msg_type,omitempty"`
-	Content *string `json:"content,omitempty"`
+	MsgType *string `json:"msg_type,omitempty"` // 消息类型；text：纯文本；post：富文本
+	Content *string `json:"content,omitempty"`  // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 }
 
 type CreateTicketMessageReq struct {
@@ -6343,13 +7485,13 @@ type CreateTicketMessageReq struct {
 }
 
 type CreateTicketMessageRespData struct {
-	MessageId *string `json:"message_id,omitempty"`
+	MessageId *string `json:"message_id,omitempty"` // chat消息open ID
 }
 
 type CreateTicketMessageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTicketMessageRespData `json:"data"`
+	Data *CreateTicketMessageRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTicketMessageResp) Success() bool {
@@ -6369,22 +7511,41 @@ func NewListTicketMessageReqBuilder() *ListTicketMessageReqBuilder {
 	return builder
 }
 
+// 工单ID
+//
+// 示例值：6948728206392295444
 func (builder *ListTicketMessageReqBuilder) TicketId(ticketId string) *ListTicketMessageReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_id", fmt.Sprint(ticketId))
 	return builder
 }
+
+// 起始时间
+//
+// 示例值：1617960686
 func (builder *ListTicketMessageReqBuilder) TimeStart(timeStart int) *ListTicketMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("time_start", fmt.Sprint(timeStart))
 	return builder
 }
+
+// 结束时间
+//
+// 示例值：1617960687
 func (builder *ListTicketMessageReqBuilder) TimeEnd(timeEnd int) *ListTicketMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("time_end", fmt.Sprint(timeEnd))
 	return builder
 }
+
+// 页数ID
+//
+// 示例值：1
 func (builder *ListTicketMessageReqBuilder) Page(page int) *ListTicketMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("page", fmt.Sprint(page))
 	return builder
 }
+
+// 消息数量，最大200，默认20
+//
+// 示例值：10
 func (builder *ListTicketMessageReqBuilder) PageSize(pageSize int) *ListTicketMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -6403,14 +7564,14 @@ type ListTicketMessageReq struct {
 }
 
 type ListTicketMessageRespData struct {
-	Messages []*TicketMessage `json:"messages,omitempty"`
-	Total    *int             `json:"total,omitempty"`
+	Messages []*TicketMessage `json:"messages,omitempty"` // 工单消息列表
+	Total    *int             `json:"total,omitempty"`    // 消息总数
 }
 
 type ListTicketMessageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTicketMessageRespData `json:"data"`
+	Data *ListTicketMessageRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTicketMessageResp) Success() bool {
@@ -6431,6 +7592,7 @@ func NewCreateTicketCustomizedFieldReqBuilder() *CreateTicketCustomizedFieldReqB
 	return builder
 }
 
+// 该接口用于创建自定义字段
 func (builder *CreateTicketCustomizedFieldReqBuilder) TicketCustomizedField(ticketCustomizedField *TicketCustomizedField) *CreateTicketCustomizedFieldReqBuilder {
 	builder.ticketCustomizedField = ticketCustomizedField
 	return builder
@@ -6470,6 +7632,9 @@ func NewDeleteTicketCustomizedFieldReqBuilder() *DeleteTicketCustomizedFieldReqB
 	return builder
 }
 
+// 工单自定义字段ID
+//
+// 示例值：6948728206392295444
 func (builder *DeleteTicketCustomizedFieldReqBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *DeleteTicketCustomizedFieldReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_customized_field_id", fmt.Sprint(ticketCustomizedFieldId))
 	return builder
@@ -6508,6 +7673,9 @@ func NewGetTicketCustomizedFieldReqBuilder() *GetTicketCustomizedFieldReqBuilder
 	return builder
 }
 
+// 工单自定义字段ID
+//
+// 示例值：6948728206392295444
 func (builder *GetTicketCustomizedFieldReqBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *GetTicketCustomizedFieldReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_customized_field_id", fmt.Sprint(ticketCustomizedFieldId))
 	return builder
@@ -6525,27 +7693,27 @@ type GetTicketCustomizedFieldReq struct {
 }
 
 type GetTicketCustomizedFieldRespData struct {
-	TicketCustomizedFieldId *string     `json:"ticket_customized_field_id,omitempty"`
-	HelpdeskId              *string     `json:"helpdesk_id,omitempty"`
-	KeyName                 *string     `json:"key_name,omitempty"`
-	DisplayName             *string     `json:"display_name,omitempty"`
-	Position                *string     `json:"position,omitempty"`
-	FieldType               *string     `json:"field_type,omitempty"`
-	Description             *string     `json:"description,omitempty"`
-	Visible                 *bool       `json:"visible,omitempty"`
-	Editable                *bool       `json:"editable,omitempty"`
-	Required                *bool       `json:"required,omitempty"`
-	CreatedAt               *string     `json:"created_at,omitempty"`
-	UpdatedAt               *string     `json:"updated_at,omitempty"`
-	CreatedBy               *TicketUser `json:"created_by,omitempty"`
-	UpdatedBy               *TicketUser `json:"updated_by,omitempty"`
-	DropdownAllowMultiple   *bool       `json:"dropdown_allow_multiple,omitempty"`
+	TicketCustomizedFieldId *string     `json:"ticket_customized_field_id,omitempty"` // ticket customized field id
+	HelpdeskId              *string     `json:"helpdesk_id,omitempty"`                // help desk id
+	KeyName                 *string     `json:"key_name,omitempty"`                   // key name
+	DisplayName             *string     `json:"display_name,omitempty"`               // display name
+	Position                *string     `json:"position,omitempty"`                   // the position of ticket customized field in the page
+	FieldType               *string     `json:"field_type,omitempty"`                 // type of the field
+	Description             *string     `json:"description,omitempty"`                // description of the field
+	Visible                 *bool       `json:"visible,omitempty"`                    // if the field is visible
+	Editable                *bool       `json:"editable,omitempty"`                   // if the field is editable
+	Required                *bool       `json:"required,omitempty"`                   // if the field is required
+	CreatedAt               *string     `json:"created_at,omitempty"`                 // the time when the field is created
+	UpdatedAt               *string     `json:"updated_at,omitempty"`                 // the time when the field is updated
+	CreatedBy               *TicketUser `json:"created_by,omitempty"`                 // the user who created the ticket customized field
+	UpdatedBy               *TicketUser `json:"updated_by,omitempty"`                 // the user who recently updated the ticket customized field
+	DropdownAllowMultiple   *bool       `json:"dropdown_allow_multiple,omitempty"`    // if the dropdown field supports multi-select
 }
 
 type GetTicketCustomizedFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTicketCustomizedFieldRespData `json:"data"`
+	Data *GetTicketCustomizedFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTicketCustomizedFieldResp) Success() bool {
@@ -6553,7 +7721,7 @@ func (resp *GetTicketCustomizedFieldResp) Success() bool {
 }
 
 type ListTicketCustomizedFieldReqBodyBuilder struct {
-	visible     bool
+	visible     bool // 是否可见
 	visibleFlag bool
 }
 
@@ -6562,6 +7730,9 @@ func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqB
 	return builder
 }
 
+// 是否可见
+//
+//示例值：true
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
@@ -6577,7 +7748,7 @@ func (builder *ListTicketCustomizedFieldReqBodyBuilder) Build() *ListTicketCusto
 }
 
 type ListTicketCustomizedFieldPathReqBodyBuilder struct {
-	visible     bool
+	visible     bool // 是否可见
 	visibleFlag bool
 }
 
@@ -6585,6 +7756,10 @@ func NewListTicketCustomizedFieldPathReqBodyBuilder() *ListTicketCustomizedField
 	builder := &ListTicketCustomizedFieldPathReqBodyBuilder{}
 	return builder
 }
+
+// 是否可见
+//
+// 示例值：true
 func (builder *ListTicketCustomizedFieldPathReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldPathReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
@@ -6613,14 +7788,23 @@ func NewListTicketCustomizedFieldReqBuilder() *ListTicketCustomizedFieldReqBuild
 	return builder
 }
 
+//
+//
+// 示例值：6948728206392295444
 func (builder *ListTicketCustomizedFieldReqBuilder) PageToken(pageToken string) *ListTicketCustomizedFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10；默认为20
 func (builder *ListTicketCustomizedFieldReqBuilder) PageSize(pageSize int) *ListTicketCustomizedFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 该接口用于获取全部工单自定义字段。
 func (builder *ListTicketCustomizedFieldReqBuilder) Body(body *ListTicketCustomizedFieldReqBody) *ListTicketCustomizedFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -6635,7 +7819,7 @@ func (builder *ListTicketCustomizedFieldReqBuilder) Build() *ListTicketCustomize
 }
 
 type ListTicketCustomizedFieldReqBody struct {
-	Visible *bool `json:"visible,omitempty"`
+	Visible *bool `json:"visible,omitempty"` // 是否可见
 }
 
 type ListTicketCustomizedFieldReq struct {
@@ -6644,15 +7828,15 @@ type ListTicketCustomizedFieldReq struct {
 }
 
 type ListTicketCustomizedFieldRespData struct {
-	HasMore       *bool                    `json:"has_more,omitempty"`
-	NextPageToken *string                  `json:"next_page_token,omitempty"`
-	Items         []*TicketCustomizedField `json:"items,omitempty"`
+	HasMore       *bool                    `json:"has_more,omitempty"`        // whether there is more data
+	NextPageToken *string                  `json:"next_page_token,omitempty"` // 下一分页标识
+	Items         []*TicketCustomizedField `json:"items,omitempty"`           // 工单自定义字段列表
 }
 
 type ListTicketCustomizedFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTicketCustomizedFieldRespData `json:"data"`
+	Data *ListTicketCustomizedFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTicketCustomizedFieldResp) Success() bool {
@@ -6673,10 +7857,15 @@ func NewPatchTicketCustomizedFieldReqBuilder() *PatchTicketCustomizedFieldReqBui
 	return builder
 }
 
+// 工单自定义字段ID
+//
+// 示例值：6948728206392295444
 func (builder *PatchTicketCustomizedFieldReqBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *PatchTicketCustomizedFieldReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_customized_field_id", fmt.Sprint(ticketCustomizedFieldId))
 	return builder
 }
+
+// 该接口用于更新自定义字段。
 func (builder *PatchTicketCustomizedFieldReqBuilder) TicketCustomizedField(ticketCustomizedField *TicketCustomizedField) *PatchTicketCustomizedFieldReqBuilder {
 	builder.ticketCustomizedField = ticketCustomizedField
 	return builder
@@ -6705,15 +7894,15 @@ func (resp *PatchTicketCustomizedFieldResp) Success() bool {
 }
 
 type P2NotificationApproveV1Data struct {
-	NotificationId *string `json:"notification_id,omitempty"`
-	HelpdeskId     *string `json:"helpdesk_id,omitempty"`
-	ApproveStatus  *string `json:"approve_status,omitempty"`
+	NotificationId *string `json:"notification_id,omitempty"` // 推送任务唯一ID
+	HelpdeskId     *string `json:"helpdesk_id,omitempty"`     // 服务台唯一ID
+	ApproveStatus  *string `json:"approve_status,omitempty"`  // REJECTED(审核不通过);APPROVED(审核通过);CANCELED(取消审核);DELETED(删除审核)
 }
 
 type P2NotificationApproveV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2NotificationApproveV1Data `json:"event"`
+	*larkevent.EventV2Base                              // 事件基础数据
+	*larkevent.EventReq                                 // 请求原生数据
+	Event                  *P2NotificationApproveV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2NotificationApproveV1) RawReq(req *larkevent.EventReq) {
@@ -6721,25 +7910,25 @@ func (m *P2NotificationApproveV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TicketCreatedV1Data struct {
-	TicketId         *string                       `json:"ticket_id,omitempty"`
-	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`
-	Guest            *TicketUserEvent              `json:"guest,omitempty"`
-	Stage            *int                          `json:"stage,omitempty"`
-	Status           *int                          `json:"status,omitempty"`
-	Score            *int                          `json:"score,omitempty"`
-	CreatedAt        *int                          `json:"created_at,omitempty"`
-	UpdatedAt        *int                          `json:"updated_at,omitempty"`
-	ClosedAt         *int                          `json:"closed_at,omitempty"`
-	Channel          *int                          `json:"channel,omitempty"`
-	Solve            *int                          `json:"solve,omitempty"`
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`
-	ChatId           *string                       `json:"chat_id,omitempty"`
+	TicketId         *string                       `json:"ticket_id,omitempty"`         // ticket id
+	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // helpdesk id
+	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // guest of this ticket
+	Stage            *int                          `json:"stage,omitempty"`             // ticket stage
+	Status           *int                          `json:"status,omitempty"`            // ticket status
+	Score            *int                          `json:"score,omitempty"`             // ticket score
+	CreatedAt        *int                          `json:"created_at,omitempty"`        // the time when the ticket is created
+	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // the time when the ticket is updated
+	ClosedAt         *int                          `json:"closed_at,omitempty"`         // the time when the ticket is closed
+	Channel          *int                          `json:"channel,omitempty"`           // the ticket channel
+	Solve            *int                          `json:"solve,omitempty"`             // if ticket is solved
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // ticket customized fields
+	ChatId           *string                       `json:"chat_id,omitempty"`           //
 }
 
 type P2TicketCreatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2TicketCreatedV1Data `json:"event"`
+	*larkevent.EventV2Base                        // 事件基础数据
+	*larkevent.EventReq                           // 请求原生数据
+	Event                  *P2TicketCreatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2TicketCreatedV1) RawReq(req *larkevent.EventReq) {
@@ -6747,17 +7936,41 @@ func (m *P2TicketCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TicketUpdatedV1Data struct {
-	Object    *TicketEvent           `json:"object,omitempty"`
-	OldObject *TicketEventUpdateInfo `json:"old_object,omitempty"`
+	Object    *TicketEvent           `json:"object,omitempty"`     // ticket after update
+	OldObject *TicketEventUpdateInfo `json:"old_object,omitempty"` // ticket before update, only has updated fields
 }
 
 type P2TicketUpdatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2TicketUpdatedV1Data `json:"event"`
+	*larkevent.EventV2Base                        // 事件基础数据
+	*larkevent.EventReq                           // 请求原生数据
+	Event                  *P2TicketUpdatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2TicketUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2TicketMessageCreatedV1Data struct {
+	TicketMessageId *string               `json:"ticket_message_id,omitempty"` // ticket message id
+	MessageId       *string               `json:"message_id,omitempty"`        // open message id
+	MsgType         *string               `json:"msg_type,omitempty"`          // message type, text is the only supported type
+	Position        *string               `json:"position,omitempty"`          // position of the message
+	SenderId        *UserId               `json:"sender_id,omitempty"`         // sender's open id, omitted if the sender is the bot
+	SenderType      *int                  `json:"sender_type,omitempty"`       // sender type, 1 for bot, 2 for guest, 3 for agent
+	Text            *string               `json:"text,omitempty"`              // message content
+	Ticket          *Ticket               `json:"ticket,omitempty"`            // ticket related information
+	EventId         *string               `json:"event_id,omitempty"`          // event id
+	ChatId          *string               `json:"chat_id,omitempty"`           // chat id
+	Content         *TicketMessageContent `json:"content,omitempty"`           // message content
+}
+
+type P2TicketMessageCreatedV1 struct {
+	*larkevent.EventV2Base                               // 事件基础数据
+	*larkevent.EventReq                                  // 请求原生数据
+	Event                  *P2TicketMessageCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2TicketMessageCreatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

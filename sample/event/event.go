@@ -29,7 +29,6 @@ import (
 )
 
 func main() {
-
 	//1212121212
 	handler := dispatcher.NewEventDispatcher("verificationToken", "").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))

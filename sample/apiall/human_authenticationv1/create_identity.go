@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
 )
 
-// HTTP PATH: /open-apis/human_authentication/v1/identities"
+// POST /open-apis/human_authentication/v1/identities
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,9 +30,9 @@ func main() {
 		UserId("ou_2eb5483cb377daa5054bc6f86e2089a5").
 		UserIdType("open_id").
 		Body(larkhuman_authentication.NewCreateIdentityReqBodyBuilder().
-			IdentityName("").
-			IdentityCode("").
-			Mobile("").
+			IdentityName("张三").
+			IdentityCode("4xxxxxxxx").
+			Mobile("13xxxxxxx").
 			Build()).
 		Build()
 	// 发起请求
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

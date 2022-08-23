@@ -21,7 +21,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *HelpdeskService {
 	h := &HelpdeskService{config: config}
 	h.Agent = &agent{service: h}
@@ -40,25 +39,23 @@ func NewService(config *larkcore.Config) *HelpdeskService {
 	return h
 }
 
-// 业务域服务定义
 type HelpdeskService struct {
 	config                *larkcore.Config
-	Agent                 *agent
-	AgentSchedules        *agentSchedules
-	AgentSchedule         *agentSchedule
-	AgentSkill            *agentSkill
-	AgentSkillRule        *agentSkillRule
-	BotMessage            *botMessage
-	Category              *category
-	Event                 *event
-	Faq                   *faq
-	Notification          *notification
-	Ticket                *ticket
-	TicketMessage         *ticketMessage
-	TicketCustomizedField *ticketCustomizedField
+	Agent                 *agent                 // 客服
+	AgentSchedules        *agentSchedules        // 客服工作日程
+	AgentSchedule         *agentSchedule         // 客服工作日程
+	AgentSkill            *agentSkill            // 客服技能
+	AgentSkillRule        *agentSkillRule        // 客服技能规则
+	BotMessage            *botMessage            // 机器人消息
+	Category              *category              // 知识库分类
+	Event                 *event                 // 事件订阅
+	Faq                   *faq                   // 知识库
+	Notification          *notification          // 推送中心
+	Ticket                *ticket                // 工单
+	TicketMessage         *ticketMessage         // 工单消息
+	TicketCustomizedField *ticketCustomizedField // 工单自定义字段
 }
 
-// 资源服务定义
 type agent struct {
 	service *HelpdeskService
 }
@@ -99,7 +96,13 @@ type ticketCustomizedField struct {
 	service *HelpdeskService
 }
 
-// 资源服务方法定义
+// 获取客服邮箱地址
+//
+// - 该接口用于获取客服邮箱地址
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/agent_email
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//agentEmail_agent.go
 func (a *agent) AgentEmail(ctx context.Context, options ...larkcore.RequestOptionFunc) (*AgentEmailAgentResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -121,6 +124,14 @@ func (a *agent) AgentEmail(ctx context.Context, options ...larkcore.RequestOptio
 	}
 	return resp, err
 }
+
+// 更新客服信息
+//
+// - 更新客服状态等信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agent.go
 func (a *agent) Patch(ctx context.Context, req *PatchAgentReq, options ...larkcore.RequestOptionFunc) (*PatchAgentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -139,6 +150,14 @@ func (a *agent) Patch(ctx context.Context, req *PatchAgentReq, options ...larkco
 	}
 	return resp, err
 }
+
+// 删除客服
+//
+// - 该接口用于删除客服
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_agentSchedules.go
 func (a *agentSchedules) Delete(ctx context.Context, req *DeleteAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*DeleteAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -157,6 +176,14 @@ func (a *agentSchedules) Delete(ctx context.Context, req *DeleteAgentSchedulesRe
 	}
 	return resp, err
 }
+
+// 获取客服工作日程;
+//
+// - 该接口用于获取客服信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_agentSchedules.go
 func (a *agentSchedules) Get(ctx context.Context, req *GetAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*GetAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -175,6 +202,14 @@ func (a *agentSchedules) Get(ctx context.Context, req *GetAgentSchedulesReq, opt
 	}
 	return resp, err
 }
+
+// 更新客服日程
+//
+// - 该接口用于更新客服的日程
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agentSchedules.go
 func (a *agentSchedules) Patch(ctx context.Context, req *PatchAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*PatchAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -193,6 +228,14 @@ func (a *agentSchedules) Patch(ctx context.Context, req *PatchAgentSchedulesReq,
 	}
 	return resp, err
 }
+
+// 创建客服
+//
+// - 该接口用于创建客服
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_agentSchedule.go
 func (a *agentSchedule) Create(ctx context.Context, req *CreateAgentScheduleReq, options ...larkcore.RequestOptionFunc) (*CreateAgentScheduleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -211,6 +254,14 @@ func (a *agentSchedule) Create(ctx context.Context, req *CreateAgentScheduleReq,
 	}
 	return resp, err
 }
+
+// 获取全部客服工作日程
+//
+// - 该接口用于获取所有客服信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSchedule.go
 func (a *agentSchedule) List(ctx context.Context, req *ListAgentScheduleReq, options ...larkcore.RequestOptionFunc) (*ListAgentScheduleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -229,6 +280,14 @@ func (a *agentSchedule) List(ctx context.Context, req *ListAgentScheduleReq, opt
 	}
 	return resp, err
 }
+
+// 创建客服技能
+//
+// - 该接口用于创建客服技能
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_agentSkill.go
 func (a *agentSkill) Create(ctx context.Context, req *CreateAgentSkillReq, options ...larkcore.RequestOptionFunc) (*CreateAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -247,6 +306,14 @@ func (a *agentSkill) Create(ctx context.Context, req *CreateAgentSkillReq, optio
 	}
 	return resp, err
 }
+
+// 删除客服技能
+//
+// - 该接口用于删除客服技能
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_agentSkill.go
 func (a *agentSkill) Delete(ctx context.Context, req *DeleteAgentSkillReq, options ...larkcore.RequestOptionFunc) (*DeleteAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -265,6 +332,14 @@ func (a *agentSkill) Delete(ctx context.Context, req *DeleteAgentSkillReq, optio
 	}
 	return resp, err
 }
+
+// 获取客服技能
+//
+// - 该接口用于获取客服技能
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_agentSkill.go
 func (a *agentSkill) Get(ctx context.Context, req *GetAgentSkillReq, options ...larkcore.RequestOptionFunc) (*GetAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -283,6 +358,14 @@ func (a *agentSkill) Get(ctx context.Context, req *GetAgentSkillReq, options ...
 	}
 	return resp, err
 }
+
+// 获取全部客服技能
+//
+// - 获取全部客服技能
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSkill.go
 func (a *agentSkill) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListAgentSkillResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -304,6 +387,14 @@ func (a *agentSkill) List(ctx context.Context, options ...larkcore.RequestOption
 	}
 	return resp, err
 }
+
+// 更新客服技能
+//
+// - 该接口用于更新客服技能
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agentSkill.go
 func (a *agentSkill) Patch(ctx context.Context, req *PatchAgentSkillReq, options ...larkcore.RequestOptionFunc) (*PatchAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -322,6 +413,14 @@ func (a *agentSkill) Patch(ctx context.Context, req *PatchAgentSkillReq, options
 	}
 	return resp, err
 }
+
+// 获取客服技能列表
+//
+// - 该接口用于获取全部客服技能。仅支持自建应用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSkillRule.go
 func (a *agentSkillRule) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListAgentSkillRuleResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -343,6 +442,14 @@ func (a *agentSkillRule) List(ctx context.Context, options ...larkcore.RequestOp
 	}
 	return resp, err
 }
+
+// 服务台机器人发送消息
+//
+// - 通过服务台机器人给指定用户的服务台专属群或私聊发送消息，支持文本、富文本、卡片、图片。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/bot-message/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_botMessage.go
 func (b *botMessage) Create(ctx context.Context, req *CreateBotMessageReq, options ...larkcore.RequestOptionFunc) (*CreateBotMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -361,6 +468,14 @@ func (b *botMessage) Create(ctx context.Context, req *CreateBotMessageReq, optio
 	}
 	return resp, err
 }
+
+// 创建知识库分类
+//
+// - 该接口用于创建知识库分类。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_category.go
 func (c *category) Create(ctx context.Context, req *CreateCategoryReq, options ...larkcore.RequestOptionFunc) (*CreateCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -379,6 +494,14 @@ func (c *category) Create(ctx context.Context, req *CreateCategoryReq, options .
 	}
 	return resp, err
 }
+
+// 删除知识库分类详情
+//
+// - 该接口用于删除知识库分类详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_category.go
 func (c *category) Delete(ctx context.Context, req *DeleteCategoryReq, options ...larkcore.RequestOptionFunc) (*DeleteCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -397,6 +520,14 @@ func (c *category) Delete(ctx context.Context, req *DeleteCategoryReq, options .
 	}
 	return resp, err
 }
+
+// 获取知识库分类
+//
+// - 该接口用于获取知识库分类。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_category.go
 func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...larkcore.RequestOptionFunc) (*GetCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -415,6 +546,14 @@ func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...lark
 	}
 	return resp, err
 }
+
+// 获取全部知识库分类 - meta
+//
+// - 该接口用于获取服务台知识库所有分类
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_category.go
 func (c *category) List(ctx context.Context, req *ListCategoryReq, options ...larkcore.RequestOptionFunc) (*ListCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -433,6 +572,14 @@ func (c *category) List(ctx context.Context, req *ListCategoryReq, options ...la
 	}
 	return resp, err
 }
+
+// 更新知识库分类详情
+//
+// - 该接口用于更新知识库分类详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_category.go
 func (c *category) Patch(ctx context.Context, req *PatchCategoryReq, options ...larkcore.RequestOptionFunc) (*PatchCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -451,6 +598,14 @@ func (c *category) Patch(ctx context.Context, req *PatchCategoryReq, options ...
 	}
 	return resp, err
 }
+
+// 订阅服务台事件
+//
+// - 用于订阅服务台事件
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//subscribe_event.go
 func (e *event) Subscribe(ctx context.Context, req *SubscribeEventReq, options ...larkcore.RequestOptionFunc) (*SubscribeEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -469,6 +624,14 @@ func (e *event) Subscribe(ctx context.Context, req *SubscribeEventReq, options .
 	}
 	return resp, err
 }
+
+// 取消订阅服务台事件
+//
+// - 用于取消订阅服务台事件
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//unsubscribe_event.go
 func (e *event) Unsubscribe(ctx context.Context, req *UnsubscribeEventReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -487,6 +650,14 @@ func (e *event) Unsubscribe(ctx context.Context, req *UnsubscribeEventReq, optio
 	}
 	return resp, err
 }
+
+// 创建知识库
+//
+// - 该接口用于创建知识库。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_faq.go
 func (f *faq) Create(ctx context.Context, req *CreateFaqReq, options ...larkcore.RequestOptionFunc) (*CreateFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -505,6 +676,14 @@ func (f *faq) Create(ctx context.Context, req *CreateFaqReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 删除知识库
+//
+// - 该接口用于删除知识库。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_faq.go
 func (f *faq) Delete(ctx context.Context, req *DeleteFaqReq, options ...larkcore.RequestOptionFunc) (*DeleteFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -523,6 +702,14 @@ func (f *faq) Delete(ctx context.Context, req *DeleteFaqReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 获取知识库图像
+//
+// - 该接口用于获取知识库图像。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//faqImage_faq.go
 func (f *faq) FaqImage(ctx context.Context, req *FaqImageFaqReq, options ...larkcore.RequestOptionFunc) (*FaqImageFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -547,6 +734,14 @@ func (f *faq) FaqImage(ctx context.Context, req *FaqImageFaqReq, options ...lark
 	}
 	return resp, err
 }
+
+// 获取知识库详情
+//
+// - 该接口用于获取服务台知识库详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_faq.go
 func (f *faq) Get(ctx context.Context, req *GetFaqReq, options ...larkcore.RequestOptionFunc) (*GetFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -565,6 +760,14 @@ func (f *faq) Get(ctx context.Context, req *GetFaqReq, options ...larkcore.Reque
 	}
 	return resp, err
 }
+
+// 获取全部知识库详情
+//
+// - 该接口用于获取服务台知识库详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_faq.go
 func (f *faq) List(ctx context.Context, req *ListFaqReq, options ...larkcore.RequestOptionFunc) (*ListFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -591,6 +794,14 @@ func (f *faq) ListByIterator(ctx context.Context, req *ListFaqReq, options ...la
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 修改知识库
+//
+// - 该接口用于修改知识库。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_faq.go
 func (f *faq) Patch(ctx context.Context, req *PatchFaqReq, options ...larkcore.RequestOptionFunc) (*PatchFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -609,6 +820,14 @@ func (f *faq) Patch(ctx context.Context, req *PatchFaqReq, options ...larkcore.R
 	}
 	return resp, err
 }
+
+// 搜索知识库
+//
+// - 该接口用于搜索服务台知识库。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//search_faq.go
 func (f *faq) Search(ctx context.Context, req *SearchFaqReq, options ...larkcore.RequestOptionFunc) (*SearchFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -635,6 +854,14 @@ func (f *faq) SearchByIterator(ctx context.Context, req *SearchFaqReq, options .
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 取消审核
+//
+// - 提交审核后，如果需要取消审核，则调用此接口
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_approve
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//cancelApprove_notification.go
 func (n *notification) CancelApprove(ctx context.Context, req *CancelApproveNotificationReq, options ...larkcore.RequestOptionFunc) (*CancelApproveNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -653,6 +880,14 @@ func (n *notification) CancelApprove(ctx context.Context, req *CancelApproveNoti
 	}
 	return resp, err
 }
+
+// 取消推送
+//
+// - 取消推送接口，审核通过后待调度可以调用，发送过程中可以调用（会撤回已发送的消息），发送完成后可以需要推送（会撤回所有已发送的消息）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_send
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//cancelSend_notification.go
 func (n *notification) CancelSend(ctx context.Context, req *CancelSendNotificationReq, options ...larkcore.RequestOptionFunc) (*CancelSendNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -671,6 +906,14 @@ func (n *notification) CancelSend(ctx context.Context, req *CancelSendNotificati
 	}
 	return resp, err
 }
+
+// 创建推送
+//
+// - 调用接口创建推送，创建成功后为草稿状态
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_notification.go
 func (n *notification) Create(ctx context.Context, req *CreateNotificationReq, options ...larkcore.RequestOptionFunc) (*CreateNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -689,6 +932,14 @@ func (n *notification) Create(ctx context.Context, req *CreateNotificationReq, o
 	}
 	return resp, err
 }
+
+// 执行推送
+//
+// - 审核通过后调用此接口设置推送时间，等待调度系统调度，发送消息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/execute_send
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//executeSend_notification.go
 func (n *notification) ExecuteSend(ctx context.Context, req *ExecuteSendNotificationReq, options ...larkcore.RequestOptionFunc) (*ExecuteSendNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -707,6 +958,14 @@ func (n *notification) ExecuteSend(ctx context.Context, req *ExecuteSendNotifica
 	}
 	return resp, err
 }
+
+// 查询推送
+//
+// - 查询推送详情
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_notification.go
 func (n *notification) Get(ctx context.Context, req *GetNotificationReq, options ...larkcore.RequestOptionFunc) (*GetNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -725,6 +984,14 @@ func (n *notification) Get(ctx context.Context, req *GetNotificationReq, options
 	}
 	return resp, err
 }
+
+// 更新推送
+//
+// - 更新推送信息，只有在草稿状态下才可以调用此接口进行更新
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_notification.go
 func (n *notification) Patch(ctx context.Context, req *PatchNotificationReq, options ...larkcore.RequestOptionFunc) (*PatchNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -743,6 +1010,14 @@ func (n *notification) Patch(ctx context.Context, req *PatchNotificationReq, opt
 	}
 	return resp, err
 }
+
+// 预览推送内容
+//
+// - 在正式执行推送之前是可以调用此接口预览设置的推送内容
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/preview
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//preview_notification.go
 func (n *notification) Preview(ctx context.Context, req *PreviewNotificationReq, options ...larkcore.RequestOptionFunc) (*PreviewNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -761,6 +1036,14 @@ func (n *notification) Preview(ctx context.Context, req *PreviewNotificationReq,
 	}
 	return resp, err
 }
+
+// 提交审核
+//
+// - 正常情况下调用创建推送接口后，就可以调用提交审核接口，如果创建人是服务台owner则会自动审核通过，否则会通知服务台owner审核此推送信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/submit_approve
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//submitApprove_notification.go
 func (n *notification) SubmitApprove(ctx context.Context, req *SubmitApproveNotificationReq, options ...larkcore.RequestOptionFunc) (*SubmitApproveNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -779,6 +1062,14 @@ func (n *notification) SubmitApprove(ctx context.Context, req *SubmitApproveNoti
 	}
 	return resp, err
 }
+
+// 回复用户提问结果至工单
+//
+// - 该接口用于回复用户提问结果至工单，需要工单仍处于进行中且未接入人工状态。仅支持自建应用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/answer_user_query
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//answerUserQuery_ticket.go
 func (t *ticket) AnswerUserQuery(ctx context.Context, req *AnswerUserQueryTicketReq, options ...larkcore.RequestOptionFunc) (*AnswerUserQueryTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -797,6 +1088,14 @@ func (t *ticket) AnswerUserQuery(ctx context.Context, req *AnswerUserQueryTicket
 	}
 	return resp, err
 }
+
+// 获取服务台自定义字段详情
+//
+// - 该接口用于获取服务台自定义字段详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/customized_fields
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//customizedFields_ticket.go
 func (t *ticket) CustomizedFields(ctx context.Context, req *CustomizedFieldsTicketReq, options ...larkcore.RequestOptionFunc) (*CustomizedFieldsTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -815,6 +1114,14 @@ func (t *ticket) CustomizedFields(ctx context.Context, req *CustomizedFieldsTick
 	}
 	return resp, err
 }
+
+// 获取工单详情
+//
+// - 该接口用于获取单个服务台工单详情。仅支持自建应用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_ticket.go
 func (t *ticket) Get(ctx context.Context, req *GetTicketReq, options ...larkcore.RequestOptionFunc) (*GetTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -833,6 +1140,14 @@ func (t *ticket) Get(ctx context.Context, req *GetTicketReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 获取全部工单详情
+//
+// - 该接口用于获取全部工单详情。仅支持自建应用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticket.go
 func (t *ticket) List(ctx context.Context, req *ListTicketReq, options ...larkcore.RequestOptionFunc) (*ListTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -851,6 +1166,14 @@ func (t *ticket) List(ctx context.Context, req *ListTicketReq, options ...larkco
 	}
 	return resp, err
 }
+
+// 创建服务台对话
+//
+// - 该接口用于创建服务台对话。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//startService_ticket.go
 func (t *ticket) StartService(ctx context.Context, req *StartServiceTicketReq, options ...larkcore.RequestOptionFunc) (*StartServiceTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -869,6 +1192,14 @@ func (t *ticket) StartService(ctx context.Context, req *StartServiceTicketReq, o
 	}
 	return resp, err
 }
+
+// 获取服务台工单内消息图像
+//
+// - 该接口用于获取服务台工单消息图象。仅支持自建应用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//ticketImage_ticket.go
 func (t *ticket) TicketImage(ctx context.Context, req *TicketImageTicketReq, options ...larkcore.RequestOptionFunc) (*TicketImageTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -893,6 +1224,14 @@ func (t *ticket) TicketImage(ctx context.Context, req *TicketImageTicketReq, opt
 	}
 	return resp, err
 }
+
+// 更新工单详情
+//
+// - 该接口用于更新服务台工单详情。只会更新数据，不会触发相关操作。如修改工单状态到关单，不会关闭聊天页面。仅支持自建应用。要更新的工单字段必须至少输入一项。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//update_ticket.go
 func (t *ticket) Update(ctx context.Context, req *UpdateTicketReq, options ...larkcore.RequestOptionFunc) (*UpdateTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -911,6 +1250,14 @@ func (t *ticket) Update(ctx context.Context, req *UpdateTicketReq, options ...la
 	}
 	return resp, err
 }
+
+// 工单发送消息
+//
+// - 该接口用于工单发送消息。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_ticketMessage.go
 func (t *ticketMessage) Create(ctx context.Context, req *CreateTicketMessageReq, options ...larkcore.RequestOptionFunc) (*CreateTicketMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -929,6 +1276,14 @@ func (t *ticketMessage) Create(ctx context.Context, req *CreateTicketMessageReq,
 	}
 	return resp, err
 }
+
+// 获取服务台工单消息详情
+//
+// - 该接口用于获取服务台工单消息详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticketMessage.go
 func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, options ...larkcore.RequestOptionFunc) (*ListTicketMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -947,6 +1302,14 @@ func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, opt
 	}
 	return resp, err
 }
+
+// 创建工单自定义字段
+//
+// - 该接口用于创建自定义字段
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_ticketCustomizedField.go
 func (t *ticketCustomizedField) Create(ctx context.Context, req *CreateTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*CreateTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -965,6 +1328,14 @@ func (t *ticketCustomizedField) Create(ctx context.Context, req *CreateTicketCus
 	}
 	return resp, err
 }
+
+// 删除工单自定义字段
+//
+// - 该接口用于删除工单自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_ticketCustomizedField.go
 func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*DeleteTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -983,6 +1354,14 @@ func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCus
 	}
 	return resp, err
 }
+
+// 获取工单自定义字段
+//
+// - 该接口用于获取工单自定义字段详情。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_ticketCustomizedField.go
 func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*GetTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1001,6 +1380,14 @@ func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomize
 	}
 	return resp, err
 }
+
+// 获取全部工单自定义字段
+//
+// - 该接口用于获取全部工单自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticketCustomizedField.go
 func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*ListTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1019,6 +1406,14 @@ func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomi
 	}
 	return resp, err
 }
+
+// 更新工单自定义字段
+//
+// - 该接口用于更新自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_ticketCustomizedField.go
 func (t *ticketCustomizedField) Patch(ctx context.Context, req *PatchTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*PatchTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

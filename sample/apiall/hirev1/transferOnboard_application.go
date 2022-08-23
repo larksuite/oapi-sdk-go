@@ -21,24 +21,24 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/applications/:application_id/transfer_onboard"
+// POST /open-apis/hire/v1/applications/:application_id/transfer_onboard
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhire.NewTransferOnboardApplicationReqBuilder().
-		ApplicationId("12312312312").
+		ApplicationId("7073372582620416300").
 		UserIdType("user_id").
 		Body(larkhire.NewTransferOnboardApplicationReqBodyBuilder().
 			ActualOnboardTime(1616428800000).
 			ExpectedConversionTime(1616428800000).
 			JobRequirementId("6960663240925956402").
 			OperatorId("ou-xxx").
-			OnboardCityCode("C20").
+			OnboardCityCode("CT_2").
 			Department("6966123381141866028").
 			Leader("ou-xxx").
-			Sequence("6501").
-			Level("6301").
+			Sequence("7006234385490345986").
+			Level("6937934036379650311").
 			EmployeeType("1").
 			Build()).
 		Build()
@@ -57,6 +57,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

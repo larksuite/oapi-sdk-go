@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/shifts"
+// GET /open-apis/attendance/v1/shifts
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkattendance.NewListShiftReqBuilder().
 		PageSize(10).
-		PageToken("").
+		PageToken("YrkvQ1wGaPVta45tkxuGiQ==").
 		Build()
 	// 发起请求
 	resp, err := client.Attendance.Shift.List(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

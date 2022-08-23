@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/user_task_remedys/query"
+// POST /open-apis/attendance/v1/user_task_remedys/query
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -32,6 +32,8 @@ func main() {
 			UserIds([]string{}).
 			CheckTimeFrom("1566641088").
 			CheckTimeTo("1592561088").
+			CheckDateType("PeriodTime").
+			Status(2).
 			Build()).
 		Build()
 	// 发起请求
@@ -49,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

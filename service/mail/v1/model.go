@@ -23,42 +23,144 @@ import (
 )
 
 const (
-	WhoCanSendMailANYONE           = "ANYONE"
-	WhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS"
-	WhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"
-	WhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"
+	WhoCanSendMailANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	WhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	WhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	WhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TypeUSER          = "USER"
-	TypeDEPARTMENT    = "DEPARTMENT"
-	TypeCOMPANY       = "COMPANY"
-	TypeEXTERNALUSER  = "EXTERNAL_USER"
-	TypeMAILGROUP     = "MAIL_GROUP"
-	TypePUBLICMAILBOX = "PUBLIC_MAILBOX"
-	TypeOTHERMEMBER   = "OTHER_MEMBER"
+	WhoCanSendMailMailgroupPatchANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	WhoCanSendMailMailgroupPatchALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	WhoCanSendMailMailgroupPatchALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	WhoCanSendMailMailgroupPatchCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"
-	DepartmentIdTypeOpenDepartmentId = "open_department_id"
+	WhoCanSendMailMailgroupUpdateANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	WhoCanSendMailMailgroupUpdateALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	WhoCanSendMailMailgroupUpdateALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	WhoCanSendMailMailgroupUpdateCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+)
+
+const (
+	TypeUSER          = "USER"           // internal user in the team
+	TypeDEPARTMENT    = "DEPARTMENT"     // member is a department
+	TypeCOMPANY       = "COMPANY"        // member is the company
+	TypeEXTERNALUSER  = "EXTERNAL_USER"  // internet user outside the organization
+	TypeMAILGROUP     = "MAIL_GROUP"     // member is another mail group
+	TypePUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
+	TypeOTHERMEMBER   = "OTHER_MEMBER"   // other internal member
+)
+
+const (
+	UserIdTypeMailgroupMemberCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupMemberCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeMailgroupMemberGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupMemberGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeMailgroupMemberGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeMailgroupMemberGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeMailgroupMemberListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupMemberListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupMemberListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeMailgroupMemberListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeMailgroupMemberListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	TypeMailgroupPermissionMemberCreateUSER       = "USER"       // internal user in the team
+	TypeMailgroupPermissionMemberCreateDEPARTMENT = "DEPARTMENT" // member is a department
+)
+
+const (
+	UserIdTypeMailgroupPermissionMemberCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupPermissionMemberCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupPermissionMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeMailgroupPermissionMemberCreateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeMailgroupPermissionMemberCreateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeMailgroupPermissionMemberGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupPermissionMemberGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupPermissionMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeMailgroupPermissionMemberGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeMailgroupPermissionMemberGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeMailgroupPermissionMemberListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMailgroupPermissionMemberListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMailgroupPermissionMemberListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeMailgroupPermissionMemberListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeMailgroupPermissionMemberListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	TypePublicMailboxMemberCreateUSER = "USER" // internal user in the team
+)
+
+const (
+	UserIdTypePublicMailboxMemberCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePublicMailboxMemberCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePublicMailboxMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypePublicMailboxMemberGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePublicMailboxMemberGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePublicMailboxMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypePublicMailboxMemberListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePublicMailboxMemberListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePublicMailboxMemberListOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type EmailAlias struct {
-	PrimaryEmail *string `json:"primary_email,omitempty"`
-	EmailAlias   *string `json:"email_alias,omitempty"`
+	PrimaryEmail *string `json:"primary_email,omitempty"` // 主邮箱地址
+	EmailAlias   *string `json:"email_alias,omitempty"`   // 邮箱别名
 }
 
 type EmailAliasBuilder struct {
-	primaryEmail     string
+	primaryEmail     string // 主邮箱地址
 	primaryEmailFlag bool
-	emailAlias       string
+	emailAlias       string // 邮箱别名
 	emailAliasFlag   bool
 }
 
@@ -67,11 +169,16 @@ func NewEmailAliasBuilder() *EmailAliasBuilder {
 	return builder
 }
 
+// 主邮箱地址
+// 示例值：xxx@xx.xxx
 func (builder *EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasBuilder {
 	builder.primaryEmail = primaryEmail
 	builder.primaryEmailFlag = true
 	return builder
 }
+
+// 邮箱别名
+// 示例值：xxx@xx.xxx
 func (builder *EmailAliasBuilder) EmailAlias(emailAlias string) *EmailAliasBuilder {
 	builder.emailAlias = emailAlias
 	builder.emailAliasFlag = true
@@ -92,32 +199,32 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 }
 
 type Mailgroup struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // 邮件组ID
+	Email                   *string `json:"email,omitempty"`                      // 邮件组地址
+	Name                    *string `json:"name,omitempty"`                       // 邮件组名称
+	Description             *string `json:"description,omitempty"`                // 邮件组描述
+	DirectMembersCount      *string `json:"direct_members_count,omitempty"`       // 邮件组成员数量
+	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`    // 是否包含外部成员
+	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
+	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`          // 谁可发送邮件到此邮件组
 }
 
 type MailgroupBuilder struct {
-	mailgroupId                 string
+	mailgroupId                 string // 邮件组ID
 	mailgroupIdFlag             bool
-	email                       string
+	email                       string // 邮件组地址
 	emailFlag                   bool
-	name                        string
+	name                        string // 邮件组名称
 	nameFlag                    bool
-	description                 string
+	description                 string // 邮件组描述
 	descriptionFlag             bool
-	directMembersCount          string
+	directMembersCount          string // 邮件组成员数量
 	directMembersCountFlag      bool
-	includeExternalMember       bool
+	includeExternalMember       bool // 是否包含外部成员
 	includeExternalMemberFlag   bool
-	includeAllCompanyMember     bool
+	includeAllCompanyMember     bool // 是否是全员邮件组
 	includeAllCompanyMemberFlag bool
-	whoCanSendMail              string
+	whoCanSendMail              string // 谁可发送邮件到此邮件组
 	whoCanSendMailFlag          bool
 }
 
@@ -126,41 +233,64 @@ func NewMailgroupBuilder() *MailgroupBuilder {
 	return builder
 }
 
+// 邮件组ID
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder {
 	builder.mailgroupId = mailgroupId
 	builder.mailgroupIdFlag = true
 	return builder
 }
+
+// 邮件组地址
+// 示例值：test_mail_group@xxx.xx
 func (builder *MailgroupBuilder) Email(email string) *MailgroupBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 邮件组名称
+// 示例值：test mail group
 func (builder *MailgroupBuilder) Name(name string) *MailgroupBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 邮件组描述
+// 示例值：mail group for testing
 func (builder *MailgroupBuilder) Description(description string) *MailgroupBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 邮件组成员数量
+// 示例值：10
 func (builder *MailgroupBuilder) DirectMembersCount(directMembersCount string) *MailgroupBuilder {
 	builder.directMembersCount = directMembersCount
 	builder.directMembersCountFlag = true
 	return builder
 }
+
+// 是否包含外部成员
+// 示例值：true
 func (builder *MailgroupBuilder) IncludeExternalMember(includeExternalMember bool) *MailgroupBuilder {
 	builder.includeExternalMember = includeExternalMember
 	builder.includeExternalMemberFlag = true
 	return builder
 }
+
+// 是否是全员邮件组
+// 示例值：false
 func (builder *MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember bool) *MailgroupBuilder {
 	builder.includeAllCompanyMember = includeAllCompanyMember
 	builder.includeAllCompanyMemberFlag = true
 	return builder
 }
+
+// 谁可发送邮件到此邮件组
+// 示例值：ALL_INTERNAL_USERS
 func (builder *MailgroupBuilder) WhoCanSendMail(whoCanSendMail string) *MailgroupBuilder {
 	builder.whoCanSendMail = whoCanSendMail
 	builder.whoCanSendMailFlag = true
@@ -205,23 +335,23 @@ func (builder *MailgroupBuilder) Build() *Mailgroup {
 }
 
 type MailgroupMember struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId     *string `json:"member_id,omitempty"`     // 邮件组内成员唯一标识
+	Email        *string `json:"email,omitempty"`         // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+	UserId       *string `json:"user_id,omitempty"`       // 租户内用户的唯一标识（当成员类型是USER时有值）
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	Type         *string `json:"type,omitempty"`          // 成员类型
 }
 
 type MailgroupMemberBuilder struct {
-	memberId         string
+	memberId         string // 邮件组内成员唯一标识
 	memberIdFlag     bool
-	email            string
+	email            string // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
 	emailFlag        bool
-	userId           string
+	userId           string // 租户内用户的唯一标识（当成员类型是USER时有值）
 	userIdFlag       bool
-	departmentId     string
+	departmentId     string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdFlag bool
-	type_            string
+	type_            string // 成员类型
 	typeFlag         bool
 }
 
@@ -230,26 +360,40 @@ func NewMailgroupMemberBuilder() *MailgroupMemberBuilder {
 	return builder
 }
 
+// 邮件组内成员唯一标识
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
 	return builder
 }
+
+// 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+// 示例值：test_memeber@xxx.xx
 func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+// 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 成员类型
+// 示例值：USER
 func (builder *MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -282,20 +426,20 @@ func (builder *MailgroupMemberBuilder) Build() *MailgroupMember {
 }
 
 type MailgroupPermissionMember struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId *string `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
+	UserId             *string `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
+	DepartmentId       *string `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	Type               *string `json:"type,omitempty"`                 // 成员类型
 }
 
 type MailgroupPermissionMemberBuilder struct {
-	permissionMemberId     string
+	permissionMemberId     string // 权限组内成员唯一标识
 	permissionMemberIdFlag bool
-	userId                 string
+	userId                 string // 租户内用户的唯一标识（当成员类型是USER时有值）
 	userIdFlag             bool
-	departmentId           string
+	departmentId           string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdFlag       bool
-	type_                  string
+	type_                  string // 成员类型
 	typeFlag               bool
 }
 
@@ -304,21 +448,32 @@ func NewMailgroupPermissionMemberBuilder() *MailgroupPermissionMemberBuilder {
 	return builder
 }
 
+// 权限组内成员唯一标识
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder {
 	builder.permissionMemberId = permissionMemberId
 	builder.permissionMemberIdFlag = true
 	return builder
 }
+
+// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+// 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 成员类型
+// 示例值：USER
 func (builder *MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -347,11 +502,11 @@ func (builder *MailgroupPermissionMemberBuilder) Build() *MailgroupPermissionMem
 }
 
 type Message struct {
-	Raw *string `json:"raw,omitempty"`
+	Raw *string `json:"raw,omitempty"` // MIME邮件数据，基于base64url编码
 }
 
 type MessageBuilder struct {
-	raw     string
+	raw     string // MIME邮件数据，基于base64url编码
 	rawFlag bool
 }
 
@@ -360,6 +515,8 @@ func NewMessageBuilder() *MessageBuilder {
 	return builder
 }
 
+// MIME邮件数据，基于base64url编码
+// 示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogdG9AeHh4Lnh4CmZyb206IHNlbmRlckB4eHgueHgKc3ViamVjdDogdGhpcyBpcyBhIHN1YmplY3QKCnRoaXMgaXMgdGhlIG1lc3NhZ2UgYm9keS4=
 func (builder *MessageBuilder) Raw(raw string) *MessageBuilder {
 	builder.raw = raw
 	builder.rawFlag = true
@@ -376,17 +533,17 @@ func (builder *MessageBuilder) Build() *Message {
 }
 
 type PublicMailbox struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
+	Email           *string `json:"email,omitempty"`             // 公共邮箱地址
+	Name            *string `json:"name,omitempty"`              // 公共邮箱名称
 }
 
 type PublicMailboxBuilder struct {
-	publicMailboxId     string
+	publicMailboxId     string // 公共邮箱唯一标识
 	publicMailboxIdFlag bool
-	email               string
+	email               string // 公共邮箱地址
 	emailFlag           bool
-	name                string
+	name                string // 公共邮箱名称
 	nameFlag            bool
 }
 
@@ -395,16 +552,24 @@ func NewPublicMailboxBuilder() *PublicMailboxBuilder {
 	return builder
 }
 
+// 公共邮箱唯一标识
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *PublicMailboxBuilder {
 	builder.publicMailboxId = publicMailboxId
 	builder.publicMailboxIdFlag = true
 	return builder
 }
+
+// 公共邮箱地址
+// 示例值：test_public_mailbox@xxx.xx
 func (builder *PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 公共邮箱名称
+// 示例值：test public mailbox
 func (builder *PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -429,17 +594,17 @@ func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
 }
 
 type PublicMailboxMember struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId *string `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
+	UserId   *string `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是USER时有值）
+	Type     *string `json:"type,omitempty"`      // 成员类型
 }
 
 type PublicMailboxMemberBuilder struct {
-	memberId     string
+	memberId     string // 公共邮箱内成员唯一标识
 	memberIdFlag bool
-	userId       string
+	userId       string // 租户内用户的唯一标识（当成员类型是USER时有值）
 	userIdFlag   bool
-	type_        string
+	type_        string // 成员类型
 	typeFlag     bool
 }
 
@@ -448,16 +613,24 @@ func NewPublicMailboxMemberBuilder() *PublicMailboxMemberBuilder {
 	return builder
 }
 
+// 公共邮箱内成员唯一标识
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
 	return builder
 }
+
+// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 示例值：xxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 成员类型
+// 示例值：USER
 func (builder *PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -482,17 +655,17 @@ func (builder *PublicMailboxMemberBuilder) Build() *PublicMailboxMember {
 }
 
 type User struct {
-	Email  *string `json:"email,omitempty"`
-	Status *int    `json:"status,omitempty"`
-	Type   *int    `json:"type,omitempty"`
+	Email  *string `json:"email,omitempty"`  // 邮箱地址
+	Status *int    `json:"status,omitempty"` // 邮箱地址状态
+	Type   *int    `json:"type,omitempty"`   // 邮箱地址类型
 }
 
 type UserBuilder struct {
-	email      string
+	email      string // 邮箱地址
 	emailFlag  bool
-	status     int
+	status     int // 邮箱地址状态
 	statusFlag bool
-	type_      int
+	type_      int // 邮箱地址类型
 	typeFlag   bool
 }
 
@@ -501,16 +674,24 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
+// 邮箱地址
+// 示例值：aaa@lark.com
 func (builder *UserBuilder) Email(email string) *UserBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 邮箱地址状态
+// 示例值：4
 func (builder *UserBuilder) Status(status int) *UserBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 邮箱地址类型
+// 示例值：1
 func (builder *UserBuilder) Type(type_ int) *UserBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -548,6 +729,7 @@ func NewCreateMailgroupReqBuilder() *CreateMailgroupReqBuilder {
 	return builder
 }
 
+// 创建一个邮件组
 func (builder *CreateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *CreateMailgroupReqBuilder {
 	builder.mailgroup = mailgroup
 	return builder
@@ -566,20 +748,20 @@ type CreateMailgroupReq struct {
 }
 
 type CreateMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // The unique ID of a mail group
+	Email                   *string `json:"email,omitempty"`                      // The mail group's email address
+	Name                    *string `json:"name,omitempty"`                       // The mail group's display name
+	Description             *string `json:"description,omitempty"`                // The mail group's description
+	DirectMembersCount      *string `json:"direct_members_count,omitempty"`       // The number of mail group's direct members
+	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`    // Value is true if this mail group has external member
+	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`          // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 }
 
 type CreateMailgroupResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateMailgroupRespData `json:"data"`
+	Data *CreateMailgroupRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateMailgroupResp) Success() bool {
@@ -599,6 +781,9 @@ func NewDeleteMailgroupReqBuilder() *DeleteMailgroupReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *DeleteMailgroupReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
@@ -637,6 +822,9 @@ func NewGetMailgroupReqBuilder() *GetMailgroupReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
@@ -654,20 +842,20 @@ type GetMailgroupReq struct {
 }
 
 type GetMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // The unique ID of a mail group
+	Email                   *string `json:"email,omitempty"`                      // The mail group's email address
+	Name                    *string `json:"name,omitempty"`                       // The mail group's display name
+	Description             *string `json:"description,omitempty"`                // The mail group's description
+	DirectMembersCount      *string `json:"direct_members_count,omitempty"`       // The number of mail group's direct members
+	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`    // Value is true if this mail group has external member
+	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`          // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 }
 
 type GetMailgroupResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMailgroupRespData `json:"data"`
+	Data *GetMailgroupRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMailgroupResp) Success() bool {
@@ -676,7 +864,7 @@ func (resp *GetMailgroupResp) Success() bool {
 
 type ListMailgroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListMailgroupReqBuilder() *ListMailgroupReqBuilder {
@@ -688,22 +876,39 @@ func NewListMailgroupReqBuilder() *ListMailgroupReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListMailgroupReqBuilder) Limit(limit int) *ListMailgroupReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 邮件组管理员用户ID，用于获取该用户有管理权限的邮件组
+//
+// 示例值：ou_xxxxxx
 func (builder *ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *ListMailgroupReqBuilder {
 	builder.apiReq.QueryParams.Set("manager_user_id", fmt.Sprint(managerUserId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailgroupReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgroupReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListMailgroupReqBuilder) PageSize(pageSize int) *ListMailgroupReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -719,19 +924,20 @@ func (builder *ListMailgroupReqBuilder) Build() *ListMailgroupReq {
 
 type ListMailgroupReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListMailgroupRespData struct {
-	HasMore   *bool        `json:"has_more,omitempty"`
-	PageToken *string      `json:"page_token,omitempty"`
-	Items     []*Mailgroup `json:"items,omitempty"`
+	HasMore   *bool        `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string      `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*Mailgroup `json:"items,omitempty"`      // 邮件组列表
 }
 
 type ListMailgroupResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListMailgroupRespData `json:"data"`
+	Data *ListMailgroupRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListMailgroupResp) Success() bool {
@@ -752,10 +958,15 @@ func NewPatchMailgroupReqBuilder() *PatchMailgroupReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchMailgroupReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 更新邮件组部分字段，没有填写的字段不会被更新
 func (builder *PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchMailgroupReqBuilder {
 	builder.mailgroup = mailgroup
 	return builder
@@ -775,20 +986,20 @@ type PatchMailgroupReq struct {
 }
 
 type PatchMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // The unique ID of a mail group
+	Email                   *string `json:"email,omitempty"`                      // The mail group's email address
+	Name                    *string `json:"name,omitempty"`                       // The mail group's display name
+	Description             *string `json:"description,omitempty"`                // The mail group's description
+	DirectMembersCount      *string `json:"direct_members_count,omitempty"`       // The number of mail group's direct members
+	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`    // Value is true if this mail group has external member
+	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`          // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 }
 
 type PatchMailgroupResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchMailgroupRespData `json:"data"`
+	Data *PatchMailgroupRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchMailgroupResp) Success() bool {
@@ -809,10 +1020,15 @@ func NewUpdateMailgroupReqBuilder() *UpdateMailgroupReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *UpdateMailgroupReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 更新邮件组所有信息
 func (builder *UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *UpdateMailgroupReqBuilder {
 	builder.mailgroup = mailgroup
 	return builder
@@ -832,20 +1048,20 @@ type UpdateMailgroupReq struct {
 }
 
 type UpdateMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // The unique ID of a mail group
+	Email                   *string `json:"email,omitempty"`                      // The mail group's email address
+	Name                    *string `json:"name,omitempty"`                       // The mail group's display name
+	Description             *string `json:"description,omitempty"`                // The mail group's description
+	DirectMembersCount      *string `json:"direct_members_count,omitempty"`       // The number of mail group's direct members
+	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`    // Value is true if this mail group has external member
+	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`          // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 }
 
 type UpdateMailgroupResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateMailgroupRespData `json:"data"`
+	Data *UpdateMailgroupRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateMailgroupResp) Success() bool {
@@ -866,10 +1082,15 @@ func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
 	return builder
 }
 
+// 邮件组id或邮件组邮箱地址
+//
+// 示例值：xxxxxx 或者 xxx@xx.xxx
 func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 创建邮件组别名
 func (builder *CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateMailgroupAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -889,13 +1110,13 @@ type CreateMailgroupAliasReq struct {
 }
 
 type CreateMailgroupAliasRespData struct {
-	MailgroupAlias *EmailAlias `json:"mailgroup_alias,omitempty"`
+	MailgroupAlias *EmailAlias `json:"mailgroup_alias,omitempty"` // 邮件组别名
 }
 
 type CreateMailgroupAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateMailgroupAliasRespData `json:"data"`
+	Data *CreateMailgroupAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateMailgroupAliasResp) Success() bool {
@@ -915,10 +1136,17 @@ func NewDeleteMailgroupAliasReqBuilder() *DeleteMailgroupAliasReqBuilder {
 	return builder
 }
 
+// 邮件组id或邮件组邮箱地址
+//
+// 示例值：xxxxxx 或 test_group@xx.xxx
 func (builder *DeleteMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupAliasReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 邮件组别名邮箱地址
+//
+// 示例值：xxx@xx.xxx
 func (builder *DeleteMailgroupAliasReqBuilder) AliasId(aliasId string) *DeleteMailgroupAliasReqBuilder {
 	builder.apiReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
@@ -957,6 +1185,9 @@ func NewListMailgroupAliasReqBuilder() *ListMailgroupAliasReqBuilder {
 	return builder
 }
 
+// 邮件组id或邮件组邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *ListMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupAliasReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
@@ -974,13 +1205,13 @@ type ListMailgroupAliasReq struct {
 }
 
 type ListMailgroupAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items []*EmailAlias `json:"items,omitempty"` // 邮件组别名
 }
 
 type ListMailgroupAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListMailgroupAliasRespData `json:"data"`
+	Data *ListMailgroupAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListMailgroupAliasResp) Success() bool {
@@ -1001,18 +1232,31 @@ func NewCreateMailgroupMemberReqBuilder() *CreateMailgroupMemberReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+// 向邮件组添加单个成员
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember *MailgroupMember) *CreateMailgroupMemberReqBuilder {
 	builder.mailgroupMember = mailgroupMember
 	return builder
@@ -1033,17 +1277,17 @@ type CreateMailgroupMemberReq struct {
 }
 
 type CreateMailgroupMemberRespData struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId     *string `json:"member_id,omitempty"`     // The unique ID of a member in this mail group
+	Email        *string `json:"email,omitempty"`         // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
+	UserId       *string `json:"user_id,omitempty"`       // The member's user id. Value is valid when type is USER
+	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	Type         *string `json:"type,omitempty"`          // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 }
 
 type CreateMailgroupMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateMailgroupMemberRespData `json:"data"`
+	Data *CreateMailgroupMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateMailgroupMemberResp) Success() bool {
@@ -1063,10 +1307,17 @@ func NewDeleteMailgroupMemberReqBuilder() *DeleteMailgroupMemberReqBuilder {
 	return builder
 }
 
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
 func (builder *DeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// The unique ID of a member in this mail group
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *DeleteMailgroupMemberReqBuilder) MemberId(memberId string) *DeleteMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
@@ -1105,18 +1356,33 @@ func NewGetMailgroupMemberReqBuilder() *GetMailgroupMemberReqBuilder {
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 邮件组内成员唯一标识
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *GetMailgroupMemberReqBuilder) MemberId(memberId string) *GetMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *GetMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -1135,17 +1401,17 @@ type GetMailgroupMemberReq struct {
 }
 
 type GetMailgroupMemberRespData struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId     *string `json:"member_id,omitempty"`     // The unique ID of a member in this mail group
+	Email        *string `json:"email,omitempty"`         // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
+	UserId       *string `json:"user_id,omitempty"`       // The member's user id. Value is valid when type is USER
+	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	Type         *string `json:"type,omitempty"`          // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 }
 
 type GetMailgroupMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMailgroupMemberRespData `json:"data"`
+	Data *GetMailgroupMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMailgroupMemberResp) Success() bool {
@@ -1154,7 +1420,7 @@ func (resp *GetMailgroupMemberResp) Success() bool {
 
 type ListMailgroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListMailgroupMemberReqBuilder() *ListMailgroupMemberReqBuilder {
@@ -1166,26 +1432,47 @@ func NewListMailgroupMemberReqBuilder() *ListMailgroupMemberReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListMailgroupMemberReqBuilder) Limit(limit int) *ListMailgroupMemberReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
 func (builder *ListMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListMailgroupMemberReqBuilder) PageSize(pageSize int) *ListMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -1202,19 +1489,20 @@ func (builder *ListMailgroupMemberReqBuilder) Build() *ListMailgroupMemberReq {
 
 type ListMailgroupMemberReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListMailgroupMemberRespData struct {
-	HasMore   *bool              `json:"has_more,omitempty"`
-	PageToken *string            `json:"page_token,omitempty"`
-	Items     []*MailgroupMember `json:"items,omitempty"`
+	HasMore   *bool              `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string            `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*MailgroupMember `json:"items,omitempty"`      // 邮件组成员列表
 }
 
 type ListMailgroupMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListMailgroupMemberRespData `json:"data"`
+	Data *ListMailgroupMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListMailgroupMemberResp) Success() bool {
@@ -1235,18 +1523,31 @@ func NewCreateMailgroupPermissionMemberReqBuilder() *CreateMailgroupPermissionMe
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：xxx
 func (builder *CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+// 向邮件组添加单个自定义权限成员，添加后该成员可发送邮件到该邮件组
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMember(mailgroupPermissionMember *MailgroupPermissionMember) *CreateMailgroupPermissionMemberReqBuilder {
 	builder.mailgroupPermissionMember = mailgroupPermissionMember
 	return builder
@@ -1267,16 +1568,16 @@ type CreateMailgroupPermissionMemberReq struct {
 }
 
 type CreateMailgroupPermissionMemberRespData struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
+	UserId             *string `json:"user_id,omitempty"`              // The member's user id. Value is valid when type is USER
+	DepartmentId       *string `json:"department_id,omitempty"`        // The member's department id. Value is valid when type is DEPARTMENT
+	Type               *string `json:"type,omitempty"`                 // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 }
 
 type CreateMailgroupPermissionMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateMailgroupPermissionMemberRespData `json:"data"`
+	Data *CreateMailgroupPermissionMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateMailgroupPermissionMemberResp) Success() bool {
@@ -1296,10 +1597,17 @@ func NewDeleteMailgroupPermissionMemberReqBuilder() *DeleteMailgroupPermissionMe
 	return builder
 }
 
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
 func (builder *DeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// The unique ID of a member in this permission group
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *DeleteMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *DeleteMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
 	return builder
@@ -1338,18 +1646,33 @@ func NewGetMailgroupPermissionMemberReqBuilder() *GetMailgroupPermissionMemberRe
 	return builder
 }
 
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 权限组内成员唯一标识
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *GetMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *GetMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *GetMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -1368,16 +1691,16 @@ type GetMailgroupPermissionMemberReq struct {
 }
 
 type GetMailgroupPermissionMemberRespData struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
+	UserId             *string `json:"user_id,omitempty"`              // The member's user id. Value is valid when type is USER
+	DepartmentId       *string `json:"department_id,omitempty"`        // The member's department id. Value is valid when type is DEPARTMENT
+	Type               *string `json:"type,omitempty"`                 // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 }
 
 type GetMailgroupPermissionMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMailgroupPermissionMemberRespData `json:"data"`
+	Data *GetMailgroupPermissionMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMailgroupPermissionMemberResp) Success() bool {
@@ -1386,7 +1709,7 @@ func (resp *GetMailgroupPermissionMemberResp) Success() bool {
 
 type ListMailgroupPermissionMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListMailgroupPermissionMemberReqBuilder() *ListMailgroupPermissionMemberReqBuilder {
@@ -1398,26 +1721,47 @@ func NewListMailgroupPermissionMemberReqBuilder() *ListMailgroupPermissionMember
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListMailgroupPermissionMemberReqBuilder) Limit(limit int) *ListMailgroupPermissionMemberReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken string) *ListMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageSize(pageSize int) *ListMailgroupPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -1434,19 +1778,20 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) Build() *ListMailgroupPe
 
 type ListMailgroupPermissionMemberReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListMailgroupPermissionMemberRespData struct {
-	HasMore   *bool                        `json:"has_more,omitempty"`
-	PageToken *string                      `json:"page_token,omitempty"`
-	Items     []*MailgroupPermissionMember `json:"items,omitempty"`
+	HasMore   *bool                        `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string                      `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*MailgroupPermissionMember `json:"items,omitempty"`      // 邮件组权限成员列表
 }
 
 type ListMailgroupPermissionMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListMailgroupPermissionMemberRespData `json:"data"`
+	Data *ListMailgroupPermissionMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListMailgroupPermissionMemberResp) Success() bool {
@@ -1467,6 +1812,7 @@ func NewCreatePublicMailboxReqBuilder() *CreatePublicMailboxReqBuilder {
 	return builder
 }
 
+// 创建一个公共邮箱
 func (builder *CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *CreatePublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -1485,15 +1831,15 @@ type CreatePublicMailboxReq struct {
 }
 
 type CreatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
+	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
 }
 
 type CreatePublicMailboxResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreatePublicMailboxRespData `json:"data"`
+	Data *CreatePublicMailboxRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreatePublicMailboxResp) Success() bool {
@@ -1513,6 +1859,9 @@ func NewDeletePublicMailboxReqBuilder() *DeletePublicMailboxReqBuilder {
 	return builder
 }
 
+// 要释放的公共邮箱地址
+//
+// 示例值：xxxxxx@abc.com
 func (builder *DeletePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
@@ -1551,6 +1900,9 @@ func NewGetPublicMailboxReqBuilder() *GetPublicMailboxReqBuilder {
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *GetPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
@@ -1568,15 +1920,15 @@ type GetPublicMailboxReq struct {
 }
 
 type GetPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
+	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
 }
 
 type GetPublicMailboxResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetPublicMailboxRespData `json:"data"`
+	Data *GetPublicMailboxRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetPublicMailboxResp) Success() bool {
@@ -1585,7 +1937,7 @@ func (resp *GetPublicMailboxResp) Success() bool {
 
 type ListPublicMailboxReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListPublicMailboxReqBuilder() *ListPublicMailboxReqBuilder {
@@ -1597,14 +1949,23 @@ func NewListPublicMailboxReqBuilder() *ListPublicMailboxReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListPublicMailboxReqBuilder) Limit(limit int) *ListPublicMailboxReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPublicMailboxReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListPublicMailboxReqBuilder) PageSize(pageSize int) *ListPublicMailboxReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -1620,19 +1981,20 @@ func (builder *ListPublicMailboxReqBuilder) Build() *ListPublicMailboxReq {
 
 type ListPublicMailboxReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListPublicMailboxRespData struct {
-	HasMore   *bool            `json:"has_more,omitempty"`
-	PageToken *string          `json:"page_token,omitempty"`
-	Items     []*PublicMailbox `json:"items,omitempty"`
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*PublicMailbox `json:"items,omitempty"`      // 公共邮箱列表
 }
 
 type ListPublicMailboxResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListPublicMailboxRespData `json:"data"`
+	Data *ListPublicMailboxRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListPublicMailboxResp) Success() bool {
@@ -1653,10 +2015,15 @@ func NewPatchPublicMailboxReqBuilder() *PatchPublicMailboxReqBuilder {
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *PatchPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *PatchPublicMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 更新公共邮箱部分字段，没有填写的字段不会被更新
 func (builder *PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *PatchPublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -1676,15 +2043,15 @@ type PatchPublicMailboxReq struct {
 }
 
 type PatchPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
+	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
 }
 
 type PatchPublicMailboxResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchPublicMailboxRespData `json:"data"`
+	Data *PatchPublicMailboxRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchPublicMailboxResp) Success() bool {
@@ -1705,10 +2072,15 @@ func NewUpdatePublicMailboxReqBuilder() *UpdatePublicMailboxReqBuilder {
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *UpdatePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *UpdatePublicMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 更新公共邮箱所有信息
 func (builder *UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *UpdatePublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -1728,15 +2100,15 @@ type UpdatePublicMailboxReq struct {
 }
 
 type UpdatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
+	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
 }
 
 type UpdatePublicMailboxResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdatePublicMailboxRespData `json:"data"`
+	Data *UpdatePublicMailboxRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdatePublicMailboxResp) Success() bool {
@@ -1757,10 +2129,15 @@ func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder
 	return builder
 }
 
+// 公共邮箱id或公共邮箱地址
+//
+// 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 创建公共邮箱别名
 func (builder *CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreatePublicMailboxAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -1780,13 +2157,13 @@ type CreatePublicMailboxAliasReq struct {
 }
 
 type CreatePublicMailboxAliasRespData struct {
-	PublicMailboxAlias *EmailAlias `json:"public_mailbox_alias,omitempty"`
+	PublicMailboxAlias *EmailAlias `json:"public_mailbox_alias,omitempty"` // 公共邮箱别名
 }
 
 type CreatePublicMailboxAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreatePublicMailboxAliasRespData `json:"data"`
+	Data *CreatePublicMailboxAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreatePublicMailboxAliasResp) Success() bool {
@@ -1806,10 +2183,17 @@ func NewDeletePublicMailboxAliasReqBuilder() *DeletePublicMailboxAliasReqBuilder
 	return builder
 }
 
+// 公共邮箱id或公共邮箱地址
+//
+// 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *DeletePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 公共邮箱别名
+//
+// 示例值：xxx@xx.xxx
 func (builder *DeletePublicMailboxAliasReqBuilder) AliasId(aliasId string) *DeletePublicMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
@@ -1848,6 +2232,9 @@ func NewListPublicMailboxAliasReqBuilder() *ListPublicMailboxAliasReqBuilder {
 	return builder
 }
 
+// 公共邮箱id或公共邮箱邮件地址
+//
+// 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *ListPublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
@@ -1865,13 +2252,13 @@ type ListPublicMailboxAliasReq struct {
 }
 
 type ListPublicMailboxAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items []*EmailAlias `json:"items,omitempty"` // 公共邮箱别名
 }
 
 type ListPublicMailboxAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListPublicMailboxAliasRespData `json:"data"`
+	Data *ListPublicMailboxAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListPublicMailboxAliasResp) Success() bool {
@@ -1891,6 +2278,9 @@ func NewClearPublicMailboxMemberReqBuilder() *ClearPublicMailboxMemberReqBuilder
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *ClearPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ClearPublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
@@ -1930,14 +2320,23 @@ func NewCreatePublicMailboxMemberReqBuilder() *CreatePublicMailboxMemberReqBuild
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *CreatePublicMailboxMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 向公共邮箱添加单个成员
 func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMailboxMember *PublicMailboxMember) *CreatePublicMailboxMemberReqBuilder {
 	builder.publicMailboxMember = publicMailboxMember
 	return builder
@@ -1958,15 +2357,15 @@ type CreatePublicMailboxMemberReq struct {
 }
 
 type CreatePublicMailboxMemberRespData struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this public mailbox
+	UserId   *string `json:"user_id,omitempty"`   // The member's user id. Value is valid when type is USER
+	Type     *string `json:"type,omitempty"`      // The type of member. Possible values are:;- USER: internal user in the team
 }
 
 type CreatePublicMailboxMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreatePublicMailboxMemberRespData `json:"data"`
+	Data *CreatePublicMailboxMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreatePublicMailboxMemberResp) Success() bool {
@@ -1986,10 +2385,17 @@ func NewDeletePublicMailboxMemberReqBuilder() *DeletePublicMailboxMemberReqBuild
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *DeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 公共邮箱内成员唯一标识
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *DeletePublicMailboxMemberReqBuilder) MemberId(memberId string) *DeletePublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
@@ -2028,14 +2434,25 @@ func NewGetPublicMailboxMemberReqBuilder() *GetPublicMailboxMemberReqBuilder {
 	return builder
 }
 
+// 公共邮箱唯一标识或公共邮箱地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx
 func (builder *GetPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 公共邮箱内成员唯一标识
+//
+// 示例值：xxxxxxxxxxxxxxx
 func (builder *GetPublicMailboxMemberReqBuilder) MemberId(memberId string) *GetPublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *GetPublicMailboxMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -2054,15 +2471,15 @@ type GetPublicMailboxMemberReq struct {
 }
 
 type GetPublicMailboxMemberRespData struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this public mailbox
+	UserId   *string `json:"user_id,omitempty"`   // The member's user id. Value is valid when type is USER
+	Type     *string `json:"type,omitempty"`      // The type of member. Possible values are:;- USER: internal user in the team
 }
 
 type GetPublicMailboxMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetPublicMailboxMemberRespData `json:"data"`
+	Data *GetPublicMailboxMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetPublicMailboxMemberResp) Success() bool {
@@ -2071,7 +2488,7 @@ func (resp *GetPublicMailboxMemberResp) Success() bool {
 
 type ListPublicMailboxMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListPublicMailboxMemberReqBuilder() *ListPublicMailboxMemberReqBuilder {
@@ -2083,22 +2500,39 @@ func NewListPublicMailboxMemberReqBuilder() *ListPublicMailboxMemberReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListPublicMailboxMemberReqBuilder) Limit(limit int) *ListPublicMailboxMemberReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// The unique ID or email address of a public mailbox
+//
+// 示例值：xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx
 func (builder *ListPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxMemberReqBuilder {
 	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *ListPublicMailboxMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *ListPublicMailboxMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListPublicMailboxMemberReqBuilder) PageSize(pageSize int) *ListPublicMailboxMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2115,19 +2549,20 @@ func (builder *ListPublicMailboxMemberReqBuilder) Build() *ListPublicMailboxMemb
 
 type ListPublicMailboxMemberReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListPublicMailboxMemberRespData struct {
-	HasMore   *bool                  `json:"has_more,omitempty"`
-	PageToken *string                `json:"page_token,omitempty"`
-	Items     []*PublicMailboxMember `json:"items,omitempty"`
+	HasMore   *bool                  `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string                `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*PublicMailboxMember `json:"items,omitempty"`      // 公共邮箱成员列表
 }
 
 type ListPublicMailboxMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListPublicMailboxMemberRespData `json:"data"`
+	Data *ListPublicMailboxMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListPublicMailboxMemberResp) Success() bool {
@@ -2135,7 +2570,7 @@ func (resp *ListPublicMailboxMemberResp) Success() bool {
 }
 
 type QueryUserReqBodyBuilder struct {
-	emailList     []string
+	emailList     []string // 需要查询的邮箱地址列表
 	emailListFlag bool
 }
 
@@ -2144,6 +2579,9 @@ func NewQueryUserReqBodyBuilder() *QueryUserReqBodyBuilder {
 	return builder
 }
 
+// 需要查询的邮箱地址列表
+//
+//示例值：["aaa@lark.com","bbb@lark.com"]
 func (builder *QueryUserReqBodyBuilder) EmailList(emailList []string) *QueryUserReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListFlag = true
@@ -2159,7 +2597,7 @@ func (builder *QueryUserReqBodyBuilder) Build() *QueryUserReqBody {
 }
 
 type QueryUserPathReqBodyBuilder struct {
-	emailList     []string
+	emailList     []string // 需要查询的邮箱地址列表
 	emailListFlag bool
 }
 
@@ -2167,6 +2605,10 @@ func NewQueryUserPathReqBodyBuilder() *QueryUserPathReqBodyBuilder {
 	builder := &QueryUserPathReqBodyBuilder{}
 	return builder
 }
+
+// 需要查询的邮箱地址列表
+//
+// 示例值：["aaa@lark.com","bbb@lark.com"]
 func (builder *QueryUserPathReqBodyBuilder) EmailList(emailList []string) *QueryUserPathReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListFlag = true
@@ -2195,6 +2637,7 @@ func NewQueryUserReqBuilder() *QueryUserReqBuilder {
 	return builder
 }
 
+// 使用邮箱状态查询接口，可以输入邮箱地址，查询出该邮箱地址对应的类型以及状态
 func (builder *QueryUserReqBuilder) Body(body *QueryUserReqBody) *QueryUserReqBuilder {
 	builder.body = body
 	return builder
@@ -2208,7 +2651,7 @@ func (builder *QueryUserReqBuilder) Build() *QueryUserReq {
 }
 
 type QueryUserReqBody struct {
-	EmailList []string `json:"email_list,omitempty"`
+	EmailList []string `json:"email_list,omitempty"` // 需要查询的邮箱地址列表
 }
 
 type QueryUserReq struct {
@@ -2217,13 +2660,13 @@ type QueryUserReq struct {
 }
 
 type QueryUserRespData struct {
-	UserList []*User `json:"user_list,omitempty"`
+	UserList []*User `json:"user_list,omitempty"` // 邮箱地址以及其对应的类型类型和状态
 }
 
 type QueryUserResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *QueryUserRespData `json:"data"`
+	Data *QueryUserRespData `json:"data"` // 业务数据
 }
 
 func (resp *QueryUserResp) Success() bool {
@@ -2243,10 +2686,17 @@ func NewDeleteUserMailboxReqBuilder() *DeleteUserMailboxReqBuilder {
 	return builder
 }
 
+// 要释放的邮箱地址
+//
+// 示例值：111111@abc.com
 func (builder *DeleteUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
+
+// 用于接受转移的邮箱地址
+//
+// 示例值：888888@abc.com
 func (builder *DeleteUserMailboxReqBuilder) TransferMailbox(transferMailbox string) *DeleteUserMailboxReqBuilder {
 	builder.apiReq.QueryParams.Set("transfer_mailbox", fmt.Sprint(transferMailbox))
 	return builder
@@ -2287,10 +2737,15 @@ func NewCreateUserMailboxAliasReqBuilder() *CreateUserMailboxAliasReqBuilder {
 	return builder
 }
 
+// 用户邮箱地址
+//
+// 示例值：user@xxx.xx
 func (builder *CreateUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
+
+// 创建用户邮箱别名
 func (builder *CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateUserMailboxAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -2310,13 +2765,13 @@ type CreateUserMailboxAliasReq struct {
 }
 
 type CreateUserMailboxAliasRespData struct {
-	UserMailboxAlias *EmailAlias `json:"user_mailbox_alias,omitempty"`
+	UserMailboxAlias *EmailAlias `json:"user_mailbox_alias,omitempty"` // 用户邮箱别名
 }
 
 type CreateUserMailboxAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateUserMailboxAliasRespData `json:"data"`
+	Data *CreateUserMailboxAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateUserMailboxAliasResp) Success() bool {
@@ -2336,10 +2791,17 @@ func NewDeleteUserMailboxAliasReqBuilder() *DeleteUserMailboxAliasReqBuilder {
 	return builder
 }
 
+// 用户邮箱地址
+//
+// 示例值：user@xxx.xx
 func (builder *DeleteUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
+
+// 别名邮箱地址
+//
+// 示例值：user_alias@xxx.xx
 func (builder *DeleteUserMailboxAliasReqBuilder) AliasId(aliasId string) *DeleteUserMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
@@ -2378,14 +2840,25 @@ func NewListUserMailboxAliasReqBuilder() *ListUserMailboxAliasReqBuilder {
 	return builder
 }
 
+// 用户邮箱地址
+//
+// 示例值：user@xxx.xx
 func (builder *ListUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxAliasReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
+
+//
+//
+// 示例值：xxx
 func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *ListUserMailboxAliasReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2404,13 +2877,13 @@ type ListUserMailboxAliasReq struct {
 }
 
 type ListUserMailboxAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items []*EmailAlias `json:"items,omitempty"` // 用户邮箱别名
 }
 
 type ListUserMailboxAliasResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListUserMailboxAliasRespData `json:"data"`
+	Data *ListUserMailboxAliasRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListUserMailboxAliasResp) Success() bool {

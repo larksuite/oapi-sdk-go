@@ -25,85 +25,145 @@ import (
 )
 
 const (
-	I18nKeyZhCn = "zh_cn"
-	I18nKeyEnUs = "en_us"
-	I18nKeyJaJp = "ja_jp"
+	I18nKeyZhCn = "zh_cn" // 中文
+	I18nKeyEnUs = "en_us" // 英文
+	I18nKeyJaJp = "ja_jp" // 日文
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	CycleTypeDay   = 1
-	CycleTypeWeek  = 2
-	CycleTypeMonth = 3
+	I18nKeyApplicationPatchZhCn = "zh_cn" // 中文
+	I18nKeyApplicationPatchEnUs = "en_us" // 英文
+	I18nKeyApplicationPatchJaJp = "ja_jp" // 日文
 )
 
 const (
-	AbilityApp = "app"
-	AbilityMp  = "mp"
-	AbilityH5  = "h5"
-	AbilityBot = "bot"
+	I18nKeyApplicationUnderauditlistZhCn = "zh_cn" // 中文
+	I18nKeyApplicationUnderauditlistEnUs = "en_us" // 英文
+	I18nKeyApplicationUnderauditlistJaJp = "ja_jp" // 日文
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"
-	DepartmentIdTypeOpenDepartmentId = "open_department_id"
+	UserIdTypeApplicationUnderauditlistUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeApplicationUnderauditlistUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeApplicationUnderauditlistOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	AppVersionStatusUnknown    = 0
-	AppVersionStatusAudited    = 1
-	AppVersionStatusReject     = 2
-	AppVersionStatusUnderAudit = 3
-	AppVersionStatusUnaudit    = 4
+	CycleTypeDay   = 1 // 日活
+	CycleTypeWeek  = 2 // 周活， date字段应该填自然周周一的日期
+	CycleTypeMonth = 3 // 月活， date字段应该填自然月1号的日期
+
 )
 
 const (
-	OpenFeedbackTypeFault  = 1
-	OpenFeedbackTypeAdvice = 2
+	AbilityApp = "app" // 返回应用整体的数据
+	AbilityMp  = "mp"  // 返回小程序的数据
+	AbilityH5  = "h5"  // 返回网页的数据
+	AbilityBot = "bot" // 返回机器人的数据
 )
 
 const (
-	OpenMarkStatusUnmarked   = 0
-	OpenMarkStatusMarked     = 1
-	OpenMarkStatusProcessing = 2
-	OpenMarkStatusClosed     = 3
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	I18nKeyApplicationAppVersionGetZhCn = "zh_cn" // 中文
+	I18nKeyApplicationAppVersionGetEnUs = "en_us" // 英文
+	I18nKeyApplicationAppVersionGetJaJp = "ja_jp" // 日文
+)
+
+const (
+	UserIdTypeApplicationAppVersionGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeApplicationAppVersionGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeApplicationAppVersionGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	AppVersionStatusUnknown    = 0 // 未知状态
+	AppVersionStatusAudited    = 1 // 审核通过
+	AppVersionStatusReject     = 2 // 审核拒绝
+	AppVersionStatusUnderAudit = 3 // 审核中
+	AppVersionStatusUnaudit    = 4 // 未提交审核
+
+)
+
+const (
+	UserIdTypeApplicationAppVersionPatchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeApplicationAppVersionPatchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeApplicationAppVersionPatchOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	OpenFeedbackTypeFault  = 1 // 故障反馈
+	OpenFeedbackTypeAdvice = 2 // 产品建议
+
+)
+
+const (
+	OpenMarkStatusUnmarked   = 0 // 反馈未处理
+	OpenMarkStatusMarked     = 1 // 反馈已处理
+	OpenMarkStatusProcessing = 2 // 反馈处理中
+	OpenMarkStatusClosed     = 3 // 反馈已关闭
+
+)
+
+const (
+	UserIdTypeApplicationFeedbackListOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeApplicationFeedbackListUnionId = "union_id" // 用户的 union id
+	UserIdTypeApplicationFeedbackListUserId  = "user_id"  // 用户的 user id
+)
+
+const (
+	UserIdTypeApplicationFeedbackPatchOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeApplicationFeedbackPatchUnionId = "union_id" // 用户的 union id
+	UserIdTypeApplicationFeedbackPatchUserId  = "user_id"  // 用户的 user id
+)
+
+const (
+	OpenMarkStatusApplicationFeedbackPatchUnmarked   = 0 // 反馈未处理
+	OpenMarkStatusApplicationFeedbackPatchMarked     = 1 // 反馈已处理
+	OpenMarkStatusApplicationFeedbackPatchProcessing = 2 // 反馈处理中
+	OpenMarkStatusApplicationFeedbackPatchClosed     = 3 // 反馈已关闭
+
 )
 
 type AppAbility struct {
-	Gadget           *Gadget            `json:"gadget,omitempty"`
-	WebApp           *WebApp            `json:"web_app,omitempty"`
-	Bot              *Bot               `json:"bot,omitempty"`
-	WorkplaceWidgets []*WorkplaceWidget `json:"workplace_widgets,omitempty"`
-	Navigate         *Navigate          `json:"navigate,omitempty"`
-	CloudDoc         *CloudDoc          `json:"cloud_doc,omitempty"`
-	DocsBlocks       []*DocsBlock       `json:"docs_blocks,omitempty"`
-	MessageAction    *MessageAction     `json:"message_action,omitempty"`
-	PlusMenu         *PlusMenu          `json:"plus_menu,omitempty"`
+	Gadget           *Gadget            `json:"gadget,omitempty"`            // 小程序能力
+	WebApp           *WebApp            `json:"web_app,omitempty"`           // 网页能力
+	Bot              *Bot               `json:"bot,omitempty"`               // 机器人能力
+	WorkplaceWidgets []*WorkplaceWidget `json:"workplace_widgets,omitempty"` // 小组件能力
+	Navigate         *Navigate          `json:"navigate,omitempty"`          // 主导航小程序
+	CloudDoc         *CloudDoc          `json:"cloud_doc,omitempty"`         // 云文档应用
+	DocsBlocks       []*DocsBlock       `json:"docs_blocks,omitempty"`       // 云文档小组件
+	MessageAction    *MessageAction     `json:"message_action,omitempty"`    // 消息快捷操作
+	PlusMenu         *PlusMenu          `json:"plus_menu,omitempty"`         // 加号菜单
 }
 
 type AppAbilityBuilder struct {
-	gadget               *Gadget
+	gadget               *Gadget // 小程序能力
 	gadgetFlag           bool
-	webApp               *WebApp
+	webApp               *WebApp // 网页能力
 	webAppFlag           bool
-	bot                  *Bot
+	bot                  *Bot // 机器人能力
 	botFlag              bool
-	workplaceWidgets     []*WorkplaceWidget
+	workplaceWidgets     []*WorkplaceWidget // 小组件能力
 	workplaceWidgetsFlag bool
-	navigate             *Navigate
+	navigate             *Navigate // 主导航小程序
 	navigateFlag         bool
-	cloudDoc             *CloudDoc
+	cloudDoc             *CloudDoc // 云文档应用
 	cloudDocFlag         bool
-	docsBlocks           []*DocsBlock
+	docsBlocks           []*DocsBlock // 云文档小组件
 	docsBlocksFlag       bool
-	messageAction        *MessageAction
+	messageAction        *MessageAction // 消息快捷操作
 	messageActionFlag    bool
-	plusMenu             *PlusMenu
+	plusMenu             *PlusMenu // 加号菜单
 	plusMenuFlag         bool
 }
 
@@ -112,46 +172,72 @@ func NewAppAbilityBuilder() *AppAbilityBuilder {
 	return builder
 }
 
+// 小程序能力
+// 示例值：
 func (builder *AppAbilityBuilder) Gadget(gadget *Gadget) *AppAbilityBuilder {
 	builder.gadget = gadget
 	builder.gadgetFlag = true
 	return builder
 }
+
+// 网页能力
+// 示例值：
 func (builder *AppAbilityBuilder) WebApp(webApp *WebApp) *AppAbilityBuilder {
 	builder.webApp = webApp
 	builder.webAppFlag = true
 	return builder
 }
+
+// 机器人能力
+// 示例值：
 func (builder *AppAbilityBuilder) Bot(bot *Bot) *AppAbilityBuilder {
 	builder.bot = bot
 	builder.botFlag = true
 	return builder
 }
+
+// 小组件能力
+// 示例值：
 func (builder *AppAbilityBuilder) WorkplaceWidgets(workplaceWidgets []*WorkplaceWidget) *AppAbilityBuilder {
 	builder.workplaceWidgets = workplaceWidgets
 	builder.workplaceWidgetsFlag = true
 	return builder
 }
+
+// 主导航小程序
+// 示例值：
 func (builder *AppAbilityBuilder) Navigate(navigate *Navigate) *AppAbilityBuilder {
 	builder.navigate = navigate
 	builder.navigateFlag = true
 	return builder
 }
+
+// 云文档应用
+// 示例值：
 func (builder *AppAbilityBuilder) CloudDoc(cloudDoc *CloudDoc) *AppAbilityBuilder {
 	builder.cloudDoc = cloudDoc
 	builder.cloudDocFlag = true
 	return builder
 }
+
+// 云文档小组件
+// 示例值：
 func (builder *AppAbilityBuilder) DocsBlocks(docsBlocks []*DocsBlock) *AppAbilityBuilder {
 	builder.docsBlocks = docsBlocks
 	builder.docsBlocksFlag = true
 	return builder
 }
+
+// 消息快捷操作
+// 示例值：
 func (builder *AppAbilityBuilder) MessageAction(messageAction *MessageAction) *AppAbilityBuilder {
 	builder.messageAction = messageAction
 	builder.messageActionFlag = true
 	return builder
 }
+
+// 加号菜单
+// 示例值：
 func (builder *AppAbilityBuilder) PlusMenu(plusMenu *PlusMenu) *AppAbilityBuilder {
 	builder.plusMenu = plusMenu
 	builder.plusMenuFlag = true
@@ -191,14 +277,14 @@ func (builder *AppAbilityBuilder) Build() *AppAbility {
 }
 
 type AppAdminUser struct {
-	AdminType []string `json:"admin_type,omitempty"`
-	UserId    *string  `json:"user_id,omitempty"`
+	AdminType []string `json:"admin_type,omitempty"` // 管理员类型列表，如果该管理员同时是超级管理员 又是管理员，则同时返回两个角色。 ""super_admin""：超级管理员 ""admin""：管理员 返回示例：[""super_admin"",""admin""]"
+	UserId    *string  `json:"user_id,omitempty"`    // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
 }
 
 type AppAdminUserBuilder struct {
-	adminType     []string
+	adminType     []string // 管理员类型列表，如果该管理员同时是超级管理员 又是管理员，则同时返回两个角色。 ""super_admin""：超级管理员 ""admin""：管理员 返回示例：[""super_admin"",""admin""]"
 	adminTypeFlag bool
-	userId        string
+	userId        string // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
 	userIdFlag    bool
 }
 
@@ -207,11 +293,16 @@ func NewAppAdminUserBuilder() *AppAdminUserBuilder {
 	return builder
 }
 
+// 管理员类型列表，如果该管理员同时是超级管理员 又是管理员，则同时返回两个角色。 ""super_admin""：超级管理员 ""admin""：管理员 返回示例：[""super_admin"",""admin""]"
+// 示例值：["admin","super_admin"]
 func (builder *AppAdminUserBuilder) AdminType(adminType []string) *AppAdminUserBuilder {
 	builder.adminType = adminType
 	builder.adminTypeFlag = true
 	return builder
 }
+
+// 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
+// 示例值：6865121785549946899
 func (builder *AppAdminUserBuilder) UserId(userId string) *AppAdminUserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -231,23 +322,23 @@ func (builder *AppAdminUserBuilder) Build() *AppAdminUser {
 }
 
 type AppBadge struct {
-	UserId  *string         `json:"user_id,omitempty"`
-	Version *string         `json:"version,omitempty"`
-	Extra   *string         `json:"extra,omitempty"`
-	Pc      *ClientBadgeNum `json:"pc,omitempty"`
-	Mobile  *ClientBadgeNum `json:"mobile,omitempty"`
+	UserId  *string         `json:"user_id,omitempty"` // 用户ID
+	Version *string         `json:"version,omitempty"` // badge数据版本号
+	Extra   *string         `json:"extra,omitempty"`   // badge extra 信息
+	Pc      *ClientBadgeNum `json:"pc,omitempty"`      // pc端badge数量
+	Mobile  *ClientBadgeNum `json:"mobile,omitempty"`  // 移动端badge数量
 }
 
 type AppBadgeBuilder struct {
-	userId      string
+	userId      string // 用户ID
 	userIdFlag  bool
-	version     string
+	version     string // badge数据版本号
 	versionFlag bool
-	extra       string
+	extra       string // badge extra 信息
 	extraFlag   bool
-	pc          *ClientBadgeNum
+	pc          *ClientBadgeNum // pc端badge数量
 	pcFlag      bool
-	mobile      *ClientBadgeNum
+	mobile      *ClientBadgeNum // 移动端badge数量
 	mobileFlag  bool
 }
 
@@ -256,26 +347,40 @@ func NewAppBadgeBuilder() *AppBadgeBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：
 func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// badge数据版本号
+// 示例值：
 func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// badge extra 信息
+// 示例值：
 func (builder *AppBadgeBuilder) Extra(extra string) *AppBadgeBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
 	return builder
 }
+
+// pc端badge数量
+// 示例值：
 func (builder *AppBadgeBuilder) Pc(pc *ClientBadgeNum) *AppBadgeBuilder {
 	builder.pc = pc
 	builder.pcFlag = true
 	return builder
 }
+
+// 移动端badge数量
+// 示例值：
 func (builder *AppBadgeBuilder) Mobile(mobile *ClientBadgeNum) *AppBadgeBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true
@@ -306,14 +411,14 @@ func (builder *AppBadgeBuilder) Build() *AppBadge {
 }
 
 type AppCommonCategory struct {
-	I18nKey  *string `json:"i18n_key,omitempty"`
-	Category *string `json:"category,omitempty"`
+	I18nKey  *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	Category *string `json:"category,omitempty"` // 应用分类
 }
 
 type AppCommonCategoryBuilder struct {
-	i18nKey      string
+	i18nKey      string // 国际化语言的 key
 	i18nKeyFlag  bool
-	category     string
+	category     string // 应用分类
 	categoryFlag bool
 }
 
@@ -322,11 +427,16 @@ func NewAppCommonCategoryBuilder() *AppCommonCategoryBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *AppCommonCategoryBuilder) I18nKey(i18nKey string) *AppCommonCategoryBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 应用分类
+// 示例值：分析工具
 func (builder *AppCommonCategoryBuilder) Category(category string) *AppCommonCategoryBuilder {
 	builder.category = category
 	builder.categoryFlag = true
@@ -347,17 +457,17 @@ func (builder *AppCommonCategoryBuilder) Build() *AppCommonCategory {
 }
 
 type AppCustomCategory struct {
-	I18nKey     *string  `json:"i18n_key,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	AppIds      []string `json:"app_ids,omitempty"`
+	I18nKey     *string  `json:"i18n_key,omitempty"`    // 国际化语言的 key
+	Description *string  `json:"description,omitempty"` // 应用权限的国际化描述
+	AppIds      []string `json:"app_ids,omitempty"`     // 在该分组下的应用 id 列表
 }
 
 type AppCustomCategoryBuilder struct {
-	i18nKey         string
+	i18nKey         string // 国际化语言的 key
 	i18nKeyFlag     bool
-	description     string
+	description     string // 应用权限的国际化描述
 	descriptionFlag bool
-	appIds          []string
+	appIds          []string // 在该分组下的应用 id 列表
 	appIdsFlag      bool
 }
 
@@ -366,16 +476,24 @@ func NewAppCustomCategoryBuilder() *AppCustomCategoryBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *AppCustomCategoryBuilder) I18nKey(i18nKey string) *AppCustomCategoryBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 应用权限的国际化描述
+// 示例值：获取应用信息
 func (builder *AppCustomCategoryBuilder) Description(description string) *AppCustomCategoryBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 在该分组下的应用 id 列表
+// 示例值：
 func (builder *AppCustomCategoryBuilder) AppIds(appIds []string) *AppCustomCategoryBuilder {
 	builder.appIds = appIds
 	builder.appIdsFlag = true
@@ -399,14 +517,14 @@ func (builder *AppCustomCategoryBuilder) Build() *AppCustomCategory {
 }
 
 type AppCustomCategoryI18nInfo struct {
-	I18nKey *string `json:"i18n_key,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	I18nKey *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	Name    *string `json:"name,omitempty"`     // 自定义分组的国际化名称
 }
 
 type AppCustomCategoryI18nInfoBuilder struct {
-	i18nKey     string
+	i18nKey     string // 国际化语言的 key
 	i18nKeyFlag bool
-	name        string
+	name        string // 自定义分组的国际化名称
 	nameFlag    bool
 }
 
@@ -415,11 +533,16 @@ func NewAppCustomCategoryI18nInfoBuilder() *AppCustomCategoryI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *AppCustomCategoryI18nInfoBuilder) I18nKey(i18nKey string) *AppCustomCategoryI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 自定义分组的国际化名称
+// 示例值：名称
 func (builder *AppCustomCategoryI18nInfoBuilder) Name(name string) *AppCustomCategoryI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -440,20 +563,20 @@ func (builder *AppCustomCategoryI18nInfoBuilder) Build() *AppCustomCategoryI18nI
 }
 
 type AppI18nInfo struct {
-	I18nKey     *string `json:"i18n_key,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	HelpUse     *string `json:"help_use,omitempty"`
+	I18nKey     *string `json:"i18n_key,omitempty"`    // 国际化语言的 key
+	Name        *string `json:"name,omitempty"`        // 应用国际化名称
+	Description *string `json:"description,omitempty"` // 应用国际化描述（副标题）
+	HelpUse     *string `json:"help_use,omitempty"`    // 帮助国际化文档链接
 }
 
 type AppI18nInfoBuilder struct {
-	i18nKey         string
+	i18nKey         string // 国际化语言的 key
 	i18nKeyFlag     bool
-	name            string
+	name            string // 应用国际化名称
 	nameFlag        bool
-	description     string
+	description     string // 应用国际化描述（副标题）
 	descriptionFlag bool
-	helpUse         string
+	helpUse         string // 帮助国际化文档链接
 	helpUseFlag     bool
 }
 
@@ -462,21 +585,32 @@ func NewAppI18nInfoBuilder() *AppI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *AppI18nInfoBuilder) I18nKey(i18nKey string) *AppI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 应用国际化名称
+// 示例值：应用名称
 func (builder *AppI18nInfoBuilder) Name(name string) *AppI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 应用国际化描述（副标题）
+// 示例值：应用描述
 func (builder *AppI18nInfoBuilder) Description(description string) *AppI18nInfoBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 帮助国际化文档链接
+// 示例值：https://www.example.com
 func (builder *AppI18nInfoBuilder) HelpUse(helpUse string) *AppI18nInfoBuilder {
 	builder.helpUse = helpUse
 	builder.helpUseFlag = true
@@ -505,20 +639,20 @@ func (builder *AppI18nInfoBuilder) Build() *AppI18nInfo {
 }
 
 type AppMessageTrendItem struct {
-	ChatType    *string           `json:"chat_type,omitempty"`
-	EventType   *string           `json:"event_type,omitempty"`
-	MessageType *string           `json:"message_type,omitempty"`
-	Trend       []*UsageTrendItem `json:"trend,omitempty"`
+	ChatType    *string           `json:"chat_type,omitempty"`    // 聊天类型，private：私聊；group：群聊
+	EventType   *string           `json:"event_type,omitempty"`   // 消息事件类型,message_send:已发送消息;bot_notify_get_message:bot 通知收到消息;message_read:消息已读
+	MessageType *string           `json:"message_type,omitempty"` // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+	Trend       []*UsageTrendItem `json:"trend,omitempty"`        //
 }
 
 type AppMessageTrendItemBuilder struct {
-	chatType        string
+	chatType        string // 聊天类型，private：私聊；group：群聊
 	chatTypeFlag    bool
-	eventType       string
+	eventType       string // 消息事件类型,message_send:已发送消息;bot_notify_get_message:bot 通知收到消息;message_read:消息已读
 	eventTypeFlag   bool
-	messageType     string
+	messageType     string // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
 	messageTypeFlag bool
-	trend           []*UsageTrendItem
+	trend           []*UsageTrendItem //
 	trendFlag       bool
 }
 
@@ -527,21 +661,32 @@ func NewAppMessageTrendItemBuilder() *AppMessageTrendItemBuilder {
 	return builder
 }
 
+// 聊天类型，private：私聊；group：群聊
+// 示例值：
 func (builder *AppMessageTrendItemBuilder) ChatType(chatType string) *AppMessageTrendItemBuilder {
 	builder.chatType = chatType
 	builder.chatTypeFlag = true
 	return builder
 }
+
+// 消息事件类型,message_send:已发送消息;bot_notify_get_message:bot 通知收到消息;message_read:消息已读
+// 示例值：
 func (builder *AppMessageTrendItemBuilder) EventType(eventType string) *AppMessageTrendItemBuilder {
 	builder.eventType = eventType
 	builder.eventTypeFlag = true
 	return builder
 }
+
+// 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+// 示例值：
 func (builder *AppMessageTrendItemBuilder) MessageType(messageType string) *AppMessageTrendItemBuilder {
 	builder.messageType = messageType
 	builder.messageTypeFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *AppMessageTrendItemBuilder) Trend(trend []*UsageTrendItem) *AppMessageTrendItemBuilder {
 	builder.trend = trend
 	builder.trendFlag = true
@@ -569,17 +714,17 @@ func (builder *AppMessageTrendItemBuilder) Build() *AppMessageTrendItem {
 }
 
 type AppScope struct {
-	Scope       *string `json:"scope,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Level       *int    `json:"level,omitempty"`
+	Scope       *string `json:"scope,omitempty"`       // 应用权限
+	Description *string `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       *int    `json:"level,omitempty"`       // 权限等级描述
 }
 
 type AppScopeBuilder struct {
-	scope           string
+	scope           string // 应用权限
 	scopeFlag       bool
-	description     string
+	description     string // 应用权限的国际化描述
 	descriptionFlag bool
-	level           int
+	level           int // 权限等级描述
 	levelFlag       bool
 }
 
@@ -588,16 +733,24 @@ func NewAppScopeBuilder() *AppScopeBuilder {
 	return builder
 }
 
+// 应用权限
+// 示例值：contact:user.base
 func (builder *AppScopeBuilder) Scope(scope string) *AppScopeBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
 	return builder
 }
+
+// 应用权限的国际化描述
+// 示例值：获取应用信息
 func (builder *AppScopeBuilder) Description(description string) *AppScopeBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 权限等级描述
+// 示例值：1
 func (builder *AppScopeBuilder) Level(level int) *AppScopeBuilder {
 	builder.level = level
 	builder.levelFlag = true
@@ -622,14 +775,14 @@ func (builder *AppScopeBuilder) Build() *AppScope {
 }
 
 type AppScopeI18nInfo struct {
-	I18nKey     *string `json:"i18n_key,omitempty"`
-	Description *string `json:"description,omitempty"`
+	I18nKey     *string `json:"i18n_key,omitempty"`    // 国际化语言的 key
+	Description *string `json:"description,omitempty"` // 应用权限的国际化描述
 }
 
 type AppScopeI18nInfoBuilder struct {
-	i18nKey         string
+	i18nKey         string // 国际化语言的 key
 	i18nKeyFlag     bool
-	description     string
+	description     string // 应用权限的国际化描述
 	descriptionFlag bool
 }
 
@@ -638,11 +791,16 @@ func NewAppScopeI18nInfoBuilder() *AppScopeI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *AppScopeI18nInfoBuilder) I18nKey(i18nKey string) *AppScopeI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 应用权限的国际化描述
+// 示例值：获取应用信息
 func (builder *AppScopeI18nInfoBuilder) Description(description string) *AppScopeI18nInfoBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -663,14 +821,14 @@ func (builder *AppScopeI18nInfoBuilder) Build() *AppScopeI18nInfo {
 }
 
 type AppScopes struct {
-	HighLevelScopes []string `json:"high_level_scopes,omitempty"`
-	LowLevelScopes  []string `json:"low_level_scopes,omitempty"`
+	HighLevelScopes []string `json:"high_level_scopes,omitempty"` // 应用高级权限列表
+	LowLevelScopes  []string `json:"low_level_scopes,omitempty"`  // 应用低级权限列表
 }
 
 type AppScopesBuilder struct {
-	highLevelScopes     []string
+	highLevelScopes     []string // 应用高级权限列表
 	highLevelScopesFlag bool
-	lowLevelScopes      []string
+	lowLevelScopes      []string // 应用低级权限列表
 	lowLevelScopesFlag  bool
 }
 
@@ -679,11 +837,16 @@ func NewAppScopesBuilder() *AppScopesBuilder {
 	return builder
 }
 
+// 应用高级权限列表
+// 示例值：
 func (builder *AppScopesBuilder) HighLevelScopes(highLevelScopes []string) *AppScopesBuilder {
 	builder.highLevelScopes = highLevelScopes
 	builder.highLevelScopesFlag = true
 	return builder
 }
+
+// 应用低级权限列表
+// 示例值：
 func (builder *AppScopesBuilder) LowLevelScopes(lowLevelScopes []string) *AppScopesBuilder {
 	builder.lowLevelScopes = lowLevelScopes
 	builder.lowLevelScopesFlag = true
@@ -702,14 +865,14 @@ func (builder *AppScopesBuilder) Build() *AppScopes {
 }
 
 type AppUsageTrendItems struct {
-	Id    *string           `json:"id,omitempty"`
-	Trend []*UsageTrendItem `json:"trend,omitempty"`
+	Id    *string           `json:"id,omitempty"`    // 部门号
+	Trend []*UsageTrendItem `json:"trend,omitempty"` // 趋势统计
 }
 
 type AppUsageTrendItemsBuilder struct {
-	id        string
+	id        string // 部门号
 	idFlag    bool
-	trend     []*UsageTrendItem
+	trend     []*UsageTrendItem // 趋势统计
 	trendFlag bool
 }
 
@@ -718,11 +881,16 @@ func NewAppUsageTrendItemsBuilder() *AppUsageTrendItemsBuilder {
 	return builder
 }
 
+// 部门号
+// 示例值：
 func (builder *AppUsageTrendItemsBuilder) Id(id string) *AppUsageTrendItemsBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 趋势统计
+// 示例值：
 func (builder *AppUsageTrendItemsBuilder) Trend(trend []*UsageTrendItem) *AppUsageTrendItemsBuilder {
 	builder.trend = trend
 	builder.trendFlag = true
@@ -742,14 +910,14 @@ func (builder *AppUsageTrendItemsBuilder) Build() *AppUsageTrendItems {
 }
 
 type AppVersionId struct {
-	Version   *string `json:"version,omitempty"`
-	VersionId *string `json:"version_id,omitempty"`
+	Version   *string `json:"version,omitempty"`    // 开发者填入的应用版本 ID
+	VersionId *string `json:"version_id,omitempty"` // 唯一标识应用版本的 ID
 }
 
 type AppVersionIdBuilder struct {
-	version       string
+	version       string // 开发者填入的应用版本 ID
 	versionFlag   bool
-	versionId     string
+	versionId     string // 唯一标识应用版本的 ID
 	versionIdFlag bool
 }
 
@@ -758,11 +926,16 @@ func NewAppVersionIdBuilder() *AppVersionIdBuilder {
 	return builder
 }
 
+// 开发者填入的应用版本 ID
+// 示例值：1.0.0
 func (builder *AppVersionIdBuilder) Version(version string) *AppVersionIdBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// 唯一标识应用版本的 ID
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *AppVersionIdBuilder) VersionId(versionId string) *AppVersionIdBuilder {
 	builder.versionId = versionId
 	builder.versionIdFlag = true
@@ -783,17 +956,17 @@ func (builder *AppVersionIdBuilder) Build() *AppVersionId {
 }
 
 type AppVersionRemark struct {
-	Remark       *string        `json:"remark,omitempty"`
-	UpdateRemark *string        `json:"update_remark,omitempty"`
-	Visibility   *AppVisibility `json:"visibility,omitempty"`
+	Remark       *string        `json:"remark,omitempty"`        // 备注说明
+	UpdateRemark *string        `json:"update_remark,omitempty"` // 更新说明
+	Visibility   *AppVisibility `json:"visibility,omitempty"`    // 应用当前版本开发者编辑的可见性建议，若开发者未编辑可见性建议，则该字段无内容
 }
 
 type AppVersionRemarkBuilder struct {
-	remark           string
+	remark           string // 备注说明
 	remarkFlag       bool
-	updateRemark     string
+	updateRemark     string // 更新说明
 	updateRemarkFlag bool
-	visibility       *AppVisibility
+	visibility       *AppVisibility // 应用当前版本开发者编辑的可见性建议，若开发者未编辑可见性建议，则该字段无内容
 	visibilityFlag   bool
 }
 
@@ -802,16 +975,24 @@ func NewAppVersionRemarkBuilder() *AppVersionRemarkBuilder {
 	return builder
 }
 
+// 备注说明
+// 示例值：备注说明
 func (builder *AppVersionRemarkBuilder) Remark(remark string) *AppVersionRemarkBuilder {
 	builder.remark = remark
 	builder.remarkFlag = true
 	return builder
 }
+
+// 更新说明
+// 示例值：更新说明
 func (builder *AppVersionRemarkBuilder) UpdateRemark(updateRemark string) *AppVersionRemarkBuilder {
 	builder.updateRemark = updateRemark
 	builder.updateRemarkFlag = true
 	return builder
 }
+
+// 应用当前版本开发者编辑的可见性建议，若开发者未编辑可见性建议，则该字段无内容
+// 示例值：
 func (builder *AppVersionRemarkBuilder) Visibility(visibility *AppVisibility) *AppVersionRemarkBuilder {
 	builder.visibility = visibility
 	builder.visibilityFlag = true
@@ -835,17 +1016,17 @@ func (builder *AppVersionRemarkBuilder) Build() *AppVersionRemark {
 }
 
 type AppVersionRemarkEvent struct {
-	Remark       *string             `json:"remark,omitempty"`
-	UpdateRemark *string             `json:"update_remark,omitempty"`
-	Visibility   *AppVisibilityEvent `json:"visibility,omitempty"`
+	Remark       *string             `json:"remark,omitempty"`        // 备注说明
+	UpdateRemark *string             `json:"update_remark,omitempty"` // 更新说明
+	Visibility   *AppVisibilityEvent `json:"visibility,omitempty"`    // 可见性名单
 }
 
 type AppVersionRemarkEventBuilder struct {
-	remark           string
+	remark           string // 备注说明
 	remarkFlag       bool
-	updateRemark     string
+	updateRemark     string // 更新说明
 	updateRemarkFlag bool
-	visibility       *AppVisibilityEvent
+	visibility       *AppVisibilityEvent // 可见性名单
 	visibilityFlag   bool
 }
 
@@ -854,16 +1035,24 @@ func NewAppVersionRemarkEventBuilder() *AppVersionRemarkEventBuilder {
 	return builder
 }
 
+// 备注说明
+// 示例值：备注说明
 func (builder *AppVersionRemarkEventBuilder) Remark(remark string) *AppVersionRemarkEventBuilder {
 	builder.remark = remark
 	builder.remarkFlag = true
 	return builder
 }
+
+// 更新说明
+// 示例值：更新说明
 func (builder *AppVersionRemarkEventBuilder) UpdateRemark(updateRemark string) *AppVersionRemarkEventBuilder {
 	builder.updateRemark = updateRemark
 	builder.updateRemarkFlag = true
 	return builder
 }
+
+// 可见性名单
+// 示例值：
 func (builder *AppVersionRemarkEventBuilder) Visibility(visibility *AppVisibilityEvent) *AppVersionRemarkEventBuilder {
 	builder.visibility = visibility
 	builder.visibilityFlag = true
@@ -887,17 +1076,17 @@ func (builder *AppVersionRemarkEventBuilder) Build() *AppVersionRemarkEvent {
 }
 
 type AppVisibility struct {
-	IsAll         *bool           `json:"is_all,omitempty"`
-	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`
-	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"`
+	IsAll         *bool           `json:"is_all,omitempty"`         // 是否全员可见
+	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`   // 可见名单
+	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"` // 不可见名单
 }
 
 type AppVisibilityBuilder struct {
-	isAll             bool
+	isAll             bool // 是否全员可见
 	isAllFlag         bool
-	visibleList       *AppVisibleList
+	visibleList       *AppVisibleList // 可见名单
 	visibleListFlag   bool
-	invisibleList     *AppVisibleList
+	invisibleList     *AppVisibleList // 不可见名单
 	invisibleListFlag bool
 }
 
@@ -906,16 +1095,24 @@ func NewAppVisibilityBuilder() *AppVisibilityBuilder {
 	return builder
 }
 
+// 是否全员可见
+// 示例值：false
 func (builder *AppVisibilityBuilder) IsAll(isAll bool) *AppVisibilityBuilder {
 	builder.isAll = isAll
 	builder.isAllFlag = true
 	return builder
 }
+
+// 可见名单
+// 示例值：
 func (builder *AppVisibilityBuilder) VisibleList(visibleList *AppVisibleList) *AppVisibilityBuilder {
 	builder.visibleList = visibleList
 	builder.visibleListFlag = true
 	return builder
 }
+
+// 不可见名单
+// 示例值：
 func (builder *AppVisibilityBuilder) InvisibleList(invisibleList *AppVisibleList) *AppVisibilityBuilder {
 	builder.invisibleList = invisibleList
 	builder.invisibleListFlag = true
@@ -938,17 +1135,17 @@ func (builder *AppVisibilityBuilder) Build() *AppVisibility {
 }
 
 type AppVisibilityEvent struct {
-	IsAll         *bool                `json:"is_all,omitempty"`
-	VisibleList   *AppVisibleListEvent `json:"visible_list,omitempty"`
-	InvisibleList *AppVisibleListEvent `json:"invisible_list,omitempty"`
+	IsAll         *bool                `json:"is_all,omitempty"`         // 是否全员可见
+	VisibleList   *AppVisibleListEvent `json:"visible_list,omitempty"`   // 可见名单
+	InvisibleList *AppVisibleListEvent `json:"invisible_list,omitempty"` // 不可见名单
 }
 
 type AppVisibilityEventBuilder struct {
-	isAll             bool
+	isAll             bool // 是否全员可见
 	isAllFlag         bool
-	visibleList       *AppVisibleListEvent
+	visibleList       *AppVisibleListEvent // 可见名单
 	visibleListFlag   bool
-	invisibleList     *AppVisibleListEvent
+	invisibleList     *AppVisibleListEvent // 不可见名单
 	invisibleListFlag bool
 }
 
@@ -957,16 +1154,24 @@ func NewAppVisibilityEventBuilder() *AppVisibilityEventBuilder {
 	return builder
 }
 
+// 是否全员可见
+// 示例值：false
 func (builder *AppVisibilityEventBuilder) IsAll(isAll bool) *AppVisibilityEventBuilder {
 	builder.isAll = isAll
 	builder.isAllFlag = true
 	return builder
 }
+
+// 可见名单
+// 示例值：
 func (builder *AppVisibilityEventBuilder) VisibleList(visibleList *AppVisibleListEvent) *AppVisibilityEventBuilder {
 	builder.visibleList = visibleList
 	builder.visibleListFlag = true
 	return builder
 }
+
+// 不可见名单
+// 示例值：
 func (builder *AppVisibilityEventBuilder) InvisibleList(invisibleList *AppVisibleListEvent) *AppVisibilityEventBuilder {
 	builder.invisibleList = invisibleList
 	builder.invisibleListFlag = true
@@ -989,17 +1194,17 @@ func (builder *AppVisibilityEventBuilder) Build() *AppVisibilityEvent {
 }
 
 type AppVisibilityItem struct {
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	GroupId      *string `json:"group_id,omitempty"`
+	UserId       *string `json:"user_id,omitempty"`       // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应
+	DepartmentId *string `json:"department_id,omitempty"` // 用户所属部门的ID，ID值与查询参数中的department_id_type 对应
+	GroupId      *string `json:"group_id,omitempty"`      // 用户组 ID group_id 用来标识租户内一个唯一的用户组
 }
 
 type AppVisibilityItemBuilder struct {
-	userId           string
+	userId           string // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应
 	userIdFlag       bool
-	departmentId     string
+	departmentId     string // 用户所属部门的ID，ID值与查询参数中的department_id_type 对应
 	departmentIdFlag bool
-	groupId          string
+	groupId          string // 用户组 ID group_id 用来标识租户内一个唯一的用户组
 	groupIdFlag      bool
 }
 
@@ -1008,16 +1213,24 @@ func NewAppVisibilityItemBuilder() *AppVisibilityItemBuilder {
 	return builder
 }
 
+// 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *AppVisibilityItemBuilder) UserId(userId string) *AppVisibilityItemBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 用户所属部门的ID，ID值与查询参数中的department_id_type 对应
+// 示例值：od-aa2c50a04769feefededb7a05b7525a8
 func (builder *AppVisibilityItemBuilder) DepartmentId(departmentId string) *AppVisibilityItemBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 用户组 ID group_id 用来标识租户内一个唯一的用户组
+// 示例值：
 func (builder *AppVisibilityItemBuilder) GroupId(groupId string) *AppVisibilityItemBuilder {
 	builder.groupId = groupId
 	builder.groupIdFlag = true
@@ -1042,14 +1255,14 @@ func (builder *AppVisibilityItemBuilder) Build() *AppVisibilityItem {
 }
 
 type AppVisibleList struct {
-	OpenIds       []string `json:"open_ids,omitempty"`
-	DepartmentIds []string `json:"department_ids,omitempty"`
+	OpenIds       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
+	DepartmentIds []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
 type AppVisibleListBuilder struct {
-	openIds           []string
+	openIds           []string // 可见性成员 open_id 列表
 	openIdsFlag       bool
-	departmentIds     []string
+	departmentIds     []string // 可见性部门的 id 列表
 	departmentIdsFlag bool
 }
 
@@ -1058,11 +1271,16 @@ func NewAppVisibleListBuilder() *AppVisibleListBuilder {
 	return builder
 }
 
+// 可见性成员 open_id 列表
+// 示例值：
 func (builder *AppVisibleListBuilder) OpenIds(openIds []string) *AppVisibleListBuilder {
 	builder.openIds = openIds
 	builder.openIdsFlag = true
 	return builder
 }
+
+// 可见性部门的 id 列表
+// 示例值：
 func (builder *AppVisibleListBuilder) DepartmentIds(departmentIds []string) *AppVisibleListBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -1081,14 +1299,14 @@ func (builder *AppVisibleListBuilder) Build() *AppVisibleList {
 }
 
 type AppVisibleListEvent struct {
-	OpenIds       []*UserId `json:"open_ids,omitempty"`
-	DepartmentIds []string  `json:"department_ids,omitempty"`
+	OpenIds       []*UserId `json:"open_ids,omitempty"`       // 可见性成员 id 列表
+	DepartmentIds []string  `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
 type AppVisibleListEventBuilder struct {
-	openIds           []*UserId
+	openIds           []*UserId // 可见性成员 id 列表
 	openIdsFlag       bool
-	departmentIds     []string
+	departmentIds     []string // 可见性部门的 id 列表
 	departmentIdsFlag bool
 }
 
@@ -1097,11 +1315,16 @@ func NewAppVisibleListEventBuilder() *AppVisibleListEventBuilder {
 	return builder
 }
 
+// 可见性成员 id 列表
+// 示例值：
 func (builder *AppVisibleListEventBuilder) OpenIds(openIds []*UserId) *AppVisibleListEventBuilder {
 	builder.openIds = openIds
 	builder.openIdsFlag = true
 	return builder
 }
+
+// 可见性部门的 id 列表
+// 示例值：
 func (builder *AppVisibleListEventBuilder) DepartmentIds(departmentIds []string) *AppVisibleListEventBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -1120,59 +1343,59 @@ func (builder *AppVisibleListEventBuilder) Build() *AppVisibleListEvent {
 }
 
 type Application struct {
-	AppId            *string           `json:"app_id,omitempty"`
-	CreatorId        *string           `json:"creator_id,omitempty"`
-	Status           *int              `json:"status,omitempty"`
-	SceneType        *int              `json:"scene_type,omitempty"`
-	PaymentType      *int              `json:"payment_type,omitempty"`
-	RedirectUrls     []string          `json:"redirect_urls,omitempty"`
-	OnlineVersionId  *string           `json:"online_version_id,omitempty"`
-	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"`
-	AppName          *string           `json:"app_name,omitempty"`
-	AvatarUrl        *string           `json:"avatar_url,omitempty"`
-	Description      *string           `json:"description,omitempty"`
-	Scopes           []*AppScope       `json:"scopes,omitempty"`
-	BackHomeUrl      *string           `json:"back_home_url,omitempty"`
-	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`
-	PrimaryLanguage  *string           `json:"primary_language,omitempty"`
-	CommonCategories []string          `json:"common_categories,omitempty"`
-	Owner            *ApplicationOwner `json:"owner,omitempty"`
+	AppId            *string           `json:"app_id,omitempty"`             // 应用的 app_id
+	CreatorId        *string           `json:"creator_id,omitempty"`         // 应用创建者（所有者）
+	Status           *int              `json:"status,omitempty"`             // 应用状态
+	SceneType        *int              `json:"scene_type,omitempty"`         // 应用类型
+	PaymentType      *int              `json:"payment_type,omitempty"`       // 付费类型
+	RedirectUrls     []string          `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
+	OnlineVersionId  *string           `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID，若没有则为空
+	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID，若没有则为空
+	AppName          *string           `json:"app_name,omitempty"`           // 应用名称
+	AvatarUrl        *string           `json:"avatar_url,omitempty"`         // 应用图标 url
+	Description      *string           `json:"description,omitempty"`        // 应用默认描述
+	Scopes           []*AppScope       `json:"scopes,omitempty"`             // 应用权限列表
+	BackHomeUrl      *string           `json:"back_home_url,omitempty"`      // 后台主页地址
+	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`               // 应用的国际化信息列表
+	PrimaryLanguage  *string           `json:"primary_language,omitempty"`   // 应用主语言
+	CommonCategories []string          `json:"common_categories,omitempty"`  // 应用分类的国际化描述
+	Owner            *ApplicationOwner `json:"owner,omitempty"`              // 应用的所有者信息
 }
 
 type ApplicationBuilder struct {
-	appId                string
+	appId                string // 应用的 app_id
 	appIdFlag            bool
-	creatorId            string
+	creatorId            string // 应用创建者（所有者）
 	creatorIdFlag        bool
-	status               int
+	status               int // 应用状态
 	statusFlag           bool
-	sceneType            int
+	sceneType            int // 应用类型
 	sceneTypeFlag        bool
-	paymentType          int
+	paymentType          int // 付费类型
 	paymentTypeFlag      bool
-	redirectUrls         []string
+	redirectUrls         []string // 安全设置中的重定向 URL
 	redirectUrlsFlag     bool
-	onlineVersionId      string
+	onlineVersionId      string // 发布在线上的应用版本 ID，若没有则为空
 	onlineVersionIdFlag  bool
-	unauditVersionId     string
+	unauditVersionId     string // 在审核中的版本 ID，若没有则为空
 	unauditVersionIdFlag bool
-	appName              string
+	appName              string // 应用名称
 	appNameFlag          bool
-	avatarUrl            string
+	avatarUrl            string // 应用图标 url
 	avatarUrlFlag        bool
-	description          string
+	description          string // 应用默认描述
 	descriptionFlag      bool
-	scopes               []*AppScope
+	scopes               []*AppScope // 应用权限列表
 	scopesFlag           bool
-	backHomeUrl          string
+	backHomeUrl          string // 后台主页地址
 	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo
+	i18n                 []*AppI18nInfo // 应用的国际化信息列表
 	i18nFlag             bool
-	primaryLanguage      string
+	primaryLanguage      string // 应用主语言
 	primaryLanguageFlag  bool
-	commonCategories     []string
+	commonCategories     []string // 应用分类的国际化描述
 	commonCategoriesFlag bool
-	owner                *ApplicationOwner
+	owner                *ApplicationOwner // 应用的所有者信息
 	ownerFlag            bool
 }
 
@@ -1181,86 +1404,136 @@ func NewApplicationBuilder() *ApplicationBuilder {
 	return builder
 }
 
+// 应用的 app_id
+// 示例值：cli_9b445f5258795107
 func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appId = appId
 	builder.appIdFlag = true
 	return builder
 }
+
+// 应用创建者（所有者）
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) CreatorId(creatorId string) *ApplicationBuilder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
 	return builder
 }
+
+// 应用状态
+// 示例值：1
 func (builder *ApplicationBuilder) Status(status int) *ApplicationBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 应用类型
+// 示例值：0
 func (builder *ApplicationBuilder) SceneType(sceneType int) *ApplicationBuilder {
 	builder.sceneType = sceneType
 	builder.sceneTypeFlag = true
 	return builder
 }
+
+// 付费类型
+// 示例值：0
 func (builder *ApplicationBuilder) PaymentType(paymentType int) *ApplicationBuilder {
 	builder.paymentType = paymentType
 	builder.paymentTypeFlag = true
 	return builder
 }
+
+// 安全设置中的重定向 URL
+// 示例值：
 func (builder *ApplicationBuilder) RedirectUrls(redirectUrls []string) *ApplicationBuilder {
 	builder.redirectUrls = redirectUrls
 	builder.redirectUrlsFlag = true
 	return builder
 }
+
+// 发布在线上的应用版本 ID，若没有则为空
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) OnlineVersionId(onlineVersionId string) *ApplicationBuilder {
 	builder.onlineVersionId = onlineVersionId
 	builder.onlineVersionIdFlag = true
 	return builder
 }
+
+// 在审核中的版本 ID，若没有则为空
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) UnauditVersionId(unauditVersionId string) *ApplicationBuilder {
 	builder.unauditVersionId = unauditVersionId
 	builder.unauditVersionIdFlag = true
 	return builder
 }
+
+// 应用名称
+// 示例值：应用名称
 func (builder *ApplicationBuilder) AppName(appName string) *ApplicationBuilder {
 	builder.appName = appName
 	builder.appNameFlag = true
 	return builder
 }
+
+// 应用图标 url
+// 示例值：https://sf1-ttcdn-tos.pstatp.com/img/avatar/d279000ca4d3f7f6aaff~72x72.jpg
 func (builder *ApplicationBuilder) AvatarUrl(avatarUrl string) *ApplicationBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 应用默认描述
+// 示例值：应用描述
 func (builder *ApplicationBuilder) Description(description string) *ApplicationBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 应用权限列表
+// 示例值：
 func (builder *ApplicationBuilder) Scopes(scopes []*AppScope) *ApplicationBuilder {
 	builder.scopes = scopes
 	builder.scopesFlag = true
 	return builder
 }
+
+// 后台主页地址
+// 示例值：https://www.example.com
 func (builder *ApplicationBuilder) BackHomeUrl(backHomeUrl string) *ApplicationBuilder {
 	builder.backHomeUrl = backHomeUrl
 	builder.backHomeUrlFlag = true
 	return builder
 }
+
+// 应用的国际化信息列表
+// 示例值：
 func (builder *ApplicationBuilder) I18n(i18n []*AppI18nInfo) *ApplicationBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 应用主语言
+// 示例值：zh_cn
 func (builder *ApplicationBuilder) PrimaryLanguage(primaryLanguage string) *ApplicationBuilder {
 	builder.primaryLanguage = primaryLanguage
 	builder.primaryLanguageFlag = true
 	return builder
 }
+
+// 应用分类的国际化描述
+// 示例值：
 func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *ApplicationBuilder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesFlag = true
 	return builder
 }
+
+// 应用的所有者信息
+// 示例值：
 func (builder *ApplicationBuilder) Owner(owner *ApplicationOwner) *ApplicationBuilder {
 	builder.owner = owner
 	builder.ownerFlag = true
@@ -1336,14 +1609,14 @@ func (builder *ApplicationBuilder) Build() *Application {
 }
 
 type ApplicationAppUsage struct {
-	MetricName  *string `json:"metric_name,omitempty"`
-	MetricValue *int    `json:"metric_value,omitempty"`
+	MetricName  *string `json:"metric_name,omitempty"`  // 指标名称
+	MetricValue *int    `json:"metric_value,omitempty"` // 指标值
 }
 
 type ApplicationAppUsageBuilder struct {
-	metricName      string
+	metricName      string // 指标名称
 	metricNameFlag  bool
-	metricValue     int
+	metricValue     int // 指标值
 	metricValueFlag bool
 }
 
@@ -1352,11 +1625,16 @@ func NewApplicationAppUsageBuilder() *ApplicationAppUsageBuilder {
 	return builder
 }
 
+// 指标名称
+// 示例值：pv
 func (builder *ApplicationAppUsageBuilder) MetricName(metricName string) *ApplicationAppUsageBuilder {
 	builder.metricName = metricName
 	builder.metricNameFlag = true
 	return builder
 }
+
+// 指标值
+// 示例值：100
 func (builder *ApplicationAppUsageBuilder) MetricValue(metricValue int) *ApplicationAppUsageBuilder {
 	builder.metricValue = metricValue
 	builder.metricValueFlag = true
@@ -1377,56 +1655,56 @@ func (builder *ApplicationAppUsageBuilder) Build() *ApplicationAppUsage {
 }
 
 type ApplicationAppVersion struct {
-	AppId            *string           `json:"app_id,omitempty"`
-	Version          *string           `json:"version,omitempty"`
-	VersionId        *string           `json:"version_id,omitempty"`
-	AppName          *string           `json:"app_name,omitempty"`
-	AvatarUrl        *string           `json:"avatar_url,omitempty"`
-	Description      *string           `json:"description,omitempty"`
-	Scopes           []*AppScope       `json:"scopes,omitempty"`
-	BackHomeUrl      *string           `json:"back_home_url,omitempty"`
-	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`
-	CommonCategories []string          `json:"common_categories,omitempty"`
-	Events           []string          `json:"events,omitempty"`
-	Status           *int              `json:"status,omitempty"`
-	CreateTime       *string           `json:"create_time,omitempty"`
-	PublishTime      *string           `json:"publish_time,omitempty"`
-	Ability          *AppAbility       `json:"ability,omitempty"`
-	Remark           *AppVersionRemark `json:"remark,omitempty"`
+	AppId            *string           `json:"app_id,omitempty"`            // 应用 id
+	Version          *string           `json:"version,omitempty"`           // 在开发者后台填入的应用版本号
+	VersionId        *string           `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
+	AppName          *string           `json:"app_name,omitempty"`          // 应用默认名称
+	AvatarUrl        *string           `json:"avatar_url,omitempty"`        // 应用头像 url
+	Description      *string           `json:"description,omitempty"`       // 应用默认描述
+	Scopes           []*AppScope       `json:"scopes,omitempty"`            // 应用权限列表
+	BackHomeUrl      *string           `json:"back_home_url,omitempty"`     // 后台主页地址
+	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`              // 应用的国际化信息列表
+	CommonCategories []string          `json:"common_categories,omitempty"` // 应用分类的国际化描述
+	Events           []string          `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
+	Status           *int              `json:"status,omitempty"`            // 版本状态
+	CreateTime       *string           `json:"create_time,omitempty"`       // 版本创建时间（单位：s）
+	PublishTime      *string           `json:"publish_time,omitempty"`      // 版本发布时间（单位：s）
+	Ability          *AppAbility       `json:"ability,omitempty"`           // 当前版本下应用开启的能力
+	Remark           *AppVersionRemark `json:"remark,omitempty"`            // 跟随应用版本的信息
 }
 
 type ApplicationAppVersionBuilder struct {
-	appId                string
+	appId                string // 应用 id
 	appIdFlag            bool
-	version              string
+	version              string // 在开发者后台填入的应用版本号
 	versionFlag          bool
-	versionId            string
+	versionId            string // 唯一标识应用版本的 ID
 	versionIdFlag        bool
-	appName              string
+	appName              string // 应用默认名称
 	appNameFlag          bool
-	avatarUrl            string
+	avatarUrl            string // 应用头像 url
 	avatarUrlFlag        bool
-	description          string
+	description          string // 应用默认描述
 	descriptionFlag      bool
-	scopes               []*AppScope
+	scopes               []*AppScope // 应用权限列表
 	scopesFlag           bool
-	backHomeUrl          string
+	backHomeUrl          string // 后台主页地址
 	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo
+	i18n                 []*AppI18nInfo // 应用的国际化信息列表
 	i18nFlag             bool
-	commonCategories     []string
+	commonCategories     []string // 应用分类的国际化描述
 	commonCategoriesFlag bool
-	events               []string
+	events               []string // 应用已订阅开放平台事件列表
 	eventsFlag           bool
-	status               int
+	status               int // 版本状态
 	statusFlag           bool
-	createTime           string
+	createTime           string // 版本创建时间（单位：s）
 	createTimeFlag       bool
-	publishTime          string
+	publishTime          string // 版本发布时间（单位：s）
 	publishTimeFlag      bool
-	ability              *AppAbility
+	ability              *AppAbility // 当前版本下应用开启的能力
 	abilityFlag          bool
-	remark               *AppVersionRemark
+	remark               *AppVersionRemark // 跟随应用版本的信息
 	remarkFlag           bool
 }
 
@@ -1435,81 +1713,128 @@ func NewApplicationAppVersionBuilder() *ApplicationAppVersionBuilder {
 	return builder
 }
 
+// 应用 id
+// 示例值：cli_9f3ca975326b501b
 func (builder *ApplicationAppVersionBuilder) AppId(appId string) *ApplicationAppVersionBuilder {
 	builder.appId = appId
 	builder.appIdFlag = true
 	return builder
 }
+
+// 在开发者后台填入的应用版本号
+// 示例值：1.0.0
 func (builder *ApplicationAppVersionBuilder) Version(version string) *ApplicationAppVersionBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// 唯一标识应用版本的 ID
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationAppVersionBuilder) VersionId(versionId string) *ApplicationAppVersionBuilder {
 	builder.versionId = versionId
 	builder.versionIdFlag = true
 	return builder
 }
+
+// 应用默认名称
+// 示例值：应用名称
 func (builder *ApplicationAppVersionBuilder) AppName(appName string) *ApplicationAppVersionBuilder {
 	builder.appName = appName
 	builder.appNameFlag = true
 	return builder
 }
+
+// 应用头像 url
+// 示例值：https://www.example.com
 func (builder *ApplicationAppVersionBuilder) AvatarUrl(avatarUrl string) *ApplicationAppVersionBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 应用默认描述
+// 示例值：应用描述
 func (builder *ApplicationAppVersionBuilder) Description(description string) *ApplicationAppVersionBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 应用权限列表
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) Scopes(scopes []*AppScope) *ApplicationAppVersionBuilder {
 	builder.scopes = scopes
 	builder.scopesFlag = true
 	return builder
 }
+
+// 后台主页地址
+// 示例值：https://www.example.com
 func (builder *ApplicationAppVersionBuilder) BackHomeUrl(backHomeUrl string) *ApplicationAppVersionBuilder {
 	builder.backHomeUrl = backHomeUrl
 	builder.backHomeUrlFlag = true
 	return builder
 }
+
+// 应用的国际化信息列表
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) I18n(i18n []*AppI18nInfo) *ApplicationAppVersionBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 应用分类的国际化描述
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) CommonCategories(commonCategories []string) *ApplicationAppVersionBuilder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesFlag = true
 	return builder
 }
+
+// 应用已订阅开放平台事件列表
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) Events(events []string) *ApplicationAppVersionBuilder {
 	builder.events = events
 	builder.eventsFlag = true
 	return builder
 }
+
+// 版本状态
+// 示例值：1
 func (builder *ApplicationAppVersionBuilder) Status(status int) *ApplicationAppVersionBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 版本创建时间（单位：s）
+// 示例值：1610462759
 func (builder *ApplicationAppVersionBuilder) CreateTime(createTime string) *ApplicationAppVersionBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 版本发布时间（单位：s）
+// 示例值：1610462759
 func (builder *ApplicationAppVersionBuilder) PublishTime(publishTime string) *ApplicationAppVersionBuilder {
 	builder.publishTime = publishTime
 	builder.publishTimeFlag = true
 	return builder
 }
+
+// 当前版本下应用开启的能力
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) Ability(ability *AppAbility) *ApplicationAppVersionBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
 	return builder
 }
+
+// 跟随应用版本的信息
+// 示例值：
 func (builder *ApplicationAppVersionBuilder) Remark(remark *AppVersionRemark) *ApplicationAppVersionBuilder {
 	builder.remark = remark
 	builder.remarkFlag = true
@@ -1580,56 +1905,56 @@ func (builder *ApplicationAppVersionBuilder) Build() *ApplicationAppVersion {
 }
 
 type ApplicationAppVersionEvent struct {
-	AppId            *string                `json:"app_id,omitempty"`
-	Version          *string                `json:"version,omitempty"`
-	VersionId        *string                `json:"version_id,omitempty"`
-	AppName          *string                `json:"app_name,omitempty"`
-	AvatarUrl        *string                `json:"avatar_url,omitempty"`
-	Description      *string                `json:"description,omitempty"`
-	Scopes           []*AppScope            `json:"scopes,omitempty"`
-	BackHomeUrl      *string                `json:"back_home_url,omitempty"`
-	I18n             []*AppI18nInfo         `json:"i18n,omitempty"`
-	CommonCategories []string               `json:"common_categories,omitempty"`
-	Events           []string               `json:"events,omitempty"`
-	Status           *int                   `json:"status,omitempty"`
-	CreateTime       *string                `json:"create_time,omitempty"`
-	PublishTime      *string                `json:"publish_time,omitempty"`
-	Ability          *AppAbility            `json:"ability,omitempty"`
-	Remark           *AppVersionRemarkEvent `json:"remark,omitempty"`
+	AppId            *string                `json:"app_id,omitempty"`            // 应用 id
+	Version          *string                `json:"version,omitempty"`           // 开发者填入的应用版本 ID
+	VersionId        *string                `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
+	AppName          *string                `json:"app_name,omitempty"`          // 应用默认名称
+	AvatarUrl        *string                `json:"avatar_url,omitempty"`        // 应用头像 url
+	Description      *string                `json:"description,omitempty"`       // 应用默认描述
+	Scopes           []*AppScope            `json:"scopes,omitempty"`            // 应用权限列表
+	BackHomeUrl      *string                `json:"back_home_url,omitempty"`     // 后台主页地址
+	I18n             []*AppI18nInfo         `json:"i18n,omitempty"`              // 应用的国际化信息列表
+	CommonCategories []string               `json:"common_categories,omitempty"` // 应用分类的国际化描述
+	Events           []string               `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
+	Status           *int                   `json:"status,omitempty"`            // 版本状态
+	CreateTime       *string                `json:"create_time,omitempty"`       // 版本创建时间（单位：s）
+	PublishTime      *string                `json:"publish_time,omitempty"`      // 版本发布时间（单位：s）
+	Ability          *AppAbility            `json:"ability,omitempty"`           // 当前版本下应用开启的能力
+	Remark           *AppVersionRemarkEvent `json:"remark,omitempty"`            // 跟随应用版本的信息
 }
 
 type ApplicationAppVersionEventBuilder struct {
-	appId                string
+	appId                string // 应用 id
 	appIdFlag            bool
-	version              string
+	version              string // 开发者填入的应用版本 ID
 	versionFlag          bool
-	versionId            string
+	versionId            string // 唯一标识应用版本的 ID
 	versionIdFlag        bool
-	appName              string
+	appName              string // 应用默认名称
 	appNameFlag          bool
-	avatarUrl            string
+	avatarUrl            string // 应用头像 url
 	avatarUrlFlag        bool
-	description          string
+	description          string // 应用默认描述
 	descriptionFlag      bool
-	scopes               []*AppScope
+	scopes               []*AppScope // 应用权限列表
 	scopesFlag           bool
-	backHomeUrl          string
+	backHomeUrl          string // 后台主页地址
 	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo
+	i18n                 []*AppI18nInfo // 应用的国际化信息列表
 	i18nFlag             bool
-	commonCategories     []string
+	commonCategories     []string // 应用分类的国际化描述
 	commonCategoriesFlag bool
-	events               []string
+	events               []string // 应用已订阅开放平台事件列表
 	eventsFlag           bool
-	status               int
+	status               int // 版本状态
 	statusFlag           bool
-	createTime           string
+	createTime           string // 版本创建时间（单位：s）
 	createTimeFlag       bool
-	publishTime          string
+	publishTime          string // 版本发布时间（单位：s）
 	publishTimeFlag      bool
-	ability              *AppAbility
+	ability              *AppAbility // 当前版本下应用开启的能力
 	abilityFlag          bool
-	remark               *AppVersionRemarkEvent
+	remark               *AppVersionRemarkEvent // 跟随应用版本的信息
 	remarkFlag           bool
 }
 
@@ -1638,81 +1963,128 @@ func NewApplicationAppVersionEventBuilder() *ApplicationAppVersionEventBuilder {
 	return builder
 }
 
+// 应用 id
+// 示例值：cli_9f3ca975326b501b
 func (builder *ApplicationAppVersionEventBuilder) AppId(appId string) *ApplicationAppVersionEventBuilder {
 	builder.appId = appId
 	builder.appIdFlag = true
 	return builder
 }
+
+// 开发者填入的应用版本 ID
+// 示例值：1.0.0
 func (builder *ApplicationAppVersionEventBuilder) Version(version string) *ApplicationAppVersionEventBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// 唯一标识应用版本的 ID
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationAppVersionEventBuilder) VersionId(versionId string) *ApplicationAppVersionEventBuilder {
 	builder.versionId = versionId
 	builder.versionIdFlag = true
 	return builder
 }
+
+// 应用默认名称
+// 示例值：应用名称
 func (builder *ApplicationAppVersionEventBuilder) AppName(appName string) *ApplicationAppVersionEventBuilder {
 	builder.appName = appName
 	builder.appNameFlag = true
 	return builder
 }
+
+// 应用头像 url
+// 示例值：https://www.example.com
 func (builder *ApplicationAppVersionEventBuilder) AvatarUrl(avatarUrl string) *ApplicationAppVersionEventBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 应用默认描述
+// 示例值：应用描述
 func (builder *ApplicationAppVersionEventBuilder) Description(description string) *ApplicationAppVersionEventBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 应用权限列表
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Scopes(scopes []*AppScope) *ApplicationAppVersionEventBuilder {
 	builder.scopes = scopes
 	builder.scopesFlag = true
 	return builder
 }
+
+// 后台主页地址
+// 示例值：https://www.example.com
 func (builder *ApplicationAppVersionEventBuilder) BackHomeUrl(backHomeUrl string) *ApplicationAppVersionEventBuilder {
 	builder.backHomeUrl = backHomeUrl
 	builder.backHomeUrlFlag = true
 	return builder
 }
+
+// 应用的国际化信息列表
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) I18n(i18n []*AppI18nInfo) *ApplicationAppVersionEventBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 应用分类的国际化描述
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) CommonCategories(commonCategories []string) *ApplicationAppVersionEventBuilder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesFlag = true
 	return builder
 }
+
+// 应用已订阅开放平台事件列表
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Events(events []string) *ApplicationAppVersionEventBuilder {
 	builder.events = events
 	builder.eventsFlag = true
 	return builder
 }
+
+// 版本状态
+// 示例值：1
 func (builder *ApplicationAppVersionEventBuilder) Status(status int) *ApplicationAppVersionEventBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 版本创建时间（单位：s）
+// 示例值：1610462759
 func (builder *ApplicationAppVersionEventBuilder) CreateTime(createTime string) *ApplicationAppVersionEventBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 版本发布时间（单位：s）
+// 示例值：1610462759
 func (builder *ApplicationAppVersionEventBuilder) PublishTime(publishTime string) *ApplicationAppVersionEventBuilder {
 	builder.publishTime = publishTime
 	builder.publishTimeFlag = true
 	return builder
 }
+
+// 当前版本下应用开启的能力
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Ability(ability *AppAbility) *ApplicationAppVersionEventBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
 	return builder
 }
+
+// 跟随应用版本的信息
+// 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Remark(remark *AppVersionRemarkEvent) *ApplicationAppVersionEventBuilder {
 	builder.remark = remark
 	builder.remarkFlag = true
@@ -1783,23 +2155,23 @@ func (builder *ApplicationAppVersionEventBuilder) Build() *ApplicationAppVersion
 }
 
 type ApplicationDepartmentAppUsage struct {
-	DepartmentId *string                `json:"department_id,omitempty"`
-	App          []*ApplicationAppUsage `json:"app,omitempty"`
-	Gadget       []*ApplicationAppUsage `json:"gadget,omitempty"`
-	Webapp       []*ApplicationAppUsage `json:"webapp,omitempty"`
-	Bot          []*ApplicationAppUsage `json:"bot,omitempty"`
+	DepartmentId *string                `json:"department_id,omitempty"` // 租户内部门的唯一标识，ID值与查询参数中的department_id_type 对应。
+	App          []*ApplicationAppUsage `json:"app,omitempty"`           // 应用整体使用情况，指标值包括：uv：活跃用户数，total_users：累计用户数，new_users：新增用户数，pv：在应用（小程序或网页）中访问的页面数，lifecycle：打开应用（小程序或网页）的次数
+	Gadget       []*ApplicationAppUsage `json:"gadget,omitempty"`        // 小程序使用情况，没有小程序形态时为null，指标值包括：uv（小程序活跃用户数）、pv（用户在小程序中的访问页面数）、lifecycle（小程序的打开次数）
+	Webapp       []*ApplicationAppUsage `json:"webapp,omitempty"`        // 网页应用使用情况，没有网页应用形态时为null，指标值包括：uv（网页应用活跃用户数）、pv（用户在网页应用中的访问页面数）、lifecycle（网页应用的打开次数）
+	Bot          []*ApplicationAppUsage `json:"bot,omitempty"`           // 机器人使用情况，没有机器人形态时为null，;指标值包括：uv（机器人的活跃用户数）
 }
 
 type ApplicationDepartmentAppUsageBuilder struct {
-	departmentId     string
+	departmentId     string // 租户内部门的唯一标识，ID值与查询参数中的department_id_type 对应。
 	departmentIdFlag bool
-	app              []*ApplicationAppUsage
+	app              []*ApplicationAppUsage // 应用整体使用情况，指标值包括：uv：活跃用户数，total_users：累计用户数，new_users：新增用户数，pv：在应用（小程序或网页）中访问的页面数，lifecycle：打开应用（小程序或网页）的次数
 	appFlag          bool
-	gadget           []*ApplicationAppUsage
+	gadget           []*ApplicationAppUsage // 小程序使用情况，没有小程序形态时为null，指标值包括：uv（小程序活跃用户数）、pv（用户在小程序中的访问页面数）、lifecycle（小程序的打开次数）
 	gadgetFlag       bool
-	webapp           []*ApplicationAppUsage
+	webapp           []*ApplicationAppUsage // 网页应用使用情况，没有网页应用形态时为null，指标值包括：uv（网页应用活跃用户数）、pv（用户在网页应用中的访问页面数）、lifecycle（网页应用的打开次数）
 	webappFlag       bool
-	bot              []*ApplicationAppUsage
+	bot              []*ApplicationAppUsage // 机器人使用情况，没有机器人形态时为null，;指标值包括：uv（机器人的活跃用户数）
 	botFlag          bool
 }
 
@@ -1808,26 +2180,40 @@ func NewApplicationDepartmentAppUsageBuilder() *ApplicationDepartmentAppUsageBui
 	return builder
 }
 
+// 租户内部门的唯一标识，ID值与查询参数中的department_id_type 对应。
+// 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) DepartmentId(departmentId string) *ApplicationDepartmentAppUsageBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 应用整体使用情况，指标值包括：uv：活跃用户数，total_users：累计用户数，new_users：新增用户数，pv：在应用（小程序或网页）中访问的页面数，lifecycle：打开应用（小程序或网页）的次数
+// 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) App(app []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.app = app
 	builder.appFlag = true
 	return builder
 }
+
+// 小程序使用情况，没有小程序形态时为null，指标值包括：uv（小程序活跃用户数）、pv（用户在小程序中的访问页面数）、lifecycle（小程序的打开次数）
+// 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Gadget(gadget []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.gadget = gadget
 	builder.gadgetFlag = true
 	return builder
 }
+
+// 网页应用使用情况，没有网页应用形态时为null，指标值包括：uv（网页应用活跃用户数）、pv（用户在网页应用中的访问页面数）、lifecycle（网页应用的打开次数）
+// 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Webapp(webapp []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.webapp = webapp
 	builder.webappFlag = true
 	return builder
 }
+
+// 机器人使用情况，没有机器人形态时为null，;指标值包括：uv（机器人的活跃用户数）
+// 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Bot(bot []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.bot = bot
 	builder.botFlag = true
@@ -1856,23 +2242,23 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Build() *ApplicationDepartm
 }
 
 type ApplicationEventOwner struct {
-	Type     *int    `json:"type,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	HelpDesk *string `json:"help_desk,omitempty"`
-	Email    *string `json:"email,omitempty"`
-	Phone    *string `json:"phone,omitempty"`
+	Type     *int    `json:"type,omitempty"`      // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
+	Name     *string `json:"name,omitempty"`      // 应用开发商名称，仅商店应用返回
+	HelpDesk *string `json:"help_desk,omitempty"` // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	Email    *string `json:"email,omitempty"`     // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	Phone    *string `json:"phone,omitempty"`     // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 }
 
 type ApplicationEventOwnerBuilder struct {
-	type_        int
+	type_        int // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
 	typeFlag     bool
-	name         string
+	name         string // 应用开发商名称，仅商店应用返回
 	nameFlag     bool
-	helpDesk     string
+	helpDesk     string // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 	helpDeskFlag bool
-	email        string
+	email        string // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 	emailFlag    bool
-	phone        string
+	phone        string // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 	phoneFlag    bool
 }
 
@@ -1881,26 +2267,40 @@ func NewApplicationEventOwnerBuilder() *ApplicationEventOwnerBuilder {
 	return builder
 }
 
+// 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
+// 示例值：0
 func (builder *ApplicationEventOwnerBuilder) Type(type_ int) *ApplicationEventOwnerBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 应用开发商名称，仅商店应用返回
+// 示例值：应用名称
 func (builder *ApplicationEventOwnerBuilder) Name(name string) *ApplicationEventOwnerBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+// 示例值：
 func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *ApplicationEventOwnerBuilder {
 	builder.helpDesk = helpDesk
 	builder.helpDeskFlag = true
 	return builder
 }
+
+// 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+// 示例值：
 func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEventOwnerBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+// 示例值：
 func (builder *ApplicationEventOwnerBuilder) Phone(phone string) *ApplicationEventOwnerBuilder {
 	builder.phone = phone
 	builder.phoneFlag = true
@@ -1933,56 +2333,56 @@ func (builder *ApplicationEventOwnerBuilder) Build() *ApplicationEventOwner {
 }
 
 type ApplicationFeedback struct {
-	FeedbackId   *string  `json:"feedback_id,omitempty"`
-	AppId        *string  `json:"app_id,omitempty"`
-	FeedbackTime *string  `json:"feedback_time,omitempty"`
-	TenantName   *string  `json:"tenant_name,omitempty"`
-	FeedbackType *int     `json:"feedback_type,omitempty"`
-	Status       *int     `json:"status,omitempty"`
-	FaultType    []int    `json:"fault_type,omitempty"`
-	FaultTime    *string  `json:"fault_time,omitempty"`
-	Source       *int     `json:"source,omitempty"`
-	Contact      *string  `json:"contact,omitempty"`
-	UpdateTime   *string  `json:"update_time,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	UserId       *string  `json:"user_id,omitempty"`
-	OperatorId   *string  `json:"operator_id,omitempty"`
-	Images       []string `json:"images,omitempty"`
-	FeedbackPath *string  `json:"feedback_path,omitempty"`
+	FeedbackId   *string  `json:"feedback_id,omitempty"`   // 应用反馈 ID，应用反馈记录唯一标识
+	AppId        *string  `json:"app_id,omitempty"`        // 被反馈应用ID
+	FeedbackTime *string  `json:"feedback_time,omitempty"` // 反馈提交时间，格式为yyyy-mm-dd hh:mm:ss
+	TenantName   *string  `json:"tenant_name,omitempty"`   // 反馈用户的租户名， 查询 isv 应用时返回
+	FeedbackType *int     `json:"feedback_type,omitempty"` // 反馈类型
+	Status       *int     `json:"status,omitempty"`        // 反馈处理状态
+	FaultType    []int    `json:"fault_type,omitempty"`    // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+	FaultTime    *string  `json:"fault_time,omitempty"`    // 故障时间，格式为yyyy-mm-dd hh:mm:ss
+	Source       *int     `json:"source,omitempty"`        // 反馈来源：1： 小程序 2：网页应用 3：机器人 4：webSDK
+	Contact      *string  `json:"contact,omitempty"`       // 用户联系方式，只有用户填写联系方式后返回
+	UpdateTime   *string  `json:"update_time,omitempty"`   // 反馈处理时间，格式为yyyy-mm-dd hh:mm:ss
+	Description  *string  `json:"description,omitempty"`   // 反馈问题描述
+	UserId       *string  `json:"user_id,omitempty"`       // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
+	OperatorId   *string  `json:"operator_id,omitempty"`   // 操作者id，租户内用户的唯一标识， ID值与查询参数中的user_id_type 对应
+	Images       []string `json:"images,omitempty"`        // 反馈图片url列表，url 过期时间三天
+	FeedbackPath *string  `json:"feedback_path,omitempty"` // 反馈页面路径;- 如触发反馈的应用类型为小程序，则上报小程序当前页面的path信息;- 如触发反馈的应用类型为网页或网页应用，则上报当前网页的url信息;- 如为其他应用类型，则字段返回值为空
 }
 
 type ApplicationFeedbackBuilder struct {
-	feedbackId       string
+	feedbackId       string // 应用反馈 ID，应用反馈记录唯一标识
 	feedbackIdFlag   bool
-	appId            string
+	appId            string // 被反馈应用ID
 	appIdFlag        bool
-	feedbackTime     string
+	feedbackTime     string // 反馈提交时间，格式为yyyy-mm-dd hh:mm:ss
 	feedbackTimeFlag bool
-	tenantName       string
+	tenantName       string // 反馈用户的租户名， 查询 isv 应用时返回
 	tenantNameFlag   bool
-	feedbackType     int
+	feedbackType     int // 反馈类型
 	feedbackTypeFlag bool
-	status           int
+	status           int // 反馈处理状态
 	statusFlag       bool
-	faultType        []int
+	faultType        []int // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 	faultTypeFlag    bool
-	faultTime        string
+	faultTime        string // 故障时间，格式为yyyy-mm-dd hh:mm:ss
 	faultTimeFlag    bool
-	source           int
+	source           int // 反馈来源：1： 小程序 2：网页应用 3：机器人 4：webSDK
 	sourceFlag       bool
-	contact          string
+	contact          string // 用户联系方式，只有用户填写联系方式后返回
 	contactFlag      bool
-	updateTime       string
+	updateTime       string // 反馈处理时间，格式为yyyy-mm-dd hh:mm:ss
 	updateTimeFlag   bool
-	description      string
+	description      string // 反馈问题描述
 	descriptionFlag  bool
-	userId           string
+	userId           string // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
 	userIdFlag       bool
-	operatorId       string
+	operatorId       string // 操作者id，租户内用户的唯一标识， ID值与查询参数中的user_id_type 对应
 	operatorIdFlag   bool
-	images           []string
+	images           []string // 反馈图片url列表，url 过期时间三天
 	imagesFlag       bool
-	feedbackPath     string
+	feedbackPath     string // 反馈页面路径;- 如触发反馈的应用类型为小程序，则上报小程序当前页面的path信息;- 如触发反馈的应用类型为网页或网页应用，则上报当前网页的url信息;- 如为其他应用类型，则字段返回值为空
 	feedbackPathFlag bool
 }
 
@@ -1991,81 +2391,128 @@ func NewApplicationFeedbackBuilder() *ApplicationFeedbackBuilder {
 	return builder
 }
 
+// 应用反馈 ID，应用反馈记录唯一标识
+// 示例值：7057888018203574291
 func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId string) *ApplicationFeedbackBuilder {
 	builder.feedbackId = feedbackId
 	builder.feedbackIdFlag = true
 	return builder
 }
+
+// 被反馈应用ID
+// 示例值：cli_9b445f5258795107
 func (builder *ApplicationFeedbackBuilder) AppId(appId string) *ApplicationFeedbackBuilder {
 	builder.appId = appId
 	builder.appIdFlag = true
 	return builder
 }
+
+// 反馈提交时间，格式为yyyy-mm-dd hh:mm:ss
+// 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) FeedbackTime(feedbackTime string) *ApplicationFeedbackBuilder {
 	builder.feedbackTime = feedbackTime
 	builder.feedbackTimeFlag = true
 	return builder
 }
+
+// 反馈用户的租户名， 查询 isv 应用时返回
+// 示例值：字节跳动
 func (builder *ApplicationFeedbackBuilder) TenantName(tenantName string) *ApplicationFeedbackBuilder {
 	builder.tenantName = tenantName
 	builder.tenantNameFlag = true
 	return builder
 }
+
+// 反馈类型
+// 示例值：1
 func (builder *ApplicationFeedbackBuilder) FeedbackType(feedbackType int) *ApplicationFeedbackBuilder {
 	builder.feedbackType = feedbackType
 	builder.feedbackTypeFlag = true
 	return builder
 }
+
+// 反馈处理状态
+// 示例值：0
 func (builder *ApplicationFeedbackBuilder) Status(status int) *ApplicationFeedbackBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+// 示例值：[1,2,3]
 func (builder *ApplicationFeedbackBuilder) FaultType(faultType []int) *ApplicationFeedbackBuilder {
 	builder.faultType = faultType
 	builder.faultTypeFlag = true
 	return builder
 }
+
+// 故障时间，格式为yyyy-mm-dd hh:mm:ss
+// 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) FaultTime(faultTime string) *ApplicationFeedbackBuilder {
 	builder.faultTime = faultTime
 	builder.faultTimeFlag = true
 	return builder
 }
+
+// 反馈来源：1： 小程序 2：网页应用 3：机器人 4：webSDK
+// 示例值：1
 func (builder *ApplicationFeedbackBuilder) Source(source int) *ApplicationFeedbackBuilder {
 	builder.source = source
 	builder.sourceFlag = true
 	return builder
 }
+
+// 用户联系方式，只有用户填写联系方式后返回
+// 示例值：wang@bytedance.com
 func (builder *ApplicationFeedbackBuilder) Contact(contact string) *ApplicationFeedbackBuilder {
 	builder.contact = contact
 	builder.contactFlag = true
 	return builder
 }
+
+// 反馈处理时间，格式为yyyy-mm-dd hh:mm:ss
+// 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) UpdateTime(updateTime string) *ApplicationFeedbackBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 反馈问题描述
+// 示例值：反馈描述
 func (builder *ApplicationFeedbackBuilder) Description(description string) *ApplicationFeedbackBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
+// 示例值：ou_9565b69967831233761cc2f11b4c089f
 func (builder *ApplicationFeedbackBuilder) UserId(userId string) *ApplicationFeedbackBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 操作者id，租户内用户的唯一标识， ID值与查询参数中的user_id_type 对应
+// 示例值：ou_9565b69967831233761cc2f11b4c089f
 func (builder *ApplicationFeedbackBuilder) OperatorId(operatorId string) *ApplicationFeedbackBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdFlag = true
 	return builder
 }
+
+// 反馈图片url列表，url 过期时间三天
+// 示例值：
 func (builder *ApplicationFeedbackBuilder) Images(images []string) *ApplicationFeedbackBuilder {
 	builder.images = images
 	builder.imagesFlag = true
 	return builder
 }
+
+// 反馈页面路径;- 如触发反馈的应用类型为小程序，则上报小程序当前页面的path信息;- 如触发反馈的应用类型为网页或网页应用，则上报当前网页的url信息;- 如为其他应用类型，则字段返回值为空
+// 示例值：index/page
 func (builder *ApplicationFeedbackBuilder) FeedbackPath(feedbackPath string) *ApplicationFeedbackBuilder {
 	builder.feedbackPath = feedbackPath
 	builder.feedbackPathFlag = true
@@ -2140,26 +2587,26 @@ func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 }
 
 type ApplicationOwner struct {
-	Type     *int    `json:"type,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	HelpDesk *string `json:"help_desk,omitempty"`
-	Email    *string `json:"email,omitempty"`
-	Phone    *string `json:"phone,omitempty"`
+	Type     *int    `json:"type,omitempty"`      // 应用所有者类型
+	OwnerId  *string `json:"owner_id,omitempty"`  // 应用所有者ID
+	Name     *string `json:"name,omitempty"`      // 应用开发商名称(仅商店应用返回)
+	HelpDesk *string `json:"help_desk,omitempty"` // 应用开发商服务台链接(仅商店应用返回)
+	Email    *string `json:"email,omitempty"`     // 应用开发商的邮箱(仅商店应用返回)
+	Phone    *string `json:"phone,omitempty"`     // 应用开发商的手机号(仅商店应用返回)
 }
 
 type ApplicationOwnerBuilder struct {
-	type_        int
+	type_        int // 应用所有者类型
 	typeFlag     bool
-	ownerId      string
+	ownerId      string // 应用所有者ID
 	ownerIdFlag  bool
-	name         string
+	name         string // 应用开发商名称(仅商店应用返回)
 	nameFlag     bool
-	helpDesk     string
+	helpDesk     string // 应用开发商服务台链接(仅商店应用返回)
 	helpDeskFlag bool
-	email        string
+	email        string // 应用开发商的邮箱(仅商店应用返回)
 	emailFlag    bool
-	phone        string
+	phone        string // 应用开发商的手机号(仅商店应用返回)
 	phoneFlag    bool
 }
 
@@ -2168,31 +2615,48 @@ func NewApplicationOwnerBuilder() *ApplicationOwnerBuilder {
 	return builder
 }
 
+// 应用所有者类型
+// 示例值：0
 func (builder *ApplicationOwnerBuilder) Type(type_ int) *ApplicationOwnerBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 应用所有者ID
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwnerBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdFlag = true
 	return builder
 }
+
+// 应用开发商名称(仅商店应用返回)
+// 示例值：
 func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 应用开发商服务台链接(仅商店应用返回)
+// 示例值：
 func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOwnerBuilder {
 	builder.helpDesk = helpDesk
 	builder.helpDeskFlag = true
 	return builder
 }
+
+// 应用开发商的邮箱(仅商店应用返回)
+// 示例值：
 func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 应用开发商的手机号(仅商店应用返回)
+// 示例值：
 func (builder *ApplicationOwnerBuilder) Phone(phone string) *ApplicationOwnerBuilder {
 	builder.phone = phone
 	builder.phoneFlag = true
@@ -2229,17 +2693,17 @@ func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
 }
 
 type ApplicationVisibility struct {
-	IsAll         *bool           `json:"is_all,omitempty"`
-	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`
-	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"`
+	IsAll         *bool           `json:"is_all,omitempty"`         // 是否全员可见
+	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`   // 可见名单
+	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"` // 不可见名单
 }
 
 type ApplicationVisibilityBuilder struct {
-	isAll             bool
+	isAll             bool // 是否全员可见
 	isAllFlag         bool
-	visibleList       *AppVisibleList
+	visibleList       *AppVisibleList // 可见名单
 	visibleListFlag   bool
-	invisibleList     *AppVisibleList
+	invisibleList     *AppVisibleList // 不可见名单
 	invisibleListFlag bool
 }
 
@@ -2248,16 +2712,24 @@ func NewApplicationVisibilityBuilder() *ApplicationVisibilityBuilder {
 	return builder
 }
 
+// 是否全员可见
+// 示例值：false
 func (builder *ApplicationVisibilityBuilder) IsAll(isAll bool) *ApplicationVisibilityBuilder {
 	builder.isAll = isAll
 	builder.isAllFlag = true
 	return builder
 }
+
+// 可见名单
+// 示例值：
 func (builder *ApplicationVisibilityBuilder) VisibleList(visibleList *AppVisibleList) *ApplicationVisibilityBuilder {
 	builder.visibleList = visibleList
 	builder.visibleListFlag = true
 	return builder
 }
+
+// 不可见名单
+// 示例值：
 func (builder *ApplicationVisibilityBuilder) InvisibleList(invisibleList *AppVisibleList) *ApplicationVisibilityBuilder {
 	builder.invisibleList = invisibleList
 	builder.invisibleListFlag = true
@@ -2280,59 +2752,59 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 }
 
 type ApplicationV2 struct {
-	AppId            *string           `json:"app_id,omitempty"`
-	CreatorId        *string           `json:"creator_id,omitempty"`
-	Status           *int              `json:"status,omitempty"`
-	SceneType        *int              `json:"scene_type,omitempty"`
-	PaymentType      *int              `json:"payment_type,omitempty"`
-	RedirectUrls     []string          `json:"redirect_urls,omitempty"`
-	OnlineVersionId  *string           `json:"online_version_id,omitempty"`
-	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"`
-	AppName          *string           `json:"app_name,omitempty"`
-	AvatarUrl        *string           `json:"avatar_url,omitempty"`
-	Description      *string           `json:"description,omitempty"`
-	Scopes           []*AppScope       `json:"scopes,omitempty"`
-	BackHomeUrl      *string           `json:"back_home_url,omitempty"`
-	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`
-	PrimaryLanguage  *string           `json:"primary_language,omitempty"`
-	CommonCategories []string          `json:"common_categories,omitempty"`
-	Owner            *ApplicationOwner `json:"owner,omitempty"`
+	AppId            *string           `json:"app_id,omitempty"`             // 应用的 id
+	CreatorId        *string           `json:"creator_id,omitempty"`         // 应用创建者（所有者）
+	Status           *int              `json:"status,omitempty"`             // 应用状态
+	SceneType        *int              `json:"scene_type,omitempty"`         // 应用类型
+	PaymentType      *int              `json:"payment_type,omitempty"`       // 付费类型
+	RedirectUrls     []string          `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
+	OnlineVersionId  *string           `json:"online_version_id,omitempty"`  // 发布在线上的应用版本
+	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"` // 在审核中的版本号信息，若没有则为空
+	AppName          *string           `json:"app_name,omitempty"`           // 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
+	AvatarUrl        *string           `json:"avatar_url,omitempty"`         // 应用图标链接
+	Description      *string           `json:"description,omitempty"`        // 应用默认描述
+	Scopes           []*AppScope       `json:"scopes,omitempty"`             // 应用权限列表
+	BackHomeUrl      *string           `json:"back_home_url,omitempty"`      // 后台主页地址
+	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`               // 应用的国际化信息列表
+	PrimaryLanguage  *string           `json:"primary_language,omitempty"`   // 应用主语言
+	CommonCategories []string          `json:"common_categories,omitempty"`  // 应用分类的国际化描述
+	Owner            *ApplicationOwner `json:"owner,omitempty"`              // 应用的所有者信息
 }
 
 type ApplicationV2Builder struct {
-	appId                string
+	appId                string // 应用的 id
 	appIdFlag            bool
-	creatorId            string
+	creatorId            string // 应用创建者（所有者）
 	creatorIdFlag        bool
-	status               int
+	status               int // 应用状态
 	statusFlag           bool
-	sceneType            int
+	sceneType            int // 应用类型
 	sceneTypeFlag        bool
-	paymentType          int
+	paymentType          int // 付费类型
 	paymentTypeFlag      bool
-	redirectUrls         []string
+	redirectUrls         []string // 安全设置中的重定向 URL
 	redirectUrlsFlag     bool
-	onlineVersionId      string
+	onlineVersionId      string // 发布在线上的应用版本
 	onlineVersionIdFlag  bool
-	unauditVersionId     string
+	unauditVersionId     string // 在审核中的版本号信息，若没有则为空
 	unauditVersionIdFlag bool
-	appName              string
+	appName              string // 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
 	appNameFlag          bool
-	avatarUrl            string
+	avatarUrl            string // 应用图标链接
 	avatarUrlFlag        bool
-	description          string
+	description          string // 应用默认描述
 	descriptionFlag      bool
-	scopes               []*AppScope
+	scopes               []*AppScope // 应用权限列表
 	scopesFlag           bool
-	backHomeUrl          string
+	backHomeUrl          string // 后台主页地址
 	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo
+	i18n                 []*AppI18nInfo // 应用的国际化信息列表
 	i18nFlag             bool
-	primaryLanguage      string
+	primaryLanguage      string // 应用主语言
 	primaryLanguageFlag  bool
-	commonCategories     []string
+	commonCategories     []string // 应用分类的国际化描述
 	commonCategoriesFlag bool
-	owner                *ApplicationOwner
+	owner                *ApplicationOwner // 应用的所有者信息
 	ownerFlag            bool
 }
 
@@ -2341,86 +2813,136 @@ func NewApplicationV2Builder() *ApplicationV2Builder {
 	return builder
 }
 
+// 应用的 id
+// 示例值：cli_9b445f5258795107
 func (builder *ApplicationV2Builder) AppId(appId string) *ApplicationV2Builder {
 	builder.appId = appId
 	builder.appIdFlag = true
 	return builder
 }
+
+// 应用创建者（所有者）
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationV2Builder) CreatorId(creatorId string) *ApplicationV2Builder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
 	return builder
 }
+
+// 应用状态
+// 示例值：1
 func (builder *ApplicationV2Builder) Status(status int) *ApplicationV2Builder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 应用类型
+// 示例值：0
 func (builder *ApplicationV2Builder) SceneType(sceneType int) *ApplicationV2Builder {
 	builder.sceneType = sceneType
 	builder.sceneTypeFlag = true
 	return builder
 }
+
+// 付费类型
+// 示例值：0
 func (builder *ApplicationV2Builder) PaymentType(paymentType int) *ApplicationV2Builder {
 	builder.paymentType = paymentType
 	builder.paymentTypeFlag = true
 	return builder
 }
+
+// 安全设置中的重定向 URL
+// 示例值：
 func (builder *ApplicationV2Builder) RedirectUrls(redirectUrls []string) *ApplicationV2Builder {
 	builder.redirectUrls = redirectUrls
 	builder.redirectUrlsFlag = true
 	return builder
 }
+
+// 发布在线上的应用版本
+// 示例值：
 func (builder *ApplicationV2Builder) OnlineVersionId(onlineVersionId string) *ApplicationV2Builder {
 	builder.onlineVersionId = onlineVersionId
 	builder.onlineVersionIdFlag = true
 	return builder
 }
+
+// 在审核中的版本号信息，若没有则为空
+// 示例值：
 func (builder *ApplicationV2Builder) UnauditVersionId(unauditVersionId string) *ApplicationV2Builder {
 	builder.unauditVersionId = unauditVersionId
 	builder.unauditVersionIdFlag = true
 	return builder
 }
+
+// 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
+// 示例值：应用名称
 func (builder *ApplicationV2Builder) AppName(appName string) *ApplicationV2Builder {
 	builder.appName = appName
 	builder.appNameFlag = true
 	return builder
 }
+
+// 应用图标链接
+// 示例值：https://sf1-ttcdn-tos.pstatp.com/img/avatar/d279000ca4d3f7f6aaff~72x72.jpg
 func (builder *ApplicationV2Builder) AvatarUrl(avatarUrl string) *ApplicationV2Builder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlFlag = true
 	return builder
 }
+
+// 应用默认描述
+// 示例值：应用描述
 func (builder *ApplicationV2Builder) Description(description string) *ApplicationV2Builder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 应用权限列表
+// 示例值：
 func (builder *ApplicationV2Builder) Scopes(scopes []*AppScope) *ApplicationV2Builder {
 	builder.scopes = scopes
 	builder.scopesFlag = true
 	return builder
 }
+
+// 后台主页地址
+// 示例值：https://www.example.com
 func (builder *ApplicationV2Builder) BackHomeUrl(backHomeUrl string) *ApplicationV2Builder {
 	builder.backHomeUrl = backHomeUrl
 	builder.backHomeUrlFlag = true
 	return builder
 }
+
+// 应用的国际化信息列表
+// 示例值：
 func (builder *ApplicationV2Builder) I18n(i18n []*AppI18nInfo) *ApplicationV2Builder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 应用主语言
+// 示例值：zh_cn
 func (builder *ApplicationV2Builder) PrimaryLanguage(primaryLanguage string) *ApplicationV2Builder {
 	builder.primaryLanguage = primaryLanguage
 	builder.primaryLanguageFlag = true
 	return builder
 }
+
+// 应用分类的国际化描述
+// 示例值：
 func (builder *ApplicationV2Builder) CommonCategories(commonCategories []string) *ApplicationV2Builder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesFlag = true
 	return builder
 }
+
+// 应用的所有者信息
+// 示例值：
 func (builder *ApplicationV2Builder) Owner(owner *ApplicationOwner) *ApplicationV2Builder {
 	builder.owner = owner
 	builder.ownerFlag = true
@@ -2496,23 +3018,23 @@ func (builder *ApplicationV2Builder) Build() *ApplicationV2 {
 }
 
 type Block struct {
-	BlockTypeId   *string          `json:"block_type_id,omitempty"`
-	VersionId     *string          `json:"version_id,omitempty"`
-	I18n          []*BlockI18nInfo `json:"i18n,omitempty"`
-	MobileIconUrl *string          `json:"mobile_icon_url,omitempty"`
-	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`
+	BlockTypeId   *string          `json:"block_type_id,omitempty"`   // BlockTypeID
+	VersionId     *string          `json:"version_id,omitempty"`      // 上传 block 小程序的 version id
+	I18n          []*BlockI18nInfo `json:"i18n,omitempty"`            // block 的国际化信息
+	MobileIconUrl *string          `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
+	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
 }
 
 type BlockBuilder struct {
-	blockTypeId       string
+	blockTypeId       string // BlockTypeID
 	blockTypeIdFlag   bool
-	versionId         string
+	versionId         string // 上传 block 小程序的 version id
 	versionIdFlag     bool
-	i18n              []*BlockI18nInfo
+	i18n              []*BlockI18nInfo // block 的国际化信息
 	i18nFlag          bool
-	mobileIconUrl     string
+	mobileIconUrl     string // 移动端 icon 链接
 	mobileIconUrlFlag bool
-	pcIconUrl         string
+	pcIconUrl         string // pc 端口 icon 链接
 	pcIconUrlFlag     bool
 }
 
@@ -2521,26 +3043,40 @@ func NewBlockBuilder() *BlockBuilder {
 	return builder
 }
 
+// BlockTypeID
+// 示例值：blk_4fb61568435880110854c1d0
 func (builder *BlockBuilder) BlockTypeId(blockTypeId string) *BlockBuilder {
 	builder.blockTypeId = blockTypeId
 	builder.blockTypeIdFlag = true
 	return builder
 }
+
+// 上传 block 小程序的 version id
+// 示例值：1.0.0
 func (builder *BlockBuilder) VersionId(versionId string) *BlockBuilder {
 	builder.versionId = versionId
 	builder.versionIdFlag = true
 	return builder
 }
+
+// block 的国际化信息
+// 示例值：
 func (builder *BlockBuilder) I18n(i18n []*BlockI18nInfo) *BlockBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 移动端 icon 链接
+// 示例值：https://www.example.com
 func (builder *BlockBuilder) MobileIconUrl(mobileIconUrl string) *BlockBuilder {
 	builder.mobileIconUrl = mobileIconUrl
 	builder.mobileIconUrlFlag = true
 	return builder
 }
+
+// pc 端口 icon 链接
+// 示例值：https://www.example.com
 func (builder *BlockBuilder) PcIconUrl(pcIconUrl string) *BlockBuilder {
 	builder.pcIconUrl = pcIconUrl
 	builder.pcIconUrlFlag = true
@@ -2572,14 +3108,14 @@ func (builder *BlockBuilder) Build() *Block {
 }
 
 type BlockI18nInfo struct {
-	I18nKey *string `json:"i18n_key,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	I18nKey *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	Name    *string `json:"name,omitempty"`     // 名称
 }
 
 type BlockI18nInfoBuilder struct {
-	i18nKey     string
+	i18nKey     string // 国际化语言的 key
 	i18nKeyFlag bool
-	name        string
+	name        string // 名称
 	nameFlag    bool
 }
 
@@ -2588,11 +3124,16 @@ func NewBlockI18nInfoBuilder() *BlockI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *BlockI18nInfoBuilder) I18nKey(i18nKey string) *BlockI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 名称
+// 示例值：名称
 func (builder *BlockI18nInfoBuilder) Name(name string) *BlockI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -2613,11 +3154,11 @@ func (builder *BlockI18nInfoBuilder) Build() *BlockI18nInfo {
 }
 
 type Bot struct {
-	CardRequestUrl *string `json:"card_request_url,omitempty"`
+	CardRequestUrl *string `json:"card_request_url,omitempty"` // 消息卡片回调地址
 }
 
 type BotBuilder struct {
-	cardRequestUrl     string
+	cardRequestUrl     string // 消息卡片回调地址
 	cardRequestUrlFlag bool
 }
 
@@ -2626,6 +3167,8 @@ func NewBotBuilder() *BotBuilder {
 	return builder
 }
 
+// 消息卡片回调地址
+// 示例值：https://www.example.com
 func (builder *BotBuilder) CardRequestUrl(cardRequestUrl string) *BotBuilder {
 	builder.cardRequestUrl = cardRequestUrl
 	builder.cardRequestUrlFlag = true
@@ -2642,14 +3185,14 @@ func (builder *BotBuilder) Build() *Bot {
 }
 
 type ClientBadgeNum struct {
-	WebApp *int `json:"web_app,omitempty"`
-	Gadget *int `json:"gadget,omitempty"`
+	WebApp *int `json:"web_app,omitempty"` // h5能力的badge数量
+	Gadget *int `json:"gadget,omitempty"`  // 小程序能力的badge数量
 }
 
 type ClientBadgeNumBuilder struct {
-	webApp     int
+	webApp     int // h5能力的badge数量
 	webAppFlag bool
-	gadget     int
+	gadget     int // 小程序能力的badge数量
 	gadgetFlag bool
 }
 
@@ -2658,11 +3201,16 @@ func NewClientBadgeNumBuilder() *ClientBadgeNumBuilder {
 	return builder
 }
 
+// h5能力的badge数量
+// 示例值：
 func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder {
 	builder.webApp = webApp
 	builder.webAppFlag = true
 	return builder
 }
+
+// 小程序能力的badge数量
+// 示例值：
 func (builder *ClientBadgeNumBuilder) Gadget(gadget int) *ClientBadgeNumBuilder {
 	builder.gadget = gadget
 	builder.gadgetFlag = true
@@ -2683,20 +3231,20 @@ func (builder *ClientBadgeNumBuilder) Build() *ClientBadgeNum {
 }
 
 type CloudDoc struct {
-	SpaceUrl *string             `json:"space_url,omitempty"`
-	I18n     []*CloudDocI18nInfo `json:"i18n,omitempty"`
-	IconUrl  *string             `json:"icon_url,omitempty"`
-	Mode     *int                `json:"mode,omitempty"`
+	SpaceUrl *string             `json:"space_url,omitempty"` // 云空间重定向 url
+	I18n     []*CloudDocI18nInfo `json:"i18n,omitempty"`      // 国际化信息
+	IconUrl  *string             `json:"icon_url,omitempty"`  // 图标链接
+	Mode     *int                `json:"mode,omitempty"`      // 云文档支持模式
 }
 
 type CloudDocBuilder struct {
-	spaceUrl     string
+	spaceUrl     string // 云空间重定向 url
 	spaceUrlFlag bool
-	i18n         []*CloudDocI18nInfo
+	i18n         []*CloudDocI18nInfo // 国际化信息
 	i18nFlag     bool
-	iconUrl      string
+	iconUrl      string // 图标链接
 	iconUrlFlag  bool
-	mode         int
+	mode         int // 云文档支持模式
 	modeFlag     bool
 }
 
@@ -2705,21 +3253,32 @@ func NewCloudDocBuilder() *CloudDocBuilder {
 	return builder
 }
 
+// 云空间重定向 url
+// 示例值：https://www.example.com
 func (builder *CloudDocBuilder) SpaceUrl(spaceUrl string) *CloudDocBuilder {
 	builder.spaceUrl = spaceUrl
 	builder.spaceUrlFlag = true
 	return builder
 }
+
+// 国际化信息
+// 示例值：
 func (builder *CloudDocBuilder) I18n(i18n []*CloudDocI18nInfo) *CloudDocBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 图标链接
+// 示例值：https://www.example.com
 func (builder *CloudDocBuilder) IconUrl(iconUrl string) *CloudDocBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
 	return builder
 }
+
+// 云文档支持模式
+// 示例值：1
 func (builder *CloudDocBuilder) Mode(mode int) *CloudDocBuilder {
 	builder.mode = mode
 	builder.modeFlag = true
@@ -2747,20 +3306,20 @@ func (builder *CloudDocBuilder) Build() *CloudDoc {
 }
 
 type CloudDocI18nInfo struct {
-	I18nKey          *string `json:"i18n_key,omitempty"`
-	Name             *string `json:"name,omitempty"`
-	ReadDescription  *string `json:"read_description,omitempty"`
-	WriteDescription *string `json:"write_description,omitempty"`
+	I18nKey          *string `json:"i18n_key,omitempty"`          // 国际化语言的 key
+	Name             *string `json:"name,omitempty"`              // 云文档国际化名称
+	ReadDescription  *string `json:"read_description,omitempty"`  // 云文档国际化读权限说明
+	WriteDescription *string `json:"write_description,omitempty"` // 云文档国际化写权限说明
 }
 
 type CloudDocI18nInfoBuilder struct {
-	i18nKey              string
+	i18nKey              string // 国际化语言的 key
 	i18nKeyFlag          bool
-	name                 string
+	name                 string // 云文档国际化名称
 	nameFlag             bool
-	readDescription      string
+	readDescription      string // 云文档国际化读权限说明
 	readDescriptionFlag  bool
-	writeDescription     string
+	writeDescription     string // 云文档国际化写权限说明
 	writeDescriptionFlag bool
 }
 
@@ -2769,21 +3328,32 @@ func NewCloudDocI18nInfoBuilder() *CloudDocI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *CloudDocI18nInfoBuilder) I18nKey(i18nKey string) *CloudDocI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 云文档国际化名称
+// 示例值：名称
 func (builder *CloudDocI18nInfoBuilder) Name(name string) *CloudDocI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 云文档国际化读权限说明
+// 示例值：读权限说明
 func (builder *CloudDocI18nInfoBuilder) ReadDescription(readDescription string) *CloudDocI18nInfoBuilder {
 	builder.readDescription = readDescription
 	builder.readDescriptionFlag = true
 	return builder
 }
+
+// 云文档国际化写权限说明
+// 示例值：写权限说明
 func (builder *CloudDocI18nInfoBuilder) WriteDescription(writeDescription string) *CloudDocI18nInfoBuilder {
 	builder.writeDescription = writeDescription
 	builder.writeDescriptionFlag = true
@@ -2812,20 +3382,20 @@ func (builder *CloudDocI18nInfoBuilder) Build() *CloudDocI18nInfo {
 }
 
 type DocsBlock struct {
-	BlockTypeId   *string          `json:"block_type_id,omitempty"`
-	I18n          []*BlockI18nInfo `json:"i18n,omitempty"`
-	MobileIconUrl *string          `json:"mobile_icon_url,omitempty"`
-	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`
+	BlockTypeId   *string          `json:"block_type_id,omitempty"`   // BlockTypeID
+	I18n          []*BlockI18nInfo `json:"i18n,omitempty"`            // block 的国际化信息
+	MobileIconUrl *string          `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
+	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
 }
 
 type DocsBlockBuilder struct {
-	blockTypeId       string
+	blockTypeId       string // BlockTypeID
 	blockTypeIdFlag   bool
-	i18n              []*BlockI18nInfo
+	i18n              []*BlockI18nInfo // block 的国际化信息
 	i18nFlag          bool
-	mobileIconUrl     string
+	mobileIconUrl     string // 移动端 icon 链接
 	mobileIconUrlFlag bool
-	pcIconUrl         string
+	pcIconUrl         string // pc 端口 icon 链接
 	pcIconUrlFlag     bool
 }
 
@@ -2834,21 +3404,32 @@ func NewDocsBlockBuilder() *DocsBlockBuilder {
 	return builder
 }
 
+// BlockTypeID
+// 示例值：blk_4fb61568435880110854c1d0
 func (builder *DocsBlockBuilder) BlockTypeId(blockTypeId string) *DocsBlockBuilder {
 	builder.blockTypeId = blockTypeId
 	builder.blockTypeIdFlag = true
 	return builder
 }
+
+// block 的国际化信息
+// 示例值：
 func (builder *DocsBlockBuilder) I18n(i18n []*BlockI18nInfo) *DocsBlockBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
 	return builder
 }
+
+// 移动端 icon 链接
+// 示例值：https://www.example.com
 func (builder *DocsBlockBuilder) MobileIconUrl(mobileIconUrl string) *DocsBlockBuilder {
 	builder.mobileIconUrl = mobileIconUrl
 	builder.mobileIconUrlFlag = true
 	return builder
 }
+
+// pc 端口 icon 链接
+// 示例值：https://www.example.com
 func (builder *DocsBlockBuilder) PcIconUrl(pcIconUrl string) *DocsBlockBuilder {
 	builder.pcIconUrl = pcIconUrl
 	builder.pcIconUrlFlag = true
@@ -2876,29 +3457,29 @@ func (builder *DocsBlockBuilder) Build() *DocsBlock {
 }
 
 type Gadget struct {
-	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`
-	SchemaUrls           []string `json:"schema_urls,omitempty"`
-	PcUseMobilePkg       *bool    `json:"pc_use_mobile_pkg,omitempty"`
-	PcVersion            *string  `json:"pc_version,omitempty"`
-	MobileVersion        *string  `json:"mobile_version,omitempty"`
-	MobileMinLarkVersion *string  `json:"mobile_min_lark_version,omitempty"`
-	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`
+	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式，bit 位表示
+	SchemaUrls           []string `json:"schema_urls,omitempty"`             // schema url 列表
+	PcUseMobilePkg       *bool    `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
+	PcVersion            *string  `json:"pc_version,omitempty"`              // pc 的小程序版本号
+	MobileVersion        *string  `json:"mobile_version,omitempty"`          // 移动端小程序版本号
+	MobileMinLarkVersion *string  `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本
+	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本
 }
 
 type GadgetBuilder struct {
-	enablePcMode             int
+	enablePcMode             int // pc 支持的小程序模式，bit 位表示
 	enablePcModeFlag         bool
-	schemaUrls               []string
+	schemaUrls               []string // schema url 列表
 	schemaUrlsFlag           bool
-	pcUseMobilePkg           bool
+	pcUseMobilePkg           bool // pc 端是否使用小程序版本
 	pcUseMobilePkgFlag       bool
-	pcVersion                string
+	pcVersion                string // pc 的小程序版本号
 	pcVersionFlag            bool
-	mobileVersion            string
+	mobileVersion            string // 移动端小程序版本号
 	mobileVersionFlag        bool
-	mobileMinLarkVersion     string
+	mobileMinLarkVersion     string // 移动端兼容的最低飞书版本
 	mobileMinLarkVersionFlag bool
-	pcMinLarkVersion         string
+	pcMinLarkVersion         string // pc 端兼容的最低飞书版本
 	pcMinLarkVersionFlag     bool
 }
 
@@ -2907,36 +3488,56 @@ func NewGadgetBuilder() *GadgetBuilder {
 	return builder
 }
 
+// pc 支持的小程序模式，bit 位表示
+// 示例值：1
 func (builder *GadgetBuilder) EnablePcMode(enablePcMode int) *GadgetBuilder {
 	builder.enablePcMode = enablePcMode
 	builder.enablePcModeFlag = true
 	return builder
 }
+
+// schema url 列表
+// 示例值：
 func (builder *GadgetBuilder) SchemaUrls(schemaUrls []string) *GadgetBuilder {
 	builder.schemaUrls = schemaUrls
 	builder.schemaUrlsFlag = true
 	return builder
 }
+
+// pc 端是否使用小程序版本
+// 示例值：false
 func (builder *GadgetBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *GadgetBuilder {
 	builder.pcUseMobilePkg = pcUseMobilePkg
 	builder.pcUseMobilePkgFlag = true
 	return builder
 }
+
+// pc 的小程序版本号
+// 示例值：1.0.0
 func (builder *GadgetBuilder) PcVersion(pcVersion string) *GadgetBuilder {
 	builder.pcVersion = pcVersion
 	builder.pcVersionFlag = true
 	return builder
 }
+
+// 移动端小程序版本号
+// 示例值：1.0.0
 func (builder *GadgetBuilder) MobileVersion(mobileVersion string) *GadgetBuilder {
 	builder.mobileVersion = mobileVersion
 	builder.mobileVersionFlag = true
 	return builder
 }
+
+// 移动端兼容的最低飞书版本
+// 示例值：2.0
 func (builder *GadgetBuilder) MobileMinLarkVersion(mobileMinLarkVersion string) *GadgetBuilder {
 	builder.mobileMinLarkVersion = mobileMinLarkVersion
 	builder.mobileMinLarkVersionFlag = true
 	return builder
 }
+
+// pc 端兼容的最低飞书版本
+// 示例值：2.0
 func (builder *GadgetBuilder) PcMinLarkVersion(pcMinLarkVersion string) *GadgetBuilder {
 	builder.pcMinLarkVersion = pcMinLarkVersion
 	builder.pcMinLarkVersionFlag = true
@@ -2976,17 +3577,17 @@ func (builder *GadgetBuilder) Build() *Gadget {
 }
 
 type MessageAction struct {
-	PcAppLink     *string                  `json:"pc_app_link,omitempty"`
-	MobileAppLink *string                  `json:"mobile_app_link,omitempty"`
-	I18n          []*MessageActionI18nInfo `json:"i18n,omitempty"`
+	PcAppLink     *string                  `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink *string                  `json:"mobile_app_link,omitempty"` // 移动端链接
+	I18n          []*MessageActionI18nInfo `json:"i18n,omitempty"`            // 国际化信息
 }
 
 type MessageActionBuilder struct {
-	pcAppLink         string
+	pcAppLink         string // pc 端链接
 	pcAppLinkFlag     bool
-	mobileAppLink     string
+	mobileAppLink     string // 移动端链接
 	mobileAppLinkFlag bool
-	i18n              []*MessageActionI18nInfo
+	i18n              []*MessageActionI18nInfo // 国际化信息
 	i18nFlag          bool
 }
 
@@ -2995,16 +3596,24 @@ func NewMessageActionBuilder() *MessageActionBuilder {
 	return builder
 }
 
+// pc 端链接
+// 示例值：https://www.example.com
 func (builder *MessageActionBuilder) PcAppLink(pcAppLink string) *MessageActionBuilder {
 	builder.pcAppLink = pcAppLink
 	builder.pcAppLinkFlag = true
 	return builder
 }
+
+// 移动端链接
+// 示例值：https://www.example.com
 func (builder *MessageActionBuilder) MobileAppLink(mobileAppLink string) *MessageActionBuilder {
 	builder.mobileAppLink = mobileAppLink
 	builder.mobileAppLinkFlag = true
 	return builder
 }
+
+// 国际化信息
+// 示例值：
 func (builder *MessageActionBuilder) I18n(i18n []*MessageActionI18nInfo) *MessageActionBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
@@ -3028,14 +3637,14 @@ func (builder *MessageActionBuilder) Build() *MessageAction {
 }
 
 type MessageActionI18nInfo struct {
-	I18nKey *string `json:"i18n_key,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	I18nKey *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	Name    *string `json:"name,omitempty"`     // 国际化名称
 }
 
 type MessageActionI18nInfoBuilder struct {
-	i18nKey     string
+	i18nKey     string // 国际化语言的 key
 	i18nKeyFlag bool
-	name        string
+	name        string // 国际化名称
 	nameFlag    bool
 }
 
@@ -3044,11 +3653,16 @@ func NewMessageActionI18nInfoBuilder() *MessageActionI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *MessageActionI18nInfoBuilder) I18nKey(i18nKey string) *MessageActionI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 国际化名称
+// 示例值：名称
 func (builder *MessageActionI18nInfoBuilder) Name(name string) *MessageActionI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3069,23 +3683,23 @@ func (builder *MessageActionI18nInfoBuilder) Build() *MessageActionI18nInfo {
 }
 
 type MessageOverviewItem struct {
-	PageView      *string `json:"page_view,omitempty"`
-	UniqueVisitor *string `json:"unique_visitor,omitempty"`
-	ChatType      *string `json:"chat_type,omitempty"`
-	MessageType   *string `json:"message_type,omitempty"`
-	EventType     *string `json:"event_type,omitempty"`
+	PageView      *string `json:"page_view,omitempty"`      // 用户访问量
+	UniqueVisitor *string `json:"unique_visitor,omitempty"` // unique 访问量
+	ChatType      *string `json:"chat_type,omitempty"`      // 聊天类型，大小写不敏感，private：私聊；group：群聊
+	MessageType   *string `json:"message_type,omitempty"`   // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+	EventType     *string `json:"event_type,omitempty"`     // 事件类型
 }
 
 type MessageOverviewItemBuilder struct {
-	pageView          string
+	pageView          string // 用户访问量
 	pageViewFlag      bool
-	uniqueVisitor     string
+	uniqueVisitor     string // unique 访问量
 	uniqueVisitorFlag bool
-	chatType          string
+	chatType          string // 聊天类型，大小写不敏感，private：私聊；group：群聊
 	chatTypeFlag      bool
-	messageType       string
+	messageType       string // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
 	messageTypeFlag   bool
-	eventType         string
+	eventType         string // 事件类型
 	eventTypeFlag     bool
 }
 
@@ -3094,26 +3708,40 @@ func NewMessageOverviewItemBuilder() *MessageOverviewItemBuilder {
 	return builder
 }
 
+// 用户访问量
+// 示例值：
 func (builder *MessageOverviewItemBuilder) PageView(pageView string) *MessageOverviewItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
+
+// unique 访问量
+// 示例值：
 func (builder *MessageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *MessageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
 	return builder
 }
+
+// 聊天类型，大小写不敏感，private：私聊；group：群聊
+// 示例值：
 func (builder *MessageOverviewItemBuilder) ChatType(chatType string) *MessageOverviewItemBuilder {
 	builder.chatType = chatType
 	builder.chatTypeFlag = true
 	return builder
 }
+
+// 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+// 示例值：
 func (builder *MessageOverviewItemBuilder) MessageType(messageType string) *MessageOverviewItemBuilder {
 	builder.messageType = messageType
 	builder.messageTypeFlag = true
 	return builder
 }
+
+// 事件类型
+// 示例值：
 func (builder *MessageOverviewItemBuilder) EventType(eventType string) *MessageOverviewItemBuilder {
 	builder.eventType = eventType
 	builder.eventTypeFlag = true
@@ -3146,29 +3774,29 @@ func (builder *MessageOverviewItemBuilder) Build() *MessageOverviewItem {
 }
 
 type Miniprogram struct {
-	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`
-	SchemaUrls           []string `json:"schema_urls,omitempty"`
-	PcUseMobilePkg       *bool    `json:"pc_use_mobile_pkg,omitempty"`
-	PcVersionId          *string  `json:"pc_version_id,omitempty"`
-	MobileVersionId      *string  `json:"mobile_version_id,omitempty"`
-	MobileMinLarkVersion *string  `json:"mobile_min_lark_version,omitempty"`
-	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`
+	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式，bit 位表示
+	SchemaUrls           []string `json:"schema_urls,omitempty"`             // schema url 列表
+	PcUseMobilePkg       *bool    `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
+	PcVersionId          *string  `json:"pc_version_id,omitempty"`           // pc 的小程序版本号
+	MobileVersionId      *string  `json:"mobile_version_id,omitempty"`       // 移动端小程序版本号
+	MobileMinLarkVersion *string  `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本
+	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本
 }
 
 type MiniprogramBuilder struct {
-	enablePcMode             int
+	enablePcMode             int // pc 支持的小程序模式，bit 位表示
 	enablePcModeFlag         bool
-	schemaUrls               []string
+	schemaUrls               []string // schema url 列表
 	schemaUrlsFlag           bool
-	pcUseMobilePkg           bool
+	pcUseMobilePkg           bool // pc 端是否使用小程序版本
 	pcUseMobilePkgFlag       bool
-	pcVersionId              string
+	pcVersionId              string // pc 的小程序版本号
 	pcVersionIdFlag          bool
-	mobileVersionId          string
+	mobileVersionId          string // 移动端小程序版本号
 	mobileVersionIdFlag      bool
-	mobileMinLarkVersion     string
+	mobileMinLarkVersion     string // 移动端兼容的最低飞书版本
 	mobileMinLarkVersionFlag bool
-	pcMinLarkVersion         string
+	pcMinLarkVersion         string // pc 端兼容的最低飞书版本
 	pcMinLarkVersionFlag     bool
 }
 
@@ -3177,36 +3805,56 @@ func NewMiniprogramBuilder() *MiniprogramBuilder {
 	return builder
 }
 
+// pc 支持的小程序模式，bit 位表示
+// 示例值：1
 func (builder *MiniprogramBuilder) EnablePcMode(enablePcMode int) *MiniprogramBuilder {
 	builder.enablePcMode = enablePcMode
 	builder.enablePcModeFlag = true
 	return builder
 }
+
+// schema url 列表
+// 示例值：
 func (builder *MiniprogramBuilder) SchemaUrls(schemaUrls []string) *MiniprogramBuilder {
 	builder.schemaUrls = schemaUrls
 	builder.schemaUrlsFlag = true
 	return builder
 }
+
+// pc 端是否使用小程序版本
+// 示例值：false
 func (builder *MiniprogramBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *MiniprogramBuilder {
 	builder.pcUseMobilePkg = pcUseMobilePkg
 	builder.pcUseMobilePkgFlag = true
 	return builder
 }
+
+// pc 的小程序版本号
+// 示例值：1.0.0
 func (builder *MiniprogramBuilder) PcVersionId(pcVersionId string) *MiniprogramBuilder {
 	builder.pcVersionId = pcVersionId
 	builder.pcVersionIdFlag = true
 	return builder
 }
+
+// 移动端小程序版本号
+// 示例值：1.0.0
 func (builder *MiniprogramBuilder) MobileVersionId(mobileVersionId string) *MiniprogramBuilder {
 	builder.mobileVersionId = mobileVersionId
 	builder.mobileVersionIdFlag = true
 	return builder
 }
+
+// 移动端兼容的最低飞书版本
+// 示例值：2.0
 func (builder *MiniprogramBuilder) MobileMinLarkVersion(mobileMinLarkVersion string) *MiniprogramBuilder {
 	builder.mobileMinLarkVersion = mobileMinLarkVersion
 	builder.mobileMinLarkVersionFlag = true
 	return builder
 }
+
+// pc 端兼容的最低飞书版本
+// 示例值：2.0
 func (builder *MiniprogramBuilder) PcMinLarkVersion(pcMinLarkVersion string) *MiniprogramBuilder {
 	builder.pcMinLarkVersion = pcMinLarkVersion
 	builder.pcMinLarkVersionFlag = true
@@ -3246,17 +3894,17 @@ func (builder *MiniprogramBuilder) Build() *Miniprogram {
 }
 
 type MsgAction struct {
-	PcAppLink     *string              `json:"pc_app_link,omitempty"`
-	MobileAppLink *string              `json:"mobile_app_link,omitempty"`
-	I18n          []*MsgActionI18nInfo `json:"i18n,omitempty"`
+	PcAppLink     *string              `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink *string              `json:"mobile_app_link,omitempty"` // 移动端链接
+	I18n          []*MsgActionI18nInfo `json:"i18n,omitempty"`            // 国际化信息
 }
 
 type MsgActionBuilder struct {
-	pcAppLink         string
+	pcAppLink         string // pc 端链接
 	pcAppLinkFlag     bool
-	mobileAppLink     string
+	mobileAppLink     string // 移动端链接
 	mobileAppLinkFlag bool
-	i18n              []*MsgActionI18nInfo
+	i18n              []*MsgActionI18nInfo // 国际化信息
 	i18nFlag          bool
 }
 
@@ -3265,16 +3913,24 @@ func NewMsgActionBuilder() *MsgActionBuilder {
 	return builder
 }
 
+// pc 端链接
+// 示例值：https://www.example.com
 func (builder *MsgActionBuilder) PcAppLink(pcAppLink string) *MsgActionBuilder {
 	builder.pcAppLink = pcAppLink
 	builder.pcAppLinkFlag = true
 	return builder
 }
+
+// 移动端链接
+// 示例值：https://www.example.com
 func (builder *MsgActionBuilder) MobileAppLink(mobileAppLink string) *MsgActionBuilder {
 	builder.mobileAppLink = mobileAppLink
 	builder.mobileAppLinkFlag = true
 	return builder
 }
+
+// 国际化信息
+// 示例值：
 func (builder *MsgActionBuilder) I18n(i18n []*MsgActionI18nInfo) *MsgActionBuilder {
 	builder.i18n = i18n
 	builder.i18nFlag = true
@@ -3298,14 +3954,14 @@ func (builder *MsgActionBuilder) Build() *MsgAction {
 }
 
 type MsgActionI18nInfo struct {
-	I18nKey *string `json:"i18n_key,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	I18nKey *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	Name    *string `json:"name,omitempty"`     // 国际化名称
 }
 
 type MsgActionI18nInfoBuilder struct {
-	i18nKey     string
+	i18nKey     string // 国际化语言的 key
 	i18nKeyFlag bool
-	name        string
+	name        string // 国际化名称
 	nameFlag    bool
 }
 
@@ -3314,11 +3970,16 @@ func NewMsgActionI18nInfoBuilder() *MsgActionI18nInfoBuilder {
 	return builder
 }
 
+// 国际化语言的 key
+// 示例值：zh_cn
 func (builder *MsgActionI18nInfoBuilder) I18nKey(i18nKey string) *MsgActionI18nInfoBuilder {
 	builder.i18nKey = i18nKey
 	builder.i18nKeyFlag = true
 	return builder
 }
+
+// 国际化名称
+// 示例值：名称
 func (builder *MsgActionI18nInfoBuilder) Name(name string) *MsgActionI18nInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3339,14 +4000,14 @@ func (builder *MsgActionI18nInfoBuilder) Build() *MsgActionI18nInfo {
 }
 
 type Navigate struct {
-	Pc     *NavigateMeta `json:"pc,omitempty"`
-	Mobile *NavigateMeta `json:"mobile,omitempty"`
+	Pc     *NavigateMeta `json:"pc,omitempty"`     // pc 端主导航信息
+	Mobile *NavigateMeta `json:"mobile,omitempty"` // 移动端主导航信息
 }
 
 type NavigateBuilder struct {
-	pc         *NavigateMeta
+	pc         *NavigateMeta // pc 端主导航信息
 	pcFlag     bool
-	mobile     *NavigateMeta
+	mobile     *NavigateMeta // 移动端主导航信息
 	mobileFlag bool
 }
 
@@ -3355,11 +4016,16 @@ func NewNavigateBuilder() *NavigateBuilder {
 	return builder
 }
 
+// pc 端主导航信息
+// 示例值：
 func (builder *NavigateBuilder) Pc(pc *NavigateMeta) *NavigateBuilder {
 	builder.pc = pc
 	builder.pcFlag = true
 	return builder
 }
+
+// 移动端主导航信息
+// 示例值：
 func (builder *NavigateBuilder) Mobile(mobile *NavigateMeta) *NavigateBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true
@@ -3378,17 +4044,17 @@ func (builder *NavigateBuilder) Build() *Navigate {
 }
 
 type NavigateMeta struct {
-	Version       *string `json:"version,omitempty"`
-	ImageUrl      *string `json:"image_url,omitempty"`
-	HoverImageUrl *string `json:"hover_image_url,omitempty"`
+	Version       *string `json:"version,omitempty"`         // 主导航小程序版本号
+	ImageUrl      *string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageUrl *string `json:"hover_image_url,omitempty"` // 选中态图片 url
 }
 
 type NavigateMetaBuilder struct {
-	version           string
+	version           string // 主导航小程序版本号
 	versionFlag       bool
-	imageUrl          string
+	imageUrl          string // 默认图片 url
 	imageUrlFlag      bool
-	hoverImageUrl     string
+	hoverImageUrl     string // 选中态图片 url
 	hoverImageUrlFlag bool
 }
 
@@ -3397,16 +4063,24 @@ func NewNavigateMetaBuilder() *NavigateMetaBuilder {
 	return builder
 }
 
+// 主导航小程序版本号
+// 示例值：1.0.0
 func (builder *NavigateMetaBuilder) Version(version string) *NavigateMetaBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// 默认图片 url
+// 示例值：https://www.example.com
 func (builder *NavigateMetaBuilder) ImageUrl(imageUrl string) *NavigateMetaBuilder {
 	builder.imageUrl = imageUrl
 	builder.imageUrlFlag = true
 	return builder
 }
+
+// 选中态图片 url
+// 示例值：https://www.example.com
 func (builder *NavigateMetaBuilder) HoverImageUrl(hoverImageUrl string) *NavigateMetaBuilder {
 	builder.hoverImageUrl = hoverImageUrl
 	builder.hoverImageUrlFlag = true
@@ -3431,14 +4105,14 @@ func (builder *NavigateMetaBuilder) Build() *NavigateMeta {
 }
 
 type PlusMenu struct {
-	PcAppLink     *string `json:"pc_app_link,omitempty"`
-	MobileAppLink *string `json:"mobile_app_link,omitempty"`
+	PcAppLink     *string `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink *string `json:"mobile_app_link,omitempty"` // 移动端链接
 }
 
 type PlusMenuBuilder struct {
-	pcAppLink         string
+	pcAppLink         string // pc 端链接
 	pcAppLinkFlag     bool
-	mobileAppLink     string
+	mobileAppLink     string // 移动端链接
 	mobileAppLinkFlag bool
 }
 
@@ -3447,11 +4121,16 @@ func NewPlusMenuBuilder() *PlusMenuBuilder {
 	return builder
 }
 
+// pc 端链接
+// 示例值：https://www.example.com
 func (builder *PlusMenuBuilder) PcAppLink(pcAppLink string) *PlusMenuBuilder {
 	builder.pcAppLink = pcAppLink
 	builder.pcAppLinkFlag = true
 	return builder
 }
+
+// 移动端链接
+// 示例值：https://www.example.com
 func (builder *PlusMenuBuilder) MobileAppLink(mobileAppLink string) *PlusMenuBuilder {
 	builder.mobileAppLink = mobileAppLink
 	builder.mobileAppLinkFlag = true
@@ -3472,14 +4151,14 @@ func (builder *PlusMenuBuilder) Build() *PlusMenu {
 }
 
 type Scope struct {
-	ScopeName   *string `json:"scope_name,omitempty"`
-	GrantStatus *int    `json:"grant_status,omitempty"`
+	ScopeName   *string `json:"scope_name,omitempty"`   // 权限名称，形如 user.phone:readonly
+	GrantStatus *int    `json:"grant_status,omitempty"` // 租户应用权限授予状态
 }
 
 type ScopeBuilder struct {
-	scopeName       string
+	scopeName       string // 权限名称，形如 user.phone:readonly
 	scopeNameFlag   bool
-	grantStatus     int
+	grantStatus     int // 租户应用权限授予状态
 	grantStatusFlag bool
 }
 
@@ -3488,11 +4167,16 @@ func NewScopeBuilder() *ScopeBuilder {
 	return builder
 }
 
+// 权限名称，形如 user.phone:readonly
+// 示例值：
 func (builder *ScopeBuilder) ScopeName(scopeName string) *ScopeBuilder {
 	builder.scopeName = scopeName
 	builder.scopeNameFlag = true
 	return builder
 }
+
+// 租户应用权限授予状态
+// 示例值：
 func (builder *ScopeBuilder) GrantStatus(grantStatus int) *ScopeBuilder {
 	builder.grantStatus = grantStatus
 	builder.grantStatusFlag = true
@@ -3513,17 +4197,17 @@ func (builder *ScopeBuilder) Build() *Scope {
 }
 
 type UsageOverviewItem struct {
-	PageView      *string `json:"page_view,omitempty"`
-	UniqueVisitor *string `json:"unique_visitor,omitempty"`
-	DepartmentId  *string `json:"department_id,omitempty"`
+	PageView      *string `json:"page_view,omitempty"`      // 应用使用pv
+	UniqueVisitor *string `json:"unique_visitor,omitempty"` // 应用使用uv
+	DepartmentId  *string `json:"department_id,omitempty"`  // 部门号
 }
 
 type UsageOverviewItemBuilder struct {
-	pageView          string
+	pageView          string // 应用使用pv
 	pageViewFlag      bool
-	uniqueVisitor     string
+	uniqueVisitor     string // 应用使用uv
 	uniqueVisitorFlag bool
-	departmentId      string
+	departmentId      string // 部门号
 	departmentIdFlag  bool
 }
 
@@ -3532,16 +4216,24 @@ func NewUsageOverviewItemBuilder() *UsageOverviewItemBuilder {
 	return builder
 }
 
+// 应用使用pv
+// 示例值：
 func (builder *UsageOverviewItemBuilder) PageView(pageView string) *UsageOverviewItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
+
+// 应用使用uv
+// 示例值：
 func (builder *UsageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
 	return builder
 }
+
+// 部门号
+// 示例值：
 func (builder *UsageOverviewItemBuilder) DepartmentId(departmentId string) *UsageOverviewItemBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -3566,17 +4258,17 @@ func (builder *UsageOverviewItemBuilder) Build() *UsageOverviewItem {
 }
 
 type UsageTrendItem struct {
-	Timestamp     *string `json:"timestamp,omitempty"`
-	PageView      *string `json:"page_view,omitempty"`
-	UniqueVisitor *string `json:"unique_visitor,omitempty"`
+	Timestamp     *string `json:"timestamp,omitempty"`      // 时间戳
+	PageView      *string `json:"page_view,omitempty"`      // 应用使用pv
+	UniqueVisitor *string `json:"unique_visitor,omitempty"` // 应用使用uv
 }
 
 type UsageTrendItemBuilder struct {
-	timestamp         string
+	timestamp         string // 时间戳
 	timestampFlag     bool
-	pageView          string
+	pageView          string // 应用使用pv
 	pageViewFlag      bool
-	uniqueVisitor     string
+	uniqueVisitor     string // 应用使用uv
 	uniqueVisitorFlag bool
 }
 
@@ -3585,16 +4277,24 @@ func NewUsageTrendItemBuilder() *UsageTrendItemBuilder {
 	return builder
 }
 
+// 时间戳
+// 示例值：
 func (builder *UsageTrendItemBuilder) Timestamp(timestamp string) *UsageTrendItemBuilder {
 	builder.timestamp = timestamp
 	builder.timestampFlag = true
 	return builder
 }
+
+// 应用使用pv
+// 示例值：
 func (builder *UsageTrendItemBuilder) PageView(pageView string) *UsageTrendItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
+
+// 应用使用uv
+// 示例值：
 func (builder *UsageTrendItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageTrendItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
@@ -3619,11 +4319,11 @@ func (builder *UsageTrendItemBuilder) Build() *UsageTrendItem {
 }
 
 type UsageUser struct {
-	UserId *string `json:"user_id,omitempty"`
+	UserId *string `json:"user_id,omitempty"` // 用户id
 }
 
 type UsageUserBuilder struct {
-	userId     string
+	userId     string // 用户id
 	userIdFlag bool
 }
 
@@ -3632,6 +4332,8 @@ func NewUsageUserBuilder() *UsageUserBuilder {
 	return builder
 }
 
+// 用户id
+// 示例值：
 func (builder *UsageUserBuilder) UserId(userId string) *UsageUserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -3648,11 +4350,11 @@ func (builder *UsageUserBuilder) Build() *UsageUser {
 }
 
 type User struct {
-	UserId *UserId `json:"user_id,omitempty"`
+	UserId *UserId `json:"user_id,omitempty"` // user_id
 }
 
 type UserBuilder struct {
-	userId     *UserId
+	userId     *UserId // user_id
 	userIdFlag bool
 }
 
@@ -3661,6 +4363,8 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
+// user_id
+// 示例值：
 func (builder *UserBuilder) UserId(userId *UserId) *UserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -3676,17 +4380,17 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type UserId struct {
-	UserId  *string `json:"user_id,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
 }
 
 type UserIdBuilder struct {
-	userId      string
+	userId      string //
 	userIdFlag  bool
-	openId      string
+	openId      string //
 	openIdFlag  bool
-	unionId     string
+	unionId     string //
 	unionIdFlag bool
 }
 
@@ -3695,16 +4399,24 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
@@ -3729,14 +4441,14 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type WebApp struct {
-	PcUrl     *string `json:"pc_url,omitempty"`
-	MobileUrl *string `json:"mobile_url,omitempty"`
+	PcUrl     *string `json:"pc_url,omitempty"`     // pc 端 url
+	MobileUrl *string `json:"mobile_url,omitempty"` // 移动端 url
 }
 
 type WebAppBuilder struct {
-	pcUrl         string
+	pcUrl         string // pc 端 url
 	pcUrlFlag     bool
-	mobileUrl     string
+	mobileUrl     string // 移动端 url
 	mobileUrlFlag bool
 }
 
@@ -3745,11 +4457,16 @@ func NewWebAppBuilder() *WebAppBuilder {
 	return builder
 }
 
+// pc 端 url
+// 示例值：https://www.example.com
 func (builder *WebAppBuilder) PcUrl(pcUrl string) *WebAppBuilder {
 	builder.pcUrl = pcUrl
 	builder.pcUrlFlag = true
 	return builder
 }
+
+// 移动端 url
+// 示例值：https://www.example.com
 func (builder *WebAppBuilder) MobileUrl(mobileUrl string) *WebAppBuilder {
 	builder.mobileUrl = mobileUrl
 	builder.mobileUrlFlag = true
@@ -3773,11 +4490,11 @@ type Widget struct {
 }
 
 type WorkplaceWidget struct {
-	MinLarkVersion *string `json:"min_lark_version,omitempty"`
+	MinLarkVersion *string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
 }
 
 type WorkplaceWidgetBuilder struct {
-	minLarkVersion     string
+	minLarkVersion     string // 最低兼容 lark 版本号
 	minLarkVersionFlag bool
 }
 
@@ -3786,6 +4503,8 @@ func NewWorkplaceWidgetBuilder() *WorkplaceWidgetBuilder {
 	return builder
 }
 
+// 最低兼容 lark 版本号
+// 示例值：1.0.0
 func (builder *WorkplaceWidgetBuilder) MinLarkVersion(minLarkVersion string) *WorkplaceWidgetBuilder {
 	builder.minLarkVersion = minLarkVersion
 	builder.minLarkVersionFlag = true
@@ -3814,14 +4533,25 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	return builder
 }
 
+// 应用的 app_id，需要查询其他应用信息时，必须申请[获取应用信息](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用信息时，可填入 "me" 或者应用自身 app_id
+//
+// 示例值：cli_9b445f5258795107
 func (builder *GetApplicationReqBuilder) AppId(appId string) *GetApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 指定获取应用在该语言下的信息
+//
+// 示例值：zh_cn
 func (builder *GetApplicationReqBuilder) Lang(lang string) *GetApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetApplicationReqBuilder) UserIdType(userIdType string) *GetApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3840,13 +4570,13 @@ type GetApplicationReq struct {
 }
 
 type GetApplicationRespData struct {
-	App *Application `json:"app,omitempty"`
+	App *Application `json:"app,omitempty"` // 应用数据
 }
 
 type GetApplicationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetApplicationRespData `json:"data"`
+	Data *GetApplicationRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetApplicationResp) Success() bool {
@@ -3867,14 +4597,23 @@ func NewPatchApplicationReqBuilder() *PatchApplicationReqBuilder {
 	return builder
 }
 
+// 应用的 id
+//
+// 示例值：cli_9b445f5258795107
 func (builder *PatchApplicationReqBuilder) AppId(appId string) *PatchApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 指定返回的语言
+//
+// 示例值：zh_cn
 func (builder *PatchApplicationReqBuilder) Lang(lang string) *PatchApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
+
+// 更新应用的分组信息（分组会影响应用在工作台中的分类情况，请谨慎更新）
 func (builder *PatchApplicationReqBuilder) Application(application *Application) *PatchApplicationReqBuilder {
 	builder.application = application
 	return builder
@@ -3905,7 +4644,7 @@ func (resp *PatchApplicationResp) Success() bool {
 
 type UnderauditlistApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewUnderauditlistApplicationReqBuilder() *UnderauditlistApplicationReqBuilder {
@@ -3917,22 +4656,39 @@ func NewUnderauditlistApplicationReqBuilder() *UnderauditlistApplicationReqBuild
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *UnderauditlistApplicationReqBuilder) Limit(limit int) *UnderauditlistApplicationReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 指定返回的语言
+//
+// 示例值：zh_cn
 func (builder *UnderauditlistApplicationReqBuilder) Lang(lang string) *UnderauditlistApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
+
+//
+//
+// 示例值：new-e3c5a0627cdf0c2e057da7257b90376a
 func (builder *UnderauditlistApplicationReqBuilder) PageToken(pageToken string) *UnderauditlistApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *UnderauditlistApplicationReqBuilder) PageSize(pageSize int) *UnderauditlistApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *UnderauditlistApplicationReqBuilder) UserIdType(userIdType string) *UnderauditlistApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3948,19 +4704,20 @@ func (builder *UnderauditlistApplicationReqBuilder) Build() *UnderauditlistAppli
 
 type UnderauditlistApplicationReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type UnderauditlistApplicationRespData struct {
-	Items     []*Application `json:"items,omitempty"`
-	HasMore   *bool          `json:"has_more,omitempty"`
-	PageToken *string        `json:"page_token,omitempty"`
+	Items     []*Application `json:"items,omitempty"`      // 待审核应用列表
+	HasMore   *bool          `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string        `json:"page_token,omitempty"` // 下一页分页的token
 }
 
 type UnderauditlistApplicationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UnderauditlistApplicationRespData `json:"data"`
+	Data *UnderauditlistApplicationRespData `json:"data"` // 业务数据
 }
 
 func (resp *UnderauditlistApplicationResp) Success() bool {
@@ -3968,13 +4725,13 @@ func (resp *UnderauditlistApplicationResp) Success() bool {
 }
 
 type OverviewApplicationAppUsageReqBodyBuilder struct {
-	date             string
+	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 	dateFlag         bool
-	cycleType        int
+	cycleType        int // 活跃周期的统计类型
 	cycleTypeFlag    bool
-	departmentId     string
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	departmentIdFlag bool
-	ability          string
+	ability          string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 	abilityFlag      bool
 }
 
@@ -3983,21 +4740,36 @@ func NewOverviewApplicationAppUsageReqBodyBuilder() *OverviewApplicationAppUsage
 	return builder
 }
 
+// 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+//
+//示例值：2021-07-08
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
 	return builder
 }
+
+// 活跃周期的统计类型
+//
+//示例值：1
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeFlag = true
 	return builder
 }
+
+// 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+//
+//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
+//
+//示例值：app
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Ability(ability string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
@@ -4022,13 +4794,13 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Build() *OverviewAppli
 }
 
 type OverviewApplicationAppUsagePathReqBodyBuilder struct {
-	date             string
+	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 	dateFlag         bool
-	cycleType        int
+	cycleType        int // 活跃周期的统计类型
 	cycleTypeFlag    bool
-	departmentId     string
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	departmentIdFlag bool
-	ability          string
+	ability          string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 	abilityFlag      bool
 }
 
@@ -4036,21 +4808,37 @@ func NewOverviewApplicationAppUsagePathReqBodyBuilder() *OverviewApplicationAppU
 	builder := &OverviewApplicationAppUsagePathReqBodyBuilder{}
 	return builder
 }
+
+// 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+//
+// 示例值：2021-07-08
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Date(date string) *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
 	return builder
 }
+
+// 活跃周期的统计类型
+//
+// 示例值：1
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) CycleType(cycleType int) *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeFlag = true
 	return builder
 }
+
+// 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+//
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
+//
+// 示例值：app
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Ability(ability string) *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
@@ -4088,14 +4876,23 @@ func NewOverviewApplicationAppUsageReqBuilder() *OverviewApplicationAppUsageReqB
 	return builder
 }
 
+// 目标应用 ID
+//
+// 示例值：cli_9f115af860f7901b
 func (builder *OverviewApplicationAppUsageReqBuilder) AppId(appId string) *OverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
 func (builder *OverviewApplicationAppUsageReqBuilder) DepartmentIdType(departmentIdType string) *OverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+// 查看应用在某一天/某一周/某一个月的使用数据，可以查看租户整体对应用的使用情况，也可以分部门查看。
 func (builder *OverviewApplicationAppUsageReqBuilder) Body(body *OverviewApplicationAppUsageReqBody) *OverviewApplicationAppUsageReqBuilder {
 	builder.body = body
 	return builder
@@ -4111,10 +4908,10 @@ func (builder *OverviewApplicationAppUsageReqBuilder) Build() *OverviewApplicati
 }
 
 type OverviewApplicationAppUsageReqBody struct {
-	Date         *string `json:"date,omitempty"`
-	CycleType    *int    `json:"cycle_type,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Ability      *string `json:"ability,omitempty"`
+	Date         *string `json:"date,omitempty"`          // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	CycleType    *int    `json:"cycle_type,omitempty"`    // 活跃周期的统计类型
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	Ability      *string `json:"ability,omitempty"`       // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 }
 
 type OverviewApplicationAppUsageReq struct {
@@ -4123,13 +4920,13 @@ type OverviewApplicationAppUsageReq struct {
 }
 
 type OverviewApplicationAppUsageRespData struct {
-	Items []*ApplicationAppUsage `json:"items,omitempty"`
+	Items []*ApplicationAppUsage `json:"items,omitempty"` // 员工使用应用概览数据
 }
 
 type OverviewApplicationAppUsageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *OverviewApplicationAppUsageRespData `json:"data"`
+	Data *OverviewApplicationAppUsageRespData `json:"data"` // 业务数据
 }
 
 func (resp *OverviewApplicationAppUsageResp) Success() bool {
@@ -4149,18 +4946,33 @@ func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder
 	return builder
 }
 
+// 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
+//
+// 示例值：cli_9f3ca975326b501b
 func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 唯一标识应用版本的 ID
+//
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *GetApplicationAppVersionReqBuilder) VersionId(versionId string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
+
+// 应用信息的语言版本
+//
+// 示例值：zh_cn
 func (builder *GetApplicationAppVersionReqBuilder) Lang(lang string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetApplicationAppVersionReqBuilder) UserIdType(userIdType string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4179,13 +4991,13 @@ type GetApplicationAppVersionReq struct {
 }
 
 type GetApplicationAppVersionRespData struct {
-	AppVersion *ApplicationAppVersion `json:"app_version,omitempty"`
+	AppVersion *ApplicationAppVersion `json:"app_version,omitempty"` // 应用版本信息
 }
 
 type GetApplicationAppVersionResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetApplicationAppVersionRespData `json:"data"`
+	Data *GetApplicationAppVersionRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetApplicationAppVersionResp) Success() bool {
@@ -4206,26 +5018,47 @@ func NewPatchApplicationAppVersionReqBuilder() *PatchApplicationAppVersionReqBui
 	return builder
 }
 
+// 应用 id
+//
+// 示例值：cli_9f3ca975326b501b
 func (builder *PatchApplicationAppVersionReqBuilder) AppId(appId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 唯一标识应用版本的 ID
+//
+// 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *PatchApplicationAppVersionReqBuilder) VersionId(versionId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *PatchApplicationAppVersionReqBuilder) UserIdType(userIdType string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 操作者的 open_id
+//
+// 示例值：ou_4065981088f8ef67a504ba8bd6b24d85
 func (builder *PatchApplicationAppVersionReqBuilder) OperatorId(operatorId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("operator_id", fmt.Sprint(operatorId))
 	return builder
 }
+
+// 当修改版本状态为被驳回时，这一项必填
+//
+// 示例值：拒绝理由
 func (builder *PatchApplicationAppVersionReqBuilder) RejectReason(rejectReason string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("reject_reason", fmt.Sprint(rejectReason))
 	return builder
 }
+
+// 通过接口来更新应用版本的审核结果：通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由，并在修改后再次申请发布。
 func (builder *PatchApplicationAppVersionReqBuilder) ApplicationAppVersion(applicationAppVersion *ApplicationAppVersion) *PatchApplicationAppVersionReqBuilder {
 	builder.applicationAppVersion = applicationAppVersion
 	return builder
@@ -4267,34 +5100,65 @@ func NewListApplicationFeedbackReqBuilder() *ListApplicationFeedbackReqBuilder {
 	return builder
 }
 
+// 目标应用 ID（本租户创建的所有应用）
+//
+// 示例值：cli_9f115af860f7901b
 func (builder *ListApplicationFeedbackReqBuilder) AppId(appId string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 查询的起始日期，格式为yyyy-mm-dd。不填则默认为当前日期减去180天。
+//
+// 示例值：2022-01-30
 func (builder *ListApplicationFeedbackReqBuilder) FromDate(fromDate string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("from_date", fmt.Sprint(fromDate))
 	return builder
 }
+
+// 查询的结束日期，格式为yyyy-mm-dd。不填默认为当前日期。;只能查询 180 天内的数据。
+//
+// 示例值：2022-01-30
 func (builder *ListApplicationFeedbackReqBuilder) ToDate(toDate string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("to_date", fmt.Sprint(toDate))
 	return builder
 }
+
+// 反馈类型，不填写则表示查询所有反馈类型。
+//
+// 示例值：1
 func (builder *ListApplicationFeedbackReqBuilder) FeedbackType(feedbackType int) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("feedback_type", fmt.Sprint(feedbackType))
 	return builder
 }
+
+// 反馈处理状态，不填写则表示查询所有处理类型。
+//
+// 示例值：0
 func (builder *ListApplicationFeedbackReqBuilder) Status(status int) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
+
+//
+//
+// 示例值：open_id
 func (builder *ListApplicationFeedbackReqBuilder) UserIdType(userIdType string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 分页拉取反馈列表起始位置标示，不填表示从头开始
+//
+// 示例值："7064688334618378259"
 func (builder *ListApplicationFeedbackReqBuilder) PageToken(pageToken string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 本次拉取反馈列表最大个数
+//
+// 示例值：100
 func (builder *ListApplicationFeedbackReqBuilder) PageSize(pageSize int) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -4313,15 +5177,15 @@ type ListApplicationFeedbackReq struct {
 }
 
 type ListApplicationFeedbackRespData struct {
-	FeedbackList []*ApplicationFeedback `json:"feedback_list,omitempty"`
-	HasMore      *bool                  `json:"has_more,omitempty"`
-	PageToken    *string                `json:"page_token,omitempty"`
+	FeedbackList []*ApplicationFeedback `json:"feedback_list,omitempty"` // 应用的反馈列表
+	HasMore      *bool                  `json:"has_more,omitempty"`      // 是否还有更多用户反馈列表，true：是，false：否
+	PageToken    *string                `json:"page_token,omitempty"`    // 拉取下一页应用反馈列表时使用的 page_token
 }
 
 type ListApplicationFeedbackResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListApplicationFeedbackRespData `json:"data"`
+	Data *ListApplicationFeedbackRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListApplicationFeedbackResp) Success() bool {
@@ -4341,22 +5205,41 @@ func NewPatchApplicationFeedbackReqBuilder() *PatchApplicationFeedbackReqBuilder
 	return builder
 }
 
+// 目标应用 ID（本租户创建的所有应用）
+//
+// 示例值：cli_9f115af860f7901b
 func (builder *PatchApplicationFeedbackReqBuilder) AppId(appId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
+
+// 应用反馈记录id
+//
+// 示例值：7057888018203574291
 func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("feedback_id", fmt.Sprint(feedbackId))
 	return builder
 }
+
+//
+//
+// 示例值：open_id
 func (builder *PatchApplicationFeedbackReqBuilder) UserIdType(userIdType string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 反馈处理状态
+//
+// 示例值：1
 func (builder *PatchApplicationFeedbackReqBuilder) Status(status int) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
+
+// 反馈处理人员id，租户内用户的唯一标识， ID值与查询参数中的user_id_type 对应
+//
+// 示例值：ou_9565b69967831233761cc2f11b4c089f
 func (builder *PatchApplicationFeedbackReqBuilder) OperatorId(operatorId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("operator_id", fmt.Sprint(operatorId))
 	return builder
@@ -4384,19 +5267,19 @@ func (resp *PatchApplicationFeedbackResp) Success() bool {
 }
 
 type P2ApplicationCreatedV6Data struct {
-	OperatorId      *UserId `json:"operator_id,omitempty"`
-	AppId           *string `json:"app_id,omitempty"`
-	Name            *string `json:"name,omitempty"`
-	Description     *string `json:"description,omitempty"`
-	Avatar          *string `json:"avatar,omitempty"`
-	AppSceneType    *int    `json:"app_scene_type,omitempty"`
-	PrimaryLanguage *string `json:"primary_language,omitempty"`
+	OperatorId      *UserId `json:"operator_id,omitempty"`      // 用户 ID
+	AppId           *string `json:"app_id,omitempty"`           // 应用 ID
+	Name            *string `json:"name,omitempty"`             // 应用名称
+	Description     *string `json:"description,omitempty"`      // 应用描述
+	Avatar          *string `json:"avatar,omitempty"`           // 应用图标链接
+	AppSceneType    *int    `json:"app_scene_type,omitempty"`   // 应用类型，0: 自建应用，1: 应用商店应用
+	PrimaryLanguage *string `json:"primary_language,omitempty"` // 应用主语言
 }
 
 type P2ApplicationCreatedV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationCreatedV6Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2ApplicationCreatedV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationCreatedV6) RawReq(req *larkevent.EventReq) {
@@ -4404,19 +5287,19 @@ func (m *P2ApplicationCreatedV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ApplicationAppVersionAuditV6Data struct {
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	VersionId   *string `json:"version_id,omitempty"`
-	CreatorId   *UserId `json:"creator_id,omitempty"`
-	AppId       *string `json:"app_id,omitempty"`
-	Operation   *string `json:"operation,omitempty"`
-	Remark      *string `json:"remark,omitempty"`
-	AuditSource *string `json:"audit_source,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`  // 通过 / 拒绝应用审核的管理员 id
+	VersionId   *string `json:"version_id,omitempty"`   // 被审核的应用版本 id
+	CreatorId   *UserId `json:"creator_id,omitempty"`   // 应用创建者的 id
+	AppId       *string `json:"app_id,omitempty"`       // 撤回应用的 id
+	Operation   *string `json:"operation,omitempty"`    // 审核通过 / 拒绝
+	Remark      *string `json:"remark,omitempty"`       // 审核信息，当审核拒绝时，管理员填写的拒绝理由
+	AuditSource *string `json:"audit_source,omitempty"` // 应用审核的方式
 }
 
 type P2ApplicationAppVersionAuditV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationAppVersionAuditV6Data `json:"event"`
+	*larkevent.EventV2Base                                     // 事件基础数据
+	*larkevent.EventReq                                        // 请求原生数据
+	Event                  *P2ApplicationAppVersionAuditV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationAppVersionAuditV6) RawReq(req *larkevent.EventReq) {
@@ -4424,16 +5307,16 @@ func (m *P2ApplicationAppVersionAuditV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ApplicationAppVersionPublishApplyV6Data struct {
-	OperatorId        *UserId                     `json:"operator_id,omitempty"`
-	OnlineVersion     *ApplicationAppVersionEvent `json:"online_version,omitempty"`
-	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"`
-	AppStatus         *int                        `json:"app_status,omitempty"`
+	OperatorId        *UserId                     `json:"operator_id,omitempty"`         // 用户 ID
+	OnlineVersion     *ApplicationAppVersionEvent `json:"online_version,omitempty"`      // 当前线上版本信息
+	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"` // 当前线上版本信息
+	AppStatus         *int                        `json:"app_status,omitempty"`          // 应用状态
 }
 
 type P2ApplicationAppVersionPublishApplyV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationAppVersionPublishApplyV6Data `json:"event"`
+	*larkevent.EventV2Base                                            // 事件基础数据
+	*larkevent.EventReq                                               // 请求原生数据
+	Event                  *P2ApplicationAppVersionPublishApplyV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationAppVersionPublishApplyV6) RawReq(req *larkevent.EventReq) {
@@ -4441,16 +5324,16 @@ func (m *P2ApplicationAppVersionPublishApplyV6) RawReq(req *larkevent.EventReq) 
 }
 
 type P2ApplicationAppVersionPublishRevokeV6Data struct {
-	OperatorId *UserId `json:"operator_id,omitempty"`
-	CreatorId  *UserId `json:"creator_id,omitempty"`
-	AppId      *string `json:"app_id,omitempty"`
-	VersionId  *string `json:"version_id,omitempty"`
+	OperatorId *UserId `json:"operator_id,omitempty"` // 用户 ID
+	CreatorId  *UserId `json:"creator_id,omitempty"`  // 用户 ID
+	AppId      *string `json:"app_id,omitempty"`      // 撤回应用的 id
+	VersionId  *string `json:"version_id,omitempty"`  // 撤回应用的版本 id
 }
 
 type P2ApplicationAppVersionPublishRevokeV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationAppVersionPublishRevokeV6Data `json:"event"`
+	*larkevent.EventV2Base                                             // 事件基础数据
+	*larkevent.EventReq                                                // 请求原生数据
+	Event                  *P2ApplicationAppVersionPublishRevokeV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationAppVersionPublishRevokeV6) RawReq(req *larkevent.EventReq) {
@@ -4458,25 +5341,25 @@ func (m *P2ApplicationAppVersionPublishRevokeV6) RawReq(req *larkevent.EventReq)
 }
 
 type P2ApplicationFeedbackCreatedV6Data struct {
-	UserId       *UserId  `json:"user_id,omitempty"`
-	AppId        *string  `json:"app_id,omitempty"`
-	FeedbackTime *string  `json:"feedback_time,omitempty"`
-	TenantName   *string  `json:"tenant_name,omitempty"`
-	FeedbackType *int     `json:"feedback_type,omitempty"`
-	FaultType    []int    `json:"fault_type,omitempty"`
-	FaultTime    *string  `json:"fault_time,omitempty"`
-	Source       *int     `json:"source,omitempty"`
-	Contact      *string  `json:"contact,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	Images       []string `json:"images,omitempty"`
-	FeedbackId   *string  `json:"feedback_id,omitempty"`
-	FeedbackPath *string  `json:"feedback_path,omitempty"`
+	UserId       *UserId  `json:"user_id,omitempty"`       // 用户 ID
+	AppId        *string  `json:"app_id,omitempty"`        // 被反馈应用 ID
+	FeedbackTime *string  `json:"feedback_time,omitempty"` // 反馈提交时间，格式为yyyy-mm-dd hh:mm:ss
+	TenantName   *string  `json:"tenant_name,omitempty"`   // 反馈用户的租户名
+	FeedbackType *int     `json:"feedback_type,omitempty"` // 反馈类型（枚举值，1：故障反馈，2：产品建议）
+	FaultType    []int    `json:"fault_type,omitempty"`    // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+	FaultTime    *string  `json:"fault_time,omitempty"`    // 故障时间，格式为yyyy-mm-dd hh:mm:ss
+	Source       *int     `json:"source,omitempty"`        // 反馈来源：1： 小程序 2：网页应用 3：机器人 4：webSDK
+	Contact      *string  `json:"contact,omitempty"`       // 用户填写的联系方式
+	Description  *string  `json:"description,omitempty"`   // 反馈详情
+	Images       []string `json:"images,omitempty"`        // 反馈图片url列表，url 过期时间三天
+	FeedbackId   *string  `json:"feedback_id,omitempty"`   // 应用反馈 ID，应用反馈记录唯一标识
+	FeedbackPath *string  `json:"feedback_path,omitempty"` // 反馈页面路径
 }
 
 type P2ApplicationFeedbackCreatedV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationFeedbackCreatedV6Data `json:"event"`
+	*larkevent.EventV2Base                                     // 事件基础数据
+	*larkevent.EventReq                                        // 请求原生数据
+	Event                  *P2ApplicationFeedbackCreatedV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationFeedbackCreatedV6) RawReq(req *larkevent.EventReq) {
@@ -4484,17 +5367,17 @@ func (m *P2ApplicationFeedbackCreatedV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ApplicationFeedbackUpdatedV6Data struct {
-	FeedbackIds []string `json:"feedback_ids,omitempty"`
-	Status      *int     `json:"status,omitempty"`
-	AppId       *string  `json:"app_id,omitempty"`
-	UpdateTime  *string  `json:"update_time,omitempty"`
-	OperatorId  *UserId  `json:"operator_id,omitempty"`
+	FeedbackIds []string `json:"feedback_ids,omitempty"` // 反馈id列表
+	Status      *int     `json:"status,omitempty"`       // 反馈处理状态（枚举值，0: 未处理  1: 已处理  2: 处理中 3: 已关闭）
+	AppId       *string  `json:"app_id,omitempty"`       // 应用的 app_id
+	UpdateTime  *string  `json:"update_time,omitempty"`  // 反馈处理时间，格式为yyyy-mm-dd hh:mm:ss
+	OperatorId  *UserId  `json:"operator_id,omitempty"`  // 操作者用户 ID
 }
 
 type P2ApplicationFeedbackUpdatedV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationFeedbackUpdatedV6Data `json:"event"`
+	*larkevent.EventV2Base                                     // 事件基础数据
+	*larkevent.EventReq                                        // 请求原生数据
+	Event                  *P2ApplicationFeedbackUpdatedV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationFeedbackUpdatedV6) RawReq(req *larkevent.EventReq) {
@@ -4502,14 +5385,14 @@ func (m *P2ApplicationFeedbackUpdatedV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ApplicationVisibilityAddedV6Data struct {
-	Users  []*User `json:"users,omitempty"`
-	Source *int    `json:"source,omitempty"`
+	Users  []*User `json:"users,omitempty"`  //
+	Source *int    `json:"source,omitempty"` //
 }
 
 type P2ApplicationVisibilityAddedV6 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2ApplicationVisibilityAddedV6Data `json:"event"`
+	*larkevent.EventV2Base                                     // 事件基础数据
+	*larkevent.EventReq                                        // 请求原生数据
+	Event                  *P2ApplicationVisibilityAddedV6Data `json:"event"` // 事件内容
 }
 
 func (m *P2ApplicationVisibilityAddedV6) RawReq(req *larkevent.EventReq) {

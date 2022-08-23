@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/settings/generate_caldav_conf"
+// POST /open-apis/calendar/v4/settings/generate_caldav_conf
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewGenerateCaldavConfSettingReqBuilder().
 		Body(larkcalendar.NewGenerateCaldavConfSettingReqBodyBuilder().
-			DeviceName("").
+			DeviceName("iPhone").
 			Build()).
 		Build()
 	// 发起请求
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

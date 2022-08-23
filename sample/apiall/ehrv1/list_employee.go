@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 )
 
-// HTTP PATH: /open-apis/ehr/v1/employees"
+// GET /open-apis/ehr/v1/employees
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -34,8 +34,8 @@ func main() {
 		EndTime("1608690517811").
 		UserIdType("user_id").
 		UserIds([]string{}).
-		PageToken("").
-		PageSize(0).
+		PageToken("10").
+		PageSize(10).
 		Build()
 	// 发起请求
 	resp, err := client.Ehr.Employee.List(context.Background(), req)
@@ -52,6 +52,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

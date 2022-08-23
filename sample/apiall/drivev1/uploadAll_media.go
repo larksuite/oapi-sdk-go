@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-// HTTP PATH: /open-apis/drive/v1/medias/upload_all"
+// POST /open-apis/drive/v1/medias/upload_all
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -34,11 +34,11 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewUploadAllMediaReqBuilder().
 		Body(larkdrive.NewUploadAllMediaReqBodyBuilder().
-			FileName("").
+			FileName("demo.jpeg").
 			ParentType("doc_image").
-			ParentNode("").
-			Size(0).
-			Checksum("").
+			ParentNode("doccnFivLCfJfblZjGZtxgabcef").
+			Size(1024).
+			Checksum("12345678").
 			Extra("").
 			File(file).
 			Build()).
@@ -58,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

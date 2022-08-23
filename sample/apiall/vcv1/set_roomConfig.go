@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// HTTP PATH: /open-apis/vc/v1/room_configs/set"
+// POST /open-apis/vc/v1/room_configs/set
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,10 +30,10 @@ func main() {
 		UserIdType("user_id").
 		Body(larkvc.NewSetRoomConfigReqBodyBuilder().
 			Scope(5).
-			CountryId("1").
-			DistrictId("2").
-			BuildingId("3").
-			FloorName("4").
+			CountryId("086").
+			DistrictId("223").
+			BuildingId("66").
+			FloorName("3").
 			RoomId("67687262867363").
 			RoomConfig(larkvc.NewRoomConfigBuilder().Build()).
 			Build()).
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
-// HTTP PATH: /open-apis/search/v2/data_sources"
+// GET /open-apis/search/v2/data_sources
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksearch.NewListDataSourceReqBuilder().
 		View(0).
-		PageToken("").
+		PageToken("PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

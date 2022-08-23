@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/agents/:agent_id/schedules"
+// PATCH /open-apis/helpdesk/v1/agents/:agent_id/schedules
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewPatchAgentSchedulesReqBuilder().
-		AgentId("").
+		AgentId("123456").
 		Body(larkhelpdesk.NewPatchAgentSchedulesReqBodyBuilder().
 			AgentSchedule(larkhelpdesk.NewAgentScheduleUpdateInfoBuilder().Build()).
 			Build()).
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

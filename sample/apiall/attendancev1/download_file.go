@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/files/:file_id/download"
+// GET /open-apis/attendance/v1/files/:file_id/download
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkattendance.NewDownloadFileReqBuilder().
-		FileId("").
+		FileId("xxxxxb306842b1c189bc5212eefxxxxx").
 		Build()
 	// 发起请求
 	resp, err := client.Attendance.File.Download(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

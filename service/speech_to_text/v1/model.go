@@ -18,17 +18,17 @@ import (
 )
 
 type FileConfig struct {
-	FileId     *string `json:"file_id,omitempty"`
-	Format     *string `json:"format,omitempty"`
-	EngineType *string `json:"engine_type,omitempty"`
+	FileId     *string `json:"file_id,omitempty"`     // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
+	Format     *string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm
+	EngineType *string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合
 }
 
 type FileConfigBuilder struct {
-	fileId         string
+	fileId         string // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
 	fileIdFlag     bool
-	format         string
+	format         string // 语音格式，目前仅支持：pcm
 	formatFlag     bool
-	engineType     string
+	engineType     string // 引擎类型，目前仅支持：16k_auto 中英混合
 	engineTypeFlag bool
 }
 
@@ -37,16 +37,24 @@ func NewFileConfigBuilder() *FileConfigBuilder {
 	return builder
 }
 
+// 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
+// 示例值：qwe12dd34567890w
 func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
 	builder.fileId = fileId
 	builder.fileIdFlag = true
 	return builder
 }
+
+// 语音格式，目前仅支持：pcm
+// 示例值：pcm
 func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
 	builder.format = format
 	builder.formatFlag = true
 	return builder
 }
+
+// 引擎类型，目前仅支持：16k_auto 中英混合
+// 示例值：16k_auto
 func (builder *FileConfigBuilder) EngineType(engineType string) *FileConfigBuilder {
 	builder.engineType = engineType
 	builder.engineTypeFlag = true
@@ -71,14 +79,14 @@ func (builder *FileConfigBuilder) Build() *FileConfig {
 }
 
 type Speech struct {
-	Speech    *string `json:"speech,omitempty"`
-	SpeechKey *string `json:"speech_key,omitempty"`
+	Speech    *string `json:"speech,omitempty"`     // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+	SpeechKey *string `json:"speech_key,omitempty"` // 上传到 drive 存储平台后获取到的 key （暂不支持）
 }
 
 type SpeechBuilder struct {
-	speech        string
+	speech        string // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
 	speechFlag    bool
-	speechKey     string
+	speechKey     string // 上传到 drive 存储平台后获取到的 key （暂不支持）
 	speechKeyFlag bool
 }
 
@@ -87,11 +95,16 @@ func NewSpeechBuilder() *SpeechBuilder {
 	return builder
 }
 
+// pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+// 示例值：PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg==
 func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
 	return builder
 }
+
+// 上传到 drive 存储平台后获取到的 key （暂不支持）
+// 示例值：
 func (builder *SpeechBuilder) SpeechKey(speechKey string) *SpeechBuilder {
 	builder.speechKey = speechKey
 	builder.speechKeyFlag = true
@@ -112,23 +125,23 @@ func (builder *SpeechBuilder) Build() *Speech {
 }
 
 type StreamConfig struct {
-	StreamId   *string `json:"stream_id,omitempty"`
-	SequenceId *int    `json:"sequence_id,omitempty"`
-	Action     *int    `json:"action,omitempty"`
-	Format     *string `json:"format,omitempty"`
-	EngineType *string `json:"engine_type,omitempty"`
+	StreamId   *string `json:"stream_id,omitempty"`   // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
+	SequenceId *int    `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1
+	Action     *int    `json:"action,omitempty"`      // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+	Format     *string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm
+	EngineType *string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合
 }
 
 type StreamConfigBuilder struct {
-	streamId       string
+	streamId       string // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
 	streamIdFlag   bool
-	sequenceId     int
+	sequenceId     int // 数据流分片的序号，序号从 0 开始，每次请求递增 1
 	sequenceIdFlag bool
-	action         int
+	action         int // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
 	actionFlag     bool
-	format         string
+	format         string // 语音格式，目前仅支持：pcm
 	formatFlag     bool
-	engineType     string
+	engineType     string // 引擎类型，目前仅支持：16k_auto 中英混合
 	engineTypeFlag bool
 }
 
@@ -137,26 +150,40 @@ func NewStreamConfigBuilder() *StreamConfigBuilder {
 	return builder
 }
 
+// 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
+// 示例值：asd1234567890ddd
 func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuilder {
 	builder.streamId = streamId
 	builder.streamIdFlag = true
 	return builder
 }
+
+// 数据流分片的序号，序号从 0 开始，每次请求递增 1
+// 示例值：1
 func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuilder {
 	builder.sequenceId = sequenceId
 	builder.sequenceIdFlag = true
 	return builder
 }
+
+// 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+// 示例值：1
 func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
 	builder.action = action
 	builder.actionFlag = true
 	return builder
 }
+
+// 语音格式，目前仅支持：pcm
+// 示例值：pcm
 func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
 	builder.format = format
 	builder.formatFlag = true
 	return builder
 }
+
+// 引擎类型，目前仅支持：16k_auto 中英混合
+// 示例值：16k_auto
 func (builder *StreamConfigBuilder) EngineType(engineType string) *StreamConfigBuilder {
 	builder.engineType = engineType
 	builder.engineTypeFlag = true
@@ -189,9 +216,9 @@ func (builder *StreamConfigBuilder) Build() *StreamConfig {
 }
 
 type FileRecognizeSpeechReqBodyBuilder struct {
-	speech     *Speech
+	speech     *Speech // 语音资源
 	speechFlag bool
-	config     *FileConfig
+	config     *FileConfig // 配置属性
 	configFlag bool
 }
 
@@ -200,11 +227,18 @@ func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
 	return builder
 }
 
+// 语音资源
+//
+//示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
 	return builder
 }
+
+// 配置属性
+//
+//示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true
@@ -223,9 +257,9 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Build() *FileRecognizeSpeechRe
 }
 
 type FileRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech
+	speech     *Speech // 语音资源
 	speechFlag bool
-	config     *FileConfig
+	config     *FileConfig // 配置属性
 	configFlag bool
 }
 
@@ -233,11 +267,19 @@ func NewFileRecognizeSpeechPathReqBodyBuilder() *FileRecognizeSpeechPathReqBodyB
 	builder := &FileRecognizeSpeechPathReqBodyBuilder{}
 	return builder
 }
+
+// 语音资源
+//
+// 示例值：
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
 	return builder
 }
+
+// 配置属性
+//
+// 示例值：
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechPathReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true
@@ -269,6 +311,7 @@ func NewFileRecognizeSpeechReqBuilder() *FileRecognizeSpeechReqBuilder {
 	return builder
 }
 
+// 语音文件识别接口，上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别
 func (builder *FileRecognizeSpeechReqBuilder) Body(body *FileRecognizeSpeechReqBody) *FileRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder
@@ -282,8 +325,8 @@ func (builder *FileRecognizeSpeechReqBuilder) Build() *FileRecognizeSpeechReq {
 }
 
 type FileRecognizeSpeechReqBody struct {
-	Speech *Speech     `json:"speech,omitempty"`
-	Config *FileConfig `json:"config,omitempty"`
+	Speech *Speech     `json:"speech,omitempty"` // 语音资源
+	Config *FileConfig `json:"config,omitempty"` // 配置属性
 }
 
 type FileRecognizeSpeechReq struct {
@@ -292,13 +335,13 @@ type FileRecognizeSpeechReq struct {
 }
 
 type FileRecognizeSpeechRespData struct {
-	RecognitionText *string `json:"recognition_text,omitempty"`
+	RecognitionText *string `json:"recognition_text,omitempty"` // 语音识别后的文本信息
 }
 
 type FileRecognizeSpeechResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *FileRecognizeSpeechRespData `json:"data"`
+	Data *FileRecognizeSpeechRespData `json:"data"` // 业务数据
 }
 
 func (resp *FileRecognizeSpeechResp) Success() bool {
@@ -306,9 +349,9 @@ func (resp *FileRecognizeSpeechResp) Success() bool {
 }
 
 type StreamRecognizeSpeechReqBodyBuilder struct {
-	speech     *Speech
+	speech     *Speech // 语音资源
 	speechFlag bool
-	config     *StreamConfig
+	config     *StreamConfig // 配置属性
 	configFlag bool
 }
 
@@ -317,11 +360,18 @@ func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuild
 	return builder
 }
 
+// 语音资源
+//
+//示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
 	return builder
 }
+
+// 配置属性
+//
+//示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true
@@ -340,9 +390,9 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Build() *StreamRecognizeSpee
 }
 
 type StreamRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech
+	speech     *Speech // 语音资源
 	speechFlag bool
-	config     *StreamConfig
+	config     *StreamConfig // 配置属性
 	configFlag bool
 }
 
@@ -350,11 +400,19 @@ func NewStreamRecognizeSpeechPathReqBodyBuilder() *StreamRecognizeSpeechPathReqB
 	builder := &StreamRecognizeSpeechPathReqBodyBuilder{}
 	return builder
 }
+
+// 语音资源
+//
+// 示例值：
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
 	return builder
 }
+
+// 配置属性
+//
+// 示例值：
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true
@@ -386,6 +444,7 @@ func NewStreamRecognizeSpeechReqBuilder() *StreamRecognizeSpeechReqBuilder {
 	return builder
 }
 
+// 语音流式接口，将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms
 func (builder *StreamRecognizeSpeechReqBuilder) Body(body *StreamRecognizeSpeechReqBody) *StreamRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder
@@ -399,8 +458,8 @@ func (builder *StreamRecognizeSpeechReqBuilder) Build() *StreamRecognizeSpeechRe
 }
 
 type StreamRecognizeSpeechReqBody struct {
-	Speech *Speech       `json:"speech,omitempty"`
-	Config *StreamConfig `json:"config,omitempty"`
+	Speech *Speech       `json:"speech,omitempty"` // 语音资源
+	Config *StreamConfig `json:"config,omitempty"` // 配置属性
 }
 
 type StreamRecognizeSpeechReq struct {
@@ -409,15 +468,15 @@ type StreamRecognizeSpeechReq struct {
 }
 
 type StreamRecognizeSpeechRespData struct {
-	StreamId        *string `json:"stream_id,omitempty"`
-	SequenceId      *int    `json:"sequence_id,omitempty"`
-	RecognitionText *string `json:"recognition_text,omitempty"`
+	StreamId        *string `json:"stream_id,omitempty"`        // 16 位 String 随机串作为同一数据流的标识
+	SequenceId      *int    `json:"sequence_id,omitempty"`      // 数据流分片的序号，序号从 0 开始，每次请求递增 1
+	RecognitionText *string `json:"recognition_text,omitempty"` // 语音流识别后的文本信息
 }
 
 type StreamRecognizeSpeechResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *StreamRecognizeSpeechRespData `json:"data"`
+	Data *StreamRecognizeSpeechRespData `json:"data"` // 业务数据
 }
 
 func (resp *StreamRecognizeSpeechResp) Success() bool {

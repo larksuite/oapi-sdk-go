@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/search"
+// GET /open-apis/im/v1/chats/search
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,7 +29,7 @@ func main() {
 	req := larkim.NewSearchChatReqBuilder().
 		UserIdType("user_id").
 		Query("abc").
-		PageToken("").
+		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

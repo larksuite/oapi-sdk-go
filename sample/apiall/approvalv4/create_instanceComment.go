@@ -21,20 +21,20 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/instances/:instance_id/comments"
+// POST /open-apis/approval/v4/instances/:instance_id/comments
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkapproval.NewCreateInstanceCommentReqBuilder().
-		InstanceId("").
-		UserIdType("open_id").
-		UserId("").
+		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
+		UserIdType("user_id").
+		UserId("e5286g26").
 		CommentRequest(larkapproval.NewCommentRequestBuilder().
 			Content("").
 			AtInfoList([]*larkapproval.CommentAtInfo{larkapproval.NewCommentAtInfoBuilder().Build()}).
-			ParentCommentId("").
-			CommentId("").
+			ParentCommentId("7081516627711524883").
+			CommentId("7081516627711524883").
 			DisableBot(false).
 			Extra("").
 			Build()).
@@ -54,6 +54,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

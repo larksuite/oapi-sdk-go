@@ -21,17 +21,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/events"
+// GET /open-apis/calendar/v4/calendars/:calendar_id/events
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewListCalendarEventReqBuilder().
-		CalendarId("").
+		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		PageSize(500).
-		AnchorTime("").
-		PageToken("").
-		SyncToken("").
+		AnchorTime("1609430400").
+		PageToken("ListCalendarsPageToken_1632452910_1632539310").
+		SyncToken("ListCalendarsSyncToken_1632452910").
 		StartTime("1631777271").
 		EndTime("1631777271").
 		Build()
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

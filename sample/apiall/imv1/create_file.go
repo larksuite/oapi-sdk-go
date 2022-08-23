@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-// HTTP PATH: /open-apis/im/v1/files"
+// POST /open-apis/im/v1/files
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -34,7 +34,7 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewCreateFileReqBuilder().
 		Body(larkim.NewCreateFileReqBodyBuilder().
-			FileType("opus").
+			FileType("mp4").
 			FileName("测试视频.mp4").
 			Duration(3000).
 			File(file).
@@ -55,6 +55,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

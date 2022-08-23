@@ -819,11 +819,11 @@ func main() {
 
 	//mock body
 	encryptedKey := "1212121212"
-	//body := mockMessageReceiveEventV1()
+	body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
 	//body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
-	body := mockEncryptedBody(encryptedKey)
+	//body := mockEncryptedBody(encryptedKey)
 
 	// 创建http req
 	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:9999/webhook/event", bytes.NewBuffer(body))

@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *HireService {
 	h := &HireService{config: config}
 	h.Application = &application{service: h}
@@ -38,24 +37,22 @@ func NewService(config *larkcore.Config) *HireService {
 	return h
 }
 
-// 业务域服务定义
 type HireService struct {
 	config               *larkcore.Config
-	Application          *application
-	ApplicationInterview *applicationInterview
-	Attachment           *attachment
-	Employee             *employee
-	Job                  *job
-	JobManager           *jobManager
-	JobProcess           *jobProcess
-	Note                 *note
-	OfferSchema          *offerSchema
-	Referral             *referral
-	ResumeSource         *resumeSource
-	Talent               *talent
+	Application          *application          // 投递
+	ApplicationInterview *applicationInterview // 面试
+	Attachment           *attachment           // 附件
+	Employee             *employee             // 入职
+	Job                  *job                  // 职位
+	JobManager           *jobManager           // 职位
+	JobProcess           *jobProcess           // 流程
+	Note                 *note                 // 备注
+	OfferSchema          *offerSchema          // offer
+	Referral             *referral             // 内推
+	ResumeSource         *resumeSource         // 简历来源
+	Talent               *talent               // 人才
 }
 
-// 资源服务定义
 type application struct {
 	service *HireService
 }
@@ -93,7 +90,13 @@ type talent struct {
 	service *HireService
 }
 
-// 资源服务方法定义
+// 创建投递
+//
+// - 根据人才 ID 和职位 ID 创建投递
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/create_application
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//create_application.go
 func (a *application) Create(ctx context.Context, req *CreateApplicationReq, options ...larkcore.RequestOptionFunc) (*CreateApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -112,6 +115,14 @@ func (a *application) Create(ctx context.Context, req *CreateApplicationReq, opt
 	}
 	return resp, err
 }
+
+// 获取投递信息
+//
+// - 根据投递 ID 获取单个投递信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -130,6 +141,14 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	}
 	return resp, err
 }
+
+// 获取投递列表
+//
+// - 根据限定条件获取投递列表信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application-list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//list_application.go
 func (a *application) List(ctx context.Context, req *ListApplicationReq, options ...larkcore.RequestOptionFunc) (*ListApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -148,6 +167,14 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 	}
 	return resp, err
 }
+
+// 获取 Offer 信息
+//
+// - 根据投递 ID 获取 Offer 信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application-offer
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//offer_application.go
 func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, options ...larkcore.RequestOptionFunc) (*OfferApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -166,6 +193,14 @@ func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, optio
 	}
 	return resp, err
 }
+
+// 终止投递
+//
+// - 根据投递 ID 修改投递状态为「已终止」
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/terminate-application
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//terminate_application.go
 func (a *application) Terminate(ctx context.Context, req *TerminateApplicationReq, options ...larkcore.RequestOptionFunc) (*TerminateApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -184,6 +219,14 @@ func (a *application) Terminate(ctx context.Context, req *TerminateApplicationRe
 	}
 	return resp, err
 }
+
+// 操作候选人入职
+//
+// - 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段，可通过「转移阶段」接口变更投递状态
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uczM1YjL3MTN24yNzUjN
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//transferOnboard_application.go
 func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardApplicationReq, options ...larkcore.RequestOptionFunc) (*TransferOnboardApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -202,6 +245,14 @@ func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardA
 	}
 	return resp, err
 }
+
+// 获取面试记录列表
+//
+// - 根据投递 ID 获取面试记录列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application-interview/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//list_applicationInterview.go
 func (a *applicationInterview) List(ctx context.Context, req *ListApplicationInterviewReq, options ...larkcore.RequestOptionFunc) (*ListApplicationInterviewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -220,6 +271,14 @@ func (a *applicationInterview) List(ctx context.Context, req *ListApplicationInt
 	}
 	return resp, err
 }
+
+// 获取附件信息
+//
+// - 获取招聘系统中附件的元信息，比如文件名、创建时间、文件url等
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_attachment.go
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -238,6 +297,14 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 	}
 	return resp, err
 }
+
+// 获取附件预览信息
+//
+// - 根据附件 ID 获取附件预览信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//preview_attachment.go
 func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, options ...larkcore.RequestOptionFunc) (*PreviewAttachmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -256,6 +323,14 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	}
 	return resp, err
 }
+
+// 通过员工 ID 获取入职信息
+//
+// - 通过员工 ID 获取入职信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_employee.go
 func (e *employee) Get(ctx context.Context, req *GetEmployeeReq, options ...larkcore.RequestOptionFunc) (*GetEmployeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -274,6 +349,14 @@ func (e *employee) Get(ctx context.Context, req *GetEmployeeReq, options ...lark
 	}
 	return resp, err
 }
+
+// 通过投递 ID 获取入职信息
+//
+// - 通过投递 ID 获取入职信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//getByApplication_employee.go
 func (e *employee) GetByApplication(ctx context.Context, req *GetByApplicationEmployeeReq, options ...larkcore.RequestOptionFunc) (*GetByApplicationEmployeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -292,6 +375,14 @@ func (e *employee) GetByApplication(ctx context.Context, req *GetByApplicationEm
 	}
 	return resp, err
 }
+
+// 更新入职状态
+//
+// - 根据员工 ID 更新员工转正、离职状态
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//patch_employee.go
 func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...larkcore.RequestOptionFunc) (*PatchEmployeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -310,6 +401,14 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 	}
 	return resp, err
 }
+
+// 获取职位信息
+//
+// - 根据职位 ID 获取职位信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/job/get-job
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_job.go
 func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.RequestOptionFunc) (*GetJobResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -328,6 +427,14 @@ func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.Reque
 	}
 	return resp, err
 }
+
+// 获取职位上的招聘人员信息
+//
+// - 根据职位 ID 获取职位上的招聘人员信息，如招聘负责人、用人经理
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_jobManager.go
 func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...larkcore.RequestOptionFunc) (*GetJobManagerResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -346,6 +453,14 @@ func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...
 	}
 	return resp, err
 }
+
+// 获取招聘流程信息
+//
+// - 获取全部招聘流程信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/jop-process/get-process
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//list_jobProcess.go
 func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options ...larkcore.RequestOptionFunc) (*ListJobProcessResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -364,6 +479,14 @@ func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options .
 	}
 	return resp, err
 }
+
+// 创建备注
+//
+// - 创建备注信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//create_note.go
 func (n *note) Create(ctx context.Context, req *CreateNoteReq, options ...larkcore.RequestOptionFunc) (*CreateNoteResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -382,6 +505,14 @@ func (n *note) Create(ctx context.Context, req *CreateNoteReq, options ...larkco
 	}
 	return resp, err
 }
+
+// 获取备注
+//
+// - 根据备注 ID 获取备注信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_note.go
 func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.RequestOptionFunc) (*GetNoteResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -400,6 +531,14 @@ func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.Req
 	}
 	return resp, err
 }
+
+// 获取备注列表
+//
+// - 获取备注列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//list_note.go
 func (n *note) List(ctx context.Context, req *ListNoteReq, options ...larkcore.RequestOptionFunc) (*ListNoteResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -418,6 +557,14 @@ func (n *note) List(ctx context.Context, req *ListNoteReq, options ...larkcore.R
 	}
 	return resp, err
 }
+
+// 更新备注
+//
+// - 根据备注 ID 更新备注信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//patch_note.go
 func (n *note) Patch(ctx context.Context, req *PatchNoteReq, options ...larkcore.RequestOptionFunc) (*PatchNoteResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -436,6 +583,14 @@ func (n *note) Patch(ctx context.Context, req *PatchNoteReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 获取 Offer 申请表详细信息
+//
+// - 根据 Offer 申请表 ID，获取 Offer 申请表的详细信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_schema/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_offerSchema.go
 func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options ...larkcore.RequestOptionFunc) (*GetOfferSchemaResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -454,6 +609,14 @@ func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options .
 	}
 	return resp, err
 }
+
+// 获取内推信息
+//
+// - 根据投递 ID 获取内推信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral/get_by_application
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//getByApplication_referral.go
 func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationReferralReq, options ...larkcore.RequestOptionFunc) (*GetByApplicationReferralResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -472,6 +635,14 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 	}
 	return resp, err
 }
+
+// 获取简历来源列表
+//
+// - 获取简历来源列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//list_resumeSource.go
 func (r *resumeSource) List(ctx context.Context, req *ListResumeSourceReq, options ...larkcore.RequestOptionFunc) (*ListResumeSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -498,6 +669,14 @@ func (r *resumeSource) ListByIterator(ctx context.Context, req *ListResumeSource
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 获取人才信息
+//
+// - 根据人才 ID 获取人才信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUzM1YjL1MTN24SNzUjN/get-talent
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1//get_talent.go
 func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore.RequestOptionFunc) (*GetTalentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

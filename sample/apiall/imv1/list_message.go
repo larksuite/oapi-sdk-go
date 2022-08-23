@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/messages"
+// GET /open-apis/im/v1/messages
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -31,7 +31,7 @@ func main() {
 		ContainerId("oc_234jsi43d3ssi993d43545f").
 		StartTime("1609296809").
 		EndTime("1608594809").
-		PageToken("").
+		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-// HTTP PATH: /open-apis/sheets/v3/spreadsheets"
+// POST /open-apis/sheets/v3/spreadsheets
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -18,20 +18,20 @@ import (
 )
 
 type Avatar struct {
-	AvatarOrigin *string `json:"avatar_origin,omitempty"`
-	Avatar72     *string `json:"avatar_72,omitempty"`
-	Avatar240    *string `json:"avatar_240,omitempty"`
-	Avatar640    *string `json:"avatar_640,omitempty"`
+	AvatarOrigin *string `json:"avatar_origin,omitempty"` // 企业头像
+	Avatar72     *string `json:"avatar_72,omitempty"`     // 企业头像 72x72
+	Avatar240    *string `json:"avatar_240,omitempty"`    // 企业头像 240x240
+	Avatar640    *string `json:"avatar_640,omitempty"`    // 企业头像 640x640
 }
 
 type AvatarBuilder struct {
-	avatarOrigin     string
+	avatarOrigin     string // 企业头像
 	avatarOriginFlag bool
-	avatar72         string
+	avatar72         string // 企业头像 72x72
 	avatar72Flag     bool
-	avatar240        string
+	avatar240        string // 企业头像 240x240
 	avatar240Flag    bool
-	avatar640        string
+	avatar640        string // 企业头像 640x640
 	avatar640Flag    bool
 }
 
@@ -40,21 +40,32 @@ func NewAvatarBuilder() *AvatarBuilder {
 	return builder
 }
 
+// 企业头像
+// 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) AvatarOrigin(avatarOrigin string) *AvatarBuilder {
 	builder.avatarOrigin = avatarOrigin
 	builder.avatarOriginFlag = true
 	return builder
 }
+
+// 企业头像 72x72
+// 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar72(avatar72 string) *AvatarBuilder {
 	builder.avatar72 = avatar72
 	builder.avatar72Flag = true
 	return builder
 }
+
+// 企业头像 240x240
+// 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar240(avatar240 string) *AvatarBuilder {
 	builder.avatar240 = avatar240
 	builder.avatar240Flag = true
 	return builder
 }
+
+// 企业头像 640x640
+// 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar640(avatar640 string) *AvatarBuilder {
 	builder.avatar640 = avatar640
 	builder.avatar640Flag = true
@@ -83,23 +94,23 @@ func (builder *AvatarBuilder) Build() *Avatar {
 }
 
 type Tenant struct {
-	Name      *string `json:"name,omitempty"`
-	DisplayId *string `json:"display_id,omitempty"`
-	TenantTag *int    `json:"tenant_tag,omitempty"`
-	TenantKey *string `json:"tenant_key,omitempty"`
-	Avatar    *Avatar `json:"avatar,omitempty"`
+	Name      *string `json:"name,omitempty"`       // 企业名称
+	DisplayId *string `json:"display_id,omitempty"` // 企业编号，平台内唯一
+	TenantTag *int    `json:"tenant_tag,omitempty"` // 个人版/团队版标志
+	TenantKey *string `json:"tenant_key,omitempty"` // 企业标识
+	Avatar    *Avatar `json:"avatar,omitempty"`     // 企业头像
 }
 
 type TenantBuilder struct {
-	name          string
+	name          string // 企业名称
 	nameFlag      bool
-	displayId     string
+	displayId     string // 企业编号，平台内唯一
 	displayIdFlag bool
-	tenantTag     int
+	tenantTag     int // 个人版/团队版标志
 	tenantTagFlag bool
-	tenantKey     string
+	tenantKey     string // 企业标识
 	tenantKeyFlag bool
-	avatar        *Avatar
+	avatar        *Avatar // 企业头像
 	avatarFlag    bool
 }
 
@@ -108,26 +119,40 @@ func NewTenantBuilder() *TenantBuilder {
 	return builder
 }
 
+// 企业名称
+// 示例值：企业名称
 func (builder *TenantBuilder) Name(name string) *TenantBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 企业编号，平台内唯一
+// 示例值：F123456789
 func (builder *TenantBuilder) DisplayId(displayId string) *TenantBuilder {
 	builder.displayId = displayId
 	builder.displayIdFlag = true
 	return builder
 }
+
+// 个人版/团队版标志
+// 示例值：0
 func (builder *TenantBuilder) TenantTag(tenantTag int) *TenantBuilder {
 	builder.tenantTag = tenantTag
 	builder.tenantTagFlag = true
 	return builder
 }
+
+// 企业标识
+// 示例值：abcdefghi
 func (builder *TenantBuilder) TenantKey(tenantKey string) *TenantBuilder {
 	builder.tenantKey = tenantKey
 	builder.tenantKeyFlag = true
 	return builder
 }
+
+// 企业头像
+// 示例值：
 func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 	builder.avatar = avatar
 	builder.avatarFlag = true
@@ -159,13 +184,13 @@ func (builder *TenantBuilder) Build() *Tenant {
 }
 
 type QueryTenantRespData struct {
-	Tenant *Tenant `json:"tenant,omitempty"`
+	Tenant *Tenant `json:"tenant,omitempty"` // 企业信息
 }
 
 type QueryTenantResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *QueryTenantRespData `json:"data"`
+	Data *QueryTenantRespData `json:"data"` // 业务数据
 }
 
 func (resp *QueryTenantResp) Success() bool {

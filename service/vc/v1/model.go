@@ -25,49 +25,145 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	TopUserOrderByMeetingCount    = 1
-	TopUserOrderByMeetingDuration = 2
+	UserIdTypeExportParticipantListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeExportParticipantListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeExportParticipantListOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	NodeScopeTenant          = 1
-	NodeScopeCountryDistrict = 2
-	NodeScopeCity            = 3
-	NodeScopeBuilding        = 4
-	NodeScopeFloor           = 5
-	NodeScopeRoom            = 6
+	UserIdTypeExportParticipantQualityListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeExportParticipantQualityListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeExportParticipantQualityListOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMeetingGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMeetingGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMeetingGetOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMeetingInviteUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMeetingInviteUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMeetingInviteOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMeetingKickoutUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMeetingKickoutUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMeetingKickoutOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMeetingSetHostUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMeetingSetHostUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMeetingSetHostOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMeetingRecordingSetPermissionUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMeetingRecordingSetPermissionUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMeetingRecordingSetPermissionOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	TopUserOrderByMeetingCount    = 1 // 会议数量
+	TopUserOrderByMeetingDuration = 2 // 会议时长
+
+)
+
+const (
+	UserIdTypeReportGetTopUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReportGetTopUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReportGetTopUserOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeReserveApplyUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReserveApplyUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReserveApplyOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeReserveGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReserveGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReserveGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeReserveGetActiveMeetingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReserveGetActiveMeetingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReserveGetActiveMeetingOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeReserveUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReserveUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReserveUpdateOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	NodeScopeTenant          = 1 // 租户
+	NodeScopeCountryDistrict = 2 // 国家/地区
+	NodeScopeCity            = 3 // 城市
+	NodeScopeBuilding        = 4 // 建筑
+	NodeScopeFloor           = 5 // 楼层
+	NodeScopeRoom            = 6 // 会议室
+
+)
+
+const (
+	UserIdTypeRoomConfigQueryUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeRoomConfigQueryUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeRoomConfigQueryOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	NodeScopeRoomConfigSetTenant          = 1 // 租户
+	NodeScopeRoomConfigSetCountryDistrict = 2 // 国家/地区
+	NodeScopeRoomConfigSetCity            = 3 // 城市
+	NodeScopeRoomConfigSetBuilding        = 4 // 建筑
+	NodeScopeRoomConfigSetFloor           = 5 // 楼层
+	NodeScopeRoomConfigSetRoom            = 6 // 会议室
+
+)
+
+const (
+	UserIdTypeRoomConfigSetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeRoomConfigSetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeRoomConfigSetOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 type Material struct {
-	Name           *string `json:"name,omitempty"`
-	FileToken      *string `json:"file_token,omitempty"`
-	FileSize       *int    `json:"file_size,omitempty"`
-	DeviceType     *int    `json:"device_type,omitempty"`
-	MaterialType   *int    `json:"material_type,omitempty"`
-	ReviewResult   *int    `json:"review_result,omitempty"`
-	MaterialSource *int    `json:"material_source,omitempty"`
+	Name           *string `json:"name,omitempty"`            // 素材名称
+	FileToken      *string `json:"file_token,omitempty"`      // 文件上传drive后的token
+	FileSize       *int    `json:"file_size,omitempty"`       // 文件大小(KB)
+	DeviceType     *int    `json:"device_type,omitempty"`     // 素材适用设备类型
+	MaterialType   *int    `json:"material_type,omitempty"`   // 素材类型
+	ReviewResult   *int    `json:"review_result,omitempty"`   // 审核结果
+	MaterialSource *int    `json:"material_source,omitempty"` // 素材来源
 }
 
 type MaterialBuilder struct {
-	name               string
+	name               string // 素材名称
 	nameFlag           bool
-	fileToken          string
+	fileToken          string // 文件上传drive后的token
 	fileTokenFlag      bool
-	fileSize           int
+	fileSize           int // 文件大小(KB)
 	fileSizeFlag       bool
-	deviceType         int
+	deviceType         int // 素材适用设备类型
 	deviceTypeFlag     bool
-	materialType       int
+	materialType       int // 素材类型
 	materialTypeFlag   bool
-	reviewResult       int
+	reviewResult       int // 审核结果
 	reviewResultFlag   bool
-	materialSource     int
+	materialSource     int // 素材来源
 	materialSourceFlag bool
 }
 
@@ -76,36 +172,56 @@ func NewMaterialBuilder() *MaterialBuilder {
 	return builder
 }
 
+// 素材名称
+// 示例值：green
 func (builder *MaterialBuilder) Name(name string) *MaterialBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 文件上传drive后的token
+// 示例值：u8ajdjadau8wqu
 func (builder *MaterialBuilder) FileToken(fileToken string) *MaterialBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// 文件大小(KB)
+// 示例值：1024
 func (builder *MaterialBuilder) FileSize(fileSize int) *MaterialBuilder {
 	builder.fileSize = fileSize
 	builder.fileSizeFlag = true
 	return builder
 }
+
+// 素材适用设备类型
+// 示例值：2
 func (builder *MaterialBuilder) DeviceType(deviceType int) *MaterialBuilder {
 	builder.deviceType = deviceType
 	builder.deviceTypeFlag = true
 	return builder
 }
+
+// 素材类型
+// 示例值：2
 func (builder *MaterialBuilder) MaterialType(materialType int) *MaterialBuilder {
 	builder.materialType = materialType
 	builder.materialTypeFlag = true
 	return builder
 }
+
+// 审核结果
+// 示例值：2
 func (builder *MaterialBuilder) ReviewResult(reviewResult int) *MaterialBuilder {
 	builder.reviewResult = reviewResult
 	builder.reviewResultFlag = true
 	return builder
 }
+
+// 素材来源
+// 示例值：2
 func (builder *MaterialBuilder) MaterialSource(materialSource int) *MaterialBuilder {
 	builder.materialSource = materialSource
 	builder.materialSourceFlag = true
@@ -146,14 +262,14 @@ func (builder *MaterialBuilder) Build() *Material {
 }
 
 type MaterialDeleteResult struct {
-	FileToken *string `json:"file_token,omitempty"`
-	Result    *int    `json:"result,omitempty"`
+	FileToken *string `json:"file_token,omitempty"` // 文件上传drive后的token
+	Result    *int    `json:"result,omitempty"`     // 删除结果
 }
 
 type MaterialDeleteResultBuilder struct {
-	fileToken     string
+	fileToken     string // 文件上传drive后的token
 	fileTokenFlag bool
-	result        int
+	result        int // 删除结果
 	resultFlag    bool
 }
 
@@ -162,11 +278,16 @@ func NewMaterialDeleteResultBuilder() *MaterialDeleteResultBuilder {
 	return builder
 }
 
+// 文件上传drive后的token
+// 示例值：u8ajdjadau8wqu
 func (builder *MaterialDeleteResultBuilder) FileToken(fileToken string) *MaterialDeleteResultBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// 删除结果
+// 示例值：1
 func (builder *MaterialDeleteResultBuilder) Result(result int) *MaterialDeleteResultBuilder {
 	builder.result = result
 	builder.resultFlag = true
@@ -187,14 +308,14 @@ func (builder *MaterialDeleteResultBuilder) Build() *MaterialDeleteResult {
 }
 
 type MaterialReviewResult struct {
-	FileToken *string `json:"file_token,omitempty"`
-	Result    *int    `json:"result,omitempty"`
+	FileToken *string `json:"file_token,omitempty"` // 文件上传drive后的token
+	Result    *int    `json:"result,omitempty"`     // 审核结果
 }
 
 type MaterialReviewResultBuilder struct {
-	fileToken     string
+	fileToken     string // 文件上传drive后的token
 	fileTokenFlag bool
-	result        int
+	result        int // 审核结果
 	resultFlag    bool
 }
 
@@ -203,11 +324,16 @@ func NewMaterialReviewResultBuilder() *MaterialReviewResultBuilder {
 	return builder
 }
 
+// 文件上传drive后的token
+// 示例值：u8ajdjadau8wqu
 func (builder *MaterialReviewResultBuilder) FileToken(fileToken string) *MaterialReviewResultBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// 审核结果
+// 示例值：1
 func (builder *MaterialReviewResultBuilder) Result(result int) *MaterialReviewResultBuilder {
 	builder.result = result
 	builder.resultFlag = true
@@ -228,14 +354,14 @@ func (builder *MaterialReviewResultBuilder) Build() *MaterialReviewResult {
 }
 
 type MaterialUploadResult struct {
-	FileToken *string `json:"file_token,omitempty"`
-	Result    *int    `json:"result,omitempty"`
+	FileToken *string `json:"file_token,omitempty"` // 文件上传drive后的token
+	Result    *int    `json:"result,omitempty"`     // 上传结果
 }
 
 type MaterialUploadResultBuilder struct {
-	fileToken     string
+	fileToken     string // 文件上传drive后的token
 	fileTokenFlag bool
-	result        int
+	result        int // 上传结果
 	resultFlag    bool
 }
 
@@ -244,11 +370,16 @@ func NewMaterialUploadResultBuilder() *MaterialUploadResultBuilder {
 	return builder
 }
 
+// 文件上传drive后的token
+// 示例值：u8ajdjadau8wqu
 func (builder *MaterialUploadResultBuilder) FileToken(fileToken string) *MaterialUploadResultBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// 上传结果
+// 示例值：1
 func (builder *MaterialUploadResultBuilder) Result(result int) *MaterialUploadResultBuilder {
 	builder.result = result
 	builder.resultFlag = true
@@ -269,47 +400,47 @@ func (builder *MaterialUploadResultBuilder) Build() *MaterialUploadResult {
 }
 
 type Meeting struct {
-	Id                          *string               `json:"id,omitempty"`
-	Topic                       *string               `json:"topic,omitempty"`
-	Url                         *string               `json:"url,omitempty"`
-	MeetingNo                   *string               `json:"meeting_no,omitempty"`
-	CreateTime                  *string               `json:"create_time,omitempty"`
-	StartTime                   *string               `json:"start_time,omitempty"`
-	EndTime                     *string               `json:"end_time,omitempty"`
-	HostUser                    *MeetingUser          `json:"host_user,omitempty"`
-	Status                      *int                  `json:"status,omitempty"`
-	ParticipantCount            *string               `json:"participant_count,omitempty"`
-	ParticipantCountAccumulated *string               `json:"participant_count_accumulated,omitempty"`
-	Participants                []*MeetingParticipant `json:"participants,omitempty"`
-	Ability                     *MeetingAbility       `json:"ability,omitempty"`
+	Id                          *string               `json:"id,omitempty"`                            // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+	Topic                       *string               `json:"topic,omitempty"`                         // 会议主题
+	Url                         *string               `json:"url,omitempty"`                           // 会议链接（飞书用户可通过点击会议链接快捷入会）
+	MeetingNo                   *string               `json:"meeting_no,omitempty"`                    // 会议号
+	CreateTime                  *string               `json:"create_time,omitempty"`                   // 会议创建时间（unix时间，单位sec）
+	StartTime                   *string               `json:"start_time,omitempty"`                    // 会议开始时间（unix时间，单位sec）
+	EndTime                     *string               `json:"end_time,omitempty"`                      // 会议结束时间（unix时间，单位sec）
+	HostUser                    *MeetingUser          `json:"host_user,omitempty"`                     // 主持人
+	Status                      *int                  `json:"status,omitempty"`                        // 会议状态
+	ParticipantCount            *string               `json:"participant_count,omitempty"`             // 参会人数
+	ParticipantCountAccumulated *string               `json:"participant_count_accumulated,omitempty"` // 累计参会人数
+	Participants                []*MeetingParticipant `json:"participants,omitempty"`                  // 参会人列表
+	Ability                     *MeetingAbility       `json:"ability,omitempty"`                       // 会中使用的能力
 }
 
 type MeetingBuilder struct {
-	id                              string
+	id                              string // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	idFlag                          bool
-	topic                           string
+	topic                           string // 会议主题
 	topicFlag                       bool
-	url                             string
+	url                             string // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	urlFlag                         bool
-	meetingNo                       string
+	meetingNo                       string // 会议号
 	meetingNoFlag                   bool
-	createTime                      string
+	createTime                      string // 会议创建时间（unix时间，单位sec）
 	createTimeFlag                  bool
-	startTime                       string
+	startTime                       string // 会议开始时间（unix时间，单位sec）
 	startTimeFlag                   bool
-	endTime                         string
+	endTime                         string // 会议结束时间（unix时间，单位sec）
 	endTimeFlag                     bool
-	hostUser                        *MeetingUser
+	hostUser                        *MeetingUser // 主持人
 	hostUserFlag                    bool
-	status                          int
+	status                          int // 会议状态
 	statusFlag                      bool
-	participantCount                string
+	participantCount                string // 参会人数
 	participantCountFlag            bool
-	participantCountAccumulated     string
+	participantCountAccumulated     string // 累计参会人数
 	participantCountAccumulatedFlag bool
-	participants                    []*MeetingParticipant
+	participants                    []*MeetingParticipant // 参会人列表
 	participantsFlag                bool
-	ability                         *MeetingAbility
+	ability                         *MeetingAbility // 会中使用的能力
 	abilityFlag                     bool
 }
 
@@ -318,66 +449,104 @@ func NewMeetingBuilder() *MeetingBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+// 示例值：6911188411934433028
 func (builder *MeetingBuilder) Id(id string) *MeetingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 会议主题
+// 示例值：my meeting
 func (builder *MeetingBuilder) Topic(topic string) *MeetingBuilder {
 	builder.topic = topic
 	builder.topicFlag = true
 	return builder
 }
+
+// 会议链接（飞书用户可通过点击会议链接快捷入会）
+// 示例值：https://vc.feishu.cn/j/337736498
 func (builder *MeetingBuilder) Url(url string) *MeetingBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// 会议号
+// 示例值：123456789
 func (builder *MeetingBuilder) MeetingNo(meetingNo string) *MeetingBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
 	return builder
 }
+
+// 会议创建时间（unix时间，单位sec）
+// 示例值：1608885566
 func (builder *MeetingBuilder) CreateTime(createTime string) *MeetingBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 会议开始时间（unix时间，单位sec）
+// 示例值：1608883322
 func (builder *MeetingBuilder) StartTime(startTime string) *MeetingBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
+
+// 会议结束时间（unix时间，单位sec）
+// 示例值：1608888867
 func (builder *MeetingBuilder) EndTime(endTime string) *MeetingBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 主持人
+// 示例值：
 func (builder *MeetingBuilder) HostUser(hostUser *MeetingUser) *MeetingBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
 	return builder
 }
+
+// 会议状态
+// 示例值：2
 func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 参会人数
+// 示例值：10
 func (builder *MeetingBuilder) ParticipantCount(participantCount string) *MeetingBuilder {
 	builder.participantCount = participantCount
 	builder.participantCountFlag = true
 	return builder
 }
+
+// 累计参会人数
+// 示例值：10
 func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccumulated string) *MeetingBuilder {
 	builder.participantCountAccumulated = participantCountAccumulated
 	builder.participantCountAccumulatedFlag = true
 	return builder
 }
+
+// 参会人列表
+// 示例值：
 func (builder *MeetingBuilder) Participants(participants []*MeetingParticipant) *MeetingBuilder {
 	builder.participants = participants
 	builder.participantsFlag = true
 	return builder
 }
+
+// 会中使用的能力
+// 示例值：
 func (builder *MeetingBuilder) Ability(ability *MeetingAbility) *MeetingBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
@@ -439,20 +608,20 @@ func (builder *MeetingBuilder) Build() *Meeting {
 }
 
 type MeetingRecording struct {
-	Id        *string `json:"id,omitempty"`
-	MeetingId *string `json:"meeting_id,omitempty"`
-	Url       *string `json:"url,omitempty"`
-	Duration  *string `json:"duration,omitempty"`
+	Id        *string `json:"id,omitempty"`         // 录制ID
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议ID
+	Url       *string `json:"url,omitempty"`        // 录制文件URL
+	Duration  *string `json:"duration,omitempty"`   // 录制总时长（单位msec）
 }
 
 type MeetingRecordingBuilder struct {
-	id            string
+	id            string // 录制ID
 	idFlag        bool
-	meetingId     string
+	meetingId     string // 会议ID
 	meetingIdFlag bool
-	url           string
+	url           string // 录制文件URL
 	urlFlag       bool
-	duration      string
+	duration      string // 录制总时长（单位msec）
 	durationFlag  bool
 }
 
@@ -461,21 +630,32 @@ func NewMeetingRecordingBuilder() *MeetingRecordingBuilder {
 	return builder
 }
 
+// 录制ID
+// 示例值：6911188411932033028
 func (builder *MeetingRecordingBuilder) Id(id string) *MeetingRecordingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 会议ID
+// 示例值：6911188411932033028
 func (builder *MeetingRecordingBuilder) MeetingId(meetingId string) *MeetingRecordingBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
 	return builder
 }
+
+// 录制文件URL
+// 示例值：https://meetings.feishu.cn/minutes/obcn37dxcftoc3656rgyejm7
 func (builder *MeetingRecordingBuilder) Url(url string) *MeetingRecordingBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// 录制总时长（单位msec）
+// 示例值：30000
 func (builder *MeetingRecordingBuilder) Duration(duration string) *MeetingRecordingBuilder {
 	builder.duration = duration
 	builder.durationFlag = true
@@ -504,26 +684,26 @@ func (builder *MeetingRecordingBuilder) Build() *MeetingRecording {
 }
 
 type MeetingAbility struct {
-	UseVideo        *bool `json:"use_video,omitempty"`
-	UseAudio        *bool `json:"use_audio,omitempty"`
-	UseShareScreen  *bool `json:"use_share_screen,omitempty"`
-	UseFollowScreen *bool `json:"use_follow_screen,omitempty"`
-	UseRecording    *bool `json:"use_recording,omitempty"`
-	UsePstn         *bool `json:"use_pstn,omitempty"`
+	UseVideo        *bool `json:"use_video,omitempty"`         // 是否使用视频
+	UseAudio        *bool `json:"use_audio,omitempty"`         // 是否使用音频
+	UseShareScreen  *bool `json:"use_share_screen,omitempty"`  // 是否使用共享屏幕
+	UseFollowScreen *bool `json:"use_follow_screen,omitempty"` // 是否使用妙享（magic share）
+	UseRecording    *bool `json:"use_recording,omitempty"`     // 是否使用录制
+	UsePstn         *bool `json:"use_pstn,omitempty"`          // 是否使用PSTN
 }
 
 type MeetingAbilityBuilder struct {
-	useVideo            bool
+	useVideo            bool // 是否使用视频
 	useVideoFlag        bool
-	useAudio            bool
+	useAudio            bool // 是否使用音频
 	useAudioFlag        bool
-	useShareScreen      bool
+	useShareScreen      bool // 是否使用共享屏幕
 	useShareScreenFlag  bool
-	useFollowScreen     bool
+	useFollowScreen     bool // 是否使用妙享（magic share）
 	useFollowScreenFlag bool
-	useRecording        bool
+	useRecording        bool // 是否使用录制
 	useRecordingFlag    bool
-	usePstn             bool
+	usePstn             bool // 是否使用PSTN
 	usePstnFlag         bool
 }
 
@@ -532,31 +712,48 @@ func NewMeetingAbilityBuilder() *MeetingAbilityBuilder {
 	return builder
 }
 
+// 是否使用视频
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UseVideo(useVideo bool) *MeetingAbilityBuilder {
 	builder.useVideo = useVideo
 	builder.useVideoFlag = true
 	return builder
 }
+
+// 是否使用音频
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UseAudio(useAudio bool) *MeetingAbilityBuilder {
 	builder.useAudio = useAudio
 	builder.useAudioFlag = true
 	return builder
 }
+
+// 是否使用共享屏幕
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UseShareScreen(useShareScreen bool) *MeetingAbilityBuilder {
 	builder.useShareScreen = useShareScreen
 	builder.useShareScreenFlag = true
 	return builder
 }
+
+// 是否使用妙享（magic share）
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UseFollowScreen(useFollowScreen bool) *MeetingAbilityBuilder {
 	builder.useFollowScreen = useFollowScreen
 	builder.useFollowScreenFlag = true
 	return builder
 }
+
+// 是否使用录制
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UseRecording(useRecording bool) *MeetingAbilityBuilder {
 	builder.useRecording = useRecording
 	builder.useRecordingFlag = true
 	return builder
 }
+
+// 是否使用PSTN
+// 示例值：true
 func (builder *MeetingAbilityBuilder) UsePstn(usePstn bool) *MeetingAbilityBuilder {
 	builder.usePstn = usePstn
 	builder.usePstnFlag = true
@@ -593,29 +790,29 @@ func (builder *MeetingAbilityBuilder) Build() *MeetingAbility {
 }
 
 type MeetingEventMeeting struct {
-	Id        *string           `json:"id,omitempty"`
-	Topic     *string           `json:"topic,omitempty"`
-	MeetingNo *string           `json:"meeting_no,omitempty"`
-	StartTime *string           `json:"start_time,omitempty"`
-	EndTime   *string           `json:"end_time,omitempty"`
-	HostUser  *MeetingEventUser `json:"host_user,omitempty"`
-	Owner     *MeetingEventUser `json:"owner,omitempty"`
+	Id        *string           `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+	Topic     *string           `json:"topic,omitempty"`      // 会议主题
+	MeetingNo *string           `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	StartTime *string           `json:"start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
+	EndTime   *string           `json:"end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
+	HostUser  *MeetingEventUser `json:"host_user,omitempty"`  // 会议主持人
+	Owner     *MeetingEventUser `json:"owner,omitempty"`      // 会议拥有者
 }
 
 type MeetingEventMeetingBuilder struct {
-	id            string
+	id            string // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	idFlag        bool
-	topic         string
+	topic         string // 会议主题
 	topicFlag     bool
-	meetingNo     string
+	meetingNo     string // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	meetingNoFlag bool
-	startTime     string
+	startTime     string // 会议开始时间（unix时间，单位sec）
 	startTimeFlag bool
-	endTime       string
+	endTime       string // 会议结束时间（unix时间，单位sec）
 	endTimeFlag   bool
-	hostUser      *MeetingEventUser
+	hostUser      *MeetingEventUser // 会议主持人
 	hostUserFlag  bool
-	owner         *MeetingEventUser
+	owner         *MeetingEventUser // 会议拥有者
 	ownerFlag     bool
 }
 
@@ -624,36 +821,56 @@ func NewMeetingEventMeetingBuilder() *MeetingEventMeetingBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+// 示例值：6911188411934433028
 func (builder *MeetingEventMeetingBuilder) Id(id string) *MeetingEventMeetingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 会议主题
+// 示例值：my meeting
 func (builder *MeetingEventMeetingBuilder) Topic(topic string) *MeetingEventMeetingBuilder {
 	builder.topic = topic
 	builder.topicFlag = true
 	return builder
 }
+
+// 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+// 示例值：235812466
 func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingEventMeetingBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
 	return builder
 }
+
+// 会议开始时间（unix时间，单位sec）
+// 示例值：1608883322
 func (builder *MeetingEventMeetingBuilder) StartTime(startTime string) *MeetingEventMeetingBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
+
+// 会议结束时间（unix时间，单位sec）
+// 示例值：1608883899
 func (builder *MeetingEventMeetingBuilder) EndTime(endTime string) *MeetingEventMeetingBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 会议主持人
+// 示例值：
 func (builder *MeetingEventMeetingBuilder) HostUser(hostUser *MeetingEventUser) *MeetingEventMeetingBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
 	return builder
 }
+
+// 会议拥有者
+// 示例值：
 func (builder *MeetingEventMeetingBuilder) Owner(owner *MeetingEventUser) *MeetingEventMeetingBuilder {
 	builder.owner = owner
 	builder.ownerFlag = true
@@ -692,17 +909,17 @@ func (builder *MeetingEventMeetingBuilder) Build() *MeetingEventMeeting {
 }
 
 type MeetingEventUser struct {
-	Id       *UserId `json:"id,omitempty"`
-	UserRole *int    `json:"user_role,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
+	Id       *UserId `json:"id,omitempty"`        // 用户 ID
+	UserRole *int    `json:"user_role,omitempty"` // 用户会中角色
+	UserType *int    `json:"user_type,omitempty"` // 用户类型
 }
 
 type MeetingEventUserBuilder struct {
-	id           *UserId
+	id           *UserId // 用户 ID
 	idFlag       bool
-	userRole     int
+	userRole     int // 用户会中角色
 	userRoleFlag bool
-	userType     int
+	userType     int // 用户类型
 	userTypeFlag bool
 }
 
@@ -711,16 +928,24 @@ func NewMeetingEventUserBuilder() *MeetingEventUserBuilder {
 	return builder
 }
 
+// 用户 ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingEventUserBuilder) Id(id *UserId) *MeetingEventUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户会中角色
+// 示例值：1
 func (builder *MeetingEventUserBuilder) UserRole(userRole int) *MeetingEventUserBuilder {
 	builder.userRole = userRole
 	builder.userRoleFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *MeetingEventUserBuilder) UserType(userType int) *MeetingEventUserBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
@@ -744,17 +969,17 @@ func (builder *MeetingEventUserBuilder) Build() *MeetingEventUser {
 }
 
 type MeetingInviteStatus struct {
-	Id       *string `json:"id,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
-	Status   *int    `json:"status,omitempty"`
+	Id       *string `json:"id,omitempty"`        // 用户ID
+	UserType *int    `json:"user_type,omitempty"` // 用户类型
+	Status   *int    `json:"status,omitempty"`    // 邀请结果
 }
 
 type MeetingInviteStatusBuilder struct {
-	id           string
+	id           string // 用户ID
 	idFlag       bool
-	userType     int
+	userType     int // 用户类型
 	userTypeFlag bool
-	status       int
+	status       int // 邀请结果
 	statusFlag   bool
 }
 
@@ -763,16 +988,24 @@ func NewMeetingInviteStatusBuilder() *MeetingInviteStatusBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingInviteStatusBuilder) Id(id string) *MeetingInviteStatusBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *MeetingInviteStatusBuilder) UserType(userType int) *MeetingInviteStatusBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
 	return builder
 }
+
+// 邀请结果
+// 示例值：1
 func (builder *MeetingInviteStatusBuilder) Status(status int) *MeetingInviteStatusBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -797,35 +1030,35 @@ func (builder *MeetingInviteStatusBuilder) Build() *MeetingInviteStatus {
 }
 
 type MeetingParticipant struct {
-	Id                *string `json:"id,omitempty"`
-	FirstJoinTime     *string `json:"first_join_time,omitempty"`
-	FinalLeaveTime    *string `json:"final_leave_time,omitempty"`
-	InMeetingDuration *string `json:"in_meeting_duration,omitempty"`
-	UserType          *int    `json:"user_type,omitempty"`
-	IsHost            *bool   `json:"is_host,omitempty"`
-	IsCohost          *bool   `json:"is_cohost,omitempty"`
-	IsExternal        *bool   `json:"is_external,omitempty"`
-	Status            *int    `json:"status,omitempty"`
+	Id                *string `json:"id,omitempty"`                  // 用户ID
+	FirstJoinTime     *string `json:"first_join_time,omitempty"`     // 首次入会时间，秒级Unix时间戳
+	FinalLeaveTime    *string `json:"final_leave_time,omitempty"`    // 最终离会时间，秒级Unix时间戳
+	InMeetingDuration *string `json:"in_meeting_duration,omitempty"` // 累计在会中时间，时间单位：秒
+	UserType          *int    `json:"user_type,omitempty"`           // 用户类型
+	IsHost            *bool   `json:"is_host,omitempty"`             // 是否为主持人
+	IsCohost          *bool   `json:"is_cohost,omitempty"`           // 是否为联席主持人
+	IsExternal        *bool   `json:"is_external,omitempty"`         // 是否为外部参会人
+	Status            *int    `json:"status,omitempty"`              // 参会人状态
 }
 
 type MeetingParticipantBuilder struct {
-	id                    string
+	id                    string // 用户ID
 	idFlag                bool
-	firstJoinTime         string
+	firstJoinTime         string // 首次入会时间，秒级Unix时间戳
 	firstJoinTimeFlag     bool
-	finalLeaveTime        string
+	finalLeaveTime        string // 最终离会时间，秒级Unix时间戳
 	finalLeaveTimeFlag    bool
-	inMeetingDuration     string
+	inMeetingDuration     string // 累计在会中时间，时间单位：秒
 	inMeetingDurationFlag bool
-	userType              int
+	userType              int // 用户类型
 	userTypeFlag          bool
-	isHost                bool
+	isHost                bool // 是否为主持人
 	isHostFlag            bool
-	isCohost              bool
+	isCohost              bool // 是否为联席主持人
 	isCohostFlag          bool
-	isExternal            bool
+	isExternal            bool // 是否为外部参会人
 	isExternalFlag        bool
-	status                int
+	status                int // 参会人状态
 	statusFlag            bool
 }
 
@@ -834,46 +1067,72 @@ func NewMeetingParticipantBuilder() *MeetingParticipantBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingParticipantBuilder) Id(id string) *MeetingParticipantBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 首次入会时间，秒级Unix时间戳
+// 示例值：1624438144
 func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime string) *MeetingParticipantBuilder {
 	builder.firstJoinTime = firstJoinTime
 	builder.firstJoinTimeFlag = true
 	return builder
 }
+
+// 最终离会时间，秒级Unix时间戳
+// 示例值：1624438144
 func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime string) *MeetingParticipantBuilder {
 	builder.finalLeaveTime = finalLeaveTime
 	builder.finalLeaveTimeFlag = true
 	return builder
 }
+
+// 累计在会中时间，时间单位：秒
+// 示例值：123
 func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration string) *MeetingParticipantBuilder {
 	builder.inMeetingDuration = inMeetingDuration
 	builder.inMeetingDurationFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *MeetingParticipantBuilder) UserType(userType int) *MeetingParticipantBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
 	return builder
 }
+
+// 是否为主持人
+// 示例值：true
 func (builder *MeetingParticipantBuilder) IsHost(isHost bool) *MeetingParticipantBuilder {
 	builder.isHost = isHost
 	builder.isHostFlag = true
 	return builder
 }
+
+// 是否为联席主持人
+// 示例值：false
 func (builder *MeetingParticipantBuilder) IsCohost(isCohost bool) *MeetingParticipantBuilder {
 	builder.isCohost = isCohost
 	builder.isCohostFlag = true
 	return builder
 }
+
+// 是否为外部参会人
+// 示例值：false
 func (builder *MeetingParticipantBuilder) IsExternal(isExternal bool) *MeetingParticipantBuilder {
 	builder.isExternal = isExternal
 	builder.isExternalFlag = true
 	return builder
 }
+
+// 参会人状态
+// 示例值：2
 func (builder *MeetingParticipantBuilder) Status(status int) *MeetingParticipantBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -922,17 +1181,17 @@ func (builder *MeetingParticipantBuilder) Build() *MeetingParticipant {
 }
 
 type MeetingParticipantResult struct {
-	Id       *string `json:"id,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
-	Result   *int    `json:"result,omitempty"`
+	Id       *string `json:"id,omitempty"`        // 用户ID
+	UserType *int    `json:"user_type,omitempty"` // 用户类型
+	Result   *int    `json:"result,omitempty"`    // 邀请结果
 }
 
 type MeetingParticipantResultBuilder struct {
-	id           string
+	id           string // 用户ID
 	idFlag       bool
-	userType     int
+	userType     int // 用户类型
 	userTypeFlag bool
-	result       int
+	result       int // 邀请结果
 	resultFlag   bool
 }
 
@@ -941,16 +1200,24 @@ func NewMeetingParticipantResultBuilder() *MeetingParticipantResultBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingParticipantResultBuilder) Id(id string) *MeetingParticipantResultBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *MeetingParticipantResultBuilder) UserType(userType int) *MeetingParticipantResultBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
 	return builder
 }
+
+// 邀请结果
+// 示例值：1
 func (builder *MeetingParticipantResultBuilder) Result(result int) *MeetingParticipantResultBuilder {
 	builder.result = result
 	builder.resultFlag = true
@@ -975,14 +1242,14 @@ func (builder *MeetingParticipantResultBuilder) Build() *MeetingParticipantResul
 }
 
 type MeetingUser struct {
-	Id       *string `json:"id,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
+	Id       *string `json:"id,omitempty"`        // 用户ID
+	UserType *int    `json:"user_type,omitempty"` // 用户类型
 }
 
 type MeetingUserBuilder struct {
-	id           string
+	id           string // 用户ID
 	idFlag       bool
-	userType     int
+	userType     int // 用户类型
 	userTypeFlag bool
 }
 
@@ -991,11 +1258,16 @@ func NewMeetingUserBuilder() *MeetingUserBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingUserBuilder) Id(id string) *MeetingUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *MeetingUserBuilder) UserType(userType int) *MeetingUserBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
@@ -1016,14 +1288,14 @@ func (builder *MeetingUserBuilder) Build() *MeetingUser {
 }
 
 type PstnSipInfo struct {
-	Nickname    *string `json:"nickname,omitempty"`
-	MainAddress *string `json:"main_address,omitempty"`
+	Nickname    *string `json:"nickname,omitempty"`     // 给pstn/sip用户设置的临时昵称
+	MainAddress *string `json:"main_address,omitempty"` // pstn/sip主机号，格式为：[国际冠字]-[电话区号][电话号码]，当前仅支持国内手机及固定电话号码
 }
 
 type PstnSipInfoBuilder struct {
-	nickname        string
+	nickname        string // 给pstn/sip用户设置的临时昵称
 	nicknameFlag    bool
-	mainAddress     string
+	mainAddress     string // pstn/sip主机号，格式为：[国际冠字]-[电话区号][电话号码]，当前仅支持国内手机及固定电话号码
 	mainAddressFlag bool
 }
 
@@ -1032,11 +1304,16 @@ func NewPstnSipInfoBuilder() *PstnSipInfoBuilder {
 	return builder
 }
 
+// 给pstn/sip用户设置的临时昵称
+// 示例值：dodo
 func (builder *PstnSipInfoBuilder) Nickname(nickname string) *PstnSipInfoBuilder {
 	builder.nickname = nickname
 	builder.nicknameFlag = true
 	return builder
 }
+
+// pstn/sip主机号，格式为：[国际冠字]-[电话区号][电话号码]，当前仅支持国内手机及固定电话号码
+// 示例值：+86-02187654321
 func (builder *PstnSipInfoBuilder) MainAddress(mainAddress string) *PstnSipInfoBuilder {
 	builder.mainAddress = mainAddress
 	builder.mainAddressFlag = true
@@ -1057,17 +1334,17 @@ func (builder *PstnSipInfoBuilder) Build() *PstnSipInfo {
 }
 
 type RecordingPermissionObject struct {
-	Id         *string `json:"id,omitempty"`
-	Type       *int    `json:"type,omitempty"`
-	Permission *int    `json:"permission,omitempty"`
+	Id         *string `json:"id,omitempty"`         // 授权对象ID
+	Type       *int    `json:"type,omitempty"`       // 授权对象类型
+	Permission *int    `json:"permission,omitempty"` // 权限
 }
 
 type RecordingPermissionObjectBuilder struct {
-	id             string
+	id             string // 授权对象ID
 	idFlag         bool
-	type_          int
+	type_          int // 授权对象类型
 	typeFlag       bool
-	permission     int
+	permission     int // 权限
 	permissionFlag bool
 }
 
@@ -1076,16 +1353,24 @@ func NewRecordingPermissionObjectBuilder() *RecordingPermissionObjectBuilder {
 	return builder
 }
 
+// 授权对象ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *RecordingPermissionObjectBuilder) Id(id string) *RecordingPermissionObjectBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 授权对象类型
+// 示例值：1
 func (builder *RecordingPermissionObjectBuilder) Type(type_ int) *RecordingPermissionObjectBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 权限
+// 示例值：1
 func (builder *RecordingPermissionObjectBuilder) Permission(permission int) *RecordingPermissionObjectBuilder {
 	builder.permission = permission
 	builder.permissionFlag = true
@@ -1110,20 +1395,20 @@ func (builder *RecordingPermissionObjectBuilder) Build() *RecordingPermissionObj
 }
 
 type Report struct {
-	TotalMeetingCount     *string               `json:"total_meeting_count,omitempty"`
-	TotalMeetingDuration  *string               `json:"total_meeting_duration,omitempty"`
-	TotalParticipantCount *string               `json:"total_participant_count,omitempty"`
-	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
+	TotalMeetingCount     *string               `json:"total_meeting_count,omitempty"`     // 总会议数量
+	TotalMeetingDuration  *string               `json:"total_meeting_duration,omitempty"`  // 总会议时长（单位sec）
+	TotalParticipantCount *string               `json:"total_participant_count,omitempty"` // 总参会人数
+	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`            // 每日会议报告列表
 }
 
 type ReportBuilder struct {
-	totalMeetingCount         string
+	totalMeetingCount         string // 总会议数量
 	totalMeetingCountFlag     bool
-	totalMeetingDuration      string
+	totalMeetingDuration      string // 总会议时长（单位sec）
 	totalMeetingDurationFlag  bool
-	totalParticipantCount     string
+	totalParticipantCount     string // 总参会人数
 	totalParticipantCountFlag bool
-	dailyReport               []*ReportMeetingDaily
+	dailyReport               []*ReportMeetingDaily // 每日会议报告列表
 	dailyReportFlag           bool
 }
 
@@ -1132,21 +1417,32 @@ func NewReportBuilder() *ReportBuilder {
 	return builder
 }
 
+// 总会议数量
+// 示例值：100
 func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount string) *ReportBuilder {
 	builder.totalMeetingCount = totalMeetingCount
 	builder.totalMeetingCountFlag = true
 	return builder
 }
+
+// 总会议时长（单位sec）
+// 示例值：300000
 func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration string) *ReportBuilder {
 	builder.totalMeetingDuration = totalMeetingDuration
 	builder.totalMeetingDurationFlag = true
 	return builder
 }
+
+// 总参会人数
+// 示例值：20000
 func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount string) *ReportBuilder {
 	builder.totalParticipantCount = totalParticipantCount
 	builder.totalParticipantCountFlag = true
 	return builder
 }
+
+// 每日会议报告列表
+// 示例值：
 func (builder *ReportBuilder) DailyReport(dailyReport []*ReportMeetingDaily) *ReportBuilder {
 	builder.dailyReport = dailyReport
 	builder.dailyReportFlag = true
@@ -1174,20 +1470,20 @@ func (builder *ReportBuilder) Build() *Report {
 }
 
 type ReportMeetingDaily struct {
-	Date             *string `json:"date,omitempty"`
-	MeetingCount     *string `json:"meeting_count,omitempty"`
-	MeetingDuration  *string `json:"meeting_duration,omitempty"`
-	ParticipantCount *string `json:"participant_count,omitempty"`
+	Date             *string `json:"date,omitempty"`              // 日期（unix时间，单位sec）
+	MeetingCount     *string `json:"meeting_count,omitempty"`     // 会议数量
+	MeetingDuration  *string `json:"meeting_duration,omitempty"`  // 会议时长（单位sec）
+	ParticipantCount *string `json:"participant_count,omitempty"` // 参会人数
 }
 
 type ReportMeetingDailyBuilder struct {
-	date                 string
+	date                 string // 日期（unix时间，单位sec）
 	dateFlag             bool
-	meetingCount         string
+	meetingCount         string // 会议数量
 	meetingCountFlag     bool
-	meetingDuration      string
+	meetingDuration      string // 会议时长（单位sec）
 	meetingDurationFlag  bool
-	participantCount     string
+	participantCount     string // 参会人数
 	participantCountFlag bool
 }
 
@@ -1196,21 +1492,32 @@ func NewReportMeetingDailyBuilder() *ReportMeetingDailyBuilder {
 	return builder
 }
 
+// 日期（unix时间，单位sec）
+// 示例值：1609113600
 func (builder *ReportMeetingDailyBuilder) Date(date string) *ReportMeetingDailyBuilder {
 	builder.date = date
 	builder.dateFlag = true
 	return builder
 }
+
+// 会议数量
+// 示例值：100
 func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount string) *ReportMeetingDailyBuilder {
 	builder.meetingCount = meetingCount
 	builder.meetingCountFlag = true
 	return builder
 }
+
+// 会议时长（单位sec）
+// 示例值：147680
 func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration string) *ReportMeetingDailyBuilder {
 	builder.meetingDuration = meetingDuration
 	builder.meetingDurationFlag = true
 	return builder
 }
+
+// 参会人数
+// 示例值：2000
 func (builder *ReportMeetingDailyBuilder) ParticipantCount(participantCount string) *ReportMeetingDailyBuilder {
 	builder.participantCount = participantCount
 	builder.participantCountFlag = true
@@ -1239,23 +1546,23 @@ func (builder *ReportMeetingDailyBuilder) Build() *ReportMeetingDaily {
 }
 
 type ReportTopUser struct {
-	Id              *string `json:"id,omitempty"`
-	Name            *string `json:"name,omitempty"`
-	UserType        *int    `json:"user_type,omitempty"`
-	MeetingCount    *string `json:"meeting_count,omitempty"`
-	MeetingDuration *string `json:"meeting_duration,omitempty"`
+	Id              *string `json:"id,omitempty"`               // 用户ID
+	Name            *string `json:"name,omitempty"`             // 用户名
+	UserType        *int    `json:"user_type,omitempty"`        // 用户类型
+	MeetingCount    *string `json:"meeting_count,omitempty"`    // 会议数量
+	MeetingDuration *string `json:"meeting_duration,omitempty"` // 会议时长（单位min）
 }
 
 type ReportTopUserBuilder struct {
-	id                  string
+	id                  string // 用户ID
 	idFlag              bool
-	name                string
+	name                string // 用户名
 	nameFlag            bool
-	userType            int
+	userType            int // 用户类型
 	userTypeFlag        bool
-	meetingCount        string
+	meetingCount        string // 会议数量
 	meetingCountFlag    bool
-	meetingDuration     string
+	meetingDuration     string // 会议时长（单位min）
 	meetingDurationFlag bool
 }
 
@@ -1264,26 +1571,40 @@ func NewReportTopUserBuilder() *ReportTopUserBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReportTopUserBuilder) Id(id string) *ReportTopUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户名
+// 示例值：name
 func (builder *ReportTopUserBuilder) Name(name string) *ReportTopUserBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 用户类型
+// 示例值：1
 func (builder *ReportTopUserBuilder) UserType(userType int) *ReportTopUserBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
 	return builder
 }
+
+// 会议数量
+// 示例值：100
 func (builder *ReportTopUserBuilder) MeetingCount(meetingCount string) *ReportTopUserBuilder {
 	builder.meetingCount = meetingCount
 	builder.meetingCountFlag = true
 	return builder
 }
+
+// 会议时长（单位min）
+// 示例值：3000
 func (builder *ReportTopUserBuilder) MeetingDuration(meetingDuration string) *ReportTopUserBuilder {
 	builder.meetingDuration = meetingDuration
 	builder.meetingDurationFlag = true
@@ -1316,35 +1637,35 @@ func (builder *ReportTopUserBuilder) Build() *ReportTopUser {
 }
 
 type Reserve struct {
-	Id              *string                `json:"id,omitempty"`
-	MeetingNo       *string                `json:"meeting_no,omitempty"`
-	Url             *string                `json:"url,omitempty"`
-	AppLink         *string                `json:"app_link,omitempty"`
-	LiveLink        *string                `json:"live_link,omitempty"`
-	EndTime         *string                `json:"end_time,omitempty"`
-	ExpireStatus    *int                   `json:"expire_status,omitempty"`
-	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
+	Id              *string                `json:"id,omitempty"`               // 预约ID（预约的唯一标识）
+	MeetingNo       *string                `json:"meeting_no,omitempty"`       // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	Url             *string                `json:"url,omitempty"`              // 会议链接（飞书用户可通过点击会议链接快捷入会）
+	AppLink         *string                `json:"app_link,omitempty"`         // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+	LiveLink        *string                `json:"live_link,omitempty"`        // 直播链接
+	EndTime         *string                `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec）
+	ExpireStatus    *int                   `json:"expire_status,omitempty"`    // 过期状态
+	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`  // 预约人ID
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"` // 会议设置
 }
 
 type ReserveBuilder struct {
-	id                  string
+	id                  string // 预约ID（预约的唯一标识）
 	idFlag              bool
-	meetingNo           string
+	meetingNo           string // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	meetingNoFlag       bool
-	url                 string
+	url                 string // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	urlFlag             bool
-	appLink             string
+	appLink             string // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
 	appLinkFlag         bool
-	liveLink            string
+	liveLink            string // 直播链接
 	liveLinkFlag        bool
-	endTime             string
+	endTime             string // 预约到期时间（unix时间，单位sec）
 	endTimeFlag         bool
-	expireStatus        int
+	expireStatus        int // 过期状态
 	expireStatusFlag    bool
-	reserveUserId       string
+	reserveUserId       string // 预约人ID
 	reserveUserIdFlag   bool
-	meetingSettings     *ReserveMeetingSetting
+	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
 
@@ -1353,46 +1674,72 @@ func NewReserveBuilder() *ReserveBuilder {
 	return builder
 }
 
+// 预约ID（预约的唯一标识）
+// 示例值：6911188411934973028
 func (builder *ReserveBuilder) Id(id string) *ReserveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+// 示例值：112000358
 func (builder *ReserveBuilder) MeetingNo(meetingNo string) *ReserveBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
 	return builder
 }
+
+// 会议链接（飞书用户可通过点击会议链接快捷入会）
+// 示例值：https://vc.feishu.cn/j/337736498
 func (builder *ReserveBuilder) Url(url string) *ReserveBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+// 示例值：https://applink.feishu.cn/client/videochat/open?source=openplatform&action=join&idtype=reservationid&id={?}&preview={?}&mic={?}&speaker={?}&camera={?}
 func (builder *ReserveBuilder) AppLink(appLink string) *ReserveBuilder {
 	builder.appLink = appLink
 	builder.appLinkFlag = true
 	return builder
 }
+
+// 直播链接
+// 示例值：https://meetings.feishu.cn/s/1gub381l4gglv
 func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
 	builder.liveLink = liveLink
 	builder.liveLinkFlag = true
 	return builder
 }
+
+// 预约到期时间（unix时间，单位sec）
+// 示例值：1608883322
 func (builder *ReserveBuilder) EndTime(endTime string) *ReserveBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 过期状态
+// 示例值：0
 func (builder *ReserveBuilder) ExpireStatus(expireStatus int) *ReserveBuilder {
 	builder.expireStatus = expireStatus
 	builder.expireStatusFlag = true
 	return builder
 }
+
+// 预约人ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReserveBuilder) ReserveUserId(reserveUserId string) *ReserveBuilder {
 	builder.reserveUserId = reserveUserId
 	builder.reserveUserIdFlag = true
 	return builder
 }
+
+// 会议设置
+// 示例值：
 func (builder *ReserveBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ReserveBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -1440,14 +1787,14 @@ func (builder *ReserveBuilder) Build() *Reserve {
 }
 
 type ReserveActionPermission struct {
-	Permission         *int                        `json:"permission,omitempty"`
-	PermissionCheckers []*ReservePermissionChecker `json:"permission_checkers,omitempty"`
+	Permission         *int                        `json:"permission,omitempty"`          // 权限项
+	PermissionCheckers []*ReservePermissionChecker `json:"permission_checkers,omitempty"` // 权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
 }
 
 type ReserveActionPermissionBuilder struct {
-	permission             int
+	permission             int // 权限项
 	permissionFlag         bool
-	permissionCheckers     []*ReservePermissionChecker
+	permissionCheckers     []*ReservePermissionChecker // 权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
 	permissionCheckersFlag bool
 }
 
@@ -1456,11 +1803,16 @@ func NewReserveActionPermissionBuilder() *ReserveActionPermissionBuilder {
 	return builder
 }
 
+// 权限项
+// 示例值：1
 func (builder *ReserveActionPermissionBuilder) Permission(permission int) *ReserveActionPermissionBuilder {
 	builder.permission = permission
 	builder.permissionFlag = true
 	return builder
 }
+
+// 权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+// 示例值：
 func (builder *ReserveActionPermissionBuilder) PermissionCheckers(permissionCheckers []*ReservePermissionChecker) *ReserveActionPermissionBuilder {
 	builder.permissionCheckers = permissionCheckers
 	builder.permissionCheckersFlag = true
@@ -1480,11 +1832,11 @@ func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission 
 }
 
 type ReserveCallSetting struct {
-	Callee *ReserveCallee `json:"callee,omitempty"`
+	Callee *ReserveCallee `json:"callee,omitempty"` // 被呼叫的用户
 }
 
 type ReserveCallSettingBuilder struct {
-	callee     *ReserveCallee
+	callee     *ReserveCallee // 被呼叫的用户
 	calleeFlag bool
 }
 
@@ -1493,6 +1845,8 @@ func NewReserveCallSettingBuilder() *ReserveCallSettingBuilder {
 	return builder
 }
 
+// 被呼叫的用户
+// 示例值：
 func (builder *ReserveCallSettingBuilder) Callee(callee *ReserveCallee) *ReserveCallSettingBuilder {
 	builder.callee = callee
 	builder.calleeFlag = true
@@ -1508,17 +1862,17 @@ func (builder *ReserveCallSettingBuilder) Build() *ReserveCallSetting {
 }
 
 type ReserveCallee struct {
-	Id          *string      `json:"id,omitempty"`
-	UserType    *int         `json:"user_type,omitempty"`
-	PstnSipInfo *PstnSipInfo `json:"pstn_sip_info,omitempty"`
+	Id          *string      `json:"id,omitempty"`            // 用户ID
+	UserType    *int         `json:"user_type,omitempty"`     // 用户类型，当前仅支持用户类型6(pstn用户)
+	PstnSipInfo *PstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 
 type ReserveCalleeBuilder struct {
-	id              string
+	id              string // 用户ID
 	idFlag          bool
-	userType        int
+	userType        int // 用户类型，当前仅支持用户类型6(pstn用户)
 	userTypeFlag    bool
-	pstnSipInfo     *PstnSipInfo
+	pstnSipInfo     *PstnSipInfo // pstn/sip信息
 	pstnSipInfoFlag bool
 }
 
@@ -1527,16 +1881,24 @@ func NewReserveCalleeBuilder() *ReserveCalleeBuilder {
 	return builder
 }
 
+// 用户ID
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReserveCalleeBuilder) Id(id string) *ReserveCalleeBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 用户类型，当前仅支持用户类型6(pstn用户)
+// 示例值：1
 func (builder *ReserveCalleeBuilder) UserType(userType int) *ReserveCalleeBuilder {
 	builder.userType = userType
 	builder.userTypeFlag = true
 	return builder
 }
+
+// pstn/sip信息
+// 示例值：
 func (builder *ReserveCalleeBuilder) PstnSipInfo(pstnSipInfo *PstnSipInfo) *ReserveCalleeBuilder {
 	builder.pstnSipInfo = pstnSipInfo
 	builder.pstnSipInfoFlag = true
@@ -1560,21 +1922,24 @@ func (builder *ReserveCalleeBuilder) Build() *ReserveCallee {
 }
 
 type ReserveMeetingSetting struct {
-	Topic              *string                    `json:"topic,omitempty"`
-	ActionPermissions  []*ReserveActionPermission `json:"action_permissions,omitempty"`
-	MeetingInitialType *int                       `json:"meeting_initial_type,omitempty"`
-	CallSetting        *ReserveCallSetting        `json:"call_setting,omitempty"`
+	Topic              *string                    `json:"topic,omitempty"`                // 会议主题
+	ActionPermissions  []*ReserveActionPermission `json:"action_permissions,omitempty"`   // 会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+	MeetingInitialType *int                       `json:"meeting_initial_type,omitempty"` // 会议初始类型
+	CallSetting        *ReserveCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
+	AutoRecord         *bool                      `json:"auto_record,omitempty"`          // 使用飞书视频会议时，是否开启自动录制，默认false
 }
 
 type ReserveMeetingSettingBuilder struct {
-	topic                  string
+	topic                  string // 会议主题
 	topicFlag              bool
-	actionPermissions      []*ReserveActionPermission
+	actionPermissions      []*ReserveActionPermission // 会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
 	actionPermissionsFlag  bool
-	meetingInitialType     int
+	meetingInitialType     int // 会议初始类型
 	meetingInitialTypeFlag bool
-	callSetting            *ReserveCallSetting
+	callSetting            *ReserveCallSetting // 1v1呼叫相关参数
 	callSettingFlag        bool
+	autoRecord             bool // 使用飞书视频会议时，是否开启自动录制，默认false
+	autoRecordFlag         bool
 }
 
 func NewReserveMeetingSettingBuilder() *ReserveMeetingSettingBuilder {
@@ -1582,24 +1947,43 @@ func NewReserveMeetingSettingBuilder() *ReserveMeetingSettingBuilder {
 	return builder
 }
 
+// 会议主题
+// 示例值：my meeting
 func (builder *ReserveMeetingSettingBuilder) Topic(topic string) *ReserveMeetingSettingBuilder {
 	builder.topic = topic
 	builder.topicFlag = true
 	return builder
 }
+
+// 会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+// 示例值：
 func (builder *ReserveMeetingSettingBuilder) ActionPermissions(actionPermissions []*ReserveActionPermission) *ReserveMeetingSettingBuilder {
 	builder.actionPermissions = actionPermissions
 	builder.actionPermissionsFlag = true
 	return builder
 }
+
+// 会议初始类型
+// 示例值：1
 func (builder *ReserveMeetingSettingBuilder) MeetingInitialType(meetingInitialType int) *ReserveMeetingSettingBuilder {
 	builder.meetingInitialType = meetingInitialType
 	builder.meetingInitialTypeFlag = true
 	return builder
 }
+
+// 1v1呼叫相关参数
+// 示例值：
 func (builder *ReserveMeetingSettingBuilder) CallSetting(callSetting *ReserveCallSetting) *ReserveMeetingSettingBuilder {
 	builder.callSetting = callSetting
 	builder.callSettingFlag = true
+	return builder
+}
+
+// 使用飞书视频会议时，是否开启自动录制，默认false
+// 示例值：true
+func (builder *ReserveMeetingSettingBuilder) AutoRecord(autoRecord bool) *ReserveMeetingSettingBuilder {
+	builder.autoRecord = autoRecord
+	builder.autoRecordFlag = true
 	return builder
 }
 
@@ -1619,21 +2003,25 @@ func (builder *ReserveMeetingSettingBuilder) Build() *ReserveMeetingSetting {
 	if builder.callSettingFlag {
 		req.CallSetting = builder.callSetting
 	}
+	if builder.autoRecordFlag {
+		req.AutoRecord = &builder.autoRecord
+
+	}
 	return req
 }
 
 type ReservePermissionChecker struct {
-	CheckField *int     `json:"check_field,omitempty"`
-	CheckMode  *int     `json:"check_mode,omitempty"`
-	CheckList  []string `json:"check_list,omitempty"`
+	CheckField *int     `json:"check_field,omitempty"` // 检查字段类型
+	CheckMode  *int     `json:"check_mode,omitempty"`  // 检查方式
+	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表
 }
 
 type ReservePermissionCheckerBuilder struct {
-	checkField     int
+	checkField     int // 检查字段类型
 	checkFieldFlag bool
-	checkMode      int
+	checkMode      int // 检查方式
 	checkModeFlag  bool
-	checkList      []string
+	checkList      []string // 检查字段列表
 	checkListFlag  bool
 }
 
@@ -1642,16 +2030,24 @@ func NewReservePermissionCheckerBuilder() *ReservePermissionCheckerBuilder {
 	return builder
 }
 
+// 检查字段类型
+// 示例值：1
 func (builder *ReservePermissionCheckerBuilder) CheckField(checkField int) *ReservePermissionCheckerBuilder {
 	builder.checkField = checkField
 	builder.checkFieldFlag = true
 	return builder
 }
+
+// 检查方式
+// 示例值：1
 func (builder *ReservePermissionCheckerBuilder) CheckMode(checkMode int) *ReservePermissionCheckerBuilder {
 	builder.checkMode = checkMode
 	builder.checkModeFlag = true
 	return builder
 }
+
+// 检查字段列表
+// 示例值：123
 func (builder *ReservePermissionCheckerBuilder) CheckList(checkList []string) *ReservePermissionCheckerBuilder {
 	builder.checkList = checkList
 	builder.checkListFlag = true
@@ -1675,23 +2071,23 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 }
 
 type RoomConfig struct {
-	RoomBackground        *string             `json:"room_background,omitempty"`
-	DisplayBackground     *string             `json:"display_background,omitempty"`
-	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`
-	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"`
-	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`
+	RoomBackground        *string             `json:"room_background,omitempty"`          // 飞书会议室背景图
+	DisplayBackground     *string             `json:"display_background,omitempty"`       // 飞书签到板背景图
+	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`          // 飞书会议室数字标牌
+	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"` // 飞书投屏盒子数字标牌
+	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`              // 会议室状态
 }
 
 type RoomConfigBuilder struct {
-	roomBackground            string
+	roomBackground            string // 飞书会议室背景图
 	roomBackgroundFlag        bool
-	displayBackground         string
+	displayBackground         string // 飞书签到板背景图
 	displayBackgroundFlag     bool
-	digitalSignage            *RoomDigitalSignage
+	digitalSignage            *RoomDigitalSignage // 飞书会议室数字标牌
 	digitalSignageFlag        bool
-	roomBoxDigitalSignage     *RoomDigitalSignage
+	roomBoxDigitalSignage     *RoomDigitalSignage // 飞书投屏盒子数字标牌
 	roomBoxDigitalSignageFlag bool
-	roomStatus                *RoomStatus
+	roomStatus                *RoomStatus // 会议室状态
 	roomStatusFlag            bool
 }
 
@@ -1700,26 +2096,40 @@ func NewRoomConfigBuilder() *RoomConfigBuilder {
 	return builder
 }
 
+// 飞书会议室背景图
+// 示例值：https://lf1-ttcdn-tos.pstatp.com/obj/xxx
 func (builder *RoomConfigBuilder) RoomBackground(roomBackground string) *RoomConfigBuilder {
 	builder.roomBackground = roomBackground
 	builder.roomBackgroundFlag = true
 	return builder
 }
+
+// 飞书签到板背景图
+// 示例值：https://lf1-ttcdn-tos.pstatp.com/obj/xxx
 func (builder *RoomConfigBuilder) DisplayBackground(displayBackground string) *RoomConfigBuilder {
 	builder.displayBackground = displayBackground
 	builder.displayBackgroundFlag = true
 	return builder
 }
+
+// 飞书会议室数字标牌
+// 示例值：
 func (builder *RoomConfigBuilder) DigitalSignage(digitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
 	builder.digitalSignage = digitalSignage
 	builder.digitalSignageFlag = true
 	return builder
 }
+
+// 飞书投屏盒子数字标牌
+// 示例值：
 func (builder *RoomConfigBuilder) RoomBoxDigitalSignage(roomBoxDigitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
 	builder.roomBoxDigitalSignage = roomBoxDigitalSignage
 	builder.roomBoxDigitalSignageFlag = true
 	return builder
 }
+
+// 会议室状态
+// 示例值：
 func (builder *RoomConfigBuilder) RoomStatus(roomStatus *RoomStatus) *RoomConfigBuilder {
 	builder.roomStatus = roomStatus
 	builder.roomStatusFlag = true
@@ -1749,23 +2159,23 @@ func (builder *RoomConfigBuilder) Build() *RoomConfig {
 }
 
 type RoomDigitalSignage struct {
-	Enable       *bool                         `json:"enable,omitempty"`
-	Mute         *bool                         `json:"mute,omitempty"`
-	StartDisplay *int                          `json:"start_display,omitempty"`
-	StopDisplay  *int                          `json:"stop_display,omitempty"`
-	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
+	Enable       *bool                         `json:"enable,omitempty"`        // 是否开启数字标牌功能
+	Mute         *bool                         `json:"mute,omitempty"`          // 是否静音播放
+	StartDisplay *int                          `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
+	StopDisplay  *int                          `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
+	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
 type RoomDigitalSignageBuilder struct {
-	enable           bool
+	enable           bool // 是否开启数字标牌功能
 	enableFlag       bool
-	mute             bool
+	mute             bool // 是否静音播放
 	muteFlag         bool
-	startDisplay     int
+	startDisplay     int // 日程会议开始前n分钟结束播放
 	startDisplayFlag bool
-	stopDisplay      int
+	stopDisplay      int // 会议结束后n分钟开始播放
 	stopDisplayFlag  bool
-	materials        []*RoomDigitalSignageMaterial
+	materials        []*RoomDigitalSignageMaterial // 素材列表
 	materialsFlag    bool
 }
 
@@ -1774,26 +2184,40 @@ func NewRoomDigitalSignageBuilder() *RoomDigitalSignageBuilder {
 	return builder
 }
 
+// 是否开启数字标牌功能
+// 示例值：true
 func (builder *RoomDigitalSignageBuilder) Enable(enable bool) *RoomDigitalSignageBuilder {
 	builder.enable = enable
 	builder.enableFlag = true
 	return builder
 }
+
+// 是否静音播放
+// 示例值：true
 func (builder *RoomDigitalSignageBuilder) Mute(mute bool) *RoomDigitalSignageBuilder {
 	builder.mute = mute
 	builder.muteFlag = true
 	return builder
 }
+
+// 日程会议开始前n分钟结束播放
+// 示例值：3
 func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDigitalSignageBuilder {
 	builder.startDisplay = startDisplay
 	builder.startDisplayFlag = true
 	return builder
 }
+
+// 会议结束后n分钟开始播放
+// 示例值：3
 func (builder *RoomDigitalSignageBuilder) StopDisplay(stopDisplay int) *RoomDigitalSignageBuilder {
 	builder.stopDisplay = stopDisplay
 	builder.stopDisplayFlag = true
 	return builder
 }
+
+// 素材列表
+// 示例值：
 func (builder *RoomDigitalSignageBuilder) Materials(materials []*RoomDigitalSignageMaterial) *RoomDigitalSignageBuilder {
 	builder.materials = materials
 	builder.materialsFlag = true
@@ -1825,35 +2249,35 @@ func (builder *RoomDigitalSignageBuilder) Build() *RoomDigitalSignage {
 }
 
 type RoomDigitalSignageMaterial struct {
-	Id           *string `json:"id,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	MaterialType *int    `json:"material_type,omitempty"`
-	Url          *string `json:"url,omitempty"`
-	Duration     *int    `json:"duration,omitempty"`
-	Cover        *string `json:"cover,omitempty"`
-	Md5          *string `json:"md5,omitempty"`
-	Vid          *string `json:"vid,omitempty"`
-	Size         *string `json:"size,omitempty"`
+	Id           *string `json:"id,omitempty"`            // 素材ID
+	Name         *string `json:"name,omitempty"`          // 素材名称
+	MaterialType *int    `json:"material_type,omitempty"` // 素材类型
+	Url          *string `json:"url,omitempty"`           // 素材url
+	Duration     *int    `json:"duration,omitempty"`      // 播放时长（单位sec）
+	Cover        *string `json:"cover,omitempty"`         // 素材封面url
+	Md5          *string `json:"md5,omitempty"`           // 素材文件md5
+	Vid          *string `json:"vid,omitempty"`           // 素材文件vid
+	Size         *string `json:"size,omitempty"`          // 素材文件大小（单位byte）
 }
 
 type RoomDigitalSignageMaterialBuilder struct {
-	id               string
+	id               string // 素材ID
 	idFlag           bool
-	name             string
+	name             string // 素材名称
 	nameFlag         bool
-	materialType     int
+	materialType     int // 素材类型
 	materialTypeFlag bool
-	url              string
+	url              string // 素材url
 	urlFlag          bool
-	duration         int
+	duration         int // 播放时长（单位sec）
 	durationFlag     bool
-	cover            string
+	cover            string // 素材封面url
 	coverFlag        bool
-	md5              string
+	md5              string // 素材文件md5
 	md5Flag          bool
-	vid              string
+	vid              string // 素材文件vid
 	vidFlag          bool
-	size             string
+	size             string // 素材文件大小（单位byte）
 	sizeFlag         bool
 }
 
@@ -1862,46 +2286,72 @@ func NewRoomDigitalSignageMaterialBuilder() *RoomDigitalSignageMaterialBuilder {
 	return builder
 }
 
+// 素材ID
+// 示例值：7847784676276
 func (builder *RoomDigitalSignageMaterialBuilder) Id(id string) *RoomDigitalSignageMaterialBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 素材名称
+// 示例值：name
 func (builder *RoomDigitalSignageMaterialBuilder) Name(name string) *RoomDigitalSignageMaterialBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 素材类型
+// 示例值：0
 func (builder *RoomDigitalSignageMaterialBuilder) MaterialType(materialType int) *RoomDigitalSignageMaterialBuilder {
 	builder.materialType = materialType
 	builder.materialTypeFlag = true
 	return builder
 }
+
+// 素材url
+// 示例值：url
 func (builder *RoomDigitalSignageMaterialBuilder) Url(url string) *RoomDigitalSignageMaterialBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// 播放时长（单位sec）
+// 示例值：15
 func (builder *RoomDigitalSignageMaterialBuilder) Duration(duration int) *RoomDigitalSignageMaterialBuilder {
 	builder.duration = duration
 	builder.durationFlag = true
 	return builder
 }
+
+// 素材封面url
+// 示例值：url
 func (builder *RoomDigitalSignageMaterialBuilder) Cover(cover string) *RoomDigitalSignageMaterialBuilder {
 	builder.cover = cover
 	builder.coverFlag = true
 	return builder
 }
+
+// 素材文件md5
+// 示例值：md5
 func (builder *RoomDigitalSignageMaterialBuilder) Md5(md5 string) *RoomDigitalSignageMaterialBuilder {
 	builder.md5 = md5
 	builder.md5Flag = true
 	return builder
 }
+
+// 素材文件vid
+// 示例值：vid
 func (builder *RoomDigitalSignageMaterialBuilder) Vid(vid string) *RoomDigitalSignageMaterialBuilder {
 	builder.vid = vid
 	builder.vidFlag = true
 	return builder
 }
+
+// 素材文件大小（单位byte）
+// 示例值：100
 func (builder *RoomDigitalSignageMaterialBuilder) Size(size string) *RoomDigitalSignageMaterialBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -1950,32 +2400,32 @@ func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMat
 }
 
 type RoomStatus struct {
-	Status           *bool    `json:"status,omitempty"`
-	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`
-	DisableStartTime *string  `json:"disable_start_time,omitempty"`
-	DisableEndTime   *string  `json:"disable_end_time,omitempty"`
-	DisableReason    *string  `json:"disable_reason,omitempty"`
-	ContactIds       []string `json:"contact_ids,omitempty"`
-	DisableNotice    *bool    `json:"disable_notice,omitempty"`
-	ResumeNotice     *bool    `json:"resume_notice,omitempty"`
+	Status           *bool    `json:"status,omitempty"`             // 是否启用会议室
+	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用
+	DisableStartTime *string  `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间，单位sec）
+	DisableEndTime   *string  `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因
+	ContactIds       []string `json:"contact_ids,omitempty"`        // 联系人列表，id类型由user_id_type参数决定
+	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
 }
 
 type RoomStatusBuilder struct {
-	status               bool
+	status               bool // 是否启用会议室
 	statusFlag           bool
-	scheduleStatus       bool
+	scheduleStatus       bool // 会议室未来状态为启用或禁用
 	scheduleStatusFlag   bool
-	disableStartTime     string
+	disableStartTime     string // 禁用开始时间（unix时间，单位sec）
 	disableStartTimeFlag bool
-	disableEndTime       string
+	disableEndTime       string // 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
 	disableEndTimeFlag   bool
-	disableReason        string
+	disableReason        string // 禁用原因
 	disableReasonFlag    bool
-	contactIds           []string
+	contactIds           []string // 联系人列表，id类型由user_id_type参数决定
 	contactIdsFlag       bool
-	disableNotice        bool
+	disableNotice        bool // 是否在禁用时发送通知给预定了该会议室的员工
 	disableNoticeFlag    bool
-	resumeNotice         bool
+	resumeNotice         bool // 是否在恢复启用时发送通知给预定了该会议室的员工
 	resumeNoticeFlag     bool
 }
 
@@ -1984,41 +2434,64 @@ func NewRoomStatusBuilder() *RoomStatusBuilder {
 	return builder
 }
 
+// 是否启用会议室
+// 示例值：true
 func (builder *RoomStatusBuilder) Status(status bool) *RoomStatusBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 会议室未来状态为启用或禁用
+// 示例值：true
 func (builder *RoomStatusBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatusBuilder {
 	builder.scheduleStatus = scheduleStatus
 	builder.scheduleStatusFlag = true
 	return builder
 }
+
+// 禁用开始时间（unix时间，单位sec）
+// 示例值：1652356050
 func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime string) *RoomStatusBuilder {
 	builder.disableStartTime = disableStartTime
 	builder.disableStartTimeFlag = true
 	return builder
 }
+
+// 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+// 示例值：1652442450
 func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime string) *RoomStatusBuilder {
 	builder.disableEndTime = disableEndTime
 	builder.disableEndTimeFlag = true
 	return builder
 }
+
+// 禁用原因
+// 示例值：测试占用
 func (builder *RoomStatusBuilder) DisableReason(disableReason string) *RoomStatusBuilder {
 	builder.disableReason = disableReason
 	builder.disableReasonFlag = true
 	return builder
 }
+
+// 联系人列表，id类型由user_id_type参数决定
+// 示例值：["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
 func (builder *RoomStatusBuilder) ContactIds(contactIds []string) *RoomStatusBuilder {
 	builder.contactIds = contactIds
 	builder.contactIdsFlag = true
 	return builder
 }
+
+// 是否在禁用时发送通知给预定了该会议室的员工
+// 示例值：true
 func (builder *RoomStatusBuilder) DisableNotice(disableNotice bool) *RoomStatusBuilder {
 	builder.disableNotice = disableNotice
 	builder.disableNoticeFlag = true
 	return builder
 }
+
+// 是否在恢复启用时发送通知给预定了该会议室的员工
+// 示例值：true
 func (builder *RoomStatusBuilder) ResumeNotice(resumeNotice bool) *RoomStatusBuilder {
 	builder.resumeNotice = resumeNotice
 	builder.resumeNoticeFlag = true
@@ -2062,17 +2535,17 @@ func (builder *RoomStatusBuilder) Build() *RoomStatus {
 }
 
 type UserId struct {
-	UserId  *string `json:"user_id,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
 }
 
 type UserIdBuilder struct {
-	userId      string
+	userId      string //
 	userIdFlag  bool
-	openId      string
+	openId      string //
 	openIdFlag  bool
-	unionId     string
+	unionId     string //
 	unionIdFlag bool
 }
 
@@ -2081,16 +2554,24 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
@@ -2114,6 +2595,769 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
+type GetExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetExportReqBuilder() *GetExportReqBuilder {
+	builder := &GetExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 任务id
+//
+// 示例值：7108646852144136212
+func (builder *GetExportReqBuilder) TaskId(taskId string) *GetExportReqBuilder {
+	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
+	return builder
+}
+
+func (builder *GetExportReqBuilder) Build() *GetExportReq {
+	req := &GetExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetExportReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetExportRespData struct {
+	Status *int    `json:"status,omitempty"` // 任务状态
+	Url    *string `json:"url,omitempty"`    // 文件下载地址
+}
+
+type GetExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetExportRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetExportResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MeetingListExportReqBodyBuilder struct {
+	startTime     string // 查询开始时间（unix时间，单位sec）
+	startTimeFlag bool
+	endTime       string // 查询结束时间（unix时间，单位sec）
+	endTimeFlag   bool
+	meetingNo     string // 按9位会议号筛选（最多一个筛选条件）
+	meetingNoFlag bool
+	userId        string // 按参会Lark用户筛选（最多一个筛选条件）
+	userIdFlag    bool
+	roomId        string // 按参会Rooms筛选（最多一个筛选条件）
+	roomIdFlag    bool
+}
+
+func NewMeetingListExportReqBodyBuilder() *MeetingListExportReqBodyBuilder {
+	builder := &MeetingListExportReqBodyBuilder{}
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *MeetingListExportReqBodyBuilder) StartTime(startTime string) *MeetingListExportReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *MeetingListExportReqBodyBuilder) EndTime(endTime string) *MeetingListExportReqBodyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 按9位会议号筛选（最多一个筛选条件）
+//
+//示例值：123456789
+func (builder *MeetingListExportReqBodyBuilder) MeetingNo(meetingNo string) *MeetingListExportReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *MeetingListExportReqBodyBuilder) UserId(userId string) *MeetingListExportReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+//示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *MeetingListExportReqBodyBuilder) RoomId(roomId string) *MeetingListExportReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *MeetingListExportReqBodyBuilder) Build() *MeetingListExportReqBody {
+	req := &MeetingListExportReqBody{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req
+}
+
+type MeetingListExportPathReqBodyBuilder struct {
+	startTime     string // 查询开始时间（unix时间，单位sec）
+	startTimeFlag bool
+	endTime       string // 查询结束时间（unix时间，单位sec）
+	endTimeFlag   bool
+	meetingNo     string // 按9位会议号筛选（最多一个筛选条件）
+	meetingNoFlag bool
+	userId        string // 按参会Lark用户筛选（最多一个筛选条件）
+	userIdFlag    bool
+	roomId        string // 按参会Rooms筛选（最多一个筛选条件）
+	roomIdFlag    bool
+}
+
+func NewMeetingListExportPathReqBodyBuilder() *MeetingListExportPathReqBodyBuilder {
+	builder := &MeetingListExportPathReqBodyBuilder{}
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *MeetingListExportPathReqBodyBuilder) StartTime(startTime string) *MeetingListExportPathReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *MeetingListExportPathReqBodyBuilder) EndTime(endTime string) *MeetingListExportPathReqBodyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 按9位会议号筛选（最多一个筛选条件）
+//
+// 示例值：123456789
+func (builder *MeetingListExportPathReqBodyBuilder) MeetingNo(meetingNo string) *MeetingListExportPathReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *MeetingListExportPathReqBodyBuilder) UserId(userId string) *MeetingListExportPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *MeetingListExportPathReqBodyBuilder) RoomId(roomId string) *MeetingListExportPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *MeetingListExportPathReqBodyBuilder) Build() (*MeetingListExportReqBody, error) {
+	req := &MeetingListExportReqBody{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req, nil
+}
+
+type MeetingListExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MeetingListExportReqBody
+}
+
+func NewMeetingListExportReqBuilder() *MeetingListExportReqBuilder {
+	builder := &MeetingListExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *MeetingListExportReqBuilder) UserIdType(userIdType string) *MeetingListExportReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 导出会议明细
+func (builder *MeetingListExportReqBuilder) Body(body *MeetingListExportReqBody) *MeetingListExportReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MeetingListExportReqBuilder) Build() *MeetingListExportReq {
+	req := &MeetingListExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MeetingListExportReqBody struct {
+	StartTime *string `json:"start_time,omitempty"` // 查询开始时间（unix时间，单位sec）
+	EndTime   *string `json:"end_time,omitempty"`   // 查询结束时间（unix时间，单位sec）
+	MeetingNo *string `json:"meeting_no,omitempty"` // 按9位会议号筛选（最多一个筛选条件）
+	UserId    *string `json:"user_id,omitempty"`    // 按参会Lark用户筛选（最多一个筛选条件）
+	RoomId    *string `json:"room_id,omitempty"`    // 按参会Rooms筛选（最多一个筛选条件）
+}
+
+type MeetingListExportReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MeetingListExportReqBody `body:""`
+}
+
+type MeetingListExportRespData struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务id
+}
+
+type MeetingListExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MeetingListExportRespData `json:"data"` // 业务数据
+}
+
+func (resp *MeetingListExportResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ParticipantListExportReqBodyBuilder struct {
+	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTimeFlag bool
+	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTimeFlag   bool
+	meetingNo            string // 9位会议号
+	meetingNoFlag        bool
+	userId               string // 按参会Lark用户筛选（最多一个筛选条件）
+	userIdFlag           bool
+	roomId               string // 按参会Rooms筛选（最多一个筛选条件）
+	roomIdFlag           bool
+}
+
+func NewParticipantListExportReqBodyBuilder() *ParticipantListExportReqBodyBuilder {
+	builder := &ParticipantListExportReqBodyBuilder{}
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ParticipantListExportReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantListExportReqBodyBuilder {
+	builder.meetingStartTime = meetingStartTime
+	builder.meetingStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ParticipantListExportReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantListExportReqBodyBuilder {
+	builder.meetingEndTime = meetingEndTime
+	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 9位会议号
+//
+//示例值：123456789
+func (builder *ParticipantListExportReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantListExportReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ParticipantListExportReqBodyBuilder) UserId(userId string) *ParticipantListExportReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+//示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *ParticipantListExportReqBodyBuilder) RoomId(roomId string) *ParticipantListExportReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *ParticipantListExportReqBodyBuilder) Build() *ParticipantListExportReqBody {
+	req := &ParticipantListExportReqBody{}
+	if builder.meetingStartTimeFlag {
+		req.MeetingStartTime = &builder.meetingStartTime
+	}
+	if builder.meetingEndTimeFlag {
+		req.MeetingEndTime = &builder.meetingEndTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req
+}
+
+type ParticipantListExportPathReqBodyBuilder struct {
+	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTimeFlag bool
+	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTimeFlag   bool
+	meetingNo            string // 9位会议号
+	meetingNoFlag        bool
+	userId               string // 按参会Lark用户筛选（最多一个筛选条件）
+	userIdFlag           bool
+	roomId               string // 按参会Rooms筛选（最多一个筛选条件）
+	roomIdFlag           bool
+}
+
+func NewParticipantListExportPathReqBodyBuilder() *ParticipantListExportPathReqBodyBuilder {
+	builder := &ParticipantListExportPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ParticipantListExportPathReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantListExportPathReqBodyBuilder {
+	builder.meetingStartTime = meetingStartTime
+	builder.meetingStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ParticipantListExportPathReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantListExportPathReqBodyBuilder {
+	builder.meetingEndTime = meetingEndTime
+	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 9位会议号
+//
+// 示例值：123456789
+func (builder *ParticipantListExportPathReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantListExportPathReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ParticipantListExportPathReqBodyBuilder) UserId(userId string) *ParticipantListExportPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *ParticipantListExportPathReqBodyBuilder) RoomId(roomId string) *ParticipantListExportPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *ParticipantListExportPathReqBodyBuilder) Build() (*ParticipantListExportReqBody, error) {
+	req := &ParticipantListExportReqBody{}
+	if builder.meetingStartTimeFlag {
+		req.MeetingStartTime = &builder.meetingStartTime
+	}
+	if builder.meetingEndTimeFlag {
+		req.MeetingEndTime = &builder.meetingEndTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req, nil
+}
+
+type ParticipantListExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ParticipantListExportReqBody
+}
+
+func NewParticipantListExportReqBuilder() *ParticipantListExportReqBuilder {
+	builder := &ParticipantListExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *ParticipantListExportReqBuilder) UserIdType(userIdType string) *ParticipantListExportReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 导出某个会议的参会人详情列表
+func (builder *ParticipantListExportReqBuilder) Body(body *ParticipantListExportReqBody) *ParticipantListExportReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ParticipantListExportReqBuilder) Build() *ParticipantListExportReq {
+	req := &ParticipantListExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ParticipantListExportReqBody struct {
+	MeetingStartTime *string `json:"meeting_start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
+	MeetingEndTime   *string `json:"meeting_end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
+	MeetingNo        *string `json:"meeting_no,omitempty"`         // 9位会议号
+	UserId           *string `json:"user_id,omitempty"`            // 按参会Lark用户筛选（最多一个筛选条件）
+	RoomId           *string `json:"room_id,omitempty"`            // 按参会Rooms筛选（最多一个筛选条件）
+}
+
+type ParticipantListExportReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ParticipantListExportReqBody `body:""`
+}
+
+type ParticipantListExportRespData struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务id
+}
+
+type ParticipantListExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ParticipantListExportRespData `json:"data"` // 业务数据
+}
+
+func (resp *ParticipantListExportResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ParticipantQualityListExportReqBodyBuilder struct {
+	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTimeFlag bool
+	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTimeFlag   bool
+	meetingNo            string // 9位会议号
+	meetingNoFlag        bool
+	joinTime             string // 参会人入会时间（unix时间，单位sec）
+	joinTimeFlag         bool
+	userId               string // 参会人为Lark用户时填入
+	userIdFlag           bool
+	roomId               string // 参会人为Rooms时填入
+	roomIdFlag           bool
+}
+
+func NewParticipantQualityListExportReqBodyBuilder() *ParticipantQualityListExportReqBodyBuilder {
+	builder := &ParticipantQualityListExportReqBodyBuilder{}
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.meetingStartTime = meetingStartTime
+	builder.meetingStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.meetingEndTime = meetingEndTime
+	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 9位会议号
+//
+//示例值：123456789
+func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 参会人入会时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ParticipantQualityListExportReqBodyBuilder) JoinTime(joinTime string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.joinTime = joinTime
+	builder.joinTimeFlag = true
+	return builder
+}
+
+// 参会人为Lark用户时填入
+//
+//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ParticipantQualityListExportReqBodyBuilder) UserId(userId string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 参会人为Rooms时填入
+//
+//示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *ParticipantQualityListExportReqBodyBuilder) RoomId(roomId string) *ParticipantQualityListExportReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *ParticipantQualityListExportReqBodyBuilder) Build() *ParticipantQualityListExportReqBody {
+	req := &ParticipantQualityListExportReqBody{}
+	if builder.meetingStartTimeFlag {
+		req.MeetingStartTime = &builder.meetingStartTime
+	}
+	if builder.meetingEndTimeFlag {
+		req.MeetingEndTime = &builder.meetingEndTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.joinTimeFlag {
+		req.JoinTime = &builder.joinTime
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req
+}
+
+type ParticipantQualityListExportPathReqBodyBuilder struct {
+	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTimeFlag bool
+	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTimeFlag   bool
+	meetingNo            string // 9位会议号
+	meetingNoFlag        bool
+	joinTime             string // 参会人入会时间（unix时间，单位sec）
+	joinTimeFlag         bool
+	userId               string // 参会人为Lark用户时填入
+	userIdFlag           bool
+	roomId               string // 参会人为Rooms时填入
+	roomIdFlag           bool
+}
+
+func NewParticipantQualityListExportPathReqBodyBuilder() *ParticipantQualityListExportPathReqBodyBuilder {
+	builder := &ParticipantQualityListExportPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.meetingStartTime = meetingStartTime
+	builder.meetingStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.meetingEndTime = meetingEndTime
+	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 9位会议号
+//
+// 示例值：123456789
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 参会人入会时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) JoinTime(joinTime string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.joinTime = joinTime
+	builder.joinTimeFlag = true
+	return builder
+}
+
+// 参会人为Lark用户时填入
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) UserId(userId string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 参会人为Rooms时填入
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) RoomId(roomId string) *ParticipantQualityListExportPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+func (builder *ParticipantQualityListExportPathReqBodyBuilder) Build() (*ParticipantQualityListExportReqBody, error) {
+	req := &ParticipantQualityListExportReqBody{}
+	if builder.meetingStartTimeFlag {
+		req.MeetingStartTime = &builder.meetingStartTime
+	}
+	if builder.meetingEndTimeFlag {
+		req.MeetingEndTime = &builder.meetingEndTime
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+	}
+	if builder.joinTimeFlag {
+		req.JoinTime = &builder.joinTime
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	return req, nil
+}
+
+type ParticipantQualityListExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ParticipantQualityListExportReqBody
+}
+
+func NewParticipantQualityListExportReqBuilder() *ParticipantQualityListExportReqBuilder {
+	builder := &ParticipantQualityListExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *ParticipantQualityListExportReqBuilder) UserIdType(userIdType string) *ParticipantQualityListExportReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 导出某场会议某个参会人的音视频&共享质量数据
+func (builder *ParticipantQualityListExportReqBuilder) Body(body *ParticipantQualityListExportReqBody) *ParticipantQualityListExportReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ParticipantQualityListExportReqBuilder) Build() *ParticipantQualityListExportReq {
+	req := &ParticipantQualityListExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ParticipantQualityListExportReqBody struct {
+	MeetingStartTime *string `json:"meeting_start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
+	MeetingEndTime   *string `json:"meeting_end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
+	MeetingNo        *string `json:"meeting_no,omitempty"`         // 9位会议号
+	JoinTime         *string `json:"join_time,omitempty"`          // 参会人入会时间（unix时间，单位sec）
+	UserId           *string `json:"user_id,omitempty"`            // 参会人为Lark用户时填入
+	RoomId           *string `json:"room_id,omitempty"`            // 参会人为Rooms时填入
+}
+
+type ParticipantQualityListExportReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ParticipantQualityListExportReqBody `body:""`
+}
+
+type ParticipantQualityListExportRespData struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务id
+}
+
+type ParticipantQualityListExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ParticipantQualityListExportRespData `json:"data"` // 业务数据
+}
+
+func (resp *ParticipantQualityListExportResp) Success() bool {
+	return resp.Code == 0
+}
+
 type EndMeetingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -2127,6 +3371,9 @@ func NewEndMeetingReqBuilder() *EndMeetingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *EndMeetingReqBuilder) MeetingId(meetingId string) *EndMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
@@ -2165,18 +3412,33 @@ func NewGetMeetingReqBuilder() *GetMeetingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *GetMeetingReqBuilder) MeetingId(meetingId string) *GetMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 是否需要参会人列表
+//
+// 示例值：false
 func (builder *GetMeetingReqBuilder) WithParticipants(withParticipants bool) *GetMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("with_participants", fmt.Sprint(withParticipants))
 	return builder
 }
+
+// 是否需要会中使用能力统计（仅限tenant_access_token）
+//
+// 示例值：false
 func (builder *GetMeetingReqBuilder) WithMeetingAbility(withMeetingAbility bool) *GetMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("with_meeting_ability", fmt.Sprint(withMeetingAbility))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *GetMeetingReqBuilder) UserIdType(userIdType string) *GetMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -2195,13 +3457,13 @@ type GetMeetingReq struct {
 }
 
 type GetMeetingRespData struct {
-	Meeting *Meeting `json:"meeting,omitempty"`
+	Meeting *Meeting `json:"meeting,omitempty"` // 会议数据
 }
 
 type GetMeetingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMeetingRespData `json:"data"`
+	Data *GetMeetingRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMeetingResp) Success() bool {
@@ -2209,7 +3471,7 @@ func (resp *GetMeetingResp) Success() bool {
 }
 
 type InviteMeetingReqBodyBuilder struct {
-	invitees     []*MeetingUser
+	invitees     []*MeetingUser // 被邀请的用户列表
 	inviteesFlag bool
 }
 
@@ -2218,6 +3480,9 @@ func NewInviteMeetingReqBodyBuilder() *InviteMeetingReqBodyBuilder {
 	return builder
 }
 
+// 被邀请的用户列表
+//
+//示例值：
 func (builder *InviteMeetingReqBodyBuilder) Invitees(invitees []*MeetingUser) *InviteMeetingReqBodyBuilder {
 	builder.invitees = invitees
 	builder.inviteesFlag = true
@@ -2233,7 +3498,7 @@ func (builder *InviteMeetingReqBodyBuilder) Build() *InviteMeetingReqBody {
 }
 
 type InviteMeetingPathReqBodyBuilder struct {
-	invitees     []*MeetingUser
+	invitees     []*MeetingUser // 被邀请的用户列表
 	inviteesFlag bool
 }
 
@@ -2241,6 +3506,10 @@ func NewInviteMeetingPathReqBodyBuilder() *InviteMeetingPathReqBodyBuilder {
 	builder := &InviteMeetingPathReqBodyBuilder{}
 	return builder
 }
+
+// 被邀请的用户列表
+//
+// 示例值：
 func (builder *InviteMeetingPathReqBodyBuilder) Invitees(invitees []*MeetingUser) *InviteMeetingPathReqBodyBuilder {
 	builder.invitees = invitees
 	builder.inviteesFlag = true
@@ -2269,14 +3538,23 @@ func NewInviteMeetingReqBuilder() *InviteMeetingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *InviteMeetingReqBuilder) MeetingId(meetingId string) *InviteMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *InviteMeetingReqBuilder) UserIdType(userIdType string) *InviteMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 邀请参会人进入会议
 func (builder *InviteMeetingReqBuilder) Body(body *InviteMeetingReqBody) *InviteMeetingReqBuilder {
 	builder.body = body
 	return builder
@@ -2292,7 +3570,7 @@ func (builder *InviteMeetingReqBuilder) Build() *InviteMeetingReq {
 }
 
 type InviteMeetingReqBody struct {
-	Invitees []*MeetingUser `json:"invitees,omitempty"`
+	Invitees []*MeetingUser `json:"invitees,omitempty"` // 被邀请的用户列表
 }
 
 type InviteMeetingReq struct {
@@ -2301,13 +3579,13 @@ type InviteMeetingReq struct {
 }
 
 type InviteMeetingRespData struct {
-	InviteResults []*MeetingInviteStatus `json:"invite_results,omitempty"`
+	InviteResults []*MeetingInviteStatus `json:"invite_results,omitempty"` // 邀请结果
 }
 
 type InviteMeetingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *InviteMeetingRespData `json:"data"`
+	Data *InviteMeetingRespData `json:"data"` // 业务数据
 }
 
 func (resp *InviteMeetingResp) Success() bool {
@@ -2315,7 +3593,7 @@ func (resp *InviteMeetingResp) Success() bool {
 }
 
 type KickoutMeetingReqBodyBuilder struct {
-	kickoutUsers     []*MeetingUser
+	kickoutUsers     []*MeetingUser // 需踢出的用户列表
 	kickoutUsersFlag bool
 }
 
@@ -2324,6 +3602,9 @@ func NewKickoutMeetingReqBodyBuilder() *KickoutMeetingReqBodyBuilder {
 	return builder
 }
 
+// 需踢出的用户列表
+//
+//示例值：
 func (builder *KickoutMeetingReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingReqBodyBuilder {
 	builder.kickoutUsers = kickoutUsers
 	builder.kickoutUsersFlag = true
@@ -2339,7 +3620,7 @@ func (builder *KickoutMeetingReqBodyBuilder) Build() *KickoutMeetingReqBody {
 }
 
 type KickoutMeetingPathReqBodyBuilder struct {
-	kickoutUsers     []*MeetingUser
+	kickoutUsers     []*MeetingUser // 需踢出的用户列表
 	kickoutUsersFlag bool
 }
 
@@ -2347,6 +3628,10 @@ func NewKickoutMeetingPathReqBodyBuilder() *KickoutMeetingPathReqBodyBuilder {
 	builder := &KickoutMeetingPathReqBodyBuilder{}
 	return builder
 }
+
+// 需踢出的用户列表
+//
+// 示例值：
 func (builder *KickoutMeetingPathReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingPathReqBodyBuilder {
 	builder.kickoutUsers = kickoutUsers
 	builder.kickoutUsersFlag = true
@@ -2375,14 +3660,23 @@ func NewKickoutMeetingReqBuilder() *KickoutMeetingReqBuilder {
 	return builder
 }
 
+// 会议ID
+//
+// 示例值：6911188411932033028
 func (builder *KickoutMeetingReqBuilder) MeetingId(meetingId string) *KickoutMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *KickoutMeetingReqBuilder) UserIdType(userIdType string) *KickoutMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 将参会人从会议中移除
 func (builder *KickoutMeetingReqBuilder) Body(body *KickoutMeetingReqBody) *KickoutMeetingReqBuilder {
 	builder.body = body
 	return builder
@@ -2398,7 +3692,7 @@ func (builder *KickoutMeetingReqBuilder) Build() *KickoutMeetingReq {
 }
 
 type KickoutMeetingReqBody struct {
-	KickoutUsers []*MeetingUser `json:"kickout_users,omitempty"`
+	KickoutUsers []*MeetingUser `json:"kickout_users,omitempty"` // 需踢出的用户列表
 }
 
 type KickoutMeetingReq struct {
@@ -2407,13 +3701,13 @@ type KickoutMeetingReq struct {
 }
 
 type KickoutMeetingRespData struct {
-	KickoutResults []*MeetingParticipantResult `json:"kickout_results,omitempty"`
+	KickoutResults []*MeetingParticipantResult `json:"kickout_results,omitempty"` // 踢出结果
 }
 
 type KickoutMeetingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *KickoutMeetingRespData `json:"data"`
+	Data *KickoutMeetingRespData `json:"data"` // 业务数据
 }
 
 func (resp *KickoutMeetingResp) Success() bool {
@@ -2422,7 +3716,7 @@ func (resp *KickoutMeetingResp) Success() bool {
 
 type ListByNoMeetingReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListByNoMeetingReqBuilder() *ListByNoMeetingReqBuilder {
@@ -2434,26 +3728,47 @@ func NewListByNoMeetingReqBuilder() *ListByNoMeetingReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListByNoMeetingReqBuilder) Limit(limit int) *ListByNoMeetingReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 9位会议号
+//
+// 示例值：123456789
 func (builder *ListByNoMeetingReqBuilder) MeetingNo(meetingNo string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("meeting_no", fmt.Sprint(meetingNo))
 	return builder
 }
+
+// 查询开始时间（unix时间，单位sec）
+//
+// 示例值：1608888867
 func (builder *ListByNoMeetingReqBuilder) StartTime(startTime string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
+
+// 查询结束时间（unix时间，单位sec）
+//
+// 示例值：1608888867
 func (builder *ListByNoMeetingReqBuilder) EndTime(endTime string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
+
+//
+//
+// 示例值：5
 func (builder *ListByNoMeetingReqBuilder) PageToken(pageToken string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListByNoMeetingReqBuilder) PageSize(pageSize int) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2469,19 +3784,20 @@ func (builder *ListByNoMeetingReqBuilder) Build() *ListByNoMeetingReq {
 
 type ListByNoMeetingReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListByNoMeetingRespData struct {
-	HasMore       *bool      `json:"has_more,omitempty"`
-	PageToken     *string    `json:"page_token,omitempty"`
-	MeetingBriefs []*Meeting `json:"meeting_briefs,omitempty"`
+	HasMore       *bool      `json:"has_more,omitempty"`       // 是否还有数据
+	PageToken     *string    `json:"page_token,omitempty"`     // 下一页分页的token，下次请求时传入
+	MeetingBriefs []*Meeting `json:"meeting_briefs,omitempty"` // 会议简要信息列表
 }
 
 type ListByNoMeetingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListByNoMeetingRespData `json:"data"`
+	Data *ListByNoMeetingRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListByNoMeetingResp) Success() bool {
@@ -2489,9 +3805,9 @@ func (resp *ListByNoMeetingResp) Success() bool {
 }
 
 type SetHostMeetingReqBodyBuilder struct {
-	hostUser        *MeetingUser
+	hostUser        *MeetingUser // 将要设置的主持人
 	hostUserFlag    bool
-	oldHostUser     *MeetingUser
+	oldHostUser     *MeetingUser // 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
 	oldHostUserFlag bool
 }
 
@@ -2500,11 +3816,18 @@ func NewSetHostMeetingReqBodyBuilder() *SetHostMeetingReqBodyBuilder {
 	return builder
 }
 
+// 将要设置的主持人
+//
+//示例值：
 func (builder *SetHostMeetingReqBodyBuilder) HostUser(hostUser *MeetingUser) *SetHostMeetingReqBodyBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
 	return builder
 }
+
+// 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
+//
+//示例值：
 func (builder *SetHostMeetingReqBodyBuilder) OldHostUser(oldHostUser *MeetingUser) *SetHostMeetingReqBodyBuilder {
 	builder.oldHostUser = oldHostUser
 	builder.oldHostUserFlag = true
@@ -2523,9 +3846,9 @@ func (builder *SetHostMeetingReqBodyBuilder) Build() *SetHostMeetingReqBody {
 }
 
 type SetHostMeetingPathReqBodyBuilder struct {
-	hostUser        *MeetingUser
+	hostUser        *MeetingUser // 将要设置的主持人
 	hostUserFlag    bool
-	oldHostUser     *MeetingUser
+	oldHostUser     *MeetingUser // 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
 	oldHostUserFlag bool
 }
 
@@ -2533,11 +3856,19 @@ func NewSetHostMeetingPathReqBodyBuilder() *SetHostMeetingPathReqBodyBuilder {
 	builder := &SetHostMeetingPathReqBodyBuilder{}
 	return builder
 }
+
+// 将要设置的主持人
+//
+// 示例值：
 func (builder *SetHostMeetingPathReqBodyBuilder) HostUser(hostUser *MeetingUser) *SetHostMeetingPathReqBodyBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
 	return builder
 }
+
+// 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
+//
+// 示例值：
 func (builder *SetHostMeetingPathReqBodyBuilder) OldHostUser(oldHostUser *MeetingUser) *SetHostMeetingPathReqBodyBuilder {
 	builder.oldHostUser = oldHostUser
 	builder.oldHostUserFlag = true
@@ -2569,14 +3900,23 @@ func NewSetHostMeetingReqBuilder() *SetHostMeetingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *SetHostMeetingReqBuilder) MeetingId(meetingId string) *SetHostMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *SetHostMeetingReqBuilder) UserIdType(userIdType string) *SetHostMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 设置会议的主持人
 func (builder *SetHostMeetingReqBuilder) Body(body *SetHostMeetingReqBody) *SetHostMeetingReqBuilder {
 	builder.body = body
 	return builder
@@ -2592,8 +3932,8 @@ func (builder *SetHostMeetingReqBuilder) Build() *SetHostMeetingReq {
 }
 
 type SetHostMeetingReqBody struct {
-	HostUser    *MeetingUser `json:"host_user,omitempty"`
-	OldHostUser *MeetingUser `json:"old_host_user,omitempty"`
+	HostUser    *MeetingUser `json:"host_user,omitempty"`     // 将要设置的主持人
+	OldHostUser *MeetingUser `json:"old_host_user,omitempty"` // 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
 }
 
 type SetHostMeetingReq struct {
@@ -2602,13 +3942,13 @@ type SetHostMeetingReq struct {
 }
 
 type SetHostMeetingRespData struct {
-	HostUser *MeetingUser `json:"host_user,omitempty"`
+	HostUser *MeetingUser `json:"host_user,omitempty"` // 会中当前主持人
 }
 
 type SetHostMeetingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *SetHostMeetingRespData `json:"data"`
+	Data *SetHostMeetingRespData `json:"data"` // 业务数据
 }
 
 func (resp *SetHostMeetingResp) Success() bool {
@@ -2628,6 +3968,9 @@ func NewGetMeetingRecordingReqBuilder() *GetMeetingRecordingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *GetMeetingRecordingReqBuilder) MeetingId(meetingId string) *GetMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
@@ -2645,13 +3988,13 @@ type GetMeetingRecordingReq struct {
 }
 
 type GetMeetingRecordingRespData struct {
-	Recording *MeetingRecording `json:"recording,omitempty"`
+	Recording *MeetingRecording `json:"recording,omitempty"` // 录制文件数据
 }
 
 type GetMeetingRecordingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMeetingRecordingRespData `json:"data"`
+	Data *GetMeetingRecordingRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMeetingRecordingResp) Success() bool {
@@ -2659,7 +4002,7 @@ func (resp *GetMeetingRecordingResp) Success() bool {
 }
 
 type SetPermissionMeetingRecordingReqBodyBuilder struct {
-	permissionObjects     []*RecordingPermissionObject
+	permissionObjects     []*RecordingPermissionObject // 授权对象列表
 	permissionObjectsFlag bool
 }
 
@@ -2668,6 +4011,9 @@ func NewSetPermissionMeetingRecordingReqBodyBuilder() *SetPermissionMeetingRecor
 	return builder
 }
 
+// 授权对象列表
+//
+//示例值：
 func (builder *SetPermissionMeetingRecordingReqBodyBuilder) PermissionObjects(permissionObjects []*RecordingPermissionObject) *SetPermissionMeetingRecordingReqBodyBuilder {
 	builder.permissionObjects = permissionObjects
 	builder.permissionObjectsFlag = true
@@ -2683,7 +4029,7 @@ func (builder *SetPermissionMeetingRecordingReqBodyBuilder) Build() *SetPermissi
 }
 
 type SetPermissionMeetingRecordingPathReqBodyBuilder struct {
-	permissionObjects     []*RecordingPermissionObject
+	permissionObjects     []*RecordingPermissionObject // 授权对象列表
 	permissionObjectsFlag bool
 }
 
@@ -2691,6 +4037,10 @@ func NewSetPermissionMeetingRecordingPathReqBodyBuilder() *SetPermissionMeetingR
 	builder := &SetPermissionMeetingRecordingPathReqBodyBuilder{}
 	return builder
 }
+
+// 授权对象列表
+//
+// 示例值：
 func (builder *SetPermissionMeetingRecordingPathReqBodyBuilder) PermissionObjects(permissionObjects []*RecordingPermissionObject) *SetPermissionMeetingRecordingPathReqBodyBuilder {
 	builder.permissionObjects = permissionObjects
 	builder.permissionObjectsFlag = true
@@ -2719,14 +4069,23 @@ func NewSetPermissionMeetingRecordingReqBuilder() *SetPermissionMeetingRecording
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *SetPermissionMeetingRecordingReqBuilder) MeetingId(meetingId string) *SetPermissionMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *SetPermissionMeetingRecordingReqBuilder) UserIdType(userIdType string) *SetPermissionMeetingRecordingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 将一个会议的录制文件授权给组织、用户或公开到公网
 func (builder *SetPermissionMeetingRecordingReqBuilder) Body(body *SetPermissionMeetingRecordingReqBody) *SetPermissionMeetingRecordingReqBuilder {
 	builder.body = body
 	return builder
@@ -2742,7 +4101,7 @@ func (builder *SetPermissionMeetingRecordingReqBuilder) Build() *SetPermissionMe
 }
 
 type SetPermissionMeetingRecordingReqBody struct {
-	PermissionObjects []*RecordingPermissionObject `json:"permission_objects,omitempty"`
+	PermissionObjects []*RecordingPermissionObject `json:"permission_objects,omitempty"` // 授权对象列表
 }
 
 type SetPermissionMeetingRecordingReq struct {
@@ -2760,7 +4119,7 @@ func (resp *SetPermissionMeetingRecordingResp) Success() bool {
 }
 
 type StartMeetingRecordingReqBodyBuilder struct {
-	timezone     int
+	timezone     int // 录制文件时间显示使用的时区[-12,12]
 	timezoneFlag bool
 }
 
@@ -2769,6 +4128,9 @@ func NewStartMeetingRecordingReqBodyBuilder() *StartMeetingRecordingReqBodyBuild
 	return builder
 }
 
+// 录制文件时间显示使用的时区[-12,12]
+//
+//示例值：8
 func (builder *StartMeetingRecordingReqBodyBuilder) Timezone(timezone int) *StartMeetingRecordingReqBodyBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
@@ -2784,7 +4146,7 @@ func (builder *StartMeetingRecordingReqBodyBuilder) Build() *StartMeetingRecordi
 }
 
 type StartMeetingRecordingPathReqBodyBuilder struct {
-	timezone     int
+	timezone     int // 录制文件时间显示使用的时区[-12,12]
 	timezoneFlag bool
 }
 
@@ -2792,6 +4154,10 @@ func NewStartMeetingRecordingPathReqBodyBuilder() *StartMeetingRecordingPathReqB
 	builder := &StartMeetingRecordingPathReqBodyBuilder{}
 	return builder
 }
+
+// 录制文件时间显示使用的时区[-12,12]
+//
+// 示例值：8
 func (builder *StartMeetingRecordingPathReqBodyBuilder) Timezone(timezone int) *StartMeetingRecordingPathReqBodyBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
@@ -2820,10 +4186,15 @@ func NewStartMeetingRecordingReqBuilder() *StartMeetingRecordingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *StartMeetingRecordingReqBuilder) MeetingId(meetingId string) *StartMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
+
+// 在会议中开始录制。
 func (builder *StartMeetingRecordingReqBuilder) Body(body *StartMeetingRecordingReqBody) *StartMeetingRecordingReqBuilder {
 	builder.body = body
 	return builder
@@ -2838,7 +4209,7 @@ func (builder *StartMeetingRecordingReqBuilder) Build() *StartMeetingRecordingRe
 }
 
 type StartMeetingRecordingReqBody struct {
-	Timezone *int `json:"timezone,omitempty"`
+	Timezone *int `json:"timezone,omitempty"` // 录制文件时间显示使用的时区[-12,12]
 }
 
 type StartMeetingRecordingReq struct {
@@ -2868,6 +4239,9 @@ func NewStopMeetingRecordingReqBuilder() *StopMeetingRecordingReqBuilder {
 	return builder
 }
 
+// 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
+// 示例值：6911188411932033028
 func (builder *StopMeetingRecordingReqBuilder) MeetingId(meetingId string) *StopMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
@@ -2906,10 +4280,17 @@ func NewGetDailyReportReqBuilder() *GetDailyReportReqBuilder {
 	return builder
 }
 
+// 开始时间（unix时间，单位sec）
+//
+// 示例值：1608888867
 func (builder *GetDailyReportReqBuilder) StartTime(startTime string) *GetDailyReportReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
+
+// 结束时间（unix时间，单位sec）
+//
+// 示例值：1608888966
 func (builder *GetDailyReportReqBuilder) EndTime(endTime string) *GetDailyReportReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
@@ -2927,13 +4308,13 @@ type GetDailyReportReq struct {
 }
 
 type GetDailyReportRespData struct {
-	MeetingReport *Report `json:"meeting_report,omitempty"`
+	MeetingReport *Report `json:"meeting_report,omitempty"` // 会议报告
 }
 
 type GetDailyReportResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDailyReportRespData `json:"data"`
+	Data *GetDailyReportRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDailyReportResp) Success() bool {
@@ -2953,22 +4334,41 @@ func NewGetTopUserReportReqBuilder() *GetTopUserReportReqBuilder {
 	return builder
 }
 
+// 开始时间（unix时间，单位sec）
+//
+// 示例值：1608888867
 func (builder *GetTopUserReportReqBuilder) StartTime(startTime string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
+
+// 结束时间（unix时间，单位sec）
+//
+// 示例值：1608889966
 func (builder *GetTopUserReportReqBuilder) EndTime(endTime string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
+
+// 取前多少位
+//
+// 示例值：10
 func (builder *GetTopUserReportReqBuilder) Limit(limit int) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("limit", fmt.Sprint(limit))
 	return builder
 }
+
+// 排序依据（降序）
+//
+// 示例值：1
 func (builder *GetTopUserReportReqBuilder) OrderBy(orderBy int) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("order_by", fmt.Sprint(orderBy))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetTopUserReportReqBuilder) UserIdType(userIdType string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -2986,13 +4386,13 @@ type GetTopUserReportReq struct {
 }
 
 type GetTopUserReportRespData struct {
-	TopUserReport []*ReportTopUser `json:"top_user_report,omitempty"`
+	TopUserReport []*ReportTopUser `json:"top_user_report,omitempty"` // top用户列表
 }
 
 type GetTopUserReportResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTopUserReportRespData `json:"data"`
+	Data *GetTopUserReportRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTopUserReportResp) Success() bool {
@@ -3000,9 +4400,9 @@ func (resp *GetTopUserReportResp) Success() bool {
 }
 
 type ApplyReserveReqBodyBuilder struct {
-	endTime             string
+	endTime             string // 预约到期时间（unix时间，单位sec），多人会议必填
 	endTimeFlag         bool
-	meetingSettings     *ReserveMeetingSetting
+	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
 
@@ -3011,11 +4411,18 @@ func NewApplyReserveReqBodyBuilder() *ApplyReserveReqBodyBuilder {
 	return builder
 }
 
+// 预约到期时间（unix时间，单位sec），多人会议必填
+//
+//示例值：1608888867
 func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime string) *ApplyReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 会议设置
+//
+//示例值：
 func (builder *ApplyReserveReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ApplyReserveReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -3034,9 +4441,9 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 }
 
 type ApplyReservePathReqBodyBuilder struct {
-	endTime             string
+	endTime             string // 预约到期时间（unix时间，单位sec），多人会议必填
 	endTimeFlag         bool
-	meetingSettings     *ReserveMeetingSetting
+	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
 
@@ -3044,11 +4451,19 @@ func NewApplyReservePathReqBodyBuilder() *ApplyReservePathReqBodyBuilder {
 	builder := &ApplyReservePathReqBodyBuilder{}
 	return builder
 }
+
+// 预约到期时间（unix时间，单位sec），多人会议必填
+//
+// 示例值：1608888867
 func (builder *ApplyReservePathReqBodyBuilder) EndTime(endTime string) *ApplyReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 会议设置
+//
+// 示例值：
 func (builder *ApplyReservePathReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ApplyReservePathReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -3080,10 +4495,15 @@ func NewApplyReserveReqBuilder() *ApplyReserveReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *ApplyReserveReqBuilder) UserIdType(userIdType string) *ApplyReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 创建一个会议预约。
 func (builder *ApplyReserveReqBuilder) Body(body *ApplyReserveReqBody) *ApplyReserveReqBuilder {
 	builder.body = body
 	return builder
@@ -3098,8 +4518,8 @@ func (builder *ApplyReserveReqBuilder) Build() *ApplyReserveReq {
 }
 
 type ApplyReserveReqBody struct {
-	EndTime         *string                `json:"end_time,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
+	EndTime         *string                `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec），多人会议必填
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"` // 会议设置
 }
 
 type ApplyReserveReq struct {
@@ -3108,13 +4528,13 @@ type ApplyReserveReq struct {
 }
 
 type ApplyReserveRespData struct {
-	Reserve *Reserve `json:"reserve,omitempty"`
+	Reserve *Reserve `json:"reserve,omitempty"` // 预约数据
 }
 
 type ApplyReserveResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ApplyReserveRespData `json:"data"`
+	Data *ApplyReserveRespData `json:"data"` // 业务数据
 }
 
 func (resp *ApplyReserveResp) Success() bool {
@@ -3134,6 +4554,9 @@ func NewDeleteReserveReqBuilder() *DeleteReserveReqBuilder {
 	return builder
 }
 
+// 预约ID（预约的唯一标识）
+//
+// 示例值：6911188411932033028
 func (builder *DeleteReserveReqBuilder) ReserveId(reserveId string) *DeleteReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
@@ -3172,10 +4595,17 @@ func NewGetReserveReqBuilder() *GetReserveReqBuilder {
 	return builder
 }
 
+// 预约ID（预约的唯一标识）
+//
+// 示例值：6911188411932033028
 func (builder *GetReserveReqBuilder) ReserveId(reserveId string) *GetReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetReserveReqBuilder) UserIdType(userIdType string) *GetReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3194,13 +4624,13 @@ type GetReserveReq struct {
 }
 
 type GetReserveRespData struct {
-	Reserve *Reserve `json:"reserve,omitempty"`
+	Reserve *Reserve `json:"reserve,omitempty"` // 预约数据
 }
 
 type GetReserveResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetReserveRespData `json:"data"`
+	Data *GetReserveRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetReserveResp) Success() bool {
@@ -3220,14 +4650,25 @@ func NewGetActiveMeetingReserveReqBuilder() *GetActiveMeetingReserveReqBuilder {
 	return builder
 }
 
+// 预约ID（预约的唯一标识）
+//
+// 示例值：6911188411932033028
 func (builder *GetActiveMeetingReserveReqBuilder) ReserveId(reserveId string) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
+
+// 是否需要参会人列表，默认为false
+//
+// 示例值：false
 func (builder *GetActiveMeetingReserveReqBuilder) WithParticipants(withParticipants bool) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("with_participants", fmt.Sprint(withParticipants))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetActiveMeetingReserveReqBuilder) UserIdType(userIdType string) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3246,13 +4687,13 @@ type GetActiveMeetingReserveReq struct {
 }
 
 type GetActiveMeetingReserveRespData struct {
-	Meeting *Meeting `json:"meeting,omitempty"`
+	Meeting *Meeting `json:"meeting,omitempty"` // 会议数据
 }
 
 type GetActiveMeetingReserveResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetActiveMeetingReserveRespData `json:"data"`
+	Data *GetActiveMeetingReserveRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetActiveMeetingReserveResp) Success() bool {
@@ -3260,9 +4701,9 @@ func (resp *GetActiveMeetingReserveResp) Success() bool {
 }
 
 type UpdateReserveReqBodyBuilder struct {
-	endTime             string
+	endTime             string // 预约到期时间（unix时间，单位sec）
 	endTimeFlag         bool
-	meetingSettings     *ReserveMeetingSetting
+	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
 
@@ -3271,11 +4712,18 @@ func NewUpdateReserveReqBodyBuilder() *UpdateReserveReqBodyBuilder {
 	return builder
 }
 
+// 预约到期时间（unix时间，单位sec）
+//
+//示例值：1608888867
 func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime string) *UpdateReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 会议设置
+//
+//示例值：
 func (builder *UpdateReserveReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *UpdateReserveReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -3294,9 +4742,9 @@ func (builder *UpdateReserveReqBodyBuilder) Build() *UpdateReserveReqBody {
 }
 
 type UpdateReservePathReqBodyBuilder struct {
-	endTime             string
+	endTime             string // 预约到期时间（unix时间，单位sec）
 	endTimeFlag         bool
-	meetingSettings     *ReserveMeetingSetting
+	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
 
@@ -3304,11 +4752,19 @@ func NewUpdateReservePathReqBodyBuilder() *UpdateReservePathReqBodyBuilder {
 	builder := &UpdateReservePathReqBodyBuilder{}
 	return builder
 }
+
+// 预约到期时间（unix时间，单位sec）
+//
+// 示例值：1608888867
 func (builder *UpdateReservePathReqBodyBuilder) EndTime(endTime string) *UpdateReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
+
+// 会议设置
+//
+// 示例值：
 func (builder *UpdateReservePathReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *UpdateReservePathReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -3340,14 +4796,23 @@ func NewUpdateReserveReqBuilder() *UpdateReserveReqBuilder {
 	return builder
 }
 
+// 预约ID（预约的唯一标识）
+//
+// 示例值：6911188411932033028
 func (builder *UpdateReserveReqBuilder) ReserveId(reserveId string) *UpdateReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *UpdateReserveReqBuilder) UserIdType(userIdType string) *UpdateReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 更新一个预约
 func (builder *UpdateReserveReqBuilder) Body(body *UpdateReserveReqBody) *UpdateReserveReqBuilder {
 	builder.body = body
 	return builder
@@ -3363,8 +4828,8 @@ func (builder *UpdateReserveReqBuilder) Build() *UpdateReserveReq {
 }
 
 type UpdateReserveReqBody struct {
-	EndTime         *string                `json:"end_time,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
+	EndTime         *string                `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec）
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"` // 会议设置
 }
 
 type UpdateReserveReq struct {
@@ -3373,13 +4838,13 @@ type UpdateReserveReq struct {
 }
 
 type UpdateReserveRespData struct {
-	Reserve *Reserve `json:"reserve,omitempty"`
+	Reserve *Reserve `json:"reserve,omitempty"` // 预约数据
 }
 
 type UpdateReserveResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateReserveRespData `json:"data"`
+	Data *UpdateReserveRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateReserveResp) Success() bool {
@@ -3399,30 +4864,57 @@ func NewQueryRoomConfigReqBuilder() *QueryRoomConfigReqBuilder {
 	return builder
 }
 
+// 查询节点范围
+//
+// 示例值：5
 func (builder *QueryRoomConfigReqBuilder) Scope(scope int) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("scope", fmt.Sprint(scope))
 	return builder
 }
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+// 示例值：086
 func (builder *QueryRoomConfigReqBuilder) CountryId(countryId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("country_id", fmt.Sprint(countryId))
 	return builder
 }
+
+// 城市ID scope为3时需要此参数
+//
+// 示例值：001
 func (builder *QueryRoomConfigReqBuilder) DistrictId(districtId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("district_id", fmt.Sprint(districtId))
 	return builder
 }
+
+// 建筑ID scope为4，5时需要此参数
+//
+// 示例值：22
 func (builder *QueryRoomConfigReqBuilder) BuildingId(buildingId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("building_id", fmt.Sprint(buildingId))
 	return builder
 }
+
+// 楼层 scope为5时需要此参数
+//
+// 示例值：4
 func (builder *QueryRoomConfigReqBuilder) FloorName(floorName string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("floor_name", fmt.Sprint(floorName))
 	return builder
 }
+
+// 会议室ID scope为6时需要此参数
+//
+// 示例值：6383786266263
 func (builder *QueryRoomConfigReqBuilder) RoomId(roomId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("room_id", fmt.Sprint(roomId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *QueryRoomConfigReqBuilder) UserIdType(userIdType string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3440,17 +4932,17 @@ type QueryRoomConfigReq struct {
 }
 
 type QueryRoomConfigRespData struct {
-	RoomBackground        *string             `json:"room_background,omitempty"`
-	DisplayBackground     *string             `json:"display_background,omitempty"`
-	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`
-	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"`
-	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`
+	RoomBackground        *string             `json:"room_background,omitempty"`          // 飞书会议室背景图
+	DisplayBackground     *string             `json:"display_background,omitempty"`       // 飞书签到板背景图
+	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`          // 飞书会议室数字标牌
+	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"` // 飞书投屏盒子数字标牌
+	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`              // 会议室状态
 }
 
 type QueryRoomConfigResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *QueryRoomConfigRespData `json:"data"`
+	Data *QueryRoomConfigRespData `json:"data"` // 业务数据
 }
 
 func (resp *QueryRoomConfigResp) Success() bool {
@@ -3458,19 +4950,19 @@ func (resp *QueryRoomConfigResp) Success() bool {
 }
 
 type SetRoomConfigReqBodyBuilder struct {
-	scope          int
+	scope          int // 设置节点范围
 	scopeFlag      bool
-	countryId      string
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
 	countryIdFlag  bool
-	districtId     string
+	districtId     string // 城市ID scope为3时需要此参数
 	districtIdFlag bool
-	buildingId     string
+	buildingId     string // 建筑ID scope为4，5时需要此参数
 	buildingIdFlag bool
-	floorName      string
+	floorName      string // 楼层 scope为5时需要此参数
 	floorNameFlag  bool
-	roomId         string
+	roomId         string // 会议室ID scope为6时需要此参数
 	roomIdFlag     bool
-	roomConfig     *RoomConfig
+	roomConfig     *RoomConfig // 会议室设置
 	roomConfigFlag bool
 }
 
@@ -3479,36 +4971,63 @@ func NewSetRoomConfigReqBodyBuilder() *SetRoomConfigReqBodyBuilder {
 	return builder
 }
 
+// 设置节点范围
+//
+//示例值：5
 func (builder *SetRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
 	return builder
 }
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+//示例值：086
 func (builder *SetRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoomConfigReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
 	return builder
 }
+
+// 城市ID scope为3时需要此参数
+//
+//示例值：223
 func (builder *SetRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRoomConfigReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
 	return builder
 }
+
+// 建筑ID scope为4，5时需要此参数
+//
+//示例值：66
 func (builder *SetRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRoomConfigReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
 	return builder
 }
+
+// 楼层 scope为5时需要此参数
+//
+//示例值：3
 func (builder *SetRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoomConfigReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
 	return builder
 }
+
+// 会议室ID scope为6时需要此参数
+//
+//示例值：67687262867363
 func (builder *SetRoomConfigReqBodyBuilder) RoomId(roomId string) *SetRoomConfigReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
 	return builder
 }
+
+// 会议室设置
+//
+//示例值：
 func (builder *SetRoomConfigReqBodyBuilder) RoomConfig(roomConfig *RoomConfig) *SetRoomConfigReqBodyBuilder {
 	builder.roomConfig = roomConfig
 	builder.roomConfigFlag = true
@@ -3542,19 +5061,19 @@ func (builder *SetRoomConfigReqBodyBuilder) Build() *SetRoomConfigReqBody {
 }
 
 type SetRoomConfigPathReqBodyBuilder struct {
-	scope          int
+	scope          int // 设置节点范围
 	scopeFlag      bool
-	countryId      string
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
 	countryIdFlag  bool
-	districtId     string
+	districtId     string // 城市ID scope为3时需要此参数
 	districtIdFlag bool
-	buildingId     string
+	buildingId     string // 建筑ID scope为4，5时需要此参数
 	buildingIdFlag bool
-	floorName      string
+	floorName      string // 楼层 scope为5时需要此参数
 	floorNameFlag  bool
-	roomId         string
+	roomId         string // 会议室ID scope为6时需要此参数
 	roomIdFlag     bool
-	roomConfig     *RoomConfig
+	roomConfig     *RoomConfig // 会议室设置
 	roomConfigFlag bool
 }
 
@@ -3562,36 +5081,64 @@ func NewSetRoomConfigPathReqBodyBuilder() *SetRoomConfigPathReqBodyBuilder {
 	builder := &SetRoomConfigPathReqBodyBuilder{}
 	return builder
 }
+
+// 设置节点范围
+//
+// 示例值：5
 func (builder *SetRoomConfigPathReqBodyBuilder) Scope(scope int) *SetRoomConfigPathReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
 	return builder
 }
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+// 示例值：086
 func (builder *SetRoomConfigPathReqBodyBuilder) CountryId(countryId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
 	return builder
 }
+
+// 城市ID scope为3时需要此参数
+//
+// 示例值：223
 func (builder *SetRoomConfigPathReqBodyBuilder) DistrictId(districtId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
 	return builder
 }
+
+// 建筑ID scope为4，5时需要此参数
+//
+// 示例值：66
 func (builder *SetRoomConfigPathReqBodyBuilder) BuildingId(buildingId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
 	return builder
 }
+
+// 楼层 scope为5时需要此参数
+//
+// 示例值：3
 func (builder *SetRoomConfigPathReqBodyBuilder) FloorName(floorName string) *SetRoomConfigPathReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
 	return builder
 }
+
+// 会议室ID scope为6时需要此参数
+//
+// 示例值：67687262867363
 func (builder *SetRoomConfigPathReqBodyBuilder) RoomId(roomId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
 	return builder
 }
+
+// 会议室设置
+//
+// 示例值：
 func (builder *SetRoomConfigPathReqBodyBuilder) RoomConfig(roomConfig *RoomConfig) *SetRoomConfigPathReqBodyBuilder {
 	builder.roomConfig = roomConfig
 	builder.roomConfigFlag = true
@@ -3638,10 +5185,15 @@ func NewSetRoomConfigReqBuilder() *SetRoomConfigReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
 func (builder *SetRoomConfigReqBuilder) UserIdType(userIdType string) *SetRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 设置一个范围内的会议室配置。
 func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoomConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -3656,13 +5208,13 @@ func (builder *SetRoomConfigReqBuilder) Build() *SetRoomConfigReq {
 }
 
 type SetRoomConfigReqBody struct {
-	Scope      *int        `json:"scope,omitempty"`
-	CountryId  *string     `json:"country_id,omitempty"`
-	DistrictId *string     `json:"district_id,omitempty"`
-	BuildingId *string     `json:"building_id,omitempty"`
-	FloorName  *string     `json:"floor_name,omitempty"`
-	RoomId     *string     `json:"room_id,omitempty"`
-	RoomConfig *RoomConfig `json:"room_config,omitempty"`
+	Scope      *int        `json:"scope,omitempty"`       // 设置节点范围
+	CountryId  *string     `json:"country_id,omitempty"`  // 国家/地区ID scope为2，3时需要此参数
+	DistrictId *string     `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数
+	BuildingId *string     `json:"building_id,omitempty"` // 建筑ID scope为4，5时需要此参数
+	FloorName  *string     `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数
+	RoomId     *string     `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数
+	RoomConfig *RoomConfig `json:"room_config,omitempty"` // 会议室设置
 }
 
 type SetRoomConfigReq struct {
@@ -3680,14 +5232,14 @@ func (resp *SetRoomConfigResp) Success() bool {
 }
 
 type P2MeetingJoinMeetingV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingJoinMeetingV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingJoinMeetingV1Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2MeetingJoinMeetingV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingJoinMeetingV1) RawReq(req *larkevent.EventReq) {
@@ -3695,15 +5247,15 @@ func (m *P2MeetingJoinMeetingV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingLeaveMeetingV1Data struct {
-	Meeting     *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator    *MeetingEventUser    `json:"operator,omitempty"`
-	LeaveReason *int                 `json:"leave_reason,omitempty"`
+	Meeting     *MeetingEventMeeting `json:"meeting,omitempty"`      // 会议数据
+	Operator    *MeetingEventUser    `json:"operator,omitempty"`     // 事件操作人
+	LeaveReason *int                 `json:"leave_reason,omitempty"` // 离开会议原因
 }
 
 type P2MeetingLeaveMeetingV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingLeaveMeetingV1Data `json:"event"`
+	*larkevent.EventV2Base                              // 事件基础数据
+	*larkevent.EventReq                                 // 请求原生数据
+	Event                  *P2MeetingLeaveMeetingV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingLeaveMeetingV1) RawReq(req *larkevent.EventReq) {
@@ -3711,14 +5263,14 @@ func (m *P2MeetingLeaveMeetingV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingEndedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingEndedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingEndedV1Data `json:"event"`
+	*larkevent.EventV2Base                       // 事件基础数据
+	*larkevent.EventReq                          // 请求原生数据
+	Event                  *P2MeetingEndedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingEndedV1) RawReq(req *larkevent.EventReq) {
@@ -3726,14 +5278,14 @@ func (m *P2MeetingEndedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingStartedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingStartedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingStartedV1Data `json:"event"`
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2MeetingStartedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingStartedV1) RawReq(req *larkevent.EventReq) {
@@ -3741,14 +5293,14 @@ func (m *P2MeetingStartedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRecordingEndedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingRecordingEndedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRecordingEndedV1Data `json:"event"`
+	*larkevent.EventV2Base                                // 事件基础数据
+	*larkevent.EventReq                                   // 请求原生数据
+	Event                  *P2MeetingRecordingEndedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRecordingEndedV1) RawReq(req *larkevent.EventReq) {
@@ -3756,15 +5308,15 @@ func (m *P2MeetingRecordingEndedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRecordingReadyV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Url      *string              `json:"url,omitempty"`
-	Duration *string              `json:"duration,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Url      *string              `json:"url,omitempty"`      // 会议录制链接
+	Duration *string              `json:"duration,omitempty"` // 录制总时长（单位msec）
 }
 
 type P2MeetingRecordingReadyV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRecordingReadyV1Data `json:"event"`
+	*larkevent.EventV2Base                                // 事件基础数据
+	*larkevent.EventReq                                   // 请求原生数据
+	Event                  *P2MeetingRecordingReadyV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRecordingReadyV1) RawReq(req *larkevent.EventReq) {
@@ -3772,14 +5324,14 @@ func (m *P2MeetingRecordingReadyV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRecordingStartedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingRecordingStartedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRecordingStartedV1Data `json:"event"`
+	*larkevent.EventV2Base                                  // 事件基础数据
+	*larkevent.EventReq                                     // 请求原生数据
+	Event                  *P2MeetingRecordingStartedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRecordingStartedV1) RawReq(req *larkevent.EventReq) {
@@ -3787,14 +5339,14 @@ func (m *P2MeetingRecordingStartedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingShareEndedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingShareEndedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingShareEndedV1Data `json:"event"`
+	*larkevent.EventV2Base                            // 事件基础数据
+	*larkevent.EventReq                               // 请求原生数据
+	Event                  *P2MeetingShareEndedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingShareEndedV1) RawReq(req *larkevent.EventReq) {
@@ -3802,14 +5354,14 @@ func (m *P2MeetingShareEndedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingShareStartedV1Data struct {
-	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
-	Operator *MeetingEventUser    `json:"operator,omitempty"`
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
 }
 
 type P2MeetingShareStartedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingShareStartedV1Data `json:"event"`
+	*larkevent.EventV2Base                              // 事件基础数据
+	*larkevent.EventReq                                 // 请求原生数据
+	Event                  *P2MeetingShareStartedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingShareStartedV1) RawReq(req *larkevent.EventReq) {

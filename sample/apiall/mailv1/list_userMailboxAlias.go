@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
-// HTTP PATH: /open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases"
+// GET /open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkmail.NewListUserMailboxAliasReqBuilder().
 		UserMailboxId("user@xxx.xx").
-		PageToken("").
+		PageToken("xxx").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

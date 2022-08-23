@@ -23,17 +23,17 @@ import (
 )
 
 type Level struct {
-	Level *string `json:"level,omitempty"`
-	Body  *string `json:"body,omitempty"`
-	Type  *string `json:"type,omitempty"`
+	Level *string `json:"level,omitempty"` // string
+	Body  *string `json:"body,omitempty"`  // body
+	Type  *string `json:"type,omitempty"`  // type
 }
 
 type LevelBuilder struct {
-	level     string
+	level     string // string
 	levelFlag bool
-	body      string
+	body      string // body
 	bodyFlag  bool
-	type_     string
+	type_     string // type
 	typeFlag  bool
 }
 
@@ -42,16 +42,24 @@ func NewLevelBuilder() *LevelBuilder {
 	return builder
 }
 
+// string
+// 示例值：
 func (builder *LevelBuilder) Level(level string) *LevelBuilder {
 	builder.level = level
 	builder.levelFlag = true
 	return builder
 }
+
+// body
+// 示例值：
 func (builder *LevelBuilder) Body(body string) *LevelBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
+
+// type
+// 示例值：
 func (builder *LevelBuilder) Type(type_ string) *LevelBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -76,20 +84,20 @@ func (builder *LevelBuilder) Build() *Level {
 }
 
 type Moto struct {
-	MotoId   *string `json:"moto_id,omitempty"`
-	Id       *string `json:"id,omitempty"`
-	UserName *string `json:"user_name,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MotoId   *string `json:"moto_id,omitempty"`   // desc
+	Id       *string `json:"id,omitempty"`        // desc2
+	UserName *string `json:"user_name,omitempty"` // name
+	Type     *string `json:"type,omitempty"`      // type
 }
 
 type MotoBuilder struct {
-	motoId       string
+	motoId       string // desc
 	motoIdFlag   bool
-	id           string
+	id           string // desc2
 	idFlag       bool
-	userName     string
+	userName     string // name
 	userNameFlag bool
-	type_        string
+	type_        string // type
 	typeFlag     bool
 }
 
@@ -98,21 +106,32 @@ func NewMotoBuilder() *MotoBuilder {
 	return builder
 }
 
+// desc
+// 示例值：
 func (builder *MotoBuilder) MotoId(motoId string) *MotoBuilder {
 	builder.motoId = motoId
 	builder.motoIdFlag = true
 	return builder
 }
+
+// desc2
+// 示例值：
 func (builder *MotoBuilder) Id(id string) *MotoBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// name
+// 示例值：
 func (builder *MotoBuilder) UserName(userName string) *MotoBuilder {
 	builder.userName = userName
 	builder.userNameFlag = true
 	return builder
 }
+
+// type
+// 示例值：
 func (builder *MotoBuilder) Type(type_ string) *MotoBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -154,10 +173,15 @@ func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 	return builder
 }
 
+// desc
+//
+// 示例值：
 func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
+
+//
 func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 	builder.level = level
 	return builder
@@ -177,13 +201,13 @@ type CreateMotoReq struct {
 }
 
 type CreateMotoRespData struct {
-	Moto *Moto `json:"moto,omitempty"`
+	Moto *Moto `json:"moto,omitempty"` // desc22222
 }
 
 type CreateMotoResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateMotoRespData `json:"data"`
+	Data *CreateMotoRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateMotoResp) Success() bool {
@@ -203,10 +227,17 @@ func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 	return builder
 }
 
+// desc33333
+//
+// 示例值：
 func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
 	builder.apiReq.PathParams.Set("moto_id", fmt.Sprint(motoId))
 	return builder
 }
+
+// desc
+//
+// 示例值：
 func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("body_level", fmt.Sprint(bodyLevel))
 	return builder
@@ -225,13 +256,13 @@ type GetMotoReq struct {
 }
 
 type GetMotoRespData struct {
-	Moto *Moto `json:"moto,omitempty"`
+	Moto *Moto `json:"moto,omitempty"` // desc
 }
 
 type GetMotoResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetMotoRespData `json:"data"`
+	Data *GetMotoRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetMotoResp) Success() bool {
@@ -240,7 +271,7 @@ func (resp *GetMotoResp) Success() bool {
 
 type ListMotoReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListMotoReqBuilder() *ListMotoReqBuilder {
@@ -252,18 +283,31 @@ func NewListMotoReqBuilder() *ListMotoReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListMotoReqBuilder) Limit(limit int) *ListMotoReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：
 func (builder *ListMotoReqBuilder) PageSize(pageSize int) *ListMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：
 func (builder *ListMotoReqBuilder) PageToken(pageToken string) *ListMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// level
+//
+// 示例值：
 func (builder *ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("level", fmt.Sprint(level))
 	return builder
@@ -279,19 +323,20 @@ func (builder *ListMotoReqBuilder) Build() *ListMotoReq {
 
 type ListMotoReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListMotoRespData struct {
-	Items     []string `json:"items,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	Items     []string `json:"items,omitempty"`      // desc
+	PageToken *string  `json:"page_token,omitempty"` //
+	HasMore   *bool    `json:"has_more,omitempty"`   //
 }
 
 type ListMotoResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListMotoRespData `json:"data"`
+	Data *ListMotoRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListMotoResp) Success() bool {

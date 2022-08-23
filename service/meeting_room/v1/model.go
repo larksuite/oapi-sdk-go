@@ -18,11 +18,11 @@ import (
 )
 
 type EventTime struct {
-	TimeStamp *int `json:"time_stamp,omitempty"`
+	TimeStamp *int `json:"time_stamp,omitempty"` //
 }
 
 type EventTimeBuilder struct {
-	timeStamp     int
+	timeStamp     int //
 	timeStampFlag bool
 }
 
@@ -31,6 +31,8 @@ func NewEventTimeBuilder() *EventTimeBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder {
 	builder.timeStamp = timeStamp
 	builder.timeStampFlag = true
@@ -47,11 +49,11 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 }
 
 type MeetingRoom struct {
-	RoomId *int `json:"room_id,omitempty"`
+	RoomId *int `json:"room_id,omitempty"` // your description here
 }
 
 type MeetingRoomBuilder struct {
-	roomId     int
+	roomId     int // your description here
 	roomIdFlag bool
 }
 
@@ -60,6 +62,8 @@ func NewMeetingRoomBuilder() *MeetingRoomBuilder {
 	return builder
 }
 
+// your description here
+// 示例值：
 func (builder *MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -76,14 +80,14 @@ func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
 }
 
 type UserInfo struct {
-	OpenId *string `json:"open_id,omitempty"`
-	UserId *string `json:"user_id,omitempty"`
+	OpenId *string `json:"open_id,omitempty"` //
+	UserId *string `json:"user_id,omitempty"` // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 }
 
 type UserInfoBuilder struct {
-	openId     string
+	openId     string //
 	openIdFlag bool
-	userId     string
+	userId     string // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 	userIdFlag bool
 }
 
@@ -92,11 +96,16 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+// 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+// 示例值：
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -117,14 +126,14 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type P2MeetingRoomCreatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
 }
 
 type P2MeetingRoomCreatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRoomCreatedV1Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2MeetingRoomCreatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRoomCreatedV1) RawReq(req *larkevent.EventReq) {
@@ -132,14 +141,14 @@ func (m *P2MeetingRoomCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomDeletedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
 }
 
 type P2MeetingRoomDeletedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRoomDeletedV1Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2MeetingRoomDeletedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRoomDeletedV1) RawReq(req *larkevent.EventReq) {
@@ -147,14 +156,14 @@ func (m *P2MeetingRoomDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomStatusChangedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
 }
 
 type P2MeetingRoomStatusChangedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRoomStatusChangedV1Data `json:"event"`
+	*larkevent.EventV2Base                                   // 事件基础数据
+	*larkevent.EventReq                                      // 请求原生数据
+	Event                  *P2MeetingRoomStatusChangedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRoomStatusChangedV1) RawReq(req *larkevent.EventReq) {
@@ -162,14 +171,14 @@ func (m *P2MeetingRoomStatusChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomUpdatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+	RoomName *string `json:"room_name,omitempty"` // Meeting room name
+	RoomId   *string `json:"room_id,omitempty"`   // Meeting room ID
 }
 
 type P2MeetingRoomUpdatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2MeetingRoomUpdatedV1Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2MeetingRoomUpdatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2MeetingRoomUpdatedV1) RawReq(req *larkevent.EventReq) {

@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *BitableService {
 	b := &BitableService{config: config}
 	b.App = &app{service: b}
@@ -36,22 +35,20 @@ func NewService(config *larkcore.Config) *BitableService {
 	return b
 }
 
-// 业务域服务定义
 type BitableService struct {
 	config            *larkcore.Config
-	App               *app
-	AppDashboard      *appDashboard
-	AppRole           *appRole
-	AppRoleMember     *appRoleMember
-	AppTable          *appTable
-	AppTableField     *appTableField
-	AppTableForm      *appTableForm
-	AppTableFormField *appTableFormField
-	AppTableRecord    *appTableRecord
-	AppTableView      *appTableView
+	App               *app               // 多维表格
+	AppDashboard      *appDashboard      // 仪表盘
+	AppRole           *appRole           // 自定义角色
+	AppRoleMember     *appRoleMember     // 协作者
+	AppTable          *appTable          // 数据表
+	AppTableField     *appTableField     // 字段
+	AppTableForm      *appTableForm      // 表单
+	AppTableFormField *appTableFormField // 表单
+	AppTableRecord    *appTableRecord    // 记录
+	AppTableView      *appTableView      // 视图
 }
 
-// 资源服务定义
 type app struct {
 	service *BitableService
 }
@@ -83,7 +80,15 @@ type appTableView struct {
 	service *BitableService
 }
 
-// 资源服务方法定义
+// 获取多维表格元数据
+//
+// - 通过 app_token 获取多维表格元数据
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//get_app.go
 func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.RequestOptionFunc) (*GetAppResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -102,6 +107,18 @@ func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.Reque
 	}
 	return resp, err
 }
+
+// 更新多维表格元数据
+//
+// - 通过 app_token 更新多维表格元数据
+//
+// - - 飞书文档、飞书表格、知识库中的多维表格不支持开启高级权限;- 此接口非原子操作，先修改多维表格名字，后开关高级权限。可能存在部分成功的情况
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//update_app.go
 func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore.RequestOptionFunc) (*UpdateAppResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -120,6 +137,16 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 列出仪表盘
+//
+// - 根据 app_token，获取多维表格下的所有仪表盘
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appDashboard.go
 func (a *appDashboard) List(ctx context.Context, req *ListAppDashboardReq, options ...larkcore.RequestOptionFunc) (*ListAppDashboardResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -146,6 +173,14 @@ func (a *appDashboard) ListByIterator(ctx context.Context, req *ListAppDashboard
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 新增自定义角色
+//
+// - 新增自定义角色
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appRole.go
 func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -164,6 +199,14 @@ func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...
 	}
 	return resp, err
 }
+
+// 删除自定义角色
+//
+// - 删除自定义角色
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appRole.go
 func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -182,6 +225,14 @@ func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...
 	}
 	return resp, err
 }
+
+// 列出自定义角色
+//
+// - 列出自定义角色
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appRole.go
 func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -208,6 +259,16 @@ func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, optio
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 更新自定义角色
+//
+// - 更新自定义角色
+//
+// - 更新自定义角色是全量更新，会完全覆盖旧的自定义角色设置
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//update_appRole.go
 func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...larkcore.RequestOptionFunc) (*UpdateAppRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -226,6 +287,14 @@ func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...
 	}
 	return resp, err
 }
+
+// 批量新增协作者
+//
+// - 批量新增自定义角色的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchCreate_appRoleMember.go
 func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -244,6 +313,14 @@ func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRole
 	}
 	return resp, err
 }
+
+// 批量删除协作者
+//
+// - 批量删除自定义角色的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchDelete_appRoleMember.go
 func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -262,6 +339,14 @@ func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRole
 	}
 	return resp, err
 }
+
+// 新增协作者
+//
+// - 新增自定义角色的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appRoleMember.go
 func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -280,6 +365,14 @@ func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq,
 	}
 	return resp, err
 }
+
+// 删除协作者
+//
+// - 删除自定义角色的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appRoleMember.go
 func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -298,6 +391,14 @@ func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq,
 	}
 	return resp, err
 }
+
+// 列出协作者
+//
+// - 列出自定义角色的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appRoleMember.go
 func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -324,6 +425,16 @@ func (a *appRoleMember) ListByIterator(ctx context.Context, req *ListAppRoleMemb
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 新增多个数据表
+//
+// - 新增多个数据表
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchCreate_appTable.go
 func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -342,6 +453,16 @@ func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq,
 	}
 	return resp, err
 }
+
+// 删除多个数据表
+//
+// - 删除多个数据表
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchDelete_appTable.go
 func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -360,6 +481,16 @@ func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq,
 	}
 	return resp, err
 }
+
+// 新增数据表
+//
+// - 新增一个数据表
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appTable.go
 func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -378,6 +509,16 @@ func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options .
 	}
 	return resp, err
 }
+
+// 删除数据表
+//
+// - 删除一个数据表
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appTable.go
 func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -396,6 +537,16 @@ func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options .
 	}
 	return resp, err
 }
+
+// 列出数据表
+//
+// - 根据  app_token，获取多维表格下的所有数据表
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appTable.go
 func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...larkcore.RequestOptionFunc) (*ListAppTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -422,6 +573,16 @@ func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, opt
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 新增字段
+//
+// - 该接口用于在数据表中新增一个字段
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appTableField.go
 func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -440,6 +601,16 @@ func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq,
 	}
 	return resp, err
 }
+
+// 删除字段
+//
+// - 该接口用于在数据表中删除一个字段
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appTableField.go
 func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -458,6 +629,16 @@ func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq,
 	}
 	return resp, err
 }
+
+// 列出字段
+//
+// - 根据 app_token 和 table_id，获取数据表的所有字段
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appTableField.go
 func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -484,6 +665,16 @@ func (a *appTableField) ListByIterator(ctx context.Context, req *ListAppTableFie
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 更新字段
+//
+// - 该接口用于在数据表中更新一个字段
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//update_appTableField.go
 func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -502,6 +693,16 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	}
 	return resp, err
 }
+
+// 获取表单元数据
+//
+// - 获取表单的所有元数据项
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//get_appTableForm.go
 func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options ...larkcore.RequestOptionFunc) (*GetAppTableFormResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -520,6 +721,16 @@ func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options
 	}
 	return resp, err
 }
+
+// 更新表单元数据
+//
+// - 该接口用于更新表单中的元数据项
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//patch_appTableForm.go
 func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -538,6 +749,16 @@ func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, opt
 	}
 	return resp, err
 }
+
+// 列出表单问题
+//
+// - 列出表单的所有问题项
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appTableFormField.go
 func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFormFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -564,6 +785,16 @@ func (a *appTableFormField) ListByIterator(ctx context.Context, req *ListAppTabl
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 更新表单问题
+//
+// - 该接口用于更新表单中的问题项
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//patch_appTableFormField.go
 func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -582,6 +813,16 @@ func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFie
 	}
 	return resp, err
 }
+
+// 新增多条记录
+//
+// - 该接口用于在数据表中新增多条记录，单次调用最多新增 500 条记录。
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchCreate_appTableRecord.go
 func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -600,6 +841,16 @@ func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTab
 	}
 	return resp, err
 }
+
+// 删除多条记录
+//
+// - 该接口用于删除数据表中现有的多条记录，单次调用中最多删除 500 条记录。
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchDelete_appTableRecord.go
 func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -618,6 +869,16 @@ func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTab
 	}
 	return resp, err
 }
+
+// 更新多条记录
+//
+// - 该接口用于更新数据表中的多条记录，单次调用最多更新 500 条记录。
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//batchUpdate_appTableRecord.go
 func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -636,6 +897,16 @@ func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTab
 	}
 	return resp, err
 }
+
+// 新增记录
+//
+// - 该接口用于在数据表中新增一条记录
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appTableRecord.go
 func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -654,6 +925,16 @@ func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordRe
 	}
 	return resp, err
 }
+
+// 删除记录
+//
+// - 该接口用于删除数据表中的一条记录
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appTableRecord.go
 func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -672,6 +953,16 @@ func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordRe
 	}
 	return resp, err
 }
+
+// 检索记录
+//
+// - 该接口用于根据 record_id 的值检索现有记录
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//get_appTableRecord.go
 func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*GetAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -690,6 +981,16 @@ func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, opt
 	}
 	return resp, err
 }
+
+// 列出记录
+//
+// - 该接口用于列出数据表中的现有记录，单次最多列出 500 行记录，支持分页获取。
+//
+// - 该接口支持调用频率上限为 1000 次/分钟
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appTableRecord.go
 func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*ListAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -716,6 +1017,16 @@ func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRe
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 更新记录
+//
+// - 该接口用于更新数据表中的一条记录
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//update_appTableRecord.go
 func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -734,6 +1045,16 @@ func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordRe
 	}
 	return resp, err
 }
+
+// 新增视图
+//
+// - 在数据表中新增一个视图
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//create_appTableView.go
 func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableViewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -752,6 +1073,16 @@ func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, o
 	}
 	return resp, err
 }
+
+// 删除视图
+//
+// - 删除数据表中的视图
+//
+// - 该接口支持调用频率上限为 10 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//delete_appTableView.go
 func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -770,6 +1101,16 @@ func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, o
 	}
 	return resp, err
 }
+
+// 列出视图
+//
+// - 根据 app_token 和 table_id，获取数据表的所有视图
+//
+// - 该接口支持调用频率上限为 20 QPS
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1//list_appTableView.go
 func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, options ...larkcore.RequestOptionFunc) (*ListAppTableViewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

@@ -23,26 +23,57 @@ import (
 )
 
 const (
-	LangZH = 0
-	LangEN = 1
-	LangJP = 2
+	LangZH = 0 // 中文
+	LangEN = 1 // 英文
+	LangJP = 2 // 日文
+
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDocumentBlockGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDocumentBlockGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDocumentBlockGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDocumentBlockListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDocumentBlockListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDocumentBlockListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDocumentBlockPatchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDocumentBlockPatchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDocumentBlockPatchOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDocumentBlockChildrenCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDocumentBlockChildrenCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDocumentBlockChildrenCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDocumentBlockChildrenGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDocumentBlockChildrenGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDocumentBlockChildrenGetOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Bitable struct {
-	Token    *string `json:"token,omitempty"`
-	ViewType *int    `json:"view_type,omitempty"`
+	Token    *string `json:"token,omitempty"`     // 多维表格文档 Token
+	ViewType *int    `json:"view_type,omitempty"` // 类型
 }
 
 type BitableBuilder struct {
-	token        string
+	token        string // 多维表格文档 Token
 	tokenFlag    bool
-	viewType     int
+	viewType     int // 类型
 	viewTypeFlag bool
 }
 
@@ -51,11 +82,16 @@ func NewBitableBuilder() *BitableBuilder {
 	return builder
 }
 
+// 多维表格文档 Token
+// 示例值：basbcqH9FfRn3sWCCBOtdNVpCsb_tblSAh8fEwhuMXQg
 func (builder *BitableBuilder) Token(token string) *BitableBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
+
+// 类型
+// 示例值：1
 func (builder *BitableBuilder) ViewType(viewType int) *BitableBuilder {
 	builder.viewType = viewType
 	builder.viewTypeFlag = true
@@ -76,126 +112,141 @@ func (builder *BitableBuilder) Build() *Bitable {
 }
 
 type Block struct {
-	BlockId        *string         `json:"block_id,omitempty"`
-	ParentId       *string         `json:"parent_id,omitempty"`
-	Children       []string        `json:"children,omitempty"`
-	BlockType      *int            `json:"block_type,omitempty"`
-	Page           *Text           `json:"page,omitempty"`
-	Text           *Text           `json:"text,omitempty"`
-	Heading1       *Text           `json:"heading1,omitempty"`
-	Heading2       *Text           `json:"heading2,omitempty"`
-	Heading3       *Text           `json:"heading3,omitempty"`
-	Heading4       *Text           `json:"heading4,omitempty"`
-	Heading5       *Text           `json:"heading5,omitempty"`
-	Heading6       *Text           `json:"heading6,omitempty"`
-	Heading7       *Text           `json:"heading7,omitempty"`
-	Heading8       *Text           `json:"heading8,omitempty"`
-	Heading9       *Text           `json:"heading9,omitempty"`
-	Bullet         *Text           `json:"bullet,omitempty"`
-	Ordered        *Text           `json:"ordered,omitempty"`
-	Code           *Text           `json:"code,omitempty"`
-	Quote          *Text           `json:"quote,omitempty"`
-	Equation       *Text           `json:"equation,omitempty"`
-	Todo           *Text           `json:"todo,omitempty"`
-	Bitable        *Bitable        `json:"bitable,omitempty"`
-	Callout        *Callout        `json:"callout,omitempty"`
-	ChatCard       *ChatCard       `json:"chat_card,omitempty"`
-	Diagram        *Diagram        `json:"diagram,omitempty"`
-	Divider        *Divider        `json:"divider,omitempty"`
-	File           *File           `json:"file,omitempty"`
-	Grid           *Grid           `json:"grid,omitempty"`
-	GridColumn     *GridColumn     `json:"grid_column,omitempty"`
-	Iframe         *Iframe         `json:"iframe,omitempty"`
-	Image          *Image          `json:"image,omitempty"`
-	Isv            *Isv            `json:"isv,omitempty"`
-	Mindnote       *Mindnote       `json:"mindnote,omitempty"`
-	Sheet          *Sheet          `json:"sheet,omitempty"`
-	Table          *Table          `json:"table,omitempty"`
-	TableCell      *TableCell      `json:"table_cell,omitempty"`
-	View           *View           `json:"view,omitempty"`
-	Undefined      *Undefined      `json:"undefined,omitempty"`
-	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"`
+	BlockId        *string         `json:"block_id,omitempty"`        // Block 唯一标识
+	ParentId       *string         `json:"parent_id,omitempty"`       // block 的父亲 id
+	Children       []string        `json:"children,omitempty"`        // block 的孩子 id 列表
+	BlockType      *int            `json:"block_type,omitempty"`      // block 类型
+	Page           *Text           `json:"page,omitempty"`            // 文档 Block
+	Text           *Text           `json:"text,omitempty"`            // 文本 Block
+	Heading1       *Text           `json:"heading1,omitempty"`        // 一级标题 Block
+	Heading2       *Text           `json:"heading2,omitempty"`        // 二级标题 Block
+	Heading3       *Text           `json:"heading3,omitempty"`        // 三级标题 Block
+	Heading4       *Text           `json:"heading4,omitempty"`        // 四级标题 Block
+	Heading5       *Text           `json:"heading5,omitempty"`        // 五级标题 Block
+	Heading6       *Text           `json:"heading6,omitempty"`        // 六级标题 Block
+	Heading7       *Text           `json:"heading7,omitempty"`        // 七级标题 Block
+	Heading8       *Text           `json:"heading8,omitempty"`        // 八级标题 Block
+	Heading9       *Text           `json:"heading9,omitempty"`        // 九级标题 Block
+	Bullet         *Text           `json:"bullet,omitempty"`          // 无序列表 Block
+	Ordered        *Text           `json:"ordered,omitempty"`         // 有序列表 Block
+	Code           *Text           `json:"code,omitempty"`            // 代码块 Block
+	Quote          *Text           `json:"quote,omitempty"`           // 引用 Block
+	Equation       *Text           `json:"equation,omitempty"`        // 公式 Block
+	Todo           *Text           `json:"todo,omitempty"`            // 任务 Block
+	Bitable        *Bitable        `json:"bitable,omitempty"`         // 多维表格 Block
+	Callout        *Callout        `json:"callout,omitempty"`         // 高亮块 Block
+	ChatCard       *ChatCard       `json:"chat_card,omitempty"`       // 群聊卡片 Block
+	Diagram        *Diagram        `json:"diagram,omitempty"`         // 流程图/UML Block
+	Divider        *Divider        `json:"divider,omitempty"`         // 分割线 Block
+	File           *File           `json:"file,omitempty"`            // 文件 Block
+	Grid           *Grid           `json:"grid,omitempty"`            // 分栏 Block
+	GridColumn     *GridColumn     `json:"grid_column,omitempty"`     // 分栏列 Block
+	Iframe         *Iframe         `json:"iframe,omitempty"`          // 内嵌 Block
+	Image          *Image          `json:"image,omitempty"`           // 图片 Block
+	Isv            *Isv            `json:"isv,omitempty"`             // 三方 Block
+	Mindnote       *Mindnote       `json:"mindnote,omitempty"`        // 思维笔记 Block
+	Sheet          *Sheet          `json:"sheet,omitempty"`           // 电子表格 Block
+	Table          *Table          `json:"table,omitempty"`           // 表格 Block
+	TableCell      *TableCell      `json:"table_cell,omitempty"`      // 单元格 Block
+	View           *View           `json:"view,omitempty"`            // 视图 Block
+	Undefined      *Undefined      `json:"undefined,omitempty"`       // 未支持 Block
+	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block
+	Task           *Task           `json:"task,omitempty"`            // 任务 Block
+	Okr            *Okr            `json:"okr,omitempty"`             // OKR Block
+	OkrObjective   *OkrObjective   `json:"okr_objective,omitempty"`   // OKR Objective
+	OkrKeyResult   *OkrKeyResult   `json:"okr_key_result,omitempty"`  // OKR Key Result
+	OkrProgress    *OkrProgress    `json:"okr_progress,omitempty"`    // OKR 进展信息
 }
 
 type BlockBuilder struct {
-	blockId            string
+	blockId            string // Block 唯一标识
 	blockIdFlag        bool
-	parentId           string
+	parentId           string // block 的父亲 id
 	parentIdFlag       bool
-	children           []string
+	children           []string // block 的孩子 id 列表
 	childrenFlag       bool
-	blockType          int
+	blockType          int // block 类型
 	blockTypeFlag      bool
-	page               *Text
+	page               *Text // 文档 Block
 	pageFlag           bool
-	text               *Text
+	text               *Text // 文本 Block
 	textFlag           bool
-	heading1           *Text
+	heading1           *Text // 一级标题 Block
 	heading1Flag       bool
-	heading2           *Text
+	heading2           *Text // 二级标题 Block
 	heading2Flag       bool
-	heading3           *Text
+	heading3           *Text // 三级标题 Block
 	heading3Flag       bool
-	heading4           *Text
+	heading4           *Text // 四级标题 Block
 	heading4Flag       bool
-	heading5           *Text
+	heading5           *Text // 五级标题 Block
 	heading5Flag       bool
-	heading6           *Text
+	heading6           *Text // 六级标题 Block
 	heading6Flag       bool
-	heading7           *Text
+	heading7           *Text // 七级标题 Block
 	heading7Flag       bool
-	heading8           *Text
+	heading8           *Text // 八级标题 Block
 	heading8Flag       bool
-	heading9           *Text
+	heading9           *Text // 九级标题 Block
 	heading9Flag       bool
-	bullet             *Text
+	bullet             *Text // 无序列表 Block
 	bulletFlag         bool
-	ordered            *Text
+	ordered            *Text // 有序列表 Block
 	orderedFlag        bool
-	code               *Text
+	code               *Text // 代码块 Block
 	codeFlag           bool
-	quote              *Text
+	quote              *Text // 引用 Block
 	quoteFlag          bool
-	equation           *Text
+	equation           *Text // 公式 Block
 	equationFlag       bool
-	todo               *Text
+	todo               *Text // 任务 Block
 	todoFlag           bool
-	bitable            *Bitable
+	bitable            *Bitable // 多维表格 Block
 	bitableFlag        bool
-	callout            *Callout
+	callout            *Callout // 高亮块 Block
 	calloutFlag        bool
-	chatCard           *ChatCard
+	chatCard           *ChatCard // 群聊卡片 Block
 	chatCardFlag       bool
-	diagram            *Diagram
+	diagram            *Diagram // 流程图/UML Block
 	diagramFlag        bool
-	divider            *Divider
+	divider            *Divider // 分割线 Block
 	dividerFlag        bool
-	file               *File
+	file               *File // 文件 Block
 	fileFlag           bool
-	grid               *Grid
+	grid               *Grid // 分栏 Block
 	gridFlag           bool
-	gridColumn         *GridColumn
+	gridColumn         *GridColumn // 分栏列 Block
 	gridColumnFlag     bool
-	iframe             *Iframe
+	iframe             *Iframe // 内嵌 Block
 	iframeFlag         bool
-	image              *Image
+	image              *Image // 图片 Block
 	imageFlag          bool
-	isv                *Isv
+	isv                *Isv // 三方 Block
 	isvFlag            bool
-	mindnote           *Mindnote
+	mindnote           *Mindnote // 思维笔记 Block
 	mindnoteFlag       bool
-	sheet              *Sheet
+	sheet              *Sheet // 电子表格 Block
 	sheetFlag          bool
-	table              *Table
+	table              *Table // 表格 Block
 	tableFlag          bool
-	tableCell          *TableCell
+	tableCell          *TableCell // 单元格 Block
 	tableCellFlag      bool
-	view               *View
+	view               *View // 视图 Block
 	viewFlag           bool
-	undefined          *Undefined
+	undefined          *Undefined // 未支持 Block
 	undefinedFlag      bool
-	quoteContainer     *QuoteContainer
+	quoteContainer     *QuoteContainer // 引用容器 Block
 	quoteContainerFlag bool
+	task               *Task // 任务 Block
+	taskFlag           bool
+	okr                *Okr // OKR Block
+	okrFlag            bool
+	okrObjective       *OkrObjective // OKR Objective
+	okrObjectiveFlag   bool
+	okrKeyResult       *OkrKeyResult // OKR Key Result
+	okrKeyResultFlag   bool
+	okrProgress        *OkrProgress // OKR 进展信息
+	okrProgressFlag    bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -203,199 +254,355 @@ func NewBlockBuilder() *BlockBuilder {
 	return builder
 }
 
+// Block 唯一标识
+// 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
 	builder.blockId = blockId
 	builder.blockIdFlag = true
 	return builder
 }
+
+// block 的父亲 id
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
 	return builder
 }
+
+// block 的孩子 id 列表
+// 示例值：[doxcnO6UW6wAw2qIcYf4hZpFIth]
 func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 	builder.children = children
 	builder.childrenFlag = true
 	return builder
 }
+
+// block 类型
+// 示例值：1
 func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
 	builder.blockType = blockType
 	builder.blockTypeFlag = true
 	return builder
 }
+
+// 文档 Block
+// 示例值：
 func (builder *BlockBuilder) Page(page *Text) *BlockBuilder {
 	builder.page = page
 	builder.pageFlag = true
 	return builder
 }
+
+// 文本 Block
+// 示例值：
 func (builder *BlockBuilder) Text(text *Text) *BlockBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
+
+// 一级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading1(heading1 *Text) *BlockBuilder {
 	builder.heading1 = heading1
 	builder.heading1Flag = true
 	return builder
 }
+
+// 二级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading2(heading2 *Text) *BlockBuilder {
 	builder.heading2 = heading2
 	builder.heading2Flag = true
 	return builder
 }
+
+// 三级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading3(heading3 *Text) *BlockBuilder {
 	builder.heading3 = heading3
 	builder.heading3Flag = true
 	return builder
 }
+
+// 四级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading4(heading4 *Text) *BlockBuilder {
 	builder.heading4 = heading4
 	builder.heading4Flag = true
 	return builder
 }
+
+// 五级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading5(heading5 *Text) *BlockBuilder {
 	builder.heading5 = heading5
 	builder.heading5Flag = true
 	return builder
 }
+
+// 六级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading6(heading6 *Text) *BlockBuilder {
 	builder.heading6 = heading6
 	builder.heading6Flag = true
 	return builder
 }
+
+// 七级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading7(heading7 *Text) *BlockBuilder {
 	builder.heading7 = heading7
 	builder.heading7Flag = true
 	return builder
 }
+
+// 八级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading8(heading8 *Text) *BlockBuilder {
 	builder.heading8 = heading8
 	builder.heading8Flag = true
 	return builder
 }
+
+// 九级标题 Block
+// 示例值：
 func (builder *BlockBuilder) Heading9(heading9 *Text) *BlockBuilder {
 	builder.heading9 = heading9
 	builder.heading9Flag = true
 	return builder
 }
+
+// 无序列表 Block
+// 示例值：
 func (builder *BlockBuilder) Bullet(bullet *Text) *BlockBuilder {
 	builder.bullet = bullet
 	builder.bulletFlag = true
 	return builder
 }
+
+// 有序列表 Block
+// 示例值：
 func (builder *BlockBuilder) Ordered(ordered *Text) *BlockBuilder {
 	builder.ordered = ordered
 	builder.orderedFlag = true
 	return builder
 }
+
+// 代码块 Block
+// 示例值：
 func (builder *BlockBuilder) Code(code *Text) *BlockBuilder {
 	builder.code = code
 	builder.codeFlag = true
 	return builder
 }
+
+// 引用 Block
+// 示例值：
 func (builder *BlockBuilder) Quote(quote *Text) *BlockBuilder {
 	builder.quote = quote
 	builder.quoteFlag = true
 	return builder
 }
+
+// 公式 Block
+// 示例值：
 func (builder *BlockBuilder) Equation(equation *Text) *BlockBuilder {
 	builder.equation = equation
 	builder.equationFlag = true
 	return builder
 }
+
+// 任务 Block
+// 示例值：
 func (builder *BlockBuilder) Todo(todo *Text) *BlockBuilder {
 	builder.todo = todo
 	builder.todoFlag = true
 	return builder
 }
+
+// 多维表格 Block
+// 示例值：
 func (builder *BlockBuilder) Bitable(bitable *Bitable) *BlockBuilder {
 	builder.bitable = bitable
 	builder.bitableFlag = true
 	return builder
 }
+
+// 高亮块 Block
+// 示例值：
 func (builder *BlockBuilder) Callout(callout *Callout) *BlockBuilder {
 	builder.callout = callout
 	builder.calloutFlag = true
 	return builder
 }
+
+// 群聊卡片 Block
+// 示例值：
 func (builder *BlockBuilder) ChatCard(chatCard *ChatCard) *BlockBuilder {
 	builder.chatCard = chatCard
 	builder.chatCardFlag = true
 	return builder
 }
+
+// 流程图/UML Block
+// 示例值：
 func (builder *BlockBuilder) Diagram(diagram *Diagram) *BlockBuilder {
 	builder.diagram = diagram
 	builder.diagramFlag = true
 	return builder
 }
+
+// 分割线 Block
+// 示例值：
 func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
 	builder.divider = divider
 	builder.dividerFlag = true
 	return builder
 }
+
+// 文件 Block
+// 示例值：
 func (builder *BlockBuilder) File(file *File) *BlockBuilder {
 	builder.file = file
 	builder.fileFlag = true
 	return builder
 }
+
+// 分栏 Block
+// 示例值：
 func (builder *BlockBuilder) Grid(grid *Grid) *BlockBuilder {
 	builder.grid = grid
 	builder.gridFlag = true
 	return builder
 }
+
+// 分栏列 Block
+// 示例值：
 func (builder *BlockBuilder) GridColumn(gridColumn *GridColumn) *BlockBuilder {
 	builder.gridColumn = gridColumn
 	builder.gridColumnFlag = true
 	return builder
 }
+
+// 内嵌 Block
+// 示例值：
 func (builder *BlockBuilder) Iframe(iframe *Iframe) *BlockBuilder {
 	builder.iframe = iframe
 	builder.iframeFlag = true
 	return builder
 }
+
+// 图片 Block
+// 示例值：
 func (builder *BlockBuilder) Image(image *Image) *BlockBuilder {
 	builder.image = image
 	builder.imageFlag = true
 	return builder
 }
+
+// 三方 Block
+// 示例值：
 func (builder *BlockBuilder) Isv(isv *Isv) *BlockBuilder {
 	builder.isv = isv
 	builder.isvFlag = true
 	return builder
 }
+
+// 思维笔记 Block
+// 示例值：
 func (builder *BlockBuilder) Mindnote(mindnote *Mindnote) *BlockBuilder {
 	builder.mindnote = mindnote
 	builder.mindnoteFlag = true
 	return builder
 }
+
+// 电子表格 Block
+// 示例值：
 func (builder *BlockBuilder) Sheet(sheet *Sheet) *BlockBuilder {
 	builder.sheet = sheet
 	builder.sheetFlag = true
 	return builder
 }
+
+// 表格 Block
+// 示例值：
 func (builder *BlockBuilder) Table(table *Table) *BlockBuilder {
 	builder.table = table
 	builder.tableFlag = true
 	return builder
 }
+
+// 单元格 Block
+// 示例值：
 func (builder *BlockBuilder) TableCell(tableCell *TableCell) *BlockBuilder {
 	builder.tableCell = tableCell
 	builder.tableCellFlag = true
 	return builder
 }
+
+// 视图 Block
+// 示例值：
 func (builder *BlockBuilder) View(view *View) *BlockBuilder {
 	builder.view = view
 	builder.viewFlag = true
 	return builder
 }
+
+// 未支持 Block
+// 示例值：
 func (builder *BlockBuilder) Undefined(undefined *Undefined) *BlockBuilder {
 	builder.undefined = undefined
 	builder.undefinedFlag = true
 	return builder
 }
+
+// 引用容器 Block
+// 示例值：
 func (builder *BlockBuilder) QuoteContainer(quoteContainer *QuoteContainer) *BlockBuilder {
 	builder.quoteContainer = quoteContainer
 	builder.quoteContainerFlag = true
+	return builder
+}
+
+// 任务 Block
+// 示例值：
+func (builder *BlockBuilder) Task(task *Task) *BlockBuilder {
+	builder.task = task
+	builder.taskFlag = true
+	return builder
+}
+
+// OKR Block
+// 示例值：
+func (builder *BlockBuilder) Okr(okr *Okr) *BlockBuilder {
+	builder.okr = okr
+	builder.okrFlag = true
+	return builder
+}
+
+// OKR Objective
+// 示例值：
+func (builder *BlockBuilder) OkrObjective(okrObjective *OkrObjective) *BlockBuilder {
+	builder.okrObjective = okrObjective
+	builder.okrObjectiveFlag = true
+	return builder
+}
+
+// OKR Key Result
+// 示例值：
+func (builder *BlockBuilder) OkrKeyResult(okrKeyResult *OkrKeyResult) *BlockBuilder {
+	builder.okrKeyResult = okrKeyResult
+	builder.okrKeyResultFlag = true
+	return builder
+}
+
+// OKR 进展信息
+// 示例值：
+func (builder *BlockBuilder) OkrProgress(okrProgress *OkrProgress) *BlockBuilder {
+	builder.okrProgress = okrProgress
+	builder.okrProgressFlag = true
 	return builder
 }
 
@@ -521,24 +728,39 @@ func (builder *BlockBuilder) Build() *Block {
 	if builder.quoteContainerFlag {
 		req.QuoteContainer = builder.quoteContainer
 	}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
+	if builder.okrFlag {
+		req.Okr = builder.okr
+	}
+	if builder.okrObjectiveFlag {
+		req.OkrObjective = builder.okrObjective
+	}
+	if builder.okrKeyResultFlag {
+		req.OkrKeyResult = builder.okrKeyResult
+	}
+	if builder.okrProgressFlag {
+		req.OkrProgress = builder.okrProgress
+	}
 	return req
 }
 
 type Callout struct {
-	BackgroundColor *int    `json:"background_color,omitempty"`
-	BorderColor     *int    `json:"border_color,omitempty"`
-	TextColor       *int    `json:"text_color,omitempty"`
-	EmojiId         *string `json:"emoji_id,omitempty"`
+	BackgroundColor *int    `json:"background_color,omitempty"` // 高亮块背景色
+	BorderColor     *int    `json:"border_color,omitempty"`     // 边框色
+	TextColor       *int    `json:"text_color,omitempty"`       // 文字颜色
+	EmojiId         *string `json:"emoji_id,omitempty"`         // 高亮块图标
 }
 
 type CalloutBuilder struct {
-	backgroundColor     int
+	backgroundColor     int // 高亮块背景色
 	backgroundColorFlag bool
-	borderColor         int
+	borderColor         int // 边框色
 	borderColorFlag     bool
-	textColor           int
+	textColor           int // 文字颜色
 	textColorFlag       bool
-	emojiId             string
+	emojiId             string // 高亮块图标
 	emojiIdFlag         bool
 }
 
@@ -547,21 +769,32 @@ func NewCalloutBuilder() *CalloutBuilder {
 	return builder
 }
 
+// 高亮块背景色
+// 示例值：1
 func (builder *CalloutBuilder) BackgroundColor(backgroundColor int) *CalloutBuilder {
 	builder.backgroundColor = backgroundColor
 	builder.backgroundColorFlag = true
 	return builder
 }
+
+// 边框色
+// 示例值：1
 func (builder *CalloutBuilder) BorderColor(borderColor int) *CalloutBuilder {
 	builder.borderColor = borderColor
 	builder.borderColorFlag = true
 	return builder
 }
+
+// 文字颜色
+// 示例值：1
 func (builder *CalloutBuilder) TextColor(textColor int) *CalloutBuilder {
 	builder.textColor = textColor
 	builder.textColorFlag = true
 	return builder
 }
+
+// 高亮块图标
+// 示例值：pushpin
 func (builder *CalloutBuilder) EmojiId(emojiId string) *CalloutBuilder {
 	builder.emojiId = emojiId
 	builder.emojiIdFlag = true
@@ -590,14 +823,14 @@ func (builder *CalloutBuilder) Build() *Callout {
 }
 
 type ChatCard struct {
-	ChatId *string `json:"chat_id,omitempty"`
-	Align  *int    `json:"align,omitempty"`
+	ChatId *string `json:"chat_id,omitempty"` // 群聊天会话 ID
+	Align  *int    `json:"align,omitempty"`   // 对齐方式
 }
 
 type ChatCardBuilder struct {
-	chatId     string
+	chatId     string // 群聊天会话 ID
 	chatIdFlag bool
-	align      int
+	align      int // 对齐方式
 	alignFlag  bool
 }
 
@@ -606,11 +839,16 @@ func NewChatCardBuilder() *ChatCardBuilder {
 	return builder
 }
 
+// 群聊天会话 ID
+// 示例值：7052227140476993555
 func (builder *ChatCardBuilder) ChatId(chatId string) *ChatCardBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
+
+// 对齐方式
+// 示例值：1
 func (builder *ChatCardBuilder) Align(align int) *ChatCardBuilder {
 	builder.align = align
 	builder.alignFlag = true
@@ -631,11 +869,11 @@ func (builder *ChatCardBuilder) Build() *ChatCard {
 }
 
 type DeleteGridColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"` // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
 }
 
 type DeleteGridColumnRequestBuilder struct {
-	columnIndex     int
+	columnIndex     int // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
 	columnIndexFlag bool
 }
 
@@ -644,6 +882,8 @@ func NewDeleteGridColumnRequestBuilder() *DeleteGridColumnRequestBuilder {
 	return builder
 }
 
+// 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
+// 示例值：0
 func (builder *DeleteGridColumnRequestBuilder) ColumnIndex(columnIndex int) *DeleteGridColumnRequestBuilder {
 	builder.columnIndex = columnIndex
 	builder.columnIndexFlag = true
@@ -660,14 +900,14 @@ func (builder *DeleteGridColumnRequestBuilder) Build() *DeleteGridColumnRequest 
 }
 
 type DeleteTableColumnsRequest struct {
-	ColumnStartIndex *int `json:"column_start_index,omitempty"`
-	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
+	ColumnStartIndex *int `json:"column_start_index,omitempty"` // 列开始索引（区间左闭右开）
+	ColumnEndIndex   *int `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）
 }
 
 type DeleteTableColumnsRequestBuilder struct {
-	columnStartIndex     int
+	columnStartIndex     int // 列开始索引（区间左闭右开）
 	columnStartIndexFlag bool
-	columnEndIndex       int
+	columnEndIndex       int // 列结束索引（区间左闭右开）
 	columnEndIndexFlag   bool
 }
 
@@ -676,11 +916,16 @@ func NewDeleteTableColumnsRequestBuilder() *DeleteTableColumnsRequestBuilder {
 	return builder
 }
 
+// 列开始索引（区间左闭右开）
+// 示例值：0
 func (builder *DeleteTableColumnsRequestBuilder) ColumnStartIndex(columnStartIndex int) *DeleteTableColumnsRequestBuilder {
 	builder.columnStartIndex = columnStartIndex
 	builder.columnStartIndexFlag = true
 	return builder
 }
+
+// 列结束索引（区间左闭右开）
+// 示例值：1
 func (builder *DeleteTableColumnsRequestBuilder) ColumnEndIndex(columnEndIndex int) *DeleteTableColumnsRequestBuilder {
 	builder.columnEndIndex = columnEndIndex
 	builder.columnEndIndexFlag = true
@@ -701,14 +946,14 @@ func (builder *DeleteTableColumnsRequestBuilder) Build() *DeleteTableColumnsRequ
 }
 
 type DeleteTableRowsRequest struct {
-	RowStartIndex *int `json:"row_start_index,omitempty"`
-	RowEndIndex   *int `json:"row_end_index,omitempty"`
+	RowStartIndex *int `json:"row_start_index,omitempty"` // 行开始索引（区间左闭右开）
+	RowEndIndex   *int `json:"row_end_index,omitempty"`   // 行结束索引（区间左闭右开）
 }
 
 type DeleteTableRowsRequestBuilder struct {
-	rowStartIndex     int
+	rowStartIndex     int // 行开始索引（区间左闭右开）
 	rowStartIndexFlag bool
-	rowEndIndex       int
+	rowEndIndex       int // 行结束索引（区间左闭右开）
 	rowEndIndexFlag   bool
 }
 
@@ -717,11 +962,16 @@ func NewDeleteTableRowsRequestBuilder() *DeleteTableRowsRequestBuilder {
 	return builder
 }
 
+// 行开始索引（区间左闭右开）
+// 示例值：0
 func (builder *DeleteTableRowsRequestBuilder) RowStartIndex(rowStartIndex int) *DeleteTableRowsRequestBuilder {
 	builder.rowStartIndex = rowStartIndex
 	builder.rowStartIndexFlag = true
 	return builder
 }
+
+// 行结束索引（区间左闭右开）
+// 示例值：1
 func (builder *DeleteTableRowsRequestBuilder) RowEndIndex(rowEndIndex int) *DeleteTableRowsRequestBuilder {
 	builder.rowEndIndex = rowEndIndex
 	builder.rowEndIndexFlag = true
@@ -742,11 +992,11 @@ func (builder *DeleteTableRowsRequestBuilder) Build() *DeleteTableRowsRequest {
 }
 
 type Diagram struct {
-	DiagramType *int `json:"diagram_type,omitempty"`
+	DiagramType *int `json:"diagram_type,omitempty"` // 绘图类型
 }
 
 type DiagramBuilder struct {
-	diagramType     int
+	diagramType     int // 绘图类型
 	diagramTypeFlag bool
 }
 
@@ -755,6 +1005,8 @@ func NewDiagramBuilder() *DiagramBuilder {
 	return builder
 }
 
+// 绘图类型
+// 示例值：1
 func (builder *DiagramBuilder) DiagramType(diagramType int) *DiagramBuilder {
 	builder.diagramType = diagramType
 	builder.diagramTypeFlag = true
@@ -774,17 +1026,17 @@ type Divider struct {
 }
 
 type Document struct {
-	DocumentId *string `json:"document_id,omitempty"`
-	RevisionId *int    `json:"revision_id,omitempty"`
-	Title      *string `json:"title,omitempty"`
+	DocumentId *string `json:"document_id,omitempty"` // 文档唯一标识
+	RevisionId *int    `json:"revision_id,omitempty"` // 文档版本 ID
+	Title      *string `json:"title,omitempty"`       // 文档标题
 }
 
 type DocumentBuilder struct {
-	documentId     string
+	documentId     string // 文档唯一标识
 	documentIdFlag bool
-	revisionId     int
+	revisionId     int // 文档版本 ID
 	revisionIdFlag bool
-	title          string
+	title          string // 文档标题
 	titleFlag      bool
 }
 
@@ -793,16 +1045,24 @@ func NewDocumentBuilder() *DocumentBuilder {
 	return builder
 }
 
+// 文档唯一标识
+// 示例值：doxcni6mOy7jLRWbEylaKKC7K88
 func (builder *DocumentBuilder) DocumentId(documentId string) *DocumentBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
 	return builder
 }
+
+// 文档版本 ID
+// 示例值：1
 func (builder *DocumentBuilder) RevisionId(revisionId int) *DocumentBuilder {
 	builder.revisionId = revisionId
 	builder.revisionIdFlag = true
 	return builder
 }
+
+// 文档标题
+// 示例值：undefined
 func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -827,11 +1087,11 @@ func (builder *DocumentBuilder) Build() *Document {
 }
 
 type Equation struct {
-	Content *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"` // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
 }
 
 type EquationBuilder struct {
-	content     string
+	content     string // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
 	contentFlag bool
 }
 
@@ -840,6 +1100,8 @@ func NewEquationBuilder() *EquationBuilder {
 	return builder
 }
 
+// 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+// 示例值：E=mc^2\n
 func (builder *EquationBuilder) Content(content string) *EquationBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -856,14 +1118,14 @@ func (builder *EquationBuilder) Build() *Equation {
 }
 
 type File struct {
-	Token *string `json:"token,omitempty"`
-	Name  *string `json:"name,omitempty"`
+	Token *string `json:"token,omitempty"` // 附件 Token
+	Name  *string `json:"name,omitempty"`  // 文件名
 }
 
 type FileBuilder struct {
-	token     string
+	token     string // 附件 Token
 	tokenFlag bool
-	name      string
+	name      string // 文件名
 	nameFlag  bool
 }
 
@@ -872,11 +1134,16 @@ func NewFileBuilder() *FileBuilder {
 	return builder
 }
 
+// 附件 Token
+// 示例值：boxbcOj88GDkmWGm2zsTyCBqoLb
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
+
+// 文件名
+// 示例值：文件名
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -897,11 +1164,11 @@ func (builder *FileBuilder) Build() *File {
 }
 
 type Grid struct {
-	ColumnSize *int `json:"column_size,omitempty"`
+	ColumnSize *int `json:"column_size,omitempty"` // 分栏列数量
 }
 
 type GridBuilder struct {
-	columnSize     int
+	columnSize     int // 分栏列数量
 	columnSizeFlag bool
 }
 
@@ -910,6 +1177,8 @@ func NewGridBuilder() *GridBuilder {
 	return builder
 }
 
+// 分栏列数量
+// 示例值：2
 func (builder *GridBuilder) ColumnSize(columnSize int) *GridBuilder {
 	builder.columnSize = columnSize
 	builder.columnSizeFlag = true
@@ -926,11 +1195,11 @@ func (builder *GridBuilder) Build() *Grid {
 }
 
 type GridColumn struct {
-	WidthRatio *int `json:"width_ratio,omitempty"`
+	WidthRatio *int `json:"width_ratio,omitempty"` // 当前分栏列占整个分栏的比例
 }
 
 type GridColumnBuilder struct {
-	widthRatio     int
+	widthRatio     int // 当前分栏列占整个分栏的比例
 	widthRatioFlag bool
 }
 
@@ -939,6 +1208,8 @@ func NewGridColumnBuilder() *GridColumnBuilder {
 	return builder
 }
 
+// 当前分栏列占整个分栏的比例
+// 示例值：50
 func (builder *GridColumnBuilder) WidthRatio(widthRatio int) *GridColumnBuilder {
 	builder.widthRatio = widthRatio
 	builder.widthRatioFlag = true
@@ -955,11 +1226,11 @@ func (builder *GridColumnBuilder) Build() *GridColumn {
 }
 
 type Iframe struct {
-	Component *IframeComponent `json:"component,omitempty"`
+	Component *IframeComponent `json:"component,omitempty"` // iframe 的组成元素
 }
 
 type IframeBuilder struct {
-	component     *IframeComponent
+	component     *IframeComponent // iframe 的组成元素
 	componentFlag bool
 }
 
@@ -968,6 +1239,8 @@ func NewIframeBuilder() *IframeBuilder {
 	return builder
 }
 
+// iframe 的组成元素
+// 示例值：
 func (builder *IframeBuilder) Component(component *IframeComponent) *IframeBuilder {
 	builder.component = component
 	builder.componentFlag = true
@@ -983,14 +1256,14 @@ func (builder *IframeBuilder) Build() *Iframe {
 }
 
 type IframeComponent struct {
-	IframeType *int    `json:"iframe_type,omitempty"`
-	Url        *string `json:"url,omitempty"`
+	IframeType *int    `json:"iframe_type,omitempty"` // iframe 类型
+	Url        *string `json:"url,omitempty"`         // iframe 目标 url（需要进行 url_encode）
 }
 
 type IframeComponentBuilder struct {
-	iframeType     int
+	iframeType     int // iframe 类型
 	iframeTypeFlag bool
-	url            string
+	url            string // iframe 目标 url（需要进行 url_encode）
 	urlFlag        bool
 }
 
@@ -999,11 +1272,16 @@ func NewIframeComponentBuilder() *IframeComponentBuilder {
 	return builder
 }
 
+// iframe 类型
+// 示例值：1
 func (builder *IframeComponentBuilder) IframeType(iframeType int) *IframeComponentBuilder {
 	builder.iframeType = iframeType
 	builder.iframeTypeFlag = true
 	return builder
 }
+
+// iframe 目标 url（需要进行 url_encode）
+// 示例值：https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1Hi4y1w7V7
 func (builder *IframeComponentBuilder) Url(url string) *IframeComponentBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -1024,17 +1302,17 @@ func (builder *IframeComponentBuilder) Build() *IframeComponent {
 }
 
 type Image struct {
-	Width  *int    `json:"width,omitempty"`
-	Height *int    `json:"height,omitempty"`
-	Token  *string `json:"token,omitempty"`
+	Width  *int    `json:"width,omitempty"`  // 宽度单位 px
+	Height *int    `json:"height,omitempty"` // 高度
+	Token  *string `json:"token,omitempty"`  // 图片 Token
 }
 
 type ImageBuilder struct {
-	width      int
+	width      int // 宽度单位 px
 	widthFlag  bool
-	height     int
+	height     int // 高度
 	heightFlag bool
-	token      string
+	token      string // 图片 Token
 	tokenFlag  bool
 }
 
@@ -1043,16 +1321,24 @@ func NewImageBuilder() *ImageBuilder {
 	return builder
 }
 
+// 宽度单位 px
+// 示例值：4069
 func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 	builder.width = width
 	builder.widthFlag = true
 	return builder
 }
+
+// 高度
+// 示例值：2480
 func (builder *ImageBuilder) Height(height int) *ImageBuilder {
 	builder.height = height
 	builder.heightFlag = true
 	return builder
 }
+
+// 图片 Token
+// 示例值：boxbcVA91JtFgNhaCgy6s6wK4he
 func (builder *ImageBuilder) Token(token string) *ImageBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -1077,11 +1363,11 @@ func (builder *ImageBuilder) Build() *Image {
 }
 
 type InlineBlock struct {
-	BlockId *string `json:"block_id,omitempty"`
+	BlockId *string `json:"block_id,omitempty"` // 关联的内联状态的 block 的 block_id
 }
 
 type InlineBlockBuilder struct {
-	blockId     string
+	blockId     string // 关联的内联状态的 block 的 block_id
 	blockIdFlag bool
 }
 
@@ -1090,6 +1376,8 @@ func NewInlineBlockBuilder() *InlineBlockBuilder {
 	return builder
 }
 
+// 关联的内联状态的 block 的 block_id
+// 示例值：doxcnPFi0R56ctbvh2MjkkROFWf
 func (builder *InlineBlockBuilder) BlockId(blockId string) *InlineBlockBuilder {
 	builder.blockId = blockId
 	builder.blockIdFlag = true
@@ -1106,14 +1394,14 @@ func (builder *InlineBlockBuilder) Build() *InlineBlock {
 }
 
 type InlineFile struct {
-	FileToken     *string `json:"file_token,omitempty"`
-	SourceBlockId *string `json:"source_block_id,omitempty"`
+	FileToken     *string `json:"file_token,omitempty"`      // 附件 token
+	SourceBlockId *string `json:"source_block_id,omitempty"` // 当前文档中该附件所处的 block 的 id
 }
 
 type InlineFileBuilder struct {
-	fileToken         string
+	fileToken         string // 附件 token
 	fileTokenFlag     bool
-	sourceBlockId     string
+	sourceBlockId     string // 当前文档中该附件所处的 block 的 id
 	sourceBlockIdFlag bool
 }
 
@@ -1122,11 +1410,16 @@ func NewInlineFileBuilder() *InlineFileBuilder {
 	return builder
 }
 
+// 附件 token
+// 示例值：boxcnOj88GDkmWGm2zsTyCBqoLb
 func (builder *InlineFileBuilder) FileToken(fileToken string) *InlineFileBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// 当前文档中该附件所处的 block 的 id
+// 示例值：doxcnM46kSWSkgUMW04ldKsJDsc
 func (builder *InlineFileBuilder) SourceBlockId(sourceBlockId string) *InlineFileBuilder {
 	builder.sourceBlockId = sourceBlockId
 	builder.sourceBlockIdFlag = true
@@ -1147,11 +1440,11 @@ func (builder *InlineFileBuilder) Build() *InlineFile {
 }
 
 type InsertGridColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"` // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
 }
 
 type InsertGridColumnRequestBuilder struct {
-	columnIndex     int
+	columnIndex     int // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
 	columnIndexFlag bool
 }
 
@@ -1160,6 +1453,8 @@ func NewInsertGridColumnRequestBuilder() *InsertGridColumnRequestBuilder {
 	return builder
 }
 
+// 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
+// 示例值：1
 func (builder *InsertGridColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertGridColumnRequestBuilder {
 	builder.columnIndex = columnIndex
 	builder.columnIndexFlag = true
@@ -1176,11 +1471,11 @@ func (builder *InsertGridColumnRequestBuilder) Build() *InsertGridColumnRequest 
 }
 
 type InsertTableColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
 }
 
 type InsertTableColumnRequestBuilder struct {
-	columnIndex     int
+	columnIndex     int // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
 	columnIndexFlag bool
 }
 
@@ -1189,6 +1484,8 @@ func NewInsertTableColumnRequestBuilder() *InsertTableColumnRequestBuilder {
 	return builder
 }
 
+// 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
+// 示例值：-1
 func (builder *InsertTableColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertTableColumnRequestBuilder {
 	builder.columnIndex = columnIndex
 	builder.columnIndexFlag = true
@@ -1205,11 +1502,11 @@ func (builder *InsertTableColumnRequestBuilder) Build() *InsertTableColumnReques
 }
 
 type InsertTableRowRequest struct {
-	RowIndex *int `json:"row_index,omitempty"`
+	RowIndex *int `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
 }
 
 type InsertTableRowRequestBuilder struct {
-	rowIndex     int
+	rowIndex     int // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
 	rowIndexFlag bool
 }
 
@@ -1218,6 +1515,8 @@ func NewInsertTableRowRequestBuilder() *InsertTableRowRequestBuilder {
 	return builder
 }
 
+// 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
+// 示例值：-1
 func (builder *InsertTableRowRequestBuilder) RowIndex(rowIndex int) *InsertTableRowRequestBuilder {
 	builder.rowIndex = rowIndex
 	builder.rowIndexFlag = true
@@ -1234,14 +1533,14 @@ func (builder *InsertTableRowRequestBuilder) Build() *InsertTableRowRequest {
 }
 
 type Isv struct {
-	ComponentId     *string `json:"component_id,omitempty"`
-	ComponentTypeId *string `json:"component_type_id,omitempty"`
+	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一ID
+	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
 }
 
 type IsvBuilder struct {
-	componentId         string
+	componentId         string // 团队互动应用唯一ID
 	componentIdFlag     bool
-	componentTypeId     string
+	componentTypeId     string // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
 	componentTypeIdFlag bool
 }
 
@@ -1250,11 +1549,16 @@ func NewIsvBuilder() *IsvBuilder {
 	return builder
 }
 
+// 团队互动应用唯一ID
+// 示例值：7056882725002051603
 func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
 	builder.componentId = componentId
 	builder.componentIdFlag = true
 	return builder
 }
+
+// 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
+// 示例值：blk_5f992038c64240015d280958
 func (builder *IsvBuilder) ComponentTypeId(componentTypeId string) *IsvBuilder {
 	builder.componentTypeId = componentTypeId
 	builder.componentTypeIdFlag = true
@@ -1275,11 +1579,11 @@ func (builder *IsvBuilder) Build() *Isv {
 }
 
 type Link struct {
-	Url *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
 }
 
 type LinkBuilder struct {
-	url     string
+	url     string // 超链接指向的 url (需要 url_encode)
 	urlFlag bool
 }
 
@@ -1288,6 +1592,8 @@ func NewLinkBuilder() *LinkBuilder {
 	return builder
 }
 
+// 超链接指向的 url (需要 url_encode)
+// 示例值：https%3A%2F%2Fopen.feishu.cn%2F
 func (builder *LinkBuilder) Url(url string) *LinkBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -1304,20 +1610,20 @@ func (builder *LinkBuilder) Build() *Link {
 }
 
 type MentionDoc struct {
-	Token   *string `json:"token,omitempty"`
-	ObjType *int    `json:"obj_type,omitempty"`
-	Url     *string `json:"url,omitempty"`
-	Title   *string `json:"title,omitempty"`
+	Token   *string `json:"token,omitempty"`    // 云文档 token
+	ObjType *int    `json:"obj_type,omitempty"` // 云文档类型
+	Url     *string `json:"url,omitempty"`      // 云文档链接（需要 url_encode)
+	Title   *string `json:"title,omitempty"`    // 文档标题，只读属性
 }
 
 type MentionDocBuilder struct {
-	token       string
+	token       string // 云文档 token
 	tokenFlag   bool
-	objType     int
+	objType     int // 云文档类型
 	objTypeFlag bool
-	url         string
+	url         string // 云文档链接（需要 url_encode)
 	urlFlag     bool
-	title       string
+	title       string // 文档标题，只读属性
 	titleFlag   bool
 }
 
@@ -1326,21 +1632,32 @@ func NewMentionDocBuilder() *MentionDocBuilder {
 	return builder
 }
 
+// 云文档 token
+// 示例值：doxbc873Y7cXD153gXqb76G1Y9b
 func (builder *MentionDocBuilder) Token(token string) *MentionDocBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
+
+// 云文档类型
+// 示例值：22
 func (builder *MentionDocBuilder) ObjType(objType int) *MentionDocBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
 	return builder
 }
+
+// 云文档链接（需要 url_encode)
+// 示例值：https%3A%2F%2Fbytedance.feishu-boe.cn%2Fdocx%2Fdoxbc873Y7cXD153gXqb76G1Y9b
 func (builder *MentionDocBuilder) Url(url string) *MentionDocBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// 文档标题，只读属性
+// 示例值：undefined
 func (builder *MentionDocBuilder) Title(title string) *MentionDocBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1369,11 +1686,11 @@ func (builder *MentionDocBuilder) Build() *MentionDoc {
 }
 
 type MentionUser struct {
-	UserId *string `json:"user_id,omitempty"`
+	UserId *string `json:"user_id,omitempty"` // 用户 OpenID
 }
 
 type MentionUserBuilder struct {
-	userId     string
+	userId     string // 用户 OpenID
 	userIdFlag bool
 }
 
@@ -1382,6 +1699,8 @@ func NewMentionUserBuilder() *MentionUserBuilder {
 	return builder
 }
 
+// 用户 OpenID
+// 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -1398,20 +1717,20 @@ func (builder *MentionUserBuilder) Build() *MentionUser {
 }
 
 type MergeTableCellsRequest struct {
-	RowStartIndex    *int `json:"row_start_index,omitempty"`
-	RowEndIndex      *int `json:"row_end_index,omitempty"`
-	ColumnStartIndex *int `json:"column_start_index,omitempty"`
-	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
+	RowStartIndex    *int `json:"row_start_index,omitempty"`    // 行起始索引（区间左闭右开）
+	RowEndIndex      *int `json:"row_end_index,omitempty"`      // 行结束索引（区间左闭右开）
+	ColumnStartIndex *int `json:"column_start_index,omitempty"` // 列起始索引（区间左闭右开）
+	ColumnEndIndex   *int `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）
 }
 
 type MergeTableCellsRequestBuilder struct {
-	rowStartIndex        int
+	rowStartIndex        int // 行起始索引（区间左闭右开）
 	rowStartIndexFlag    bool
-	rowEndIndex          int
+	rowEndIndex          int // 行结束索引（区间左闭右开）
 	rowEndIndexFlag      bool
-	columnStartIndex     int
+	columnStartIndex     int // 列起始索引（区间左闭右开）
 	columnStartIndexFlag bool
-	columnEndIndex       int
+	columnEndIndex       int // 列结束索引（区间左闭右开）
 	columnEndIndexFlag   bool
 }
 
@@ -1420,21 +1739,32 @@ func NewMergeTableCellsRequestBuilder() *MergeTableCellsRequestBuilder {
 	return builder
 }
 
+// 行起始索引（区间左闭右开）
+// 示例值：0
 func (builder *MergeTableCellsRequestBuilder) RowStartIndex(rowStartIndex int) *MergeTableCellsRequestBuilder {
 	builder.rowStartIndex = rowStartIndex
 	builder.rowStartIndexFlag = true
 	return builder
 }
+
+// 行结束索引（区间左闭右开）
+// 示例值：1
 func (builder *MergeTableCellsRequestBuilder) RowEndIndex(rowEndIndex int) *MergeTableCellsRequestBuilder {
 	builder.rowEndIndex = rowEndIndex
 	builder.rowEndIndexFlag = true
 	return builder
 }
+
+// 列起始索引（区间左闭右开）
+// 示例值：0
 func (builder *MergeTableCellsRequestBuilder) ColumnStartIndex(columnStartIndex int) *MergeTableCellsRequestBuilder {
 	builder.columnStartIndex = columnStartIndex
 	builder.columnStartIndexFlag = true
 	return builder
 }
+
+// 列结束索引（区间左闭右开）
+// 示例值：1
 func (builder *MergeTableCellsRequestBuilder) ColumnEndIndex(columnEndIndex int) *MergeTableCellsRequestBuilder {
 	builder.columnEndIndex = columnEndIndex
 	builder.columnEndIndexFlag = true
@@ -1463,11 +1793,11 @@ func (builder *MergeTableCellsRequestBuilder) Build() *MergeTableCellsRequest {
 }
 
 type Mindnote struct {
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"` // 思维导图 token
 }
 
 type MindnoteBuilder struct {
-	token     string
+	token     string // 思维导图 token
 	tokenFlag bool
 }
 
@@ -1476,6 +1806,8 @@ func NewMindnoteBuilder() *MindnoteBuilder {
 	return builder
 }
 
+// 思维导图 token
+// 示例值：bmnbcXXGPWfJMwDfGCbCiU14c6f
 func (builder *MindnoteBuilder) Token(token string) *MindnoteBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -1491,27 +1823,644 @@ func (builder *MindnoteBuilder) Build() *Mindnote {
 	return req
 }
 
+type ObjectiveIdWithKrId struct {
+	ObjectiveId *string  `json:"objective_id,omitempty"` // okr 中 objective 的 ID
+	KrIds       []string `json:"kr_ids,omitempty"`       // key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+}
+
+type ObjectiveIdWithKrIdBuilder struct {
+	objectiveId     string // okr 中 objective 的 ID
+	objectiveIdFlag bool
+	krIds           []string // key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+	krIdsFlag       bool
+}
+
+func NewObjectiveIdWithKrIdBuilder() *ObjectiveIdWithKrIdBuilder {
+	builder := &ObjectiveIdWithKrIdBuilder{}
+	return builder
+}
+
+// okr 中 objective 的 ID
+// 示例值："7109022409227026460"
+func (builder *ObjectiveIdWithKrIdBuilder) ObjectiveId(objectiveId string) *ObjectiveIdWithKrIdBuilder {
+	builder.objectiveId = objectiveId
+	builder.objectiveIdFlag = true
+	return builder
+}
+
+// key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+// 示例值：["7109022573011894300","7109022546444517404"]
+func (builder *ObjectiveIdWithKrIdBuilder) KrIds(krIds []string) *ObjectiveIdWithKrIdBuilder {
+	builder.krIds = krIds
+	builder.krIdsFlag = true
+	return builder
+}
+
+func (builder *ObjectiveIdWithKrIdBuilder) Build() *ObjectiveIdWithKrId {
+	req := &ObjectiveIdWithKrId{}
+	if builder.objectiveIdFlag {
+		req.ObjectiveId = &builder.objectiveId
+
+	}
+	if builder.krIdsFlag {
+		req.KrIds = builder.krIds
+	}
+	return req
+}
+
+type Okr struct {
+	OkrId               *string                `json:"okr_id,omitempty"`                // OKR ID
+	Objectives          []*ObjectiveIdWithKrId `json:"objectives,omitempty"`            // OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+	PeriodDisplayStatus *string                `json:"period_display_status,omitempty"` // 周期的状态
+	PeriodNameZh        *string                `json:"period_name_zh,omitempty"`        // 周期名 - 中文
+	PeriodNameEn        *string                `json:"period_name_en,omitempty"`        // 周期名 - 英文
+	UserId              *string                `json:"user_id,omitempty"`               // OKR 所属的用户 ID
+	VisibleSetting      *OkrVisibleSetting     `json:"visible_setting,omitempty"`       // 可见性设置
+}
+
+type OkrBuilder struct {
+	okrId                   string // OKR ID
+	okrIdFlag               bool
+	objectives              []*ObjectiveIdWithKrId // OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+	objectivesFlag          bool
+	periodDisplayStatus     string // 周期的状态
+	periodDisplayStatusFlag bool
+	periodNameZh            string // 周期名 - 中文
+	periodNameZhFlag        bool
+	periodNameEn            string // 周期名 - 英文
+	periodNameEnFlag        bool
+	userId                  string // OKR 所属的用户 ID
+	userIdFlag              bool
+	visibleSetting          *OkrVisibleSetting // 可见性设置
+	visibleSettingFlag      bool
+}
+
+func NewOkrBuilder() *OkrBuilder {
+	builder := &OkrBuilder{}
+	return builder
+}
+
+// OKR ID
+// 示例值："7076349900476448796"
+func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
+	builder.okrId = okrId
+	builder.okrIdFlag = true
+	return builder
+}
+
+// OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+// 示例值：
+func (builder *OkrBuilder) Objectives(objectives []*ObjectiveIdWithKrId) *OkrBuilder {
+	builder.objectives = objectives
+	builder.objectivesFlag = true
+	return builder
+}
+
+// 周期的状态
+// 示例值："default"
+func (builder *OkrBuilder) PeriodDisplayStatus(periodDisplayStatus string) *OkrBuilder {
+	builder.periodDisplayStatus = periodDisplayStatus
+	builder.periodDisplayStatusFlag = true
+	return builder
+}
+
+// 周期名 - 中文
+// 示例值："2022 年 4 月 - 6 月"
+func (builder *OkrBuilder) PeriodNameZh(periodNameZh string) *OkrBuilder {
+	builder.periodNameZh = periodNameZh
+	builder.periodNameZhFlag = true
+	return builder
+}
+
+// 周期名 - 英文
+// 示例值："Apr - Jun 2022"
+func (builder *OkrBuilder) PeriodNameEn(periodNameEn string) *OkrBuilder {
+	builder.periodNameEn = periodNameEn
+	builder.periodNameEnFlag = true
+	return builder
+}
+
+// OKR 所属的用户 ID
+// 示例值："ou_3bbe8a09c20e89cce9bff989ed840674"
+func (builder *OkrBuilder) UserId(userId string) *OkrBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 可见性设置
+// 示例值：
+func (builder *OkrBuilder) VisibleSetting(visibleSetting *OkrVisibleSetting) *OkrBuilder {
+	builder.visibleSetting = visibleSetting
+	builder.visibleSettingFlag = true
+	return builder
+}
+
+func (builder *OkrBuilder) Build() *Okr {
+	req := &Okr{}
+	if builder.okrIdFlag {
+		req.OkrId = &builder.okrId
+
+	}
+	if builder.objectivesFlag {
+		req.Objectives = builder.objectives
+	}
+	if builder.periodDisplayStatusFlag {
+		req.PeriodDisplayStatus = &builder.periodDisplayStatus
+
+	}
+	if builder.periodNameZhFlag {
+		req.PeriodNameZh = &builder.periodNameZh
+
+	}
+	if builder.periodNameEnFlag {
+		req.PeriodNameEn = &builder.periodNameEn
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.visibleSettingFlag {
+		req.VisibleSetting = builder.visibleSetting
+	}
+	return req
+}
+
+type OkrKeyResult struct {
+	KrId         *string          `json:"kr_id,omitempty"`         // key result 的 ID
+	Confidential *bool            `json:"confidential,omitempty"`  // 是否设置过私密权限
+	Position     *int             `json:"position,omitempty"`      // key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+	Score        *int             `json:"score,omitempty"`         // 打分信息
+	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中此 key result 是否可见
+	Weight       *float64         `json:"weight,omitempty"`        // key result 的权重
+	ProgressRate *OkrProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Content      *Text            `json:"content,omitempty"`       // key result 的文本内容
+}
+
+type OkrKeyResultBuilder struct {
+	krId             string // key result 的 ID
+	krIdFlag         bool
+	confidential     bool // 是否设置过私密权限
+	confidentialFlag bool
+	position         int // key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+	positionFlag     bool
+	score            int // 打分信息
+	scoreFlag        bool
+	visible          bool // OKR Block 中此 key result 是否可见
+	visibleFlag      bool
+	weight           float64 // key result 的权重
+	weightFlag       bool
+	progressRate     *OkrProgressRate // 进展信息
+	progressRateFlag bool
+	content          *Text // key result 的文本内容
+	contentFlag      bool
+}
+
+func NewOkrKeyResultBuilder() *OkrKeyResultBuilder {
+	builder := &OkrKeyResultBuilder{}
+	return builder
+}
+
+// key result 的 ID
+// 示例值："7109022573011894300"
+func (builder *OkrKeyResultBuilder) KrId(krId string) *OkrKeyResultBuilder {
+	builder.krId = krId
+	builder.krIdFlag = true
+	return builder
+}
+
+// 是否设置过私密权限
+// 示例值：false
+func (builder *OkrKeyResultBuilder) Confidential(confidential bool) *OkrKeyResultBuilder {
+	builder.confidential = confidential
+	builder.confidentialFlag = true
+	return builder
+}
+
+// key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+// 示例值：1
+func (builder *OkrKeyResultBuilder) Position(position int) *OkrKeyResultBuilder {
+	builder.position = position
+	builder.positionFlag = true
+	return builder
+}
+
+// 打分信息
+// 示例值：0
+func (builder *OkrKeyResultBuilder) Score(score int) *OkrKeyResultBuilder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+// OKR Block 中此 key result 是否可见
+// 示例值：true
+func (builder *OkrKeyResultBuilder) Visible(visible bool) *OkrKeyResultBuilder {
+	builder.visible = visible
+	builder.visibleFlag = true
+	return builder
+}
+
+// key result 的权重
+// 示例值：0.5
+func (builder *OkrKeyResultBuilder) Weight(weight float64) *OkrKeyResultBuilder {
+	builder.weight = weight
+	builder.weightFlag = true
+	return builder
+}
+
+// 进展信息
+// 示例值：
+func (builder *OkrKeyResultBuilder) ProgressRate(progressRate *OkrProgressRate) *OkrKeyResultBuilder {
+	builder.progressRate = progressRate
+	builder.progressRateFlag = true
+	return builder
+}
+
+// key result 的文本内容
+// 示例值：
+func (builder *OkrKeyResultBuilder) Content(content *Text) *OkrKeyResultBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *OkrKeyResultBuilder) Build() *OkrKeyResult {
+	req := &OkrKeyResult{}
+	if builder.krIdFlag {
+		req.KrId = &builder.krId
+
+	}
+	if builder.confidentialFlag {
+		req.Confidential = &builder.confidential
+
+	}
+	if builder.positionFlag {
+		req.Position = &builder.position
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	if builder.visibleFlag {
+		req.Visible = &builder.visible
+
+	}
+	if builder.weightFlag {
+		req.Weight = &builder.weight
+
+	}
+	if builder.progressRateFlag {
+		req.ProgressRate = builder.progressRate
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	return req
+}
+
+type OkrObjective struct {
+	ObjectiveId  *string          `json:"objective_id,omitempty"`  // objective ID
+	Confidential *bool            `json:"confidential,omitempty"`  // 是否设置过私密权限
+	Position     *int             `json:"position,omitempty"`      // objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	Score        *int             `json:"score,omitempty"`         // 打分信息
+	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中是否展示该 objective
+	Weight       *float64         `json:"weight,omitempty"`        // objective 的权重
+	ProgressRate *OkrProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Content      *Text            `json:"content,omitempty"`       // objective 的文本内容
+}
+
+type OkrObjectiveBuilder struct {
+	objectiveId      string // objective ID
+	objectiveIdFlag  bool
+	confidential     bool // 是否设置过私密权限
+	confidentialFlag bool
+	position         int // objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	positionFlag     bool
+	score            int // 打分信息
+	scoreFlag        bool
+	visible          bool // OKR Block 中是否展示该 objective
+	visibleFlag      bool
+	weight           float64 // objective 的权重
+	weightFlag       bool
+	progressRate     *OkrProgressRate // 进展信息
+	progressRateFlag bool
+	content          *Text // objective 的文本内容
+	contentFlag      bool
+}
+
+func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
+	builder := &OkrObjectiveBuilder{}
+	return builder
+}
+
+// objective ID
+// 示例值："7109022409227026460"
+func (builder *OkrObjectiveBuilder) ObjectiveId(objectiveId string) *OkrObjectiveBuilder {
+	builder.objectiveId = objectiveId
+	builder.objectiveIdFlag = true
+	return builder
+}
+
+// 是否设置过私密权限
+// 示例值：false
+func (builder *OkrObjectiveBuilder) Confidential(confidential bool) *OkrObjectiveBuilder {
+	builder.confidential = confidential
+	builder.confidentialFlag = true
+	return builder
+}
+
+// objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+// 示例值：1
+func (builder *OkrObjectiveBuilder) Position(position int) *OkrObjectiveBuilder {
+	builder.position = position
+	builder.positionFlag = true
+	return builder
+}
+
+// 打分信息
+// 示例值：0
+func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+// OKR Block 中是否展示该 objective
+// 示例值：true
+func (builder *OkrObjectiveBuilder) Visible(visible bool) *OkrObjectiveBuilder {
+	builder.visible = visible
+	builder.visibleFlag = true
+	return builder
+}
+
+// objective 的权重
+// 示例值：1.0
+func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
+	builder.weight = weight
+	builder.weightFlag = true
+	return builder
+}
+
+// 进展信息
+// 示例值：
+func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrProgressRate) *OkrObjectiveBuilder {
+	builder.progressRate = progressRate
+	builder.progressRateFlag = true
+	return builder
+}
+
+// objective 的文本内容
+// 示例值：
+func (builder *OkrObjectiveBuilder) Content(content *Text) *OkrObjectiveBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
+	req := &OkrObjective{}
+	if builder.objectiveIdFlag {
+		req.ObjectiveId = &builder.objectiveId
+
+	}
+	if builder.confidentialFlag {
+		req.Confidential = &builder.confidential
+
+	}
+	if builder.positionFlag {
+		req.Position = &builder.position
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	if builder.visibleFlag {
+		req.Visible = &builder.visible
+
+	}
+	if builder.weightFlag {
+		req.Weight = &builder.weight
+
+	}
+	if builder.progressRateFlag {
+		req.ProgressRate = builder.progressRate
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	return req
+}
+
+type OkrProgress struct {
+}
+
+type OkrProgressRate struct {
+	Mode           *string  `json:"mode,omitempty"`            // 状态模式
+	Current        *float64 `json:"current,omitempty"`         // 当前进度
+	Percent        *float64 `json:"percent,omitempty"`         // 当前进度百分比，simple mode 下使用
+	ProgressStatus *string  `json:"progress_status,omitempty"` // 进展状态
+	Start          *float64 `json:"start,omitempty"`           // 进度起始值，advanced模式使用
+	StatusType     *string  `json:"status_type,omitempty"`     // 状态类型
+	Target         *float64 `json:"target,omitempty"`          // 进度目标值，advanced模式使用
+}
+
+type OkrProgressRateBuilder struct {
+	mode               string // 状态模式
+	modeFlag           bool
+	current            float64 // 当前进度
+	currentFlag        bool
+	percent            float64 // 当前进度百分比，simple mode 下使用
+	percentFlag        bool
+	progressStatus     string // 进展状态
+	progressStatusFlag bool
+	start              float64 // 进度起始值，advanced模式使用
+	startFlag          bool
+	statusType         string // 状态类型
+	statusTypeFlag     bool
+	target             float64 // 进度目标值，advanced模式使用
+	targetFlag         bool
+}
+
+func NewOkrProgressRateBuilder() *OkrProgressRateBuilder {
+	builder := &OkrProgressRateBuilder{}
+	return builder
+}
+
+// 状态模式
+// 示例值："simple"
+func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder {
+	builder.mode = mode
+	builder.modeFlag = true
+	return builder
+}
+
+// 当前进度
+// 示例值：0
+func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRateBuilder {
+	builder.current = current
+	builder.currentFlag = true
+	return builder
+}
+
+// 当前进度百分比，simple mode 下使用
+// 示例值：100
+func (builder *OkrProgressRateBuilder) Percent(percent float64) *OkrProgressRateBuilder {
+	builder.percent = percent
+	builder.percentFlag = true
+	return builder
+}
+
+// 进展状态
+// 示例值："normal"
+func (builder *OkrProgressRateBuilder) ProgressStatus(progressStatus string) *OkrProgressRateBuilder {
+	builder.progressStatus = progressStatus
+	builder.progressStatusFlag = true
+	return builder
+}
+
+// 进度起始值，advanced模式使用
+// 示例值：0
+func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuilder {
+	builder.start = start
+	builder.startFlag = true
+	return builder
+}
+
+// 状态类型
+// 示例值："default"
+func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgressRateBuilder {
+	builder.statusType = statusType
+	builder.statusTypeFlag = true
+	return builder
+}
+
+// 进度目标值，advanced模式使用
+// 示例值：
+func (builder *OkrProgressRateBuilder) Target(target float64) *OkrProgressRateBuilder {
+	builder.target = target
+	builder.targetFlag = true
+	return builder
+}
+
+func (builder *OkrProgressRateBuilder) Build() *OkrProgressRate {
+	req := &OkrProgressRate{}
+	if builder.modeFlag {
+		req.Mode = &builder.mode
+
+	}
+	if builder.currentFlag {
+		req.Current = &builder.current
+
+	}
+	if builder.percentFlag {
+		req.Percent = &builder.percent
+
+	}
+	if builder.progressStatusFlag {
+		req.ProgressStatus = &builder.progressStatus
+
+	}
+	if builder.startFlag {
+		req.Start = &builder.start
+
+	}
+	if builder.statusTypeFlag {
+		req.StatusType = &builder.statusType
+
+	}
+	if builder.targetFlag {
+		req.Target = &builder.target
+
+	}
+	return req
+}
+
+type OkrVisibleSetting struct {
+	ProgressFillAreaVisible *bool `json:"progress_fill_area_visible,omitempty"` // 进展编辑区域是否可见
+	ProgressStatusVisible   *bool `json:"progress_status_visible,omitempty"`    // 状态是否可见
+	ScoreVisible            *bool `json:"score_visible,omitempty"`              // 分数是否可见
+}
+
+type OkrVisibleSettingBuilder struct {
+	progressFillAreaVisible     bool // 进展编辑区域是否可见
+	progressFillAreaVisibleFlag bool
+	progressStatusVisible       bool // 状态是否可见
+	progressStatusVisibleFlag   bool
+	scoreVisible                bool // 分数是否可见
+	scoreVisibleFlag            bool
+}
+
+func NewOkrVisibleSettingBuilder() *OkrVisibleSettingBuilder {
+	builder := &OkrVisibleSettingBuilder{}
+	return builder
+}
+
+// 进展编辑区域是否可见
+// 示例值：true
+func (builder *OkrVisibleSettingBuilder) ProgressFillAreaVisible(progressFillAreaVisible bool) *OkrVisibleSettingBuilder {
+	builder.progressFillAreaVisible = progressFillAreaVisible
+	builder.progressFillAreaVisibleFlag = true
+	return builder
+}
+
+// 状态是否可见
+// 示例值：true
+func (builder *OkrVisibleSettingBuilder) ProgressStatusVisible(progressStatusVisible bool) *OkrVisibleSettingBuilder {
+	builder.progressStatusVisible = progressStatusVisible
+	builder.progressStatusVisibleFlag = true
+	return builder
+}
+
+// 分数是否可见
+// 示例值：true
+func (builder *OkrVisibleSettingBuilder) ScoreVisible(scoreVisible bool) *OkrVisibleSettingBuilder {
+	builder.scoreVisible = scoreVisible
+	builder.scoreVisibleFlag = true
+	return builder
+}
+
+func (builder *OkrVisibleSettingBuilder) Build() *OkrVisibleSetting {
+	req := &OkrVisibleSetting{}
+	if builder.progressFillAreaVisibleFlag {
+		req.ProgressFillAreaVisible = &builder.progressFillAreaVisible
+
+	}
+	if builder.progressStatusVisibleFlag {
+		req.ProgressStatusVisible = &builder.progressStatusVisible
+
+	}
+	if builder.scoreVisibleFlag {
+		req.ScoreVisible = &builder.scoreVisible
+
+	}
+	return req
+}
+
 type QuoteContainer struct {
 }
 
 type Reminder struct {
-	CreateUserId *string `json:"create_user_id,omitempty"`
-	IsNotify     *bool   `json:"is_notify,omitempty"`
-	IsWholeDay   *bool   `json:"is_whole_day,omitempty"`
-	ExpireTime   *string `json:"expire_time,omitempty"`
-	NotifyTime   *string `json:"notify_time,omitempty"`
+	CreateUserId *string `json:"create_user_id,omitempty"` // 创建者用户 ID
+	IsNotify     *bool   `json:"is_notify,omitempty"`      // 是否通知
+	IsWholeDay   *bool   `json:"is_whole_day,omitempty"`   // 是日期还是整点小时
+	ExpireTime   *string `json:"expire_time,omitempty"`    // 事件发生的时间（毫秒级事件戳）
+	NotifyTime   *string `json:"notify_time,omitempty"`    // 触发通知的时间（毫秒级时间戳）
 }
 
 type ReminderBuilder struct {
-	createUserId     string
+	createUserId     string // 创建者用户 ID
 	createUserIdFlag bool
-	isNotify         bool
+	isNotify         bool // 是否通知
 	isNotifyFlag     bool
-	isWholeDay       bool
+	isWholeDay       bool // 是日期还是整点小时
 	isWholeDayFlag   bool
-	expireTime       string
+	expireTime       string // 事件发生的时间（毫秒级事件戳）
 	expireTimeFlag   bool
-	notifyTime       string
+	notifyTime       string // 触发通知的时间（毫秒级时间戳）
 	notifyTimeFlag   bool
 }
 
@@ -1520,26 +2469,40 @@ func NewReminderBuilder() *ReminderBuilder {
 	return builder
 }
 
+// 创建者用户 ID
+// 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *ReminderBuilder) CreateUserId(createUserId string) *ReminderBuilder {
 	builder.createUserId = createUserId
 	builder.createUserIdFlag = true
 	return builder
 }
+
+// 是否通知
+// 示例值：true
 func (builder *ReminderBuilder) IsNotify(isNotify bool) *ReminderBuilder {
 	builder.isNotify = isNotify
 	builder.isNotifyFlag = true
 	return builder
 }
+
+// 是日期还是整点小时
+// 示例值：true
 func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
 	builder.isWholeDay = isWholeDay
 	builder.isWholeDayFlag = true
 	return builder
 }
+
+// 事件发生的时间（毫秒级事件戳）
+// 示例值：1641967200000
 func (builder *ReminderBuilder) ExpireTime(expireTime string) *ReminderBuilder {
 	builder.expireTime = expireTime
 	builder.expireTimeFlag = true
 	return builder
 }
+
+// 触发通知的时间（毫秒级时间戳）
+// 示例值：1643166000000
 func (builder *ReminderBuilder) NotifyTime(notifyTime string) *ReminderBuilder {
 	builder.notifyTime = notifyTime
 	builder.notifyTimeFlag = true
@@ -1572,11 +2535,11 @@ func (builder *ReminderBuilder) Build() *Reminder {
 }
 
 type ReplaceFileRequest struct {
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"` // 附件 token
 }
 
 type ReplaceFileRequestBuilder struct {
-	token     string
+	token     string // 附件 token
 	tokenFlag bool
 }
 
@@ -1585,6 +2548,8 @@ func NewReplaceFileRequestBuilder() *ReplaceFileRequestBuilder {
 	return builder
 }
 
+// 附件 token
+// 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
 func (builder *ReplaceFileRequestBuilder) Token(token string) *ReplaceFileRequestBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -1601,11 +2566,11 @@ func (builder *ReplaceFileRequestBuilder) Build() *ReplaceFileRequest {
 }
 
 type ReplaceImageRequest struct {
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"` // 图片 token
 }
 
 type ReplaceImageRequestBuilder struct {
-	token     string
+	token     string // 图片 token
 	tokenFlag bool
 }
 
@@ -1614,6 +2579,8 @@ func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
 	return builder
 }
 
+// 图片 token
+// 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
 func (builder *ReplaceImageRequestBuilder) Token(token string) *ReplaceImageRequestBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -1630,17 +2597,17 @@ func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 }
 
 type Sheet struct {
-	Token      *string `json:"token,omitempty"`
-	RowSize    *int    `json:"row_size,omitempty"`
-	ColumnSize *int    `json:"column_size,omitempty"`
+	Token      *string `json:"token,omitempty"`       // 电子表格 block 的 token
+	RowSize    *int    `json:"row_size,omitempty"`    // 电子表格行数量
+	ColumnSize *int    `json:"column_size,omitempty"` // 电子表格列数量
 }
 
 type SheetBuilder struct {
-	token          string
+	token          string // 电子表格 block 的 token
 	tokenFlag      bool
-	rowSize        int
+	rowSize        int // 电子表格行数量
 	rowSizeFlag    bool
-	columnSize     int
+	columnSize     int // 电子表格列数量
 	columnSizeFlag bool
 }
 
@@ -1649,16 +2616,24 @@ func NewSheetBuilder() *SheetBuilder {
 	return builder
 }
 
+// 电子表格 block 的 token
+// 示例值：shtbcW6ufcUtRRet7Hz6Iv4ytzg
 func (builder *SheetBuilder) Token(token string) *SheetBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
+
+// 电子表格行数量
+// 示例值：2
 func (builder *SheetBuilder) RowSize(rowSize int) *SheetBuilder {
 	builder.rowSize = rowSize
 	builder.rowSizeFlag = true
 	return builder
 }
+
+// 电子表格列数量
+// 示例值：2
 func (builder *SheetBuilder) ColumnSize(columnSize int) *SheetBuilder {
 	builder.columnSize = columnSize
 	builder.columnSizeFlag = true
@@ -1683,14 +2658,14 @@ func (builder *SheetBuilder) Build() *Sheet {
 }
 
 type Table struct {
-	Cells    []string       `json:"cells,omitempty"`
-	Property *TableProperty `json:"property,omitempty"`
+	Cells    []string       `json:"cells,omitempty"`    // 单元格数组，数组元素为 Table Cell Block 的 ID
+	Property *TableProperty `json:"property,omitempty"` // 表格属性
 }
 
 type TableBuilder struct {
-	cells        []string
+	cells        []string // 单元格数组，数组元素为 Table Cell Block 的 ID
 	cellsFlag    bool
-	property     *TableProperty
+	property     *TableProperty // 表格属性
 	propertyFlag bool
 }
 
@@ -1699,11 +2674,16 @@ func NewTableBuilder() *TableBuilder {
 	return builder
 }
 
+// 单元格数组，数组元素为 Table Cell Block 的 ID
+// 示例值：
 func (builder *TableBuilder) Cells(cells []string) *TableBuilder {
 	builder.cells = cells
 	builder.cellsFlag = true
 	return builder
 }
+
+// 表格属性
+// 示例值：
 func (builder *TableBuilder) Property(property *TableProperty) *TableBuilder {
 	builder.property = property
 	builder.propertyFlag = true
@@ -1725,14 +2705,14 @@ type TableCell struct {
 }
 
 type TableMergeInfo struct {
-	RowSpan *int `json:"row_span,omitempty"`
-	ColSpan *int `json:"col_span,omitempty"`
+	RowSpan *int `json:"row_span,omitempty"` // 从当前行索引起被合并的连续行数
+	ColSpan *int `json:"col_span,omitempty"` // 从当前列索引起被合并的连续列数
 }
 
 type TableMergeInfoBuilder struct {
-	rowSpan     int
+	rowSpan     int // 从当前行索引起被合并的连续行数
 	rowSpanFlag bool
-	colSpan     int
+	colSpan     int // 从当前列索引起被合并的连续列数
 	colSpanFlag bool
 }
 
@@ -1741,11 +2721,16 @@ func NewTableMergeInfoBuilder() *TableMergeInfoBuilder {
 	return builder
 }
 
+// 从当前行索引起被合并的连续行数
+// 示例值：2
 func (builder *TableMergeInfoBuilder) RowSpan(rowSpan int) *TableMergeInfoBuilder {
 	builder.rowSpan = rowSpan
 	builder.rowSpanFlag = true
 	return builder
 }
+
+// 从当前列索引起被合并的连续列数
+// 示例值：2
 func (builder *TableMergeInfoBuilder) ColSpan(colSpan int) *TableMergeInfoBuilder {
 	builder.colSpan = colSpan
 	builder.colSpanFlag = true
@@ -1766,20 +2751,20 @@ func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
 }
 
 type TableProperty struct {
-	RowSize     *int              `json:"row_size,omitempty"`
-	ColumnSize  *int              `json:"column_size,omitempty"`
-	ColumnWidth []int             `json:"column_width,omitempty"`
-	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`
+	RowSize     *int              `json:"row_size,omitempty"`     // 行数
+	ColumnSize  *int              `json:"column_size,omitempty"`  // 列数
+	ColumnWidth []int             `json:"column_width,omitempty"` // 列宽，单位px
+	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`   // 单元格合并信息
 }
 
 type TablePropertyBuilder struct {
-	rowSize         int
+	rowSize         int // 行数
 	rowSizeFlag     bool
-	columnSize      int
+	columnSize      int // 列数
 	columnSizeFlag  bool
-	columnWidth     []int
+	columnWidth     []int // 列宽，单位px
 	columnWidthFlag bool
-	mergeInfo       []*TableMergeInfo
+	mergeInfo       []*TableMergeInfo // 单元格合并信息
 	mergeInfoFlag   bool
 }
 
@@ -1788,21 +2773,32 @@ func NewTablePropertyBuilder() *TablePropertyBuilder {
 	return builder
 }
 
+// 行数
+// 示例值：1
 func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder {
 	builder.rowSize = rowSize
 	builder.rowSizeFlag = true
 	return builder
 }
+
+// 列数
+// 示例值：1
 func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBuilder {
 	builder.columnSize = columnSize
 	builder.columnSizeFlag = true
 	return builder
 }
+
+// 列宽，单位px
+// 示例值：100
 func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TablePropertyBuilder {
 	builder.columnWidth = columnWidth
 	builder.columnWidthFlag = true
 	return builder
 }
+
+// 单元格合并信息
+// 示例值：
 func (builder *TablePropertyBuilder) MergeInfo(mergeInfo []*TableMergeInfo) *TablePropertyBuilder {
 	builder.mergeInfo = mergeInfo
 	builder.mergeInfoFlag = true
@@ -1828,15 +2824,46 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 	return req
 }
 
+type Task struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+}
+
+type TaskBuilder struct {
+	taskId     string // 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+	taskIdFlag bool
+}
+
+func NewTaskBuilder() *TaskBuilder {
+	builder := &TaskBuilder{}
+	return builder
+}
+
+// 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+// 示例值：
+func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+func (builder *TaskBuilder) Build() *Task {
+	req := &Task{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	return req
+}
+
 type Text struct {
-	Style    *TextStyle     `json:"style,omitempty"`
-	Elements []*TextElement `json:"elements,omitempty"`
+	Style    *TextStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*TextElement `json:"elements,omitempty"` // 文本元素
 }
 
 type TextBuilder struct {
-	style        *TextStyle
+	style        *TextStyle // 文本样式
 	styleFlag    bool
-	elements     []*TextElement
+	elements     []*TextElement // 文本元素
 	elementsFlag bool
 }
 
@@ -1845,11 +2872,16 @@ func NewTextBuilder() *TextBuilder {
 	return builder
 }
 
+// 文本样式
+// 示例值：
 func (builder *TextBuilder) Style(style *TextStyle) *TextBuilder {
 	builder.style = style
 	builder.styleFlag = true
 	return builder
 }
+
+// 文本元素
+// 示例值：
 func (builder *TextBuilder) Elements(elements []*TextElement) *TextBuilder {
 	builder.elements = elements
 	builder.elementsFlag = true
@@ -1868,32 +2900,32 @@ func (builder *TextBuilder) Build() *Text {
 }
 
 type TextElement struct {
-	TextRun     *TextRun          `json:"text_run,omitempty"`
-	MentionUser *MentionUser      `json:"mention_user,omitempty"`
-	MentionDoc  *MentionDoc       `json:"mention_doc,omitempty"`
-	Reminder    *Reminder         `json:"reminder,omitempty"`
-	File        *InlineFile       `json:"file,omitempty"`
-	Undefined   *UndefinedElement `json:"undefined,omitempty"`
-	InlineBlock *InlineBlock      `json:"inline_block,omitempty"`
-	Equation    *Equation         `json:"equation,omitempty"`
+	TextRun     *TextRun          `json:"text_run,omitempty"`     // 文字
+	MentionUser *MentionUser      `json:"mention_user,omitempty"` // @用户
+	MentionDoc  *MentionDoc       `json:"mention_doc,omitempty"`  // @文档
+	Reminder    *Reminder         `json:"reminder,omitempty"`     // 日期提醒
+	File        *InlineFile       `json:"file,omitempty"`         // 内联附件
+	Undefined   *UndefinedElement `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *InlineBlock      `json:"inline_block,omitempty"` // 内联 block
+	Equation    *Equation         `json:"equation,omitempty"`     // 公式
 }
 
 type TextElementBuilder struct {
-	textRun         *TextRun
+	textRun         *TextRun // 文字
 	textRunFlag     bool
-	mentionUser     *MentionUser
+	mentionUser     *MentionUser // @用户
 	mentionUserFlag bool
-	mentionDoc      *MentionDoc
+	mentionDoc      *MentionDoc // @文档
 	mentionDocFlag  bool
-	reminder        *Reminder
+	reminder        *Reminder // 日期提醒
 	reminderFlag    bool
-	file            *InlineFile
+	file            *InlineFile // 内联附件
 	fileFlag        bool
-	undefined       *UndefinedElement
+	undefined       *UndefinedElement // 未支持的 TextElement
 	undefinedFlag   bool
-	inlineBlock     *InlineBlock
+	inlineBlock     *InlineBlock // 内联 block
 	inlineBlockFlag bool
-	equation        *Equation
+	equation        *Equation // 公式
 	equationFlag    bool
 }
 
@@ -1902,41 +2934,64 @@ func NewTextElementBuilder() *TextElementBuilder {
 	return builder
 }
 
+// 文字
+// 示例值：
 func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder {
 	builder.textRun = textRun
 	builder.textRunFlag = true
 	return builder
 }
+
+// @用户
+// 示例值：
 func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextElementBuilder {
 	builder.mentionUser = mentionUser
 	builder.mentionUserFlag = true
 	return builder
 }
+
+// @文档
+// 示例值：
 func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextElementBuilder {
 	builder.mentionDoc = mentionDoc
 	builder.mentionDocFlag = true
 	return builder
 }
+
+// 日期提醒
+// 示例值：
 func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuilder {
 	builder.reminder = reminder
 	builder.reminderFlag = true
 	return builder
 }
+
+// 内联附件
+// 示例值：
 func (builder *TextElementBuilder) File(file *InlineFile) *TextElementBuilder {
 	builder.file = file
 	builder.fileFlag = true
 	return builder
 }
+
+// 未支持的 TextElement
+// 示例值：
 func (builder *TextElementBuilder) Undefined(undefined *UndefinedElement) *TextElementBuilder {
 	builder.undefined = undefined
 	builder.undefinedFlag = true
 	return builder
 }
+
+// 内联 block
+// 示例值：
 func (builder *TextElementBuilder) InlineBlock(inlineBlock *InlineBlock) *TextElementBuilder {
 	builder.inlineBlock = inlineBlock
 	builder.inlineBlockFlag = true
 	return builder
 }
+
+// 公式
+// 示例值：
 func (builder *TextElementBuilder) Equation(equation *Equation) *TextElementBuilder {
 	builder.equation = equation
 	builder.equationFlag = true
@@ -1973,32 +3028,32 @@ func (builder *TextElementBuilder) Build() *TextElement {
 }
 
 type TextElementStyle struct {
-	Bold            *bool `json:"bold,omitempty"`
-	Italic          *bool `json:"italic,omitempty"`
-	Strikethrough   *bool `json:"strikethrough,omitempty"`
-	Underline       *bool `json:"underline,omitempty"`
-	InlineCode      *bool `json:"inline_code,omitempty"`
-	BackgroundColor *int  `json:"background_color,omitempty"`
-	TextColor       *int  `json:"text_color,omitempty"`
-	Link            *Link `json:"link,omitempty"`
+	Bold            *bool `json:"bold,omitempty"`             // 加粗
+	Italic          *bool `json:"italic,omitempty"`           // 斜体
+	Strikethrough   *bool `json:"strikethrough,omitempty"`    // 删除线
+	Underline       *bool `json:"underline,omitempty"`        // 下划线
+	InlineCode      *bool `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor *int  `json:"background_color,omitempty"` // 背景色
+	TextColor       *int  `json:"text_color,omitempty"`       // 字体颜色
+	Link            *Link `json:"link,omitempty"`             // 链接
 }
 
 type TextElementStyleBuilder struct {
-	bold                bool
+	bold                bool // 加粗
 	boldFlag            bool
-	italic              bool
+	italic              bool // 斜体
 	italicFlag          bool
-	strikethrough       bool
+	strikethrough       bool // 删除线
 	strikethroughFlag   bool
-	underline           bool
+	underline           bool // 下划线
 	underlineFlag       bool
-	inlineCode          bool
+	inlineCode          bool // inline 代码
 	inlineCodeFlag      bool
-	backgroundColor     int
+	backgroundColor     int // 背景色
 	backgroundColorFlag bool
-	textColor           int
+	textColor           int // 字体颜色
 	textColorFlag       bool
-	link                *Link
+	link                *Link // 链接
 	linkFlag            bool
 }
 
@@ -2007,41 +3062,64 @@ func NewTextElementStyleBuilder() *TextElementStyleBuilder {
 	return builder
 }
 
+// 加粗
+// 示例值：true
 func (builder *TextElementStyleBuilder) Bold(bold bool) *TextElementStyleBuilder {
 	builder.bold = bold
 	builder.boldFlag = true
 	return builder
 }
+
+// 斜体
+// 示例值：true
 func (builder *TextElementStyleBuilder) Italic(italic bool) *TextElementStyleBuilder {
 	builder.italic = italic
 	builder.italicFlag = true
 	return builder
 }
+
+// 删除线
+// 示例值：true
 func (builder *TextElementStyleBuilder) Strikethrough(strikethrough bool) *TextElementStyleBuilder {
 	builder.strikethrough = strikethrough
 	builder.strikethroughFlag = true
 	return builder
 }
+
+// 下划线
+// 示例值：true
 func (builder *TextElementStyleBuilder) Underline(underline bool) *TextElementStyleBuilder {
 	builder.underline = underline
 	builder.underlineFlag = true
 	return builder
 }
+
+// inline 代码
+// 示例值：true
 func (builder *TextElementStyleBuilder) InlineCode(inlineCode bool) *TextElementStyleBuilder {
 	builder.inlineCode = inlineCode
 	builder.inlineCodeFlag = true
 	return builder
 }
+
+// 背景色
+// 示例值：1
 func (builder *TextElementStyleBuilder) BackgroundColor(backgroundColor int) *TextElementStyleBuilder {
 	builder.backgroundColor = backgroundColor
 	builder.backgroundColorFlag = true
 	return builder
 }
+
+// 字体颜色
+// 示例值：1
 func (builder *TextElementStyleBuilder) TextColor(textColor int) *TextElementStyleBuilder {
 	builder.textColor = textColor
 	builder.textColorFlag = true
 	return builder
 }
+
+// 链接
+// 示例值：
 func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilder {
 	builder.link = link
 	builder.linkFlag = true
@@ -2085,14 +3163,14 @@ func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
 }
 
 type TextRun struct {
-	Content          *string           `json:"content,omitempty"`
-	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"`
+	Content          *string           `json:"content,omitempty"`            // 文本内容
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type TextRunBuilder struct {
-	content              string
+	content              string // 文本内容
 	contentFlag          bool
-	textElementStyle     *TextElementStyle
+	textElementStyle     *TextElementStyle // 文本局部样式
 	textElementStyleFlag bool
 }
 
@@ -2101,11 +3179,16 @@ func NewTextRunBuilder() *TextRunBuilder {
 	return builder
 }
 
+// 文本内容
+// 示例值：文本
 func (builder *TextRunBuilder) Content(content string) *TextRunBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 文本局部样式
+// 示例值：
 func (builder *TextRunBuilder) TextElementStyle(textElementStyle *TextElementStyle) *TextRunBuilder {
 	builder.textElementStyle = textElementStyle
 	builder.textElementStyleFlag = true
@@ -2125,23 +3208,23 @@ func (builder *TextRunBuilder) Build() *TextRun {
 }
 
 type TextStyle struct {
-	Align    *int  `json:"align,omitempty"`
-	Done     *bool `json:"done,omitempty"`
-	Folded   *bool `json:"folded,omitempty"`
-	Language *int  `json:"language,omitempty"`
-	Wrap     *bool `json:"wrap,omitempty"`
+	Align    *int  `json:"align,omitempty"`    // 对齐方式
+	Done     *bool `json:"done,omitempty"`     // todo 的完成状态
+	Folded   *bool `json:"folded,omitempty"`   // 文本的折叠状态
+	Language *int  `json:"language,omitempty"` // 代码块语言
+	Wrap     *bool `json:"wrap,omitempty"`     // 代码块是否自动换行
 }
 
 type TextStyleBuilder struct {
-	align        int
+	align        int // 对齐方式
 	alignFlag    bool
-	done         bool
+	done         bool // todo 的完成状态
 	doneFlag     bool
-	folded       bool
+	folded       bool // 文本的折叠状态
 	foldedFlag   bool
-	language     int
+	language     int // 代码块语言
 	languageFlag bool
-	wrap         bool
+	wrap         bool // 代码块是否自动换行
 	wrapFlag     bool
 }
 
@@ -2150,26 +3233,40 @@ func NewTextStyleBuilder() *TextStyleBuilder {
 	return builder
 }
 
+// 对齐方式
+// 示例值：1
 func (builder *TextStyleBuilder) Align(align int) *TextStyleBuilder {
 	builder.align = align
 	builder.alignFlag = true
 	return builder
 }
+
+// todo 的完成状态
+// 示例值：true
 func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
 	builder.done = done
 	builder.doneFlag = true
 	return builder
 }
+
+// 文本的折叠状态
+// 示例值：true
 func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
 	builder.folded = folded
 	builder.foldedFlag = true
 	return builder
 }
+
+// 代码块语言
+// 示例值：1
 func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
 	builder.language = language
 	builder.languageFlag = true
 	return builder
 }
+
+// 代码块是否自动换行
+// 示例值：true
 func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
 	builder.wrap = wrap
 	builder.wrapFlag = true
@@ -2208,14 +3305,14 @@ type UndefinedElement struct {
 }
 
 type UnmergeTableCellsRequest struct {
-	RowIndex    *int `json:"row_index,omitempty"`
-	ColumnIndex *int `json:"column_index,omitempty"`
+	RowIndex    *int `json:"row_index,omitempty"`    // table 行索引
+	ColumnIndex *int `json:"column_index,omitempty"` // table 列索引
 }
 
 type UnmergeTableCellsRequestBuilder struct {
-	rowIndex        int
+	rowIndex        int // table 行索引
 	rowIndexFlag    bool
-	columnIndex     int
+	columnIndex     int // table 列索引
 	columnIndexFlag bool
 }
 
@@ -2224,11 +3321,16 @@ func NewUnmergeTableCellsRequestBuilder() *UnmergeTableCellsRequestBuilder {
 	return builder
 }
 
+// table 行索引
+// 示例值：0
 func (builder *UnmergeTableCellsRequestBuilder) RowIndex(rowIndex int) *UnmergeTableCellsRequestBuilder {
 	builder.rowIndex = rowIndex
 	builder.rowIndexFlag = true
 	return builder
 }
+
+// table 列索引
+// 示例值：0
 func (builder *UnmergeTableCellsRequestBuilder) ColumnIndex(columnIndex int) *UnmergeTableCellsRequestBuilder {
 	builder.columnIndex = columnIndex
 	builder.columnIndexFlag = true
@@ -2249,56 +3351,56 @@ func (builder *UnmergeTableCellsRequestBuilder) Build() *UnmergeTableCellsReques
 }
 
 type UpdateBlockRequest struct {
-	UpdateTextElements         *UpdateTextElementsRequest         `json:"update_text_elements,omitempty"`
-	UpdateTextStyle            *UpdateTextStyleRequest            `json:"update_text_style,omitempty"`
-	UpdateTableProperty        *UpdateTablePropertyRequest        `json:"update_table_property,omitempty"`
-	InsertTableRow             *InsertTableRowRequest             `json:"insert_table_row,omitempty"`
-	InsertTableColumn          *InsertTableColumnRequest          `json:"insert_table_column,omitempty"`
-	DeleteTableRows            *DeleteTableRowsRequest            `json:"delete_table_rows,omitempty"`
-	DeleteTableColumns         *DeleteTableColumnsRequest         `json:"delete_table_columns,omitempty"`
-	MergeTableCells            *MergeTableCellsRequest            `json:"merge_table_cells,omitempty"`
-	UnmergeTableCells          *UnmergeTableCellsRequest          `json:"unmerge_table_cells,omitempty"`
-	InsertGridColumn           *InsertGridColumnRequest           `json:"insert_grid_column,omitempty"`
-	DeleteGridColumn           *DeleteGridColumnRequest           `json:"delete_grid_column,omitempty"`
-	UpdateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"`
-	ReplaceImage               *ReplaceImageRequest               `json:"replace_image,omitempty"`
-	ReplaceFile                *ReplaceFileRequest                `json:"replace_file,omitempty"`
-	BlockId                    *string                            `json:"block_id,omitempty"`
-	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`
+	UpdateTextElements         *UpdateTextElementsRequest         `json:"update_text_elements,omitempty"`           // 更新文本元素请求
+	UpdateTextStyle            *UpdateTextStyleRequest            `json:"update_text_style,omitempty"`              // 更新文本样式请求
+	UpdateTableProperty        *UpdateTablePropertyRequest        `json:"update_table_property,omitempty"`          // 更新表格属性请求
+	InsertTableRow             *InsertTableRowRequest             `json:"insert_table_row,omitempty"`               // 表格插入新行请求
+	InsertTableColumn          *InsertTableColumnRequest          `json:"insert_table_column,omitempty"`            // 表格插入新列请求
+	DeleteTableRows            *DeleteTableRowsRequest            `json:"delete_table_rows,omitempty"`              // 表格批量删除行请求
+	DeleteTableColumns         *DeleteTableColumnsRequest         `json:"delete_table_columns,omitempty"`           // 表格批量删除列请求
+	MergeTableCells            *MergeTableCellsRequest            `json:"merge_table_cells,omitempty"`              // 表格合并单元格请求
+	UnmergeTableCells          *UnmergeTableCellsRequest          `json:"unmerge_table_cells,omitempty"`            // 表格取消单元格合并状态请求
+	InsertGridColumn           *InsertGridColumnRequest           `json:"insert_grid_column,omitempty"`             // 分栏插入新的分栏列请求
+	DeleteGridColumn           *DeleteGridColumnRequest           `json:"delete_grid_column,omitempty"`             // 分栏删除列请求
+	UpdateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"` // 更新分栏列宽比例请求
+	ReplaceImage               *ReplaceImageRequest               `json:"replace_image,omitempty"`                  // 替换图片请求
+	ReplaceFile                *ReplaceFileRequest                `json:"replace_file,omitempty"`                   // 替换附件请求
+	BlockId                    *string                            `json:"block_id,omitempty"`                       // Block 唯一标识
+	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`                    // 更新文本元素及样式请求
 }
 
 type UpdateBlockRequestBuilder struct {
-	updateTextElements             *UpdateTextElementsRequest
+	updateTextElements             *UpdateTextElementsRequest // 更新文本元素请求
 	updateTextElementsFlag         bool
-	updateTextStyle                *UpdateTextStyleRequest
+	updateTextStyle                *UpdateTextStyleRequest // 更新文本样式请求
 	updateTextStyleFlag            bool
-	updateTableProperty            *UpdateTablePropertyRequest
+	updateTableProperty            *UpdateTablePropertyRequest // 更新表格属性请求
 	updateTablePropertyFlag        bool
-	insertTableRow                 *InsertTableRowRequest
+	insertTableRow                 *InsertTableRowRequest // 表格插入新行请求
 	insertTableRowFlag             bool
-	insertTableColumn              *InsertTableColumnRequest
+	insertTableColumn              *InsertTableColumnRequest // 表格插入新列请求
 	insertTableColumnFlag          bool
-	deleteTableRows                *DeleteTableRowsRequest
+	deleteTableRows                *DeleteTableRowsRequest // 表格批量删除行请求
 	deleteTableRowsFlag            bool
-	deleteTableColumns             *DeleteTableColumnsRequest
+	deleteTableColumns             *DeleteTableColumnsRequest // 表格批量删除列请求
 	deleteTableColumnsFlag         bool
-	mergeTableCells                *MergeTableCellsRequest
+	mergeTableCells                *MergeTableCellsRequest // 表格合并单元格请求
 	mergeTableCellsFlag            bool
-	unmergeTableCells              *UnmergeTableCellsRequest
+	unmergeTableCells              *UnmergeTableCellsRequest // 表格取消单元格合并状态请求
 	unmergeTableCellsFlag          bool
-	insertGridColumn               *InsertGridColumnRequest
+	insertGridColumn               *InsertGridColumnRequest // 分栏插入新的分栏列请求
 	insertGridColumnFlag           bool
-	deleteGridColumn               *DeleteGridColumnRequest
+	deleteGridColumn               *DeleteGridColumnRequest // 分栏删除列请求
 	deleteGridColumnFlag           bool
-	updateGridColumnWidthRatio     *UpdateGridColumnWidthRatioRequest
+	updateGridColumnWidthRatio     *UpdateGridColumnWidthRatioRequest // 更新分栏列宽比例请求
 	updateGridColumnWidthRatioFlag bool
-	replaceImage                   *ReplaceImageRequest
+	replaceImage                   *ReplaceImageRequest // 替换图片请求
 	replaceImageFlag               bool
-	replaceFile                    *ReplaceFileRequest
+	replaceFile                    *ReplaceFileRequest // 替换附件请求
 	replaceFileFlag                bool
-	blockId                        string
+	blockId                        string // Block 唯一标识
 	blockIdFlag                    bool
-	updateText                     *UpdateTextRequest
+	updateText                     *UpdateTextRequest // 更新文本元素及样式请求
 	updateTextFlag                 bool
 }
 
@@ -2307,81 +3409,128 @@ func NewUpdateBlockRequestBuilder() *UpdateBlockRequestBuilder {
 	return builder
 }
 
+// 更新文本元素请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTextElements(updateTextElements *UpdateTextElementsRequest) *UpdateBlockRequestBuilder {
 	builder.updateTextElements = updateTextElements
 	builder.updateTextElementsFlag = true
 	return builder
 }
+
+// 更新文本样式请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTextStyle(updateTextStyle *UpdateTextStyleRequest) *UpdateBlockRequestBuilder {
 	builder.updateTextStyle = updateTextStyle
 	builder.updateTextStyleFlag = true
 	return builder
 }
+
+// 更新表格属性请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTableProperty *UpdateTablePropertyRequest) *UpdateBlockRequestBuilder {
 	builder.updateTableProperty = updateTableProperty
 	builder.updateTablePropertyFlag = true
 	return builder
 }
+
+// 表格插入新行请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertTableRowRequest) *UpdateBlockRequestBuilder {
 	builder.insertTableRow = insertTableRow
 	builder.insertTableRowFlag = true
 	return builder
 }
+
+// 表格插入新列请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *InsertTableColumnRequest) *UpdateBlockRequestBuilder {
 	builder.insertTableColumn = insertTableColumn
 	builder.insertTableColumnFlag = true
 	return builder
 }
+
+// 表格批量删除行请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *DeleteTableRowsRequest) *UpdateBlockRequestBuilder {
 	builder.deleteTableRows = deleteTableRows
 	builder.deleteTableRowsFlag = true
 	return builder
 }
+
+// 表格批量删除列请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns *DeleteTableColumnsRequest) *UpdateBlockRequestBuilder {
 	builder.deleteTableColumns = deleteTableColumns
 	builder.deleteTableColumnsFlag = true
 	return builder
 }
+
+// 表格合并单元格请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *MergeTableCellsRequest) *UpdateBlockRequestBuilder {
 	builder.mergeTableCells = mergeTableCells
 	builder.mergeTableCellsFlag = true
 	return builder
 }
+
+// 表格取消单元格合并状态请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *UnmergeTableCellsRequest) *UpdateBlockRequestBuilder {
 	builder.unmergeTableCells = unmergeTableCells
 	builder.unmergeTableCellsFlag = true
 	return builder
 }
+
+// 分栏插入新的分栏列请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *InsertGridColumnRequest) *UpdateBlockRequestBuilder {
 	builder.insertGridColumn = insertGridColumn
 	builder.insertGridColumnFlag = true
 	return builder
 }
+
+// 分栏删除列请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *DeleteGridColumnRequest) *UpdateBlockRequestBuilder {
 	builder.deleteGridColumn = deleteGridColumn
 	builder.deleteGridColumnFlag = true
 	return builder
 }
+
+// 更新分栏列宽比例请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest) *UpdateBlockRequestBuilder {
 	builder.updateGridColumnWidthRatio = updateGridColumnWidthRatio
 	builder.updateGridColumnWidthRatioFlag = true
 	return builder
 }
+
+// 替换图片请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImageRequest) *UpdateBlockRequestBuilder {
 	builder.replaceImage = replaceImage
 	builder.replaceImageFlag = true
 	return builder
 }
+
+// 替换附件请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRequest) *UpdateBlockRequestBuilder {
 	builder.replaceFile = replaceFile
 	builder.replaceFileFlag = true
 	return builder
 }
+
+// Block 唯一标识
+// 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *UpdateBlockRequestBuilder) BlockId(blockId string) *UpdateBlockRequestBuilder {
 	builder.blockId = blockId
 	builder.blockIdFlag = true
 	return builder
 }
+
+// 更新文本元素及样式请求
+// 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateText(updateText *UpdateTextRequest) *UpdateBlockRequestBuilder {
 	builder.updateText = updateText
 	builder.updateTextFlag = true
@@ -2443,11 +3592,11 @@ func (builder *UpdateBlockRequestBuilder) Build() *UpdateBlockRequest {
 }
 
 type UpdateGridColumnWidthRatioRequest struct {
-	WidthRatios []int `json:"width_ratios,omitempty"`
+	WidthRatios []int `json:"width_ratios,omitempty"` // 更新列宽比例时，需要传入所有列宽占比
 }
 
 type UpdateGridColumnWidthRatioRequestBuilder struct {
-	widthRatios     []int
+	widthRatios     []int // 更新列宽比例时，需要传入所有列宽占比
 	widthRatiosFlag bool
 }
 
@@ -2456,6 +3605,8 @@ func NewUpdateGridColumnWidthRatioRequestBuilder() *UpdateGridColumnWidthRatioRe
 	return builder
 }
 
+// 更新列宽比例时，需要传入所有列宽占比
+// 示例值：50
 func (builder *UpdateGridColumnWidthRatioRequestBuilder) WidthRatios(widthRatios []int) *UpdateGridColumnWidthRatioRequestBuilder {
 	builder.widthRatios = widthRatios
 	builder.widthRatiosFlag = true
@@ -2471,14 +3622,14 @@ func (builder *UpdateGridColumnWidthRatioRequestBuilder) Build() *UpdateGridColu
 }
 
 type UpdateTablePropertyRequest struct {
-	ColumnWidth *int `json:"column_width,omitempty"`
-	ColumnIndex *int `json:"column_index,omitempty"`
+	ColumnWidth *int `json:"column_width,omitempty"` // 表格列宽
+	ColumnIndex *int `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引
 }
 
 type UpdateTablePropertyRequestBuilder struct {
-	columnWidth     int
+	columnWidth     int // 表格列宽
 	columnWidthFlag bool
-	columnIndex     int
+	columnIndex     int // 需要修改列宽的表格列的索引
 	columnIndexFlag bool
 }
 
@@ -2487,11 +3638,16 @@ func NewUpdateTablePropertyRequestBuilder() *UpdateTablePropertyRequestBuilder {
 	return builder
 }
 
+// 表格列宽
+// 示例值：100
 func (builder *UpdateTablePropertyRequestBuilder) ColumnWidth(columnWidth int) *UpdateTablePropertyRequestBuilder {
 	builder.columnWidth = columnWidth
 	builder.columnWidthFlag = true
 	return builder
 }
+
+// 需要修改列宽的表格列的索引
+// 示例值：0
 func (builder *UpdateTablePropertyRequestBuilder) ColumnIndex(columnIndex int) *UpdateTablePropertyRequestBuilder {
 	builder.columnIndex = columnIndex
 	builder.columnIndexFlag = true
@@ -2512,11 +3668,11 @@ func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRe
 }
 
 type UpdateTextElementsRequest struct {
-	Elements []*TextElement `json:"elements,omitempty"`
+	Elements []*TextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
 }
 
 type UpdateTextElementsRequestBuilder struct {
-	elements     []*TextElement
+	elements     []*TextElement // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
 	elementsFlag bool
 }
 
@@ -2525,6 +3681,8 @@ func NewUpdateTextElementsRequestBuilder() *UpdateTextElementsRequestBuilder {
 	return builder
 }
 
+// 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+// 示例值：
 func (builder *UpdateTextElementsRequestBuilder) Elements(elements []*TextElement) *UpdateTextElementsRequestBuilder {
 	builder.elements = elements
 	builder.elementsFlag = true
@@ -2540,17 +3698,17 @@ func (builder *UpdateTextElementsRequestBuilder) Build() *UpdateTextElementsRequ
 }
 
 type UpdateTextRequest struct {
-	Elements []*TextElement `json:"elements,omitempty"`
-	Style    *TextStyle     `json:"style,omitempty"`
-	Fields   []int          `json:"fields,omitempty"`
+	Elements []*TextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+	Style    *TextStyle     `json:"style,omitempty"`    // 更新的文本样式
+	Fields   []int          `json:"fields,omitempty"`   // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
 }
 
 type UpdateTextRequestBuilder struct {
-	elements     []*TextElement
+	elements     []*TextElement // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
 	elementsFlag bool
-	style        *TextStyle
+	style        *TextStyle // 更新的文本样式
 	styleFlag    bool
-	fields       []int
+	fields       []int // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
 	fieldsFlag   bool
 }
 
@@ -2559,16 +3717,24 @@ func NewUpdateTextRequestBuilder() *UpdateTextRequestBuilder {
 	return builder
 }
 
+// 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+// 示例值：
 func (builder *UpdateTextRequestBuilder) Elements(elements []*TextElement) *UpdateTextRequestBuilder {
 	builder.elements = elements
 	builder.elementsFlag = true
 	return builder
 }
+
+// 更新的文本样式
+// 示例值：
 func (builder *UpdateTextRequestBuilder) Style(style *TextStyle) *UpdateTextRequestBuilder {
 	builder.style = style
 	builder.styleFlag = true
 	return builder
 }
+
+// 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+// 示例值：[1]
 func (builder *UpdateTextRequestBuilder) Fields(fields []int) *UpdateTextRequestBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -2590,14 +3756,14 @@ func (builder *UpdateTextRequestBuilder) Build() *UpdateTextRequest {
 }
 
 type UpdateTextStyleRequest struct {
-	Style  *TextStyle `json:"style,omitempty"`
-	Fields []int      `json:"fields,omitempty"`
+	Style  *TextStyle `json:"style,omitempty"`  // 文本样式
+	Fields []int      `json:"fields,omitempty"` // 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
 }
 
 type UpdateTextStyleRequestBuilder struct {
-	style      *TextStyle
+	style      *TextStyle // 文本样式
 	styleFlag  bool
-	fields     []int
+	fields     []int // 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
 	fieldsFlag bool
 }
 
@@ -2606,11 +3772,16 @@ func NewUpdateTextStyleRequestBuilder() *UpdateTextStyleRequestBuilder {
 	return builder
 }
 
+// 文本样式
+// 示例值：
 func (builder *UpdateTextStyleRequestBuilder) Style(style *TextStyle) *UpdateTextStyleRequestBuilder {
 	builder.style = style
 	builder.styleFlag = true
 	return builder
 }
+
+// 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+// 示例值：修改的文字样式属性
 func (builder *UpdateTextStyleRequestBuilder) Fields(fields []int) *UpdateTextStyleRequestBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -2629,11 +3800,11 @@ func (builder *UpdateTextStyleRequestBuilder) Build() *UpdateTextStyleRequest {
 }
 
 type View struct {
-	ViewType *int `json:"view_type,omitempty"`
+	ViewType *int `json:"view_type,omitempty"` // 视图类型
 }
 
 type ViewBuilder struct {
-	viewType     int
+	viewType     int // 视图类型
 	viewTypeFlag bool
 }
 
@@ -2642,6 +3813,8 @@ func NewViewBuilder() *ViewBuilder {
 	return builder
 }
 
+// 视图类型
+// 示例值：1
 func (builder *ViewBuilder) ViewType(viewType int) *ViewBuilder {
 	builder.viewType = viewType
 	builder.viewTypeFlag = true
@@ -2658,9 +3831,9 @@ func (builder *ViewBuilder) Build() *View {
 }
 
 type CreateDocumentReqBodyBuilder struct {
-	folderToken     string
+	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 	folderTokenFlag bool
-	title           string
+	title           string // 文档标题，只支持纯文本
 	titleFlag       bool
 }
 
@@ -2669,11 +3842,18 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 	return builder
 }
 
+// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+//
+//示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
 	return builder
 }
+
+// 文档标题，只支持纯文本
+//
+//示例值：undefined
 func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocumentReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -2692,9 +3872,9 @@ func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
 }
 
 type CreateDocumentPathReqBodyBuilder struct {
-	folderToken     string
+	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 	folderTokenFlag bool
-	title           string
+	title           string // 文档标题，只支持纯文本
 	titleFlag       bool
 }
 
@@ -2702,11 +3882,19 @@ func NewCreateDocumentPathReqBodyBuilder() *CreateDocumentPathReqBodyBuilder {
 	builder := &CreateDocumentPathReqBodyBuilder{}
 	return builder
 }
+
+// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+//
+// 示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
 	return builder
 }
+
+// 文档标题，只支持纯文本
+//
+// 示例值：undefined
 func (builder *CreateDocumentPathReqBodyBuilder) Title(title string) *CreateDocumentPathReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -2738,6 +3926,7 @@ func NewCreateDocumentReqBuilder() *CreateDocumentReqBuilder {
 	return builder
 }
 
+// 创建新版文档，文档标题和目录可选。
 func (builder *CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *CreateDocumentReqBuilder {
 	builder.body = body
 	return builder
@@ -2751,8 +3940,8 @@ func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 }
 
 type CreateDocumentReqBody struct {
-	FolderToken *string `json:"folder_token,omitempty"`
-	Title       *string `json:"title,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	Title       *string `json:"title,omitempty"`        // 文档标题，只支持纯文本
 }
 
 type CreateDocumentReq struct {
@@ -2761,13 +3950,13 @@ type CreateDocumentReq struct {
 }
 
 type CreateDocumentRespData struct {
-	Document *Document `json:"document,omitempty"`
+	Document *Document `json:"document,omitempty"` // 新建文档的文档信息
 }
 
 type CreateDocumentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateDocumentRespData `json:"data"`
+	Data *CreateDocumentRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateDocumentResp) Success() bool {
@@ -2787,6 +3976,9 @@ func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
@@ -2804,13 +3996,13 @@ type GetDocumentReq struct {
 }
 
 type GetDocumentRespData struct {
-	Document *Document `json:"document,omitempty"`
+	Document *Document `json:"document,omitempty"` // 文档信息
 }
 
 type GetDocumentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDocumentRespData `json:"data"`
+	Data *GetDocumentRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDocumentResp) Success() bool {
@@ -2830,10 +4022,17 @@ func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxbcmEtbFrbbq10nPNu8gO1F3b
 func (builder *RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// 语言（用于 MentionUser 语言的选取）
+//
+// 示例值：0
 func (builder *RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
@@ -2852,13 +4051,13 @@ type RawContentDocumentReq struct {
 }
 
 type RawContentDocumentRespData struct {
-	Content *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"` // 文档纯文本
 }
 
 type RawContentDocumentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *RawContentDocumentRespData `json:"data"`
+	Data *RawContentDocumentRespData `json:"data"` // 业务数据
 }
 
 func (resp *RawContentDocumentResp) Success() bool {
@@ -2866,7 +4065,7 @@ func (resp *RawContentDocumentResp) Success() bool {
 }
 
 type BatchUpdateDocumentBlockReqBodyBuilder struct {
-	requests     []*UpdateBlockRequest
+	requests     []*UpdateBlockRequest // 批量更新 Block
 	requestsFlag bool
 }
 
@@ -2875,6 +4074,9 @@ func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBod
 	return builder
 }
 
+// 批量更新 Block
+//
+//示例值：
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
@@ -2890,7 +4092,7 @@ func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Build() *BatchUpdateDocum
 }
 
 type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
-	requests     []*UpdateBlockRequest
+	requests     []*UpdateBlockRequest // 批量更新 Block
 	requestsFlag bool
 }
 
@@ -2898,6 +4100,10 @@ func NewBatchUpdateDocumentBlockPathReqBodyBuilder() *BatchUpdateDocumentBlockPa
 	builder := &BatchUpdateDocumentBlockPathReqBodyBuilder{}
 	return builder
 }
+
+// 批量更新 Block
+//
+// 示例值：
 func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
@@ -2926,22 +4132,39 @@ func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+//
+// 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken string) *BatchUpdateDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *BatchUpdateDocumentBlockReqBuilder) UserIdType(userIdType string) *BatchUpdateDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 批量更新块的富文本内容。
 func (builder *BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumentBlockReqBody) *BatchUpdateDocumentBlockReqBuilder {
 	builder.body = body
 	return builder
@@ -2957,7 +4180,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentB
 }
 
 type BatchUpdateDocumentBlockReqBody struct {
-	Requests []*UpdateBlockRequest `json:"requests,omitempty"`
+	Requests []*UpdateBlockRequest `json:"requests,omitempty"` // 批量更新 Block
 }
 
 type BatchUpdateDocumentBlockReq struct {
@@ -2966,15 +4189,15 @@ type BatchUpdateDocumentBlockReq struct {
 }
 
 type BatchUpdateDocumentBlockRespData struct {
-	Blocks             []*Block `json:"blocks,omitempty"`
-	DocumentRevisionId *int     `json:"document_revision_id,omitempty"`
-	ClientToken        *string  `json:"client_token,omitempty"`
+	Blocks             []*Block `json:"blocks,omitempty"`               // 批量更新的 Block
+	DocumentRevisionId *int     `json:"document_revision_id,omitempty"` // 当前更新成功后文档的版本号
+	ClientToken        *string  `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
 }
 
 type BatchUpdateDocumentBlockResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchUpdateDocumentBlockRespData `json:"data"`
+	Data *BatchUpdateDocumentBlockRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchUpdateDocumentBlockResp) Success() bool {
@@ -2994,18 +4217,33 @@ func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// Block 的唯一标识
+//
+// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
+
+// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3024,13 +4262,13 @@ type GetDocumentBlockReq struct {
 }
 
 type GetDocumentBlockRespData struct {
-	Block *Block `json:"block,omitempty"`
+	Block *Block `json:"block,omitempty"` // 查询的 Block 的信息
 }
 
 type GetDocumentBlockResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDocumentBlockRespData `json:"data"`
+	Data *GetDocumentBlockRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDocumentBlockResp) Success() bool {
@@ -3039,7 +4277,7 @@ func (resp *GetDocumentBlockResp) Success() bool {
 
 type ListDocumentBlockReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListDocumentBlockReqBuilder() *ListDocumentBlockReqBuilder {
@@ -3051,26 +4289,47 @@ func NewListDocumentBlockReqBuilder() *ListDocumentBlockReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListDocumentBlockReqBuilder) Limit(limit int) *ListDocumentBlockReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：500
 func (builder *ListDocumentBlockReqBuilder) PageSize(pageSize int) *ListDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo
 func (builder *ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3087,19 +4346,20 @@ func (builder *ListDocumentBlockReqBuilder) Build() *ListDocumentBlockReq {
 
 type ListDocumentBlockReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListDocumentBlockRespData struct {
-	Items     []*Block `json:"items,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	Items     []*Block `json:"items,omitempty"`      // 文档的 Block 信息
+	PageToken *string  `json:"page_token,omitempty"` // 下一个分页的分页标记
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有下一个分页
 }
 
 type ListDocumentBlockResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListDocumentBlockRespData `json:"data"`
+	Data *ListDocumentBlockRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListDocumentBlockResp) Success() bool {
@@ -3120,26 +4380,47 @@ func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// Block 的唯一标识
+//
+// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
+
+// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+//
+// 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 更新指定的块。
 func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockRequest *UpdateBlockRequest) *PatchDocumentBlockReqBuilder {
 	builder.updateBlockRequest = updateBlockRequest
 	return builder
@@ -3160,15 +4441,15 @@ type PatchDocumentBlockReq struct {
 }
 
 type PatchDocumentBlockRespData struct {
-	Block              *Block  `json:"block,omitempty"`
-	DocumentRevisionId *int    `json:"document_revision_id,omitempty"`
-	ClientToken        *string `json:"client_token,omitempty"`
+	Block              *Block  `json:"block,omitempty"`                // 更新后的 block 信息
+	DocumentRevisionId *int    `json:"document_revision_id,omitempty"` // 当前更新成功后文档的版本号
+	ClientToken        *string `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
 }
 
 type PatchDocumentBlockResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchDocumentBlockRespData `json:"data"`
+	Data *PatchDocumentBlockRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchDocumentBlockResp) Success() bool {
@@ -3176,9 +4457,9 @@ func (resp *PatchDocumentBlockResp) Success() bool {
 }
 
 type BatchDeleteDocumentBlockChildrenReqBodyBuilder struct {
-	startIndex     int
+	startIndex     int // 删除的起始索引（操作区间左闭右开）
 	startIndexFlag bool
-	endIndex       int
+	endIndex       int // 删除的末尾索引（操作区间左闭右开）
 	endIndexFlag   bool
 }
 
@@ -3187,11 +4468,18 @@ func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlo
 	return builder
 }
 
+// 删除的起始索引（操作区间左闭右开）
+//
+//示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
 	return builder
 }
+
+// 删除的末尾索引（操作区间左闭右开）
+//
+//示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexFlag = true
@@ -3210,9 +4498,9 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) Build() *BatchDel
 }
 
 type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
-	startIndex     int
+	startIndex     int // 删除的起始索引（操作区间左闭右开）
 	startIndexFlag bool
-	endIndex       int
+	endIndex       int // 删除的末尾索引（操作区间左闭右开）
 	endIndexFlag   bool
 }
 
@@ -3220,11 +4508,19 @@ func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() *BatchDeleteDocumen
 	builder := &BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{}
 	return builder
 }
+
+// 删除的起始索引（操作区间左闭右开）
+//
+// 示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
 	return builder
 }
+
+// 删除的末尾索引（操作区间左闭右开）
+//
+// 示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexFlag = true
@@ -3256,22 +4552,39 @@ func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockCh
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// 父 Block 的唯一标识
+//
+// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
+
+// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+//
+// 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
+
+// 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的文档版本号。
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDeleteDocumentBlockChildrenReqBody) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -3287,8 +4600,8 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteD
 }
 
 type BatchDeleteDocumentBlockChildrenReqBody struct {
-	StartIndex *int `json:"start_index,omitempty"`
-	EndIndex   *int `json:"end_index,omitempty"`
+	StartIndex *int `json:"start_index,omitempty"` // 删除的起始索引（操作区间左闭右开）
+	EndIndex   *int `json:"end_index,omitempty"`   // 删除的末尾索引（操作区间左闭右开）
 }
 
 type BatchDeleteDocumentBlockChildrenReq struct {
@@ -3297,14 +4610,14 @@ type BatchDeleteDocumentBlockChildrenReq struct {
 }
 
 type BatchDeleteDocumentBlockChildrenRespData struct {
-	DocumentRevisionId *int    `json:"document_revision_id,omitempty"`
-	ClientToken        *string `json:"client_token,omitempty"`
+	DocumentRevisionId *int    `json:"document_revision_id,omitempty"` // 当前删除操作成功后文档的版本号
+	ClientToken        *string `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
 }
 
 type BatchDeleteDocumentBlockChildrenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchDeleteDocumentBlockChildrenRespData `json:"data"`
+	Data *BatchDeleteDocumentBlockChildrenRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchDeleteDocumentBlockChildrenResp) Success() bool {
@@ -3312,9 +4625,9 @@ func (resp *BatchDeleteDocumentBlockChildrenResp) Success() bool {
 }
 
 type CreateDocumentBlockChildrenReqBodyBuilder struct {
-	children     []*Block
+	children     []*Block // 添加的孩子列表。
 	childrenFlag bool
-	index        int
+	index        int // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 	indexFlag    bool
 }
 
@@ -3323,11 +4636,18 @@ func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildren
 	return builder
 }
 
+// 添加的孩子列表。
+//
+//示例值：
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
 	return builder
 }
+
+// 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+//
+//示例值：0
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true
@@ -3346,9 +4666,9 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Build() *CreateDocumen
 }
 
 type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
-	children     []*Block
+	children     []*Block // 添加的孩子列表。
 	childrenFlag bool
-	index        int
+	index        int // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 	indexFlag    bool
 }
 
@@ -3356,11 +4676,19 @@ func NewCreateDocumentBlockChildrenPathReqBodyBuilder() *CreateDocumentBlockChil
 	builder := &CreateDocumentBlockChildrenPathReqBodyBuilder{}
 	return builder
 }
+
+// 添加的孩子列表。
+//
+// 示例值：
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
 	return builder
 }
+
+// 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+//
+// 示例值：0
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenPathReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true
@@ -3392,26 +4720,47 @@ func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqB
 	return builder
 }
 
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// Block 的唯一标识
+//
+// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
+
+// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+//
+// 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 指定需要操作的块，为其创建一批子块，并插入到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
 func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentBlockChildrenReqBody) *CreateDocumentBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -3427,8 +4776,8 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlo
 }
 
 type CreateDocumentBlockChildrenReqBody struct {
-	Children []*Block `json:"children,omitempty"`
-	Index    *int     `json:"index,omitempty"`
+	Children []*Block `json:"children,omitempty"` // 添加的孩子列表。
+	Index    *int     `json:"index,omitempty"`    // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 }
 
 type CreateDocumentBlockChildrenReq struct {
@@ -3437,15 +4786,15 @@ type CreateDocumentBlockChildrenReq struct {
 }
 
 type CreateDocumentBlockChildrenRespData struct {
-	Children           []*Block `json:"children,omitempty"`
-	DocumentRevisionId *int     `json:"document_revision_id,omitempty"`
-	ClientToken        *string  `json:"client_token,omitempty"`
+	Children           []*Block `json:"children,omitempty"`             // 所添加的孩子的 Block 信息
+	DocumentRevisionId *int     `json:"document_revision_id,omitempty"` // 当前 block children 创建成功后文档的版本号
+	ClientToken        *string  `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
 }
 
 type CreateDocumentBlockChildrenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateDocumentBlockChildrenRespData `json:"data"`
+	Data *CreateDocumentBlockChildrenRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateDocumentBlockChildrenResp) Success() bool {
@@ -3454,7 +4803,7 @@ func (resp *CreateDocumentBlockChildrenResp) Success() bool {
 
 type GetDocumentBlockChildrenReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewGetDocumentBlockChildrenReqBuilder() *GetDocumentBlockChildrenReqBuilder {
@@ -3466,30 +4815,55 @@ func NewGetDocumentBlockChildrenReqBuilder() *GetDocumentBlockChildrenReqBuilder
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *GetDocumentBlockChildrenReqBuilder) Limit(limit int) *GetDocumentBlockChildrenReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 文档的唯一标识
+//
+// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
+
+// Block 的唯一标识
+//
+// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
+
+// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+//
+// 示例值：-1
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo
 func (builder *GetDocumentBlockChildrenReqBuilder) PageToken(pageToken string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：500
 func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3506,19 +4880,20 @@ func (builder *GetDocumentBlockChildrenReqBuilder) Build() *GetDocumentBlockChil
 
 type GetDocumentBlockChildrenReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type GetDocumentBlockChildrenRespData struct {
-	Items     []*Block `json:"items,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	Items     []*Block `json:"items,omitempty"`      // block 的 children 列表
+	PageToken *string  `json:"page_token,omitempty"` // 下一个分页的分页标记
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有下一个分页
 }
 
 type GetDocumentBlockChildrenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDocumentBlockChildrenRespData `json:"data"`
+	Data *GetDocumentBlockChildrenRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDocumentBlockChildrenResp) Success() bool {

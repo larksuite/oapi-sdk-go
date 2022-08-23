@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
 )
 
-// HTTP PATH: /open-apis/baike/v1/entities/search"
+// POST /open-apis/baike/v1/entities/search
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbaike.NewSearchEntityReqBuilder().
-		PageToken("").
+		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
 		PageSize(20).
 		UserIdType("user_id").
 		Body(larkbaike.NewSearchEntityReqBodyBuilder().
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/notes/:note_id"
+// GET /open-apis/hire/v1/notes/:note_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhire.NewGetNoteReqBuilder().
-		NoteId("6960663240925956555").
+		NoteId("6949805467799537964").
 		UserIdType("open_id").
 		Build()
 	// 发起请求
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

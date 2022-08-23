@@ -20,25 +20,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *TranslationService {
 	t := &TranslationService{config: config}
 	t.Text = &text{service: t}
 	return t
 }
 
-// 业务域服务定义
 type TranslationService struct {
 	config *larkcore.Config
-	Text   *text
+	Text   *text // 文本
 }
 
-// 资源服务定义
 type text struct {
 	service *TranslationService
 }
 
-// 资源服务方法定义
+// 文本语种识别
+//
+// - 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准
+//
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1//detect_text.go
 func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkcore.RequestOptionFunc) (*DetectTextResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -57,6 +62,16 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkco
 	}
 	return resp, err
 }
+
+// 文本翻译
+//
+// - 机器翻译 (MT)，支持以下语种互译：;"zh": 汉语；;"zh-Hant": 繁体汉语；;"en": 英语；;"ja": 日语；;"ru": 俄语；;"de": 德语；;"fr": 法语；;"it": 意大利语；;"pl": 波兰语；;"th": 泰语；;"hi": 印地语；;"id": 印尼语；;"es": 西班牙语；;"pt": 葡萄牙语；;"ko": 朝鲜语；;"vi": 越南语；
+//
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1//translate_text.go
 func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...larkcore.RequestOptionFunc) (*TranslateTextResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

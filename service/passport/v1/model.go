@@ -20,23 +20,23 @@ import (
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeUserId  = "user_id"
+	UserIdTypeOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeUnionId = "union_id" // 用户的 union id
+	UserIdTypeUserId  = "user_id"  // 用户的 user id
 )
 
 type Credentials struct {
-	Email  *string `json:"email,omitempty"`
-	Mobile *string `json:"mobile,omitempty"`
-	UserId *string `json:"user_id,omitempty"`
+	Email  *string `json:"email,omitempty"`   // 邮箱
+	Mobile *string `json:"mobile,omitempty"`  // 手机号
+	UserId *string `json:"user_id,omitempty"` // 用户id
 }
 
 type CredentialsBuilder struct {
-	email      string
+	email      string // 邮箱
 	emailFlag  bool
-	mobile     string
+	mobile     string // 手机号
 	mobileFlag bool
-	userId     string
+	userId     string // 用户id
 	userIdFlag bool
 }
 
@@ -45,16 +45,24 @@ func NewCredentialsBuilder() *CredentialsBuilder {
 	return builder
 }
 
+// 邮箱
+// 示例值：q*****@qq.com
 func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
 	builder.email = email
 	builder.emailFlag = true
 	return builder
 }
+
+// 手机号
+// 示例值：186*****01
 func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true
 	return builder
 }
+
+// 用户id
+// 示例值：
 func (builder *CredentialsBuilder) UserId(userId string) *CredentialsBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -82,11 +90,11 @@ type IdpCredential struct {
 }
 
 type IdpCredentialId struct {
-	IdpCredentialId *string `json:"idp_credential_id,omitempty"`
+	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp侧租户唯一标识
 }
 
 type IdpCredentialIdBuilder struct {
-	idpCredentialId     string
+	idpCredentialId     string // idp侧租户唯一标识
 	idpCredentialIdFlag bool
 }
 
@@ -95,6 +103,8 @@ func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
 	return builder
 }
 
+// idp侧租户唯一标识
+// 示例值：
 func (builder *IdpCredentialIdBuilder) IdpCredentialId(idpCredentialId string) *IdpCredentialIdBuilder {
 	builder.idpCredentialId = idpCredentialId
 	builder.idpCredentialIdFlag = true
@@ -111,17 +121,17 @@ func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 }
 
 type MaskSession struct {
-	CreateTime   *string `json:"create_time,omitempty"`
-	TerminalType *int    `json:"terminal_type,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
+	CreateTime   *string `json:"create_time,omitempty"`   // 创建时间
+	TerminalType *int    `json:"terminal_type,omitempty"` // 客户端类型
+	UserId       *string `json:"user_id,omitempty"`       // 用户ID
 }
 
 type MaskSessionBuilder struct {
-	createTime       string
+	createTime       string // 创建时间
 	createTimeFlag   bool
-	terminalType     int
+	terminalType     int // 客户端类型
 	terminalTypeFlag bool
-	userId           string
+	userId           string // 用户ID
 	userIdFlag       bool
 }
 
@@ -130,16 +140,24 @@ func NewMaskSessionBuilder() *MaskSessionBuilder {
 	return builder
 }
 
+// 创建时间
+// 示例值：
 func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 客户端类型
+// 示例值：
 func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBuilder {
 	builder.terminalType = terminalType
 	builder.terminalTypeFlag = true
 	return builder
 }
+
+// 用户ID
+// 示例值：
 func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -164,7 +182,7 @@ func (builder *MaskSessionBuilder) Build() *MaskSession {
 }
 
 type QuerySessionReqBodyBuilder struct {
-	userIds     []string
+	userIds     []string // 用户 ID
 	userIdsFlag bool
 }
 
@@ -173,6 +191,9 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 	return builder
 }
 
+// 用户 ID
+//
+//示例值：["47f621ff"]
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -188,7 +209,7 @@ func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 }
 
 type QuerySessionPathReqBodyBuilder struct {
-	userIds     []string
+	userIds     []string // 用户 ID
 	userIdsFlag bool
 }
 
@@ -196,6 +217,10 @@ func NewQuerySessionPathReqBodyBuilder() *QuerySessionPathReqBodyBuilder {
 	builder := &QuerySessionPathReqBodyBuilder{}
 	return builder
 }
+
+// 用户 ID
+//
+// 示例值：["47f621ff"]
 func (builder *QuerySessionPathReqBodyBuilder) UserIds(userIds []string) *QuerySessionPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -224,10 +249,15 @@ func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	return builder
 }
 
+//
+//
+// 示例值：open_id
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于查询用户的登录信息
 func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySessionReqBuilder {
 	builder.body = body
 	return builder
@@ -242,7 +272,7 @@ func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 }
 
 type QuerySessionReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"`
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID
 }
 
 type QuerySessionReq struct {
@@ -251,13 +281,13 @@ type QuerySessionReq struct {
 }
 
 type QuerySessionRespData struct {
-	MaskSessions []*MaskSession `json:"mask_sessions,omitempty"`
+	MaskSessions []*MaskSession `json:"mask_sessions,omitempty"` // 用户登录信息
 }
 
 type QuerySessionResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *QuerySessionRespData `json:"data"`
+	Data *QuerySessionRespData `json:"data"` // 业务数据
 }
 
 func (resp *QuerySessionResp) Success() bool {

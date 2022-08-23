@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
 )
 
-// HTTP PATH: /open-apis/gray_test_open_sg/v1/motos"
+// POST /open-apis/gray_test_open_sg/v1/motos
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

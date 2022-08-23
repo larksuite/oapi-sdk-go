@@ -20,7 +20,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/agent_emails"
+// GET /open-apis/helpdesk/v1/agent_emails
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -39,6 +39,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

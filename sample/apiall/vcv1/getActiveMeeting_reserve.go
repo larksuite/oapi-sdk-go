@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// HTTP PATH: /open-apis/vc/v1/reserves/:reserve_id/get_active_meeting"
+// GET /open-apis/vc/v1/reserves/:reserve_id/get_active_meeting
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

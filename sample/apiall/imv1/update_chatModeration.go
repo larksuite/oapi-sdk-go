@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/:chat_id/moderation"
+// PUT /open-apis/im/v1/chats/:chat_id/moderation
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,7 @@ func main() {
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		UserIdType("user_id").
 		Body(larkim.NewUpdateChatModerationReqBodyBuilder().
-			ModerationSetting("").
+			ModerationSetting("moderator_list").
 			ModeratorAddedList([]string{}).
 			ModeratorRemovedList([]string{}).
 			Build()).
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

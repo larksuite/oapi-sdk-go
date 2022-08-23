@@ -19,25 +19,25 @@ import (
 )
 
 type EventHeader struct {
-	EventID    string `json:"event_id"`
-	EventType  string `json:"event_type"`
-	AppID      string `json:"app_id"`
-	TenantKey  string `json:"tenant_key"`
-	CreateTime string `json:"create_time"`
-	Token      string `json:"token"`
+	EventID    string `json:"event_id"`    // 事件 ID
+	EventType  string `json:"event_type"`  // 事件类型
+	AppID      string `json:"app_id"`      // 应用 ID
+	TenantKey  string `json:"tenant_key"`  // 租户 Key
+	CreateTime string `json:"create_time"` // 事件创建时间戳（单位：毫秒）
+	Token      string `json:"token"`       // 事件 Token
 }
 
 type EventV1Header struct {
-	AppID     string `json:"app_id"`
-	OpenAppID string `json:"open_chat_id"`
-	OpenID    string `json:"open_id"`
-	TenantKey string `json:"tenant_key"`
-	Type      string `json:"type"`
+	AppID     string `json:"app_id"`       // 应用 ID
+	OpenAppID string `json:"open_chat_id"` // Open App Id
+	OpenID    string `json:"open_id"`      // Open Id
+	TenantKey string `json:"tenant_key"`   // 租户 Key
+	Type      string `json:"type"`         // event_callback-事件推送，url_verification-url地址验证
 }
 
 type EventV2Base struct {
-	Schema string       `json:"schema"`
-	Header *EventHeader `json:"header"`
+	Schema string       `json:"schema"` // 事件模式
+	Header *EventHeader `json:"header"` // 事件头
 }
 
 func (base *EventV2Base) TenantKey() string {
@@ -73,16 +73,16 @@ func (req *EventReq) RequestId() string {
 }
 
 type EventResp struct {
-	Header     http.Header
-	Body       []byte
-	StatusCode int
+	Header     http.Header // http请求 header
+	Body       []byte      // http请求 body
+	StatusCode int         // http请求状态码
 }
 
 type EventBase struct {
-	Ts    string `json:"ts"`
-	UUID  string `json:"uuid"`
-	Token string `json:"token"`
-	Type  string `json:"type"`
+	Ts    string `json:"ts"`    // 事件发送的时间，一般近似于事件发生的时间。
+	UUID  string `json:"uuid"`  // 事件的唯一标识
+	Token string `json:"token"` // 即Verification Token
+	Type  string `json:"type"`  // event_callback-事件推送，url_verification-url地址验证
 }
 
 type EventEncryptMsg struct {

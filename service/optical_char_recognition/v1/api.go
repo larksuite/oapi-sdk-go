@@ -20,25 +20,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *OpticalCharRecognitionService {
 	o := &OpticalCharRecognitionService{config: config}
 	o.Image = &image{service: o}
 	return o
 }
 
-// 业务域服务定义
 type OpticalCharRecognitionService struct {
 	config *larkcore.Config
-	Image  *image
+	Image  *image // 图片识别
 }
 
-// 资源服务定义
 type image struct {
 	service *OpticalCharRecognitionService
 }
 
-// 资源服务方法定义
+// 基础图片识别 (OCR)
+//
+// - 可识别图片中的文字，按图片中的区域划分，分段返回文本列表
+//
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/optical_char_recognitionv1//basicRecognize_image.go
 func (i *image) BasicRecognize(ctx context.Context, req *BasicRecognizeImageReq, options ...larkcore.RequestOptionFunc) (*BasicRecognizeImageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

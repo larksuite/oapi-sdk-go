@@ -21,17 +21,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/files/:file_token/copy"
+// POST /open-apis/drive/v1/files/:file_token/copy
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewCopyFileReqBuilder().
-		FileToken("").
+		FileToken("boxbc0dGSMu23m7QkC1bvabcef").
 		Body(larkdrive.NewCopyFileReqBodyBuilder().
-			Name("").
+			Name("123.txt").
 			Type("file").
-			FolderToken("").
+			FolderToken("fldbcO1UuPz8VwnpPx5a92abcef").
 			Build()).
 		Build()
 	// 发起请求
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

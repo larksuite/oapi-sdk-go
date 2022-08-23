@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/users/batch_get_id"
+// POST /open-apis/contact/v3/users/batch_get_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

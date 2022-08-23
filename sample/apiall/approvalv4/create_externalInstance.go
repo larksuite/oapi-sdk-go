@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/external_instances"
+// POST /open-apis/approval/v4/external_instances
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -48,6 +48,9 @@ func main() {
 			TaskList([]*larkapproval.ExternalInstanceTaskNode{larkapproval.NewExternalInstanceTaskNodeBuilder().Build()}).
 			CcList([]*larkapproval.CcNode{larkapproval.NewCcNodeBuilder().Build()}).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
+			TrusteeshipUrlToken("788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306").
+			TrusteeshipUserIdType("user_id").
+			TrusteeshipUrls(larkapproval.NewTrusteeshipUrlsBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
@@ -65,6 +68,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

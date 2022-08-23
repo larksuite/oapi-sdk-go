@@ -59,38 +59,38 @@ import (
 
 type Client struct {
 	config                 *larkcore.Config
-	Acs                    *larkacs.AcsService
-	Admin                  *larkadmin.AdminService
-	Application            *larkapplication.ApplicationService
-	Approval               *larkapproval.ApprovalService
-	Attendance             *larkattendance.AttendanceService
-	Baike                  *larkbaike.BaikeService
-	Bitable                *larkbitable.BitableService
-	Block                  *larkblock.BlockService
-	Calendar               *larkcalendar.CalendarService
-	Contact                *larkcontact.ContactService
-	Docx                   *larkdocx.DocxService
-	Drive                  *larkdrive.DriveService
-	Ehr                    *larkehr.EhrService
-	Event                  *larkevent.EventService
-	FaceDetection          *larkface_detection.FaceDetectionService
-	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService
-	Helpdesk               *larkhelpdesk.HelpdeskService
-	Hire                   *larkhire.HireService
-	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService
-	Im                     *larkim.ImService
-	Mail                   *larkmail.MailService
-	Okr                    *larkokr.OkrService
-	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService
-	Passport               *larkpassport.PassportService
-	Search                 *larksearch.SearchService
-	Sheets                 *larksheets.SheetsService
-	SpeechToText           *larkspeech_to_text.SpeechToTextService
-	Task                   *larktask.TaskService
-	Tenant                 *larktenant.TenantService
-	Translation            *larktranslation.TranslationService
-	Vc                     *larkvc.VcService
-	Wiki                   *larkwiki.WikiService
+	Acs                    *larkacs.AcsService                                         // 智能门禁
+	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
+	Application            *larkapplication.ApplicationService                         // 应用信息
+	Approval               *larkapproval.ApprovalService                               // 审批
+	Attendance             *larkattendance.AttendanceService                           // 打卡
+	Baike                  *larkbaike.BaikeService                                     // 企业百科
+	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
+	Block                  *larkblock.BlockService                                     // 小组件
+	Calendar               *larkcalendar.CalendarService                               // 日历
+	Contact                *larkcontact.ContactService                                 // 通讯录
+	Docx                   *larkdocx.DocxService                                       // 云文档-文档
+	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
+	Ehr                    *larkehr.EhrService                                         // 智能人事
+	Event                  *larkevent.EventService                                     // 事件订阅
+	FaceDetection          *larkface_detection.FaceDetectionService                    // AI能力
+	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService                //
+	Helpdesk               *larkhelpdesk.HelpdeskService                               // 服务台
+	Hire                   *larkhire.HireService                                       // 招聘
+	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService        // 实名认证
+	Im                     *larkim.ImService                                           // 消息与群组
+	Mail                   *larkmail.MailService                                       // 邮箱
+	Okr                    *larkokr.OkrService                                         // OKR
+	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力
+	Passport               *larkpassport.PassportService                               // 帐号
+	Search                 *larksearch.SearchService                                   // 搜索
+	Sheets                 *larksheets.SheetsService                                   // 云文档-电子表格
+	SpeechToText           *larkspeech_to_text.SpeechToTextService                     // AI能力
+	Task                   *larktask.TaskService                                       // 任务
+	Tenant                 *larktenant.TenantService                                   // 企业信息
+	Translation            *larktranslation.TranslationService                         // AI能力
+	Vc                     *larkvc.VcService                                           // 视频会议
+	Wiki                   *larkwiki.WikiService                                       // 云文档-知识库
 	Ext                    *larkext.ExtService
 }
 

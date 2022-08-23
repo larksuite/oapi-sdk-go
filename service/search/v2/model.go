@@ -23,27 +23,35 @@ import (
 )
 
 const (
-	StateOnline  = 0
-	StateOffline = 1
+	StateOnline  = 0 // 已上线
+	StateOffline = 1 // 未上线
+
 )
 
 const (
-	ViewFULL  = 0
-	ViewBASIC = 1
+	ViewFULL  = 0 // 全量数据
+	ViewBASIC = 1 // 摘要数据
+
+)
+
+const (
+	StateDataSourcePatchOnline  = 0 // 已上线
+	StateDataSourcePatchOffline = 1 // 未上线
+
 )
 
 type Acl struct {
-	Access *string `json:"access,omitempty"`
-	Value  *string `json:"value,omitempty"`
-	Type   *string `json:"type,omitempty"`
+	Access *string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow。
+	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+	Type   *string `json:"type,omitempty"`   // 权限值类型
 }
 
 type AclBuilder struct {
-	access     string
+	access     string // 权限类型，优先级：Deny > Allow。
 	accessFlag bool
-	value      string
+	value      string // 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
 	valueFlag  bool
-	type_      string
+	type_      string // 权限值类型
 	typeFlag   bool
 }
 
@@ -52,16 +60,24 @@ func NewAclBuilder() *AclBuilder {
 	return builder
 }
 
+// 权限类型，优先级：Deny > Allow。
+// 示例值：allow
 func (builder *AclBuilder) Access(access string) *AclBuilder {
 	builder.access = access
 	builder.accessFlag = true
 	return builder
 }
+
+// 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+// 示例值：d35e3c23
 func (builder *AclBuilder) Value(value string) *AclBuilder {
 	builder.value = value
 	builder.valueFlag = true
 	return builder
 }
+
+// 权限值类型
+// 示例值：user
 func (builder *AclBuilder) Type(type_ string) *AclBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -86,17 +102,17 @@ func (builder *AclBuilder) Build() *Acl {
 }
 
 type BatchItemResult struct {
-	ItemId    *string `json:"item_id,omitempty"`
-	IsSuccess *bool   `json:"is_success,omitempty"`
-	Err       *string `json:"err,omitempty"`
+	ItemId    *string `json:"item_id,omitempty"`    // 数据项ID，对应一条索引数据的ID
+	IsSuccess *bool   `json:"is_success,omitempty"` // 判断单条数据是否成功
+	Err       *string `json:"err,omitempty"`        // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
 }
 
 type BatchItemResultBuilder struct {
-	itemId        string
+	itemId        string // 数据项ID，对应一条索引数据的ID
 	itemIdFlag    bool
-	isSuccess     bool
+	isSuccess     bool // 判断单条数据是否成功
 	isSuccessFlag bool
-	err           string
+	err           string // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
 	errFlag       bool
 }
 
@@ -105,16 +121,24 @@ func NewBatchItemResultBuilder() *BatchItemResultBuilder {
 	return builder
 }
 
+// 数据项ID，对应一条索引数据的ID
+// 示例值：
 func (builder *BatchItemResultBuilder) ItemId(itemId string) *BatchItemResultBuilder {
 	builder.itemId = itemId
 	builder.itemIdFlag = true
 	return builder
 }
+
+// 判断单条数据是否成功
+// 示例值：
 func (builder *BatchItemResultBuilder) IsSuccess(isSuccess bool) *BatchItemResultBuilder {
 	builder.isSuccess = isSuccess
 	builder.isSuccessFlag = true
 	return builder
 }
+
+// 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
+// 示例值：
 func (builder *BatchItemResultBuilder) Err(err string) *BatchItemResultBuilder {
 	builder.err = err
 	builder.errFlag = true
@@ -139,32 +163,32 @@ func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
 }
 
 type ConnectDataSource struct {
-	ServiceUrl         *string `json:"service_url,omitempty"`
-	ProjectName        *string `json:"project_name,omitempty"`
-	DisplayName        *string `json:"display_name,omitempty"`
-	Description        *string `json:"description,omitempty"`
-	IconUrl            *string `json:"icon_url,omitempty"`
-	ProjectDescription *string `json:"project_description,omitempty"`
-	ContactEmail       *string `json:"contact_email,omitempty"`
-	TenantName         *string `json:"tenant_name,omitempty"`
+	ServiceUrl         *string `json:"service_url,omitempty"`         // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
+	ProjectName        *string `json:"project_name,omitempty"`        // 项目地址，只能包含小写字母，如bytedance_test
+	DisplayName        *string `json:"display_name,omitempty"`        // datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
+	Description        *string `json:"description,omitempty"`         // 描述datasource
+	IconUrl            *string `json:"icon_url,omitempty"`            // 图标
+	ProjectDescription *string `json:"project_description,omitempty"` // 托管api的描述
+	ContactEmail       *string `json:"contact_email,omitempty"`       // 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
+	TenantName         *string `json:"tenant_name,omitempty"`         // 创建api的组织名称，对企业开发者来说，建议使用企业名称
 }
 
 type ConnectDataSourceBuilder struct {
-	serviceUrl             string
+	serviceUrl             string // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
 	serviceUrlFlag         bool
-	projectName            string
+	projectName            string // 项目地址，只能包含小写字母，如bytedance_test
 	projectNameFlag        bool
-	displayName            string
+	displayName            string // datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
 	displayNameFlag        bool
-	description            string
+	description            string // 描述datasource
 	descriptionFlag        bool
-	iconUrl                string
+	iconUrl                string // 图标
 	iconUrlFlag            bool
-	projectDescription     string
+	projectDescription     string // 托管api的描述
 	projectDescriptionFlag bool
-	contactEmail           string
+	contactEmail           string // 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
 	contactEmailFlag       bool
-	tenantName             string
+	tenantName             string // 创建api的组织名称，对企业开发者来说，建议使用企业名称
 	tenantNameFlag         bool
 }
 
@@ -173,41 +197,64 @@ func NewConnectDataSourceBuilder() *ConnectDataSourceBuilder {
 	return builder
 }
 
+// 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
+// 示例值：
 func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectDataSourceBuilder {
 	builder.serviceUrl = serviceUrl
 	builder.serviceUrlFlag = true
 	return builder
 }
+
+// 项目地址，只能包含小写字母，如bytedance_test
+// 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *ConnectDataSourceBuilder {
 	builder.projectName = projectName
 	builder.projectNameFlag = true
 	return builder
 }
+
+// datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
+// 示例值：
 func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *ConnectDataSourceBuilder {
 	builder.displayName = displayName
 	builder.displayNameFlag = true
 	return builder
 }
+
+// 描述datasource
+// 示例值：
 func (builder *ConnectDataSourceBuilder) Description(description string) *ConnectDataSourceBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 图标
+// 示例值：
 func (builder *ConnectDataSourceBuilder) IconUrl(iconUrl string) *ConnectDataSourceBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
 	return builder
 }
+
+// 托管api的描述
+// 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription string) *ConnectDataSourceBuilder {
 	builder.projectDescription = projectDescription
 	builder.projectDescriptionFlag = true
 	return builder
 }
+
+// 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
+// 示例值：
 func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *ConnectDataSourceBuilder {
 	builder.contactEmail = contactEmail
 	builder.contactEmailFlag = true
 	return builder
 }
+
+// 创建api的组织名称，对企业开发者来说，建议使用企业名称
+// 示例值：
 func (builder *ConnectDataSourceBuilder) TenantName(tenantName string) *ConnectDataSourceBuilder {
 	builder.tenantName = tenantName
 	builder.tenantNameFlag = true
@@ -252,47 +299,47 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 }
 
 type DataSource struct {
-	Id               *string   `json:"id,omitempty"`
-	Name             *string   `json:"name,omitempty"`
-	State            *int      `json:"state,omitempty"`
-	Description      *string   `json:"description,omitempty"`
-	CreateTime       *string   `json:"create_time,omitempty"`
-	UpdateTime       *string   `json:"update_time,omitempty"`
-	IsExceedQuota    *bool     `json:"is_exceed_quota,omitempty"`
-	IconUrl          *string   `json:"icon_url,omitempty"`
-	Template         *string   `json:"template,omitempty"`
-	SearchableFields []string  `json:"searchable_fields,omitempty"`
-	I18nName         *I18nMeta `json:"i18n_name,omitempty"`
-	I18nDescription  *I18nMeta `json:"i18n_description,omitempty"`
-	SchemaId         *string   `json:"schema_id,omitempty"`
+	Id               *string   `json:"id,omitempty"`                // 数据源的唯一标识
+	Name             *string   `json:"name,omitempty"`              // data_source的展示名称
+	State            *int      `json:"state,omitempty"`             // 数据源状态，0-已上线，1-未上线
+	Description      *string   `json:"description,omitempty"`       // 对于数据源的描述
+	CreateTime       *string   `json:"create_time,omitempty"`       // 创建时间，使用Unix时间戳，单位为“秒”
+	UpdateTime       *string   `json:"update_time,omitempty"`       // 更新时间，使用Unix时间戳，单位为“秒”
+	IsExceedQuota    *bool     `json:"is_exceed_quota,omitempty"`   // 是否超限
+	IconUrl          *string   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
+	Template         *string   `json:"template,omitempty"`          // 数据源采用的展示模版名称
+	SearchableFields []string  `json:"searchable_fields,omitempty"` // 描述哪些字段可以被搜索
+	I18nName         *I18nMeta `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
+	I18nDescription  *I18nMeta `json:"i18n_description,omitempty"`  // 数据源的国际化描述
+	SchemaId         *string   `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
 }
 
 type DataSourceBuilder struct {
-	id                   string
+	id                   string // 数据源的唯一标识
 	idFlag               bool
-	name                 string
+	name                 string // data_source的展示名称
 	nameFlag             bool
-	state                int
+	state                int // 数据源状态，0-已上线，1-未上线
 	stateFlag            bool
-	description          string
+	description          string // 对于数据源的描述
 	descriptionFlag      bool
-	createTime           string
+	createTime           string // 创建时间，使用Unix时间戳，单位为“秒”
 	createTimeFlag       bool
-	updateTime           string
+	updateTime           string // 更新时间，使用Unix时间戳，单位为“秒”
 	updateTimeFlag       bool
-	isExceedQuota        bool
+	isExceedQuota        bool // 是否超限
 	isExceedQuotaFlag    bool
-	iconUrl              string
+	iconUrl              string // 数据源在 search tab 上的展示图标路径
 	iconUrlFlag          bool
-	template             string
+	template             string // 数据源采用的展示模版名称
 	templateFlag         bool
-	searchableFields     []string
+	searchableFields     []string // 描述哪些字段可以被搜索
 	searchableFieldsFlag bool
-	i18nName             *I18nMeta
+	i18nName             *I18nMeta // 数据源的国际化展示名称
 	i18nNameFlag         bool
-	i18nDescription      *I18nMeta
+	i18nDescription      *I18nMeta // 数据源的国际化描述
 	i18nDescriptionFlag  bool
-	schemaId             string
+	schemaId             string // 数据源关联的 schema 标识
 	schemaIdFlag         bool
 }
 
@@ -301,66 +348,104 @@ func NewDataSourceBuilder() *DataSourceBuilder {
 	return builder
 }
 
+// 数据源的唯一标识
+// 示例值：5577006791947779410
 func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// data_source的展示名称
+// 示例值：客服工单
 func (builder *DataSourceBuilder) Name(name string) *DataSourceBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 数据源状态，0-已上线，1-未上线
+// 示例值：0
 func (builder *DataSourceBuilder) State(state int) *DataSourceBuilder {
 	builder.state = state
 	builder.stateFlag = true
 	return builder
 }
+
+// 对于数据源的描述
+// 示例值：搜索客服工单数据
 func (builder *DataSourceBuilder) Description(description string) *DataSourceBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 创建时间，使用Unix时间戳，单位为“秒”
+// 示例值：
 func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 更新时间，使用Unix时间戳，单位为“秒”
+// 示例值：
 func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 是否超限
+// 示例值：
 func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceBuilder {
 	builder.isExceedQuota = isExceedQuota
 	builder.isExceedQuotaFlag = true
 	return builder
 }
+
+// 数据源在 search tab 上的展示图标路径
+// 示例值：https://www.xxx.com/open.jpg
 func (builder *DataSourceBuilder) IconUrl(iconUrl string) *DataSourceBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
 	return builder
 }
+
+// 数据源采用的展示模版名称
+// 示例值：search_common_card
 func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
 	builder.template = template
 	builder.templateFlag = true
 	return builder
 }
+
+// 描述哪些字段可以被搜索
+// 示例值：["field1", "field2"]（不推荐使用，如果有定制搜索需求，请用 schema 接口）
 func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *DataSourceBuilder {
 	builder.searchableFields = searchableFields
 	builder.searchableFieldsFlag = true
 	return builder
 }
+
+// 数据源的国际化展示名称
+// 示例值：
 func (builder *DataSourceBuilder) I18nName(i18nName *I18nMeta) *DataSourceBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameFlag = true
 	return builder
 }
+
+// 数据源的国际化描述
+// 示例值：
 func (builder *DataSourceBuilder) I18nDescription(i18nDescription *I18nMeta) *DataSourceBuilder {
 	builder.i18nDescription = i18nDescription
 	builder.i18nDescriptionFlag = true
 	return builder
 }
+
+// 数据源关联的 schema 标识
+// 示例值：custom_schema
 func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
 	builder.schemaId = schemaId
 	builder.schemaIdFlag = true
@@ -422,17 +507,17 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 }
 
 type I18nMeta struct {
-	ZhCn *string `json:"zh_cn,omitempty"`
-	EnUs *string `json:"en_us,omitempty"`
-	JaJp *string `json:"ja_jp,omitempty"`
+	ZhCn *string `json:"zh_cn,omitempty"` // 国际化字段：中文
+	EnUs *string `json:"en_us,omitempty"` // 国际化字段：英文
+	JaJp *string `json:"ja_jp,omitempty"` // 国际化字段：日文
 }
 
 type I18nMetaBuilder struct {
-	zhCn     string
+	zhCn     string // 国际化字段：中文
 	zhCnFlag bool
-	enUs     string
+	enUs     string // 国际化字段：英文
 	enUsFlag bool
-	jaJp     string
+	jaJp     string // 国际化字段：日文
 	jaJpFlag bool
 }
 
@@ -441,16 +526,24 @@ func NewI18nMetaBuilder() *I18nMetaBuilder {
 	return builder
 }
 
+// 国际化字段：中文
+// 示例值：任务
 func (builder *I18nMetaBuilder) ZhCn(zhCn string) *I18nMetaBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnFlag = true
 	return builder
 }
+
+// 国际化字段：英文
+// 示例值：TODO
 func (builder *I18nMetaBuilder) EnUs(enUs string) *I18nMetaBuilder {
 	builder.enUs = enUs
 	builder.enUsFlag = true
 	return builder
 }
+
+// 国际化字段：日文
+// 示例值：タスク
 func (builder *I18nMetaBuilder) JaJp(jaJp string) *I18nMetaBuilder {
 	builder.jaJp = jaJp
 	builder.jaJpFlag = true
@@ -475,23 +568,23 @@ func (builder *I18nMetaBuilder) Build() *I18nMeta {
 }
 
 type Item struct {
-	Id             *string       `json:"id,omitempty"`
-	Acl            []*Acl        `json:"acl,omitempty"`
-	Metadata       *ItemMetadata `json:"metadata,omitempty"`
-	StructuredData *string       `json:"structured_data,omitempty"`
-	Content        *ItemContent  `json:"content,omitempty"`
+	Id             *string       `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
+	Acl            []*Acl        `json:"acl,omitempty"`             // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
+	Metadata       *ItemMetadata `json:"metadata,omitempty"`        // item 的元信息
+	StructuredData *string       `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+	Content        *ItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
 type ItemBuilder struct {
-	id                 string
+	id                 string // item 在 datasource 中的唯一标识
 	idFlag             bool
-	acl                []*Acl
+	acl                []*Acl // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
 	aclFlag            bool
-	metadata           *ItemMetadata
+	metadata           *ItemMetadata // item 的元信息
 	metadataFlag       bool
-	structuredData     string
+	structuredData     string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
 	structuredDataFlag bool
-	content            *ItemContent
+	content            *ItemContent // 非结构化数据，如文档文本，飞书搜索会用来做召回
 	contentFlag        bool
 }
 
@@ -500,26 +593,40 @@ func NewItemBuilder() *ItemBuilder {
 	return builder
 }
 
+// item 在 datasource 中的唯一标识
+// 示例值：01010111
 func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
+// 示例值：
 func (builder *ItemBuilder) Acl(acl []*Acl) *ItemBuilder {
 	builder.acl = acl
 	builder.aclFlag = true
 	return builder
 }
+
+// item 的元信息
+// 示例值：
 func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 	builder.metadata = metadata
 	builder.metadataFlag = true
 	return builder
 }
+
+// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+// 示例值：{\"key\":\"value\"}
 func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
 	builder.structuredData = structuredData
 	builder.structuredDataFlag = true
 	return builder
 }
+
+// 非结构化数据，如文档文本，飞书搜索会用来做召回
+// 示例值：
 func (builder *ItemBuilder) Content(content *ItemContent) *ItemBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -549,14 +656,14 @@ func (builder *ItemBuilder) Build() *Item {
 }
 
 type ItemContent struct {
-	Format      *string `json:"format,omitempty"`
-	ContentData *string `json:"content_data,omitempty"`
+	Format      *string `json:"format,omitempty"`       // 内容的格式
+	ContentData *string `json:"content_data,omitempty"` // 全文数据
 }
 
 type ItemContentBuilder struct {
-	format          string
+	format          string // 内容的格式
 	formatFlag      bool
-	contentData     string
+	contentData     string // 全文数据
 	contentDataFlag bool
 }
 
@@ -565,11 +672,16 @@ func NewItemContentBuilder() *ItemContentBuilder {
 	return builder
 }
 
+// 内容的格式
+// 示例值：html
 func (builder *ItemContentBuilder) Format(format string) *ItemContentBuilder {
 	builder.format = format
 	builder.formatFlag = true
 	return builder
 }
+
+// 全文数据
+// 示例值：这是一个很长的文本
 func (builder *ItemContentBuilder) ContentData(contentData string) *ItemContentBuilder {
 	builder.contentData = contentData
 	builder.contentDataFlag = true
@@ -590,23 +702,23 @@ func (builder *ItemContentBuilder) Build() *ItemContent {
 }
 
 type ItemMetadata struct {
-	Title           *string `json:"title,omitempty"`
-	SourceUrl       *string `json:"source_url,omitempty"`
-	CreateTime      *int    `json:"create_time,omitempty"`
-	UpdateTime      *int    `json:"update_time,omitempty"`
-	SourceUrlMobile *string `json:"source_url_mobile,omitempty"`
+	Title           *string `json:"title,omitempty"`             // 该条数据记录对应的标题
+	SourceUrl       *string `json:"source_url,omitempty"`        // 该条数据记录对应的跳转url
+	CreateTime      *int    `json:"create_time,omitempty"`       // 数据项的创建时间。Unix 时间，单位为秒
+	UpdateTime      *int    `json:"update_time,omitempty"`       // 数据项的更新时间。Unix 时间，单位为秒
+	SourceUrlMobile *string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
 }
 
 type ItemMetadataBuilder struct {
-	title               string
+	title               string // 该条数据记录对应的标题
 	titleFlag           bool
-	sourceUrl           string
+	sourceUrl           string // 该条数据记录对应的跳转url
 	sourceUrlFlag       bool
-	createTime          int
+	createTime          int // 数据项的创建时间。Unix 时间，单位为秒
 	createTimeFlag      bool
-	updateTime          int
+	updateTime          int // 数据项的更新时间。Unix 时间，单位为秒
 	updateTimeFlag      bool
-	sourceUrlMobile     string
+	sourceUrlMobile     string // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
 	sourceUrlMobileFlag bool
 }
 
@@ -615,26 +727,40 @@ func NewItemMetadataBuilder() *ItemMetadataBuilder {
 	return builder
 }
 
+// 该条数据记录对应的标题
+// 示例值：工单：无法创建文章
 func (builder *ItemMetadataBuilder) Title(title string) *ItemMetadataBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// 该条数据记录对应的跳转url
+// 示例值：http://www.abc.com.cn
 func (builder *ItemMetadataBuilder) SourceUrl(sourceUrl string) *ItemMetadataBuilder {
 	builder.sourceUrl = sourceUrl
 	builder.sourceUrlFlag = true
 	return builder
 }
+
+// 数据项的创建时间。Unix 时间，单位为秒
+// 示例值：1618831236
 func (builder *ItemMetadataBuilder) CreateTime(createTime int) *ItemMetadataBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 数据项的更新时间。Unix 时间，单位为秒
+// 示例值：1618831236
 func (builder *ItemMetadataBuilder) UpdateTime(updateTime int) *ItemMetadataBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
+// 示例值：https://www.feishu.cn
 func (builder *ItemMetadataBuilder) SourceUrlMobile(sourceUrlMobile string) *ItemMetadataBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
 	builder.sourceUrlMobileFlag = true
@@ -667,23 +793,23 @@ func (builder *ItemMetadataBuilder) Build() *ItemMetadata {
 }
 
 type ItemRecord struct {
-	ItemId       *string `json:"item_id,omitempty"`
-	DataSourceId *string `json:"data_source_id,omitempty"`
-	Version      *string `json:"version,omitempty"`
-	CreatedAt    *string `json:"created_at,omitempty"`
-	UpdatedAt    *string `json:"updated_at,omitempty"`
+	ItemId       *string `json:"item_id,omitempty"`        // 冗余当前item的ID
+	DataSourceId *string `json:"data_source_id,omitempty"` // 数据源id
+	Version      *string `json:"version,omitempty"`        // 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+	CreatedAt    *string `json:"created_at,omitempty"`     // 第一次投递时间
+	UpdatedAt    *string `json:"updated_at,omitempty"`     // 上一次更新落库时间
 }
 
 type ItemRecordBuilder struct {
-	itemId           string
+	itemId           string // 冗余当前item的ID
 	itemIdFlag       bool
-	dataSourceId     string
+	dataSourceId     string // 数据源id
 	dataSourceIdFlag bool
-	version          string
+	version          string // 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
 	versionFlag      bool
-	createdAt        string
+	createdAt        string // 第一次投递时间
 	createdAtFlag    bool
-	updatedAt        string
+	updatedAt        string // 上一次更新落库时间
 	updatedAtFlag    bool
 }
 
@@ -692,26 +818,40 @@ func NewItemRecordBuilder() *ItemRecordBuilder {
 	return builder
 }
 
+// 冗余当前item的ID
+// 示例值：
 func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
 	builder.itemId = itemId
 	builder.itemIdFlag = true
 	return builder
 }
+
+// 数据源id
+// 示例值：
 func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
 	return builder
 }
+
+// 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+// 示例值：
 func (builder *ItemRecordBuilder) Version(version string) *ItemRecordBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
 }
+
+// 第一次投递时间
+// 示例值：
 func (builder *ItemRecordBuilder) CreatedAt(createdAt string) *ItemRecordBuilder {
 	builder.createdAt = createdAt
 	builder.createdAtFlag = true
 	return builder
 }
+
+// 上一次更新落库时间
+// 示例值：
 func (builder *ItemRecordBuilder) UpdatedAt(updatedAt string) *ItemRecordBuilder {
 	builder.updatedAt = updatedAt
 	builder.updatedAtFlag = true
@@ -744,17 +884,17 @@ func (builder *ItemRecordBuilder) Build() *ItemRecord {
 }
 
 type Schema struct {
-	Properties []*SchemaProperty `json:"properties,omitempty"`
-	Display    *SchemaDisplay    `json:"display,omitempty"`
-	SchemaId   *string           `json:"schema_id,omitempty"`
+	Properties []*SchemaProperty `json:"properties,omitempty"` // 数据范式的属性定义
+	Display    *SchemaDisplay    `json:"display,omitempty"`    // 数据展示相关配置
+	SchemaId   *string           `json:"schema_id,omitempty"`  // 用户自定义数据范式的唯一标识
 }
 
 type SchemaBuilder struct {
-	properties     []*SchemaProperty
+	properties     []*SchemaProperty // 数据范式的属性定义
 	propertiesFlag bool
-	display        *SchemaDisplay
+	display        *SchemaDisplay // 数据展示相关配置
 	displayFlag    bool
-	schemaId       string
+	schemaId       string // 用户自定义数据范式的唯一标识
 	schemaIdFlag   bool
 }
 
@@ -763,16 +903,24 @@ func NewSchemaBuilder() *SchemaBuilder {
 	return builder
 }
 
+// 数据范式的属性定义
+// 示例值：
 func (builder *SchemaBuilder) Properties(properties []*SchemaProperty) *SchemaBuilder {
 	builder.properties = properties
 	builder.propertiesFlag = true
 	return builder
 }
+
+// 数据展示相关配置
+// 示例值：
 func (builder *SchemaBuilder) Display(display *SchemaDisplay) *SchemaBuilder {
 	builder.display = display
 	builder.displayFlag = true
 	return builder
 }
+
+// 用户自定义数据范式的唯一标识
+// 示例值：jira_schema
 func (builder *SchemaBuilder) SchemaId(schemaId string) *SchemaBuilder {
 	builder.schemaId = schemaId
 	builder.schemaIdFlag = true
@@ -795,14 +943,14 @@ func (builder *SchemaBuilder) Build() *Schema {
 }
 
 type SchemaDisplay struct {
-	CardKey       *string                      `json:"card_key,omitempty"`
-	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"`
+	CardKey       *string                      `json:"card_key,omitempty"`       // 搜索数据的展示卡片
+	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
 }
 
 type SchemaDisplayBuilder struct {
-	cardKey           string
+	cardKey           string // 搜索数据的展示卡片
 	cardKeyFlag       bool
-	fieldsMapping     []*SchemaDisplayFieldMapping
+	fieldsMapping     []*SchemaDisplayFieldMapping // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
 	fieldsMappingFlag bool
 }
 
@@ -811,11 +959,16 @@ func NewSchemaDisplayBuilder() *SchemaDisplayBuilder {
 	return builder
 }
 
+// 搜索数据的展示卡片
+// 示例值：search_common_card
 func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuilder {
 	builder.cardKey = cardKey
 	builder.cardKeyFlag = true
 	return builder
 }
+
+// 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
+// 示例值：
 func (builder *SchemaDisplayBuilder) FieldsMapping(fieldsMapping []*SchemaDisplayFieldMapping) *SchemaDisplayBuilder {
 	builder.fieldsMapping = fieldsMapping
 	builder.fieldsMappingFlag = true
@@ -835,14 +988,14 @@ func (builder *SchemaDisplayBuilder) Build() *SchemaDisplay {
 }
 
 type SchemaDisplayFieldMapping struct {
-	DisplayField *string `json:"display_field,omitempty"`
-	DataField    *string `json:"data_field,omitempty"`
+	DisplayField *string `json:"display_field,omitempty"` // 展示字段名称，与 card_key 有关，每个模版能展示的字段不同。该字段不能重复
+	DataField    *string `json:"data_field,omitempty"`    // 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true，否则无法展示。需要使用 ${xxx} 的规则来描述
 }
 
 type SchemaDisplayFieldMappingBuilder struct {
-	displayField     string
+	displayField     string // 展示字段名称，与 card_key 有关，每个模版能展示的字段不同。该字段不能重复
 	displayFieldFlag bool
-	dataField        string
+	dataField        string // 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true，否则无法展示。需要使用 ${xxx} 的规则来描述
 	dataFieldFlag    bool
 }
 
@@ -851,11 +1004,16 @@ func NewSchemaDisplayFieldMappingBuilder() *SchemaDisplayFieldMappingBuilder {
 	return builder
 }
 
+// 展示字段名称，与 card_key 有关，每个模版能展示的字段不同。该字段不能重复
+// 示例值：summary
 func (builder *SchemaDisplayFieldMappingBuilder) DisplayField(displayField string) *SchemaDisplayFieldMappingBuilder {
 	builder.displayField = displayField
 	builder.displayFieldFlag = true
 	return builder
 }
+
+// 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true，否则无法展示。需要使用 ${xxx} 的规则来描述
+// 示例值：${description}
 func (builder *SchemaDisplayFieldMappingBuilder) DataField(dataField string) *SchemaDisplayFieldMappingBuilder {
 	builder.dataField = dataField
 	builder.dataFieldFlag = true
@@ -876,14 +1034,14 @@ func (builder *SchemaDisplayFieldMappingBuilder) Build() *SchemaDisplayFieldMapp
 }
 
 type SchemaDisplayOption struct {
-	DisplayLabel *string `json:"display_label,omitempty"`
-	DisplayType  *string `json:"display_type,omitempty"`
+	DisplayLabel *string `json:"display_label,omitempty"` // 对外展示的标签名
+	DisplayType  *string `json:"display_type,omitempty"`  // 对外展示类型
 }
 
 type SchemaDisplayOptionBuilder struct {
-	displayLabel     string
+	displayLabel     string // 对外展示的标签名
 	displayLabelFlag bool
-	displayType      string
+	displayType      string // 对外展示类型
 	displayTypeFlag  bool
 }
 
@@ -892,11 +1050,16 @@ func NewSchemaDisplayOptionBuilder() *SchemaDisplayOptionBuilder {
 	return builder
 }
 
+// 对外展示的标签名
+// 示例值：
 func (builder *SchemaDisplayOptionBuilder) DisplayLabel(displayLabel string) *SchemaDisplayOptionBuilder {
 	builder.displayLabel = displayLabel
 	builder.displayLabelFlag = true
 	return builder
 }
+
+// 对外展示类型
+// 示例值：
 func (builder *SchemaDisplayOptionBuilder) DisplayType(displayType string) *SchemaDisplayOptionBuilder {
 	builder.displayType = displayType
 	builder.displayTypeFlag = true
@@ -917,32 +1080,32 @@ func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
 }
 
 type SchemaProperty struct {
-	Name            *string                `json:"name,omitempty"`
-	Type            *string                `json:"type,omitempty"`
-	IsSearchable    *bool                  `json:"is_searchable,omitempty"`
-	IsSortable      *bool                  `json:"is_sortable,omitempty"`
-	IsReturnable    *bool                  `json:"is_returnable,omitempty"`
-	SortOptions     *SchemaSortOptions     `json:"sort_options,omitempty"`
-	TypeDefinitions *SchemaTypeDefinitions `json:"type_definitions,omitempty"`
-	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`
+	Name            *string                `json:"name,omitempty"`             // 属性名
+	Type            *string                `json:"type,omitempty"`             // 属性类型
+	IsSearchable    *bool                  `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索，默认为 false
+	IsSortable      *bool                  `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
+	IsReturnable    *bool                  `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
+	SortOptions     *SchemaSortOptions     `json:"sort_options,omitempty"`     // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
+	TypeDefinitions *SchemaTypeDefinitions `json:"type_definitions,omitempty"` // 相关类型数据的定义和约束
+	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`   // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
 }
 
 type SchemaPropertyBuilder struct {
-	name                string
+	name                string // 属性名
 	nameFlag            bool
-	type_               string
+	type_               string // 属性类型
 	typeFlag            bool
-	isSearchable        bool
+	isSearchable        bool // 该属性是否可用作搜索，默认为 false
 	isSearchableFlag    bool
-	isSortable          bool
+	isSortable          bool // 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
 	isSortableFlag      bool
-	isReturnable        bool
+	isReturnable        bool // 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
 	isReturnableFlag    bool
-	sortOptions         *SchemaSortOptions
+	sortOptions         *SchemaSortOptions // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
 	sortOptionsFlag     bool
-	typeDefinitions     *SchemaTypeDefinitions
+	typeDefinitions     *SchemaTypeDefinitions // 相关类型数据的定义和约束
 	typeDefinitionsFlag bool
-	searchOptions       *SchemaSearchOptions
+	searchOptions       *SchemaSearchOptions // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
 	searchOptionsFlag   bool
 }
 
@@ -951,41 +1114,64 @@ func NewSchemaPropertyBuilder() *SchemaPropertyBuilder {
 	return builder
 }
 
+// 属性名
+// 示例值：summary
 func (builder *SchemaPropertyBuilder) Name(name string) *SchemaPropertyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 属性类型
+// 示例值：text
 func (builder *SchemaPropertyBuilder) Type(type_ string) *SchemaPropertyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 该属性是否可用作搜索，默认为 false
+// 示例值：true
 func (builder *SchemaPropertyBuilder) IsSearchable(isSearchable bool) *SchemaPropertyBuilder {
 	builder.isSearchable = isSearchable
 	builder.isSearchableFlag = true
 	return builder
 }
+
+// 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
+// 示例值：false
 func (builder *SchemaPropertyBuilder) IsSortable(isSortable bool) *SchemaPropertyBuilder {
 	builder.isSortable = isSortable
 	builder.isSortableFlag = true
 	return builder
 }
+
+// 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
+// 示例值：true
 func (builder *SchemaPropertyBuilder) IsReturnable(isReturnable bool) *SchemaPropertyBuilder {
 	builder.isReturnable = isReturnable
 	builder.isReturnableFlag = true
 	return builder
 }
+
+// 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
+// 示例值：
 func (builder *SchemaPropertyBuilder) SortOptions(sortOptions *SchemaSortOptions) *SchemaPropertyBuilder {
 	builder.sortOptions = sortOptions
 	builder.sortOptionsFlag = true
 	return builder
 }
+
+// 相关类型数据的定义和约束
+// 示例值：
 func (builder *SchemaPropertyBuilder) TypeDefinitions(typeDefinitions *SchemaTypeDefinitions) *SchemaPropertyBuilder {
 	builder.typeDefinitions = typeDefinitions
 	builder.typeDefinitionsFlag = true
 	return builder
 }
+
+// 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+// 示例值：
 func (builder *SchemaPropertyBuilder) SearchOptions(searchOptions *SchemaSearchOptions) *SchemaPropertyBuilder {
 	builder.searchOptions = searchOptions
 	builder.searchOptionsFlag = true
@@ -1027,32 +1213,32 @@ func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 }
 
 type SchemaPropertyDefinition struct {
-	Name                 *string              `json:"name,omitempty"`
-	IsReturnable         *bool                `json:"is_returnable,omitempty"`
-	IsRepeatable         *bool                `json:"is_repeatable,omitempty"`
-	IsSortable           *bool                `json:"is_sortable,omitempty"`
-	IsFacetable          *bool                `json:"is_facetable,omitempty"`
-	IsWildcardSearchable *bool                `json:"is_wildcard_searchable,omitempty"`
-	Type                 *string              `json:"type,omitempty"`
-	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`
+	Name                 *string              `json:"name,omitempty"`                   // 属性名称
+	IsReturnable         *bool                `json:"is_returnable,omitempty"`          // 搜索中是否可作为搜索结果返回
+	IsRepeatable         *bool                `json:"is_repeatable,omitempty"`          // 是否允许重复
+	IsSortable           *bool                `json:"is_sortable,omitempty"`            // 是否可用作排序
+	IsFacetable          *bool                `json:"is_facetable,omitempty"`           // 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
+	IsWildcardSearchable *bool                `json:"is_wildcard_searchable,omitempty"` // 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
+	Type                 *string              `json:"type,omitempty"`                   // 属性数据类型
+	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`        // 属性对外展示可选项
 }
 
 type SchemaPropertyDefinitionBuilder struct {
-	name                     string
+	name                     string // 属性名称
 	nameFlag                 bool
-	isReturnable             bool
+	isReturnable             bool // 搜索中是否可作为搜索结果返回
 	isReturnableFlag         bool
-	isRepeatable             bool
+	isRepeatable             bool // 是否允许重复
 	isRepeatableFlag         bool
-	isSortable               bool
+	isSortable               bool // 是否可用作排序
 	isSortableFlag           bool
-	isFacetable              bool
+	isFacetable              bool // 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
 	isFacetableFlag          bool
-	isWildcardSearchable     bool
+	isWildcardSearchable     bool // 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
 	isWildcardSearchableFlag bool
-	type_                    string
+	type_                    string // 属性数据类型
 	typeFlag                 bool
-	displayOptions           *SchemaDisplayOption
+	displayOptions           *SchemaDisplayOption // 属性对外展示可选项
 	displayOptionsFlag       bool
 }
 
@@ -1061,41 +1247,64 @@ func NewSchemaPropertyDefinitionBuilder() *SchemaPropertyDefinitionBuilder {
 	return builder
 }
 
+// 属性名称
+// 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) Name(name string) *SchemaPropertyDefinitionBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 搜索中是否可作为搜索结果返回
+// 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsReturnable(isReturnable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isReturnable = isReturnable
 	builder.isReturnableFlag = true
 	return builder
 }
+
+// 是否允许重复
+// 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsRepeatable(isRepeatable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isRepeatable = isRepeatable
 	builder.isRepeatableFlag = true
 	return builder
 }
+
+// 是否可用作排序
+// 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsSortable(isSortable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isSortable = isSortable
 	builder.isSortableFlag = true
 	return builder
 }
+
+// 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
+// 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsFacetable(isFacetable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isFacetable = isFacetable
 	builder.isFacetableFlag = true
 	return builder
 }
+
+// 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
+// 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) IsWildcardSearchable(isWildcardSearchable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isWildcardSearchable = isWildcardSearchable
 	builder.isWildcardSearchableFlag = true
 	return builder
 }
+
+// 属性数据类型
+// 示例值：INTEGER
 func (builder *SchemaPropertyDefinitionBuilder) Type(type_ string) *SchemaPropertyDefinitionBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 属性对外展示可选项
+// 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) DisplayOptions(displayOptions *SchemaDisplayOption) *SchemaPropertyDefinitionBuilder {
 	builder.displayOptions = displayOptions
 	builder.displayOptionsFlag = true
@@ -1139,23 +1348,23 @@ func (builder *SchemaPropertyDefinitionBuilder) Build() *SchemaPropertyDefinitio
 }
 
 type SchemaSearchOptions struct {
-	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`
-	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`
-	EnablePrefixMatch       *bool `json:"enable_prefix_match,omitempty"`
-	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"`
-	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`
+	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`      // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）
+	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`         // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）
+	EnablePrefixMatch       *bool `json:"enable_prefix_match,omitempty"`        // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
+	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"` // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`         // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
 }
 
 type SchemaSearchOptionsBuilder struct {
-	enableSemanticMatch         bool
+	enableSemanticMatch         bool // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）
 	enableSemanticMatchFlag     bool
-	enableExactMatch            bool
+	enableExactMatch            bool // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）
 	enableExactMatchFlag        bool
-	enablePrefixMatch           bool
+	enablePrefixMatch           bool // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
 	enablePrefixMatchFlag       bool
-	enableNumberSuffixMatch     bool
+	enableNumberSuffixMatch     bool // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
 	enableNumberSuffixMatchFlag bool
-	enableCamelMatch            bool
+	enableCamelMatch            bool // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
 	enableCamelMatchFlag        bool
 }
 
@@ -1164,26 +1373,40 @@ func NewSchemaSearchOptionsBuilder() *SchemaSearchOptionsBuilder {
 	return builder
 }
 
+// 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）
+// 示例值：true
 func (builder *SchemaSearchOptionsBuilder) EnableSemanticMatch(enableSemanticMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableSemanticMatch = enableSemanticMatch
 	builder.enableSemanticMatchFlag = true
 	return builder
 }
+
+// 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）
+// 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableExactMatch(enableExactMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableExactMatch = enableExactMatch
 	builder.enableExactMatchFlag = true
 	return builder
 }
+
+// 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
+// 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnablePrefixMatch(enablePrefixMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enablePrefixMatch = enablePrefixMatch
 	builder.enablePrefixMatchFlag = true
 	return builder
 }
+
+// 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+// 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableNumberSuffixMatch(enableNumberSuffixMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableNumberSuffixMatch = enableNumberSuffixMatch
 	builder.enableNumberSuffixMatchFlag = true
 	return builder
 }
+
+// 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
+// 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableCamelMatch(enableCamelMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableCamelMatch = enableCamelMatch
 	builder.enableCamelMatchFlag = true
@@ -1216,14 +1439,14 @@ func (builder *SchemaSearchOptionsBuilder) Build() *SchemaSearchOptions {
 }
 
 type SchemaSortOptions struct {
-	Priority *int    `json:"priority,omitempty"`
-	Order    *string `json:"order,omitempty"`
+	Priority *int    `json:"priority,omitempty"` // 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc
 }
 
 type SchemaSortOptionsBuilder struct {
-	priority     int
+	priority     int // 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
 	priorityFlag bool
-	order        string
+	order        string // 排序的顺序。默认为 desc
 	orderFlag    bool
 }
 
@@ -1232,11 +1455,16 @@ func NewSchemaSortOptionsBuilder() *SchemaSortOptionsBuilder {
 	return builder
 }
 
+// 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+// 示例值：0
 func (builder *SchemaSortOptionsBuilder) Priority(priority int) *SchemaSortOptionsBuilder {
 	builder.priority = priority
 	builder.priorityFlag = true
 	return builder
 }
+
+// 排序的顺序。默认为 desc
+// 示例值：asc
 func (builder *SchemaSortOptionsBuilder) Order(order string) *SchemaSortOptionsBuilder {
 	builder.order = order
 	builder.orderFlag = true
@@ -1257,17 +1485,17 @@ func (builder *SchemaSortOptionsBuilder) Build() *SchemaSortOptions {
 }
 
 type SchemaTagOptions struct {
-	Name  *string `json:"name,omitempty"`
-	Color *string `json:"color,omitempty"`
-	Text  *string `json:"text,omitempty"`
+	Name  *string `json:"name,omitempty"`  // tag 对应的枚举值名称
+	Color *string `json:"color,omitempty"` // 标签对应的颜色
+	Text  *string `json:"text,omitempty"`  // 标签中展示的文本
 }
 
 type SchemaTagOptionsBuilder struct {
-	name      string
+	name      string // tag 对应的枚举值名称
 	nameFlag  bool
-	color     string
+	color     string // 标签对应的颜色
 	colorFlag bool
-	text      string
+	text      string // 标签中展示的文本
 	textFlag  bool
 }
 
@@ -1276,16 +1504,24 @@ func NewSchemaTagOptionsBuilder() *SchemaTagOptionsBuilder {
 	return builder
 }
 
+// tag 对应的枚举值名称
+// 示例值：status
 func (builder *SchemaTagOptionsBuilder) Name(name string) *SchemaTagOptionsBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 标签对应的颜色
+// 示例值：blue
 func (builder *SchemaTagOptionsBuilder) Color(color string) *SchemaTagOptionsBuilder {
 	builder.color = color
 	builder.colorFlag = true
 	return builder
 }
+
+// 标签中展示的文本
+// 示例值：PASS
 func (builder *SchemaTagOptionsBuilder) Text(text string) *SchemaTagOptionsBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -1310,11 +1546,11 @@ func (builder *SchemaTagOptionsBuilder) Build() *SchemaTagOptions {
 }
 
 type SchemaTypeDefinitions struct {
-	Tag []*SchemaTagOptions `json:"tag,omitempty"`
+	Tag []*SchemaTagOptions `json:"tag,omitempty"` // 标签类型的定义
 }
 
 type SchemaTypeDefinitionsBuilder struct {
-	tag     []*SchemaTagOptions
+	tag     []*SchemaTagOptions // 标签类型的定义
 	tagFlag bool
 }
 
@@ -1323,6 +1559,8 @@ func NewSchemaTypeDefinitionsBuilder() *SchemaTypeDefinitionsBuilder {
 	return builder
 }
 
+// 标签类型的定义
+// 示例值：
 func (builder *SchemaTypeDefinitionsBuilder) Tag(tag []*SchemaTagOptions) *SchemaTypeDefinitionsBuilder {
 	builder.tag = tag
 	builder.tagFlag = true
@@ -1351,6 +1589,7 @@ func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	return builder
 }
 
+// 创建一个数据源
 func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *CreateDataSourceReqBuilder {
 	builder.dataSource = dataSource
 	return builder
@@ -1369,13 +1608,13 @@ type CreateDataSourceReq struct {
 }
 
 type CreateDataSourceRespData struct {
-	DataSource *DataSource `json:"data_source,omitempty"`
+	DataSource *DataSource `json:"data_source,omitempty"` // 数据源实例
 }
 
 type CreateDataSourceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateDataSourceRespData `json:"data"`
+	Data *CreateDataSourceRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateDataSourceResp) Success() bool {
@@ -1395,6 +1634,9 @@ func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 	return builder
 }
 
+// 数据源的唯一标识
+//
+// 示例值：6953903108179099667
 func (builder *DeleteDataSourceReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1433,6 +1675,9 @@ func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 	return builder
 }
 
+// 数据源的唯一标识
+//
+// 示例值：service_ticket
 func (builder *GetDataSourceReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1450,13 +1695,13 @@ type GetDataSourceReq struct {
 }
 
 type GetDataSourceRespData struct {
-	DataSource *DataSource `json:"data_source,omitempty"`
+	DataSource *DataSource `json:"data_source,omitempty"` // 数据源实例
 }
 
 type GetDataSourceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDataSourceRespData `json:"data"`
+	Data *GetDataSourceRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDataSourceResp) Success() bool {
@@ -1465,7 +1710,7 @@ func (resp *GetDataSourceResp) Success() bool {
 
 type ListDataSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
@@ -1477,18 +1722,31 @@ func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListDataSourceReqBuilder) Limit(limit int) *ListDataSourceReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 回包数据格式，0-全量数据；1-摘要数据。;;**注**：摘要数据仅包含"id"，"name"，"state"。
+//
+// 示例值：0
 func (builder *ListDataSourceReqBuilder) View(view int) *ListDataSourceReqBuilder {
 	builder.apiReq.QueryParams.Set("view", fmt.Sprint(view))
 	return builder
 }
+
+//
+//
+// 示例值：PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ
 func (builder *ListDataSourceReqBuilder) PageToken(pageToken string) *ListDataSourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListDataSourceReqBuilder) PageSize(pageSize int) *ListDataSourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -1504,19 +1762,20 @@ func (builder *ListDataSourceReqBuilder) Build() *ListDataSourceReq {
 
 type ListDataSourceReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListDataSourceRespData struct {
-	HasMore   *bool         `json:"has_more,omitempty"`
-	PageToken *string       `json:"page_token,omitempty"`
-	Items     []*DataSource `json:"items,omitempty"`
+	HasMore   *bool         `json:"has_more,omitempty"`   // 是否有更多数据
+	PageToken *string       `json:"page_token,omitempty"` // 取数据的凭证
+	Items     []*DataSource `json:"items,omitempty"`      // 数据源中的数据记录
 }
 
 type ListDataSourceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListDataSourceRespData `json:"data"`
+	Data *ListDataSourceRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListDataSourceResp) Success() bool {
@@ -1524,17 +1783,17 @@ func (resp *ListDataSourceResp) Success() bool {
 }
 
 type PatchDataSourceReqBodyBuilder struct {
-	name                string
+	name                string // 数据源的展示名称
 	nameFlag            bool
-	state               int
+	state               int // 数据源状态，0-已上线，1-未上线
 	stateFlag           bool
-	description         string
+	description         string // 对于数据源的描述
 	descriptionFlag     bool
-	iconUrl             string
+	iconUrl             string // 数据源在 search tab 上的展示图标路径
 	iconUrlFlag         bool
-	i18nName            *ItemMetadata
+	i18nName            *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 	i18nNameFlag        bool
-	i18nDescription     *I18nMeta
+	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
 }
 
@@ -1543,31 +1802,54 @@ func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
 	return builder
 }
 
+// 数据源的展示名称
+//
+//示例值：客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSourceReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 数据源状态，0-已上线，1-未上线
+//
+//示例值：0
 func (builder *PatchDataSourceReqBodyBuilder) State(state int) *PatchDataSourceReqBodyBuilder {
 	builder.state = state
 	builder.stateFlag = true
 	return builder
 }
+
+// 对于数据源的描述
+//
+//示例值：搜索客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Description(description string) *PatchDataSourceReqBodyBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 数据源在 search tab 上的展示图标路径
+//
+//示例值：https://www.xxx.com/open.jpg
 func (builder *PatchDataSourceReqBodyBuilder) IconUrl(iconUrl string) *PatchDataSourceReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
 	return builder
 }
-func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *ItemMetadata) *PatchDataSourceReqBodyBuilder {
+
+// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+//
+//示例值：
+func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameFlag = true
 	return builder
 }
+
+// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+//
+//示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nDescription = i18nDescription
 	builder.i18nDescriptionFlag = true
@@ -1598,17 +1880,17 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 }
 
 type PatchDataSourcePathReqBodyBuilder struct {
-	name                string
+	name                string // 数据源的展示名称
 	nameFlag            bool
-	state               int
+	state               int // 数据源状态，0-已上线，1-未上线
 	stateFlag           bool
-	description         string
+	description         string // 对于数据源的描述
 	descriptionFlag     bool
-	iconUrl             string
+	iconUrl             string // 数据源在 search tab 上的展示图标路径
 	iconUrlFlag         bool
-	i18nName            *ItemMetadata
+	i18nName            *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 	i18nNameFlag        bool
-	i18nDescription     *I18nMeta
+	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
 }
 
@@ -1616,31 +1898,55 @@ func NewPatchDataSourcePathReqBodyBuilder() *PatchDataSourcePathReqBodyBuilder {
 	builder := &PatchDataSourcePathReqBodyBuilder{}
 	return builder
 }
+
+// 数据源的展示名称
+//
+// 示例值：客服工单
 func (builder *PatchDataSourcePathReqBodyBuilder) Name(name string) *PatchDataSourcePathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 数据源状态，0-已上线，1-未上线
+//
+// 示例值：0
 func (builder *PatchDataSourcePathReqBodyBuilder) State(state int) *PatchDataSourcePathReqBodyBuilder {
 	builder.state = state
 	builder.stateFlag = true
 	return builder
 }
+
+// 对于数据源的描述
+//
+// 示例值：搜索客服工单
 func (builder *PatchDataSourcePathReqBodyBuilder) Description(description string) *PatchDataSourcePathReqBodyBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 数据源在 search tab 上的展示图标路径
+//
+// 示例值：https://www.xxx.com/open.jpg
 func (builder *PatchDataSourcePathReqBodyBuilder) IconUrl(iconUrl string) *PatchDataSourcePathReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
 	return builder
 }
-func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *ItemMetadata) *PatchDataSourcePathReqBodyBuilder {
+
+// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+//
+// 示例值：
+func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameFlag = true
 	return builder
 }
+
+// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+//
+// 示例值：
 func (builder *PatchDataSourcePathReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
 	builder.i18nDescription = i18nDescription
 	builder.i18nDescriptionFlag = true
@@ -1684,10 +1990,15 @@ func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 	return builder
 }
 
+// 数据源的唯一标识
+//
+// 示例值：service_ticket
 func (builder *PatchDataSourceReqBuilder) DataSourceId(dataSourceId string) *PatchDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
+
+// 更新一个已经存在的数据源
 func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *PatchDataSourceReqBuilder {
 	builder.body = body
 	return builder
@@ -1702,12 +2013,12 @@ func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 }
 
 type PatchDataSourceReqBody struct {
-	Name            *string       `json:"name,omitempty"`
-	State           *int          `json:"state,omitempty"`
-	Description     *string       `json:"description,omitempty"`
-	IconUrl         *string       `json:"icon_url,omitempty"`
-	I18nName        *ItemMetadata `json:"i18n_name,omitempty"`
-	I18nDescription *I18nMeta     `json:"i18n_description,omitempty"`
+	Name            *string   `json:"name,omitempty"`             // 数据源的展示名称
+	State           *int      `json:"state,omitempty"`            // 数据源状态，0-已上线，1-未上线
+	Description     *string   `json:"description,omitempty"`      // 对于数据源的描述
+	IconUrl         *string   `json:"icon_url,omitempty"`         // 数据源在 search tab 上的展示图标路径
+	I18nName        *I18nMeta `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 }
 
 type PatchDataSourceReq struct {
@@ -1716,13 +2027,13 @@ type PatchDataSourceReq struct {
 }
 
 type PatchDataSourceRespData struct {
-	DataSource *DataSource `json:"data_source,omitempty"`
+	DataSource *DataSource `json:"data_source,omitempty"` // 数据源
 }
 
 type PatchDataSourceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchDataSourceRespData `json:"data"`
+	Data *PatchDataSourceRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchDataSourceResp) Success() bool {
@@ -1743,10 +2054,15 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	return builder
 }
 
+// 数据源的ID
+//
+// 示例值：service_ticket
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
+
+// 索引一条数据记录
 func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourceItemReqBuilder {
 	builder.item = item
 	return builder
@@ -1787,10 +2103,17 @@ func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	return builder
 }
 
+// 数据源的ID
+//
+// 示例值：service_ticket
 func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
+
+// 数据记录的ID
+//
+// 示例值：01010111
 func (builder *DeleteDataSourceItemReqBuilder) ItemId(itemId string) *DeleteDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("item_id", fmt.Sprint(itemId))
 	return builder
@@ -1829,10 +2152,17 @@ func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	return builder
 }
 
+// 数据源的id
+//
+// 示例值：service_ticket
 func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
+
+// 数据记录的唯一标识
+//
+// 示例值：01010111
 func (builder *GetDataSourceItemReqBuilder) ItemId(itemId string) *GetDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("item_id", fmt.Sprint(itemId))
 	return builder
@@ -1850,13 +2180,13 @@ type GetDataSourceItemReq struct {
 }
 
 type GetDataSourceItemRespData struct {
-	Item *Item `json:"item,omitempty"`
+	Item *Item `json:"item,omitempty"` // 数据项实例
 }
 
 type GetDataSourceItemResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetDataSourceItemRespData `json:"data"`
+	Data *GetDataSourceItemRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetDataSourceItemResp) Success() bool {
@@ -1877,10 +2207,15 @@ func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
 	return builder
 }
 
+// 是否只用来校验合法性
+//
+// 示例值：true
 func (builder *CreateSchemaReqBuilder) ValidateOnly(validateOnly bool) *CreateSchemaReqBuilder {
 	builder.apiReq.QueryParams.Set("validate_only", fmt.Sprint(validateOnly))
 	return builder
 }
+
+// 创建一个数据源
 func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBuilder {
 	builder.schema = schema
 	return builder
@@ -1900,13 +2235,13 @@ type CreateSchemaReq struct {
 }
 
 type CreateSchemaRespData struct {
-	Schema *Schema `json:"schema,omitempty"`
+	Schema *Schema `json:"schema,omitempty"` // 数据范式实例
 }
 
 type CreateSchemaResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateSchemaRespData `json:"data"`
+	Data *CreateSchemaRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateSchemaResp) Success() bool {
@@ -1926,6 +2261,9 @@ func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
 	return builder
 }
 
+// 用户自定义数据范式的唯一标识
+//
+// 示例值：custom_schema_id
 func (builder *DeleteSchemaReqBuilder) SchemaId(schemaId string) *DeleteSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
@@ -1964,6 +2302,9 @@ func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
 	return builder
 }
 
+// 用户自定义数据范式的唯一标识
+//
+// 示例值：custom_schema_id
 func (builder *GetSchemaReqBuilder) SchemaId(schemaId string) *GetSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
@@ -1981,13 +2322,13 @@ type GetSchemaReq struct {
 }
 
 type GetSchemaRespData struct {
-	Schema *Schema `json:"schema,omitempty"`
+	Schema *Schema `json:"schema,omitempty"` // 数据范式
 }
 
 type GetSchemaResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetSchemaRespData `json:"data"`
+	Data *GetSchemaRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetSchemaResp) Success() bool {
@@ -1995,7 +2336,7 @@ func (resp *GetSchemaResp) Success() bool {
 }
 
 type PatchSchemaReqBodyBuilder struct {
-	display     *SchemaDisplay
+	display     *SchemaDisplay // 数据展示相关配置
 	displayFlag bool
 }
 
@@ -2004,6 +2345,9 @@ func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
 	return builder
 }
 
+// 数据展示相关配置
+//
+//示例值：
 func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaReqBodyBuilder {
 	builder.display = display
 	builder.displayFlag = true
@@ -2019,7 +2363,7 @@ func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
 }
 
 type PatchSchemaPathReqBodyBuilder struct {
-	display     *SchemaDisplay
+	display     *SchemaDisplay // 数据展示相关配置
 	displayFlag bool
 }
 
@@ -2027,6 +2371,10 @@ func NewPatchSchemaPathReqBodyBuilder() *PatchSchemaPathReqBodyBuilder {
 	builder := &PatchSchemaPathReqBodyBuilder{}
 	return builder
 }
+
+// 数据展示相关配置
+//
+// 示例值：
 func (builder *PatchSchemaPathReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaPathReqBodyBuilder {
 	builder.display = display
 	builder.displayFlag = true
@@ -2055,10 +2403,15 @@ func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
 	return builder
 }
 
+// 用户自定义数据范式的唯一标识
+//
+// 示例值：custom_schema_id
 func (builder *PatchSchemaReqBuilder) SchemaId(schemaId string) *PatchSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
+
+// 修改数据范式
 func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchemaReqBuilder {
 	builder.body = body
 	return builder
@@ -2073,7 +2426,7 @@ func (builder *PatchSchemaReqBuilder) Build() *PatchSchemaReq {
 }
 
 type PatchSchemaReqBody struct {
-	Display *SchemaDisplay `json:"display,omitempty"`
+	Display *SchemaDisplay `json:"display,omitempty"` // 数据展示相关配置
 }
 
 type PatchSchemaReq struct {
@@ -2082,13 +2435,13 @@ type PatchSchemaReq struct {
 }
 
 type PatchSchemaRespData struct {
-	Schema *Schema `json:"schema,omitempty"`
+	Schema *Schema `json:"schema,omitempty"` // 数据范式实例
 }
 
 type PatchSchemaResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchSchemaRespData `json:"data"`
+	Data *PatchSchemaRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchSchemaResp) Success() bool {

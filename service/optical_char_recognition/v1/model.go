@@ -21,7 +21,7 @@ type Image struct {
 }
 
 type BasicRecognizeImageReqBodyBuilder struct {
-	image     string
+	image     string // base64 后的图片数据
 	imageFlag bool
 }
 
@@ -30,6 +30,9 @@ func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
 	return builder
 }
 
+// base64 后的图片数据
+//
+//示例值：base64后的图片二进制数据
 func (builder *BasicRecognizeImageReqBodyBuilder) Image(image string) *BasicRecognizeImageReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
@@ -45,7 +48,7 @@ func (builder *BasicRecognizeImageReqBodyBuilder) Build() *BasicRecognizeImageRe
 }
 
 type BasicRecognizeImagePathReqBodyBuilder struct {
-	image     string
+	image     string // base64 后的图片数据
 	imageFlag bool
 }
 
@@ -53,6 +56,10 @@ func NewBasicRecognizeImagePathReqBodyBuilder() *BasicRecognizeImagePathReqBodyB
 	builder := &BasicRecognizeImagePathReqBodyBuilder{}
 	return builder
 }
+
+// base64 后的图片数据
+//
+// 示例值：base64后的图片二进制数据
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Image(image string) *BasicRecognizeImagePathReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
@@ -81,6 +88,7 @@ func NewBasicRecognizeImageReqBuilder() *BasicRecognizeImageReqBuilder {
 	return builder
 }
 
+// 可识别图片中的文字，按图片中的区域划分，分段返回文本列表
 func (builder *BasicRecognizeImageReqBuilder) Body(body *BasicRecognizeImageReqBody) *BasicRecognizeImageReqBuilder {
 	builder.body = body
 	return builder
@@ -94,7 +102,7 @@ func (builder *BasicRecognizeImageReqBuilder) Build() *BasicRecognizeImageReq {
 }
 
 type BasicRecognizeImageReqBody struct {
-	Image *string `json:"image,omitempty"`
+	Image *string `json:"image,omitempty"` // base64 后的图片数据
 }
 
 type BasicRecognizeImageReq struct {
@@ -103,13 +111,13 @@ type BasicRecognizeImageReq struct {
 }
 
 type BasicRecognizeImageRespData struct {
-	TextList []string `json:"text_list,omitempty"`
+	TextList []string `json:"text_list,omitempty"` // 按区域识别，返回文本列表
 }
 
 type BasicRecognizeImageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BasicRecognizeImageRespData `json:"data"`
+	Data *BasicRecognizeImageRespData `json:"data"` // 业务数据
 }
 
 func (resp *BasicRecognizeImageResp) Success() bool {

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
 )
 
-// HTTP PATH: /open-apis/baike/v1/drafts/:draft_id"
+// PUT /open-apis/baike/v1/drafts/:draft_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbaike.NewUpdateDraftReqBuilder().
-		DraftId("42322").
+		DraftId("5347").
 		UserIdType("user_id").
 		Entity(larkbaike.NewEntityBuilder().
 			Id("enterprise_40217521").
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

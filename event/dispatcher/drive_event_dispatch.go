@@ -18,6 +18,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-deleted-completely
 func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Context, event *larkdrive.P2FileDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.deleted_v1"]
 	if existed {
@@ -26,6 +31,12 @@ func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Co
 	dispatcher.eventType2EventHandler["drive.file.deleted_v1"] = larkdrive.NewP2FileDeletedV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited
 func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Context, event *larkdrive.P2FileEditV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.edit_v1"]
 	if existed {
@@ -34,6 +45,12 @@ func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Conte
 	dispatcher.eventType2EventHandler["drive.file.edit_v1"] = larkdrive.NewP2FileEditV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-add
 func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberAddedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"]
 	if existed {
@@ -42,6 +59,12 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(
 	dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"] = larkdrive.NewP2FilePermissionMemberAddedV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
 func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberRemovedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"]
 	if existed {
@@ -50,6 +73,12 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler fun
 	dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"] = larkdrive.NewP2FilePermissionMemberRemovedV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
 func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Context, event *larkdrive.P2FileReadV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.read_v1"]
 	if existed {
@@ -58,6 +87,12 @@ func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Conte
 	dispatcher.eventType2EventHandler["drive.file.read_v1"] = larkdrive.NewP2FileReadV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
 func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx context.Context, event *larkdrive.P2FileTitleUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.title_updated_v1"]
 	if existed {
@@ -66,6 +101,12 @@ func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["drive.file.title_updated_v1"] = larkdrive.NewP2FileTitleUpdatedV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can
 func (dispatcher *EventDispatcher) OnP2FileTrashedV1(handler func(ctx context.Context, event *larkdrive.P2FileTrashedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.trashed_v1"]
 	if existed {

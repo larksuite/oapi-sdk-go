@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/approvals"
+// POST /open-apis/approval/v4/approvals
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -40,6 +40,7 @@ func main() {
 			Config(larkapproval.NewApprovalConfigBuilder().Build()).
 			Icon(0).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
+			ProcessManagerIds([]string{}).
 			Build()).
 		Build()
 	// 发起请求
@@ -57,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

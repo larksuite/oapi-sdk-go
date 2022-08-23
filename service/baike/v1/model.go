@@ -23,17 +23,53 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDraftUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDraftUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDraftUpdateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeEntityCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeEntityCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeEntityCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeEntityGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeEntityGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeEntityGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeEntityListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeEntityListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeEntityListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeEntitySearchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeEntitySearchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeEntitySearchOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeEntityUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeEntityUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeEntityUpdateOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Abbreviation struct {
-	Id *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"` // 相关词条 ID
 }
 
 type AbbreviationBuilder struct {
-	id     string
+	id     string // 相关词条 ID
 	idFlag bool
 }
 
@@ -42,6 +78,8 @@ func NewAbbreviationBuilder() *AbbreviationBuilder {
 	return builder
 }
 
+// 相关词条 ID
+// 示例值：enterprise_51587960
 func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -58,17 +96,17 @@ func (builder *AbbreviationBuilder) Build() *Abbreviation {
 }
 
 type Classification struct {
-	Id       *string `json:"id,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	FatherId *string `json:"father_id,omitempty"`
+	Id       *string `json:"id,omitempty"`        // 二级分类 ID
+	Name     *string `json:"name,omitempty"`      // 二级分类名称
+	FatherId *string `json:"father_id,omitempty"` // 对应一级分类 ID
 }
 
 type ClassificationBuilder struct {
-	id           string
+	id           string // 二级分类 ID
 	idFlag       bool
-	name         string
+	name         string // 二级分类名称
 	nameFlag     bool
-	fatherId     string
+	fatherId     string // 对应一级分类 ID
 	fatherIdFlag bool
 }
 
@@ -77,16 +115,24 @@ func NewClassificationBuilder() *ClassificationBuilder {
 	return builder
 }
 
+// 二级分类 ID
+// 示例值：7049606926702837761
 func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 二级分类名称
+// 示例值：行业术语
 func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 对应一级分类 ID
+// 示例值：7049606926702837777
 func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
 	builder.fatherId = fatherId
 	builder.fatherIdFlag = true
@@ -111,14 +157,14 @@ func (builder *ClassificationBuilder) Build() *Classification {
 }
 
 type DisplayStatus struct {
-	AllowHighlight *bool `json:"allow_highlight,omitempty"`
-	AllowSearch    *bool `json:"allow_search,omitempty"`
+	AllowHighlight *bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮
+	AllowSearch    *bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示
 }
 
 type DisplayStatusBuilder struct {
-	allowHighlight     bool
+	allowHighlight     bool // 对应名称是否在消息/云文档高亮
 	allowHighlightFlag bool
-	allowSearch        bool
+	allowSearch        bool // 对应名称是否在搜索结果中展示
 	allowSearchFlag    bool
 }
 
@@ -127,11 +173,16 @@ func NewDisplayStatusBuilder() *DisplayStatusBuilder {
 	return builder
 }
 
+// 对应名称是否在消息/云文档高亮
+// 示例值：true
 func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder {
 	builder.allowHighlight = allowHighlight
 	builder.allowHighlightFlag = true
 	return builder
 }
+
+// 对应名称是否在搜索结果中展示
+// 示例值：true
 func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
 	builder.allowSearch = allowSearch
 	builder.allowSearchFlag = true
@@ -152,14 +203,14 @@ func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
 }
 
 type Draft struct {
-	DraftId *string `json:"draft_id,omitempty"`
-	Entity  *Entity `json:"entity,omitempty"`
+	DraftId *string `json:"draft_id,omitempty"` // 草稿 ID
+	Entity  *Entity `json:"entity,omitempty"`   // 词条信息
 }
 
 type DraftBuilder struct {
-	draftId     string
+	draftId     string // 草稿 ID
 	draftIdFlag bool
-	entity      *Entity
+	entity      *Entity // 词条信息
 	entityFlag  bool
 }
 
@@ -168,11 +219,16 @@ func NewDraftBuilder() *DraftBuilder {
 	return builder
 }
 
+// 草稿 ID
+// 示例值：42322
 func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 	builder.draftId = draftId
 	builder.draftIdFlag = true
 	return builder
 }
+
+// 词条信息
+// 示例值：
 func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
 	builder.entity = entity
 	builder.entityFlag = true
@@ -192,43 +248,43 @@ func (builder *DraftBuilder) Build() *Draft {
 }
 
 type Entity struct {
-	Id       *string `json:"id,omitempty"`
-	MainKeys []*Term `json:"main_keys,omitempty"`
+	Id       *string `json:"id,omitempty"`        // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+	MainKeys []*Term `json:"main_keys,omitempty"` // 词条名
 
-	Aliases     []*Term      `json:"aliases,omitempty"`
-	Description *string      `json:"description,omitempty"`
-	CreateTime  *string      `json:"create_time,omitempty"`
-	UpdateTime  *string      `json:"update_time,omitempty"`
-	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"`
-	Categories  []string     `json:"categories,omitempty"`
-	Statistics  *Statistics  `json:"statistics,omitempty"`
-	OuterInfo   *OuterInfo   `json:"outer_info,omitempty"`
-	RichText    *string      `json:"rich_text,omitempty"`
+	Aliases     []*Term      `json:"aliases,omitempty"`      // 别名
+	Description *string      `json:"description,omitempty"`  // 词条释义（纯文本格式）
+	CreateTime  *string      `json:"create_time,omitempty"`  // 词条创建时间
+	UpdateTime  *string      `json:"update_time,omitempty"`  // 词条最近更新时间
+	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
+	Categories  []string     `json:"categories,omitempty"`   // 词条标签
+	Statistics  *Statistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
+	OuterInfo   *OuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
+	RichText    *string      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 }
 
 type EntityBuilder struct {
-	id           string
+	id           string // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
 	idFlag       bool
-	mainKeys     []*Term
+	mainKeys     []*Term // 词条名
 	mainKeysFlag bool
 
-	aliases         []*Term
+	aliases         []*Term // 别名
 	aliasesFlag     bool
-	description     string
+	description     string // 词条释义（纯文本格式）
 	descriptionFlag bool
-	createTime      string
+	createTime      string // 词条创建时间
 	createTimeFlag  bool
-	updateTime      string
+	updateTime      string // 词条最近更新时间
 	updateTimeFlag  bool
-	relatedMeta     *RelatedMeta
+	relatedMeta     *RelatedMeta // 更多相关信息
 	relatedMetaFlag bool
-	categories      []string
+	categories      []string // 词条标签
 	categoriesFlag  bool
-	statistics      *Statistics
+	statistics      *Statistics // 当前词条收到的反馈数据
 	statisticsFlag  bool
-	outerInfo       *OuterInfo
+	outerInfo       *OuterInfo // 外部系统关联数据
 	outerInfoFlag   bool
-	richText        string
+	richText        string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	richTextFlag    bool
 }
 
@@ -237,57 +293,88 @@ func NewEntityBuilder() *EntityBuilder {
 	return builder
 }
 
+// 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+// 示例值：enterprise_40217521
 func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 词条名
+// 示例值：
 func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
 	builder.mainKeys = mainKeys
 	builder.mainKeysFlag = true
 	return builder
 }
 
+// 别名
+// 示例值：
 func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 	builder.aliases = aliases
 	builder.aliasesFlag = true
 	return builder
 }
+
+// 词条释义（纯文本格式）
+// 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 词条创建时间
+// 示例值：1649318125
 func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 词条最近更新时间
+// 示例值：1649318125
 func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 更多相关信息
+// 示例值：
 func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
 	builder.relatedMeta = relatedMeta
 	builder.relatedMetaFlag = true
 	return builder
 }
+
+// 词条标签
+// 示例值：
 func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
 	builder.categories = categories
 	builder.categoriesFlag = true
 	return builder
 }
+
+// 当前词条收到的反馈数据
+// 示例值：
 func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
 	builder.statistics = statistics
 	builder.statisticsFlag = true
 	return builder
 }
+
+// 外部系统关联数据
+// 示例值：
 func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	builder.outerInfo = outerInfo
 	builder.outerInfoFlag = true
 	return builder
 }
+
+// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 	builder.richText = richText
 	builder.richTextFlag = true
@@ -339,14 +426,14 @@ func (builder *EntityBuilder) Build() *Entity {
 }
 
 type MatchInfo struct {
-	EntityId *string `json:"entity_id,omitempty"`
-	Type     *int    `json:"type,omitempty"`
+	EntityId *string `json:"entity_id,omitempty"` // 词条 ID
+	Type     *int    `json:"type,omitempty"`      // 命中的字段
 }
 
 type MatchInfoBuilder struct {
-	entityId     string
+	entityId     string // 词条 ID
 	entityIdFlag bool
-	type_        int
+	type_        int // 命中的字段
 	typeFlag     bool
 }
 
@@ -355,11 +442,16 @@ func NewMatchInfoBuilder() *MatchInfoBuilder {
 	return builder
 }
 
+// 词条 ID
+// 示例值：enterprise_34809584
 func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 	builder.entityId = entityId
 	builder.entityIdFlag = true
 	return builder
 }
+
+// 命中的字段
+// 示例值：0
 func (builder *MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -380,14 +472,14 @@ func (builder *MatchInfoBuilder) Build() *MatchInfo {
 }
 
 type OuterInfo struct {
-	Provider *string `json:"provider,omitempty"`
-	OuterId  *string `json:"outer_id,omitempty"`
+	Provider *string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）
+	OuterId  *string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 }
 
 type OuterInfoBuilder struct {
-	provider     string
+	provider     string // 外部系统（不能包含中横线 "-"）
 	providerFlag bool
-	outerId      string
+	outerId      string // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 	outerIdFlag  bool
 }
 
@@ -396,11 +488,16 @@ func NewOuterInfoBuilder() *OuterInfoBuilder {
 	return builder
 }
 
+// 外部系统（不能包含中横线 "-"）
+// 示例值：星云
 func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 	builder.provider = provider
 	builder.providerFlag = true
 	return builder
 }
+
+// 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+// 示例值：client_6539i3498d
 func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
 	builder.outerId = outerId
 	builder.outerIdFlag = true
@@ -421,17 +518,17 @@ func (builder *OuterInfoBuilder) Build() *OuterInfo {
 }
 
 type Phrase struct {
-	Name      *string  `json:"name,omitempty"`
-	EntityIds []string `json:"entity_ids,omitempty"`
-	Span      *Span    `json:"span,omitempty"`
+	Name      *string  `json:"name,omitempty"`       // 识别到的关键词
+	EntityIds []string `json:"entity_ids,omitempty"` // 对应的词条 ID
+	Span      *Span    `json:"span,omitempty"`       // 词条所在位置
 }
 
 type PhraseBuilder struct {
-	name          string
+	name          string // 识别到的关键词
 	nameFlag      bool
-	entityIds     []string
+	entityIds     []string // 对应的词条 ID
 	entityIdsFlag bool
-	span          *Span
+	span          *Span // 词条所在位置
 	spanFlag      bool
 }
 
@@ -440,16 +537,24 @@ func NewPhraseBuilder() *PhraseBuilder {
 	return builder
 }
 
+// 识别到的关键词
+// 示例值：企业百科
 func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 对应的词条 ID
+// 示例值：
 func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 	builder.entityIds = entityIds
 	builder.entityIdsFlag = true
 	return builder
 }
+
+// 词条所在位置
+// 示例值：
 func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
 	builder.span = span
 	builder.spanFlag = true
@@ -472,17 +577,17 @@ func (builder *PhraseBuilder) Build() *Phrase {
 }
 
 type Referer struct {
-	Id    *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Url   *string `json:"url,omitempty"`
+	Id    *string `json:"id,omitempty"`    // 对应相关信息 ID
+	Title *string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
+	Url   *string `json:"url,omitempty"`   // 链接地址
 }
 
 type RefererBuilder struct {
-	id        string
+	id        string // 对应相关信息 ID
 	idFlag    bool
-	title     string
+	title     string // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
 	titleFlag bool
-	url       string
+	url       string // 链接地址
 	urlFlag   bool
 }
 
@@ -491,16 +596,24 @@ func NewRefererBuilder() *RefererBuilder {
 	return builder
 }
 
+// 对应相关信息 ID
+// 示例值：格式请看请求体示例
 func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 对应相关信息的描述，如相关联系人的描述、相关链接的标题
+// 示例值：企业百科帮助中心
 func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// 链接地址
+// 示例值：https://www.feishu.cn/hc/zh-CN
 func (builder *RefererBuilder) Url(url string) *RefererBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -525,29 +638,29 @@ func (builder *RefererBuilder) Build() *Referer {
 }
 
 type RelatedMeta struct {
-	Users           []*Referer        `json:"users,omitempty"`
-	Chats           []*Referer        `json:"chats,omitempty"`
-	Docs            []*Referer        `json:"docs,omitempty"`
-	Oncalls         []*Referer        `json:"oncalls,omitempty"`
-	Links           []*Referer        `json:"links,omitempty"`
-	Abbreviations   []*Abbreviation   `json:"abbreviations,omitempty"`
-	Classifications []*Classification `json:"classifications,omitempty"`
+	Users           []*Referer        `json:"users,omitempty"`           // 相关联系人
+	Chats           []*Referer        `json:"chats,omitempty"`           // 相关服务中的相关公开群
+	Docs            []*Referer        `json:"docs,omitempty"`            // 相关云文档
+	Oncalls         []*Referer        `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
+	Links           []*Referer        `json:"links,omitempty"`           // 相关链接
+	Abbreviations   []*Abbreviation   `json:"abbreviations,omitempty"`   // 相关词条
+	Classifications []*Classification `json:"classifications,omitempty"` // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 }
 
 type RelatedMetaBuilder struct {
-	users               []*Referer
+	users               []*Referer // 相关联系人
 	usersFlag           bool
-	chats               []*Referer
+	chats               []*Referer // 相关服务中的相关公开群
 	chatsFlag           bool
-	docs                []*Referer
+	docs                []*Referer // 相关云文档
 	docsFlag            bool
-	oncalls             []*Referer
+	oncalls             []*Referer // 相关服务中的相关值班号
 	oncallsFlag         bool
-	links               []*Referer
+	links               []*Referer // 相关链接
 	linksFlag           bool
-	abbreviations       []*Abbreviation
+	abbreviations       []*Abbreviation // 相关词条
 	abbreviationsFlag   bool
-	classifications     []*Classification
+	classifications     []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 	classificationsFlag bool
 }
 
@@ -556,36 +669,56 @@ func NewRelatedMetaBuilder() *RelatedMetaBuilder {
 	return builder
 }
 
+// 相关联系人
+// 示例值：
 func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 	builder.users = users
 	builder.usersFlag = true
 	return builder
 }
+
+// 相关服务中的相关公开群
+// 示例值：
 func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 	builder.chats = chats
 	builder.chatsFlag = true
 	return builder
 }
+
+// 相关云文档
+// 示例值：
 func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 	builder.docs = docs
 	builder.docsFlag = true
 	return builder
 }
+
+// 相关服务中的相关值班号
+// 示例值：
 func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
 	builder.oncalls = oncalls
 	builder.oncallsFlag = true
 	return builder
 }
+
+// 相关链接
+// 示例值：
 func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 	builder.links = links
 	builder.linksFlag = true
 	return builder
 }
+
+// 相关词条
+// 示例值：
 func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
 	builder.abbreviations = abbreviations
 	builder.abbreviationsFlag = true
 	return builder
 }
+
+// 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
+// 示例值：
 func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
 	builder.classifications = classifications
 	builder.classificationsFlag = true
@@ -619,14 +752,14 @@ func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
 }
 
 type Span struct {
-	Start *int `json:"start,omitempty"`
-	End   *int `json:"end,omitempty"`
+	Start *int `json:"start,omitempty"` // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
+	End   *int `json:"end,omitempty"`   // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 }
 
 type SpanBuilder struct {
-	start     int
+	start     int // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
 	startFlag bool
-	end       int
+	end       int // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 	endFlag   bool
 }
 
@@ -635,11 +768,16 @@ func NewSpanBuilder() *SpanBuilder {
 	return builder
 }
 
+// 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
+// 示例值：0
 func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 	builder.start = start
 	builder.startFlag = true
 	return builder
 }
+
+// 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
+// 示例值：4
 func (builder *SpanBuilder) End(end int) *SpanBuilder {
 	builder.end = end
 	builder.endFlag = true
@@ -660,14 +798,14 @@ func (builder *SpanBuilder) Build() *Span {
 }
 
 type Statistics struct {
-	LikeCount    *int `json:"like_count,omitempty"`
-	DislikeCount *int `json:"dislike_count,omitempty"`
+	LikeCount    *int `json:"like_count,omitempty"`    // 累计点赞
+	DislikeCount *int `json:"dislike_count,omitempty"` // 当前词条版本收到的负反馈数量
 }
 
 type StatisticsBuilder struct {
-	likeCount        int
+	likeCount        int // 累计点赞
 	likeCountFlag    bool
-	dislikeCount     int
+	dislikeCount     int // 当前词条版本收到的负反馈数量
 	dislikeCountFlag bool
 }
 
@@ -676,11 +814,16 @@ func NewStatisticsBuilder() *StatisticsBuilder {
 	return builder
 }
 
+// 累计点赞
+// 示例值：55
 func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 	builder.likeCount = likeCount
 	builder.likeCountFlag = true
 	return builder
 }
+
+// 当前词条版本收到的负反馈数量
+// 示例值：3
 func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
 	builder.dislikeCount = dislikeCount
 	builder.dislikeCountFlag = true
@@ -701,14 +844,14 @@ func (builder *StatisticsBuilder) Build() *Statistics {
 }
 
 type Term struct {
-	Key           *string        `json:"key,omitempty"`
-	DisplayStatus *DisplayStatus `json:"display_status,omitempty"`
+	Key           *string        `json:"key,omitempty"`            // 名称的值
+	DisplayStatus *DisplayStatus `json:"display_status,omitempty"` // 名称展示范围
 }
 
 type TermBuilder struct {
-	key               string
+	key               string // 名称的值
 	keyFlag           bool
-	displayStatus     *DisplayStatus
+	displayStatus     *DisplayStatus // 名称展示范围
 	displayStatusFlag bool
 }
 
@@ -717,11 +860,16 @@ func NewTermBuilder() *TermBuilder {
 	return builder
 }
 
+// 名称的值
+// 示例值：企业百科
 func (builder *TermBuilder) Key(key string) *TermBuilder {
 	builder.key = key
 	builder.keyFlag = true
 	return builder
 }
+
+// 名称展示范围
+// 示例值：
 func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
 	builder.displayStatus = displayStatus
 	builder.displayStatusFlag = true
@@ -742,7 +890,7 @@ func (builder *TermBuilder) Build() *Term {
 
 type ListClassificationReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListClassificationReqBuilder() *ListClassificationReqBuilder {
@@ -754,14 +902,23 @@ func NewListClassificationReqBuilder() *ListClassificationReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListClassificationReqBuilder) Limit(limit int) *ListClassificationReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：20
 func (builder *ListClassificationReqBuilder) PageSize(pageSize int) *ListClassificationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
 func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListClassificationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -777,18 +934,19 @@ func (builder *ListClassificationReqBuilder) Build() *ListClassificationReq {
 
 type ListClassificationReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListClassificationRespData struct {
-	Items     []*Classification `json:"items,omitempty"`
-	PageToken *string           `json:"page_token,omitempty"`
+	Items     []*Classification `json:"items,omitempty"`      // 分类
+	PageToken *string           `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
 }
 
 type ListClassificationResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListClassificationRespData `json:"data"`
+	Data *ListClassificationRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListClassificationResp) Success() bool {
@@ -809,10 +967,15 @@ func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 草稿并非百科词条，而是指通过 API 发起创建新词条或更新现有词条的申请。百科管理员审核通过后，草稿将变为新的词条或覆盖已有词条。
 func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -832,13 +995,13 @@ type CreateDraftReq struct {
 }
 
 type CreateDraftRespData struct {
-	Draft *Draft `json:"draft,omitempty"`
+	Draft *Draft `json:"draft,omitempty"` // 草稿信息
 }
 
 type CreateDraftResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateDraftRespData `json:"data"`
+	Data *CreateDraftRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateDraftResp) Success() bool {
@@ -859,14 +1022,23 @@ func NewUpdateDraftReqBuilder() *UpdateDraftReqBuilder {
 	return builder
 }
 
+// 草稿 ID
+//
+// 示例值：5347
 func (builder *UpdateDraftReqBuilder) DraftId(draftId string) *UpdateDraftReqBuilder {
 	builder.apiReq.PathParams.Set("draft_id", fmt.Sprint(draftId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraftReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 根据 draft_id 更新草稿内容，已审批的草稿无法编辑
 func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -887,13 +1059,13 @@ type UpdateDraftReq struct {
 }
 
 type UpdateDraftRespData struct {
-	Draft *Draft `json:"draft,omitempty"`
+	Draft *Draft `json:"draft,omitempty"` // 草稿
 }
 
 type UpdateDraftResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateDraftRespData `json:"data"`
+	Data *UpdateDraftRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateDraftResp) Success() bool {
@@ -914,10 +1086,15 @@ func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -937,13 +1114,13 @@ type CreateEntityReq struct {
 }
 
 type CreateEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"` // 词条信息
 }
 
 type CreateEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateEntityRespData `json:"data"`
+	Data *CreateEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateEntityResp) Success() bool {
@@ -963,18 +1140,33 @@ func NewGetEntityReqBuilder() *GetEntityReqBuilder {
 	return builder
 }
 
+// 词条 ID
+//
+// 示例值：enterprise_515879
 func (builder *GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder {
 	builder.apiReq.PathParams.Set("entity_id", fmt.Sprint(entityId))
 	return builder
 }
+
+// 外部系统
+//
+// 示例值：星云
 func (builder *GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("provider", fmt.Sprint(provider))
 	return builder
 }
+
+// 词条在外部系统中对应的唯一 ID
+//
+// 示例值：12345
 func (builder *GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("outer_id", fmt.Sprint(outerId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -993,13 +1185,13 @@ type GetEntityReq struct {
 }
 
 type GetEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"` // 实体词
 }
 
 type GetEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetEntityRespData `json:"data"`
+	Data *GetEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetEntityResp) Success() bool {
@@ -1007,7 +1199,7 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text     string
+	text     string // 需要识别百科词条的内容（不超过1000字）
 	textFlag bool
 }
 
@@ -1016,6 +1208,9 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 	return builder
 }
 
+// 需要识别百科词条的内容（不超过1000字）
+//
+//示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -1031,7 +1226,7 @@ func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 }
 
 type HighlightEntityPathReqBodyBuilder struct {
-	text     string
+	text     string // 需要识别百科词条的内容（不超过1000字）
 	textFlag bool
 }
 
@@ -1039,6 +1234,10 @@ func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 	builder := &HighlightEntityPathReqBodyBuilder{}
 	return builder
 }
+
+// 需要识别百科词条的内容（不超过1000字）
+//
+// 示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -1067,6 +1266,7 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
+// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1080,7 +1280,7 @@ func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 }
 
 type HighlightEntityReqBody struct {
-	Text *string `json:"text,omitempty"`
+	Text *string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）
 }
 
 type HighlightEntityReq struct {
@@ -1089,13 +1289,13 @@ type HighlightEntityReq struct {
 }
 
 type HighlightEntityRespData struct {
-	Phrases []*Phrase `json:"phrases,omitempty"`
+	Phrases []*Phrase `json:"phrases,omitempty"` // 识别到的词条信息
 }
 
 type HighlightEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *HighlightEntityRespData `json:"data"`
+	Data *HighlightEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *HighlightEntityResp) Success() bool {
@@ -1104,7 +1304,7 @@ func (resp *HighlightEntityResp) Success() bool {
 
 type ListEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListEntityReqBuilder() *ListEntityReqBuilder {
@@ -1116,22 +1316,39 @@ func NewListEntityReqBuilder() *ListEntityReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListEntityReqBuilder) Limit(limit int) *ListEntityReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：20
 func (builder *ListEntityReqBuilder) PageSize(pageSize int) *ListEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c
 func (builder *ListEntityReqBuilder) PageToken(pageToken string) *ListEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 相关外部系统【可用来过滤词条数据】
+//
+// 示例值：星云
 func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("provider", fmt.Sprint(provider))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -1147,18 +1364,19 @@ func (builder *ListEntityReqBuilder) Build() *ListEntityReq {
 
 type ListEntityReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListEntityRespData struct {
-	Entities  []*Entity `json:"entities,omitempty"`
-	PageToken *string   `json:"page_token,omitempty"`
+	Entities  []*Entity `json:"entities,omitempty"`   // 词条列表
+	PageToken *string   `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
 }
 
 type ListEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListEntityRespData `json:"data"`
+	Data *ListEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListEntityResp) Success() bool {
@@ -1166,7 +1384,7 @@ func (resp *ListEntityResp) Success() bool {
 }
 
 type MatchEntityReqBodyBuilder struct {
-	word     string
+	word     string // 搜索关键词，将与词条名、别名进行精准匹配
 	wordFlag bool
 }
 
@@ -1175,6 +1393,9 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 	return builder
 }
 
+// 搜索关键词，将与词条名、别名进行精准匹配
+//
+//示例值：企业百科
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
@@ -1190,7 +1411,7 @@ func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
 }
 
 type MatchEntityPathReqBodyBuilder struct {
-	word     string
+	word     string // 搜索关键词，将与词条名、别名进行精准匹配
 	wordFlag bool
 }
 
@@ -1198,6 +1419,10 @@ func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
 	builder := &MatchEntityPathReqBodyBuilder{}
 	return builder
 }
+
+// 搜索关键词，将与词条名、别名进行精准匹配
+//
+// 示例值：企业百科
 func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
@@ -1226,6 +1451,7 @@ func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
 	return builder
 }
 
+// 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1239,7 +1465,7 @@ func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
 }
 
 type MatchEntityReqBody struct {
-	Word *string `json:"word,omitempty"`
+	Word *string `json:"word,omitempty"` // 搜索关键词，将与词条名、别名进行精准匹配
 }
 
 type MatchEntityReq struct {
@@ -1248,13 +1474,13 @@ type MatchEntityReq struct {
 }
 
 type MatchEntityRespData struct {
-	Results []*MatchInfo `json:"results,omitempty"`
+	Results []*MatchInfo `json:"results,omitempty"` // 搜索结果
 }
 
 type MatchEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *MatchEntityRespData `json:"data"`
+	Data *MatchEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *MatchEntityResp) Success() bool {
@@ -1262,7 +1488,7 @@ func (resp *MatchEntityResp) Success() bool {
 }
 
 type SearchEntityReqBodyBuilder struct {
-	query     string
+	query     string // 搜索关键词
 	queryFlag bool
 }
 
@@ -1271,6 +1497,9 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 	return builder
 }
 
+// 搜索关键词
+//
+//示例值：百科
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -1286,7 +1515,7 @@ func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
 }
 
 type SearchEntityPathReqBodyBuilder struct {
-	query     string
+	query     string // 搜索关键词
 	queryFlag bool
 }
 
@@ -1294,6 +1523,10 @@ func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
 	builder := &SearchEntityPathReqBodyBuilder{}
 	return builder
 }
+
+// 搜索关键词
+//
+// 示例值：百科
 func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntityPathReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -1311,7 +1544,7 @@ func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, er
 type SearchEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchEntityReqBody
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewSearchEntityReqBuilder() *SearchEntityReqBuilder {
@@ -1323,22 +1556,37 @@ func NewSearchEntityReqBuilder() *SearchEntityReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *SearchEntityReqBuilder) Limit(limit int) *SearchEntityReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+//
+//
+// 示例值：b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c
 func (builder *SearchEntityReqBuilder) PageToken(pageToken string) *SearchEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息
 func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1354,24 +1602,25 @@ func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 }
 
 type SearchEntityReqBody struct {
-	Query *string `json:"query,omitempty"`
+	Query *string `json:"query,omitempty"` // 搜索关键词
 }
 
 type SearchEntityReq struct {
 	apiReq *larkcore.ApiReq
 	Body   *SearchEntityReqBody `body:""`
-	Limit  int
+	Limit  int                  // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type SearchEntityRespData struct {
-	Entities  []*Entity `json:"entities,omitempty"`
-	PageToken *string   `json:"page_token,omitempty"`
+	Entities  []*Entity `json:"entities,omitempty"`   // 搜索结果
+	PageToken *string   `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
 }
 
 type SearchEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *SearchEntityRespData `json:"data"`
+	Data *SearchEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *SearchEntityResp) Success() bool {
@@ -1392,14 +1641,23 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	return builder
 }
 
+// 实体词 ID
+//
+// 示例值：enterprise_40217521
 func (builder *UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityReqBuilder {
 	builder.apiReq.PathParams.Set("entity_id", fmt.Sprint(entityId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -1420,13 +1678,13 @@ type UpdateEntityReq struct {
 }
 
 type UpdateEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"` // 词条信息
 }
 
 type UpdateEntityResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateEntityRespData `json:"data"`
+	Data *UpdateEntityRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateEntityResp) Success() bool {

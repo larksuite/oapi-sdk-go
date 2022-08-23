@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/user_task_remedys"
+// POST /open-apis/attendance/v1/user_task_remedys
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -33,14 +33,9 @@ func main() {
 			RemedyDate(20210701).
 			PunchNo(0).
 			WorkType(1).
-			ApprovalId("6737202939523236113").
 			RemedyTime("").
-			Status(2).
 			Reason("忘记打卡").
 			Time("1611476284").
-			TimeZone("Asia/Shanghai").
-			CreateTime("1611476284").
-			UpdateTime("1611476284").
 			Build()).
 		Build()
 	// 发起请求
@@ -58,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

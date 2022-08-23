@@ -21,17 +21,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/group/:group_id/member/add"
+// POST /open-apis/contact/v3/group/:group_id/member/add
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewAddGroupMemberReqBuilder().
-		GroupId("").
+		GroupId("g281721").
 		Body(larkcontact.NewAddGroupMemberReqBodyBuilder().
 			MemberType("user").
 			MemberIdType("open_id").
-			MemberId("").
+			MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			Build()).
 		Build()
 	// 发起请求
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

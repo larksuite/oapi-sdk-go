@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-// HTTP PATH: /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace"
+// POST /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksheets.NewReplaceSpreadsheetSheetReqBuilder().
-		SpreadsheetToken("").
-		SheetId("").
+		SpreadsheetToken("shtcnmBA*****yGehy8").
+		SheetId("0b**12").
 		Replace(larksheets.NewReplaceBuilder().
 			FindCondition(larksheets.NewFindConditionBuilder().Build()).
 			Find("").
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

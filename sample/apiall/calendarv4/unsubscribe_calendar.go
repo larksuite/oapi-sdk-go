@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/unsubscribe"
+// POST /open-apis/calendar/v4/calendars/:calendar_id/unsubscribe
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewUnsubscribeCalendarReqBuilder().
-		CalendarId("").
+		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		Build()
 	// 发起请求
 	resp, err := client.Calendar.Calendar.Unsubscribe(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

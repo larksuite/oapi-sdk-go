@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/optical_char_recognition/v1"
 )
 
-// HTTP PATH: /open-apis/optical_char_recognition/v1/image/basic_recognize"
+// POST /open-apis/optical_char_recognition/v1/image/basic_recognize
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkoptical_char_recognition.NewBasicRecognizeImageReqBuilder().
 		Body(larkoptical_char_recognition.NewBasicRecognizeImageReqBodyBuilder().
-			Image("").
+			Image("base64后的图片二进制数据").
 			Build()).
 		Build()
 	// 发起请求
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

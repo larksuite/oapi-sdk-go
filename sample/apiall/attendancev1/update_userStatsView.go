@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/user_stats_views/:user_stats_view_id"
+// PUT /open-apis/attendance/v1/user_stats_views/:user_stats_view_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkattendance.NewUpdateUserStatsViewReqBuilder().
-		UserStatsViewId("").
+		UserStatsViewId("TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09").
 		EmployeeType("employee_id").
 		Body(larkattendance.NewUpdateUserStatsViewReqBodyBuilder().
 			View(larkattendance.NewUserStatsViewBuilder().Build()).
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

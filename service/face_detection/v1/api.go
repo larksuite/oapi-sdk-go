@@ -20,25 +20,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *FaceDetectionService {
 	f := &FaceDetectionService{config: config}
 	f.Image = &image{service: f}
 	return f
 }
 
-// 业务域服务定义
 type FaceDetectionService struct {
 	config *larkcore.Config
-	Image  *image
+	Image  *image // 图片
 }
 
-// 资源服务定义
 type image struct {
 	service *FaceDetectionService
 }
 
-// 资源服务方法定义
+// 人脸检测和属性分析
+//
+// - 检测图片中的人脸属性和质量等信息
+//
+// - 注意：返回值为 -1 表示该功能还暂未实现
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/face_detection-v1/image/detect_face_attributes
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/face_detectionv1//detectFaceAttributes_image.go
 func (i *image) DetectFaceAttributes(ctx context.Context, req *DetectFaceAttributesImageReq, options ...larkcore.RequestOptionFunc) (*DetectFaceAttributesImageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

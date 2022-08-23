@@ -20,25 +20,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *EventService {
 	e := &EventService{config: config}
 	e.OutboundIp = &outboundIp{service: e}
 	return e
 }
 
-// 业务域服务定义
 type EventService struct {
 	config     *larkcore.Config
-	OutboundIp *outboundIp
+	OutboundIp *outboundIp // 事件出口IP
 }
 
-// 资源服务定义
 type outboundIp struct {
 	service *EventService
 }
 
-// 资源服务方法定义
+// 获取事件出口IP
+//
+// - 飞书开放平台向应用配置的回调地址推送事件时，是通过特定的IP发送出去的。如果企业需要做防火墙配置，那么可以通过这个接口获取到所有相关的IP段。
+//
+// - IP段有变更可能，建议企业每隔6小时定时拉取IP段更新防火墙设置，这样因IP变更导致推送失败的事件还可以通过重试解决。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/eventv1//list_outboundIp.go
 func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options ...larkcore.RequestOptionFunc) (*ListOutboundIpResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

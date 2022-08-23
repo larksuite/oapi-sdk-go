@@ -16,21 +16,22 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 )
 
-// HTTP PATH: /open-apis/okr/v1/users/:user_id/okrs"
+// GET /open-apis/okr/v1/users/:user_id/okrs
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkokr.NewListUserOkrReqBuilder().
-		UserId("ou-xxxx").
+		UserId("ou-asdasdasdasdasd").
 		UserIdType("open_id").
 		Offset("0").
-		Limit("0").
+		Limit("5").
 		Lang("zh_cn").
 		PeriodIds([]string{}).
 		Build()
@@ -49,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

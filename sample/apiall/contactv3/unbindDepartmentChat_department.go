@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/departments/unbind_department_chat"
+// POST /open-apis/contact/v3/departments/unbind_department_chat
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewUnbindDepartmentChatDepartmentReqBuilder().
-		DepartmentIdType("department_id").
+		DepartmentIdType("open_department_id").
 		Body(larkcontact.NewUnbindDepartmentChatDepartmentReqBodyBuilder().
-			DepartmentId("").
+			DepartmentId("od-4e6ac4d14bcd5071a37a39de902c7141").
 			Build()).
 		Build()
 	// 发起请求
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
-// HTTP PATH: /open-apis/search/v2/data_sources/:data_source_id/items"
+// POST /open-apis/search/v2/data_sources/:data_source_id/items
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksearch.NewCreateDataSourceItemReqBuilder().
-		DataSourceId("").
+		DataSourceId("service_ticket").
 		Item(larksearch.NewItemBuilder().
 			Id("").
 			Acl([]*larksearch.Acl{larksearch.NewAclBuilder().Build()}).
@@ -51,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

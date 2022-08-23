@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
-// HTTP PATH: /open-apis/application/v6/applications/underauditlist"
+// GET /open-apis/application/v6/applications/underauditlist
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkapplication.NewUnderauditlistApplicationReqBuilder().
 		Lang("zh_cn").
-		PageToken("").
+		PageToken("new-e3c5a0627cdf0c2e057da7257b90376a").
 		PageSize(20).
 		UserIdType("user_id").
 		Build()
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

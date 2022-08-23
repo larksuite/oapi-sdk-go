@@ -21,17 +21,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/tickets/:ticket_id/messages"
+// GET /open-apis/helpdesk/v1/tickets/:ticket_id/messages
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewListTicketMessageReqBuilder().
-		TicketId("").
-		TimeStart(0).
-		TimeEnd(0).
-		Page(0).
-		PageSize(0).
+		TicketId("6948728206392295444").
+		TimeStart(1617960686).
+		TimeEnd(1617960687).
+		Page(1).
+		PageSize(10).
 		Build()
 	// 发起请求
 	resp, err := client.Helpdesk.TicketMessage.List(context.Background(), req)
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

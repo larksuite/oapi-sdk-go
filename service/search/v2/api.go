@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *SearchService {
 	s := &SearchService{config: config}
 	s.DataSource = &dataSource{service: s}
@@ -29,15 +28,13 @@ func NewService(config *larkcore.Config) *SearchService {
 	return s
 }
 
-// 业务域服务定义
 type SearchService struct {
 	config         *larkcore.Config
-	DataSource     *dataSource
-	DataSourceItem *dataSourceItem
-	Schema         *schema
+	DataSource     *dataSource     // 数据源
+	DataSourceItem *dataSourceItem // 数据项
+	Schema         *schema         // 数据范式
 }
 
-// 资源服务定义
 type dataSource struct {
 	service *SearchService
 }
@@ -48,7 +45,13 @@ type schema struct {
 	service *SearchService
 }
 
-// 资源服务方法定义
+// 创建数据源
+//
+// - 创建一个数据源
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//create_dataSource.go
 func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, options ...larkcore.RequestOptionFunc) (*CreateDataSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -67,6 +70,14 @@ func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, optio
 	}
 	return resp, err
 }
+
+// 删除数据源
+//
+// - 删除一个已存在的数据源
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//delete_dataSource.go
 func (d *dataSource) Delete(ctx context.Context, req *DeleteDataSourceReq, options ...larkcore.RequestOptionFunc) (*DeleteDataSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -85,6 +96,14 @@ func (d *dataSource) Delete(ctx context.Context, req *DeleteDataSourceReq, optio
 	}
 	return resp, err
 }
+
+// 获取数据源
+//
+// - 获取已经创建的数据源
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//get_dataSource.go
 func (d *dataSource) Get(ctx context.Context, req *GetDataSourceReq, options ...larkcore.RequestOptionFunc) (*GetDataSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -103,6 +122,14 @@ func (d *dataSource) Get(ctx context.Context, req *GetDataSourceReq, options ...
 	}
 	return resp, err
 }
+
+// 批量获取数据源
+//
+// - 批量获取创建的数据源信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//list_dataSource.go
 func (d *dataSource) List(ctx context.Context, req *ListDataSourceReq, options ...larkcore.RequestOptionFunc) (*ListDataSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -129,6 +156,14 @@ func (d *dataSource) ListByIterator(ctx context.Context, req *ListDataSourceReq,
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 修改数据源
+//
+// - 更新一个已经存在的数据源
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//patch_dataSource.go
 func (d *dataSource) Patch(ctx context.Context, req *PatchDataSourceReq, options ...larkcore.RequestOptionFunc) (*PatchDataSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -147,6 +182,14 @@ func (d *dataSource) Patch(ctx context.Context, req *PatchDataSourceReq, options
 	}
 	return resp, err
 }
+
+// 索引数据项
+//
+// - 索引一条数据记录
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//create_dataSourceItem.go
 func (d *dataSourceItem) Create(ctx context.Context, req *CreateDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*CreateDataSourceItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -165,6 +208,14 @@ func (d *dataSourceItem) Create(ctx context.Context, req *CreateDataSourceItemRe
 	}
 	return resp, err
 }
+
+// 删除数据项
+//
+// - 删除数据项
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//delete_dataSourceItem.go
 func (d *dataSourceItem) Delete(ctx context.Context, req *DeleteDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*DeleteDataSourceItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -183,6 +234,14 @@ func (d *dataSourceItem) Delete(ctx context.Context, req *DeleteDataSourceItemRe
 	}
 	return resp, err
 }
+
+// 获取数据项
+//
+// - 获取单个数据记录
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//get_dataSourceItem.go
 func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*GetDataSourceItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -201,6 +260,14 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 	}
 	return resp, err
 }
+
+// 创建数据范式
+//
+// - 创建一个数据源
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//create_schema.go
 func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...larkcore.RequestOptionFunc) (*CreateSchemaResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -219,6 +286,14 @@ func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...la
 	}
 	return resp, err
 }
+
+// 删除数据范式
+//
+// - 删除已存在的数据范式
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//delete_schema.go
 func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...larkcore.RequestOptionFunc) (*DeleteSchemaResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -237,6 +312,14 @@ func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...la
 	}
 	return resp, err
 }
+
+// 获取数据范式
+//
+// - 获取单个数据范式
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//get_schema.go
 func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore.RequestOptionFunc) (*GetSchemaResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -255,6 +338,14 @@ func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore
 	}
 	return resp, err
 }
+
+// 修改数据范式
+//
+// - 修改数据范式
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2//patch_schema.go
 func (s *schema) Patch(ctx context.Context, req *PatchSchemaReq, options ...larkcore.RequestOptionFunc) (*PatchSchemaResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

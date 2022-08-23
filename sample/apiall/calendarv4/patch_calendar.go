@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id"
+// PATCH /open-apis/calendar/v4/calendars/:calendar_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewPatchCalendarReqBuilder().
-		CalendarId("").
+		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		Calendar(larkcalendar.NewCalendarBuilder().
 			Summary("").
 			Description("").
@@ -51,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

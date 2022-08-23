@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/:chat_id"
+// PUT /open-apis/im/v1/chats/:chat_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -31,17 +31,17 @@ func main() {
 		UserIdType("user_id").
 		Body(larkim.NewUpdateChatReqBodyBuilder().
 			Avatar("default-avatar_44ae0ca3-e140-494b-956f-78091e348435").
-			Name("测试群名称").
+			Name("群聊").
 			Description("测试群描述").
 			I18nNames(larkim.NewI18nNamesBuilder().Build()).
-			AddMemberPermission("all members").
+			AddMemberPermission("all_members").
 			ShareCardPermission("allowed").
-			AtAllPermission("all members").
-			EditPermission("all members").
+			AtAllPermission("all_members").
+			EditPermission("all_members").
 			OwnerId("4d7a3c6g").
-			JoinMessageVisibility("only_owner/all_members/not_anyone").
-			LeaveMessageVisibility("only_owner/all_members/not_anyone").
-			MembershipApproval("no_approval_required/approval_required").
+			JoinMessageVisibility("only_owner").
+			LeaveMessageVisibility("only_owner").
+			MembershipApproval("no_approval_required").
 			Build()).
 		Build()
 	// 发起请求
@@ -59,6 +59,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

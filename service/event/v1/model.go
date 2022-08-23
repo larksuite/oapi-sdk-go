@@ -24,7 +24,7 @@ import (
 
 type ListOutboundIpReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
@@ -36,14 +36,23 @@ func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小，默认10，取值范围 10-50
+//
+// 示例值：10
 func (builder *ListOutboundIpReqBuilder) PageSize(pageSize int) *ListOutboundIpReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：xxx
 func (builder *ListOutboundIpReqBuilder) PageToken(pageToken string) *ListOutboundIpReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -59,19 +68,20 @@ func (builder *ListOutboundIpReqBuilder) Build() *ListOutboundIpReq {
 
 type ListOutboundIpReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListOutboundIpRespData struct {
-	IpList    []string `json:"ip_list,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	IpList    []string `json:"ip_list,omitempty"`    // outbound ip
+	PageToken *string  `json:"page_token,omitempty"` // 分页下次调用的page_token值
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有分页数据
 }
 
 type ListOutboundIpResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListOutboundIpRespData `json:"data"`
+	Data *ListOutboundIpRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListOutboundIpResp) Success() bool {

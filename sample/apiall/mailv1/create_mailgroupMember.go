@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
-// HTTP PATH: /open-apis/mail/v1/mailgroups/:mailgroup_id/members"
+// POST /open-apis/mail/v1/mailgroups/:mailgroup_id/members
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkmail.NewCreateMailgroupMemberReqBuilder().
-		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
+		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		UserIdType("user_id").
-		DepartmentIdType("department_id").
+		DepartmentIdType("open_department_id").
 		MailgroupMember(larkmail.NewMailgroupMemberBuilder().
 			Email("test_memeber@xxx.xx").
 			UserId("xxxxxxxxxx").
@@ -52,6 +52,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

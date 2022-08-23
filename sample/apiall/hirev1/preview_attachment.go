@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/attachments/:attachment_id/preview"
+// GET /open-apis/hire/v1/attachments/:attachment_id/preview
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhire.NewPreviewAttachmentReqBuilder().
-		AttachmentId("6960663240925956401").
+		AttachmentId("11111").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Attachment.Preview(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

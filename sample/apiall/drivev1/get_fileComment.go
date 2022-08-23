@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/files/:file_token/comments/:comment_id"
+// GET /open-apis/drive/v1/files/:file_token/comments/:comment_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewGetFileCommentReqBuilder().
-		FileToken("").
-		CommentId("").
+		FileToken("doccnHh7U87HOFpii5u5G*****").
+		CommentId("6916106822734578184").
 		FileType("doc").
 		UserIdType("user_id").
 		Build()
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

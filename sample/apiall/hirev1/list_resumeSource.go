@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/resume_sources"
+// GET /open-apis/hire/v1/resume_sources
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhire.NewListResumeSourceReqBuilder().
-		PageSize(0).
-		PageToken("").
+		PageSize(10).
+		PageToken("1").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.ResumeSource.List(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

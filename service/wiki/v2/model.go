@@ -23,44 +23,44 @@ import (
 )
 
 const (
-	ObjTypeObjTypeDoc      = "doc"
-	ObjTypeObjTypeSheet    = "sheet"
-	ObjTypeObjTypeMindNote = "mindnote"
-	ObjTypeObjTypeBitable  = "bitable"
-	ObjTypeObjTypeFile     = "file"
-	ObjTypeObjTypeDocx     = "docx"
+	ObjTypeObjTypeDoc      = "doc"      // doc
+	ObjTypeObjTypeSheet    = "sheet"    // sheet
+	ObjTypeObjTypeMindNote = "mindnote" // mindnote
+	ObjTypeObjTypeBitable  = "bitable"  // bitable
+	ObjTypeObjTypeFile     = "file"     // file
+	ObjTypeObjTypeDocx     = "docx"     // docx
 )
 
 const (
-	NodeTypeNodeTypeEntity   = "origin"
-	NodeTypeNodeTypeShortCut = "shortcut"
+	NodeTypeNodeTypeEntity   = "origin"   // 实体
+	NodeTypeNodeTypeShortCut = "shortcut" // 快捷方式
 )
 
 const (
-	MoveDocsToWikiObjTypeObjTypeDoc      = "doc"
-	MoveDocsToWikiObjTypeObjTypeSheet    = "sheet"
-	MoveDocsToWikiObjTypeObjTypeBitable  = "bitable"
-	MoveDocsToWikiObjTypeObjTypeMindNote = "mindnote"
-	MoveDocsToWikiObjTypeObjTypeDocx     = "docx"
-	MoveDocsToWikiObjTypeObjTypeFile     = "file"
+	MoveDocsToWikiObjTypeObjTypeDoc      = "doc"      // doc（文档）
+	MoveDocsToWikiObjTypeObjTypeSheet    = "sheet"    // sheet（表格）
+	MoveDocsToWikiObjTypeObjTypeBitable  = "bitable"  // bitable（多维表格）
+	MoveDocsToWikiObjTypeObjTypeMindNote = "mindnote" // mindnote（思维导图）
+	MoveDocsToWikiObjTypeObjTypeDocx     = "docx"     // docx
+	MoveDocsToWikiObjTypeObjTypeFile     = "file"     // file (文件)
 )
 
 const (
-	TaskTypeMove = "move"
+	TaskTypeMove = "move" // MoveDocsToWiki任务
 )
 
 type Member struct {
-	MemberType *string `json:"member_type,omitempty"`
-	MemberId   *string `json:"member_id,omitempty"`
-	MemberRole *string `json:"member_role,omitempty"`
+	MemberType *string `json:"member_type,omitempty"` // “openchat” - 群id ;;“userid” - 用户id;;“email” - 邮箱;;“opendepartmentid” - 部门id;;“openid” - 应用openid;;“unionid” - unionid
+	MemberId   *string `json:"member_id,omitempty"`   // 用户id
+	MemberRole *string `json:"member_role,omitempty"` // 角色:;;“admin” - 管理员;;“member” - 成员
 }
 
 type MemberBuilder struct {
-	memberType     string
+	memberType     string // “openchat” - 群id ;;“userid” - 用户id;;“email” - 邮箱;;“opendepartmentid” - 部门id;;“openid” - 应用openid;;“unionid” - unionid
 	memberTypeFlag bool
-	memberId       string
+	memberId       string // 用户id
 	memberIdFlag   bool
-	memberRole     string
+	memberRole     string // 角色:;;“admin” - 管理员;;“member” - 成员
 	memberRoleFlag bool
 }
 
@@ -69,16 +69,24 @@ func NewMemberBuilder() *MemberBuilder {
 	return builder
 }
 
+// “openchat” - 群id ;;“userid” - 用户id;;“email” - 邮箱;;“opendepartmentid” - 部门id;;“openid” - 应用openid;;“unionid” - unionid
+// 示例值：userid
 func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
 	return builder
 }
+
+// 用户id
+// 示例值：1565676577122621
 func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
 	return builder
 }
+
+// 角色:;;“admin” - 管理员;;“member” - 成员
+// 示例值：admin
 func (builder *MemberBuilder) MemberRole(memberRole string) *MemberBuilder {
 	builder.memberRole = memberRole
 	builder.memberRoleFlag = true
@@ -103,17 +111,17 @@ func (builder *MemberBuilder) Build() *Member {
 }
 
 type MoveResult struct {
-	Node      *Node   `json:"node,omitempty"`
-	Status    *int    `json:"status,omitempty"`
-	StatusMsg *string `json:"status_msg,omitempty"`
+	Node      *Node   `json:"node,omitempty"`       // 移动完成的节点信息
+	Status    *int    `json:"status,omitempty"`     // 节点移动状态码
+	StatusMsg *string `json:"status_msg,omitempty"` // 节点移动状态信息
 }
 
 type MoveResultBuilder struct {
-	node          *Node
+	node          *Node // 移动完成的节点信息
 	nodeFlag      bool
-	status        int
+	status        int // 节点移动状态码
 	statusFlag    bool
-	statusMsg     string
+	statusMsg     string // 节点移动状态信息
 	statusMsgFlag bool
 }
 
@@ -122,16 +130,24 @@ func NewMoveResultBuilder() *MoveResultBuilder {
 	return builder
 }
 
+// 移动完成的节点信息
+// 示例值：
 func (builder *MoveResultBuilder) Node(node *Node) *MoveResultBuilder {
 	builder.node = node
 	builder.nodeFlag = true
 	return builder
 }
+
+// 节点移动状态码
+// 示例值：0
 func (builder *MoveResultBuilder) Status(status int) *MoveResultBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
 }
+
+// 节点移动状态信息
+// 示例值：success
 func (builder *MoveResultBuilder) StatusMsg(statusMsg string) *MoveResultBuilder {
 	builder.statusMsg = statusMsg
 	builder.statusMsgFlag = true
@@ -155,53 +171,53 @@ func (builder *MoveResultBuilder) Build() *MoveResult {
 }
 
 type Node struct {
-	SpaceId         *string `json:"space_id,omitempty"`
-	NodeToken       *string `json:"node_token,omitempty"`
-	ObjToken        *string `json:"obj_token,omitempty"`
-	ObjType         *string `json:"obj_type,omitempty"`
-	ParentNodeToken *string `json:"parent_node_token,omitempty"`
-	NodeType        *string `json:"node_type,omitempty"`
-	OriginNodeToken *string `json:"origin_node_token,omitempty"`
-	OriginSpaceId   *string `json:"origin_space_id,omitempty"`
-	HasChild        *bool   `json:"has_child,omitempty"`
-	Title           *string `json:"title,omitempty"`
-	ObjCreateTime   *string `json:"obj_create_time,omitempty"`
-	ObjEditTime     *string `json:"obj_edit_time,omitempty"`
-	NodeCreateTime  *string `json:"node_create_time,omitempty"`
-	Creator         *string `json:"creator,omitempty"`
-	Owner           *string `json:"owner,omitempty"`
+	SpaceId         *string `json:"space_id,omitempty"`          // 知识库id
+	NodeToken       *string `json:"node_token,omitempty"`        // 节点token
+	ObjToken        *string `json:"obj_token,omitempty"`         // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
+	ObjType         *string `json:"obj_type,omitempty"`          // 文档类型，对于快捷方式，该字段是对应的实体的obj_type
+	ParentNodeToken *string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时，父亲token为空。
+	NodeType        *string `json:"node_type,omitempty"`         // 节点类型
+	OriginNodeToken *string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+	OriginSpaceId   *string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的spaceid
+	HasChild        *bool   `json:"has_child,omitempty"`         // 是否有子节点
+	Title           *string `json:"title,omitempty"`             // 文档标题
+	ObjCreateTime   *string `json:"obj_create_time,omitempty"`   // 文档创建时间
+	ObjEditTime     *string `json:"obj_edit_time,omitempty"`     // 文档最近编辑时间
+	NodeCreateTime  *string `json:"node_create_time,omitempty"`  // 节点创建时间
+	Creator         *string `json:"creator,omitempty"`           // 节点创建者
+	Owner           *string `json:"owner,omitempty"`             // 节点所有者
 }
 
 type NodeBuilder struct {
-	spaceId             string
+	spaceId             string // 知识库id
 	spaceIdFlag         bool
-	nodeToken           string
+	nodeToken           string // 节点token
 	nodeTokenFlag       bool
-	objToken            string
+	objToken            string // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
 	objTokenFlag        bool
-	objType             string
+	objType             string // 文档类型，对于快捷方式，该字段是对应的实体的obj_type
 	objTypeFlag         bool
-	parentNodeToken     string
+	parentNodeToken     string // 节点的父亲token。当节点为一级节点时，父亲token为空。
 	parentNodeTokenFlag bool
-	nodeType            string
+	nodeType            string // 节点类型
 	nodeTypeFlag        bool
-	originNodeToken     string
+	originNodeToken     string // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
 	originNodeTokenFlag bool
-	originSpaceId       string
+	originSpaceId       string // 快捷方式对应的实体所在的spaceid
 	originSpaceIdFlag   bool
-	hasChild            bool
+	hasChild            bool // 是否有子节点
 	hasChildFlag        bool
-	title               string
+	title               string // 文档标题
 	titleFlag           bool
-	objCreateTime       string
+	objCreateTime       string // 文档创建时间
 	objCreateTimeFlag   bool
-	objEditTime         string
+	objEditTime         string // 文档最近编辑时间
 	objEditTimeFlag     bool
-	nodeCreateTime      string
+	nodeCreateTime      string // 节点创建时间
 	nodeCreateTimeFlag  bool
-	creator             string
+	creator             string // 节点创建者
 	creatorFlag         bool
-	owner               string
+	owner               string // 节点所有者
 	ownerFlag           bool
 }
 
@@ -210,76 +226,120 @@ func NewNodeBuilder() *NodeBuilder {
 	return builder
 }
 
+// 知识库id
+// 示例值：6946843325487912356
 func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
 	return builder
 }
+
+// 节点token
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) NodeToken(nodeToken string) *NodeBuilder {
 	builder.nodeToken = nodeToken
 	builder.nodeTokenFlag = true
 	return builder
 }
+
+// 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
+// 示例值：doccnzAaODNqykc8g9hOWabcdef
 func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
 	builder.objToken = objToken
 	builder.objTokenFlag = true
 	return builder
 }
+
+// 文档类型，对于快捷方式，该字段是对应的实体的obj_type
+// 示例值：doc/sheet/mindnote
 func (builder *NodeBuilder) ObjType(objType string) *NodeBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
 	return builder
 }
+
+// 节点的父亲token。当节点为一级节点时，父亲token为空。
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) ParentNodeToken(parentNodeToken string) *NodeBuilder {
 	builder.parentNodeToken = parentNodeToken
 	builder.parentNodeTokenFlag = true
 	return builder
 }
+
+// 节点类型
+// 示例值：origin/shortcut
 func (builder *NodeBuilder) NodeType(nodeType string) *NodeBuilder {
 	builder.nodeType = nodeType
 	builder.nodeTypeFlag = true
 	return builder
 }
+
+// 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) OriginNodeToken(originNodeToken string) *NodeBuilder {
 	builder.originNodeToken = originNodeToken
 	builder.originNodeTokenFlag = true
 	return builder
 }
+
+// 快捷方式对应的实体所在的spaceid
+// 示例值：6946843325487912356
 func (builder *NodeBuilder) OriginSpaceId(originSpaceId string) *NodeBuilder {
 	builder.originSpaceId = originSpaceId
 	builder.originSpaceIdFlag = true
 	return builder
 }
+
+// 是否有子节点
+// 示例值：false
 func (builder *NodeBuilder) HasChild(hasChild bool) *NodeBuilder {
 	builder.hasChild = hasChild
 	builder.hasChildFlag = true
 	return builder
 }
+
+// 文档标题
+// 示例值：标题
 func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// 文档创建时间
+// 示例值：1642402428
 func (builder *NodeBuilder) ObjCreateTime(objCreateTime string) *NodeBuilder {
 	builder.objCreateTime = objCreateTime
 	builder.objCreateTimeFlag = true
 	return builder
 }
+
+// 文档最近编辑时间
+// 示例值：1642402428
 func (builder *NodeBuilder) ObjEditTime(objEditTime string) *NodeBuilder {
 	builder.objEditTime = objEditTime
 	builder.objEditTimeFlag = true
 	return builder
 }
+
+// 节点创建时间
+// 示例值：1642402428
 func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime string) *NodeBuilder {
 	builder.nodeCreateTime = nodeCreateTime
 	builder.nodeCreateTimeFlag = true
 	return builder
 }
+
+// 节点创建者
+// 示例值：ou_xxxxx
 func (builder *NodeBuilder) Creator(creator string) *NodeBuilder {
 	builder.creator = creator
 	builder.creatorFlag = true
 	return builder
 }
+
+// 节点所有者
+// 示例值：ou_xxxxx
 func (builder *NodeBuilder) Owner(owner string) *NodeBuilder {
 	builder.owner = owner
 	builder.ownerFlag = true
@@ -352,41 +412,41 @@ func (builder *NodeBuilder) Build() *Node {
 }
 
 type NodeSearch struct {
-	NodeId   *string  `json:"node_id,omitempty"`
-	SpaceId  *string  `json:"space_id,omitempty"`
-	ParentId *string  `json:"parent_id,omitempty"`
-	ObjType  *int     `json:"obj_type,omitempty"`
-	Title    *string  `json:"title,omitempty"`
-	Url      *string  `json:"url,omitempty"`
-	Icon     *string  `json:"icon,omitempty"`
-	AreaId   *string  `json:"area_id,omitempty"`
-	SortId   *float64 `json:"sort_id,omitempty"`
-	Domain   *string  `json:"domain,omitempty"`
-	ObjToken *string  `json:"obj_token,omitempty"`
+	NodeId   *string  `json:"node_id,omitempty"`   // node的唯一标识
+	SpaceId  *string  `json:"space_id,omitempty"`  // 所属空间id
+	ParentId *string  `json:"parent_id,omitempty"` // 父节点id
+	ObjType  *int     `json:"obj_type,omitempty"`  // wiki类型
+	Title    *string  `json:"title,omitempty"`     // wiki标题
+	Url      *string  `json:"url,omitempty"`       // wiki的访问url
+	Icon     *string  `json:"icon,omitempty"`      // wiki对应图标的url
+	AreaId   *string  `json:"area_id,omitempty"`   // 所属权限范围id
+	SortId   *float64 `json:"sort_id,omitempty"`   // 序号
+	Domain   *string  `json:"domain,omitempty"`    // 所在域名
+	ObjToken *string  `json:"obj_token,omitempty"` // objToken
 }
 
 type NodeSearchBuilder struct {
-	nodeId       string
+	nodeId       string // node的唯一标识
 	nodeIdFlag   bool
-	spaceId      string
+	spaceId      string // 所属空间id
 	spaceIdFlag  bool
-	parentId     string
+	parentId     string // 父节点id
 	parentIdFlag bool
-	objType      int
+	objType      int // wiki类型
 	objTypeFlag  bool
-	title        string
+	title        string // wiki标题
 	titleFlag    bool
-	url          string
+	url          string // wiki的访问url
 	urlFlag      bool
-	icon         string
+	icon         string // wiki对应图标的url
 	iconFlag     bool
-	areaId       string
+	areaId       string // 所属权限范围id
 	areaIdFlag   bool
-	sortId       float64
+	sortId       float64 // 序号
 	sortIdFlag   bool
-	domain       string
+	domain       string // 所在域名
 	domainFlag   bool
-	objToken     string
+	objToken     string // objToken
 	objTokenFlag bool
 }
 
@@ -395,56 +455,88 @@ func NewNodeSearchBuilder() *NodeSearchBuilder {
 	return builder
 }
 
+// node的唯一标识
+// 示例值：wikbcIbccBl4Mik9GQ2KskO6hsf
 func (builder *NodeSearchBuilder) NodeId(nodeId string) *NodeSearchBuilder {
 	builder.nodeId = nodeId
 	builder.nodeIdFlag = true
 	return builder
 }
+
+// 所属空间id
+// 示例值：7067522558521770004
 func (builder *NodeSearchBuilder) SpaceId(spaceId string) *NodeSearchBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
 	return builder
 }
+
+// 父节点id
+// 示例值：
 func (builder *NodeSearchBuilder) ParentId(parentId string) *NodeSearchBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
 	return builder
 }
+
+// wiki类型
+// 示例值：1
 func (builder *NodeSearchBuilder) ObjType(objType int) *NodeSearchBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
 	return builder
 }
+
+// wiki标题
+// 示例值：文档标题
 func (builder *NodeSearchBuilder) Title(title string) *NodeSearchBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// wiki的访问url
+// 示例值：https://single-container.feishu.cn/wiki/wikbcPkzIoLp52Dh2Pj3nQaYPFO
 func (builder *NodeSearchBuilder) Url(url string) *NodeSearchBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// wiki对应图标的url
+// 示例值：
 func (builder *NodeSearchBuilder) Icon(icon string) *NodeSearchBuilder {
 	builder.icon = icon
 	builder.iconFlag = true
 	return builder
 }
+
+// 所属权限范围id
+// 示例值：
 func (builder *NodeSearchBuilder) AreaId(areaId string) *NodeSearchBuilder {
 	builder.areaId = areaId
 	builder.areaIdFlag = true
 	return builder
 }
+
+// 序号
+// 示例值：1
 func (builder *NodeSearchBuilder) SortId(sortId float64) *NodeSearchBuilder {
 	builder.sortId = sortId
 	builder.sortIdFlag = true
 	return builder
 }
+
+// 所在域名
+// 示例值：
 func (builder *NodeSearchBuilder) Domain(domain string) *NodeSearchBuilder {
 	builder.domain = domain
 	builder.domainFlag = true
 	return builder
 }
+
+// objToken
+// 示例值：doxbcBBOM3vQxO5NztUhKpTBNQd
 func (builder *NodeSearchBuilder) ObjToken(objToken string) *NodeSearchBuilder {
 	builder.objToken = objToken
 	builder.objTokenFlag = true
@@ -501,17 +593,17 @@ func (builder *NodeSearchBuilder) Build() *NodeSearch {
 }
 
 type Setting struct {
-	CreateSetting   *string `json:"create_setting,omitempty"`
-	SecuritySetting *string `json:"security_setting,omitempty"`
-	CommentSetting  *string `json:"comment_setting,omitempty"`
+	CreateSetting   *string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
+	SecuritySetting *string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许
+	CommentSetting  *string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许
 }
 
 type SettingBuilder struct {
-	createSetting       string
+	createSetting       string // 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
 	createSettingFlag   bool
-	securitySetting     string
+	securitySetting     string // 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许
 	securitySettingFlag bool
-	commentSetting      string
+	commentSetting      string // 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许
 	commentSettingFlag  bool
 }
 
@@ -520,16 +612,24 @@ func NewSettingBuilder() *SettingBuilder {
 	return builder
 }
 
+// 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
+// 示例值：admin/admin_and_member
 func (builder *SettingBuilder) CreateSetting(createSetting string) *SettingBuilder {
 	builder.createSetting = createSetting
 	builder.createSettingFlag = true
 	return builder
 }
+
+// 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许
+// 示例值：allow/not_allow
 func (builder *SettingBuilder) SecuritySetting(securitySetting string) *SettingBuilder {
 	builder.securitySetting = securitySetting
 	builder.securitySettingFlag = true
 	return builder
 }
+
+// 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许
+// 示例值：allow/not_allow
 func (builder *SettingBuilder) CommentSetting(commentSetting string) *SettingBuilder {
 	builder.commentSetting = commentSetting
 	builder.commentSettingFlag = true
@@ -554,23 +654,23 @@ func (builder *SettingBuilder) Build() *Setting {
 }
 
 type Space struct {
-	Name        *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	SpaceId     *string `json:"space_id,omitempty"`
-	SpaceType   *string `json:"space_type,omitempty"`
-	Visibility  *string `json:"visibility,omitempty"`
+	Name        *string `json:"name,omitempty"`        // 知识空间名称
+	Description *string `json:"description,omitempty"` // 知识空间描述
+	SpaceId     *string `json:"space_id,omitempty"`    // 知识空间id
+	SpaceType   *string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）
+	Visibility  *string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）
 }
 
 type SpaceBuilder struct {
-	name            string
+	name            string // 知识空间名称
 	nameFlag        bool
-	description     string
+	description     string // 知识空间描述
 	descriptionFlag bool
-	spaceId         string
+	spaceId         string // 知识空间id
 	spaceIdFlag     bool
-	spaceType       string
+	spaceType       string // 表示知识空间类型（团队空间 或 个人空间）
 	spaceTypeFlag   bool
-	visibility      string
+	visibility      string // 表示知识空间可见性（公开空间 或 私有空间）
 	visibilityFlag  bool
 }
 
@@ -579,26 +679,40 @@ func NewSpaceBuilder() *SpaceBuilder {
 	return builder
 }
 
+// 知识空间名称
+// 示例值：知识空间
 func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 知识空间描述
+// 示例值：知识空间描述
 func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 知识空间id
+// 示例值：1565676577122621
 func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
 	return builder
 }
+
+// 表示知识空间类型（团队空间 或 个人空间）
+// 示例值：team
 func (builder *SpaceBuilder) SpaceType(spaceType string) *SpaceBuilder {
 	builder.spaceType = spaceType
 	builder.spaceTypeFlag = true
 	return builder
 }
+
+// 表示知识空间可见性（公开空间 或 私有空间）
+// 示例值：private
 func (builder *SpaceBuilder) Visibility(visibility string) *SpaceBuilder {
 	builder.visibility = visibility
 	builder.visibilityFlag = true
@@ -631,14 +745,14 @@ func (builder *SpaceBuilder) Build() *Space {
 }
 
 type TaskResult struct {
-	TaskId     *string       `json:"task_id,omitempty"`
-	MoveResult []*MoveResult `json:"move_result,omitempty"`
+	TaskId     *string       `json:"task_id,omitempty"`     // 任务id
+	MoveResult []*MoveResult `json:"move_result,omitempty"` // MoveDocsToWiki任务结果
 }
 
 type TaskResultBuilder struct {
-	taskId         string
+	taskId         string // 任务id
 	taskIdFlag     bool
-	moveResult     []*MoveResult
+	moveResult     []*MoveResult // MoveDocsToWiki任务结果
 	moveResultFlag bool
 }
 
@@ -647,11 +761,16 @@ func NewTaskResultBuilder() *TaskResultBuilder {
 	return builder
 }
 
+// 任务id
+// 示例值：7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7
 func (builder *TaskResultBuilder) TaskId(taskId string) *TaskResultBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
 	return builder
 }
+
+// MoveDocsToWiki任务结果
+// 示例值：
 func (builder *TaskResultBuilder) MoveResult(moveResult []*MoveResult) *TaskResultBuilder {
 	builder.moveResult = moveResult
 	builder.moveResultFlag = true
@@ -684,6 +803,7 @@ func NewCreateSpaceReqBuilder() *CreateSpaceReqBuilder {
 	return builder
 }
 
+// 此接口用于创建知识空间
 func (builder *CreateSpaceReqBuilder) Space(space *Space) *CreateSpaceReqBuilder {
 	builder.space = space
 	return builder
@@ -702,13 +822,13 @@ type CreateSpaceReq struct {
 }
 
 type CreateSpaceRespData struct {
-	Space *Space `json:"space,omitempty"`
+	Space *Space `json:"space,omitempty"` // 知识空间
 }
 
 type CreateSpaceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateSpaceRespData `json:"data"`
+	Data *CreateSpaceRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateSpaceResp) Success() bool {
@@ -728,6 +848,9 @@ func NewGetSpaceReqBuilder() *GetSpaceReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：6870403571079249922
 func (builder *GetSpaceReqBuilder) SpaceId(spaceId string) *GetSpaceReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
@@ -745,13 +868,13 @@ type GetSpaceReq struct {
 }
 
 type GetSpaceRespData struct {
-	Space *Space `json:"space,omitempty"`
+	Space *Space `json:"space,omitempty"` // 知识空间
 }
 
 type GetSpaceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetSpaceRespData `json:"data"`
+	Data *GetSpaceRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetSpaceResp) Success() bool {
@@ -771,6 +894,9 @@ func NewGetNodeSpaceReqBuilder() *GetNodeSpaceReqBuilder {
 	return builder
 }
 
+// 文档的wiki token
+//
+// 示例值：wikcnKQ1k3pcuo5uSK4t8VN6kVf
 func (builder *GetNodeSpaceReqBuilder) Token(token string) *GetNodeSpaceReqBuilder {
 	builder.apiReq.QueryParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -788,13 +914,13 @@ type GetNodeSpaceReq struct {
 }
 
 type GetNodeSpaceRespData struct {
-	Node *Node `json:"node,omitempty"`
+	Node *Node `json:"node,omitempty"` // 节点信息
 }
 
 type GetNodeSpaceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetNodeSpaceRespData `json:"data"`
+	Data *GetNodeSpaceRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetNodeSpaceResp) Success() bool {
@@ -803,7 +929,7 @@ func (resp *GetNodeSpaceResp) Success() bool {
 
 type ListSpaceReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListSpaceReqBuilder() *ListSpaceReqBuilder {
@@ -815,14 +941,23 @@ func NewListSpaceReqBuilder() *ListSpaceReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListSpaceReqBuilder) Limit(limit int) *ListSpaceReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListSpaceReqBuilder) PageSize(pageSize int) *ListSpaceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：1565676577122621
 func (builder *ListSpaceReqBuilder) PageToken(pageToken string) *ListSpaceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -838,19 +973,20 @@ func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 
 type ListSpaceReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListSpaceRespData struct {
-	Items     []*Space `json:"items,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	Items     []*Space `json:"items,omitempty"`      // 数据列表
+	PageToken *string  `json:"page_token,omitempty"` //
+	HasMore   *bool    `json:"has_more,omitempty"`   //
 }
 
 type ListSpaceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListSpaceRespData `json:"data"`
+	Data *ListSpaceRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListSpaceResp) Success() bool {
@@ -871,14 +1007,23 @@ func NewCreateSpaceMemberReqBuilder() *CreateSpaceMemberReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：1565676577122621
 func (builder *CreateSpaceMemberReqBuilder) SpaceId(spaceId string) *CreateSpaceMemberReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 添加权限后是否通知对方
+//
+// 示例值：true/fasle
 func (builder *CreateSpaceMemberReqBuilder) NeedNotification(needNotification bool) *CreateSpaceMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
 	return builder
 }
+
+// 添加知识空间成员（管理员）。;;- 公开知识空间（visibility为public）对租户所有用户可见，因此不支持再添加成员，但可以添加管理员。;;  相关错误：131101 public wiki space can't create member.;- 个人知识空间 （type为person）为个人管理的知识空间，不支持添加其他管理员（包括应用/机器人）。但可以添加成员。;;  相关错误：131101 person wiki space can't create admin.
 func (builder *CreateSpaceMemberReqBuilder) Member(member *Member) *CreateSpaceMemberReqBuilder {
 	builder.member = member
 	return builder
@@ -899,13 +1044,13 @@ type CreateSpaceMemberReq struct {
 }
 
 type CreateSpaceMemberRespData struct {
-	Member *Member `json:"member,omitempty"`
+	Member *Member `json:"member,omitempty"` // 知识空间成员
 }
 
 type CreateSpaceMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateSpaceMemberRespData `json:"data"`
+	Data *CreateSpaceMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateSpaceMemberResp) Success() bool {
@@ -926,14 +1071,23 @@ func NewDeleteSpaceMemberReqBuilder() *DeleteSpaceMemberReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：7008061636015554580
 func (builder *DeleteSpaceMemberReqBuilder) SpaceId(spaceId string) *DeleteSpaceMemberReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 成员id
+//
+// 示例值：g64fb7g7
 func (builder *DeleteSpaceMemberReqBuilder) MemberId(memberId string) *DeleteSpaceMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
+
+// 此接口用于删除知识空间成员。;;- 公开知识空间（visibility为public）对租户所有用户可见，因此不支持再删除成员，但可以删除管理员。;;- 个人知识空间 （type为person）为个人管理的知识空间，不支持删除管理员。但可以删除成员。
 func (builder *DeleteSpaceMemberReqBuilder) Member(member *Member) *DeleteSpaceMemberReqBuilder {
 	builder.member = member
 	return builder
@@ -953,13 +1107,13 @@ type DeleteSpaceMemberReq struct {
 }
 
 type DeleteSpaceMemberRespData struct {
-	Member *Member `json:"member,omitempty"`
+	Member *Member `json:"member,omitempty"` // 成员信息
 }
 
 type DeleteSpaceMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *DeleteSpaceMemberRespData `json:"data"`
+	Data *DeleteSpaceMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *DeleteSpaceMemberResp) Success() bool {
@@ -967,11 +1121,11 @@ func (resp *DeleteSpaceMemberResp) Success() bool {
 }
 
 type CopySpaceNodeReqBodyBuilder struct {
-	targetParentToken     string
+	targetParentToken     string // 目标父节点token
 	targetParentTokenFlag bool
-	targetSpaceId         string
+	targetSpaceId         string // 目标知识空间id
 	targetSpaceIdFlag     bool
-	title                 string
+	title                 string // 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
 	titleFlag             bool
 }
 
@@ -980,16 +1134,27 @@ func NewCopySpaceNodeReqBodyBuilder() *CopySpaceNodeReqBodyBuilder {
 	return builder
 }
 
+// 目标父节点token
+//
+//示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *CopySpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
 	return builder
 }
+
+// 目标知识空间id
+//
+//示例值：6946843325487912356
 func (builder *CopySpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
 	return builder
 }
+
+// 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
+//
+//示例值：新标题
 func (builder *CopySpaceNodeReqBodyBuilder) Title(title string) *CopySpaceNodeReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1011,11 +1176,11 @@ func (builder *CopySpaceNodeReqBodyBuilder) Build() *CopySpaceNodeReqBody {
 }
 
 type CopySpaceNodePathReqBodyBuilder struct {
-	targetParentToken     string
+	targetParentToken     string // 目标父节点token
 	targetParentTokenFlag bool
-	targetSpaceId         string
+	targetSpaceId         string // 目标知识空间id
 	targetSpaceIdFlag     bool
-	title                 string
+	title                 string // 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
 	titleFlag             bool
 }
 
@@ -1023,16 +1188,28 @@ func NewCopySpaceNodePathReqBodyBuilder() *CopySpaceNodePathReqBodyBuilder {
 	builder := &CopySpaceNodePathReqBodyBuilder{}
 	return builder
 }
+
+// 目标父节点token
+//
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *CopySpaceNodePathReqBodyBuilder) TargetParentToken(targetParentToken string) *CopySpaceNodePathReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
 	return builder
 }
+
+// 目标知识空间id
+//
+// 示例值：6946843325487912356
 func (builder *CopySpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId string) *CopySpaceNodePathReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
 	return builder
 }
+
+// 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
+//
+// 示例值：新标题
 func (builder *CopySpaceNodePathReqBodyBuilder) Title(title string) *CopySpaceNodePathReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1067,14 +1244,23 @@ func NewCopySpaceNodeReqBuilder() *CopySpaceNodeReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：6946843325487912356
 func (builder *CopySpaceNodeReqBuilder) SpaceId(spaceId string) *CopySpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 节点token
+//
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *CopySpaceNodeReqBuilder) NodeToken(nodeToken string) *CopySpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
+
+// 此接口用于创建节点副本到指定地点。
 func (builder *CopySpaceNodeReqBuilder) Body(body *CopySpaceNodeReqBody) *CopySpaceNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -1089,9 +1275,9 @@ func (builder *CopySpaceNodeReqBuilder) Build() *CopySpaceNodeReq {
 }
 
 type CopySpaceNodeReqBody struct {
-	TargetParentToken *string `json:"target_parent_token,omitempty"`
-	TargetSpaceId     *string `json:"target_space_id,omitempty"`
-	Title             *string `json:"title,omitempty"`
+	TargetParentToken *string `json:"target_parent_token,omitempty"` // 目标父节点token
+	TargetSpaceId     *string `json:"target_space_id,omitempty"`     // 目标知识空间id
+	Title             *string `json:"title,omitempty"`               // 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
 }
 
 type CopySpaceNodeReq struct {
@@ -1100,13 +1286,13 @@ type CopySpaceNodeReq struct {
 }
 
 type CopySpaceNodeRespData struct {
-	Node *Node `json:"node,omitempty"`
+	Node *Node `json:"node,omitempty"` // copy后的节点
 }
 
 type CopySpaceNodeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CopySpaceNodeRespData `json:"data"`
+	Data *CopySpaceNodeRespData `json:"data"` // 业务数据
 }
 
 func (resp *CopySpaceNodeResp) Success() bool {
@@ -1127,10 +1313,15 @@ func NewCreateSpaceNodeReqBuilder() *CreateSpaceNodeReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：6704147935988285963
 func (builder *CreateSpaceNodeReqBuilder) SpaceId(spaceId string) *CreateSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 此接口用于在知识库里创建节点。
 func (builder *CreateSpaceNodeReqBuilder) Node(node *Node) *CreateSpaceNodeReqBuilder {
 	builder.node = node
 	return builder
@@ -1150,13 +1341,13 @@ type CreateSpaceNodeReq struct {
 }
 
 type CreateSpaceNodeRespData struct {
-	Node *Node `json:"node,omitempty"`
+	Node *Node `json:"node,omitempty"` // 节点
 }
 
 type CreateSpaceNodeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateSpaceNodeRespData `json:"data"`
+	Data *CreateSpaceNodeRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateSpaceNodeResp) Success() bool {
@@ -1165,7 +1356,7 @@ func (resp *CreateSpaceNodeResp) Success() bool {
 
 type ListSpaceNodeReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListSpaceNodeReqBuilder() *ListSpaceNodeReqBuilder {
@@ -1177,22 +1368,39 @@ func NewListSpaceNodeReqBuilder() *ListSpaceNodeReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListSpaceNodeReqBuilder) Limit(limit int) *ListSpaceNodeReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 知识空间id
+//
+// 示例值：6946843325487906839
 func (builder *ListSpaceNodeReqBuilder) SpaceId(spaceId string) *ListSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListSpaceNodeReqBuilder) PageSize(pageSize int) *ListSpaceNodeReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6946843325487456878
 func (builder *ListSpaceNodeReqBuilder) PageToken(pageToken string) *ListSpaceNodeReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 父节点token
+//
+// 示例值：wikcnKQ1k3pcuo5uSK4t8VN6kVf
 func (builder *ListSpaceNodeReqBuilder) ParentNodeToken(parentNodeToken string) *ListSpaceNodeReqBuilder {
 	builder.apiReq.QueryParams.Set("parent_node_token", fmt.Sprint(parentNodeToken))
 	return builder
@@ -1209,19 +1417,20 @@ func (builder *ListSpaceNodeReqBuilder) Build() *ListSpaceNodeReq {
 
 type ListSpaceNodeReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListSpaceNodeRespData struct {
-	Items     []*Node `json:"items,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	HasMore   *bool   `json:"has_more,omitempty"`
+	Items     []*Node `json:"items,omitempty"`      // 数据列表
+	PageToken *string `json:"page_token,omitempty"` //
+	HasMore   *bool   `json:"has_more,omitempty"`   //
 }
 
 type ListSpaceNodeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListSpaceNodeRespData `json:"data"`
+	Data *ListSpaceNodeRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListSpaceNodeResp) Success() bool {
@@ -1229,9 +1438,9 @@ func (resp *ListSpaceNodeResp) Success() bool {
 }
 
 type MoveSpaceNodeReqBodyBuilder struct {
-	targetParentToken     string
+	targetParentToken     string // 移动到的父节点token
 	targetParentTokenFlag bool
-	targetSpaceId         string
+	targetSpaceId         string // 移动到的知识空间ID
 	targetSpaceIdFlag     bool
 }
 
@@ -1240,11 +1449,18 @@ func NewMoveSpaceNodeReqBodyBuilder() *MoveSpaceNodeReqBodyBuilder {
 	return builder
 }
 
+// 移动到的父节点token
+//
+//示例值：wikbcd6ydSUyOEzbdlt1BfpA5Yc
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
 	return builder
 }
+
+// 移动到的知识空间ID
+//
+//示例值：
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1263,9 +1479,9 @@ func (builder *MoveSpaceNodeReqBodyBuilder) Build() *MoveSpaceNodeReqBody {
 }
 
 type MoveSpaceNodePathReqBodyBuilder struct {
-	targetParentToken     string
+	targetParentToken     string // 移动到的父节点token
 	targetParentTokenFlag bool
-	targetSpaceId         string
+	targetSpaceId         string // 移动到的知识空间ID
 	targetSpaceIdFlag     bool
 }
 
@@ -1273,11 +1489,19 @@ func NewMoveSpaceNodePathReqBodyBuilder() *MoveSpaceNodePathReqBodyBuilder {
 	builder := &MoveSpaceNodePathReqBodyBuilder{}
 	return builder
 }
+
+// 移动到的父节点token
+//
+// 示例值：wikbcd6ydSUyOEzbdlt1BfpA5Yc
 func (builder *MoveSpaceNodePathReqBodyBuilder) TargetParentToken(targetParentToken string) *MoveSpaceNodePathReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
 	return builder
 }
+
+// 移动到的知识空间ID
+//
+// 示例值：
 func (builder *MoveSpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId string) *MoveSpaceNodePathReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1309,14 +1533,23 @@ func NewMoveSpaceNodeReqBuilder() *MoveSpaceNodeReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：7008061636015554580
 func (builder *MoveSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 需要迁移的节点token
+//
+// 示例值：wikbcd6ydSUyOEzbdlt1BfpA5Yc
 func (builder *MoveSpaceNodeReqBuilder) NodeToken(nodeToken string) *MoveSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
+
+// 此方法用于在Wiki内移动节点，支持跨知识空间移动。如果有子节点，会携带子节点一起移动。
 func (builder *MoveSpaceNodeReqBuilder) Body(body *MoveSpaceNodeReqBody) *MoveSpaceNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -1331,8 +1564,8 @@ func (builder *MoveSpaceNodeReqBuilder) Build() *MoveSpaceNodeReq {
 }
 
 type MoveSpaceNodeReqBody struct {
-	TargetParentToken *string `json:"target_parent_token,omitempty"`
-	TargetSpaceId     *string `json:"target_space_id,omitempty"`
+	TargetParentToken *string `json:"target_parent_token,omitempty"` // 移动到的父节点token
+	TargetSpaceId     *string `json:"target_space_id,omitempty"`     // 移动到的知识空间ID
 }
 
 type MoveSpaceNodeReq struct {
@@ -1341,13 +1574,13 @@ type MoveSpaceNodeReq struct {
 }
 
 type MoveSpaceNodeRespData struct {
-	Node *Node `json:"node,omitempty"`
+	Node *Node `json:"node,omitempty"` // 移动后的节点信息
 }
 
 type MoveSpaceNodeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *MoveSpaceNodeRespData `json:"data"`
+	Data *MoveSpaceNodeRespData `json:"data"` // 业务数据
 }
 
 func (resp *MoveSpaceNodeResp) Success() bool {
@@ -1355,13 +1588,13 @@ func (resp *MoveSpaceNodeResp) Success() bool {
 }
 
 type MoveDocsToWikiSpaceNodeReqBodyBuilder struct {
-	parentWikiToken     string
+	parentWikiToken     string // 节点的父亲token
 	parentWikiTokenFlag bool
-	objType             string
+	objType             string // 文档类型
 	objTypeFlag         bool
-	objToken            string
+	objToken            string // 文档token
 	objTokenFlag        bool
-	apply               bool
+	apply               bool // 没有权限时，是否申请迁入文档
 	applyFlag           bool
 }
 
@@ -1370,21 +1603,36 @@ func NewMoveDocsToWikiSpaceNodeReqBodyBuilder() *MoveDocsToWikiSpaceNodeReqBodyB
 	return builder
 }
 
+// 节点的父亲token
+//
+//示例值：wikbcOHIFxB0PJS2UTd2kF2SP6c
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ParentWikiToken(parentWikiToken string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.parentWikiToken = parentWikiToken
 	builder.parentWikiTokenFlag = true
 	return builder
 }
+
+// 文档类型
+//
+//示例值：doc
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjType(objType string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
 	return builder
 }
+
+// 文档token
+//
+//示例值：docbc6e1qBqt1O5mCBVA1QUKVEg
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjToken(objToken string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.objToken = objToken
 	builder.objTokenFlag = true
 	return builder
 }
+
+// 没有权限时，是否申请迁入文档
+//
+//示例值：true
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Apply(apply bool) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.apply = apply
 	builder.applyFlag = true
@@ -1409,13 +1657,13 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Build() *MoveDocsToWikiSpa
 }
 
 type MoveDocsToWikiSpaceNodePathReqBodyBuilder struct {
-	parentWikiToken     string
+	parentWikiToken     string // 节点的父亲token
 	parentWikiTokenFlag bool
-	objType             string
+	objType             string // 文档类型
 	objTypeFlag         bool
-	objToken            string
+	objToken            string // 文档token
 	objTokenFlag        bool
-	apply               bool
+	apply               bool // 没有权限时，是否申请迁入文档
 	applyFlag           bool
 }
 
@@ -1423,21 +1671,37 @@ func NewMoveDocsToWikiSpaceNodePathReqBodyBuilder() *MoveDocsToWikiSpaceNodePath
 	builder := &MoveDocsToWikiSpaceNodePathReqBodyBuilder{}
 	return builder
 }
+
+// 节点的父亲token
+//
+// 示例值：wikbcOHIFxB0PJS2UTd2kF2SP6c
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) ParentWikiToken(parentWikiToken string) *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder.parentWikiToken = parentWikiToken
 	builder.parentWikiTokenFlag = true
 	return builder
 }
+
+// 文档类型
+//
+// 示例值：doc
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) ObjType(objType string) *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
 	return builder
 }
+
+// 文档token
+//
+// 示例值：docbc6e1qBqt1O5mCBVA1QUKVEg
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) ObjToken(objToken string) *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder.objToken = objToken
 	builder.objTokenFlag = true
 	return builder
 }
+
+// 没有权限时，是否申请迁入文档
+//
+// 示例值：true
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) Apply(apply bool) *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder.apply = apply
 	builder.applyFlag = true
@@ -1475,10 +1739,15 @@ func NewMoveDocsToWikiSpaceNodeReqBuilder() *MoveDocsToWikiSpaceNodeReqBuilder {
 	return builder
 }
 
+// 知识库id
+//
+// 示例值：1565676577122621
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveDocsToWikiSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 该接口允许添加已有云文档至知识库，并挂载在指定父页面下
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Body(body *MoveDocsToWikiSpaceNodeReqBody) *MoveDocsToWikiSpaceNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -1493,10 +1762,10 @@ func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Build() *MoveDocsToWikiSpaceNo
 }
 
 type MoveDocsToWikiSpaceNodeReqBody struct {
-	ParentWikiToken *string `json:"parent_wiki_token,omitempty"`
-	ObjType         *string `json:"obj_type,omitempty"`
-	ObjToken        *string `json:"obj_token,omitempty"`
-	Apply           *bool   `json:"apply,omitempty"`
+	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token
+	ObjType         *string `json:"obj_type,omitempty"`          // 文档类型
+	ObjToken        *string `json:"obj_token,omitempty"`         // 文档token
+	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时，是否申请迁入文档
 }
 
 type MoveDocsToWikiSpaceNodeReq struct {
@@ -1505,15 +1774,15 @@ type MoveDocsToWikiSpaceNodeReq struct {
 }
 
 type MoveDocsToWikiSpaceNodeRespData struct {
-	WikiToken *string `json:"wiki_token,omitempty"`
-	TaskId    *string `json:"task_id,omitempty"`
-	Applied   *bool   `json:"applied,omitempty"`
+	WikiToken *string `json:"wiki_token,omitempty"` // 移动后的知识库token
+	TaskId    *string `json:"task_id,omitempty"`    // 任务id
+	Applied   *bool   `json:"applied,omitempty"`    // 是否提交了文档迁入申请
 }
 
 type MoveDocsToWikiSpaceNodeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *MoveDocsToWikiSpaceNodeRespData `json:"data"`
+	Data *MoveDocsToWikiSpaceNodeRespData `json:"data"` // 业务数据
 }
 
 func (resp *MoveDocsToWikiSpaceNodeResp) Success() bool {
@@ -1521,7 +1790,7 @@ func (resp *MoveDocsToWikiSpaceNodeResp) Success() bool {
 }
 
 type UpdateTitleSpaceNodeReqBodyBuilder struct {
-	title     string
+	title     string // 节点新标题
 	titleFlag bool
 }
 
@@ -1530,6 +1799,9 @@ func NewUpdateTitleSpaceNodeReqBodyBuilder() *UpdateTitleSpaceNodeReqBodyBuilder
 	return builder
 }
 
+// 节点新标题
+//
+//示例值：新标题
 func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Title(title string) *UpdateTitleSpaceNodeReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1545,7 +1817,7 @@ func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Build() *UpdateTitleSpaceNode
 }
 
 type UpdateTitleSpaceNodePathReqBodyBuilder struct {
-	title     string
+	title     string // 节点新标题
 	titleFlag bool
 }
 
@@ -1553,6 +1825,10 @@ func NewUpdateTitleSpaceNodePathReqBodyBuilder() *UpdateTitleSpaceNodePathReqBod
 	builder := &UpdateTitleSpaceNodePathReqBodyBuilder{}
 	return builder
 }
+
+// 节点新标题
+//
+// 示例值：新标题
 func (builder *UpdateTitleSpaceNodePathReqBodyBuilder) Title(title string) *UpdateTitleSpaceNodePathReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1581,14 +1857,23 @@ func NewUpdateTitleSpaceNodeReqBuilder() *UpdateTitleSpaceNodeReqBuilder {
 	return builder
 }
 
+// 知识空间ID
+//
+// 示例值：6946843325487912356
 func (builder *UpdateTitleSpaceNodeReqBuilder) SpaceId(spaceId string) *UpdateTitleSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 节点token
+//
+// 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *UpdateTitleSpaceNodeReqBuilder) NodeToken(nodeToken string) *UpdateTitleSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
+
+// 此接口用于更新节点标题
 func (builder *UpdateTitleSpaceNodeReqBuilder) Body(body *UpdateTitleSpaceNodeReqBody) *UpdateTitleSpaceNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -1603,7 +1888,7 @@ func (builder *UpdateTitleSpaceNodeReqBuilder) Build() *UpdateTitleSpaceNodeReq 
 }
 
 type UpdateTitleSpaceNodeReqBody struct {
-	Title *string `json:"title,omitempty"`
+	Title *string `json:"title,omitempty"` // 节点新标题
 }
 
 type UpdateTitleSpaceNodeReq struct {
@@ -1634,10 +1919,15 @@ func NewUpdateSpaceSettingReqBuilder() *UpdateSpaceSettingReqBuilder {
 	return builder
 }
 
+// 知识空间id
+//
+// 示例值：1565676577122621
 func (builder *UpdateSpaceSettingReqBuilder) SpaceId(spaceId string) *UpdateSpaceSettingReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
+
+// 根据space_id更新知识空间公共设置
 func (builder *UpdateSpaceSettingReqBuilder) Setting(setting *Setting) *UpdateSpaceSettingReqBuilder {
 	builder.setting = setting
 	return builder
@@ -1657,13 +1947,13 @@ type UpdateSpaceSettingReq struct {
 }
 
 type UpdateSpaceSettingRespData struct {
-	Setting *Setting `json:"setting,omitempty"`
+	Setting *Setting `json:"setting,omitempty"` // 知识空间设置
 }
 
 type UpdateSpaceSettingResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateSpaceSettingRespData `json:"data"`
+	Data *UpdateSpaceSettingRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateSpaceSettingResp) Success() bool {
@@ -1683,10 +1973,17 @@ func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	return builder
 }
 
+// 任务id
+//
+// 示例值：7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7
 func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 任务类型
+//
+// 示例值：move
 func (builder *GetTaskReqBuilder) TaskType(taskType string) *GetTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("task_type", fmt.Sprint(taskType))
 	return builder
@@ -1705,13 +2002,13 @@ type GetTaskReq struct {
 }
 
 type GetTaskRespData struct {
-	Task *TaskResult `json:"task,omitempty"`
+	Task *TaskResult `json:"task,omitempty"` // 任务结果
 }
 
 type GetTaskResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTaskRespData `json:"data"`
+	Data *GetTaskRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTaskResp) Success() bool {

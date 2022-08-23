@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/applications"
+// POST /open-apis/hire/v1/applications
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,6 +30,7 @@ func main() {
 		Body(larkhire.NewCreateApplicationReqBodyBuilder().
 			TalentId("12312312312").
 			JobId("12312312312").
+			ResumeSourceId("7115289562569591070").
 			ApplicationPreferredCityCodeList([]string{}).
 			Build()).
 		Build()
@@ -48,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

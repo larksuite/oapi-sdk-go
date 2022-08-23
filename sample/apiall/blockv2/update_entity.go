@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/block/v2"
 )
 
-// HTTP PATH: /open-apis/block/v2/entities/:block_id"
+// PUT /open-apis/block/v2/entities/:block_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -58,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

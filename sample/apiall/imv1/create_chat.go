@@ -16,12 +16,13 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats"
+// POST /open-apis/im/v1/chats
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -38,11 +39,11 @@ func main() {
 			UserIdList([]string{}).
 			BotIdList([]string{}).
 			ChatMode("group").
-			ChatType("private/public").
+			ChatType("private").
 			External(false).
-			JoinMessageVisibility("only_owner/all_members/not_anyone").
-			LeaveMessageVisibility("only_owner/all_members/not_anyone").
-			MembershipApproval("no_approval_required/approval_required").
+			JoinMessageVisibility("all_members").
+			LeaveMessageVisibility("all_members").
+			MembershipApproval("no_approval_required").
 			Build()).
 		Build()
 	// 发起请求
@@ -60,6 +61,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

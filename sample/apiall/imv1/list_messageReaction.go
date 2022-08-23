@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/messages/:message_id/reactions"
+// GET /open-apis/im/v1/messages/:message_id/reactions
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkim.NewListMessageReactionReqBuilder().
-		MessageId("").
-		ReactionType("").
-		PageToken("").
-		PageSize(0).
+		MessageId("om_8964d1b4*********2b31383276113").
+		ReactionType("LAUGH").
+		PageToken("YhljsPiGfUgnVAg9urvRFd-BvSqRL20wMZNAWfa9xXkud6UKCybPuUgQ1vM26dj6").
+		PageSize(10).
 		UserIdType("open_id").
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

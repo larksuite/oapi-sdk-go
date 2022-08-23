@@ -23,74 +23,149 @@ import (
 )
 
 const (
-	MemberIdTypeOpenID           = "open_id"
-	MemberIdTypeUnionID          = "union_id"
-	MemberIdTypeUserID           = "user_id"
-	MemberIdTypeChatID           = "chat_id"
-	MemberIdTypeDepartmentID     = "department_id"
-	MemberIdTypeOpenDepartmentID = "open_department_id"
+	MemberIdTypeOpenID           = "open_id"            // 以open_id来识别协作者
+	MemberIdTypeUnionID          = "union_id"           // 以union_id来识别协作者
+	MemberIdTypeUserID           = "user_id"            // 以user_id来识别协作者
+	MemberIdTypeChatID           = "chat_id"            // 以chat_id来识别协作者
+	MemberIdTypeDepartmentID     = "department_id"      // 以department_id来识别协作者
+	MemberIdTypeOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	MemberIdTypeAppRoleMemberDeleteOpenID           = "open_id"            // 以open_id来识别协作者
+	MemberIdTypeAppRoleMemberDeleteUnionID          = "union_id"           // 以union_id来识别协作者
+	MemberIdTypeAppRoleMemberDeleteUserID           = "user_id"            // 以user_id来识别协作者
+	MemberIdTypeAppRoleMemberDeleteChatID           = "chat_id"            // 以chat_id来识别协作者
+	MemberIdTypeAppRoleMemberDeleteDepartmentID     = "department_id"      // 以department_id来识别协作者
+	MemberIdTypeAppRoleMemberDeleteOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
 )
 
 const (
-	TypeText         = 1
-	TypeNumber       = 2
-	TypeSingleSelect = 3
-	TypeMultiSelect  = 4
-	TypeDateTime     = 5
-	TypeCheckbox     = 7
-	TypeUser         = 11
-	TypeUrl          = 15
-	TypeAttachment   = 17
-	TypeLink         = 18
-	TypeFormula      = 20
-	TypeDuplexLink   = 21
-	TypeCreatedTime  = 1001
-	TypeModifiedTime = 1002
-	TypeCreatedUser  = 1003
-	TypeModifiedUser = 1004
-	TypeAutoSerial   = 1005
-	TypePhoneNumber  = 13
-	TypeLocation     = 22
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	SharedLimitOff            = "off"
-	SharedLimitTenantEditable = "tenant_editable"
-	SharedLimitAnyoneEditable = "anyone_editable"
+	UserIdTypeAppTableCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableCreateOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	ViewTypeGrid    = "grid"
-	ViewTypeKanban  = "kanban"
-	ViewTypeGallery = "gallery"
-	ViewTypeGantt   = "gantt"
-	ViewTypeForm    = "form"
+	TypeText         = 1    // 多行文本
+	TypeNumber       = 2    // 数字
+	TypeSingleSelect = 3    // 单选
+	TypeMultiSelect  = 4    // 多选
+	TypeDateTime     = 5    // 日期
+	TypeCheckbox     = 7    // 复选框
+	TypeUser         = 11   // 人员
+	TypeUrl          = 15   // 超链接
+	TypeAttachment   = 17   // 附件
+	TypeLink         = 18   // 单向关联
+	TypeFormula      = 20   // 公式
+	TypeDuplexLink   = 21   // 双向关联
+	TypeCreatedTime  = 1001 // 创建时间
+	TypeModifiedTime = 1002 // 最后更新时间
+	TypeCreatedUser  = 1003 // 创建人
+	TypeModifiedUser = 1004 // 修改人
+	TypeAutoSerial   = 1005 // 自动编号
+	TypePhoneNumber  = 13   // 电话号码
+	TypeLocation     = 22   // 地理位置
+
+)
+
+const (
+	TypeAppTableFieldUpdateText         = 1    // 多行文本
+	TypeAppTableFieldUpdateNumber       = 2    // 数字
+	TypeAppTableFieldUpdateSingleSelect = 3    // 单选
+	TypeAppTableFieldUpdateMultiSelect  = 4    // 多选
+	TypeAppTableFieldUpdateDateTime     = 5    // 日期
+	TypeAppTableFieldUpdateCheckbox     = 7    // 复选框
+	TypeAppTableFieldUpdateUser         = 11   // 人员
+	TypeAppTableFieldUpdateUrl          = 15   // 超链接
+	TypeAppTableFieldUpdateAttachment   = 17   // 附件
+	TypeAppTableFieldUpdateLink         = 18   // 单向关联
+	TypeAppTableFieldUpdateFormula      = 20   // 公式
+	TypeAppTableFieldUpdateDuplexLink   = 21   // 双向关联
+	TypeAppTableFieldUpdateCreatedTime  = 1001 // 创建时间
+	TypeAppTableFieldUpdateModifiedTime = 1002 // 最后更新时间
+	TypeAppTableFieldUpdateCreatedUser  = 1003 // 创建人
+	TypeAppTableFieldUpdateModifiedUser = 1004 // 修改人
+	TypeAppTableFieldUpdateAutoSerial   = 1005 // 自动编号
+	TypeAppTableFieldUpdatePhoneNumber  = 13   // 电话号码
+	TypeAppTableFieldUpdateLocation     = 22   // 地理位置
+
+)
+
+const (
+	SharedLimitOff            = "off"             // 仅邀请的人可填写
+	SharedLimitTenantEditable = "tenant_editable" // 组织内获得链接的人可填写
+	SharedLimitAnyoneEditable = "anyone_editable" // 互联网上获得链接的人可填写
+)
+
+const (
+	UserIdTypeAppTableRecordBatchCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordBatchCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordBatchCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeAppTableRecordBatchUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordBatchUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordBatchUpdateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeAppTableRecordCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeAppTableRecordGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeAppTableRecordListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeAppTableRecordUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAppTableRecordUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAppTableRecordUpdateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	ViewTypeGrid    = "grid"    // 表格视图
+	ViewTypeKanban  = "kanban"  // 看板视图
+	ViewTypeGallery = "gallery" // 画册视图
+	ViewTypeGantt   = "gantt"   // 甘特视图
+	ViewTypeForm    = "form"    // 表单视图
 )
 
 type App struct {
-	AppToken    *string `json:"app_token,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Revision    *int    `json:"revision,omitempty"`
-	FolderToken *string `json:"folder_token,omitempty"`
-	Url         *string `json:"url,omitempty"`
+	AppToken    *string `json:"app_token,omitempty"`    // 多维表格 app token
+	Name        *string `json:"name,omitempty"`         // 多维表格 App 名字
+	Revision    *int    `json:"revision,omitempty"`     // 多维表格 App 版本号
+	FolderToken *string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹
+	Url         *string `json:"url,omitempty"`          // 多维表格 App URL
 }
 
 type AppBuilder struct {
-	appToken        string
+	appToken        string // 多维表格 app token
 	appTokenFlag    bool
-	name            string
+	name            string // 多维表格 App 名字
 	nameFlag        bool
-	revision        int
+	revision        int // 多维表格 App 版本号
 	revisionFlag    bool
-	folderToken     string
+	folderToken     string // 多维表格 App 归属文件夹
 	folderTokenFlag bool
-	url             string
+	url             string // 多维表格 App URL
 	urlFlag         bool
 }
 
@@ -99,26 +174,40 @@ func NewAppBuilder() *AppBuilder {
 	return builder
 }
 
+// 多维表格 app token
+// 示例值：
 func (builder *AppBuilder) AppToken(appToken string) *AppBuilder {
 	builder.appToken = appToken
 	builder.appTokenFlag = true
 	return builder
 }
+
+// 多维表格 App 名字
+// 示例值：
 func (builder *AppBuilder) Name(name string) *AppBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格 App 版本号
+// 示例值：
 func (builder *AppBuilder) Revision(revision int) *AppBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
 	return builder
 }
+
+// 多维表格 App 归属文件夹
+// 示例值：
 func (builder *AppBuilder) FolderToken(folderToken string) *AppBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
 	return builder
 }
+
+// 多维表格 App URL
+// 示例值：
 func (builder *AppBuilder) Url(url string) *AppBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -151,14 +240,14 @@ func (builder *AppBuilder) Build() *App {
 }
 
 type AppDashboard struct {
-	BlockId *string `json:"block_id,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	BlockId *string `json:"block_id,omitempty"` // 仪表盘 ID
+	Name    *string `json:"name,omitempty"`     // 仪表盘名字
 }
 
 type AppDashboardBuilder struct {
-	blockId     string
+	blockId     string // 仪表盘 ID
 	blockIdFlag bool
-	name        string
+	name        string // 仪表盘名字
 	nameFlag    bool
 }
 
@@ -167,11 +256,16 @@ func NewAppDashboardBuilder() *AppDashboardBuilder {
 	return builder
 }
 
+// 仪表盘 ID
+// 示例值：blknkqrP3RqUkcAW
 func (builder *AppDashboardBuilder) BlockId(blockId string) *AppDashboardBuilder {
 	builder.blockId = blockId
 	builder.blockIdFlag = true
 	return builder
 }
+
+// 仪表盘名字
+// 示例值：仪表盘1
 func (builder *AppDashboardBuilder) Name(name string) *AppDashboardBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -192,14 +286,14 @@ func (builder *AppDashboardBuilder) Build() *AppDashboard {
 }
 
 type AppFieldPropertyAutoSerial struct {
-	Type    *string                              `json:"type,omitempty"`
-	Options []*AppFieldPropertyAutoSerialOptions `json:"options,omitempty"`
+	Type    *string                              `json:"type,omitempty"`    // 自动编号类型
+	Options []*AppFieldPropertyAutoSerialOptions `json:"options,omitempty"` // 自动编号规则列表
 }
 
 type AppFieldPropertyAutoSerialBuilder struct {
-	type_       string
+	type_       string // 自动编号类型
 	typeFlag    bool
-	options     []*AppFieldPropertyAutoSerialOptions
+	options     []*AppFieldPropertyAutoSerialOptions // 自动编号规则列表
 	optionsFlag bool
 }
 
@@ -208,11 +302,16 @@ func NewAppFieldPropertyAutoSerialBuilder() *AppFieldPropertyAutoSerialBuilder {
 	return builder
 }
 
+// 自动编号类型
+// 示例值：auto_increment_number
 func (builder *AppFieldPropertyAutoSerialBuilder) Type(type_ string) *AppFieldPropertyAutoSerialBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 自动编号规则列表
+// 示例值：
 func (builder *AppFieldPropertyAutoSerialBuilder) Options(options []*AppFieldPropertyAutoSerialOptions) *AppFieldPropertyAutoSerialBuilder {
 	builder.options = options
 	builder.optionsFlag = true
@@ -232,14 +331,14 @@ func (builder *AppFieldPropertyAutoSerialBuilder) Build() *AppFieldPropertyAutoS
 }
 
 type AppFieldPropertyAutoSerialOptions struct {
-	Type  *string `json:"type,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Type  *string `json:"type,omitempty"`  // 自动编号的可选规则项类型
+	Value *string `json:"value,omitempty"` // 与自动编号的可选规则项类型相对应的取值
 }
 
 type AppFieldPropertyAutoSerialOptionsBuilder struct {
-	type_     string
+	type_     string // 自动编号的可选规则项类型
 	typeFlag  bool
-	value     string
+	value     string // 与自动编号的可选规则项类型相对应的取值
 	valueFlag bool
 }
 
@@ -248,11 +347,16 @@ func NewAppFieldPropertyAutoSerialOptionsBuilder() *AppFieldPropertyAutoSerialOp
 	return builder
 }
 
+// 自动编号的可选规则项类型
+// 示例值：created_time
 func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Type(type_ string) *AppFieldPropertyAutoSerialOptionsBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 与自动编号的可选规则项类型相对应的取值
+// 示例值：yyyyMMdd
 func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Value(value string) *AppFieldPropertyAutoSerialOptionsBuilder {
 	builder.value = value
 	builder.valueFlag = true
@@ -273,11 +377,11 @@ func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Build() *AppFieldProper
 }
 
 type AppFieldPropertyLocation struct {
-	InputType *string `json:"input_type,omitempty"`
+	InputType *string `json:"input_type,omitempty"` // 地理位置输入限制
 }
 
 type AppFieldPropertyLocationBuilder struct {
-	inputType     string
+	inputType     string // 地理位置输入限制
 	inputTypeFlag bool
 }
 
@@ -286,6 +390,8 @@ func NewAppFieldPropertyLocationBuilder() *AppFieldPropertyLocationBuilder {
 	return builder
 }
 
+// 地理位置输入限制
+// 示例值：not_limit
 func (builder *AppFieldPropertyLocationBuilder) InputType(inputType string) *AppFieldPropertyLocationBuilder {
 	builder.inputType = inputType
 	builder.inputTypeFlag = true
@@ -302,20 +408,20 @@ func (builder *AppFieldPropertyLocationBuilder) Build() *AppFieldPropertyLocatio
 }
 
 type AppRole struct {
-	RoleName   *string             `json:"role_name,omitempty"`
-	RoleId     *string             `json:"role_id,omitempty"`
-	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"`
-	BlockRoles []*AppRoleBlockRole `json:"block_roles,omitempty"`
+	RoleName   *string             `json:"role_name,omitempty"`   // 自定义角色的名字
+	RoleId     *string             `json:"role_id,omitempty"`     // 自定义角色的id
+	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"` // 数据表角色
+	BlockRoles []*AppRoleBlockRole `json:"block_roles,omitempty"` // block权限
 }
 
 type AppRoleBuilder struct {
-	roleName       string
+	roleName       string // 自定义角色的名字
 	roleNameFlag   bool
-	roleId         string
+	roleId         string // 自定义角色的id
 	roleIdFlag     bool
-	tableRoles     []*AppRoleTableRole
+	tableRoles     []*AppRoleTableRole // 数据表角色
 	tableRolesFlag bool
-	blockRoles     []*AppRoleBlockRole
+	blockRoles     []*AppRoleBlockRole // block权限
 	blockRolesFlag bool
 }
 
@@ -324,21 +430,32 @@ func NewAppRoleBuilder() *AppRoleBuilder {
 	return builder
 }
 
+// 自定义角色的名字
+// 示例值：自定义角色1
 func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
 	builder.roleName = roleName
 	builder.roleNameFlag = true
 	return builder
 }
+
+// 自定义角色的id
+// 示例值：roljRpwIUt
 func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
 	builder.roleId = roleId
 	builder.roleIdFlag = true
 	return builder
 }
+
+// 数据表角色
+// 示例值：
 func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRoleBuilder {
 	builder.tableRoles = tableRoles
 	builder.tableRolesFlag = true
 	return builder
 }
+
+// block权限
+// 示例值：
 func (builder *AppRoleBuilder) BlockRoles(blockRoles []*AppRoleBlockRole) *AppRoleBuilder {
 	builder.blockRoles = blockRoles
 	builder.blockRolesFlag = true
@@ -365,17 +482,17 @@ func (builder *AppRoleBuilder) Build() *AppRole {
 }
 
 type AppRoleBlockRole struct {
-	BlockId   *string `json:"block_id,omitempty"`
-	BlockType *string `json:"block_type,omitempty"`
-	BlockPerm *int    `json:"block_perm,omitempty"`
+	BlockId   *string `json:"block_id,omitempty"`   // Block的ID
+	BlockType *string `json:"block_type,omitempty"` // Block类型
+	BlockPerm *int    `json:"block_perm,omitempty"` // Block权限
 }
 
 type AppRoleBlockRoleBuilder struct {
-	blockId       string
+	blockId       string // Block的ID
 	blockIdFlag   bool
-	blockType     string
+	blockType     string // Block类型
 	blockTypeFlag bool
-	blockPerm     int
+	blockPerm     int // Block权限
 	blockPermFlag bool
 }
 
@@ -384,16 +501,24 @@ func NewAppRoleBlockRoleBuilder() *AppRoleBlockRoleBuilder {
 	return builder
 }
 
+// Block的ID
+// 示例值：blknkqrP3RqUkcAW
 func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRoleBuilder {
 	builder.blockId = blockId
 	builder.blockIdFlag = true
 	return builder
 }
+
+// Block类型
+// 示例值：dashboard
 func (builder *AppRoleBlockRoleBuilder) BlockType(blockType string) *AppRoleBlockRoleBuilder {
 	builder.blockType = blockType
 	builder.blockTypeFlag = true
 	return builder
 }
+
+// Block权限
+// 示例值：0
 func (builder *AppRoleBlockRoleBuilder) BlockPerm(blockPerm int) *AppRoleBlockRoleBuilder {
 	builder.blockPerm = blockPerm
 	builder.blockPermFlag = true
@@ -418,38 +543,38 @@ func (builder *AppRoleBlockRoleBuilder) Build() *AppRoleBlockRole {
 }
 
 type AppRoleMember struct {
-	MemberId         *string `json:"member_id,omitempty"`
-	OpenId           *string `json:"open_id,omitempty"`
-	UnionId          *string `json:"union_id,omitempty"`
-	UserId           *string `json:"user_id,omitempty"`
-	ChatId           *string `json:"chat_id,omitempty"`
-	DepartmentId     *string `json:"department_id,omitempty"`
-	OpenDepartmentId *string `json:"open_department_id,omitempty"`
-	MemberName       *string `json:"member_name,omitempty"`
-	MemberEnName     *string `json:"member_en_name,omitempty"`
-	MemberType       *string `json:"member_type,omitempty"`
+	MemberId         *string `json:"member_id,omitempty"`          // 协作者id
+	OpenId           *string `json:"open_id,omitempty"`            // 用户的 open_id
+	UnionId          *string `json:"union_id,omitempty"`           // 用户的 union_id
+	UserId           *string `json:"user_id,omitempty"`            // 用户的 user_id
+	ChatId           *string `json:"chat_id,omitempty"`            // 群聊的 chat_id
+	DepartmentId     *string `json:"department_id,omitempty"`      // 部门的 department_id
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` // 部门的 open_department_id
+	MemberName       *string `json:"member_name,omitempty"`        // 协作者名字
+	MemberEnName     *string `json:"member_en_name,omitempty"`     // 协作者英文名
+	MemberType       *string `json:"member_type,omitempty"`        // 协作者类型
 }
 
 type AppRoleMemberBuilder struct {
-	memberId             string
+	memberId             string // 协作者id
 	memberIdFlag         bool
-	openId               string
+	openId               string // 用户的 open_id
 	openIdFlag           bool
-	unionId              string
+	unionId              string // 用户的 union_id
 	unionIdFlag          bool
-	userId               string
+	userId               string // 用户的 user_id
 	userIdFlag           bool
-	chatId               string
+	chatId               string // 群聊的 chat_id
 	chatIdFlag           bool
-	departmentId         string
+	departmentId         string // 部门的 department_id
 	departmentIdFlag     bool
-	openDepartmentId     string
+	openDepartmentId     string // 部门的 open_department_id
 	openDepartmentIdFlag bool
-	memberName           string
+	memberName           string // 协作者名字
 	memberNameFlag       bool
-	memberEnName         string
+	memberEnName         string // 协作者英文名
 	memberEnNameFlag     bool
-	memberType           string
+	memberType           string // 协作者类型
 	memberTypeFlag       bool
 }
 
@@ -458,51 +583,80 @@ func NewAppRoleMemberBuilder() *AppRoleMemberBuilder {
 	return builder
 }
 
+// 协作者id
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
 	return builder
 }
+
+// 用户的 open_id
+// 示例值：ou_xxxxxxxx
 func (builder *AppRoleMemberBuilder) OpenId(openId string) *AppRoleMemberBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+// 用户的 union_id
+// 示例值：on_xxxxxxxx
 func (builder *AppRoleMemberBuilder) UnionId(unionId string) *AppRoleMemberBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
 	return builder
 }
+
+// 用户的 user_id
+// 示例值：xxxxxxxx
 func (builder *AppRoleMemberBuilder) UserId(userId string) *AppRoleMemberBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 群聊的 chat_id
+// 示例值：oc_xxxxxxxx
 func (builder *AppRoleMemberBuilder) ChatId(chatId string) *AppRoleMemberBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
+
+// 部门的 department_id
+// 示例值：xxxxxxxx
 func (builder *AppRoleMemberBuilder) DepartmentId(departmentId string) *AppRoleMemberBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
+
+// 部门的 open_department_id
+// 示例值：od-xxxxxxxx
 func (builder *AppRoleMemberBuilder) OpenDepartmentId(openDepartmentId string) *AppRoleMemberBuilder {
 	builder.openDepartmentId = openDepartmentId
 	builder.openDepartmentIdFlag = true
 	return builder
 }
+
+// 协作者名字
+// 示例值：张三
 func (builder *AppRoleMemberBuilder) MemberName(memberName string) *AppRoleMemberBuilder {
 	builder.memberName = memberName
 	builder.memberNameFlag = true
 	return builder
 }
+
+// 协作者英文名
+// 示例值：San Zhang
 func (builder *AppRoleMemberBuilder) MemberEnName(memberEnName string) *AppRoleMemberBuilder {
 	builder.memberEnName = memberEnName
 	builder.memberEnNameFlag = true
 	return builder
 }
+
+// 协作者类型
+// 示例值：user
 func (builder *AppRoleMemberBuilder) MemberType(memberType string) *AppRoleMemberBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -555,14 +709,14 @@ func (builder *AppRoleMemberBuilder) Build() *AppRoleMember {
 }
 
 type AppRoleMemberId struct {
-	Type *string `json:"type,omitempty"`
-	Id   *string `json:"id,omitempty"`
+	Type *string `json:"type,omitempty"` // 协作者 ID 类型
+	Id   *string `json:"id,omitempty"`   // 协作者 ID
 }
 
 type AppRoleMemberIdBuilder struct {
-	type_    string
+	type_    string // 协作者 ID 类型
 	typeFlag bool
-	id       string
+	id       string // 协作者 ID
 	idFlag   bool
 }
 
@@ -571,11 +725,16 @@ func NewAppRoleMemberIdBuilder() *AppRoleMemberIdBuilder {
 	return builder
 }
 
+// 协作者 ID 类型
+// 示例值：open_id
 func (builder *AppRoleMemberIdBuilder) Type(type_ string) *AppRoleMemberIdBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 协作者 ID
+// 示例值：ou_35990a9d9052051a2fae9b2f1afabcef
 func (builder *AppRoleMemberIdBuilder) Id(id string) *AppRoleMemberIdBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -596,29 +755,29 @@ func (builder *AppRoleMemberIdBuilder) Build() *AppRoleMemberId {
 }
 
 type AppRoleTableRole struct {
-	TableName         *string                    `json:"table_name,omitempty"`
-	TableId           *string                    `json:"table_id,omitempty"`
-	TablePerm         *int                       `json:"table_perm,omitempty"`
-	RecRule           *AppRoleTableRoleRecRule   `json:"rec_rule,omitempty"`
-	FieldPerm         *AppRoleTableRoleFieldPerm `json:"field_perm,omitempty"`
-	AllowAddRecord    *bool                      `json:"allow_add_record,omitempty"`
-	AllowDeleteRecord *bool                      `json:"allow_delete_record,omitempty"`
+	TableName         *string                    `json:"table_name,omitempty"`          // 数据表名
+	TableId           *string                    `json:"table_id,omitempty"`            // 数据表ID
+	TablePerm         *int                       `json:"table_perm,omitempty"`          // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+	RecRule           *AppRoleTableRoleRecRule   `json:"rec_rule,omitempty"`            // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	FieldPerm         *AppRoleTableRoleFieldPerm `json:"field_perm,omitempty"`          // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
+	AllowAddRecord    *bool                      `json:"allow_add_record,omitempty"`    // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
+	AllowDeleteRecord *bool                      `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
 }
 
 type AppRoleTableRoleBuilder struct {
-	tableName             string
+	tableName             string // 数据表名
 	tableNameFlag         bool
-	tableId               string
+	tableId               string // 数据表ID
 	tableIdFlag           bool
-	tablePerm             int
+	tablePerm             int // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
 	tablePermFlag         bool
-	recRule               *AppRoleTableRoleRecRule
+	recRule               *AppRoleTableRoleRecRule // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
 	recRuleFlag           bool
-	fieldPerm             *AppRoleTableRoleFieldPerm
+	fieldPerm             *AppRoleTableRoleFieldPerm // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
 	fieldPermFlag         bool
-	allowAddRecord        bool
+	allowAddRecord        bool // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
 	allowAddRecordFlag    bool
-	allowDeleteRecord     bool
+	allowDeleteRecord     bool // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
 	allowDeleteRecordFlag bool
 }
 
@@ -627,36 +786,56 @@ func NewAppRoleTableRoleBuilder() *AppRoleTableRoleBuilder {
 	return builder
 }
 
+// 数据表名
+// 示例值：数据表1
 func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTableRoleBuilder {
 	builder.tableName = tableName
 	builder.tableNameFlag = true
 	return builder
 }
+
+// 数据表ID
+// 示例值：tblKz5D60T4JlfcT
 func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRoleBuilder {
 	builder.tableId = tableId
 	builder.tableIdFlag = true
 	return builder
 }
+
+// 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+// 示例值：0
 func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
 	builder.tablePerm = tablePerm
 	builder.tablePermFlag = true
 	return builder
 }
+
+// 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+// 示例值：
 func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule) *AppRoleTableRoleBuilder {
 	builder.recRule = recRule
 	builder.recRuleFlag = true
 	return builder
 }
+
+// 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
+// 示例值：{"姓名": 1, "年龄": 2}
 func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm *AppRoleTableRoleFieldPerm) *AppRoleTableRoleBuilder {
 	builder.fieldPerm = fieldPerm
 	builder.fieldPermFlag = true
 	return builder
 }
+
+// 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
+// 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowAddRecord(allowAddRecord bool) *AppRoleTableRoleBuilder {
 	builder.allowAddRecord = allowAddRecord
 	builder.allowAddRecordFlag = true
 	return builder
 }
+
+// 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+// 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowDeleteRecord(allowDeleteRecord bool) *AppRoleTableRoleBuilder {
 	builder.allowDeleteRecord = allowDeleteRecord
 	builder.allowDeleteRecordFlag = true
@@ -698,17 +877,17 @@ type AppRoleTableRoleFieldPerm struct {
 }
 
 type AppRoleTableRoleRecRule struct {
-	Conditions  []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`
-	Conjunction *string                             `json:"conjunction,omitempty"`
-	OtherPerm   *int                                `json:"other_perm,omitempty"`
+	Conditions  []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`  // 记录筛选条件
+	Conjunction *string                             `json:"conjunction,omitempty"` // 多个筛选条件的关系
+	OtherPerm   *int                                `json:"other_perm,omitempty"`  // 其他记录权限，仅在table_perm为2时有意义
 }
 
 type AppRoleTableRoleRecRuleBuilder struct {
-	conditions      []*AppRoleTableRoleRecRuleCondition
+	conditions      []*AppRoleTableRoleRecRuleCondition // 记录筛选条件
 	conditionsFlag  bool
-	conjunction     string
+	conjunction     string // 多个筛选条件的关系
 	conjunctionFlag bool
-	otherPerm       int
+	otherPerm       int // 其他记录权限，仅在table_perm为2时有意义
 	otherPermFlag   bool
 }
 
@@ -717,16 +896,24 @@ func NewAppRoleTableRoleRecRuleBuilder() *AppRoleTableRoleRecRuleBuilder {
 	return builder
 }
 
+// 记录筛选条件
+// 示例值：
 func (builder *AppRoleTableRoleRecRuleBuilder) Conditions(conditions []*AppRoleTableRoleRecRuleCondition) *AppRoleTableRoleRecRuleBuilder {
 	builder.conditions = conditions
 	builder.conditionsFlag = true
 	return builder
 }
+
+// 多个筛选条件的关系
+// 示例值：and
 func (builder *AppRoleTableRoleRecRuleBuilder) Conjunction(conjunction string) *AppRoleTableRoleRecRuleBuilder {
 	builder.conjunction = conjunction
 	builder.conjunctionFlag = true
 	return builder
 }
+
+// 其他记录权限，仅在table_perm为2时有意义
+// 示例值：0
 func (builder *AppRoleTableRoleRecRuleBuilder) OtherPerm(otherPerm int) *AppRoleTableRoleRecRuleBuilder {
 	builder.otherPerm = otherPerm
 	builder.otherPermFlag = true
@@ -750,20 +937,20 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Build() *AppRoleTableRoleRecRule 
 }
 
 type AppRoleTableRoleRecRuleCondition struct {
-	FieldName *string  `json:"field_name,omitempty"`
-	Operator  *string  `json:"operator,omitempty"`
-	Value     []string `json:"value,omitempty"`
-	FieldType *int     `json:"field_type,omitempty"`
+	FieldName *string  `json:"field_name,omitempty"` // 字段名，记录筛选条件是`创建人包含访问者本人`时，此参数值为""
+	Operator  *string  `json:"operator,omitempty"`   // 运算符
+	Value     []string `json:"value,omitempty"`      // 单选或多选字段的选项id
+	FieldType *int     `json:"field_type,omitempty"` // 字段类型
 }
 
 type AppRoleTableRoleRecRuleConditionBuilder struct {
-	fieldName     string
+	fieldName     string // 字段名，记录筛选条件是`创建人包含访问者本人`时，此参数值为""
 	fieldNameFlag bool
-	operator      string
+	operator      string // 运算符
 	operatorFlag  bool
-	value         []string
+	value         []string // 单选或多选字段的选项id
 	valueFlag     bool
-	fieldType     int
+	fieldType     int // 字段类型
 	fieldTypeFlag bool
 }
 
@@ -772,21 +959,32 @@ func NewAppRoleTableRoleRecRuleConditionBuilder() *AppRoleTableRoleRecRuleCondit
 	return builder
 }
 
+// 字段名，记录筛选条件是`创建人包含访问者本人`时，此参数值为""
+// 示例值：单选
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.fieldName = fieldName
 	builder.fieldNameFlag = true
 	return builder
 }
+
+// 运算符
+// 示例值：is
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.operator = operator
 	builder.operatorFlag = true
 	return builder
 }
+
+// 单选或多选字段的选项id
+// 示例值：["optbdVHf4q", "optrpd3eIJ"]
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.value = value
 	builder.valueFlag = true
 	return builder
 }
+
+// 字段类型
+// 示例值：3
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldType(fieldType int) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeFlag = true
@@ -814,17 +1012,17 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Build() *AppRoleTableRol
 }
 
 type AppTable struct {
-	TableId  *string `json:"table_id,omitempty"`
-	Revision *int    `json:"revision,omitempty"`
-	Name     *string `json:"name,omitempty"`
+	TableId  *string `json:"table_id,omitempty"` // 数据表 id
+	Revision *int    `json:"revision,omitempty"` // 数据表的版本号
+	Name     *string `json:"name,omitempty"`     // 数据表名字
 }
 
 type AppTableBuilder struct {
-	tableId      string
+	tableId      string // 数据表 id
 	tableIdFlag  bool
-	revision     int
+	revision     int // 数据表的版本号
 	revisionFlag bool
-	name         string
+	name         string // 数据表名字
 	nameFlag     bool
 }
 
@@ -833,16 +1031,24 @@ func NewAppTableBuilder() *AppTableBuilder {
 	return builder
 }
 
+// 数据表 id
+// 示例值：tblKz5D60T4JlfcT
 func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 	builder.tableId = tableId
 	builder.tableIdFlag = true
 	return builder
 }
+
+// 数据表的版本号
+// 示例值：1
 func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
 	return builder
 }
+
+// 数据表名字
+// 示例值：数据表1
 func (builder *AppTableBuilder) Name(name string) *AppTableBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -867,20 +1073,20 @@ func (builder *AppTableBuilder) Build() *AppTable {
 }
 
 type AppTableField struct {
-	FieldId   *string                `json:"field_id,omitempty"`
-	FieldName *string                `json:"field_name,omitempty"`
-	Type      *int                   `json:"type,omitempty"`
-	Property  *AppTableFieldProperty `json:"property,omitempty"`
+	FieldId   *string                `json:"field_id,omitempty"`   // 多维表格字段 id
+	FieldName *string                `json:"field_name,omitempty"` // 多维表格字段名
+	Type      *int                   `json:"type,omitempty"`       // 多维表格字段类型
+	Property  *AppTableFieldProperty `json:"property,omitempty"`   // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 }
 
 type AppTableFieldBuilder struct {
-	fieldId       string
+	fieldId       string // 多维表格字段 id
 	fieldIdFlag   bool
-	fieldName     string
+	fieldName     string // 多维表格字段名
 	fieldNameFlag bool
-	type_         int
+	type_         int // 多维表格字段类型
 	typeFlag      bool
-	property      *AppTableFieldProperty
+	property      *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	propertyFlag  bool
 }
 
@@ -889,21 +1095,32 @@ func NewAppTableFieldBuilder() *AppTableFieldBuilder {
 	return builder
 }
 
+// 多维表格字段 id
+// 示例值：
 func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdFlag = true
 	return builder
 }
+
+// 多维表格字段名
+// 示例值：多行文本
 func (builder *AppTableFieldBuilder) FieldName(fieldName string) *AppTableFieldBuilder {
 	builder.fieldName = fieldName
 	builder.fieldNameFlag = true
 	return builder
 }
+
+// 多维表格字段类型
+// 示例值：1
 func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+// 示例值：
 func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *AppTableFieldBuilder {
 	builder.property = property
 	builder.propertyFlag = true
@@ -931,38 +1148,38 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 }
 
 type AppTableFieldProperty struct {
-	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`
-	Formatter     *string                        `json:"formatter,omitempty"`
-	DateFormatter *string                        `json:"date_formatter,omitempty"`
-	AutoFill      *bool                          `json:"auto_fill,omitempty"`
-	Multiple      *bool                          `json:"multiple,omitempty"`
-	TableId       *string                        `json:"table_id,omitempty"`
-	TableName     *string                        `json:"table_name,omitempty"`
-	BackFieldName *string                        `json:"back_field_name,omitempty"`
-	AutoSerial    *AppFieldPropertyAutoSerial    `json:"auto_serial,omitempty"`
-	Location      *AppFieldPropertyLocation      `json:"location,omitempty"`
+	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`         // 单选、多选字段的选项信息
+	Formatter     *string                        `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
+	DateFormatter *string                        `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
+	AutoFill      *bool                          `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间
+	Multiple      *bool                          `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	TableId       *string                        `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id
+	TableName     *string                        `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字
+	BackFieldName *string                        `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	AutoSerial    *AppFieldPropertyAutoSerial    `json:"auto_serial,omitempty"`     // 自动编号类型
+	Location      *AppFieldPropertyLocation      `json:"location,omitempty"`        // 地理位置输入方式
 }
 
 type AppTableFieldPropertyBuilder struct {
-	options           []*AppTableFieldPropertyOption
+	options           []*AppTableFieldPropertyOption // 单选、多选字段的选项信息
 	optionsFlag       bool
-	formatter         string
+	formatter         string // 数字、公式字段的显示格式
 	formatterFlag     bool
-	dateFormatter     string
+	dateFormatter     string // 日期、创建时间、最后更新时间字段的显示格式
 	dateFormatterFlag bool
-	autoFill          bool
+	autoFill          bool // 日期字段中新纪录自动填写创建时间
 	autoFillFlag      bool
-	multiple          bool
+	multiple          bool // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
 	multipleFlag      bool
-	tableId           string
+	tableId           string // 单向关联、双向关联字段中关联的数据表的id
 	tableIdFlag       bool
-	tableName         string
+	tableName         string // 单向关联、双向关联字段中关联的数据表的名字
 	tableNameFlag     bool
-	backFieldName     string
+	backFieldName     string // 双向关联字段中关联的数据表中对应的双向关联字段的名字
 	backFieldNameFlag bool
-	autoSerial        *AppFieldPropertyAutoSerial
+	autoSerial        *AppFieldPropertyAutoSerial // 自动编号类型
 	autoSerialFlag    bool
-	location          *AppFieldPropertyLocation
+	location          *AppFieldPropertyLocation // 地理位置输入方式
 	locationFlag      bool
 }
 
@@ -971,51 +1188,80 @@ func NewAppTableFieldPropertyBuilder() *AppTableFieldPropertyBuilder {
 	return builder
 }
 
+// 单选、多选字段的选项信息
+// 示例值：
 func (builder *AppTableFieldPropertyBuilder) Options(options []*AppTableFieldPropertyOption) *AppTableFieldPropertyBuilder {
 	builder.options = options
 	builder.optionsFlag = true
 	return builder
 }
+
+// 数字、公式字段的显示格式
+// 示例值：0
 func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTableFieldPropertyBuilder {
 	builder.formatter = formatter
 	builder.formatterFlag = true
 	return builder
 }
+
+// 日期、创建时间、最后更新时间字段的显示格式
+// 示例值：日期格式
 func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string) *AppTableFieldPropertyBuilder {
 	builder.dateFormatter = dateFormatter
 	builder.dateFormatterFlag = true
 	return builder
 }
+
+// 日期字段中新纪录自动填写创建时间
+// 示例值：false
 func (builder *AppTableFieldPropertyBuilder) AutoFill(autoFill bool) *AppTableFieldPropertyBuilder {
 	builder.autoFill = autoFill
 	builder.autoFillFlag = true
 	return builder
 }
+
+// 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+// 示例值：false
 func (builder *AppTableFieldPropertyBuilder) Multiple(multiple bool) *AppTableFieldPropertyBuilder {
 	builder.multiple = multiple
 	builder.multipleFlag = true
 	return builder
 }
+
+// 单向关联、双向关联字段中关联的数据表的id
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *AppTableFieldPropertyBuilder) TableId(tableId string) *AppTableFieldPropertyBuilder {
 	builder.tableId = tableId
 	builder.tableIdFlag = true
 	return builder
 }
+
+// 单向关联、双向关联字段中关联的数据表的名字
+// 示例值："table2"
 func (builder *AppTableFieldPropertyBuilder) TableName(tableName string) *AppTableFieldPropertyBuilder {
 	builder.tableName = tableName
 	builder.tableNameFlag = true
 	return builder
 }
+
+// 双向关联字段中关联的数据表中对应的双向关联字段的名字
+// 示例值："table1-双向关联"
 func (builder *AppTableFieldPropertyBuilder) BackFieldName(backFieldName string) *AppTableFieldPropertyBuilder {
 	builder.backFieldName = backFieldName
 	builder.backFieldNameFlag = true
 	return builder
 }
+
+// 自动编号类型
+// 示例值：
 func (builder *AppTableFieldPropertyBuilder) AutoSerial(autoSerial *AppFieldPropertyAutoSerial) *AppTableFieldPropertyBuilder {
 	builder.autoSerial = autoSerial
 	builder.autoSerialFlag = true
 	return builder
 }
+
+// 地理位置输入方式
+// 示例值：
 func (builder *AppTableFieldPropertyBuilder) Location(location *AppFieldPropertyLocation) *AppTableFieldPropertyBuilder {
 	builder.location = location
 	builder.locationFlag = true
@@ -1065,17 +1311,17 @@ func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 }
 
 type AppTableFieldPropertyOption struct {
-	Name  *string `json:"name,omitempty"`
-	Id    *string `json:"id,omitempty"`
-	Color *int    `json:"color,omitempty"`
+	Name  *string `json:"name,omitempty"`  // 选项名
+	Id    *string `json:"id,omitempty"`    // 选项 ID，创建时不允许指定 ID
+	Color *int    `json:"color,omitempty"` // 选项颜色
 }
 
 type AppTableFieldPropertyOptionBuilder struct {
-	name      string
+	name      string // 选项名
 	nameFlag  bool
-	id        string
+	id        string // 选项 ID，创建时不允许指定 ID
 	idFlag    bool
-	color     int
+	color     int // 选项颜色
 	colorFlag bool
 }
 
@@ -1084,16 +1330,24 @@ func NewAppTableFieldPropertyOptionBuilder() *AppTableFieldPropertyOptionBuilder
 	return builder
 }
 
+// 选项名
+// 示例值：红色
 func (builder *AppTableFieldPropertyOptionBuilder) Name(name string) *AppTableFieldPropertyOptionBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 选项 ID，创建时不允许指定 ID
+// 示例值：optKl35lnG
 func (builder *AppTableFieldPropertyOptionBuilder) Id(id string) *AppTableFieldPropertyOptionBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 选项颜色
+// 示例值：0
 func (builder *AppTableFieldPropertyOptionBuilder) Color(color int) *AppTableFieldPropertyOptionBuilder {
 	builder.color = color
 	builder.colorFlag = true
@@ -1118,26 +1372,26 @@ func (builder *AppTableFieldPropertyOptionBuilder) Build() *AppTableFieldPropert
 }
 
 type AppTableForm struct {
-	Name            *string `json:"name,omitempty"`
-	Description     *string `json:"description,omitempty"`
-	Shared          *bool   `json:"shared,omitempty"`
-	SharedUrl       *string `json:"shared_url,omitempty"`
-	SharedLimit     *string `json:"shared_limit,omitempty"`
-	SubmitLimitOnce *bool   `json:"submit_limit_once,omitempty"`
+	Name            *string `json:"name,omitempty"`              // 表单名称
+	Description     *string `json:"description,omitempty"`       // 表单描述
+	Shared          *bool   `json:"shared,omitempty"`            // 是否开启共享
+	SharedUrl       *string `json:"shared_url,omitempty"`        // 分享 URL
+	SharedLimit     *string `json:"shared_limit,omitempty"`      // 分享范围限制
+	SubmitLimitOnce *bool   `json:"submit_limit_once,omitempty"` // 填写次数限制一次
 }
 
 type AppTableFormBuilder struct {
-	name                string
+	name                string // 表单名称
 	nameFlag            bool
-	description         string
+	description         string // 表单描述
 	descriptionFlag     bool
-	shared              bool
+	shared              bool // 是否开启共享
 	sharedFlag          bool
-	sharedUrl           string
+	sharedUrl           string // 分享 URL
 	sharedUrlFlag       bool
-	sharedLimit         string
+	sharedLimit         string // 分享范围限制
 	sharedLimitFlag     bool
-	submitLimitOnce     bool
+	submitLimitOnce     bool // 填写次数限制一次
 	submitLimitOnceFlag bool
 }
 
@@ -1146,31 +1400,48 @@ func NewAppTableFormBuilder() *AppTableFormBuilder {
 	return builder
 }
 
+// 表单名称
+// 示例值：表单
 func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 表单描述
+// 示例值：表单描述
 func (builder *AppTableFormBuilder) Description(description string) *AppTableFormBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 是否开启共享
+// 示例值：true
 func (builder *AppTableFormBuilder) Shared(shared bool) *AppTableFormBuilder {
 	builder.shared = shared
 	builder.sharedFlag = true
 	return builder
 }
+
+// 分享 URL
+// 示例值：https://bytedance.feishu.cn/share/base/shrcnCy1KAlpahNotmhRn1abcde
 func (builder *AppTableFormBuilder) SharedUrl(sharedUrl string) *AppTableFormBuilder {
 	builder.sharedUrl = sharedUrl
 	builder.sharedUrlFlag = true
 	return builder
 }
+
+// 分享范围限制
+// 示例值：tenant_editable
 func (builder *AppTableFormBuilder) SharedLimit(sharedLimit string) *AppTableFormBuilder {
 	builder.sharedLimit = sharedLimit
 	builder.sharedLimitFlag = true
 	return builder
 }
+
+// 填写次数限制一次
+// 示例值：true
 func (builder *AppTableFormBuilder) SubmitLimitOnce(submitLimitOnce bool) *AppTableFormBuilder {
 	builder.submitLimitOnce = submitLimitOnce
 	builder.submitLimitOnceFlag = true
@@ -1207,23 +1478,23 @@ func (builder *AppTableFormBuilder) Build() *AppTableForm {
 }
 
 type AppTableFormField struct {
-	FieldId     *string `json:"field_id,omitempty"`
-	Title       *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Required    *bool   `json:"required,omitempty"`
-	Visible     *bool   `json:"visible,omitempty"`
+	FieldId     *string `json:"field_id,omitempty"`    // 表单问题 ID
+	Title       *string `json:"title,omitempty"`       // 表单问题
+	Description *string `json:"description,omitempty"` // 问题描述
+	Required    *bool   `json:"required,omitempty"`    // 是否必填
+	Visible     *bool   `json:"visible,omitempty"`     // 是否可见
 }
 
 type AppTableFormFieldBuilder struct {
-	fieldId         string
+	fieldId         string // 表单问题 ID
 	fieldIdFlag     bool
-	title           string
+	title           string // 表单问题
 	titleFlag       bool
-	description     string
+	description     string // 问题描述
 	descriptionFlag bool
-	required        bool
+	required        bool // 是否必填
 	requiredFlag    bool
-	visible         bool
+	visible         bool // 是否可见
 	visibleFlag     bool
 }
 
@@ -1232,26 +1503,40 @@ func NewAppTableFormFieldBuilder() *AppTableFormFieldBuilder {
 	return builder
 }
 
+// 表单问题 ID
+// 示例值：fldjX7dUj5
 func (builder *AppTableFormFieldBuilder) FieldId(fieldId string) *AppTableFormFieldBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdFlag = true
 	return builder
 }
+
+// 表单问题
+// 示例值：多行文本
 func (builder *AppTableFormFieldBuilder) Title(title string) *AppTableFormFieldBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// 问题描述
+// 示例值：多行文本描述
 func (builder *AppTableFormFieldBuilder) Description(description string) *AppTableFormFieldBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 是否必填
+// 示例值：true
 func (builder *AppTableFormFieldBuilder) Required(required bool) *AppTableFormFieldBuilder {
 	builder.required = required
 	builder.requiredFlag = true
 	return builder
 }
+
+// 是否可见
+// 示例值：true
 func (builder *AppTableFormFieldBuilder) Visible(visible bool) *AppTableFormFieldBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
@@ -1284,23 +1569,23 @@ func (builder *AppTableFormFieldBuilder) Build() *AppTableFormField {
 }
 
 type AppTableFormPatchedField struct {
-	PreFieldId  *string `json:"pre_field_id,omitempty"`
-	Title       *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Required    *bool   `json:"required,omitempty"`
-	Visible     *bool   `json:"visible,omitempty"`
+	PreFieldId  *string `json:"pre_field_id,omitempty"` // 上一个表单问题 ID，用于支持调整表单问题的顺序，通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串，则说明要排到首个表单问题
+	Title       *string `json:"title,omitempty"`        // 表单问题
+	Description *string `json:"description,omitempty"`  // 问题描述
+	Required    *bool   `json:"required,omitempty"`     // 是否必填
+	Visible     *bool   `json:"visible,omitempty"`      // 是否可见
 }
 
 type AppTableFormPatchedFieldBuilder struct {
-	preFieldId      string
+	preFieldId      string // 上一个表单问题 ID，用于支持调整表单问题的顺序，通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串，则说明要排到首个表单问题
 	preFieldIdFlag  bool
-	title           string
+	title           string // 表单问题
 	titleFlag       bool
-	description     string
+	description     string // 问题描述
 	descriptionFlag bool
-	required        bool
+	required        bool // 是否必填
 	requiredFlag    bool
-	visible         bool
+	visible         bool // 是否可见
 	visibleFlag     bool
 }
 
@@ -1309,26 +1594,40 @@ func NewAppTableFormPatchedFieldBuilder() *AppTableFormPatchedFieldBuilder {
 	return builder
 }
 
+// 上一个表单问题 ID，用于支持调整表单问题的顺序，通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串，则说明要排到首个表单问题
+// 示例值：fldjX7dUj5
 func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *AppTableFormPatchedFieldBuilder {
 	builder.preFieldId = preFieldId
 	builder.preFieldIdFlag = true
 	return builder
 }
+
+// 表单问题
+// 示例值：多行文本
 func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFormPatchedFieldBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
+
+// 问题描述
+// 示例值：多行文本描述
 func (builder *AppTableFormPatchedFieldBuilder) Description(description string) *AppTableFormPatchedFieldBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 是否必填
+// 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTableFormPatchedFieldBuilder {
 	builder.required = required
 	builder.requiredFlag = true
 	return builder
 }
+
+// 是否可见
+// 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Visible(visible bool) *AppTableFormPatchedFieldBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true
@@ -1361,26 +1660,26 @@ func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedFiel
 }
 
 type AppTableRecord struct {
-	RecordId         *string                `json:"record_id,omitempty"`
-	CreatedBy        *Person                `json:"created_by,omitempty"`
-	CreatedTime      *int                   `json:"created_time,omitempty"`
-	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`
-	LastModifiedTime *int                   `json:"last_modified_time,omitempty"`
-	Fields           map[string]interface{} `json:"fields,omitempty"`
+	RecordId         *string                `json:"record_id,omitempty"`          // 记录 id，更新多条记录时必填
+	CreatedBy        *Person                `json:"created_by,omitempty"`         // 创建人
+	CreatedTime      *int                   `json:"created_time,omitempty"`       // 创建时间
+	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 修改人
+	LastModifiedTime *int                   `json:"last_modified_time,omitempty"` // 最近更新时间
+	Fields           map[string]interface{} `json:"fields,omitempty"`             // 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 }
 
 type AppTableRecordBuilder struct {
-	recordId             string
+	recordId             string // 记录 id，更新多条记录时必填
 	recordIdFlag         bool
-	createdBy            *Person
+	createdBy            *Person // 创建人
 	createdByFlag        bool
-	createdTime          int
+	createdTime          int // 创建时间
 	createdTimeFlag      bool
-	lastModifiedBy       *Person
+	lastModifiedBy       *Person // 修改人
 	lastModifiedByFlag   bool
-	lastModifiedTime     int
+	lastModifiedTime     int // 最近更新时间
 	lastModifiedTimeFlag bool
-	fields               map[string]interface{}
+	fields               map[string]interface{} // 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 	fieldsFlag           bool
 }
 
@@ -1389,31 +1688,48 @@ func NewAppTableRecordBuilder() *AppTableRecordBuilder {
 	return builder
 }
 
+// 记录 id，更新多条记录时必填
+// 示例值：recqwIwhc6
 func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordBuilder {
 	builder.recordId = recordId
 	builder.recordIdFlag = true
 	return builder
 }
+
+// 创建人
+// 示例值：
 func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableRecordBuilder {
 	builder.createdBy = createdBy
 	builder.createdByFlag = true
 	return builder
 }
+
+// 创建时间
+// 示例值：1610281603
 func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableRecordBuilder {
 	builder.createdTime = createdTime
 	builder.createdTimeFlag = true
 	return builder
 }
+
+// 修改人
+// 示例值：
 func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *AppTableRecordBuilder {
 	builder.lastModifiedBy = lastModifiedBy
 	builder.lastModifiedByFlag = true
 	return builder
 }
+
+// 最近更新时间
+// 示例值：1610281603
 func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *AppTableRecordBuilder {
 	builder.lastModifiedTime = lastModifiedTime
 	builder.lastModifiedTimeFlag = true
 	return builder
 }
+
+// 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+// 示例值：
 func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -1447,17 +1763,17 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 }
 
 type AppTableView struct {
-	ViewId   *string `json:"view_id,omitempty"`
-	ViewName *string `json:"view_name,omitempty"`
-	ViewType *string `json:"view_type,omitempty"`
+	ViewId   *string `json:"view_id,omitempty"`   // 视图Id
+	ViewName *string `json:"view_name,omitempty"` // 视图名字
+	ViewType *string `json:"view_type,omitempty"` // 视图类型
 }
 
 type AppTableViewBuilder struct {
-	viewId       string
+	viewId       string // 视图Id
 	viewIdFlag   bool
-	viewName     string
+	viewName     string // 视图名字
 	viewNameFlag bool
-	viewType     string
+	viewType     string // 视图类型
 	viewTypeFlag bool
 }
 
@@ -1466,16 +1782,24 @@ func NewAppTableViewBuilder() *AppTableViewBuilder {
 	return builder
 }
 
+// 视图Id
+// 示例值：vewTpR1urY
 func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
 	builder.viewId = viewId
 	builder.viewIdFlag = true
 	return builder
 }
+
+// 视图名字
+// 示例值：甘特视图1
 func (builder *AppTableViewBuilder) ViewName(viewName string) *AppTableViewBuilder {
 	builder.viewName = viewName
 	builder.viewNameFlag = true
 	return builder
 }
+
+// 视图类型
+// 示例值：gantt
 func (builder *AppTableViewBuilder) ViewType(viewType string) *AppTableViewBuilder {
 	builder.viewType = viewType
 	builder.viewTypeFlag = true
@@ -1500,26 +1824,26 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 }
 
 type Attachment struct {
-	FileToken *string `json:"file_token,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Type      *string `json:"type,omitempty"`
-	Size      *int    `json:"size,omitempty"`
-	Url       *string `json:"url,omitempty"`
-	TmpUrl    *string `json:"tmp_url,omitempty"`
+	FileToken *string `json:"file_token,omitempty"` // attachment token
+	Name      *string `json:"name,omitempty"`       // attachment name
+	Type      *string `json:"type,omitempty"`       // attachment type
+	Size      *int    `json:"size,omitempty"`       // attachment size
+	Url       *string `json:"url,omitempty"`        // download url
+	TmpUrl    *string `json:"tmp_url,omitempty"`    // temporary download url
 }
 
 type AttachmentBuilder struct {
-	fileToken     string
+	fileToken     string // attachment token
 	fileTokenFlag bool
-	name          string
+	name          string // attachment name
 	nameFlag      bool
-	type_         string
+	type_         string // attachment type
 	typeFlag      bool
-	size          int
+	size          int // attachment size
 	sizeFlag      bool
-	url           string
+	url           string // download url
 	urlFlag       bool
-	tmpUrl        string
+	tmpUrl        string // temporary download url
 	tmpUrlFlag    bool
 }
 
@@ -1528,31 +1852,48 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 	return builder
 }
 
+// attachment token
+// 示例值：
 func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenFlag = true
 	return builder
 }
+
+// attachment name
+// 示例值：
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// attachment type
+// 示例值：
 func (builder *AttachmentBuilder) Type(type_ string) *AttachmentBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
 }
+
+// attachment size
+// 示例值：
 func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
 	builder.size = size
 	builder.sizeFlag = true
 	return builder
 }
+
+// download url
+// 示例值：
 func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// temporary download url
+// 示例值：
 func (builder *AttachmentBuilder) TmpUrl(tmpUrl string) *AttachmentBuilder {
 	builder.tmpUrl = tmpUrl
 	builder.tmpUrlFlag = true
@@ -1589,14 +1930,14 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 }
 
 type DeleteRecord struct {
-	Deleted  *bool   `json:"deleted,omitempty"`
-	RecordId *string `json:"record_id,omitempty"`
+	Deleted  *bool   `json:"deleted,omitempty"`   // 是否成功删除
+	RecordId *string `json:"record_id,omitempty"` // 删除的记录 ID
 }
 
 type DeleteRecordBuilder struct {
-	deleted      bool
+	deleted      bool // 是否成功删除
 	deletedFlag  bool
-	recordId     string
+	recordId     string // 删除的记录 ID
 	recordIdFlag bool
 }
 
@@ -1605,11 +1946,16 @@ func NewDeleteRecordBuilder() *DeleteRecordBuilder {
 	return builder
 }
 
+// 是否成功删除
+// 示例值：true
 func (builder *DeleteRecordBuilder) Deleted(deleted bool) *DeleteRecordBuilder {
 	builder.deleted = deleted
 	builder.deletedFlag = true
 	return builder
 }
+
+// 删除的记录 ID
+// 示例值：recpCsf4ME
 func (builder *DeleteRecordBuilder) RecordId(recordId string) *DeleteRecordBuilder {
 	builder.recordId = recordId
 	builder.recordIdFlag = true
@@ -1630,20 +1976,20 @@ func (builder *DeleteRecordBuilder) Build() *DeleteRecord {
 }
 
 type DisplayApp struct {
-	AppToken   *string `json:"app_token,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Revision   *int    `json:"revision,omitempty"`
-	IsAdvanced *bool   `json:"is_advanced,omitempty"`
+	AppToken   *string `json:"app_token,omitempty"`   // 多维表格的 app_token
+	Name       *string `json:"name,omitempty"`        // 多维表格的名字
+	Revision   *int    `json:"revision,omitempty"`    // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
 }
 
 type DisplayAppBuilder struct {
-	appToken       string
+	appToken       string // 多维表格的 app_token
 	appTokenFlag   bool
-	name           string
+	name           string // 多维表格的名字
 	nameFlag       bool
-	revision       int
+	revision       int // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
 	revisionFlag   bool
-	isAdvanced     bool
+	isAdvanced     bool // 多维表格是否已开启高级权限
 	isAdvancedFlag bool
 }
 
@@ -1652,21 +1998,32 @@ func NewDisplayAppBuilder() *DisplayAppBuilder {
 	return builder
 }
 
+// 多维表格的 app_token
+// 示例值：
 func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
 	builder.appToken = appToken
 	builder.appTokenFlag = true
 	return builder
 }
+
+// 多维表格的名字
+// 示例值：
 func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+// 示例值：
 func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
 	return builder
 }
+
+// 多维表格是否已开启高级权限
+// 示例值：
 func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -1695,17 +2052,17 @@ func (builder *DisplayAppBuilder) Build() *DisplayApp {
 }
 
 type DisplayAppV2 struct {
-	AppToken   *string `json:"app_token,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	IsAdvanced *bool   `json:"is_advanced,omitempty"`
+	AppToken   *string `json:"app_token,omitempty"`   // 多维表格的 app_token
+	Name       *string `json:"name,omitempty"`        // 多维表格的名字
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
 }
 
 type DisplayAppV2Builder struct {
-	appToken       string
+	appToken       string // 多维表格的 app_token
 	appTokenFlag   bool
-	name           string
+	name           string // 多维表格的名字
 	nameFlag       bool
-	isAdvanced     bool
+	isAdvanced     bool // 多维表格是否已开启高级权限
 	isAdvancedFlag bool
 }
 
@@ -1714,16 +2071,24 @@ func NewDisplayAppV2Builder() *DisplayAppV2Builder {
 	return builder
 }
 
+// 多维表格的 app_token
+// 示例值：
 func (builder *DisplayAppV2Builder) AppToken(appToken string) *DisplayAppV2Builder {
 	builder.appToken = appToken
 	builder.appTokenFlag = true
 	return builder
 }
+
+// 多维表格的名字
+// 示例值：
 func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格是否已开启高级权限
+// 示例值：
 func (builder *DisplayAppV2Builder) IsAdvanced(isAdvanced bool) *DisplayAppV2Builder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -1748,29 +2113,29 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 }
 
 type Location struct {
-	Location    *string `json:"location,omitempty"`
-	Pname       *string `json:"pname,omitempty"`
-	Cityname    *string `json:"cityname,omitempty"`
-	Adname      *string `json:"adname,omitempty"`
-	Address     *string `json:"address,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	FullAddress *string `json:"full_address,omitempty"`
+	Location    *string `json:"location,omitempty"`     // 经纬度
+	Pname       *string `json:"pname,omitempty"`        // 省
+	Cityname    *string `json:"cityname,omitempty"`     // 市
+	Adname      *string `json:"adname,omitempty"`       // 区
+	Address     *string `json:"address,omitempty"`      // 详细地址
+	Name        *string `json:"name,omitempty"`         // 地名
+	FullAddress *string `json:"full_address,omitempty"` // 完整地址
 }
 
 type LocationBuilder struct {
-	location        string
+	location        string // 经纬度
 	locationFlag    bool
-	pname           string
+	pname           string // 省
 	pnameFlag       bool
-	cityname        string
+	cityname        string // 市
 	citynameFlag    bool
-	adname          string
+	adname          string // 区
 	adnameFlag      bool
-	address         string
+	address         string // 详细地址
 	addressFlag     bool
-	name            string
+	name            string // 地名
 	nameFlag        bool
-	fullAddress     string
+	fullAddress     string // 完整地址
 	fullAddressFlag bool
 }
 
@@ -1779,36 +2144,56 @@ func NewLocationBuilder() *LocationBuilder {
 	return builder
 }
 
+// 经纬度
+// 示例值：113.946927,22.529146
 func (builder *LocationBuilder) Location(location string) *LocationBuilder {
 	builder.location = location
 	builder.locationFlag = true
 	return builder
 }
+
+// 省
+// 示例值：广东省
 func (builder *LocationBuilder) Pname(pname string) *LocationBuilder {
 	builder.pname = pname
 	builder.pnameFlag = true
 	return builder
 }
+
+// 市
+// 示例值：深圳市
 func (builder *LocationBuilder) Cityname(cityname string) *LocationBuilder {
 	builder.cityname = cityname
 	builder.citynameFlag = true
 	return builder
 }
+
+// 区
+// 示例值：南山区
 func (builder *LocationBuilder) Adname(adname string) *LocationBuilder {
 	builder.adname = adname
 	builder.adnameFlag = true
 	return builder
 }
+
+// 详细地址
+// 示例值：深圳湾创新科技中心(科苑地铁站C口步行340米)
 func (builder *LocationBuilder) Address(address string) *LocationBuilder {
 	builder.address = address
 	builder.addressFlag = true
 	return builder
 }
+
+// 地名
+// 示例值：字节跳动
 func (builder *LocationBuilder) Name(name string) *LocationBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 完整地址
+// 示例值：字节跳动，广东省深圳市南山区深圳湾创新科技中心(科苑地铁站C口步行340米)
 func (builder *LocationBuilder) FullAddress(fullAddress string) *LocationBuilder {
 	builder.fullAddress = fullAddress
 	builder.fullAddressFlag = true
@@ -1849,20 +2234,20 @@ func (builder *LocationBuilder) Build() *Location {
 }
 
 type Person struct {
-	Id     *string `json:"id,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	EnName *string `json:"en_name,omitempty"`
-	Email  *string `json:"email,omitempty"`
+	Id     *string `json:"id,omitempty"`      // 人员Id
+	Name   *string `json:"name,omitempty"`    // 中文姓名
+	EnName *string `json:"en_name,omitempty"` // 英文姓名
+	Email  *string `json:"email,omitempty"`   // 邮箱
 }
 
 type PersonBuilder struct {
-	id         string
+	id         string // 人员Id
 	idFlag     bool
-	name       string
+	name       string // 中文姓名
 	nameFlag   bool
-	enName     string
+	enName     string // 英文姓名
 	enNameFlag bool
-	email      string
+	email      string // 邮箱
 	emailFlag  bool
 }
 
@@ -1871,21 +2256,32 @@ func NewPersonBuilder() *PersonBuilder {
 	return builder
 }
 
+// 人员Id
+// 示例值：testesttest
 func (builder *PersonBuilder) Id(id string) *PersonBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 中文姓名
+// 示例值：黄泡泡
 func (builder *PersonBuilder) Name(name string) *PersonBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 英文姓名
+// 示例值：Paopao Huang
 func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
 	builder.enName = enName
 	builder.enNameFlag = true
 	return builder
 }
+
+// 邮箱
+// 示例值：huangpaopao@feishu.cn
 func (builder *PersonBuilder) Email(email string) *PersonBuilder {
 	builder.email = email
 	builder.emailFlag = true
@@ -1914,14 +2310,14 @@ func (builder *PersonBuilder) Build() *Person {
 }
 
 type ReqApp struct {
-	Name        *string `json:"name,omitempty"`
-	FolderToken *string `json:"folder_token,omitempty"`
+	Name        *string `json:"name,omitempty"`         // 多维表格App名字
+	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹
 }
 
 type ReqAppBuilder struct {
-	name            string
+	name            string // 多维表格App名字
 	nameFlag        bool
-	folderToken     string
+	folderToken     string // 多维表格App归属文件夹
 	folderTokenFlag bool
 }
 
@@ -1930,11 +2326,16 @@ func NewReqAppBuilder() *ReqAppBuilder {
 	return builder
 }
 
+// 多维表格App名字
+// 示例值：一篇新的多维表格
 func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格App归属文件夹
+// 示例值：fldbcoh8O99CIMltVc
 func (builder *ReqAppBuilder) FolderToken(folderToken string) *ReqAppBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -1955,11 +2356,11 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 }
 
 type ReqTable struct {
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"` // 数据表 名字
 }
 
 type ReqTableBuilder struct {
-	name     string
+	name     string // 数据表 名字
 	nameFlag bool
 }
 
@@ -1968,6 +2369,8 @@ func NewReqTableBuilder() *ReqTableBuilder {
 	return builder
 }
 
+// 数据表 名字
+// 示例值：table1
 func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1984,14 +2387,14 @@ func (builder *ReqTableBuilder) Build() *ReqTable {
 }
 
 type ReqView struct {
-	ViewName *string `json:"view_name,omitempty"`
-	ViewType *string `json:"view_type,omitempty"`
+	ViewName *string `json:"view_name,omitempty"` // 视图名字
+	ViewType *string `json:"view_type,omitempty"` // 视图类型
 }
 
 type ReqViewBuilder struct {
-	viewName     string
+	viewName     string // 视图名字
 	viewNameFlag bool
-	viewType     string
+	viewType     string // 视图类型
 	viewTypeFlag bool
 }
 
@@ -2000,11 +2403,16 @@ func NewReqViewBuilder() *ReqViewBuilder {
 	return builder
 }
 
+// 视图名字
+// 示例值：表格视图1
 func (builder *ReqViewBuilder) ViewName(viewName string) *ReqViewBuilder {
 	builder.viewName = viewName
 	builder.viewNameFlag = true
 	return builder
 }
+
+// 视图类型
+// 示例值：grid
 func (builder *ReqViewBuilder) ViewType(viewType string) *ReqViewBuilder {
 	builder.viewType = viewType
 	builder.viewTypeFlag = true
@@ -2025,14 +2433,14 @@ func (builder *ReqViewBuilder) Build() *ReqView {
 }
 
 type Url struct {
-	Text *string `json:"text,omitempty"`
-	Link *string `json:"link,omitempty"`
+	Text *string `json:"text,omitempty"` // url text
+	Link *string `json:"link,omitempty"` // url link
 }
 
 type UrlBuilder struct {
-	text     string
+	text     string // url text
 	textFlag bool
-	link     string
+	link     string // url link
 	linkFlag bool
 }
 
@@ -2041,11 +2449,16 @@ func NewUrlBuilder() *UrlBuilder {
 	return builder
 }
 
+// url text
+// 示例值：
 func (builder *UrlBuilder) Text(text string) *UrlBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
+
+// url link
+// 示例值：
 func (builder *UrlBuilder) Link(link string) *UrlBuilder {
 	builder.link = link
 	builder.linkFlag = true
@@ -2078,6 +2491,9 @@ func NewGetAppReqBuilder() *GetAppReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2095,13 +2511,13 @@ type GetAppReq struct {
 }
 
 type GetAppRespData struct {
-	App *DisplayApp `json:"app,omitempty"`
+	App *DisplayApp `json:"app,omitempty"` // 多维表格元数据
 }
 
 type GetAppResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAppRespData `json:"data"`
+	Data *GetAppRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAppResp) Success() bool {
@@ -2109,9 +2525,9 @@ func (resp *GetAppResp) Success() bool {
 }
 
 type UpdateAppReqBodyBuilder struct {
-	name           string
+	name           string // 新的多维表格名字
 	nameFlag       bool
-	isAdvanced     bool
+	isAdvanced     bool // 多维表格是否开启高级权限
 	isAdvancedFlag bool
 }
 
@@ -2120,11 +2536,18 @@ func NewUpdateAppReqBodyBuilder() *UpdateAppReqBodyBuilder {
 	return builder
 }
 
+// 新的多维表格名字
+//
+//示例值：新的多维表格名字
 func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格是否开启高级权限
+//
+//示例值：false
 func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -2143,9 +2566,9 @@ func (builder *UpdateAppReqBodyBuilder) Build() *UpdateAppReqBody {
 }
 
 type UpdateAppPathReqBodyBuilder struct {
-	name           string
+	name           string // 新的多维表格名字
 	nameFlag       bool
-	isAdvanced     bool
+	isAdvanced     bool // 多维表格是否开启高级权限
 	isAdvancedFlag bool
 }
 
@@ -2153,11 +2576,19 @@ func NewUpdateAppPathReqBodyBuilder() *UpdateAppPathReqBodyBuilder {
 	builder := &UpdateAppPathReqBodyBuilder{}
 	return builder
 }
+
+// 新的多维表格名字
+//
+// 示例值：新的多维表格名字
 func (builder *UpdateAppPathReqBodyBuilder) Name(name string) *UpdateAppPathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
+
+// 多维表格是否开启高级权限
+//
+// 示例值：false
 func (builder *UpdateAppPathReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppPathReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -2189,10 +2620,15 @@ func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 通过 app_token 更新多维表格元数据
 func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBuilder {
 	builder.body = body
 	return builder
@@ -2207,8 +2643,8 @@ func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
 }
 
 type UpdateAppReqBody struct {
-	Name       *string `json:"name,omitempty"`
-	IsAdvanced *bool   `json:"is_advanced,omitempty"`
+	Name       *string `json:"name,omitempty"`        // 新的多维表格名字
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限
 }
 
 type UpdateAppReq struct {
@@ -2217,13 +2653,13 @@ type UpdateAppReq struct {
 }
 
 type UpdateAppRespData struct {
-	App *DisplayAppV2 `json:"app,omitempty"`
+	App *DisplayAppV2 `json:"app,omitempty"` // 多维表格元数据
 }
 
 type UpdateAppResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateAppRespData `json:"data"`
+	Data *UpdateAppRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateAppResp) Success() bool {
@@ -2232,7 +2668,7 @@ func (resp *UpdateAppResp) Success() bool {
 
 type ListAppDashboardReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppDashboardReqBuilder() *ListAppDashboardReqBuilder {
@@ -2244,18 +2680,31 @@ func NewListAppDashboardReqBuilder() *ListAppDashboardReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppDashboardReqBuilder) Limit(limit int) *ListAppDashboardReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 多维表格文档 Token
+//
+// 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *ListAppDashboardReqBuilder) AppToken(appToken string) *ListAppDashboardReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListAppDashboardReqBuilder) PageSize(pageSize int) *ListAppDashboardReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：blknkqrP3RqUkcAW
 func (builder *ListAppDashboardReqBuilder) PageToken(pageToken string) *ListAppDashboardReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -2272,19 +2721,20 @@ func (builder *ListAppDashboardReqBuilder) Build() *ListAppDashboardReq {
 
 type ListAppDashboardReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppDashboardRespData struct {
-	Dashboards []*AppDashboard `json:"dashboards,omitempty"`
-	PageToken  *string         `json:"page_token,omitempty"`
-	HasMore    *bool           `json:"has_more,omitempty"`
+	Dashboards []*AppDashboard `json:"dashboards,omitempty"` // 仪表盘信息
+	PageToken  *string         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore    *bool           `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListAppDashboardResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppDashboardRespData `json:"data"`
+	Data *ListAppDashboardRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppDashboardResp) Success() bool {
@@ -2305,10 +2755,15 @@ func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 新增自定义角色
 func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRoleReqBuilder {
 	builder.appRole = appRole
 	return builder
@@ -2328,13 +2783,13 @@ type CreateAppRoleReq struct {
 }
 
 type CreateAppRoleRespData struct {
-	Role *AppRole `json:"role,omitempty"`
+	Role *AppRole `json:"role,omitempty"` // 自定义权限
 }
 
 type CreateAppRoleResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAppRoleRespData `json:"data"`
+	Data *CreateAppRoleRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppRoleResp) Success() bool {
@@ -2354,10 +2809,17 @@ func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色的id
+//
+// 示例值：roljRpwIUt
 func (builder *DeleteAppRoleReqBuilder) RoleId(roleId string) *DeleteAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
@@ -2385,7 +2847,7 @@ func (resp *DeleteAppRoleResp) Success() bool {
 
 type ListAppRoleReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
@@ -2397,18 +2859,31 @@ func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：roljRpwIUt
 func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -2425,20 +2900,21 @@ func (builder *ListAppRoleReqBuilder) Build() *ListAppRoleReq {
 
 type ListAppRoleReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppRoleRespData struct {
-	Items     []*AppRole `json:"items,omitempty"`
-	PageToken *string    `json:"page_token,omitempty"`
-	HasMore   *bool      `json:"has_more,omitempty"`
-	Total     *int       `json:"total,omitempty"`
+	Items     []*AppRole `json:"items,omitempty"`      // 自定义角色列表
+	PageToken *string    `json:"page_token,omitempty"` // 下一页分页的token
+	HasMore   *bool      `json:"has_more,omitempty"`   // 是否有下一页数据
+	Total     *int       `json:"total,omitempty"`      // 总数
 }
 
 type ListAppRoleResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppRoleRespData `json:"data"`
+	Data *ListAppRoleRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppRoleResp) Success() bool {
@@ -2459,14 +2935,23 @@ func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色的id
+//
+// 示例值：roljRpwIUt
 func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 更新自定义角色
 func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRoleReqBuilder {
 	builder.appRole = appRole
 	return builder
@@ -2486,13 +2971,13 @@ type UpdateAppRoleReq struct {
 }
 
 type UpdateAppRoleRespData struct {
-	Role *AppRole `json:"role,omitempty"`
+	Role *AppRole `json:"role,omitempty"` // 自定义角色
 }
 
 type UpdateAppRoleResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateAppRoleRespData `json:"data"`
+	Data *UpdateAppRoleRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateAppRoleResp) Success() bool {
@@ -2500,7 +2985,7 @@ func (resp *UpdateAppRoleResp) Success() bool {
 }
 
 type BatchCreateAppRoleMemberReqBodyBuilder struct {
-	memberList     []*AppRoleMemberId
+	memberList     []*AppRoleMemberId // 协作者列表
 	memberListFlag bool
 }
 
@@ -2509,6 +2994,9 @@ func NewBatchCreateAppRoleMemberReqBodyBuilder() *BatchCreateAppRoleMemberReqBod
 	return builder
 }
 
+// 协作者列表
+//
+//示例值：
 func (builder *BatchCreateAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -2524,7 +3012,7 @@ func (builder *BatchCreateAppRoleMemberReqBodyBuilder) Build() *BatchCreateAppRo
 }
 
 type BatchCreateAppRoleMemberPathReqBodyBuilder struct {
-	memberList     []*AppRoleMemberId
+	memberList     []*AppRoleMemberId // 协作者列表
 	memberListFlag bool
 }
 
@@ -2532,6 +3020,10 @@ func NewBatchCreateAppRoleMemberPathReqBodyBuilder() *BatchCreateAppRoleMemberPa
 	builder := &BatchCreateAppRoleMemberPathReqBodyBuilder{}
 	return builder
 }
+
+// 协作者列表
+//
+// 示例值：
 func (builder *BatchCreateAppRoleMemberPathReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberPathReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -2560,14 +3052,23 @@ func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder
 	return builder
 }
 
+// Bitable 文档 Token
+//
+// 示例值：bascnnKKvcoUblgmmhZkYqabcef
 func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *BatchCreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色 ID
+//
+// 示例值：rolNGhPqks
 func (builder *BatchCreateAppRoleMemberReqBuilder) RoleId(roleId string) *BatchCreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 批量新增自定义角色的协作者
 func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRoleMemberReqBody) *BatchCreateAppRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -2582,7 +3083,7 @@ func (builder *BatchCreateAppRoleMemberReqBuilder) Build() *BatchCreateAppRoleMe
 }
 
 type BatchCreateAppRoleMemberReqBody struct {
-	MemberList []*AppRoleMemberId `json:"member_list,omitempty"`
+	MemberList []*AppRoleMemberId `json:"member_list,omitempty"` // 协作者列表
 }
 
 type BatchCreateAppRoleMemberReq struct {
@@ -2600,7 +3101,7 @@ func (resp *BatchCreateAppRoleMemberResp) Success() bool {
 }
 
 type BatchDeleteAppRoleMemberReqBodyBuilder struct {
-	memberList     []*AppRoleMemberId
+	memberList     []*AppRoleMemberId // 协作者列表
 	memberListFlag bool
 }
 
@@ -2609,6 +3110,9 @@ func NewBatchDeleteAppRoleMemberReqBodyBuilder() *BatchDeleteAppRoleMemberReqBod
 	return builder
 }
 
+// 协作者列表
+//
+//示例值：
 func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -2624,7 +3128,7 @@ func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) Build() *BatchDeleteAppRo
 }
 
 type BatchDeleteAppRoleMemberPathReqBodyBuilder struct {
-	memberList     []*AppRoleMemberId
+	memberList     []*AppRoleMemberId // 协作者列表
 	memberListFlag bool
 }
 
@@ -2632,6 +3136,10 @@ func NewBatchDeleteAppRoleMemberPathReqBodyBuilder() *BatchDeleteAppRoleMemberPa
 	builder := &BatchDeleteAppRoleMemberPathReqBodyBuilder{}
 	return builder
 }
+
+// 协作者列表
+//
+// 示例值：
 func (builder *BatchDeleteAppRoleMemberPathReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberPathReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -2660,14 +3168,23 @@ func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder
 	return builder
 }
 
+// 多维表格文档 Token
+//
+// 示例值：bascnnKKvcoUblgmmhZkYqabcef
 func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *BatchDeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色 ID
+//
+// 示例值：rolNGhPqks
 func (builder *BatchDeleteAppRoleMemberReqBuilder) RoleId(roleId string) *BatchDeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 批量删除自定义角色的协作者
 func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRoleMemberReqBody) *BatchDeleteAppRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -2682,7 +3199,7 @@ func (builder *BatchDeleteAppRoleMemberReqBuilder) Build() *BatchDeleteAppRoleMe
 }
 
 type BatchDeleteAppRoleMemberReqBody struct {
-	MemberList []*AppRoleMemberId `json:"member_list,omitempty"`
+	MemberList []*AppRoleMemberId `json:"member_list,omitempty"` // 协作者列表
 }
 
 type BatchDeleteAppRoleMemberReq struct {
@@ -2713,18 +3230,31 @@ func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色的id
+//
+// 示例值：roljRpwIUt
 func (builder *CreateAppRoleMemberReqBuilder) RoleId(roleId string) *CreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 协作者id类型，与请求体中的member_id要对应
+//
+// 示例值：open_id
 func (builder *CreateAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *CreateAppRoleMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
+
+// 新增自定义角色的协作者
 func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRoleMember) *CreateAppRoleMemberReqBuilder {
 	builder.appRoleMember = appRoleMember
 	return builder
@@ -2766,18 +3296,33 @@ func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色的id
+//
+// 示例值：roljRpwIUt
 func (builder *DeleteAppRoleMemberReqBuilder) RoleId(roleId string) *DeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 协作者id
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad53uew2
 func (builder *DeleteAppRoleMemberReqBuilder) MemberId(memberId string) *DeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
+
+// 协作者id类型，与请求体中的member_id要对应
+//
+// 示例值：open_id
 func (builder *DeleteAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *DeleteAppRoleMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
@@ -2806,7 +3351,7 @@ func (resp *DeleteAppRoleMemberResp) Success() bool {
 
 type ListAppRoleMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
@@ -2818,22 +3363,39 @@ func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppRoleMemberReqBuilder) Limit(limit int) *ListAppRoleMemberReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppRoleMemberReqBuilder) AppToken(appToken string) *ListAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 自定义角色的id
+//
+// 示例值：roljRpwIUt
 func (builder *ListAppRoleMemberReqBuilder) RoleId(roleId string) *ListAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：100
 func (builder *ListAppRoleMemberReqBuilder) PageSize(pageSize int) *ListAppRoleMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：xxxxx
 func (builder *ListAppRoleMemberReqBuilder) PageToken(pageToken string) *ListAppRoleMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -2850,20 +3412,21 @@ func (builder *ListAppRoleMemberReqBuilder) Build() *ListAppRoleMemberReq {
 
 type ListAppRoleMemberReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppRoleMemberRespData struct {
-	Items     []*AppRoleMember `json:"items,omitempty"`
-	HasMore   *bool            `json:"has_more,omitempty"`
-	PageToken *string          `json:"page_token,omitempty"`
-	Total     *int             `json:"total,omitempty"`
+	Items     []*AppRoleMember `json:"items,omitempty"`      // 协作者列表
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int             `json:"total,omitempty"`      // 总数
 }
 
 type ListAppRoleMemberResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppRoleMemberRespData `json:"data"`
+	Data *ListAppRoleMemberRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppRoleMemberResp) Success() bool {
@@ -2871,7 +3434,7 @@ func (resp *ListAppRoleMemberResp) Success() bool {
 }
 
 type BatchCreateAppTableReqBodyBuilder struct {
-	tables     []*ReqTable
+	tables     []*ReqTable // tables
 	tablesFlag bool
 }
 
@@ -2880,6 +3443,9 @@ func NewBatchCreateAppTableReqBodyBuilder() *BatchCreateAppTableReqBodyBuilder {
 	return builder
 }
 
+// tables
+//
+//示例值：
 func (builder *BatchCreateAppTableReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesFlag = true
@@ -2895,7 +3461,7 @@ func (builder *BatchCreateAppTableReqBodyBuilder) Build() *BatchCreateAppTableRe
 }
 
 type BatchCreateAppTablePathReqBodyBuilder struct {
-	tables     []*ReqTable
+	tables     []*ReqTable // tables
 	tablesFlag bool
 }
 
@@ -2903,6 +3469,10 @@ func NewBatchCreateAppTablePathReqBodyBuilder() *BatchCreateAppTablePathReqBodyB
 	builder := &BatchCreateAppTablePathReqBodyBuilder{}
 	return builder
 }
+
+// tables
+//
+// 示例值：
 func (builder *BatchCreateAppTablePathReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTablePathReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesFlag = true
@@ -2931,14 +3501,23 @@ func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *BatchCreateAppTableReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 新增多个数据表
 func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqBody) *BatchCreateAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -2954,7 +3533,7 @@ func (builder *BatchCreateAppTableReqBuilder) Build() *BatchCreateAppTableReq {
 }
 
 type BatchCreateAppTableReqBody struct {
-	Tables []*ReqTable `json:"tables,omitempty"`
+	Tables []*ReqTable `json:"tables,omitempty"` // tables
 }
 
 type BatchCreateAppTableReq struct {
@@ -2963,13 +3542,13 @@ type BatchCreateAppTableReq struct {
 }
 
 type BatchCreateAppTableRespData struct {
-	TableIds []string `json:"table_ids,omitempty"`
+	TableIds []string `json:"table_ids,omitempty"` // table ids
 }
 
 type BatchCreateAppTableResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchCreateAppTableRespData `json:"data"`
+	Data *BatchCreateAppTableRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchCreateAppTableResp) Success() bool {
@@ -2977,7 +3556,7 @@ func (resp *BatchCreateAppTableResp) Success() bool {
 }
 
 type BatchDeleteAppTableReqBodyBuilder struct {
-	tableIds     []string
+	tableIds     []string // 删除的多条tableid列表
 	tableIdsFlag bool
 }
 
@@ -2986,6 +3565,9 @@ func NewBatchDeleteAppTableReqBodyBuilder() *BatchDeleteAppTableReqBodyBuilder {
 	return builder
 }
 
+// 删除的多条tableid列表
+//
+//示例值：["tblsRc9GRRXKqhvW"]
 func (builder *BatchDeleteAppTableReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsFlag = true
@@ -3001,7 +3583,7 @@ func (builder *BatchDeleteAppTableReqBodyBuilder) Build() *BatchDeleteAppTableRe
 }
 
 type BatchDeleteAppTablePathReqBodyBuilder struct {
-	tableIds     []string
+	tableIds     []string // 删除的多条tableid列表
 	tableIdsFlag bool
 }
 
@@ -3009,6 +3591,10 @@ func NewBatchDeleteAppTablePathReqBodyBuilder() *BatchDeleteAppTablePathReqBodyB
 	builder := &BatchDeleteAppTablePathReqBodyBuilder{}
 	return builder
 }
+
+// 删除的多条tableid列表
+//
+// 示例值：["tblsRc9GRRXKqhvW"]
 func (builder *BatchDeleteAppTablePathReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsFlag = true
@@ -3037,10 +3623,15 @@ func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 删除多个数据表
 func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqBody) *BatchDeleteAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -3055,7 +3646,7 @@ func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
 }
 
 type BatchDeleteAppTableReqBody struct {
-	TableIds []string `json:"table_ids,omitempty"`
+	TableIds []string `json:"table_ids,omitempty"` // 删除的多条tableid列表
 }
 
 type BatchDeleteAppTableReq struct {
@@ -3073,7 +3664,7 @@ func (resp *BatchDeleteAppTableResp) Success() bool {
 }
 
 type CreateAppTableReqBodyBuilder struct {
-	table     *ReqTable
+	table     *ReqTable // 数据表
 	tableFlag bool
 }
 
@@ -3082,6 +3673,9 @@ func NewCreateAppTableReqBodyBuilder() *CreateAppTableReqBodyBuilder {
 	return builder
 }
 
+// 数据表
+//
+//示例值：
 func (builder *CreateAppTableReqBodyBuilder) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
 	builder.table = table
 	builder.tableFlag = true
@@ -3097,7 +3691,7 @@ func (builder *CreateAppTableReqBodyBuilder) Build() *CreateAppTableReqBody {
 }
 
 type CreateAppTablePathReqBodyBuilder struct {
-	table     *ReqTable
+	table     *ReqTable // 数据表
 	tableFlag bool
 }
 
@@ -3105,6 +3699,10 @@ func NewCreateAppTablePathReqBodyBuilder() *CreateAppTablePathReqBodyBuilder {
 	builder := &CreateAppTablePathReqBodyBuilder{}
 	return builder
 }
+
+// 数据表
+//
+// 示例值：
 func (builder *CreateAppTablePathReqBodyBuilder) Table(table *ReqTable) *CreateAppTablePathReqBodyBuilder {
 	builder.table = table
 	builder.tableFlag = true
@@ -3133,14 +3731,23 @@ func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateAppTableReqBuilder) UserIdType(userIdType string) *CreateAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 新增一个数据表
 func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -3156,7 +3763,7 @@ func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
 }
 
 type CreateAppTableReqBody struct {
-	Table *ReqTable `json:"table,omitempty"`
+	Table *ReqTable `json:"table,omitempty"` // 数据表
 }
 
 type CreateAppTableReq struct {
@@ -3165,13 +3772,13 @@ type CreateAppTableReq struct {
 }
 
 type CreateAppTableRespData struct {
-	TableId *string `json:"table_id,omitempty"`
+	TableId *string `json:"table_id,omitempty"` // table id
 }
 
 type CreateAppTableResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAppTableRespData `json:"data"`
+	Data *CreateAppTableRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppTableResp) Success() bool {
@@ -3191,10 +3798,17 @@ func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
@@ -3222,7 +3836,7 @@ func (resp *DeleteAppTableResp) Success() bool {
 
 type ListAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
@@ -3234,18 +3848,31 @@ func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppTableReqBuilder) Limit(limit int) *ListAppTableReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+//
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -3262,20 +3889,21 @@ func (builder *ListAppTableReqBuilder) Build() *ListAppTableReq {
 
 type ListAppTableReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppTableRespData struct {
-	HasMore   *bool       `json:"has_more,omitempty"`
-	PageToken *string     `json:"page_token,omitempty"`
-	Total     *int        `json:"total,omitempty"`
-	Items     []*AppTable `json:"items,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string     `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int        `json:"total,omitempty"`      // 总数
+	Items     []*AppTable `json:"items,omitempty"`      // 数据表信息
 }
 
 type ListAppTableResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppTableRespData `json:"data"`
+	Data *ListAppTableRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppTableResp) Success() bool {
@@ -3296,14 +3924,23 @@ func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 该接口用于在数据表中新增一个字段
 func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *CreateAppTableFieldReqBuilder {
 	builder.appTableField = appTableField
 	return builder
@@ -3323,13 +3960,13 @@ type CreateAppTableFieldReq struct {
 }
 
 type CreateAppTableFieldRespData struct {
-	Field *AppTableField `json:"field,omitempty"`
+	Field *AppTableField `json:"field,omitempty"` // 字段
 }
 
 type CreateAppTableFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAppTableFieldRespData `json:"data"`
+	Data *CreateAppTableFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppTableFieldResp) Success() bool {
@@ -3349,14 +3986,25 @@ func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// field id
+//
+// 示例值：fldPTb0U2y
 func (builder *DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
@@ -3374,14 +4022,14 @@ type DeleteAppTableFieldReq struct {
 }
 
 type DeleteAppTableFieldRespData struct {
-	FieldId *string `json:"field_id,omitempty"`
-	Deleted *bool   `json:"deleted,omitempty"`
+	FieldId *string `json:"field_id,omitempty"` // field id
+	Deleted *bool   `json:"deleted,omitempty"`  // 删除标记
 }
 
 type DeleteAppTableFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *DeleteAppTableFieldRespData `json:"data"`
+	Data *DeleteAppTableFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *DeleteAppTableFieldResp) Success() bool {
@@ -3390,7 +4038,7 @@ func (resp *DeleteAppTableFieldResp) Success() bool {
 
 type ListAppTableFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
@@ -3402,26 +4050,47 @@ func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppTableFieldReqBuilder) Limit(limit int) *ListAppTableFieldReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 视图 ID
+//
+// 示例值：vewOVMEXPF
 func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
 }
+
+//
+//
+// 示例值：fldwJ4YrtB
 func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -3438,20 +4107,21 @@ func (builder *ListAppTableFieldReqBuilder) Build() *ListAppTableFieldReq {
 
 type ListAppTableFieldReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppTableFieldRespData struct {
-	HasMore   *bool            `json:"has_more,omitempty"`
-	PageToken *string          `json:"page_token,omitempty"`
-	Total     *int             `json:"total,omitempty"`
-	Items     []*AppTableField `json:"items,omitempty"`
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int             `json:"total,omitempty"`      // 总数
+	Items     []*AppTableField `json:"items,omitempty"`      // 字段信息
 }
 
 type ListAppTableFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppTableFieldRespData `json:"data"`
+	Data *ListAppTableFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppTableFieldResp) Success() bool {
@@ -3472,18 +4142,31 @@ func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// field id
+//
+// 示例值：fldPTb0U2y
 func (builder *UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
 }
+
+// 该接口用于在数据表中更新一个字段
 func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *UpdateAppTableFieldReqBuilder {
 	builder.appTableField = appTableField
 	return builder
@@ -3503,13 +4186,13 @@ type UpdateAppTableFieldReq struct {
 }
 
 type UpdateAppTableFieldRespData struct {
-	Field *AppTableField `json:"field,omitempty"`
+	Field *AppTableField `json:"field,omitempty"` // 字段
 }
 
 type UpdateAppTableFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateAppTableFieldRespData `json:"data"`
+	Data *UpdateAppTableFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateAppTableFieldResp) Success() bool {
@@ -3529,14 +4212,25 @@ func NewGetAppTableFormReqBuilder() *GetAppTableFormReqBuilder {
 	return builder
 }
 
+// 多维表格文档 Token
+//
+// 示例值：bascnv1jIEppJdTCn3jOosabcef
 func (builder *GetAppTableFormReqBuilder) AppToken(appToken string) *GetAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 表格 ID
+//
+// 示例值：tblz8nadEUdxNMt5
 func (builder *GetAppTableFormReqBuilder) TableId(tableId string) *GetAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 表单 ID
+//
+// 示例值：vew6oMbAa4
 func (builder *GetAppTableFormReqBuilder) FormId(formId string) *GetAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
@@ -3554,13 +4248,13 @@ type GetAppTableFormReq struct {
 }
 
 type GetAppTableFormRespData struct {
-	Form *AppTableForm `json:"form,omitempty"`
+	Form *AppTableForm `json:"form,omitempty"` // 表单元数据信息
 }
 
 type GetAppTableFormResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAppTableFormRespData `json:"data"`
+	Data *GetAppTableFormRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAppTableFormResp) Success() bool {
@@ -3581,18 +4275,31 @@ func NewPatchAppTableFormReqBuilder() *PatchAppTableFormReqBuilder {
 	return builder
 }
 
+// 多维表格文档 Token
+//
+// 示例值：bascnv1jIEppJdTCn3jOosabcef
 func (builder *PatchAppTableFormReqBuilder) AppToken(appToken string) *PatchAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 表格 ID
+//
+// 示例值：tblz8nadEUdxNMt5
 func (builder *PatchAppTableFormReqBuilder) TableId(tableId string) *PatchAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 表单 ID
+//
+// 示例值：vew6oMbAa4
 func (builder *PatchAppTableFormReqBuilder) FormId(formId string) *PatchAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
 }
+
+// 该接口用于更新表单中的元数据项
 func (builder *PatchAppTableFormReqBuilder) AppTableForm(appTableForm *AppTableForm) *PatchAppTableFormReqBuilder {
 	builder.appTableForm = appTableForm
 	return builder
@@ -3612,13 +4319,13 @@ type PatchAppTableFormReq struct {
 }
 
 type PatchAppTableFormRespData struct {
-	Form *AppTableForm `json:"form,omitempty"`
+	Form *AppTableForm `json:"form,omitempty"` // 表单元数据信息
 }
 
 type PatchAppTableFormResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchAppTableFormRespData `json:"data"`
+	Data *PatchAppTableFormRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchAppTableFormResp) Success() bool {
@@ -3627,7 +4334,7 @@ func (resp *PatchAppTableFormResp) Success() bool {
 
 type ListAppTableFormFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppTableFormFieldReqBuilder() *ListAppTableFormFieldReqBuilder {
@@ -3639,26 +4346,47 @@ func NewListAppTableFormFieldReqBuilder() *ListAppTableFormFieldReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppTableFormFieldReqBuilder) Limit(limit int) *ListAppTableFormFieldReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 多维表格文档 Token
+//
+// 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *ListAppTableFormFieldReqBuilder) AppToken(appToken string) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 表格 ID
+//
+// 示例值：tblxI2tWaxP5dG7p
 func (builder *ListAppTableFormFieldReqBuilder) TableId(tableId string) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 表单 ID
+//
+// 示例值：vewTpR1urY
 func (builder *ListAppTableFormFieldReqBuilder) FormId(formId string) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListAppTableFormFieldReqBuilder) PageSize(pageSize int) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：vewTpR1urY
 func (builder *ListAppTableFormFieldReqBuilder) PageToken(pageToken string) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -3675,20 +4403,21 @@ func (builder *ListAppTableFormFieldReqBuilder) Build() *ListAppTableFormFieldRe
 
 type ListAppTableFormFieldReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppTableFormFieldRespData struct {
-	Items     []*AppTableFormField `json:"items,omitempty"`
-	PageToken *string              `json:"page_token,omitempty"`
-	HasMore   *bool                `json:"has_more,omitempty"`
-	Total     *int                 `json:"total,omitempty"`
+	Items     []*AppTableFormField `json:"items,omitempty"`      // 表单问题信息
+	PageToken *string              `json:"page_token,omitempty"` // 下一页分页的token
+	HasMore   *bool                `json:"has_more,omitempty"`   // 是否有下一页
+	Total     *int                 `json:"total,omitempty"`      // 总数
 }
 
 type ListAppTableFormFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppTableFormFieldRespData `json:"data"`
+	Data *ListAppTableFormFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppTableFormFieldResp) Success() bool {
@@ -3709,22 +4438,39 @@ func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 	return builder
 }
 
+// 多维表格文档 Token
+//
+// 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *PatchAppTableFormFieldReqBuilder) AppToken(appToken string) *PatchAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// 表格 ID
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *PatchAppTableFormFieldReqBuilder) TableId(tableId string) *PatchAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 表单 ID
+//
+// 示例值：vewTpR1urY
 func (builder *PatchAppTableFormFieldReqBuilder) FormId(formId string) *PatchAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
 }
+
+// 表单问题 ID
+//
+// 示例值：fldjX7dUj5
 func (builder *PatchAppTableFormFieldReqBuilder) FieldId(fieldId string) *PatchAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
 }
+
+// 该接口用于更新表单中的问题项
 func (builder *PatchAppTableFormFieldReqBuilder) AppTableFormPatchedField(appTableFormPatchedField *AppTableFormPatchedField) *PatchAppTableFormFieldReqBuilder {
 	builder.appTableFormPatchedField = appTableFormPatchedField
 	return builder
@@ -3744,13 +4490,13 @@ type PatchAppTableFormFieldReq struct {
 }
 
 type PatchAppTableFormFieldRespData struct {
-	Field *AppTableFormPatchedField `json:"field,omitempty"`
+	Field *AppTableFormPatchedField `json:"field,omitempty"` // 更新后的表单问题项
 }
 
 type PatchAppTableFormFieldResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchAppTableFormFieldRespData `json:"data"`
+	Data *PatchAppTableFormFieldRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchAppTableFormFieldResp) Success() bool {
@@ -3758,7 +4504,7 @@ func (resp *PatchAppTableFormFieldResp) Success() bool {
 }
 
 type BatchCreateAppTableRecordReqBodyBuilder struct {
-	records     []*AppTableRecord
+	records     []*AppTableRecord // 记录
 	recordsFlag bool
 }
 
@@ -3767,6 +4513,9 @@ func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqB
 	return builder
 }
 
+// 记录
+//
+//示例值：
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -3782,7 +4531,7 @@ func (builder *BatchCreateAppTableRecordReqBodyBuilder) Build() *BatchCreateAppT
 }
 
 type BatchCreateAppTableRecordPathReqBodyBuilder struct {
-	records     []*AppTableRecord
+	records     []*AppTableRecord // 记录
 	recordsFlag bool
 }
 
@@ -3790,6 +4539,10 @@ func NewBatchCreateAppTableRecordPathReqBodyBuilder() *BatchCreateAppTableRecord
 	builder := &BatchCreateAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
+
+// 记录
+//
+// 示例值：
 func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -3818,18 +4571,31 @@ func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuild
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *BatchCreateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于在数据表中新增多条记录，单次调用最多新增 500 条记录。
 func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTableRecordReqBody) *BatchCreateAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -3845,7 +4611,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTable
 }
 
 type BatchCreateAppTableRecordReqBody struct {
-	Records []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"` // 记录
 }
 
 type BatchCreateAppTableRecordReq struct {
@@ -3854,13 +4620,13 @@ type BatchCreateAppTableRecordReq struct {
 }
 
 type BatchCreateAppTableRecordRespData struct {
-	Records []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"` // 记录
 }
 
 type BatchCreateAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchCreateAppTableRecordRespData `json:"data"`
+	Data *BatchCreateAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchCreateAppTableRecordResp) Success() bool {
@@ -3868,7 +4634,7 @@ func (resp *BatchCreateAppTableRecordResp) Success() bool {
 }
 
 type BatchDeleteAppTableRecordReqBodyBuilder struct {
-	records     []string
+	records     []string // 删除的多条记录id列表
 	recordsFlag bool
 }
 
@@ -3877,6 +4643,9 @@ func NewBatchDeleteAppTableRecordReqBodyBuilder() *BatchDeleteAppTableRecordReqB
 	return builder
 }
 
+// 删除的多条记录id列表
+//
+//示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
 func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -3892,7 +4661,7 @@ func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Build() *BatchDeleteAppT
 }
 
 type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
-	records     []string
+	records     []string // 删除的多条记录id列表
 	recordsFlag bool
 }
 
@@ -3900,6 +4669,10 @@ func NewBatchDeleteAppTableRecordPathReqBodyBuilder() *BatchDeleteAppTableRecord
 	builder := &BatchDeleteAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
+
+// 删除的多条记录id列表
+//
+// 示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
 func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -3928,14 +4701,23 @@ func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuild
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *BatchDeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 该接口用于删除数据表中现有的多条记录，单次调用中最多删除 500 条记录。
 func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTableRecordReqBody) *BatchDeleteAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -3950,7 +4732,7 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTable
 }
 
 type BatchDeleteAppTableRecordReqBody struct {
-	Records []string `json:"records,omitempty"`
+	Records []string `json:"records,omitempty"` // 删除的多条记录id列表
 }
 
 type BatchDeleteAppTableRecordReq struct {
@@ -3959,13 +4741,13 @@ type BatchDeleteAppTableRecordReq struct {
 }
 
 type BatchDeleteAppTableRecordRespData struct {
-	Records []*DeleteRecord `json:"records,omitempty"`
+	Records []*DeleteRecord `json:"records,omitempty"` // 记录
 }
 
 type BatchDeleteAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchDeleteAppTableRecordRespData `json:"data"`
+	Data *BatchDeleteAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchDeleteAppTableRecordResp) Success() bool {
@@ -3973,7 +4755,7 @@ func (resp *BatchDeleteAppTableRecordResp) Success() bool {
 }
 
 type BatchUpdateAppTableRecordReqBodyBuilder struct {
-	records     []*AppTableRecord
+	records     []*AppTableRecord // 记录
 	recordsFlag bool
 }
 
@@ -3982,6 +4764,9 @@ func NewBatchUpdateAppTableRecordReqBodyBuilder() *BatchUpdateAppTableRecordReqB
 	return builder
 }
 
+// 记录
+//
+//示例值：
 func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -3997,7 +4782,7 @@ func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Build() *BatchUpdateAppT
 }
 
 type BatchUpdateAppTableRecordPathReqBodyBuilder struct {
-	records     []*AppTableRecord
+	records     []*AppTableRecord // 记录
 	recordsFlag bool
 }
 
@@ -4005,6 +4790,10 @@ func NewBatchUpdateAppTableRecordPathReqBodyBuilder() *BatchUpdateAppTableRecord
 	builder := &BatchUpdateAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
+
+// 记录
+//
+// 示例值：
 func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -4033,18 +4822,31 @@ func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuild
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchUpdateAppTableRecordReqBuilder) TableId(tableId string) *BatchUpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *BatchUpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchUpdateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于更新数据表中的多条记录，单次调用最多更新 500 条记录。
 func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTableRecordReqBody) *BatchUpdateAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -4060,7 +4862,7 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTable
 }
 
 type BatchUpdateAppTableRecordReqBody struct {
-	Records []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"` // 记录
 }
 
 type BatchUpdateAppTableRecordReq struct {
@@ -4069,13 +4871,13 @@ type BatchUpdateAppTableRecordReq struct {
 }
 
 type BatchUpdateAppTableRecordRespData struct {
-	Records []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"` // 记录
 }
 
 type BatchUpdateAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *BatchUpdateAppTableRecordRespData `json:"data"`
+	Data *BatchUpdateAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *BatchUpdateAppTableRecordResp) Success() bool {
@@ -4096,18 +4898,31 @@ func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblUa9vcYjWQYJCj
 func (builder *CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateAppTableRecordReqBuilder) UserIdType(userIdType string) *CreateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于在数据表中新增一条记录
 func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *CreateAppTableRecordReqBuilder {
 	builder.appTableRecord = appTableRecord
 	return builder
@@ -4128,13 +4943,13 @@ type CreateAppTableRecordReq struct {
 }
 
 type CreateAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"`
+	Record *AppTableRecord `json:"record,omitempty"` // 记录
 }
 
 type CreateAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAppTableRecordRespData `json:"data"`
+	Data *CreateAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppTableRecordResp) Success() bool {
@@ -4154,14 +4969,25 @@ func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 单条记录的Id
+//
+// 示例值：recpCsf4ME
 func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *DeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
@@ -4179,14 +5005,14 @@ type DeleteAppTableRecordReq struct {
 }
 
 type DeleteAppTableRecordRespData struct {
-	Deleted  *bool   `json:"deleted,omitempty"`
-	RecordId *string `json:"record_id,omitempty"`
+	Deleted  *bool   `json:"deleted,omitempty"`   // 是否成功删除
+	RecordId *string `json:"record_id,omitempty"` // 删除的记录id
 }
 
 type DeleteAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *DeleteAppTableRecordRespData `json:"data"`
+	Data *DeleteAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *DeleteAppTableRecordResp) Success() bool {
@@ -4206,30 +5032,57 @@ func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblxI2tWaxP5dG7p
 func (builder *GetAppTableRecordReqBuilder) TableId(tableId string) *GetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 单条记录的 id
+//
+// 示例值：recn0hoyXL
 func (builder *GetAppTableRecordReqBuilder) RecordId(recordId string) *GetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
 }
+
+// 控制多行文本字段数据的返回格式, true 表示以数组形式返回
+//
+// 示例值：true
 func (builder *GetAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *GetAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 控制公式、查找引用是否显示完整的原样返回结果
+//
+// 示例值：true
 func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *GetAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
 	return builder
 }
+
+// 控制是否返回自动计算的字段，例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`，true 表示返回
+//
+// 示例值：true
 func (builder *GetAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *GetAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
 	return builder
@@ -4248,13 +5101,13 @@ type GetAppTableRecordReq struct {
 }
 
 type GetAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"`
+	Record *AppTableRecord `json:"record,omitempty"` // 记录
 }
 
 type GetAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAppTableRecordRespData `json:"data"`
+	Data *GetAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAppTableRecordResp) Success() bool {
@@ -4263,7 +5116,7 @@ func (resp *GetAppTableRecordResp) Success() bool {
 
 type ListAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
@@ -4275,54 +5128,103 @@ func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppTableRecordReqBuilder) Limit(limit int) *ListAppTableRecordReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblxI2tWaxP5dG7p
 func (builder *ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 视图 id;;注意：如 filter 或 sort 有值，view_id 会被忽略。
+//
+// 示例值：vewqhz51lk
 func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
 }
+
+// 筛选参数;;注意：;;1.筛选记录的表达式不超过2000个字符。;;2.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;3.仅支持字段在页面展示字符值进行筛选。;;详细请参考[记录筛选开发指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
+//
+// 示例值：示例表达式：;;AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)
 func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
 	return builder
 }
+
+// 排序参数;;注意：;;1.表达式需要不超过1000字符。;;2.不支持对带“公式”和“关联字段”的表的使用。
+//
+// 示例值：["字段1 DESC","字段2 ASC"];;注意：使用引号将字段名称和顺序逆序连接起来。
 func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("sort", fmt.Sprint(sort))
 	return builder
 }
+
+// 字段名称
+//
+// 示例值：["字段1"]
 func (builder *ListAppTableRecordReqBuilder) FieldNames(fieldNames string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("field_names", fmt.Sprint(fieldNames))
 	return builder
 }
+
+// 控制多行文本字段数据的返回格式，true 表示以数组形式返回。;;注意：;;1.多行文本中如果有超链接部分，则会返回链接的 URL。;;2.目前可以返回多行文本中 URL 类型为多维表格链接、飞书 doc、飞书 sheet的URL类型以及@人员的数据结构。
+//
+// 示例值：true
 func (builder *ListAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListAppTableRecordReqBuilder) UserIdType(userIdType string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 控制公式、查找引用是否显示完整的原样返回结果
+//
+// 示例值：true
 func (builder *ListAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
 	return builder
 }
+
+// 控制是否返回自动计算的字段，例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`，true 表示返回
+//
+// 示例值：true
 func (builder *ListAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
 	return builder
 }
+
+//
+//
+// 示例值：recn0hoyXL
 func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+//
+//
+// 示例值：10
 func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -4339,20 +5241,21 @@ func (builder *ListAppTableRecordReqBuilder) Build() *ListAppTableRecordReq {
 
 type ListAppTableRecordReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppTableRecordRespData struct {
-	HasMore   *bool             `json:"has_more,omitempty"`
-	PageToken *string           `json:"page_token,omitempty"`
-	Total     *int              `json:"total,omitempty"`
-	Items     []*AppTableRecord `json:"items,omitempty"`
+	HasMore   *bool             `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string           `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int              `json:"total,omitempty"`      // 总数
+	Items     []*AppTableRecord `json:"items,omitempty"`      // 记录信息
 }
 
 type ListAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppTableRecordRespData `json:"data"`
+	Data *ListAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppTableRecordResp) Success() bool {
@@ -4373,22 +5276,39 @@ func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 单条记录的 id
+//
+// 示例值：recqwIwhc6
 func (builder *UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *UpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于更新数据表中的一条记录
 func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *UpdateAppTableRecordReqBuilder {
 	builder.appTableRecord = appTableRecord
 	return builder
@@ -4409,13 +5329,13 @@ type UpdateAppTableRecordReq struct {
 }
 
 type UpdateAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"`
+	Record *AppTableRecord `json:"record,omitempty"` // {;	"fields": {;		"人力评估": 2,;		"任务执行人": [;			{;				"id": "ou_debc524b2d8cb187704df652b43d29de";			};		],;		"任务描述": "多渠道收集用户反馈",;		"对应 OKR": [;			"recqwIwhc6",;			"recOuEJMvN";		],;		"截止日期": 1609516800000,;		"是否完成": true,;		"状态": "已结束",;		"相关部门": [;			"销售",;			"客服";		];	};}
 }
 
 type UpdateAppTableRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateAppTableRecordRespData `json:"data"`
+	Data *UpdateAppTableRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateAppTableRecordResp) Success() bool {
@@ -4436,14 +5356,23 @@ func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 在数据表中新增一个视图
 func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAppTableViewReqBuilder {
 	builder.reqView = reqView
 	return builder
@@ -4463,13 +5392,13 @@ type CreateAppTableViewReq struct {
 }
 
 type CreateAppTableViewRespData struct {
-	View *AppTableView `json:"view,omitempty"`
+	View *AppTableView `json:"view,omitempty"` // 视图
 }
 
 type CreateAppTableViewResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateAppTableViewRespData `json:"data"`
+	Data *CreateAppTableViewRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppTableViewResp) Success() bool {
@@ -4489,14 +5418,25 @@ func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 	return builder
 }
 
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 视图Id
+//
+// 示例值：vewTpR1urY
 func (builder *DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
@@ -4524,7 +5464,7 @@ func (resp *DeleteAppTableViewResp) Success() bool {
 
 type ListAppTableViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
@@ -4536,22 +5476,39 @@ func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAppTableViewReqBuilder) Limit(limit int) *ListAppTableViewReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// bitable app token
+//
+// 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableViewReqBuilder) TableId(tableId string) *ListAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListAppTableViewReqBuilder) PageSize(pageSize int) *ListAppTableViewReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：vewTpR1urY
 func (builder *ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppTableViewReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -4568,20 +5525,21 @@ func (builder *ListAppTableViewReqBuilder) Build() *ListAppTableViewReq {
 
 type ListAppTableViewReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAppTableViewRespData struct {
-	Items     []*AppTableView `json:"items,omitempty"`
-	PageToken *string         `json:"page_token,omitempty"`
-	HasMore   *bool           `json:"has_more,omitempty"`
-	Total     *int            `json:"total,omitempty"`
+	Items     []*AppTableView `json:"items,omitempty"`      // 视图信息
+	PageToken *string         `json:"page_token,omitempty"` // 下一页分页的token
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否有下一页数据
+	Total     *int            `json:"total,omitempty"`      // 总数
 }
 
 type ListAppTableViewResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAppTableViewRespData `json:"data"`
+	Data *ListAppTableViewRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAppTableViewResp) Success() bool {

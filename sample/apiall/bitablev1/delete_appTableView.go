@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id"
+// DELETE /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewDeleteAppTableViewReqBuilder().
-		AppToken("").
-		TableId("").
-		ViewId("").
+		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
+		TableId("tblsRc9GRRXKqhvW").
+		ViewId("vewTpR1urY").
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.AppTableView.Delete(context.Background(), req)
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

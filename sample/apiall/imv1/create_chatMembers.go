@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/:chat_id/members"
+// POST /open-apis/im/v1/chats/:chat_id/members
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkim.NewCreateChatMembersReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
-		MemberIdType("user_id").
+		MemberIdType("open_id").
 		SucceedType(0).
 		Body(larkim.NewCreateChatMembersReqBodyBuilder().
 			IdList([]string{}).
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

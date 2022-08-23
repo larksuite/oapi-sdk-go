@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks/:task_id/collaborators"
+// POST /open-apis/task/v1/tasks/:task_id/collaborators
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -31,6 +31,7 @@ func main() {
 		UserIdType("user_id").
 		Collaborator(larktask.NewCollaboratorBuilder().
 			Id("ou_99e1a581b36ecc4862cbfbce473f1234").
+			IdList([]string{}).
 			Build()).
 		Build()
 	// 发起请求
@@ -48,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/face_detection/v1"
 )
 
-// HTTP PATH: /open-apis/face_detection/v1/image/detect_face_attributes"
+// POST /open-apis/face_detection/v1/image/detect_face_attributes
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkface_detection.NewDetectFaceAttributesImageReqBuilder().
 		Body(larkface_detection.NewDetectFaceAttributesImageReqBodyBuilder().
-			Image("").
+			Image("图片 base64 后的字符串").
 			Build()).
 		Build()
 	// 发起请求
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

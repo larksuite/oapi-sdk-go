@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/departments/:department_id"
+// DELETE /open-apis/contact/v3/departments/:department_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewDeleteDepartmentReqBuilder().
-		DepartmentId("").
+		DepartmentId("od-4e6ac4d14bcd5071a37a39de902c7141").
 		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

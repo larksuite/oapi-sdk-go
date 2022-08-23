@@ -21,19 +21,19 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id"
+// GET /open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewGetAppTableRecordReqBuilder().
-		AppToken("").
-		TableId("").
-		RecordId("").
-		TextFieldAsArray(false).
+		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
+		TableId("tblxI2tWaxP5dG7p").
+		RecordId("recn0hoyXL").
+		TextFieldAsArray(true).
 		UserIdType("user_id").
-		DisplayFormulaRef(false).
-		AutomaticFields(false).
+		DisplayFormulaRef(true).
+		AutomaticFields(true).
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.AppTableRecord.Get(context.Background(), req)
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

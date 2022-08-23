@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/agent_skills/:agent_skill_id"
+// DELETE /open-apis/helpdesk/v1/agent_skills/:agent_skill_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewDeleteAgentSkillReqBuilder().
-		AgentSkillId("").
+		AgentSkillId("test-skill-id").
 		Build()
 	// 发起请求
 	resp, err := client.Helpdesk.AgentSkill.Delete(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

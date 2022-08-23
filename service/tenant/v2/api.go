@@ -20,25 +20,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *TenantService {
 	t := &TenantService{config: config}
 	t.Tenant = &tenant{service: t}
 	return t
 }
 
-// 业务域服务定义
 type TenantService struct {
 	config *larkcore.Config
-	Tenant *tenant
+	Tenant *tenant // 企业
 }
 
-// 资源服务定义
 type tenant struct {
 	service *TenantService
 }
 
-// 资源服务方法定义
+// 获取企业信息
+//
+// - 获取企业名称、企业编号等企业信息
+//
+// - 如果ISV应用是企业创建时默认安装，并且180天内企业未打开或使用过此应用，则无法通过此接口获取到企业信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/tenantv2//query_tenant.go
 func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFunc) (*QueryTenantResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{

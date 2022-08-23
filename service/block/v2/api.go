@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *BlockService {
 	b := &BlockService{config: config}
 	b.Entity = &entity{service: b}
@@ -28,14 +27,12 @@ func NewService(config *larkcore.Config) *BlockService {
 	return b
 }
 
-// 业务域服务定义
 type BlockService struct {
 	config  *larkcore.Config
-	Entity  *entity
-	Message *message
+	Entity  *entity  // entity
+	Message *message // message
 }
 
-// 资源服务定义
 type entity struct {
 	service *BlockService
 }
@@ -43,7 +40,13 @@ type message struct {
 	service *BlockService
 }
 
-// 资源服务方法定义
+// 创建 BlockEntity
+//
+// - 开发者可以通过该接口将部分或全部数据存放于 BlockEntity。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//create_entity.go
 func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...larkcore.RequestOptionFunc) (*CreateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -62,6 +65,14 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 	}
 	return resp, err
 }
+
+// 更新BlockEntity
+//
+// - 开发者通过该接口可以更新存储在BlockEntity中的数据，并实时推送到端侧。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//update_entity.go
 func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...larkcore.RequestOptionFunc) (*UpdateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -80,6 +91,14 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	}
 	return resp, err
 }
+
+// Block消息推送
+//
+// - 根据BlockID向指定用户列表推送消息。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//create_message.go
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

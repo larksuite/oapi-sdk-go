@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/approval_infos/process"
+// POST /open-apis/attendance/v1/approval_infos/process
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkattendance.NewProcessApprovalInfoReqBuilder().
 		Body(larkattendance.NewProcessApprovalInfoReqBodyBuilder().
-			ApprovalId("").
+			ApprovalId("6737202939523236113").
 			ApprovalType("remedy").
-			Status(0).
+			Status(4).
 			Build()).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

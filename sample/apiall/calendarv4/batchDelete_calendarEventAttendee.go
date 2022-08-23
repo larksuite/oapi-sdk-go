@@ -21,20 +21,20 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete"
+// POST /open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewBatchDeleteCalendarEventAttendeeReqBuilder().
-		CalendarId("").
-		EventId("").
+		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
+		EventId("xxxxxxxxx_0").
 		UserIdType("user_id").
 		Body(larkcalendar.NewBatchDeleteCalendarEventAttendeeReqBodyBuilder().
 			AttendeeIds([]string{}).
 			DeleteIds([]*larkcalendar.CalendarEventAttendeeId{larkcalendar.NewCalendarEventAttendeeIdBuilder().Build()}).
 			NeedNotification(false).
-			InstanceStartTimeAdmin("").
+			InstanceStartTimeAdmin("1647320400").
 			IsEnableAdmin(false).
 			Build()).
 		Build()
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

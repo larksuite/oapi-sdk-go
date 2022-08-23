@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/medias/:file_token/download"
+// GET /open-apis/drive/v1/medias/:file_token/download
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewDownloadMediaReqBuilder().
-		FileToken("").
-		Extra("").
+		FileToken("boxcnrHpsg1QDqXAAAyachabcef").
+		Extra("[请参考-上传点类型及对应Extra说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)").
 		Build()
 	// 发起请求
 	resp, err := client.Drive.Media.Download(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

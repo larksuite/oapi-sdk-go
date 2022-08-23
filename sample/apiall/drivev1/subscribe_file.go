@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/files/:file_token/subscribe"
+// POST /open-apis/drive/v1/files/:file_token/subscribe
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewSubscribeFileReqBuilder().
-		FileToken("").
+		FileToken("doccnxxxxxxxxxxxxxxxxxxxxxx").
 		FileType("doc").
 		Build()
 	// 发起请求
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

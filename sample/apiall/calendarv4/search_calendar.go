@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/search"
+// POST /open-apis/calendar/v4/calendars/search
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewSearchCalendarReqBuilder().
-		PageToken("").
+		PageToken("10").
 		PageSize(20).
 		Body(larkcalendar.NewSearchCalendarReqBodyBuilder().
-			Query("").
+			Query("query words").
 			Build()).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

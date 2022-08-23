@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/user_task_remedys/query_user_allowed_remedys"
+// POST /open-apis/attendance/v1/user_task_remedys/query_user_allowed_remedys
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,7 +29,7 @@ func main() {
 	req := larkattendance.NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewQueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder().
-			UserId("").
+			UserId("abd754f7").
 			RemedyDate(20210104).
 			Build()).
 		Build()
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

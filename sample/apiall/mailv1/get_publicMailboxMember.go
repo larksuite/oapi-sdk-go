@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
-// HTTP PATH: /open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id"
+// GET /open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkmail.NewGetPublicMailboxMemberReqBuilder().
-		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
+		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
 		MemberId("xxxxxxxxxxxxxxx").
 		UserIdType("user_id").
 		Build()
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

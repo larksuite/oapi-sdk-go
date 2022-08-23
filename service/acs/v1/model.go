@@ -29,38 +29,68 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUserGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUserGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUserGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUserListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUserListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUserListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUserPatchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUserPatchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUserPatchOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUserFaceGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUserFaceGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUserFaceGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUserFaceUpdateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUserFaceUpdateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUserFaceUpdateOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AccessRecord struct {
-	AccessRecordId *string `json:"access_record_id,omitempty"`
-	UserId         *string `json:"user_id,omitempty"`
-	DeviceId       *string `json:"device_id,omitempty"`
-	IsClockIn      *bool   `json:"is_clock_in,omitempty"`
-	AccessTime     *string `json:"access_time,omitempty"`
-	AccessType     *string `json:"access_type,omitempty"`
-	AccessData     *string `json:"access_data,omitempty"`
-	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
+	AccessRecordId *string `json:"access_record_id,omitempty"` // 门禁记录 ID
+	UserId         *string `json:"user_id,omitempty"`          // 门禁记录所属用户 ID
+	DeviceId       *string `json:"device_id,omitempty"`        // 门禁设备 ID
+	IsClockIn      *bool   `json:"is_clock_in,omitempty"`      // 是否是打卡
+	AccessTime     *string `json:"access_time,omitempty"`      // 访问时间，单位秒
+	AccessType     *string `json:"access_type,omitempty"`      // 识别方式
+	AccessData     *string `json:"access_data,omitempty"`      // 识别相关数据，根据 access_type 不同，取值不同
+	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`     // 是否开门
 }
 
 type AccessRecordBuilder struct {
-	accessRecordId     string
+	accessRecordId     string // 门禁记录 ID
 	accessRecordIdFlag bool
-	userId             string
+	userId             string // 门禁记录所属用户 ID
 	userIdFlag         bool
-	deviceId           string
+	deviceId           string // 门禁设备 ID
 	deviceIdFlag       bool
-	isClockIn          bool
+	isClockIn          bool // 是否是打卡
 	isClockInFlag      bool
-	accessTime         string
+	accessTime         string // 访问时间，单位秒
 	accessTimeFlag     bool
-	accessType         string
+	accessType         string // 识别方式
 	accessTypeFlag     bool
-	accessData         string
+	accessData         string // 识别相关数据，根据 access_type 不同，取值不同
 	accessDataFlag     bool
-	isDoorOpen         bool
+	isDoorOpen         bool // 是否开门
 	isDoorOpenFlag     bool
 }
 
@@ -69,41 +99,64 @@ func NewAccessRecordBuilder() *AccessRecordBuilder {
 	return builder
 }
 
+// 门禁记录 ID
+// 示例值：6939433228970082591
 func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *AccessRecordBuilder {
 	builder.accessRecordId = accessRecordId
 	builder.accessRecordIdFlag = true
 	return builder
 }
+
+// 门禁记录所属用户 ID
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+// 门禁设备 ID
+// 示例值：6939433228970082593
 func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuilder {
 	builder.deviceId = deviceId
 	builder.deviceIdFlag = true
 	return builder
 }
+
+// 是否是打卡
+// 示例值：true
 func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder {
 	builder.isClockIn = isClockIn
 	builder.isClockInFlag = true
 	return builder
 }
+
+// 访问时间，单位秒
+// 示例值：1624520221
 func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordBuilder {
 	builder.accessTime = accessTime
 	builder.accessTimeFlag = true
 	return builder
 }
+
+// 识别方式
+// 示例值：FA
 func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder {
 	builder.accessType = accessType
 	builder.accessTypeFlag = true
 	return builder
 }
+
+// 识别相关数据，根据 access_type 不同，取值不同
+// 示例值：{\"has_access_photo\":true}
 func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder {
 	builder.accessData = accessData
 	builder.accessDataFlag = true
 	return builder
 }
+
+// 是否开门
+// 示例值：true
 func (builder *AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder {
 	builder.isDoorOpen = isDoorOpen
 	builder.isDoorOpenFlag = true
@@ -148,17 +201,17 @@ func (builder *AccessRecordBuilder) Build() *AccessRecord {
 }
 
 type Device struct {
-	DeviceId   *string `json:"device_id,omitempty"`
-	DeviceName *string `json:"device_name,omitempty"`
-	DeviceSn   *string `json:"device_sn,omitempty"`
+	DeviceId   *string `json:"device_id,omitempty"`   // 门禁设备 ID
+	DeviceName *string `json:"device_name,omitempty"` // 设备名称
+	DeviceSn   *string `json:"device_sn,omitempty"`   // 设备 SN 码
 }
 
 type DeviceBuilder struct {
-	deviceId       string
+	deviceId       string // 门禁设备 ID
 	deviceIdFlag   bool
-	deviceName     string
+	deviceName     string // 设备名称
 	deviceNameFlag bool
-	deviceSn       string
+	deviceSn       string // 设备 SN 码
 	deviceSnFlag   bool
 }
 
@@ -167,16 +220,24 @@ func NewDeviceBuilder() *DeviceBuilder {
 	return builder
 }
 
+// 门禁设备 ID
+// 示例值：6939433228970082593
 func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 	builder.deviceId = deviceId
 	builder.deviceIdFlag = true
 	return builder
 }
+
+// 设备名称
+// 示例值：东门
 func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
 	builder.deviceName = deviceName
 	builder.deviceNameFlag = true
 	return builder
 }
+
+// 设备 SN 码
+// 示例值：3X811621174000240
 func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
 	builder.deviceSn = deviceSn
 	builder.deviceSnFlag = true
@@ -201,14 +262,14 @@ func (builder *DeviceBuilder) Build() *Device {
 }
 
 type Feature struct {
-	Card         *int  `json:"card,omitempty"`
-	FaceUploaded *bool `json:"face_uploaded,omitempty"`
+	Card         *int  `json:"card,omitempty"`          // 卡号
+	FaceUploaded *bool `json:"face_uploaded,omitempty"` // 是否已上传人脸图片
 }
 
 type FeatureBuilder struct {
-	card             int
+	card             int // 卡号
 	cardFlag         bool
-	faceUploaded     bool
+	faceUploaded     bool // 是否已上传人脸图片
 	faceUploadedFlag bool
 }
 
@@ -217,11 +278,16 @@ func NewFeatureBuilder() *FeatureBuilder {
 	return builder
 }
 
+// 卡号
+// 示例值：123456
 func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
 	builder.card = card
 	builder.cardFlag = true
 	return builder
 }
+
+// 是否已上传人脸图片
+// 示例值：true
 func (builder *FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder {
 	builder.faceUploaded = faceUploaded
 	builder.faceUploadedFlag = true
@@ -242,17 +308,17 @@ func (builder *FeatureBuilder) Build() *Feature {
 }
 
 type File struct {
-	Files    io.Reader `json:"files,omitempty"`
-	FileType *string   `json:"file_type,omitempty"`
-	FileName *string   `json:"file_name,omitempty"`
+	Files    io.Reader `json:"files,omitempty"`     // 人脸图片内容
+	FileType *string   `json:"file_type,omitempty"` // 文件类型,可选的类型有jpg,png
+	FileName *string   `json:"file_name,omitempty"` // 带后缀的文件名
 }
 
 type FileBuilder struct {
-	files        io.Reader
+	files        io.Reader // 人脸图片内容
 	filesFlag    bool
-	fileType     string
+	fileType     string // 文件类型,可选的类型有jpg,png
 	fileTypeFlag bool
-	fileName     string
+	fileName     string // 带后缀的文件名
 	fileNameFlag bool
 }
 
@@ -261,16 +327,24 @@ func NewFileBuilder() *FileBuilder {
 	return builder
 }
 
+// 人脸图片内容
+// 示例值：jpg图片
 func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 	builder.files = files
 	builder.filesFlag = true
 	return builder
 }
+
+// 文件类型,可选的类型有jpg,png
+// 示例值：jpg
 func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
 	builder.fileType = fileType
 	builder.fileTypeFlag = true
 	return builder
 }
+
+// 带后缀的文件名
+// 示例值：efeqz12f.jpg
 func (builder *FileBuilder) FileName(fileName string) *FileBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -294,14 +368,14 @@ func (builder *FileBuilder) Build() *File {
 }
 
 type User struct {
-	Feature *Feature `json:"feature,omitempty"`
-	UserId  *string  `json:"user_id,omitempty"`
+	Feature *Feature `json:"feature,omitempty"` // 用户特征
+	UserId  *string  `json:"user_id,omitempty"` // 用户 ID
 }
 
 type UserBuilder struct {
-	feature     *Feature
+	feature     *Feature // 用户特征
 	featureFlag bool
-	userId      string
+	userId      string // 用户 ID
 	userIdFlag  bool
 }
 
@@ -310,11 +384,16 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
+// 用户特征
+// 示例值：
 func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
 	builder.feature = feature
 	builder.featureFlag = true
 	return builder
 }
+
+// 用户 ID
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -334,17 +413,17 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type UserId struct {
-	UserId  *string `json:"user_id,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
 }
 
 type UserIdBuilder struct {
-	userId      string
+	userId      string //
 	userIdFlag  bool
-	openId      string
+	openId      string //
 	openIdFlag  bool
-	unionId     string
+	unionId     string //
 	unionIdFlag bool
 }
 
@@ -353,16 +432,24 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
@@ -388,7 +475,7 @@ func (builder *UserIdBuilder) Build() *UserId {
 
 type ListAccessRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListAccessRecordReqBuilder() *ListAccessRecordReqBuilder {
@@ -400,30 +487,55 @@ func NewListAccessRecordReqBuilder() *ListAccessRecordReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListAccessRecordReqBuilder) Limit(limit int) *ListAccessRecordReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：100
 func (builder *ListAccessRecordReqBuilder) PageSize(pageSize int) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 func (builder *ListAccessRecordReqBuilder) PageToken(pageToken string) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 记录开始时间，单位秒
+//
+// 示例值：1624520521
 func (builder *ListAccessRecordReqBuilder) From(from int) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("from", fmt.Sprint(from))
 	return builder
 }
+
+// 记录结束时间，单位秒，;时间跨度不能超过30天
+//
+// 示例值：1624520521
 func (builder *ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("to", fmt.Sprint(to))
 	return builder
 }
+
+// 门禁设备 ID
+//
+// 示例值：7091146989218002577
 func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId string) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("device_id", fmt.Sprint(deviceId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -439,19 +551,20 @@ func (builder *ListAccessRecordReqBuilder) Build() *ListAccessRecordReq {
 
 type ListAccessRecordReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListAccessRecordRespData struct {
-	Items     []*AccessRecord `json:"items,omitempty"`
-	PageToken *string         `json:"page_token,omitempty"`
-	HasMore   *bool           `json:"has_more,omitempty"`
+	Items     []*AccessRecord `json:"items,omitempty"`      // -
+	PageToken *string         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListAccessRecordResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListAccessRecordRespData `json:"data"`
+	Data *ListAccessRecordRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListAccessRecordResp) Success() bool {
@@ -471,6 +584,9 @@ func NewGetAccessRecordAccessPhotoReqBuilder() *GetAccessRecordAccessPhotoReqBui
 	return builder
 }
 
+// 门禁访问记录 ID
+//
+// 示例值：6939433228970082591
 func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId string) *GetAccessRecordAccessPhotoReqBuilder {
 	builder.apiReq.PathParams.Set("access_record_id", fmt.Sprint(accessRecordId))
 	return builder
@@ -512,13 +628,13 @@ func (resp *GetAccessRecordAccessPhotoResp) WriteFile(fileName string) error {
 }
 
 type ListDeviceRespData struct {
-	Items []*Device `json:"items,omitempty"`
+	Items []*Device `json:"items,omitempty"` // -
 }
 
 type ListDeviceResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListDeviceRespData `json:"data"`
+	Data *ListDeviceRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListDeviceResp) Success() bool {
@@ -538,10 +654,17 @@ func NewGetUserReqBuilder() *GetUserReqBuilder {
 	return builder
 }
 
+// 用户 ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -560,13 +683,13 @@ type GetUserReq struct {
 }
 
 type GetUserRespData struct {
-	User *User `json:"user,omitempty"`
+	User *User `json:"user,omitempty"` // 门禁用户信息
 }
 
 type GetUserResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetUserRespData `json:"data"`
+	Data *GetUserRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetUserResp) Success() bool {
@@ -575,7 +698,7 @@ func (resp *GetUserResp) Success() bool {
 
 type ListUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListUserReqBuilder() *ListUserReqBuilder {
@@ -587,18 +710,31 @@ func NewListUserReqBuilder() *ListUserReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListUserReqBuilder) Limit(limit int) *ListUserReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：10
 func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -614,19 +750,20 @@ func (builder *ListUserReqBuilder) Build() *ListUserReq {
 
 type ListUserReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListUserRespData struct {
-	Items     []*User `json:"items,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	HasMore   *bool   `json:"has_more,omitempty"`
+	Items     []*User `json:"items,omitempty"`      // -
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListUserResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListUserRespData `json:"data"`
+	Data *ListUserRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListUserResp) Success() bool {
@@ -647,14 +784,23 @@ func NewPatchUserReqBuilder() *PatchUserReqBuilder {
 	return builder
 }
 
+// 用户 ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *PatchUserReqBuilder) UserIdType(userIdType string) *PatchUserReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 飞书智能门禁在人脸识别成功后会有韦根信号输出，输出用户的卡号。;对于使用韦根协议的门禁系统，企业可使用该接口录入用户卡号。
 func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
 	builder.user = user
 	return builder
@@ -696,14 +842,25 @@ func NewGetUserFaceReqBuilder() *GetUserFaceReqBuilder {
 	return builder
 }
 
+// 用户 ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *GetUserFaceReqBuilder) UserId(userId string) *GetUserFaceReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
+
+// 裁剪图
+//
+// 示例值：true
 func (builder *GetUserFaceReqBuilder) IsCropped(isCropped bool) *GetUserFaceReqBuilder {
 	builder.apiReq.QueryParams.Set("is_cropped", fmt.Sprint(isCropped))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFaceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -759,14 +916,23 @@ func NewUpdateUserFaceReqBuilder() *UpdateUserFaceReqBuilder {
 	return builder
 }
 
+// 用户 ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *UpdateUserFaceReqBuilder) UserIdType(userIdType string) *UpdateUserFaceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 用户需要录入人脸图片才可以使用门禁考勤机。使用该 API 上传门禁用户的人脸图片。
 func (builder *UpdateUserFaceReqBuilder) File(file *File) *UpdateUserFaceReqBuilder {
 	builder.file = file
 	return builder
@@ -796,18 +962,18 @@ func (resp *UpdateUserFaceResp) Success() bool {
 }
 
 type P2AccessRecordCreatedV1Data struct {
-	AccessRecordId *string `json:"access_record_id,omitempty"`
-	UserId         *UserId `json:"user_id,omitempty"`
-	DeviceId       *string `json:"device_id,omitempty"`
-	IsClockIn      *bool   `json:"is_clock_in,omitempty"`
-	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
-	AccessTime     *string `json:"access_time,omitempty"`
+	AccessRecordId *string `json:"access_record_id,omitempty"` // 门禁记录 ID
+	UserId         *UserId `json:"user_id,omitempty"`          // 用户 ID
+	DeviceId       *string `json:"device_id,omitempty"`        // 设备 ID
+	IsClockIn      *bool   `json:"is_clock_in,omitempty"`      // 是否打卡
+	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`     // 是否开门
+	AccessTime     *string `json:"access_time,omitempty"`      // 识别时间 （单位：秒）
 }
 
 type P2AccessRecordCreatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2AccessRecordCreatedV1Data `json:"event"`
+	*larkevent.EventV2Base                              // 事件基础数据
+	*larkevent.EventReq                                 // 请求原生数据
+	Event                  *P2AccessRecordCreatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2AccessRecordCreatedV1) RawReq(req *larkevent.EventReq) {
@@ -815,15 +981,15 @@ func (m *P2AccessRecordCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2UserUpdatedV1Data struct {
-	UserId       *UserId `json:"user_id,omitempty"`
-	Card         *int    `json:"card,omitempty"`
-	FaceUploaded *bool   `json:"face_uploaded,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`       // 用户 ID
+	Card         *int    `json:"card,omitempty"`          // 卡号
+	FaceUploaded *bool   `json:"face_uploaded,omitempty"` // 是否上传人脸图片
 }
 
 type P2UserUpdatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2UserUpdatedV1Data `json:"event"`
+	*larkevent.EventV2Base                      // 事件基础数据
+	*larkevent.EventReq                         // 请求原生数据
+	Event                  *P2UserUpdatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2UserUpdatedV1) RawReq(req *larkevent.EventReq) {

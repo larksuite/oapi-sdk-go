@@ -25,19 +25,19 @@ func (m *P1OrderPaidV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P1OrderPaidV6Data struct {
-	Type          string `json:"type,omitempty"`
-	AppID         string `json:"app_id,omitempty"`
-	OrderID       string `json:"order_id,omitempty"`
-	PricePlanID   string `json:"price_plan_id,omitempty"`
-	PricePlanType string `json:"price_plan_type,omitempty"`
-	BuyCount      int64  `json:"buy_count,omitempty"`
-	Seats         int64  `json:"seats,omitempty"`
-	CreateTime    string `json:"create_time,omitempty"`
-	PayTime       string `json:"pay_time,omitempty"`
-	BuyType       string `json:"buy_type,omitempty"`
-	SrcOrderID    string `json:"src_order_id,omitempty"`
-	OrderPayPrice int64  `json:"order_pay_price,omitempty"`
-	TenantKey     string `json:"tenant_key,omitempty"`
+	Type          string `json:"type,omitempty"`            // 事件类型
+	AppID         string `json:"app_id,omitempty"`          // APP ID
+	OrderID       string `json:"order_id,omitempty"`        // 用户购买付费方案时对订单ID 可作为唯一标识
+	PricePlanID   string `json:"price_plan_id,omitempty"`   // 付费方案ID
+	PricePlanType string `json:"price_plan_type,omitempty"` // 用户购买方案类型 "trial" -试用；"permanent"-免费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费
+	BuyCount      int64  `json:"buy_count,omitempty"`       // 套餐购买数量 目前都为1
+	Seats         int64  `json:"seats,omitempty"`           // 表示购买了多少人份
+	CreateTime    string `json:"create_time,omitempty"`     //
+	PayTime       string `json:"pay_time,omitempty"`        //
+	BuyType       string `json:"buy_type,omitempty"`        // 购买类型 buy普通购买 upgrade为升级购买 renew为续费购买
+	SrcOrderID    string `json:"src_order_id,omitempty"`    // 当前为升级购买时(buy_type 为upgrade)，该字段表示原订单ID，升级后原订单失效，状态变为已升级(业务方需要处理)
+	OrderPayPrice int64  `json:"order_pay_price,omitempty"` // 订单支付价格 单位分，
+	TenantKey     string `json:"tenant_key,omitempty"`      // 企业标识
 }
 
 type P1AppUninstalledV6 struct {
@@ -47,9 +47,9 @@ type P1AppUninstalledV6 struct {
 }
 
 type P1AppUninstalledV6Data struct {
-	AppID     string `json:"app_id,omitempty"`
-	TenantKey string `json:"tenant_key,omitempty"`
-	Type      string `json:"type,omitempty"`
+	AppID     string `json:"app_id,omitempty"`     // APP ID
+	TenantKey string `json:"tenant_key,omitempty"` // 企业标识
+	Type      string `json:"type,omitempty"`       // 事件类型
 }
 
 func (m *P1AppUninstalledV6) RawReq(req *larkevent.EventReq) {
@@ -67,24 +67,24 @@ func (m *P1AppOpenV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P1AppOpenApplicantV6 struct {
-	OpenID string `json:"open_id,omitempty"`
+	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同
 }
 
 type P1AppOpenInstallerV6 struct {
-	OpenID string `json:"open_id,omitempty"`
+	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同
 }
 
 type P1AppOpenInstallerEmployeeV6 struct {
-	OpenID string `json:"open_id,omitempty"`
+	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同
 }
 
 type P1AppOpenV6Data struct {
-	AppID             string                        `json:"app_id,omitempty"`
-	TenantKey         string                        `json:"tenant_key,omitempty"`
-	Type              string                        `json:"type,omitempty"`
-	Applicants        []*P1AppOpenApplicantV6       `json:"applicants,omitempty"`
-	Installer         *P1AppOpenInstallerV6         `json:"installer,omitempty"`
-	InstallerEmployee *P1AppOpenInstallerEmployeeV6 `json:"installer_employee,omitempty"`
+	AppID             string                        `json:"app_id,omitempty"`             // App ID
+	TenantKey         string                        `json:"tenant_key,omitempty"`         // 企业标识
+	Type              string                        `json:"type,omitempty"`               // 事件类型
+	Applicants        []*P1AppOpenApplicantV6       `json:"applicants,omitempty"`         // 应用的申请者，可能有多个
+	Installer         *P1AppOpenInstallerV6         `json:"installer,omitempty"`          // 当应用被管理员安装时，返回此字段。如果是自动安装或由普通成员获取时，没有此字段
+	InstallerEmployee *P1AppOpenInstallerEmployeeV6 `json:"installer_employee,omitempty"` // 当应用被普通成员安装时，返回此字段
 }
 
 type P1AppStatusChangedV6 struct {
@@ -98,15 +98,15 @@ func (m *P1AppStatusChangedV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P1AppStatusChangedV6Data struct {
-	AppID     string                       `json:"app_id,omitempty"`
-	TenantKey string                       `json:"tenant_key,omitempty"`
-	Type      string                       `json:"type,omitempty"`
-	Status    string                       `json:"status,omitempty"`
-	Operator  *P1AppStatusChangeOperatorV6 `json:"operator,omitempty"`
+	AppID     string                       `json:"app_id,omitempty"`     // App ID
+	TenantKey string                       `json:"tenant_key,omitempty"` // 企业标识
+	Type      string                       `json:"type,omitempty"`       // 事件类型
+	Status    string                       `json:"status,omitempty"`     //应用状态 start_by_tenant: 租户启用; stop_by_tenant: 租户停用; stop_by_platform: 平台停用
+	Operator  *P1AppStatusChangeOperatorV6 `json:"operator,omitempty"`   // 仅status=start_by_tenant时有此字段
 }
 
 type P1AppStatusChangeOperatorV6 struct {
-	OpenID  string `json:"open_id,omitempty"`
-	UserID  string `json:"user_id,omitempty"`
-	UnionId string `json:"union_id,omitempty"`
+	OpenID  string `json:"open_id,omitempty"`  // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同
+	UserID  string `json:"user_id,omitempty"`  // 仅自建应用才会返回
+	UnionId string `json:"union_id,omitempty"` // 用户在ISV下的唯一标识
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/:chat_id/top_notice/put_top_notice"
+// POST /open-apis/im/v1/chats/:chat_id/top_notice/put_top_notice
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkim.NewPutTopNoticeChatTopNoticeReqBuilder().
-		ChatId("").
+		ChatId("oc_5ad11d72b830411d72b836c20").
 		Body(larkim.NewPutTopNoticeChatTopNoticeReqBodyBuilder().
 			ChatTopNotice([]*larkim.ChatTopNotice{larkim.NewChatTopNoticeBuilder().Build()}).
 			Build()).
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

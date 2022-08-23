@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/faqs/:id/image/:image_key"
+// GET /open-apis/helpdesk/v1/faqs/:id/image/:image_key
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewFaqImageFaqReqBuilder().
-		Id("").
-		ImageKey("").
+		Id("12345").
+		ImageKey("img_b07ffac0-19c1-48a3-afca-599f8ea825fj").
 		Build()
 	// 发起请求
 	resp, err := client.Helpdesk.Faq.FaqImage(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

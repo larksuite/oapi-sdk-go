@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/instances/cancel"
+// POST /open-apis/approval/v4/instances/cancel
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -32,7 +32,6 @@ func main() {
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			InstanceCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
 			UserId("f7cb567e").
-			NotifyStarter(true).
 			Build()).
 		Build()
 	// 发起请求
@@ -50,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

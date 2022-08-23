@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks"
+// POST /open-apis/task/v1/tasks
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -36,8 +36,11 @@ func main() {
 			Origin(larktask.NewOriginBuilder().Build()).
 			CanEdit(false).
 			Custom("").
-			Followers([]*larktask.Follower{larktask.NewFollowerBuilder().Build()}).
-			Collaborators([]*larktask.Collaborator{larktask.NewCollaboratorBuilder().Build()}).
+			CollaboratorIds([]string{}).
+			FollowerIds([]string{}).
+			RepeatRule("FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR").
+			RichSummary("每天喝八杯水，保持身心愉悦[飞书开放平台](https://open.feishu.cn/)").
+			RichDescription("多吃水果，多运动，健康生活，快乐工作。[飞书开放平台](https://open.feishu.cn/)").
 			Build()).
 		Build()
 	// 发起请求
@@ -55,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

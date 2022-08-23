@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id"
+// DELETE /open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewDeleteFileCommentReplyReqBuilder().
-		FileToken("").
-		CommentId("").
-		ReplyId("").
+		FileToken("doccnHh7U87HOFpii5u5G*****").
+		CommentId("6916106822734578184").
+		ReplyId("6916106822734594568").
 		FileType("doc").
 		Build()
 	// 发起请求
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

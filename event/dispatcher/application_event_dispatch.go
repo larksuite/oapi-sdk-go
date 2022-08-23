@@ -18,6 +18,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
+// 应用创建
+//
+// - 当企业内有新的应用被创建时推送此事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/events/created
 func (dispatcher *EventDispatcher) OnP2ApplicationCreatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationCreatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.created_v6"]
 	if existed {
@@ -26,6 +31,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationCreatedV6(handler func(ctx con
 	dispatcher.eventType2EventHandler["application.application.created_v6"] = larkapplication.NewP2ApplicationCreatedV6Handler(handler)
 	return dispatcher
 }
+
+// 应用审核
+//
+// - 通过订阅该事件，可接收应用审核（通过 / 拒绝）事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/audit
 func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionAuditV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionAuditV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"]
 	if existed {
@@ -34,6 +45,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionAuditV6(handler func
 	dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"] = larkapplication.NewP2ApplicationAppVersionAuditV6Handler(handler)
 	return dispatcher
 }
+
+// 申请发布应用
+//
+// - 通过订阅该事件，可接收应用提交发布申请事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/publish_apply
 func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishApplyV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionPublishApplyV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"]
 	if existed {
@@ -42,6 +59,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishApplyV6(handl
 	dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"] = larkapplication.NewP2ApplicationAppVersionPublishApplyV6Handler(handler)
 	return dispatcher
 }
+
+// 撤回应用发布申请
+//
+// - 通过订阅该事件，可接收应用撤回发布申请事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/publish_revoke
 func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishRevokeV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionPublishRevokeV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"]
 	if existed {
@@ -50,6 +73,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishRevokeV6(hand
 	dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"] = larkapplication.NewP2ApplicationAppVersionPublishRevokeV6Handler(handler)
 	return dispatcher
 }
+
+// 新增应用反馈
+//
+// - 当应用收到新反馈时，触发该事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/created
 func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackCreatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationFeedbackCreatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.feedback.created_v6"]
 	if existed {
@@ -58,6 +87,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackCreatedV6(handler func
 	dispatcher.eventType2EventHandler["application.application.feedback.created_v6"] = larkapplication.NewP2ApplicationFeedbackCreatedV6Handler(handler)
 	return dispatcher
 }
+
+// 反馈更新
+//
+// - 当反馈的处理状态被更新时，触发该事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/updated
 func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackUpdatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationFeedbackUpdatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"]
 	if existed {
@@ -66,6 +101,12 @@ func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackUpdatedV6(handler func
 	dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"] = larkapplication.NewP2ApplicationFeedbackUpdatedV6Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-availability-scope-extended
 func (dispatcher *EventDispatcher) OnP2ApplicationVisibilityAddedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationVisibilityAddedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.visibility.added_v6"]
 	if existed {

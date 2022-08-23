@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-// HTTP PATH: /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id"
+// DELETE /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksheets.NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder().
-		SpreadsheetToken("").
-		SheetId("").
-		FilterViewId("").
-		ConditionId("").
+		SpreadsheetToken("shtcnmBA*****yGehy8").
+		SheetId("0b**12").
+		FilterViewId("pH9hbVcCXA").
+		ConditionId("E").
 		Build()
 	// 发起请求
 	resp, err := client.Sheets.SpreadsheetSheetFilterViewCondition.Delete(context.Background(), req)
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

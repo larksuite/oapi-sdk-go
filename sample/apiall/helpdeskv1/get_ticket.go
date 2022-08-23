@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/tickets/:ticket_id"
+// GET /open-apis/helpdesk/v1/tickets/:ticket_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewGetTicketReqBuilder().
-		TicketId("").
+		TicketId("123456").
 		Build()
 	// 发起请求
 	resp, err := client.Helpdesk.Ticket.Get(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/instances/query"
+// POST /open-apis/approval/v4/instances/query
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkapproval.NewQueryInstanceReqBuilder().
-		PageSize(100).
+		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
 		UserIdType("user_id").
 		InstanceSearch(larkapproval.NewInstanceSearchBuilder().
@@ -58,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

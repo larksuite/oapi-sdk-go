@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create"
+// POST /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewBatchCreateAppRoleMemberReqBuilder().
-		AppToken("").
-		RoleId("").
+		AppToken("bascnnKKvcoUblgmmhZkYqabcef").
+		RoleId("rolNGhPqks").
 		Body(larkbitable.NewBatchCreateAppRoleMemberReqBodyBuilder().
 			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

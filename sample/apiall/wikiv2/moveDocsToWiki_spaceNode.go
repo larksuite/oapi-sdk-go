@@ -21,18 +21,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
-// HTTP PATH: /open-apis/wiki/v2/spaces/:space_id/nodes/move_docs_to_wiki"
+// POST /open-apis/wiki/v2/spaces/:space_id/nodes/move_docs_to_wiki
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewMoveDocsToWikiSpaceNodeReqBuilder().
-		SpaceId("").
+		SpaceId("1565676577122621").
 		Body(larkwiki.NewMoveDocsToWikiSpaceNodeReqBodyBuilder().
-			ParentWikiToken("").
+			ParentWikiToken("wikbcOHIFxB0PJS2UTd2kF2SP6c").
 			ObjType("doc").
-			ObjToken("").
-			Apply(false).
+			ObjToken("docbc6e1qBqt1O5mCBVA1QUKVEg").
+			Apply(true).
 			Build()).
 		Build()
 	// 发起请求
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

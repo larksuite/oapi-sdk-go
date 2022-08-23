@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
-// HTTP PATH: /open-apis/docx/v1/documents/:document_id/raw_content"
+// GET /open-apis/docx/v1/documents/:document_id/raw_content
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

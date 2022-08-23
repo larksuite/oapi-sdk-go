@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 )
 
-// HTTP PATH: /open-apis/ehr/v1/attachments/:token"
+// GET /open-apis/ehr/v1/attachments/:token
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkehr.NewGetAttachmentReqBuilder().
-		Token("").
+		Token("09bf7b924f9a4a69875788891b5970d8").
 		Build()
 	// 发起请求
 	resp, err := client.Ehr.Attachment.Get(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

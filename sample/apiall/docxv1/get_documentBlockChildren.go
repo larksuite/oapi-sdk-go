@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
-// HTTP PATH: /open-apis/docx/v1/documents/:document_id/blocks/:block_id/children"
+// GET /open-apis/docx/v1/documents/:document_id/blocks/:block_id/children
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,7 @@ func main() {
 		DocumentId("doxcnePuYufKa49ISjhD8Ih0ikh").
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
 		DocumentRevisionId(-1).
-		PageToken("").
+		PageToken("aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo").
 		PageSize(500).
 		UserIdType("user_id").
 		Build()
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

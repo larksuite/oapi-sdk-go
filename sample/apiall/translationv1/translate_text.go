@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/translation/v1"
 )
 
-// HTTP PATH: /open-apis/translation/v1/text/translate"
+// POST /open-apis/translation/v1/text/translate
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larktranslation.NewTranslateTextReqBuilder().
 		Body(larktranslation.NewTranslateTextReqBodyBuilder().
-			SourceLanguage("").
-			Text("").
-			TargetLanguage("").
+			SourceLanguage("zh").
+			Text("尝试使用一下飞书吧").
+			TargetLanguage("en").
 			Glossary([]*larktranslation.Term{larktranslation.NewTermBuilder().Build()}).
 			Build()).
 		Build()
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

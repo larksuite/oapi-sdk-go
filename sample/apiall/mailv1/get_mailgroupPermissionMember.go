@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
-// HTTP PATH: /open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id"
+// GET /open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkmail.NewGetMailgroupPermissionMemberReqBuilder().
-		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
+		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		PermissionMemberId("xxxxxxxxxxxxxxx").
 		UserIdType("user_id").
-		DepartmentIdType("department_id").
+		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Mail.MailgroupPermissionMember.Get(context.Background(), req)
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

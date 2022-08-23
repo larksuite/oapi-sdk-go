@@ -21,19 +21,19 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
-// HTTP PATH: /open-apis/search/v2/data_sources/:data_source_id"
+// PATCH /open-apis/search/v2/data_sources/:data_source_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksearch.NewPatchDataSourceReqBuilder().
-		DataSourceId("数据源").
+		DataSourceId("service_ticket").
 		Body(larksearch.NewPatchDataSourceReqBodyBuilder().
-			Name("").
+			Name("客服工单").
 			State(0).
-			Description("").
-			IconUrl("").
-			I18nName(larksearch.NewItemMetadataBuilder().Build()).
+			Description("搜索客服工单").
+			IconUrl("https://www.xxx.com/open.jpg").
+			I18nName(larksearch.NewI18nMetaBuilder().Build()).
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			Build()).
 		Build()
@@ -52,6 +52,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

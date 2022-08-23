@@ -21,23 +21,23 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/users/:user_id"
+// DELETE /open-apis/contact/v3/users/:user_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewDeleteUserReqBuilder().
-		UserId("").
+		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("open_id").
 		Body(larkcontact.NewDeleteUserReqBodyBuilder().
-			DepartmentChatAcceptorUserId("").
-			ExternalChatAcceptorUserId("").
-			DocsAcceptorUserId("").
-			CalendarAcceptorUserId("").
-			ApplicationAcceptorUserId("").
-			HelpdeskAcceptorUserId("").
-			MinutesAcceptorUserId("").
-			SurveyAcceptorUserId("").
+			DepartmentChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			ExternalChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			DocsAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			CalendarAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			ApplicationAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			HelpdeskAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			MinutesAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			SurveyAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			EmailAcceptor(larkcontact.NewResourceAcceptorBuilder().Build()).
 			Build()).
 		Build()
@@ -56,6 +56,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

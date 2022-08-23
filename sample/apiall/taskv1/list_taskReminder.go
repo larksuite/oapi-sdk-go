@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks/:task_id/reminders"
+// GET /open-apis/task/v1/tasks/:task_id/reminders
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,7 +29,7 @@ func main() {
 	req := larktask.NewListTaskReminderReqBuilder().
 		TaskId("0d38e26e-190a-49e9-93a2-35067763ed1f").
 		PageSize(50).
-		PageToken("").
+		PageToken("「填写上次返回的page_token」").
 		Build()
 	// 发起请求
 	resp, err := client.Task.TaskReminder.List(context.Background(), req)
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-// HTTP PATH: /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id"
+// GET /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksheets.NewGetSpreadsheetSheetFloatImageReqBuilder().
-		SpreadsheetToken("").
-		SheetId("").
-		FloatImageId("").
+		SpreadsheetToken("shtcnmBA*****yGehy8").
+		SheetId("0b**12").
+		FloatImageId("ye06SS14ph").
 		Build()
 	// 发起请求
 	resp, err := client.Sheets.SpreadsheetSheetFloatImage.Get(context.Background(), req)
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id"
+// GET /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

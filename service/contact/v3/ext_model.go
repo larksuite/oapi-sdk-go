@@ -15,12 +15,12 @@ package larkcontact
 import larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
 
 type P1UserChangedV3Data struct {
-	Type       string `json:"type"`
-	AppID      string `json:"app_id"`
-	TenantKey  string `json:"tenant_key"`
-	OpenID     string `json:"open_id,omitempty"`
-	EmployeeId string `json:"employee_id"`
-	UnionId    string `json:"union_id,omitempty"`
+	Type       string `json:"type"`               // 事件类型
+	AppID      string `json:"app_id"`             // 应用ID
+	TenantKey  string `json:"tenant_key"`         // 企业标识
+	OpenID     string `json:"open_id,omitempty"`  // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
+	EmployeeId string `json:"employee_id"`        // 即“用户ID”，仅企业自建应用会返回
+	UnionId    string `json:"union_id,omitempty"` // 员工对此ISV的唯一标识，同一员工对同一个ISV名下所有应用的union_id相同
 }
 
 type P1UserChangedV3 struct {
@@ -34,20 +34,20 @@ func (m *P1UserChangedV3) RawReq(req *larkevent.EventReq) {
 }
 
 type P1UserStatusV3 struct {
-	IsActive   bool `json:"is_active"`
-	IsFrozen   bool `json:"is_frozen"`
-	IsResigned bool `json:"is_resigned"`
+	IsActive   bool `json:"is_active"`   // 账号是否已激活
+	IsFrozen   bool `json:"is_frozen"`   // 账号是否冻结
+	IsResigned bool `json:"is_resigned"` // 是否离职
 }
 type P1UserStatusChangedV3Data struct {
-	Type          string          `json:"type"`
-	AppID         string          `json:"app_id"`
-	TenantKey     string          `json:"tenant_key"`
-	OpenID        string          `json:"open_id,omitempty"`
-	EmployeeId    string          `json:"employee_id"`
-	UnionId       string          `json:"union_id,omitempty"`
-	BeforeStatus  *P1UserStatusV3 `json:"before_status"`
-	CurrentStatus *P1UserStatusV3 `json:"current_status"`
-	ChangeTime    string          `json:"change_time"`
+	Type          string          `json:"type"`               // 事件类型
+	AppID         string          `json:"app_id"`             // 应用ID
+	TenantKey     string          `json:"tenant_key"`         // 企业标识
+	OpenID        string          `json:"open_id,omitempty"`  // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
+	EmployeeId    string          `json:"employee_id"`        // 即“用户ID”，仅企业自建应用会返回
+	UnionId       string          `json:"union_id,omitempty"` // 员工对此ISV的唯一标识，同一员工对同一个ISV名下所有应用的union_id相同
+	BeforeStatus  *P1UserStatusV3 `json:"before_status"`      // 变化前的状态
+	CurrentStatus *P1UserStatusV3 `json:"current_status"`     // 变化后的状态
+	ChangeTime    string          `json:"change_time"`        // 状态更新的时间
 }
 
 type P1UserStatusChangedV3 struct {
@@ -61,11 +61,11 @@ func (m *P1UserStatusChangedV3) RawReq(req *larkevent.EventReq) {
 }
 
 type P1DepartmentChangedV3Data struct {
-	Type             string `json:"type"`
-	AppID            string `json:"app_id"`
-	TenantKey        string `json:"tenant_key"`
-	OpenID           string `json:"open_id,omitempty"`
-	OpenDepartmentId string `json:"open_department_id"`
+	Type             string `json:"type"`               // 事件类型，包括 dept_add, dept_update, dept_delete
+	AppID            string `json:"app_id"`             // 应用ID
+	TenantKey        string `json:"tenant_key"`         // 企业标识
+	OpenID           string `json:"open_id,omitempty"`  // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
+	OpenDepartmentId string `json:"open_department_id"` // 部门的Id，已废弃
 }
 
 type P1DepartmentChangedV3 struct {
@@ -79,9 +79,9 @@ func (m *P1DepartmentChangedV3) RawReq(req *larkevent.EventReq) {
 }
 
 type P1ContactScopeChangedV3Data struct {
-	Type      string `json:"type"`
-	AppID     string `json:"app_id"`
-	TenantKey string `json:"tenant_key"`
+	Type      string `json:"type"`       // 事件类型
+	AppID     string `json:"app_id"`     // 应用ID
+	TenantKey string `json:"tenant_key"` //企业标识
 }
 
 type P1ContactScopeChangedV3 struct {

@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id"
+// PATCH /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewPatchAppTableFormFieldReqBuilder().
-		AppToken("").
-		TableId("").
-		FormId("").
-		FieldId("").
+		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
+		TableId("tblsRc9GRRXKqhvW").
+		FormId("vewTpR1urY").
+		FieldId("fldjX7dUj5").
 		AppTableFormPatchedField(larkbitable.NewAppTableFormPatchedFieldBuilder().
 			PreFieldId("").
 			Title("").
@@ -54,6 +54,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

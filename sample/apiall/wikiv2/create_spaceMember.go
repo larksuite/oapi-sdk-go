@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
-// HTTP PATH: /open-apis/wiki/v2/spaces/:space_id/members"
+// POST /open-apis/wiki/v2/spaces/:space_id/members
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewCreateSpaceMemberReqBuilder().
-		SpaceId("7008061636015554580").
+		SpaceId("1565676577122621").
 		NeedNotification(false).
 		Member(larkwiki.NewMemberBuilder().
 			MemberType("").
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

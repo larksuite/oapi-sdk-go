@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/instances/add_sign"
+// POST /open-apis/approval/v4/instances/add_sign
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

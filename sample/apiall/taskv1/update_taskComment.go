@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks/:task_id/comments/:comment_id"
+// PUT /open-apis/task/v1/tasks/:task_id/comments/:comment_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,8 @@ func main() {
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		CommentId("6937231762296684564").
 		Body(larktask.NewUpdateTaskCommentReqBodyBuilder().
-			Content("").
+			Content("飞流直下三千尺，疑是银河落九天").
+			RichContent("飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>").
 			Build()).
 		Build()
 	// 发起请求
@@ -48,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

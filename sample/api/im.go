@@ -860,13 +860,13 @@ func main() {
 		lark.WithLogReqAtDebug(true),
 	)
 
-	downFile(feishu_client)
+	//downFile(feishu_client)
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	//sendTextMsg(feishu_client)
+	sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
 	//sendRawImageReq(feishu_client)
 	//sendImageMsg(feishu_client)

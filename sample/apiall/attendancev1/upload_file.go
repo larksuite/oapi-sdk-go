@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/files/upload"
+// POST /open-apis/attendance/v1/files/upload
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -33,7 +33,7 @@ func main() {
 	}
 	// 创建请求对象
 	req := larkattendance.NewUploadFileReqBuilder().
-		FileName("测试视频.mp4").
+		FileName("人脸照片.jpg").
 		Body(larkattendance.NewUploadFileReqBodyBuilder().
 			File(file).
 			Build()).
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

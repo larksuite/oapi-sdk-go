@@ -20,25 +20,28 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *GrayTestOpenSgService {
 	g := &GrayTestOpenSgService{config: config}
 	g.Moto = &moto{service: g}
 	return g
 }
 
-// 业务域服务定义
 type GrayTestOpenSgService struct {
 	config *larkcore.Config
-	Moto   *moto
+	Moto   *moto // moto
 }
 
-// 资源服务定义
 type moto struct {
 	service *GrayTestOpenSgService
 }
 
-// 资源服务方法定义
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer/cli_a24d6887e8b9d00c?from=op_doc_tab&apiName=create&project=gray_test_open_sg&resource=moto&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1//create_moto.go
 func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkcore.RequestOptionFunc) (*CreateMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -57,6 +60,14 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkco
 	}
 	return resp, err
 }
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer/cli_a24d6887e8b9d00c?from=op_doc_tab&apiName=get&project=gray_test_open_sg&resource=moto&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1//get_moto.go
 func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.RequestOptionFunc) (*GetMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -75,6 +86,14 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.Req
 	}
 	return resp, err
 }
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer/cli_a24d6887e8b9d00c?from=op_doc_tab&apiName=list&project=gray_test_open_sg&resource=moto&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1//list_moto.go
 func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

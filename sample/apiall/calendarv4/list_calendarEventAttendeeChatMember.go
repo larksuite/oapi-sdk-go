@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members"
+// GET /open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcalendar.NewListCalendarEventAttendeeChatMemberReqBuilder().
-		CalendarId("").
-		EventId("").
-		AttendeeId("").
-		PageToken("").
+		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
+		EventId("xxxxxxxxx_0").
+		AttendeeId("chat_xxxxxx").
+		PageToken("23jhysaxxxxsysy").
 		PageSize(20).
 		UserIdType("user_id").
 		Build()
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

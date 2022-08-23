@@ -76,3 +76,23 @@ func (h *P2TicketUpdatedV1Handler) Event() interface{} {
 func (h *P2TicketUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TicketUpdatedV1))
 }
+
+// 消息处理器定义
+type P2TicketMessageCreatedV1Handler struct {
+	handler func(context.Context, *P2TicketMessageCreatedV1) error
+}
+
+func NewP2TicketMessageCreatedV1Handler(handler func(context.Context, *P2TicketMessageCreatedV1) error) *P2TicketMessageCreatedV1Handler {
+	h := &P2TicketMessageCreatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2TicketMessageCreatedV1Handler) Event() interface{} {
+	return &P2TicketMessageCreatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2TicketMessageCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2TicketMessageCreatedV1))
+}

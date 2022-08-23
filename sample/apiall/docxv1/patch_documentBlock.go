@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
-// HTTP PATH: /open-apis/docx/v1/documents/:document_id/blocks/:block_id"
+// PATCH /open-apis/docx/v1/documents/:document_id/blocks/:block_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,7 @@ func main() {
 		DocumentId("doxcnePuYufKa49ISjhD8Ih0ikh").
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
 		DocumentRevisionId(-1).
-		ClientToken("").
+		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
 		UserIdType("user_id").
 		UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
 			UpdateTextElements(larkdocx.NewUpdateTextElementsRequestBuilder().Build()).
@@ -65,6 +65,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

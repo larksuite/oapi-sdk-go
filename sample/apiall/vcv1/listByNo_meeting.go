@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// HTTP PATH: /open-apis/vc/v1/meetings/list_by_no"
+// GET /open-apis/vc/v1/meetings/list_by_no
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,7 @@ func main() {
 		MeetingNo("123456789").
 		StartTime("1608888867").
 		EndTime("1608888867").
-		PageToken("").
+		PageToken("5").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

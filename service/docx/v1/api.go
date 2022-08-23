@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *DocxService {
 	d := &DocxService{config: config}
 	d.Document = &document{service: d}
@@ -29,15 +28,13 @@ func NewService(config *larkcore.Config) *DocxService {
 	return d
 }
 
-// 业务域服务定义
 type DocxService struct {
 	config                *larkcore.Config
-	Document              *document
-	DocumentBlock         *documentBlock
-	DocumentBlockChildren *documentBlockChildren
+	Document              *document              // 文档
+	DocumentBlock         *documentBlock         // 块
+	DocumentBlockChildren *documentBlockChildren // 块
 }
 
-// 资源服务定义
 type document struct {
 	service *DocxService
 }
@@ -48,7 +45,15 @@ type documentBlockChildren struct {
 	service *DocxService
 }
 
-// 资源服务方法定义
+// 创建文档
+//
+// - 创建新版文档，文档标题和目录可选。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnyoyCgwS8ywWwMtQr9yjZ2f)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//create_document.go
 func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -67,6 +72,16 @@ func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options .
 	}
 	return resp, err
 }
+
+// 获取文档基本信息
+//
+// - 获取文档最新版本号、标题等
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnWKAE4aSaIU4GcdLInSaVde)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_document.go
 func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...larkcore.RequestOptionFunc) (*GetDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -85,6 +100,16 @@ func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...lark
 	}
 	return resp, err
 }
+
+// 获取文档纯文本内容
+//
+// - 获取文档的纯文本内容。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnQeqI4wiKIMis6GNvCOBuqg)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//rawContent_document.go
 func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...larkcore.RequestOptionFunc) (*RawContentDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -103,6 +128,16 @@ func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, o
 	}
 	return resp, err
 }
+
+// 批量更新块
+//
+// - 批量更新块的富文本内容。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnMiwAKCiE6oQEkPyhvmmQEe)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//batchUpdate_documentBlock.go
 func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -121,6 +156,16 @@ func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumen
 	}
 	return resp, err
 }
+
+// 获取块
+//
+// - 获取指定块的富文本内容。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcnWEMWYAg2YMkEq0SZXHzaih)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_documentBlock.go
 func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -139,6 +184,16 @@ func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, optio
 	}
 	return resp, err
 }
+
+// 获取文档所有块
+//
+// - 获取文档所有块的富文本内容并分页返回。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcn6AkCE2AUUm2WwxID7lS7Xc)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//list_documentBlock.go
 func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*ListDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -165,6 +220,16 @@ func (d *documentBlock) ListByIterator(ctx context.Context, req *ListDocumentBlo
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 更新块
+//
+// - 更新指定的块。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//patch_documentBlock.go
 func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -183,6 +248,16 @@ func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, o
 	}
 	return resp, err
 }
+
+// 删除块
+//
+// - 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的文档版本号。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//batchDelete_documentBlockChildren.go
 func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDeleteDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -201,6 +276,16 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 	}
 	return resp, err
 }
+
+// 创建块
+//
+// - 指定需要操作的块，为其创建一批子块，并插入到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnm0ooUe0s20GwwVB3a05rtb)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//create_documentBlockChildren.go
 func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -219,6 +304,16 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 	}
 	return resp, err
 }
+
+// 获取所有子块
+//
+// - 给定一个指定版本的文档，并指定需要操作的块，分页遍历其所有子块富文本内容 。如果不指定版本，则会默认查询最新版本。
+//
+// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnE2UK2yY0gEGK8nBMPtB0vd)，了解相关规则及约束。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_documentBlockChildren.go
 func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/shifts"
+// POST /open-apis/attendance/v1/shifts
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -32,6 +32,7 @@ func main() {
 			PunchTimes(1).
 			IsFlexible(false).
 			FlexibleMinutes(60).
+			FlexibleRule([]*larkattendance.FlexibleRule{larkattendance.NewFlexibleRuleBuilder().Build()}).
 			NoNeedOff(true).
 			PunchTimeRule([]*larkattendance.PunchTimeRule{larkattendance.NewPunchTimeRuleBuilder().Build()}).
 			LateOffLateOnRule([]*larkattendance.LateOffLateOnRule{larkattendance.NewLateOffLateOnRuleBuilder().Build()}).
@@ -53,6 +54,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

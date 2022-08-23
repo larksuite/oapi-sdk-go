@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// HTTP PATH: /open-apis/vc/v1/room_configs/query"
+// GET /open-apis/vc/v1/room_configs/query
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkvc.NewQueryRoomConfigReqBuilder().
 		Scope(5).
-		CountryId("1").
-		DistrictId("2").
-		BuildingId("3").
+		CountryId("086").
+		DistrictId("001").
+		BuildingId("22").
 		FloorName("4").
 		RoomId("6383786266263").
 		UserIdType("user_id").
@@ -50,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token"
+// PUT /open-apis/bitable/v1/apps/:app_token
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewUpdateAppReqBuilder().
-		AppToken("").
+		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		Body(larkbitable.NewUpdateAppReqBodyBuilder().
-			Name("bitable1").
+			Name("新的多维表格名字").
 			IsAdvanced(false).
 			Build()).
 		Build()
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

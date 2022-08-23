@@ -18,14 +18,14 @@ import (
 )
 
 type Term struct {
-	From *string `json:"from,omitempty"`
-	To   *string `json:"to,omitempty"`
+	From *string `json:"from,omitempty"` // 原文
+	To   *string `json:"to,omitempty"`   // 译文
 }
 
 type TermBuilder struct {
-	from     string
+	from     string // 原文
 	fromFlag bool
-	to       string
+	to       string // 译文
 	toFlag   bool
 }
 
@@ -34,11 +34,16 @@ func NewTermBuilder() *TermBuilder {
 	return builder
 }
 
+// 原文
+// 示例值：飞书
 func (builder *TermBuilder) From(from string) *TermBuilder {
 	builder.from = from
 	builder.fromFlag = true
 	return builder
 }
+
+// 译文
+// 示例值：Lark
 func (builder *TermBuilder) To(to string) *TermBuilder {
 	builder.to = to
 	builder.toFlag = true
@@ -62,7 +67,7 @@ type Text struct {
 }
 
 type DetectTextReqBodyBuilder struct {
-	text     string
+	text     string // 需要被识别语种的文本
 	textFlag bool
 }
 
@@ -71,6 +76,9 @@ func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
 	return builder
 }
 
+// 需要被识别语种的文本
+//
+//示例值：你好
 func (builder *DetectTextReqBodyBuilder) Text(text string) *DetectTextReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -86,7 +94,7 @@ func (builder *DetectTextReqBodyBuilder) Build() *DetectTextReqBody {
 }
 
 type DetectTextPathReqBodyBuilder struct {
-	text     string
+	text     string // 需要被识别语种的文本
 	textFlag bool
 }
 
@@ -94,6 +102,10 @@ func NewDetectTextPathReqBodyBuilder() *DetectTextPathReqBodyBuilder {
 	builder := &DetectTextPathReqBodyBuilder{}
 	return builder
 }
+
+// 需要被识别语种的文本
+//
+// 示例值：你好
 func (builder *DetectTextPathReqBodyBuilder) Text(text string) *DetectTextPathReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -122,6 +134,7 @@ func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	return builder
 }
 
+// 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准
 func (builder *DetectTextReqBuilder) Body(body *DetectTextReqBody) *DetectTextReqBuilder {
 	builder.body = body
 	return builder
@@ -135,7 +148,7 @@ func (builder *DetectTextReqBuilder) Build() *DetectTextReq {
 }
 
 type DetectTextReqBody struct {
-	Text *string `json:"text,omitempty"`
+	Text *string `json:"text,omitempty"` // 需要被识别语种的文本
 }
 
 type DetectTextReq struct {
@@ -144,13 +157,13 @@ type DetectTextReq struct {
 }
 
 type DetectTextRespData struct {
-	Language *string `json:"language,omitempty"`
+	Language *string `json:"language,omitempty"` // 识别的文本语种，返回符合 ISO 639-1 标准
 }
 
 type DetectTextResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *DetectTextRespData `json:"data"`
+	Data *DetectTextRespData `json:"data"` // 业务数据
 }
 
 func (resp *DetectTextResp) Success() bool {
@@ -158,13 +171,13 @@ func (resp *DetectTextResp) Success() bool {
 }
 
 type TranslateTextReqBodyBuilder struct {
-	sourceLanguage     string
+	sourceLanguage     string // 源语言
 	sourceLanguageFlag bool
-	text               string
+	text               string // 源文本
 	textFlag           bool
-	targetLanguage     string
+	targetLanguage     string // 目标语言
 	targetLanguageFlag bool
-	glossary           []*Term
+	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 	glossaryFlag       bool
 }
 
@@ -173,21 +186,36 @@ func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
 	return builder
 }
 
+// 源语言
+//
+//示例值：zh
 func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageFlag = true
 	return builder
 }
+
+// 源文本
+//
+//示例值：尝试使用一下飞书吧
 func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
+
+// 目标语言
+//
+//示例值：en
 func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
 	builder.targetLanguageFlag = true
 	return builder
 }
+
+// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+//
+//示例值：
 func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextReqBodyBuilder {
 	builder.glossary = glossary
 	builder.glossaryFlag = true
@@ -212,13 +240,13 @@ func (builder *TranslateTextReqBodyBuilder) Build() *TranslateTextReqBody {
 }
 
 type TranslateTextPathReqBodyBuilder struct {
-	sourceLanguage     string
+	sourceLanguage     string // 源语言
 	sourceLanguageFlag bool
-	text               string
+	text               string // 源文本
 	textFlag           bool
-	targetLanguage     string
+	targetLanguage     string // 目标语言
 	targetLanguageFlag bool
-	glossary           []*Term
+	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 	glossaryFlag       bool
 }
 
@@ -226,21 +254,37 @@ func NewTranslateTextPathReqBodyBuilder() *TranslateTextPathReqBodyBuilder {
 	builder := &TranslateTextPathReqBodyBuilder{}
 	return builder
 }
+
+// 源语言
+//
+// 示例值：zh
 func (builder *TranslateTextPathReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextPathReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageFlag = true
 	return builder
 }
+
+// 源文本
+//
+// 示例值：尝试使用一下飞书吧
 func (builder *TranslateTextPathReqBodyBuilder) Text(text string) *TranslateTextPathReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
+
+// 目标语言
+//
+// 示例值：en
 func (builder *TranslateTextPathReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextPathReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
 	builder.targetLanguageFlag = true
 	return builder
 }
+
+// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+//
+// 示例值：
 func (builder *TranslateTextPathReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextPathReqBodyBuilder {
 	builder.glossary = glossary
 	builder.glossaryFlag = true
@@ -278,6 +322,7 @@ func NewTranslateTextReqBuilder() *TranslateTextReqBuilder {
 	return builder
 }
 
+// 机器翻译 (MT)，支持以下语种互译：;"zh": 汉语；;"zh-Hant": 繁体汉语；;"en": 英语；;"ja": 日语；;"ru": 俄语；;"de": 德语；;"fr": 法语；;"it": 意大利语；;"pl": 波兰语；;"th": 泰语；;"hi": 印地语；;"id": 印尼语；;"es": 西班牙语；;"pt": 葡萄牙语；;"ko": 朝鲜语；;"vi": 越南语；
 func (builder *TranslateTextReqBuilder) Body(body *TranslateTextReqBody) *TranslateTextReqBuilder {
 	builder.body = body
 	return builder
@@ -291,10 +336,10 @@ func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 }
 
 type TranslateTextReqBody struct {
-	SourceLanguage *string `json:"source_language,omitempty"`
-	Text           *string `json:"text,omitempty"`
-	TargetLanguage *string `json:"target_language,omitempty"`
-	Glossary       []*Term `json:"glossary,omitempty"`
+	SourceLanguage *string `json:"source_language,omitempty"` // 源语言
+	Text           *string `json:"text,omitempty"`            // 源文本
+	TargetLanguage *string `json:"target_language,omitempty"` // 目标语言
+	Glossary       []*Term `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 }
 
 type TranslateTextReq struct {
@@ -303,13 +348,13 @@ type TranslateTextReq struct {
 }
 
 type TranslateTextRespData struct {
-	Text *string `json:"text,omitempty"`
+	Text *string `json:"text,omitempty"` // 翻译后的文本
 }
 
 type TranslateTextResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *TranslateTextRespData `json:"data"`
+	Data *TranslateTextRespData `json:"data"` // 业务数据
 }
 
 func (resp *TranslateTextResp) Success() bool {

@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/agent_skills"
+// POST /open-apis/helpdesk/v1/agent_skills
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewCreateAgentSkillReqBuilder().
 		Body(larkhelpdesk.NewCreateAgentSkillReqBodyBuilder().
-			Name("").
+			Name("test-skill").
 			Rules([]*larkhelpdesk.AgentSkillRule{larkhelpdesk.NewAgentSkillRuleBuilder().Build()}).
 			AgentIds([]string{}).
 			Build()).
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

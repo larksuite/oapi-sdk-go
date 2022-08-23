@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
-// HTTP PATH: /open-apis/hire/v1/applications"
+// GET /open-apis/hire/v1/applications
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhire.NewListApplicationReqBuilder().
-		ProcessId("212121").
-		StageId("212121").
-		TalentId("123321").
+		ProcessId("6960663240925956554").
+		StageId("614218419274131").
+		TalentId("6891560630172518670").
 		ActiveStatus("1").
 		JobId("7334134355464633").
 		PageToken("1").
@@ -52,6 +52,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

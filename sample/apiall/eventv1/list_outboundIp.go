@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
 )
 
-// HTTP PATH: /open-apis/event/v1/outbound_ip"
+// GET /open-apis/event/v1/outbound_ip
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkevent.NewListOutboundIpReqBuilder().
 		PageSize(10).
-		PageToken("AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=").
+		PageToken("xxx").
 		Build()
 	// 发起请求
 	resp, err := client.Event.OutboundIp.List(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

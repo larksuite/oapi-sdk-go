@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
-// HTTP PATH: /open-apis/contact/v3/group/:group_id/member/remove"
+// POST /open-apis/contact/v3/group/:group_id/member/remove
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewRemoveGroupMemberReqBuilder().
-		GroupId("").
+		GroupId("g198123").
 		Body(larkcontact.NewRemoveGroupMemberReqBodyBuilder().
 			MemberType("user").
-			MemberId("").
+			MemberId("xj82871k").
 			MemberIdType("open_id").
 			Build()).
 		Build()
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

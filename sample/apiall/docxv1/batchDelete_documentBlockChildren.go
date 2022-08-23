@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
-// HTTP PATH: /open-apis/docx/v1/documents/:document_id/blocks/:block_id/children/batch_delete"
+// DELETE /open-apis/docx/v1/documents/:document_id/blocks/:block_id/children/batch_delete
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -30,7 +30,7 @@ func main() {
 		DocumentId("doxcnePuYufKa49ISjhD8Ih0ikh").
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
 		DocumentRevisionId(-1).
-		ClientToken("").
+		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b97").
 		Body(larkdocx.NewBatchDeleteDocumentBlockChildrenReqBodyBuilder().
 			StartIndex(0).
 			EndIndex(1).
@@ -51,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

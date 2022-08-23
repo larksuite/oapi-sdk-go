@@ -21,21 +21,21 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/tickets/:ticket_id"
+// PUT /open-apis/helpdesk/v1/tickets/:ticket_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewUpdateTicketReqBuilder().
-		TicketId("").
+		TicketId("6945345902185807891").
 		Body(larkhelpdesk.NewUpdateTicketReqBodyBuilder().
-			Status(0).
+			Status(1).
 			TagNames([]string{}).
-			Comment("").
+			Comment("good").
 			CustomizedFields([]*larkhelpdesk.CustomizedFieldDisplayItem{larkhelpdesk.NewCustomizedFieldDisplayItemBuilder().Build()}).
-			TicketType(0).
-			Solved(0).
-			Channel(0).
+			TicketType(1).
+			Solved(1).
+			Channel(1).
 			Build()).
 		Build()
 	// 发起请求
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

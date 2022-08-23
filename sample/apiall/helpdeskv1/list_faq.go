@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/faqs"
+// GET /open-apis/helpdesk/v1/faqs
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewListFaqReqBuilder().
-		CategoryId("").
-		Status("").
-		Search("").
-		PageToken("").
+		CategoryId("6856395522433908739").
+		Status("1").
+		Search("点餐").
+		PageToken("6856395634652479491").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

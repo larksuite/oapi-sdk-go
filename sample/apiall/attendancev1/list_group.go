@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/groups"
+// GET /open-apis/attendance/v1/groups
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkattendance.NewListGroupReqBuilder().
 		PageSize(10).
-		PageToken("").
+		PageToken("wgNOR1rmxogRvAsGl6CXlQ==").
 		Build()
 	// 发起请求
 	resp, err := client.Attendance.Group.List(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

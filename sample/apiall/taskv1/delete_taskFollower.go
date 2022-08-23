@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks/:task_id/followers/:follower_id"
+// DELETE /open-apis/task/v1/tasks/:task_id/followers/:follower_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,6 +29,7 @@ func main() {
 	req := larktask.NewDeleteTaskFollowerReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		FollowerId("ou_87e1a581b36ecc4862cbfbce473f346a").
+		UserIdType("user_id").
 		Build()
 	// 发起请求
 	resp, err := client.Task.TaskFollower.Delete(context.Background(), req)
@@ -45,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

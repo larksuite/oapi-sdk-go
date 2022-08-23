@@ -20,25 +20,28 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *PassportService {
 	p := &PassportService{config: config}
 	p.Session = &session{service: p}
 	return p
 }
 
-// 业务域服务定义
 type PassportService struct {
 	config  *larkcore.Config
-	Session *session
+	Session *session // 登录态
 }
 
-// 资源服务定义
 type session struct {
 	service *PassportService
 }
 
-// 资源服务方法定义
+// 批量获取用户登录信息（脱敏）
+//
+// - 该接口用于查询用户的登录信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/passport-v1/session/query
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/passportv1//query_session.go
 func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...larkcore.RequestOptionFunc) (*QuerySessionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

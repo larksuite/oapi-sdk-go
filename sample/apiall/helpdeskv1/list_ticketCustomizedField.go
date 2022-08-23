@@ -21,16 +21,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/ticket_customized_fields"
+// GET /open-apis/helpdesk/v1/ticket_customized_fields
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewListTicketCustomizedFieldReqBuilder().
-		PageToken("").
+		PageToken("6948728206392295444").
 		PageSize(20).
 		Body(larkhelpdesk.NewListTicketCustomizedFieldReqBodyBuilder().
-			Visible(false).
+			Visible(true).
 			Build()).
 		Build()
 	// 发起请求
@@ -48,6 +48,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
-// HTTP PATH: /open-apis/task/v1/tasks/:task_id/comments"
+// POST /open-apis/task/v1/tasks/:task_id/comments
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -32,6 +32,8 @@ func main() {
 			Content("举杯邀明月，对影成三人").
 			ParentId("6937231762296684564").
 			Id("6937231762296684564").
+			CreateMilliTime("1657075055135").
+			RichContent("举杯邀明月，对影成三人<at id=7058204817822318612></at>").
 			Build()).
 		Build()
 	// 发起请求
@@ -49,6 +51,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
-// HTTP PATH: /open-apis/search/v2/data_sources/:data_source_id/items/:item_id"
+// DELETE /open-apis/search/v2/data_sources/:data_source_id/items/:item_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksearch.NewDeleteDataSourceItemReqBuilder().
-		DataSourceId("").
-		ItemId("").
+		DataSourceId("service_ticket").
+		ItemId("01010111").
 		Build()
 	// 发起请求
 	resp, err := client.Search.DataSourceItem.Delete(context.Background(), req)
@@ -45,6 +45,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

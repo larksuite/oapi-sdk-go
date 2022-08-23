@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/tasks/search"
+// POST /open-apis/approval/v4/tasks/search
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkapproval.NewSearchTaskReqBuilder().
-		PageSize(100).
+		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
 		UserIdType("user_id").
 		TaskSearch(larkapproval.NewTaskSearchBuilder().
@@ -38,8 +38,8 @@ func main() {
 			GroupExternalId("1234567").
 			TaskTitle("test").
 			TaskStatus("PENDING").
-			InstanceStartTimeFrom("1547654251506").
-			InstanceStartTimeTo("1547654251506").
+			TaskStartTimeFrom("1547654251506").
+			TaskStartTimeTo("1547654251506").
 			Locale("zh-CN").
 			Build()).
 		Build()
@@ -58,6 +58,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

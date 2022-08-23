@@ -20,7 +20,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 构建业务域服务实例
 func NewService(config *larkcore.Config) *ApplicationService {
 	a := &ApplicationService{config: config}
 	a.Application = &application{service: a}
@@ -31,17 +30,15 @@ func NewService(config *larkcore.Config) *ApplicationService {
 	return a
 }
 
-// 业务域服务定义
 type ApplicationService struct {
 	config                *larkcore.Config
-	Application           *application
-	ApplicationAppUsage   *applicationAppUsage
-	ApplicationAppVersion *applicationAppVersion
-	ApplicationFeedback   *applicationFeedback
-	ApplicationVisibility *applicationVisibility
+	Application           *application           // 应用
+	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
+	ApplicationAppVersion *applicationAppVersion // 应用
+	ApplicationFeedback   *applicationFeedback   // 应用反馈
+	ApplicationVisibility *applicationVisibility // 应用管理
 }
 
-// 资源服务定义
 type application struct {
 	service *ApplicationService
 }
@@ -58,7 +55,13 @@ type applicationVisibility struct {
 	service *ApplicationService
 }
 
-// 资源服务方法定义
+// 获取应用信息
+//
+// - 根据app_id获取应用的基础信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -77,6 +80,14 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	}
 	return resp, err
 }
+
+// 更新应用分组信息
+//
+// - 更新应用的分组信息（分组会影响应用在工作台中的分类情况，请谨慎更新）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//patch_application.go
 func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -95,6 +106,14 @@ func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, optio
 	}
 	return resp, err
 }
+
+// 查看待审核的应用列表
+//
+// - 查看本企业下所有待审核的自建应用列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/underauditlist
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//underauditlist_application.go
 func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApplicationReq, options ...larkcore.RequestOptionFunc) (*UnderauditlistApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -121,6 +140,16 @@ func (a *application) UnderauditlistByIterator(ctx context.Context, req *Underau
 		options:  options,
 		limit:    req.Limit}, nil
 }
+
+// 获取应用使用概览
+//
+// - 查看应用在某一天/某一周/某一个月的使用数据，可以查看租户整体对应用的使用情况，也可以分部门查看。
+//
+// - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上10点产出前一天的数据;3. 已经支持的指标包括：应用的活跃用户数、累计用户数、新增用户数、访问页面数、打开次数;4. 数据从飞书4.10版本开始统计，使用飞书版本4.10及以下版本的用户数据不会被统计到;5. 按照部门查看数据时，会展示当前部门以及其子部门的整体使用情况;6. 调用频控为100次/分
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/overview
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//overview_applicationAppUsage.go
 func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*OverviewApplicationAppUsageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -139,6 +168,14 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 	}
 	return resp, err
 }
+
+// 获取应用版本信息
+//
+// - 根据 app_id，version_id 获取对应应用版本的信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//get_applicationAppVersion.go
 func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*GetApplicationAppVersionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -157,6 +194,14 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 	}
 	return resp, err
 }
+
+// 更新应用审核状态
+//
+// - 通过接口来更新应用版本的审核结果：通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由，并在修改后再次申请发布。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//patch_applicationAppVersion.go
 func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationAppVersionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -175,6 +220,14 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 	}
 	return resp, err
 }
+
+// 获取应用反馈列表
+//
+// - 查询应用的反馈数据
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//list_applicationFeedback.go
 func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*ListApplicationFeedbackResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -193,6 +246,14 @@ func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeed
 	}
 	return resp, err
 }
+
+// 更新应用反馈
+//
+// - 更新应用的反馈数据
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6//patch_applicationFeedback.go
 func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationFeedbackResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

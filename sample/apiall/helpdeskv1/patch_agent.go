@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/agents/:agent_id"
+// PATCH /open-apis/helpdesk/v1/agents/:agent_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewPatchAgentReqBuilder().
-		AgentId("").
+		AgentId("ou_14777d82ffef0f707de5a8c7ff2c5ebe").
 		Body(larkhelpdesk.NewPatchAgentReqBodyBuilder().
 			Status(0).
 			Build()).
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

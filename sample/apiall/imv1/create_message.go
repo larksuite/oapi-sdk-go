@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/messages"
+// POST /open-apis/im/v1/messages
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -32,6 +32,7 @@ func main() {
 			ReceiveId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
 			Content("").
 			MsgType("text").
+			Uuid("a0d69e20-1dd1-458b-k525-dfeca4015204").
 			Build()).
 		Build()
 	// 发起请求
@@ -49,6 +50,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
-// HTTP PATH: /open-apis/drive/v1/permissions/:token/public"
+// PATCH /open-apis/drive/v1/permissions/:token/public
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewPatchPermissionPublicReqBuilder().
-		Token("").
+		Token("doccnBKgoMyY5OMbUG6FioTXuBe").
 		Type("doc").
 		PermissionPublicRequest(larkdrive.NewPermissionPublicRequestBuilder().
 			ExternalAccess(true).
@@ -53,6 +53,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
-// HTTP PATH: /open-apis/wiki/v2/spaces/:space_id"
+// GET /open-apis/wiki/v2/spaces/:space_id
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewGetSpaceReqBuilder().
-		SpaceId("").
+		SpaceId("6870403571079249922").
 		Build()
 	// 发起请求
 	resp, err := client.Wiki.Space.Get(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

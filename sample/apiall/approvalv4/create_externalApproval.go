@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
-// HTTP PATH: /open-apis/approval/v4/external_approvals"
+// POST /open-apis/approval/v4/external_approvals
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -38,6 +38,7 @@ func main() {
 			External(larkapproval.NewApprovalCreateExternalBuilder().Build()).
 			Viewers([]*larkapproval.ApprovalCreateViewers{larkapproval.NewApprovalCreateViewersBuilder().Build()}).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
+			Managers([]string{}).
 			Build()).
 		Build()
 	// 发起请求
@@ -55,6 +56,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

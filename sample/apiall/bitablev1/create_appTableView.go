@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views"
+// POST /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbitable.NewCreateAppTableViewReqBuilder().
-		AppToken("").
-		TableId("").
+		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
+		TableId("tblsRc9GRRXKqhvW").
 		ReqView(larkbitable.NewReqViewBuilder().
 			ViewName("表格视图1").
 			ViewType("grid").
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

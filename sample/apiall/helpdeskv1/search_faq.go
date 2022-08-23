@@ -21,15 +21,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
-// HTTP PATH: /open-apis/helpdesk/v1/faqs/search"
+// GET /open-apis/helpdesk/v1/faqs/search
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkhelpdesk.NewSearchFaqReqBuilder().
-		Query("").
-		Base64("").
-		PageToken("").
+		Query("wifi").
+		Base64("5bel5Y2V").
+		PageToken("6936004780707807251").
 		PageSize(20).
 		Build()
 	// 发起请求
@@ -47,6 +47,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-// HTTP PATH: /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension"
+// POST /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksheets.NewMoveDimensionSpreadsheetSheetReqBuilder().
-		SpreadsheetToken("").
-		SheetId("").
+		SpreadsheetToken("shtcnmBA*****yGehy8").
+		SheetId("0b**12").
 		MoveDimension(larksheets.NewMoveDimensionBuilder().
 			Source(larksheets.NewDimensionBuilder().Build()).
 			DestinationIndex(0).
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

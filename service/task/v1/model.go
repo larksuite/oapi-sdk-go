@@ -25,23 +25,93 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	ListDirectionDown = 0
-	ListDirectionUp   = 1
+	UserIdTypeTaskBatchDeleteFollowerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskBatchDeleteFollowerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskBatchDeleteFollowerOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskGetUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskGetUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskGetOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskPatchUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskPatchUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskPatchOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskCollaboratorCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskCollaboratorCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskCollaboratorCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskCollaboratorDeleteUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskCollaboratorDeleteUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskCollaboratorDeleteOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskCollaboratorListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskCollaboratorListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskCollaboratorListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	ListDirectionDown = 0 // 按照回复时间从小到大查询
+	ListDirectionUp   = 1 // 按照回复时间从大到小查询
+
+)
+
+const (
+	UserIdTypeTaskFollowerCreateUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskFollowerCreateUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskFollowerCreateOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskFollowerDeleteUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskFollowerDeleteUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskFollowerDeleteOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeTaskFollowerListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTaskFollowerListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTaskFollowerListOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Collaborator struct {
-	Id *string `json:"id,omitempty"`
+	Id     *string  `json:"id,omitempty"`      // 任务执行者的 ID
+	IdList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。
 }
 
 type CollaboratorBuilder struct {
-	id     string
-	idFlag bool
+	id         string // 任务执行者的 ID
+	idFlag     bool
+	idList     []string // 执行者的用户ID列表。
+	idListFlag bool
 }
 
 func NewCollaboratorBuilder() *CollaboratorBuilder {
@@ -49,9 +119,19 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 	return builder
 }
 
+// 任务执行者的 ID
+// 示例值：ou_99e1a581b36ecc4862cbfbce473f1234
 func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 	builder.id = id
 	builder.idFlag = true
+	return builder
+}
+
+// 执行者的用户ID列表。
+// 示例值：["ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0"]
+func (builder *CollaboratorBuilder) IdList(idList []string) *CollaboratorBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
 	return builder
 }
 
@@ -61,22 +141,31 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 		req.Id = &builder.id
 
 	}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
 	return req
 }
 
 type Comment struct {
-	Content  *string `json:"content,omitempty"`
-	ParentId *string `json:"parent_id,omitempty"`
-	Id       *string `json:"id,omitempty"`
+	Content         *string `json:"content,omitempty"`           // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
+	ParentId        *string `json:"parent_id,omitempty"`         // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+	Id              *string `json:"id,omitempty"`                // 评论ID，由飞书服务器发号
+	CreateMilliTime *string `json:"create_milli_time,omitempty"` // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
+	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 type CommentBuilder struct {
-	content      string
-	contentFlag  bool
-	parentId     string
-	parentIdFlag bool
-	id           string
-	idFlag       bool
+	content             string // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
+	contentFlag         bool
+	parentId            string // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+	parentIdFlag        bool
+	id                  string // 评论ID，由飞书服务器发号
+	idFlag              bool
+	createMilliTime     string // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
+	createMilliTimeFlag bool
+	richContent         string // 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richContentFlag     bool
 }
 
 func NewCommentBuilder() *CommentBuilder {
@@ -84,19 +173,43 @@ func NewCommentBuilder() *CommentBuilder {
 	return builder
 }
 
+// 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
+// 示例值：举杯邀明月，对影成三人
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
+
+// 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+// 示例值：6937231762296684564
 func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
 	return builder
 }
+
+// 评论ID，由飞书服务器发号
+// 示例值：6937231762296684564
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
 	builder.idFlag = true
+	return builder
+}
+
+// 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
+// 示例值：1657075055135
+func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentBuilder {
+	builder.createMilliTime = createMilliTime
+	builder.createMilliTimeFlag = true
+	return builder
+}
+
+// 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 示例值：举杯邀明月，对影成三人<at id=7058204817822318612></at>
+func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
+	builder.richContent = richContent
+	builder.richContentFlag = true
 	return builder
 }
 
@@ -114,21 +227,29 @@ func (builder *CommentBuilder) Build() *Comment {
 		req.Id = &builder.id
 
 	}
+	if builder.createMilliTimeFlag {
+		req.CreateMilliTime = &builder.createMilliTime
+
+	}
+	if builder.richContentFlag {
+		req.RichContent = &builder.richContent
+
+	}
 	return req
 }
 
 type Due struct {
-	Time     *string `json:"time,omitempty"`
-	Timezone *string `json:"timezone,omitempty"`
-	IsAllDay *bool   `json:"is_all_day,omitempty"`
+	Time     *string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）
+	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai
+	IsAllDay *bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
 }
 
 type DueBuilder struct {
-	time         string
+	time         string // 截止时间的时间戳（单位为秒）
 	timeFlag     bool
-	timezone     string
+	timezone     string // 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai
 	timezoneFlag bool
-	isAllDay     bool
+	isAllDay     bool // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
 	isAllDayFlag bool
 }
 
@@ -137,16 +258,24 @@ func NewDueBuilder() *DueBuilder {
 	return builder
 }
 
+// 截止时间的时间戳（单位为秒）
+// 示例值：1623124318
 func (builder *DueBuilder) Time(time string) *DueBuilder {
 	builder.time = time
 	builder.timeFlag = true
 	return builder
 }
+
+// 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai
+// 示例值：Asia/Shanghai
 func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
 	return builder
 }
+
+// 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
+// 示例值：false
 func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
 	builder.isAllDay = isAllDay
 	builder.isAllDayFlag = true
@@ -171,12 +300,15 @@ func (builder *DueBuilder) Build() *Due {
 }
 
 type Follower struct {
-	Id *string `json:"id,omitempty"`
+	Id     *string  `json:"id,omitempty"`      // 任务关注人 ID
+	IdList []string `json:"id_list,omitempty"` // 要添加的关注人ID列表
 }
 
 type FollowerBuilder struct {
-	id     string
-	idFlag bool
+	id         string // 任务关注人 ID
+	idFlag     bool
+	idList     []string // 要添加的关注人ID列表
+	idListFlag bool
 }
 
 func NewFollowerBuilder() *FollowerBuilder {
@@ -184,9 +316,19 @@ func NewFollowerBuilder() *FollowerBuilder {
 	return builder
 }
 
+// 任务关注人 ID
+// 示例值：ou_99e1a581b36ecc4862cbfbce473f3123
 func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 	builder.id = id
 	builder.idFlag = true
+	return builder
+}
+
+// 要添加的关注人ID列表
+// 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
+func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
 	return builder
 }
 
@@ -196,18 +338,21 @@ func (builder *FollowerBuilder) Build() *Follower {
 		req.Id = &builder.id
 
 	}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
 	return req
 }
 
 type Href struct {
-	Url   *string `json:"url,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Url   *string `json:"url,omitempty"`   // 具体链接地址
+	Title *string `json:"title,omitempty"` // 链接对应的标题
 }
 
 type HrefBuilder struct {
-	url       string
+	url       string // 具体链接地址
 	urlFlag   bool
-	title     string
+	title     string // 链接对应的标题
 	titleFlag bool
 }
 
@@ -216,11 +361,16 @@ func NewHrefBuilder() *HrefBuilder {
 	return builder
 }
 
+// 具体链接地址
+// 示例值：https://support.feishu.com/internal/foo-bar
 func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 	builder.url = url
 	builder.urlFlag = true
 	return builder
 }
+
+// 链接对应的标题
+// 示例值：反馈一个问题，需要协助排查
 func (builder *HrefBuilder) Title(title string) *HrefBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -241,14 +391,14 @@ func (builder *HrefBuilder) Build() *Href {
 }
 
 type Origin struct {
-	PlatformI18nName *string `json:"platform_i18n_name,omitempty"`
-	Href             *Href   `json:"href,omitempty"`
+	PlatformI18nName *string `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
+	Href             *Href   `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
 type OriginBuilder struct {
-	platformI18nName     string
+	platformI18nName     string // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
 	platformI18nNameFlag bool
-	href                 *Href
+	href                 *Href // 任务关联的来源平台详情页链接
 	hrefFlag             bool
 }
 
@@ -257,11 +407,16 @@ func NewOriginBuilder() *OriginBuilder {
 	return builder
 }
 
+// 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
+// 示例值：{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}
 func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder {
 	builder.platformI18nName = platformI18nName
 	builder.platformI18nNameFlag = true
 	return builder
 }
+
+// 任务关联的来源平台详情页链接
+// 示例值：
 func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
 	builder.href = href
 	builder.hrefFlag = true
@@ -281,14 +436,14 @@ func (builder *OriginBuilder) Build() *Origin {
 }
 
 type Reminder struct {
-	Id                 *string `json:"id,omitempty"`
-	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"`
+	Id                 *string `json:"id,omitempty"`                   // 提醒时间设置的 ID（在删除时候需要使用这个）
+	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
 }
 
 type ReminderBuilder struct {
-	id                     string
+	id                     string // 提醒时间设置的 ID（在删除时候需要使用这个）
 	idFlag                 bool
-	relativeFireMinute     int
+	relativeFireMinute     int // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
 	relativeFireMinuteFlag bool
 }
 
@@ -297,11 +452,16 @@ func NewReminderBuilder() *ReminderBuilder {
 	return builder
 }
 
+// 提醒时间设置的 ID（在删除时候需要使用这个）
+// 示例值：1
 func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+// 示例值：30
 func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
 	builder.relativeFireMinute = relativeFireMinute
 	builder.relativeFireMinuteFlag = true
@@ -322,54 +482,69 @@ func (builder *ReminderBuilder) Build() *Reminder {
 }
 
 type Task struct {
-	Id            *string         `json:"id,omitempty"`
-	Summary       *string         `json:"summary,omitempty"`
-	Description   *string         `json:"description,omitempty"`
-	CompleteTime  *string         `json:"complete_time,omitempty"`
-	CreatorId     *string         `json:"creator_id,omitempty"`
-	Extra         *string         `json:"extra,omitempty"`
-	CreateTime    *string         `json:"create_time,omitempty"`
-	UpdateTime    *string         `json:"update_time,omitempty"`
-	Due           *Due            `json:"due,omitempty"`
-	Origin        *Origin         `json:"origin,omitempty"`
-	CanEdit       *bool           `json:"can_edit,omitempty"`
-	Custom        *string         `json:"custom,omitempty"`
-	Source        *int            `json:"source,omitempty"`
-	Followers     []*Follower     `json:"followers,omitempty"`
-	Collaborators []*Collaborator `json:"collaborators,omitempty"`
+	Id              *string         `json:"id,omitempty"`               // 任务 ID，由飞书任务服务器发号
+	Summary         *string         `json:"summary,omitempty"`          // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	Description     *string         `json:"description,omitempty"`      // 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+	CompleteTime    *string         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
+	CreatorId       *string         `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段
+	Extra           *string         `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定
+	CreateTime      *string         `json:"create_time,omitempty"`      // 任务的创建时间戳（单位为秒）
+	UpdateTime      *string         `json:"update_time,omitempty"`      // 任务的更新时间戳（单位为秒）
+	Due             *Due            `json:"due,omitempty"`              // 任务的截止时间设置
+	Origin          *Origin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
+	CanEdit         *bool           `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息;（即将废弃）
+	Custom          *string         `json:"custom,omitempty"`           // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
+	Source          *int            `json:"source,omitempty"`           // 任务创建的来源
+	Followers       []*Follower     `json:"followers,omitempty"`        // 任务的关注者
+	Collaborators   []*Collaborator `json:"collaborators,omitempty"`    // 任务的执行者
+	CollaboratorIds []string        `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
+	FollowerIds     []string        `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
+	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务重复规则
+	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 type TaskBuilder struct {
-	id                string
-	idFlag            bool
-	summary           string
-	summaryFlag       bool
-	description       string
-	descriptionFlag   bool
-	completeTime      string
-	completeTimeFlag  bool
-	creatorId         string
-	creatorIdFlag     bool
-	extra             string
-	extraFlag         bool
-	createTime        string
-	createTimeFlag    bool
-	updateTime        string
-	updateTimeFlag    bool
-	due               *Due
-	dueFlag           bool
-	origin            *Origin
-	originFlag        bool
-	canEdit           bool
-	canEditFlag       bool
-	custom            string
-	customFlag        bool
-	source            int
-	sourceFlag        bool
-	followers         []*Follower
-	followersFlag     bool
-	collaborators     []*Collaborator
-	collaboratorsFlag bool
+	id                  string // 任务 ID，由飞书任务服务器发号
+	idFlag              bool
+	summary             string // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	summaryFlag         bool
+	description         string // 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+	descriptionFlag     bool
+	completeTime        string // 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
+	completeTimeFlag    bool
+	creatorId           string // 任务的创建者 ID。在创建任务时无需填充该字段
+	creatorIdFlag       bool
+	extra               string // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定
+	extraFlag           bool
+	createTime          string // 任务的创建时间戳（单位为秒）
+	createTimeFlag      bool
+	updateTime          string // 任务的更新时间戳（单位为秒）
+	updateTimeFlag      bool
+	due                 *Due // 任务的截止时间设置
+	dueFlag             bool
+	origin              *Origin // 任务关联的第三方平台来源信息
+	originFlag          bool
+	canEdit             bool // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息;（即将废弃）
+	canEditFlag         bool
+	custom              string // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
+	customFlag          bool
+	source              int // 任务创建的来源
+	sourceFlag          bool
+	followers           []*Follower // 任务的关注者
+	followersFlag       bool
+	collaborators       []*Collaborator // 任务的执行者
+	collaboratorsFlag   bool
+	collaboratorIds     []string // 创建任务时添加的执行者用户id列表
+	collaboratorIdsFlag bool
+	followerIds         []string // 创建任务时添加的关注者用户id列表
+	followerIdsFlag     bool
+	repeatRule          string // 重复任务重复规则
+	repeatRuleFlag      bool
+	richSummary         string // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richSummaryFlag     bool
+	richDescription     string // 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richDescriptionFlag bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -377,79 +552,163 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
+// 任务 ID，由飞书任务服务器发号
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
+
+// 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+// 示例值：每天喝八杯水，保持身心愉悦
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	builder.summary = summary
 	builder.summaryFlag = true
 	return builder
 }
+
+// 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+// 示例值：多吃水果，多运动，健康生活，快乐工作。
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
+
+// 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
+// 示例值：1623499200
 func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 	builder.completeTime = completeTime
 	builder.completeTimeFlag = true
 	return builder
 }
+
+// 任务的创建者 ID。在创建任务时无需填充该字段
+// 示例值：ou_99e1a581b36ecc4862cbfbce473f346a
 func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
 	return builder
 }
+
+// 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定
+// 示例值：dGVzdA==
 func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
 	return builder
 }
+
+// 任务的创建时间戳（单位为秒）
+// 示例值：1623392486
 func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
+
+// 任务的更新时间戳（单位为秒）
+// 示例值：1623392486
 func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
 }
+
+// 任务的截止时间设置
+// 示例值：
 func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 	builder.due = due
 	builder.dueFlag = true
 	return builder
 }
+
+// 任务关联的第三方平台来源信息
+// 示例值：
 func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 	builder.origin = origin
 	builder.originFlag = true
 	return builder
 }
+
+// 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息;（即将废弃）
+// 示例值：true
 func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
 	builder.canEdit = canEdit
 	builder.canEditFlag = true
 	return builder
 }
+
+// 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
+// 示例值：{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"ios\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"pc\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}}}}
 func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 	builder.custom = custom
 	builder.customFlag = true
 	return builder
 }
+
+// 任务创建的来源
+// 示例值：
 func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	builder.source = source
 	builder.sourceFlag = true
 	return builder
 }
+
+// 任务的关注者
+// 示例值：ou_03c21c80caea2c816665f8056dc59027
 func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
 	builder.followers = followers
 	builder.followersFlag = true
 	return builder
 }
+
+// 任务的执行者
+// 示例值：ou_558d4999baae26e32aa2fd9bb228660b
 func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder {
 	builder.collaborators = collaborators
 	builder.collaboratorsFlag = true
+	return builder
+}
+
+// 创建任务时添加的执行者用户id列表
+// 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
+func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuilder {
+	builder.collaboratorIds = collaboratorIds
+	builder.collaboratorIdsFlag = true
+	return builder
+}
+
+// 创建任务时添加的关注者用户id列表
+// 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
+func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
+	builder.followerIds = followerIds
+	builder.followerIdsFlag = true
+	return builder
+}
+
+// 重复任务重复规则
+// 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
+func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
+	builder.repeatRule = repeatRule
+	builder.repeatRuleFlag = true
+	return builder
+}
+
+// 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 示例值：每天喝八杯水，保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)
+func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
+	builder.richSummary = richSummary
+	builder.richSummaryFlag = true
+	return builder
+}
+
+// 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 示例值：多吃水果，多运动，健康生活，快乐工作。\[飞书开放平台](https://open.feishu.cn/)
+func (builder *TaskBuilder) RichDescription(richDescription string) *TaskBuilder {
+	builder.richDescription = richDescription
+	builder.richDescriptionFlag = true
 	return builder
 }
 
@@ -511,21 +770,39 @@ func (builder *TaskBuilder) Build() *Task {
 	if builder.collaboratorsFlag {
 		req.Collaborators = builder.collaborators
 	}
+	if builder.collaboratorIdsFlag {
+		req.CollaboratorIds = builder.collaboratorIds
+	}
+	if builder.followerIdsFlag {
+		req.FollowerIds = builder.followerIds
+	}
+	if builder.repeatRuleFlag {
+		req.RepeatRule = &builder.repeatRule
+
+	}
+	if builder.richSummaryFlag {
+		req.RichSummary = &builder.richSummary
+
+	}
+	if builder.richDescriptionFlag {
+		req.RichDescription = &builder.richDescription
+
+	}
 	return req
 }
 
 type UserId struct {
-	UserId  *string `json:"user_id,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
 }
 
 type UserIdBuilder struct {
-	userId      string
+	userId      string //
 	userIdFlag  bool
-	openId      string
+	openId      string //
 	openIdFlag  bool
-	unionId     string
+	unionId     string //
 	unionIdFlag bool
 }
 
@@ -534,16 +811,24 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+// 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
 	return builder
 }
+
+//
+// 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
 	builder.unionIdFlag = true
@@ -568,11 +853,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type UserIdList struct {
-	UserIdList []*UserId `json:"user_id_list,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"` // 用户 ID 列表
 }
 
 type UserIdListBuilder struct {
-	userIdList     []*UserId
+	userIdList     []*UserId // 用户 ID 列表
 	userIdListFlag bool
 }
 
@@ -581,6 +866,8 @@ func NewUserIdListBuilder() *UserIdListBuilder {
 	return builder
 }
 
+// 用户 ID 列表
+// 示例值：
 func (builder *UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListFlag = true
@@ -593,6 +880,134 @@ func (builder *UserIdListBuilder) Build() *UserIdList {
 		req.UserIdList = builder.userIdList
 	}
 	return req
+}
+
+type BatchDeleteCollaboratorTaskReqBuilder struct {
+	apiReq       *larkcore.ApiReq
+	collaborator *Collaborator
+}
+
+func NewBatchDeleteCollaboratorTaskReqBuilder() *BatchDeleteCollaboratorTaskReqBuilder {
+	builder := &BatchDeleteCollaboratorTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 任务ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
+func (builder *BatchDeleteCollaboratorTaskReqBuilder) TaskId(taskId string) *BatchDeleteCollaboratorTaskReqBuilder {
+	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchDeleteCollaboratorTaskReqBuilder) UserIdType(userIdType string) *BatchDeleteCollaboratorTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口用于批量删除执行者
+func (builder *BatchDeleteCollaboratorTaskReqBuilder) Collaborator(collaborator *Collaborator) *BatchDeleteCollaboratorTaskReqBuilder {
+	builder.collaborator = collaborator
+	return builder
+}
+
+func (builder *BatchDeleteCollaboratorTaskReqBuilder) Build() *BatchDeleteCollaboratorTaskReq {
+	req := &BatchDeleteCollaboratorTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.collaborator
+	return req
+}
+
+type BatchDeleteCollaboratorTaskReq struct {
+	apiReq       *larkcore.ApiReq
+	Collaborator *Collaborator `body:""`
+}
+
+type BatchDeleteCollaboratorTaskRespData struct {
+	Collaborators []string `json:"collaborators,omitempty"` // 实际删除的执行人用户ID列表
+}
+
+type BatchDeleteCollaboratorTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchDeleteCollaboratorTaskRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchDeleteCollaboratorTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteFollowerTaskReqBuilder struct {
+	apiReq   *larkcore.ApiReq
+	follower *Follower
+}
+
+func NewBatchDeleteFollowerTaskReqBuilder() *BatchDeleteFollowerTaskReqBuilder {
+	builder := &BatchDeleteFollowerTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 任务ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
+func (builder *BatchDeleteFollowerTaskReqBuilder) TaskId(taskId string) *BatchDeleteFollowerTaskReqBuilder {
+	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchDeleteFollowerTaskReqBuilder) UserIdType(userIdType string) *BatchDeleteFollowerTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口用于批量删除关注人
+func (builder *BatchDeleteFollowerTaskReqBuilder) Follower(follower *Follower) *BatchDeleteFollowerTaskReqBuilder {
+	builder.follower = follower
+	return builder
+}
+
+func (builder *BatchDeleteFollowerTaskReqBuilder) Build() *BatchDeleteFollowerTaskReq {
+	req := &BatchDeleteFollowerTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.follower
+	return req
+}
+
+type BatchDeleteFollowerTaskReq struct {
+	apiReq   *larkcore.ApiReq
+	Follower *Follower `body:""`
+}
+
+type BatchDeleteFollowerTaskRespData struct {
+	Followers []string `json:"followers,omitempty"` // 实际删除的关注人用户ID列表
+}
+
+type BatchDeleteFollowerTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchDeleteFollowerTaskRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchDeleteFollowerTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CompleteTaskReqBuilder struct {
@@ -608,6 +1023,9 @@ func NewCompleteTaskReqBuilder() *CompleteTaskReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：bb54ab99-d360-434f-bcaa-a4cc4c05840e
 func (builder *CompleteTaskReqBuilder) TaskId(taskId string) *CompleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -647,10 +1065,15 @@ func NewCreateTaskReqBuilder() *CreateTaskReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口可以创建一个任务（基本信息），如果需要绑定协作者等需要调用别的资源管理接口。其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。当使用tenant_access_token 调用接口时，如果user_id_type为user_id，则不会返回creator_id。
 func (builder *CreateTaskReqBuilder) Task(task *Task) *CreateTaskReqBuilder {
 	builder.task = task
 	return builder
@@ -670,13 +1093,13 @@ type CreateTaskReq struct {
 }
 
 type CreateTaskRespData struct {
-	Task *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"` // 返回创建好的任务
 }
 
 type CreateTaskResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTaskRespData `json:"data"`
+	Data *CreateTaskRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTaskResp) Success() bool {
@@ -696,6 +1119,9 @@ func NewDeleteTaskReqBuilder() *DeleteTaskReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskReqBuilder) TaskId(taskId string) *DeleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -734,10 +1160,17 @@ func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *GetTaskReqBuilder) UserIdType(userIdType string) *GetTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -756,13 +1189,13 @@ type GetTaskReq struct {
 }
 
 type GetTaskRespData struct {
-	Task *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"` // 返回任务资源详情
 }
 
 type GetTaskResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTaskRespData `json:"data"`
+	Data *GetTaskRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTaskResp) Success() bool {
@@ -771,7 +1204,7 @@ func (resp *GetTaskResp) Success() bool {
 
 type ListTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListTaskReqBuilder() *ListTaskReqBuilder {
@@ -783,30 +1216,55 @@ func NewListTaskReqBuilder() *ListTaskReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListTaskReqBuilder) Limit(limit int) *ListTaskReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListTaskReqBuilder) PageSize(pageSize int) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：MTYzMTg3ODUxNQ==
 func (builder *ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 范围查询任务时，查询的起始时间。不填时默认起始时间为第一个任务的创建时间。
+//
+// 示例值：1652323331
 func (builder *ListTaskReqBuilder) StartCreateTime(startCreateTime string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("start_create_time", fmt.Sprint(startCreateTime))
 	return builder
 }
+
+// 范围查询任务时，查询的结束时间。不填时默认结束时间为最后一个任务的创建时间。
+//
+// 示例值：1652323335
 func (builder *ListTaskReqBuilder) EndCreateTime(endCreateTime string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("end_create_time", fmt.Sprint(endCreateTime))
 	return builder
 }
+
+// 可用于查询时过滤任务完成状态。true表示只返回已完成的任务，false表示只返回未完成的任务。不填时表示同时返回两种完成状态的任务。
+//
+// 示例值：false
 func (builder *ListTaskReqBuilder) TaskCompleted(taskCompleted bool) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("task_completed", fmt.Sprint(taskCompleted))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -822,19 +1280,20 @@ func (builder *ListTaskReqBuilder) Build() *ListTaskReq {
 
 type ListTaskReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListTaskRespData struct {
-	Items     []*Task `json:"items,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	HasMore   *bool   `json:"has_more,omitempty"`
+	Items     []*Task `json:"items,omitempty"`      // 任务列表
+	PageToken *string `json:"page_token,omitempty"` //
+	HasMore   *bool   `json:"has_more,omitempty"`   //
 }
 
 type ListTaskResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTaskRespData `json:"data"`
+	Data *ListTaskRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTaskResp) Success() bool {
@@ -842,9 +1301,9 @@ func (resp *ListTaskResp) Success() bool {
 }
 
 type PatchTaskReqBodyBuilder struct {
-	task             *Task
+	task             *Task // 被更新的任务实体基础信息
 	taskFlag         bool
-	updateFields     []string
+	updateFields     []string // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
 	updateFieldsFlag bool
 }
 
@@ -853,11 +1312,18 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 	return builder
 }
 
+// 被更新的任务实体基础信息
+//
+//示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
 	builder.task = task
 	builder.taskFlag = true
 	return builder
 }
+
+// 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+//
+//示例值：["summary"]
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsFlag = true
@@ -876,9 +1342,9 @@ func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 }
 
 type PatchTaskPathReqBodyBuilder struct {
-	task             *Task
+	task             *Task // 被更新的任务实体基础信息
 	taskFlag         bool
-	updateFields     []string
+	updateFields     []string // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
 	updateFieldsFlag bool
 }
 
@@ -886,11 +1352,19 @@ func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
 	builder := &PatchTaskPathReqBodyBuilder{}
 	return builder
 }
+
+// 被更新的任务实体基础信息
+//
+// 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBodyBuilder {
 	builder.task = task
 	builder.taskFlag = true
 	return builder
 }
+
+// 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+//
+// 示例值：["summary"]
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsFlag = true
@@ -922,14 +1396,23 @@ func NewPatchTaskReqBuilder() *PatchTaskReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *PatchTaskReqBuilder) TaskId(taskId string) *PatchTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于修改任务的标题、描述、时间、来源等相关信息
 func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -945,8 +1428,8 @@ func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 }
 
 type PatchTaskReqBody struct {
-	Task         *Task    `json:"task,omitempty"`
-	UpdateFields []string `json:"update_fields,omitempty"`
+	Task         *Task    `json:"task,omitempty"`          // 被更新的任务实体基础信息
+	UpdateFields []string `json:"update_fields,omitempty"` // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
 }
 
 type PatchTaskReq struct {
@@ -955,13 +1438,13 @@ type PatchTaskReq struct {
 }
 
 type PatchTaskRespData struct {
-	Task *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"` // 返回修改后的任务详情
 }
 
 type PatchTaskResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *PatchTaskRespData `json:"data"`
+	Data *PatchTaskRespData `json:"data"` // 业务数据
 }
 
 func (resp *PatchTaskResp) Success() bool {
@@ -981,6 +1464,9 @@ func NewUncompleteTaskReqBuilder() *UncompleteTaskReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：bb54ab99-d360-434f-bcaa-a4cc4c05840e
 func (builder *UncompleteTaskReqBuilder) TaskId(taskId string) *UncompleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1020,14 +1506,23 @@ func NewCreateTaskCollaboratorReqBuilder() *CreateTaskCollaboratorReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateTaskCollaboratorReqBuilder) UserIdType(userIdType string) *CreateTaskCollaboratorReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是表示是用户的ID。
 func (builder *CreateTaskCollaboratorReqBuilder) Collaborator(collaborator *Collaborator) *CreateTaskCollaboratorReqBuilder {
 	builder.collaborator = collaborator
 	return builder
@@ -1048,13 +1543,13 @@ type CreateTaskCollaboratorReq struct {
 }
 
 type CreateTaskCollaboratorRespData struct {
-	Collaborator *Collaborator `json:"collaborator,omitempty"`
+	Collaborator *Collaborator `json:"collaborator,omitempty"` // 返回创建成功后的任务执行者列表
 }
 
 type CreateTaskCollaboratorResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTaskCollaboratorRespData `json:"data"`
+	Data *CreateTaskCollaboratorRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTaskCollaboratorResp) Success() bool {
@@ -1074,12 +1569,27 @@ func NewDeleteTaskCollaboratorReqBuilder() *DeleteTaskCollaboratorReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskCollaboratorReqBuilder) TaskId(taskId string) *DeleteTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 任务执行者 ID（Open ID或User ID，由user_id_type指定）
+//
+// 示例值：ou_99e1a581b36ecc4862cbfbce123f346a
 func (builder *DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId string) *DeleteTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("collaborator_id", fmt.Sprint(collaboratorId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *DeleteTaskCollaboratorReqBuilder) UserIdType(userIdType string) *DeleteTaskCollaboratorReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
@@ -1087,6 +1597,7 @@ func (builder *DeleteTaskCollaboratorReqBuilder) Build() *DeleteTaskCollaborator
 	req := &DeleteTaskCollaboratorReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -1105,7 +1616,7 @@ func (resp *DeleteTaskCollaboratorResp) Success() bool {
 
 type ListTaskCollaboratorReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListTaskCollaboratorReqBuilder() *ListTaskCollaboratorReqBuilder {
@@ -1117,22 +1628,39 @@ func NewListTaskCollaboratorReqBuilder() *ListTaskCollaboratorReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListTaskCollaboratorReqBuilder) Limit(limit int) *ListTaskCollaboratorReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 任务 ID
+//
+// 示例值：0d38e26e-190a-49e9-93a2-35067763ed1f
 func (builder *ListTaskCollaboratorReqBuilder) TaskId(taskId string) *ListTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：50
 func (builder *ListTaskCollaboratorReqBuilder) PageSize(pageSize int) *ListTaskCollaboratorReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：「上次返回的page_token」
 func (builder *ListTaskCollaboratorReqBuilder) PageToken(pageToken string) *ListTaskCollaboratorReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListTaskCollaboratorReqBuilder) UserIdType(userIdType string) *ListTaskCollaboratorReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -1149,19 +1677,20 @@ func (builder *ListTaskCollaboratorReqBuilder) Build() *ListTaskCollaboratorReq 
 
 type ListTaskCollaboratorReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListTaskCollaboratorRespData struct {
-	Items     []*Collaborator `json:"items,omitempty"`
-	PageToken *string         `json:"page_token,omitempty"`
-	HasMore   *bool           `json:"has_more,omitempty"`
+	Items     []*Collaborator `json:"items,omitempty"`      // 返回的执行者ID列表
+	PageToken *string         `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否还有更多数据
 }
 
 type ListTaskCollaboratorResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTaskCollaboratorRespData `json:"data"`
+	Data *ListTaskCollaboratorRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTaskCollaboratorResp) Success() bool {
@@ -1182,10 +1711,15 @@ func NewCreateTaskCommentReqBuilder() *CreateTaskCommentReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *CreateTaskCommentReqBuilder) TaskId(taskId string) *CreateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论
 func (builder *CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTaskCommentReqBuilder {
 	builder.comment = comment
 	return builder
@@ -1205,13 +1739,13 @@ type CreateTaskCommentReq struct {
 }
 
 type CreateTaskCommentRespData struct {
-	Comment *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"` // 返回创建好的任务评论
 }
 
 type CreateTaskCommentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTaskCommentRespData `json:"data"`
+	Data *CreateTaskCommentRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTaskCommentResp) Success() bool {
@@ -1231,10 +1765,17 @@ func NewDeleteTaskCommentReqBuilder() *DeleteTaskCommentReqBuilder {
 	return builder
 }
 
+// 任务ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 评论ID
+//
+// 示例值：6937231762296684564
 func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId string) *DeleteTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
@@ -1273,10 +1814,17 @@ func NewGetTaskCommentReqBuilder() *GetTaskCommentReqBuilder {
 	return builder
 }
 
+// 任务ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 评论ID
+//
+// 示例值：6937231762296684564
 func (builder *GetTaskCommentReqBuilder) CommentId(commentId string) *GetTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
@@ -1294,13 +1842,13 @@ type GetTaskCommentReq struct {
 }
 
 type GetTaskCommentRespData struct {
-	Comment *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"` // 返回新的任务评论详情
 }
 
 type GetTaskCommentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetTaskCommentRespData `json:"data"`
+	Data *GetTaskCommentRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetTaskCommentResp) Success() bool {
@@ -1309,7 +1857,7 @@ func (resp *GetTaskCommentResp) Success() bool {
 
 type ListTaskCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListTaskCommentReqBuilder() *ListTaskCommentReqBuilder {
@@ -1321,22 +1869,39 @@ func NewListTaskCommentReqBuilder() *ListTaskCommentReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListTaskCommentReqBuilder) Limit(limit int) *ListTaskCommentReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 任务id
+//
+// 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
 func (builder *ListTaskCommentReqBuilder) TaskId(taskId string) *ListTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListTaskCommentReqBuilder) PageSize(pageSize int) *ListTaskCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token获取查询结果
+//
+// 示例值："MTYzMTg3ODUxNQ=="
 func (builder *ListTaskCommentReqBuilder) PageToken(pageToken string) *ListTaskCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 评论排序标记，可按照评论时间从小到大查询，或者评论时间从大到小查询，不填默认按照从小到大
+//
+// 示例值：0
 func (builder *ListTaskCommentReqBuilder) ListDirection(listDirection int) *ListTaskCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("list_direction", fmt.Sprint(listDirection))
 	return builder
@@ -1353,19 +1918,20 @@ func (builder *ListTaskCommentReqBuilder) Build() *ListTaskCommentReq {
 
 type ListTaskCommentReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListTaskCommentRespData struct {
-	Items     []*Comment `json:"items,omitempty"`
-	PageToken *string    `json:"page_token,omitempty"`
-	HasMore   *bool      `json:"has_more,omitempty"`
+	Items     []*Comment `json:"items,omitempty"`      // 返回的评论列表
+	PageToken *string    `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+	HasMore   *bool      `json:"has_more,omitempty"`   // 是否还有更多数据
 }
 
 type ListTaskCommentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTaskCommentRespData `json:"data"`
+	Data *ListTaskCommentRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTaskCommentResp) Success() bool {
@@ -1373,8 +1939,10 @@ func (resp *ListTaskCommentResp) Success() bool {
 }
 
 type UpdateTaskCommentReqBodyBuilder struct {
-	content     string
-	contentFlag bool
+	content         string // 新的评论内容
+	contentFlag     bool
+	richContent     string // 新的富文本评论内容（优先使用）
+	richContentFlag bool
 }
 
 func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
@@ -1382,9 +1950,21 @@ func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
 	return builder
 }
 
+// 新的评论内容
+//
+//示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
+	return builder
+}
+
+// 新的富文本评论内容（优先使用）
+//
+//示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
+func (builder *UpdateTaskCommentReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentReqBodyBuilder {
+	builder.richContent = richContent
+	builder.richContentFlag = true
 	return builder
 }
 
@@ -1393,21 +1973,39 @@ func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBod
 	if builder.contentFlag {
 		req.Content = &builder.content
 	}
+	if builder.richContentFlag {
+		req.RichContent = &builder.richContent
+	}
 	return req
 }
 
 type UpdateTaskCommentPathReqBodyBuilder struct {
-	content     string
-	contentFlag bool
+	content         string // 新的评论内容
+	contentFlag     bool
+	richContent     string // 新的富文本评论内容（优先使用）
+	richContentFlag bool
 }
 
 func NewUpdateTaskCommentPathReqBodyBuilder() *UpdateTaskCommentPathReqBodyBuilder {
 	builder := &UpdateTaskCommentPathReqBodyBuilder{}
 	return builder
 }
+
+// 新的评论内容
+//
+// 示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentPathReqBodyBuilder) Content(content string) *UpdateTaskCommentPathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
+	return builder
+}
+
+// 新的富文本评论内容（优先使用）
+//
+// 示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
+func (builder *UpdateTaskCommentPathReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentPathReqBodyBuilder {
+	builder.richContent = richContent
+	builder.richContentFlag = true
 	return builder
 }
 
@@ -1415,6 +2013,9 @@ func (builder *UpdateTaskCommentPathReqBodyBuilder) Build() (*UpdateTaskCommentR
 	req := &UpdateTaskCommentReqBody{}
 	if builder.contentFlag {
 		req.Content = &builder.content
+	}
+	if builder.richContentFlag {
+		req.RichContent = &builder.richContent
 	}
 	return req, nil
 }
@@ -1433,14 +2034,23 @@ func NewUpdateTaskCommentReqBuilder() *UpdateTaskCommentReqBuilder {
 	return builder
 }
 
+// 任务ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 评论 ID
+//
+// 示例值：6937231762296684564
 func (builder *UpdateTaskCommentReqBuilder) CommentId(commentId string) *UpdateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
+
+// 该接口用于更新评论内容
 func (builder *UpdateTaskCommentReqBuilder) Body(body *UpdateTaskCommentReqBody) *UpdateTaskCommentReqBuilder {
 	builder.body = body
 	return builder
@@ -1455,7 +2065,8 @@ func (builder *UpdateTaskCommentReqBuilder) Build() *UpdateTaskCommentReq {
 }
 
 type UpdateTaskCommentReqBody struct {
-	Content *string `json:"content,omitempty"`
+	Content     *string `json:"content,omitempty"`      // 新的评论内容
+	RichContent *string `json:"rich_content,omitempty"` // 新的富文本评论内容（优先使用）
 }
 
 type UpdateTaskCommentReq struct {
@@ -1464,13 +2075,13 @@ type UpdateTaskCommentReq struct {
 }
 
 type UpdateTaskCommentRespData struct {
-	Comment *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"` // 返回修改后的任务评论详情
 }
 
 type UpdateTaskCommentResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *UpdateTaskCommentRespData `json:"data"`
+	Data *UpdateTaskCommentRespData `json:"data"` // 业务数据
 }
 
 func (resp *UpdateTaskCommentResp) Success() bool {
@@ -1491,14 +2102,23 @@ func NewCreateTaskFollowerReqBuilder() *CreateTaskFollowerReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *CreateTaskFollowerReqBuilder) TaskId(taskId string) *CreateTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *CreateTaskFollowerReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
+
+// 该接口用于创建任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
 func (builder *CreateTaskFollowerReqBuilder) Follower(follower *Follower) *CreateTaskFollowerReqBuilder {
 	builder.follower = follower
 	return builder
@@ -1519,13 +2139,13 @@ type CreateTaskFollowerReq struct {
 }
 
 type CreateTaskFollowerRespData struct {
-	Follower *Follower `json:"follower,omitempty"`
+	Follower *Follower `json:"follower,omitempty"` // 创建后的任务关注者
 }
 
 type CreateTaskFollowerResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTaskFollowerRespData `json:"data"`
+	Data *CreateTaskFollowerRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTaskFollowerResp) Success() bool {
@@ -1545,12 +2165,27 @@ func NewDeleteTaskFollowerReqBuilder() *DeleteTaskFollowerReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskFollowerReqBuilder) TaskId(taskId string) *DeleteTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 任务关注人 ID（Open ID或User ID，由user_id_type指定）
+//
+// 示例值：ou_87e1a581b36ecc4862cbfbce473f346a
 func (builder *DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *DeleteTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("follower_id", fmt.Sprint(followerId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *DeleteTaskFollowerReqBuilder) UserIdType(userIdType string) *DeleteTaskFollowerReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
@@ -1558,6 +2193,7 @@ func (builder *DeleteTaskFollowerReqBuilder) Build() *DeleteTaskFollowerReq {
 	req := &DeleteTaskFollowerReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -1576,7 +2212,7 @@ func (resp *DeleteTaskFollowerResp) Success() bool {
 
 type ListTaskFollowerReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListTaskFollowerReqBuilder() *ListTaskFollowerReqBuilder {
@@ -1588,22 +2224,39 @@ func NewListTaskFollowerReqBuilder() *ListTaskFollowerReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListTaskFollowerReqBuilder) Limit(limit int) *ListTaskFollowerReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 任务 ID
+//
+// 示例值：0d38e26e-190a-49e9-93a2-35067763ed1f
 func (builder *ListTaskFollowerReqBuilder) TaskId(taskId string) *ListTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：10
 func (builder *ListTaskFollowerReqBuilder) PageSize(pageSize int) *ListTaskFollowerReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：「上次返回的page_token」
 func (builder *ListTaskFollowerReqBuilder) PageToken(pageToken string) *ListTaskFollowerReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
 func (builder *ListTaskFollowerReqBuilder) UserIdType(userIdType string) *ListTaskFollowerReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -1620,19 +2273,20 @@ func (builder *ListTaskFollowerReqBuilder) Build() *ListTaskFollowerReq {
 
 type ListTaskFollowerReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListTaskFollowerRespData struct {
-	Items     []*Follower `json:"items,omitempty"`
-	PageToken *string     `json:"page_token,omitempty"`
-	HasMore   *bool       `json:"has_more,omitempty"`
+	Items     []*Follower `json:"items,omitempty"`      // 返回的关注人ID列表
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多数据
 }
 
 type ListTaskFollowerResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTaskFollowerRespData `json:"data"`
+	Data *ListTaskFollowerRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTaskFollowerResp) Success() bool {
@@ -1653,10 +2307,15 @@ func NewCreateTaskReminderReqBuilder() *CreateTaskReminderReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *CreateTaskReminderReqBuilder) TaskId(taskId string) *CreateTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 该接口用于创建任务的提醒时间。提醒时间在截止时间基础上做偏移，但是偏移后的结果不能早于当前时间。
 func (builder *CreateTaskReminderReqBuilder) Reminder(reminder *Reminder) *CreateTaskReminderReqBuilder {
 	builder.reminder = reminder
 	return builder
@@ -1676,13 +2335,13 @@ type CreateTaskReminderReq struct {
 }
 
 type CreateTaskReminderRespData struct {
-	Reminder *Reminder `json:"reminder,omitempty"`
+	Reminder *Reminder `json:"reminder,omitempty"` // 返回创建成功的提醒时间
 }
 
 type CreateTaskReminderResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *CreateTaskReminderRespData `json:"data"`
+	Data *CreateTaskReminderRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTaskReminderResp) Success() bool {
@@ -1702,10 +2361,17 @@ func NewDeleteTaskReminderReqBuilder() *DeleteTaskReminderReqBuilder {
 	return builder
 }
 
+// 任务 ID
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskReminderReqBuilder) TaskId(taskId string) *DeleteTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 任务提醒时间设置的 ID（即 reminder.id）
+//
+// 示例值：1
 func (builder *DeleteTaskReminderReqBuilder) ReminderId(reminderId string) *DeleteTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("reminder_id", fmt.Sprint(reminderId))
 	return builder
@@ -1733,7 +2399,7 @@ func (resp *DeleteTaskReminderResp) Success() bool {
 
 type ListTaskReminderReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	limit  int
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewListTaskReminderReqBuilder() *ListTaskReminderReqBuilder {
@@ -1745,18 +2411,31 @@ func NewListTaskReminderReqBuilder() *ListTaskReminderReqBuilder {
 	return builder
 }
 
+// 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListTaskReminderReqBuilder) Limit(limit int) *ListTaskReminderReqBuilder {
 	builder.limit = limit
 	return builder
 }
+
+// 任务 ID
+//
+// 示例值：0d38e26e-190a-49e9-93a2-35067763ed1f
 func (builder *ListTaskReminderReqBuilder) TaskId(taskId string) *ListTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
+
+// 分页大小
+//
+// 示例值：50
 func (builder *ListTaskReminderReqBuilder) PageSize(pageSize int) *ListTaskReminderReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：「填写上次返回的page_token」
 func (builder *ListTaskReminderReqBuilder) PageToken(pageToken string) *ListTaskReminderReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -1773,19 +2452,20 @@ func (builder *ListTaskReminderReqBuilder) Build() *ListTaskReminderReq {
 
 type ListTaskReminderReq struct {
 	apiReq *larkcore.ApiReq
-	Limit  int
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type ListTaskReminderRespData struct {
-	Items     []*Reminder `json:"items,omitempty"`
-	PageToken *string     `json:"page_token,omitempty"`
-	HasMore   *bool       `json:"has_more,omitempty"`
+	Items     []*Reminder `json:"items,omitempty"`      // 返回提醒时间设置列表
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多数据
 }
 
 type ListTaskReminderResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *ListTaskReminderRespData `json:"data"`
+	Data *ListTaskReminderRespData `json:"data"` // 业务数据
 }
 
 func (resp *ListTaskReminderResp) Success() bool {
@@ -1793,16 +2473,16 @@ func (resp *ListTaskReminderResp) Success() bool {
 }
 
 type P2TaskUpdateTenantV1Data struct {
-	UserIdList *UserIdList `json:"user_id_list,omitempty"`
-	TaskId     *string     `json:"task_id,omitempty"`
-	ObjectType *string     `json:"object_type,omitempty"`
-	EventType  *string     `json:"event_type,omitempty"`
+	UserIdList *UserIdList `json:"user_id_list,omitempty"` // 用户 ID 列表
+	TaskId     *string     `json:"task_id,omitempty"`      // 任务的id
+	ObjectType *string     `json:"object_type,omitempty"`  // 变更的数据类型，可选值：;"task"，"collaborator"，"follower"
+	EventType  *string     `json:"event_type,omitempty"`   // 事件类型，可选值：;"create"，"delete"，"update"
 }
 
 type P2TaskUpdateTenantV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2TaskUpdateTenantV1Data `json:"event"`
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2TaskUpdateTenantV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2TaskUpdateTenantV1) RawReq(req *larkevent.EventReq) {
@@ -1810,14 +2490,14 @@ func (m *P2TaskUpdateTenantV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TaskUpdatedV1Data struct {
-	TaskId  *string `json:"task_id,omitempty"`
-	ObjType *int    `json:"obj_type,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`  // 任务ID
+	ObjType *int    `json:"obj_type,omitempty"` // 通知类型（1：任务详情发生变化，2：任务协作者发生变化，3：任务关注者发生变化，4：任务提醒时间发生变化，5：任务完成，6：任务取消完成，7：任务删除）
 }
 
 type P2TaskUpdatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2TaskUpdatedV1Data `json:"event"`
+	*larkevent.EventV2Base                      // 事件基础数据
+	*larkevent.EventReq                         // 请求原生数据
+	Event                  *P2TaskUpdatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2TaskUpdatedV1) RawReq(req *larkevent.EventReq) {
@@ -1825,16 +2505,16 @@ func (m *P2TaskUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TaskCommentUpdatedV1Data struct {
-	TaskId    *string `json:"task_id,omitempty"`
-	CommentId *string `json:"comment_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	ObjType   *int    `json:"obj_type,omitempty"`
+	TaskId    *string `json:"task_id,omitempty"`    // 任务ID
+	CommentId *string `json:"comment_id,omitempty"` // 任务评论ID
+	ParentId  *string `json:"parent_id,omitempty"`  // 任务评论父ID
+	ObjType   *int    `json:"obj_type,omitempty"`   // 通知类型（1：创建评论，2：回复评论，3：更新评论，4：删除评论）
 }
 
 type P2TaskCommentUpdatedV1 struct {
-	*larkevent.EventV2Base
-	*larkevent.EventReq
-	Event *P2TaskCommentUpdatedV1Data `json:"event"`
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2TaskCommentUpdatedV1Data `json:"event"` // 事件内容
 }
 
 func (m *P2TaskCommentUpdatedV1) RawReq(req *larkevent.EventReq) {

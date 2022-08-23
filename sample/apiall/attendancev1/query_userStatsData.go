@@ -21,7 +21,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
-// HTTP PATH: /open-apis/attendance/v1/user_stats_datas/query"
+// POST /open-apis/attendance/v1/user_stats_datas/query
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -29,14 +29,14 @@ func main() {
 	req := larkattendance.NewQueryUserStatsDataReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewQueryUserStatsDataReqBodyBuilder().
-			Locale("en").
-			StatsType("daily").
-			StartDate(0).
-			EndDate(0).
+			Locale("zh").
+			StatsType("month").
+			StartDate(20210316).
+			EndDate(20210323).
 			UserIds([]string{}).
-			NeedHistory(false).
-			CurrentGroupOnly(false).
-			UserId("").
+			NeedHistory(true).
+			CurrentGroupOnly(true).
+			UserId("ec8ddg56").
 			Build()).
 		Build()
 	// 发起请求
@@ -54,6 +54,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
