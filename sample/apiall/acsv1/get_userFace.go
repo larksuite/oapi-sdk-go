@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
-// HTTP PATH: /open-apis/acs/v1/users/:user_id/face"
+// GET /open-apis/acs/v1/users/:user_id/face
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkacs.NewGetUserFaceReqBuilder().
-		UserId("").
+		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		IsCropped(true).
 		UserIdType("user_id").
 		Build()
@@ -46,6 +46,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

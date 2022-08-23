@@ -21,13 +21,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
-// HTTP PATH: /open-apis/acs/v1/access_records/:access_record_id/access_photo"
+// GET /open-apis/acs/v1/access_records/:access_record_id/access_photo
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkacs.NewGetAccessRecordAccessPhotoReqBuilder().
-		AccessRecordId("").
+		AccessRecordId("6939433228970082591").
 		Build()
 	// 发起请求
 	resp, err := client.Acs.AccessRecordAccessPhoto.Get(context.Background(), req)
@@ -44,6 +44,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

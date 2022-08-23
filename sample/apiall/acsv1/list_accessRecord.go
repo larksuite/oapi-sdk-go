@@ -21,14 +21,14 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
-// HTTP PATH: /open-apis/acs/v1/access_records"
+// GET /open-apis/acs/v1/access_records
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkacs.NewListAccessRecordReqBuilder().
 		PageSize(100).
-		PageToken("").
+		PageToken("AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=").
 		From(1624520521).
 		To(1624520521).
 		DeviceId("7091146989218002577").
@@ -49,6 +49,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }

@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-// HTTP PATH: /open-apis/acs/v1/users/:user_id/face"
+// PUT /open-apis/acs/v1/users/:user_id/face
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
@@ -33,7 +33,7 @@ func main() {
 	}
 	// 创建请求对象
 	req := larkacs.NewUpdateUserFaceReqBuilder().
-		UserId("").
+		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("user_id").
 		File(larkacs.NewFileBuilder().
 			Files(file).
@@ -56,6 +56,6 @@ func main() {
 		return
 	}
 
-	// 业务处理处理
+	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
