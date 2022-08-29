@@ -37,16 +37,16 @@ const (
 )
 
 const (
-	TargetTypeProgressRecordCreateOkr的O  = 2 // okr的O
-	TargetTypeProgressRecordCreateOkr的KR = 3 // okr的KR
+	TargetTypeCreateProgressRecordOkr的O  = 2 // okr的O
+	TargetTypeCreateProgressRecordOkr的KR = 3 // okr的KR
 
 )
 
 const (
-	UserIdTypeUserOkrListUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeUserOkrListUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeUserOkrListOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeUserOkrListPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeListUserOkrUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeListUserOkrUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeListUserOkrOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeListUserOkrPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 type AlignObjective struct {
@@ -70,6 +70,7 @@ func NewAlignObjectiveBuilder() *AlignObjectiveBuilder {
 }
 
 // Objective ID
+//
 // 示例值：
 func (builder *AlignObjectiveBuilder) Id(id string) *AlignObjectiveBuilder {
 	builder.id = id
@@ -78,6 +79,7 @@ func (builder *AlignObjectiveBuilder) Id(id string) *AlignObjectiveBuilder {
 }
 
 // OKR ID
+//
 // 示例值：
 func (builder *AlignObjectiveBuilder) OkrId(okrId string) *AlignObjectiveBuilder {
 	builder.okrId = okrId
@@ -86,6 +88,7 @@ func (builder *AlignObjectiveBuilder) OkrId(okrId string) *AlignObjectiveBuilder
 }
 
 // 用户 UUID
+//
 // 示例值：
 func (builder *AlignObjectiveBuilder) UserId(userId string) *AlignObjectiveBuilder {
 	builder.userId = userId
@@ -125,6 +128,7 @@ func NewContentBlockBuilder() *ContentBlockBuilder {
 }
 
 // 文档结构是按行排列的，每行内容是一个 Block
+//
 // 示例值：
 func (builder *ContentBlockBuilder) Blocks(blocks []*ContentBlockElement) *ContentBlockBuilder {
 	builder.blocks = blocks
@@ -161,6 +165,7 @@ func NewContentBlockElementBuilder() *ContentBlockElementBuilder {
 }
 
 // 文档元素类型
+//
 // 示例值：paragraph
 func (builder *ContentBlockElementBuilder) Type(type_ string) *ContentBlockElementBuilder {
 	builder.type_ = type_
@@ -169,6 +174,7 @@ func (builder *ContentBlockElementBuilder) Type(type_ string) *ContentBlockEleme
 }
 
 // 文本段落
+//
 // 示例值：
 func (builder *ContentBlockElementBuilder) Paragraph(paragraph *ContentParagraph) *ContentBlockElementBuilder {
 	builder.paragraph = paragraph
@@ -177,6 +183,7 @@ func (builder *ContentBlockElementBuilder) Paragraph(paragraph *ContentParagraph
 }
 
 // 图片
+//
 // 示例值：
 func (builder *ContentBlockElementBuilder) Gallery(gallery *ContentGallery) *ContentBlockElementBuilder {
 	builder.gallery = gallery
@@ -223,6 +230,7 @@ func NewContentColorBuilder() *ContentColorBuilder {
 }
 
 // 红 取值范围[0,255]
+//
 // 示例值：216
 func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
 	builder.red = red
@@ -231,6 +239,7 @@ func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
 }
 
 // 绿 取值范围[0,255]
+//
 // 示例值：191
 func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
 	builder.green = green
@@ -239,6 +248,7 @@ func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
 }
 
 // 蓝 取值范围[0,255]
+//
 // 示例值：188
 func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
 	builder.blue = blue
@@ -247,6 +257,7 @@ func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
 }
 
 // 透明度 取值范围[0,1]
+//
 // 示例值：0.1
 func (builder *ContentColorBuilder) Alpha(alpha float64) *ContentColorBuilder {
 	builder.alpha = alpha
@@ -293,6 +304,7 @@ func NewContentDocsLinkBuilder() *ContentDocsLinkBuilder {
 }
 
 // 飞书云文档链接地址
+//
 // 示例值：https://xxx.feishu.cn/docx/xxxxxxxx
 func (builder *ContentDocsLinkBuilder) Url(url string) *ContentDocsLinkBuilder {
 	builder.url = url
@@ -301,6 +313,7 @@ func (builder *ContentDocsLinkBuilder) Url(url string) *ContentDocsLinkBuilder {
 }
 
 // 飞书云文档标题
+//
 // 示例值：项目说明文档
 func (builder *ContentDocsLinkBuilder) Title(title string) *ContentDocsLinkBuilder {
 	builder.title = title
@@ -336,6 +349,7 @@ func NewContentGalleryBuilder() *ContentGalleryBuilder {
 }
 
 // 图片元素
+//
 // 示例值：
 func (builder *ContentGalleryBuilder) ImageList(imageList []*ContentImageItem) *ContentGalleryBuilder {
 	builder.imageList = imageList
@@ -375,6 +389,7 @@ func NewContentImageItemBuilder() *ContentImageItemBuilder {
 }
 
 // 图片 token，通过上传图片接口获取
+//
 // 示例值：boxcnOj88GDkmWGm2zsTyCBqoLb
 func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImageItemBuilder {
 	builder.fileToken = fileToken
@@ -383,6 +398,7 @@ func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImag
 }
 
 // 图片链接，通过上传图片接口获取
+//
 // 示例值：https://internal-api-okr.feishu-boe.cn/stream/api/downloadFile/?file_token=boxbcMTBQO9ofLjWkDuPxkxOA2c\&ticket=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0YXJnZXRfaWQiOiI3MDQxNDMwMzc3NjQyMDgyMzIzIiwidGFyZ2V0X3R5cGUiOjMsImFjdGlvbiI6MiwiZmlsZV90b2tlbiI6ImJveGJjTVRCUU85b2ZMaldrRHVQeGt4T0EyYyIsInVzZXJfaWQiOiI2OTY5ODU1NTAxNzQ0ODM0MDkyIiwidGVuYW50X2lkIjoiNjg3NzUwMjY4NzYwOTQwNjk5MCIsImV4cCI6MTY0MDE1NTk2M30.yc4qV2pkGUVwSO53-N_XGgeMucjmDn9iso1Ez_8vpghFz8YdeSDf4NHQpxOHYHc8RURvwI0a5UTNKKJ9CWagTQ
 func (builder *ContentImageItemBuilder) Url(url string) *ContentImageItemBuilder {
 	builder.url = url
@@ -391,6 +407,7 @@ func (builder *ContentImageItemBuilder) Url(url string) *ContentImageItemBuilder
 }
 
 // 图片宽，单位px
+//
 // 示例值：458
 func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBuilder {
 	builder.width = width
@@ -399,6 +416,7 @@ func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBu
 }
 
 // 图片高，单位px
+//
 // 示例值：372
 func (builder *ContentImageItemBuilder) Height(height float64) *ContentImageItemBuilder {
 	builder.height = height
@@ -442,6 +460,7 @@ func NewContentLinkBuilder() *ContentLinkBuilder {
 }
 
 // 链接地址
+//
 // 示例值：https://www.xxxxx.com/
 func (builder *ContentLinkBuilder) Url(url string) *ContentLinkBuilder {
 	builder.url = url
@@ -479,6 +498,7 @@ func NewContentListBuilder() *ContentListBuilder {
 }
 
 // 列表类型
+//
 // 示例值：number
 func (builder *ContentListBuilder) Type(type_ string) *ContentListBuilder {
 	builder.type_ = type_
@@ -487,6 +507,7 @@ func (builder *ContentListBuilder) Type(type_ string) *ContentListBuilder {
 }
 
 // 列表的缩进级别，支持指定一行的缩进 除代码块以外的列表都支持设置缩进，支持 1-16 级缩进，取值范围：[1,16]
+//
 // 示例值：1
 func (builder *ContentListBuilder) IndentLevel(indentLevel int) *ContentListBuilder {
 	builder.indentLevel = indentLevel
@@ -495,6 +516,7 @@ func (builder *ContentListBuilder) IndentLevel(indentLevel int) *ContentListBuil
 }
 
 // 用于指定列表的行号，仅对有序列表和代码块生效 如果为有序列表设置了缩进，行号可能会显示为字母或者罗马数字
+//
 // 示例值：1
 func (builder *ContentListBuilder) Number(number int) *ContentListBuilder {
 	builder.number = number
@@ -537,6 +559,7 @@ func NewContentParagraphBuilder() *ContentParagraphBuilder {
 }
 
 // 段落样式
+//
 // 示例值：
 func (builder *ContentParagraphBuilder) Style(style *ContentParagraphStyle) *ContentParagraphBuilder {
 	builder.style = style
@@ -545,6 +568,7 @@ func (builder *ContentParagraphBuilder) Style(style *ContentParagraphStyle) *Con
 }
 
 // 段落元素组成一个段落
+//
 // 示例值：
 func (builder *ContentParagraphBuilder) Elements(elements []*ContentParagraphElement) *ContentParagraphBuilder {
 	builder.elements = elements
@@ -587,6 +611,7 @@ func NewContentParagraphElementBuilder() *ContentParagraphElementBuilder {
 }
 
 // 元素类型
+//
 // 示例值：textRun
 func (builder *ContentParagraphElementBuilder) Type(type_ string) *ContentParagraphElementBuilder {
 	builder.type_ = type_
@@ -595,6 +620,7 @@ func (builder *ContentParagraphElementBuilder) Type(type_ string) *ContentParagr
 }
 
 // 文本
+//
 // 示例值：
 func (builder *ContentParagraphElementBuilder) TextRun(textRun *ContentTextRun) *ContentParagraphElementBuilder {
 	builder.textRun = textRun
@@ -603,6 +629,7 @@ func (builder *ContentParagraphElementBuilder) TextRun(textRun *ContentTextRun) 
 }
 
 // 飞书云文档
+//
 // 示例值：
 func (builder *ContentParagraphElementBuilder) DocsLink(docsLink *ContentDocsLink) *ContentParagraphElementBuilder {
 	builder.docsLink = docsLink
@@ -611,6 +638,7 @@ func (builder *ContentParagraphElementBuilder) DocsLink(docsLink *ContentDocsLin
 }
 
 // 艾特用户
+//
 // 示例值：
 func (builder *ContentParagraphElementBuilder) Person(person *ContentPerson) *ContentParagraphElementBuilder {
 	builder.person = person
@@ -651,6 +679,7 @@ func NewContentParagraphStyleBuilder() *ContentParagraphStyleBuilder {
 }
 
 // 有序列表/无序列表/任务列表
+//
 // 示例值：
 func (builder *ContentParagraphStyleBuilder) List(list []*ContentList) *ContentParagraphStyleBuilder {
 	builder.list = list
@@ -681,6 +710,7 @@ func NewContentPersonBuilder() *ContentPersonBuilder {
 }
 
 // 员工的OpenID
+//
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *ContentPersonBuilder) OpenId(openId string) *ContentPersonBuilder {
 	builder.openId = openId
@@ -715,6 +745,7 @@ func NewContentTextRunBuilder() *ContentTextRunBuilder {
 }
 
 // 具体的文本内容
+//
 // 示例值：周报内容
 func (builder *ContentTextRunBuilder) Text(text string) *ContentTextRunBuilder {
 	builder.text = text
@@ -723,6 +754,7 @@ func (builder *ContentTextRunBuilder) Text(text string) *ContentTextRunBuilder {
 }
 
 // 文本内容的样式，支持 BIUS、颜色等
+//
 // 示例值：
 func (builder *ContentTextRunBuilder) Style(style *ContentTextStyle) *ContentTextRunBuilder {
 	builder.style = style
@@ -769,6 +801,7 @@ func NewContentTextStyleBuilder() *ContentTextStyleBuilder {
 }
 
 // 是否加粗
+//
 // 示例值：true
 func (builder *ContentTextStyleBuilder) Bold(bold bool) *ContentTextStyleBuilder {
 	builder.bold = bold
@@ -777,6 +810,7 @@ func (builder *ContentTextStyleBuilder) Bold(bold bool) *ContentTextStyleBuilder
 }
 
 // 是否删除
+//
 // 示例值：true
 func (builder *ContentTextStyleBuilder) StrikeThrough(strikeThrough bool) *ContentTextStyleBuilder {
 	builder.strikeThrough = strikeThrough
@@ -785,6 +819,7 @@ func (builder *ContentTextStyleBuilder) StrikeThrough(strikeThrough bool) *Conte
 }
 
 // 背景颜色
+//
 // 示例值：
 func (builder *ContentTextStyleBuilder) BackColor(backColor *ContentColor) *ContentTextStyleBuilder {
 	builder.backColor = backColor
@@ -793,6 +828,7 @@ func (builder *ContentTextStyleBuilder) BackColor(backColor *ContentColor) *Cont
 }
 
 // 字体颜色
+//
 // 示例值：
 func (builder *ContentTextStyleBuilder) TextColor(textColor *ContentColor) *ContentTextStyleBuilder {
 	builder.textColor = textColor
@@ -801,6 +837,7 @@ func (builder *ContentTextStyleBuilder) TextColor(textColor *ContentColor) *Cont
 }
 
 // 链接地址
+//
 // 示例值：
 func (builder *ContentTextStyleBuilder) Link(link *ContentLink) *ContentTextStyleBuilder {
 	builder.link = link
@@ -848,6 +885,7 @@ func NewCurrentOkrSimpleBuilder() *CurrentOkrSimpleBuilder {
 }
 
 // OKR ID
+//
 // 示例值：
 func (builder *CurrentOkrSimpleBuilder) OkrId(okrId string) *CurrentOkrSimpleBuilder {
 	builder.okrId = okrId
@@ -856,6 +894,7 @@ func (builder *CurrentOkrSimpleBuilder) OkrId(okrId string) *CurrentOkrSimpleBui
 }
 
 // 周期 ID
+//
 // 示例值：
 func (builder *CurrentOkrSimpleBuilder) PeriodId(periodId string) *CurrentOkrSimpleBuilder {
 	builder.periodId = periodId
@@ -891,6 +930,7 @@ func NewDummyBuilder() *DummyBuilder {
 }
 
 // id
+//
 // 示例值：
 func (builder *DummyBuilder) Id(id string) *DummyBuilder {
 	builder.id = id
@@ -925,6 +965,7 @@ func NewImageInfoBuilder() *ImageInfoBuilder {
 }
 
 // 图片token
+//
 // 示例值：boxbcLxEnhUE3REJSAwAbVFZwPf
 func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 	builder.fileToken = fileToken
@@ -933,6 +974,7 @@ func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 }
 
 // 图片下载链接
+//
 // 示例值：https://internal-api-okr.feishu-boe.cn/stream/api/downloadFile/?file_token=boxbcLxEnhUE3REJSAwAbVFZwPf&ticket=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0YXJnZXRfaWQiOiI3MDQxNDMwMzc3NjQyMDgyMzIzIiwidGFyZ2V0X3R5cGUiOjMsImFjdGlvbiI6MiwiZmlsZV90b2tlbiI6ImJveGJjTHhFbmhVRTNSRUpTQXdBYlZGWndQZiIsInVzZXJfaWQiOiI2OTY5ODU1NTAxNzQ0ODM0MDkyIiwidGVuYW50X2lkIjoiNjg3NzUwMjY4NzYwOTQwNjk5MCIsImV4cCI6MTYzOTcyNTUwM30.G2RD3LJBycZuF0Myi2WD4IdJ1N5jB24KGjLrm9e4peNlF8uy2XflINVcTpvN6drshITErHu0ehibJI5Fci-Pkw
 func (builder *ImageInfoBuilder) Url(url string) *ImageInfoBuilder {
 	builder.url = url
@@ -986,6 +1028,7 @@ func NewKrBuilder() *KrBuilder {
 }
 
 // KeyResult ID
+//
 // 示例值：
 func (builder *KrBuilder) Id(id string) *KrBuilder {
 	builder.id = id
@@ -994,6 +1037,7 @@ func (builder *KrBuilder) Id(id string) *KrBuilder {
 }
 
 // KeyResult 在所属 Objective 中的排序
+//
 // 示例值：
 func (builder *KrBuilder) Pos(pos string) *KrBuilder {
 	builder.pos = pos
@@ -1002,6 +1046,7 @@ func (builder *KrBuilder) Pos(pos string) *KrBuilder {
 }
 
 // KeyResult 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
+//
 // 示例值：
 func (builder *KrBuilder) Score(score string) *KrBuilder {
 	builder.score = score
@@ -1010,6 +1055,7 @@ func (builder *KrBuilder) Score(score string) *KrBuilder {
 }
 
 // KeyResult 的权重
+//
 // 示例值：
 func (builder *KrBuilder) Weight(weight string) *KrBuilder {
 	builder.weight = weight
@@ -1018,6 +1064,7 @@ func (builder *KrBuilder) Weight(weight string) *KrBuilder {
 }
 
 // KeyResult 对应的 Content 详细内容
+//
 // 示例值：
 func (builder *KrBuilder) Content(content *KrContent) *KrBuilder {
 	builder.content = content
@@ -1026,6 +1073,7 @@ func (builder *KrBuilder) Content(content *KrContent) *KrBuilder {
 }
 
 // KeyResult 的创建时间 毫秒
+//
 // 示例值：
 func (builder *KrBuilder) CreateTime(createTime int) *KrBuilder {
 	builder.createTime = createTime
@@ -1034,6 +1082,7 @@ func (builder *KrBuilder) CreateTime(createTime int) *KrBuilder {
 }
 
 // KeyResult 的最后修改时间 毫秒
+//
 // 示例值：
 func (builder *KrBuilder) ModifyTime(modifyTime int) *KrBuilder {
 	builder.modifyTime = modifyTime
@@ -1091,6 +1140,7 @@ func NewKrContentBuilder() *KrContentBuilder {
 }
 
 // 中文内容
+//
 // 示例值：
 func (builder *KrContentBuilder) Zh(zh string) *KrContentBuilder {
 	builder.zh = zh
@@ -1099,6 +1149,7 @@ func (builder *KrContentBuilder) Zh(zh string) *KrContentBuilder {
 }
 
 // 英文内容
+//
 // 示例值：
 func (builder *KrContentBuilder) En(en string) *KrContentBuilder {
 	builder.en = en
@@ -1167,6 +1218,7 @@ func NewObjectiveBuilder() *ObjectiveBuilder {
 }
 
 // 目标的ID
+//
 // 示例值：
 func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
 	builder.id = id
@@ -1175,6 +1227,7 @@ func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
 }
 
 // 所属的OKR ID
+//
 // 示例值：
 func (builder *ObjectiveBuilder) OkrId(okrId string) *ObjectiveBuilder {
 	builder.okrId = okrId
@@ -1183,6 +1236,7 @@ func (builder *ObjectiveBuilder) OkrId(okrId string) *ObjectiveBuilder {
 }
 
 // 拥有者的用户 UUID
+//
 // 示例值：
 func (builder *ObjectiveBuilder) UserId(userId string) *ObjectiveBuilder {
 	builder.userId = userId
@@ -1191,6 +1245,7 @@ func (builder *ObjectiveBuilder) UserId(userId string) *ObjectiveBuilder {
 }
 
 // Objective 在所属 OKR 中的排序
+//
 // 示例值：
 func (builder *ObjectiveBuilder) Pos(pos string) *ObjectiveBuilder {
 	builder.pos = pos
@@ -1199,6 +1254,7 @@ func (builder *ObjectiveBuilder) Pos(pos string) *ObjectiveBuilder {
 }
 
 // Objective 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
+//
 // 示例值：
 func (builder *ObjectiveBuilder) Score(score string) *ObjectiveBuilder {
 	builder.score = score
@@ -1207,6 +1263,7 @@ func (builder *ObjectiveBuilder) Score(score string) *ObjectiveBuilder {
 }
 
 // Objective 的详细内容
+//
 // 示例值：
 func (builder *ObjectiveBuilder) Name(name *ObjectiveName) *ObjectiveBuilder {
 	builder.name = name
@@ -1215,6 +1272,7 @@ func (builder *ObjectiveBuilder) Name(name *ObjectiveName) *ObjectiveBuilder {
 }
 
 // Objective 对应的 Progress 详细内容
+//
 // 示例值：
 func (builder *ObjectiveBuilder) Progress(progress *ObjectiveProgress) *ObjectiveBuilder {
 	builder.progress = progress
@@ -1223,6 +1281,7 @@ func (builder *ObjectiveBuilder) Progress(progress *ObjectiveProgress) *Objectiv
 }
 
 // Objective 的创建时间
+//
 // 示例值：
 func (builder *ObjectiveBuilder) CreateTime(createTime int) *ObjectiveBuilder {
 	builder.createTime = createTime
@@ -1231,6 +1290,7 @@ func (builder *ObjectiveBuilder) CreateTime(createTime int) *ObjectiveBuilder {
 }
 
 // Objective 的最后修改时间
+//
 // 示例值：
 func (builder *ObjectiveBuilder) ModifyTime(modifyTime int) *ObjectiveBuilder {
 	builder.modifyTime = modifyTime
@@ -1239,6 +1299,7 @@ func (builder *ObjectiveBuilder) ModifyTime(modifyTime int) *ObjectiveBuilder {
 }
 
 // Objective 下的 KeyResult 列表
+//
 // 示例值：
 func (builder *ObjectiveBuilder) KrList(krList []*Kr) *ObjectiveBuilder {
 	builder.krList = krList
@@ -1247,6 +1308,7 @@ func (builder *ObjectiveBuilder) KrList(krList []*Kr) *ObjectiveBuilder {
 }
 
 // Objective 对齐别人的 Objective 列表
+//
 // 示例值：
 func (builder *ObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*AlignObjective) *ObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
@@ -1255,6 +1317,7 @@ func (builder *ObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*
 }
 
 // 被别人对齐的 Objective 列表
+//
 // 示例值：
 func (builder *ObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*AlignObjective) *ObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
@@ -1328,6 +1391,7 @@ func NewObjectiveNameBuilder() *ObjectiveNameBuilder {
 }
 
 // 中文内容
+//
 // 示例值：
 func (builder *ObjectiveNameBuilder) Zh(zh string) *ObjectiveNameBuilder {
 	builder.zh = zh
@@ -1336,6 +1400,7 @@ func (builder *ObjectiveNameBuilder) Zh(zh string) *ObjectiveNameBuilder {
 }
 
 // 英文内容
+//
 // 示例值：
 func (builder *ObjectiveNameBuilder) En(en string) *ObjectiveNameBuilder {
 	builder.en = en
@@ -1374,6 +1439,7 @@ func NewObjectiveProgressBuilder() *ObjectiveProgressBuilder {
 }
 
 // 中文内容
+//
 // 示例值：
 func (builder *ObjectiveProgressBuilder) Zh(zh string) *ObjectiveProgressBuilder {
 	builder.zh = zh
@@ -1382,6 +1448,7 @@ func (builder *ObjectiveProgressBuilder) Zh(zh string) *ObjectiveProgressBuilder
 }
 
 // 英文内容
+//
 // 示例值：
 func (builder *ObjectiveProgressBuilder) En(en string) *ObjectiveProgressBuilder {
 	builder.en = en
@@ -1438,6 +1505,7 @@ func NewOkrBuilder() *OkrBuilder {
 }
 
 // OKR ID
+//
 // 示例值：6976173067307927084
 func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 	builder.okrId = okrId
@@ -1446,6 +1514,7 @@ func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 }
 
 // 周期 ID
+//
 // 示例值：6974586812973581868
 func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 	builder.periodId = periodId
@@ -1454,6 +1523,7 @@ func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 }
 
 // 周期类型：1、月周期；2、年周期
+//
 // 示例值：1
 func (builder *OkrBuilder) PeriodType(periodType string) *OkrBuilder {
 	builder.periodType = periodType
@@ -1462,6 +1532,7 @@ func (builder *OkrBuilder) PeriodType(periodType string) *OkrBuilder {
 }
 
 // 周期展示名称
+//
 // 示例值：
 func (builder *OkrBuilder) Name(name *OkrName) *OkrBuilder {
 	builder.name = name
@@ -1470,6 +1541,7 @@ func (builder *OkrBuilder) Name(name *OkrName) *OkrBuilder {
 }
 
 // 创建时间 毫秒
+//
 // 示例值：1624267575928
 func (builder *OkrBuilder) CreateTime(createTime int) *OkrBuilder {
 	builder.createTime = createTime
@@ -1478,6 +1550,7 @@ func (builder *OkrBuilder) CreateTime(createTime int) *OkrBuilder {
 }
 
 // 修改时间 毫秒
+//
 // 示例值：1624329170463
 func (builder *OkrBuilder) ModifyTime(modifyTime int) *OkrBuilder {
 	builder.modifyTime = modifyTime
@@ -1486,6 +1559,7 @@ func (builder *OkrBuilder) ModifyTime(modifyTime int) *OkrBuilder {
 }
 
 // objective 列表
+//
 // 示例值：
 func (builder *OkrBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *OkrBuilder {
 	builder.objectiveList = objectiveList
@@ -1494,6 +1568,7 @@ func (builder *OkrBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *O
 }
 
 // 打分
+//
 // 示例值：0.5
 func (builder *OkrBuilder) OkrScore(okrScore int) *OkrBuilder {
 	builder.okrScore = okrScore
@@ -1569,6 +1644,7 @@ func NewOkrCommentBuilder() *OkrCommentBuilder {
 }
 
 // 全局评论ID
+//
 // 示例值：6976173067307927084
 func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
 	builder.id = id
@@ -1577,6 +1653,7 @@ func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
 }
 
 // 全局评论内容
+//
 // 示例值：well done
 func (builder *OkrCommentBuilder) Content(content string) *OkrCommentBuilder {
 	builder.content = content
@@ -1585,6 +1662,7 @@ func (builder *OkrCommentBuilder) Content(content string) *OkrCommentBuilder {
 }
 
 // 全局评论时间 毫秒
+//
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) CommentTime(commentTime int) *OkrCommentBuilder {
 	builder.commentTime = commentTime
@@ -1593,6 +1671,7 @@ func (builder *OkrCommentBuilder) CommentTime(commentTime int) *OkrCommentBuilde
 }
 
 // 评论人员
+//
 // 示例值：
 func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
 	builder.commentator = commentator
@@ -1601,6 +1680,7 @@ func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedOb
 }
 
 // 修改评论的用户
+//
 // 示例值：
 func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
 	builder.lastModifier = lastModifier
@@ -1609,6 +1689,7 @@ func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAligned
 }
 
 // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+//
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrCommentBuilder {
 	builder.contentModifyTime = contentModifyTime
@@ -1617,6 +1698,7 @@ func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrC
 }
 
 // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+//
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) SolvedTime(solvedTime int) *OkrCommentBuilder {
 	builder.solvedTime = solvedTime
@@ -1676,6 +1758,7 @@ func NewOkrObjectiveAlignmentBuilder() *OkrObjectiveAlignmentBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmentBuilder {
 	builder.id = id
@@ -1684,6 +1767,7 @@ func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmen
 }
 
 // 目标id
+//
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlignmentBuilder {
 	builder.toId = toId
@@ -1692,6 +1776,7 @@ func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlig
 }
 
 // 目标类型
+//
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) ToType(toType int) *OkrObjectiveAlignmentBuilder {
 	builder.toType = toType
@@ -1746,6 +1831,7 @@ func NewOkrBatchBuilder() *OkrBatchBuilder {
 }
 
 // id
+//
 // 示例值：11123123123123
 func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 	builder.id = id
@@ -1754,6 +1840,7 @@ func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 }
 
 // OKR的访问权限
+//
 // 示例值：0
 func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
 	builder.permission = permission
@@ -1762,6 +1849,7 @@ func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
 }
 
 // period_id
+//
 // 示例值：11123123123123
 func (builder *OkrBatchBuilder) PeriodId(periodId string) *OkrBatchBuilder {
 	builder.periodId = periodId
@@ -1770,6 +1858,7 @@ func (builder *OkrBatchBuilder) PeriodId(periodId string) *OkrBatchBuilder {
 }
 
 // 名称
+//
 // 示例值：My OKR
 func (builder *OkrBatchBuilder) Name(name string) *OkrBatchBuilder {
 	builder.name = name
@@ -1778,6 +1867,7 @@ func (builder *OkrBatchBuilder) Name(name string) *OkrBatchBuilder {
 }
 
 // Objective列表
+//
 // 示例值：
 func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *OkrBatchBuilder {
 	builder.objectiveList = objectiveList
@@ -1786,6 +1876,7 @@ func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *Ok
 }
 
 // OKR确认状态
+//
 // 示例值：0
 func (builder *OkrBatchBuilder) ConfirmStatus(confirmStatus int) *OkrBatchBuilder {
 	builder.confirmStatus = confirmStatus
@@ -1857,6 +1948,7 @@ func NewOkrDetailBuilder() *OkrDetailBuilder {
 }
 
 // OKR ID
+//
 // 示例值：6976173067307927084
 func (builder *OkrDetailBuilder) OkrId(okrId string) *OkrDetailBuilder {
 	builder.okrId = okrId
@@ -1865,6 +1957,7 @@ func (builder *OkrDetailBuilder) OkrId(okrId string) *OkrDetailBuilder {
 }
 
 // 周期 ID
+//
 // 示例值：6974586812973581868
 func (builder *OkrDetailBuilder) PeriodId(periodId string) *OkrDetailBuilder {
 	builder.periodId = periodId
@@ -1873,6 +1966,7 @@ func (builder *OkrDetailBuilder) PeriodId(periodId string) *OkrDetailBuilder {
 }
 
 // 周期类型：1、月周期；2、年周期
+//
 // 示例值：1
 func (builder *OkrDetailBuilder) PeriodType(periodType string) *OkrDetailBuilder {
 	builder.periodType = periodType
@@ -1881,6 +1975,7 @@ func (builder *OkrDetailBuilder) PeriodType(periodType string) *OkrDetailBuilder
 }
 
 // 周期展示名称
+//
 // 示例值：
 func (builder *OkrDetailBuilder) Name(name *OkrName) *OkrDetailBuilder {
 	builder.name = name
@@ -1889,6 +1984,7 @@ func (builder *OkrDetailBuilder) Name(name *OkrName) *OkrDetailBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1624267575928
 func (builder *OkrDetailBuilder) CreateTime(createTime int) *OkrDetailBuilder {
 	builder.createTime = createTime
@@ -1897,6 +1993,7 @@ func (builder *OkrDetailBuilder) CreateTime(createTime int) *OkrDetailBuilder {
 }
 
 // 修改时间
+//
 // 示例值：1624329170463
 func (builder *OkrDetailBuilder) ModifyTime(modifyTime int) *OkrDetailBuilder {
 	builder.modifyTime = modifyTime
@@ -1905,6 +2002,7 @@ func (builder *OkrDetailBuilder) ModifyTime(modifyTime int) *OkrDetailBuilder {
 }
 
 // objective 列表
+//
 // 示例值：
 func (builder *OkrDetailBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *OkrDetailBuilder {
 	builder.objectiveList = objectiveList
@@ -1913,6 +2011,7 @@ func (builder *OkrDetailBuilder) ObjectiveList(objectiveList []*OkrDetailObjecti
 }
 
 // 打分
+//
 // 示例值：0.5
 func (builder *OkrDetailBuilder) OkrScore(okrScore int) *OkrDetailBuilder {
 	builder.okrScore = okrScore
@@ -2006,6 +2105,7 @@ func NewOkrDetailObjectiveBuilder() *OkrDetailObjectiveBuilder {
 }
 
 // Objective ID
+//
 // 示例值：6976243668438730284
 func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuilder {
 	builder.id = id
@@ -2014,6 +2114,7 @@ func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuild
 }
 
 // 所属okr id
+//
 // 示例值：6976173067307927084
 func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiveBuilder {
 	builder.okrId = okrId
@@ -2022,6 +2123,7 @@ func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiv
 }
 
 // 用户id
+//
 // 示例值：ou_186301103180d3469a0bfd6e80977ec9
 func (builder *OkrDetailObjectiveBuilder) UserId(userId string) *OkrDetailObjectiveBuilder {
 	builder.userId = userId
@@ -2030,6 +2132,7 @@ func (builder *OkrDetailObjectiveBuilder) UserId(userId string) *OkrDetailObject
 }
 
 // pos
+//
 // 示例值：0
 func (builder *OkrDetailObjectiveBuilder) Pos(pos int) *OkrDetailObjectiveBuilder {
 	builder.pos = pos
@@ -2038,6 +2141,7 @@ func (builder *OkrDetailObjectiveBuilder) Pos(pos int) *OkrDetailObjectiveBuilde
 }
 
 // 得分
+//
 // 示例值：0
 func (builder *OkrDetailObjectiveBuilder) Score(score int) *OkrDetailObjectiveBuilder {
 	builder.score = score
@@ -2046,6 +2150,7 @@ func (builder *OkrDetailObjectiveBuilder) Score(score int) *OkrDetailObjectiveBu
 }
 
 // Objective 名称
+//
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) Name(name *OkrName) *OkrDetailObjectiveBuilder {
 	builder.name = name
@@ -2054,6 +2159,7 @@ func (builder *OkrDetailObjectiveBuilder) Name(name *OkrName) *OkrDetailObjectiv
 }
 
 // Objective 进度描述
+//
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) Progress(progress *OkrName) *OkrDetailObjectiveBuilder {
 	builder.progress = progress
@@ -2062,6 +2168,7 @@ func (builder *OkrDetailObjectiveBuilder) Progress(progress *OkrName) *OkrDetail
 }
 
 // 创建时间 毫秒
+//
 // 示例值：1624327915435
 func (builder *OkrDetailObjectiveBuilder) CreateTime(createTime int) *OkrDetailObjectiveBuilder {
 	builder.createTime = createTime
@@ -2070,6 +2177,7 @@ func (builder *OkrDetailObjectiveBuilder) CreateTime(createTime int) *OkrDetailO
 }
 
 // 修改时间 毫秒
+//
 // 示例值：1624329170551
 func (builder *OkrDetailObjectiveBuilder) ModifyTime(modifyTime int) *OkrDetailObjectiveBuilder {
 	builder.modifyTime = modifyTime
@@ -2078,6 +2186,7 @@ func (builder *OkrDetailObjectiveBuilder) ModifyTime(modifyTime int) *OkrDetailO
 }
 
 // Kr list
+//
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) KrList(krList []*OkrDetailObjectiveKr) *OkrDetailObjectiveBuilder {
 	builder.krList = krList
@@ -2086,6 +2195,7 @@ func (builder *OkrDetailObjectiveBuilder) KrList(krList []*OkrDetailObjectiveKr)
 }
 
 // aligning_objective_list list
+//
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*OkrDetailObjectiveAlign) *OkrDetailObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
@@ -2094,6 +2204,7 @@ func (builder *OkrDetailObjectiveBuilder) AligningObjectiveList(aligningObjectiv
 }
 
 // aligned_objective_list list
+//
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*OkrDetailObjectiveAlign) *OkrDetailObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
@@ -2102,6 +2213,7 @@ func (builder *OkrDetailObjectiveBuilder) AlignedObjectiveList(alignedObjectiveL
 }
 
 // 权重
+//
 // 示例值：100
 func (builder *OkrDetailObjectiveBuilder) Weight(weight float64) *OkrDetailObjectiveBuilder {
 	builder.weight = weight
@@ -2182,6 +2294,7 @@ func NewOkrDetailObjectiveAlignBuilder() *OkrDetailObjectiveAlignBuilder {
 }
 
 // Objective的ID
+//
 // 示例值：6975871409026975276
 func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjectiveAlignBuilder {
 	builder.id = id
@@ -2190,6 +2303,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjective
 }
 
 // OKR的ID
+//
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObjectiveAlignBuilder {
 	builder.okrId = okrId
@@ -2198,6 +2312,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObj
 }
 
 // 该Objective的Owner
+//
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) UserId(userId string) *OkrDetailObjectiveAlignBuilder {
 	builder.userId = userId
@@ -2255,6 +2370,7 @@ func NewOkrDetailObjectiveKrBuilder() *OkrDetailObjectiveKrBuilder {
 }
 
 // Key Result ID
+//
 // 示例值：6976243668438992428
 func (builder *OkrDetailObjectiveKrBuilder) Id(id string) *OkrDetailObjectiveKrBuilder {
 	builder.id = id
@@ -2263,6 +2379,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Id(id string) *OkrDetailObjectiveKrB
 }
 
 // pos
+//
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Pos(pos int) *OkrDetailObjectiveKrBuilder {
 	builder.pos = pos
@@ -2271,6 +2388,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Pos(pos int) *OkrDetailObjectiveKrBu
 }
 
 // KeyResult打分（0 - 100）
+//
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjectiveKrBuilder {
 	builder.score = score
@@ -2279,6 +2397,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjective
 }
 
 // KeyResult的权重（0 - 100）（废弃）
+//
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Weight(weight float64) *OkrDetailObjectiveKrBuilder {
 	builder.weight = weight
@@ -2287,6 +2406,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Weight(weight float64) *OkrDetailObj
 }
 
 // KeyResult 内容
+//
 // 示例值：
 func (builder *OkrDetailObjectiveKrBuilder) Content(content *OkrName) *OkrDetailObjectiveKrBuilder {
 	builder.content = content
@@ -2295,6 +2415,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Content(content *OkrName) *OkrDetail
 }
 
 // 创建时间 毫秒
+//
 // 示例值：1624327915448
 func (builder *OkrDetailObjectiveKrBuilder) CreateTime(createTime int) *OkrDetailObjectiveKrBuilder {
 	builder.createTime = createTime
@@ -2303,6 +2424,7 @@ func (builder *OkrDetailObjectiveKrBuilder) CreateTime(createTime int) *OkrDetai
 }
 
 // 修改时间 毫秒
+//
 // 示例值：1624327915448
 func (builder *OkrDetailObjectiveKrBuilder) ModifyTime(modifyTime int) *OkrDetailObjectiveKrBuilder {
 	builder.modifyTime = modifyTime
@@ -2360,6 +2482,7 @@ func NewOkrListInfoBuilder() *OkrListInfoBuilder {
 }
 
 // 中文内容
+//
 // 示例值：
 func (builder *OkrListInfoBuilder) CurrentOkr(currentOkr *Okr) *OkrListInfoBuilder {
 	builder.currentOkr = currentOkr
@@ -2368,6 +2491,7 @@ func (builder *OkrListInfoBuilder) CurrentOkr(currentOkr *Okr) *OkrListInfoBuild
 }
 
 // 英文内容
+//
 // 示例值：
 func (builder *OkrListInfoBuilder) OkrList(okrList []*Okr) *OkrListInfoBuilder {
 	builder.okrList = okrList
@@ -2404,6 +2528,7 @@ func NewOkrNameBuilder() *OkrNameBuilder {
 }
 
 // 中文内容
+//
 // 示例值：
 func (builder *OkrNameBuilder) Zh(zh string) *OkrNameBuilder {
 	builder.zh = zh
@@ -2412,6 +2537,7 @@ func (builder *OkrNameBuilder) Zh(zh string) *OkrNameBuilder {
 }
 
 // 英文内容
+//
 // 示例值：
 func (builder *OkrNameBuilder) En(en string) *OkrNameBuilder {
 	builder.en = en
@@ -2498,6 +2624,7 @@ func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
 }
 
 // Objective ID
+//
 // 示例值：1231231231231
 func (builder *OkrObjectiveBuilder) Id(id string) *OkrObjectiveBuilder {
 	builder.id = id
@@ -2506,6 +2633,7 @@ func (builder *OkrObjectiveBuilder) Id(id string) *OkrObjectiveBuilder {
 }
 
 // 权限
+//
 // 示例值：0
 func (builder *OkrObjectiveBuilder) Permission(permission int) *OkrObjectiveBuilder {
 	builder.permission = permission
@@ -2514,6 +2642,7 @@ func (builder *OkrObjectiveBuilder) Permission(permission int) *OkrObjectiveBuil
 }
 
 // Objective 内容
+//
 // 示例值：Objective 内容
 func (builder *OkrObjectiveBuilder) Content(content string) *OkrObjectiveBuilder {
 	builder.content = content
@@ -2522,6 +2651,7 @@ func (builder *OkrObjectiveBuilder) Content(content string) *OkrObjectiveBuilder
 }
 
 // Objective 进度记录内容
+//
 // 示例值：Objective 进度记录内容
 func (builder *OkrObjectiveBuilder) ProgressReport(progressReport string) *OkrObjectiveBuilder {
 	builder.progressReport = progressReport
@@ -2530,6 +2660,7 @@ func (builder *OkrObjectiveBuilder) ProgressReport(progressReport string) *OkrOb
 }
 
 // Objective 分数（0 - 100）
+//
 // 示例值：100
 func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 	builder.score = score
@@ -2538,6 +2669,7 @@ func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 }
 
 // Objective的权重（0 - 100）
+//
 // 示例值：33.33
 func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
 	builder.weight = weight
@@ -2546,6 +2678,7 @@ func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder 
 }
 
 // Objective进度
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveBuilder {
 	builder.progressRate = progressRate
@@ -2554,6 +2687,7 @@ func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrObjectiveProgr
 }
 
 // Objective KeyResult 列表
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) KrList(krList []*OkrObjectiveKr) *OkrObjectiveBuilder {
 	builder.krList = krList
@@ -2562,6 +2696,7 @@ func (builder *OkrObjectiveBuilder) KrList(krList []*OkrObjectiveKr) *OkrObjecti
 }
 
 // 对齐到该Objective的Objective列表
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
@@ -2570,6 +2705,7 @@ func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []
 }
 
 // 该Objective对齐到的Objective列表
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
@@ -2578,6 +2714,7 @@ func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList 
 }
 
 // 该Objective的进度列表
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveBuilder {
 	builder.progressRecordList = progressRecordList
@@ -2586,6 +2723,7 @@ func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*Pro
 }
 
 // 最后一次进度百分比更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
@@ -2594,6 +2732,7 @@ func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressR
 }
 
 // 最后一次状态更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
@@ -2602,6 +2741,7 @@ func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRa
 }
 
 // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
@@ -2610,6 +2750,7 @@ func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecord
 }
 
 // 最后一次编辑进展记录/备注的时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
@@ -2618,6 +2759,7 @@ func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReport
 }
 
 // 最后一次打分更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
@@ -2626,6 +2768,7 @@ func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime st
 }
 
 // 截止时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuilder {
 	builder.deadline = deadline
@@ -2634,6 +2777,7 @@ func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuild
 }
 
 // 该Objective提到的人员列表
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveBuilder {
 	builder.mentionedUserList = mentionedUserList
@@ -2733,6 +2877,7 @@ func NewOkrObjectiveAlignedObjectiveBuilder() *OkrObjectiveAlignedObjectiveBuild
 }
 
 // Objective的ID
+//
 // 示例值：1231231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.id = id
@@ -2741,6 +2886,7 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveA
 }
 
 // OKR的ID
+//
 // 示例值：12323231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.okrId = okrId
@@ -2749,6 +2895,7 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObje
 }
 
 // 该Objective的Owner
+//
 // 示例值：
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Owner(owner *OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.owner = owner
@@ -2790,6 +2937,7 @@ func NewOkrObjectiveAlignedObjectiveOwnerBuilder() *OkrObjectiveAlignedObjective
 }
 
 // 用户的 open_id
+//
 // 示例值：od-asd2dasdasd
 func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *OkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.openId = openId
@@ -2798,6 +2946,7 @@ func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *
 }
 
 // 用户的 user_id
+//
 // 示例值：ou-ux987dsf6x
 func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) UserId(userId string) *OkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.userId = userId
@@ -2872,6 +3021,7 @@ func NewOkrObjectiveKrBuilder() *OkrObjectiveKrBuilder {
 }
 
 // Key Result ID
+//
 // 示例值：1231231223
 func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
 	builder.id = id
@@ -2880,6 +3030,7 @@ func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
 }
 
 // KeyResult 内容
+//
 // 示例值：KeyResult 内容
 func (builder *OkrObjectiveKrBuilder) Content(content string) *OkrObjectiveKrBuilder {
 	builder.content = content
@@ -2888,6 +3039,7 @@ func (builder *OkrObjectiveKrBuilder) Content(content string) *OkrObjectiveKrBui
 }
 
 // KeyResult打分（0 - 100）
+//
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
 	builder.score = score
@@ -2896,6 +3048,7 @@ func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
 }
 
 // KeyResult权重（0 - 100）（废弃）
+//
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder {
 	builder.weight = weight
@@ -2904,6 +3057,7 @@ func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder 
 }
 
 // KeyResult的权重（0 - 100）
+//
 // 示例值：33.33
 func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKrBuilder {
 	builder.krWeight = krWeight
@@ -2912,6 +3066,7 @@ func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKr
 }
 
 // KR进度
+//
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveKrBuilder {
 	builder.progressRate = progressRate
@@ -2920,6 +3075,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectivePro
 }
 
 // 该KR的进度列表
+//
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveKrBuilder {
 	builder.progressRecordList = progressRecordList
@@ -2928,6 +3084,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*P
 }
 
 // 最后一次进度百分比更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
@@ -2936,6 +3093,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progres
 }
 
 // 最后一次状态更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
@@ -2944,6 +3102,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progress
 }
 
 // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
@@ -2952,6 +3111,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressReco
 }
 
 // 最后一次编辑进展记录/备注的时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
@@ -2960,6 +3120,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressRepo
 }
 
 // 最后一次打分更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
@@ -2968,6 +3129,7 @@ func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime 
 }
 
 // 截止时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrBuilder {
 	builder.deadline = deadline
@@ -2976,6 +3138,7 @@ func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrB
 }
 
 // 该Objective提到的人员列表
+//
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveKrBuilder {
 	builder.mentionedUserList = mentionedUserList
@@ -3059,6 +3222,7 @@ func NewOkrObjectiveProgressRateBuilder() *OkrObjectiveProgressRateBuilder {
 }
 
 // Objective 进度百分比 >= 0
+//
 // 示例值：50
 func (builder *OkrObjectiveProgressRateBuilder) Percent(percent int) *OkrObjectiveProgressRateBuilder {
 	builder.percent = percent
@@ -3067,6 +3231,7 @@ func (builder *OkrObjectiveProgressRateBuilder) Percent(percent int) *OkrObjecti
 }
 
 // Objective 进度状态
+//
 // 示例值：1
 func (builder *OkrObjectiveProgressRateBuilder) Status(status string) *OkrObjectiveProgressRateBuilder {
 	builder.status = status
@@ -3105,6 +3270,7 @@ func NewOkrReviewBuilder() *OkrReviewBuilder {
 }
 
 // 复盘的用户
+//
 // 示例值：
 func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwner) *OkrReviewBuilder {
 	builder.userId = userId
@@ -3113,6 +3279,7 @@ func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwne
 }
 
 // 用户对应的OKR复盘列表
+//
 // 示例值：
 func (builder *OkrReviewBuilder) ReviewPeriodList(reviewPeriodList []*OkrReviewPeriod) *OkrReviewBuilder {
 	builder.reviewPeriodList = reviewPeriodList
@@ -3152,6 +3319,7 @@ func NewOkrReviewPeriodBuilder() *OkrReviewPeriodBuilder {
 }
 
 // 周期ID
+//
 // 示例值：6951461264858777132
 func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPeriodBuilder {
 	builder.periodId = periodId
@@ -3160,6 +3328,7 @@ func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPerio
 }
 
 // 复盘文档
+//
 // 示例值：
 func (builder *OkrReviewPeriodBuilder) CycleReviewList(cycleReviewList []*OkrReviewPeriodUrl) *OkrReviewPeriodBuilder {
 	builder.cycleReviewList = cycleReviewList
@@ -3168,6 +3337,7 @@ func (builder *OkrReviewPeriodBuilder) CycleReviewList(cycleReviewList []*OkrRev
 }
 
 // 进展报告
+//
 // 示例值：
 func (builder *OkrReviewPeriodBuilder) ProgressReportList(progressReportList []*OkrReviewPeriodUrl) *OkrReviewPeriodBuilder {
 	builder.progressReportList = progressReportList
@@ -3208,6 +3378,7 @@ func NewOkrReviewPeriodUrlBuilder() *OkrReviewPeriodUrlBuilder {
 }
 
 // 文档链接
+//
 // 示例值：https://okr-boe1.feishu-boe.cn/docs/docbc0cvt2wT0Yq34Tn7YemH5Qb
 func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBuilder {
 	builder.url = url
@@ -3216,6 +3387,7 @@ func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBui
 }
 
 // 创建时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *OkrReviewPeriodUrlBuilder) CreateTime(createTime string) *OkrReviewPeriodUrlBuilder {
 	builder.createTime = createTime
@@ -3260,6 +3432,7 @@ func NewOkrSimpleBuilder() *OkrSimpleBuilder {
 }
 
 // 周期展示名称
+//
 // 示例值：
 func (builder *OkrSimpleBuilder) Name(name *OkrName) *OkrSimpleBuilder {
 	builder.name = name
@@ -3268,6 +3441,7 @@ func (builder *OkrSimpleBuilder) Name(name *OkrName) *OkrSimpleBuilder {
 }
 
 // OKR ID
+//
 // 示例值：
 func (builder *OkrSimpleBuilder) OkrId(okrId string) *OkrSimpleBuilder {
 	builder.okrId = okrId
@@ -3276,6 +3450,7 @@ func (builder *OkrSimpleBuilder) OkrId(okrId string) *OkrSimpleBuilder {
 }
 
 // 周期 ID
+//
 // 示例值：
 func (builder *OkrSimpleBuilder) PeriodId(periodId string) *OkrSimpleBuilder {
 	builder.periodId = periodId
@@ -3284,6 +3459,7 @@ func (builder *OkrSimpleBuilder) PeriodId(periodId string) *OkrSimpleBuilder {
 }
 
 // 周期类型：1、月周期；2、年周期
+//
 // 示例值：
 func (builder *OkrSimpleBuilder) PeriodType(periodType string) *OkrSimpleBuilder {
 	builder.periodType = periodType
@@ -3335,6 +3511,7 @@ func NewPeriodBuilder() *PeriodBuilder {
 }
 
 // id
+//
 // 示例值：635782378412311
 func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
 	builder.id = id
@@ -3343,6 +3520,7 @@ func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
 }
 
 // 中文名称
+//
 // 示例值：中文周期
 func (builder *PeriodBuilder) ZhName(zhName string) *PeriodBuilder {
 	builder.zhName = zhName
@@ -3351,6 +3529,7 @@ func (builder *PeriodBuilder) ZhName(zhName string) *PeriodBuilder {
 }
 
 // 英文名称
+//
 // 示例值：english period
 func (builder *PeriodBuilder) EnName(enName string) *PeriodBuilder {
 	builder.enName = enName
@@ -3359,6 +3538,7 @@ func (builder *PeriodBuilder) EnName(enName string) *PeriodBuilder {
 }
 
 // 启用状态
+//
 // 示例值：0
 func (builder *PeriodBuilder) Status(status int) *PeriodBuilder {
 	builder.status = status
@@ -3408,6 +3588,7 @@ func NewProgressItemBuilder() *ProgressItemBuilder {
 }
 
 // 进度内容
+//
 // 示例值：
 func (builder *ProgressItemBuilder) Content(content string) *ProgressItemBuilder {
 	builder.content = content
@@ -3416,6 +3597,7 @@ func (builder *ProgressItemBuilder) Content(content string) *ProgressItemBuilder
 }
 
 // 更新时间
+//
 // 示例值：
 func (builder *ProgressItemBuilder) Timestamp(timestamp int) *ProgressItemBuilder {
 	builder.timestamp = timestamp
@@ -3424,6 +3606,7 @@ func (builder *ProgressItemBuilder) Timestamp(timestamp int) *ProgressItemBuilde
 }
 
 // 负责人
+//
 // 示例值：
 func (builder *ProgressItemBuilder) MentionList(mentionList []string) *ProgressItemBuilder {
 	builder.mentionList = mentionList
@@ -3465,6 +3648,7 @@ func NewProgressRateBuilder() *ProgressRateBuilder {
 }
 
 // 进度百分比
+//
 // 示例值：
 func (builder *ProgressRateBuilder) Percent(percent int) *ProgressRateBuilder {
 	builder.percent = percent
@@ -3473,6 +3657,7 @@ func (builder *ProgressRateBuilder) Percent(percent int) *ProgressRateBuilder {
 }
 
 // 状态
+//
 // 示例值：
 func (builder *ProgressRateBuilder) Status(status int) *ProgressRateBuilder {
 	builder.status = status
@@ -3514,6 +3699,7 @@ func NewProgressRecordBuilder() *ProgressRecordBuilder {
 }
 
 // OKR 进展ID
+//
 // 示例值：7041469619902693396
 func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRecordBuilder {
 	builder.progressId = progressId
@@ -3522,6 +3708,7 @@ func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRec
 }
 
 // 进展更新时间 毫秒
+//
 // 示例值：1618500278663
 func (builder *ProgressRecordBuilder) ModifyTime(modifyTime string) *ProgressRecordBuilder {
 	builder.modifyTime = modifyTime
@@ -3530,6 +3717,7 @@ func (builder *ProgressRecordBuilder) ModifyTime(modifyTime string) *ProgressRec
 }
 
 // 进展 对应的 Content 详细内容
+//
 // 示例值：
 func (builder *ProgressRecordBuilder) Content(content *ContentBlock) *ProgressRecordBuilder {
 	builder.content = content
@@ -3568,6 +3756,7 @@ func NewProgressRecordSimplifyBuilder() *ProgressRecordSimplifyBuilder {
 }
 
 // OKR 进展记录ID
+//
 // 示例值：7041469619902693396
 func (builder *ProgressRecordSimplifyBuilder) Id(id string) *ProgressRecordSimplifyBuilder {
 	builder.id = id
@@ -3614,6 +3803,7 @@ func NewUpsertObjectiveBuilder() *UpsertObjectiveBuilder {
 }
 
 // OKR内容
+//
 // 示例值：okr
 func (builder *UpsertObjectiveBuilder) Content(content string) *UpsertObjectiveBuilder {
 	builder.content = content
@@ -3622,6 +3812,7 @@ func (builder *UpsertObjectiveBuilder) Content(content string) *UpsertObjectiveB
 }
 
 // 负责人列表
+//
 // 示例值：
 func (builder *UpsertObjectiveBuilder) MentionList(mentionList []string) *UpsertObjectiveBuilder {
 	builder.mentionList = mentionList
@@ -3630,6 +3821,7 @@ func (builder *UpsertObjectiveBuilder) MentionList(mentionList []string) *Upsert
 }
 
 // KR列表
+//
 // 示例值：
 func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *UpsertObjectiveBuilder {
 	builder.krList = krList
@@ -3638,6 +3830,7 @@ func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *Upse
 }
 
 // Objective进度状态
+//
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveBuilder {
 	builder.progressRate = progressRate
@@ -3646,6 +3839,7 @@ func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) 
 }
 
 // Objective进度列表
+//
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveBuilder {
 	builder.progressList = progressList
@@ -3654,6 +3848,7 @@ func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem
 }
 
 // OKR权重
+//
 // 示例值：100
 func (builder *UpsertObjectiveBuilder) Weight(weight float64) *UpsertObjectiveBuilder {
 	builder.weight = weight
@@ -3716,6 +3911,7 @@ func NewUpsertObjectiveKrBuilder() *UpsertObjectiveKrBuilder {
 }
 
 // OKR内容
+//
 // 示例值：okr
 func (builder *UpsertObjectiveKrBuilder) Content(content string) *UpsertObjectiveKrBuilder {
 	builder.content = content
@@ -3724,6 +3920,7 @@ func (builder *UpsertObjectiveKrBuilder) Content(content string) *UpsertObjectiv
 }
 
 // 负责人列表
+//
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) MentionList(mentionList []string) *UpsertObjectiveKrBuilder {
 	builder.mentionList = mentionList
@@ -3732,6 +3929,7 @@ func (builder *UpsertObjectiveKrBuilder) MentionList(mentionList []string) *Upse
 }
 
 // 得分
+//
 // 示例值：100
 func (builder *UpsertObjectiveKrBuilder) Score(score int) *UpsertObjectiveKrBuilder {
 	builder.score = score
@@ -3740,6 +3938,7 @@ func (builder *UpsertObjectiveKrBuilder) Score(score int) *UpsertObjectiveKrBuil
 }
 
 // Objective进度状态
+//
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveKrBuilder {
 	builder.progressRate = progressRate
@@ -3748,6 +3947,7 @@ func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate
 }
 
 // Objective进度列表
+//
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveKrBuilder {
 	builder.progressList = progressList
@@ -3756,6 +3956,7 @@ func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressIt
 }
 
 // OKR权重
+//
 // 示例值：100
 func (builder *UpsertObjectiveKrBuilder) Weight(weight float64) *UpsertObjectiveKrBuilder {
 	builder.weight = weight
@@ -3804,6 +4005,7 @@ func NewUserBuilder() *UserBuilder {
 }
 
 // id
+//
 // 示例值：
 func (builder *UserBuilder) Id(id string) *UserBuilder {
 	builder.id = id
@@ -3844,6 +4046,7 @@ func NewUserOkrBuilder() *UserOkrBuilder {
 }
 
 // OKR ID
+//
 // 示例值：
 func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 	builder.id = id
@@ -3852,6 +4055,7 @@ func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 }
 
 // OKR周期名称(lang指定中英文)
+//
 // 示例值：
 func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
 	builder.name = name
@@ -3860,6 +4064,7 @@ func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
 }
 
 // 权限，0无权限，1有权限
+//
 // 示例值：
 func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
 	builder.permission = permission
@@ -3868,6 +4073,7 @@ func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
 }
 
 // OKR的Objective 列表
+//
 // 示例值：
 func (builder *UserOkrBuilder) ObjectiveList(objectiveList []*UserOkrObjective) *UserOkrBuilder {
 	builder.objectiveList = objectiveList
@@ -3934,6 +4140,7 @@ func NewUserOkrObjectiveBuilder() *UserOkrObjectiveBuilder {
 }
 
 // Objective ID
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Id(id string) *UserOkrObjectiveBuilder {
 	builder.id = id
@@ -3942,6 +4149,7 @@ func (builder *UserOkrObjectiveBuilder) Id(id string) *UserOkrObjectiveBuilder {
 }
 
 // 权限，0无权限，1有权限
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Permission(permission int) *UserOkrObjectiveBuilder {
 	builder.permission = permission
@@ -3950,6 +4158,7 @@ func (builder *UserOkrObjectiveBuilder) Permission(permission int) *UserOkrObjec
 }
 
 // Objective 内容
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Content(content string) *UserOkrObjectiveBuilder {
 	builder.content = content
@@ -3958,6 +4167,7 @@ func (builder *UserOkrObjectiveBuilder) Content(content string) *UserOkrObjectiv
 }
 
 // Objective 进度记录内容
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) ProgressReport(progressReport string) *UserOkrObjectiveBuilder {
 	builder.progressReport = progressReport
@@ -3966,6 +4176,7 @@ func (builder *UserOkrObjectiveBuilder) ProgressReport(progressReport string) *U
 }
 
 // Objective 分数（0 - 100）
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Score(score string) *UserOkrObjectiveBuilder {
 	builder.score = score
@@ -3974,6 +4185,7 @@ func (builder *UserOkrObjectiveBuilder) Score(score string) *UserOkrObjectiveBui
 }
 
 // Objective进度
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveBuilder {
 	builder.progressRate = progressRate
@@ -3982,6 +4194,7 @@ func (builder *UserOkrObjectiveBuilder) ProgressRate(progressRate *UserOkrObject
 }
 
 // Objective KeyResult 列表
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) KrList(krList []*UserOkrObjectiveKr) *UserOkrObjectiveBuilder {
 	builder.krList = krList
@@ -3990,6 +4203,7 @@ func (builder *UserOkrObjectiveBuilder) KrList(krList []*UserOkrObjectiveKr) *Us
 }
 
 // 对齐到该Objective的Objective列表
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
@@ -3998,6 +4212,7 @@ func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveLis
 }
 
 // 该Objective对齐到的Objective列表
+//
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
@@ -4063,6 +4278,7 @@ func NewUserOkrObjectiveAlignedObjectiveBuilder() *UserOkrObjectiveAlignedObject
 }
 
 // Objective的ID
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.id = id
@@ -4071,6 +4287,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrOb
 }
 
 // OKR的ID
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.okrId = okrId
@@ -4079,6 +4296,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *Use
 }
 
 // 该Objective的Owner
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Owner(owner *UserOkrObjectiveAlignedObjectiveOwner) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.owner = owner
@@ -4129,6 +4347,7 @@ func NewUserOkrObjectiveAlignedObjectiveOwnerBuilder() *UserOkrObjectiveAlignedO
 }
 
 // 用户的 open_id
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.openId = openId
@@ -4137,6 +4356,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId strin
 }
 
 // 用户的 employee_id
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeId(employeeId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.employeeId = employeeId
@@ -4145,6 +4365,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeId(employee
 }
 
 // 工号
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeNo(employeeNo string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.employeeNo = employeeNo
@@ -4153,6 +4374,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeNo(employee
 }
 
 // 用户的 union_id
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) UnionId(unionId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.unionId = unionId
@@ -4161,6 +4383,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) UnionId(unionId str
 }
 
 // 用户名
+//
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) Name(name string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.name = name
@@ -4220,6 +4443,7 @@ func NewUserOkrObjectiveKrBuilder() *UserOkrObjectiveKrBuilder {
 }
 
 // Key Result ID
+//
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Id(id string) *UserOkrObjectiveKrBuilder {
 	builder.id = id
@@ -4228,6 +4452,7 @@ func (builder *UserOkrObjectiveKrBuilder) Id(id string) *UserOkrObjectiveKrBuild
 }
 
 // KeyResult 内容
+//
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Content(content string) *UserOkrObjectiveKrBuilder {
 	builder.content = content
@@ -4236,6 +4461,7 @@ func (builder *UserOkrObjectiveKrBuilder) Content(content string) *UserOkrObject
 }
 
 // KeyResult打分（0 - 100）
+//
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBuilder {
 	builder.score = score
@@ -4244,6 +4470,7 @@ func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBu
 }
 
 // KeyResult权重（0 - 100）
+//
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKrBuilder {
 	builder.weight = weight
@@ -4252,6 +4479,7 @@ func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKr
 }
 
 // Objective进度
+//
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveKrBuilder {
 	builder.progressRate = progressRate
@@ -4301,6 +4529,7 @@ func NewUserOkrObjectiveProgressRateBuilder() *UserOkrObjectiveProgressRateBuild
 }
 
 // Objective 进度百分比 >= 0
+//
 // 示例值：
 func (builder *UserOkrObjectiveProgressRateBuilder) Percent(percent int) *UserOkrObjectiveProgressRateBuilder {
 	builder.percent = percent
@@ -4309,6 +4538,7 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Percent(percent int) *UserOk
 }
 
 // Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
+//
 // 示例值：
 func (builder *UserOkrObjectiveProgressRateBuilder) Status(status string) *UserOkrObjectiveProgressRateBuilder {
 	builder.status = status

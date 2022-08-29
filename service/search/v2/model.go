@@ -35,8 +35,8 @@ const (
 )
 
 const (
-	StateDataSourcePatchOnline  = 0 // 已上线
-	StateDataSourcePatchOffline = 1 // 未上线
+	StatePatchDataSourceOnline  = 0 // 已上线
+	StatePatchDataSourceOffline = 1 // 未上线
 
 )
 
@@ -61,6 +61,7 @@ func NewAclBuilder() *AclBuilder {
 }
 
 // 权限类型，优先级：Deny > Allow。
+//
 // 示例值：allow
 func (builder *AclBuilder) Access(access string) *AclBuilder {
 	builder.access = access
@@ -69,6 +70,7 @@ func (builder *AclBuilder) Access(access string) *AclBuilder {
 }
 
 // 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+//
 // 示例值：d35e3c23
 func (builder *AclBuilder) Value(value string) *AclBuilder {
 	builder.value = value
@@ -77,6 +79,7 @@ func (builder *AclBuilder) Value(value string) *AclBuilder {
 }
 
 // 权限值类型
+//
 // 示例值：user
 func (builder *AclBuilder) Type(type_ string) *AclBuilder {
 	builder.type_ = type_
@@ -122,6 +125,7 @@ func NewBatchItemResultBuilder() *BatchItemResultBuilder {
 }
 
 // 数据项ID，对应一条索引数据的ID
+//
 // 示例值：
 func (builder *BatchItemResultBuilder) ItemId(itemId string) *BatchItemResultBuilder {
 	builder.itemId = itemId
@@ -130,6 +134,7 @@ func (builder *BatchItemResultBuilder) ItemId(itemId string) *BatchItemResultBui
 }
 
 // 判断单条数据是否成功
+//
 // 示例值：
 func (builder *BatchItemResultBuilder) IsSuccess(isSuccess bool) *BatchItemResultBuilder {
 	builder.isSuccess = isSuccess
@@ -138,6 +143,7 @@ func (builder *BatchItemResultBuilder) IsSuccess(isSuccess bool) *BatchItemResul
 }
 
 // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
+//
 // 示例值：
 func (builder *BatchItemResultBuilder) Err(err string) *BatchItemResultBuilder {
 	builder.err = err
@@ -198,6 +204,7 @@ func NewConnectDataSourceBuilder() *ConnectDataSourceBuilder {
 }
 
 // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectDataSourceBuilder {
 	builder.serviceUrl = serviceUrl
@@ -206,6 +213,7 @@ func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectD
 }
 
 // 项目地址，只能包含小写字母，如bytedance_test
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *ConnectDataSourceBuilder {
 	builder.projectName = projectName
@@ -214,6 +222,7 @@ func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *Connec
 }
 
 // datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *ConnectDataSourceBuilder {
 	builder.displayName = displayName
@@ -222,6 +231,7 @@ func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *Connec
 }
 
 // 描述datasource
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) Description(description string) *ConnectDataSourceBuilder {
 	builder.description = description
@@ -230,6 +240,7 @@ func (builder *ConnectDataSourceBuilder) Description(description string) *Connec
 }
 
 // 图标
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) IconUrl(iconUrl string) *ConnectDataSourceBuilder {
 	builder.iconUrl = iconUrl
@@ -238,6 +249,7 @@ func (builder *ConnectDataSourceBuilder) IconUrl(iconUrl string) *ConnectDataSou
 }
 
 // 托管api的描述
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription string) *ConnectDataSourceBuilder {
 	builder.projectDescription = projectDescription
@@ -246,6 +258,7 @@ func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription s
 }
 
 // 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *ConnectDataSourceBuilder {
 	builder.contactEmail = contactEmail
@@ -254,6 +267,7 @@ func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *Conn
 }
 
 // 创建api的组织名称，对企业开发者来说，建议使用企业名称
+//
 // 示例值：
 func (builder *ConnectDataSourceBuilder) TenantName(tenantName string) *ConnectDataSourceBuilder {
 	builder.tenantName = tenantName
@@ -349,6 +363,7 @@ func NewDataSourceBuilder() *DataSourceBuilder {
 }
 
 // 数据源的唯一标识
+//
 // 示例值：5577006791947779410
 func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 	builder.id = id
@@ -357,6 +372,7 @@ func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 }
 
 // data_source的展示名称
+//
 // 示例值：客服工单
 func (builder *DataSourceBuilder) Name(name string) *DataSourceBuilder {
 	builder.name = name
@@ -365,6 +381,7 @@ func (builder *DataSourceBuilder) Name(name string) *DataSourceBuilder {
 }
 
 // 数据源状态，0-已上线，1-未上线
+//
 // 示例值：0
 func (builder *DataSourceBuilder) State(state int) *DataSourceBuilder {
 	builder.state = state
@@ -373,6 +390,7 @@ func (builder *DataSourceBuilder) State(state int) *DataSourceBuilder {
 }
 
 // 对于数据源的描述
+//
 // 示例值：搜索客服工单数据
 func (builder *DataSourceBuilder) Description(description string) *DataSourceBuilder {
 	builder.description = description
@@ -381,6 +399,7 @@ func (builder *DataSourceBuilder) Description(description string) *DataSourceBui
 }
 
 // 创建时间，使用Unix时间戳，单位为“秒”
+//
 // 示例值：
 func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
 	builder.createTime = createTime
@@ -389,6 +408,7 @@ func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuild
 }
 
 // 更新时间，使用Unix时间戳，单位为“秒”
+//
 // 示例值：
 func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
 	builder.updateTime = updateTime
@@ -397,6 +417,7 @@ func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuild
 }
 
 // 是否超限
+//
 // 示例值：
 func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceBuilder {
 	builder.isExceedQuota = isExceedQuota
@@ -405,6 +426,7 @@ func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceB
 }
 
 // 数据源在 search tab 上的展示图标路径
+//
 // 示例值：https://www.xxx.com/open.jpg
 func (builder *DataSourceBuilder) IconUrl(iconUrl string) *DataSourceBuilder {
 	builder.iconUrl = iconUrl
@@ -413,6 +435,7 @@ func (builder *DataSourceBuilder) IconUrl(iconUrl string) *DataSourceBuilder {
 }
 
 // 数据源采用的展示模版名称
+//
 // 示例值：search_common_card
 func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
 	builder.template = template
@@ -421,6 +444,7 @@ func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
 }
 
 // 描述哪些字段可以被搜索
+//
 // 示例值：["field1", "field2"]（不推荐使用，如果有定制搜索需求，请用 schema 接口）
 func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *DataSourceBuilder {
 	builder.searchableFields = searchableFields
@@ -429,6 +453,7 @@ func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *D
 }
 
 // 数据源的国际化展示名称
+//
 // 示例值：
 func (builder *DataSourceBuilder) I18nName(i18nName *I18nMeta) *DataSourceBuilder {
 	builder.i18nName = i18nName
@@ -437,6 +462,7 @@ func (builder *DataSourceBuilder) I18nName(i18nName *I18nMeta) *DataSourceBuilde
 }
 
 // 数据源的国际化描述
+//
 // 示例值：
 func (builder *DataSourceBuilder) I18nDescription(i18nDescription *I18nMeta) *DataSourceBuilder {
 	builder.i18nDescription = i18nDescription
@@ -445,6 +471,7 @@ func (builder *DataSourceBuilder) I18nDescription(i18nDescription *I18nMeta) *Da
 }
 
 // 数据源关联的 schema 标识
+//
 // 示例值：custom_schema
 func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
 	builder.schemaId = schemaId
@@ -527,6 +554,7 @@ func NewI18nMetaBuilder() *I18nMetaBuilder {
 }
 
 // 国际化字段：中文
+//
 // 示例值：任务
 func (builder *I18nMetaBuilder) ZhCn(zhCn string) *I18nMetaBuilder {
 	builder.zhCn = zhCn
@@ -535,6 +563,7 @@ func (builder *I18nMetaBuilder) ZhCn(zhCn string) *I18nMetaBuilder {
 }
 
 // 国际化字段：英文
+//
 // 示例值：TODO
 func (builder *I18nMetaBuilder) EnUs(enUs string) *I18nMetaBuilder {
 	builder.enUs = enUs
@@ -543,6 +572,7 @@ func (builder *I18nMetaBuilder) EnUs(enUs string) *I18nMetaBuilder {
 }
 
 // 国际化字段：日文
+//
 // 示例值：タスク
 func (builder *I18nMetaBuilder) JaJp(jaJp string) *I18nMetaBuilder {
 	builder.jaJp = jaJp
@@ -594,6 +624,7 @@ func NewItemBuilder() *ItemBuilder {
 }
 
 // item 在 datasource 中的唯一标识
+//
 // 示例值：01010111
 func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 	builder.id = id
@@ -602,6 +633,7 @@ func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 }
 
 // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
+//
 // 示例值：
 func (builder *ItemBuilder) Acl(acl []*Acl) *ItemBuilder {
 	builder.acl = acl
@@ -610,6 +642,7 @@ func (builder *ItemBuilder) Acl(acl []*Acl) *ItemBuilder {
 }
 
 // item 的元信息
+//
 // 示例值：
 func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 	builder.metadata = metadata
@@ -618,6 +651,7 @@ func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 }
 
 // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+//
 // 示例值：{\"key\":\"value\"}
 func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
 	builder.structuredData = structuredData
@@ -626,6 +660,7 @@ func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
 }
 
 // 非结构化数据，如文档文本，飞书搜索会用来做召回
+//
 // 示例值：
 func (builder *ItemBuilder) Content(content *ItemContent) *ItemBuilder {
 	builder.content = content
@@ -673,6 +708,7 @@ func NewItemContentBuilder() *ItemContentBuilder {
 }
 
 // 内容的格式
+//
 // 示例值：html
 func (builder *ItemContentBuilder) Format(format string) *ItemContentBuilder {
 	builder.format = format
@@ -681,6 +717,7 @@ func (builder *ItemContentBuilder) Format(format string) *ItemContentBuilder {
 }
 
 // 全文数据
+//
 // 示例值：这是一个很长的文本
 func (builder *ItemContentBuilder) ContentData(contentData string) *ItemContentBuilder {
 	builder.contentData = contentData
@@ -728,6 +765,7 @@ func NewItemMetadataBuilder() *ItemMetadataBuilder {
 }
 
 // 该条数据记录对应的标题
+//
 // 示例值：工单：无法创建文章
 func (builder *ItemMetadataBuilder) Title(title string) *ItemMetadataBuilder {
 	builder.title = title
@@ -736,6 +774,7 @@ func (builder *ItemMetadataBuilder) Title(title string) *ItemMetadataBuilder {
 }
 
 // 该条数据记录对应的跳转url
+//
 // 示例值：http://www.abc.com.cn
 func (builder *ItemMetadataBuilder) SourceUrl(sourceUrl string) *ItemMetadataBuilder {
 	builder.sourceUrl = sourceUrl
@@ -744,6 +783,7 @@ func (builder *ItemMetadataBuilder) SourceUrl(sourceUrl string) *ItemMetadataBui
 }
 
 // 数据项的创建时间。Unix 时间，单位为秒
+//
 // 示例值：1618831236
 func (builder *ItemMetadataBuilder) CreateTime(createTime int) *ItemMetadataBuilder {
 	builder.createTime = createTime
@@ -752,6 +792,7 @@ func (builder *ItemMetadataBuilder) CreateTime(createTime int) *ItemMetadataBuil
 }
 
 // 数据项的更新时间。Unix 时间，单位为秒
+//
 // 示例值：1618831236
 func (builder *ItemMetadataBuilder) UpdateTime(updateTime int) *ItemMetadataBuilder {
 	builder.updateTime = updateTime
@@ -760,6 +801,7 @@ func (builder *ItemMetadataBuilder) UpdateTime(updateTime int) *ItemMetadataBuil
 }
 
 // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
+//
 // 示例值：https://www.feishu.cn
 func (builder *ItemMetadataBuilder) SourceUrlMobile(sourceUrlMobile string) *ItemMetadataBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
@@ -819,6 +861,7 @@ func NewItemRecordBuilder() *ItemRecordBuilder {
 }
 
 // 冗余当前item的ID
+//
 // 示例值：
 func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
 	builder.itemId = itemId
@@ -827,6 +870,7 @@ func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
 }
 
 // 数据源id
+//
 // 示例值：
 func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordBuilder {
 	builder.dataSourceId = dataSourceId
@@ -835,6 +879,7 @@ func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordB
 }
 
 // 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+//
 // 示例值：
 func (builder *ItemRecordBuilder) Version(version string) *ItemRecordBuilder {
 	builder.version = version
@@ -843,6 +888,7 @@ func (builder *ItemRecordBuilder) Version(version string) *ItemRecordBuilder {
 }
 
 // 第一次投递时间
+//
 // 示例值：
 func (builder *ItemRecordBuilder) CreatedAt(createdAt string) *ItemRecordBuilder {
 	builder.createdAt = createdAt
@@ -851,6 +897,7 @@ func (builder *ItemRecordBuilder) CreatedAt(createdAt string) *ItemRecordBuilder
 }
 
 // 上一次更新落库时间
+//
 // 示例值：
 func (builder *ItemRecordBuilder) UpdatedAt(updatedAt string) *ItemRecordBuilder {
 	builder.updatedAt = updatedAt
@@ -904,6 +951,7 @@ func NewSchemaBuilder() *SchemaBuilder {
 }
 
 // 数据范式的属性定义
+//
 // 示例值：
 func (builder *SchemaBuilder) Properties(properties []*SchemaProperty) *SchemaBuilder {
 	builder.properties = properties
@@ -912,6 +960,7 @@ func (builder *SchemaBuilder) Properties(properties []*SchemaProperty) *SchemaBu
 }
 
 // 数据展示相关配置
+//
 // 示例值：
 func (builder *SchemaBuilder) Display(display *SchemaDisplay) *SchemaBuilder {
 	builder.display = display
@@ -920,6 +969,7 @@ func (builder *SchemaBuilder) Display(display *SchemaDisplay) *SchemaBuilder {
 }
 
 // 用户自定义数据范式的唯一标识
+//
 // 示例值：jira_schema
 func (builder *SchemaBuilder) SchemaId(schemaId string) *SchemaBuilder {
 	builder.schemaId = schemaId
@@ -960,6 +1010,7 @@ func NewSchemaDisplayBuilder() *SchemaDisplayBuilder {
 }
 
 // 搜索数据的展示卡片
+//
 // 示例值：search_common_card
 func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuilder {
 	builder.cardKey = cardKey
@@ -968,6 +1019,7 @@ func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuild
 }
 
 // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
+//
 // 示例值：
 func (builder *SchemaDisplayBuilder) FieldsMapping(fieldsMapping []*SchemaDisplayFieldMapping) *SchemaDisplayBuilder {
 	builder.fieldsMapping = fieldsMapping
@@ -1005,6 +1057,7 @@ func NewSchemaDisplayFieldMappingBuilder() *SchemaDisplayFieldMappingBuilder {
 }
 
 // 展示字段名称，与 card_key 有关，每个模版能展示的字段不同。该字段不能重复
+//
 // 示例值：summary
 func (builder *SchemaDisplayFieldMappingBuilder) DisplayField(displayField string) *SchemaDisplayFieldMappingBuilder {
 	builder.displayField = displayField
@@ -1013,6 +1066,7 @@ func (builder *SchemaDisplayFieldMappingBuilder) DisplayField(displayField strin
 }
 
 // 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true，否则无法展示。需要使用 ${xxx} 的规则来描述
+//
 // 示例值：${description}
 func (builder *SchemaDisplayFieldMappingBuilder) DataField(dataField string) *SchemaDisplayFieldMappingBuilder {
 	builder.dataField = dataField
@@ -1051,6 +1105,7 @@ func NewSchemaDisplayOptionBuilder() *SchemaDisplayOptionBuilder {
 }
 
 // 对外展示的标签名
+//
 // 示例值：
 func (builder *SchemaDisplayOptionBuilder) DisplayLabel(displayLabel string) *SchemaDisplayOptionBuilder {
 	builder.displayLabel = displayLabel
@@ -1059,6 +1114,7 @@ func (builder *SchemaDisplayOptionBuilder) DisplayLabel(displayLabel string) *Sc
 }
 
 // 对外展示类型
+//
 // 示例值：
 func (builder *SchemaDisplayOptionBuilder) DisplayType(displayType string) *SchemaDisplayOptionBuilder {
 	builder.displayType = displayType
@@ -1115,6 +1171,7 @@ func NewSchemaPropertyBuilder() *SchemaPropertyBuilder {
 }
 
 // 属性名
+//
 // 示例值：summary
 func (builder *SchemaPropertyBuilder) Name(name string) *SchemaPropertyBuilder {
 	builder.name = name
@@ -1123,6 +1180,7 @@ func (builder *SchemaPropertyBuilder) Name(name string) *SchemaPropertyBuilder {
 }
 
 // 属性类型
+//
 // 示例值：text
 func (builder *SchemaPropertyBuilder) Type(type_ string) *SchemaPropertyBuilder {
 	builder.type_ = type_
@@ -1131,6 +1189,7 @@ func (builder *SchemaPropertyBuilder) Type(type_ string) *SchemaPropertyBuilder 
 }
 
 // 该属性是否可用作搜索，默认为 false
+//
 // 示例值：true
 func (builder *SchemaPropertyBuilder) IsSearchable(isSearchable bool) *SchemaPropertyBuilder {
 	builder.isSearchable = isSearchable
@@ -1139,6 +1198,7 @@ func (builder *SchemaPropertyBuilder) IsSearchable(isSearchable bool) *SchemaPro
 }
 
 // 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
+//
 // 示例值：false
 func (builder *SchemaPropertyBuilder) IsSortable(isSortable bool) *SchemaPropertyBuilder {
 	builder.isSortable = isSortable
@@ -1147,6 +1207,7 @@ func (builder *SchemaPropertyBuilder) IsSortable(isSortable bool) *SchemaPropert
 }
 
 // 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
+//
 // 示例值：true
 func (builder *SchemaPropertyBuilder) IsReturnable(isReturnable bool) *SchemaPropertyBuilder {
 	builder.isReturnable = isReturnable
@@ -1155,6 +1216,7 @@ func (builder *SchemaPropertyBuilder) IsReturnable(isReturnable bool) *SchemaPro
 }
 
 // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
+//
 // 示例值：
 func (builder *SchemaPropertyBuilder) SortOptions(sortOptions *SchemaSortOptions) *SchemaPropertyBuilder {
 	builder.sortOptions = sortOptions
@@ -1163,6 +1225,7 @@ func (builder *SchemaPropertyBuilder) SortOptions(sortOptions *SchemaSortOptions
 }
 
 // 相关类型数据的定义和约束
+//
 // 示例值：
 func (builder *SchemaPropertyBuilder) TypeDefinitions(typeDefinitions *SchemaTypeDefinitions) *SchemaPropertyBuilder {
 	builder.typeDefinitions = typeDefinitions
@@ -1171,6 +1234,7 @@ func (builder *SchemaPropertyBuilder) TypeDefinitions(typeDefinitions *SchemaTyp
 }
 
 // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+//
 // 示例值：
 func (builder *SchemaPropertyBuilder) SearchOptions(searchOptions *SchemaSearchOptions) *SchemaPropertyBuilder {
 	builder.searchOptions = searchOptions
@@ -1248,6 +1312,7 @@ func NewSchemaPropertyDefinitionBuilder() *SchemaPropertyDefinitionBuilder {
 }
 
 // 属性名称
+//
 // 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) Name(name string) *SchemaPropertyDefinitionBuilder {
 	builder.name = name
@@ -1256,6 +1321,7 @@ func (builder *SchemaPropertyDefinitionBuilder) Name(name string) *SchemaPropert
 }
 
 // 搜索中是否可作为搜索结果返回
+//
 // 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsReturnable(isReturnable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isReturnable = isReturnable
@@ -1264,6 +1330,7 @@ func (builder *SchemaPropertyDefinitionBuilder) IsReturnable(isReturnable bool) 
 }
 
 // 是否允许重复
+//
 // 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsRepeatable(isRepeatable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isRepeatable = isRepeatable
@@ -1272,6 +1339,7 @@ func (builder *SchemaPropertyDefinitionBuilder) IsRepeatable(isRepeatable bool) 
 }
 
 // 是否可用作排序
+//
 // 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsSortable(isSortable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isSortable = isSortable
@@ -1280,6 +1348,7 @@ func (builder *SchemaPropertyDefinitionBuilder) IsSortable(isSortable bool) *Sch
 }
 
 // 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
+//
 // 示例值：false
 func (builder *SchemaPropertyDefinitionBuilder) IsFacetable(isFacetable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isFacetable = isFacetable
@@ -1288,6 +1357,7 @@ func (builder *SchemaPropertyDefinitionBuilder) IsFacetable(isFacetable bool) *S
 }
 
 // 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
+//
 // 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) IsWildcardSearchable(isWildcardSearchable bool) *SchemaPropertyDefinitionBuilder {
 	builder.isWildcardSearchable = isWildcardSearchable
@@ -1296,6 +1366,7 @@ func (builder *SchemaPropertyDefinitionBuilder) IsWildcardSearchable(isWildcardS
 }
 
 // 属性数据类型
+//
 // 示例值：INTEGER
 func (builder *SchemaPropertyDefinitionBuilder) Type(type_ string) *SchemaPropertyDefinitionBuilder {
 	builder.type_ = type_
@@ -1304,6 +1375,7 @@ func (builder *SchemaPropertyDefinitionBuilder) Type(type_ string) *SchemaProper
 }
 
 // 属性对外展示可选项
+//
 // 示例值：
 func (builder *SchemaPropertyDefinitionBuilder) DisplayOptions(displayOptions *SchemaDisplayOption) *SchemaPropertyDefinitionBuilder {
 	builder.displayOptions = displayOptions
@@ -1374,6 +1446,7 @@ func NewSchemaSearchOptionsBuilder() *SchemaSearchOptionsBuilder {
 }
 
 // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）
+//
 // 示例值：true
 func (builder *SchemaSearchOptionsBuilder) EnableSemanticMatch(enableSemanticMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableSemanticMatch = enableSemanticMatch
@@ -1382,6 +1455,7 @@ func (builder *SchemaSearchOptionsBuilder) EnableSemanticMatch(enableSemanticMat
 }
 
 // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）
+//
 // 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableExactMatch(enableExactMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableExactMatch = enableExactMatch
@@ -1390,6 +1464,7 @@ func (builder *SchemaSearchOptionsBuilder) EnableExactMatch(enableExactMatch boo
 }
 
 // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
+//
 // 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnablePrefixMatch(enablePrefixMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enablePrefixMatch = enablePrefixMatch
@@ -1398,6 +1473,7 @@ func (builder *SchemaSearchOptionsBuilder) EnablePrefixMatch(enablePrefixMatch b
 }
 
 // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+//
 // 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableNumberSuffixMatch(enableNumberSuffixMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableNumberSuffixMatch = enableNumberSuffixMatch
@@ -1406,6 +1482,7 @@ func (builder *SchemaSearchOptionsBuilder) EnableNumberSuffixMatch(enableNumberS
 }
 
 // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
+//
 // 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableCamelMatch(enableCamelMatch bool) *SchemaSearchOptionsBuilder {
 	builder.enableCamelMatch = enableCamelMatch
@@ -1456,6 +1533,7 @@ func NewSchemaSortOptionsBuilder() *SchemaSortOptionsBuilder {
 }
 
 // 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+//
 // 示例值：0
 func (builder *SchemaSortOptionsBuilder) Priority(priority int) *SchemaSortOptionsBuilder {
 	builder.priority = priority
@@ -1464,6 +1542,7 @@ func (builder *SchemaSortOptionsBuilder) Priority(priority int) *SchemaSortOptio
 }
 
 // 排序的顺序。默认为 desc
+//
 // 示例值：asc
 func (builder *SchemaSortOptionsBuilder) Order(order string) *SchemaSortOptionsBuilder {
 	builder.order = order
@@ -1505,6 +1584,7 @@ func NewSchemaTagOptionsBuilder() *SchemaTagOptionsBuilder {
 }
 
 // tag 对应的枚举值名称
+//
 // 示例值：status
 func (builder *SchemaTagOptionsBuilder) Name(name string) *SchemaTagOptionsBuilder {
 	builder.name = name
@@ -1513,6 +1593,7 @@ func (builder *SchemaTagOptionsBuilder) Name(name string) *SchemaTagOptionsBuild
 }
 
 // 标签对应的颜色
+//
 // 示例值：blue
 func (builder *SchemaTagOptionsBuilder) Color(color string) *SchemaTagOptionsBuilder {
 	builder.color = color
@@ -1521,6 +1602,7 @@ func (builder *SchemaTagOptionsBuilder) Color(color string) *SchemaTagOptionsBui
 }
 
 // 标签中展示的文本
+//
 // 示例值：PASS
 func (builder *SchemaTagOptionsBuilder) Text(text string) *SchemaTagOptionsBuilder {
 	builder.text = text
@@ -1560,6 +1642,7 @@ func NewSchemaTypeDefinitionsBuilder() *SchemaTypeDefinitionsBuilder {
 }
 
 // 标签类型的定义
+//
 // 示例值：
 func (builder *SchemaTypeDefinitionsBuilder) Tag(tag []*SchemaTagOptions) *SchemaTypeDefinitionsBuilder {
 	builder.tag = tag

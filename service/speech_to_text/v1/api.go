@@ -43,7 +43,7 @@ type speech struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1//fileRecognize_speech.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1/fileRecognize_speech.go
 func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -71,7 +71,7 @@ func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1//streamRecognize_speech.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1/streamRecognize_speech.go
 func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*StreamRecognizeSpeechResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

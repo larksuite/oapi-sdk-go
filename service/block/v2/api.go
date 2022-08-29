@@ -29,8 +29,8 @@ func NewService(config *larkcore.Config) *BlockService {
 
 type BlockService struct {
 	config  *larkcore.Config
-	Entity  *entity  // entity
-	Message *message // message
+	Entity  *entity  // 服务端 API
+	Message *message // 服务端 API
 }
 
 type entity struct {
@@ -46,7 +46,7 @@ type message struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//create_entity.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_entity.go
 func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...larkcore.RequestOptionFunc) (*CreateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -72,7 +72,7 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//update_entity.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/update_entity.go
 func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...larkcore.RequestOptionFunc) (*UpdateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -92,13 +92,13 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	return resp, err
 }
 
-// Block消息推送
+// Block协同数据推送
 //
-// - 根据BlockID向指定用户列表推送消息。
+// - 根据BlockID向指定用户列表推送协同数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2//create_message.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_message.go
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

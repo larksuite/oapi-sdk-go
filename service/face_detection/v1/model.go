@@ -35,6 +35,7 @@ func NewAttributeItemBuilder() *AttributeItemBuilder {
 }
 
 // 属性
+//
 // 示例值：0
 func (builder *AttributeItemBuilder) Type(type_ int) *AttributeItemBuilder {
 	builder.type_ = type_
@@ -43,6 +44,7 @@ func (builder *AttributeItemBuilder) Type(type_ int) *AttributeItemBuilder {
 }
 
 // 识别置信度，[0, 1]，代表判断正确的概率
+//
 // 示例值：0.95566
 func (builder *AttributeItemBuilder) Probability(probability float64) *AttributeItemBuilder {
 	builder.probability = probability
@@ -99,6 +101,7 @@ func NewFaceAttributeBuilder() *FaceAttributeBuilder {
 }
 
 // 性别信息：0 男性，1 女性
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Gender(gender *AttributeItem) *FaceAttributeBuilder {
 	builder.gender = gender
@@ -107,6 +110,7 @@ func (builder *FaceAttributeBuilder) Gender(gender *AttributeItem) *FaceAttribut
 }
 
 // 年龄大小
+//
 // 示例值：19
 func (builder *FaceAttributeBuilder) Age(age int) *FaceAttributeBuilder {
 	builder.age = age
@@ -115,6 +119,7 @@ func (builder *FaceAttributeBuilder) Age(age int) *FaceAttributeBuilder {
 }
 
 // 情绪：0 自然， 1 高兴，2 惊讶，3 害怕，4 悲伤，5 生气， 6 厌恶
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Emotion(emotion *AttributeItem) *FaceAttributeBuilder {
 	builder.emotion = emotion
@@ -123,6 +128,7 @@ func (builder *FaceAttributeBuilder) Emotion(emotion *AttributeItem) *FaceAttrib
 }
 
 // 颜值打分：[0, 100]
+//
 // 示例值：88
 func (builder *FaceAttributeBuilder) Beauty(beauty int) *FaceAttributeBuilder {
 	builder.beauty = beauty
@@ -131,6 +137,7 @@ func (builder *FaceAttributeBuilder) Beauty(beauty int) *FaceAttributeBuilder {
 }
 
 // 人脸姿态
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Pose(pose *FacePose) *FaceAttributeBuilder {
 	builder.pose = pose
@@ -139,6 +146,7 @@ func (builder *FaceAttributeBuilder) Pose(pose *FacePose) *FaceAttributeBuilder 
 }
 
 // 帽子：0 未戴帽子，1 戴帽子
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Hat(hat *AttributeItem) *FaceAttributeBuilder {
 	builder.hat = hat
@@ -147,6 +155,7 @@ func (builder *FaceAttributeBuilder) Hat(hat *AttributeItem) *FaceAttributeBuild
 }
 
 // 眼镜：0 未戴眼镜，1 戴眼镜
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Glass(glass *AttributeItem) *FaceAttributeBuilder {
 	builder.glass = glass
@@ -155,6 +164,7 @@ func (builder *FaceAttributeBuilder) Glass(glass *AttributeItem) *FaceAttributeB
 }
 
 // 口罩：0 未戴口罩，1 戴口罩
+//
 // 示例值：
 func (builder *FaceAttributeBuilder) Mask(mask *AttributeItem) *FaceAttributeBuilder {
 	builder.mask = mask
@@ -214,6 +224,7 @@ func NewFaceInfoBuilder() *FaceInfoBuilder {
 }
 
 // 人脸位置信息
+//
 // 示例值：
 func (builder *FaceInfoBuilder) Position(position *FacePosition) *FaceInfoBuilder {
 	builder.position = position
@@ -222,6 +233,7 @@ func (builder *FaceInfoBuilder) Position(position *FacePosition) *FaceInfoBuilde
 }
 
 // 人脸属性信息
+//
 // 示例值：
 func (builder *FaceInfoBuilder) Attribute(attribute *FaceAttribute) *FaceInfoBuilder {
 	builder.attribute = attribute
@@ -230,6 +242,7 @@ func (builder *FaceInfoBuilder) Attribute(attribute *FaceAttribute) *FaceInfoBui
 }
 
 // 人脸质量信息
+//
 // 示例值：
 func (builder *FaceInfoBuilder) Quality(quality *FaceQuality) *FaceInfoBuilder {
 	builder.quality = quality
@@ -284,6 +297,7 @@ func NewFaceOccludeBuilder() *FaceOccludeBuilder {
 }
 
 // 眉毛被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.02345
 func (builder *FaceOccludeBuilder) Eyebrow(eyebrow float64) *FaceOccludeBuilder {
 	builder.eyebrow = eyebrow
@@ -292,6 +306,7 @@ func (builder *FaceOccludeBuilder) Eyebrow(eyebrow float64) *FaceOccludeBuilder 
 }
 
 // 鼻子被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.99876
 func (builder *FaceOccludeBuilder) Nose(nose float64) *FaceOccludeBuilder {
 	builder.nose = nose
@@ -300,6 +315,7 @@ func (builder *FaceOccludeBuilder) Nose(nose float64) *FaceOccludeBuilder {
 }
 
 // 脸颊被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.88767
 func (builder *FaceOccludeBuilder) Cheek(cheek float64) *FaceOccludeBuilder {
 	builder.cheek = cheek
@@ -308,6 +324,7 @@ func (builder *FaceOccludeBuilder) Cheek(cheek float64) *FaceOccludeBuilder {
 }
 
 // 嘴被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.45678
 func (builder *FaceOccludeBuilder) Mouth(mouth float64) *FaceOccludeBuilder {
 	builder.mouth = mouth
@@ -316,6 +333,7 @@ func (builder *FaceOccludeBuilder) Mouth(mouth float64) *FaceOccludeBuilder {
 }
 
 // 下巴被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.66436
 func (builder *FaceOccludeBuilder) Chin(chin float64) *FaceOccludeBuilder {
 	builder.chin = chin
@@ -324,6 +342,7 @@ func (builder *FaceOccludeBuilder) Chin(chin float64) *FaceOccludeBuilder {
 }
 
 // 左眼睛被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.87699
 func (builder *FaceOccludeBuilder) LeftEye(leftEye float64) *FaceOccludeBuilder {
 	builder.leftEye = leftEye
@@ -332,6 +351,7 @@ func (builder *FaceOccludeBuilder) LeftEye(leftEye float64) *FaceOccludeBuilder 
 }
 
 // 右眼睛被遮挡情况：[0, 1] 值越大被遮挡的概率越高
+//
 // 示例值：0.78884
 func (builder *FaceOccludeBuilder) RightEye(rightEye float64) *FaceOccludeBuilder {
 	builder.rightEye = rightEye
@@ -393,6 +413,7 @@ func NewFacePoseBuilder() *FacePoseBuilder {
 }
 
 // 脸部上下偏移 [-90, 90]
+//
 // 示例值：-31
 func (builder *FacePoseBuilder) Pitch(pitch int) *FacePoseBuilder {
 	builder.pitch = pitch
@@ -401,6 +422,7 @@ func (builder *FacePoseBuilder) Pitch(pitch int) *FacePoseBuilder {
 }
 
 // 脸部左右偏移 [-90, 90]
+//
 // 示例值：22
 func (builder *FacePoseBuilder) Yaw(yaw int) *FacePoseBuilder {
 	builder.yaw = yaw
@@ -409,6 +431,7 @@ func (builder *FacePoseBuilder) Yaw(yaw int) *FacePoseBuilder {
 }
 
 // 平面旋转 [-90, 90]
+//
 // 示例值：-32
 func (builder *FacePoseBuilder) Roll(roll int) *FacePoseBuilder {
 	builder.roll = roll
@@ -451,6 +474,7 @@ func NewFacePositionBuilder() *FacePositionBuilder {
 }
 
 // 人脸框的左上角坐标
+//
 // 示例值：
 func (builder *FacePositionBuilder) UpperLeft(upperLeft *Point) *FacePositionBuilder {
 	builder.upperLeft = upperLeft
@@ -459,6 +483,7 @@ func (builder *FacePositionBuilder) UpperLeft(upperLeft *Point) *FacePositionBui
 }
 
 // 人脸框的右下角坐标
+//
 // 示例值：
 func (builder *FacePositionBuilder) LowerRight(lowerRight *Point) *FacePositionBuilder {
 	builder.lowerRight = lowerRight
@@ -498,6 +523,7 @@ func NewFaceQualityBuilder() *FaceQualityBuilder {
 }
 
 // 清晰度，值越高越清晰
+//
 // 示例值：0.77
 func (builder *FaceQualityBuilder) Sharpness(sharpness float64) *FaceQualityBuilder {
 	builder.sharpness = sharpness
@@ -506,6 +532,7 @@ func (builder *FaceQualityBuilder) Sharpness(sharpness float64) *FaceQualityBuil
 }
 
 // 亮度
+//
 // 示例值：0.6
 func (builder *FaceQualityBuilder) Brightness(brightness float64) *FaceQualityBuilder {
 	builder.brightness = brightness
@@ -514,6 +541,7 @@ func (builder *FaceQualityBuilder) Brightness(brightness float64) *FaceQualityBu
 }
 
 // 面部遮挡属性
+//
 // 示例值：
 func (builder *FaceQualityBuilder) Occlude(occlude *FaceOcclude) *FaceQualityBuilder {
 	builder.occlude = occlude
@@ -555,6 +583,7 @@ func NewImageBuilder() *ImageBuilder {
 }
 
 // 图片的宽度
+//
 // 示例值：400
 func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 	builder.width = width
@@ -563,6 +592,7 @@ func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 }
 
 // 图片的高度
+//
 // 示例值：500
 func (builder *ImageBuilder) Height(height int) *ImageBuilder {
 	builder.height = height
@@ -601,6 +631,7 @@ func NewPointBuilder() *PointBuilder {
 }
 
 // 横轴坐标
+//
 // 示例值：200
 func (builder *PointBuilder) X(x float64) *PointBuilder {
 	builder.x = x
@@ -609,6 +640,7 @@ func (builder *PointBuilder) X(x float64) *PointBuilder {
 }
 
 // 纵轴坐标
+//
 // 示例值：200
 func (builder *PointBuilder) Y(y float64) *PointBuilder {
 	builder.y = y

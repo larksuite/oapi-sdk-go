@@ -32,12 +32,12 @@ const (
 )
 
 const (
-	MemberIdTypeAppRoleMemberDeleteOpenID           = "open_id"            // 以open_id来识别协作者
-	MemberIdTypeAppRoleMemberDeleteUnionID          = "union_id"           // 以union_id来识别协作者
-	MemberIdTypeAppRoleMemberDeleteUserID           = "user_id"            // 以user_id来识别协作者
-	MemberIdTypeAppRoleMemberDeleteChatID           = "chat_id"            // 以chat_id来识别协作者
-	MemberIdTypeAppRoleMemberDeleteDepartmentID     = "department_id"      // 以department_id来识别协作者
-	MemberIdTypeAppRoleMemberDeleteOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberOpenID           = "open_id"            // 以open_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberUnionID          = "union_id"           // 以union_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberUserID           = "user_id"            // 以user_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberChatID           = "chat_id"            // 以chat_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberDepartmentID     = "department_id"      // 以department_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
 )
 
 const (
@@ -47,9 +47,9 @@ const (
 )
 
 const (
-	UserIdTypeAppTableCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateAppTableUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateAppTableUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateAppTableOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -76,25 +76,25 @@ const (
 )
 
 const (
-	TypeAppTableFieldUpdateText         = 1    // 多行文本
-	TypeAppTableFieldUpdateNumber       = 2    // 数字
-	TypeAppTableFieldUpdateSingleSelect = 3    // 单选
-	TypeAppTableFieldUpdateMultiSelect  = 4    // 多选
-	TypeAppTableFieldUpdateDateTime     = 5    // 日期
-	TypeAppTableFieldUpdateCheckbox     = 7    // 复选框
-	TypeAppTableFieldUpdateUser         = 11   // 人员
-	TypeAppTableFieldUpdateUrl          = 15   // 超链接
-	TypeAppTableFieldUpdateAttachment   = 17   // 附件
-	TypeAppTableFieldUpdateLink         = 18   // 单向关联
-	TypeAppTableFieldUpdateFormula      = 20   // 公式
-	TypeAppTableFieldUpdateDuplexLink   = 21   // 双向关联
-	TypeAppTableFieldUpdateCreatedTime  = 1001 // 创建时间
-	TypeAppTableFieldUpdateModifiedTime = 1002 // 最后更新时间
-	TypeAppTableFieldUpdateCreatedUser  = 1003 // 创建人
-	TypeAppTableFieldUpdateModifiedUser = 1004 // 修改人
-	TypeAppTableFieldUpdateAutoSerial   = 1005 // 自动编号
-	TypeAppTableFieldUpdatePhoneNumber  = 13   // 电话号码
-	TypeAppTableFieldUpdateLocation     = 22   // 地理位置
+	TypeUpdateAppTableFieldText         = 1    // 多行文本
+	TypeUpdateAppTableFieldNumber       = 2    // 数字
+	TypeUpdateAppTableFieldSingleSelect = 3    // 单选
+	TypeUpdateAppTableFieldMultiSelect  = 4    // 多选
+	TypeUpdateAppTableFieldDateTime     = 5    // 日期
+	TypeUpdateAppTableFieldCheckbox     = 7    // 复选框
+	TypeUpdateAppTableFieldUser         = 11   // 人员
+	TypeUpdateAppTableFieldUrl          = 15   // 超链接
+	TypeUpdateAppTableFieldAttachment   = 17   // 附件
+	TypeUpdateAppTableFieldLink         = 18   // 单向关联
+	TypeUpdateAppTableFieldFormula      = 20   // 公式
+	TypeUpdateAppTableFieldDuplexLink   = 21   // 双向关联
+	TypeUpdateAppTableFieldCreatedTime  = 1001 // 创建时间
+	TypeUpdateAppTableFieldModifiedTime = 1002 // 最后更新时间
+	TypeUpdateAppTableFieldCreatedUser  = 1003 // 创建人
+	TypeUpdateAppTableFieldModifiedUser = 1004 // 修改人
+	TypeUpdateAppTableFieldAutoSerial   = 1005 // 自动编号
+	TypeUpdateAppTableFieldPhoneNumber  = 13   // 电话号码
+	TypeUpdateAppTableFieldLocation     = 22   // 地理位置
 
 )
 
@@ -105,39 +105,39 @@ const (
 )
 
 const (
-	UserIdTypeAppTableRecordBatchCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordBatchCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordBatchCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchCreateAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchCreateAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchCreateAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeAppTableRecordBatchUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordBatchUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordBatchUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchUpdateAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchUpdateAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchUpdateAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeAppTableRecordCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeAppTableRecordGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeAppTableRecordListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeAppTableRecordUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeAppTableRecordUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeAppTableRecordUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -175,6 +175,7 @@ func NewAppBuilder() *AppBuilder {
 }
 
 // 多维表格 app token
+//
 // 示例值：
 func (builder *AppBuilder) AppToken(appToken string) *AppBuilder {
 	builder.appToken = appToken
@@ -183,6 +184,7 @@ func (builder *AppBuilder) AppToken(appToken string) *AppBuilder {
 }
 
 // 多维表格 App 名字
+//
 // 示例值：
 func (builder *AppBuilder) Name(name string) *AppBuilder {
 	builder.name = name
@@ -191,6 +193,7 @@ func (builder *AppBuilder) Name(name string) *AppBuilder {
 }
 
 // 多维表格 App 版本号
+//
 // 示例值：
 func (builder *AppBuilder) Revision(revision int) *AppBuilder {
 	builder.revision = revision
@@ -199,6 +202,7 @@ func (builder *AppBuilder) Revision(revision int) *AppBuilder {
 }
 
 // 多维表格 App 归属文件夹
+//
 // 示例值：
 func (builder *AppBuilder) FolderToken(folderToken string) *AppBuilder {
 	builder.folderToken = folderToken
@@ -207,6 +211,7 @@ func (builder *AppBuilder) FolderToken(folderToken string) *AppBuilder {
 }
 
 // 多维表格 App URL
+//
 // 示例值：
 func (builder *AppBuilder) Url(url string) *AppBuilder {
 	builder.url = url
@@ -257,6 +262,7 @@ func NewAppDashboardBuilder() *AppDashboardBuilder {
 }
 
 // 仪表盘 ID
+//
 // 示例值：blknkqrP3RqUkcAW
 func (builder *AppDashboardBuilder) BlockId(blockId string) *AppDashboardBuilder {
 	builder.blockId = blockId
@@ -265,6 +271,7 @@ func (builder *AppDashboardBuilder) BlockId(blockId string) *AppDashboardBuilder
 }
 
 // 仪表盘名字
+//
 // 示例值：仪表盘1
 func (builder *AppDashboardBuilder) Name(name string) *AppDashboardBuilder {
 	builder.name = name
@@ -303,6 +310,7 @@ func NewAppFieldPropertyAutoSerialBuilder() *AppFieldPropertyAutoSerialBuilder {
 }
 
 // 自动编号类型
+//
 // 示例值：auto_increment_number
 func (builder *AppFieldPropertyAutoSerialBuilder) Type(type_ string) *AppFieldPropertyAutoSerialBuilder {
 	builder.type_ = type_
@@ -311,6 +319,7 @@ func (builder *AppFieldPropertyAutoSerialBuilder) Type(type_ string) *AppFieldPr
 }
 
 // 自动编号规则列表
+//
 // 示例值：
 func (builder *AppFieldPropertyAutoSerialBuilder) Options(options []*AppFieldPropertyAutoSerialOptions) *AppFieldPropertyAutoSerialBuilder {
 	builder.options = options
@@ -348,6 +357,7 @@ func NewAppFieldPropertyAutoSerialOptionsBuilder() *AppFieldPropertyAutoSerialOp
 }
 
 // 自动编号的可选规则项类型
+//
 // 示例值：created_time
 func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Type(type_ string) *AppFieldPropertyAutoSerialOptionsBuilder {
 	builder.type_ = type_
@@ -356,6 +366,7 @@ func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Type(type_ string) *App
 }
 
 // 与自动编号的可选规则项类型相对应的取值
+//
 // 示例值：yyyyMMdd
 func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Value(value string) *AppFieldPropertyAutoSerialOptionsBuilder {
 	builder.value = value
@@ -391,6 +402,7 @@ func NewAppFieldPropertyLocationBuilder() *AppFieldPropertyLocationBuilder {
 }
 
 // 地理位置输入限制
+//
 // 示例值：not_limit
 func (builder *AppFieldPropertyLocationBuilder) InputType(inputType string) *AppFieldPropertyLocationBuilder {
 	builder.inputType = inputType
@@ -431,6 +443,7 @@ func NewAppRoleBuilder() *AppRoleBuilder {
 }
 
 // 自定义角色的名字
+//
 // 示例值：自定义角色1
 func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
 	builder.roleName = roleName
@@ -439,6 +452,7 @@ func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
 }
 
 // 自定义角色的id
+//
 // 示例值：roljRpwIUt
 func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
 	builder.roleId = roleId
@@ -447,6 +461,7 @@ func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
 }
 
 // 数据表角色
+//
 // 示例值：
 func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRoleBuilder {
 	builder.tableRoles = tableRoles
@@ -455,6 +470,7 @@ func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRo
 }
 
 // block权限
+//
 // 示例值：
 func (builder *AppRoleBuilder) BlockRoles(blockRoles []*AppRoleBlockRole) *AppRoleBuilder {
 	builder.blockRoles = blockRoles
@@ -502,6 +518,7 @@ func NewAppRoleBlockRoleBuilder() *AppRoleBlockRoleBuilder {
 }
 
 // Block的ID
+//
 // 示例值：blknkqrP3RqUkcAW
 func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRoleBuilder {
 	builder.blockId = blockId
@@ -510,6 +527,7 @@ func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRol
 }
 
 // Block类型
+//
 // 示例值：dashboard
 func (builder *AppRoleBlockRoleBuilder) BlockType(blockType string) *AppRoleBlockRoleBuilder {
 	builder.blockType = blockType
@@ -518,6 +536,7 @@ func (builder *AppRoleBlockRoleBuilder) BlockType(blockType string) *AppRoleBloc
 }
 
 // Block权限
+//
 // 示例值：0
 func (builder *AppRoleBlockRoleBuilder) BlockPerm(blockPerm int) *AppRoleBlockRoleBuilder {
 	builder.blockPerm = blockPerm
@@ -584,6 +603,7 @@ func NewAppRoleMemberBuilder() *AppRoleMemberBuilder {
 }
 
 // 协作者id
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBuilder {
 	builder.memberId = memberId
@@ -592,6 +612,7 @@ func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBui
 }
 
 // 用户的 open_id
+//
 // 示例值：ou_xxxxxxxx
 func (builder *AppRoleMemberBuilder) OpenId(openId string) *AppRoleMemberBuilder {
 	builder.openId = openId
@@ -600,6 +621,7 @@ func (builder *AppRoleMemberBuilder) OpenId(openId string) *AppRoleMemberBuilder
 }
 
 // 用户的 union_id
+//
 // 示例值：on_xxxxxxxx
 func (builder *AppRoleMemberBuilder) UnionId(unionId string) *AppRoleMemberBuilder {
 	builder.unionId = unionId
@@ -608,6 +630,7 @@ func (builder *AppRoleMemberBuilder) UnionId(unionId string) *AppRoleMemberBuild
 }
 
 // 用户的 user_id
+//
 // 示例值：xxxxxxxx
 func (builder *AppRoleMemberBuilder) UserId(userId string) *AppRoleMemberBuilder {
 	builder.userId = userId
@@ -616,6 +639,7 @@ func (builder *AppRoleMemberBuilder) UserId(userId string) *AppRoleMemberBuilder
 }
 
 // 群聊的 chat_id
+//
 // 示例值：oc_xxxxxxxx
 func (builder *AppRoleMemberBuilder) ChatId(chatId string) *AppRoleMemberBuilder {
 	builder.chatId = chatId
@@ -624,6 +648,7 @@ func (builder *AppRoleMemberBuilder) ChatId(chatId string) *AppRoleMemberBuilder
 }
 
 // 部门的 department_id
+//
 // 示例值：xxxxxxxx
 func (builder *AppRoleMemberBuilder) DepartmentId(departmentId string) *AppRoleMemberBuilder {
 	builder.departmentId = departmentId
@@ -632,6 +657,7 @@ func (builder *AppRoleMemberBuilder) DepartmentId(departmentId string) *AppRoleM
 }
 
 // 部门的 open_department_id
+//
 // 示例值：od-xxxxxxxx
 func (builder *AppRoleMemberBuilder) OpenDepartmentId(openDepartmentId string) *AppRoleMemberBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -640,6 +666,7 @@ func (builder *AppRoleMemberBuilder) OpenDepartmentId(openDepartmentId string) *
 }
 
 // 协作者名字
+//
 // 示例值：张三
 func (builder *AppRoleMemberBuilder) MemberName(memberName string) *AppRoleMemberBuilder {
 	builder.memberName = memberName
@@ -648,6 +675,7 @@ func (builder *AppRoleMemberBuilder) MemberName(memberName string) *AppRoleMembe
 }
 
 // 协作者英文名
+//
 // 示例值：San Zhang
 func (builder *AppRoleMemberBuilder) MemberEnName(memberEnName string) *AppRoleMemberBuilder {
 	builder.memberEnName = memberEnName
@@ -656,6 +684,7 @@ func (builder *AppRoleMemberBuilder) MemberEnName(memberEnName string) *AppRoleM
 }
 
 // 协作者类型
+//
 // 示例值：user
 func (builder *AppRoleMemberBuilder) MemberType(memberType string) *AppRoleMemberBuilder {
 	builder.memberType = memberType
@@ -726,6 +755,7 @@ func NewAppRoleMemberIdBuilder() *AppRoleMemberIdBuilder {
 }
 
 // 协作者 ID 类型
+//
 // 示例值：open_id
 func (builder *AppRoleMemberIdBuilder) Type(type_ string) *AppRoleMemberIdBuilder {
 	builder.type_ = type_
@@ -734,6 +764,7 @@ func (builder *AppRoleMemberIdBuilder) Type(type_ string) *AppRoleMemberIdBuilde
 }
 
 // 协作者 ID
+//
 // 示例值：ou_35990a9d9052051a2fae9b2f1afabcef
 func (builder *AppRoleMemberIdBuilder) Id(id string) *AppRoleMemberIdBuilder {
 	builder.id = id
@@ -787,6 +818,7 @@ func NewAppRoleTableRoleBuilder() *AppRoleTableRoleBuilder {
 }
 
 // 数据表名
+//
 // 示例值：数据表1
 func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTableRoleBuilder {
 	builder.tableName = tableName
@@ -795,6 +827,7 @@ func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTabl
 }
 
 // 数据表ID
+//
 // 示例值：tblKz5D60T4JlfcT
 func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRoleBuilder {
 	builder.tableId = tableId
@@ -803,6 +836,7 @@ func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRol
 }
 
 // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+//
 // 示例值：0
 func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
 	builder.tablePerm = tablePerm
@@ -811,6 +845,7 @@ func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRo
 }
 
 // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+//
 // 示例值：
 func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule) *AppRoleTableRoleBuilder {
 	builder.recRule = recRule
@@ -819,6 +854,7 @@ func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule
 }
 
 // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
+//
 // 示例值：{"姓名": 1, "年龄": 2}
 func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm *AppRoleTableRoleFieldPerm) *AppRoleTableRoleBuilder {
 	builder.fieldPerm = fieldPerm
@@ -827,6 +863,7 @@ func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm *AppRoleTableRoleFie
 }
 
 // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
+//
 // 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowAddRecord(allowAddRecord bool) *AppRoleTableRoleBuilder {
 	builder.allowAddRecord = allowAddRecord
@@ -835,6 +872,7 @@ func (builder *AppRoleTableRoleBuilder) AllowAddRecord(allowAddRecord bool) *App
 }
 
 // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+//
 // 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowDeleteRecord(allowDeleteRecord bool) *AppRoleTableRoleBuilder {
 	builder.allowDeleteRecord = allowDeleteRecord
@@ -897,6 +935,7 @@ func NewAppRoleTableRoleRecRuleBuilder() *AppRoleTableRoleRecRuleBuilder {
 }
 
 // 记录筛选条件
+//
 // 示例值：
 func (builder *AppRoleTableRoleRecRuleBuilder) Conditions(conditions []*AppRoleTableRoleRecRuleCondition) *AppRoleTableRoleRecRuleBuilder {
 	builder.conditions = conditions
@@ -905,6 +944,7 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Conditions(conditions []*AppRoleT
 }
 
 // 多个筛选条件的关系
+//
 // 示例值：and
 func (builder *AppRoleTableRoleRecRuleBuilder) Conjunction(conjunction string) *AppRoleTableRoleRecRuleBuilder {
 	builder.conjunction = conjunction
@@ -913,6 +953,7 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Conjunction(conjunction string) *
 }
 
 // 其他记录权限，仅在table_perm为2时有意义
+//
 // 示例值：0
 func (builder *AppRoleTableRoleRecRuleBuilder) OtherPerm(otherPerm int) *AppRoleTableRoleRecRuleBuilder {
 	builder.otherPerm = otherPerm
@@ -960,6 +1001,7 @@ func NewAppRoleTableRoleRecRuleConditionBuilder() *AppRoleTableRoleRecRuleCondit
 }
 
 // 字段名，记录筛选条件是`创建人包含访问者本人`时，此参数值为""
+//
 // 示例值：单选
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.fieldName = fieldName
@@ -968,6 +1010,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName stri
 }
 
 // 运算符
+//
 // 示例值：is
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.operator = operator
@@ -976,6 +1019,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string
 }
 
 // 单选或多选字段的选项id
+//
 // 示例值：["optbdVHf4q", "optrpd3eIJ"]
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.value = value
@@ -984,6 +1028,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *A
 }
 
 // 字段类型
+//
 // 示例值：3
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldType(fieldType int) *AppRoleTableRoleRecRuleConditionBuilder {
 	builder.fieldType = fieldType
@@ -1032,6 +1077,7 @@ func NewAppTableBuilder() *AppTableBuilder {
 }
 
 // 数据表 id
+//
 // 示例值：tblKz5D60T4JlfcT
 func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 	builder.tableId = tableId
@@ -1040,6 +1086,7 @@ func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 }
 
 // 数据表的版本号
+//
 // 示例值：1
 func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 	builder.revision = revision
@@ -1048,6 +1095,7 @@ func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 }
 
 // 数据表名字
+//
 // 示例值：数据表1
 func (builder *AppTableBuilder) Name(name string) *AppTableBuilder {
 	builder.name = name
@@ -1073,21 +1121,24 @@ func (builder *AppTableBuilder) Build() *AppTable {
 }
 
 type AppTableField struct {
-	FieldId   *string                `json:"field_id,omitempty"`   // 多维表格字段 id
-	FieldName *string                `json:"field_name,omitempty"` // 多维表格字段名
-	Type      *int                   `json:"type,omitempty"`       // 多维表格字段类型
-	Property  *AppTableFieldProperty `json:"property,omitempty"`   // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	FieldId     *string                   `json:"field_id,omitempty"`    // 多维表格字段 id
+	FieldName   *string                   `json:"field_name,omitempty"`  // 多维表格字段名
+	Type        *int                      `json:"type,omitempty"`        // 多维表格字段类型
+	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }
 
 type AppTableFieldBuilder struct {
-	fieldId       string // 多维表格字段 id
-	fieldIdFlag   bool
-	fieldName     string // 多维表格字段名
-	fieldNameFlag bool
-	type_         int // 多维表格字段类型
-	typeFlag      bool
-	property      *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
-	propertyFlag  bool
+	fieldId         string // 多维表格字段 id
+	fieldIdFlag     bool
+	fieldName       string // 多维表格字段名
+	fieldNameFlag   bool
+	type_           int // 多维表格字段类型
+	typeFlag        bool
+	property        *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	propertyFlag    bool
+	description     *AppTableFieldDescription // 字段的描述
+	descriptionFlag bool
 }
 
 func NewAppTableFieldBuilder() *AppTableFieldBuilder {
@@ -1096,6 +1147,7 @@ func NewAppTableFieldBuilder() *AppTableFieldBuilder {
 }
 
 // 多维表格字段 id
+//
 // 示例值：
 func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
 	builder.fieldId = fieldId
@@ -1104,6 +1156,7 @@ func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuild
 }
 
 // 多维表格字段名
+//
 // 示例值：多行文本
 func (builder *AppTableFieldBuilder) FieldName(fieldName string) *AppTableFieldBuilder {
 	builder.fieldName = fieldName
@@ -1112,6 +1165,7 @@ func (builder *AppTableFieldBuilder) FieldName(fieldName string) *AppTableFieldB
 }
 
 // 多维表格字段类型
+//
 // 示例值：1
 func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
 	builder.type_ = type_
@@ -1120,10 +1174,20 @@ func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
 }
 
 // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+//
 // 示例值：
 func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *AppTableFieldBuilder {
 	builder.property = property
 	builder.propertyFlag = true
+	return builder
+}
+
+// 字段的描述
+//
+// 示例值：
+func (builder *AppTableFieldBuilder) Description(description *AppTableFieldDescription) *AppTableFieldBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
 	return builder
 }
 
@@ -1143,6 +1207,57 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	}
 	if builder.propertyFlag {
 		req.Property = builder.property
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	return req
+}
+
+type AppTableFieldDescription struct {
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+	Text        *string `json:"text,omitempty"`         // 字段描述内容，支持换行\n
+}
+
+type AppTableFieldDescriptionBuilder struct {
+	disableSync     bool // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+	disableSyncFlag bool
+	text            string // 字段描述内容，支持换行\n
+	textFlag        bool
+}
+
+func NewAppTableFieldDescriptionBuilder() *AppTableFieldDescriptionBuilder {
+	builder := &AppTableFieldDescriptionBuilder{}
+	return builder
+}
+
+// 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+//
+// 示例值：ture
+func (builder *AppTableFieldDescriptionBuilder) DisableSync(disableSync bool) *AppTableFieldDescriptionBuilder {
+	builder.disableSync = disableSync
+	builder.disableSyncFlag = true
+	return builder
+}
+
+// 字段描述内容，支持换行\n
+//
+// 示例值：请按 name_id 格式填写\n例如：“Alice_20202020”
+func (builder *AppTableFieldDescriptionBuilder) Text(text string) *AppTableFieldDescriptionBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *AppTableFieldDescriptionBuilder) Build() *AppTableFieldDescription {
+	req := &AppTableFieldDescription{}
+	if builder.disableSyncFlag {
+		req.DisableSync = &builder.disableSync
+
+	}
+	if builder.textFlag {
+		req.Text = &builder.text
+
 	}
 	return req
 }
@@ -1189,6 +1304,7 @@ func NewAppTableFieldPropertyBuilder() *AppTableFieldPropertyBuilder {
 }
 
 // 单选、多选字段的选项信息
+//
 // 示例值：
 func (builder *AppTableFieldPropertyBuilder) Options(options []*AppTableFieldPropertyOption) *AppTableFieldPropertyBuilder {
 	builder.options = options
@@ -1197,6 +1313,7 @@ func (builder *AppTableFieldPropertyBuilder) Options(options []*AppTableFieldPro
 }
 
 // 数字、公式字段的显示格式
+//
 // 示例值：0
 func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTableFieldPropertyBuilder {
 	builder.formatter = formatter
@@ -1205,6 +1322,7 @@ func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTab
 }
 
 // 日期、创建时间、最后更新时间字段的显示格式
+//
 // 示例值：日期格式
 func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string) *AppTableFieldPropertyBuilder {
 	builder.dateFormatter = dateFormatter
@@ -1213,6 +1331,7 @@ func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string)
 }
 
 // 日期字段中新纪录自动填写创建时间
+//
 // 示例值：false
 func (builder *AppTableFieldPropertyBuilder) AutoFill(autoFill bool) *AppTableFieldPropertyBuilder {
 	builder.autoFill = autoFill
@@ -1221,6 +1340,7 @@ func (builder *AppTableFieldPropertyBuilder) AutoFill(autoFill bool) *AppTableFi
 }
 
 // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+//
 // 示例值：false
 func (builder *AppTableFieldPropertyBuilder) Multiple(multiple bool) *AppTableFieldPropertyBuilder {
 	builder.multiple = multiple
@@ -1229,6 +1349,7 @@ func (builder *AppTableFieldPropertyBuilder) Multiple(multiple bool) *AppTableFi
 }
 
 // 单向关联、双向关联字段中关联的数据表的id
+//
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *AppTableFieldPropertyBuilder) TableId(tableId string) *AppTableFieldPropertyBuilder {
 	builder.tableId = tableId
@@ -1237,6 +1358,7 @@ func (builder *AppTableFieldPropertyBuilder) TableId(tableId string) *AppTableFi
 }
 
 // 单向关联、双向关联字段中关联的数据表的名字
+//
 // 示例值："table2"
 func (builder *AppTableFieldPropertyBuilder) TableName(tableName string) *AppTableFieldPropertyBuilder {
 	builder.tableName = tableName
@@ -1245,6 +1367,7 @@ func (builder *AppTableFieldPropertyBuilder) TableName(tableName string) *AppTab
 }
 
 // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+//
 // 示例值："table1-双向关联"
 func (builder *AppTableFieldPropertyBuilder) BackFieldName(backFieldName string) *AppTableFieldPropertyBuilder {
 	builder.backFieldName = backFieldName
@@ -1253,6 +1376,7 @@ func (builder *AppTableFieldPropertyBuilder) BackFieldName(backFieldName string)
 }
 
 // 自动编号类型
+//
 // 示例值：
 func (builder *AppTableFieldPropertyBuilder) AutoSerial(autoSerial *AppFieldPropertyAutoSerial) *AppTableFieldPropertyBuilder {
 	builder.autoSerial = autoSerial
@@ -1261,6 +1385,7 @@ func (builder *AppTableFieldPropertyBuilder) AutoSerial(autoSerial *AppFieldProp
 }
 
 // 地理位置输入方式
+//
 // 示例值：
 func (builder *AppTableFieldPropertyBuilder) Location(location *AppFieldPropertyLocation) *AppTableFieldPropertyBuilder {
 	builder.location = location
@@ -1331,6 +1456,7 @@ func NewAppTableFieldPropertyOptionBuilder() *AppTableFieldPropertyOptionBuilder
 }
 
 // 选项名
+//
 // 示例值：红色
 func (builder *AppTableFieldPropertyOptionBuilder) Name(name string) *AppTableFieldPropertyOptionBuilder {
 	builder.name = name
@@ -1339,6 +1465,7 @@ func (builder *AppTableFieldPropertyOptionBuilder) Name(name string) *AppTableFi
 }
 
 // 选项 ID，创建时不允许指定 ID
+//
 // 示例值：optKl35lnG
 func (builder *AppTableFieldPropertyOptionBuilder) Id(id string) *AppTableFieldPropertyOptionBuilder {
 	builder.id = id
@@ -1347,6 +1474,7 @@ func (builder *AppTableFieldPropertyOptionBuilder) Id(id string) *AppTableFieldP
 }
 
 // 选项颜色
+//
 // 示例值：0
 func (builder *AppTableFieldPropertyOptionBuilder) Color(color int) *AppTableFieldPropertyOptionBuilder {
 	builder.color = color
@@ -1401,6 +1529,7 @@ func NewAppTableFormBuilder() *AppTableFormBuilder {
 }
 
 // 表单名称
+//
 // 示例值：表单
 func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
 	builder.name = name
@@ -1409,6 +1538,7 @@ func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
 }
 
 // 表单描述
+//
 // 示例值：表单描述
 func (builder *AppTableFormBuilder) Description(description string) *AppTableFormBuilder {
 	builder.description = description
@@ -1417,6 +1547,7 @@ func (builder *AppTableFormBuilder) Description(description string) *AppTableFor
 }
 
 // 是否开启共享
+//
 // 示例值：true
 func (builder *AppTableFormBuilder) Shared(shared bool) *AppTableFormBuilder {
 	builder.shared = shared
@@ -1425,6 +1556,7 @@ func (builder *AppTableFormBuilder) Shared(shared bool) *AppTableFormBuilder {
 }
 
 // 分享 URL
+//
 // 示例值：https://bytedance.feishu.cn/share/base/shrcnCy1KAlpahNotmhRn1abcde
 func (builder *AppTableFormBuilder) SharedUrl(sharedUrl string) *AppTableFormBuilder {
 	builder.sharedUrl = sharedUrl
@@ -1433,6 +1565,7 @@ func (builder *AppTableFormBuilder) SharedUrl(sharedUrl string) *AppTableFormBui
 }
 
 // 分享范围限制
+//
 // 示例值：tenant_editable
 func (builder *AppTableFormBuilder) SharedLimit(sharedLimit string) *AppTableFormBuilder {
 	builder.sharedLimit = sharedLimit
@@ -1441,6 +1574,7 @@ func (builder *AppTableFormBuilder) SharedLimit(sharedLimit string) *AppTableFor
 }
 
 // 填写次数限制一次
+//
 // 示例值：true
 func (builder *AppTableFormBuilder) SubmitLimitOnce(submitLimitOnce bool) *AppTableFormBuilder {
 	builder.submitLimitOnce = submitLimitOnce
@@ -1504,6 +1638,7 @@ func NewAppTableFormFieldBuilder() *AppTableFormFieldBuilder {
 }
 
 // 表单问题 ID
+//
 // 示例值：fldjX7dUj5
 func (builder *AppTableFormFieldBuilder) FieldId(fieldId string) *AppTableFormFieldBuilder {
 	builder.fieldId = fieldId
@@ -1512,6 +1647,7 @@ func (builder *AppTableFormFieldBuilder) FieldId(fieldId string) *AppTableFormFi
 }
 
 // 表单问题
+//
 // 示例值：多行文本
 func (builder *AppTableFormFieldBuilder) Title(title string) *AppTableFormFieldBuilder {
 	builder.title = title
@@ -1520,6 +1656,7 @@ func (builder *AppTableFormFieldBuilder) Title(title string) *AppTableFormFieldB
 }
 
 // 问题描述
+//
 // 示例值：多行文本描述
 func (builder *AppTableFormFieldBuilder) Description(description string) *AppTableFormFieldBuilder {
 	builder.description = description
@@ -1528,6 +1665,7 @@ func (builder *AppTableFormFieldBuilder) Description(description string) *AppTab
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *AppTableFormFieldBuilder) Required(required bool) *AppTableFormFieldBuilder {
 	builder.required = required
@@ -1536,6 +1674,7 @@ func (builder *AppTableFormFieldBuilder) Required(required bool) *AppTableFormFi
 }
 
 // 是否可见
+//
 // 示例值：true
 func (builder *AppTableFormFieldBuilder) Visible(visible bool) *AppTableFormFieldBuilder {
 	builder.visible = visible
@@ -1595,6 +1734,7 @@ func NewAppTableFormPatchedFieldBuilder() *AppTableFormPatchedFieldBuilder {
 }
 
 // 上一个表单问题 ID，用于支持调整表单问题的顺序，通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串，则说明要排到首个表单问题
+//
 // 示例值：fldjX7dUj5
 func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *AppTableFormPatchedFieldBuilder {
 	builder.preFieldId = preFieldId
@@ -1603,6 +1743,7 @@ func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *A
 }
 
 // 表单问题
+//
 // 示例值：多行文本
 func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFormPatchedFieldBuilder {
 	builder.title = title
@@ -1611,6 +1752,7 @@ func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFor
 }
 
 // 问题描述
+//
 // 示例值：多行文本描述
 func (builder *AppTableFormPatchedFieldBuilder) Description(description string) *AppTableFormPatchedFieldBuilder {
 	builder.description = description
@@ -1619,6 +1761,7 @@ func (builder *AppTableFormPatchedFieldBuilder) Description(description string) 
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTableFormPatchedFieldBuilder {
 	builder.required = required
@@ -1627,6 +1770,7 @@ func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTabl
 }
 
 // 是否可见
+//
 // 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Visible(visible bool) *AppTableFormPatchedFieldBuilder {
 	builder.visible = visible
@@ -1689,6 +1833,7 @@ func NewAppTableRecordBuilder() *AppTableRecordBuilder {
 }
 
 // 记录 id，更新多条记录时必填
+//
 // 示例值：recqwIwhc6
 func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordBuilder {
 	builder.recordId = recordId
@@ -1697,6 +1842,7 @@ func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordB
 }
 
 // 创建人
+//
 // 示例值：
 func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableRecordBuilder {
 	builder.createdBy = createdBy
@@ -1705,6 +1851,7 @@ func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableReco
 }
 
 // 创建时间
+//
 // 示例值：1610281603
 func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableRecordBuilder {
 	builder.createdTime = createdTime
@@ -1713,6 +1860,7 @@ func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableReco
 }
 
 // 修改人
+//
 // 示例值：
 func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *AppTableRecordBuilder {
 	builder.lastModifiedBy = lastModifiedBy
@@ -1721,6 +1869,7 @@ func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *Ap
 }
 
 // 最近更新时间
+//
 // 示例值：1610281603
 func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *AppTableRecordBuilder {
 	builder.lastModifiedTime = lastModifiedTime
@@ -1729,6 +1878,7 @@ func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *Ap
 }
 
 // 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+//
 // 示例值：
 func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
 	builder.fields = fields
@@ -1783,6 +1933,7 @@ func NewAppTableViewBuilder() *AppTableViewBuilder {
 }
 
 // 视图Id
+//
 // 示例值：vewTpR1urY
 func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
 	builder.viewId = viewId
@@ -1791,6 +1942,7 @@ func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
 }
 
 // 视图名字
+//
 // 示例值：甘特视图1
 func (builder *AppTableViewBuilder) ViewName(viewName string) *AppTableViewBuilder {
 	builder.viewName = viewName
@@ -1799,6 +1951,7 @@ func (builder *AppTableViewBuilder) ViewName(viewName string) *AppTableViewBuild
 }
 
 // 视图类型
+//
 // 示例值：gantt
 func (builder *AppTableViewBuilder) ViewType(viewType string) *AppTableViewBuilder {
 	builder.viewType = viewType
@@ -1853,6 +2006,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 }
 
 // attachment token
+//
 // 示例值：
 func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder {
 	builder.fileToken = fileToken
@@ -1861,6 +2015,7 @@ func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder
 }
 
 // attachment name
+//
 // 示例值：
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
@@ -1869,6 +2024,7 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 }
 
 // attachment type
+//
 // 示例值：
 func (builder *AttachmentBuilder) Type(type_ string) *AttachmentBuilder {
 	builder.type_ = type_
@@ -1877,6 +2033,7 @@ func (builder *AttachmentBuilder) Type(type_ string) *AttachmentBuilder {
 }
 
 // attachment size
+//
 // 示例值：
 func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
 	builder.size = size
@@ -1885,6 +2042,7 @@ func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
 }
 
 // download url
+//
 // 示例值：
 func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 	builder.url = url
@@ -1893,6 +2051,7 @@ func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 }
 
 // temporary download url
+//
 // 示例值：
 func (builder *AttachmentBuilder) TmpUrl(tmpUrl string) *AttachmentBuilder {
 	builder.tmpUrl = tmpUrl
@@ -1947,6 +2106,7 @@ func NewDeleteRecordBuilder() *DeleteRecordBuilder {
 }
 
 // 是否成功删除
+//
 // 示例值：true
 func (builder *DeleteRecordBuilder) Deleted(deleted bool) *DeleteRecordBuilder {
 	builder.deleted = deleted
@@ -1955,6 +2115,7 @@ func (builder *DeleteRecordBuilder) Deleted(deleted bool) *DeleteRecordBuilder {
 }
 
 // 删除的记录 ID
+//
 // 示例值：recpCsf4ME
 func (builder *DeleteRecordBuilder) RecordId(recordId string) *DeleteRecordBuilder {
 	builder.recordId = recordId
@@ -1999,6 +2160,7 @@ func NewDisplayAppBuilder() *DisplayAppBuilder {
 }
 
 // 多维表格的 app_token
+//
 // 示例值：
 func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
 	builder.appToken = appToken
@@ -2007,6 +2169,7 @@ func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
 }
 
 // 多维表格的名字
+//
 // 示例值：
 func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
 	builder.name = name
@@ -2015,6 +2178,7 @@ func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
 }
 
 // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+//
 // 示例值：
 func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
 	builder.revision = revision
@@ -2023,6 +2187,7 @@ func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
 }
 
 // 多维表格是否已开启高级权限
+//
 // 示例值：
 func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder {
 	builder.isAdvanced = isAdvanced
@@ -2072,6 +2237,7 @@ func NewDisplayAppV2Builder() *DisplayAppV2Builder {
 }
 
 // 多维表格的 app_token
+//
 // 示例值：
 func (builder *DisplayAppV2Builder) AppToken(appToken string) *DisplayAppV2Builder {
 	builder.appToken = appToken
@@ -2080,6 +2246,7 @@ func (builder *DisplayAppV2Builder) AppToken(appToken string) *DisplayAppV2Build
 }
 
 // 多维表格的名字
+//
 // 示例值：
 func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
 	builder.name = name
@@ -2088,6 +2255,7 @@ func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
 }
 
 // 多维表格是否已开启高级权限
+//
 // 示例值：
 func (builder *DisplayAppV2Builder) IsAdvanced(isAdvanced bool) *DisplayAppV2Builder {
 	builder.isAdvanced = isAdvanced
@@ -2145,6 +2313,7 @@ func NewLocationBuilder() *LocationBuilder {
 }
 
 // 经纬度
+//
 // 示例值：113.946927,22.529146
 func (builder *LocationBuilder) Location(location string) *LocationBuilder {
 	builder.location = location
@@ -2153,6 +2322,7 @@ func (builder *LocationBuilder) Location(location string) *LocationBuilder {
 }
 
 // 省
+//
 // 示例值：广东省
 func (builder *LocationBuilder) Pname(pname string) *LocationBuilder {
 	builder.pname = pname
@@ -2161,6 +2331,7 @@ func (builder *LocationBuilder) Pname(pname string) *LocationBuilder {
 }
 
 // 市
+//
 // 示例值：深圳市
 func (builder *LocationBuilder) Cityname(cityname string) *LocationBuilder {
 	builder.cityname = cityname
@@ -2169,6 +2340,7 @@ func (builder *LocationBuilder) Cityname(cityname string) *LocationBuilder {
 }
 
 // 区
+//
 // 示例值：南山区
 func (builder *LocationBuilder) Adname(adname string) *LocationBuilder {
 	builder.adname = adname
@@ -2177,6 +2349,7 @@ func (builder *LocationBuilder) Adname(adname string) *LocationBuilder {
 }
 
 // 详细地址
+//
 // 示例值：深圳湾创新科技中心(科苑地铁站C口步行340米)
 func (builder *LocationBuilder) Address(address string) *LocationBuilder {
 	builder.address = address
@@ -2185,6 +2358,7 @@ func (builder *LocationBuilder) Address(address string) *LocationBuilder {
 }
 
 // 地名
+//
 // 示例值：字节跳动
 func (builder *LocationBuilder) Name(name string) *LocationBuilder {
 	builder.name = name
@@ -2193,6 +2367,7 @@ func (builder *LocationBuilder) Name(name string) *LocationBuilder {
 }
 
 // 完整地址
+//
 // 示例值：字节跳动，广东省深圳市南山区深圳湾创新科技中心(科苑地铁站C口步行340米)
 func (builder *LocationBuilder) FullAddress(fullAddress string) *LocationBuilder {
 	builder.fullAddress = fullAddress
@@ -2257,6 +2432,7 @@ func NewPersonBuilder() *PersonBuilder {
 }
 
 // 人员Id
+//
 // 示例值：testesttest
 func (builder *PersonBuilder) Id(id string) *PersonBuilder {
 	builder.id = id
@@ -2265,6 +2441,7 @@ func (builder *PersonBuilder) Id(id string) *PersonBuilder {
 }
 
 // 中文姓名
+//
 // 示例值：黄泡泡
 func (builder *PersonBuilder) Name(name string) *PersonBuilder {
 	builder.name = name
@@ -2273,6 +2450,7 @@ func (builder *PersonBuilder) Name(name string) *PersonBuilder {
 }
 
 // 英文姓名
+//
 // 示例值：Paopao Huang
 func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
 	builder.enName = enName
@@ -2281,6 +2459,7 @@ func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
 }
 
 // 邮箱
+//
 // 示例值：huangpaopao@feishu.cn
 func (builder *PersonBuilder) Email(email string) *PersonBuilder {
 	builder.email = email
@@ -2327,6 +2506,7 @@ func NewReqAppBuilder() *ReqAppBuilder {
 }
 
 // 多维表格App名字
+//
 // 示例值：一篇新的多维表格
 func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
 	builder.name = name
@@ -2335,6 +2515,7 @@ func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
 }
 
 // 多维表格App归属文件夹
+//
 // 示例值：fldbcoh8O99CIMltVc
 func (builder *ReqAppBuilder) FolderToken(folderToken string) *ReqAppBuilder {
 	builder.folderToken = folderToken
@@ -2370,6 +2551,7 @@ func NewReqTableBuilder() *ReqTableBuilder {
 }
 
 // 数据表 名字
+//
 // 示例值：table1
 func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
 	builder.name = name
@@ -2404,6 +2586,7 @@ func NewReqViewBuilder() *ReqViewBuilder {
 }
 
 // 视图名字
+//
 // 示例值：表格视图1
 func (builder *ReqViewBuilder) ViewName(viewName string) *ReqViewBuilder {
 	builder.viewName = viewName
@@ -2412,6 +2595,7 @@ func (builder *ReqViewBuilder) ViewName(viewName string) *ReqViewBuilder {
 }
 
 // 视图类型
+//
 // 示例值：grid
 func (builder *ReqViewBuilder) ViewType(viewType string) *ReqViewBuilder {
 	builder.viewType = viewType
@@ -2450,6 +2634,7 @@ func NewUrlBuilder() *UrlBuilder {
 }
 
 // url text
+//
 // 示例值：
 func (builder *UrlBuilder) Text(text string) *UrlBuilder {
 	builder.text = text
@@ -2458,6 +2643,7 @@ func (builder *UrlBuilder) Text(text string) *UrlBuilder {
 }
 
 // url link
+//
 // 示例值：
 func (builder *UrlBuilder) Link(link string) *UrlBuilder {
 	builder.link = link
@@ -4077,6 +4263,14 @@ func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTabl
 // 示例值：vewOVMEXPF
 func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
+	return builder
+}
+
+// 控制描述（多行文本格式）字段数据的返回格式, true 表示以数组形式返回
+//
+// 示例值：
+func (builder *ListAppTableFieldReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableFieldReqBuilder {
+	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
 }
 

@@ -70,6 +70,7 @@ func NewMemberBuilder() *MemberBuilder {
 }
 
 // “openchat” - 群id ;;“userid” - 用户id;;“email” - 邮箱;;“opendepartmentid” - 部门id;;“openid” - 应用openid;;“unionid” - unionid
+//
 // 示例值：userid
 func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
 	builder.memberType = memberType
@@ -78,6 +79,7 @@ func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
 }
 
 // 用户id
+//
 // 示例值：1565676577122621
 func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
 	builder.memberId = memberId
@@ -86,6 +88,7 @@ func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
 }
 
 // 角色:;;“admin” - 管理员;;“member” - 成员
+//
 // 示例值：admin
 func (builder *MemberBuilder) MemberRole(memberRole string) *MemberBuilder {
 	builder.memberRole = memberRole
@@ -131,6 +134,7 @@ func NewMoveResultBuilder() *MoveResultBuilder {
 }
 
 // 移动完成的节点信息
+//
 // 示例值：
 func (builder *MoveResultBuilder) Node(node *Node) *MoveResultBuilder {
 	builder.node = node
@@ -139,6 +143,7 @@ func (builder *MoveResultBuilder) Node(node *Node) *MoveResultBuilder {
 }
 
 // 节点移动状态码
+//
 // 示例值：0
 func (builder *MoveResultBuilder) Status(status int) *MoveResultBuilder {
 	builder.status = status
@@ -147,6 +152,7 @@ func (builder *MoveResultBuilder) Status(status int) *MoveResultBuilder {
 }
 
 // 节点移动状态信息
+//
 // 示例值：success
 func (builder *MoveResultBuilder) StatusMsg(statusMsg string) *MoveResultBuilder {
 	builder.statusMsg = statusMsg
@@ -227,6 +233,7 @@ func NewNodeBuilder() *NodeBuilder {
 }
 
 // 知识库id
+//
 // 示例值：6946843325487912356
 func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 	builder.spaceId = spaceId
@@ -235,6 +242,7 @@ func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 }
 
 // 节点token
+//
 // 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) NodeToken(nodeToken string) *NodeBuilder {
 	builder.nodeToken = nodeToken
@@ -243,6 +251,7 @@ func (builder *NodeBuilder) NodeToken(nodeToken string) *NodeBuilder {
 }
 
 // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
+//
 // 示例值：doccnzAaODNqykc8g9hOWabcdef
 func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
 	builder.objToken = objToken
@@ -251,6 +260,7 @@ func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
 }
 
 // 文档类型，对于快捷方式，该字段是对应的实体的obj_type
+//
 // 示例值：doc/sheet/mindnote
 func (builder *NodeBuilder) ObjType(objType string) *NodeBuilder {
 	builder.objType = objType
@@ -259,6 +269,7 @@ func (builder *NodeBuilder) ObjType(objType string) *NodeBuilder {
 }
 
 // 节点的父亲token。当节点为一级节点时，父亲token为空。
+//
 // 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) ParentNodeToken(parentNodeToken string) *NodeBuilder {
 	builder.parentNodeToken = parentNodeToken
@@ -267,6 +278,7 @@ func (builder *NodeBuilder) ParentNodeToken(parentNodeToken string) *NodeBuilder
 }
 
 // 节点类型
+//
 // 示例值：origin/shortcut
 func (builder *NodeBuilder) NodeType(nodeType string) *NodeBuilder {
 	builder.nodeType = nodeType
@@ -275,6 +287,7 @@ func (builder *NodeBuilder) NodeType(nodeType string) *NodeBuilder {
 }
 
 // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+//
 // 示例值：wikcnKQ1k3pcuo5uSK4t8Vabcef
 func (builder *NodeBuilder) OriginNodeToken(originNodeToken string) *NodeBuilder {
 	builder.originNodeToken = originNodeToken
@@ -283,6 +296,7 @@ func (builder *NodeBuilder) OriginNodeToken(originNodeToken string) *NodeBuilder
 }
 
 // 快捷方式对应的实体所在的spaceid
+//
 // 示例值：6946843325487912356
 func (builder *NodeBuilder) OriginSpaceId(originSpaceId string) *NodeBuilder {
 	builder.originSpaceId = originSpaceId
@@ -291,6 +305,7 @@ func (builder *NodeBuilder) OriginSpaceId(originSpaceId string) *NodeBuilder {
 }
 
 // 是否有子节点
+//
 // 示例值：false
 func (builder *NodeBuilder) HasChild(hasChild bool) *NodeBuilder {
 	builder.hasChild = hasChild
@@ -299,6 +314,7 @@ func (builder *NodeBuilder) HasChild(hasChild bool) *NodeBuilder {
 }
 
 // 文档标题
+//
 // 示例值：标题
 func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 	builder.title = title
@@ -307,6 +323,7 @@ func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 }
 
 // 文档创建时间
+//
 // 示例值：1642402428
 func (builder *NodeBuilder) ObjCreateTime(objCreateTime string) *NodeBuilder {
 	builder.objCreateTime = objCreateTime
@@ -315,6 +332,7 @@ func (builder *NodeBuilder) ObjCreateTime(objCreateTime string) *NodeBuilder {
 }
 
 // 文档最近编辑时间
+//
 // 示例值：1642402428
 func (builder *NodeBuilder) ObjEditTime(objEditTime string) *NodeBuilder {
 	builder.objEditTime = objEditTime
@@ -323,6 +341,7 @@ func (builder *NodeBuilder) ObjEditTime(objEditTime string) *NodeBuilder {
 }
 
 // 节点创建时间
+//
 // 示例值：1642402428
 func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime string) *NodeBuilder {
 	builder.nodeCreateTime = nodeCreateTime
@@ -331,6 +350,7 @@ func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime string) *NodeBuilder {
 }
 
 // 节点创建者
+//
 // 示例值：ou_xxxxx
 func (builder *NodeBuilder) Creator(creator string) *NodeBuilder {
 	builder.creator = creator
@@ -339,6 +359,7 @@ func (builder *NodeBuilder) Creator(creator string) *NodeBuilder {
 }
 
 // 节点所有者
+//
 // 示例值：ou_xxxxx
 func (builder *NodeBuilder) Owner(owner string) *NodeBuilder {
 	builder.owner = owner
@@ -456,6 +477,7 @@ func NewNodeSearchBuilder() *NodeSearchBuilder {
 }
 
 // node的唯一标识
+//
 // 示例值：wikbcIbccBl4Mik9GQ2KskO6hsf
 func (builder *NodeSearchBuilder) NodeId(nodeId string) *NodeSearchBuilder {
 	builder.nodeId = nodeId
@@ -464,6 +486,7 @@ func (builder *NodeSearchBuilder) NodeId(nodeId string) *NodeSearchBuilder {
 }
 
 // 所属空间id
+//
 // 示例值：7067522558521770004
 func (builder *NodeSearchBuilder) SpaceId(spaceId string) *NodeSearchBuilder {
 	builder.spaceId = spaceId
@@ -472,6 +495,7 @@ func (builder *NodeSearchBuilder) SpaceId(spaceId string) *NodeSearchBuilder {
 }
 
 // 父节点id
+//
 // 示例值：
 func (builder *NodeSearchBuilder) ParentId(parentId string) *NodeSearchBuilder {
 	builder.parentId = parentId
@@ -480,6 +504,7 @@ func (builder *NodeSearchBuilder) ParentId(parentId string) *NodeSearchBuilder {
 }
 
 // wiki类型
+//
 // 示例值：1
 func (builder *NodeSearchBuilder) ObjType(objType int) *NodeSearchBuilder {
 	builder.objType = objType
@@ -488,6 +513,7 @@ func (builder *NodeSearchBuilder) ObjType(objType int) *NodeSearchBuilder {
 }
 
 // wiki标题
+//
 // 示例值：文档标题
 func (builder *NodeSearchBuilder) Title(title string) *NodeSearchBuilder {
 	builder.title = title
@@ -496,6 +522,7 @@ func (builder *NodeSearchBuilder) Title(title string) *NodeSearchBuilder {
 }
 
 // wiki的访问url
+//
 // 示例值：https://single-container.feishu.cn/wiki/wikbcPkzIoLp52Dh2Pj3nQaYPFO
 func (builder *NodeSearchBuilder) Url(url string) *NodeSearchBuilder {
 	builder.url = url
@@ -504,6 +531,7 @@ func (builder *NodeSearchBuilder) Url(url string) *NodeSearchBuilder {
 }
 
 // wiki对应图标的url
+//
 // 示例值：
 func (builder *NodeSearchBuilder) Icon(icon string) *NodeSearchBuilder {
 	builder.icon = icon
@@ -512,6 +540,7 @@ func (builder *NodeSearchBuilder) Icon(icon string) *NodeSearchBuilder {
 }
 
 // 所属权限范围id
+//
 // 示例值：
 func (builder *NodeSearchBuilder) AreaId(areaId string) *NodeSearchBuilder {
 	builder.areaId = areaId
@@ -520,6 +549,7 @@ func (builder *NodeSearchBuilder) AreaId(areaId string) *NodeSearchBuilder {
 }
 
 // 序号
+//
 // 示例值：1
 func (builder *NodeSearchBuilder) SortId(sortId float64) *NodeSearchBuilder {
 	builder.sortId = sortId
@@ -528,6 +558,7 @@ func (builder *NodeSearchBuilder) SortId(sortId float64) *NodeSearchBuilder {
 }
 
 // 所在域名
+//
 // 示例值：
 func (builder *NodeSearchBuilder) Domain(domain string) *NodeSearchBuilder {
 	builder.domain = domain
@@ -536,6 +567,7 @@ func (builder *NodeSearchBuilder) Domain(domain string) *NodeSearchBuilder {
 }
 
 // objToken
+//
 // 示例值：doxbcBBOM3vQxO5NztUhKpTBNQd
 func (builder *NodeSearchBuilder) ObjToken(objToken string) *NodeSearchBuilder {
 	builder.objToken = objToken
@@ -613,6 +645,7 @@ func NewSettingBuilder() *SettingBuilder {
 }
 
 // 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
+//
 // 示例值：admin/admin_and_member
 func (builder *SettingBuilder) CreateSetting(createSetting string) *SettingBuilder {
 	builder.createSetting = createSetting
@@ -621,6 +654,7 @@ func (builder *SettingBuilder) CreateSetting(createSetting string) *SettingBuild
 }
 
 // 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许
+//
 // 示例值：allow/not_allow
 func (builder *SettingBuilder) SecuritySetting(securitySetting string) *SettingBuilder {
 	builder.securitySetting = securitySetting
@@ -629,6 +663,7 @@ func (builder *SettingBuilder) SecuritySetting(securitySetting string) *SettingB
 }
 
 // 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许
+//
 // 示例值：allow/not_allow
 func (builder *SettingBuilder) CommentSetting(commentSetting string) *SettingBuilder {
 	builder.commentSetting = commentSetting
@@ -680,6 +715,7 @@ func NewSpaceBuilder() *SpaceBuilder {
 }
 
 // 知识空间名称
+//
 // 示例值：知识空间
 func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
 	builder.name = name
@@ -688,6 +724,7 @@ func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
 }
 
 // 知识空间描述
+//
 // 示例值：知识空间描述
 func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 	builder.description = description
@@ -696,6 +733,7 @@ func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 }
 
 // 知识空间id
+//
 // 示例值：1565676577122621
 func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 	builder.spaceId = spaceId
@@ -704,6 +742,7 @@ func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 }
 
 // 表示知识空间类型（团队空间 或 个人空间）
+//
 // 示例值：team
 func (builder *SpaceBuilder) SpaceType(spaceType string) *SpaceBuilder {
 	builder.spaceType = spaceType
@@ -712,6 +751,7 @@ func (builder *SpaceBuilder) SpaceType(spaceType string) *SpaceBuilder {
 }
 
 // 表示知识空间可见性（公开空间 或 私有空间）
+//
 // 示例值：private
 func (builder *SpaceBuilder) Visibility(visibility string) *SpaceBuilder {
 	builder.visibility = visibility
@@ -762,6 +802,7 @@ func NewTaskResultBuilder() *TaskResultBuilder {
 }
 
 // 任务id
+//
 // 示例值：7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7
 func (builder *TaskResultBuilder) TaskId(taskId string) *TaskResultBuilder {
 	builder.taskId = taskId
@@ -770,6 +811,7 @@ func (builder *TaskResultBuilder) TaskId(taskId string) *TaskResultBuilder {
 }
 
 // MoveDocsToWiki任务结果
+//
 // 示例值：
 func (builder *TaskResultBuilder) MoveResult(moveResult []*MoveResult) *TaskResultBuilder {
 	builder.moveResult = moveResult

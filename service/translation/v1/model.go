@@ -35,6 +35,7 @@ func NewTermBuilder() *TermBuilder {
 }
 
 // 原文
+//
 // 示例值：飞书
 func (builder *TermBuilder) From(from string) *TermBuilder {
 	builder.from = from
@@ -43,6 +44,7 @@ func (builder *TermBuilder) From(from string) *TermBuilder {
 }
 
 // 译文
+//
 // 示例值：Lark
 func (builder *TermBuilder) To(to string) *TermBuilder {
 	builder.to = to

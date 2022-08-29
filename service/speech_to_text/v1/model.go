@@ -38,6 +38,7 @@ func NewFileConfigBuilder() *FileConfigBuilder {
 }
 
 // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
+//
 // 示例值：qwe12dd34567890w
 func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
 	builder.fileId = fileId
@@ -46,6 +47,7 @@ func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
 }
 
 // 语音格式，目前仅支持：pcm
+//
 // 示例值：pcm
 func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
 	builder.format = format
@@ -54,6 +56,7 @@ func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
 }
 
 // 引擎类型，目前仅支持：16k_auto 中英混合
+//
 // 示例值：16k_auto
 func (builder *FileConfigBuilder) EngineType(engineType string) *FileConfigBuilder {
 	builder.engineType = engineType
@@ -96,6 +99,7 @@ func NewSpeechBuilder() *SpeechBuilder {
 }
 
 // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+//
 // 示例值：PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg==
 func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 	builder.speech = speech
@@ -104,6 +108,7 @@ func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 }
 
 // 上传到 drive 存储平台后获取到的 key （暂不支持）
+//
 // 示例值：
 func (builder *SpeechBuilder) SpeechKey(speechKey string) *SpeechBuilder {
 	builder.speechKey = speechKey
@@ -151,6 +156,7 @@ func NewStreamConfigBuilder() *StreamConfigBuilder {
 }
 
 // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
+//
 // 示例值：asd1234567890ddd
 func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuilder {
 	builder.streamId = streamId
@@ -159,6 +165,7 @@ func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuild
 }
 
 // 数据流分片的序号，序号从 0 开始，每次请求递增 1
+//
 // 示例值：1
 func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuilder {
 	builder.sequenceId = sequenceId
@@ -167,6 +174,7 @@ func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuil
 }
 
 // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+//
 // 示例值：1
 func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
 	builder.action = action
@@ -175,6 +183,7 @@ func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
 }
 
 // 语音格式，目前仅支持：pcm
+//
 // 示例值：pcm
 func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
 	builder.format = format
@@ -183,6 +192,7 @@ func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
 }
 
 // 引擎类型，目前仅支持：16k_auto 中英混合
+//
 // 示例值：16k_auto
 func (builder *StreamConfigBuilder) EngineType(engineType string) *StreamConfigBuilder {
 	builder.engineType = engineType

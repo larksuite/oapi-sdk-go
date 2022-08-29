@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## v3.0.0-beta-8-2022-08-23
+## v3.0.2
+Fixed
+- 修改枚举值名称为：methodName+resourceName+enumValue
+
+## v3.0.1
 Added
 - API方法，消息事件，各种结构体添加文字描述注释
 

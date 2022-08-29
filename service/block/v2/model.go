@@ -70,6 +70,7 @@ func NewEntityBuilder() *EntityBuilder {
 }
 
 // block 唯一标识
+//
 // 示例值：7794641623571830467
 func (builder *EntityBuilder) BlockId(blockId string) *EntityBuilder {
 	builder.blockId = blockId
@@ -78,6 +79,7 @@ func (builder *EntityBuilder) BlockId(blockId string) *EntityBuilder {
 }
 
 // 标题
+//
 // 示例值：已阅 block
 func (builder *EntityBuilder) Title(title string) *EntityBuilder {
 	builder.title = title
@@ -86,6 +88,7 @@ func (builder *EntityBuilder) Title(title string) *EntityBuilder {
 }
 
 // block 类型ID
+//
 // 示例值：blk_6204893fee000013739f5359
 func (builder *EntityBuilder) BlockTypeId(blockTypeId string) *EntityBuilder {
 	builder.blockTypeId = blockTypeId
@@ -94,6 +97,7 @@ func (builder *EntityBuilder) BlockTypeId(blockTypeId string) *EntityBuilder {
 }
 
 // 业务数据 json
+//
 // 示例值：{"data":"业务数据"}
 func (builder *EntityBuilder) SourceData(sourceData string) *EntityBuilder {
 	builder.sourceData = sourceData
@@ -102,6 +106,7 @@ func (builder *EntityBuilder) SourceData(sourceData string) *EntityBuilder {
 }
 
 // 元数据 json
+//
 // 示例值：{"bizId":"7094067849152430100"}
 func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 	builder.sourceMeta = sourceMeta
@@ -110,6 +115,7 @@ func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 }
 
 // 版本号(自增)
+//
 // 示例值：1651716489253602
 func (builder *EntityBuilder) Version(version string) *EntityBuilder {
 	builder.version = version
@@ -118,6 +124,7 @@ func (builder *EntityBuilder) Version(version string) *EntityBuilder {
 }
 
 // 链接
+//
 // 示例值：{}
 func (builder *EntityBuilder) SourceLink(sourceLink string) *EntityBuilder {
 	builder.sourceLink = sourceLink
@@ -126,6 +133,7 @@ func (builder *EntityBuilder) SourceLink(sourceLink string) *EntityBuilder {
 }
 
 // 总括
+//
 // 示例值：{"cn":"这是一个block"}
 func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 	builder.summary = summary
@@ -134,6 +142,7 @@ func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 }
 
 // 预览
+//
 // 示例值：{"cn":"这是一个block"}
 func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 	builder.preview = preview
@@ -142,6 +151,7 @@ func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 }
 
 // 综述 json
+//
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 	builder.i18nSummay = i18nSummay
@@ -150,6 +160,7 @@ func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 }
 
 // 预览 json
+//
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *EntityBuilder) I18nPreview(i18nPreview string) *EntityBuilder {
 	builder.i18nPreview = i18nPreview
@@ -158,6 +169,7 @@ func (builder *EntityBuilder) I18nPreview(i18nPreview string) *EntityBuilder {
 }
 
 // 所有者
+//
 // 示例值：ou_fa7aa170f92d1615de63371ac425a767
 func (builder *EntityBuilder) Owner(owner string) *EntityBuilder {
 	builder.owner = owner
@@ -166,6 +178,7 @@ func (builder *EntityBuilder) Owner(owner string) *EntityBuilder {
 }
 
 // 扩展字段 json
+//
 // 示例值：{}
 func (builder *EntityBuilder) Extra(extra string) *EntityBuilder {
 	builder.extra = extra
@@ -231,7 +244,7 @@ func (builder *EntityBuilder) Build() *Entity {
 }
 
 type Message struct {
-	Body     *string  `json:"body,omitempty"`     // 消息体
+	Body     *string  `json:"body,omitempty"`     // 协同数据内容
 	Version  *string  `json:"version,omitempty"`  // 版本号(自增)
 	BlockId  *string  `json:"block_id,omitempty"` // entity实体ID
 	Resource *string  `json:"resource,omitempty"` // 业务来源
@@ -239,7 +252,7 @@ type Message struct {
 }
 
 type MessageBuilder struct {
-	body         string // 消息体
+	body         string // 协同数据内容
 	bodyFlag     bool
 	version      string // 版本号(自增)
 	versionFlag  bool
@@ -256,7 +269,8 @@ func NewMessageBuilder() *MessageBuilder {
 	return builder
 }
 
-// 消息体
+// 协同数据内容
+//
 // 示例值：{"id":"7094066727704592403","token":"test_123456789"}
 func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 	builder.body = body
@@ -265,6 +279,7 @@ func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 }
 
 // 版本号(自增)
+//
 // 示例值：1637565292196
 func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 	builder.version = version
@@ -273,6 +288,7 @@ func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 }
 
 // entity实体ID
+//
 // 示例值：8116040162664047375
 func (builder *MessageBuilder) BlockId(blockId string) *MessageBuilder {
 	builder.blockId = blockId
@@ -281,6 +297,7 @@ func (builder *MessageBuilder) BlockId(blockId string) *MessageBuilder {
 }
 
 // 业务来源
+//
 // 示例值：read_block
 func (builder *MessageBuilder) Resource(resource string) *MessageBuilder {
 	builder.resource = resource
@@ -289,6 +306,7 @@ func (builder *MessageBuilder) Resource(resource string) *MessageBuilder {
 }
 
 // 推送用户列表
+//
 // 示例值：["ou_fa7aa170f92d1615de63371ac425a767"]
 func (builder *MessageBuilder) OpenIds(openIds []string) *MessageBuilder {
 	builder.openIds = openIds
@@ -807,7 +825,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-// 根据BlockID向指定用户列表推送消息。
+// 根据BlockID向指定用户列表推送协同数据。
 func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessageReqBuilder {
 	builder.message = message
 	return builder

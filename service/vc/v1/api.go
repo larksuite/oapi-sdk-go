@@ -66,7 +66,7 @@ type roomConfig struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//get_export.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_export.go
 func (e *export) Get(ctx context.Context, req *GetExportReq, options ...larkcore.RequestOptionFunc) (*GetExportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -92,7 +92,7 @@ func (e *export) Get(ctx context.Context, req *GetExportReq, options ...larkcore
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/meeting_list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//meetingList_export.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/meetingList_export.go
 func (e *export) MeetingList(ctx context.Context, req *MeetingListExportReq, options ...larkcore.RequestOptionFunc) (*MeetingListExportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -118,7 +118,7 @@ func (e *export) MeetingList(ctx context.Context, req *MeetingListExportReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//participantList_export.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/participantList_export.go
 func (e *export) ParticipantList(ctx context.Context, req *ParticipantListExportReq, options ...larkcore.RequestOptionFunc) (*ParticipantListExportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -144,7 +144,7 @@ func (e *export) ParticipantList(ctx context.Context, req *ParticipantListExport
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_quality_list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//participantQualityList_export.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/participantQualityList_export.go
 func (e *export) ParticipantQualityList(ctx context.Context, req *ParticipantQualityListExportReq, options ...larkcore.RequestOptionFunc) (*ParticipantQualityListExportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -172,7 +172,7 @@ func (e *export) ParticipantQualityList(ctx context.Context, req *ParticipantQua
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//end_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/end_meeting.go
 func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...larkcore.RequestOptionFunc) (*EndMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -200,7 +200,7 @@ func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//get_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_meeting.go
 func (m *meeting) Get(ctx context.Context, req *GetMeetingReq, options ...larkcore.RequestOptionFunc) (*GetMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -228,7 +228,7 @@ func (m *meeting) Get(ctx context.Context, req *GetMeetingReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/invite
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//invite_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/invite_meeting.go
 func (m *meeting) Invite(ctx context.Context, req *InviteMeetingReq, options ...larkcore.RequestOptionFunc) (*InviteMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -254,7 +254,7 @@ func (m *meeting) Invite(ctx context.Context, req *InviteMeetingReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/kickout
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//kickout_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/kickout_meeting.go
 func (m *meeting) Kickout(ctx context.Context, req *KickoutMeetingReq, options ...larkcore.RequestOptionFunc) (*KickoutMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -280,7 +280,7 @@ func (m *meeting) Kickout(ctx context.Context, req *KickoutMeetingReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/list_by_no
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//listByNo_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/listByNo_meeting.go
 func (m *meeting) ListByNo(ctx context.Context, req *ListByNoMeetingReq, options ...larkcore.RequestOptionFunc) (*ListByNoMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -316,7 +316,7 @@ func (m *meeting) ListByNoByIterator(ctx context.Context, req *ListByNoMeetingRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/set_host
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//setHost_meeting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/setHost_meeting.go
 func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options ...larkcore.RequestOptionFunc) (*SetHostMeetingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -344,7 +344,7 @@ func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//get_meetingRecording.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_meetingRecording.go
 func (m *meetingRecording) Get(ctx context.Context, req *GetMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*GetMeetingRecordingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -372,7 +372,7 @@ func (m *meetingRecording) Get(ctx context.Context, req *GetMeetingRecordingReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//setPermission_meetingRecording.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/setPermission_meetingRecording.go
 func (m *meetingRecording) SetPermission(ctx context.Context, req *SetPermissionMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*SetPermissionMeetingRecordingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -400,7 +400,7 @@ func (m *meetingRecording) SetPermission(ctx context.Context, req *SetPermission
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//start_meetingRecording.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/start_meetingRecording.go
 func (m *meetingRecording) Start(ctx context.Context, req *StartMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*StartMeetingRecordingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -428,7 +428,7 @@ func (m *meetingRecording) Start(ctx context.Context, req *StartMeetingRecording
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//stop_meetingRecording.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/stop_meetingRecording.go
 func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*StopMeetingRecordingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -456,7 +456,7 @@ func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//getDaily_report.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/getDaily_report.go
 func (r *report) GetDaily(ctx context.Context, req *GetDailyReportReq, options ...larkcore.RequestOptionFunc) (*GetDailyReportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -484,7 +484,7 @@ func (r *report) GetDaily(ctx context.Context, req *GetDailyReportReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//getTopUser_report.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/getTopUser_report.go
 func (r *report) GetTopUser(ctx context.Context, req *GetTopUserReportReq, options ...larkcore.RequestOptionFunc) (*GetTopUserReportResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -512,7 +512,7 @@ func (r *report) GetTopUser(ctx context.Context, req *GetTopUserReportReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//apply_reserve.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/apply_reserve.go
 func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...larkcore.RequestOptionFunc) (*ApplyReserveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -540,7 +540,7 @@ func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//delete_reserve.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/delete_reserve.go
 func (r *reserve) Delete(ctx context.Context, req *DeleteReserveReq, options ...larkcore.RequestOptionFunc) (*DeleteReserveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -568,7 +568,7 @@ func (r *reserve) Delete(ctx context.Context, req *DeleteReserveReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//get_reserve.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_reserve.go
 func (r *reserve) Get(ctx context.Context, req *GetReserveReq, options ...larkcore.RequestOptionFunc) (*GetReserveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -596,7 +596,7 @@ func (r *reserve) Get(ctx context.Context, req *GetReserveReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//getActiveMeeting_reserve.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/getActiveMeeting_reserve.go
 func (r *reserve) GetActiveMeeting(ctx context.Context, req *GetActiveMeetingReserveReq, options ...larkcore.RequestOptionFunc) (*GetActiveMeetingReserveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -624,7 +624,7 @@ func (r *reserve) GetActiveMeeting(ctx context.Context, req *GetActiveMeetingRes
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//update_reserve.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/update_reserve.go
 func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...larkcore.RequestOptionFunc) (*UpdateReserveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -652,7 +652,7 @@ func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//query_roomConfig.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/query_roomConfig.go
 func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options ...larkcore.RequestOptionFunc) (*QueryRoomConfigResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -680,7 +680,7 @@ func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1//set_roomConfig.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/set_roomConfig.go
 func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...larkcore.RequestOptionFunc) (*SetRoomConfigResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

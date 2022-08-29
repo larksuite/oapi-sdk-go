@@ -31,51 +31,51 @@ const (
 )
 
 const (
-	UserIdTypeTaskBatchDeleteFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskBatchDeleteFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskBatchDeleteFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchDeleteFollowerTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchDeleteFollowerTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchDeleteFollowerTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskCollaboratorCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskCollaboratorCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskCollaboratorCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskCollaboratorDeleteUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskCollaboratorDeleteUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskCollaboratorDeleteOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeDeleteTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDeleteTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDeleteTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskCollaboratorListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskCollaboratorListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskCollaboratorListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -85,21 +85,21 @@ const (
 )
 
 const (
-	UserIdTypeTaskFollowerCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskFollowerCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskFollowerCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateTaskFollowerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskFollowerDeleteUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskFollowerDeleteUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskFollowerDeleteOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeDeleteTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDeleteTaskFollowerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDeleteTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTaskFollowerListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTaskFollowerListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTaskFollowerListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListTaskFollowerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Collaborator struct {
@@ -120,6 +120,7 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 }
 
 // 任务执行者的 ID
+//
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f1234
 func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 	builder.id = id
@@ -128,6 +129,7 @@ func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 }
 
 // 执行者的用户ID列表。
+//
 // 示例值：["ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0"]
 func (builder *CollaboratorBuilder) IdList(idList []string) *CollaboratorBuilder {
 	builder.idList = idList
@@ -174,6 +176,7 @@ func NewCommentBuilder() *CommentBuilder {
 }
 
 // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
+//
 // 示例值：举杯邀明月，对影成三人
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
@@ -182,6 +185,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 }
 
 // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+//
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 	builder.parentId = parentId
@@ -190,6 +194,7 @@ func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 }
 
 // 评论ID，由飞书服务器发号
+//
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
@@ -198,6 +203,7 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 }
 
 // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
+//
 // 示例值：1657075055135
 func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentBuilder {
 	builder.createMilliTime = createMilliTime
@@ -206,6 +212,7 @@ func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentB
 }
 
 // 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+//
 // 示例值：举杯邀明月，对影成三人<at id=7058204817822318612></at>
 func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
 	builder.richContent = richContent
@@ -259,6 +266,7 @@ func NewDueBuilder() *DueBuilder {
 }
 
 // 截止时间的时间戳（单位为秒）
+//
 // 示例值：1623124318
 func (builder *DueBuilder) Time(time string) *DueBuilder {
 	builder.time = time
@@ -267,6 +275,7 @@ func (builder *DueBuilder) Time(time string) *DueBuilder {
 }
 
 // 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai
+//
 // 示例值：Asia/Shanghai
 func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
 	builder.timezone = timezone
@@ -275,6 +284,7 @@ func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
 }
 
 // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
+//
 // 示例值：false
 func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
 	builder.isAllDay = isAllDay
@@ -317,6 +327,7 @@ func NewFollowerBuilder() *FollowerBuilder {
 }
 
 // 任务关注人 ID
+//
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f3123
 func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 	builder.id = id
@@ -325,6 +336,7 @@ func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 }
 
 // 要添加的关注人ID列表
+//
 // 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
 func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {
 	builder.idList = idList
@@ -362,6 +374,7 @@ func NewHrefBuilder() *HrefBuilder {
 }
 
 // 具体链接地址
+//
 // 示例值：https://support.feishu.com/internal/foo-bar
 func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 	builder.url = url
@@ -370,6 +383,7 @@ func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 }
 
 // 链接对应的标题
+//
 // 示例值：反馈一个问题，需要协助排查
 func (builder *HrefBuilder) Title(title string) *HrefBuilder {
 	builder.title = title
@@ -408,6 +422,7 @@ func NewOriginBuilder() *OriginBuilder {
 }
 
 // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
+//
 // 示例值：{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}
 func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder {
 	builder.platformI18nName = platformI18nName
@@ -416,6 +431,7 @@ func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginB
 }
 
 // 任务关联的来源平台详情页链接
+//
 // 示例值：
 func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
 	builder.href = href
@@ -453,6 +469,7 @@ func NewReminderBuilder() *ReminderBuilder {
 }
 
 // 提醒时间设置的 ID（在删除时候需要使用这个）
+//
 // 示例值：1
 func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	builder.id = id
@@ -461,6 +478,7 @@ func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 }
 
 // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+//
 // 示例值：30
 func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
 	builder.relativeFireMinute = relativeFireMinute
@@ -553,6 +571,7 @@ func NewTaskBuilder() *TaskBuilder {
 }
 
 // 任务 ID，由飞书任务服务器发号
+//
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 	builder.id = id
@@ -561,6 +580,7 @@ func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 }
 
 // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+//
 // 示例值：每天喝八杯水，保持身心愉悦
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	builder.summary = summary
@@ -569,6 +589,7 @@ func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 }
 
 // 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+//
 // 示例值：多吃水果，多运动，健康生活，快乐工作。
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.description = description
@@ -577,6 +598,7 @@ func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 }
 
 // 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
+//
 // 示例值：1623499200
 func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 	builder.completeTime = completeTime
@@ -585,6 +607,7 @@ func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 }
 
 // 任务的创建者 ID。在创建任务时无需填充该字段
+//
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f346a
 func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 	builder.creatorId = creatorId
@@ -593,6 +616,7 @@ func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 }
 
 // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定
+//
 // 示例值：dGVzdA==
 func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	builder.extra = extra
@@ -601,6 +625,7 @@ func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 }
 
 // 任务的创建时间戳（单位为秒）
+//
 // 示例值：1623392486
 func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 	builder.createTime = createTime
@@ -609,6 +634,7 @@ func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 }
 
 // 任务的更新时间戳（单位为秒）
+//
 // 示例值：1623392486
 func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 	builder.updateTime = updateTime
@@ -617,6 +643,7 @@ func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 }
 
 // 任务的截止时间设置
+//
 // 示例值：
 func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 	builder.due = due
@@ -625,6 +652,7 @@ func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 }
 
 // 任务关联的第三方平台来源信息
+//
 // 示例值：
 func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 	builder.origin = origin
@@ -633,6 +661,7 @@ func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 }
 
 // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息;（即将废弃）
+//
 // 示例值：true
 func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
 	builder.canEdit = canEdit
@@ -641,6 +670,7 @@ func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
 }
 
 // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
+//
 // 示例值：{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"ios\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"pc\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}}}}
 func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 	builder.custom = custom
@@ -649,6 +679,7 @@ func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 }
 
 // 任务创建的来源
+//
 // 示例值：
 func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	builder.source = source
@@ -657,6 +688,7 @@ func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 }
 
 // 任务的关注者
+//
 // 示例值：ou_03c21c80caea2c816665f8056dc59027
 func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
 	builder.followers = followers
@@ -665,6 +697,7 @@ func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
 }
 
 // 任务的执行者
+//
 // 示例值：ou_558d4999baae26e32aa2fd9bb228660b
 func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder {
 	builder.collaborators = collaborators
@@ -673,6 +706,7 @@ func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBu
 }
 
 // 创建任务时添加的执行者用户id列表
+//
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuilder {
 	builder.collaboratorIds = collaboratorIds
@@ -681,6 +715,7 @@ func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuild
 }
 
 // 创建任务时添加的关注者用户id列表
+//
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 	builder.followerIds = followerIds
@@ -689,6 +724,7 @@ func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 }
 
 // 重复任务重复规则
+//
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 	builder.repeatRule = repeatRule
@@ -697,6 +733,7 @@ func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 }
 
 // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+//
 // 示例值：每天喝八杯水，保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 	builder.richSummary = richSummary
@@ -705,6 +742,7 @@ func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 }
 
 // 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+//
 // 示例值：多吃水果，多运动，健康生活，快乐工作。\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichDescription(richDescription string) *TaskBuilder {
 	builder.richDescription = richDescription
@@ -812,6 +850,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -820,6 +859,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -827,6 +867,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
@@ -867,6 +908,7 @@ func NewUserIdListBuilder() *UserIdListBuilder {
 }
 
 // 用户 ID 列表
+//
 // 示例值：
 func (builder *UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder {
 	builder.userIdList = userIdList

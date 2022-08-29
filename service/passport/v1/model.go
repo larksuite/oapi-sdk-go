@@ -46,6 +46,7 @@ func NewCredentialsBuilder() *CredentialsBuilder {
 }
 
 // 邮箱
+//
 // 示例值：q*****@qq.com
 func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
 	builder.email = email
@@ -54,6 +55,7 @@ func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
 }
 
 // 手机号
+//
 // 示例值：186*****01
 func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 	builder.mobile = mobile
@@ -62,6 +64,7 @@ func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 }
 
 // 用户id
+//
 // 示例值：
 func (builder *CredentialsBuilder) UserId(userId string) *CredentialsBuilder {
 	builder.userId = userId
@@ -104,6 +107,7 @@ func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
 }
 
 // idp侧租户唯一标识
+//
 // 示例值：
 func (builder *IdpCredentialIdBuilder) IdpCredentialId(idpCredentialId string) *IdpCredentialIdBuilder {
 	builder.idpCredentialId = idpCredentialId
@@ -141,6 +145,7 @@ func NewMaskSessionBuilder() *MaskSessionBuilder {
 }
 
 // 创建时间
+//
 // 示例值：
 func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBuilder {
 	builder.createTime = createTime
@@ -149,6 +154,7 @@ func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBui
 }
 
 // 客户端类型
+//
 // 示例值：
 func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBuilder {
 	builder.terminalType = terminalType
@@ -157,6 +163,7 @@ func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBu
 }
 
 // 用户ID
+//
 // 示例值：
 func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {
 	builder.userId = userId

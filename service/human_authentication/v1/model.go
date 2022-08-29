@@ -46,6 +46,7 @@ func NewIdentityBuilder() *IdentityBuilder {
 }
 
 // user identity name
+//
 // 示例值：
 func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuilder {
 	builder.identityName = identityName
@@ -54,6 +55,7 @@ func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuild
 }
 
 // user identity code
+//
 // 示例值：
 func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuilder {
 	builder.identityCode = identityCode
@@ -62,6 +64,7 @@ func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuild
 }
 
 // user mobile
+//
 // 示例值：
 func (builder *IdentityBuilder) Mobile(mobile string) *IdentityBuilder {
 	builder.mobile = mobile

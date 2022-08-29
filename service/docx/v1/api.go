@@ -32,7 +32,7 @@ type DocxService struct {
 	config                *larkcore.Config
 	Document              *document              // 文档
 	DocumentBlock         *documentBlock         // 块
-	DocumentBlockChildren *documentBlockChildren // 块
+	DocumentBlockChildren *documentBlockChildren // document.block.children
 }
 
 type document struct {
@@ -53,7 +53,7 @@ type documentBlockChildren struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//create_document.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/create_document.go
 func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -81,7 +81,7 @@ func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_document.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_document.go
 func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...larkcore.RequestOptionFunc) (*GetDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -109,7 +109,7 @@ func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//rawContent_document.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/rawContent_document.go
 func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...larkcore.RequestOptionFunc) (*RawContentDocumentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -137,7 +137,7 @@ func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//batchUpdate_documentBlock.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/batchUpdate_documentBlock.go
 func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -165,7 +165,7 @@ func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumen
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_documentBlock.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_documentBlock.go
 func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -193,7 +193,7 @@ func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//list_documentBlock.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/list_documentBlock.go
 func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*ListDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -229,7 +229,7 @@ func (d *documentBlock) ListByIterator(ctx context.Context, req *ListDocumentBlo
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//patch_documentBlock.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/patch_documentBlock.go
 func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -257,7 +257,7 @@ func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//batchDelete_documentBlockChildren.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/batchDelete_documentBlockChildren.go
 func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDeleteDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -285,7 +285,7 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//create_documentBlockChildren.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/create_documentBlockChildren.go
 func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -313,7 +313,7 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1//get_documentBlockChildren.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_documentBlockChildren.go
 func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

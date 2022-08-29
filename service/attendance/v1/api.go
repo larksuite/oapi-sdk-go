@@ -41,17 +41,17 @@ func NewService(config *larkcore.Config) *AttendanceService {
 
 type AttendanceService struct {
 	config         *larkcore.Config
-	ApprovalInfo   *approvalInfo   // 假勤审批
+	ApprovalInfo   *approvalInfo   // approval_info
 	File           *file           // 文件
 	Group          *group          // 考勤组管理
 	Shift          *shift          // 考勤班次
 	UserApproval   *userApproval   // 假勤审批
 	UserDailyShift *userDailyShift // 考勤排班
-	UserFlow       *userFlow       // 考勤记录
+	UserFlow       *userFlow       // user_flow
 	UserSetting    *userSetting    // 用户设置
 	UserStatsData  *userStatsData  // 考勤统计
-	UserStatsField *userStatsField // 考勤统计
-	UserStatsView  *userStatsView  // 考勤统计
+	UserStatsField *userStatsField // user_stats_field
+	UserStatsView  *userStatsView  // user_stats_view
 	UserTask       *userTask       // 考勤记录
 	UserTaskRemedy *userTaskRemedy // 考勤补卡
 }
@@ -104,7 +104,7 @@ type userTaskRemedy struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//process_approvalInfo.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/process_approvalInfo.go
 func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq, options ...larkcore.RequestOptionFunc) (*ProcessApprovalInfoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -130,7 +130,7 @@ func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//download_file.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/download_file.go
 func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -162,7 +162,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//upload_file.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/upload_file.go
 func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkcore.RequestOptionFunc) (*UploadFileResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
@@ -191,7 +191,7 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//create_group.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_group.go
 func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...larkcore.RequestOptionFunc) (*CreateGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -217,7 +217,7 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//delete_group.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/delete_group.go
 func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...larkcore.RequestOptionFunc) (*DeleteGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -243,7 +243,7 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//get_group.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_group.go
 func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.RequestOptionFunc) (*GetGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -269,7 +269,7 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//list_group.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/list_group.go
 func (g *group) List(ctx context.Context, req *ListGroupReq, options ...larkcore.RequestOptionFunc) (*ListGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -305,7 +305,7 @@ func (g *group) ListByIterator(ctx context.Context, req *ListGroupReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//search_group.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/search_group.go
 func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...larkcore.RequestOptionFunc) (*SearchGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -333,7 +333,7 @@ func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//create_shift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_shift.go
 func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...larkcore.RequestOptionFunc) (*CreateShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -359,7 +359,7 @@ func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//delete_shift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/delete_shift.go
 func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...larkcore.RequestOptionFunc) (*DeleteShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -385,7 +385,7 @@ func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//get_shift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_shift.go
 func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.RequestOptionFunc) (*GetShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -411,7 +411,7 @@ func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.R
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//list_shift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/list_shift.go
 func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...larkcore.RequestOptionFunc) (*ListShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -445,7 +445,7 @@ func (s *shift) ListByIterator(ctx context.Context, req *ListShiftReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_shift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_shift.go
 func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkcore.RequestOptionFunc) (*QueryShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -473,7 +473,7 @@ func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//create_userApproval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_userApproval.go
 func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateUserApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -501,7 +501,7 @@ func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userApproval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userApproval.go
 func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, options ...larkcore.RequestOptionFunc) (*QueryUserApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -527,7 +527,7 @@ func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/batch_create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//batchCreate_userDailyShift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/batchCreate_userDailyShift.go
 func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserDailyShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -553,7 +553,7 @@ func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDa
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userDailyShift.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userDailyShift.go
 func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*QueryUserDailyShiftResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -581,7 +581,7 @@ func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//batchCreate_userFlow.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/batchCreate_userFlow.go
 func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserFlowResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -607,7 +607,7 @@ func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//get_userFlow.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_userFlow.go
 func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...larkcore.RequestOptionFunc) (*GetUserFlowResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -635,7 +635,7 @@ func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userFlow.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userFlow.go
 func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...larkcore.RequestOptionFunc) (*QueryUserFlowResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -661,7 +661,7 @@ func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/modify
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//modify_userSetting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/modify_userSetting.go
 func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, options ...larkcore.RequestOptionFunc) (*ModifyUserSettingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -687,7 +687,7 @@ func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userSetting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userSetting.go
 func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, options ...larkcore.RequestOptionFunc) (*QueryUserSettingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -713,7 +713,7 @@ func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_data/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userStatsData.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsData.go
 func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsDataResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -739,7 +739,7 @@ func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userStatsField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsField.go
 func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -765,7 +765,7 @@ func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userStatsView.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsView.go
 func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsViewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -791,7 +791,7 @@ func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//update_userStatsView.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/update_userStatsView.go
 func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*UpdateUserStatsViewResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -819,7 +819,7 @@ func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userTask.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userTask.go
 func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -845,7 +845,7 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//create_userTaskRemedy.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_userTaskRemedy.go
 func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*CreateUserTaskRemedyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -871,7 +871,7 @@ func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//query_userTaskRemedy.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userTaskRemedy.go
 func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskRemedyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -897,7 +897,7 @@ func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query_user_allowed_remedys
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1//queryUserAllowedRemedys_userTaskRemedy.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/queryUserAllowedRemedys_userTaskRemedy.go
 func (u *userTaskRemedy) QueryUserAllowedRemedys(ctx context.Context, req *QueryUserAllowedRemedysUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserAllowedRemedysUserTaskRemedyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

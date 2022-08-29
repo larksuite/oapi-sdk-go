@@ -36,33 +36,33 @@ const (
 )
 
 const (
-	UserIdTypeDocumentBlockGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDocumentBlockGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDocumentBlockGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetDocumentBlockUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDocumentBlockListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDocumentBlockListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDocumentBlockListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListDocumentBlockUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDocumentBlockPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDocumentBlockPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDocumentBlockPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchDocumentBlockUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDocumentBlockChildrenCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDocumentBlockChildrenCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDocumentBlockChildrenCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDocumentBlockChildrenGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDocumentBlockChildrenGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDocumentBlockChildrenGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Bitable struct {
@@ -83,6 +83,7 @@ func NewBitableBuilder() *BitableBuilder {
 }
 
 // 多维表格文档 Token
+//
 // 示例值：basbcqH9FfRn3sWCCBOtdNVpCsb_tblSAh8fEwhuMXQg
 func (builder *BitableBuilder) Token(token string) *BitableBuilder {
 	builder.token = token
@@ -91,6 +92,7 @@ func (builder *BitableBuilder) Token(token string) *BitableBuilder {
 }
 
 // 类型
+//
 // 示例值：1
 func (builder *BitableBuilder) ViewType(viewType int) *BitableBuilder {
 	builder.viewType = viewType
@@ -255,6 +257,7 @@ func NewBlockBuilder() *BlockBuilder {
 }
 
 // Block 唯一标识
+//
 // 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
 	builder.blockId = blockId
@@ -263,6 +266,7 @@ func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
 }
 
 // block 的父亲 id
+//
 // 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 	builder.parentId = parentId
@@ -271,6 +275,7 @@ func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 }
 
 // block 的孩子 id 列表
+//
 // 示例值：[doxcnO6UW6wAw2qIcYf4hZpFIth]
 func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 	builder.children = children
@@ -279,6 +284,7 @@ func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 }
 
 // block 类型
+//
 // 示例值：1
 func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
 	builder.blockType = blockType
@@ -287,6 +293,7 @@ func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
 }
 
 // 文档 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Page(page *Text) *BlockBuilder {
 	builder.page = page
@@ -295,6 +302,7 @@ func (builder *BlockBuilder) Page(page *Text) *BlockBuilder {
 }
 
 // 文本 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Text(text *Text) *BlockBuilder {
 	builder.text = text
@@ -303,6 +311,7 @@ func (builder *BlockBuilder) Text(text *Text) *BlockBuilder {
 }
 
 // 一级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading1(heading1 *Text) *BlockBuilder {
 	builder.heading1 = heading1
@@ -311,6 +320,7 @@ func (builder *BlockBuilder) Heading1(heading1 *Text) *BlockBuilder {
 }
 
 // 二级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading2(heading2 *Text) *BlockBuilder {
 	builder.heading2 = heading2
@@ -319,6 +329,7 @@ func (builder *BlockBuilder) Heading2(heading2 *Text) *BlockBuilder {
 }
 
 // 三级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading3(heading3 *Text) *BlockBuilder {
 	builder.heading3 = heading3
@@ -327,6 +338,7 @@ func (builder *BlockBuilder) Heading3(heading3 *Text) *BlockBuilder {
 }
 
 // 四级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading4(heading4 *Text) *BlockBuilder {
 	builder.heading4 = heading4
@@ -335,6 +347,7 @@ func (builder *BlockBuilder) Heading4(heading4 *Text) *BlockBuilder {
 }
 
 // 五级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading5(heading5 *Text) *BlockBuilder {
 	builder.heading5 = heading5
@@ -343,6 +356,7 @@ func (builder *BlockBuilder) Heading5(heading5 *Text) *BlockBuilder {
 }
 
 // 六级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading6(heading6 *Text) *BlockBuilder {
 	builder.heading6 = heading6
@@ -351,6 +365,7 @@ func (builder *BlockBuilder) Heading6(heading6 *Text) *BlockBuilder {
 }
 
 // 七级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading7(heading7 *Text) *BlockBuilder {
 	builder.heading7 = heading7
@@ -359,6 +374,7 @@ func (builder *BlockBuilder) Heading7(heading7 *Text) *BlockBuilder {
 }
 
 // 八级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading8(heading8 *Text) *BlockBuilder {
 	builder.heading8 = heading8
@@ -367,6 +383,7 @@ func (builder *BlockBuilder) Heading8(heading8 *Text) *BlockBuilder {
 }
 
 // 九级标题 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Heading9(heading9 *Text) *BlockBuilder {
 	builder.heading9 = heading9
@@ -375,6 +392,7 @@ func (builder *BlockBuilder) Heading9(heading9 *Text) *BlockBuilder {
 }
 
 // 无序列表 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Bullet(bullet *Text) *BlockBuilder {
 	builder.bullet = bullet
@@ -383,6 +401,7 @@ func (builder *BlockBuilder) Bullet(bullet *Text) *BlockBuilder {
 }
 
 // 有序列表 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Ordered(ordered *Text) *BlockBuilder {
 	builder.ordered = ordered
@@ -391,6 +410,7 @@ func (builder *BlockBuilder) Ordered(ordered *Text) *BlockBuilder {
 }
 
 // 代码块 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Code(code *Text) *BlockBuilder {
 	builder.code = code
@@ -399,6 +419,7 @@ func (builder *BlockBuilder) Code(code *Text) *BlockBuilder {
 }
 
 // 引用 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Quote(quote *Text) *BlockBuilder {
 	builder.quote = quote
@@ -407,6 +428,7 @@ func (builder *BlockBuilder) Quote(quote *Text) *BlockBuilder {
 }
 
 // 公式 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Equation(equation *Text) *BlockBuilder {
 	builder.equation = equation
@@ -415,6 +437,7 @@ func (builder *BlockBuilder) Equation(equation *Text) *BlockBuilder {
 }
 
 // 任务 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Todo(todo *Text) *BlockBuilder {
 	builder.todo = todo
@@ -423,6 +446,7 @@ func (builder *BlockBuilder) Todo(todo *Text) *BlockBuilder {
 }
 
 // 多维表格 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Bitable(bitable *Bitable) *BlockBuilder {
 	builder.bitable = bitable
@@ -431,6 +455,7 @@ func (builder *BlockBuilder) Bitable(bitable *Bitable) *BlockBuilder {
 }
 
 // 高亮块 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Callout(callout *Callout) *BlockBuilder {
 	builder.callout = callout
@@ -439,6 +464,7 @@ func (builder *BlockBuilder) Callout(callout *Callout) *BlockBuilder {
 }
 
 // 群聊卡片 Block
+//
 // 示例值：
 func (builder *BlockBuilder) ChatCard(chatCard *ChatCard) *BlockBuilder {
 	builder.chatCard = chatCard
@@ -447,6 +473,7 @@ func (builder *BlockBuilder) ChatCard(chatCard *ChatCard) *BlockBuilder {
 }
 
 // 流程图/UML Block
+//
 // 示例值：
 func (builder *BlockBuilder) Diagram(diagram *Diagram) *BlockBuilder {
 	builder.diagram = diagram
@@ -455,6 +482,7 @@ func (builder *BlockBuilder) Diagram(diagram *Diagram) *BlockBuilder {
 }
 
 // 分割线 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
 	builder.divider = divider
@@ -463,6 +491,7 @@ func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
 }
 
 // 文件 Block
+//
 // 示例值：
 func (builder *BlockBuilder) File(file *File) *BlockBuilder {
 	builder.file = file
@@ -471,6 +500,7 @@ func (builder *BlockBuilder) File(file *File) *BlockBuilder {
 }
 
 // 分栏 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Grid(grid *Grid) *BlockBuilder {
 	builder.grid = grid
@@ -479,6 +509,7 @@ func (builder *BlockBuilder) Grid(grid *Grid) *BlockBuilder {
 }
 
 // 分栏列 Block
+//
 // 示例值：
 func (builder *BlockBuilder) GridColumn(gridColumn *GridColumn) *BlockBuilder {
 	builder.gridColumn = gridColumn
@@ -487,6 +518,7 @@ func (builder *BlockBuilder) GridColumn(gridColumn *GridColumn) *BlockBuilder {
 }
 
 // 内嵌 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Iframe(iframe *Iframe) *BlockBuilder {
 	builder.iframe = iframe
@@ -495,6 +527,7 @@ func (builder *BlockBuilder) Iframe(iframe *Iframe) *BlockBuilder {
 }
 
 // 图片 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Image(image *Image) *BlockBuilder {
 	builder.image = image
@@ -503,6 +536,7 @@ func (builder *BlockBuilder) Image(image *Image) *BlockBuilder {
 }
 
 // 三方 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Isv(isv *Isv) *BlockBuilder {
 	builder.isv = isv
@@ -511,6 +545,7 @@ func (builder *BlockBuilder) Isv(isv *Isv) *BlockBuilder {
 }
 
 // 思维笔记 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Mindnote(mindnote *Mindnote) *BlockBuilder {
 	builder.mindnote = mindnote
@@ -519,6 +554,7 @@ func (builder *BlockBuilder) Mindnote(mindnote *Mindnote) *BlockBuilder {
 }
 
 // 电子表格 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Sheet(sheet *Sheet) *BlockBuilder {
 	builder.sheet = sheet
@@ -527,6 +563,7 @@ func (builder *BlockBuilder) Sheet(sheet *Sheet) *BlockBuilder {
 }
 
 // 表格 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Table(table *Table) *BlockBuilder {
 	builder.table = table
@@ -535,6 +572,7 @@ func (builder *BlockBuilder) Table(table *Table) *BlockBuilder {
 }
 
 // 单元格 Block
+//
 // 示例值：
 func (builder *BlockBuilder) TableCell(tableCell *TableCell) *BlockBuilder {
 	builder.tableCell = tableCell
@@ -543,6 +581,7 @@ func (builder *BlockBuilder) TableCell(tableCell *TableCell) *BlockBuilder {
 }
 
 // 视图 Block
+//
 // 示例值：
 func (builder *BlockBuilder) View(view *View) *BlockBuilder {
 	builder.view = view
@@ -551,6 +590,7 @@ func (builder *BlockBuilder) View(view *View) *BlockBuilder {
 }
 
 // 未支持 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Undefined(undefined *Undefined) *BlockBuilder {
 	builder.undefined = undefined
@@ -559,6 +599,7 @@ func (builder *BlockBuilder) Undefined(undefined *Undefined) *BlockBuilder {
 }
 
 // 引用容器 Block
+//
 // 示例值：
 func (builder *BlockBuilder) QuoteContainer(quoteContainer *QuoteContainer) *BlockBuilder {
 	builder.quoteContainer = quoteContainer
@@ -567,6 +608,7 @@ func (builder *BlockBuilder) QuoteContainer(quoteContainer *QuoteContainer) *Blo
 }
 
 // 任务 Block
+//
 // 示例值：
 func (builder *BlockBuilder) Task(task *Task) *BlockBuilder {
 	builder.task = task
@@ -575,6 +617,7 @@ func (builder *BlockBuilder) Task(task *Task) *BlockBuilder {
 }
 
 // OKR Block
+//
 // 示例值：
 func (builder *BlockBuilder) Okr(okr *Okr) *BlockBuilder {
 	builder.okr = okr
@@ -583,6 +626,7 @@ func (builder *BlockBuilder) Okr(okr *Okr) *BlockBuilder {
 }
 
 // OKR Objective
+//
 // 示例值：
 func (builder *BlockBuilder) OkrObjective(okrObjective *OkrObjective) *BlockBuilder {
 	builder.okrObjective = okrObjective
@@ -591,6 +635,7 @@ func (builder *BlockBuilder) OkrObjective(okrObjective *OkrObjective) *BlockBuil
 }
 
 // OKR Key Result
+//
 // 示例值：
 func (builder *BlockBuilder) OkrKeyResult(okrKeyResult *OkrKeyResult) *BlockBuilder {
 	builder.okrKeyResult = okrKeyResult
@@ -599,6 +644,7 @@ func (builder *BlockBuilder) OkrKeyResult(okrKeyResult *OkrKeyResult) *BlockBuil
 }
 
 // OKR 进展信息
+//
 // 示例值：
 func (builder *BlockBuilder) OkrProgress(okrProgress *OkrProgress) *BlockBuilder {
 	builder.okrProgress = okrProgress
@@ -770,6 +816,7 @@ func NewCalloutBuilder() *CalloutBuilder {
 }
 
 // 高亮块背景色
+//
 // 示例值：1
 func (builder *CalloutBuilder) BackgroundColor(backgroundColor int) *CalloutBuilder {
 	builder.backgroundColor = backgroundColor
@@ -778,6 +825,7 @@ func (builder *CalloutBuilder) BackgroundColor(backgroundColor int) *CalloutBuil
 }
 
 // 边框色
+//
 // 示例值：1
 func (builder *CalloutBuilder) BorderColor(borderColor int) *CalloutBuilder {
 	builder.borderColor = borderColor
@@ -786,6 +834,7 @@ func (builder *CalloutBuilder) BorderColor(borderColor int) *CalloutBuilder {
 }
 
 // 文字颜色
+//
 // 示例值：1
 func (builder *CalloutBuilder) TextColor(textColor int) *CalloutBuilder {
 	builder.textColor = textColor
@@ -794,6 +843,7 @@ func (builder *CalloutBuilder) TextColor(textColor int) *CalloutBuilder {
 }
 
 // 高亮块图标
+//
 // 示例值：pushpin
 func (builder *CalloutBuilder) EmojiId(emojiId string) *CalloutBuilder {
 	builder.emojiId = emojiId
@@ -840,6 +890,7 @@ func NewChatCardBuilder() *ChatCardBuilder {
 }
 
 // 群聊天会话 ID
+//
 // 示例值：7052227140476993555
 func (builder *ChatCardBuilder) ChatId(chatId string) *ChatCardBuilder {
 	builder.chatId = chatId
@@ -848,6 +899,7 @@ func (builder *ChatCardBuilder) ChatId(chatId string) *ChatCardBuilder {
 }
 
 // 对齐方式
+//
 // 示例值：1
 func (builder *ChatCardBuilder) Align(align int) *ChatCardBuilder {
 	builder.align = align
@@ -883,6 +935,7 @@ func NewDeleteGridColumnRequestBuilder() *DeleteGridColumnRequestBuilder {
 }
 
 // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
+//
 // 示例值：0
 func (builder *DeleteGridColumnRequestBuilder) ColumnIndex(columnIndex int) *DeleteGridColumnRequestBuilder {
 	builder.columnIndex = columnIndex
@@ -917,6 +970,7 @@ func NewDeleteTableColumnsRequestBuilder() *DeleteTableColumnsRequestBuilder {
 }
 
 // 列开始索引（区间左闭右开）
+//
 // 示例值：0
 func (builder *DeleteTableColumnsRequestBuilder) ColumnStartIndex(columnStartIndex int) *DeleteTableColumnsRequestBuilder {
 	builder.columnStartIndex = columnStartIndex
@@ -925,6 +979,7 @@ func (builder *DeleteTableColumnsRequestBuilder) ColumnStartIndex(columnStartInd
 }
 
 // 列结束索引（区间左闭右开）
+//
 // 示例值：1
 func (builder *DeleteTableColumnsRequestBuilder) ColumnEndIndex(columnEndIndex int) *DeleteTableColumnsRequestBuilder {
 	builder.columnEndIndex = columnEndIndex
@@ -963,6 +1018,7 @@ func NewDeleteTableRowsRequestBuilder() *DeleteTableRowsRequestBuilder {
 }
 
 // 行开始索引（区间左闭右开）
+//
 // 示例值：0
 func (builder *DeleteTableRowsRequestBuilder) RowStartIndex(rowStartIndex int) *DeleteTableRowsRequestBuilder {
 	builder.rowStartIndex = rowStartIndex
@@ -971,6 +1027,7 @@ func (builder *DeleteTableRowsRequestBuilder) RowStartIndex(rowStartIndex int) *
 }
 
 // 行结束索引（区间左闭右开）
+//
 // 示例值：1
 func (builder *DeleteTableRowsRequestBuilder) RowEndIndex(rowEndIndex int) *DeleteTableRowsRequestBuilder {
 	builder.rowEndIndex = rowEndIndex
@@ -1006,6 +1063,7 @@ func NewDiagramBuilder() *DiagramBuilder {
 }
 
 // 绘图类型
+//
 // 示例值：1
 func (builder *DiagramBuilder) DiagramType(diagramType int) *DiagramBuilder {
 	builder.diagramType = diagramType
@@ -1046,6 +1104,7 @@ func NewDocumentBuilder() *DocumentBuilder {
 }
 
 // 文档唯一标识
+//
 // 示例值：doxcni6mOy7jLRWbEylaKKC7K88
 func (builder *DocumentBuilder) DocumentId(documentId string) *DocumentBuilder {
 	builder.documentId = documentId
@@ -1054,6 +1113,7 @@ func (builder *DocumentBuilder) DocumentId(documentId string) *DocumentBuilder {
 }
 
 // 文档版本 ID
+//
 // 示例值：1
 func (builder *DocumentBuilder) RevisionId(revisionId int) *DocumentBuilder {
 	builder.revisionId = revisionId
@@ -1062,6 +1122,7 @@ func (builder *DocumentBuilder) RevisionId(revisionId int) *DocumentBuilder {
 }
 
 // 文档标题
+//
 // 示例值：undefined
 func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
 	builder.title = title
@@ -1101,6 +1162,7 @@ func NewEquationBuilder() *EquationBuilder {
 }
 
 // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+//
 // 示例值：E=mc^2\n
 func (builder *EquationBuilder) Content(content string) *EquationBuilder {
 	builder.content = content
@@ -1135,6 +1197,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 附件 Token
+//
 // 示例值：boxbcOj88GDkmWGm2zsTyCBqoLb
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
@@ -1143,6 +1206,7 @@ func (builder *FileBuilder) Token(token string) *FileBuilder {
 }
 
 // 文件名
+//
 // 示例值：文件名
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
@@ -1178,6 +1242,7 @@ func NewGridBuilder() *GridBuilder {
 }
 
 // 分栏列数量
+//
 // 示例值：2
 func (builder *GridBuilder) ColumnSize(columnSize int) *GridBuilder {
 	builder.columnSize = columnSize
@@ -1209,6 +1274,7 @@ func NewGridColumnBuilder() *GridColumnBuilder {
 }
 
 // 当前分栏列占整个分栏的比例
+//
 // 示例值：50
 func (builder *GridColumnBuilder) WidthRatio(widthRatio int) *GridColumnBuilder {
 	builder.widthRatio = widthRatio
@@ -1240,6 +1306,7 @@ func NewIframeBuilder() *IframeBuilder {
 }
 
 // iframe 的组成元素
+//
 // 示例值：
 func (builder *IframeBuilder) Component(component *IframeComponent) *IframeBuilder {
 	builder.component = component
@@ -1273,6 +1340,7 @@ func NewIframeComponentBuilder() *IframeComponentBuilder {
 }
 
 // iframe 类型
+//
 // 示例值：1
 func (builder *IframeComponentBuilder) IframeType(iframeType int) *IframeComponentBuilder {
 	builder.iframeType = iframeType
@@ -1281,6 +1349,7 @@ func (builder *IframeComponentBuilder) IframeType(iframeType int) *IframeCompone
 }
 
 // iframe 目标 url（需要进行 url_encode）
+//
 // 示例值：https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1Hi4y1w7V7
 func (builder *IframeComponentBuilder) Url(url string) *IframeComponentBuilder {
 	builder.url = url
@@ -1322,6 +1391,7 @@ func NewImageBuilder() *ImageBuilder {
 }
 
 // 宽度单位 px
+//
 // 示例值：4069
 func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 	builder.width = width
@@ -1330,6 +1400,7 @@ func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 }
 
 // 高度
+//
 // 示例值：2480
 func (builder *ImageBuilder) Height(height int) *ImageBuilder {
 	builder.height = height
@@ -1338,6 +1409,7 @@ func (builder *ImageBuilder) Height(height int) *ImageBuilder {
 }
 
 // 图片 Token
+//
 // 示例值：boxbcVA91JtFgNhaCgy6s6wK4he
 func (builder *ImageBuilder) Token(token string) *ImageBuilder {
 	builder.token = token
@@ -1377,6 +1449,7 @@ func NewInlineBlockBuilder() *InlineBlockBuilder {
 }
 
 // 关联的内联状态的 block 的 block_id
+//
 // 示例值：doxcnPFi0R56ctbvh2MjkkROFWf
 func (builder *InlineBlockBuilder) BlockId(blockId string) *InlineBlockBuilder {
 	builder.blockId = blockId
@@ -1411,6 +1484,7 @@ func NewInlineFileBuilder() *InlineFileBuilder {
 }
 
 // 附件 token
+//
 // 示例值：boxcnOj88GDkmWGm2zsTyCBqoLb
 func (builder *InlineFileBuilder) FileToken(fileToken string) *InlineFileBuilder {
 	builder.fileToken = fileToken
@@ -1419,6 +1493,7 @@ func (builder *InlineFileBuilder) FileToken(fileToken string) *InlineFileBuilder
 }
 
 // 当前文档中该附件所处的 block 的 id
+//
 // 示例值：doxcnM46kSWSkgUMW04ldKsJDsc
 func (builder *InlineFileBuilder) SourceBlockId(sourceBlockId string) *InlineFileBuilder {
 	builder.sourceBlockId = sourceBlockId
@@ -1454,6 +1529,7 @@ func NewInsertGridColumnRequestBuilder() *InsertGridColumnRequestBuilder {
 }
 
 // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
+//
 // 示例值：1
 func (builder *InsertGridColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertGridColumnRequestBuilder {
 	builder.columnIndex = columnIndex
@@ -1485,6 +1561,7 @@ func NewInsertTableColumnRequestBuilder() *InsertTableColumnRequestBuilder {
 }
 
 // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
+//
 // 示例值：-1
 func (builder *InsertTableColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertTableColumnRequestBuilder {
 	builder.columnIndex = columnIndex
@@ -1516,6 +1593,7 @@ func NewInsertTableRowRequestBuilder() *InsertTableRowRequestBuilder {
 }
 
 // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
+//
 // 示例值：-1
 func (builder *InsertTableRowRequestBuilder) RowIndex(rowIndex int) *InsertTableRowRequestBuilder {
 	builder.rowIndex = rowIndex
@@ -1550,6 +1628,7 @@ func NewIsvBuilder() *IsvBuilder {
 }
 
 // 团队互动应用唯一ID
+//
 // 示例值：7056882725002051603
 func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
 	builder.componentId = componentId
@@ -1558,6 +1637,7 @@ func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
 }
 
 // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
+//
 // 示例值：blk_5f992038c64240015d280958
 func (builder *IsvBuilder) ComponentTypeId(componentTypeId string) *IsvBuilder {
 	builder.componentTypeId = componentTypeId
@@ -1593,6 +1673,7 @@ func NewLinkBuilder() *LinkBuilder {
 }
 
 // 超链接指向的 url (需要 url_encode)
+//
 // 示例值：https%3A%2F%2Fopen.feishu.cn%2F
 func (builder *LinkBuilder) Url(url string) *LinkBuilder {
 	builder.url = url
@@ -1633,6 +1714,7 @@ func NewMentionDocBuilder() *MentionDocBuilder {
 }
 
 // 云文档 token
+//
 // 示例值：doxbc873Y7cXD153gXqb76G1Y9b
 func (builder *MentionDocBuilder) Token(token string) *MentionDocBuilder {
 	builder.token = token
@@ -1641,6 +1723,7 @@ func (builder *MentionDocBuilder) Token(token string) *MentionDocBuilder {
 }
 
 // 云文档类型
+//
 // 示例值：22
 func (builder *MentionDocBuilder) ObjType(objType int) *MentionDocBuilder {
 	builder.objType = objType
@@ -1649,6 +1732,7 @@ func (builder *MentionDocBuilder) ObjType(objType int) *MentionDocBuilder {
 }
 
 // 云文档链接（需要 url_encode)
+//
 // 示例值：https%3A%2F%2Fbytedance.feishu-boe.cn%2Fdocx%2Fdoxbc873Y7cXD153gXqb76G1Y9b
 func (builder *MentionDocBuilder) Url(url string) *MentionDocBuilder {
 	builder.url = url
@@ -1657,6 +1741,7 @@ func (builder *MentionDocBuilder) Url(url string) *MentionDocBuilder {
 }
 
 // 文档标题，只读属性
+//
 // 示例值：undefined
 func (builder *MentionDocBuilder) Title(title string) *MentionDocBuilder {
 	builder.title = title
@@ -1700,6 +1785,7 @@ func NewMentionUserBuilder() *MentionUserBuilder {
 }
 
 // 用户 OpenID
+//
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 	builder.userId = userId
@@ -1740,6 +1826,7 @@ func NewMergeTableCellsRequestBuilder() *MergeTableCellsRequestBuilder {
 }
 
 // 行起始索引（区间左闭右开）
+//
 // 示例值：0
 func (builder *MergeTableCellsRequestBuilder) RowStartIndex(rowStartIndex int) *MergeTableCellsRequestBuilder {
 	builder.rowStartIndex = rowStartIndex
@@ -1748,6 +1835,7 @@ func (builder *MergeTableCellsRequestBuilder) RowStartIndex(rowStartIndex int) *
 }
 
 // 行结束索引（区间左闭右开）
+//
 // 示例值：1
 func (builder *MergeTableCellsRequestBuilder) RowEndIndex(rowEndIndex int) *MergeTableCellsRequestBuilder {
 	builder.rowEndIndex = rowEndIndex
@@ -1756,6 +1844,7 @@ func (builder *MergeTableCellsRequestBuilder) RowEndIndex(rowEndIndex int) *Merg
 }
 
 // 列起始索引（区间左闭右开）
+//
 // 示例值：0
 func (builder *MergeTableCellsRequestBuilder) ColumnStartIndex(columnStartIndex int) *MergeTableCellsRequestBuilder {
 	builder.columnStartIndex = columnStartIndex
@@ -1764,6 +1853,7 @@ func (builder *MergeTableCellsRequestBuilder) ColumnStartIndex(columnStartIndex 
 }
 
 // 列结束索引（区间左闭右开）
+//
 // 示例值：1
 func (builder *MergeTableCellsRequestBuilder) ColumnEndIndex(columnEndIndex int) *MergeTableCellsRequestBuilder {
 	builder.columnEndIndex = columnEndIndex
@@ -1807,6 +1897,7 @@ func NewMindnoteBuilder() *MindnoteBuilder {
 }
 
 // 思维导图 token
+//
 // 示例值：bmnbcXXGPWfJMwDfGCbCiU14c6f
 func (builder *MindnoteBuilder) Token(token string) *MindnoteBuilder {
 	builder.token = token
@@ -1841,6 +1932,7 @@ func NewObjectiveIdWithKrIdBuilder() *ObjectiveIdWithKrIdBuilder {
 }
 
 // okr 中 objective 的 ID
+//
 // 示例值："7109022409227026460"
 func (builder *ObjectiveIdWithKrIdBuilder) ObjectiveId(objectiveId string) *ObjectiveIdWithKrIdBuilder {
 	builder.objectiveId = objectiveId
@@ -1849,6 +1941,7 @@ func (builder *ObjectiveIdWithKrIdBuilder) ObjectiveId(objectiveId string) *Obje
 }
 
 // key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+//
 // 示例值：["7109022573011894300","7109022546444517404"]
 func (builder *ObjectiveIdWithKrIdBuilder) KrIds(krIds []string) *ObjectiveIdWithKrIdBuilder {
 	builder.krIds = krIds
@@ -1901,6 +1994,7 @@ func NewOkrBuilder() *OkrBuilder {
 }
 
 // OKR ID
+//
 // 示例值："7076349900476448796"
 func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 	builder.okrId = okrId
@@ -1909,6 +2003,7 @@ func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 }
 
 // OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+//
 // 示例值：
 func (builder *OkrBuilder) Objectives(objectives []*ObjectiveIdWithKrId) *OkrBuilder {
 	builder.objectives = objectives
@@ -1917,6 +2012,7 @@ func (builder *OkrBuilder) Objectives(objectives []*ObjectiveIdWithKrId) *OkrBui
 }
 
 // 周期的状态
+//
 // 示例值："default"
 func (builder *OkrBuilder) PeriodDisplayStatus(periodDisplayStatus string) *OkrBuilder {
 	builder.periodDisplayStatus = periodDisplayStatus
@@ -1925,6 +2021,7 @@ func (builder *OkrBuilder) PeriodDisplayStatus(periodDisplayStatus string) *OkrB
 }
 
 // 周期名 - 中文
+//
 // 示例值："2022 年 4 月 - 6 月"
 func (builder *OkrBuilder) PeriodNameZh(periodNameZh string) *OkrBuilder {
 	builder.periodNameZh = periodNameZh
@@ -1933,6 +2030,7 @@ func (builder *OkrBuilder) PeriodNameZh(periodNameZh string) *OkrBuilder {
 }
 
 // 周期名 - 英文
+//
 // 示例值："Apr - Jun 2022"
 func (builder *OkrBuilder) PeriodNameEn(periodNameEn string) *OkrBuilder {
 	builder.periodNameEn = periodNameEn
@@ -1941,6 +2039,7 @@ func (builder *OkrBuilder) PeriodNameEn(periodNameEn string) *OkrBuilder {
 }
 
 // OKR 所属的用户 ID
+//
 // 示例值："ou_3bbe8a09c20e89cce9bff989ed840674"
 func (builder *OkrBuilder) UserId(userId string) *OkrBuilder {
 	builder.userId = userId
@@ -1949,6 +2048,7 @@ func (builder *OkrBuilder) UserId(userId string) *OkrBuilder {
 }
 
 // 可见性设置
+//
 // 示例值：
 func (builder *OkrBuilder) VisibleSetting(visibleSetting *OkrVisibleSetting) *OkrBuilder {
 	builder.visibleSetting = visibleSetting
@@ -2023,6 +2123,7 @@ func NewOkrKeyResultBuilder() *OkrKeyResultBuilder {
 }
 
 // key result 的 ID
+//
 // 示例值："7109022573011894300"
 func (builder *OkrKeyResultBuilder) KrId(krId string) *OkrKeyResultBuilder {
 	builder.krId = krId
@@ -2031,6 +2132,7 @@ func (builder *OkrKeyResultBuilder) KrId(krId string) *OkrKeyResultBuilder {
 }
 
 // 是否设置过私密权限
+//
 // 示例值：false
 func (builder *OkrKeyResultBuilder) Confidential(confidential bool) *OkrKeyResultBuilder {
 	builder.confidential = confidential
@@ -2039,6 +2141,7 @@ func (builder *OkrKeyResultBuilder) Confidential(confidential bool) *OkrKeyResul
 }
 
 // key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+//
 // 示例值：1
 func (builder *OkrKeyResultBuilder) Position(position int) *OkrKeyResultBuilder {
 	builder.position = position
@@ -2047,6 +2150,7 @@ func (builder *OkrKeyResultBuilder) Position(position int) *OkrKeyResultBuilder 
 }
 
 // 打分信息
+//
 // 示例值：0
 func (builder *OkrKeyResultBuilder) Score(score int) *OkrKeyResultBuilder {
 	builder.score = score
@@ -2055,6 +2159,7 @@ func (builder *OkrKeyResultBuilder) Score(score int) *OkrKeyResultBuilder {
 }
 
 // OKR Block 中此 key result 是否可见
+//
 // 示例值：true
 func (builder *OkrKeyResultBuilder) Visible(visible bool) *OkrKeyResultBuilder {
 	builder.visible = visible
@@ -2063,6 +2168,7 @@ func (builder *OkrKeyResultBuilder) Visible(visible bool) *OkrKeyResultBuilder {
 }
 
 // key result 的权重
+//
 // 示例值：0.5
 func (builder *OkrKeyResultBuilder) Weight(weight float64) *OkrKeyResultBuilder {
 	builder.weight = weight
@@ -2071,6 +2177,7 @@ func (builder *OkrKeyResultBuilder) Weight(weight float64) *OkrKeyResultBuilder 
 }
 
 // 进展信息
+//
 // 示例值：
 func (builder *OkrKeyResultBuilder) ProgressRate(progressRate *OkrProgressRate) *OkrKeyResultBuilder {
 	builder.progressRate = progressRate
@@ -2079,6 +2186,7 @@ func (builder *OkrKeyResultBuilder) ProgressRate(progressRate *OkrProgressRate) 
 }
 
 // key result 的文本内容
+//
 // 示例值：
 func (builder *OkrKeyResultBuilder) Content(content *Text) *OkrKeyResultBuilder {
 	builder.content = content
@@ -2157,6 +2265,7 @@ func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
 }
 
 // objective ID
+//
 // 示例值："7109022409227026460"
 func (builder *OkrObjectiveBuilder) ObjectiveId(objectiveId string) *OkrObjectiveBuilder {
 	builder.objectiveId = objectiveId
@@ -2165,6 +2274,7 @@ func (builder *OkrObjectiveBuilder) ObjectiveId(objectiveId string) *OkrObjectiv
 }
 
 // 是否设置过私密权限
+//
 // 示例值：false
 func (builder *OkrObjectiveBuilder) Confidential(confidential bool) *OkrObjectiveBuilder {
 	builder.confidential = confidential
@@ -2173,6 +2283,7 @@ func (builder *OkrObjectiveBuilder) Confidential(confidential bool) *OkrObjectiv
 }
 
 // objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+//
 // 示例值：1
 func (builder *OkrObjectiveBuilder) Position(position int) *OkrObjectiveBuilder {
 	builder.position = position
@@ -2181,6 +2292,7 @@ func (builder *OkrObjectiveBuilder) Position(position int) *OkrObjectiveBuilder 
 }
 
 // 打分信息
+//
 // 示例值：0
 func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 	builder.score = score
@@ -2189,6 +2301,7 @@ func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 }
 
 // OKR Block 中是否展示该 objective
+//
 // 示例值：true
 func (builder *OkrObjectiveBuilder) Visible(visible bool) *OkrObjectiveBuilder {
 	builder.visible = visible
@@ -2197,6 +2310,7 @@ func (builder *OkrObjectiveBuilder) Visible(visible bool) *OkrObjectiveBuilder {
 }
 
 // objective 的权重
+//
 // 示例值：1.0
 func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
 	builder.weight = weight
@@ -2205,6 +2319,7 @@ func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder 
 }
 
 // 进展信息
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrProgressRate) *OkrObjectiveBuilder {
 	builder.progressRate = progressRate
@@ -2213,6 +2328,7 @@ func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrProgressRate) 
 }
 
 // objective 的文本内容
+//
 // 示例值：
 func (builder *OkrObjectiveBuilder) Content(content *Text) *OkrObjectiveBuilder {
 	builder.content = content
@@ -2291,6 +2407,7 @@ func NewOkrProgressRateBuilder() *OkrProgressRateBuilder {
 }
 
 // 状态模式
+//
 // 示例值："simple"
 func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder {
 	builder.mode = mode
@@ -2299,6 +2416,7 @@ func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder
 }
 
 // 当前进度
+//
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRateBuilder {
 	builder.current = current
@@ -2307,6 +2425,7 @@ func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRate
 }
 
 // 当前进度百分比，simple mode 下使用
+//
 // 示例值：100
 func (builder *OkrProgressRateBuilder) Percent(percent float64) *OkrProgressRateBuilder {
 	builder.percent = percent
@@ -2315,6 +2434,7 @@ func (builder *OkrProgressRateBuilder) Percent(percent float64) *OkrProgressRate
 }
 
 // 进展状态
+//
 // 示例值："normal"
 func (builder *OkrProgressRateBuilder) ProgressStatus(progressStatus string) *OkrProgressRateBuilder {
 	builder.progressStatus = progressStatus
@@ -2323,6 +2443,7 @@ func (builder *OkrProgressRateBuilder) ProgressStatus(progressStatus string) *Ok
 }
 
 // 进度起始值，advanced模式使用
+//
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuilder {
 	builder.start = start
@@ -2331,6 +2452,7 @@ func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuil
 }
 
 // 状态类型
+//
 // 示例值："default"
 func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgressRateBuilder {
 	builder.statusType = statusType
@@ -2339,6 +2461,7 @@ func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgres
 }
 
 // 进度目标值，advanced模式使用
+//
 // 示例值：
 func (builder *OkrProgressRateBuilder) Target(target float64) *OkrProgressRateBuilder {
 	builder.target = target
@@ -2400,6 +2523,7 @@ func NewOkrVisibleSettingBuilder() *OkrVisibleSettingBuilder {
 }
 
 // 进展编辑区域是否可见
+//
 // 示例值：true
 func (builder *OkrVisibleSettingBuilder) ProgressFillAreaVisible(progressFillAreaVisible bool) *OkrVisibleSettingBuilder {
 	builder.progressFillAreaVisible = progressFillAreaVisible
@@ -2408,6 +2532,7 @@ func (builder *OkrVisibleSettingBuilder) ProgressFillAreaVisible(progressFillAre
 }
 
 // 状态是否可见
+//
 // 示例值：true
 func (builder *OkrVisibleSettingBuilder) ProgressStatusVisible(progressStatusVisible bool) *OkrVisibleSettingBuilder {
 	builder.progressStatusVisible = progressStatusVisible
@@ -2416,6 +2541,7 @@ func (builder *OkrVisibleSettingBuilder) ProgressStatusVisible(progressStatusVis
 }
 
 // 分数是否可见
+//
 // 示例值：true
 func (builder *OkrVisibleSettingBuilder) ScoreVisible(scoreVisible bool) *OkrVisibleSettingBuilder {
 	builder.scoreVisible = scoreVisible
@@ -2470,6 +2596,7 @@ func NewReminderBuilder() *ReminderBuilder {
 }
 
 // 创建者用户 ID
+//
 // 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *ReminderBuilder) CreateUserId(createUserId string) *ReminderBuilder {
 	builder.createUserId = createUserId
@@ -2478,6 +2605,7 @@ func (builder *ReminderBuilder) CreateUserId(createUserId string) *ReminderBuild
 }
 
 // 是否通知
+//
 // 示例值：true
 func (builder *ReminderBuilder) IsNotify(isNotify bool) *ReminderBuilder {
 	builder.isNotify = isNotify
@@ -2486,6 +2614,7 @@ func (builder *ReminderBuilder) IsNotify(isNotify bool) *ReminderBuilder {
 }
 
 // 是日期还是整点小时
+//
 // 示例值：true
 func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
 	builder.isWholeDay = isWholeDay
@@ -2494,6 +2623,7 @@ func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
 }
 
 // 事件发生的时间（毫秒级事件戳）
+//
 // 示例值：1641967200000
 func (builder *ReminderBuilder) ExpireTime(expireTime string) *ReminderBuilder {
 	builder.expireTime = expireTime
@@ -2502,6 +2632,7 @@ func (builder *ReminderBuilder) ExpireTime(expireTime string) *ReminderBuilder {
 }
 
 // 触发通知的时间（毫秒级时间戳）
+//
 // 示例值：1643166000000
 func (builder *ReminderBuilder) NotifyTime(notifyTime string) *ReminderBuilder {
 	builder.notifyTime = notifyTime
@@ -2549,6 +2680,7 @@ func NewReplaceFileRequestBuilder() *ReplaceFileRequestBuilder {
 }
 
 // 附件 token
+//
 // 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
 func (builder *ReplaceFileRequestBuilder) Token(token string) *ReplaceFileRequestBuilder {
 	builder.token = token
@@ -2580,6 +2712,7 @@ func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
 }
 
 // 图片 token
+//
 // 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
 func (builder *ReplaceImageRequestBuilder) Token(token string) *ReplaceImageRequestBuilder {
 	builder.token = token
@@ -2617,6 +2750,7 @@ func NewSheetBuilder() *SheetBuilder {
 }
 
 // 电子表格 block 的 token
+//
 // 示例值：shtbcW6ufcUtRRet7Hz6Iv4ytzg
 func (builder *SheetBuilder) Token(token string) *SheetBuilder {
 	builder.token = token
@@ -2625,6 +2759,7 @@ func (builder *SheetBuilder) Token(token string) *SheetBuilder {
 }
 
 // 电子表格行数量
+//
 // 示例值：2
 func (builder *SheetBuilder) RowSize(rowSize int) *SheetBuilder {
 	builder.rowSize = rowSize
@@ -2633,6 +2768,7 @@ func (builder *SheetBuilder) RowSize(rowSize int) *SheetBuilder {
 }
 
 // 电子表格列数量
+//
 // 示例值：2
 func (builder *SheetBuilder) ColumnSize(columnSize int) *SheetBuilder {
 	builder.columnSize = columnSize
@@ -2675,6 +2811,7 @@ func NewTableBuilder() *TableBuilder {
 }
 
 // 单元格数组，数组元素为 Table Cell Block 的 ID
+//
 // 示例值：
 func (builder *TableBuilder) Cells(cells []string) *TableBuilder {
 	builder.cells = cells
@@ -2683,6 +2820,7 @@ func (builder *TableBuilder) Cells(cells []string) *TableBuilder {
 }
 
 // 表格属性
+//
 // 示例值：
 func (builder *TableBuilder) Property(property *TableProperty) *TableBuilder {
 	builder.property = property
@@ -2722,6 +2860,7 @@ func NewTableMergeInfoBuilder() *TableMergeInfoBuilder {
 }
 
 // 从当前行索引起被合并的连续行数
+//
 // 示例值：2
 func (builder *TableMergeInfoBuilder) RowSpan(rowSpan int) *TableMergeInfoBuilder {
 	builder.rowSpan = rowSpan
@@ -2730,6 +2869,7 @@ func (builder *TableMergeInfoBuilder) RowSpan(rowSpan int) *TableMergeInfoBuilde
 }
 
 // 从当前列索引起被合并的连续列数
+//
 // 示例值：2
 func (builder *TableMergeInfoBuilder) ColSpan(colSpan int) *TableMergeInfoBuilder {
 	builder.colSpan = colSpan
@@ -2774,6 +2914,7 @@ func NewTablePropertyBuilder() *TablePropertyBuilder {
 }
 
 // 行数
+//
 // 示例值：1
 func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder {
 	builder.rowSize = rowSize
@@ -2782,6 +2923,7 @@ func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder 
 }
 
 // 列数
+//
 // 示例值：1
 func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBuilder {
 	builder.columnSize = columnSize
@@ -2790,6 +2932,7 @@ func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBu
 }
 
 // 列宽，单位px
+//
 // 示例值：100
 func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TablePropertyBuilder {
 	builder.columnWidth = columnWidth
@@ -2798,6 +2941,7 @@ func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TableProper
 }
 
 // 单元格合并信息
+//
 // 示例值：
 func (builder *TablePropertyBuilder) MergeInfo(mergeInfo []*TableMergeInfo) *TablePropertyBuilder {
 	builder.mergeInfo = mergeInfo
@@ -2839,6 +2983,7 @@ func NewTaskBuilder() *TaskBuilder {
 }
 
 // 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+//
 // 示例值：
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
@@ -2873,6 +3018,7 @@ func NewTextBuilder() *TextBuilder {
 }
 
 // 文本样式
+//
 // 示例值：
 func (builder *TextBuilder) Style(style *TextStyle) *TextBuilder {
 	builder.style = style
@@ -2881,6 +3027,7 @@ func (builder *TextBuilder) Style(style *TextStyle) *TextBuilder {
 }
 
 // 文本元素
+//
 // 示例值：
 func (builder *TextBuilder) Elements(elements []*TextElement) *TextBuilder {
 	builder.elements = elements
@@ -2935,6 +3082,7 @@ func NewTextElementBuilder() *TextElementBuilder {
 }
 
 // 文字
+//
 // 示例值：
 func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder {
 	builder.textRun = textRun
@@ -2943,6 +3091,7 @@ func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder
 }
 
 // @用户
+//
 // 示例值：
 func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextElementBuilder {
 	builder.mentionUser = mentionUser
@@ -2951,6 +3100,7 @@ func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextEl
 }
 
 // @文档
+//
 // 示例值：
 func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextElementBuilder {
 	builder.mentionDoc = mentionDoc
@@ -2959,6 +3109,7 @@ func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextEleme
 }
 
 // 日期提醒
+//
 // 示例值：
 func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuilder {
 	builder.reminder = reminder
@@ -2967,6 +3118,7 @@ func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuil
 }
 
 // 内联附件
+//
 // 示例值：
 func (builder *TextElementBuilder) File(file *InlineFile) *TextElementBuilder {
 	builder.file = file
@@ -2975,6 +3127,7 @@ func (builder *TextElementBuilder) File(file *InlineFile) *TextElementBuilder {
 }
 
 // 未支持的 TextElement
+//
 // 示例值：
 func (builder *TextElementBuilder) Undefined(undefined *UndefinedElement) *TextElementBuilder {
 	builder.undefined = undefined
@@ -2983,6 +3136,7 @@ func (builder *TextElementBuilder) Undefined(undefined *UndefinedElement) *TextE
 }
 
 // 内联 block
+//
 // 示例值：
 func (builder *TextElementBuilder) InlineBlock(inlineBlock *InlineBlock) *TextElementBuilder {
 	builder.inlineBlock = inlineBlock
@@ -2991,6 +3145,7 @@ func (builder *TextElementBuilder) InlineBlock(inlineBlock *InlineBlock) *TextEl
 }
 
 // 公式
+//
 // 示例值：
 func (builder *TextElementBuilder) Equation(equation *Equation) *TextElementBuilder {
 	builder.equation = equation
@@ -3063,6 +3218,7 @@ func NewTextElementStyleBuilder() *TextElementStyleBuilder {
 }
 
 // 加粗
+//
 // 示例值：true
 func (builder *TextElementStyleBuilder) Bold(bold bool) *TextElementStyleBuilder {
 	builder.bold = bold
@@ -3071,6 +3227,7 @@ func (builder *TextElementStyleBuilder) Bold(bold bool) *TextElementStyleBuilder
 }
 
 // 斜体
+//
 // 示例值：true
 func (builder *TextElementStyleBuilder) Italic(italic bool) *TextElementStyleBuilder {
 	builder.italic = italic
@@ -3079,6 +3236,7 @@ func (builder *TextElementStyleBuilder) Italic(italic bool) *TextElementStyleBui
 }
 
 // 删除线
+//
 // 示例值：true
 func (builder *TextElementStyleBuilder) Strikethrough(strikethrough bool) *TextElementStyleBuilder {
 	builder.strikethrough = strikethrough
@@ -3087,6 +3245,7 @@ func (builder *TextElementStyleBuilder) Strikethrough(strikethrough bool) *TextE
 }
 
 // 下划线
+//
 // 示例值：true
 func (builder *TextElementStyleBuilder) Underline(underline bool) *TextElementStyleBuilder {
 	builder.underline = underline
@@ -3095,6 +3254,7 @@ func (builder *TextElementStyleBuilder) Underline(underline bool) *TextElementSt
 }
 
 // inline 代码
+//
 // 示例值：true
 func (builder *TextElementStyleBuilder) InlineCode(inlineCode bool) *TextElementStyleBuilder {
 	builder.inlineCode = inlineCode
@@ -3103,6 +3263,7 @@ func (builder *TextElementStyleBuilder) InlineCode(inlineCode bool) *TextElement
 }
 
 // 背景色
+//
 // 示例值：1
 func (builder *TextElementStyleBuilder) BackgroundColor(backgroundColor int) *TextElementStyleBuilder {
 	builder.backgroundColor = backgroundColor
@@ -3111,6 +3272,7 @@ func (builder *TextElementStyleBuilder) BackgroundColor(backgroundColor int) *Te
 }
 
 // 字体颜色
+//
 // 示例值：1
 func (builder *TextElementStyleBuilder) TextColor(textColor int) *TextElementStyleBuilder {
 	builder.textColor = textColor
@@ -3119,6 +3281,7 @@ func (builder *TextElementStyleBuilder) TextColor(textColor int) *TextElementSty
 }
 
 // 链接
+//
 // 示例值：
 func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilder {
 	builder.link = link
@@ -3180,6 +3343,7 @@ func NewTextRunBuilder() *TextRunBuilder {
 }
 
 // 文本内容
+//
 // 示例值：文本
 func (builder *TextRunBuilder) Content(content string) *TextRunBuilder {
 	builder.content = content
@@ -3188,6 +3352,7 @@ func (builder *TextRunBuilder) Content(content string) *TextRunBuilder {
 }
 
 // 文本局部样式
+//
 // 示例值：
 func (builder *TextRunBuilder) TextElementStyle(textElementStyle *TextElementStyle) *TextRunBuilder {
 	builder.textElementStyle = textElementStyle
@@ -3234,6 +3399,7 @@ func NewTextStyleBuilder() *TextStyleBuilder {
 }
 
 // 对齐方式
+//
 // 示例值：1
 func (builder *TextStyleBuilder) Align(align int) *TextStyleBuilder {
 	builder.align = align
@@ -3242,6 +3408,7 @@ func (builder *TextStyleBuilder) Align(align int) *TextStyleBuilder {
 }
 
 // todo 的完成状态
+//
 // 示例值：true
 func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
 	builder.done = done
@@ -3250,6 +3417,7 @@ func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
 }
 
 // 文本的折叠状态
+//
 // 示例值：true
 func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
 	builder.folded = folded
@@ -3258,6 +3426,7 @@ func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
 }
 
 // 代码块语言
+//
 // 示例值：1
 func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
 	builder.language = language
@@ -3266,6 +3435,7 @@ func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
 }
 
 // 代码块是否自动换行
+//
 // 示例值：true
 func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
 	builder.wrap = wrap
@@ -3322,6 +3492,7 @@ func NewUnmergeTableCellsRequestBuilder() *UnmergeTableCellsRequestBuilder {
 }
 
 // table 行索引
+//
 // 示例值：0
 func (builder *UnmergeTableCellsRequestBuilder) RowIndex(rowIndex int) *UnmergeTableCellsRequestBuilder {
 	builder.rowIndex = rowIndex
@@ -3330,6 +3501,7 @@ func (builder *UnmergeTableCellsRequestBuilder) RowIndex(rowIndex int) *UnmergeT
 }
 
 // table 列索引
+//
 // 示例值：0
 func (builder *UnmergeTableCellsRequestBuilder) ColumnIndex(columnIndex int) *UnmergeTableCellsRequestBuilder {
 	builder.columnIndex = columnIndex
@@ -3410,6 +3582,7 @@ func NewUpdateBlockRequestBuilder() *UpdateBlockRequestBuilder {
 }
 
 // 更新文本元素请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTextElements(updateTextElements *UpdateTextElementsRequest) *UpdateBlockRequestBuilder {
 	builder.updateTextElements = updateTextElements
@@ -3418,6 +3591,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateTextElements(updateTextElements 
 }
 
 // 更新文本样式请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTextStyle(updateTextStyle *UpdateTextStyleRequest) *UpdateBlockRequestBuilder {
 	builder.updateTextStyle = updateTextStyle
@@ -3426,6 +3600,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateTextStyle(updateTextStyle *Updat
 }
 
 // 更新表格属性请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTableProperty *UpdateTablePropertyRequest) *UpdateBlockRequestBuilder {
 	builder.updateTableProperty = updateTableProperty
@@ -3434,6 +3609,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTablePropert
 }
 
 // 表格插入新行请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertTableRowRequest) *UpdateBlockRequestBuilder {
 	builder.insertTableRow = insertTableRow
@@ -3442,6 +3618,7 @@ func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertT
 }
 
 // 表格插入新列请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *InsertTableColumnRequest) *UpdateBlockRequestBuilder {
 	builder.insertTableColumn = insertTableColumn
@@ -3450,6 +3627,7 @@ func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *I
 }
 
 // 表格批量删除行请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *DeleteTableRowsRequest) *UpdateBlockRequestBuilder {
 	builder.deleteTableRows = deleteTableRows
@@ -3458,6 +3636,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *Delet
 }
 
 // 表格批量删除列请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns *DeleteTableColumnsRequest) *UpdateBlockRequestBuilder {
 	builder.deleteTableColumns = deleteTableColumns
@@ -3466,6 +3645,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns 
 }
 
 // 表格合并单元格请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *MergeTableCellsRequest) *UpdateBlockRequestBuilder {
 	builder.mergeTableCells = mergeTableCells
@@ -3474,6 +3654,7 @@ func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *Merge
 }
 
 // 表格取消单元格合并状态请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *UnmergeTableCellsRequest) *UpdateBlockRequestBuilder {
 	builder.unmergeTableCells = unmergeTableCells
@@ -3482,6 +3663,7 @@ func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *U
 }
 
 // 分栏插入新的分栏列请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *InsertGridColumnRequest) *UpdateBlockRequestBuilder {
 	builder.insertGridColumn = insertGridColumn
@@ -3490,6 +3672,7 @@ func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *Ins
 }
 
 // 分栏删除列请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *DeleteGridColumnRequest) *UpdateBlockRequestBuilder {
 	builder.deleteGridColumn = deleteGridColumn
@@ -3498,6 +3681,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *Del
 }
 
 // 更新分栏列宽比例请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest) *UpdateBlockRequestBuilder {
 	builder.updateGridColumnWidthRatio = updateGridColumnWidthRatio
@@ -3506,6 +3690,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridC
 }
 
 // 替换图片请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImageRequest) *UpdateBlockRequestBuilder {
 	builder.replaceImage = replaceImage
@@ -3514,6 +3699,7 @@ func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImag
 }
 
 // 替换附件请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRequest) *UpdateBlockRequestBuilder {
 	builder.replaceFile = replaceFile
@@ -3522,6 +3708,7 @@ func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRe
 }
 
 // Block 唯一标识
+//
 // 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *UpdateBlockRequestBuilder) BlockId(blockId string) *UpdateBlockRequestBuilder {
 	builder.blockId = blockId
@@ -3530,6 +3717,7 @@ func (builder *UpdateBlockRequestBuilder) BlockId(blockId string) *UpdateBlockRe
 }
 
 // 更新文本元素及样式请求
+//
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateText(updateText *UpdateTextRequest) *UpdateBlockRequestBuilder {
 	builder.updateText = updateText
@@ -3606,6 +3794,7 @@ func NewUpdateGridColumnWidthRatioRequestBuilder() *UpdateGridColumnWidthRatioRe
 }
 
 // 更新列宽比例时，需要传入所有列宽占比
+//
 // 示例值：50
 func (builder *UpdateGridColumnWidthRatioRequestBuilder) WidthRatios(widthRatios []int) *UpdateGridColumnWidthRatioRequestBuilder {
 	builder.widthRatios = widthRatios
@@ -3639,6 +3828,7 @@ func NewUpdateTablePropertyRequestBuilder() *UpdateTablePropertyRequestBuilder {
 }
 
 // 表格列宽
+//
 // 示例值：100
 func (builder *UpdateTablePropertyRequestBuilder) ColumnWidth(columnWidth int) *UpdateTablePropertyRequestBuilder {
 	builder.columnWidth = columnWidth
@@ -3647,6 +3837,7 @@ func (builder *UpdateTablePropertyRequestBuilder) ColumnWidth(columnWidth int) *
 }
 
 // 需要修改列宽的表格列的索引
+//
 // 示例值：0
 func (builder *UpdateTablePropertyRequestBuilder) ColumnIndex(columnIndex int) *UpdateTablePropertyRequestBuilder {
 	builder.columnIndex = columnIndex
@@ -3682,6 +3873,7 @@ func NewUpdateTextElementsRequestBuilder() *UpdateTextElementsRequestBuilder {
 }
 
 // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+//
 // 示例值：
 func (builder *UpdateTextElementsRequestBuilder) Elements(elements []*TextElement) *UpdateTextElementsRequestBuilder {
 	builder.elements = elements
@@ -3718,6 +3910,7 @@ func NewUpdateTextRequestBuilder() *UpdateTextRequestBuilder {
 }
 
 // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+//
 // 示例值：
 func (builder *UpdateTextRequestBuilder) Elements(elements []*TextElement) *UpdateTextRequestBuilder {
 	builder.elements = elements
@@ -3726,6 +3919,7 @@ func (builder *UpdateTextRequestBuilder) Elements(elements []*TextElement) *Upda
 }
 
 // 更新的文本样式
+//
 // 示例值：
 func (builder *UpdateTextRequestBuilder) Style(style *TextStyle) *UpdateTextRequestBuilder {
 	builder.style = style
@@ -3734,6 +3928,7 @@ func (builder *UpdateTextRequestBuilder) Style(style *TextStyle) *UpdateTextRequ
 }
 
 // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+//
 // 示例值：[1]
 func (builder *UpdateTextRequestBuilder) Fields(fields []int) *UpdateTextRequestBuilder {
 	builder.fields = fields
@@ -3773,6 +3968,7 @@ func NewUpdateTextStyleRequestBuilder() *UpdateTextStyleRequestBuilder {
 }
 
 // 文本样式
+//
 // 示例值：
 func (builder *UpdateTextStyleRequestBuilder) Style(style *TextStyle) *UpdateTextStyleRequestBuilder {
 	builder.style = style
@@ -3781,6 +3977,7 @@ func (builder *UpdateTextStyleRequestBuilder) Style(style *TextStyle) *UpdateTex
 }
 
 // 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+//
 // 示例值：修改的文字样式属性
 func (builder *UpdateTextStyleRequestBuilder) Fields(fields []int) *UpdateTextStyleRequestBuilder {
 	builder.fields = fields
@@ -3814,6 +4011,7 @@ func NewViewBuilder() *ViewBuilder {
 }
 
 // 视图类型
+//
 // 示例值：1
 func (builder *ViewBuilder) ViewType(viewType int) *ViewBuilder {
 	builder.viewType = viewType

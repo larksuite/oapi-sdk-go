@@ -19,6 +19,54 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type AddSheet struct {
+	Title *string `json:"title,omitempty"` // 工作表标题
+	Index *int    `json:"index,omitempty"` // 工作表位置
+}
+
+type AddSheetBuilder struct {
+	title     string // 工作表标题
+	titleFlag bool
+	index     int // 工作表位置
+	indexFlag bool
+}
+
+func NewAddSheetBuilder() *AddSheetBuilder {
+	builder := &AddSheetBuilder{}
+	return builder
+}
+
+// 工作表标题
+//
+// 示例值：abc
+func (builder *AddSheetBuilder) Title(title string) *AddSheetBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 工作表位置
+//
+// 示例值：0
+func (builder *AddSheetBuilder) Index(index int) *AddSheetBuilder {
+	builder.index = index
+	builder.indexFlag = true
+	return builder
+}
+
+func (builder *AddSheetBuilder) Build() *AddSheet {
+	req := &AddSheet{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.indexFlag {
+		req.Index = &builder.index
+
+	}
+	return req
+}
+
 type AppendDimension struct {
 	MajorDimension    *string `json:"major_dimension,omitempty"`     // 操作行还是列，取值：ROWS、COLUMNS
 	Length            *int    `json:"length,omitempty"`              // 数量
@@ -40,6 +88,7 @@ func NewAppendDimensionBuilder() *AppendDimensionBuilder {
 }
 
 // 操作行还是列，取值：ROWS、COLUMNS
+//
 // 示例值：ROWS
 func (builder *AppendDimensionBuilder) MajorDimension(majorDimension string) *AppendDimensionBuilder {
 	builder.majorDimension = majorDimension
@@ -48,6 +97,7 @@ func (builder *AppendDimensionBuilder) MajorDimension(majorDimension string) *Ap
 }
 
 // 数量
+//
 // 示例值：10
 func (builder *AppendDimensionBuilder) Length(length int) *AppendDimensionBuilder {
 	builder.length = length
@@ -56,6 +106,7 @@ func (builder *AppendDimensionBuilder) Length(length int) *AppendDimensionBuilde
 }
 
 // 是否继承上一行/列的样式
+//
 // 示例值：false
 func (builder *AppendDimensionBuilder) InheritFromBefore(inheritFromBefore bool) *AppendDimensionBuilder {
 	builder.inheritFromBefore = inheritFromBefore
@@ -98,6 +149,7 @@ func NewBitablePropertiesBuilder() *BitablePropertiesBuilder {
 }
 
 // 多维表格token
+//
 // 示例值：basxxxxxxxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *BitablePropertiesBuilder {
 	builder.bitableToken = bitableToken
@@ -106,6 +158,7 @@ func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *Bita
 }
 
 // 数据表id
+//
 // 示例值：tblxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) TableId(tableId string) *BitablePropertiesBuilder {
 	builder.tableId = tableId
@@ -171,6 +224,7 @@ func NewCellValueBuilder() *CellValueBuilder {
 }
 
 // 元素类型
+//
 // 示例值：text
 func (builder *CellValueBuilder) Type(type_ string) *CellValueBuilder {
 	builder.type_ = type_
@@ -178,6 +232,7 @@ func (builder *CellValueBuilder) Type(type_ string) *CellValueBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *CellValueBuilder) Text(text *Text) *CellValueBuilder {
@@ -187,6 +242,7 @@ func (builder *CellValueBuilder) Text(text *Text) *CellValueBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *CellValueBuilder) MentionUser(mentionUser *MentionUser) *CellValueBuilder {
 	builder.mentionUser = mentionUser
@@ -194,6 +250,7 @@ func (builder *CellValueBuilder) MentionUser(mentionUser *MentionUser) *CellValu
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *CellValueBuilder) MentionDocument(mentionDocument *MentionDocument) *CellValueBuilder {
@@ -203,6 +260,7 @@ func (builder *CellValueBuilder) MentionDocument(mentionDocument *MentionDocumen
 }
 
 //
+//
 // 示例值：
 func (builder *CellValueBuilder) Value(value *ValueElement) *CellValueBuilder {
 	builder.value = value
@@ -210,6 +268,7 @@ func (builder *CellValueBuilder) Value(value *ValueElement) *CellValueBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *CellValueBuilder) DateTime(dateTime *DateTime) *CellValueBuilder {
@@ -219,6 +278,7 @@ func (builder *CellValueBuilder) DateTime(dateTime *DateTime) *CellValueBuilder 
 }
 
 //
+//
 // 示例值：
 func (builder *CellValueBuilder) File(file *File) *CellValueBuilder {
 	builder.file = file
@@ -226,6 +286,7 @@ func (builder *CellValueBuilder) File(file *File) *CellValueBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *CellValueBuilder) Image(image *Image) *CellValueBuilder {
@@ -235,6 +296,7 @@ func (builder *CellValueBuilder) Image(image *Image) *CellValueBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *CellValueBuilder) Link(link *Link) *CellValueBuilder {
 	builder.link = link
@@ -243,6 +305,7 @@ func (builder *CellValueBuilder) Link(link *Link) *CellValueBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *CellValueBuilder) Reminder(reminder *Reminder) *CellValueBuilder {
 	builder.reminder = reminder
@@ -250,6 +313,7 @@ func (builder *CellValueBuilder) Reminder(reminder *Reminder) *CellValueBuilder 
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *CellValueBuilder) Formula(formula *Formula) *CellValueBuilder {
@@ -318,6 +382,7 @@ func NewConditionBuilder() *ConditionBuilder {
 }
 
 // 筛选类型
+//
 // 示例值：number
 func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder {
 	builder.filterType = filterType
@@ -326,6 +391,7 @@ func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder
 }
 
 // 比较类型
+//
 // 示例值：less
 func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuilder {
 	builder.compareType = compareType
@@ -334,6 +400,7 @@ func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuild
 }
 
 // 筛选参数
+//
 // 示例值：6
 func (builder *ConditionBuilder) Expected(expected []string) *ConditionBuilder {
 	builder.expected = expected
@@ -378,6 +445,7 @@ func NewCreateSheetFilterBuilder() *CreateSheetFilterBuilder {
 }
 
 // 筛选应用范围
+//
 // 示例值：xxxxxx!C1:H14
 func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilterBuilder {
 	builder.range_ = range_
@@ -386,6 +454,7 @@ func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilter
 }
 
 // 设置筛选条件的列
+//
 // 示例值：E
 func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuilder {
 	builder.col = col
@@ -394,6 +463,7 @@ func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuild
 }
 
 // 筛选的条件
+//
 // 示例值：
 func (builder *CreateSheetFilterBuilder) Condition(condition *Condition) *CreateSheetFilterBuilder {
 	builder.condition = condition
@@ -432,6 +502,7 @@ func NewDateTimeBuilder() *DateTimeBuilder {
 }
 
 // 时间日期
+//
 // 示例值：2022/02/22
 func (builder *DateTimeBuilder) DateTime(dateTime string) *DateTimeBuilder {
 	builder.dateTime = dateTime
@@ -469,6 +540,7 @@ func NewDimensionBuilder() *DimensionBuilder {
 }
 
 // 操作行还是列，取值：ROWS、COLUMNS
+//
 // 示例值：ROWS
 func (builder *DimensionBuilder) MajorDimension(majorDimension string) *DimensionBuilder {
 	builder.majorDimension = majorDimension
@@ -477,6 +549,7 @@ func (builder *DimensionBuilder) MajorDimension(majorDimension string) *Dimensio
 }
 
 // 起始行或者列号
+//
 // 示例值：0
 func (builder *DimensionBuilder) StartIndex(startIndex int) *DimensionBuilder {
 	builder.startIndex = startIndex
@@ -485,6 +558,7 @@ func (builder *DimensionBuilder) StartIndex(startIndex int) *DimensionBuilder {
 }
 
 // 结束行或者列号
+//
 // 示例值：1
 func (builder *DimensionBuilder) EndIndex(endIndex int) *DimensionBuilder {
 	builder.endIndex = endIndex
@@ -527,6 +601,7 @@ func NewDimensionPropertiesBuilder() *DimensionPropertiesBuilder {
 }
 
 // 是否隐藏
+//
 // 示例值：false
 func (builder *DimensionPropertiesBuilder) Hidden(hidden bool) *DimensionPropertiesBuilder {
 	builder.hidden = hidden
@@ -535,6 +610,7 @@ func (builder *DimensionPropertiesBuilder) Hidden(hidden bool) *DimensionPropert
 }
 
 // 行/列像素大小
+//
 // 示例值：100
 func (builder *DimensionPropertiesBuilder) PixelSize(pixelSize int) *DimensionPropertiesBuilder {
 	builder.pixelSize = pixelSize
@@ -576,6 +652,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 附件token
+//
 // 示例值：boxxxxxxx
 func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 	builder.fileToken = fileToken
@@ -584,6 +661,7 @@ func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 }
 
 // 附件名称
+//
 // 示例值：a.png
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
@@ -591,6 +669,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *FileBuilder) SegmentStyle(segmentStyle *SegmentStyle) *FileBuilder {
@@ -633,6 +712,7 @@ func NewFilterInfoBuilder() *FilterInfoBuilder {
 }
 
 // 设置了筛选条件的列
+//
 // 示例值：E
 func (builder *FilterInfoBuilder) Col(col string) *FilterInfoBuilder {
 	builder.col = col
@@ -641,6 +721,7 @@ func (builder *FilterInfoBuilder) Col(col string) *FilterInfoBuilder {
 }
 
 // 筛选条件
+//
 // 示例值：
 func (builder *FilterInfoBuilder) Conditions(conditions []*Condition) *FilterInfoBuilder {
 	builder.conditions = conditions
@@ -681,6 +762,7 @@ func NewFilterViewBuilder() *FilterViewBuilder {
 }
 
 // 筛选视图 id
+//
 // 示例值：pH9hbVcCXA
 func (builder *FilterViewBuilder) FilterViewId(filterViewId string) *FilterViewBuilder {
 	builder.filterViewId = filterViewId
@@ -689,6 +771,7 @@ func (builder *FilterViewBuilder) FilterViewId(filterViewId string) *FilterViewB
 }
 
 // 筛选视图名字
+//
 // 示例值：筛选视图 1
 func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterViewBuilder {
 	builder.filterViewName = filterViewName
@@ -697,6 +780,7 @@ func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterV
 }
 
 // 筛选视图的筛选范围
+//
 // 示例值：0b**12!C1:H14
 func (builder *FilterViewBuilder) Range(range_ string) *FilterViewBuilder {
 	builder.range_ = range_
@@ -745,6 +829,7 @@ func NewFilterViewConditionBuilder() *FilterViewConditionBuilder {
 }
 
 // 设置筛选条件的列，使用字母号
+//
 // 示例值：E
 func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *FilterViewConditionBuilder {
 	builder.conditionId = conditionId
@@ -753,6 +838,7 @@ func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *Filt
 }
 
 // 筛选类型
+//
 // 示例值：number
 func (builder *FilterViewConditionBuilder) FilterType(filterType string) *FilterViewConditionBuilder {
 	builder.filterType = filterType
@@ -761,6 +847,7 @@ func (builder *FilterViewConditionBuilder) FilterType(filterType string) *Filter
 }
 
 // 比较类型
+//
 // 示例值：less
 func (builder *FilterViewConditionBuilder) CompareType(compareType string) *FilterViewConditionBuilder {
 	builder.compareType = compareType
@@ -769,6 +856,7 @@ func (builder *FilterViewConditionBuilder) CompareType(compareType string) *Filt
 }
 
 // 筛选参数
+//
 // 示例值：6
 func (builder *FilterViewConditionBuilder) Expected(expected []string) *FilterViewConditionBuilder {
 	builder.expected = expected
@@ -814,6 +902,7 @@ func NewFindBuilder() *FindBuilder {
 }
 
 // 查找条件
+//
 // 示例值：
 func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBuilder {
 	builder.findCondition = findCondition
@@ -822,6 +911,7 @@ func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBui
 }
 
 // 查找的字符串
+//
 // 示例值：hello
 func (builder *FindBuilder) Find(find string) *FindBuilder {
 	builder.find = find
@@ -868,6 +958,7 @@ func NewFindConditionBuilder() *FindConditionBuilder {
 }
 
 // 查找范围
+//
 // 示例值：0b**12!A1:H10
 func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder {
 	builder.range_ = range_
@@ -876,6 +967,7 @@ func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder 
 }
 
 // 是否忽略大小写
+//
 // 示例值：true
 func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBuilder {
 	builder.matchCase = matchCase
@@ -884,6 +976,7 @@ func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBui
 }
 
 // 是否匹配整个单元格
+//
 // 示例值：false
 func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *FindConditionBuilder {
 	builder.matchEntireCell = matchEntireCell
@@ -892,6 +985,7 @@ func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *Find
 }
 
 // 是否为正则匹配
+//
 // 示例值：false
 func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindConditionBuilder {
 	builder.searchByRegex = searchByRegex
@@ -900,6 +994,7 @@ func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindCond
 }
 
 // 是否搜索公式内容
+//
 // 示例值：false
 func (builder *FindConditionBuilder) IncludeFormulas(includeFormulas bool) *FindConditionBuilder {
 	builder.includeFormulas = includeFormulas
@@ -953,6 +1048,7 @@ func NewFindReplaceResultBuilder() *FindReplaceResultBuilder {
 }
 
 // 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
+//
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *FindReplaceResultBuilder {
 	builder.matchedCells = matchedCells
@@ -961,6 +1057,7 @@ func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *Fi
 }
 
 // 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
+//
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells []string) *FindReplaceResultBuilder {
 	builder.matchedFormulaCells = matchedFormulaCells
@@ -969,6 +1066,7 @@ func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells
 }
 
 // 符合查找条件的总行数
+//
 // 示例值：2
 func (builder *FindReplaceResultBuilder) RowsCount(rowsCount int) *FindReplaceResultBuilder {
 	builder.rowsCount = rowsCount
@@ -1024,6 +1122,7 @@ func NewFloatImageBuilder() *FloatImageBuilder {
 }
 
 // 浮动图片 id
+//
 // 示例值：ye06SS14ph
 func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageBuilder {
 	builder.floatImageId = floatImageId
@@ -1032,6 +1131,7 @@ func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageB
 }
 
 // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+//
 // 示例值：boxbcbQsaSqIXsxxxxx1HCPJFbh
 func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *FloatImageBuilder {
 	builder.floatImageToken = floatImageToken
@@ -1040,6 +1140,7 @@ func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *Float
 }
 
 // 浮动图片的左上角单元格定位，只支持一个单元格
+//
 // 示例值：0b**12!A1:A1
 func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
 	builder.range_ = range_
@@ -1048,6 +1149,7 @@ func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
 }
 
 // 浮动图片的宽度，大于等于 20px
+//
 // 示例值：100
 func (builder *FloatImageBuilder) Width(width float64) *FloatImageBuilder {
 	builder.width = width
@@ -1056,6 +1158,7 @@ func (builder *FloatImageBuilder) Width(width float64) *FloatImageBuilder {
 }
 
 // 浮动图片的高度，大于等于 20px
+//
 // 示例值：100
 func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
 	builder.height = height
@@ -1064,6 +1167,7 @@ func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
 }
 
 // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
+//
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
 	builder.offsetX = offsetX
@@ -1072,6 +1176,7 @@ func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
 }
 
 // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+//
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetY(offsetY float64) *FloatImageBuilder {
 	builder.offsetY = offsetY
@@ -1133,6 +1238,7 @@ func NewFormulaBuilder() *FormulaBuilder {
 }
 
 // 公式
+//
 // 示例值：=SUM(A:A)
 func (builder *FormulaBuilder) Formula(formula string) *FormulaBuilder {
 	builder.formula = formula
@@ -1141,6 +1247,7 @@ func (builder *FormulaBuilder) Formula(formula string) *FormulaBuilder {
 }
 
 // 公式结果
+//
 // 示例值：123
 func (builder *FormulaBuilder) FormulaValue(formulaValue string) *FormulaBuilder {
 	builder.formulaValue = formulaValue
@@ -1149,6 +1256,7 @@ func (builder *FormulaBuilder) FormulaValue(formulaValue string) *FormulaBuilder
 }
 
 // 公式影响的范围
+//
 // 示例值：Xkhr2d!A1:B2
 func (builder *FormulaBuilder) AffectedRange(affectedRange string) *FormulaBuilder {
 	builder.affectedRange = affectedRange
@@ -1197,6 +1305,7 @@ func NewGetSpreadsheetBuilder() *GetSpreadsheetBuilder {
 }
 
 // 电子表格标题
+//
 // 示例值：title
 func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder {
 	builder.title = title
@@ -1205,6 +1314,7 @@ func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder
 }
 
 // 电子表格owner
+//
 // 示例值：ou_xxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBuilder {
 	builder.ownerId = ownerId
@@ -1213,6 +1323,7 @@ func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBui
 }
 
 // 电子表格token
+//
 // 示例值：shtxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder {
 	builder.token = token
@@ -1221,6 +1332,7 @@ func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder
 }
 
 // 电子表格url
+//
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *GetSpreadsheetBuilder) Url(url string) *GetSpreadsheetBuilder {
 	builder.url = url
@@ -1273,6 +1385,7 @@ func NewGridPropertiesBuilder() *GridPropertiesBuilder {
 }
 
 // 冻结的行数量
+//
 // 示例值：0
 func (builder *GridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *GridPropertiesBuilder {
 	builder.frozenRowCount = frozenRowCount
@@ -1281,6 +1394,7 @@ func (builder *GridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *GridPr
 }
 
 // 冻结的列数量
+//
 // 示例值：0
 func (builder *GridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *GridPropertiesBuilder {
 	builder.frozenColumnCount = frozenColumnCount
@@ -1289,6 +1403,7 @@ func (builder *GridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *
 }
 
 // 工作表的行数
+//
 // 示例值：200
 func (builder *GridPropertiesBuilder) RowCount(rowCount int) *GridPropertiesBuilder {
 	builder.rowCount = rowCount
@@ -1297,6 +1412,7 @@ func (builder *GridPropertiesBuilder) RowCount(rowCount int) *GridPropertiesBuil
 }
 
 // 工作表的列数量
+//
 // 示例值：20
 func (builder *GridPropertiesBuilder) ColumnCount(columnCount int) *GridPropertiesBuilder {
 	builder.columnCount = columnCount
@@ -1340,6 +1456,7 @@ func NewImageBuilder() *ImageBuilder {
 }
 
 // 图片token
+//
 // 示例值：boxxxxxxxxxx
 func (builder *ImageBuilder) ImageToken(imageToken string) *ImageBuilder {
 	builder.imageToken = imageToken
@@ -1374,6 +1491,7 @@ func NewInsertDimensionBuilder() *InsertDimensionBuilder {
 }
 
 // 行列操作的维度
+//
 // 示例值：
 func (builder *InsertDimensionBuilder) DimensionRange(dimensionRange *Dimension) *InsertDimensionBuilder {
 	builder.dimensionRange = dimensionRange
@@ -1382,6 +1500,7 @@ func (builder *InsertDimensionBuilder) DimensionRange(dimensionRange *Dimension)
 }
 
 // 是否继承上/下一行/列样式
+//
 // 示例值：Before
 func (builder *InsertDimensionBuilder) InheritFrom(inheritFrom string) *InsertDimensionBuilder {
 	builder.inheritFrom = inheritFrom
@@ -1422,6 +1541,7 @@ func NewLinkBuilder() *LinkBuilder {
 }
 
 // 文本
+//
 // 示例值：text
 func (builder *LinkBuilder) Text(text string) *LinkBuilder {
 	builder.text = text
@@ -1430,6 +1550,7 @@ func (builder *LinkBuilder) Text(text string) *LinkBuilder {
 }
 
 // 链接
+//
 // 示例值：www.xxxx.cn
 func (builder *LinkBuilder) Link(link string) *LinkBuilder {
 	builder.link = link
@@ -1437,6 +1558,7 @@ func (builder *LinkBuilder) Link(link string) *LinkBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *LinkBuilder) SegmentStyles(segmentStyles []*SegmentStyle) *LinkBuilder {
@@ -1485,6 +1607,7 @@ func NewMentionDocumentBuilder() *MentionDocumentBuilder {
 }
 
 // 文档标题
+//
 // 示例值：abc
 func (builder *MentionDocumentBuilder) Title(title string) *MentionDocumentBuilder {
 	builder.title = title
@@ -1493,6 +1616,7 @@ func (builder *MentionDocumentBuilder) Title(title string) *MentionDocumentBuild
 }
 
 // 文档类型
+//
 // 示例值：sheet
 func (builder *MentionDocumentBuilder) ObjectType(objectType string) *MentionDocumentBuilder {
 	builder.objectType = objectType
@@ -1501,6 +1625,7 @@ func (builder *MentionDocumentBuilder) ObjectType(objectType string) *MentionDoc
 }
 
 // 文档token
+//
 // 示例值：shtxxxxxxxxx
 func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuilder {
 	builder.token = token
@@ -1508,6 +1633,7 @@ func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuild
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *MentionDocumentBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionDocumentBuilder {
@@ -1560,6 +1686,7 @@ func NewMentionUserBuilder() *MentionUserBuilder {
 }
 
 // 用户名
+//
 // 示例值：李四
 func (builder *MentionUserBuilder) Name(name string) *MentionUserBuilder {
 	builder.name = name
@@ -1568,6 +1695,7 @@ func (builder *MentionUserBuilder) Name(name string) *MentionUserBuilder {
 }
 
 // 用户id
+//
 // 示例值：ou_xxxxxxx
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 	builder.userId = userId
@@ -1576,6 +1704,7 @@ func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 }
 
 // 是否通知用户
+//
 // 示例值：true
 func (builder *MentionUserBuilder) Notify(notify bool) *MentionUserBuilder {
 	builder.notify = notify
@@ -1583,6 +1712,7 @@ func (builder *MentionUserBuilder) Notify(notify bool) *MentionUserBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *MentionUserBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionUserBuilder {
@@ -1629,6 +1759,7 @@ func NewMergeCellBuilder() *MergeCellBuilder {
 }
 
 // 合并单元格的范围
+//
 // 示例值：Zj2ts!A1:B2
 func (builder *MergeCellBuilder) Range(range_ *MergeRange) *MergeCellBuilder {
 	builder.range_ = range_
@@ -1637,6 +1768,7 @@ func (builder *MergeCellBuilder) Range(range_ *MergeRange) *MergeCellBuilder {
 }
 
 // 合并单元格类型
+//
 // 示例值：MergeAll
 func (builder *MergeCellBuilder) MergeType(mergeType string) *MergeCellBuilder {
 	builder.mergeType = mergeType
@@ -1680,6 +1812,7 @@ func NewMergeRangeBuilder() *MergeRangeBuilder {
 }
 
 // 起始行
+//
 // 示例值：0
 func (builder *MergeRangeBuilder) StartRowIndex(startRowIndex int) *MergeRangeBuilder {
 	builder.startRowIndex = startRowIndex
@@ -1688,6 +1821,7 @@ func (builder *MergeRangeBuilder) StartRowIndex(startRowIndex int) *MergeRangeBu
 }
 
 // 结束行
+//
 // 示例值：0
 func (builder *MergeRangeBuilder) EndRowIndex(endRowIndex int) *MergeRangeBuilder {
 	builder.endRowIndex = endRowIndex
@@ -1696,6 +1830,7 @@ func (builder *MergeRangeBuilder) EndRowIndex(endRowIndex int) *MergeRangeBuilde
 }
 
 // 起始列
+//
 // 示例值：0
 func (builder *MergeRangeBuilder) StartColumnIndex(startColumnIndex int) *MergeRangeBuilder {
 	builder.startColumnIndex = startColumnIndex
@@ -1704,6 +1839,7 @@ func (builder *MergeRangeBuilder) StartColumnIndex(startColumnIndex int) *MergeR
 }
 
 // 结束列
+//
 // 示例值：0
 func (builder *MergeRangeBuilder) EndColumnIndex(endColumnIndex int) *MergeRangeBuilder {
 	builder.endColumnIndex = endColumnIndex
@@ -1750,6 +1886,7 @@ func NewMoveDimensionBuilder() *MoveDimensionBuilder {
 }
 
 // 移动源位置参数
+//
 // 示例值：
 func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBuilder {
 	builder.source = source
@@ -1758,6 +1895,7 @@ func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBui
 }
 
 // 移动的目标位置行或者列号
+//
 // 示例值：4
 func (builder *MoveDimensionBuilder) DestinationIndex(destinationIndex int) *MoveDimensionBuilder {
 	builder.destinationIndex = destinationIndex
@@ -1792,6 +1930,7 @@ func NewMultiRangeBuilder() *MultiRangeBuilder {
 }
 
 // 同一个工作表的多个范围
+//
 // 示例值：Sheet1!A1:B2
 func (builder *MultiRangeBuilder) Ranges(ranges []string) *MultiRangeBuilder {
 	builder.ranges = ranges
@@ -1825,6 +1964,7 @@ func NewPlainTextValueRangeBuilder() *PlainTextValueRangeBuilder {
 }
 
 // 范围
+//
 // 示例值：Sheet1!A1:B2
 func (builder *PlainTextValueRangeBuilder) Range(range_ string) *PlainTextValueRangeBuilder {
 	builder.range_ = range_
@@ -1833,6 +1973,7 @@ func (builder *PlainTextValueRangeBuilder) Range(range_ string) *PlainTextValueR
 }
 
 // 数据
+//
 // 示例值：
 func (builder *PlainTextValueRangeBuilder) Values(values [][]string) *PlainTextValueRangeBuilder {
 	builder.values = values
@@ -1876,6 +2017,7 @@ func NewReminderBuilder() *ReminderBuilder {
 }
 
 // 时间日期
+//
 // 示例值：2022/2/2 13:33
 func (builder *ReminderBuilder) NotifyDateTime(notifyDateTime string) *ReminderBuilder {
 	builder.notifyDateTime = notifyDateTime
@@ -1884,6 +2026,7 @@ func (builder *ReminderBuilder) NotifyDateTime(notifyDateTime string) *ReminderB
 }
 
 // 提醒人员
+//
 // 示例值：ou_xxxxxx
 func (builder *ReminderBuilder) NotifyUserId(notifyUserId []string) *ReminderBuilder {
 	builder.notifyUserId = notifyUserId
@@ -1892,6 +2035,7 @@ func (builder *ReminderBuilder) NotifyUserId(notifyUserId []string) *ReminderBui
 }
 
 // 提醒内容
+//
 // 示例值：hello
 func (builder *ReminderBuilder) NotifyText(notifyText string) *ReminderBuilder {
 	builder.notifyText = notifyText
@@ -1900,6 +2044,7 @@ func (builder *ReminderBuilder) NotifyText(notifyText string) *ReminderBuilder {
 }
 
 // 提醒策略
+//
 // 示例值：AT_TIME
 func (builder *ReminderBuilder) NotifyStrategy(notifyStrategy string) *ReminderBuilder {
 	builder.notifyStrategy = notifyStrategy
@@ -1948,6 +2093,7 @@ func NewReplaceBuilder() *ReplaceBuilder {
 }
 
 // 查找条件
+//
 // 示例值：
 func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *ReplaceBuilder {
 	builder.findCondition = findCondition
@@ -1956,6 +2102,7 @@ func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *Repl
 }
 
 // 查找的字符串
+//
 // 示例值：hello
 func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
 	builder.find = find
@@ -1964,6 +2111,7 @@ func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
 }
 
 // 替换的字符串
+//
 // 示例值：world
 func (builder *ReplaceBuilder) Replacement(replacement string) *ReplaceBuilder {
 	builder.replacement = replacement
@@ -2005,6 +2153,7 @@ func NewRichTextValueRangeBuilder() *RichTextValueRangeBuilder {
 }
 
 // 范围
+//
 // 示例值：Sheet1!A1:A2
 func (builder *RichTextValueRangeBuilder) Range(range_ string) *RichTextValueRangeBuilder {
 	builder.range_ = range_
@@ -2013,6 +2162,7 @@ func (builder *RichTextValueRangeBuilder) Range(range_ string) *RichTextValueRan
 }
 
 // 数据
+//
 // 示例值：
 func (builder *RichTextValueRangeBuilder) Values(values [][][]*CellValue) *RichTextValueRangeBuilder {
 	builder.values = values
@@ -2033,11 +2183,11 @@ func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 }
 
 type RichValue struct {
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 }
 
 type RichValueBuilder struct {
-	values     [][][]*CellValue // 数据
+	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 	valuesFlag bool
 }
 
@@ -2046,7 +2196,8 @@ func NewRichValueBuilder() *RichValueBuilder {
 	return builder
 }
 
-// 数据
+// 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+//
 // 示例值：数据
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {
 	builder.values = values
@@ -2080,6 +2231,7 @@ func NewSegmentStyleBuilder() *SegmentStyleBuilder {
 }
 
 // 影响的文本
+//
 // 示例值：a
 func (builder *SegmentStyleBuilder) AffectedText(affectedText string) *SegmentStyleBuilder {
 	builder.affectedText = affectedText
@@ -2088,6 +2240,7 @@ func (builder *SegmentStyleBuilder) AffectedText(affectedText string) *SegmentSt
 }
 
 // 样式
+//
 // 示例值：
 func (builder *SegmentStyleBuilder) Style(style *SegmentStyleStyle) *SegmentStyleBuilder {
 	builder.style = style
@@ -2137,6 +2290,7 @@ func NewSegmentStyleStyleBuilder() *SegmentStyleStyleBuilder {
 }
 
 // 加粗
+//
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Bold(bold bool) *SegmentStyleStyleBuilder {
 	builder.bold = bold
@@ -2145,6 +2299,7 @@ func (builder *SegmentStyleStyleBuilder) Bold(bold bool) *SegmentStyleStyleBuild
 }
 
 // 斜体
+//
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Italic(italic bool) *SegmentStyleStyleBuilder {
 	builder.italic = italic
@@ -2153,6 +2308,7 @@ func (builder *SegmentStyleStyleBuilder) Italic(italic bool) *SegmentStyleStyleB
 }
 
 // 删除线
+//
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) StrikeThrough(strikeThrough bool) *SegmentStyleStyleBuilder {
 	builder.strikeThrough = strikeThrough
@@ -2161,6 +2317,7 @@ func (builder *SegmentStyleStyleBuilder) StrikeThrough(strikeThrough bool) *Segm
 }
 
 // 下划线
+//
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Underline(underline bool) *SegmentStyleStyleBuilder {
 	builder.underline = underline
@@ -2169,6 +2326,7 @@ func (builder *SegmentStyleStyleBuilder) Underline(underline bool) *SegmentStyle
 }
 
 // 字体颜色
+//
 // 示例值：#ff00ff
 func (builder *SegmentStyleStyleBuilder) ForeColor(foreColor string) *SegmentStyleStyleBuilder {
 	builder.foreColor = foreColor
@@ -2177,6 +2335,7 @@ func (builder *SegmentStyleStyleBuilder) ForeColor(foreColor string) *SegmentSty
 }
 
 // 字体大小
+//
 // 示例值：
 func (builder *SegmentStyleStyleBuilder) FontSize(fontSize int) *SegmentStyleStyleBuilder {
 	builder.fontSize = fontSize
@@ -2246,6 +2405,7 @@ func NewSheetBuilder() *SheetBuilder {
 }
 
 // 工作表id
+//
 // 示例值：sxj5ws
 func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
 	builder.sheetId = sheetId
@@ -2254,6 +2414,7 @@ func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
 }
 
 // 工作表标题
+//
 // 示例值：title
 func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 	builder.title = title
@@ -2262,6 +2423,7 @@ func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 }
 
 // 工作表索引位置
+//
 // 示例值：0
 func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 	builder.index = index
@@ -2270,6 +2432,7 @@ func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 }
 
 // 工作表是否被隐藏
+//
 // 示例值：false
 func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
 	builder.hidden = hidden
@@ -2278,6 +2441,7 @@ func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
 }
 
 // 单元格属性
+//
 // 示例值：
 func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *SheetBuilder {
 	builder.gridProperties = gridProperties
@@ -2286,6 +2450,7 @@ func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *She
 }
 
 // 工作表类型
+//
 // 示例值：sheet
 func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 	builder.resourceType = resourceType
@@ -2294,6 +2459,7 @@ func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 }
 
 // 合并单元格
+//
 // 示例值：
 func (builder *SheetBuilder) Merges(merges []*MergeRange) *SheetBuilder {
 	builder.merges = merges
@@ -2353,6 +2519,7 @@ func NewSheetFilterInfoBuilder() *SheetFilterInfoBuilder {
 }
 
 // 筛选应用范围
+//
 // 示例值：xxxxxx!A1:H14
 func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuilder {
 	builder.range_ = range_
@@ -2361,6 +2528,7 @@ func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuil
 }
 
 // 筛选出来隐藏的行
+//
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *SheetFilterInfoBuilder {
 	builder.filteredOutRows = filteredOutRows
@@ -2369,6 +2537,7 @@ func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *S
 }
 
 // sheet的筛选条件
+//
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilterInfos(filterInfos []*FilterInfo) *SheetFilterInfoBuilder {
 	builder.filterInfos = filterInfos
@@ -2415,6 +2584,7 @@ func NewSheetPropertiesBuilder() *SheetPropertiesBuilder {
 }
 
 // 工作表行数
+//
 // 示例值：1
 func (builder *SheetPropertiesBuilder) RowCount(rowCount int) *SheetPropertiesBuilder {
 	builder.rowCount = rowCount
@@ -2423,6 +2593,7 @@ func (builder *SheetPropertiesBuilder) RowCount(rowCount int) *SheetPropertiesBu
 }
 
 // 工作表列数
+//
 // 示例值：1
 func (builder *SheetPropertiesBuilder) ColumnCount(columnCount int) *SheetPropertiesBuilder {
 	builder.columnCount = columnCount
@@ -2431,6 +2602,7 @@ func (builder *SheetPropertiesBuilder) ColumnCount(columnCount int) *SheetProper
 }
 
 // 冻结行数
+//
 // 示例值：1
 func (builder *SheetPropertiesBuilder) FrozenRowCount(frozenRowCount int) *SheetPropertiesBuilder {
 	builder.frozenRowCount = frozenRowCount
@@ -2439,6 +2611,7 @@ func (builder *SheetPropertiesBuilder) FrozenRowCount(frozenRowCount int) *Sheet
 }
 
 // 冻结列数
+//
 // 示例值：1
 func (builder *SheetPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *SheetPropertiesBuilder {
 	builder.frozenColumnCount = frozenColumnCount
@@ -2491,6 +2664,7 @@ func NewSpreadsheetBuilder() *SpreadsheetBuilder {
 }
 
 // 表格标题
+//
 // 示例值：title
 func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	builder.title = title
@@ -2499,6 +2673,7 @@ func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 }
 
 // 文件夹token，获取方式见[概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+//
 // 示例值：fldcnMsNb*****hIW9IjG1LVswg
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
 	builder.folderToken = folderToken
@@ -2507,6 +2682,7 @@ func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetB
 }
 
 // 文档url
+//
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 	builder.url = url
@@ -2515,6 +2691,7 @@ func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 }
 
 // 表格token
+//
 // 示例值：shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *SpreadsheetBuilder {
 	builder.spreadsheetToken = spreadsheetToken
@@ -2561,6 +2738,7 @@ func NewTextBuilder() *TextBuilder {
 }
 
 // 文本值
+//
 // 示例值：abc
 func (builder *TextBuilder) Text(text string) *TextBuilder {
 	builder.text = text
@@ -2568,6 +2746,7 @@ func (builder *TextBuilder) Text(text string) *TextBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *TextBuilder) SegmentStyle(segmentStyle *SegmentStyle) *TextBuilder {
@@ -2606,6 +2785,7 @@ func NewUpdateDimensionPropertiesBuilder() *UpdateDimensionPropertiesBuilder {
 }
 
 // 需要更新的行列信息
+//
 // 示例值：
 func (builder *UpdateDimensionPropertiesBuilder) DimensionRange(dimensionRange *Dimension) *UpdateDimensionPropertiesBuilder {
 	builder.dimensionRange = dimensionRange
@@ -2614,6 +2794,7 @@ func (builder *UpdateDimensionPropertiesBuilder) DimensionRange(dimensionRange *
 }
 
 // 更新的属性
+//
 // 示例值：
 func (builder *UpdateDimensionPropertiesBuilder) Properties(properties *DimensionProperties) *UpdateDimensionPropertiesBuilder {
 	builder.properties = properties
@@ -2628,6 +2809,54 @@ func (builder *UpdateDimensionPropertiesBuilder) Build() *UpdateDimensionPropert
 	}
 	if builder.propertiesFlag {
 		req.Properties = builder.properties
+	}
+	return req
+}
+
+type UpdateGridProperties struct {
+	FrozenRowCount    *int `json:"frozen_row_count,omitempty"`    // 冻结行数
+	FrozenColumnCount *int `json:"frozen_column_count,omitempty"` // 冻结列数
+}
+
+type UpdateGridPropertiesBuilder struct {
+	frozenRowCount        int // 冻结行数
+	frozenRowCountFlag    bool
+	frozenColumnCount     int // 冻结列数
+	frozenColumnCountFlag bool
+}
+
+func NewUpdateGridPropertiesBuilder() *UpdateGridPropertiesBuilder {
+	builder := &UpdateGridPropertiesBuilder{}
+	return builder
+}
+
+// 冻结行数
+//
+// 示例值：1
+func (builder *UpdateGridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *UpdateGridPropertiesBuilder {
+	builder.frozenRowCount = frozenRowCount
+	builder.frozenRowCountFlag = true
+	return builder
+}
+
+// 冻结列数
+//
+// 示例值：1
+func (builder *UpdateGridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *UpdateGridPropertiesBuilder {
+	builder.frozenColumnCount = frozenColumnCount
+	builder.frozenColumnCountFlag = true
+	return builder
+}
+
+func (builder *UpdateGridPropertiesBuilder) Build() *UpdateGridProperties {
+	req := &UpdateGridProperties{}
+	if builder.frozenRowCountFlag {
+		req.FrozenRowCount = &builder.frozenRowCount
+
+	}
+	if builder.frozenColumnCountFlag {
+		req.FrozenColumnCount = &builder.frozenColumnCount
+
 	}
 	return req
 }
@@ -2650,6 +2879,7 @@ func NewUpdateSheetFilterBuilder() *UpdateSheetFilterBuilder {
 }
 
 // 更新筛选条件的列
+//
 // 示例值：E
 func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuilder {
 	builder.col = col
@@ -2658,6 +2888,7 @@ func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuild
 }
 
 // 筛选条件
+//
 // 示例值：
 func (builder *UpdateSheetFilterBuilder) Condition(condition *Condition) *UpdateSheetFilterBuilder {
 	builder.condition = condition
@@ -2692,6 +2923,7 @@ func NewUpdateSpreadsheetPropertiesBuilder() *UpdateSpreadsheetPropertiesBuilder
 }
 
 // 表格标题
+//
 // 示例值：title
 func (builder *UpdateSpreadsheetPropertiesBuilder) Title(title string) *UpdateSpreadsheetPropertiesBuilder {
 	builder.title = title
@@ -2726,6 +2958,7 @@ func NewValueBuilder() *ValueBuilder {
 }
 
 // 范围
+//
 // 示例值：Sheet1!A1:A2
 func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 	builder.range_ = range_
@@ -2734,6 +2967,7 @@ func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 }
 
 // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+//
 // 示例值：[]
 func (builder *ValueBuilder) Values(values [][][]*CellValue) *ValueBuilder {
 	builder.values = values
@@ -2768,6 +3002,7 @@ func NewValueElementBuilder() *ValueElementBuilder {
 }
 
 // 整型或浮点型数值
+//
 // 示例值：
 func (builder *ValueElementBuilder) Value(value string) *ValueElementBuilder {
 	builder.value = value

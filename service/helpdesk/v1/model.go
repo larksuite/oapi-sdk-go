@@ -47,21 +47,21 @@ const (
 )
 
 const (
-	UserIdTypeNotificationCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeNotificationCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeNotificationCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateNotificationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateNotificationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateNotificationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeNotificationGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeNotificationGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeNotificationGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetNotificationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetNotificationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetNotificationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeNotificationPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeNotificationPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeNotificationPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchNotificationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchNotificationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchNotificationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Agent struct {
@@ -94,6 +94,7 @@ func NewAgentBuilder() *AgentBuilder {
 }
 
 // user id
+//
 // 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentBuilder) Id(id string) *AgentBuilder {
 	builder.id = id
@@ -102,6 +103,7 @@ func (builder *AgentBuilder) Id(id string) *AgentBuilder {
 }
 
 // user avatar url
+//
 // 示例值：https://avatar-url.com/test.png
 func (builder *AgentBuilder) AvatarUrl(avatarUrl string) *AgentBuilder {
 	builder.avatarUrl = avatarUrl
@@ -110,6 +112,7 @@ func (builder *AgentBuilder) AvatarUrl(avatarUrl string) *AgentBuilder {
 }
 
 // user name
+//
 // 示例值：test-user
 func (builder *AgentBuilder) Name(name string) *AgentBuilder {
 	builder.name = name
@@ -118,6 +121,7 @@ func (builder *AgentBuilder) Name(name string) *AgentBuilder {
 }
 
 // user email
+//
 // 示例值：
 func (builder *AgentBuilder) Email(email string) *AgentBuilder {
 	builder.email = email
@@ -126,6 +130,7 @@ func (builder *AgentBuilder) Email(email string) *AgentBuilder {
 }
 
 // user department
+//
 // 示例值：
 func (builder *AgentBuilder) Department(department string) *AgentBuilder {
 	builder.department = department
@@ -134,6 +139,7 @@ func (builder *AgentBuilder) Department(department string) *AgentBuilder {
 }
 
 // company
+//
 // 示例值：
 func (builder *AgentBuilder) CompanyName(companyName string) *AgentBuilder {
 	builder.companyName = companyName
@@ -194,6 +200,7 @@ func NewAgentSchedulesBuilder() *AgentSchedulesBuilder {
 }
 
 // status of agent
+//
 // 示例值：
 func (builder *AgentSchedulesBuilder) Status(status int) *AgentSchedulesBuilder {
 	builder.status = status
@@ -202,6 +209,7 @@ func (builder *AgentSchedulesBuilder) Status(status int) *AgentSchedulesBuilder 
 }
 
 // agent info
+//
 // 示例值：
 func (builder *AgentSchedulesBuilder) Agent(agent *AgentUser) *AgentSchedulesBuilder {
 	builder.agent = agent
@@ -210,6 +218,7 @@ func (builder *AgentSchedulesBuilder) Agent(agent *AgentUser) *AgentSchedulesBui
 }
 
 // day schedule
+//
 // 示例值：
 func (builder *AgentSchedulesBuilder) Schedule(schedule []*WeekdaySchedule) *AgentSchedulesBuilder {
 	builder.schedule = schedule
@@ -218,6 +227,7 @@ func (builder *AgentSchedulesBuilder) Schedule(schedule []*WeekdaySchedule) *Age
 }
 
 // agent skills
+//
 // 示例值：
 func (builder *AgentSchedulesBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentSchedulesBuilder {
 	builder.agentSkills = agentSkills
@@ -267,6 +277,7 @@ func NewAgentScheduleBuilder() *AgentScheduleBuilder {
 }
 
 // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
+//
 // 示例值：1
 func (builder *AgentScheduleBuilder) Status(status int) *AgentScheduleBuilder {
 	builder.status = status
@@ -275,6 +286,7 @@ func (builder *AgentScheduleBuilder) Status(status int) *AgentScheduleBuilder {
 }
 
 // 客服信息
+//
 // 示例值：
 func (builder *AgentScheduleBuilder) Agent(agent *AgentUser) *AgentScheduleBuilder {
 	builder.agent = agent
@@ -283,6 +295,7 @@ func (builder *AgentScheduleBuilder) Agent(agent *AgentUser) *AgentScheduleBuild
 }
 
 // 工作日程列表
+//
 // 示例值：
 func (builder *AgentScheduleBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleBuilder {
 	builder.schedule = schedule
@@ -291,6 +304,7 @@ func (builder *AgentScheduleBuilder) Schedule(schedule []*WeekdaySchedule) *Agen
 }
 
 // 客服技能
+//
 // 示例值：
 func (builder *AgentScheduleBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentScheduleBuilder {
 	builder.agentSkills = agentSkills
@@ -337,6 +351,7 @@ func NewAgentScheduleUpdateInfoBuilder() *AgentScheduleUpdateInfoBuilder {
 }
 
 // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+//
 // 示例值：agent-id
 func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentId = agentId
@@ -345,6 +360,7 @@ func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentSch
 }
 
 // 工作日程列表
+//
 // 示例值：
 func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleUpdateInfoBuilder {
 	builder.schedule = schedule
@@ -353,7 +369,8 @@ func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySched
 }
 
 // 客服技能 ids
-// 示例值：[]
+//
+// 示例值：[“test-skill-id”]
 func (builder *AgentScheduleUpdateInfoBuilder) AgentSkillIds(agentSkillIds []string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentSkillIds = agentSkillIds
 	builder.agentSkillIdsFlag = true
@@ -408,6 +425,7 @@ func NewAgentSkillBuilder() *AgentSkillBuilder {
 }
 
 // 技能id
+//
 // 示例值：test-skill-id
 func (builder *AgentSkillBuilder) Id(id string) *AgentSkillBuilder {
 	builder.id = id
@@ -416,6 +434,7 @@ func (builder *AgentSkillBuilder) Id(id string) *AgentSkillBuilder {
 }
 
 // helpdesk id
+//
 // 示例值：
 func (builder *AgentSkillBuilder) HelpdeskId(helpdeskId string) *AgentSkillBuilder {
 	builder.helpdeskId = helpdeskId
@@ -424,6 +443,7 @@ func (builder *AgentSkillBuilder) HelpdeskId(helpdeskId string) *AgentSkillBuild
 }
 
 // 技能名
+//
 // 示例值：skill-name
 func (builder *AgentSkillBuilder) Name(name string) *AgentSkillBuilder {
 	builder.name = name
@@ -432,6 +452,7 @@ func (builder *AgentSkillBuilder) Name(name string) *AgentSkillBuilder {
 }
 
 // 技能rules
+//
 // 示例值：
 func (builder *AgentSkillBuilder) Rules(rules []*AgentSkillRule) *AgentSkillBuilder {
 	builder.rules = rules
@@ -440,6 +461,7 @@ func (builder *AgentSkillBuilder) Rules(rules []*AgentSkillRule) *AgentSkillBuil
 }
 
 // 具有此技能的客服ids
+//
 // 示例值：["ou_ea21d7f018e1155d960e40d33191f966"]
 func (builder *AgentSkillBuilder) AgentIds(agentIds []string) *AgentSkillBuilder {
 	builder.agentIds = agentIds
@@ -448,6 +470,7 @@ func (builder *AgentSkillBuilder) AgentIds(agentIds []string) *AgentSkillBuilder
 }
 
 // 默认技能
+//
 // 示例值：false
 func (builder *AgentSkillBuilder) IsDefault(isDefault bool) *AgentSkillBuilder {
 	builder.isDefault = isDefault
@@ -456,6 +479,7 @@ func (builder *AgentSkillBuilder) IsDefault(isDefault bool) *AgentSkillBuilder {
 }
 
 // 客服 info
+//
 // 示例值：
 func (builder *AgentSkillBuilder) Agents(agents []*Agent) *AgentSkillBuilder {
 	builder.agents = agents
@@ -514,6 +538,7 @@ func NewAgentSkillLessInfoBuilder() *AgentSkillLessInfoBuilder {
 }
 
 // 客服技能 id
+//
 // 示例值：agent-skill-id
 func (builder *AgentSkillLessInfoBuilder) Id(id string) *AgentSkillLessInfoBuilder {
 	builder.id = id
@@ -522,6 +547,7 @@ func (builder *AgentSkillLessInfoBuilder) Id(id string) *AgentSkillLessInfoBuild
 }
 
 // 客服技能名
+//
 // 示例值：agent-skill
 func (builder *AgentSkillLessInfoBuilder) Name(name string) *AgentSkillLessInfoBuilder {
 	builder.name = name
@@ -530,6 +556,7 @@ func (builder *AgentSkillLessInfoBuilder) Name(name string) *AgentSkillLessInfoB
 }
 
 // 是默认技能
+//
 // 示例值：false
 func (builder *AgentSkillLessInfoBuilder) IsDefault(isDefault bool) *AgentSkillLessInfoBuilder {
 	builder.isDefault = isDefault
@@ -584,6 +611,7 @@ func NewAgentSkillRuleBuilder() *AgentSkillRuleBuilder {
 }
 
 // rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+//
 // 示例值：test-skill-id
 func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 	builder.id = id
@@ -592,6 +620,7 @@ func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 }
 
 // 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+//
 // 示例值：8
 func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *AgentSkillRuleBuilder {
 	builder.selectedOperator = selectedOperator
@@ -600,6 +629,7 @@ func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *Ag
 }
 
 // rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+//
 // 示例值：[3]
 func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *AgentSkillRuleBuilder {
 	builder.operatorOptions = operatorOptions
@@ -608,6 +638,7 @@ func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *Ag
 }
 
 // rule 操作数的值
+//
 // 示例值：{;				"selected_departments": [;					{;						"id": "部门ID",;						"name": "IT";					};				];			}
 func (builder *AgentSkillRuleBuilder) Operand(operand string) *AgentSkillRuleBuilder {
 	builder.operand = operand
@@ -616,6 +647,7 @@ func (builder *AgentSkillRuleBuilder) Operand(operand string) *AgentSkillRuleBui
 }
 
 // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
+//
 // 示例值：3
 func (builder *AgentSkillRuleBuilder) Category(category int) *AgentSkillRuleBuilder {
 	builder.category = category
@@ -624,6 +656,7 @@ func (builder *AgentSkillRuleBuilder) Category(category int) *AgentSkillRuleBuil
 }
 
 // rule 名
+//
 // 示例值：中文知识库分类
 func (builder *AgentSkillRuleBuilder) DisplayName(displayName string) *AgentSkillRuleBuilder {
 	builder.displayName = displayName
@@ -689,6 +722,7 @@ func NewAgentUserBuilder() *AgentUserBuilder {
 }
 
 // 客服 id
+//
 // 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentUserBuilder) Id(id string) *AgentUserBuilder {
 	builder.id = id
@@ -697,6 +731,7 @@ func (builder *AgentUserBuilder) Id(id string) *AgentUserBuilder {
 }
 
 // avatar url
+//
 // 示例值：https://avatar-url.com/test.png
 func (builder *AgentUserBuilder) AvatarUrl(avatarUrl string) *AgentUserBuilder {
 	builder.avatarUrl = avatarUrl
@@ -705,6 +740,7 @@ func (builder *AgentUserBuilder) AvatarUrl(avatarUrl string) *AgentUserBuilder {
 }
 
 // 客服名字
+//
 // 示例值：test-user
 func (builder *AgentUserBuilder) Name(name string) *AgentUserBuilder {
 	builder.name = name
@@ -713,6 +749,7 @@ func (builder *AgentUserBuilder) Name(name string) *AgentUserBuilder {
 }
 
 // email
+//
 // 示例值：test@bytedance.com
 func (builder *AgentUserBuilder) Email(email string) *AgentUserBuilder {
 	builder.email = email
@@ -721,6 +758,7 @@ func (builder *AgentUserBuilder) Email(email string) *AgentUserBuilder {
 }
 
 // 部门
+//
 // 示例值：测试部门
 func (builder *AgentUserBuilder) Department(department string) *AgentUserBuilder {
 	builder.department = department
@@ -729,6 +767,7 @@ func (builder *AgentUserBuilder) Department(department string) *AgentUserBuilder
 }
 
 // 公司名
+//
 // 示例值：test-company
 func (builder *AgentUserBuilder) CompanyName(companyName string) *AgentUserBuilder {
 	builder.companyName = companyName
@@ -789,6 +828,7 @@ func NewBotMessageBuilder() *BotMessageBuilder {
 }
 
 // 消息类型
+//
 // 示例值：post
 func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 	builder.msgType = msgType
@@ -797,6 +837,7 @@ func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 }
 
 // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+//
 // 示例值：{\"post\":{\"zh_cn\":{\"title\":\"some title\",\"content\":[[{\"tag\":\"text\",\"text\":\"some content\"}]]}}}
 func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
 	builder.content = content
@@ -805,6 +846,7 @@ func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
 }
 
 // 接收消息用户id
+//
 // 示例值：ou_7346484524
 func (builder *BotMessageBuilder) ReceiverId(receiverId string) *BotMessageBuilder {
 	builder.receiverId = receiverId
@@ -813,6 +855,7 @@ func (builder *BotMessageBuilder) ReceiverId(receiverId string) *BotMessageBuild
 }
 
 // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
+//
 // 示例值：chat
 func (builder *BotMessageBuilder) ReceiveType(receiveType string) *BotMessageBuilder {
 	builder.receiveType = receiveType
@@ -871,6 +914,7 @@ func NewCategoryBuilder() *CategoryBuilder {
 }
 
 // 知识库分类ID
+//
 // 示例值：6948728206392295444
 func (builder *CategoryBuilder) CategoryId(categoryId string) *CategoryBuilder {
 	builder.categoryId = categoryId
@@ -879,6 +923,7 @@ func (builder *CategoryBuilder) CategoryId(categoryId string) *CategoryBuilder {
 }
 
 // 知识库分类ID，（旧版，请使用category_id）
+//
 // 示例值：6948728206392295444
 func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 	builder.id = id
@@ -887,6 +932,7 @@ func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 }
 
 // 名称
+//
 // 示例值：创建团队和邀请成员
 func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 	builder.name = name
@@ -895,6 +941,7 @@ func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 }
 
 // 父知识库分类ID
+//
 // 示例值：0
 func (builder *CategoryBuilder) ParentId(parentId string) *CategoryBuilder {
 	builder.parentId = parentId
@@ -903,6 +950,7 @@ func (builder *CategoryBuilder) ParentId(parentId string) *CategoryBuilder {
 }
 
 // 服务台ID
+//
 // 示例值：6939771743531696147
 func (builder *CategoryBuilder) HelpdeskId(helpdeskId string) *CategoryBuilder {
 	builder.helpdeskId = helpdeskId
@@ -911,6 +959,7 @@ func (builder *CategoryBuilder) HelpdeskId(helpdeskId string) *CategoryBuilder {
 }
 
 // 语言
+//
 // 示例值：zh_cn
 func (builder *CategoryBuilder) Language(language string) *CategoryBuilder {
 	builder.language = language
@@ -977,6 +1026,7 @@ func NewCommentsBuilder() *CommentsBuilder {
 }
 
 // 备注
+//
 // 示例值：备注内容
 func (builder *CommentsBuilder) Content(content string) *CommentsBuilder {
 	builder.content = content
@@ -985,6 +1035,7 @@ func (builder *CommentsBuilder) Content(content string) *CommentsBuilder {
 }
 
 // 备注时间，单位毫秒
+//
 // 示例值：备注时间
 func (builder *CommentsBuilder) CreatedAt(createdAt int) *CommentsBuilder {
 	builder.createdAt = createdAt
@@ -993,6 +1044,7 @@ func (builder *CommentsBuilder) CreatedAt(createdAt int) *CommentsBuilder {
 }
 
 // 备注ID
+//
 // 示例值：备注id
 func (builder *CommentsBuilder) Id(id int) *CommentsBuilder {
 	builder.id = id
@@ -1001,6 +1053,7 @@ func (builder *CommentsBuilder) Id(id int) *CommentsBuilder {
 }
 
 // 备注人头像
+//
 // 示例值：备注人头像
 func (builder *CommentsBuilder) UserAvatarUrl(userAvatarUrl string) *CommentsBuilder {
 	builder.userAvatarUrl = userAvatarUrl
@@ -1009,6 +1062,7 @@ func (builder *CommentsBuilder) UserAvatarUrl(userAvatarUrl string) *CommentsBui
 }
 
 // 备注人姓名
+//
 // 示例值：备注人姓名
 func (builder *CommentsBuilder) UserName(userName string) *CommentsBuilder {
 	builder.userName = userName
@@ -1017,6 +1071,7 @@ func (builder *CommentsBuilder) UserName(userName string) *CommentsBuilder {
 }
 
 // 备注人ID
+//
 // 示例值：备注人id
 func (builder *CommentsBuilder) UserId(userId int) *CommentsBuilder {
 	builder.userId = userId
@@ -1086,6 +1141,7 @@ func NewCustomizedFieldDisplayItemBuilder() *CustomizedFieldDisplayItemBuilder {
 }
 
 // 自定义字段ID
+//
 // 示例值：123
 func (builder *CustomizedFieldDisplayItemBuilder) Id(id string) *CustomizedFieldDisplayItemBuilder {
 	builder.id = id
@@ -1094,6 +1150,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Id(id string) *CustomizedField
 }
 
 // 自定义字段值
+//
 // 示例值：value
 func (builder *CustomizedFieldDisplayItemBuilder) Value(value string) *CustomizedFieldDisplayItemBuilder {
 	builder.value = value
@@ -1102,6 +1159,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Value(value string) *Customize
 }
 
 // 键名
+//
 // 示例值：key
 func (builder *CustomizedFieldDisplayItemBuilder) KeyName(keyName string) *CustomizedFieldDisplayItemBuilder {
 	builder.keyName = keyName
@@ -1110,6 +1168,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) KeyName(keyName string) *Custo
 }
 
 // 展示名称
+//
 // 示例值：display name
 func (builder *CustomizedFieldDisplayItemBuilder) DisplayName(displayName string) *CustomizedFieldDisplayItemBuilder {
 	builder.displayName = displayName
@@ -1118,6 +1177,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) DisplayName(displayName string
 }
 
 // 展示位置
+//
 // 示例值：1
 func (builder *CustomizedFieldDisplayItemBuilder) Position(position int) *CustomizedFieldDisplayItemBuilder {
 	builder.position = position
@@ -1126,6 +1186,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Position(position int) *Custom
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Required(required bool) *CustomizedFieldDisplayItemBuilder {
 	builder.required = required
@@ -1134,6 +1195,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Required(required bool) *Custo
 }
 
 // 是否可修改
+//
 // 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Editable(editable bool) *CustomizedFieldDisplayItemBuilder {
 	builder.editable = editable
@@ -1192,6 +1254,7 @@ func NewEventBuilder() *EventBuilder {
 }
 
 // 事件类型
+//
 // 示例值：helpdesk.ticket_message
 func (builder *EventBuilder) Type(type_ string) *EventBuilder {
 	builder.type_ = type_
@@ -1200,6 +1263,7 @@ func (builder *EventBuilder) Type(type_ string) *EventBuilder {
 }
 
 // 事件子类型
+//
 // 示例值：ticket_message.created_v1
 func (builder *EventBuilder) Subtype(subtype string) *EventBuilder {
 	builder.subtype = subtype
@@ -1271,6 +1335,7 @@ func NewFaqBuilder() *FaqBuilder {
 }
 
 // 知识库ID
+//
 // 示例值：6936004780707807231
 func (builder *FaqBuilder) FaqId(faqId string) *FaqBuilder {
 	builder.faqId = faqId
@@ -1279,6 +1344,7 @@ func (builder *FaqBuilder) FaqId(faqId string) *FaqBuilder {
 }
 
 // 知识库旧版ID，请使用faq_id
+//
 // 示例值：6936004780707807231
 func (builder *FaqBuilder) Id(id string) *FaqBuilder {
 	builder.id = id
@@ -1287,6 +1353,7 @@ func (builder *FaqBuilder) Id(id string) *FaqBuilder {
 }
 
 // 服务台ID
+//
 // 示例值：6936004780707807251
 func (builder *FaqBuilder) HelpdeskId(helpdeskId string) *FaqBuilder {
 	builder.helpdeskId = helpdeskId
@@ -1295,6 +1362,7 @@ func (builder *FaqBuilder) HelpdeskId(helpdeskId string) *FaqBuilder {
 }
 
 // 问题
+//
 // 示例值：问题
 func (builder *FaqBuilder) Question(question string) *FaqBuilder {
 	builder.question = question
@@ -1303,6 +1371,7 @@ func (builder *FaqBuilder) Question(question string) *FaqBuilder {
 }
 
 // 答案
+//
 // 示例值：答案
 func (builder *FaqBuilder) Answer(answer string) *FaqBuilder {
 	builder.answer = answer
@@ -1311,6 +1380,7 @@ func (builder *FaqBuilder) Answer(answer string) *FaqBuilder {
 }
 
 // 富文本答案
+//
 // 示例值：
 func (builder *FaqBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqBuilder {
 	builder.answerRichtext = answerRichtext
@@ -1319,6 +1389,7 @@ func (builder *FaqBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqBuilde
 }
 
 // 创建时间
+//
 // 示例值：1596379008
 func (builder *FaqBuilder) CreateTime(createTime int) *FaqBuilder {
 	builder.createTime = createTime
@@ -1327,6 +1398,7 @@ func (builder *FaqBuilder) CreateTime(createTime int) *FaqBuilder {
 }
 
 // 修改时间
+//
 // 示例值：1596379008
 func (builder *FaqBuilder) UpdateTime(updateTime int) *FaqBuilder {
 	builder.updateTime = updateTime
@@ -1335,6 +1407,7 @@ func (builder *FaqBuilder) UpdateTime(updateTime int) *FaqBuilder {
 }
 
 // 分类
+//
 // 示例值：
 func (builder *FaqBuilder) Categories(categories []*Category) *FaqBuilder {
 	builder.categories = categories
@@ -1343,6 +1416,7 @@ func (builder *FaqBuilder) Categories(categories []*Category) *FaqBuilder {
 }
 
 // 相似问题列表
+//
 // 示例值：
 func (builder *FaqBuilder) Tags(tags []string) *FaqBuilder {
 	builder.tags = tags
@@ -1351,6 +1425,7 @@ func (builder *FaqBuilder) Tags(tags []string) *FaqBuilder {
 }
 
 // 失效时间
+//
 // 示例值：1596379008
 func (builder *FaqBuilder) ExpireTime(expireTime int) *FaqBuilder {
 	builder.expireTime = expireTime
@@ -1359,6 +1434,7 @@ func (builder *FaqBuilder) ExpireTime(expireTime int) *FaqBuilder {
 }
 
 // 更新用户
+//
 // 示例值：
 func (builder *FaqBuilder) UpdateUser(updateUser *TicketUser) *FaqBuilder {
 	builder.updateUser = updateUser
@@ -1367,6 +1443,7 @@ func (builder *FaqBuilder) UpdateUser(updateUser *TicketUser) *FaqBuilder {
 }
 
 // 创建用户
+//
 // 示例值：
 func (builder *FaqBuilder) CreateUser(createUser *TicketUser) *FaqBuilder {
 	builder.createUser = createUser
@@ -1453,6 +1530,7 @@ func NewFaqUpdateInfoBuilder() *FaqUpdateInfoBuilder {
 }
 
 // 知识库分类ID
+//
 // 示例值：6836004780707807251
 func (builder *FaqUpdateInfoBuilder) CategoryId(categoryId string) *FaqUpdateInfoBuilder {
 	builder.categoryId = categoryId
@@ -1461,6 +1539,7 @@ func (builder *FaqUpdateInfoBuilder) CategoryId(categoryId string) *FaqUpdateInf
 }
 
 // 问题
+//
 // 示例值：问题
 func (builder *FaqUpdateInfoBuilder) Question(question string) *FaqUpdateInfoBuilder {
 	builder.question = question
@@ -1469,6 +1548,7 @@ func (builder *FaqUpdateInfoBuilder) Question(question string) *FaqUpdateInfoBui
 }
 
 // 答案
+//
 // 示例值：答案
 func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder {
 	builder.answer = answer
@@ -1477,6 +1557,7 @@ func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder
 }
 
 // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+//
 // 示例值：[{;						"content": "这只是一个测试，医保问题",;						"type": "text";					}]
 func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqUpdateInfoBuilder {
 	builder.answerRichtext = answerRichtext
@@ -1485,6 +1566,7 @@ func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqU
 }
 
 // 相似问题
+//
 // 示例值：["tag1","tag2","tag3"]
 func (builder *FaqUpdateInfoBuilder) Tags(tags []string) *FaqUpdateInfoBuilder {
 	builder.tags = tags
@@ -1588,6 +1670,7 @@ func NewNotificationBuilder() *NotificationBuilder {
 }
 
 // 非必填，创建成功后返回
+//
 // 示例值：6981801914270744596
 func (builder *NotificationBuilder) Id(id string) *NotificationBuilder {
 	builder.id = id
@@ -1596,6 +1679,7 @@ func (builder *NotificationBuilder) Id(id string) *NotificationBuilder {
 }
 
 // 必填，任务名称
+//
 // 示例值：测试推送任务
 func (builder *NotificationBuilder) JobName(jobName string) *NotificationBuilder {
 	builder.jobName = jobName
@@ -1604,6 +1688,7 @@ func (builder *NotificationBuilder) JobName(jobName string) *NotificationBuilder
 }
 
 // 非必填，创建成功后返回
+//
 // 示例值：0
 func (builder *NotificationBuilder) Status(status int) *NotificationBuilder {
 	builder.status = status
@@ -1612,6 +1697,7 @@ func (builder *NotificationBuilder) Status(status int) *NotificationBuilder {
 }
 
 // 非必填，创建人
+//
 // 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) CreateUser(createUser *NotificationUser) *NotificationBuilder {
 	builder.createUser = createUser
@@ -1620,6 +1706,7 @@ func (builder *NotificationBuilder) CreateUser(createUser *NotificationUser) *No
 }
 
 // 非必填，创建时间（毫秒时间戳）
+//
 // 示例值：1626332244719
 func (builder *NotificationBuilder) CreatedAt(createdAt string) *NotificationBuilder {
 	builder.createdAt = createdAt
@@ -1628,6 +1715,7 @@ func (builder *NotificationBuilder) CreatedAt(createdAt string) *NotificationBui
 }
 
 // 非必填，更新用户
+//
 // 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) UpdateUser(updateUser *NotificationUser) *NotificationBuilder {
 	builder.updateUser = updateUser
@@ -1636,6 +1724,7 @@ func (builder *NotificationBuilder) UpdateUser(updateUser *NotificationUser) *No
 }
 
 // 非必填，更新时间（毫秒时间戳）
+//
 // 示例值：1626332244719
 func (builder *NotificationBuilder) UpdatedAt(updatedAt string) *NotificationBuilder {
 	builder.updatedAt = updatedAt
@@ -1644,6 +1733,7 @@ func (builder *NotificationBuilder) UpdatedAt(updatedAt string) *NotificationBui
 }
 
 // 非必填，目标推送用户总数
+//
 // 示例值：1
 func (builder *NotificationBuilder) TargetUserCount(targetUserCount int) *NotificationBuilder {
 	builder.targetUserCount = targetUserCount
@@ -1652,6 +1742,7 @@ func (builder *NotificationBuilder) TargetUserCount(targetUserCount int) *Notifi
 }
 
 // 非必填，已推送用户总数
+//
 // 示例值：1
 func (builder *NotificationBuilder) SentUserCount(sentUserCount int) *NotificationBuilder {
 	builder.sentUserCount = sentUserCount
@@ -1660,6 +1751,7 @@ func (builder *NotificationBuilder) SentUserCount(sentUserCount int) *Notificati
 }
 
 // 非必填，已读用户总数
+//
 // 示例值：1
 func (builder *NotificationBuilder) ReadUserCount(readUserCount int) *NotificationBuilder {
 	builder.readUserCount = readUserCount
@@ -1668,6 +1760,7 @@ func (builder *NotificationBuilder) ReadUserCount(readUserCount int) *Notificati
 }
 
 // 非必填，推送任务触发时间（毫秒时间戳）
+//
 // 示例值：1626332244719
 func (builder *NotificationBuilder) SendAt(sendAt string) *NotificationBuilder {
 	builder.sendAt = sendAt
@@ -1676,6 +1769,7 @@ func (builder *NotificationBuilder) SendAt(sendAt string) *NotificationBuilder {
 }
 
 // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
+//
 // 示例值：{   \"config\": {	 \"wide_screen_mode\": true   },   \"elements\": [	 {	   \"tag\": \"div\",	   \"text\": {		 \"tag\": \"lark_md\",		 \"content\": \"[飞书](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"	   }	 }   ] }
 func (builder *NotificationBuilder) PushContent(pushContent string) *NotificationBuilder {
 	builder.pushContent = pushContent
@@ -1684,6 +1778,7 @@ func (builder *NotificationBuilder) PushContent(pushContent string) *Notificatio
 }
 
 // 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
+//
 // 示例值：0
 func (builder *NotificationBuilder) PushType(pushType int) *NotificationBuilder {
 	builder.pushType = pushType
@@ -1692,6 +1787,7 @@ func (builder *NotificationBuilder) PushType(pushType int) *NotificationBuilder 
 }
 
 // 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
+//
 // 示例值：0
 func (builder *NotificationBuilder) PushScopeType(pushScopeType int) *NotificationBuilder {
 	builder.pushScopeType = pushScopeType
@@ -1700,6 +1796,7 @@ func (builder *NotificationBuilder) PushScopeType(pushScopeType int) *Notificati
 }
 
 // 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
+//
 // 示例值：0
 func (builder *NotificationBuilder) NewStaffScopeType(newStaffScopeType int) *NotificationBuilder {
 	builder.newStaffScopeType = newStaffScopeType
@@ -1708,6 +1805,7 @@ func (builder *NotificationBuilder) NewStaffScopeType(newStaffScopeType int) *No
 }
 
 // 非必填，新人入职生效部门列表
+//
 // 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) NewStaffScopeDepartmentList(newStaffScopeDepartmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.newStaffScopeDepartmentList = newStaffScopeDepartmentList
@@ -1716,6 +1814,7 @@ func (builder *NotificationBuilder) NewStaffScopeDepartmentList(newStaffScopeDep
 }
 
 // 非必填，push推送到成员列表
+//
 // 示例值：[{"user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}]
 func (builder *NotificationBuilder) UserList(userList []*NotificationUser) *NotificationBuilder {
 	builder.userList = userList
@@ -1724,6 +1823,7 @@ func (builder *NotificationBuilder) UserList(userList []*NotificationUser) *Noti
 }
 
 // 非必填，push推送到的部门信息列表
+//
 // 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) DepartmentList(departmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.departmentList = departmentList
@@ -1732,6 +1832,7 @@ func (builder *NotificationBuilder) DepartmentList(departmentList []*Notificatio
 }
 
 // 非必填，push推送到的会话列表(群)
+//
 // 示例值：[{"chat_id":"oc_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) ChatList(chatList []*NotificationChat) *NotificationBuilder {
 	builder.chatList = chatList
@@ -1740,6 +1841,7 @@ func (builder *NotificationBuilder) ChatList(chatList []*NotificationChat) *Noti
 }
 
 // 非必填，预留扩展字段
+//
 // 示例值：{}
 func (builder *NotificationBuilder) Ext(ext string) *NotificationBuilder {
 	builder.ext = ext
@@ -1844,6 +1946,7 @@ func NewNotificationChatBuilder() *NotificationChatBuilder {
 }
 
 // 非必填，会话ID
+//
 // 示例值：oc_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationChatBuilder) ChatId(chatId string) *NotificationChatBuilder {
 	builder.chatId = chatId
@@ -1852,6 +1955,7 @@ func (builder *NotificationChatBuilder) ChatId(chatId string) *NotificationChatB
 }
 
 // 非必填，会话名称
+//
 // 示例值：测试群聊
 func (builder *NotificationChatBuilder) Name(name string) *NotificationChatBuilder {
 	builder.name = name
@@ -1890,6 +1994,7 @@ func NewNotificationDepartmentBuilder() *NotificationDepartmentBuilder {
 }
 
 // 部门ID
+//
 // 示例值：od_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationDepartmentBuilder) DepartmentId(departmentId string) *NotificationDepartmentBuilder {
 	builder.departmentId = departmentId
@@ -1898,6 +2003,7 @@ func (builder *NotificationDepartmentBuilder) DepartmentId(departmentId string) 
 }
 
 // 非必填，部门名称
+//
 // 示例值：测试部门
 func (builder *NotificationDepartmentBuilder) Name(name string) *NotificationDepartmentBuilder {
 	builder.name = name
@@ -1939,6 +2045,7 @@ func NewNotificationUserBuilder() *NotificationUserBuilder {
 }
 
 // 非必填，用户id
+//
 // 示例值：ou_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationUserBuilder) UserId(userId string) *NotificationUserBuilder {
 	builder.userId = userId
@@ -1947,6 +2054,7 @@ func (builder *NotificationUserBuilder) UserId(userId string) *NotificationUserB
 }
 
 // 非必填，头像地址
+//
 // 示例值：http://*.com/*.png
 func (builder *NotificationUserBuilder) AvatarUrl(avatarUrl string) *NotificationUserBuilder {
 	builder.avatarUrl = avatarUrl
@@ -1955,6 +2063,7 @@ func (builder *NotificationUserBuilder) AvatarUrl(avatarUrl string) *Notificatio
 }
 
 // 非必填，用户名称
+//
 // 示例值：test
 func (builder *NotificationUserBuilder) Name(name string) *NotificationUserBuilder {
 	builder.name = name
@@ -1997,6 +2106,7 @@ func NewRichtextBuilder() *RichtextBuilder {
 }
 
 // 内容
+//
 // 示例值：我的答案
 func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 	builder.content = content
@@ -2005,6 +2115,7 @@ func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 }
 
 // 类型
+//
 // 示例值：text
 func (builder *RichtextBuilder) Type(type_ string) *RichtextBuilder {
 	builder.type_ = type_
@@ -2115,6 +2226,7 @@ func NewTicketBuilder() *TicketBuilder {
 }
 
 // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+//
 // 示例值：6626871355780366331
 func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
 	builder.ticketId = ticketId
@@ -2123,6 +2235,7 @@ func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
 }
 
 // 服务台ID
+//
 // 示例值：6626871355780366330
 func (builder *TicketBuilder) HelpdeskId(helpdeskId string) *TicketBuilder {
 	builder.helpdeskId = helpdeskId
@@ -2131,6 +2244,7 @@ func (builder *TicketBuilder) HelpdeskId(helpdeskId string) *TicketBuilder {
 }
 
 // 工单创建用户
+//
 // 示例值：
 func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 	builder.guest = guest
@@ -2139,6 +2253,7 @@ func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 }
 
 // 备注
+//
 // 示例值：
 func (builder *TicketBuilder) Comments(comments *Comments) *TicketBuilder {
 	builder.comments = comments
@@ -2147,6 +2262,7 @@ func (builder *TicketBuilder) Comments(comments *Comments) *TicketBuilder {
 }
 
 // 工单阶段：1. 机器人 2. 人工
+//
 // 示例值：1
 func (builder *TicketBuilder) TicketType(ticketType int) *TicketBuilder {
 	builder.ticketType = ticketType
@@ -2155,6 +2271,7 @@ func (builder *TicketBuilder) TicketType(ticketType int) *TicketBuilder {
 }
 
 // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+//
 // 示例值：50
 func (builder *TicketBuilder) Status(status int) *TicketBuilder {
 	builder.status = status
@@ -2163,6 +2280,7 @@ func (builder *TicketBuilder) Status(status int) *TicketBuilder {
 }
 
 // 工单评分，1：不满意，2:一般，3:满意
+//
 // 示例值：1
 func (builder *TicketBuilder) Score(score int) *TicketBuilder {
 	builder.score = score
@@ -2171,6 +2289,7 @@ func (builder *TicketBuilder) Score(score int) *TicketBuilder {
 }
 
 // 工单创建时间
+//
 // 示例值：1616920429000
 func (builder *TicketBuilder) CreatedAt(createdAt int) *TicketBuilder {
 	builder.createdAt = createdAt
@@ -2179,6 +2298,7 @@ func (builder *TicketBuilder) CreatedAt(createdAt int) *TicketBuilder {
 }
 
 // 工单更新时间，没有值时为-1
+//
 // 示例值：1616920429000
 func (builder *TicketBuilder) UpdatedAt(updatedAt int) *TicketBuilder {
 	builder.updatedAt = updatedAt
@@ -2187,6 +2307,7 @@ func (builder *TicketBuilder) UpdatedAt(updatedAt int) *TicketBuilder {
 }
 
 // 工单结束时间
+//
 // 示例值：1616920429000
 func (builder *TicketBuilder) ClosedAt(closedAt int) *TicketBuilder {
 	builder.closedAt = closedAt
@@ -2195,6 +2316,7 @@ func (builder *TicketBuilder) ClosedAt(closedAt int) *TicketBuilder {
 }
 
 // 不满意原因
+//
 // 示例值：
 func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason []string) *TicketBuilder {
 	builder.dissatisfactionReason = dissatisfactionReason
@@ -2203,6 +2325,7 @@ func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason []stri
 }
 
 // 工单客服
+//
 // 示例值：
 func (builder *TicketBuilder) Agents(agents []*TicketUser) *TicketBuilder {
 	builder.agents = agents
@@ -2211,6 +2334,7 @@ func (builder *TicketBuilder) Agents(agents []*TicketUser) *TicketBuilder {
 }
 
 // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+//
 // 示例值：0
 func (builder *TicketBuilder) Channel(channel int) *TicketBuilder {
 	builder.channel = channel
@@ -2219,6 +2343,7 @@ func (builder *TicketBuilder) Channel(channel int) *TicketBuilder {
 }
 
 // 工单是否解决 1:没解决 2:已解决
+//
 // 示例值：1
 func (builder *TicketBuilder) Solve(solve int) *TicketBuilder {
 	builder.solve = solve
@@ -2227,6 +2352,7 @@ func (builder *TicketBuilder) Solve(solve int) *TicketBuilder {
 }
 
 // 关单用户ID
+//
 // 示例值：
 func (builder *TicketBuilder) ClosedBy(closedBy *TicketUser) *TicketBuilder {
 	builder.closedBy = closedBy
@@ -2235,6 +2361,7 @@ func (builder *TicketBuilder) ClosedBy(closedBy *TicketUser) *TicketBuilder {
 }
 
 // 工单协作者
+//
 // 示例值：
 func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *TicketBuilder {
 	builder.collaborators = collaborators
@@ -2243,6 +2370,7 @@ func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *Ticket
 }
 
 // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+//
 // 示例值：
 func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketBuilder {
 	builder.customizedFields = customizedFields
@@ -2251,6 +2379,7 @@ func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFie
 }
 
 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
+//
 // 示例值：42624.95
 func (builder *TicketBuilder) AgentServiceDuration(agentServiceDuration float64) *TicketBuilder {
 	builder.agentServiceDuration = agentServiceDuration
@@ -2259,6 +2388,7 @@ func (builder *TicketBuilder) AgentServiceDuration(agentServiceDuration float64)
 }
 
 // 客服首次回复时间距离客服进入时间的间隔(秒)
+//
 // 示例值：123869
 func (builder *TicketBuilder) AgentFirstResponseDuration(agentFirstResponseDuration int) *TicketBuilder {
 	builder.agentFirstResponseDuration = agentFirstResponseDuration
@@ -2267,6 +2397,7 @@ func (builder *TicketBuilder) AgentFirstResponseDuration(agentFirstResponseDurat
 }
 
 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+//
 // 示例值：1
 func (builder *TicketBuilder) BotServiceDuration(botServiceDuration int) *TicketBuilder {
 	builder.botServiceDuration = botServiceDuration
@@ -2275,6 +2406,7 @@ func (builder *TicketBuilder) BotServiceDuration(botServiceDuration int) *Ticket
 }
 
 // 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+//
 // 示例值：66
 func (builder *TicketBuilder) AgentResolutionTime(agentResolutionTime int) *TicketBuilder {
 	builder.agentResolutionTime = agentResolutionTime
@@ -2283,6 +2415,7 @@ func (builder *TicketBuilder) AgentResolutionTime(agentResolutionTime int) *Tick
 }
 
 // 工单实际处理时间：从客服进入到关单，单位秒
+//
 // 示例值：68
 func (builder *TicketBuilder) ActualProcessingTime(actualProcessingTime int) *TicketBuilder {
 	builder.actualProcessingTime = actualProcessingTime
@@ -2291,6 +2424,7 @@ func (builder *TicketBuilder) ActualProcessingTime(actualProcessingTime int) *Ti
 }
 
 // 客服进入时间，单位毫秒
+//
 // 示例值：1636444596000
 func (builder *TicketBuilder) AgentEntryTime(agentEntryTime int) *TicketBuilder {
 	builder.agentEntryTime = agentEntryTime
@@ -2299,6 +2433,7 @@ func (builder *TicketBuilder) AgentEntryTime(agentEntryTime int) *TicketBuilder 
 }
 
 // 客服首次回复时间，单位毫秒
+//
 // 示例值：1636444696000
 func (builder *TicketBuilder) AgentFirstResponseTime(agentFirstResponseTime int) *TicketBuilder {
 	builder.agentFirstResponseTime = agentFirstResponseTime
@@ -2307,6 +2442,7 @@ func (builder *TicketBuilder) AgentFirstResponseTime(agentFirstResponseTime int)
 }
 
 // 客服最后回复时间，单位毫秒
+//
 // 示例值：1636444796000
 func (builder *TicketBuilder) AgentLastResponseTime(agentLastResponseTime int) *TicketBuilder {
 	builder.agentLastResponseTime = agentLastResponseTime
@@ -2315,6 +2451,7 @@ func (builder *TicketBuilder) AgentLastResponseTime(agentLastResponseTime int) *
 }
 
 // 主责客服
+//
 // 示例值：
 func (builder *TicketBuilder) AgentOwner(agentOwner *TicketUser) *TicketBuilder {
 	builder.agentOwner = agentOwner
@@ -2459,6 +2596,7 @@ func NewTicketMessageBuilder() *TicketMessageBuilder {
 }
 
 // 工单消息ID
+//
 // 示例值：6948728206392295444
 func (builder *TicketMessageBuilder) Id(id string) *TicketMessageBuilder {
 	builder.id = id
@@ -2467,6 +2605,7 @@ func (builder *TicketMessageBuilder) Id(id string) *TicketMessageBuilder {
 }
 
 // chat消息ID
+//
 // 示例值：6949088236610273307
 func (builder *TicketMessageBuilder) MessageId(messageId string) *TicketMessageBuilder {
 	builder.messageId = messageId
@@ -2475,6 +2614,7 @@ func (builder *TicketMessageBuilder) MessageId(messageId string) *TicketMessageB
 }
 
 // 消息类型；text：纯文本；post：富文本
+//
 // 示例值：text
 func (builder *TicketMessageBuilder) MessageType(messageType string) *TicketMessageBuilder {
 	builder.messageType = messageType
@@ -2483,6 +2623,7 @@ func (builder *TicketMessageBuilder) MessageType(messageType string) *TicketMess
 }
 
 // 创建时间
+//
 // 示例值：1617960686000
 func (builder *TicketMessageBuilder) CreatedAt(createdAt int) *TicketMessageBuilder {
 	builder.createdAt = createdAt
@@ -2491,6 +2632,7 @@ func (builder *TicketMessageBuilder) CreatedAt(createdAt int) *TicketMessageBuil
 }
 
 // 内容
+//
 // 示例值："{\"content\":\"进入人工服务。 @李宁  为你提供服务，开始聊起来吧~\",\"msg_type\":\"text\"}"
 func (builder *TicketMessageBuilder) Content(content string) *TicketMessageBuilder {
 	builder.content = content
@@ -2499,6 +2641,7 @@ func (builder *TicketMessageBuilder) Content(content string) *TicketMessageBuild
 }
 
 // 用户名
+//
 // 示例值：李宁
 func (builder *TicketMessageBuilder) UserName(userName string) *TicketMessageBuilder {
 	builder.userName = userName
@@ -2507,6 +2650,7 @@ func (builder *TicketMessageBuilder) UserName(userName string) *TicketMessageBui
 }
 
 // 用户图片url
+//
 // 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/3e73cdce-54b0-4c6a-8226-b131fb2825dj~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp
 func (builder *TicketMessageBuilder) AvatarUrl(avatarUrl string) *TicketMessageBuilder {
 	builder.avatarUrl = avatarUrl
@@ -2515,6 +2659,7 @@ func (builder *TicketMessageBuilder) AvatarUrl(avatarUrl string) *TicketMessageB
 }
 
 // 用户open ID
+//
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketMessageBuilder) UserId(userId string) *TicketMessageBuilder {
 	builder.userId = userId
@@ -2616,6 +2761,7 @@ func NewTicketCustomizedFieldBuilder() *TicketCustomizedFieldBuilder {
 }
 
 // 工单自定义字段ID
+//
 // 示例值：6834320707288072194
 func (builder *TicketCustomizedFieldBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *TicketCustomizedFieldBuilder {
 	builder.ticketCustomizedFieldId = ticketCustomizedFieldId
@@ -2624,6 +2770,7 @@ func (builder *TicketCustomizedFieldBuilder) TicketCustomizedFieldId(ticketCusto
 }
 
 // 服务台ID
+//
 // 示例值：1542164574896126
 func (builder *TicketCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *TicketCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
@@ -2632,6 +2779,7 @@ func (builder *TicketCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *Tick
 }
 
 // 键名
+//
 // 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) KeyName(keyName string) *TicketCustomizedFieldBuilder {
 	builder.keyName = keyName
@@ -2640,6 +2788,7 @@ func (builder *TicketCustomizedFieldBuilder) KeyName(keyName string) *TicketCust
 }
 
 // 名称
+//
 // 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) DisplayName(displayName string) *TicketCustomizedFieldBuilder {
 	builder.displayName = displayName
@@ -2648,6 +2797,7 @@ func (builder *TicketCustomizedFieldBuilder) DisplayName(displayName string) *Ti
 }
 
 // 字段在列表后台管理列表中的位置
+//
 // 示例值：3
 func (builder *TicketCustomizedFieldBuilder) Position(position string) *TicketCustomizedFieldBuilder {
 	builder.position = position
@@ -2656,6 +2806,7 @@ func (builder *TicketCustomizedFieldBuilder) Position(position string) *TicketCu
 }
 
 // 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
+//
 // 示例值：dropdown
 func (builder *TicketCustomizedFieldBuilder) FieldType(fieldType string) *TicketCustomizedFieldBuilder {
 	builder.fieldType = fieldType
@@ -2664,6 +2815,7 @@ func (builder *TicketCustomizedFieldBuilder) FieldType(fieldType string) *Ticket
 }
 
 // 描述
+//
 // 示例值：下拉示例
 func (builder *TicketCustomizedFieldBuilder) Description(description string) *TicketCustomizedFieldBuilder {
 	builder.description = description
@@ -2672,6 +2824,7 @@ func (builder *TicketCustomizedFieldBuilder) Description(description string) *Ti
 }
 
 // 是否可见
+//
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Visible(visible bool) *TicketCustomizedFieldBuilder {
 	builder.visible = visible
@@ -2680,6 +2833,7 @@ func (builder *TicketCustomizedFieldBuilder) Visible(visible bool) *TicketCustom
 }
 
 // 是否可以修改
+//
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Editable(editable bool) *TicketCustomizedFieldBuilder {
 	builder.editable = editable
@@ -2688,6 +2842,7 @@ func (builder *TicketCustomizedFieldBuilder) Editable(editable bool) *TicketCust
 }
 
 // 是否必填
+//
 // 示例值：false
 func (builder *TicketCustomizedFieldBuilder) Required(required bool) *TicketCustomizedFieldBuilder {
 	builder.required = required
@@ -2696,6 +2851,7 @@ func (builder *TicketCustomizedFieldBuilder) Required(required bool) *TicketCust
 }
 
 // 创建时间
+//
 // 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) CreatedAt(createdAt string) *TicketCustomizedFieldBuilder {
 	builder.createdAt = createdAt
@@ -2704,6 +2860,7 @@ func (builder *TicketCustomizedFieldBuilder) CreatedAt(createdAt string) *Ticket
 }
 
 // 更新时间
+//
 // 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) UpdatedAt(updatedAt string) *TicketCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
@@ -2712,6 +2869,7 @@ func (builder *TicketCustomizedFieldBuilder) UpdatedAt(updatedAt string) *Ticket
 }
 
 // 创建用户
+//
 // 示例值：
 func (builder *TicketCustomizedFieldBuilder) CreatedBy(createdBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.createdBy = createdBy
@@ -2720,6 +2878,7 @@ func (builder *TicketCustomizedFieldBuilder) CreatedBy(createdBy *TicketUser) *T
 }
 
 // 更新用户
+//
 // 示例值：
 func (builder *TicketCustomizedFieldBuilder) UpdatedBy(updatedBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.updatedBy = updatedBy
@@ -2728,6 +2887,7 @@ func (builder *TicketCustomizedFieldBuilder) UpdatedBy(updatedBy *TicketUser) *T
 }
 
 // 是否支持多选，仅在字段类型是dropdown的时候有效
+//
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) DropdownAllowMultiple(dropdownAllowMultiple bool) *TicketCustomizedFieldBuilder {
 	builder.dropdownAllowMultiple = dropdownAllowMultiple
@@ -2799,54 +2959,54 @@ func (builder *TicketCustomizedFieldBuilder) Build() *TicketCustomizedField {
 }
 
 type TicketEvent struct {
-	TicketId         *string                       `json:"ticket_id,omitempty"`         // 6626871355780366331
-	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 6626871355780366330
-	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // abc
-	Stage            *int                          `json:"stage,omitempty"`             // 1
-	Status           *int                          `json:"status,omitempty"`            // 50
-	Score            *int                          `json:"score,omitempty"`             // 1
-	CreatedAt        *int                          `json:"created_at,omitempty"`        // 1616920429000
-	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 1616920429000
-	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 1616920429000
+	TicketId         *string                       `json:"ticket_id,omitempty"`         // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 服务台id
+	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // 用户id
+	Stage            *int                          `json:"stage,omitempty"`             // 工单阶段：1. 机器人 2. 人工
+	Status           *int                          `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	Score            *int                          `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
+	CreatedAt        *int                          `json:"created_at,omitempty"`        // 创建时间
+	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
+	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 关单时间
 	Agents           []*TicketUserEvent            `json:"agents,omitempty"`            // agents of this ticket
-	Channel          *int                          `json:"channel,omitempty"`           // 0
-	Solve            *int                          `json:"solve,omitempty"`             // 1
+	Channel          *int                          `json:"channel,omitempty"`           // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	Solve            *int                          `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
 	ClosedBy         *TicketUserEvent              `json:"closed_by,omitempty"`         // closed user of this ticket
 	Collaborators    []*TicketUserEvent            `json:"collaborators,omitempty"`     // collaborators of this ticket
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // []
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // 自定义字段
 	ChatId           *string                       `json:"chat_id,omitempty"`           // oc_xxxxxxx
 }
 
 type TicketEventBuilder struct {
-	ticketId             string // 6626871355780366331
+	ticketId             string // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	ticketIdFlag         bool
-	helpdeskId           string // 6626871355780366330
+	helpdeskId           string // 服务台id
 	helpdeskIdFlag       bool
-	guest                *TicketUserEvent // abc
+	guest                *TicketUserEvent // 用户id
 	guestFlag            bool
-	stage                int // 1
+	stage                int // 工单阶段：1. 机器人 2. 人工
 	stageFlag            bool
-	status               int // 50
+	status               int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
 	statusFlag           bool
-	score                int // 1
+	score                int // 工单评分，1：不满意，2:一般，3:满意
 	scoreFlag            bool
-	createdAt            int // 1616920429000
+	createdAt            int // 创建时间
 	createdAtFlag        bool
-	updatedAt            int // 1616920429000
+	updatedAt            int // 工单更新时间，没有值时为-1
 	updatedAtFlag        bool
-	closedAt             int // 1616920429000
+	closedAt             int // 关单时间
 	closedAtFlag         bool
 	agents               []*TicketUserEvent // agents of this ticket
 	agentsFlag           bool
-	channel              int // 0
+	channel              int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
 	channelFlag          bool
-	solve                int // 1
+	solve                int // 工单是否解决 1:没解决 2:已解决
 	solveFlag            bool
 	closedBy             *TicketUserEvent // closed user of this ticket
 	closedByFlag         bool
 	collaborators        []*TicketUserEvent // collaborators of this ticket
 	collaboratorsFlag    bool
-	customizedFields     []*CustomizedFieldDisplayItem // []
+	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
 	customizedFieldsFlag bool
 	chatId               string // oc_xxxxxxx
 	chatIdFlag           bool
@@ -2857,7 +3017,8 @@ func NewTicketEventBuilder() *TicketEventBuilder {
 	return builder
 }
 
-// 6626871355780366331
+// 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+//
 // 示例值：6626871355780366331
 func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder {
 	builder.ticketId = ticketId
@@ -2865,7 +3026,8 @@ func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder
 	return builder
 }
 
-// 6626871355780366330
+// 服务台id
+//
 // 示例值：6626871355780366330
 func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBuilder {
 	builder.helpdeskId = helpdeskId
@@ -2873,7 +3035,8 @@ func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBui
 	return builder
 }
 
-// abc
+// 用户id
+//
 // 示例值：
 func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBuilder {
 	builder.guest = guest
@@ -2881,7 +3044,8 @@ func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBui
 	return builder
 }
 
-// 1
+// 工单阶段：1. 机器人 2. 人工
+//
 // 示例值：1
 func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	builder.stage = stage
@@ -2889,7 +3053,8 @@ func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	return builder
 }
 
-// 50
+// 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+//
 // 示例值：1
 func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	builder.status = status
@@ -2897,7 +3062,8 @@ func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	return builder
 }
 
-// 1
+// 工单评分，1：不满意，2:一般，3:满意
+//
 // 示例值：1
 func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	builder.score = score
@@ -2905,7 +3071,8 @@ func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	return builder
 }
 
-// 1616920429000
+// 创建时间
+//
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder {
 	builder.createdAt = createdAt
@@ -2913,7 +3080,8 @@ func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 1616920429000
+// 工单更新时间，没有值时为-1
+//
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder {
 	builder.updatedAt = updatedAt
@@ -2921,7 +3089,8 @@ func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 1616920429000
+// 关单时间
+//
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
 	builder.closedAt = closedAt
@@ -2930,6 +3099,7 @@ func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
 }
 
 // agents of this ticket
+//
 // 示例值：
 func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEventBuilder {
 	builder.agents = agents
@@ -2937,7 +3107,8 @@ func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEven
 	return builder
 }
 
-// 0
+// 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+//
 // 示例值：0
 func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	builder.channel = channel
@@ -2945,7 +3116,8 @@ func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	return builder
 }
 
-// 1
+// 工单是否解决 1:没解决 2:已解决
+//
 // 示例值：1
 func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
 	builder.solve = solve
@@ -2954,6 +3126,7 @@ func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
 }
 
 // closed user of this ticket
+//
 // 示例值：
 func (builder *TicketEventBuilder) ClosedBy(closedBy *TicketUserEvent) *TicketEventBuilder {
 	builder.closedBy = closedBy
@@ -2962,6 +3135,7 @@ func (builder *TicketEventBuilder) ClosedBy(closedBy *TicketUserEvent) *TicketEv
 }
 
 // collaborators of this ticket
+//
 // 示例值：
 func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEvent) *TicketEventBuilder {
 	builder.collaborators = collaborators
@@ -2969,7 +3143,8 @@ func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEven
 	return builder
 }
 
-// []
+// 自定义字段
+//
 // 示例值：
 func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketEventBuilder {
 	builder.customizedFields = customizedFields
@@ -2978,6 +3153,7 @@ func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*Customiz
 }
 
 // oc_xxxxxxx
+//
 // 示例值：oc_xxxxxxx
 func (builder *TicketEventBuilder) ChatId(chatId string) *TicketEventBuilder {
 	builder.chatId = chatId
@@ -3070,6 +3246,7 @@ func NewTicketEventUpdateInfoBuilder() *TicketEventUpdateInfoBuilder {
 }
 
 // ticket stage
+//
 // 示例值：1
 func (builder *TicketEventUpdateInfoBuilder) Stage(stage int) *TicketEventUpdateInfoBuilder {
 	builder.stage = stage
@@ -3078,6 +3255,7 @@ func (builder *TicketEventUpdateInfoBuilder) Stage(stage int) *TicketEventUpdate
 }
 
 // ticket status
+//
 // 示例值：50
 func (builder *TicketEventUpdateInfoBuilder) Status(status int) *TicketEventUpdateInfoBuilder {
 	builder.status = status
@@ -3086,6 +3264,7 @@ func (builder *TicketEventUpdateInfoBuilder) Status(status int) *TicketEventUpda
 }
 
 // ticket update time
+//
 // 示例值：1616920429000
 func (builder *TicketEventUpdateInfoBuilder) UpdatedAt(updatedAt int) *TicketEventUpdateInfoBuilder {
 	builder.updatedAt = updatedAt
@@ -3134,6 +3313,7 @@ func NewTicketMessageContentBuilder() *TicketMessageContentBuilder {
 }
 
 // 内容
+//
 // 示例值：请问vpn怎么下载
 func (builder *TicketMessageContentBuilder) Content(content string) *TicketMessageContentBuilder {
 	builder.content = content
@@ -3142,6 +3322,7 @@ func (builder *TicketMessageContentBuilder) Content(content string) *TicketMessa
 }
 
 // 消息类型；text：纯文本；post：富文本；image：图片
+//
 // 示例值：text
 func (builder *TicketMessageContentBuilder) MsgType(msgType string) *TicketMessageContentBuilder {
 	builder.msgType = msgType
@@ -3150,6 +3331,7 @@ func (builder *TicketMessageContentBuilder) MsgType(msgType string) *TicketMessa
 }
 
 // 图片ID
+//
 // 示例值：
 func (builder *TicketMessageContentBuilder) ImageKeys(imageKeys []string) *TicketMessageContentBuilder {
 	builder.imageKeys = imageKeys
@@ -3158,6 +3340,7 @@ func (builder *TicketMessageContentBuilder) ImageKeys(imageKeys []string) *Ticke
 }
 
 // 图片ID
+//
 // 示例值：xxx
 func (builder *TicketMessageContentBuilder) ImageKey(imageKey string) *TicketMessageContentBuilder {
 	builder.imageKey = imageKey
@@ -3230,6 +3413,7 @@ func NewTicketMessageEventBuilder() *TicketMessageEventBuilder {
 }
 
 // ticket message id
+//
 // 示例值：6949088240624222236
 func (builder *TicketMessageEventBuilder) TicketMessageId(ticketMessageId string) *TicketMessageEventBuilder {
 	builder.ticketMessageId = ticketMessageId
@@ -3238,6 +3422,7 @@ func (builder *TicketMessageEventBuilder) TicketMessageId(ticketMessageId string
 }
 
 // open message id
+//
 // 示例值：om_8baa3656c7b41900d29bf9104bf5310b
 func (builder *TicketMessageEventBuilder) MessageId(messageId string) *TicketMessageEventBuilder {
 	builder.messageId = messageId
@@ -3246,6 +3431,7 @@ func (builder *TicketMessageEventBuilder) MessageId(messageId string) *TicketMes
 }
 
 // message type, text is the only supported type
+//
 // 示例值：text
 func (builder *TicketMessageEventBuilder) MsgType(msgType string) *TicketMessageEventBuilder {
 	builder.msgType = msgType
@@ -3254,6 +3440,7 @@ func (builder *TicketMessageEventBuilder) MsgType(msgType string) *TicketMessage
 }
 
 // position of the message
+//
 // 示例值：10
 func (builder *TicketMessageEventBuilder) Position(position string) *TicketMessageEventBuilder {
 	builder.position = position
@@ -3262,6 +3449,7 @@ func (builder *TicketMessageEventBuilder) Position(position string) *TicketMessa
 }
 
 // 用户 ID
+//
 // 示例值：
 func (builder *TicketMessageEventBuilder) SenderId(senderId *UserId) *TicketMessageEventBuilder {
 	builder.senderId = senderId
@@ -3270,6 +3458,7 @@ func (builder *TicketMessageEventBuilder) SenderId(senderId *UserId) *TicketMess
 }
 
 // sender type, 1 for bot, 2 for guest, 3 for agent
+//
 // 示例值：1
 func (builder *TicketMessageEventBuilder) SenderType(senderType int) *TicketMessageEventBuilder {
 	builder.senderType = senderType
@@ -3278,6 +3467,7 @@ func (builder *TicketMessageEventBuilder) SenderType(senderType int) *TicketMess
 }
 
 // message content
+//
 // 示例值：请问vpn怎么下载
 func (builder *TicketMessageEventBuilder) Text(text string) *TicketMessageEventBuilder {
 	builder.text = text
@@ -3286,6 +3476,7 @@ func (builder *TicketMessageEventBuilder) Text(text string) *TicketMessageEventB
 }
 
 // ticket related information
+//
 // 示例值：
 func (builder *TicketMessageEventBuilder) Ticket(ticket *Ticket) *TicketMessageEventBuilder {
 	builder.ticket = ticket
@@ -3294,6 +3485,7 @@ func (builder *TicketMessageEventBuilder) Ticket(ticket *Ticket) *TicketMessageE
 }
 
 // event id
+//
 // 示例值：118a6492-122d-04ad-4370-010a3bb384d3
 func (builder *TicketMessageEventBuilder) EventId(eventId string) *TicketMessageEventBuilder {
 	builder.eventId = eventId
@@ -3302,6 +3494,7 @@ func (builder *TicketMessageEventBuilder) EventId(eventId string) *TicketMessage
 }
 
 // chat id
+//
 // 示例值：6949088236610273307
 func (builder *TicketMessageEventBuilder) ChatId(chatId string) *TicketMessageEventBuilder {
 	builder.chatId = chatId
@@ -3310,6 +3503,7 @@ func (builder *TicketMessageEventBuilder) ChatId(chatId string) *TicketMessageEv
 }
 
 // message content
+//
 // 示例值：
 func (builder *TicketMessageEventBuilder) Content(content *TicketMessageContent) *TicketMessageEventBuilder {
 	builder.content = content
@@ -3396,6 +3590,7 @@ func NewTicketUserBuilder() *TicketUserBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketUserBuilder) Id(id string) *TicketUserBuilder {
 	builder.id = id
@@ -3404,6 +3599,7 @@ func (builder *TicketUserBuilder) Id(id string) *TicketUserBuilder {
 }
 
 // 用户头像url
+//
 // 示例值：https://xxxx
 func (builder *TicketUserBuilder) AvatarUrl(avatarUrl string) *TicketUserBuilder {
 	builder.avatarUrl = avatarUrl
@@ -3412,6 +3608,7 @@ func (builder *TicketUserBuilder) AvatarUrl(avatarUrl string) *TicketUserBuilder
 }
 
 // 用户名
+//
 // 示例值：abc
 func (builder *TicketUserBuilder) Name(name string) *TicketUserBuilder {
 	builder.name = name
@@ -3420,6 +3617,7 @@ func (builder *TicketUserBuilder) Name(name string) *TicketUserBuilder {
 }
 
 // 用户邮箱
+//
 // 示例值：xxxx@abc.com
 func (builder *TicketUserBuilder) Email(email string) *TicketUserBuilder {
 	builder.email = email
@@ -3428,6 +3626,7 @@ func (builder *TicketUserBuilder) Email(email string) *TicketUserBuilder {
 }
 
 // 所在部门名称
+//
 // 示例值：用户部门名称(有权限才展示)
 func (builder *TicketUserBuilder) Department(department string) *TicketUserBuilder {
 	builder.department = department
@@ -3436,6 +3635,7 @@ func (builder *TicketUserBuilder) Department(department string) *TicketUserBuild
 }
 
 // 城市
+//
 // 示例值：城市
 func (builder *TicketUserBuilder) City(city string) *TicketUserBuilder {
 	builder.city = city
@@ -3444,6 +3644,7 @@ func (builder *TicketUserBuilder) City(city string) *TicketUserBuilder {
 }
 
 // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
+//
 // 示例值：国家
 func (builder *TicketUserBuilder) Country(country string) *TicketUserBuilder {
 	builder.country = country
@@ -3485,18 +3686,18 @@ func (builder *TicketUserBuilder) Build() *TicketUser {
 }
 
 type TicketUserEvent struct {
-	Id        *UserId `json:"id,omitempty"`         // 6626871355780366332
+	Id        *UserId `json:"id,omitempty"`         // id
 	AvatarUrl *string `json:"avatar_url,omitempty"` // user avartal url
-	Name      *string `json:"name,omitempty"`       // 6626871355780366333
+	Name      *string `json:"name,omitempty"`       // 名称
 	Email     *string `json:"email,omitempty"`      // user email
 }
 
 type TicketUserEventBuilder struct {
-	id            *UserId // 6626871355780366332
+	id            *UserId // id
 	idFlag        bool
 	avatarUrl     string // user avartal url
 	avatarUrlFlag bool
-	name          string // 6626871355780366333
+	name          string // 名称
 	nameFlag      bool
 	email         string // user email
 	emailFlag     bool
@@ -3507,7 +3708,8 @@ func NewTicketUserEventBuilder() *TicketUserEventBuilder {
 	return builder
 }
 
-// 6626871355780366332
+// id
+//
 // 示例值：
 func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
 	builder.id = id
@@ -3516,6 +3718,7 @@ func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
 }
 
 // user avartal url
+//
 // 示例值：
 func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEventBuilder {
 	builder.avatarUrl = avatarUrl
@@ -3523,7 +3726,8 @@ func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEv
 	return builder
 }
 
-// 6626871355780366333
+// 名称
+//
 // 示例值：abc
 func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder {
 	builder.name = name
@@ -3532,6 +3736,7 @@ func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder
 }
 
 // user email
+//
 // 示例值：
 func (builder *TicketUserEventBuilder) Email(email string) *TicketUserEventBuilder {
 	builder.email = email
@@ -3610,6 +3815,7 @@ func NewUserCustomizedFieldBuilder() *UserCustomizedFieldBuilder {
 }
 
 // 字段ID
+//
 // 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) UserCustomizedFieldId(userCustomizedFieldId string) *UserCustomizedFieldBuilder {
 	builder.userCustomizedFieldId = userCustomizedFieldId
@@ -3618,6 +3824,7 @@ func (builder *UserCustomizedFieldBuilder) UserCustomizedFieldId(userCustomizedF
 }
 
 // 旧字段ID，向后兼容用
+//
 // 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) Id(id string) *UserCustomizedFieldBuilder {
 	builder.id = id
@@ -3626,6 +3833,7 @@ func (builder *UserCustomizedFieldBuilder) Id(id string) *UserCustomizedFieldBui
 }
 
 // 服务台ID
+//
 // 示例值：1542164574896126
 func (builder *UserCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *UserCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
@@ -3634,6 +3842,7 @@ func (builder *UserCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *UserCu
 }
 
 // 字段键
+//
 // 示例值：company_id3
 func (builder *UserCustomizedFieldBuilder) KeyName(keyName string) *UserCustomizedFieldBuilder {
 	builder.keyName = keyName
@@ -3642,6 +3851,7 @@ func (builder *UserCustomizedFieldBuilder) KeyName(keyName string) *UserCustomiz
 }
 
 // 字段展示名称
+//
 // 示例值：Company ID
 func (builder *UserCustomizedFieldBuilder) DisplayName(displayName string) *UserCustomizedFieldBuilder {
 	builder.displayName = displayName
@@ -3650,6 +3860,7 @@ func (builder *UserCustomizedFieldBuilder) DisplayName(displayName string) *User
 }
 
 // 字段在列表中的展示位置
+//
 // 示例值：1
 func (builder *UserCustomizedFieldBuilder) Position(position string) *UserCustomizedFieldBuilder {
 	builder.position = position
@@ -3658,6 +3869,7 @@ func (builder *UserCustomizedFieldBuilder) Position(position string) *UserCustom
 }
 
 // 字段类型
+//
 // 示例值：string
 func (builder *UserCustomizedFieldBuilder) FieldType(fieldType string) *UserCustomizedFieldBuilder {
 	builder.fieldType = fieldType
@@ -3666,6 +3878,7 @@ func (builder *UserCustomizedFieldBuilder) FieldType(fieldType string) *UserCust
 }
 
 // 字段描述信息
+//
 // 示例值：租户ID
 func (builder *UserCustomizedFieldBuilder) Description(description string) *UserCustomizedFieldBuilder {
 	builder.description = description
@@ -3674,6 +3887,7 @@ func (builder *UserCustomizedFieldBuilder) Description(description string) *User
 }
 
 // 字段是否可见
+//
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Visible(visible bool) *UserCustomizedFieldBuilder {
 	builder.visible = visible
@@ -3682,6 +3896,7 @@ func (builder *UserCustomizedFieldBuilder) Visible(visible bool) *UserCustomized
 }
 
 // 字段是否可编辑
+//
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Editable(editable bool) *UserCustomizedFieldBuilder {
 	builder.editable = editable
@@ -3690,6 +3905,7 @@ func (builder *UserCustomizedFieldBuilder) Editable(editable bool) *UserCustomiz
 }
 
 // 字段是否必填
+//
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Required(required bool) *UserCustomizedFieldBuilder {
 	builder.required = required
@@ -3698,6 +3914,7 @@ func (builder *UserCustomizedFieldBuilder) Required(required bool) *UserCustomiz
 }
 
 // 字段创建时间
+//
 // 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) CreatedAt(createdAt string) *UserCustomizedFieldBuilder {
 	builder.createdAt = createdAt
@@ -3706,6 +3923,7 @@ func (builder *UserCustomizedFieldBuilder) CreatedAt(createdAt string) *UserCust
 }
 
 // 字段修改时间
+//
 // 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) UpdatedAt(updatedAt string) *UserCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
@@ -3791,6 +4009,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -3799,6 +4018,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -3806,6 +4026,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
@@ -3849,6 +4070,7 @@ func NewUserQueryFaqInfoBuilder() *UserQueryFaqInfoBuilder {
 }
 
 // faq服务台内唯一标识
+//
 // 示例值：12345
 func (builder *UserQueryFaqInfoBuilder) Id(id string) *UserQueryFaqInfoBuilder {
 	builder.id = id
@@ -3857,6 +4079,7 @@ func (builder *UserQueryFaqInfoBuilder) Id(id string) *UserQueryFaqInfoBuilder {
 }
 
 // faq匹配得分
+//
 // 示例值：0.9
 func (builder *UserQueryFaqInfoBuilder) Score(score float64) *UserQueryFaqInfoBuilder {
 	builder.score = score
@@ -3898,6 +4121,7 @@ func NewWeekdayScheduleBuilder() *WeekdayScheduleBuilder {
 }
 
 // 开始时间, format 00:00 - 23:59
+//
 // 示例值：00:00
 func (builder *WeekdayScheduleBuilder) StartTime(startTime string) *WeekdayScheduleBuilder {
 	builder.startTime = startTime
@@ -3906,6 +4130,7 @@ func (builder *WeekdayScheduleBuilder) StartTime(startTime string) *WeekdaySched
 }
 
 // 结束时间, format 00:00 - 23:59
+//
 // 示例值：24:00
 func (builder *WeekdayScheduleBuilder) EndTime(endTime string) *WeekdayScheduleBuilder {
 	builder.endTime = endTime
@@ -3914,6 +4139,7 @@ func (builder *WeekdayScheduleBuilder) EndTime(endTime string) *WeekdayScheduleB
 }
 
 // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
+//
 // 示例值：9
 func (builder *WeekdayScheduleBuilder) Weekday(weekday int) *WeekdayScheduleBuilder {
 	builder.weekday = weekday

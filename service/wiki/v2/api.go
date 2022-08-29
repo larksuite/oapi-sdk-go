@@ -32,7 +32,7 @@ func NewService(config *larkcore.Config) *WikiService {
 
 type WikiService struct {
 	config       *larkcore.Config
-	Space        *space        // 节点
+	Space        *space        // 知识空间
 	SpaceMember  *spaceMember  // 空间成员
 	SpaceNode    *spaceNode    // 节点
 	SpaceSetting *spaceSetting // 空间设置
@@ -63,7 +63,7 @@ type task struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//create_space.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_space.go
 func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -91,7 +91,7 @@ func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//get_space.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/get_space.go
 func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.RequestOptionFunc) (*GetSpaceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -119,7 +119,7 @@ func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.R
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//getNode_space.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/getNode_space.go
 func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...larkcore.RequestOptionFunc) (*GetNodeSpaceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -147,7 +147,7 @@ func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//list_space.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/list_space.go
 func (s *space) List(ctx context.Context, req *ListSpaceReq, options ...larkcore.RequestOptionFunc) (*ListSpaceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -183,7 +183,7 @@ func (s *space) ListByIterator(ctx context.Context, req *ListSpaceReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//create_spaceMember.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_spaceMember.go
 func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -211,7 +211,7 @@ func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//delete_spaceMember.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/delete_spaceMember.go
 func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteSpaceMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -237,7 +237,7 @@ func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/copy
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//copy_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/copy_spaceNode.go
 func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CopySpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -265,7 +265,7 @@ func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//create_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_spaceNode.go
 func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -293,7 +293,7 @@ func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//list_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/list_spaceNode.go
 func (s *spaceNode) List(ctx context.Context, req *ListSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*ListSpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -329,7 +329,7 @@ func (s *spaceNode) ListByIterator(ctx context.Context, req *ListSpaceNodeReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//move_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/move_spaceNode.go
 func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveSpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -359,7 +359,7 @@ func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//moveDocsToWiki_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/moveDocsToWiki_spaceNode.go
 func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveDocsToWikiSpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -387,7 +387,7 @@ func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpace
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/update_title
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//updateTitle_spaceNode.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/updateTitle_spaceNode.go
 func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*UpdateTitleSpaceNodeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -415,7 +415,7 @@ func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-setting/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//update_spaceSetting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/update_spaceSetting.go
 func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, options ...larkcore.RequestOptionFunc) (*UpdateSpaceSettingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -443,7 +443,7 @@ func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2//get_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/get_task.go
 func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.RequestOptionFunc) (*GetTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

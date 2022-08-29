@@ -31,45 +31,45 @@ const (
 )
 
 const (
-	UserIdTypeExportParticipantListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeExportParticipantListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeExportParticipantListOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeParticipantListExportUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeParticipantListExportUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeParticipantListExportOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeExportParticipantQualityListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeExportParticipantQualityListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeExportParticipantQualityListOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeParticipantQualityListExportUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeParticipantQualityListExportUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeParticipantQualityListExportOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMeetingGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMeetingGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMeetingGetOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeGetMeetingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMeetingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMeetingInviteUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMeetingInviteUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMeetingInviteOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeInviteMeetingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeInviteMeetingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeInviteMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMeetingKickoutUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMeetingKickoutUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMeetingKickoutOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeKickoutMeetingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeKickoutMeetingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeKickoutMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMeetingSetHostUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMeetingSetHostUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMeetingSetHostOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeSetHostMeetingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSetHostMeetingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSetHostMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMeetingRecordingSetPermissionUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMeetingRecordingSetPermissionUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMeetingRecordingSetPermissionOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeSetPermissionMeetingRecordingUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSetPermissionMeetingRecordingUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSetPermissionMeetingRecordingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -79,33 +79,33 @@ const (
 )
 
 const (
-	UserIdTypeReportGetTopUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReportGetTopUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReportGetTopUserOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetTopUserReportUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetTopUserReportUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetTopUserReportOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeReserveApplyUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReserveApplyUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReserveApplyOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeApplyReserveUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeApplyReserveUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeApplyReserveOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeReserveGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReserveGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReserveGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetReserveUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetReserveUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetReserveOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeReserveGetActiveMeetingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReserveGetActiveMeetingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReserveGetActiveMeetingOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetActiveMeetingReserveUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetActiveMeetingReserveUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetActiveMeetingReserveOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeReserveUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReserveUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReserveUpdateOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeUpdateReserveUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateReserveUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateReserveOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -119,25 +119,25 @@ const (
 )
 
 const (
-	UserIdTypeRoomConfigQueryUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeRoomConfigQueryUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeRoomConfigQueryOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeQueryRoomConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeQueryRoomConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeQueryRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	NodeScopeRoomConfigSetTenant          = 1 // 租户
-	NodeScopeRoomConfigSetCountryDistrict = 2 // 国家/地区
-	NodeScopeRoomConfigSetCity            = 3 // 城市
-	NodeScopeRoomConfigSetBuilding        = 4 // 建筑
-	NodeScopeRoomConfigSetFloor           = 5 // 楼层
-	NodeScopeRoomConfigSetRoom            = 6 // 会议室
+	NodeScopeSetRoomConfigTenant          = 1 // 租户
+	NodeScopeSetRoomConfigCountryDistrict = 2 // 国家/地区
+	NodeScopeSetRoomConfigCity            = 3 // 城市
+	NodeScopeSetRoomConfigBuilding        = 4 // 建筑
+	NodeScopeSetRoomConfigFloor           = 5 // 楼层
+	NodeScopeSetRoomConfigRoom            = 6 // 会议室
 
 )
 
 const (
-	UserIdTypeRoomConfigSetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeRoomConfigSetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeRoomConfigSetOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UserIdTypeSetRoomConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSetRoomConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSetRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 type Material struct {
@@ -173,6 +173,7 @@ func NewMaterialBuilder() *MaterialBuilder {
 }
 
 // 素材名称
+//
 // 示例值：green
 func (builder *MaterialBuilder) Name(name string) *MaterialBuilder {
 	builder.name = name
@@ -181,6 +182,7 @@ func (builder *MaterialBuilder) Name(name string) *MaterialBuilder {
 }
 
 // 文件上传drive后的token
+//
 // 示例值：u8ajdjadau8wqu
 func (builder *MaterialBuilder) FileToken(fileToken string) *MaterialBuilder {
 	builder.fileToken = fileToken
@@ -189,6 +191,7 @@ func (builder *MaterialBuilder) FileToken(fileToken string) *MaterialBuilder {
 }
 
 // 文件大小(KB)
+//
 // 示例值：1024
 func (builder *MaterialBuilder) FileSize(fileSize int) *MaterialBuilder {
 	builder.fileSize = fileSize
@@ -197,6 +200,7 @@ func (builder *MaterialBuilder) FileSize(fileSize int) *MaterialBuilder {
 }
 
 // 素材适用设备类型
+//
 // 示例值：2
 func (builder *MaterialBuilder) DeviceType(deviceType int) *MaterialBuilder {
 	builder.deviceType = deviceType
@@ -205,6 +209,7 @@ func (builder *MaterialBuilder) DeviceType(deviceType int) *MaterialBuilder {
 }
 
 // 素材类型
+//
 // 示例值：2
 func (builder *MaterialBuilder) MaterialType(materialType int) *MaterialBuilder {
 	builder.materialType = materialType
@@ -213,6 +218,7 @@ func (builder *MaterialBuilder) MaterialType(materialType int) *MaterialBuilder 
 }
 
 // 审核结果
+//
 // 示例值：2
 func (builder *MaterialBuilder) ReviewResult(reviewResult int) *MaterialBuilder {
 	builder.reviewResult = reviewResult
@@ -221,6 +227,7 @@ func (builder *MaterialBuilder) ReviewResult(reviewResult int) *MaterialBuilder 
 }
 
 // 素材来源
+//
 // 示例值：2
 func (builder *MaterialBuilder) MaterialSource(materialSource int) *MaterialBuilder {
 	builder.materialSource = materialSource
@@ -279,6 +286,7 @@ func NewMaterialDeleteResultBuilder() *MaterialDeleteResultBuilder {
 }
 
 // 文件上传drive后的token
+//
 // 示例值：u8ajdjadau8wqu
 func (builder *MaterialDeleteResultBuilder) FileToken(fileToken string) *MaterialDeleteResultBuilder {
 	builder.fileToken = fileToken
@@ -287,6 +295,7 @@ func (builder *MaterialDeleteResultBuilder) FileToken(fileToken string) *Materia
 }
 
 // 删除结果
+//
 // 示例值：1
 func (builder *MaterialDeleteResultBuilder) Result(result int) *MaterialDeleteResultBuilder {
 	builder.result = result
@@ -325,6 +334,7 @@ func NewMaterialReviewResultBuilder() *MaterialReviewResultBuilder {
 }
 
 // 文件上传drive后的token
+//
 // 示例值：u8ajdjadau8wqu
 func (builder *MaterialReviewResultBuilder) FileToken(fileToken string) *MaterialReviewResultBuilder {
 	builder.fileToken = fileToken
@@ -333,6 +343,7 @@ func (builder *MaterialReviewResultBuilder) FileToken(fileToken string) *Materia
 }
 
 // 审核结果
+//
 // 示例值：1
 func (builder *MaterialReviewResultBuilder) Result(result int) *MaterialReviewResultBuilder {
 	builder.result = result
@@ -371,6 +382,7 @@ func NewMaterialUploadResultBuilder() *MaterialUploadResultBuilder {
 }
 
 // 文件上传drive后的token
+//
 // 示例值：u8ajdjadau8wqu
 func (builder *MaterialUploadResultBuilder) FileToken(fileToken string) *MaterialUploadResultBuilder {
 	builder.fileToken = fileToken
@@ -379,6 +391,7 @@ func (builder *MaterialUploadResultBuilder) FileToken(fileToken string) *Materia
 }
 
 // 上传结果
+//
 // 示例值：1
 func (builder *MaterialUploadResultBuilder) Result(result int) *MaterialUploadResultBuilder {
 	builder.result = result
@@ -450,6 +463,7 @@ func NewMeetingBuilder() *MeetingBuilder {
 }
 
 // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
 // 示例值：6911188411934433028
 func (builder *MeetingBuilder) Id(id string) *MeetingBuilder {
 	builder.id = id
@@ -458,6 +472,7 @@ func (builder *MeetingBuilder) Id(id string) *MeetingBuilder {
 }
 
 // 会议主题
+//
 // 示例值：my meeting
 func (builder *MeetingBuilder) Topic(topic string) *MeetingBuilder {
 	builder.topic = topic
@@ -466,6 +481,7 @@ func (builder *MeetingBuilder) Topic(topic string) *MeetingBuilder {
 }
 
 // 会议链接（飞书用户可通过点击会议链接快捷入会）
+//
 // 示例值：https://vc.feishu.cn/j/337736498
 func (builder *MeetingBuilder) Url(url string) *MeetingBuilder {
 	builder.url = url
@@ -474,6 +490,7 @@ func (builder *MeetingBuilder) Url(url string) *MeetingBuilder {
 }
 
 // 会议号
+//
 // 示例值：123456789
 func (builder *MeetingBuilder) MeetingNo(meetingNo string) *MeetingBuilder {
 	builder.meetingNo = meetingNo
@@ -482,6 +499,7 @@ func (builder *MeetingBuilder) MeetingNo(meetingNo string) *MeetingBuilder {
 }
 
 // 会议创建时间（unix时间，单位sec）
+//
 // 示例值：1608885566
 func (builder *MeetingBuilder) CreateTime(createTime string) *MeetingBuilder {
 	builder.createTime = createTime
@@ -490,6 +508,7 @@ func (builder *MeetingBuilder) CreateTime(createTime string) *MeetingBuilder {
 }
 
 // 会议开始时间（unix时间，单位sec）
+//
 // 示例值：1608883322
 func (builder *MeetingBuilder) StartTime(startTime string) *MeetingBuilder {
 	builder.startTime = startTime
@@ -498,6 +517,7 @@ func (builder *MeetingBuilder) StartTime(startTime string) *MeetingBuilder {
 }
 
 // 会议结束时间（unix时间，单位sec）
+//
 // 示例值：1608888867
 func (builder *MeetingBuilder) EndTime(endTime string) *MeetingBuilder {
 	builder.endTime = endTime
@@ -506,6 +526,7 @@ func (builder *MeetingBuilder) EndTime(endTime string) *MeetingBuilder {
 }
 
 // 主持人
+//
 // 示例值：
 func (builder *MeetingBuilder) HostUser(hostUser *MeetingUser) *MeetingBuilder {
 	builder.hostUser = hostUser
@@ -514,6 +535,7 @@ func (builder *MeetingBuilder) HostUser(hostUser *MeetingUser) *MeetingBuilder {
 }
 
 // 会议状态
+//
 // 示例值：2
 func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
 	builder.status = status
@@ -522,6 +544,7 @@ func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
 }
 
 // 参会人数
+//
 // 示例值：10
 func (builder *MeetingBuilder) ParticipantCount(participantCount string) *MeetingBuilder {
 	builder.participantCount = participantCount
@@ -530,6 +553,7 @@ func (builder *MeetingBuilder) ParticipantCount(participantCount string) *Meetin
 }
 
 // 累计参会人数
+//
 // 示例值：10
 func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccumulated string) *MeetingBuilder {
 	builder.participantCountAccumulated = participantCountAccumulated
@@ -538,6 +562,7 @@ func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccum
 }
 
 // 参会人列表
+//
 // 示例值：
 func (builder *MeetingBuilder) Participants(participants []*MeetingParticipant) *MeetingBuilder {
 	builder.participants = participants
@@ -546,6 +571,7 @@ func (builder *MeetingBuilder) Participants(participants []*MeetingParticipant) 
 }
 
 // 会中使用的能力
+//
 // 示例值：
 func (builder *MeetingBuilder) Ability(ability *MeetingAbility) *MeetingBuilder {
 	builder.ability = ability
@@ -631,6 +657,7 @@ func NewMeetingRecordingBuilder() *MeetingRecordingBuilder {
 }
 
 // 录制ID
+//
 // 示例值：6911188411932033028
 func (builder *MeetingRecordingBuilder) Id(id string) *MeetingRecordingBuilder {
 	builder.id = id
@@ -639,6 +666,7 @@ func (builder *MeetingRecordingBuilder) Id(id string) *MeetingRecordingBuilder {
 }
 
 // 会议ID
+//
 // 示例值：6911188411932033028
 func (builder *MeetingRecordingBuilder) MeetingId(meetingId string) *MeetingRecordingBuilder {
 	builder.meetingId = meetingId
@@ -647,6 +675,7 @@ func (builder *MeetingRecordingBuilder) MeetingId(meetingId string) *MeetingReco
 }
 
 // 录制文件URL
+//
 // 示例值：https://meetings.feishu.cn/minutes/obcn37dxcftoc3656rgyejm7
 func (builder *MeetingRecordingBuilder) Url(url string) *MeetingRecordingBuilder {
 	builder.url = url
@@ -655,6 +684,7 @@ func (builder *MeetingRecordingBuilder) Url(url string) *MeetingRecordingBuilder
 }
 
 // 录制总时长（单位msec）
+//
 // 示例值：30000
 func (builder *MeetingRecordingBuilder) Duration(duration string) *MeetingRecordingBuilder {
 	builder.duration = duration
@@ -713,6 +743,7 @@ func NewMeetingAbilityBuilder() *MeetingAbilityBuilder {
 }
 
 // 是否使用视频
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UseVideo(useVideo bool) *MeetingAbilityBuilder {
 	builder.useVideo = useVideo
@@ -721,6 +752,7 @@ func (builder *MeetingAbilityBuilder) UseVideo(useVideo bool) *MeetingAbilityBui
 }
 
 // 是否使用音频
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UseAudio(useAudio bool) *MeetingAbilityBuilder {
 	builder.useAudio = useAudio
@@ -729,6 +761,7 @@ func (builder *MeetingAbilityBuilder) UseAudio(useAudio bool) *MeetingAbilityBui
 }
 
 // 是否使用共享屏幕
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UseShareScreen(useShareScreen bool) *MeetingAbilityBuilder {
 	builder.useShareScreen = useShareScreen
@@ -737,6 +770,7 @@ func (builder *MeetingAbilityBuilder) UseShareScreen(useShareScreen bool) *Meeti
 }
 
 // 是否使用妙享（magic share）
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UseFollowScreen(useFollowScreen bool) *MeetingAbilityBuilder {
 	builder.useFollowScreen = useFollowScreen
@@ -745,6 +779,7 @@ func (builder *MeetingAbilityBuilder) UseFollowScreen(useFollowScreen bool) *Mee
 }
 
 // 是否使用录制
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UseRecording(useRecording bool) *MeetingAbilityBuilder {
 	builder.useRecording = useRecording
@@ -753,6 +788,7 @@ func (builder *MeetingAbilityBuilder) UseRecording(useRecording bool) *MeetingAb
 }
 
 // 是否使用PSTN
+//
 // 示例值：true
 func (builder *MeetingAbilityBuilder) UsePstn(usePstn bool) *MeetingAbilityBuilder {
 	builder.usePstn = usePstn
@@ -822,6 +858,7 @@ func NewMeetingEventMeetingBuilder() *MeetingEventMeetingBuilder {
 }
 
 // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+//
 // 示例值：6911188411934433028
 func (builder *MeetingEventMeetingBuilder) Id(id string) *MeetingEventMeetingBuilder {
 	builder.id = id
@@ -830,6 +867,7 @@ func (builder *MeetingEventMeetingBuilder) Id(id string) *MeetingEventMeetingBui
 }
 
 // 会议主题
+//
 // 示例值：my meeting
 func (builder *MeetingEventMeetingBuilder) Topic(topic string) *MeetingEventMeetingBuilder {
 	builder.topic = topic
@@ -838,6 +876,7 @@ func (builder *MeetingEventMeetingBuilder) Topic(topic string) *MeetingEventMeet
 }
 
 // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+//
 // 示例值：235812466
 func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingEventMeetingBuilder {
 	builder.meetingNo = meetingNo
@@ -846,6 +885,7 @@ func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingE
 }
 
 // 会议开始时间（unix时间，单位sec）
+//
 // 示例值：1608883322
 func (builder *MeetingEventMeetingBuilder) StartTime(startTime string) *MeetingEventMeetingBuilder {
 	builder.startTime = startTime
@@ -854,6 +894,7 @@ func (builder *MeetingEventMeetingBuilder) StartTime(startTime string) *MeetingE
 }
 
 // 会议结束时间（unix时间，单位sec）
+//
 // 示例值：1608883899
 func (builder *MeetingEventMeetingBuilder) EndTime(endTime string) *MeetingEventMeetingBuilder {
 	builder.endTime = endTime
@@ -862,6 +903,7 @@ func (builder *MeetingEventMeetingBuilder) EndTime(endTime string) *MeetingEvent
 }
 
 // 会议主持人
+//
 // 示例值：
 func (builder *MeetingEventMeetingBuilder) HostUser(hostUser *MeetingEventUser) *MeetingEventMeetingBuilder {
 	builder.hostUser = hostUser
@@ -870,6 +912,7 @@ func (builder *MeetingEventMeetingBuilder) HostUser(hostUser *MeetingEventUser) 
 }
 
 // 会议拥有者
+//
 // 示例值：
 func (builder *MeetingEventMeetingBuilder) Owner(owner *MeetingEventUser) *MeetingEventMeetingBuilder {
 	builder.owner = owner
@@ -929,6 +972,7 @@ func NewMeetingEventUserBuilder() *MeetingEventUserBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingEventUserBuilder) Id(id *UserId) *MeetingEventUserBuilder {
 	builder.id = id
@@ -937,6 +981,7 @@ func (builder *MeetingEventUserBuilder) Id(id *UserId) *MeetingEventUserBuilder 
 }
 
 // 用户会中角色
+//
 // 示例值：1
 func (builder *MeetingEventUserBuilder) UserRole(userRole int) *MeetingEventUserBuilder {
 	builder.userRole = userRole
@@ -945,6 +990,7 @@ func (builder *MeetingEventUserBuilder) UserRole(userRole int) *MeetingEventUser
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *MeetingEventUserBuilder) UserType(userType int) *MeetingEventUserBuilder {
 	builder.userType = userType
@@ -989,6 +1035,7 @@ func NewMeetingInviteStatusBuilder() *MeetingInviteStatusBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingInviteStatusBuilder) Id(id string) *MeetingInviteStatusBuilder {
 	builder.id = id
@@ -997,6 +1044,7 @@ func (builder *MeetingInviteStatusBuilder) Id(id string) *MeetingInviteStatusBui
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *MeetingInviteStatusBuilder) UserType(userType int) *MeetingInviteStatusBuilder {
 	builder.userType = userType
@@ -1005,6 +1053,7 @@ func (builder *MeetingInviteStatusBuilder) UserType(userType int) *MeetingInvite
 }
 
 // 邀请结果
+//
 // 示例值：1
 func (builder *MeetingInviteStatusBuilder) Status(status int) *MeetingInviteStatusBuilder {
 	builder.status = status
@@ -1068,6 +1117,7 @@ func NewMeetingParticipantBuilder() *MeetingParticipantBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingParticipantBuilder) Id(id string) *MeetingParticipantBuilder {
 	builder.id = id
@@ -1076,6 +1126,7 @@ func (builder *MeetingParticipantBuilder) Id(id string) *MeetingParticipantBuild
 }
 
 // 首次入会时间，秒级Unix时间戳
+//
 // 示例值：1624438144
 func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime string) *MeetingParticipantBuilder {
 	builder.firstJoinTime = firstJoinTime
@@ -1084,6 +1135,7 @@ func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime string) *M
 }
 
 // 最终离会时间，秒级Unix时间戳
+//
 // 示例值：1624438144
 func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime string) *MeetingParticipantBuilder {
 	builder.finalLeaveTime = finalLeaveTime
@@ -1092,6 +1144,7 @@ func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime string) 
 }
 
 // 累计在会中时间，时间单位：秒
+//
 // 示例值：123
 func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration string) *MeetingParticipantBuilder {
 	builder.inMeetingDuration = inMeetingDuration
@@ -1100,6 +1153,7 @@ func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration st
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *MeetingParticipantBuilder) UserType(userType int) *MeetingParticipantBuilder {
 	builder.userType = userType
@@ -1108,6 +1162,7 @@ func (builder *MeetingParticipantBuilder) UserType(userType int) *MeetingPartici
 }
 
 // 是否为主持人
+//
 // 示例值：true
 func (builder *MeetingParticipantBuilder) IsHost(isHost bool) *MeetingParticipantBuilder {
 	builder.isHost = isHost
@@ -1116,6 +1171,7 @@ func (builder *MeetingParticipantBuilder) IsHost(isHost bool) *MeetingParticipan
 }
 
 // 是否为联席主持人
+//
 // 示例值：false
 func (builder *MeetingParticipantBuilder) IsCohost(isCohost bool) *MeetingParticipantBuilder {
 	builder.isCohost = isCohost
@@ -1124,6 +1180,7 @@ func (builder *MeetingParticipantBuilder) IsCohost(isCohost bool) *MeetingPartic
 }
 
 // 是否为外部参会人
+//
 // 示例值：false
 func (builder *MeetingParticipantBuilder) IsExternal(isExternal bool) *MeetingParticipantBuilder {
 	builder.isExternal = isExternal
@@ -1132,6 +1189,7 @@ func (builder *MeetingParticipantBuilder) IsExternal(isExternal bool) *MeetingPa
 }
 
 // 参会人状态
+//
 // 示例值：2
 func (builder *MeetingParticipantBuilder) Status(status int) *MeetingParticipantBuilder {
 	builder.status = status
@@ -1201,6 +1259,7 @@ func NewMeetingParticipantResultBuilder() *MeetingParticipantResultBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingParticipantResultBuilder) Id(id string) *MeetingParticipantResultBuilder {
 	builder.id = id
@@ -1209,6 +1268,7 @@ func (builder *MeetingParticipantResultBuilder) Id(id string) *MeetingParticipan
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *MeetingParticipantResultBuilder) UserType(userType int) *MeetingParticipantResultBuilder {
 	builder.userType = userType
@@ -1217,6 +1277,7 @@ func (builder *MeetingParticipantResultBuilder) UserType(userType int) *MeetingP
 }
 
 // 邀请结果
+//
 // 示例值：1
 func (builder *MeetingParticipantResultBuilder) Result(result int) *MeetingParticipantResultBuilder {
 	builder.result = result
@@ -1259,6 +1320,7 @@ func NewMeetingUserBuilder() *MeetingUserBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingUserBuilder) Id(id string) *MeetingUserBuilder {
 	builder.id = id
@@ -1267,6 +1329,7 @@ func (builder *MeetingUserBuilder) Id(id string) *MeetingUserBuilder {
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *MeetingUserBuilder) UserType(userType int) *MeetingUserBuilder {
 	builder.userType = userType
@@ -1305,6 +1368,7 @@ func NewPstnSipInfoBuilder() *PstnSipInfoBuilder {
 }
 
 // 给pstn/sip用户设置的临时昵称
+//
 // 示例值：dodo
 func (builder *PstnSipInfoBuilder) Nickname(nickname string) *PstnSipInfoBuilder {
 	builder.nickname = nickname
@@ -1313,6 +1377,7 @@ func (builder *PstnSipInfoBuilder) Nickname(nickname string) *PstnSipInfoBuilder
 }
 
 // pstn/sip主机号，格式为：[国际冠字]-[电话区号][电话号码]，当前仅支持国内手机及固定电话号码
+//
 // 示例值：+86-02187654321
 func (builder *PstnSipInfoBuilder) MainAddress(mainAddress string) *PstnSipInfoBuilder {
 	builder.mainAddress = mainAddress
@@ -1354,6 +1419,7 @@ func NewRecordingPermissionObjectBuilder() *RecordingPermissionObjectBuilder {
 }
 
 // 授权对象ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *RecordingPermissionObjectBuilder) Id(id string) *RecordingPermissionObjectBuilder {
 	builder.id = id
@@ -1362,6 +1428,7 @@ func (builder *RecordingPermissionObjectBuilder) Id(id string) *RecordingPermiss
 }
 
 // 授权对象类型
+//
 // 示例值：1
 func (builder *RecordingPermissionObjectBuilder) Type(type_ int) *RecordingPermissionObjectBuilder {
 	builder.type_ = type_
@@ -1370,6 +1437,7 @@ func (builder *RecordingPermissionObjectBuilder) Type(type_ int) *RecordingPermi
 }
 
 // 权限
+//
 // 示例值：1
 func (builder *RecordingPermissionObjectBuilder) Permission(permission int) *RecordingPermissionObjectBuilder {
 	builder.permission = permission
@@ -1418,6 +1486,7 @@ func NewReportBuilder() *ReportBuilder {
 }
 
 // 总会议数量
+//
 // 示例值：100
 func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount string) *ReportBuilder {
 	builder.totalMeetingCount = totalMeetingCount
@@ -1426,6 +1495,7 @@ func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount string) *Repor
 }
 
 // 总会议时长（单位sec）
+//
 // 示例值：300000
 func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration string) *ReportBuilder {
 	builder.totalMeetingDuration = totalMeetingDuration
@@ -1434,6 +1504,7 @@ func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration string) 
 }
 
 // 总参会人数
+//
 // 示例值：20000
 func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount string) *ReportBuilder {
 	builder.totalParticipantCount = totalParticipantCount
@@ -1442,6 +1513,7 @@ func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount string
 }
 
 // 每日会议报告列表
+//
 // 示例值：
 func (builder *ReportBuilder) DailyReport(dailyReport []*ReportMeetingDaily) *ReportBuilder {
 	builder.dailyReport = dailyReport
@@ -1493,6 +1565,7 @@ func NewReportMeetingDailyBuilder() *ReportMeetingDailyBuilder {
 }
 
 // 日期（unix时间，单位sec）
+//
 // 示例值：1609113600
 func (builder *ReportMeetingDailyBuilder) Date(date string) *ReportMeetingDailyBuilder {
 	builder.date = date
@@ -1501,6 +1574,7 @@ func (builder *ReportMeetingDailyBuilder) Date(date string) *ReportMeetingDailyB
 }
 
 // 会议数量
+//
 // 示例值：100
 func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount string) *ReportMeetingDailyBuilder {
 	builder.meetingCount = meetingCount
@@ -1509,6 +1583,7 @@ func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount string) *Rep
 }
 
 // 会议时长（单位sec）
+//
 // 示例值：147680
 func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration string) *ReportMeetingDailyBuilder {
 	builder.meetingDuration = meetingDuration
@@ -1517,6 +1592,7 @@ func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration string
 }
 
 // 参会人数
+//
 // 示例值：2000
 func (builder *ReportMeetingDailyBuilder) ParticipantCount(participantCount string) *ReportMeetingDailyBuilder {
 	builder.participantCount = participantCount
@@ -1572,6 +1648,7 @@ func NewReportTopUserBuilder() *ReportTopUserBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReportTopUserBuilder) Id(id string) *ReportTopUserBuilder {
 	builder.id = id
@@ -1580,6 +1657,7 @@ func (builder *ReportTopUserBuilder) Id(id string) *ReportTopUserBuilder {
 }
 
 // 用户名
+//
 // 示例值：name
 func (builder *ReportTopUserBuilder) Name(name string) *ReportTopUserBuilder {
 	builder.name = name
@@ -1588,6 +1666,7 @@ func (builder *ReportTopUserBuilder) Name(name string) *ReportTopUserBuilder {
 }
 
 // 用户类型
+//
 // 示例值：1
 func (builder *ReportTopUserBuilder) UserType(userType int) *ReportTopUserBuilder {
 	builder.userType = userType
@@ -1596,6 +1675,7 @@ func (builder *ReportTopUserBuilder) UserType(userType int) *ReportTopUserBuilde
 }
 
 // 会议数量
+//
 // 示例值：100
 func (builder *ReportTopUserBuilder) MeetingCount(meetingCount string) *ReportTopUserBuilder {
 	builder.meetingCount = meetingCount
@@ -1604,6 +1684,7 @@ func (builder *ReportTopUserBuilder) MeetingCount(meetingCount string) *ReportTo
 }
 
 // 会议时长（单位min）
+//
 // 示例值：3000
 func (builder *ReportTopUserBuilder) MeetingDuration(meetingDuration string) *ReportTopUserBuilder {
 	builder.meetingDuration = meetingDuration
@@ -1675,6 +1756,7 @@ func NewReserveBuilder() *ReserveBuilder {
 }
 
 // 预约ID（预约的唯一标识）
+//
 // 示例值：6911188411934973028
 func (builder *ReserveBuilder) Id(id string) *ReserveBuilder {
 	builder.id = id
@@ -1683,6 +1765,7 @@ func (builder *ReserveBuilder) Id(id string) *ReserveBuilder {
 }
 
 // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+//
 // 示例值：112000358
 func (builder *ReserveBuilder) MeetingNo(meetingNo string) *ReserveBuilder {
 	builder.meetingNo = meetingNo
@@ -1691,6 +1774,7 @@ func (builder *ReserveBuilder) MeetingNo(meetingNo string) *ReserveBuilder {
 }
 
 // 会议链接（飞书用户可通过点击会议链接快捷入会）
+//
 // 示例值：https://vc.feishu.cn/j/337736498
 func (builder *ReserveBuilder) Url(url string) *ReserveBuilder {
 	builder.url = url
@@ -1699,6 +1783,7 @@ func (builder *ReserveBuilder) Url(url string) *ReserveBuilder {
 }
 
 // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+//
 // 示例值：https://applink.feishu.cn/client/videochat/open?source=openplatform&action=join&idtype=reservationid&id={?}&preview={?}&mic={?}&speaker={?}&camera={?}
 func (builder *ReserveBuilder) AppLink(appLink string) *ReserveBuilder {
 	builder.appLink = appLink
@@ -1707,6 +1792,7 @@ func (builder *ReserveBuilder) AppLink(appLink string) *ReserveBuilder {
 }
 
 // 直播链接
+//
 // 示例值：https://meetings.feishu.cn/s/1gub381l4gglv
 func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
 	builder.liveLink = liveLink
@@ -1715,6 +1801,7 @@ func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
 }
 
 // 预约到期时间（unix时间，单位sec）
+//
 // 示例值：1608883322
 func (builder *ReserveBuilder) EndTime(endTime string) *ReserveBuilder {
 	builder.endTime = endTime
@@ -1723,6 +1810,7 @@ func (builder *ReserveBuilder) EndTime(endTime string) *ReserveBuilder {
 }
 
 // 过期状态
+//
 // 示例值：0
 func (builder *ReserveBuilder) ExpireStatus(expireStatus int) *ReserveBuilder {
 	builder.expireStatus = expireStatus
@@ -1731,6 +1819,7 @@ func (builder *ReserveBuilder) ExpireStatus(expireStatus int) *ReserveBuilder {
 }
 
 // 预约人ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReserveBuilder) ReserveUserId(reserveUserId string) *ReserveBuilder {
 	builder.reserveUserId = reserveUserId
@@ -1739,6 +1828,7 @@ func (builder *ReserveBuilder) ReserveUserId(reserveUserId string) *ReserveBuild
 }
 
 // 会议设置
+//
 // 示例值：
 func (builder *ReserveBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ReserveBuilder {
 	builder.meetingSettings = meetingSettings
@@ -1804,6 +1894,7 @@ func NewReserveActionPermissionBuilder() *ReserveActionPermissionBuilder {
 }
 
 // 权限项
+//
 // 示例值：1
 func (builder *ReserveActionPermissionBuilder) Permission(permission int) *ReserveActionPermissionBuilder {
 	builder.permission = permission
@@ -1812,6 +1903,7 @@ func (builder *ReserveActionPermissionBuilder) Permission(permission int) *Reser
 }
 
 // 权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+//
 // 示例值：
 func (builder *ReserveActionPermissionBuilder) PermissionCheckers(permissionCheckers []*ReservePermissionChecker) *ReserveActionPermissionBuilder {
 	builder.permissionCheckers = permissionCheckers
@@ -1846,6 +1938,7 @@ func NewReserveCallSettingBuilder() *ReserveCallSettingBuilder {
 }
 
 // 被呼叫的用户
+//
 // 示例值：
 func (builder *ReserveCallSettingBuilder) Callee(callee *ReserveCallee) *ReserveCallSettingBuilder {
 	builder.callee = callee
@@ -1882,6 +1975,7 @@ func NewReserveCalleeBuilder() *ReserveCalleeBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReserveCalleeBuilder) Id(id string) *ReserveCalleeBuilder {
 	builder.id = id
@@ -1890,6 +1984,7 @@ func (builder *ReserveCalleeBuilder) Id(id string) *ReserveCalleeBuilder {
 }
 
 // 用户类型，当前仅支持用户类型6(pstn用户)
+//
 // 示例值：1
 func (builder *ReserveCalleeBuilder) UserType(userType int) *ReserveCalleeBuilder {
 	builder.userType = userType
@@ -1898,6 +1993,7 @@ func (builder *ReserveCalleeBuilder) UserType(userType int) *ReserveCalleeBuilde
 }
 
 // pstn/sip信息
+//
 // 示例值：
 func (builder *ReserveCalleeBuilder) PstnSipInfo(pstnSipInfo *PstnSipInfo) *ReserveCalleeBuilder {
 	builder.pstnSipInfo = pstnSipInfo
@@ -1948,6 +2044,7 @@ func NewReserveMeetingSettingBuilder() *ReserveMeetingSettingBuilder {
 }
 
 // 会议主题
+//
 // 示例值：my meeting
 func (builder *ReserveMeetingSettingBuilder) Topic(topic string) *ReserveMeetingSettingBuilder {
 	builder.topic = topic
@@ -1956,6 +2053,7 @@ func (builder *ReserveMeetingSettingBuilder) Topic(topic string) *ReserveMeeting
 }
 
 // 会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+//
 // 示例值：
 func (builder *ReserveMeetingSettingBuilder) ActionPermissions(actionPermissions []*ReserveActionPermission) *ReserveMeetingSettingBuilder {
 	builder.actionPermissions = actionPermissions
@@ -1964,6 +2062,7 @@ func (builder *ReserveMeetingSettingBuilder) ActionPermissions(actionPermissions
 }
 
 // 会议初始类型
+//
 // 示例值：1
 func (builder *ReserveMeetingSettingBuilder) MeetingInitialType(meetingInitialType int) *ReserveMeetingSettingBuilder {
 	builder.meetingInitialType = meetingInitialType
@@ -1972,6 +2071,7 @@ func (builder *ReserveMeetingSettingBuilder) MeetingInitialType(meetingInitialTy
 }
 
 // 1v1呼叫相关参数
+//
 // 示例值：
 func (builder *ReserveMeetingSettingBuilder) CallSetting(callSetting *ReserveCallSetting) *ReserveMeetingSettingBuilder {
 	builder.callSetting = callSetting
@@ -1980,6 +2080,7 @@ func (builder *ReserveMeetingSettingBuilder) CallSetting(callSetting *ReserveCal
 }
 
 // 使用飞书视频会议时，是否开启自动录制，默认false
+//
 // 示例值：true
 func (builder *ReserveMeetingSettingBuilder) AutoRecord(autoRecord bool) *ReserveMeetingSettingBuilder {
 	builder.autoRecord = autoRecord
@@ -2031,6 +2132,7 @@ func NewReservePermissionCheckerBuilder() *ReservePermissionCheckerBuilder {
 }
 
 // 检查字段类型
+//
 // 示例值：1
 func (builder *ReservePermissionCheckerBuilder) CheckField(checkField int) *ReservePermissionCheckerBuilder {
 	builder.checkField = checkField
@@ -2039,6 +2141,7 @@ func (builder *ReservePermissionCheckerBuilder) CheckField(checkField int) *Rese
 }
 
 // 检查方式
+//
 // 示例值：1
 func (builder *ReservePermissionCheckerBuilder) CheckMode(checkMode int) *ReservePermissionCheckerBuilder {
 	builder.checkMode = checkMode
@@ -2047,6 +2150,7 @@ func (builder *ReservePermissionCheckerBuilder) CheckMode(checkMode int) *Reserv
 }
 
 // 检查字段列表
+//
 // 示例值：123
 func (builder *ReservePermissionCheckerBuilder) CheckList(checkList []string) *ReservePermissionCheckerBuilder {
 	builder.checkList = checkList
@@ -2097,6 +2201,7 @@ func NewRoomConfigBuilder() *RoomConfigBuilder {
 }
 
 // 飞书会议室背景图
+//
 // 示例值：https://lf1-ttcdn-tos.pstatp.com/obj/xxx
 func (builder *RoomConfigBuilder) RoomBackground(roomBackground string) *RoomConfigBuilder {
 	builder.roomBackground = roomBackground
@@ -2105,6 +2210,7 @@ func (builder *RoomConfigBuilder) RoomBackground(roomBackground string) *RoomCon
 }
 
 // 飞书签到板背景图
+//
 // 示例值：https://lf1-ttcdn-tos.pstatp.com/obj/xxx
 func (builder *RoomConfigBuilder) DisplayBackground(displayBackground string) *RoomConfigBuilder {
 	builder.displayBackground = displayBackground
@@ -2113,6 +2219,7 @@ func (builder *RoomConfigBuilder) DisplayBackground(displayBackground string) *R
 }
 
 // 飞书会议室数字标牌
+//
 // 示例值：
 func (builder *RoomConfigBuilder) DigitalSignage(digitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
 	builder.digitalSignage = digitalSignage
@@ -2121,6 +2228,7 @@ func (builder *RoomConfigBuilder) DigitalSignage(digitalSignage *RoomDigitalSign
 }
 
 // 飞书投屏盒子数字标牌
+//
 // 示例值：
 func (builder *RoomConfigBuilder) RoomBoxDigitalSignage(roomBoxDigitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
 	builder.roomBoxDigitalSignage = roomBoxDigitalSignage
@@ -2129,6 +2237,7 @@ func (builder *RoomConfigBuilder) RoomBoxDigitalSignage(roomBoxDigitalSignage *R
 }
 
 // 会议室状态
+//
 // 示例值：
 func (builder *RoomConfigBuilder) RoomStatus(roomStatus *RoomStatus) *RoomConfigBuilder {
 	builder.roomStatus = roomStatus
@@ -2185,6 +2294,7 @@ func NewRoomDigitalSignageBuilder() *RoomDigitalSignageBuilder {
 }
 
 // 是否开启数字标牌功能
+//
 // 示例值：true
 func (builder *RoomDigitalSignageBuilder) Enable(enable bool) *RoomDigitalSignageBuilder {
 	builder.enable = enable
@@ -2193,6 +2303,7 @@ func (builder *RoomDigitalSignageBuilder) Enable(enable bool) *RoomDigitalSignag
 }
 
 // 是否静音播放
+//
 // 示例值：true
 func (builder *RoomDigitalSignageBuilder) Mute(mute bool) *RoomDigitalSignageBuilder {
 	builder.mute = mute
@@ -2201,6 +2312,7 @@ func (builder *RoomDigitalSignageBuilder) Mute(mute bool) *RoomDigitalSignageBui
 }
 
 // 日程会议开始前n分钟结束播放
+//
 // 示例值：3
 func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDigitalSignageBuilder {
 	builder.startDisplay = startDisplay
@@ -2209,6 +2321,7 @@ func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDi
 }
 
 // 会议结束后n分钟开始播放
+//
 // 示例值：3
 func (builder *RoomDigitalSignageBuilder) StopDisplay(stopDisplay int) *RoomDigitalSignageBuilder {
 	builder.stopDisplay = stopDisplay
@@ -2217,6 +2330,7 @@ func (builder *RoomDigitalSignageBuilder) StopDisplay(stopDisplay int) *RoomDigi
 }
 
 // 素材列表
+//
 // 示例值：
 func (builder *RoomDigitalSignageBuilder) Materials(materials []*RoomDigitalSignageMaterial) *RoomDigitalSignageBuilder {
 	builder.materials = materials
@@ -2287,6 +2401,7 @@ func NewRoomDigitalSignageMaterialBuilder() *RoomDigitalSignageMaterialBuilder {
 }
 
 // 素材ID
+//
 // 示例值：7847784676276
 func (builder *RoomDigitalSignageMaterialBuilder) Id(id string) *RoomDigitalSignageMaterialBuilder {
 	builder.id = id
@@ -2295,6 +2410,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Id(id string) *RoomDigitalSign
 }
 
 // 素材名称
+//
 // 示例值：name
 func (builder *RoomDigitalSignageMaterialBuilder) Name(name string) *RoomDigitalSignageMaterialBuilder {
 	builder.name = name
@@ -2303,6 +2419,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Name(name string) *RoomDigital
 }
 
 // 素材类型
+//
 // 示例值：0
 func (builder *RoomDigitalSignageMaterialBuilder) MaterialType(materialType int) *RoomDigitalSignageMaterialBuilder {
 	builder.materialType = materialType
@@ -2311,6 +2428,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) MaterialType(materialType int)
 }
 
 // 素材url
+//
 // 示例值：url
 func (builder *RoomDigitalSignageMaterialBuilder) Url(url string) *RoomDigitalSignageMaterialBuilder {
 	builder.url = url
@@ -2319,6 +2437,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Url(url string) *RoomDigitalSi
 }
 
 // 播放时长（单位sec）
+//
 // 示例值：15
 func (builder *RoomDigitalSignageMaterialBuilder) Duration(duration int) *RoomDigitalSignageMaterialBuilder {
 	builder.duration = duration
@@ -2327,6 +2446,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Duration(duration int) *RoomDi
 }
 
 // 素材封面url
+//
 // 示例值：url
 func (builder *RoomDigitalSignageMaterialBuilder) Cover(cover string) *RoomDigitalSignageMaterialBuilder {
 	builder.cover = cover
@@ -2335,6 +2455,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Cover(cover string) *RoomDigit
 }
 
 // 素材文件md5
+//
 // 示例值：md5
 func (builder *RoomDigitalSignageMaterialBuilder) Md5(md5 string) *RoomDigitalSignageMaterialBuilder {
 	builder.md5 = md5
@@ -2343,6 +2464,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Md5(md5 string) *RoomDigitalSi
 }
 
 // 素材文件vid
+//
 // 示例值：vid
 func (builder *RoomDigitalSignageMaterialBuilder) Vid(vid string) *RoomDigitalSignageMaterialBuilder {
 	builder.vid = vid
@@ -2351,6 +2473,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Vid(vid string) *RoomDigitalSi
 }
 
 // 素材文件大小（单位byte）
+//
 // 示例值：100
 func (builder *RoomDigitalSignageMaterialBuilder) Size(size string) *RoomDigitalSignageMaterialBuilder {
 	builder.size = size
@@ -2435,6 +2558,7 @@ func NewRoomStatusBuilder() *RoomStatusBuilder {
 }
 
 // 是否启用会议室
+//
 // 示例值：true
 func (builder *RoomStatusBuilder) Status(status bool) *RoomStatusBuilder {
 	builder.status = status
@@ -2443,6 +2567,7 @@ func (builder *RoomStatusBuilder) Status(status bool) *RoomStatusBuilder {
 }
 
 // 会议室未来状态为启用或禁用
+//
 // 示例值：true
 func (builder *RoomStatusBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatusBuilder {
 	builder.scheduleStatus = scheduleStatus
@@ -2451,6 +2576,7 @@ func (builder *RoomStatusBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatu
 }
 
 // 禁用开始时间（unix时间，单位sec）
+//
 // 示例值：1652356050
 func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime string) *RoomStatusBuilder {
 	builder.disableStartTime = disableStartTime
@@ -2459,6 +2585,7 @@ func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime string) *Roo
 }
 
 // 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+//
 // 示例值：1652442450
 func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime string) *RoomStatusBuilder {
 	builder.disableEndTime = disableEndTime
@@ -2467,6 +2594,7 @@ func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime string) *RoomSta
 }
 
 // 禁用原因
+//
 // 示例值：测试占用
 func (builder *RoomStatusBuilder) DisableReason(disableReason string) *RoomStatusBuilder {
 	builder.disableReason = disableReason
@@ -2475,6 +2603,7 @@ func (builder *RoomStatusBuilder) DisableReason(disableReason string) *RoomStatu
 }
 
 // 联系人列表，id类型由user_id_type参数决定
+//
 // 示例值：["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
 func (builder *RoomStatusBuilder) ContactIds(contactIds []string) *RoomStatusBuilder {
 	builder.contactIds = contactIds
@@ -2483,6 +2612,7 @@ func (builder *RoomStatusBuilder) ContactIds(contactIds []string) *RoomStatusBui
 }
 
 // 是否在禁用时发送通知给预定了该会议室的员工
+//
 // 示例值：true
 func (builder *RoomStatusBuilder) DisableNotice(disableNotice bool) *RoomStatusBuilder {
 	builder.disableNotice = disableNotice
@@ -2491,6 +2621,7 @@ func (builder *RoomStatusBuilder) DisableNotice(disableNotice bool) *RoomStatusB
 }
 
 // 是否在恢复启用时发送通知给预定了该会议室的员工
+//
 // 示例值：true
 func (builder *RoomStatusBuilder) ResumeNotice(resumeNotice bool) *RoomStatusBuilder {
 	builder.resumeNotice = resumeNotice
@@ -2555,6 +2686,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -2563,6 +2695,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -2570,6 +2703,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {

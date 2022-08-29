@@ -35,33 +35,33 @@ const (
 )
 
 const (
-	UserIdTypeUserGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUserListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUserPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUserFaceGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserFaceGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserFaceGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetUserFaceUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetUserFaceUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetUserFaceOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUserFaceUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserFaceUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserFaceUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateUserFaceUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateUserFaceUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateUserFaceOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AccessRecord struct {
@@ -100,6 +100,7 @@ func NewAccessRecordBuilder() *AccessRecordBuilder {
 }
 
 // 门禁记录 ID
+//
 // 示例值：6939433228970082591
 func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *AccessRecordBuilder {
 	builder.accessRecordId = accessRecordId
@@ -108,6 +109,7 @@ func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *Acces
 }
 
 // 门禁记录所属用户 ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 	builder.userId = userId
@@ -116,6 +118,7 @@ func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 }
 
 // 门禁设备 ID
+//
 // 示例值：6939433228970082593
 func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuilder {
 	builder.deviceId = deviceId
@@ -124,6 +127,7 @@ func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuild
 }
 
 // 是否是打卡
+//
 // 示例值：true
 func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder {
 	builder.isClockIn = isClockIn
@@ -132,6 +136,7 @@ func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuild
 }
 
 // 访问时间，单位秒
+//
 // 示例值：1624520221
 func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordBuilder {
 	builder.accessTime = accessTime
@@ -140,6 +145,7 @@ func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordB
 }
 
 // 识别方式
+//
 // 示例值：FA
 func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder {
 	builder.accessType = accessType
@@ -148,6 +154,7 @@ func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordB
 }
 
 // 识别相关数据，根据 access_type 不同，取值不同
+//
 // 示例值：{\"has_access_photo\":true}
 func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder {
 	builder.accessData = accessData
@@ -156,6 +163,7 @@ func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordB
 }
 
 // 是否开门
+//
 // 示例值：true
 func (builder *AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder {
 	builder.isDoorOpen = isDoorOpen
@@ -221,6 +229,7 @@ func NewDeviceBuilder() *DeviceBuilder {
 }
 
 // 门禁设备 ID
+//
 // 示例值：6939433228970082593
 func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 	builder.deviceId = deviceId
@@ -229,6 +238,7 @@ func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 }
 
 // 设备名称
+//
 // 示例值：东门
 func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
 	builder.deviceName = deviceName
@@ -237,6 +247,7 @@ func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
 }
 
 // 设备 SN 码
+//
 // 示例值：3X811621174000240
 func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
 	builder.deviceSn = deviceSn
@@ -279,6 +290,7 @@ func NewFeatureBuilder() *FeatureBuilder {
 }
 
 // 卡号
+//
 // 示例值：123456
 func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
 	builder.card = card
@@ -287,6 +299,7 @@ func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
 }
 
 // 是否已上传人脸图片
+//
 // 示例值：true
 func (builder *FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder {
 	builder.faceUploaded = faceUploaded
@@ -328,6 +341,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 人脸图片内容
+//
 // 示例值：jpg图片
 func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 	builder.files = files
@@ -336,6 +350,7 @@ func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 }
 
 // 文件类型,可选的类型有jpg,png
+//
 // 示例值：jpg
 func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
 	builder.fileType = fileType
@@ -344,6 +359,7 @@ func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
 }
 
 // 带后缀的文件名
+//
 // 示例值：efeqz12f.jpg
 func (builder *FileBuilder) FileName(fileName string) *FileBuilder {
 	builder.fileName = fileName
@@ -385,6 +401,7 @@ func NewUserBuilder() *UserBuilder {
 }
 
 // 用户特征
+//
 // 示例值：
 func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
 	builder.feature = feature
@@ -393,6 +410,7 @@ func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
@@ -433,6 +451,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -441,6 +460,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -448,6 +468,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {

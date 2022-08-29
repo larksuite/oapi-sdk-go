@@ -36,17 +36,17 @@ const (
 )
 
 const (
-	WhoCanSendMailMailgroupPatchANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	WhoCanSendMailMailgroupPatchALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	WhoCanSendMailMailgroupPatchALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	WhoCanSendMailMailgroupPatchCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMailPatchMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	WhoCanSendMailPatchMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	WhoCanSendMailPatchMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	WhoCanSendMailPatchMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	WhoCanSendMailMailgroupUpdateANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	WhoCanSendMailMailgroupUpdateALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	WhoCanSendMailMailgroupUpdateALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	WhoCanSendMailMailgroupUpdateCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMailUpdateMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	WhoCanSendMailUpdateMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	WhoCanSendMailUpdateMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	WhoCanSendMailUpdateMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
@@ -60,9 +60,9 @@ const (
 )
 
 const (
-	UserIdTypeMailgroupMemberCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupMemberCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -71,85 +71,85 @@ const (
 )
 
 const (
-	UserIdTypeMailgroupMemberGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupMemberGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeMailgroupMemberGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeMailgroupMemberGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeGetMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeMailgroupMemberListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupMemberListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupMemberListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeMailgroupMemberListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeMailgroupMemberListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	TypeMailgroupPermissionMemberCreateUSER       = "USER"       // internal user in the team
-	TypeMailgroupPermissionMemberCreateDEPARTMENT = "DEPARTMENT" // member is a department
+	TypeCreateMailgroupPermissionMemberUSER       = "USER"       // internal user in the team
+	TypeCreateMailgroupPermissionMemberDEPARTMENT = "DEPARTMENT" // member is a department
 )
 
 const (
-	UserIdTypeMailgroupPermissionMemberCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupPermissionMemberCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupPermissionMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeMailgroupPermissionMemberCreateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeMailgroupPermissionMemberCreateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeMailgroupPermissionMemberGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupPermissionMemberGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupPermissionMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeMailgroupPermissionMemberGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeMailgroupPermissionMemberGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeGetMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeMailgroupPermissionMemberListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMailgroupPermissionMemberListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMailgroupPermissionMemberListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeMailgroupPermissionMemberListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeMailgroupPermissionMemberListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	TypePublicMailboxMemberCreateUSER = "USER" // internal user in the team
+	TypeCreatePublicMailboxMemberUSER = "USER" // internal user in the team
 )
 
 const (
-	UserIdTypePublicMailboxMemberCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePublicMailboxMemberCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePublicMailboxMemberCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreatePublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePublicMailboxMemberGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePublicMailboxMemberGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePublicMailboxMemberGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePublicMailboxMemberListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePublicMailboxMemberListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePublicMailboxMemberListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type EmailAlias struct {
@@ -170,6 +170,7 @@ func NewEmailAliasBuilder() *EmailAliasBuilder {
 }
 
 // 主邮箱地址
+//
 // 示例值：xxx@xx.xxx
 func (builder *EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasBuilder {
 	builder.primaryEmail = primaryEmail
@@ -178,6 +179,7 @@ func (builder *EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasB
 }
 
 // 邮箱别名
+//
 // 示例值：xxx@xx.xxx
 func (builder *EmailAliasBuilder) EmailAlias(emailAlias string) *EmailAliasBuilder {
 	builder.emailAlias = emailAlias
@@ -234,6 +236,7 @@ func NewMailgroupBuilder() *MailgroupBuilder {
 }
 
 // 邮件组ID
+//
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder {
 	builder.mailgroupId = mailgroupId
@@ -242,6 +245,7 @@ func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuild
 }
 
 // 邮件组地址
+//
 // 示例值：test_mail_group@xxx.xx
 func (builder *MailgroupBuilder) Email(email string) *MailgroupBuilder {
 	builder.email = email
@@ -250,6 +254,7 @@ func (builder *MailgroupBuilder) Email(email string) *MailgroupBuilder {
 }
 
 // 邮件组名称
+//
 // 示例值：test mail group
 func (builder *MailgroupBuilder) Name(name string) *MailgroupBuilder {
 	builder.name = name
@@ -258,6 +263,7 @@ func (builder *MailgroupBuilder) Name(name string) *MailgroupBuilder {
 }
 
 // 邮件组描述
+//
 // 示例值：mail group for testing
 func (builder *MailgroupBuilder) Description(description string) *MailgroupBuilder {
 	builder.description = description
@@ -266,6 +272,7 @@ func (builder *MailgroupBuilder) Description(description string) *MailgroupBuild
 }
 
 // 邮件组成员数量
+//
 // 示例值：10
 func (builder *MailgroupBuilder) DirectMembersCount(directMembersCount string) *MailgroupBuilder {
 	builder.directMembersCount = directMembersCount
@@ -274,6 +281,7 @@ func (builder *MailgroupBuilder) DirectMembersCount(directMembersCount string) *
 }
 
 // 是否包含外部成员
+//
 // 示例值：true
 func (builder *MailgroupBuilder) IncludeExternalMember(includeExternalMember bool) *MailgroupBuilder {
 	builder.includeExternalMember = includeExternalMember
@@ -282,6 +290,7 @@ func (builder *MailgroupBuilder) IncludeExternalMember(includeExternalMember boo
 }
 
 // 是否是全员邮件组
+//
 // 示例值：false
 func (builder *MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember bool) *MailgroupBuilder {
 	builder.includeAllCompanyMember = includeAllCompanyMember
@@ -290,6 +299,7 @@ func (builder *MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember
 }
 
 // 谁可发送邮件到此邮件组
+//
 // 示例值：ALL_INTERNAL_USERS
 func (builder *MailgroupBuilder) WhoCanSendMail(whoCanSendMail string) *MailgroupBuilder {
 	builder.whoCanSendMail = whoCanSendMail
@@ -361,6 +371,7 @@ func NewMailgroupMemberBuilder() *MailgroupMemberBuilder {
 }
 
 // 邮件组内成员唯一标识
+//
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder {
 	builder.memberId = memberId
@@ -369,6 +380,7 @@ func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMembe
 }
 
 // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+//
 // 示例值：test_memeber@xxx.xx
 func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
 	builder.email = email
@@ -377,6 +389,7 @@ func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuild
 }
 
 // 租户内用户的唯一标识（当成员类型是USER时有值）
+//
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder {
 	builder.userId = userId
@@ -385,6 +398,7 @@ func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBui
 }
 
 // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+//
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder {
 	builder.departmentId = departmentId
@@ -393,6 +407,7 @@ func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *Mailgr
 }
 
 // 成员类型
+//
 // 示例值：USER
 func (builder *MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder {
 	builder.type_ = type_
@@ -449,6 +464,7 @@ func NewMailgroupPermissionMemberBuilder() *MailgroupPermissionMemberBuilder {
 }
 
 // 权限组内成员唯一标识
+//
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder {
 	builder.permissionMemberId = permissionMemberId
@@ -457,6 +473,7 @@ func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMe
 }
 
 // 租户内用户的唯一标识（当成员类型是USER时有值）
+//
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder {
 	builder.userId = userId
@@ -465,6 +482,7 @@ func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *Mailgrou
 }
 
 // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+//
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder {
 	builder.departmentId = departmentId
@@ -473,6 +491,7 @@ func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId strin
 }
 
 // 成员类型
+//
 // 示例值：USER
 func (builder *MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder {
 	builder.type_ = type_
@@ -516,6 +535,7 @@ func NewMessageBuilder() *MessageBuilder {
 }
 
 // MIME邮件数据，基于base64url编码
+//
 // 示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogdG9AeHh4Lnh4CmZyb206IHNlbmRlckB4eHgueHgKc3ViamVjdDogdGhpcyBpcyBhIHN1YmplY3QKCnRoaXMgaXMgdGhlIG1lc3NhZ2UgYm9keS4=
 func (builder *MessageBuilder) Raw(raw string) *MessageBuilder {
 	builder.raw = raw
@@ -553,6 +573,7 @@ func NewPublicMailboxBuilder() *PublicMailboxBuilder {
 }
 
 // 公共邮箱唯一标识
+//
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *PublicMailboxBuilder {
 	builder.publicMailboxId = publicMailboxId
@@ -561,6 +582,7 @@ func (builder *PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *Pu
 }
 
 // 公共邮箱地址
+//
 // 示例值：test_public_mailbox@xxx.xx
 func (builder *PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder {
 	builder.email = email
@@ -569,6 +591,7 @@ func (builder *PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder {
 }
 
 // 公共邮箱名称
+//
 // 示例值：test public mailbox
 func (builder *PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder {
 	builder.name = name
@@ -614,6 +637,7 @@ func NewPublicMailboxMemberBuilder() *PublicMailboxMemberBuilder {
 }
 
 // 公共邮箱内成员唯一标识
+//
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder {
 	builder.memberId = memberId
@@ -622,6 +646,7 @@ func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMail
 }
 
 // 租户内用户的唯一标识（当成员类型是USER时有值）
+//
 // 示例值：xxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder {
 	builder.userId = userId
@@ -630,6 +655,7 @@ func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxM
 }
 
 // 成员类型
+//
 // 示例值：USER
 func (builder *PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder {
 	builder.type_ = type_
@@ -675,6 +701,7 @@ func NewUserBuilder() *UserBuilder {
 }
 
 // 邮箱地址
+//
 // 示例值：aaa@lark.com
 func (builder *UserBuilder) Email(email string) *UserBuilder {
 	builder.email = email
@@ -683,6 +710,7 @@ func (builder *UserBuilder) Email(email string) *UserBuilder {
 }
 
 // 邮箱地址状态
+//
 // 示例值：4
 func (builder *UserBuilder) Status(status int) *UserBuilder {
 	builder.status = status
@@ -691,6 +719,7 @@ func (builder *UserBuilder) Status(status int) *UserBuilder {
 }
 
 // 邮箱地址类型
+//
 // 示例值：1
 func (builder *UserBuilder) Type(type_ int) *UserBuilder {
 	builder.type_ = type_

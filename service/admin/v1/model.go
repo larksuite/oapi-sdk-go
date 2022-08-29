@@ -38,8 +38,8 @@ const (
 )
 
 const (
-	DepartmentIdTypeAdminUserStatListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeAdminUserStatListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListAdminUserStatDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListAdminUserStatOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -49,53 +49,53 @@ const (
 )
 
 const (
-	UserIdTypeBadgeGrantCreateOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeBadgeGrantCreateUnionId = "union_id" // 用户的union_id
-	UserIdTypeBadgeGrantCreateUserId  = "user_id"  // 用户的user_id
+	UserIdTypeCreateBadgeGrantOpenId  = "open_id"  // 用户的open_id
+	UserIdTypeCreateBadgeGrantUnionId = "union_id" // 用户的union_id
+	UserIdTypeCreateBadgeGrantUserId  = "user_id"  // 用户的user_id
 )
 
 const (
-	DepartmentIdTypeBadgeGrantCreateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBadgeGrantCreateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeCreateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeBadgeGrantGetOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeBadgeGrantGetUnionId = "union_id" // 用户的union_id
-	UserIdTypeBadgeGrantGetUserId  = "user_id"  // 用户的user_id
+	UserIdTypeGetBadgeGrantOpenId  = "open_id"  // 用户的open_id
+	UserIdTypeGetBadgeGrantUnionId = "union_id" // 用户的union_id
+	UserIdTypeGetBadgeGrantUserId  = "user_id"  // 用户的user_id
 )
 
 const (
-	DepartmentIdTypeBadgeGrantGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBadgeGrantGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeGetBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeBadgeGrantListOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeBadgeGrantListUnionId = "union_id" // 用户的union_id
-	UserIdTypeBadgeGrantListUserId  = "user_id"  // 用户的user_id
+	UserIdTypeListBadgeGrantOpenId  = "open_id"  // 用户的open_id
+	UserIdTypeListBadgeGrantUnionId = "union_id" // 用户的union_id
+	UserIdTypeListBadgeGrantUserId  = "user_id"  // 用户的user_id
 )
 
 const (
-	DepartmentIdTypeBadgeGrantListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBadgeGrantListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	GrantTypeBadgeGrantUpdateManual   = 0 // 手动选择有效期
-	GrantTypeBadgeGrantUpdateJoinTime = 1 // 匹配系统入职时间
+	GrantTypeUpdateBadgeGrantManual   = 0 // 手动选择有效期
+	GrantTypeUpdateBadgeGrantJoinTime = 1 // 匹配系统入职时间
 
 )
 
 const (
-	UserIdTypeBadgeGrantUpdateOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeBadgeGrantUpdateUnionId = "union_id" // 用户的union_id
-	UserIdTypeBadgeGrantUpdateUserId  = "user_id"  // 用户的user_id
+	UserIdTypeUpdateBadgeGrantOpenId  = "open_id"  // 用户的open_id
+	UserIdTypeUpdateBadgeGrantUnionId = "union_id" // 用户的union_id
+	UserIdTypeUpdateBadgeGrantUserId  = "user_id"  // 用户的user_id
 )
 
 const (
-	DepartmentIdTypeBadgeGrantUpdateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBadgeGrantUpdateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeUpdateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUpdateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -105,9 +105,9 @@ const (
 )
 
 const (
-	UserIdTypePasswordResetOpenId  = "open_id"  // open_id
-	UserIdTypePasswordResetUnionId = "union_id" // union_id
-	UserIdTypePasswordResetUserId  = "user_id"  // user_id
+	UserIdTypeResetPasswordOpenId  = "open_id"  // open_id
+	UserIdTypeResetPasswordUnionId = "union_id" // union_id
+	UserIdTypeResetPasswordUserId  = "user_id"  // user_id
 )
 
 type AdminDeptStat struct {
@@ -218,6 +218,7 @@ func NewAdminDeptStatBuilder() *AdminDeptStatBuilder {
 }
 
 // 日期
+//
 // 示例值：2020-02-15
 func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
 	builder.date = date
@@ -226,6 +227,7 @@ func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
 }
 
 // 部门的department_id 或者open_department_id
+//
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDeptStatBuilder {
 	builder.departmentId = departmentId
@@ -234,6 +236,7 @@ func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDep
 }
 
 // 部门名字
+//
 // 示例值：subtestkkk
 func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *AdminDeptStatBuilder {
 	builder.departmentName = departmentName
@@ -242,6 +245,7 @@ func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *Admi
 }
 
 // 部门路径
+//
 // 示例值：testkkk/subtestkkk
 func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *AdminDeptStatBuilder {
 	builder.departmentPath = departmentPath
@@ -250,6 +254,7 @@ func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *Admi
 }
 
 // 部门总人数
+//
 // 示例值：2
 func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptStatBuilder {
 	builder.totalUserNum = totalUserNum
@@ -258,6 +263,7 @@ func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptSt
 }
 
 // 激活人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDeptStatBuilder {
 	builder.activeUserNum = activeUserNum
@@ -266,6 +272,7 @@ func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDept
 }
 
 // 激活率
+//
 // 示例值：1.00
 func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *AdminDeptStatBuilder {
 	builder.activeUserRate = activeUserRate
@@ -274,6 +281,7 @@ func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *Admi
 }
 
 // 活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilder {
 	builder.suiteDau = suiteDau
@@ -282,6 +290,7 @@ func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilde
 }
 
 // 活跃率
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *AdminDeptStatBuilder {
 	builder.suiteActiveRate = suiteActiveRate
@@ -290,6 +299,7 @@ func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *Ad
 }
 
 // 新用户数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBuilder {
 	builder.newUserNum = newUserNum
@@ -298,6 +308,7 @@ func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBu
 }
 
 // 新激活数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptStatBuilder {
 	builder.newActiveNum = newActiveNum
@@ -306,6 +317,7 @@ func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptSt
 }
 
 // 离职人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDeptStatBuilder {
 	builder.resignUserNum = resignUserNum
@@ -314,6 +326,7 @@ func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDept
 }
 
 // 消息活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 	builder.imDau = imDau
@@ -322,6 +335,7 @@ func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 }
 
 // 发送消息人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerUserNum = sendMessengerUserNum
@@ -330,6 +344,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum i
 }
 
 // 发送消息数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerNum = sendMessengerNum
@@ -338,6 +353,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 }
 
 // 人均发送消息数
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum string) *AdminDeptStatBuilder {
 	builder.avgSendMessengerNum = avgSendMessengerNum
@@ -346,6 +362,7 @@ func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum str
 }
 
 // 云文档活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder {
 	builder.docsDau = docsDau
@@ -354,6 +371,7 @@ func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder 
 }
 
 // 创建文件人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *AdminDeptStatBuilder {
 	builder.createDocsUserNum = createDocsUserNum
@@ -362,6 +380,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *A
 }
 
 // 创建文件数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDeptStatBuilder {
 	builder.createDocsNum = createDocsNum
@@ -370,6 +389,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDept
 }
 
 // 人均创建文件数
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *AdminDeptStatBuilder {
 	builder.avgCreateDocsNum = avgCreateDocsNum
@@ -378,6 +398,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *
 }
 
 // 日历活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 	builder.calDau = calDau
@@ -386,6 +407,7 @@ func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 }
 
 // 创建日程人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *AdminDeptStatBuilder {
 	builder.createCalUserNum = createCalUserNum
@@ -394,6 +416,7 @@ func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *Adm
 }
 
 // 创建日程数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptStatBuilder {
 	builder.createCalNum = createCalNum
@@ -402,6 +425,7 @@ func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptSt
 }
 
 // 人均创建日程数
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *AdminDeptStatBuilder {
 	builder.avgCreateCalNum = avgCreateCalNum
@@ -410,6 +434,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *Ad
 }
 
 // 音视频会议活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 	builder.vcDau = vcDau
@@ -418,6 +443,7 @@ func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 }
 
 // 会议时长（分钟）
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBuilder {
 	builder.vcDuration = vcDuration
@@ -426,6 +452,7 @@ func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBu
 }
 
 // 人均会议时长（分钟）
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminDeptStatBuilder {
 	builder.avgVcDuration = avgVcDuration
@@ -434,6 +461,7 @@ func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminD
 }
 
 // 人均飞书使用时长（分钟）
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptStatBuilder {
 	builder.avgDuration = avgDuration
@@ -442,6 +470,7 @@ func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptS
 }
 
 // 任务活跃人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder {
 	builder.taskDau = taskDau
@@ -450,6 +479,7 @@ func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder 
 }
 
 // 创建任务人数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *AdminDeptStatBuilder {
 	builder.createTaskUserNum = createTaskUserNum
@@ -458,6 +488,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *A
 }
 
 // 创建任务数
+//
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDeptStatBuilder {
 	builder.createTaskNum = createTaskNum
@@ -466,6 +497,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDept
 }
 
 // 人均创建任务数
+//
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *AdminDeptStatBuilder {
 	builder.avgCreateTaskNum = avgCreateTaskNum
@@ -687,6 +719,7 @@ func NewAdminUserStatBuilder() *AdminUserStatBuilder {
 }
 
 // 日期
+//
 // 示例值：2020-02-15
 func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
 	builder.date = date
@@ -695,6 +728,7 @@ func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
 }
 
 // 用户ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder {
 	builder.userId = userId
@@ -703,6 +737,7 @@ func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder
 }
 
 // 用户名
+//
 // 示例值：Zhang San
 func (builder *AdminUserStatBuilder) UserName(userName string) *AdminUserStatBuilder {
 	builder.userName = userName
@@ -711,6 +746,7 @@ func (builder *AdminUserStatBuilder) UserName(userName string) *AdminUserStatBui
 }
 
 // 部门名
+//
 // 示例值：testcqlbfaaasdasdasd
 func (builder *AdminUserStatBuilder) DepartmentName(departmentName string) *AdminUserStatBuilder {
 	builder.departmentName = departmentName
@@ -719,6 +755,7 @@ func (builder *AdminUserStatBuilder) DepartmentName(departmentName string) *Admi
 }
 
 // 部门路径
+//
 // 示例值：testkkk/testcqlbfaaasdasdasd
 func (builder *AdminUserStatBuilder) DepartmentPath(departmentPath string) *AdminUserStatBuilder {
 	builder.departmentPath = departmentPath
@@ -727,6 +764,7 @@ func (builder *AdminUserStatBuilder) DepartmentPath(departmentPath string) *Admi
 }
 
 // 账号创建时间
+//
 // 示例值：2020-09-04 11:17:55
 func (builder *AdminUserStatBuilder) CreateTime(createTime string) *AdminUserStatBuilder {
 	builder.createTime = createTime
@@ -735,6 +773,7 @@ func (builder *AdminUserStatBuilder) CreateTime(createTime string) *AdminUserSta
 }
 
 // 用户激活状态
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) UserActiveFlag(userActiveFlag int) *AdminUserStatBuilder {
 	builder.userActiveFlag = userActiveFlag
@@ -743,6 +782,7 @@ func (builder *AdminUserStatBuilder) UserActiveFlag(userActiveFlag int) *AdminUs
 }
 
 // 激活时间
+//
 // 示例值：2020-09-04 11:18:32
 func (builder *AdminUserStatBuilder) RegisterTime(registerTime string) *AdminUserStatBuilder {
 	builder.registerTime = registerTime
@@ -751,6 +791,7 @@ func (builder *AdminUserStatBuilder) RegisterTime(registerTime string) *AdminUse
 }
 
 // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) SuiteActiveFlag(suiteActiveFlag int) *AdminUserStatBuilder {
 	builder.suiteActiveFlag = suiteActiveFlag
@@ -759,6 +800,7 @@ func (builder *AdminUserStatBuilder) SuiteActiveFlag(suiteActiveFlag int) *Admin
 }
 
 // 最近活跃时间
+//
 // 示例值：2020-12-21 22:21:28
 func (builder *AdminUserStatBuilder) LastActiveTime(lastActiveTime string) *AdminUserStatBuilder {
 	builder.lastActiveTime = lastActiveTime
@@ -767,6 +809,7 @@ func (builder *AdminUserStatBuilder) LastActiveTime(lastActiveTime string) *Admi
 }
 
 // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) ImActiveFlag(imActiveFlag int) *AdminUserStatBuilder {
 	builder.imActiveFlag = imActiveFlag
@@ -775,6 +818,7 @@ func (builder *AdminUserStatBuilder) ImActiveFlag(imActiveFlag int) *AdminUserSt
 }
 
 // 发送消息数
+//
 // 示例值：0
 func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminUserStatBuilder {
 	builder.sendMessengerNum = sendMessengerNum
@@ -783,6 +827,7 @@ func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 }
 
 // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUserStatBuilder {
 	builder.docsActiveFlag = docsActiveFlag
@@ -791,6 +836,7 @@ func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUs
 }
 
 // 创建文件数
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) CreateDocsNum(createDocsNum int) *AdminUserStatBuilder {
 	builder.createDocsNum = createDocsNum
@@ -799,6 +845,7 @@ func (builder *AdminUserStatBuilder) CreateDocsNum(createDocsNum int) *AdminUser
 }
 
 // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) CalActiveFlag(calActiveFlag int) *AdminUserStatBuilder {
 	builder.calActiveFlag = calActiveFlag
@@ -807,6 +854,7 @@ func (builder *AdminUserStatBuilder) CalActiveFlag(calActiveFlag int) *AdminUser
 }
 
 // 创建日程数
+//
 // 示例值：0
 func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserStatBuilder {
 	builder.createCalNum = createCalNum
@@ -815,6 +863,7 @@ func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserSt
 }
 
 // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+//
 // 示例值：1
 func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserStatBuilder {
 	builder.vcActiveFlag = vcActiveFlag
@@ -823,6 +872,7 @@ func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserSt
 }
 
 // 会议时长
+//
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBuilder {
 	builder.vcDuration = vcDuration
@@ -831,6 +881,7 @@ func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBu
 }
 
 // 活跃设备
+//
 // 示例值：'ios 14.2,-','ios 14.2,feishu 3.40.0-alpha'
 func (builder *AdminUserStatBuilder) ActiveOs(activeOs string) *AdminUserStatBuilder {
 	builder.activeOs = activeOs
@@ -839,6 +890,7 @@ func (builder *AdminUserStatBuilder) ActiveOs(activeOs string) *AdminUserStatBui
 }
 
 // 创建任务数
+//
 // 示例值：0
 func (builder *AdminUserStatBuilder) CreateTaskNum(createTaskNum int) *AdminUserStatBuilder {
 	builder.createTaskNum = createTaskNum
@@ -847,6 +899,7 @@ func (builder *AdminUserStatBuilder) CreateTaskNum(createTaskNum int) *AdminUser
 }
 
 // 会议数
+//
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 	builder.vcNum = vcNum
@@ -855,6 +908,7 @@ func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 }
 
 // 飞书的应用类型名称
+//
 // 示例值：
 func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *AdminUserStatBuilder {
 	builder.appPackageType = appPackageType
@@ -863,6 +917,7 @@ func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *Admi
 }
 
 // 操作系统名称
+//
 // 示例值：
 func (builder *AdminUserStatBuilder) OsName(osName string) *AdminUserStatBuilder {
 	builder.osName = osName
@@ -988,6 +1043,7 @@ func NewAdministratorBuilder() *AdministratorBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder {
 	builder.userId = userId
@@ -996,6 +1052,7 @@ func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder
 }
 
 // 用户是否是超级管理员
+//
 // 示例值：
 func (builder *AdministratorBuilder) IsSuperAdministrator(isSuperAdministrator bool) *AdministratorBuilder {
 	builder.isSuperAdministrator = isSuperAdministrator
@@ -1004,6 +1061,7 @@ func (builder *AdministratorBuilder) IsSuperAdministrator(isSuperAdministrator b
 }
 
 // 用户是否是管理员
+//
 // 示例值：
 func (builder *AdministratorBuilder) IsAdministrator(isAdministrator bool) *AdministratorBuilder {
 	builder.isAdministrator = isAdministrator
@@ -1043,6 +1101,7 @@ func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
 }
 
 // 扩展字段信息
+//
 // 示例值：
 func (builder *ApiAuditCommonDrawersBuilder) CommonDrawInfoList(commonDrawInfoList []*ApiAuditDrawerInfo) *ApiAuditCommonDrawersBuilder {
 	builder.commonDrawInfoList = commonDrawInfoList
@@ -1085,6 +1144,7 @@ func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
 }
 
 // key信息
+//
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawerInfoBuilder {
 	builder.infoKey = infoKey
@@ -1093,6 +1153,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawe
 }
 
 // val值
+//
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawerInfoBuilder {
 	builder.infoVal = infoVal
@@ -1101,6 +1162,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawe
 }
 
 // key对应的i18nkey
+//
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.keyI18nKey = keyI18nKey
@@ -1109,6 +1171,7 @@ func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAudi
 }
 
 // val类型
+//
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawerInfoBuilder {
 	builder.valType = valType
@@ -1117,6 +1180,7 @@ func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawe
 }
 
 // val对应的i18nkey
+//
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValI18nKey(valI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.valI18nKey = valI18nKey
@@ -1221,6 +1285,7 @@ func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
 }
 
 // UDID
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContextBuilder {
 	builder.udid = udid
@@ -1229,6 +1294,7 @@ func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContex
 }
 
 // 设备ID
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextBuilder {
 	builder.did = did
@@ -1237,6 +1303,7 @@ func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextB
 }
 
 // app的版本
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidContextBuilder {
 	builder.appVer = appVer
@@ -1245,6 +1312,7 @@ func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidCo
 }
 
 // SecSDK版本
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextBuilder {
 	builder.ver = ver
@@ -1253,6 +1321,7 @@ func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextB
 }
 
 // 设备语言
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidContextBuilder {
 	builder.region = region
@@ -1261,6 +1330,7 @@ func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidCo
 }
 
 // 安卓版本号
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextBuilder {
 	builder.idI = idI
@@ -1269,6 +1339,7 @@ func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextB
 }
 
 // 安卓版本
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextBuilder {
 	builder.idR = idR
@@ -1277,6 +1348,7 @@ func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextB
 }
 
 // Brand
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroidContextBuilder {
 	builder.hwBrand = hwBrand
@@ -1285,6 +1357,7 @@ func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroid
 }
 
 // 制造商
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroidContextBuilder {
 	builder.hwManuf = hwManuf
@@ -1293,6 +1366,7 @@ func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroid
 }
 
 // wifi ip
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidContextBuilder {
 	builder.wifip = wifip
@@ -1301,6 +1375,7 @@ func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidCont
 }
 
 // 路由IP
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndroidContextBuilder {
 	builder.routeIip = routeIip
@@ -1309,6 +1384,7 @@ func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndro
 }
 
 // 路由网关IP
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndroidContextBuilder {
 	builder.routeGip = routeGip
@@ -1317,6 +1393,7 @@ func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndro
 }
 
 // 表示当前是否root
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidContextBuilder {
 	builder.envSu = envSu
@@ -1325,6 +1402,7 @@ func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidCont
 }
 
 // 手机系统时区
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidContextBuilder {
 	builder.envTz = envTz
@@ -1333,6 +1411,7 @@ func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidCont
 }
 
 // 手机系统语言
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidContextBuilder {
 	builder.envMl = envMl
@@ -1341,6 +1420,7 @@ func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidCont
 }
 
 // GPS经纬度
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndroidContextBuilder {
 	builder.location = location
@@ -1349,6 +1429,7 @@ func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndro
 }
 
 // 当前设备活跃ip
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndroidContextBuilder {
 	builder.activeIp = activeIp
@@ -1357,6 +1438,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndro
 }
 
 // 当前设备活跃ip对应网卡类型
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditAndroidContextBuilder {
 	builder.activeIpDetail = activeIpDetail
@@ -1365,6 +1447,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string)
 }
 
 // 基站信息
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation string) *AuditAndroidContextBuilder {
 	builder.cellBaseStation = cellBaseStation
@@ -1373,6 +1456,7 @@ func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation strin
 }
 
 // 公网ip
+//
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IP(iP string) *AuditAndroidContextBuilder {
 	builder.iP = iP
@@ -1492,6 +1576,7 @@ func NewAuditContextBuilder() *AuditContextBuilder {
 }
 
 // 终端类型
+//
 // 示例值：
 func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContextBuilder {
 	builder.terminalType = terminalType
@@ -1500,6 +1585,7 @@ func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContext
 }
 
 // ios的环境信息
+//
 // 示例值：
 func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *AuditContextBuilder {
 	builder.iosContext = iosContext
@@ -1508,6 +1594,7 @@ func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *Aud
 }
 
 // pc的环境信息
+//
 // 示例值：
 func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditContextBuilder {
 	builder.pcContext = pcContext
@@ -1516,6 +1603,7 @@ func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditC
 }
 
 // web的环境信息
+//
 // 示例值：
 func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *AuditContextBuilder {
 	builder.webContext = webContext
@@ -1524,6 +1612,7 @@ func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *Aud
 }
 
 // android的环境信息
+//
 // 示例值：
 func (builder *AuditContextBuilder) AndroidContext(androidContext *AuditAndroidContext) *AuditContextBuilder {
 	builder.androidContext = androidContext
@@ -1594,6 +1683,7 @@ func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
 }
 
 // 评论类型
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEventExtendBuilder {
 	builder.commentType = commentType
@@ -1602,6 +1692,7 @@ func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEv
 }
 
 // app信息
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventExtendBuilder {
 	builder.appDetail = appDetail
@@ -1610,6 +1701,7 @@ func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventE
 }
 
 // 是否两步验证
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool) *AuditEventExtendBuilder {
 	builder.twoStepValidation = twoStepValidation
@@ -1618,6 +1710,7 @@ func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool
 }
 
 // 登录方式
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEventExtendBuilder {
 	builder.loginMethod = loginMethod
@@ -1626,6 +1719,7 @@ func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEv
 }
 
 // 创建新的{x}人会议/通话
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.newPeopleNumInVideo = newPeopleNumInVideo
@@ -1634,6 +1728,7 @@ func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo 
 }
 
 // 将{x}名外部用户加入/退出通话
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInVideo = externalPeopleNumInVideo
@@ -1642,6 +1737,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleN
 }
 
 // 将{x}名外部用户加入/退出群组
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNumInChat int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInChat = externalPeopleNumInChat
@@ -1650,6 +1746,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNu
 }
 
 // 创建{x}人数的群组
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExtendBuilder {
 	builder.joinGroup = joinGroup
@@ -1658,6 +1755,7 @@ func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExte
 }
 
 // 解散{x}人数的群组
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExtendBuilder {
 	builder.quitGroup = quitGroup
@@ -1666,6 +1764,7 @@ func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExte
 }
 
 // 分享文档给{x}名外部用户
+//
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInDocShare(externalPeopleNumInDocShare int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInDocShare = externalPeopleNumInDocShare
@@ -1778,6 +1877,7 @@ func NewAuditInfoBuilder() *AuditInfoBuilder {
 }
 
 // 事件id
+//
 // 示例值：
 func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 	builder.eventId = eventId
@@ -1786,6 +1886,7 @@ func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 }
 
 // 唯一id
+//
 // 示例值：
 func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 	builder.uniqueId = uniqueId
@@ -1794,6 +1895,7 @@ func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 }
 
 // 事件名称
+//
 // 示例值：
 func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 	builder.eventName = eventName
@@ -1802,6 +1904,7 @@ func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 }
 
 // 用户所属部门的ID列表
+//
 // 示例值：
 func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInfoBuilder {
 	builder.departmentIds = departmentIds
@@ -1810,6 +1913,7 @@ func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInf
 }
 
 // 模块
+//
 // 示例值：
 func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder {
 	builder.eventModule = eventModule
@@ -1818,6 +1922,7 @@ func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder 
 }
 
 // 操作人类型
+//
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilder {
 	builder.operatorType = operatorType
@@ -1826,6 +1931,7 @@ func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilde
 }
 
 // 操作人id
+//
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
 	builder.operatorValue = operatorValue
@@ -1834,6 +1940,7 @@ func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoB
 }
 
 // 操作对象列表
+//
 // 示例值：
 func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInfoBuilder {
 	builder.objects = objects
@@ -1842,6 +1949,7 @@ func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInf
 }
 
 // 接收者对象列表
+//
 // 示例值：
 func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) *AuditInfoBuilder {
 	builder.recipients = recipients
@@ -1850,6 +1958,7 @@ func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) 
 }
 
 // 事件时间
+//
 // 示例值：
 func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 	builder.eventTime = eventTime
@@ -1858,6 +1967,7 @@ func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 }
 
 // ip信息
+//
 // 示例值：
 func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 	builder.ip = ip
@@ -1866,6 +1976,7 @@ func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 }
 
 // 第三方isvID
+//
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
 	builder.operatorApp = operatorApp
@@ -1874,6 +1985,7 @@ func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuild
 }
 
 // 环境信息
+//
 // 示例值：
 func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *AuditInfoBuilder {
 	builder.auditContext = auditContext
@@ -1882,6 +1994,7 @@ func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *Audit
 }
 
 // 事件级别的扩展
+//
 // 示例值：
 func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuilder {
 	builder.extend = extend
@@ -1890,6 +2003,7 @@ func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuil
 }
 
 // 第三方isv名称
+//
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
 	builder.operatorAppName = operatorAppName
@@ -1898,6 +2012,7 @@ func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditI
 }
 
 // 扩展字段信息
+//
 // 示例值：
 func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDrawers) *AuditInfoBuilder {
 	builder.commonDrawers = commonDrawers
@@ -2025,6 +2140,7 @@ func NewAuditIosContextBuilder() *AuditIosContextBuilder {
 }
 
 // UDID
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder {
 	builder.udid = udid
@@ -2033,6 +2149,7 @@ func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder
 }
 
 // 设备ID
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 	builder.did = did
@@ -2041,6 +2158,7 @@ func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 }
 
 // app的版本
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBuilder {
 	builder.appVer = appVer
@@ -2049,6 +2167,7 @@ func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBui
 }
 
 // SecSDK版本
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 	builder.ver = ver
@@ -2057,6 +2176,7 @@ func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 }
 
 // 系统类型及版本
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 	builder.os = os
@@ -2065,6 +2185,7 @@ func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 }
 
 // 系统时区
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBuilder {
 	builder.sTZone = sTZone
@@ -2073,6 +2194,7 @@ func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBui
 }
 
 // 当前语言
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 	builder.mL = mL
@@ -2081,6 +2203,7 @@ func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 }
 
 // 是否越狱
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 	builder.sjd = sjd
@@ -2089,6 +2212,7 @@ func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 }
 
 // 代理ip
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextBuilder {
 	builder.proxyip = proxyip
@@ -2097,6 +2221,7 @@ func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextB
 }
 
 // wifi ip
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuilder {
 	builder.wifip = wifip
@@ -2105,6 +2230,7 @@ func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuild
 }
 
 // GPS经纬度
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContextBuilder {
 	builder.location = location
@@ -2113,6 +2239,7 @@ func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContex
 }
 
 // 当前设备活跃ip
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContextBuilder {
 	builder.activeIp = activeIp
@@ -2121,6 +2248,7 @@ func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContex
 }
 
 // 当前设备活跃ip对应网卡类型
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditIosContextBuilder {
 	builder.activeIpDetail = activeIpDetail
@@ -2129,6 +2257,7 @@ func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *Au
 }
 
 // 基站信息
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *AuditIosContextBuilder {
 	builder.cellBaseStation = cellBaseStation
@@ -2137,6 +2266,7 @@ func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *
 }
 
 // 公网ip
+//
 // 示例值：
 func (builder *AuditIosContextBuilder) IP(iP string) *AuditIosContextBuilder {
 	builder.iP = iP
@@ -2260,6 +2390,7 @@ func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
 }
 
 // 克隆来源
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditObjectDetailBuilder {
 	builder.cloneSource = cloneSource
@@ -2268,6 +2399,7 @@ func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditO
 }
 
 // 其他文本
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObjectDetailBuilder {
 	builder.textDetail = textDetail
@@ -2276,6 +2408,7 @@ func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObj
 }
 
 // 文件名称
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectDetailBuilder {
 	builder.fileName = fileName
@@ -2284,6 +2417,7 @@ func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectD
 }
 
 // 第三方APPID
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string) *AuditObjectDetailBuilder {
 	builder.thirdPartyAppID = thirdPartyAppID
@@ -2292,6 +2426,7 @@ func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string)
 }
 
 // 文件或文件夹数量
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *AuditObjectDetailBuilder {
 	builder.containFileNum = containFileNum
@@ -2300,6 +2435,7 @@ func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *Aud
 }
 
 // 链接分享设置
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSettingType string) *AuditObjectDetailBuilder {
 	builder.permissionSettingType = permissionSettingType
@@ -2308,6 +2444,7 @@ func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSetting
 }
 
 // 是否开启外部访问设置
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permissionExternalAccessType bool) *AuditObjectDetailBuilder {
 	builder.permissionExternalAccessType = permissionExternalAccessType
@@ -2316,6 +2453,7 @@ func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permission
 }
 
 // 分享设置
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType string) *AuditObjectDetailBuilder {
 	builder.permissionShareType = permissionShareType
@@ -2324,6 +2462,7 @@ func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType
 }
 
 // file上传业务来源
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource string) *AuditObjectDetailBuilder {
 	builder.fileServiceSource = fileServiceSource
@@ -2332,6 +2471,7 @@ func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource str
 }
 
 // 下载OKR时的内容范围
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent string) *AuditObjectDetailBuilder {
 	builder.okrDownloadContent = okrDownloadContent
@@ -2340,6 +2480,7 @@ func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent s
 }
 
 // 容器类型，标识是否wiki
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *AuditObjectDetailBuilder {
 	builder.containerType = containerType
@@ -2348,6 +2489,7 @@ func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *Au
 }
 
 // 容器id，wiki标识字段
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditObjectDetailBuilder {
 	builder.containerId = containerId
@@ -2356,6 +2498,7 @@ func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditO
 }
 
 // 截屏、录制的开始页面
+//
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CurrentPage(currentPage string) *AuditObjectDetailBuilder {
 	builder.currentPage = currentPage
@@ -2447,6 +2590,7 @@ func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
 }
 
 // 操作对象类型
+//
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObjectEntityBuilder {
 	builder.objectType = objectType
@@ -2455,6 +2599,7 @@ func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObj
 }
 
 // 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+//
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditObjectEntityBuilder {
 	builder.objectValue = objectValue
@@ -2463,6 +2608,7 @@ func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditO
 }
 
 // 操作对象名称，如会话名、文档名等
+//
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObjectEntityBuilder {
 	builder.objectName = objectName
@@ -2471,6 +2617,7 @@ func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObj
 }
 
 // 操作对象的所有者
+//
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditObjectEntityBuilder {
 	builder.objectOwner = objectOwner
@@ -2479,6 +2626,7 @@ func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditO
 }
 
 // object 详情
+//
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectDetail(objectDetail *AuditObjectDetail) *AuditObjectEntityBuilder {
 	builder.objectDetail = objectDetail
@@ -2546,6 +2694,7 @@ func NewAuditPcContextBuilder() *AuditPcContextBuilder {
 }
 
 // UDID
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 	builder.udid = udid
@@ -2554,6 +2703,7 @@ func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 }
 
 // 设备ID
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 	builder.did = did
@@ -2562,6 +2712,7 @@ func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 }
 
 // app的版本
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuilder {
 	builder.appVer = appVer
@@ -2570,6 +2721,7 @@ func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuild
 }
 
 // SecSDK版本
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 	builder.ver = ver
@@ -2578,6 +2730,7 @@ func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 }
 
 // 客户端类型
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 	builder.os = os
@@ -2586,6 +2739,7 @@ func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 }
 
 // wifi ip
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder {
 	builder.wifip = wifip
@@ -2594,6 +2748,7 @@ func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder
 }
 
 // 设备区域
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuilder {
 	builder.region = region
@@ -2602,6 +2757,7 @@ func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuild
 }
 
 // 公网ip
+//
 // 示例值：
 func (builder *AuditPcContextBuilder) IP(iP string) *AuditPcContextBuilder {
 	builder.iP = iP
@@ -2661,6 +2817,7 @@ func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
 }
 
 // 修改权限协作者
+//
 // 示例值：
 func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActionType string) *AuditRecipientDetailBuilder {
 	builder.permissionActionType = permissionActionType
@@ -2698,6 +2855,7 @@ func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
 }
 
 // 接收者对象类型
+//
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) *AuditRecipientEntityBuilder {
 	builder.recipientType = recipientType
@@ -2706,6 +2864,7 @@ func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) 
 }
 
 // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+//
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string) *AuditRecipientEntityBuilder {
 	builder.recipientValue = recipientValue
@@ -2714,6 +2873,7 @@ func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string
 }
 
 // recipient 详情
+//
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientDetail(recipientDetail *AuditRecipientDetail) *AuditRecipientEntityBuilder {
 	builder.recipientDetail = recipientDetail
@@ -2755,6 +2915,7 @@ func NewAuditWebContextBuilder() *AuditWebContextBuilder {
 }
 
 // UA信息
+//
 // 示例值：
 func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebContextBuilder {
 	builder.userAgent = userAgent
@@ -2763,6 +2924,7 @@ func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebCont
 }
 
 // 本机IP
+//
 // 示例值：
 func (builder *AuditWebContextBuilder) IP(iP string) *AuditWebContextBuilder {
 	builder.iP = iP
@@ -2810,6 +2972,7 @@ func NewBadgeBuilder() *BadgeBuilder {
 }
 
 // 租户内勋章的唯一标识，该值由系统随机生成。
+//
 // 示例值：m_MzfKDM
 func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
 	builder.id = id
@@ -2818,6 +2981,7 @@ func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
 }
 
 // 租户内唯一的勋章名称，最多30个字符。
+//
 // 示例值：激励勋章
 func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
 	builder.name = name
@@ -2826,6 +2990,7 @@ func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
 }
 
 // 勋章的描述文案，最多100个字符。
+//
 // 示例值：这枚勋章为了激励员工颁发。
 func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
 	builder.explanation = explanation
@@ -2834,6 +2999,7 @@ func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
 }
 
 // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+//
 // 示例值：75a1949f-d9df-4b46-bc88-dacc51e88f3j
 func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
 	builder.detailImage = detailImage
@@ -2842,6 +3008,7 @@ func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
 }
 
 // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+//
 // 示例值：03daa74a-159f-49e9-963e-b6c4d76103fj
 func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 	builder.showImage = showImage
@@ -2907,6 +3074,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 文档标题
+//
 // 示例值：文件管理综述
 func (builder *FileBuilder) Title(title string) *FileBuilder {
 	builder.title = title
@@ -2915,6 +3083,7 @@ func (builder *FileBuilder) Title(title string) *FileBuilder {
 }
 
 // 文档类型
+//
 // 示例值：doc
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
@@ -2923,6 +3092,7 @@ func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 }
 
 // 文档所有者
+//
 // 示例值：
 func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
 	builder.owner = owner
@@ -2931,6 +3101,7 @@ func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
 }
 
 // 文档大小
+//
 // 示例值：1024
 func (builder *FileBuilder) Size(size string) *FileBuilder {
 	builder.size = size
@@ -2939,6 +3110,7 @@ func (builder *FileBuilder) Size(size string) *FileBuilder {
 }
 
 // 更新时间
+//
 // 示例值：1649419092
 func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 	builder.lastOpTime = lastOpTime
@@ -2947,6 +3119,7 @@ func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 }
 
 // 文档状态
+//
 // 示例值：1
 func (builder *FileBuilder) Status(status string) *FileBuilder {
 	builder.status = status
@@ -2955,6 +3128,7 @@ func (builder *FileBuilder) Status(status string) *FileBuilder {
 }
 
 // 文档token
+//
 // 示例值：doxbcOIyUhrRBWSKpBGfzefQgHe
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
@@ -3009,6 +3183,7 @@ func NewFileListBuilder() *FileListBuilder {
 }
 
 // 文档token
+//
 // 示例值：
 func (builder *FileListBuilder) Files(files []*File) *FileListBuilder {
 	builder.files = files
@@ -3066,6 +3241,7 @@ func NewGrantBuilder() *GrantBuilder {
 }
 
 // 租户内授予名单的唯一标识，该值由系统随机生成。
+//
 // 示例值：g_49Z7CQ
 func (builder *GrantBuilder) Id(id string) *GrantBuilder {
 	builder.id = id
@@ -3074,6 +3250,7 @@ func (builder *GrantBuilder) Id(id string) *GrantBuilder {
 }
 
 // 企业勋章的唯一ID
+//
 // 示例值：m_qTR2HM
 func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
 	builder.badgeId = badgeId
@@ -3082,6 +3259,7 @@ func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
 }
 
 // 勋章下唯一的授予事项，最多100个字符。
+//
 // 示例值：激励勋章的授予名单
 func (builder *GrantBuilder) Name(name string) *GrantBuilder {
 	builder.name = name
@@ -3090,6 +3268,7 @@ func (builder *GrantBuilder) Name(name string) *GrantBuilder {
 }
 
 // 授予名单类型
+//
 // 示例值：0
 func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
 	builder.grantType = grantType
@@ -3098,6 +3277,7 @@ func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
 }
 
 // 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
+//
 // 示例值：Asia/Shanghai
 func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
 	builder.timeZone = timeZone
@@ -3106,6 +3286,7 @@ func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
 }
 
 // 规则详情
+//
 // 示例值：
 func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
 	builder.ruleDetail = ruleDetail
@@ -3114,6 +3295,7 @@ func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
 }
 
 // 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
+//
 // 示例值：false
 func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
 	builder.isGrantAll = isGrantAll
@@ -3122,6 +3304,7 @@ func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
 }
 
 // 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+//
 // 示例值：[u273y71]
 func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 	builder.userIds = userIds
@@ -3130,6 +3313,7 @@ func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 }
 
 // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+//
 // 示例值：[h121921]
 func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder {
 	builder.departmentIds = departmentIds
@@ -3138,6 +3322,7 @@ func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder
 }
 
 // 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+//
 // 示例值：[g122817]
 func (builder *GrantBuilder) GroupIds(groupIds []string) *GrantBuilder {
 	builder.groupIds = groupIds
@@ -3201,6 +3386,7 @@ func NewPasswordBuilder() *PasswordBuilder {
 }
 
 // 企业邮箱密码
+//
 // 示例值：abcd*efg
 func (builder *PasswordBuilder) EntEmailPassword(entEmailPassword string) *PasswordBuilder {
 	builder.entEmailPassword = entEmailPassword
@@ -3241,6 +3427,7 @@ func NewRuleDetailBuilder() *RuleDetailBuilder {
 }
 
 // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
+//
 // 示例值：1649606400
 func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetailBuilder {
 	builder.effectiveTime = effectiveTime
@@ -3249,6 +3436,7 @@ func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetai
 }
 
 // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
+//
 // 示例值：1649692799
 func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDetailBuilder {
 	builder.expirationTime = expirationTime
@@ -3257,6 +3445,7 @@ func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDet
 }
 
 // 入职周年日。根据入职时间发放类型勋章，需要配置该字段。
+//
 // 示例值：1
 func (builder *RuleDetailBuilder) Anniversary(anniversary int) *RuleDetailBuilder {
 	builder.anniversary = anniversary
@@ -3265,6 +3454,7 @@ func (builder *RuleDetailBuilder) Anniversary(anniversary int) *RuleDetailBuilde
 }
 
 // 有效期限。根据入职时间发放类型勋章，需要配置该字段。
+//
 // 示例值：1
 func (builder *RuleDetailBuilder) EffectivePeriod(effectivePeriod int) *RuleDetailBuilder {
 	builder.effectivePeriod = effectivePeriod
@@ -3329,6 +3519,7 @@ func NewSplashPageStatBuilder() *SplashPageStatBuilder {
 }
 
 // 日期
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
 	builder.date = date
@@ -3337,6 +3528,7 @@ func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
 }
 
 // 开屏素材id
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatBuilder {
 	builder.splashId = splashId
@@ -3345,6 +3537,7 @@ func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatB
 }
 
 // 曝光数
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) ImpressionCount(impressionCount int) *SplashPageStatBuilder {
 	builder.impressionCount = impressionCount
@@ -3353,6 +3546,7 @@ func (builder *SplashPageStatBuilder) ImpressionCount(impressionCount int) *Spla
 }
 
 // 点击数
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) ClickCount(clickCount int) *SplashPageStatBuilder {
 	builder.clickCount = clickCount
@@ -3361,6 +3555,7 @@ func (builder *SplashPageStatBuilder) ClickCount(clickCount int) *SplashPageStat
 }
 
 // 点击跳过数
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) SkipCount(skipCount int) *SplashPageStatBuilder {
 	builder.skipCount = skipCount
@@ -3369,6 +3564,7 @@ func (builder *SplashPageStatBuilder) SkipCount(skipCount int) *SplashPageStatBu
 }
 
 // 累计曝光
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) ImpressionCountAccumulate(impressionCountAccumulate int) *SplashPageStatBuilder {
 	builder.impressionCountAccumulate = impressionCountAccumulate
@@ -3377,6 +3573,7 @@ func (builder *SplashPageStatBuilder) ImpressionCountAccumulate(impressionCountA
 }
 
 // 累计点击
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) ClickCountAccumulate(clickCountAccumulate int) *SplashPageStatBuilder {
 	builder.clickCountAccumulate = clickCountAccumulate
@@ -3385,6 +3582,7 @@ func (builder *SplashPageStatBuilder) ClickCountAccumulate(clickCountAccumulate 
 }
 
 // 累积点击跳过数
+//
 // 示例值：
 func (builder *SplashPageStatBuilder) SkipCountAccumulate(skipCountAccumulate int) *SplashPageStatBuilder {
 	builder.skipCountAccumulate = skipCountAccumulate
@@ -3450,6 +3648,7 @@ func NewUserBuilder() *UserBuilder {
 }
 
 // 用户名称
+//
 // 示例值：张三
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
@@ -3458,6 +3657,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 }
 
 // 用户头像
+//
 // 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/d50ddc01-5ddb-4431-950e-452637e4a09j~?image_size=72x72&cut_type=default-face&quality=&format=png&sticker_format=.webp
 func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 	builder.avatar = avatar
@@ -3466,6 +3666,7 @@ func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 }
 
 // 用户ID
+//
 // 示例值：6994699009591869459
 func (builder *UserBuilder) Id(id string) *UserBuilder {
 	builder.id = id
@@ -3505,6 +3706,7 @@ func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
 }
 
 // 2021用户年度报告
+//
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *UserAnnualReportBuilder {
 	builder.year2021 = year2021
@@ -3607,6 +3809,7 @@ func NewUserReport2021Builder() *UserReport2021Builder {
 }
 
 // 活跃时长> 0的天数
+//
 // 示例值：111
 func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserReport2021Builder {
 	builder.activeDayCount = activeDayCount
@@ -3615,6 +3818,7 @@ func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserRe
 }
 
 // 工作日平均活跃最长的一周，「2021W10」格式
+//
 // 示例值：2021W33
 func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021Builder {
 	builder.busyWeek = busyWeek
@@ -3623,6 +3827,7 @@ func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021B
 }
 
 // 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
+//
 // 示例值：3
 func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserReport2021Builder {
 	builder.p2pChatCount = p2pChatCount
@@ -3631,6 +3836,7 @@ func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserRep
 }
 
 // 发过言的群数
+//
 // 示例值：4
 func (builder *UserReport2021Builder) TalkedChatCount(talkedChatCount string) *UserReport2021Builder {
 	builder.talkedChatCount = talkedChatCount
@@ -3639,6 +3845,7 @@ func (builder *UserReport2021Builder) TalkedChatCount(talkedChatCount string) *U
 }
 
 // 任何场景下发的表情次数最多的一个表情
+//
 // 示例值：MUSCLE
 func (builder *UserReport2021Builder) FavoriteEmoji(favoriteEmoji string) *UserReport2021Builder {
 	builder.favoriteEmoji = favoriteEmoji
@@ -3647,6 +3854,7 @@ func (builder *UserReport2021Builder) FavoriteEmoji(favoriteEmoji string) *UserR
 }
 
 // 本人使用快捷表情的次数
+//
 // 示例值：341
 func (builder *UserReport2021Builder) ReactionCount(reactionCount string) *UserReport2021Builder {
 	builder.reactionCount = reactionCount
@@ -3655,6 +3863,7 @@ func (builder *UserReport2021Builder) ReactionCount(reactionCount string) *UserR
 }
 
 // 创建了日程并发起了视频会议的次数
+//
 // 示例值：78
 func (builder *UserReport2021Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2021Builder {
 	builder.conferenceCreateCount = conferenceCreateCount
@@ -3663,6 +3872,7 @@ func (builder *UserReport2021Builder) ConferenceCreateCount(conferenceCreateCoun
 }
 
 // 创建日程中涉及到的总人次
+//
 // 示例值：1
 func (builder *UserReport2021Builder) TotalPartiCount(totalPartiCount string) *UserReport2021Builder {
 	builder.totalPartiCount = totalPartiCount
@@ -3671,6 +3881,7 @@ func (builder *UserReport2021Builder) TotalPartiCount(totalPartiCount string) *U
 }
 
 // 录制了多少篇妙记
+//
 // 示例值：0
 func (builder *UserReport2021Builder) MinutesObjectCount(minutesObjectCount string) *UserReport2021Builder {
 	builder.minutesObjectCount = minutesObjectCount
@@ -3679,6 +3890,7 @@ func (builder *UserReport2021Builder) MinutesObjectCount(minutesObjectCount stri
 }
 
 // 录制妙记累积时长（分钟）
+//
 // 示例值：0
 func (builder *UserReport2021Builder) MinutesDuration(minutesDuration float64) *UserReport2021Builder {
 	builder.minutesDuration = minutesDuration
@@ -3687,6 +3899,7 @@ func (builder *UserReport2021Builder) MinutesDuration(minutesDuration float64) *
 }
 
 // 创建及参与协作的文档篇数
+//
 // 示例值：0
 func (builder *UserReport2021Builder) CreateEditFileCount(createEditFileCount string) *UserReport2021Builder {
 	builder.createEditFileCount = createEditFileCount
@@ -3695,6 +3908,7 @@ func (builder *UserReport2021Builder) CreateEditFileCount(createEditFileCount st
 }
 
 // 创建文档数
+//
 // 示例值：0
 func (builder *UserReport2021Builder) CreateFileCount(createFileCount string) *UserReport2021Builder {
 	builder.createFileCount = createFileCount
@@ -3703,6 +3917,7 @@ func (builder *UserReport2021Builder) CreateFileCount(createFileCount string) *U
 }
 
 // 参与协作文档数
+//
 // 示例值：0
 func (builder *UserReport2021Builder) CooperateEditFileCount(cooperateEditFileCount string) *UserReport2021Builder {
 	builder.cooperateEditFileCount = cooperateEditFileCount
@@ -3711,6 +3926,7 @@ func (builder *UserReport2021Builder) CooperateEditFileCount(cooperateEditFileCo
 }
 
 // 所属的文档共获得多少个点赞
+//
 // 示例值：0
 func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *UserReport2021Builder {
 	builder.likeRecordCount = likeRecordCount
@@ -3719,6 +3935,7 @@ func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *U
 }
 
 // 填写过的O的数量
+//
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserReport2021Builder {
 	builder.okrCumOCount = okrCumOCount
@@ -3727,6 +3944,7 @@ func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserRep
 }
 
 // 填写过的KR的数量
+//
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2021Builder {
 	builder.okrCumKrCount = okrCumKrCount
@@ -3735,6 +3953,7 @@ func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserR
 }
 
 // 被对齐次数最多的用户
+//
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) OkrAlignedUserRankfirst(okrAlignedUserRankfirst string) *UserReport2021Builder {
 	builder.okrAlignedUserRankfirst = okrAlignedUserRankfirst
@@ -3743,6 +3962,7 @@ func (builder *UserReport2021Builder) OkrAlignedUserRankfirst(okrAlignedUserRank
 }
 
 // 发起的审批流程数
+//
 // 示例值：0
 func (builder *UserReport2021Builder) ApprovalStartCount(approvalStartCount string) *UserReport2021Builder {
 	builder.approvalStartCount = approvalStartCount
@@ -3751,6 +3971,7 @@ func (builder *UserReport2021Builder) ApprovalStartCount(approvalStartCount stri
 }
 
 // 处理的审批流程数
+//
 // 示例值：0
 func (builder *UserReport2021Builder) ApprovalExecuteCount(approvalExecuteCount string) *UserReport2021Builder {
 	builder.approvalExecuteCount = approvalExecuteCount
@@ -3759,6 +3980,7 @@ func (builder *UserReport2021Builder) ApprovalExecuteCount(approvalExecuteCount 
 }
 
 // 审批协作次数最多的用户（在同一个审批实例中出现过即算为审批协作）
+//
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRelationUserRankfirst string) *UserReport2021Builder {
 	builder.approvalRelationUserRankfirst = approvalRelationUserRankfirst
@@ -3767,6 +3989,7 @@ func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRela
 }
 
 // 用户id
+//
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Builder {
 	builder.userId = userId
@@ -3775,6 +3998,7 @@ func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Build
 }
 
 // 工作日平均活跃最长的一周 的总活跃时长（分钟）
+//
 // 示例值：1816
 func (builder *UserReport2021Builder) BusyWeekSumDuration(busyWeekSumDuration string) *UserReport2021Builder {
 	builder.busyWeekSumDuration = busyWeekSumDuration
@@ -3783,6 +4007,7 @@ func (builder *UserReport2021Builder) BusyWeekSumDuration(busyWeekSumDuration st
 }
 
 // 工作日平均活跃最长的一周 的最早工作日
+//
 // 示例值：20210816
 func (builder *UserReport2021Builder) BusyWeekMdate(busyWeekMdate string) *UserReport2021Builder {
 	builder.busyWeekMdate = busyWeekMdate
@@ -3791,6 +4016,7 @@ func (builder *UserReport2021Builder) BusyWeekMdate(busyWeekMdate string) *UserR
 }
 
 // 工作日平均活跃最长的一周 有活跃的工作日天数
+//
 // 示例值：4
 func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *UserReport2021Builder {
 	builder.busyWeekActDays = busyWeekActDays
@@ -3799,6 +4025,7 @@ func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *User
 }
 
 // 创建的文档被XXX人阅读过
+//
 // 示例值：10
 func (builder *UserReport2021Builder) CreateReadUserCount(createReadUserCount string) *UserReport2021Builder {
 	builder.createReadUserCount = createReadUserCount

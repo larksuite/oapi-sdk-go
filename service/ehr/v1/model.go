@@ -61,6 +61,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 }
 
 // 下载文件所需要的 Token
+//
 // 示例值：c7273e07ed9e40a394f88c7dccb49212
 func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 	builder.id = id
@@ -69,6 +70,7 @@ func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 }
 
 // 文件类型
+//
 // 示例值：png
 func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
 	builder.mimeType = mimeType
@@ -77,6 +79,7 @@ func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
 }
 
 // 名称
+//
 // 示例值：Custom Code.png
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
@@ -85,6 +88,7 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 }
 
 // 大小
+//
 // 示例值：57380
 func (builder *AttachmentBuilder) Size(size int64) *AttachmentBuilder {
 	builder.size = size
@@ -131,6 +135,7 @@ func NewContractCompanyBuilder() *ContractCompanyBuilder {
 }
 
 // 公司 ID
+//
 // 示例值：1695838220091399
 func (builder *ContractCompanyBuilder) Id(id int64) *ContractCompanyBuilder {
 	builder.id = id
@@ -139,6 +144,7 @@ func (builder *ContractCompanyBuilder) Id(id int64) *ContractCompanyBuilder {
 }
 
 // 公司名称
+//
 // 示例值：油条一号
 func (builder *ContractCompanyBuilder) Name(name string) *ContractCompanyBuilder {
 	builder.name = name
@@ -183,6 +189,7 @@ func NewCustomFieldsBuilder() *CustomFieldsBuilder {
 }
 
 // 自定义字段key
+//
 // 示例值：field_xxxxxxxx
 func (builder *CustomFieldsBuilder) Key(key string) *CustomFieldsBuilder {
 	builder.key = key
@@ -191,6 +198,7 @@ func (builder *CustomFieldsBuilder) Key(key string) *CustomFieldsBuilder {
 }
 
 // 自定义字段名称
+//
 // 示例值：自定义字段 1
 func (builder *CustomFieldsBuilder) Label(label string) *CustomFieldsBuilder {
 	builder.label = label
@@ -199,6 +207,7 @@ func (builder *CustomFieldsBuilder) Label(label string) *CustomFieldsBuilder {
 }
 
 // 自定义字段类型
+//
 // 示例值：date
 func (builder *CustomFieldsBuilder) Type(type_ string) *CustomFieldsBuilder {
 	builder.type_ = type_
@@ -207,6 +216,7 @@ func (builder *CustomFieldsBuilder) Type(type_ string) *CustomFieldsBuilder {
 }
 
 // 根据 type 不同，结构不同，不同 type 对应的数据结构在 type 的枚举值中有描述
+//
 // 示例值：2021-01-13
 func (builder *CustomFieldsBuilder) Value(value string) *CustomFieldsBuilder {
 	builder.value = value
@@ -265,6 +275,7 @@ func NewEducationBuilder() *EducationBuilder {
 }
 
 // 学历
+//
 // 示例值：8
 func (builder *EducationBuilder) Level(level int) *EducationBuilder {
 	builder.level = level
@@ -273,6 +284,7 @@ func (builder *EducationBuilder) Level(level int) *EducationBuilder {
 }
 
 // 毕业学校
+//
 // 示例值：XXXX大学
 func (builder *EducationBuilder) School(school string) *EducationBuilder {
 	builder.school = school
@@ -281,6 +293,7 @@ func (builder *EducationBuilder) School(school string) *EducationBuilder {
 }
 
 // 专业
+//
 // 示例值：XXX专业
 func (builder *EducationBuilder) Major(major string) *EducationBuilder {
 	builder.major = major
@@ -289,6 +302,7 @@ func (builder *EducationBuilder) Major(major string) *EducationBuilder {
 }
 
 // 学位
+//
 // 示例值：2
 func (builder *EducationBuilder) Degree(degree int) *EducationBuilder {
 	builder.degree = degree
@@ -297,6 +311,7 @@ func (builder *EducationBuilder) Degree(degree int) *EducationBuilder {
 }
 
 // 开始日期
+//
 // 示例值：2020-01-01
 func (builder *EducationBuilder) Start(start string) *EducationBuilder {
 	builder.start = start
@@ -305,6 +320,7 @@ func (builder *EducationBuilder) Start(start string) *EducationBuilder {
 }
 
 // 结束日期
+//
 // 示例值：2020-01-01
 func (builder *EducationBuilder) End(end string) *EducationBuilder {
 	builder.end = end
@@ -362,6 +378,7 @@ func NewEmergencyContactBuilder() *EmergencyContactBuilder {
 }
 
 // 紧急联系人姓名
+//
 // 示例值：张三
 func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuilder {
 	builder.name = name
@@ -370,6 +387,7 @@ func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuild
 }
 
 // 与紧急联系人的关系
+//
 // 示例值：1
 func (builder *EmergencyContactBuilder) Relationship(relationship int) *EmergencyContactBuilder {
 	builder.relationship = relationship
@@ -378,6 +396,7 @@ func (builder *EmergencyContactBuilder) Relationship(relationship int) *Emergenc
 }
 
 // 手机号
+//
 // 示例值：(+86) 13812345678
 func (builder *EmergencyContactBuilder) Mobile(mobile string) *EmergencyContactBuilder {
 	builder.mobile = mobile
@@ -423,6 +442,7 @@ func NewEmployeeBuilder() *EmployeeBuilder {
 }
 
 // 员工的用户 ID;;;user_id_type 为 user_id 时返回 user_id；;;;user_id_type 为 open_id 时返回 open_id；;;;user_id_type 为 union_id 时返回 union_id；;;;「待入职」和「已取消入职」的员工，此字段值为 null
+//
 // 示例值：ou_db362c0e79f5a26db1ca8e94698ee417
 func (builder *EmployeeBuilder) UserId(userId string) *EmployeeBuilder {
 	builder.userId = userId
@@ -431,6 +451,7 @@ func (builder *EmployeeBuilder) UserId(userId string) *EmployeeBuilder {
 }
 
 // 系统字段
+//
 // 示例值：
 func (builder *EmployeeBuilder) SystemFields(systemFields *SystemFields) *EmployeeBuilder {
 	builder.systemFields = systemFields
@@ -439,6 +460,7 @@ func (builder *EmployeeBuilder) SystemFields(systemFields *SystemFields) *Employ
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *EmployeeBuilder) CustomFields(customFields []*CustomFields) *EmployeeBuilder {
 	builder.customFields = customFields
@@ -479,6 +501,7 @@ func NewJobBuilder() *JobBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：1695838220091399
 func (builder *JobBuilder) Id(id int64) *JobBuilder {
 	builder.id = id
@@ -487,6 +510,7 @@ func (builder *JobBuilder) Id(id int64) *JobBuilder {
 }
 
 // 职位名称
+//
 // 示例值：测试工程师
 func (builder *JobBuilder) Name(name string) *JobBuilder {
 	builder.name = name
@@ -525,6 +549,7 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 }
 
 // 职级 ID
+//
 // 示例值：1695838220091399
 func (builder *JobLevelBuilder) Id(id int64) *JobLevelBuilder {
 	builder.id = id
@@ -533,6 +558,7 @@ func (builder *JobLevelBuilder) Id(id int64) *JobLevelBuilder {
 }
 
 // 职级名称
+//
 // 示例值：CEO
 func (builder *JobLevelBuilder) Name(name string) *JobLevelBuilder {
 	builder.name = name
@@ -574,6 +600,7 @@ func NewManagerBuilder() *ManagerBuilder {
 }
 
 // 上级的用户 ID（user_id）
+//
 // 示例值：ou_db362c0e79f5a26db1ca8e94698ee417
 func (builder *ManagerBuilder) UserId(userId string) *ManagerBuilder {
 	builder.userId = userId
@@ -582,6 +609,7 @@ func (builder *ManagerBuilder) UserId(userId string) *ManagerBuilder {
 }
 
 // 中文名
+//
 // 示例值：李四
 func (builder *ManagerBuilder) Name(name string) *ManagerBuilder {
 	builder.name = name
@@ -590,6 +618,7 @@ func (builder *ManagerBuilder) Name(name string) *ManagerBuilder {
 }
 
 // 英文名
+//
 // 示例值：Tom Li
 func (builder *ManagerBuilder) EnName(enName string) *ManagerBuilder {
 	builder.enName = enName
@@ -632,6 +661,7 @@ func NewNativeRegionBuilder() *NativeRegionBuilder {
 }
 
 // ISO 编码
+//
 // 示例值：CHN-11
 func (builder *NativeRegionBuilder) IsoCode(isoCode string) *NativeRegionBuilder {
 	builder.isoCode = isoCode
@@ -640,6 +670,7 @@ func (builder *NativeRegionBuilder) IsoCode(isoCode string) *NativeRegionBuilder
 }
 
 // 名称
+//
 // 示例值：北京
 func (builder *NativeRegionBuilder) Name(name string) *NativeRegionBuilder {
 	builder.name = name
@@ -855,6 +886,7 @@ func NewSystemFieldsBuilder() *SystemFieldsBuilder {
 }
 
 // 中文姓名
+//
 // 示例值：张三
 func (builder *SystemFieldsBuilder) Name(name string) *SystemFieldsBuilder {
 	builder.name = name
@@ -863,6 +895,7 @@ func (builder *SystemFieldsBuilder) Name(name string) *SystemFieldsBuilder {
 }
 
 // 英文姓名
+//
 // 示例值：Tony Zhang
 func (builder *SystemFieldsBuilder) EnName(enName string) *SystemFieldsBuilder {
 	builder.enName = enName
@@ -871,6 +904,7 @@ func (builder *SystemFieldsBuilder) EnName(enName string) *SystemFieldsBuilder {
 }
 
 // 邮箱
+//
 // 示例值：a@b.com
 func (builder *SystemFieldsBuilder) Email(email string) *SystemFieldsBuilder {
 	builder.email = email
@@ -879,6 +913,7 @@ func (builder *SystemFieldsBuilder) Email(email string) *SystemFieldsBuilder {
 }
 
 // 手机号码
+//
 // 示例值：(+86) 13812345678
 func (builder *SystemFieldsBuilder) Mobile(mobile string) *SystemFieldsBuilder {
 	builder.mobile = mobile
@@ -887,6 +922,7 @@ func (builder *SystemFieldsBuilder) Mobile(mobile string) *SystemFieldsBuilder {
 }
 
 // 部门的飞书 open_department_id
+//
 // 示例值：od-4d551617a5da3cec26666d33175dc8ca
 func (builder *SystemFieldsBuilder) DepartmentId(departmentId string) *SystemFieldsBuilder {
 	builder.departmentId = departmentId
@@ -895,6 +931,7 @@ func (builder *SystemFieldsBuilder) DepartmentId(departmentId string) *SystemFie
 }
 
 // 上级
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) Manager(manager *Manager) *SystemFieldsBuilder {
 	builder.manager = manager
@@ -903,6 +940,7 @@ func (builder *SystemFieldsBuilder) Manager(manager *Manager) *SystemFieldsBuild
 }
 
 // 职位
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) Job(job *Job) *SystemFieldsBuilder {
 	builder.job = job
@@ -911,6 +949,7 @@ func (builder *SystemFieldsBuilder) Job(job *Job) *SystemFieldsBuilder {
 }
 
 // 职级
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) JobLevel(jobLevel *JobLevel) *SystemFieldsBuilder {
 	builder.jobLevel = jobLevel
@@ -919,6 +958,7 @@ func (builder *SystemFieldsBuilder) JobLevel(jobLevel *JobLevel) *SystemFieldsBu
 }
 
 // 工作地点
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) WorkLocation(workLocation *WorkLocation) *SystemFieldsBuilder {
 	builder.workLocation = workLocation
@@ -927,6 +967,7 @@ func (builder *SystemFieldsBuilder) WorkLocation(workLocation *WorkLocation) *Sy
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) Gender(gender int) *SystemFieldsBuilder {
 	builder.gender = gender
@@ -935,6 +976,7 @@ func (builder *SystemFieldsBuilder) Gender(gender int) *SystemFieldsBuilder {
 }
 
 // 出生日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) Birthday(birthday string) *SystemFieldsBuilder {
 	builder.birthday = birthday
@@ -943,6 +985,7 @@ func (builder *SystemFieldsBuilder) Birthday(birthday string) *SystemFieldsBuild
 }
 
 // 籍贯
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) NativeRegion(nativeRegion *NativeRegion) *SystemFieldsBuilder {
 	builder.nativeRegion = nativeRegion
@@ -951,6 +994,7 @@ func (builder *SystemFieldsBuilder) NativeRegion(nativeRegion *NativeRegion) *Sy
 }
 
 // 民族
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) Ethnicity(ethnicity int) *SystemFieldsBuilder {
 	builder.ethnicity = ethnicity
@@ -959,6 +1003,7 @@ func (builder *SystemFieldsBuilder) Ethnicity(ethnicity int) *SystemFieldsBuilde
 }
 
 // 婚姻状况
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) MaritalStatus(maritalStatus int) *SystemFieldsBuilder {
 	builder.maritalStatus = maritalStatus
@@ -967,6 +1012,7 @@ func (builder *SystemFieldsBuilder) MaritalStatus(maritalStatus int) *SystemFiel
 }
 
 // 政治面貌
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) PoliticalStatus(politicalStatus int) *SystemFieldsBuilder {
 	builder.politicalStatus = politicalStatus
@@ -975,6 +1021,7 @@ func (builder *SystemFieldsBuilder) PoliticalStatus(politicalStatus int) *System
 }
 
 // 参加工作日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) EnteredWorkforceDate(enteredWorkforceDate string) *SystemFieldsBuilder {
 	builder.enteredWorkforceDate = enteredWorkforceDate
@@ -983,6 +1030,7 @@ func (builder *SystemFieldsBuilder) EnteredWorkforceDate(enteredWorkforceDate st
 }
 
 // 证件类型
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) IdType(idType int) *SystemFieldsBuilder {
 	builder.idType = idType
@@ -991,6 +1039,7 @@ func (builder *SystemFieldsBuilder) IdType(idType int) *SystemFieldsBuilder {
 }
 
 // 证件号
+//
 // 示例值：110122XXXXXX
 func (builder *SystemFieldsBuilder) IdNumber(idNumber string) *SystemFieldsBuilder {
 	builder.idNumber = idNumber
@@ -999,6 +1048,7 @@ func (builder *SystemFieldsBuilder) IdNumber(idNumber string) *SystemFieldsBuild
 }
 
 // 户口类型
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) HukouType(hukouType int) *SystemFieldsBuilder {
 	builder.hukouType = hukouType
@@ -1007,6 +1057,7 @@ func (builder *SystemFieldsBuilder) HukouType(hukouType int) *SystemFieldsBuilde
 }
 
 // 户口所在地
+//
 // 示例值：北京市海淀区XXXX
 func (builder *SystemFieldsBuilder) HukouLocation(hukouLocation string) *SystemFieldsBuilder {
 	builder.hukouLocation = hukouLocation
@@ -1015,6 +1066,7 @@ func (builder *SystemFieldsBuilder) HukouLocation(hukouLocation string) *SystemF
 }
 
 // 银行卡号
+//
 // 示例值：1243253453
 func (builder *SystemFieldsBuilder) BankAccountNumber(bankAccountNumber string) *SystemFieldsBuilder {
 	builder.bankAccountNumber = bankAccountNumber
@@ -1023,6 +1075,7 @@ func (builder *SystemFieldsBuilder) BankAccountNumber(bankAccountNumber string) 
 }
 
 // 开户行
+//
 // 示例值：招商银行
 func (builder *SystemFieldsBuilder) BankName(bankName string) *SystemFieldsBuilder {
 	builder.bankName = bankName
@@ -1031,6 +1084,7 @@ func (builder *SystemFieldsBuilder) BankName(bankName string) *SystemFieldsBuild
 }
 
 // 社保账号
+//
 // 示例值：123124124
 func (builder *SystemFieldsBuilder) SocialSecurityAccount(socialSecurityAccount string) *SystemFieldsBuilder {
 	builder.socialSecurityAccount = socialSecurityAccount
@@ -1039,6 +1093,7 @@ func (builder *SystemFieldsBuilder) SocialSecurityAccount(socialSecurityAccount 
 }
 
 // 公积金账号
+//
 // 示例值：123124235
 func (builder *SystemFieldsBuilder) ProvidentFundAccount(providentFundAccount string) *SystemFieldsBuilder {
 	builder.providentFundAccount = providentFundAccount
@@ -1047,6 +1102,7 @@ func (builder *SystemFieldsBuilder) ProvidentFundAccount(providentFundAccount st
 }
 
 // 工号
+//
 // 示例值：TM-00001
 func (builder *SystemFieldsBuilder) EmployeeNo(employeeNo string) *SystemFieldsBuilder {
 	builder.employeeNo = employeeNo
@@ -1055,6 +1111,7 @@ func (builder *SystemFieldsBuilder) EmployeeNo(employeeNo string) *SystemFieldsB
 }
 
 // 雇员类型
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) EmployeeType(employeeType int) *SystemFieldsBuilder {
 	builder.employeeType = employeeType
@@ -1063,6 +1120,7 @@ func (builder *SystemFieldsBuilder) EmployeeType(employeeType int) *SystemFields
 }
 
 // 员工状态
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) Status(status int) *SystemFieldsBuilder {
 	builder.status = status
@@ -1071,6 +1129,7 @@ func (builder *SystemFieldsBuilder) Status(status int) *SystemFieldsBuilder {
 }
 
 // 入职日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) HireDate(hireDate string) *SystemFieldsBuilder {
 	builder.hireDate = hireDate
@@ -1079,6 +1138,7 @@ func (builder *SystemFieldsBuilder) HireDate(hireDate string) *SystemFieldsBuild
 }
 
 // 试用期（月）
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) ProbationMonths(probationMonths float64) *SystemFieldsBuilder {
 	builder.probationMonths = probationMonths
@@ -1087,6 +1147,7 @@ func (builder *SystemFieldsBuilder) ProbationMonths(probationMonths float64) *Sy
 }
 
 // 转正日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) ConversionDate(conversionDate string) *SystemFieldsBuilder {
 	builder.conversionDate = conversionDate
@@ -1095,6 +1156,7 @@ func (builder *SystemFieldsBuilder) ConversionDate(conversionDate string) *Syste
 }
 
 // 转正申请
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) Application(application int) *SystemFieldsBuilder {
 	builder.application = application
@@ -1103,6 +1165,7 @@ func (builder *SystemFieldsBuilder) Application(application int) *SystemFieldsBu
 }
 
 // 转正状态
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) ApplicationStatus(applicationStatus int) *SystemFieldsBuilder {
 	builder.applicationStatus = applicationStatus
@@ -1111,6 +1174,7 @@ func (builder *SystemFieldsBuilder) ApplicationStatus(applicationStatus int) *Sy
 }
 
 // 离职日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) LastDay(lastDay string) *SystemFieldsBuilder {
 	builder.lastDay = lastDay
@@ -1119,6 +1183,7 @@ func (builder *SystemFieldsBuilder) LastDay(lastDay string) *SystemFieldsBuilder
 }
 
 // 离职类型
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) DepartureType(departureType int) *SystemFieldsBuilder {
 	builder.departureType = departureType
@@ -1127,6 +1192,7 @@ func (builder *SystemFieldsBuilder) DepartureType(departureType int) *SystemFiel
 }
 
 // 离职原因
+//
 // 示例值：4
 func (builder *SystemFieldsBuilder) DepartureReason(departureReason int) *SystemFieldsBuilder {
 	builder.departureReason = departureReason
@@ -1135,6 +1201,7 @@ func (builder *SystemFieldsBuilder) DepartureReason(departureReason int) *System
 }
 
 // 离职备注
+//
 // 示例值：世界那么大
 func (builder *SystemFieldsBuilder) DepartureNotes(departureNotes string) *SystemFieldsBuilder {
 	builder.departureNotes = departureNotes
@@ -1143,6 +1210,7 @@ func (builder *SystemFieldsBuilder) DepartureNotes(departureNotes string) *Syste
 }
 
 // 合同公司
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) ContractCompany(contractCompany *ContractCompany) *SystemFieldsBuilder {
 	builder.contractCompany = contractCompany
@@ -1151,6 +1219,7 @@ func (builder *SystemFieldsBuilder) ContractCompany(contractCompany *ContractCom
 }
 
 // 合同类型
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) ContractType(contractType int) *SystemFieldsBuilder {
 	builder.contractType = contractType
@@ -1159,6 +1228,7 @@ func (builder *SystemFieldsBuilder) ContractType(contractType int) *SystemFields
 }
 
 // 合同开始日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) ContractStartDate(contractStartDate string) *SystemFieldsBuilder {
 	builder.contractStartDate = contractStartDate
@@ -1167,6 +1237,7 @@ func (builder *SystemFieldsBuilder) ContractStartDate(contractStartDate string) 
 }
 
 // 合同到期日期
+//
 // 示例值：2020-01-01
 func (builder *SystemFieldsBuilder) ContractExpirationDate(contractExpirationDate string) *SystemFieldsBuilder {
 	builder.contractExpirationDate = contractExpirationDate
@@ -1175,6 +1246,7 @@ func (builder *SystemFieldsBuilder) ContractExpirationDate(contractExpirationDat
 }
 
 // 劳动合同签订次数
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) ContractSignTimes(contractSignTimes int) *SystemFieldsBuilder {
 	builder.contractSignTimes = contractSignTimes
@@ -1183,6 +1255,7 @@ func (builder *SystemFieldsBuilder) ContractSignTimes(contractSignTimes int) *Sy
 }
 
 // 个人邮箱
+//
 // 示例值：personal@email.com
 func (builder *SystemFieldsBuilder) PersonalEmail(personalEmail string) *SystemFieldsBuilder {
 	builder.personalEmail = personalEmail
@@ -1191,6 +1264,7 @@ func (builder *SystemFieldsBuilder) PersonalEmail(personalEmail string) *SystemF
 }
 
 // 家庭地址
+//
 // 示例值：北京市海淀区XXXXX
 func (builder *SystemFieldsBuilder) FamilyAddress(familyAddress string) *SystemFieldsBuilder {
 	builder.familyAddress = familyAddress
@@ -1199,6 +1273,7 @@ func (builder *SystemFieldsBuilder) FamilyAddress(familyAddress string) *SystemF
 }
 
 // 主要紧急联系人
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) PrimaryEmergencyContact(primaryEmergencyContact *EmergencyContact) *SystemFieldsBuilder {
 	builder.primaryEmergencyContact = primaryEmergencyContact
@@ -1207,6 +1282,7 @@ func (builder *SystemFieldsBuilder) PrimaryEmergencyContact(primaryEmergencyCont
 }
 
 // 紧急联系人
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) EmergencyContact(emergencyContact []*EmergencyContact) *SystemFieldsBuilder {
 	builder.emergencyContact = emergencyContact
@@ -1215,6 +1291,7 @@ func (builder *SystemFieldsBuilder) EmergencyContact(emergencyContact []*Emergen
 }
 
 // 最高学历
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) HighestLevelOfEdu(highestLevelOfEdu *Education) *SystemFieldsBuilder {
 	builder.highestLevelOfEdu = highestLevelOfEdu
@@ -1223,6 +1300,7 @@ func (builder *SystemFieldsBuilder) HighestLevelOfEdu(highestLevelOfEdu *Educati
 }
 
 // 教育经历
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) Education(education []*Education) *SystemFieldsBuilder {
 	builder.education = education
@@ -1231,6 +1309,7 @@ func (builder *SystemFieldsBuilder) Education(education []*Education) *SystemFie
 }
 
 // 前工作经历
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) FormerWorkExp(formerWorkExp *WorkExperience) *SystemFieldsBuilder {
 	builder.formerWorkExp = formerWorkExp
@@ -1239,6 +1318,7 @@ func (builder *SystemFieldsBuilder) FormerWorkExp(formerWorkExp *WorkExperience)
 }
 
 // 工作经历
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) WorkExp(workExp []*WorkExperience) *SystemFieldsBuilder {
 	builder.workExp = workExp
@@ -1247,6 +1327,7 @@ func (builder *SystemFieldsBuilder) WorkExp(workExp []*WorkExperience) *SystemFi
 }
 
 // 身份证照片（人像面）
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) IdPhotoPoSide(idPhotoPoSide []*Attachment) *SystemFieldsBuilder {
 	builder.idPhotoPoSide = idPhotoPoSide
@@ -1255,6 +1336,7 @@ func (builder *SystemFieldsBuilder) IdPhotoPoSide(idPhotoPoSide []*Attachment) *
 }
 
 // 身份证照片（国徽面）
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) IdPhotoEmSide(idPhotoEmSide []*Attachment) *SystemFieldsBuilder {
 	builder.idPhotoEmSide = idPhotoEmSide
@@ -1263,6 +1345,7 @@ func (builder *SystemFieldsBuilder) IdPhotoEmSide(idPhotoEmSide []*Attachment) *
 }
 
 // 证件照
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) IdPhoto(idPhoto []*Attachment) *SystemFieldsBuilder {
 	builder.idPhoto = idPhoto
@@ -1271,6 +1354,7 @@ func (builder *SystemFieldsBuilder) IdPhoto(idPhoto []*Attachment) *SystemFields
 }
 
 // 学位证书
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) DiplomaPhoto(diplomaPhoto []*Attachment) *SystemFieldsBuilder {
 	builder.diplomaPhoto = diplomaPhoto
@@ -1279,6 +1363,7 @@ func (builder *SystemFieldsBuilder) DiplomaPhoto(diplomaPhoto []*Attachment) *Sy
 }
 
 // 毕业证书
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) GraduationCert(graduationCert []*Attachment) *SystemFieldsBuilder {
 	builder.graduationCert = graduationCert
@@ -1287,6 +1372,7 @@ func (builder *SystemFieldsBuilder) GraduationCert(graduationCert []*Attachment)
 }
 
 // 奖励证明
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) CertOfMerit(certOfMerit []*Attachment) *SystemFieldsBuilder {
 	builder.certOfMerit = certOfMerit
@@ -1295,6 +1381,7 @@ func (builder *SystemFieldsBuilder) CertOfMerit(certOfMerit []*Attachment) *Syst
 }
 
 // 离职证明
+//
 // 示例值：
 func (builder *SystemFieldsBuilder) OffboardingFile(offboardingFile []*Attachment) *SystemFieldsBuilder {
 	builder.offboardingFile = offboardingFile
@@ -1303,6 +1390,7 @@ func (builder *SystemFieldsBuilder) OffboardingFile(offboardingFile []*Attachmen
 }
 
 // 取消入职原因
+//
 // 示例值：2
 func (builder *SystemFieldsBuilder) CancelOnboardingReason(cancelOnboardingReason int) *SystemFieldsBuilder {
 	builder.cancelOnboardingReason = cancelOnboardingReason
@@ -1311,6 +1399,7 @@ func (builder *SystemFieldsBuilder) CancelOnboardingReason(cancelOnboardingReaso
 }
 
 // 取消入职备注
+//
 // 示例值：个人原因
 func (builder *SystemFieldsBuilder) CancelOnboardingNotes(cancelOnboardingNotes string) *SystemFieldsBuilder {
 	builder.cancelOnboardingNotes = cancelOnboardingNotes
@@ -1319,6 +1408,7 @@ func (builder *SystemFieldsBuilder) CancelOnboardingNotes(cancelOnboardingNotes 
 }
 
 // 入职登记表状态
+//
 // 示例值：1
 func (builder *SystemFieldsBuilder) EmployeeFormStatus(employeeFormStatus int) *SystemFieldsBuilder {
 	builder.employeeFormStatus = employeeFormStatus
@@ -1327,6 +1417,7 @@ func (builder *SystemFieldsBuilder) EmployeeFormStatus(employeeFormStatus int) *
 }
 
 // 创建时间
+//
 // 示例值：1608690517811
 func (builder *SystemFieldsBuilder) CreateTime(createTime int64) *SystemFieldsBuilder {
 	builder.createTime = createTime
@@ -1335,6 +1426,7 @@ func (builder *SystemFieldsBuilder) CreateTime(createTime int64) *SystemFieldsBu
 }
 
 // 更新时间
+//
 // 示例值：1608690517811
 func (builder *SystemFieldsBuilder) UpdateTime(updateTime int64) *SystemFieldsBuilder {
 	builder.updateTime = updateTime
@@ -1602,6 +1694,7 @@ func NewWorkExperienceBuilder() *WorkExperienceBuilder {
 }
 
 // 公司
+//
 // 示例值：XXXX公司
 func (builder *WorkExperienceBuilder) Company(company string) *WorkExperienceBuilder {
 	builder.company = company
@@ -1610,6 +1703,7 @@ func (builder *WorkExperienceBuilder) Company(company string) *WorkExperienceBui
 }
 
 // 部门
+//
 // 示例值：部门1
 func (builder *WorkExperienceBuilder) Department(department string) *WorkExperienceBuilder {
 	builder.department = department
@@ -1618,6 +1712,7 @@ func (builder *WorkExperienceBuilder) Department(department string) *WorkExperie
 }
 
 // 职位
+//
 // 示例值：职位
 func (builder *WorkExperienceBuilder) Job(job string) *WorkExperienceBuilder {
 	builder.job = job
@@ -1626,6 +1721,7 @@ func (builder *WorkExperienceBuilder) Job(job string) *WorkExperienceBuilder {
 }
 
 // 开始日期
+//
 // 示例值：2020-01-01
 func (builder *WorkExperienceBuilder) Start(start string) *WorkExperienceBuilder {
 	builder.start = start
@@ -1634,6 +1730,7 @@ func (builder *WorkExperienceBuilder) Start(start string) *WorkExperienceBuilder
 }
 
 // 截止日期
+//
 // 示例值：2020-01-01
 func (builder *WorkExperienceBuilder) End(end string) *WorkExperienceBuilder {
 	builder.end = end
@@ -1642,6 +1739,7 @@ func (builder *WorkExperienceBuilder) End(end string) *WorkExperienceBuilder {
 }
 
 // 工作描述
+//
 // 示例值：工作描述
 func (builder *WorkExperienceBuilder) Description(description string) *WorkExperienceBuilder {
 	builder.description = description
@@ -1696,6 +1794,7 @@ func NewWorkLocationBuilder() *WorkLocationBuilder {
 }
 
 // 工作地点 ID
+//
 // 示例值：1695838220091399
 func (builder *WorkLocationBuilder) Id(id int64) *WorkLocationBuilder {
 	builder.id = id
@@ -1704,6 +1803,7 @@ func (builder *WorkLocationBuilder) Id(id int64) *WorkLocationBuilder {
 }
 
 // 工作地点名称
+//
 // 示例值：武汉
 func (builder *WorkLocationBuilder) Name(name string) *WorkLocationBuilder {
 	builder.name = name

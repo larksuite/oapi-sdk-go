@@ -81,7 +81,7 @@ type timeoffEvent struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendar.go
 func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -109,7 +109,7 @@ func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//delete_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendar.go
 func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -137,7 +137,7 @@ func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//get_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_calendar.go
 func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...larkcore.RequestOptionFunc) (*GetCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -165,7 +165,7 @@ func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendar.go
 func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...larkcore.RequestOptionFunc) (*ListCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -193,7 +193,7 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//patch_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/patch_calendar.go
 func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -219,7 +219,7 @@ func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//primary_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/primary_calendar.go
 func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options ...larkcore.RequestOptionFunc) (*PrimaryCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -245,7 +245,7 @@ func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//search_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/search_calendar.go
 func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -281,7 +281,7 @@ func (c *calendar) SearchByIterator(ctx context.Context, req *SearchCalendarReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//subscribe_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscribe_calendar.go
 func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*SubscribeCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -307,7 +307,7 @@ func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//subscription_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendar.go
 func (c *calendar) Subscription(ctx context.Context, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -338,7 +338,7 @@ func (c *calendar) Subscription(ctx context.Context, options ...larkcore.Request
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//unsubscribe_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscribe_calendar.go
 func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeCalendarResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -364,7 +364,7 @@ func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//unsubscription_calendar.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendar.go
 func (c *calendar) Unsubscription(ctx context.Context, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -395,7 +395,7 @@ func (c *calendar) Unsubscription(ctx context.Context, options ...larkcore.Reque
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_calendarAcl.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarAcl.go
 func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarAclResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -423,7 +423,7 @@ func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//delete_calendarAcl.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendarAcl.go
 func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarAclResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -451,7 +451,7 @@ func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_calendarAcl.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarAcl.go
 func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options ...larkcore.RequestOptionFunc) (*ListCalendarAclResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -487,7 +487,7 @@ func (c *calendarAcl) ListByIterator(ctx context.Context, req *ListCalendarAclRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//subscription_calendarAcl.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendarAcl.go
 func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalendarAclReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarAclResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -515,7 +515,7 @@ func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalenda
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/unsubscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//unsubscription_calendarAcl.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendarAcl.go
 func (c *calendarAcl) Unsubscription(ctx context.Context, req *UnsubscriptionCalendarAclReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarAclResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -543,7 +543,7 @@ func (c *calendarAcl) Unsubscription(ctx context.Context, req *UnsubscriptionCal
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarEvent.go
 func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -571,7 +571,7 @@ func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//delete_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendarEvent.go
 func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -599,7 +599,7 @@ func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//get_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_calendarEvent.go
 func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, options ...larkcore.RequestOptionFunc) (*GetCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -627,7 +627,7 @@ func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEvent.go
 func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -655,7 +655,7 @@ func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//patch_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/patch_calendarEvent.go
 func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -683,7 +683,7 @@ func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//search_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/search_calendarEvent.go
 func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -719,7 +719,7 @@ func (c *calendarEvent) SearchByIterator(ctx context.Context, req *SearchCalenda
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//subscription_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendarEvent.go
 func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -747,7 +747,7 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/unsubscription
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//unsubscription_calendarEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendarEvent.go
 func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionCalendarEventReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -775,7 +775,7 @@ func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionC
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//batchDelete_calendarEventAttendee.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/batchDelete_calendarEventAttendee.go
 func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDeleteCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteCalendarEventAttendeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -803,7 +803,7 @@ func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDelet
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_calendarEventAttendee.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarEventAttendee.go
 func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventAttendeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -831,7 +831,7 @@ func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarE
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_calendarEventAttendee.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEventAttendee.go
 func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -867,7 +867,7 @@ func (c *calendarEventAttendee) ListByIterator(ctx context.Context, req *ListCal
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_calendarEventAttendeeChatMember.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEventAttendeeChatMember.go
 func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -903,7 +903,7 @@ func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, re
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_exchangeBinding.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_exchangeBinding.go
 func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*CreateExchangeBindingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -931,7 +931,7 @@ func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBinding
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//delete_exchangeBinding.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_exchangeBinding.go
 func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*DeleteExchangeBindingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -959,7 +959,7 @@ func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBinding
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//get_exchangeBinding.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_exchangeBinding.go
 func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*GetExchangeBindingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -985,7 +985,7 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//list_freebusy.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_freebusy.go
 func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...larkcore.RequestOptionFunc) (*ListFreebusyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1011,7 +1011,7 @@ func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//generateCaldavConf_setting.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/generateCaldavConf_setting.go
 func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavConfSettingReq, options ...larkcore.RequestOptionFunc) (*GenerateCaldavConfSettingResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1037,7 +1037,7 @@ func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavCon
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//create_timeoffEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_timeoffEvent.go
 func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*CreateTimeoffEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1063,7 +1063,7 @@ func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4//delete_timeoffEvent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_timeoffEvent.go
 func (t *timeoffEvent) Delete(ctx context.Context, req *DeleteTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*DeleteTimeoffEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

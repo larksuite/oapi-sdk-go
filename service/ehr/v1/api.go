@@ -49,7 +49,7 @@ type employee struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1//get_attachment.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1/get_attachment.go
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -81,7 +81,7 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1//list_employee.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1/list_employee.go
 func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

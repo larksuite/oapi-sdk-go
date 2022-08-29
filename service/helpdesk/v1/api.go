@@ -43,7 +43,7 @@ type HelpdeskService struct {
 	config                *larkcore.Config
 	Agent                 *agent                 // 客服
 	AgentSchedules        *agentSchedules        // 客服工作日程
-	AgentSchedule         *agentSchedule         // 客服工作日程
+	AgentSchedule         *agentSchedule         // agent_schedule
 	AgentSkill            *agentSkill            // 客服技能
 	AgentSkillRule        *agentSkillRule        // 客服技能规则
 	BotMessage            *botMessage            // 机器人消息
@@ -102,7 +102,7 @@ type ticketCustomizedField struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/agent_email
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//agentEmail_agent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/agentEmail_agent.go
 func (a *agent) AgentEmail(ctx context.Context, options ...larkcore.RequestOptionFunc) (*AgentEmailAgentResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -131,7 +131,7 @@ func (a *agent) AgentEmail(ctx context.Context, options ...larkcore.RequestOptio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agent.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_agent.go
 func (a *agent) Patch(ctx context.Context, req *PatchAgentReq, options ...larkcore.RequestOptionFunc) (*PatchAgentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -157,7 +157,7 @@ func (a *agent) Patch(ctx context.Context, req *PatchAgentReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_agentSchedules.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/delete_agentSchedules.go
 func (a *agentSchedules) Delete(ctx context.Context, req *DeleteAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*DeleteAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -183,7 +183,7 @@ func (a *agentSchedules) Delete(ctx context.Context, req *DeleteAgentSchedulesRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_agentSchedules.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_agentSchedules.go
 func (a *agentSchedules) Get(ctx context.Context, req *GetAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*GetAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -209,7 +209,7 @@ func (a *agentSchedules) Get(ctx context.Context, req *GetAgentSchedulesReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agentSchedules.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_agentSchedules.go
 func (a *agentSchedules) Patch(ctx context.Context, req *PatchAgentSchedulesReq, options ...larkcore.RequestOptionFunc) (*PatchAgentSchedulesResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -235,7 +235,7 @@ func (a *agentSchedules) Patch(ctx context.Context, req *PatchAgentSchedulesReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_agentSchedule.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_agentSchedule.go
 func (a *agentSchedule) Create(ctx context.Context, req *CreateAgentScheduleReq, options ...larkcore.RequestOptionFunc) (*CreateAgentScheduleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -261,7 +261,7 @@ func (a *agentSchedule) Create(ctx context.Context, req *CreateAgentScheduleReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSchedule.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_agentSchedule.go
 func (a *agentSchedule) List(ctx context.Context, req *ListAgentScheduleReq, options ...larkcore.RequestOptionFunc) (*ListAgentScheduleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -287,7 +287,7 @@ func (a *agentSchedule) List(ctx context.Context, req *ListAgentScheduleReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_agentSkill.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_agentSkill.go
 func (a *agentSkill) Create(ctx context.Context, req *CreateAgentSkillReq, options ...larkcore.RequestOptionFunc) (*CreateAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -313,7 +313,7 @@ func (a *agentSkill) Create(ctx context.Context, req *CreateAgentSkillReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_agentSkill.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/delete_agentSkill.go
 func (a *agentSkill) Delete(ctx context.Context, req *DeleteAgentSkillReq, options ...larkcore.RequestOptionFunc) (*DeleteAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -339,7 +339,7 @@ func (a *agentSkill) Delete(ctx context.Context, req *DeleteAgentSkillReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_agentSkill.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_agentSkill.go
 func (a *agentSkill) Get(ctx context.Context, req *GetAgentSkillReq, options ...larkcore.RequestOptionFunc) (*GetAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -365,7 +365,7 @@ func (a *agentSkill) Get(ctx context.Context, req *GetAgentSkillReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSkill.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_agentSkill.go
 func (a *agentSkill) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListAgentSkillResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -394,7 +394,7 @@ func (a *agentSkill) List(ctx context.Context, options ...larkcore.RequestOption
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_agentSkill.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_agentSkill.go
 func (a *agentSkill) Patch(ctx context.Context, req *PatchAgentSkillReq, options ...larkcore.RequestOptionFunc) (*PatchAgentSkillResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -420,7 +420,7 @@ func (a *agentSkill) Patch(ctx context.Context, req *PatchAgentSkillReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_agentSkillRule.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_agentSkillRule.go
 func (a *agentSkillRule) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListAgentSkillRuleResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{
@@ -449,7 +449,7 @@ func (a *agentSkillRule) List(ctx context.Context, options ...larkcore.RequestOp
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/bot-message/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_botMessage.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_botMessage.go
 func (b *botMessage) Create(ctx context.Context, req *CreateBotMessageReq, options ...larkcore.RequestOptionFunc) (*CreateBotMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -475,7 +475,7 @@ func (b *botMessage) Create(ctx context.Context, req *CreateBotMessageReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_category.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_category.go
 func (c *category) Create(ctx context.Context, req *CreateCategoryReq, options ...larkcore.RequestOptionFunc) (*CreateCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -501,7 +501,7 @@ func (c *category) Create(ctx context.Context, req *CreateCategoryReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_category.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/delete_category.go
 func (c *category) Delete(ctx context.Context, req *DeleteCategoryReq, options ...larkcore.RequestOptionFunc) (*DeleteCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -527,7 +527,7 @@ func (c *category) Delete(ctx context.Context, req *DeleteCategoryReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_category.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_category.go
 func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...larkcore.RequestOptionFunc) (*GetCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -553,7 +553,7 @@ func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_category.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_category.go
 func (c *category) List(ctx context.Context, req *ListCategoryReq, options ...larkcore.RequestOptionFunc) (*ListCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -579,7 +579,7 @@ func (c *category) List(ctx context.Context, req *ListCategoryReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_category.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_category.go
 func (c *category) Patch(ctx context.Context, req *PatchCategoryReq, options ...larkcore.RequestOptionFunc) (*PatchCategoryResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -605,7 +605,7 @@ func (c *category) Patch(ctx context.Context, req *PatchCategoryReq, options ...
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//subscribe_event.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/subscribe_event.go
 func (e *event) Subscribe(ctx context.Context, req *SubscribeEventReq, options ...larkcore.RequestOptionFunc) (*SubscribeEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -631,7 +631,7 @@ func (e *event) Subscribe(ctx context.Context, req *SubscribeEventReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//unsubscribe_event.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/unsubscribe_event.go
 func (e *event) Unsubscribe(ctx context.Context, req *UnsubscribeEventReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeEventResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -657,7 +657,7 @@ func (e *event) Unsubscribe(ctx context.Context, req *UnsubscribeEventReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_faq.go
 func (f *faq) Create(ctx context.Context, req *CreateFaqReq, options ...larkcore.RequestOptionFunc) (*CreateFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -683,7 +683,7 @@ func (f *faq) Create(ctx context.Context, req *CreateFaqReq, options ...larkcore
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/delete_faq.go
 func (f *faq) Delete(ctx context.Context, req *DeleteFaqReq, options ...larkcore.RequestOptionFunc) (*DeleteFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -709,7 +709,7 @@ func (f *faq) Delete(ctx context.Context, req *DeleteFaqReq, options ...larkcore
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//faqImage_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/faqImage_faq.go
 func (f *faq) FaqImage(ctx context.Context, req *FaqImageFaqReq, options ...larkcore.RequestOptionFunc) (*FaqImageFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -741,7 +741,7 @@ func (f *faq) FaqImage(ctx context.Context, req *FaqImageFaqReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_faq.go
 func (f *faq) Get(ctx context.Context, req *GetFaqReq, options ...larkcore.RequestOptionFunc) (*GetFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -767,7 +767,7 @@ func (f *faq) Get(ctx context.Context, req *GetFaqReq, options ...larkcore.Reque
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_faq.go
 func (f *faq) List(ctx context.Context, req *ListFaqReq, options ...larkcore.RequestOptionFunc) (*ListFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -801,7 +801,7 @@ func (f *faq) ListByIterator(ctx context.Context, req *ListFaqReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_faq.go
 func (f *faq) Patch(ctx context.Context, req *PatchFaqReq, options ...larkcore.RequestOptionFunc) (*PatchFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -827,7 +827,7 @@ func (f *faq) Patch(ctx context.Context, req *PatchFaqReq, options ...larkcore.R
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//search_faq.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/search_faq.go
 func (f *faq) Search(ctx context.Context, req *SearchFaqReq, options ...larkcore.RequestOptionFunc) (*SearchFaqResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -861,7 +861,7 @@ func (f *faq) SearchByIterator(ctx context.Context, req *SearchFaqReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_approve
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//cancelApprove_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/cancelApprove_notification.go
 func (n *notification) CancelApprove(ctx context.Context, req *CancelApproveNotificationReq, options ...larkcore.RequestOptionFunc) (*CancelApproveNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -887,7 +887,7 @@ func (n *notification) CancelApprove(ctx context.Context, req *CancelApproveNoti
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_send
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//cancelSend_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/cancelSend_notification.go
 func (n *notification) CancelSend(ctx context.Context, req *CancelSendNotificationReq, options ...larkcore.RequestOptionFunc) (*CancelSendNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -913,7 +913,7 @@ func (n *notification) CancelSend(ctx context.Context, req *CancelSendNotificati
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_notification.go
 func (n *notification) Create(ctx context.Context, req *CreateNotificationReq, options ...larkcore.RequestOptionFunc) (*CreateNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -939,7 +939,7 @@ func (n *notification) Create(ctx context.Context, req *CreateNotificationReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/execute_send
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//executeSend_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/executeSend_notification.go
 func (n *notification) ExecuteSend(ctx context.Context, req *ExecuteSendNotificationReq, options ...larkcore.RequestOptionFunc) (*ExecuteSendNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -965,7 +965,7 @@ func (n *notification) ExecuteSend(ctx context.Context, req *ExecuteSendNotifica
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_notification.go
 func (n *notification) Get(ctx context.Context, req *GetNotificationReq, options ...larkcore.RequestOptionFunc) (*GetNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -991,7 +991,7 @@ func (n *notification) Get(ctx context.Context, req *GetNotificationReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_notification.go
 func (n *notification) Patch(ctx context.Context, req *PatchNotificationReq, options ...larkcore.RequestOptionFunc) (*PatchNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1017,7 +1017,7 @@ func (n *notification) Patch(ctx context.Context, req *PatchNotificationReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/preview
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//preview_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/preview_notification.go
 func (n *notification) Preview(ctx context.Context, req *PreviewNotificationReq, options ...larkcore.RequestOptionFunc) (*PreviewNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1043,7 +1043,7 @@ func (n *notification) Preview(ctx context.Context, req *PreviewNotificationReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/submit_approve
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//submitApprove_notification.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/submitApprove_notification.go
 func (n *notification) SubmitApprove(ctx context.Context, req *SubmitApproveNotificationReq, options ...larkcore.RequestOptionFunc) (*SubmitApproveNotificationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1069,7 +1069,7 @@ func (n *notification) SubmitApprove(ctx context.Context, req *SubmitApproveNoti
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/answer_user_query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//answerUserQuery_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/answerUserQuery_ticket.go
 func (t *ticket) AnswerUserQuery(ctx context.Context, req *AnswerUserQueryTicketReq, options ...larkcore.RequestOptionFunc) (*AnswerUserQueryTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1095,7 +1095,7 @@ func (t *ticket) AnswerUserQuery(ctx context.Context, req *AnswerUserQueryTicket
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/customized_fields
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//customizedFields_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/customizedFields_ticket.go
 func (t *ticket) CustomizedFields(ctx context.Context, req *CustomizedFieldsTicketReq, options ...larkcore.RequestOptionFunc) (*CustomizedFieldsTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1121,7 +1121,7 @@ func (t *ticket) CustomizedFields(ctx context.Context, req *CustomizedFieldsTick
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_ticket.go
 func (t *ticket) Get(ctx context.Context, req *GetTicketReq, options ...larkcore.RequestOptionFunc) (*GetTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1147,7 +1147,7 @@ func (t *ticket) Get(ctx context.Context, req *GetTicketReq, options ...larkcore
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_ticket.go
 func (t *ticket) List(ctx context.Context, req *ListTicketReq, options ...larkcore.RequestOptionFunc) (*ListTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1173,7 +1173,7 @@ func (t *ticket) List(ctx context.Context, req *ListTicketReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//startService_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/startService_ticket.go
 func (t *ticket) StartService(ctx context.Context, req *StartServiceTicketReq, options ...larkcore.RequestOptionFunc) (*StartServiceTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1199,7 +1199,7 @@ func (t *ticket) StartService(ctx context.Context, req *StartServiceTicketReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//ticketImage_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/ticketImage_ticket.go
 func (t *ticket) TicketImage(ctx context.Context, req *TicketImageTicketReq, options ...larkcore.RequestOptionFunc) (*TicketImageTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1231,7 +1231,7 @@ func (t *ticket) TicketImage(ctx context.Context, req *TicketImageTicketReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//update_ticket.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/update_ticket.go
 func (t *ticket) Update(ctx context.Context, req *UpdateTicketReq, options ...larkcore.RequestOptionFunc) (*UpdateTicketResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1257,7 +1257,7 @@ func (t *ticket) Update(ctx context.Context, req *UpdateTicketReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_ticketMessage.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_ticketMessage.go
 func (t *ticketMessage) Create(ctx context.Context, req *CreateTicketMessageReq, options ...larkcore.RequestOptionFunc) (*CreateTicketMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1283,7 +1283,7 @@ func (t *ticketMessage) Create(ctx context.Context, req *CreateTicketMessageReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticketMessage.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_ticketMessage.go
 func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, options ...larkcore.RequestOptionFunc) (*ListTicketMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1309,7 +1309,7 @@ func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//create_ticketCustomizedField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/create_ticketCustomizedField.go
 func (t *ticketCustomizedField) Create(ctx context.Context, req *CreateTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*CreateTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1335,7 +1335,7 @@ func (t *ticketCustomizedField) Create(ctx context.Context, req *CreateTicketCus
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//delete_ticketCustomizedField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/delete_ticketCustomizedField.go
 func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*DeleteTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1361,7 +1361,7 @@ func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCus
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//get_ticketCustomizedField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/get_ticketCustomizedField.go
 func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*GetTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1387,7 +1387,7 @@ func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomize
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//list_ticketCustomizedField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/list_ticketCustomizedField.go
 func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*ListTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1413,7 +1413,7 @@ func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomi
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1//patch_ticketCustomizedField.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/helpdeskv1/patch_ticketCustomizedField.go
 func (t *ticketCustomizedField) Patch(ctx context.Context, req *PatchTicketCustomizedFieldReq, options ...larkcore.RequestOptionFunc) (*PatchTicketCustomizedFieldResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

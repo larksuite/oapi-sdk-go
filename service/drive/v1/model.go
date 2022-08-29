@@ -44,33 +44,33 @@ const (
 )
 
 const (
-	TypeFileCopyFile     = "file"     // 文件类型
-	TypeFileCopyDoc      = "doc"      // 云文档类型
-	TypeFileCopySheet    = "sheet"    // 电子表格类型
-	TypeFileCopyBitable  = "bitable"  // 多维表格类型
-	TypeFileCopyDocx     = "docx"     // 新版云文档类型
-	TypeFileCopyMindnote = "mindnote" // 思维笔记类型
+	TypeCopyFileFile     = "file"     // 文件类型
+	TypeCopyFileDoc      = "doc"      // 云文档类型
+	TypeCopyFileSheet    = "sheet"    // 电子表格类型
+	TypeCopyFileBitable  = "bitable"  // 多维表格类型
+	TypeCopyFileDocx     = "docx"     // 新版云文档类型
+	TypeCopyFileMindnote = "mindnote" // 思维笔记类型
 )
 
 const (
-	TypeFileDeleteFile     = "file"     // 文件类型
-	TypeFileDeleteDocx     = "docx"     // docx文档类型
-	TypeFileDeleteBitable  = "bitable"  // 多维表格类型
-	TypeFileDeleteFolder   = "folder"   // 文件夹类型
-	TypeFileDeleteDoc      = "doc"      // doc文档类型
-	TypeFileDeleteSheet    = "sheet"    // 电子表格类型
-	TypeFileDeleteMindnote = "mindnote" // 思维笔记类型
-	TypeFileDeleteShortcut = "shortcut" // 快捷方式类型
+	TypeDeleteFileFile     = "file"     // 文件类型
+	TypeDeleteFileDocx     = "docx"     // docx文档类型
+	TypeDeleteFileBitable  = "bitable"  // 多维表格类型
+	TypeDeleteFileFolder   = "folder"   // 文件夹类型
+	TypeDeleteFileDoc      = "doc"      // doc文档类型
+	TypeDeleteFileSheet    = "sheet"    // 电子表格类型
+	TypeDeleteFileMindnote = "mindnote" // 思维笔记类型
+	TypeDeleteFileShortcut = "shortcut" // 快捷方式类型
 )
 
 const (
-	TypeFileMoveFile     = "file"     // 普通文件类型
-	TypeFileMoveDocx     = "docx"     // 新版文档类型
-	TypeFileMoveBitable  = "bitable"  // 多维表格类型
-	TypeFileMoveDoc      = "doc"      // doc文档类型
-	TypeFileMoveSheet    = "sheet"    // 电子表格类型
-	TypeFileMoveMindnote = "mindnote" // 思维笔记类型
-	TypeFileMoveFolder   = "folder"   // 文件夹类型
+	TypeMoveFileFile     = "file"     // 普通文件类型
+	TypeMoveFileDocx     = "docx"     // 新版文档类型
+	TypeMoveFileBitable  = "bitable"  // 多维表格类型
+	TypeMoveFileDoc      = "doc"      // doc文档类型
+	TypeMoveFileSheet    = "sheet"    // 电子表格类型
+	TypeMoveFileMindnote = "mindnote" // 思维笔记类型
+	TypeMoveFileFolder   = "folder"   // 文件夹类型
 )
 
 const (
@@ -85,14 +85,14 @@ const (
 )
 
 const (
-	ParentTypeFileUploadPrepareExplorer = "explorer" // 云空间
+	ParentTypeUploadPrepareFileExplorer = "explorer" // 云空间
 )
 
 const (
-	FileTypeFileCommentCreateDoc   = "doc"   // 文档
-	FileTypeFileCommentCreateSheet = "sheet" // 表格
-	FileTypeFileCommentCreateFile  = "file"  // 文件
-	FileTypeFileCommentCreateDocx  = "docx"  // 新版文档
+	FileTypeCreateFileCommentDoc   = "doc"   // 文档
+	FileTypeCreateFileCommentSheet = "sheet" // 表格
+	FileTypeCreateFileCommentFile  = "file"  // 文件
+	FileTypeCreateFileCommentDocx  = "docx"  // 新版文档
 )
 
 const (
@@ -102,66 +102,66 @@ const (
 )
 
 const (
-	FileTypeFileCommentGetDoc   = "doc"   // 文档
-	FileTypeFileCommentGetSheet = "sheet" // 表格
-	FileTypeFileCommentGetFile  = "file"  // 文件
-	FileTypeFileCommentGetDocx  = "docx"  // 新版文档
+	FileTypeGetFileCommentDoc   = "doc"   // 文档
+	FileTypeGetFileCommentSheet = "sheet" // 表格
+	FileTypeGetFileCommentFile  = "file"  // 文件
+	FileTypeGetFileCommentDocx  = "docx"  // 新版文档
 )
 
 const (
-	UserIdTypeFileCommentGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeFileCommentGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeFileCommentGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetFileCommentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetFileCommentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetFileCommentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	FileTypeFileCommentListDoc   = "doc"   // 文档
-	FileTypeFileCommentListSheet = "sheet" // 表格
-	FileTypeFileCommentListFile  = "file"  // 文件
-	FileTypeFileCommentListDocx  = "docx"  // 新版文档
+	FileTypeListFileCommentDoc   = "doc"   // 文档
+	FileTypeListFileCommentSheet = "sheet" // 表格
+	FileTypeListFileCommentFile  = "file"  // 文件
+	FileTypeListFileCommentDocx  = "docx"  // 新版文档
 )
 
 const (
-	UserIdTypeFileCommentListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeFileCommentListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeFileCommentListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListFileCommentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListFileCommentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListFileCommentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	FileTypeFileCommentPatchDoc   = "doc"   // 文档
-	FileTypeFileCommentPatchSheet = "sheet" // 表格
-	FileTypeFileCommentPatchFile  = "file"  // 文件
-	FileTypeFileCommentPatchDocx  = "docx"  // 新版文档
+	FileTypePatchFileCommentDoc   = "doc"   // 文档
+	FileTypePatchFileCommentSheet = "sheet" // 表格
+	FileTypePatchFileCommentFile  = "file"  // 文件
+	FileTypePatchFileCommentDocx  = "docx"  // 新版文档
 )
 
 const (
-	FileTypeFileCommentReplyDeleteDoc   = "doc"   // 文档
-	FileTypeFileCommentReplyDeleteSheet = "sheet" // 表格
-	FileTypeFileCommentReplyDeleteFile  = "file"  // 文件
-	FileTypeFileCommentReplyDeleteDocx  = "docx"  // 新版文档
+	FileTypeDeleteFileCommentReplyDoc   = "doc"   // 文档
+	FileTypeDeleteFileCommentReplySheet = "sheet" // 表格
+	FileTypeDeleteFileCommentReplyFile  = "file"  // 文件
+	FileTypeDeleteFileCommentReplyDocx  = "docx"  // 新版文档
 )
 
 const (
-	FileTypeFileCommentReplyUpdateDoc   = "doc"   // 文档
-	FileTypeFileCommentReplyUpdateSheet = "sheet" // 表格
-	FileTypeFileCommentReplyUpdateFile  = "file"  // 文件
-	FileTypeFileCommentReplyUpdateDocx  = "docx"  // 新版文档
+	FileTypeUpdateFileCommentReplyDoc   = "doc"   // 文档
+	FileTypeUpdateFileCommentReplySheet = "sheet" // 表格
+	FileTypeUpdateFileCommentReplyFile  = "file"  // 文件
+	FileTypeUpdateFileCommentReplyDocx  = "docx"  // 新版文档
 )
 
 const (
-	UserIdTypeFileCommentReplyUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeFileCommentReplyUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeFileCommentReplyUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateFileCommentReplyUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateFileCommentReplyUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateFileCommentReplyOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	FileTypeFileStatisticsGetDoc      = "doc"      // doc文档
-	FileTypeFileStatisticsGetSheet    = "sheet"    // 表格
-	FileTypeFileStatisticsGetMindnote = "mindnote" // 思维笔记
-	FileTypeFileStatisticsGetBitable  = "bitable"  // 多维表格
-	FileTypeFileStatisticsGetWiki     = "wiki"     // 知识库wiki
-	FileTypeFileStatisticsGetFile     = "file"     // 文件
-	FileTypeFileStatisticsGetDocx     = "docx"     // docx文档
+	FileTypeGetFileStatisticsDoc      = "doc"      // doc文档
+	FileTypeGetFileStatisticsSheet    = "sheet"    // 表格
+	FileTypeGetFileStatisticsMindnote = "mindnote" // 思维笔记
+	FileTypeGetFileStatisticsBitable  = "bitable"  // 多维表格
+	FileTypeGetFileStatisticsWiki     = "wiki"     // 知识库wiki
+	FileTypeGetFileStatisticsFile     = "file"     // 文件
+	FileTypeGetFileStatisticsDocx     = "docx"     // docx文档
 )
 
 const (
@@ -169,57 +169,57 @@ const (
 )
 
 const (
-	FileTypeFileSubscriptionCreateDoc  = "doc"  // 文档
-	FileTypeFileSubscriptionCreateDocx = "docx" // 文档2.0
-	FileTypeFileSubscriptionCreateWiki = "wiki" // 知识库wiki
+	FileTypeCreateFileSubscriptionDoc  = "doc"  // 文档
+	FileTypeCreateFileSubscriptionDocx = "docx" // 文档2.0
+	FileTypeCreateFileSubscriptionWiki = "wiki" // 知识库wiki
 )
 
 const (
-	SubscriptionTypeFileSubscriptionGetCommentUpdate = "comment_update" // 评论更新
+	SubscriptionTypeGetFileSubscriptionCommentUpdate = "comment_update" // 评论更新
 )
 
 const (
-	FileTypeFileSubscriptionGetDoc  = "doc"  // 文档
-	FileTypeFileSubscriptionGetDocx = "docx" // 文档2.0
-	FileTypeFileSubscriptionGetWiki = "wiki" // 知识库wiki
+	FileTypeGetFileSubscriptionDoc  = "doc"  // 文档
+	FileTypeGetFileSubscriptionDocx = "docx" // 文档2.0
+	FileTypeGetFileSubscriptionWiki = "wiki" // 知识库wiki
 )
 
 const (
-	FileTypeFileSubscriptionPatchDoc  = "doc"  // 文档1.0
-	FileTypeFileSubscriptionPatchDocx = "docx" // 文档2.0
-	FileTypeFileSubscriptionPatchWiki = "wiki" // 知识库wiki
+	FileTypePatchFileSubscriptionDoc  = "doc"  // 文档1.0
+	FileTypePatchFileSubscriptionDocx = "docx" // 文档2.0
+	FileTypePatchFileSubscriptionWiki = "wiki" // 知识库wiki
 )
 
 const (
-	ParentTypeMediaUploadAllDocImage            = "doc_image"             // docs图片
-	ParentTypeMediaUploadAllDocxImage           = "docx_image"            // docx图片
-	ParentTypeMediaUploadAllSheetImage          = "sheet_image"           // sheet图片
-	ParentTypeMediaUploadAllDocFile             = "doc_file"              // doc文件
-	ParentTypeMediaUploadAllDocxFile            = "docx_file"             // docx文件
-	ParentTypeMediaUploadAllSheetFile           = "sheet_file"            // sheet文件
-	ParentTypeMediaUploadAllVcVirtualBackground = "vc_virtual_background" // vc虚拟背景
-	ParentTypeMediaUploadAllBitableImage        = "bitable_image"         // 多维表格图片
-	ParentTypeMediaUploadAllBitableFile         = "bitable_file"          // 多维表格文件
-	ParentTypeMediaUploadAllMoments             = "moments"               // 同事圈
-	ParentTypeMediaUploadAllCcmImportOpen       = "ccm_import_open"       // 云文档导入文件
+	ParentTypeUploadAllMediaDocImage            = "doc_image"             // docs图片
+	ParentTypeUploadAllMediaDocxImage           = "docx_image"            // docx图片
+	ParentTypeUploadAllMediaSheetImage          = "sheet_image"           // sheet图片
+	ParentTypeUploadAllMediaDocFile             = "doc_file"              // doc文件
+	ParentTypeUploadAllMediaDocxFile            = "docx_file"             // docx文件
+	ParentTypeUploadAllMediaSheetFile           = "sheet_file"            // sheet文件
+	ParentTypeUploadAllMediaVcVirtualBackground = "vc_virtual_background" // vc虚拟背景
+	ParentTypeUploadAllMediaBitableImage        = "bitable_image"         // 多维表格图片
+	ParentTypeUploadAllMediaBitableFile         = "bitable_file"          // 多维表格文件
+	ParentTypeUploadAllMediaMoments             = "moments"               // 同事圈
+	ParentTypeUploadAllMediaCcmImportOpen       = "ccm_import_open"       // 云文档导入文件
 )
 
 const (
-	ParentTypeMediaUploadPrepareDocImage            = "doc_image"             // docs图片
-	ParentTypeMediaUploadPrepareSheetImage          = "sheet_image"           // sheet图片
-	ParentTypeMediaUploadPrepareDocFile             = "doc_file"              // doc文件
-	ParentTypeMediaUploadPrepareSheetFile           = "sheet_file"            // sheet文件
-	ParentTypeMediaUploadPrepareVcVirtualBackground = "vc_virtual_background" // vc虚拟背景
-	ParentTypeMediaUploadPrepareBitableImage        = "bitable_image"         // bitable图片
-	ParentTypeMediaUploadPrepareBitableFile         = "bitable_file"          // bitable文件
-	ParentTypeMediaUploadPrepareMoments             = "moments"               // 同事圈
-	ParentTypeMediaUploadPrepareCcmImportOpen       = "ccm_import_open"       // 云文档导入文件
+	ParentTypeUploadPrepareMediaDocImage            = "doc_image"             // docs图片
+	ParentTypeUploadPrepareMediaSheetImage          = "sheet_image"           // sheet图片
+	ParentTypeUploadPrepareMediaDocFile             = "doc_file"              // doc文件
+	ParentTypeUploadPrepareMediaSheetFile           = "sheet_file"            // sheet文件
+	ParentTypeUploadPrepareMediaVcVirtualBackground = "vc_virtual_background" // vc虚拟背景
+	ParentTypeUploadPrepareMediaBitableImage        = "bitable_image"         // bitable图片
+	ParentTypeUploadPrepareMediaBitableFile         = "bitable_file"          // bitable文件
+	ParentTypeUploadPrepareMediaMoments             = "moments"               // 同事圈
+	ParentTypeUploadPrepareMediaCcmImportOpen       = "ccm_import_open"       // 云文档导入文件
 )
 
 const (
-	UserIdTypeMetaBatchQueryUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMetaBatchQueryUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMetaBatchQueryOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchQueryMetaUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchQueryMetaUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchQueryMetaOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -248,36 +248,36 @@ const (
 )
 
 const (
-	TokenTypeV2PermissionMemberDeleteDoc      = "doc"      // 文档
-	TokenTypeV2PermissionMemberDeleteSheet    = "sheet"    // 电子表格
-	TokenTypeV2PermissionMemberDeleteFile     = "file"     // 云空间文件
-	TokenTypeV2PermissionMemberDeleteWiki     = "wiki"     // 知识库节点
-	TokenTypeV2PermissionMemberDeleteBitable  = "bitable"  // 多维表格
-	TokenTypeV2PermissionMemberDeleteDocx     = "docx"     // 文档
-	TokenTypeV2PermissionMemberDeleteFolder   = "folder"   // 文件夹
-	TokenTypeV2PermissionMemberDeleteMindnote = "mindnote" // 思维笔记
+	TokenTypeV2DeletePermissionMemberDoc      = "doc"      // 文档
+	TokenTypeV2DeletePermissionMemberSheet    = "sheet"    // 电子表格
+	TokenTypeV2DeletePermissionMemberFile     = "file"     // 云空间文件
+	TokenTypeV2DeletePermissionMemberWiki     = "wiki"     // 知识库节点
+	TokenTypeV2DeletePermissionMemberBitable  = "bitable"  // 多维表格
+	TokenTypeV2DeletePermissionMemberDocx     = "docx"     // 文档
+	TokenTypeV2DeletePermissionMemberFolder   = "folder"   // 文件夹
+	TokenTypeV2DeletePermissionMemberMindnote = "mindnote" // 思维笔记
 )
 
 const (
-	MemberTypePermissionMemberDeleteEmail            = "email"            // 邮箱地址
-	MemberTypePermissionMemberDeleteOpenID           = "openid"           // 开放平台ID
-	MemberTypePermissionMemberDeleteOpenChatID       = "openchat"         // 开放平台群ID
-	MemberTypePermissionMemberDeleteOpenDepartmentID = "opendepartmentid" // 开放平台部门ID
-	MemberTypePermissionMemberDeleteUserID           = "userid"           // 自定义用户ID
+	MemberTypeDeletePermissionMemberEmail            = "email"            // 邮箱地址
+	MemberTypeDeletePermissionMemberOpenID           = "openid"           // 开放平台ID
+	MemberTypeDeletePermissionMemberOpenChatID       = "openchat"         // 开放平台群ID
+	MemberTypeDeletePermissionMemberOpenDepartmentID = "opendepartmentid" // 开放平台部门ID
+	MemberTypeDeletePermissionMemberUserID           = "userid"           // 自定义用户ID
 )
 
 const (
-	MemberTypePermissionMemberUpdateEmail            = "email"            // 飞书邮箱
-	MemberTypePermissionMemberUpdateOpenId           = "openid"           // 开放平台ID
-	MemberTypePermissionMemberUpdateOpenChat         = "openchat"         // 开放平台群组ID
-	MemberTypePermissionMemberUpdateOpenDepartmentId = "opendepartmentid" // 开放平台部门ID
-	MemberTypePermissionMemberUpdateUserId           = "userid"           // 用户自定义ID
+	MemberTypeUpdatePermissionMemberEmail            = "email"            // 飞书邮箱
+	MemberTypeUpdatePermissionMemberOpenId           = "openid"           // 开放平台ID
+	MemberTypeUpdatePermissionMemberOpenChat         = "openchat"         // 开放平台群组ID
+	MemberTypeUpdatePermissionMemberOpenDepartmentId = "opendepartmentid" // 开放平台部门ID
+	MemberTypeUpdatePermissionMemberUserId           = "userid"           // 用户自定义ID
 )
 
 const (
-	PermPermissionMemberUpdateView       = "view"        // 可阅读角色
-	PermPermissionMemberUpdateEdit       = "edit"        // 可编辑角色
-	PermPermissionMemberUpdateFullAccess = "full_access" // 可管理角色
+	PermUpdatePermissionMemberView       = "view"        // 可阅读角色
+	PermUpdatePermissionMemberEdit       = "edit"        // 可编辑角色
+	PermUpdatePermissionMemberFullAccess = "full_access" // 可管理角色
 )
 
 const (
@@ -291,12 +291,12 @@ const (
 )
 
 const (
-	TokenTypePermissionPublicGetDoc     = "doc"     // 文档
-	TokenTypePermissionPublicGetSheet   = "sheet"   // 电子表格
-	TokenTypePermissionPublicGetFile    = "file"    // 云空间文件
-	TokenTypePermissionPublicGetWiki    = "wiki"    // 知识库节点
-	TokenTypePermissionPublicGetBitable = "bitable" // 多维表格
-	TokenTypePermissionPublicGetDocx    = "docx"    // 文档
+	TokenTypeGetPermissionPublicDoc     = "doc"     // 文档
+	TokenTypeGetPermissionPublicSheet   = "sheet"   // 电子表格
+	TokenTypeGetPermissionPublicFile    = "file"    // 云空间文件
+	TokenTypeGetPermissionPublicWiki    = "wiki"    // 知识库节点
+	TokenTypeGetPermissionPublicBitable = "bitable" // 多维表格
+	TokenTypeGetPermissionPublicDocx    = "docx"    // 文档
 )
 
 const (
@@ -325,12 +325,12 @@ const (
 )
 
 const (
-	TokenTypePermissionPublicPatchDoc     = "doc"     // 文档
-	TokenTypePermissionPublicPatchSheet   = "sheet"   // 电子表格
-	TokenTypePermissionPublicPatchFile    = "file"    // 云空间文件
-	TokenTypePermissionPublicPatchWiki    = "wiki"    // 知识库节点
-	TokenTypePermissionPublicPatchBitable = "bitable" // 多维表格
-	TokenTypePermissionPublicPatchDocx    = "docx"    // 文档
+	TokenTypePatchPermissionPublicDoc     = "doc"     // 文档
+	TokenTypePatchPermissionPublicSheet   = "sheet"   // 电子表格
+	TokenTypePatchPermissionPublicFile    = "file"    // 云空间文件
+	TokenTypePatchPermissionPublicWiki    = "wiki"    // 知识库节点
+	TokenTypePatchPermissionPublicBitable = "bitable" // 多维表格
+	TokenTypePatchPermissionPublicDocx    = "docx"    // 文档
 )
 
 type ApplyMemberRequest struct {
@@ -351,6 +351,7 @@ func NewApplyMemberRequestBuilder() *ApplyMemberRequestBuilder {
 }
 
 // 需要申请的权限，权限值："view"，"edit"
+//
 // 示例值：view
 func (builder *ApplyMemberRequestBuilder) Perm(perm string) *ApplyMemberRequestBuilder {
 	builder.perm = perm
@@ -359,6 +360,7 @@ func (builder *ApplyMemberRequestBuilder) Perm(perm string) *ApplyMemberRequestB
 }
 
 // 申请权限备注
+//
 // 示例值：apply_remark
 func (builder *ApplyMemberRequestBuilder) Remark(remark string) *ApplyMemberRequestBuilder {
 	builder.remark = remark
@@ -400,6 +402,7 @@ func NewBaseMemberBuilder() *BaseMemberBuilder {
 }
 
 // 协作者 ID 类型，与协作者 ID 需要对应
+//
 // 示例值：openid
 func (builder *BaseMemberBuilder) MemberType(memberType string) *BaseMemberBuilder {
 	builder.memberType = memberType
@@ -408,6 +411,7 @@ func (builder *BaseMemberBuilder) MemberType(memberType string) *BaseMemberBuild
 }
 
 // 协作者 ID，与协作者 ID 类型需要对应
+//
 // 示例值：string
 func (builder *BaseMemberBuilder) MemberId(memberId string) *BaseMemberBuilder {
 	builder.memberId = memberId
@@ -416,6 +420,7 @@ func (builder *BaseMemberBuilder) MemberId(memberId string) *BaseMemberBuilder {
 }
 
 // 协作者对应的权限角色
+//
 // 示例值：view
 func (builder *BaseMemberBuilder) Perm(perm string) *BaseMemberBuilder {
 	builder.perm = perm
@@ -464,6 +469,7 @@ func NewBitableTableRecordActionBuilder() *BitableTableRecordActionBuilder {
 }
 
 // 记录 ID
+//
 // 示例值：
 func (builder *BitableTableRecordActionBuilder) RecordId(recordId string) *BitableTableRecordActionBuilder {
 	builder.recordId = recordId
@@ -472,6 +478,7 @@ func (builder *BitableTableRecordActionBuilder) RecordId(recordId string) *Bitab
 }
 
 // 操作类型
+//
 // 示例值：
 func (builder *BitableTableRecordActionBuilder) Action(action string) *BitableTableRecordActionBuilder {
 	builder.action = action
@@ -480,6 +487,7 @@ func (builder *BitableTableRecordActionBuilder) Action(action string) *BitableTa
 }
 
 // 操作前的记录值
+//
 // 示例值：
 func (builder *BitableTableRecordActionBuilder) BeforeValue(beforeValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
 	builder.beforeValue = beforeValue
@@ -488,6 +496,7 @@ func (builder *BitableTableRecordActionBuilder) BeforeValue(beforeValue []*Bitab
 }
 
 // 操作后的记录值
+//
 // 示例值：
 func (builder *BitableTableRecordActionBuilder) AfterValue(afterValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
 	builder.afterValue = afterValue
@@ -532,6 +541,7 @@ func NewBitableTableRecordActionFieldBuilder() *BitableTableRecordActionFieldBui
 }
 
 // 字段 ID
+//
 // 示例值：
 func (builder *BitableTableRecordActionFieldBuilder) FieldId(fieldId string) *BitableTableRecordActionFieldBuilder {
 	builder.fieldId = fieldId
@@ -540,6 +550,7 @@ func (builder *BitableTableRecordActionFieldBuilder) FieldId(fieldId string) *Bi
 }
 
 // 字段值
+//
 // 示例值：
 func (builder *BitableTableRecordActionFieldBuilder) FieldValue(fieldValue string) *BitableTableRecordActionFieldBuilder {
 	builder.fieldValue = fieldValue
@@ -584,6 +595,7 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 }
 
 // 协作者类型 "user" or "chat"
+//
 // 示例值：user
 func (builder *CollaboratorBuilder) MemberType(memberType string) *CollaboratorBuilder {
 	builder.memberType = memberType
@@ -592,6 +604,7 @@ func (builder *CollaboratorBuilder) MemberType(memberType string) *CollaboratorB
 }
 
 // 协作者openid
+//
 // 示例值：ou_65b0affcc6c342a50e4c66f700137b64
 func (builder *CollaboratorBuilder) MemberOpenId(memberOpenId string) *CollaboratorBuilder {
 	builder.memberOpenId = memberOpenId
@@ -600,6 +613,7 @@ func (builder *CollaboratorBuilder) MemberOpenId(memberOpenId string) *Collabora
 }
 
 // 协作者userid(仅当member_type="user"时有效)
+//
 // 示例值：96g3c421
 func (builder *CollaboratorBuilder) MemberUserId(memberUserId string) *CollaboratorBuilder {
 	builder.memberUserId = memberUserId
@@ -608,6 +622,7 @@ func (builder *CollaboratorBuilder) MemberUserId(memberUserId string) *Collabora
 }
 
 // 协作者权限 (注意: **有"edit"权限的协作者一定有"view"权限**)
+//
 // 示例值：view
 func (builder *CollaboratorBuilder) Perm(perm string) *CollaboratorBuilder {
 	builder.perm = perm
@@ -651,6 +666,7 @@ func NewDocsLinkBuilder() *DocsLinkBuilder {
 }
 
 // 回复 at云文档
+//
 // 示例值：https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5Gabcef
 func (builder *DocsLinkBuilder) Url(url string) *DocsLinkBuilder {
 	builder.url = url
@@ -703,6 +719,7 @@ func NewExportTaskBuilder() *ExportTaskBuilder {
 }
 
 // 导出文件扩展名
+//
 // 示例值：pdf
 func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTaskBuilder {
 	builder.fileExtension = fileExtension
@@ -711,6 +728,7 @@ func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTas
 }
 
 // 导出文档 token
+//
 // 示例值：doccnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
 	builder.token = token
@@ -719,6 +737,7 @@ func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
 }
 
 // 导出文档类型
+//
 // 示例值：doc
 func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
 	builder.type_ = type_
@@ -727,6 +746,7 @@ func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
 }
 
 // 导出文件名
+//
 // 示例值：docName
 func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
 	builder.fileName = fileName
@@ -735,6 +755,7 @@ func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
 }
 
 // 导出文件 drive token
+//
 // 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder {
 	builder.fileToken = fileToken
@@ -743,6 +764,7 @@ func (builder *ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder
 }
 
 // 导出文件大小
+//
 // 示例值：34356
 func (builder *ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder {
 	builder.fileSize = fileSize
@@ -751,6 +773,7 @@ func (builder *ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder {
 }
 
 // 任务失败原因
+//
 // 示例值：success
 func (builder *ExportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ExportTaskBuilder {
 	builder.jobErrorMsg = jobErrorMsg
@@ -759,6 +782,7 @@ func (builder *ExportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ExportTaskBui
 }
 
 // 任务状态
+//
 // 示例值：0
 func (builder *ExportTaskBuilder) JobStatus(jobStatus int) *ExportTaskBuilder {
 	builder.jobStatus = jobStatus
@@ -833,6 +857,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 文件标识
+//
 // 示例值：boxbc0dGSMu23m7QkC1bvabcef
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
@@ -841,6 +866,7 @@ func (builder *FileBuilder) Token(token string) *FileBuilder {
 }
 
 // 文件名
+//
 // 示例值：123.txt
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
@@ -849,6 +875,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 }
 
 // 文件类型
+//
 // 示例值：file
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
@@ -857,6 +884,7 @@ func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 }
 
 // 父文件夹标识
+//
 // 示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 	builder.parentToken = parentToken
@@ -865,6 +893,7 @@ func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 }
 
 // 在浏览器中查看的链接
+//
 // 示例值：https://bytedance.feishu.cn/file/boxbc0dGSMu23m7QkC1bvabcef
 func (builder *FileBuilder) Url(url string) *FileBuilder {
 	builder.url = url
@@ -873,6 +902,7 @@ func (builder *FileBuilder) Url(url string) *FileBuilder {
 }
 
 // 快捷方式文件信息
+//
 // 示例值：
 func (builder *FileBuilder) ShortcutInfo(shortcutInfo *ShortcutInfo) *FileBuilder {
 	builder.shortcutInfo = shortcutInfo
@@ -956,6 +986,7 @@ func NewFileCommentBuilder() *FileCommentBuilder {
 }
 
 // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
+//
 // 示例值：6916106822734512356
 func (builder *FileCommentBuilder) CommentId(commentId string) *FileCommentBuilder {
 	builder.commentId = commentId
@@ -964,6 +995,7 @@ func (builder *FileCommentBuilder) CommentId(commentId string) *FileCommentBuild
 }
 
 // 用户ID
+//
 // 示例值：ou_cc19b2bfb93f8a44db4b4d6eababcef
 func (builder *FileCommentBuilder) UserId(userId string) *FileCommentBuilder {
 	builder.userId = userId
@@ -972,6 +1004,7 @@ func (builder *FileCommentBuilder) UserId(userId string) *FileCommentBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1610281603
 func (builder *FileCommentBuilder) CreateTime(createTime int) *FileCommentBuilder {
 	builder.createTime = createTime
@@ -980,6 +1013,7 @@ func (builder *FileCommentBuilder) CreateTime(createTime int) *FileCommentBuilde
 }
 
 // 更新时间
+//
 // 示例值：1610281603
 func (builder *FileCommentBuilder) UpdateTime(updateTime int) *FileCommentBuilder {
 	builder.updateTime = updateTime
@@ -988,6 +1022,7 @@ func (builder *FileCommentBuilder) UpdateTime(updateTime int) *FileCommentBuilde
 }
 
 // 是否已解决
+//
 // 示例值：false
 func (builder *FileCommentBuilder) IsSolved(isSolved bool) *FileCommentBuilder {
 	builder.isSolved = isSolved
@@ -996,6 +1031,7 @@ func (builder *FileCommentBuilder) IsSolved(isSolved bool) *FileCommentBuilder {
 }
 
 // 解决评论时间
+//
 // 示例值：1610281603
 func (builder *FileCommentBuilder) SolvedTime(solvedTime int) *FileCommentBuilder {
 	builder.solvedTime = solvedTime
@@ -1004,6 +1040,7 @@ func (builder *FileCommentBuilder) SolvedTime(solvedTime int) *FileCommentBuilde
 }
 
 // 解决评论者的用户ID
+//
 // 示例值：null
 func (builder *FileCommentBuilder) SolverUserId(solverUserId string) *FileCommentBuilder {
 	builder.solverUserId = solverUserId
@@ -1012,6 +1049,7 @@ func (builder *FileCommentBuilder) SolverUserId(solverUserId string) *FileCommen
 }
 
 // 是否有更多回复
+//
 // 示例值：false
 func (builder *FileCommentBuilder) HasMore(hasMore bool) *FileCommentBuilder {
 	builder.hasMore = hasMore
@@ -1020,6 +1058,7 @@ func (builder *FileCommentBuilder) HasMore(hasMore bool) *FileCommentBuilder {
 }
 
 // 回复分页标记
+//
 // 示例值：6916106822734512356
 func (builder *FileCommentBuilder) PageToken(pageToken string) *FileCommentBuilder {
 	builder.pageToken = pageToken
@@ -1028,6 +1067,7 @@ func (builder *FileCommentBuilder) PageToken(pageToken string) *FileCommentBuild
 }
 
 // 是否是全文评论
+//
 // 示例值：true
 func (builder *FileCommentBuilder) IsWhole(isWhole bool) *FileCommentBuilder {
 	builder.isWhole = isWhole
@@ -1036,6 +1076,7 @@ func (builder *FileCommentBuilder) IsWhole(isWhole bool) *FileCommentBuilder {
 }
 
 // 如果是局部评论，引用字段
+//
 // 示例值：划词评论引用内容
 func (builder *FileCommentBuilder) Quote(quote string) *FileCommentBuilder {
 	builder.quote = quote
@@ -1044,6 +1085,7 @@ func (builder *FileCommentBuilder) Quote(quote string) *FileCommentBuilder {
 }
 
 // 评论里的回复列表
+//
 // 示例值：
 func (builder *FileCommentBuilder) ReplyList(replyList *ReplyList) *FileCommentBuilder {
 	builder.replyList = replyList
@@ -1133,6 +1175,7 @@ func NewFileCommentReplyBuilder() *FileCommentReplyBuilder {
 }
 
 // 回复ID
+//
 // 示例值：6916106822734512356
 func (builder *FileCommentReplyBuilder) ReplyId(replyId string) *FileCommentReplyBuilder {
 	builder.replyId = replyId
@@ -1141,6 +1184,7 @@ func (builder *FileCommentReplyBuilder) ReplyId(replyId string) *FileCommentRepl
 }
 
 // 用户ID
+//
 // 示例值：ou_cc19b2bfb93f8a44db4b4d6eab2abcef
 func (builder *FileCommentReplyBuilder) UserId(userId string) *FileCommentReplyBuilder {
 	builder.userId = userId
@@ -1149,6 +1193,7 @@ func (builder *FileCommentReplyBuilder) UserId(userId string) *FileCommentReplyB
 }
 
 // 创建时间
+//
 // 示例值：1610281603
 func (builder *FileCommentReplyBuilder) CreateTime(createTime int) *FileCommentReplyBuilder {
 	builder.createTime = createTime
@@ -1157,6 +1202,7 @@ func (builder *FileCommentReplyBuilder) CreateTime(createTime int) *FileCommentR
 }
 
 // 更新时间
+//
 // 示例值：1610281603
 func (builder *FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentReplyBuilder {
 	builder.updateTime = updateTime
@@ -1165,6 +1211,7 @@ func (builder *FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentR
 }
 
 // 回复内容
+//
 // 示例值：
 func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder {
 	builder.content = content
@@ -1173,6 +1220,7 @@ func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileComm
 }
 
 // 回复的其他内容，图片token等
+//
 // 示例值：
 func (builder *FileCommentReplyBuilder) Extra(extra *ReplyExtra) *FileCommentReplyBuilder {
 	builder.extra = extra
@@ -1231,6 +1279,7 @@ func NewFileSubscriptionBuilder() *FileSubscriptionBuilder {
 }
 
 // 订阅关系ID
+//
 // 示例值：1234567890987654321
 func (builder *FileSubscriptionBuilder) SubscriptionId(subscriptionId string) *FileSubscriptionBuilder {
 	builder.subscriptionId = subscriptionId
@@ -1239,6 +1288,7 @@ func (builder *FileSubscriptionBuilder) SubscriptionId(subscriptionId string) *F
 }
 
 // 订阅类型
+//
 // 示例值：comment_update
 func (builder *FileSubscriptionBuilder) SubscriptionType(subscriptionType string) *FileSubscriptionBuilder {
 	builder.subscriptionType = subscriptionType
@@ -1247,6 +1297,7 @@ func (builder *FileSubscriptionBuilder) SubscriptionType(subscriptionType string
 }
 
 // 是否订阅
+//
 // 示例值：true
 func (builder *FileSubscriptionBuilder) IsSubcribe(isSubcribe bool) *FileSubscriptionBuilder {
 	builder.isSubcribe = isSubcribe
@@ -1255,6 +1306,7 @@ func (builder *FileSubscriptionBuilder) IsSubcribe(isSubcribe bool) *FileSubscri
 }
 
 // 文档类型
+//
 // 示例值：doc
 func (builder *FileSubscriptionBuilder) FileType(fileType string) *FileSubscriptionBuilder {
 	builder.fileType = fileType
@@ -1307,6 +1359,7 @@ func NewFileSearchBuilder() *FileSearchBuilder {
 }
 
 // 文档token
+//
 // 示例值：doxbcxcAgzUTcPI5xR7c6nGJDGc
 func (builder *FileSearchBuilder) DocsToken(docsToken string) *FileSearchBuilder {
 	builder.docsToken = docsToken
@@ -1315,6 +1368,7 @@ func (builder *FileSearchBuilder) DocsToken(docsToken string) *FileSearchBuilder
 }
 
 // 文档类型
+//
 // 示例值：sheet
 func (builder *FileSearchBuilder) DocsType(docsType string) *FileSearchBuilder {
 	builder.docsType = docsType
@@ -1323,6 +1377,7 @@ func (builder *FileSearchBuilder) DocsType(docsType string) *FileSearchBuilder {
 }
 
 // 标题
+//
 // 示例值：标题
 func (builder *FileSearchBuilder) Title(title string) *FileSearchBuilder {
 	builder.title = title
@@ -1331,6 +1386,7 @@ func (builder *FileSearchBuilder) Title(title string) *FileSearchBuilder {
 }
 
 // 文件所有者
+//
 // 示例值：ou_6e92f20bb8842c89c0f7e4090b13d57a
 func (builder *FileSearchBuilder) OwnerId(ownerId string) *FileSearchBuilder {
 	builder.ownerId = ownerId
@@ -1383,6 +1439,7 @@ func NewFileStatisticsBuilder() *FileStatisticsBuilder {
 }
 
 // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
+//
 // 示例值：10
 func (builder *FileStatisticsBuilder) Uv(uv int) *FileStatisticsBuilder {
 	builder.uv = uv
@@ -1391,6 +1448,7 @@ func (builder *FileStatisticsBuilder) Uv(uv int) *FileStatisticsBuilder {
 }
 
 // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
+//
 // 示例值：15
 func (builder *FileStatisticsBuilder) Pv(pv int) *FileStatisticsBuilder {
 	builder.pv = pv
@@ -1399,6 +1457,7 @@ func (builder *FileStatisticsBuilder) Pv(pv int) *FileStatisticsBuilder {
 }
 
 // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
+//
 // 示例值：2
 func (builder *FileStatisticsBuilder) LikeCount(likeCount int) *FileStatisticsBuilder {
 	builder.likeCount = likeCount
@@ -1407,6 +1466,7 @@ func (builder *FileStatisticsBuilder) LikeCount(likeCount int) *FileStatisticsBu
 }
 
 // 时间戳（秒）
+//
 // 示例值：1627367349
 func (builder *FileStatisticsBuilder) Timestamp(timestamp int) *FileStatisticsBuilder {
 	builder.timestamp = timestamp
@@ -1459,6 +1519,7 @@ func NewFileUploadInfoBuilder() *FileUploadInfoBuilder {
 }
 
 // 文件名
+//
 // 示例值：test.txt
 func (builder *FileUploadInfoBuilder) FileName(fileName string) *FileUploadInfoBuilder {
 	builder.fileName = fileName
@@ -1467,6 +1528,7 @@ func (builder *FileUploadInfoBuilder) FileName(fileName string) *FileUploadInfoB
 }
 
 // 上传点类型
+//
 // 示例值：explorer
 func (builder *FileUploadInfoBuilder) ParentType(parentType string) *FileUploadInfoBuilder {
 	builder.parentType = parentType
@@ -1475,6 +1537,7 @@ func (builder *FileUploadInfoBuilder) ParentType(parentType string) *FileUploadI
 }
 
 // 文件夹的token
+//
 // 示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *FileUploadInfoBuilder) ParentNode(parentNode string) *FileUploadInfoBuilder {
 	builder.parentNode = parentNode
@@ -1483,6 +1546,7 @@ func (builder *FileUploadInfoBuilder) ParentNode(parentNode string) *FileUploadI
 }
 
 // 文件大小
+//
 // 示例值：1024
 func (builder *FileUploadInfoBuilder) Size(size int) *FileUploadInfoBuilder {
 	builder.size = size
@@ -1556,6 +1620,7 @@ func NewImportTaskBuilder() *ImportTaskBuilder {
 }
 
 // 任务ID
+//
 // 示例值：6990281865xxxxxxxx7843
 func (builder *ImportTaskBuilder) Ticket(ticket string) *ImportTaskBuilder {
 	builder.ticket = ticket
@@ -1564,6 +1629,7 @@ func (builder *ImportTaskBuilder) Ticket(ticket string) *ImportTaskBuilder {
 }
 
 // 导入文件格式后缀
+//
 // 示例值：xlsx
 func (builder *ImportTaskBuilder) FileExtension(fileExtension string) *ImportTaskBuilder {
 	builder.fileExtension = fileExtension
@@ -1572,6 +1638,7 @@ func (builder *ImportTaskBuilder) FileExtension(fileExtension string) *ImportTas
 }
 
 // 导入文件Drive FileToken
+//
 // 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
 func (builder *ImportTaskBuilder) FileToken(fileToken string) *ImportTaskBuilder {
 	builder.fileToken = fileToken
@@ -1580,6 +1647,7 @@ func (builder *ImportTaskBuilder) FileToken(fileToken string) *ImportTaskBuilder
 }
 
 // 导入目标云文档格式
+//
 // 示例值：sheet
 func (builder *ImportTaskBuilder) Type(type_ string) *ImportTaskBuilder {
 	builder.type_ = type_
@@ -1588,6 +1656,7 @@ func (builder *ImportTaskBuilder) Type(type_ string) *ImportTaskBuilder {
 }
 
 // 导入目标云文档文件名 ，若为空使用Drive文件名
+//
 // 示例值：test
 func (builder *ImportTaskBuilder) FileName(fileName string) *ImportTaskBuilder {
 	builder.fileName = fileName
@@ -1596,6 +1665,7 @@ func (builder *ImportTaskBuilder) FileName(fileName string) *ImportTaskBuilder {
 }
 
 // 挂载点
+//
 // 示例值：
 func (builder *ImportTaskBuilder) Point(point *ImportTaskMountPoint) *ImportTaskBuilder {
 	builder.point = point
@@ -1604,6 +1674,7 @@ func (builder *ImportTaskBuilder) Point(point *ImportTaskMountPoint) *ImportTask
 }
 
 // 任务状态
+//
 // 示例值：0
 func (builder *ImportTaskBuilder) JobStatus(jobStatus int) *ImportTaskBuilder {
 	builder.jobStatus = jobStatus
@@ -1612,6 +1683,7 @@ func (builder *ImportTaskBuilder) JobStatus(jobStatus int) *ImportTaskBuilder {
 }
 
 // 任务失败原因
+//
 // 示例值：success
 func (builder *ImportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ImportTaskBuilder {
 	builder.jobErrorMsg = jobErrorMsg
@@ -1620,6 +1692,7 @@ func (builder *ImportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ImportTaskBui
 }
 
 // 导入云文档Token
+//
 // 示例值：shtcnVBTG6SuxxxxxxxkM2tUX
 func (builder *ImportTaskBuilder) Token(token string) *ImportTaskBuilder {
 	builder.token = token
@@ -1628,6 +1701,7 @@ func (builder *ImportTaskBuilder) Token(token string) *ImportTaskBuilder {
 }
 
 // 导入云文档URL
+//
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnVBTG6SuxxxxxxxkM2tUX
 func (builder *ImportTaskBuilder) Url(url string) *ImportTaskBuilder {
 	builder.url = url
@@ -1636,6 +1710,7 @@ func (builder *ImportTaskBuilder) Url(url string) *ImportTaskBuilder {
 }
 
 // 任务成功后的提示信息
+//
 // 示例值：
 func (builder *ImportTaskBuilder) Extra(extra []string) *ImportTaskBuilder {
 	builder.extra = extra
@@ -1708,6 +1783,7 @@ func NewImportTaskMountPointBuilder() *ImportTaskMountPointBuilder {
 }
 
 // 挂载类型
+//
 // 示例值：1
 func (builder *ImportTaskMountPointBuilder) MountType(mountType int) *ImportTaskMountPointBuilder {
 	builder.mountType = mountType
@@ -1716,6 +1792,7 @@ func (builder *ImportTaskMountPointBuilder) MountType(mountType int) *ImportTask
 }
 
 // 挂载位置,对于mount_type=1, 云空间目录token，空表示根目录
+//
 // 示例值：fldxxxxxxxx
 func (builder *ImportTaskMountPointBuilder) MountKey(mountKey string) *ImportTaskMountPointBuilder {
 	builder.mountKey = mountKey
@@ -1760,6 +1837,7 @@ func NewMediaBuilder() *MediaBuilder {
 }
 
 // 文件标识符
+//
 // 示例值：
 func (builder *MediaBuilder) FileToken(fileToken string) *MediaBuilder {
 	builder.fileToken = fileToken
@@ -1768,6 +1846,7 @@ func (builder *MediaBuilder) FileToken(fileToken string) *MediaBuilder {
 }
 
 // 文件名
+//
 // 示例值：
 func (builder *MediaBuilder) FileName(fileName string) *MediaBuilder {
 	builder.fileName = fileName
@@ -1776,6 +1855,7 @@ func (builder *MediaBuilder) FileName(fileName string) *MediaBuilder {
 }
 
 // 文件大小
+//
 // 示例值：
 func (builder *MediaBuilder) Size(size int) *MediaBuilder {
 	builder.size = size
@@ -1784,6 +1864,7 @@ func (builder *MediaBuilder) Size(size int) *MediaBuilder {
 }
 
 // 文件MIME类型
+//
 // 示例值：
 func (builder *MediaBuilder) MimeType(mimeType string) *MediaBuilder {
 	builder.mimeType = mimeType
@@ -1839,6 +1920,7 @@ func NewMediaUploadInfoBuilder() *MediaUploadInfoBuilder {
 }
 
 // 文件名
+//
 // 示例值：demo.jpeg
 func (builder *MediaUploadInfoBuilder) FileName(fileName string) *MediaUploadInfoBuilder {
 	builder.fileName = fileName
@@ -1847,6 +1929,7 @@ func (builder *MediaUploadInfoBuilder) FileName(fileName string) *MediaUploadInf
 }
 
 // 上传点类型
+//
 // 示例值：doc_image
 func (builder *MediaUploadInfoBuilder) ParentType(parentType string) *MediaUploadInfoBuilder {
 	builder.parentType = parentType
@@ -1855,6 +1938,7 @@ func (builder *MediaUploadInfoBuilder) ParentType(parentType string) *MediaUploa
 }
 
 // 上传点的标识符
+//
 // 示例值：doccnFivLCfJfblZjGZtxgabcef
 func (builder *MediaUploadInfoBuilder) ParentNode(parentNode string) *MediaUploadInfoBuilder {
 	builder.parentNode = parentNode
@@ -1863,6 +1947,7 @@ func (builder *MediaUploadInfoBuilder) ParentNode(parentNode string) *MediaUploa
 }
 
 // 文件大小
+//
 // 示例值：1024
 func (builder *MediaUploadInfoBuilder) Size(size int) *MediaUploadInfoBuilder {
 	builder.size = size
@@ -1871,6 +1956,7 @@ func (builder *MediaUploadInfoBuilder) Size(size int) *MediaUploadInfoBuilder {
 }
 
 // 扩展信息(可选)
+//
 // 示例值：{\"test\":\"test\"}
 func (builder *MediaUploadInfoBuilder) Extra(extra string) *MediaUploadInfoBuilder {
 	builder.extra = extra
@@ -1936,6 +2022,7 @@ func NewMemberBuilder() *MemberBuilder {
 }
 
 // 协作者 ID 类型，与协作者 ID 需要对应
+//
 // 示例值：openid
 func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
 	builder.memberType = memberType
@@ -1944,6 +2031,7 @@ func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
 }
 
 // 协作者 ID，与协作者 ID 类型需要对应
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
 	builder.memberId = memberId
@@ -1952,6 +2040,7 @@ func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
 }
 
 // 协作者对应的权限角色
+//
 // 示例值：view
 func (builder *MemberBuilder) Perm(perm string) *MemberBuilder {
 	builder.perm = perm
@@ -1960,6 +2049,7 @@ func (builder *MemberBuilder) Perm(perm string) *MemberBuilder {
 }
 
 // 协作者的类型
+//
 // 示例值：user
 func (builder *MemberBuilder) Type(type_ string) *MemberBuilder {
 	builder.type_ = type_
@@ -1968,6 +2058,7 @@ func (builder *MemberBuilder) Type(type_ string) *MemberBuilder {
 }
 
 // 协作者的名字
+//
 // 示例值：zhangsan
 func (builder *MemberBuilder) Name(name string) *MemberBuilder {
 	builder.name = name
@@ -1976,6 +2067,7 @@ func (builder *MemberBuilder) Name(name string) *MemberBuilder {
 }
 
 // 协作者的头像
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *MemberBuilder) Avatar(avatar string) *MemberBuilder {
 	builder.avatar = avatar
@@ -1984,6 +2076,7 @@ func (builder *MemberBuilder) Avatar(avatar string) *MemberBuilder {
 }
 
 // 协作者的外部标签
+//
 // 示例值：true
 func (builder *MemberBuilder) ExternalLabel(externalLabel bool) *MemberBuilder {
 	builder.externalLabel = externalLabel
@@ -2060,6 +2153,7 @@ func NewMetaBuilder() *MetaBuilder {
 }
 
 // 文件token
+//
 // 示例值：doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *MetaBuilder) DocToken(docToken string) *MetaBuilder {
 	builder.docToken = docToken
@@ -2068,6 +2162,7 @@ func (builder *MetaBuilder) DocToken(docToken string) *MetaBuilder {
 }
 
 // 文件类型
+//
 // 示例值：doc
 func (builder *MetaBuilder) DocType(docType string) *MetaBuilder {
 	builder.docType = docType
@@ -2076,6 +2171,7 @@ func (builder *MetaBuilder) DocType(docType string) *MetaBuilder {
 }
 
 // 标题
+//
 // 示例值：sampletitle
 func (builder *MetaBuilder) Title(title string) *MetaBuilder {
 	builder.title = title
@@ -2084,6 +2180,7 @@ func (builder *MetaBuilder) Title(title string) *MetaBuilder {
 }
 
 // 文件所有者
+//
 // 示例值：ou_b13d41c02edc52ce66aaae67bf1abcef
 func (builder *MetaBuilder) OwnerId(ownerId string) *MetaBuilder {
 	builder.ownerId = ownerId
@@ -2092,6 +2189,7 @@ func (builder *MetaBuilder) OwnerId(ownerId string) *MetaBuilder {
 }
 
 // 创建时间（Unix时间戳）
+//
 // 示例值：1652066345
 func (builder *MetaBuilder) CreateTime(createTime string) *MetaBuilder {
 	builder.createTime = createTime
@@ -2100,6 +2198,7 @@ func (builder *MetaBuilder) CreateTime(createTime string) *MetaBuilder {
 }
 
 // 最后编辑者
+//
 // 示例值：ou_b13d41c02edc52ce66aaae67bf1abcef
 func (builder *MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuilder {
 	builder.latestModifyUser = latestModifyUser
@@ -2108,6 +2207,7 @@ func (builder *MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuild
 }
 
 // 最后编辑时间（Unix时间戳）
+//
 // 示例值：1652066345
 func (builder *MetaBuilder) LatestModifyTime(latestModifyTime string) *MetaBuilder {
 	builder.latestModifyTime = latestModifyTime
@@ -2116,6 +2216,7 @@ func (builder *MetaBuilder) LatestModifyTime(latestModifyTime string) *MetaBuild
 }
 
 // 文档链接
+//
 // 示例值：https://sample.feishu.cn/docs/doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *MetaBuilder) Url(url string) *MetaBuilder {
 	builder.url = url
@@ -2178,6 +2279,7 @@ func NewMetaFailedBuilder() *MetaFailedBuilder {
 }
 
 // 获取元数据失败的文档token
+//
 // 示例值：boxcnrHpsg1QDqXAAAyachabcef
 func (builder *MetaFailedBuilder) Token(token string) *MetaFailedBuilder {
 	builder.token = token
@@ -2186,6 +2288,7 @@ func (builder *MetaFailedBuilder) Token(token string) *MetaFailedBuilder {
 }
 
 // 获取元数据失败的错误码
+//
 // 示例值：970005
 func (builder *MetaFailedBuilder) Code(code int) *MetaFailedBuilder {
 	builder.code = code
@@ -2224,6 +2327,7 @@ func NewMetaRequestBuilder() *MetaRequestBuilder {
 }
 
 // 请求文档,  一次不超过200个
+//
 // 示例值：
 func (builder *MetaRequestBuilder) RequestDocs(requestDocs []*RequestDoc) *MetaRequestBuilder {
 	builder.requestDocs = requestDocs
@@ -2232,6 +2336,7 @@ func (builder *MetaRequestBuilder) RequestDocs(requestDocs []*RequestDoc) *MetaR
 }
 
 // 是否获取文档链接
+//
 // 示例值：false
 func (builder *MetaRequestBuilder) WithUrl(withUrl bool) *MetaRequestBuilder {
 	builder.withUrl = withUrl
@@ -2269,6 +2374,7 @@ func NewOwnerBuilder() *OwnerBuilder {
 }
 
 // 文档拥有者的ID类型
+//
 // 示例值：openid
 func (builder *OwnerBuilder) MemberType(memberType string) *OwnerBuilder {
 	builder.memberType = memberType
@@ -2277,6 +2383,7 @@ func (builder *OwnerBuilder) MemberType(memberType string) *OwnerBuilder {
 }
 
 // 文档拥有者的ID，与文档拥有者的ID类型需要对应
+//
 // 示例值：string
 func (builder *OwnerBuilder) MemberId(memberId string) *OwnerBuilder {
 	builder.memberId = memberId
@@ -2330,6 +2437,7 @@ func NewPermissionPublicBuilder() *PermissionPublicBuilder {
 }
 
 // 允许内容被分享到组织外;;**可选值有：** ;- `true`: 允许;- `false`: 不允许
+//
 // 示例值：true
 func (builder *PermissionPublicBuilder) ExternalAccess(externalAccess bool) *PermissionPublicBuilder {
 	builder.externalAccess = externalAccess
@@ -2338,6 +2446,7 @@ func (builder *PermissionPublicBuilder) ExternalAccess(externalAccess bool) *Per
 }
 
 // 谁可以复制内容、创建副本、打印、下载
+//
 // 示例值：anyone_can_view
 func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *PermissionPublicBuilder {
 	builder.securityEntity = securityEntity
@@ -2346,6 +2455,7 @@ func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *P
 }
 
 // 可评论设置
+//
 // 示例值：anyone_can_view
 func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *PermissionPublicBuilder {
 	builder.commentEntity = commentEntity
@@ -2354,6 +2464,7 @@ func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *Per
 }
 
 // 谁可以添加和管理协作者
+//
 // 示例值：anyone
 func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder {
 	builder.shareEntity = shareEntity
@@ -2362,6 +2473,7 @@ func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *Permiss
 }
 
 // 链接分享设置
+//
 // 示例值：tenant_readable
 func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicBuilder {
 	builder.linkShareEntity = linkShareEntity
@@ -2370,6 +2482,7 @@ func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) 
 }
 
 // 允许非「可管理权限」的人分享到组织外
+//
 // 示例值：true
 func (builder *PermissionPublicBuilder) InviteExternal(inviteExternal bool) *PermissionPublicBuilder {
 	builder.inviteExternal = inviteExternal
@@ -2378,6 +2491,7 @@ func (builder *PermissionPublicBuilder) InviteExternal(inviteExternal bool) *Per
 }
 
 // 节点加锁状态
+//
 // 示例值：false
 func (builder *PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder {
 	builder.lockSwitch = lockSwitch
@@ -2448,6 +2562,7 @@ func NewPermissionPublicRequestBuilder() *PermissionPublicRequestBuilder {
 }
 
 // 允许内容被分享到组织外
+//
 // 示例值：true
 func (builder *PermissionPublicRequestBuilder) ExternalAccess(externalAccess bool) *PermissionPublicRequestBuilder {
 	builder.externalAccess = externalAccess
@@ -2456,6 +2571,7 @@ func (builder *PermissionPublicRequestBuilder) ExternalAccess(externalAccess boo
 }
 
 // 谁可以复制内容、创建副本、打印、下载
+//
 // 示例值：anyone_can_view
 func (builder *PermissionPublicRequestBuilder) SecurityEntity(securityEntity string) *PermissionPublicRequestBuilder {
 	builder.securityEntity = securityEntity
@@ -2464,6 +2580,7 @@ func (builder *PermissionPublicRequestBuilder) SecurityEntity(securityEntity str
 }
 
 // 谁可以评论
+//
 // 示例值：anyone_can_view
 func (builder *PermissionPublicRequestBuilder) CommentEntity(commentEntity string) *PermissionPublicRequestBuilder {
 	builder.commentEntity = commentEntity
@@ -2472,6 +2589,7 @@ func (builder *PermissionPublicRequestBuilder) CommentEntity(commentEntity strin
 }
 
 // 谁可以添加和管理协作者
+//
 // 示例值：anyone
 func (builder *PermissionPublicRequestBuilder) ShareEntity(shareEntity string) *PermissionPublicRequestBuilder {
 	builder.shareEntity = shareEntity
@@ -2480,6 +2598,7 @@ func (builder *PermissionPublicRequestBuilder) ShareEntity(shareEntity string) *
 }
 
 // 链接分享设置
+//
 // 示例值：tenant_readable
 func (builder *PermissionPublicRequestBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicRequestBuilder {
 	builder.linkShareEntity = linkShareEntity
@@ -2488,6 +2607,7 @@ func (builder *PermissionPublicRequestBuilder) LinkShareEntity(linkShareEntity s
 }
 
 // 允许非「可管理权限」的人分享到组织外
+//
 // 示例值：true
 func (builder *PermissionPublicRequestBuilder) InviteExternal(inviteExternal bool) *PermissionPublicRequestBuilder {
 	builder.inviteExternal = inviteExternal
@@ -2539,6 +2659,7 @@ func NewPersonBuilder() *PersonBuilder {
 }
 
 // 回复 at联系人
+//
 // 示例值：ou_cc19b2bfb93f8a44db4b4d6eababcef
 func (builder *PersonBuilder) UserId(userId string) *PersonBuilder {
 	builder.userId = userId
@@ -2550,6 +2671,54 @@ func (builder *PersonBuilder) Build() *Person {
 	req := &Person{}
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+type Property struct {
+	Key   *string `json:"key,omitempty"`   // 自定义属性键对象
+	Value *string `json:"value,omitempty"` // 自定义属性值对象
+}
+
+type PropertyBuilder struct {
+	key       string // 自定义属性键对象
+	keyFlag   bool
+	value     string // 自定义属性值对象
+	valueFlag bool
+}
+
+func NewPropertyBuilder() *PropertyBuilder {
+	builder := &PropertyBuilder{}
+	return builder
+}
+
+// 自定义属性键对象
+//
+// 示例值：
+func (builder *PropertyBuilder) Key(key string) *PropertyBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 自定义属性值对象
+//
+// 示例值：
+func (builder *PropertyBuilder) Value(value string) *PropertyBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *PropertyBuilder) Build() *Property {
+	req := &Property{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
 
 	}
 	return req
@@ -2570,6 +2739,7 @@ func NewReplyContentBuilder() *ReplyContentBuilder {
 }
 
 // 回复的内容
+//
 // 示例值：
 func (builder *ReplyContentBuilder) Elements(elements []*ReplyElement) *ReplyContentBuilder {
 	builder.elements = elements
@@ -2609,6 +2779,7 @@ func NewReplyElementBuilder() *ReplyElementBuilder {
 }
 
 // 回复的内容元素
+//
 // 示例值：text_run
 func (builder *ReplyElementBuilder) Type(type_ string) *ReplyElementBuilder {
 	builder.type_ = type_
@@ -2617,6 +2788,7 @@ func (builder *ReplyElementBuilder) Type(type_ string) *ReplyElementBuilder {
 }
 
 // 文本内容
+//
 // 示例值：
 func (builder *ReplyElementBuilder) TextRun(textRun *TextRun) *ReplyElementBuilder {
 	builder.textRun = textRun
@@ -2625,6 +2797,7 @@ func (builder *ReplyElementBuilder) TextRun(textRun *TextRun) *ReplyElementBuild
 }
 
 // 文本内容
+//
 // 示例值：
 func (builder *ReplyElementBuilder) DocsLink(docsLink *DocsLink) *ReplyElementBuilder {
 	builder.docsLink = docsLink
@@ -2633,6 +2806,7 @@ func (builder *ReplyElementBuilder) DocsLink(docsLink *DocsLink) *ReplyElementBu
 }
 
 // 文本内容
+//
 // 示例值：
 func (builder *ReplyElementBuilder) Person(person *Person) *ReplyElementBuilder {
 	builder.person = person
@@ -2673,6 +2847,7 @@ func NewReplyExtraBuilder() *ReplyExtraBuilder {
 }
 
 // 评论中的图片token list
+//
 // 示例值：
 func (builder *ReplyExtraBuilder) ImageList(imageList []string) *ReplyExtraBuilder {
 	builder.imageList = imageList
@@ -2703,6 +2878,7 @@ func NewReplyListBuilder() *ReplyListBuilder {
 }
 
 // 回复列表
+//
 // 示例值：
 func (builder *ReplyListBuilder) Replies(replies []*FileCommentReply) *ReplyListBuilder {
 	builder.replies = replies
@@ -2736,6 +2912,7 @@ func NewRequestDocBuilder() *RequestDocBuilder {
 }
 
 // 文件的 token，获取方式见[如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+//
 // 示例值：doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder {
 	builder.docToken = docToken
@@ -2744,6 +2921,7 @@ func (builder *RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder {
 }
 
 // 文件类型
+//
 // 示例值：doc
 func (builder *RequestDocBuilder) DocType(docType string) *RequestDocBuilder {
 	builder.docType = docType
@@ -2782,6 +2960,7 @@ func NewShortcutInfoBuilder() *ShortcutInfoBuilder {
 }
 
 // 快捷方式指向的原文件类型
+//
 // 示例值：
 func (builder *ShortcutInfoBuilder) TargetType(targetType string) *ShortcutInfoBuilder {
 	builder.targetType = targetType
@@ -2790,6 +2969,7 @@ func (builder *ShortcutInfoBuilder) TargetType(targetType string) *ShortcutInfoB
 }
 
 // 快捷方式指向的原文件token
+//
 // 示例值：
 func (builder *ShortcutInfoBuilder) TargetToken(targetToken string) *ShortcutInfoBuilder {
 	builder.targetToken = targetToken
@@ -2825,6 +3005,7 @@ func NewTextRunBuilder() *TextRunBuilder {
 }
 
 // 回复 普通文本
+//
 // 示例值：comment text
 func (builder *TextRunBuilder) Text(text string) *TextRunBuilder {
 	builder.text = text
@@ -2859,6 +3040,7 @@ func NewTmpDownloadUrlBuilder() *TmpDownloadUrlBuilder {
 }
 
 // 文件标识符
+//
 // 示例值：boxcnrHpsg1QDqXAAAyachabcef
 func (builder *TmpDownloadUrlBuilder) FileToken(fileToken string) *TmpDownloadUrlBuilder {
 	builder.fileToken = fileToken
@@ -2867,6 +3049,7 @@ func (builder *TmpDownloadUrlBuilder) FileToken(fileToken string) *TmpDownloadUr
 }
 
 // 文件临时下载链接
+//
 // 示例值：https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=ZDA3MzNiNmUwMjE2MGUzZmQ1OGZlOWYzMWQ4YmI0ZjdfMDYzOWNlZjgyMmI1MmY5NTUxZmM0MjJlYWIyMGVjOWZfSUQ6Njk3NjgzMTY0Mjc5OTI5MjQyMl8xNjI0NDMxMDY3OjE2MjQ1MTc0NjdfVjM
 func (builder *TmpDownloadUrlBuilder) TmpDownloadUrl(tmpDownloadUrl string) *TmpDownloadUrlBuilder {
 	builder.tmpDownloadUrl = tmpDownloadUrl
@@ -2905,6 +3088,7 @@ func NewTokenTypeBuilder() *TokenTypeBuilder {
 }
 
 // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+//
 // 示例值：isvcnBKgoMyY5OMbUG6FioTXuBe
 func (builder *TokenTypeBuilder) Token(token string) *TokenTypeBuilder {
 	builder.token = token
@@ -2913,6 +3097,7 @@ func (builder *TokenTypeBuilder) Token(token string) *TokenTypeBuilder {
 }
 
 // 文档类型  "isv"
+//
 // 示例值：isv
 func (builder *TokenTypeBuilder) Type(type_ string) *TokenTypeBuilder {
 	builder.type_ = type_
@@ -2957,6 +3142,7 @@ func NewUploadInfoBuilder() *UploadInfoBuilder {
 }
 
 // 文件名
+//
 // 示例值：
 func (builder *UploadInfoBuilder) FileName(fileName string) *UploadInfoBuilder {
 	builder.fileName = fileName
@@ -2965,6 +3151,7 @@ func (builder *UploadInfoBuilder) FileName(fileName string) *UploadInfoBuilder {
 }
 
 // 父节点类型（父文件系统类型）
+//
 // 示例值：
 func (builder *UploadInfoBuilder) ParentType(parentType string) *UploadInfoBuilder {
 	builder.parentType = parentType
@@ -2973,6 +3160,7 @@ func (builder *UploadInfoBuilder) ParentType(parentType string) *UploadInfoBuild
 }
 
 // 父节点
+//
 // 示例值：
 func (builder *UploadInfoBuilder) ParentNode(parentNode string) *UploadInfoBuilder {
 	builder.parentNode = parentNode
@@ -2981,6 +3169,7 @@ func (builder *UploadInfoBuilder) ParentNode(parentNode string) *UploadInfoBuild
 }
 
 // 文件大小
+//
 // 示例值：
 func (builder *UploadInfoBuilder) Size(size int) *UploadInfoBuilder {
 	builder.size = size
@@ -3030,6 +3219,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -3038,6 +3228,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -3045,6 +3236,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
@@ -3234,6 +3426,8 @@ type CopyFileReqBodyBuilder struct {
 	typeFlag        bool
 	folderToken     string // 文件被复制到的目标文件夹token
 	folderTokenFlag bool
+	extra           []*Property // 用户自定义请求附加参数，用于实现特殊的复制语义
+	extraFlag       bool
 }
 
 func NewCopyFileReqBodyBuilder() *CopyFileReqBodyBuilder {
@@ -3268,6 +3462,15 @@ func (builder *CopyFileReqBodyBuilder) FolderToken(folderToken string) *CopyFile
 	return builder
 }
 
+// 用户自定义请求附加参数，用于实现特殊的复制语义
+//
+//示例值：
+func (builder *CopyFileReqBodyBuilder) Extra(extra []*Property) *CopyFileReqBodyBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
 func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
 	req := &CopyFileReqBody{}
 	if builder.nameFlag {
@@ -3279,6 +3482,9 @@ func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
 	if builder.folderTokenFlag {
 		req.FolderToken = &builder.folderToken
 	}
+	if builder.extraFlag {
+		req.Extra = builder.extra
+	}
 	return req
 }
 
@@ -3289,6 +3495,8 @@ type CopyFilePathReqBodyBuilder struct {
 	typeFlag        bool
 	folderToken     string // 文件被复制到的目标文件夹token
 	folderTokenFlag bool
+	extra           []*Property // 用户自定义请求附加参数，用于实现特殊的复制语义
+	extraFlag       bool
 }
 
 func NewCopyFilePathReqBodyBuilder() *CopyFilePathReqBodyBuilder {
@@ -3323,6 +3531,15 @@ func (builder *CopyFilePathReqBodyBuilder) FolderToken(folderToken string) *Copy
 	return builder
 }
 
+// 用户自定义请求附加参数，用于实现特殊的复制语义
+//
+// 示例值：
+func (builder *CopyFilePathReqBodyBuilder) Extra(extra []*Property) *CopyFilePathReqBodyBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
 func (builder *CopyFilePathReqBodyBuilder) Build() (*CopyFileReqBody, error) {
 	req := &CopyFileReqBody{}
 	if builder.nameFlag {
@@ -3333,6 +3550,9 @@ func (builder *CopyFilePathReqBodyBuilder) Build() (*CopyFileReqBody, error) {
 	}
 	if builder.folderTokenFlag {
 		req.FolderToken = &builder.folderToken
+	}
+	if builder.extraFlag {
+		req.Extra = builder.extra
 	}
 	return req, nil
 }
@@ -3374,9 +3594,10 @@ func (builder *CopyFileReqBuilder) Build() *CopyFileReq {
 }
 
 type CopyFileReqBody struct {
-	Name        *string `json:"name,omitempty"`         // 被复制文件的新名称
-	Type        *string `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
-	FolderToken *string `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token
+	Name        *string     `json:"name,omitempty"`         // 被复制文件的新名称
+	Type        *string     `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
+	FolderToken *string     `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token
+	Extra       []*Property `json:"extra,omitempty"`        // 用户自定义请求附加参数，用于实现特殊的复制语义
 }
 
 type CopyFileReq struct {

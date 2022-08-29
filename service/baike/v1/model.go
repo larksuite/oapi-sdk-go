@@ -29,39 +29,39 @@ const (
 )
 
 const (
-	UserIdTypeDraftUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDraftUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDraftUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateDraftUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateDraftUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateDraftOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEntityCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEntityCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEntityCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateEntityUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateEntityUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateEntityOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEntityGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEntityGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEntityGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetEntityUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetEntityUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetEntityOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEntityListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEntityListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEntityListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListEntityUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListEntityUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListEntityOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEntitySearchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEntitySearchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEntitySearchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeSearchEntityUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchEntityUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchEntityOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEntityUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEntityUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEntityUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateEntityUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateEntityUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateEntityOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Abbreviation struct {
@@ -79,6 +79,7 @@ func NewAbbreviationBuilder() *AbbreviationBuilder {
 }
 
 // 相关词条 ID
+//
 // 示例值：enterprise_51587960
 func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
 	builder.id = id
@@ -116,6 +117,7 @@ func NewClassificationBuilder() *ClassificationBuilder {
 }
 
 // 二级分类 ID
+//
 // 示例值：7049606926702837761
 func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 	builder.id = id
@@ -124,6 +126,7 @@ func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 }
 
 // 二级分类名称
+//
 // 示例值：行业术语
 func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 	builder.name = name
@@ -132,6 +135,7 @@ func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 }
 
 // 对应一级分类 ID
+//
 // 示例值：7049606926702837777
 func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
 	builder.fatherId = fatherId
@@ -174,6 +178,7 @@ func NewDisplayStatusBuilder() *DisplayStatusBuilder {
 }
 
 // 对应名称是否在消息/云文档高亮
+//
 // 示例值：true
 func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder {
 	builder.allowHighlight = allowHighlight
@@ -182,6 +187,7 @@ func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *Displa
 }
 
 // 对应名称是否在搜索结果中展示
+//
 // 示例值：true
 func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
 	builder.allowSearch = allowSearch
@@ -220,6 +226,7 @@ func NewDraftBuilder() *DraftBuilder {
 }
 
 // 草稿 ID
+//
 // 示例值：42322
 func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 	builder.draftId = draftId
@@ -228,6 +235,7 @@ func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 }
 
 // 词条信息
+//
 // 示例值：
 func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
 	builder.entity = entity
@@ -294,6 +302,7 @@ func NewEntityBuilder() *EntityBuilder {
 }
 
 // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+//
 // 示例值：enterprise_40217521
 func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 	builder.id = id
@@ -302,6 +311,7 @@ func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 }
 
 // 词条名
+//
 // 示例值：
 func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
 	builder.mainKeys = mainKeys
@@ -310,6 +320,7 @@ func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
 }
 
 // 别名
+//
 // 示例值：
 func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 	builder.aliases = aliases
@@ -318,6 +329,7 @@ func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 }
 
 // 词条释义（纯文本格式）
+//
 // 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.description = description
@@ -326,6 +338,7 @@ func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 }
 
 // 词条创建时间
+//
 // 示例值：1649318125
 func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 	builder.createTime = createTime
@@ -334,6 +347,7 @@ func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 }
 
 // 词条最近更新时间
+//
 // 示例值：1649318125
 func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	builder.updateTime = updateTime
@@ -342,6 +356,7 @@ func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 }
 
 // 更多相关信息
+//
 // 示例值：
 func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
 	builder.relatedMeta = relatedMeta
@@ -350,6 +365,7 @@ func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuild
 }
 
 // 词条标签
+//
 // 示例值：
 func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
 	builder.categories = categories
@@ -358,6 +374,7 @@ func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
 }
 
 // 当前词条收到的反馈数据
+//
 // 示例值：
 func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
 	builder.statistics = statistics
@@ -366,6 +383,7 @@ func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder 
 }
 
 // 外部系统关联数据
+//
 // 示例值：
 func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	builder.outerInfo = outerInfo
@@ -374,6 +392,7 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 }
 
 // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+//
 // 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 	builder.richText = richText
@@ -443,6 +462,7 @@ func NewMatchInfoBuilder() *MatchInfoBuilder {
 }
 
 // 词条 ID
+//
 // 示例值：enterprise_34809584
 func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 	builder.entityId = entityId
@@ -451,6 +471,7 @@ func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 }
 
 // 命中的字段
+//
 // 示例值：0
 func (builder *MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder {
 	builder.type_ = type_
@@ -489,6 +510,7 @@ func NewOuterInfoBuilder() *OuterInfoBuilder {
 }
 
 // 外部系统（不能包含中横线 "-"）
+//
 // 示例值：星云
 func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 	builder.provider = provider
@@ -497,6 +519,7 @@ func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 }
 
 // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+//
 // 示例值：client_6539i3498d
 func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
 	builder.outerId = outerId
@@ -538,6 +561,7 @@ func NewPhraseBuilder() *PhraseBuilder {
 }
 
 // 识别到的关键词
+//
 // 示例值：企业百科
 func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 	builder.name = name
@@ -546,6 +570,7 @@ func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 }
 
 // 对应的词条 ID
+//
 // 示例值：
 func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 	builder.entityIds = entityIds
@@ -554,6 +579,7 @@ func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 }
 
 // 词条所在位置
+//
 // 示例值：
 func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
 	builder.span = span
@@ -597,6 +623,7 @@ func NewRefererBuilder() *RefererBuilder {
 }
 
 // 对应相关信息 ID
+//
 // 示例值：格式请看请求体示例
 func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 	builder.id = id
@@ -605,6 +632,7 @@ func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 }
 
 // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
+//
 // 示例值：企业百科帮助中心
 func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 	builder.title = title
@@ -613,6 +641,7 @@ func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 }
 
 // 链接地址
+//
 // 示例值：https://www.feishu.cn/hc/zh-CN
 func (builder *RefererBuilder) Url(url string) *RefererBuilder {
 	builder.url = url
@@ -670,6 +699,7 @@ func NewRelatedMetaBuilder() *RelatedMetaBuilder {
 }
 
 // 相关联系人
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 	builder.users = users
@@ -678,6 +708,7 @@ func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 }
 
 // 相关服务中的相关公开群
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 	builder.chats = chats
@@ -686,6 +717,7 @@ func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 }
 
 // 相关云文档
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 	builder.docs = docs
@@ -694,6 +726,7 @@ func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 }
 
 // 相关服务中的相关值班号
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
 	builder.oncalls = oncalls
@@ -702,6 +735,7 @@ func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuild
 }
 
 // 相关链接
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 	builder.links = links
@@ -710,6 +744,7 @@ func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 }
 
 // 相关词条
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
 	builder.abbreviations = abbreviations
@@ -718,6 +753,7 @@ func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) 
 }
 
 // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
+//
 // 示例值：
 func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
 	builder.classifications = classifications
@@ -769,6 +805,7 @@ func NewSpanBuilder() *SpanBuilder {
 }
 
 // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
+//
 // 示例值：0
 func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 	builder.start = start
@@ -777,6 +814,7 @@ func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 }
 
 // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
+//
 // 示例值：4
 func (builder *SpanBuilder) End(end int) *SpanBuilder {
 	builder.end = end
@@ -815,6 +853,7 @@ func NewStatisticsBuilder() *StatisticsBuilder {
 }
 
 // 累计点赞
+//
 // 示例值：55
 func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 	builder.likeCount = likeCount
@@ -823,6 +862,7 @@ func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 }
 
 // 当前词条版本收到的负反馈数量
+//
 // 示例值：3
 func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
 	builder.dislikeCount = dislikeCount
@@ -861,6 +901,7 @@ func NewTermBuilder() *TermBuilder {
 }
 
 // 名称的值
+//
 // 示例值：企业百科
 func (builder *TermBuilder) Key(key string) *TermBuilder {
 	builder.key = key
@@ -869,6 +910,7 @@ func (builder *TermBuilder) Key(key string) *TermBuilder {
 }
 
 // 名称展示范围
+//
 // 示例值：
 func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
 	builder.displayStatus = displayStatus

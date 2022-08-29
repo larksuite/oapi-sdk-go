@@ -41,6 +41,7 @@ func NewAvatarBuilder() *AvatarBuilder {
 }
 
 // 企业头像
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) AvatarOrigin(avatarOrigin string) *AvatarBuilder {
 	builder.avatarOrigin = avatarOrigin
@@ -49,6 +50,7 @@ func (builder *AvatarBuilder) AvatarOrigin(avatarOrigin string) *AvatarBuilder {
 }
 
 // 企业头像 72x72
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar72(avatar72 string) *AvatarBuilder {
 	builder.avatar72 = avatar72
@@ -57,6 +59,7 @@ func (builder *AvatarBuilder) Avatar72(avatar72 string) *AvatarBuilder {
 }
 
 // 企业头像 240x240
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar240(avatar240 string) *AvatarBuilder {
 	builder.avatar240 = avatar240
@@ -65,6 +68,7 @@ func (builder *AvatarBuilder) Avatar240(avatar240 string) *AvatarBuilder {
 }
 
 // 企业头像 640x640
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar640(avatar640 string) *AvatarBuilder {
 	builder.avatar640 = avatar640
@@ -120,6 +124,7 @@ func NewTenantBuilder() *TenantBuilder {
 }
 
 // 企业名称
+//
 // 示例值：企业名称
 func (builder *TenantBuilder) Name(name string) *TenantBuilder {
 	builder.name = name
@@ -128,6 +133,7 @@ func (builder *TenantBuilder) Name(name string) *TenantBuilder {
 }
 
 // 企业编号，平台内唯一
+//
 // 示例值：F123456789
 func (builder *TenantBuilder) DisplayId(displayId string) *TenantBuilder {
 	builder.displayId = displayId
@@ -136,6 +142,7 @@ func (builder *TenantBuilder) DisplayId(displayId string) *TenantBuilder {
 }
 
 // 个人版/团队版标志
+//
 // 示例值：0
 func (builder *TenantBuilder) TenantTag(tenantTag int) *TenantBuilder {
 	builder.tenantTag = tenantTag
@@ -144,6 +151,7 @@ func (builder *TenantBuilder) TenantTag(tenantTag int) *TenantBuilder {
 }
 
 // 企业标识
+//
 // 示例值：abcdefghi
 func (builder *TenantBuilder) TenantKey(tenantKey string) *TenantBuilder {
 	builder.tenantKey = tenantKey
@@ -152,6 +160,7 @@ func (builder *TenantBuilder) TenantKey(tenantKey string) *TenantBuilder {
 }
 
 // 企业头像
+//
 // 示例值：
 func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 	builder.avatar = avatar

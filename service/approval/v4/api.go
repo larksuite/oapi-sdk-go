@@ -73,7 +73,7 @@ type task struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//create_approval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_approval.go
 func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -99,7 +99,7 @@ func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//get_approval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/get_approval.go
 func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...larkcore.RequestOptionFunc) (*GetApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -125,7 +125,7 @@ func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//subscribe_approval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/subscribe_approval.go
 func (a *approval) Subscribe(ctx context.Context, req *SubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*SubscribeApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -151,7 +151,7 @@ func (a *approval) Subscribe(ctx context.Context, req *SubscribeApprovalReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//unsubscribe_approval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/unsubscribe_approval.go
 func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -179,7 +179,7 @@ func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//create_externalApproval.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_externalApproval.go
 func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -205,7 +205,7 @@ func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprov
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//check_externalInstance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/check_externalInstance.go
 func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CheckExternalInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -231,7 +231,7 @@ func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstance
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//create_externalInstance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_externalInstance.go
 func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -257,7 +257,7 @@ func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstan
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_task/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//list_externalTask.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_externalTask.go
 func (e *externalTask) List(ctx context.Context, req *ListExternalTaskReq, options ...larkcore.RequestOptionFunc) (*ListExternalTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -291,7 +291,7 @@ func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTask
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//addSign_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addSign_instance.go
 func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...larkcore.RequestOptionFunc) (*AddSignInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -317,7 +317,7 @@ func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cancel
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//cancel_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/cancel_instance.go
 func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options ...larkcore.RequestOptionFunc) (*CancelInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -343,7 +343,7 @@ func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cc
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//cc_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/cc_instance.go
 func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...larkcore.RequestOptionFunc) (*CcInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -369,7 +369,7 @@ func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//create_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_instance.go
 func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -395,7 +395,7 @@ func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//get_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/get_instance.go
 func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...larkcore.RequestOptionFunc) (*GetInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -421,7 +421,7 @@ func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//list_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_instance.go
 func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -455,7 +455,7 @@ func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//preview_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/preview_instance.go
 func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...larkcore.RequestOptionFunc) (*PreviewInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -481,7 +481,7 @@ func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//query_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/query_instance.go
 func (i *instance) Query(ctx context.Context, req *QueryInstanceReq, options ...larkcore.RequestOptionFunc) (*QueryInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -515,7 +515,7 @@ func (i *instance) QueryByIterator(ctx context.Context, req *QueryInstanceReq, o
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/search_cc
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//searchCc_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/searchCc_instance.go
 func (i *instance) SearchCc(ctx context.Context, req *SearchCcInstanceReq, options ...larkcore.RequestOptionFunc) (*SearchCcInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -541,7 +541,7 @@ func (i *instance) SearchCc(ctx context.Context, req *SearchCcInstanceReq, optio
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/specified_rollback
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//specifiedRollback_instance.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/specifiedRollback_instance.go
 func (i *instance) SpecifiedRollback(ctx context.Context, req *SpecifiedRollbackInstanceReq, options ...larkcore.RequestOptionFunc) (*SpecifiedRollbackInstanceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -567,7 +567,7 @@ func (i *instance) SpecifiedRollback(ctx context.Context, req *SpecifiedRollback
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//create_instanceComment.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_instanceComment.go
 func (i *instanceComment) Create(ctx context.Context, req *CreateInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceCommentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -593,7 +593,7 @@ func (i *instanceComment) Create(ctx context.Context, req *CreateInstanceComment
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//delete_instanceComment.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/delete_instanceComment.go
 func (i *instanceComment) Delete(ctx context.Context, req *DeleteInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*DeleteInstanceCommentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -619,7 +619,7 @@ func (i *instanceComment) Delete(ctx context.Context, req *DeleteInstanceComment
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//list_instanceComment.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_instanceComment.go
 func (i *instanceComment) List(ctx context.Context, req *ListInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*ListInstanceCommentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -645,7 +645,7 @@ func (i *instanceComment) List(ctx context.Context, req *ListInstanceCommentReq,
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/remove
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//remove_instanceComment.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/remove_instanceComment.go
 func (i *instanceComment) Remove(ctx context.Context, req *RemoveInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*RemoveInstanceCommentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -671,7 +671,7 @@ func (i *instanceComment) Remove(ctx context.Context, req *RemoveInstanceComment
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/approve
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//approve_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/approve_task.go
 func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...larkcore.RequestOptionFunc) (*ApproveTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -697,7 +697,7 @@ func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//query_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/query_task.go
 func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -731,7 +731,7 @@ func (t *task) QueryByIterator(ctx context.Context, req *QueryTaskReq, options .
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/reject
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//reject_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/reject_task.go
 func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...larkcore.RequestOptionFunc) (*RejectTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -757,7 +757,7 @@ func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/resubmit
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//resubmit_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/resubmit_task.go
 func (t *task) Resubmit(ctx context.Context, req *ResubmitTaskReq, options ...larkcore.RequestOptionFunc) (*ResubmitTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -783,7 +783,7 @@ func (t *task) Resubmit(ctx context.Context, req *ResubmitTaskReq, options ...la
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//search_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/search_task.go
 func (t *task) Search(ctx context.Context, req *SearchTaskReq, options ...larkcore.RequestOptionFunc) (*SearchTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -809,7 +809,7 @@ func (t *task) Search(ctx context.Context, req *SearchTaskReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/transfer
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4//transfer_task.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/transfer_task.go
 func (t *task) Transfer(ctx context.Context, req *TransferTaskReq, options ...larkcore.RequestOptionFunc) (*TransferTaskResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

@@ -43,7 +43,7 @@ type image struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/optical_char_recognitionv1//basicRecognize_image.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/optical_char_recognitionv1/basicRecognize_image.go
 func (i *image) BasicRecognize(ctx context.Context, req *BasicRecognizeImageReq, options ...larkcore.RequestOptionFunc) (*BasicRecognizeImageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

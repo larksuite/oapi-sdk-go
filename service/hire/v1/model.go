@@ -36,28 +36,28 @@ const (
 )
 
 const (
-	UserIdTypeApplicationTransferOnboardUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApplicationTransferOnboardUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApplicationTransferOnboardOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeTransferOnboardApplicationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeTransferOnboardApplicationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeTransferOnboardApplicationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeApplicationInterviewListUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeApplicationInterviewListUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeApplicationInterviewListOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeApplicationInterviewListPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeListApplicationInterviewUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeListApplicationInterviewUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeListApplicationInterviewOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeListApplicationInterviewPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeEmployeeGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEmployeeGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEmployeeGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetEmployeeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetEmployeeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEmployeeGetByApplicationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEmployeeGetByApplicationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEmployeeGetByApplicationOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetByApplicationEmployeeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetByApplicationEmployeeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetByApplicationEmployeeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -67,23 +67,23 @@ const (
 )
 
 const (
-	UserIdTypeEmployeePatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEmployeePatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEmployeePatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchEmployeeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchEmployeeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchEmployeeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeJobGetUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeJobGetUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeJobGetOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeJobGetPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeGetJobUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeGetJobUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeGetJobOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeGetJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeJobManagerGetUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeJobManagerGetUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeJobManagerGetOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeJobManagerGetPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeGetJobManagerUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeGetJobManagerUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeGetJobManagerOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeGetJobManagerPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
@@ -93,38 +93,38 @@ const (
 )
 
 const (
-	UserIdTypeNoteCreateUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeNoteCreateUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeNoteCreateOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeNoteCreatePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeCreateNoteUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeCreateNoteUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeCreateNoteOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeCreateNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeNoteGetUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeNoteGetUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeNoteGetOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeNoteGetPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeGetNoteUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeGetNoteUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeGetNoteOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeGetNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeNoteListUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeNoteListUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeNoteListOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeNoteListPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeListNoteUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeListNoteUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeListNoteOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeListNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeNotePatchUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeNotePatchUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeNotePatchOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeNotePatchPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypePatchNoteUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypePatchNoteUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypePatchNoteOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypePatchNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeReferralGetByApplicationUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeReferralGetByApplicationUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeReferralGetByApplicationOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeReferralGetByApplicationPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeGetByApplicationReferralUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeGetByApplicationReferralUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeGetByApplicationReferralOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeGetByApplicationReferralPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 type Agency struct {
@@ -148,6 +148,7 @@ func NewAgencyBuilder() *AgencyBuilder {
 }
 
 // 猎头供应商ID
+//
 // 示例值：6898173495386147079
 func (builder *AgencyBuilder) Id(id string) *AgencyBuilder {
 	builder.id = id
@@ -156,6 +157,7 @@ func (builder *AgencyBuilder) Id(id string) *AgencyBuilder {
 }
 
 // 猎头供应商名称
+//
 // 示例值：超越猎头公司
 func (builder *AgencyBuilder) Name(name string) *AgencyBuilder {
 	builder.name = name
@@ -164,6 +166,7 @@ func (builder *AgencyBuilder) Name(name string) *AgencyBuilder {
 }
 
 // 供应商联系人ID
+//
 // 示例值：ou_f476cb099ac9227c9bae09ce46112579
 func (builder *AgencyBuilder) ContactorId(contactorId string) *AgencyBuilder {
 	builder.contactorId = contactorId
@@ -215,6 +218,7 @@ func NewAppliOfferBasicCustObjBuilder() *AppliOfferBasicCustObjBuilder {
 }
 
 // id
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjBuilder) Id(id string) *AppliOfferBasicCustObjBuilder {
 	builder.id = id
@@ -223,6 +227,7 @@ func (builder *AppliOfferBasicCustObjBuilder) Id(id string) *AppliOfferBasicCust
 }
 
 // 名字
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjBuilder) Name(name *OfferSchemaName) *AppliOfferBasicCustObjBuilder {
 	builder.name = name
@@ -231,6 +236,7 @@ func (builder *AppliOfferBasicCustObjBuilder) Name(name *OfferSchemaName) *Appli
 }
 
 // 自定义字段类型
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjBuilder) Type(type_ string) *AppliOfferBasicCustObjBuilder {
 	builder.type_ = type_
@@ -239,6 +245,7 @@ func (builder *AppliOfferBasicCustObjBuilder) Type(type_ string) *AppliOfferBasi
 }
 
 // 自定义字段的值
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjBuilder) Value(value string) *AppliOfferBasicCustObjBuilder {
 	builder.value = value
@@ -247,6 +254,7 @@ func (builder *AppliOfferBasicCustObjBuilder) Value(value string) *AppliOfferBas
 }
 
 // 单选/多选自定义字段的值
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjBuilder) OptionValueList(optionValueList []*AppliOfferBasicCustObjOpV) *AppliOfferBasicCustObjBuilder {
 	builder.optionValueList = optionValueList
@@ -295,6 +303,7 @@ func NewAppliOfferBasicCustObjOpVBuilder() *AppliOfferBasicCustObjOpVBuilder {
 }
 
 // 中文名
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjOpVBuilder) ZhCn(zhCn string) *AppliOfferBasicCustObjOpVBuilder {
 	builder.zhCn = zhCn
@@ -303,6 +312,7 @@ func (builder *AppliOfferBasicCustObjOpVBuilder) ZhCn(zhCn string) *AppliOfferBa
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *AppliOfferBasicCustObjOpVBuilder) EnUs(enUs string) *AppliOfferBasicCustObjOpVBuilder {
 	builder.enUs = enUs
@@ -362,6 +372,7 @@ func NewAppliOfferBasicInfoUserBuilder() *AppliOfferBasicInfoUserBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Id(id string) *AppliOfferBasicInfoUserBuilder {
 	builder.id = id
@@ -370,6 +381,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Id(id string) *AppliOfferBasicInf
 }
 
 // 名字
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Name(name string) *AppliOfferBasicInfoUserBuilder {
 	builder.name = name
@@ -378,6 +390,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Name(name string) *AppliOfferBasi
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) EnName(enName string) *AppliOfferBasicInfoUserBuilder {
 	builder.enName = enName
@@ -386,6 +399,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) EnName(enName string) *AppliOffer
 }
 
 // 头像
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Avatar(avatar string) *AppliOfferBasicInfoUserBuilder {
 	builder.avatar = avatar
@@ -394,6 +408,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Avatar(avatar string) *AppliOffer
 }
 
 // 部门
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Department(department *Department) *AppliOfferBasicInfoUserBuilder {
 	builder.department = department
@@ -402,6 +417,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Department(department *Department
 }
 
 // 时区
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Timezone(timezone string) *AppliOfferBasicInfoUserBuilder {
 	builder.timezone = timezone
@@ -410,6 +426,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Timezone(timezone string) *AppliO
 }
 
 // 手机
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Phone(phone string) *AppliOfferBasicInfoUserBuilder {
 	builder.phone = phone
@@ -418,6 +435,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Phone(phone string) *AppliOfferBa
 }
 
 // 邮箱
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) Email(email string) *AppliOfferBasicInfoUserBuilder {
 	builder.email = email
@@ -426,6 +444,7 @@ func (builder *AppliOfferBasicInfoUserBuilder) Email(email string) *AppliOfferBa
 }
 
 // 是否拥有app权限
+//
 // 示例值：
 func (builder *AppliOfferBasicInfoUserBuilder) InAppScope(inAppScope bool) *AppliOfferBasicInfoUserBuilder {
 	builder.inAppScope = inAppScope
@@ -518,6 +537,7 @@ func NewAppliOfferOnboardProfileBuilder() *AppliOfferOnboardProfileBuilder {
 }
 
 // offer ID
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) OfferId(offerId string) *AppliOfferOnboardProfileBuilder {
 	builder.offerId = offerId
@@ -526,6 +546,7 @@ func (builder *AppliOfferOnboardProfileBuilder) OfferId(offerId string) *AppliOf
 }
 
 // 部门
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) Department(department *Department) *AppliOfferOnboardProfileBuilder {
 	builder.department = department
@@ -534,6 +555,7 @@ func (builder *AppliOfferOnboardProfileBuilder) Department(department *Departmen
 }
 
 // 招聘类型
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) RecruitmentType(recruitmentType *RecruitmentType) *AppliOfferOnboardProfileBuilder {
 	builder.recruitmentType = recruitmentType
@@ -542,6 +564,7 @@ func (builder *AppliOfferOnboardProfileBuilder) RecruitmentType(recruitmentType 
 }
 
 // 序列
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) Sequence(sequence *Sequence) *AppliOfferOnboardProfileBuilder {
 	builder.sequence = sequence
@@ -550,6 +573,7 @@ func (builder *AppliOfferOnboardProfileBuilder) Sequence(sequence *Sequence) *Ap
 }
 
 // 职级
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) Level(level *Level) *AppliOfferOnboardProfileBuilder {
 	builder.level = level
@@ -558,6 +582,7 @@ func (builder *AppliOfferOnboardProfileBuilder) Level(level *Level) *AppliOfferO
 }
 
 // onboard地址
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) OnboardAddress(onboardAddress *AppliOfferOnboardProfileAdd) *AppliOfferOnboardProfileBuilder {
 	builder.onboardAddress = onboardAddress
@@ -566,6 +591,7 @@ func (builder *AppliOfferOnboardProfileBuilder) OnboardAddress(onboardAddress *A
 }
 
 // 工作地址
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) WorkAddress(workAddress *AppliOfferOnboardProfileAdd) *AppliOfferOnboardProfileBuilder {
 	builder.workAddress = workAddress
@@ -574,6 +600,7 @@ func (builder *AppliOfferOnboardProfileBuilder) WorkAddress(workAddress *AppliOf
 }
 
 // 领导
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) Leader(leader *AppliOfferBasicInfoUser) *AppliOfferOnboardProfileBuilder {
 	builder.leader = leader
@@ -582,6 +609,7 @@ func (builder *AppliOfferOnboardProfileBuilder) Leader(leader *AppliOfferBasicIn
 }
 
 // 工作地址是否与onboard地址相同
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard(isWorkAddressSameToOnboard bool) *AppliOfferOnboardProfileBuilder {
 	builder.isWorkAddressSameToOnboard = isWorkAddressSameToOnboard
@@ -590,6 +618,7 @@ func (builder *AppliOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard(isWor
 }
 
 // 试用期
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) ProbationMonth(probationMonth int) *AppliOfferOnboardProfileBuilder {
 	builder.probationMonth = probationMonth
@@ -598,6 +627,7 @@ func (builder *AppliOfferOnboardProfileBuilder) ProbationMonth(probationMonth in
 }
 
 // 合同年限
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileBuilder) ContractYear(contractYear int) *AppliOfferOnboardProfileBuilder {
 	builder.contractYear = contractYear
@@ -686,6 +716,7 @@ func NewAppliOfferOnboardProfileAddBuilder() *AppliOfferOnboardProfileAddBuilder
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) Id(id string) *AppliOfferOnboardProfileAddBuilder {
 	builder.id = id
@@ -694,6 +725,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) Id(id string) *AppliOfferOnbo
 }
 
 // 名字
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) Name(name string) *AppliOfferOnboardProfileAddBuilder {
 	builder.name = name
@@ -702,6 +734,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) Name(name string) *AppliOffer
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) EnName(enName string) *AppliOfferOnboardProfileAddBuilder {
 	builder.enName = enName
@@ -710,6 +743,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) EnName(enName string) *AppliO
 }
 
 // 区
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) District(district *AppliOfferOnboardProfileCity) *AppliOfferOnboardProfileAddBuilder {
 	builder.district = district
@@ -718,6 +752,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) District(district *AppliOffer
 }
 
 // 城市
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) City(city *AppliOfferOnboardProfileCity) *AppliOfferOnboardProfileAddBuilder {
 	builder.city = city
@@ -726,6 +761,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) City(city *AppliOfferOnboardP
 }
 
 // 省
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) State(state *AppliOfferOnboardProfileCity) *AppliOfferOnboardProfileAddBuilder {
 	builder.state = state
@@ -734,6 +770,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) State(state *AppliOfferOnboar
 }
 
 // 国家
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) Country(country *AppliOfferOnboardProfileCity) *AppliOfferOnboardProfileAddBuilder {
 	builder.country = country
@@ -742,6 +779,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) Country(country *AppliOfferOn
 }
 
 // 使用ID列表
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) UsageIdList(usageIdList []string) *AppliOfferOnboardProfileAddBuilder {
 	builder.usageIdList = usageIdList
@@ -750,6 +788,7 @@ func (builder *AppliOfferOnboardProfileAddBuilder) UsageIdList(usageIdList []str
 }
 
 // 状态
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileAddBuilder) ActiveStatus(activeStatus int) *AppliOfferOnboardProfileAddBuilder {
 	builder.activeStatus = activeStatus
@@ -817,6 +856,7 @@ func NewAppliOfferOnboardProfileCityBuilder() *AppliOfferOnboardProfileCityBuild
 }
 
 // 编码
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileCityBuilder) Code(code string) *AppliOfferOnboardProfileCityBuilder {
 	builder.code = code
@@ -825,6 +865,7 @@ func (builder *AppliOfferOnboardProfileCityBuilder) Code(code string) *AppliOffe
 }
 
 // 名字
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileCityBuilder) Name(name string) *AppliOfferOnboardProfileCityBuilder {
 	builder.name = name
@@ -833,6 +874,7 @@ func (builder *AppliOfferOnboardProfileCityBuilder) Name(name string) *AppliOffe
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileCityBuilder) EnName(enName string) *AppliOfferOnboardProfileCityBuilder {
 	builder.enName = enName
@@ -841,6 +883,7 @@ func (builder *AppliOfferOnboardProfileCityBuilder) EnName(enName string) *Appli
 }
 
 // 地址类型
+//
 // 示例值：
 func (builder *AppliOfferOnboardProfileCityBuilder) LocationType(locationType int) *AppliOfferOnboardProfileCityBuilder {
 	builder.locationType = locationType
@@ -893,6 +936,7 @@ func NewAppliOfferSalaryPlanTemplateBuilder() *AppliOfferSalaryPlanTemplateBuild
 }
 
 // 模版key
+//
 // 示例值：
 func (builder *AppliOfferSalaryPlanTemplateBuilder) TemplateKey(templateKey string) *AppliOfferSalaryPlanTemplateBuilder {
 	builder.templateKey = templateKey
@@ -901,6 +945,7 @@ func (builder *AppliOfferSalaryPlanTemplateBuilder) TemplateKey(templateKey stri
 }
 
 // 总金额
+//
 // 示例值：
 func (builder *AppliOfferSalaryPlanTemplateBuilder) TotalAmount(totalAmount string) *AppliOfferSalaryPlanTemplateBuilder {
 	builder.totalAmount = totalAmount
@@ -909,6 +954,7 @@ func (builder *AppliOfferSalaryPlanTemplateBuilder) TotalAmount(totalAmount stri
 }
 
 // 币种
+//
 // 示例值：
 func (builder *AppliOfferSalaryPlanTemplateBuilder) Currency(currency string) *AppliOfferSalaryPlanTemplateBuilder {
 	builder.currency = currency
@@ -917,6 +963,7 @@ func (builder *AppliOfferSalaryPlanTemplateBuilder) Currency(currency string) *A
 }
 
 // 薪酬内容
+//
 // 示例值：
 func (builder *AppliOfferSalaryPlanTemplateBuilder) SalaryContent(salaryContent string) *AppliOfferSalaryPlanTemplateBuilder {
 	builder.salaryContent = salaryContent
@@ -963,6 +1010,7 @@ func NewAppliTalentAttachResumeInfoBuilder() *AppliTalentAttachResumeInfoBuilder
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliTalentAttachResumeInfoBuilder) Id(id string) *AppliTalentAttachResumeInfoBuilder {
 	builder.id = id
@@ -971,6 +1019,7 @@ func (builder *AppliTalentAttachResumeInfoBuilder) Id(id string) *AppliTalentAtt
 }
 
 // 名字
+//
 // 示例值：
 func (builder *AppliTalentAttachResumeInfoBuilder) Name(name string) *AppliTalentAttachResumeInfoBuilder {
 	builder.name = name
@@ -1012,6 +1061,7 @@ func NewAppliTalentCertificateInfoBuilder() *AppliTalentCertificateInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliTalentCertificateInfoBuilder) Id(id string) *AppliTalentCertificateInfoBuilder {
 	builder.id = id
@@ -1020,6 +1070,7 @@ func (builder *AppliTalentCertificateInfoBuilder) Id(id string) *AppliTalentCert
 }
 
 // 证件名称
+//
 // 示例值：
 func (builder *AppliTalentCertificateInfoBuilder) Name(name string) *AppliTalentCertificateInfoBuilder {
 	builder.name = name
@@ -1028,6 +1079,7 @@ func (builder *AppliTalentCertificateInfoBuilder) Name(name string) *AppliTalent
 }
 
 // 证件描述
+//
 // 示例值：
 func (builder *AppliTalentCertificateInfoBuilder) Desc(desc string) *AppliTalentCertificateInfoBuilder {
 	builder.desc = desc
@@ -1073,6 +1125,7 @@ func NewAppliTalentCompetitionInfoBuilder() *AppliTalentCompetitionInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliTalentCompetitionInfoBuilder) Id(id string) *AppliTalentCompetitionInfoBuilder {
 	builder.id = id
@@ -1081,6 +1134,7 @@ func (builder *AppliTalentCompetitionInfoBuilder) Id(id string) *AppliTalentComp
 }
 
 // 竞赛名称
+//
 // 示例值：
 func (builder *AppliTalentCompetitionInfoBuilder) Name(name string) *AppliTalentCompetitionInfoBuilder {
 	builder.name = name
@@ -1089,6 +1143,7 @@ func (builder *AppliTalentCompetitionInfoBuilder) Name(name string) *AppliTalent
 }
 
 // 竞赛描述
+//
 // 示例值：
 func (builder *AppliTalentCompetitionInfoBuilder) Desc(desc string) *AppliTalentCompetitionInfoBuilder {
 	builder.desc = desc
@@ -1152,6 +1207,7 @@ func NewAppliTalentEducationInfoBuilder() *AppliTalentEducationInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) Id(id string) *AppliTalentEducationInfoBuilder {
 	builder.id = id
@@ -1160,6 +1216,7 @@ func (builder *AppliTalentEducationInfoBuilder) Id(id string) *AppliTalentEducat
 }
 
 // 学历
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) Degree(degree int) *AppliTalentEducationInfoBuilder {
 	builder.degree = degree
@@ -1168,6 +1225,7 @@ func (builder *AppliTalentEducationInfoBuilder) Degree(degree int) *AppliTalentE
 }
 
 // 学校
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) School(school string) *AppliTalentEducationInfoBuilder {
 	builder.school = school
@@ -1176,6 +1234,7 @@ func (builder *AppliTalentEducationInfoBuilder) School(school string) *AppliTale
 }
 
 // 专业
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *AppliTalentEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -1184,6 +1243,7 @@ func (builder *AppliTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) StartTime(startTime string) *AppliTalentEducationInfoBuilder {
 	builder.startTime = startTime
@@ -1192,6 +1252,7 @@ func (builder *AppliTalentEducationInfoBuilder) StartTime(startTime string) *App
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) EndTime(endTime string) *AppliTalentEducationInfoBuilder {
 	builder.endTime = endTime
@@ -1200,6 +1261,7 @@ func (builder *AppliTalentEducationInfoBuilder) EndTime(endTime string) *AppliTa
 }
 
 // 学历类型
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) EducationType(educationType int) *AppliTalentEducationInfoBuilder {
 	builder.educationType = educationType
@@ -1208,6 +1270,7 @@ func (builder *AppliTalentEducationInfoBuilder) EducationType(educationType int)
 }
 
 // 排名
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) AcademicRanking(academicRanking int) *AppliTalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
@@ -1216,6 +1279,7 @@ func (builder *AppliTalentEducationInfoBuilder) AcademicRanking(academicRanking 
 }
 
 // 标签列表
+//
 // 示例值：
 func (builder *AppliTalentEducationInfoBuilder) TagList(tagList []int) *AppliTalentEducationInfoBuilder {
 	builder.tagList = tagList
@@ -1326,6 +1390,7 @@ func NewApplicationBuilder() *ApplicationBuilder {
 }
 
 // 投递id
+//
 // 示例值：6949805467799537964
 func (builder *ApplicationBuilder) Id(id string) *ApplicationBuilder {
 	builder.id = id
@@ -1334,6 +1399,7 @@ func (builder *ApplicationBuilder) Id(id string) *ApplicationBuilder {
 }
 
 // 投递的职位 ID
+//
 // 示例值：6843547872837273223
 func (builder *ApplicationBuilder) JobId(jobId string) *ApplicationBuilder {
 	builder.jobId = jobId
@@ -1342,6 +1408,7 @@ func (builder *ApplicationBuilder) JobId(jobId string) *ApplicationBuilder {
 }
 
 // 候选人 ID
+//
 // 示例值：6843547872837273223
 func (builder *ApplicationBuilder) TalentId(talentId string) *ApplicationBuilder {
 	builder.talentId = talentId
@@ -1350,6 +1417,7 @@ func (builder *ApplicationBuilder) TalentId(talentId string) *ApplicationBuilder
 }
 
 // 简历来源 ID
+//
 // 示例值：6583482347283472832
 func (builder *ApplicationBuilder) ResumeResourceId(resumeResourceId string) *ApplicationBuilder {
 	builder.resumeResourceId = resumeResourceId
@@ -1358,6 +1426,7 @@ func (builder *ApplicationBuilder) ResumeResourceId(resumeResourceId string) *Ap
 }
 
 // 投递处于的阶段
+//
 // 示例值：
 func (builder *ApplicationBuilder) Stage(stage *ApplicationStageInfo) *ApplicationBuilder {
 	builder.stage = stage
@@ -1366,6 +1435,7 @@ func (builder *ApplicationBuilder) Stage(stage *ApplicationStageInfo) *Applicati
 }
 
 // 活跃状态
+//
 // 示例值：1
 func (builder *ApplicationBuilder) ActiveStatus(activeStatus int) *ApplicationBuilder {
 	builder.activeStatus = activeStatus
@@ -1374,6 +1444,7 @@ func (builder *ApplicationBuilder) ActiveStatus(activeStatus int) *ApplicationBu
 }
 
 // 投递方式
+//
 // 示例值：1
 func (builder *ApplicationBuilder) DeliveryType(deliveryType int) *ApplicationBuilder {
 	builder.deliveryType = deliveryType
@@ -1382,6 +1453,7 @@ func (builder *ApplicationBuilder) DeliveryType(deliveryType int) *ApplicationBu
 }
 
 // 投递来源信息
+//
 // 示例值：
 func (builder *ApplicationBuilder) ResumeSourceInfo(resumeSourceInfo *ApplicationResumeSource) *ApplicationBuilder {
 	builder.resumeSourceInfo = resumeSourceInfo
@@ -1390,6 +1462,7 @@ func (builder *ApplicationBuilder) ResumeSourceInfo(resumeSourceInfo *Applicatio
 }
 
 // 官网投递来源
+//
 // 示例值：
 func (builder *ApplicationBuilder) WebsiteResumeSource(websiteResumeSource *ApplicationWebsiteResumeSource) *ApplicationBuilder {
 	builder.websiteResumeSource = websiteResumeSource
@@ -1398,6 +1471,7 @@ func (builder *ApplicationBuilder) WebsiteResumeSource(websiteResumeSource *Appl
 }
 
 // 简历附件 ID
+//
 // 示例值：6960663240925956415
 func (builder *ApplicationBuilder) TalentAttachmentResumeId(talentAttachmentResumeId string) *ApplicationBuilder {
 	builder.talentAttachmentResumeId = talentAttachmentResumeId
@@ -1406,6 +1480,7 @@ func (builder *ApplicationBuilder) TalentAttachmentResumeId(talentAttachmentResu
 }
 
 // 创建时间
+//
 // 示例值：1632990774278
 func (builder *ApplicationBuilder) CreateTime(createTime string) *ApplicationBuilder {
 	builder.createTime = createTime
@@ -1414,6 +1489,7 @@ func (builder *ApplicationBuilder) CreateTime(createTime string) *ApplicationBui
 }
 
 // 修改时间
+//
 // 示例值：1634801678103
 func (builder *ApplicationBuilder) ModifyTime(modifyTime string) *ApplicationBuilder {
 	builder.modifyTime = modifyTime
@@ -1422,6 +1498,7 @@ func (builder *ApplicationBuilder) ModifyTime(modifyTime string) *ApplicationBui
 }
 
 // 阶段变更时间列表
+//
 // 示例值：
 func (builder *ApplicationBuilder) StageTimeList(stageTimeList []*ApplicationStageTime) *ApplicationBuilder {
 	builder.stageTimeList = stageTimeList
@@ -1430,6 +1507,7 @@ func (builder *ApplicationBuilder) StageTimeList(stageTimeList []*ApplicationSta
 }
 
 // 终止原因的类型
+//
 // 示例值：1
 func (builder *ApplicationBuilder) TerminationType(terminationType int) *ApplicationBuilder {
 	builder.terminationType = terminationType
@@ -1438,6 +1516,7 @@ func (builder *ApplicationBuilder) TerminationType(terminationType int) *Applica
 }
 
 // 终止的具体原因的id列表
+//
 // 示例值：
 func (builder *ApplicationBuilder) TerminationReasonList(terminationReasonList []string) *ApplicationBuilder {
 	builder.terminationReasonList = terminationReasonList
@@ -1446,6 +1525,7 @@ func (builder *ApplicationBuilder) TerminationReasonList(terminationReasonList [
 }
 
 // 终止备注
+//
 // 示例值：其他投递已入职
 func (builder *ApplicationBuilder) TerminationReasonNote(terminationReasonNote string) *ApplicationBuilder {
 	builder.terminationReasonNote = terminationReasonNote
@@ -1454,6 +1534,7 @@ func (builder *ApplicationBuilder) TerminationReasonNote(terminationReasonNote s
 }
 
 // 意向投递城市列表
+//
 // 示例值：
 func (builder *ApplicationBuilder) ApplicationPreferredCityList(applicationPreferredCityList []*CodeNameObject) *ApplicationBuilder {
 	builder.applicationPreferredCityList = applicationPreferredCityList
@@ -1555,6 +1636,7 @@ func NewApplicationBasicInfoBuilder() *ApplicationBasicInfoBuilder {
 }
 
 // 阶段信息
+//
 // 示例值：
 func (builder *ApplicationBasicInfoBuilder) Stage(stage *ApplicationStage) *ApplicationBasicInfoBuilder {
 	builder.stage = stage
@@ -1563,6 +1645,7 @@ func (builder *ApplicationBasicInfoBuilder) Stage(stage *ApplicationStage) *Appl
 }
 
 // 内推人信息
+//
 // 示例值：
 func (builder *ApplicationBasicInfoBuilder) Referral(referral *ApplicationReferral) *ApplicationBasicInfoBuilder {
 	builder.referral = referral
@@ -1571,6 +1654,7 @@ func (builder *ApplicationBasicInfoBuilder) Referral(referral *ApplicationReferr
 }
 
 // 状态
+//
 // 示例值：
 func (builder *ApplicationBasicInfoBuilder) ActiveStatus(activeStatus int) *ApplicationBasicInfoBuilder {
 	builder.activeStatus = activeStatus
@@ -1579,6 +1663,7 @@ func (builder *ApplicationBasicInfoBuilder) ActiveStatus(activeStatus int) *Appl
 }
 
 // 创建时间
+//
 // 示例值：
 func (builder *ApplicationBasicInfoBuilder) BizCreateTime(bizCreateTime int) *ApplicationBasicInfoBuilder {
 	builder.bizCreateTime = bizCreateTime
@@ -1587,6 +1672,7 @@ func (builder *ApplicationBasicInfoBuilder) BizCreateTime(bizCreateTime int) *Ap
 }
 
 // 修改时间
+//
 // 示例值：
 func (builder *ApplicationBasicInfoBuilder) BizModifyTime(bizModifyTime int) *ApplicationBasicInfoBuilder {
 	builder.bizModifyTime = bizModifyTime
@@ -1659,6 +1745,7 @@ func NewApplicationJobBuilder() *ApplicationJobBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Id(id string) *ApplicationJobBuilder {
 	builder.id = id
@@ -1667,6 +1754,7 @@ func (builder *ApplicationJobBuilder) Id(id string) *ApplicationJobBuilder {
 }
 
 // 职称
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Title(title string) *ApplicationJobBuilder {
 	builder.title = title
@@ -1675,6 +1763,7 @@ func (builder *ApplicationJobBuilder) Title(title string) *ApplicationJobBuilder
 }
 
 // 城市
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) City(city *City) *ApplicationJobBuilder {
 	builder.city = city
@@ -1683,6 +1772,7 @@ func (builder *ApplicationJobBuilder) City(city *City) *ApplicationJobBuilder {
 }
 
 // 部门
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Department(department *Department) *ApplicationJobBuilder {
 	builder.department = department
@@ -1691,6 +1781,7 @@ func (builder *ApplicationJobBuilder) Department(department *Department) *Applic
 }
 
 // 招聘类型
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) RecruitmentType(recruitmentType *RecruitmentType) *ApplicationJobBuilder {
 	builder.recruitmentType = recruitmentType
@@ -1699,6 +1790,7 @@ func (builder *ApplicationJobBuilder) RecruitmentType(recruitmentType *Recruitme
 }
 
 // 描述
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Description(description string) *ApplicationJobBuilder {
 	builder.description = description
@@ -1707,6 +1799,7 @@ func (builder *ApplicationJobBuilder) Description(description string) *Applicati
 }
 
 // 岗位流程编号
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) JobProcessId(jobProcessId string) *ApplicationJobBuilder {
 	builder.jobProcessId = jobProcessId
@@ -1715,6 +1808,7 @@ func (builder *ApplicationJobBuilder) JobProcessId(jobProcessId string) *Applica
 }
 
 // 编码
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Code(code string) *ApplicationJobBuilder {
 	builder.code = code
@@ -1723,6 +1817,7 @@ func (builder *ApplicationJobBuilder) Code(code string) *ApplicationJobBuilder {
 }
 
 // 地址
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Address(address *ApplicationJobAddress) *ApplicationJobBuilder {
 	builder.address = address
@@ -1731,6 +1826,7 @@ func (builder *ApplicationJobBuilder) Address(address *ApplicationJobAddress) *A
 }
 
 // 国家
+//
 // 示例值：
 func (builder *ApplicationJobBuilder) Country(country *Country) *ApplicationJobBuilder {
 	builder.country = country
@@ -1799,6 +1895,7 @@ func NewApplicationJobAddressBuilder() *ApplicationJobAddressBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationJobAddressBuilder) Id(id string) *ApplicationJobAddressBuilder {
 	builder.id = id
@@ -1807,6 +1904,7 @@ func (builder *ApplicationJobAddressBuilder) Id(id string) *ApplicationJobAddres
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationJobAddressBuilder) Name(name string) *ApplicationJobAddressBuilder {
 	builder.name = name
@@ -1815,6 +1913,7 @@ func (builder *ApplicationJobAddressBuilder) Name(name string) *ApplicationJobAd
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationJobAddressBuilder) EnName(enName string) *ApplicationJobAddressBuilder {
 	builder.enName = enName
@@ -1872,6 +1971,7 @@ func NewApplicationOfferBuilder() *ApplicationOfferBuilder {
 }
 
 // Offer id
+//
 // 示例值：7057802493489285412
 func (builder *ApplicationOfferBuilder) Id(id string) *ApplicationOfferBuilder {
 	builder.id = id
@@ -1880,6 +1980,7 @@ func (builder *ApplicationOfferBuilder) Id(id string) *ApplicationOfferBuilder {
 }
 
 // 投递id
+//
 // 示例值：7020661401874614564
 func (builder *ApplicationOfferBuilder) ApplicationId(applicationId string) *ApplicationOfferBuilder {
 	builder.applicationId = applicationId
@@ -1888,6 +1989,7 @@ func (builder *ApplicationOfferBuilder) ApplicationId(applicationId string) *App
 }
 
 // 基础信息
+//
 // 示例值：
 func (builder *ApplicationOfferBuilder) BasicInfo(basicInfo *ApplicationOfferBasicInfo) *ApplicationOfferBuilder {
 	builder.basicInfo = basicInfo
@@ -1896,6 +1998,7 @@ func (builder *ApplicationOfferBuilder) BasicInfo(basicInfo *ApplicationOfferBas
 }
 
 // 薪酬计划
+//
 // 示例值：
 func (builder *ApplicationOfferBuilder) SalaryPlan(salaryPlan *ApplicationOfferSalaryPlan) *ApplicationOfferBuilder {
 	builder.salaryPlan = salaryPlan
@@ -1904,6 +2007,7 @@ func (builder *ApplicationOfferBuilder) SalaryPlan(salaryPlan *ApplicationOfferS
 }
 
 // 当前 Offer 使用的 schema
+//
 // 示例值：6963562624677398823
 func (builder *ApplicationOfferBuilder) SchemaId(schemaId string) *ApplicationOfferBuilder {
 	builder.schemaId = schemaId
@@ -1912,6 +2016,7 @@ func (builder *ApplicationOfferBuilder) SchemaId(schemaId string) *ApplicationOf
 }
 
 // Offer 状态
+//
 // 示例值：0
 func (builder *ApplicationOfferBuilder) OfferStatus(offerStatus int) *ApplicationOfferBuilder {
 	builder.offerStatus = offerStatus
@@ -1920,6 +2025,7 @@ func (builder *ApplicationOfferBuilder) OfferStatus(offerStatus int) *Applicatio
 }
 
 // 职位信息
+//
 // 示例值：
 func (builder *ApplicationOfferBuilder) JobInfo(jobInfo *OfferJobInfo) *ApplicationOfferBuilder {
 	builder.jobInfo = jobInfo
@@ -1975,6 +2081,7 @@ func NewApplicationOfferAttachmentBuilder() *ApplicationOfferAttachmentBuilder {
 }
 
 // 附件ID
+//
 // 示例值：
 func (builder *ApplicationOfferAttachmentBuilder) AttachmentId(attachmentId string) *ApplicationOfferAttachmentBuilder {
 	builder.attachmentId = attachmentId
@@ -1983,6 +2090,7 @@ func (builder *ApplicationOfferAttachmentBuilder) AttachmentId(attachmentId stri
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationOfferAttachmentBuilder) Name(name string) *ApplicationOfferAttachmentBuilder {
 	builder.name = name
@@ -2069,6 +2177,7 @@ func NewApplicationOfferBasicInfoBuilder() *ApplicationOfferBasicInfoBuilder {
 }
 
 // Offer 类型
+//
 // 示例值：1
 func (builder *ApplicationOfferBasicInfoBuilder) OfferType(offerType int) *ApplicationOfferBasicInfoBuilder {
 	builder.offerType = offerType
@@ -2077,6 +2186,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) OfferType(offerType int) *Appli
 }
 
 // 备注
+//
 // 示例值：10
 func (builder *ApplicationOfferBasicInfoBuilder) Remark(remark string) *ApplicationOfferBasicInfoBuilder {
 	builder.remark = remark
@@ -2085,6 +2195,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) Remark(remark string) *Applicat
 }
 
 // Offer 过期时间
+//
 // 示例值：1653383498000
 func (builder *ApplicationOfferBasicInfoBuilder) ExpireTime(expireTime int) *ApplicationOfferBasicInfoBuilder {
 	builder.expireTime = expireTime
@@ -2093,6 +2204,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) ExpireTime(expireTime int) *App
 }
 
 // Offer 负责人 ID
+//
 // 示例值：ou_99be8e24ad1ad390b6cd3b8916940df1
 func (builder *ApplicationOfferBasicInfoBuilder) OwnerUserId(ownerUserId string) *ApplicationOfferBasicInfoBuilder {
 	builder.ownerUserId = ownerUserId
@@ -2101,6 +2213,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) OwnerUserId(ownerUserId string)
 }
 
 // Offer 创建人 ID
+//
 // 示例值：ou_99be8e24ad1ad390b6cd3b8916940df1
 func (builder *ApplicationOfferBasicInfoBuilder) CreatorUserId(creatorUserId string) *ApplicationOfferBasicInfoBuilder {
 	builder.creatorUserId = creatorUserId
@@ -2109,6 +2222,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) CreatorUserId(creatorUserId str
 }
 
 // Offer 人员类型
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) EmployeeType(employeeType *BaseBilingualWithId) *ApplicationOfferBasicInfoBuilder {
 	builder.employeeType = employeeType
@@ -2117,6 +2231,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) EmployeeType(employeeType *Base
 }
 
 // 创建时间
+//
 // 示例值：1628512038000
 func (builder *ApplicationOfferBasicInfoBuilder) CreateTime(createTime string) *ApplicationOfferBasicInfoBuilder {
 	builder.createTime = createTime
@@ -2125,6 +2240,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) CreateTime(createTime string) *
 }
 
 // 直属上级 ID
+//
 // 示例值：ou_99be8e24ad1ad390b6cd3b8916940df1
 func (builder *ApplicationOfferBasicInfoBuilder) LeaderUserId(leaderUserId string) *ApplicationOfferBasicInfoBuilder {
 	builder.leaderUserId = leaderUserId
@@ -2133,6 +2249,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) LeaderUserId(leaderUserId strin
 }
 
 // 入职日期
+//
 // 示例值：2021-05-20
 func (builder *ApplicationOfferBasicInfoBuilder) OnboardDate(onboardDate string) *ApplicationOfferBasicInfoBuilder {
 	builder.onboardDate = onboardDate
@@ -2141,6 +2258,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) OnboardDate(onboardDate string)
 }
 
 // 入职部门
+//
 // 示例值：od-6b394871807047c7023ebfc1ff37cd3a
 func (builder *ApplicationOfferBasicInfoBuilder) DepartmentId(departmentId string) *ApplicationOfferBasicInfoBuilder {
 	builder.departmentId = departmentId
@@ -2149,6 +2267,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) DepartmentId(departmentId strin
 }
 
 // 试用期, 比如试用期6个月
+//
 // 示例值：1
 func (builder *ApplicationOfferBasicInfoBuilder) ProbationMonth(probationMonth int) *ApplicationOfferBasicInfoBuilder {
 	builder.probationMonth = probationMonth
@@ -2157,6 +2276,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) ProbationMonth(probationMonth i
 }
 
 // 合同期, 比如3年
+//
 // 示例值：3
 func (builder *ApplicationOfferBasicInfoBuilder) ContractYear(contractYear int) *ApplicationOfferBasicInfoBuilder {
 	builder.contractYear = contractYear
@@ -2165,6 +2285,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) ContractYear(contractYear int) 
 }
 
 // 雇员类型
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) RecruitmentType(recruitmentType *BaseBilingualWithId) *ApplicationOfferBasicInfoBuilder {
 	builder.recruitmentType = recruitmentType
@@ -2173,6 +2294,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) RecruitmentType(recruitmentType
 }
 
 // 序列
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) Sequence(sequence *BaseBilingualWithId) *ApplicationOfferBasicInfoBuilder {
 	builder.sequence = sequence
@@ -2181,6 +2303,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) Sequence(sequence *BaseBilingua
 }
 
 // 级别
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) Level(level *BaseBilingualWithId) *ApplicationOfferBasicInfoBuilder {
 	builder.level = level
@@ -2189,6 +2312,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) Level(level *BaseBilingualWithI
 }
 
 // 入职地点
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) OnboardAddress(onboardAddress *BaseAddress) *ApplicationOfferBasicInfoBuilder {
 	builder.onboardAddress = onboardAddress
@@ -2197,6 +2321,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) OnboardAddress(onboardAddress *
 }
 
 // 工作地点
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) WorkAddress(workAddress *BaseAddress) *ApplicationOfferBasicInfoBuilder {
 	builder.workAddress = workAddress
@@ -2205,6 +2330,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) WorkAddress(workAddress *BaseAd
 }
 
 // 自定义字段信息
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoBuilder) CustomizeInfoList(customizeInfoList []*ApplicationOfferCustomValue) *ApplicationOfferBasicInfoBuilder {
 	builder.customizeInfoList = customizeInfoList
@@ -2309,6 +2435,7 @@ func NewApplicationOfferBasicInfoCustomizedObjectBuilder() *ApplicationOfferBasi
 }
 
 // id
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Id(id string) *ApplicationOfferBasicInfoCustomizedObjectBuilder {
 	builder.id = id
@@ -2317,6 +2444,7 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Id(id string) *
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Name(name *OfferSchemaName) *ApplicationOfferBasicInfoCustomizedObjectBuilder {
 	builder.name = name
@@ -2325,6 +2453,7 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Name(name *Offe
 }
 
 // 自定义字段类型
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Type(type_ string) *ApplicationOfferBasicInfoCustomizedObjectBuilder {
 	builder.type_ = type_
@@ -2333,6 +2462,7 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Type(type_ stri
 }
 
 // 自定义字段的值
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Value(value string) *ApplicationOfferBasicInfoCustomizedObjectBuilder {
 	builder.value = value
@@ -2341,6 +2471,7 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Value(value str
 }
 
 // 单选/多选自定义字段的值
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) OptionValueList(optionValueList []*ApplicationOfferBasicInfoCustomizedObjectOptionValue) *ApplicationOfferBasicInfoCustomizedObjectBuilder {
 	builder.optionValueList = optionValueList
@@ -2389,6 +2520,7 @@ func NewApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder() *Applicati
 }
 
 // 中文名
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder) ZhCn(zhCn string) *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder {
 	builder.zhCn = zhCn
@@ -2397,6 +2529,7 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder) ZhCn
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder) EnUs(enUs string) *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder {
 	builder.enUs = enUs
@@ -2456,6 +2589,7 @@ func NewApplicationOfferBasicInfoUserBuilder() *ApplicationOfferBasicInfoUserBui
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Id(id string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.id = id
@@ -2464,6 +2598,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Id(id string) *ApplicationO
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Name(name string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.name = name
@@ -2472,6 +2607,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Name(name string) *Applicat
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) EnName(enName string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.enName = enName
@@ -2480,6 +2616,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) EnName(enName string) *Appl
 }
 
 // 头像
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Avatar(avatar string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.avatar = avatar
@@ -2488,6 +2625,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Avatar(avatar string) *Appl
 }
 
 // 部门
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Department(department *Department) *ApplicationOfferBasicInfoUserBuilder {
 	builder.department = department
@@ -2496,6 +2634,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Department(department *Depa
 }
 
 // 时区
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Timezone(timezone string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.timezone = timezone
@@ -2504,6 +2643,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Timezone(timezone string) *
 }
 
 // 手机
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Phone(phone string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.phone = phone
@@ -2512,6 +2652,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Phone(phone string) *Applic
 }
 
 // 邮箱
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) Email(email string) *ApplicationOfferBasicInfoUserBuilder {
 	builder.email = email
@@ -2520,6 +2661,7 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Email(email string) *Applic
 }
 
 // 是否拥有app权限
+//
 // 示例值：
 func (builder *ApplicationOfferBasicInfoUserBuilder) InAppScope(inAppScope bool) *ApplicationOfferBasicInfoUserBuilder {
 	builder.inAppScope = inAppScope
@@ -2585,6 +2727,7 @@ func NewApplicationOfferCustomValueBuilder() *ApplicationOfferCustomValueBuilder
 }
 
 // 自定义字段 ID
+//
 // 示例值：key
 func (builder *ApplicationOfferCustomValueBuilder) ObjectId(objectId string) *ApplicationOfferCustomValueBuilder {
 	builder.objectId = objectId
@@ -2593,6 +2736,7 @@ func (builder *ApplicationOfferCustomValueBuilder) ObjectId(objectId string) *Ap
 }
 
 // 自定义字段 value
+//
 // 示例值：value
 func (builder *ApplicationOfferCustomValueBuilder) CustomizeValue(customizeValue string) *ApplicationOfferCustomValueBuilder {
 	builder.customizeValue = customizeValue
@@ -2658,6 +2802,7 @@ func NewApplicationOfferOnboardProfileBuilder() *ApplicationOfferOnboardProfileB
 }
 
 // offer ID
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) OfferId(offerId string) *ApplicationOfferOnboardProfileBuilder {
 	builder.offerId = offerId
@@ -2666,6 +2811,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) OfferId(offerId string) *A
 }
 
 // 部门
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) Department(department *Department) *ApplicationOfferOnboardProfileBuilder {
 	builder.department = department
@@ -2674,6 +2820,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) Department(department *Dep
 }
 
 // 招聘类型
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) RecruitmentType(recruitmentType *RecruitmentType) *ApplicationOfferOnboardProfileBuilder {
 	builder.recruitmentType = recruitmentType
@@ -2682,6 +2829,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) RecruitmentType(recruitmen
 }
 
 // 序列
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) Sequence(sequence *Sequence) *ApplicationOfferOnboardProfileBuilder {
 	builder.sequence = sequence
@@ -2690,6 +2838,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) Sequence(sequence *Sequenc
 }
 
 // 职级
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) Level(level *Level) *ApplicationOfferOnboardProfileBuilder {
 	builder.level = level
@@ -2698,6 +2847,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) Level(level *Level) *Appli
 }
 
 // onboard地址
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) OnboardAddress(onboardAddress *ApplicationOfferOnboardProfileAddress) *ApplicationOfferOnboardProfileBuilder {
 	builder.onboardAddress = onboardAddress
@@ -2706,6 +2856,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) OnboardAddress(onboardAddr
 }
 
 // 工作地址
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) WorkAddress(workAddress *ApplicationOfferOnboardProfileAddress) *ApplicationOfferOnboardProfileBuilder {
 	builder.workAddress = workAddress
@@ -2714,6 +2865,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) WorkAddress(workAddress *A
 }
 
 // 领导
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) Leader(leader *ApplicationOfferBasicInfoUser) *ApplicationOfferOnboardProfileBuilder {
 	builder.leader = leader
@@ -2722,6 +2874,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) Leader(leader *Application
 }
 
 // 工作地址是否与onboard地址相同
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard(isWorkAddressSameToOnboard bool) *ApplicationOfferOnboardProfileBuilder {
 	builder.isWorkAddressSameToOnboard = isWorkAddressSameToOnboard
@@ -2730,6 +2883,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard
 }
 
 // 试用期
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) ProbationMonth(probationMonth int) *ApplicationOfferOnboardProfileBuilder {
 	builder.probationMonth = probationMonth
@@ -2738,6 +2892,7 @@ func (builder *ApplicationOfferOnboardProfileBuilder) ProbationMonth(probationMo
 }
 
 // 合同年限
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileBuilder) ContractYear(contractYear int) *ApplicationOfferOnboardProfileBuilder {
 	builder.contractYear = contractYear
@@ -2826,6 +2981,7 @@ func NewApplicationOfferOnboardProfileAddressBuilder() *ApplicationOfferOnboardP
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) Id(id string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.id = id
@@ -2834,6 +2990,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Id(id string) *Appl
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) Name(name string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.name = name
@@ -2842,6 +2999,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Name(name string) *
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) EnName(enName string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.enName = enName
@@ -2850,6 +3008,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) EnName(enName strin
 }
 
 // 区
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) District(district *ApplicationOfferOnboardProfileCity) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.district = district
@@ -2858,6 +3017,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) District(district *
 }
 
 // 城市
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) City(city *ApplicationOfferOnboardProfileCity) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.city = city
@@ -2866,6 +3026,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) City(city *Applicat
 }
 
 // 省
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) State(state *ApplicationOfferOnboardProfileCity) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.state = state
@@ -2874,6 +3035,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) State(state *Applic
 }
 
 // 国家
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) Country(country *ApplicationOfferOnboardProfileCity) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.country = country
@@ -2882,6 +3044,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Country(country *Ap
 }
 
 // 使用ID列表
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) UsageIdList(usageIdList []string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.usageIdList = usageIdList
@@ -2890,6 +3053,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) UsageIdList(usageId
 }
 
 // 状态
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) ActiveStatus(activeStatus int) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.activeStatus = activeStatus
@@ -2957,6 +3121,7 @@ func NewApplicationOfferOnboardProfileCityBuilder() *ApplicationOfferOnboardProf
 }
 
 // 编码
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileCityBuilder) Code(code string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.code = code
@@ -2965,6 +3130,7 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) Code(code string) *App
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileCityBuilder) Name(name string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.name = name
@@ -2973,6 +3139,7 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) Name(name string) *App
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileCityBuilder) EnName(enName string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.enName = enName
@@ -2981,6 +3148,7 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) EnName(enName string) 
 }
 
 // 地址类型
+//
 // 示例值：
 func (builder *ApplicationOfferOnboardProfileCityBuilder) LocationType(locationType int) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.locationType = locationType
@@ -3048,6 +3216,7 @@ func NewApplicationOfferSalaryPlanBuilder() *ApplicationOfferSalaryPlanBuilder {
 }
 
 // 币种
+//
 // 示例值：CNY
 func (builder *ApplicationOfferSalaryPlanBuilder) Currency(currency string) *ApplicationOfferSalaryPlanBuilder {
 	builder.currency = currency
@@ -3056,6 +3225,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) Currency(currency string) *App
 }
 
 // 基本薪资，为JSON 格式，amount 代表基本薪资的金额，peroid 代表基本薪资的周期单位，如："{"amount":"10000","period":2}"
+//
 // 示例值：{"amount":"10000","period":2}
 func (builder *ApplicationOfferSalaryPlanBuilder) BasicSalary(basicSalary string) *ApplicationOfferSalaryPlanBuilder {
 	builder.basicSalary = basicSalary
@@ -3064,6 +3234,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) BasicSalary(basicSalary string
 }
 
 // 试用期百分比
+//
 // 示例值：10%
 func (builder *ApplicationOfferSalaryPlanBuilder) ProbationSalaryPercentage(probationSalaryPercentage string) *ApplicationOfferSalaryPlanBuilder {
 	builder.probationSalaryPercentage = probationSalaryPercentage
@@ -3072,6 +3243,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) ProbationSalaryPercentage(prob
 }
 
 // 年终奖月数
+//
 // 示例值：12
 func (builder *ApplicationOfferSalaryPlanBuilder) AwardSalaryMultiple(awardSalaryMultiple string) *ApplicationOfferSalaryPlanBuilder {
 	builder.awardSalaryMultiple = awardSalaryMultiple
@@ -3080,6 +3252,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) AwardSalaryMultiple(awardSalar
 }
 
 // 期权股数
+//
 // 示例值：11
 func (builder *ApplicationOfferSalaryPlanBuilder) OptionShares(optionShares string) *ApplicationOfferSalaryPlanBuilder {
 	builder.optionShares = optionShares
@@ -3088,6 +3261,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) OptionShares(optionShares stri
 }
 
 // 季度奖金额
+//
 // 示例值：11111
 func (builder *ApplicationOfferSalaryPlanBuilder) QuarterlyBonus(quarterlyBonus string) *ApplicationOfferSalaryPlanBuilder {
 	builder.quarterlyBonus = quarterlyBonus
@@ -3096,6 +3270,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) QuarterlyBonus(quarterlyBonus 
 }
 
 // 半年奖金额
+//
 // 示例值：11111
 func (builder *ApplicationOfferSalaryPlanBuilder) HalfYearBonus(halfYearBonus string) *ApplicationOfferSalaryPlanBuilder {
 	builder.halfYearBonus = halfYearBonus
@@ -3104,6 +3279,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) HalfYearBonus(halfYearBonus st
 }
 
 // 年度现金总额(数量，非公式)
+//
 // 示例值：11111
 func (builder *ApplicationOfferSalaryPlanBuilder) TotalAnnualCash(totalAnnualCash string) *ApplicationOfferSalaryPlanBuilder {
 	builder.totalAnnualCash = totalAnnualCash
@@ -3112,6 +3288,7 @@ func (builder *ApplicationOfferSalaryPlanBuilder) TotalAnnualCash(totalAnnualCas
 }
 
 // 自定义字段的 value 信息
+//
 // 示例值：
 func (builder *ApplicationOfferSalaryPlanBuilder) CustomizeInfoList(customizeInfoList []*ApplicationOfferCustomValue) *ApplicationOfferSalaryPlanBuilder {
 	builder.customizeInfoList = customizeInfoList
@@ -3183,6 +3360,7 @@ func NewApplicationOfferSalaryPlanSalaryTemplateBuilder() *ApplicationOfferSalar
 }
 
 // 模版key
+//
 // 示例值：
 func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) TemplateKey(templateKey string) *ApplicationOfferSalaryPlanSalaryTemplateBuilder {
 	builder.templateKey = templateKey
@@ -3191,6 +3369,7 @@ func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) TemplateKey(temp
 }
 
 // 总金额
+//
 // 示例值：
 func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) TotalAmount(totalAmount string) *ApplicationOfferSalaryPlanSalaryTemplateBuilder {
 	builder.totalAmount = totalAmount
@@ -3199,6 +3378,7 @@ func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) TotalAmount(tota
 }
 
 // 币种
+//
 // 示例值：
 func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) Currency(currency string) *ApplicationOfferSalaryPlanSalaryTemplateBuilder {
 	builder.currency = currency
@@ -3207,6 +3387,7 @@ func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) Currency(currenc
 }
 
 // 薪酬内容
+//
 // 示例值：
 func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) SalaryContent(salaryContent string) *ApplicationOfferSalaryPlanSalaryTemplateBuilder {
 	builder.salaryContent = salaryContent
@@ -3262,6 +3443,7 @@ func NewApplicationPrehireBuilder() *ApplicationPrehireBuilder {
 }
 
 // 投递id
+//
 // 示例值：6949805467799537964
 func (builder *ApplicationPrehireBuilder) Id(id string) *ApplicationPrehireBuilder {
 	builder.id = id
@@ -3270,6 +3452,7 @@ func (builder *ApplicationPrehireBuilder) Id(id string) *ApplicationPrehireBuild
 }
 
 // 投递基础信息
+//
 // 示例值：
 func (builder *ApplicationPrehireBuilder) BasicInfo(basicInfo *ApplicationBasicInfo) *ApplicationPrehireBuilder {
 	builder.basicInfo = basicInfo
@@ -3278,6 +3461,7 @@ func (builder *ApplicationPrehireBuilder) BasicInfo(basicInfo *ApplicationBasicI
 }
 
 // 人才数据
+//
 // 示例值：
 func (builder *ApplicationPrehireBuilder) Talent(talent *ApplicationTalent) *ApplicationPrehireBuilder {
 	builder.talent = talent
@@ -3286,6 +3470,7 @@ func (builder *ApplicationPrehireBuilder) Talent(talent *ApplicationTalent) *App
 }
 
 // 职位数据
+//
 // 示例值：
 func (builder *ApplicationPrehireBuilder) Job(job *ApplicationJob) *ApplicationPrehireBuilder {
 	builder.job = job
@@ -3294,6 +3479,7 @@ func (builder *ApplicationPrehireBuilder) Job(job *ApplicationJob) *ApplicationP
 }
 
 // Offer数据
+//
 // 示例值：
 func (builder *ApplicationPrehireBuilder) Offer(offer *ApplicationPrehireOffer) *ApplicationPrehireBuilder {
 	builder.offer = offer
@@ -3343,6 +3529,7 @@ func NewApplicationPrehireDepartmentBuilder() *ApplicationPrehireDepartmentBuild
 }
 
 //
+//
 // 示例值：6949805467799537964
 func (builder *ApplicationPrehireDepartmentBuilder) Id(id string) *ApplicationPrehireDepartmentBuilder {
 	builder.id = id
@@ -3351,6 +3538,7 @@ func (builder *ApplicationPrehireDepartmentBuilder) Id(id string) *ApplicationPr
 }
 
 //
+//
 // 示例值：
 func (builder *ApplicationPrehireDepartmentBuilder) Name(name string) *ApplicationPrehireDepartmentBuilder {
 	builder.name = name
@@ -3358,6 +3546,7 @@ func (builder *ApplicationPrehireDepartmentBuilder) Name(name string) *Applicati
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *ApplicationPrehireDepartmentBuilder) EnName(enName string) *ApplicationPrehireDepartmentBuilder {
@@ -3404,6 +3593,7 @@ func NewApplicationPrehireOfferBuilder() *ApplicationPrehireOfferBuilder {
 }
 
 // 投递基础信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOfferBuilder) BasicInfo(basicInfo *ApplicationPrehireOfferBasic) *ApplicationPrehireOfferBuilder {
 	builder.basicInfo = basicInfo
@@ -3412,6 +3602,7 @@ func (builder *ApplicationPrehireOfferBuilder) BasicInfo(basicInfo *ApplicationP
 }
 
 // offer入职信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOfferBuilder) OfferOnboardProfile(offerOnboardProfile *AppliOfferOnboardProfile) *ApplicationPrehireOfferBuilder {
 	builder.offerOnboardProfile = offerOnboardProfile
@@ -3420,6 +3611,7 @@ func (builder *ApplicationPrehireOfferBuilder) OfferOnboardProfile(offerOnboardP
 }
 
 // offer附件
+//
 // 示例值：
 func (builder *ApplicationPrehireOfferBuilder) AttachmentList(attachmentList []*ApplicationOfferAttachment) *ApplicationPrehireOfferBuilder {
 	builder.attachmentList = attachmentList
@@ -3489,6 +3681,7 @@ func NewApplicationPrehireOfferBasicBuilder() *ApplicationPrehireOfferBasicBuild
 }
 
 //
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferId(offerId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.offerId = offerId
@@ -3496,6 +3689,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OfferId(offerId string) *App
 	return builder
 }
 
+//
 //
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) ApplicationId(applicationId string) *ApplicationPrehireOfferBasicBuilder {
@@ -3505,6 +3699,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) ApplicationId(applicationId 
 }
 
 //
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) TalentId(talentId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.talentId = talentId
@@ -3512,6 +3707,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) TalentId(talentId string) *A
 	return builder
 }
 
+//
 //
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) JobId(jobId string) *ApplicationPrehireOfferBasicBuilder {
@@ -3521,6 +3717,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) JobId(jobId string) *Applica
 }
 
 //
+//
 // 示例值：test
 func (builder *ApplicationPrehireOfferBasicBuilder) Remark(remark string) *ApplicationPrehireOfferBasicBuilder {
 	builder.remark = remark
@@ -3528,6 +3725,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) Remark(remark string) *Appli
 	return builder
 }
 
+//
 //
 // 示例值：1111233344
 func (builder *ApplicationPrehireOfferBasicBuilder) ExpireTime(expireTime int) *ApplicationPrehireOfferBasicBuilder {
@@ -3537,6 +3735,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) ExpireTime(expireTime int) *
 }
 
 //
+//
 // 示例值：1111233344
 func (builder *ApplicationPrehireOfferBasicBuilder) OnboardTime(onboardTime int) *ApplicationPrehireOfferBasicBuilder {
 	builder.onboardTime = onboardTime
@@ -3544,6 +3743,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OnboardTime(onboardTime int)
 	return builder
 }
 
+//
 //
 // 示例值：111
 func (builder *ApplicationPrehireOfferBasicBuilder) TimeZone(timeZone string) *ApplicationPrehireOfferBasicBuilder {
@@ -3553,6 +3753,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) TimeZone(timeZone string) *A
 }
 
 // Offer类型 1=Social, 2=Campus, 3=Intern, 4=InternTransfer
+//
 // 示例值：1
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferType(offerType int) *ApplicationPrehireOfferBasicBuilder {
 	builder.offerType = offerType
@@ -3561,6 +3762,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OfferType(offerType int) *Ap
 }
 
 // Offer状态
+//
 // 示例值：0
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferStatus(offerStatus int) *ApplicationPrehireOfferBasicBuilder {
 	builder.offerStatus = offerStatus
@@ -3569,6 +3771,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OfferStatus(offerStatus int)
 }
 
 //
+//
 // 示例值：
 func (builder *ApplicationPrehireOfferBasicBuilder) Owner(owner *AppliOfferBasicInfoUser) *ApplicationPrehireOfferBasicBuilder {
 	builder.owner = owner
@@ -3576,6 +3779,7 @@ func (builder *ApplicationPrehireOfferBasicBuilder) Owner(owner *AppliOfferBasic
 	return builder
 }
 
+//
 //
 // 示例值：test
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferJobTitle(offerJobTitle string) *ApplicationPrehireOfferBasicBuilder {
@@ -3660,6 +3864,7 @@ func NewApplicationPrehireOptionalBuilder() *ApplicationPrehireOptionalBuilder {
 }
 
 // 是否包含基础信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOptionalBuilder) WithTalentBasic(withTalentBasic bool) *ApplicationPrehireOptionalBuilder {
 	builder.withTalentBasic = withTalentBasic
@@ -3668,6 +3873,7 @@ func (builder *ApplicationPrehireOptionalBuilder) WithTalentBasic(withTalentBasi
 }
 
 // 是否包含扩展信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOptionalBuilder) WithTalentExtend(withTalentExtend bool) *ApplicationPrehireOptionalBuilder {
 	builder.withTalentExtend = withTalentExtend
@@ -3676,6 +3882,7 @@ func (builder *ApplicationPrehireOptionalBuilder) WithTalentExtend(withTalentExt
 }
 
 // 是否包含岗位信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOptionalBuilder) WithJob(withJob bool) *ApplicationPrehireOptionalBuilder {
 	builder.withJob = withJob
@@ -3684,6 +3891,7 @@ func (builder *ApplicationPrehireOptionalBuilder) WithJob(withJob bool) *Applica
 }
 
 // 是否包含offer信息
+//
 // 示例值：
 func (builder *ApplicationPrehireOptionalBuilder) WithOffer(withOffer bool) *ApplicationPrehireOptionalBuilder {
 	builder.withOffer = withOffer
@@ -3733,6 +3941,7 @@ func NewApplicationReferralBuilder() *ApplicationReferralBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationReferralBuilder) Id(id string) *ApplicationReferralBuilder {
 	builder.id = id
@@ -3741,6 +3950,7 @@ func (builder *ApplicationReferralBuilder) Id(id string) *ApplicationReferralBui
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationReferralBuilder) Name(name string) *ApplicationReferralBuilder {
 	builder.name = name
@@ -3749,6 +3959,7 @@ func (builder *ApplicationReferralBuilder) Name(name string) *ApplicationReferra
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationReferralBuilder) EnName(enName string) *ApplicationReferralBuilder {
 	builder.enName = enName
@@ -3794,6 +4005,7 @@ func NewApplicationResumeSourceBuilder() *ApplicationResumeSourceBuilder {
 }
 
 // 投递来源 ID
+//
 // 示例值：614218419274131
 func (builder *ApplicationResumeSourceBuilder) Id(id string) *ApplicationResumeSourceBuilder {
 	builder.id = id
@@ -3802,6 +4014,7 @@ func (builder *ApplicationResumeSourceBuilder) Id(id string) *ApplicationResumeS
 }
 
 // 投递来源名称
+//
 // 示例值：
 func (builder *ApplicationResumeSourceBuilder) Name(name *I18n) *ApplicationResumeSourceBuilder {
 	builder.name = name
@@ -3810,6 +4023,7 @@ func (builder *ApplicationResumeSourceBuilder) Name(name *I18n) *ApplicationResu
 }
 
 // 投递来源类型
+//
 // 示例值：10002
 func (builder *ApplicationResumeSourceBuilder) ResumeSourceType(resumeSourceType int) *ApplicationResumeSourceBuilder {
 	builder.resumeSourceType = resumeSourceType
@@ -3872,6 +4086,7 @@ func NewApplicationStageBuilder() *ApplicationStageBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) Id(id string) *ApplicationStageBuilder {
 	builder.id = id
@@ -3880,6 +4095,7 @@ func (builder *ApplicationStageBuilder) Id(id string) *ApplicationStageBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) Name(name string) *ApplicationStageBuilder {
 	builder.name = name
@@ -3888,6 +4104,7 @@ func (builder *ApplicationStageBuilder) Name(name string) *ApplicationStageBuild
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) EnName(enName string) *ApplicationStageBuilder {
 	builder.enName = enName
@@ -3896,6 +4113,7 @@ func (builder *ApplicationStageBuilder) EnName(enName string) *ApplicationStageB
 }
 
 // 类型
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) Type(type_ int) *ApplicationStageBuilder {
 	builder.type_ = type_
@@ -3904,6 +4122,7 @@ func (builder *ApplicationStageBuilder) Type(type_ int) *ApplicationStageBuilder
 }
 
 // 参数
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) Args(args string) *ApplicationStageBuilder {
 	builder.args = args
@@ -3912,6 +4131,7 @@ func (builder *ApplicationStageBuilder) Args(args string) *ApplicationStageBuild
 }
 
 // 创建者ID
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) CreatorId(creatorId string) *ApplicationStageBuilder {
 	builder.creatorId = creatorId
@@ -3920,6 +4140,7 @@ func (builder *ApplicationStageBuilder) CreatorId(creatorId string) *Application
 }
 
 // 序列
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) Seq(seq int) *ApplicationStageBuilder {
 	builder.seq = seq
@@ -3928,6 +4149,7 @@ func (builder *ApplicationStageBuilder) Seq(seq int) *ApplicationStageBuilder {
 }
 
 // 发布名称
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) PublishName(publishName string) *ApplicationStageBuilder {
 	builder.publishName = publishName
@@ -3936,6 +4158,7 @@ func (builder *ApplicationStageBuilder) PublishName(publishName string) *Applica
 }
 
 // 发布英文名
+//
 // 示例值：
 func (builder *ApplicationStageBuilder) PublishEnName(publishEnName string) *ApplicationStageBuilder {
 	builder.publishEnName = publishEnName
@@ -4008,6 +4231,7 @@ func NewApplicationStageInfoBuilder() *ApplicationStageInfoBuilder {
 }
 
 // 阶段 ID
+//
 // 示例值：614218419274131
 func (builder *ApplicationStageInfoBuilder) Id(id string) *ApplicationStageInfoBuilder {
 	builder.id = id
@@ -4016,6 +4240,7 @@ func (builder *ApplicationStageInfoBuilder) Id(id string) *ApplicationStageInfoB
 }
 
 // 阶段中文名字
+//
 // 示例值：面试
 func (builder *ApplicationStageInfoBuilder) ZhName(zhName string) *ApplicationStageInfoBuilder {
 	builder.zhName = zhName
@@ -4024,6 +4249,7 @@ func (builder *ApplicationStageInfoBuilder) ZhName(zhName string) *ApplicationSt
 }
 
 // 英文名
+//
 // 示例值：Interview
 func (builder *ApplicationStageInfoBuilder) EnName(enName string) *ApplicationStageInfoBuilder {
 	builder.enName = enName
@@ -4032,6 +4258,7 @@ func (builder *ApplicationStageInfoBuilder) EnName(enName string) *ApplicationSt
 }
 
 // 阶段类型
+//
 // 示例值：1
 func (builder *ApplicationStageInfoBuilder) Type(type_ int) *ApplicationStageInfoBuilder {
 	builder.type_ = type_
@@ -4081,6 +4308,7 @@ func NewApplicationStageTimeBuilder() *ApplicationStageTimeBuilder {
 }
 
 // 阶段 ID
+//
 // 示例值：614218419274131
 func (builder *ApplicationStageTimeBuilder) StageId(stageId string) *ApplicationStageTimeBuilder {
 	builder.stageId = stageId
@@ -4089,6 +4317,7 @@ func (builder *ApplicationStageTimeBuilder) StageId(stageId string) *Application
 }
 
 // 最近一次进入该阶段的时间
+//
 // 示例值：1632991542615
 func (builder *ApplicationStageTimeBuilder) EnterTime(enterTime string) *ApplicationStageTimeBuilder {
 	builder.enterTime = enterTime
@@ -4097,6 +4326,7 @@ func (builder *ApplicationStageTimeBuilder) EnterTime(enterTime string) *Applica
 }
 
 // 最后一次离开时间，如当前在该阶段，则为空
+//
 // 示例值：1631509574398
 func (builder *ApplicationStageTimeBuilder) ExitTime(exitTime string) *ApplicationStageTimeBuilder {
 	builder.exitTime = exitTime
@@ -4172,6 +4402,7 @@ func NewApplicationTalentBuilder() *ApplicationTalentBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) Id(id string) *ApplicationTalentBuilder {
 	builder.id = id
@@ -4180,6 +4411,7 @@ func (builder *ApplicationTalentBuilder) Id(id string) *ApplicationTalentBuilder
 }
 
 // 基础信息
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) BasicInfo(basicInfo *ApplicationTalentBasicInfo) *ApplicationTalentBuilder {
 	builder.basicInfo = basicInfo
@@ -4188,6 +4420,7 @@ func (builder *ApplicationTalentBuilder) BasicInfo(basicInfo *ApplicationTalentB
 }
 
 // 自我评价
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) SelfEvaluation(selfEvaluation string) *ApplicationTalentBuilder {
 	builder.selfEvaluation = selfEvaluation
@@ -4196,6 +4429,7 @@ func (builder *ApplicationTalentBuilder) SelfEvaluation(selfEvaluation string) *
 }
 
 // 教育经历
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) EducationList(educationList []*AppliTalentEducationInfo) *ApplicationTalentBuilder {
 	builder.educationList = educationList
@@ -4204,6 +4438,7 @@ func (builder *ApplicationTalentBuilder) EducationList(educationList []*AppliTal
 }
 
 // 工作经历
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) CareerList(careerList []*ApplicationTalentCareerInfo) *ApplicationTalentBuilder {
 	builder.careerList = careerList
@@ -4212,6 +4447,7 @@ func (builder *ApplicationTalentBuilder) CareerList(careerList []*ApplicationTal
 }
 
 // 项目经历
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) ProjectList(projectList []*ApplicationTalentProjectInfo) *ApplicationTalentBuilder {
 	builder.projectList = projectList
@@ -4220,6 +4456,7 @@ func (builder *ApplicationTalentBuilder) ProjectList(projectList []*ApplicationT
 }
 
 // 作品集
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) WorksList(worksList []*ApplicationTalentWorksInfo) *ApplicationTalentBuilder {
 	builder.worksList = worksList
@@ -4228,6 +4465,7 @@ func (builder *ApplicationTalentBuilder) WorksList(worksList []*ApplicationTalen
 }
 
 // 获奖列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) AwardList(awardList []*ApplicationTalentAwardInfo) *ApplicationTalentBuilder {
 	builder.awardList = awardList
@@ -4236,6 +4474,7 @@ func (builder *ApplicationTalentBuilder) AwardList(awardList []*ApplicationTalen
 }
 
 // 竞赛列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) CompetitionList(competitionList []*AppliTalentCompetitionInfo) *ApplicationTalentBuilder {
 	builder.competitionList = competitionList
@@ -4244,6 +4483,7 @@ func (builder *ApplicationTalentBuilder) CompetitionList(competitionList []*Appl
 }
 
 // 证书列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) CertificateList(certificateList []*AppliTalentCertificateInfo) *ApplicationTalentBuilder {
 	builder.certificateList = certificateList
@@ -4252,6 +4492,7 @@ func (builder *ApplicationTalentBuilder) CertificateList(certificateList []*Appl
 }
 
 // 语言列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) LanguageList(languageList []*ApplicationTalentLanguageInfo) *ApplicationTalentBuilder {
 	builder.languageList = languageList
@@ -4260,6 +4501,7 @@ func (builder *ApplicationTalentBuilder) LanguageList(languageList []*Applicatio
 }
 
 // SNS列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) SnsList(snsList []*ApplicationTalentSnsInfo) *ApplicationTalentBuilder {
 	builder.snsList = snsList
@@ -4268,6 +4510,7 @@ func (builder *ApplicationTalentBuilder) SnsList(snsList []*ApplicationTalentSns
 }
 
 // 附件简历列表
+//
 // 示例值：
 func (builder *ApplicationTalentBuilder) AttachmentResumeList(attachmentResumeList []*AppliTalentAttachResumeInfo) *ApplicationTalentBuilder {
 	builder.attachmentResumeList = attachmentResumeList
@@ -4339,6 +4582,7 @@ func NewApplicationTalentAttachmentResumeInfoBuilder() *ApplicationTalentAttachm
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentAttachmentResumeInfoBuilder) Id(id string) *ApplicationTalentAttachmentResumeInfoBuilder {
 	builder.id = id
@@ -4347,6 +4591,7 @@ func (builder *ApplicationTalentAttachmentResumeInfoBuilder) Id(id string) *Appl
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationTalentAttachmentResumeInfoBuilder) Name(name string) *ApplicationTalentAttachmentResumeInfoBuilder {
 	builder.name = name
@@ -4391,6 +4636,7 @@ func NewApplicationTalentAwardInfoBuilder() *ApplicationTalentAwardInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentAwardInfoBuilder) Id(id string) *ApplicationTalentAwardInfoBuilder {
 	builder.id = id
@@ -4399,6 +4645,7 @@ func (builder *ApplicationTalentAwardInfoBuilder) Id(id string) *ApplicationTale
 }
 
 // 名称
+//
 // 示例值：
 func (builder *ApplicationTalentAwardInfoBuilder) Title(title string) *ApplicationTalentAwardInfoBuilder {
 	builder.title = title
@@ -4407,6 +4654,7 @@ func (builder *ApplicationTalentAwardInfoBuilder) Title(title string) *Applicati
 }
 
 // 获奖时间
+//
 // 示例值：
 func (builder *ApplicationTalentAwardInfoBuilder) AwardTime(awardTime int) *ApplicationTalentAwardInfoBuilder {
 	builder.awardTime = awardTime
@@ -4415,6 +4663,7 @@ func (builder *ApplicationTalentAwardInfoBuilder) AwardTime(awardTime int) *Appl
 }
 
 // 描述
+//
 // 示例值：
 func (builder *ApplicationTalentAwardInfoBuilder) Desc(desc string) *ApplicationTalentAwardInfoBuilder {
 	builder.desc = desc
@@ -4497,6 +4746,7 @@ func NewApplicationTalentBasicInfoBuilder() *ApplicationTalentBasicInfoBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Name(name string) *ApplicationTalentBasicInfoBuilder {
 	builder.name = name
@@ -4505,6 +4755,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Name(name string) *Application
 }
 
 // 手机
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Mobile(mobile string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobile = mobile
@@ -4513,6 +4764,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Mobile(mobile string) *Applica
 }
 
 // 手机国家代码
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -4521,6 +4773,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) MobileCountryCode(mobileCountr
 }
 
 // 邮箱
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Email(email string) *ApplicationTalentBasicInfoBuilder {
 	builder.email = email
@@ -4529,6 +4782,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Email(email string) *Applicati
 }
 
 // 工作年限
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) ExperienceYears(experienceYears int) *ApplicationTalentBasicInfoBuilder {
 	builder.experienceYears = experienceYears
@@ -4537,6 +4791,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) ExperienceYears(experienceYear
 }
 
 // 年龄
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Age(age int) *ApplicationTalentBasicInfoBuilder {
 	builder.age = age
@@ -4545,6 +4800,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Age(age int) *ApplicationTalen
 }
 
 // 国籍
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Nationality(nationality *Nationality) *ApplicationTalentBasicInfoBuilder {
 	builder.nationality = nationality
@@ -4553,6 +4809,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Nationality(nationality *Natio
 }
 
 // 性别
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) Gender(gender int) *ApplicationTalentBasicInfoBuilder {
 	builder.gender = gender
@@ -4561,6 +4818,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Gender(gender int) *Applicatio
 }
 
 // 现居住城市
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) CurrentCity(currentCity *City) *ApplicationTalentBasicInfoBuilder {
 	builder.currentCity = currentCity
@@ -4569,6 +4827,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) CurrentCity(currentCity *City)
 }
 
 // 家乡所在城市
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) HometownCity(hometownCity *City) *ApplicationTalentBasicInfoBuilder {
 	builder.hometownCity = hometownCity
@@ -4577,6 +4836,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) HometownCity(hometownCity *Cit
 }
 
 // 首选城市
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) PreferredCityList(preferredCityList []*City) *ApplicationTalentBasicInfoBuilder {
 	builder.preferredCityList = preferredCityList
@@ -4585,6 +4845,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) PreferredCityList(preferredCit
 }
 
 // 手机国家代码
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) MobileCode(mobileCode string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobileCode = mobileCode
@@ -4593,6 +4854,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) MobileCode(mobileCode string) 
 }
 
 // 证件类型
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) IdentificationType(identificationType int) *ApplicationTalentBasicInfoBuilder {
 	builder.identificationType = identificationType
@@ -4601,6 +4863,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) IdentificationType(identificat
 }
 
 // 证件号码
+//
 // 示例值：
 func (builder *ApplicationTalentBasicInfoBuilder) IdentificationNumber(identificationNumber string) *ApplicationTalentBasicInfoBuilder {
 	builder.identificationNumber = identificationNumber
@@ -4698,6 +4961,7 @@ func NewApplicationTalentCareerInfoBuilder() *ApplicationTalentCareerInfoBuilder
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) Id(id string) *ApplicationTalentCareerInfoBuilder {
 	builder.id = id
@@ -4706,6 +4970,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) Id(id string) *ApplicationTal
 }
 
 // 公司
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) Company(company string) *ApplicationTalentCareerInfoBuilder {
 	builder.company = company
@@ -4714,6 +4979,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) Company(company string) *Appl
 }
 
 // 职称
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) Title(title string) *ApplicationTalentCareerInfoBuilder {
 	builder.title = title
@@ -4722,6 +4988,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) Title(title string) *Applicat
 }
 
 // 描述
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) Desc(desc string) *ApplicationTalentCareerInfoBuilder {
 	builder.desc = desc
@@ -4730,6 +4997,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) Desc(desc string) *Applicatio
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) StartTime(startTime string) *ApplicationTalentCareerInfoBuilder {
 	builder.startTime = startTime
@@ -4738,6 +5006,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) StartTime(startTime string) *
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) EndTime(endTime string) *ApplicationTalentCareerInfoBuilder {
 	builder.endTime = endTime
@@ -4746,6 +5015,7 @@ func (builder *ApplicationTalentCareerInfoBuilder) EndTime(endTime string) *Appl
 }
 
 // 标签列表
+//
 // 示例值：
 func (builder *ApplicationTalentCareerInfoBuilder) TagList(tagList []int) *ApplicationTalentCareerInfoBuilder {
 	builder.tagList = tagList
@@ -4806,6 +5076,7 @@ func NewApplicationTalentCertificateInfoBuilder() *ApplicationTalentCertificateI
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentCertificateInfoBuilder) Id(id string) *ApplicationTalentCertificateInfoBuilder {
 	builder.id = id
@@ -4814,6 +5085,7 @@ func (builder *ApplicationTalentCertificateInfoBuilder) Id(id string) *Applicati
 }
 
 // 证件名称
+//
 // 示例值：
 func (builder *ApplicationTalentCertificateInfoBuilder) Name(name string) *ApplicationTalentCertificateInfoBuilder {
 	builder.name = name
@@ -4822,6 +5094,7 @@ func (builder *ApplicationTalentCertificateInfoBuilder) Name(name string) *Appli
 }
 
 // 证件描述
+//
 // 示例值：
 func (builder *ApplicationTalentCertificateInfoBuilder) Desc(desc string) *ApplicationTalentCertificateInfoBuilder {
 	builder.desc = desc
@@ -4867,6 +5140,7 @@ func NewApplicationTalentCompetitionInfoBuilder() *ApplicationTalentCompetitionI
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentCompetitionInfoBuilder) Id(id string) *ApplicationTalentCompetitionInfoBuilder {
 	builder.id = id
@@ -4875,6 +5149,7 @@ func (builder *ApplicationTalentCompetitionInfoBuilder) Id(id string) *Applicati
 }
 
 // 竞赛名称
+//
 // 示例值：
 func (builder *ApplicationTalentCompetitionInfoBuilder) Name(name string) *ApplicationTalentCompetitionInfoBuilder {
 	builder.name = name
@@ -4883,6 +5158,7 @@ func (builder *ApplicationTalentCompetitionInfoBuilder) Name(name string) *Appli
 }
 
 // 竞赛描述
+//
 // 示例值：
 func (builder *ApplicationTalentCompetitionInfoBuilder) Desc(desc string) *ApplicationTalentCompetitionInfoBuilder {
 	builder.desc = desc
@@ -4946,6 +5222,7 @@ func NewApplicationTalentEducationInfoBuilder() *ApplicationTalentEducationInfoB
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) Id(id string) *ApplicationTalentEducationInfoBuilder {
 	builder.id = id
@@ -4954,6 +5231,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) Id(id string) *Application
 }
 
 // 学历
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) Degree(degree int) *ApplicationTalentEducationInfoBuilder {
 	builder.degree = degree
@@ -4962,6 +5240,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) Degree(degree int) *Applic
 }
 
 // 学校
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) School(school string) *ApplicationTalentEducationInfoBuilder {
 	builder.school = school
@@ -4970,6 +5249,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) School(school string) *App
 }
 
 // 专业
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *ApplicationTalentEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -4978,6 +5258,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy 
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) StartTime(startTime string) *ApplicationTalentEducationInfoBuilder {
 	builder.startTime = startTime
@@ -4986,6 +5267,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) StartTime(startTime string
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) EndTime(endTime string) *ApplicationTalentEducationInfoBuilder {
 	builder.endTime = endTime
@@ -4994,6 +5276,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) EndTime(endTime string) *A
 }
 
 // 学历类型
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) EducationType(educationType int) *ApplicationTalentEducationInfoBuilder {
 	builder.educationType = educationType
@@ -5002,6 +5285,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) EducationType(educationTyp
 }
 
 // 排名
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) AcademicRanking(academicRanking int) *ApplicationTalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
@@ -5010,6 +5294,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) AcademicRanking(academicRa
 }
 
 // 标签列表
+//
 // 示例值：
 func (builder *ApplicationTalentEducationInfoBuilder) TagList(tagList []int) *ApplicationTalentEducationInfoBuilder {
 	builder.tagList = tagList
@@ -5078,6 +5363,7 @@ func NewApplicationTalentLanguageInfoBuilder() *ApplicationTalentLanguageInfoBui
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentLanguageInfoBuilder) Id(id string) *ApplicationTalentLanguageInfoBuilder {
 	builder.id = id
@@ -5086,6 +5372,7 @@ func (builder *ApplicationTalentLanguageInfoBuilder) Id(id string) *ApplicationT
 }
 
 // 语言
+//
 // 示例值：
 func (builder *ApplicationTalentLanguageInfoBuilder) Language(language int) *ApplicationTalentLanguageInfoBuilder {
 	builder.language = language
@@ -5094,6 +5381,7 @@ func (builder *ApplicationTalentLanguageInfoBuilder) Language(language int) *App
 }
 
 // 熟练程度
+//
 // 示例值：
 func (builder *ApplicationTalentLanguageInfoBuilder) Proficiency(proficiency int) *ApplicationTalentLanguageInfoBuilder {
 	builder.proficiency = proficiency
@@ -5151,6 +5439,7 @@ func NewApplicationTalentProjectInfoBuilder() *ApplicationTalentProjectInfoBuild
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) Id(id string) *ApplicationTalentProjectInfoBuilder {
 	builder.id = id
@@ -5159,6 +5448,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Id(id string) *ApplicationTa
 }
 
 // 名字
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) Name(name string) *ApplicationTalentProjectInfoBuilder {
 	builder.name = name
@@ -5167,6 +5457,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Name(name string) *Applicati
 }
 
 // 角色
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) Role(role string) *ApplicationTalentProjectInfoBuilder {
 	builder.role = role
@@ -5175,6 +5466,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Role(role string) *Applicati
 }
 
 // 链接
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) Link(link string) *ApplicationTalentProjectInfoBuilder {
 	builder.link = link
@@ -5183,6 +5475,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Link(link string) *Applicati
 }
 
 // 描述
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) Desc(desc string) *ApplicationTalentProjectInfoBuilder {
 	builder.desc = desc
@@ -5191,6 +5484,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Desc(desc string) *Applicati
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) StartTime(startTime int) *ApplicationTalentProjectInfoBuilder {
 	builder.startTime = startTime
@@ -5199,6 +5493,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) StartTime(startTime int) *Ap
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *ApplicationTalentProjectInfoBuilder) EndTime(endTime int) *ApplicationTalentProjectInfoBuilder {
 	builder.endTime = endTime
@@ -5260,6 +5555,7 @@ func NewApplicationTalentSnsInfoBuilder() *ApplicationTalentSnsInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentSnsInfoBuilder) Id(id string) *ApplicationTalentSnsInfoBuilder {
 	builder.id = id
@@ -5268,6 +5564,7 @@ func (builder *ApplicationTalentSnsInfoBuilder) Id(id string) *ApplicationTalent
 }
 
 // SNS类型
+//
 // 示例值：
 func (builder *ApplicationTalentSnsInfoBuilder) SnsType(snsType int) *ApplicationTalentSnsInfoBuilder {
 	builder.snsType = snsType
@@ -5276,6 +5573,7 @@ func (builder *ApplicationTalentSnsInfoBuilder) SnsType(snsType int) *Applicatio
 }
 
 // SNS链接
+//
 // 示例值：
 func (builder *ApplicationTalentSnsInfoBuilder) Link(link string) *ApplicationTalentSnsInfoBuilder {
 	builder.link = link
@@ -5324,6 +5622,7 @@ func NewApplicationTalentWorksInfoBuilder() *ApplicationTalentWorksInfoBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *ApplicationTalentWorksInfoBuilder) Id(id string) *ApplicationTalentWorksInfoBuilder {
 	builder.id = id
@@ -5332,6 +5631,7 @@ func (builder *ApplicationTalentWorksInfoBuilder) Id(id string) *ApplicationTale
 }
 
 // 作品集链接
+//
 // 示例值：
 func (builder *ApplicationTalentWorksInfoBuilder) Link(link string) *ApplicationTalentWorksInfoBuilder {
 	builder.link = link
@@ -5340,6 +5640,7 @@ func (builder *ApplicationTalentWorksInfoBuilder) Link(link string) *Application
 }
 
 // 作品描述
+//
 // 示例值：
 func (builder *ApplicationTalentWorksInfoBuilder) Desc(desc string) *ApplicationTalentWorksInfoBuilder {
 	builder.desc = desc
@@ -5348,6 +5649,7 @@ func (builder *ApplicationTalentWorksInfoBuilder) Desc(desc string) *Application
 }
 
 // 作品名称
+//
 // 示例值：
 func (builder *ApplicationTalentWorksInfoBuilder) Name(name string) *ApplicationTalentWorksInfoBuilder {
 	builder.name = name
@@ -5394,6 +5696,7 @@ func NewApplicationWebsiteChannelBuilder() *ApplicationWebsiteChannelBuilder {
 }
 
 // 官网推广渠道 ID
+//
 // 示例值：777218419274131
 func (builder *ApplicationWebsiteChannelBuilder) ChannelId(channelId string) *ApplicationWebsiteChannelBuilder {
 	builder.channelId = channelId
@@ -5402,6 +5705,7 @@ func (builder *ApplicationWebsiteChannelBuilder) ChannelId(channelId string) *Ap
 }
 
 // 官网推广渠道名称
+//
 // 示例值：
 func (builder *ApplicationWebsiteChannelBuilder) ChannelName(channelName *I18n) *ApplicationWebsiteChannelBuilder {
 	builder.channelName = channelName
@@ -5442,6 +5746,7 @@ func NewApplicationWebsiteResumeSourceBuilder() *ApplicationWebsiteResumeSourceB
 }
 
 // 官网站点 ID
+//
 // 示例值：614218419274131
 func (builder *ApplicationWebsiteResumeSourceBuilder) WebsiteId(websiteId string) *ApplicationWebsiteResumeSourceBuilder {
 	builder.websiteId = websiteId
@@ -5450,6 +5755,7 @@ func (builder *ApplicationWebsiteResumeSourceBuilder) WebsiteId(websiteId string
 }
 
 // 官网站点名称
+//
 // 示例值：
 func (builder *ApplicationWebsiteResumeSourceBuilder) WebsiteName(websiteName *I18n) *ApplicationWebsiteResumeSourceBuilder {
 	builder.websiteName = websiteName
@@ -5458,6 +5764,7 @@ func (builder *ApplicationWebsiteResumeSourceBuilder) WebsiteName(websiteName *I
 }
 
 // 推广渠道来源
+//
 // 示例值：
 func (builder *ApplicationWebsiteResumeSourceBuilder) Channel(channel *ApplicationWebsiteChannel) *ApplicationWebsiteResumeSourceBuilder {
 	builder.channel = channel
@@ -5507,6 +5814,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 }
 
 // 附件id
+//
 // 示例值：6949805467799537964
 func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 	builder.id = id
@@ -5515,6 +5823,7 @@ func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 }
 
 // 附件的url
+//
 // 示例值：https://hire.feishu.cn/blob/xx/
 func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 	builder.url = url
@@ -5523,6 +5832,7 @@ func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 }
 
 // 附件文件名
+//
 // 示例值：xx的简历.prd
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
@@ -5531,6 +5841,7 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 }
 
 // 媒体类型/MIME
+//
 // 示例值：application/pdf
 func (builder *AttachmentBuilder) Mime(mime string) *AttachmentBuilder {
 	builder.mime = mime
@@ -5539,6 +5850,7 @@ func (builder *AttachmentBuilder) Mime(mime string) *AttachmentBuilder {
 }
 
 // 附件创建时间（单位ms）
+//
 // 示例值：1618899376480
 func (builder *AttachmentBuilder) CreateTime(createTime int) *AttachmentBuilder {
 	builder.createTime = createTime
@@ -5589,6 +5901,7 @@ func NewAuthBuilder() *AuthBuilder {
 }
 
 // 权限 ID
+//
 // 示例值：101
 func (builder *AuthBuilder) Id(id string) *AuthBuilder {
 	builder.id = id
@@ -5597,6 +5910,7 @@ func (builder *AuthBuilder) Id(id string) *AuthBuilder {
 }
 
 // 权限名称
+//
 // 示例值：
 func (builder *AuthBuilder) Name(name *I18n) *AuthBuilder {
 	builder.name = name
@@ -5637,6 +5951,7 @@ func NewAwardInfoBuilder() *AwardInfoBuilder {
 }
 
 // 获奖时间
+//
 // 示例值：
 func (builder *AwardInfoBuilder) AwardTime(awardTime int) *AwardInfoBuilder {
 	builder.awardTime = awardTime
@@ -5645,6 +5960,7 @@ func (builder *AwardInfoBuilder) AwardTime(awardTime int) *AwardInfoBuilder {
 }
 
 // 描述
+//
 // 示例值：
 func (builder *AwardInfoBuilder) Desc(desc string) *AwardInfoBuilder {
 	builder.desc = desc
@@ -5653,6 +5969,7 @@ func (builder *AwardInfoBuilder) Desc(desc string) *AwardInfoBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *AwardInfoBuilder) Title(title string) *AwardInfoBuilder {
 	builder.title = title
@@ -5695,6 +6012,7 @@ func NewBackgroundCheckFeedbackInfoBuilder() *BackgroundCheckFeedbackInfoBuilder
 }
 
 // 背调信息附件下载链接
+//
 // 示例值：https://feishucdn.com/staource/v1/2de04c10-5cda-4c50~?image_size=np&cutpe=&quity=&mat=g&stmat=.wp
 func (builder *BackgroundCheckFeedbackInfoBuilder) AttachmentUrl(attachmentUrl string) *BackgroundCheckFeedbackInfoBuilder {
 	builder.attachmentUrl = attachmentUrl
@@ -5703,6 +6021,7 @@ func (builder *BackgroundCheckFeedbackInfoBuilder) AttachmentUrl(attachmentUrl s
 }
 
 // 背调结果：红灯、黄灯、绿灯
+//
 // 示例值：红灯
 func (builder *BackgroundCheckFeedbackInfoBuilder) Result(result string) *BackgroundCheckFeedbackInfoBuilder {
 	builder.result = result
@@ -5753,6 +6072,7 @@ func NewBackgroundCheckOrderBuilder() *BackgroundCheckOrderBuilder {
 }
 
 // 背调 ID
+//
 // 示例值：7037986982531778860
 func (builder *BackgroundCheckOrderBuilder) OrderId(orderId string) *BackgroundCheckOrderBuilder {
 	builder.orderId = orderId
@@ -5761,6 +6081,7 @@ func (builder *BackgroundCheckOrderBuilder) OrderId(orderId string) *BackgroundC
 }
 
 // 投递 ID
+//
 // 示例值：6985833807195212076
 func (builder *BackgroundCheckOrderBuilder) ApplicationId(applicationId string) *BackgroundCheckOrderBuilder {
 	builder.applicationId = applicationId
@@ -5769,6 +6090,7 @@ func (builder *BackgroundCheckOrderBuilder) ApplicationId(applicationId string) 
 }
 
 // 供应商名称
+//
 // 示例值：1
 func (builder *BackgroundCheckOrderBuilder) AccountThirdType(accountThirdType int) *BackgroundCheckOrderBuilder {
 	builder.accountThirdType = accountThirdType
@@ -5777,6 +6099,7 @@ func (builder *BackgroundCheckOrderBuilder) AccountThirdType(accountThirdType in
 }
 
 // 背调套餐
+//
 // 示例值：基础版
 func (builder *BackgroundCheckOrderBuilder) Package(package_ string) *BackgroundCheckOrderBuilder {
 	builder.package_ = package_
@@ -5785,6 +6108,7 @@ func (builder *BackgroundCheckOrderBuilder) Package(package_ string) *Background
 }
 
 // 背调报告信息
+//
 // 示例值：
 func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []*BackgroundCheckFeedbackInfo) *BackgroundCheckOrderBuilder {
 	builder.feedbackInfoList = feedbackInfoList
@@ -5793,6 +6117,7 @@ func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []
 }
 
 // 背调进度
+//
 // 示例值：
 func (builder *BackgroundCheckOrderBuilder) ProcessInfoList(processInfoList []*BackgroundCheckProcessInfo) *BackgroundCheckOrderBuilder {
 	builder.processInfoList = processInfoList
@@ -5845,6 +6170,7 @@ func NewBackgroundCheckProcessInfoBuilder() *BackgroundCheckProcessInfoBuilder {
 }
 
 // 背调状态
+//
 // 示例值：待安排
 func (builder *BackgroundCheckProcessInfoBuilder) Process(process string) *BackgroundCheckProcessInfoBuilder {
 	builder.process = process
@@ -5853,6 +6179,7 @@ func (builder *BackgroundCheckProcessInfoBuilder) Process(process string) *Backg
 }
 
 // 状态更新时间
+//
 // 示例值：1638359554952
 func (builder *BackgroundCheckProcessInfoBuilder) UpdateTime(updateTime string) *BackgroundCheckProcessInfoBuilder {
 	builder.updateTime = updateTime
@@ -5906,6 +6233,7 @@ func NewBaseAddressBuilder() *BaseAddressBuilder {
 }
 
 // ID
+//
 // 示例值：6932753007915206919
 func (builder *BaseAddressBuilder) Id(id string) *BaseAddressBuilder {
 	builder.id = id
@@ -5914,6 +6242,7 @@ func (builder *BaseAddressBuilder) Id(id string) *BaseAddressBuilder {
 }
 
 // 中文名称
+//
 // 示例值：名字
 func (builder *BaseAddressBuilder) ZhName(zhName string) *BaseAddressBuilder {
 	builder.zhName = zhName
@@ -5922,6 +6251,7 @@ func (builder *BaseAddressBuilder) ZhName(zhName string) *BaseAddressBuilder {
 }
 
 // 英文名称
+//
 // 示例值：name
 func (builder *BaseAddressBuilder) EnName(enName string) *BaseAddressBuilder {
 	builder.enName = enName
@@ -5930,6 +6260,7 @@ func (builder *BaseAddressBuilder) EnName(enName string) *BaseAddressBuilder {
 }
 
 // 区域信息
+//
 // 示例值：
 func (builder *BaseAddressBuilder) District(district *BaseDistrict) *BaseAddressBuilder {
 	builder.district = district
@@ -5938,6 +6269,7 @@ func (builder *BaseAddressBuilder) District(district *BaseDistrict) *BaseAddress
 }
 
 // 城市信息
+//
 // 示例值：
 func (builder *BaseAddressBuilder) City(city *BaseCity) *BaseAddressBuilder {
 	builder.city = city
@@ -5946,6 +6278,7 @@ func (builder *BaseAddressBuilder) City(city *BaseCity) *BaseAddressBuilder {
 }
 
 // 省信息
+//
 // 示例值：
 func (builder *BaseAddressBuilder) State(state *BaseCity) *BaseAddressBuilder {
 	builder.state = state
@@ -5954,6 +6287,7 @@ func (builder *BaseAddressBuilder) State(state *BaseCity) *BaseAddressBuilder {
 }
 
 // 国家信息
+//
 // 示例值：
 func (builder *BaseAddressBuilder) Country(country *BaseCountry) *BaseAddressBuilder {
 	builder.country = country
@@ -6011,6 +6345,7 @@ func NewBaseBilingualWithIdBuilder() *BaseBilingualWithIdBuilder {
 }
 
 // ID
+//
 // 示例值：1
 func (builder *BaseBilingualWithIdBuilder) Id(id string) *BaseBilingualWithIdBuilder {
 	builder.id = id
@@ -6019,6 +6354,7 @@ func (builder *BaseBilingualWithIdBuilder) Id(id string) *BaseBilingualWithIdBui
 }
 
 // 中文名称
+//
 // 示例值：正式
 func (builder *BaseBilingualWithIdBuilder) ZhName(zhName string) *BaseBilingualWithIdBuilder {
 	builder.zhName = zhName
@@ -6027,6 +6363,7 @@ func (builder *BaseBilingualWithIdBuilder) ZhName(zhName string) *BaseBilingualW
 }
 
 // 英文名称
+//
 // 示例值：Regular
 func (builder *BaseBilingualWithIdBuilder) EnName(enName string) *BaseBilingualWithIdBuilder {
 	builder.enName = enName
@@ -6075,6 +6412,7 @@ func NewBaseCityBuilder() *BaseCityBuilder {
 }
 
 // 中文名称
+//
 // 示例值：中文
 func (builder *BaseCityBuilder) ZhName(zhName string) *BaseCityBuilder {
 	builder.zhName = zhName
@@ -6083,6 +6421,7 @@ func (builder *BaseCityBuilder) ZhName(zhName string) *BaseCityBuilder {
 }
 
 // 英文名称
+//
 // 示例值：eng
 func (builder *BaseCityBuilder) EnName(enName string) *BaseCityBuilder {
 	builder.enName = enName
@@ -6091,6 +6430,7 @@ func (builder *BaseCityBuilder) EnName(enName string) *BaseCityBuilder {
 }
 
 // 编码
+//
 // 示例值：400700
 func (builder *BaseCityBuilder) Code(code string) *BaseCityBuilder {
 	builder.code = code
@@ -6099,6 +6439,7 @@ func (builder *BaseCityBuilder) Code(code string) *BaseCityBuilder {
 }
 
 // 地址类型
+//
 // 示例值：1
 func (builder *BaseCityBuilder) LocationType(locationType int) *BaseCityBuilder {
 	builder.locationType = locationType
@@ -6151,6 +6492,7 @@ func NewBaseCountryBuilder() *BaseCountryBuilder {
 }
 
 // 中文名称
+//
 // 示例值：中文
 func (builder *BaseCountryBuilder) ZhName(zhName string) *BaseCountryBuilder {
 	builder.zhName = zhName
@@ -6159,6 +6501,7 @@ func (builder *BaseCountryBuilder) ZhName(zhName string) *BaseCountryBuilder {
 }
 
 // 英文名称
+//
 // 示例值：eng
 func (builder *BaseCountryBuilder) EnName(enName string) *BaseCountryBuilder {
 	builder.enName = enName
@@ -6167,6 +6510,7 @@ func (builder *BaseCountryBuilder) EnName(enName string) *BaseCountryBuilder {
 }
 
 // 编码
+//
 // 示例值：400700
 func (builder *BaseCountryBuilder) Code(code string) *BaseCountryBuilder {
 	builder.code = code
@@ -6175,6 +6519,7 @@ func (builder *BaseCountryBuilder) Code(code string) *BaseCountryBuilder {
 }
 
 // 地址类型
+//
 // 示例值：1
 func (builder *BaseCountryBuilder) LocationType(locationType int) *BaseCountryBuilder {
 	builder.locationType = locationType
@@ -6227,6 +6572,7 @@ func NewBaseDistrictBuilder() *BaseDistrictBuilder {
 }
 
 // 中文名称
+//
 // 示例值：伦敦
 func (builder *BaseDistrictBuilder) ZhName(zhName string) *BaseDistrictBuilder {
 	builder.zhName = zhName
@@ -6235,6 +6581,7 @@ func (builder *BaseDistrictBuilder) ZhName(zhName string) *BaseDistrictBuilder {
 }
 
 // 英文名称
+//
 // 示例值：London
 func (builder *BaseDistrictBuilder) EnName(enName string) *BaseDistrictBuilder {
 	builder.enName = enName
@@ -6243,6 +6590,7 @@ func (builder *BaseDistrictBuilder) EnName(enName string) *BaseDistrictBuilder {
 }
 
 // 编码
+//
 // 示例值：400700
 func (builder *BaseDistrictBuilder) Code(code string) *BaseDistrictBuilder {
 	builder.code = code
@@ -6251,6 +6599,7 @@ func (builder *BaseDistrictBuilder) Code(code string) *BaseDistrictBuilder {
 }
 
 // 地址类型
+//
 // 示例值：1
 func (builder *BaseDistrictBuilder) LocationType(locationType int) *BaseDistrictBuilder {
 	builder.locationType = locationType
@@ -6297,6 +6646,7 @@ func NewBaseRespBuilder() *BaseRespBuilder {
 }
 
 // 响应信息
+//
 // 示例值：
 func (builder *BaseRespBuilder) StatusMessage(statusMessage string) *BaseRespBuilder {
 	builder.statusMessage = statusMessage
@@ -6305,6 +6655,7 @@ func (builder *BaseRespBuilder) StatusMessage(statusMessage string) *BaseRespBui
 }
 
 // 响应码
+//
 // 示例值：
 func (builder *BaseRespBuilder) StatusCode(statusCode int) *BaseRespBuilder {
 	builder.statusCode = statusCode
@@ -6388,6 +6739,7 @@ func NewBasicInfoBuilder() *BasicInfoBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Name(name string) *BasicInfoBuilder {
 	builder.name = name
@@ -6396,6 +6748,7 @@ func (builder *BasicInfoBuilder) Name(name string) *BasicInfoBuilder {
 }
 
 // 手机
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Mobile(mobile string) *BasicInfoBuilder {
 	builder.mobile = mobile
@@ -6404,6 +6757,7 @@ func (builder *BasicInfoBuilder) Mobile(mobile string) *BasicInfoBuilder {
 }
 
 // 手机国家代码
+//
 // 示例值：
 func (builder *BasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *BasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -6412,6 +6766,7 @@ func (builder *BasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *Ba
 }
 
 // 邮箱
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Email(email string) *BasicInfoBuilder {
 	builder.email = email
@@ -6420,6 +6775,7 @@ func (builder *BasicInfoBuilder) Email(email string) *BasicInfoBuilder {
 }
 
 // 生日
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Birthday(birthday int) *BasicInfoBuilder {
 	builder.birthday = birthday
@@ -6428,6 +6784,7 @@ func (builder *BasicInfoBuilder) Birthday(birthday int) *BasicInfoBuilder {
 }
 
 // 保密
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Confidentiality(confidentiality int) *BasicInfoBuilder {
 	builder.confidentiality = confidentiality
@@ -6436,6 +6793,7 @@ func (builder *BasicInfoBuilder) Confidentiality(confidentiality int) *BasicInfo
 }
 
 // 创建者账户类型
+//
 // 示例值：
 func (builder *BasicInfoBuilder) CreatorAccountType(creatorAccountType int) *BasicInfoBuilder {
 	builder.creatorAccountType = creatorAccountType
@@ -6444,6 +6802,7 @@ func (builder *BasicInfoBuilder) CreatorAccountType(creatorAccountType int) *Bas
 }
 
 // 创建者ID
+//
 // 示例值：
 func (builder *BasicInfoBuilder) CreatorId(creatorId string) *BasicInfoBuilder {
 	builder.creatorId = creatorId
@@ -6452,6 +6811,7 @@ func (builder *BasicInfoBuilder) CreatorId(creatorId string) *BasicInfoBuilder {
 }
 
 // 现居住城市
+//
 // 示例值：
 func (builder *BasicInfoBuilder) CurrentCityCode(currentCityCode string) *BasicInfoBuilder {
 	builder.currentCityCode = currentCityCode
@@ -6460,6 +6820,7 @@ func (builder *BasicInfoBuilder) CurrentCityCode(currentCityCode string) *BasicI
 }
 
 // 性别
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Gender(gender int) *BasicInfoBuilder {
 	builder.gender = gender
@@ -6468,6 +6829,7 @@ func (builder *BasicInfoBuilder) Gender(gender int) *BasicInfoBuilder {
 }
 
 // 家乡所在城市
+//
 // 示例值：
 func (builder *BasicInfoBuilder) HometownCityCode(hometownCityCode string) *BasicInfoBuilder {
 	builder.hometownCityCode = hometownCityCode
@@ -6476,6 +6838,7 @@ func (builder *BasicInfoBuilder) HometownCityCode(hometownCityCode string) *Basi
 }
 
 // 证件
+//
 // 示例值：
 func (builder *BasicInfoBuilder) Identification(identification *Identification) *BasicInfoBuilder {
 	builder.identification = identification
@@ -6484,6 +6847,7 @@ func (builder *BasicInfoBuilder) Identification(identification *Identification) 
 }
 
 // 来源
+//
 // 示例值：
 func (builder *BasicInfoBuilder) InitSourceId(initSourceId string) *BasicInfoBuilder {
 	builder.initSourceId = initSourceId
@@ -6492,6 +6856,7 @@ func (builder *BasicInfoBuilder) InitSourceId(initSourceId string) *BasicInfoBui
 }
 
 // 国籍编号
+//
 // 示例值：
 func (builder *BasicInfoBuilder) NationalityId(nationalityId string) *BasicInfoBuilder {
 	builder.nationalityId = nationalityId
@@ -6500,6 +6865,7 @@ func (builder *BasicInfoBuilder) NationalityId(nationalityId string) *BasicInfoB
 }
 
 // 附件简历ID
+//
 // 示例值：
 func (builder *BasicInfoBuilder) ResumeAttachmentId(resumeAttachmentId string) *BasicInfoBuilder {
 	builder.resumeAttachmentId = resumeAttachmentId
@@ -6508,6 +6874,7 @@ func (builder *BasicInfoBuilder) ResumeAttachmentId(resumeAttachmentId string) *
 }
 
 // 自我评价
+//
 // 示例值：
 func (builder *BasicInfoBuilder) SelfEvaluation(selfEvaluation string) *BasicInfoBuilder {
 	builder.selfEvaluation = selfEvaluation
@@ -6516,6 +6883,7 @@ func (builder *BasicInfoBuilder) SelfEvaluation(selfEvaluation string) *BasicInf
 }
 
 // 开始工作时间
+//
 // 示例值：
 func (builder *BasicInfoBuilder) StartWorkTime(startWorkTime int) *BasicInfoBuilder {
 	builder.startWorkTime = startWorkTime
@@ -6625,6 +6993,7 @@ func NewCareerInfoBuilder() *CareerInfoBuilder {
 }
 
 // 类型
+//
 // 示例值：
 func (builder *CareerInfoBuilder) CareerType(careerType int) *CareerInfoBuilder {
 	builder.careerType = careerType
@@ -6633,6 +7002,7 @@ func (builder *CareerInfoBuilder) CareerType(careerType int) *CareerInfoBuilder 
 }
 
 // 公司
+//
 // 示例值：
 func (builder *CareerInfoBuilder) Company(company string) *CareerInfoBuilder {
 	builder.company = company
@@ -6641,6 +7011,7 @@ func (builder *CareerInfoBuilder) Company(company string) *CareerInfoBuilder {
 }
 
 // 描述
+//
 // 示例值：
 func (builder *CareerInfoBuilder) Desc(desc string) *CareerInfoBuilder {
 	builder.desc = desc
@@ -6649,6 +7020,7 @@ func (builder *CareerInfoBuilder) Desc(desc string) *CareerInfoBuilder {
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *CareerInfoBuilder) EndTime(endTime int) *CareerInfoBuilder {
 	builder.endTime = endTime
@@ -6657,6 +7029,7 @@ func (builder *CareerInfoBuilder) EndTime(endTime int) *CareerInfoBuilder {
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *CareerInfoBuilder) StartTime(startTime int) *CareerInfoBuilder {
 	builder.startTime = startTime
@@ -6665,6 +7038,7 @@ func (builder *CareerInfoBuilder) StartTime(startTime int) *CareerInfoBuilder {
 }
 
 // 职称
+//
 // 示例值：
 func (builder *CareerInfoBuilder) Title(title string) *CareerInfoBuilder {
 	builder.title = title
@@ -6719,6 +7093,7 @@ func NewCertificateInfoBuilder() *CertificateInfoBuilder {
 }
 
 // 证件描述
+//
 // 示例值：
 func (builder *CertificateInfoBuilder) Desc(desc string) *CertificateInfoBuilder {
 	builder.desc = desc
@@ -6727,6 +7102,7 @@ func (builder *CertificateInfoBuilder) Desc(desc string) *CertificateInfoBuilder
 }
 
 // 证件名称
+//
 // 示例值：
 func (builder *CertificateInfoBuilder) Name(name string) *CertificateInfoBuilder {
 	builder.name = name
@@ -6768,6 +7144,7 @@ func NewChangeEmployeeStageBuilder() *ChangeEmployeeStageBuilder {
 }
 
 // 修改状态操作
+//
 // 示例值：1
 func (builder *ChangeEmployeeStageBuilder) Operation(operation int) *ChangeEmployeeStageBuilder {
 	builder.operation = operation
@@ -6776,6 +7153,7 @@ func (builder *ChangeEmployeeStageBuilder) Operation(operation int) *ChangeEmplo
 }
 
 // 转正信息
+//
 // 示例值：
 func (builder *ChangeEmployeeStageBuilder) ConversionInfo(conversionInfo *EmployeeConversionInfo) *ChangeEmployeeStageBuilder {
 	builder.conversionInfo = conversionInfo
@@ -6784,6 +7162,7 @@ func (builder *ChangeEmployeeStageBuilder) ConversionInfo(conversionInfo *Employ
 }
 
 // 离职信息
+//
 // 示例值：
 func (builder *ChangeEmployeeStageBuilder) OverboardInfo(overboardInfo *EmployeeOverboardInfo) *ChangeEmployeeStageBuilder {
 	builder.overboardInfo = overboardInfo
@@ -6830,6 +7209,7 @@ func NewCityBuilder() *CityBuilder {
 }
 
 // 编码
+//
 // 示例值：
 func (builder *CityBuilder) CityCode(cityCode string) *CityBuilder {
 	builder.cityCode = cityCode
@@ -6838,6 +7218,7 @@ func (builder *CityBuilder) CityCode(cityCode string) *CityBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *CityBuilder) Name(name string) *CityBuilder {
 	builder.name = name
@@ -6846,6 +7227,7 @@ func (builder *CityBuilder) Name(name string) *CityBuilder {
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *CityBuilder) EnName(enName string) *CityBuilder {
 	builder.enName = enName
@@ -6854,6 +7236,7 @@ func (builder *CityBuilder) EnName(enName string) *CityBuilder {
 }
 
 // 国家
+//
 // 示例值：
 func (builder *CityBuilder) Country(country *Country) *CityBuilder {
 	builder.country = country
@@ -6899,6 +7282,7 @@ func NewCodeNameObjectBuilder() *CodeNameObjectBuilder {
 }
 
 // 编码
+//
 // 示例值：1111
 func (builder *CodeNameObjectBuilder) Code(code string) *CodeNameObjectBuilder {
 	builder.code = code
@@ -6907,6 +7291,7 @@ func (builder *CodeNameObjectBuilder) Code(code string) *CodeNameObjectBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *CodeNameObjectBuilder) Name(name *I18n) *CodeNameObjectBuilder {
 	builder.name = name
@@ -7019,6 +7404,7 @@ func NewCombinedJobBuilder() *CombinedJobBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6960663240925956576
 func (builder *CombinedJobBuilder) Id(id string) *CombinedJobBuilder {
 	builder.id = id
@@ -7027,6 +7413,7 @@ func (builder *CombinedJobBuilder) Id(id string) *CombinedJobBuilder {
 }
 
 // 职位编号，可传入职位的「职位编号」、「职位 ID」或者「职位序号」，将以传入的参数作为职位编号，以便双方系统的数据映射
+//
 // 示例值：R18
 func (builder *CombinedJobBuilder) Code(code string) *CombinedJobBuilder {
 	builder.code = code
@@ -7035,6 +7422,7 @@ func (builder *CombinedJobBuilder) Code(code string) *CombinedJobBuilder {
 }
 
 // 工作年限
+//
 // 示例值：1
 func (builder *CombinedJobBuilder) Experience(experience int) *CombinedJobBuilder {
 	builder.experience = experience
@@ -7043,6 +7431,7 @@ func (builder *CombinedJobBuilder) Experience(experience int) *CombinedJobBuilde
 }
 
 // 到期日期
+//
 // 示例值：1622484739955
 func (builder *CombinedJobBuilder) ExpiryTime(expiryTime int) *CombinedJobBuilder {
 	builder.expiryTime = expiryTime
@@ -7051,6 +7440,7 @@ func (builder *CombinedJobBuilder) ExpiryTime(expiryTime int) *CombinedJobBuilde
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *CombinedJobBuilder) CustomizedDataList(customizedDataList []*CombinedJobObjectValueMap) *CombinedJobBuilder {
 	builder.customizedDataList = customizedDataList
@@ -7059,6 +7449,7 @@ func (builder *CombinedJobBuilder) CustomizedDataList(customizedDataList []*Comb
 }
 
 // 最低职级，枚举通过接口「获取职级列表」获取
+//
 // 示例值：6960663240925956547
 func (builder *CombinedJobBuilder) MinLevelId(minLevelId string) *CombinedJobBuilder {
 	builder.minLevelId = minLevelId
@@ -7067,6 +7458,7 @@ func (builder *CombinedJobBuilder) MinLevelId(minLevelId string) *CombinedJobBui
 }
 
 // 最低薪资，单位：k
+//
 // 示例值：1000
 func (builder *CombinedJobBuilder) MinSalary(minSalary int) *CombinedJobBuilder {
 	builder.minSalary = minSalary
@@ -7075,6 +7467,7 @@ func (builder *CombinedJobBuilder) MinSalary(minSalary int) *CombinedJobBuilder 
 }
 
 // 职位名称
+//
 // 示例值：后端研发
 func (builder *CombinedJobBuilder) Title(title string) *CombinedJobBuilder {
 	builder.title = title
@@ -7083,6 +7476,7 @@ func (builder *CombinedJobBuilder) Title(title string) *CombinedJobBuilder {
 }
 
 // 职位的招聘团队
+//
 // 示例值：
 func (builder *CombinedJobBuilder) JobManagers(jobManagers *JobManager) *CombinedJobBuilder {
 	builder.jobManagers = jobManagers
@@ -7091,6 +7485,7 @@ func (builder *CombinedJobBuilder) JobManagers(jobManagers *JobManager) *Combine
 }
 
 // 招聘流程，枚举通过接口「获取招聘流程信息」获取
+//
 // 示例值：6960663240925956554
 func (builder *CombinedJobBuilder) JobProcessId(jobProcessId string) *CombinedJobBuilder {
 	builder.jobProcessId = jobProcessId
@@ -7099,6 +7494,7 @@ func (builder *CombinedJobBuilder) JobProcessId(jobProcessId string) *CombinedJo
 }
 
 // 职位流程类型
+//
 // 示例值：1
 func (builder *CombinedJobBuilder) ProcessType(processType int) *CombinedJobBuilder {
 	builder.processType = processType
@@ -7107,6 +7503,7 @@ func (builder *CombinedJobBuilder) ProcessType(processType int) *CombinedJobBuil
 }
 
 // 项目，枚举通过「获取项目列表」接口
+//
 // 示例值：6960663240925956555
 func (builder *CombinedJobBuilder) SubjectId(subjectId string) *CombinedJobBuilder {
 	builder.subjectId = subjectId
@@ -7115,6 +7512,7 @@ func (builder *CombinedJobBuilder) SubjectId(subjectId string) *CombinedJobBuild
 }
 
 // 职能分类，通过「获取职能分类」获取
+//
 // 示例值：6960663240925956555
 func (builder *CombinedJobBuilder) JobFunctionId(jobFunctionId string) *CombinedJobBuilder {
 	builder.jobFunctionId = jobFunctionId
@@ -7123,6 +7521,7 @@ func (builder *CombinedJobBuilder) JobFunctionId(jobFunctionId string) *Combined
 }
 
 // 部门 ID，须传入open_department_id，格式为"od-xxxx"。可通过「获取部门信息列表」获取
+//
 // 示例值：od-b2fafdce6fc5800b574ba5b0e2798b36
 func (builder *CombinedJobBuilder) DepartmentId(departmentId string) *CombinedJobBuilder {
 	builder.departmentId = departmentId
@@ -7131,6 +7530,7 @@ func (builder *CombinedJobBuilder) DepartmentId(departmentId string) *CombinedJo
 }
 
 // 招聘数量
+//
 // 示例值：100
 func (builder *CombinedJobBuilder) HeadCount(headCount int) *CombinedJobBuilder {
 	builder.headCount = headCount
@@ -7139,6 +7539,7 @@ func (builder *CombinedJobBuilder) HeadCount(headCount int) *CombinedJobBuilder 
 }
 
 // 是否长期有效
+//
 // 示例值：false
 func (builder *CombinedJobBuilder) IsNeverExpired(isNeverExpired bool) *CombinedJobBuilder {
 	builder.isNeverExpired = isNeverExpired
@@ -7147,6 +7548,7 @@ func (builder *CombinedJobBuilder) IsNeverExpired(isNeverExpired bool) *Combined
 }
 
 // 最高薪资，单位：k
+//
 // 示例值：2000
 func (builder *CombinedJobBuilder) MaxSalary(maxSalary int) *CombinedJobBuilder {
 	builder.maxSalary = maxSalary
@@ -7155,6 +7557,7 @@ func (builder *CombinedJobBuilder) MaxSalary(maxSalary int) *CombinedJobBuilder 
 }
 
 // 职位要求
+//
 // 示例值：熟悉后端研发
 func (builder *CombinedJobBuilder) Requirement(requirement string) *CombinedJobBuilder {
 	builder.requirement = requirement
@@ -7163,6 +7566,7 @@ func (builder *CombinedJobBuilder) Requirement(requirement string) *CombinedJobB
 }
 
 // 工作地点，枚举通过接口「获取地址列表」获取，选择地点用途为「职位地址」
+//
 // 示例值：6960663240925956553
 func (builder *CombinedJobBuilder) AddressId(addressId string) *CombinedJobBuilder {
 	builder.addressId = addressId
@@ -7171,6 +7575,7 @@ func (builder *CombinedJobBuilder) AddressId(addressId string) *CombinedJobBuild
 }
 
 // 职位描述
+//
 // 示例值：后端研发岗位描述
 func (builder *CombinedJobBuilder) Description(description string) *CombinedJobBuilder {
 	builder.description = description
@@ -7179,6 +7584,7 @@ func (builder *CombinedJobBuilder) Description(description string) *CombinedJobB
 }
 
 // 职位亮点
+//
 // 示例值：6960663240925956554
 func (builder *CombinedJobBuilder) HighlightList(highlightList []string) *CombinedJobBuilder {
 	builder.highlightList = highlightList
@@ -7187,6 +7593,7 @@ func (builder *CombinedJobBuilder) HighlightList(highlightList []string) *Combin
 }
 
 // 职位类别
+//
 // 示例值：6960663240925956551
 func (builder *CombinedJobBuilder) JobTypeId(jobTypeId string) *CombinedJobBuilder {
 	builder.jobTypeId = jobTypeId
@@ -7195,6 +7602,7 @@ func (builder *CombinedJobBuilder) JobTypeId(jobTypeId string) *CombinedJobBuild
 }
 
 // 最高职级，枚举通过接口「获取职级列表」获取
+//
 // 示例值：6960663240925956548
 func (builder *CombinedJobBuilder) MaxLevelId(maxLevelId string) *CombinedJobBuilder {
 	builder.maxLevelId = maxLevelId
@@ -7203,6 +7611,7 @@ func (builder *CombinedJobBuilder) MaxLevelId(maxLevelId string) *CombinedJobBui
 }
 
 // 雇佣类型
+//
 // 示例值：102
 func (builder *CombinedJobBuilder) RecruitmentTypeId(recruitmentTypeId string) *CombinedJobBuilder {
 	builder.recruitmentTypeId = recruitmentTypeId
@@ -7211,6 +7620,7 @@ func (builder *CombinedJobBuilder) RecruitmentTypeId(recruitmentTypeId string) *
 }
 
 // 学历要求
+//
 // 示例值：1
 func (builder *CombinedJobBuilder) RequiredDegree(requiredDegree int) *CombinedJobBuilder {
 	builder.requiredDegree = requiredDegree
@@ -7219,6 +7629,7 @@ func (builder *CombinedJobBuilder) RequiredDegree(requiredDegree int) *CombinedJ
 }
 
 // 序列
+//
 // 示例值：6960663240925956550
 func (builder *CombinedJobBuilder) JobCategoryId(jobCategoryId string) *CombinedJobBuilder {
 	builder.jobCategoryId = jobCategoryId
@@ -7227,6 +7638,7 @@ func (builder *CombinedJobBuilder) JobCategoryId(jobCategoryId string) *Combined
 }
 
 // 工作地点，枚举通过接口「获取地址列表」获取，选择地点用途为「职位地址」
+//
 // 示例值：7035374761602959660
 func (builder *CombinedJobBuilder) AddressIdList(addressIdList []string) *CombinedJobBuilder {
 	builder.addressIdList = addressIdList
@@ -7361,6 +7773,7 @@ func NewCombinedJobObjectValueMapBuilder() *CombinedJobObjectValueMapBuilder {
 }
 
 // 结构 ID
+//
 // 示例值：6960663240925956549
 func (builder *CombinedJobObjectValueMapBuilder) ObjectId(objectId string) *CombinedJobObjectValueMapBuilder {
 	builder.objectId = objectId
@@ -7369,6 +7782,7 @@ func (builder *CombinedJobObjectValueMapBuilder) ObjectId(objectId string) *Comb
 }
 
 // 结构值
+//
 // 示例值：测试
 func (builder *CombinedJobObjectValueMapBuilder) Value(value string) *CombinedJobObjectValueMapBuilder {
 	builder.value = value
@@ -7410,6 +7824,7 @@ func NewCombinedJobResultBuilder() *CombinedJobResultBuilder {
 }
 
 // 职位广告
+//
 // 示例值：
 func (builder *CombinedJobResultBuilder) DefaultJobPost(defaultJobPost *CombinedJobResultDefaultJobPost) *CombinedJobResultBuilder {
 	builder.defaultJobPost = defaultJobPost
@@ -7418,6 +7833,7 @@ func (builder *CombinedJobResultBuilder) DefaultJobPost(defaultJobPost *Combined
 }
 
 // 职位
+//
 // 示例值：
 func (builder *CombinedJobResultBuilder) Job(job *Job) *CombinedJobResultBuilder {
 	builder.job = job
@@ -7426,6 +7842,7 @@ func (builder *CombinedJobResultBuilder) Job(job *Job) *CombinedJobResultBuilder
 }
 
 // 职位负责人
+//
 // 示例值：
 func (builder *CombinedJobResultBuilder) JobManager(jobManager *JobManager) *CombinedJobResultBuilder {
 	builder.jobManager = jobManager
@@ -7462,6 +7879,7 @@ func NewCombinedJobResultDefaultJobPostBuilder() *CombinedJobResultDefaultJobPos
 }
 
 // 默认职位广告的 ID，用以发布至招聘渠道的内容
+//
 // 示例值：6960663240925956568
 func (builder *CombinedJobResultDefaultJobPostBuilder) Id(id string) *CombinedJobResultDefaultJobPostBuilder {
 	builder.id = id
@@ -7508,6 +7926,7 @@ func NewCommonAddressBuilder() *CommonAddressBuilder {
 }
 
 // ID
+//
 // 示例值：6583482347283472832
 func (builder *CommonAddressBuilder) Id(id string) *CommonAddressBuilder {
 	builder.id = id
@@ -7516,6 +7935,7 @@ func (builder *CommonAddressBuilder) Id(id string) *CommonAddressBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *CommonAddressBuilder) Name(name *I18n) *CommonAddressBuilder {
 	builder.name = name
@@ -7524,6 +7944,7 @@ func (builder *CommonAddressBuilder) Name(name *I18n) *CommonAddressBuilder {
 }
 
 // 区域信息
+//
 // 示例值：
 func (builder *CommonAddressBuilder) District(district *CodeNameObject) *CommonAddressBuilder {
 	builder.district = district
@@ -7532,6 +7953,7 @@ func (builder *CommonAddressBuilder) District(district *CodeNameObject) *CommonA
 }
 
 // 城市信息
+//
 // 示例值：
 func (builder *CommonAddressBuilder) City(city *CodeNameObject) *CommonAddressBuilder {
 	builder.city = city
@@ -7540,6 +7962,7 @@ func (builder *CommonAddressBuilder) City(city *CodeNameObject) *CommonAddressBu
 }
 
 // 省信息
+//
 // 示例值：
 func (builder *CommonAddressBuilder) State(state *CodeNameObject) *CommonAddressBuilder {
 	builder.state = state
@@ -7548,6 +7971,7 @@ func (builder *CommonAddressBuilder) State(state *CodeNameObject) *CommonAddress
 }
 
 // 国家信息
+//
 // 示例值：
 func (builder *CommonAddressBuilder) Country(country *CodeNameObject) *CommonAddressBuilder {
 	builder.country = country
@@ -7618,6 +8042,7 @@ func NewCommonSchemaBuilder() *CommonSchemaBuilder {
 }
 
 // 模块 ID
+//
 // 示例值：6949805467799537964
 func (builder *CommonSchemaBuilder) Id(id string) *CommonSchemaBuilder {
 	builder.id = id
@@ -7626,6 +8051,7 @@ func (builder *CommonSchemaBuilder) Id(id string) *CommonSchemaBuilder {
 }
 
 // 模块名称
+//
 // 示例值：
 func (builder *CommonSchemaBuilder) Name(name *I18n) *CommonSchemaBuilder {
 	builder.name = name
@@ -7634,6 +8060,7 @@ func (builder *CommonSchemaBuilder) Name(name *I18n) *CommonSchemaBuilder {
 }
 
 // 模块描述
+//
 // 示例值：
 func (builder *CommonSchemaBuilder) Description(description *I18n) *CommonSchemaBuilder {
 	builder.description = description
@@ -7642,6 +8069,7 @@ func (builder *CommonSchemaBuilder) Description(description *I18n) *CommonSchema
 }
 
 // 模块信息
+//
 // 示例值：
 func (builder *CommonSchemaBuilder) Setting(setting *CommonSchemaSetting) *CommonSchemaBuilder {
 	builder.setting = setting
@@ -7650,6 +8078,7 @@ func (builder *CommonSchemaBuilder) Setting(setting *CommonSchemaSetting) *Commo
 }
 
 // 是否是自定义模块
+//
 // 示例值：true
 func (builder *CommonSchemaBuilder) IsCustomized(isCustomized bool) *CommonSchemaBuilder {
 	builder.isCustomized = isCustomized
@@ -7658,6 +8087,7 @@ func (builder *CommonSchemaBuilder) IsCustomized(isCustomized bool) *CommonSchem
 }
 
 // 是否必填
+//
 // 示例值：false
 func (builder *CommonSchemaBuilder) IsRequired(isRequired bool) *CommonSchemaBuilder {
 	builder.isRequired = isRequired
@@ -7666,6 +8096,7 @@ func (builder *CommonSchemaBuilder) IsRequired(isRequired bool) *CommonSchemaBui
 }
 
 // 是否可见
+//
 // 示例值：true
 func (builder *CommonSchemaBuilder) IsVisible(isVisible bool) *CommonSchemaBuilder {
 	builder.isVisible = isVisible
@@ -7674,6 +8105,7 @@ func (builder *CommonSchemaBuilder) IsVisible(isVisible bool) *CommonSchemaBuild
 }
 
 // 是否启用
+//
 // 示例值：1
 func (builder *CommonSchemaBuilder) ActiveStatus(activeStatus int) *CommonSchemaBuilder {
 	builder.activeStatus = activeStatus
@@ -7682,6 +8114,7 @@ func (builder *CommonSchemaBuilder) ActiveStatus(activeStatus int) *CommonSchema
 }
 
 // 字段列表
+//
 // 示例值：
 func (builder *CommonSchemaBuilder) ChildrenList(childrenList []*CommonSchemaChild) *CommonSchemaBuilder {
 	builder.childrenList = childrenList
@@ -7765,6 +8198,7 @@ func NewCommonSchemaChildBuilder() *CommonSchemaChildBuilder {
 }
 
 // 字段 ID
+//
 // 示例值：6949805467799537964
 func (builder *CommonSchemaChildBuilder) Id(id string) *CommonSchemaChildBuilder {
 	builder.id = id
@@ -7773,6 +8207,7 @@ func (builder *CommonSchemaChildBuilder) Id(id string) *CommonSchemaChildBuilder
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *CommonSchemaChildBuilder) Name(name *I18n) *CommonSchemaChildBuilder {
 	builder.name = name
@@ -7781,6 +8216,7 @@ func (builder *CommonSchemaChildBuilder) Name(name *I18n) *CommonSchemaChildBuil
 }
 
 // 字段描述
+//
 // 示例值：
 func (builder *CommonSchemaChildBuilder) Description(description *I18n) *CommonSchemaChildBuilder {
 	builder.description = description
@@ -7789,6 +8225,7 @@ func (builder *CommonSchemaChildBuilder) Description(description *I18n) *CommonS
 }
 
 // 字段信息
+//
 // 示例值：
 func (builder *CommonSchemaChildBuilder) Setting(setting *CommonSchemaSetting) *CommonSchemaChildBuilder {
 	builder.setting = setting
@@ -7797,6 +8234,7 @@ func (builder *CommonSchemaChildBuilder) Setting(setting *CommonSchemaSetting) *
 }
 
 // 所属模块 ID
+//
 // 示例值：6949805467799537964
 func (builder *CommonSchemaChildBuilder) ParentId(parentId string) *CommonSchemaChildBuilder {
 	builder.parentId = parentId
@@ -7805,6 +8243,7 @@ func (builder *CommonSchemaChildBuilder) ParentId(parentId string) *CommonSchema
 }
 
 // 是否是自定义字段
+//
 // 示例值：true
 func (builder *CommonSchemaChildBuilder) IsCustomized(isCustomized bool) *CommonSchemaChildBuilder {
 	builder.isCustomized = isCustomized
@@ -7813,6 +8252,7 @@ func (builder *CommonSchemaChildBuilder) IsCustomized(isCustomized bool) *Common
 }
 
 // 是否必填
+//
 // 示例值：false
 func (builder *CommonSchemaChildBuilder) IsRequired(isRequired bool) *CommonSchemaChildBuilder {
 	builder.isRequired = isRequired
@@ -7821,6 +8261,7 @@ func (builder *CommonSchemaChildBuilder) IsRequired(isRequired bool) *CommonSche
 }
 
 // 是否可见
+//
 // 示例值：true
 func (builder *CommonSchemaChildBuilder) IsVisible(isVisible bool) *CommonSchemaChildBuilder {
 	builder.isVisible = isVisible
@@ -7829,6 +8270,7 @@ func (builder *CommonSchemaChildBuilder) IsVisible(isVisible bool) *CommonSchema
 }
 
 // 是否启用
+//
 // 示例值：1
 func (builder *CommonSchemaChildBuilder) ActiveStatus(activeStatus int) *CommonSchemaChildBuilder {
 	builder.activeStatus = activeStatus
@@ -7889,6 +8331,7 @@ func NewCommonSchemaConfigBuilder() *CommonSchemaConfigBuilder {
 }
 
 // 选项信息
+//
 // 示例值：
 func (builder *CommonSchemaConfigBuilder) Options(options []*CommonSchemaOption) *CommonSchemaConfigBuilder {
 	builder.options = options
@@ -7928,6 +8371,7 @@ func NewCommonSchemaOptionBuilder() *CommonSchemaOptionBuilder {
 }
 
 // 选项 ID
+//
 // 示例值：test
 func (builder *CommonSchemaOptionBuilder) Key(key string) *CommonSchemaOptionBuilder {
 	builder.key = key
@@ -7936,6 +8380,7 @@ func (builder *CommonSchemaOptionBuilder) Key(key string) *CommonSchemaOptionBui
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *CommonSchemaOptionBuilder) Name(name *I18n) *CommonSchemaOptionBuilder {
 	builder.name = name
@@ -7944,6 +8389,7 @@ func (builder *CommonSchemaOptionBuilder) Name(name *I18n) *CommonSchemaOptionBu
 }
 
 // 选项描述
+//
 // 示例值：
 func (builder *CommonSchemaOptionBuilder) Description(description *I18n) *CommonSchemaOptionBuilder {
 	builder.description = description
@@ -7952,6 +8398,7 @@ func (builder *CommonSchemaOptionBuilder) Description(description *I18n) *Common
 }
 
 // 是否启用
+//
 // 示例值：1
 func (builder *CommonSchemaOptionBuilder) ActiveStatus(activeStatus int) *CommonSchemaOptionBuilder {
 	builder.activeStatus = activeStatus
@@ -7996,6 +8443,7 @@ func NewCommonSchemaSettingBuilder() *CommonSchemaSettingBuilder {
 }
 
 // 字段类型
+//
 // 示例值：1
 func (builder *CommonSchemaSettingBuilder) ObjectType(objectType int) *CommonSchemaSettingBuilder {
 	builder.objectType = objectType
@@ -8004,6 +8452,7 @@ func (builder *CommonSchemaSettingBuilder) ObjectType(objectType int) *CommonSch
 }
 
 // 配置信息
+//
 // 示例值：
 func (builder *CommonSchemaSettingBuilder) Config(config *CommonSchemaConfig) *CommonSchemaSettingBuilder {
 	builder.config = config
@@ -8041,6 +8490,7 @@ func NewCompetitionInfoBuilder() *CompetitionInfoBuilder {
 }
 
 // 竞赛描述
+//
 // 示例值：
 func (builder *CompetitionInfoBuilder) Desc(desc string) *CompetitionInfoBuilder {
 	builder.desc = desc
@@ -8049,6 +8499,7 @@ func (builder *CompetitionInfoBuilder) Desc(desc string) *CompetitionInfoBuilder
 }
 
 // 竞赛名称
+//
 // 示例值：
 func (builder *CompetitionInfoBuilder) Name(name string) *CompetitionInfoBuilder {
 	builder.name = name
@@ -8090,6 +8541,7 @@ func NewCountryBuilder() *CountryBuilder {
 }
 
 // 国家编码
+//
 // 示例值：
 func (builder *CountryBuilder) CountryCode(countryCode string) *CountryBuilder {
 	builder.countryCode = countryCode
@@ -8098,6 +8550,7 @@ func (builder *CountryBuilder) CountryCode(countryCode string) *CountryBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *CountryBuilder) Name(name string) *CountryBuilder {
 	builder.name = name
@@ -8106,6 +8559,7 @@ func (builder *CountryBuilder) Name(name string) *CountryBuilder {
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *CountryBuilder) EnName(enName string) *CountryBuilder {
 	builder.enName = enName
@@ -8151,6 +8605,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *DepartmentBuilder) Id(id string) *DepartmentBuilder {
 	builder.id = id
@@ -8159,6 +8614,7 @@ func (builder *DepartmentBuilder) Id(id string) *DepartmentBuilder {
 }
 
 // 名字
+//
 // 示例值：部门名A
 func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 	builder.name = name
@@ -8167,6 +8623,7 @@ func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 }
 
 // 英文名
+//
 // 示例值：Name
 func (builder *DepartmentBuilder) EnName(enName string) *DepartmentBuilder {
 	builder.enName = enName
@@ -8206,6 +8663,7 @@ func NewDummyBuilder() *DummyBuilder {
 }
 
 // id
+//
 // 示例值：
 func (builder *DummyBuilder) Id(id string) *DummyBuilder {
 	builder.id = id
@@ -8255,6 +8713,7 @@ func NewEducationInfoBuilder() *EducationInfoBuilder {
 }
 
 // 学历
+//
 // 示例值：
 func (builder *EducationInfoBuilder) Degree(degree int) *EducationInfoBuilder {
 	builder.degree = degree
@@ -8263,6 +8722,7 @@ func (builder *EducationInfoBuilder) Degree(degree int) *EducationInfoBuilder {
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *EducationInfoBuilder) EndTime(endTime int) *EducationInfoBuilder {
 	builder.endTime = endTime
@@ -8271,6 +8731,7 @@ func (builder *EducationInfoBuilder) EndTime(endTime int) *EducationInfoBuilder 
 }
 
 // 专业
+//
 // 示例值：
 func (builder *EducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *EducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -8279,6 +8740,7 @@ func (builder *EducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *Educatio
 }
 
 // 学校
+//
 // 示例值：
 func (builder *EducationInfoBuilder) School(school string) *EducationInfoBuilder {
 	builder.school = school
@@ -8287,6 +8749,7 @@ func (builder *EducationInfoBuilder) School(school string) *EducationInfoBuilder
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *EducationInfoBuilder) StartTime(startTime int) *EducationInfoBuilder {
 	builder.startTime = startTime
@@ -8295,6 +8758,7 @@ func (builder *EducationInfoBuilder) StartTime(startTime int) *EducationInfoBuil
 }
 
 // 学历类型
+//
 // 示例值：
 func (builder *EducationInfoBuilder) EducationType(educationType int) *EducationInfoBuilder {
 	builder.educationType = educationType
@@ -8303,6 +8767,7 @@ func (builder *EducationInfoBuilder) EducationType(educationType int) *Education
 }
 
 // 排名
+//
 // 示例值：
 func (builder *EducationInfoBuilder) AcademicRanking(academicRanking int) *EducationInfoBuilder {
 	builder.academicRanking = academicRanking
@@ -8364,6 +8829,7 @@ func NewEhrImportTaskBuilder() *EhrImportTaskBuilder {
 }
 
 // 失败原因，仅在导入结果为失败时可用
+//
 // 示例值：当前 HC 不可用
 func (builder *EhrImportTaskBuilder) FailReason(failReason string) *EhrImportTaskBuilder {
 	builder.failReason = failReason
@@ -8372,6 +8838,7 @@ func (builder *EhrImportTaskBuilder) FailReason(failReason string) *EhrImportTas
 }
 
 // 跳转链接，若需返回跳转链接，请前往飞书招聘「设置 - 生态对接 - e-HR / OA 办公系统 - 『导入 e-HR』功能设置」中开启「支持对接的 e-HR / OA 系统返回外部链接」开关
+//
 // 示例值：https://example.com
 func (builder *EhrImportTaskBuilder) RedirectUrl(redirectUrl string) *EhrImportTaskBuilder {
 	builder.redirectUrl = redirectUrl
@@ -8380,6 +8847,7 @@ func (builder *EhrImportTaskBuilder) RedirectUrl(redirectUrl string) *EhrImportT
 }
 
 // 导入结果
+//
 // 示例值：2
 func (builder *EhrImportTaskBuilder) State(state int) *EhrImportTaskBuilder {
 	builder.state = state
@@ -8461,6 +8929,7 @@ func NewEmployeeBuilder() *EmployeeBuilder {
 }
 
 // 员工ID
+//
 // 示例值：7095600054216542508
 func (builder *EmployeeBuilder) Id(id string) *EmployeeBuilder {
 	builder.id = id
@@ -8469,6 +8938,7 @@ func (builder *EmployeeBuilder) Id(id string) *EmployeeBuilder {
 }
 
 // 投递ID
+//
 // 示例值：7073372582620416300
 func (builder *EmployeeBuilder) ApplicationId(applicationId string) *EmployeeBuilder {
 	builder.applicationId = applicationId
@@ -8477,6 +8947,7 @@ func (builder *EmployeeBuilder) ApplicationId(applicationId string) *EmployeeBui
 }
 
 // 入职状态
+//
 // 示例值：1
 func (builder *EmployeeBuilder) OnboardStatus(onboardStatus int) *EmployeeBuilder {
 	builder.onboardStatus = onboardStatus
@@ -8485,6 +8956,7 @@ func (builder *EmployeeBuilder) OnboardStatus(onboardStatus int) *EmployeeBuilde
 }
 
 // 转正状态
+//
 // 示例值：1
 func (builder *EmployeeBuilder) ConversionStatus(conversionStatus int) *EmployeeBuilder {
 	builder.conversionStatus = conversionStatus
@@ -8493,6 +8965,7 @@ func (builder *EmployeeBuilder) ConversionStatus(conversionStatus int) *Employee
 }
 
 // 实际入职时间
+//
 // 示例值：1637596800000
 func (builder *EmployeeBuilder) OnboardTime(onboardTime int) *EmployeeBuilder {
 	builder.onboardTime = onboardTime
@@ -8501,6 +8974,7 @@ func (builder *EmployeeBuilder) OnboardTime(onboardTime int) *EmployeeBuilder {
 }
 
 // 预期转正时间
+//
 // 示例值：1637596800000
 func (builder *EmployeeBuilder) ExpectedConversionTime(expectedConversionTime int) *EmployeeBuilder {
 	builder.expectedConversionTime = expectedConversionTime
@@ -8509,6 +8983,7 @@ func (builder *EmployeeBuilder) ExpectedConversionTime(expectedConversionTime in
 }
 
 // 实际转正时间
+//
 // 示例值：1637596800000
 func (builder *EmployeeBuilder) ActualConversionTime(actualConversionTime int) *EmployeeBuilder {
 	builder.actualConversionTime = actualConversionTime
@@ -8517,6 +8992,7 @@ func (builder *EmployeeBuilder) ActualConversionTime(actualConversionTime int) *
 }
 
 // 离职时间
+//
 // 示例值：1637596800000
 func (builder *EmployeeBuilder) OverboardTime(overboardTime int) *EmployeeBuilder {
 	builder.overboardTime = overboardTime
@@ -8525,6 +9001,7 @@ func (builder *EmployeeBuilder) OverboardTime(overboardTime int) *EmployeeBuilde
 }
 
 // 离职原因
+//
 // 示例值：职业发展考虑
 func (builder *EmployeeBuilder) OverboardNote(overboardNote string) *EmployeeBuilder {
 	builder.overboardNote = overboardNote
@@ -8533,6 +9010,7 @@ func (builder *EmployeeBuilder) OverboardNote(overboardNote string) *EmployeeBui
 }
 
 // 办公地点
+//
 // 示例值：CT_2
 func (builder *EmployeeBuilder) OnboardCityCode(onboardCityCode string) *EmployeeBuilder {
 	builder.onboardCityCode = onboardCityCode
@@ -8541,6 +9019,7 @@ func (builder *EmployeeBuilder) OnboardCityCode(onboardCityCode string) *Employe
 }
 
 // 入职部门
+//
 // 示例值：6966123381141866028
 func (builder *EmployeeBuilder) Department(department string) *EmployeeBuilder {
 	builder.department = department
@@ -8549,6 +9028,7 @@ func (builder *EmployeeBuilder) Department(department string) *EmployeeBuilder {
 }
 
 // 直属上级
+//
 // 示例值：ou-xxx
 func (builder *EmployeeBuilder) Leader(leader string) *EmployeeBuilder {
 	builder.leader = leader
@@ -8557,6 +9037,7 @@ func (builder *EmployeeBuilder) Leader(leader string) *EmployeeBuilder {
 }
 
 // 序列
+//
 // 示例值：6937934036379650311
 func (builder *EmployeeBuilder) Sequence(sequence string) *EmployeeBuilder {
 	builder.sequence = sequence
@@ -8565,6 +9046,7 @@ func (builder *EmployeeBuilder) Sequence(sequence string) *EmployeeBuilder {
 }
 
 // 职级
+//
 // 示例值：7006234385490345986
 func (builder *EmployeeBuilder) Level(level string) *EmployeeBuilder {
 	builder.level = level
@@ -8573,6 +9055,7 @@ func (builder *EmployeeBuilder) Level(level string) *EmployeeBuilder {
 }
 
 // 员工类型
+//
 // 示例值：1
 func (builder *EmployeeBuilder) EmployeeType(employeeType string) *EmployeeBuilder {
 	builder.employeeType = employeeType
@@ -8660,6 +9143,7 @@ func NewEmployeeConversionInfoBuilder() *EmployeeConversionInfoBuilder {
 }
 
 // 实际转正日期
+//
 // 示例值：1637596800000
 func (builder *EmployeeConversionInfoBuilder) ActualConversionTime(actualConversionTime int) *EmployeeConversionInfoBuilder {
 	builder.actualConversionTime = actualConversionTime
@@ -8694,6 +9178,7 @@ func NewEmployeeOverboardInfoBuilder() *EmployeeOverboardInfoBuilder {
 }
 
 // 实际离职日期
+//
 // 示例值：1637596800000
 func (builder *EmployeeOverboardInfoBuilder) ActualOverboardTime(actualOverboardTime int) *EmployeeOverboardInfoBuilder {
 	builder.actualOverboardTime = actualOverboardTime
@@ -8702,6 +9187,7 @@ func (builder *EmployeeOverboardInfoBuilder) ActualOverboardTime(actualOverboard
 }
 
 // 离职原因
+//
 // 示例值：职业发展考虑
 func (builder *EmployeeOverboardInfoBuilder) OverboardNote(overboardNote string) *EmployeeOverboardInfoBuilder {
 	builder.overboardNote = overboardNote
@@ -8764,6 +9250,7 @@ func NewEvaluationBuilder() *EvaluationBuilder {
 }
 
 // 评估 ID
+//
 // 示例值：6875295756292425998
 func (builder *EvaluationBuilder) Id(id string) *EvaluationBuilder {
 	builder.id = id
@@ -8772,6 +9259,7 @@ func (builder *EvaluationBuilder) Id(id string) *EvaluationBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6875569957036738823
 func (builder *EvaluationBuilder) ApplicationId(applicationId string) *EvaluationBuilder {
 	builder.applicationId = applicationId
@@ -8780,6 +9268,7 @@ func (builder *EvaluationBuilder) ApplicationId(applicationId string) *Evaluatio
 }
 
 // 投递阶段
+//
 // 示例值：6784315427607595268
 func (builder *EvaluationBuilder) StageId(stageId string) *EvaluationBuilder {
 	builder.stageId = stageId
@@ -8788,6 +9277,7 @@ func (builder *EvaluationBuilder) StageId(stageId string) *EvaluationBuilder {
 }
 
 // 创建人user_id
+//
 // 示例值：ou_aaf83d1b2c856ead36aa9a38784b9a5c
 func (builder *EvaluationBuilder) CreatorId(creatorId string) *EvaluationBuilder {
 	builder.creatorId = creatorId
@@ -8796,6 +9286,7 @@ func (builder *EvaluationBuilder) CreatorId(creatorId string) *EvaluationBuilder
 }
 
 // 评估人user_id
+//
 // 示例值：ou_aaf83d1b2c856ead36aa9a38784b9a5c
 func (builder *EvaluationBuilder) EvaluatorId(evaluatorId string) *EvaluationBuilder {
 	builder.evaluatorId = evaluatorId
@@ -8804,6 +9295,7 @@ func (builder *EvaluationBuilder) EvaluatorId(evaluatorId string) *EvaluationBui
 }
 
 // 提交状态
+//
 // 示例值：1
 func (builder *EvaluationBuilder) CommitStatus(commitStatus int) *EvaluationBuilder {
 	builder.commitStatus = commitStatus
@@ -8812,6 +9304,7 @@ func (builder *EvaluationBuilder) CommitStatus(commitStatus int) *EvaluationBuil
 }
 
 // 评估结论
+//
 // 示例值：1
 func (builder *EvaluationBuilder) Conclusion(conclusion int) *EvaluationBuilder {
 	builder.conclusion = conclusion
@@ -8820,6 +9313,7 @@ func (builder *EvaluationBuilder) Conclusion(conclusion int) *EvaluationBuilder 
 }
 
 // 评估详情
+//
 // 示例值：这位同学很优秀
 func (builder *EvaluationBuilder) Content(content string) *EvaluationBuilder {
 	builder.content = content
@@ -8828,6 +9322,7 @@ func (builder *EvaluationBuilder) Content(content string) *EvaluationBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1600843767338
 func (builder *EvaluationBuilder) CreateTime(createTime string) *EvaluationBuilder {
 	builder.createTime = createTime
@@ -8836,6 +9331,7 @@ func (builder *EvaluationBuilder) CreateTime(createTime string) *EvaluationBuild
 }
 
 // 最近更新时间
+//
 // 示例值：1600843937733
 func (builder *EvaluationBuilder) UpdateTime(updateTime string) *EvaluationBuilder {
 	builder.updateTime = updateTime
@@ -8915,6 +9411,7 @@ func NewEvaluationTaskBuilder() *EvaluationTaskBuilder {
 }
 
 // 评估 ID
+//
 // 示例值：6989202908470446380
 func (builder *EvaluationTaskBuilder) Id(id string) *EvaluationTaskBuilder {
 	builder.id = id
@@ -8923,6 +9420,7 @@ func (builder *EvaluationTaskBuilder) Id(id string) *EvaluationTaskBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6897921873523247373
 func (builder *EvaluationTaskBuilder) JobId(jobId string) *EvaluationTaskBuilder {
 	builder.jobId = jobId
@@ -8931,6 +9429,7 @@ func (builder *EvaluationTaskBuilder) JobId(jobId string) *EvaluationTaskBuilder
 }
 
 // 人才 ID
+//
 // 示例值：7046263097923537196
 func (builder *EvaluationTaskBuilder) TalentId(talentId string) *EvaluationTaskBuilder {
 	builder.talentId = talentId
@@ -8939,6 +9438,7 @@ func (builder *EvaluationTaskBuilder) TalentId(talentId string) *EvaluationTaskB
 }
 
 // 投递 ID
+//
 // 示例值：7046315599510833452
 func (builder *EvaluationTaskBuilder) ApplicationId(applicationId string) *EvaluationTaskBuilder {
 	builder.applicationId = applicationId
@@ -8947,6 +9447,7 @@ func (builder *EvaluationTaskBuilder) ApplicationId(applicationId string) *Evalu
 }
 
 // 任务状态
+//
 // 示例值：1
 func (builder *EvaluationTaskBuilder) ActivityStatus(activityStatus int) *EvaluationTaskBuilder {
 	builder.activityStatus = activityStatus
@@ -9006,6 +9507,7 @@ func NewExamMarkingTaskBuilder() *ExamMarkingTaskBuilder {
 }
 
 // 笔试 ID
+//
 // 示例值：6989202908470446380
 func (builder *ExamMarkingTaskBuilder) Id(id string) *ExamMarkingTaskBuilder {
 	builder.id = id
@@ -9014,6 +9516,7 @@ func (builder *ExamMarkingTaskBuilder) Id(id string) *ExamMarkingTaskBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6897921873523247373
 func (builder *ExamMarkingTaskBuilder) JobId(jobId string) *ExamMarkingTaskBuilder {
 	builder.jobId = jobId
@@ -9022,6 +9525,7 @@ func (builder *ExamMarkingTaskBuilder) JobId(jobId string) *ExamMarkingTaskBuild
 }
 
 // 人才 ID
+//
 // 示例值：7046263097923537196
 func (builder *ExamMarkingTaskBuilder) TalentId(talentId string) *ExamMarkingTaskBuilder {
 	builder.talentId = talentId
@@ -9030,6 +9534,7 @@ func (builder *ExamMarkingTaskBuilder) TalentId(talentId string) *ExamMarkingTas
 }
 
 // 投递 ID
+//
 // 示例值：7046315599510833452
 func (builder *ExamMarkingTaskBuilder) ApplicationId(applicationId string) *ExamMarkingTaskBuilder {
 	builder.applicationId = applicationId
@@ -9038,6 +9543,7 @@ func (builder *ExamMarkingTaskBuilder) ApplicationId(applicationId string) *Exam
 }
 
 // 任务状态
+//
 // 示例值：1
 func (builder *ExamMarkingTaskBuilder) ActivityStatus(activityStatus int) *ExamMarkingTaskBuilder {
 	builder.activityStatus = activityStatus
@@ -9115,6 +9621,7 @@ func NewExternalApplicationBuilder() *ExternalApplicationBuilder {
 }
 
 // 外部投递 ID
+//
 // 示例值：6989202908470446380
 func (builder *ExternalApplicationBuilder) Id(id string) *ExternalApplicationBuilder {
 	builder.id = id
@@ -9123,6 +9630,7 @@ func (builder *ExternalApplicationBuilder) Id(id string) *ExternalApplicationBui
 }
 
 // 外部系统投递主键 （仅用于幂等）
+//
 // 示例值：123
 func (builder *ExternalApplicationBuilder) ExternalId(externalId string) *ExternalApplicationBuilder {
 	builder.externalId = externalId
@@ -9131,6 +9639,7 @@ func (builder *ExternalApplicationBuilder) ExternalId(externalId string) *Extern
 }
 
 // 职位招聘类型
+//
 // 示例值：1
 func (builder *ExternalApplicationBuilder) JobRecruitmentType(jobRecruitmentType int) *ExternalApplicationBuilder {
 	builder.jobRecruitmentType = jobRecruitmentType
@@ -9139,6 +9648,7 @@ func (builder *ExternalApplicationBuilder) JobRecruitmentType(jobRecruitmentType
 }
 
 // 职位名称
+//
 // 示例值：高级Java
 func (builder *ExternalApplicationBuilder) JobTitle(jobTitle string) *ExternalApplicationBuilder {
 	builder.jobTitle = jobTitle
@@ -9147,6 +9657,7 @@ func (builder *ExternalApplicationBuilder) JobTitle(jobTitle string) *ExternalAp
 }
 
 // 简历来源
+//
 // 示例值：lagou
 func (builder *ExternalApplicationBuilder) ResumeSource(resumeSource string) *ExternalApplicationBuilder {
 	builder.resumeSource = resumeSource
@@ -9155,6 +9666,7 @@ func (builder *ExternalApplicationBuilder) ResumeSource(resumeSource string) *Ex
 }
 
 // 阶段
+//
 // 示例值：1
 func (builder *ExternalApplicationBuilder) Stage(stage string) *ExternalApplicationBuilder {
 	builder.stage = stage
@@ -9163,6 +9675,7 @@ func (builder *ExternalApplicationBuilder) Stage(stage string) *ExternalApplicat
 }
 
 // 人才 ID
+//
 // 示例值：6960663240925956459
 func (builder *ExternalApplicationBuilder) TalentId(talentId string) *ExternalApplicationBuilder {
 	builder.talentId = talentId
@@ -9171,6 +9684,7 @@ func (builder *ExternalApplicationBuilder) TalentId(talentId string) *ExternalAp
 }
 
 // 终止原因
+//
 // 示例值：不合适
 func (builder *ExternalApplicationBuilder) TerminationReason(terminationReason string) *ExternalApplicationBuilder {
 	builder.terminationReason = terminationReason
@@ -9179,6 +9693,7 @@ func (builder *ExternalApplicationBuilder) TerminationReason(terminationReason s
 }
 
 // 投递类型
+//
 // 示例值：1
 func (builder *ExternalApplicationBuilder) DeliveryType(deliveryType int) *ExternalApplicationBuilder {
 	builder.deliveryType = deliveryType
@@ -9187,6 +9702,7 @@ func (builder *ExternalApplicationBuilder) DeliveryType(deliveryType int) *Exter
 }
 
 // 更新时间
+//
 // 示例值：1618500278645
 func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int) *ExternalApplicationBuilder {
 	builder.modifyTime = modifyTime
@@ -9195,6 +9711,7 @@ func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int) *ExternalA
 }
 
 // 终止类型
+//
 // 示例值：health
 func (builder *ExternalApplicationBuilder) TerminationType(terminationType string) *ExternalApplicationBuilder {
 	builder.terminationType = terminationType
@@ -9287,6 +9804,7 @@ func NewExternalBackgroundCheckBuilder() *ExternalBackgroundCheckBuilder {
 }
 
 // 外部背调 ID
+//
 // 示例值：6989202908470446380
 func (builder *ExternalBackgroundCheckBuilder) Id(id string) *ExternalBackgroundCheckBuilder {
 	builder.id = id
@@ -9295,6 +9813,7 @@ func (builder *ExternalBackgroundCheckBuilder) Id(id string) *ExternalBackground
 }
 
 // 外部系统背调主键 （仅用于幂等）
+//
 // 示例值：123
 func (builder *ExternalBackgroundCheckBuilder) ExternalId(externalId string) *ExternalBackgroundCheckBuilder {
 	builder.externalId = externalId
@@ -9303,6 +9822,7 @@ func (builder *ExternalBackgroundCheckBuilder) ExternalId(externalId string) *Ex
 }
 
 // 外部投递 ID
+//
 // 示例值：1234111
 func (builder *ExternalBackgroundCheckBuilder) ExternalApplicationId(externalApplicationId string) *ExternalBackgroundCheckBuilder {
 	builder.externalApplicationId = externalApplicationId
@@ -9311,6 +9831,7 @@ func (builder *ExternalBackgroundCheckBuilder) ExternalApplicationId(externalApp
 }
 
 // 背调日期
+//
 // 示例值：1626602069393
 func (builder *ExternalBackgroundCheckBuilder) Date(date int) *ExternalBackgroundCheckBuilder {
 	builder.date = date
@@ -9319,6 +9840,7 @@ func (builder *ExternalBackgroundCheckBuilder) Date(date int) *ExternalBackgroun
 }
 
 // 背调名字
+//
 // 示例值：测试.pdf
 func (builder *ExternalBackgroundCheckBuilder) Name(name string) *ExternalBackgroundCheckBuilder {
 	builder.name = name
@@ -9327,6 +9849,7 @@ func (builder *ExternalBackgroundCheckBuilder) Name(name string) *ExternalBackgr
 }
 
 // 背调结果
+//
 // 示例值：1
 func (builder *ExternalBackgroundCheckBuilder) Result(result string) *ExternalBackgroundCheckBuilder {
 	builder.result = result
@@ -9335,6 +9858,7 @@ func (builder *ExternalBackgroundCheckBuilder) Result(result string) *ExternalBa
 }
 
 // 背调附件ID列表
+//
 // 示例值：6989181065243969836
 func (builder *ExternalBackgroundCheckBuilder) AttachmentIdList(attachmentIdList []string) *ExternalBackgroundCheckBuilder {
 	builder.attachmentIdList = attachmentIdList
@@ -9343,6 +9867,7 @@ func (builder *ExternalBackgroundCheckBuilder) AttachmentIdList(attachmentIdList
 }
 
 // 背调附件
+//
 // 示例值：
 func (builder *ExternalBackgroundCheckBuilder) AttachmentList(attachmentList []*ExternalBackgroundCheckAttachment) *ExternalBackgroundCheckBuilder {
 	builder.attachmentList = attachmentList
@@ -9406,6 +9931,7 @@ func NewExternalBackgroundCheckAttachmentBuilder() *ExternalBackgroundCheckAttac
 }
 
 // 附件 ID
+//
 // 示例值：6987954043925432620
 func (builder *ExternalBackgroundCheckAttachmentBuilder) Id(id string) *ExternalBackgroundCheckAttachmentBuilder {
 	builder.id = id
@@ -9414,6 +9940,7 @@ func (builder *ExternalBackgroundCheckAttachmentBuilder) Id(id string) *External
 }
 
 // 附件名字
+//
 // 示例值：test_resume.pdf
 func (builder *ExternalBackgroundCheckAttachmentBuilder) Name(name string) *ExternalBackgroundCheckAttachmentBuilder {
 	builder.name = name
@@ -9422,6 +9949,7 @@ func (builder *ExternalBackgroundCheckAttachmentBuilder) Name(name string) *Exte
 }
 
 // 附件大小
+//
 // 示例值：126371
 func (builder *ExternalBackgroundCheckAttachmentBuilder) Size(size int) *ExternalBackgroundCheckAttachmentBuilder {
 	builder.size = size
@@ -9476,6 +10004,7 @@ func NewExternalInterviewBuilder() *ExternalInterviewBuilder {
 }
 
 // 外部系统面试主键 （仅用于幂等）
+//
 // 示例值：123
 func (builder *ExternalInterviewBuilder) ExternalId(externalId string) *ExternalInterviewBuilder {
 	builder.externalId = externalId
@@ -9484,6 +10013,7 @@ func (builder *ExternalInterviewBuilder) ExternalId(externalId string) *External
 }
 
 // 外部投递 ID
+//
 // 示例值：6960663240925956437
 func (builder *ExternalInterviewBuilder) ExternalApplicationId(externalApplicationId string) *ExternalInterviewBuilder {
 	builder.externalApplicationId = externalApplicationId
@@ -9492,6 +10022,7 @@ func (builder *ExternalInterviewBuilder) ExternalApplicationId(externalApplicati
 }
 
 // 外部面试 ID
+//
 // 示例值：6960663240925956436
 func (builder *ExternalInterviewBuilder) Id(id string) *ExternalInterviewBuilder {
 	builder.id = id
@@ -9500,6 +10031,7 @@ func (builder *ExternalInterviewBuilder) Id(id string) *ExternalInterviewBuilder
 }
 
 // 参与状态
+//
 // 示例值：1
 func (builder *ExternalInterviewBuilder) ParticipateStatus(participateStatus int) *ExternalInterviewBuilder {
 	builder.participateStatus = participateStatus
@@ -9508,6 +10040,7 @@ func (builder *ExternalInterviewBuilder) ParticipateStatus(participateStatus int
 }
 
 // 开始时间
+//
 // 示例值：1618500278638
 func (builder *ExternalInterviewBuilder) BeginTime(beginTime int) *ExternalInterviewBuilder {
 	builder.beginTime = beginTime
@@ -9516,6 +10049,7 @@ func (builder *ExternalInterviewBuilder) BeginTime(beginTime int) *ExternalInter
 }
 
 // 结束时间
+//
 // 示例值：1618500278639
 func (builder *ExternalInterviewBuilder) EndTime(endTime int) *ExternalInterviewBuilder {
 	builder.endTime = endTime
@@ -9585,6 +10119,7 @@ func NewExternalInterviewAssessmentBuilder() *ExternalInterviewAssessmentBuilder
 }
 
 // 外部面评 ID
+//
 // 示例值：6989181065243969836
 func (builder *ExternalInterviewAssessmentBuilder) Id(id string) *ExternalInterviewAssessmentBuilder {
 	builder.id = id
@@ -9593,6 +10128,7 @@ func (builder *ExternalInterviewAssessmentBuilder) Id(id string) *ExternalInterv
 }
 
 // 外部系统面评主键（仅用于幂等）
+//
 // 示例值：123
 func (builder *ExternalInterviewAssessmentBuilder) ExternalId(externalId string) *ExternalInterviewAssessmentBuilder {
 	builder.externalId = externalId
@@ -9601,6 +10137,7 @@ func (builder *ExternalInterviewAssessmentBuilder) ExternalId(externalId string)
 }
 
 // 面试官姓名
+//
 // 示例值：shaojiale
 func (builder *ExternalInterviewAssessmentBuilder) Username(username string) *ExternalInterviewAssessmentBuilder {
 	builder.username = username
@@ -9609,6 +10146,7 @@ func (builder *ExternalInterviewAssessmentBuilder) Username(username string) *Ex
 }
 
 // 面试结果
+//
 // 示例值：1
 func (builder *ExternalInterviewAssessmentBuilder) Conclusion(conclusion int) *ExternalInterviewAssessmentBuilder {
 	builder.conclusion = conclusion
@@ -9617,6 +10155,7 @@ func (builder *ExternalInterviewAssessmentBuilder) Conclusion(conclusion int) *E
 }
 
 // 评价维度列表
+//
 // 示例值：
 func (builder *ExternalInterviewAssessmentBuilder) AssessmentDimensionList(assessmentDimensionList []*ExternalInterviewAssessmentDimension) *ExternalInterviewAssessmentBuilder {
 	builder.assessmentDimensionList = assessmentDimensionList
@@ -9625,6 +10164,7 @@ func (builder *ExternalInterviewAssessmentBuilder) AssessmentDimensionList(asses
 }
 
 // 综合记录
+//
 // 示例值：hello world
 func (builder *ExternalInterviewAssessmentBuilder) Content(content string) *ExternalInterviewAssessmentBuilder {
 	builder.content = content
@@ -9633,6 +10173,7 @@ func (builder *ExternalInterviewAssessmentBuilder) Content(content string) *Exte
 }
 
 // 外部面试 ID
+//
 // 示例值：6986199832494934316
 func (builder *ExternalInterviewAssessmentBuilder) ExternalInterviewId(externalInterviewId string) *ExternalInterviewAssessmentBuilder {
 	builder.externalInterviewId = externalInterviewId
@@ -9705,6 +10246,7 @@ func NewExternalInterviewAssessmentDimensionBuilder() *ExternalInterviewAssessme
 }
 
 // 打分题分数（当题目类型为「打分题」时使用）
+//
 // 示例值：99
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Score(score int) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.score = score
@@ -9713,6 +10255,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Score(score int) *Ex
 }
 
 // 单选选项（当题目类型为「单选题」时使用）
+//
 // 示例值：opt
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Option(option string) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.option = option
@@ -9721,6 +10264,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Option(option string
 }
 
 // 多选选项（当题目类型为「多选题」时使用）
+//
 // 示例值：6989181065243969836
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Options(options []string) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.options = options
@@ -9729,6 +10273,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Options(options []st
 }
 
 // 描述内容（当题目类型为「描述题」时使用）
+//
 // 示例值：content
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Content(content string) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.content = content
@@ -9737,6 +10282,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Content(content stri
 }
 
 // 题目类型
+//
 // 示例值：1
 func (builder *ExternalInterviewAssessmentDimensionBuilder) AssessmentType(assessmentType int) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.assessmentType = assessmentType
@@ -9745,6 +10291,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) AssessmentType(asses
 }
 
 // 题目标题
+//
 // 示例值：title
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Title(title string) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.title = title
@@ -9753,6 +10300,7 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Title(title string) 
 }
 
 // 题目描述
+//
 // 示例值：desc
 func (builder *ExternalInterviewAssessmentDimensionBuilder) Description(description string) *ExternalInterviewAssessmentDimensionBuilder {
 	builder.description = description
@@ -9819,6 +10367,7 @@ func NewFiveStartScoringResultBuilder() *FiveStartScoringResultBuilder {
 }
 
 // 最高分中文描述
+//
 // 示例值：非常好
 func (builder *FiveStartScoringResultBuilder) HighestScoreDesc(highestScoreDesc string) *FiveStartScoringResultBuilder {
 	builder.highestScoreDesc = highestScoreDesc
@@ -9827,6 +10376,7 @@ func (builder *FiveStartScoringResultBuilder) HighestScoreDesc(highestScoreDesc 
 }
 
 // 最高分英文描述
+//
 // 示例值：Very Good
 func (builder *FiveStartScoringResultBuilder) HighestScoreEnDesc(highestScoreEnDesc string) *FiveStartScoringResultBuilder {
 	builder.highestScoreEnDesc = highestScoreEnDesc
@@ -9835,6 +10385,7 @@ func (builder *FiveStartScoringResultBuilder) HighestScoreEnDesc(highestScoreEnD
 }
 
 // 最低分中文描述
+//
 // 示例值：非常差
 func (builder *FiveStartScoringResultBuilder) LowestScoreDesc(lowestScoreDesc string) *FiveStartScoringResultBuilder {
 	builder.lowestScoreDesc = lowestScoreDesc
@@ -9843,6 +10394,7 @@ func (builder *FiveStartScoringResultBuilder) LowestScoreDesc(lowestScoreDesc st
 }
 
 // 最低分英文描述
+//
 // 示例值：Very Bad
 func (builder *FiveStartScoringResultBuilder) LowestScoreEnDesc(lowestScoreEnDesc string) *FiveStartScoringResultBuilder {
 	builder.lowestScoreEnDesc = lowestScoreEnDesc
@@ -9851,6 +10403,7 @@ func (builder *FiveStartScoringResultBuilder) LowestScoreEnDesc(lowestScoreEnDes
 }
 
 // 评分分数
+//
 // 示例值：4
 func (builder *FiveStartScoringResultBuilder) ScoreResult(scoreResult float64) *FiveStartScoringResultBuilder {
 	builder.scoreResult = scoreResult
@@ -9901,6 +10454,7 @@ func NewI18nBuilder() *I18nBuilder {
 }
 
 // 中文
+//
 // 示例值：测试
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
@@ -9909,6 +10463,7 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 }
 
 // 英文
+//
 // 示例值：test
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
@@ -9947,6 +10502,7 @@ func NewIdNameObjectBuilder() *IdNameObjectBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
 	builder.id = id
@@ -9955,6 +10511,7 @@ func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *IdNameObjectBuilder) Name(name *I18n) *IdNameObjectBuilder {
 	builder.name = name
@@ -9992,6 +10549,7 @@ func NewIdentificationBuilder() *IdentificationBuilder {
 }
 
 // 证件号码
+//
 // 示例值：
 func (builder *IdentificationBuilder) IdentificationNumber(identificationNumber string) *IdentificationBuilder {
 	builder.identificationNumber = identificationNumber
@@ -10000,6 +10558,7 @@ func (builder *IdentificationBuilder) IdentificationNumber(identificationNumber 
 }
 
 // 证件类型
+//
 // 示例值：
 func (builder *IdentificationBuilder) IdentificationType(identificationType int) *IdentificationBuilder {
 	builder.identificationType = identificationType
@@ -10050,6 +10609,7 @@ func NewInternshipInfoBuilder() *InternshipInfoBuilder {
 }
 
 // 类型
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) CareerType(careerType int) *InternshipInfoBuilder {
 	builder.careerType = careerType
@@ -10058,6 +10618,7 @@ func (builder *InternshipInfoBuilder) CareerType(careerType int) *InternshipInfo
 }
 
 // 公司
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) Company(company string) *InternshipInfoBuilder {
 	builder.company = company
@@ -10066,6 +10627,7 @@ func (builder *InternshipInfoBuilder) Company(company string) *InternshipInfoBui
 }
 
 // 描述
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) Desc(desc string) *InternshipInfoBuilder {
 	builder.desc = desc
@@ -10074,6 +10636,7 @@ func (builder *InternshipInfoBuilder) Desc(desc string) *InternshipInfoBuilder {
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) EndTime(endTime int) *InternshipInfoBuilder {
 	builder.endTime = endTime
@@ -10082,6 +10645,7 @@ func (builder *InternshipInfoBuilder) EndTime(endTime int) *InternshipInfoBuilde
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) StartTime(startTime int) *InternshipInfoBuilder {
 	builder.startTime = startTime
@@ -10090,6 +10654,7 @@ func (builder *InternshipInfoBuilder) StartTime(startTime int) *InternshipInfoBu
 }
 
 // 职称
+//
 // 示例值：
 func (builder *InternshipInfoBuilder) Title(title string) *InternshipInfoBuilder {
 	builder.title = title
@@ -10156,6 +10721,7 @@ func NewInterviewBuilder() *InterviewBuilder {
 }
 
 // 面试id
+//
 // 示例值：6949805467799537964
 func (builder *InterviewBuilder) Id(id string) *InterviewBuilder {
 	builder.id = id
@@ -10164,6 +10730,7 @@ func (builder *InterviewBuilder) Id(id string) *InterviewBuilder {
 }
 
 // 面试开始时间（ms）
+//
 // 示例值：1618899376474
 func (builder *InterviewBuilder) BeginTime(beginTime int) *InterviewBuilder {
 	builder.beginTime = beginTime
@@ -10172,6 +10739,7 @@ func (builder *InterviewBuilder) BeginTime(beginTime int) *InterviewBuilder {
 }
 
 // 面试结束时间（ms）
+//
 // 示例值：1618999376474
 func (builder *InterviewBuilder) EndTime(endTime int) *InterviewBuilder {
 	builder.endTime = endTime
@@ -10180,6 +10748,7 @@ func (builder *InterviewBuilder) EndTime(endTime int) *InterviewBuilder {
 }
 
 // 面试轮次（从0开始计数）
+//
 // 示例值：0
 func (builder *InterviewBuilder) Round(round int) *InterviewBuilder {
 	builder.round = round
@@ -10188,6 +10757,7 @@ func (builder *InterviewBuilder) Round(round int) *InterviewBuilder {
 }
 
 // 面试关联的投递阶段
+//
 // 示例值：634324253532232
 func (builder *InterviewBuilder) StageId(stageId string) *InterviewBuilder {
 	builder.stageId = stageId
@@ -10196,6 +10766,7 @@ func (builder *InterviewBuilder) StageId(stageId string) *InterviewBuilder {
 }
 
 // 面试官记录列表
+//
 // 示例值：
 func (builder *InterviewBuilder) InterviewRecordList(interviewRecordList []*InterviewRecord) *InterviewBuilder {
 	builder.interviewRecordList = interviewRecordList
@@ -10261,6 +10832,7 @@ func NewInterviewAddressBuilder() *InterviewAddressBuilder {
 }
 
 // 地址 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewAddressBuilder) Id(id string) *InterviewAddressBuilder {
 	builder.id = id
@@ -10269,6 +10841,7 @@ func (builder *InterviewAddressBuilder) Id(id string) *InterviewAddressBuilder {
 }
 
 // 地址名称
+//
 // 示例值：
 func (builder *InterviewAddressBuilder) Name(name *I18n) *InterviewAddressBuilder {
 	builder.name = name
@@ -10277,6 +10850,7 @@ func (builder *InterviewAddressBuilder) Name(name *I18n) *InterviewAddressBuilde
 }
 
 // 区域
+//
 // 示例值：
 func (builder *InterviewAddressBuilder) District(district *CodeNameObject) *InterviewAddressBuilder {
 	builder.district = district
@@ -10285,6 +10859,7 @@ func (builder *InterviewAddressBuilder) District(district *CodeNameObject) *Inte
 }
 
 // 城市
+//
 // 示例值：
 func (builder *InterviewAddressBuilder) City(city *CodeNameObject) *InterviewAddressBuilder {
 	builder.city = city
@@ -10293,6 +10868,7 @@ func (builder *InterviewAddressBuilder) City(city *CodeNameObject) *InterviewAdd
 }
 
 // 省
+//
 // 示例值：
 func (builder *InterviewAddressBuilder) State(state *CodeNameObject) *InterviewAddressBuilder {
 	builder.state = state
@@ -10301,6 +10877,7 @@ func (builder *InterviewAddressBuilder) State(state *CodeNameObject) *InterviewA
 }
 
 // 国家
+//
 // 示例值：
 func (builder *InterviewAddressBuilder) Country(country *CodeNameObject) *InterviewAddressBuilder {
 	builder.country = country
@@ -10368,6 +10945,7 @@ func NewInterviewAssessmentDimensionBuilder() *InterviewAssessmentDimensionBuild
 }
 
 // 题目 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewAssessmentDimensionBuilder) Id(id string) *InterviewAssessmentDimensionBuilder {
 	builder.id = id
@@ -10376,6 +10954,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Id(id string) *InterviewAsse
 }
 
 // 题目名称
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionBuilder) Name(name *I18n) *InterviewAssessmentDimensionBuilder {
 	builder.name = name
@@ -10384,6 +10963,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Name(name *I18n) *InterviewA
 }
 
 // 题目描述
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionBuilder) Description(description *I18n) *InterviewAssessmentDimensionBuilder {
 	builder.description = description
@@ -10392,6 +10972,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Description(description *I18
 }
 
 // 是否启用
+//
 // 示例值：true
 func (builder *InterviewAssessmentDimensionBuilder) Enabled(enabled bool) *InterviewAssessmentDimensionBuilder {
 	builder.enabled = enabled
@@ -10400,6 +10981,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Enabled(enabled bool) *Inter
 }
 
 // 题目排序
+//
 // 示例值：1
 func (builder *InterviewAssessmentDimensionBuilder) Seq(seq int) *InterviewAssessmentDimensionBuilder {
 	builder.seq = seq
@@ -10408,6 +10990,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Seq(seq int) *InterviewAsses
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *InterviewAssessmentDimensionBuilder) Required(required bool) *InterviewAssessmentDimensionBuilder {
 	builder.required = required
@@ -10416,6 +10999,7 @@ func (builder *InterviewAssessmentDimensionBuilder) Required(required bool) *Int
 }
 
 // 题目类型
+//
 // 示例值：1
 func (builder *InterviewAssessmentDimensionBuilder) DimensionType(dimensionType int) *InterviewAssessmentDimensionBuilder {
 	builder.dimensionType = dimensionType
@@ -10424,6 +11008,7 @@ func (builder *InterviewAssessmentDimensionBuilder) DimensionType(dimensionType 
 }
 
 // 选项信息，仅当题目类型为单选题、多选题时有值
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionBuilder) Args(args *InterviewAssessmentDimensionArgs) *InterviewAssessmentDimensionBuilder {
 	builder.args = args
@@ -10480,6 +11065,7 @@ func NewInterviewAssessmentDimensionArgsBuilder() *InterviewAssessmentDimensionA
 }
 
 // 选项列表
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionArgsBuilder) ScoreList(scoreList []*InterviewAssessmentDimensionArgsScore) *InterviewAssessmentDimensionArgsBuilder {
 	builder.scoreList = scoreList
@@ -10519,6 +11105,7 @@ func NewInterviewAssessmentDimensionArgsScoreBuilder() *InterviewAssessmentDimen
 }
 
 // 选项 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Id(id string) *InterviewAssessmentDimensionArgsScoreBuilder {
 	builder.id = id
@@ -10527,6 +11114,7 @@ func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Id(id string) *Inte
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Name(name *I18n) *InterviewAssessmentDimensionArgsScoreBuilder {
 	builder.name = name
@@ -10535,6 +11123,7 @@ func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Name(name *I18n) *I
 }
 
 // 选项描述
+//
 // 示例值：
 func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Description(description *I18n) *InterviewAssessmentDimensionArgsScoreBuilder {
 	builder.description = description
@@ -10543,6 +11132,7 @@ func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Description(descrip
 }
 
 // 是否启用
+//
 // 示例值：true
 func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Enabled(enabled bool) *InterviewAssessmentDimensionArgsScoreBuilder {
 	builder.enabled = enabled
@@ -10590,6 +11180,7 @@ func NewInterviewAssessmentTemplateBuilder() *InterviewAssessmentTemplateBuilder
 }
 
 // 面试评价表 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewAssessmentTemplateBuilder) Id(id string) *InterviewAssessmentTemplateBuilder {
 	builder.id = id
@@ -10598,6 +11189,7 @@ func (builder *InterviewAssessmentTemplateBuilder) Id(id string) *InterviewAsses
 }
 
 // 面试评价表名称
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateBuilder) Name(name *I18n) *InterviewAssessmentTemplateBuilder {
 	builder.name = name
@@ -10606,6 +11198,7 @@ func (builder *InterviewAssessmentTemplateBuilder) Name(name *I18n) *InterviewAs
 }
 
 // 面试评价表题目
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateBuilder) Args(args *InterviewAssessmentTemplateArgs) *InterviewAssessmentTemplateBuilder {
 	builder.args = args
@@ -10652,6 +11245,7 @@ func NewInterviewAssessmentTemplateArgsBuilder() *InterviewAssessmentTemplateArg
 }
 
 // 结论题
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateArgsBuilder) ConclusionDimension(conclusionDimension *InterviewAssessmentDimension) *InterviewAssessmentTemplateArgsBuilder {
 	builder.conclusionDimension = conclusionDimension
@@ -10660,6 +11254,7 @@ func (builder *InterviewAssessmentTemplateArgsBuilder) ConclusionDimension(concl
 }
 
 // 得分题
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateArgsBuilder) ScoreDimension(scoreDimension *InterviewAssessmentDimension) *InterviewAssessmentTemplateArgsBuilder {
 	builder.scoreDimension = scoreDimension
@@ -10668,6 +11263,7 @@ func (builder *InterviewAssessmentTemplateArgsBuilder) ScoreDimension(scoreDimen
 }
 
 // 记录题
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateArgsBuilder) ContentDimension(contentDimension *InterviewAssessmentDimension) *InterviewAssessmentTemplateArgsBuilder {
 	builder.contentDimension = contentDimension
@@ -10676,6 +11272,7 @@ func (builder *InterviewAssessmentTemplateArgsBuilder) ContentDimension(contentD
 }
 
 // 自定义题目
+//
 // 示例值：
 func (builder *InterviewAssessmentTemplateArgsBuilder) CustomDimensionList(customDimensionList []*InterviewAssessmentDimension) *InterviewAssessmentTemplateArgsBuilder {
 	builder.customDimensionList = customDimensionList
@@ -10733,6 +11330,7 @@ func NewInterviewDimensionAssessmentBuilder() *InterviewDimensionAssessmentBuild
 }
 
 // 题目评价 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewDimensionAssessmentBuilder) Id(id string) *InterviewDimensionAssessmentBuilder {
 	builder.id = id
@@ -10741,6 +11339,7 @@ func (builder *InterviewDimensionAssessmentBuilder) Id(id string) *InterviewDime
 }
 
 // 题目名称
+//
 // 示例值：
 func (builder *InterviewDimensionAssessmentBuilder) Name(name *I18n) *InterviewDimensionAssessmentBuilder {
 	builder.name = name
@@ -10749,6 +11348,7 @@ func (builder *InterviewDimensionAssessmentBuilder) Name(name *I18n) *InterviewD
 }
 
 // 当题目类型为描述题时，从此取值
+//
 // 示例值：这个候选人还不错
 func (builder *InterviewDimensionAssessmentBuilder) Content(content string) *InterviewDimensionAssessmentBuilder {
 	builder.content = content
@@ -10757,6 +11357,7 @@ func (builder *InterviewDimensionAssessmentBuilder) Content(content string) *Int
 }
 
 // 题目 ID
+//
 // 示例值：11111111
 func (builder *InterviewDimensionAssessmentBuilder) DimensionId(dimensionId string) *InterviewDimensionAssessmentBuilder {
 	builder.dimensionId = dimensionId
@@ -10765,6 +11366,7 @@ func (builder *InterviewDimensionAssessmentBuilder) DimensionId(dimensionId stri
 }
 
 // 当题目类型为单选题时，从此取值
+//
 // 示例值：
 func (builder *InterviewDimensionAssessmentBuilder) DimensionScore(dimensionScore *InterviewDimensionScore) *InterviewDimensionAssessmentBuilder {
 	builder.dimensionScore = dimensionScore
@@ -10773,6 +11375,7 @@ func (builder *InterviewDimensionAssessmentBuilder) DimensionScore(dimensionScor
 }
 
 // 当题目类型为多选题时，从此取值
+//
 // 示例值：
 func (builder *InterviewDimensionAssessmentBuilder) DimensionScoreList(dimensionScoreList []*InterviewDimensionScore) *InterviewDimensionAssessmentBuilder {
 	builder.dimensionScoreList = dimensionScoreList
@@ -10781,6 +11384,7 @@ func (builder *InterviewDimensionAssessmentBuilder) DimensionScoreList(dimension
 }
 
 // 题目类型
+//
 // 示例值：1
 func (builder *InterviewDimensionAssessmentBuilder) DimensionType(dimensionType int) *InterviewDimensionAssessmentBuilder {
 	builder.dimensionType = dimensionType
@@ -10836,6 +11440,7 @@ func NewInterviewDimensionScoreBuilder() *InterviewDimensionScoreBuilder {
 }
 
 // 选项 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewDimensionScoreBuilder) Id(id string) *InterviewDimensionScoreBuilder {
 	builder.id = id
@@ -10844,6 +11449,7 @@ func (builder *InterviewDimensionScoreBuilder) Id(id string) *InterviewDimension
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *InterviewDimensionScoreBuilder) Name(name *I18n) *InterviewDimensionScoreBuilder {
 	builder.name = name
@@ -10953,6 +11559,7 @@ func NewInterviewExtendBuilder() *InterviewExtendBuilder {
 }
 
 // 面试 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewExtendBuilder) Id(id string) *InterviewExtendBuilder {
 	builder.id = id
@@ -10961,6 +11568,7 @@ func (builder *InterviewExtendBuilder) Id(id string) *InterviewExtendBuilder {
 }
 
 // 面试开始时间（ms）
+//
 // 示例值：1618899376474
 func (builder *InterviewExtendBuilder) BeginTime(beginTime int) *InterviewExtendBuilder {
 	builder.beginTime = beginTime
@@ -10969,6 +11577,7 @@ func (builder *InterviewExtendBuilder) BeginTime(beginTime int) *InterviewExtend
 }
 
 // 面试结束时间（ms）
+//
 // 示例值：1618999376474
 func (builder *InterviewExtendBuilder) EndTime(endTime int) *InterviewExtendBuilder {
 	builder.endTime = endTime
@@ -10977,6 +11586,7 @@ func (builder *InterviewExtendBuilder) EndTime(endTime int) *InterviewExtendBuil
 }
 
 // 面试轮次
+//
 // 示例值：0
 func (builder *InterviewExtendBuilder) Round(round int) *InterviewExtendBuilder {
 	builder.round = round
@@ -10985,6 +11595,7 @@ func (builder *InterviewExtendBuilder) Round(round int) *InterviewExtendBuilder 
 }
 
 // 面试记录信息
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) InterviewRecordList(interviewRecordList []*InterviewRecord) *InterviewExtendBuilder {
 	builder.interviewRecordList = interviewRecordList
@@ -10993,6 +11604,7 @@ func (builder *InterviewExtendBuilder) InterviewRecordList(interviewRecordList [
 }
 
 // 面试评价提交时间
+//
 // 示例值：1659318415000
 func (builder *InterviewExtendBuilder) FeedbackSubmitTime(feedbackSubmitTime int) *InterviewExtendBuilder {
 	builder.feedbackSubmitTime = feedbackSubmitTime
@@ -11001,6 +11613,7 @@ func (builder *InterviewExtendBuilder) FeedbackSubmitTime(feedbackSubmitTime int
 }
 
 // 面试关联的投递阶段
+//
 // 示例值：634324253532232
 func (builder *InterviewExtendBuilder) StageId(stageId string) *InterviewExtendBuilder {
 	builder.stageId = stageId
@@ -11009,6 +11622,7 @@ func (builder *InterviewExtendBuilder) StageId(stageId string) *InterviewExtendB
 }
 
 // 投递 ID
+//
 // 示例值：634324253532232
 func (builder *InterviewExtendBuilder) ApplicationId(applicationId string) *InterviewExtendBuilder {
 	builder.applicationId = applicationId
@@ -11017,6 +11631,7 @@ func (builder *InterviewExtendBuilder) ApplicationId(applicationId string) *Inte
 }
 
 // 阶段信息
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) Stage(stage *IdNameObject) *InterviewExtendBuilder {
 	builder.stage = stage
@@ -11025,6 +11640,7 @@ func (builder *InterviewExtendBuilder) Stage(stage *IdNameObject) *InterviewExte
 }
 
 // 创建人
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) Creator(creator *IdNameObject) *InterviewExtendBuilder {
 	builder.creator = creator
@@ -11033,6 +11649,7 @@ func (builder *InterviewExtendBuilder) Creator(creator *IdNameObject) *Interview
 }
 
 // 创建时间（ms）
+//
 // 示例值：1618999376474
 func (builder *InterviewExtendBuilder) BizCreateTime(bizCreateTime int) *InterviewExtendBuilder {
 	builder.bizCreateTime = bizCreateTime
@@ -11041,6 +11658,7 @@ func (builder *InterviewExtendBuilder) BizCreateTime(bizCreateTime int) *Intervi
 }
 
 // 最近更新时间（ms）
+//
 // 示例值：1618999376474
 func (builder *InterviewExtendBuilder) BizModifyTime(bizModifyTime int) *InterviewExtendBuilder {
 	builder.bizModifyTime = bizModifyTime
@@ -11049,6 +11667,7 @@ func (builder *InterviewExtendBuilder) BizModifyTime(bizModifyTime int) *Intervi
 }
 
 // 面试状态
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) InterviewRoundSummary(interviewRoundSummary int) *InterviewExtendBuilder {
 	builder.interviewRoundSummary = interviewRoundSummary
@@ -11057,6 +11676,7 @@ func (builder *InterviewExtendBuilder) InterviewRoundSummary(interviewRoundSumma
 }
 
 // 面试安排 ID
+//
 // 示例值：1111111
 func (builder *InterviewExtendBuilder) InterviewArrangementId(interviewArrangementId string) *InterviewExtendBuilder {
 	builder.interviewArrangementId = interviewArrangementId
@@ -11065,6 +11685,7 @@ func (builder *InterviewExtendBuilder) InterviewArrangementId(interviewArrangeme
 }
 
 // 面试类型
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) InterviewType(interviewType int) *InterviewExtendBuilder {
 	builder.interviewType = interviewType
@@ -11073,6 +11694,7 @@ func (builder *InterviewExtendBuilder) InterviewType(interviewType int) *Intervi
 }
 
 // 候选人时区
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) TalentTimeZone(talentTimeZone *CodeNameObject) *InterviewExtendBuilder {
 	builder.talentTimeZone = talentTimeZone
@@ -11081,6 +11703,7 @@ func (builder *InterviewExtendBuilder) TalentTimeZone(talentTimeZone *CodeNameOb
 }
 
 // 面试联系人
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) ContactUser(contactUser *IdNameObject) *InterviewExtendBuilder {
 	builder.contactUser = contactUser
@@ -11089,6 +11712,7 @@ func (builder *InterviewExtendBuilder) ContactUser(contactUser *IdNameObject) *I
 }
 
 // 面试联系人电话
+//
 // 示例值：13333333333
 func (builder *InterviewExtendBuilder) ContactMobile(contactMobile string) *InterviewExtendBuilder {
 	builder.contactMobile = contactMobile
@@ -11097,6 +11721,7 @@ func (builder *InterviewExtendBuilder) ContactMobile(contactMobile string) *Inte
 }
 
 // 备注
+//
 // 示例值：test
 func (builder *InterviewExtendBuilder) Remark(remark string) *InterviewExtendBuilder {
 	builder.remark = remark
@@ -11105,6 +11730,7 @@ func (builder *InterviewExtendBuilder) Remark(remark string) *InterviewExtendBui
 }
 
 // 面试地点
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) Address(address *InterviewAddress) *InterviewExtendBuilder {
 	builder.address = address
@@ -11113,6 +11739,7 @@ func (builder *InterviewExtendBuilder) Address(address *InterviewAddress) *Inter
 }
 
 // 视频面试工具
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) VideoType(videoType int) *InterviewExtendBuilder {
 	builder.videoType = videoType
@@ -11121,6 +11748,7 @@ func (builder *InterviewExtendBuilder) VideoType(videoType int) *InterviewExtend
 }
 
 // 当安排类型为集中面试时，此值表示集中面试的安排状态
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) ArrangementStatus(arrangementStatus int) *InterviewExtendBuilder {
 	builder.arrangementStatus = arrangementStatus
@@ -11129,6 +11757,7 @@ func (builder *InterviewExtendBuilder) ArrangementStatus(arrangementStatus int) 
 }
 
 // 安排类型
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) ArrangementType(arrangementType int) *InterviewExtendBuilder {
 	builder.arrangementType = arrangementType
@@ -11137,6 +11766,7 @@ func (builder *InterviewExtendBuilder) ArrangementType(arrangementType int) *Int
 }
 
 // 安排方式（是否使用自助约面）
+//
 // 示例值：1
 func (builder *InterviewExtendBuilder) ArrangementAppointmentKind(arrangementAppointmentKind int) *InterviewExtendBuilder {
 	builder.arrangementAppointmentKind = arrangementAppointmentKind
@@ -11145,6 +11775,7 @@ func (builder *InterviewExtendBuilder) ArrangementAppointmentKind(arrangementApp
 }
 
 // 面试会议室
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) MeetingRoomList(meetingRoomList []*InterviewMeetingRoom) *InterviewExtendBuilder {
 	builder.meetingRoomList = meetingRoomList
@@ -11153,6 +11784,7 @@ func (builder *InterviewExtendBuilder) MeetingRoomList(meetingRoomList []*Interv
 }
 
 // 面试轮次类型
+//
 // 示例值：
 func (builder *InterviewExtendBuilder) InterviewRoundType(interviewRoundType *IdNameObject) *InterviewExtendBuilder {
 	builder.interviewRoundType = interviewRoundType
@@ -11288,6 +11920,7 @@ func NewInterviewMeetingRoomBuilder() *InterviewMeetingRoomBuilder {
 }
 
 // 会议室 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewMeetingRoomBuilder) RoomId(roomId string) *InterviewMeetingRoomBuilder {
 	builder.roomId = roomId
@@ -11296,6 +11929,7 @@ func (builder *InterviewMeetingRoomBuilder) RoomId(roomId string) *InterviewMeet
 }
 
 // 会议室名称
+//
 // 示例值：OCG111
 func (builder *InterviewMeetingRoomBuilder) RoomName(roomName string) *InterviewMeetingRoomBuilder {
 	builder.roomName = roomName
@@ -11304,6 +11938,7 @@ func (builder *InterviewMeetingRoomBuilder) RoomName(roomName string) *Interview
 }
 
 // 建筑名称
+//
 // 示例值：OCG
 func (builder *InterviewMeetingRoomBuilder) BuildingName(buildingName string) *InterviewMeetingRoomBuilder {
 	builder.buildingName = buildingName
@@ -11312,6 +11947,7 @@ func (builder *InterviewMeetingRoomBuilder) BuildingName(buildingName string) *I
 }
 
 // 会议室预定状态
+//
 // 示例值：1
 func (builder *InterviewMeetingRoomBuilder) ReservedStatus(reservedStatus int) *InterviewMeetingRoomBuilder {
 	builder.reservedStatus = reservedStatus
@@ -11320,6 +11956,7 @@ func (builder *InterviewMeetingRoomBuilder) ReservedStatus(reservedStatus int) *
 }
 
 // 楼层
+//
 // 示例值：17
 func (builder *InterviewMeetingRoomBuilder) FloorName(floorName string) *InterviewMeetingRoomBuilder {
 	builder.floorName = floorName
@@ -11397,6 +12034,7 @@ func NewInterviewRecordBuilder() *InterviewRecordBuilder {
 }
 
 // 面试记录 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
 	builder.id = id
@@ -11405,6 +12043,7 @@ func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
 }
 
 // 面试官用户 ID
+//
 // 示例值：1618899376474
 func (builder *InterviewRecordBuilder) UserId(userId string) *InterviewRecordBuilder {
 	builder.userId = userId
@@ -11413,6 +12052,7 @@ func (builder *InterviewRecordBuilder) UserId(userId string) *InterviewRecordBui
 }
 
 // 系统预设「记录」题目内容
+//
 // 示例值：代码还行，只是不够聪明
 func (builder *InterviewRecordBuilder) Content(content string) *InterviewRecordBuilder {
 	builder.content = content
@@ -11421,6 +12061,7 @@ func (builder *InterviewRecordBuilder) Content(content string) *InterviewRecordB
 }
 
 // 建议定级下限的职级 ID
+//
 // 示例值：6435238827342432
 func (builder *InterviewRecordBuilder) MinJobLevelId(minJobLevelId string) *InterviewRecordBuilder {
 	builder.minJobLevelId = minJobLevelId
@@ -11429,6 +12070,7 @@ func (builder *InterviewRecordBuilder) MinJobLevelId(minJobLevelId string) *Inte
 }
 
 // 建议定级上限的职级 ID
+//
 // 示例值：643523885843573
 func (builder *InterviewRecordBuilder) MaxJobLevelId(maxJobLevelId string) *InterviewRecordBuilder {
 	builder.maxJobLevelId = maxJobLevelId
@@ -11437,6 +12079,7 @@ func (builder *InterviewRecordBuilder) MaxJobLevelId(maxJobLevelId string) *Inte
 }
 
 // 提交状态
+//
 // 示例值：1
 func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *InterviewRecordBuilder {
 	builder.commitStatus = commitStatus
@@ -11445,6 +12088,7 @@ func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *Interview
 }
 
 // 面试评价提交时间
+//
 // 示例值：1659318415000
 func (builder *InterviewRecordBuilder) FeedbackSubmitTime(feedbackSubmitTime int) *InterviewRecordBuilder {
 	builder.feedbackSubmitTime = feedbackSubmitTime
@@ -11453,6 +12097,7 @@ func (builder *InterviewRecordBuilder) FeedbackSubmitTime(feedbackSubmitTime int
 }
 
 // 面试结论
+//
 // 示例值：1
 func (builder *InterviewRecordBuilder) Conclusion(conclusion int) *InterviewRecordBuilder {
 	builder.conclusion = conclusion
@@ -11461,6 +12106,7 @@ func (builder *InterviewRecordBuilder) Conclusion(conclusion int) *InterviewReco
 }
 
 // 面试评分
+//
 // 示例值：
 func (builder *InterviewRecordBuilder) InterviewScore(interviewScore *InterviewScore) *InterviewRecordBuilder {
 	builder.interviewScore = interviewScore
@@ -11469,6 +12115,7 @@ func (builder *InterviewRecordBuilder) InterviewScore(interviewScore *InterviewS
 }
 
 // 面试官信息
+//
 // 示例值：
 func (builder *InterviewRecordBuilder) Interviewer(interviewer *IdNameObject) *InterviewRecordBuilder {
 	builder.interviewer = interviewer
@@ -11477,6 +12124,7 @@ func (builder *InterviewRecordBuilder) Interviewer(interviewer *IdNameObject) *I
 }
 
 // 面试评价
+//
 // 示例值：
 func (builder *InterviewRecordBuilder) DimensionAssessmentList(dimensionAssessmentList []*InterviewDimensionAssessment) *InterviewRecordBuilder {
 	builder.dimensionAssessmentList = dimensionAssessmentList
@@ -11545,6 +12193,7 @@ func NewInterviewRecordTemplateBuilder() *InterviewRecordTemplateBuilder {
 }
 
 // 面试评价表
+//
 // 示例值：
 func (builder *InterviewRecordTemplateBuilder) AssessmentTemplate(assessmentTemplate *InterviewAssessmentTemplate) *InterviewRecordTemplateBuilder {
 	builder.assessmentTemplate = assessmentTemplate
@@ -11584,6 +12233,7 @@ func NewInterviewRegistrationSchemaBuilder() *InterviewRegistrationSchemaBuilder
 }
 
 // 面试登记表模板 ID
+//
 // 示例值：7044739584859326764
 func (builder *InterviewRegistrationSchemaBuilder) Id(id string) *InterviewRegistrationSchemaBuilder {
 	builder.id = id
@@ -11592,6 +12242,7 @@ func (builder *InterviewRegistrationSchemaBuilder) Id(id string) *InterviewRegis
 }
 
 // 面试登记表模板名称
+//
 // 示例值：默认面试登记表
 func (builder *InterviewRegistrationSchemaBuilder) Name(name string) *InterviewRegistrationSchemaBuilder {
 	builder.name = name
@@ -11600,6 +12251,7 @@ func (builder *InterviewRegistrationSchemaBuilder) Name(name string) *InterviewR
 }
 
 // 是否用作面试登记表
+//
 // 示例值：true
 func (builder *InterviewRegistrationSchemaBuilder) IsUsedAsInterview(isUsedAsInterview bool) *InterviewRegistrationSchemaBuilder {
 	builder.isUsedAsInterview = isUsedAsInterview
@@ -11608,6 +12260,7 @@ func (builder *InterviewRegistrationSchemaBuilder) IsUsedAsInterview(isUsedAsInt
 }
 
 // 模块列表
+//
 // 示例值：
 func (builder *InterviewRegistrationSchemaBuilder) ObjectList(objectList []*CommonSchema) *InterviewRegistrationSchemaBuilder {
 	builder.objectList = objectList
@@ -11665,6 +12318,7 @@ func NewInterviewRoundTypeBuilder() *InterviewRoundTypeBuilder {
 }
 
 // 面试轮次类型 ID
+//
 // 示例值：7012129842917869868
 func (builder *InterviewRoundTypeBuilder) Id(id string) *InterviewRoundTypeBuilder {
 	builder.id = id
@@ -11673,6 +12327,7 @@ func (builder *InterviewRoundTypeBuilder) Id(id string) *InterviewRoundTypeBuild
 }
 
 // 面试轮次类型业务 ID
+//
 // 示例值：7012129842917869868
 func (builder *InterviewRoundTypeBuilder) BizId(bizId string) *InterviewRoundTypeBuilder {
 	builder.bizId = bizId
@@ -11681,6 +12336,7 @@ func (builder *InterviewRoundTypeBuilder) BizId(bizId string) *InterviewRoundTyp
 }
 
 // 面试轮次类型名称
+//
 // 示例值：
 func (builder *InterviewRoundTypeBuilder) Name(name *I18n) *InterviewRoundTypeBuilder {
 	builder.name = name
@@ -11689,6 +12345,7 @@ func (builder *InterviewRoundTypeBuilder) Name(name *I18n) *InterviewRoundTypeBu
 }
 
 // 职位流程类型
+//
 // 示例值：1
 func (builder *InterviewRoundTypeBuilder) ProcessType(processType int) *InterviewRoundTypeBuilder {
 	builder.processType = processType
@@ -11697,6 +12354,7 @@ func (builder *InterviewRoundTypeBuilder) ProcessType(processType int) *Intervie
 }
 
 // 启用状态
+//
 // 示例值：1
 func (builder *InterviewRoundTypeBuilder) ActiveStatus(activeStatus int) *InterviewRoundTypeBuilder {
 	builder.activeStatus = activeStatus
@@ -11705,6 +12363,7 @@ func (builder *InterviewRoundTypeBuilder) ActiveStatus(activeStatus int) *Interv
 }
 
 // 面试评价表
+//
 // 示例值：
 func (builder *InterviewRoundTypeBuilder) InterviewAssessmentTemplateInfo(interviewAssessmentTemplateInfo *InterviewRoundTypeAssessmentTemplate) *InterviewRoundTypeBuilder {
 	builder.interviewAssessmentTemplateInfo = interviewAssessmentTemplateInfo
@@ -11760,6 +12419,7 @@ func NewInterviewRoundTypeAssessmentTemplateBuilder() *InterviewRoundTypeAssessm
 }
 
 // 面试评价表 ID
+//
 // 示例值：7012129842917869868
 func (builder *InterviewRoundTypeAssessmentTemplateBuilder) Id(id string) *InterviewRoundTypeAssessmentTemplateBuilder {
 	builder.id = id
@@ -11768,6 +12428,7 @@ func (builder *InterviewRoundTypeAssessmentTemplateBuilder) Id(id string) *Inter
 }
 
 // 面试评价表业务 ID
+//
 // 示例值：7012129842917869868
 func (builder *InterviewRoundTypeAssessmentTemplateBuilder) BizId(bizId string) *InterviewRoundTypeAssessmentTemplateBuilder {
 	builder.bizId = bizId
@@ -11776,6 +12437,7 @@ func (builder *InterviewRoundTypeAssessmentTemplateBuilder) BizId(bizId string) 
 }
 
 // 面试评价表名称
+//
 // 示例值：
 func (builder *InterviewRoundTypeAssessmentTemplateBuilder) Name(name *I18n) *InterviewRoundTypeAssessmentTemplateBuilder {
 	builder.name = name
@@ -11829,6 +12491,7 @@ func NewInterviewScoreBuilder() *InterviewScoreBuilder {
 }
 
 // 面试评分 ID
+//
 // 示例值：6949805467799537964
 func (builder *InterviewScoreBuilder) Id(id string) *InterviewScoreBuilder {
 	builder.id = id
@@ -11837,6 +12500,7 @@ func (builder *InterviewScoreBuilder) Id(id string) *InterviewScoreBuilder {
 }
 
 // 分数级别
+//
 // 示例值：3
 func (builder *InterviewScoreBuilder) Level(level int) *InterviewScoreBuilder {
 	builder.level = level
@@ -11845,6 +12509,7 @@ func (builder *InterviewScoreBuilder) Level(level int) *InterviewScoreBuilder {
 }
 
 // 中文名称
+//
 // 示例值：3
 func (builder *InterviewScoreBuilder) ZhName(zhName string) *InterviewScoreBuilder {
 	builder.zhName = zhName
@@ -11853,6 +12518,7 @@ func (builder *InterviewScoreBuilder) ZhName(zhName string) *InterviewScoreBuild
 }
 
 // 中文描述
+//
 // 示例值：通过, 能力达到要求, 建议录用
 func (builder *InterviewScoreBuilder) ZhDescription(zhDescription string) *InterviewScoreBuilder {
 	builder.zhDescription = zhDescription
@@ -11861,6 +12527,7 @@ func (builder *InterviewScoreBuilder) ZhDescription(zhDescription string) *Inter
 }
 
 // 英文名称
+//
 // 示例值：three
 func (builder *InterviewScoreBuilder) EnName(enName string) *InterviewScoreBuilder {
 	builder.enName = enName
@@ -11869,6 +12536,7 @@ func (builder *InterviewScoreBuilder) EnName(enName string) *InterviewScoreBuild
 }
 
 // 英文描述
+//
 // 示例值：Pass, ability to meet the requirements, suggest to hire
 func (builder *InterviewScoreBuilder) EnDescription(enDescription string) *InterviewScoreBuilder {
 	builder.enDescription = enDescription
@@ -11932,6 +12600,7 @@ func NewInterviewTaskBuilder() *InterviewTaskBuilder {
 }
 
 // 面试 ID
+//
 // 示例值：6989202908470446380
 func (builder *InterviewTaskBuilder) Id(id string) *InterviewTaskBuilder {
 	builder.id = id
@@ -11940,6 +12609,7 @@ func (builder *InterviewTaskBuilder) Id(id string) *InterviewTaskBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6897921873523247373
 func (builder *InterviewTaskBuilder) JobId(jobId string) *InterviewTaskBuilder {
 	builder.jobId = jobId
@@ -11948,6 +12618,7 @@ func (builder *InterviewTaskBuilder) JobId(jobId string) *InterviewTaskBuilder {
 }
 
 // 人才 ID
+//
 // 示例值：7046263097923537196
 func (builder *InterviewTaskBuilder) TalentId(talentId string) *InterviewTaskBuilder {
 	builder.talentId = talentId
@@ -11956,6 +12627,7 @@ func (builder *InterviewTaskBuilder) TalentId(talentId string) *InterviewTaskBui
 }
 
 // 投递 ID
+//
 // 示例值：7046315599510833452
 func (builder *InterviewTaskBuilder) ApplicationId(applicationId string) *InterviewTaskBuilder {
 	builder.applicationId = applicationId
@@ -11964,6 +12636,7 @@ func (builder *InterviewTaskBuilder) ApplicationId(applicationId string) *Interv
 }
 
 // 任务状态
+//
 // 示例值：1
 func (builder *InterviewTaskBuilder) ActivityStatus(activityStatus int) *InterviewTaskBuilder {
 	builder.activityStatus = activityStatus
@@ -12101,6 +12774,7 @@ func NewJobBuilder() *JobBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6001
 func (builder *JobBuilder) Id(id string) *JobBuilder {
 	builder.id = id
@@ -12109,6 +12783,7 @@ func (builder *JobBuilder) Id(id string) *JobBuilder {
 }
 
 // 职位名称
+//
 // 示例值：测试职位
 func (builder *JobBuilder) Title(title string) *JobBuilder {
 	builder.title = title
@@ -12117,6 +12792,7 @@ func (builder *JobBuilder) Title(title string) *JobBuilder {
 }
 
 // 职位描述
+//
 // 示例值：职位描述文本
 func (builder *JobBuilder) Description(description string) *JobBuilder {
 	builder.description = description
@@ -12125,6 +12801,7 @@ func (builder *JobBuilder) Description(description string) *JobBuilder {
 }
 
 // 职位编号
+//
 // 示例值：R18
 func (builder *JobBuilder) Code(code string) *JobBuilder {
 	builder.code = code
@@ -12133,6 +12810,7 @@ func (builder *JobBuilder) Code(code string) *JobBuilder {
 }
 
 // 职位要求
+//
 // 示例值：职位要求文本
 func (builder *JobBuilder) Requirement(requirement string) *JobBuilder {
 	builder.requirement = requirement
@@ -12141,6 +12819,7 @@ func (builder *JobBuilder) Requirement(requirement string) *JobBuilder {
 }
 
 // 雇佣类型
+//
 // 示例值：
 func (builder *JobBuilder) RecruitmentType(recruitmentType *JobRecruitmentType) *JobBuilder {
 	builder.recruitmentType = recruitmentType
@@ -12149,6 +12828,7 @@ func (builder *JobBuilder) RecruitmentType(recruitmentType *JobRecruitmentType) 
 }
 
 // 部门
+//
 // 示例值：
 func (builder *JobBuilder) Department(department *JobDepartment) *JobBuilder {
 	builder.department = department
@@ -12157,6 +12837,7 @@ func (builder *JobBuilder) Department(department *JobDepartment) *JobBuilder {
 }
 
 // 工作地点
+//
 // 示例值：
 func (builder *JobBuilder) City(city *JobCity) *JobBuilder {
 	builder.city = city
@@ -12165,6 +12846,7 @@ func (builder *JobBuilder) City(city *JobCity) *JobBuilder {
 }
 
 // 最低职级
+//
 // 示例值：
 func (builder *JobBuilder) MinJobLevel(minJobLevel *JobLevel) *JobBuilder {
 	builder.minJobLevel = minJobLevel
@@ -12173,6 +12855,7 @@ func (builder *JobBuilder) MinJobLevel(minJobLevel *JobLevel) *JobBuilder {
 }
 
 // 最高职级
+//
 // 示例值：
 func (builder *JobBuilder) MaxJobLevel(maxJobLevel *JobLevel) *JobBuilder {
 	builder.maxJobLevel = maxJobLevel
@@ -12181,6 +12864,7 @@ func (builder *JobBuilder) MaxJobLevel(maxJobLevel *JobLevel) *JobBuilder {
 }
 
 // 职位亮点
+//
 // 示例值：
 func (builder *JobBuilder) HighlightList(highlightList []*JobHighlight) *JobBuilder {
 	builder.highlightList = highlightList
@@ -12189,6 +12873,7 @@ func (builder *JobBuilder) HighlightList(highlightList []*JobHighlight) *JobBuil
 }
 
 // 职位序列
+//
 // 示例值：
 func (builder *JobBuilder) JobCategory(jobCategory *JobCategory) *JobBuilder {
 	builder.jobCategory = jobCategory
@@ -12197,6 +12882,7 @@ func (builder *JobBuilder) JobCategory(jobCategory *JobCategory) *JobBuilder {
 }
 
 // 职位类别
+//
 // 示例值：
 func (builder *JobBuilder) JobType(jobType *JobType) *JobBuilder {
 	builder.jobType = jobType
@@ -12205,6 +12891,7 @@ func (builder *JobBuilder) JobType(jobType *JobType) *JobBuilder {
 }
 
 // 启用状态
+//
 // 示例值：1
 func (builder *JobBuilder) ActiveStatus(activeStatus int) *JobBuilder {
 	builder.activeStatus = activeStatus
@@ -12213,6 +12900,7 @@ func (builder *JobBuilder) ActiveStatus(activeStatus int) *JobBuilder {
 }
 
 // 创建人ID，若为空则为系统或其他对接系统创建
+//
 // 示例值：ou-xxx
 func (builder *JobBuilder) CreateUserId(createUserId string) *JobBuilder {
 	builder.createUserId = createUserId
@@ -12221,6 +12909,7 @@ func (builder *JobBuilder) CreateUserId(createUserId string) *JobBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1617170925462
 func (builder *JobBuilder) CreateTime(createTime int) *JobBuilder {
 	builder.createTime = createTime
@@ -12229,6 +12918,7 @@ func (builder *JobBuilder) CreateTime(createTime int) *JobBuilder {
 }
 
 // 更新时间
+//
 // 示例值：1617170925462
 func (builder *JobBuilder) UpdateTime(updateTime int) *JobBuilder {
 	builder.updateTime = updateTime
@@ -12237,6 +12927,7 @@ func (builder *JobBuilder) UpdateTime(updateTime int) *JobBuilder {
 }
 
 // 招聘流程类型
+//
 // 示例值：1
 func (builder *JobBuilder) ProcessType(processType int) *JobBuilder {
 	builder.processType = processType
@@ -12245,6 +12936,7 @@ func (builder *JobBuilder) ProcessType(processType int) *JobBuilder {
 }
 
 // 招聘流程 ID
+//
 // 示例值：1
 func (builder *JobBuilder) ProcessId(processId string) *JobBuilder {
 	builder.processId = processId
@@ -12253,6 +12945,7 @@ func (builder *JobBuilder) ProcessId(processId string) *JobBuilder {
 }
 
 // 招聘流程中文名称
+//
 // 示例值：流程中文名
 func (builder *JobBuilder) ProcessName(processName string) *JobBuilder {
 	builder.processName = processName
@@ -12261,6 +12954,7 @@ func (builder *JobBuilder) ProcessName(processName string) *JobBuilder {
 }
 
 // 招聘流程英文名称
+//
 // 示例值：流程英文名
 func (builder *JobBuilder) ProcessEnName(processEnName string) *JobBuilder {
 	builder.processEnName = processEnName
@@ -12269,6 +12963,7 @@ func (builder *JobBuilder) ProcessEnName(processEnName string) *JobBuilder {
 }
 
 // 自定义字段列表
+//
 // 示例值：
 func (builder *JobBuilder) CustomizedDataList(customizedDataList []*JobCustomizedData) *JobBuilder {
 	builder.customizedDataList = customizedDataList
@@ -12277,6 +12972,7 @@ func (builder *JobBuilder) CustomizedDataList(customizedDataList []*JobCustomize
 }
 
 // 职能分类
+//
 // 示例值：
 func (builder *JobBuilder) JobFunction(jobFunction *IdNameObject) *JobBuilder {
 	builder.jobFunction = jobFunction
@@ -12285,6 +12981,7 @@ func (builder *JobBuilder) JobFunction(jobFunction *IdNameObject) *JobBuilder {
 }
 
 // 职位项目
+//
 // 示例值：
 func (builder *JobBuilder) Subject(subject *IdNameObject) *JobBuilder {
 	builder.subject = subject
@@ -12293,6 +12990,7 @@ func (builder *JobBuilder) Subject(subject *IdNameObject) *JobBuilder {
 }
 
 // 招聘数量
+//
 // 示例值：100
 func (builder *JobBuilder) HeadCount(headCount int) *JobBuilder {
 	builder.headCount = headCount
@@ -12301,6 +12999,7 @@ func (builder *JobBuilder) HeadCount(headCount int) *JobBuilder {
 }
 
 // 工作年限
+//
 // 示例值：1
 func (builder *JobBuilder) Experience(experience int) *JobBuilder {
 	builder.experience = experience
@@ -12309,6 +13008,7 @@ func (builder *JobBuilder) Experience(experience int) *JobBuilder {
 }
 
 // 到期日期
+//
 // 示例值：1622484739955
 func (builder *JobBuilder) ExpiryTime(expiryTime int) *JobBuilder {
 	builder.expiryTime = expiryTime
@@ -12317,6 +13017,7 @@ func (builder *JobBuilder) ExpiryTime(expiryTime int) *JobBuilder {
 }
 
 // 最低薪资，单位:k
+//
 // 示例值：10
 func (builder *JobBuilder) MinSalary(minSalary int) *JobBuilder {
 	builder.minSalary = minSalary
@@ -12325,6 +13026,7 @@ func (builder *JobBuilder) MinSalary(minSalary int) *JobBuilder {
 }
 
 // 最高薪资，单位:k
+//
 // 示例值：20
 func (builder *JobBuilder) MaxSalary(maxSalary int) *JobBuilder {
 	builder.maxSalary = maxSalary
@@ -12333,6 +13035,7 @@ func (builder *JobBuilder) MaxSalary(maxSalary int) *JobBuilder {
 }
 
 // 学历要求
+//
 // 示例值：1
 func (builder *JobBuilder) RequiredDegree(requiredDegree int) *JobBuilder {
 	builder.requiredDegree = requiredDegree
@@ -12341,6 +13044,7 @@ func (builder *JobBuilder) RequiredDegree(requiredDegree int) *JobBuilder {
 }
 
 // 工作地点列表
+//
 // 示例值：
 func (builder *JobBuilder) CityList(cityList []*CodeNameObject) *JobBuilder {
 	builder.cityList = cityList
@@ -12489,6 +13193,7 @@ func NewJobManagerBuilder() *JobManagerBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：1618209327096
 func (builder *JobManagerBuilder) Id(id string) *JobManagerBuilder {
 	builder.id = id
@@ -12497,6 +13202,7 @@ func (builder *JobManagerBuilder) Id(id string) *JobManagerBuilder {
 }
 
 // 招聘负责人 ID，仅一位，可通过用户相关接口获取用户 ID
+//
 // 示例值：ou_efk39117c300506837def50545420c6a
 func (builder *JobManagerBuilder) RecruiterId(recruiterId string) *JobManagerBuilder {
 	builder.recruiterId = recruiterId
@@ -12505,6 +13211,7 @@ func (builder *JobManagerBuilder) RecruiterId(recruiterId string) *JobManagerBui
 }
 
 // 用人经理 ID 列表
+//
 // 示例值：6960663240925956554
 func (builder *JobManagerBuilder) HiringManagerIdList(hiringManagerIdList []string) *JobManagerBuilder {
 	builder.hiringManagerIdList = hiringManagerIdList
@@ -12513,6 +13220,7 @@ func (builder *JobManagerBuilder) HiringManagerIdList(hiringManagerIdList []stri
 }
 
 // 协助人 ID 列表
+//
 // 示例值：6960663240925956554
 func (builder *JobManagerBuilder) AssistantIdList(assistantIdList []string) *JobManagerBuilder {
 	builder.assistantIdList = assistantIdList
@@ -12563,6 +13271,7 @@ func NewJobRecruiterBuilder() *JobRecruiterBuilder {
 }
 
 // 职位ID
+//
 // 示例值：
 func (builder *JobRecruiterBuilder) Id(id string) *JobRecruiterBuilder {
 	builder.id = id
@@ -12571,6 +13280,7 @@ func (builder *JobRecruiterBuilder) Id(id string) *JobRecruiterBuilder {
 }
 
 // 招聘负责人ID
+//
 // 示例值：
 func (builder *JobRecruiterBuilder) RecruiterId(recruiterId string) *JobRecruiterBuilder {
 	builder.recruiterId = recruiterId
@@ -12579,6 +13289,7 @@ func (builder *JobRecruiterBuilder) RecruiterId(recruiterId string) *JobRecruite
 }
 
 // 用人经理ID列表
+//
 // 示例值：
 func (builder *JobRecruiterBuilder) HiringManagerIdList(hiringManagerIdList []string) *JobRecruiterBuilder {
 	builder.hiringManagerIdList = hiringManagerIdList
@@ -12587,6 +13298,7 @@ func (builder *JobRecruiterBuilder) HiringManagerIdList(hiringManagerIdList []st
 }
 
 // 协助人ID列表
+//
 // 示例值：
 func (builder *JobRecruiterBuilder) AssistantIdList(assistantIdList []string) *JobRecruiterBuilder {
 	builder.assistantIdList = assistantIdList
@@ -12637,6 +13349,7 @@ func NewJobCategoryBuilder() *JobCategoryBuilder {
 }
 
 // 职位序列 ID
+//
 // 示例值：6301
 func (builder *JobCategoryBuilder) Id(id string) *JobCategoryBuilder {
 	builder.id = id
@@ -12645,6 +13358,7 @@ func (builder *JobCategoryBuilder) Id(id string) *JobCategoryBuilder {
 }
 
 // 职位序列中文名称
+//
 // 示例值：序列-A
 func (builder *JobCategoryBuilder) ZhName(zhName string) *JobCategoryBuilder {
 	builder.zhName = zhName
@@ -12653,6 +13367,7 @@ func (builder *JobCategoryBuilder) ZhName(zhName string) *JobCategoryBuilder {
 }
 
 // 职位序列英文名称
+//
 // 示例值：category-A
 func (builder *JobCategoryBuilder) EnName(enName string) *JobCategoryBuilder {
 	builder.enName = enName
@@ -12661,6 +13376,7 @@ func (builder *JobCategoryBuilder) EnName(enName string) *JobCategoryBuilder {
 }
 
 // 职位序列启用状态
+//
 // 示例值：1
 func (builder *JobCategoryBuilder) ActiveStatus(activeStatus int) *JobCategoryBuilder {
 	builder.activeStatus = activeStatus
@@ -12710,6 +13426,7 @@ func NewJobCityBuilder() *JobCityBuilder {
 }
 
 // 工作地点城市代码
+//
 // 示例值：C20
 func (builder *JobCityBuilder) CityCode(cityCode string) *JobCityBuilder {
 	builder.cityCode = cityCode
@@ -12718,6 +13435,7 @@ func (builder *JobCityBuilder) CityCode(cityCode string) *JobCityBuilder {
 }
 
 // 工作地点中文名称
+//
 // 示例值：成都
 func (builder *JobCityBuilder) ZhName(zhName string) *JobCityBuilder {
 	builder.zhName = zhName
@@ -12726,6 +13444,7 @@ func (builder *JobCityBuilder) ZhName(zhName string) *JobCityBuilder {
 }
 
 // 工作地点英文名称
+//
 // 示例值：Chengdu
 func (builder *JobCityBuilder) EnName(enName string) *JobCityBuilder {
 	builder.enName = enName
@@ -12786,6 +13505,7 @@ func NewJobConfigBuilder() *JobConfigBuilder {
 }
 
 // Offer 申请表，枚举通过接口「获取 Offer 申请表列表」获取
+//
 // 示例值：6960663240925956573
 func (builder *JobConfigBuilder) OfferApplySchemaId(offerApplySchemaId string) *JobConfigBuilder {
 	builder.offerApplySchemaId = offerApplySchemaId
@@ -12794,6 +13514,7 @@ func (builder *JobConfigBuilder) OfferApplySchemaId(offerApplySchemaId string) *
 }
 
 // Offer 审批流，枚举通过接口「获取 Offer 审批流列表」获取
+//
 // 示例值：6960663240925956572
 func (builder *JobConfigBuilder) OfferProcessConf(offerProcessConf string) *JobConfigBuilder {
 	builder.offerProcessConf = offerProcessConf
@@ -12802,6 +13523,7 @@ func (builder *JobConfigBuilder) OfferProcessConf(offerProcessConf string) *JobC
 }
 
 // 建议评估人 ID 列表
+//
 // 示例值：6966533137982392320
 func (builder *JobConfigBuilder) RecommendedEvaluatorIdList(recommendedEvaluatorIdList []string) *JobConfigBuilder {
 	builder.recommendedEvaluatorIdList = recommendedEvaluatorIdList
@@ -12810,6 +13532,7 @@ func (builder *JobConfigBuilder) RecommendedEvaluatorIdList(recommendedEvaluator
 }
 
 // 更新选项，传入要更新的配置项，1=更新面试评价表，2=更新 Offer 申请表，3=更新 Offer 审批流程，4=更新招聘需求，5=更新建议面试官，6=更新推荐评估人
+//
 // 示例值：1
 func (builder *JobConfigBuilder) UpdateOptionList(updateOptionList []int) *JobConfigBuilder {
 	builder.updateOptionList = updateOptionList
@@ -12818,6 +13541,7 @@ func (builder *JobConfigBuilder) UpdateOptionList(updateOptionList []int) *JobCo
 }
 
 // 面试评价表，枚举通过接口「获取面试评价表列表」获取
+//
 // 示例值：6960663240925956571
 func (builder *JobConfigBuilder) AssessmentTemplateBizId(assessmentTemplateBizId string) *JobConfigBuilder {
 	builder.assessmentTemplateBizId = assessmentTemplateBizId
@@ -12826,6 +13550,7 @@ func (builder *JobConfigBuilder) AssessmentTemplateBizId(assessmentTemplateBizId
 }
 
 // 建议面试官列表
+//
 // 示例值：
 func (builder *JobConfigBuilder) InterviewRoundConfList(interviewRoundConfList []*JobConfigInterviewRoundConf) *JobConfigBuilder {
 	builder.interviewRoundConfList = interviewRoundConfList
@@ -12834,6 +13559,7 @@ func (builder *JobConfigBuilder) InterviewRoundConfList(interviewRoundConfList [
 }
 
 // 关联招聘需求，支持关联多个，枚举通过接口「获取招聘需求」获取
+//
 // 示例值：6966533137982392320
 func (builder *JobConfigBuilder) JrIdList(jrIdList []string) *JobConfigBuilder {
 	builder.jrIdList = jrIdList
@@ -12842,6 +13568,7 @@ func (builder *JobConfigBuilder) JrIdList(jrIdList []string) *JobConfigBuilder {
 }
 
 // 面试轮次类型 ID 列表
+//
 // 示例值：
 func (builder *JobConfigBuilder) InterviewRoundTypeConfList(interviewRoundTypeConfList []*JobConfigRoundType) *JobConfigBuilder {
 	builder.interviewRoundTypeConfList = interviewRoundTypeConfList
@@ -12899,6 +13626,7 @@ func NewJobConfigInterviewRoundBuilder() *JobConfigInterviewRoundBuilder {
 }
 
 // 面试官列表
+//
 // 示例值：
 func (builder *JobConfigInterviewRoundBuilder) InterviewerList(interviewerList []*IdNameObject) *JobConfigInterviewRoundBuilder {
 	builder.interviewerList = interviewerList
@@ -12907,6 +13635,7 @@ func (builder *JobConfigInterviewRoundBuilder) InterviewerList(interviewerList [
 }
 
 // 面试轮次
+//
 // 示例值：1
 func (builder *JobConfigInterviewRoundBuilder) Round(round int) *JobConfigInterviewRoundBuilder {
 	builder.round = round
@@ -12944,6 +13673,7 @@ func NewJobConfigInterviewRoundConfBuilder() *JobConfigInterviewRoundConfBuilder
 }
 
 // 建议面试官 ID 列表
+//
 // 示例值：6960663240925956571
 func (builder *JobConfigInterviewRoundConfBuilder) InterviewerIdList(interviewerIdList []string) *JobConfigInterviewRoundConfBuilder {
 	builder.interviewerIdList = interviewerIdList
@@ -12952,6 +13682,7 @@ func (builder *JobConfigInterviewRoundConfBuilder) InterviewerIdList(interviewer
 }
 
 // 面试轮次
+//
 // 示例值：1
 func (builder *JobConfigInterviewRoundConfBuilder) Round(round int) *JobConfigInterviewRoundConfBuilder {
 	builder.round = round
@@ -13007,6 +13738,7 @@ func NewJobConfigResultBuilder() *JobConfigResultBuilder {
 }
 
 // Offer 申请表
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) OfferApplySchema(offerApplySchema *IdNameObject) *JobConfigResultBuilder {
 	builder.offerApplySchema = offerApplySchema
@@ -13015,6 +13747,7 @@ func (builder *JobConfigResultBuilder) OfferApplySchema(offerApplySchema *IdName
 }
 
 // Offer 审批流
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) OfferProcessConf(offerProcessConf *IdNameObject) *JobConfigResultBuilder {
 	builder.offerProcessConf = offerProcessConf
@@ -13023,6 +13756,7 @@ func (builder *JobConfigResultBuilder) OfferProcessConf(offerProcessConf *IdName
 }
 
 // 建议评估人列表
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) RecommendedEvaluatorList(recommendedEvaluatorList []*IdNameObject) *JobConfigResultBuilder {
 	builder.recommendedEvaluatorList = recommendedEvaluatorList
@@ -13031,6 +13765,7 @@ func (builder *JobConfigResultBuilder) RecommendedEvaluatorList(recommendedEvalu
 }
 
 // 面试评价表
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) AssessmentTemplate(assessmentTemplate *IdNameObject) *JobConfigResultBuilder {
 	builder.assessmentTemplate = assessmentTemplate
@@ -13039,6 +13774,7 @@ func (builder *JobConfigResultBuilder) AssessmentTemplate(assessmentTemplate *Id
 }
 
 // 职位 ID
+//
 // 示例值：6960663240925956574
 func (builder *JobConfigResultBuilder) Id(id string) *JobConfigResultBuilder {
 	builder.id = id
@@ -13047,6 +13783,7 @@ func (builder *JobConfigResultBuilder) Id(id string) *JobConfigResultBuilder {
 }
 
 // 建议面试官列表
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) InterviewRoundList(interviewRoundList []*JobConfigInterviewRound) *JobConfigResultBuilder {
 	builder.interviewRoundList = interviewRoundList
@@ -13055,6 +13792,7 @@ func (builder *JobConfigResultBuilder) InterviewRoundList(interviewRoundList []*
 }
 
 // 招聘需求
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) JobRequirementList(jobRequirementList []*IdNameObject) *JobConfigResultBuilder {
 	builder.jobRequirementList = jobRequirementList
@@ -13063,6 +13801,7 @@ func (builder *JobConfigResultBuilder) JobRequirementList(jobRequirementList []*
 }
 
 // 面试轮次类型列表
+//
 // 示例值：
 func (builder *JobConfigResultBuilder) InterviewRoundTypeList(interviewRoundTypeList []*JobConfigRoundTypeResult) *JobConfigResultBuilder {
 	builder.interviewRoundTypeList = interviewRoundTypeList
@@ -13118,6 +13857,7 @@ func NewJobConfigRoundTypeBuilder() *JobConfigRoundTypeBuilder {
 }
 
 // 面试轮次类型业务 ID
+//
 // 示例值：7012129842917837100
 func (builder *JobConfigRoundTypeBuilder) RoundBizId(roundBizId string) *JobConfigRoundTypeBuilder {
 	builder.roundBizId = roundBizId
@@ -13126,6 +13866,7 @@ func (builder *JobConfigRoundTypeBuilder) RoundBizId(roundBizId string) *JobConf
 }
 
 // 面试评价表业务 ID
+//
 // 示例值：6960663240925956632
 func (builder *JobConfigRoundTypeBuilder) AssessmentTemplateBizId(assessmentTemplateBizId string) *JobConfigRoundTypeBuilder {
 	builder.assessmentTemplateBizId = assessmentTemplateBizId
@@ -13164,6 +13905,7 @@ func NewJobConfigRoundTypeResultBuilder() *JobConfigRoundTypeResultBuilder {
 }
 
 // 面试轮次类型
+//
 // 示例值：
 func (builder *JobConfigRoundTypeResultBuilder) AssessmentRound(assessmentRound *IdNameObject) *JobConfigRoundTypeResultBuilder {
 	builder.assessmentRound = assessmentRound
@@ -13172,6 +13914,7 @@ func (builder *JobConfigRoundTypeResultBuilder) AssessmentRound(assessmentRound 
 }
 
 // 面试评价表
+//
 // 示例值：
 func (builder *JobConfigRoundTypeResultBuilder) AssessmentTemplate(assessmentTemplate *IdNameObject) *JobConfigRoundTypeResultBuilder {
 	builder.assessmentTemplate = assessmentTemplate
@@ -13214,6 +13957,7 @@ func NewJobCustomizedDataBuilder() *JobCustomizedDataBuilder {
 }
 
 // 自定义字段 ID
+//
 // 示例值：xxxx
 func (builder *JobCustomizedDataBuilder) ObjectId(objectId string) *JobCustomizedDataBuilder {
 	builder.objectId = objectId
@@ -13222,6 +13966,7 @@ func (builder *JobCustomizedDataBuilder) ObjectId(objectId string) *JobCustomize
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *JobCustomizedDataBuilder) Name(name *I18n) *JobCustomizedDataBuilder {
 	builder.name = name
@@ -13230,6 +13975,7 @@ func (builder *JobCustomizedDataBuilder) Name(name *I18n) *JobCustomizedDataBuil
 }
 
 // 字段类型
+//
 // 示例值：1
 func (builder *JobCustomizedDataBuilder) ObjectType(objectType int) *JobCustomizedDataBuilder {
 	builder.objectType = objectType
@@ -13238,6 +13984,7 @@ func (builder *JobCustomizedDataBuilder) ObjectType(objectType int) *JobCustomiz
 }
 
 // 自定义字段值
+//
 // 示例值：
 func (builder *JobCustomizedDataBuilder) Value(value *JobCustomizedValue) *JobCustomizedDataBuilder {
 	builder.value = value
@@ -13282,6 +14029,7 @@ func NewJobCustomizedOptionBuilder() *JobCustomizedOptionBuilder {
 }
 
 // 选项 ID
+//
 // 示例值：AA
 func (builder *JobCustomizedOptionBuilder) Key(key string) *JobCustomizedOptionBuilder {
 	builder.key = key
@@ -13290,6 +14038,7 @@ func (builder *JobCustomizedOptionBuilder) Key(key string) *JobCustomizedOptionB
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *JobCustomizedOptionBuilder) Name(name *I18n) *JobCustomizedOptionBuilder {
 	builder.name = name
@@ -13327,6 +14076,7 @@ func NewJobCustomizedTimeRangeBuilder() *JobCustomizedTimeRangeBuilder {
 }
 
 // 开始时间
+//
 // 示例值：AA
 func (builder *JobCustomizedTimeRangeBuilder) StartTime(startTime string) *JobCustomizedTimeRangeBuilder {
 	builder.startTime = startTime
@@ -13335,6 +14085,7 @@ func (builder *JobCustomizedTimeRangeBuilder) StartTime(startTime string) *JobCu
 }
 
 // 结束时间
+//
 // 示例值：AA
 func (builder *JobCustomizedTimeRangeBuilder) EndTime(endTime string) *JobCustomizedTimeRangeBuilder {
 	builder.endTime = endTime
@@ -13385,6 +14136,7 @@ func NewJobCustomizedValueBuilder() *JobCustomizedValueBuilder {
 }
 
 // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+//
 // 示例值：text
 func (builder *JobCustomizedValueBuilder) Content(content string) *JobCustomizedValueBuilder {
 	builder.content = content
@@ -13393,6 +14145,7 @@ func (builder *JobCustomizedValueBuilder) Content(content string) *JobCustomized
 }
 
 // 当字段类型为单选时，从此字段取值
+//
 // 示例值：
 func (builder *JobCustomizedValueBuilder) Option(option *JobCustomizedOption) *JobCustomizedValueBuilder {
 	builder.option = option
@@ -13401,6 +14154,7 @@ func (builder *JobCustomizedValueBuilder) Option(option *JobCustomizedOption) *J
 }
 
 // 当字段类型为多选时，从此字段取值
+//
 // 示例值：
 func (builder *JobCustomizedValueBuilder) OptionList(optionList []*JobCustomizedOption) *JobCustomizedValueBuilder {
 	builder.optionList = optionList
@@ -13409,6 +14163,7 @@ func (builder *JobCustomizedValueBuilder) OptionList(optionList []*JobCustomized
 }
 
 // 当字段类型为时间段时，从此字段取值
+//
 // 示例值：
 func (builder *JobCustomizedValueBuilder) TimeRange(timeRange *JobCustomizedTimeRange) *JobCustomizedValueBuilder {
 	builder.timeRange = timeRange
@@ -13417,6 +14172,7 @@ func (builder *JobCustomizedValueBuilder) TimeRange(timeRange *JobCustomizedTime
 }
 
 // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是毫秒级时间戳
+//
 // 示例值：1625456721000
 func (builder *JobCustomizedValueBuilder) Time(time string) *JobCustomizedValueBuilder {
 	builder.time = time
@@ -13425,6 +14181,7 @@ func (builder *JobCustomizedValueBuilder) Time(time string) *JobCustomizedValueB
 }
 
 // 当字段类型为数字时，从此字段取值
+//
 // 示例值：111
 func (builder *JobCustomizedValueBuilder) Number(number string) *JobCustomizedValueBuilder {
 	builder.number = number
@@ -13479,6 +14236,7 @@ func NewJobDepartmentBuilder() *JobDepartmentBuilder {
 }
 
 // 部门 ID
+//
 // 示例值：od-xxxx
 func (builder *JobDepartmentBuilder) Id(id string) *JobDepartmentBuilder {
 	builder.id = id
@@ -13487,6 +14245,7 @@ func (builder *JobDepartmentBuilder) Id(id string) *JobDepartmentBuilder {
 }
 
 // 部门中文名称
+//
 // 示例值：字节跳动
 func (builder *JobDepartmentBuilder) ZhName(zhName string) *JobDepartmentBuilder {
 	builder.zhName = zhName
@@ -13495,6 +14254,7 @@ func (builder *JobDepartmentBuilder) ZhName(zhName string) *JobDepartmentBuilder
 }
 
 // 部门英文名称
+//
 // 示例值：Bytedance
 func (builder *JobDepartmentBuilder) EnName(enName string) *JobDepartmentBuilder {
 	builder.enName = enName
@@ -13543,6 +14303,7 @@ func NewJobFunctionBuilder() *JobFunctionBuilder {
 }
 
 // 职能分类 ID
+//
 // 示例值：7010952553315895596
 func (builder *JobFunctionBuilder) Id(id string) *JobFunctionBuilder {
 	builder.id = id
@@ -13551,6 +14312,7 @@ func (builder *JobFunctionBuilder) Id(id string) *JobFunctionBuilder {
 }
 
 // 职能名称
+//
 // 示例值：
 func (builder *JobFunctionBuilder) Name(name *I18n) *JobFunctionBuilder {
 	builder.name = name
@@ -13559,6 +14321,7 @@ func (builder *JobFunctionBuilder) Name(name *I18n) *JobFunctionBuilder {
 }
 
 // 启用状态
+//
 // 示例值：1
 func (builder *JobFunctionBuilder) ActiveStatus(activeStatus int) *JobFunctionBuilder {
 	builder.activeStatus = activeStatus
@@ -13567,6 +14330,7 @@ func (builder *JobFunctionBuilder) ActiveStatus(activeStatus int) *JobFunctionBu
 }
 
 // 父级职能分类 ID
+//
 // 示例值：0
 func (builder *JobFunctionBuilder) ParentId(parentId string) *JobFunctionBuilder {
 	builder.parentId = parentId
@@ -13615,6 +14379,7 @@ func NewJobHighlightBuilder() *JobHighlightBuilder {
 }
 
 // 职位亮点 ID
+//
 // 示例值：6301
 func (builder *JobHighlightBuilder) Id(id string) *JobHighlightBuilder {
 	builder.id = id
@@ -13623,6 +14388,7 @@ func (builder *JobHighlightBuilder) Id(id string) *JobHighlightBuilder {
 }
 
 // 职位亮点中文名称
+//
 // 示例值：团队氛围好
 func (builder *JobHighlightBuilder) ZhName(zhName string) *JobHighlightBuilder {
 	builder.zhName = zhName
@@ -13631,6 +14397,7 @@ func (builder *JobHighlightBuilder) ZhName(zhName string) *JobHighlightBuilder {
 }
 
 // 职位亮点英文名称
+//
 // 示例值：Positive team atmosphere
 func (builder *JobHighlightBuilder) EnName(enName string) *JobHighlightBuilder {
 	builder.enName = enName
@@ -13679,6 +14446,7 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 }
 
 // 职级 ID
+//
 // 示例值：6301
 func (builder *JobLevelBuilder) Id(id string) *JobLevelBuilder {
 	builder.id = id
@@ -13687,6 +14455,7 @@ func (builder *JobLevelBuilder) Id(id string) *JobLevelBuilder {
 }
 
 // 职级中文名称
+//
 // 示例值：级别-2
 func (builder *JobLevelBuilder) ZhName(zhName string) *JobLevelBuilder {
 	builder.zhName = zhName
@@ -13695,6 +14464,7 @@ func (builder *JobLevelBuilder) ZhName(zhName string) *JobLevelBuilder {
 }
 
 // 职级英文名称
+//
 // 示例值：level-2
 func (builder *JobLevelBuilder) EnName(enName string) *JobLevelBuilder {
 	builder.enName = enName
@@ -13703,6 +14473,7 @@ func (builder *JobLevelBuilder) EnName(enName string) *JobLevelBuilder {
 }
 
 // 职级启用状态
+//
 // 示例值：1
 func (builder *JobLevelBuilder) ActiveStatus(activeStatus int) *JobLevelBuilder {
 	builder.activeStatus = activeStatus
@@ -13746,6 +14517,7 @@ func NewJobProcessBuilder() *JobProcessBuilder {
 }
 
 // id
+//
 // 示例值：
 func (builder *JobProcessBuilder) YourPropertyName(yourPropertyName string) *JobProcessBuilder {
 	builder.yourPropertyName = yourPropertyName
@@ -13789,6 +14561,7 @@ func NewJobProcessesBuilder() *JobProcessesBuilder {
 }
 
 // ID
+//
 // 示例值：123123123123
 func (builder *JobProcessesBuilder) Id(id string) *JobProcessesBuilder {
 	builder.id = id
@@ -13797,6 +14570,7 @@ func (builder *JobProcessesBuilder) Id(id string) *JobProcessesBuilder {
 }
 
 // 中文名称
+//
 // 示例值：中文
 func (builder *JobProcessesBuilder) ZhName(zhName string) *JobProcessesBuilder {
 	builder.zhName = zhName
@@ -13805,6 +14579,7 @@ func (builder *JobProcessesBuilder) ZhName(zhName string) *JobProcessesBuilder {
 }
 
 // 英文名称
+//
 // 示例值：name
 func (builder *JobProcessesBuilder) EnName(enName string) *JobProcessesBuilder {
 	builder.enName = enName
@@ -13813,6 +14588,7 @@ func (builder *JobProcessesBuilder) EnName(enName string) *JobProcessesBuilder {
 }
 
 // 类型 1=社招流程, 2=校招流程,
+//
 // 示例值：1
 func (builder *JobProcessesBuilder) Type(type_ int) *JobProcessesBuilder {
 	builder.type_ = type_
@@ -13821,6 +14597,7 @@ func (builder *JobProcessesBuilder) Type(type_ int) *JobProcessesBuilder {
 }
 
 // 阶段列表, 内部按用户设置顺序排列
+//
 // 示例值：
 func (builder *JobProcessesBuilder) StageList(stageList []*JobProcessesStage) *JobProcessesBuilder {
 	builder.stageList = stageList
@@ -13876,6 +14653,7 @@ func NewJobProcessesStageBuilder() *JobProcessesStageBuilder {
 }
 
 // ID
+//
 // 示例值：123123123123123
 func (builder *JobProcessesStageBuilder) Id(id string) *JobProcessesStageBuilder {
 	builder.id = id
@@ -13884,6 +14662,7 @@ func (builder *JobProcessesStageBuilder) Id(id string) *JobProcessesStageBuilder
 }
 
 // 中文名称
+//
 // 示例值：名字
 func (builder *JobProcessesStageBuilder) ZhName(zhName string) *JobProcessesStageBuilder {
 	builder.zhName = zhName
@@ -13892,6 +14671,7 @@ func (builder *JobProcessesStageBuilder) ZhName(zhName string) *JobProcessesStag
 }
 
 // 英文名称
+//
 // 示例值：name
 func (builder *JobProcessesStageBuilder) EnName(enName string) *JobProcessesStageBuilder {
 	builder.enName = enName
@@ -13900,6 +14680,7 @@ func (builder *JobProcessesStageBuilder) EnName(enName string) *JobProcessesStag
 }
 
 // 1=筛选型, 2=评估型, 3=笔试型, 4=面试型, 5=Offer型, 6=待入职, 7=已入职, 8=其它类型, 255=系统默认，后端模型中并没有该字段，仅用于前端显示,
+//
 // 示例值：1
 func (builder *JobProcessesStageBuilder) Type(type_ int) *JobProcessesStageBuilder {
 	builder.type_ = type_
@@ -13952,6 +14733,7 @@ func NewJobRecruiter2Builder() *JobRecruiter2Builder {
 }
 
 // 职位ID
+//
 // 示例值：
 func (builder *JobRecruiter2Builder) Id(id string) *JobRecruiter2Builder {
 	builder.id = id
@@ -13960,6 +14742,7 @@ func (builder *JobRecruiter2Builder) Id(id string) *JobRecruiter2Builder {
 }
 
 // 招聘负责人ID
+//
 // 示例值：
 func (builder *JobRecruiter2Builder) RecruiterId(recruiterId string) *JobRecruiter2Builder {
 	builder.recruiterId = recruiterId
@@ -13968,6 +14751,7 @@ func (builder *JobRecruiter2Builder) RecruiterId(recruiterId string) *JobRecruit
 }
 
 // 用人经理ID列表
+//
 // 示例值：
 func (builder *JobRecruiter2Builder) HiringManagerIdList(hiringManagerIdList []string) *JobRecruiter2Builder {
 	builder.hiringManagerIdList = hiringManagerIdList
@@ -13976,6 +14760,7 @@ func (builder *JobRecruiter2Builder) HiringManagerIdList(hiringManagerIdList []s
 }
 
 // 协助人ID列表
+//
 // 示例值：
 func (builder *JobRecruiter2Builder) AssistantIdList(assistantIdList []string) *JobRecruiter2Builder {
 	builder.assistantIdList = assistantIdList
@@ -14026,6 +14811,7 @@ func NewJobRecruitmentTypeBuilder() *JobRecruitmentTypeBuilder {
 }
 
 // 雇佣类型 ID
+//
 // 示例值：6001
 func (builder *JobRecruitmentTypeBuilder) Id(id string) *JobRecruitmentTypeBuilder {
 	builder.id = id
@@ -14034,6 +14820,7 @@ func (builder *JobRecruitmentTypeBuilder) Id(id string) *JobRecruitmentTypeBuild
 }
 
 // 雇佣类型中文名称
+//
 // 示例值：全职
 func (builder *JobRecruitmentTypeBuilder) ZhName(zhName string) *JobRecruitmentTypeBuilder {
 	builder.zhName = zhName
@@ -14042,6 +14829,7 @@ func (builder *JobRecruitmentTypeBuilder) ZhName(zhName string) *JobRecruitmentT
 }
 
 // 雇佣类型英文名称
+//
 // 示例值：FullTime
 func (builder *JobRecruitmentTypeBuilder) EnName(enName string) *JobRecruitmentTypeBuilder {
 	builder.enName = enName
@@ -14050,6 +14838,7 @@ func (builder *JobRecruitmentTypeBuilder) EnName(enName string) *JobRecruitmentT
 }
 
 // 雇佣类型启用状态
+//
 // 示例值：1
 func (builder *JobRecruitmentTypeBuilder) ActiveStatus(activeStatus int) *JobRecruitmentTypeBuilder {
 	builder.activeStatus = activeStatus
@@ -14153,6 +14942,7 @@ func NewJobRequirementBuilder() *JobRequirementBuilder {
 }
 
 // 招聘需求编号
+//
 // 示例值：xx1
 func (builder *JobRequirementBuilder) ShortCode(shortCode string) *JobRequirementBuilder {
 	builder.shortCode = shortCode
@@ -14161,6 +14951,7 @@ func (builder *JobRequirementBuilder) ShortCode(shortCode string) *JobRequiremen
 }
 
 // 需求名称
+//
 // 示例值：test
 func (builder *JobRequirementBuilder) Name(name string) *JobRequirementBuilder {
 	builder.name = name
@@ -14169,6 +14960,7 @@ func (builder *JobRequirementBuilder) Name(name string) *JobRequirementBuilder {
 }
 
 // 需求状态
+//
 // 示例值：1
 func (builder *JobRequirementBuilder) DisplayProgress(displayProgress int) *JobRequirementBuilder {
 	builder.displayProgress = displayProgress
@@ -14177,6 +14969,7 @@ func (builder *JobRequirementBuilder) DisplayProgress(displayProgress int) *JobR
 }
 
 // 需求人数
+//
 // 示例值：11
 func (builder *JobRequirementBuilder) HeadCount(headCount int) *JobRequirementBuilder {
 	builder.headCount = headCount
@@ -14185,6 +14978,7 @@ func (builder *JobRequirementBuilder) HeadCount(headCount int) *JobRequirementBu
 }
 
 // 职位性质 ID，可在「招聘枚举常量」文档中查看枚举值
+//
 // 示例值：101
 func (builder *JobRequirementBuilder) RecruitmentTypeId(recruitmentTypeId string) *JobRequirementBuilder {
 	builder.recruitmentTypeId = recruitmentTypeId
@@ -14193,6 +14987,7 @@ func (builder *JobRequirementBuilder) RecruitmentTypeId(recruitmentTypeId string
 }
 
 // 最高职级 ID
+//
 // 示例值：6807409776231254285
 func (builder *JobRequirementBuilder) MaxLevelId(maxLevelId string) *JobRequirementBuilder {
 	builder.maxLevelId = maxLevelId
@@ -14201,6 +14996,7 @@ func (builder *JobRequirementBuilder) MaxLevelId(maxLevelId string) *JobRequirem
 }
 
 // 最低职级 ID
+//
 // 示例值：6911957338526091534
 func (builder *JobRequirementBuilder) MinLevelId(minLevelId string) *JobRequirementBuilder {
 	builder.minLevelId = minLevelId
@@ -14209,6 +15005,7 @@ func (builder *JobRequirementBuilder) MinLevelId(minLevelId string) *JobRequirem
 }
 
 // 职位序列 ID
+//
 // 示例值：6911957338526091536
 func (builder *JobRequirementBuilder) SequenceId(sequenceId string) *JobRequirementBuilder {
 	builder.sequenceId = sequenceId
@@ -14217,6 +15014,7 @@ func (builder *JobRequirementBuilder) SequenceId(sequenceId string) *JobRequirem
 }
 
 // 需求类型
+//
 // 示例值：1
 func (builder *JobRequirementBuilder) Category(category int) *JobRequirementBuilder {
 	builder.category = category
@@ -14225,6 +15023,7 @@ func (builder *JobRequirementBuilder) Category(category int) *JobRequirementBuil
 }
 
 // 需求部门的 open department id
+//
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobRequirementBuilder) DepartmentId(departmentId string) *JobRequirementBuilder {
 	builder.departmentId = departmentId
@@ -14233,6 +15032,7 @@ func (builder *JobRequirementBuilder) DepartmentId(departmentId string) *JobRequ
 }
 
 // 需求负责人 ID 列表
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *JobRequirementBuilder) RecruiterIdList(recruiterIdList []string) *JobRequirementBuilder {
 	builder.recruiterIdList = recruiterIdList
@@ -14241,6 +15041,7 @@ func (builder *JobRequirementBuilder) RecruiterIdList(recruiterIdList []string) 
 }
 
 // 直属上级 ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *JobRequirementBuilder) DirectLeaderIdList(directLeaderIdList []string) *JobRequirementBuilder {
 	builder.directLeaderIdList = directLeaderIdList
@@ -14249,6 +15050,7 @@ func (builder *JobRequirementBuilder) DirectLeaderIdList(directLeaderIdList []st
 }
 
 // 开始日期，毫秒级时间戳
+//
 // 示例值：1625729379000
 func (builder *JobRequirementBuilder) StartTime(startTime string) *JobRequirementBuilder {
 	builder.startTime = startTime
@@ -14257,6 +15059,7 @@ func (builder *JobRequirementBuilder) StartTime(startTime string) *JobRequiremen
 }
 
 // 预计完成日期，毫秒级时间戳
+//
 // 示例值：1625729379000
 func (builder *JobRequirementBuilder) Deadline(deadline string) *JobRequirementBuilder {
 	builder.deadline = deadline
@@ -14265,6 +15068,7 @@ func (builder *JobRequirementBuilder) Deadline(deadline string) *JobRequirementB
 }
 
 // 招聘优先级
+//
 // 示例值：1
 func (builder *JobRequirementBuilder) Priority(priority int) *JobRequirementBuilder {
 	builder.priority = priority
@@ -14273,6 +15077,7 @@ func (builder *JobRequirementBuilder) Priority(priority int) *JobRequirementBuil
 }
 
 // 学历要求
+//
 // 示例值：1
 func (builder *JobRequirementBuilder) RequiredDegree(requiredDegree int) *JobRequirementBuilder {
 	builder.requiredDegree = requiredDegree
@@ -14281,6 +15086,7 @@ func (builder *JobRequirementBuilder) RequiredDegree(requiredDegree int) *JobReq
 }
 
 // 最高薪资，单位：千
+//
 // 示例值：10
 func (builder *JobRequirementBuilder) MaxSalary(maxSalary string) *JobRequirementBuilder {
 	builder.maxSalary = maxSalary
@@ -14289,6 +15095,7 @@ func (builder *JobRequirementBuilder) MaxSalary(maxSalary string) *JobRequiremen
 }
 
 // 最低薪资，单位：千
+//
 // 示例值：15
 func (builder *JobRequirementBuilder) MinSalary(minSalary string) *JobRequirementBuilder {
 	builder.minSalary = minSalary
@@ -14297,6 +15104,7 @@ func (builder *JobRequirementBuilder) MinSalary(minSalary string) *JobRequiremen
 }
 
 // 工作地点 ID，枚举值可通过「获取地址列表」接口查询获得
+//
 // 示例值：11
 func (builder *JobRequirementBuilder) AddressId(addressId string) *JobRequirementBuilder {
 	builder.addressId = addressId
@@ -14305,6 +15113,7 @@ func (builder *JobRequirementBuilder) AddressId(addressId string) *JobRequiremen
 }
 
 // 需求描述
+//
 // 示例值：11
 func (builder *JobRequirementBuilder) Description(description string) *JobRequirementBuilder {
 	builder.description = description
@@ -14313,6 +15122,7 @@ func (builder *JobRequirementBuilder) Description(description string) *JobRequir
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *JobRequirementBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedData) *JobRequirementBuilder {
 	builder.customizedDataList = customizedDataList
@@ -14424,6 +15234,7 @@ func NewJobRequirementCustomizedDataBuilder() *JobRequirementCustomizedDataBuild
 }
 
 // 自定义字段 ID
+//
 // 示例值：1213213123123
 func (builder *JobRequirementCustomizedDataBuilder) ObjectId(objectId string) *JobRequirementCustomizedDataBuilder {
 	builder.objectId = objectId
@@ -14432,6 +15243,7 @@ func (builder *JobRequirementCustomizedDataBuilder) ObjectId(objectId string) *J
 }
 
 // 自定义字段 value，1. 对于自定义字段，若字段类型为单行文本/多行文本，传值格式为"这是一个文本"；2. 若字段类型为单选，传值内容为选项的 ID，格式为"6890840516938696974"；;3. 若字段类型为多选，传值内容为选项的ID 列表，格式为"[\"6890840516938696974\", \"6890840516938696975\" ]"；;4. 若字段类型为时间段，传值格式为"[\"1609430400000\", \"1612108800000\" ]"，单位是毫米级时间戳；;5. 若字段类型为年份选择，传值格式为"1609430400000"，单位是毫秒级时间戳；;6. 若字段类型为月份选择，传值格式为"1625068800000"，单位是毫秒级时间戳；;7. 若字段类型为数字，传值格式为"1";
+//
 // 示例值：测试
 func (builder *JobRequirementCustomizedDataBuilder) Value(value string) *JobRequirementCustomizedDataBuilder {
 	builder.value = value
@@ -14476,6 +15288,7 @@ func NewJobRequirementCustomizedDataDtoBuilder() *JobRequirementCustomizedDataDt
 }
 
 // 自定义字段 ID
+//
 // 示例值：xxxx
 func (builder *JobRequirementCustomizedDataDtoBuilder) ObjectId(objectId string) *JobRequirementCustomizedDataDtoBuilder {
 	builder.objectId = objectId
@@ -14484,6 +15297,7 @@ func (builder *JobRequirementCustomizedDataDtoBuilder) ObjectId(objectId string)
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *JobRequirementCustomizedDataDtoBuilder) Name(name *I18n) *JobRequirementCustomizedDataDtoBuilder {
 	builder.name = name
@@ -14492,6 +15306,7 @@ func (builder *JobRequirementCustomizedDataDtoBuilder) Name(name *I18n) *JobRequ
 }
 
 // 字段类型
+//
 // 示例值：1
 func (builder *JobRequirementCustomizedDataDtoBuilder) ObjectType(objectType int) *JobRequirementCustomizedDataDtoBuilder {
 	builder.objectType = objectType
@@ -14500,6 +15315,7 @@ func (builder *JobRequirementCustomizedDataDtoBuilder) ObjectType(objectType int
 }
 
 // 自定义字段值
+//
 // 示例值：
 func (builder *JobRequirementCustomizedDataDtoBuilder) Value(value *JobRequirementCustomizedValue) *JobRequirementCustomizedDataDtoBuilder {
 	builder.value = value
@@ -14544,6 +15360,7 @@ func NewJobRequirementCustomizedOptionBuilder() *JobRequirementCustomizedOptionB
 }
 
 // 选项 ID
+//
 // 示例值：AA
 func (builder *JobRequirementCustomizedOptionBuilder) Key(key string) *JobRequirementCustomizedOptionBuilder {
 	builder.key = key
@@ -14552,6 +15369,7 @@ func (builder *JobRequirementCustomizedOptionBuilder) Key(key string) *JobRequir
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *JobRequirementCustomizedOptionBuilder) Name(name *I18n) *JobRequirementCustomizedOptionBuilder {
 	builder.name = name
@@ -14589,6 +15407,7 @@ func NewJobRequirementCustomizedTimeRangeBuilder() *JobRequirementCustomizedTime
 }
 
 // 开始时间，毫秒级时间戳
+//
 // 示例值：AA
 func (builder *JobRequirementCustomizedTimeRangeBuilder) StartTime(startTime string) *JobRequirementCustomizedTimeRangeBuilder {
 	builder.startTime = startTime
@@ -14597,6 +15416,7 @@ func (builder *JobRequirementCustomizedTimeRangeBuilder) StartTime(startTime str
 }
 
 // 结束时间，毫秒级时间戳
+//
 // 示例值：AA
 func (builder *JobRequirementCustomizedTimeRangeBuilder) EndTime(endTime string) *JobRequirementCustomizedTimeRangeBuilder {
 	builder.endTime = endTime
@@ -14647,6 +15467,7 @@ func NewJobRequirementCustomizedValueBuilder() *JobRequirementCustomizedValueBui
 }
 
 // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+//
 // 示例值：text
 func (builder *JobRequirementCustomizedValueBuilder) Content(content string) *JobRequirementCustomizedValueBuilder {
 	builder.content = content
@@ -14655,6 +15476,7 @@ func (builder *JobRequirementCustomizedValueBuilder) Content(content string) *Jo
 }
 
 // 当字段类型为单选时，从此字段取值
+//
 // 示例值：
 func (builder *JobRequirementCustomizedValueBuilder) Option(option *JobRequirementCustomizedOption) *JobRequirementCustomizedValueBuilder {
 	builder.option = option
@@ -14663,6 +15485,7 @@ func (builder *JobRequirementCustomizedValueBuilder) Option(option *JobRequireme
 }
 
 // 当字段类型为多选时，从此字段取值
+//
 // 示例值：
 func (builder *JobRequirementCustomizedValueBuilder) OptionList(optionList []*JobRequirementCustomizedOption) *JobRequirementCustomizedValueBuilder {
 	builder.optionList = optionList
@@ -14671,6 +15494,7 @@ func (builder *JobRequirementCustomizedValueBuilder) OptionList(optionList []*Jo
 }
 
 // 当字段类型为时间段时，从此字段取值
+//
 // 示例值：
 func (builder *JobRequirementCustomizedValueBuilder) TimeRange(timeRange *JobRequirementCustomizedTimeRange) *JobRequirementCustomizedValueBuilder {
 	builder.timeRange = timeRange
@@ -14679,6 +15503,7 @@ func (builder *JobRequirementCustomizedValueBuilder) TimeRange(timeRange *JobReq
 }
 
 // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是毫秒级时间戳
+//
 // 示例值：1625456721000
 func (builder *JobRequirementCustomizedValueBuilder) Time(time string) *JobRequirementCustomizedValueBuilder {
 	builder.time = time
@@ -14687,6 +15512,7 @@ func (builder *JobRequirementCustomizedValueBuilder) Time(time string) *JobRequi
 }
 
 // 当字段类型为数字时，从此字段取值
+//
 // 示例值：111
 func (builder *JobRequirementCustomizedValueBuilder) Number(number string) *JobRequirementCustomizedValueBuilder {
 	builder.number = number
@@ -14801,6 +15627,7 @@ func NewJobRequirementDtoBuilder() *JobRequirementDtoBuilder {
 }
 
 // 招聘需求 ID
+//
 // 示例值：6949805467799537964
 func (builder *JobRequirementDtoBuilder) Id(id string) *JobRequirementDtoBuilder {
 	builder.id = id
@@ -14809,6 +15636,7 @@ func (builder *JobRequirementDtoBuilder) Id(id string) *JobRequirementDtoBuilder
 }
 
 // 招聘需求编号
+//
 // 示例值：xx1
 func (builder *JobRequirementDtoBuilder) ShortCode(shortCode string) *JobRequirementDtoBuilder {
 	builder.shortCode = shortCode
@@ -14817,6 +15645,7 @@ func (builder *JobRequirementDtoBuilder) ShortCode(shortCode string) *JobRequire
 }
 
 // 需求名称
+//
 // 示例值：test
 func (builder *JobRequirementDtoBuilder) Name(name string) *JobRequirementDtoBuilder {
 	builder.name = name
@@ -14825,6 +15654,7 @@ func (builder *JobRequirementDtoBuilder) Name(name string) *JobRequirementDtoBui
 }
 
 // 需求状态
+//
 // 示例值：1
 func (builder *JobRequirementDtoBuilder) DisplayProgress(displayProgress int) *JobRequirementDtoBuilder {
 	builder.displayProgress = displayProgress
@@ -14833,6 +15663,7 @@ func (builder *JobRequirementDtoBuilder) DisplayProgress(displayProgress int) *J
 }
 
 // 需求人数
+//
 // 示例值：11
 func (builder *JobRequirementDtoBuilder) HeadCount(headCount int) *JobRequirementDtoBuilder {
 	builder.headCount = headCount
@@ -14841,6 +15672,7 @@ func (builder *JobRequirementDtoBuilder) HeadCount(headCount int) *JobRequiremen
 }
 
 // 职位性质
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) RecruitmentType(recruitmentType *IdNameObject) *JobRequirementDtoBuilder {
 	builder.recruitmentType = recruitmentType
@@ -14849,6 +15681,7 @@ func (builder *JobRequirementDtoBuilder) RecruitmentType(recruitmentType *IdName
 }
 
 // 最高职级
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) MaxLevel(maxLevel *IdNameObject) *JobRequirementDtoBuilder {
 	builder.maxLevel = maxLevel
@@ -14857,6 +15690,7 @@ func (builder *JobRequirementDtoBuilder) MaxLevel(maxLevel *IdNameObject) *JobRe
 }
 
 // 最低职级
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) MinLevel(minLevel *IdNameObject) *JobRequirementDtoBuilder {
 	builder.minLevel = minLevel
@@ -14865,6 +15699,7 @@ func (builder *JobRequirementDtoBuilder) MinLevel(minLevel *IdNameObject) *JobRe
 }
 
 // 职位序列
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) Sequence(sequence *IdNameObject) *JobRequirementDtoBuilder {
 	builder.sequence = sequence
@@ -14873,6 +15708,7 @@ func (builder *JobRequirementDtoBuilder) Sequence(sequence *IdNameObject) *JobRe
 }
 
 // 需求类型
+//
 // 示例值：1
 func (builder *JobRequirementDtoBuilder) Category(category int) *JobRequirementDtoBuilder {
 	builder.category = category
@@ -14881,6 +15717,7 @@ func (builder *JobRequirementDtoBuilder) Category(category int) *JobRequirementD
 }
 
 // 需求部门
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) Department(department *IdNameObject) *JobRequirementDtoBuilder {
 	builder.department = department
@@ -14889,6 +15726,7 @@ func (builder *JobRequirementDtoBuilder) Department(department *IdNameObject) *J
 }
 
 // 需求负责人
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) RecruiterList(recruiterList []*IdNameObject) *JobRequirementDtoBuilder {
 	builder.recruiterList = recruiterList
@@ -14897,6 +15735,7 @@ func (builder *JobRequirementDtoBuilder) RecruiterList(recruiterList []*IdNameOb
 }
 
 // 直属上级
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) DirectLeaderList(directLeaderList []*IdNameObject) *JobRequirementDtoBuilder {
 	builder.directLeaderList = directLeaderList
@@ -14905,6 +15744,7 @@ func (builder *JobRequirementDtoBuilder) DirectLeaderList(directLeaderList []*Id
 }
 
 // 开始日期，毫秒级时间戳
+//
 // 示例值：1625729379000
 func (builder *JobRequirementDtoBuilder) StartTime(startTime string) *JobRequirementDtoBuilder {
 	builder.startTime = startTime
@@ -14913,6 +15753,7 @@ func (builder *JobRequirementDtoBuilder) StartTime(startTime string) *JobRequire
 }
 
 // 预计完成日期，毫秒级时间戳
+//
 // 示例值：1625729379000
 func (builder *JobRequirementDtoBuilder) Deadline(deadline string) *JobRequirementDtoBuilder {
 	builder.deadline = deadline
@@ -14921,6 +15762,7 @@ func (builder *JobRequirementDtoBuilder) Deadline(deadline string) *JobRequireme
 }
 
 // 招聘优先级
+//
 // 示例值：1
 func (builder *JobRequirementDtoBuilder) Priority(priority int) *JobRequirementDtoBuilder {
 	builder.priority = priority
@@ -14929,6 +15771,7 @@ func (builder *JobRequirementDtoBuilder) Priority(priority int) *JobRequirementD
 }
 
 // 学历要求
+//
 // 示例值：1
 func (builder *JobRequirementDtoBuilder) RequiredDegree(requiredDegree int) *JobRequirementDtoBuilder {
 	builder.requiredDegree = requiredDegree
@@ -14937,6 +15780,7 @@ func (builder *JobRequirementDtoBuilder) RequiredDegree(requiredDegree int) *Job
 }
 
 // 最高薪资
+//
 // 示例值：123
 func (builder *JobRequirementDtoBuilder) MaxSalary(maxSalary string) *JobRequirementDtoBuilder {
 	builder.maxSalary = maxSalary
@@ -14945,6 +15789,7 @@ func (builder *JobRequirementDtoBuilder) MaxSalary(maxSalary string) *JobRequire
 }
 
 // 最低薪资
+//
 // 示例值：11
 func (builder *JobRequirementDtoBuilder) MinSalary(minSalary string) *JobRequirementDtoBuilder {
 	builder.minSalary = minSalary
@@ -14953,6 +15798,7 @@ func (builder *JobRequirementDtoBuilder) MinSalary(minSalary string) *JobRequire
 }
 
 // 工作地点
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) Address(address *IdNameObject) *JobRequirementDtoBuilder {
 	builder.address = address
@@ -14961,6 +15807,7 @@ func (builder *JobRequirementDtoBuilder) Address(address *IdNameObject) *JobRequ
 }
 
 // 需求描述
+//
 // 示例值：11
 func (builder *JobRequirementDtoBuilder) Description(description string) *JobRequirementDtoBuilder {
 	builder.description = description
@@ -14969,6 +15816,7 @@ func (builder *JobRequirementDtoBuilder) Description(description string) *JobReq
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedDataDto) *JobRequirementDtoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -14977,6 +15825,7 @@ func (builder *JobRequirementDtoBuilder) CustomizedDataList(customizedDataList [
 }
 
 // 关联职位 ID
+//
 // 示例值：
 func (builder *JobRequirementDtoBuilder) JobIdList(jobIdList []string) *JobRequirementDtoBuilder {
 	builder.jobIdList = jobIdList
@@ -15092,6 +15941,7 @@ func NewJobRequirementSchemaBuilder() *JobRequirementSchemaBuilder {
 }
 
 // 模板 ID
+//
 // 示例值：6949805467799537964
 func (builder *JobRequirementSchemaBuilder) Id(id string) *JobRequirementSchemaBuilder {
 	builder.id = id
@@ -15100,6 +15950,7 @@ func (builder *JobRequirementSchemaBuilder) Id(id string) *JobRequirementSchemaB
 }
 
 // 国际化模板名称
+//
 // 示例值：
 func (builder *JobRequirementSchemaBuilder) Name(name *I18n) *JobRequirementSchemaBuilder {
 	builder.name = name
@@ -15108,6 +15959,7 @@ func (builder *JobRequirementSchemaBuilder) Name(name *I18n) *JobRequirementSche
 }
 
 // 模板字段
+//
 // 示例值：
 func (builder *JobRequirementSchemaBuilder) ObjectList(objectList []*CommonSchema) *JobRequirementSchemaBuilder {
 	builder.objectList = objectList
@@ -15154,6 +16006,7 @@ func NewJobSchemaBuilder() *JobSchemaBuilder {
 }
 
 // 职位模板 ID
+//
 // 示例值：6949805467799537964
 func (builder *JobSchemaBuilder) Id(id string) *JobSchemaBuilder {
 	builder.id = id
@@ -15162,6 +16015,7 @@ func (builder *JobSchemaBuilder) Id(id string) *JobSchemaBuilder {
 }
 
 // 职位模板名称
+//
 // 示例值：
 func (builder *JobSchemaBuilder) Name(name *I18n) *JobSchemaBuilder {
 	builder.name = name
@@ -15170,6 +16024,7 @@ func (builder *JobSchemaBuilder) Name(name *I18n) *JobSchemaBuilder {
 }
 
 // 职位模板类型
+//
 // 示例值：1
 func (builder *JobSchemaBuilder) ScenarioType(scenarioType int) *JobSchemaBuilder {
 	builder.scenarioType = scenarioType
@@ -15178,6 +16033,7 @@ func (builder *JobSchemaBuilder) ScenarioType(scenarioType int) *JobSchemaBuilde
 }
 
 // 模块列表
+//
 // 示例值：
 func (builder *JobSchemaBuilder) ObjectList(objectList []*CommonSchema) *JobSchemaBuilder {
 	builder.objectList = objectList
@@ -15225,6 +16081,7 @@ func NewJobTypeBuilder() *JobTypeBuilder {
 }
 
 // 职位类别 ID
+//
 // 示例值：6890840777044265230
 func (builder *JobTypeBuilder) Id(id string) *JobTypeBuilder {
 	builder.id = id
@@ -15233,6 +16090,7 @@ func (builder *JobTypeBuilder) Id(id string) *JobTypeBuilder {
 }
 
 // 职位类别中文名称
+//
 // 示例值：金融
 func (builder *JobTypeBuilder) ZhName(zhName string) *JobTypeBuilder {
 	builder.zhName = zhName
@@ -15241,6 +16099,7 @@ func (builder *JobTypeBuilder) ZhName(zhName string) *JobTypeBuilder {
 }
 
 // 职位类别英文名称
+//
 // 示例值：Finance
 func (builder *JobTypeBuilder) EnName(enName string) *JobTypeBuilder {
 	builder.enName = enName
@@ -15283,6 +16142,7 @@ func NewLanguageInfoBuilder() *LanguageInfoBuilder {
 }
 
 // 语言
+//
 // 示例值：
 func (builder *LanguageInfoBuilder) Language(language int) *LanguageInfoBuilder {
 	builder.language = language
@@ -15291,6 +16151,7 @@ func (builder *LanguageInfoBuilder) Language(language int) *LanguageInfoBuilder 
 }
 
 // 熟练程度
+//
 // 示例值：
 func (builder *LanguageInfoBuilder) Proficiency(proficiency int) *LanguageInfoBuilder {
 	builder.proficiency = proficiency
@@ -15332,6 +16193,7 @@ func NewLevelBuilder() *LevelBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *LevelBuilder) Id(id string) *LevelBuilder {
 	builder.id = id
@@ -15340,6 +16202,7 @@ func (builder *LevelBuilder) Id(id string) *LevelBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *LevelBuilder) Name(name string) *LevelBuilder {
 	builder.name = name
@@ -15348,6 +16211,7 @@ func (builder *LevelBuilder) Name(name string) *LevelBuilder {
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *LevelBuilder) EnName(enName string) *LevelBuilder {
 	builder.enName = enName
@@ -15405,6 +16269,7 @@ func NewLocationBuilder() *LocationBuilder {
 }
 
 // 地点 ID
+//
 // 示例值：1213213123123
 func (builder *LocationBuilder) Id(id string) *LocationBuilder {
 	builder.id = id
@@ -15413,6 +16278,7 @@ func (builder *LocationBuilder) Id(id string) *LocationBuilder {
 }
 
 // 地点名称
+//
 // 示例值：
 func (builder *LocationBuilder) Name(name *I18n) *LocationBuilder {
 	builder.name = name
@@ -15421,6 +16287,7 @@ func (builder *LocationBuilder) Name(name *I18n) *LocationBuilder {
 }
 
 // 区信息
+//
 // 示例值：
 func (builder *LocationBuilder) District(district *CodeNameObject) *LocationBuilder {
 	builder.district = district
@@ -15429,6 +16296,7 @@ func (builder *LocationBuilder) District(district *CodeNameObject) *LocationBuil
 }
 
 // 市信息
+//
 // 示例值：
 func (builder *LocationBuilder) City(city *CodeNameObject) *LocationBuilder {
 	builder.city = city
@@ -15437,6 +16305,7 @@ func (builder *LocationBuilder) City(city *CodeNameObject) *LocationBuilder {
 }
 
 // 省份/州信息
+//
 // 示例值：
 func (builder *LocationBuilder) State(state *CodeNameObject) *LocationBuilder {
 	builder.state = state
@@ -15445,6 +16314,7 @@ func (builder *LocationBuilder) State(state *CodeNameObject) *LocationBuilder {
 }
 
 // 国家信息
+//
 // 示例值：
 func (builder *LocationBuilder) Country(country *CodeNameObject) *LocationBuilder {
 	builder.country = country
@@ -15453,6 +16323,7 @@ func (builder *LocationBuilder) Country(country *CodeNameObject) *LocationBuilde
 }
 
 // 启用状态
+//
 // 示例值：1
 func (builder *LocationBuilder) ActiveStatus(activeStatus int) *LocationBuilder {
 	builder.activeStatus = activeStatus
@@ -15518,6 +16389,7 @@ func NewLocationBaseInfoBuilder() *LocationBaseInfoBuilder {
 }
 
 // location 地址码
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) Code(code string) *LocationBaseInfoBuilder {
 	builder.code = code
@@ -15526,6 +16398,7 @@ func (builder *LocationBaseInfoBuilder) Code(code string) *LocationBaseInfoBuild
 }
 
 // location 中文名字
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) Name(name string) *LocationBaseInfoBuilder {
 	builder.name = name
@@ -15534,6 +16407,7 @@ func (builder *LocationBaseInfoBuilder) Name(name string) *LocationBaseInfoBuild
 }
 
 // location 英文名字
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) EnName(enName string) *LocationBaseInfoBuilder {
 	builder.enName = enName
@@ -15542,6 +16416,7 @@ func (builder *LocationBaseInfoBuilder) EnName(enName string) *LocationBaseInfoB
 }
 
 // location 的类型
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) LocationType(locationType int) *LocationBaseInfoBuilder {
 	builder.locationType = locationType
@@ -15550,6 +16425,7 @@ func (builder *LocationBaseInfoBuilder) LocationType(locationType int) *Location
 }
 
 // location 国际名字
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) I18nName(i18nName string) *LocationBaseInfoBuilder {
 	builder.i18nName = i18nName
@@ -15558,6 +16434,7 @@ func (builder *LocationBaseInfoBuilder) I18nName(i18nName string) *LocationBaseI
 }
 
 // location 拼音名字
+//
 // 示例值：
 func (builder *LocationBaseInfoBuilder) PyName(pyName string) *LocationBaseInfoBuilder {
 	builder.pyName = pyName
@@ -15615,6 +16492,7 @@ func NewNationalityBuilder() *NationalityBuilder {
 }
 
 // 国家编码
+//
 // 示例值：
 func (builder *NationalityBuilder) NationalityCode(nationalityCode string) *NationalityBuilder {
 	builder.nationalityCode = nationalityCode
@@ -15623,6 +16501,7 @@ func (builder *NationalityBuilder) NationalityCode(nationalityCode string) *Nati
 }
 
 // 名字
+//
 // 示例值：
 func (builder *NationalityBuilder) Name(name string) *NationalityBuilder {
 	builder.name = name
@@ -15631,6 +16510,7 @@ func (builder *NationalityBuilder) Name(name string) *NationalityBuilder {
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *NationalityBuilder) EnName(enName string) *NationalityBuilder {
 	builder.enName = enName
@@ -15694,6 +16574,7 @@ func NewNoteBuilder() *NoteBuilder {
 }
 
 // 备注ID
+//
 // 示例值：6949805467799537964
 func (builder *NoteBuilder) Id(id string) *NoteBuilder {
 	builder.id = id
@@ -15702,6 +16583,7 @@ func (builder *NoteBuilder) Id(id string) *NoteBuilder {
 }
 
 // 人才ID
+//
 // 示例值：6916472453069883661
 func (builder *NoteBuilder) TalentId(talentId string) *NoteBuilder {
 	builder.talentId = talentId
@@ -15710,6 +16592,7 @@ func (builder *NoteBuilder) TalentId(talentId string) *NoteBuilder {
 }
 
 // 投递ID
+//
 // 示例值：6891565253964859661
 func (builder *NoteBuilder) ApplicationId(applicationId string) *NoteBuilder {
 	builder.applicationId = applicationId
@@ -15718,6 +16601,7 @@ func (builder *NoteBuilder) ApplicationId(applicationId string) *NoteBuilder {
 }
 
 // 是否私密
+//
 // 示例值：false
 func (builder *NoteBuilder) IsPrivate(isPrivate bool) *NoteBuilder {
 	builder.isPrivate = isPrivate
@@ -15726,6 +16610,7 @@ func (builder *NoteBuilder) IsPrivate(isPrivate bool) *NoteBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1618209327096
 func (builder *NoteBuilder) CreateTime(createTime int) *NoteBuilder {
 	builder.createTime = createTime
@@ -15734,6 +16619,7 @@ func (builder *NoteBuilder) CreateTime(createTime int) *NoteBuilder {
 }
 
 // 更新时间
+//
 // 示例值：1618209327096
 func (builder *NoteBuilder) ModifyTime(modifyTime int) *NoteBuilder {
 	builder.modifyTime = modifyTime
@@ -15742,6 +16628,7 @@ func (builder *NoteBuilder) ModifyTime(modifyTime int) *NoteBuilder {
 }
 
 // 创建人ID
+//
 // 示例值：ou_f476cb099ac9227c9bae09ce46112579
 func (builder *NoteBuilder) CreatorId(creatorId string) *NoteBuilder {
 	builder.creatorId = creatorId
@@ -15750,6 +16637,7 @@ func (builder *NoteBuilder) CreatorId(creatorId string) *NoteBuilder {
 }
 
 // 内容
+//
 // 示例值：测试
 func (builder *NoteBuilder) Content(content string) *NoteBuilder {
 	builder.content = content
@@ -15758,6 +16646,7 @@ func (builder *NoteBuilder) Content(content string) *NoteBuilder {
 }
 
 // 备注私密属性（默认为公开）
+//
 // 示例值：1
 func (builder *NoteBuilder) Privacy(privacy int) *NoteBuilder {
 	builder.privacy = privacy
@@ -15839,6 +16728,7 @@ func NewOfferBuilder() *OfferBuilder {
 }
 
 // Offer ID
+//
 // 示例值：1231231231231231
 func (builder *OfferBuilder) Id(id string) *OfferBuilder {
 	builder.id = id
@@ -15847,6 +16737,7 @@ func (builder *OfferBuilder) Id(id string) *OfferBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：1231231232312312
 func (builder *OfferBuilder) ApplicationId(applicationId string) *OfferBuilder {
 	builder.applicationId = applicationId
@@ -15855,6 +16746,7 @@ func (builder *OfferBuilder) ApplicationId(applicationId string) *OfferBuilder {
 }
 
 // 基础信息
+//
 // 示例值：
 func (builder *OfferBuilder) BasicInfo(basicInfo *ApplicationOfferBasicInfo) *OfferBuilder {
 	builder.basicInfo = basicInfo
@@ -15863,6 +16755,7 @@ func (builder *OfferBuilder) BasicInfo(basicInfo *ApplicationOfferBasicInfo) *Of
 }
 
 // 薪酬计划
+//
 // 示例值：
 func (builder *OfferBuilder) SalaryPlan(salaryPlan *ApplicationOfferSalaryPlan) *OfferBuilder {
 	builder.salaryPlan = salaryPlan
@@ -15871,6 +16764,7 @@ func (builder *OfferBuilder) SalaryPlan(salaryPlan *ApplicationOfferSalaryPlan) 
 }
 
 // 当前 Offer 使用的 Schema
+//
 // 示例值：6963562624677398823
 func (builder *OfferBuilder) SchemaId(schemaId string) *OfferBuilder {
 	builder.schemaId = schemaId
@@ -15879,6 +16773,7 @@ func (builder *OfferBuilder) SchemaId(schemaId string) *OfferBuilder {
 }
 
 // Offer 状态
+//
 // 示例值：0
 func (builder *OfferBuilder) OfferStatus(offerStatus int) *OfferBuilder {
 	builder.offerStatus = offerStatus
@@ -15887,6 +16782,7 @@ func (builder *OfferBuilder) OfferStatus(offerStatus int) *OfferBuilder {
 }
 
 // 职位信息
+//
 // 示例值：
 func (builder *OfferBuilder) JobInfo(jobInfo *OfferJobInfo) *OfferBuilder {
 	builder.jobInfo = jobInfo
@@ -15945,6 +16841,7 @@ func NewOfferApplyFormBuilder() *OfferApplyFormBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *OfferApplyFormBuilder) Id(id string) *OfferApplyFormBuilder {
 	builder.id = id
@@ -15953,6 +16850,7 @@ func (builder *OfferApplyFormBuilder) Id(id string) *OfferApplyFormBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *OfferApplyFormBuilder) Name(name *I18n) *OfferApplyFormBuilder {
 	builder.name = name
@@ -15961,6 +16859,7 @@ func (builder *OfferApplyFormBuilder) Name(name *I18n) *OfferApplyFormBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1628512038000
 func (builder *OfferApplyFormBuilder) CreateTime(createTime string) *OfferApplyFormBuilder {
 	builder.createTime = createTime
@@ -16005,6 +16904,7 @@ func NewOfferApplyFormConfigFormulaInfoBuilder() *OfferApplyFormConfigFormulaInf
 }
 
 // 公式值
+//
 // 示例值：[object_id_1] + [object_id_2] * 12
 func (builder *OfferApplyFormConfigFormulaInfoBuilder) Value(value string) *OfferApplyFormConfigFormulaInfoBuilder {
 	builder.value = value
@@ -16013,6 +16913,7 @@ func (builder *OfferApplyFormConfigFormulaInfoBuilder) Value(value string) *Offe
 }
 
 // 公式结果类型枚举
+//
 // 示例值：1
 func (builder *OfferApplyFormConfigFormulaInfoBuilder) Result(result int) *OfferApplyFormConfigFormulaInfoBuilder {
 	builder.result = result
@@ -16021,6 +16922,7 @@ func (builder *OfferApplyFormConfigFormulaInfoBuilder) Result(result int) *Offer
 }
 
 // 公式额外描述
+//
 // 示例值：
 func (builder *OfferApplyFormConfigFormulaInfoBuilder) ExtraMap(extraMap []*OfferApplyFormFormulaExtraMapInfo) *OfferApplyFormConfigFormulaInfoBuilder {
 	builder.extraMap = extraMap
@@ -16065,6 +16967,7 @@ func NewOfferApplyFormConfigOptionInfoBuilder() *OfferApplyFormConfigOptionInfoB
 }
 
 // 选项 ID
+//
 // 示例值：2378568265
 func (builder *OfferApplyFormConfigOptionInfoBuilder) Id(id string) *OfferApplyFormConfigOptionInfoBuilder {
 	builder.id = id
@@ -16073,6 +16976,7 @@ func (builder *OfferApplyFormConfigOptionInfoBuilder) Id(id string) *OfferApplyF
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *OfferApplyFormConfigOptionInfoBuilder) Name(name *I18n) *OfferApplyFormConfigOptionInfoBuilder {
 	builder.name = name
@@ -16081,6 +16985,7 @@ func (builder *OfferApplyFormConfigOptionInfoBuilder) Name(name *I18n) *OfferApp
 }
 
 // 选项描述
+//
 // 示例值：
 func (builder *OfferApplyFormConfigOptionInfoBuilder) Description(description *I18n) *OfferApplyFormConfigOptionInfoBuilder {
 	builder.description = description
@@ -16121,6 +17026,7 @@ func NewOfferApplyFormFormulaExtraMapInfoBuilder() *OfferApplyFormFormulaExtraMa
 }
 
 // object ID
+//
 // 示例值：object_id_1
 func (builder *OfferApplyFormFormulaExtraMapInfoBuilder) Key(key string) *OfferApplyFormFormulaExtraMapInfoBuilder {
 	builder.key = key
@@ -16129,6 +17035,7 @@ func (builder *OfferApplyFormFormulaExtraMapInfoBuilder) Key(key string) *OfferA
 }
 
 // object 名称
+//
 // 示例值：
 func (builder *OfferApplyFormFormulaExtraMapInfoBuilder) Value(value *I18n) *OfferApplyFormFormulaExtraMapInfoBuilder {
 	builder.value = value
@@ -16169,6 +17076,7 @@ func NewOfferApplyFormInfoBuilder() *OfferApplyFormInfoBuilder {
 }
 
 // offer申请表 ID
+//
 // 示例值：23746823748
 func (builder *OfferApplyFormInfoBuilder) Id(id string) *OfferApplyFormInfoBuilder {
 	builder.id = id
@@ -16177,6 +17085,7 @@ func (builder *OfferApplyFormInfoBuilder) Id(id string) *OfferApplyFormInfoBuild
 }
 
 // offer申请表名称
+//
 // 示例值：
 func (builder *OfferApplyFormInfoBuilder) Name(name *I18n) *OfferApplyFormInfoBuilder {
 	builder.name = name
@@ -16185,6 +17094,7 @@ func (builder *OfferApplyFormInfoBuilder) Name(name *I18n) *OfferApplyFormInfoBu
 }
 
 // schema 信息，用于描述申请表单结构的元数据定义，即对申请表内容的描述
+//
 // 示例值：
 func (builder *OfferApplyFormInfoBuilder) Schema(schema *OfferApplyFormSchema) *OfferApplyFormInfoBuilder {
 	builder.schema = schema
@@ -16237,6 +17147,7 @@ func NewOfferApplyFormModuleInfoBuilder() *OfferApplyFormModuleInfoBuilder {
 }
 
 // 模块 ID
+//
 // 示例值：23746823748
 func (builder *OfferApplyFormModuleInfoBuilder) Id(id string) *OfferApplyFormModuleInfoBuilder {
 	builder.id = id
@@ -16245,6 +17156,7 @@ func (builder *OfferApplyFormModuleInfoBuilder) Id(id string) *OfferApplyFormMod
 }
 
 // 模块名称
+//
 // 示例值：
 func (builder *OfferApplyFormModuleInfoBuilder) Name(name *I18n) *OfferApplyFormModuleInfoBuilder {
 	builder.name = name
@@ -16253,6 +17165,7 @@ func (builder *OfferApplyFormModuleInfoBuilder) Name(name *I18n) *OfferApplyForm
 }
 
 // 是否为自定义模块
+//
 // 示例值：false
 func (builder *OfferApplyFormModuleInfoBuilder) IsCustomized(isCustomized bool) *OfferApplyFormModuleInfoBuilder {
 	builder.isCustomized = isCustomized
@@ -16261,6 +17174,7 @@ func (builder *OfferApplyFormModuleInfoBuilder) IsCustomized(isCustomized bool) 
 }
 
 // 模块状态是否启用
+//
 // 示例值：1
 func (builder *OfferApplyFormModuleInfoBuilder) ActiveStatus(activeStatus int) *OfferApplyFormModuleInfoBuilder {
 	builder.activeStatus = activeStatus
@@ -16269,6 +17183,7 @@ func (builder *OfferApplyFormModuleInfoBuilder) ActiveStatus(activeStatus int) *
 }
 
 // 模块填写提示
+//
 // 示例值：
 func (builder *OfferApplyFormModuleInfoBuilder) Hint(hint *I18n) *OfferApplyFormModuleInfoBuilder {
 	builder.hint = hint
@@ -16277,6 +17192,7 @@ func (builder *OfferApplyFormModuleInfoBuilder) Hint(hint *I18n) *OfferApplyForm
 }
 
 // 字段列表
+//
 // 示例值：
 func (builder *OfferApplyFormModuleInfoBuilder) ObjectList(objectList []*OfferApplyFormObjectInfo) *OfferApplyFormModuleInfoBuilder {
 	builder.objectList = objectList
@@ -16331,6 +17247,7 @@ func NewOfferApplyFormObjectConfigInfoBuilder() *OfferApplyFormObjectConfigInfoB
 }
 
 // 选项信息
+//
 // 示例值：
 func (builder *OfferApplyFormObjectConfigInfoBuilder) Options(options []*OfferApplyFormConfigOptionInfo) *OfferApplyFormObjectConfigInfoBuilder {
 	builder.options = options
@@ -16339,6 +17256,7 @@ func (builder *OfferApplyFormObjectConfigInfoBuilder) Options(options []*OfferAp
 }
 
 // 公式信息
+//
 // 示例值：
 func (builder *OfferApplyFormObjectConfigInfoBuilder) Formula(formula *OfferApplyFormConfigFormulaInfo) *OfferApplyFormObjectConfigInfoBuilder {
 	builder.formula = formula
@@ -16347,6 +17265,7 @@ func (builder *OfferApplyFormObjectConfigInfoBuilder) Formula(formula *OfferAppl
 }
 
 // 级联配置信息
+//
 // 示例值：
 func (builder *OfferApplyFormObjectConfigInfoBuilder) ObjectDisplayConfig(objectDisplayConfig *OfferApplyFormObjectDisplayConfigInfo) *OfferApplyFormObjectConfigInfoBuilder {
 	builder.objectDisplayConfig = objectDisplayConfig
@@ -16386,6 +17305,7 @@ func NewOfferApplyFormObjectDisplayConfigInfoBuilder() *OfferApplyFormObjectDisp
 }
 
 // 展示条件枚举
+//
 // 示例值：1
 func (builder *OfferApplyFormObjectDisplayConfigInfoBuilder) DisplayCondition(displayCondition int) *OfferApplyFormObjectDisplayConfigInfoBuilder {
 	builder.displayCondition = displayCondition
@@ -16394,6 +17314,7 @@ func (builder *OfferApplyFormObjectDisplayConfigInfoBuilder) DisplayCondition(di
 }
 
 // 字段条件配置
+//
 // 示例值：
 func (builder *OfferApplyFormObjectDisplayConfigInfoBuilder) PreObjectConfigList(preObjectConfigList []*OfferApplyFormPreObjectConfigInfo) *OfferApplyFormObjectDisplayConfigInfoBuilder {
 	builder.preObjectConfigList = preObjectConfigList
@@ -16458,6 +17379,7 @@ func NewOfferApplyFormObjectInfoBuilder() *OfferApplyFormObjectInfoBuilder {
 }
 
 // 字段 ID
+//
 // 示例值：23847293234
 func (builder *OfferApplyFormObjectInfoBuilder) Id(id string) *OfferApplyFormObjectInfoBuilder {
 	builder.id = id
@@ -16466,6 +17388,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) Id(id string) *OfferApplyFormObj
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *OfferApplyFormObjectInfoBuilder) Name(name *I18n) *OfferApplyFormObjectInfoBuilder {
 	builder.name = name
@@ -16474,6 +17397,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) Name(name *I18n) *OfferApplyForm
 }
 
 // 字段描述
+//
 // 示例值：
 func (builder *OfferApplyFormObjectInfoBuilder) Description(description *I18n) *OfferApplyFormObjectInfoBuilder {
 	builder.description = description
@@ -16482,6 +17406,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) Description(description *I18n) *
 }
 
 // 所属模块 ID
+//
 // 示例值：23847293234
 func (builder *OfferApplyFormObjectInfoBuilder) ModuleId(moduleId string) *OfferApplyFormObjectInfoBuilder {
 	builder.moduleId = moduleId
@@ -16490,6 +17415,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) ModuleId(moduleId string) *Offer
 }
 
 // 是否为自定义字段
+//
 // 示例值：true
 func (builder *OfferApplyFormObjectInfoBuilder) IsCustomized(isCustomized bool) *OfferApplyFormObjectInfoBuilder {
 	builder.isCustomized = isCustomized
@@ -16498,6 +17424,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) IsCustomized(isCustomized bool) 
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *OfferApplyFormObjectInfoBuilder) IsRequired(isRequired bool) *OfferApplyFormObjectInfoBuilder {
 	builder.isRequired = isRequired
@@ -16506,6 +17433,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) IsRequired(isRequired bool) *Off
 }
 
 // 是否启用
+//
 // 示例值：1
 func (builder *OfferApplyFormObjectInfoBuilder) ActiveStatus(activeStatus int) *OfferApplyFormObjectInfoBuilder {
 	builder.activeStatus = activeStatus
@@ -16514,6 +17442,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) ActiveStatus(activeStatus int) *
 }
 
 // 是否修改后需审批
+//
 // 示例值：true
 func (builder *OfferApplyFormObjectInfoBuilder) NeedApprove(needApprove bool) *OfferApplyFormObjectInfoBuilder {
 	builder.needApprove = needApprove
@@ -16522,6 +17451,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) NeedApprove(needApprove bool) *O
 }
 
 // 是否敏感
+//
 // 示例值：false
 func (builder *OfferApplyFormObjectInfoBuilder) IsSensitive(isSensitive bool) *OfferApplyFormObjectInfoBuilder {
 	builder.isSensitive = isSensitive
@@ -16530,6 +17460,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) IsSensitive(isSensitive bool) *O
 }
 
 // 字段类型枚举
+//
 // 示例值：1
 func (builder *OfferApplyFormObjectInfoBuilder) ObjectType(objectType int) *OfferApplyFormObjectInfoBuilder {
 	builder.objectType = objectType
@@ -16538,6 +17469,7 @@ func (builder *OfferApplyFormObjectInfoBuilder) ObjectType(objectType int) *Offe
 }
 
 // 配置信息
+//
 // 示例值：
 func (builder *OfferApplyFormObjectInfoBuilder) Config(config *OfferApplyFormObjectConfigInfo) *OfferApplyFormObjectInfoBuilder {
 	builder.config = config
@@ -16612,6 +17544,7 @@ func NewOfferApplyFormPreObjectConfigInfoBuilder() *OfferApplyFormPreObjectConfi
 }
 
 // 字段 ID
+//
 // 示例值：687529575
 func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Id(id string) *OfferApplyFormPreObjectConfigInfoBuilder {
 	builder.id = id
@@ -16620,6 +17553,7 @@ func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Id(id string) *OfferApp
 }
 
 // 运算符枚举
+//
 // 示例值：1
 func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Operator(operator int) *OfferApplyFormPreObjectConfigInfoBuilder {
 	builder.operator = operator
@@ -16628,6 +17562,7 @@ func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Operator(operator int) 
 }
 
 // 字段值
+//
 // 示例值：
 func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Value(value []string) *OfferApplyFormPreObjectConfigInfoBuilder {
 	builder.value = value
@@ -16669,6 +17604,7 @@ func NewOfferApplyFormSchemaBuilder() *OfferApplyFormSchemaBuilder {
 }
 
 // schema ID
+//
 // 示例值：7080465990618843430
 func (builder *OfferApplyFormSchemaBuilder) Id(id string) *OfferApplyFormSchemaBuilder {
 	builder.id = id
@@ -16677,6 +17613,7 @@ func (builder *OfferApplyFormSchemaBuilder) Id(id string) *OfferApplyFormSchemaB
 }
 
 // 模块列表
+//
 // 示例值：
 func (builder *OfferApplyFormSchemaBuilder) ModuleList(moduleList []*OfferApplyFormModuleInfo) *OfferApplyFormSchemaBuilder {
 	builder.moduleList = moduleList
@@ -16723,6 +17660,7 @@ func NewOfferApprovalTemplateBuilder() *OfferApprovalTemplateBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *OfferApprovalTemplateBuilder) Id(id string) *OfferApprovalTemplateBuilder {
 	builder.id = id
@@ -16731,6 +17669,7 @@ func (builder *OfferApprovalTemplateBuilder) Id(id string) *OfferApprovalTemplat
 }
 
 // 名称
+//
 // 示例值：
 func (builder *OfferApprovalTemplateBuilder) Name(name *I18n) *OfferApprovalTemplateBuilder {
 	builder.name = name
@@ -16739,6 +17678,7 @@ func (builder *OfferApprovalTemplateBuilder) Name(name *I18n) *OfferApprovalTemp
 }
 
 // 创建时间
+//
 // 示例值：1628512038000
 func (builder *OfferApprovalTemplateBuilder) CreateTime(createTime string) *OfferApprovalTemplateBuilder {
 	builder.createTime = createTime
@@ -16747,6 +17687,7 @@ func (builder *OfferApprovalTemplateBuilder) CreateTime(createTime string) *Offe
 }
 
 // 备注
+//
 // 示例值：test
 func (builder *OfferApprovalTemplateBuilder) Remark(remark string) *OfferApprovalTemplateBuilder {
 	builder.remark = remark
@@ -16755,6 +17696,7 @@ func (builder *OfferApprovalTemplateBuilder) Remark(remark string) *OfferApprova
 }
 
 // 适用部门
+//
 // 示例值：
 func (builder *OfferApprovalTemplateBuilder) DepartmentList(departmentList []*Department) *OfferApprovalTemplateBuilder {
 	builder.departmentList = departmentList
@@ -16851,6 +17793,7 @@ func NewOfferBasicInfoBuilder() *OfferBasicInfoBuilder {
 }
 
 // 部门 ID
+//
 // 示例值：od-6b394871807047c7023ebfc1ff37cd3a
 func (builder *OfferBasicInfoBuilder) DepartmentId(departmentId string) *OfferBasicInfoBuilder {
 	builder.departmentId = departmentId
@@ -16859,6 +17802,7 @@ func (builder *OfferBasicInfoBuilder) DepartmentId(departmentId string) *OfferBa
 }
 
 // 直属上级 ID
+//
 // 示例值：ou_ce613028fe74745421f5dc320bb9c709
 func (builder *OfferBasicInfoBuilder) LeaderUserId(leaderUserId string) *OfferBasicInfoBuilder {
 	builder.leaderUserId = leaderUserId
@@ -16867,6 +17811,7 @@ func (builder *OfferBasicInfoBuilder) LeaderUserId(leaderUserId string) *OfferBa
 }
 
 // 职务 ID
+//
 // 示例值：123
 func (builder *OfferBasicInfoBuilder) EmploymentJobId(employmentJobId string) *OfferBasicInfoBuilder {
 	builder.employmentJobId = employmentJobId
@@ -16875,6 +17820,7 @@ func (builder *OfferBasicInfoBuilder) EmploymentJobId(employmentJobId string) *O
 }
 
 // 人员类型 ID
+//
 // 示例值：2
 func (builder *OfferBasicInfoBuilder) EmployeeTypeId(employeeTypeId string) *OfferBasicInfoBuilder {
 	builder.employeeTypeId = employeeTypeId
@@ -16883,6 +17829,7 @@ func (builder *OfferBasicInfoBuilder) EmployeeTypeId(employeeTypeId string) *Off
 }
 
 // 职位序列 ID
+//
 // 示例值：6807407987381831949
 func (builder *OfferBasicInfoBuilder) JobFamilyId(jobFamilyId string) *OfferBasicInfoBuilder {
 	builder.jobFamilyId = jobFamilyId
@@ -16891,6 +17838,7 @@ func (builder *OfferBasicInfoBuilder) JobFamilyId(jobFamilyId string) *OfferBasi
 }
 
 // 职位级别 ID
+//
 // 示例值：6807407987381881101
 func (builder *OfferBasicInfoBuilder) JobLevelId(jobLevelId string) *OfferBasicInfoBuilder {
 	builder.jobLevelId = jobLevelId
@@ -16899,6 +17847,7 @@ func (builder *OfferBasicInfoBuilder) JobLevelId(jobLevelId string) *OfferBasicI
 }
 
 // 试用期
+//
 // 示例值：3
 func (builder *OfferBasicInfoBuilder) ProbationMonth(probationMonth int) *OfferBasicInfoBuilder {
 	builder.probationMonth = probationMonth
@@ -16907,6 +17856,7 @@ func (builder *OfferBasicInfoBuilder) ProbationMonth(probationMonth int) *OfferB
 }
 
 // 合同期
+//
 // 示例值：3
 func (builder *OfferBasicInfoBuilder) ContractYear(contractYear int) *OfferBasicInfoBuilder {
 	builder.contractYear = contractYear
@@ -16915,6 +17865,7 @@ func (builder *OfferBasicInfoBuilder) ContractYear(contractYear int) *OfferBasic
 }
 
 // 预计入职日期
+//
 // 示例值：{"date":"2022-04-07"}
 func (builder *OfferBasicInfoBuilder) ExpectedOnboardDate(expectedOnboardDate string) *OfferBasicInfoBuilder {
 	builder.expectedOnboardDate = expectedOnboardDate
@@ -16923,6 +17874,7 @@ func (builder *OfferBasicInfoBuilder) ExpectedOnboardDate(expectedOnboardDate st
 }
 
 // 入职地点 ID
+//
 // 示例值：6897079709306259719
 func (builder *OfferBasicInfoBuilder) OnboardAddressId(onboardAddressId string) *OfferBasicInfoBuilder {
 	builder.onboardAddressId = onboardAddressId
@@ -16931,6 +17883,7 @@ func (builder *OfferBasicInfoBuilder) OnboardAddressId(onboardAddressId string) 
 }
 
 // 办公地点 ID
+//
 // 示例值：6897079709306259719
 func (builder *OfferBasicInfoBuilder) WorkAddressId(workAddressId string) *OfferBasicInfoBuilder {
 	builder.workAddressId = workAddressId
@@ -16939,6 +17892,7 @@ func (builder *OfferBasicInfoBuilder) WorkAddressId(workAddressId string) *Offer
 }
 
 // Offer负责人 ID
+//
 // 示例值：ou_ce613028fe74745421f5dc320bb9c709
 func (builder *OfferBasicInfoBuilder) OwnerUserId(ownerUserId string) *OfferBasicInfoBuilder {
 	builder.ownerUserId = ownerUserId
@@ -16947,6 +17901,7 @@ func (builder *OfferBasicInfoBuilder) OwnerUserId(ownerUserId string) *OfferBasi
 }
 
 // Offer 推荐语
+//
 // 示例值：十分优秀，推荐入职
 func (builder *OfferBasicInfoBuilder) RecommendedWords(recommendedWords string) *OfferBasicInfoBuilder {
 	builder.recommendedWords = recommendedWords
@@ -16955,6 +17910,7 @@ func (builder *OfferBasicInfoBuilder) RecommendedWords(recommendedWords string) 
 }
 
 // 招聘需求 ID
+//
 // 示例值：2342352224
 func (builder *OfferBasicInfoBuilder) JobRequirementId(jobRequirementId string) *OfferBasicInfoBuilder {
 	builder.jobRequirementId = jobRequirementId
@@ -16963,6 +17919,7 @@ func (builder *OfferBasicInfoBuilder) JobRequirementId(jobRequirementId string) 
 }
 
 // 招聘流程类型 ID
+//
 // 示例值：2
 func (builder *OfferBasicInfoBuilder) JobProcessTypeId(jobProcessTypeId int) *OfferBasicInfoBuilder {
 	builder.jobProcessTypeId = jobProcessTypeId
@@ -16971,6 +17928,7 @@ func (builder *OfferBasicInfoBuilder) JobProcessTypeId(jobProcessTypeId int) *Of
 }
 
 // 附件ID列表
+//
 // 示例值：["7081582717280831752"]
 func (builder *OfferBasicInfoBuilder) AttachmentIdList(attachmentIdList []string) *OfferBasicInfoBuilder {
 	builder.attachmentIdList = attachmentIdList
@@ -16979,6 +17937,7 @@ func (builder *OfferBasicInfoBuilder) AttachmentIdList(attachmentIdList []string
 }
 
 // 附件描述
+//
 // 示例值：张三的简历
 func (builder *OfferBasicInfoBuilder) AttachmentDescription(attachmentDescription string) *OfferBasicInfoBuilder {
 	builder.attachmentDescription = attachmentDescription
@@ -16987,6 +17946,7 @@ func (builder *OfferBasicInfoBuilder) AttachmentDescription(attachmentDescriptio
 }
 
 // Offer操作人 ID
+//
 // 示例值：ou_ce613028fe74745421f5dc320bb9c709
 func (builder *OfferBasicInfoBuilder) OperatorUserId(operatorUserId string) *OfferBasicInfoBuilder {
 	builder.operatorUserId = operatorUserId
@@ -17091,6 +18051,7 @@ func NewOfferCustomFieldBuilder() *OfferCustomFieldBuilder {
 }
 
 // 自定义字段 ID
+//
 // 示例值：6887476510505748749
 func (builder *OfferCustomFieldBuilder) Id(id string) *OfferCustomFieldBuilder {
 	builder.id = id
@@ -17099,6 +18060,7 @@ func (builder *OfferCustomFieldBuilder) Id(id string) *OfferCustomFieldBuilder {
 }
 
 // 自定义字段名称
+//
 // 示例值：
 func (builder *OfferCustomFieldBuilder) Name(name *I18n) *OfferCustomFieldBuilder {
 	builder.name = name
@@ -17107,6 +18069,7 @@ func (builder *OfferCustomFieldBuilder) Name(name *I18n) *OfferCustomFieldBuilde
 }
 
 // 自定义字段配置信息，仅字段类型为「单选」、「多选」时需传配置选项信息
+//
 // 示例值：
 func (builder *OfferCustomFieldBuilder) Config(config *OfferCustomFieldConfig) *OfferCustomFieldBuilder {
 	builder.config = config
@@ -17144,6 +18107,7 @@ func NewOfferCustomFieldConfigBuilder() *OfferCustomFieldConfigBuilder {
 }
 
 // 选项信息
+//
 // 示例值：
 func (builder *OfferCustomFieldConfigBuilder) Options(options []*OfferCustomFieldConfigOption) *OfferCustomFieldConfigBuilder {
 	builder.options = options
@@ -17174,6 +18138,7 @@ func NewOfferCustomFieldConfigOptionBuilder() *OfferCustomFieldConfigOptionBuild
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *OfferCustomFieldConfigOptionBuilder) Name(name *I18n) *OfferCustomFieldConfigOptionBuilder {
 	builder.name = name
@@ -17207,6 +18172,7 @@ func NewOfferCustomizedInfoBuilder() *OfferCustomizedInfoBuilder {
 }
 
 // 自定义字段 ID
+//
 // 示例值：6972464088568269100
 func (builder *OfferCustomizedInfoBuilder) Id(id string) *OfferCustomizedInfoBuilder {
 	builder.id = id
@@ -17215,6 +18181,7 @@ func (builder *OfferCustomizedInfoBuilder) Id(id string) *OfferCustomizedInfoBui
 }
 
 // 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："2022-05-26";4. 年份选择："2022";5. 月份选择："2022-05";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
+//
 // 示例值：1
 func (builder *OfferCustomizedInfoBuilder) Value(value string) *OfferCustomizedInfoBuilder {
 	builder.value = value
@@ -17265,6 +18232,7 @@ func NewOfferInfoBuilder() *OfferInfoBuilder {
 }
 
 // Offer ID
+//
 // 示例值：7016605170635213100
 func (builder *OfferInfoBuilder) OfferId(offerId string) *OfferInfoBuilder {
 	builder.offerId = offerId
@@ -17273,6 +18241,7 @@ func (builder *OfferInfoBuilder) OfferId(offerId string) *OfferInfoBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：7013552389293279532
 func (builder *OfferInfoBuilder) ApplicationId(applicationId string) *OfferInfoBuilder {
 	builder.applicationId = applicationId
@@ -17281,6 +18250,7 @@ func (builder *OfferInfoBuilder) ApplicationId(applicationId string) *OfferInfoB
 }
 
 // Offer 申请表模板 ID，用于描述申请表单结构的元数据定义，即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息，都会生成新的 schema_id，创建 Offer 时应传入最新的 schema_id，可从「获取Offer申请表模板信息」接口中获取
+//
 // 示例值：7013318077945596204
 func (builder *OfferInfoBuilder) SchemaId(schemaId string) *OfferInfoBuilder {
 	builder.schemaId = schemaId
@@ -17289,6 +18259,7 @@ func (builder *OfferInfoBuilder) SchemaId(schemaId string) *OfferInfoBuilder {
 }
 
 // Offer 基本信息
+//
 // 示例值：
 func (builder *OfferInfoBuilder) BasicInfo(basicInfo *OfferBasicInfo) *OfferInfoBuilder {
 	builder.basicInfo = basicInfo
@@ -17297,6 +18268,7 @@ func (builder *OfferInfoBuilder) BasicInfo(basicInfo *OfferBasicInfo) *OfferInfo
 }
 
 // Offer 薪资信息
+//
 // 示例值：
 func (builder *OfferInfoBuilder) SalaryInfo(salaryInfo *OfferSalaryInfo) *OfferInfoBuilder {
 	builder.salaryInfo = salaryInfo
@@ -17305,6 +18277,7 @@ func (builder *OfferInfoBuilder) SalaryInfo(salaryInfo *OfferSalaryInfo) *OfferI
 }
 
 // 自定义信息
+//
 // 示例值：
 func (builder *OfferInfoBuilder) CustomizedInfoList(customizedInfoList []*OfferCustomizedInfo) *OfferInfoBuilder {
 	builder.customizedInfoList = customizedInfoList
@@ -17356,6 +18329,7 @@ func NewOfferJobInfoBuilder() *OfferJobInfoBuilder {
 }
 
 // Offer 职位 ID
+//
 // 示例值：7080891505426925854
 func (builder *OfferJobInfoBuilder) JobId(jobId string) *OfferJobInfoBuilder {
 	builder.jobId = jobId
@@ -17364,6 +18338,7 @@ func (builder *OfferJobInfoBuilder) JobId(jobId string) *OfferJobInfoBuilder {
 }
 
 // Offer 职位名称
+//
 // 示例值：xx
 func (builder *OfferJobInfoBuilder) JobName(jobName string) *OfferJobInfoBuilder {
 	builder.jobName = jobName
@@ -17414,6 +18389,7 @@ func NewOfferListInfoBuilder() *OfferListInfoBuilder {
 }
 
 // Offer ID
+//
 // 示例值：7096320678581242123
 func (builder *OfferListInfoBuilder) Id(id string) *OfferListInfoBuilder {
 	builder.id = id
@@ -17422,6 +18398,7 @@ func (builder *OfferListInfoBuilder) Id(id string) *OfferListInfoBuilder {
 }
 
 // Offer 职位
+//
 // 示例值：
 func (builder *OfferListInfoBuilder) JobInfo(jobInfo *OfferJobInfo) *OfferListInfoBuilder {
 	builder.jobInfo = jobInfo
@@ -17430,6 +18407,7 @@ func (builder *OfferListInfoBuilder) JobInfo(jobInfo *OfferJobInfo) *OfferListIn
 }
 
 // 创建时间
+//
 // 示例值：1628512038000
 func (builder *OfferListInfoBuilder) CreateTime(createTime string) *OfferListInfoBuilder {
 	builder.createTime = createTime
@@ -17438,6 +18416,7 @@ func (builder *OfferListInfoBuilder) CreateTime(createTime string) *OfferListInf
 }
 
 // Offer 状态
+//
 // 示例值：0
 func (builder *OfferListInfoBuilder) OfferStatus(offerStatus int) *OfferListInfoBuilder {
 	builder.offerStatus = offerStatus
@@ -17446,6 +18425,7 @@ func (builder *OfferListInfoBuilder) OfferStatus(offerStatus int) *OfferListInfo
 }
 
 // Offer 人员类型
+//
 // 示例值：
 func (builder *OfferListInfoBuilder) EmployeeType(employeeType *BaseBilingualWithId) *OfferListInfoBuilder {
 	builder.employeeType = employeeType
@@ -17454,6 +18434,7 @@ func (builder *OfferListInfoBuilder) EmployeeType(employeeType *BaseBilingualWit
 }
 
 // Offer 投递 ID
+//
 // 示例值：7096358713330272526
 func (builder *OfferListInfoBuilder) ApplicationId(applicationId string) *OfferListInfoBuilder {
 	builder.applicationId = applicationId
@@ -17521,6 +18502,7 @@ func NewOfferSalaryInfoBuilder() *OfferSalaryInfoBuilder {
 }
 
 // 币种
+//
 // 示例值：CNY
 func (builder *OfferSalaryInfoBuilder) Currency(currency string) *OfferSalaryInfoBuilder {
 	builder.currency = currency
@@ -17529,6 +18511,7 @@ func (builder *OfferSalaryInfoBuilder) Currency(currency string) *OfferSalaryInf
 }
 
 // 基本工资，当启用 Offer 申请表中的「薪资信息」模块时，「基本工资」字段为必传项
+//
 // 示例值：1000000
 func (builder *OfferSalaryInfoBuilder) BasicSalary(basicSalary string) *OfferSalaryInfoBuilder {
 	builder.basicSalary = basicSalary
@@ -17537,6 +18520,7 @@ func (builder *OfferSalaryInfoBuilder) BasicSalary(basicSalary string) *OfferSal
 }
 
 // 试用期百分比
+//
 // 示例值：0.8
 func (builder *OfferSalaryInfoBuilder) ProbationSalaryPercentage(probationSalaryPercentage string) *OfferSalaryInfoBuilder {
 	builder.probationSalaryPercentage = probationSalaryPercentage
@@ -17545,6 +18529,7 @@ func (builder *OfferSalaryInfoBuilder) ProbationSalaryPercentage(probationSalary
 }
 
 // 年终奖月数
+//
 // 示例值：3
 func (builder *OfferSalaryInfoBuilder) AwardSalaryMultiple(awardSalaryMultiple string) *OfferSalaryInfoBuilder {
 	builder.awardSalaryMultiple = awardSalaryMultiple
@@ -17553,6 +18538,7 @@ func (builder *OfferSalaryInfoBuilder) AwardSalaryMultiple(awardSalaryMultiple s
 }
 
 // 期权股数
+//
 // 示例值：30
 func (builder *OfferSalaryInfoBuilder) OptionShares(optionShares string) *OfferSalaryInfoBuilder {
 	builder.optionShares = optionShares
@@ -17561,6 +18547,7 @@ func (builder *OfferSalaryInfoBuilder) OptionShares(optionShares string) *OfferS
 }
 
 // 季度奖金额
+//
 // 示例值：3000
 func (builder *OfferSalaryInfoBuilder) QuarterlyBonus(quarterlyBonus string) *OfferSalaryInfoBuilder {
 	builder.quarterlyBonus = quarterlyBonus
@@ -17569,6 +18556,7 @@ func (builder *OfferSalaryInfoBuilder) QuarterlyBonus(quarterlyBonus string) *Of
 }
 
 // 半年奖金额
+//
 // 示例值：10000
 func (builder *OfferSalaryInfoBuilder) HalfYearBonus(halfYearBonus string) *OfferSalaryInfoBuilder {
 	builder.halfYearBonus = halfYearBonus
@@ -17633,6 +18621,7 @@ func NewOfferSchemaBuilder() *OfferSchemaBuilder {
 }
 
 // offer申请表ID
+//
 // 示例值：1213213123123
 func (builder *OfferSchemaBuilder) Id(id string) *OfferSchemaBuilder {
 	builder.id = id
@@ -17641,6 +18630,7 @@ func (builder *OfferSchemaBuilder) Id(id string) *OfferSchemaBuilder {
 }
 
 // offer申请表使用场景
+//
 // 示例值：1
 func (builder *OfferSchemaBuilder) Scenario(scenario int) *OfferSchemaBuilder {
 	builder.scenario = scenario
@@ -17649,6 +18639,7 @@ func (builder *OfferSchemaBuilder) Scenario(scenario int) *OfferSchemaBuilder {
 }
 
 // 申请表版本
+//
 // 示例值：121
 func (builder *OfferSchemaBuilder) Version(version int) *OfferSchemaBuilder {
 	builder.version = version
@@ -17657,6 +18648,7 @@ func (builder *OfferSchemaBuilder) Version(version int) *OfferSchemaBuilder {
 }
 
 // 字段对象信息
+//
 // 示例值：
 func (builder *OfferSchemaBuilder) ObjectList(objectList []*OfferSchemaDetail) *OfferSchemaBuilder {
 	builder.objectList = objectList
@@ -17708,6 +18700,7 @@ func NewOfferSchemaChildBuilder() *OfferSchemaChildBuilder {
 }
 
 // offer申请表ID
+//
 // 示例值：1213213123123
 func (builder *OfferSchemaChildBuilder) Id(id string) *OfferSchemaChildBuilder {
 	builder.id = id
@@ -17716,6 +18709,7 @@ func (builder *OfferSchemaChildBuilder) Id(id string) *OfferSchemaChildBuilder {
 }
 
 // offer申请表使用场景
+//
 // 示例值：1
 func (builder *OfferSchemaChildBuilder) Scenario(scenario int) *OfferSchemaChildBuilder {
 	builder.scenario = scenario
@@ -17724,6 +18718,7 @@ func (builder *OfferSchemaChildBuilder) Scenario(scenario int) *OfferSchemaChild
 }
 
 // 申请表版本
+//
 // 示例值：121
 func (builder *OfferSchemaChildBuilder) Version(version int) *OfferSchemaChildBuilder {
 	builder.version = version
@@ -17732,6 +18727,7 @@ func (builder *OfferSchemaChildBuilder) Version(version int) *OfferSchemaChildBu
 }
 
 // 字段对象信息
+//
 // 示例值：
 func (builder *OfferSchemaChildBuilder) ObjectList(objectList []*OfferSchemaDetail) *OfferSchemaChildBuilder {
 	builder.objectList = objectList
@@ -17786,6 +18782,7 @@ func NewOfferSchemaDetailBuilder() *OfferSchemaDetailBuilder {
 }
 
 // 字段ID
+//
 // 示例值：1213213123123
 func (builder *OfferSchemaDetailBuilder) Id(id string) *OfferSchemaDetailBuilder {
 	builder.id = id
@@ -17794,6 +18791,7 @@ func (builder *OfferSchemaDetailBuilder) Id(id string) *OfferSchemaDetailBuilder
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *OfferSchemaDetailBuilder) Name(name *OfferSchemaName) *OfferSchemaDetailBuilder {
 	builder.name = name
@@ -17802,6 +18800,7 @@ func (builder *OfferSchemaDetailBuilder) Name(name *OfferSchemaName) *OfferSchem
 }
 
 // 字段类型, text=单行文本, long_text=多行文本, select=单选, multi_select=多选, date_select=日期, number=数字
+//
 // 示例值：number
 func (builder *OfferSchemaDetailBuilder) Type(type_ string) *OfferSchemaDetailBuilder {
 	builder.type_ = type_
@@ -17810,6 +18809,7 @@ func (builder *OfferSchemaDetailBuilder) Type(type_ string) *OfferSchemaDetailBu
 }
 
 // 字段是否为自定义
+//
 // 示例值：true
 func (builder *OfferSchemaDetailBuilder) IsCustomized(isCustomized bool) *OfferSchemaDetailBuilder {
 	builder.isCustomized = isCustomized
@@ -17818,6 +18818,7 @@ func (builder *OfferSchemaDetailBuilder) IsCustomized(isCustomized bool) *OfferS
 }
 
 // 单选/多选可选择字段的选项值
+//
 // 示例值：
 func (builder *OfferSchemaDetailBuilder) OptionList(optionList []*OfferSchemaDetailOption) *OfferSchemaDetailBuilder {
 	builder.optionList = optionList
@@ -17869,6 +18870,7 @@ func NewOfferSchemaDetailOptionBuilder() *OfferSchemaDetailOptionBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *OfferSchemaDetailOptionBuilder) Name(name *OfferSchemaName) *OfferSchemaDetailOptionBuilder {
 	builder.name = name
@@ -17877,6 +18879,7 @@ func (builder *OfferSchemaDetailOptionBuilder) Name(name *OfferSchemaName) *Offe
 }
 
 // 选项序号
+//
 // 示例值：121
 func (builder *OfferSchemaDetailOptionBuilder) Index(index int) *OfferSchemaDetailOptionBuilder {
 	builder.index = index
@@ -17885,6 +18888,7 @@ func (builder *OfferSchemaDetailOptionBuilder) Index(index int) *OfferSchemaDeta
 }
 
 // 选项当前是否启用
+//
 // 示例值：1
 func (builder *OfferSchemaDetailOptionBuilder) ActiveStatus(activeStatus int) *OfferSchemaDetailOptionBuilder {
 	builder.activeStatus = activeStatus
@@ -17923,6 +18927,7 @@ func NewOfferSchemaListInfoBuilder() *OfferSchemaListInfoBuilder {
 }
 
 // offer申请表列表
+//
 // 示例值：
 func (builder *OfferSchemaListInfoBuilder) SchemaList(schemaList []*OfferSchemaChild) *OfferSchemaListInfoBuilder {
 	builder.schemaList = schemaList
@@ -17956,6 +18961,7 @@ func NewOfferSchemaNameBuilder() *OfferSchemaNameBuilder {
 }
 
 // 中文名
+//
 // 示例值：名字
 func (builder *OfferSchemaNameBuilder) ZhCn(zhCn string) *OfferSchemaNameBuilder {
 	builder.zhCn = zhCn
@@ -17964,6 +18970,7 @@ func (builder *OfferSchemaNameBuilder) ZhCn(zhCn string) *OfferSchemaNameBuilder
 }
 
 // 英文名
+//
 // 示例值：name
 func (builder *OfferSchemaNameBuilder) EnUs(enUs string) *OfferSchemaNameBuilder {
 	builder.enUs = enUs
@@ -18002,6 +19009,7 @@ func NewOfferSelectionObjectBuilder() *OfferSelectionObjectBuilder {
 }
 
 // 自定义字段所在的审批表版本
+//
 // 示例值：
 func (builder *OfferSelectionObjectBuilder) SchemaVersion(schemaVersion int) *OfferSelectionObjectBuilder {
 	builder.schemaVersion = schemaVersion
@@ -18010,6 +19018,7 @@ func (builder *OfferSelectionObjectBuilder) SchemaVersion(schemaVersion int) *Of
 }
 
 // 选项
+//
 // 示例值：
 func (builder *OfferSelectionObjectBuilder) OptionList(optionList []*OfferSchemaDetailOption) *OfferSelectionObjectBuilder {
 	builder.optionList = optionList
@@ -18059,6 +19068,7 @@ func NewProjectInfoBuilder() *ProjectInfoBuilder {
 }
 
 // 描述
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) Desc(desc string) *ProjectInfoBuilder {
 	builder.desc = desc
@@ -18067,6 +19077,7 @@ func (builder *ProjectInfoBuilder) Desc(desc string) *ProjectInfoBuilder {
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) EndTime(endTime int) *ProjectInfoBuilder {
 	builder.endTime = endTime
@@ -18075,6 +19086,7 @@ func (builder *ProjectInfoBuilder) EndTime(endTime int) *ProjectInfoBuilder {
 }
 
 // 项目链接
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) Link(link string) *ProjectInfoBuilder {
 	builder.link = link
@@ -18083,6 +19095,7 @@ func (builder *ProjectInfoBuilder) Link(link string) *ProjectInfoBuilder {
 }
 
 // 项目名称
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) Name(name string) *ProjectInfoBuilder {
 	builder.name = name
@@ -18091,6 +19104,7 @@ func (builder *ProjectInfoBuilder) Name(name string) *ProjectInfoBuilder {
 }
 
 // 项目角色
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) Role(role string) *ProjectInfoBuilder {
 	builder.role = role
@@ -18099,6 +19113,7 @@ func (builder *ProjectInfoBuilder) Role(role string) *ProjectInfoBuilder {
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *ProjectInfoBuilder) StartTime(startTime int) *ProjectInfoBuilder {
 	builder.startTime = startTime
@@ -18180,6 +19195,7 @@ func NewQuestionBuilder() *QuestionBuilder {
 }
 
 // 题目 ID
+//
 // 示例值：6950930570311829804
 func (builder *QuestionBuilder) QuestionId(questionId string) *QuestionBuilder {
 	builder.questionId = questionId
@@ -18188,6 +19204,7 @@ func (builder *QuestionBuilder) QuestionId(questionId string) *QuestionBuilder {
 }
 
 // 题目中文名称
+//
 // 示例值：你的总体评价如何？
 func (builder *QuestionBuilder) QuestionName(questionName string) *QuestionBuilder {
 	builder.questionName = questionName
@@ -18196,6 +19213,7 @@ func (builder *QuestionBuilder) QuestionName(questionName string) *QuestionBuild
 }
 
 // 题目英文名称
+//
 // 示例值：How would you describe your overall experience?
 func (builder *QuestionBuilder) QuestionEnName(questionEnName string) *QuestionBuilder {
 	builder.questionEnName = questionEnName
@@ -18204,6 +19222,7 @@ func (builder *QuestionBuilder) QuestionEnName(questionEnName string) *QuestionB
 }
 
 // 题目中文描述
+//
 // 示例值：测试描述内容
 func (builder *QuestionBuilder) QuestionDesc(questionDesc string) *QuestionBuilder {
 	builder.questionDesc = questionDesc
@@ -18212,6 +19231,7 @@ func (builder *QuestionBuilder) QuestionDesc(questionDesc string) *QuestionBuild
 }
 
 // 题目英文描述
+//
 // 示例值：Test Text
 func (builder *QuestionBuilder) QuestionEnDesc(questionEnDesc string) *QuestionBuilder {
 	builder.questionEnDesc = questionEnDesc
@@ -18220,6 +19240,7 @@ func (builder *QuestionBuilder) QuestionEnDesc(questionEnDesc string) *QuestionB
 }
 
 // 题目类型
+//
 // 示例值：4
 func (builder *QuestionBuilder) QuestionType(questionType int) *QuestionBuilder {
 	builder.questionType = questionType
@@ -18228,6 +19249,7 @@ func (builder *QuestionBuilder) QuestionType(questionType int) *QuestionBuilder 
 }
 
 // 是否必填
+//
 // 示例值：true
 func (builder *QuestionBuilder) IsRequired(isRequired bool) *QuestionBuilder {
 	builder.isRequired = isRequired
@@ -18236,6 +19258,7 @@ func (builder *QuestionBuilder) IsRequired(isRequired bool) *QuestionBuilder {
 }
 
 // 选项题回答列表（单选题及多选题）
+//
 // 示例值：
 func (builder *QuestionBuilder) SelectOptionResultList(selectOptionResultList []*SelectOptionResult) *QuestionBuilder {
 	builder.selectOptionResultList = selectOptionResultList
@@ -18244,6 +19267,7 @@ func (builder *QuestionBuilder) SelectOptionResultList(selectOptionResultList []
 }
 
 // 评分题回答
+//
 // 示例值：
 func (builder *QuestionBuilder) FiveStartScoringResult(fiveStartScoringResult *FiveStartScoringResult) *QuestionBuilder {
 	builder.fiveStartScoringResult = fiveStartScoringResult
@@ -18252,6 +19276,7 @@ func (builder *QuestionBuilder) FiveStartScoringResult(fiveStartScoringResult *F
 }
 
 // 描述题回答
+//
 // 示例值：测试描述内容
 func (builder *QuestionBuilder) DescriptionResult(descriptionResult string) *QuestionBuilder {
 	builder.descriptionResult = descriptionResult
@@ -18335,6 +19360,7 @@ func NewQuestionnaireBuilder() *QuestionnaireBuilder {
 }
 
 // 问卷 ID
+//
 // 示例值：7037986982531778860
 func (builder *QuestionnaireBuilder) QuestionnaireId(questionnaireId string) *QuestionnaireBuilder {
 	builder.questionnaireId = questionnaireId
@@ -18343,6 +19369,7 @@ func (builder *QuestionnaireBuilder) QuestionnaireId(questionnaireId string) *Qu
 }
 
 // 投递 ID；当「面试满意度问卷发送时间」选项选择「面试流程结束后」，将返回 投递 ID
+//
 // 示例值：6985833807195212076
 func (builder *QuestionnaireBuilder) ApplicationId(applicationId string) *QuestionnaireBuilder {
 	builder.applicationId = applicationId
@@ -18351,6 +19378,7 @@ func (builder *QuestionnaireBuilder) ApplicationId(applicationId string) *Questi
 }
 
 // 面试 ID；当「面试满意度问卷发送时间」选项选择「第一次面试后」、「每次面试后」将返回 面试 ID
+//
 // 示例值：7038435261598763308
 func (builder *QuestionnaireBuilder) InterviewId(interviewId string) *QuestionnaireBuilder {
 	builder.interviewId = interviewId
@@ -18359,6 +19387,7 @@ func (builder *QuestionnaireBuilder) InterviewId(interviewId string) *Questionna
 }
 
 // 问卷版本
+//
 // 示例值：59
 func (builder *QuestionnaireBuilder) Version(version int) *QuestionnaireBuilder {
 	builder.version = version
@@ -18367,6 +19396,7 @@ func (builder *QuestionnaireBuilder) Version(version int) *QuestionnaireBuilder 
 }
 
 // 题目列表
+//
 // 示例值：
 func (builder *QuestionnaireBuilder) Questions(questions []*Question) *QuestionnaireBuilder {
 	builder.questions = questions
@@ -18375,6 +19405,7 @@ func (builder *QuestionnaireBuilder) Questions(questions []*Question) *Questionn
 }
 
 // 是否完成作答
+//
 // 示例值：true
 func (builder *QuestionnaireBuilder) HasAnswers(hasAnswers bool) *QuestionnaireBuilder {
 	builder.hasAnswers = hasAnswers
@@ -18383,6 +19414,7 @@ func (builder *QuestionnaireBuilder) HasAnswers(hasAnswers bool) *QuestionnaireB
 }
 
 // 更新时间
+//
 // 示例值：1644412504000
 func (builder *QuestionnaireBuilder) UpdateTime(updateTime string) *QuestionnaireBuilder {
 	builder.updateTime = updateTime
@@ -18443,6 +19475,7 @@ func NewRecruitmentTypeBuilder() *RecruitmentTypeBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *RecruitmentTypeBuilder) Id(id string) *RecruitmentTypeBuilder {
 	builder.id = id
@@ -18451,6 +19484,7 @@ func (builder *RecruitmentTypeBuilder) Id(id string) *RecruitmentTypeBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *RecruitmentTypeBuilder) Name(name string) *RecruitmentTypeBuilder {
 	builder.name = name
@@ -18459,6 +19493,7 @@ func (builder *RecruitmentTypeBuilder) Name(name string) *RecruitmentTypeBuilder
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *RecruitmentTypeBuilder) EnName(enName string) *RecruitmentTypeBuilder {
 	builder.enName = enName
@@ -18510,6 +19545,7 @@ func NewReferralBuilder() *ReferralBuilder {
 }
 
 // 内推的 ID
+//
 // 示例值：6643786345878
 func (builder *ReferralBuilder) Id(id string) *ReferralBuilder {
 	builder.id = id
@@ -18518,6 +19554,7 @@ func (builder *ReferralBuilder) Id(id string) *ReferralBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：643452344576878
 func (builder *ReferralBuilder) ApplicationId(applicationId string) *ReferralBuilder {
 	builder.applicationId = applicationId
@@ -18526,6 +19563,7 @@ func (builder *ReferralBuilder) ApplicationId(applicationId string) *ReferralBui
 }
 
 // 创建时间（ms）
+//
 // 示例值：1618899376474
 func (builder *ReferralBuilder) CreateTime(createTime int) *ReferralBuilder {
 	builder.createTime = createTime
@@ -18534,6 +19572,7 @@ func (builder *ReferralBuilder) CreateTime(createTime int) *ReferralBuilder {
 }
 
 // 内推人的 ID
+//
 // 示例值：ou_xxxx
 func (builder *ReferralBuilder) ReferralUserId(referralUserId string) *ReferralBuilder {
 	builder.referralUserId = referralUserId
@@ -18542,6 +19581,7 @@ func (builder *ReferralBuilder) ReferralUserId(referralUserId string) *ReferralB
 }
 
 // 内推人信息
+//
 // 示例值：
 func (builder *ReferralBuilder) ReferralUser(referralUser *IdNameObject) *ReferralBuilder {
 	builder.referralUser = referralUser
@@ -18600,6 +19640,7 @@ func NewResumeSourceBuilder() *ResumeSourceBuilder {
 }
 
 // 来源 ID
+//
 // 示例值：1111
 func (builder *ResumeSourceBuilder) Id(id string) *ResumeSourceBuilder {
 	builder.id = id
@@ -18608,6 +19649,7 @@ func (builder *ResumeSourceBuilder) Id(id string) *ResumeSourceBuilder {
 }
 
 // 中文名
+//
 // 示例值：内推
 func (builder *ResumeSourceBuilder) ZhName(zhName string) *ResumeSourceBuilder {
 	builder.zhName = zhName
@@ -18616,6 +19658,7 @@ func (builder *ResumeSourceBuilder) ZhName(zhName string) *ResumeSourceBuilder {
 }
 
 // 英文名
+//
 // 示例值：referral
 func (builder *ResumeSourceBuilder) EnName(enName string) *ResumeSourceBuilder {
 	builder.enName = enName
@@ -18624,6 +19667,7 @@ func (builder *ResumeSourceBuilder) EnName(enName string) *ResumeSourceBuilder {
 }
 
 // 启用状态
+//
 // 示例值：1
 func (builder *ResumeSourceBuilder) ActiveStatus(activeStatus int) *ResumeSourceBuilder {
 	builder.activeStatus = activeStatus
@@ -18632,6 +19676,7 @@ func (builder *ResumeSourceBuilder) ActiveStatus(activeStatus int) *ResumeSource
 }
 
 // 来源类型
+//
 // 示例值：1
 func (builder *ResumeSourceBuilder) ResumeSourceType(resumeSourceType int) *ResumeSourceBuilder {
 	builder.resumeSourceType = resumeSourceType
@@ -18685,6 +19730,7 @@ func NewRoleBuilder() *RoleBuilder {
 }
 
 // 角色 ID
+//
 // 示例值：101
 func (builder *RoleBuilder) Id(id string) *RoleBuilder {
 	builder.id = id
@@ -18693,6 +19739,7 @@ func (builder *RoleBuilder) Id(id string) *RoleBuilder {
 }
 
 // 角色名称
+//
 // 示例值：
 func (builder *RoleBuilder) Name(name *I18n) *RoleBuilder {
 	builder.name = name
@@ -18701,6 +19748,7 @@ func (builder *RoleBuilder) Name(name *I18n) *RoleBuilder {
 }
 
 // 角色描述
+//
 // 示例值：
 func (builder *RoleBuilder) Description(description *I18n) *RoleBuilder {
 	builder.description = description
@@ -18750,6 +19798,7 @@ func NewSalaryBuilder() *SalaryBuilder {
 }
 
 // 操作时间
+//
 // 示例值：1638260625671
 func (builder *SalaryBuilder) OperateTime(operateTime string) *SalaryBuilder {
 	builder.operateTime = operateTime
@@ -18758,6 +19807,7 @@ func (builder *SalaryBuilder) OperateTime(operateTime string) *SalaryBuilder {
 }
 
 // 薪酬审批状态
+//
 // 示例值：2
 func (builder *SalaryBuilder) SalaryStatus(salaryStatus int) *SalaryBuilder {
 	builder.salaryStatus = salaryStatus
@@ -18766,6 +19816,7 @@ func (builder *SalaryBuilder) SalaryStatus(salaryStatus int) *SalaryBuilder {
 }
 
 // Offer ID
+//
 // 示例值：7981638260625671
 func (builder *SalaryBuilder) OfferId(offerId string) *SalaryBuilder {
 	builder.offerId = offerId
@@ -18774,6 +19825,7 @@ func (builder *SalaryBuilder) OfferId(offerId string) *SalaryBuilder {
 }
 
 // 薪酬 ID
+//
 // 示例值：salay_id
 func (builder *SalaryBuilder) SalayId(salayId string) *SalaryBuilder {
 	builder.salayId = salayId
@@ -18782,6 +19834,7 @@ func (builder *SalaryBuilder) SalayId(salayId string) *SalaryBuilder {
 }
 
 // 操作人 ID
+//
 // 示例值：operator_id
 func (builder *SalaryBuilder) OperatorId(operatorId string) *SalaryBuilder {
 	builder.operatorId = operatorId
@@ -18844,6 +19897,7 @@ func NewSelectOptionResultBuilder() *SelectOptionResultBuilder {
 }
 
 // 选项 ID
+//
 // 示例值：6950930570311993644
 func (builder *SelectOptionResultBuilder) OptionId(optionId string) *SelectOptionResultBuilder {
 	builder.optionId = optionId
@@ -18852,6 +19906,7 @@ func (builder *SelectOptionResultBuilder) OptionId(optionId string) *SelectOptio
 }
 
 // 选项中文名称
+//
 // 示例值：选项一
 func (builder *SelectOptionResultBuilder) OptionName(optionName string) *SelectOptionResultBuilder {
 	builder.optionName = optionName
@@ -18860,6 +19915,7 @@ func (builder *SelectOptionResultBuilder) OptionName(optionName string) *SelectO
 }
 
 // 选项英文名称
+//
 // 示例值：Option 1
 func (builder *SelectOptionResultBuilder) OptionEnName(optionEnName string) *SelectOptionResultBuilder {
 	builder.optionEnName = optionEnName
@@ -18868,6 +19924,7 @@ func (builder *SelectOptionResultBuilder) OptionEnName(optionEnName string) *Sel
 }
 
 // 选项中文描述
+//
 // 示例值：测试选项描述
 func (builder *SelectOptionResultBuilder) OptionDesc(optionDesc string) *SelectOptionResultBuilder {
 	builder.optionDesc = optionDesc
@@ -18876,6 +19933,7 @@ func (builder *SelectOptionResultBuilder) OptionDesc(optionDesc string) *SelectO
 }
 
 // 选项英文描述
+//
 // 示例值：Test Option Desc
 func (builder *SelectOptionResultBuilder) OptionEnDesc(optionEnDesc string) *SelectOptionResultBuilder {
 	builder.optionEnDesc = optionEnDesc
@@ -18884,6 +19942,7 @@ func (builder *SelectOptionResultBuilder) OptionEnDesc(optionEnDesc string) *Sel
 }
 
 // 是否选择
+//
 // 示例值：true
 func (builder *SelectOptionResultBuilder) IsSelected(isSelected bool) *SelectOptionResultBuilder {
 	builder.isSelected = isSelected
@@ -18941,6 +20000,7 @@ func NewSequenceBuilder() *SequenceBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *SequenceBuilder) Id(id string) *SequenceBuilder {
 	builder.id = id
@@ -18949,6 +20009,7 @@ func (builder *SequenceBuilder) Id(id string) *SequenceBuilder {
 }
 
 // 名字
+//
 // 示例值：
 func (builder *SequenceBuilder) Name(name string) *SequenceBuilder {
 	builder.name = name
@@ -18957,6 +20018,7 @@ func (builder *SequenceBuilder) Name(name string) *SequenceBuilder {
 }
 
 // 英文名
+//
 // 示例值：
 func (builder *SequenceBuilder) EnName(enName string) *SequenceBuilder {
 	builder.enName = enName
@@ -18999,6 +20061,7 @@ func NewSiteBuilder() *SiteBuilder {
 }
 
 // 官网id
+//
 // 示例值：
 func (builder *SiteBuilder) Id(id string) *SiteBuilder {
 	builder.id = id
@@ -19007,6 +20070,7 @@ func (builder *SiteBuilder) Id(id string) *SiteBuilder {
 }
 
 // 官网名称
+//
 // 示例值：
 func (builder *SiteBuilder) Name(name *SiteName) *SiteBuilder {
 	builder.name = name
@@ -19050,6 +20114,7 @@ func NewSiteApplicationBuilder() *SiteApplicationBuilder {
 }
 
 // 外部id，用于转换内部id
+//
 // 示例值：
 func (builder *SiteApplicationBuilder) ExternalId(externalId string) *SiteApplicationBuilder {
 	builder.externalId = externalId
@@ -19058,6 +20123,7 @@ func (builder *SiteApplicationBuilder) ExternalId(externalId string) *SiteApplic
 }
 
 // 职位id
+//
 // 示例值：
 func (builder *SiteApplicationBuilder) JobPostId(jobPostId string) *SiteApplicationBuilder {
 	builder.jobPostId = jobPostId
@@ -19066,6 +20132,7 @@ func (builder *SiteApplicationBuilder) JobPostId(jobPostId string) *SiteApplicat
 }
 
 // 简历信息
+//
 // 示例值：
 func (builder *SiteApplicationBuilder) Resume(resume *SiteApplicationResume) *SiteApplicationBuilder {
 	builder.resume = resume
@@ -19074,6 +20141,7 @@ func (builder *SiteApplicationBuilder) Resume(resume *SiteApplicationResume) *Si
 }
 
 // 投递状态
+//
 // 示例值：
 func (builder *SiteApplicationBuilder) Status(status string) *SiteApplicationBuilder {
 	builder.status = status
@@ -19119,6 +20187,7 @@ func NewSiteJobCityBuilder() *SiteJobCityBuilder {
 }
 
 // 地址code
+//
 // 示例值：
 func (builder *SiteJobCityBuilder) CityCode(cityCode string) *SiteJobCityBuilder {
 	builder.cityCode = cityCode
@@ -19127,6 +20196,7 @@ func (builder *SiteJobCityBuilder) CityCode(cityCode string) *SiteJobCityBuilder
 }
 
 // 地址名称
+//
 // 示例值：
 func (builder *SiteJobCityBuilder) Name(name *SiteName) *SiteJobCityBuilder {
 	builder.name = name
@@ -19182,6 +20252,7 @@ func NewSiteJobPostBuilder() *SiteJobPostBuilder {
 }
 
 // 职位id
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) Id(id string) *SiteJobPostBuilder {
 	builder.id = id
@@ -19190,6 +20261,7 @@ func (builder *SiteJobPostBuilder) Id(id string) *SiteJobPostBuilder {
 }
 
 // 职位名称
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) Title(title string) *SiteJobPostBuilder {
 	builder.title = title
@@ -19198,6 +20270,7 @@ func (builder *SiteJobPostBuilder) Title(title string) *SiteJobPostBuilder {
 }
 
 // 职位描述
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) Description(description string) *SiteJobPostBuilder {
 	builder.description = description
@@ -19206,6 +20279,7 @@ func (builder *SiteJobPostBuilder) Description(description string) *SiteJobPostB
 }
 
 // 职位要求
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) Requirement(requirement string) *SiteJobPostBuilder {
 	builder.requirement = requirement
@@ -19214,6 +20288,7 @@ func (builder *SiteJobPostBuilder) Requirement(requirement string) *SiteJobPostB
 }
 
 // 职位职能
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) JobTypeInfo(jobTypeInfo *SiteJobType) *SiteJobPostBuilder {
 	builder.jobTypeInfo = jobTypeInfo
@@ -19222,6 +20297,7 @@ func (builder *SiteJobPostBuilder) JobTypeInfo(jobTypeInfo *SiteJobType) *SiteJo
 }
 
 // 职位城市
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) CityInfo(cityInfo *SiteJobCity) *SiteJobPostBuilder {
 	builder.cityInfo = cityInfo
@@ -19230,6 +20306,7 @@ func (builder *SiteJobPostBuilder) CityInfo(cityInfo *SiteJobCity) *SiteJobPostB
 }
 
 // 雇佣类型
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) RecruitmentType(recruitmentType *SiteJobRecruitmentType) *SiteJobPostBuilder {
 	builder.recruitmentType = recruitmentType
@@ -19238,6 +20315,7 @@ func (builder *SiteJobPostBuilder) RecruitmentType(recruitmentType *SiteJobRecru
 }
 
 // 职位发布时间
+//
 // 示例值：
 func (builder *SiteJobPostBuilder) PublishTime(publishTime int) *SiteJobPostBuilder {
 	builder.publishTime = publishTime
@@ -19297,6 +20375,7 @@ func NewSiteJobTypeBuilder() *SiteJobTypeBuilder {
 }
 
 // 职能id
+//
 // 示例值：
 func (builder *SiteJobTypeBuilder) Id(id string) *SiteJobTypeBuilder {
 	builder.id = id
@@ -19305,6 +20384,7 @@ func (builder *SiteJobTypeBuilder) Id(id string) *SiteJobTypeBuilder {
 }
 
 // 职位职能名称
+//
 // 示例值：
 func (builder *SiteJobTypeBuilder) Name(name *SiteName) *SiteJobTypeBuilder {
 	builder.name = name
@@ -19393,6 +20473,7 @@ func NewSiteApplicationResumeBuilder() *SiteApplicationResumeBuilder {
 }
 
 // 姓名
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) Name(name string) *SiteApplicationResumeBuilder {
 	builder.name = name
@@ -19401,6 +20482,7 @@ func (builder *SiteApplicationResumeBuilder) Name(name string) *SiteApplicationR
 }
 
 // 手机号
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) MobileNumber(mobileNumber string) *SiteApplicationResumeBuilder {
 	builder.mobileNumber = mobileNumber
@@ -19409,6 +20491,7 @@ func (builder *SiteApplicationResumeBuilder) MobileNumber(mobileNumber string) *
 }
 
 // 手机区号
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) MoblieCode(moblieCode string) *SiteApplicationResumeBuilder {
 	builder.moblieCode = moblieCode
@@ -19417,6 +20500,7 @@ func (builder *SiteApplicationResumeBuilder) MoblieCode(moblieCode string) *Site
 }
 
 // 邮箱
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) Email(email string) *SiteApplicationResumeBuilder {
 	builder.email = email
@@ -19425,6 +20509,7 @@ func (builder *SiteApplicationResumeBuilder) Email(email string) *SiteApplicatio
 }
 
 // 简历附件id
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) SiteAttachmentId(siteAttachmentId string) *SiteApplicationResumeBuilder {
 	builder.siteAttachmentId = siteAttachmentId
@@ -19433,6 +20518,7 @@ func (builder *SiteApplicationResumeBuilder) SiteAttachmentId(siteAttachmentId s
 }
 
 // 自我评价
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) SelfEvaluation(selfEvaluation string) *SiteApplicationResumeBuilder {
 	builder.selfEvaluation = selfEvaluation
@@ -19441,6 +20527,7 @@ func (builder *SiteApplicationResumeBuilder) SelfEvaluation(selfEvaluation strin
 }
 
 // 年龄
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) Age(age string) *SiteApplicationResumeBuilder {
 	builder.age = age
@@ -19449,6 +20536,7 @@ func (builder *SiteApplicationResumeBuilder) Age(age string) *SiteApplicationRes
 }
 
 // 工作年限
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) WorkingYear(workingYear string) *SiteApplicationResumeBuilder {
 	builder.workingYear = workingYear
@@ -19457,6 +20545,7 @@ func (builder *SiteApplicationResumeBuilder) WorkingYear(workingYear string) *Si
 }
 
 // 教育经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) EducationList(educationList []*SiteResumeEducation) *SiteApplicationResumeBuilder {
 	builder.educationList = educationList
@@ -19465,6 +20554,7 @@ func (builder *SiteApplicationResumeBuilder) EducationList(educationList []*Site
 }
 
 // 工作经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) CareerList(careerList []*SiteResumeCareer) *SiteApplicationResumeBuilder {
 	builder.careerList = careerList
@@ -19473,6 +20563,7 @@ func (builder *SiteApplicationResumeBuilder) CareerList(careerList []*SiteResume
 }
 
 // 项目经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) ProjectList(projectList []*SiteResumeProject) *SiteApplicationResumeBuilder {
 	builder.projectList = projectList
@@ -19481,6 +20572,7 @@ func (builder *SiteApplicationResumeBuilder) ProjectList(projectList []*SiteResu
 }
 
 // 实习经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) InternshipList(internshipList []*SiteResumeInternship) *SiteApplicationResumeBuilder {
 	builder.internshipList = internshipList
@@ -19489,6 +20581,7 @@ func (builder *SiteApplicationResumeBuilder) InternshipList(internshipList []*Si
 }
 
 // 作品集列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) WorkList(workList []*SiteResumeWork) *SiteApplicationResumeBuilder {
 	builder.workList = workList
@@ -19497,6 +20590,7 @@ func (builder *SiteApplicationResumeBuilder) WorkList(workList []*SiteResumeWork
 }
 
 // 获奖经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) AwardList(awardList []*SiteResumeAward) *SiteApplicationResumeBuilder {
 	builder.awardList = awardList
@@ -19505,6 +20599,7 @@ func (builder *SiteApplicationResumeBuilder) AwardList(awardList []*SiteResumeAw
 }
 
 // 语言技能列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) LanguageSkillList(languageSkillList []*SiteResumeLanguageSkill) *SiteApplicationResumeBuilder {
 	builder.languageSkillList = languageSkillList
@@ -19513,6 +20608,7 @@ func (builder *SiteApplicationResumeBuilder) LanguageSkillList(languageSkillList
 }
 
 // 社交账号列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) SnsList(snsList []*SiteResumeSns) *SiteApplicationResumeBuilder {
 	builder.snsList = snsList
@@ -19521,6 +20617,7 @@ func (builder *SiteApplicationResumeBuilder) SnsList(snsList []*SiteResumeSns) *
 }
 
 // 身份信息
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) Identification(identification *SiteResumeIdentification) *SiteApplicationResumeBuilder {
 	builder.identification = identification
@@ -19529,6 +20626,7 @@ func (builder *SiteApplicationResumeBuilder) Identification(identification *Site
 }
 
 // 竞赛经历列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) CompetitionList(competitionList []*SiteResumeCompetition) *SiteApplicationResumeBuilder {
 	builder.competitionList = competitionList
@@ -19537,6 +20635,7 @@ func (builder *SiteApplicationResumeBuilder) CompetitionList(competitionList []*
 }
 
 // 证书列表
+//
 // 示例值：
 func (builder *SiteApplicationResumeBuilder) CertificateList(certificateList []*SiteResumeCertificate) *SiteApplicationResumeBuilder {
 	builder.certificateList = certificateList
@@ -19632,6 +20731,7 @@ func NewSiteJobPostSearchInfoBuilder() *SiteJobPostSearchInfoBuilder {
 }
 
 // 职位列表
+//
 // 示例值：
 func (builder *SiteJobPostSearchInfoBuilder) JobPostInfo(jobPostInfo []*SiteJobPost) *SiteJobPostSearchInfoBuilder {
 	builder.jobPostInfo = jobPostInfo
@@ -19640,6 +20740,7 @@ func (builder *SiteJobPostSearchInfoBuilder) JobPostInfo(jobPostInfo []*SiteJobP
 }
 
 // 职位总数
+//
 // 示例值：
 func (builder *SiteJobPostSearchInfoBuilder) Count(count int) *SiteJobPostSearchInfoBuilder {
 	builder.count = count
@@ -19689,6 +20790,7 @@ func NewSiteJobPostSearchRequestBuilder() *SiteJobPostSearchRequestBuilder {
 }
 
 // 搜索关键字
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) Keyword(keyword string) *SiteJobPostSearchRequestBuilder {
 	builder.keyword = keyword
@@ -19697,6 +20799,7 @@ func (builder *SiteJobPostSearchRequestBuilder) Keyword(keyword string) *SiteJob
 }
 
 // 分页用的偏移量，默认0
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) Offset(offset int) *SiteJobPostSearchRequestBuilder {
 	builder.offset = offset
@@ -19705,6 +20808,7 @@ func (builder *SiteJobPostSearchRequestBuilder) Offset(offset int) *SiteJobPostS
 }
 
 // 分页用的分页条数，最大100
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) Limit(limit int) *SiteJobPostSearchRequestBuilder {
 	builder.limit = limit
@@ -19713,6 +20817,7 @@ func (builder *SiteJobPostSearchRequestBuilder) Limit(limit int) *SiteJobPostSea
 }
 
 // 职能列表返回的id
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) JobTypeIdList(jobTypeIdList []string) *SiteJobPostSearchRequestBuilder {
 	builder.jobTypeIdList = jobTypeIdList
@@ -19721,6 +20826,7 @@ func (builder *SiteJobPostSearchRequestBuilder) JobTypeIdList(jobTypeIdList []st
 }
 
 // 地址列表返回的code
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) CityCodeList(cityCodeList []string) *SiteJobPostSearchRequestBuilder {
 	builder.cityCodeList = cityCodeList
@@ -19729,6 +20835,7 @@ func (builder *SiteJobPostSearchRequestBuilder) CityCodeList(cityCodeList []stri
 }
 
 // 官网id，不传则查询默认官网
+//
 // 示例值：
 func (builder *SiteJobPostSearchRequestBuilder) SiteId(siteId string) *SiteJobPostSearchRequestBuilder {
 	builder.siteId = siteId
@@ -19781,6 +20888,7 @@ func NewSiteJobRecruitmentTypeBuilder() *SiteJobRecruitmentTypeBuilder {
 }
 
 // 雇佣类型id
+//
 // 示例值：
 func (builder *SiteJobRecruitmentTypeBuilder) Id(id string) *SiteJobRecruitmentTypeBuilder {
 	builder.id = id
@@ -19789,6 +20897,7 @@ func (builder *SiteJobRecruitmentTypeBuilder) Id(id string) *SiteJobRecruitmentT
 }
 
 // 雇佣类型名称
+//
 // 示例值：
 func (builder *SiteJobRecruitmentTypeBuilder) Name(name *SiteName) *SiteJobRecruitmentTypeBuilder {
 	builder.name = name
@@ -19826,6 +20935,7 @@ func NewSiteNameBuilder() *SiteNameBuilder {
 }
 
 // 中文名称
+//
 // 示例值：
 func (builder *SiteNameBuilder) ZhCn(zhCn string) *SiteNameBuilder {
 	builder.zhCn = zhCn
@@ -19834,6 +20944,7 @@ func (builder *SiteNameBuilder) ZhCn(zhCn string) *SiteNameBuilder {
 }
 
 // 英文名称
+//
 // 示例值：
 func (builder *SiteNameBuilder) EnUs(enUs string) *SiteNameBuilder {
 	builder.enUs = enUs
@@ -19875,6 +20986,7 @@ func NewSiteResumeAwardBuilder() *SiteResumeAwardBuilder {
 }
 
 // 标题
+//
 // 示例值：
 func (builder *SiteResumeAwardBuilder) Title(title string) *SiteResumeAwardBuilder {
 	builder.title = title
@@ -19883,6 +20995,7 @@ func (builder *SiteResumeAwardBuilder) Title(title string) *SiteResumeAwardBuild
 }
 
 // 获奖时间
+//
 // 示例值：
 func (builder *SiteResumeAwardBuilder) AwardTime(awardTime string) *SiteResumeAwardBuilder {
 	builder.awardTime = awardTime
@@ -19891,6 +21004,7 @@ func (builder *SiteResumeAwardBuilder) AwardTime(awardTime string) *SiteResumeAw
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeAwardBuilder) Description(description string) *SiteResumeAwardBuilder {
 	builder.description = description
@@ -19945,6 +21059,7 @@ func NewSiteResumeCareerBuilder() *SiteResumeCareerBuilder {
 }
 
 // 公司名
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) Company(company string) *SiteResumeCareerBuilder {
 	builder.company = company
@@ -19953,6 +21068,7 @@ func (builder *SiteResumeCareerBuilder) Company(company string) *SiteResumeCaree
 }
 
 // 职位名
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) Title(title string) *SiteResumeCareerBuilder {
 	builder.title = title
@@ -19961,6 +21077,7 @@ func (builder *SiteResumeCareerBuilder) Title(title string) *SiteResumeCareerBui
 }
 
 // 工作类型
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) CareerType(careerType string) *SiteResumeCareerBuilder {
 	builder.careerType = careerType
@@ -19969,6 +21086,7 @@ func (builder *SiteResumeCareerBuilder) CareerType(careerType string) *SiteResum
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) Description(description string) *SiteResumeCareerBuilder {
 	builder.description = description
@@ -19977,6 +21095,7 @@ func (builder *SiteResumeCareerBuilder) Description(description string) *SiteRes
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) StartTime(startTime string) *SiteResumeCareerBuilder {
 	builder.startTime = startTime
@@ -19985,6 +21104,7 @@ func (builder *SiteResumeCareerBuilder) StartTime(startTime string) *SiteResumeC
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *SiteResumeCareerBuilder) EndTime(endTime string) *SiteResumeCareerBuilder {
 	builder.endTime = endTime
@@ -20039,6 +21159,7 @@ func NewSiteResumeCertificateBuilder() *SiteResumeCertificateBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *SiteResumeCertificateBuilder) Name(name string) *SiteResumeCertificateBuilder {
 	builder.name = name
@@ -20047,6 +21168,7 @@ func (builder *SiteResumeCertificateBuilder) Name(name string) *SiteResumeCertif
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeCertificateBuilder) Description(description string) *SiteResumeCertificateBuilder {
 	builder.description = description
@@ -20085,6 +21207,7 @@ func NewSiteResumeCompetitionBuilder() *SiteResumeCompetitionBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *SiteResumeCompetitionBuilder) Name(name string) *SiteResumeCompetitionBuilder {
 	builder.name = name
@@ -20093,6 +21216,7 @@ func (builder *SiteResumeCompetitionBuilder) Name(name string) *SiteResumeCompet
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeCompetitionBuilder) Description(description string) *SiteResumeCompetitionBuilder {
 	builder.description = description
@@ -20146,6 +21270,7 @@ func NewSiteResumeEducationBuilder() *SiteResumeEducationBuilder {
 }
 
 // 学位
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) Degree(degree string) *SiteResumeEducationBuilder {
 	builder.degree = degree
@@ -20154,6 +21279,7 @@ func (builder *SiteResumeEducationBuilder) Degree(degree string) *SiteResumeEduc
 }
 
 // 学校
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) School(school string) *SiteResumeEducationBuilder {
 	builder.school = school
@@ -20162,6 +21288,7 @@ func (builder *SiteResumeEducationBuilder) School(school string) *SiteResumeEduc
 }
 
 // 专业
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) Major(major string) *SiteResumeEducationBuilder {
 	builder.major = major
@@ -20170,6 +21297,7 @@ func (builder *SiteResumeEducationBuilder) Major(major string) *SiteResumeEducat
 }
 
 // 入学时间
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) StartTime(startTime string) *SiteResumeEducationBuilder {
 	builder.startTime = startTime
@@ -20178,6 +21306,7 @@ func (builder *SiteResumeEducationBuilder) StartTime(startTime string) *SiteResu
 }
 
 // 毕业时间
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) EndTime(endTime string) *SiteResumeEducationBuilder {
 	builder.endTime = endTime
@@ -20186,6 +21315,7 @@ func (builder *SiteResumeEducationBuilder) EndTime(endTime string) *SiteResumeEd
 }
 
 // 学位类型
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) EducationType(educationType string) *SiteResumeEducationBuilder {
 	builder.educationType = educationType
@@ -20194,6 +21324,7 @@ func (builder *SiteResumeEducationBuilder) EducationType(educationType string) *
 }
 
 // 排名
+//
 // 示例值：
 func (builder *SiteResumeEducationBuilder) AcademicRanking(academicRanking string) *SiteResumeEducationBuilder {
 	builder.academicRanking = academicRanking
@@ -20252,6 +21383,7 @@ func NewSiteResumeIdentificationBuilder() *SiteResumeIdentificationBuilder {
 }
 
 // 身份类型
+//
 // 示例值：
 func (builder *SiteResumeIdentificationBuilder) IdentificationType(identificationType string) *SiteResumeIdentificationBuilder {
 	builder.identificationType = identificationType
@@ -20260,6 +21392,7 @@ func (builder *SiteResumeIdentificationBuilder) IdentificationType(identificatio
 }
 
 // 身份号码
+//
 // 示例值：
 func (builder *SiteResumeIdentificationBuilder) Code(code string) *SiteResumeIdentificationBuilder {
 	builder.code = code
@@ -20307,6 +21440,7 @@ func NewSiteResumeInternshipBuilder() *SiteResumeInternshipBuilder {
 }
 
 // 公司名
+//
 // 示例值：
 func (builder *SiteResumeInternshipBuilder) Company(company string) *SiteResumeInternshipBuilder {
 	builder.company = company
@@ -20315,6 +21449,7 @@ func (builder *SiteResumeInternshipBuilder) Company(company string) *SiteResumeI
 }
 
 // 职位名
+//
 // 示例值：
 func (builder *SiteResumeInternshipBuilder) Position(position string) *SiteResumeInternshipBuilder {
 	builder.position = position
@@ -20323,6 +21458,7 @@ func (builder *SiteResumeInternshipBuilder) Position(position string) *SiteResum
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeInternshipBuilder) Description(description string) *SiteResumeInternshipBuilder {
 	builder.description = description
@@ -20331,6 +21467,7 @@ func (builder *SiteResumeInternshipBuilder) Description(description string) *Sit
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *SiteResumeInternshipBuilder) StartTime(startTime string) *SiteResumeInternshipBuilder {
 	builder.startTime = startTime
@@ -20339,6 +21476,7 @@ func (builder *SiteResumeInternshipBuilder) StartTime(startTime string) *SiteRes
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *SiteResumeInternshipBuilder) EndTime(endTime string) *SiteResumeInternshipBuilder {
 	builder.endTime = endTime
@@ -20389,6 +21527,7 @@ func NewSiteResumeLanguageSkillBuilder() *SiteResumeLanguageSkillBuilder {
 }
 
 // 语言名称
+//
 // 示例值：
 func (builder *SiteResumeLanguageSkillBuilder) Language(language string) *SiteResumeLanguageSkillBuilder {
 	builder.language = language
@@ -20397,6 +21536,7 @@ func (builder *SiteResumeLanguageSkillBuilder) Language(language string) *SiteRe
 }
 
 // 语言等级
+//
 // 示例值：
 func (builder *SiteResumeLanguageSkillBuilder) Proficiency(proficiency string) *SiteResumeLanguageSkillBuilder {
 	builder.proficiency = proficiency
@@ -20444,6 +21584,7 @@ func NewSiteResumeProjectBuilder() *SiteResumeProjectBuilder {
 }
 
 // 项目名
+//
 // 示例值：
 func (builder *SiteResumeProjectBuilder) Name(name string) *SiteResumeProjectBuilder {
 	builder.name = name
@@ -20452,6 +21593,7 @@ func (builder *SiteResumeProjectBuilder) Name(name string) *SiteResumeProjectBui
 }
 
 // 担任角色
+//
 // 示例值：
 func (builder *SiteResumeProjectBuilder) Role(role string) *SiteResumeProjectBuilder {
 	builder.role = role
@@ -20460,6 +21602,7 @@ func (builder *SiteResumeProjectBuilder) Role(role string) *SiteResumeProjectBui
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeProjectBuilder) Description(description string) *SiteResumeProjectBuilder {
 	builder.description = description
@@ -20468,6 +21611,7 @@ func (builder *SiteResumeProjectBuilder) Description(description string) *SiteRe
 }
 
 // 开始时间
+//
 // 示例值：
 func (builder *SiteResumeProjectBuilder) StartTime(startTime string) *SiteResumeProjectBuilder {
 	builder.startTime = startTime
@@ -20476,6 +21620,7 @@ func (builder *SiteResumeProjectBuilder) StartTime(startTime string) *SiteResume
 }
 
 // 结束时间
+//
 // 示例值：
 func (builder *SiteResumeProjectBuilder) EndTime(endTime string) *SiteResumeProjectBuilder {
 	builder.endTime = endTime
@@ -20526,6 +21671,7 @@ func NewSiteResumeSnsBuilder() *SiteResumeSnsBuilder {
 }
 
 // 社交网站类型
+//
 // 示例值：
 func (builder *SiteResumeSnsBuilder) SnsType(snsType string) *SiteResumeSnsBuilder {
 	builder.snsType = snsType
@@ -20534,6 +21680,7 @@ func (builder *SiteResumeSnsBuilder) SnsType(snsType string) *SiteResumeSnsBuild
 }
 
 // 链接
+//
 // 示例值：
 func (builder *SiteResumeSnsBuilder) Link(link string) *SiteResumeSnsBuilder {
 	builder.link = link
@@ -20575,6 +21722,7 @@ func NewSiteResumeWorkBuilder() *SiteResumeWorkBuilder {
 }
 
 // 作品链接
+//
 // 示例值：
 func (builder *SiteResumeWorkBuilder) Link(link string) *SiteResumeWorkBuilder {
 	builder.link = link
@@ -20583,6 +21731,7 @@ func (builder *SiteResumeWorkBuilder) Link(link string) *SiteResumeWorkBuilder {
 }
 
 // 描述
+//
 // 示例值：
 func (builder *SiteResumeWorkBuilder) Description(description string) *SiteResumeWorkBuilder {
 	builder.description = description
@@ -20591,6 +21740,7 @@ func (builder *SiteResumeWorkBuilder) Description(description string) *SiteResum
 }
 
 // 作品附件id
+//
 // 示例值：
 func (builder *SiteResumeWorkBuilder) SiteAttachmentId(siteAttachmentId string) *SiteResumeWorkBuilder {
 	builder.siteAttachmentId = siteAttachmentId
@@ -20633,6 +21783,7 @@ func NewSnsInfoBuilder() *SnsInfoBuilder {
 }
 
 // SNS链接
+//
 // 示例值：
 func (builder *SnsInfoBuilder) Link(link string) *SnsInfoBuilder {
 	builder.link = link
@@ -20641,6 +21792,7 @@ func (builder *SnsInfoBuilder) Link(link string) *SnsInfoBuilder {
 }
 
 // SNS类型
+//
 // 示例值：
 func (builder *SnsInfoBuilder) SnsType(snsType int) *SnsInfoBuilder {
 	builder.snsType = snsType
@@ -20691,6 +21843,7 @@ func NewSubjectBuilder() *SubjectBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *SubjectBuilder) Id(id string) *SubjectBuilder {
 	builder.id = id
@@ -20699,6 +21852,7 @@ func (builder *SubjectBuilder) Id(id string) *SubjectBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *SubjectBuilder) Name(name *I18n) *SubjectBuilder {
 	builder.name = name
@@ -20707,6 +21861,7 @@ func (builder *SubjectBuilder) Name(name *I18n) *SubjectBuilder {
 }
 
 // 创建时间
+//
 // 示例值：1628512038000
 func (builder *SubjectBuilder) CreateTime(createTime string) *SubjectBuilder {
 	builder.createTime = createTime
@@ -20715,6 +21870,7 @@ func (builder *SubjectBuilder) CreateTime(createTime string) *SubjectBuilder {
 }
 
 // 状态
+//
 // 示例值：1
 func (builder *SubjectBuilder) ActiveStatus(activeStatus int) *SubjectBuilder {
 	builder.activeStatus = activeStatus
@@ -20723,6 +21879,7 @@ func (builder *SubjectBuilder) ActiveStatus(activeStatus int) *SubjectBuilder {
 }
 
 // 投递职位数上限
+//
 // 示例值：1
 func (builder *SubjectBuilder) ApplicationLimit(applicationLimit int) *SubjectBuilder {
 	builder.applicationLimit = applicationLimit
@@ -20731,6 +21888,7 @@ func (builder *SubjectBuilder) ApplicationLimit(applicationLimit int) *SubjectBu
 }
 
 // 创建人
+//
 // 示例值：
 func (builder *SubjectBuilder) Creator(creator *IdNameObject) *SubjectBuilder {
 	builder.creator = creator
@@ -20825,6 +21983,7 @@ func NewTalentBuilder() *TalentBuilder {
 }
 
 // 人才ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentBuilder) Id(id string) *TalentBuilder {
 	builder.id = id
@@ -20833,6 +21992,7 @@ func (builder *TalentBuilder) Id(id string) *TalentBuilder {
 }
 
 // 是否在猎头保护期
+//
 // 示例值：true
 func (builder *TalentBuilder) IsInAgencyPeriod(isInAgencyPeriod bool) *TalentBuilder {
 	builder.isInAgencyPeriod = isInAgencyPeriod
@@ -20841,6 +22001,7 @@ func (builder *TalentBuilder) IsInAgencyPeriod(isInAgencyPeriod bool) *TalentBui
 }
 
 // 是否已入职
+//
 // 示例值：true
 func (builder *TalentBuilder) IsOnboarded(isOnboarded bool) *TalentBuilder {
 	builder.isOnboarded = isOnboarded
@@ -20849,6 +22010,7 @@ func (builder *TalentBuilder) IsOnboarded(isOnboarded bool) *TalentBuilder {
 }
 
 // 基础信息
+//
 // 示例值：
 func (builder *TalentBuilder) BasicInfo(basicInfo *TalentBasicInfo) *TalentBuilder {
 	builder.basicInfo = basicInfo
@@ -20857,6 +22019,7 @@ func (builder *TalentBuilder) BasicInfo(basicInfo *TalentBasicInfo) *TalentBuild
 }
 
 // 教育经历
+//
 // 示例值：
 func (builder *TalentBuilder) EducationList(educationList []*TalentEducationInfo) *TalentBuilder {
 	builder.educationList = educationList
@@ -20865,6 +22028,7 @@ func (builder *TalentBuilder) EducationList(educationList []*TalentEducationInfo
 }
 
 // 工作经历
+//
 // 示例值：
 func (builder *TalentBuilder) CareerList(careerList []*TalentCareerInfo) *TalentBuilder {
 	builder.careerList = careerList
@@ -20873,6 +22037,7 @@ func (builder *TalentBuilder) CareerList(careerList []*TalentCareerInfo) *Talent
 }
 
 // 项目经历
+//
 // 示例值：
 func (builder *TalentBuilder) ProjectList(projectList []*TalentProjectInfo) *TalentBuilder {
 	builder.projectList = projectList
@@ -20881,6 +22046,7 @@ func (builder *TalentBuilder) ProjectList(projectList []*TalentProjectInfo) *Tal
 }
 
 // 作品
+//
 // 示例值：
 func (builder *TalentBuilder) WorksList(worksList []*TalentWorksInfo) *TalentBuilder {
 	builder.worksList = worksList
@@ -20889,6 +22055,7 @@ func (builder *TalentBuilder) WorksList(worksList []*TalentWorksInfo) *TalentBui
 }
 
 // 获奖
+//
 // 示例值：
 func (builder *TalentBuilder) AwardList(awardList []*TalentAwardInfo) *TalentBuilder {
 	builder.awardList = awardList
@@ -20897,6 +22064,7 @@ func (builder *TalentBuilder) AwardList(awardList []*TalentAwardInfo) *TalentBui
 }
 
 // 语言能力
+//
 // 示例值：
 func (builder *TalentBuilder) LanguageList(languageList []*TalentLanguageInfo) *TalentBuilder {
 	builder.languageList = languageList
@@ -20905,6 +22073,7 @@ func (builder *TalentBuilder) LanguageList(languageList []*TalentLanguageInfo) *
 }
 
 // 社交账号
+//
 // 示例值：
 func (builder *TalentBuilder) SnsList(snsList []*TalentSnsInfo) *TalentBuilder {
 	builder.snsList = snsList
@@ -20913,6 +22082,7 @@ func (builder *TalentBuilder) SnsList(snsList []*TalentSnsInfo) *TalentBuilder {
 }
 
 // 简历来源
+//
 // 示例值：
 func (builder *TalentBuilder) ResumeSourceList(resumeSourceList []*TalentResumeSource) *TalentBuilder {
 	builder.resumeSourceList = resumeSourceList
@@ -20921,6 +22091,7 @@ func (builder *TalentBuilder) ResumeSourceList(resumeSourceList []*TalentResumeS
 }
 
 // 面试登记表
+//
 // 示例值：
 func (builder *TalentBuilder) InterviewRegistrationList(interviewRegistrationList []*TalentInterviewRegistrationSimple) *TalentBuilder {
 	builder.interviewRegistrationList = interviewRegistrationList
@@ -20929,6 +22100,7 @@ func (builder *TalentBuilder) InterviewRegistrationList(interviewRegistrationLis
 }
 
 // 简历附件id列表（按照简历创建时间降序）
+//
 // 示例值：
 func (builder *TalentBuilder) ResumeAttachmentIdList(resumeAttachmentIdList []string) *TalentBuilder {
 	builder.resumeAttachmentIdList = resumeAttachmentIdList
@@ -20937,6 +22109,7 @@ func (builder *TalentBuilder) ResumeAttachmentIdList(resumeAttachmentIdList []st
 }
 
 // 自定义模块
+//
 // 示例值：
 func (builder *TalentBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedData) *TalentBuilder {
 	builder.customizedDataList = customizedDataList
@@ -20945,6 +22118,7 @@ func (builder *TalentBuilder) CustomizedDataList(customizedDataList []*TalentCus
 }
 
 // 最高学历
+//
 // 示例值：1
 func (builder *TalentBuilder) TopDegree(topDegree int) *TalentBuilder {
 	builder.topDegree = topDegree
@@ -21039,6 +22213,7 @@ func NewTalentAwardInfoBuilder() *TalentAwardInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentAwardInfoBuilder) Id(id string) *TalentAwardInfoBuilder {
 	builder.id = id
@@ -21047,6 +22222,7 @@ func (builder *TalentAwardInfoBuilder) Id(id string) *TalentAwardInfoBuilder {
 }
 
 // 获奖名称
+//
 // 示例值：最佳新人奖
 func (builder *TalentAwardInfoBuilder) Title(title string) *TalentAwardInfoBuilder {
 	builder.title = title
@@ -21055,6 +22231,7 @@ func (builder *TalentAwardInfoBuilder) Title(title string) *TalentAwardInfoBuild
 }
 
 // 获奖时间
+//
 // 示例值：1991
 func (builder *TalentAwardInfoBuilder) AwardTime(awardTime string) *TalentAwardInfoBuilder {
 	builder.awardTime = awardTime
@@ -21063,6 +22240,7 @@ func (builder *TalentAwardInfoBuilder) AwardTime(awardTime string) *TalentAwardI
 }
 
 // 描述
+//
 // 示例值：最优秀的新人奖
 func (builder *TalentAwardInfoBuilder) Desc(desc string) *TalentAwardInfoBuilder {
 	builder.desc = desc
@@ -21071,6 +22249,7 @@ func (builder *TalentAwardInfoBuilder) Desc(desc string) *TalentAwardInfoBuilder
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentAwardInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentAwardInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -21177,6 +22356,7 @@ func NewTalentBasicInfoBuilder() *TalentBasicInfoBuilder {
 }
 
 // 名字
+//
 // 示例值：测试
 func (builder *TalentBasicInfoBuilder) Name(name string) *TalentBasicInfoBuilder {
 	builder.name = name
@@ -21185,6 +22365,7 @@ func (builder *TalentBasicInfoBuilder) Name(name string) *TalentBasicInfoBuilder
 }
 
 // 手机
+//
 // 示例值：182900291190
 func (builder *TalentBasicInfoBuilder) Mobile(mobile string) *TalentBasicInfoBuilder {
 	builder.mobile = mobile
@@ -21193,6 +22374,7 @@ func (builder *TalentBasicInfoBuilder) Mobile(mobile string) *TalentBasicInfoBui
 }
 
 // 手机国家区号
+//
 // 示例值：86
 func (builder *TalentBasicInfoBuilder) MobileCode(mobileCode string) *TalentBasicInfoBuilder {
 	builder.mobileCode = mobileCode
@@ -21201,6 +22383,7 @@ func (builder *TalentBasicInfoBuilder) MobileCode(mobileCode string) *TalentBasi
 }
 
 // 手机国家代码
+//
 // 示例值：CN_1
 func (builder *TalentBasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *TalentBasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -21209,6 +22392,7 @@ func (builder *TalentBasicInfoBuilder) MobileCountryCode(mobileCountryCode strin
 }
 
 // 邮箱
+//
 // 示例值：16xx1@126.com
 func (builder *TalentBasicInfoBuilder) Email(email string) *TalentBasicInfoBuilder {
 	builder.email = email
@@ -21217,6 +22401,7 @@ func (builder *TalentBasicInfoBuilder) Email(email string) *TalentBasicInfoBuild
 }
 
 // 工作年限
+//
 // 示例值：5
 func (builder *TalentBasicInfoBuilder) ExperienceYears(experienceYears int) *TalentBasicInfoBuilder {
 	builder.experienceYears = experienceYears
@@ -21225,6 +22410,7 @@ func (builder *TalentBasicInfoBuilder) ExperienceYears(experienceYears int) *Tal
 }
 
 // 年龄
+//
 // 示例值：22
 func (builder *TalentBasicInfoBuilder) Age(age int) *TalentBasicInfoBuilder {
 	builder.age = age
@@ -21233,6 +22419,7 @@ func (builder *TalentBasicInfoBuilder) Age(age int) *TalentBasicInfoBuilder {
 }
 
 // 国籍
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) Nationality(nationality *TalentNationality) *TalentBasicInfoBuilder {
 	builder.nationality = nationality
@@ -21241,6 +22428,7 @@ func (builder *TalentBasicInfoBuilder) Nationality(nationality *TalentNationalit
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *TalentBasicInfoBuilder) Gender(gender int) *TalentBasicInfoBuilder {
 	builder.gender = gender
@@ -21249,6 +22437,7 @@ func (builder *TalentBasicInfoBuilder) Gender(gender int) *TalentBasicInfoBuilde
 }
 
 // 所在地点
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) CurrentCity(currentCity *TalentCityInfo) *TalentBasicInfoBuilder {
 	builder.currentCity = currentCity
@@ -21257,6 +22446,7 @@ func (builder *TalentBasicInfoBuilder) CurrentCity(currentCity *TalentCityInfo) 
 }
 
 // 家乡
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) HometownCity(hometownCity *TalentCityInfo) *TalentBasicInfoBuilder {
 	builder.hometownCity = hometownCity
@@ -21265,6 +22455,7 @@ func (builder *TalentBasicInfoBuilder) HometownCity(hometownCity *TalentCityInfo
 }
 
 // 意向地点
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) PreferredCityList(preferredCityList []*TalentCityInfo) *TalentBasicInfoBuilder {
 	builder.preferredCityList = preferredCityList
@@ -21273,6 +22464,7 @@ func (builder *TalentBasicInfoBuilder) PreferredCityList(preferredCityList []*Ta
 }
 
 // 证件类型
+//
 // 示例值：1
 func (builder *TalentBasicInfoBuilder) IdentificationType(identificationType int) *TalentBasicInfoBuilder {
 	builder.identificationType = identificationType
@@ -21281,6 +22473,7 @@ func (builder *TalentBasicInfoBuilder) IdentificationType(identificationType int
 }
 
 // 证件号
+//
 // 示例值：511699199x1x111234
 func (builder *TalentBasicInfoBuilder) IdentificationNumber(identificationNumber string) *TalentBasicInfoBuilder {
 	builder.identificationNumber = identificationNumber
@@ -21289,6 +22482,7 @@ func (builder *TalentBasicInfoBuilder) IdentificationNumber(identificationNumber
 }
 
 // 证件信息
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) Identification(identification *TalentIdentificationInfo) *TalentBasicInfoBuilder {
 	builder.identification = identification
@@ -21297,6 +22491,7 @@ func (builder *TalentBasicInfoBuilder) Identification(identification *TalentIden
 }
 
 // 生日
+//
 // 示例值：293016767159
 func (builder *TalentBasicInfoBuilder) Birthday(birthday int) *TalentBasicInfoBuilder {
 	builder.birthday = birthday
@@ -21305,6 +22500,7 @@ func (builder *TalentBasicInfoBuilder) Birthday(birthday int) *TalentBasicInfoBu
 }
 
 // 创建人
+//
 // 示例值：ou-xxx
 func (builder *TalentBasicInfoBuilder) CreatorId(creatorId string) *TalentBasicInfoBuilder {
 	builder.creatorId = creatorId
@@ -21313,6 +22509,7 @@ func (builder *TalentBasicInfoBuilder) CreatorId(creatorId string) *TalentBasicI
 }
 
 // 婚姻状况
+//
 // 示例值：1
 func (builder *TalentBasicInfoBuilder) MaritalStatus(maritalStatus int) *TalentBasicInfoBuilder {
 	builder.maritalStatus = maritalStatus
@@ -21321,6 +22518,7 @@ func (builder *TalentBasicInfoBuilder) MaritalStatus(maritalStatus int) *TalentB
 }
 
 // 家庭住址
+//
 // 示例值：南京路1号
 func (builder *TalentBasicInfoBuilder) CurrentHomeAddress(currentHomeAddress string) *TalentBasicInfoBuilder {
 	builder.currentHomeAddress = currentHomeAddress
@@ -21329,6 +22527,7 @@ func (builder *TalentBasicInfoBuilder) CurrentHomeAddress(currentHomeAddress str
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentBasicInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentBasicInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -21337,6 +22536,7 @@ func (builder *TalentBasicInfoBuilder) CustomizedDataList(customizedDataList []*
 }
 
 // 修改时间
+//
 // 示例值：1634801678103
 func (builder *TalentBasicInfoBuilder) ModifyTime(modifyTime string) *TalentBasicInfoBuilder {
 	builder.modifyTime = modifyTime
@@ -21451,6 +22651,7 @@ func NewTalentBatchInfoBuilder() *TalentBatchInfoBuilder {
 }
 
 // 人才 ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentBatchInfoBuilder) TalentId(talentId string) *TalentBatchInfoBuilder {
 	builder.talentId = talentId
@@ -21459,6 +22660,7 @@ func (builder *TalentBatchInfoBuilder) TalentId(talentId string) *TalentBatchInf
 }
 
 // 手机国家区号
+//
 // 示例值：86
 func (builder *TalentBatchInfoBuilder) MobileCode(mobileCode string) *TalentBatchInfoBuilder {
 	builder.mobileCode = mobileCode
@@ -21467,6 +22669,7 @@ func (builder *TalentBatchInfoBuilder) MobileCode(mobileCode string) *TalentBatc
 }
 
 // 手机号
+//
 // 示例值：182900291190
 func (builder *TalentBatchInfoBuilder) MobileNumber(mobileNumber string) *TalentBatchInfoBuilder {
 	builder.mobileNumber = mobileNumber
@@ -21475,6 +22678,7 @@ func (builder *TalentBatchInfoBuilder) MobileNumber(mobileNumber string) *Talent
 }
 
 // 邮箱
+//
 // 示例值：foo@bytedance.com
 func (builder *TalentBatchInfoBuilder) Email(email string) *TalentBatchInfoBuilder {
 	builder.email = email
@@ -21542,6 +22746,7 @@ func NewTalentCareerInfoBuilder() *TalentCareerInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCareerInfoBuilder) Id(id string) *TalentCareerInfoBuilder {
 	builder.id = id
@@ -21550,6 +22755,7 @@ func (builder *TalentCareerInfoBuilder) Id(id string) *TalentCareerInfoBuilder {
 }
 
 // 公司名称
+//
 // 示例值：测试公司
 func (builder *TalentCareerInfoBuilder) Company(company string) *TalentCareerInfoBuilder {
 	builder.company = company
@@ -21558,6 +22764,7 @@ func (builder *TalentCareerInfoBuilder) Company(company string) *TalentCareerInf
 }
 
 // 职位名称
+//
 // 示例值：高级工程师
 func (builder *TalentCareerInfoBuilder) Title(title string) *TalentCareerInfoBuilder {
 	builder.title = title
@@ -21566,6 +22773,7 @@ func (builder *TalentCareerInfoBuilder) Title(title string) *TalentCareerInfoBui
 }
 
 // 描述
+//
 // 示例值：测试
 func (builder *TalentCareerInfoBuilder) Desc(desc string) *TalentCareerInfoBuilder {
 	builder.desc = desc
@@ -21574,6 +22782,7 @@ func (builder *TalentCareerInfoBuilder) Desc(desc string) *TalentCareerInfoBuild
 }
 
 // 开始时间
+//
 // 示例值：1990-01
 func (builder *TalentCareerInfoBuilder) StartTime(startTime string) *TalentCareerInfoBuilder {
 	builder.startTime = startTime
@@ -21582,6 +22791,7 @@ func (builder *TalentCareerInfoBuilder) StartTime(startTime string) *TalentCaree
 }
 
 // 结束时间
+//
 // 示例值：1994-01
 func (builder *TalentCareerInfoBuilder) EndTime(endTime string) *TalentCareerInfoBuilder {
 	builder.endTime = endTime
@@ -21590,6 +22800,7 @@ func (builder *TalentCareerInfoBuilder) EndTime(endTime string) *TalentCareerInf
 }
 
 // 经历类型
+//
 // 示例值：1
 func (builder *TalentCareerInfoBuilder) CareerType(careerType int) *TalentCareerInfoBuilder {
 	builder.careerType = careerType
@@ -21598,6 +22809,7 @@ func (builder *TalentCareerInfoBuilder) CareerType(careerType int) *TalentCareer
 }
 
 // 工作经历标签
+//
 // 示例值：
 func (builder *TalentCareerInfoBuilder) TagList(tagList []int) *TalentCareerInfoBuilder {
 	builder.tagList = tagList
@@ -21606,6 +22818,7 @@ func (builder *TalentCareerInfoBuilder) TagList(tagList []int) *TalentCareerInfo
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCareerInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentCareerInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -21676,6 +22889,7 @@ func NewTalentCertificateInfoBuilder() *TalentCertificateInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCertificateInfoBuilder) Id(id string) *TalentCertificateInfoBuilder {
 	builder.id = id
@@ -21684,6 +22898,7 @@ func (builder *TalentCertificateInfoBuilder) Id(id string) *TalentCertificateInf
 }
 
 // 证件名称
+//
 // 示例值：身份证
 func (builder *TalentCertificateInfoBuilder) Name(name string) *TalentCertificateInfoBuilder {
 	builder.name = name
@@ -21692,6 +22907,7 @@ func (builder *TalentCertificateInfoBuilder) Name(name string) *TalentCertificat
 }
 
 // 证件描述
+//
 // 示例值：
 func (builder *TalentCertificateInfoBuilder) Desc(desc string) *TalentCertificateInfoBuilder {
 	builder.desc = desc
@@ -21700,6 +22916,7 @@ func (builder *TalentCertificateInfoBuilder) Desc(desc string) *TalentCertificat
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCertificateInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentCertificateInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -21748,6 +22965,7 @@ func NewTalentCityInfoBuilder() *TalentCityInfoBuilder {
 }
 
 // 城市码
+//
 // 示例值：CN_183
 func (builder *TalentCityInfoBuilder) CityCode(cityCode string) *TalentCityInfoBuilder {
 	builder.cityCode = cityCode
@@ -21756,6 +22974,7 @@ func (builder *TalentCityInfoBuilder) CityCode(cityCode string) *TalentCityInfoB
 }
 
 // 中文名
+//
 // 示例值：测试
 func (builder *TalentCityInfoBuilder) ZhName(zhName string) *TalentCityInfoBuilder {
 	builder.zhName = zhName
@@ -21764,6 +22983,7 @@ func (builder *TalentCityInfoBuilder) ZhName(zhName string) *TalentCityInfoBuild
 }
 
 // 英文名
+//
 // 示例值：test
 func (builder *TalentCityInfoBuilder) EnName(enName string) *TalentCityInfoBuilder {
 	builder.enName = enName
@@ -21815,6 +23035,7 @@ func NewTalentCombinedAwardInfoBuilder() *TalentCombinedAwardInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedAwardInfoBuilder) Id(id string) *TalentCombinedAwardInfoBuilder {
 	builder.id = id
@@ -21823,6 +23044,7 @@ func (builder *TalentCombinedAwardInfoBuilder) Id(id string) *TalentCombinedAwar
 }
 
 // 获奖名称
+//
 // 示例值：最佳新人奖
 func (builder *TalentCombinedAwardInfoBuilder) Title(title string) *TalentCombinedAwardInfoBuilder {
 	builder.title = title
@@ -21831,6 +23053,7 @@ func (builder *TalentCombinedAwardInfoBuilder) Title(title string) *TalentCombin
 }
 
 // 获奖时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedAwardInfoBuilder) AwardTime(awardTime string) *TalentCombinedAwardInfoBuilder {
 	builder.awardTime = awardTime
@@ -21839,6 +23062,7 @@ func (builder *TalentCombinedAwardInfoBuilder) AwardTime(awardTime string) *Tale
 }
 
 // 描述
+//
 // 示例值：最优秀的新人奖
 func (builder *TalentCombinedAwardInfoBuilder) Desc(desc string) *TalentCombinedAwardInfoBuilder {
 	builder.desc = desc
@@ -21847,6 +23071,7 @@ func (builder *TalentCombinedAwardInfoBuilder) Desc(desc string) *TalentCombined
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedAwardInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedAwardInfoBuilder {
 	builder.customizedData = customizedData
@@ -21932,6 +23157,7 @@ func NewTalentCombinedBasicInfoBuilder() *TalentCombinedBasicInfoBuilder {
 }
 
 // 名字
+//
 // 示例值：测试
 func (builder *TalentCombinedBasicInfoBuilder) Name(name string) *TalentCombinedBasicInfoBuilder {
 	builder.name = name
@@ -21940,6 +23166,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Name(name string) *TalentCombined
 }
 
 // 手机号
+//
 // 示例值：182900291190
 func (builder *TalentCombinedBasicInfoBuilder) Mobile(mobile string) *TalentCombinedBasicInfoBuilder {
 	builder.mobile = mobile
@@ -21948,6 +23175,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Mobile(mobile string) *TalentComb
 }
 
 // 手机国家代码
+//
 // 示例值：CN_1
 func (builder *TalentCombinedBasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *TalentCombinedBasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -21956,6 +23184,7 @@ func (builder *TalentCombinedBasicInfoBuilder) MobileCountryCode(mobileCountryCo
 }
 
 // 邮箱
+//
 // 示例值：16xx1@126.com
 func (builder *TalentCombinedBasicInfoBuilder) Email(email string) *TalentCombinedBasicInfoBuilder {
 	builder.email = email
@@ -21964,6 +23193,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Email(email string) *TalentCombin
 }
 
 // 证件类型
+//
 // 示例值：1
 func (builder *TalentCombinedBasicInfoBuilder) IdentificationType(identificationType int) *TalentCombinedBasicInfoBuilder {
 	builder.identificationType = identificationType
@@ -21972,6 +23202,7 @@ func (builder *TalentCombinedBasicInfoBuilder) IdentificationType(identification
 }
 
 // 证件号
+//
 // 示例值：511699199x1x111234
 func (builder *TalentCombinedBasicInfoBuilder) IdentificationNumber(identificationNumber string) *TalentCombinedBasicInfoBuilder {
 	builder.identificationNumber = identificationNumber
@@ -21980,6 +23211,7 @@ func (builder *TalentCombinedBasicInfoBuilder) IdentificationNumber(identificati
 }
 
 // 证件信息
+//
 // 示例值：
 func (builder *TalentCombinedBasicInfoBuilder) Identification(identification *TalentIdentificationInfo) *TalentCombinedBasicInfoBuilder {
 	builder.identification = identification
@@ -21988,6 +23220,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Identification(identification *Ta
 }
 
 // 开始工作时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedBasicInfoBuilder) StartWorkTime(startWorkTime string) *TalentCombinedBasicInfoBuilder {
 	builder.startWorkTime = startWorkTime
@@ -21996,6 +23229,7 @@ func (builder *TalentCombinedBasicInfoBuilder) StartWorkTime(startWorkTime strin
 }
 
 // 出生日期
+//
 // 示例值：293016767159
 func (builder *TalentCombinedBasicInfoBuilder) Birthday(birthday string) *TalentCombinedBasicInfoBuilder {
 	builder.birthday = birthday
@@ -22004,6 +23238,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Birthday(birthday string) *Talent
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *TalentCombinedBasicInfoBuilder) Gender(gender int) *TalentCombinedBasicInfoBuilder {
 	builder.gender = gender
@@ -22012,6 +23247,7 @@ func (builder *TalentCombinedBasicInfoBuilder) Gender(gender int) *TalentCombine
 }
 
 // 国籍编码
+//
 // 示例值：CN_112
 func (builder *TalentCombinedBasicInfoBuilder) NationalityId(nationalityId string) *TalentCombinedBasicInfoBuilder {
 	builder.nationalityId = nationalityId
@@ -22020,6 +23256,7 @@ func (builder *TalentCombinedBasicInfoBuilder) NationalityId(nationalityId strin
 }
 
 // 所在地点编码
+//
 // 示例值：CT_159
 func (builder *TalentCombinedBasicInfoBuilder) CurrentCityCode(currentCityCode string) *TalentCombinedBasicInfoBuilder {
 	builder.currentCityCode = currentCityCode
@@ -22028,6 +23265,7 @@ func (builder *TalentCombinedBasicInfoBuilder) CurrentCityCode(currentCityCode s
 }
 
 // 家乡编码
+//
 // 示例值：CT_159
 func (builder *TalentCombinedBasicInfoBuilder) HometownCityCode(hometownCityCode string) *TalentCombinedBasicInfoBuilder {
 	builder.hometownCityCode = hometownCityCode
@@ -22036,6 +23274,7 @@ func (builder *TalentCombinedBasicInfoBuilder) HometownCityCode(hometownCityCode
 }
 
 // 自定义字段列表
+//
 // 示例值：
 func (builder *TalentCombinedBasicInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedBasicInfoBuilder {
 	builder.customizedData = customizedData
@@ -22138,6 +23377,7 @@ func NewTalentCombinedCareerInfoBuilder() *TalentCombinedCareerInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedCareerInfoBuilder) Id(id string) *TalentCombinedCareerInfoBuilder {
 	builder.id = id
@@ -22146,6 +23386,7 @@ func (builder *TalentCombinedCareerInfoBuilder) Id(id string) *TalentCombinedCar
 }
 
 // 公司名称
+//
 // 示例值：测试公司
 func (builder *TalentCombinedCareerInfoBuilder) Company(company string) *TalentCombinedCareerInfoBuilder {
 	builder.company = company
@@ -22154,6 +23395,7 @@ func (builder *TalentCombinedCareerInfoBuilder) Company(company string) *TalentC
 }
 
 // 职位名称
+//
 // 示例值：高级工程师
 func (builder *TalentCombinedCareerInfoBuilder) Title(title string) *TalentCombinedCareerInfoBuilder {
 	builder.title = title
@@ -22162,6 +23404,7 @@ func (builder *TalentCombinedCareerInfoBuilder) Title(title string) *TalentCombi
 }
 
 // 描述
+//
 // 示例值：测试
 func (builder *TalentCombinedCareerInfoBuilder) Desc(desc string) *TalentCombinedCareerInfoBuilder {
 	builder.desc = desc
@@ -22170,6 +23413,7 @@ func (builder *TalentCombinedCareerInfoBuilder) Desc(desc string) *TalentCombine
 }
 
 // 开始时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedCareerInfoBuilder) StartTime(startTime string) *TalentCombinedCareerInfoBuilder {
 	builder.startTime = startTime
@@ -22178,6 +23422,7 @@ func (builder *TalentCombinedCareerInfoBuilder) StartTime(startTime string) *Tal
 }
 
 // 结束时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedCareerInfoBuilder) EndTime(endTime string) *TalentCombinedCareerInfoBuilder {
 	builder.endTime = endTime
@@ -22186,6 +23431,7 @@ func (builder *TalentCombinedCareerInfoBuilder) EndTime(endTime string) *TalentC
 }
 
 // 经历类型
+//
 // 示例值：1
 func (builder *TalentCombinedCareerInfoBuilder) CareerType(careerType int) *TalentCombinedCareerInfoBuilder {
 	builder.careerType = careerType
@@ -22194,6 +23440,7 @@ func (builder *TalentCombinedCareerInfoBuilder) CareerType(careerType int) *Tale
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedCareerInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedCareerInfoBuilder {
 	builder.customizedData = customizedData
@@ -22276,6 +23523,7 @@ func NewTalentCombinedEducationInfoBuilder() *TalentCombinedEducationInfoBuilder
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedEducationInfoBuilder) Id(id string) *TalentCombinedEducationInfoBuilder {
 	builder.id = id
@@ -22284,6 +23532,7 @@ func (builder *TalentCombinedEducationInfoBuilder) Id(id string) *TalentCombined
 }
 
 // 学历
+//
 // 示例值：1
 func (builder *TalentCombinedEducationInfoBuilder) Degree(degree int) *TalentCombinedEducationInfoBuilder {
 	builder.degree = degree
@@ -22292,6 +23541,7 @@ func (builder *TalentCombinedEducationInfoBuilder) Degree(degree int) *TalentCom
 }
 
 // 学校
+//
 // 示例值：湘港大学
 func (builder *TalentCombinedEducationInfoBuilder) School(school string) *TalentCombinedEducationInfoBuilder {
 	builder.school = school
@@ -22300,6 +23550,7 @@ func (builder *TalentCombinedEducationInfoBuilder) School(school string) *Talent
 }
 
 // 专业
+//
 // 示例值：考古
 func (builder *TalentCombinedEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *TalentCombinedEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -22308,6 +23559,7 @@ func (builder *TalentCombinedEducationInfoBuilder) FieldOfStudy(fieldOfStudy str
 }
 
 // 开始时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedEducationInfoBuilder) StartTime(startTime string) *TalentCombinedEducationInfoBuilder {
 	builder.startTime = startTime
@@ -22316,6 +23568,7 @@ func (builder *TalentCombinedEducationInfoBuilder) StartTime(startTime string) *
 }
 
 // 结束时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedEducationInfoBuilder) EndTime(endTime string) *TalentCombinedEducationInfoBuilder {
 	builder.endTime = endTime
@@ -22324,6 +23577,7 @@ func (builder *TalentCombinedEducationInfoBuilder) EndTime(endTime string) *Tale
 }
 
 // 学历类型
+//
 // 示例值：1
 func (builder *TalentCombinedEducationInfoBuilder) EducationType(educationType int) *TalentCombinedEducationInfoBuilder {
 	builder.educationType = educationType
@@ -22332,6 +23586,7 @@ func (builder *TalentCombinedEducationInfoBuilder) EducationType(educationType i
 }
 
 // 成绩排名
+//
 // 示例值：5
 func (builder *TalentCombinedEducationInfoBuilder) AcademicRanking(academicRanking int) *TalentCombinedEducationInfoBuilder {
 	builder.academicRanking = academicRanking
@@ -22340,6 +23595,7 @@ func (builder *TalentCombinedEducationInfoBuilder) AcademicRanking(academicRanki
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedEducationInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedEducationInfoBuilder {
 	builder.customizedData = customizedData
@@ -22411,6 +23667,7 @@ func NewTalentCombinedLanguageInfoBuilder() *TalentCombinedLanguageInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedLanguageInfoBuilder) Id(id string) *TalentCombinedLanguageInfoBuilder {
 	builder.id = id
@@ -22419,6 +23676,7 @@ func (builder *TalentCombinedLanguageInfoBuilder) Id(id string) *TalentCombinedL
 }
 
 // 语言
+//
 // 示例值：1
 func (builder *TalentCombinedLanguageInfoBuilder) Language(language int) *TalentCombinedLanguageInfoBuilder {
 	builder.language = language
@@ -22427,6 +23685,7 @@ func (builder *TalentCombinedLanguageInfoBuilder) Language(language int) *Talent
 }
 
 // 精通程度
+//
 // 示例值：1
 func (builder *TalentCombinedLanguageInfoBuilder) Proficiency(proficiency int) *TalentCombinedLanguageInfoBuilder {
 	builder.proficiency = proficiency
@@ -22435,6 +23694,7 @@ func (builder *TalentCombinedLanguageInfoBuilder) Proficiency(proficiency int) *
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedLanguageInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedLanguageInfoBuilder {
 	builder.customizedData = customizedData
@@ -22498,6 +23758,7 @@ func NewTalentCombinedProjectInfoBuilder() *TalentCombinedProjectInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedProjectInfoBuilder) Id(id string) *TalentCombinedProjectInfoBuilder {
 	builder.id = id
@@ -22506,6 +23767,7 @@ func (builder *TalentCombinedProjectInfoBuilder) Id(id string) *TalentCombinedPr
 }
 
 // 项目名称
+//
 // 示例值：测试
 func (builder *TalentCombinedProjectInfoBuilder) Name(name string) *TalentCombinedProjectInfoBuilder {
 	builder.name = name
@@ -22514,6 +23776,7 @@ func (builder *TalentCombinedProjectInfoBuilder) Name(name string) *TalentCombin
 }
 
 // 项目角色
+//
 // 示例值：test
 func (builder *TalentCombinedProjectInfoBuilder) Role(role string) *TalentCombinedProjectInfoBuilder {
 	builder.role = role
@@ -22522,6 +23785,7 @@ func (builder *TalentCombinedProjectInfoBuilder) Role(role string) *TalentCombin
 }
 
 // 项目链接
+//
 // 示例值：https://www.a.com
 func (builder *TalentCombinedProjectInfoBuilder) Link(link string) *TalentCombinedProjectInfoBuilder {
 	builder.link = link
@@ -22530,6 +23794,7 @@ func (builder *TalentCombinedProjectInfoBuilder) Link(link string) *TalentCombin
 }
 
 // 描述
+//
 // 示例值：xxx
 func (builder *TalentCombinedProjectInfoBuilder) Desc(desc string) *TalentCombinedProjectInfoBuilder {
 	builder.desc = desc
@@ -22538,6 +23803,7 @@ func (builder *TalentCombinedProjectInfoBuilder) Desc(desc string) *TalentCombin
 }
 
 // 开始时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedProjectInfoBuilder) StartTime(startTime string) *TalentCombinedProjectInfoBuilder {
 	builder.startTime = startTime
@@ -22546,6 +23812,7 @@ func (builder *TalentCombinedProjectInfoBuilder) StartTime(startTime string) *Ta
 }
 
 // 结束时间
+//
 // 示例值：293016767159
 func (builder *TalentCombinedProjectInfoBuilder) EndTime(endTime string) *TalentCombinedProjectInfoBuilder {
 	builder.endTime = endTime
@@ -22554,6 +23821,7 @@ func (builder *TalentCombinedProjectInfoBuilder) EndTime(endTime string) *Talent
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedProjectInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedProjectInfoBuilder {
 	builder.customizedData = customizedData
@@ -22621,6 +23889,7 @@ func NewTalentCombinedSnsInfoBuilder() *TalentCombinedSnsInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedSnsInfoBuilder) Id(id string) *TalentCombinedSnsInfoBuilder {
 	builder.id = id
@@ -22629,6 +23898,7 @@ func (builder *TalentCombinedSnsInfoBuilder) Id(id string) *TalentCombinedSnsInf
 }
 
 // SNS名称
+//
 // 示例值：1
 func (builder *TalentCombinedSnsInfoBuilder) SnsType(snsType int) *TalentCombinedSnsInfoBuilder {
 	builder.snsType = snsType
@@ -22637,6 +23907,7 @@ func (builder *TalentCombinedSnsInfoBuilder) SnsType(snsType int) *TalentCombine
 }
 
 // URL/ID
+//
 // 示例值：https://www.a.com
 func (builder *TalentCombinedSnsInfoBuilder) Link(link string) *TalentCombinedSnsInfoBuilder {
 	builder.link = link
@@ -22645,6 +23916,7 @@ func (builder *TalentCombinedSnsInfoBuilder) Link(link string) *TalentCombinedSn
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedSnsInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedSnsInfoBuilder {
 	builder.customizedData = customizedData
@@ -22699,6 +23971,7 @@ func NewTalentCombinedWorkInfoBuilder() *TalentCombinedWorkInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCombinedWorkInfoBuilder) Id(id string) *TalentCombinedWorkInfoBuilder {
 	builder.id = id
@@ -22707,6 +23980,7 @@ func (builder *TalentCombinedWorkInfoBuilder) Id(id string) *TalentCombinedWorkI
 }
 
 // 作品链接
+//
 // 示例值：https://www.a.com
 func (builder *TalentCombinedWorkInfoBuilder) Link(link string) *TalentCombinedWorkInfoBuilder {
 	builder.link = link
@@ -22715,6 +23989,7 @@ func (builder *TalentCombinedWorkInfoBuilder) Link(link string) *TalentCombinedW
 }
 
 // 描述
+//
 // 示例值：个人设计作品
 func (builder *TalentCombinedWorkInfoBuilder) Desc(desc string) *TalentCombinedWorkInfoBuilder {
 	builder.desc = desc
@@ -22723,6 +23998,7 @@ func (builder *TalentCombinedWorkInfoBuilder) Desc(desc string) *TalentCombinedW
 }
 
 // 附件 ID
+//
 // 示例值：12345678
 func (builder *TalentCombinedWorkInfoBuilder) AttachmentId(attachmentId string) *TalentCombinedWorkInfoBuilder {
 	builder.attachmentId = attachmentId
@@ -22731,6 +24007,7 @@ func (builder *TalentCombinedWorkInfoBuilder) AttachmentId(attachmentId string) 
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCombinedWorkInfoBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentCombinedWorkInfoBuilder {
 	builder.customizedData = customizedData
@@ -22786,6 +24063,7 @@ func NewTalentCompetitionInfoBuilder() *TalentCompetitionInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentCompetitionInfoBuilder) Id(id string) *TalentCompetitionInfoBuilder {
 	builder.id = id
@@ -22794,6 +24072,7 @@ func (builder *TalentCompetitionInfoBuilder) Id(id string) *TalentCompetitionInf
 }
 
 // 竞赛名称
+//
 // 示例值：计算机技能竞赛
 func (builder *TalentCompetitionInfoBuilder) Name(name string) *TalentCompetitionInfoBuilder {
 	builder.name = name
@@ -22802,6 +24081,7 @@ func (builder *TalentCompetitionInfoBuilder) Name(name string) *TalentCompetitio
 }
 
 // 竞赛描述
+//
 // 示例值：C++竞赛
 func (builder *TalentCompetitionInfoBuilder) Desc(desc string) *TalentCompetitionInfoBuilder {
 	builder.desc = desc
@@ -22810,6 +24090,7 @@ func (builder *TalentCompetitionInfoBuilder) Desc(desc string) *TalentCompetitio
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentCompetitionInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentCompetitionInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -22861,6 +24142,7 @@ func NewTalentCustomizedDataBuilder() *TalentCustomizedDataBuilder {
 }
 
 // 模块 ID
+//
 // 示例值：xxxx
 func (builder *TalentCustomizedDataBuilder) ObjectId(objectId string) *TalentCustomizedDataBuilder {
 	builder.objectId = objectId
@@ -22869,6 +24151,7 @@ func (builder *TalentCustomizedDataBuilder) ObjectId(objectId string) *TalentCus
 }
 
 // 模块名称
+//
 // 示例值：
 func (builder *TalentCustomizedDataBuilder) Name(name *I18n) *TalentCustomizedDataBuilder {
 	builder.name = name
@@ -22877,6 +24160,7 @@ func (builder *TalentCustomizedDataBuilder) Name(name *I18n) *TalentCustomizedDa
 }
 
 // 类型
+//
 // 示例值：1
 func (builder *TalentCustomizedDataBuilder) ObjectType(objectType int) *TalentCustomizedDataBuilder {
 	builder.objectType = objectType
@@ -22885,6 +24169,7 @@ func (builder *TalentCustomizedDataBuilder) ObjectType(objectType int) *TalentCu
 }
 
 // 模块下的字段
+//
 // 示例值：
 func (builder *TalentCustomizedDataBuilder) Children(children []*TalentCustomizedDataChild) *TalentCustomizedDataBuilder {
 	builder.children = children
@@ -22935,6 +24220,7 @@ func NewTalentCustomizedDataChildBuilder() *TalentCustomizedDataChildBuilder {
 }
 
 // 自定义字段 ID
+//
 // 示例值：xxxx
 func (builder *TalentCustomizedDataChildBuilder) ObjectId(objectId string) *TalentCustomizedDataChildBuilder {
 	builder.objectId = objectId
@@ -22943,6 +24229,7 @@ func (builder *TalentCustomizedDataChildBuilder) ObjectId(objectId string) *Tale
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *TalentCustomizedDataChildBuilder) Name(name *I18n) *TalentCustomizedDataChildBuilder {
 	builder.name = name
@@ -22951,6 +24238,7 @@ func (builder *TalentCustomizedDataChildBuilder) Name(name *I18n) *TalentCustomi
 }
 
 // 字段类型
+//
 // 示例值：1
 func (builder *TalentCustomizedDataChildBuilder) ObjectType(objectType int) *TalentCustomizedDataChildBuilder {
 	builder.objectType = objectType
@@ -22959,6 +24247,7 @@ func (builder *TalentCustomizedDataChildBuilder) ObjectType(objectType int) *Tal
 }
 
 // 自定义字段值
+//
 // 示例值：
 func (builder *TalentCustomizedDataChildBuilder) Value(value *TalentCustomizedValue) *TalentCustomizedDataChildBuilder {
 	builder.value = value
@@ -23003,6 +24292,7 @@ func NewTalentCustomizedDataObjectValueBuilder() *TalentCustomizedDataObjectValu
 }
 
 // 自定义字段 ID
+//
 // 示例值：6934193211960330504
 func (builder *TalentCustomizedDataObjectValueBuilder) ObjectId(objectId string) *TalentCustomizedDataObjectValueBuilder {
 	builder.objectId = objectId
@@ -23011,6 +24301,7 @@ func (builder *TalentCustomizedDataObjectValueBuilder) ObjectId(objectId string)
 }
 
 // 子字段列表
+//
 // 示例值：
 func (builder *TalentCustomizedDataObjectValueBuilder) Children(children []*TalentCustomizedDataObjectValueChild) *TalentCustomizedDataObjectValueBuilder {
 	builder.children = children
@@ -23048,6 +24339,7 @@ func NewTalentCustomizedDataObjectValueChildBuilder() *TalentCustomizedDataObjec
 }
 
 // 自定义字段 ID
+//
 // 示例值：6934193211960330504
 func (builder *TalentCustomizedDataObjectValueChildBuilder) ObjectId(objectId string) *TalentCustomizedDataObjectValueChildBuilder {
 	builder.objectId = objectId
@@ -23056,6 +24348,7 @@ func (builder *TalentCustomizedDataObjectValueChildBuilder) ObjectId(objectId st
 }
 
 // 自定义字段值
+//
 // 示例值：张三
 func (builder *TalentCustomizedDataObjectValueChildBuilder) Value(value string) *TalentCustomizedDataObjectValueChildBuilder {
 	builder.value = value
@@ -23094,6 +24387,7 @@ func NewTalentCustomizedOptionBuilder() *TalentCustomizedOptionBuilder {
 }
 
 // 选项 ID
+//
 // 示例值：AA
 func (builder *TalentCustomizedOptionBuilder) Key(key string) *TalentCustomizedOptionBuilder {
 	builder.key = key
@@ -23102,6 +24396,7 @@ func (builder *TalentCustomizedOptionBuilder) Key(key string) *TalentCustomizedO
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *TalentCustomizedOptionBuilder) Name(name *I18n) *TalentCustomizedOptionBuilder {
 	builder.name = name
@@ -23139,6 +24434,7 @@ func NewTalentCustomizedTimeRangeBuilder() *TalentCustomizedTimeRangeBuilder {
 }
 
 // 开始时间
+//
 // 示例值：1625456721
 func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *TalentCustomizedTimeRangeBuilder {
 	builder.startTime = startTime
@@ -23147,6 +24443,7 @@ func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *Ta
 }
 
 // 结束时间，当值为至今时，返回「-」
+//
 // 示例值：1625656721
 func (builder *TalentCustomizedTimeRangeBuilder) EndTime(endTime string) *TalentCustomizedTimeRangeBuilder {
 	builder.endTime = endTime
@@ -23197,6 +24494,7 @@ func NewTalentCustomizedValueBuilder() *TalentCustomizedValueBuilder {
 }
 
 // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+//
 // 示例值：text
 func (builder *TalentCustomizedValueBuilder) Content(content string) *TalentCustomizedValueBuilder {
 	builder.content = content
@@ -23205,6 +24503,7 @@ func (builder *TalentCustomizedValueBuilder) Content(content string) *TalentCust
 }
 
 // 当字段类型为单选时，从此字段取值
+//
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) Option(option *TalentCustomizedOption) *TalentCustomizedValueBuilder {
 	builder.option = option
@@ -23213,6 +24512,7 @@ func (builder *TalentCustomizedValueBuilder) Option(option *TalentCustomizedOpti
 }
 
 // 当字段类型为多选时，从此字段取值
+//
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) OptionList(optionList []*TalentCustomizedOption) *TalentCustomizedValueBuilder {
 	builder.optionList = optionList
@@ -23221,6 +24521,7 @@ func (builder *TalentCustomizedValueBuilder) OptionList(optionList []*TalentCust
 }
 
 // 当字段类型为时间段时，从此字段取值
+//
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) TimeRange(timeRange *TalentCustomizedTimeRange) *TalentCustomizedValueBuilder {
 	builder.timeRange = timeRange
@@ -23229,6 +24530,7 @@ func (builder *TalentCustomizedValueBuilder) TimeRange(timeRange *TalentCustomiz
 }
 
 // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
+//
 // 示例值：1625456721
 func (builder *TalentCustomizedValueBuilder) Time(time string) *TalentCustomizedValueBuilder {
 	builder.time = time
@@ -23237,6 +24539,7 @@ func (builder *TalentCustomizedValueBuilder) Time(time string) *TalentCustomized
 }
 
 // 当字段类型为数字时，从此字段取值
+//
 // 示例值：111
 func (builder *TalentCustomizedValueBuilder) Number(number string) *TalentCustomizedValueBuilder {
 	builder.number = number
@@ -23312,6 +24615,7 @@ func NewTalentEducationInfoBuilder() *TalentEducationInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentEducationInfoBuilder) Id(id string) *TalentEducationInfoBuilder {
 	builder.id = id
@@ -23320,6 +24624,7 @@ func (builder *TalentEducationInfoBuilder) Id(id string) *TalentEducationInfoBui
 }
 
 // 学位
+//
 // 示例值：1
 func (builder *TalentEducationInfoBuilder) Degree(degree int) *TalentEducationInfoBuilder {
 	builder.degree = degree
@@ -23328,6 +24633,7 @@ func (builder *TalentEducationInfoBuilder) Degree(degree int) *TalentEducationIn
 }
 
 // 学校
+//
 // 示例值：湘港大学
 func (builder *TalentEducationInfoBuilder) School(school string) *TalentEducationInfoBuilder {
 	builder.school = school
@@ -23336,6 +24642,7 @@ func (builder *TalentEducationInfoBuilder) School(school string) *TalentEducatio
 }
 
 // 专业
+//
 // 示例值：考古
 func (builder *TalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *TalentEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -23344,6 +24651,7 @@ func (builder *TalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *Ta
 }
 
 // 开始时间
+//
 // 示例值：1990-01
 func (builder *TalentEducationInfoBuilder) StartTime(startTime string) *TalentEducationInfoBuilder {
 	builder.startTime = startTime
@@ -23352,6 +24660,7 @@ func (builder *TalentEducationInfoBuilder) StartTime(startTime string) *TalentEd
 }
 
 // 结束时间
+//
 // 示例值：1994-01
 func (builder *TalentEducationInfoBuilder) EndTime(endTime string) *TalentEducationInfoBuilder {
 	builder.endTime = endTime
@@ -23360,6 +24669,7 @@ func (builder *TalentEducationInfoBuilder) EndTime(endTime string) *TalentEducat
 }
 
 // 学历类型
+//
 // 示例值：1
 func (builder *TalentEducationInfoBuilder) EducationType(educationType int) *TalentEducationInfoBuilder {
 	builder.educationType = educationType
@@ -23368,6 +24678,7 @@ func (builder *TalentEducationInfoBuilder) EducationType(educationType int) *Tal
 }
 
 // 成绩排名
+//
 // 示例值：5
 func (builder *TalentEducationInfoBuilder) AcademicRanking(academicRanking int) *TalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
@@ -23376,6 +24687,7 @@ func (builder *TalentEducationInfoBuilder) AcademicRanking(academicRanking int) 
 }
 
 // 教育经历标签
+//
 // 示例值：
 func (builder *TalentEducationInfoBuilder) TagList(tagList []int) *TalentEducationInfoBuilder {
 	builder.tagList = tagList
@@ -23384,6 +24696,7 @@ func (builder *TalentEducationInfoBuilder) TagList(tagList []int) *TalentEducati
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentEducationInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentEducationInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -23452,6 +24765,7 @@ func NewTalentExternalInfoBuilder() *TalentExternalInfoBuilder {
 }
 
 // 人才 ID
+//
 // 示例值：7043758982146345223
 func (builder *TalentExternalInfoBuilder) TalentId(talentId string) *TalentExternalInfoBuilder {
 	builder.talentId = talentId
@@ -23460,6 +24774,7 @@ func (builder *TalentExternalInfoBuilder) TalentId(talentId string) *TalentExter
 }
 
 // 人才在外部系统的创建时间
+//
 // 示例值：1608467675393
 func (builder *TalentExternalInfoBuilder) ExternalCreateTime(externalCreateTime string) *TalentExternalInfoBuilder {
 	builder.externalCreateTime = externalCreateTime
@@ -23510,6 +24825,7 @@ func NewTalentFolderBuilder() *TalentFolderBuilder {
 }
 
 // 外部ID
+//
 // 示例值：
 func (builder *TalentFolderBuilder) ExternalId(externalId string) *TalentFolderBuilder {
 	builder.externalId = externalId
@@ -23518,6 +24834,7 @@ func (builder *TalentFolderBuilder) ExternalId(externalId string) *TalentFolderB
 }
 
 // 名字
+//
 // 示例值：人才文件夹A1
 func (builder *TalentFolderBuilder) Name(name string) *TalentFolderBuilder {
 	builder.name = name
@@ -23526,6 +24843,7 @@ func (builder *TalentFolderBuilder) Name(name string) *TalentFolderBuilder {
 }
 
 // 父ID
+//
 // 示例值：
 func (builder *TalentFolderBuilder) ParentId(parentId string) *TalentFolderBuilder {
 	builder.parentId = parentId
@@ -23534,6 +24852,7 @@ func (builder *TalentFolderBuilder) ParentId(parentId string) *TalentFolderBuild
 }
 
 // 创建人 ID
+//
 // 示例值：
 func (builder *TalentFolderBuilder) CreatorId(creatorId string) *TalentFolderBuilder {
 	builder.creatorId = creatorId
@@ -23542,6 +24861,7 @@ func (builder *TalentFolderBuilder) CreatorId(creatorId string) *TalentFolderBui
 }
 
 // 文件夹ID
+//
 // 示例值：7041806543797995820
 func (builder *TalentFolderBuilder) FolderId(folderId string) *TalentFolderBuilder {
 	builder.folderId = folderId
@@ -23550,6 +24870,7 @@ func (builder *TalentFolderBuilder) FolderId(folderId string) *TalentFolderBuild
 }
 
 // 所有者ID
+//
 // 示例值：ou_85bb308c57f597471cd2bb5b4f580245
 func (builder *TalentFolderBuilder) OwnerId(ownerId string) *TalentFolderBuilder {
 	builder.ownerId = ownerId
@@ -23604,6 +24925,7 @@ func NewTalentIdentificationInfoBuilder() *TalentIdentificationInfoBuilder {
 }
 
 // 证件类型
+//
 // 示例值：1
 func (builder *TalentIdentificationInfoBuilder) IdentificationType(identificationType int) *TalentIdentificationInfoBuilder {
 	builder.identificationType = identificationType
@@ -23612,6 +24934,7 @@ func (builder *TalentIdentificationInfoBuilder) IdentificationType(identificatio
 }
 
 // 证件号
+//
 // 示例值：511699199x1x111234
 func (builder *TalentIdentificationInfoBuilder) IdentificationNumber(identificationNumber string) *TalentIdentificationInfoBuilder {
 	builder.identificationNumber = identificationNumber
@@ -23665,6 +24988,7 @@ func NewTalentInternshipInfoBuilder() *TalentInternshipInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6986199832494934316
 func (builder *TalentInternshipInfoBuilder) Id(id string) *TalentInternshipInfoBuilder {
 	builder.id = id
@@ -23673,6 +24997,7 @@ func (builder *TalentInternshipInfoBuilder) Id(id string) *TalentInternshipInfoB
 }
 
 // 公司
+//
 // 示例值：小米
 func (builder *TalentInternshipInfoBuilder) Company(company string) *TalentInternshipInfoBuilder {
 	builder.company = company
@@ -23681,6 +25006,7 @@ func (builder *TalentInternshipInfoBuilder) Company(company string) *TalentInter
 }
 
 // 描述
+//
 // 示例值：研发部实习
 func (builder *TalentInternshipInfoBuilder) Desc(desc string) *TalentInternshipInfoBuilder {
 	builder.desc = desc
@@ -23689,6 +25015,7 @@ func (builder *TalentInternshipInfoBuilder) Desc(desc string) *TalentInternshipI
 }
 
 // 结束时间
+//
 // 示例值：1618500278638
 func (builder *TalentInternshipInfoBuilder) EndTime(endTime int) *TalentInternshipInfoBuilder {
 	builder.endTime = endTime
@@ -23697,6 +25024,7 @@ func (builder *TalentInternshipInfoBuilder) EndTime(endTime int) *TalentInternsh
 }
 
 // 开始时间
+//
 // 示例值：1618500278639
 func (builder *TalentInternshipInfoBuilder) StartTime(startTime int) *TalentInternshipInfoBuilder {
 	builder.startTime = startTime
@@ -23705,6 +25033,7 @@ func (builder *TalentInternshipInfoBuilder) StartTime(startTime int) *TalentInte
 }
 
 // 职称
+//
 // 示例值：高级工程师
 func (builder *TalentInternshipInfoBuilder) Title(title string) *TalentInternshipInfoBuilder {
 	builder.title = title
@@ -23713,6 +25042,7 @@ func (builder *TalentInternshipInfoBuilder) Title(title string) *TalentInternshi
 }
 
 // 标记, 只会出现学校部分
+//
 // 示例值：
 func (builder *TalentInternshipInfoBuilder) TagList(tagList []int) *TalentInternshipInfoBuilder {
 	builder.tagList = tagList
@@ -23770,6 +25100,7 @@ func NewTalentInterviewBuilder() *TalentInterviewBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6949805467799537964
 func (builder *TalentInterviewBuilder) ApplicationId(applicationId string) *TalentInterviewBuilder {
 	builder.applicationId = applicationId
@@ -23778,6 +25109,7 @@ func (builder *TalentInterviewBuilder) ApplicationId(applicationId string) *Tale
 }
 
 // 面试列表
+//
 // 示例值：
 func (builder *TalentInterviewBuilder) InterviewList(interviewList []*InterviewExtend) *TalentInterviewBuilder {
 	builder.interviewList = interviewList
@@ -23815,6 +25147,7 @@ func NewTalentInterviewRegistrationSimpleBuilder() *TalentInterviewRegistrationS
 }
 
 // ID
+//
 // 示例值：6833685612520950030
 func (builder *TalentInterviewRegistrationSimpleBuilder) Id(id string) *TalentInterviewRegistrationSimpleBuilder {
 	builder.id = id
@@ -23823,6 +25156,7 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) Id(id string) *TalentIn
 }
 
 // 创建时间
+//
 // 示例值：1618494330932
 func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(registrationTime int) *TalentInterviewRegistrationSimpleBuilder {
 	builder.registrationTime = registrationTime
@@ -23867,6 +25201,7 @@ func NewTalentLanguageInfoBuilder() *TalentLanguageInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentLanguageInfoBuilder) Id(id string) *TalentLanguageInfoBuilder {
 	builder.id = id
@@ -23875,6 +25210,7 @@ func (builder *TalentLanguageInfoBuilder) Id(id string) *TalentLanguageInfoBuild
 }
 
 // 语言
+//
 // 示例值：1
 func (builder *TalentLanguageInfoBuilder) Language(language int) *TalentLanguageInfoBuilder {
 	builder.language = language
@@ -23883,6 +25219,7 @@ func (builder *TalentLanguageInfoBuilder) Language(language int) *TalentLanguage
 }
 
 // 精通程度
+//
 // 示例值：1
 func (builder *TalentLanguageInfoBuilder) Proficiency(proficiency int) *TalentLanguageInfoBuilder {
 	builder.proficiency = proficiency
@@ -23891,6 +25228,7 @@ func (builder *TalentLanguageInfoBuilder) Proficiency(proficiency int) *TalentLa
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentLanguageInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentLanguageInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -23939,6 +25277,7 @@ func NewTalentNationalityBuilder() *TalentNationalityBuilder {
 }
 
 // 国家编码
+//
 // 示例值：CN_183
 func (builder *TalentNationalityBuilder) NationalityCode(nationalityCode string) *TalentNationalityBuilder {
 	builder.nationalityCode = nationalityCode
@@ -23947,6 +25286,7 @@ func (builder *TalentNationalityBuilder) NationalityCode(nationalityCode string)
 }
 
 // 中文名
+//
 // 示例值：测试
 func (builder *TalentNationalityBuilder) ZhName(zhName string) *TalentNationalityBuilder {
 	builder.zhName = zhName
@@ -23955,6 +25295,7 @@ func (builder *TalentNationalityBuilder) ZhName(zhName string) *TalentNationalit
 }
 
 // 英文名
+//
 // 示例值：test
 func (builder *TalentNationalityBuilder) EnName(enName string) *TalentNationalityBuilder {
 	builder.enName = enName
@@ -24009,6 +25350,7 @@ func NewTalentOperationLogBuilder() *TalentOperationLogBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6949805467799537964
 func (builder *TalentOperationLogBuilder) ApplicationId(applicationId string) *TalentOperationLogBuilder {
 	builder.applicationId = applicationId
@@ -24017,6 +25359,7 @@ func (builder *TalentOperationLogBuilder) ApplicationId(applicationId string) *T
 }
 
 // 候选人 ID
+//
 // 示例值：6843547872837273223
 func (builder *TalentOperationLogBuilder) TalentId(talentId string) *TalentOperationLogBuilder {
 	builder.talentId = talentId
@@ -24025,6 +25368,7 @@ func (builder *TalentOperationLogBuilder) TalentId(talentId string) *TalentOpera
 }
 
 // 操作人
+//
 // 示例值：
 func (builder *TalentOperationLogBuilder) Operator(operator *IdNameObject) *TalentOperationLogBuilder {
 	builder.operator = operator
@@ -24033,6 +25377,7 @@ func (builder *TalentOperationLogBuilder) Operator(operator *IdNameObject) *Tale
 }
 
 // 操作类型
+//
 // 示例值："3001"
 func (builder *TalentOperationLogBuilder) OperationType(operationType int) *TalentOperationLogBuilder {
 	builder.operationType = operationType
@@ -24041,6 +25386,7 @@ func (builder *TalentOperationLogBuilder) OperationType(operationType int) *Tale
 }
 
 // 操作时间
+//
 // 示例值：1618500278663
 func (builder *TalentOperationLogBuilder) OperationTime(operationTime string) *TalentOperationLogBuilder {
 	builder.operationTime = operationTime
@@ -24049,6 +25395,7 @@ func (builder *TalentOperationLogBuilder) OperationTime(operationTime string) *T
 }
 
 // 操作人类型
+//
 // 示例值：1
 func (builder *TalentOperationLogBuilder) OperatorType(operatorType int) *TalentOperationLogBuilder {
 	builder.operatorType = operatorType
@@ -24120,6 +25467,7 @@ func NewTalentProjectInfoBuilder() *TalentProjectInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentProjectInfoBuilder) Id(id string) *TalentProjectInfoBuilder {
 	builder.id = id
@@ -24128,6 +25476,7 @@ func (builder *TalentProjectInfoBuilder) Id(id string) *TalentProjectInfoBuilder
 }
 
 // 项目名称
+//
 // 示例值：测试
 func (builder *TalentProjectInfoBuilder) Name(name string) *TalentProjectInfoBuilder {
 	builder.name = name
@@ -24136,6 +25485,7 @@ func (builder *TalentProjectInfoBuilder) Name(name string) *TalentProjectInfoBui
 }
 
 // 项目角色
+//
 // 示例值：test
 func (builder *TalentProjectInfoBuilder) Role(role string) *TalentProjectInfoBuilder {
 	builder.role = role
@@ -24144,6 +25494,7 @@ func (builder *TalentProjectInfoBuilder) Role(role string) *TalentProjectInfoBui
 }
 
 // 项目链接
+//
 // 示例值：www.test.com
 func (builder *TalentProjectInfoBuilder) Link(link string) *TalentProjectInfoBuilder {
 	builder.link = link
@@ -24152,6 +25503,7 @@ func (builder *TalentProjectInfoBuilder) Link(link string) *TalentProjectInfoBui
 }
 
 // 描述
+//
 // 示例值：test
 func (builder *TalentProjectInfoBuilder) Desc(desc string) *TalentProjectInfoBuilder {
 	builder.desc = desc
@@ -24160,6 +25512,7 @@ func (builder *TalentProjectInfoBuilder) Desc(desc string) *TalentProjectInfoBui
 }
 
 // 开始时间
+//
 // 示例值：1990-01
 func (builder *TalentProjectInfoBuilder) StartTime(startTime string) *TalentProjectInfoBuilder {
 	builder.startTime = startTime
@@ -24168,6 +25521,7 @@ func (builder *TalentProjectInfoBuilder) StartTime(startTime string) *TalentProj
 }
 
 // 结束时间
+//
 // 示例值：1991-01
 func (builder *TalentProjectInfoBuilder) EndTime(endTime string) *TalentProjectInfoBuilder {
 	builder.endTime = endTime
@@ -24176,6 +25530,7 @@ func (builder *TalentProjectInfoBuilder) EndTime(endTime string) *TalentProjectI
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentProjectInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentProjectInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -24240,6 +25595,7 @@ func NewTalentResumeSourceBuilder() *TalentResumeSourceBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentResumeSourceBuilder) Id(id string) *TalentResumeSourceBuilder {
 	builder.id = id
@@ -24248,6 +25604,7 @@ func (builder *TalentResumeSourceBuilder) Id(id string) *TalentResumeSourceBuild
 }
 
 // 中文名
+//
 // 示例值：猎头
 func (builder *TalentResumeSourceBuilder) ZhName(zhName string) *TalentResumeSourceBuilder {
 	builder.zhName = zhName
@@ -24256,6 +25613,7 @@ func (builder *TalentResumeSourceBuilder) ZhName(zhName string) *TalentResumeSou
 }
 
 // 英文名
+//
 // 示例值：Hunter
 func (builder *TalentResumeSourceBuilder) EnName(enName string) *TalentResumeSourceBuilder {
 	builder.enName = enName
@@ -24310,6 +25668,7 @@ func NewTalentSchemaChildObjectBuilder() *TalentSchemaChildObjectBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *TalentSchemaChildObjectBuilder) Id(id string) *TalentSchemaChildObjectBuilder {
 	builder.id = id
@@ -24318,6 +25677,7 @@ func (builder *TalentSchemaChildObjectBuilder) Id(id string) *TalentSchemaChildO
 }
 
 // 活跃状态
+//
 // 示例值：
 func (builder *TalentSchemaChildObjectBuilder) ActiveStatus(activeStatus int) *TalentSchemaChildObjectBuilder {
 	builder.activeStatus = activeStatus
@@ -24326,6 +25686,7 @@ func (builder *TalentSchemaChildObjectBuilder) ActiveStatus(activeStatus int) *T
 }
 
 // 是否自定义
+//
 // 示例值：
 func (builder *TalentSchemaChildObjectBuilder) IsCustomized(isCustomized bool) *TalentSchemaChildObjectBuilder {
 	builder.isCustomized = isCustomized
@@ -24334,6 +25695,7 @@ func (builder *TalentSchemaChildObjectBuilder) IsCustomized(isCustomized bool) *
 }
 
 // 名称
+//
 // 示例值：
 func (builder *TalentSchemaChildObjectBuilder) Name(name *I18n) *TalentSchemaChildObjectBuilder {
 	builder.name = name
@@ -24342,6 +25704,7 @@ func (builder *TalentSchemaChildObjectBuilder) Name(name *I18n) *TalentSchemaChi
 }
 
 // 选项
+//
 // 示例值：
 func (builder *TalentSchemaChildObjectBuilder) OptionList(optionList []*TalentSchemaOption) *TalentSchemaChildObjectBuilder {
 	builder.optionList = optionList
@@ -24402,6 +25765,7 @@ func NewTalentSchemaObjectBuilder() *TalentSchemaObjectBuilder {
 }
 
 // ID
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) Id(id string) *TalentSchemaObjectBuilder {
 	builder.id = id
@@ -24410,6 +25774,7 @@ func (builder *TalentSchemaObjectBuilder) Id(id string) *TalentSchemaObjectBuild
 }
 
 // 活跃状态
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) ActiveStatus(activeStatus int) *TalentSchemaObjectBuilder {
 	builder.activeStatus = activeStatus
@@ -24418,6 +25783,7 @@ func (builder *TalentSchemaObjectBuilder) ActiveStatus(activeStatus int) *Talent
 }
 
 // 是否自定义
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) IsCustomized(isCustomized bool) *TalentSchemaObjectBuilder {
 	builder.isCustomized = isCustomized
@@ -24426,6 +25792,7 @@ func (builder *TalentSchemaObjectBuilder) IsCustomized(isCustomized bool) *Talen
 }
 
 // 名称
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) Name(name *I18n) *TalentSchemaObjectBuilder {
 	builder.name = name
@@ -24434,6 +25801,7 @@ func (builder *TalentSchemaObjectBuilder) Name(name *I18n) *TalentSchemaObjectBu
 }
 
 // 选项
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) OptionList(optionList []*TalentSchemaOption) *TalentSchemaObjectBuilder {
 	builder.optionList = optionList
@@ -24442,6 +25810,7 @@ func (builder *TalentSchemaObjectBuilder) OptionList(optionList []*TalentSchemaO
 }
 
 // 子节点
+//
 // 示例值：
 func (builder *TalentSchemaObjectBuilder) Children(children []*TalentSchemaChildObject) *TalentSchemaObjectBuilder {
 	builder.children = children
@@ -24496,6 +25865,7 @@ func NewTalentSchemaOptionBuilder() *TalentSchemaOptionBuilder {
 }
 
 // 活跃状态
+//
 // 示例值：
 func (builder *TalentSchemaOptionBuilder) ActiveStatus(activeStatus int) *TalentSchemaOptionBuilder {
 	builder.activeStatus = activeStatus
@@ -24504,6 +25874,7 @@ func (builder *TalentSchemaOptionBuilder) ActiveStatus(activeStatus int) *Talent
 }
 
 // 值
+//
 // 示例值：
 func (builder *TalentSchemaOptionBuilder) Value(value string) *TalentSchemaOptionBuilder {
 	builder.value = value
@@ -24512,6 +25883,7 @@ func (builder *TalentSchemaOptionBuilder) Value(value string) *TalentSchemaOptio
 }
 
 // 名称
+//
 // 示例值：
 func (builder *TalentSchemaOptionBuilder) Name(name *I18n) *TalentSchemaOptionBuilder {
 	builder.name = name
@@ -24556,6 +25928,7 @@ func NewTalentSelfEvaluationBuilder() *TalentSelfEvaluationBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentSelfEvaluationBuilder) Id(id string) *TalentSelfEvaluationBuilder {
 	builder.id = id
@@ -24564,6 +25937,7 @@ func (builder *TalentSelfEvaluationBuilder) Id(id string) *TalentSelfEvaluationB
 }
 
 // 内容
+//
 // 示例值：自我评价：平常心
 func (builder *TalentSelfEvaluationBuilder) Content(content string) *TalentSelfEvaluationBuilder {
 	builder.content = content
@@ -24572,6 +25946,7 @@ func (builder *TalentSelfEvaluationBuilder) Content(content string) *TalentSelfE
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentSelfEvaluationBuilder) CustomizedData(customizedData []*TalentCustomizedDataObjectValue) *TalentSelfEvaluationBuilder {
 	builder.customizedData = customizedData
@@ -24619,6 +25994,7 @@ func NewTalentSnsInfoBuilder() *TalentSnsInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentSnsInfoBuilder) Id(id string) *TalentSnsInfoBuilder {
 	builder.id = id
@@ -24627,6 +26003,7 @@ func (builder *TalentSnsInfoBuilder) Id(id string) *TalentSnsInfoBuilder {
 }
 
 // SNS名称
+//
 // 示例值：1
 func (builder *TalentSnsInfoBuilder) SnsType(snsType int) *TalentSnsInfoBuilder {
 	builder.snsType = snsType
@@ -24635,6 +26012,7 @@ func (builder *TalentSnsInfoBuilder) SnsType(snsType int) *TalentSnsInfoBuilder 
 }
 
 // URL/ID
+//
 // 示例值：www.test.com
 func (builder *TalentSnsInfoBuilder) Link(link string) *TalentSnsInfoBuilder {
 	builder.link = link
@@ -24643,6 +26021,7 @@ func (builder *TalentSnsInfoBuilder) Link(link string) *TalentSnsInfoBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentSnsInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentSnsInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -24697,6 +26076,7 @@ func NewTalentWorksInfoBuilder() *TalentWorksInfoBuilder {
 }
 
 // ID
+//
 // 示例值：6891560630172518670
 func (builder *TalentWorksInfoBuilder) Id(id string) *TalentWorksInfoBuilder {
 	builder.id = id
@@ -24705,6 +26085,7 @@ func (builder *TalentWorksInfoBuilder) Id(id string) *TalentWorksInfoBuilder {
 }
 
 // 作品链接
+//
 // 示例值：www.test.com
 func (builder *TalentWorksInfoBuilder) Link(link string) *TalentWorksInfoBuilder {
 	builder.link = link
@@ -24713,6 +26094,7 @@ func (builder *TalentWorksInfoBuilder) Link(link string) *TalentWorksInfoBuilder
 }
 
 // 描述
+//
 // 示例值：test
 func (builder *TalentWorksInfoBuilder) Desc(desc string) *TalentWorksInfoBuilder {
 	builder.desc = desc
@@ -24721,6 +26103,7 @@ func (builder *TalentWorksInfoBuilder) Desc(desc string) *TalentWorksInfoBuilder
 }
 
 // 作品附件名称，若需获取作品附件预览信息可调用「获取附件预览信息」接口
+//
 // 示例值：XX项目
 func (builder *TalentWorksInfoBuilder) Name(name string) *TalentWorksInfoBuilder {
 	builder.name = name
@@ -24729,6 +26112,7 @@ func (builder *TalentWorksInfoBuilder) Name(name string) *TalentWorksInfoBuilder
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *TalentWorksInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *TalentWorksInfoBuilder {
 	builder.customizedDataList = customizedDataList
@@ -24790,6 +26174,7 @@ func NewTerminationReasonBuilder() *TerminationReasonBuilder {
 }
 
 // 终止原因 ID
+//
 // 示例值：10002
 func (builder *TerminationReasonBuilder) Id(id string) *TerminationReasonBuilder {
 	builder.id = id
@@ -24798,6 +26183,7 @@ func (builder *TerminationReasonBuilder) Id(id string) *TerminationReasonBuilder
 }
 
 // 终止原因名称
+//
 // 示例值：
 func (builder *TerminationReasonBuilder) Name(name *I18n) *TerminationReasonBuilder {
 	builder.name = name
@@ -24806,6 +26192,7 @@ func (builder *TerminationReasonBuilder) Name(name *I18n) *TerminationReasonBuil
 }
 
 // 内推渠道展示文案
+//
 // 示例值：
 func (builder *TerminationReasonBuilder) ReferralName(referralName *I18n) *TerminationReasonBuilder {
 	builder.referralName = referralName
@@ -24814,6 +26201,7 @@ func (builder *TerminationReasonBuilder) ReferralName(referralName *I18n) *Termi
 }
 
 // 终止原因类型
+//
 // 示例值：22
 func (builder *TerminationReasonBuilder) TerminationType(terminationType int) *TerminationReasonBuilder {
 	builder.terminationType = terminationType
@@ -24822,6 +26210,7 @@ func (builder *TerminationReasonBuilder) TerminationType(terminationType int) *T
 }
 
 // 是否用于评估
+//
 // 示例值：false
 func (builder *TerminationReasonBuilder) IsUsedAsEvaluation(isUsedAsEvaluation bool) *TerminationReasonBuilder {
 	builder.isUsedAsEvaluation = isUsedAsEvaluation
@@ -24830,6 +26219,7 @@ func (builder *TerminationReasonBuilder) IsUsedAsEvaluation(isUsedAsEvaluation b
 }
 
 // 状态
+//
 // 示例值：1
 func (builder *TerminationReasonBuilder) ActiveStatus(activeStatus int) *TerminationReasonBuilder {
 	builder.activeStatus = activeStatus
@@ -24927,6 +26317,7 @@ func NewTestBuilder() *TestBuilder {
 }
 
 // 笔试 ID
+//
 // 示例值：6963784391454918956
 func (builder *TestBuilder) TestId(testId string) *TestBuilder {
 	builder.testId = testId
@@ -24935,6 +26326,7 @@ func (builder *TestBuilder) TestId(testId string) *TestBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6920544531948800269
 func (builder *TestBuilder) ApplicationId(applicationId string) *TestBuilder {
 	builder.applicationId = applicationId
@@ -24943,6 +26335,7 @@ func (builder *TestBuilder) ApplicationId(applicationId string) *TestBuilder {
 }
 
 // 试卷 ID
+//
 // 示例值：6963549885526346028
 func (builder *TestBuilder) TestPaperId(testPaperId string) *TestBuilder {
 	builder.testPaperId = testPaperId
@@ -24951,6 +26344,7 @@ func (builder *TestBuilder) TestPaperId(testPaperId string) *TestBuilder {
 }
 
 // 试卷名称
+//
 // 示例值：数据结构测验
 func (builder *TestBuilder) TestPaperName(testPaperName string) *TestBuilder {
 	builder.testPaperName = testPaperName
@@ -24959,6 +26353,7 @@ func (builder *TestBuilder) TestPaperName(testPaperName string) *TestBuilder {
 }
 
 // 试卷来源 ID
+//
 // 示例值：5
 func (builder *TestBuilder) TestPaperSourceId(testPaperSourceId string) *TestBuilder {
 	builder.testPaperSourceId = testPaperSourceId
@@ -24967,6 +26362,7 @@ func (builder *TestBuilder) TestPaperSourceId(testPaperSourceId string) *TestBui
 }
 
 // 试卷来源名称
+//
 // 示例值：
 func (builder *TestBuilder) TestPaperSourceName(testPaperSourceName *I18n) *TestBuilder {
 	builder.testPaperSourceName = testPaperSourceName
@@ -24975,6 +26371,7 @@ func (builder *TestBuilder) TestPaperSourceName(testPaperSourceName *I18n) *Test
 }
 
 // 笔试答复状态
+//
 // 示例值：1
 func (builder *TestBuilder) ReplyStatus(replyStatus int) *TestBuilder {
 	builder.replyStatus = replyStatus
@@ -24983,6 +26380,7 @@ func (builder *TestBuilder) ReplyStatus(replyStatus int) *TestBuilder {
 }
 
 // 笔试状态
+//
 // 示例值：1
 func (builder *TestBuilder) TestStatus(testStatus int) *TestBuilder {
 	builder.testStatus = testStatus
@@ -24991,6 +26389,7 @@ func (builder *TestBuilder) TestStatus(testStatus int) *TestBuilder {
 }
 
 // 笔试时间
+//
 // 示例值：
 func (builder *TestBuilder) TestSchedule(testSchedule *TestSchedule) *TestBuilder {
 	builder.testSchedule = testSchedule
@@ -24999,6 +26398,7 @@ func (builder *TestBuilder) TestSchedule(testSchedule *TestSchedule) *TestBuilde
 }
 
 // 笔试作答完成时间
+//
 // 示例值：1608725989000
 func (builder *TestBuilder) TestCompleteTime(testCompleteTime string) *TestBuilder {
 	builder.testCompleteTime = testCompleteTime
@@ -25007,6 +26407,7 @@ func (builder *TestBuilder) TestCompleteTime(testCompleteTime string) *TestBuild
 }
 
 // 笔试报告链接列表
+//
 // 示例值：
 func (builder *TestBuilder) ReportUrlList(reportUrlList []string) *TestBuilder {
 	builder.reportUrlList = reportUrlList
@@ -25015,6 +26416,7 @@ func (builder *TestBuilder) ReportUrlList(reportUrlList []string) *TestBuilder {
 }
 
 // 笔试详细成绩
+//
 // 示例值：
 func (builder *TestBuilder) ResultDetailList(resultDetailList []*TestResultDetail) *TestBuilder {
 	builder.resultDetailList = resultDetailList
@@ -25023,6 +26425,7 @@ func (builder *TestBuilder) ResultDetailList(resultDetailList []*TestResultDetai
 }
 
 // 笔试结果上传时间（手动录入的笔试成绩具有）
+//
 // 示例值：1608725989000
 func (builder *TestBuilder) ResultUploadTime(resultUploadTime string) *TestBuilder {
 	builder.resultUploadTime = resultUploadTime
@@ -25031,6 +26434,7 @@ func (builder *TestBuilder) ResultUploadTime(resultUploadTime string) *TestBuild
 }
 
 // 阅卷得分
+//
 // 示例值：60
 func (builder *TestBuilder) Score(score string) *TestBuilder {
 	builder.score = score
@@ -25039,6 +26443,7 @@ func (builder *TestBuilder) Score(score string) *TestBuilder {
 }
 
 // 阅卷结果提交时间（若重复提交，则为最新提交时间）
+//
 // 示例值：1608725989000
 func (builder *TestBuilder) ScoreSubmitTime(scoreSubmitTime string) *TestBuilder {
 	builder.scoreSubmitTime = scoreSubmitTime
@@ -25047,6 +26452,7 @@ func (builder *TestBuilder) ScoreSubmitTime(scoreSubmitTime string) *TestBuilder
 }
 
 // 阅卷人，值类型由 user_id_type 查询参数决定
+//
 // 示例值：ou_266ed047ed37f24554e5a0afdbb15556
 func (builder *TestBuilder) Reviewer(reviewer string) *TestBuilder {
 	builder.reviewer = reviewer
@@ -25055,6 +26461,7 @@ func (builder *TestBuilder) Reviewer(reviewer string) *TestBuilder {
 }
 
 // 笔试创建时间
+//
 // 示例值：1608725989000
 func (builder *TestBuilder) CreatedAt(createdAt string) *TestBuilder {
 	builder.createdAt = createdAt
@@ -25149,6 +26556,7 @@ func NewTestResultDetailBuilder() *TestResultDetailBuilder {
 }
 
 // 笔试科目
+//
 // 示例值：定制化报告测验
 func (builder *TestResultDetailBuilder) Subject(subject string) *TestResultDetailBuilder {
 	builder.subject = subject
@@ -25157,6 +26565,7 @@ func (builder *TestResultDetailBuilder) Subject(subject string) *TestResultDetai
 }
 
 // 笔试科目结论
+//
 // 示例值：合格
 func (builder *TestResultDetailBuilder) Result(result string) *TestResultDetailBuilder {
 	builder.result = result
@@ -25195,6 +26604,7 @@ func NewTestScheduleBuilder() *TestScheduleBuilder {
 }
 
 // 开始时间
+//
 // 示例值：1621390695000
 func (builder *TestScheduleBuilder) StartTime(startTime string) *TestScheduleBuilder {
 	builder.startTime = startTime
@@ -25203,6 +26613,7 @@ func (builder *TestScheduleBuilder) StartTime(startTime string) *TestScheduleBui
 }
 
 // 结束时间
+//
 // 示例值：1632839400000
 func (builder *TestScheduleBuilder) EndTime(endTime string) *TestScheduleBuilder {
 	builder.endTime = endTime
@@ -25247,6 +26658,7 @@ func NewTodoBuilder() *TodoBuilder {
 }
 
 // 简历评估待办信息，仅当 type=evaluation 时返回
+//
 // 示例值：
 func (builder *TodoBuilder) Evaluation(evaluation *TodoCommon) *TodoBuilder {
 	builder.evaluation = evaluation
@@ -25255,6 +26667,7 @@ func (builder *TodoBuilder) Evaluation(evaluation *TodoCommon) *TodoBuilder {
 }
 
 // Offer 待办信息，仅当 type=offer 时返回
+//
 // 示例值：
 func (builder *TodoBuilder) Offer(offer *TodoCommon) *TodoBuilder {
 	builder.offer = offer
@@ -25263,6 +26676,7 @@ func (builder *TodoBuilder) Offer(offer *TodoCommon) *TodoBuilder {
 }
 
 // 笔试待办信息，仅当 type=exam 时返回
+//
 // 示例值：
 func (builder *TodoBuilder) Exam(exam *TodoCommon) *TodoBuilder {
 	builder.exam = exam
@@ -25271,6 +26685,7 @@ func (builder *TodoBuilder) Exam(exam *TodoCommon) *TodoBuilder {
 }
 
 // 面试待办信息，仅当 type=interview 时返回
+//
 // 示例值：
 func (builder *TodoBuilder) Interview(interview *TodoCommon) *TodoBuilder {
 	builder.interview = interview
@@ -25319,6 +26734,7 @@ func NewTodoCommonBuilder() *TodoCommonBuilder {
 }
 
 // 候选人 ID
+//
 // 示例值：6891524011667228941
 func (builder *TodoCommonBuilder) TalentId(talentId string) *TodoCommonBuilder {
 	builder.talentId = talentId
@@ -25327,6 +26743,7 @@ func (builder *TodoCommonBuilder) TalentId(talentId string) *TodoCommonBuilder {
 }
 
 // 职位 ID
+//
 // 示例值：6891113155221522701
 func (builder *TodoCommonBuilder) JobId(jobId string) *TodoCommonBuilder {
 	builder.jobId = jobId
@@ -25335,6 +26752,7 @@ func (builder *TodoCommonBuilder) JobId(jobId string) *TodoCommonBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6945436033023625516
 func (builder *TodoCommonBuilder) ApplicationId(applicationId string) *TodoCommonBuilder {
 	builder.applicationId = applicationId
@@ -25343,6 +26761,7 @@ func (builder *TodoCommonBuilder) ApplicationId(applicationId string) *TodoCommo
 }
 
 // ID
+//
 // 示例值：6914542162822695181
 func (builder *TodoCommonBuilder) Id(id string) *TodoCommonBuilder {
 	builder.id = id
@@ -25392,6 +26811,7 @@ func NewUserRoleBuilder() *UserRoleBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：ou_49772cf5d2d19ebb5059de777a4dd487
 func (builder *UserRoleBuilder) UserId(userId string) *UserRoleBuilder {
 	builder.userId = userId
@@ -25400,6 +26820,7 @@ func (builder *UserRoleBuilder) UserId(userId string) *UserRoleBuilder {
 }
 
 // 角色 ID
+//
 // 示例值：101
 func (builder *UserRoleBuilder) RoleId(roleId string) *UserRoleBuilder {
 	builder.roleId = roleId
@@ -25408,6 +26829,7 @@ func (builder *UserRoleBuilder) RoleId(roleId string) *UserRoleBuilder {
 }
 
 // 修改时间
+//
 // 示例值：1618500278663
 func (builder *UserRoleBuilder) ModifyTime(modifyTime string) *UserRoleBuilder {
 	builder.modifyTime = modifyTime
@@ -25456,6 +26878,7 @@ func NewWebsiteBuilder() *WebsiteBuilder {
 }
 
 // ID
+//
 // 示例值：1213213123123
 func (builder *WebsiteBuilder) Id(id string) *WebsiteBuilder {
 	builder.id = id
@@ -25464,6 +26887,7 @@ func (builder *WebsiteBuilder) Id(id string) *WebsiteBuilder {
 }
 
 // 名称
+//
 // 示例值：
 func (builder *WebsiteBuilder) Name(name *I18n) *WebsiteBuilder {
 	builder.name = name
@@ -25472,6 +26896,7 @@ func (builder *WebsiteBuilder) Name(name *I18n) *WebsiteBuilder {
 }
 
 // 流程类型，1-社招，2-校招
+//
 // 示例值：
 func (builder *WebsiteBuilder) ProcessTypeList(processTypeList []string) *WebsiteBuilder {
 	builder.processTypeList = processTypeList
@@ -25480,6 +26905,7 @@ func (builder *WebsiteBuilder) ProcessTypeList(processTypeList []string) *Websit
 }
 
 // 职位渠道ID
+//
 // 示例值：1213213123123
 func (builder *WebsiteBuilder) JobChannelId(jobChannelId string) *WebsiteBuilder {
 	builder.jobChannelId = jobChannelId
@@ -25530,6 +26956,7 @@ func NewWebsiteChannelInfoBuilder() *WebsiteChannelInfoBuilder {
 }
 
 // 推广渠道 ID
+//
 // 示例值：7085989097067563300
 func (builder *WebsiteChannelInfoBuilder) Id(id string) *WebsiteChannelInfoBuilder {
 	builder.id = id
@@ -25538,6 +26965,7 @@ func (builder *WebsiteChannelInfoBuilder) Id(id string) *WebsiteChannelInfoBuild
 }
 
 // 推广渠道名称
+//
 // 示例值：官网
 func (builder *WebsiteChannelInfoBuilder) Name(name string) *WebsiteChannelInfoBuilder {
 	builder.name = name
@@ -25546,6 +26974,7 @@ func (builder *WebsiteChannelInfoBuilder) Name(name string) *WebsiteChannelInfoB
 }
 
 // 推广渠道链接
+//
 // 示例值：http://recrui-demo.jobs.xxx.cn/485083/?spread=A1KM6A5
 func (builder *WebsiteChannelInfoBuilder) Link(link string) *WebsiteChannelInfoBuilder {
 	builder.link = link
@@ -25554,6 +26983,7 @@ func (builder *WebsiteChannelInfoBuilder) Link(link string) *WebsiteChannelInfoB
 }
 
 // 推广渠道推广码
+//
 // 示例值：A1KM6A5
 func (builder *WebsiteChannelInfoBuilder) Code(code string) *WebsiteChannelInfoBuilder {
 	builder.code = code
@@ -25609,6 +27039,7 @@ func NewWebsiteDeliveryBuilder() *WebsiteDeliveryBuilder {
 }
 
 // 职位广告 ID
+//
 // 示例值：6960663240925956636
 func (builder *WebsiteDeliveryBuilder) JobPostId(jobPostId string) *WebsiteDeliveryBuilder {
 	builder.jobPostId = jobPostId
@@ -25617,6 +27048,7 @@ func (builder *WebsiteDeliveryBuilder) JobPostId(jobPostId string) *WebsiteDeliv
 }
 
 // 人才信息
+//
 // 示例值：
 func (builder *WebsiteDeliveryBuilder) Resume(resume *WebsiteDeliveryResume) *WebsiteDeliveryBuilder {
 	builder.resume = resume
@@ -25625,6 +27057,7 @@ func (builder *WebsiteDeliveryBuilder) Resume(resume *WebsiteDeliveryResume) *We
 }
 
 // 官网用户 ID
+//
 // 示例值：6960663240925956634
 func (builder *WebsiteDeliveryBuilder) UserId(userId string) *WebsiteDeliveryBuilder {
 	builder.userId = userId
@@ -25633,6 +27066,7 @@ func (builder *WebsiteDeliveryBuilder) UserId(userId string) *WebsiteDeliveryBui
 }
 
 // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+//
 // 示例值：CT_11
 func (builder *WebsiteDeliveryBuilder) ApplicationPreferredCityCodeList(applicationPreferredCityCodeList []string) *WebsiteDeliveryBuilder {
 	builder.applicationPreferredCityCodeList = applicationPreferredCityCodeList
@@ -25641,6 +27075,7 @@ func (builder *WebsiteDeliveryBuilder) ApplicationPreferredCityCodeList(applicat
 }
 
 // 官网推广渠道 ID
+//
 // 示例值：6891560630172518670
 func (builder *WebsiteDeliveryBuilder) ChannelId(channelId string) *WebsiteDeliveryBuilder {
 	builder.channelId = channelId
@@ -25710,6 +27145,7 @@ func NewWebsiteDeliveryAttachmentBuilder() *WebsiteDeliveryAttachmentBuilder {
 }
 
 // 职位广告 ID
+//
 // 示例值：6960663240925956636
 func (builder *WebsiteDeliveryAttachmentBuilder) JobPostId(jobPostId string) *WebsiteDeliveryAttachmentBuilder {
 	builder.jobPostId = jobPostId
@@ -25718,6 +27154,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) JobPostId(jobPostId string) *We
 }
 
 // 官网用户 ID
+//
 // 示例值：6960663240925956634
 func (builder *WebsiteDeliveryAttachmentBuilder) UserId(userId string) *WebsiteDeliveryAttachmentBuilder {
 	builder.userId = userId
@@ -25726,6 +27163,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) UserId(userId string) *WebsiteD
 }
 
 // 简历文件 ID，使用「创建附件」生成
+//
 // 示例值：7095614894070434092
 func (builder *WebsiteDeliveryAttachmentBuilder) ResumeFileId(resumeFileId string) *WebsiteDeliveryAttachmentBuilder {
 	builder.resumeFileId = resumeFileId
@@ -25734,6 +27172,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) ResumeFileId(resumeFileId strin
 }
 
 // 官网推广渠道 ID
+//
 // 示例值：6891560630172518670
 func (builder *WebsiteDeliveryAttachmentBuilder) ChannelId(channelId string) *WebsiteDeliveryAttachmentBuilder {
 	builder.channelId = channelId
@@ -25742,6 +27181,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) ChannelId(channelId string) *We
 }
 
 // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+//
 // 示例值：CT_1
 func (builder *WebsiteDeliveryAttachmentBuilder) ApplicationPreferredCityCodeList(applicationPreferredCityCodeList []string) *WebsiteDeliveryAttachmentBuilder {
 	builder.applicationPreferredCityCodeList = applicationPreferredCityCodeList
@@ -25750,6 +27190,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) ApplicationPreferredCityCodeLis
 }
 
 // 电话国际区号，可从「获取地址码」查询（当该参数值与简历附件中的相关值不一致时，将以该参数值为准）
+//
 // 示例值：CN_1
 func (builder *WebsiteDeliveryAttachmentBuilder) MobileCountryCode(mobileCountryCode string) *WebsiteDeliveryAttachmentBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -25758,6 +27199,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) MobileCountryCode(mobileCountry
 }
 
 // 电话号码（当该参数值与简历附件中的相关值不一致时，将以该参数值为准）
+//
 // 示例值：182900291190
 func (builder *WebsiteDeliveryAttachmentBuilder) Mobile(mobile string) *WebsiteDeliveryAttachmentBuilder {
 	builder.mobile = mobile
@@ -25766,6 +27208,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) Mobile(mobile string) *WebsiteD
 }
 
 // 邮箱（当该参数值与简历附件中的相关值不一致时，将以该参数值为准）
+//
 // 示例值：foo@bytedance.com
 func (builder *WebsiteDeliveryAttachmentBuilder) Email(email string) *WebsiteDeliveryAttachmentBuilder {
 	builder.email = email
@@ -25774,6 +27217,7 @@ func (builder *WebsiteDeliveryAttachmentBuilder) Email(email string) *WebsiteDel
 }
 
 // 身份证件号码（当该参数值与简历附件中的相关值不一致时，将以该参数值为准）
+//
 // 示例值：
 func (builder *WebsiteDeliveryAttachmentBuilder) Identification(identification *WebsiteDeliveryAttachmentIndentification) *WebsiteDeliveryAttachmentBuilder {
 	builder.identification = identification
@@ -25838,6 +27282,7 @@ func NewWebsiteDeliveryAttachmentIndentificationBuilder() *WebsiteDeliveryAttach
 }
 
 // 身份证件类型
+//
 // 示例值：1
 func (builder *WebsiteDeliveryAttachmentIndentificationBuilder) IdentificationType(identificationType int) *WebsiteDeliveryAttachmentIndentificationBuilder {
 	builder.identificationType = identificationType
@@ -25846,6 +27291,7 @@ func (builder *WebsiteDeliveryAttachmentIndentificationBuilder) IdentificationTy
 }
 
 // 身份证件号
+//
 // 示例值：11002030131312312
 func (builder *WebsiteDeliveryAttachmentIndentificationBuilder) IdentificationNumber(identificationNumber string) *WebsiteDeliveryAttachmentIndentificationBuilder {
 	builder.identificationNumber = identificationNumber
@@ -25890,6 +27336,7 @@ func NewWebsiteDeliveryAwardBuilder() *WebsiteDeliveryAwardBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryAwardBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryAwardBuilder {
 	builder.customizedData = customizedData
@@ -25898,6 +27345,7 @@ func (builder *WebsiteDeliveryAwardBuilder) CustomizedData(customizedData []*Web
 }
 
 // 描述
+//
 // 示例值：ACM国际大学生程序设计竞赛
 func (builder *WebsiteDeliveryAwardBuilder) Desc(desc string) *WebsiteDeliveryAwardBuilder {
 	builder.desc = desc
@@ -25906,6 +27354,7 @@ func (builder *WebsiteDeliveryAwardBuilder) Desc(desc string) *WebsiteDeliveryAw
 }
 
 // 奖项名称
+//
 // 示例值：ACM 亚洲区金牌
 func (builder *WebsiteDeliveryAwardBuilder) Title(title string) *WebsiteDeliveryAwardBuilder {
 	builder.title = title
@@ -25914,6 +27363,7 @@ func (builder *WebsiteDeliveryAwardBuilder) Title(title string) *WebsiteDelivery
 }
 
 // 获奖时间
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryAwardBuilder) AwardTime(awardTime int) *WebsiteDeliveryAwardBuilder {
 	builder.awardTime = awardTime
@@ -26007,6 +27457,7 @@ func NewWebsiteDeliveryBasicInfoBuilder() *WebsiteDeliveryBasicInfoBuilder {
 }
 
 // 国籍，可从「获取地址码」查询
+//
 // 示例值：CN_112
 func (builder *WebsiteDeliveryBasicInfoBuilder) NationalityId(nationalityId string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.nationalityId = nationalityId
@@ -26015,6 +27466,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) NationalityId(nationalityId stri
 }
 
 // 起始工作时间
+//
 // 示例值：1625648596
 func (builder *WebsiteDeliveryBasicInfoBuilder) StartWorkTime(startWorkTime int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.startWorkTime = startWorkTime
@@ -26023,6 +27475,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) StartWorkTime(startWorkTime int)
 }
 
 // 家庭住址
+//
 // 示例值：成都
 func (builder *WebsiteDeliveryBasicInfoBuilder) CurrentHomeAddress(currentHomeAddress string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.currentHomeAddress = currentHomeAddress
@@ -26031,6 +27484,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) CurrentHomeAddress(currentHomeAd
 }
 
 // 家乡，可从「获取地址码」查询
+//
 // 示例值：CT_159
 func (builder *WebsiteDeliveryBasicInfoBuilder) HometownCityCode(hometownCityCode string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.hometownCityCode = hometownCityCode
@@ -26039,6 +27493,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) HometownCityCode(hometownCityCod
 }
 
 // 电话国际区号，可从「获取地址码」查询
+//
 // 示例值：CN_1
 func (builder *WebsiteDeliveryBasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -26047,6 +27502,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) MobileCountryCode(mobileCountryC
 }
 
 // 身份证件
+//
 // 示例值：
 func (builder *WebsiteDeliveryBasicInfoBuilder) Identification(identification *WebsiteDeliveryIdentification) *WebsiteDeliveryBasicInfoBuilder {
 	builder.identification = identification
@@ -26055,6 +27511,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Identification(identification *W
 }
 
 // 婚姻状况
+//
 // 示例值：1
 func (builder *WebsiteDeliveryBasicInfoBuilder) MaritalStatus(maritalStatus int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.maritalStatus = maritalStatus
@@ -26063,6 +27520,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) MaritalStatus(maritalStatus int)
 }
 
 // 电话
+//
 // 示例值：182900291190
 func (builder *WebsiteDeliveryBasicInfoBuilder) Mobile(mobile string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.mobile = mobile
@@ -26071,6 +27529,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Mobile(mobile string) *WebsiteDe
 }
 
 // 所在城市，可从「获取地址码」查询
+//
 // 示例值：CT_11
 func (builder *WebsiteDeliveryBasicInfoBuilder) CurrentCityCode(currentCityCode string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.currentCityCode = currentCityCode
@@ -26079,6 +27538,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) CurrentCityCode(currentCityCode 
 }
 
 // 工作年限
+//
 // 示例值：3
 func (builder *WebsiteDeliveryBasicInfoBuilder) ExperienceYears(experienceYears int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.experienceYears = experienceYears
@@ -26087,6 +27547,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) ExperienceYears(experienceYears 
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *WebsiteDeliveryBasicInfoBuilder) Gender(gender int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.gender = gender
@@ -26095,6 +27556,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Gender(gender int) *WebsiteDeliv
 }
 
 // 出生日期
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryBasicInfoBuilder) Birthday(birthday int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.birthday = birthday
@@ -26103,6 +27565,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Birthday(birthday int) *WebsiteD
 }
 
 // 姓名
+//
 // 示例值：张三
 func (builder *WebsiteDeliveryBasicInfoBuilder) Name(name string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.name = name
@@ -26111,6 +27574,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Name(name string) *WebsiteDelive
 }
 
 // 意向城市，可从「获取地址码」查询
+//
 // 示例值：意向城市
 func (builder *WebsiteDeliveryBasicInfoBuilder) PreferredCityCodeList(preferredCityCodeList []string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.preferredCityCodeList = preferredCityCodeList
@@ -26119,6 +27583,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) PreferredCityCodeList(preferredC
 }
 
 // 简历来源，可从「获取简历来源列表」查询
+//
 // 示例值：6982104077248219436
 func (builder *WebsiteDeliveryBasicInfoBuilder) ResumeSourceId(resumeSourceId string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.resumeSourceId = resumeSourceId
@@ -26127,6 +27592,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) ResumeSourceId(resumeSourceId st
 }
 
 // 年龄
+//
 // 示例值：25
 func (builder *WebsiteDeliveryBasicInfoBuilder) Age(age int) *WebsiteDeliveryBasicInfoBuilder {
 	builder.age = age
@@ -26135,6 +27601,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Age(age int) *WebsiteDeliveryBas
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryBasicInfoBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryBasicInfoBuilder {
 	builder.customizedData = customizedData
@@ -26143,6 +27610,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) CustomizedData(customizedData []
 }
 
 // 邮箱
+//
 // 示例值：foo@bytedance.com
 func (builder *WebsiteDeliveryBasicInfoBuilder) Email(email string) *WebsiteDeliveryBasicInfoBuilder {
 	builder.email = email
@@ -26254,6 +27722,7 @@ func NewWebsiteDeliveryCareerBuilder() *WebsiteDeliveryCareerBuilder {
 }
 
 // 描述
+//
 // 示例值：这是一家创业公司，非常不错
 func (builder *WebsiteDeliveryCareerBuilder) Desc(desc string) *WebsiteDeliveryCareerBuilder {
 	builder.desc = desc
@@ -26262,6 +27731,7 @@ func (builder *WebsiteDeliveryCareerBuilder) Desc(desc string) *WebsiteDeliveryC
 }
 
 // 结束时间, 如果是至今传值 -1
+//
 // 示例值：1618500278667
 func (builder *WebsiteDeliveryCareerBuilder) EndTime(endTime int) *WebsiteDeliveryCareerBuilder {
 	builder.endTime = endTime
@@ -26270,6 +27740,7 @@ func (builder *WebsiteDeliveryCareerBuilder) EndTime(endTime int) *WebsiteDelive
 }
 
 // 开始时间
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryCareerBuilder) StartTime(startTime int) *WebsiteDeliveryCareerBuilder {
 	builder.startTime = startTime
@@ -26278,6 +27749,7 @@ func (builder *WebsiteDeliveryCareerBuilder) StartTime(startTime int) *WebsiteDe
 }
 
 // 职位名称
+//
 // 示例值：后端研发实习生
 func (builder *WebsiteDeliveryCareerBuilder) Title(title string) *WebsiteDeliveryCareerBuilder {
 	builder.title = title
@@ -26286,6 +27758,7 @@ func (builder *WebsiteDeliveryCareerBuilder) Title(title string) *WebsiteDeliver
 }
 
 // 公司
+//
 // 示例值：字节跳动
 func (builder *WebsiteDeliveryCareerBuilder) Company(company string) *WebsiteDeliveryCareerBuilder {
 	builder.company = company
@@ -26294,6 +27767,7 @@ func (builder *WebsiteDeliveryCareerBuilder) Company(company string) *WebsiteDel
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryCareerBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryCareerBuilder {
 	builder.customizedData = customizedData
@@ -26350,6 +27824,7 @@ func NewWebsiteDeliveryCertificateBuilder() *WebsiteDeliveryCertificateBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryCertificateBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryCertificateBuilder {
 	builder.customizedData = customizedData
@@ -26358,6 +27833,7 @@ func (builder *WebsiteDeliveryCertificateBuilder) CustomizedData(customizedData 
 }
 
 // 描述
+//
 // 示例值：全国普通话级别认证
 func (builder *WebsiteDeliveryCertificateBuilder) Desc(desc string) *WebsiteDeliveryCertificateBuilder {
 	builder.desc = desc
@@ -26366,6 +27842,7 @@ func (builder *WebsiteDeliveryCertificateBuilder) Desc(desc string) *WebsiteDeli
 }
 
 // 证书名称
+//
 // 示例值：普通话证书
 func (builder *WebsiteDeliveryCertificateBuilder) Name(name string) *WebsiteDeliveryCertificateBuilder {
 	builder.name = name
@@ -26410,6 +27887,7 @@ func NewWebsiteDeliveryCompetitionBuilder() *WebsiteDeliveryCompetitionBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryCompetitionBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryCompetitionBuilder {
 	builder.customizedData = customizedData
@@ -26418,6 +27896,7 @@ func (builder *WebsiteDeliveryCompetitionBuilder) CustomizedData(customizedData 
 }
 
 // 竞赛描述
+//
 // 示例值：唱歌比赛
 func (builder *WebsiteDeliveryCompetitionBuilder) Desc(desc string) *WebsiteDeliveryCompetitionBuilder {
 	builder.desc = desc
@@ -26426,6 +27905,7 @@ func (builder *WebsiteDeliveryCompetitionBuilder) Desc(desc string) *WebsiteDeli
 }
 
 // 竞赛名称
+//
 // 示例值：青年歌手大赛
 func (builder *WebsiteDeliveryCompetitionBuilder) Name(name string) *WebsiteDeliveryCompetitionBuilder {
 	builder.name = name
@@ -26467,6 +27947,7 @@ func NewWebsiteDeliveryCustomizedDataBuilder() *WebsiteDeliveryCustomizedDataBui
 }
 
 // 自定义字段 ID
+//
 // 示例值：6960663240925956649
 func (builder *WebsiteDeliveryCustomizedDataBuilder) ObjectId(objectId string) *WebsiteDeliveryCustomizedDataBuilder {
 	builder.objectId = objectId
@@ -26475,6 +27956,7 @@ func (builder *WebsiteDeliveryCustomizedDataBuilder) ObjectId(objectId string) *
 }
 
 // 自定义字段 value，格式见接口说明
+//
 // 示例值：AA
 func (builder *WebsiteDeliveryCustomizedDataBuilder) Value(value string) *WebsiteDeliveryCustomizedDataBuilder {
 	builder.value = value
@@ -26513,6 +27995,7 @@ func NewWebsiteDeliveryCustomizedDataParentBuilder() *WebsiteDeliveryCustomizedD
 }
 
 // 自定义字段 ID
+//
 // 示例值：6960663240925956651
 func (builder *WebsiteDeliveryCustomizedDataParentBuilder) ObjectId(objectId string) *WebsiteDeliveryCustomizedDataParentBuilder {
 	builder.objectId = objectId
@@ -26521,6 +28004,7 @@ func (builder *WebsiteDeliveryCustomizedDataParentBuilder) ObjectId(objectId str
 }
 
 // 模块下的字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryCustomizedDataParentBuilder) Children(children []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryCustomizedDataParentBuilder {
 	builder.children = children
@@ -26573,6 +28057,7 @@ func NewWebsiteDeliveryDtoBuilder() *WebsiteDeliveryDtoBuilder {
 }
 
 // 投递 ID
+//
 // 示例值：6960663240925956657
 func (builder *WebsiteDeliveryDtoBuilder) ApplicationId(applicationId string) *WebsiteDeliveryDtoBuilder {
 	builder.applicationId = applicationId
@@ -26581,6 +28066,7 @@ func (builder *WebsiteDeliveryDtoBuilder) ApplicationId(applicationId string) *W
 }
 
 // ID
+//
 // 示例值：6960663240925956655
 func (builder *WebsiteDeliveryDtoBuilder) Id(id string) *WebsiteDeliveryDtoBuilder {
 	builder.id = id
@@ -26589,6 +28075,7 @@ func (builder *WebsiteDeliveryDtoBuilder) Id(id string) *WebsiteDeliveryDtoBuild
 }
 
 // 职位 ID
+//
 // 示例值：6960663240925956659
 func (builder *WebsiteDeliveryDtoBuilder) JobId(jobId string) *WebsiteDeliveryDtoBuilder {
 	builder.jobId = jobId
@@ -26597,6 +28084,7 @@ func (builder *WebsiteDeliveryDtoBuilder) JobId(jobId string) *WebsiteDeliveryDt
 }
 
 // 职位广告 ID
+//
 // 示例值：6960663240925956658
 func (builder *WebsiteDeliveryDtoBuilder) JobPostId(jobPostId string) *WebsiteDeliveryDtoBuilder {
 	builder.jobPostId = jobPostId
@@ -26605,6 +28093,7 @@ func (builder *WebsiteDeliveryDtoBuilder) JobPostId(jobPostId string) *WebsiteDe
 }
 
 // 官网简历 ID
+//
 // 示例值：6960663240925956660
 func (builder *WebsiteDeliveryDtoBuilder) PortalResumeId(portalResumeId string) *WebsiteDeliveryDtoBuilder {
 	builder.portalResumeId = portalResumeId
@@ -26613,6 +28102,7 @@ func (builder *WebsiteDeliveryDtoBuilder) PortalResumeId(portalResumeId string) 
 }
 
 // 官网用户 ID
+//
 // 示例值：6960663240925956656
 func (builder *WebsiteDeliveryDtoBuilder) UserId(userId string) *WebsiteDeliveryDtoBuilder {
 	builder.userId = userId
@@ -26621,6 +28111,7 @@ func (builder *WebsiteDeliveryDtoBuilder) UserId(userId string) *WebsiteDelivery
 }
 
 // 人才 ID
+//
 // 示例值：7095600054216542508
 func (builder *WebsiteDeliveryDtoBuilder) TalentId(talentId string) *WebsiteDeliveryDtoBuilder {
 	builder.talentId = talentId
@@ -26697,6 +28188,7 @@ func NewWebsiteDeliveryEducationBuilder() *WebsiteDeliveryEducationBuilder {
 }
 
 // 学历类型
+//
 // 示例值：1
 func (builder *WebsiteDeliveryEducationBuilder) EducationType(educationType int) *WebsiteDeliveryEducationBuilder {
 	builder.educationType = educationType
@@ -26705,6 +28197,7 @@ func (builder *WebsiteDeliveryEducationBuilder) EducationType(educationType int)
 }
 
 // 结束时间 ,如果是至今传值 -1
+//
 // 示例值：1618500278663
 func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int) *WebsiteDeliveryEducationBuilder {
 	builder.endTime = endTime
@@ -26713,6 +28206,7 @@ func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int) *WebsiteDel
 }
 
 // 专业
+//
 // 示例值：汉语言文学
 func (builder *WebsiteDeliveryEducationBuilder) FieldOfStudy(fieldOfStudy string) *WebsiteDeliveryEducationBuilder {
 	builder.fieldOfStudy = fieldOfStudy
@@ -26721,6 +28215,7 @@ func (builder *WebsiteDeliveryEducationBuilder) FieldOfStudy(fieldOfStudy string
 }
 
 // 学校
+//
 // 示例值：香港中文大学
 func (builder *WebsiteDeliveryEducationBuilder) School(school string) *WebsiteDeliveryEducationBuilder {
 	builder.school = school
@@ -26729,6 +28224,7 @@ func (builder *WebsiteDeliveryEducationBuilder) School(school string) *WebsiteDe
 }
 
 // 开始时间
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryEducationBuilder) StartTime(startTime int) *WebsiteDeliveryEducationBuilder {
 	builder.startTime = startTime
@@ -26737,6 +28233,7 @@ func (builder *WebsiteDeliveryEducationBuilder) StartTime(startTime int) *Websit
 }
 
 // 专业排名
+//
 // 示例值：5
 func (builder *WebsiteDeliveryEducationBuilder) AcademicRanking(academicRanking int) *WebsiteDeliveryEducationBuilder {
 	builder.academicRanking = academicRanking
@@ -26745,6 +28242,7 @@ func (builder *WebsiteDeliveryEducationBuilder) AcademicRanking(academicRanking 
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryEducationBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryEducationBuilder {
 	builder.customizedData = customizedData
@@ -26753,6 +28251,7 @@ func (builder *WebsiteDeliveryEducationBuilder) CustomizedData(customizedData []
 }
 
 // 学位
+//
 // 示例值：1
 func (builder *WebsiteDeliveryEducationBuilder) Degree(degree int) *WebsiteDeliveryEducationBuilder {
 	builder.degree = degree
@@ -26814,6 +28313,7 @@ func NewWebsiteDeliveryIdentificationBuilder() *WebsiteDeliveryIdentificationBui
 }
 
 // 身份证件号码
+//
 // 示例值：11002030131312312
 func (builder *WebsiteDeliveryIdentificationBuilder) IdentificationNumber(identificationNumber string) *WebsiteDeliveryIdentificationBuilder {
 	builder.identificationNumber = identificationNumber
@@ -26822,6 +28322,7 @@ func (builder *WebsiteDeliveryIdentificationBuilder) IdentificationNumber(identi
 }
 
 // 身份证件类型
+//
 // 示例值：1
 func (builder *WebsiteDeliveryIdentificationBuilder) IdentificationType(identificationType int) *WebsiteDeliveryIdentificationBuilder {
 	builder.identificationType = identificationType
@@ -26872,6 +28373,7 @@ func NewWebsiteDeliveryInternshipBuilder() *WebsiteDeliveryInternshipBuilder {
 }
 
 // 描述
+//
 // 示例值：这是一家创业公司，非常不错
 func (builder *WebsiteDeliveryInternshipBuilder) Desc(desc string) *WebsiteDeliveryInternshipBuilder {
 	builder.desc = desc
@@ -26880,6 +28382,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) Desc(desc string) *WebsiteDeliv
 }
 
 // 结束时间, 如果是至今传值 -1
+//
 // 示例值：1618500278667
 func (builder *WebsiteDeliveryInternshipBuilder) EndTime(endTime int) *WebsiteDeliveryInternshipBuilder {
 	builder.endTime = endTime
@@ -26888,6 +28391,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) EndTime(endTime int) *WebsiteDe
 }
 
 // 开始时间
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryInternshipBuilder) StartTime(startTime int) *WebsiteDeliveryInternshipBuilder {
 	builder.startTime = startTime
@@ -26896,6 +28400,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) StartTime(startTime int) *Websi
 }
 
 // 职位名称
+//
 // 示例值：后端研发实习生
 func (builder *WebsiteDeliveryInternshipBuilder) Title(title string) *WebsiteDeliveryInternshipBuilder {
 	builder.title = title
@@ -26904,6 +28409,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) Title(title string) *WebsiteDel
 }
 
 // 公司
+//
 // 示例值：字节跳动
 func (builder *WebsiteDeliveryInternshipBuilder) Company(company string) *WebsiteDeliveryInternshipBuilder {
 	builder.company = company
@@ -26912,6 +28418,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) Company(company string) *Websit
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryInternshipBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryInternshipBuilder {
 	builder.customizedData = customizedData
@@ -26968,6 +28475,7 @@ func NewWebsiteDeliveryLanguageBuilder() *WebsiteDeliveryLanguageBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryLanguageBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryLanguageBuilder {
 	builder.customizedData = customizedData
@@ -26976,6 +28484,7 @@ func (builder *WebsiteDeliveryLanguageBuilder) CustomizedData(customizedData []*
 }
 
 // 语言
+//
 // 示例值：1
 func (builder *WebsiteDeliveryLanguageBuilder) Language(language int) *WebsiteDeliveryLanguageBuilder {
 	builder.language = language
@@ -26984,6 +28493,7 @@ func (builder *WebsiteDeliveryLanguageBuilder) Language(language int) *WebsiteDe
 }
 
 // 熟悉程度
+//
 // 示例值：1
 func (builder *WebsiteDeliveryLanguageBuilder) Proficiency(proficiency int) *WebsiteDeliveryLanguageBuilder {
 	builder.proficiency = proficiency
@@ -27040,6 +28550,7 @@ func NewWebsiteDeliveryProjectBuilder() *WebsiteDeliveryProjectBuilder {
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryProjectBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryProjectBuilder {
 	builder.customizedData = customizedData
@@ -27048,6 +28559,7 @@ func (builder *WebsiteDeliveryProjectBuilder) CustomizedData(customizedData []*W
 }
 
 // 描述
+//
 // 示例值：项目描述：xxxx
 func (builder *WebsiteDeliveryProjectBuilder) Desc(desc string) *WebsiteDeliveryProjectBuilder {
 	builder.desc = desc
@@ -27056,6 +28568,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Desc(desc string) *WebsiteDelivery
 }
 
 // 结束时间, 如果是至今传值-1
+//
 // 示例值：1618500278669
 func (builder *WebsiteDeliveryProjectBuilder) EndTime(endTime int) *WebsiteDeliveryProjectBuilder {
 	builder.endTime = endTime
@@ -27064,6 +28577,7 @@ func (builder *WebsiteDeliveryProjectBuilder) EndTime(endTime int) *WebsiteDeliv
 }
 
 // 项目链接
+//
 // 示例值：www.toutiao.com
 func (builder *WebsiteDeliveryProjectBuilder) Link(link string) *WebsiteDeliveryProjectBuilder {
 	builder.link = link
@@ -27072,6 +28586,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Link(link string) *WebsiteDelivery
 }
 
 // 项目名称
+//
 // 示例值：XXX项目重构
 func (builder *WebsiteDeliveryProjectBuilder) Name(name string) *WebsiteDeliveryProjectBuilder {
 	builder.name = name
@@ -27080,6 +28595,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Name(name string) *WebsiteDelivery
 }
 
 // 角色
+//
 // 示例值：项目经理
 func (builder *WebsiteDeliveryProjectBuilder) Role(role string) *WebsiteDeliveryProjectBuilder {
 	builder.role = role
@@ -27088,6 +28604,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Role(role string) *WebsiteDelivery
 }
 
 // 开始时间
+//
 // 示例值：1609430400
 func (builder *WebsiteDeliveryProjectBuilder) StartTime(startTime int) *WebsiteDeliveryProjectBuilder {
 	builder.startTime = startTime
@@ -27175,6 +28692,7 @@ func NewWebsiteDeliveryResumeBuilder() *WebsiteDeliveryResumeBuilder {
 }
 
 // 实习经历
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) InternshipList(internshipList []*WebsiteDeliveryInternship) *WebsiteDeliveryResumeBuilder {
 	builder.internshipList = internshipList
@@ -27183,6 +28701,7 @@ func (builder *WebsiteDeliveryResumeBuilder) InternshipList(internshipList []*We
 }
 
 // 基本信息
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) BasicInfo(basicInfo *WebsiteDeliveryBasicInfo) *WebsiteDeliveryResumeBuilder {
 	builder.basicInfo = basicInfo
@@ -27191,6 +28710,7 @@ func (builder *WebsiteDeliveryResumeBuilder) BasicInfo(basicInfo *WebsiteDeliver
 }
 
 // 教育经历
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) EducationList(educationList []*WebsiteDeliveryEducation) *WebsiteDeliveryResumeBuilder {
 	builder.educationList = educationList
@@ -27199,6 +28719,7 @@ func (builder *WebsiteDeliveryResumeBuilder) EducationList(educationList []*Webs
 }
 
 // 自我评价
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) SelfEvaluation(selfEvaluation *WebsiteDeliverySelfEvaluation) *WebsiteDeliveryResumeBuilder {
 	builder.selfEvaluation = selfEvaluation
@@ -27207,6 +28728,7 @@ func (builder *WebsiteDeliveryResumeBuilder) SelfEvaluation(selfEvaluation *Webs
 }
 
 // 工作经历
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) CareerList(careerList []*WebsiteDeliveryCareer) *WebsiteDeliveryResumeBuilder {
 	builder.careerList = careerList
@@ -27215,6 +28737,7 @@ func (builder *WebsiteDeliveryResumeBuilder) CareerList(careerList []*WebsiteDel
 }
 
 // 自定义模块
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedDataParent) *WebsiteDeliveryResumeBuilder {
 	builder.customizedData = customizedData
@@ -27223,6 +28746,7 @@ func (builder *WebsiteDeliveryResumeBuilder) CustomizedData(customizedData []*We
 }
 
 // 简历附件ID，使用「创建附件」生成
+//
 // 示例值：6960663240925956654
 func (builder *WebsiteDeliveryResumeBuilder) ResumeAttachmentId(resumeAttachmentId string) *WebsiteDeliveryResumeBuilder {
 	builder.resumeAttachmentId = resumeAttachmentId
@@ -27231,6 +28755,7 @@ func (builder *WebsiteDeliveryResumeBuilder) ResumeAttachmentId(resumeAttachment
 }
 
 // 社交账号
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) SnsList(snsList []*WebsiteDeliverySns) *WebsiteDeliveryResumeBuilder {
 	builder.snsList = snsList
@@ -27239,6 +28764,7 @@ func (builder *WebsiteDeliveryResumeBuilder) SnsList(snsList []*WebsiteDeliveryS
 }
 
 // 作品
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) WorksList(worksList []*WebsiteDeliveryWorks) *WebsiteDeliveryResumeBuilder {
 	builder.worksList = worksList
@@ -27247,6 +28773,7 @@ func (builder *WebsiteDeliveryResumeBuilder) WorksList(worksList []*WebsiteDeliv
 }
 
 // 获奖记录
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) AwardList(awardList []*WebsiteDeliveryAward) *WebsiteDeliveryResumeBuilder {
 	builder.awardList = awardList
@@ -27255,6 +28782,7 @@ func (builder *WebsiteDeliveryResumeBuilder) AwardList(awardList []*WebsiteDeliv
 }
 
 // 项目经历
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) ProjectList(projectList []*WebsiteDeliveryProject) *WebsiteDeliveryResumeBuilder {
 	builder.projectList = projectList
@@ -27263,6 +28791,7 @@ func (builder *WebsiteDeliveryResumeBuilder) ProjectList(projectList []*WebsiteD
 }
 
 // 语言能力
+//
 // 示例值：
 func (builder *WebsiteDeliveryResumeBuilder) LanguageList(languageList []*WebsiteDeliveryLanguage) *WebsiteDeliveryResumeBuilder {
 	builder.languageList = languageList
@@ -27330,6 +28859,7 @@ func NewWebsiteDeliverySelfEvaluationBuilder() *WebsiteDeliverySelfEvaluationBui
 }
 
 // 内容
+//
 // 示例值：自我评价：平常心
 func (builder *WebsiteDeliverySelfEvaluationBuilder) Content(content string) *WebsiteDeliverySelfEvaluationBuilder {
 	builder.content = content
@@ -27338,6 +28868,7 @@ func (builder *WebsiteDeliverySelfEvaluationBuilder) Content(content string) *We
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliverySelfEvaluationBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliverySelfEvaluationBuilder {
 	builder.customizedData = customizedData
@@ -27378,6 +28909,7 @@ func NewWebsiteDeliverySnsBuilder() *WebsiteDeliverySnsBuilder {
 }
 
 // 社交账号类型
+//
 // 示例值：1
 func (builder *WebsiteDeliverySnsBuilder) SnsType(snsType int) *WebsiteDeliverySnsBuilder {
 	builder.snsType = snsType
@@ -27386,6 +28918,7 @@ func (builder *WebsiteDeliverySnsBuilder) SnsType(snsType int) *WebsiteDeliveryS
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliverySnsBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliverySnsBuilder {
 	builder.customizedData = customizedData
@@ -27394,6 +28927,7 @@ func (builder *WebsiteDeliverySnsBuilder) CustomizedData(customizedData []*Websi
 }
 
 // 链接
+//
 // 示例值：toutiao.com
 func (builder *WebsiteDeliverySnsBuilder) Link(link string) *WebsiteDeliverySnsBuilder {
 	builder.link = link
@@ -27441,6 +28975,7 @@ func NewWebsiteDeliveryWorksBuilder() *WebsiteDeliveryWorksBuilder {
 }
 
 // 作品描述
+//
 // 示例值：作品描述：xxxx
 func (builder *WebsiteDeliveryWorksBuilder) Desc(desc string) *WebsiteDeliveryWorksBuilder {
 	builder.desc = desc
@@ -27449,6 +28984,7 @@ func (builder *WebsiteDeliveryWorksBuilder) Desc(desc string) *WebsiteDeliveryWo
 }
 
 // 作品链接
+//
 // 示例值：www.toutiao.com
 func (builder *WebsiteDeliveryWorksBuilder) Link(link string) *WebsiteDeliveryWorksBuilder {
 	builder.link = link
@@ -27457,6 +28993,7 @@ func (builder *WebsiteDeliveryWorksBuilder) Link(link string) *WebsiteDeliveryWo
 }
 
 // 附件
+//
 // 示例值：
 func (builder *WebsiteDeliveryWorksBuilder) Attachment(attachment *WebsiteDeliveryWorksAttachment) *WebsiteDeliveryWorksBuilder {
 	builder.attachment = attachment
@@ -27465,6 +29002,7 @@ func (builder *WebsiteDeliveryWorksBuilder) Attachment(attachment *WebsiteDelive
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteDeliveryWorksBuilder) CustomizedData(customizedData []*WebsiteDeliveryCustomizedData) *WebsiteDeliveryWorksBuilder {
 	builder.customizedData = customizedData
@@ -27506,6 +29044,7 @@ func NewWebsiteDeliveryWorksAttachmentBuilder() *WebsiteDeliveryWorksAttachmentB
 }
 
 // 文件ID，使用「创建附件」生成
+//
 // 示例值：6982104077248219436
 func (builder *WebsiteDeliveryWorksAttachmentBuilder) FileId(fileId string) *WebsiteDeliveryWorksAttachmentBuilder {
 	builder.fileId = fileId
@@ -27615,6 +29154,7 @@ func NewWebsiteJobPostBuilder() *WebsiteJobPostBuilder {
 }
 
 // 职位广告 ID
+//
 // 示例值：1213213123123
 func (builder *WebsiteJobPostBuilder) Id(id string) *WebsiteJobPostBuilder {
 	builder.id = id
@@ -27623,6 +29163,7 @@ func (builder *WebsiteJobPostBuilder) Id(id string) *WebsiteJobPostBuilder {
 }
 
 // 标题
+//
 // 示例值：测试
 func (builder *WebsiteJobPostBuilder) Title(title string) *WebsiteJobPostBuilder {
 	builder.title = title
@@ -27631,6 +29172,7 @@ func (builder *WebsiteJobPostBuilder) Title(title string) *WebsiteJobPostBuilder
 }
 
 // 职位 ID
+//
 // 示例值：xxx
 func (builder *WebsiteJobPostBuilder) JobId(jobId string) *WebsiteJobPostBuilder {
 	builder.jobId = jobId
@@ -27639,6 +29181,7 @@ func (builder *WebsiteJobPostBuilder) JobId(jobId string) *WebsiteJobPostBuilder
 }
 
 // 职位编码
+//
 // 示例值：007
 func (builder *WebsiteJobPostBuilder) JobCode(jobCode string) *WebsiteJobPostBuilder {
 	builder.jobCode = jobCode
@@ -27647,6 +29190,7 @@ func (builder *WebsiteJobPostBuilder) JobCode(jobCode string) *WebsiteJobPostBui
 }
 
 // 职位过期时间，「null」代表「长期有效」
+//
 // 示例值：1111
 func (builder *WebsiteJobPostBuilder) JobExpireTime(jobExpireTime string) *WebsiteJobPostBuilder {
 	builder.jobExpireTime = jobExpireTime
@@ -27655,6 +29199,7 @@ func (builder *WebsiteJobPostBuilder) JobExpireTime(jobExpireTime string) *Websi
 }
 
 // 职位状态
+//
 // 示例值：1
 func (builder *WebsiteJobPostBuilder) JobActiveStatus(jobActiveStatus int) *WebsiteJobPostBuilder {
 	builder.jobActiveStatus = jobActiveStatus
@@ -27663,6 +29208,7 @@ func (builder *WebsiteJobPostBuilder) JobActiveStatus(jobActiveStatus int) *Webs
 }
 
 // 职位流程类型
+//
 // 示例值：1
 func (builder *WebsiteJobPostBuilder) JobProcessType(jobProcessType int) *WebsiteJobPostBuilder {
 	builder.jobProcessType = jobProcessType
@@ -27671,6 +29217,7 @@ func (builder *WebsiteJobPostBuilder) JobProcessType(jobProcessType int) *Websit
 }
 
 // 职位雇佣类型
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) JobRecruitmentType(jobRecruitmentType *IdNameObject) *WebsiteJobPostBuilder {
 	builder.jobRecruitmentType = jobRecruitmentType
@@ -27679,6 +29226,7 @@ func (builder *WebsiteJobPostBuilder) JobRecruitmentType(jobRecruitmentType *IdN
 }
 
 // 职位部门
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) JobDepartment(jobDepartment *IdNameObject) *WebsiteJobPostBuilder {
 	builder.jobDepartment = jobDepartment
@@ -27687,6 +29235,7 @@ func (builder *WebsiteJobPostBuilder) JobDepartment(jobDepartment *IdNameObject)
 }
 
 // 职位类型
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) JobType(jobType *IdNameObject) *WebsiteJobPostBuilder {
 	builder.jobType = jobType
@@ -27695,6 +29244,7 @@ func (builder *WebsiteJobPostBuilder) JobType(jobType *IdNameObject) *WebsiteJob
 }
 
 // 职位地址
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) Address(address *CommonAddress) *WebsiteJobPostBuilder {
 	builder.address = address
@@ -27703,6 +29253,7 @@ func (builder *WebsiteJobPostBuilder) Address(address *CommonAddress) *WebsiteJo
 }
 
 // 月薪范围-最低薪资
+//
 // 示例值：5000
 func (builder *WebsiteJobPostBuilder) MinSalary(minSalary string) *WebsiteJobPostBuilder {
 	builder.minSalary = minSalary
@@ -27711,6 +29262,7 @@ func (builder *WebsiteJobPostBuilder) MinSalary(minSalary string) *WebsiteJobPos
 }
 
 // 月薪范围-最高薪资
+//
 // 示例值：10000
 func (builder *WebsiteJobPostBuilder) MaxSalary(maxSalary string) *WebsiteJobPostBuilder {
 	builder.maxSalary = maxSalary
@@ -27719,6 +29271,7 @@ func (builder *WebsiteJobPostBuilder) MaxSalary(maxSalary string) *WebsiteJobPos
 }
 
 // 学历要求
+//
 // 示例值：1
 func (builder *WebsiteJobPostBuilder) RequiredDegree(requiredDegree int) *WebsiteJobPostBuilder {
 	builder.requiredDegree = requiredDegree
@@ -27727,6 +29280,7 @@ func (builder *WebsiteJobPostBuilder) RequiredDegree(requiredDegree int) *Websit
 }
 
 // 经验
+//
 // 示例值：1
 func (builder *WebsiteJobPostBuilder) Experience(experience int) *WebsiteJobPostBuilder {
 	builder.experience = experience
@@ -27735,6 +29289,7 @@ func (builder *WebsiteJobPostBuilder) Experience(experience int) *WebsiteJobPost
 }
 
 // 数量
+//
 // 示例值：12
 func (builder *WebsiteJobPostBuilder) Headcount(headcount int) *WebsiteJobPostBuilder {
 	builder.headcount = headcount
@@ -27743,6 +29298,7 @@ func (builder *WebsiteJobPostBuilder) Headcount(headcount int) *WebsiteJobPostBu
 }
 
 // 职位亮点
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) HighLightList(highLightList []*IdNameObject) *WebsiteJobPostBuilder {
 	builder.highLightList = highLightList
@@ -27751,6 +29307,7 @@ func (builder *WebsiteJobPostBuilder) HighLightList(highLightList []*IdNameObjec
 }
 
 // 职位描述
+//
 // 示例值：负责软件开发
 func (builder *WebsiteJobPostBuilder) Description(description string) *WebsiteJobPostBuilder {
 	builder.description = description
@@ -27759,6 +29316,7 @@ func (builder *WebsiteJobPostBuilder) Description(description string) *WebsiteJo
 }
 
 // 职位要求
+//
 // 示例值：大专
 func (builder *WebsiteJobPostBuilder) Requirement(requirement string) *WebsiteJobPostBuilder {
 	builder.requirement = requirement
@@ -27767,6 +29325,7 @@ func (builder *WebsiteJobPostBuilder) Requirement(requirement string) *WebsiteJo
 }
 
 // 创建人
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) Creator(creator *IdNameObject) *WebsiteJobPostBuilder {
 	builder.creator = creator
@@ -27775,6 +29334,7 @@ func (builder *WebsiteJobPostBuilder) Creator(creator *IdNameObject) *WebsiteJob
 }
 
 // 创建时间
+//
 // 示例值：1111
 func (builder *WebsiteJobPostBuilder) CreateTime(createTime string) *WebsiteJobPostBuilder {
 	builder.createTime = createTime
@@ -27783,6 +29343,7 @@ func (builder *WebsiteJobPostBuilder) CreateTime(createTime string) *WebsiteJobP
 }
 
 // 修改时间
+//
 // 示例值：222
 func (builder *WebsiteJobPostBuilder) ModifyTime(modifyTime string) *WebsiteJobPostBuilder {
 	builder.modifyTime = modifyTime
@@ -27791,6 +29352,7 @@ func (builder *WebsiteJobPostBuilder) ModifyTime(modifyTime string) *WebsiteJobP
 }
 
 // 发布时间
+//
 // 示例值：333
 func (builder *WebsiteJobPostBuilder) PublishTime(publishTime string) *WebsiteJobPostBuilder {
 	builder.publishTime = publishTime
@@ -27799,6 +29361,7 @@ func (builder *WebsiteJobPostBuilder) PublishTime(publishTime string) *WebsiteJo
 }
 
 // 自定义字段
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) CustomizedDataList(customizedDataList []*WebsiteJobPostCustomizedData) *WebsiteJobPostBuilder {
 	builder.customizedDataList = customizedDataList
@@ -27807,6 +29370,7 @@ func (builder *WebsiteJobPostBuilder) CustomizedDataList(customizedDataList []*W
 }
 
 // 职能分类
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) JobFunction(jobFunction *IdNameObject) *WebsiteJobPostBuilder {
 	builder.jobFunction = jobFunction
@@ -27815,6 +29379,7 @@ func (builder *WebsiteJobPostBuilder) JobFunction(jobFunction *IdNameObject) *We
 }
 
 // 职位项目
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) Subject(subject *IdNameObject) *WebsiteJobPostBuilder {
 	builder.subject = subject
@@ -27823,6 +29388,7 @@ func (builder *WebsiteJobPostBuilder) Subject(subject *IdNameObject) *WebsiteJob
 }
 
 // 职位广告地址列表
+//
 // 示例值：
 func (builder *WebsiteJobPostBuilder) AddressList(addressList []*CommonAddress) *WebsiteJobPostBuilder {
 	builder.addressList = addressList
@@ -27957,6 +29523,7 @@ func NewWebsiteJobPostCustomizedDataBuilder() *WebsiteJobPostCustomizedDataBuild
 }
 
 // 自定义字段 ID
+//
 // 示例值：xxxx
 func (builder *WebsiteJobPostCustomizedDataBuilder) ObjectId(objectId string) *WebsiteJobPostCustomizedDataBuilder {
 	builder.objectId = objectId
@@ -27965,6 +29532,7 @@ func (builder *WebsiteJobPostCustomizedDataBuilder) ObjectId(objectId string) *W
 }
 
 // 字段名称
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedDataBuilder) Name(name *I18n) *WebsiteJobPostCustomizedDataBuilder {
 	builder.name = name
@@ -27973,6 +29541,7 @@ func (builder *WebsiteJobPostCustomizedDataBuilder) Name(name *I18n) *WebsiteJob
 }
 
 // 字段类型
+//
 // 示例值：1
 func (builder *WebsiteJobPostCustomizedDataBuilder) ObjectType(objectType int) *WebsiteJobPostCustomizedDataBuilder {
 	builder.objectType = objectType
@@ -27981,6 +29550,7 @@ func (builder *WebsiteJobPostCustomizedDataBuilder) ObjectType(objectType int) *
 }
 
 // 自定义字段值
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedDataBuilder) Value(value *WebsiteJobPostCustomizedValue) *WebsiteJobPostCustomizedDataBuilder {
 	builder.value = value
@@ -28025,6 +29595,7 @@ func NewWebsiteJobPostCustomizedOptionBuilder() *WebsiteJobPostCustomizedOptionB
 }
 
 // 选项 ID
+//
 // 示例值：AA
 func (builder *WebsiteJobPostCustomizedOptionBuilder) Key(key string) *WebsiteJobPostCustomizedOptionBuilder {
 	builder.key = key
@@ -28033,6 +29604,7 @@ func (builder *WebsiteJobPostCustomizedOptionBuilder) Key(key string) *WebsiteJo
 }
 
 // 选项名称
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedOptionBuilder) Name(name *I18n) *WebsiteJobPostCustomizedOptionBuilder {
 	builder.name = name
@@ -28070,6 +29642,7 @@ func NewWebsiteJobPostCustomizedTimeRangeBuilder() *WebsiteJobPostCustomizedTime
 }
 
 // 开始时间
+//
 // 示例值：AA
 func (builder *WebsiteJobPostCustomizedTimeRangeBuilder) StartTime(startTime string) *WebsiteJobPostCustomizedTimeRangeBuilder {
 	builder.startTime = startTime
@@ -28078,6 +29651,7 @@ func (builder *WebsiteJobPostCustomizedTimeRangeBuilder) StartTime(startTime str
 }
 
 // 结束时间
+//
 // 示例值：AA
 func (builder *WebsiteJobPostCustomizedTimeRangeBuilder) EndTime(endTime string) *WebsiteJobPostCustomizedTimeRangeBuilder {
 	builder.endTime = endTime
@@ -28128,6 +29702,7 @@ func NewWebsiteJobPostCustomizedValueBuilder() *WebsiteJobPostCustomizedValueBui
 }
 
 // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+//
 // 示例值：text
 func (builder *WebsiteJobPostCustomizedValueBuilder) Content(content string) *WebsiteJobPostCustomizedValueBuilder {
 	builder.content = content
@@ -28136,6 +29711,7 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) Content(content string) *We
 }
 
 // 当字段类型为单选时，从此字段取值
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedValueBuilder) Option(option *WebsiteJobPostCustomizedOption) *WebsiteJobPostCustomizedValueBuilder {
 	builder.option = option
@@ -28144,6 +29720,7 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) Option(option *WebsiteJobPo
 }
 
 // 当字段类型为多选时，从此字段取值
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedValueBuilder) OptionList(optionList []*WebsiteJobPostCustomizedOption) *WebsiteJobPostCustomizedValueBuilder {
 	builder.optionList = optionList
@@ -28152,6 +29729,7 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) OptionList(optionList []*We
 }
 
 // 当字段类型为时间段时，从此字段取值
+//
 // 示例值：
 func (builder *WebsiteJobPostCustomizedValueBuilder) TimeRange(timeRange *WebsiteJobPostCustomizedTimeRange) *WebsiteJobPostCustomizedValueBuilder {
 	builder.timeRange = timeRange
@@ -28160,6 +29738,7 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) TimeRange(timeRange *Websit
 }
 
 // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是毫秒级时间戳
+//
 // 示例值：1625456721000
 func (builder *WebsiteJobPostCustomizedValueBuilder) Time(time string) *WebsiteJobPostCustomizedValueBuilder {
 	builder.time = time
@@ -28168,6 +29747,7 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) Time(time string) *WebsiteJ
 }
 
 // 当字段类型为数字时，从此字段取值
+//
 // 示例值：111
 func (builder *WebsiteJobPostCustomizedValueBuilder) Number(number string) *WebsiteJobPostCustomizedValueBuilder {
 	builder.number = number
@@ -28231,6 +29811,7 @@ func NewWebsiteUserBuilder() *WebsiteUserBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：6960663240925956620
 func (builder *WebsiteUserBuilder) Id(id string) *WebsiteUserBuilder {
 	builder.id = id
@@ -28239,6 +29820,7 @@ func (builder *WebsiteUserBuilder) Id(id string) *WebsiteUserBuilder {
 }
 
 // 姓名
+//
 // 示例值：dan27
 func (builder *WebsiteUserBuilder) Name(name string) *WebsiteUserBuilder {
 	builder.name = name
@@ -28247,6 +29829,7 @@ func (builder *WebsiteUserBuilder) Name(name string) *WebsiteUserBuilder {
 }
 
 // 邮箱
+//
 // 示例值：dan27@163.com
 func (builder *WebsiteUserBuilder) Email(email string) *WebsiteUserBuilder {
 	builder.email = email
@@ -28255,6 +29838,7 @@ func (builder *WebsiteUserBuilder) Email(email string) *WebsiteUserBuilder {
 }
 
 // 外部用户 ID
+//
 // 示例值：6960663240925956621
 func (builder *WebsiteUserBuilder) ExternalId(externalId string) *WebsiteUserBuilder {
 	builder.externalId = externalId
@@ -28263,6 +29847,7 @@ func (builder *WebsiteUserBuilder) ExternalId(externalId string) *WebsiteUserBui
 }
 
 // 电话，请和区号对应的国家码一并提供
+//
 // 示例值：182900291190
 func (builder *WebsiteUserBuilder) Mobile(mobile string) *WebsiteUserBuilder {
 	builder.mobile = mobile
@@ -28271,6 +29856,7 @@ func (builder *WebsiteUserBuilder) Mobile(mobile string) *WebsiteUserBuilder {
 }
 
 // 国家码，请和电话一并提供，可从「获取地址码」查询
+//
 // 示例值：CN_1
 func (builder *WebsiteUserBuilder) MobileCountryCode(mobileCountryCode string) *WebsiteUserBuilder {
 	builder.mobileCountryCode = mobileCountryCode
@@ -28328,6 +29914,7 @@ func NewWorksInfoBuilder() *WorksInfoBuilder {
 }
 
 // 作品集附件ID
+//
 // 示例值：
 func (builder *WorksInfoBuilder) AttachmentId(attachmentId string) *WorksInfoBuilder {
 	builder.attachmentId = attachmentId
@@ -28336,6 +29923,7 @@ func (builder *WorksInfoBuilder) AttachmentId(attachmentId string) *WorksInfoBui
 }
 
 // 作品描述
+//
 // 示例值：
 func (builder *WorksInfoBuilder) Desc(desc string) *WorksInfoBuilder {
 	builder.desc = desc
@@ -28344,6 +29932,7 @@ func (builder *WorksInfoBuilder) Desc(desc string) *WorksInfoBuilder {
 }
 
 // 作品链接
+//
 // 示例值：
 func (builder *WorksInfoBuilder) Link(link string) *WorksInfoBuilder {
 	builder.link = link

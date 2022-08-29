@@ -43,7 +43,7 @@ type tenant struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/tenantv2//query_tenant.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/tenantv2/query_tenant.go
 func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFunc) (*QueryTenantResp, error) {
 	// 发起请求
 	apiReq := &larkcore.ApiReq{

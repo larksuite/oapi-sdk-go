@@ -61,7 +61,7 @@ type userOkr struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/image/upload
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//upload_image.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/upload_image.go
 func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...larkcore.RequestOptionFunc) (*UploadImageResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
@@ -90,7 +90,7 @@ func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//batchGet_okr.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchGet_okr.go
 func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...larkcore.RequestOptionFunc) (*BatchGetOkrResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -118,7 +118,7 @@ func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...lark
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//list_period.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_period.go
 func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkcore.RequestOptionFunc) (*ListPeriodResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -144,7 +144,7 @@ func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkco
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//create_progressRecord.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/create_progressRecord.go
 func (p *progressRecord) Create(ctx context.Context, req *CreateProgressRecordReq, options ...larkcore.RequestOptionFunc) (*CreateProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -170,7 +170,7 @@ func (p *progressRecord) Create(ctx context.Context, req *CreateProgressRecordRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//delete_progressRecord.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/delete_progressRecord.go
 func (p *progressRecord) Delete(ctx context.Context, req *DeleteProgressRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -196,7 +196,7 @@ func (p *progressRecord) Delete(ctx context.Context, req *DeleteProgressRecordRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//get_progressRecord.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_progressRecord.go
 func (p *progressRecord) Get(ctx context.Context, req *GetProgressRecordReq, options ...larkcore.RequestOptionFunc) (*GetProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -222,7 +222,7 @@ func (p *progressRecord) Get(ctx context.Context, req *GetProgressRecordReq, opt
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//update_progressRecord.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/update_progressRecord.go
 func (p *progressRecord) Update(ctx context.Context, req *UpdateProgressRecordReq, options ...larkcore.RequestOptionFunc) (*UpdateProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -250,7 +250,7 @@ func (p *progressRecord) Update(ctx context.Context, req *UpdateProgressRecordRe
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1//list_userOkr.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_userOkr.go
 func (u *userOkr) List(ctx context.Context, req *ListUserOkrReq, options ...larkcore.RequestOptionFunc) (*ListUserOkrResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

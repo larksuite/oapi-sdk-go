@@ -32,6 +32,7 @@ func NewEventTimeBuilder() *EventTimeBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder {
 	builder.timeStamp = timeStamp
@@ -63,6 +64,7 @@ func NewMeetingRoomBuilder() *MeetingRoomBuilder {
 }
 
 // your description here
+//
 // 示例值：
 func (builder *MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder {
 	builder.roomId = roomId
@@ -97,6 +99,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	builder.openId = openId
@@ -105,6 +108,7 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 }
 
 // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+//
 // 示例值：
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 	builder.userId = userId

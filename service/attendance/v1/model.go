@@ -38,17 +38,17 @@ const (
 )
 
 const (
-	EmployeeTypeGroupGetEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeGroupGetEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeGetGroupEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeGetGroupEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	DeptTypeGroupGetOpenId = "open_id" // 开放openID
+	DeptTypeGetGroupOpenId = "open_id" // 开放openID
 )
 
 const (
-	EmployeeTypeUserApprovalCreateEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserApprovalCreateEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeCreateUserApprovalEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeCreateUserApprovalEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
@@ -66,44 +66,44 @@ const (
 )
 
 const (
-	EmployeeTypeUserApprovalQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserApprovalQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserApprovalEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserApprovalEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserDailyShiftBatchCreateEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserDailyShiftBatchCreateEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeBatchCreateUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeBatchCreateUserDailyShiftEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserDailyShiftQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserDailyShiftQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserDailyShiftEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserFlowBatchCreateEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserFlowBatchCreateEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeBatchCreateUserFlowEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeBatchCreateUserFlowEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserFlowGetOpenId     = "open_id"     // 开放openID
-	EmployeeTypeUserFlowGetEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserFlowGetEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeGetUserFlowOpenId     = "open_id"     // 开放openID
+	EmployeeTypeGetUserFlowEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeGetUserFlowEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserFlowQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserFlowQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserFlowEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserFlowEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserSettingModifyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserSettingModifyEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeModifyUserSettingEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeModifyUserSettingEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserSettingQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserSettingQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserSettingEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserSettingEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
@@ -118,60 +118,60 @@ const (
 )
 
 const (
-	EmployeeTypeUserStatsDataQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserStatsDataQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserStatsDataEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserStatsDataEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleUserStatsFieldQueryEn = "en" // 英文
-	LocaleUserStatsFieldQueryJa = "ja" // 日文
-	LocaleUserStatsFieldQueryZh = "zh" // 中文
+	LocaleQueryUserStatsFieldEn = "en" // 英文
+	LocaleQueryUserStatsFieldJa = "ja" // 日文
+	LocaleQueryUserStatsFieldZh = "zh" // 中文
 )
 
 const (
-	StatsTypeUserStatsFieldQueryDaily = "daily" // 日度统计
-	StatsTypeUserStatsFieldQueryMonth = "month" // 月度统计
+	StatsTypeQueryUserStatsFieldDaily = "daily" // 日度统计
+	StatsTypeQueryUserStatsFieldMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeUserStatsFieldQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserStatsFieldQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserStatsFieldEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserStatsFieldEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleUserStatsViewQueryEn = "en" // 英文
-	LocaleUserStatsViewQueryJa = "ja" // 日文
-	LocaleUserStatsViewQueryZh = "zh" // 中文
+	LocaleQueryUserStatsViewEn = "en" // 英文
+	LocaleQueryUserStatsViewJa = "ja" // 日文
+	LocaleQueryUserStatsViewZh = "zh" // 中文
 )
 
 const (
-	StatsTypeUserStatsViewQueryDaily = "daily" // 日度统计
-	StatsTypeUserStatsViewQueryMonth = "month" // 月度统计
+	StatsTypeQueryUserStatsViewDaily = "daily" // 日度统计
+	StatsTypeQueryUserStatsViewMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeUserStatsViewQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserStatsViewQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserStatsViewEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserStatsViewEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserStatsViewUpdateEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserStatsViewUpdateEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeUpdateUserStatsViewEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeUpdateUserStatsViewEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserTaskQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserTaskQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserTaskEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserTaskEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserTaskRemedyCreateEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserTaskRemedyCreateEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeCreateUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeCreateUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	CheckDateTypeUserTaskRemedyQueryPeriodTime = "PeriodTime" // 单据作用时间（即remedy_time）
-	CheckDateTypeUserTaskRemedyQueryCreateTime = "CreateTime" // 单据创建时间
+	CheckDateTypeQueryUserTaskRemedyPeriodTime = "PeriodTime" // 单据作用时间（即remedy_time）
+	CheckDateTypeQueryUserTaskRemedyCreateTime = "CreateTime" // 单据创建时间
 )
 
 const (
@@ -184,13 +184,13 @@ const (
 )
 
 const (
-	EmployeeTypeUserTaskRemedyQueryEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserTaskRemedyQueryEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUserTaskRemedyQueryUserAllowedRemedysEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUserTaskRemedyQueryUserAllowedRemedysEmployeeNo = "employee_no" // 员工工号
+	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
+	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
 )
 
 type ApprovalInfo struct {
@@ -214,6 +214,7 @@ func NewApprovalInfoBuilder() *ApprovalInfoBuilder {
 }
 
 // 审批实例 ID
+//
 // 示例值：6737202939523236113
 func (builder *ApprovalInfoBuilder) ApprovalId(approvalId string) *ApprovalInfoBuilder {
 	builder.approvalId = approvalId
@@ -222,6 +223,7 @@ func (builder *ApprovalInfoBuilder) ApprovalId(approvalId string) *ApprovalInfoB
 }
 
 // 审批类型
+//
 // 示例值：remedy
 func (builder *ApprovalInfoBuilder) ApprovalType(approvalType string) *ApprovalInfoBuilder {
 	builder.approvalType = approvalType
@@ -230,6 +232,7 @@ func (builder *ApprovalInfoBuilder) ApprovalType(approvalType string) *ApprovalI
 }
 
 // 审批状态
+//
 // 示例值：0
 func (builder *ApprovalInfoBuilder) Status(status int) *ApprovalInfoBuilder {
 	builder.status = status
@@ -278,6 +281,7 @@ func NewAreaBuilder() *AreaBuilder {
 }
 
 // 区域类型
+//
 // 示例值：
 func (builder *AreaBuilder) Type(type_ string) *AreaBuilder {
 	builder.type_ = type_
@@ -286,6 +290,7 @@ func (builder *AreaBuilder) Type(type_ string) *AreaBuilder {
 }
 
 // 中心点
+//
 // 示例值：
 func (builder *AreaBuilder) Center(center *Coordinate) *AreaBuilder {
 	builder.center = center
@@ -294,6 +299,7 @@ func (builder *AreaBuilder) Center(center *Coordinate) *AreaBuilder {
 }
 
 // 半径
+//
 // 示例值：
 func (builder *AreaBuilder) Radius(radius string) *AreaBuilder {
 	builder.radius = radius
@@ -301,6 +307,7 @@ func (builder *AreaBuilder) Radius(radius string) *AreaBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *AreaBuilder) Coords(coords []*Coordinate) *AreaBuilder {
@@ -349,6 +356,7 @@ func NewChildFieldBuilder() *ChildFieldBuilder {
 }
 
 // 子字段编号
+//
 // 示例值：50121
 func (builder *ChildFieldBuilder) Code(code string) *ChildFieldBuilder {
 	builder.code = code
@@ -357,6 +365,7 @@ func (builder *ChildFieldBuilder) Code(code string) *ChildFieldBuilder {
 }
 
 // 子字段名称
+//
 // 示例值：工号
 func (builder *ChildFieldBuilder) Title(title string) *ChildFieldBuilder {
 	builder.title = title
@@ -365,6 +374,7 @@ func (builder *ChildFieldBuilder) Title(title string) *ChildFieldBuilder {
 }
 
 // 时间单位
+//
 // 示例值：
 func (builder *ChildFieldBuilder) TimeUnit(timeUnit string) *ChildFieldBuilder {
 	builder.timeUnit = timeUnit
@@ -422,6 +432,7 @@ func NewChildItemBuilder() *ChildItemBuilder {
 }
 
 // 子标题编号
+//
 // 示例值：50101
 func (builder *ChildItemBuilder) Code(code string) *ChildItemBuilder {
 	builder.code = code
@@ -430,6 +441,7 @@ func (builder *ChildItemBuilder) Code(code string) *ChildItemBuilder {
 }
 
 // 开关字段，0：关闭，1：开启（非开关字段场景：code = 51501 可选值为1-6）
+//
 // 示例值：0
 func (builder *ChildItemBuilder) Value(value string) *ChildItemBuilder {
 	builder.value = value
@@ -438,6 +450,7 @@ func (builder *ChildItemBuilder) Value(value string) *ChildItemBuilder {
 }
 
 // 子标题名称
+//
 // 示例值：工号
 func (builder *ChildItemBuilder) Title(title string) *ChildItemBuilder {
 	builder.title = title
@@ -446,6 +459,7 @@ func (builder *ChildItemBuilder) Title(title string) *ChildItemBuilder {
 }
 
 // 列类型
+//
 // 示例值：
 func (builder *ChildItemBuilder) ColumnType(columnType int) *ChildItemBuilder {
 	builder.columnType = columnType
@@ -454,6 +468,7 @@ func (builder *ChildItemBuilder) ColumnType(columnType int) *ChildItemBuilder {
 }
 
 // 是否只读
+//
 // 示例值：
 func (builder *ChildItemBuilder) ReadOnly(readOnly bool) *ChildItemBuilder {
 	builder.readOnly = readOnly
@@ -462,6 +477,7 @@ func (builder *ChildItemBuilder) ReadOnly(readOnly bool) *ChildItemBuilder {
 }
 
 // 最小值
+//
 // 示例值：
 func (builder *ChildItemBuilder) MinValue(minValue string) *ChildItemBuilder {
 	builder.minValue = minValue
@@ -470,6 +486,7 @@ func (builder *ChildItemBuilder) MinValue(minValue string) *ChildItemBuilder {
 }
 
 // 最大值
+//
 // 示例值：
 func (builder *ChildItemBuilder) MaxValue(maxValue string) *ChildItemBuilder {
 	builder.maxValue = maxValue
@@ -531,6 +548,7 @@ func NewCoordinateBuilder() *CoordinateBuilder {
 }
 
 // 经度
+//
 // 示例值：
 func (builder *CoordinateBuilder) Longitude(longitude float64) *CoordinateBuilder {
 	builder.longitude = longitude
@@ -539,6 +557,7 @@ func (builder *CoordinateBuilder) Longitude(longitude float64) *CoordinateBuilde
 }
 
 // 纬度
+//
 // 示例值：
 func (builder *CoordinateBuilder) Latitude(latitude float64) *CoordinateBuilder {
 	builder.latitude = latitude
@@ -547,6 +566,7 @@ func (builder *CoordinateBuilder) Latitude(latitude float64) *CoordinateBuilder 
 }
 
 // 精度
+//
 // 示例值：
 func (builder *CoordinateBuilder) Accuracy(accuracy float64) *CoordinateBuilder {
 	builder.accuracy = accuracy
@@ -592,6 +612,7 @@ func NewFieldBuilder() *FieldBuilder {
 }
 
 // 字段编号
+//
 // 示例值：50121
 func (builder *FieldBuilder) Code(code string) *FieldBuilder {
 	builder.code = code
@@ -600,6 +621,7 @@ func (builder *FieldBuilder) Code(code string) *FieldBuilder {
 }
 
 // 字段名称
+//
 // 示例值：工号
 func (builder *FieldBuilder) Title(title string) *FieldBuilder {
 	builder.title = title
@@ -608,6 +630,7 @@ func (builder *FieldBuilder) Title(title string) *FieldBuilder {
 }
 
 // 子字段列表
+//
 // 示例值：
 func (builder *FieldBuilder) ChildFields(childFields []*ChildField) *FieldBuilder {
 	builder.childFields = childFields
@@ -646,6 +669,7 @@ func NewFileBuilder() *FileBuilder {
 }
 
 // 文件 ID
+//
 // 示例值：6b30e7636a38861bbe02869c726a4612
 func (builder *FileBuilder) FileId(fileId string) *FileBuilder {
 	builder.fileId = fileId
@@ -680,6 +704,7 @@ func NewFlexibleRuleBuilder() *FlexibleRuleBuilder {
 }
 
 // 下班最多可早走（上班早到几分钟，下班可早走几分钟）
+//
 // 示例值：60
 func (builder *FlexibleRuleBuilder) FlexibleEarlyMinutes(flexibleEarlyMinutes int) *FlexibleRuleBuilder {
 	builder.flexibleEarlyMinutes = flexibleEarlyMinutes
@@ -688,6 +713,7 @@ func (builder *FlexibleRuleBuilder) FlexibleEarlyMinutes(flexibleEarlyMinutes in
 }
 
 // 上班最多可晚到（上班晚到几分钟，下班须晚走几分钟）
+//
 // 示例值：60
 func (builder *FlexibleRuleBuilder) FlexibleLateMinutes(flexibleLateMinutes int) *FlexibleRuleBuilder {
 	builder.flexibleLateMinutes = flexibleLateMinutes
@@ -732,6 +758,7 @@ func NewFreePunchCfgBuilder() *FreePunchCfgBuilder {
 }
 
 // 自由班制打卡开始时间
+//
 // 示例值：7:00
 func (builder *FreePunchCfgBuilder) FreeStartTime(freeStartTime string) *FreePunchCfgBuilder {
 	builder.freeStartTime = freeStartTime
@@ -740,6 +767,7 @@ func (builder *FreePunchCfgBuilder) FreeStartTime(freeStartTime string) *FreePun
 }
 
 // 自由班制打卡结束时间
+//
 // 示例值：18:00
 func (builder *FreePunchCfgBuilder) FreeEndTime(freeEndTime string) *FreePunchCfgBuilder {
 	builder.freeEndTime = freeEndTime
@@ -748,6 +776,7 @@ func (builder *FreePunchCfgBuilder) FreeEndTime(freeEndTime string) *FreePunchCf
 }
 
 // 打卡的时间，为 7 位数字，每一位依次代表周一到周日，0 为不上班，1 为上班
+//
 // 示例值：1111100
 func (builder *FreePunchCfgBuilder) PunchDay(punchDay int) *FreePunchCfgBuilder {
 	builder.punchDay = punchDay
@@ -756,6 +785,7 @@ func (builder *FreePunchCfgBuilder) PunchDay(punchDay int) *FreePunchCfgBuilder 
 }
 
 // 工作日不打卡是否记为缺卡
+//
 // 示例值：true
 func (builder *FreePunchCfgBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *FreePunchCfgBuilder {
 	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
@@ -940,6 +970,7 @@ func NewGroupBuilder() *GroupBuilder {
 }
 
 // 考勤组 ID（仅修改时提供）， 需要从“获取打卡结果”的接口中获取 groupId
+//
 // 示例值：6919358128597097404
 func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
 	builder.groupId = groupId
@@ -948,6 +979,7 @@ func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
 }
 
 // 考勤组名称
+//
 // 示例值：开心考勤
 func (builder *GroupBuilder) GroupName(groupName string) *GroupBuilder {
 	builder.groupName = groupName
@@ -956,6 +988,7 @@ func (builder *GroupBuilder) GroupName(groupName string) *GroupBuilder {
 }
 
 // 时区
+//
 // 示例值：Asia/Shanghai
 func (builder *GroupBuilder) TimeZone(timeZone string) *GroupBuilder {
 	builder.timeZone = timeZone
@@ -964,6 +997,7 @@ func (builder *GroupBuilder) TimeZone(timeZone string) *GroupBuilder {
 }
 
 // 绑定的部门 ID
+//
 // 示例值：od-fcb45c28a45311afd440b7869541fce8
 func (builder *GroupBuilder) BindDeptIds(bindDeptIds []string) *GroupBuilder {
 	builder.bindDeptIds = bindDeptIds
@@ -972,6 +1006,7 @@ func (builder *GroupBuilder) BindDeptIds(bindDeptIds []string) *GroupBuilder {
 }
 
 // 排除的部门 ID
+//
 // 示例值：od-fcb45c28a45311afd440b7869541fce8
 func (builder *GroupBuilder) ExceptDeptIds(exceptDeptIds []string) *GroupBuilder {
 	builder.exceptDeptIds = exceptDeptIds
@@ -980,6 +1015,7 @@ func (builder *GroupBuilder) ExceptDeptIds(exceptDeptIds []string) *GroupBuilder
 }
 
 // 绑定的用户 ID
+//
 // 示例值：52aa1fa1
 func (builder *GroupBuilder) BindUserIds(bindUserIds []string) *GroupBuilder {
 	builder.bindUserIds = bindUserIds
@@ -988,6 +1024,7 @@ func (builder *GroupBuilder) BindUserIds(bindUserIds []string) *GroupBuilder {
 }
 
 // 排除的用户 ID
+//
 // 示例值：52aa1fa1
 func (builder *GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder {
 	builder.exceptUserIds = exceptUserIds
@@ -996,6 +1033,7 @@ func (builder *GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder
 }
 
 // 考勤主负责人 ID 列表，必选字段
+//
 // 示例值：2bg4a9be
 func (builder *GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuilder {
 	builder.groupLeaderIds = groupLeaderIds
@@ -1004,6 +1042,7 @@ func (builder *GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuild
 }
 
 // 考勤子负责人 ID 列表
+//
 // 示例值：52aa1fa1
 func (builder *GroupBuilder) SubGroupLeaderIds(subGroupLeaderIds []string) *GroupBuilder {
 	builder.subGroupLeaderIds = subGroupLeaderIds
@@ -1012,6 +1051,7 @@ func (builder *GroupBuilder) SubGroupLeaderIds(subGroupLeaderIds []string) *Grou
 }
 
 // 是否允许外勤打卡
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowOutPunch(allowOutPunch bool) *GroupBuilder {
 	builder.allowOutPunch = allowOutPunch
@@ -1020,6 +1060,7 @@ func (builder *GroupBuilder) AllowOutPunch(allowOutPunch bool) *GroupBuilder {
 }
 
 // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) OutPunchNeedApproval(outPunchNeedApproval bool) *GroupBuilder {
 	builder.outPunchNeedApproval = outPunchNeedApproval
@@ -1028,6 +1069,7 @@ func (builder *GroupBuilder) OutPunchNeedApproval(outPunchNeedApproval bool) *Gr
 }
 
 // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) OutPunchNeedRemark(outPunchNeedRemark bool) *GroupBuilder {
 	builder.outPunchNeedRemark = outPunchNeedRemark
@@ -1036,6 +1078,7 @@ func (builder *GroupBuilder) OutPunchNeedRemark(outPunchNeedRemark bool) *GroupB
 }
 
 // 外勤打卡需拍照（需要允许外勤打卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) OutPunchNeedPhoto(outPunchNeedPhoto bool) *GroupBuilder {
 	builder.outPunchNeedPhoto = outPunchNeedPhoto
@@ -1044,6 +1087,7 @@ func (builder *GroupBuilder) OutPunchNeedPhoto(outPunchNeedPhoto bool) *GroupBui
 }
 
 // 外勤打卡允许员工隐藏详细地址（需要允许外勤打卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) OutPunchAllowedHideAddr(outPunchAllowedHideAddr bool) *GroupBuilder {
 	builder.outPunchAllowedHideAddr = outPunchAllowedHideAddr
@@ -1052,6 +1096,7 @@ func (builder *GroupBuilder) OutPunchAllowedHideAddr(outPunchAllowedHideAddr boo
 }
 
 // 是否允许 PC 端打卡
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowPcPunch(allowPcPunch bool) *GroupBuilder {
 	builder.allowPcPunch = allowPcPunch
@@ -1060,6 +1105,7 @@ func (builder *GroupBuilder) AllowPcPunch(allowPcPunch bool) *GroupBuilder {
 }
 
 // 是否限制补卡
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowRemedy(allowRemedy bool) *GroupBuilder {
 	builder.allowRemedy = allowRemedy
@@ -1068,6 +1114,7 @@ func (builder *GroupBuilder) AllowRemedy(allowRemedy bool) *GroupBuilder {
 }
 
 // 是否限制补卡次数
+//
 // 示例值：true
 func (builder *GroupBuilder) RemedyLimit(remedyLimit bool) *GroupBuilder {
 	builder.remedyLimit = remedyLimit
@@ -1076,6 +1123,7 @@ func (builder *GroupBuilder) RemedyLimit(remedyLimit bool) *GroupBuilder {
 }
 
 // 补卡次数
+//
 // 示例值：3
 func (builder *GroupBuilder) RemedyLimitCount(remedyLimitCount int) *GroupBuilder {
 	builder.remedyLimitCount = remedyLimitCount
@@ -1084,6 +1132,7 @@ func (builder *GroupBuilder) RemedyLimitCount(remedyLimitCount int) *GroupBuilde
 }
 
 // 是否限制补卡时间
+//
 // 示例值：true
 func (builder *GroupBuilder) RemedyDateLimit(remedyDateLimit bool) *GroupBuilder {
 	builder.remedyDateLimit = remedyDateLimit
@@ -1092,6 +1141,7 @@ func (builder *GroupBuilder) RemedyDateLimit(remedyDateLimit bool) *GroupBuilder
 }
 
 // 补卡时间，几天内补卡
+//
 // 示例值：3
 func (builder *GroupBuilder) RemedyDateNum(remedyDateNum int) *GroupBuilder {
 	builder.remedyDateNum = remedyDateNum
@@ -1100,6 +1150,7 @@ func (builder *GroupBuilder) RemedyDateNum(remedyDateNum int) *GroupBuilder {
 }
 
 // 允许缺卡补卡（需要允许补卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowRemedyTypeLack(allowRemedyTypeLack bool) *GroupBuilder {
 	builder.allowRemedyTypeLack = allowRemedyTypeLack
@@ -1108,6 +1159,7 @@ func (builder *GroupBuilder) AllowRemedyTypeLack(allowRemedyTypeLack bool) *Grou
 }
 
 // 允许迟到补卡（需要允许补卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowRemedyTypeLate(allowRemedyTypeLate bool) *GroupBuilder {
 	builder.allowRemedyTypeLate = allowRemedyTypeLate
@@ -1116,6 +1168,7 @@ func (builder *GroupBuilder) AllowRemedyTypeLate(allowRemedyTypeLate bool) *Grou
 }
 
 // 允许早退补卡（需要允许补卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowRemedyTypeEarly(allowRemedyTypeEarly bool) *GroupBuilder {
 	builder.allowRemedyTypeEarly = allowRemedyTypeEarly
@@ -1124,6 +1177,7 @@ func (builder *GroupBuilder) AllowRemedyTypeEarly(allowRemedyTypeEarly bool) *Gr
 }
 
 // 允许正常补卡（需要允许补卡才能设置生效）
+//
 // 示例值：true
 func (builder *GroupBuilder) AllowRemedyTypeNormal(allowRemedyTypeNormal bool) *GroupBuilder {
 	builder.allowRemedyTypeNormal = allowRemedyTypeNormal
@@ -1132,6 +1186,7 @@ func (builder *GroupBuilder) AllowRemedyTypeNormal(allowRemedyTypeNormal bool) *
 }
 
 // 是否展示累计时长
+//
 // 示例值：true
 func (builder *GroupBuilder) ShowCumulativeTime(showCumulativeTime bool) *GroupBuilder {
 	builder.showCumulativeTime = showCumulativeTime
@@ -1140,6 +1195,7 @@ func (builder *GroupBuilder) ShowCumulativeTime(showCumulativeTime bool) *GroupB
 }
 
 // 是否展示加班时长
+//
 // 示例值：true
 func (builder *GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder {
 	builder.showOverTime = showOverTime
@@ -1148,6 +1204,7 @@ func (builder *GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder {
 }
 
 // 是否隐藏员工打卡详情
+//
 // 示例值：true
 func (builder *GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupBuilder {
 	builder.hideStaffPunchTime = hideStaffPunchTime
@@ -1156,6 +1213,7 @@ func (builder *GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupB
 }
 
 // 是否开启人脸识别打卡
+//
 // 示例值：true
 func (builder *GroupBuilder) FacePunch(facePunch bool) *GroupBuilder {
 	builder.facePunch = facePunch
@@ -1164,6 +1222,7 @@ func (builder *GroupBuilder) FacePunch(facePunch bool) *GroupBuilder {
 }
 
 // 人脸识别打卡规则，1：每次打卡均需人脸识别，2：疑似作弊打卡时需要人脸识别
+//
 // 示例值：1
 func (builder *GroupBuilder) FacePunchCfg(facePunchCfg int) *GroupBuilder {
 	builder.facePunchCfg = facePunchCfg
@@ -1172,6 +1231,7 @@ func (builder *GroupBuilder) FacePunchCfg(facePunchCfg int) *GroupBuilder {
 }
 
 // 人脸识别失败时是否允许普通拍照打卡
+//
 // 示例值：true
 func (builder *GroupBuilder) FaceDowngrade(faceDowngrade bool) *GroupBuilder {
 	builder.faceDowngrade = faceDowngrade
@@ -1180,6 +1240,7 @@ func (builder *GroupBuilder) FaceDowngrade(faceDowngrade bool) *GroupBuilder {
 }
 
 // 人脸识别失败时是否允许替换基准图片
+//
 // 示例值：true
 func (builder *GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder {
 	builder.replaceBasicPic = replaceBasicPic
@@ -1188,6 +1249,7 @@ func (builder *GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder
 }
 
 // 考勤机列表
+//
 // 示例值：
 func (builder *GroupBuilder) Machines(machines []*Machine) *GroupBuilder {
 	builder.machines = machines
@@ -1196,6 +1258,7 @@ func (builder *GroupBuilder) Machines(machines []*Machine) *GroupBuilder {
 }
 
 // GPS 打卡的有效范围（不建议使用）
+//
 // 示例值：300
 func (builder *GroupBuilder) GpsRange(gpsRange int) *GroupBuilder {
 	builder.gpsRange = gpsRange
@@ -1204,6 +1267,7 @@ func (builder *GroupBuilder) GpsRange(gpsRange int) *GroupBuilder {
 }
 
 // 地址列表
+//
 // 示例值：
 func (builder *GroupBuilder) Locations(locations []*Location) *GroupBuilder {
 	builder.locations = locations
@@ -1212,6 +1276,7 @@ func (builder *GroupBuilder) Locations(locations []*Location) *GroupBuilder {
 }
 
 // 考勤类型，0：固定班制，2：排班制， 3：自由班制
+//
 // 示例值：0
 func (builder *GroupBuilder) GroupType(groupType int) *GroupBuilder {
 	builder.groupType = groupType
@@ -1220,6 +1285,7 @@ func (builder *GroupBuilder) GroupType(groupType int) *GroupBuilder {
 }
 
 // 固定班制必须填
+//
 // 示例值：6921319402260496386
 func (builder *GroupBuilder) PunchDayShiftIds(punchDayShiftIds []string) *GroupBuilder {
 	builder.punchDayShiftIds = punchDayShiftIds
@@ -1228,6 +1294,7 @@ func (builder *GroupBuilder) PunchDayShiftIds(punchDayShiftIds []string) *GroupB
 }
 
 // 配置自由班制
+//
 // 示例值：
 func (builder *GroupBuilder) FreePunchCfg(freePunchCfg *FreePunchCfg) *GroupBuilder {
 	builder.freePunchCfg = freePunchCfg
@@ -1236,6 +1303,7 @@ func (builder *GroupBuilder) FreePunchCfg(freePunchCfg *FreePunchCfg) *GroupBuil
 }
 
 // 国家日历  ID，0：不根据国家日历排休，1：中国大陆，2：美国，3：日本，4：印度，5：新加坡，默认 1
+//
 // 示例值：1
 func (builder *GroupBuilder) CalendarId(calendarId int) *GroupBuilder {
 	builder.calendarId = calendarId
@@ -1244,6 +1312,7 @@ func (builder *GroupBuilder) CalendarId(calendarId int) *GroupBuilder {
 }
 
 // 必须打卡的特殊日期
+//
 // 示例值：
 func (builder *GroupBuilder) NeedPunchSpecialDays(needPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
 	builder.needPunchSpecialDays = needPunchSpecialDays
@@ -1252,6 +1321,7 @@ func (builder *GroupBuilder) NeedPunchSpecialDays(needPunchSpecialDays []*PunchS
 }
 
 // 无需打卡的特殊日期
+//
 // 示例值：
 func (builder *GroupBuilder) NoNeedPunchSpecialDays(noNeedPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
 	builder.noNeedPunchSpecialDays = noNeedPunchSpecialDays
@@ -1260,6 +1330,7 @@ func (builder *GroupBuilder) NoNeedPunchSpecialDays(noNeedPunchSpecialDays []*Pu
 }
 
 // 自由班制下工作日不打卡是否记为缺卡
+//
 // 示例值：true
 func (builder *GroupBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *GroupBuilder {
 	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
@@ -1268,6 +1339,7 @@ func (builder *GroupBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *Gr
 }
 
 // 是否立即生效，默认 false
+//
 // 示例值：true
 func (builder *GroupBuilder) EffectNow(effectNow bool) *GroupBuilder {
 	builder.effectNow = effectNow
@@ -1276,6 +1348,7 @@ func (builder *GroupBuilder) EffectNow(effectNow bool) *GroupBuilder {
 }
 
 // 补卡周期类型
+//
 // 示例值：0
 func (builder *GroupBuilder) RemedyPeriodType(remedyPeriodType int) *GroupBuilder {
 	builder.remedyPeriodType = remedyPeriodType
@@ -1284,6 +1357,7 @@ func (builder *GroupBuilder) RemedyPeriodType(remedyPeriodType int) *GroupBuilde
 }
 
 // 补卡自定义周期起始日期
+//
 // 示例值：1
 func (builder *GroupBuilder) RemedyPeriodCustomDate(remedyPeriodCustomDate int) *GroupBuilder {
 	builder.remedyPeriodCustomDate = remedyPeriodCustomDate
@@ -1292,6 +1366,7 @@ func (builder *GroupBuilder) RemedyPeriodCustomDate(remedyPeriodCustomDate int) 
 }
 
 // 打卡类型，位运算。1：GPS 打卡，2：Wi-Fi 打卡，4：考勤机打卡，8：IP 打卡
+//
 // 示例值：1
 func (builder *GroupBuilder) PunchType(punchType int) *GroupBuilder {
 	builder.punchType = punchType
@@ -1300,6 +1375,7 @@ func (builder *GroupBuilder) PunchType(punchType int) *GroupBuilder {
 }
 
 // 生效时间，精确到秒的时间戳
+//
 // 示例值：1611476284
 func (builder *GroupBuilder) EffectTime(effectTime string) *GroupBuilder {
 	builder.effectTime = effectTime
@@ -1308,6 +1384,7 @@ func (builder *GroupBuilder) EffectTime(effectTime string) *GroupBuilder {
 }
 
 // 休息日打卡需审批
+//
 // 示例值：true
 func (builder *GroupBuilder) RestClockInNeedApproval(restClockInNeedApproval bool) *GroupBuilder {
 	builder.restClockInNeedApproval = restClockInNeedApproval
@@ -1316,6 +1393,7 @@ func (builder *GroupBuilder) RestClockInNeedApproval(restClockInNeedApproval boo
 }
 
 // 每次打卡均需拍照
+//
 // 示例值：true
 func (builder *GroupBuilder) ClockInNeedPhoto(clockInNeedPhoto bool) *GroupBuilder {
 	builder.clockInNeedPhoto = clockInNeedPhoto
@@ -1526,6 +1604,7 @@ func NewGroupMetaBuilder() *GroupMetaBuilder {
 }
 
 // 考勤组 ID
+//
 // 示例值：6919358128597097404
 func (builder *GroupMetaBuilder) GroupId(groupId string) *GroupMetaBuilder {
 	builder.groupId = groupId
@@ -1534,6 +1613,7 @@ func (builder *GroupMetaBuilder) GroupId(groupId string) *GroupMetaBuilder {
 }
 
 // 考勤组名称
+//
 // 示例值：考勤组1
 func (builder *GroupMetaBuilder) GroupName(groupName string) *GroupMetaBuilder {
 	builder.groupName = groupName
@@ -1575,6 +1655,7 @@ func NewI18nNamesBuilder() *I18nNamesBuilder {
 }
 
 // 中文描述
+//
 // 示例值：中文描述
 func (builder *I18nNamesBuilder) Ch(ch string) *I18nNamesBuilder {
 	builder.ch = ch
@@ -1583,6 +1664,7 @@ func (builder *I18nNamesBuilder) Ch(ch string) *I18nNamesBuilder {
 }
 
 // 英语描述
+//
 // 示例值：English description
 func (builder *I18nNamesBuilder) En(en string) *I18nNamesBuilder {
 	builder.en = en
@@ -1591,6 +1673,7 @@ func (builder *I18nNamesBuilder) En(en string) *I18nNamesBuilder {
 }
 
 // 日语描述
+//
 // 示例值：日本語の説明
 func (builder *I18nNamesBuilder) Ja(ja string) *I18nNamesBuilder {
 	builder.ja = ja
@@ -1636,6 +1719,7 @@ func NewItemBuilder() *ItemBuilder {
 }
 
 // 标题编号
+//
 // 示例值：522
 func (builder *ItemBuilder) Code(code string) *ItemBuilder {
 	builder.code = code
@@ -1644,6 +1728,7 @@ func (builder *ItemBuilder) Code(code string) *ItemBuilder {
 }
 
 // 标题名称
+//
 // 示例值：基本信息
 func (builder *ItemBuilder) Title(title string) *ItemBuilder {
 	builder.title = title
@@ -1652,6 +1737,7 @@ func (builder *ItemBuilder) Title(title string) *ItemBuilder {
 }
 
 // 子标题
+//
 // 示例值：
 func (builder *ItemBuilder) ChildItems(childItems []*ChildItem) *ItemBuilder {
 	builder.childItems = childItems
@@ -1693,6 +1779,7 @@ func NewLateOffLateOnRuleBuilder() *LateOffLateOnRuleBuilder {
 }
 
 // 晚走多久
+//
 // 示例值：60
 func (builder *LateOffLateOnRuleBuilder) LateOffMinutes(lateOffMinutes int) *LateOffLateOnRuleBuilder {
 	builder.lateOffMinutes = lateOffMinutes
@@ -1701,6 +1788,7 @@ func (builder *LateOffLateOnRuleBuilder) LateOffMinutes(lateOffMinutes int) *Lat
 }
 
 // 晚到多久
+//
 // 示例值：30
 func (builder *LateOffLateOnRuleBuilder) LateOnMinutes(lateOnMinutes int) *LateOffLateOnRuleBuilder {
 	builder.lateOnMinutes = lateOnMinutes
@@ -1769,6 +1857,7 @@ func NewLocationBuilder() *LocationBuilder {
 }
 
 // 地址 ID
+//
 // 示例值：6921213751454744578
 func (builder *LocationBuilder) LocationId(locationId string) *LocationBuilder {
 	builder.locationId = locationId
@@ -1777,6 +1866,7 @@ func (builder *LocationBuilder) LocationId(locationId string) *LocationBuilder {
 }
 
 // 地址名称
+//
 // 示例值：浙江省杭州市余杭区五常街道木桥头西溪八方城
 func (builder *LocationBuilder) LocationName(locationName string) *LocationBuilder {
 	builder.locationName = locationName
@@ -1785,6 +1875,7 @@ func (builder *LocationBuilder) LocationName(locationName string) *LocationBuild
 }
 
 // 地址类型，1：GPS，2：Wi-Fi，8：IP
+//
 // 示例值：1
 func (builder *LocationBuilder) LocationType(locationType int) *LocationBuilder {
 	builder.locationType = locationType
@@ -1793,6 +1884,7 @@ func (builder *LocationBuilder) LocationType(locationType int) *LocationBuilder 
 }
 
 // 地址纬度
+//
 // 示例值：30.28994
 func (builder *LocationBuilder) Latitude(latitude float64) *LocationBuilder {
 	builder.latitude = latitude
@@ -1801,6 +1893,7 @@ func (builder *LocationBuilder) Latitude(latitude float64) *LocationBuilder {
 }
 
 // 地址经度
+//
 // 示例值：120.04509
 func (builder *LocationBuilder) Longitude(longitude float64) *LocationBuilder {
 	builder.longitude = longitude
@@ -1809,6 +1902,7 @@ func (builder *LocationBuilder) Longitude(longitude float64) *LocationBuilder {
 }
 
 // Wi-Fi 名称
+//
 // 示例值：TP-Link-af12ca
 func (builder *LocationBuilder) Ssid(ssid string) *LocationBuilder {
 	builder.ssid = ssid
@@ -1817,6 +1911,7 @@ func (builder *LocationBuilder) Ssid(ssid string) *LocationBuilder {
 }
 
 // Wi-Fi 的 MAC 地址
+//
 // 示例值：08:00:20:0A:8C:6D
 func (builder *LocationBuilder) Bssid(bssid string) *LocationBuilder {
 	builder.bssid = bssid
@@ -1825,6 +1920,7 @@ func (builder *LocationBuilder) Bssid(bssid string) *LocationBuilder {
 }
 
 // 地图类型，1：高德， 2：谷歌
+//
 // 示例值：1
 func (builder *LocationBuilder) MapType(mapType int) *LocationBuilder {
 	builder.mapType = mapType
@@ -1833,6 +1929,7 @@ func (builder *LocationBuilder) MapType(mapType int) *LocationBuilder {
 }
 
 // 地址名称
+//
 // 示例值：北京市海淀区中航广场
 func (builder *LocationBuilder) Address(address string) *LocationBuilder {
 	builder.address = address
@@ -1841,6 +1938,7 @@ func (builder *LocationBuilder) Address(address string) *LocationBuilder {
 }
 
 // IP 地址
+//
 // 示例值：122.224.123.146
 func (builder *LocationBuilder) Ip(ip string) *LocationBuilder {
 	builder.ip = ip
@@ -1849,6 +1947,7 @@ func (builder *LocationBuilder) Ip(ip string) *LocationBuilder {
 }
 
 // 额外信息，例如：运营商信息
+//
 // 示例值：中国电信
 func (builder *LocationBuilder) Feature(feature string) *LocationBuilder {
 	builder.feature = feature
@@ -1857,6 +1956,7 @@ func (builder *LocationBuilder) Feature(feature string) *LocationBuilder {
 }
 
 // GPS 打卡的有效范围
+//
 // 示例值：300
 func (builder *LocationBuilder) GpsRange(gpsRange int) *LocationBuilder {
 	builder.gpsRange = gpsRange
@@ -1935,6 +2035,7 @@ func NewLocationInfoBuilder() *LocationInfoBuilder {
 }
 
 // 开关状态
+//
 // 示例值：
 func (builder *LocationInfoBuilder) Status(status int) *LocationInfoBuilder {
 	builder.status = status
@@ -1942,6 +2043,7 @@ func (builder *LocationInfoBuilder) Status(status int) *LocationInfoBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *LocationInfoBuilder) Geofences(geofences []*Area) *LocationInfoBuilder {
@@ -1976,6 +2078,7 @@ func NewLocationInfoEventBuilder() *LocationInfoEventBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *LocationInfoEventBuilder) Coord(coord *Coordinate) *LocationInfoEventBuilder {
@@ -2031,6 +2134,7 @@ func NewLocationRecordBuilder() *LocationRecordBuilder {
 }
 
 // 用户id
+//
 // 示例值：
 func (builder *LocationRecordBuilder) UserId(userId *UserId) *LocationRecordBuilder {
 	builder.userId = userId
@@ -2039,6 +2143,7 @@ func (builder *LocationRecordBuilder) UserId(userId *UserId) *LocationRecordBuil
 }
 
 // 时间点
+//
 // 示例值：
 func (builder *LocationRecordBuilder) Timestamp(timestamp string) *LocationRecordBuilder {
 	builder.timestamp = timestamp
@@ -2047,6 +2152,7 @@ func (builder *LocationRecordBuilder) Timestamp(timestamp string) *LocationRecor
 }
 
 // 位置信息
+//
 // 示例值：
 func (builder *LocationRecordBuilder) Location(location *LocationInfoEvent) *LocationRecordBuilder {
 	builder.location = location
@@ -2055,6 +2161,7 @@ func (builder *LocationRecordBuilder) Location(location *LocationInfoEvent) *Loc
 }
 
 // wifi信息
+//
 // 示例值：
 func (builder *LocationRecordBuilder) Wifi(wifi *WifiInfoEvent) *LocationRecordBuilder {
 	builder.wifi = wifi
@@ -2063,6 +2170,7 @@ func (builder *LocationRecordBuilder) Wifi(wifi *WifiInfoEvent) *LocationRecordB
 }
 
 // 规则快照id
+//
 // 示例值：
 func (builder *LocationRecordBuilder) RuleSnapshotId(ruleSnapshotId string) *LocationRecordBuilder {
 	builder.ruleSnapshotId = ruleSnapshotId
@@ -2071,6 +2179,7 @@ func (builder *LocationRecordBuilder) RuleSnapshotId(ruleSnapshotId string) *Loc
 }
 
 // 事件类型
+//
 // 示例值：
 func (builder *LocationRecordBuilder) Type(type_ string) *LocationRecordBuilder {
 	builder.type_ = type_
@@ -2079,6 +2188,7 @@ func (builder *LocationRecordBuilder) Type(type_ string) *LocationRecordBuilder 
 }
 
 // 附近的wifi设备列表
+//
 // 示例值：
 func (builder *LocationRecordBuilder) ScanWifiList(scanWifiList []*ScanWifiInfo) *LocationRecordBuilder {
 	builder.scanWifiList = scanWifiList
@@ -2087,6 +2197,7 @@ func (builder *LocationRecordBuilder) ScanWifiList(scanWifiList []*ScanWifiInfo)
 }
 
 // 上报事件的设备ID
+//
 // 示例值：
 func (builder *LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordBuilder {
 	builder.deviceId = deviceId
@@ -2094,6 +2205,7 @@ func (builder *LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordB
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *LocationRecordBuilder) ClientInfo(clientInfo string) *LocationRecordBuilder {
@@ -2160,6 +2272,7 @@ func NewLocationSettingBuilder() *LocationSettingBuilder {
 }
 
 // 位置配置
+//
 // 示例值：
 func (builder *LocationSettingBuilder) Location(location *LocationInfo) *LocationSettingBuilder {
 	builder.location = location
@@ -2168,6 +2281,7 @@ func (builder *LocationSettingBuilder) Location(location *LocationInfo) *Locatio
 }
 
 // wifi配置
+//
 // 示例值：
 func (builder *LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuilder {
 	builder.wifi = wifi
@@ -2175,6 +2289,7 @@ func (builder *LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuil
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *LocationSettingBuilder) UserId(userId string) *LocationSettingBuilder {
@@ -2216,6 +2331,7 @@ func NewMachineBuilder() *MachineBuilder {
 }
 
 // 考勤机序列号
+//
 // 示例值：FS0701
 func (builder *MachineBuilder) MachineSn(machineSn string) *MachineBuilder {
 	builder.machineSn = machineSn
@@ -2224,6 +2340,7 @@ func (builder *MachineBuilder) MachineSn(machineSn string) *MachineBuilder {
 }
 
 // 考勤机名称
+//
 // 示例值：创实 9 楼
 func (builder *MachineBuilder) MachineName(machineName string) *MachineBuilder {
 	builder.machineName = machineName
@@ -2262,6 +2379,7 @@ func NewPunchSpecialDateShiftBuilder() *PunchSpecialDateShiftBuilder {
 }
 
 // 打卡日期
+//
 // 示例值：20190101
 func (builder *PunchSpecialDateShiftBuilder) PunchDay(punchDay int) *PunchSpecialDateShiftBuilder {
 	builder.punchDay = punchDay
@@ -2270,6 +2388,7 @@ func (builder *PunchSpecialDateShiftBuilder) PunchDay(punchDay int) *PunchSpecia
 }
 
 // 班次 ID
+//
 // 示例值：6919668827865513935
 func (builder *PunchSpecialDateShiftBuilder) ShiftId(shiftId string) *PunchSpecialDateShiftBuilder {
 	builder.shiftId = shiftId
@@ -2329,6 +2448,7 @@ func NewPunchTimeRuleBuilder() *PunchTimeRuleBuilder {
 }
 
 // 上班时间
+//
 // 示例值：9:00
 func (builder *PunchTimeRuleBuilder) OnTime(onTime string) *PunchTimeRuleBuilder {
 	builder.onTime = onTime
@@ -2337,6 +2457,7 @@ func (builder *PunchTimeRuleBuilder) OnTime(onTime string) *PunchTimeRuleBuilder
 }
 
 // 下班时间
+//
 // 示例值：18:00， 第二天凌晨2点， 26:00
 func (builder *PunchTimeRuleBuilder) OffTime(offTime string) *PunchTimeRuleBuilder {
 	builder.offTime = offTime
@@ -2345,6 +2466,7 @@ func (builder *PunchTimeRuleBuilder) OffTime(offTime string) *PunchTimeRuleBuild
 }
 
 // 晚到多久记为迟到
+//
 // 示例值：30
 func (builder *PunchTimeRuleBuilder) LateMinutesAsLate(lateMinutesAsLate int) *PunchTimeRuleBuilder {
 	builder.lateMinutesAsLate = lateMinutesAsLate
@@ -2353,6 +2475,7 @@ func (builder *PunchTimeRuleBuilder) LateMinutesAsLate(lateMinutesAsLate int) *P
 }
 
 // 晚到多久记为缺卡
+//
 // 示例值：60
 func (builder *PunchTimeRuleBuilder) LateMinutesAsLack(lateMinutesAsLack int) *PunchTimeRuleBuilder {
 	builder.lateMinutesAsLack = lateMinutesAsLack
@@ -2361,6 +2484,7 @@ func (builder *PunchTimeRuleBuilder) LateMinutesAsLack(lateMinutesAsLack int) *P
 }
 
 // 最早多久可打上班卡
+//
 // 示例值：60
 func (builder *PunchTimeRuleBuilder) OnAdvanceMinutes(onAdvanceMinutes int) *PunchTimeRuleBuilder {
 	builder.onAdvanceMinutes = onAdvanceMinutes
@@ -2369,6 +2493,7 @@ func (builder *PunchTimeRuleBuilder) OnAdvanceMinutes(onAdvanceMinutes int) *Pun
 }
 
 // 早退多久记为早退
+//
 // 示例值：30
 func (builder *PunchTimeRuleBuilder) EarlyMinutesAsEarly(earlyMinutesAsEarly int) *PunchTimeRuleBuilder {
 	builder.earlyMinutesAsEarly = earlyMinutesAsEarly
@@ -2377,6 +2502,7 @@ func (builder *PunchTimeRuleBuilder) EarlyMinutesAsEarly(earlyMinutesAsEarly int
 }
 
 // 早退多久记为缺卡
+//
 // 示例值：60
 func (builder *PunchTimeRuleBuilder) EarlyMinutesAsLack(earlyMinutesAsLack int) *PunchTimeRuleBuilder {
 	builder.earlyMinutesAsLack = earlyMinutesAsLack
@@ -2385,6 +2511,7 @@ func (builder *PunchTimeRuleBuilder) EarlyMinutesAsLack(earlyMinutesAsLack int) 
 }
 
 // 最晚多久可打下班卡
+//
 // 示例值：60
 func (builder *PunchTimeRuleBuilder) OffDelayMinutes(offDelayMinutes int) *PunchTimeRuleBuilder {
 	builder.offDelayMinutes = offDelayMinutes
@@ -2393,6 +2520,7 @@ func (builder *PunchTimeRuleBuilder) OffDelayMinutes(offDelayMinutes int) *Punch
 }
 
 // 晚到多久记为严重迟到
+//
 // 示例值：40
 func (builder *PunchTimeRuleBuilder) LateMinutesAsSeriousLate(lateMinutesAsSeriousLate int) *PunchTimeRuleBuilder {
 	builder.lateMinutesAsSeriousLate = lateMinutesAsSeriousLate
@@ -2459,6 +2587,7 @@ func NewRestRuleBuilder() *RestRuleBuilder {
 }
 
 // 休息开始
+//
 // 示例值：13:00
 func (builder *RestRuleBuilder) RestBeginTime(restBeginTime string) *RestRuleBuilder {
 	builder.restBeginTime = restBeginTime
@@ -2467,6 +2596,7 @@ func (builder *RestRuleBuilder) RestBeginTime(restBeginTime string) *RestRuleBui
 }
 
 // 休息结束
+//
 // 示例值：14:00
 func (builder *RestRuleBuilder) RestEndTime(restEndTime string) *RestRuleBuilder {
 	builder.restEndTime = restEndTime
@@ -2505,6 +2635,7 @@ func NewScanWifiInfoBuilder() *ScanWifiInfoBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
 	builder.ssid = ssid
@@ -2512,6 +2643,7 @@ func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *ScanWifiInfoBuilder) Bssid(bssid string) *ScanWifiInfoBuilder {
@@ -2551,6 +2683,7 @@ func NewScheduleBuilder() *ScheduleBuilder {
 }
 
 // 考勤组名称
+//
 // 示例值：6919358778597097404
 func (builder *ScheduleBuilder) GroupId(groupId string) *ScheduleBuilder {
 	builder.groupId = groupId
@@ -2559,6 +2692,7 @@ func (builder *ScheduleBuilder) GroupId(groupId string) *ScheduleBuilder {
 }
 
 // 班次列表
+//
 // 示例值：
 func (builder *ScheduleBuilder) Shifts(shifts []string) *ScheduleBuilder {
 	builder.shifts = shifts
@@ -2620,6 +2754,7 @@ func NewShiftBuilder() *ShiftBuilder {
 }
 
 // 班次 ID
+//
 // 示例值：6919358778597097404
 func (builder *ShiftBuilder) ShiftId(shiftId string) *ShiftBuilder {
 	builder.shiftId = shiftId
@@ -2628,6 +2763,7 @@ func (builder *ShiftBuilder) ShiftId(shiftId string) *ShiftBuilder {
 }
 
 // 班次名称
+//
 // 示例值：早班
 func (builder *ShiftBuilder) ShiftName(shiftName string) *ShiftBuilder {
 	builder.shiftName = shiftName
@@ -2636,6 +2772,7 @@ func (builder *ShiftBuilder) ShiftName(shiftName string) *ShiftBuilder {
 }
 
 // 打卡次数
+//
 // 示例值：1
 func (builder *ShiftBuilder) PunchTimes(punchTimes int) *ShiftBuilder {
 	builder.punchTimes = punchTimes
@@ -2644,6 +2781,7 @@ func (builder *ShiftBuilder) PunchTimes(punchTimes int) *ShiftBuilder {
 }
 
 // 是否弹性打卡
+//
 // 示例值：false
 func (builder *ShiftBuilder) IsFlexible(isFlexible bool) *ShiftBuilder {
 	builder.isFlexible = isFlexible
@@ -2652,6 +2790,7 @@ func (builder *ShiftBuilder) IsFlexible(isFlexible bool) *ShiftBuilder {
 }
 
 // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
+//
 // 示例值：60
 func (builder *ShiftBuilder) FlexibleMinutes(flexibleMinutes int) *ShiftBuilder {
 	builder.flexibleMinutes = flexibleMinutes
@@ -2660,6 +2799,7 @@ func (builder *ShiftBuilder) FlexibleMinutes(flexibleMinutes int) *ShiftBuilder 
 }
 
 // 弹性打卡时间设置
+//
 // 示例值：
 func (builder *ShiftBuilder) FlexibleRule(flexibleRule []*FlexibleRule) *ShiftBuilder {
 	builder.flexibleRule = flexibleRule
@@ -2668,6 +2808,7 @@ func (builder *ShiftBuilder) FlexibleRule(flexibleRule []*FlexibleRule) *ShiftBu
 }
 
 // 不需要打下班卡
+//
 // 示例值：true
 func (builder *ShiftBuilder) NoNeedOff(noNeedOff bool) *ShiftBuilder {
 	builder.noNeedOff = noNeedOff
@@ -2676,6 +2817,7 @@ func (builder *ShiftBuilder) NoNeedOff(noNeedOff bool) *ShiftBuilder {
 }
 
 // 打卡规则
+//
 // 示例值：
 func (builder *ShiftBuilder) PunchTimeRule(punchTimeRule []*PunchTimeRule) *ShiftBuilder {
 	builder.punchTimeRule = punchTimeRule
@@ -2684,6 +2826,7 @@ func (builder *ShiftBuilder) PunchTimeRule(punchTimeRule []*PunchTimeRule) *Shif
 }
 
 // 晚走晚到规则
+//
 // 示例值：
 func (builder *ShiftBuilder) LateOffLateOnRule(lateOffLateOnRule []*LateOffLateOnRule) *ShiftBuilder {
 	builder.lateOffLateOnRule = lateOffLateOnRule
@@ -2692,6 +2835,7 @@ func (builder *ShiftBuilder) LateOffLateOnRule(lateOffLateOnRule []*LateOffLateO
 }
 
 // 休息规则
+//
 // 示例值：
 func (builder *ShiftBuilder) RestTimeRule(restTimeRule []*RestRule) *ShiftBuilder {
 	builder.restTimeRule = restTimeRule
@@ -2770,6 +2914,7 @@ func NewStatusChangeBuilder() *StatusChangeBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
 	builder.index = index
@@ -2777,6 +2922,7 @@ func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusChangeBuilder {
@@ -2786,6 +2932,7 @@ func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusCha
 }
 
 //
+//
 // 示例值：
 func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusChangeBuilder {
 	builder.currentStatus = currentStatus
@@ -2793,6 +2940,7 @@ func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusC
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *StatusChangeBuilder {
@@ -2802,6 +2950,7 @@ func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *S
 }
 
 //
+//
 // 示例值：
 func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) *StatusChangeBuilder {
 	builder.currentSupplement = currentSupplement
@@ -2809,6 +2958,7 @@ func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) 
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *StatusChangeBuilder) WorkType(workType string) *StatusChangeBuilder {
@@ -2888,6 +3038,7 @@ func NewTaskResultBuilder() *TaskResultBuilder {
 }
 
 // 上班打卡记录 ID
+//
 // 示例值：6709359313699356941
 func (builder *TaskResultBuilder) CheckInRecordId(checkInRecordId string) *TaskResultBuilder {
 	builder.checkInRecordId = checkInRecordId
@@ -2896,6 +3047,7 @@ func (builder *TaskResultBuilder) CheckInRecordId(checkInRecordId string) *TaskR
 }
 
 // 上班打卡记录
+//
 // 示例值：
 func (builder *TaskResultBuilder) CheckInRecord(checkInRecord *UserFlow) *TaskResultBuilder {
 	builder.checkInRecord = checkInRecord
@@ -2904,6 +3056,7 @@ func (builder *TaskResultBuilder) CheckInRecord(checkInRecord *UserFlow) *TaskRe
 }
 
 // 下班打卡记录 ID
+//
 // 示例值：6709359313699356942
 func (builder *TaskResultBuilder) CheckOutRecordId(checkOutRecordId string) *TaskResultBuilder {
 	builder.checkOutRecordId = checkOutRecordId
@@ -2912,6 +3065,7 @@ func (builder *TaskResultBuilder) CheckOutRecordId(checkOutRecordId string) *Tas
 }
 
 // 下班打卡记录
+//
 // 示例值：
 func (builder *TaskResultBuilder) CheckOutRecord(checkOutRecord *UserFlow) *TaskResultBuilder {
 	builder.checkOutRecord = checkOutRecord
@@ -2920,6 +3074,7 @@ func (builder *TaskResultBuilder) CheckOutRecord(checkOutRecord *UserFlow) *Task
 }
 
 // 上班打卡结果
+//
 // 示例值：SystemCheck
 func (builder *TaskResultBuilder) CheckInResult(checkInResult string) *TaskResultBuilder {
 	builder.checkInResult = checkInResult
@@ -2928,6 +3083,7 @@ func (builder *TaskResultBuilder) CheckInResult(checkInResult string) *TaskResul
 }
 
 // 下班打卡结果
+//
 // 示例值：SystemCheck
 func (builder *TaskResultBuilder) CheckOutResult(checkOutResult string) *TaskResultBuilder {
 	builder.checkOutResult = checkOutResult
@@ -2936,6 +3092,7 @@ func (builder *TaskResultBuilder) CheckOutResult(checkOutResult string) *TaskRes
 }
 
 // 上班打卡结果补充
+//
 // 示例值：None
 func (builder *TaskResultBuilder) CheckInResultSupplement(checkInResultSupplement string) *TaskResultBuilder {
 	builder.checkInResultSupplement = checkInResultSupplement
@@ -2944,6 +3101,7 @@ func (builder *TaskResultBuilder) CheckInResultSupplement(checkInResultSupplemen
 }
 
 // 下班打卡结果补充
+//
 // 示例值：None
 func (builder *TaskResultBuilder) CheckOutResultSupplement(checkOutResultSupplement string) *TaskResultBuilder {
 	builder.checkOutResultSupplement = checkOutResultSupplement
@@ -2952,6 +3110,7 @@ func (builder *TaskResultBuilder) CheckOutResultSupplement(checkOutResultSupplem
 }
 
 // 上班打卡时间
+//
 // 示例值：1609722000
 func (builder *TaskResultBuilder) CheckInShiftTime(checkInShiftTime string) *TaskResultBuilder {
 	builder.checkInShiftTime = checkInShiftTime
@@ -2960,6 +3119,7 @@ func (builder *TaskResultBuilder) CheckInShiftTime(checkInShiftTime string) *Tas
 }
 
 // 下班打卡时间
+//
 // 示例值：1609754400
 func (builder *TaskResultBuilder) CheckOutShiftTime(checkOutShiftTime string) *TaskResultBuilder {
 	builder.checkOutShiftTime = checkOutShiftTime
@@ -3049,6 +3209,7 @@ func NewUserAllowedRemedyBuilder() *UserAllowedRemedyBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserAllowedRemedyBuilder) UserId(userId string) *UserAllowedRemedyBuilder {
 	builder.userId = userId
@@ -3057,6 +3218,7 @@ func (builder *UserAllowedRemedyBuilder) UserId(userId string) *UserAllowedRemed
 }
 
 // 补卡日期
+//
 // 示例值：20210104
 func (builder *UserAllowedRemedyBuilder) RemedyDate(remedyDate int) *UserAllowedRemedyBuilder {
 	builder.remedyDate = remedyDate
@@ -3065,6 +3227,7 @@ func (builder *UserAllowedRemedyBuilder) RemedyDate(remedyDate int) *UserAllowed
 }
 
 // 是否为自由班次，若为自由班次，则不用选择考虑第几次上下班，直接选择补卡时间即可
+//
 // 示例值：false
 func (builder *UserAllowedRemedyBuilder) IsFreePunch(isFreePunch bool) *UserAllowedRemedyBuilder {
 	builder.isFreePunch = isFreePunch
@@ -3073,6 +3236,7 @@ func (builder *UserAllowedRemedyBuilder) IsFreePunch(isFreePunch bool) *UserAllo
 }
 
 // 第几次上下班，0：第 1 次上下班，1：第 2 次上下班，2：第 3 次上下班
+//
 // 示例值：0
 func (builder *UserAllowedRemedyBuilder) PunchNo(punchNo int) *UserAllowedRemedyBuilder {
 	builder.punchNo = punchNo
@@ -3081,6 +3245,7 @@ func (builder *UserAllowedRemedyBuilder) PunchNo(punchNo int) *UserAllowedRemedy
 }
 
 // 上班 / 下班，1：上班，2：下班
+//
 // 示例值：1
 func (builder *UserAllowedRemedyBuilder) WorkType(workType int) *UserAllowedRemedyBuilder {
 	builder.workType = workType
@@ -3089,6 +3254,7 @@ func (builder *UserAllowedRemedyBuilder) WorkType(workType int) *UserAllowedReme
 }
 
 // 打卡状态，Early：早退，Late：迟到，Lack：缺卡
+//
 // 示例值：Lack
 func (builder *UserAllowedRemedyBuilder) PunchStatus(punchStatus string) *UserAllowedRemedyBuilder {
 	builder.punchStatus = punchStatus
@@ -3097,6 +3263,7 @@ func (builder *UserAllowedRemedyBuilder) PunchStatus(punchStatus string) *UserAl
 }
 
 // 正常的应打卡时间，时间格式为 yyyy-MM-dd HH:mm
+//
 // 示例值：2021-07-01 09:00
 func (builder *UserAllowedRemedyBuilder) NormalPunchTime(normalPunchTime string) *UserAllowedRemedyBuilder {
 	builder.normalPunchTime = normalPunchTime
@@ -3105,6 +3272,7 @@ func (builder *UserAllowedRemedyBuilder) NormalPunchTime(normalPunchTime string)
 }
 
 // 可选的补卡时间的最小值，时间格式为 yyyy-MM-dd HH:mm
+//
 // 示例值：2021-07-01 08:00
 func (builder *UserAllowedRemedyBuilder) RemedyStartTime(remedyStartTime string) *UserAllowedRemedyBuilder {
 	builder.remedyStartTime = remedyStartTime
@@ -3113,6 +3281,7 @@ func (builder *UserAllowedRemedyBuilder) RemedyStartTime(remedyStartTime string)
 }
 
 // 可选的补卡时间的最大值，时间格式为 yyyy-MM-dd HH:mm
+//
 // 示例值：2021-07-01 10:00
 func (builder *UserAllowedRemedyBuilder) RemedyEndTime(remedyEndTime string) *UserAllowedRemedyBuilder {
 	builder.remedyEndTime = remedyEndTime
@@ -3191,6 +3360,7 @@ func NewUserApprovalBuilder() *UserApprovalBuilder {
 }
 
 // 审批用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserApprovalBuilder) UserId(userId string) *UserApprovalBuilder {
 	builder.userId = userId
@@ -3199,6 +3369,7 @@ func (builder *UserApprovalBuilder) UserId(userId string) *UserApprovalBuilder {
 }
 
 // 审批作用日期
+//
 // 示例值：20210104
 func (builder *UserApprovalBuilder) Date(date string) *UserApprovalBuilder {
 	builder.date = date
@@ -3207,6 +3378,7 @@ func (builder *UserApprovalBuilder) Date(date string) *UserApprovalBuilder {
 }
 
 // 外出信息
+//
 // 示例值：
 func (builder *UserApprovalBuilder) Outs(outs []*UserOut) *UserApprovalBuilder {
 	builder.outs = outs
@@ -3215,6 +3387,7 @@ func (builder *UserApprovalBuilder) Outs(outs []*UserOut) *UserApprovalBuilder {
 }
 
 // 请假信息
+//
 // 示例值：
 func (builder *UserApprovalBuilder) Leaves(leaves []*UserLeave) *UserApprovalBuilder {
 	builder.leaves = leaves
@@ -3223,6 +3396,7 @@ func (builder *UserApprovalBuilder) Leaves(leaves []*UserLeave) *UserApprovalBui
 }
 
 // 加班信息
+//
 // 示例值：
 func (builder *UserApprovalBuilder) OvertimeWorks(overtimeWorks []*UserOvertimeWork) *UserApprovalBuilder {
 	builder.overtimeWorks = overtimeWorks
@@ -3231,6 +3405,7 @@ func (builder *UserApprovalBuilder) OvertimeWorks(overtimeWorks []*UserOvertimeW
 }
 
 // 出差信息
+//
 // 示例值：
 func (builder *UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilder {
 	builder.trips = trips
@@ -3290,6 +3465,7 @@ func NewUserDailyShiftBuilder() *UserDailyShiftBuilder {
 }
 
 // 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+//
 // 示例值：6737202939523236110
 func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBuilder {
 	builder.groupId = groupId
@@ -3298,6 +3474,7 @@ func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBui
 }
 
 // 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+//
 // 示例值：6753520403404030215
 func (builder *UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBuilder {
 	builder.shiftId = shiftId
@@ -3306,6 +3483,7 @@ func (builder *UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBui
 }
 
 // 月份
+//
 // 示例值：202101
 func (builder *UserDailyShiftBuilder) Month(month int) *UserDailyShiftBuilder {
 	builder.month = month
@@ -3314,6 +3492,7 @@ func (builder *UserDailyShiftBuilder) Month(month int) *UserDailyShiftBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserDailyShiftBuilder) UserId(userId string) *UserDailyShiftBuilder {
 	builder.userId = userId
@@ -3322,6 +3501,7 @@ func (builder *UserDailyShiftBuilder) UserId(userId string) *UserDailyShiftBuild
 }
 
 // 日期
+//
 // 示例值：21
 func (builder *UserDailyShiftBuilder) DayNo(dayNo int) *UserDailyShiftBuilder {
 	builder.dayNo = dayNo
@@ -3409,6 +3589,7 @@ func NewUserFlowBuilder() *UserFlowBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserFlowBuilder) UserId(userId string) *UserFlowBuilder {
 	builder.userId = userId
@@ -3417,6 +3598,7 @@ func (builder *UserFlowBuilder) UserId(userId string) *UserFlowBuilder {
 }
 
 // 记录创建者 ID
+//
 // 示例值：abd754f7
 func (builder *UserFlowBuilder) CreatorId(creatorId string) *UserFlowBuilder {
 	builder.creatorId = creatorId
@@ -3425,6 +3607,7 @@ func (builder *UserFlowBuilder) CreatorId(creatorId string) *UserFlowBuilder {
 }
 
 // 打卡位置名称信息
+//
 // 示例值：西溪八方城
 func (builder *UserFlowBuilder) LocationName(locationName string) *UserFlowBuilder {
 	builder.locationName = locationName
@@ -3433,6 +3616,7 @@ func (builder *UserFlowBuilder) LocationName(locationName string) *UserFlowBuild
 }
 
 // 打卡时间，精确到秒的时间戳
+//
 // 示例值：1611476284
 func (builder *UserFlowBuilder) CheckTime(checkTime string) *UserFlowBuilder {
 	builder.checkTime = checkTime
@@ -3441,6 +3625,7 @@ func (builder *UserFlowBuilder) CheckTime(checkTime string) *UserFlowBuilder {
 }
 
 // 打卡备注
+//
 // 示例值：上班打卡
 func (builder *UserFlowBuilder) Comment(comment string) *UserFlowBuilder {
 	builder.comment = comment
@@ -3449,6 +3634,7 @@ func (builder *UserFlowBuilder) Comment(comment string) *UserFlowBuilder {
 }
 
 // 打卡记录 ID
+//
 // 示例值：6709359313699356941
 func (builder *UserFlowBuilder) RecordId(recordId string) *UserFlowBuilder {
 	builder.recordId = recordId
@@ -3457,6 +3643,7 @@ func (builder *UserFlowBuilder) RecordId(recordId string) *UserFlowBuilder {
 }
 
 // 打卡 Wi-Fi 的 SSID
+//
 // 示例值：b0:b8:67:5c:1d:72
 func (builder *UserFlowBuilder) Ssid(ssid string) *UserFlowBuilder {
 	builder.ssid = ssid
@@ -3465,6 +3652,7 @@ func (builder *UserFlowBuilder) Ssid(ssid string) *UserFlowBuilder {
 }
 
 // 打卡 Wi-Fi 的 MAC 地址
+//
 // 示例值：b0:b8:67:5c:1d:72
 func (builder *UserFlowBuilder) Bssid(bssid string) *UserFlowBuilder {
 	builder.bssid = bssid
@@ -3473,6 +3661,7 @@ func (builder *UserFlowBuilder) Bssid(bssid string) *UserFlowBuilder {
 }
 
 // 是否为外勤打卡
+//
 // 示例值：true
 func (builder *UserFlowBuilder) IsField(isField bool) *UserFlowBuilder {
 	builder.isField = isField
@@ -3481,6 +3670,7 @@ func (builder *UserFlowBuilder) IsField(isField bool) *UserFlowBuilder {
 }
 
 // 是否为 Wi-Fi 打卡
+//
 // 示例值：true
 func (builder *UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder {
 	builder.isWifi = isWifi
@@ -3489,6 +3679,7 @@ func (builder *UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder {
 }
 
 // 记录生成方式
+//
 // 示例值：0
 func (builder *UserFlowBuilder) Type(type_ int) *UserFlowBuilder {
 	builder.type_ = type_
@@ -3497,6 +3688,7 @@ func (builder *UserFlowBuilder) Type(type_ int) *UserFlowBuilder {
 }
 
 // 打卡照片列表
+//
 // 示例值：https://time.clockin.biz/manage/download/6840389754748502021
 func (builder *UserFlowBuilder) PhotoUrls(photoUrls []string) *UserFlowBuilder {
 	builder.photoUrls = photoUrls
@@ -3505,6 +3697,7 @@ func (builder *UserFlowBuilder) PhotoUrls(photoUrls []string) *UserFlowBuilder {
 }
 
 // 打卡结果
+//
 // 示例值：Invalid
 func (builder *UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder {
 	builder.checkResult = checkResult
@@ -3591,6 +3784,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -3599,6 +3793,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -3606,6 +3801,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
@@ -3676,6 +3872,7 @@ func NewUserLeaveBuilder() *UserLeaveBuilder {
 }
 
 // 审批实例 ID
+//
 // 示例值：6737202939523236113
 func (builder *UserLeaveBuilder) ApprovalId(approvalId string) *UserLeaveBuilder {
 	builder.approvalId = approvalId
@@ -3684,6 +3881,7 @@ func (builder *UserLeaveBuilder) ApprovalId(approvalId string) *UserLeaveBuilder
 }
 
 // 假期类型唯一 ID，代表一种假期类型，长度小于 14
+//
 // 示例值：6852582717813440527
 func (builder *UserLeaveBuilder) UniqId(uniqId string) *UserLeaveBuilder {
 	builder.uniqId = uniqId
@@ -3692,6 +3890,7 @@ func (builder *UserLeaveBuilder) UniqId(uniqId string) *UserLeaveBuilder {
 }
 
 // 假期时长单位
+//
 // 示例值：1
 func (builder *UserLeaveBuilder) Unit(unit int) *UserLeaveBuilder {
 	builder.unit = unit
@@ -3700,6 +3899,7 @@ func (builder *UserLeaveBuilder) Unit(unit int) *UserLeaveBuilder {
 }
 
 // 假期时长（单位：秒），暂未开放提供，待后续提供
+//
 // 示例值：28800
 func (builder *UserLeaveBuilder) Interval(interval int) *UserLeaveBuilder {
 	builder.interval = interval
@@ -3708,6 +3908,7 @@ func (builder *UserLeaveBuilder) Interval(interval int) *UserLeaveBuilder {
 }
 
 // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 09:00:00
 func (builder *UserLeaveBuilder) StartTime(startTime string) *UserLeaveBuilder {
 	builder.startTime = startTime
@@ -3716,6 +3917,7 @@ func (builder *UserLeaveBuilder) StartTime(startTime string) *UserLeaveBuilder {
 }
 
 // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 19:00:00
 func (builder *UserLeaveBuilder) EndTime(endTime string) *UserLeaveBuilder {
 	builder.endTime = endTime
@@ -3724,6 +3926,7 @@ func (builder *UserLeaveBuilder) EndTime(endTime string) *UserLeaveBuilder {
 }
 
 // 假期多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
+//
 // 示例值：
 func (builder *UserLeaveBuilder) I18nNames(i18nNames *I18nNames) *UserLeaveBuilder {
 	builder.i18nNames = i18nNames
@@ -3732,6 +3935,7 @@ func (builder *UserLeaveBuilder) I18nNames(i18nNames *I18nNames) *UserLeaveBuild
 }
 
 // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称
+//
 // 示例值：ch
 func (builder *UserLeaveBuilder) DefaultLocale(defaultLocale string) *UserLeaveBuilder {
 	builder.defaultLocale = defaultLocale
@@ -3740,6 +3944,7 @@ func (builder *UserLeaveBuilder) DefaultLocale(defaultLocale string) *UserLeaveB
 }
 
 // 请假理由，必选字段
+//
 // 示例值：家里有事
 func (builder *UserLeaveBuilder) Reason(reason string) *UserLeaveBuilder {
 	builder.reason = reason
@@ -3748,6 +3953,7 @@ func (builder *UserLeaveBuilder) Reason(reason string) *UserLeaveBuilder {
 }
 
 // 审批通过时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 12:00:00
 func (builder *UserLeaveBuilder) ApprovePassTime(approvePassTime string) *UserLeaveBuilder {
 	builder.approvePassTime = approvePassTime
@@ -3756,6 +3962,7 @@ func (builder *UserLeaveBuilder) ApprovePassTime(approvePassTime string) *UserLe
 }
 
 // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 11:00:00
 func (builder *UserLeaveBuilder) ApproveApplyTime(approveApplyTime string) *UserLeaveBuilder {
 	builder.approveApplyTime = approveApplyTime
@@ -3856,6 +4063,7 @@ func NewUserOutBuilder() *UserOutBuilder {
 }
 
 // 审批实例 ID
+//
 // 示例值：6737202939523236113
 func (builder *UserOutBuilder) ApprovalId(approvalId string) *UserOutBuilder {
 	builder.approvalId = approvalId
@@ -3864,6 +4072,7 @@ func (builder *UserOutBuilder) ApprovalId(approvalId string) *UserOutBuilder {
 }
 
 // 外出类型唯一 ID，代表一种假期类型，长度小于 14
+//
 // 示例值：9496E43696967658A512969523E89870
 func (builder *UserOutBuilder) UniqId(uniqId string) *UserOutBuilder {
 	builder.uniqId = uniqId
@@ -3872,6 +4081,7 @@ func (builder *UserOutBuilder) UniqId(uniqId string) *UserOutBuilder {
 }
 
 // 外出时长单位
+//
 // 示例值：1
 func (builder *UserOutBuilder) Unit(unit int) *UserOutBuilder {
 	builder.unit = unit
@@ -3880,6 +4090,7 @@ func (builder *UserOutBuilder) Unit(unit int) *UserOutBuilder {
 }
 
 // 外出时长（单位：秒）
+//
 // 示例值：28800
 func (builder *UserOutBuilder) Interval(interval int) *UserOutBuilder {
 	builder.interval = interval
@@ -3888,6 +4099,7 @@ func (builder *UserOutBuilder) Interval(interval int) *UserOutBuilder {
 }
 
 // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 09:00:00
 func (builder *UserOutBuilder) StartTime(startTime string) *UserOutBuilder {
 	builder.startTime = startTime
@@ -3896,6 +4108,7 @@ func (builder *UserOutBuilder) StartTime(startTime string) *UserOutBuilder {
 }
 
 // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 19:00:00
 func (builder *UserOutBuilder) EndTime(endTime string) *UserOutBuilder {
 	builder.endTime = endTime
@@ -3904,6 +4117,7 @@ func (builder *UserOutBuilder) EndTime(endTime string) *UserOutBuilder {
 }
 
 // 外出多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
+//
 // 示例值：
 func (builder *UserOutBuilder) I18nNames(i18nNames *I18nNames) *UserOutBuilder {
 	builder.i18nNames = i18nNames
@@ -3912,6 +4126,7 @@ func (builder *UserOutBuilder) I18nNames(i18nNames *I18nNames) *UserOutBuilder {
 }
 
 // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称
+//
 // 示例值：ch
 func (builder *UserOutBuilder) DefaultLocale(defaultLocale string) *UserOutBuilder {
 	builder.defaultLocale = defaultLocale
@@ -3920,6 +4135,7 @@ func (builder *UserOutBuilder) DefaultLocale(defaultLocale string) *UserOutBuild
 }
 
 // 外出理由
+//
 // 示例值：外出办事
 func (builder *UserOutBuilder) Reason(reason string) *UserOutBuilder {
 	builder.reason = reason
@@ -3928,6 +4144,7 @@ func (builder *UserOutBuilder) Reason(reason string) *UserOutBuilder {
 }
 
 // 审批通过时间
+//
 // 示例值：2021-01-04 12:00:00
 func (builder *UserOutBuilder) ApprovePassTime(approvePassTime string) *UserOutBuilder {
 	builder.approvePassTime = approvePassTime
@@ -3936,6 +4153,7 @@ func (builder *UserOutBuilder) ApprovePassTime(approvePassTime string) *UserOutB
 }
 
 // 审批申请时间
+//
 // 示例值：2021-01-04 11:00:00
 func (builder *UserOutBuilder) ApproveApplyTime(approveApplyTime string) *UserOutBuilder {
 	builder.approveApplyTime = approveApplyTime
@@ -4024,6 +4242,7 @@ func NewUserOvertimeWorkBuilder() *UserOvertimeWorkBuilder {
 }
 
 // 审批实例 ID
+//
 // 示例值：6737202939523236113
 func (builder *UserOvertimeWorkBuilder) ApprovalId(approvalId string) *UserOvertimeWorkBuilder {
 	builder.approvalId = approvalId
@@ -4032,6 +4251,7 @@ func (builder *UserOvertimeWorkBuilder) ApprovalId(approvalId string) *UserOvert
 }
 
 // 加班时长
+//
 // 示例值：1.5
 func (builder *UserOvertimeWorkBuilder) Duration(duration float64) *UserOvertimeWorkBuilder {
 	builder.duration = duration
@@ -4040,6 +4260,7 @@ func (builder *UserOvertimeWorkBuilder) Duration(duration float64) *UserOvertime
 }
 
 // 加班时长单位
+//
 // 示例值：1
 func (builder *UserOvertimeWorkBuilder) Unit(unit int) *UserOvertimeWorkBuilder {
 	builder.unit = unit
@@ -4048,6 +4269,7 @@ func (builder *UserOvertimeWorkBuilder) Unit(unit int) *UserOvertimeWorkBuilder 
 }
 
 // 加班日期类型
+//
 // 示例值：2
 func (builder *UserOvertimeWorkBuilder) Category(category int) *UserOvertimeWorkBuilder {
 	builder.category = category
@@ -4056,6 +4278,7 @@ func (builder *UserOvertimeWorkBuilder) Category(category int) *UserOvertimeWork
 }
 
 // 加班规则类型
+//
 // 示例值：1
 func (builder *UserOvertimeWorkBuilder) Type(type_ int) *UserOvertimeWorkBuilder {
 	builder.type_ = type_
@@ -4064,6 +4287,7 @@ func (builder *UserOvertimeWorkBuilder) Type(type_ int) *UserOvertimeWorkBuilder
 }
 
 // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-09 09:00:00
 func (builder *UserOvertimeWorkBuilder) StartTime(startTime string) *UserOvertimeWorkBuilder {
 	builder.startTime = startTime
@@ -4072,6 +4296,7 @@ func (builder *UserOvertimeWorkBuilder) StartTime(startTime string) *UserOvertim
 }
 
 // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-10 13:00:00
 func (builder *UserOvertimeWorkBuilder) EndTime(endTime string) *UserOvertimeWorkBuilder {
 	builder.endTime = endTime
@@ -4133,6 +4358,7 @@ func NewUserSettingBuilder() *UserSettingBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserSettingBuilder) UserId(userId string) *UserSettingBuilder {
 	builder.userId = userId
@@ -4141,6 +4367,7 @@ func (builder *UserSettingBuilder) UserId(userId string) *UserSettingBuilder {
 }
 
 // 人脸照片文件 ID，获取方式：[文件上传](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+//
 // 示例值：xxxxxb306842b1c189bc5212eefxxxxx
 func (builder *UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder {
 	builder.faceKey = faceKey
@@ -4149,6 +4376,7 @@ func (builder *UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder {
 }
 
 // 人脸照片更新时间，精确到秒的时间戳
+//
 // 示例值：1625681917
 func (builder *UserSettingBuilder) FaceKeyUpdateTime(faceKeyUpdateTime string) *UserSettingBuilder {
 	builder.faceKeyUpdateTime = faceKeyUpdateTime
@@ -4194,6 +4422,7 @@ func NewUserStatsDataBuilder() *UserStatsDataBuilder {
 }
 
 // 用户姓名
+//
 // 示例值：小李
 func (builder *UserStatsDataBuilder) Name(name string) *UserStatsDataBuilder {
 	builder.name = name
@@ -4202,6 +4431,7 @@ func (builder *UserStatsDataBuilder) Name(name string) *UserStatsDataBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：ec8ddg56
 func (builder *UserStatsDataBuilder) UserId(userId string) *UserStatsDataBuilder {
 	builder.userId = userId
@@ -4210,6 +4440,7 @@ func (builder *UserStatsDataBuilder) UserId(userId string) *UserStatsDataBuilder
 }
 
 // 用户的统计数据
+//
 // 示例值：
 func (builder *UserStatsDataBuilder) Datas(datas []*UserStatsDataCell) *UserStatsDataBuilder {
 	builder.datas = datas
@@ -4257,6 +4488,7 @@ func NewUserStatsDataCellBuilder() *UserStatsDataCellBuilder {
 }
 
 // 字段编号
+//
 // 示例值：50102
 func (builder *UserStatsDataCellBuilder) Code(code string) *UserStatsDataCellBuilder {
 	builder.code = code
@@ -4265,6 +4497,7 @@ func (builder *UserStatsDataCellBuilder) Code(code string) *UserStatsDataCellBui
 }
 
 // 数据值
+//
 // 示例值：无需打卡(-), 无需打卡(-)
 func (builder *UserStatsDataCellBuilder) Value(value string) *UserStatsDataCellBuilder {
 	builder.value = value
@@ -4273,6 +4506,7 @@ func (builder *UserStatsDataCellBuilder) Value(value string) *UserStatsDataCellB
 }
 
 // 数据属性
+//
 // 示例值：
 func (builder *UserStatsDataCellBuilder) Features(features []*UserStatsDataFeature) *UserStatsDataCellBuilder {
 	builder.features = features
@@ -4281,6 +4515,7 @@ func (builder *UserStatsDataCellBuilder) Features(features []*UserStatsDataFeatu
 }
 
 // 字段标题
+//
 // 示例值：姓名
 func (builder *UserStatsDataCellBuilder) Title(title string) *UserStatsDataCellBuilder {
 	builder.title = title
@@ -4326,6 +4561,7 @@ func NewUserStatsDataFeatureBuilder() *UserStatsDataFeatureBuilder {
 }
 
 // 统计数据列附加属性的名称
+//
 // 示例值：Abnormal
 func (builder *UserStatsDataFeatureBuilder) Key(key string) *UserStatsDataFeatureBuilder {
 	builder.key = key
@@ -4334,6 +4570,7 @@ func (builder *UserStatsDataFeatureBuilder) Key(key string) *UserStatsDataFeatur
 }
 
 // 统计数据列附加属性的值
+//
 // 示例值：false
 func (builder *UserStatsDataFeatureBuilder) Value(value string) *UserStatsDataFeatureBuilder {
 	builder.value = value
@@ -4375,6 +4612,7 @@ func NewUserStatsFieldBuilder() *UserStatsFieldBuilder {
 }
 
 // 统计类型
+//
 // 示例值：
 func (builder *UserStatsFieldBuilder) StatsType(statsType string) *UserStatsFieldBuilder {
 	builder.statsType = statsType
@@ -4383,6 +4621,7 @@ func (builder *UserStatsFieldBuilder) StatsType(statsType string) *UserStatsFiel
 }
 
 // 用户 ID
+//
 // 示例值：
 func (builder *UserStatsFieldBuilder) UserId(userId string) *UserStatsFieldBuilder {
 	builder.userId = userId
@@ -4391,6 +4630,7 @@ func (builder *UserStatsFieldBuilder) UserId(userId string) *UserStatsFieldBuild
 }
 
 // 字段列表
+//
 // 示例值：
 func (builder *UserStatsFieldBuilder) Fields(fields []*Field) *UserStatsFieldBuilder {
 	builder.fields = fields
@@ -4438,6 +4678,7 @@ func NewUserStatsViewBuilder() *UserStatsViewBuilder {
 }
 
 // 视图 ID
+//
 // 示例值：TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09
 func (builder *UserStatsViewBuilder) ViewId(viewId string) *UserStatsViewBuilder {
 	builder.viewId = viewId
@@ -4446,6 +4687,7 @@ func (builder *UserStatsViewBuilder) ViewId(viewId string) *UserStatsViewBuilder
 }
 
 // 视图类型
+//
 // 示例值：month
 func (builder *UserStatsViewBuilder) StatsType(statsType string) *UserStatsViewBuilder {
 	builder.statsType = statsType
@@ -4454,6 +4696,7 @@ func (builder *UserStatsViewBuilder) StatsType(statsType string) *UserStatsViewB
 }
 
 // 查询用户id，同【查询统计数据】、【查询统计设置】user_id
+//
 // 示例值：ec8ddg56
 func (builder *UserStatsViewBuilder) UserId(userId string) *UserStatsViewBuilder {
 	builder.userId = userId
@@ -4462,6 +4705,7 @@ func (builder *UserStatsViewBuilder) UserId(userId string) *UserStatsViewBuilder
 }
 
 // 用户设置字段
+//
 // 示例值：
 func (builder *UserStatsViewBuilder) Items(items []*Item) *UserStatsViewBuilder {
 	builder.items = items
@@ -4522,6 +4766,7 @@ func NewUserTaskBuilder() *UserTaskBuilder {
 }
 
 // 打卡记录 ID
+//
 // 示例值：6709359313699356941
 func (builder *UserTaskBuilder) ResultId(resultId string) *UserTaskBuilder {
 	builder.resultId = resultId
@@ -4530,6 +4775,7 @@ func (builder *UserTaskBuilder) ResultId(resultId string) *UserTaskBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserTaskBuilder) UserId(userId string) *UserTaskBuilder {
 	builder.userId = userId
@@ -4538,6 +4784,7 @@ func (builder *UserTaskBuilder) UserId(userId string) *UserTaskBuilder {
 }
 
 // 用户姓名
+//
 // 示例值：张三
 func (builder *UserTaskBuilder) EmployeeName(employeeName string) *UserTaskBuilder {
 	builder.employeeName = employeeName
@@ -4546,6 +4793,7 @@ func (builder *UserTaskBuilder) EmployeeName(employeeName string) *UserTaskBuild
 }
 
 // 日期
+//
 // 示例值：20190819
 func (builder *UserTaskBuilder) Day(day int) *UserTaskBuilder {
 	builder.day = day
@@ -4554,6 +4802,7 @@ func (builder *UserTaskBuilder) Day(day int) *UserTaskBuilder {
 }
 
 // 考勤组 ID
+//
 // 示例值：6737202939523236110
 func (builder *UserTaskBuilder) GroupId(groupId string) *UserTaskBuilder {
 	builder.groupId = groupId
@@ -4562,6 +4811,7 @@ func (builder *UserTaskBuilder) GroupId(groupId string) *UserTaskBuilder {
 }
 
 // 班次 ID
+//
 // 示例值：6753520403404030215
 func (builder *UserTaskBuilder) ShiftId(shiftId string) *UserTaskBuilder {
 	builder.shiftId = shiftId
@@ -4570,6 +4820,7 @@ func (builder *UserTaskBuilder) ShiftId(shiftId string) *UserTaskBuilder {
 }
 
 // 用户考勤记录
+//
 // 示例值：
 func (builder *UserTaskBuilder) Records(records []*TaskResult) *UserTaskBuilder {
 	builder.records = records
@@ -4657,6 +4908,7 @@ func NewUserTaskRemedyBuilder() *UserTaskRemedyBuilder {
 }
 
 // 用户 ID
+//
 // 示例值：abd754f7
 func (builder *UserTaskRemedyBuilder) UserId(userId string) *UserTaskRemedyBuilder {
 	builder.userId = userId
@@ -4665,6 +4917,7 @@ func (builder *UserTaskRemedyBuilder) UserId(userId string) *UserTaskRemedyBuild
 }
 
 // 补卡日期
+//
 // 示例值：20210701
 func (builder *UserTaskRemedyBuilder) RemedyDate(remedyDate int) *UserTaskRemedyBuilder {
 	builder.remedyDate = remedyDate
@@ -4673,6 +4926,7 @@ func (builder *UserTaskRemedyBuilder) RemedyDate(remedyDate int) *UserTaskRemedy
 }
 
 // 第几次上下班，0：第 1 次上下班，1：第 2 次上下班，2：第 3 次上下班，自由班制填 0
+//
 // 示例值：0
 func (builder *UserTaskRemedyBuilder) PunchNo(punchNo int) *UserTaskRemedyBuilder {
 	builder.punchNo = punchNo
@@ -4681,6 +4935,7 @@ func (builder *UserTaskRemedyBuilder) PunchNo(punchNo int) *UserTaskRemedyBuilde
 }
 
 // 上班 / 下班，1：上班，2：下班，自由班制填 0
+//
 // 示例值：1
 func (builder *UserTaskRemedyBuilder) WorkType(workType int) *UserTaskRemedyBuilder {
 	builder.workType = workType
@@ -4689,6 +4944,7 @@ func (builder *UserTaskRemedyBuilder) WorkType(workType int) *UserTaskRemedyBuil
 }
 
 // 审批 ID
+//
 // 示例值：6737202939523236113
 func (builder *UserTaskRemedyBuilder) ApprovalId(approvalId string) *UserTaskRemedyBuilder {
 	builder.approvalId = approvalId
@@ -4697,6 +4953,7 @@ func (builder *UserTaskRemedyBuilder) ApprovalId(approvalId string) *UserTaskRem
 }
 
 // 补卡时间，时间格式为 yyyy-MM-dd HH:mm
+//
 // 示例值：2021-07-01 08:00
 func (builder *UserTaskRemedyBuilder) RemedyTime(remedyTime string) *UserTaskRemedyBuilder {
 	builder.remedyTime = remedyTime
@@ -4705,6 +4962,7 @@ func (builder *UserTaskRemedyBuilder) RemedyTime(remedyTime string) *UserTaskRem
 }
 
 // 补卡状态（默认为审批中）
+//
 // 示例值：2
 func (builder *UserTaskRemedyBuilder) Status(status int) *UserTaskRemedyBuilder {
 	builder.status = status
@@ -4713,6 +4971,7 @@ func (builder *UserTaskRemedyBuilder) Status(status int) *UserTaskRemedyBuilder 
 }
 
 // 补卡原因
+//
 // 示例值：忘记打卡
 func (builder *UserTaskRemedyBuilder) Reason(reason string) *UserTaskRemedyBuilder {
 	builder.reason = reason
@@ -4721,6 +4980,7 @@ func (builder *UserTaskRemedyBuilder) Reason(reason string) *UserTaskRemedyBuild
 }
 
 // 补卡时间，精确到秒的时间戳
+//
 // 示例值：1611476284
 func (builder *UserTaskRemedyBuilder) Time(time string) *UserTaskRemedyBuilder {
 	builder.time = time
@@ -4729,6 +4989,7 @@ func (builder *UserTaskRemedyBuilder) Time(time string) *UserTaskRemedyBuilder {
 }
 
 // 补卡时考勤组时区
+//
 // 示例值：Asia/Shanghai
 func (builder *UserTaskRemedyBuilder) TimeZone(timeZone string) *UserTaskRemedyBuilder {
 	builder.timeZone = timeZone
@@ -4737,6 +4998,7 @@ func (builder *UserTaskRemedyBuilder) TimeZone(timeZone string) *UserTaskRemedyB
 }
 
 // 补卡发起时间，精确到秒的时间戳
+//
 // 示例值：1611476284
 func (builder *UserTaskRemedyBuilder) CreateTime(createTime string) *UserTaskRemedyBuilder {
 	builder.createTime = createTime
@@ -4745,6 +5007,7 @@ func (builder *UserTaskRemedyBuilder) CreateTime(createTime string) *UserTaskRem
 }
 
 // 补卡状态更新时间，精确到秒的时间戳
+//
 // 示例值：1611476284
 func (builder *UserTaskRemedyBuilder) UpdateTime(updateTime string) *UserTaskRemedyBuilder {
 	builder.updateTime = updateTime
@@ -4835,6 +5098,7 @@ func NewUserTripBuilder() *UserTripBuilder {
 }
 
 // 审批实例 ID
+//
 // 示例值：6737202939523236113
 func (builder *UserTripBuilder) ApprovalId(approvalId string) *UserTripBuilder {
 	builder.approvalId = approvalId
@@ -4843,6 +5107,7 @@ func (builder *UserTripBuilder) ApprovalId(approvalId string) *UserTripBuilder {
 }
 
 // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 09:00:00
 func (builder *UserTripBuilder) StartTime(startTime string) *UserTripBuilder {
 	builder.startTime = startTime
@@ -4851,6 +5116,7 @@ func (builder *UserTripBuilder) StartTime(startTime string) *UserTripBuilder {
 }
 
 // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 19:00:00
 func (builder *UserTripBuilder) EndTime(endTime string) *UserTripBuilder {
 	builder.endTime = endTime
@@ -4859,6 +5125,7 @@ func (builder *UserTripBuilder) EndTime(endTime string) *UserTripBuilder {
 }
 
 // 出差理由
+//
 // 示例值：培训
 func (builder *UserTripBuilder) Reason(reason string) *UserTripBuilder {
 	builder.reason = reason
@@ -4867,6 +5134,7 @@ func (builder *UserTripBuilder) Reason(reason string) *UserTripBuilder {
 }
 
 // 审批通过时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 12:00:00
 func (builder *UserTripBuilder) ApprovePassTime(approvePassTime string) *UserTripBuilder {
 	builder.approvePassTime = approvePassTime
@@ -4875,6 +5143,7 @@ func (builder *UserTripBuilder) ApprovePassTime(approvePassTime string) *UserTri
 }
 
 // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
+//
 // 示例值：2021-01-04 11:00:00
 func (builder *UserTripBuilder) ApproveApplyTime(approveApplyTime string) *UserTripBuilder {
 	builder.approveApplyTime = approveApplyTime
@@ -4926,6 +5195,7 @@ func NewWifiInfoBuilder() *WifiInfoBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *WifiInfoBuilder) Status(status int) *WifiInfoBuilder {
 	builder.status = status
@@ -4966,6 +5236,7 @@ func NewWifiInfoEventBuilder() *WifiInfoEventBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
 	builder.ssid = ssid
@@ -4973,6 +5244,7 @@ func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
@@ -4982,6 +5254,7 @@ func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBuilder {
 	builder.lastssid = lastssid
@@ -4989,6 +5262,7 @@ func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBui
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *WifiInfoEventBuilder) Lastbssid(lastbssid string) *WifiInfoEventBuilder {

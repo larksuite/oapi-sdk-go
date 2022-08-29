@@ -36,90 +36,90 @@ const (
 )
 
 const (
-	UserIdTypeDepartmentCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentCreateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentCreateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeCreateDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeDepartmentDeleteDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentDeleteOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeDeleteDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeDeleteDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeGetDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentParentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentParentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentParentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeParentDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeParentDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeParentDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentParentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentParentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeParentDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeParentDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentPatchDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentPatchOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypePatchDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypePatchDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentSearchUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeDepartmentSearchUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeDepartmentSearchOpenId  = "open_id"  // 以 open_id 来识别用户
+	UserIdTypeSearchDepartmentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeSearchDepartmentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeSearchDepartmentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentSearchDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
-	DepartmentIdTypeDepartmentSearchOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeSearchDepartmentDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeSearchDepartmentOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeDepartmentUnbindDepartmentChatDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentUnbindDepartmentChatOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeUnbindDepartmentChatDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUnbindDepartmentChatDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDepartmentUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDepartmentUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDepartmentUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateDepartmentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateDepartmentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateDepartmentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentUpdateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDepartmentUpdateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeUpdateDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUpdateDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -135,14 +135,14 @@ const (
 )
 
 const (
-	EnumTypeEmployeeTypeEnumUpdateDefualt = 1 // 内置类型
-	EnumTypeEmployeeTypeEnumUpdateCustom  = 2 // 自定义
+	EnumTypeUpdateEmployeeTypeEnumDefualt = 1 // 内置类型
+	EnumTypeUpdateEmployeeTypeEnumCustom  = 2 // 自定义
 
 )
 
 const (
-	EnumStatusEmployeeTypeEnumUpdateActive   = 1 // 激活
-	EnumStatusEmployeeTypeEnumUpdateInactive = 2 // 未激活
+	EnumStatusUpdateEmployeeTypeEnumActive   = 1 // 激活
+	EnumStatusUpdateEmployeeTypeEnumInactive = 2 // 未激活
 
 )
 
@@ -158,14 +158,14 @@ const (
 )
 
 const (
-	GroupTypeGroupMemberBelongAssign  = 1 // 普通用户组
-	GroupTypeGroupMemberBelongDynamic = 2 // 动态用户组
+	GroupTypeMemberBelongGroupAssign  = 1 // 普通用户组
+	GroupTypeMemberBelongGroupDynamic = 2 // 动态用户组
 
 )
 
 const (
-	GroupTypeGroupSimplelistAssign  = 1 // 普通用户组
-	GroupTypeGroupSimplelistDynamic = 2 // 动态用户组
+	GroupTypeSimplelistGroupAssign  = 1 // 普通用户组
+	GroupTypeSimplelistGroupDynamic = 2 // 动态用户组
 
 )
 
@@ -174,63 +174,63 @@ const (
 )
 
 const (
-	MemberIdTypeGroupMemberAddOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
-	MemberIdTypeGroupMemberAddUnionID = "union_id" // member_type =user时候，表示用户的union_id
-	MemberIdTypeGroupMemberAddUserID  = "user_id"  // member_type =user时候，表示用户的user_id
+	MemberIdTypeAddGroupMemberOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
+	MemberIdTypeAddGroupMemberUnionID = "union_id" // member_type =user时候，表示用户的union_id
+	MemberIdTypeAddGroupMemberUserID  = "user_id"  // member_type =user时候，表示用户的user_id
 )
 
 const (
-	MemberTypeGroupMemberRemoveUser = "user" // 表示从用户组中移除用户
+	MemberTypeRemoveGroupMemberUser = "user" // 表示从用户组中移除用户
 )
 
 const (
-	MemberIdTypeGroupMemberRemoveOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
-	MemberIdTypeGroupMemberRemoveUnionID = "union_id" // member_type =user时候，表示用户的union_id
-	MemberIdTypeGroupMemberRemoveUserID  = "user_id"  // member_type =user时候，表示用户的user_id
+	MemberIdTypeRemoveGroupMemberOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
+	MemberIdTypeRemoveGroupMemberUnionID = "union_id" // member_type =user时候，表示用户的union_id
+	MemberIdTypeRemoveGroupMemberUserID  = "user_id"  // member_type =user时候，表示用户的user_id
 )
 
 const (
-	MemberIdTypeGroupMemberSimplelistOpenId       = "open_id"       // member_type=user时候，表示用户的open_id；member_type=department时候，表示部门的open_id
-	MemberIdTypeGroupMemberSimplelistUnionId      = "union_id"      // member_type=user时候，表示用户的union_id
-	MemberIdTypeGroupMemberSimplelistUserId       = "user_id"       // member_type=user时候，表示用户的user_id
-	MemberIdTypeGroupMemberSimplelistDepartmentId = "department_id" // member_type=department时候，表示部门的department_id
+	MemberIdTypeSimplelistGroupMemberOpenId       = "open_id"       // member_type=user时候，表示用户的open_id；member_type=department时候，表示部门的open_id
+	MemberIdTypeSimplelistGroupMemberUnionId      = "union_id"      // member_type=user时候，表示用户的union_id
+	MemberIdTypeSimplelistGroupMemberUserId       = "user_id"       // member_type=user时候，表示用户的user_id
+	MemberIdTypeSimplelistGroupMemberDepartmentId = "department_id" // member_type=department时候，表示部门的department_id
 )
 
 const (
-	MemberTypeGroupMemberSimplelistUser       = "user"       // 该次获取的用户组的用户成员
-	MemberTypeGroupMemberSimplelistDepartment = "department" // 该次获取的用户组的部门成员
+	MemberTypeSimplelistGroupMemberUser       = "user"       // 该次获取的用户组的用户成员
+	MemberTypeSimplelistGroupMemberDepartment = "department" // 该次获取的用户组的部门成员
 )
 
 const (
-	UserIdTypeScopeListOpenId  = "open_id"  // 用户的 open id
-	UserIdTypeScopeListUnionId = "union_id" // 用户的 union_id
-	UserIdTypeScopeListUserId  = "user_id"  // 用户的 user_id
+	UserIdTypeListScopeOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeListScopeUnionId = "union_id" // 用户的 union_id
+	UserIdTypeListScopeUserId  = "user_id"  // 用户的 user_id
 )
 
 const (
-	DepartmentIdTypeScopeListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeScopeListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListScopeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListScopeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeUnitBindDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUnitBindDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeBindDepartmentUnitDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeBindDepartmentUnitOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeUnitListDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUnitListDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListDepartmentUnitDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListDepartmentUnitOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeUnitUnbindDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUnitUnbindDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeUnbindDepartmentUnitDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUnbindDepartmentUnitOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserBatchGetIdOpenId  = "open_id"  // 用户的 open id
-	UserIdTypeUserBatchGetIdUnionId = "union_id" // 用户的 union id
-	UserIdTypeUserBatchGetIdUserId  = "user_id"  // 用户的 user id
+	UserIdTypeBatchGetIdUserOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeBatchGetIdUserUnionId = "union_id" // 用户的 union id
+	UserIdTypeBatchGetIdUserUserId  = "user_id"  // 用户的 user id
 )
 
 const (
@@ -241,89 +241,89 @@ const (
 )
 
 const (
-	UserIdTypeUserCreateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserCreateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserCreateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUserCreateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserCreateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeCreateUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserDeleteUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserDeleteUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserDeleteOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeDeleteUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDeleteUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDeleteUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUserFindByDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserFindByDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserFindByDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeFindByDepartmentUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeFindByDepartmentUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeFindByDepartmentUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUserFindByDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserFindByDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeFindByDepartmentUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeFindByDepartmentUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUserGetDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserGetOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeGetUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserListOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUserListDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserListOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeListUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	GenderTypeUserPatchUnkown = 0 // 未知
-	GenderTypeUserPatchMale   = 1 // 男
-	GenderTypeUserPatchFemale = 2 // 女
-
-)
-
-const (
-	UserIdTypeUserPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserPatchOpenId  = "open_id"  // 以open_id来识别用户
-)
-
-const (
-	DepartmentIdTypeUserPatchDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserPatchOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-)
-
-const (
-	GenderTypeUserUpdateUnkown = 0 // 未知
-	GenderTypeUserUpdateMale   = 1 // 男
-	GenderTypeUserUpdateFemale = 2 // 女
+	GenderTypePatchUserUnkown = 0 // 未知
+	GenderTypePatchUserMale   = 1 // 男
+	GenderTypePatchUserFemale = 2 // 女
 
 )
 
 const (
-	UserIdTypeUserUpdateUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUserUpdateUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUserUpdateOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUserUpdateDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUserUpdateOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypePatchUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypePatchUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	GenderTypeUpdateUserUnkown = 0 // 未知
+	GenderTypeUpdateUserMale   = 1 // 男
+	GenderTypeUpdateUserFemale = 2 // 女
+
+)
+
+const (
+	UserIdTypeUpdateUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateUserOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeUpdateUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUpdateUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 type AvatarInfo struct {
@@ -350,6 +350,7 @@ func NewAvatarInfoBuilder() *AvatarInfoBuilder {
 }
 
 // 72*72像素头像链接
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar72(avatar72 string) *AvatarInfoBuilder {
 	builder.avatar72 = avatar72
@@ -358,6 +359,7 @@ func (builder *AvatarInfoBuilder) Avatar72(avatar72 string) *AvatarInfoBuilder {
 }
 
 // 240*240像素头像链接
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar240(avatar240 string) *AvatarInfoBuilder {
 	builder.avatar240 = avatar240
@@ -366,6 +368,7 @@ func (builder *AvatarInfoBuilder) Avatar240(avatar240 string) *AvatarInfoBuilder
 }
 
 // 640*640像素头像链接
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar640(avatar640 string) *AvatarInfoBuilder {
 	builder.avatar640 = avatar640
@@ -374,6 +377,7 @@ func (builder *AvatarInfoBuilder) Avatar640(avatar640 string) *AvatarInfoBuilder
 }
 
 // 原始头像链接
+//
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) AvatarOrigin(avatarOrigin string) *AvatarInfoBuilder {
 	builder.avatarOrigin = avatarOrigin
@@ -429,6 +433,7 @@ func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
 }
 
 // 关联租户ID
+//
 // 示例值：130426ba5b8f174f
 func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *CollaborationTenantBuilder {
 	builder.tenantKey = tenantKey
@@ -437,6 +442,7 @@ func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *Collabor
 }
 
 // 关联租户实际名称
+//
 // 示例值：testName
 func (builder *CollaborationTenantBuilder) Name(name string) *CollaborationTenantBuilder {
 	builder.name = name
@@ -445,6 +451,7 @@ func (builder *CollaborationTenantBuilder) Name(name string) *CollaborationTenan
 }
 
 // 别名
+//
 // 示例值：testNickName
 func (builder *CollaborationTenantBuilder) Nickname(nickname string) *CollaborationTenantBuilder {
 	builder.nickname = nickname
@@ -453,6 +460,7 @@ func (builder *CollaborationTenantBuilder) Nickname(nickname string) *Collaborat
 }
 
 // 关联时间
+//
 // 示例值：1642041636
 func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *CollaborationTenantBuilder {
 	builder.connectTime = connectTime
@@ -461,6 +469,7 @@ func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *Collabo
 }
 
 // 租户icon信息
+//
 // 示例值：
 func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *CollaborationTenantBuilder {
 	builder.avatar = avatar
@@ -516,6 +525,7 @@ func NewCustomAttrBuilder() *CustomAttrBuilder {
 }
 
 // 自定义字段id
+//
 // 示例值：C-6965457429001748507
 func (builder *CustomAttrBuilder) Id(id string) *CustomAttrBuilder {
 	builder.id = id
@@ -524,6 +534,7 @@ func (builder *CustomAttrBuilder) Id(id string) *CustomAttrBuilder {
 }
 
 // 自定义字段类型，可选值有:;- `TEXT`：纯文本，用于纯文本描述人员，如备注;- `HREF`：静态 URL，用于人员 Profile 跳转链接;- `ENUMERATION`：枚举，用于结构化描述人员，如民族;- `GENERIC_USER`：用户，用于描述人和人关系，如 HRBP;- `PICTURE_ENUM`：枚举图片，以结构化的图片描述人员，如在人员 Profile 展示荣誉徽章
+//
 // 示例值：TEXT
 func (builder *CustomAttrBuilder) Type(type_ string) *CustomAttrBuilder {
 	builder.type_ = type_
@@ -532,6 +543,7 @@ func (builder *CustomAttrBuilder) Type(type_ string) *CustomAttrBuilder {
 }
 
 // 选项定义，当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值，列举所有可选项
+//
 // 示例值：{}
 func (builder *CustomAttrBuilder) Options(options *CustomAttrOptions) *CustomAttrBuilder {
 	builder.options = options
@@ -540,6 +552,7 @@ func (builder *CustomAttrBuilder) Options(options *CustomAttrOptions) *CustomAtt
 }
 
 // 自定义字段的字段名称
+//
 // 示例值：{}
 func (builder *CustomAttrBuilder) I18nName(i18nName []*I18nContent) *CustomAttrBuilder {
 	builder.i18nName = i18nName
@@ -584,6 +597,7 @@ func NewCustomAttrEventBuilder() *CustomAttrEventBuilder {
 }
 
 // 通讯录字段键值
+//
 // 示例值：
 func (builder *CustomAttrEventBuilder) ContactFieldKey(contactFieldKey []string) *CustomAttrEventBuilder {
 	builder.contactFieldKey = contactFieldKey
@@ -592,6 +606,7 @@ func (builder *CustomAttrEventBuilder) ContactFieldKey(contactFieldKey []string)
 }
 
 // 开关是否打开
+//
 // 示例值：true
 func (builder *CustomAttrEventBuilder) AllowOpenQuery(allowOpenQuery bool) *CustomAttrEventBuilder {
 	builder.allowOpenQuery = allowOpenQuery
@@ -612,14 +627,14 @@ func (builder *CustomAttrEventBuilder) Build() *CustomAttrEvent {
 }
 
 type CustomAttrGenericUser struct {
-	Id   *string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
-	Type *int    `json:"type,omitempty"` // 用户类型	1：用户
+	Id   *string `json:"id,omitempty"`   // 用户的user_id ，具体参见[用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	Type *int    `json:"type,omitempty"` // 用户类型:  ;1：用户;;目前固定为1，表示用户类型
 }
 
 type CustomAttrGenericUserBuilder struct {
-	id       string // 用户的user_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	id       string // 用户的user_id ，具体参见[用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
 	idFlag   bool
-	type_    int // 用户类型	1：用户
+	type_    int // 用户类型:  ;1：用户;;目前固定为1，表示用户类型
 	typeFlag bool
 }
 
@@ -628,7 +643,8 @@ func NewCustomAttrGenericUserBuilder() *CustomAttrGenericUserBuilder {
 	return builder
 }
 
-// 用户的user_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+// 用户的user_id ，具体参见[用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：9b2fabg5
 func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUserBuilder {
 	builder.id = id
@@ -636,7 +652,8 @@ func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUse
 	return builder
 }
 
-// 用户类型	1：用户
+// 用户类型:  ;1：用户;;目前固定为1，表示用户类型
+//
 // 示例值：1
 func (builder *CustomAttrGenericUserBuilder) Type(type_ int) *CustomAttrGenericUserBuilder {
 	builder.type_ = type_
@@ -678,6 +695,7 @@ func NewCustomAttrOptionBuilder() *CustomAttrOptionBuilder {
 }
 
 // 枚举类型选项id
+//
 // 示例值：qasdefgr
 func (builder *CustomAttrOptionBuilder) Id(id string) *CustomAttrOptionBuilder {
 	builder.id = id
@@ -686,6 +704,7 @@ func (builder *CustomAttrOptionBuilder) Id(id string) *CustomAttrOptionBuilder {
 }
 
 // 枚举选项值，当option_type为`TEXT`为文本值，当option_type为`PICTURE`时为图片链接
+//
 // 示例值：Option
 func (builder *CustomAttrOptionBuilder) Value(value string) *CustomAttrOptionBuilder {
 	builder.value = value
@@ -694,6 +713,7 @@ func (builder *CustomAttrOptionBuilder) Value(value string) *CustomAttrOptionBui
 }
 
 // 名称，仅option_type为PICTURE时有效
+//
 // 示例值：Name
 func (builder *CustomAttrOptionBuilder) Name(name string) *CustomAttrOptionBuilder {
 	builder.name = name
@@ -739,6 +759,7 @@ func NewCustomAttrOptionsBuilder() *CustomAttrOptionsBuilder {
 }
 
 // 默认选项id
+//
 // 示例值：qasdefgr
 func (builder *CustomAttrOptionsBuilder) DefaultOptionId(defaultOptionId string) *CustomAttrOptionsBuilder {
 	builder.defaultOptionId = defaultOptionId
@@ -747,6 +768,7 @@ func (builder *CustomAttrOptionsBuilder) DefaultOptionId(defaultOptionId string)
 }
 
 // 选项类型
+//
 // 示例值：TEXT
 func (builder *CustomAttrOptionsBuilder) OptionType(optionType string) *CustomAttrOptionsBuilder {
 	builder.optionType = optionType
@@ -755,6 +777,7 @@ func (builder *CustomAttrOptionsBuilder) OptionType(optionType string) *CustomAt
 }
 
 // 选项列表
+//
 // 示例值：[]
 func (builder *CustomAttrOptionsBuilder) Options(options []*CustomAttrOption) *CustomAttrOptionsBuilder {
 	builder.options = options
@@ -829,6 +852,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 }
 
 // 部门名称
+//
 // 示例值：DemoName
 func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 	builder.name = name
@@ -837,6 +861,7 @@ func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 }
 
 // 国际化的部门名称
+//
 // 示例值：
 func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *DepartmentBuilder {
 	builder.i18nName = i18nName
@@ -845,6 +870,7 @@ func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *Depart
 }
 
 // 父部门的ID;;* 创建根部门，该参数值为 “0”
+//
 // 示例值：D067
 func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
 	builder.parentDepartmentId = parentDepartmentId
@@ -853,6 +879,7 @@ func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) 
 }
 
 // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
+//
 // 示例值：D096
 func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentBuilder {
 	builder.departmentId = departmentId
@@ -861,6 +888,7 @@ func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentB
 }
 
 // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
+//
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -869,6 +897,7 @@ func (builder *DepartmentBuilder) OpenDepartmentId(openDepartmentId string) *Dep
 }
 
 // 部门主管用户ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DepartmentBuilder) LeaderUserId(leaderUserId string) *DepartmentBuilder {
 	builder.leaderUserId = leaderUserId
@@ -877,6 +906,7 @@ func (builder *DepartmentBuilder) LeaderUserId(leaderUserId string) *DepartmentB
 }
 
 // 部门群ID
+//
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
 	builder.chatId = chatId
@@ -885,6 +915,7 @@ func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
 }
 
 // 部门的排序，即部门在其同级部门的展示顺序
+//
 // 示例值：100
 func (builder *DepartmentBuilder) Order(order string) *DepartmentBuilder {
 	builder.order = order
@@ -893,6 +924,7 @@ func (builder *DepartmentBuilder) Order(order string) *DepartmentBuilder {
 }
 
 // 部门单位自定义ID列表，当前只支持一个
+//
 // 示例值：custom_unit_id
 func (builder *DepartmentBuilder) UnitIds(unitIds []string) *DepartmentBuilder {
 	builder.unitIds = unitIds
@@ -901,6 +933,7 @@ func (builder *DepartmentBuilder) UnitIds(unitIds []string) *DepartmentBuilder {
 }
 
 // 部门下用户的个数
+//
 // 示例值：100
 func (builder *DepartmentBuilder) MemberCount(memberCount int) *DepartmentBuilder {
 	builder.memberCount = memberCount
@@ -909,6 +942,7 @@ func (builder *DepartmentBuilder) MemberCount(memberCount int) *DepartmentBuilde
 }
 
 // 部门状态
+//
 // 示例值：
 func (builder *DepartmentBuilder) Status(status *DepartmentStatus) *DepartmentBuilder {
 	builder.status = status
@@ -917,6 +951,7 @@ func (builder *DepartmentBuilder) Status(status *DepartmentStatus) *DepartmentBu
 }
 
 // 是否创建部门群，默认不创建
+//
 // 示例值：false
 func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *DepartmentBuilder {
 	builder.createGroupChat = createGroupChat
@@ -925,6 +960,7 @@ func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *Departm
 }
 
 // 部门负责人
+//
 // 示例值：
 func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentBuilder {
 	builder.leaders = leaders
@@ -1003,6 +1039,7 @@ func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
 }
 
 // 负责人类型
+//
 // 示例值：1
 func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLeaderBuilder {
 	builder.leaderType = leaderType
@@ -1011,6 +1048,7 @@ func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLe
 }
 
 // 负责人ID
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DepartmentLeaderBuilder) LeaderID(leaderID string) *DepartmentLeaderBuilder {
 	builder.leaderID = leaderID
@@ -1058,6 +1096,7 @@ func NewDepartmentCountBuilder() *DepartmentCountBuilder {
 }
 
 // 部门ID
+//
 // 示例值：
 func (builder *DepartmentCountBuilder) DepartmentId(departmentId string) *DepartmentCountBuilder {
 	builder.departmentId = departmentId
@@ -1066,6 +1105,7 @@ func (builder *DepartmentCountBuilder) DepartmentId(departmentId string) *Depart
 }
 
 // 部门下的直属部门数量
+//
 // 示例值：
 func (builder *DepartmentCountBuilder) DirectDepartmentCount(directDepartmentCount int) *DepartmentCountBuilder {
 	builder.directDepartmentCount = directDepartmentCount
@@ -1074,6 +1114,7 @@ func (builder *DepartmentCountBuilder) DirectDepartmentCount(directDepartmentCou
 }
 
 // 部门下的直属成员数量，包含部门负责人
+//
 // 示例值：
 func (builder *DepartmentCountBuilder) DirectUserCount(directUserCount int) *DepartmentCountBuilder {
 	builder.directUserCount = directUserCount
@@ -1082,6 +1123,7 @@ func (builder *DepartmentCountBuilder) DirectUserCount(directUserCount int) *Dep
 }
 
 // 部门下所有部门的数量，包含递归的子部门
+//
 // 示例值：
 func (builder *DepartmentCountBuilder) DepartmentCount(departmentCount int) *DepartmentCountBuilder {
 	builder.departmentCount = departmentCount
@@ -1090,6 +1132,7 @@ func (builder *DepartmentCountBuilder) DepartmentCount(departmentCount int) *Dep
 }
 
 // 部门下所有成员数，包含递归子部门的成员，包含部门负责人
+//
 // 示例值：
 func (builder *DepartmentCountBuilder) UserCount(userCount int) *DepartmentCountBuilder {
 	builder.userCount = userCount
@@ -1163,6 +1206,7 @@ func NewDepartmentEventBuilder() *DepartmentEventBuilder {
 }
 
 // 部门名称
+//
 // 示例值：测试部门
 func (builder *DepartmentEventBuilder) Name(name string) *DepartmentEventBuilder {
 	builder.name = name
@@ -1171,6 +1215,7 @@ func (builder *DepartmentEventBuilder) Name(name string) *DepartmentEventBuilder
 }
 
 // 父部门的部门open_department_id [部门相关ID概念](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+//
 // 示例值：jkfsd89782
 func (builder *DepartmentEventBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentEventBuilder {
 	builder.parentDepartmentId = parentDepartmentId
@@ -1179,6 +1224,7 @@ func (builder *DepartmentEventBuilder) ParentDepartmentId(parentDepartmentId str
 }
 
 // 本部门的department_id [部门相关ID概念](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+//
 // 示例值：yd7sa8yf2j
 func (builder *DepartmentEventBuilder) DepartmentId(departmentId string) *DepartmentEventBuilder {
 	builder.departmentId = departmentId
@@ -1187,6 +1233,7 @@ func (builder *DepartmentEventBuilder) DepartmentId(departmentId string) *Depart
 }
 
 // 部门的open_department_id [部门相关ID概念](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+//
 // 示例值：od_j10j52hjksd9g0isdfg43
 func (builder *DepartmentEventBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentEventBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1195,6 +1242,7 @@ func (builder *DepartmentEventBuilder) OpenDepartmentId(openDepartmentId string)
 }
 
 // 部门主管用户open_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：ou_3j1kh45jk18fgh23hf
 func (builder *DepartmentEventBuilder) LeaderUserId(leaderUserId string) *DepartmentEventBuilder {
 	builder.leaderUserId = leaderUserId
@@ -1203,6 +1251,7 @@ func (builder *DepartmentEventBuilder) LeaderUserId(leaderUserId string) *Depart
 }
 
 // 部门群ID
+//
 // 示例值：oc_uiy325uy23bnv48gdf
 func (builder *DepartmentEventBuilder) ChatId(chatId string) *DepartmentEventBuilder {
 	builder.chatId = chatId
@@ -1211,6 +1260,7 @@ func (builder *DepartmentEventBuilder) ChatId(chatId string) *DepartmentEventBui
 }
 
 // 部门的排序
+//
 // 示例值：100
 func (builder *DepartmentEventBuilder) Order(order int) *DepartmentEventBuilder {
 	builder.order = order
@@ -1219,6 +1269,7 @@ func (builder *DepartmentEventBuilder) Order(order int) *DepartmentEventBuilder 
 }
 
 // 部门状态
+//
 // 示例值：
 func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *DepartmentEventBuilder {
 	builder.status = status
@@ -1227,6 +1278,7 @@ func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *Departm
 }
 
 // 部门负责人
+//
 // 示例值：
 func (builder *DepartmentEventBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentEventBuilder {
 	builder.leaders = leaders
@@ -1295,6 +1347,7 @@ func NewDepartmentI18nNameBuilder() *DepartmentI18nNameBuilder {
 }
 
 // 部门的中文名
+//
 // 示例值：Demo名称
 func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameBuilder {
 	builder.zhCn = zhCn
@@ -1303,6 +1356,7 @@ func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameB
 }
 
 // 部门的日文名
+//
 // 示例值：デモ名
 func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameBuilder {
 	builder.jaJp = jaJp
@@ -1311,6 +1365,7 @@ func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameB
 }
 
 // 部门的英文名
+//
 // 示例值：Demo Name
 func (builder *DepartmentI18nNameBuilder) EnUs(enUs string) *DepartmentI18nNameBuilder {
 	builder.enUs = enUs
@@ -1353,6 +1408,7 @@ func NewDepartmentParentBuilder() *DepartmentParentBuilder {
 }
 
 // 部门ID
+//
 // 示例值：
 func (builder *DepartmentParentBuilder) DepartmentId(departmentId string) *DepartmentParentBuilder {
 	builder.departmentId = departmentId
@@ -1361,6 +1417,7 @@ func (builder *DepartmentParentBuilder) DepartmentId(departmentId string) *Depar
 }
 
 // 父部门ID列表，从直接父部门到根部门
+//
 // 示例值：
 func (builder *DepartmentParentBuilder) ParentIds(parentIds []string) *DepartmentParentBuilder {
 	builder.parentIds = parentIds
@@ -1395,6 +1452,7 @@ func NewDepartmentStatusBuilder() *DepartmentStatusBuilder {
 }
 
 // 是否被删除
+//
 // 示例值：false
 func (builder *DepartmentStatusBuilder) IsDeleted(isDeleted bool) *DepartmentStatusBuilder {
 	builder.isDeleted = isDeleted
@@ -1432,6 +1490,7 @@ func NewDepartmentUnitBuilder() *DepartmentUnitBuilder {
 }
 
 // 部门单元自定义ID
+//
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitId(unitId string) *DepartmentUnitBuilder {
 	builder.unitId = unitId
@@ -1440,6 +1499,7 @@ func (builder *DepartmentUnitBuilder) UnitId(unitId string) *DepartmentUnitBuild
 }
 
 // 部门单元类型
+//
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitType(unitType string) *DepartmentUnitBuilder {
 	builder.unitType = unitType
@@ -1448,6 +1508,7 @@ func (builder *DepartmentUnitBuilder) UnitType(unitType string) *DepartmentUnitB
 }
 
 // 部门单元名称
+//
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitName(unitName string) *DepartmentUnitBuilder {
 	builder.unitName = unitName
@@ -1502,6 +1563,7 @@ func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
 }
 
 // 枚举值id
+//
 // 示例值：exGeIjow7zIqWMy+ONkFxA==
 func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumBuilder {
 	builder.enumId = enumId
@@ -1510,6 +1572,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumB
 }
 
 // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+//
 // 示例值：2
 func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTypeEnumBuilder {
 	builder.enumValue = enumValue
@@ -1518,6 +1581,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTyp
 }
 
 // 枚举内容
+//
 // 示例值：专家
 func (builder *EmployeeTypeEnumBuilder) Content(content string) *EmployeeTypeEnumBuilder {
 	builder.content = content
@@ -1526,6 +1590,7 @@ func (builder *EmployeeTypeEnumBuilder) Content(content string) *EmployeeTypeEnu
 }
 
 // 类型
+//
 // 示例值：2
 func (builder *EmployeeTypeEnumBuilder) EnumType(enumType int) *EmployeeTypeEnumBuilder {
 	builder.enumType = enumType
@@ -1534,6 +1599,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumType(enumType int) *EmployeeTypeEnum
 }
 
 // 使用状态
+//
 // 示例值：1
 func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus int) *EmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
@@ -1542,6 +1608,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus int) *EmployeeType
 }
 
 // i18n定义
+//
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) I18nContent(i18nContent []*I18nContent) *EmployeeTypeEnumBuilder {
 	builder.i18nContent = i18nContent
@@ -1604,6 +1671,7 @@ func NewGroupBuilder() *GroupBuilder {
 }
 
 // 用户组ID
+//
 // 示例值：g193821
 func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 	builder.id = id
@@ -1612,6 +1680,7 @@ func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 }
 
 // 用户组名字
+//
 // 示例值：IT 外包组
 func (builder *GroupBuilder) Name(name string) *GroupBuilder {
 	builder.name = name
@@ -1620,6 +1689,7 @@ func (builder *GroupBuilder) Name(name string) *GroupBuilder {
 }
 
 // 用户组描述
+//
 // 示例值：IT 外包组，需要对该组人群进行细颗粒度权限管控。
 func (builder *GroupBuilder) Description(description string) *GroupBuilder {
 	builder.description = description
@@ -1628,6 +1698,7 @@ func (builder *GroupBuilder) Description(description string) *GroupBuilder {
 }
 
 // 用户组成员中用户的数量
+//
 // 示例值：2
 func (builder *GroupBuilder) MemberUserCount(memberUserCount int) *GroupBuilder {
 	builder.memberUserCount = memberUserCount
@@ -1636,6 +1707,7 @@ func (builder *GroupBuilder) MemberUserCount(memberUserCount int) *GroupBuilder 
 }
 
 // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
+//
 // 示例值：0
 func (builder *GroupBuilder) MemberDepartmentCount(memberDepartmentCount int) *GroupBuilder {
 	builder.memberDepartmentCount = memberDepartmentCount
@@ -1686,6 +1758,7 @@ func NewGroupEventBuilder() *GroupEventBuilder {
 }
 
 // 用户组的自定义ID
+//
 // 示例值：
 func (builder *GroupEventBuilder) UserGroupId(userGroupId string) *GroupEventBuilder {
 	builder.userGroupId = userGroupId
@@ -1694,6 +1767,7 @@ func (builder *GroupEventBuilder) UserGroupId(userGroupId string) *GroupEventBui
 }
 
 // 用户组的名称
+//
 // 示例值：
 func (builder *GroupEventBuilder) Name(name string) *GroupEventBuilder {
 	builder.name = name
@@ -1732,6 +1806,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 }
 
 // 语言版本
+//
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 	builder.locale = locale
@@ -1740,6 +1815,7 @@ func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 }
 
 // 字段名
+//
 // 示例值：专家
 func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 	builder.value = value
@@ -1778,6 +1854,7 @@ func NewMemberResultBuilder() *MemberResultBuilder {
 }
 
 // 成员ID
+//
 // 示例值：u287xj12
 func (builder *MemberResultBuilder) MemberId(memberId string) *MemberResultBuilder {
 	builder.memberId = memberId
@@ -1786,6 +1863,7 @@ func (builder *MemberResultBuilder) MemberId(memberId string) *MemberResultBuild
 }
 
 // 结果响应码，0表示成功
+//
 // 示例值：0
 func (builder *MemberResultBuilder) Code(code int) *MemberResultBuilder {
 	builder.code = code
@@ -1827,6 +1905,7 @@ func NewMemberlistBuilder() *MemberlistBuilder {
 }
 
 // 成员ID
+//
 // 示例值：u287xj12
 func (builder *MemberlistBuilder) MemberId(memberId string) *MemberlistBuilder {
 	builder.memberId = memberId
@@ -1835,6 +1914,7 @@ func (builder *MemberlistBuilder) MemberId(memberId string) *MemberlistBuilder {
 }
 
 // 用户组成员的类型，取值为 user或department。
+//
 // 示例值：user
 func (builder *MemberlistBuilder) MemberType(memberType string) *MemberlistBuilder {
 	builder.memberType = memberType
@@ -1843,6 +1923,7 @@ func (builder *MemberlistBuilder) MemberType(memberType string) *MemberlistBuild
 }
 
 // 当member_type为user时，member_id_type表示user_id_type，可选值为open_id, union_id, user_id。仅在请求参数中有效，响应体中不会返回此参数。
+//
 // 示例值：user_id
 func (builder *MemberlistBuilder) MemberIdType(memberIdType string) *MemberlistBuilder {
 	builder.memberIdType = memberIdType
@@ -1868,12 +1949,12 @@ func (builder *MemberlistBuilder) Build() *Memberlist {
 }
 
 type NotificationOption struct {
-	Channels []string `json:"channels,omitempty"` // 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+	Channels []string `json:"channels,omitempty"` // 通道列表
 	Language *string  `json:"language,omitempty"` // 语言类型
 }
 
 type NotificationOptionBuilder struct {
-	channels     []string // 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+	channels     []string // 通道列表
 	channelsFlag bool
 	language     string // 语言类型
 	languageFlag bool
@@ -1884,7 +1965,8 @@ func NewNotificationOptionBuilder() *NotificationOptionBuilder {
 	return builder
 }
 
-// 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+// 通道列表
+//
 // 示例值：["sms", "email"]
 func (builder *NotificationOptionBuilder) Channels(channels []string) *NotificationOptionBuilder {
 	builder.channels = channels
@@ -1893,6 +1975,7 @@ func (builder *NotificationOptionBuilder) Channels(channels []string) *Notificat
 }
 
 // 语言类型
+//
 // 示例值：zh-CN
 func (builder *NotificationOptionBuilder) Language(language string) *NotificationOptionBuilder {
 	builder.language = language
@@ -1930,6 +2013,7 @@ func NewOldDepartmentObjectBuilder() *OldDepartmentObjectBuilder {
 }
 
 // 部门状态
+//
 // 示例值：
 func (builder *OldDepartmentObjectBuilder) Status(status *DepartmentStatus) *OldDepartmentObjectBuilder {
 	builder.status = status
@@ -1938,6 +2022,7 @@ func (builder *OldDepartmentObjectBuilder) Status(status *DepartmentStatus) *Old
 }
 
 // 部门open_id
+//
 // 示例值：od-xxxxxxxx
 func (builder *OldDepartmentObjectBuilder) OpenDepartmentId(openDepartmentId string) *OldDepartmentObjectBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1975,6 +2060,7 @@ func NewOldUserObjectBuilder() *OldUserObjectBuilder {
 }
 
 // 用户所属部门的ID列表
+//
 // 示例值：
 func (builder *OldUserObjectBuilder) DepartmentIds(departmentIds []string) *OldUserObjectBuilder {
 	builder.departmentIds = departmentIds
@@ -1983,6 +2069,7 @@ func (builder *OldUserObjectBuilder) DepartmentIds(departmentIds []string) *OldU
 }
 
 // 用户open_id
+//
 // 示例值：ou_xxxxxxxxxx
 func (builder *OldUserObjectBuilder) OpenId(openId string) *OldUserObjectBuilder {
 	builder.openId = openId
@@ -2020,6 +2107,7 @@ func NewResourceAcceptorBuilder() *ResourceAcceptorBuilder {
 }
 
 // 资源处理类型
+//
 // 示例值：1
 func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *ResourceAcceptorBuilder {
 	builder.processingType = processingType
@@ -2028,6 +2116,7 @@ func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *R
 }
 
 // 在 processing_type 为 1 （转移资源时），邮件资源接收者
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *ResourceAcceptorBuilder) AcceptorUserId(acceptorUserId string) *ResourceAcceptorBuilder {
 	builder.acceptorUserId = acceptorUserId
@@ -2069,6 +2158,7 @@ func NewScopeBuilder() *ScopeBuilder {
 }
 
 // 部门对象
+//
 // 示例值：
 func (builder *ScopeBuilder) Departments(departments []*Department) *ScopeBuilder {
 	builder.departments = departments
@@ -2077,6 +2167,7 @@ func (builder *ScopeBuilder) Departments(departments []*Department) *ScopeBuilde
 }
 
 // 用户对象
+//
 // 示例值：
 func (builder *ScopeBuilder) Users(users []*User) *ScopeBuilder {
 	builder.users = users
@@ -2085,6 +2176,7 @@ func (builder *ScopeBuilder) Users(users []*User) *ScopeBuilder {
 }
 
 // 用户组对象
+//
 // 示例值：
 func (builder *ScopeBuilder) UserGroups(userGroups []*UserGroup) *ScopeBuilder {
 	builder.userGroups = userGroups
@@ -2130,6 +2222,7 @@ func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
 }
 
 // 共享部门的open id
+//
 // 示例值：od-b025f41e599bf3d3fb5dc56b7f86142b
 func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBuilder {
 	builder.openId = openId
@@ -2138,6 +2231,7 @@ func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBui
 }
 
 // 部门名称
+//
 // 示例值：测试部门
 func (builder *ShareDepartmentBuilder) Name(name string) *ShareDepartmentBuilder {
 	builder.name = name
@@ -2146,6 +2240,7 @@ func (builder *ShareDepartmentBuilder) Name(name string) *ShareDepartmentBuilder
 }
 
 // 国际化的部门名称
+//
 // 示例值：
 func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *ShareDepartmentBuilder {
 	builder.i18nName = i18nName
@@ -2154,6 +2249,7 @@ func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *S
 }
 
 // 部门的排序
+//
 // 示例值：6000
 func (builder *ShareDepartmentBuilder) Order(order string) *ShareDepartmentBuilder {
 	builder.order = order
@@ -2205,6 +2301,7 @@ func NewShareUserBuilder() *ShareUserBuilder {
 }
 
 // 用户的open_id
+//
 // 示例值：ou_496670738e90fb26f899088a125226c5
 func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 	builder.openId = openId
@@ -2213,6 +2310,7 @@ func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 }
 
 // 用户的名称
+//
 // 示例值：测试用户
 func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 	builder.name = name
@@ -2221,6 +2319,7 @@ func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 }
 
 // 英文名
+//
 // 示例值：testUser
 func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
 	builder.enName = enName
@@ -2229,6 +2328,7 @@ func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
 }
 
 // 用户头像信息
+//
 // 示例值：
 func (builder *ShareUserBuilder) Avatar(avatar *AvatarInfo) *ShareUserBuilder {
 	builder.avatar = avatar
@@ -2277,6 +2377,7 @@ func NewUnitBuilder() *UnitBuilder {
 }
 
 // 单位的自定义ID
+//
 // 示例值：BU121
 func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
 	builder.unitId = unitId
@@ -2285,6 +2386,7 @@ func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
 }
 
 // 单位的名字
+//
 // 示例值：消费者事业部
 func (builder *UnitBuilder) Name(name string) *UnitBuilder {
 	builder.name = name
@@ -2293,6 +2395,7 @@ func (builder *UnitBuilder) Name(name string) *UnitBuilder {
 }
 
 // 单位的类型
+//
 // 示例值：事业部
 func (builder *UnitBuilder) UnitType(unitType string) *UnitBuilder {
 	builder.unitType = unitType
@@ -2335,6 +2438,7 @@ func NewUnitDepartmentBuilder() *UnitDepartmentBuilder {
 }
 
 // 单位ID
+//
 // 示例值：BU121
 func (builder *UnitDepartmentBuilder) UnitId(unitId string) *UnitDepartmentBuilder {
 	builder.unitId = unitId
@@ -2343,6 +2447,7 @@ func (builder *UnitDepartmentBuilder) UnitId(unitId string) *UnitDepartmentBuild
 }
 
 // 部门ID
+//
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UnitDepartmentBuilder) DepartmentId(departmentId string) *UnitDepartmentBuilder {
 	builder.departmentId = departmentId
@@ -2364,9 +2469,9 @@ func (builder *UnitDepartmentBuilder) Build() *UnitDepartment {
 }
 
 type User struct {
-	UnionId         *string     `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
-	UserId          *string     `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
-	OpenId          *string     `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	UnionId         *string     `json:"union_id,omitempty"`          // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	UserId          *string     `json:"user_id,omitempty"`           // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	OpenId          *string     `json:"open_id,omitempty"`           // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
 	Name            *string     `json:"name,omitempty"`              // 用户名
 	EnName          *string     `json:"en_name,omitempty"`           // 英文名
 	Nickname        *string     `json:"nickname,omitempty"`          // 别名
@@ -2374,7 +2479,7 @@ type User struct {
 	Mobile          *string     `json:"mobile,omitempty"`            // 手机号，在本企业内不可重复；未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号，注意国际电话区号前缀中必须包含加号 +
 	MobileVisible   *bool       `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
 	Gender          *int        `json:"gender,omitempty"`            // 性别
-	AvatarKey       *string     `json:"avatar_key,omitempty"`        // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	AvatarKey       *string     `json:"avatar_key,omitempty"`        // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	Avatar          *AvatarInfo `json:"avatar,omitempty"`            // 用户头像信息
 	Status          *UserStatus `json:"status,omitempty"`            // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited;;用户状态转移参见：[用户状态图](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
 	DepartmentIds   []string    `json:"department_ids,omitempty"`    // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
@@ -2385,7 +2490,7 @@ type User struct {
 	JoinTime        *int        `json:"join_time,omitempty"`         // 入职时间，时间戳格式，表示从1970年1月1日开始所经过的秒数
 	IsTenantManager *bool       `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员
 	EmployeeNo      *string     `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    *int        `json:"employee_type,omitempty"`     // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+	EmployeeType    *int        `json:"employee_type,omitempty"`     // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 
 	Orders          []*UserOrder      `json:"orders,omitempty"`           // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
 	CustomAttrs     []*UserCustomAttr `json:"custom_attrs,omitempty"`     // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。
@@ -2393,15 +2498,16 @@ type User struct {
 
 	JobTitle *string `json:"job_title,omitempty"` // 职务
 
-	IsFrozen *bool `json:"is_frozen,omitempty"` // 是否暂停用户
+	IsFrozen *bool   `json:"is_frozen,omitempty"` // 是否暂停用户
+	Geo      *string `json:"geo,omitempty"`       // 数据驻留地
 }
 
 type UserBuilder struct {
-	unionId             string // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	unionId             string // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
 	unionIdFlag         bool
-	userId              string // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	userId              string // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
 	userIdFlag          bool
-	openId              string // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+	openId              string // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
 	openIdFlag          bool
 	name                string // 用户名
 	nameFlag            bool
@@ -2417,7 +2523,7 @@ type UserBuilder struct {
 	mobileVisibleFlag   bool
 	gender              int // 性别
 	genderFlag          bool
-	avatarKey           string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	avatarKey           string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	avatarKeyFlag       bool
 	avatar              *AvatarInfo // 用户头像信息
 	avatarFlag          bool
@@ -2439,7 +2545,7 @@ type UserBuilder struct {
 	isTenantManagerFlag bool
 	employeeNo          string // 工号
 	employeeNoFlag      bool
-	employeeType        int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+	employeeType        int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 	employeeTypeFlag    bool
 
 	orders              []*UserOrder // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
@@ -2454,6 +2560,8 @@ type UserBuilder struct {
 
 	isFrozen     bool // 是否暂停用户
 	isFrozenFlag bool
+	geo          string // 数据驻留地
+	geoFlag      bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -2461,7 +2569,8 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
-// 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+// 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：on_94a1ee5551019f18cd73d9f111898cf2
 func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
 	builder.unionId = unionId
@@ -2469,7 +2578,8 @@ func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
 	return builder
 }
 
-// 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+// 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：3e3cf96b
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
@@ -2477,7 +2587,8 @@ func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	return builder
 }
 
-// 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+// 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 	builder.openId = openId
@@ -2486,6 +2597,7 @@ func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 }
 
 // 用户名
+//
 // 示例值：张三
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
@@ -2494,6 +2606,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 }
 
 // 英文名
+//
 // 示例值：San Zhang
 func (builder *UserBuilder) EnName(enName string) *UserBuilder {
 	builder.enName = enName
@@ -2502,6 +2615,7 @@ func (builder *UserBuilder) EnName(enName string) *UserBuilder {
 }
 
 // 别名
+//
 // 示例值：Alex Zhang
 func (builder *UserBuilder) Nickname(nickname string) *UserBuilder {
 	builder.nickname = nickname
@@ -2510,6 +2624,7 @@ func (builder *UserBuilder) Nickname(nickname string) *UserBuilder {
 }
 
 // 邮箱;;注意：;1. 非中国大陆手机号成员必须同时添加邮箱;2. 邮箱不可重复
+//
 // 示例值：zhangsan@gmail.com
 func (builder *UserBuilder) Email(email string) *UserBuilder {
 	builder.email = email
@@ -2518,6 +2633,7 @@ func (builder *UserBuilder) Email(email string) *UserBuilder {
 }
 
 // 手机号，在本企业内不可重复；未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号，注意国际电话区号前缀中必须包含加号 +
+//
 // 示例值：13011111111 (其他例子，中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号:  +41446681800)
 func (builder *UserBuilder) Mobile(mobile string) *UserBuilder {
 	builder.mobile = mobile
@@ -2526,6 +2642,7 @@ func (builder *UserBuilder) Mobile(mobile string) *UserBuilder {
 }
 
 // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+//
 // 示例值：false
 func (builder *UserBuilder) MobileVisible(mobileVisible bool) *UserBuilder {
 	builder.mobileVisible = mobileVisible
@@ -2534,6 +2651,7 @@ func (builder *UserBuilder) MobileVisible(mobileVisible bool) *UserBuilder {
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *UserBuilder) Gender(gender int) *UserBuilder {
 	builder.gender = gender
@@ -2541,7 +2659,8 @@ func (builder *UserBuilder) Gender(gender int) *UserBuilder {
 	return builder
 }
 
-// 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+// 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+//
 // 示例值：2500c7a9-5fff-4d9a-a2de-3d59614ae28g
 func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
 	builder.avatarKey = avatarKey
@@ -2550,6 +2669,7 @@ func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
 }
 
 // 用户头像信息
+//
 // 示例值：
 func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
 	builder.avatar = avatar
@@ -2558,6 +2678,7 @@ func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
 }
 
 // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited;;用户状态转移参见：[用户状态图](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
+//
 // 示例值：
 func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
 	builder.status = status
@@ -2566,6 +2687,7 @@ func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
 }
 
 // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+//
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UserBuilder) DepartmentIds(departmentIds []string) *UserBuilder {
 	builder.departmentIds = departmentIds
@@ -2574,6 +2696,7 @@ func (builder *UserBuilder) DepartmentIds(departmentIds []string) *UserBuilder {
 }
 
 // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction);;获取方式参见[如何获取user_id](/ssl:ttdoc/home/user-identity-introduction/how-to-get)
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) LeaderUserId(leaderUserId string) *UserBuilder {
 	builder.leaderUserId = leaderUserId
@@ -2582,6 +2705,7 @@ func (builder *UserBuilder) LeaderUserId(leaderUserId string) *UserBuilder {
 }
 
 // 工作城市
+//
 // 示例值：杭州
 func (builder *UserBuilder) City(city string) *UserBuilder {
 	builder.city = city
@@ -2590,6 +2714,7 @@ func (builder *UserBuilder) City(city string) *UserBuilder {
 }
 
 // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description)
+//
 // 示例值：CN
 func (builder *UserBuilder) Country(country string) *UserBuilder {
 	builder.country = country
@@ -2598,6 +2723,7 @@ func (builder *UserBuilder) Country(country string) *UserBuilder {
 }
 
 // 工位
+//
 // 示例值：北楼-H34
 func (builder *UserBuilder) WorkStation(workStation string) *UserBuilder {
 	builder.workStation = workStation
@@ -2606,6 +2732,7 @@ func (builder *UserBuilder) WorkStation(workStation string) *UserBuilder {
 }
 
 // 入职时间，时间戳格式，表示从1970年1月1日开始所经过的秒数
+//
 // 示例值：2147483647
 func (builder *UserBuilder) JoinTime(joinTime int) *UserBuilder {
 	builder.joinTime = joinTime
@@ -2614,6 +2741,7 @@ func (builder *UserBuilder) JoinTime(joinTime int) *UserBuilder {
 }
 
 // 是否是租户超级管理员
+//
 // 示例值：false
 func (builder *UserBuilder) IsTenantManager(isTenantManager bool) *UserBuilder {
 	builder.isTenantManager = isTenantManager
@@ -2622,6 +2750,7 @@ func (builder *UserBuilder) IsTenantManager(isTenantManager bool) *UserBuilder {
 }
 
 // 工号
+//
 // 示例值：1
 func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
 	builder.employeeNo = employeeNo
@@ -2629,7 +2758,8 @@ func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
 	return builder
 }
 
-// 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+// 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+//
 // 示例值：1
 func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
 	builder.employeeType = employeeType
@@ -2638,6 +2768,7 @@ func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
 }
 
 // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
+//
 // 示例值：
 func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
 	builder.orders = orders
@@ -2646,6 +2777,7 @@ func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
 }
 
 // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。
+//
 // 示例值：
 func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuilder {
 	builder.customAttrs = customAttrs
@@ -2654,6 +2786,7 @@ func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuil
 }
 
 // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+//
 // 示例值：demo@mail.com
 func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder {
 	builder.enterpriseEmail = enterpriseEmail
@@ -2662,6 +2795,7 @@ func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder
 }
 
 // 职务
+//
 // 示例值：xxxxx
 func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
 	builder.jobTitle = jobTitle
@@ -2670,10 +2804,20 @@ func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
 }
 
 // 是否暂停用户
+//
 // 示例值：false
 func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 	builder.isFrozen = isFrozen
 	builder.isFrozenFlag = true
+	return builder
+}
+
+// 数据驻留地
+//
+// 示例值：cn
+func (builder *UserBuilder) Geo(geo string) *UserBuilder {
+	builder.geo = geo
+	builder.geoFlag = true
 	return builder
 }
 
@@ -2785,6 +2929,10 @@ func (builder *UserBuilder) Build() *User {
 		req.IsFrozen = &builder.isFrozen
 
 	}
+	if builder.geoFlag {
+		req.Geo = &builder.geo
+
+	}
 	return req
 }
 
@@ -2809,6 +2957,7 @@ func NewUserContactInfoBuilder() *UserContactInfoBuilder {
 }
 
 // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
+//
 // 示例值：ou_979112345678741d29069abcdef089d4
 func (builder *UserContactInfoBuilder) UserId(userId string) *UserContactInfoBuilder {
 	builder.userId = userId
@@ -2817,6 +2966,7 @@ func (builder *UserContactInfoBuilder) UserId(userId string) *UserContactInfoBui
 }
 
 // 手机号，通过手机号查询时返回
+//
 // 示例值：13812345678
 func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBuilder {
 	builder.mobile = mobile
@@ -2825,6 +2975,7 @@ func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBui
 }
 
 // 邮箱，通过邮箱查询时返回
+//
 // 示例值：lisi@z.com
 func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuilder {
 	builder.email = email
@@ -2850,13 +3001,13 @@ func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 }
 
 type UserCustomAttr struct {
-	Type  *string              `json:"type,omitempty"`  // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	Type  *string              `json:"type,omitempty"`  // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	Id    *string              `json:"id,omitempty"`    // 自定义字段ID
 	Value *UserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type UserCustomAttrBuilder struct {
-	type_     string // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	type_     string // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	typeFlag  bool
 	id        string // 自定义字段ID
 	idFlag    bool
@@ -2869,7 +3020,8 @@ func NewUserCustomAttrBuilder() *UserCustomAttrBuilder {
 	return builder
 }
 
-// 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+// 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+//
 // 示例值：TEXT
 func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder {
 	builder.type_ = type_
@@ -2878,6 +3030,7 @@ func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder 
 }
 
 // 自定义字段ID
+//
 // 示例值：DemoId
 func (builder *UserCustomAttrBuilder) Id(id string) *UserCustomAttrBuilder {
 	builder.id = id
@@ -2886,6 +3039,7 @@ func (builder *UserCustomAttrBuilder) Id(id string) *UserCustomAttrBuilder {
 }
 
 // 自定义字段取值
+//
 // 示例值：
 func (builder *UserCustomAttrBuilder) Value(value *UserCustomAttrValue) *UserCustomAttrBuilder {
 	builder.value = value
@@ -2945,6 +3099,7 @@ func NewUserCustomAttrValueBuilder() *UserCustomAttrValueBuilder {
 }
 
 // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
+//
 // 示例值：DemoText
 func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValueBuilder {
 	builder.text = text
@@ -2953,7 +3108,8 @@ func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValu
 }
 
 // 字段类型为 HREF 时，该参数定义默认 URL，例如手机端跳转小程序，PC端跳转网页
-// 示例值：http://www.feishu.cn
+//
+// 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -2961,7 +3117,8 @@ func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueB
 }
 
 // 字段类型为 HREF 时，该参数定义PC端 URL
-// 示例值：http://www.feishu.cn
+//
+// 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrValueBuilder {
 	builder.pcUrl = pcUrl
 	builder.pcUrlFlag = true
@@ -2969,6 +3126,7 @@ func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrVa
 }
 
 // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
+//
 // 示例值：edcvfrtg
 func (builder *UserCustomAttrValueBuilder) OptionId(optionId string) *UserCustomAttrValueBuilder {
 	builder.optionId = optionId
@@ -2977,6 +3135,7 @@ func (builder *UserCustomAttrValueBuilder) OptionId(optionId string) *UserCustom
 }
 
 // 选项类型的值。;;表示 成员详情/自定义字段 中选项选中的值
+//
 // 示例值：option
 func (builder *UserCustomAttrValueBuilder) OptionValue(optionValue string) *UserCustomAttrValueBuilder {
 	builder.optionValue = optionValue
@@ -2985,6 +3144,7 @@ func (builder *UserCustomAttrValueBuilder) OptionValue(optionValue string) *User
 }
 
 // 选项类型为图片时，表示图片的名称
+//
 // 示例值：name
 func (builder *UserCustomAttrValueBuilder) Name(name string) *UserCustomAttrValueBuilder {
 	builder.name = name
@@ -2993,6 +3153,7 @@ func (builder *UserCustomAttrValueBuilder) Name(name string) *UserCustomAttrValu
 }
 
 // 图片链接
+//
 // 示例值：https://xxxxxxxxxxxxxxxxxx
 func (builder *UserCustomAttrValueBuilder) PictureUrl(pictureUrl string) *UserCustomAttrValueBuilder {
 	builder.pictureUrl = pictureUrl
@@ -3001,6 +3162,7 @@ func (builder *UserCustomAttrValueBuilder) PictureUrl(pictureUrl string) *UserCu
 }
 
 // 字段类型为 GENERIC_USER 时，该参数定义引用人员
+//
 // 示例值：
 func (builder *UserCustomAttrValueBuilder) GenericUser(genericUser *CustomAttrGenericUser) *UserCustomAttrValueBuilder {
 	builder.genericUser = genericUser
@@ -3133,6 +3295,7 @@ func NewUserEventBuilder() *UserEventBuilder {
 }
 
 // 用户的open_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserEventBuilder) OpenId(openId string) *UserEventBuilder {
 	builder.openId = openId
@@ -3141,6 +3304,7 @@ func (builder *UserEventBuilder) OpenId(openId string) *UserEventBuilder {
 }
 
 // 用户的union_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：on_576833b917gda3d939b9a3c2d53e72c8
 func (builder *UserEventBuilder) UnionId(unionId string) *UserEventBuilder {
 	builder.unionId = unionId
@@ -3149,6 +3313,7 @@ func (builder *UserEventBuilder) UnionId(unionId string) *UserEventBuilder {
 }
 
 // 租户内用户的唯一标识 [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：e33ggbyz
 func (builder *UserEventBuilder) UserId(userId string) *UserEventBuilder {
 	builder.userId = userId
@@ -3157,6 +3322,7 @@ func (builder *UserEventBuilder) UserId(userId string) *UserEventBuilder {
 }
 
 // 用户名
+//
 // 示例值：张三
 func (builder *UserEventBuilder) Name(name string) *UserEventBuilder {
 	builder.name = name
@@ -3165,6 +3331,7 @@ func (builder *UserEventBuilder) Name(name string) *UserEventBuilder {
 }
 
 // 英文名
+//
 // 示例值：San Zhang
 func (builder *UserEventBuilder) EnName(enName string) *UserEventBuilder {
 	builder.enName = enName
@@ -3173,6 +3340,7 @@ func (builder *UserEventBuilder) EnName(enName string) *UserEventBuilder {
 }
 
 // 别名
+//
 // 示例值：Sunny Zhang
 func (builder *UserEventBuilder) Nickname(nickname string) *UserEventBuilder {
 	builder.nickname = nickname
@@ -3181,6 +3349,7 @@ func (builder *UserEventBuilder) Nickname(nickname string) *UserEventBuilder {
 }
 
 // 邮箱
+//
 // 示例值：zhangsan@gmail.com
 func (builder *UserEventBuilder) Email(email string) *UserEventBuilder {
 	builder.email = email
@@ -3189,6 +3358,7 @@ func (builder *UserEventBuilder) Email(email string) *UserEventBuilder {
 }
 
 // 企业邮箱
+//
 // 示例值：demo@mail.com
 func (builder *UserEventBuilder) EnterpriseEmail(enterpriseEmail string) *UserEventBuilder {
 	builder.enterpriseEmail = enterpriseEmail
@@ -3197,6 +3367,7 @@ func (builder *UserEventBuilder) EnterpriseEmail(enterpriseEmail string) *UserEv
 }
 
 // 职务
+//
 // 示例值：软件工程师
 func (builder *UserEventBuilder) JobTitle(jobTitle string) *UserEventBuilder {
 	builder.jobTitle = jobTitle
@@ -3205,6 +3376,7 @@ func (builder *UserEventBuilder) JobTitle(jobTitle string) *UserEventBuilder {
 }
 
 // 手机号
+//
 // 示例值：12345678910
 func (builder *UserEventBuilder) Mobile(mobile string) *UserEventBuilder {
 	builder.mobile = mobile
@@ -3213,6 +3385,7 @@ func (builder *UserEventBuilder) Mobile(mobile string) *UserEventBuilder {
 }
 
 // 性别
+//
 // 示例值：1
 func (builder *UserEventBuilder) Gender(gender int) *UserEventBuilder {
 	builder.gender = gender
@@ -3221,6 +3394,7 @@ func (builder *UserEventBuilder) Gender(gender int) *UserEventBuilder {
 }
 
 // 用户头像信息
+//
 // 示例值：
 func (builder *UserEventBuilder) Avatar(avatar *AvatarInfo) *UserEventBuilder {
 	builder.avatar = avatar
@@ -3229,6 +3403,7 @@ func (builder *UserEventBuilder) Avatar(avatar *AvatarInfo) *UserEventBuilder {
 }
 
 // 用户状态
+//
 // 示例值：
 func (builder *UserEventBuilder) Status(status *UserStatus) *UserEventBuilder {
 	builder.status = status
@@ -3237,6 +3412,7 @@ func (builder *UserEventBuilder) Status(status *UserStatus) *UserEventBuilder {
 }
 
 // 用户所属部门的ID列表
+//
 // 示例值：
 func (builder *UserEventBuilder) DepartmentIds(departmentIds []string) *UserEventBuilder {
 	builder.departmentIds = departmentIds
@@ -3245,6 +3421,7 @@ func (builder *UserEventBuilder) DepartmentIds(departmentIds []string) *UserEven
 }
 
 // 用户的直接主管的用户open_id [用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+//
 // 示例值：ou_3ghm8a2u0eftg0ff377125s5dd275z09
 func (builder *UserEventBuilder) LeaderUserId(leaderUserId string) *UserEventBuilder {
 	builder.leaderUserId = leaderUserId
@@ -3253,6 +3430,7 @@ func (builder *UserEventBuilder) LeaderUserId(leaderUserId string) *UserEventBui
 }
 
 // 城市
+//
 // 示例值：杭州
 func (builder *UserEventBuilder) City(city string) *UserEventBuilder {
 	builder.city = city
@@ -3261,6 +3439,7 @@ func (builder *UserEventBuilder) City(city string) *UserEventBuilder {
 }
 
 // 国家
+//
 // 示例值：中国
 func (builder *UserEventBuilder) Country(country string) *UserEventBuilder {
 	builder.country = country
@@ -3269,6 +3448,7 @@ func (builder *UserEventBuilder) Country(country string) *UserEventBuilder {
 }
 
 // 工位
+//
 // 示例值：杭州
 func (builder *UserEventBuilder) WorkStation(workStation string) *UserEventBuilder {
 	builder.workStation = workStation
@@ -3277,6 +3457,7 @@ func (builder *UserEventBuilder) WorkStation(workStation string) *UserEventBuild
 }
 
 // 入职时间
+//
 // 示例值：1615381702
 func (builder *UserEventBuilder) JoinTime(joinTime int) *UserEventBuilder {
 	builder.joinTime = joinTime
@@ -3285,6 +3466,7 @@ func (builder *UserEventBuilder) JoinTime(joinTime int) *UserEventBuilder {
 }
 
 // 工号
+//
 // 示例值：e33ggbyz
 func (builder *UserEventBuilder) EmployeeNo(employeeNo string) *UserEventBuilder {
 	builder.employeeNo = employeeNo
@@ -3293,6 +3475,7 @@ func (builder *UserEventBuilder) EmployeeNo(employeeNo string) *UserEventBuilder
 }
 
 // 员工类型
+//
 // 示例值：1
 func (builder *UserEventBuilder) EmployeeType(employeeType int) *UserEventBuilder {
 	builder.employeeType = employeeType
@@ -3301,6 +3484,7 @@ func (builder *UserEventBuilder) EmployeeType(employeeType int) *UserEventBuilde
 }
 
 // 用户排序信息
+//
 // 示例值：
 func (builder *UserEventBuilder) Orders(orders []*UserOrder) *UserEventBuilder {
 	builder.orders = orders
@@ -3309,6 +3493,7 @@ func (builder *UserEventBuilder) Orders(orders []*UserOrder) *UserEventBuilder {
 }
 
 // 自定义属性
+//
 // 示例值：
 func (builder *UserEventBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserEventBuilder {
 	builder.customAttrs = customAttrs
@@ -3439,6 +3624,7 @@ func NewUserGroupBuilder() *UserGroupBuilder {
 }
 
 // 用户组的自定义ID
+//
 // 示例值：test
 func (builder *UserGroupBuilder) UserGroupId(userGroupId string) *UserGroupBuilder {
 	builder.userGroupId = userGroupId
@@ -3447,6 +3633,7 @@ func (builder *UserGroupBuilder) UserGroupId(userGroupId string) *UserGroupBuild
 }
 
 // 用户组的名称
+//
 // 示例值：userGroupName
 func (builder *UserGroupBuilder) Name(name string) *UserGroupBuilder {
 	builder.name = name
@@ -3455,6 +3642,7 @@ func (builder *UserGroupBuilder) Name(name string) *UserGroupBuilder {
 }
 
 // 用户组的类型
+//
 // 示例值：1
 func (builder *UserGroupBuilder) Type(type_ int) *UserGroupBuilder {
 	builder.type_ = type_
@@ -3463,6 +3651,7 @@ func (builder *UserGroupBuilder) Type(type_ int) *UserGroupBuilder {
 }
 
 // 成员数量
+//
 // 示例值：10
 func (builder *UserGroupBuilder) MemberCount(memberCount int) *UserGroupBuilder {
 	builder.memberCount = memberCount
@@ -3471,6 +3660,7 @@ func (builder *UserGroupBuilder) MemberCount(memberCount int) *UserGroupBuilder 
 }
 
 // 用户组状态
+//
 // 示例值：1
 func (builder *UserGroupBuilder) Status(status int) *UserGroupBuilder {
 	builder.status = status
@@ -3507,13 +3697,13 @@ type UserGroupMember struct {
 }
 
 type UserOrder struct {
-	DepartmentId    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	DepartmentId    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type UserOrderBuilder struct {
-	departmentId        string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	departmentId        string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	departmentIdFlag    bool
 	userOrder           int // 用户在其直属部门内的排序，数值越大，排序越靠前
 	userOrderFlag       bool
@@ -3526,7 +3716,8 @@ func NewUserOrderBuilder() *UserOrderBuilder {
 	return builder
 }
 
-// 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+// 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+//
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBuilder {
 	builder.departmentId = departmentId
@@ -3535,6 +3726,7 @@ func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBui
 }
 
 // 用户在其直属部门内的排序，数值越大，排序越靠前
+//
 // 示例值：100
 func (builder *UserOrderBuilder) UserOrder(userOrder int) *UserOrderBuilder {
 	builder.userOrder = userOrder
@@ -3543,6 +3735,7 @@ func (builder *UserOrderBuilder) UserOrder(userOrder int) *UserOrderBuilder {
 }
 
 // 用户所属的多个部门间的排序，数值越大，排序越靠前
+//
 // 示例值：100
 func (builder *UserOrderBuilder) DepartmentOrder(departmentOrder int) *UserOrderBuilder {
 	builder.departmentOrder = departmentOrder
@@ -3597,6 +3790,7 @@ func NewUserPositionBuilder() *UserPositionBuilder {
 }
 
 // 岗位Code
+//
 // 示例值：
 func (builder *UserPositionBuilder) PositionCode(positionCode string) *UserPositionBuilder {
 	builder.positionCode = positionCode
@@ -3605,6 +3799,7 @@ func (builder *UserPositionBuilder) PositionCode(positionCode string) *UserPosit
 }
 
 // 岗位名称
+//
 // 示例值：
 func (builder *UserPositionBuilder) PositionName(positionName string) *UserPositionBuilder {
 	builder.positionName = positionName
@@ -3613,6 +3808,7 @@ func (builder *UserPositionBuilder) PositionName(positionName string) *UserPosit
 }
 
 // 岗位部门ID
+//
 // 示例值：
 func (builder *UserPositionBuilder) DepartmentId(departmentId string) *UserPositionBuilder {
 	builder.departmentId = departmentId
@@ -3621,6 +3817,7 @@ func (builder *UserPositionBuilder) DepartmentId(departmentId string) *UserPosit
 }
 
 // 上级领导ID
+//
 // 示例值：
 func (builder *UserPositionBuilder) LeaderUserId(leaderUserId string) *UserPositionBuilder {
 	builder.leaderUserId = leaderUserId
@@ -3629,6 +3826,7 @@ func (builder *UserPositionBuilder) LeaderUserId(leaderUserId string) *UserPosit
 }
 
 // 本岗位领导的岗位code
+//
 // 示例值：
 func (builder *UserPositionBuilder) LeaderPositionCode(leaderPositionCode string) *UserPositionBuilder {
 	builder.leaderPositionCode = leaderPositionCode
@@ -3637,6 +3835,7 @@ func (builder *UserPositionBuilder) LeaderPositionCode(leaderPositionCode string
 }
 
 // 是否主岗，只允许一个主岗sd
+//
 // 示例值：
 func (builder *UserPositionBuilder) IsMajor(isMajor bool) *UserPositionBuilder {
 	builder.isMajor = isMajor
@@ -3700,6 +3899,7 @@ func NewUserStatusBuilder() *UserStatusBuilder {
 }
 
 // 是否暂停
+//
 // 示例值：false
 func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 	builder.isFrozen = isFrozen
@@ -3708,6 +3908,7 @@ func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 }
 
 // 是否离职
+//
 // 示例值：false
 func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder {
 	builder.isResigned = isResigned
@@ -3716,6 +3917,7 @@ func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder
 }
 
 // 是否激活
+//
 // 示例值：true
 func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuilder {
 	builder.isActivated = isActivated
@@ -3724,6 +3926,7 @@ func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuild
 }
 
 // 是否主动退出，主动退出一段时间后用户会自动转为已离职
+//
 // 示例值：false
 func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 	builder.isExited = isExited
@@ -3732,6 +3935,7 @@ func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 }
 
 // 是否未加入，需要用户自主确认才能加入团队
+//
 // 示例值：false
 func (builder *UserStatusBuilder) IsUnjoin(isUnjoin bool) *UserStatusBuilder {
 	builder.isUnjoin = isUnjoin
@@ -3951,7 +4155,7 @@ func (builder *CreateDepartmentReqBuilder) UserIdType(userIdType string) *Create
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型;;不同 ID 的说明 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型;;不同 ID 的说明参见[部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *CreateDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *CreateDepartmentReqBuilder {
@@ -7150,7 +7354,7 @@ func (builder *CreateUserReqBuilder) UserIdType(userIdType string) *CreateUserRe
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。;;不同 ID 的说明 [部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型。;;不同 ID 的说明参见[部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *CreateUserReqBuilder) DepartmentIdType(departmentIdType string) *CreateUserReqBuilder {
@@ -7576,7 +7780,7 @@ func (builder *FindByDepartmentUserReqBuilder) UserIdType(userIdType string) *Fi
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型;;[部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型;;部门ID类型的区别参见[部门ID说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *FindByDepartmentUserReqBuilder) DepartmentIdType(departmentIdType string) *FindByDepartmentUserReqBuilder {

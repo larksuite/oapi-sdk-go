@@ -37,21 +37,21 @@ const (
 )
 
 const (
-	I18nKeyApplicationPatchZhCn = "zh_cn" // 中文
-	I18nKeyApplicationPatchEnUs = "en_us" // 英文
-	I18nKeyApplicationPatchJaJp = "ja_jp" // 日文
+	I18nKeyPatchApplicationZhCn = "zh_cn" // 中文
+	I18nKeyPatchApplicationEnUs = "en_us" // 英文
+	I18nKeyPatchApplicationJaJp = "ja_jp" // 日文
 )
 
 const (
-	I18nKeyApplicationUnderauditlistZhCn = "zh_cn" // 中文
-	I18nKeyApplicationUnderauditlistEnUs = "en_us" // 英文
-	I18nKeyApplicationUnderauditlistJaJp = "ja_jp" // 日文
+	I18nKeyUnderauditlistApplicationZhCn = "zh_cn" // 中文
+	I18nKeyUnderauditlistApplicationEnUs = "en_us" // 英文
+	I18nKeyUnderauditlistApplicationJaJp = "ja_jp" // 日文
 )
 
 const (
-	UserIdTypeApplicationUnderauditlistUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApplicationUnderauditlistUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApplicationUnderauditlistOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUnderauditlistApplicationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnderauditlistApplicationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUnderauditlistApplicationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -74,15 +74,15 @@ const (
 )
 
 const (
-	I18nKeyApplicationAppVersionGetZhCn = "zh_cn" // 中文
-	I18nKeyApplicationAppVersionGetEnUs = "en_us" // 英文
-	I18nKeyApplicationAppVersionGetJaJp = "ja_jp" // 日文
+	I18nKeyGetApplicationAppVersionZhCn = "zh_cn" // 中文
+	I18nKeyGetApplicationAppVersionEnUs = "en_us" // 英文
+	I18nKeyGetApplicationAppVersionJaJp = "ja_jp" // 日文
 )
 
 const (
-	UserIdTypeApplicationAppVersionGetUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApplicationAppVersionGetUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApplicationAppVersionGetOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetApplicationAppVersionUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetApplicationAppVersionUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetApplicationAppVersionOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -95,9 +95,9 @@ const (
 )
 
 const (
-	UserIdTypeApplicationAppVersionPatchUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApplicationAppVersionPatchUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApplicationAppVersionPatchOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchApplicationAppVersionUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchApplicationAppVersionUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchApplicationAppVersionOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -115,22 +115,22 @@ const (
 )
 
 const (
-	UserIdTypeApplicationFeedbackListOpenId  = "open_id"  // 用户的 open id
-	UserIdTypeApplicationFeedbackListUnionId = "union_id" // 用户的 union id
-	UserIdTypeApplicationFeedbackListUserId  = "user_id"  // 用户的 user id
+	UserIdTypeListApplicationFeedbackOpenId  = "open_id"  // 用户的 open id
+	UserIdTypeListApplicationFeedbackUnionId = "union_id" // 用户的 union id
+	UserIdTypeListApplicationFeedbackUserId  = "user_id"  // 用户的 user id
 )
 
 const (
-	UserIdTypeApplicationFeedbackPatchOpenId  = "open_id"  // 用户的 open id
-	UserIdTypeApplicationFeedbackPatchUnionId = "union_id" // 用户的 union id
-	UserIdTypeApplicationFeedbackPatchUserId  = "user_id"  // 用户的 user id
+	UserIdTypePatchApplicationFeedbackOpenId  = "open_id"  // 用户的 open id
+	UserIdTypePatchApplicationFeedbackUnionId = "union_id" // 用户的 union id
+	UserIdTypePatchApplicationFeedbackUserId  = "user_id"  // 用户的 user id
 )
 
 const (
-	OpenMarkStatusApplicationFeedbackPatchUnmarked   = 0 // 反馈未处理
-	OpenMarkStatusApplicationFeedbackPatchMarked     = 1 // 反馈已处理
-	OpenMarkStatusApplicationFeedbackPatchProcessing = 2 // 反馈处理中
-	OpenMarkStatusApplicationFeedbackPatchClosed     = 3 // 反馈已关闭
+	OpenMarkStatusPatchApplicationFeedbackUnmarked   = 0 // 反馈未处理
+	OpenMarkStatusPatchApplicationFeedbackMarked     = 1 // 反馈已处理
+	OpenMarkStatusPatchApplicationFeedbackProcessing = 2 // 反馈处理中
+	OpenMarkStatusPatchApplicationFeedbackClosed     = 3 // 反馈已关闭
 
 )
 
@@ -173,6 +173,7 @@ func NewAppAbilityBuilder() *AppAbilityBuilder {
 }
 
 // 小程序能力
+//
 // 示例值：
 func (builder *AppAbilityBuilder) Gadget(gadget *Gadget) *AppAbilityBuilder {
 	builder.gadget = gadget
@@ -181,6 +182,7 @@ func (builder *AppAbilityBuilder) Gadget(gadget *Gadget) *AppAbilityBuilder {
 }
 
 // 网页能力
+//
 // 示例值：
 func (builder *AppAbilityBuilder) WebApp(webApp *WebApp) *AppAbilityBuilder {
 	builder.webApp = webApp
@@ -189,6 +191,7 @@ func (builder *AppAbilityBuilder) WebApp(webApp *WebApp) *AppAbilityBuilder {
 }
 
 // 机器人能力
+//
 // 示例值：
 func (builder *AppAbilityBuilder) Bot(bot *Bot) *AppAbilityBuilder {
 	builder.bot = bot
@@ -197,6 +200,7 @@ func (builder *AppAbilityBuilder) Bot(bot *Bot) *AppAbilityBuilder {
 }
 
 // 小组件能力
+//
 // 示例值：
 func (builder *AppAbilityBuilder) WorkplaceWidgets(workplaceWidgets []*WorkplaceWidget) *AppAbilityBuilder {
 	builder.workplaceWidgets = workplaceWidgets
@@ -205,6 +209,7 @@ func (builder *AppAbilityBuilder) WorkplaceWidgets(workplaceWidgets []*Workplace
 }
 
 // 主导航小程序
+//
 // 示例值：
 func (builder *AppAbilityBuilder) Navigate(navigate *Navigate) *AppAbilityBuilder {
 	builder.navigate = navigate
@@ -213,6 +218,7 @@ func (builder *AppAbilityBuilder) Navigate(navigate *Navigate) *AppAbilityBuilde
 }
 
 // 云文档应用
+//
 // 示例值：
 func (builder *AppAbilityBuilder) CloudDoc(cloudDoc *CloudDoc) *AppAbilityBuilder {
 	builder.cloudDoc = cloudDoc
@@ -221,6 +227,7 @@ func (builder *AppAbilityBuilder) CloudDoc(cloudDoc *CloudDoc) *AppAbilityBuilde
 }
 
 // 云文档小组件
+//
 // 示例值：
 func (builder *AppAbilityBuilder) DocsBlocks(docsBlocks []*DocsBlock) *AppAbilityBuilder {
 	builder.docsBlocks = docsBlocks
@@ -229,6 +236,7 @@ func (builder *AppAbilityBuilder) DocsBlocks(docsBlocks []*DocsBlock) *AppAbilit
 }
 
 // 消息快捷操作
+//
 // 示例值：
 func (builder *AppAbilityBuilder) MessageAction(messageAction *MessageAction) *AppAbilityBuilder {
 	builder.messageAction = messageAction
@@ -237,6 +245,7 @@ func (builder *AppAbilityBuilder) MessageAction(messageAction *MessageAction) *A
 }
 
 // 加号菜单
+//
 // 示例值：
 func (builder *AppAbilityBuilder) PlusMenu(plusMenu *PlusMenu) *AppAbilityBuilder {
 	builder.plusMenu = plusMenu
@@ -294,6 +303,7 @@ func NewAppAdminUserBuilder() *AppAdminUserBuilder {
 }
 
 // 管理员类型列表，如果该管理员同时是超级管理员 又是管理员，则同时返回两个角色。 ""super_admin""：超级管理员 ""admin""：管理员 返回示例：[""super_admin"",""admin""]"
+//
 // 示例值：["admin","super_admin"]
 func (builder *AppAdminUserBuilder) AdminType(adminType []string) *AppAdminUserBuilder {
 	builder.adminType = adminType
@@ -302,6 +312,7 @@ func (builder *AppAdminUserBuilder) AdminType(adminType []string) *AppAdminUserB
 }
 
 // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
+//
 // 示例值：6865121785549946899
 func (builder *AppAdminUserBuilder) UserId(userId string) *AppAdminUserBuilder {
 	builder.userId = userId
@@ -348,6 +359,7 @@ func NewAppBadgeBuilder() *AppBadgeBuilder {
 }
 
 // 用户ID
+//
 // 示例值：
 func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	builder.userId = userId
@@ -356,6 +368,7 @@ func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 }
 
 // badge数据版本号
+//
 // 示例值：
 func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	builder.version = version
@@ -364,6 +377,7 @@ func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 }
 
 // badge extra 信息
+//
 // 示例值：
 func (builder *AppBadgeBuilder) Extra(extra string) *AppBadgeBuilder {
 	builder.extra = extra
@@ -372,6 +386,7 @@ func (builder *AppBadgeBuilder) Extra(extra string) *AppBadgeBuilder {
 }
 
 // pc端badge数量
+//
 // 示例值：
 func (builder *AppBadgeBuilder) Pc(pc *ClientBadgeNum) *AppBadgeBuilder {
 	builder.pc = pc
@@ -380,6 +395,7 @@ func (builder *AppBadgeBuilder) Pc(pc *ClientBadgeNum) *AppBadgeBuilder {
 }
 
 // 移动端badge数量
+//
 // 示例值：
 func (builder *AppBadgeBuilder) Mobile(mobile *ClientBadgeNum) *AppBadgeBuilder {
 	builder.mobile = mobile
@@ -428,6 +444,7 @@ func NewAppCommonCategoryBuilder() *AppCommonCategoryBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *AppCommonCategoryBuilder) I18nKey(i18nKey string) *AppCommonCategoryBuilder {
 	builder.i18nKey = i18nKey
@@ -436,6 +453,7 @@ func (builder *AppCommonCategoryBuilder) I18nKey(i18nKey string) *AppCommonCateg
 }
 
 // 应用分类
+//
 // 示例值：分析工具
 func (builder *AppCommonCategoryBuilder) Category(category string) *AppCommonCategoryBuilder {
 	builder.category = category
@@ -477,6 +495,7 @@ func NewAppCustomCategoryBuilder() *AppCustomCategoryBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *AppCustomCategoryBuilder) I18nKey(i18nKey string) *AppCustomCategoryBuilder {
 	builder.i18nKey = i18nKey
@@ -485,6 +504,7 @@ func (builder *AppCustomCategoryBuilder) I18nKey(i18nKey string) *AppCustomCateg
 }
 
 // 应用权限的国际化描述
+//
 // 示例值：获取应用信息
 func (builder *AppCustomCategoryBuilder) Description(description string) *AppCustomCategoryBuilder {
 	builder.description = description
@@ -493,6 +513,7 @@ func (builder *AppCustomCategoryBuilder) Description(description string) *AppCus
 }
 
 // 在该分组下的应用 id 列表
+//
 // 示例值：
 func (builder *AppCustomCategoryBuilder) AppIds(appIds []string) *AppCustomCategoryBuilder {
 	builder.appIds = appIds
@@ -534,6 +555,7 @@ func NewAppCustomCategoryI18nInfoBuilder() *AppCustomCategoryI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *AppCustomCategoryI18nInfoBuilder) I18nKey(i18nKey string) *AppCustomCategoryI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -542,6 +564,7 @@ func (builder *AppCustomCategoryI18nInfoBuilder) I18nKey(i18nKey string) *AppCus
 }
 
 // 自定义分组的国际化名称
+//
 // 示例值：名称
 func (builder *AppCustomCategoryI18nInfoBuilder) Name(name string) *AppCustomCategoryI18nInfoBuilder {
 	builder.name = name
@@ -586,6 +609,7 @@ func NewAppI18nInfoBuilder() *AppI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *AppI18nInfoBuilder) I18nKey(i18nKey string) *AppI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -594,6 +618,7 @@ func (builder *AppI18nInfoBuilder) I18nKey(i18nKey string) *AppI18nInfoBuilder {
 }
 
 // 应用国际化名称
+//
 // 示例值：应用名称
 func (builder *AppI18nInfoBuilder) Name(name string) *AppI18nInfoBuilder {
 	builder.name = name
@@ -602,6 +627,7 @@ func (builder *AppI18nInfoBuilder) Name(name string) *AppI18nInfoBuilder {
 }
 
 // 应用国际化描述（副标题）
+//
 // 示例值：应用描述
 func (builder *AppI18nInfoBuilder) Description(description string) *AppI18nInfoBuilder {
 	builder.description = description
@@ -610,6 +636,7 @@ func (builder *AppI18nInfoBuilder) Description(description string) *AppI18nInfoB
 }
 
 // 帮助国际化文档链接
+//
 // 示例值：https://www.example.com
 func (builder *AppI18nInfoBuilder) HelpUse(helpUse string) *AppI18nInfoBuilder {
 	builder.helpUse = helpUse
@@ -662,6 +689,7 @@ func NewAppMessageTrendItemBuilder() *AppMessageTrendItemBuilder {
 }
 
 // 聊天类型，private：私聊；group：群聊
+//
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) ChatType(chatType string) *AppMessageTrendItemBuilder {
 	builder.chatType = chatType
@@ -670,6 +698,7 @@ func (builder *AppMessageTrendItemBuilder) ChatType(chatType string) *AppMessage
 }
 
 // 消息事件类型,message_send:已发送消息;bot_notify_get_message:bot 通知收到消息;message_read:消息已读
+//
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) EventType(eventType string) *AppMessageTrendItemBuilder {
 	builder.eventType = eventType
@@ -678,6 +707,7 @@ func (builder *AppMessageTrendItemBuilder) EventType(eventType string) *AppMessa
 }
 
 // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+//
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) MessageType(messageType string) *AppMessageTrendItemBuilder {
 	builder.messageType = messageType
@@ -685,6 +715,7 @@ func (builder *AppMessageTrendItemBuilder) MessageType(messageType string) *AppM
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) Trend(trend []*UsageTrendItem) *AppMessageTrendItemBuilder {
@@ -734,6 +765,7 @@ func NewAppScopeBuilder() *AppScopeBuilder {
 }
 
 // 应用权限
+//
 // 示例值：contact:user.base
 func (builder *AppScopeBuilder) Scope(scope string) *AppScopeBuilder {
 	builder.scope = scope
@@ -742,6 +774,7 @@ func (builder *AppScopeBuilder) Scope(scope string) *AppScopeBuilder {
 }
 
 // 应用权限的国际化描述
+//
 // 示例值：获取应用信息
 func (builder *AppScopeBuilder) Description(description string) *AppScopeBuilder {
 	builder.description = description
@@ -750,6 +783,7 @@ func (builder *AppScopeBuilder) Description(description string) *AppScopeBuilder
 }
 
 // 权限等级描述
+//
 // 示例值：1
 func (builder *AppScopeBuilder) Level(level int) *AppScopeBuilder {
 	builder.level = level
@@ -792,6 +826,7 @@ func NewAppScopeI18nInfoBuilder() *AppScopeI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *AppScopeI18nInfoBuilder) I18nKey(i18nKey string) *AppScopeI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -800,6 +835,7 @@ func (builder *AppScopeI18nInfoBuilder) I18nKey(i18nKey string) *AppScopeI18nInf
 }
 
 // 应用权限的国际化描述
+//
 // 示例值：获取应用信息
 func (builder *AppScopeI18nInfoBuilder) Description(description string) *AppScopeI18nInfoBuilder {
 	builder.description = description
@@ -838,6 +874,7 @@ func NewAppScopesBuilder() *AppScopesBuilder {
 }
 
 // 应用高级权限列表
+//
 // 示例值：
 func (builder *AppScopesBuilder) HighLevelScopes(highLevelScopes []string) *AppScopesBuilder {
 	builder.highLevelScopes = highLevelScopes
@@ -846,6 +883,7 @@ func (builder *AppScopesBuilder) HighLevelScopes(highLevelScopes []string) *AppS
 }
 
 // 应用低级权限列表
+//
 // 示例值：
 func (builder *AppScopesBuilder) LowLevelScopes(lowLevelScopes []string) *AppScopesBuilder {
 	builder.lowLevelScopes = lowLevelScopes
@@ -882,6 +920,7 @@ func NewAppUsageTrendItemsBuilder() *AppUsageTrendItemsBuilder {
 }
 
 // 部门号
+//
 // 示例值：
 func (builder *AppUsageTrendItemsBuilder) Id(id string) *AppUsageTrendItemsBuilder {
 	builder.id = id
@@ -890,6 +929,7 @@ func (builder *AppUsageTrendItemsBuilder) Id(id string) *AppUsageTrendItemsBuild
 }
 
 // 趋势统计
+//
 // 示例值：
 func (builder *AppUsageTrendItemsBuilder) Trend(trend []*UsageTrendItem) *AppUsageTrendItemsBuilder {
 	builder.trend = trend
@@ -927,6 +967,7 @@ func NewAppVersionIdBuilder() *AppVersionIdBuilder {
 }
 
 // 开发者填入的应用版本 ID
+//
 // 示例值：1.0.0
 func (builder *AppVersionIdBuilder) Version(version string) *AppVersionIdBuilder {
 	builder.version = version
@@ -935,6 +976,7 @@ func (builder *AppVersionIdBuilder) Version(version string) *AppVersionIdBuilder
 }
 
 // 唯一标识应用版本的 ID
+//
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *AppVersionIdBuilder) VersionId(versionId string) *AppVersionIdBuilder {
 	builder.versionId = versionId
@@ -976,6 +1018,7 @@ func NewAppVersionRemarkBuilder() *AppVersionRemarkBuilder {
 }
 
 // 备注说明
+//
 // 示例值：备注说明
 func (builder *AppVersionRemarkBuilder) Remark(remark string) *AppVersionRemarkBuilder {
 	builder.remark = remark
@@ -984,6 +1027,7 @@ func (builder *AppVersionRemarkBuilder) Remark(remark string) *AppVersionRemarkB
 }
 
 // 更新说明
+//
 // 示例值：更新说明
 func (builder *AppVersionRemarkBuilder) UpdateRemark(updateRemark string) *AppVersionRemarkBuilder {
 	builder.updateRemark = updateRemark
@@ -992,6 +1036,7 @@ func (builder *AppVersionRemarkBuilder) UpdateRemark(updateRemark string) *AppVe
 }
 
 // 应用当前版本开发者编辑的可见性建议，若开发者未编辑可见性建议，则该字段无内容
+//
 // 示例值：
 func (builder *AppVersionRemarkBuilder) Visibility(visibility *AppVisibility) *AppVersionRemarkBuilder {
 	builder.visibility = visibility
@@ -1036,6 +1081,7 @@ func NewAppVersionRemarkEventBuilder() *AppVersionRemarkEventBuilder {
 }
 
 // 备注说明
+//
 // 示例值：备注说明
 func (builder *AppVersionRemarkEventBuilder) Remark(remark string) *AppVersionRemarkEventBuilder {
 	builder.remark = remark
@@ -1044,6 +1090,7 @@ func (builder *AppVersionRemarkEventBuilder) Remark(remark string) *AppVersionRe
 }
 
 // 更新说明
+//
 // 示例值：更新说明
 func (builder *AppVersionRemarkEventBuilder) UpdateRemark(updateRemark string) *AppVersionRemarkEventBuilder {
 	builder.updateRemark = updateRemark
@@ -1052,6 +1099,7 @@ func (builder *AppVersionRemarkEventBuilder) UpdateRemark(updateRemark string) *
 }
 
 // 可见性名单
+//
 // 示例值：
 func (builder *AppVersionRemarkEventBuilder) Visibility(visibility *AppVisibilityEvent) *AppVersionRemarkEventBuilder {
 	builder.visibility = visibility
@@ -1096,6 +1144,7 @@ func NewAppVisibilityBuilder() *AppVisibilityBuilder {
 }
 
 // 是否全员可见
+//
 // 示例值：false
 func (builder *AppVisibilityBuilder) IsAll(isAll bool) *AppVisibilityBuilder {
 	builder.isAll = isAll
@@ -1104,6 +1153,7 @@ func (builder *AppVisibilityBuilder) IsAll(isAll bool) *AppVisibilityBuilder {
 }
 
 // 可见名单
+//
 // 示例值：
 func (builder *AppVisibilityBuilder) VisibleList(visibleList *AppVisibleList) *AppVisibilityBuilder {
 	builder.visibleList = visibleList
@@ -1112,6 +1162,7 @@ func (builder *AppVisibilityBuilder) VisibleList(visibleList *AppVisibleList) *A
 }
 
 // 不可见名单
+//
 // 示例值：
 func (builder *AppVisibilityBuilder) InvisibleList(invisibleList *AppVisibleList) *AppVisibilityBuilder {
 	builder.invisibleList = invisibleList
@@ -1155,6 +1206,7 @@ func NewAppVisibilityEventBuilder() *AppVisibilityEventBuilder {
 }
 
 // 是否全员可见
+//
 // 示例值：false
 func (builder *AppVisibilityEventBuilder) IsAll(isAll bool) *AppVisibilityEventBuilder {
 	builder.isAll = isAll
@@ -1163,6 +1215,7 @@ func (builder *AppVisibilityEventBuilder) IsAll(isAll bool) *AppVisibilityEventB
 }
 
 // 可见名单
+//
 // 示例值：
 func (builder *AppVisibilityEventBuilder) VisibleList(visibleList *AppVisibleListEvent) *AppVisibilityEventBuilder {
 	builder.visibleList = visibleList
@@ -1171,6 +1224,7 @@ func (builder *AppVisibilityEventBuilder) VisibleList(visibleList *AppVisibleLis
 }
 
 // 不可见名单
+//
 // 示例值：
 func (builder *AppVisibilityEventBuilder) InvisibleList(invisibleList *AppVisibleListEvent) *AppVisibilityEventBuilder {
 	builder.invisibleList = invisibleList
@@ -1214,6 +1268,7 @@ func NewAppVisibilityItemBuilder() *AppVisibilityItemBuilder {
 }
 
 // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应
+//
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *AppVisibilityItemBuilder) UserId(userId string) *AppVisibilityItemBuilder {
 	builder.userId = userId
@@ -1222,6 +1277,7 @@ func (builder *AppVisibilityItemBuilder) UserId(userId string) *AppVisibilityIte
 }
 
 // 用户所属部门的ID，ID值与查询参数中的department_id_type 对应
+//
 // 示例值：od-aa2c50a04769feefededb7a05b7525a8
 func (builder *AppVisibilityItemBuilder) DepartmentId(departmentId string) *AppVisibilityItemBuilder {
 	builder.departmentId = departmentId
@@ -1230,6 +1286,7 @@ func (builder *AppVisibilityItemBuilder) DepartmentId(departmentId string) *AppV
 }
 
 // 用户组 ID group_id 用来标识租户内一个唯一的用户组
+//
 // 示例值：
 func (builder *AppVisibilityItemBuilder) GroupId(groupId string) *AppVisibilityItemBuilder {
 	builder.groupId = groupId
@@ -1272,6 +1329,7 @@ func NewAppVisibleListBuilder() *AppVisibleListBuilder {
 }
 
 // 可见性成员 open_id 列表
+//
 // 示例值：
 func (builder *AppVisibleListBuilder) OpenIds(openIds []string) *AppVisibleListBuilder {
 	builder.openIds = openIds
@@ -1280,6 +1338,7 @@ func (builder *AppVisibleListBuilder) OpenIds(openIds []string) *AppVisibleListB
 }
 
 // 可见性部门的 id 列表
+//
 // 示例值：
 func (builder *AppVisibleListBuilder) DepartmentIds(departmentIds []string) *AppVisibleListBuilder {
 	builder.departmentIds = departmentIds
@@ -1316,6 +1375,7 @@ func NewAppVisibleListEventBuilder() *AppVisibleListEventBuilder {
 }
 
 // 可见性成员 id 列表
+//
 // 示例值：
 func (builder *AppVisibleListEventBuilder) OpenIds(openIds []*UserId) *AppVisibleListEventBuilder {
 	builder.openIds = openIds
@@ -1324,6 +1384,7 @@ func (builder *AppVisibleListEventBuilder) OpenIds(openIds []*UserId) *AppVisibl
 }
 
 // 可见性部门的 id 列表
+//
 // 示例值：
 func (builder *AppVisibleListEventBuilder) DepartmentIds(departmentIds []string) *AppVisibleListEventBuilder {
 	builder.departmentIds = departmentIds
@@ -1405,6 +1466,7 @@ func NewApplicationBuilder() *ApplicationBuilder {
 }
 
 // 应用的 app_id
+//
 // 示例值：cli_9b445f5258795107
 func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appId = appId
@@ -1413,6 +1475,7 @@ func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 }
 
 // 应用创建者（所有者）
+//
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) CreatorId(creatorId string) *ApplicationBuilder {
 	builder.creatorId = creatorId
@@ -1421,6 +1484,7 @@ func (builder *ApplicationBuilder) CreatorId(creatorId string) *ApplicationBuild
 }
 
 // 应用状态
+//
 // 示例值：1
 func (builder *ApplicationBuilder) Status(status int) *ApplicationBuilder {
 	builder.status = status
@@ -1429,6 +1493,7 @@ func (builder *ApplicationBuilder) Status(status int) *ApplicationBuilder {
 }
 
 // 应用类型
+//
 // 示例值：0
 func (builder *ApplicationBuilder) SceneType(sceneType int) *ApplicationBuilder {
 	builder.sceneType = sceneType
@@ -1437,6 +1502,7 @@ func (builder *ApplicationBuilder) SceneType(sceneType int) *ApplicationBuilder 
 }
 
 // 付费类型
+//
 // 示例值：0
 func (builder *ApplicationBuilder) PaymentType(paymentType int) *ApplicationBuilder {
 	builder.paymentType = paymentType
@@ -1445,6 +1511,7 @@ func (builder *ApplicationBuilder) PaymentType(paymentType int) *ApplicationBuil
 }
 
 // 安全设置中的重定向 URL
+//
 // 示例值：
 func (builder *ApplicationBuilder) RedirectUrls(redirectUrls []string) *ApplicationBuilder {
 	builder.redirectUrls = redirectUrls
@@ -1453,6 +1520,7 @@ func (builder *ApplicationBuilder) RedirectUrls(redirectUrls []string) *Applicat
 }
 
 // 发布在线上的应用版本 ID，若没有则为空
+//
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) OnlineVersionId(onlineVersionId string) *ApplicationBuilder {
 	builder.onlineVersionId = onlineVersionId
@@ -1461,6 +1529,7 @@ func (builder *ApplicationBuilder) OnlineVersionId(onlineVersionId string) *Appl
 }
 
 // 在审核中的版本 ID，若没有则为空
+//
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationBuilder) UnauditVersionId(unauditVersionId string) *ApplicationBuilder {
 	builder.unauditVersionId = unauditVersionId
@@ -1469,6 +1538,7 @@ func (builder *ApplicationBuilder) UnauditVersionId(unauditVersionId string) *Ap
 }
 
 // 应用名称
+//
 // 示例值：应用名称
 func (builder *ApplicationBuilder) AppName(appName string) *ApplicationBuilder {
 	builder.appName = appName
@@ -1477,6 +1547,7 @@ func (builder *ApplicationBuilder) AppName(appName string) *ApplicationBuilder {
 }
 
 // 应用图标 url
+//
 // 示例值：https://sf1-ttcdn-tos.pstatp.com/img/avatar/d279000ca4d3f7f6aaff~72x72.jpg
 func (builder *ApplicationBuilder) AvatarUrl(avatarUrl string) *ApplicationBuilder {
 	builder.avatarUrl = avatarUrl
@@ -1485,6 +1556,7 @@ func (builder *ApplicationBuilder) AvatarUrl(avatarUrl string) *ApplicationBuild
 }
 
 // 应用默认描述
+//
 // 示例值：应用描述
 func (builder *ApplicationBuilder) Description(description string) *ApplicationBuilder {
 	builder.description = description
@@ -1493,6 +1565,7 @@ func (builder *ApplicationBuilder) Description(description string) *ApplicationB
 }
 
 // 应用权限列表
+//
 // 示例值：
 func (builder *ApplicationBuilder) Scopes(scopes []*AppScope) *ApplicationBuilder {
 	builder.scopes = scopes
@@ -1501,6 +1574,7 @@ func (builder *ApplicationBuilder) Scopes(scopes []*AppScope) *ApplicationBuilde
 }
 
 // 后台主页地址
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationBuilder) BackHomeUrl(backHomeUrl string) *ApplicationBuilder {
 	builder.backHomeUrl = backHomeUrl
@@ -1509,6 +1583,7 @@ func (builder *ApplicationBuilder) BackHomeUrl(backHomeUrl string) *ApplicationB
 }
 
 // 应用的国际化信息列表
+//
 // 示例值：
 func (builder *ApplicationBuilder) I18n(i18n []*AppI18nInfo) *ApplicationBuilder {
 	builder.i18n = i18n
@@ -1517,6 +1592,7 @@ func (builder *ApplicationBuilder) I18n(i18n []*AppI18nInfo) *ApplicationBuilder
 }
 
 // 应用主语言
+//
 // 示例值：zh_cn
 func (builder *ApplicationBuilder) PrimaryLanguage(primaryLanguage string) *ApplicationBuilder {
 	builder.primaryLanguage = primaryLanguage
@@ -1525,6 +1601,7 @@ func (builder *ApplicationBuilder) PrimaryLanguage(primaryLanguage string) *Appl
 }
 
 // 应用分类的国际化描述
+//
 // 示例值：
 func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *ApplicationBuilder {
 	builder.commonCategories = commonCategories
@@ -1533,6 +1610,7 @@ func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *
 }
 
 // 应用的所有者信息
+//
 // 示例值：
 func (builder *ApplicationBuilder) Owner(owner *ApplicationOwner) *ApplicationBuilder {
 	builder.owner = owner
@@ -1626,6 +1704,7 @@ func NewApplicationAppUsageBuilder() *ApplicationAppUsageBuilder {
 }
 
 // 指标名称
+//
 // 示例值：pv
 func (builder *ApplicationAppUsageBuilder) MetricName(metricName string) *ApplicationAppUsageBuilder {
 	builder.metricName = metricName
@@ -1634,6 +1713,7 @@ func (builder *ApplicationAppUsageBuilder) MetricName(metricName string) *Applic
 }
 
 // 指标值
+//
 // 示例值：100
 func (builder *ApplicationAppUsageBuilder) MetricValue(metricValue int) *ApplicationAppUsageBuilder {
 	builder.metricValue = metricValue
@@ -1714,6 +1794,7 @@ func NewApplicationAppVersionBuilder() *ApplicationAppVersionBuilder {
 }
 
 // 应用 id
+//
 // 示例值：cli_9f3ca975326b501b
 func (builder *ApplicationAppVersionBuilder) AppId(appId string) *ApplicationAppVersionBuilder {
 	builder.appId = appId
@@ -1722,6 +1803,7 @@ func (builder *ApplicationAppVersionBuilder) AppId(appId string) *ApplicationApp
 }
 
 // 在开发者后台填入的应用版本号
+//
 // 示例值：1.0.0
 func (builder *ApplicationAppVersionBuilder) Version(version string) *ApplicationAppVersionBuilder {
 	builder.version = version
@@ -1730,6 +1812,7 @@ func (builder *ApplicationAppVersionBuilder) Version(version string) *Applicatio
 }
 
 // 唯一标识应用版本的 ID
+//
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationAppVersionBuilder) VersionId(versionId string) *ApplicationAppVersionBuilder {
 	builder.versionId = versionId
@@ -1738,6 +1821,7 @@ func (builder *ApplicationAppVersionBuilder) VersionId(versionId string) *Applic
 }
 
 // 应用默认名称
+//
 // 示例值：应用名称
 func (builder *ApplicationAppVersionBuilder) AppName(appName string) *ApplicationAppVersionBuilder {
 	builder.appName = appName
@@ -1746,6 +1830,7 @@ func (builder *ApplicationAppVersionBuilder) AppName(appName string) *Applicatio
 }
 
 // 应用头像 url
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationAppVersionBuilder) AvatarUrl(avatarUrl string) *ApplicationAppVersionBuilder {
 	builder.avatarUrl = avatarUrl
@@ -1754,6 +1839,7 @@ func (builder *ApplicationAppVersionBuilder) AvatarUrl(avatarUrl string) *Applic
 }
 
 // 应用默认描述
+//
 // 示例值：应用描述
 func (builder *ApplicationAppVersionBuilder) Description(description string) *ApplicationAppVersionBuilder {
 	builder.description = description
@@ -1762,6 +1848,7 @@ func (builder *ApplicationAppVersionBuilder) Description(description string) *Ap
 }
 
 // 应用权限列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) Scopes(scopes []*AppScope) *ApplicationAppVersionBuilder {
 	builder.scopes = scopes
@@ -1770,6 +1857,7 @@ func (builder *ApplicationAppVersionBuilder) Scopes(scopes []*AppScope) *Applica
 }
 
 // 后台主页地址
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationAppVersionBuilder) BackHomeUrl(backHomeUrl string) *ApplicationAppVersionBuilder {
 	builder.backHomeUrl = backHomeUrl
@@ -1778,6 +1866,7 @@ func (builder *ApplicationAppVersionBuilder) BackHomeUrl(backHomeUrl string) *Ap
 }
 
 // 应用的国际化信息列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) I18n(i18n []*AppI18nInfo) *ApplicationAppVersionBuilder {
 	builder.i18n = i18n
@@ -1786,6 +1875,7 @@ func (builder *ApplicationAppVersionBuilder) I18n(i18n []*AppI18nInfo) *Applicat
 }
 
 // 应用分类的国际化描述
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) CommonCategories(commonCategories []string) *ApplicationAppVersionBuilder {
 	builder.commonCategories = commonCategories
@@ -1794,6 +1884,7 @@ func (builder *ApplicationAppVersionBuilder) CommonCategories(commonCategories [
 }
 
 // 应用已订阅开放平台事件列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) Events(events []string) *ApplicationAppVersionBuilder {
 	builder.events = events
@@ -1802,6 +1893,7 @@ func (builder *ApplicationAppVersionBuilder) Events(events []string) *Applicatio
 }
 
 // 版本状态
+//
 // 示例值：1
 func (builder *ApplicationAppVersionBuilder) Status(status int) *ApplicationAppVersionBuilder {
 	builder.status = status
@@ -1810,6 +1902,7 @@ func (builder *ApplicationAppVersionBuilder) Status(status int) *ApplicationAppV
 }
 
 // 版本创建时间（单位：s）
+//
 // 示例值：1610462759
 func (builder *ApplicationAppVersionBuilder) CreateTime(createTime string) *ApplicationAppVersionBuilder {
 	builder.createTime = createTime
@@ -1818,6 +1911,7 @@ func (builder *ApplicationAppVersionBuilder) CreateTime(createTime string) *Appl
 }
 
 // 版本发布时间（单位：s）
+//
 // 示例值：1610462759
 func (builder *ApplicationAppVersionBuilder) PublishTime(publishTime string) *ApplicationAppVersionBuilder {
 	builder.publishTime = publishTime
@@ -1826,6 +1920,7 @@ func (builder *ApplicationAppVersionBuilder) PublishTime(publishTime string) *Ap
 }
 
 // 当前版本下应用开启的能力
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) Ability(ability *AppAbility) *ApplicationAppVersionBuilder {
 	builder.ability = ability
@@ -1834,6 +1929,7 @@ func (builder *ApplicationAppVersionBuilder) Ability(ability *AppAbility) *Appli
 }
 
 // 跟随应用版本的信息
+//
 // 示例值：
 func (builder *ApplicationAppVersionBuilder) Remark(remark *AppVersionRemark) *ApplicationAppVersionBuilder {
 	builder.remark = remark
@@ -1964,6 +2060,7 @@ func NewApplicationAppVersionEventBuilder() *ApplicationAppVersionEventBuilder {
 }
 
 // 应用 id
+//
 // 示例值：cli_9f3ca975326b501b
 func (builder *ApplicationAppVersionEventBuilder) AppId(appId string) *ApplicationAppVersionEventBuilder {
 	builder.appId = appId
@@ -1972,6 +2069,7 @@ func (builder *ApplicationAppVersionEventBuilder) AppId(appId string) *Applicati
 }
 
 // 开发者填入的应用版本 ID
+//
 // 示例值：1.0.0
 func (builder *ApplicationAppVersionEventBuilder) Version(version string) *ApplicationAppVersionEventBuilder {
 	builder.version = version
@@ -1980,6 +2078,7 @@ func (builder *ApplicationAppVersionEventBuilder) Version(version string) *Appli
 }
 
 // 唯一标识应用版本的 ID
+//
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationAppVersionEventBuilder) VersionId(versionId string) *ApplicationAppVersionEventBuilder {
 	builder.versionId = versionId
@@ -1988,6 +2087,7 @@ func (builder *ApplicationAppVersionEventBuilder) VersionId(versionId string) *A
 }
 
 // 应用默认名称
+//
 // 示例值：应用名称
 func (builder *ApplicationAppVersionEventBuilder) AppName(appName string) *ApplicationAppVersionEventBuilder {
 	builder.appName = appName
@@ -1996,6 +2096,7 @@ func (builder *ApplicationAppVersionEventBuilder) AppName(appName string) *Appli
 }
 
 // 应用头像 url
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationAppVersionEventBuilder) AvatarUrl(avatarUrl string) *ApplicationAppVersionEventBuilder {
 	builder.avatarUrl = avatarUrl
@@ -2004,6 +2105,7 @@ func (builder *ApplicationAppVersionEventBuilder) AvatarUrl(avatarUrl string) *A
 }
 
 // 应用默认描述
+//
 // 示例值：应用描述
 func (builder *ApplicationAppVersionEventBuilder) Description(description string) *ApplicationAppVersionEventBuilder {
 	builder.description = description
@@ -2012,6 +2114,7 @@ func (builder *ApplicationAppVersionEventBuilder) Description(description string
 }
 
 // 应用权限列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Scopes(scopes []*AppScope) *ApplicationAppVersionEventBuilder {
 	builder.scopes = scopes
@@ -2020,6 +2123,7 @@ func (builder *ApplicationAppVersionEventBuilder) Scopes(scopes []*AppScope) *Ap
 }
 
 // 后台主页地址
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationAppVersionEventBuilder) BackHomeUrl(backHomeUrl string) *ApplicationAppVersionEventBuilder {
 	builder.backHomeUrl = backHomeUrl
@@ -2028,6 +2132,7 @@ func (builder *ApplicationAppVersionEventBuilder) BackHomeUrl(backHomeUrl string
 }
 
 // 应用的国际化信息列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) I18n(i18n []*AppI18nInfo) *ApplicationAppVersionEventBuilder {
 	builder.i18n = i18n
@@ -2036,6 +2141,7 @@ func (builder *ApplicationAppVersionEventBuilder) I18n(i18n []*AppI18nInfo) *App
 }
 
 // 应用分类的国际化描述
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) CommonCategories(commonCategories []string) *ApplicationAppVersionEventBuilder {
 	builder.commonCategories = commonCategories
@@ -2044,6 +2150,7 @@ func (builder *ApplicationAppVersionEventBuilder) CommonCategories(commonCategor
 }
 
 // 应用已订阅开放平台事件列表
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Events(events []string) *ApplicationAppVersionEventBuilder {
 	builder.events = events
@@ -2052,6 +2159,7 @@ func (builder *ApplicationAppVersionEventBuilder) Events(events []string) *Appli
 }
 
 // 版本状态
+//
 // 示例值：1
 func (builder *ApplicationAppVersionEventBuilder) Status(status int) *ApplicationAppVersionEventBuilder {
 	builder.status = status
@@ -2060,6 +2168,7 @@ func (builder *ApplicationAppVersionEventBuilder) Status(status int) *Applicatio
 }
 
 // 版本创建时间（单位：s）
+//
 // 示例值：1610462759
 func (builder *ApplicationAppVersionEventBuilder) CreateTime(createTime string) *ApplicationAppVersionEventBuilder {
 	builder.createTime = createTime
@@ -2068,6 +2177,7 @@ func (builder *ApplicationAppVersionEventBuilder) CreateTime(createTime string) 
 }
 
 // 版本发布时间（单位：s）
+//
 // 示例值：1610462759
 func (builder *ApplicationAppVersionEventBuilder) PublishTime(publishTime string) *ApplicationAppVersionEventBuilder {
 	builder.publishTime = publishTime
@@ -2076,6 +2186,7 @@ func (builder *ApplicationAppVersionEventBuilder) PublishTime(publishTime string
 }
 
 // 当前版本下应用开启的能力
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Ability(ability *AppAbility) *ApplicationAppVersionEventBuilder {
 	builder.ability = ability
@@ -2084,6 +2195,7 @@ func (builder *ApplicationAppVersionEventBuilder) Ability(ability *AppAbility) *
 }
 
 // 跟随应用版本的信息
+//
 // 示例值：
 func (builder *ApplicationAppVersionEventBuilder) Remark(remark *AppVersionRemarkEvent) *ApplicationAppVersionEventBuilder {
 	builder.remark = remark
@@ -2181,6 +2293,7 @@ func NewApplicationDepartmentAppUsageBuilder() *ApplicationDepartmentAppUsageBui
 }
 
 // 租户内部门的唯一标识，ID值与查询参数中的department_id_type 对应。
+//
 // 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) DepartmentId(departmentId string) *ApplicationDepartmentAppUsageBuilder {
 	builder.departmentId = departmentId
@@ -2189,6 +2302,7 @@ func (builder *ApplicationDepartmentAppUsageBuilder) DepartmentId(departmentId s
 }
 
 // 应用整体使用情况，指标值包括：uv：活跃用户数，total_users：累计用户数，new_users：新增用户数，pv：在应用（小程序或网页）中访问的页面数，lifecycle：打开应用（小程序或网页）的次数
+//
 // 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) App(app []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.app = app
@@ -2197,6 +2311,7 @@ func (builder *ApplicationDepartmentAppUsageBuilder) App(app []*ApplicationAppUs
 }
 
 // 小程序使用情况，没有小程序形态时为null，指标值包括：uv（小程序活跃用户数）、pv（用户在小程序中的访问页面数）、lifecycle（小程序的打开次数）
+//
 // 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Gadget(gadget []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.gadget = gadget
@@ -2205,6 +2320,7 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Gadget(gadget []*Applicatio
 }
 
 // 网页应用使用情况，没有网页应用形态时为null，指标值包括：uv（网页应用活跃用户数）、pv（用户在网页应用中的访问页面数）、lifecycle（网页应用的打开次数）
+//
 // 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Webapp(webapp []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.webapp = webapp
@@ -2213,6 +2329,7 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Webapp(webapp []*Applicatio
 }
 
 // 机器人使用情况，没有机器人形态时为null，;指标值包括：uv（机器人的活跃用户数）
+//
 // 示例值：
 func (builder *ApplicationDepartmentAppUsageBuilder) Bot(bot []*ApplicationAppUsage) *ApplicationDepartmentAppUsageBuilder {
 	builder.bot = bot
@@ -2268,6 +2385,7 @@ func NewApplicationEventOwnerBuilder() *ApplicationEventOwnerBuilder {
 }
 
 // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
+//
 // 示例值：0
 func (builder *ApplicationEventOwnerBuilder) Type(type_ int) *ApplicationEventOwnerBuilder {
 	builder.type_ = type_
@@ -2276,6 +2394,7 @@ func (builder *ApplicationEventOwnerBuilder) Type(type_ int) *ApplicationEventOw
 }
 
 // 应用开发商名称，仅商店应用返回
+//
 // 示例值：应用名称
 func (builder *ApplicationEventOwnerBuilder) Name(name string) *ApplicationEventOwnerBuilder {
 	builder.name = name
@@ -2284,6 +2403,7 @@ func (builder *ApplicationEventOwnerBuilder) Name(name string) *ApplicationEvent
 }
 
 // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+//
 // 示例值：
 func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *ApplicationEventOwnerBuilder {
 	builder.helpDesk = helpDesk
@@ -2292,6 +2412,7 @@ func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *Applicat
 }
 
 // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+//
 // 示例值：
 func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEventOwnerBuilder {
 	builder.email = email
@@ -2300,6 +2421,7 @@ func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEve
 }
 
 // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+//
 // 示例值：
 func (builder *ApplicationEventOwnerBuilder) Phone(phone string) *ApplicationEventOwnerBuilder {
 	builder.phone = phone
@@ -2392,6 +2514,7 @@ func NewApplicationFeedbackBuilder() *ApplicationFeedbackBuilder {
 }
 
 // 应用反馈 ID，应用反馈记录唯一标识
+//
 // 示例值：7057888018203574291
 func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId string) *ApplicationFeedbackBuilder {
 	builder.feedbackId = feedbackId
@@ -2400,6 +2523,7 @@ func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId string) *Applic
 }
 
 // 被反馈应用ID
+//
 // 示例值：cli_9b445f5258795107
 func (builder *ApplicationFeedbackBuilder) AppId(appId string) *ApplicationFeedbackBuilder {
 	builder.appId = appId
@@ -2408,6 +2532,7 @@ func (builder *ApplicationFeedbackBuilder) AppId(appId string) *ApplicationFeedb
 }
 
 // 反馈提交时间，格式为yyyy-mm-dd hh:mm:ss
+//
 // 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) FeedbackTime(feedbackTime string) *ApplicationFeedbackBuilder {
 	builder.feedbackTime = feedbackTime
@@ -2416,6 +2541,7 @@ func (builder *ApplicationFeedbackBuilder) FeedbackTime(feedbackTime string) *Ap
 }
 
 // 反馈用户的租户名， 查询 isv 应用时返回
+//
 // 示例值：字节跳动
 func (builder *ApplicationFeedbackBuilder) TenantName(tenantName string) *ApplicationFeedbackBuilder {
 	builder.tenantName = tenantName
@@ -2424,6 +2550,7 @@ func (builder *ApplicationFeedbackBuilder) TenantName(tenantName string) *Applic
 }
 
 // 反馈类型
+//
 // 示例值：1
 func (builder *ApplicationFeedbackBuilder) FeedbackType(feedbackType int) *ApplicationFeedbackBuilder {
 	builder.feedbackType = feedbackType
@@ -2432,6 +2559,7 @@ func (builder *ApplicationFeedbackBuilder) FeedbackType(feedbackType int) *Appli
 }
 
 // 反馈处理状态
+//
 // 示例值：0
 func (builder *ApplicationFeedbackBuilder) Status(status int) *ApplicationFeedbackBuilder {
 	builder.status = status
@@ -2440,6 +2568,7 @@ func (builder *ApplicationFeedbackBuilder) Status(status int) *ApplicationFeedba
 }
 
 // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+//
 // 示例值：[1,2,3]
 func (builder *ApplicationFeedbackBuilder) FaultType(faultType []int) *ApplicationFeedbackBuilder {
 	builder.faultType = faultType
@@ -2448,6 +2577,7 @@ func (builder *ApplicationFeedbackBuilder) FaultType(faultType []int) *Applicati
 }
 
 // 故障时间，格式为yyyy-mm-dd hh:mm:ss
+//
 // 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) FaultTime(faultTime string) *ApplicationFeedbackBuilder {
 	builder.faultTime = faultTime
@@ -2456,6 +2586,7 @@ func (builder *ApplicationFeedbackBuilder) FaultTime(faultTime string) *Applicat
 }
 
 // 反馈来源：1： 小程序 2：网页应用 3：机器人 4：webSDK
+//
 // 示例值：1
 func (builder *ApplicationFeedbackBuilder) Source(source int) *ApplicationFeedbackBuilder {
 	builder.source = source
@@ -2464,6 +2595,7 @@ func (builder *ApplicationFeedbackBuilder) Source(source int) *ApplicationFeedba
 }
 
 // 用户联系方式，只有用户填写联系方式后返回
+//
 // 示例值：wang@bytedance.com
 func (builder *ApplicationFeedbackBuilder) Contact(contact string) *ApplicationFeedbackBuilder {
 	builder.contact = contact
@@ -2472,6 +2604,7 @@ func (builder *ApplicationFeedbackBuilder) Contact(contact string) *ApplicationF
 }
 
 // 反馈处理时间，格式为yyyy-mm-dd hh:mm:ss
+//
 // 示例值：2022-01-30 11:30:12
 func (builder *ApplicationFeedbackBuilder) UpdateTime(updateTime string) *ApplicationFeedbackBuilder {
 	builder.updateTime = updateTime
@@ -2480,6 +2613,7 @@ func (builder *ApplicationFeedbackBuilder) UpdateTime(updateTime string) *Applic
 }
 
 // 反馈问题描述
+//
 // 示例值：反馈描述
 func (builder *ApplicationFeedbackBuilder) Description(description string) *ApplicationFeedbackBuilder {
 	builder.description = description
@@ -2488,6 +2622,7 @@ func (builder *ApplicationFeedbackBuilder) Description(description string) *Appl
 }
 
 // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
+//
 // 示例值：ou_9565b69967831233761cc2f11b4c089f
 func (builder *ApplicationFeedbackBuilder) UserId(userId string) *ApplicationFeedbackBuilder {
 	builder.userId = userId
@@ -2496,6 +2631,7 @@ func (builder *ApplicationFeedbackBuilder) UserId(userId string) *ApplicationFee
 }
 
 // 操作者id，租户内用户的唯一标识， ID值与查询参数中的user_id_type 对应
+//
 // 示例值：ou_9565b69967831233761cc2f11b4c089f
 func (builder *ApplicationFeedbackBuilder) OperatorId(operatorId string) *ApplicationFeedbackBuilder {
 	builder.operatorId = operatorId
@@ -2504,6 +2640,7 @@ func (builder *ApplicationFeedbackBuilder) OperatorId(operatorId string) *Applic
 }
 
 // 反馈图片url列表，url 过期时间三天
+//
 // 示例值：
 func (builder *ApplicationFeedbackBuilder) Images(images []string) *ApplicationFeedbackBuilder {
 	builder.images = images
@@ -2512,6 +2649,7 @@ func (builder *ApplicationFeedbackBuilder) Images(images []string) *ApplicationF
 }
 
 // 反馈页面路径;- 如触发反馈的应用类型为小程序，则上报小程序当前页面的path信息;- 如触发反馈的应用类型为网页或网页应用，则上报当前网页的url信息;- 如为其他应用类型，则字段返回值为空
+//
 // 示例值：index/page
 func (builder *ApplicationFeedbackBuilder) FeedbackPath(feedbackPath string) *ApplicationFeedbackBuilder {
 	builder.feedbackPath = feedbackPath
@@ -2616,6 +2754,7 @@ func NewApplicationOwnerBuilder() *ApplicationOwnerBuilder {
 }
 
 // 应用所有者类型
+//
 // 示例值：0
 func (builder *ApplicationOwnerBuilder) Type(type_ int) *ApplicationOwnerBuilder {
 	builder.type_ = type_
@@ -2624,6 +2763,7 @@ func (builder *ApplicationOwnerBuilder) Type(type_ int) *ApplicationOwnerBuilder
 }
 
 // 应用所有者ID
+//
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwnerBuilder {
 	builder.ownerId = ownerId
@@ -2632,6 +2772,7 @@ func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwne
 }
 
 // 应用开发商名称(仅商店应用返回)
+//
 // 示例值：
 func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuilder {
 	builder.name = name
@@ -2640,6 +2781,7 @@ func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuild
 }
 
 // 应用开发商服务台链接(仅商店应用返回)
+//
 // 示例值：
 func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOwnerBuilder {
 	builder.helpDesk = helpDesk
@@ -2648,6 +2790,7 @@ func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOw
 }
 
 // 应用开发商的邮箱(仅商店应用返回)
+//
 // 示例值：
 func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBuilder {
 	builder.email = email
@@ -2656,6 +2799,7 @@ func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBui
 }
 
 // 应用开发商的手机号(仅商店应用返回)
+//
 // 示例值：
 func (builder *ApplicationOwnerBuilder) Phone(phone string) *ApplicationOwnerBuilder {
 	builder.phone = phone
@@ -2713,6 +2857,7 @@ func NewApplicationVisibilityBuilder() *ApplicationVisibilityBuilder {
 }
 
 // 是否全员可见
+//
 // 示例值：false
 func (builder *ApplicationVisibilityBuilder) IsAll(isAll bool) *ApplicationVisibilityBuilder {
 	builder.isAll = isAll
@@ -2721,6 +2866,7 @@ func (builder *ApplicationVisibilityBuilder) IsAll(isAll bool) *ApplicationVisib
 }
 
 // 可见名单
+//
 // 示例值：
 func (builder *ApplicationVisibilityBuilder) VisibleList(visibleList *AppVisibleList) *ApplicationVisibilityBuilder {
 	builder.visibleList = visibleList
@@ -2729,6 +2875,7 @@ func (builder *ApplicationVisibilityBuilder) VisibleList(visibleList *AppVisible
 }
 
 // 不可见名单
+//
 // 示例值：
 func (builder *ApplicationVisibilityBuilder) InvisibleList(invisibleList *AppVisibleList) *ApplicationVisibilityBuilder {
 	builder.invisibleList = invisibleList
@@ -2814,6 +2961,7 @@ func NewApplicationV2Builder() *ApplicationV2Builder {
 }
 
 // 应用的 id
+//
 // 示例值：cli_9b445f5258795107
 func (builder *ApplicationV2Builder) AppId(appId string) *ApplicationV2Builder {
 	builder.appId = appId
@@ -2822,6 +2970,7 @@ func (builder *ApplicationV2Builder) AppId(appId string) *ApplicationV2Builder {
 }
 
 // 应用创建者（所有者）
+//
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationV2Builder) CreatorId(creatorId string) *ApplicationV2Builder {
 	builder.creatorId = creatorId
@@ -2830,6 +2979,7 @@ func (builder *ApplicationV2Builder) CreatorId(creatorId string) *ApplicationV2B
 }
 
 // 应用状态
+//
 // 示例值：1
 func (builder *ApplicationV2Builder) Status(status int) *ApplicationV2Builder {
 	builder.status = status
@@ -2838,6 +2988,7 @@ func (builder *ApplicationV2Builder) Status(status int) *ApplicationV2Builder {
 }
 
 // 应用类型
+//
 // 示例值：0
 func (builder *ApplicationV2Builder) SceneType(sceneType int) *ApplicationV2Builder {
 	builder.sceneType = sceneType
@@ -2846,6 +2997,7 @@ func (builder *ApplicationV2Builder) SceneType(sceneType int) *ApplicationV2Buil
 }
 
 // 付费类型
+//
 // 示例值：0
 func (builder *ApplicationV2Builder) PaymentType(paymentType int) *ApplicationV2Builder {
 	builder.paymentType = paymentType
@@ -2854,6 +3006,7 @@ func (builder *ApplicationV2Builder) PaymentType(paymentType int) *ApplicationV2
 }
 
 // 安全设置中的重定向 URL
+//
 // 示例值：
 func (builder *ApplicationV2Builder) RedirectUrls(redirectUrls []string) *ApplicationV2Builder {
 	builder.redirectUrls = redirectUrls
@@ -2862,6 +3015,7 @@ func (builder *ApplicationV2Builder) RedirectUrls(redirectUrls []string) *Applic
 }
 
 // 发布在线上的应用版本
+//
 // 示例值：
 func (builder *ApplicationV2Builder) OnlineVersionId(onlineVersionId string) *ApplicationV2Builder {
 	builder.onlineVersionId = onlineVersionId
@@ -2870,6 +3024,7 @@ func (builder *ApplicationV2Builder) OnlineVersionId(onlineVersionId string) *Ap
 }
 
 // 在审核中的版本号信息，若没有则为空
+//
 // 示例值：
 func (builder *ApplicationV2Builder) UnauditVersionId(unauditVersionId string) *ApplicationV2Builder {
 	builder.unauditVersionId = unauditVersionId
@@ -2878,6 +3033,7 @@ func (builder *ApplicationV2Builder) UnauditVersionId(unauditVersionId string) *
 }
 
 // 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
+//
 // 示例值：应用名称
 func (builder *ApplicationV2Builder) AppName(appName string) *ApplicationV2Builder {
 	builder.appName = appName
@@ -2886,6 +3042,7 @@ func (builder *ApplicationV2Builder) AppName(appName string) *ApplicationV2Build
 }
 
 // 应用图标链接
+//
 // 示例值：https://sf1-ttcdn-tos.pstatp.com/img/avatar/d279000ca4d3f7f6aaff~72x72.jpg
 func (builder *ApplicationV2Builder) AvatarUrl(avatarUrl string) *ApplicationV2Builder {
 	builder.avatarUrl = avatarUrl
@@ -2894,6 +3051,7 @@ func (builder *ApplicationV2Builder) AvatarUrl(avatarUrl string) *ApplicationV2B
 }
 
 // 应用默认描述
+//
 // 示例值：应用描述
 func (builder *ApplicationV2Builder) Description(description string) *ApplicationV2Builder {
 	builder.description = description
@@ -2902,6 +3060,7 @@ func (builder *ApplicationV2Builder) Description(description string) *Applicatio
 }
 
 // 应用权限列表
+//
 // 示例值：
 func (builder *ApplicationV2Builder) Scopes(scopes []*AppScope) *ApplicationV2Builder {
 	builder.scopes = scopes
@@ -2910,6 +3069,7 @@ func (builder *ApplicationV2Builder) Scopes(scopes []*AppScope) *ApplicationV2Bu
 }
 
 // 后台主页地址
+//
 // 示例值：https://www.example.com
 func (builder *ApplicationV2Builder) BackHomeUrl(backHomeUrl string) *ApplicationV2Builder {
 	builder.backHomeUrl = backHomeUrl
@@ -2918,6 +3078,7 @@ func (builder *ApplicationV2Builder) BackHomeUrl(backHomeUrl string) *Applicatio
 }
 
 // 应用的国际化信息列表
+//
 // 示例值：
 func (builder *ApplicationV2Builder) I18n(i18n []*AppI18nInfo) *ApplicationV2Builder {
 	builder.i18n = i18n
@@ -2926,6 +3087,7 @@ func (builder *ApplicationV2Builder) I18n(i18n []*AppI18nInfo) *ApplicationV2Bui
 }
 
 // 应用主语言
+//
 // 示例值：zh_cn
 func (builder *ApplicationV2Builder) PrimaryLanguage(primaryLanguage string) *ApplicationV2Builder {
 	builder.primaryLanguage = primaryLanguage
@@ -2934,6 +3096,7 @@ func (builder *ApplicationV2Builder) PrimaryLanguage(primaryLanguage string) *Ap
 }
 
 // 应用分类的国际化描述
+//
 // 示例值：
 func (builder *ApplicationV2Builder) CommonCategories(commonCategories []string) *ApplicationV2Builder {
 	builder.commonCategories = commonCategories
@@ -2942,6 +3105,7 @@ func (builder *ApplicationV2Builder) CommonCategories(commonCategories []string)
 }
 
 // 应用的所有者信息
+//
 // 示例值：
 func (builder *ApplicationV2Builder) Owner(owner *ApplicationOwner) *ApplicationV2Builder {
 	builder.owner = owner
@@ -3044,6 +3208,7 @@ func NewBlockBuilder() *BlockBuilder {
 }
 
 // BlockTypeID
+//
 // 示例值：blk_4fb61568435880110854c1d0
 func (builder *BlockBuilder) BlockTypeId(blockTypeId string) *BlockBuilder {
 	builder.blockTypeId = blockTypeId
@@ -3052,6 +3217,7 @@ func (builder *BlockBuilder) BlockTypeId(blockTypeId string) *BlockBuilder {
 }
 
 // 上传 block 小程序的 version id
+//
 // 示例值：1.0.0
 func (builder *BlockBuilder) VersionId(versionId string) *BlockBuilder {
 	builder.versionId = versionId
@@ -3060,6 +3226,7 @@ func (builder *BlockBuilder) VersionId(versionId string) *BlockBuilder {
 }
 
 // block 的国际化信息
+//
 // 示例值：
 func (builder *BlockBuilder) I18n(i18n []*BlockI18nInfo) *BlockBuilder {
 	builder.i18n = i18n
@@ -3068,6 +3235,7 @@ func (builder *BlockBuilder) I18n(i18n []*BlockI18nInfo) *BlockBuilder {
 }
 
 // 移动端 icon 链接
+//
 // 示例值：https://www.example.com
 func (builder *BlockBuilder) MobileIconUrl(mobileIconUrl string) *BlockBuilder {
 	builder.mobileIconUrl = mobileIconUrl
@@ -3076,6 +3244,7 @@ func (builder *BlockBuilder) MobileIconUrl(mobileIconUrl string) *BlockBuilder {
 }
 
 // pc 端口 icon 链接
+//
 // 示例值：https://www.example.com
 func (builder *BlockBuilder) PcIconUrl(pcIconUrl string) *BlockBuilder {
 	builder.pcIconUrl = pcIconUrl
@@ -3125,6 +3294,7 @@ func NewBlockI18nInfoBuilder() *BlockI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *BlockI18nInfoBuilder) I18nKey(i18nKey string) *BlockI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -3133,6 +3303,7 @@ func (builder *BlockI18nInfoBuilder) I18nKey(i18nKey string) *BlockI18nInfoBuild
 }
 
 // 名称
+//
 // 示例值：名称
 func (builder *BlockI18nInfoBuilder) Name(name string) *BlockI18nInfoBuilder {
 	builder.name = name
@@ -3168,6 +3339,7 @@ func NewBotBuilder() *BotBuilder {
 }
 
 // 消息卡片回调地址
+//
 // 示例值：https://www.example.com
 func (builder *BotBuilder) CardRequestUrl(cardRequestUrl string) *BotBuilder {
 	builder.cardRequestUrl = cardRequestUrl
@@ -3202,6 +3374,7 @@ func NewClientBadgeNumBuilder() *ClientBadgeNumBuilder {
 }
 
 // h5能力的badge数量
+//
 // 示例值：
 func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder {
 	builder.webApp = webApp
@@ -3210,6 +3383,7 @@ func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder 
 }
 
 // 小程序能力的badge数量
+//
 // 示例值：
 func (builder *ClientBadgeNumBuilder) Gadget(gadget int) *ClientBadgeNumBuilder {
 	builder.gadget = gadget
@@ -3254,6 +3428,7 @@ func NewCloudDocBuilder() *CloudDocBuilder {
 }
 
 // 云空间重定向 url
+//
 // 示例值：https://www.example.com
 func (builder *CloudDocBuilder) SpaceUrl(spaceUrl string) *CloudDocBuilder {
 	builder.spaceUrl = spaceUrl
@@ -3262,6 +3437,7 @@ func (builder *CloudDocBuilder) SpaceUrl(spaceUrl string) *CloudDocBuilder {
 }
 
 // 国际化信息
+//
 // 示例值：
 func (builder *CloudDocBuilder) I18n(i18n []*CloudDocI18nInfo) *CloudDocBuilder {
 	builder.i18n = i18n
@@ -3270,6 +3446,7 @@ func (builder *CloudDocBuilder) I18n(i18n []*CloudDocI18nInfo) *CloudDocBuilder 
 }
 
 // 图标链接
+//
 // 示例值：https://www.example.com
 func (builder *CloudDocBuilder) IconUrl(iconUrl string) *CloudDocBuilder {
 	builder.iconUrl = iconUrl
@@ -3278,6 +3455,7 @@ func (builder *CloudDocBuilder) IconUrl(iconUrl string) *CloudDocBuilder {
 }
 
 // 云文档支持模式
+//
 // 示例值：1
 func (builder *CloudDocBuilder) Mode(mode int) *CloudDocBuilder {
 	builder.mode = mode
@@ -3329,6 +3507,7 @@ func NewCloudDocI18nInfoBuilder() *CloudDocI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *CloudDocI18nInfoBuilder) I18nKey(i18nKey string) *CloudDocI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -3337,6 +3516,7 @@ func (builder *CloudDocI18nInfoBuilder) I18nKey(i18nKey string) *CloudDocI18nInf
 }
 
 // 云文档国际化名称
+//
 // 示例值：名称
 func (builder *CloudDocI18nInfoBuilder) Name(name string) *CloudDocI18nInfoBuilder {
 	builder.name = name
@@ -3345,6 +3525,7 @@ func (builder *CloudDocI18nInfoBuilder) Name(name string) *CloudDocI18nInfoBuild
 }
 
 // 云文档国际化读权限说明
+//
 // 示例值：读权限说明
 func (builder *CloudDocI18nInfoBuilder) ReadDescription(readDescription string) *CloudDocI18nInfoBuilder {
 	builder.readDescription = readDescription
@@ -3353,6 +3534,7 @@ func (builder *CloudDocI18nInfoBuilder) ReadDescription(readDescription string) 
 }
 
 // 云文档国际化写权限说明
+//
 // 示例值：写权限说明
 func (builder *CloudDocI18nInfoBuilder) WriteDescription(writeDescription string) *CloudDocI18nInfoBuilder {
 	builder.writeDescription = writeDescription
@@ -3405,6 +3587,7 @@ func NewDocsBlockBuilder() *DocsBlockBuilder {
 }
 
 // BlockTypeID
+//
 // 示例值：blk_4fb61568435880110854c1d0
 func (builder *DocsBlockBuilder) BlockTypeId(blockTypeId string) *DocsBlockBuilder {
 	builder.blockTypeId = blockTypeId
@@ -3413,6 +3596,7 @@ func (builder *DocsBlockBuilder) BlockTypeId(blockTypeId string) *DocsBlockBuild
 }
 
 // block 的国际化信息
+//
 // 示例值：
 func (builder *DocsBlockBuilder) I18n(i18n []*BlockI18nInfo) *DocsBlockBuilder {
 	builder.i18n = i18n
@@ -3421,6 +3605,7 @@ func (builder *DocsBlockBuilder) I18n(i18n []*BlockI18nInfo) *DocsBlockBuilder {
 }
 
 // 移动端 icon 链接
+//
 // 示例值：https://www.example.com
 func (builder *DocsBlockBuilder) MobileIconUrl(mobileIconUrl string) *DocsBlockBuilder {
 	builder.mobileIconUrl = mobileIconUrl
@@ -3429,6 +3614,7 @@ func (builder *DocsBlockBuilder) MobileIconUrl(mobileIconUrl string) *DocsBlockB
 }
 
 // pc 端口 icon 链接
+//
 // 示例值：https://www.example.com
 func (builder *DocsBlockBuilder) PcIconUrl(pcIconUrl string) *DocsBlockBuilder {
 	builder.pcIconUrl = pcIconUrl
@@ -3489,6 +3675,7 @@ func NewGadgetBuilder() *GadgetBuilder {
 }
 
 // pc 支持的小程序模式，bit 位表示
+//
 // 示例值：1
 func (builder *GadgetBuilder) EnablePcMode(enablePcMode int) *GadgetBuilder {
 	builder.enablePcMode = enablePcMode
@@ -3497,6 +3684,7 @@ func (builder *GadgetBuilder) EnablePcMode(enablePcMode int) *GadgetBuilder {
 }
 
 // schema url 列表
+//
 // 示例值：
 func (builder *GadgetBuilder) SchemaUrls(schemaUrls []string) *GadgetBuilder {
 	builder.schemaUrls = schemaUrls
@@ -3505,6 +3693,7 @@ func (builder *GadgetBuilder) SchemaUrls(schemaUrls []string) *GadgetBuilder {
 }
 
 // pc 端是否使用小程序版本
+//
 // 示例值：false
 func (builder *GadgetBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *GadgetBuilder {
 	builder.pcUseMobilePkg = pcUseMobilePkg
@@ -3513,6 +3702,7 @@ func (builder *GadgetBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *GadgetBuilder
 }
 
 // pc 的小程序版本号
+//
 // 示例值：1.0.0
 func (builder *GadgetBuilder) PcVersion(pcVersion string) *GadgetBuilder {
 	builder.pcVersion = pcVersion
@@ -3521,6 +3711,7 @@ func (builder *GadgetBuilder) PcVersion(pcVersion string) *GadgetBuilder {
 }
 
 // 移动端小程序版本号
+//
 // 示例值：1.0.0
 func (builder *GadgetBuilder) MobileVersion(mobileVersion string) *GadgetBuilder {
 	builder.mobileVersion = mobileVersion
@@ -3529,6 +3720,7 @@ func (builder *GadgetBuilder) MobileVersion(mobileVersion string) *GadgetBuilder
 }
 
 // 移动端兼容的最低飞书版本
+//
 // 示例值：2.0
 func (builder *GadgetBuilder) MobileMinLarkVersion(mobileMinLarkVersion string) *GadgetBuilder {
 	builder.mobileMinLarkVersion = mobileMinLarkVersion
@@ -3537,6 +3729,7 @@ func (builder *GadgetBuilder) MobileMinLarkVersion(mobileMinLarkVersion string) 
 }
 
 // pc 端兼容的最低飞书版本
+//
 // 示例值：2.0
 func (builder *GadgetBuilder) PcMinLarkVersion(pcMinLarkVersion string) *GadgetBuilder {
 	builder.pcMinLarkVersion = pcMinLarkVersion
@@ -3597,6 +3790,7 @@ func NewMessageActionBuilder() *MessageActionBuilder {
 }
 
 // pc 端链接
+//
 // 示例值：https://www.example.com
 func (builder *MessageActionBuilder) PcAppLink(pcAppLink string) *MessageActionBuilder {
 	builder.pcAppLink = pcAppLink
@@ -3605,6 +3799,7 @@ func (builder *MessageActionBuilder) PcAppLink(pcAppLink string) *MessageActionB
 }
 
 // 移动端链接
+//
 // 示例值：https://www.example.com
 func (builder *MessageActionBuilder) MobileAppLink(mobileAppLink string) *MessageActionBuilder {
 	builder.mobileAppLink = mobileAppLink
@@ -3613,6 +3808,7 @@ func (builder *MessageActionBuilder) MobileAppLink(mobileAppLink string) *Messag
 }
 
 // 国际化信息
+//
 // 示例值：
 func (builder *MessageActionBuilder) I18n(i18n []*MessageActionI18nInfo) *MessageActionBuilder {
 	builder.i18n = i18n
@@ -3654,6 +3850,7 @@ func NewMessageActionI18nInfoBuilder() *MessageActionI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *MessageActionI18nInfoBuilder) I18nKey(i18nKey string) *MessageActionI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -3662,6 +3859,7 @@ func (builder *MessageActionI18nInfoBuilder) I18nKey(i18nKey string) *MessageAct
 }
 
 // 国际化名称
+//
 // 示例值：名称
 func (builder *MessageActionI18nInfoBuilder) Name(name string) *MessageActionI18nInfoBuilder {
 	builder.name = name
@@ -3709,6 +3907,7 @@ func NewMessageOverviewItemBuilder() *MessageOverviewItemBuilder {
 }
 
 // 用户访问量
+//
 // 示例值：
 func (builder *MessageOverviewItemBuilder) PageView(pageView string) *MessageOverviewItemBuilder {
 	builder.pageView = pageView
@@ -3717,6 +3916,7 @@ func (builder *MessageOverviewItemBuilder) PageView(pageView string) *MessageOve
 }
 
 // unique 访问量
+//
 // 示例值：
 func (builder *MessageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *MessageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
@@ -3725,6 +3925,7 @@ func (builder *MessageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *
 }
 
 // 聊天类型，大小写不敏感，private：私聊；group：群聊
+//
 // 示例值：
 func (builder *MessageOverviewItemBuilder) ChatType(chatType string) *MessageOverviewItemBuilder {
 	builder.chatType = chatType
@@ -3733,6 +3934,7 @@ func (builder *MessageOverviewItemBuilder) ChatType(chatType string) *MessageOve
 }
 
 // 消息类型，大小写不敏感，text：文本消息；image：图片消息；interactive：卡片消息；post：富文本消息；share_chat：群名片
+//
 // 示例值：
 func (builder *MessageOverviewItemBuilder) MessageType(messageType string) *MessageOverviewItemBuilder {
 	builder.messageType = messageType
@@ -3741,6 +3943,7 @@ func (builder *MessageOverviewItemBuilder) MessageType(messageType string) *Mess
 }
 
 // 事件类型
+//
 // 示例值：
 func (builder *MessageOverviewItemBuilder) EventType(eventType string) *MessageOverviewItemBuilder {
 	builder.eventType = eventType
@@ -3806,6 +4009,7 @@ func NewMiniprogramBuilder() *MiniprogramBuilder {
 }
 
 // pc 支持的小程序模式，bit 位表示
+//
 // 示例值：1
 func (builder *MiniprogramBuilder) EnablePcMode(enablePcMode int) *MiniprogramBuilder {
 	builder.enablePcMode = enablePcMode
@@ -3814,6 +4018,7 @@ func (builder *MiniprogramBuilder) EnablePcMode(enablePcMode int) *MiniprogramBu
 }
 
 // schema url 列表
+//
 // 示例值：
 func (builder *MiniprogramBuilder) SchemaUrls(schemaUrls []string) *MiniprogramBuilder {
 	builder.schemaUrls = schemaUrls
@@ -3822,6 +4027,7 @@ func (builder *MiniprogramBuilder) SchemaUrls(schemaUrls []string) *MiniprogramB
 }
 
 // pc 端是否使用小程序版本
+//
 // 示例值：false
 func (builder *MiniprogramBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *MiniprogramBuilder {
 	builder.pcUseMobilePkg = pcUseMobilePkg
@@ -3830,6 +4036,7 @@ func (builder *MiniprogramBuilder) PcUseMobilePkg(pcUseMobilePkg bool) *Miniprog
 }
 
 // pc 的小程序版本号
+//
 // 示例值：1.0.0
 func (builder *MiniprogramBuilder) PcVersionId(pcVersionId string) *MiniprogramBuilder {
 	builder.pcVersionId = pcVersionId
@@ -3838,6 +4045,7 @@ func (builder *MiniprogramBuilder) PcVersionId(pcVersionId string) *MiniprogramB
 }
 
 // 移动端小程序版本号
+//
 // 示例值：1.0.0
 func (builder *MiniprogramBuilder) MobileVersionId(mobileVersionId string) *MiniprogramBuilder {
 	builder.mobileVersionId = mobileVersionId
@@ -3846,6 +4054,7 @@ func (builder *MiniprogramBuilder) MobileVersionId(mobileVersionId string) *Mini
 }
 
 // 移动端兼容的最低飞书版本
+//
 // 示例值：2.0
 func (builder *MiniprogramBuilder) MobileMinLarkVersion(mobileMinLarkVersion string) *MiniprogramBuilder {
 	builder.mobileMinLarkVersion = mobileMinLarkVersion
@@ -3854,6 +4063,7 @@ func (builder *MiniprogramBuilder) MobileMinLarkVersion(mobileMinLarkVersion str
 }
 
 // pc 端兼容的最低飞书版本
+//
 // 示例值：2.0
 func (builder *MiniprogramBuilder) PcMinLarkVersion(pcMinLarkVersion string) *MiniprogramBuilder {
 	builder.pcMinLarkVersion = pcMinLarkVersion
@@ -3914,6 +4124,7 @@ func NewMsgActionBuilder() *MsgActionBuilder {
 }
 
 // pc 端链接
+//
 // 示例值：https://www.example.com
 func (builder *MsgActionBuilder) PcAppLink(pcAppLink string) *MsgActionBuilder {
 	builder.pcAppLink = pcAppLink
@@ -3922,6 +4133,7 @@ func (builder *MsgActionBuilder) PcAppLink(pcAppLink string) *MsgActionBuilder {
 }
 
 // 移动端链接
+//
 // 示例值：https://www.example.com
 func (builder *MsgActionBuilder) MobileAppLink(mobileAppLink string) *MsgActionBuilder {
 	builder.mobileAppLink = mobileAppLink
@@ -3930,6 +4142,7 @@ func (builder *MsgActionBuilder) MobileAppLink(mobileAppLink string) *MsgActionB
 }
 
 // 国际化信息
+//
 // 示例值：
 func (builder *MsgActionBuilder) I18n(i18n []*MsgActionI18nInfo) *MsgActionBuilder {
 	builder.i18n = i18n
@@ -3971,6 +4184,7 @@ func NewMsgActionI18nInfoBuilder() *MsgActionI18nInfoBuilder {
 }
 
 // 国际化语言的 key
+//
 // 示例值：zh_cn
 func (builder *MsgActionI18nInfoBuilder) I18nKey(i18nKey string) *MsgActionI18nInfoBuilder {
 	builder.i18nKey = i18nKey
@@ -3979,6 +4193,7 @@ func (builder *MsgActionI18nInfoBuilder) I18nKey(i18nKey string) *MsgActionI18nI
 }
 
 // 国际化名称
+//
 // 示例值：名称
 func (builder *MsgActionI18nInfoBuilder) Name(name string) *MsgActionI18nInfoBuilder {
 	builder.name = name
@@ -4017,6 +4232,7 @@ func NewNavigateBuilder() *NavigateBuilder {
 }
 
 // pc 端主导航信息
+//
 // 示例值：
 func (builder *NavigateBuilder) Pc(pc *NavigateMeta) *NavigateBuilder {
 	builder.pc = pc
@@ -4025,6 +4241,7 @@ func (builder *NavigateBuilder) Pc(pc *NavigateMeta) *NavigateBuilder {
 }
 
 // 移动端主导航信息
+//
 // 示例值：
 func (builder *NavigateBuilder) Mobile(mobile *NavigateMeta) *NavigateBuilder {
 	builder.mobile = mobile
@@ -4064,6 +4281,7 @@ func NewNavigateMetaBuilder() *NavigateMetaBuilder {
 }
 
 // 主导航小程序版本号
+//
 // 示例值：1.0.0
 func (builder *NavigateMetaBuilder) Version(version string) *NavigateMetaBuilder {
 	builder.version = version
@@ -4072,6 +4290,7 @@ func (builder *NavigateMetaBuilder) Version(version string) *NavigateMetaBuilder
 }
 
 // 默认图片 url
+//
 // 示例值：https://www.example.com
 func (builder *NavigateMetaBuilder) ImageUrl(imageUrl string) *NavigateMetaBuilder {
 	builder.imageUrl = imageUrl
@@ -4080,6 +4299,7 @@ func (builder *NavigateMetaBuilder) ImageUrl(imageUrl string) *NavigateMetaBuild
 }
 
 // 选中态图片 url
+//
 // 示例值：https://www.example.com
 func (builder *NavigateMetaBuilder) HoverImageUrl(hoverImageUrl string) *NavigateMetaBuilder {
 	builder.hoverImageUrl = hoverImageUrl
@@ -4122,6 +4342,7 @@ func NewPlusMenuBuilder() *PlusMenuBuilder {
 }
 
 // pc 端链接
+//
 // 示例值：https://www.example.com
 func (builder *PlusMenuBuilder) PcAppLink(pcAppLink string) *PlusMenuBuilder {
 	builder.pcAppLink = pcAppLink
@@ -4130,6 +4351,7 @@ func (builder *PlusMenuBuilder) PcAppLink(pcAppLink string) *PlusMenuBuilder {
 }
 
 // 移动端链接
+//
 // 示例值：https://www.example.com
 func (builder *PlusMenuBuilder) MobileAppLink(mobileAppLink string) *PlusMenuBuilder {
 	builder.mobileAppLink = mobileAppLink
@@ -4168,6 +4390,7 @@ func NewScopeBuilder() *ScopeBuilder {
 }
 
 // 权限名称，形如 user.phone:readonly
+//
 // 示例值：
 func (builder *ScopeBuilder) ScopeName(scopeName string) *ScopeBuilder {
 	builder.scopeName = scopeName
@@ -4176,6 +4399,7 @@ func (builder *ScopeBuilder) ScopeName(scopeName string) *ScopeBuilder {
 }
 
 // 租户应用权限授予状态
+//
 // 示例值：
 func (builder *ScopeBuilder) GrantStatus(grantStatus int) *ScopeBuilder {
 	builder.grantStatus = grantStatus
@@ -4217,6 +4441,7 @@ func NewUsageOverviewItemBuilder() *UsageOverviewItemBuilder {
 }
 
 // 应用使用pv
+//
 // 示例值：
 func (builder *UsageOverviewItemBuilder) PageView(pageView string) *UsageOverviewItemBuilder {
 	builder.pageView = pageView
@@ -4225,6 +4450,7 @@ func (builder *UsageOverviewItemBuilder) PageView(pageView string) *UsageOvervie
 }
 
 // 应用使用uv
+//
 // 示例值：
 func (builder *UsageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
@@ -4233,6 +4459,7 @@ func (builder *UsageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *Us
 }
 
 // 部门号
+//
 // 示例值：
 func (builder *UsageOverviewItemBuilder) DepartmentId(departmentId string) *UsageOverviewItemBuilder {
 	builder.departmentId = departmentId
@@ -4278,6 +4505,7 @@ func NewUsageTrendItemBuilder() *UsageTrendItemBuilder {
 }
 
 // 时间戳
+//
 // 示例值：
 func (builder *UsageTrendItemBuilder) Timestamp(timestamp string) *UsageTrendItemBuilder {
 	builder.timestamp = timestamp
@@ -4286,6 +4514,7 @@ func (builder *UsageTrendItemBuilder) Timestamp(timestamp string) *UsageTrendIte
 }
 
 // 应用使用pv
+//
 // 示例值：
 func (builder *UsageTrendItemBuilder) PageView(pageView string) *UsageTrendItemBuilder {
 	builder.pageView = pageView
@@ -4294,6 +4523,7 @@ func (builder *UsageTrendItemBuilder) PageView(pageView string) *UsageTrendItemB
 }
 
 // 应用使用uv
+//
 // 示例值：
 func (builder *UsageTrendItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageTrendItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
@@ -4333,6 +4563,7 @@ func NewUsageUserBuilder() *UsageUserBuilder {
 }
 
 // 用户id
+//
 // 示例值：
 func (builder *UsageUserBuilder) UserId(userId string) *UsageUserBuilder {
 	builder.userId = userId
@@ -4364,6 +4595,7 @@ func NewUserBuilder() *UserBuilder {
 }
 
 // user_id
+//
 // 示例值：
 func (builder *UserBuilder) UserId(userId *UserId) *UserBuilder {
 	builder.userId = userId
@@ -4400,6 +4632,7 @@ func NewUserIdBuilder() *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -4408,6 +4641,7 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 }
 
 //
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -4415,6 +4649,7 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
 //
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
@@ -4458,6 +4693,7 @@ func NewWebAppBuilder() *WebAppBuilder {
 }
 
 // pc 端 url
+//
 // 示例值：https://www.example.com
 func (builder *WebAppBuilder) PcUrl(pcUrl string) *WebAppBuilder {
 	builder.pcUrl = pcUrl
@@ -4466,6 +4702,7 @@ func (builder *WebAppBuilder) PcUrl(pcUrl string) *WebAppBuilder {
 }
 
 // 移动端 url
+//
 // 示例值：https://www.example.com
 func (builder *WebAppBuilder) MobileUrl(mobileUrl string) *WebAppBuilder {
 	builder.mobileUrl = mobileUrl
@@ -4504,6 +4741,7 @@ func NewWorkplaceWidgetBuilder() *WorkplaceWidgetBuilder {
 }
 
 // 最低兼容 lark 版本号
+//
 // 示例值：1.0.0
 func (builder *WorkplaceWidgetBuilder) MinLarkVersion(minLarkVersion string) *WorkplaceWidgetBuilder {
 	builder.minLarkVersion = minLarkVersion

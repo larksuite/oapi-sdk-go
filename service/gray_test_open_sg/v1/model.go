@@ -43,6 +43,7 @@ func NewLevelBuilder() *LevelBuilder {
 }
 
 // string
+//
 // 示例值：
 func (builder *LevelBuilder) Level(level string) *LevelBuilder {
 	builder.level = level
@@ -51,6 +52,7 @@ func (builder *LevelBuilder) Level(level string) *LevelBuilder {
 }
 
 // body
+//
 // 示例值：
 func (builder *LevelBuilder) Body(body string) *LevelBuilder {
 	builder.body = body
@@ -59,6 +61,7 @@ func (builder *LevelBuilder) Body(body string) *LevelBuilder {
 }
 
 // type
+//
 // 示例值：
 func (builder *LevelBuilder) Type(type_ string) *LevelBuilder {
 	builder.type_ = type_
@@ -107,6 +110,7 @@ func NewMotoBuilder() *MotoBuilder {
 }
 
 // desc
+//
 // 示例值：
 func (builder *MotoBuilder) MotoId(motoId string) *MotoBuilder {
 	builder.motoId = motoId
@@ -115,6 +119,7 @@ func (builder *MotoBuilder) MotoId(motoId string) *MotoBuilder {
 }
 
 // desc2
+//
 // 示例值：
 func (builder *MotoBuilder) Id(id string) *MotoBuilder {
 	builder.id = id
@@ -123,6 +128,7 @@ func (builder *MotoBuilder) Id(id string) *MotoBuilder {
 }
 
 // name
+//
 // 示例值：
 func (builder *MotoBuilder) UserName(userName string) *MotoBuilder {
 	builder.userName = userName
@@ -131,6 +137,7 @@ func (builder *MotoBuilder) UserName(userName string) *MotoBuilder {
 }
 
 // type
+//
 // 示例值：
 func (builder *MotoBuilder) Type(type_ string) *MotoBuilder {
 	builder.type_ = type_

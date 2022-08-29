@@ -43,7 +43,7 @@ type identity struct {
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/human_authenticationv1//create_identity.go
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/human_authenticationv1/create_identity.go
 func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options ...larkcore.RequestOptionFunc) (*CreateIdentityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
