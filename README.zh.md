@@ -19,6 +19,7 @@
 
 - [处理消息事件回调](#处理消息事件回调)
     - [基本用法](#基本用法-1)
+    - [消息处理器内给对应租户发消息](#消息处理器内给对应租户发消息)
     - [集成gin框架](#集成gin框架)
         - [安装集成包](#安装集成包)
         - [集成示例](#集成示例)
@@ -27,6 +28,7 @@
     - [基本用法](#基本用法-2)
     - [返回卡片消息](#返回卡片消息)
     - [返回自定义消息](#返回自定义消息)
+    - [卡片行为处理器内给对应租户发消息](#卡片行为处理器内给对应租户发消息)
     - [集成gin框架](#集成gin框架)
         - [安装集成包](#安装集成包)
         - [集成示例](#集成示例)
@@ -35,7 +37,9 @@
 
 ## 安装
 
-go get -u github.com/larksuite/oapi-sdk-go
+```go
+go get -u github.com/larksuite/oapi-sdk-go/v3@v3.0.2
+```
 
 ## API Client
 
@@ -138,6 +142,21 @@ type Logger interface {
 </td>
 </tr>
 
+<tr>
+      <th>
+        <code>LogReqAtDebug</code>
+      </th>
+      <td>
+        <code>lark.WithLogReqAtDebug(printReqRespLog bool)</code>
+      </td>
+      <td>
+设置是否开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息。
+
+在排查问题时，开启该选项，有利于问题的排查。
+
+</td>
+</tr>
+
 
 <tr>
       <th>
@@ -159,6 +178,31 @@ var LarkBaseUrl = "https://open.larksuite.com"
 
 </td>
 </tr>
+
+<tr>
+      <th>
+        <code>TokenCache</code>
+      </th>
+      <td>
+        <code>lark.WithTokenCache(cache larkcore.Cache)</code>
+      </td>
+      <td>
+设置 token 缓存器，用来缓存 token 和 appTicket, 默认实现为内存。
+
+如开发者想要定制 token 缓存器，需实现下面 Cache 接口:
+
+```go
+type Cache interface {
+  Set(ctx context.Context, key string, value string, expireTime time.Duration) error
+  Get(ctx context.Context, key string) (string, error)
+}
+```
+
+对于 ISV 开发者来说，如需要 SDK 来缓存 appTicket，需要实现该接口，实现提供分布式缓存。
+
+</td>
+</tr>
+
 
 <tr>
       <th>
@@ -221,50 +265,13 @@ type HttpClient interface {
 </td>
 </tr>
 
-<tr>
-      <th>
-        <code>TokenCache</code>
-      </th>
-      <td>
-        <code>lark.WithTokenCache(cache larkcore.Cache)</code>
-      </td>
-      <td>
-设置 token 缓存器，默认实现为内存Map。
-
-如开发者想要定制 token 缓存器，需实现下面 Cache 接口:
-
-```go
-type Cache interface {
-  Set(ctx context.Context, key string, value string, expireTime time.Duration) error
-  Get(ctx context.Context, key string) (string, error)
-}
-```
-
-对于 ISV 开发者来说，如需要 SDK 来缓存 token，需要实现该接口，实现提供分布式缓存。
-
-</td>
-</tr>
-
-
-<tr>
-      <th>
-        <code>LogReqRespInfoAtDebugLevel</code>
-      </th>
-      <td>
-        <code>lark.WithLogReqRespInfoAtDebugLevel(printReqRespLog bool)</code>
-      </td>
-      <td>
-设置是否开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息。
-
-在排查问题时，开启该选项，有利于问题的排查。
-
-</td>
-</tr>
   </tbody>
 </table>
 
 ## API调用
 创建完毕 API Client，我们可以使用 ``Client.业务域.资源.方法名称`` 来定位具体的 API 方法，然后对具体的 API 发起调用。
+
+![](doc/find_method.jpg)
 
 飞书开放平台开放的所有 API 列表，可点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/server-api-list)
 
@@ -279,9 +286,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 
@@ -327,9 +334,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	larkcore "github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 func main() {
@@ -465,18 +472,27 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 func main() {
 	// 创建 API Client
-	var cli = lark.NewClient("appID", "appSecret")
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithLogLevel(larkcore.LogLevelDebug))
 
 	// 发起请求
-	resp, err := cli.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
-		"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-	}, larkcore.AccessTokenTypeTenant)
+	resp, err := cli.Do(context.Background(),
+		&larkcore.ApiReq{
+			HttpMethod:                http.MethodGet,
+			ApiPath:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
+			Body:                      nil,
+			QueryParams:               larkcore.QueryParams{"user_id_type": []string{"open_id"}},
+			PathParams:                larkcore.PathParams{"user_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d"},
+			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
+		},
+		larkcore.WithUserAccessToken("u-3Sr1oTO4V1FWxTFTFYuFCqhk2Vs4h5IbhMG00gmw0CXh"),
+	)
 
 	// 错误处理
 	if err != nil {
@@ -488,14 +504,13 @@ func main() {
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
-	fmt.Println(resp.StatusCode) // http status code
-	fmt.Println(resp.Header)     // http header
-	fmt.Println(resp.RawBody)    // http body
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
 }
 ```
 
 更多 API 调用示例：[./sample/callrawapi/api.go](./sample/callrawapi/api.go)
-
 
 ## 处理消息事件回调
 关于消息订阅相关的知识，可以点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
@@ -511,21 +526,23 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
-	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	"github.com/larksuite/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
     // 注册消息处理器
     handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+        // 处理消息 event，这里简单打印消息的内容 
         fmt.Println(larkcore.Prettify(event))
         fmt.Println(event.RequestId())
         return nil
     }).OnP2MessageReadV1(func(ctx context.Context, event *larkim.P2MessageReadV1) error {
+        // 处理消息 event，这里简单打印消息的内容
         fmt.Println(larkcore.Prettify(event))
         fmt.Println(event.RequestId())
         return nil
@@ -545,9 +562,78 @@ func main() {
 ```
 
 其中 NewEventDispatcher 方法的参数用于签名验证和消息解密使用，默认可以传递为空串；但是如果开发者的应用在 [控制台](https://open.feishu.cn/app?lang=zh-CN) 的【事件订阅】里面开启了加密，则必须传递控制台上提供的值。
+
 ![Console](doc/console.jpeg)
 
+需要注意的是注册处理器时，比如使用 OnP2MessageReceiveV1 注册接受消息事件回调时，其中的P2为消息协议版本，当前飞书开放平台存在 [两种消息协议](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#8f960a4b) ，分别为1.0和2.0。
+
+如下图开发者在注册消息处理器时，需从 [事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list) 中查看自己需要的是哪种协议的事件。
+如果是1.0的消息协议，则注册处理器时，需要找以OnP1xxxx开头的。如果是2.0的消息协议，则注册处理器时，需要找以OnP2xxxx开头的。
+
+
+
+
+![Console](doc/event_protocol.jpeg)
+
 更多事件订阅示例：[./sample/event/event.go](./sample/event/event.go)
+
+## 消息处理器内给对应租户发消息
+针对 ISV 开发者，如果想在消息处理器内给对应租户的用户发送消息，则需先从消息事件内获取租户 key,然后使用下面方式调用消息 API 进行消息发送：
+
+```go
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
+)
+
+func main() {
+    // 注册消息处理器
+    handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+        // 处理消息 event，这里简单打印消息的内容 
+        fmt.Println(larkcore.Prettify(event))
+        fmt.Println(event.RequestId())
+        
+        // 获取租户 key 并发送消息
+        tenanKey := event.TenantKey()
+        
+        // ISV 给指定租户发送消息
+        resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+                ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+                Body(larkim.NewCreateMessageReqBodyBuilder().
+                    MsgType(larkim.MsgTypePost).
+                    ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+                    Content("text").
+                    Build(), larkcore.WithTenantKey(tenanKey)).
+                Build())
+                
+        // 发送结果处理，resp,err
+		
+        return nil
+    })
+    
+    // 注册 http 路由
+    http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+    
+    // 启动 http 服务
+    err := http.ListenAndServe(":9999", nil)
+    if err != nil {
+        panic(err)
+    }
+}
+
+```
+
+
+更多事件订阅示例：[./sample/event/event.go](./sample/event/event.go)
+
 
 ### 集成Gin框架
 如果开发者当前应用使用的是 Gin Web 框架，并且不想要使用 Go-Sdk 提供的原生的 Http Server，则可使用下面方式，把当前应用的 Gin 服务与 SDK进行集成。
@@ -569,11 +655,11 @@ import (
 
 	 "github.com/gin-gonic/gin"
 	 "github.com/larksuite/oapi-sdk-gin"
-	 "github.com/larksuite/oapi-sdk-go/card"
-	 "github.com/larksuite/oapi-sdk-go/core"
-	 "github.com/larksuite/oapi-sdk-go/event/dispatcher"
-	 "github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	 "github.com/larksuite/oapi-sdk-go/service/im/v1"
+	 "github.com/larksuite/oapi-sdk-go/v3/card"
+	 "github.com/larksuite/oapi-sdk-go/v3/core"
+	 "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	 "github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	 "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
@@ -613,14 +699,15 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
 	// 创建 card 处理器
 	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		// 处理 cardAction, 这里简单打印卡片内容
 		fmt.Println(larkcore.Prettify(cardAction))
 	    fmt.Println(cardAction.RequestId())
 		// 无返回值示例
@@ -654,9 +741,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -700,9 +787,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -745,6 +832,63 @@ func main() {
 更多卡片行为处理示例：[./sample/card/card.go](./sample/card/card.go)
 
 
+### 卡片行为处理器内给对应租户发消息
+
+针对 ISV 开发者，如果想在卡片行为处理器内给对应租户的用户发送消息，则需先从卡片行为内获取租户 key ,然后使用下面方式调用消息 API 进行消息发送：
+
+
+```go
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+)
+
+func main() {
+	// 创建 card 处理器
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+        
+        // 处理 cardAction, 这里简单打印卡片内容  
+        fmt.Println(larkcore.Prettify(cardAction))
+        fmt.Println(cardAction.RequestId())
+	    
+        // 获取租户 key 并发送消息
+        tenanKey := cardAction.TenantKey
+        
+        // ISV 给指定租户发送消息
+        resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+                ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+                Body(larkim.NewCreateMessageReqBodyBuilder().
+                    MsgType(larkim.MsgTypePost).
+                    ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+                    Content("text").
+                    Build(), larkcore.WithTenantKey(tenanKey)).
+                Build())
+                
+        // 发送结果处理，resp,err
+		
+        return nil, nil
+	})
+
+	// 注册处理器
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	// 启动 http 服务
+	err := http.ListenAndServe(":9999", nil)
+	if err != nil {
+		panic(err)
+	}
+}
+
+```
+
+更多卡片行为处理示例：[./sample/card/card.go](./sample/card/card.go)
+
+
 ### 集成gin框架
 
 如果开发者当前应用使用的是 Gin Web 框架，并且不想要使用 Go-Sdk 提供的原生的 Http Server，则可使用下面方式，把当前应用的 Gin 服务与 SDK进行集成。
@@ -766,8 +910,8 @@ import (
     
     "github.com/gin-gonic/gin"
     "github.com/larksuite/oapi-sdk-gin"
-    "github.com/larksuite/oapi-sdk-go/card"
-    "github.com/larksuite/oapi-sdk-go/core"
+    "github.com/larksuite/oapi-sdk-go/v3/card"
+    "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 
