@@ -1,3 +1,6 @@
+**新版SDK已经发布，欢迎[点击这里](https://github.com/larksuite/oapi-sdk-go/tree/v3_main)使用**
+
+
 [**飞书，点这里**](README.zh.md) | Larksuite(Overseas)
 
 - 如果使用的是飞书，请看 [**飞书，点这里**](README.zh.md) ，飞书与Larksuite使用的域名不一样，引用的文档地址也是不同的。(If you are using FeiShu, please see [**飞书，点这里**](README.zh.md) , Feishu and larksuite use different domain names and reference different document addresses.)

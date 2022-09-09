@@ -9,16 +9,15 @@ import (
 )
 
 type Service struct {
-	conf		   *config.Config
-	Documents   *DocumentService
-	DocumentBlocks   *DocumentBlockService
-	DocumentBlockChildrens   *DocumentBlockChildrenService
-	
+	conf                   *config.Config
+	Documents              *DocumentService
+	DocumentBlocks         *DocumentBlockService
+	DocumentBlockChildrens *DocumentBlockChildrenService
 }
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
-		conf:	 conf,
+		conf: conf,
 	}
 	s.Documents = newDocumentService(s)
 	s.DocumentBlocks = newDocumentBlockService(s)
@@ -27,7 +26,7 @@ func NewService(conf *config.Config) *Service {
 }
 
 type DocumentService struct {
-	service	 *Service
+	service *Service
 }
 
 func newDocumentService(service *Service) *DocumentService {
@@ -35,8 +34,9 @@ func newDocumentService(service *Service) *DocumentService {
 		service: service,
 	}
 }
+
 type DocumentBlockService struct {
-	service	 *Service
+	service *Service
 }
 
 func newDocumentBlockService(service *Service) *DocumentBlockService {
@@ -44,8 +44,9 @@ func newDocumentBlockService(service *Service) *DocumentBlockService {
 		service: service,
 	}
 }
+
 type DocumentBlockChildrenService struct {
-	service	 *Service
+	service *Service
 }
 
 func newDocumentBlockChildrenService(service *Service) *DocumentBlockChildrenService {
@@ -54,13 +55,11 @@ func newDocumentBlockChildrenService(service *Service) *DocumentBlockChildrenSer
 	}
 }
 
-
-
 type DocumentCreateReqCall struct {
-	ctx	*core.Context
+	ctx       *core.Context
 	documents *DocumentService
-	body *DocumentCreateReqBody
-	optFns   []request.OptFn
+	body      *DocumentCreateReqBody
+	optFns    []request.OptFn
 }
 
 func (rc *DocumentCreateReqCall) Do() (*DocumentCreateResult, error) {
@@ -71,23 +70,23 @@ func (rc *DocumentCreateReqCall) Do() (*DocumentCreateResult, error) {
 	return result, err
 }
 
-func (documents *DocumentService) Create(ctx *core.Context, body  *DocumentCreateReqBody, optFns ...request.OptFn) *DocumentCreateReqCall {
+func (documents *DocumentService) Create(ctx *core.Context, body *DocumentCreateReqBody, optFns ...request.OptFn) *DocumentCreateReqCall {
 	return &DocumentCreateReqCall{
-		ctx:	ctx,
+		ctx:       ctx,
 		documents: documents,
-		body:		body,
-		optFns:	  optFns,
+		body:      body,
+		optFns:    optFns,
 	}
 }
 
-
 type DocumentGetReqCall struct {
-	ctx	*core.Context
-	documents *DocumentService
-	pathParams  map[string]interface{}
-	optFns   []request.OptFn
+	ctx        *core.Context
+	documents  *DocumentService
+	pathParams map[string]interface{}
+	optFns     []request.OptFn
 }
-func (rc *DocumentGetReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentGetReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
 
@@ -100,27 +99,27 @@ func (rc *DocumentGetReqCall) Do() (*DocumentGetResult, error) {
 	return result, err
 }
 
-func (documents *DocumentService) Get(ctx *core.Context,  optFns ...request.OptFn) *DocumentGetReqCall {
+func (documents *DocumentService) Get(ctx *core.Context, optFns ...request.OptFn) *DocumentGetReqCall {
 	return &DocumentGetReqCall{
-		ctx:	ctx,
-		documents: documents,
-		pathParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		ctx:        ctx,
+		documents:  documents,
+		pathParams: map[string]interface{}{},
+		optFns:     optFns,
 	}
 }
 
-
 type DocumentRawContentReqCall struct {
-	ctx	*core.Context
-	documents *DocumentService
+	ctx         *core.Context
+	documents   *DocumentService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	optFns      []request.OptFn
 }
-func (rc *DocumentRawContentReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentRawContentReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentRawContentReqCall) SetLang(lang int){
+func (rc *DocumentRawContentReqCall) SetLang(lang int) {
 	rc.queryParams["lang"] = lang
 }
 
@@ -134,35 +133,35 @@ func (rc *DocumentRawContentReqCall) Do() (*DocumentRawContentResult, error) {
 	return result, err
 }
 
-func (documents *DocumentService) RawContent(ctx *core.Context,  optFns ...request.OptFn) *DocumentRawContentReqCall {
+func (documents *DocumentService) RawContent(ctx *core.Context, optFns ...request.OptFn) *DocumentRawContentReqCall {
 	return &DocumentRawContentReqCall{
-		ctx:	ctx,
-		documents: documents,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		ctx:         ctx,
+		documents:   documents,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
-
 type DocumentBlockBatchUpdateReqCall struct {
-	ctx	*core.Context
+	ctx            *core.Context
 	documentBlocks *DocumentBlockService
-	body *DocumentBlockBatchUpdateReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	body           *DocumentBlockBatchUpdateReqBody
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
 }
-func (rc *DocumentBlockBatchUpdateReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockBatchUpdateReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockBatchUpdateReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockBatchUpdateReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockBatchUpdateReqCall) SetClientToken(clientToken string){
+func (rc *DocumentBlockBatchUpdateReqCall) SetClientToken(clientToken string) {
 	rc.queryParams["client_token"] = clientToken
 }
-func (rc *DocumentBlockBatchUpdateReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockBatchUpdateReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -176,35 +175,35 @@ func (rc *DocumentBlockBatchUpdateReqCall) Do() (*DocumentBlockBatchUpdateResult
 	return result, err
 }
 
-func (documentBlocks *DocumentBlockService) BatchUpdate(ctx *core.Context, body  *DocumentBlockBatchUpdateReqBody, optFns ...request.OptFn) *DocumentBlockBatchUpdateReqCall {
+func (documentBlocks *DocumentBlockService) BatchUpdate(ctx *core.Context, body *DocumentBlockBatchUpdateReqBody, optFns ...request.OptFn) *DocumentBlockBatchUpdateReqCall {
 	return &DocumentBlockBatchUpdateReqCall{
-		ctx:	ctx,
+		ctx:            ctx,
 		documentBlocks: documentBlocks,
-		body:		body,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
 	}
 }
 
-
 type DocumentBlockGetReqCall struct {
-	ctx	*core.Context
+	ctx            *core.Context
 	documentBlocks *DocumentBlockService
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
 }
-func (rc *DocumentBlockGetReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockGetReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockGetReqCall) SetBlockId(blockId string){
+func (rc *DocumentBlockGetReqCall) SetBlockId(blockId string) {
 	rc.pathParams["block_id"] = blockId
 }
-func (rc *DocumentBlockGetReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockGetReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockGetReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockGetReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -218,37 +217,37 @@ func (rc *DocumentBlockGetReqCall) Do() (*DocumentBlockGetResult, error) {
 	return result, err
 }
 
-func (documentBlocks *DocumentBlockService) Get(ctx *core.Context,  optFns ...request.OptFn) *DocumentBlockGetReqCall {
+func (documentBlocks *DocumentBlockService) Get(ctx *core.Context, optFns ...request.OptFn) *DocumentBlockGetReqCall {
 	return &DocumentBlockGetReqCall{
-		ctx:	ctx,
+		ctx:            ctx,
 		documentBlocks: documentBlocks,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
 	}
 }
 
-
 type DocumentBlockListReqCall struct {
-	ctx	*core.Context
+	ctx            *core.Context
 	documentBlocks *DocumentBlockService
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
 }
-func (rc *DocumentBlockListReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockListReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockListReqCall) SetPageSize(pageSize int){
+func (rc *DocumentBlockListReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
 }
-func (rc *DocumentBlockListReqCall) SetPageToken(pageToken string){
+func (rc *DocumentBlockListReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken
 }
-func (rc *DocumentBlockListReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockListReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockListReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockListReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -262,38 +261,38 @@ func (rc *DocumentBlockListReqCall) Do() (*DocumentBlockListResult, error) {
 	return result, err
 }
 
-func (documentBlocks *DocumentBlockService) List(ctx *core.Context,  optFns ...request.OptFn) *DocumentBlockListReqCall {
+func (documentBlocks *DocumentBlockService) List(ctx *core.Context, optFns ...request.OptFn) *DocumentBlockListReqCall {
 	return &DocumentBlockListReqCall{
-		ctx:	ctx,
+		ctx:            ctx,
 		documentBlocks: documentBlocks,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
 	}
 }
 
-
 type DocumentBlockPatchReqCall struct {
-	ctx	*core.Context
+	ctx            *core.Context
 	documentBlocks *DocumentBlockService
-	body *UpdateBlockRequest
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	body           *UpdateBlockRequest
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
 }
-func (rc *DocumentBlockPatchReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockPatchReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockPatchReqCall) SetBlockId(blockId string){
+func (rc *DocumentBlockPatchReqCall) SetBlockId(blockId string) {
 	rc.pathParams["block_id"] = blockId
 }
-func (rc *DocumentBlockPatchReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockPatchReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockPatchReqCall) SetClientToken(clientToken string){
+func (rc *DocumentBlockPatchReqCall) SetClientToken(clientToken string) {
 	rc.queryParams["client_token"] = clientToken
 }
-func (rc *DocumentBlockPatchReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockPatchReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -307,36 +306,36 @@ func (rc *DocumentBlockPatchReqCall) Do() (*DocumentBlockPatchResult, error) {
 	return result, err
 }
 
-func (documentBlocks *DocumentBlockService) Patch(ctx *core.Context, body  *UpdateBlockRequest, optFns ...request.OptFn) *DocumentBlockPatchReqCall {
+func (documentBlocks *DocumentBlockService) Patch(ctx *core.Context, body *UpdateBlockRequest, optFns ...request.OptFn) *DocumentBlockPatchReqCall {
 	return &DocumentBlockPatchReqCall{
-		ctx:	ctx,
+		ctx:            ctx,
 		documentBlocks: documentBlocks,
-		body:		body,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
 	}
 }
 
-
 type DocumentBlockChildrenBatchDeleteReqCall struct {
-	ctx	*core.Context
+	ctx                    *core.Context
 	documentBlockChildrens *DocumentBlockChildrenService
-	body *DocumentBlockChildrenBatchDeleteReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	body                   *DocumentBlockChildrenBatchDeleteReqBody
+	pathParams             map[string]interface{}
+	queryParams            map[string]interface{}
+	optFns                 []request.OptFn
 }
-func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetBlockId(blockId string){
+func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetBlockId(blockId string) {
 	rc.pathParams["block_id"] = blockId
 }
-func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetClientToken(clientToken string){
+func (rc *DocumentBlockChildrenBatchDeleteReqCall) SetClientToken(clientToken string) {
 	rc.queryParams["client_token"] = clientToken
 }
 
@@ -350,39 +349,39 @@ func (rc *DocumentBlockChildrenBatchDeleteReqCall) Do() (*DocumentBlockChildrenB
 	return result, err
 }
 
-func (documentBlockChildrens *DocumentBlockChildrenService) BatchDelete(ctx *core.Context, body  *DocumentBlockChildrenBatchDeleteReqBody, optFns ...request.OptFn) *DocumentBlockChildrenBatchDeleteReqCall {
+func (documentBlockChildrens *DocumentBlockChildrenService) BatchDelete(ctx *core.Context, body *DocumentBlockChildrenBatchDeleteReqBody, optFns ...request.OptFn) *DocumentBlockChildrenBatchDeleteReqCall {
 	return &DocumentBlockChildrenBatchDeleteReqCall{
-		ctx:	ctx,
+		ctx:                    ctx,
 		documentBlockChildrens: documentBlockChildrens,
-		body:		body,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		body:                   body,
+		pathParams:             map[string]interface{}{},
+		queryParams:            map[string]interface{}{},
+		optFns:                 optFns,
 	}
 }
 
-
 type DocumentBlockChildrenCreateReqCall struct {
-	ctx	*core.Context
+	ctx                    *core.Context
 	documentBlockChildrens *DocumentBlockChildrenService
-	body *DocumentBlockChildrenCreateReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	body                   *DocumentBlockChildrenCreateReqBody
+	pathParams             map[string]interface{}
+	queryParams            map[string]interface{}
+	optFns                 []request.OptFn
 }
-func (rc *DocumentBlockChildrenCreateReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockChildrenCreateReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockChildrenCreateReqCall) SetBlockId(blockId string){
+func (rc *DocumentBlockChildrenCreateReqCall) SetBlockId(blockId string) {
 	rc.pathParams["block_id"] = blockId
 }
-func (rc *DocumentBlockChildrenCreateReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockChildrenCreateReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockChildrenCreateReqCall) SetClientToken(clientToken string){
+func (rc *DocumentBlockChildrenCreateReqCall) SetClientToken(clientToken string) {
 	rc.queryParams["client_token"] = clientToken
 }
-func (rc *DocumentBlockChildrenCreateReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockChildrenCreateReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -396,41 +395,41 @@ func (rc *DocumentBlockChildrenCreateReqCall) Do() (*DocumentBlockChildrenCreate
 	return result, err
 }
 
-func (documentBlockChildrens *DocumentBlockChildrenService) Create(ctx *core.Context, body  *DocumentBlockChildrenCreateReqBody, optFns ...request.OptFn) *DocumentBlockChildrenCreateReqCall {
+func (documentBlockChildrens *DocumentBlockChildrenService) Create(ctx *core.Context, body *DocumentBlockChildrenCreateReqBody, optFns ...request.OptFn) *DocumentBlockChildrenCreateReqCall {
 	return &DocumentBlockChildrenCreateReqCall{
-		ctx:	ctx,
+		ctx:                    ctx,
 		documentBlockChildrens: documentBlockChildrens,
-		body:		body,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		body:                   body,
+		pathParams:             map[string]interface{}{},
+		queryParams:            map[string]interface{}{},
+		optFns:                 optFns,
 	}
 }
 
-
 type DocumentBlockChildrenGetReqCall struct {
-	ctx	*core.Context
+	ctx                    *core.Context
 	documentBlockChildrens *DocumentBlockChildrenService
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns   []request.OptFn
+	pathParams             map[string]interface{}
+	queryParams            map[string]interface{}
+	optFns                 []request.OptFn
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetDocumentId(documentId string){
+
+func (rc *DocumentBlockChildrenGetReqCall) SetDocumentId(documentId string) {
 	rc.pathParams["document_id"] = documentId
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetBlockId(blockId string){
+func (rc *DocumentBlockChildrenGetReqCall) SetBlockId(blockId string) {
 	rc.pathParams["block_id"] = blockId
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetDocumentRevisionId(documentRevisionId int){
+func (rc *DocumentBlockChildrenGetReqCall) SetDocumentRevisionId(documentRevisionId int) {
 	rc.queryParams["document_revision_id"] = documentRevisionId
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetPageToken(pageToken string){
+func (rc *DocumentBlockChildrenGetReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetPageSize(pageSize int){
+func (rc *DocumentBlockChildrenGetReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
 }
-func (rc *DocumentBlockChildrenGetReqCall) SetUserIdType(userIdType string){
+func (rc *DocumentBlockChildrenGetReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
@@ -444,12 +443,12 @@ func (rc *DocumentBlockChildrenGetReqCall) Do() (*DocumentBlockChildrenGetResult
 	return result, err
 }
 
-func (documentBlockChildrens *DocumentBlockChildrenService) Get(ctx *core.Context,  optFns ...request.OptFn) *DocumentBlockChildrenGetReqCall {
+func (documentBlockChildrens *DocumentBlockChildrenService) Get(ctx *core.Context, optFns ...request.OptFn) *DocumentBlockChildrenGetReqCall {
 	return &DocumentBlockChildrenGetReqCall{
-		ctx:	ctx,
+		ctx:                    ctx,
 		documentBlockChildrens: documentBlockChildrens,
-		pathParams:		map[string]interface{}{},
-		queryParams:		map[string]interface{}{},
-		optFns:	  optFns,
+		pathParams:             map[string]interface{}{},
+		queryParams:            map[string]interface{}{},
+		optFns:                 optFns,
 	}
 }
