@@ -5,6 +5,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"os"
+	"reflect"
+	"strings"
+
 	"github.com/larksuite/oapi-sdk-go/api/core/constants"
 	coreerrors "github.com/larksuite/oapi-sdk-go/api/core/errors"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
@@ -14,13 +22,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	coreconst "github.com/larksuite/oapi-sdk-go/core/constants"
-	"io"
-	"io/ioutil"
-	"mime/multipart"
-	"net/http"
-	"os"
-	"reflect"
-	"strings"
 )
 
 const defaultMaxRetryCount = 1
@@ -138,6 +139,7 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:%s", req, string(req.RequestBody)))
 			}
 		} else {
+			req.ContentType = coreconst.DefaultContentType
 			conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v", req))
 		}
 		if req.Err != nil {
