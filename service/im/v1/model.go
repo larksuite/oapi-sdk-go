@@ -6,15 +6,112 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
-type UserId struct {
-	UserId          string   `json:"user_id,omitempty"`
-	OpenId          string   `json:"open_id,omitempty"`
-	UnionId         string   `json:"union_id,omitempty"`
+type BatchMessage struct {
+	BatchMessageId      string               `json:"batch_message_id,omitempty"`
+	BatchSendProgress   *BatchSendProgress   `json:"batch_send_progress,omitempty"`
+	BatchRecallProgress *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
+	ForceSendFields     []string             `json:"-"`
+}
+
+func (s *BatchMessage) MarshalJSON() ([]byte, error) {
+	type cp BatchMessage
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchMessageReadUser struct {
+	ReadCount       string   `json:"read_count,omitempty"`
+	TotalCount      string   `json:"total_count,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *UserId) MarshalJSON() ([]byte, error) {
-	type cp UserId
+func (s *BatchMessageReadUser) MarshalJSON() ([]byte, error) {
+	type cp BatchMessageReadUser
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchMessageRecallProgress struct {
+	Recall          bool     `json:"recall,omitempty"`
+	RecallCount     int      `json:"recall_count,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *BatchMessageRecallProgress) MarshalJSON() ([]byte, error) {
+	type cp BatchMessageRecallProgress
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchMessageSendProgress struct {
+	ValidUserIdsCount   int      `json:"valid_user_ids_count,omitempty"`
+	SuccessUserIdsCount int      `json:"success_user_ids_count,omitempty"`
+	ReadUserIdsCount    int      `json:"read_user_ids_count,omitempty"`
+	ForceSendFields     []string `json:"-"`
+}
+
+func (s *BatchMessageSendProgress) MarshalJSON() ([]byte, error) {
+	type cp BatchMessageSendProgress
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchRecallProgress struct {
+	RecallCount      string   `json:"recall_count,omitempty"`
+	TotalRecallCount string   `json:"total_recall_count,omitempty"`
+	ForceSendFields  []string `json:"-"`
+}
+
+func (s *BatchRecallProgress) MarshalJSON() ([]byte, error) {
+	type cp BatchRecallProgress
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchSendProgress struct {
+	SendCount       string   `json:"send_count,omitempty"`
+	TotalSendCount  string   `json:"total_send_count,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *BatchSendProgress) MarshalJSON() ([]byte, error) {
+	type cp BatchSendProgress
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Chat struct {
+	ChatId          string     `json:"chat_id,omitempty"`
+	Avatar          string     `json:"avatar,omitempty"`
+	Name            string     `json:"name,omitempty"`
+	Description     string     `json:"description,omitempty"`
+	I18nNames       *I18nNames `json:"i18n_names,omitempty"`
+	OnlyOwnerAdd    bool       `json:"only_owner_add,omitempty"`
+	ShareAllowed    bool       `json:"share_allowed,omitempty"`
+	OnlyOwnerAtAll  bool       `json:"only_owner_at_all,omitempty"`
+	OnlyOwnerEdit   bool       `json:"only_owner_edit,omitempty"`
+	OwnerUserId     string     `json:"owner_user_id,omitempty"`
+	Type            string     `json:"type,omitempty"`
+	Labels          []string   `json:"labels,omitempty"`
+	ForceSendFields []string   `json:"-"`
+}
+
+func (s *Chat) MarshalJSON() ([]byte, error) {
+	type cp Chat
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatAnnouncement struct {
+}
+
+type ChatManagers struct {
+	ManagerId       int64    `json:"manager_id,omitempty,string"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatManagers) MarshalJSON() ([]byte, error) {
+	type cp ChatManagers
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -65,6 +162,83 @@ func (s *ChatMembers) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type ChatModeration struct {
+}
+
+type ChatTab struct {
+	TabId           string          `json:"tab_id,omitempty"`
+	TabName         string          `json:"tab_name,omitempty"`
+	TabType         string          `json:"tab_type,omitempty"`
+	TabContent      *ChatTabContent `json:"tab_content,omitempty"`
+	ForceSendFields []string        `json:"-"`
+}
+
+func (s *ChatTab) MarshalJSON() ([]byte, error) {
+	type cp ChatTab
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTopNotice struct {
+	ActionType      string   `json:"action_type,omitempty"`
+	MessageId       string   `json:"message_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatTopNotice) MarshalJSON() ([]byte, error) {
+	type cp ChatTopNotice
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatChange struct {
+	Avatar                 string     `json:"avatar,omitempty"`
+	Name                   string     `json:"name,omitempty"`
+	Description            string     `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
+	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
+	AtAllPermission        string     `json:"at_all_permission,omitempty"`
+	EditPermission         string     `json:"edit_permission,omitempty"`
+	MembershipApproval     string     `json:"membership_approval,omitempty"`
+	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
+	ModerationPermission   string     `json:"moderation_permission,omitempty"`
+	OwnerId                *UserId    `json:"owner_id,omitempty"`
+	Labels                 []string   `json:"labels,omitempty"`
+	ForceSendFields        []string   `json:"-"`
+}
+
+func (s *ChatChange) MarshalJSON() ([]byte, error) {
+	type cp ChatChange
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTabContent struct {
+	Url             string   `json:"url,omitempty"`
+	Doc             string   `json:"doc,omitempty"`
+	MeetingMinute   string   `json:"meeting_minute,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatTabContent) MarshalJSON() ([]byte, error) {
+	type cp ChatTabContent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Emoji struct {
+	EmojiType       string   `json:"emoji_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Emoji) MarshalJSON() ([]byte, error) {
+	type cp Emoji
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type EventMessage struct {
 	MessageId       string          `json:"message_id,omitempty"`
 	RootId          string          `json:"root_id,omitempty"`
@@ -110,6 +284,9 @@ func (s *EventSender) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type File struct {
+}
+
 type I18nNames struct {
 	ZhCn            string   `json:"zh_cn,omitempty"`
 	EnUs            string   `json:"en_us,omitempty"`
@@ -119,6 +296,59 @@ type I18nNames struct {
 
 func (s *I18nNames) MarshalJSON() ([]byte, error) {
 	type cp I18nNames
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ImDepthData struct {
+	PDate                   string   `json:"p_date,omitempty"`
+	DepartmentId            string   `json:"department_id,omitempty"`
+	DepartmentPath          string   `json:"department_path,omitempty"`
+	SendMsgRate             float64  `json:"send_msg_rate,omitempty"`
+	AvgSendMsgCnt           float64  `json:"avg_send_msg_cnt,omitempty"`
+	PcSendMsgRate           float64  `json:"pc_send_msg_rate,omitempty"`
+	PcAvgSendMsgCnt         float64  `json:"pc_avg_send_msg_cnt,omitempty"`
+	MobileSendMsgRate       float64  `json:"mobile_send_msg_rate,omitempty"`
+	MobileAvgSendMsgCnt     float64  `json:"mobile_avg_send_msg_cnt,omitempty"`
+	MeetingGroupSendMsgRate float64  `json:"meeting_group_send_msg_rate,omitempty"`
+	TenantGroupSendMsgRate  float64  `json:"tenant_group_send_msg_rate,omitempty"`
+	DeptGroupSendMsgRate    float64  `json:"dept_group_send_msg_rate,omitempty"`
+	TopicGroupSendMsgRate   float64  `json:"topic_group_send_msg_rate,omitempty"`
+	GroupAtMsgRate          float64  `json:"group_at_msg_rate,omitempty"`
+	GroupReplyMsgRate       float64  `json:"group_reply_msg_rate,omitempty"`
+	ReactionRate            float64  `json:"reaction_rate,omitempty"`
+	P2pSendMsgRate          float64  `json:"p2p_send_msg_rate,omitempty"`
+	ImgSendMsgRate          float64  `json:"img_send_msg_rate,omitempty"`
+	FileSendMsgRate         float64  `json:"file_send_msg_rate,omitempty"`
+	StickerSendMsgRate      float64  `json:"sticker_send_msg_rate,omitempty"`
+	PostSendMsgRate         float64  `json:"post_send_msg_rate,omitempty"`
+	ForceSendFields         []string `json:"-"`
+}
+
+func (s *ImDepthData) MarshalJSON() ([]byte, error) {
+	type cp ImDepthData
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Image struct {
+}
+
+type ListChat struct {
+	ChatId          string   `json:"chat_id,omitempty"`
+	Avatar          string   `json:"avatar,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	Description     string   `json:"description,omitempty"`
+	OwnerId         string   `json:"owner_id,omitempty"`
+	OwnerIdType     string   `json:"owner_id_type,omitempty"`
+	External        bool     `json:"external,omitempty"`
+	TenantKey       string   `json:"tenant_key,omitempty"`
+	Labels          []string `json:"labels,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ListChat) MarshalJSON() ([]byte, error) {
+	type cp ListChat
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -177,6 +407,20 @@ func (s *Mention) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type MentionEvent struct {
+	Key             string   `json:"key,omitempty"`
+	Id              *UserId  `json:"id,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	TenantKey       string   `json:"tenant_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MentionEvent) MarshalJSON() ([]byte, error) {
+	type cp MentionEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Message struct {
 	MessageId       string       `json:"message_id,omitempty"`
 	RootId          string       `json:"root_id,omitempty"`
@@ -200,6 +444,23 @@ func (s *Message) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type MessageReaction struct {
+	ReactionId      string    `json:"reaction_id,omitempty"`
+	Operator        *Operator `json:"operator,omitempty"`
+	ActionTime      int64     `json:"action_time,omitempty,string"`
+	ReactionType    *Emoji    `json:"reaction_type,omitempty"`
+	ForceSendFields []string  `json:"-"`
+}
+
+func (s *MessageReaction) MarshalJSON() ([]byte, error) {
+	type cp MessageReaction
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MessageResource struct {
+}
+
 type MessageBody struct {
 	Content         string   `json:"content,omitempty"`
 	ForceSendFields []string `json:"-"`
@@ -219,6 +480,74 @@ type ModeratorList struct {
 
 func (s *ModeratorList) MarshalJSON() ([]byte, error) {
 	type cp ModeratorList
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MsgProcessData struct {
+	PDate                   string   `json:"p_date,omitempty"`
+	DepartmentId            string   `json:"department_id,omitempty"`
+	DepartmentPath          string   `json:"department_path,omitempty"`
+	AvgImpMsgReadRate12h    float64  `json:"avg_imp_msg_read_rate_12h,omitempty"`
+	MsgReadRate12h          float64  `json:"msg_read_rate_12h,omitempty"`
+	AvgReceiveMsgCnt        float64  `json:"avg_receive_msg_cnt,omitempty"`
+	AvgReadMsgCnt           float64  `json:"avg_read_msg_cnt,omitempty"`
+	AvgImpReadMsgCnt        float64  `json:"avg_imp_read_msg_cnt,omitempty"`
+	AvgImpReceiveMsgCnt     float64  `json:"avg_imp_receive_msg_cnt,omitempty"`
+	HighLoadRate            float64  `json:"high_load_rate,omitempty"`
+	BigGroupMsgRate         float64  `json:"big_group_msg_rate,omitempty"`
+	BigGroupTopicMsgRate    float64  `json:"big_group_topic_msg_rate,omitempty"`
+	AvgReceiveBotMsgCnt     float64  `json:"avg_receive_bot_msg_cnt,omitempty"`
+	AvgBotImpMsgReadRate12h float64  `json:"avg_bot_imp_msg_read_rate_12h,omitempty"`
+	ReceiveBotMsgRate       float64  `json:"receive_bot_msg_rate,omitempty"`
+	UseChatBoxRate          float64  `json:"use_chat_box_rate,omitempty"`
+	ReceiveMuteMsgRate      float64  `json:"receive_mute_msg_rate,omitempty"`
+	ReadMuteMsgRate         float64  `json:"read_mute_msg_rate,omitempty"`
+	AvgReceiveImpMsgChatCnt float64  `json:"avg_receive_imp_msg_chat_cnt,omitempty"`
+	ForceSendFields         []string `json:"-"`
+}
+
+func (s *MsgProcessData) MarshalJSON() ([]byte, error) {
+	type cp MsgProcessData
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Operator struct {
+	OperatorId      string   `json:"operator_id,omitempty"`
+	OperatorType    string   `json:"operator_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Operator) MarshalJSON() ([]byte, error) {
+	type cp Operator
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Pin struct {
+	MessageId       string   `json:"message_id,omitempty"`
+	ChatId          string   `json:"chat_id,omitempty"`
+	OperatorId      string   `json:"operator_id,omitempty"`
+	OperatorIdType  string   `json:"operator_id_type,omitempty"`
+	CreateTime      string   `json:"create_time,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Pin) MarshalJSON() ([]byte, error) {
+	type cp Pin
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PinedMessage struct {
+	Pin             *Pin     `json:"pin,omitempty"`
+	Message         *Message `json:"message,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PinedMessage) MarshalJSON() ([]byte, error) {
+	type cp PinedMessage
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -251,6 +580,71 @@ func (s *Sender) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type SpecialFocus struct {
+	Id              string   `json:"id,omitempty"`
+	IdType          string   `json:"id_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *SpecialFocus) MarshalJSON() ([]byte, error) {
+	type cp SpecialFocus
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type SpecialFocusUnread struct {
+	Id              string   `json:"id,omitempty"`
+	IdType          string   `json:"id_type,omitempty"`
+	UnreadCount     string   `json:"unread_count,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *SpecialFocusUnread) MarshalJSON() ([]byte, error) {
+	type cp SpecialFocusUnread
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Toolkit struct {
+	ToolkitId       int64                `json:"toolkit_id,omitempty,string"`
+	ImageKey        string               `json:"image_key,omitempty"`
+	ToolkitName     string               `json:"toolkit_name,omitempty"`
+	I18nName        *I18nNames           `json:"i18n_name,omitempty"`
+	ToolkitType     string               `json:"toolkit_type,omitempty"`
+	RedirectLink    *ToolkitRedirectLink `json:"redirect_link,omitempty"`
+	Callback        *ToolkitCallback     `json:"callback,omitempty"`
+	ForceSendFields []string             `json:"-"`
+}
+
+func (s *Toolkit) MarshalJSON() ([]byte, error) {
+	type cp Toolkit
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ToolkitCallback struct {
+	Webhook         string   `json:"webhook,omitempty"`
+	ActionKey       string   `json:"action_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ToolkitCallback) MarshalJSON() ([]byte, error) {
+	type cp ToolkitCallback
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ToolkitRedirectLink struct {
+	Url             string   `json:"url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ToolkitRedirectLink) MarshalJSON() ([]byte, error) {
+	type cp ToolkitRedirectLink
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type UrgentReceivers struct {
 	UserIdList      []string `json:"user_id_list,omitempty"`
 	ForceSendFields []string `json:"-"`
@@ -262,182 +656,37 @@ func (s *UrgentReceivers) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Chat struct {
-	ChatId         string     `json:"chat_id,omitempty"`
-	Avatar         string     `json:"avatar,omitempty"`
-	Name           string     `json:"name,omitempty"`
-	Description    string     `json:"description,omitempty"`
-	I18nNames      *I18nNames `json:"i18n_names,omitempty"`
-	OnlyOwnerAdd   bool       `json:"only_owner_add,omitempty"`
-	ShareAllowed   bool       `json:"share_allowed,omitempty"`
-	OnlyOwnerAtAll bool       `json:"only_owner_at_all,omitempty"`
-	OnlyOwnerEdit  bool       `json:"only_owner_edit,omitempty"`
-	OwnerUserId    string     `json:"owner_user_id,omitempty"`
-	Type           string     `json:"type,omitempty"`
-
+type UserId struct {
+	UserId          string   `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UnionId         string   `json:"union_id,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *Chat) MarshalJSON() ([]byte, error) {
-	type cp Chat
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ChatManagers struct {
-	ManagerId       int64    `json:"manager_id,omitempty,string"`
+type ChatManagersAddManagersReqBody struct {
+	ManagerIds      []string `json:"manager_ids,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *ChatManagers) MarshalJSON() ([]byte, error) {
-	type cp ChatManagers
+func (s *ChatManagersAddManagersReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatManagersAddManagersReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ChatChange struct {
-	Avatar                 string     `json:"avatar,omitempty"`
-	Name                   string     `json:"name,omitempty"`
-	Description            string     `json:"description,omitempty"`
-	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
-	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
-	AtAllPermission        string     `json:"at_all_permission,omitempty"`
-	EditPermission         string     `json:"edit_permission,omitempty"`
-	MembershipApproval     string     `json:"membership_approval,omitempty"`
-	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
-	ModerationPermission   string     `json:"moderation_permission,omitempty"`
-	OwnerId                *UserId    `json:"owner_id,omitempty"`
-
-	ForceSendFields []string `json:"-"`
+type ChatManagersAddManagersResult struct {
+	ChatManagers    []string `json:"chat_managers,omitempty"`
+	ChatBotManagers []string `json:"chat_bot_managers,omitempty"`
 }
 
-func (s *ChatChange) MarshalJSON() ([]byte, error) {
-	type cp ChatChange
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Emoji struct {
-	EmojiType       string   `json:"emoji_type,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Emoji) MarshalJSON() ([]byte, error) {
-	type cp Emoji
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ListChat struct {
-	ChatId      string `json:"chat_id,omitempty"`
-	Avatar      string `json:"avatar,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	OwnerId     string `json:"owner_id,omitempty"`
-	OwnerIdType string `json:"owner_id_type,omitempty"`
-	External    bool   `json:"external,omitempty"`
-	TenantKey   string `json:"tenant_key,omitempty"`
-
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ListChat) MarshalJSON() ([]byte, error) {
-	type cp ListChat
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MentionEvent struct {
-	Key             string   `json:"key,omitempty"`
-	Id              *UserId  `json:"id,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	TenantKey       string   `json:"tenant_key,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MentionEvent) MarshalJSON() ([]byte, error) {
-	type cp MentionEvent
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MessageReaction struct {
-	ReactionId      string    `json:"reaction_id,omitempty"`
-	Operator        *Operator `json:"operator,omitempty"`
-	ActionTime      int64     `json:"action_time,omitempty,string"`
-	ReactionType    *Emoji    `json:"reaction_type,omitempty"`
-	ForceSendFields []string  `json:"-"`
-}
-
-func (s *MessageReaction) MarshalJSON() ([]byte, error) {
-	type cp MessageReaction
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Operator struct {
-	OperatorId      string   `json:"operator_id,omitempty"`
-	OperatorType    string   `json:"operator_type,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Operator) MarshalJSON() ([]byte, error) {
-	type cp Operator
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ChatUpdateReqBody struct {
-	Avatar                 string     `json:"avatar,omitempty"`
-	Name                   string     `json:"name,omitempty"`
-	Description            string     `json:"description,omitempty"`
-	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
-	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
-	AtAllPermission        string     `json:"at_all_permission,omitempty"`
-	EditPermission         string     `json:"edit_permission,omitempty"`
-	OwnerId                string     `json:"owner_id,omitempty"`
-	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
-	MembershipApproval     string     `json:"membership_approval,omitempty"`
-
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ChatUpdateReqBody) MarshalJSON() ([]byte, error) {
-	type cp ChatUpdateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ChatListResult struct {
-	Items     []*ListChat `json:"items,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-}
-
-type ChatGetResult struct {
-	Avatar                 string     `json:"avatar,omitempty"`
-	Name                   string     `json:"name,omitempty"`
-	Description            string     `json:"description,omitempty"`
-	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
-	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
-	AtAllPermission        string     `json:"at_all_permission,omitempty"`
-	EditPermission         string     `json:"edit_permission,omitempty"`
-	OwnerIdType            string     `json:"owner_id_type,omitempty"`
-	OwnerId                string     `json:"owner_id,omitempty"`
-	ChatMode               string     `json:"chat_mode,omitempty"`
-	ChatType               string     `json:"chat_type,omitempty"`
-	ChatTag                string     `json:"chat_tag,omitempty"`
-	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
-	MembershipApproval     string     `json:"membership_approval,omitempty"`
-	ModerationPermission   string     `json:"moderation_permission,omitempty"`
-	External               bool       `json:"external,omitempty"`
-	TenantKey              string     `json:"tenant_key,omitempty"`
+type ImageCreateResult struct {
+	ImageKey string `json:"image_key,omitempty"`
 }
 
 type ChatCreateReqBody struct {
@@ -446,14 +695,17 @@ type ChatCreateReqBody struct {
 	Description            string     `json:"description,omitempty"`
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
 	OwnerId                string     `json:"owner_id,omitempty"`
+	UserIdList             []string   `json:"user_id_list,omitempty"`
+	BotIdList              []string   `json:"bot_id_list,omitempty"`
 	ChatMode               string     `json:"chat_mode,omitempty"`
 	ChatType               string     `json:"chat_type,omitempty"`
 	External               bool       `json:"external,omitempty"`
 	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
 	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
 	MembershipApproval     string     `json:"membership_approval,omitempty"`
-
-	ForceSendFields []string `json:"-"`
+	Labels                 []string   `json:"labels,omitempty"`
+	ToolkitIds             []int64    `json:"toolkit_ids,omitempty"`
+	ForceSendFields        []string   `json:"-"`
 }
 
 func (s *ChatCreateReqBody) MarshalJSON() ([]byte, error) {
@@ -483,35 +735,26 @@ type ChatCreateResult struct {
 	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
 	MembershipApproval     string     `json:"membership_approval,omitempty"`
 	ModerationPermission   string     `json:"moderation_permission,omitempty"`
+	Labels                 []string   `json:"labels,omitempty"`
+	ToolkitIds             []int64    `json:"toolkit_ids,omitempty"`
 }
 
-type ChatSearchResult struct {
-	Items     []*ListChat `json:"items,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-}
-
-type ChatAnnouncementGetResult struct {
-	Content        string `json:"content,omitempty"`
-	Revision       string `json:"revision,omitempty"`
-	CreateTime     string `json:"create_time,omitempty"`
-	UpdateTime     string `json:"update_time,omitempty"`
-	OwnerIdType    string `json:"owner_id_type,omitempty"`
-	OwnerId        string `json:"owner_id,omitempty"`
-	ModifierIdType string `json:"modifier_id_type,omitempty"`
-	ModifierId     string `json:"modifier_id,omitempty"`
-}
-
-type ChatAnnouncementPatchReqBody struct {
-	Revision        string   `json:"revision,omitempty"`
-	Requests        []string `json:"requests,omitempty"`
+type MessageReactionCreateReqBody struct {
+	ReactionType    *Emoji   `json:"reaction_type,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *ChatAnnouncementPatchReqBody) MarshalJSON() ([]byte, error) {
-	type cp ChatAnnouncementPatchReqBody
+func (s *MessageReactionCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp MessageReactionCreateReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MessageReactionCreateResult struct {
+	ReactionId   string    `json:"reaction_id,omitempty"`
+	Operator     *Operator `json:"operator,omitempty"`
+	ActionTime   int64     `json:"action_time,omitempty,string"`
+	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
 type ChatMembersCreateReqBody struct {
@@ -526,7 +769,64 @@ func (s *ChatMembersCreateReqBody) MarshalJSON() ([]byte, error) {
 }
 
 type ChatMembersCreateResult struct {
-	InvalidIdList []string `json:"invalid_id_list,omitempty"`
+	InvalidIdList    []string `json:"invalid_id_list,omitempty"`
+	NotExistedIdList []string `json:"not_existed_id_list,omitempty"`
+}
+
+type ChatTabCreateReqBody struct {
+	ChatTabs        []*ChatTab `json:"chat_tabs,omitempty"`
+	ForceSendFields []string   `json:"-"`
+}
+
+func (s *ChatTabCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatTabCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTabCreateResult struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type MessageCreateReqBody struct {
+	ReceiveId       string   `json:"receive_id,omitempty"`
+	Content         string   `json:"content,omitempty"`
+	MsgType         string   `json:"msg_type,omitempty"`
+	Uuid            string   `json:"uuid,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MessageCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp MessageCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MessageCreateResult struct {
+	MessageId      string       `json:"message_id,omitempty"`
+	RootId         string       `json:"root_id,omitempty"`
+	ParentId       string       `json:"parent_id,omitempty"`
+	MsgType        string       `json:"msg_type,omitempty"`
+	CreateTime     int64        `json:"create_time,omitempty,string"`
+	UpdateTime     int64        `json:"update_time,omitempty,string"`
+	Deleted        bool         `json:"deleted,omitempty"`
+	Updated        bool         `json:"updated,omitempty"`
+	ChatId         string       `json:"chat_id,omitempty"`
+	Sender         *Sender      `json:"sender,omitempty"`
+	Body           *MessageBody `json:"body,omitempty"`
+	Mentions       []*Mention   `json:"mentions,omitempty"`
+	UpperMessageId string       `json:"upper_message_id,omitempty"`
+}
+
+type FileCreateResult struct {
+	FileKey string `json:"file_key,omitempty"`
+}
+
+type MessageReactionDeleteResult struct {
+	ReactionId   string    `json:"reaction_id,omitempty"`
+	Operator     *Operator `json:"operator,omitempty"`
+	ActionTime   int64     `json:"action_time,omitempty,string"`
+	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
 type ChatMembersDeleteReqBody struct {
@@ -544,6 +844,70 @@ type ChatMembersDeleteResult struct {
 	InvalidIdList []string `json:"invalid_id_list,omitempty"`
 }
 
+type ChatManagersDeleteManagersReqBody struct {
+	ManagerIds      []string `json:"manager_ids,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatManagersDeleteManagersReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatManagersDeleteManagersReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatManagersDeleteManagersResult struct {
+	ChatManagers    []string `json:"chat_managers,omitempty"`
+	ChatBotManagers []string `json:"chat_bot_managers,omitempty"`
+}
+
+type ChatTabDeleteTabsReqBody struct {
+	TabIds          []string `json:"tab_ids,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatTabDeleteTabsReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatTabDeleteTabsReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTabDeleteTabsResult struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type ChatGetResult struct {
+	Avatar                 string     `json:"avatar,omitempty"`
+	Name                   string     `json:"name,omitempty"`
+	Description            string     `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
+	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
+	AtAllPermission        string     `json:"at_all_permission,omitempty"`
+	EditPermission         string     `json:"edit_permission,omitempty"`
+	OwnerIdType            string     `json:"owner_id_type,omitempty"`
+	OwnerId                string     `json:"owner_id,omitempty"`
+	ChatMode               string     `json:"chat_mode,omitempty"`
+	ChatType               string     `json:"chat_type,omitempty"`
+	ChatTag                string     `json:"chat_tag,omitempty"`
+	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     string     `json:"membership_approval,omitempty"`
+	ModerationPermission   string     `json:"moderation_permission,omitempty"`
+	External               bool       `json:"external,omitempty"`
+	TenantKey              string     `json:"tenant_key,omitempty"`
+	UserCount              string     `json:"user_count,omitempty"`
+	BotCount               string     `json:"bot_count,omitempty"`
+	Labels                 []string   `json:"labels,omitempty"`
+	ToolkitIds             []int64    `json:"toolkit_ids,omitempty"`
+}
+
+type ChatModerationGetResult struct {
+	ModerationSetting string           `json:"moderation_setting,omitempty"`
+	PageToken         string           `json:"page_token,omitempty"`
+	HasMore           bool             `json:"has_more,omitempty"`
+	Items             []*ListModerator `json:"items,omitempty"`
+}
+
 type ChatMembersGetResult struct {
 	Items       []*ListMember `json:"items,omitempty"`
 	PageToken   string        `json:"page_token,omitempty"`
@@ -551,22 +915,50 @@ type ChatMembersGetResult struct {
 	MemberTotal int           `json:"member_total,omitempty"`
 }
 
+type MessageGetResult struct {
+	Items []*Message `json:"items,omitempty"`
+}
+
+type ChatAnnouncementGetResult struct {
+	Content        string `json:"content,omitempty"`
+	Revision       string `json:"revision,omitempty"`
+	CreateTime     string `json:"create_time,omitempty"`
+	UpdateTime     string `json:"update_time,omitempty"`
+	OwnerIdType    string `json:"owner_id_type,omitempty"`
+	OwnerId        string `json:"owner_id,omitempty"`
+	ModifierIdType string `json:"modifier_id_type,omitempty"`
+	ModifierId     string `json:"modifier_id,omitempty"`
+}
+
+type BatchMessageGetProgressResult struct {
+	BatchMessageSendProgress   *BatchMessageSendProgress   `json:"batch_message_send_progress,omitempty"`
+	BatchMessageRecallProgress *BatchMessageRecallProgress `json:"batch_message_recall_progress,omitempty"`
+}
+
 type ChatMembersIsInChatResult struct {
 	IsInChat bool `json:"is_in_chat,omitempty"`
 }
 
-type FileCreateResult struct {
-	FileKey string `json:"file_key,omitempty"`
+type ChatListResult struct {
+	Items     []*ListChat `json:"items,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
 }
 
-type ImageCreateResult struct {
-	ImageKey string `json:"image_key,omitempty"`
+type MessageReactionListResult struct {
+	Items     []*MessageReaction `json:"items,omitempty"`
+	HasMore   bool               `json:"has_more,omitempty"`
+	PageToken string             `json:"page_token,omitempty"`
 }
 
 type MessageListResult struct {
 	HasMore   bool       `json:"has_more,omitempty"`
 	PageToken string     `json:"page_token,omitempty"`
 	Items     []*Message `json:"items,omitempty"`
+}
+
+type ChatTabListTabsResult struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type MessagePatchReqBody struct {
@@ -580,9 +972,43 @@ func (s *MessagePatchReqBody) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type ChatAnnouncementPatchReqBody struct {
+	Revision        string   `json:"revision,omitempty"`
+	Requests        []string `json:"requests,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ChatAnnouncementPatchReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatAnnouncementPatchReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTopNoticePutTopNoticeReqBody struct {
+	ChatTopNotice   []*ChatTopNotice `json:"chat_top_notice,omitempty"`
+	ForceSendFields []string         `json:"-"`
+}
+
+func (s *ChatTopNoticePutTopNoticeReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatTopNoticePutTopNoticeReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BatchMessageReadUserResult struct {
+	ReadUser *BatchMessageReadUser `json:"read_user,omitempty"`
+}
+
+type MessageReadUsersResult struct {
+	Items     []*ReadUser `json:"items,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+}
+
 type MessageReplyReqBody struct {
 	Content         string   `json:"content,omitempty"`
 	MsgType         string   `json:"msg_type,omitempty"`
+	Uuid            string   `json:"uuid,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -592,27 +1018,215 @@ func (s *MessageReplyReqBody) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type MessageCreateReqBody struct {
-	ReceiveId       string   `json:"receive_id,omitempty"`
-	Content         string   `json:"content,omitempty"`
-	MsgType         string   `json:"msg_type,omitempty"`
+type MessageReplyResult struct {
+	MessageId      string       `json:"message_id,omitempty"`
+	RootId         string       `json:"root_id,omitempty"`
+	ParentId       string       `json:"parent_id,omitempty"`
+	MsgType        string       `json:"msg_type,omitempty"`
+	CreateTime     int64        `json:"create_time,omitempty,string"`
+	UpdateTime     int64        `json:"update_time,omitempty,string"`
+	Deleted        bool         `json:"deleted,omitempty"`
+	Updated        bool         `json:"updated,omitempty"`
+	ChatId         string       `json:"chat_id,omitempty"`
+	Sender         *Sender      `json:"sender,omitempty"`
+	Body           *MessageBody `json:"body,omitempty"`
+	Mentions       []*Mention   `json:"mentions,omitempty"`
+	UpperMessageId string       `json:"upper_message_id,omitempty"`
+}
+
+type ChatSearchResult struct {
+	Items     []*ListChat `json:"items,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
+}
+
+type ChatTabSortTabsReqBody struct {
+	TabIds          []string `json:"tab_ids,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *MessageCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp MessageCreateReqBody
+func (s *ChatTabSortTabsReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatTabSortTabsReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type MessageReadUsersResult struct {
-	Items     []*ReadUser `json:"items,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
+type ChatTabSortTabsResult struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
-type MessageGetResult struct {
-	Items []*Message `json:"items,omitempty"`
+type ChatUpdateReqBody struct {
+	Avatar                 string     `json:"avatar,omitempty"`
+	Name                   string     `json:"name,omitempty"`
+	Description            string     `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    string     `json:"add_member_permission,omitempty"`
+	ShareCardPermission    string     `json:"share_card_permission,omitempty"`
+	AtAllPermission        string     `json:"at_all_permission,omitempty"`
+	EditPermission         string     `json:"edit_permission,omitempty"`
+	OwnerId                string     `json:"owner_id,omitempty"`
+	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     string     `json:"membership_approval,omitempty"`
+	Labels                 []string   `json:"labels,omitempty"`
+	ToolkitIds             []int64    `json:"toolkit_ids,omitempty"`
+	ForceSendFields        []string   `json:"-"`
+}
+
+func (s *ChatUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatModerationUpdateReqBody struct {
+	ModerationSetting    string   `json:"moderation_setting,omitempty"`
+	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`
+	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"`
+	ForceSendFields      []string `json:"-"`
+}
+
+func (s *ChatModerationUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatModerationUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTabUpdateTabsReqBody struct {
+	ChatTabs        []*ChatTab `json:"chat_tabs,omitempty"`
+	ForceSendFields []string   `json:"-"`
+}
+
+func (s *ChatTabUpdateTabsReqBody) MarshalJSON() ([]byte, error) {
+	type cp ChatTabUpdateTabsReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ChatTabUpdateTabsResult struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type MessageUrgentAppResult struct {
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
+}
+
+type MessageUrgentPhoneResult struct {
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
+}
+
+type MessageUrgentSmsResult struct {
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
+}
+
+type ChatMemberBotAddedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatMemberBotAddedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberBotAddedEventData `json:"event"`
+}
+
+type ChatMemberUserAddedEventData struct {
+	ChatId            string            `json:"chat_id,omitempty"`
+	OperatorId        *UserId           `json:"operator_id,omitempty"`
+	External          bool              `json:"external,omitempty"`
+	OperatorTenantKey string            `json:"operator_tenant_key,omitempty"`
+	Users             []*ChatMemberUser `json:"users,omitempty"`
+}
+
+type ChatMemberUserAddedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberUserAddedEventData `json:"event"`
+}
+
+type MessageReactionCreatedEventData struct {
+	MessageId    string  `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType string  `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        string  `json:"app_id,omitempty"`
+	ActionTime   string  `json:"action_time,omitempty"`
+}
+
+type MessageReactionCreatedEvent struct {
+	*model.BaseEventV2
+	Event *MessageReactionCreatedEventData `json:"event"`
+}
+
+type MessageReactionDeletedEventData struct {
+	MessageId    string  `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType string  `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        string  `json:"app_id,omitempty"`
+	ActionTime   string  `json:"action_time,omitempty"`
+}
+
+type MessageReactionDeletedEvent struct {
+	*model.BaseEventV2
+	Event *MessageReactionDeletedEventData `json:"event"`
+}
+
+type ChatMemberBotDeletedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatMemberBotDeletedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberBotDeletedEventData `json:"event"`
+}
+
+type ChatMemberUserDeletedEventData struct {
+	ChatId            string            `json:"chat_id,omitempty"`
+	OperatorId        *UserId           `json:"operator_id,omitempty"`
+	External          bool              `json:"external,omitempty"`
+	OperatorTenantKey string            `json:"operator_tenant_key,omitempty"`
+	Users             []*ChatMemberUser `json:"users,omitempty"`
+}
+
+type ChatMemberUserDeletedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberUserDeletedEventData `json:"event"`
+}
+
+type ChatDisbandedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatDisbandedEvent struct {
+	*model.BaseEventV2
+	Event *ChatDisbandedEventData `json:"event"`
+}
+
+type MessageMessageReadEventData struct {
+	Reader        *EventMessageReader `json:"reader,omitempty"`
+	MessageIdList []string            `json:"message_id_list,omitempty"`
+}
+
+type MessageMessageReadEvent struct {
+	*model.BaseEventV2
+	Event *MessageMessageReadEventData `json:"event"`
+}
+
+type MessageReceiveEventData struct {
+	Sender  *EventSender  `json:"sender,omitempty"`
+	Message *EventMessage `json:"message,omitempty"`
+}
+
+type MessageReceiveEvent struct {
+	*model.BaseEventV2
+	Event *MessageReceiveEventData `json:"event"`
 }
 
 type ChatUpdatedEventData struct {
@@ -630,55 +1244,6 @@ type ChatUpdatedEvent struct {
 	Event *ChatUpdatedEventData `json:"event"`
 }
 
-type ChatDisbandedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatDisbandedEvent struct {
-	*model.BaseEventV2
-	Event *ChatDisbandedEventData `json:"event"`
-}
-
-type ChatMemberBotAddedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatMemberBotAddedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberBotAddedEventData `json:"event"`
-}
-
-type ChatMemberBotDeletedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatMemberBotDeletedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberBotDeletedEventData `json:"event"`
-}
-
-type ChatMemberUserAddedEventData struct {
-	ChatId            string            `json:"chat_id,omitempty"`
-	OperatorId        *UserId           `json:"operator_id,omitempty"`
-	External          bool              `json:"external,omitempty"`
-	OperatorTenantKey string            `json:"operator_tenant_key,omitempty"`
-	Users             []*ChatMemberUser `json:"users,omitempty"`
-}
-
-type ChatMemberUserAddedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberUserAddedEventData `json:"event"`
-}
-
 type ChatMemberUserWithdrawnEventData struct {
 	ChatId            string            `json:"chat_id,omitempty"`
 	OperatorId        *UserId           `json:"operator_id,omitempty"`
@@ -690,37 +1255,4 @@ type ChatMemberUserWithdrawnEventData struct {
 type ChatMemberUserWithdrawnEvent struct {
 	*model.BaseEventV2
 	Event *ChatMemberUserWithdrawnEventData `json:"event"`
-}
-
-type ChatMemberUserDeletedEventData struct {
-	ChatId            string            `json:"chat_id,omitempty"`
-	OperatorId        *UserId           `json:"operator_id,omitempty"`
-	External          bool              `json:"external,omitempty"`
-	OperatorTenantKey string            `json:"operator_tenant_key,omitempty"`
-	Users             []*ChatMemberUser `json:"users,omitempty"`
-}
-
-type ChatMemberUserDeletedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberUserDeletedEventData `json:"event"`
-}
-
-type MessageReceiveEventData struct {
-	Sender  *EventSender  `json:"sender,omitempty"`
-	Message *EventMessage `json:"message,omitempty"`
-}
-
-type MessageReceiveEvent struct {
-	*model.BaseEventV2
-	Event *MessageReceiveEventData `json:"event"`
-}
-
-type MessageMessageReadEventData struct {
-	Reader        *EventMessageReader `json:"reader,omitempty"`
-	MessageIdList []string            `json:"message_id_list,omitempty"`
-}
-
-type MessageMessageReadEvent struct {
-	*model.BaseEventV2
-	Event *MessageMessageReadEventData `json:"event"`
 }
