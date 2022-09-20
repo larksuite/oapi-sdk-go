@@ -101,6 +101,8 @@ func downFile(client *lark.Client) {
 		return
 	}
 
+	resp.WriteFile("c:/filepath/filename")
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -842,7 +844,9 @@ func sendRawImageReq(cli *lark.Client) {
 	}
 	defer img.Close()
 
-	formData := larkcore.NewFormdata().AddField("image_type", "message").AddFile("image", img)
+	formData := larkcore.NewFormdata().
+		AddField("image_type", "message").
+		AddFile("image", img)
 
 	resp, err := cli.Post(context.Background(), "/open-apis/im/v1/images", formData, larkcore.AccessTokenTypeTenant)
 

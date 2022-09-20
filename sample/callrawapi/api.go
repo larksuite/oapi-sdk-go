@@ -170,10 +170,7 @@ func rawApiGetTokenCallOld() {
 	// 发起请求
 	resp, err := cli.Post(context.Background(),
 		"https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
-		map[string]interface{}{
-			"app_id":     appID,
-			"app_secret": appSecret,
-		},
+		nil,
 		larkcore.AccessTokenTypeNone)
 
 	// 错误处理
