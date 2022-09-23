@@ -34,6 +34,7 @@ const (
 	FileExtensionDocx = "docx" // word docx 格式
 	FileExtensionPdf  = "pdf"  // pdf 格式
 	FileExtensionXlsx = "xlsx" // excel xlsx 格式
+	FileExtensionCsv  = "csv"  // csv 格式
 )
 
 const (
@@ -688,6 +689,7 @@ type ExportTask struct {
 	Token         *string `json:"token,omitempty"`          // 导出文档 token
 	Type          *string `json:"type,omitempty"`           // 导出文档类型
 	FileName      *string `json:"file_name,omitempty"`      // 导出文件名
+	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
 	FileToken     *string `json:"file_token,omitempty"`     // 导出文件 drive token
 	FileSize      *int    `json:"file_size,omitempty"`      // 导出文件大小
 	JobErrorMsg   *string `json:"job_error_msg,omitempty"`  // 任务失败原因
@@ -703,6 +705,8 @@ type ExportTaskBuilder struct {
 	typeFlag          bool
 	fileName          string // 导出文件名
 	fileNameFlag      bool
+	subId             string // 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
+	subIdFlag         bool
 	fileToken         string // 导出文件 drive token
 	fileTokenFlag     bool
 	fileSize          int // 导出文件大小
@@ -751,6 +755,15 @@ func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
 func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
+	return builder
+}
+
+// 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
+//
+// 示例值：tblKz5D60T4JlfcT
+func (builder *ExportTaskBuilder) SubId(subId string) *ExportTaskBuilder {
+	builder.subId = subId
+	builder.subIdFlag = true
 	return builder
 }
 
@@ -806,6 +819,10 @@ func (builder *ExportTaskBuilder) Build() *ExportTask {
 	}
 	if builder.fileNameFlag {
 		req.FileName = &builder.fileName
+
+	}
+	if builder.subIdFlag {
+		req.SubId = &builder.subId
 
 	}
 	if builder.fileTokenFlag {
@@ -2895,12 +2912,12 @@ func (builder *ReplyListBuilder) Build() *ReplyList {
 }
 
 type RequestDoc struct {
-	DocToken *string `json:"doc_token,omitempty"` // 文件的 token，获取方式见[如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	DocToken *string `json:"doc_token,omitempty"` // 文件的 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	DocType  *string `json:"doc_type,omitempty"`  // 文件类型
 }
 
 type RequestDocBuilder struct {
-	docToken     string // 文件的 token，获取方式见[如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	docToken     string // 文件的 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	docTokenFlag bool
 	docType      string // 文件类型
 	docTypeFlag  bool
@@ -2911,7 +2928,7 @@ func NewRequestDocBuilder() *RequestDocBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见[如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder {
@@ -3071,12 +3088,12 @@ func (builder *TmpDownloadUrlBuilder) Build() *TmpDownloadUrl {
 }
 
 type TokenType struct {
-	Token *string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token *string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type  *string `json:"type,omitempty"`  // 文档类型  "isv"
 }
 
 type TokenTypeBuilder struct {
-	token     string // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	token     string // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	tokenFlag bool
 	type_     string // 文档类型  "isv"
 	typeFlag  bool
@@ -3087,7 +3104,7 @@ func NewTokenTypeBuilder() *TokenTypeBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+// 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 //
 // 示例值：isvcnBKgoMyY5OMbUG6FioTXuBe
 func (builder *TokenTypeBuilder) Token(token string) *TokenTypeBuilder {
@@ -3821,7 +3838,7 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
 // 示例值：boxcnabCdefg12345
 func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
@@ -4171,7 +4188,7 @@ type UploadAllFileReqBodyBuilder struct {
 	fileNameFlag   bool
 	parentType     string // 上传点类型。
 	parentTypeFlag bool
-	parentNode     string // 文件夹token，;获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	parentNode     string // 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	parentNodeFlag bool
 	size           int // 文件大小（以字节为单位）。
 	sizeFlag       bool
@@ -4204,7 +4221,7 @@ func (builder *UploadAllFileReqBodyBuilder) ParentType(parentType string) *Uploa
 	return builder
 }
 
-// 文件夹token，;获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
 //示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *UploadAllFileReqBodyBuilder) ParentNode(parentNode string) *UploadAllFileReqBodyBuilder {
@@ -4268,7 +4285,7 @@ type UploadAllFilePathReqBodyBuilder struct {
 	fileNameFlag   bool
 	parentType     string // 上传点类型。
 	parentTypeFlag bool
-	parentNode     string // 文件夹token，;获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	parentNode     string // 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	parentNodeFlag bool
 	size           int // 文件大小（以字节为单位）。
 	sizeFlag       bool
@@ -4301,7 +4318,7 @@ func (builder *UploadAllFilePathReqBodyBuilder) ParentType(parentType string) *U
 	return builder
 }
 
-// 文件夹token，;获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
 // 示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *UploadAllFilePathReqBodyBuilder) ParentNode(parentNode string) *UploadAllFilePathReqBodyBuilder {
@@ -4394,7 +4411,7 @@ func (builder *UploadAllFileReqBuilder) Build() *UploadAllFileReq {
 type UploadAllFileReqBody struct {
 	FileName   *string   `json:"file_name,omitempty"`   // 文件名。
 	ParentType *string   `json:"parent_type,omitempty"` // 上传点类型。
-	ParentNode *string   `json:"parent_node,omitempty"` // 文件夹token，;获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	ParentNode *string   `json:"parent_node,omitempty"` // 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	Size       *int      `json:"size,omitempty"`        // 文件大小（以字节为单位）。
 	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选)。
 	File       io.Reader `json:"file,omitempty"`        // 文件二进制内容。
@@ -5754,7 +5771,7 @@ func NewCreateImportTaskReqBuilder() *CreateImportTaskReqBuilder {
 	return builder
 }
 
-// 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
+// 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
 func (builder *CreateImportTaskReqBuilder) ImportTask(importTask *ImportTask) *CreateImportTaskReqBuilder {
 	builder.importTask = importTask
 	return builder
@@ -5855,7 +5872,7 @@ func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) FileTokens(fileTokens []st
 
 // 拓展信息(可选)
 //
-// 示例值：[请参考-上传点类型及对应Extra说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
+// 示例值：[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
 func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) Extra(extra string) *BatchGetTmpDownloadUrlMediaReqBuilder {
 	builder.apiReq.QueryParams.Set("extra", fmt.Sprint(extra))
 	return builder
@@ -5899,7 +5916,7 @@ func NewDownloadMediaReqBuilder() *DownloadMediaReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
 // 示例值：boxcnrHpsg1QDqXAAAyachabcef
 func (builder *DownloadMediaReqBuilder) FileToken(fileToken string) *DownloadMediaReqBuilder {
@@ -5909,7 +5926,7 @@ func (builder *DownloadMediaReqBuilder) FileToken(fileToken string) *DownloadMed
 
 // 扩展信息
 //
-// 示例值：[请参考-上传点类型及对应Extra说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
+// 示例值：[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
 func (builder *DownloadMediaReqBuilder) Extra(extra string) *DownloadMediaReqBuilder {
 	builder.apiReq.QueryParams.Set("extra", fmt.Sprint(extra))
 	return builder
@@ -6703,7 +6720,7 @@ func NewCreatePermissionMemberReqBuilder() *CreatePermissionMemberReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
 func (builder *CreatePermissionMemberReqBuilder) Token(token string) *CreatePermissionMemberReqBuilder {
@@ -6774,7 +6791,7 @@ func NewDeletePermissionMemberReqBuilder() *DeletePermissionMemberReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
 func (builder *DeletePermissionMemberReqBuilder) Token(token string) *DeletePermissionMemberReqBuilder {
@@ -6841,7 +6858,7 @@ func NewUpdatePermissionMemberReqBuilder() *UpdatePermissionMemberReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
 func (builder *UpdatePermissionMemberReqBuilder) Token(token string) *UpdatePermissionMemberReqBuilder {
@@ -6920,7 +6937,7 @@ func NewGetPermissionPublicReqBuilder() *GetPermissionPublicReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
 func (builder *GetPermissionPublicReqBuilder) Token(token string) *GetPermissionPublicReqBuilder {
@@ -6976,7 +6993,7 @@ func NewPatchPermissionPublicReqBuilder() *PatchPermissionPublicReqBuilder {
 	return builder
 }
 
-// 文件的 token，获取方式见 [如何获取云文档资源相关 token](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
 func (builder *PatchPermissionPublicReqBuilder) Token(token string) *PatchPermissionPublicReqBuilder {

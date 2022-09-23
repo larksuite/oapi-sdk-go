@@ -32,7 +32,7 @@ type DocxService struct {
 	config                *larkcore.Config
 	Document              *document              // 文档
 	DocumentBlock         *documentBlock         // 块
-	DocumentBlockChildren *documentBlockChildren // document.block.children
+	DocumentBlockChildren *documentBlockChildren // 块
 }
 
 type document struct {

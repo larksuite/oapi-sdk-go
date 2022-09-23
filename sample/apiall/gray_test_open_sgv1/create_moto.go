@@ -27,7 +27,8 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkgray_test_open_sg.NewCreateMotoReqBuilder().
-		DepartmentIdType("").
+		DepartmentIdType("test_department_id").
+		UserIdType("test_user_id").
 		Level(larkgray_test_open_sg.NewLevelBuilder().
 			Level("").
 			Body("").

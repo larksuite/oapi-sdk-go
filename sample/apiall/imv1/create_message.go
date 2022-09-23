@@ -30,8 +30,8 @@ func main() {
 		ReceiveIdType("open_id").
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			ReceiveId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
-			Content("").
 			MsgType("text").
+			Content("").
 			Uuid("a0d69e20-1dd1-458b-k525-dfeca4015204").
 			Build()).
 		Build()

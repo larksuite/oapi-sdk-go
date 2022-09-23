@@ -38,6 +38,7 @@ func NewService(config *larkcore.Config) *ImService {
 	i.Message = &message{service: i}
 	i.MessageReaction = &messageReaction{service: i}
 	i.MessageResource = &messageResource{service: i}
+	i.Pin = &pin{service: i}
 	return i
 }
 
@@ -50,14 +51,15 @@ type ImService struct {
 	ChatMemberBot    *chatMemberBot    // 事件
 	ChatMemberUser   *chatMemberUser   // 事件
 	ChatMembers      *chatMembers      // 群组 - 群成员
-	ChatModeration   *chatModeration   // chat.moderation
+	ChatModeration   *chatModeration   // 群组
 	ChatTab          *chatTab          // 群组 - 会话标签页
-	ChatTopNotice    *chatTopNotice    // chat.top_notice
+	ChatTopNotice    *chatTopNotice    // 群组
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息
+	Message          *message          // 加急操作
 	MessageReaction  *messageReaction  // 消息 - 表情回复
-	MessageResource  *messageResource  // message.resource
+	MessageResource  *messageResource  // 消息
+	Pin              *pin              // 消息 - Pin
 }
 
 type batchMessage struct {
@@ -105,12 +107,15 @@ type messageReaction struct {
 type messageResource struct {
 	service *ImService
 }
+type pin struct {
+	service *ImService
+}
 
 // 批量撤回消息
 //
 // - 批量撤回消息
 //
-// - 注意事项：;- 只能撤回通过[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息，单条消息的撤回请使用[撤回消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口;- 路径参数**batch_message_id**为[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的**message_id**字段，用于标识一次批量发送消息请求，格式为：**bm-xxx**;- 一次调用涉及大量消息，所以为异步接口，会有一定延迟。
+// - 注意事项：;- 只能撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息，单条消息的撤回请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口;- 路径参数**batch_message_id**为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的**message_id**字段，用于标识一次批量发送消息请求，格式为：**bm-xxx**;- 一次调用涉及大量消息，所以为异步接口，会有一定延迟。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete
 //
@@ -138,7 +143,7 @@ func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, o
 //
 // - 查询批量消息整体进度
 //
-// - 注意事项:;* 该接口是[查询批量消息推送和阅读人数](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)接口的加强版;* 该接口返回的数据为查询时刻的快照数据
+// - 注意事项:;* 该接口是[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)接口的加强版;* 该接口返回的数据为查询时刻的快照数据
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
 //
@@ -166,7 +171,7 @@ func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMes
 //
 // - 查询批量消息推送和阅读人数
 //
-// - 注意事项：;- 只能查询通过[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息;- 该接口返回的数据为查询时刻的快照数据。
+// - 注意事项：;- 只能查询通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息;- 该接口返回的数据为查询时刻的快照数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user
 //
@@ -194,7 +199,7 @@ func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageRe
 //
 // - 创建群并设置群头像、群名、群描述等。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 本接口支持在创建群的同时拉用户或机器人进群；如果仅需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 本接口只支持创建群，如果需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口;- 每次请求，最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人; - 拉机器人入群请使用 ==app_id==
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 //
@@ -222,7 +227,7 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 //
 // - 解散群组
 //
-// - 注意事项：;- 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 如果使用tenant_access_token，需要机器人是群的创建者且具备==更新应用所创建群的群信息==权限才可解散群;- 如果使用user_access_token，需要对应的用户是群主才可解散群
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 如果使用tenant_access_token，需要机器人是群的创建者且具备==更新应用所创建群的群信息==权限才可解散群;- 如果使用user_access_token，需要对应的用户是群主才可解散群
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 //
@@ -250,7 +255,7 @@ func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkco
 //
 // - 获取群名称、群描述、群头像、群主 ID 等群基本信息。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 //
@@ -274,11 +279,39 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 	return resp, err
 }
 
+// 获取群分享链接
+//
+// - 获取指定群的分享链接
+//
+// - 注意事项:;- 该接口遵守群分享权限管控;;- 单聊、密聊、团队群不支持分享群链接;;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/link_chat.go
+func (c *chat) Link(ctx context.Context, req *LinkChatReq, options ...larkcore.RequestOptionFunc) (*LinkChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/link"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &LinkChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 获取用户或机器人所在的群列表
 //
 // - 获取用户或者机器人所在群列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 查询参数  **user_id_type** 用于控制响应体中 owner_id 的类型，如果是获取机器人所在群列表该值可以不填;- 请注意区分本接口和[获取群信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL;- 获取的群列表不包含p2p单聊群
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 查询参数  **user_id_type** 用于控制响应体中 owner_id 的类型，如果是获取机器人所在群列表该值可以不填;- 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL;- 获取的群列表不包含p2p单聊群
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 //
@@ -314,7 +347,7 @@ func (c *chat) ListByIterator(ctx context.Context, req *ListChatReq, options ...
 //
 // - 搜索对用户或机器人可见的群列表，包括：用户或机器人所在的群、对用户或机器人公开的群。;搜索可获得的群信息包括：群ID（chat_id）、群名称、群描述等。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 //
@@ -350,7 +383,7 @@ func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options
 //
 // - 更新群头像、群名称、群描述、群配置、转让群主等。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置：; 	- 群主/群管理员 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可更新所有信息; 	- 不满足上述条件的群成员或机器人，仅可更新群头像、群名称、群描述、群国际化名称信息 ;- 若群开启了==仅群主和群管理员可编辑群信息==配置：; 	- 群主/群管理员 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可更新所有信息; 	- 不满足上述条件的群成员或者机器人，任何群信息都不能修改
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置：; 	- 群主/群管理员 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可更新所有信息; 	- 不满足上述条件的群成员或机器人，仅可更新群头像、群名称、群描述、群国际化名称信息 ;- 若群开启了==仅群主和群管理员可编辑群信息==配置：; 	- 群主/群管理员 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可更新所有信息; 	- 不满足上述条件的群成员或者机器人，任何群信息都不能修改
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 //
@@ -378,7 +411,7 @@ func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkco
 //
 // - 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
 //
@@ -406,7 +439,7 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 //
 // - 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 若群开启了 ==仅群主和群管理员可编辑群信息== 配置，群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新群公告;- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置，所有成员可以更新群公告
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 若群开启了 ==仅群主和群管理员可编辑群信息== 配置，群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新群公告;- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置，所有成员可以更新群公告
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 //
@@ -434,7 +467,7 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 //
 // - 将用户或机器人指定为群管理员。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以指定群管理员;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 指定机器人类型的管理员请使用 ==app_id==
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以指定群管理员;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 指定机器人类型的管理员请使用 ==app_id==
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/add_managers
 //
@@ -462,7 +495,7 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 //
 // - 删除指定的群管理员（用户或机器人）
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以删除群管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 删除机器人类型的管理员请使用 ==app_id==
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以删除群管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 删除机器人类型的管理员请使用 ==app_id==
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/delete_managers
 //
@@ -490,7 +523,7 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 //
 // - 将用户或机器人拉入群聊。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app); - 如需拉用户进群，需要机器人对用户有可见性; - 在开启 ==仅群主和群管理员可添加群成员== 的设置时，仅有群主/管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可以拉用户或者机器人进群; - 在未开启 ==仅群主和群管理员可添加群成员== 的设置时，所有群成员都可以拉用户或机器人进群
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 如需拉用户进群，需要机器人对用户有可见性; - 在开启 ==仅群主和群管理员可添加群成员== 的设置时，仅有群主/管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可以拉用户或者机器人进群; - 在未开启 ==仅群主和群管理员可添加群成员== 的设置时，所有群成员都可以拉用户或机器人进群; - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人; - 拉机器人入群请使用 ==app_id==
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 //
@@ -518,7 +551,7 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 //
 // - 将用户或机器人移出群聊。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人; - 每次请求，最多移除50个用户或者5个机器人;- 移除机器人请使用 ==app_id==
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人; - 每次请求，最多移除50个用户或者5个机器人;- 移除机器人请使用 ==app_id==
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 //
@@ -546,7 +579,7 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 //
 // - 如果用户在群中，则返回该群的成员列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app); - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 //
@@ -608,7 +641,7 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 //
 // - 用户或机器人主动加入群聊。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app); - 目前仅支持加入公开群
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 目前仅支持加入公开群
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
 //
@@ -888,7 +921,7 @@ func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatT
 //
 // - 上传文件，可以上传视频，音频和常见的文件类型
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 不允许上传空文件;- 示例代码中需要自行替换文件路径和鉴权Token
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 不允许上传空文件;- 示例代码中需要自行替换文件路径和鉴权Token
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 //
@@ -917,7 +950,7 @@ func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkco
 //
 // - 下载文件接口，只能下载应用自己上传的文件
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 只能下载机器人自己上传的文件;- 下载用户发送的资源，请使用[获取消息中的资源文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 只能下载机器人自己上传的文件;- 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
 //
@@ -951,7 +984,7 @@ func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.Req
 //
 // - 上传图片接口，可以上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 上传的图片大小不能超过10MB
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 //
@@ -980,7 +1013,7 @@ func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...lark
 //
 // - 下载图片资源，只能下载应用自己上传且图片类型为message的图片
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；;- 下载用户发送的资源，请使用[获取消息中的资源文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；;- 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 //
@@ -1012,9 +1045,9 @@ func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.R
 
 // 发送消息
 //
-// - 给指定用户或者会话发送消息，支持文本、富文本、可交互的[消息卡片](/ssl:ttdoc/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
+// - 给指定用户或者会话发送消息，支持文本、富文本、可交互的[消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 给用户发送消息，需要机器人对用户有[可用性](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability);- 给群组发送消息，需要机器人在群中
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 给用户发送消息，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability);- 给群组发送消息，需要机器人在群中;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB;- 消息卡片的 `update_multi`（是否为共享卡片）字段在卡片内容的`config`结构体中设置。详细参考文档[配置卡片属性](https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 //
@@ -1042,7 +1075,7 @@ func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...
 //
 // - 机器人撤回机器人自己发送的消息或群主撤回群内消息。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ，撤回消息时机器人仍需要在会话内;- 机器人可以撤回单聊和群组内，自己发送 且 发送时间不超过1天(24小时)的消息;- 若机器人要撤回群内他人发送的消息，则机器人必须是该群的群主、管理员 或者 创建者，且消息发送时间不超过1年;- 无法撤回通过「批量发送消息接口」发送的消息
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ，撤回消息时机器人仍需要在会话内;- 机器人可以撤回单聊和群组内，自己发送 且 发送时间不超过1天(24小时)的消息;- 若机器人要撤回群内他人发送的消息，则机器人必须是该群的群主、管理员 或者 创建者，且消息发送时间不超过1年;- 无法撤回通过「批量发送消息接口」发送的消息
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
 //
@@ -1070,7 +1103,7 @@ func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...
 //
 // - 通过 message_id 查询消息内容
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 机器人必须在群组中
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 机器人必须在群组中
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
 //
@@ -1100,9 +1133,9 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 //
 // - 接口级别权限默认只能获取单聊（p2p）消息，如果需要获取群组（group）消息，应用还必须拥有 ***获取群组中所有消息*** 权限
 //
-// - - 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 获取消息时，机器人必须在群组中
+// - - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 获取消息时，机器人必须在群组中
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uADO3YjLwgzN24CM4cjN
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_message.go
 func (m *message) List(ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error) {
@@ -1136,7 +1169,7 @@ func (m *message) ListByIterator(ctx context.Context, req *ListMessageReq, optio
 //
 // - 更新应用已发送的消息卡片内容。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 当前仅支持更新 **卡片消息**;- **不支持更新批量消息**;- 只支持对所有人都更新的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)，也即需要在卡片的`config`属性中，显式声明`"update_multi":true`。<br>如果你只想更新特定人的消息卡片，必须要用户在卡片操作交互后触发，开发文档参考[「独享卡片」](/ssl:ttdoc/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71);- 单条消息更新频控为**5QPS**
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 当前仅支持更新 **卡片消息**;- **不支持更新批量消息**;- 只支持对所有人都更新的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)，也即需要在卡片的`config`属性中，显式声明`"update_multi":true`。<br>如果你只想更新特定人的消息卡片，必须要用户在卡片操作交互后触发，开发文档参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71);- 单条消息更新频控为**5QPS**
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 //
@@ -1164,7 +1197,7 @@ func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...la
 //
 // - 查询消息的已读信息。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能查询机器人自己发送，且发送时间不超过7天的消息;- 查询消息已读信息时机器人仍需要在会话内;- 本接口不支持查询批量消息
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能查询机器人自己发送，且发送时间不超过7天的消息;- 查询消息已读信息时机器人仍需要在会话内;- 本接口不支持查询批量消息
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 //
@@ -1192,7 +1225,7 @@ func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, optio
 //
 // - 回复指定消息，支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种消息类型。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 回复私聊消息，需要机器人对用户有可用性;- 回复群组消息，需要机器人在群中
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 回复私聊消息，需要机器人对用户有可用性;- 回复群组消息，需要机器人在群中
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 //
@@ -1220,7 +1253,7 @@ func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...la
 //
 // - 对指定消息进行应用内加急。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_app
 //
@@ -1250,7 +1283,7 @@ func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, optio
 //
 // - 特别说明：;- 通过接口产生的电话加急将消耗企业的加急额度，请慎重调用。;- 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度。;- 默认接口限流为50 QPS，请谨慎调用。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_phone
 //
@@ -1280,7 +1313,7 @@ func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, o
 //
 // - 特别说明：;- 通过接口产生的短信加急将消耗企业的加急额度，请慎重调用。;- 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度。;- 默认接口限流为50 QPS，请谨慎调用。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在会话内
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_sms
 //
@@ -1308,7 +1341,7 @@ func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, optio
 //
 // - 给指定消息添加指定类型的表情回复（reaction即表情回复，本说明文档统一用“reaction”代称）。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 待添加reaction的消息要真实存在，不能被撤回;- 给消息添加reaction，需要reaction的发送方（机器人或者用户）在消息所在的会话内
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 待添加reaction的消息要真实存在，不能被撤回;- 给消息添加reaction，需要reaction的发送方（机器人或者用户）在消息所在的会话内
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create
 //
@@ -1336,7 +1369,7 @@ func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReaction
 //
 // - 删除指定消息的表情回复（reaction即表情回复，本说明文档统一用“reaction”代称）。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能删除真实存在的reaction，并且删除reaction请求的操作者必须是reaction的原始添加者
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 只能删除真实存在的reaction，并且删除reaction请求的操作者必须是reaction的原始添加者
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete
 //
@@ -1364,7 +1397,7 @@ func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReaction
 //
 // - 获取指定消息的特定类型表情回复列表（reaction即表情回复，本说明文档统一用“reaction”代称）。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 待获取reaction信息的消息要真实存在，不能被撤回;- 获取消息的reaction，需要request的授权主体（机器人或者用户）在消息所在的会话内
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 待获取reaction信息的消息要真实存在，不能被撤回;- 获取消息的reaction，需要request的授权主体（机器人或者用户）在消息所在的会话内
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list
 //
@@ -1400,7 +1433,7 @@ func (m *messageReaction) ListByIterator(ctx context.Context, req *ListMessageRe
 //
 // - 获取消息中的资源文件，包括音频，视频，图片和文件，**暂不支持表情包资源下载**。当前仅支持 100M 以内的资源文件的下载。
 //
-// - 注意事项:;- 需要开启[机器人能力](/ssl:ttdoc/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人和消息需要在同一会话中;- 请求的 file_key 和 message_id 需要匹配;- 暂不支持获取合并转发消息中的子消息的资源文件;- 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人和消息需要在同一会话中;- 请求的 file_key 和 message_id 需要匹配;- 暂不支持获取合并转发消息中的子消息的资源文件;- 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 //
@@ -1428,4 +1461,90 @@ func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, o
 		return nil, err
 	}
 	return resp, err
+}
+
+// Pin消息
+//
+// - Pin一条指定的消息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_pin.go
+func (p *pin) Create(ctx context.Context, req *CreatePinReq, options ...larkcore.RequestOptionFunc) (*CreatePinResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/pins"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreatePinResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 移除Pin消息
+//
+// - 移除一条指定消息的Pin
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_pin.go
+func (p *pin) Delete(ctx context.Context, req *DeletePinReq, options ...larkcore.RequestOptionFunc) (*DeletePinResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/pins/:message_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeletePinResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取群内Pin消息
+//
+// - 获取所在群内指定时间范围内的所有Pin消息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_pin.go
+func (p *pin) List(ctx context.Context, req *ListPinReq, options ...larkcore.RequestOptionFunc) (*ListPinResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/pins"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListPinResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (p *pin) ListByIterator(ctx context.Context, req *ListPinReq, options ...larkcore.RequestOptionFunc) (*ListPinIterator, error) {
+	return &ListPinIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: p.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

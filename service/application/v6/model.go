@@ -86,6 +86,18 @@ const (
 )
 
 const (
+	I18nKeyListApplicationAppVersionZhCn = "zh_cn" // 中文
+	I18nKeyListApplicationAppVersionEnUs = "en_us" // 英文
+	I18nKeyListApplicationAppVersionJaJp = "ja_jp" // 日文
+)
+
+const (
+	UserIdTypeListApplicationAppVersionUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListApplicationAppVersionUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListApplicationAppVersionOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	AppVersionStatusUnknown    = 0 // 未知状态
 	AppVersionStatusAudited    = 1 // 审核通过
 	AppVersionStatusReject     = 2 // 审核拒绝
@@ -740,6 +752,447 @@ func (builder *AppMessageTrendItemBuilder) Build() *AppMessageTrendItem {
 	}
 	if builder.trendFlag {
 		req.Trend = builder.trend
+	}
+	return req
+}
+
+type AppRecommendRule struct {
+	Id                            *string                         `json:"id,omitempty"`                               // 推荐规则 ID
+	Name                          *string                         `json:"name,omitempty"`                             // 推荐规则名称
+	Status                        *string                         `json:"status,omitempty"`                           // 推荐规则启用状态
+	VisibilityInfo                *AppRecommendRuleVisibilityInfo `json:"visibility_info,omitempty"`                  // 推荐规则可见性信息
+	RecommendItemInfos            []*AppRecommendRuleItemInfo     `json:"recommend_item_infos,omitempty"`             // 不可移除推荐应用项列表
+	DistributedRecommendItemInfos []*AppRecommendRuleItemInfo     `json:"distributed_recommend_item_infos,omitempty"` // 可移除推荐应用项列表
+}
+
+type AppRecommendRuleBuilder struct {
+	id                                string // 推荐规则 ID
+	idFlag                            bool
+	name                              string // 推荐规则名称
+	nameFlag                          bool
+	status                            string // 推荐规则启用状态
+	statusFlag                        bool
+	visibilityInfo                    *AppRecommendRuleVisibilityInfo // 推荐规则可见性信息
+	visibilityInfoFlag                bool
+	recommendItemInfos                []*AppRecommendRuleItemInfo // 不可移除推荐应用项列表
+	recommendItemInfosFlag            bool
+	distributedRecommendItemInfos     []*AppRecommendRuleItemInfo // 可移除推荐应用项列表
+	distributedRecommendItemInfosFlag bool
+}
+
+func NewAppRecommendRuleBuilder() *AppRecommendRuleBuilder {
+	builder := &AppRecommendRuleBuilder{}
+	return builder
+}
+
+// 推荐规则 ID
+//
+// 示例值：7137896480337641492
+func (builder *AppRecommendRuleBuilder) Id(id string) *AppRecommendRuleBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 推荐规则名称
+//
+// 示例值：管理员小白的推荐规则
+func (builder *AppRecommendRuleBuilder) Name(name string) *AppRecommendRuleBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 推荐规则启用状态
+//
+// 示例值：open
+func (builder *AppRecommendRuleBuilder) Status(status string) *AppRecommendRuleBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 推荐规则可见性信息
+//
+// 示例值：
+func (builder *AppRecommendRuleBuilder) VisibilityInfo(visibilityInfo *AppRecommendRuleVisibilityInfo) *AppRecommendRuleBuilder {
+	builder.visibilityInfo = visibilityInfo
+	builder.visibilityInfoFlag = true
+	return builder
+}
+
+// 不可移除推荐应用项列表
+//
+// 示例值：
+func (builder *AppRecommendRuleBuilder) RecommendItemInfos(recommendItemInfos []*AppRecommendRuleItemInfo) *AppRecommendRuleBuilder {
+	builder.recommendItemInfos = recommendItemInfos
+	builder.recommendItemInfosFlag = true
+	return builder
+}
+
+// 可移除推荐应用项列表
+//
+// 示例值：
+func (builder *AppRecommendRuleBuilder) DistributedRecommendItemInfos(distributedRecommendItemInfos []*AppRecommendRuleItemInfo) *AppRecommendRuleBuilder {
+	builder.distributedRecommendItemInfos = distributedRecommendItemInfos
+	builder.distributedRecommendItemInfosFlag = true
+	return builder
+}
+
+func (builder *AppRecommendRuleBuilder) Build() *AppRecommendRule {
+	req := &AppRecommendRule{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.visibilityInfoFlag {
+		req.VisibilityInfo = builder.visibilityInfo
+	}
+	if builder.recommendItemInfosFlag {
+		req.RecommendItemInfos = builder.recommendItemInfos
+	}
+	if builder.distributedRecommendItemInfosFlag {
+		req.DistributedRecommendItemInfos = builder.distributedRecommendItemInfos
+	}
+	return req
+}
+
+type AppRecommendRuleItemInfo struct {
+	ItemId        *string                           `json:"item_id,omitempty"`        // 推荐应用项 ID
+	ItemType      *string                           `json:"item_type,omitempty"`      // 推荐应用项类型
+	Name          *string                           `json:"name,omitempty"`           // 推荐应用项名称
+	Description   *string                           `json:"description,omitempty"`    // 推荐应用项描述
+	LinkUrl       *string                           `json:"link_url,omitempty"`       // 链接类型应用项的跳转链接（应用类型该字段为空）
+	ClientId      *string                           `json:"client_id,omitempty"`      // 应用类型应用项的 app id（链接类型该字段为空）
+	IconUrl       *string                           `json:"icon_url,omitempty"`       // 应用项图标链接
+	DefaultLocale *string                           `json:"default_locale,omitempty"` // 链接类型应用项的默认展示语种（应用类型该字段为空）
+	I18nName      *AppRecommendRuleItemInfoI18nName `json:"i18n_name,omitempty"`      // 应用项的多语种名称
+}
+
+type AppRecommendRuleItemInfoBuilder struct {
+	itemId            string // 推荐应用项 ID
+	itemIdFlag        bool
+	itemType          string // 推荐应用项类型
+	itemTypeFlag      bool
+	name              string // 推荐应用项名称
+	nameFlag          bool
+	description       string // 推荐应用项描述
+	descriptionFlag   bool
+	linkUrl           string // 链接类型应用项的跳转链接（应用类型该字段为空）
+	linkUrlFlag       bool
+	clientId          string // 应用类型应用项的 app id（链接类型该字段为空）
+	clientIdFlag      bool
+	iconUrl           string // 应用项图标链接
+	iconUrlFlag       bool
+	defaultLocale     string // 链接类型应用项的默认展示语种（应用类型该字段为空）
+	defaultLocaleFlag bool
+	i18nName          *AppRecommendRuleItemInfoI18nName // 应用项的多语种名称
+	i18nNameFlag      bool
+}
+
+func NewAppRecommendRuleItemInfoBuilder() *AppRecommendRuleItemInfoBuilder {
+	builder := &AppRecommendRuleItemInfoBuilder{}
+	return builder
+}
+
+// 推荐应用项 ID
+//
+// 示例值：7137896480337625108
+func (builder *AppRecommendRuleItemInfoBuilder) ItemId(itemId string) *AppRecommendRuleItemInfoBuilder {
+	builder.itemId = itemId
+	builder.itemIdFlag = true
+	return builder
+}
+
+// 推荐应用项类型
+//
+// 示例值：application
+func (builder *AppRecommendRuleItemInfoBuilder) ItemType(itemType string) *AppRecommendRuleItemInfoBuilder {
+	builder.itemType = itemType
+	builder.itemTypeFlag = true
+	return builder
+}
+
+// 推荐应用项名称
+//
+// 示例值：审批
+func (builder *AppRecommendRuleItemInfoBuilder) Name(name string) *AppRecommendRuleItemInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 推荐应用项描述
+//
+// 示例值：审批应用的描述
+func (builder *AppRecommendRuleItemInfoBuilder) Description(description string) *AppRecommendRuleItemInfoBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 链接类型应用项的跳转链接（应用类型该字段为空）
+//
+// 示例值：http://www.example.com
+func (builder *AppRecommendRuleItemInfoBuilder) LinkUrl(linkUrl string) *AppRecommendRuleItemInfoBuilder {
+	builder.linkUrl = linkUrl
+	builder.linkUrlFlag = true
+	return builder
+}
+
+// 应用类型应用项的 app id（链接类型该字段为空）
+//
+// 示例值：cli_a274440757b8901c
+func (builder *AppRecommendRuleItemInfoBuilder) ClientId(clientId string) *AppRecommendRuleItemInfoBuilder {
+	builder.clientId = clientId
+	builder.clientIdFlag = true
+	return builder
+}
+
+// 应用项图标链接
+//
+// 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/v2_6150f3c3-ceee-453e-a1ae-7c11d7f13edj~?image_size=&cut_type=&quality=&format=&sticker_format=.webp
+func (builder *AppRecommendRuleItemInfoBuilder) IconUrl(iconUrl string) *AppRecommendRuleItemInfoBuilder {
+	builder.iconUrl = iconUrl
+	builder.iconUrlFlag = true
+	return builder
+}
+
+// 链接类型应用项的默认展示语种（应用类型该字段为空）
+//
+// 示例值：zh_cn
+func (builder *AppRecommendRuleItemInfoBuilder) DefaultLocale(defaultLocale string) *AppRecommendRuleItemInfoBuilder {
+	builder.defaultLocale = defaultLocale
+	builder.defaultLocaleFlag = true
+	return builder
+}
+
+// 应用项的多语种名称
+//
+// 示例值：
+func (builder *AppRecommendRuleItemInfoBuilder) I18nName(i18nName *AppRecommendRuleItemInfoI18nName) *AppRecommendRuleItemInfoBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+func (builder *AppRecommendRuleItemInfoBuilder) Build() *AppRecommendRuleItemInfo {
+	req := &AppRecommendRuleItemInfo{}
+	if builder.itemIdFlag {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.itemTypeFlag {
+		req.ItemType = &builder.itemType
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.linkUrlFlag {
+		req.LinkUrl = &builder.linkUrl
+
+	}
+	if builder.clientIdFlag {
+		req.ClientId = &builder.clientId
+
+	}
+	if builder.iconUrlFlag {
+		req.IconUrl = &builder.iconUrl
+
+	}
+	if builder.defaultLocaleFlag {
+		req.DefaultLocale = &builder.defaultLocale
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	return req
+}
+
+type AppRecommendRuleItemInfoI18nName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 应用项的简体中文名称
+	ZhHk *string `json:"zh_hk,omitempty"` // 应用项的繁体中文（中国香港）名称
+	ZhTw *string `json:"zh_tw,omitempty"` // 应用项的繁体中文（中国台湾）名称
+	EnUs *string `json:"en_us,omitempty"` // 应用项的英文名称
+	JaJp *string `json:"ja_jp,omitempty"` // 应用项的日文名称
+}
+
+type AppRecommendRuleItemInfoI18nNameBuilder struct {
+	zhCn     string // 应用项的简体中文名称
+	zhCnFlag bool
+	zhHk     string // 应用项的繁体中文（中国香港）名称
+	zhHkFlag bool
+	zhTw     string // 应用项的繁体中文（中国台湾）名称
+	zhTwFlag bool
+	enUs     string // 应用项的英文名称
+	enUsFlag bool
+	jaJp     string // 应用项的日文名称
+	jaJpFlag bool
+}
+
+func NewAppRecommendRuleItemInfoI18nNameBuilder() *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder := &AppRecommendRuleItemInfoI18nNameBuilder{}
+	return builder
+}
+
+// 应用项的简体中文名称
+//
+// 示例值：审批
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) ZhCn(zhCn string) *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 应用项的繁体中文（中国香港）名称
+//
+// 示例值：審批
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) ZhHk(zhHk string) *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder.zhHk = zhHk
+	builder.zhHkFlag = true
+	return builder
+}
+
+// 应用项的繁体中文（中国台湾）名称
+//
+// 示例值：審批
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) ZhTw(zhTw string) *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder.zhTw = zhTw
+	builder.zhTwFlag = true
+	return builder
+}
+
+// 应用项的英文名称
+//
+// 示例值：Approval
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) EnUs(enUs string) *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+// 应用项的日文名称
+//
+// 示例值：承認
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) JaJp(jaJp string) *AppRecommendRuleItemInfoI18nNameBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *AppRecommendRuleItemInfoI18nNameBuilder) Build() *AppRecommendRuleItemInfoI18nName {
+	req := &AppRecommendRuleItemInfoI18nName{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.zhHkFlag {
+		req.ZhHk = &builder.zhHk
+
+	}
+	if builder.zhTwFlag {
+		req.ZhTw = &builder.zhTw
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	return req
+}
+
+type AppRecommendRuleVisibilityInfo struct {
+	IsAll         *bool    `json:"is_all,omitempty"`         // 是否全员可见
+	DepartmentIds []string `json:"department_ids,omitempty"` // 可见部门 ID 列表
+	UserIds       []string `json:"user_ids,omitempty"`       // 可见用户 ID 列表
+	GroupIds      []string `json:"group_ids,omitempty"`      // 可见用户组 ID 列表
+}
+
+type AppRecommendRuleVisibilityInfoBuilder struct {
+	isAll             bool // 是否全员可见
+	isAllFlag         bool
+	departmentIds     []string // 可见部门 ID 列表
+	departmentIdsFlag bool
+	userIds           []string // 可见用户 ID 列表
+	userIdsFlag       bool
+	groupIds          []string // 可见用户组 ID 列表
+	groupIdsFlag      bool
+}
+
+func NewAppRecommendRuleVisibilityInfoBuilder() *AppRecommendRuleVisibilityInfoBuilder {
+	builder := &AppRecommendRuleVisibilityInfoBuilder{}
+	return builder
+}
+
+// 是否全员可见
+//
+// 示例值：true
+func (builder *AppRecommendRuleVisibilityInfoBuilder) IsAll(isAll bool) *AppRecommendRuleVisibilityInfoBuilder {
+	builder.isAll = isAll
+	builder.isAllFlag = true
+	return builder
+}
+
+// 可见部门 ID 列表
+//
+// 示例值：od-fef5204d44fa03fad66278cb8e8036e4
+func (builder *AppRecommendRuleVisibilityInfoBuilder) DepartmentIds(departmentIds []string) *AppRecommendRuleVisibilityInfoBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 可见用户 ID 列表
+//
+// 示例值：ou_35101d538d5b3ad10a5f3480f4c27972
+func (builder *AppRecommendRuleVisibilityInfoBuilder) UserIds(userIds []string) *AppRecommendRuleVisibilityInfoBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 可见用户组 ID 列表
+//
+// 示例值：7137608198773686291
+func (builder *AppRecommendRuleVisibilityInfoBuilder) GroupIds(groupIds []string) *AppRecommendRuleVisibilityInfoBuilder {
+	builder.groupIds = groupIds
+	builder.groupIdsFlag = true
+	return builder
+}
+
+func (builder *AppRecommendRuleVisibilityInfoBuilder) Build() *AppRecommendRuleVisibilityInfo {
+	req := &AppRecommendRuleVisibilityInfo{}
+	if builder.isAllFlag {
+		req.IsAll = &builder.isAll
+
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.groupIdsFlag {
+		req.GroupIds = builder.groupIds
 	}
 	return req
 }
@@ -2898,289 +3351,6 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 	return req
 }
 
-type ApplicationV2 struct {
-	AppId            *string           `json:"app_id,omitempty"`             // 应用的 id
-	CreatorId        *string           `json:"creator_id,omitempty"`         // 应用创建者（所有者）
-	Status           *int              `json:"status,omitempty"`             // 应用状态
-	SceneType        *int              `json:"scene_type,omitempty"`         // 应用类型
-	PaymentType      *int              `json:"payment_type,omitempty"`       // 付费类型
-	RedirectUrls     []string          `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
-	OnlineVersionId  *string           `json:"online_version_id,omitempty"`  // 发布在线上的应用版本
-	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"` // 在审核中的版本号信息，若没有则为空
-	AppName          *string           `json:"app_name,omitempty"`           // 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
-	AvatarUrl        *string           `json:"avatar_url,omitempty"`         // 应用图标链接
-	Description      *string           `json:"description,omitempty"`        // 应用默认描述
-	Scopes           []*AppScope       `json:"scopes,omitempty"`             // 应用权限列表
-	BackHomeUrl      *string           `json:"back_home_url,omitempty"`      // 后台主页地址
-	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`               // 应用的国际化信息列表
-	PrimaryLanguage  *string           `json:"primary_language,omitempty"`   // 应用主语言
-	CommonCategories []string          `json:"common_categories,omitempty"`  // 应用分类的国际化描述
-	Owner            *ApplicationOwner `json:"owner,omitempty"`              // 应用的所有者信息
-}
-
-type ApplicationV2Builder struct {
-	appId                string // 应用的 id
-	appIdFlag            bool
-	creatorId            string // 应用创建者（所有者）
-	creatorIdFlag        bool
-	status               int // 应用状态
-	statusFlag           bool
-	sceneType            int // 应用类型
-	sceneTypeFlag        bool
-	paymentType          int // 付费类型
-	paymentTypeFlag      bool
-	redirectUrls         []string // 安全设置中的重定向 URL
-	redirectUrlsFlag     bool
-	onlineVersionId      string // 发布在线上的应用版本
-	onlineVersionIdFlag  bool
-	unauditVersionId     string // 在审核中的版本号信息，若没有则为空
-	unauditVersionIdFlag bool
-	appName              string // 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
-	appNameFlag          bool
-	avatarUrl            string // 应用图标链接
-	avatarUrlFlag        bool
-	description          string // 应用默认描述
-	descriptionFlag      bool
-	scopes               []*AppScope // 应用权限列表
-	scopesFlag           bool
-	backHomeUrl          string // 后台主页地址
-	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo // 应用的国际化信息列表
-	i18nFlag             bool
-	primaryLanguage      string // 应用主语言
-	primaryLanguageFlag  bool
-	commonCategories     []string // 应用分类的国际化描述
-	commonCategoriesFlag bool
-	owner                *ApplicationOwner // 应用的所有者信息
-	ownerFlag            bool
-}
-
-func NewApplicationV2Builder() *ApplicationV2Builder {
-	builder := &ApplicationV2Builder{}
-	return builder
-}
-
-// 应用的 id
-//
-// 示例值：cli_9b445f5258795107
-func (builder *ApplicationV2Builder) AppId(appId string) *ApplicationV2Builder {
-	builder.appId = appId
-	builder.appIdFlag = true
-	return builder
-}
-
-// 应用创建者（所有者）
-//
-// 示例值：ou_d317f090b7258ad0372aa53963cda70d
-func (builder *ApplicationV2Builder) CreatorId(creatorId string) *ApplicationV2Builder {
-	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
-	return builder
-}
-
-// 应用状态
-//
-// 示例值：1
-func (builder *ApplicationV2Builder) Status(status int) *ApplicationV2Builder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-
-// 应用类型
-//
-// 示例值：0
-func (builder *ApplicationV2Builder) SceneType(sceneType int) *ApplicationV2Builder {
-	builder.sceneType = sceneType
-	builder.sceneTypeFlag = true
-	return builder
-}
-
-// 付费类型
-//
-// 示例值：0
-func (builder *ApplicationV2Builder) PaymentType(paymentType int) *ApplicationV2Builder {
-	builder.paymentType = paymentType
-	builder.paymentTypeFlag = true
-	return builder
-}
-
-// 安全设置中的重定向 URL
-//
-// 示例值：
-func (builder *ApplicationV2Builder) RedirectUrls(redirectUrls []string) *ApplicationV2Builder {
-	builder.redirectUrls = redirectUrls
-	builder.redirectUrlsFlag = true
-	return builder
-}
-
-// 发布在线上的应用版本
-//
-// 示例值：
-func (builder *ApplicationV2Builder) OnlineVersionId(onlineVersionId string) *ApplicationV2Builder {
-	builder.onlineVersionId = onlineVersionId
-	builder.onlineVersionIdFlag = true
-	return builder
-}
-
-// 在审核中的版本号信息，若没有则为空
-//
-// 示例值：
-func (builder *ApplicationV2Builder) UnauditVersionId(unauditVersionId string) *ApplicationV2Builder {
-	builder.unauditVersionId = unauditVersionId
-	builder.unauditVersionIdFlag = true
-	return builder
-}
-
-// 应用默认名称，如果没有对应语言下的名称，则返回默认语言下的名称
-//
-// 示例值：应用名称
-func (builder *ApplicationV2Builder) AppName(appName string) *ApplicationV2Builder {
-	builder.appName = appName
-	builder.appNameFlag = true
-	return builder
-}
-
-// 应用图标链接
-//
-// 示例值：https://sf1-ttcdn-tos.pstatp.com/img/avatar/d279000ca4d3f7f6aaff~72x72.jpg
-func (builder *ApplicationV2Builder) AvatarUrl(avatarUrl string) *ApplicationV2Builder {
-	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
-	return builder
-}
-
-// 应用默认描述
-//
-// 示例值：应用描述
-func (builder *ApplicationV2Builder) Description(description string) *ApplicationV2Builder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
-}
-
-// 应用权限列表
-//
-// 示例值：
-func (builder *ApplicationV2Builder) Scopes(scopes []*AppScope) *ApplicationV2Builder {
-	builder.scopes = scopes
-	builder.scopesFlag = true
-	return builder
-}
-
-// 后台主页地址
-//
-// 示例值：https://www.example.com
-func (builder *ApplicationV2Builder) BackHomeUrl(backHomeUrl string) *ApplicationV2Builder {
-	builder.backHomeUrl = backHomeUrl
-	builder.backHomeUrlFlag = true
-	return builder
-}
-
-// 应用的国际化信息列表
-//
-// 示例值：
-func (builder *ApplicationV2Builder) I18n(i18n []*AppI18nInfo) *ApplicationV2Builder {
-	builder.i18n = i18n
-	builder.i18nFlag = true
-	return builder
-}
-
-// 应用主语言
-//
-// 示例值：zh_cn
-func (builder *ApplicationV2Builder) PrimaryLanguage(primaryLanguage string) *ApplicationV2Builder {
-	builder.primaryLanguage = primaryLanguage
-	builder.primaryLanguageFlag = true
-	return builder
-}
-
-// 应用分类的国际化描述
-//
-// 示例值：
-func (builder *ApplicationV2Builder) CommonCategories(commonCategories []string) *ApplicationV2Builder {
-	builder.commonCategories = commonCategories
-	builder.commonCategoriesFlag = true
-	return builder
-}
-
-// 应用的所有者信息
-//
-// 示例值：
-func (builder *ApplicationV2Builder) Owner(owner *ApplicationOwner) *ApplicationV2Builder {
-	builder.owner = owner
-	builder.ownerFlag = true
-	return builder
-}
-
-func (builder *ApplicationV2Builder) Build() *ApplicationV2 {
-	req := &ApplicationV2{}
-	if builder.appIdFlag {
-		req.AppId = &builder.appId
-
-	}
-	if builder.creatorIdFlag {
-		req.CreatorId = &builder.creatorId
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.sceneTypeFlag {
-		req.SceneType = &builder.sceneType
-
-	}
-	if builder.paymentTypeFlag {
-		req.PaymentType = &builder.paymentType
-
-	}
-	if builder.redirectUrlsFlag {
-		req.RedirectUrls = builder.redirectUrls
-	}
-	if builder.onlineVersionIdFlag {
-		req.OnlineVersionId = &builder.onlineVersionId
-
-	}
-	if builder.unauditVersionIdFlag {
-		req.UnauditVersionId = &builder.unauditVersionId
-
-	}
-	if builder.appNameFlag {
-		req.AppName = &builder.appName
-
-	}
-	if builder.avatarUrlFlag {
-		req.AvatarUrl = &builder.avatarUrl
-
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-
-	}
-	if builder.scopesFlag {
-		req.Scopes = builder.scopes
-	}
-	if builder.backHomeUrlFlag {
-		req.BackHomeUrl = &builder.backHomeUrl
-
-	}
-	if builder.i18nFlag {
-		req.I18n = builder.i18n
-	}
-	if builder.primaryLanguageFlag {
-		req.PrimaryLanguage = &builder.primaryLanguage
-
-	}
-	if builder.commonCategoriesFlag {
-		req.CommonCategories = builder.commonCategories
-	}
-	if builder.ownerFlag {
-		req.Owner = builder.owner
-	}
-	return req
-}
-
 type Block struct {
 	BlockTypeId   *string          `json:"block_type_id,omitempty"`   // BlockTypeID
 	VersionId     *string          `json:"version_id,omitempty"`      // 上传 block 小程序的 version id
@@ -4771,7 +4941,7 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	return builder
 }
 
-// 应用的 app_id，需要查询其他应用信息时，必须申请[获取应用信息](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用信息时，可填入 "me" 或者应用自身 app_id
+// 应用的 app_id，需要查询其他应用信息时，必须申请[获取应用信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用信息时，可填入 "me" 或者应用自身 app_id
 //
 // 示例值：cli_9b445f5258795107
 func (builder *GetApplicationReqBuilder) AppId(appId string) *GetApplicationReqBuilder {
@@ -4967,7 +5137,7 @@ type OverviewApplicationAppUsageReqBodyBuilder struct {
 	dateFlag         bool
 	cycleType        int // 活跃周期的统计类型
 	cycleTypeFlag    bool
-	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	departmentIdFlag bool
 	ability          string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 	abilityFlag      bool
@@ -4996,7 +5166,7 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType in
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 //
 //示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsageReqBodyBuilder {
@@ -5036,7 +5206,7 @@ type OverviewApplicationAppUsagePathReqBodyBuilder struct {
 	dateFlag         bool
 	cycleType        int // 活跃周期的统计类型
 	cycleTypeFlag    bool
-	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	departmentIdFlag bool
 	ability          string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 	abilityFlag      bool
@@ -5065,7 +5235,7 @@ func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) CycleType(cycleTyp
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsagePathReqBodyBuilder {
@@ -5148,7 +5318,7 @@ func (builder *OverviewApplicationAppUsageReqBuilder) Build() *OverviewApplicati
 type OverviewApplicationAppUsageReqBody struct {
 	Date         *string `json:"date,omitempty"`          // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 	CycleType    *int    `json:"cycle_type,omitempty"`    // 活跃周期的统计类型
-	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	Ability      *string `json:"ability,omitempty"`       // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 }
 
@@ -5184,7 +5354,7 @@ func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder
 	return builder
 }
 
-// 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
+// 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
 //
 // 示例值：cli_9f3ca975326b501b
 func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetApplicationAppVersionReqBuilder {
@@ -5239,6 +5409,105 @@ type GetApplicationAppVersionResp struct {
 }
 
 func (resp *GetApplicationAppVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListApplicationAppVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListApplicationAppVersionReqBuilder() *ListApplicationAppVersionReqBuilder {
+	builder := &ListApplicationAppVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListApplicationAppVersionReqBuilder) Limit(limit int) *ListApplicationAppVersionReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 如果查询自身应用信息，可填入 "me" 或者应用自身 app_id。对应权限仅需申请“管理应用自身资源”。如需查询其他应用信息，必须申请获取应用信息权限，仅支持查询所在租户开发的自建应用。需要填入对应应用的appID。
+//
+// 示例值：cli_9b445f5258795107
+func (builder *ListApplicationAppVersionReqBuilder) AppId(appId string) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
+	return builder
+}
+
+// 应用信息的语言版本
+//
+// 示例值：zh_cn
+func (builder *ListApplicationAppVersionReqBuilder) Lang(lang string) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListApplicationAppVersionReqBuilder) PageSize(pageSize int) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：new-e3c5a0627cdf0c2e057da7257b90376a
+func (builder *ListApplicationAppVersionReqBuilder) PageToken(pageToken string) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 0：按照时间倒序 1：按照时间正序
+//
+// 示例值：0
+func (builder *ListApplicationAppVersionReqBuilder) Order(order int) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("order", fmt.Sprint(order))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListApplicationAppVersionReqBuilder) UserIdType(userIdType string) *ListApplicationAppVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListApplicationAppVersionReqBuilder) Build() *ListApplicationAppVersionReq {
+	req := &ListApplicationAppVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListApplicationAppVersionReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListApplicationAppVersionRespData struct {
+	Items     []*ApplicationAppVersion `json:"items,omitempty"`      // 应用版本列表
+	PageToken *string                  `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool                    `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListApplicationAppVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListApplicationAppVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListApplicationAppVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -5688,5 +5957,59 @@ func (iterator *UnderauditlistApplicationIterator) Next() (bool, *Application, e
 }
 
 func (iterator *UnderauditlistApplicationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListApplicationAppVersionIterator struct {
+	nextPageToken *string
+	items         []*ApplicationAppVersion
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListApplicationAppVersionReq
+	listFunc      func(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListApplicationAppVersionIterator) Next() (bool, *ApplicationAppVersion, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListApplicationAppVersionIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

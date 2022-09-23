@@ -122,6 +122,11 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 			httpRequest.Header.Add(k, v)
 		}
 	}
+	for k, vs := range config.Header {
+		for _, v := range vs {
+			httpRequest.Header.Add(k, v)
+		}
+	}
 	httpRequest.Header.Set(userAgentHeader, userAgent())
 	if contentType != "" {
 		httpRequest.Header.Set(contentTypeHeader, contentType)

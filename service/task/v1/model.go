@@ -154,7 +154,7 @@ type Comment struct {
 	ParentId        *string `json:"parent_id,omitempty"`         // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
 	Id              *string `json:"id,omitempty"`                // 评论ID，由飞书服务器发号
 	CreateMilliTime *string `json:"create_milli_time,omitempty"` // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
-	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 type CommentBuilder struct {
@@ -166,7 +166,7 @@ type CommentBuilder struct {
 	idFlag              bool
 	createMilliTime     string // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
 	createMilliTimeFlag bool
-	richContent         string // 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richContent         string // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richContentFlag     bool
 }
 
@@ -211,7 +211,7 @@ func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentB
 	return builder
 }
 
-// 富文本评论内容。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 //
 // 示例值：举杯邀明月，对影成三人<at id=7058204817822318612></at>
 func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
@@ -518,8 +518,8 @@ type Task struct {
 	CollaboratorIds []string        `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
 	FollowerIds     []string        `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
 	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务重复规则
-	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
-	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 type TaskBuilder struct {
@@ -559,9 +559,9 @@ type TaskBuilder struct {
 	followerIdsFlag     bool
 	repeatRule          string // 重复任务重复规则
 	repeatRuleFlag      bool
-	richSummary         string // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richSummary         string // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richSummaryFlag     bool
-	richDescription     string // 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richDescription     string // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richDescriptionFlag bool
 }
 
@@ -732,7 +732,7 @@ func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 	return builder
 }
 
-// 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 //
 // 示例值：每天喝八杯水，保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
@@ -741,7 +741,7 @@ func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 	return builder
 }
 
-// 富文本任务备注。语法格式参见[Markdown模块](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 //
 // 示例值：多吃水果，多运动，健康生活，快乐工作。\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichDescription(richDescription string) *TaskBuilder {

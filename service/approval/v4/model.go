@@ -53,12 +53,13 @@ const (
 )
 
 const (
-	StatusPending  = "PENDING"  // 审批中
-	StatusApproved = "APPROVED" // 审批流程结束，结果为同意
-	StatusRejected = "REJECTED" // 审批流程结束，结果为拒绝
-	StatusCanceled = "CANCELED" // 审批发起人撤回
-	StatusDeleted  = "DELETED"  // 审批被删除
-	StatusHidden   = "HIDDEN"   // 状态隐藏(不显示状态)
+	StatusPending    = "PENDING"    // 审批中
+	StatusApproved   = "APPROVED"   // 审批流程结束，结果为同意
+	StatusRejected   = "REJECTED"   // 审批流程结束，结果为拒绝
+	StatusCanceled   = "CANCELED"   // 审批发起人撤回
+	StatusDeleted    = "DELETED"    // 审批被删除
+	StatusHidden     = "HIDDEN"     // 状态隐藏(不显示状态)
+	StatusTerminated = "TERMINATED" // 审批终止
 )
 
 const (
@@ -353,6 +354,7 @@ func (builder *ActionConfigBuilder) Build() *ActionConfig {
 type Approval struct {
 	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code
 	ApprovalName *string `json:"approval_name,omitempty"` // 审批定义名称
+	Status       *string `json:"status,omitempty"`        // 审批定义状态
 }
 
 type ApprovalBuilder struct {
@@ -360,6 +362,8 @@ type ApprovalBuilder struct {
 	approvalCodeFlag bool
 	approvalName     string // 审批定义名称
 	approvalNameFlag bool
+	status           string // 审批定义状态
+	statusFlag       bool
 }
 
 func NewApprovalBuilder() *ApprovalBuilder {
@@ -385,6 +389,15 @@ func (builder *ApprovalBuilder) ApprovalName(approvalName string) *ApprovalBuild
 	return builder
 }
 
+// 审批定义状态
+//
+// 示例值：ACTIVE
+func (builder *ApprovalBuilder) Status(status string) *ApprovalBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
 func (builder *ApprovalBuilder) Build() *Approval {
 	req := &Approval{}
 	if builder.approvalCodeFlag {
@@ -393,6 +406,10 @@ func (builder *ApprovalBuilder) Build() *Approval {
 	}
 	if builder.approvalNameFlag {
 		req.ApprovalName = &builder.approvalName
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
 
 	}
 	return req
@@ -753,9 +770,9 @@ type ApprovalCreateExternal struct {
 	SupportBatchRead            *bool   `json:"support_batch_read,omitempty"`            // 是否支持批量已读
 	EnableMarkReaded            *bool   `json:"enable_mark_readed,omitempty"`            // 是否支持标注可读（该字段无效）
 	EnableQuickOperate          *bool   `json:"enable_quick_operate,omitempty"`          // 是否支持快速操作
-	ActionCallbackUrl           *string `json:"action_callback_url,omitempty"`           // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](/ssl:ttdoc/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
-	ActionCallbackToken         *string `json:"action_callback_token,omitempty"`         // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-	ActionCallbackKey           *string `json:"action_callback_key,omitempty"`           // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](/ssl:ttdoc/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+	ActionCallbackUrl           *string `json:"action_callback_url,omitempty"`           // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+	ActionCallbackToken         *string `json:"action_callback_token,omitempty"`         // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+	ActionCallbackKey           *string `json:"action_callback_key,omitempty"`           // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
 	AllowBatchOperate           *bool   `json:"allow_batch_operate,omitempty"`           // 是否支持批量审批
 	ExcludeEfficiencyStatistics *bool   `json:"exclude_efficiency_statistics,omitempty"` // 审批流程数据是否不纳入效率统计
 }
@@ -779,11 +796,11 @@ type ApprovalCreateExternalBuilder struct {
 	enableMarkReadedFlag            bool
 	enableQuickOperate              bool // 是否支持快速操作
 	enableQuickOperateFlag          bool
-	actionCallbackUrl               string // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](/ssl:ttdoc/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+	actionCallbackUrl               string // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
 	actionCallbackUrlFlag           bool
-	actionCallbackToken             string // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+	actionCallbackToken             string // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 	actionCallbackTokenFlag         bool
-	actionCallbackKey               string // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](/ssl:ttdoc/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+	actionCallbackKey               string // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
 	actionCallbackKeyFlag           bool
 	allowBatchOperate               bool // 是否支持批量审批
 	allowBatchOperateFlag           bool
@@ -877,7 +894,7 @@ func (builder *ApprovalCreateExternalBuilder) EnableQuickOperate(enableQuickOper
 	return builder
 }
 
-// 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](/ssl:ttdoc/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+// 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
 //
 // 示例值：http://www.feishu.cn/approval/openapi/instanceOperate
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUrl string) *ApprovalCreateExternalBuilder {
@@ -886,7 +903,7 @@ func (builder *ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUr
 	return builder
 }
 
-// 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // 示例值：sdjkljkx9lsadf110
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallbackToken string) *ApprovalCreateExternalBuilder {
@@ -895,7 +912,7 @@ func (builder *ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallback
 	return builder
 }
 
-// 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](/ssl:ttdoc/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+// 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
 //
 // 示例值：gfdqedvsadfgfsd
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackKey(actionCallbackKey string) *ApprovalCreateExternalBuilder {
@@ -2760,6 +2777,54 @@ func (builder *CountBuilder) Build() *Count {
 	return req
 }
 
+type Definition struct {
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+}
+
+type DefinitionBuilder struct {
+	approvalCode     string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	approvalCodeFlag bool
+	approvalName     string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+	approvalNameFlag bool
+}
+
+func NewDefinitionBuilder() *DefinitionBuilder {
+	builder := &DefinitionBuilder{}
+	return builder
+}
+
+// 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+//
+// 示例值：
+func (builder *DefinitionBuilder) ApprovalCode(approvalCode string) *DefinitionBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeFlag = true
+	return builder
+}
+
+// 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+//
+// 示例值：
+func (builder *DefinitionBuilder) ApprovalName(approvalName string) *DefinitionBuilder {
+	builder.approvalName = approvalName
+	builder.approvalNameFlag = true
+	return builder
+}
+
+func (builder *DefinitionBuilder) Build() *Definition {
+	req := &Definition{}
+	if builder.approvalCodeFlag {
+		req.ApprovalCode = &builder.approvalCode
+
+	}
+	if builder.approvalNameFlag {
+		req.ApprovalName = &builder.approvalName
+
+	}
+	return req
+}
+
 type ExteranlInstanceCheck struct {
 	InstanceId *string                 `json:"instance_id,omitempty"` // 审批实例 id
 	UpdateTime *string                 `json:"update_time,omitempty"` // 审批实例最近更新时间
@@ -3579,6 +3644,8 @@ type ExternalInstanceTaskNode struct {
 	ActionConfigs     []*ActionConfig       `json:"action_configs,omitempty"`     // 任务级别操作配置,快捷审批目前支持移动端操作
 	DisplayMethod     *string               `json:"display_method,omitempty"`     // 列表页打开审批任务的方式
 	ExcludeStatistics *bool                 `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计
+	NodeId            *string               `json:"node_id,omitempty"`            // 节点id
+	NodeName          *string               `json:"node_name,omitempty"`          // 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
 }
 
 type ExternalInstanceTaskNodeBuilder struct {
@@ -3610,6 +3677,10 @@ type ExternalInstanceTaskNodeBuilder struct {
 	displayMethodFlag     bool
 	excludeStatistics     bool // 三方任务支持不纳入效率统计
 	excludeStatisticsFlag bool
+	nodeId                string // 节点id
+	nodeIdFlag            bool
+	nodeName              string // 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	nodeNameFlag          bool
 }
 
 func NewExternalInstanceTaskNodeBuilder() *ExternalInstanceTaskNodeBuilder {
@@ -3743,6 +3814,24 @@ func (builder *ExternalInstanceTaskNodeBuilder) ExcludeStatistics(excludeStatist
 	return builder
 }
 
+// 节点id
+//
+// 示例值：
+func (builder *ExternalInstanceTaskNodeBuilder) NodeId(nodeId string) *ExternalInstanceTaskNodeBuilder {
+	builder.nodeId = nodeId
+	builder.nodeIdFlag = true
+	return builder
+}
+
+// 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+//
+// 示例值：
+func (builder *ExternalInstanceTaskNodeBuilder) NodeName(nodeName string) *ExternalInstanceTaskNodeBuilder {
+	builder.nodeName = nodeName
+	builder.nodeNameFlag = true
+	return builder
+}
+
 func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNode {
 	req := &ExternalInstanceTaskNode{}
 	if builder.taskIdFlag {
@@ -3797,6 +3886,14 @@ func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNod
 	}
 	if builder.excludeStatisticsFlag {
 		req.ExcludeStatistics = &builder.excludeStatistics
+
+	}
+	if builder.nodeIdFlag {
+		req.NodeId = &builder.nodeId
+
+	}
+	if builder.nodeNameFlag {
+		req.NodeName = &builder.nodeName
 
 	}
 	return req
@@ -5992,12 +6089,12 @@ func (builder *MessageBuilder) Build() *Message {
 }
 
 type NodeApprover struct {
-	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 	Value []string `json:"value,omitempty"` // value: 审批人列表
 }
 
 type NodeApproverBuilder struct {
-	key       string // node id 或 custom node id，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	key       string // node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 	keyFlag   bool
 	value     []string // value: 审批人列表
 	valueFlag bool
@@ -6008,7 +6105,7 @@ func NewNodeApproverBuilder() *NodeApproverBuilder {
 	return builder
 }
 
-// node id 或 custom node id，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+// node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 //
 // 示例值：46e6d96cfa756980907209209ec03b64
 func (builder *NodeApproverBuilder) Key(key string) *NodeApproverBuilder {
@@ -6039,12 +6136,12 @@ func (builder *NodeApproverBuilder) Build() *NodeApprover {
 }
 
 type NodeCc struct {
-	Key   *string  `json:"key,omitempty"`   // node id ，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	Key   *string  `json:"key,omitempty"`   // node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 	Value []string `json:"value,omitempty"` // value: 审批人列表
 }
 
 type NodeCcBuilder struct {
-	key       string // node id ，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	key       string // node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 	keyFlag   bool
 	value     []string // value: 审批人列表
 	valueFlag bool
@@ -6055,7 +6152,7 @@ func NewNodeCcBuilder() *NodeCcBuilder {
 	return builder
 }
 
-// node id ，通过 [查看审批定义](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+// node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 //
 // 示例值：46e6d96cfa756980907209209ec03b75
 func (builder *NodeCcBuilder) Key(key string) *NodeCcBuilder {
@@ -8382,6 +8479,80 @@ func (resp *GetApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListApprovalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListApprovalReqBuilder() *ListApprovalReqBuilder {
+	builder := &ListApprovalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListApprovalReqBuilder) Limit(limit int) *ListApprovalReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListApprovalReqBuilder) PageSize(pageSize int) *ListApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取下一页结果
+//
+// 示例值：
+func (builder *ListApprovalReqBuilder) PageToken(pageToken string) *ListApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 示例值："zh-CN" 可选值有： - zh-CN：中文 - en-US：英文 - ja-JP：日文 默认 "zh-CN"
+//
+// 示例值：
+func (builder *ListApprovalReqBuilder) Locale(locale string) *ListApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
+	return builder
+}
+
+func (builder *ListApprovalReqBuilder) Build() *ListApprovalReq {
+	req := &ListApprovalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListApprovalReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListApprovalRespData struct {
+	Items     []*Definition `json:"items,omitempty"`      //
+	PageToken *string       `json:"page_token,omitempty"` //
+	HasMore   *bool         `json:"has_more,omitempty"`   //
+}
+
+type ListApprovalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListApprovalRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
 type SubscribeApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -10680,6 +10851,60 @@ type P2ApprovalUpdatedV4 struct {
 
 func (m *P2ApprovalUpdatedV4) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
+}
+
+type ListApprovalIterator struct {
+	nextPageToken *string
+	items         []*Definition
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListApprovalReq
+	listFunc      func(ctx context.Context, req *ListApprovalReq, options ...larkcore.RequestOptionFunc) (*ListApprovalResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListApprovalIterator) Next() (bool, *Definition, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListApprovalIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListExternalTaskIterator struct {

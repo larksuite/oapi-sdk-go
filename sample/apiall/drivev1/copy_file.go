@@ -32,6 +32,7 @@ func main() {
 			Name("123.txt").
 			Type("file").
 			FolderToken("fldbcO1UuPz8VwnpPx5a92abcef").
+			Extra([]*larkdrive.Property{larkdrive.NewPropertyBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

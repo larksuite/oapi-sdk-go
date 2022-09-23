@@ -34,6 +34,7 @@ func main() {
 			FieldName("").
 			Type(1).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
+			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

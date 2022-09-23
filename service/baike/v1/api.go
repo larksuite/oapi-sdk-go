@@ -14,6 +14,7 @@
 package larkbaike
 
 import (
+	"bytes"
 	"context"
 	"net/http"
 
@@ -25,6 +26,7 @@ func NewService(config *larkcore.Config) *BaikeService {
 	b.Classification = &classification{service: b}
 	b.Draft = &draft{service: b}
 	b.Entity = &entity{service: b}
+	b.File = &file{service: b}
 	return b
 }
 
@@ -33,6 +35,7 @@ type BaikeService struct {
 	Classification *classification // 分类
 	Draft          *draft          // 草稿
 	Entity         *entity         // 词条
+	File           *file           // file
 }
 
 type classification struct {
@@ -42,6 +45,9 @@ type draft struct {
 	service *BaikeService
 }
 type entity struct {
+	service *BaikeService
+}
+type file struct {
 	service *BaikeService
 }
 
@@ -328,6 +334,65 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &UpdateEntityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=baike&resource=file&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/baikev1/download_file.go
+func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/baike/v1/files/:file_token/download"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DownloadFileResp{ApiResp: apiResp}
+	// 如果是下载，则设置响应结果
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=baike&resource=file&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/baikev1/upload_file.go
+func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkcore.RequestOptionFunc) (*UploadFileResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/baike/v1/files/upload"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UploadFileResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

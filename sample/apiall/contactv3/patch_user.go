@@ -52,6 +52,7 @@ func main() {
 			EnterpriseEmail("").
 			JobTitle("").
 			IsFrozen(false).
+			Geo("").
 			Build()).
 		Build()
 	// 发起请求

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v3.0.3
+Added
+- 初始化client时，提供withHeaders选项，让开发者设置一些在所有请求都是用的header，比如环境标
+
 ## v3.0.2
 Fixed
 - 修改枚举值名称为：methodName+resourceName+enumValue

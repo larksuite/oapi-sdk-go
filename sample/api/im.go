@@ -190,6 +190,7 @@ func sendTextMsg(client *lark.Client) {
 		Build()
 
 	header := make(http.Header)
+	header.Add("reqKey1", "reqValue1")
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
@@ -859,6 +860,8 @@ func sendRawImageReq(cli *lark.Client) {
 }
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	//header1 := make(http.Header)
+	//header1.Add("globalKey1", "globalValue1")
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
 		lark.WithLogReqAtDebug(true),

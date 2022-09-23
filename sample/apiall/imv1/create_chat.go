@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -28,7 +27,7 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkim.NewCreateChatReqBuilder().
-		UserIdType("user_id").
+		UserIdType("open_id").
 		SetBotManager(false).
 		Body(larkim.NewCreateChatReqBodyBuilder().
 			Avatar("default-avatar_44ae0ca3-e140-494b-956f-78091e348435").
@@ -44,6 +43,7 @@ func main() {
 			JoinMessageVisibility("all_members").
 			LeaveMessageVisibility("all_members").
 			MembershipApproval("no_approval_required").
+			ToolkitIds([]string{}).
 			Build()).
 		Build()
 	// 发起请求

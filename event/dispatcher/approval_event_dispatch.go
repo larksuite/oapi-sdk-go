@@ -17,13 +17,12 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
-
+// 
 //
+// - 
 //
-// -
-//
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
-func (dispatcher *EventDispatcher) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) *EventDispatcher {
+// - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) * EventDispatcher{
 	_, existed := dispatcher.eventType2EventHandler["approval.approval.updated_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "approval.approval.updated_v4")

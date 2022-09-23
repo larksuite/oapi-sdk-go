@@ -34,8 +34,6 @@ func main() {
 			NodeType("origin").
 			OriginNodeToken("").
 			Title("").
-			Creator("").
-			Owner("").
 			Build()).
 		Build()
 	// 发起请求

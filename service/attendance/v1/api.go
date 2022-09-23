@@ -41,17 +41,17 @@ func NewService(config *larkcore.Config) *AttendanceService {
 
 type AttendanceService struct {
 	config         *larkcore.Config
-	ApprovalInfo   *approvalInfo   // approval_info
+	ApprovalInfo   *approvalInfo   // 假勤审批
 	File           *file           // 文件
 	Group          *group          // 考勤组管理
 	Shift          *shift          // 考勤班次
 	UserApproval   *userApproval   // 假勤审批
 	UserDailyShift *userDailyShift // 考勤排班
-	UserFlow       *userFlow       // user_flow
+	UserFlow       *userFlow       // 考勤记录
 	UserSetting    *userSetting    // 用户设置
 	UserStatsData  *userStatsData  // 考勤统计
-	UserStatsField *userStatsField // user_stats_field
-	UserStatsView  *userStatsView  // user_stats_view
+	UserStatsField *userStatsField // 考勤统计
+	UserStatsView  *userStatsView  // 考勤统计
 	UserTask       *userTask       // 考勤记录
 	UserTaskRemedy *userTaskRemedy // 考勤补卡
 }
@@ -841,7 +841,7 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 
 // 通知补卡审批发起
 //
-// - 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口，将在三方审批系统中发起的补卡审批数据，写入到飞书考勤系统中，状态为审批中。写入后可以由[通知审批状态更新](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process) 进行状态更新
+// - 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口，将在三方审批系统中发起的补卡审批数据，写入到飞书考勤系统中，状态为审批中。写入后可以由[通知审批状态更新](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process) 进行状态更新
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create
 //

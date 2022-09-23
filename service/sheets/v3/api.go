@@ -34,7 +34,7 @@ func NewService(config *larkcore.Config) *SheetsService {
 type SheetsService struct {
 	config                              *larkcore.Config
 	Spreadsheet                         *spreadsheet                         // 表格
-	SpreadsheetSheet                    *spreadsheetSheet                    // 单元格
+	SpreadsheetSheet                    *spreadsheetSheet                    // 行列
 	SpreadsheetSheetFilter              *spreadsheetSheetFilter              // 筛选
 	SpreadsheetSheetFilterView          *spreadsheetSheetFilterView          // 筛选视图
 	SpreadsheetSheetFilterViewCondition *spreadsheetSheetFilterViewCondition // 筛选条件
@@ -86,6 +86,58 @@ func (s *spreadsheet) Create(ctx context.Context, req *CreateSpreadsheetReq, opt
 	return resp, err
 }
 
+// 获取电子表格信息
+//
+// - 该接口用于获取电子表格的基础信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/sheetsv3/get_spreadsheet.go
+func (s *spreadsheet) Get(ctx context.Context, req *GetSpreadsheetReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetSpreadsheetResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 修改电子表格属性
+//
+// - 该接口用于修改电子表格的属性
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/sheetsv3/patch_spreadsheet.go
+func (s *spreadsheet) Patch(ctx context.Context, req *PatchSpreadsheetReq, options ...larkcore.RequestOptionFunc) (*PatchSpreadsheetResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchSpreadsheetResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 查找单元格
 //
 // - 按照指定的条件查找子表的某个范围内的数据符合条件的单元格位置。请求体中的 range 和 find 字段为必填。
@@ -112,6 +164,32 @@ func (s *spreadsheetSheet) Find(ctx context.Context, req *FindSpreadsheetSheetRe
 	return resp, err
 }
 
+// 查询工作表
+//
+// - 该接口用于通过工作表ID查询工作表属性信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/sheetsv3/get_spreadsheetSheet.go
+func (s *spreadsheetSheet) Get(ctx context.Context, req *GetSpreadsheetSheetReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetSheetResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetSpreadsheetSheetResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 移动行列
 //
 // - 该接口用于移动行列，行列被移动到目标位置后，原本在目标位置的行列会对应右移或下移。
@@ -131,6 +209,32 @@ func (s *spreadsheetSheet) MoveDimension(ctx context.Context, req *MoveDimension
 	}
 	// 反序列响应结果
 	resp := &MoveDimensionSpreadsheetSheetResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取工作表
+//
+// - 该接口用于获取电子表格下所有工作表及其属性。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/sheetsv3/query_spreadsheetSheet.go
+func (s *spreadsheetSheet) Query(ctx context.Context, req *QuerySpreadsheetSheetReq, options ...larkcore.RequestOptionFunc) (*QuerySpreadsheetSheetResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/query"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QuerySpreadsheetSheetResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
@@ -168,7 +272,7 @@ func (s *spreadsheetSheet) Replace(ctx context.Context, req *ReplaceSpreadsheetS
 //
 // - 在子表内创建筛选。
 //
-// - 参数值可参考[筛选指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
+// - 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/create
 //
@@ -248,7 +352,7 @@ func (s *spreadsheetSheetFilter) Get(ctx context.Context, req *GetSpreadsheetShe
 //
 // - 更新子表筛选范围中的列筛选条件。
 //
-// - 参数值可参考[筛选指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
+// - 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/update
 //
@@ -276,7 +380,7 @@ func (s *spreadsheetSheetFilter) Update(ctx context.Context, req *UpdateSpreadsh
 //
 // - 根据传入的参数创建一个筛选视图。Id 和 名字可选，不填的话会默认生成；range 必填。Id 长度为10，由 0-9、a-z、A-Z 组合生成。名字长度不超过100。单个子表内的筛选视图个数不超过 150。
 //
-// - 筛选范围的设置参考：[筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选范围的设置参考：[筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/create
 //
@@ -356,7 +460,7 @@ func (s *spreadsheetSheetFilterView) Get(ctx context.Context, req *GetSpreadshee
 //
 // - 更新筛选视图的名字或者筛选范围。名字长度不超过100，不能重复即子表内唯一；筛选范围不超过子表的最大范围。
 //
-// - 筛选范围的设置参考：[筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选范围的设置参考：[筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/patch
 //
@@ -410,7 +514,7 @@ func (s *spreadsheetSheetFilterView) Query(ctx context.Context, req *QuerySpread
 //
 // - 在筛选视图的筛选范围的某一列创建筛选条件。
 //
-// - 筛选条件参考 [筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选条件参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/create
 //
@@ -464,7 +568,7 @@ func (s *spreadsheetSheetFilterViewCondition) Delete(ctx context.Context, req *D
 //
 // - 获取筛选视图某列的筛选条件信息。
 //
-// - 筛选条件含义参考 [筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选条件含义参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/get
 //
@@ -492,7 +596,7 @@ func (s *spreadsheetSheetFilterViewCondition) Get(ctx context.Context, req *GetS
 //
 // - 查询一个筛选视图的所有筛选条件，返回筛选视图的筛选范围内的筛选条件。
 //
-// - 筛选条件含义可参考 [筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选条件含义可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/query
 //
@@ -520,7 +624,7 @@ func (s *spreadsheetSheetFilterViewCondition) Query(ctx context.Context, req *Qu
 //
 // - 更新筛选视图范围的某列的筛选条件，condition id 即为列的字母号。
 //
-// - 筛选条件参数可参考 [筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// - 筛选条件参数可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/update
 //
@@ -546,9 +650,9 @@ func (s *spreadsheetSheetFilterViewCondition) Update(ctx context.Context, req *U
 
 // 创建浮动图片
 //
-// - 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
+// - 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
 //
-// - 浮动图片的设置参考：[浮动图片指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// - 浮动图片的设置参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/create
 //
@@ -602,7 +706,7 @@ func (s *spreadsheetSheetFloatImage) Delete(ctx context.Context, req *DeleteSpre
 //
 // - 根据 float_image_id 获取对应浮动图片的信息。
 //
-// - 浮动图片参考：[浮动图片指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// - 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/get
 //
@@ -630,7 +734,7 @@ func (s *spreadsheetSheetFloatImage) Get(ctx context.Context, req *GetSpreadshee
 //
 // - 更新已有的浮动图片位置和宽高，包括 range、width、height、offset_x 和 offset_y，不包括 float_image_id 和 float_image_token。
 //
-// - 浮动图片更新参考：[浮动图片指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// - 浮动图片更新参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/patch
 //
@@ -658,7 +762,7 @@ func (s *spreadsheetSheetFloatImage) Patch(ctx context.Context, req *PatchSpread
 //
 // - 返回子表内所有的浮动图片信息。
 //
-// - 浮动图片参考：[浮动图片指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// - 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query
 //

@@ -42,6 +42,7 @@ func main() {
 			JoinMessageVisibility("only_owner").
 			LeaveMessageVisibility("only_owner").
 			MembershipApproval("no_approval_required").
+			ToolkitIds([]string{}).
 			Build()).
 		Build()
 	// 发起请求

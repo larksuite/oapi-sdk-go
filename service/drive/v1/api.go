@@ -43,11 +43,11 @@ type DriveService struct {
 	File             *file             // 分片上传
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
-	FileStatistics   *fileStatistics   // file.statistics
+	FileStatistics   *fileStatistics   // 文件
 	FileSubscription *fileSubscription // 订阅
 	ImportTask       *importTask       // 导入
 	Media            *media            // 分片上传
-	Meta             *meta             // meta
+	Meta             *meta             // 文件
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
 }
@@ -232,7 +232,7 @@ func (f *file) CreateFolder(ctx context.Context, req *CreateFolderFileReq, optio
 //
 // - 要删除文件需要确保应用具有下述两种权限之一：;1. 该应用是文件所有者并且具有该文件所在父文件夹的编辑权限。;2. 该应用并非文件所有者，但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
 //
-// - 该接口不支持并发调用，且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id，可以使用[task_check](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
+// - 该接口不支持并发调用，且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id，可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete
 //
@@ -344,7 +344,7 @@ func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.R
 
 // 订阅云文档事件
 //
-// - 该接口仅支持**文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 该接口**仅支持文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
 //
@@ -398,7 +398,7 @@ func (f *file) TaskCheck(ctx context.Context, req *TaskCheckFileReq, options ...
 //
 // - 向云空间指定目录下上传一个小文件。
 //
-// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
+// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
 // - 该接口支持调用频率上限为5QPS
 //
@@ -784,7 +784,7 @@ func (f *fileSubscription) Patch(ctx context.Context, req *PatchFileSubscription
 
 // 创建导入任务
 //
-// - 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
+// - 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create
 //
@@ -900,7 +900,7 @@ func (m *media) Download(ctx context.Context, req *DownloadMediaReq, options ...
 //
 // - 将文件、图片、视频等素材文件上传到指定云文档中。素材文件在云空间中不会显示，只会显示在对应云文档中。
 //
-// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
+// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
 //
 // - 该接口支持调用频率上限为5QPS
 //
@@ -1096,7 +1096,7 @@ func (p *permissionMember) Delete(ctx context.Context, req *DeletePermissionMemb
 //
 // - 该接口用于根据 filetoken 更新文档协作者的权限。
 //
-// - 该接口要求文档协作者已存在，如还未对文档协作者授权请先调用[「增加权限」 ](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
+// - 该接口要求文档协作者已存在，如还未对文档协作者授权请先调用[「增加权限」 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/update
 //

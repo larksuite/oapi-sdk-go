@@ -29,6 +29,7 @@ func main() {
 	req := larkmail.NewUpdateMailgroupReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		Mailgroup(larkmail.NewMailgroupBuilder().
+			Email("test_mail_group@xxx.xx").
 			Name("test mail group").
 			Description("mail group for testing").
 			WhoCanSendMail("ALL_INTERNAL_USERS").

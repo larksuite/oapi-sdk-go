@@ -14,6 +14,7 @@
 package larkvc
 
 import (
+	"bytes"
 	"context"
 	"net/http"
 
@@ -22,6 +23,7 @@ import (
 
 func NewService(config *larkcore.Config) *VcService {
 	v := &VcService{config: config}
+	v.Alert = &alert{service: v}
 	v.Export = &export{service: v}
 	v.Meeting = &meeting{service: v}
 	v.MeetingRecording = &meetingRecording{service: v}
@@ -33,6 +35,7 @@ func NewService(config *larkcore.Config) *VcService {
 
 type VcService struct {
 	config           *larkcore.Config
+	Alert            *alert            // alert
 	Export           *export           // 导出
 	Meeting          *meeting          // 会议
 	MeetingRecording *meetingRecording // 录制
@@ -41,6 +44,9 @@ type VcService struct {
 	RoomConfig       *roomConfig       // 会议室配置
 }
 
+type alert struct {
+	service *VcService
+}
 type export struct {
 	service *VcService
 }
@@ -58,6 +64,72 @@ type reserve struct {
 }
 type roomConfig struct {
 	service *VcService
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=vc&resource=alert&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/list_alert.go
+func (a *alert) List(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/alerts"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAlertResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *alert) ListByIterator(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertIterator, error) {
+	return &ListAlertIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=vc&resource=export&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/download_export.go
+func (e *export) Download(ctx context.Context, req *DownloadExportReq, options ...larkcore.RequestOptionFunc) (*DownloadExportResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/exports/download"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DownloadExportResp{ApiResp: apiResp}
+	// 如果是下载，则设置响应结果
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // 查询导出任务结果

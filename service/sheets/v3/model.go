@@ -19,6 +19,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
 type AddSheet struct {
 	Title *string `json:"title,omitempty"` // 工作表标题
 	Index *int    `json:"index,omitempty"` // 工作表位置
@@ -2183,11 +2189,11 @@ func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 }
 
 type RichValue struct {
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据
 }
 
 type RichValueBuilder struct {
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values     [][][]*CellValue // 数据
 	valuesFlag bool
 }
 
@@ -2196,7 +2202,7 @@ func NewRichValueBuilder() *RichValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+// 数据
 //
 // 示例值：数据
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {
@@ -2642,7 +2648,7 @@ func (builder *SheetPropertiesBuilder) Build() *SheetProperties {
 
 type Spreadsheet struct {
 	Title            *string `json:"title,omitempty"`             // 表格标题
-	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	Url              *string `json:"url,omitempty"`               // 文档url
 	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 表格token
 }
@@ -2650,7 +2656,7 @@ type Spreadsheet struct {
 type SpreadsheetBuilder struct {
 	title                string // 表格标题
 	titleFlag            bool
-	folderToken          string // 文件夹token，获取方式见[概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	folderToken          string // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	folderTokenFlag      bool
 	url                  string // 文档url
 	urlFlag              bool
@@ -2672,7 +2678,7 @@ func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	return builder
 }
 
-// 文件夹token，获取方式见[概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
 // 示例值：fldcnMsNb*****hIW9IjG1LVswg
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
@@ -2942,13 +2948,13 @@ func (builder *UpdateSpreadsheetPropertiesBuilder) Build() *UpdateSpreadsheetPro
 
 type Value struct {
 	Range  *string          `json:"range,omitempty"`  // 范围
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 }
 
 type ValueBuilder struct {
 	range_     string // 范围
 	rangeFlag  bool
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 	valuesFlag bool
 }
 
@@ -2966,7 +2972,7 @@ func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 //
 // 示例值：[]
 func (builder *ValueBuilder) Values(values [][][]*CellValue) *ValueBuilder {
@@ -3065,6 +3071,111 @@ func (resp *CreateSpreadsheetResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetSpreadsheetReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetSpreadsheetReqBuilder() *GetSpreadsheetReqBuilder {
+	builder := &GetSpreadsheetReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 表格的token
+//
+// 示例值：shtxxxxxxxxxxxxxxx
+func (builder *GetSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetReqBuilder {
+	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetSpreadsheetReqBuilder) UserIdType(userIdType string) *GetSpreadsheetReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetSpreadsheetReqBuilder) Build() *GetSpreadsheetReq {
+	req := &GetSpreadsheetReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetSpreadsheetReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetSpreadsheetRespData struct {
+	Spreadsheet *GetSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格属性
+}
+
+type GetSpreadsheetResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetSpreadsheetRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetSpreadsheetResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchSpreadsheetReqBuilder struct {
+	apiReq                      *larkcore.ApiReq
+	updateSpreadsheetProperties *UpdateSpreadsheetProperties
+}
+
+func NewPatchSpreadsheetReqBuilder() *PatchSpreadsheetReqBuilder {
+	builder := &PatchSpreadsheetReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 表格的token
+//
+// 示例值：shtxxxxxxxxxxxxxxx
+func (builder *PatchSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetReqBuilder {
+	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	return builder
+}
+
+// 该接口用于修改电子表格的属性
+func (builder *PatchSpreadsheetReqBuilder) UpdateSpreadsheetProperties(updateSpreadsheetProperties *UpdateSpreadsheetProperties) *PatchSpreadsheetReqBuilder {
+	builder.updateSpreadsheetProperties = updateSpreadsheetProperties
+	return builder
+}
+
+func (builder *PatchSpreadsheetReqBuilder) Build() *PatchSpreadsheetReq {
+	req := &PatchSpreadsheetReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.updateSpreadsheetProperties
+	return req
+}
+
+type PatchSpreadsheetReq struct {
+	apiReq                      *larkcore.ApiReq
+	UpdateSpreadsheetProperties *UpdateSpreadsheetProperties `body:""`
+}
+
+type PatchSpreadsheetResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchSpreadsheetResp) Success() bool {
+	return resp.Code == 0
+}
+
 type FindSpreadsheetSheetReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	find   *Find
@@ -3128,6 +3239,60 @@ func (resp *FindSpreadsheetSheetResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetSpreadsheetSheetReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetSpreadsheetSheetReqBuilder() *GetSpreadsheetSheetReqBuilder {
+	builder := &GetSpreadsheetSheetReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 电子表格的token
+//
+// 示例值：shtxxxxxxxxxxxxxxx
+func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetReqBuilder {
+	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	return builder
+}
+
+// 工作表的id
+//
+// 示例值：giDk9k
+func (builder *GetSpreadsheetSheetReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetReqBuilder {
+	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	return builder
+}
+
+func (builder *GetSpreadsheetSheetReqBuilder) Build() *GetSpreadsheetSheetReq {
+	req := &GetSpreadsheetSheetReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetSpreadsheetSheetReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetSpreadsheetSheetRespData struct {
+	Sheet *Sheet `json:"sheet,omitempty"` // 工作表
+}
+
+type GetSpreadsheetSheetResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetSpreadsheetSheetRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetSpreadsheetSheetResp) Success() bool {
+	return resp.Code == 0
+}
+
 type MoveDimensionSpreadsheetSheetReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	moveDimension *MoveDimension
@@ -3183,6 +3348,52 @@ type MoveDimensionSpreadsheetSheetResp struct {
 }
 
 func (resp *MoveDimensionSpreadsheetSheetResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QuerySpreadsheetSheetReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewQuerySpreadsheetSheetReqBuilder() *QuerySpreadsheetSheetReqBuilder {
+	builder := &QuerySpreadsheetSheetReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 电子表格的token
+//
+// 示例值：shtxxxxxxxxxxxxxxxx
+func (builder *QuerySpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetReqBuilder {
+	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	return builder
+}
+
+func (builder *QuerySpreadsheetSheetReqBuilder) Build() *QuerySpreadsheetSheetReq {
+	req := &QuerySpreadsheetSheetReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type QuerySpreadsheetSheetReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type QuerySpreadsheetSheetRespData struct {
+	Sheets []*Sheet `json:"sheets,omitempty"` // 工作表列表
+}
+
+type QuerySpreadsheetSheetResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QuerySpreadsheetSheetRespData `json:"data"` // 业务数据
+}
+
+func (resp *QuerySpreadsheetSheetResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -4152,7 +4363,7 @@ func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId strin
 	return builder
 }
 
-// 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
+// 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder.floatImage = floatImage
 	return builder

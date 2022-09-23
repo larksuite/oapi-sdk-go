@@ -141,7 +141,7 @@ func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...la
 
 // 获取知识空间列表
 //
-// - 此接口用于获取有权限访问的知识空间列表。;;此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。;;对于知识空间各项属性描述请参阅[获取知识空间信息](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
+// - 此接口用于获取有权限访问的知识空间列表。;;此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。;;对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
 //
 // - 使用tenant access token调用时，请确认应用/机器人拥有部分知识空间的访问权限，否则返回列表容易为空。
 //
@@ -355,7 +355,7 @@ func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...
 //
 // - ### 移动操作 ###;移动后，文档将从“我的空间”或“共享空间”转移至“知识库”，并将从以下功能入口消失：;- 云空间主页：最近访问、快速访问;- 我的空间;- 共享空间;- 收藏;;### 权限变更 ###;移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。;</md-alert
 //
-// - 仅支持文档所有者发起请求;;此接口为异步接口。若移动已完成（或节点已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
+// - 仅支持文档所有者发起请求;;此接口为异步接口。若移动已完成（或节点已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki
 //

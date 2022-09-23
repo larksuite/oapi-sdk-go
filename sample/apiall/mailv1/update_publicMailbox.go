@@ -29,6 +29,7 @@ func main() {
 	req := larkmail.NewUpdatePublicMailboxReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
 		PublicMailbox(larkmail.NewPublicMailboxBuilder().
+			Email("test_public_mailbox@xxx.xx").
 			Name("test public mailbox").
 			Build()).
 		Build()

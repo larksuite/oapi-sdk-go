@@ -34,9 +34,9 @@ type ApplicationService struct {
 	config                *larkcore.Config
 	Application           *application           // 应用
 	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
-	ApplicationAppVersion *applicationAppVersion // 事件
+	ApplicationAppVersion *applicationAppVersion // 应用
 	ApplicationFeedback   *applicationFeedback   // 应用反馈
-	ApplicationVisibility *applicationVisibility // 事件
+	ApplicationVisibility *applicationVisibility // application.visibility
 }
 
 type application struct {
@@ -193,6 +193,40 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 		return nil, err
 	}
 	return resp, err
+}
+
+//
+//
+// - 获取应用版本列表
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=application.app_version&version=v6
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationAppVersion.go
+func (a *applicationAppVersion) List(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/application/v6/applications/:app_id/app_versions"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListApplicationAppVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *applicationAppVersion) ListByIterator(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionIterator, error) {
+	return &ListApplicationAppVersionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 更新应用审核状态

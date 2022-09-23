@@ -188,6 +188,14 @@ func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *
 	return builder
 }
 
+// desc
+//
+// 示例值：
+func (builder *CreateMotoReqBuilder) UserIdType(userIdType string) *CreateMotoReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 //
 func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 	builder.level = level

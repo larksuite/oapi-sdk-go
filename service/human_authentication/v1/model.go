@@ -213,7 +213,7 @@ func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	return builder
 }
 
-// 用户的唯一标识（使用的ID类型见下一参数描述，不同ID类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](/ssl:ttdoc/home/user-identity-introduction/how-to-get)）
+// 用户的唯一标识（使用的ID类型见下一参数描述，不同ID类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）
 //
 // 示例值：ou_2eb5483cb377daa5054bc6f86e2089a5
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {

@@ -1948,7 +1948,7 @@ func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmploy
 	return builder
 }
 
-// user_id、open_id 或 union_id，默认为 open_id。;;如果传入的值不是 open_id，需要一并传入 user_id_type 参数。;;可一次查询多个 id 的用户，例如：user_ids=ou_8ebd4f35d7101ffdeb4771d7c8ec517e&user_ids=ou_7abc4f35d7101ffdeb4771dabcde;;[用户相关的 ID 概念](/ssl:ttdoc/home/user-identity-introduction/introduction)
+// user_id、open_id 或 union_id，默认为 open_id。;;如果传入的值不是 open_id，需要一并传入 user_id_type 参数。;;可一次查询多个 id 的用户，例如：user_ids=ou_8ebd4f35d7101ffdeb4771d7c8ec517e&user_ids=ou_7abc4f35d7101ffdeb4771dabcde;;[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：ou_8ebd4f35d7101ffdeb4771d7c8ec517e
 func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeReqBuilder {

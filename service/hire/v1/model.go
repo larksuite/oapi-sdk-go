@@ -49,6 +49,13 @@ const (
 )
 
 const (
+	Type附件简历  = 1 // 附件简历
+	Type候选人作品 = 2 // 候选人作品
+	Type自定义附件 = 3 // 自定义附件
+
+)
+
+const (
 	UserIdTypeGetEmployeeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeGetEmployeeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以open_id来识别用户
@@ -10579,6 +10586,164 @@ func (builder *IdentificationBuilder) Build() *Identification {
 	return req
 }
 
+type InternOfferOffboardingInfo struct {
+	ActualOffboardingDate *string `json:"actual_offboarding_date,omitempty"` // 实际离职日期（实际离职日期需晚于实际入职日期）
+	Notes                 *string `json:"notes,omitempty"`                   // 备注
+}
+
+type InternOfferOffboardingInfoBuilder struct {
+	actualOffboardingDate     string // 实际离职日期（实际离职日期需晚于实际入职日期）
+	actualOffboardingDateFlag bool
+	notes                     string // 备注
+	notesFlag                 bool
+}
+
+func NewInternOfferOffboardingInfoBuilder() *InternOfferOffboardingInfoBuilder {
+	builder := &InternOfferOffboardingInfoBuilder{}
+	return builder
+}
+
+// 实际离职日期（实际离职日期需晚于实际入职日期）
+//
+// 示例值：2022-03-02
+func (builder *InternOfferOffboardingInfoBuilder) ActualOffboardingDate(actualOffboardingDate string) *InternOfferOffboardingInfoBuilder {
+	builder.actualOffboardingDate = actualOffboardingDate
+	builder.actualOffboardingDateFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：主动离职
+func (builder *InternOfferOffboardingInfoBuilder) Notes(notes string) *InternOfferOffboardingInfoBuilder {
+	builder.notes = notes
+	builder.notesFlag = true
+	return builder
+}
+
+func (builder *InternOfferOffboardingInfoBuilder) Build() *InternOfferOffboardingInfo {
+	req := &InternOfferOffboardingInfo{}
+	if builder.actualOffboardingDateFlag {
+		req.ActualOffboardingDate = &builder.actualOffboardingDate
+
+	}
+	if builder.notesFlag {
+		req.Notes = &builder.notes
+
+	}
+	return req
+}
+
+type InternOfferOnboardingInfo struct {
+	ActualOnboardingDate *string `json:"actual_onboarding_date,omitempty"` // 实际入职日期
+}
+
+type InternOfferOnboardingInfoBuilder struct {
+	actualOnboardingDate     string // 实际入职日期
+	actualOnboardingDateFlag bool
+}
+
+func NewInternOfferOnboardingInfoBuilder() *InternOfferOnboardingInfoBuilder {
+	builder := &InternOfferOnboardingInfoBuilder{}
+	return builder
+}
+
+// 实际入职日期
+//
+// 示例值：2022-01-01
+func (builder *InternOfferOnboardingInfoBuilder) ActualOnboardingDate(actualOnboardingDate string) *InternOfferOnboardingInfoBuilder {
+	builder.actualOnboardingDate = actualOnboardingDate
+	builder.actualOnboardingDateFlag = true
+	return builder
+}
+
+func (builder *InternOfferOnboardingInfoBuilder) Build() *InternOfferOnboardingInfo {
+	req := &InternOfferOnboardingInfo{}
+	if builder.actualOnboardingDateFlag {
+		req.ActualOnboardingDate = &builder.actualOnboardingDate
+
+	}
+	return req
+}
+
+type InternOfferStatus struct {
+	OfferId         *string                     `json:"offer_id,omitempty"`         // Offer ID
+	Operation       *string                     `json:"operation,omitempty"`        // 更新入/离职状态的操作
+	OnboardingInfo  *InternOfferOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息（当 operation 为 confirm_onboarding 时，该字段必填）
+	OffboardingInfo *InternOfferOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息（当 operation 为 offboard 时，该字段必填）
+}
+
+type InternOfferStatusBuilder struct {
+	offerId             string // Offer ID
+	offerIdFlag         bool
+	operation           string // 更新入/离职状态的操作
+	operationFlag       bool
+	onboardingInfo      *InternOfferOnboardingInfo // 入职表单信息（当 operation 为 confirm_onboarding 时，该字段必填）
+	onboardingInfoFlag  bool
+	offboardingInfo     *InternOfferOffboardingInfo // 离职表单信息（当 operation 为 offboard 时，该字段必填）
+	offboardingInfoFlag bool
+}
+
+func NewInternOfferStatusBuilder() *InternOfferStatusBuilder {
+	builder := &InternOfferStatusBuilder{}
+	return builder
+}
+
+// Offer ID
+//
+// 示例值：6949805467799537964
+func (builder *InternOfferStatusBuilder) OfferId(offerId string) *InternOfferStatusBuilder {
+	builder.offerId = offerId
+	builder.offerIdFlag = true
+	return builder
+}
+
+// 更新入/离职状态的操作
+//
+// 示例值：confirm_onboarding
+func (builder *InternOfferStatusBuilder) Operation(operation string) *InternOfferStatusBuilder {
+	builder.operation = operation
+	builder.operationFlag = true
+	return builder
+}
+
+// 入职表单信息（当 operation 为 confirm_onboarding 时，该字段必填）
+//
+// 示例值：
+func (builder *InternOfferStatusBuilder) OnboardingInfo(onboardingInfo *InternOfferOnboardingInfo) *InternOfferStatusBuilder {
+	builder.onboardingInfo = onboardingInfo
+	builder.onboardingInfoFlag = true
+	return builder
+}
+
+// 离职表单信息（当 operation 为 offboard 时，该字段必填）
+//
+// 示例值：
+func (builder *InternOfferStatusBuilder) OffboardingInfo(offboardingInfo *InternOfferOffboardingInfo) *InternOfferStatusBuilder {
+	builder.offboardingInfo = offboardingInfo
+	builder.offboardingInfoFlag = true
+	return builder
+}
+
+func (builder *InternOfferStatusBuilder) Build() *InternOfferStatus {
+	req := &InternOfferStatus{}
+	if builder.offerIdFlag {
+		req.OfferId = &builder.offerId
+
+	}
+	if builder.operationFlag {
+		req.Operation = &builder.operation
+
+	}
+	if builder.onboardingInfoFlag {
+		req.OnboardingInfo = builder.onboardingInfo
+	}
+	if builder.offboardingInfoFlag {
+		req.OffboardingInfo = builder.offboardingInfo
+	}
+	return req
+}
+
 type InternshipInfo struct {
 	CareerType *int    `json:"career_type,omitempty"` // 类型
 	Company    *string `json:"company,omitempty"`     // 公司
@@ -16702,6 +16867,7 @@ type Offer struct {
 	SalaryPlan    *ApplicationOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
 	SchemaId      *string                     `json:"schema_id,omitempty"`      // 当前 Offer 使用的 Schema
 	OfferStatus   *int                        `json:"offer_status,omitempty"`   // Offer 状态
+	OfferType     *int                        `json:"offer_type,omitempty"`     // Offer 类型
 	JobInfo       *OfferJobInfo               `json:"job_info,omitempty"`       // 职位信息
 }
 
@@ -16718,6 +16884,8 @@ type OfferBuilder struct {
 	schemaIdFlag      bool
 	offerStatus       int // Offer 状态
 	offerStatusFlag   bool
+	offerType         int // Offer 类型
+	offerTypeFlag     bool
 	jobInfo           *OfferJobInfo // 职位信息
 	jobInfoFlag       bool
 }
@@ -16781,6 +16949,15 @@ func (builder *OfferBuilder) OfferStatus(offerStatus int) *OfferBuilder {
 	return builder
 }
 
+// Offer 类型
+//
+// 示例值：
+func (builder *OfferBuilder) OfferType(offerType int) *OfferBuilder {
+	builder.offerType = offerType
+	builder.offerTypeFlag = true
+	return builder
+}
+
 // 职位信息
 //
 // 示例值：
@@ -16812,6 +16989,10 @@ func (builder *OfferBuilder) Build() *Offer {
 	}
 	if builder.offerStatusFlag {
 		req.OfferStatus = &builder.offerStatus
+
+	}
+	if builder.offerTypeFlag {
+		req.OfferType = &builder.offerType
 
 	}
 	if builder.jobInfoFlag {
@@ -18206,6 +18387,7 @@ type OfferInfo struct {
 	OfferId            *string                `json:"offer_id,omitempty"`             // Offer ID
 	ApplicationId      *string                `json:"application_id,omitempty"`       // 投递 ID
 	SchemaId           *string                `json:"schema_id,omitempty"`            // Offer 申请表模板 ID，用于描述申请表单结构的元数据定义，即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息，都会生成新的 schema_id，创建 Offer 时应传入最新的 schema_id，可从「获取Offer申请表模板信息」接口中获取
+	OfferType          *int                   `json:"offer_type,omitempty"`           // Offer 类型
 	BasicInfo          *OfferBasicInfo        `json:"basic_info,omitempty"`           // Offer 基本信息
 	SalaryInfo         *OfferSalaryInfo       `json:"salary_info,omitempty"`          // Offer 薪资信息
 	CustomizedInfoList []*OfferCustomizedInfo `json:"customized_info_list,omitempty"` // 自定义信息
@@ -18218,6 +18400,8 @@ type OfferInfoBuilder struct {
 	applicationIdFlag      bool
 	schemaId               string // Offer 申请表模板 ID，用于描述申请表单结构的元数据定义，即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息，都会生成新的 schema_id，创建 Offer 时应传入最新的 schema_id，可从「获取Offer申请表模板信息」接口中获取
 	schemaIdFlag           bool
+	offerType              int // Offer 类型
+	offerTypeFlag          bool
 	basicInfo              *OfferBasicInfo // Offer 基本信息
 	basicInfoFlag          bool
 	salaryInfo             *OfferSalaryInfo // Offer 薪资信息
@@ -18255,6 +18439,15 @@ func (builder *OfferInfoBuilder) ApplicationId(applicationId string) *OfferInfoB
 func (builder *OfferInfoBuilder) SchemaId(schemaId string) *OfferInfoBuilder {
 	builder.schemaId = schemaId
 	builder.schemaIdFlag = true
+	return builder
+}
+
+// Offer 类型
+//
+// 示例值：1
+func (builder *OfferInfoBuilder) OfferType(offerType int) *OfferInfoBuilder {
+	builder.offerType = offerType
+	builder.offerTypeFlag = true
 	return builder
 }
 
@@ -18297,6 +18490,10 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	}
 	if builder.schemaIdFlag {
 		req.SchemaId = &builder.schemaId
+
+	}
+	if builder.offerTypeFlag {
+		req.OfferType = &builder.offerType
 
 	}
 	if builder.basicInfoFlag {
@@ -18364,6 +18561,7 @@ type OfferListInfo struct {
 	JobInfo       *OfferJobInfo        `json:"job_info,omitempty"`       // Offer 职位
 	CreateTime    *string              `json:"create_time,omitempty"`    // 创建时间
 	OfferStatus   *int                 `json:"offer_status,omitempty"`   // Offer 状态
+	OfferType     *int                 `json:"offer_type,omitempty"`     // Offer 类型
 	EmployeeType  *BaseBilingualWithId `json:"employee_type,omitempty"`  // Offer 人员类型
 	ApplicationId *string              `json:"application_id,omitempty"` // Offer 投递 ID
 }
@@ -18377,6 +18575,8 @@ type OfferListInfoBuilder struct {
 	createTimeFlag    bool
 	offerStatus       int // Offer 状态
 	offerStatusFlag   bool
+	offerType         int // Offer 类型
+	offerTypeFlag     bool
 	employeeType      *BaseBilingualWithId // Offer 人员类型
 	employeeTypeFlag  bool
 	applicationId     string // Offer 投递 ID
@@ -18424,6 +18624,15 @@ func (builder *OfferListInfoBuilder) OfferStatus(offerStatus int) *OfferListInfo
 	return builder
 }
 
+// Offer 类型
+//
+// 示例值：
+func (builder *OfferListInfoBuilder) OfferType(offerType int) *OfferListInfoBuilder {
+	builder.offerType = offerType
+	builder.offerTypeFlag = true
+	return builder
+}
+
 // Offer 人员类型
 //
 // 示例值：
@@ -18457,6 +18666,10 @@ func (builder *OfferListInfoBuilder) Build() *OfferListInfo {
 	}
 	if builder.offerStatusFlag {
 		req.OfferStatus = &builder.offerStatus
+
+	}
+	if builder.offerTypeFlag {
+		req.OfferType = &builder.offerType
 
 	}
 	if builder.employeeTypeFlag {
@@ -24118,6 +24331,86 @@ func (builder *TalentCompetitionInfoBuilder) Build() *TalentCompetitionInfo {
 	return req
 }
 
+type TalentCustomizedAttachment struct {
+	FileId      *string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    *string `json:"file_name,omitempty"`    // 附件名称
+	ContentType *string `json:"content_type,omitempty"` // 附件类型
+	FileSize    *string `json:"file_size,omitempty"`    // 附件大小
+}
+
+type TalentCustomizedAttachmentBuilder struct {
+	fileId          string // 附件 ID
+	fileIdFlag      bool
+	fileName        string // 附件名称
+	fileNameFlag    bool
+	contentType     string // 附件类型
+	contentTypeFlag bool
+	fileSize        string // 附件大小
+	fileSizeFlag    bool
+}
+
+func NewTalentCustomizedAttachmentBuilder() *TalentCustomizedAttachmentBuilder {
+	builder := &TalentCustomizedAttachmentBuilder{}
+	return builder
+}
+
+// 附件 ID
+//
+// 示例值：7140517838785481004
+func (builder *TalentCustomizedAttachmentBuilder) FileId(fileId string) *TalentCustomizedAttachmentBuilder {
+	builder.fileId = fileId
+	builder.fileIdFlag = true
+	return builder
+}
+
+// 附件名称
+//
+// 示例值：1.13测试1的面试记录.pdf
+func (builder *TalentCustomizedAttachmentBuilder) FileName(fileName string) *TalentCustomizedAttachmentBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+
+// 附件类型
+//
+// 示例值：application/pdf
+func (builder *TalentCustomizedAttachmentBuilder) ContentType(contentType string) *TalentCustomizedAttachmentBuilder {
+	builder.contentType = contentType
+	builder.contentTypeFlag = true
+	return builder
+}
+
+// 附件大小
+//
+// 示例值：16615
+func (builder *TalentCustomizedAttachmentBuilder) FileSize(fileSize string) *TalentCustomizedAttachmentBuilder {
+	builder.fileSize = fileSize
+	builder.fileSizeFlag = true
+	return builder
+}
+
+func (builder *TalentCustomizedAttachmentBuilder) Build() *TalentCustomizedAttachment {
+	req := &TalentCustomizedAttachment{}
+	if builder.fileIdFlag {
+		req.FileId = &builder.fileId
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.contentTypeFlag {
+		req.ContentType = &builder.contentType
+
+	}
+	if builder.fileSizeFlag {
+		req.FileSize = &builder.fileSize
+
+	}
+	return req
+}
+
 type TalentCustomizedData struct {
 	ObjectId   *string                      `json:"object_id,omitempty"`   // 模块 ID
 	Name       *I18n                        `json:"name,omitempty"`        // 模块名称
@@ -24465,27 +24758,30 @@ func (builder *TalentCustomizedTimeRangeBuilder) Build() *TalentCustomizedTimeRa
 }
 
 type TalentCustomizedValue struct {
-	Content    *string                    `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
-	Option     *TalentCustomizedOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
-	OptionList []*TalentCustomizedOption  `json:"option_list,omitempty"` // 当字段类型为多选时，从此字段取值
-	TimeRange  *TalentCustomizedTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时，从此字段取值
-	Time       *string                    `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
-	Number     *string                    `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
+	Content              *string                       `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+	Option               *TalentCustomizedOption       `json:"option,omitempty"`                // 当字段类型为单选时，从此字段取值
+	OptionList           []*TalentCustomizedOption     `json:"option_list,omitempty"`           // 当字段类型为多选时，从此字段取值
+	TimeRange            *TalentCustomizedTimeRange    `json:"time_range,omitempty"`            // 当字段类型为时间段时，从此字段取值
+	Time                 *string                       `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
+	Number               *string                       `json:"number,omitempty"`                // 当字段类型为数字时，从此字段取值
+	CustomizedAttachment []*TalentCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时，从此字段取值
 }
 
 type TalentCustomizedValueBuilder struct {
-	content        string // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
-	contentFlag    bool
-	option         *TalentCustomizedOption // 当字段类型为单选时，从此字段取值
-	optionFlag     bool
-	optionList     []*TalentCustomizedOption // 当字段类型为多选时，从此字段取值
-	optionListFlag bool
-	timeRange      *TalentCustomizedTimeRange // 当字段类型为时间段时，从此字段取值
-	timeRangeFlag  bool
-	time           string // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
-	timeFlag       bool
-	number         string // 当字段类型为数字时，从此字段取值
-	numberFlag     bool
+	content                  string // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+	contentFlag              bool
+	option                   *TalentCustomizedOption // 当字段类型为单选时，从此字段取值
+	optionFlag               bool
+	optionList               []*TalentCustomizedOption // 当字段类型为多选时，从此字段取值
+	optionListFlag           bool
+	timeRange                *TalentCustomizedTimeRange // 当字段类型为时间段时，从此字段取值
+	timeRangeFlag            bool
+	time                     string // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
+	timeFlag                 bool
+	number                   string // 当字段类型为数字时，从此字段取值
+	numberFlag               bool
+	customizedAttachment     []*TalentCustomizedAttachment // 当字段类型为附件时，从此字段取值
+	customizedAttachmentFlag bool
 }
 
 func NewTalentCustomizedValueBuilder() *TalentCustomizedValueBuilder {
@@ -24547,6 +24843,15 @@ func (builder *TalentCustomizedValueBuilder) Number(number string) *TalentCustom
 	return builder
 }
 
+// 当字段类型为附件时，从此字段取值
+//
+// 示例值：
+func (builder *TalentCustomizedValueBuilder) CustomizedAttachment(customizedAttachment []*TalentCustomizedAttachment) *TalentCustomizedValueBuilder {
+	builder.customizedAttachment = customizedAttachment
+	builder.customizedAttachmentFlag = true
+	return builder
+}
+
 func (builder *TalentCustomizedValueBuilder) Build() *TalentCustomizedValue {
 	req := &TalentCustomizedValue{}
 	if builder.contentFlag {
@@ -24569,6 +24874,9 @@ func (builder *TalentCustomizedValueBuilder) Build() *TalentCustomizedValue {
 	if builder.numberFlag {
 		req.Number = &builder.number
 
+	}
+	if builder.customizedAttachmentFlag {
+		req.CustomizedAttachment = builder.customizedAttachment
 	}
 	return req
 }
@@ -31004,10 +31312,19 @@ func (builder *GetAttachmentReqBuilder) AttachmentId(attachmentId string) *GetAt
 	return builder
 }
 
+// 附件类型
+//
+// 示例值：1
+func (builder *GetAttachmentReqBuilder) Type(type_ int) *GetAttachmentReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 

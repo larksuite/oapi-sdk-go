@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewGetAttachmentReqBuilder().
 		AttachmentId("6435242341238").
+		Type(1).
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Attachment.Get(context.Background(), req)

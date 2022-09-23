@@ -595,7 +595,7 @@ func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq,
 //
 // - 该接口用于以当前身份（应用 / 用户）获取日历上的一个日程。;身份由 Header Authorization 的 Token 类型决定。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;- [例外日程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)可通过event_id的非0时间戳后缀，来获取修改的重复性日程的哪一天日程的时间信息。
+// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;- [例外日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)可通过event_id的非0时间戳后缀，来获取修改的重复性日程的哪一天日程的时间信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
 //
@@ -623,7 +623,7 @@ func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, optio
 //
 // - 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。;身份由 Header Authorization 的 Token 类型决定。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 仅支持primary、shared和resource类型的日历获取日程列表。;;- 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。;;- 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
+// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 仅支持primary、shared和resource类型的日历获取日程列表。;;- 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。;;- 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
 //
@@ -679,7 +679,7 @@ func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, o
 //
 // - 该接口用于以用户身份搜索某日历下的相关日程。;;身份由 Header Authorization 的 Token 类型决定。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 //
@@ -715,7 +715,7 @@ func (c *calendarEvent) SearchByIterator(ctx context.Context, req *SearchCalenda
 //
 // - 该接口用于以用户身份订阅指定日历下的日程变更事件。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 //
@@ -743,7 +743,7 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 //
 // - 该接口用于以用户身份取消订阅指定日历下的日程变更事件。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/unsubscription
 //
@@ -825,9 +825,9 @@ func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarE
 
 // 获取日程参与人列表
 //
-// - 获取日程的参与人列表，若参与者列表中有群组，请使用 [获取参与人群成员列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
+// - 获取日程的参与人列表，若参与者列表中有群组，请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 当前身份必须有权限查看日程的参与人列表。
+// - - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 当前身份必须有权限查看日程的参与人列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 //

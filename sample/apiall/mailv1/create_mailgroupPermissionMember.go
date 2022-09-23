@@ -33,6 +33,7 @@ func main() {
 		MailgroupPermissionMember(larkmail.NewMailgroupPermissionMemberBuilder().
 			UserId("xxxxxxxxxx").
 			DepartmentId("xxxxxxxxxx").
+			Email("xxx@xx.x").
 			Type("USER").
 			Build()).
 		Build()

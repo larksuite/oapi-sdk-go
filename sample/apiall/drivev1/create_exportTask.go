@@ -31,6 +31,7 @@ func main() {
 			FileExtension("pdf").
 			Token("doccnxe5OxxxxxxxSNdsJviENsk").
 			Type("doc").
+			SubId("tblKz5D60T4JlfcT").
 			Build()).
 		Build()
 	// 发起请求

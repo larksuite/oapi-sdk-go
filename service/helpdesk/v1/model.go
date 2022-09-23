@@ -331,13 +331,13 @@ func (builder *AgentScheduleBuilder) Build() *AgentSchedule {
 }
 
 type AgentScheduleUpdateInfo struct {
-	AgentId       *string            `json:"agent_id,omitempty"`        // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+	AgentId       *string            `json:"agent_id,omitempty"`        // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
 	Schedule      []*WeekdaySchedule `json:"schedule,omitempty"`        // 工作日程列表
 	AgentSkillIds []string           `json:"agent_skill_ids,omitempty"` // 客服技能 ids
 }
 
 type AgentScheduleUpdateInfoBuilder struct {
-	agentId           string // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+	agentId           string // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
 	agentIdFlag       bool
 	schedule          []*WeekdaySchedule // 工作日程列表
 	scheduleFlag      bool
@@ -350,7 +350,7 @@ func NewAgentScheduleUpdateInfoBuilder() *AgentScheduleUpdateInfoBuilder {
 	return builder
 }
 
-// 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+// 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
 //
 // 示例值：agent-id
 func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentScheduleUpdateInfoBuilder {
@@ -370,7 +370,7 @@ func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySched
 
 // 客服技能 ids
 //
-// 示例值：[“test-skill-id”]
+// 示例值：[]
 func (builder *AgentScheduleUpdateInfoBuilder) AgentSkillIds(agentSkillIds []string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentSkillIds = agentSkillIds
 	builder.agentSkillIdsFlag = true
@@ -582,20 +582,20 @@ func (builder *AgentSkillLessInfoBuilder) Build() *AgentSkillLessInfo {
 }
 
 type AgentSkillRule struct {
-	Id               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
-	SelectedOperator *int    `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
-	OperatorOptions  []int   `json:"operator_options,omitempty"`  // rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	Id               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+	SelectedOperator *int    `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	OperatorOptions  []int   `json:"operator_options,omitempty"`  // rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	Operand          *string `json:"operand,omitempty"`           // rule 操作数的值
 	Category         *int    `json:"category,omitempty"`          // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
 	DisplayName      *string `json:"display_name,omitempty"`      // rule 名
 }
 
 type AgentSkillRuleBuilder struct {
-	id                   string // rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+	id                   string // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
 	idFlag               bool
-	selectedOperator     int // 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	selectedOperator     int // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	selectedOperatorFlag bool
-	operatorOptions      []int // rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	operatorOptions      []int // rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	operatorOptionsFlag  bool
 	operand              string // rule 操作数的值
 	operandFlag          bool
@@ -610,7 +610,7 @@ func NewAgentSkillRuleBuilder() *AgentSkillRuleBuilder {
 	return builder
 }
 
-// rule id, 参考[获取客服技能rules](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+// rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
 //
 // 示例值：test-skill-id
 func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
@@ -619,7 +619,7 @@ func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 	return builder
 }
 
-// 运算符比较, 参考[客服技能运算符选项](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+// 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 //
 // 示例值：8
 func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *AgentSkillRuleBuilder {
@@ -628,7 +628,7 @@ func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *Ag
 	return builder
 }
 
-// rule操作数value，[客服技能及运算符](/ssl:ttdoc/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+// rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 //
 // 示例值：[3]
 func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *AgentSkillRuleBuilder {
@@ -806,7 +806,7 @@ func (builder *AgentUserBuilder) Build() *AgentUser {
 
 type BotMessage struct {
 	MsgType     *string `json:"msg_type,omitempty"`     // 消息类型
-	Content     *string `json:"content,omitempty"`      // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	Content     *string `json:"content,omitempty"`      // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	ReceiverId  *string `json:"receiver_id,omitempty"`  // 接收消息用户id
 	ReceiveType *string `json:"receive_type,omitempty"` // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
 }
@@ -814,7 +814,7 @@ type BotMessage struct {
 type BotMessageBuilder struct {
 	msgType         string // 消息类型
 	msgTypeFlag     bool
-	content         string // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	content         string // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	contentFlag     bool
 	receiverId      string // 接收消息用户id
 	receiverIdFlag  bool
@@ -836,7 +836,7 @@ func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 	return builder
 }
 
-// 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 // 示例值：{\"post\":{\"zh_cn\":{\"title\":\"some title\",\"content\":[[{\"tag\":\"text\",\"text\":\"some content\"}]]}}}
 func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
@@ -1507,7 +1507,7 @@ type FaqUpdateInfo struct {
 	CategoryId     *string  `json:"category_id,omitempty"`     // 知识库分类ID
 	Question       *string  `json:"question,omitempty"`        // 问题
 	Answer         *string  `json:"answer,omitempty"`          // 答案
-	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
 	Tags           []string `json:"tags,omitempty"`            // 相似问题
 }
 
@@ -1518,7 +1518,7 @@ type FaqUpdateInfoBuilder struct {
 	questionFlag       bool
 	answer             string // 答案
 	answerFlag         bool
-	answerRichtext     string // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+	answerRichtext     string // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
 	answerRichtextFlag bool
 	tags               []string // 相似问题
 	tagsFlag           bool
@@ -1556,7 +1556,7 @@ func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder
 	return builder
 }
 
-// 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+// 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
 //
 // 示例值：[{;						"content": "这只是一个测试，医保问题",;						"type": "text";					}]
 func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqUpdateInfoBuilder {
@@ -2107,7 +2107,7 @@ func NewRichtextBuilder() *RichtextBuilder {
 
 // 内容
 //
-// 示例值：我的答案
+// 示例值：
 func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -2116,7 +2116,7 @@ func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 
 // 类型
 //
-// 示例值：text
+// 示例值：
 func (builder *RichtextBuilder) Type(type_ string) *RichtextBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -2137,7 +2137,7 @@ func (builder *RichtextBuilder) Build() *Richtext {
 }
 
 type Ticket struct {
-	TicketId                   *string                       `json:"ticket_id,omitempty"`                     // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	TicketId                   *string                       `json:"ticket_id,omitempty"`                     // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskId                 *string                       `json:"helpdesk_id,omitempty"`                   // 服务台ID
 	Guest                      *TicketUser                   `json:"guest,omitempty"`                         // 工单创建用户
 	Comments                   *Comments                     `json:"comments,omitempty"`                      // 备注
@@ -2153,7 +2153,7 @@ type Ticket struct {
 	Solve                      *int                          `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
 	ClosedBy                   *TicketUser                   `json:"closed_by,omitempty"`                     // 关单用户ID
 	Collaborators              []*TicketUser                 `json:"collaborators,omitempty"`                 // 工单协作者
-	CustomizedFields           []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	CustomizedFields           []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       *float64                      `json:"agent_service_duration,omitempty"`        // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
 	AgentFirstResponseDuration *int                          `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         *int                          `json:"bot_service_duration,omitempty"`          // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
@@ -2166,7 +2166,7 @@ type Ticket struct {
 }
 
 type TicketBuilder struct {
-	ticketId                       string // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	ticketId                       string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	ticketIdFlag                   bool
 	helpdeskId                     string // 服务台ID
 	helpdeskIdFlag                 bool
@@ -2198,7 +2198,7 @@ type TicketBuilder struct {
 	closedByFlag                   bool
 	collaborators                  []*TicketUser // 工单协作者
 	collaboratorsFlag              bool
-	customizedFields               []*CustomizedFieldDisplayItem // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	customizedFields               []*CustomizedFieldDisplayItem // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	customizedFieldsFlag           bool
 	agentServiceDuration           float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
 	agentServiceDurationFlag       bool
@@ -2225,7 +2225,7 @@ func NewTicketBuilder() *TicketBuilder {
 	return builder
 }
 
-// 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+// 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 //
 // 示例值：6626871355780366331
 func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
@@ -2369,7 +2369,7 @@ func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *Ticket
 	return builder
 }
 
-// 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+// 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 //
 // 示例值：
 func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketBuilder {
@@ -2959,54 +2959,54 @@ func (builder *TicketCustomizedFieldBuilder) Build() *TicketCustomizedField {
 }
 
 type TicketEvent struct {
-	TicketId         *string                       `json:"ticket_id,omitempty"`         // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 服务台id
-	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // 用户id
-	Stage            *int                          `json:"stage,omitempty"`             // 工单阶段：1. 机器人 2. 人工
-	Status           *int                          `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	Score            *int                          `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
-	CreatedAt        *int                          `json:"created_at,omitempty"`        // 创建时间
-	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
-	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 关单时间
+	TicketId         *string                       `json:"ticket_id,omitempty"`         // 6626871355780366331
+	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 6626871355780366330
+	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // abc
+	Stage            *int                          `json:"stage,omitempty"`             // 1
+	Status           *int                          `json:"status,omitempty"`            // 50
+	Score            *int                          `json:"score,omitempty"`             // 1
+	CreatedAt        *int                          `json:"created_at,omitempty"`        // 1616920429000
+	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 1616920429000
+	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 1616920429000
 	Agents           []*TicketUserEvent            `json:"agents,omitempty"`            // agents of this ticket
-	Channel          *int                          `json:"channel,omitempty"`           // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
-	Solve            *int                          `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
+	Channel          *int                          `json:"channel,omitempty"`           // 0
+	Solve            *int                          `json:"solve,omitempty"`             // 1
 	ClosedBy         *TicketUserEvent              `json:"closed_by,omitempty"`         // closed user of this ticket
 	Collaborators    []*TicketUserEvent            `json:"collaborators,omitempty"`     // collaborators of this ticket
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // 自定义字段
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // []
 	ChatId           *string                       `json:"chat_id,omitempty"`           // oc_xxxxxxx
 }
 
 type TicketEventBuilder struct {
-	ticketId             string // 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	ticketId             string // 6626871355780366331
 	ticketIdFlag         bool
-	helpdeskId           string // 服务台id
+	helpdeskId           string // 6626871355780366330
 	helpdeskIdFlag       bool
-	guest                *TicketUserEvent // 用户id
+	guest                *TicketUserEvent // abc
 	guestFlag            bool
-	stage                int // 工单阶段：1. 机器人 2. 人工
+	stage                int // 1
 	stageFlag            bool
-	status               int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	status               int // 50
 	statusFlag           bool
-	score                int // 工单评分，1：不满意，2:一般，3:满意
+	score                int // 1
 	scoreFlag            bool
-	createdAt            int // 创建时间
+	createdAt            int // 1616920429000
 	createdAtFlag        bool
-	updatedAt            int // 工单更新时间，没有值时为-1
+	updatedAt            int // 1616920429000
 	updatedAtFlag        bool
-	closedAt             int // 关单时间
+	closedAt             int // 1616920429000
 	closedAtFlag         bool
 	agents               []*TicketUserEvent // agents of this ticket
 	agentsFlag           bool
-	channel              int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	channel              int // 0
 	channelFlag          bool
-	solve                int // 工单是否解决 1:没解决 2:已解决
+	solve                int // 1
 	solveFlag            bool
 	closedBy             *TicketUserEvent // closed user of this ticket
 	closedByFlag         bool
 	collaborators        []*TicketUserEvent // collaborators of this ticket
 	collaboratorsFlag    bool
-	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
+	customizedFields     []*CustomizedFieldDisplayItem // []
 	customizedFieldsFlag bool
 	chatId               string // oc_xxxxxxx
 	chatIdFlag           bool
@@ -3017,7 +3017,7 @@ func NewTicketEventBuilder() *TicketEventBuilder {
 	return builder
 }
 
-// 工单ID;;[可以从工单列表里面取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+// 6626871355780366331
 //
 // 示例值：6626871355780366331
 func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder {
@@ -3026,7 +3026,7 @@ func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder
 	return builder
 }
 
-// 服务台id
+// 6626871355780366330
 //
 // 示例值：6626871355780366330
 func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBuilder {
@@ -3035,7 +3035,7 @@ func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBui
 	return builder
 }
 
-// 用户id
+// abc
 //
 // 示例值：
 func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBuilder {
@@ -3044,7 +3044,7 @@ func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBui
 	return builder
 }
 
-// 工单阶段：1. 机器人 2. 人工
+// 1
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
@@ -3053,7 +3053,7 @@ func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	return builder
 }
 
-// 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+// 50
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
@@ -3062,7 +3062,7 @@ func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	return builder
 }
 
-// 工单评分，1：不满意，2:一般，3:满意
+// 1
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
@@ -3071,7 +3071,7 @@ func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	return builder
 }
 
-// 创建时间
+// 1616920429000
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder {
@@ -3080,7 +3080,7 @@ func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 工单更新时间，没有值时为-1
+// 1616920429000
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder {
@@ -3089,7 +3089,7 @@ func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 关单时间
+// 1616920429000
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
@@ -3107,7 +3107,7 @@ func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEven
 	return builder
 }
 
-// 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+// 0
 //
 // 示例值：0
 func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
@@ -3116,7 +3116,7 @@ func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	return builder
 }
 
-// 工单是否解决 1:没解决 2:已解决
+// 1
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
@@ -3143,7 +3143,7 @@ func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEven
 	return builder
 }
 
-// 自定义字段
+// []
 //
 // 示例值：
 func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketEventBuilder {
@@ -3686,18 +3686,18 @@ func (builder *TicketUserBuilder) Build() *TicketUser {
 }
 
 type TicketUserEvent struct {
-	Id        *UserId `json:"id,omitempty"`         // id
+	Id        *UserId `json:"id,omitempty"`         // 6626871355780366332
 	AvatarUrl *string `json:"avatar_url,omitempty"` // user avartal url
-	Name      *string `json:"name,omitempty"`       // 名称
+	Name      *string `json:"name,omitempty"`       // 6626871355780366333
 	Email     *string `json:"email,omitempty"`      // user email
 }
 
 type TicketUserEventBuilder struct {
-	id            *UserId // id
+	id            *UserId // 6626871355780366332
 	idFlag        bool
 	avatarUrl     string // user avartal url
 	avatarUrlFlag bool
-	name          string // 名称
+	name          string // 6626871355780366333
 	nameFlag      bool
 	email         string // user email
 	emailFlag     bool
@@ -3708,7 +3708,7 @@ func NewTicketUserEventBuilder() *TicketUserEventBuilder {
 	return builder
 }
 
-// id
+// 6626871355780366332
 //
 // 示例值：
 func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
@@ -3726,7 +3726,7 @@ func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEv
 	return builder
 }
 
-// 名称
+// 6626871355780366333
 //
 // 示例值：abc
 func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder {
@@ -7040,11 +7040,11 @@ func (resp *ListTicketResp) Success() bool {
 type StartServiceTicketReqBodyBuilder struct {
 	humanService        bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 	humanServiceFlag    bool
-	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 	appointedAgentsFlag bool
-	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 	openIdFlag          bool
-	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 	customizedInfoFlag  bool
 }
 
@@ -7062,7 +7062,7 @@ func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool)
 	return builder
 }
 
-// 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+// 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 //
 //示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketReqBodyBuilder {
@@ -7071,7 +7071,7 @@ func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents
 	return builder
 }
 
-// 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+// 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 //
 //示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartServiceTicketReqBodyBuilder {
@@ -7080,7 +7080,7 @@ func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartSer
 	return builder
 }
 
-// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 //
 //示例值：测试自定义字段信息
 func (builder *StartServiceTicketReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketReqBodyBuilder {
@@ -7109,11 +7109,11 @@ func (builder *StartServiceTicketReqBodyBuilder) Build() *StartServiceTicketReqB
 type StartServiceTicketPathReqBodyBuilder struct {
 	humanService        bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 	humanServiceFlag    bool
-	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 	appointedAgentsFlag bool
-	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 	openIdFlag          bool
-	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 	customizedInfoFlag  bool
 }
 
@@ -7131,7 +7131,7 @@ func (builder *StartServiceTicketPathReqBodyBuilder) HumanService(humanService b
 	return builder
 }
 
-// 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+// 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 //
 // 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketPathReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketPathReqBodyBuilder {
@@ -7140,7 +7140,7 @@ func (builder *StartServiceTicketPathReqBodyBuilder) AppointedAgents(appointedAg
 	return builder
 }
 
-// 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+// 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketPathReqBodyBuilder) OpenId(openId string) *StartServiceTicketPathReqBodyBuilder {
@@ -7149,7 +7149,7 @@ func (builder *StartServiceTicketPathReqBodyBuilder) OpenId(openId string) *Star
 	return builder
 }
 
-// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+// 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 //
 // 示例值：测试自定义字段信息
 func (builder *StartServiceTicketPathReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketPathReqBodyBuilder {
@@ -7204,9 +7204,9 @@ func (builder *StartServiceTicketReqBuilder) Build() *StartServiceTicketReq {
 
 type StartServiceTicketReqBody struct {
 	HumanService    *bool    `json:"human_service,omitempty"`    // 是否直接进入人工(若appointed_agents填写了，该值为必填)
-	AppointedAgents []string `json:"appointed_agents,omitempty"` // 客服 open ids (获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
-	OpenId          *string  `json:"open_id,omitempty"`          // 用户 open id,(获取方式参考[获取单个用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
-	CustomizedInfo  *string  `json:"customized_info,omitempty"`  // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+	AppointedAgents []string `json:"appointed_agents,omitempty"` // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	OpenId          *string  `json:"open_id,omitempty"`          // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	CustomizedInfo  *string  `json:"customized_info,omitempty"`  // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 }
 
 type StartServiceTicketReq struct {
@@ -7249,7 +7249,7 @@ func (builder *TicketImageTicketReqBuilder) TicketId(ticketId string) *TicketIma
 	return builder
 }
 
-// 消息ID;;[查询消息ID](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list)
+// 消息ID;;[查询消息ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list)
 //
 // 示例值：12345
 func (builder *TicketImageTicketReqBuilder) MsgId(msgId string) *TicketImageTicketReqBuilder {
@@ -7585,7 +7585,7 @@ func (resp *UpdateTicketResp) Success() bool {
 type CreateTicketMessageReqBodyBuilder struct {
 	msgType     string // 消息类型；text：纯文本；post：富文本
 	msgTypeFlag bool
-	content     string // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+	content     string // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 	contentFlag bool
 }
 
@@ -7603,7 +7603,7 @@ func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *Creat
 	return builder
 }
 
-// - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+// - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 //
 //示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessageReqBodyBuilder) Content(content string) *CreateTicketMessageReqBodyBuilder {
@@ -7626,7 +7626,7 @@ func (builder *CreateTicketMessageReqBodyBuilder) Build() *CreateTicketMessageRe
 type CreateTicketMessagePathReqBodyBuilder struct {
 	msgType     string // 消息类型；text：纯文本；post：富文本
 	msgTypeFlag bool
-	content     string // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+	content     string // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 	contentFlag bool
 }
 
@@ -7644,7 +7644,7 @@ func (builder *CreateTicketMessagePathReqBodyBuilder) MsgType(msgType string) *C
 	return builder
 }
 
-// - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+// - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 //
 // 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessagePathReqBodyBuilder) Content(content string) *CreateTicketMessagePathReqBodyBuilder {
@@ -7702,7 +7702,7 @@ func (builder *CreateTicketMessageReqBuilder) Build() *CreateTicketMessageReq {
 
 type CreateTicketMessageReqBody struct {
 	MsgType *string `json:"msg_type,omitempty"` // 消息类型；text：纯文本；post：富文本
-	Content *string `json:"content,omitempty"`  // - 纯文本，参考[发送文本消息](/ssl:ttdoc/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](/ssl:ttdoc/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+	Content *string `json:"content,omitempty"`  // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 }
 
 type CreateTicketMessageReq struct {

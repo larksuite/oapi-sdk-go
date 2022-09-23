@@ -861,6 +861,8 @@ type Group struct {
 	RemedyPeriodCustomDate  *int                     `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
 	PunchType               *int                     `json:"punch_type,omitempty"`                  // 打卡类型，位运算。1：GPS 打卡，2：Wi-Fi 打卡，4：考勤机打卡，8：IP 打卡
 	EffectTime              *string                  `json:"effect_time,omitempty"`                 // 生效时间，精确到秒的时间戳
+	FixshiftEffectTime      *string                  `json:"fixshift_effect_time,omitempty"`        // 固定班次生效时间，精确到秒的时间戳
+	MemberEffectTime        *string                  `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
 	RestClockInNeedApproval *bool                    `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        *bool                    `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
 }
@@ -958,6 +960,10 @@ type GroupBuilder struct {
 	punchTypeFlag               bool
 	effectTime                  string // 生效时间，精确到秒的时间戳
 	effectTimeFlag              bool
+	fixshiftEffectTime          string // 固定班次生效时间，精确到秒的时间戳
+	fixshiftEffectTimeFlag      bool
+	memberEffectTime            string // 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
+	memberEffectTimeFlag        bool
 	restClockInNeedApproval     bool // 休息日打卡需审批
 	restClockInNeedApprovalFlag bool
 	clockInNeedPhoto            bool // 每次打卡均需拍照
@@ -1383,6 +1389,24 @@ func (builder *GroupBuilder) EffectTime(effectTime string) *GroupBuilder {
 	return builder
 }
 
+// 固定班次生效时间，精确到秒的时间戳
+//
+// 示例值：1611476284
+func (builder *GroupBuilder) FixshiftEffectTime(fixshiftEffectTime string) *GroupBuilder {
+	builder.fixshiftEffectTime = fixshiftEffectTime
+	builder.fixshiftEffectTimeFlag = true
+	return builder
+}
+
+// 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
+//
+// 示例值：1611476284
+func (builder *GroupBuilder) MemberEffectTime(memberEffectTime string) *GroupBuilder {
+	builder.memberEffectTime = memberEffectTime
+	builder.memberEffectTimeFlag = true
+	return builder
+}
+
 // 休息日打卡需审批
 //
 // 示例值：true
@@ -1573,6 +1597,14 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.effectTimeFlag {
 		req.EffectTime = &builder.effectTime
+
+	}
+	if builder.fixshiftEffectTimeFlag {
+		req.FixshiftEffectTime = &builder.fixshiftEffectTime
+
+	}
+	if builder.memberEffectTimeFlag {
+		req.MemberEffectTime = &builder.memberEffectTime
 
 	}
 	if builder.restClockInNeedApprovalFlag {
@@ -3439,17 +3471,17 @@ func (builder *UserApprovalBuilder) Build() *UserApproval {
 }
 
 type UserDailyShift struct {
-	GroupId *string `json:"group_id,omitempty"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
-	ShiftId *string `json:"shift_id,omitempty"` // 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+	GroupId *string `json:"group_id,omitempty"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+	ShiftId *string `json:"shift_id,omitempty"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 	Month   *int    `json:"month,omitempty"`    // 月份
 	UserId  *string `json:"user_id,omitempty"`  // 用户 ID
 	DayNo   *int    `json:"day_no,omitempty"`   // 日期
 }
 
 type UserDailyShiftBuilder struct {
-	groupId     string // 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+	groupId     string // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
 	groupIdFlag bool
-	shiftId     string // 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+	shiftId     string // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 	shiftIdFlag bool
 	month       int // 月份
 	monthFlag   bool
@@ -3464,7 +3496,7 @@ func NewUserDailyShiftBuilder() *UserDailyShiftBuilder {
 	return builder
 }
 
-// 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+// 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
 //
 // 示例值：6737202939523236110
 func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBuilder {
@@ -3473,7 +3505,7 @@ func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBui
 	return builder
 }
 
-// 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+// 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 //
 // 示例值：6753520403404030215
 func (builder *UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBuilder {
@@ -4339,14 +4371,14 @@ func (builder *UserOvertimeWorkBuilder) Build() *UserOvertimeWork {
 
 type UserSetting struct {
 	UserId            *string `json:"user_id,omitempty"`              // 用户 ID
-	FaceKey           *string `json:"face_key,omitempty"`             // 人脸照片文件 ID，获取方式：[文件上传](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+	FaceKey           *string `json:"face_key,omitempty"`             // 人脸照片文件 ID，获取方式：[文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
 	FaceKeyUpdateTime *string `json:"face_key_update_time,omitempty"` // 人脸照片更新时间，精确到秒的时间戳
 }
 
 type UserSettingBuilder struct {
 	userId                string // 用户 ID
 	userIdFlag            bool
-	faceKey               string // 人脸照片文件 ID，获取方式：[文件上传](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+	faceKey               string // 人脸照片文件 ID，获取方式：[文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
 	faceKeyFlag           bool
 	faceKeyUpdateTime     string // 人脸照片更新时间，精确到秒的时间戳
 	faceKeyUpdateTimeFlag bool
@@ -4366,7 +4398,7 @@ func (builder *UserSettingBuilder) UserId(userId string) *UserSettingBuilder {
 	return builder
 }
 
-// 人脸照片文件 ID，获取方式：[文件上传](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+// 人脸照片文件 ID，获取方式：[文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
 //
 // 示例值：xxxxxb306842b1c189bc5212eefxxxxx
 func (builder *UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder {
@@ -5293,7 +5325,7 @@ func (builder *WifiInfoEventBuilder) Build() *WifiInfoEvent {
 }
 
 type ProcessApprovalInfoReqBodyBuilder struct {
-	approvalId       string // 审批实例 ID，获取方式：1）[获取审批通过数据](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+	approvalId       string // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 	approvalIdFlag   bool
 	approvalType     string // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
 	approvalTypeFlag bool
@@ -5306,7 +5338,7 @@ func NewProcessApprovalInfoReqBodyBuilder() *ProcessApprovalInfoReqBodyBuilder {
 	return builder
 }
 
-// 审批实例 ID，获取方式：1）[获取审批通过数据](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+// 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 //
 //示例值：6737202939523236113
 func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoReqBodyBuilder {
@@ -5348,7 +5380,7 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) Build() *ProcessApprovalInfoRe
 }
 
 type ProcessApprovalInfoPathReqBodyBuilder struct {
-	approvalId       string // 审批实例 ID，获取方式：1）[获取审批通过数据](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+	approvalId       string // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 	approvalIdFlag   bool
 	approvalType     string // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
 	approvalTypeFlag bool
@@ -5361,7 +5393,7 @@ func NewProcessApprovalInfoPathReqBodyBuilder() *ProcessApprovalInfoPathReqBodyB
 	return builder
 }
 
-// 审批实例 ID，获取方式：1）[获取审批通过数据](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+// 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 //
 // 示例值：6737202939523236113
 func (builder *ProcessApprovalInfoPathReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoPathReqBodyBuilder {
@@ -5430,7 +5462,7 @@ func (builder *ProcessApprovalInfoReqBuilder) Build() *ProcessApprovalInfoReq {
 }
 
 type ProcessApprovalInfoReqBody struct {
-	ApprovalId   *string `json:"approval_id,omitempty"`   // 审批实例 ID，获取方式：1）[获取审批通过数据](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+	ApprovalId   *string `json:"approval_id,omitempty"`   // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 	ApprovalType *string `json:"approval_type,omitempty"` // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
 	Status       *int    `json:"status,omitempty"`        // 审批状态，1：不通过，2：通过，4：撤销
 }
@@ -5630,7 +5662,7 @@ func (resp *UploadFileResp) Success() bool {
 type CreateGroupReqBodyBuilder struct {
 	group          *Group // 6921319402260496386
 	groupFlag      bool
-	operatorId     string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId     string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag bool
 }
 
@@ -5648,7 +5680,7 @@ func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBod
 	return builder
 }
 
-// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
 //示例值：dd31248a
 func (builder *CreateGroupReqBodyBuilder) OperatorId(operatorId string) *CreateGroupReqBodyBuilder {
@@ -5671,7 +5703,7 @@ func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 type CreateGroupPathReqBodyBuilder struct {
 	group          *Group // 6921319402260496386
 	groupFlag      bool
-	operatorId     string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId     string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag bool
 }
 
@@ -5689,7 +5721,7 @@ func (builder *CreateGroupPathReqBodyBuilder) Group(group *Group) *CreateGroupPa
 	return builder
 }
 
-// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
 // 示例值：dd31248a
 func (builder *CreateGroupPathReqBodyBuilder) OperatorId(operatorId string) *CreateGroupPathReqBodyBuilder {
@@ -5755,7 +5787,7 @@ func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 
 type CreateGroupReqBody struct {
 	Group      *Group  `json:"group,omitempty"`       // 6921319402260496386
-	OperatorId *string `json:"operator_id,omitempty"` // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	OperatorId *string `json:"operator_id,omitempty"` // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 }
 
 type CreateGroupReq struct {
@@ -5790,7 +5822,7 @@ func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	return builder
 }
 
-// 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+// 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
 //
 // 示例值：6919358128597097404
 func (builder *DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder {
@@ -5831,7 +5863,7 @@ func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	return builder
 }
 
-// 考勤组 ID，获取方式：1）[创建或修改考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+// 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
 //
 // 示例值：6919358128597097404
 func (builder *GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder {
@@ -5913,6 +5945,8 @@ type GetGroupRespData struct {
 	RemedyPeriodCustomDate  *int                     `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
 	PunchType               *int                     `json:"punch_type,omitempty"`                  // 打卡类型，位运算。1:GPS打卡；2:wifi打卡；4:考勤机打卡；8:IP打卡
 	EffectTime              *string                  `json:"effect_time,omitempty"`                 // 生效时间，精确到秒的时间戳
+	FixshiftEffectTime      *string                  `json:"fixshift_effect_time,omitempty"`        // 固定班次生效时间，精确到秒的时间戳
+	MemberEffectTime        *string                  `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
 	RestClockInNeedApproval *bool                    `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        *bool                    `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
 }
@@ -5994,10 +6028,8 @@ func (resp *ListGroupResp) Success() bool {
 }
 
 type SearchGroupReqBodyBuilder struct {
-	groupName          string // 考勤组名称
-	groupNameFlag      bool
-	exactlyMatched     bool // 是否精准匹配，默认为 false：模糊匹配；true：精准匹配
-	exactlyMatchedFlag bool
+	groupName     string // 考勤组名称
+	groupNameFlag bool
 }
 
 func NewSearchGroupReqBodyBuilder() *SearchGroupReqBodyBuilder {
@@ -6014,22 +6046,10 @@ func (builder *SearchGroupReqBodyBuilder) GroupName(groupName string) *SearchGro
 	return builder
 }
 
-// 是否精准匹配，默认为 false：模糊匹配；true：精准匹配
-//
-//示例值：true
-func (builder *SearchGroupReqBodyBuilder) ExactlyMatched(exactlyMatched bool) *SearchGroupReqBodyBuilder {
-	builder.exactlyMatched = exactlyMatched
-	builder.exactlyMatchedFlag = true
-	return builder
-}
-
 func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
 	req := &SearchGroupReqBody{}
 	if builder.groupNameFlag {
 		req.GroupName = &builder.groupName
-	}
-	if builder.exactlyMatchedFlag {
-		req.ExactlyMatched = &builder.exactlyMatched
 	}
 	return req
 }
@@ -6037,7 +6057,7 @@ func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
 type SearchGroupPathReqBodyBuilder struct {
 	groupName          string // 考勤组名称
 	groupNameFlag      bool
-	exactlyMatched     bool // 是否精准匹配，默认为 false：模糊匹配；true：精准匹配
+	exactlyMatched     bool // 是否精准匹配，默认为false:模糊匹配; true:精准匹配
 	exactlyMatchedFlag bool
 }
 
@@ -6055,22 +6075,10 @@ func (builder *SearchGroupPathReqBodyBuilder) GroupName(groupName string) *Searc
 	return builder
 }
 
-// 是否精准匹配，默认为 false：模糊匹配；true：精准匹配
-//
-// 示例值：true
-func (builder *SearchGroupPathReqBodyBuilder) ExactlyMatched(exactlyMatched bool) *SearchGroupPathReqBodyBuilder {
-	builder.exactlyMatched = exactlyMatched
-	builder.exactlyMatchedFlag = true
-	return builder
-}
-
 func (builder *SearchGroupPathReqBodyBuilder) Build() (*SearchGroupReqBody, error) {
 	req := &SearchGroupReqBody{}
 	if builder.groupNameFlag {
 		req.GroupName = &builder.groupName
-	}
-	if builder.exactlyMatchedFlag {
-		req.ExactlyMatched = &builder.exactlyMatched
 	}
 	return req, nil
 }
@@ -6103,8 +6111,8 @@ func (builder *SearchGroupReqBuilder) Build() *SearchGroupReq {
 }
 
 type SearchGroupReqBody struct {
-	GroupName      *string `json:"group_name,omitempty"`      // 考勤组名称
-	ExactlyMatched *bool   `json:"exactly_matched,omitempty"` // 是否精准匹配，默认为 false：模糊匹配；true：精准匹配
+	GroupName *string `json:"group_name,omitempty"` // 考勤组名称
+
 }
 
 type SearchGroupReq struct {
@@ -6185,7 +6193,7 @@ func NewDeleteShiftReqBuilder() *DeleteShiftReqBuilder {
 	return builder
 }
 
-// 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+// 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 //
 // 示例值：6919358778597097404
 func (builder *DeleteShiftReqBuilder) ShiftId(shiftId string) *DeleteShiftReqBuilder {
@@ -6226,7 +6234,7 @@ func NewGetShiftReqBuilder() *GetShiftReqBuilder {
 	return builder
 }
 
-// 班次 ID，获取方式：1）[按名称查询班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+// 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 //
 // 示例值：6919358778597097404
 func (builder *GetShiftReqBuilder) ShiftId(shiftId string) *GetShiftReqBuilder {
@@ -6734,7 +6742,7 @@ func (resp *QueryUserApprovalResp) Success() bool {
 type BatchCreateUserDailyShiftReqBodyBuilder struct {
 	userDailyShifts     []*UserDailyShift // 班表信息列表
 	userDailyShiftsFlag bool
-	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag      bool
 }
 
@@ -6752,7 +6760,7 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDail
 	return builder
 }
 
-// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
 //示例值：dd31248a
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftReqBodyBuilder {
@@ -6775,7 +6783,7 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUser
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
 	userDailyShifts     []*UserDailyShift // 班表信息列表
 	userDailyShiftsFlag bool
-	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag      bool
 }
 
@@ -6793,7 +6801,7 @@ func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) UserDailyShifts(user
 	return builder
 }
 
-// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+// 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
 // 示例值：dd31248a
 func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftPathReqBodyBuilder {
@@ -6851,7 +6859,7 @@ func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDail
 
 type BatchCreateUserDailyShiftReqBody struct {
 	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
-	OperatorId      *string           `json:"operator_id,omitempty"`       // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	OperatorId      *string           `json:"operator_id,omitempty"`       // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 }
 
 type BatchCreateUserDailyShiftReq struct {
@@ -7170,7 +7178,7 @@ func NewGetUserFlowReqBuilder() *GetUserFlowReqBuilder {
 	return builder
 }
 
-// 打卡流水记录 ID，获取方式：1）[批量查询打卡流水记录](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create)
+// 打卡流水记录 ID，获取方式：1）[批量查询打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create)
 //
 // 示例值：6708236686834352397
 func (builder *GetUserFlowReqBuilder) UserFlowId(userFlowId string) *GetUserFlowReqBuilder {
@@ -8386,7 +8394,7 @@ func NewUpdateUserStatsViewReqBuilder() *UpdateUserStatsViewReqBuilder {
 	return builder
 }
 
-// 用户视图 ID，获取方式：1）[查询统计设置](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query)
+// 用户视图 ID，获取方式：1）[查询统计设置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query)
 //
 // 示例值：TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09
 func (builder *UpdateUserStatsViewReqBuilder) UserStatsViewId(userStatsViewId string) *UpdateUserStatsViewReqBuilder {
@@ -8651,7 +8659,7 @@ func (builder *CreateUserTaskRemedyReqBuilder) EmployeeType(employeeType string)
 	return builder
 }
 
-// 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口，将在三方审批系统中发起的补卡审批数据，写入到飞书考勤系统中，状态为审批中。写入后可以由[通知审批状态更新](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process) 进行状态更新
+// 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口，将在三方审批系统中发起的补卡审批数据，写入到飞书考勤系统中，状态为审批中。写入后可以由[通知审批状态更新](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process) 进行状态更新
 func (builder *CreateUserTaskRemedyReqBuilder) UserTaskRemedy(userTaskRemedy *UserTaskRemedy) *CreateUserTaskRemedyReqBuilder {
 	builder.userTaskRemedy = userTaskRemedy
 	return builder

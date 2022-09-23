@@ -1124,7 +1124,7 @@ type AppTableField struct {
 	FieldId     *string                   `json:"field_id,omitempty"`    // 多维表格字段 id
 	FieldName   *string                   `json:"field_name,omitempty"`  // 多维表格字段名
 	Type        *int                      `json:"type,omitempty"`        // 多维表格字段类型
-	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }
 
@@ -1135,7 +1135,7 @@ type AppTableFieldBuilder struct {
 	fieldNameFlag   bool
 	type_           int // 多维表格字段类型
 	typeFlag        bool
-	property        *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	property        *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	propertyFlag    bool
 	description     *AppTableFieldDescription // 字段的描述
 	descriptionFlag bool
@@ -1173,7 +1173,7 @@ func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
 	return builder
 }
 
-// 字段属性，具体参考：[字段编辑指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+// 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 //
 // 示例值：
 func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *AppTableFieldBuilder {
@@ -1263,39 +1263,42 @@ func (builder *AppTableFieldDescriptionBuilder) Build() *AppTableFieldDescriptio
 }
 
 type AppTableFieldProperty struct {
-	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`         // 单选、多选字段的选项信息
-	Formatter     *string                        `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
-	DateFormatter *string                        `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
-	AutoFill      *bool                          `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间
-	Multiple      *bool                          `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
-	TableId       *string                        `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id
-	TableName     *string                        `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字
-	BackFieldName *string                        `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
-	AutoSerial    *AppFieldPropertyAutoSerial    `json:"auto_serial,omitempty"`     // 自动编号类型
-	Location      *AppFieldPropertyLocation      `json:"location,omitempty"`        // 地理位置输入方式
+	Options           []*AppTableFieldPropertyOption `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	Formatter         *string                        `json:"formatter,omitempty"`          // 数字、公式字段的显示格式
+	DateFormatter     *string                        `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式
+	AutoFill          *bool                          `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间
+	Multiple          *bool                          `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	TableId           *string                        `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id
+	TableName         *string                        `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字
+	BackFieldName     *string                        `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	AutoSerial        *AppFieldPropertyAutoSerial    `json:"auto_serial,omitempty"`        // 自动编号类型
+	Location          *AppFieldPropertyLocation      `json:"location,omitempty"`           // 地理位置输入方式
+	FormulaExpression *string                        `json:"formula_expression,omitempty"` // 公式字段的表达式
 }
 
 type AppTableFieldPropertyBuilder struct {
-	options           []*AppTableFieldPropertyOption // 单选、多选字段的选项信息
-	optionsFlag       bool
-	formatter         string // 数字、公式字段的显示格式
-	formatterFlag     bool
-	dateFormatter     string // 日期、创建时间、最后更新时间字段的显示格式
-	dateFormatterFlag bool
-	autoFill          bool // 日期字段中新纪录自动填写创建时间
-	autoFillFlag      bool
-	multiple          bool // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
-	multipleFlag      bool
-	tableId           string // 单向关联、双向关联字段中关联的数据表的id
-	tableIdFlag       bool
-	tableName         string // 单向关联、双向关联字段中关联的数据表的名字
-	tableNameFlag     bool
-	backFieldName     string // 双向关联字段中关联的数据表中对应的双向关联字段的名字
-	backFieldNameFlag bool
-	autoSerial        *AppFieldPropertyAutoSerial // 自动编号类型
-	autoSerialFlag    bool
-	location          *AppFieldPropertyLocation // 地理位置输入方式
-	locationFlag      bool
+	options               []*AppTableFieldPropertyOption // 单选、多选字段的选项信息
+	optionsFlag           bool
+	formatter             string // 数字、公式字段的显示格式
+	formatterFlag         bool
+	dateFormatter         string // 日期、创建时间、最后更新时间字段的显示格式
+	dateFormatterFlag     bool
+	autoFill              bool // 日期字段中新纪录自动填写创建时间
+	autoFillFlag          bool
+	multiple              bool // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	multipleFlag          bool
+	tableId               string // 单向关联、双向关联字段中关联的数据表的id
+	tableIdFlag           bool
+	tableName             string // 单向关联、双向关联字段中关联的数据表的名字
+	tableNameFlag         bool
+	backFieldName         string // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	backFieldNameFlag     bool
+	autoSerial            *AppFieldPropertyAutoSerial // 自动编号类型
+	autoSerialFlag        bool
+	location              *AppFieldPropertyLocation // 地理位置输入方式
+	locationFlag          bool
+	formulaExpression     string // 公式字段的表达式
+	formulaExpressionFlag bool
 }
 
 func NewAppTableFieldPropertyBuilder() *AppTableFieldPropertyBuilder {
@@ -1393,6 +1396,15 @@ func (builder *AppTableFieldPropertyBuilder) Location(location *AppFieldProperty
 	return builder
 }
 
+// 公式字段的表达式
+//
+// 示例值：
+func (builder *AppTableFieldPropertyBuilder) FormulaExpression(formulaExpression string) *AppTableFieldPropertyBuilder {
+	builder.formulaExpression = formulaExpression
+	builder.formulaExpressionFlag = true
+	return builder
+}
+
 func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 	req := &AppTableFieldProperty{}
 	if builder.optionsFlag {
@@ -1431,6 +1443,10 @@ func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 	}
 	if builder.locationFlag {
 		req.Location = builder.location
+	}
+	if builder.formulaExpressionFlag {
+		req.FormulaExpression = &builder.formulaExpression
+
 	}
 	return req
 }
@@ -1809,7 +1825,7 @@ type AppTableRecord struct {
 	CreatedTime      *int                   `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 修改人
 	LastModifiedTime *int                   `json:"last_modified_time,omitempty"` // 最近更新时间
-	Fields           map[string]interface{} `json:"fields,omitempty"`             // 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	Fields           map[string]interface{} `json:"fields,omitempty"`             // 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 }
 
 type AppTableRecordBuilder struct {
@@ -1823,7 +1839,7 @@ type AppTableRecordBuilder struct {
 	lastModifiedByFlag   bool
 	lastModifiedTime     int // 最近更新时间
 	lastModifiedTimeFlag bool
-	fields               map[string]interface{} // 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	fields               map[string]interface{} // 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 	fieldsFlag           bool
 }
 
@@ -1877,7 +1893,7 @@ func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *Ap
 	return builder
 }
 
-// 记录字段;;关于支持新增的字段类型，请参考[接入指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+// 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
@@ -5352,7 +5368,7 @@ func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTable
 	return builder
 }
 
-// 筛选参数;;注意：;;1.筛选记录的表达式不超过2000个字符。;;2.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;3.仅支持字段在页面展示字符值进行筛选。;;详细请参考[记录筛选开发指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
+// 筛选参数;;注意：;;1.筛选记录的表达式不超过2000个字符。;;2.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;3.仅支持字段在页面展示字符值进行筛选。;;详细请参考[记录筛选开发指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
 //
 // 示例值：示例表达式：;;AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)
 func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {

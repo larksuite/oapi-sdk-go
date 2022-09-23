@@ -13,6 +13,7 @@
 package larkcore
 
 import (
+	"net/http"
 	"time"
 )
 
@@ -31,4 +32,5 @@ type Config struct {
 	EnableTokenCache  bool
 	TokenCache        Cache
 	LogReqAtDebug     bool
+	Header            http.Header
 }

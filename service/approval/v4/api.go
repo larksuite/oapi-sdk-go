@@ -119,6 +119,40 @@ func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...lark
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=approval&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_approval.go
+func (a *approval) List(ctx context.Context, req *ListApprovalReq, options ...larkcore.RequestOptionFunc) (*ListApprovalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/approvals"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListApprovalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *approval) ListByIterator(ctx context.Context, req *ListApprovalReq, options ...larkcore.RequestOptionFunc) (*ListApprovalIterator, error) {
+	return &ListApprovalIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // 订阅审批事件
 //
 // - 应用订阅 approval_code 后，该应用就可以收到该审批定义对应实例的事件通知。同一应用只需要订阅一次，无需重复订阅。;;当应用不希望再收到审批事件时，可以使用取消订阅接口进行取消，取消后将不再给应用推送消息。;;订阅和取消订阅都是应用维度的，多个应用可以同时订阅同一个 approval_code，每个应用都能收到审批事件。
@@ -289,7 +323,7 @@ func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTask
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_sign&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addSign_instance.go
 func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...larkcore.RequestOptionFunc) (*AddSignInstanceResp, error) {
@@ -391,7 +425,7 @@ func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options .
 
 // 获取单个审批实例详情
 //
-// - 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list) 接口获取。
+// - 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list) 接口获取。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get
 //
@@ -453,7 +487,7 @@ func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, opt
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=preview&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/preview_instance.go
 func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...larkcore.RequestOptionFunc) (*PreviewInstanceResp, error) {

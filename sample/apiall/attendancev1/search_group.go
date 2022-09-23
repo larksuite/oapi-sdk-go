@@ -29,7 +29,6 @@ func main() {
 	req := larkattendance.NewSearchGroupReqBuilder().
 		Body(larkattendance.NewSearchGroupReqBodyBuilder().
 			GroupName("考勤组1").
-			ExactlyMatched(true).
 			Build()).
 		Build()
 	// 发起请求

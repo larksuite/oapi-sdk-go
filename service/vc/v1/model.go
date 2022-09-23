@@ -14,6 +14,10 @@
 package larkvc
 
 import (
+	"io"
+
+	"io/ioutil"
+
 	"fmt"
 
 	"context"
@@ -22,6 +26,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+)
+
+const (
+	QueryTypeRoom = 1 // 会议室
+	QueryTypeErc  = 2 // erc
+
 )
 
 const (
@@ -139,6 +149,212 @@ const (
 	UserIdTypeSetRoomConfigUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSetRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
+
+type Alert struct {
+	AlertId       *string    `json:"alert_id,omitempty"`       // 告警ID
+	ResourceScope *string    `json:"resource_scope,omitempty"` // 触发告警规则的会议室/服务器具体的名称
+	MonitorTarget *int       `json:"monitor_target,omitempty"` // 触发告警规则的监控对象
+	AlertStrategy *string    `json:"alert_strategy,omitempty"` // 告警规则的规则描述
+	AlertTime     *string    `json:"alert_time,omitempty"`     // 告警通知发生时间（unix时间，单位sec）
+	AlertLevel    *int       `json:"alert_level,omitempty"`    // 告警等级：严重/警告/提醒
+	Contacts      []*Contact `json:"contacts,omitempty"`       // 告警联系人
+	NotifyMethods []int      `json:"notifyMethods,omitempty"`  // 通知方式
+	AlertRule     *string    `json:"alertRule,omitempty"`      // 规则名称
+}
+
+type AlertBuilder struct {
+	alertId           string // 告警ID
+	alertIdFlag       bool
+	resourceScope     string // 触发告警规则的会议室/服务器具体的名称
+	resourceScopeFlag bool
+	monitorTarget     int // 触发告警规则的监控对象
+	monitorTargetFlag bool
+	alertStrategy     string // 告警规则的规则描述
+	alertStrategyFlag bool
+	alertTime         string // 告警通知发生时间（unix时间，单位sec）
+	alertTimeFlag     bool
+	alertLevel        int // 告警等级：严重/警告/提醒
+	alertLevelFlag    bool
+	contacts          []*Contact // 告警联系人
+	contactsFlag      bool
+	notifyMethods     []int // 通知方式
+	notifyMethodsFlag bool
+	alertRule         string // 规则名称
+	alertRuleFlag     bool
+}
+
+func NewAlertBuilder() *AlertBuilder {
+	builder := &AlertBuilder{}
+	return builder
+}
+
+// 告警ID
+//
+// 示例值：7115030004018184212
+func (builder *AlertBuilder) AlertId(alertId string) *AlertBuilder {
+	builder.alertId = alertId
+	builder.alertIdFlag = true
+	return builder
+}
+
+// 触发告警规则的会议室/服务器具体的名称
+//
+// 示例值：XX层级
+func (builder *AlertBuilder) ResourceScope(resourceScope string) *AlertBuilder {
+	builder.resourceScope = resourceScope
+	builder.resourceScopeFlag = true
+	return builder
+}
+
+// 触发告警规则的监控对象
+//
+// 示例值：2
+func (builder *AlertBuilder) MonitorTarget(monitorTarget int) *AlertBuilder {
+	builder.monitorTarget = monitorTarget
+	builder.monitorTargetFlag = true
+	return builder
+}
+
+// 告警规则的规则描述
+//
+// 示例值：连续1个周期（共1分钟），控制器电量 < 50%，则告警
+func (builder *AlertBuilder) AlertStrategy(alertStrategy string) *AlertBuilder {
+	builder.alertStrategy = alertStrategy
+	builder.alertStrategyFlag = true
+	return builder
+}
+
+// 告警通知发生时间（unix时间，单位sec）
+//
+// 示例值：1656914944
+func (builder *AlertBuilder) AlertTime(alertTime string) *AlertBuilder {
+	builder.alertTime = alertTime
+	builder.alertTimeFlag = true
+	return builder
+}
+
+// 告警等级：严重/警告/提醒
+//
+// 示例值：2
+func (builder *AlertBuilder) AlertLevel(alertLevel int) *AlertBuilder {
+	builder.alertLevel = alertLevel
+	builder.alertLevelFlag = true
+	return builder
+}
+
+// 告警联系人
+//
+// 示例值：
+func (builder *AlertBuilder) Contacts(contacts []*Contact) *AlertBuilder {
+	builder.contacts = contacts
+	builder.contactsFlag = true
+	return builder
+}
+
+// 通知方式
+//
+// 示例值：[0,1]
+func (builder *AlertBuilder) NotifyMethods(notifyMethods []int) *AlertBuilder {
+	builder.notifyMethods = notifyMethods
+	builder.notifyMethodsFlag = true
+	return builder
+}
+
+// 规则名称
+//
+// 示例值：签到板断开连接
+func (builder *AlertBuilder) AlertRule(alertRule string) *AlertBuilder {
+	builder.alertRule = alertRule
+	builder.alertRuleFlag = true
+	return builder
+}
+
+func (builder *AlertBuilder) Build() *Alert {
+	req := &Alert{}
+	if builder.alertIdFlag {
+		req.AlertId = &builder.alertId
+
+	}
+	if builder.resourceScopeFlag {
+		req.ResourceScope = &builder.resourceScope
+
+	}
+	if builder.monitorTargetFlag {
+		req.MonitorTarget = &builder.monitorTarget
+
+	}
+	if builder.alertStrategyFlag {
+		req.AlertStrategy = &builder.alertStrategy
+
+	}
+	if builder.alertTimeFlag {
+		req.AlertTime = &builder.alertTime
+
+	}
+	if builder.alertLevelFlag {
+		req.AlertLevel = &builder.alertLevel
+
+	}
+	if builder.contactsFlag {
+		req.Contacts = builder.contacts
+	}
+	if builder.notifyMethodsFlag {
+		req.NotifyMethods = builder.notifyMethods
+	}
+	if builder.alertRuleFlag {
+		req.AlertRule = &builder.alertRule
+
+	}
+	return req
+}
+
+type Contact struct {
+	ContactType *int    `json:"contact_type,omitempty"` //
+	ContactName *string `json:"contact_name,omitempty"` // 联系人名
+}
+
+type ContactBuilder struct {
+	contactType     int //
+	contactTypeFlag bool
+	contactName     string // 联系人名
+	contactNameFlag bool
+}
+
+func NewContactBuilder() *ContactBuilder {
+	builder := &ContactBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *ContactBuilder) ContactType(contactType int) *ContactBuilder {
+	builder.contactType = contactType
+	builder.contactTypeFlag = true
+	return builder
+}
+
+// 联系人名
+//
+// 示例值：
+func (builder *ContactBuilder) ContactName(contactName string) *ContactBuilder {
+	builder.contactName = contactName
+	builder.contactNameFlag = true
+	return builder
+}
+
+func (builder *ContactBuilder) Build() *Contact {
+	req := &Contact{}
+	if builder.contactTypeFlag {
+		req.ContactType = &builder.contactType
+
+	}
+	if builder.contactNameFlag {
+		req.ContactName = &builder.contactName
+
+	}
+	return req
+}
 
 type Material struct {
 	Name           *string `json:"name,omitempty"`            // 素材名称
@@ -1923,6 +2139,54 @@ func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission 
 	return req
 }
 
+type ReserveAssignHost struct {
+	UserType *int    `json:"user_type,omitempty"` // 用户类型，仅支持设置同租户下的 Lark 用户
+	Id       *string `json:"id,omitempty"`        // 设置企业内的用户
+}
+
+type ReserveAssignHostBuilder struct {
+	userType     int // 用户类型，仅支持设置同租户下的 Lark 用户
+	userTypeFlag bool
+	id           string // 设置企业内的用户
+	idFlag       bool
+}
+
+func NewReserveAssignHostBuilder() *ReserveAssignHostBuilder {
+	builder := &ReserveAssignHostBuilder{}
+	return builder
+}
+
+// 用户类型，仅支持设置同租户下的 Lark 用户
+//
+// 示例值：1
+func (builder *ReserveAssignHostBuilder) UserType(userType int) *ReserveAssignHostBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+
+// 设置企业内的用户
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ReserveAssignHostBuilder) Id(id string) *ReserveAssignHostBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *ReserveAssignHostBuilder) Build() *ReserveAssignHost {
+	req := &ReserveAssignHost{}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
 type ReserveCallSetting struct {
 	Callee *ReserveCallee `json:"callee,omitempty"` // 被呼叫的用户
 }
@@ -2017,12 +2281,44 @@ func (builder *ReserveCalleeBuilder) Build() *ReserveCallee {
 	return req
 }
 
+type ReserveCorrectionCheckInfo struct {
+	InvalidHostIdList []string `json:"invalid_host_id_list,omitempty"` // 指定主持人无效id列表
+}
+
+type ReserveCorrectionCheckInfoBuilder struct {
+	invalidHostIdList     []string // 指定主持人无效id列表
+	invalidHostIdListFlag bool
+}
+
+func NewReserveCorrectionCheckInfoBuilder() *ReserveCorrectionCheckInfoBuilder {
+	builder := &ReserveCorrectionCheckInfoBuilder{}
+	return builder
+}
+
+// 指定主持人无效id列表
+//
+// 示例值：
+func (builder *ReserveCorrectionCheckInfoBuilder) InvalidHostIdList(invalidHostIdList []string) *ReserveCorrectionCheckInfoBuilder {
+	builder.invalidHostIdList = invalidHostIdList
+	builder.invalidHostIdListFlag = true
+	return builder
+}
+
+func (builder *ReserveCorrectionCheckInfoBuilder) Build() *ReserveCorrectionCheckInfo {
+	req := &ReserveCorrectionCheckInfo{}
+	if builder.invalidHostIdListFlag {
+		req.InvalidHostIdList = builder.invalidHostIdList
+	}
+	return req
+}
+
 type ReserveMeetingSetting struct {
 	Topic              *string                    `json:"topic,omitempty"`                // 会议主题
 	ActionPermissions  []*ReserveActionPermission `json:"action_permissions,omitempty"`   // 会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
 	MeetingInitialType *int                       `json:"meeting_initial_type,omitempty"` // 会议初始类型
 	CallSetting        *ReserveCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         *bool                      `json:"auto_record,omitempty"`          // 使用飞书视频会议时，是否开启自动录制，默认false
+	AssignHostList     []*ReserveAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表
 }
 
 type ReserveMeetingSettingBuilder struct {
@@ -2036,6 +2332,8 @@ type ReserveMeetingSettingBuilder struct {
 	callSettingFlag        bool
 	autoRecord             bool // 使用飞书视频会议时，是否开启自动录制，默认false
 	autoRecordFlag         bool
+	assignHostList         []*ReserveAssignHost // 指定主持人列表
+	assignHostListFlag     bool
 }
 
 func NewReserveMeetingSettingBuilder() *ReserveMeetingSettingBuilder {
@@ -2088,6 +2386,15 @@ func (builder *ReserveMeetingSettingBuilder) AutoRecord(autoRecord bool) *Reserv
 	return builder
 }
 
+// 指定主持人列表
+//
+// 示例值：
+func (builder *ReserveMeetingSettingBuilder) AssignHostList(assignHostList []*ReserveAssignHost) *ReserveMeetingSettingBuilder {
+	builder.assignHostList = assignHostList
+	builder.assignHostListFlag = true
+	return builder
+}
+
 func (builder *ReserveMeetingSettingBuilder) Build() *ReserveMeetingSetting {
 	req := &ReserveMeetingSetting{}
 	if builder.topicFlag {
@@ -2107,6 +2414,9 @@ func (builder *ReserveMeetingSettingBuilder) Build() *ReserveMeetingSetting {
 	if builder.autoRecordFlag {
 		req.AutoRecord = &builder.autoRecord
 
+	}
+	if builder.assignHostListFlag {
+		req.AssignHostList = builder.assignHostList
 	}
 	return req
 }
@@ -2170,6 +2480,164 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 	}
 	if builder.checkListFlag {
 		req.CheckList = builder.checkList
+	}
+	return req
+}
+
+type Room struct {
+	RoomId       *string     `json:"room_id,omitempty"`        // 会议室ID
+	Name         *string     `json:"name,omitempty"`           // 会议室名称
+	Capacity     *int        `json:"capacity,omitempty"`       // 会议室能容纳的人数
+	Description  *string     `json:"description,omitempty"`    // 会议室的相关描述
+	DisplayId    *string     `json:"display_id,omitempty"`     // 会议室的展示ID
+	CustomRoomId *string     `json:"custom_room_id,omitempty"` // 自定义的会议室ID
+	RoomLevelId  *string     `json:"room_level_id,omitempty"`  // 层级ID
+	Path         []string    `json:"path,omitempty"`           // 层级路径
+	RoomStatus   *RoomStatus `json:"room_status,omitempty"`    // 会议室状态
+}
+
+type RoomBuilder struct {
+	roomId           string // 会议室ID
+	roomIdFlag       bool
+	name             string // 会议室名称
+	nameFlag         bool
+	capacity         int // 会议室能容纳的人数
+	capacityFlag     bool
+	description      string // 会议室的相关描述
+	descriptionFlag  bool
+	displayId        string // 会议室的展示ID
+	displayIdFlag    bool
+	customRoomId     string // 自定义的会议室ID
+	customRoomIdFlag bool
+	roomLevelId      string // 层级ID
+	roomLevelIdFlag  bool
+	path             []string // 层级路径
+	pathFlag         bool
+	roomStatus       *RoomStatus // 会议室状态
+	roomStatusFlag   bool
+}
+
+func NewRoomBuilder() *RoomBuilder {
+	builder := &RoomBuilder{}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *RoomBuilder) RoomId(roomId string) *RoomBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 会议室名称
+//
+// 示例值：测试会议室
+func (builder *RoomBuilder) Name(name string) *RoomBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 会议室能容纳的人数
+//
+// 示例值：10
+func (builder *RoomBuilder) Capacity(capacity int) *RoomBuilder {
+	builder.capacity = capacity
+	builder.capacityFlag = true
+	return builder
+}
+
+// 会议室的相关描述
+//
+// 示例值：测试会议室描述
+func (builder *RoomBuilder) Description(description string) *RoomBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 会议室的展示ID
+//
+// 示例值：LM134742334
+func (builder *RoomBuilder) DisplayId(displayId string) *RoomBuilder {
+	builder.displayId = displayId
+	builder.displayIdFlag = true
+	return builder
+}
+
+// 自定义的会议室ID
+//
+// 示例值：1234
+func (builder *RoomBuilder) CustomRoomId(customRoomId string) *RoomBuilder {
+	builder.customRoomId = customRoomId
+	builder.customRoomIdFlag = true
+	return builder
+}
+
+// 层级ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *RoomBuilder) RoomLevelId(roomLevelId string) *RoomBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 层级路径
+//
+// 示例值：[omm_4de32cf10a4358788ff4e09e37ebbf9b,omm_3c5dd7e09bac0c1758fcf9511bd1a771]
+func (builder *RoomBuilder) Path(path []string) *RoomBuilder {
+	builder.path = path
+	builder.pathFlag = true
+	return builder
+}
+
+// 会议室状态
+//
+// 示例值：
+func (builder *RoomBuilder) RoomStatus(roomStatus *RoomStatus) *RoomBuilder {
+	builder.roomStatus = roomStatus
+	builder.roomStatusFlag = true
+	return builder
+}
+
+func (builder *RoomBuilder) Build() *Room {
+	req := &Room{}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.capacityFlag {
+		req.Capacity = &builder.capacity
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.displayIdFlag {
+		req.DisplayId = &builder.displayId
+
+	}
+	if builder.customRoomIdFlag {
+		req.CustomRoomId = &builder.customRoomId
+
+	}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+
+	}
+	if builder.pathFlag {
+		req.Path = builder.path
+	}
+	if builder.roomStatusFlag {
+		req.RoomStatus = builder.roomStatus
 	}
 	return req
 }
@@ -2522,6 +2990,117 @@ func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMat
 	return req
 }
 
+type RoomLevel struct {
+	RoomLevelId   *string  `json:"room_level_id,omitempty"`   // 层级ID
+	Name          *string  `json:"name,omitempty"`            // 层级名称
+	ParentId      *string  `json:"parent_id,omitempty"`       // 父层级ID
+	Path          []string `json:"path,omitempty"`            // 层级路径
+	HasChild      *bool    `json:"has_child,omitempty"`       // 是否有子层级
+	CustomGroupId *string  `json:"custom_group_id,omitempty"` // 自定义层级id
+}
+
+type RoomLevelBuilder struct {
+	roomLevelId       string // 层级ID
+	roomLevelIdFlag   bool
+	name              string // 层级名称
+	nameFlag          bool
+	parentId          string // 父层级ID
+	parentIdFlag      bool
+	path              []string // 层级路径
+	pathFlag          bool
+	hasChild          bool // 是否有子层级
+	hasChildFlag      bool
+	customGroupId     string // 自定义层级id
+	customGroupIdFlag bool
+}
+
+func NewRoomLevelBuilder() *RoomLevelBuilder {
+	builder := &RoomLevelBuilder{}
+	return builder
+}
+
+// 层级ID
+//
+// 示例值：
+func (builder *RoomLevelBuilder) RoomLevelId(roomLevelId string) *RoomLevelBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 层级名称
+//
+// 示例值：多层级测试online
+func (builder *RoomLevelBuilder) Name(name string) *RoomLevelBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 父层级ID
+//
+// 示例值：
+func (builder *RoomLevelBuilder) ParentId(parentId string) *RoomLevelBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+
+// 层级路径
+//
+// 示例值：
+func (builder *RoomLevelBuilder) Path(path []string) *RoomLevelBuilder {
+	builder.path = path
+	builder.pathFlag = true
+	return builder
+}
+
+// 是否有子层级
+//
+// 示例值：false
+func (builder *RoomLevelBuilder) HasChild(hasChild bool) *RoomLevelBuilder {
+	builder.hasChild = hasChild
+	builder.hasChildFlag = true
+	return builder
+}
+
+// 自定义层级id
+//
+// 示例值：zidingyi
+func (builder *RoomLevelBuilder) CustomGroupId(customGroupId string) *RoomLevelBuilder {
+	builder.customGroupId = customGroupId
+	builder.customGroupIdFlag = true
+	return builder
+}
+
+func (builder *RoomLevelBuilder) Build() *RoomLevel {
+	req := &RoomLevel{}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.pathFlag {
+		req.Path = builder.path
+	}
+	if builder.hasChildFlag {
+		req.HasChild = &builder.hasChild
+
+	}
+	if builder.customGroupIdFlag {
+		req.CustomGroupId = &builder.customGroupId
+
+	}
+	return req
+}
+
 type RoomStatus struct {
 	Status           *bool    `json:"status,omitempty"`             // 是否启用会议室
 	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用
@@ -2665,6 +3244,69 @@ func (builder *RoomStatusBuilder) Build() *RoomStatus {
 	return req
 }
 
+type ScopeConfig struct {
+	ScopeType   *int        `json:"scope_type,omitempty"`   // 查询节点范围
+	ScopeId     *string     `json:"scope_id,omitempty"`     // 查询节点ID：如果scope_type为1，则为层级ID，如果scope_type为2，则为会议室ID
+	ScopeConfig *RoomConfig `json:"scope_config,omitempty"` // 节点配置
+}
+
+type ScopeConfigBuilder struct {
+	scopeType       int // 查询节点范围
+	scopeTypeFlag   bool
+	scopeId         string // 查询节点ID：如果scope_type为1，则为层级ID，如果scope_type为2，则为会议室ID
+	scopeIdFlag     bool
+	scopeConfig     *RoomConfig // 节点配置
+	scopeConfigFlag bool
+}
+
+func NewScopeConfigBuilder() *ScopeConfigBuilder {
+	builder := &ScopeConfigBuilder{}
+	return builder
+}
+
+// 查询节点范围
+//
+// 示例值：1
+func (builder *ScopeConfigBuilder) ScopeType(scopeType int) *ScopeConfigBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 查询节点ID：如果scope_type为1，则为层级ID，如果scope_type为2，则为会议室ID
+//
+// 示例值：omm_608d34d82d531b27fa993902d350a307
+func (builder *ScopeConfigBuilder) ScopeId(scopeId string) *ScopeConfigBuilder {
+	builder.scopeId = scopeId
+	builder.scopeIdFlag = true
+	return builder
+}
+
+// 节点配置
+//
+// 示例值：
+func (builder *ScopeConfigBuilder) ScopeConfig(scopeConfig *RoomConfig) *ScopeConfigBuilder {
+	builder.scopeConfig = scopeConfig
+	builder.scopeConfigFlag = true
+	return builder
+}
+
+func (builder *ScopeConfigBuilder) Build() *ScopeConfig {
+	req := &ScopeConfig{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+
+	}
+	if builder.scopeIdFlag {
+		req.ScopeId = &builder.scopeId
+
+	}
+	if builder.scopeConfigFlag {
+		req.ScopeConfig = builder.scopeConfig
+	}
+	return req
+}
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`  //
 	OpenId  *string `json:"open_id,omitempty"`  //
@@ -2729,6 +3371,160 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
+type ListAlertReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListAlertReqBuilder() *ListAlertReqBuilder {
+	builder := &ListAlertReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListAlertReqBuilder) Limit(limit int) *ListAlertReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 开始时间（unix时间，单位sec）
+//
+// 示例值：1608888867
+func (builder *ListAlertReqBuilder) StartTime(startTime string) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	return builder
+}
+
+// 结束时间（unix时间，单位sec）
+//
+// 示例值：1608888867
+func (builder *ListAlertReqBuilder) EndTime(endTime string) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	return builder
+}
+
+// 查询对象类型
+//
+// 示例值：1
+func (builder *ListAlertReqBuilder) QueryType(queryType int) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("query_type", fmt.Sprint(queryType))
+	return builder
+}
+
+// 查询对象ID
+//
+// 示例值：6911188411932033028
+func (builder *ListAlertReqBuilder) QueryValue(queryValue string) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("query_value", fmt.Sprint(queryValue))
+	return builder
+}
+
+// 请求期望返回的告警记录数量，不足则返回全部，该值默认为 100，最大为 1000
+//
+// 示例值：500
+func (builder *ListAlertReqBuilder) PageSize(pageSize int) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：0
+func (builder *ListAlertReqBuilder) PageToken(pageToken string) *ListAlertReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListAlertReqBuilder) Build() *ListAlertReq {
+	req := &ListAlertReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListAlertReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListAlertRespData struct {
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有数据
+	PageToken *string  `json:"page_token,omitempty"` // 下一页分页的token，下次请求时传入
+	Items     []*Alert `json:"items,omitempty"`      // 告警记录
+}
+
+type ListAlertResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListAlertRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListAlertResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DownloadExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDownloadExportReqBuilder() *DownloadExportReqBuilder {
+	builder := &DownloadExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文档token
+//
+// 示例值：6yHu7Igp7Igy62Ez6fLr6IJz7j9i5WMe6fHq5yZeY2Jz6yLqYAMAY46fZfEz64Lr5fYyYQ==
+func (builder *DownloadExportReqBuilder) FileToken(fileToken string) *DownloadExportReqBuilder {
+	builder.apiReq.QueryParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+func (builder *DownloadExportReqBuilder) Build() *DownloadExportReq {
+	req := &DownloadExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DownloadExportReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DownloadExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
+}
+
+func (resp *DownloadExportResp) Success() bool {
+	return resp.Code == 0
+}
+
+func (resp *DownloadExportResp) WriteFile(fileName string) error {
+	bs, err := ioutil.ReadAll(resp.File)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(fileName, bs, 0666)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 type GetExportReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -2762,8 +3558,10 @@ type GetExportReq struct {
 }
 
 type GetExportRespData struct {
-	Status *int    `json:"status,omitempty"` // 任务状态
-	Url    *string `json:"url,omitempty"`    // 文件下载地址
+	Status    *int    `json:"status,omitempty"`     // 任务状态
+	Url       *string `json:"url,omitempty"`        // 文件下载地址
+	FileToken *string `json:"file_token,omitempty"` // 文件token
+	FailMsg   *string `json:"fail_msg,omitempty"`   // 失败信息
 }
 
 type GetExportResp struct {
@@ -4662,7 +5460,8 @@ type ApplyReserveReq struct {
 }
 
 type ApplyReserveRespData struct {
-	Reserve *Reserve `json:"reserve,omitempty"` // 预约数据
+	Reserve                    *Reserve                    `json:"reserve,omitempty"`                       // 预约数据
+	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` //
 }
 
 type ApplyReserveResp struct {
@@ -4972,7 +5771,8 @@ type UpdateReserveReq struct {
 }
 
 type UpdateReserveRespData struct {
-	Reserve *Reserve `json:"reserve,omitempty"` // 预约数据
+	Reserve                    *Reserve                    `json:"reserve,omitempty"`                       // 预约数据
+	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` //
 }
 
 type UpdateReserveResp struct {
@@ -5500,6 +6300,60 @@ type P2MeetingShareStartedV1 struct {
 
 func (m *P2MeetingShareStartedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
+}
+
+type ListAlertIterator struct {
+	nextPageToken *string
+	items         []*Alert
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAlertReq
+	listFunc      func(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAlertIterator) Next() (bool, *Alert, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAlertIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListByNoMeetingIterator struct {

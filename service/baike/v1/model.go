@@ -14,6 +14,10 @@
 package larkbaike
 
 import (
+	"io"
+
+	"io/ioutil"
+
 	"fmt"
 
 	"context"
@@ -91,6 +95,38 @@ func (builder *AbbreviationBuilder) Build() *Abbreviation {
 	req := &Abbreviation{}
 	if builder.idFlag {
 		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type BaikeImage struct {
+	Token *string `json:"token,omitempty"` // 通过文件接口上传后的图片 token
+}
+
+type BaikeImageBuilder struct {
+	token     string // 通过文件接口上传后的图片 token
+	tokenFlag bool
+}
+
+func NewBaikeImageBuilder() *BaikeImageBuilder {
+	builder := &BaikeImageBuilder{}
+	return builder
+}
+
+// 通过文件接口上传后的图片 token
+//
+// 示例值：
+func (builder *BaikeImageBuilder) Token(token string) *BaikeImageBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *BaikeImageBuilder) Build() *BaikeImage {
+	req := &BaikeImage{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
 
 	}
 	return req
@@ -264,10 +300,9 @@ type Entity struct {
 	CreateTime  *string      `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  *string      `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
-	Categories  []string     `json:"categories,omitempty"`   // 词条标签
 	Statistics  *Statistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *OuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    *string      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	RichText    *string      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 }
 
 type EntityBuilder struct {
@@ -286,13 +321,11 @@ type EntityBuilder struct {
 	updateTimeFlag  bool
 	relatedMeta     *RelatedMeta // 更多相关信息
 	relatedMetaFlag bool
-	categories      []string // 词条标签
-	categoriesFlag  bool
 	statistics      *Statistics // 当前词条收到的反馈数据
 	statisticsFlag  bool
 	outerInfo       *OuterInfo // 外部系统关联数据
 	outerInfoFlag   bool
-	richText        string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	richText        string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	richTextFlag    bool
 }
 
@@ -364,15 +397,6 @@ func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuild
 	return builder
 }
 
-// 词条标签
-//
-// 示例值：
-func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
-	builder.categories = categories
-	builder.categoriesFlag = true
-	return builder
-}
-
 // 当前词条收到的反馈数据
 //
 // 示例值：
@@ -391,7 +415,7 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	return builder
 }
 
-// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 //
 // 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
@@ -428,9 +452,6 @@ func (builder *EntityBuilder) Build() *Entity {
 	if builder.relatedMetaFlag {
 		req.RelatedMeta = builder.relatedMeta
 	}
-	if builder.categoriesFlag {
-		req.Categories = builder.categories
-	}
 	if builder.statisticsFlag {
 		req.Statistics = builder.statistics
 	}
@@ -440,6 +461,53 @@ func (builder *EntityBuilder) Build() *Entity {
 	if builder.richTextFlag {
 		req.RichText = &builder.richText
 
+	}
+	return req
+}
+
+type File struct {
+	Name *string   `json:"name,omitempty"` // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+	File io.Reader `json:"file,omitempty"` // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+}
+
+type FileBuilder struct {
+	name     string // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+	nameFlag bool
+	file     io.Reader // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+	fileFlag bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+// 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+//
+// 示例值：示例图片.png
+func (builder *FileBuilder) Name(name string) *FileBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+//
+// 示例值：
+func (builder *FileBuilder) File(file io.Reader) *FileBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.fileFlag {
+		req.File = builder.file
 	}
 	return req
 }
@@ -674,6 +742,7 @@ type RelatedMeta struct {
 	Links           []*Referer        `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*Abbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*Classification `json:"classifications,omitempty"` // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
+	Images          []*BaikeImage     `json:"images,omitempty"`          // 上传的相关图片
 }
 
 type RelatedMetaBuilder struct {
@@ -691,6 +760,8 @@ type RelatedMetaBuilder struct {
 	abbreviationsFlag   bool
 	classifications     []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 	classificationsFlag bool
+	images              []*BaikeImage // 上传的相关图片
+	imagesFlag          bool
 }
 
 func NewRelatedMetaBuilder() *RelatedMetaBuilder {
@@ -761,6 +832,15 @@ func (builder *RelatedMetaBuilder) Classifications(classifications []*Classifica
 	return builder
 }
 
+// 上传的相关图片
+//
+// 示例值：
+func (builder *RelatedMetaBuilder) Images(images []*BaikeImage) *RelatedMetaBuilder {
+	builder.images = images
+	builder.imagesFlag = true
+	return builder
+}
+
 func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
 	req := &RelatedMeta{}
 	if builder.usersFlag {
@@ -783,6 +863,9 @@ func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
 	}
 	if builder.classificationsFlag {
 		req.Classifications = builder.classifications
+	}
+	if builder.imagesFlag {
+		req.Images = builder.images
 	}
 	return req
 }
@@ -1730,6 +1813,108 @@ type UpdateEntityResp struct {
 }
 
 func (resp *UpdateEntityResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DownloadFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
+	builder := &DownloadFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 需要下载的文件 token
+//
+// 示例值：
+func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
+	req := &DownloadFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DownloadFileReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DownloadFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
+}
+
+func (resp *DownloadFileResp) Success() bool {
+	return resp.Code == 0
+}
+
+func (resp *DownloadFileResp) WriteFile(fileName string) error {
+	bs, err := ioutil.ReadAll(resp.File)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(fileName, bs, 0666)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type UploadFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	file   *File
+}
+
+func NewUploadFileReqBuilder() *UploadFileReqBuilder {
+	builder := &UploadFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *UploadFileReqBuilder) File(file *File) *UploadFileReqBuilder {
+	builder.file = file
+	return builder
+}
+
+func (builder *UploadFileReqBuilder) Build() *UploadFileReq {
+	req := &UploadFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.file
+	return req
+}
+
+type UploadFileReq struct {
+	apiReq *larkcore.ApiReq
+	File   *File `body:""`
+}
+
+type UploadFileRespData struct {
+	FileToken *string `json:"file_token,omitempty"` // 文件 token
+}
+
+type UploadFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UploadFileRespData `json:"data"` // 业务数据
+}
+
+func (resp *UploadFileResp) Success() bool {
 	return resp.Code == 0
 }
 

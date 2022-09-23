@@ -93,8 +93,10 @@ const (
 )
 
 const (
-	TypeCreateMailgroupPermissionMemberUSER       = "USER"       // internal user in the team
-	TypeCreateMailgroupPermissionMemberDEPARTMENT = "DEPARTMENT" // member is a department
+	TypeCreateMailgroupPermissionMemberUSER          = "USER"           // internal user in the team
+	TypeCreateMailgroupPermissionMemberDEPARTMENT    = "DEPARTMENT"     // member is a department
+	TypeCreateMailgroupPermissionMemberMAILGROUP     = "MAIL_GROUP"     // member is a mail group
+	TypeCreateMailgroupPermissionMemberPUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
 )
 
 const (
@@ -444,6 +446,7 @@ type MailgroupPermissionMember struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
 	UserId             *string `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
 	DepartmentId       *string `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	Email              *string `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 	Type               *string `json:"type,omitempty"`                 // 成员类型
 }
 
@@ -454,6 +457,8 @@ type MailgroupPermissionMemberBuilder struct {
 	userIdFlag             bool
 	departmentId           string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdFlag       bool
+	email                  string // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+	emailFlag              bool
 	type_                  string // 成员类型
 	typeFlag               bool
 }
@@ -490,6 +495,15 @@ func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId strin
 	return builder
 }
 
+// The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+//
+// 示例值：xxx@xx.x
+func (builder *MailgroupPermissionMemberBuilder) Email(email string) *MailgroupPermissionMemberBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
 // 成员类型
 //
 // 示例值：USER
@@ -511,6 +525,10 @@ func (builder *MailgroupPermissionMemberBuilder) Build() *MailgroupPermissionMem
 	}
 	if builder.departmentIdFlag {
 		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
 
 	}
 	if builder.typeFlag {
@@ -1600,6 +1618,7 @@ type CreateMailgroupPermissionMemberRespData struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
 	UserId             *string `json:"user_id,omitempty"`              // The member's user id. Value is valid when type is USER
 	DepartmentId       *string `json:"department_id,omitempty"`        // The member's department id. Value is valid when type is DEPARTMENT
+	Email              *string `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 	Type               *string `json:"type,omitempty"`                 // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 }
 
@@ -1723,6 +1742,7 @@ type GetMailgroupPermissionMemberRespData struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
 	UserId             *string `json:"user_id,omitempty"`              // The member's user id. Value is valid when type is USER
 	DepartmentId       *string `json:"department_id,omitempty"`        // The member's department id. Value is valid when type is DEPARTMENT
+	Email              *string `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 	Type               *string `json:"type,omitempty"`                 // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 }
 
