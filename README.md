@@ -32,6 +32,8 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+- [加入答疑群](#加入答疑群)
+
 
 <!-- tocstop -->
 
@@ -930,6 +932,8 @@ func main() {
       ...
 }
 ```
+## 加入答疑群
+[单击加入答疑群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=357g037a-2f5e-4027-859f-8a80133b39fe)
 
 ## License
 使用 MIT
