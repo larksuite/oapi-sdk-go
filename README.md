@@ -32,6 +32,8 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+- [加入答疑群](#加入答疑群)
+
 
 <!-- tocstop -->
 
@@ -53,7 +55,7 @@ go get -u github.com/larksuite/oapi-sdk-go/v3@v3.0.2
 var client = lark.NewClient("appID", "appSecret") // 默认配置为自建应用
 ```
 
-- 对于商店应用，需在创建 API Client 时，使用 lark.WithMarketplaceApp 方法指定 AppType 为商店应用
+- 对于商店应用，需在创建 API Client 时，使用 lark.WithMarketplaceApp 方法指定 AppType 为商店应用。商店应用开发指南可 [点击这里查看](https://bytedance.feishu.cn/docx/DljadpCH3oMlnLxo1kpcS1vmnbg)
 
 ```go
 var client = lark.NewClient("appID", "appSecret",lark.WithMarketplaceApp()) // 设置App为商店应用
@@ -270,6 +272,7 @@ type HttpClient interface {
 
 ## API调用
 创建完毕 API Client，我们可以使用 ``Client.业务域.资源.方法名称`` 来定位具体的 API 方法，然后对具体的 API 发起调用。
+商店应用开发指南可 [点击这里查看](https://bytedance.feishu.cn/docx/DljadpCH3oMlnLxo1kpcS1vmnbg)
 
 ![](doc/find_method.jpg)
 
@@ -929,6 +932,8 @@ func main() {
       ...
 }
 ```
+## 加入答疑群
+[单击加入答疑群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=357g037a-2f5e-4027-859f-8a80133b39fe)
 
 ## License
 使用 MIT
