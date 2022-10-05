@@ -18,6 +18,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/card"
@@ -27,7 +28,7 @@ import (
 )
 
 func uploadImage(client *lark.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/go-icon.png")
+	pdf, err := os.Open("/Users/bytedance/Downloads/封面.jpg")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,19 +58,19 @@ func uploadImage(client *lark.Client) {
 }
 
 func uploadFile(client *lark.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/redis.pdf")
+	file, err := os.Open("/Users/bytedance/Downloads/测试.mp4")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	defer pdf.Close()
+	defer file.Close()
 
 	resp, err := client.Im.File.Create(context.Background(),
 		larkim.NewCreateFileReqBuilder().
 			Body(larkim.NewCreateFileReqBodyBuilder().
-				FileType(larkim.FileTypePdf).
-				FileName("redis.pdf").
-				File(pdf).
+				FileType(larkim.FileTypeMp4).
+				FileName("视频").
+				File(file).
 				Build()).
 			Build())
 
@@ -89,7 +90,7 @@ func uploadFile(client *lark.Client) {
 
 func downFile(client *lark.Client) {
 
-	resp, err := client.Im.File.Get(context.Background(), larkim.NewGetFileReqBuilder().FileKey("file_v2_4fa17cda-01f3-4aac-927a-7833ab482fcg").Build())
+	resp, err := client.Im.File.Get(context.Background(), larkim.NewGetFileReqBuilder().FileKey("file_v2_f2ff1863-5bcd-433c-8eac-ddda30d6986g").Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -101,7 +102,7 @@ func downFile(client *lark.Client) {
 		return
 	}
 
-	resp.WriteFile("c:/filepath/filename")
+	resp.WriteFile("a.mp4")
 
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
@@ -181,16 +182,13 @@ func downLoadImageV2(client *lark.Client) {
 }
 
 func sendTextMsg(client *lark.Client) {
-	// 构建消息体
-	content := larkim.NewTextMsgBuilder().
-		Line().
-		TextLine("hello").
-		TextLine("world").
-		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "陆续").
-		Build()
 
-	header := make(http.Header)
-	header.Add("reqKey1", "reqValue1")
+	// Build the text message content
+	//content := "{\"text\":\"hello,world\\n<at user_id=\\\"ou_c245b0a7dff2725cfa2fb104f8b48b9d\\\">加多</at>\"}"
+	content := larkim.NewTextMsgBuilder().
+		Text("hello,world").
+		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "加多").
+		Build()
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
@@ -199,7 +197,7 @@ func sendTextMsg(client *lark.Client) {
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
-		Build(), larkcore.WithHeaders(header), larkcore.WithAppTicket("appticket"), larkcore.WithTenantKey("key"))
+		Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -469,7 +467,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 }
 
 func sendImageMsg(client *lark.Client) {
-	msgImage := larkim.MessageImage{ImageKey: "img_v2_63554b3a-b60f-449a-a286-0f89e353815g"}
+	msgImage := larkim.MessageImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
@@ -561,7 +559,7 @@ func sendShardUserMsg(client *lark.Client) {
 }
 
 func sendAudioMsg(client *lark.Client) {
-	msgImage := larkim.MessageAudio{FileKey: "file_v2_0c7f5b4b-64ec-408a-a9eb-09aec7954a4g"}
+	msgImage := larkim.MessageAudio{FileKey: "file_v2_d37fd916-1b78-4dc7-b3e9-f5a57eb40ddg"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
@@ -592,7 +590,7 @@ func sendAudioMsg(client *lark.Client) {
 }
 
 func sendMediaMsg(client *lark.Client) {
-	msgImage := larkim.MessageMedia{FileKey: "file_v2_0c7f5b4b-64ec-408a-a9eb-09aec7954a4g", ImageKey: "ssss"}
+	msgImage := larkim.MessageMedia{FileKey: "file_v2_cd6a059f-f143-491a-a0b3-ec2823784dbg", ImageKey: "img_v2_8ebfff45-629a-4e99-a7c3-c5f89a3d0d1g"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
@@ -654,17 +652,17 @@ func sendFileMsg(client *lark.Client) {
 }
 
 func sendStickerMsg(client *lark.Client) {
-	msgImage := larkim.MessageSticker{FileKey: "img_v2_2a0372ea-dc03-44d7-b052-255bede4d42g"}
+	msgImage := larkim.MessageSticker{FileKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeChatId).
+		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeSticker).
-			ReceiveId("121212").
+			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
 		Build())
@@ -737,20 +735,53 @@ func sendPostMsg(client *lark.Client) {
 }
 
 func sendPostMsgUseBuilder(client *lark.Client) {
-	zhCnPostText := &larkim.MessagePostText{Text: "中文内容", UnEscape: false}
-	zhCnPostA := &larkim.MessagePostA{Text: "test content", Href: "http://www.baidu.com", UnEscape: false}
+	// 第一行
+	// 文本 &超链接
+	zhCnPostText := &larkim.MessagePostText{Text: "第一行:", UnEscape: false}
 	enUsPostText := &larkim.MessagePostText{Text: "英文内容", UnEscape: false}
-	enUsPostA := &larkim.MessagePostA{Text: "test content", Href: "http://www.baidu.com", UnEscape: false}
 
+	zhCnPostA := &larkim.MessagePostA{Text: "超链接", Href: "http://www.baidu.com", UnEscape: false}
+	enUsPostA := &larkim.MessagePostA{Text: "link", Href: "http://www.baidu.com", UnEscape: false}
+
+	// At人
+	zhCnPostAt := &larkim.MessagePostAt{UserId: "ou_c245b0a7dff2725cfa2fb104f8b48b9d", UserName: "加多"}
+	enCnPostAt := &larkim.MessagePostAt{UserId: "ou_c245b0a7dff2725cfa2fb104f8b48b9d", UserName: "jiaduo"}
+
+	// 图片
+	zhCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	enCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+
+	// 第二行
+	// 文本 &超链接
+	zhCnPostText21 := &larkim.MessagePostText{Text: "第二行:", UnEscape: false}
+	enUsPostText21 := &larkim.MessagePostText{Text: "英文内容", UnEscape: false}
+
+	zhCnPostText22 := &larkim.MessagePostText{Text: "文本测试", UnEscape: false}
+	enUsPostText22 := &larkim.MessagePostText{Text: "英文内容", UnEscape: false}
+
+	// 图片
+	zhCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	enCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+
+	// 中文
 	zhCn := larkim.NewMessagePostContent().
-		ContentTitle("title1").
-		AppendContent([]larkim.MessagePostElement{zhCnPostText, zhCnPostA}).
+		ContentTitle("我是一个标题").
+		AppendContent([]larkim.MessagePostElement{zhCnPostText, zhCnPostA, zhCnPostAt}).
+		AppendContent([]larkim.MessagePostElement{zhCnPostImage}).
+		AppendContent([]larkim.MessagePostElement{zhCnPostText21, zhCnPostText22}).
+		AppendContent([]larkim.MessagePostElement{zhCnPostImage2}).
 		Build()
 
+	// 英文
 	enUs := larkim.NewMessagePostContent().
-		ContentTitle("title1").
-		AppendContent([]larkim.MessagePostElement{enUsPostA, enUsPostText}).
+		ContentTitle("im a title").
+		AppendContent([]larkim.MessagePostElement{enUsPostA, enUsPostText, enCnPostAt}).
+		AppendContent([]larkim.MessagePostElement{enCnPostImage}).
+		AppendContent([]larkim.MessagePostElement{enUsPostText21, enUsPostText22}).
+		AppendContent([]larkim.MessagePostElement{enCnPostImage2}).
 		Build()
+
+	// 构建消息体
 	postText, err := larkim.NewMessagePost().ZhCn(zhCn).EnUs(enUs).Build()
 	if err != nil {
 		fmt.Println(err)
@@ -858,35 +889,102 @@ func sendRawImageReq(cli *lark.Client) {
 
 	fmt.Println(resp)
 }
+
+type CustomLogger struct {
+}
+
+func (c *CustomLogger) Debug(context.Context, ...interface{}) {
+	// 实现自己的日志逻辑
+}
+
+func (c *CustomLogger) Info(context.Context, ...interface{}) {
+	// 实现自己的日志逻辑
+}
+
+func (c *CustomLogger) Warn(context.Context, ...interface{}) {
+	// 实现自己的日志逻辑
+}
+
+func (c *CustomLogger) Error(context.Context, ...interface{}) {
+	// 实现自己的日志逻辑
+}
+
+type CustomCache struct {
+}
+
+func (c *CustomCache) Set(ctx context.Context, key string, value string, expireTime time.Duration) error {
+	// 缓存token
+	return nil
+}
+
+func (c *CustomCache) Get(ctx context.Context, key string) (string, error) {
+	// 获取token
+	token := ""
+	return token, nil
+}
+
+type CustomHttpClient struct {
+	httpClient *http.Client
+}
+
+func (c *CustomHttpClient) Do(req *http.Request) (*http.Response, error) {
+	// 请求前做点事情
+	// 发起请求
+	resp, err := c.httpClient.Do(req)
+	// 请求后做点事情
+	return resp, err
+}
+
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	//header1 := make(http.Header)
-	//header1.Add("globalKey1", "globalValue1")
-	var feishu_client = lark.NewClient(appID, appSecret,
-		lark.WithLogLevel(larkcore.LogLevelDebug),
-		lark.WithLogReqAtDebug(true),
-	)
+	var client = lark.NewClient(appID, appSecret)
+
+	// 发送文本消息
+	//sendTextMsg(client)
+
+	// 发送富文本消息
+	sendPostMsgUseBuilder(client)
+
+	// 发送图片消息
+	//uploadImage(client)
+	//sendImageMsg(client)
+
+	// 发送交互卡片消息
+	//sendInteractiveMonitorMsg(client)
+
+	// 发送群名片消息
+	//sendShardChatMsg(client)
+
+	// 发送个人名片消息
+	//sendShardUserMsg(client)
+
+	// 发送语音 audio
+	//uploadFile(client)
+	//sendAudioMsg(client)
+
+	// 发送视频消息
+	//uploadFile(client)
+	//uploadImage(client)
+	//sendMediaMsg(client)
+
+	// 发送文件消息
+	//sendFileMsg(client)
+
+	// 发送表情
+	//sendStickerMsg(client)
 
 	//downFile(feishu_client)
 	//downLoadImageV2(feishu_client)
-	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
 	//sendRawImageReq(feishu_client)
-	//sendImageMsg(feishu_client)
 	//uploadFile(feishu_client)
-	//sendFileMsg(feishu_client)
 	//sendAudioMsg(client)
-	//sendMediaMsg(client)
-	//sendShardChatMsg(client)
 	//sendShardUserMsg(client)
 	//sendPostMsg(feishu_client)
-	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
-	//sendInteractiveMsg(feishu_client)
 	//sendInteractiveMonitorMsg(feishu_client)
 	//sendInteractiveMonitorMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)

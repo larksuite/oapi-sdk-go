@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -24,19 +25,19 @@ import (
 // POST /open-apis/drive/v1/files/:file_token/copy
 func main() {
 	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+	client := lark.NewClient("cli_a1eccc36c278900d", "uvNOxS6mplA6Nf3YPt8rUbbShON1Ocj5")
 	// 创建请求对象
 	req := larkdrive.NewCopyFileReqBuilder().
-		FileToken("boxbc0dGSMu23m7QkC1bvabcef").
+		FileToken("doxcn0stWG7Zb9ItETHUVHv6fsg").
 		Body(larkdrive.NewCopyFileReqBodyBuilder().
-			Name("123.txt").
-			Type("file").
-			FolderToken("fldbcO1UuPz8VwnpPx5a92abcef").
-			Extra([]*larkdrive.Property{larkdrive.NewPropertyBuilder().Build()}).
+			Name("123doc.txt").
+			Type("doc").
+			FolderToken("fldcniHf40Vcv1DoEc8SXeuA0Zd").
+			Extra([]*larkdrive.Property{larkdrive.NewPropertyBuilder().Key("a").Value("ss").Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.File.Copy(context.Background(), req)
+	resp, err := client.Drive.File.Copy(context.Background(), req, larkcore.WithUserAccessToken("u-0ORCp.KvVa9XaU5_feRgasll46Lh1gs9r0G0kk.02eHo"))
 
 	// 处理错误
 	if err != nil {

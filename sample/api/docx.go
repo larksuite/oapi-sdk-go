@@ -31,7 +31,7 @@ func createDocument(client *lark.Client) {
 	header.Add("k1", "v1")
 	header.Add("k2", "v2")
 
-	// 发起请求
+	// create doc
 	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
 		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("token").

@@ -168,9 +168,13 @@ func rawApiGetTokenCallOld() {
 	var cli = lark.NewClient(appID, appSecret, lark.WithEnableTokenCache(false))
 
 	// 发起请求
+	body := map[string]interface{}{
+		"app_id":     "a",
+		"app_secret": "b",
+	}
 	resp, err := cli.Post(context.Background(),
-		"https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
-		nil,
+		"/open-apis/auth/v3/tenant_access_token/internal",
+		&body,
 		larkcore.AccessTokenTypeNone)
 
 	// 错误处理

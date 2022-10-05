@@ -238,6 +238,12 @@ func NewTextMsgBuilder() *MessageText {
 	return m
 }
 
+func NewMessageTextBuilder() *MessageText {
+	m := &MessageText{}
+	m.builder.WriteString("{\"text\":\"")
+	return m
+}
+
 func (t *MessageText) Text(text string) *MessageText {
 	t.builder.WriteString(text)
 	return t
@@ -400,6 +406,37 @@ func (m *MessagePostAt) IsPost() {
 }
 
 func (m *MessagePostAt) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessagePostImage struct {
+	ImageKey string `json:"image_key,omitempty"`
+}
+
+func (m *MessagePostImage) Tag() string {
+	return "img"
+}
+
+func (m *MessagePostImage) IsPost() {
+}
+
+func (m *MessagePostImage) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessagePostMedia struct {
+	FileKey  string `json:"file_key,omitempty"`
+	ImageKey string `json:"image_key,omitempty"`
+}
+
+func (m *MessagePostMedia) Tag() string {
+	return "media"
+}
+
+func (m *MessagePostMedia) IsPost() {
+}
+
+func (m *MessagePostMedia) MarshalJSON() ([]byte, error) {
 	return messagePostElementJson(m)
 }
 
