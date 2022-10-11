@@ -3369,6 +3369,7 @@ type UserApproval struct {
 	Leaves        []*UserLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*UserOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
 	Trips         []*UserTrip         `json:"trips,omitempty"`          // 出差信息
+	TimeZone      *string             `json:"time_zone,omitempty"`      // 计算时间所用的时区信息，为空是0时区
 }
 
 type UserApprovalBuilder struct {
@@ -3384,6 +3385,8 @@ type UserApprovalBuilder struct {
 	overtimeWorksFlag bool
 	trips             []*UserTrip // 出差信息
 	tripsFlag         bool
+	timeZone          string // 计算时间所用的时区信息，为空是0时区
+	timeZoneFlag      bool
 }
 
 func NewUserApprovalBuilder() *UserApprovalBuilder {
@@ -3445,6 +3448,15 @@ func (builder *UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilde
 	return builder
 }
 
+// 计算时间所用的时区信息，为空是0时区
+//
+// 示例值：
+func (builder *UserApprovalBuilder) TimeZone(timeZone string) *UserApprovalBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *UserApprovalBuilder) Build() *UserApproval {
 	req := &UserApproval{}
 	if builder.userIdFlag {
@@ -3466,6 +3478,10 @@ func (builder *UserApprovalBuilder) Build() *UserApproval {
 	}
 	if builder.tripsFlag {
 		req.Trips = builder.trips
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
 	}
 	return req
 }

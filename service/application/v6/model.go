@@ -372,7 +372,7 @@ func NewAppBadgeBuilder() *AppBadgeBuilder {
 
 // 用户ID
 //
-// 示例值：
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -381,7 +381,7 @@ func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 
 // badge数据版本号
 //
-// 示例值：
+// 示例值：1664360599355
 func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	builder.version = version
 	builder.versionFlag = true
@@ -2055,7 +2055,7 @@ func (builder *ApplicationBuilder) PrimaryLanguage(primaryLanguage string) *Appl
 
 // 应用分类的国际化描述
 //
-// 示例值：
+// 示例值：["办公效率"]
 func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *ApplicationBuilder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesFlag = true
@@ -3226,7 +3226,7 @@ func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwne
 
 // 应用开发商名称(仅商店应用返回)
 //
-// 示例值：
+// 示例值：test tenant
 func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3235,7 +3235,7 @@ func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuild
 
 // 应用开发商服务台链接(仅商店应用返回)
 //
-// 示例值：
+// 示例值：https://applink.feishu.cn/client/helpdesk/open?id=6940534140529803284
 func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOwnerBuilder {
 	builder.helpDesk = helpDesk
 	builder.helpDeskFlag = true
@@ -3244,7 +3244,7 @@ func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOw
 
 // 应用开发商的邮箱(仅商店应用返回)
 //
-// 示例值：
+// 示例值：test123@163.com
 func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBuilder {
 	builder.email = email
 	builder.emailFlag = true
@@ -3253,7 +3253,7 @@ func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBui
 
 // 应用开发商的手机号(仅商店应用返回)
 //
-// 示例值：
+// 示例值：1234534234234
 func (builder *ApplicationOwnerBuilder) Phone(phone string) *ApplicationOwnerBuilder {
 	builder.phone = phone
 	builder.phoneFlag = true
@@ -3545,7 +3545,7 @@ func NewClientBadgeNumBuilder() *ClientBadgeNumBuilder {
 
 // h5能力的badge数量
 //
-// 示例值：
+// 示例值：1
 func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder {
 	builder.webApp = webApp
 	builder.webAppFlag = true
@@ -3554,7 +3554,7 @@ func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder 
 
 // 小程序能力的badge数量
 //
-// 示例值：
+// 示例值：2
 func (builder *ClientBadgeNumBuilder) Gadget(gadget int) *ClientBadgeNumBuilder {
 	builder.gadget = gadget
 	builder.gadgetFlag = true
@@ -4897,11 +4897,11 @@ type Widget struct {
 }
 
 type WorkplaceWidget struct {
-	MinLarkVersion *string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+	MinLarkVersion *string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
 type WorkplaceWidgetBuilder struct {
-	minLarkVersion     string // 最低兼容 lark 版本号
+	minLarkVersion     string // 最低兼容飞书版本号
 	minLarkVersionFlag bool
 }
 
@@ -4910,7 +4910,7 @@ func NewWorkplaceWidgetBuilder() *WorkplaceWidgetBuilder {
 	return builder
 }
 
-// 最低兼容 lark 版本号
+// 最低兼容飞书版本号
 //
 // 示例值：1.0.0
 func (builder *WorkplaceWidgetBuilder) MinLarkVersion(minLarkVersion string) *WorkplaceWidgetBuilder {
@@ -5432,7 +5432,7 @@ func (builder *ListApplicationAppVersionReqBuilder) Limit(limit int) *ListApplic
 	return builder
 }
 
-// 如果查询自身应用信息，可填入 "me" 或者应用自身 app_id。对应权限仅需申请“管理应用自身资源”。如需查询其他应用信息，必须申请获取应用信息权限，仅支持查询所在租户开发的自建应用。需要填入对应应用的appID。
+// 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
 //
 // 示例值：cli_9b445f5258795107
 func (builder *ListApplicationAppVersionReqBuilder) AppId(appId string) *ListApplicationAppVersionReqBuilder {
@@ -5816,7 +5816,7 @@ func (m *P2ApplicationAppVersionAuditV6) RawReq(req *larkevent.EventReq) {
 type P2ApplicationAppVersionPublishApplyV6Data struct {
 	OperatorId        *UserId                     `json:"operator_id,omitempty"`         // 用户 ID
 	OnlineVersion     *ApplicationAppVersionEvent `json:"online_version,omitempty"`      // 当前线上版本信息
-	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"` // 当前线上版本信息
+	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"` // 当前在审核的应用版本
 	AppStatus         *int                        `json:"app_status,omitempty"`          // 应用状态
 }
 

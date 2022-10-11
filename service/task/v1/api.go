@@ -299,7 +299,7 @@ func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options .
 
 // 新增执行者
 //
-// - 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是表示是用户的ID。
+// - 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是用户的ID。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
 //

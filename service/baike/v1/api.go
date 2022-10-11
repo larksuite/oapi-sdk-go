@@ -35,7 +35,7 @@ type BaikeService struct {
 	Classification *classification // 分类
 	Draft          *draft          // 草稿
 	Entity         *entity         // 词条
-	File           *file           // file
+	File           *file           // 文件
 }
 
 type classification struct {
@@ -143,7 +143,7 @@ func (d *draft) Update(ctx context.Context, req *UpdateDraftReq, options ...lark
 
 // 创建免审词条
 //
-// - 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
+// - 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/create
 //
@@ -169,7 +169,7 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 
 // 获取词条详情
 //
-// - 通过词条 id 拉取对应的实体词详情信息
+// - 通过词条 id 拉取对应的词条详情信息。
 //
 // - 也支持通过 provider 和 outer_id 返回对应实体的详情数据。此时路径中的 entity_id 为固定的 enterprise_0
 //
@@ -197,7 +197,7 @@ func (e *entity) Get(ctx context.Context, req *GetEntityReq, options ...larkcore
 
 // 词条高亮
 //
-// - 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮
+// - 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/highlight
 //
@@ -223,7 +223,7 @@ func (e *entity) Highlight(ctx context.Context, req *HighlightEntityReq, options
 
 // 获取词条列表
 //
-// - 分页拉取词条列表数据，支持拉取租户内的全部词条
+// - 分页拉取词条列表数据，支持拉取租户内的全部词条。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/list
 //
@@ -257,7 +257,7 @@ func (e *entity) ListByIterator(ctx context.Context, req *ListEntityReq, options
 
 // 精准搜索词条
 //
-// - 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID
+// - 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/match
 //
@@ -283,7 +283,7 @@ func (e *entity) Match(ctx context.Context, req *MatchEntityReq, options ...lark
 
 // 模糊搜索词条
 //
-// - 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息
+// - 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/search
 //
@@ -317,7 +317,7 @@ func (e *entity) SearchByIterator(ctx context.Context, req *SearchEntityReq, opt
 
 // 更新免审词条
 //
-// - 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
+// - 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/update
 //
@@ -341,11 +341,11 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	return resp, err
 }
 
+// 图片下载
 //
+// - 通过 file_token 下载原图片
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=baike&resource=file&version=v1
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/download
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/baikev1/download_file.go
 func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
@@ -373,11 +373,11 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 	return resp, err
 }
 
+// 图片上传
 //
+// - 百科词条图片资源上传。
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=baike&resource=file&version=v1
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/upload
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/baikev1/upload_file.go
 func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkcore.RequestOptionFunc) (*UploadFileResp, error) {

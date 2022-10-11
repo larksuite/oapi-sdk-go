@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -25,13 +24,13 @@ import (
 // POST /open-apis/contact/v3/users/batch_get_id
 func main() {
 	// 创建 Client
-	client := lark.NewClient("cli_a1eccc36c278900d", "uvNOxS6mplA6Nf3YPt8rUbbShON1Ocj5")
-
+	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewBatchGetIdUserReqBuilder().
-		UserIdType(larkcontact.UserIdTypeOpenId).
+		UserIdType("open_id").
 		Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
-			Mobiles([]string{"18368866324"}).
+			Emails([]string{}).
+			Mobiles([]string{}).
 			Build()).
 		Build()
 	// 发起请求

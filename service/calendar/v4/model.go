@@ -748,7 +748,7 @@ type CalendarEvent struct {
 	Status              *string        `json:"status,omitempty"`                // 日程状态
 	IsException         *bool          `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程
 	RecurringEventId    *string        `json:"recurring_event_id,omitempty"`    // 例外日程的原重复日程的event_id
-	CreateTime          *string        `json:"create_time,omitempty"`           // 日程的创建时间戳
+	CreateTime          *string        `json:"create_time,omitempty"`           // 日程的创建时间（秒级时间戳）
 	Schemas             []*Schema      `json:"schemas,omitempty"`               // 日程自定义信息；控制日程详情页的ui展示。
 }
 
@@ -789,7 +789,7 @@ type CalendarEventBuilder struct {
 	isExceptionFlag         bool
 	recurringEventId        string // 例外日程的原重复日程的event_id
 	recurringEventIdFlag    bool
-	createTime              string // 日程的创建时间戳
+	createTime              string // 日程的创建时间（秒级时间戳）
 	createTimeFlag          bool
 	schemas                 []*Schema // 日程自定义信息；控制日程详情页的ui展示。
 	schemasFlag             bool
@@ -962,9 +962,9 @@ func (builder *CalendarEventBuilder) RecurringEventId(recurringEventId string) *
 	return builder
 }
 
-// 日程的创建时间戳
+// 日程的创建时间（秒级时间戳）
 //
-// 示例值：
+// 示例值：1602504000
 func (builder *CalendarEventBuilder) CreateTime(createTime string) *CalendarEventBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
@@ -4153,8 +4153,8 @@ type ListCalendarEventReq struct {
 
 type ListCalendarEventRespData struct {
 	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记，90 天有效期
-	SyncToken *string          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记，90 天有效期
+	PageToken *string          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记
+	SyncToken *string          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记
 	Items     []*CalendarEvent `json:"items,omitempty"`      // 日程列表
 }
 

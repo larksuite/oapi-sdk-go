@@ -643,14 +643,14 @@ func (builder *CustomAttrEventBuilder) Build() *CustomAttrEvent {
 }
 
 type CustomAttrGenericUser struct {
-	Id   *string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	Type *int    `json:"type,omitempty"` // 用户类型	1：用户
+	Id   *string `json:"id,omitempty"`   // 用户的user_id ，具体参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	Type *int    `json:"type,omitempty"` // 用户类型:  ;1：用户;;目前固定为1，表示用户类型
 }
 
 type CustomAttrGenericUserBuilder struct {
-	id       string // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	id       string // 用户的user_id ，具体参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	idFlag   bool
-	type_    int // 用户类型	1：用户
+	type_    int // 用户类型:  ;1：用户;;目前固定为1，表示用户类型
 	typeFlag bool
 }
 
@@ -659,7 +659,7 @@ func NewCustomAttrGenericUserBuilder() *CustomAttrGenericUserBuilder {
 	return builder
 }
 
-// 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+// 用户的user_id ，具体参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：9b2fabg5
 func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUserBuilder {
@@ -668,7 +668,7 @@ func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUse
 	return builder
 }
 
-// 用户类型	1：用户
+// 用户类型:  ;1：用户;;目前固定为1，表示用户类型
 //
 // 示例值：1
 func (builder *CustomAttrGenericUserBuilder) Type(type_ int) *CustomAttrGenericUserBuilder {
@@ -1965,12 +1965,12 @@ func (builder *MemberlistBuilder) Build() *Memberlist {
 }
 
 type NotificationOption struct {
-	Channels []string `json:"channels,omitempty"` // 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+	Channels []string `json:"channels,omitempty"` // 通道列表
 	Language *string  `json:"language,omitempty"` // 语言类型
 }
 
 type NotificationOptionBuilder struct {
-	channels     []string // 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+	channels     []string // 通道列表
 	channelsFlag bool
 	language     string // 语言类型
 	languageFlag bool
@@ -1981,7 +1981,7 @@ func NewNotificationOptionBuilder() *NotificationOptionBuilder {
 	return builder
 }
 
-// 通道列表，枚举值，可多选：;- `sms`：短信邀请;- `email`：邮件邀请
+// 通道列表
 //
 // 示例值：["sms", "email"]
 func (builder *NotificationOptionBuilder) Channels(channels []string) *NotificationOptionBuilder {
@@ -2485,9 +2485,9 @@ func (builder *UnitDepartmentBuilder) Build() *UnitDepartment {
 }
 
 type User struct {
-	UnionId         *string     `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserId          *string     `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	OpenId          *string     `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	UnionId         *string     `json:"union_id,omitempty"`          // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	UserId          *string     `json:"user_id,omitempty"`           // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	OpenId          *string     `json:"open_id,omitempty"`           // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            *string     `json:"name,omitempty"`              // 用户名
 	EnName          *string     `json:"en_name,omitempty"`           // 英文名
 	Nickname        *string     `json:"nickname,omitempty"`          // 别名
@@ -2495,9 +2495,9 @@ type User struct {
 	Mobile          *string     `json:"mobile,omitempty"`            // 手机号，在本企业内不可重复；未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号，注意国际电话区号前缀中必须包含加号 +
 	MobileVisible   *bool       `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
 	Gender          *int        `json:"gender,omitempty"`            // 性别
-	AvatarKey       *string     `json:"avatar_key,omitempty"`        // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	AvatarKey       *string     `json:"avatar_key,omitempty"`        // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	Avatar          *AvatarInfo `json:"avatar,omitempty"`            // 用户头像信息
-	Status          *UserStatus `json:"status,omitempty"`            // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
+	Status          *UserStatus `json:"status,omitempty"`            // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited 。;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
 	DepartmentIds   []string    `json:"department_ids,omitempty"`    // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 	LeaderUserId    *string     `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 	City            *string     `json:"city,omitempty"`              // 工作城市
@@ -2506,24 +2506,24 @@ type User struct {
 	JoinTime        *int        `json:"join_time,omitempty"`         // 入职时间，时间戳格式，表示从1970年1月1日开始所经过的秒数
 	IsTenantManager *bool       `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员
 	EmployeeNo      *string     `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    *int        `json:"employee_type,omitempty"`     // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+	EmployeeType    *int        `json:"employee_type,omitempty"`     // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 
 	Orders          []*UserOrder      `json:"orders,omitempty"`           // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
-	CustomAttrs     []*UserCustomAttr `json:"custom_attrs,omitempty"`     // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。
-	EnterpriseEmail *string           `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	CustomAttrs     []*UserCustomAttr `json:"custom_attrs,omitempty"`     // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。;;更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	EnterpriseEmail *string           `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务;;创建用户时，企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 
 	JobTitle *string `json:"job_title,omitempty"` // 职务
 
-	IsFrozen *bool   `json:"is_frozen,omitempty"` // 是否暂停用户
-	Geo      *string `json:"geo,omitempty"`       // 数据驻留地
+	IsFrozen *bool `json:"is_frozen,omitempty"` // 是否暂停用户
+
 }
 
 type UserBuilder struct {
-	unionId             string // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	unionId             string // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	unionIdFlag         bool
-	userId              string // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userId              string // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	userIdFlag          bool
-	openId              string // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	openId              string // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	openIdFlag          bool
 	name                string // 用户名
 	nameFlag            bool
@@ -2539,11 +2539,11 @@ type UserBuilder struct {
 	mobileVisibleFlag   bool
 	gender              int // 性别
 	genderFlag          bool
-	avatarKey           string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	avatarKey           string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	avatarKeyFlag       bool
 	avatar              *AvatarInfo // 用户头像信息
 	avatarFlag          bool
-	status              *UserStatus // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
+	status              *UserStatus // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited 。;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
 	statusFlag          bool
 	departmentIds       []string // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 	departmentIdsFlag   bool
@@ -2561,14 +2561,14 @@ type UserBuilder struct {
 	isTenantManagerFlag bool
 	employeeNo          string // 工号
 	employeeNoFlag      bool
-	employeeType        int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+	employeeType        int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 	employeeTypeFlag    bool
 
 	orders              []*UserOrder // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
 	ordersFlag          bool
-	customAttrs         []*UserCustomAttr // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。
+	customAttrs         []*UserCustomAttr // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。;;更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	customAttrsFlag     bool
-	enterpriseEmail     string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	enterpriseEmail     string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务;;创建用户时，企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	enterpriseEmailFlag bool
 
 	jobTitle     string // 职务
@@ -2576,8 +2576,6 @@ type UserBuilder struct {
 
 	isFrozen     bool // 是否暂停用户
 	isFrozenFlag bool
-	geo          string // 数据驻留地
-	geoFlag      bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -2585,7 +2583,7 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
-// 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+// 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：on_94a1ee5551019f18cd73d9f111898cf2
 func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
@@ -2594,7 +2592,7 @@ func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
 	return builder
 }
 
-// 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+// 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：3e3cf96b
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
@@ -2603,7 +2601,7 @@ func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	return builder
 }
 
-// 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+// 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
@@ -2675,7 +2673,7 @@ func (builder *UserBuilder) Gender(gender int) *UserBuilder {
 	return builder
 }
 
-// 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”接口文档：[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+// 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 //
 // 示例值：2500c7a9-5fff-4d9a-a2de-3d59614ae28g
 func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
@@ -2693,7 +2691,7 @@ func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
 	return builder
 }
 
-// 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
+// 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited 。;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
 //
 // 示例值：
 func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
@@ -2774,7 +2772,7 @@ func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
 	return builder
 }
 
-// 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ;[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+// 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 //
 // 示例值：1
 func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
@@ -2792,7 +2790,7 @@ func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
 	return builder
 }
 
-// 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。
+// 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。;;更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 //
 // 示例值：
 func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuilder {
@@ -2801,7 +2799,7 @@ func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuil
 	return builder
 }
 
-// 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+// 企业邮箱，请先确保已在管理后台启用飞书邮箱服务;;创建用户时，企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 //
 // 示例值：demo@mail.com
 func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder {
@@ -2825,15 +2823,6 @@ func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
 func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 	builder.isFrozen = isFrozen
 	builder.isFrozenFlag = true
-	return builder
-}
-
-// 数据驻留地
-//
-// 示例值：
-func (builder *UserBuilder) Geo(geo string) *UserBuilder {
-	builder.geo = geo
-	builder.geoFlag = true
 	return builder
 }
 
@@ -2945,10 +2934,7 @@ func (builder *UserBuilder) Build() *User {
 		req.IsFrozen = &builder.isFrozen
 
 	}
-	if builder.geoFlag {
-		req.Geo = &builder.geo
 
-	}
 	return req
 }
 
@@ -3017,13 +3003,13 @@ func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 }
 
 type UserCustomAttr struct {
-	Type  *string              `json:"type,omitempty"`  // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	Type  *string              `json:"type,omitempty"`  // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	Id    *string              `json:"id,omitempty"`    // 自定义字段ID
 	Value *UserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type UserCustomAttrBuilder struct {
-	type_     string // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	type_     string // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	typeFlag  bool
 	id        string // 自定义字段ID
 	idFlag    bool
@@ -3036,7 +3022,7 @@ func NewUserCustomAttrBuilder() *UserCustomAttrBuilder {
 	return builder
 }
 
-// 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+// 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 //
 // 示例值：TEXT
 func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder {
@@ -3125,7 +3111,7 @@ func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValu
 
 // 字段类型为 HREF 时，该参数定义默认 URL，例如手机端跳转小程序，PC端跳转网页
 //
-// 示例值：http://www.feishu.cn
+// 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -3134,7 +3120,7 @@ func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueB
 
 // 字段类型为 HREF 时，该参数定义PC端 URL
 //
-// 示例值：http://www.feishu.cn
+// 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrValueBuilder {
 	builder.pcUrl = pcUrl
 	builder.pcUrlFlag = true
@@ -3713,13 +3699,13 @@ type UserGroupMember struct {
 }
 
 type UserOrder struct {
-	DepartmentId    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	DepartmentId    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type UserOrderBuilder struct {
-	departmentId        string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	departmentId        string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	departmentIdFlag    bool
 	userOrder           int // 用户在其直属部门内的排序，数值越大，排序越靠前
 	userOrderFlag       bool
@@ -3732,7 +3718,7 @@ func NewUserOrderBuilder() *UserOrderBuilder {
 	return builder
 }
 
-// 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+// 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBuilder {
@@ -4171,7 +4157,7 @@ func (builder *CreateDepartmentReqBuilder) UserIdType(userIdType string) *Create
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型;;不同 ID 的说明 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型;;不同 ID 的说明参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *CreateDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *CreateDepartmentReqBuilder {
@@ -4187,7 +4173,7 @@ func (builder *CreateDepartmentReqBuilder) ClientToken(clientToken string) *Crea
 	return builder
 }
 
-// 该接口用于向通讯录中创建部门。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口用于向通讯录中创建部门。
 func (builder *CreateDepartmentReqBuilder) Department(department *Department) *CreateDepartmentReqBuilder {
 	builder.department = department
 	return builder
@@ -4559,7 +4545,7 @@ func (builder *PatchDepartmentReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 该接口用于更新通讯录中部门的信息中的任一个字段。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口用于更新通讯录中部门的信息中的任一个字段。
 func (builder *PatchDepartmentReqBuilder) Department(department *Department) *PatchDepartmentReqBuilder {
 	builder.department = department
 	return builder
@@ -4700,7 +4686,7 @@ func (builder *SearchDepartmentReqBuilder) PageSize(pageSize int) *SearchDepartm
 	return builder
 }
 
-// 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置。
 func (builder *SearchDepartmentReqBuilder) Body(body *SearchDepartmentReqBody) *SearchDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -4888,7 +4874,7 @@ func (builder *UpdateDepartmentReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
-// 该接口用于更新当前部门所有信息。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口用于更新当前部门所有信息。
 func (builder *UpdateDepartmentReqBuilder) Department(department *Department) *UpdateDepartmentReqBuilder {
 	builder.department = department
 	return builder
@@ -7370,7 +7356,7 @@ func (builder *CreateUserReqBuilder) UserIdType(userIdType string) *CreateUserRe
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。;;不同 ID 的说明 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型。;;不同 ID 的说明参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *CreateUserReqBuilder) DepartmentIdType(departmentIdType string) *CreateUserReqBuilder {
@@ -7386,7 +7372,7 @@ func (builder *CreateUserReqBuilder) ClientToken(clientToken string) *CreateUser
 	return builder
 }
 
-// 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 func (builder *CreateUserReqBuilder) User(user *User) *CreateUserReqBuilder {
 	builder.user = user
 	return builder
@@ -7430,8 +7416,6 @@ type DeleteUserReqBodyBuilder struct {
 	calendarAcceptorUserIdFlag       bool
 	applicationAcceptorUserId        string // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 	applicationAcceptorUserIdFlag    bool
-	helpdeskAcceptorUserId           string // 服务台暂不支持转移，本参数无效。
-	helpdeskAcceptorUserIdFlag       bool
 	minutesAcceptorUserId            string // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 	minutesAcceptorUserIdFlag        bool
 	surveyAcceptorUserId             string // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
@@ -7490,15 +7474,6 @@ func (builder *DeleteUserReqBodyBuilder) ApplicationAcceptorUserId(applicationAc
 	return builder
 }
 
-// 服务台暂不支持转移，本参数无效。
-//
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
-func (builder *DeleteUserReqBodyBuilder) HelpdeskAcceptorUserId(helpdeskAcceptorUserId string) *DeleteUserReqBodyBuilder {
-	builder.helpdeskAcceptorUserId = helpdeskAcceptorUserId
-	builder.helpdeskAcceptorUserIdFlag = true
-	return builder
-}
-
 // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 //
 //示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
@@ -7543,9 +7518,6 @@ func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 	if builder.applicationAcceptorUserIdFlag {
 		req.ApplicationAcceptorUserId = &builder.applicationAcceptorUserId
 	}
-	if builder.helpdeskAcceptorUserIdFlag {
-		req.HelpdeskAcceptorUserId = &builder.helpdeskAcceptorUserId
-	}
 	if builder.minutesAcceptorUserIdFlag {
 		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
 	}
@@ -7569,8 +7541,6 @@ type DeleteUserPathReqBodyBuilder struct {
 	calendarAcceptorUserIdFlag       bool
 	applicationAcceptorUserId        string // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 	applicationAcceptorUserIdFlag    bool
-	helpdeskAcceptorUserId           string // 服务台暂不支持转移，本参数无效。
-	helpdeskAcceptorUserIdFlag       bool
 	minutesAcceptorUserId            string // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 	minutesAcceptorUserIdFlag        bool
 	surveyAcceptorUserId             string // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
@@ -7629,15 +7599,6 @@ func (builder *DeleteUserPathReqBodyBuilder) ApplicationAcceptorUserId(applicati
 	return builder
 }
 
-// 服务台暂不支持转移，本参数无效。
-//
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
-func (builder *DeleteUserPathReqBodyBuilder) HelpdeskAcceptorUserId(helpdeskAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
-	builder.helpdeskAcceptorUserId = helpdeskAcceptorUserId
-	builder.helpdeskAcceptorUserIdFlag = true
-	return builder
-}
-
 // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
@@ -7682,9 +7643,6 @@ func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error)
 	if builder.applicationAcceptorUserIdFlag {
 		req.ApplicationAcceptorUserId = &builder.applicationAcceptorUserId
 	}
-	if builder.helpdeskAcceptorUserIdFlag {
-		req.HelpdeskAcceptorUserId = &builder.helpdeskAcceptorUserId
-	}
 	if builder.minutesAcceptorUserIdFlag {
 		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
 	}
@@ -7727,7 +7685,7 @@ func (builder *DeleteUserReqBuilder) UserIdType(userIdType string) *DeleteUserRe
 	return builder
 }
 
-// 该接口向通讯录删除一个用户信息，可以理解为员工离职。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口向通讯录删除一个用户信息，可以理解为员工离职。
 func (builder *DeleteUserReqBuilder) Body(body *DeleteUserReqBody) *DeleteUserReqBuilder {
 	builder.body = body
 	return builder
@@ -7748,7 +7706,6 @@ type DeleteUserReqBody struct {
 	DocsAcceptorUserId           *string           `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
 	CalendarAcceptorUserId       *string           `json:"calendar_acceptor_user_id,omitempty"`        // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
 	ApplicationAcceptorUserId    *string           `json:"application_acceptor_user_id,omitempty"`     // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
-	HelpdeskAcceptorUserId       *string           `json:"helpdesk_acceptor_user_id,omitempty"`        // 服务台暂不支持转移，本参数无效。
 	MinutesAcceptorUserId        *string           `json:"minutes_acceptor_user_id,omitempty"`         // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 	SurveyAcceptorUserId         *string           `json:"survey_acceptor_user_id,omitempty"`          // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
 	EmailAcceptor                *ResourceAcceptor `json:"email_acceptor,omitempty"`                   // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
@@ -7796,7 +7753,7 @@ func (builder *FindByDepartmentUserReqBuilder) UserIdType(userIdType string) *Fi
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型;;[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+// 此次调用中使用的部门ID的类型;;部门ID类型的区别参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
 // 示例值：open_department_id
 func (builder *FindByDepartmentUserReqBuilder) DepartmentIdType(departmentIdType string) *FindByDepartmentUserReqBuilder {
@@ -8049,7 +8006,7 @@ func (builder *PatchUserReqBuilder) DepartmentIdType(departmentIdType string) *P
 	return builder
 }
 
-// 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。
 func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
 	builder.user = user
 	return builder
@@ -8121,7 +8078,7 @@ func (builder *UpdateUserReqBuilder) DepartmentIdType(departmentIdType string) *
 	return builder
 }
 
-// 该接口用于更新通讯录中用户的字段。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// 该接口用于更新通讯录中用户的字段。
 func (builder *UpdateUserReqBuilder) User(user *User) *UpdateUserReqBuilder {
 	builder.user = user
 	return builder

@@ -28,7 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewTransferOnboardApplicationReqBuilder().
 		ApplicationId("7073372582620416300").
-		UserIdType("user_id").
+		UserIdType("open_id").
+		DepartmentIdType("people_admin_department_id").
 		Body(larkhire.NewTransferOnboardApplicationReqBodyBuilder().
 			ActualOnboardTime(1616428800000).
 			ExpectedConversionTime(1616428800000).

@@ -734,7 +734,7 @@ func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 
 // 知识空间id
 //
-// 示例值：1565676577122621
+// 示例值：
 func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1502,7 +1502,7 @@ func (builder *MoveSpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken 
 
 // 移动到的知识空间ID
 //
-//示例值：
+//示例值：7008061636015512345
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1543,7 +1543,7 @@ func (builder *MoveSpaceNodePathReqBodyBuilder) TargetParentToken(targetParentTo
 
 // 移动到的知识空间ID
 //
-// 示例值：
+// 示例值：7008061636015512345
 func (builder *MoveSpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId string) *MoveSpaceNodePathReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1577,7 +1577,7 @@ func NewMoveSpaceNodeReqBuilder() *MoveSpaceNodeReqBuilder {
 
 // 知识空间id
 //
-// 示例值：7008061636015554580
+// 示例值：7008061636015512345
 func (builder *MoveSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder

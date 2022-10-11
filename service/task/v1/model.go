@@ -501,7 +501,7 @@ func (builder *ReminderBuilder) Build() *Reminder {
 
 type Task struct {
 	Id              *string         `json:"id,omitempty"`               // 任务 ID，由飞书任务服务器发号
-	Summary         *string         `json:"summary,omitempty"`          // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	Summary         *string         `json:"summary,omitempty"`          // 任务标题。创建任务时，标题和富文本标题不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
 	Description     *string         `json:"description,omitempty"`      // 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
 	CompleteTime    *string         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
 	CreatorId       *string         `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段
@@ -517,7 +517,7 @@ type Task struct {
 	Collaborators   []*Collaborator `json:"collaborators,omitempty"`    // 任务的执行者
 	CollaboratorIds []string        `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
 	FollowerIds     []string        `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
-	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务重复规则
+	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
@@ -525,7 +525,7 @@ type Task struct {
 type TaskBuilder struct {
 	id                  string // 任务 ID，由飞书任务服务器发号
 	idFlag              bool
-	summary             string // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	summary             string // 任务标题。创建任务时，标题和富文本标题不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
 	summaryFlag         bool
 	description         string // 任务备注。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
 	descriptionFlag     bool
@@ -557,7 +557,7 @@ type TaskBuilder struct {
 	collaboratorIdsFlag bool
 	followerIds         []string // 创建任务时添加的关注者用户id列表
 	followerIdsFlag     bool
-	repeatRule          string // 重复任务重复规则
+	repeatRule          string // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 	repeatRuleFlag      bool
 	richSummary         string // 富文本任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richSummaryFlag     bool
@@ -579,7 +579,7 @@ func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 	return builder
 }
 
-// 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+// 任务标题。创建任务时，标题和富文本标题不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
 //
 // 示例值：每天喝八杯水，保持身心愉悦
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
@@ -723,7 +723,7 @@ func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 	return builder
 }
 
-// 重复任务重复规则
+// 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 //
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
@@ -1345,7 +1345,7 @@ func (resp *ListTaskResp) Success() bool {
 type PatchTaskReqBodyBuilder struct {
 	task             *Task // 被更新的任务实体基础信息
 	taskFlag         bool
-	updateFields     []string // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+	updateFields     []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 	updateFieldsFlag bool
 }
 
@@ -1363,7 +1363,7 @@ func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilde
 	return builder
 }
 
-// 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+// 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 //
 //示例值：["summary"]
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
@@ -1386,7 +1386,7 @@ func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 type PatchTaskPathReqBodyBuilder struct {
 	task             *Task // 被更新的任务实体基础信息
 	taskFlag         bool
-	updateFields     []string // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+	updateFields     []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 	updateFieldsFlag bool
 }
 
@@ -1404,7 +1404,7 @@ func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBo
 	return builder
 }
 
-// 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+// 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 //
 // 示例值：["summary"]
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
@@ -1471,7 +1471,7 @@ func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 
 type PatchTaskReqBody struct {
 	Task         *Task    `json:"task,omitempty"`          // 被更新的任务实体基础信息
-	UpdateFields []string `json:"update_fields,omitempty"` // 指定需要更新的字段（目前可选更新的字段为：summary, description, due, extra），否则服务端将不知道更新哪些字段
+	UpdateFields []string `json:"update_fields,omitempty"` // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 }
 
 type PatchTaskReq struct {
@@ -1564,7 +1564,7 @@ func (builder *CreateTaskCollaboratorReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-// 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是表示是用户的ID。
+// 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是用户的ID。
 func (builder *CreateTaskCollaboratorReqBuilder) Collaborator(collaborator *Collaborator) *CreateTaskCollaboratorReqBuilder {
 	builder.collaborator = collaborator
 	return builder

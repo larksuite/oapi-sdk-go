@@ -23,9 +23,14 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
@@ -36,9 +41,15 @@ const (
 )
 
 const (
-	UserIdTypeTransferOnboardApplicationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTransferOnboardApplicationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTransferOnboardApplicationOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeTransferOnboardApplicationUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeTransferOnboardApplicationUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeTransferOnboardApplicationOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeTransferOnboardApplicationOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	DepartmentIdTypeTransferOnboardApplicationDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	DepartmentIdTypeTransferOnboardApplicationPeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
@@ -56,15 +67,27 @@ const (
 )
 
 const (
-	UserIdTypeGetEmployeeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetEmployeeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetEmployeeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetByApplicationEmployeeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetByApplicationEmployeeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetByApplicationEmployeeOpenId  = "open_id"  // 以open_id来识别用户
+	DepartmentIdTypeGetEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	DepartmentIdTypeGetEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	DepartmentIdTypeGetEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+)
+
+const (
+	UserIdTypeGetByApplicationEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetByApplicationEmployeeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetByApplicationEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeGetByApplicationEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	DepartmentIdTypeGetByApplicationEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	DepartmentIdTypeGetByApplicationEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
@@ -74,9 +97,15 @@ const (
 )
 
 const (
-	UserIdTypePatchEmployeeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchEmployeeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchEmployeeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypePatchEmployeeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypePatchEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypePatchEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	DepartmentIdTypePatchEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	DepartmentIdTypePatchEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
@@ -84,6 +113,11 @@ const (
 	UserIdTypeGetJobUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeGetJobOpenId        = "open_id"         // 以open_id来识别用户
 	UserIdTypeGetJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	DepartmentIdTypeGetJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeGetJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
@@ -132,6 +166,13 @@ const (
 	UserIdTypeGetByApplicationReferralUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeGetByApplicationReferralOpenId        = "open_id"         // 以open_id来识别用户
 	UserIdTypeGetByApplicationReferralPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	UserIdTypeGetTalentUserId        = "user_id"         // 以 user_id 来识别用户
+	UserIdTypeGetTalentUnionId       = "union_id"        // 以 union_id 来识别用户
+	UserIdTypeGetTalentOpenId        = "open_id"         // 以 open_id 来识别用户
+	UserIdTypeGetTalentPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 type Agency struct {
@@ -16942,7 +16983,7 @@ func (builder *OfferBuilder) SchemaId(schemaId string) *OfferBuilder {
 
 // Offer 状态
 //
-// 示例值：0
+// 示例值：1
 func (builder *OfferBuilder) OfferStatus(offerStatus int) *OfferBuilder {
 	builder.offerStatus = offerStatus
 	builder.offerStatusFlag = true
@@ -16951,7 +16992,7 @@ func (builder *OfferBuilder) OfferStatus(offerStatus int) *OfferBuilder {
 
 // Offer 类型
 //
-// 示例值：
+// 示例值：Offer 类型
 func (builder *OfferBuilder) OfferType(offerType int) *OfferBuilder {
 	builder.offerType = offerType
 	builder.offerTypeFlag = true
@@ -18337,13 +18378,13 @@ func (builder *OfferCustomFieldConfigOptionBuilder) Build() *OfferCustomFieldCon
 
 type OfferCustomizedInfo struct {
 	Id    *string `json:"id,omitempty"`    // 自定义字段 ID
-	Value *string `json:"value,omitempty"` // 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："2022-05-26";4. 年份选择："2022";5. 月份选择："2022-05";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
+	Value *string `json:"value,omitempty"` // 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："{"date":"2022-01-01"}";4. 年份选择："{"date":"2022"}";5. 月份选择："{"date":"2022-01"}";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
 }
 
 type OfferCustomizedInfoBuilder struct {
 	id        string // 自定义字段 ID
 	idFlag    bool
-	value     string // 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："2022-05-26";4. 年份选择："2022";5. 月份选择："2022-05";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
+	value     string // 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："{"date":"2022-01-01"}";4. 年份选择："{"date":"2022"}";5. 月份选择："{"date":"2022-01"}";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
 	valueFlag bool
 }
 
@@ -18361,7 +18402,7 @@ func (builder *OfferCustomizedInfoBuilder) Id(id string) *OfferCustomizedInfoBui
 	return builder
 }
 
-// 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："2022-05-26";4. 年份选择："2022";5. 月份选择："2022-05";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
+// 自定义字段信息，以字符串形式传入，如：;1. 单选： "1";2. 多选："[\"1\", \"2\"]";3. 日期："{"date":"2022-01-01"}";4. 年份选择："{"date":"2022"}";5. 月份选择："{"date":"2022-01"}";6. 单行文本："xxx ";7. 多行文本："xxx ";8. 数字："123";9. 金额："123.1"
 //
 // 示例值：1
 func (builder *OfferCustomizedInfoBuilder) Value(value string) *OfferCustomizedInfoBuilder {
@@ -18617,7 +18658,7 @@ func (builder *OfferListInfoBuilder) CreateTime(createTime string) *OfferListInf
 
 // Offer 状态
 //
-// 示例值：0
+// 示例值：1
 func (builder *OfferListInfoBuilder) OfferStatus(offerStatus int) *OfferListInfoBuilder {
 	builder.offerStatus = offerStatus
 	builder.offerStatusFlag = true
@@ -18626,7 +18667,7 @@ func (builder *OfferListInfoBuilder) OfferStatus(offerStatus int) *OfferListInfo
 
 // Offer 类型
 //
-// 示例值：
+// 示例值：Offer 类型
 func (builder *OfferListInfoBuilder) OfferType(offerType int) *OfferListInfoBuilder {
 	builder.offerType = offerType
 	builder.offerTypeFlag = true
@@ -20048,7 +20089,7 @@ func (builder *SalaryBuilder) SalayId(salayId string) *SalaryBuilder {
 
 // 操作人 ID
 //
-// 示例值：operator_id
+// 示例值：ou_xxxxxx
 func (builder *SalaryBuilder) OperatorId(operatorId string) *SalaryBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdFlag = true
@@ -30635,11 +30676,19 @@ func (builder *OfferApplicationReqBuilder) ApplicationId(applicationId string) *
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 用户 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *OfferApplicationReqBuilder) UserIdType(userIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *OfferApplicationReqBuilder) DepartmentIdType(departmentIdType string) *OfferApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -31163,11 +31212,19 @@ func (builder *TransferOnboardApplicationReqBuilder) ApplicationId(applicationId
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 用户 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *TransferOnboardApplicationReqBuilder) UserIdType(userIdType string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *TransferOnboardApplicationReqBuilder) DepartmentIdType(departmentIdType string) *TransferOnboardApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -31413,11 +31470,19 @@ func (builder *GetEmployeeReqBuilder) EmployeeId(employeeId string) *GetEmployee
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 用户 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *GetEmployeeReqBuilder) UserIdType(userIdType string) *GetEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *GetEmployeeReqBuilder) DepartmentIdType(departmentIdType string) *GetEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -31468,11 +31533,19 @@ func (builder *GetByApplicationEmployeeReqBuilder) ApplicationId(applicationId s
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 用户 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *GetByApplicationEmployeeReqBuilder) UserIdType(userIdType string) *GetByApplicationEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *GetByApplicationEmployeeReqBuilder) DepartmentIdType(departmentIdType string) *GetByApplicationEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -31523,11 +31596,19 @@ func (builder *PatchEmployeeReqBuilder) EmployeeId(employeeId string) *PatchEmpl
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 用户 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *PatchEmployeeReqBuilder) UserIdType(userIdType string) *PatchEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *PatchEmployeeReqBuilder) DepartmentIdType(departmentIdType string) *PatchEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -31591,6 +31672,14 @@ func (builder *GetJobReqBuilder) JobId(jobId int) *GetJobReqBuilder {
 // 示例值：
 func (builder *GetJobReqBuilder) UserIdType(userIdType string) *GetJobReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *GetJobReqBuilder) DepartmentIdType(departmentIdType string) *GetJobReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
@@ -32233,10 +32322,19 @@ func (builder *GetTalentReqBuilder) TalentId(talentId string) *GetTalentReqBuild
 	return builder
 }
 
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *GetTalentReqBuilder) UserIdType(userIdType string) *GetTalentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *GetTalentReqBuilder) Build() *GetTalentReq {
 	req := &GetTalentReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 

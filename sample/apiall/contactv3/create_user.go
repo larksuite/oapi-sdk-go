@@ -52,7 +52,6 @@ func main() {
 			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("").
 			JobTitle("").
-			Geo("").
 			Build()).
 		Build()
 	// 发起请求

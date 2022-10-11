@@ -101,11 +101,11 @@ func (builder *AbbreviationBuilder) Build() *Abbreviation {
 }
 
 type BaikeImage struct {
-	Token *string `json:"token,omitempty"` // 通过文件接口上传后的图片 token
+	Token *string `json:"token,omitempty"` // 通过文件接口上传图片后，获得的图片 token
 }
 
 type BaikeImageBuilder struct {
-	token     string // 通过文件接口上传后的图片 token
+	token     string // 通过文件接口上传图片后，获得的图片 token
 	tokenFlag bool
 }
 
@@ -114,9 +114,9 @@ func NewBaikeImageBuilder() *BaikeImageBuilder {
 	return builder
 }
 
-// 通过文件接口上传后的图片 token
+// 通过文件接口上传图片后，获得的图片 token
 //
-// 示例值：
+// 示例值：boxbcEcmKiD3SGHvgqWTpvdc7jc
 func (builder *BaikeImageBuilder) Token(token string) *BaikeImageBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -191,6 +191,240 @@ func (builder *ClassificationBuilder) Build() *Classification {
 	}
 	if builder.fatherIdFlag {
 		req.FatherId = &builder.fatherId
+
+	}
+	return req
+}
+
+type CorrectError struct {
+	Type         *int           `json:"type,omitempty"`          //
+	Total        *int           `json:"total,omitempty"`         // 该类型错误在请求时间周期内的累计数量
+	CorrectPairs []*CorrectPair `json:"correct_pairs,omitempty"` // 该类型错误在周期内具体的纠错对
+}
+
+type CorrectErrorBuilder struct {
+	type_            int //
+	typeFlag         bool
+	total            int // 该类型错误在请求时间周期内的累计数量
+	totalFlag        bool
+	correctPairs     []*CorrectPair // 该类型错误在周期内具体的纠错对
+	correctPairsFlag bool
+}
+
+func NewCorrectErrorBuilder() *CorrectErrorBuilder {
+	builder := &CorrectErrorBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 该类型错误在请求时间周期内的累计数量
+//
+// 示例值：
+func (builder *CorrectErrorBuilder) Total(total int) *CorrectErrorBuilder {
+	builder.total = total
+	builder.totalFlag = true
+	return builder
+}
+
+// 该类型错误在周期内具体的纠错对
+//
+// 示例值：
+func (builder *CorrectErrorBuilder) CorrectPairs(correctPairs []*CorrectPair) *CorrectErrorBuilder {
+	builder.correctPairs = correctPairs
+	builder.correctPairsFlag = true
+	return builder
+}
+
+func (builder *CorrectErrorBuilder) Build() *CorrectError {
+	req := &CorrectError{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.totalFlag {
+		req.Total = &builder.total
+
+	}
+	if builder.correctPairsFlag {
+		req.CorrectPairs = builder.correctPairs
+	}
+	return req
+}
+
+type CorrectInfo struct {
+	CorrectTotal   *int          `json:"correct_total,omitempty"`    // 用户英文纠错数总数
+	EachdayCorrect []int         `json:"eachday_correct,omitempty"`  // 时间区间内每一天纠错数
+	GrammarError   *CorrectError `json:"grammar_error,omitempty"`    // 语法错误相关统计信息
+	SpellError     *CorrectError `json:"spell_error,omitempty"`      // 拼写错误相关统计信息
+	NounError      *CorrectError `json:"noun_error,omitempty"`       // 单复数错误相关统计信息
+	VerbTenseError *CorrectError `json:"verb_tense_error,omitempty"` // 时态错误相关统计信息
+}
+
+type CorrectInfoBuilder struct {
+	correctTotal       int // 用户英文纠错数总数
+	correctTotalFlag   bool
+	eachdayCorrect     []int // 时间区间内每一天纠错数
+	eachdayCorrectFlag bool
+	grammarError       *CorrectError // 语法错误相关统计信息
+	grammarErrorFlag   bool
+	spellError         *CorrectError // 拼写错误相关统计信息
+	spellErrorFlag     bool
+	nounError          *CorrectError // 单复数错误相关统计信息
+	nounErrorFlag      bool
+	verbTenseError     *CorrectError // 时态错误相关统计信息
+	verbTenseErrorFlag bool
+}
+
+func NewCorrectInfoBuilder() *CorrectInfoBuilder {
+	builder := &CorrectInfoBuilder{}
+	return builder
+}
+
+// 用户英文纠错数总数
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) CorrectTotal(correctTotal int) *CorrectInfoBuilder {
+	builder.correctTotal = correctTotal
+	builder.correctTotalFlag = true
+	return builder
+}
+
+// 时间区间内每一天纠错数
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) EachdayCorrect(eachdayCorrect []int) *CorrectInfoBuilder {
+	builder.eachdayCorrect = eachdayCorrect
+	builder.eachdayCorrectFlag = true
+	return builder
+}
+
+// 语法错误相关统计信息
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) GrammarError(grammarError *CorrectError) *CorrectInfoBuilder {
+	builder.grammarError = grammarError
+	builder.grammarErrorFlag = true
+	return builder
+}
+
+// 拼写错误相关统计信息
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) SpellError(spellError *CorrectError) *CorrectInfoBuilder {
+	builder.spellError = spellError
+	builder.spellErrorFlag = true
+	return builder
+}
+
+// 单复数错误相关统计信息
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) NounError(nounError *CorrectError) *CorrectInfoBuilder {
+	builder.nounError = nounError
+	builder.nounErrorFlag = true
+	return builder
+}
+
+// 时态错误相关统计信息
+//
+// 示例值：
+func (builder *CorrectInfoBuilder) VerbTenseError(verbTenseError *CorrectError) *CorrectInfoBuilder {
+	builder.verbTenseError = verbTenseError
+	builder.verbTenseErrorFlag = true
+	return builder
+}
+
+func (builder *CorrectInfoBuilder) Build() *CorrectInfo {
+	req := &CorrectInfo{}
+	if builder.correctTotalFlag {
+		req.CorrectTotal = &builder.correctTotal
+
+	}
+	if builder.eachdayCorrectFlag {
+		req.EachdayCorrect = builder.eachdayCorrect
+	}
+	if builder.grammarErrorFlag {
+		req.GrammarError = builder.grammarError
+	}
+	if builder.spellErrorFlag {
+		req.SpellError = builder.spellError
+	}
+	if builder.nounErrorFlag {
+		req.NounError = builder.nounError
+	}
+	if builder.verbTenseErrorFlag {
+		req.VerbTenseError = builder.verbTenseError
+	}
+	return req
+}
+
+type CorrectPair struct {
+	SourceText *string `json:"source_text,omitempty"` // 被纠错的原词
+	TargetText *string `json:"target_text,omitempty"` // 纠错建议替换的新词
+	Total      *int    `json:"total,omitempty"`       // 纠错对在周期内出现的次数
+}
+
+type CorrectPairBuilder struct {
+	sourceText     string // 被纠错的原词
+	sourceTextFlag bool
+	targetText     string // 纠错建议替换的新词
+	targetTextFlag bool
+	total          int // 纠错对在周期内出现的次数
+	totalFlag      bool
+}
+
+func NewCorrectPairBuilder() *CorrectPairBuilder {
+	builder := &CorrectPairBuilder{}
+	return builder
+}
+
+// 被纠错的原词
+//
+// 示例值：
+func (builder *CorrectPairBuilder) SourceText(sourceText string) *CorrectPairBuilder {
+	builder.sourceText = sourceText
+	builder.sourceTextFlag = true
+	return builder
+}
+
+// 纠错建议替换的新词
+//
+// 示例值：
+func (builder *CorrectPairBuilder) TargetText(targetText string) *CorrectPairBuilder {
+	builder.targetText = targetText
+	builder.targetTextFlag = true
+	return builder
+}
+
+// 纠错对在周期内出现的次数
+//
+// 示例值：
+func (builder *CorrectPairBuilder) Total(total int) *CorrectPairBuilder {
+	builder.total = total
+	builder.totalFlag = true
+	return builder
+}
+
+func (builder *CorrectPairBuilder) Build() *CorrectPair {
+	req := &CorrectPair{}
+	if builder.sourceTextFlag {
+		req.SourceText = &builder.sourceText
+
+	}
+	if builder.targetTextFlag {
+		req.TargetText = &builder.targetText
+
+	}
+	if builder.totalFlag {
+		req.Total = &builder.total
 
 	}
 	return req
@@ -493,7 +727,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 
 // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
 //
-// 示例值：
+// 示例值：file binary
 func (builder *FileBuilder) File(file io.Reader) *FileBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -742,7 +976,7 @@ type RelatedMeta struct {
 	Links           []*Referer        `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*Abbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*Classification `json:"classifications,omitempty"` // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
-	Images          []*BaikeImage     `json:"images,omitempty"`          // 上传的相关图片
+	Images          []*BaikeImage     `json:"images,omitempty"`          // 上传的图片
 }
 
 type RelatedMetaBuilder struct {
@@ -760,7 +994,7 @@ type RelatedMetaBuilder struct {
 	abbreviationsFlag   bool
 	classifications     []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 	classificationsFlag bool
-	images              []*BaikeImage // 上传的相关图片
+	images              []*BaikeImage // 上传的图片
 	imagesFlag          bool
 }
 
@@ -832,7 +1066,7 @@ func (builder *RelatedMetaBuilder) Classifications(classifications []*Classifica
 	return builder
 }
 
-// 上传的相关图片
+// 上传的图片
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Images(images []*BaikeImage) *RelatedMetaBuilder {
@@ -913,6 +1147,84 @@ func (builder *SpanBuilder) Build() *Span {
 	}
 	if builder.endFlag {
 		req.End = &builder.end
+
+	}
+	return req
+}
+
+type StatisticalReport struct {
+	DateInterval *int         `json:"date_interval,omitempty"` // 请求时间区间
+	WordInfo     *WordInfo    `json:"word_info,omitempty"`     // 词汇量相关数据
+	CorrectInfo  *CorrectInfo `json:"correct_info,omitempty"`  // 纠错相关数据
+	UpdateDate   *string      `json:"update_date,omitempty"`   // 天维度的时间戳，用于确认数据最近一次更新时间
+}
+
+type StatisticalReportBuilder struct {
+	dateInterval     int // 请求时间区间
+	dateIntervalFlag bool
+	wordInfo         *WordInfo // 词汇量相关数据
+	wordInfoFlag     bool
+	correctInfo      *CorrectInfo // 纠错相关数据
+	correctInfoFlag  bool
+	updateDate       string // 天维度的时间戳，用于确认数据最近一次更新时间
+	updateDateFlag   bool
+}
+
+func NewStatisticalReportBuilder() *StatisticalReportBuilder {
+	builder := &StatisticalReportBuilder{}
+	return builder
+}
+
+// 请求时间区间
+//
+// 示例值：请求时间区间
+func (builder *StatisticalReportBuilder) DateInterval(dateInterval int) *StatisticalReportBuilder {
+	builder.dateInterval = dateInterval
+	builder.dateIntervalFlag = true
+	return builder
+}
+
+// 词汇量相关数据
+//
+// 示例值：
+func (builder *StatisticalReportBuilder) WordInfo(wordInfo *WordInfo) *StatisticalReportBuilder {
+	builder.wordInfo = wordInfo
+	builder.wordInfoFlag = true
+	return builder
+}
+
+// 纠错相关数据
+//
+// 示例值：
+func (builder *StatisticalReportBuilder) CorrectInfo(correctInfo *CorrectInfo) *StatisticalReportBuilder {
+	builder.correctInfo = correctInfo
+	builder.correctInfoFlag = true
+	return builder
+}
+
+// 天维度的时间戳，用于确认数据最近一次更新时间
+//
+// 示例值：
+func (builder *StatisticalReportBuilder) UpdateDate(updateDate string) *StatisticalReportBuilder {
+	builder.updateDate = updateDate
+	builder.updateDateFlag = true
+	return builder
+}
+
+func (builder *StatisticalReportBuilder) Build() *StatisticalReport {
+	req := &StatisticalReport{}
+	if builder.dateIntervalFlag {
+		req.DateInterval = &builder.dateInterval
+
+	}
+	if builder.wordInfoFlag {
+		req.WordInfo = builder.wordInfo
+	}
+	if builder.correctInfoFlag {
+		req.CorrectInfo = builder.correctInfo
+	}
+	if builder.updateDateFlag {
+		req.UpdateDate = &builder.updateDate
 
 	}
 	return req
@@ -1009,6 +1321,180 @@ func (builder *TermBuilder) Build() *Term {
 	}
 	if builder.displayStatusFlag {
 		req.DisplayStatus = builder.displayStatus
+	}
+	return req
+}
+
+type WordInfo struct {
+	InputTotal            *int  `json:"input_total,omitempty"`              // 用户输入的总词汇量
+	DedupInputTotal       *int  `json:"dedup_input_total,omitempty"`        // 用户输入的去重后的总词汇量
+	EachdayInput          []int `json:"eachday_input,omitempty"`            // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	EachdayDedupInput     []int `json:"eachday_dedup_input,omitempty"`      // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	SendMessageTotal      *int  `json:"send_message_total,omitempty"`       // 发送的消息总数
+	SendEnMessageTotal    *int  `json:"send_en_message_total,omitempty"`    // 发送的英语消息总数
+	ReceiveMessageTotal   *int  `json:"receive_message_total,omitempty"`    // 接收消息的数量
+	ReceiveEnMessageTotal *int  `json:"receive_en_message_total,omitempty"` // 接收英文消息的数量
+	HistoryWordsTotal     *int  `json:"history_words_total,omitempty"`      // 历史总计英语词数（包含新增）
+	NewWordsTotal         *int  `json:"new_words_total,omitempty"`          // 新增英语词数
+}
+
+type WordInfoBuilder struct {
+	inputTotal                int // 用户输入的总词汇量
+	inputTotalFlag            bool
+	dedupInputTotal           int // 用户输入的去重后的总词汇量
+	dedupInputTotalFlag       bool
+	eachdayInput              []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayInputFlag          bool
+	eachdayDedupInput         []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayDedupInputFlag     bool
+	sendMessageTotal          int // 发送的消息总数
+	sendMessageTotalFlag      bool
+	sendEnMessageTotal        int // 发送的英语消息总数
+	sendEnMessageTotalFlag    bool
+	receiveMessageTotal       int // 接收消息的数量
+	receiveMessageTotalFlag   bool
+	receiveEnMessageTotal     int // 接收英文消息的数量
+	receiveEnMessageTotalFlag bool
+	historyWordsTotal         int // 历史总计英语词数（包含新增）
+	historyWordsTotalFlag     bool
+	newWordsTotal             int // 新增英语词数
+	newWordsTotalFlag         bool
+}
+
+func NewWordInfoBuilder() *WordInfoBuilder {
+	builder := &WordInfoBuilder{}
+	return builder
+}
+
+// 用户输入的总词汇量
+//
+// 示例值：
+func (builder *WordInfoBuilder) InputTotal(inputTotal int) *WordInfoBuilder {
+	builder.inputTotal = inputTotal
+	builder.inputTotalFlag = true
+	return builder
+}
+
+// 用户输入的去重后的总词汇量
+//
+// 示例值：
+func (builder *WordInfoBuilder) DedupInputTotal(dedupInputTotal int) *WordInfoBuilder {
+	builder.dedupInputTotal = dedupInputTotal
+	builder.dedupInputTotalFlag = true
+	return builder
+}
+
+// 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdayInput(eachdayInput []int) *WordInfoBuilder {
+	builder.eachdayInput = eachdayInput
+	builder.eachdayInputFlag = true
+	return builder
+}
+
+// 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdayDedupInput(eachdayDedupInput []int) *WordInfoBuilder {
+	builder.eachdayDedupInput = eachdayDedupInput
+	builder.eachdayDedupInputFlag = true
+	return builder
+}
+
+// 发送的消息总数
+//
+// 示例值：
+func (builder *WordInfoBuilder) SendMessageTotal(sendMessageTotal int) *WordInfoBuilder {
+	builder.sendMessageTotal = sendMessageTotal
+	builder.sendMessageTotalFlag = true
+	return builder
+}
+
+// 发送的英语消息总数
+//
+// 示例值：
+func (builder *WordInfoBuilder) SendEnMessageTotal(sendEnMessageTotal int) *WordInfoBuilder {
+	builder.sendEnMessageTotal = sendEnMessageTotal
+	builder.sendEnMessageTotalFlag = true
+	return builder
+}
+
+// 接收消息的数量
+//
+// 示例值：
+func (builder *WordInfoBuilder) ReceiveMessageTotal(receiveMessageTotal int) *WordInfoBuilder {
+	builder.receiveMessageTotal = receiveMessageTotal
+	builder.receiveMessageTotalFlag = true
+	return builder
+}
+
+// 接收英文消息的数量
+//
+// 示例值：
+func (builder *WordInfoBuilder) ReceiveEnMessageTotal(receiveEnMessageTotal int) *WordInfoBuilder {
+	builder.receiveEnMessageTotal = receiveEnMessageTotal
+	builder.receiveEnMessageTotalFlag = true
+	return builder
+}
+
+// 历史总计英语词数（包含新增）
+//
+// 示例值：
+func (builder *WordInfoBuilder) HistoryWordsTotal(historyWordsTotal int) *WordInfoBuilder {
+	builder.historyWordsTotal = historyWordsTotal
+	builder.historyWordsTotalFlag = true
+	return builder
+}
+
+// 新增英语词数
+//
+// 示例值：
+func (builder *WordInfoBuilder) NewWordsTotal(newWordsTotal int) *WordInfoBuilder {
+	builder.newWordsTotal = newWordsTotal
+	builder.newWordsTotalFlag = true
+	return builder
+}
+
+func (builder *WordInfoBuilder) Build() *WordInfo {
+	req := &WordInfo{}
+	if builder.inputTotalFlag {
+		req.InputTotal = &builder.inputTotal
+
+	}
+	if builder.dedupInputTotalFlag {
+		req.DedupInputTotal = &builder.dedupInputTotal
+
+	}
+	if builder.eachdayInputFlag {
+		req.EachdayInput = builder.eachdayInput
+	}
+	if builder.eachdayDedupInputFlag {
+		req.EachdayDedupInput = builder.eachdayDedupInput
+	}
+	if builder.sendMessageTotalFlag {
+		req.SendMessageTotal = &builder.sendMessageTotal
+
+	}
+	if builder.sendEnMessageTotalFlag {
+		req.SendEnMessageTotal = &builder.sendEnMessageTotal
+
+	}
+	if builder.receiveMessageTotalFlag {
+		req.ReceiveMessageTotal = &builder.receiveMessageTotal
+
+	}
+	if builder.receiveEnMessageTotalFlag {
+		req.ReceiveEnMessageTotal = &builder.receiveEnMessageTotal
+
+	}
+	if builder.historyWordsTotalFlag {
+		req.HistoryWordsTotal = &builder.historyWordsTotal
+
+	}
+	if builder.newWordsTotalFlag {
+		req.NewWordsTotal = &builder.newWordsTotal
+
 	}
 	return req
 }
@@ -1219,7 +1705,7 @@ func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEnti
 	return builder
 }
 
-// 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
+// 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -1310,7 +1796,7 @@ type GetEntityReq struct {
 }
 
 type GetEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"` // 实体词
+	Entity *Entity `json:"entity,omitempty"` // 百科词条
 }
 
 type GetEntityResp struct {
@@ -1391,7 +1877,7 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
-// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮
+// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮。
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1576,7 +2062,7 @@ func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
 	return builder
 }
 
-// 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID
+// 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID。
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1711,7 +2197,7 @@ func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEnti
 	return builder
 }
 
-// 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息
+// 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息。
 func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -1782,7 +2268,7 @@ func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEnti
 	return builder
 }
 
-// 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
+// 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -1831,7 +2317,7 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 
 // 需要下载的文件 token
 //
-// 示例值：
+// 示例值：boxbcEcmKiD3SGHvgqWTpvdc7jc
 func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -1886,7 +2372,7 @@ func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	return builder
 }
 
-//
+// 百科词条图片资源上传。
 func (builder *UploadFileReqBuilder) File(file *File) *UploadFileReqBuilder {
 	builder.file = file
 	return builder

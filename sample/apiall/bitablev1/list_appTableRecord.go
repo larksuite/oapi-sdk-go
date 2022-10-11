@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -31,7 +30,7 @@ func main() {
 		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
 		TableId("tblxI2tWaxP5dG7p").
 		ViewId("vewqhz51lk").
-		Filter("示例表达式：;;AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)").
+		Filter("AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)").
 		Sort("").
 		FieldNames("").
 		TextFieldAsArray(true).

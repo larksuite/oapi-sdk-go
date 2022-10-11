@@ -40,14 +40,14 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 分片上传
+	File             *file             // 下载
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
-	FileStatistics   *fileStatistics   // 文件
+	FileStatistics   *fileStatistics   // file.statistics
 	FileSubscription *fileSubscription // 订阅
 	ImportTask       *importTask       // 导入
-	Media            *media            // 分片上传
-	Meta             *meta             // 文件
+	Media            *media            // 素材
+	Meta             *meta             // meta
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
 }
@@ -344,7 +344,7 @@ func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.R
 
 // 订阅云文档事件
 //
-// - 该接口**仅支持文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 该接口仅支持**文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
 //
@@ -564,11 +564,9 @@ func (f *fileComment) Get(ctx context.Context, req *GetFileCommentReq, options .
 	return resp, err
 }
 
-// 获取评论列表
+// 获取文档评论
 //
-// - 通过分页方式获取云文档中的全文评论列表。
-//
-// - 注意：该接口仅可获取在线文档的全文评论，不支持获取局部评论或者在线表格中的评论。
+// - 根据文档token分页获取云文档中的评论。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 //
@@ -1085,6 +1083,34 @@ func (p *permissionMember) Delete(ctx context.Context, req *DeletePermissionMemb
 	}
 	// 反序列响应结果
 	resp := &DeletePermissionMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取协作者列表
+//
+// - 该接口用于根据 filetoken 查询协作者
+//
+// - - 你能获取到协作者列表的前提是你对该文档有分享权限;- 目前仅支持人、群、组织架构三种类型的协作者
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_permissionMember.go
+func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListPermissionMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/permissions/:token/members"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListPermissionMemberResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

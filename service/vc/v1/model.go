@@ -119,6 +119,18 @@ const (
 )
 
 const (
+	UserIdTypePatchReserveConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchReserveConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchReserveConfigOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeReserveScopeReserveConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeReserveScopeReserveConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeReserveScopeReserveConfigOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	NodeScopeTenant          = 1 // 租户
 	NodeScopeCountryDistrict = 2 // 国家/地区
 	NodeScopeCity            = 3 // 城市
@@ -308,13 +320,92 @@ func (builder *AlertBuilder) Build() *Alert {
 	return req
 }
 
+type ApprovalConfig struct {
+	ApprovalSwitch    *int             `json:"approval_switch,omitempty"`    // 预定审批开关：0 代表关闭，1 代表打开。;<b>说明</b>：;1.  未设置值时不更新原开关的值，但此时必填  approval_condition;2.  设置值为 1 时，必填  approval_condition<br>								 ;3.  设置值为 0 时整个 ;approval_config 其他字段均可省略。
+	ApprovalCondition *int             `json:"approval_condition,omitempty"` // 预定审批条件：0 代表所有预定均需审批，1 代表满足条件的需审批;<b>说明</b>：为 1 时必填 meeting_duration
+	MeetingDuration   *float64         `json:"meeting_duration,omitempty"`   // 超过 meeting_duration;的预定需要审批（单位：小时，取值范围[0.1-99]）;;<b>说明</b>：;1.  当 approval_condition ; 为 0 ，更新时如果未设置值，默认更新为 99 .;2.  传入的值小数点后超过 2 位，自动四舍五入保留两位。
+	Approvers         []*SubscribeUser `json:"approvers,omitempty"`          // 审批人列表，当打开审批开关时，至少需要设置一位审批人
+}
+
+type ApprovalConfigBuilder struct {
+	approvalSwitch        int // 预定审批开关：0 代表关闭，1 代表打开。;<b>说明</b>：;1.  未设置值时不更新原开关的值，但此时必填  approval_condition;2.  设置值为 1 时，必填  approval_condition<br>								 ;3.  设置值为 0 时整个 ;approval_config 其他字段均可省略。
+	approvalSwitchFlag    bool
+	approvalCondition     int // 预定审批条件：0 代表所有预定均需审批，1 代表满足条件的需审批;<b>说明</b>：为 1 时必填 meeting_duration
+	approvalConditionFlag bool
+	meetingDuration       float64 // 超过 meeting_duration;的预定需要审批（单位：小时，取值范围[0.1-99]）;;<b>说明</b>：;1.  当 approval_condition ; 为 0 ，更新时如果未设置值，默认更新为 99 .;2.  传入的值小数点后超过 2 位，自动四舍五入保留两位。
+	meetingDurationFlag   bool
+	approvers             []*SubscribeUser // 审批人列表，当打开审批开关时，至少需要设置一位审批人
+	approversFlag         bool
+}
+
+func NewApprovalConfigBuilder() *ApprovalConfigBuilder {
+	builder := &ApprovalConfigBuilder{}
+	return builder
+}
+
+// 预定审批开关：0 代表关闭，1 代表打开。;<b>说明</b>：;1.  未设置值时不更新原开关的值，但此时必填  approval_condition;2.  设置值为 1 时，必填  approval_condition<br>								 ;3.  设置值为 0 时整个 ;approval_config 其他字段均可省略。
+//
+// 示例值：1
+func (builder *ApprovalConfigBuilder) ApprovalSwitch(approvalSwitch int) *ApprovalConfigBuilder {
+	builder.approvalSwitch = approvalSwitch
+	builder.approvalSwitchFlag = true
+	return builder
+}
+
+// 预定审批条件：0 代表所有预定均需审批，1 代表满足条件的需审批;<b>说明</b>：为 1 时必填 meeting_duration
+//
+// 示例值：1
+func (builder *ApprovalConfigBuilder) ApprovalCondition(approvalCondition int) *ApprovalConfigBuilder {
+	builder.approvalCondition = approvalCondition
+	builder.approvalConditionFlag = true
+	return builder
+}
+
+// 超过 meeting_duration;的预定需要审批（单位：小时，取值范围[0.1-99]）;;<b>说明</b>：;1.  当 approval_condition ; 为 0 ，更新时如果未设置值，默认更新为 99 .;2.  传入的值小数点后超过 2 位，自动四舍五入保留两位。
+//
+// 示例值：3
+func (builder *ApprovalConfigBuilder) MeetingDuration(meetingDuration float64) *ApprovalConfigBuilder {
+	builder.meetingDuration = meetingDuration
+	builder.meetingDurationFlag = true
+	return builder
+}
+
+// 审批人列表，当打开审批开关时，至少需要设置一位审批人
+//
+// 示例值：[{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
+func (builder *ApprovalConfigBuilder) Approvers(approvers []*SubscribeUser) *ApprovalConfigBuilder {
+	builder.approvers = approvers
+	builder.approversFlag = true
+	return builder
+}
+
+func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
+	req := &ApprovalConfig{}
+	if builder.approvalSwitchFlag {
+		req.ApprovalSwitch = &builder.approvalSwitch
+
+	}
+	if builder.approvalConditionFlag {
+		req.ApprovalCondition = &builder.approvalCondition
+
+	}
+	if builder.meetingDurationFlag {
+		req.MeetingDuration = &builder.meetingDuration
+
+	}
+	if builder.approversFlag {
+		req.Approvers = builder.approvers
+	}
+	return req
+}
+
 type Contact struct {
-	ContactType *int    `json:"contact_type,omitempty"` //
+	ContactType *int    `json:"contact_type,omitempty"` // 联系人类型
 	ContactName *string `json:"contact_name,omitempty"` // 联系人名
 }
 
 type ContactBuilder struct {
-	contactType     int //
+	contactType     int // 联系人类型
 	contactTypeFlag bool
 	contactName     string // 联系人名
 	contactNameFlag bool
@@ -325,9 +416,9 @@ func NewContactBuilder() *ContactBuilder {
 	return builder
 }
 
+// 联系人类型
 //
-//
-// 示例值：
+// 示例值：1
 func (builder *ContactBuilder) ContactType(contactType int) *ContactBuilder {
 	builder.contactType = contactType
 	builder.contactTypeFlag = true
@@ -336,7 +427,7 @@ func (builder *ContactBuilder) ContactType(contactType int) *ContactBuilder {
 
 // 联系人名
 //
-// 示例值：
+// 示例值：张三
 func (builder *ContactBuilder) ContactName(contactName string) *ContactBuilder {
 	builder.contactName = contactName
 	builder.contactNameFlag = true
@@ -2141,13 +2232,13 @@ func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission 
 
 type ReserveAssignHost struct {
 	UserType *int    `json:"user_type,omitempty"` // 用户类型，仅支持设置同租户下的 Lark 用户
-	Id       *string `json:"id,omitempty"`        // 设置企业内的用户
+	Id       *string `json:"id,omitempty"`        // 用户ID
 }
 
 type ReserveAssignHostBuilder struct {
 	userType     int // 用户类型，仅支持设置同租户下的 Lark 用户
 	userTypeFlag bool
-	id           string // 设置企业内的用户
+	id           string // 用户ID
 	idFlag       bool
 }
 
@@ -2165,7 +2256,7 @@ func (builder *ReserveAssignHostBuilder) UserType(userType int) *ReserveAssignHo
 	return builder
 }
 
-// 设置企业内的用户
+// 用户ID
 //
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ReserveAssignHostBuilder) Id(id string) *ReserveAssignHostBuilder {
@@ -2480,6 +2571,68 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 	}
 	if builder.checkListFlag {
 		req.CheckList = builder.checkList
+	}
+	return req
+}
+
+type ReserveScopeConfig struct {
+	AllowAllUsers *int                   `json:"allow_all_users,omitempty"` // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+	AllowUsers    []*SubscribeUser       `json:"allow_users,omitempty"`     // 可预定成员列表
+	AllowDepts    []*SubscribeDepartment `json:"allow_depts,omitempty"`     // 可预定部门列表
+}
+
+type ReserveScopeConfigBuilder struct {
+	allowAllUsers     int // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+	allowAllUsersFlag bool
+	allowUsers        []*SubscribeUser // 可预定成员列表
+	allowUsersFlag    bool
+	allowDepts        []*SubscribeDepartment // 可预定部门列表
+	allowDeptsFlag    bool
+}
+
+func NewReserveScopeConfigBuilder() *ReserveScopeConfigBuilder {
+	builder := &ReserveScopeConfigBuilder{}
+	return builder
+}
+
+// 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+//
+// 示例值：0
+func (builder *ReserveScopeConfigBuilder) AllowAllUsers(allowAllUsers int) *ReserveScopeConfigBuilder {
+	builder.allowAllUsers = allowAllUsers
+	builder.allowAllUsersFlag = true
+	return builder
+}
+
+// 可预定成员列表
+//
+// 示例值：[{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
+func (builder *ReserveScopeConfigBuilder) AllowUsers(allowUsers []*SubscribeUser) *ReserveScopeConfigBuilder {
+	builder.allowUsers = allowUsers
+	builder.allowUsersFlag = true
+	return builder
+}
+
+// 可预定部门列表
+//
+// 示例值：[{department_id:"od-5c07f0c117cf8795f25610a69363ce31"}]
+func (builder *ReserveScopeConfigBuilder) AllowDepts(allowDepts []*SubscribeDepartment) *ReserveScopeConfigBuilder {
+	builder.allowDepts = allowDepts
+	builder.allowDeptsFlag = true
+	return builder
+}
+
+func (builder *ReserveScopeConfigBuilder) Build() *ReserveScopeConfig {
+	req := &ReserveScopeConfig{}
+	if builder.allowAllUsersFlag {
+		req.AllowAllUsers = &builder.allowAllUsers
+
+	}
+	if builder.allowUsersFlag {
+		req.AllowUsers = builder.allowUsers
+	}
+	if builder.allowDeptsFlag {
+		req.AllowDepts = builder.allowDepts
 	}
 	return req
 }
@@ -2996,7 +3149,7 @@ type RoomLevel struct {
 	ParentId      *string  `json:"parent_id,omitempty"`       // 父层级ID
 	Path          []string `json:"path,omitempty"`            // 层级路径
 	HasChild      *bool    `json:"has_child,omitempty"`       // 是否有子层级
-	CustomGroupId *string  `json:"custom_group_id,omitempty"` // 自定义层级id
+	CustomGroupId *string  `json:"custom_group_id,omitempty"` // 自定义层级ID
 }
 
 type RoomLevelBuilder struct {
@@ -3010,7 +3163,7 @@ type RoomLevelBuilder struct {
 	pathFlag          bool
 	hasChild          bool // 是否有子层级
 	hasChildFlag      bool
-	customGroupId     string // 自定义层级id
+	customGroupId     string // 自定义层级ID
 	customGroupIdFlag bool
 }
 
@@ -3021,7 +3174,7 @@ func NewRoomLevelBuilder() *RoomLevelBuilder {
 
 // 层级ID
 //
-// 示例值：
+// 示例值：层级ID
 func (builder *RoomLevelBuilder) RoomLevelId(roomLevelId string) *RoomLevelBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -3030,7 +3183,7 @@ func (builder *RoomLevelBuilder) RoomLevelId(roomLevelId string) *RoomLevelBuild
 
 // 层级名称
 //
-// 示例值：多层级测试online
+// 示例值：测试层级
 func (builder *RoomLevelBuilder) Name(name string) *RoomLevelBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3039,7 +3192,7 @@ func (builder *RoomLevelBuilder) Name(name string) *RoomLevelBuilder {
 
 // 父层级ID
 //
-// 示例值：
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
 func (builder *RoomLevelBuilder) ParentId(parentId string) *RoomLevelBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
@@ -3064,9 +3217,9 @@ func (builder *RoomLevelBuilder) HasChild(hasChild bool) *RoomLevelBuilder {
 	return builder
 }
 
-// 自定义层级id
+// 自定义层级ID
 //
-// 示例值：zidingyi
+// 示例值：10000
 func (builder *RoomLevelBuilder) CustomGroupId(customGroupId string) *RoomLevelBuilder {
 	builder.customGroupId = customGroupId
 	builder.customGroupIdFlag = true
@@ -3307,6 +3460,214 @@ func (builder *ScopeConfigBuilder) Build() *ScopeConfig {
 	return req
 }
 
+type SubscribeDepartment struct {
+	DepartmentId   *string `json:"department_id,omitempty"`   // 可预定部门id
+	DepartmentName *string `json:"department_name,omitempty"` // 预定部门名称
+}
+
+type SubscribeDepartmentBuilder struct {
+	departmentId       string // 可预定部门id
+	departmentIdFlag   bool
+	departmentName     string // 预定部门名称
+	departmentNameFlag bool
+}
+
+func NewSubscribeDepartmentBuilder() *SubscribeDepartmentBuilder {
+	builder := &SubscribeDepartmentBuilder{}
+	return builder
+}
+
+// 可预定部门id
+//
+// 示例值：od-47d8b570b0a011e9679a755efcc5f61a
+func (builder *SubscribeDepartmentBuilder) DepartmentId(departmentId string) *SubscribeDepartmentBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 预定部门名称
+//
+// 示例值：
+func (builder *SubscribeDepartmentBuilder) DepartmentName(departmentName string) *SubscribeDepartmentBuilder {
+	builder.departmentName = departmentName
+	builder.departmentNameFlag = true
+	return builder
+}
+
+func (builder *SubscribeDepartmentBuilder) Build() *SubscribeDepartment {
+	req := &SubscribeDepartment{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentNameFlag {
+		req.DepartmentName = &builder.departmentName
+
+	}
+	return req
+}
+
+type SubscribeUser struct {
+	UserId   *string `json:"user_id,omitempty"`   // 审批人/预订人id
+	UserName *string `json:"user_name,omitempty"` // 预订人姓名
+}
+
+type SubscribeUserBuilder struct {
+	userId       string // 审批人/预订人id
+	userIdFlag   bool
+	userName     string // 预订人姓名
+	userNameFlag bool
+}
+
+func NewSubscribeUserBuilder() *SubscribeUserBuilder {
+	builder := &SubscribeUserBuilder{}
+	return builder
+}
+
+// 审批人/预订人id
+//
+// 示例值：ou_a27b07a9071d90577c0177bcec98f856
+func (builder *SubscribeUserBuilder) UserId(userId string) *SubscribeUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 预订人姓名
+//
+// 示例值：
+func (builder *SubscribeUserBuilder) UserName(userName string) *SubscribeUserBuilder {
+	builder.userName = userName
+	builder.userNameFlag = true
+	return builder
+}
+
+func (builder *SubscribeUserBuilder) Build() *SubscribeUser {
+	req := &SubscribeUser{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userNameFlag {
+		req.UserName = &builder.userName
+
+	}
+	return req
+}
+
+type TimeConfig struct {
+	TimeSwitch    *int    `json:"time_switch,omitempty"`     // 预定时间开关：0 代表关闭，1 代表开启
+	DaysInAdvance *int    `json:"days_in_advance,omitempty"` // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
+	OpeningHour   *string `json:"opening_hour,omitempty"`    // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	StartTime     *string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	EndTime       *string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	MaxDuration   *int    `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+}
+
+type TimeConfigBuilder struct {
+	timeSwitch        int // 预定时间开关：0 代表关闭，1 代表开启
+	timeSwitchFlag    bool
+	daysInAdvance     int // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
+	daysInAdvanceFlag bool
+	openingHour       string // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	openingHourFlag   bool
+	startTime         string // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	startTimeFlag     bool
+	endTime           string // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	endTimeFlag       bool
+	maxDuration       int // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+	maxDurationFlag   bool
+}
+
+func NewTimeConfigBuilder() *TimeConfigBuilder {
+	builder := &TimeConfigBuilder{}
+	return builder
+}
+
+// 预定时间开关：0 代表关闭，1 代表开启
+//
+// 示例值：1
+func (builder *TimeConfigBuilder) TimeSwitch(timeSwitch int) *TimeConfigBuilder {
+	builder.timeSwitch = timeSwitch
+	builder.timeSwitchFlag = true
+	return builder
+}
+
+// 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
+//
+// 示例值：30
+func (builder *TimeConfigBuilder) DaysInAdvance(daysInAdvance int) *TimeConfigBuilder {
+	builder.daysInAdvance = daysInAdvance
+	builder.daysInAdvanceFlag = true
+	return builder
+}
+
+// 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+//
+// 示例值：27900
+func (builder *TimeConfigBuilder) OpeningHour(openingHour string) *TimeConfigBuilder {
+	builder.openingHour = openingHour
+	builder.openingHourFlag = true
+	return builder
+}
+
+// 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+//
+// 示例值：0
+func (builder *TimeConfigBuilder) StartTime(startTime string) *TimeConfigBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+//
+// 示例值：86400
+func (builder *TimeConfigBuilder) EndTime(endTime string) *TimeConfigBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+//
+// 示例值：24
+func (builder *TimeConfigBuilder) MaxDuration(maxDuration int) *TimeConfigBuilder {
+	builder.maxDuration = maxDuration
+	builder.maxDurationFlag = true
+	return builder
+}
+
+func (builder *TimeConfigBuilder) Build() *TimeConfig {
+	req := &TimeConfig{}
+	if builder.timeSwitchFlag {
+		req.TimeSwitch = &builder.timeSwitch
+
+	}
+	if builder.daysInAdvanceFlag {
+		req.DaysInAdvance = &builder.daysInAdvance
+
+	}
+	if builder.openingHourFlag {
+		req.OpeningHour = &builder.openingHour
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.maxDurationFlag {
+		req.MaxDuration = &builder.maxDuration
+
+	}
+	return req
+}
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`  //
 	OpenId  *string `json:"open_id,omitempty"`  //
@@ -3407,7 +3768,7 @@ func (builder *ListAlertReqBuilder) EndTime(endTime string) *ListAlertReqBuilder
 	return builder
 }
 
-// 查询对象类型
+// 查询对象类型，不填返回所有
 //
 // 示例值：1
 func (builder *ListAlertReqBuilder) QueryType(queryType int) *ListAlertReqBuilder {
@@ -3425,7 +3786,7 @@ func (builder *ListAlertReqBuilder) QueryValue(queryValue string) *ListAlertReqB
 
 // 请求期望返回的告警记录数量，不足则返回全部，该值默认为 100，最大为 1000
 //
-// 示例值：500
+// 示例值：100
 func (builder *ListAlertReqBuilder) PageSize(pageSize int) *ListAlertReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -3433,7 +3794,7 @@ func (builder *ListAlertReqBuilder) PageSize(pageSize int) *ListAlertReqBuilder 
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：0
+// 示例值：100
 func (builder *ListAlertReqBuilder) PageToken(pageToken string) *ListAlertReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -3762,7 +4123,7 @@ func (builder *MeetingListExportReqBuilder) UserIdType(userIdType string) *Meeti
 	return builder
 }
 
-// 导出会议明细
+// 导出会议明细，具体权限要求请参考「导出概述」
 func (builder *MeetingListExportReqBuilder) Body(body *MeetingListExportReqBody) *MeetingListExportReqBuilder {
 	builder.body = body
 	return builder
@@ -3991,7 +4352,7 @@ func (builder *ParticipantListExportReqBuilder) UserIdType(userIdType string) *P
 	return builder
 }
 
-// 导出某个会议的参会人详情列表
+// 导出某个会议的参会人详情列表，具体权限要求请参考「导出概述」
 func (builder *ParticipantListExportReqBuilder) Body(body *ParticipantListExportReqBody) *ParticipantListExportReqBuilder {
 	builder.body = body
 	return builder
@@ -4041,9 +4402,9 @@ type ParticipantQualityListExportReqBodyBuilder struct {
 	meetingNoFlag        bool
 	joinTime             string // 参会人入会时间（unix时间，单位sec）
 	joinTimeFlag         bool
-	userId               string // 参会人为Lark用户时填入
+	userId               string // 参会人为Lark用户时填入，room_id和user_id必须只填一个
 	userIdFlag           bool
-	roomId               string // 参会人为Rooms时填入
+	roomId               string // 参会人为Rooms时填入，room_id和user_id必须只填一个
 	roomIdFlag           bool
 }
 
@@ -4088,7 +4449,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) JoinTime(joinTime str
 	return builder
 }
 
-// 参会人为Lark用户时填入
+// 参会人为Lark用户时填入，room_id和user_id必须只填一个
 //
 //示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ParticipantQualityListExportReqBodyBuilder) UserId(userId string) *ParticipantQualityListExportReqBodyBuilder {
@@ -4097,7 +4458,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) UserId(userId string)
 	return builder
 }
 
-// 参会人为Rooms时填入
+// 参会人为Rooms时填入，room_id和user_id必须只填一个
 //
 //示例值：omm_eada1d61a550955240c28757e7dec3af
 func (builder *ParticipantQualityListExportReqBodyBuilder) RoomId(roomId string) *ParticipantQualityListExportReqBodyBuilder {
@@ -4138,9 +4499,9 @@ type ParticipantQualityListExportPathReqBodyBuilder struct {
 	meetingNoFlag        bool
 	joinTime             string // 参会人入会时间（unix时间，单位sec）
 	joinTimeFlag         bool
-	userId               string // 参会人为Lark用户时填入
+	userId               string // 参会人为Lark用户时填入，room_id和user_id必须只填一个
 	userIdFlag           bool
-	roomId               string // 参会人为Rooms时填入
+	roomId               string // 参会人为Rooms时填入，room_id和user_id必须只填一个
 	roomIdFlag           bool
 }
 
@@ -4185,7 +4546,7 @@ func (builder *ParticipantQualityListExportPathReqBodyBuilder) JoinTime(joinTime
 	return builder
 }
 
-// 参会人为Lark用户时填入
+// 参会人为Lark用户时填入，room_id和user_id必须只填一个
 //
 // 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ParticipantQualityListExportPathReqBodyBuilder) UserId(userId string) *ParticipantQualityListExportPathReqBodyBuilder {
@@ -4194,7 +4555,7 @@ func (builder *ParticipantQualityListExportPathReqBodyBuilder) UserId(userId str
 	return builder
 }
 
-// 参会人为Rooms时填入
+// 参会人为Rooms时填入，room_id和user_id必须只填一个
 //
 // 示例值：omm_eada1d61a550955240c28757e7dec3af
 func (builder *ParticipantQualityListExportPathReqBodyBuilder) RoomId(roomId string) *ParticipantQualityListExportPathReqBodyBuilder {
@@ -4248,7 +4609,7 @@ func (builder *ParticipantQualityListExportReqBuilder) UserIdType(userIdType str
 	return builder
 }
 
-// 导出某场会议某个参会人的音视频&共享质量数据
+// 导出某场会议某个参会人的音视频&共享质量数据;，具体权限要求请参考「导出概述」
 func (builder *ParticipantQualityListExportReqBuilder) Body(body *ParticipantQualityListExportReqBody) *ParticipantQualityListExportReqBuilder {
 	builder.body = body
 	return builder
@@ -4267,8 +4628,8 @@ type ParticipantQualityListExportReqBody struct {
 	MeetingEndTime   *string `json:"meeting_end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
 	MeetingNo        *string `json:"meeting_no,omitempty"`         // 9位会议号
 	JoinTime         *string `json:"join_time,omitempty"`          // 参会人入会时间（unix时间，单位sec）
-	UserId           *string `json:"user_id,omitempty"`            // 参会人为Lark用户时填入
-	RoomId           *string `json:"room_id,omitempty"`            // 参会人为Rooms时填入
+	UserId           *string `json:"user_id,omitempty"`            // 参会人为Lark用户时填入，room_id和user_id必须只填一个
+	RoomId           *string `json:"room_id,omitempty"`            // 参会人为Rooms时填入，room_id和user_id必须只填一个
 }
 
 type ParticipantQualityListExportReq struct {
@@ -5461,7 +5822,7 @@ type ApplyReserveReq struct {
 
 type ApplyReserveRespData struct {
 	Reserve                    *Reserve                    `json:"reserve,omitempty"`                       // 预约数据
-	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` //
+	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` // 预约参数检查信息
 }
 
 type ApplyReserveResp struct {
@@ -5772,7 +6133,7 @@ type UpdateReserveReq struct {
 
 type UpdateReserveRespData struct {
 	Reserve                    *Reserve                    `json:"reserve,omitempty"`                       // 预约数据
-	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` //
+	ReserveCorrectionCheckInfo *ReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` // 预约参数检查信息
 }
 
 type UpdateReserveResp struct {
@@ -5782,6 +6143,274 @@ type UpdateReserveResp struct {
 }
 
 func (resp *UpdateReserveResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchReserveConfigReqBodyBuilder struct {
+	scopeType              string // 1 代表层级，2 代表会议室
+	scopeTypeFlag          bool
+	approvalConfig         *ApprovalConfig // 预定审批设置
+	approvalConfigFlag     bool
+	timeConfig             *TimeConfig // 预定时间设置
+	timeConfigFlag         bool
+	reserveScopeConfig     *ReserveScopeConfig // 预定范围设置
+	reserveScopeConfigFlag bool
+}
+
+func NewPatchReserveConfigReqBodyBuilder() *PatchReserveConfigReqBodyBuilder {
+	builder := &PatchReserveConfigReqBodyBuilder{}
+	return builder
+}
+
+// 1 代表层级，2 代表会议室
+//
+//示例值：2
+func (builder *PatchReserveConfigReqBodyBuilder) ScopeType(scopeType string) *PatchReserveConfigReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 预定审批设置
+//
+//示例值：
+func (builder *PatchReserveConfigReqBodyBuilder) ApprovalConfig(approvalConfig *ApprovalConfig) *PatchReserveConfigReqBodyBuilder {
+	builder.approvalConfig = approvalConfig
+	builder.approvalConfigFlag = true
+	return builder
+}
+
+// 预定时间设置
+//
+//示例值：
+func (builder *PatchReserveConfigReqBodyBuilder) TimeConfig(timeConfig *TimeConfig) *PatchReserveConfigReqBodyBuilder {
+	builder.timeConfig = timeConfig
+	builder.timeConfigFlag = true
+	return builder
+}
+
+// 预定范围设置
+//
+//示例值：
+func (builder *PatchReserveConfigReqBodyBuilder) ReserveScopeConfig(reserveScopeConfig *ReserveScopeConfig) *PatchReserveConfigReqBodyBuilder {
+	builder.reserveScopeConfig = reserveScopeConfig
+	builder.reserveScopeConfigFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigReqBodyBuilder) Build() *PatchReserveConfigReqBody {
+	req := &PatchReserveConfigReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.approvalConfigFlag {
+		req.ApprovalConfig = builder.approvalConfig
+	}
+	if builder.timeConfigFlag {
+		req.TimeConfig = builder.timeConfig
+	}
+	if builder.reserveScopeConfigFlag {
+		req.ReserveScopeConfig = builder.reserveScopeConfig
+	}
+	return req
+}
+
+type PatchReserveConfigPathReqBodyBuilder struct {
+	scopeType              string // 1 代表层级，2 代表会议室
+	scopeTypeFlag          bool
+	approvalConfig         *ApprovalConfig // 预定审批设置
+	approvalConfigFlag     bool
+	timeConfig             *TimeConfig // 预定时间设置
+	timeConfigFlag         bool
+	reserveScopeConfig     *ReserveScopeConfig // 预定范围设置
+	reserveScopeConfigFlag bool
+}
+
+func NewPatchReserveConfigPathReqBodyBuilder() *PatchReserveConfigPathReqBodyBuilder {
+	builder := &PatchReserveConfigPathReqBodyBuilder{}
+	return builder
+}
+
+// 1 代表层级，2 代表会议室
+//
+// 示例值：2
+func (builder *PatchReserveConfigPathReqBodyBuilder) ScopeType(scopeType string) *PatchReserveConfigPathReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 预定审批设置
+//
+// 示例值：
+func (builder *PatchReserveConfigPathReqBodyBuilder) ApprovalConfig(approvalConfig *ApprovalConfig) *PatchReserveConfigPathReqBodyBuilder {
+	builder.approvalConfig = approvalConfig
+	builder.approvalConfigFlag = true
+	return builder
+}
+
+// 预定时间设置
+//
+// 示例值：
+func (builder *PatchReserveConfigPathReqBodyBuilder) TimeConfig(timeConfig *TimeConfig) *PatchReserveConfigPathReqBodyBuilder {
+	builder.timeConfig = timeConfig
+	builder.timeConfigFlag = true
+	return builder
+}
+
+// 预定范围设置
+//
+// 示例值：
+func (builder *PatchReserveConfigPathReqBodyBuilder) ReserveScopeConfig(reserveScopeConfig *ReserveScopeConfig) *PatchReserveConfigPathReqBodyBuilder {
+	builder.reserveScopeConfig = reserveScopeConfig
+	builder.reserveScopeConfigFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigPathReqBodyBuilder) Build() (*PatchReserveConfigReqBody, error) {
+	req := &PatchReserveConfigReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.approvalConfigFlag {
+		req.ApprovalConfig = builder.approvalConfig
+	}
+	if builder.timeConfigFlag {
+		req.TimeConfig = builder.timeConfig
+	}
+	if builder.reserveScopeConfigFlag {
+		req.ReserveScopeConfig = builder.reserveScopeConfig
+	}
+	return req, nil
+}
+
+type PatchReserveConfigReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchReserveConfigReqBody
+}
+
+func NewPatchReserveConfigReqBuilder() *PatchReserveConfigReqBuilder {
+	builder := &PatchReserveConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级id
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *PatchReserveConfigReqBuilder) ReserveConfigId(reserveConfigId string) *PatchReserveConfigReqBuilder {
+	builder.apiReq.PathParams.Set("reserve_config_id", fmt.Sprint(reserveConfigId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *PatchReserveConfigReqBuilder) UserIdType(userIdType string) *PatchReserveConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 更新会议室预定范围
+func (builder *PatchReserveConfigReqBuilder) Body(body *PatchReserveConfigReqBody) *PatchReserveConfigReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchReserveConfigReqBuilder) Build() *PatchReserveConfigReq {
+	req := &PatchReserveConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchReserveConfigReqBody struct {
+	ScopeType          *string             `json:"scope_type,omitempty"`           // 1 代表层级，2 代表会议室
+	ApprovalConfig     *ApprovalConfig     `json:"approval_config,omitempty"`      // 预定审批设置
+	TimeConfig         *TimeConfig         `json:"time_config,omitempty"`          // 预定时间设置
+	ReserveScopeConfig *ReserveScopeConfig `json:"reserve_scope_config,omitempty"` // 预定范围设置
+}
+
+type PatchReserveConfigReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchReserveConfigReqBody `body:""`
+}
+
+type PatchReserveConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchReserveConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ReserveScopeReserveConfigReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewReserveScopeReserveConfigReqBuilder() *ReserveScopeReserveConfigReqBuilder {
+	builder := &ReserveScopeReserveConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级id
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *ReserveScopeReserveConfigReqBuilder) ScopeId(scopeId string) *ReserveScopeReserveConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_id", fmt.Sprint(scopeId))
+	return builder
+}
+
+// 1 代表层级，2 代表会议室
+//
+// 示例值：2
+func (builder *ReserveScopeReserveConfigReqBuilder) ScopeType(scopeType string) *ReserveScopeReserveConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_type", fmt.Sprint(scopeType))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ReserveScopeReserveConfigReqBuilder) UserIdType(userIdType string) *ReserveScopeReserveConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ReserveScopeReserveConfigReqBuilder) Build() *ReserveScopeReserveConfigReq {
+	req := &ReserveScopeReserveConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ReserveScopeReserveConfigReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ReserveScopeReserveConfigRespData struct {
+	ApproveConfig      *ApprovalConfig     `json:"approve_config,omitempty"`       // 预定审批设置
+	TimeConfig         *TimeConfig         `json:"time_config,omitempty"`          // 预定时间设置
+	ReserveScopeConfig *ReserveScopeConfig `json:"reserve_scope_config,omitempty"` // 预定范围设置
+}
+
+type ReserveScopeReserveConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ReserveScopeReserveConfigRespData `json:"data"` // 业务数据
+}
+
+func (resp *ReserveScopeReserveConfigResp) Success() bool {
 	return resp.Code == 0
 }
 

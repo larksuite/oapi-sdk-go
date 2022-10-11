@@ -268,6 +268,16 @@ const (
 )
 
 const (
+	TokenTypeDoc      = "doc"      // 文档
+	TokenTypeSheet    = "sheet"    // 电子表格
+	TokenTypeFile     = "file"     // 云空间文件
+	TokenTypeWiki     = "wiki"     // 知识库节点
+	TokenTypeBitable  = "bitable"  // 多维表格
+	TokenTypeDocx     = "docx"     // 新版文档
+	TokenTypeMindnote = "mindnote" // 思维笔记
+)
+
+const (
 	MemberTypeUpdatePermissionMemberEmail            = "email"            // 飞书邮箱
 	MemberTypeUpdatePermissionMemberOpenId           = "openid"           // 开放平台ID
 	MemberTypeUpdatePermissionMemberOpenChat         = "openchat"         // 开放平台群组ID
@@ -282,13 +292,13 @@ const (
 )
 
 const (
-	TokenTypeDoc      = "doc"      // 文档
-	TokenTypeSheet    = "sheet"    // 电子表格
-	TokenTypeFile     = "file"     // 云空间文件
-	TokenTypeWiki     = "wiki"     // 知识库节点
-	TokenTypeBitable  = "bitable"  // 多维表格
-	TokenTypeDocx     = "docx"     // 文档
-	TokenTypeMindnote = "mindnote" // 思维笔记
+	TokenTypeUpdatePermissionMemberDoc      = "doc"      // 文档
+	TokenTypeUpdatePermissionMemberSheet    = "sheet"    // 电子表格
+	TokenTypeUpdatePermissionMemberFile     = "file"     // 云空间文件
+	TokenTypeUpdatePermissionMemberWiki     = "wiki"     // 知识库节点
+	TokenTypeUpdatePermissionMemberBitable  = "bitable"  // 多维表格
+	TokenTypeUpdatePermissionMemberDocx     = "docx"     // 文档
+	TokenTypeUpdatePermissionMemberMindnote = "mindnote" // 思维笔记
 )
 
 const (
@@ -441,6 +451,544 @@ func (builder *BaseMemberBuilder) Build() *BaseMember {
 	}
 	if builder.permFlag {
 		req.Perm = &builder.perm
+
+	}
+	return req
+}
+
+type BitableTableFieldAction struct {
+	Action      *string                       `json:"action,omitempty"`       // 操作类型
+	FieldId     *string                       `json:"field_id,omitempty"`     // 字段 ID
+	BeforeValue *BitableTableFieldActionValue `json:"before_value,omitempty"` // 操作前的字段值
+	AfterValue  *BitableTableFieldActionValue `json:"after_value,omitempty"`  // 操作后的字段值
+}
+
+type BitableTableFieldActionBuilder struct {
+	action          string // 操作类型
+	actionFlag      bool
+	fieldId         string // 字段 ID
+	fieldIdFlag     bool
+	beforeValue     *BitableTableFieldActionValue // 操作前的字段值
+	beforeValueFlag bool
+	afterValue      *BitableTableFieldActionValue // 操作后的字段值
+	afterValueFlag  bool
+}
+
+func NewBitableTableFieldActionBuilder() *BitableTableFieldActionBuilder {
+	builder := &BitableTableFieldActionBuilder{}
+	return builder
+}
+
+// 操作类型
+//
+// 示例值：field_edited
+func (builder *BitableTableFieldActionBuilder) Action(action string) *BitableTableFieldActionBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+
+// 字段 ID
+//
+// 示例值：fldmj5qNii
+func (builder *BitableTableFieldActionBuilder) FieldId(fieldId string) *BitableTableFieldActionBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+// 操作前的字段值
+//
+// 示例值：
+func (builder *BitableTableFieldActionBuilder) BeforeValue(beforeValue *BitableTableFieldActionValue) *BitableTableFieldActionBuilder {
+	builder.beforeValue = beforeValue
+	builder.beforeValueFlag = true
+	return builder
+}
+
+// 操作后的字段值
+//
+// 示例值：
+func (builder *BitableTableFieldActionBuilder) AfterValue(afterValue *BitableTableFieldActionValue) *BitableTableFieldActionBuilder {
+	builder.afterValue = afterValue
+	builder.afterValueFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionBuilder) Build() *BitableTableFieldAction {
+	req := &BitableTableFieldAction{}
+	if builder.actionFlag {
+		req.Action = &builder.action
+
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.beforeValueFlag {
+		req.BeforeValue = builder.beforeValue
+	}
+	if builder.afterValueFlag {
+		req.AfterValue = builder.afterValue
+	}
+	return req
+}
+
+type BitableTableFieldActionValue struct {
+	Id          *string                               `json:"id,omitempty"`          // 字段 ID
+	Name        *string                               `json:"name,omitempty"`        // 字段名字
+	Type        *int                                  `json:"type,omitempty"`        // 字段类型
+	Description *string                               `json:"description,omitempty"` // 字段描述
+	Property    *BitableTableFieldActionValueProperty `json:"property,omitempty"`    // 字段属性
+}
+
+type BitableTableFieldActionValueBuilder struct {
+	id              string // 字段 ID
+	idFlag          bool
+	name            string // 字段名字
+	nameFlag        bool
+	type_           int // 字段类型
+	typeFlag        bool
+	description     string // 字段描述
+	descriptionFlag bool
+	property        *BitableTableFieldActionValueProperty // 字段属性
+	propertyFlag    bool
+}
+
+func NewBitableTableFieldActionValueBuilder() *BitableTableFieldActionValueBuilder {
+	builder := &BitableTableFieldActionValueBuilder{}
+	return builder
+}
+
+// 字段 ID
+//
+// 示例值：fldmj5qNii
+func (builder *BitableTableFieldActionValueBuilder) Id(id string) *BitableTableFieldActionValueBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 字段名字
+//
+// 示例值：field name
+func (builder *BitableTableFieldActionValueBuilder) Name(name string) *BitableTableFieldActionValueBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：20
+func (builder *BitableTableFieldActionValueBuilder) Type(type_ int) *BitableTableFieldActionValueBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 字段描述
+//
+// 示例值：description
+func (builder *BitableTableFieldActionValueBuilder) Description(description string) *BitableTableFieldActionValueBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 字段属性
+//
+// 示例值：
+func (builder *BitableTableFieldActionValueBuilder) Property(property *BitableTableFieldActionValueProperty) *BitableTableFieldActionValueBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionValueBuilder) Build() *BitableTableFieldActionValue {
+	req := &BitableTableFieldActionValue{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req
+}
+
+type BitableTableFieldActionValueProperty struct {
+	Formatter         *string                                         `json:"formatter,omitempty"`          // 数字、公式字段的显示格式
+	DateFormatter     *string                                         `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式
+	AutoFill          *bool                                           `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间
+	Multiple          *bool                                           `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	TableId           *string                                         `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的ID
+	TableName         *string                                         `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字
+	BackFieldName     *string                                         `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	InputType         *string                                         `json:"input_type,omitempty"`         // 地理位置输入限制
+	BackFieldId       *string                                         `json:"back_field_id,omitempty"`      // 双向关联字段中关联的数据表中对应的双向关联字段的id
+	AutoSerial        *BitableTableFieldActionValuePropertyAutoSerial `json:"auto_serial,omitempty"`        // 自动编号类型
+	Options           []*BitableTableFieldActionValuePropertyOption   `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	FormulaExpression *string                                         `json:"formula_expression,omitempty"` // 公式字段的公式表达式
+}
+
+type BitableTableFieldActionValuePropertyBuilder struct {
+	formatter             string // 数字、公式字段的显示格式
+	formatterFlag         bool
+	dateFormatter         string // 日期、创建时间、最后更新时间字段的显示格式
+	dateFormatterFlag     bool
+	autoFill              bool // 日期字段中新纪录自动填写创建时间
+	autoFillFlag          bool
+	multiple              bool // 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	multipleFlag          bool
+	tableId               string // 单向关联、双向关联字段中关联的数据表的ID
+	tableIdFlag           bool
+	tableName             string // 单向关联、双向关联字段中关联的数据表的名字
+	tableNameFlag         bool
+	backFieldName         string // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	backFieldNameFlag     bool
+	inputType             string // 地理位置输入限制
+	inputTypeFlag         bool
+	backFieldId           string // 双向关联字段中关联的数据表中对应的双向关联字段的id
+	backFieldIdFlag       bool
+	autoSerial            *BitableTableFieldActionValuePropertyAutoSerial // 自动编号类型
+	autoSerialFlag        bool
+	options               []*BitableTableFieldActionValuePropertyOption // 单选、多选字段的选项信息
+	optionsFlag           bool
+	formulaExpression     string // 公式字段的公式表达式
+	formulaExpressionFlag bool
+}
+
+func NewBitableTableFieldActionValuePropertyBuilder() *BitableTableFieldActionValuePropertyBuilder {
+	builder := &BitableTableFieldActionValuePropertyBuilder{}
+	return builder
+}
+
+// 数字、公式字段的显示格式
+//
+// 示例值：1,000
+func (builder *BitableTableFieldActionValuePropertyBuilder) Formatter(formatter string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.formatter = formatter
+	builder.formatterFlag = true
+	return builder
+}
+
+// 日期、创建时间、最后更新时间字段的显示格式
+//
+// 示例值：yyyyMMdd
+func (builder *BitableTableFieldActionValuePropertyBuilder) DateFormatter(dateFormatter string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.dateFormatter = dateFormatter
+	builder.dateFormatterFlag = true
+	return builder
+}
+
+// 日期字段中新纪录自动填写创建时间
+//
+// 示例值：true
+func (builder *BitableTableFieldActionValuePropertyBuilder) AutoFill(autoFill bool) *BitableTableFieldActionValuePropertyBuilder {
+	builder.autoFill = autoFill
+	builder.autoFillFlag = true
+	return builder
+}
+
+// 人员字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+//
+// 示例值：true
+func (builder *BitableTableFieldActionValuePropertyBuilder) Multiple(multiple bool) *BitableTableFieldActionValuePropertyBuilder {
+	builder.multiple = multiple
+	builder.multipleFlag = true
+	return builder
+}
+
+// 单向关联、双向关联字段中关联的数据表的ID
+//
+// 示例值：tblIniLz0Ic8oXyN
+func (builder *BitableTableFieldActionValuePropertyBuilder) TableId(tableId string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+
+// 单向关联、双向关联字段中关联的数据表的名字
+//
+// 示例值：table name
+func (builder *BitableTableFieldActionValuePropertyBuilder) TableName(tableName string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.tableName = tableName
+	builder.tableNameFlag = true
+	return builder
+}
+
+// 双向关联字段中关联的数据表中对应的双向关联字段的名字
+//
+// 示例值：field name
+func (builder *BitableTableFieldActionValuePropertyBuilder) BackFieldName(backFieldName string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.backFieldName = backFieldName
+	builder.backFieldNameFlag = true
+	return builder
+}
+
+// 地理位置输入限制
+//
+// 示例值：only_mobile
+func (builder *BitableTableFieldActionValuePropertyBuilder) InputType(inputType string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.inputType = inputType
+	builder.inputTypeFlag = true
+	return builder
+}
+
+// 双向关联字段中关联的数据表中对应的双向关联字段的id
+//
+// 示例值：fldmj5qNii
+func (builder *BitableTableFieldActionValuePropertyBuilder) BackFieldId(backFieldId string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.backFieldId = backFieldId
+	builder.backFieldIdFlag = true
+	return builder
+}
+
+// 自动编号类型
+//
+// 示例值：
+func (builder *BitableTableFieldActionValuePropertyBuilder) AutoSerial(autoSerial *BitableTableFieldActionValuePropertyAutoSerial) *BitableTableFieldActionValuePropertyBuilder {
+	builder.autoSerial = autoSerial
+	builder.autoSerialFlag = true
+	return builder
+}
+
+// 单选、多选字段的选项信息
+//
+// 示例值：
+func (builder *BitableTableFieldActionValuePropertyBuilder) Options(options []*BitableTableFieldActionValuePropertyOption) *BitableTableFieldActionValuePropertyBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+// 公式字段的公式表达式
+//
+// 示例值：bitable::$table[tblIniLz0Ic8oXyN].$field[fldqatAwxx]*6+333
+func (builder *BitableTableFieldActionValuePropertyBuilder) FormulaExpression(formulaExpression string) *BitableTableFieldActionValuePropertyBuilder {
+	builder.formulaExpression = formulaExpression
+	builder.formulaExpressionFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionValuePropertyBuilder) Build() *BitableTableFieldActionValueProperty {
+	req := &BitableTableFieldActionValueProperty{}
+	if builder.formatterFlag {
+		req.Formatter = &builder.formatter
+
+	}
+	if builder.dateFormatterFlag {
+		req.DateFormatter = &builder.dateFormatter
+
+	}
+	if builder.autoFillFlag {
+		req.AutoFill = &builder.autoFill
+
+	}
+	if builder.multipleFlag {
+		req.Multiple = &builder.multiple
+
+	}
+	if builder.tableIdFlag {
+		req.TableId = &builder.tableId
+
+	}
+	if builder.tableNameFlag {
+		req.TableName = &builder.tableName
+
+	}
+	if builder.backFieldNameFlag {
+		req.BackFieldName = &builder.backFieldName
+
+	}
+	if builder.inputTypeFlag {
+		req.InputType = &builder.inputType
+
+	}
+	if builder.backFieldIdFlag {
+		req.BackFieldId = &builder.backFieldId
+
+	}
+	if builder.autoSerialFlag {
+		req.AutoSerial = builder.autoSerial
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.formulaExpressionFlag {
+		req.FormulaExpression = &builder.formulaExpression
+
+	}
+	return req
+}
+
+type BitableTableFieldActionValuePropertyAutoSerial struct {
+	Type    *string                                                  `json:"type,omitempty"`    // 自动编号类型
+	Options []*BitableTableFieldActionValuePropertyAutoSerialOptions `json:"options,omitempty"` // 自动编号规则列表
+}
+
+type BitableTableFieldActionValuePropertyAutoSerialBuilder struct {
+	type_       string // 自动编号类型
+	typeFlag    bool
+	options     []*BitableTableFieldActionValuePropertyAutoSerialOptions // 自动编号规则列表
+	optionsFlag bool
+}
+
+func NewBitableTableFieldActionValuePropertyAutoSerialBuilder() *BitableTableFieldActionValuePropertyAutoSerialBuilder {
+	builder := &BitableTableFieldActionValuePropertyAutoSerialBuilder{}
+	return builder
+}
+
+// 自动编号类型
+//
+// 示例值：custom
+func (builder *BitableTableFieldActionValuePropertyAutoSerialBuilder) Type(type_ string) *BitableTableFieldActionValuePropertyAutoSerialBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 自动编号规则列表
+//
+// 示例值：
+func (builder *BitableTableFieldActionValuePropertyAutoSerialBuilder) Options(options []*BitableTableFieldActionValuePropertyAutoSerialOptions) *BitableTableFieldActionValuePropertyAutoSerialBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionValuePropertyAutoSerialBuilder) Build() *BitableTableFieldActionValuePropertyAutoSerial {
+	req := &BitableTableFieldActionValuePropertyAutoSerial{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	return req
+}
+
+type BitableTableFieldActionValuePropertyAutoSerialOptions struct {
+	Type  *string `json:"type,omitempty"`  // 自动编号的可选规则项类型
+	Value *string `json:"value,omitempty"` // 与类型相对应的取值
+}
+
+type BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder struct {
+	type_     string // 自动编号的可选规则项类型
+	typeFlag  bool
+	value     string // 与类型相对应的取值
+	valueFlag bool
+}
+
+func NewBitableTableFieldActionValuePropertyAutoSerialOptionsBuilder() *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder {
+	builder := &BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder{}
+	return builder
+}
+
+// 自动编号的可选规则项类型
+//
+// 示例值：created_time
+func (builder *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder) Type(type_ string) *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 与类型相对应的取值
+//
+// 示例值：yyyyMMdd
+func (builder *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder) Value(value string) *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionValuePropertyAutoSerialOptionsBuilder) Build() *BitableTableFieldActionValuePropertyAutoSerialOptions {
+	req := &BitableTableFieldActionValuePropertyAutoSerialOptions{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type BitableTableFieldActionValuePropertyOption struct {
+	Name  *string `json:"name,omitempty"`  // 选项名
+	Id    *string `json:"id,omitempty"`    // 选项ID
+	Color *int    `json:"color,omitempty"` // 选项颜色
+}
+
+type BitableTableFieldActionValuePropertyOptionBuilder struct {
+	name      string // 选项名
+	nameFlag  bool
+	id        string // 选项ID
+	idFlag    bool
+	color     int // 选项颜色
+	colorFlag bool
+}
+
+func NewBitableTableFieldActionValuePropertyOptionBuilder() *BitableTableFieldActionValuePropertyOptionBuilder {
+	builder := &BitableTableFieldActionValuePropertyOptionBuilder{}
+	return builder
+}
+
+// 选项名
+//
+// 示例值：option name
+func (builder *BitableTableFieldActionValuePropertyOptionBuilder) Name(name string) *BitableTableFieldActionValuePropertyOptionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 选项ID
+//
+// 示例值：optabcef
+func (builder *BitableTableFieldActionValuePropertyOptionBuilder) Id(id string) *BitableTableFieldActionValuePropertyOptionBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 选项颜色
+//
+// 示例值：3
+func (builder *BitableTableFieldActionValuePropertyOptionBuilder) Color(color int) *BitableTableFieldActionValuePropertyOptionBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+
+func (builder *BitableTableFieldActionValuePropertyOptionBuilder) Build() *BitableTableFieldActionValuePropertyOption {
+	req := &BitableTableFieldActionValuePropertyOption{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
 
 	}
 	return req
@@ -689,7 +1237,7 @@ type ExportTask struct {
 	Token         *string `json:"token,omitempty"`          // 导出文档 token
 	Type          *string `json:"type,omitempty"`           // 导出文档类型
 	FileName      *string `json:"file_name,omitempty"`      // 导出文件名
-	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
+	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
 	FileToken     *string `json:"file_token,omitempty"`     // 导出文件 drive token
 	FileSize      *int    `json:"file_size,omitempty"`      // 导出文件大小
 	JobErrorMsg   *string `json:"job_error_msg,omitempty"`  // 任务失败原因
@@ -705,7 +1253,7 @@ type ExportTaskBuilder struct {
 	typeFlag          bool
 	fileName          string // 导出文件名
 	fileNameFlag      bool
-	subId             string // 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
+	subId             string // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
 	subIdFlag         bool
 	fileToken         string // 导出文件 drive token
 	fileTokenFlag     bool
@@ -758,7 +1306,7 @@ func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
 	return builder
 }
 
-// 导出子表ID，仅当将 sheet/bitable 导出为 csv 时使用
+// 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
 //
 // 示例值：tblKz5D60T4JlfcT
 func (builder *ExportTaskBuilder) SubId(subId string) *ExportTaskBuilder {
@@ -875,7 +1423,7 @@ func NewFileBuilder() *FileBuilder {
 
 // 文件标识
 //
-// 示例值：boxbc0dGSMu23m7QkC1bvabcef
+// 示例值：
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -884,7 +1432,7 @@ func (builder *FileBuilder) Token(token string) *FileBuilder {
 
 // 文件名
 //
-// 示例值：123.txt
+// 示例值：
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -893,7 +1441,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 
 // 文件类型
 //
-// 示例值：file
+// 示例值：
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -902,7 +1450,7 @@ func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 
 // 父文件夹标识
 //
-// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
+// 示例值：
 func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 	builder.parentToken = parentToken
 	builder.parentTokenFlag = true
@@ -911,7 +1459,7 @@ func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 
 // 在浏览器中查看的链接
 //
-// 示例值：https://bytedance.feishu.cn/file/boxbc0dGSMu23m7QkC1bvabcef
+// 示例值：
 func (builder *FileBuilder) Url(url string) *FileBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -2712,7 +3260,7 @@ func NewPropertyBuilder() *PropertyBuilder {
 
 // 自定义属性键对象
 //
-// 示例值：
+// 示例值：target_type
 func (builder *PropertyBuilder) Key(key string) *PropertyBuilder {
 	builder.key = key
 	builder.keyFlag = true
@@ -2721,7 +3269,7 @@ func (builder *PropertyBuilder) Key(key string) *PropertyBuilder {
 
 // 自定义属性值对象
 //
-// 示例值：
+// 示例值：docx
 func (builder *PropertyBuilder) Value(value string) *PropertyBuilder {
 	builder.value = value
 	builder.valueFlag = true
@@ -2865,7 +3413,7 @@ func NewReplyExtraBuilder() *ReplyExtraBuilder {
 
 // 评论中的图片token list
 //
-// 示例值：
+// 示例值：["xfsfseewewabcef"]
 func (builder *ReplyExtraBuilder) ImageList(imageList []string) *ReplyExtraBuilder {
 	builder.imageList = imageList
 	builder.imageListFlag = true
@@ -3454,7 +4002,7 @@ func NewCopyFileReqBodyBuilder() *CopyFileReqBodyBuilder {
 
 // 被复制文件的新名称
 //
-//示例值：123.txt
+//示例值：test.txt
 func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3463,7 +4011,7 @@ func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder
 
 // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
 //
-//示例值：file
+//示例值：doc
 func (builder *CopyFileReqBodyBuilder) Type(type_ string) *CopyFileReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -3523,7 +4071,7 @@ func NewCopyFilePathReqBodyBuilder() *CopyFilePathReqBodyBuilder {
 
 // 被复制文件的新名称
 //
-// 示例值：123.txt
+// 示例值：test.txt
 func (builder *CopyFilePathReqBodyBuilder) Name(name string) *CopyFilePathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -3532,7 +4080,7 @@ func (builder *CopyFilePathReqBodyBuilder) Name(name string) *CopyFilePathReqBod
 
 // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
 //
-// 示例值：file
+// 示例值：doc
 func (builder *CopyFilePathReqBodyBuilder) Type(type_ string) *CopyFilePathReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -3590,7 +4138,7 @@ func NewCopyFileReqBuilder() *CopyFileReqBuilder {
 
 // 被复制的文件token
 //
-// 示例值：boxbc0dGSMu23m7QkC1bvabcef
+// 示例值：doccngpahSdXrFPIBD4XdIabcef
 func (builder *CopyFileReqBuilder) FileToken(fileToken string) *CopyFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -3910,7 +4458,7 @@ func (builder *ListFileReqBuilder) PageToken(pageToken string) *ListFileReqBuild
 	return builder
 }
 
-// 文件夹的token
+// 文件夹的token（若不填写该参数或填写空字符串，则默认获取用户云空间下的清单，且不支持分页）
 //
 // 示例值：fldbcO1UuPz8VwnpPx5a9abcef
 func (builder *ListFileReqBuilder) FolderToken(folderToken string) *ListFileReqBuilder {
@@ -6799,7 +7347,7 @@ func (builder *DeletePermissionMemberReqBuilder) Token(token string) *DeletePerm
 	return builder
 }
 
-// 权限成员的ID，与`member_type`相对应
+// 协作者 ID，与协作者 ID 类型需要对应
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeletePermissionMemberReqBuilder) MemberId(memberId string) *DeletePermissionMemberReqBuilder {
@@ -6807,7 +7355,7 @@ func (builder *DeletePermissionMemberReqBuilder) MemberId(memberId string) *Dele
 	return builder
 }
 
-// 文件类型，放于query参数中，如：`?type=doc`
+// 文件类型，需要与文件的 token 相匹配
 //
 // 示例值：doc
 func (builder *DeletePermissionMemberReqBuilder) Type(type_ string) *DeletePermissionMemberReqBuilder {
@@ -6815,7 +7363,7 @@ func (builder *DeletePermissionMemberReqBuilder) Type(type_ string) *DeletePermi
 	return builder
 }
 
-// 权限成员类型，放于query参数中，如：`?member_type=openid`
+// 协作者 ID 类型，与协作者 ID 需要对应
 //
 // 示例值：openid
 func (builder *DeletePermissionMemberReqBuilder) MemberType(memberType string) *DeletePermissionMemberReqBuilder {
@@ -6844,6 +7392,69 @@ func (resp *DeletePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListPermissionMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListPermissionMemberReqBuilder() *ListPermissionMemberReqBuilder {
+	builder := &ListPermissionMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *ListPermissionMemberReqBuilder) Token(token string) *ListPermissionMemberReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *ListPermissionMemberReqBuilder) Type(type_ string) *ListPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+// 指定返回的协作者字段信息，如无指定则默认不返回;;**可选值有：** ;- `name`：协作者名;- `type`：协作者类型;- `avatar`：头像;- `external_label`：外部标签;;**注意：** ;- 你可以使用特殊值`*`指定返回目前支持的所有字段;- 你可以使用`,`分隔若干个你想指定返回的字段，如：`name,avatar`;- 按需指定返回字段接口性能更好
+//
+// 示例值：*
+func (builder *ListPermissionMemberReqBuilder) Fields(fields string) *ListPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("fields", fmt.Sprint(fields))
+	return builder
+}
+
+func (builder *ListPermissionMemberReqBuilder) Build() *ListPermissionMemberReq {
+	req := &ListPermissionMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListPermissionMemberReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListPermissionMemberRespData struct {
+	Items []*Member `json:"items,omitempty"` // 返回的列表数据
+}
+
+type ListPermissionMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListPermissionMemberRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListPermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdatePermissionMemberReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	baseMember *BaseMember
@@ -6866,7 +7477,7 @@ func (builder *UpdatePermissionMemberReqBuilder) Token(token string) *UpdatePerm
 	return builder
 }
 
-// 权限成员的ID，与`member_type`相对应
+// 协作者 ID，与协作者 ID 类型需要对应
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UpdatePermissionMemberReqBuilder) MemberId(memberId string) *UpdatePermissionMemberReqBuilder {
@@ -6882,7 +7493,7 @@ func (builder *UpdatePermissionMemberReqBuilder) NeedNotification(needNotificati
 	return builder
 }
 
-// 文件类型，放于query参数中，如：`?type=doc`
+// 文件类型，需要与文件的 token 相匹配
 //
 // 示例值：doc
 func (builder *UpdatePermissionMemberReqBuilder) Type(type_ string) *UpdatePermissionMemberReqBuilder {
@@ -6945,7 +7556,7 @@ func (builder *GetPermissionPublicReqBuilder) Token(token string) *GetPermission
 	return builder
 }
 
-// 文件类型，放于query参数中，如：`?type=doc`
+// 文件类型，需要与文件的 token 相匹配
 //
 // 示例值：doc
 func (builder *GetPermissionPublicReqBuilder) Type(type_ string) *GetPermissionPublicReqBuilder {
@@ -7001,7 +7612,7 @@ func (builder *PatchPermissionPublicReqBuilder) Token(token string) *PatchPermis
 	return builder
 }
 
-// 文件类型，放于query参数中，如：`?type=doc`
+// 文件类型，需要与文件的 token 相匹配
 //
 // 示例值：doc
 func (builder *PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermissionPublicReqBuilder {
@@ -7041,6 +7652,27 @@ type PatchPermissionPublicResp struct {
 
 func (resp *PatchPermissionPublicResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2FileBitableFieldChangedV1Data struct {
+	FileType         *string                    `json:"file_type,omitempty"`          // 文档类型
+	FileToken        *string                    `json:"file_token,omitempty"`         // 文档token
+	TableId          *string                    `json:"table_id,omitempty"`           // 多维表格数据表ID
+	OperatorId       *UserId                    `json:"operator_id,omitempty"`        // 用户 ID
+	ActionList       []*BitableTableFieldAction `json:"action_list,omitempty"`        // 字段变更操作列表
+	Revision         *int                       `json:"revision,omitempty"`           // 多维表格数据表的版本号
+	SubscriberIdList []*UserId                  `json:"subscriber_id_list,omitempty"` // 订阅用户id列表
+	UpdateTime       *int                       `json:"update_time,omitempty"`        // 字段变更时间
+}
+
+type P2FileBitableFieldChangedV1 struct {
+	*larkevent.EventV2Base                                  // 事件基础数据
+	*larkevent.EventReq                                     // 请求原生数据
+	Event                  *P2FileBitableFieldChangedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2FileBitableFieldChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type P2FileDeletedV1Data struct {

@@ -27,11 +27,11 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewMoveSpaceNodeReqBuilder().
-		SpaceId("7008061636015554580").
+		SpaceId("7008061636015512345").
 		NodeToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
 		Body(larkwiki.NewMoveSpaceNodeReqBodyBuilder().
 			TargetParentToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
-			TargetSpaceId("").
+			TargetSpaceId("7008061636015512345").
 			Build()).
 		Build()
 	// 发起请求

@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -25,11 +24,12 @@ import (
 // GET /open-apis/contact/v3/users/:user_id
 func main() {
 	// 创建 Client
-	client := lark.NewClient("cli_a1eccc36c278900d", "uvNOxS6mplA6Nf3YPt8rUbbShON1Ocj5")
+	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewGetUserReqBuilder().
-		UserId("1d61g3bg").
-		UserIdType(larkcontact.UserIdTypeUserId).
+		UserId("7be5fg9a").
+		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Contact.User.Get(context.Background(), req)

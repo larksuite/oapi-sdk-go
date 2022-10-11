@@ -28,8 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewListApprovalReqBuilder().
 		PageSize(10).
-		PageToken("").
-		Locale("").
+		PageToken("ASDJHA1323_sda1JSASDFD").
+		Locale("zh-CN").
 		Build()
 	// 发起请求
 	resp, err := client.Approval.Approval.List(context.Background(), req)

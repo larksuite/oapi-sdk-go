@@ -370,7 +370,7 @@ func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySched
 
 // 客服技能 ids
 //
-// 示例值：[]
+// 示例值：[“test-skill-id”]
 func (builder *AgentScheduleUpdateInfoBuilder) AgentSkillIds(agentSkillIds []string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentSkillIds = agentSkillIds
 	builder.agentSkillIdsFlag = true
@@ -2107,7 +2107,7 @@ func NewRichtextBuilder() *RichtextBuilder {
 
 // 内容
 //
-// 示例值：
+// 示例值：我的答案
 func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -2116,7 +2116,7 @@ func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 
 // 类型
 //
-// 示例值：
+// 示例值：text
 func (builder *RichtextBuilder) Type(type_ string) *RichtextBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -2959,54 +2959,54 @@ func (builder *TicketCustomizedFieldBuilder) Build() *TicketCustomizedField {
 }
 
 type TicketEvent struct {
-	TicketId         *string                       `json:"ticket_id,omitempty"`         // 6626871355780366331
-	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 6626871355780366330
-	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // abc
-	Stage            *int                          `json:"stage,omitempty"`             // 1
-	Status           *int                          `json:"status,omitempty"`            // 50
-	Score            *int                          `json:"score,omitempty"`             // 1
-	CreatedAt        *int                          `json:"created_at,omitempty"`        // 1616920429000
-	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 1616920429000
-	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 1616920429000
+	TicketId         *string                       `json:"ticket_id,omitempty"`         // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	HelpdeskId       *string                       `json:"helpdesk_id,omitempty"`       // 服务台id
+	Guest            *TicketUserEvent              `json:"guest,omitempty"`             // 用户id
+	Stage            *int                          `json:"stage,omitempty"`             // 工单阶段：1. 机器人 2. 人工
+	Status           *int                          `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	Score            *int                          `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
+	CreatedAt        *int                          `json:"created_at,omitempty"`        // 创建时间
+	UpdatedAt        *int                          `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
+	ClosedAt         *int                          `json:"closed_at,omitempty"`         // 关单时间
 	Agents           []*TicketUserEvent            `json:"agents,omitempty"`            // agents of this ticket
-	Channel          *int                          `json:"channel,omitempty"`           // 0
-	Solve            *int                          `json:"solve,omitempty"`             // 1
+	Channel          *int                          `json:"channel,omitempty"`           // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	Solve            *int                          `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
 	ClosedBy         *TicketUserEvent              `json:"closed_by,omitempty"`         // closed user of this ticket
 	Collaborators    []*TicketUserEvent            `json:"collaborators,omitempty"`     // collaborators of this ticket
-	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // []
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // 自定义字段
 	ChatId           *string                       `json:"chat_id,omitempty"`           // oc_xxxxxxx
 }
 
 type TicketEventBuilder struct {
-	ticketId             string // 6626871355780366331
+	ticketId             string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	ticketIdFlag         bool
-	helpdeskId           string // 6626871355780366330
+	helpdeskId           string // 服务台id
 	helpdeskIdFlag       bool
-	guest                *TicketUserEvent // abc
+	guest                *TicketUserEvent // 用户id
 	guestFlag            bool
-	stage                int // 1
+	stage                int // 工单阶段：1. 机器人 2. 人工
 	stageFlag            bool
-	status               int // 50
+	status               int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
 	statusFlag           bool
-	score                int // 1
+	score                int // 工单评分，1：不满意，2:一般，3:满意
 	scoreFlag            bool
-	createdAt            int // 1616920429000
+	createdAt            int // 创建时间
 	createdAtFlag        bool
-	updatedAt            int // 1616920429000
+	updatedAt            int // 工单更新时间，没有值时为-1
 	updatedAtFlag        bool
-	closedAt             int // 1616920429000
+	closedAt             int // 关单时间
 	closedAtFlag         bool
 	agents               []*TicketUserEvent // agents of this ticket
 	agentsFlag           bool
-	channel              int // 0
+	channel              int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
 	channelFlag          bool
-	solve                int // 1
+	solve                int // 工单是否解决 1:没解决 2:已解决
 	solveFlag            bool
 	closedBy             *TicketUserEvent // closed user of this ticket
 	closedByFlag         bool
 	collaborators        []*TicketUserEvent // collaborators of this ticket
 	collaboratorsFlag    bool
-	customizedFields     []*CustomizedFieldDisplayItem // []
+	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
 	customizedFieldsFlag bool
 	chatId               string // oc_xxxxxxx
 	chatIdFlag           bool
@@ -3017,7 +3017,7 @@ func NewTicketEventBuilder() *TicketEventBuilder {
 	return builder
 }
 
-// 6626871355780366331
+// 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 //
 // 示例值：6626871355780366331
 func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder {
@@ -3026,7 +3026,7 @@ func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder
 	return builder
 }
 
-// 6626871355780366330
+// 服务台id
 //
 // 示例值：6626871355780366330
 func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBuilder {
@@ -3035,7 +3035,7 @@ func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBui
 	return builder
 }
 
-// abc
+// 用户id
 //
 // 示例值：
 func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBuilder {
@@ -3044,7 +3044,7 @@ func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBui
 	return builder
 }
 
-// 1
+// 工单阶段：1. 机器人 2. 人工
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
@@ -3053,7 +3053,7 @@ func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	return builder
 }
 
-// 50
+// 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
@@ -3062,7 +3062,7 @@ func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	return builder
 }
 
-// 1
+// 工单评分，1：不满意，2:一般，3:满意
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
@@ -3071,7 +3071,7 @@ func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	return builder
 }
 
-// 1616920429000
+// 创建时间
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder {
@@ -3080,7 +3080,7 @@ func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 1616920429000
+// 工单更新时间，没有值时为-1
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder {
@@ -3089,7 +3089,7 @@ func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder 
 	return builder
 }
 
-// 1616920429000
+// 关单时间
 //
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
@@ -3107,7 +3107,7 @@ func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEven
 	return builder
 }
 
-// 0
+// 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
 //
 // 示例值：0
 func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
@@ -3116,7 +3116,7 @@ func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	return builder
 }
 
-// 1
+// 工单是否解决 1:没解决 2:已解决
 //
 // 示例值：1
 func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
@@ -3143,7 +3143,7 @@ func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEven
 	return builder
 }
 
-// []
+// 自定义字段
 //
 // 示例值：
 func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketEventBuilder {
@@ -3686,18 +3686,18 @@ func (builder *TicketUserBuilder) Build() *TicketUser {
 }
 
 type TicketUserEvent struct {
-	Id        *UserId `json:"id,omitempty"`         // 6626871355780366332
+	Id        *UserId `json:"id,omitempty"`         // id
 	AvatarUrl *string `json:"avatar_url,omitempty"` // user avartal url
-	Name      *string `json:"name,omitempty"`       // 6626871355780366333
+	Name      *string `json:"name,omitempty"`       // 名称
 	Email     *string `json:"email,omitempty"`      // user email
 }
 
 type TicketUserEventBuilder struct {
-	id            *UserId // 6626871355780366332
+	id            *UserId // id
 	idFlag        bool
 	avatarUrl     string // user avartal url
 	avatarUrlFlag bool
-	name          string // 6626871355780366333
+	name          string // 名称
 	nameFlag      bool
 	email         string // user email
 	emailFlag     bool
@@ -3708,7 +3708,7 @@ func NewTicketUserEventBuilder() *TicketUserEventBuilder {
 	return builder
 }
 
-// 6626871355780366332
+// id
 //
 // 示例值：
 func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
@@ -3726,7 +3726,7 @@ func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEv
 	return builder
 }
 
-// 6626871355780366333
+// 名称
 //
 // 示例值：abc
 func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder {

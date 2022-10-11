@@ -41,6 +41,8 @@ func main() {
 			TaskStartTimeFrom("1547654251506").
 			TaskStartTimeTo("1547654251506").
 			Locale("zh-CN").
+			TaskStatusList([]string{}).
+			Order(2).
 			Build()).
 		Build()
 	// 发起请求

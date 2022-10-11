@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
+
 // 审核事件
 //
 // - Push审核状态通知事件
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/events/approve
-func ( dispatcher * EventDispatcher ) OnP2NotificationApproveV1(handler func(ctx context.Context, event *larkhelpdesk.P2NotificationApproveV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2NotificationApproveV1(handler func(ctx context.Context, event *larkhelpdesk.P2NotificationApproveV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["helpdesk.notification.approve_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "helpdesk.notification.approve_v1")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2NotificationApproveV1(handler func(ctx
 	dispatcher.eventType2EventHandler["helpdesk.notification.approve_v1"] = larkhelpdesk.NewP2NotificationApproveV1Handler(handler)
 	return dispatcher
 }
+
 // 工单创建事件
 //
 // - 可监听服务台的工单创建事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created
-func ( dispatcher * EventDispatcher ) OnP2TicketCreatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2TicketCreatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["helpdesk.ticket.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "helpdesk.ticket.created_v1")
@@ -43,12 +45,13 @@ func ( dispatcher * EventDispatcher ) OnP2TicketCreatedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["helpdesk.ticket.created_v1"] = larkhelpdesk.NewP2TicketCreatedV1Handler(handler)
 	return dispatcher
 }
+
 // 工单状态变更事件
 //
 // - 可监听工单状态和阶段变更事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/updated
-func ( dispatcher * EventDispatcher ) OnP2TicketUpdatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2TicketUpdatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["helpdesk.ticket.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "helpdesk.ticket.updated_v1")
@@ -56,12 +59,13 @@ func ( dispatcher * EventDispatcher ) OnP2TicketUpdatedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["helpdesk.ticket.updated_v1"] = larkhelpdesk.NewP2TicketUpdatedV1Handler(handler)
 	return dispatcher
 }
+
 // 工单消息事件
 //
 // - 该消息事件属于工单消息事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_message/events/created
-func ( dispatcher * EventDispatcher ) OnP2TicketMessageCreatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketMessageCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2TicketMessageCreatedV1(handler func(ctx context.Context, event *larkhelpdesk.P2TicketMessageCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["helpdesk.ticket_message.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "helpdesk.ticket_message.created_v1")

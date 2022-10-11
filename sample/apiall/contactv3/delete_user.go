@@ -35,7 +35,6 @@ func main() {
 			DocsAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			CalendarAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			ApplicationAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
-			HelpdeskAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			MinutesAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			SurveyAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			EmailAcceptor(larkcontact.NewResourceAcceptorBuilder().Build()).

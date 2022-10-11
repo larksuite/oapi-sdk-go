@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -43,7 +44,6 @@ func main() {
 			JoinMessageVisibility("all_members").
 			LeaveMessageVisibility("all_members").
 			MembershipApproval("no_approval_required").
-			ToolkitIds([]string{}).
 			Build()).
 		Build()
 	// 发起请求

@@ -41,17 +41,17 @@ func NewService(config *larkcore.Config) *AttendanceService {
 
 type AttendanceService struct {
 	config         *larkcore.Config
-	ApprovalInfo   *approvalInfo   // 假勤审批
+	ApprovalInfo   *approvalInfo   // approval_info
 	File           *file           // 文件
 	Group          *group          // 考勤组管理
 	Shift          *shift          // 考勤班次
 	UserApproval   *userApproval   // 假勤审批
 	UserDailyShift *userDailyShift // 考勤排班
-	UserFlow       *userFlow       // 考勤记录
+	UserFlow       *userFlow       // user_flow
 	UserSetting    *userSetting    // 用户设置
 	UserStatsData  *userStatsData  // 考勤统计
-	UserStatsField *userStatsField // 考勤统计
-	UserStatsView  *userStatsView  // 考勤统计
+	UserStatsField *userStatsField // user_stats_field
+	UserStatsView  *userStatsView  // user_stats_view
 	UserTask       *userTask       // 考勤记录
 	UserTaskRemedy *userTaskRemedy // 考勤补卡
 }

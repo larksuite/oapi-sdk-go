@@ -601,7 +601,7 @@ type Item struct {
 	Id             *string       `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
 	Acl            []*Acl        `json:"acl,omitempty"`             // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
 	Metadata       *ItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData *string       `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+	StructuredData *string       `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
 	Content        *ItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
@@ -612,7 +612,7 @@ type ItemBuilder struct {
 	aclFlag            bool
 	metadata           *ItemMetadata // item 的元信息
 	metadataFlag       bool
-	structuredData     string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+	structuredData     string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
 	structuredDataFlag bool
 	content            *ItemContent // 非结构化数据，如文档文本，飞书搜索会用来做召回
 	contentFlag        bool
@@ -650,7 +650,7 @@ func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 	return builder
 }
 
-// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；
+// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
 //
 // 示例值：{\"key\":\"value\"}
 func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
@@ -993,12 +993,12 @@ func (builder *SchemaBuilder) Build() *Schema {
 }
 
 type SchemaDisplay struct {
-	CardKey       *string                      `json:"card_key,omitempty"`       // 搜索数据的展示卡片
+	CardKey       *string                      `json:"card_key,omitempty"`       // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
 	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
 }
 
 type SchemaDisplayBuilder struct {
-	cardKey           string // 搜索数据的展示卡片
+	cardKey           string // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
 	cardKeyFlag       bool
 	fieldsMapping     []*SchemaDisplayFieldMapping // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
 	fieldsMappingFlag bool
@@ -1009,7 +1009,7 @@ func NewSchemaDisplayBuilder() *SchemaDisplayBuilder {
 	return builder
 }
 
-// 搜索数据的展示卡片
+// 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
 //
 // 示例值：search_common_card
 func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuilder {

@@ -29,8 +29,8 @@ func NewService(config *larkcore.Config) *BlockService {
 
 type BlockService struct {
 	config  *larkcore.Config
-	Entity  *entity  // entity
-	Message *message // message
+	Entity  *entity  // 服务端 API
+	Message *message // 服务端 API
 }
 
 type entity struct {
@@ -92,9 +92,9 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	return resp, err
 }
 
-// Block消息推送
+// Block协同数据推送
 //
-// - 根据BlockID向指定用户列表推送消息。
+// - 根据BlockID向指定用户列表推送协同数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
 //

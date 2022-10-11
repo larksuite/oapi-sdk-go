@@ -34,13 +34,13 @@ func NewService(config *larkcore.Config) *ApprovalService {
 
 type ApprovalService struct {
 	config           *larkcore.Config
-	Approval         *approval         // 审批定义
+	Approval         *approval         // 原生审批定义
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 审批实例
-	InstanceComment  *instanceComment  // 评论
-	Task             *task             // 审批任务
+	Instance         *instance         // 原生审批实例
+	InstanceComment  *instanceComment  // 原生审批评论
+	Task             *task             // 审批查询
 }
 
 type approval struct {
@@ -119,11 +119,11 @@ func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...lark
 	return resp, err
 }
 
+// 查询审批定义列表
 //
+// - 查询当前用户可发起的审批定义列表。
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=approval&version=v4
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_approval.go
 func (a *approval) List(ctx context.Context, req *ListApprovalReq, options ...larkcore.RequestOptionFunc) (*ListApprovalResp, error) {
@@ -323,7 +323,7 @@ func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTask
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_sign&project=approval&resource=instance&version=v4
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addSign_instance.go
 func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...larkcore.RequestOptionFunc) (*AddSignInstanceResp, error) {
@@ -487,7 +487,7 @@ func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, opt
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=preview&project=approval&resource=instance&version=v4
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/preview_instance.go
 func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...larkcore.RequestOptionFunc) (*PreviewInstanceResp, error) {
@@ -509,7 +509,7 @@ func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options
 	return resp, err
 }
 
-// 实例列表查询
+// 查询实例列表
 //
 // - 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
@@ -543,7 +543,7 @@ func (i *instance) QueryByIterator(ctx context.Context, req *QueryInstanceReq, o
 		limit:    req.Limit}, nil
 }
 
-// 抄送列表查询接口
+// 查询抄送列表
 //
 // - 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
@@ -811,7 +811,7 @@ func (t *task) Resubmit(ctx context.Context, req *ResubmitTaskReq, options ...la
 	return resp, err
 }
 
-// 任务列表查询
+// 查询任务列表
 //
 // - 该接口通过不同条件查询审批系统中符合条件的审批任务列表
 //

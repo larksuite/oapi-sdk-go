@@ -244,6 +244,14 @@ const (
 )
 
 const (
+	OrderUpdateTimeDESC = 0 // 按update_time倒排
+	OrderUpdateTimeASC  = 1 // 按update_time正排
+	OrderStartTimeDESC  = 2 // 按start_time倒排
+	OrderStartTimeASC   = 3 // 按start_time正排
+
+)
+
+const (
 	UserIdTypeSearchTaskUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeSearchTaskUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSearchTaskOpenId  = "open_id"  // 以open_id来识别用户
@@ -1718,7 +1726,7 @@ func (builder *ApproverChosenRangeBuilder) Build() *ApproverChosenRange {
 type CcNode struct {
 	CcId          *string               `json:"cc_id,omitempty"`          // 审批实例内唯一标识
 	UserId        *string               `json:"user_id,omitempty"`        // 抄送人 employee id
-	OpenId        *string               `json:"open_id,omitempty"`        // 抄送人 open id，和user id 二选一
+	OpenId        *string               `json:"open_id,omitempty"`        // 抄送人 open id，和user id 二者至少填一个
 	Links         *ExternalInstanceLink `json:"links,omitempty"`          // 跳转链接，用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	ReadStatus    *string               `json:"read_status,omitempty"`    // 阅读状态，空值表示不支持已读未读：
 	Extra         *string               `json:"extra,omitempty"`          // 扩展 json
@@ -1733,7 +1741,7 @@ type CcNodeBuilder struct {
 	ccIdFlag          bool
 	userId            string // 抄送人 employee id
 	userIdFlag        bool
-	openId            string // 抄送人 open id，和user id 二选一
+	openId            string // 抄送人 open id，和user id 二者至少填一个
 	openIdFlag        bool
 	links             *ExternalInstanceLink // 跳转链接，用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	linksFlag         bool
@@ -1774,7 +1782,7 @@ func (builder *CcNodeBuilder) UserId(userId string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送人 open id，和user id 二选一
+// 抄送人 open id，和user id 二者至少填一个
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *CcNodeBuilder) OpenId(openId string) *CcNodeBuilder {
@@ -2779,13 +2787,13 @@ func (builder *CountBuilder) Build() *Count {
 
 type Definition struct {
 	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
-	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
 }
 
 type DefinitionBuilder struct {
 	approvalCode     string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 	approvalCodeFlag bool
-	approvalName     string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+	approvalName     string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
 	approvalNameFlag bool
 }
 
@@ -2796,16 +2804,16 @@ func NewDefinitionBuilder() *DefinitionBuilder {
 
 // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 //
-// 示例值：
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *DefinitionBuilder) ApprovalCode(approvalCode string) *DefinitionBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
 	return builder
 }
 
-// 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+// 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
 //
-// 示例值：
+// 示例值：请假
 func (builder *DefinitionBuilder) ApprovalName(approvalName string) *DefinitionBuilder {
 	builder.approvalName = approvalName
 	builder.approvalNameFlag = true
@@ -3115,9 +3123,9 @@ type ExternalInstance struct {
 	Links                 *ExternalInstanceLink       `json:"links,omitempty"`                    // 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	Title                 *string                     `json:"title,omitempty"`                    // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
 	Form                  []*ExternalInstanceForm     `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
-	UserId                *string                     `json:"user_id,omitempty"`                  // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二选一。
+	UserId                *string                     `json:"user_id,omitempty"`                  // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
 	UserName              *string                     `json:"user_name,omitempty"`                // 审批发起人 用户名，如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该字段传名称
-	OpenId                *string                     `json:"open_id,omitempty"`                  // 审批发起人 open id，和 user id 二选一
+	OpenId                *string                     `json:"open_id,omitempty"`                  // 审批发起人 open id，和 user id 二者至少填一个
 	DepartmentId          *string                     `json:"department_id,omitempty"`            // 发起人部门，用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门，传 ""，将展示租户名称传 department_name 展示部门名称
 	DepartmentName        *string                     `json:"department_name,omitempty"`          // 审批发起人 部门，如果发起人不是真实的用户（例如是某个部门），没有 department_id，则可以使用该字段传名称
 	StartTime             *string                     `json:"start_time,omitempty"`               // 审批发起时间，Unix毫秒时间戳
@@ -3148,11 +3156,11 @@ type ExternalInstanceBuilder struct {
 	titleFlag                 bool
 	form                      []*ExternalInstanceForm // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
 	formFlag                  bool
-	userId                    string // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二选一。
+	userId                    string // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
 	userIdFlag                bool
 	userName                  string // 审批发起人 用户名，如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该字段传名称
 	userNameFlag              bool
-	openId                    string // 审批发起人 open id，和 user id 二选一
+	openId                    string // 审批发起人 open id，和 user id 二者至少填一个
 	openIdFlag                bool
 	departmentId              string // 发起人部门，用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门，传 ""，将展示租户名称传 department_name 展示部门名称
 	departmentIdFlag          bool
@@ -3250,7 +3258,7 @@ func (builder *ExternalInstanceBuilder) Form(form []*ExternalInstanceForm) *Exte
 	return builder
 }
 
-// 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二选一。
+// 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
 //
 // 示例值：a987sf9s
 func (builder *ExternalInstanceBuilder) UserId(userId string) *ExternalInstanceBuilder {
@@ -3268,7 +3276,7 @@ func (builder *ExternalInstanceBuilder) UserName(userName string) *ExternalInsta
 	return builder
 }
 
-// 审批发起人 open id，和 user id 二选一
+// 审批发起人 open id，和 user id 二者至少填一个
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *ExternalInstanceBuilder) OpenId(openId string) *ExternalInstanceBuilder {
@@ -3631,29 +3639,29 @@ func (builder *ExternalInstanceTaskBuilder) Build() *ExternalInstanceTask {
 
 type ExternalInstanceTaskNode struct {
 	TaskId            *string               `json:"task_id,omitempty"`            // 审批实例内的唯一标识，用于更新审批任务时定位数据
-	UserId            *string               `json:"user_id,omitempty"`            // 审批人 user_id，该任务会出现在审批人的【待审批】或【已审批】列表中
-	OpenId            *string               `json:"open_id,omitempty"`            // 审批人 open id，和 user id 二选一
+	UserId            *string               `json:"user_id,omitempty"`            // 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
+	OpenId            *string               `json:"open_id,omitempty"`            // 审批人 open_id，和 user_id 二者至少填一个
 	Title             *string               `json:"title,omitempty"`              // 审批任务名称
 	Links             *ExternalInstanceLink `json:"links,omitempty"`              // 【待审批】或【已审批】中使用的跳转链接，用于跳转回三方系统pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	Status            *string               `json:"status,omitempty"`             // 任务状态
-	Extra             *string               `json:"extra,omitempty"`              // 扩展 json
+	Extra             *string               `json:"extra,omitempty"`              // 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
 	CreateTime        *string               `json:"create_time,omitempty"`        // 任务创建时间，Unix 毫秒时间戳
 	EndTime           *string               `json:"end_time,omitempty"`           // 任务完成时间：未结束的审批为 0，Unix 毫秒时间戳
 	UpdateTime        *string               `json:"update_time,omitempty"`        // task最近更新时间，用于推送数据版本控制； 更新策略同 instance 中的 update_time
 	ActionContext     *string               `json:"action_context,omitempty"`     // 操作上下文，当用户操作时，回调请求中带上该参数，用于传递该任务的上下文数据
 	ActionConfigs     []*ActionConfig       `json:"action_configs,omitempty"`     // 任务级别操作配置,快捷审批目前支持移动端操作
 	DisplayMethod     *string               `json:"display_method,omitempty"`     // 列表页打开审批任务的方式
-	ExcludeStatistics *bool                 `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计
-	NodeId            *string               `json:"node_id,omitempty"`            // 节点id
-	NodeName          *string               `json:"node_name,omitempty"`          // 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	ExcludeStatistics *bool                 `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
+	NodeId            *string               `json:"node_id,omitempty"`            // 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
+	NodeName          *string               `json:"node_name,omitempty"`          // 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
 }
 
 type ExternalInstanceTaskNodeBuilder struct {
 	taskId                string // 审批实例内的唯一标识，用于更新审批任务时定位数据
 	taskIdFlag            bool
-	userId                string // 审批人 user_id，该任务会出现在审批人的【待审批】或【已审批】列表中
+	userId                string // 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
 	userIdFlag            bool
-	openId                string // 审批人 open id，和 user id 二选一
+	openId                string // 审批人 open_id，和 user_id 二者至少填一个
 	openIdFlag            bool
 	title                 string // 审批任务名称
 	titleFlag             bool
@@ -3661,7 +3669,7 @@ type ExternalInstanceTaskNodeBuilder struct {
 	linksFlag             bool
 	status                string // 任务状态
 	statusFlag            bool
-	extra                 string // 扩展 json
+	extra                 string // 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
 	extraFlag             bool
 	createTime            string // 任务创建时间，Unix 毫秒时间戳
 	createTimeFlag        bool
@@ -3675,11 +3683,11 @@ type ExternalInstanceTaskNodeBuilder struct {
 	actionConfigsFlag     bool
 	displayMethod         string // 列表页打开审批任务的方式
 	displayMethodFlag     bool
-	excludeStatistics     bool // 三方任务支持不纳入效率统计
+	excludeStatistics     bool // 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
 	excludeStatisticsFlag bool
-	nodeId                string // 节点id
+	nodeId                string // 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
 	nodeIdFlag            bool
-	nodeName              string // 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	nodeName              string // 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
 	nodeNameFlag          bool
 }
 
@@ -3697,7 +3705,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) TaskId(taskId string) *ExternalI
 	return builder
 }
 
-// 审批人 user_id，该任务会出现在审批人的【待审批】或【已审批】列表中
+// 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
 //
 // 示例值：a987sf9s
 func (builder *ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalInstanceTaskNodeBuilder {
@@ -3706,7 +3714,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalI
 	return builder
 }
 
-// 审批人 open id，和 user id 二选一
+// 审批人 open_id，和 user_id 二者至少填一个
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *ExternalInstanceTaskNodeBuilder) OpenId(openId string) *ExternalInstanceTaskNodeBuilder {
@@ -3742,9 +3750,9 @@ func (builder *ExternalInstanceTaskNodeBuilder) Status(status string) *ExternalI
 	return builder
 }
 
-// 扩展 json
+// 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
 //
-// 示例值：{\"xxx\":\"xxx\"}
+// 示例值：{\"xxx\":\"xxx\",\"complete_reason\":\"approved\"}
 func (builder *ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalInstanceTaskNodeBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
@@ -3805,27 +3813,27 @@ func (builder *ExternalInstanceTaskNodeBuilder) DisplayMethod(displayMethod stri
 	return builder
 }
 
-// 三方任务支持不纳入效率统计
+// 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
 //
-// 示例值：true
+// 示例值：false
 func (builder *ExternalInstanceTaskNodeBuilder) ExcludeStatistics(excludeStatistics bool) *ExternalInstanceTaskNodeBuilder {
 	builder.excludeStatistics = excludeStatistics
 	builder.excludeStatisticsFlag = true
 	return builder
 }
 
-// 节点id
+// 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
 //
-// 示例值：
+// 示例值：node
 func (builder *ExternalInstanceTaskNodeBuilder) NodeId(nodeId string) *ExternalInstanceTaskNodeBuilder {
 	builder.nodeId = nodeId
 	builder.nodeIdFlag = true
 	return builder
 }
 
-// 节点名称，示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+// 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
 //
-// 示例值：
+// 示例值：i18n@name
 func (builder *ExternalInstanceTaskNodeBuilder) NodeName(nodeName string) *ExternalInstanceTaskNodeBuilder {
 	builder.nodeName = nodeName
 	builder.nodeNameFlag = true
@@ -4200,16 +4208,64 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
+type FileUrl struct {
+	Name *string `json:"name,omitempty"` // 不给出即使用从url从获得的，如果给出则使用用户给出的
+	Url  *string `json:"url,omitempty"`  // 用户上传的url
+}
+
+type FileUrlBuilder struct {
+	name     string // 不给出即使用从url从获得的，如果给出则使用用户给出的
+	nameFlag bool
+	url      string // 用户上传的url
+	urlFlag  bool
+}
+
+func NewFileUrlBuilder() *FileUrlBuilder {
+	builder := &FileUrlBuilder{}
+	return builder
+}
+
+// 不给出即使用从url从获得的，如果给出则使用用户给出的
+//
+// 示例值：xxxxx.png
+func (builder *FileUrlBuilder) Name(name string) *FileUrlBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 用户上传的url
+//
+// 示例值：https://xxxxx.com/i/2022/06/08/xxxxx.png
+func (builder *FileUrlBuilder) Url(url string) *FileUrlBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *FileUrlBuilder) Build() *FileUrl {
+	req := &FileUrl{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
 type I18nResource struct {
 	Locale    *string             `json:"locale,omitempty"`     // 语言可选值有： zh-CN：中文 en-US：英文 ja-JP：日文
-	Texts     []*I18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，语序用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+	Texts     []*I18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
 	IsDefault *bool               `json:"is_default,omitempty"` // 是否默认语言，默认语言需要包含所有key，非默认语言如果key不存在会使用默认语言代替
 }
 
 type I18nResourceBuilder struct {
 	locale        string // 语言可选值有： zh-CN：中文 en-US：英文 ja-JP：日文
 	localeFlag    bool
-	texts         []*I18nResourceText // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，语序用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+	texts         []*I18nResourceText // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
 	textsFlag     bool
 	isDefault     bool // 是否默认语言，默认语言需要包含所有key，非默认语言如果key不存在会使用默认语言代替
 	isDefaultFlag bool
@@ -4229,7 +4285,7 @@ func (builder *I18nResourceBuilder) Locale(locale string) *I18nResourceBuilder {
 	return builder
 }
 
-// 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，语序用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+// 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
 //
 // 示例值：{ "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
 func (builder *I18nResourceBuilder) Texts(texts []*I18nResourceText) *I18nResourceBuilder {
@@ -5769,6 +5825,7 @@ type InstanceTimeline struct {
 	Ext        *string           `json:"ext,omitempty"`          // 动态其他信息，json格式，目前包括 user_id_list, user_id，open_id_list，open_id
 	NodeKey    *string           `json:"node_key,omitempty"`     // 产生task的节点key
 	Files      []*File           `json:"files,omitempty"`        // 审批附件
+	FileList   []*File           `json:"file_list,omitempty"`    // 审批附件
 }
 
 type InstanceTimelineBuilder struct {
@@ -5796,6 +5853,8 @@ type InstanceTimelineBuilder struct {
 	nodeKeyFlag    bool
 	files          []*File // 审批附件
 	filesFlag      bool
+	fileList       []*File // 审批附件
+	fileListFlag   bool
 }
 
 func NewInstanceTimelineBuilder() *InstanceTimelineBuilder {
@@ -5911,6 +5970,15 @@ func (builder *InstanceTimelineBuilder) Files(files []*File) *InstanceTimelineBu
 	return builder
 }
 
+// 审批附件
+//
+// 示例值：
+func (builder *InstanceTimelineBuilder) FileList(fileList []*File) *InstanceTimelineBuilder {
+	builder.fileList = fileList
+	builder.fileListFlag = true
+	return builder
+}
+
 func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	req := &InstanceTimeline{}
 	if builder.typeFlag {
@@ -5956,6 +6024,9 @@ func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	}
 	if builder.filesFlag {
 		req.Files = builder.files
+	}
+	if builder.fileListFlag {
+		req.FileList = builder.fileList
 	}
 	return req
 }
@@ -7294,16 +7365,18 @@ func (builder *TaskResubmitBuilder) Build() *TaskResubmit {
 }
 
 type TaskSearch struct {
-	UserId             *string `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id
-	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
-	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
-	GroupExternalId    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注：和 instance_code 取并集
-	TaskTitle          *string `json:"task_title,omitempty"`           // 审批任务标题（只有第三方审批有）
-	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态，注：若不设置，查询全部状态 若不在集合中，报错
-	TaskStartTimeFrom  *string `json:"task_start_time_from,omitempty"` // 任务查询开始时间（unix毫秒时间戳）
-	TaskStartTimeTo    *string `json:"task_start_time_to,omitempty"`   // 任务查询结束时间 (unix毫秒时间戳)
-	Locale             *string `json:"locale,omitempty"`               // 地区
+	UserId             *string  `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id
+	ApprovalCode       *string  `json:"approval_code,omitempty"`        // 审批定义 code
+	InstanceCode       *string  `json:"instance_code,omitempty"`        // 审批实例 code
+	InstanceExternalId *string  `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
+	GroupExternalId    *string  `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注：和 instance_code 取并集
+	TaskTitle          *string  `json:"task_title,omitempty"`           // 审批任务标题（只有第三方审批有）
+	TaskStatus         *string  `json:"task_status,omitempty"`          // 审批任务状态，注：若不设置，查询全部状态 若不在集合中，报错
+	TaskStartTimeFrom  *string  `json:"task_start_time_from,omitempty"` // 任务查询开始时间（unix毫秒时间戳）
+	TaskStartTimeTo    *string  `json:"task_start_time_to,omitempty"`   // 任务查询结束时间 (unix毫秒时间戳)
+	Locale             *string  `json:"locale,omitempty"`               // 地区
+	TaskStatusList     []string `json:"task_status_list,omitempty"`     // 可选择task_status中的多个状态，当填写此参数时，task_status失效
+	Order              *int     `json:"order,omitempty"`                // 按任务时间排序
 }
 
 type TaskSearchBuilder struct {
@@ -7327,6 +7400,10 @@ type TaskSearchBuilder struct {
 	taskStartTimeToFlag    bool
 	locale                 string // 地区
 	localeFlag             bool
+	taskStatusList         []string // 可选择task_status中的多个状态，当填写此参数时，task_status失效
+	taskStatusListFlag     bool
+	order                  int // 按任务时间排序
+	orderFlag              bool
 }
 
 func NewTaskSearchBuilder() *TaskSearchBuilder {
@@ -7424,6 +7501,24 @@ func (builder *TaskSearchBuilder) Locale(locale string) *TaskSearchBuilder {
 	return builder
 }
 
+// 可选择task_status中的多个状态，当填写此参数时，task_status失效
+//
+// 示例值：PENDING
+func (builder *TaskSearchBuilder) TaskStatusList(taskStatusList []string) *TaskSearchBuilder {
+	builder.taskStatusList = taskStatusList
+	builder.taskStatusListFlag = true
+	return builder
+}
+
+// 按任务时间排序
+//
+// 示例值：2
+func (builder *TaskSearchBuilder) Order(order int) *TaskSearchBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+
 func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	req := &TaskSearch{}
 	if builder.userIdFlag {
@@ -7464,6 +7559,13 @@ func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	}
 	if builder.localeFlag {
 		req.Locale = &builder.locale
+
+	}
+	if builder.taskStatusListFlag {
+		req.TaskStatusList = builder.taskStatusList
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
 
 	}
 	return req
@@ -7546,33 +7648,36 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 }
 
 type TaskSearchNode struct {
-	UserId    *string             `json:"user_id,omitempty"`    // 审批任务发起人 id
-	StartTime *string             `json:"start_time,omitempty"` // 审批任务开始时间
-	EndTime   *string             `json:"end_time,omitempty"`   // 审批任务结束时间
-	Status    *string             `json:"status,omitempty"`     // 审批任务状态
-	Title     *string             `json:"title,omitempty"`      // 审批任务名称（只有第三方审批有）
-	Extra     *string             `json:"extra,omitempty"`      // 审批任务扩展字段，string型json
-	Link      *InstanceSearchLink `json:"link,omitempty"`       // 审批任务链接（只有第三方审批有）
-	TaskId    *string             `json:"task_id,omitempty"`    // 任务id
+	UserId     *string             `json:"user_id,omitempty"`     // 审批任务发起人 id
+	StartTime  *string             `json:"start_time,omitempty"`  // 审批任务开始时间
+	EndTime    *string             `json:"end_time,omitempty"`    // 审批任务结束时间
+	Status     *string             `json:"status,omitempty"`      // 审批任务状态
+	Title      *string             `json:"title,omitempty"`       // 审批任务名称（只有第三方审批有）
+	Extra      *string             `json:"extra,omitempty"`       // 审批任务扩展字段，string型json
+	Link       *InstanceSearchLink `json:"link,omitempty"`        // 审批任务链接（只有第三方审批有）
+	TaskId     *string             `json:"task_id,omitempty"`     // 任务id
+	UpdateTime *string             `json:"update_time,omitempty"` // 审批任务更新时间
 }
 
 type TaskSearchNodeBuilder struct {
-	userId        string // 审批任务发起人 id
-	userIdFlag    bool
-	startTime     string // 审批任务开始时间
-	startTimeFlag bool
-	endTime       string // 审批任务结束时间
-	endTimeFlag   bool
-	status        string // 审批任务状态
-	statusFlag    bool
-	title         string // 审批任务名称（只有第三方审批有）
-	titleFlag     bool
-	extra         string // 审批任务扩展字段，string型json
-	extraFlag     bool
-	link          *InstanceSearchLink // 审批任务链接（只有第三方审批有）
-	linkFlag      bool
-	taskId        string // 任务id
-	taskIdFlag    bool
+	userId         string // 审批任务发起人 id
+	userIdFlag     bool
+	startTime      string // 审批任务开始时间
+	startTimeFlag  bool
+	endTime        string // 审批任务结束时间
+	endTimeFlag    bool
+	status         string // 审批任务状态
+	statusFlag     bool
+	title          string // 审批任务名称（只有第三方审批有）
+	titleFlag      bool
+	extra          string // 审批任务扩展字段，string型json
+	extraFlag      bool
+	link           *InstanceSearchLink // 审批任务链接（只有第三方审批有）
+	linkFlag       bool
+	taskId         string // 任务id
+	taskIdFlag     bool
+	updateTime     string // 审批任务更新时间
+	updateTimeFlag bool
 }
 
 func NewTaskSearchNodeBuilder() *TaskSearchNodeBuilder {
@@ -7652,6 +7757,15 @@ func (builder *TaskSearchNodeBuilder) TaskId(taskId string) *TaskSearchNodeBuild
 	return builder
 }
 
+// 审批任务更新时间
+//
+// 示例值：1547654251506
+func (builder *TaskSearchNodeBuilder) UpdateTime(updateTime string) *TaskSearchNodeBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
 func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
 	req := &TaskSearchNode{}
 	if builder.userIdFlag {
@@ -7683,6 +7797,10 @@ func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
 	}
 	if builder.taskIdFlag {
 		req.TaskId = &builder.taskId
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
 
 	}
 	return req
@@ -8245,6 +8363,86 @@ func (builder *TrusteeshipUrlsBuilder) Build() *TrusteeshipUrls {
 	return req
 }
 
+type UrlDetail struct {
+	OriginUrl *string `json:"origin_url,omitempty"` // 文件为空，使用url则是原url
+	Url       *string `json:"url,omitempty"`        // 文件 url
+	Code      *string `json:"code,omitempty"`       // 文件标识码
+	Message   *string `json:"message,omitempty"`    // 错误信息，没有则为空
+}
+
+type UrlDetailBuilder struct {
+	originUrl     string // 文件为空，使用url则是原url
+	originUrlFlag bool
+	url           string // 文件 url
+	urlFlag       bool
+	code          string // 文件标识码
+	codeFlag      bool
+	message       string // 错误信息，没有则为空
+	messageFlag   bool
+}
+
+func NewUrlDetailBuilder() *UrlDetailBuilder {
+	builder := &UrlDetailBuilder{}
+	return builder
+}
+
+// 文件为空，使用url则是原url
+//
+// 示例值：https://xxxxx.com/i/2022/06/08/xxxxx.png
+func (builder *UrlDetailBuilder) OriginUrl(originUrl string) *UrlDetailBuilder {
+	builder.originUrl = originUrl
+	builder.originUrlFlag = true
+	return builder
+}
+
+// 文件 url
+//
+// 示例值：https://p3-approval-sign.byteimg.com/lark-approval-attachment/image/20210819/a8c1a1f1-47ae-4147-9deb-a8bf2cd833b1.jpg~tplv-ottatrvjsm-image.image?x-expires=1634941752&x-signature=oaZ6Tfv50ryUesNwKTUTnBlJivY%3D#.jpg
+func (builder *UrlDetailBuilder) Url(url string) *UrlDetailBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+// 文件标识码
+//
+// 示例值：D93653C3-2609-4EE0-8041-61DC1D84F0B5
+func (builder *UrlDetailBuilder) Code(code string) *UrlDetailBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 错误信息，没有则为空
+//
+// 示例值：https://xxxxx.com/i/2022/06/08/xxxxx.png:cannot find filetype
+func (builder *UrlDetailBuilder) Message(message string) *UrlDetailBuilder {
+	builder.message = message
+	builder.messageFlag = true
+	return builder
+}
+
+func (builder *UrlDetailBuilder) Build() *UrlDetail {
+	req := &UrlDetail{}
+	if builder.originUrlFlag {
+		req.OriginUrl = &builder.originUrl
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.messageFlag {
+		req.Message = &builder.message
+
+	}
+	return req
+}
+
 type User struct {
 	Id   *UserId `json:"id,omitempty"`   // 用户id
 	Name *string `json:"name,omitempty"` // 用户名
@@ -8509,15 +8707,15 @@ func (builder *ListApprovalReqBuilder) PageSize(pageSize int) *ListApprovalReqBu
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取下一页结果
 //
-// 示例值：
+// 示例值：ASDJHA1323_sda1JSASDFD
 func (builder *ListApprovalReqBuilder) PageToken(pageToken string) *ListApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 示例值："zh-CN" 可选值有： - zh-CN：中文 - en-US：英文 - ja-JP：日文 默认 "zh-CN"
+// - zh-CN：中文 ;- en-US：英文 ;- ja-JP：日文
 //
-// 示例值：
+// 示例值：zh-CN
 func (builder *ListApprovalReqBuilder) Locale(locale string) *ListApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
 	return builder
@@ -8538,7 +8736,7 @@ type ListApprovalReq struct {
 }
 
 type ListApprovalRespData struct {
-	Items     []*Definition `json:"items,omitempty"`      //
+	Items     []*Definition `json:"items,omitempty"`      // 审批定义列表
 	PageToken *string       `json:"page_token,omitempty"` //
 	HasMore   *bool         `json:"has_more,omitempty"`   //
 }

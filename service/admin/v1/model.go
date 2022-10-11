@@ -136,7 +136,7 @@ type AdminDeptStat struct {
 	CreateCalNum         *int    `json:"create_cal_num,omitempty"`          // 创建日程数
 	AvgCreateCalNum      *string `json:"avg_create_cal_num,omitempty"`      // 人均创建日程数
 	VcDau                *int    `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
-	VcDuration           *int    `json:"vc_duration,omitempty"`             // 会议时长（分钟）
+	VcDuration           *int    `json:"vc_duration,omitempty"`             // 会议时长：企业内员工参与通话与会议的总时长（分钟）
 	AvgVcDuration        *string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
 	AvgDuration          *string `json:"avg_duration,omitempty"`            // 人均飞书使用时长（分钟）
 	TaskDau              *int    `json:"task_dau,omitempty"`                // 任务活跃人数
@@ -196,7 +196,7 @@ type AdminDeptStatBuilder struct {
 	avgCreateCalNumFlag      bool
 	vcDau                    int // 音视频会议活跃人数
 	vcDauFlag                bool
-	vcDuration               int // 会议时长（分钟）
+	vcDuration               int // 会议时长：企业内员工参与通话与会议的总时长（分钟）
 	vcDurationFlag           bool
 	avgVcDuration            string // 人均会议时长（分钟）
 	avgVcDurationFlag        bool
@@ -442,7 +442,7 @@ func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 	return builder
 }
 
-// 会议时长（分钟）
+// 会议时长：企业内员工参与通话与会议的总时长（分钟）
 //
 // 示例值：0
 func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBuilder {
@@ -656,7 +656,7 @@ type AdminUserStat struct {
 	CalActiveFlag    *int    `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
 	CreateCalNum     *int    `json:"create_cal_num,omitempty"`     // 创建日程数
 	VcActiveFlag     *int    `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
-	VcDuration       *int    `json:"vc_duration,omitempty"`        // 会议时长
+	VcDuration       *int    `json:"vc_duration,omitempty"`        // 会议时长（分钟）
 	ActiveOs         *string `json:"active_os,omitempty"`          // 活跃设备
 	CreateTaskNum    *int    `json:"create_task_num,omitempty"`    // 创建任务数
 	VcNum            *int    `json:"vc_num,omitempty"`             // 会议数
@@ -699,7 +699,7 @@ type AdminUserStatBuilder struct {
 	createCalNumFlag     bool
 	vcActiveFlag         int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
 	vcActiveFlagFlag     bool
-	vcDuration           int // 会议时长
+	vcDuration           int // 会议时长（分钟）
 	vcDurationFlag       bool
 	activeOs             string // 活跃设备
 	activeOsFlag         bool
@@ -871,7 +871,7 @@ func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserSt
 	return builder
 }
 
-// 会议时长
+// 会议时长（分钟）
 //
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBuilder {
@@ -909,7 +909,7 @@ func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 
 // 飞书的应用类型名称
 //
-// 示例值：
+// 示例值：Feishu，Lark
 func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *AdminUserStatBuilder {
 	builder.appPackageType = appPackageType
 	builder.appPackageTypeFlag = true
@@ -918,7 +918,7 @@ func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *Admi
 
 // 操作系统名称
 //
-// 示例值：
+// 示例值：iOS,Andorid,Windows
 func (builder *AdminUserStatBuilder) OsName(osName string) *AdminUserStatBuilder {
 	builder.osName = osName
 	builder.osNameFlag = true
@@ -3622,6 +3622,133 @@ func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
 	}
 	if builder.skipCountAccumulateFlag {
 		req.SkipCountAccumulate = &builder.skipCountAccumulate
+
+	}
+	return req
+}
+
+type Task struct {
+	OriginalUserId    *string `json:"original_user_id,omitempty"`    // 文档原所有者ID
+	TargetOwnerId     *string `json:"target_owner_id,omitempty"`     // 目标用户ID
+	FileList          []*File `json:"file_list,omitempty"`           // 恢复文件列表
+	TaskId            *string `json:"task_id,omitempty"`             // 任务id
+	Status            *int    `json:"status,omitempty"`              // 任务状态
+	OriginalUserEmail *string `json:"original_user_email,omitempty"` // 文档原所有者邮箱
+	TargetOwnerEmail  *string `json:"target_owner_email,omitempty"`  // 文档新所有者邮箱
+}
+
+type TaskBuilder struct {
+	originalUserId        string // 文档原所有者ID
+	originalUserIdFlag    bool
+	targetOwnerId         string // 目标用户ID
+	targetOwnerIdFlag     bool
+	fileList              []*File // 恢复文件列表
+	fileListFlag          bool
+	taskId                string // 任务id
+	taskIdFlag            bool
+	status                int // 任务状态
+	statusFlag            bool
+	originalUserEmail     string // 文档原所有者邮箱
+	originalUserEmailFlag bool
+	targetOwnerEmail      string // 文档新所有者邮箱
+	targetOwnerEmailFlag  bool
+}
+
+func NewTaskBuilder() *TaskBuilder {
+	builder := &TaskBuilder{}
+	return builder
+}
+
+// 文档原所有者ID
+//
+// 示例值：
+func (builder *TaskBuilder) OriginalUserId(originalUserId string) *TaskBuilder {
+	builder.originalUserId = originalUserId
+	builder.originalUserIdFlag = true
+	return builder
+}
+
+// 目标用户ID
+//
+// 示例值：
+func (builder *TaskBuilder) TargetOwnerId(targetOwnerId string) *TaskBuilder {
+	builder.targetOwnerId = targetOwnerId
+	builder.targetOwnerIdFlag = true
+	return builder
+}
+
+// 恢复文件列表
+//
+// 示例值：
+func (builder *TaskBuilder) FileList(fileList []*File) *TaskBuilder {
+	builder.fileList = fileList
+	builder.fileListFlag = true
+	return builder
+}
+
+// 任务id
+//
+// 示例值：
+func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+// 任务状态
+//
+// 示例值：1,2
+func (builder *TaskBuilder) Status(status int) *TaskBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 文档原所有者邮箱
+//
+// 示例值：
+func (builder *TaskBuilder) OriginalUserEmail(originalUserEmail string) *TaskBuilder {
+	builder.originalUserEmail = originalUserEmail
+	builder.originalUserEmailFlag = true
+	return builder
+}
+
+// 文档新所有者邮箱
+//
+// 示例值：
+func (builder *TaskBuilder) TargetOwnerEmail(targetOwnerEmail string) *TaskBuilder {
+	builder.targetOwnerEmail = targetOwnerEmail
+	builder.targetOwnerEmailFlag = true
+	return builder
+}
+
+func (builder *TaskBuilder) Build() *Task {
+	req := &Task{}
+	if builder.originalUserIdFlag {
+		req.OriginalUserId = &builder.originalUserId
+
+	}
+	if builder.targetOwnerIdFlag {
+		req.TargetOwnerId = &builder.targetOwnerId
+
+	}
+	if builder.fileListFlag {
+		req.FileList = builder.fileList
+	}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.originalUserEmailFlag {
+		req.OriginalUserEmail = &builder.originalUserEmail
+
+	}
+	if builder.targetOwnerEmailFlag {
+		req.TargetOwnerEmail = &builder.targetOwnerEmail
 
 	}
 	return req

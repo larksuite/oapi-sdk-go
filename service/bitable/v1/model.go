@@ -498,13 +498,13 @@ func (builder *AppRoleBuilder) Build() *AppRole {
 }
 
 type AppRoleBlockRole struct {
-	BlockId   *string `json:"block_id,omitempty"`   // Block的ID
+	BlockId   *string `json:"block_id,omitempty"`   // Block 的 ID，例如列出仪表盘接口中的仪表盘 block  id
 	BlockType *string `json:"block_type,omitempty"` // Block类型
 	BlockPerm *int    `json:"block_perm,omitempty"` // Block权限
 }
 
 type AppRoleBlockRoleBuilder struct {
-	blockId       string // Block的ID
+	blockId       string // Block 的 ID，例如列出仪表盘接口中的仪表盘 block  id
 	blockIdFlag   bool
 	blockType     string // Block类型
 	blockTypeFlag bool
@@ -517,7 +517,7 @@ func NewAppRoleBlockRoleBuilder() *AppRoleBlockRoleBuilder {
 	return builder
 }
 
-// Block的ID
+// Block 的 ID，例如列出仪表盘接口中的仪表盘 block  id
 //
 // 示例值：blknkqrP3RqUkcAW
 func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRoleBuilder {
@@ -1215,14 +1215,14 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 }
 
 type AppTableFieldDescription struct {
-	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
-	Text        *string `json:"text,omitempty"`         // 字段描述内容，支持换行\n
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
+	Text        *string `json:"text,omitempty"`         // 字段描述内容
 }
 
 type AppTableFieldDescriptionBuilder struct {
-	disableSync     bool // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+	disableSync     bool // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
 	disableSyncFlag bool
-	text            string // 字段描述内容，支持换行\n
+	text            string // 字段描述内容
 	textFlag        bool
 }
 
@@ -1231,7 +1231,7 @@ func NewAppTableFieldDescriptionBuilder() *AppTableFieldDescriptionBuilder {
 	return builder
 }
 
-// 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+// 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
 //
 // 示例值：ture
 func (builder *AppTableFieldDescriptionBuilder) DisableSync(disableSync bool) *AppTableFieldDescriptionBuilder {
@@ -1240,9 +1240,9 @@ func (builder *AppTableFieldDescriptionBuilder) DisableSync(disableSync bool) *A
 	return builder
 }
 
-// 字段描述内容，支持换行\n
+// 字段描述内容
 //
-// 示例值：请按 name_id 格式填写\n例如：“Alice_20202020”
+// 示例值：这是一个字段描述
 func (builder *AppTableFieldDescriptionBuilder) Text(text string) *AppTableFieldDescriptionBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -1398,7 +1398,7 @@ func (builder *AppTableFieldPropertyBuilder) Location(location *AppFieldProperty
 
 // 公式字段的表达式
 //
-// 示例值：
+// 示例值：bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2
 func (builder *AppTableFieldPropertyBuilder) FormulaExpression(formulaExpression string) *AppTableFieldPropertyBuilder {
 	builder.formulaExpression = formulaExpression
 	builder.formulaExpressionFlag = true
@@ -2553,11 +2553,11 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 }
 
 type ReqTable struct {
-	Name *string `json:"name,omitempty"` // 数据表 名字
+	Name *string `json:"name,omitempty"` // 数据表名字，必填字段
 }
 
 type ReqTableBuilder struct {
-	name     string // 数据表 名字
+	name     string // 数据表名字，必填字段
 	nameFlag bool
 }
 
@@ -2566,7 +2566,7 @@ func NewReqTableBuilder() *ReqTableBuilder {
 	return builder
 }
 
-// 数据表 名字
+// 数据表名字，必填字段
 //
 // 示例值：table1
 func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
@@ -4282,9 +4282,9 @@ func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableF
 	return builder
 }
 
-// 控制描述（多行文本格式）字段数据的返回格式, true 表示以数组形式返回
+// 控制字段描述（多行文本格式）数据的返回格式, true 表示以数组富文本形式返回
 //
-// 示例值：
+// 示例值：true
 func (builder *ListAppTableFieldReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
@@ -5370,15 +5370,15 @@ func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTable
 
 // 筛选参数;;注意：;;1.筛选记录的表达式不超过2000个字符。;;2.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;3.仅支持字段在页面展示字符值进行筛选。;;详细请参考[记录筛选开发指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
 //
-// 示例值：示例表达式：;;AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)
+// 示例值：AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)
 func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
 	return builder
 }
 
-// 排序参数;;注意：;;1.表达式需要不超过1000字符。;;2.不支持对带“公式”和“关联字段”的表的使用。
+// 排序参数;;注意：;;1.表达式需要不超过1000字符。;;2.不支持对带“公式”和“关联字段”的表的使用。;;3.使用引号将字段名称和顺序逆序连接起来。
 //
-// 示例值：["字段1 DESC","字段2 ASC"];;注意：使用引号将字段名称和顺序逆序连接起来。
+// 示例值：["字段1 DESC","字段2 ASC"]
 func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("sort", fmt.Sprint(sort))
 	return builder

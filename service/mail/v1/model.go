@@ -446,7 +446,7 @@ type MailgroupPermissionMember struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
 	UserId             *string `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
 	DepartmentId       *string `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
-	Email              *string `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+	Email              *string `json:"email,omitempty"`                // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
 	Type               *string `json:"type,omitempty"`                 // 成员类型
 }
 
@@ -457,7 +457,7 @@ type MailgroupPermissionMemberBuilder struct {
 	userIdFlag             bool
 	departmentId           string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdFlag       bool
-	email                  string // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+	email                  string // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
 	emailFlag              bool
 	type_                  string // 成员类型
 	typeFlag               bool
@@ -495,7 +495,7 @@ func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId strin
 	return builder
 }
 
-// The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+// 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
 //
 // 示例值：xxx@xx.x
 func (builder *MailgroupPermissionMemberBuilder) Email(email string) *MailgroupPermissionMemberBuilder {

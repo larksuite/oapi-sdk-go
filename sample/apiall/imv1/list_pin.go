@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewListPinReqBuilder().
 		ChatId("oc_234jsi43d3ssi993d43545f").
-		StartTime("1658732251800").
+		StartTime("1658632251800").
 		EndTime("1658731646425").
 		PageSize(20).
 		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").

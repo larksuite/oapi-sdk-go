@@ -947,6 +947,54 @@ func (builder *DummyBuilder) Build() *Dummy {
 	return req
 }
 
+type FailedMetricItem struct {
+	MetricItemId *string `json:"metric_item_id,omitempty"` // 指标项ID
+	Reason       *string `json:"reason,omitempty"`         // 失败原因
+}
+
+type FailedMetricItemBuilder struct {
+	metricItemId     string // 指标项ID
+	metricItemIdFlag bool
+	reason           string // 失败原因
+	reasonFlag       bool
+}
+
+func NewFailedMetricItemBuilder() *FailedMetricItemBuilder {
+	builder := &FailedMetricItemBuilder{}
+	return builder
+}
+
+// 指标项ID
+//
+// 示例值：7139040982003302420
+func (builder *FailedMetricItemBuilder) MetricItemId(metricItemId string) *FailedMetricItemBuilder {
+	builder.metricItemId = metricItemId
+	builder.metricItemIdFlag = true
+	return builder
+}
+
+// 失败原因
+//
+// 示例值：start value equals target value
+func (builder *FailedMetricItemBuilder) Reason(reason string) *FailedMetricItemBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *FailedMetricItemBuilder) Build() *FailedMetricItem {
+	req := &FailedMetricItem{}
+	if builder.metricItemIdFlag {
+		req.MetricItemId = &builder.metricItemId
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	return req
+}
+
 type ImageInfo struct {
 	FileToken *string `json:"file_token,omitempty"` // 图片token
 	Url       *string `json:"url,omitempty"`        // 图片下载链接
@@ -1165,6 +1213,500 @@ func (builder *KrContentBuilder) Build() *KrContent {
 	}
 	if builder.enFlag {
 		req.En = &builder.en
+
+	}
+	return req
+}
+
+type MetricItem struct {
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标项id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
+	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
+	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
+	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
+	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
+}
+
+type MetricItemBuilder struct {
+	metricItemId           string // 指标项id
+	metricItemIdFlag       bool
+	userId                 string // 指标承接人员id
+	userIdFlag             bool
+	periodId               string // 指标的okr周期
+	periodIdFlag           bool
+	metricUnit             *MetricUnit // 指标单位
+	metricUnitFlag         bool
+	metricInitialValue     float64 // 指标起始值
+	metricInitialValueFlag bool
+	metricTargetValue      float64 // 指标目标值
+	metricTargetValueFlag  bool
+	metricCurrentValue     float64 // 指标进度值
+	metricCurrentValueFlag bool
+	supportedUserId        string // 指标支撑的上级人员id
+	supportedUserIdFlag    bool
+	krId                   string // 指标关联的kr
+	krIdFlag               bool
+	updatedAt              string // 更新时间
+	updatedAtFlag          bool
+	updatedBy              string // 更新人
+	updatedByFlag          bool
+}
+
+func NewMetricItemBuilder() *MetricItemBuilder {
+	builder := &MetricItemBuilder{}
+	return builder
+}
+
+// 指标项id
+//
+// 示例值：635782378412311
+func (builder *MetricItemBuilder) MetricItemId(metricItemId string) *MetricItemBuilder {
+	builder.metricItemId = metricItemId
+	builder.metricItemIdFlag = true
+	return builder
+}
+
+// 指标承接人员id
+//
+// 示例值：635782378412311
+func (builder *MetricItemBuilder) UserId(userId string) *MetricItemBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 指标的okr周期
+//
+// 示例值：635782378412311
+func (builder *MetricItemBuilder) PeriodId(periodId string) *MetricItemBuilder {
+	builder.periodId = periodId
+	builder.periodIdFlag = true
+	return builder
+}
+
+// 指标单位
+//
+// 示例值：
+func (builder *MetricItemBuilder) MetricUnit(metricUnit *MetricUnit) *MetricItemBuilder {
+	builder.metricUnit = metricUnit
+	builder.metricUnitFlag = true
+	return builder
+}
+
+// 指标起始值
+//
+// 示例值：10.01
+func (builder *MetricItemBuilder) MetricInitialValue(metricInitialValue float64) *MetricItemBuilder {
+	builder.metricInitialValue = metricInitialValue
+	builder.metricInitialValueFlag = true
+	return builder
+}
+
+// 指标目标值
+//
+// 示例值：10.01
+func (builder *MetricItemBuilder) MetricTargetValue(metricTargetValue float64) *MetricItemBuilder {
+	builder.metricTargetValue = metricTargetValue
+	builder.metricTargetValueFlag = true
+	return builder
+}
+
+// 指标进度值
+//
+// 示例值：10.01
+func (builder *MetricItemBuilder) MetricCurrentValue(metricCurrentValue float64) *MetricItemBuilder {
+	builder.metricCurrentValue = metricCurrentValue
+	builder.metricCurrentValueFlag = true
+	return builder
+}
+
+// 指标支撑的上级人员id
+//
+// 示例值：ou_8e7d79ca2327bf4f0b3c37899d6abbd5
+func (builder *MetricItemBuilder) SupportedUserId(supportedUserId string) *MetricItemBuilder {
+	builder.supportedUserId = supportedUserId
+	builder.supportedUserIdFlag = true
+	return builder
+}
+
+// 指标关联的kr
+//
+// 示例值：7139040982003302420
+func (builder *MetricItemBuilder) KrId(krId string) *MetricItemBuilder {
+	builder.krId = krId
+	builder.krIdFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：1663145941129
+func (builder *MetricItemBuilder) UpdatedAt(updatedAt string) *MetricItemBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 更新人
+//
+// 示例值：ou_8e7d79ca2327bf4f0b3c37899d6abbd5
+func (builder *MetricItemBuilder) UpdatedBy(updatedBy string) *MetricItemBuilder {
+	builder.updatedBy = updatedBy
+	builder.updatedByFlag = true
+	return builder
+}
+
+func (builder *MetricItemBuilder) Build() *MetricItem {
+	req := &MetricItem{}
+	if builder.metricItemIdFlag {
+		req.MetricItemId = &builder.metricItemId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.periodIdFlag {
+		req.PeriodId = &builder.periodId
+
+	}
+	if builder.metricUnitFlag {
+		req.MetricUnit = builder.metricUnit
+	}
+	if builder.metricInitialValueFlag {
+		req.MetricInitialValue = &builder.metricInitialValue
+
+	}
+	if builder.metricTargetValueFlag {
+		req.MetricTargetValue = &builder.metricTargetValue
+
+	}
+	if builder.metricCurrentValueFlag {
+		req.MetricCurrentValue = &builder.metricCurrentValue
+
+	}
+	if builder.supportedUserIdFlag {
+		req.SupportedUserId = &builder.supportedUserId
+
+	}
+	if builder.krIdFlag {
+		req.KrId = &builder.krId
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.updatedByFlag {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	return req
+}
+
+type MetricItemRequest struct {
+	MetricItemId       *string  `json:"metric_item_id,omitempty"`       // 指标表id
+	MetricInitialValue *float64 `json:"metric_initial_value,omitempty"` // 指标起始值
+	MetricTargetValue  *float64 `json:"metric_target_value,omitempty"`  // 指标目标值
+	MetricCurrentValue *float64 `json:"metric_current_value,omitempty"` // 指标进度值
+	SupportedUserId    *string  `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员 id
+}
+
+type MetricItemRequestBuilder struct {
+	metricItemId           string // 指标表id
+	metricItemIdFlag       bool
+	metricInitialValue     float64 // 指标起始值
+	metricInitialValueFlag bool
+	metricTargetValue      float64 // 指标目标值
+	metricTargetValueFlag  bool
+	metricCurrentValue     float64 // 指标进度值
+	metricCurrentValueFlag bool
+	supportedUserId        string // 指标支撑的上级人员 id
+	supportedUserIdFlag    bool
+}
+
+func NewMetricItemRequestBuilder() *MetricItemRequestBuilder {
+	builder := &MetricItemRequestBuilder{}
+	return builder
+}
+
+// 指标表id
+//
+// 示例值：635782378412311
+func (builder *MetricItemRequestBuilder) MetricItemId(metricItemId string) *MetricItemRequestBuilder {
+	builder.metricItemId = metricItemId
+	builder.metricItemIdFlag = true
+	return builder
+}
+
+// 指标起始值
+//
+// 示例值：1.0
+func (builder *MetricItemRequestBuilder) MetricInitialValue(metricInitialValue float64) *MetricItemRequestBuilder {
+	builder.metricInitialValue = metricInitialValue
+	builder.metricInitialValueFlag = true
+	return builder
+}
+
+// 指标目标值
+//
+// 示例值：3.0
+func (builder *MetricItemRequestBuilder) MetricTargetValue(metricTargetValue float64) *MetricItemRequestBuilder {
+	builder.metricTargetValue = metricTargetValue
+	builder.metricTargetValueFlag = true
+	return builder
+}
+
+// 指标进度值
+//
+// 示例值：2.0
+func (builder *MetricItemRequestBuilder) MetricCurrentValue(metricCurrentValue float64) *MetricItemRequestBuilder {
+	builder.metricCurrentValue = metricCurrentValue
+	builder.metricCurrentValueFlag = true
+	return builder
+}
+
+// 指标支撑的上级人员 id
+//
+// 示例值：7041857032248410131
+func (builder *MetricItemRequestBuilder) SupportedUserId(supportedUserId string) *MetricItemRequestBuilder {
+	builder.supportedUserId = supportedUserId
+	builder.supportedUserIdFlag = true
+	return builder
+}
+
+func (builder *MetricItemRequestBuilder) Build() *MetricItemRequest {
+	req := &MetricItemRequest{}
+	if builder.metricItemIdFlag {
+		req.MetricItemId = &builder.metricItemId
+
+	}
+	if builder.metricInitialValueFlag {
+		req.MetricInitialValue = &builder.metricInitialValue
+
+	}
+	if builder.metricTargetValueFlag {
+		req.MetricTargetValue = &builder.metricTargetValue
+
+	}
+	if builder.metricCurrentValueFlag {
+		req.MetricCurrentValue = &builder.metricCurrentValue
+
+	}
+	if builder.supportedUserIdFlag {
+		req.SupportedUserId = &builder.supportedUserId
+
+	}
+	return req
+}
+
+type MetricSource struct {
+	MetricSourceId   *string     `json:"metric_source_id,omitempty"`   // 指标库 id
+	MetricSourceName *string     `json:"metric_source_name,omitempty"` // 指标库名称
+	MetricName       *string     `json:"metric_name,omitempty"`        // 指标名称
+	MetricUnit       *MetricUnit `json:"metric_unit,omitempty"`        // 指标单位
+}
+
+type MetricSourceBuilder struct {
+	metricSourceId       string // 指标库 id
+	metricSourceIdFlag   bool
+	metricSourceName     string // 指标库名称
+	metricSourceNameFlag bool
+	metricName           string // 指标名称
+	metricNameFlag       bool
+	metricUnit           *MetricUnit // 指标单位
+	metricUnitFlag       bool
+}
+
+func NewMetricSourceBuilder() *MetricSourceBuilder {
+	builder := &MetricSourceBuilder{}
+	return builder
+}
+
+// 指标库 id
+//
+// 示例值：7139040982003302420
+func (builder *MetricSourceBuilder) MetricSourceId(metricSourceId string) *MetricSourceBuilder {
+	builder.metricSourceId = metricSourceId
+	builder.metricSourceIdFlag = true
+	return builder
+}
+
+// 指标库名称
+//
+// 示例值：指标库A
+func (builder *MetricSourceBuilder) MetricSourceName(metricSourceName string) *MetricSourceBuilder {
+	builder.metricSourceName = metricSourceName
+	builder.metricSourceNameFlag = true
+	return builder
+}
+
+// 指标名称
+//
+// 示例值：指标A
+func (builder *MetricSourceBuilder) MetricName(metricName string) *MetricSourceBuilder {
+	builder.metricName = metricName
+	builder.metricNameFlag = true
+	return builder
+}
+
+// 指标单位
+//
+// 示例值：
+func (builder *MetricSourceBuilder) MetricUnit(metricUnit *MetricUnit) *MetricSourceBuilder {
+	builder.metricUnit = metricUnit
+	builder.metricUnitFlag = true
+	return builder
+}
+
+func (builder *MetricSourceBuilder) Build() *MetricSource {
+	req := &MetricSource{}
+	if builder.metricSourceIdFlag {
+		req.MetricSourceId = &builder.metricSourceId
+
+	}
+	if builder.metricSourceNameFlag {
+		req.MetricSourceName = &builder.metricSourceName
+
+	}
+	if builder.metricNameFlag {
+		req.MetricName = &builder.metricName
+
+	}
+	if builder.metricUnitFlag {
+		req.MetricUnit = builder.metricUnit
+	}
+	return req
+}
+
+type MetricTable struct {
+	MetricTableId   *string `json:"metric_table_id,omitempty"`   // 指标表 id
+	MetricTableName *string `json:"metric_table_name,omitempty"` // 指标表名称
+	PeriodId        *string `json:"period_id,omitempty"`         // okr周期
+}
+
+type MetricTableBuilder struct {
+	metricTableId       string // 指标表 id
+	metricTableIdFlag   bool
+	metricTableName     string // 指标表名称
+	metricTableNameFlag bool
+	periodId            string // okr周期
+	periodIdFlag        bool
+}
+
+func NewMetricTableBuilder() *MetricTableBuilder {
+	builder := &MetricTableBuilder{}
+	return builder
+}
+
+// 指标表 id
+//
+// 示例值：635782378412311
+func (builder *MetricTableBuilder) MetricTableId(metricTableId string) *MetricTableBuilder {
+	builder.metricTableId = metricTableId
+	builder.metricTableIdFlag = true
+	return builder
+}
+
+// 指标表名称
+//
+// 示例值：指标表a
+func (builder *MetricTableBuilder) MetricTableName(metricTableName string) *MetricTableBuilder {
+	builder.metricTableName = metricTableName
+	builder.metricTableNameFlag = true
+	return builder
+}
+
+// okr周期
+//
+// 示例值：635782378221221
+func (builder *MetricTableBuilder) PeriodId(periodId string) *MetricTableBuilder {
+	builder.periodId = periodId
+	builder.periodIdFlag = true
+	return builder
+}
+
+func (builder *MetricTableBuilder) Build() *MetricTable {
+	req := &MetricTable{}
+	if builder.metricTableIdFlag {
+		req.MetricTableId = &builder.metricTableId
+
+	}
+	if builder.metricTableNameFlag {
+		req.MetricTableName = &builder.metricTableName
+
+	}
+	if builder.periodIdFlag {
+		req.PeriodId = &builder.periodId
+
+	}
+	return req
+}
+
+type MetricUnit struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 指标单位中文
+	EnUs *string `json:"en_us,omitempty"` // 指标单位英文
+	JaJp *string `json:"ja_jp,omitempty"` // 指标单位日文
+}
+
+type MetricUnitBuilder struct {
+	zhCn     string // 指标单位中文
+	zhCnFlag bool
+	enUs     string // 指标单位英文
+	enUsFlag bool
+	jaJp     string // 指标单位日文
+	jaJpFlag bool
+}
+
+func NewMetricUnitBuilder() *MetricUnitBuilder {
+	builder := &MetricUnitBuilder{}
+	return builder
+}
+
+// 指标单位中文
+//
+// 示例值：小明
+func (builder *MetricUnitBuilder) ZhCn(zhCn string) *MetricUnitBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 指标单位英文
+//
+// 示例值：jack
+func (builder *MetricUnitBuilder) EnUs(enUs string) *MetricUnitBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+// 指标单位日文
+//
+// 示例值：シャオ・ミン
+func (builder *MetricUnitBuilder) JaJp(jaJp string) *MetricUnitBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *MetricUnitBuilder) Build() *MetricUnit {
+	req := &MetricUnit{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
 
 	}
 	return req

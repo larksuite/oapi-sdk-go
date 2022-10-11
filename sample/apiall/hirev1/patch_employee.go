@@ -28,7 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewPatchEmployeeReqBuilder().
 		EmployeeId("123").
-		UserIdType("user_id").
+		UserIdType("open_id").
+		DepartmentIdType("people_admin_department_id").
 		ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
 			Operation(1).
 			ConversionInfo(larkhire.NewEmployeeConversionInfoBuilder().Build()).

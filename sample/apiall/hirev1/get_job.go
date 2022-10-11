@@ -29,6 +29,7 @@ func main() {
 	req := larkhire.NewGetJobReqBuilder().
 		JobId(6001).
 		UserIdType("user_id").
+		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Job.Get(context.Background(), req)

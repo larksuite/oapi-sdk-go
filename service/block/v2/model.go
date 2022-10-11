@@ -244,7 +244,7 @@ func (builder *EntityBuilder) Build() *Entity {
 }
 
 type Message struct {
-	Body     *string  `json:"body,omitempty"`     // 消息体
+	Body     *string  `json:"body,omitempty"`     // 协同数据内容
 	Version  *string  `json:"version,omitempty"`  // 版本号(自增)
 	BlockId  *string  `json:"block_id,omitempty"` // entity实体ID
 	Resource *string  `json:"resource,omitempty"` // 业务来源
@@ -252,7 +252,7 @@ type Message struct {
 }
 
 type MessageBuilder struct {
-	body         string // 消息体
+	body         string // 协同数据内容
 	bodyFlag     bool
 	version      string // 版本号(自增)
 	versionFlag  bool
@@ -269,7 +269,7 @@ func NewMessageBuilder() *MessageBuilder {
 	return builder
 }
 
-// 消息体
+// 协同数据内容
 //
 // 示例值：{"id":"7094066727704592403","token":"test_123456789"}
 func (builder *MessageBuilder) Body(body string) *MessageBuilder {
@@ -825,7 +825,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-// 根据BlockID向指定用户列表推送消息。
+// 根据BlockID向指定用户列表推送协同数据。
 func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessageReqBuilder {
 	builder.message = message
 	return builder

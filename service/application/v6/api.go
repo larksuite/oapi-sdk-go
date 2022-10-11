@@ -34,9 +34,9 @@ type ApplicationService struct {
 	config                *larkcore.Config
 	Application           *application           // 应用
 	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
-	ApplicationAppVersion *applicationAppVersion // 应用
+	ApplicationAppVersion *applicationAppVersion // 事件
 	ApplicationFeedback   *applicationFeedback   // 应用反馈
-	ApplicationVisibility *applicationVisibility // application.visibility
+	ApplicationVisibility *applicationVisibility // 事件
 }
 
 type application struct {
@@ -195,11 +195,11 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 	return resp, err
 }
 
+// 获取应用版本列表
 //
+// - 根据 app_id 获取对应应用版本列表。
 //
-// - 获取应用版本列表
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=application.app_version&version=v6
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationAppVersion.go
 func (a *applicationAppVersion) List(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionResp, error) {

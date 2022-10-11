@@ -58,7 +58,7 @@ func uploadImage(client *lark.Client) {
 }
 
 func uploadFile(client *lark.Client) {
-	file, err := os.Open("/Users/bytedance/Downloads/测试.mp4")
+	file, err := os.Open("/Users/bytedance/Downloads/领域特定语言.pdf")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -68,8 +68,8 @@ func uploadFile(client *lark.Client) {
 	resp, err := client.Im.File.Create(context.Background(),
 		larkim.NewCreateFileReqBuilder().
 			Body(larkim.NewCreateFileReqBodyBuilder().
-				FileType(larkim.FileTypeMp4).
-				FileName("视频").
+				FileType(larkim.FileTypePdf).
+				FileName("open-redis.pdf").
 				File(file).
 				Build()).
 			Build())
@@ -298,17 +298,8 @@ func sendInteractiveMsg(client *lark.Client) {
 func sendInteractiveMonitorMsg(client *lark.Client) {
 	// config
 	config := larkcard.NewMessageCardConfig().
-		WideScreenMode(true).
-		EnableForward(false).
-		UpdateMulti(false).
-		Build()
-
-	// CardUrl
-	cardLink := larkcard.NewMessageCardURL().
-		PcUrl("http://www.baidu.com").
-		IoSUrl("http://www.google.com").
-		Url("http://open.feishu.com").
-		AndroidUrl("http://www.jianshu.com").
+		EnableForward(true).
+		UpdateMulti(true).
 		Build()
 
 	// header
@@ -428,6 +419,14 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 		Text(larkcard.NewMessageCardLarkMd().
 			Content("🙋🏼 [我要反馈误报](https://open.feishu.cn/) | 📝 [录入报警处理过程](https://open.feishu.cn/)").
 			Build()).
+		Build()
+
+	// CardUrl
+	cardLink := larkcard.NewMessageCardURL().
+		PcUrl("http://www.baidu.com").
+		IoSUrl("http://www.google.com").
+		Url("http://open.feishu.com").
+		AndroidUrl("http://www.jianshu.com").
 		Build()
 
 	// 卡片消息体
@@ -937,17 +936,22 @@ func (c *CustomHttpClient) Do(req *http.Request) (*http.Response, error) {
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+
 	var client = lark.NewClient(appID, appSecret)
 
 	// 发送文本消息
-	//sendTextMsg(client)
+	sendTextMsg(client)
 
 	// 发送富文本消息
-	sendPostMsgUseBuilder(client)
+	//sendPostMsgUseBuilder(client)
 
 	// 发送图片消息
 	//uploadImage(client)
 	//sendImageMsg(client)
+
+	// 发送文件消息
+	//uploadFile(client)
+	//sendFileMsg(client)
 
 	// 发送交互卡片消息
 	//sendInteractiveMonitorMsg(client)
@@ -966,9 +970,6 @@ func main() {
 	//uploadFile(client)
 	//uploadImage(client)
 	//sendMediaMsg(client)
-
-	// 发送文件消息
-	//sendFileMsg(client)
 
 	// 发送表情
 	//sendStickerMsg(client)

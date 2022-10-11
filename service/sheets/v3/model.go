@@ -2189,11 +2189,11 @@ func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 }
 
 type RichValue struct {
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 }
 
 type RichValueBuilder struct {
-	values     [][][]*CellValue // 数据
+	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 	valuesFlag bool
 }
 
@@ -2202,7 +2202,7 @@ func NewRichValueBuilder() *RichValueBuilder {
 	return builder
 }
 
-// 数据
+// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 //
 // 示例值：数据
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {

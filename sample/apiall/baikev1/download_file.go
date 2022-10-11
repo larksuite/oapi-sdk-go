@@ -27,7 +27,7 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbaike.NewDownloadFileReqBuilder().
-		FileToken("").
+		FileToken("boxbcEcmKiD3SGHvgqWTpvdc7jc").
 		Build()
 	// 发起请求
 	resp, err := client.Baike.File.Download(context.Background(), req)

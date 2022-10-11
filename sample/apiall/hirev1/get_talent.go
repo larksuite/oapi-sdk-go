@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewGetTalentReqBuilder().
 		TalentId("6891560630172518670").
+		UserIdType("people_admin_id").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Talent.Get(context.Background(), req)

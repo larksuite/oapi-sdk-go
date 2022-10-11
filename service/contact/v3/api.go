@@ -38,7 +38,7 @@ type ContactService struct {
 	config           *larkcore.Config
 	CustomAttr       *customAttr       // 自定义用户字段
 	CustomAttrEvent  *customAttrEvent  // 事件
-	Department       *department       // 部门管理
+	Department       *department       // 部门
 	EmployeeTypeEnum *employeeTypeEnum // 人员类型
 	Group            *group            // 用户组
 	GroupMember      *groupMember      // 用户组成员
@@ -113,9 +113,9 @@ func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq,
 
 // 获取子部门列表
 //
-// - 通过部门ID获取部门的子部门列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 通过部门ID获取部门的子部门列表。
 //
-// - - 使用 user_access_token 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，最多1000个部门对该用户可见。;;- 使用 ; tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。;如果部门ID为0，会检验应用是否有全员通讯录权限，如果是非0 部门ID，则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码，有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
+// - - 部门ID 必填，根部门的部门ID 为0。;- 使用 `user_access_token` 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，最多1000个部门对该用户可见。;;- 使用 ;`tenant_access_token` 则基于应用的通讯录权限范围进行权限校验与过滤。;如果部门ID为0，会检验应用是否有全员通讯录权限，如果是非0 部门ID，则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码，有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children
 //
@@ -149,7 +149,7 @@ func (d *department) ChildrenByIterator(ctx context.Context, req *ChildrenDepart
 
 // 创建部门
 //
-// - 该接口用于向通讯录中创建部门。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于向通讯录中创建部门。
 //
 // - 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门，则应用通讯录权限范围需要设置为“全部成员”。应用商店应用无权限调用此接口。
 //
@@ -177,7 +177,7 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 
 // 删除部门
 //
-// - 该接口用于向通讯录中删除部门。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于向通讯录中删除部门。
 //
 // - 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
 //
@@ -205,9 +205,9 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 
 // 获取单个部门信息
 //
-// - 该接口用于向通讯录获取单个部门信息。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于向通讯录获取单个部门信息。
 //
-// - 使用tenant_access_token时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。;使用user_access_token时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
+// - - 使用`tenant_access_token`时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。;- 使用`user_access_token`时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
 //
@@ -269,9 +269,9 @@ func (d *department) ListByIterator(ctx context.Context, req *ListDepartmentReq,
 
 // 获取父部门信息
 //
-// - 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。
 //
-// - 使用tenant_access_token时,该接口只返回可见性范围内的父部门信息;;例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。;使用user_access_token时,该接口只返回对于用户可见的父部门信息
+// - 使用`tenant_access_token`时,该接口只返回可见性范围内的父部门信息。;例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。;使用user_access_token时,该接口只返回对于用户可见的父部门信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
 //
@@ -303,9 +303,9 @@ func (d *department) ParentByIterator(ctx context.Context, req *ParentDepartment
 		limit:    req.Limit}, nil
 }
 
-// 修改部分部门信息
+// 修改部门部分信息
 //
-// - 该接口用于更新通讯录中部门的信息中的任一个字段。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于更新通讯录中部门的信息中的任一个字段。
 //
 // - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 //
@@ -333,9 +333,9 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 
 // 搜索部门
 //
-// - 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置。
 //
-// - 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门
+// - 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 //
@@ -395,7 +395,7 @@ func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepart
 
 // 更新部门所有信息
 //
-// - 该接口用于更新当前部门所有信息。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于更新当前部门所有信息。
 //
 // - - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。;; - 没有填写的字段会被置为空值（order字段除外）。
 //
@@ -1095,7 +1095,7 @@ func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options .
 
 // 创建用户
 //
-// - 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 //
 // - - 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。;- 应用商店应用无权限调用此接口。;- 创建用户后，会给用户发送邀请短信/邮件，用户在操作同意后才可访问团队。;- 返回数据中不返回手机号，如果需要请重新查询用户信息获取手机号。
 //
@@ -1123,9 +1123,9 @@ func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkco
 
 // 删除用户
 //
-// - 该接口向通讯录删除一个用户信息，可以理解为员工离职。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口向通讯录删除一个用户信息，可以理解为员工离职。
 //
-// - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
+// - - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。;- 应用商店应用无权限调用接口。;- 用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 //
@@ -1151,9 +1151,9 @@ func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkco
 
 // 获取部门直属用户列表
 //
-// - 基于部门ID获取部门直属用户列表。;[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN).
+// - 基于部门ID获取部门直属用户列表。
 //
-// - - 使用 user_access_token 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- 使用tenant_access_token，会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0，则校验应用是否具有全员通讯录权限； 如果是非0的部门ID，则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码，有权限则返回对应部门下的直接用户列表。
+// - - 部门ID 必填，根部门的部门ID为0。;- 使用 `user_access_token` 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- 使用`tenant_access_token`会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0，则校验应用是否具有全员通讯录权限； 如果是非0的部门ID，则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码，有权限则返回对应部门下的直接用户列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department
 //
@@ -1187,7 +1187,7 @@ func (u *user) FindByDepartmentByIterator(ctx context.Context, req *FindByDepart
 
 // 获取单个用户信息
 //
-// - 该接口用于获取通讯录中[单个用户的信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于获取通讯录中单个用户的信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 //
@@ -1249,7 +1249,7 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 
 // 修改用户部分信息
 //
-// - 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 //
@@ -1275,9 +1275,9 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 
 // 更新用户所有信息
 //
-// - 该接口用于更新通讯录中用户的字段。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// - 该接口用于更新通讯录中用户的字段。
 //
-// - ;应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
+// - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
 //

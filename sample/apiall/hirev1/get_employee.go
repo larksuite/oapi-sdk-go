@@ -28,7 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewGetEmployeeReqBuilder().
 		EmployeeId("123").
-		UserIdType("user_id").
+		UserIdType("open_id").
+		DepartmentIdType("people_admin_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Employee.Get(context.Background(), req)

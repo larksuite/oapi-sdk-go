@@ -29,18 +29,20 @@ func NewService(config *larkcore.Config) *VcService {
 	v.MeetingRecording = &meetingRecording{service: v}
 	v.Report = &report{service: v}
 	v.Reserve = &reserve{service: v}
+	v.ReserveConfig = &reserveConfig{service: v}
 	v.RoomConfig = &roomConfig{service: v}
 	return v
 }
 
 type VcService struct {
 	config           *larkcore.Config
-	Alert            *alert            // alert
+	Alert            *alert            // 告警中心
 	Export           *export           // 导出
 	Meeting          *meeting          // 会议
 	MeetingRecording *meetingRecording // 录制
 	Report           *report           // 会议报告
 	Reserve          *reserve          // 预约
+	ReserveConfig    *reserveConfig    // 会议室预定范围
 	RoomConfig       *roomConfig       // 会议室配置
 }
 
@@ -62,15 +64,18 @@ type report struct {
 type reserve struct {
 	service *VcService
 }
+type reserveConfig struct {
+	service *VcService
+}
 type roomConfig struct {
 	service *VcService
 }
 
+// 获取告警记录
 //
+// - 获取特定条件下租户的设备告警记录
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=vc&resource=alert&version=v1
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/alert/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/list_alert.go
 func (a *alert) List(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertResp, error) {
@@ -100,11 +105,11 @@ func (a *alert) ListByIterator(ctx context.Context, req *ListAlertReq, options .
 		limit:    req.Limit}, nil
 }
 
+// 下载导出文件
 //
+// - 下载导出文件
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=vc&resource=export&version=v1
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/download
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/download_export.go
 func (e *export) Download(ctx context.Context, req *DownloadExportReq, options ...larkcore.RequestOptionFunc) (*DownloadExportResp, error) {
@@ -160,7 +165,7 @@ func (e *export) Get(ctx context.Context, req *GetExportReq, options ...larkcore
 
 // 导出会议明细
 //
-// - 导出会议明细
+// - 导出会议明细，具体权限要求请参考「导出概述」
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/meeting_list
 //
@@ -186,7 +191,7 @@ func (e *export) MeetingList(ctx context.Context, req *MeetingListExportReq, opt
 
 // 导出参会人明细
 //
-// - 导出某个会议的参会人详情列表
+// - 导出某个会议的参会人详情列表，具体权限要求请参考「导出概述」
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_list
 //
@@ -212,7 +217,7 @@ func (e *export) ParticipantList(ctx context.Context, req *ParticipantListExport
 
 // 导出参会人会议质量数据
 //
-// - 导出某场会议某个参会人的音视频&共享质量数据
+// - 导出某场会议某个参会人的音视频&共享质量数据;，具体权限要求请参考「导出概述」
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_quality_list
 //
@@ -709,6 +714,58 @@ func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...
 	}
 	// 反序列响应结果
 	resp := &UpdateReserveResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新会议室预定范围
+//
+// - 更新会议室预定范围
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/patch_reserveConfig.go
+func (r *reserveConfig) Patch(ctx context.Context, req *PatchReserveConfigReq, options ...larkcore.RequestOptionFunc) (*PatchReserveConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/:reserve_config_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchReserveConfigResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取会议室预定范围
+//
+// - 获取会议室预定范围
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/reserve_scope
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/reserveScope_reserveConfig.go
+func (r *reserveConfig) ReserveScope(ctx context.Context, req *ReserveScopeReserveConfigReq, options ...larkcore.RequestOptionFunc) (*ReserveScopeReserveConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/reserve_scope"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ReserveScopeReserveConfigResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

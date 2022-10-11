@@ -30,7 +30,7 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		ViewId("vewOVMEXPF").
-		TextFieldAsArray(false).
+		TextFieldAsArray(true).
 		PageToken("fldwJ4YrtB").
 		PageSize(20).
 		Build()

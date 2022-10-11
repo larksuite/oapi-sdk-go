@@ -43,7 +43,7 @@ type HelpdeskService struct {
 	config                *larkcore.Config
 	Agent                 *agent                 // 客服
 	AgentSchedules        *agentSchedules        // 客服工作日程
-	AgentSchedule         *agentSchedule         // 客服工作日程
+	AgentSchedule         *agentSchedule         // agent_schedule
 	AgentSkill            *agentSkill            // 客服技能
 	AgentSkillRule        *agentSkillRule        // 客服技能规则
 	BotMessage            *botMessage            // 机器人消息

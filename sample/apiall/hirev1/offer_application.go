@@ -28,7 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewOfferApplicationReqBuilder().
 		ApplicationId("6949805467799537964").
-		UserIdType("user_id").
+		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.Application.Offer(context.Background(), req)

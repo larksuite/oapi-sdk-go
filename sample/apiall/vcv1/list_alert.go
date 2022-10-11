@@ -31,8 +31,8 @@ func main() {
 		EndTime("1608888867").
 		QueryType(1).
 		QueryValue("6911188411932033028").
-		PageSize(500).
-		PageToken("0").
+		PageSize(100).
+		PageToken("100").
 		Build()
 	// 发起请求
 	resp, err := client.Vc.Alert.List(context.Background(), req)

@@ -134,7 +134,7 @@ type Block struct {
 	Code           *Text           `json:"code,omitempty"`            // 代码块 Block
 	Quote          *Text           `json:"quote,omitempty"`           // 引用 Block
 	Equation       *Text           `json:"equation,omitempty"`        // 公式 Block
-	Todo           *Text           `json:"todo,omitempty"`            // 任务 Block
+	Todo           *Text           `json:"todo,omitempty"`            // 待办事项 Block
 	Bitable        *Bitable        `json:"bitable,omitempty"`         // 多维表格 Block
 	Callout        *Callout        `json:"callout,omitempty"`         // 高亮块 Block
 	ChatCard       *ChatCard       `json:"chat_card,omitempty"`       // 群聊卡片 Block
@@ -154,10 +154,11 @@ type Block struct {
 	Undefined      *Undefined      `json:"undefined,omitempty"`       // 未支持 Block
 	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block
 	Task           *Task           `json:"task,omitempty"`            // 任务 Block
-	Okr            *Okr            `json:"okr,omitempty"`             // OKR Block
-	OkrObjective   *OkrObjective   `json:"okr_objective,omitempty"`   // OKR Objective
+	Okr            *Okr            `json:"okr,omitempty"`             // OKR Block，仅可在使用 `user_access_token` 时创建
+	OkrObjective   *OkrObjective   `json:"okr_objective,omitempty"`   // OKR Objective Block
 	OkrKeyResult   *OkrKeyResult   `json:"okr_key_result,omitempty"`  // OKR Key Result
 	OkrProgress    *OkrProgress    `json:"okr_progress,omitempty"`    // OKR 进展信息
+	CommentIds     []string        `json:"comment_ids,omitempty"`     // 评论 id 列表
 }
 
 type BlockBuilder struct {
@@ -201,7 +202,7 @@ type BlockBuilder struct {
 	quoteFlag          bool
 	equation           *Text // 公式 Block
 	equationFlag       bool
-	todo               *Text // 任务 Block
+	todo               *Text // 待办事项 Block
 	todoFlag           bool
 	bitable            *Bitable // 多维表格 Block
 	bitableFlag        bool
@@ -241,14 +242,16 @@ type BlockBuilder struct {
 	quoteContainerFlag bool
 	task               *Task // 任务 Block
 	taskFlag           bool
-	okr                *Okr // OKR Block
+	okr                *Okr // OKR Block，仅可在使用 `user_access_token` 时创建
 	okrFlag            bool
-	okrObjective       *OkrObjective // OKR Objective
+	okrObjective       *OkrObjective // OKR Objective Block
 	okrObjectiveFlag   bool
 	okrKeyResult       *OkrKeyResult // OKR Key Result
 	okrKeyResultFlag   bool
 	okrProgress        *OkrProgress // OKR 进展信息
 	okrProgressFlag    bool
+	commentIds         []string // 评论 id 列表
+	commentIdsFlag     bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -436,7 +439,7 @@ func (builder *BlockBuilder) Equation(equation *Text) *BlockBuilder {
 	return builder
 }
 
-// 任务 Block
+// 待办事项 Block
 //
 // 示例值：
 func (builder *BlockBuilder) Todo(todo *Text) *BlockBuilder {
@@ -616,7 +619,7 @@ func (builder *BlockBuilder) Task(task *Task) *BlockBuilder {
 	return builder
 }
 
-// OKR Block
+// OKR Block，仅可在使用 `user_access_token` 时创建
 //
 // 示例值：
 func (builder *BlockBuilder) Okr(okr *Okr) *BlockBuilder {
@@ -625,7 +628,7 @@ func (builder *BlockBuilder) Okr(okr *Okr) *BlockBuilder {
 	return builder
 }
 
-// OKR Objective
+// OKR Objective Block
 //
 // 示例值：
 func (builder *BlockBuilder) OkrObjective(okrObjective *OkrObjective) *BlockBuilder {
@@ -649,6 +652,15 @@ func (builder *BlockBuilder) OkrKeyResult(okrKeyResult *OkrKeyResult) *BlockBuil
 func (builder *BlockBuilder) OkrProgress(okrProgress *OkrProgress) *BlockBuilder {
 	builder.okrProgress = okrProgress
 	builder.okrProgressFlag = true
+	return builder
+}
+
+// 评论 id 列表
+//
+// 示例值：[1660030311959965796]
+func (builder *BlockBuilder) CommentIds(commentIds []string) *BlockBuilder {
+	builder.commentIds = commentIds
+	builder.commentIdsFlag = true
 	return builder
 }
 
@@ -788,6 +800,9 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.okrProgressFlag {
 		req.OkrProgress = builder.okrProgress
+	}
+	if builder.commentIdsFlag {
+		req.CommentIds = builder.commentIds
 	}
 	return req
 }
@@ -1148,12 +1163,15 @@ func (builder *DocumentBuilder) Build() *Document {
 }
 
 type Equation struct {
-	Content *string `json:"content,omitempty"` // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+	Content          *string           `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type EquationBuilder struct {
-	content     string // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
-	contentFlag bool
+	content              string // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+	contentFlag          bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewEquationBuilder() *EquationBuilder {
@@ -1170,11 +1188,23 @@ func (builder *EquationBuilder) Content(content string) *EquationBuilder {
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *EquationBuilder) TextElementStyle(textElementStyle *TextElementStyle) *EquationBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *EquationBuilder) Build() *Equation {
 	req := &Equation{}
 	if builder.contentFlag {
 		req.Content = &builder.content
 
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
 	}
 	return req
 }
@@ -1435,12 +1465,15 @@ func (builder *ImageBuilder) Build() *Image {
 }
 
 type InlineBlock struct {
-	BlockId *string `json:"block_id,omitempty"` // 关联的内联状态的 block 的 block_id
+	BlockId          *string           `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type InlineBlockBuilder struct {
-	blockId     string // 关联的内联状态的 block 的 block_id
-	blockIdFlag bool
+	blockId              string // 关联的内联状态的 block 的 block_id
+	blockIdFlag          bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewInlineBlockBuilder() *InlineBlockBuilder {
@@ -1457,25 +1490,40 @@ func (builder *InlineBlockBuilder) BlockId(blockId string) *InlineBlockBuilder {
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *InlineBlockBuilder) TextElementStyle(textElementStyle *TextElementStyle) *InlineBlockBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *InlineBlockBuilder) Build() *InlineBlock {
 	req := &InlineBlock{}
 	if builder.blockIdFlag {
 		req.BlockId = &builder.blockId
 
 	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
+	}
 	return req
 }
 
 type InlineFile struct {
-	FileToken     *string `json:"file_token,omitempty"`      // 附件 token
-	SourceBlockId *string `json:"source_block_id,omitempty"` // 当前文档中该附件所处的 block 的 id
+	FileToken        *string           `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockId    *string           `json:"source_block_id,omitempty"`    // 当前文档中该附件所处的 block 的 id
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type InlineFileBuilder struct {
-	fileToken         string // 附件 token
-	fileTokenFlag     bool
-	sourceBlockId     string // 当前文档中该附件所处的 block 的 id
-	sourceBlockIdFlag bool
+	fileToken            string // 附件 token
+	fileTokenFlag        bool
+	sourceBlockId        string // 当前文档中该附件所处的 block 的 id
+	sourceBlockIdFlag    bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewInlineFileBuilder() *InlineFileBuilder {
@@ -1501,6 +1549,15 @@ func (builder *InlineFileBuilder) SourceBlockId(sourceBlockId string) *InlineFil
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *InlineFileBuilder) TextElementStyle(textElementStyle *TextElementStyle) *InlineFileBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *InlineFileBuilder) Build() *InlineFile {
 	req := &InlineFile{}
 	if builder.fileTokenFlag {
@@ -1510,6 +1567,9 @@ func (builder *InlineFileBuilder) Build() *InlineFile {
 	if builder.sourceBlockIdFlag {
 		req.SourceBlockId = &builder.sourceBlockId
 
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
 	}
 	return req
 }
@@ -1691,21 +1751,24 @@ func (builder *LinkBuilder) Build() *Link {
 }
 
 type MentionDoc struct {
-	Token   *string `json:"token,omitempty"`    // 云文档 token
-	ObjType *int    `json:"obj_type,omitempty"` // 云文档类型
-	Url     *string `json:"url,omitempty"`      // 云文档链接（需要 url_encode)
-	Title   *string `json:"title,omitempty"`    // 文档标题，只读属性
+	Token            *string           `json:"token,omitempty"`              // 云文档 token
+	ObjType          *int              `json:"obj_type,omitempty"`           // 云文档类型
+	Url              *string           `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            *string           `json:"title,omitempty"`              // 文档标题，只读属性
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type MentionDocBuilder struct {
-	token       string // 云文档 token
-	tokenFlag   bool
-	objType     int // 云文档类型
-	objTypeFlag bool
-	url         string // 云文档链接（需要 url_encode)
-	urlFlag     bool
-	title       string // 文档标题，只读属性
-	titleFlag   bool
+	token                string // 云文档 token
+	tokenFlag            bool
+	objType              int // 云文档类型
+	objTypeFlag          bool
+	url                  string // 云文档链接（需要 url_encode)
+	urlFlag              bool
+	title                string // 文档标题，只读属性
+	titleFlag            bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewMentionDocBuilder() *MentionDocBuilder {
@@ -1749,6 +1812,15 @@ func (builder *MentionDocBuilder) Title(title string) *MentionDocBuilder {
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *MentionDocBuilder) TextElementStyle(textElementStyle *TextElementStyle) *MentionDocBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *MentionDocBuilder) Build() *MentionDoc {
 	req := &MentionDoc{}
 	if builder.tokenFlag {
@@ -1767,16 +1839,22 @@ func (builder *MentionDocBuilder) Build() *MentionDoc {
 		req.Title = &builder.title
 
 	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
+	}
 	return req
 }
 
 type MentionUser struct {
-	UserId *string `json:"user_id,omitempty"` // 用户 OpenID
+	UserId           *string           `json:"user_id,omitempty"`            // 用户 OpenID
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type MentionUserBuilder struct {
-	userId     string // 用户 OpenID
-	userIdFlag bool
+	userId               string // 用户 OpenID
+	userIdFlag           bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewMentionUserBuilder() *MentionUserBuilder {
@@ -1793,11 +1871,23 @@ func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *MentionUserBuilder) TextElementStyle(textElementStyle *TextElementStyle) *MentionUserBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *MentionUserBuilder) Build() *MentionUser {
 	req := &MentionUser{}
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
 
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
 	}
 	return req
 }
@@ -1915,14 +2005,14 @@ func (builder *MindnoteBuilder) Build() *Mindnote {
 }
 
 type ObjectiveIdWithKrId struct {
-	ObjectiveId *string  `json:"objective_id,omitempty"` // okr 中 objective 的 ID
-	KrIds       []string `json:"kr_ids,omitempty"`       // key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+	ObjectiveId *string  `json:"objective_id,omitempty"` // OKR 中 Objective 的 ID
+	KrIds       []string `json:"kr_ids,omitempty"`       // Key Result 的 ID 列表，此值为空时插入当前 Objective 下的所有 Key Result
 }
 
 type ObjectiveIdWithKrIdBuilder struct {
-	objectiveId     string // okr 中 objective 的 ID
+	objectiveId     string // OKR 中 Objective 的 ID
 	objectiveIdFlag bool
-	krIds           []string // key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+	krIds           []string // Key Result 的 ID 列表，此值为空时插入当前 Objective 下的所有 Key Result
 	krIdsFlag       bool
 }
 
@@ -1931,16 +2021,16 @@ func NewObjectiveIdWithKrIdBuilder() *ObjectiveIdWithKrIdBuilder {
 	return builder
 }
 
-// okr 中 objective 的 ID
+// OKR 中 Objective 的 ID
 //
-// 示例值："7109022409227026460"
+// 示例值：7109022409227026460
 func (builder *ObjectiveIdWithKrIdBuilder) ObjectiveId(objectiveId string) *ObjectiveIdWithKrIdBuilder {
 	builder.objectiveId = objectiveId
 	builder.objectiveIdFlag = true
 	return builder
 }
 
-// key result 的 ID 列表，此值为空时插入当前 objective 下的所有 key result
+// Key Result 的 ID 列表，此值为空时插入当前 Objective 下的所有 Key Result
 //
 // 示例值：["7109022573011894300","7109022546444517404"]
 func (builder *ObjectiveIdWithKrIdBuilder) KrIds(krIds []string) *ObjectiveIdWithKrIdBuilder {
@@ -1962,8 +2052,8 @@ func (builder *ObjectiveIdWithKrIdBuilder) Build() *ObjectiveIdWithKrId {
 }
 
 type Okr struct {
-	OkrId               *string                `json:"okr_id,omitempty"`                // OKR ID
-	Objectives          []*ObjectiveIdWithKrId `json:"objectives,omitempty"`            // OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+	OkrId               *string                `json:"okr_id,omitempty"`                // OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
+	Objectives          []*ObjectiveIdWithKrId `json:"objectives,omitempty"`            // OKR Block 中的 Objective ID 和 Key Result ID，此值为空时插入 OKR 下所有的 Objective 和 Key Result
 	PeriodDisplayStatus *string                `json:"period_display_status,omitempty"` // 周期的状态
 	PeriodNameZh        *string                `json:"period_name_zh,omitempty"`        // 周期名 - 中文
 	PeriodNameEn        *string                `json:"period_name_en,omitempty"`        // 周期名 - 英文
@@ -1972,9 +2062,9 @@ type Okr struct {
 }
 
 type OkrBuilder struct {
-	okrId                   string // OKR ID
+	okrId                   string // OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
 	okrIdFlag               bool
-	objectives              []*ObjectiveIdWithKrId // OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+	objectives              []*ObjectiveIdWithKrId // OKR Block 中的 Objective ID 和 Key Result ID，此值为空时插入 OKR 下所有的 Objective 和 Key Result
 	objectivesFlag          bool
 	periodDisplayStatus     string // 周期的状态
 	periodDisplayStatusFlag bool
@@ -1993,16 +2083,16 @@ func NewOkrBuilder() *OkrBuilder {
 	return builder
 }
 
-// OKR ID
+// OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
 //
-// 示例值："7076349900476448796"
+// 示例值：7076349900476448796
 func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
 }
 
-// OKR Block 中的 objective ID 和 key result ID，此值为空时插入 okr 下所有的 objective 和 key result
+// OKR Block 中的 Objective ID 和 Key Result ID，此值为空时插入 OKR 下所有的 Objective 和 Key Result
 //
 // 示例值：
 func (builder *OkrBuilder) Objectives(objectives []*ObjectiveIdWithKrId) *OkrBuilder {
@@ -2088,32 +2178,32 @@ func (builder *OkrBuilder) Build() *Okr {
 }
 
 type OkrKeyResult struct {
-	KrId         *string          `json:"kr_id,omitempty"`         // key result 的 ID
-	Confidential *bool            `json:"confidential,omitempty"`  // 是否设置过私密权限
-	Position     *int             `json:"position,omitempty"`      // key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+	KrId         *string          `json:"kr_id,omitempty"`         // Key Result 的 ID
+	Confidential *bool            `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Position     *int             `json:"position,omitempty"`      // Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
 	Score        *int             `json:"score,omitempty"`         // 打分信息
-	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中此 key result 是否可见
-	Weight       *float64         `json:"weight,omitempty"`        // key result 的权重
+	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中此 Key Result 是否可见
+	Weight       *float64         `json:"weight,omitempty"`        // Key Result 的权重
 	ProgressRate *OkrProgressRate `json:"progress_rate,omitempty"` // 进展信息
-	Content      *Text            `json:"content,omitempty"`       // key result 的文本内容
+	Content      *Text            `json:"content,omitempty"`       // Key Result 的文本内容
 }
 
 type OkrKeyResultBuilder struct {
-	krId             string // key result 的 ID
+	krId             string // Key Result 的 ID
 	krIdFlag         bool
-	confidential     bool // 是否设置过私密权限
+	confidential     bool // 是否在 OKR 平台设置了私密权限
 	confidentialFlag bool
-	position         int // key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+	position         int // Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
 	positionFlag     bool
 	score            int // 打分信息
 	scoreFlag        bool
-	visible          bool // OKR Block 中此 key result 是否可见
+	visible          bool // OKR Block 中此 Key Result 是否可见
 	visibleFlag      bool
-	weight           float64 // key result 的权重
+	weight           float64 // Key Result 的权重
 	weightFlag       bool
 	progressRate     *OkrProgressRate // 进展信息
 	progressRateFlag bool
-	content          *Text // key result 的文本内容
+	content          *Text // Key Result 的文本内容
 	contentFlag      bool
 }
 
@@ -2122,7 +2212,7 @@ func NewOkrKeyResultBuilder() *OkrKeyResultBuilder {
 	return builder
 }
 
-// key result 的 ID
+// Key Result 的 ID
 //
 // 示例值："7109022573011894300"
 func (builder *OkrKeyResultBuilder) KrId(krId string) *OkrKeyResultBuilder {
@@ -2131,7 +2221,7 @@ func (builder *OkrKeyResultBuilder) KrId(krId string) *OkrKeyResultBuilder {
 	return builder
 }
 
-// 是否设置过私密权限
+// 是否在 OKR 平台设置了私密权限
 //
 // 示例值：false
 func (builder *OkrKeyResultBuilder) Confidential(confidential bool) *OkrKeyResultBuilder {
@@ -2140,7 +2230,7 @@ func (builder *OkrKeyResultBuilder) Confidential(confidential bool) *OkrKeyResul
 	return builder
 }
 
-// key result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
+// Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2。
 //
 // 示例值：1
 func (builder *OkrKeyResultBuilder) Position(position int) *OkrKeyResultBuilder {
@@ -2158,7 +2248,7 @@ func (builder *OkrKeyResultBuilder) Score(score int) *OkrKeyResultBuilder {
 	return builder
 }
 
-// OKR Block 中此 key result 是否可见
+// OKR Block 中此 Key Result 是否可见
 //
 // 示例值：true
 func (builder *OkrKeyResultBuilder) Visible(visible bool) *OkrKeyResultBuilder {
@@ -2167,7 +2257,7 @@ func (builder *OkrKeyResultBuilder) Visible(visible bool) *OkrKeyResultBuilder {
 	return builder
 }
 
-// key result 的权重
+// Key Result 的权重
 //
 // 示例值：0.5
 func (builder *OkrKeyResultBuilder) Weight(weight float64) *OkrKeyResultBuilder {
@@ -2185,7 +2275,7 @@ func (builder *OkrKeyResultBuilder) ProgressRate(progressRate *OkrProgressRate) 
 	return builder
 }
 
-// key result 的文本内容
+// Key Result 的文本内容
 //
 // 示例值：
 func (builder *OkrKeyResultBuilder) Content(content *Text) *OkrKeyResultBuilder {
@@ -2230,32 +2320,32 @@ func (builder *OkrKeyResultBuilder) Build() *OkrKeyResult {
 }
 
 type OkrObjective struct {
-	ObjectiveId  *string          `json:"objective_id,omitempty"`  // objective ID
-	Confidential *bool            `json:"confidential,omitempty"`  // 是否设置过私密权限
-	Position     *int             `json:"position,omitempty"`      // objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	ObjectiveId  *string          `json:"objective_id,omitempty"`  // Objective ID
+	Confidential *bool            `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Position     *int             `json:"position,omitempty"`      // Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
 	Score        *int             `json:"score,omitempty"`         // 打分信息
-	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中是否展示该 objective
-	Weight       *float64         `json:"weight,omitempty"`        // objective 的权重
+	Visible      *bool            `json:"visible,omitempty"`       // OKR Block 中是否展示该 Objective
+	Weight       *float64         `json:"weight,omitempty"`        // Objective 的权重
 	ProgressRate *OkrProgressRate `json:"progress_rate,omitempty"` // 进展信息
-	Content      *Text            `json:"content,omitempty"`       // objective 的文本内容
+	Content      *Text            `json:"content,omitempty"`       // Objective 的文本内容
 }
 
 type OkrObjectiveBuilder struct {
-	objectiveId      string // objective ID
+	objectiveId      string // Objective ID
 	objectiveIdFlag  bool
-	confidential     bool // 是否设置过私密权限
+	confidential     bool // 是否在 OKR 平台设置了私密权限
 	confidentialFlag bool
-	position         int // objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	position         int // Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
 	positionFlag     bool
 	score            int // 打分信息
 	scoreFlag        bool
-	visible          bool // OKR Block 中是否展示该 objective
+	visible          bool // OKR Block 中是否展示该 Objective
 	visibleFlag      bool
-	weight           float64 // objective 的权重
+	weight           float64 // Objective 的权重
 	weightFlag       bool
 	progressRate     *OkrProgressRate // 进展信息
 	progressRateFlag bool
-	content          *Text // objective 的文本内容
+	content          *Text // Objective 的文本内容
 	contentFlag      bool
 }
 
@@ -2264,7 +2354,7 @@ func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
 	return builder
 }
 
-// objective ID
+// Objective ID
 //
 // 示例值："7109022409227026460"
 func (builder *OkrObjectiveBuilder) ObjectiveId(objectiveId string) *OkrObjectiveBuilder {
@@ -2273,7 +2363,7 @@ func (builder *OkrObjectiveBuilder) ObjectiveId(objectiveId string) *OkrObjectiv
 	return builder
 }
 
-// 是否设置过私密权限
+// 是否在 OKR 平台设置了私密权限
 //
 // 示例值：false
 func (builder *OkrObjectiveBuilder) Confidential(confidential bool) *OkrObjectiveBuilder {
@@ -2282,7 +2372,7 @@ func (builder *OkrObjectiveBuilder) Confidential(confidential bool) *OkrObjectiv
 	return builder
 }
 
-// objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+// Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
 //
 // 示例值：1
 func (builder *OkrObjectiveBuilder) Position(position int) *OkrObjectiveBuilder {
@@ -2300,7 +2390,7 @@ func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 	return builder
 }
 
-// OKR Block 中是否展示该 objective
+// OKR Block 中是否展示该 Objective
 //
 // 示例值：true
 func (builder *OkrObjectiveBuilder) Visible(visible bool) *OkrObjectiveBuilder {
@@ -2309,7 +2399,7 @@ func (builder *OkrObjectiveBuilder) Visible(visible bool) *OkrObjectiveBuilder {
 	return builder
 }
 
-// objective 的权重
+// Objective 的权重
 //
 // 示例值：1.0
 func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
@@ -2327,7 +2417,7 @@ func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrProgressRate) 
 	return builder
 }
 
-// objective 的文本内容
+// Objective 的文本内容
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) Content(content *Text) *OkrObjectiveBuilder {
@@ -2376,28 +2466,28 @@ type OkrProgress struct {
 
 type OkrProgressRate struct {
 	Mode           *string  `json:"mode,omitempty"`            // 状态模式
-	Current        *float64 `json:"current,omitempty"`         // 当前进度
-	Percent        *float64 `json:"percent,omitempty"`         // 当前进度百分比，simple mode 下使用
+	Current        *float64 `json:"current,omitempty"`         // 当前进度, advanced 模式使用
+	Percent        *float64 `json:"percent,omitempty"`         // 当前进度百分比，simple 模式使用
 	ProgressStatus *string  `json:"progress_status,omitempty"` // 进展状态
-	Start          *float64 `json:"start,omitempty"`           // 进度起始值，advanced模式使用
-	StatusType     *string  `json:"status_type,omitempty"`     // 状态类型
-	Target         *float64 `json:"target,omitempty"`          // 进度目标值，advanced模式使用
+	Start          *float64 `json:"start,omitempty"`           // 进度起始值，advanced 模式使用
+	StatusType     *string  `json:"status_type,omitempty"`     // 状态计算类型
+	Target         *float64 `json:"target,omitempty"`          // 进度目标值，advanced 模式使用
 }
 
 type OkrProgressRateBuilder struct {
 	mode               string // 状态模式
 	modeFlag           bool
-	current            float64 // 当前进度
+	current            float64 // 当前进度, advanced 模式使用
 	currentFlag        bool
-	percent            float64 // 当前进度百分比，simple mode 下使用
+	percent            float64 // 当前进度百分比，simple 模式使用
 	percentFlag        bool
 	progressStatus     string // 进展状态
 	progressStatusFlag bool
-	start              float64 // 进度起始值，advanced模式使用
+	start              float64 // 进度起始值，advanced 模式使用
 	startFlag          bool
-	statusType         string // 状态类型
+	statusType         string // 状态计算类型
 	statusTypeFlag     bool
-	target             float64 // 进度目标值，advanced模式使用
+	target             float64 // 进度目标值，advanced 模式使用
 	targetFlag         bool
 }
 
@@ -2415,7 +2505,7 @@ func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder
 	return builder
 }
 
-// 当前进度
+// 当前进度, advanced 模式使用
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRateBuilder {
@@ -2424,7 +2514,7 @@ func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRate
 	return builder
 }
 
-// 当前进度百分比，simple mode 下使用
+// 当前进度百分比，simple 模式使用
 //
 // 示例值：100
 func (builder *OkrProgressRateBuilder) Percent(percent float64) *OkrProgressRateBuilder {
@@ -2442,7 +2532,7 @@ func (builder *OkrProgressRateBuilder) ProgressStatus(progressStatus string) *Ok
 	return builder
 }
 
-// 进度起始值，advanced模式使用
+// 进度起始值，advanced 模式使用
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuilder {
@@ -2451,7 +2541,7 @@ func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuil
 	return builder
 }
 
-// 状态类型
+// 状态计算类型
 //
 // 示例值："default"
 func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgressRateBuilder {
@@ -2460,7 +2550,7 @@ func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgres
 	return builder
 }
 
-// 进度目标值，advanced模式使用
+// 进度目标值，advanced 模式使用
 //
 // 示例值：
 func (builder *OkrProgressRateBuilder) Target(target float64) *OkrProgressRateBuilder {
@@ -2504,14 +2594,14 @@ func (builder *OkrProgressRateBuilder) Build() *OkrProgressRate {
 
 type OkrVisibleSetting struct {
 	ProgressFillAreaVisible *bool `json:"progress_fill_area_visible,omitempty"` // 进展编辑区域是否可见
-	ProgressStatusVisible   *bool `json:"progress_status_visible,omitempty"`    // 状态是否可见
+	ProgressStatusVisible   *bool `json:"progress_status_visible,omitempty"`    // 进展状态是否可见
 	ScoreVisible            *bool `json:"score_visible,omitempty"`              // 分数是否可见
 }
 
 type OkrVisibleSettingBuilder struct {
 	progressFillAreaVisible     bool // 进展编辑区域是否可见
 	progressFillAreaVisibleFlag bool
-	progressStatusVisible       bool // 状态是否可见
+	progressStatusVisible       bool // 进展状态是否可见
 	progressStatusVisibleFlag   bool
 	scoreVisible                bool // 分数是否可见
 	scoreVisibleFlag            bool
@@ -2531,7 +2621,7 @@ func (builder *OkrVisibleSettingBuilder) ProgressFillAreaVisible(progressFillAre
 	return builder
 }
 
-// 状态是否可见
+// 进展状态是否可见
 //
 // 示例值：true
 func (builder *OkrVisibleSettingBuilder) ProgressStatusVisible(progressStatusVisible bool) *OkrVisibleSettingBuilder {
@@ -2570,24 +2660,27 @@ type QuoteContainer struct {
 }
 
 type Reminder struct {
-	CreateUserId *string `json:"create_user_id,omitempty"` // 创建者用户 ID
-	IsNotify     *bool   `json:"is_notify,omitempty"`      // 是否通知
-	IsWholeDay   *bool   `json:"is_whole_day,omitempty"`   // 是日期还是整点小时
-	ExpireTime   *string `json:"expire_time,omitempty"`    // 事件发生的时间（毫秒级事件戳）
-	NotifyTime   *string `json:"notify_time,omitempty"`    // 触发通知的时间（毫秒级时间戳）
+	CreateUserId     *string           `json:"create_user_id,omitempty"`     // 创建者用户 ID
+	IsNotify         *bool             `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       *bool             `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       *string           `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级事件戳）
+	NotifyTime       *string           `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type ReminderBuilder struct {
-	createUserId     string // 创建者用户 ID
-	createUserIdFlag bool
-	isNotify         bool // 是否通知
-	isNotifyFlag     bool
-	isWholeDay       bool // 是日期还是整点小时
-	isWholeDayFlag   bool
-	expireTime       string // 事件发生的时间（毫秒级事件戳）
-	expireTimeFlag   bool
-	notifyTime       string // 触发通知的时间（毫秒级时间戳）
-	notifyTimeFlag   bool
+	createUserId         string // 创建者用户 ID
+	createUserIdFlag     bool
+	isNotify             bool // 是否通知
+	isNotifyFlag         bool
+	isWholeDay           bool // 是日期还是整点小时
+	isWholeDayFlag       bool
+	expireTime           string // 事件发生的时间（毫秒级事件戳）
+	expireTimeFlag       bool
+	notifyTime           string // 触发通知的时间（毫秒级时间戳）
+	notifyTimeFlag       bool
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
 }
 
 func NewReminderBuilder() *ReminderBuilder {
@@ -2640,6 +2733,15 @@ func (builder *ReminderBuilder) NotifyTime(notifyTime string) *ReminderBuilder {
 	return builder
 }
 
+// 文本局部样式
+//
+// 示例值：
+func (builder *ReminderBuilder) TextElementStyle(textElementStyle *TextElementStyle) *ReminderBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
 func (builder *ReminderBuilder) Build() *Reminder {
 	req := &Reminder{}
 	if builder.createUserIdFlag {
@@ -2661,6 +2763,9 @@ func (builder *ReminderBuilder) Build() *Reminder {
 	if builder.notifyTimeFlag {
 		req.NotifyTime = &builder.notifyTime
 
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
 	}
 	return req
 }
@@ -2969,11 +3074,11 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 }
 
 type Task struct {
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 }
 
 type TaskBuilder struct {
-	taskId     string // 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+	taskId     string // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 	taskIdFlag bool
 }
 
@@ -2982,7 +3087,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 任务 ID，查询具体任务详情见 https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+// 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 //
 // 示例值：
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
@@ -3183,14 +3288,15 @@ func (builder *TextElementBuilder) Build() *TextElement {
 }
 
 type TextElementStyle struct {
-	Bold            *bool `json:"bold,omitempty"`             // 加粗
-	Italic          *bool `json:"italic,omitempty"`           // 斜体
-	Strikethrough   *bool `json:"strikethrough,omitempty"`    // 删除线
-	Underline       *bool `json:"underline,omitempty"`        // 下划线
-	InlineCode      *bool `json:"inline_code,omitempty"`      // inline 代码
-	BackgroundColor *int  `json:"background_color,omitempty"` // 背景色
-	TextColor       *int  `json:"text_color,omitempty"`       // 字体颜色
-	Link            *Link `json:"link,omitempty"`             // 链接
+	Bold            *bool    `json:"bold,omitempty"`             // 加粗
+	Italic          *bool    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   *bool    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       *bool    `json:"underline,omitempty"`        // 下划线
+	InlineCode      *bool    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor *int     `json:"background_color,omitempty"` // 背景色
+	TextColor       *int     `json:"text_color,omitempty"`       // 字体颜色
+	Link            *Link    `json:"link,omitempty"`             // 链接
+	CommentIds      []string `json:"comment_ids,omitempty"`      // 评论 id 列表
 }
 
 type TextElementStyleBuilder struct {
@@ -3210,6 +3316,8 @@ type TextElementStyleBuilder struct {
 	textColorFlag       bool
 	link                *Link // 链接
 	linkFlag            bool
+	commentIds          []string // 评论 id 列表
+	commentIdsFlag      bool
 }
 
 func NewTextElementStyleBuilder() *TextElementStyleBuilder {
@@ -3289,6 +3397,15 @@ func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilde
 	return builder
 }
 
+// 评论 id 列表
+//
+// 示例值：[1660030311959965796]
+func (builder *TextElementStyleBuilder) CommentIds(commentIds []string) *TextElementStyleBuilder {
+	builder.commentIds = commentIds
+	builder.commentIdsFlag = true
+	return builder
+}
+
 func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
 	req := &TextElementStyle{}
 	if builder.boldFlag {
@@ -3321,6 +3438,9 @@ func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
 	}
 	if builder.linkFlag {
 		req.Link = builder.link
+	}
+	if builder.commentIdsFlag {
+		req.CommentIds = builder.commentIds
 	}
 	return req
 }
