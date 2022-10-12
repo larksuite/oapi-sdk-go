@@ -90,7 +90,7 @@ func (a *AuthenAccessTokenReqBuilder) Build() *AuthenAccessTokenReq {
 type AuthenAccessTokenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Body *AuthenAccessTokenRespBody `body:""`
+	Data *AuthenAccessTokenRespBody `json:"data"`
 }
 
 func (c *AuthenAccessTokenResp) Success() bool {

@@ -135,7 +135,7 @@ func GetAuthenAccessToken() {
 		larkext.NewAuthenAccessTokenReqBuilder().
 			Body(larkext.NewAuthenAccessTokenReqBodyBuilder().
 				GrantType(larkext.GrantTypeAuthorizationCode).
-				Code("78bo589568ca437d89899f56f7f1f1f2").
+				Code("3e5i5040efdb479aba4ab219560e7148").
 				Build()).
 			Build())
 	if err != nil {
@@ -148,7 +148,7 @@ func GetAuthenAccessToken() {
 		return
 	}
 
-	fmt.Println(larkcore.Prettify(resp))
+	fmt.Println(larkcore.Prettify(resp.Data))
 }
 
 func RefreshAuthenAccessToken() {
@@ -192,6 +192,6 @@ func AuthenUserInfo() {
 }
 
 func main() {
-	//GetAuthenAccessToken()
-	AuthenUserInfo()
+	GetAuthenAccessToken()
+	//AuthenUserInfo()
 }
