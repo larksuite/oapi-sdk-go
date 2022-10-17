@@ -27,7 +27,7 @@ import (
 func rawApiUserCallNew() {
 	// 创建 API Client
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithLogLevel(larkcore.LogLevelDebug))
+	var cli = lark.NewClient(appID, appSecret)
 
 	// 发起请求
 	resp, err := cli.Do(context.Background(),
@@ -39,7 +39,6 @@ func rawApiUserCallNew() {
 			PathParams:                larkcore.PathParams{"user_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d"},
 			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
 		},
-		larkcore.WithUserAccessToken("u-3Sr1oTO4V1FWxTFTFYuFCqhk2Vs4h5IbhMG00gmw0CXh"),
 	)
 
 	// 错误处理
@@ -54,7 +53,7 @@ func rawApiUserCallNew() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body
+	fmt.Println(string(resp.RawBody)) // http body,二进制数据
 }
 
 // 原生 API 调用推荐用法
@@ -86,7 +85,7 @@ func rawApiTenantCallNew() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body
+	fmt.Println(string(resp.RawBody)) // http body,二进制数据
 }
 
 // 老的原生调用方法，仅做兼容使用

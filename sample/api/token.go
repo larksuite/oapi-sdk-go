@@ -135,7 +135,7 @@ func GetAuthenAccessToken() {
 		larkext.NewAuthenAccessTokenReqBuilder().
 			Body(larkext.NewAuthenAccessTokenReqBodyBuilder().
 				GrantType(larkext.GrantTypeAuthorizationCode).
-				Code("3e5i5040efdb479aba4ab219560e7148").
+				Code("b42j45f5df9d40979f19d3680e18584e").
 				Build()).
 			Build())
 	if err != nil {
@@ -171,13 +171,15 @@ func RefreshAuthenAccessToken() {
 		return
 	}
 
+	fmt.Println(resp.Data.RefreshToken)
+
 	fmt.Println(larkcore.Prettify(resp))
 }
 
 func AuthenUserInfo() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
-	var resp, err = client.Ext.Authen.AuthenUserInfo(context.Background(), larkcore.WithUserAccessToken("u-1fY9bHm_RcvWrcjFqTBi0x0h5Ht01le3N800k0SE07kB"))
+	var resp, err = client.Ext.Authen.AuthenUserInfo(context.Background(), larkcore.WithUserAccessToken("u-1i4E.f2MJ3DV3VOgZIab06014wBBg4Q3pq00k5Q001CO"))
 	if err != nil {
 		fmt.Println(err)
 		return

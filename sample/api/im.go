@@ -209,6 +209,7 @@ func sendTextMsg(client *lark.Client) {
 		return
 	}
 
+	fmt.Println(resp.Data.MessageId)
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
