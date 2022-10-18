@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
@@ -24,18 +25,11 @@ import (
 // GET /open-apis/ehr/v1/employees
 func main() {
 	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+	client := lark.NewClient("cli_a1eccc36c278900d", "uvNOxS6mplA6Nf3YPt8rUbbShON1Ocj5")
 	// 创建请求对象
 	req := larkehr.NewListEmployeeReqBuilder().
-		View("basic").
-		Status([]int{}).
-		Type([]int{}).
-		StartTime("1608690517811").
-		EndTime("1608690517811").
-		UserIdType("user_id").
-		UserIds([]string{}).
-		PageToken("10").
-		PageSize(10).
+		UserIds([]string{"ou_c245b0a7dff2725cfa2fb104f8b48b9d", "ou_c245b0a7dff2725cfa2fb104f8b48b9d"}).
+		UserIdType("open_id").
 		Build()
 	// 发起请求
 	resp, err := client.Ehr.Employee.List(context.Background(), req)
