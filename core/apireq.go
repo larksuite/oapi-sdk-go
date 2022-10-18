@@ -52,3 +52,7 @@ func (u QueryParams) Set(key, value string) {
 func (u QueryParams) Encode() string {
 	return url.Values(u).Encode()
 }
+
+func (u QueryParams) Add(key, value string) {
+	u[key] = append(u[key], value)
+}

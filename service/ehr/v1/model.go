@@ -1912,7 +1912,9 @@ func (builder *ListEmployeeReqBuilder) View(view string) *ListEmployeeReqBuilder
 //
 // 示例值：2
 func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuilder {
-	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
+	for _, v := range status {
+		builder.apiReq.QueryParams.Add("status", fmt.Sprint(v))
+	}
 	return builder
 }
 
@@ -1952,7 +1954,9 @@ func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmploy
 //
 // 示例值：ou_8ebd4f35d7101ffdeb4771d7c8ec517e
 func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeReqBuilder {
-	builder.apiReq.QueryParams.Set("user_ids", fmt.Sprint(userIds))
+	for _, v := range userIds {
+		builder.apiReq.QueryParams.Add("user_ids", fmt.Sprint(v))
+	}
 	return builder
 }
 

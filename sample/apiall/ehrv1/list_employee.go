@@ -30,6 +30,7 @@ func main() {
 	req := larkehr.NewListEmployeeReqBuilder().
 		UserIds([]string{"ou_c245b0a7dff2725cfa2fb104f8b48b9d", "ou_c245b0a7dff2725cfa2fb104f8b48b9d"}).
 		UserIdType("open_id").
+		Status([]int{1, 2, 3}).
 		Build()
 	// 发起请求
 	resp, err := client.Ehr.Employee.List(context.Background(), req)
