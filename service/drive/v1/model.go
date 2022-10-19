@@ -6414,7 +6414,9 @@ func NewBatchGetTmpDownloadUrlMediaReqBuilder() *BatchGetTmpDownloadUrlMediaReqB
 //
 // 示例值：boxcnrHpsg1QDqXAAAyachabcef
 func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) FileTokens(fileTokens []string) *BatchGetTmpDownloadUrlMediaReqBuilder {
-	builder.apiReq.QueryParams.Set("file_tokens", fmt.Sprint(fileTokens))
+	for _, v := range fileTokens {
+		builder.apiReq.QueryParams.Add("file_tokens", fmt.Sprint(v))
+	}
 	return builder
 }
 

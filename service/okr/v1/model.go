@@ -5292,7 +5292,9 @@ func (builder *BatchGetOkrReqBuilder) UserIdType(userIdType string) *BatchGetOkr
 //
 // 示例值：7043693679567028244
 func (builder *BatchGetOkrReqBuilder) OkrIds(okrIds []string) *BatchGetOkrReqBuilder {
-	builder.apiReq.QueryParams.Set("okr_ids", fmt.Sprint(okrIds))
+	for _, v := range okrIds {
+		builder.apiReq.QueryParams.Add("okr_ids", fmt.Sprint(v))
+	}
 	return builder
 }
 
@@ -5864,7 +5866,9 @@ func (builder *ListUserOkrReqBuilder) Lang(lang string) *ListUserOkrReqBuilder {
 //
 // 示例值：["6951461264858777132"]
 func (builder *ListUserOkrReqBuilder) PeriodIds(periodIds []string) *ListUserOkrReqBuilder {
-	builder.apiReq.QueryParams.Set("period_ids", fmt.Sprint(periodIds))
+	for _, v := range periodIds {
+		builder.apiReq.QueryParams.Add("period_ids", fmt.Sprint(v))
+	}
 	return builder
 }
 

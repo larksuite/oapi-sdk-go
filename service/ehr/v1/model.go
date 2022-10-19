@@ -1922,7 +1922,9 @@ func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuil
 //
 // 示例值：1
 func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder {
-	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	for _, v := range type_ {
+		builder.apiReq.QueryParams.Add("type", fmt.Sprint(v))
+	}
 	return builder
 }
 

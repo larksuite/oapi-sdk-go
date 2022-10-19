@@ -4597,7 +4597,9 @@ func NewListAgentScheduleReqBuilder() *ListAgentScheduleReqBuilder {
 //
 // 示例值：status=1&status=2
 func (builder *ListAgentScheduleReqBuilder) Status(status []int) *ListAgentScheduleReqBuilder {
-	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
+	for _, v := range status {
+		builder.apiReq.QueryParams.Add("status", fmt.Sprint(v))
+	}
 	return builder
 }
 
@@ -6935,7 +6937,9 @@ func (builder *ListTicketReqBuilder) Score(score int) *ListTicketReqBuilder {
 //
 // 示例值：1
 func (builder *ListTicketReqBuilder) StatusList(statusList []int) *ListTicketReqBuilder {
-	builder.apiReq.QueryParams.Set("status_list", fmt.Sprint(statusList))
+	for _, v := range statusList {
+		builder.apiReq.QueryParams.Add("status_list", fmt.Sprint(v))
+	}
 	return builder
 }
 
@@ -6959,7 +6963,9 @@ func (builder *ListTicketReqBuilder) GuestId(guestId string) *ListTicketReqBuild
 //
 // 示例值：备注
 func (builder *ListTicketReqBuilder) Tags(tags []string) *ListTicketReqBuilder {
-	builder.apiReq.QueryParams.Set("tags", fmt.Sprint(tags))
+	for _, v := range tags {
+		builder.apiReq.QueryParams.Add("tags", fmt.Sprint(v))
+	}
 	return builder
 }
 
