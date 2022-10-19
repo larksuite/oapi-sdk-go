@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v3.0.7
+Fixed
+- 修改查询
+
 ## v3.0.5
 Added
 - 更新业务功能，比如docx评论相关api
