@@ -25,15 +25,21 @@ import (
 )
 
 const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	I18nKeyZhCn = "zh_cn" // 中文
 	I18nKeyEnUs = "en_us" // 英文
 	I18nKeyJaJp = "ja_jp" // 日文
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetApplicationUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetApplicationUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetApplicationOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -390,7 +396,7 @@ func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 
 // badge extra 信息
 //
-// 示例值：
+// 示例值：{}
 func (builder *AppBadgeBuilder) Extra(extra string) *AppBadgeBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
@@ -4928,6 +4934,80 @@ func (builder *WorkplaceWidgetBuilder) Build() *WorkplaceWidget {
 	return req
 }
 
+type ListAppRecommendRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListAppRecommendRuleReqBuilder() *ListAppRecommendRuleReqBuilder {
+	builder := &ListAppRecommendRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListAppRecommendRuleReqBuilder) Limit(limit int) *ListAppRecommendRuleReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListAppRecommendRuleReqBuilder) PageSize(pageSize int) *ListAppRecommendRuleReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：new-e11ee058b4a8ed2881da11ac7e37c4fc
+func (builder *ListAppRecommendRuleReqBuilder) PageToken(pageToken string) *ListAppRecommendRuleReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListAppRecommendRuleReqBuilder) UserIdType(userIdType string) *ListAppRecommendRuleReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListAppRecommendRuleReqBuilder) Build() *ListAppRecommendRuleReq {
+	req := &ListAppRecommendRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListAppRecommendRuleReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListAppRecommendRuleRespData struct {
+	Rules     []*AppRecommendRule `json:"rules,omitempty"`      // 推荐规则列表
+	PageToken *string             `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool               `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListAppRecommendRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListAppRecommendRuleRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListAppRecommendRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -5904,6 +5984,60 @@ type P2ApplicationVisibilityAddedV6 struct {
 
 func (m *P2ApplicationVisibilityAddedV6) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
+}
+
+type ListAppRecommendRuleIterator struct {
+	nextPageToken *string
+	items         []*AppRecommendRule
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppRecommendRuleReq
+	listFunc      func(ctx context.Context, req *ListAppRecommendRuleReq, options ...larkcore.RequestOptionFunc) (*ListAppRecommendRuleResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAppRecommendRuleIterator) Next() (bool, *AppRecommendRule, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Rules) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Rules
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAppRecommendRuleIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type UnderauditlistApplicationIterator struct {

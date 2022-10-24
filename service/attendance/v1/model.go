@@ -3450,7 +3450,7 @@ func (builder *UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilde
 
 // 计算时间所用的时区信息，为空是0时区
 //
-// 示例值：
+// 示例值：Asia/Shanghai
 func (builder *UserApprovalBuilder) TimeZone(timeZone string) *UserApprovalBuilder {
 	builder.timeZone = timeZone
 	builder.timeZoneFlag = true
@@ -7662,7 +7662,7 @@ type QueryUserStatsDataReqBodyBuilder struct {
 	statsTypeFlag        bool
 	startDate            int // 开始时间
 	startDateFlag        bool
-	endDate              int // 结束时间;（时间间隔不超过 40 天）
+	endDate              int // 结束时间;（时间间隔不超过 31 天）
 	endDateFlag          bool
 	userIds              []string // 查询的用户 ID 列表;（用户数量不超过 200）
 	userIdsFlag          bool
@@ -7706,7 +7706,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) StartDate(startDate int) *Query
 	return builder
 }
 
-// 结束时间;（时间间隔不超过 40 天）
+// 结束时间;（时间间隔不超过 31 天）
 //
 //示例值：20210323
 func (builder *QueryUserStatsDataReqBodyBuilder) EndDate(endDate int) *QueryUserStatsDataReqBodyBuilder {
@@ -7787,7 +7787,7 @@ type QueryUserStatsDataPathReqBodyBuilder struct {
 	statsTypeFlag        bool
 	startDate            int // 开始时间
 	startDateFlag        bool
-	endDate              int // 结束时间;（时间间隔不超过 40 天）
+	endDate              int // 结束时间;（时间间隔不超过 31 天）
 	endDateFlag          bool
 	userIds              []string // 查询的用户 ID 列表;（用户数量不超过 200）
 	userIdsFlag          bool
@@ -7831,7 +7831,7 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) StartDate(startDate int) *Q
 	return builder
 }
 
-// 结束时间;（时间间隔不超过 40 天）
+// 结束时间;（时间间隔不超过 31 天）
 //
 // 示例值：20210323
 func (builder *QueryUserStatsDataPathReqBodyBuilder) EndDate(endDate int) *QueryUserStatsDataPathReqBodyBuilder {
@@ -7945,7 +7945,7 @@ type QueryUserStatsDataReqBody struct {
 	Locale           *string  `json:"locale,omitempty"`             // 语言类型
 	StatsType        *string  `json:"stats_type,omitempty"`         // 统计类型
 	StartDate        *int     `json:"start_date,omitempty"`         // 开始时间
-	EndDate          *int     `json:"end_date,omitempty"`           // 结束时间;（时间间隔不超过 40 天）
+	EndDate          *int     `json:"end_date,omitempty"`           // 结束时间;（时间间隔不超过 31 天）
 	UserIds          []string `json:"user_ids,omitempty"`           // 查询的用户 ID 列表;（用户数量不超过 200）
 	NeedHistory      *bool    `json:"need_history,omitempty"`       // 是否需要历史数据
 	CurrentGroupOnly *bool    `json:"current_group_only,omitempty"` // 只展示当前考勤组
@@ -7958,7 +7958,7 @@ type QueryUserStatsDataReq struct {
 }
 
 type QueryUserStatsDataRespData struct {
-	UserDatas []*UserStatsData `json:"user_datas,omitempty"` // 用户统计数据
+	UserDatas []*UserStatsData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条）
 }
 
 type QueryUserStatsDataResp struct {

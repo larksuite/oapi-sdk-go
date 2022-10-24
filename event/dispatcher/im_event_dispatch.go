@@ -98,7 +98,7 @@ func (dispatcher *EventDispatcher) OnP2ChatMemberUserAddedV1(handler func(ctx co
 	return dispatcher
 }
 
-// 用户主动退群或被移出群聊
+// 用户出群
 //
 // - 用户主动退群或被移出群聊时推送事件。
 //

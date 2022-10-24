@@ -1078,7 +1078,7 @@ func NewAppTableBuilder() *AppTableBuilder {
 
 // 数据表 id
 //
-// 示例值：tblKz5D60T4JlfcT
+// 示例值：
 func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 	builder.tableId = tableId
 	builder.tableIdFlag = true
@@ -1087,7 +1087,7 @@ func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 
 // 数据表的版本号
 //
-// 示例值：1
+// 示例值：
 func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
@@ -1096,7 +1096,7 @@ func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 
 // 数据表名字
 //
-// 示例值：数据表1
+// 示例值：
 func (builder *AppTableBuilder) Name(name string) *AppTableBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1728,7 +1728,7 @@ type AppTableFormPatchedField struct {
 	Title       *string `json:"title,omitempty"`        // 表单问题
 	Description *string `json:"description,omitempty"`  // 问题描述
 	Required    *bool   `json:"required,omitempty"`     // 是否必填
-	Visible     *bool   `json:"visible,omitempty"`      // 是否可见
+	Visible     *bool   `json:"visible,omitempty"`      // 是否可见，当值为 false 时，不允许更新其他字段。
 }
 
 type AppTableFormPatchedFieldBuilder struct {
@@ -1740,7 +1740,7 @@ type AppTableFormPatchedFieldBuilder struct {
 	descriptionFlag bool
 	required        bool // 是否必填
 	requiredFlag    bool
-	visible         bool // 是否可见
+	visible         bool // 是否可见，当值为 false 时，不允许更新其他字段。
 	visibleFlag     bool
 }
 
@@ -1785,7 +1785,7 @@ func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTabl
 	return builder
 }
 
-// 是否可见
+// 是否可见，当值为 false 时，不允许更新其他字段。
 //
 // 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Visible(visible bool) *AppTableFormPatchedFieldBuilder {
@@ -2749,7 +2749,7 @@ func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuild
 
 // 多维表格是否开启高级权限
 //
-//示例值：false
+//示例值：true
 func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -2790,7 +2790,7 @@ func (builder *UpdateAppPathReqBodyBuilder) Name(name string) *UpdateAppPathReqB
 
 // 多维表格是否开启高级权限
 //
-// 示例值：false
+// 示例值：true
 func (builder *UpdateAppPathReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppPathReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true

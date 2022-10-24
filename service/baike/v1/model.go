@@ -699,6 +699,53 @@ func (builder *EntityBuilder) Build() *Entity {
 	return req
 }
 
+type EntityWord struct {
+	Name    *string  `json:"name,omitempty"`    // 抽取出的词条名
+	Aliases []string `json:"aliases,omitempty"` // 词条可能的别名
+}
+
+type EntityWordBuilder struct {
+	name        string // 抽取出的词条名
+	nameFlag    bool
+	aliases     []string // 词条可能的别名
+	aliasesFlag bool
+}
+
+func NewEntityWordBuilder() *EntityWordBuilder {
+	builder := &EntityWordBuilder{}
+	return builder
+}
+
+// 抽取出的词条名
+//
+// 示例值：企业百科
+func (builder *EntityWordBuilder) Name(name string) *EntityWordBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 词条可能的别名
+//
+// 示例值：
+func (builder *EntityWordBuilder) Aliases(aliases []string) *EntityWordBuilder {
+	builder.aliases = aliases
+	builder.aliasesFlag = true
+	return builder
+}
+
+func (builder *EntityWordBuilder) Build() *EntityWord {
+	req := &EntityWord{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.aliasesFlag {
+		req.Aliases = builder.aliases
+	}
+	return req
+}
+
 type File struct {
 	Name *string   `json:"name,omitempty"` // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
 	File io.Reader `json:"file,omitempty"` // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片

@@ -34,7 +34,7 @@ func NewService(config *larkcore.Config) *SheetsService {
 type SheetsService struct {
 	config                              *larkcore.Config
 	Spreadsheet                         *spreadsheet                         // 表格
-	SpreadsheetSheet                    *spreadsheetSheet                    // 行列
+	SpreadsheetSheet                    *spreadsheetSheet                    // 单元格
 	SpreadsheetSheetFilter              *spreadsheetSheetFilter              // 筛选
 	SpreadsheetSheetFilterView          *spreadsheetSheetFilterView          // 筛选视图
 	SpreadsheetSheetFilterViewCondition *spreadsheetSheetFilterViewCondition // 筛选条件
@@ -62,7 +62,7 @@ type spreadsheetSheetFloatImage struct {
 
 // 创建表格
 //
-// - 使用该接口可以在指定的目录下创建在线表格。
+// - 在指定目录下创建表格
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create
 //
@@ -140,7 +140,7 @@ func (s *spreadsheet) Patch(ctx context.Context, req *PatchSpreadsheetReq, optio
 
 // 查找单元格
 //
-// - 按照指定的条件查找子表的某个范围内的数据符合条件的单元格位置。请求体中的 range 和 find 字段为必填。
+// - 在指定范围内查找符合查找条件的单元格。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/find
 //

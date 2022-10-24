@@ -22,6 +22,7 @@ import (
 
 func NewService(config *larkcore.Config) *ApplicationService {
 	a := &ApplicationService{config: config}
+	a.AppRecommendRule = &appRecommendRule{service: a}
 	a.Application = &application{service: a}
 	a.ApplicationAppUsage = &applicationAppUsage{service: a}
 	a.ApplicationAppVersion = &applicationAppVersion{service: a}
@@ -32,6 +33,7 @@ func NewService(config *larkcore.Config) *ApplicationService {
 
 type ApplicationService struct {
 	config                *larkcore.Config
+	AppRecommendRule      *appRecommendRule      // 推荐规则
 	Application           *application           // 应用
 	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
 	ApplicationAppVersion *applicationAppVersion // 事件
@@ -39,6 +41,9 @@ type ApplicationService struct {
 	ApplicationVisibility *applicationVisibility // 事件
 }
 
+type appRecommendRule struct {
+	service *ApplicationService
+}
 type application struct {
 	service *ApplicationService
 }
@@ -53,6 +58,40 @@ type applicationFeedback struct {
 }
 type applicationVisibility struct {
 	service *ApplicationService
+}
+
+// 获取当前设置的推荐规则列表
+//
+// - 获取当前设置的推荐规则列表。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_recommend_rule/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_appRecommendRule.go
+func (a *appRecommendRule) List(ctx context.Context, req *ListAppRecommendRuleReq, options ...larkcore.RequestOptionFunc) (*ListAppRecommendRuleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/application/v6/app_recommend_rules"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppRecommendRuleResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRecommendRule) ListByIterator(ctx context.Context, req *ListAppRecommendRuleReq, options ...larkcore.RequestOptionFunc) (*ListAppRecommendRuleIterator, error) {
+	return &ListAppRecommendRuleIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 获取应用信息

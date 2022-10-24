@@ -6749,7 +6749,7 @@ type SpecifiedRollback struct {
 	TaskId         *string  `json:"task_id,omitempty"`           // 回退的任务ID
 	Reason         *string  `json:"reason,omitempty"`            // 退回原因
 	Extra          *string  `json:"extra,omitempty"`             // 扩展字段
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 退回到节点列表
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
 }
 
 type SpecifiedRollbackBuilder struct {
@@ -6761,7 +6761,7 @@ type SpecifiedRollbackBuilder struct {
 	reasonFlag         bool
 	extra              string // 扩展字段
 	extraFlag          bool
-	taskDefKeyList     []string // 退回到节点列表
+	taskDefKeyList     []string // 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
 	taskDefKeyListFlag bool
 }
 
@@ -6806,7 +6806,7 @@ func (builder *SpecifiedRollbackBuilder) Extra(extra string) *SpecifiedRollbackB
 	return builder
 }
 
-// 退回到节点列表
+// 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
 //
 // 示例值：["START","APPROVAL_27997_285502","APPROVAL_462205_2734554"]
 func (builder *SpecifiedRollbackBuilder) TaskDefKeyList(taskDefKeyList []string) *SpecifiedRollbackBuilder {
@@ -7365,7 +7365,7 @@ func (builder *TaskResubmitBuilder) Build() *TaskResubmit {
 }
 
 type TaskSearch struct {
-	UserId             *string  `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id
+	UserId             *string  `json:"user_id,omitempty"`              // 根据x_user_type填写审批人id
 	ApprovalCode       *string  `json:"approval_code,omitempty"`        // 审批定义 code
 	InstanceCode       *string  `json:"instance_code,omitempty"`        // 审批实例 code
 	InstanceExternalId *string  `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
@@ -7380,7 +7380,7 @@ type TaskSearch struct {
 }
 
 type TaskSearchBuilder struct {
-	userId                 string // 根据x_user_type填写用户 id
+	userId                 string // 根据x_user_type填写审批人id
 	userIdFlag             bool
 	approvalCode           string // 审批定义 code
 	approvalCodeFlag       bool
@@ -7411,7 +7411,7 @@ func NewTaskSearchBuilder() *TaskSearchBuilder {
 	return builder
 }
 
-// 根据x_user_type填写用户 id
+// 根据x_user_type填写审批人id
 //
 // 示例值：lwiu098wj
 func (builder *TaskSearchBuilder) UserId(userId string) *TaskSearchBuilder {
@@ -7648,7 +7648,7 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 }
 
 type TaskSearchNode struct {
-	UserId     *string             `json:"user_id,omitempty"`     // 审批任务发起人 id
+	UserId     *string             `json:"user_id,omitempty"`     // 审批任务审批人 id
 	StartTime  *string             `json:"start_time,omitempty"`  // 审批任务开始时间
 	EndTime    *string             `json:"end_time,omitempty"`    // 审批任务结束时间
 	Status     *string             `json:"status,omitempty"`      // 审批任务状态
@@ -7660,7 +7660,7 @@ type TaskSearchNode struct {
 }
 
 type TaskSearchNodeBuilder struct {
-	userId         string // 审批任务发起人 id
+	userId         string // 审批任务审批人 id
 	userIdFlag     bool
 	startTime      string // 审批任务开始时间
 	startTimeFlag  bool
@@ -7685,7 +7685,7 @@ func NewTaskSearchNodeBuilder() *TaskSearchNodeBuilder {
 	return builder
 }
 
-// 审批任务发起人 id
+// 审批任务审批人 id
 //
 // 示例值：lwiu098wj
 func (builder *TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuilder {

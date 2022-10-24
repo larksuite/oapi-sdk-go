@@ -40,13 +40,13 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 下载
+	File             *file             // 文件夹
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
 	FileStatistics   *fileStatistics   // file.statistics
 	FileSubscription *fileSubscription // 订阅
 	ImportTask       *importTask       // 导入
-	Media            *media            // 素材
+	Media            *media            // 分片上传
 	Meta             *meta             // meta
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
@@ -564,9 +564,9 @@ func (f *fileComment) Get(ctx context.Context, req *GetFileCommentReq, options .
 	return resp, err
 }
 
-// 获取文档评论
+// 分页获取文档评论
 //
-// - 根据文档token分页获取云文档中的评论。
+// - 该接口用于根据文档 token 分页获取文档评论。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 //

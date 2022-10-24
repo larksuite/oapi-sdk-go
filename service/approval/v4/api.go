@@ -34,13 +34,13 @@ func NewService(config *larkcore.Config) *ApprovalService {
 
 type ApprovalService struct {
 	config           *larkcore.Config
-	Approval         *approval         // 原生审批定义
+	Approval         *approval         // 事件
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
 	Instance         *instance         // 原生审批实例
 	InstanceComment  *instanceComment  // 原生审批评论
-	Task             *task             // 审批查询
+	Task             *task             // 原生审批任务
 }
 
 type approval struct {
@@ -451,7 +451,7 @@ func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...lark
 
 // 批量获取审批实例ID
 //
-// - 根据 approval_code 批量获取审批实例的 instance_code，用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间排序
+// - 根据 approval_code 批量获取审批实例的 instance_code，用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间先后顺序排列
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list
 //

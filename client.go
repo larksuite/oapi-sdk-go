@@ -65,7 +65,7 @@ type Client struct {
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
 	Baike                  *larkbaike.BaikeService                                     // 企业百科
-	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
+	Bitable                *larkbitable.BitableService                                 // 云文档-电子表格
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
 	Contact                *larkcontact.ContactService                                 // 通讯录

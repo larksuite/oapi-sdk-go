@@ -4152,7 +4152,7 @@ type ListCalendarEventReq struct {
 }
 
 type ListCalendarEventRespData struct {
-	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否还有更多数据
 	PageToken *string          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记
 	SyncToken *string          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记
 	Items     []*CalendarEvent `json:"items,omitempty"`      // 日程列表

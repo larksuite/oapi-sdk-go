@@ -2576,13 +2576,13 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 }
 
 type ReserveScopeConfig struct {
-	AllowAllUsers *int                   `json:"allow_all_users,omitempty"` // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+	AllowAllUsers *int                   `json:"allow_all_users,omitempty"` // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
 	AllowUsers    []*SubscribeUser       `json:"allow_users,omitempty"`     // 可预定成员列表
 	AllowDepts    []*SubscribeDepartment `json:"allow_depts,omitempty"`     // 可预定部门列表
 }
 
 type ReserveScopeConfigBuilder struct {
-	allowAllUsers     int // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+	allowAllUsers     int // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
 	allowAllUsersFlag bool
 	allowUsers        []*SubscribeUser // 可预定成员列表
 	allowUsersFlag    bool
@@ -2595,7 +2595,7 @@ func NewReserveScopeConfigBuilder() *ReserveScopeConfigBuilder {
 	return builder
 }
 
-// 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预订部门或预订人
+// 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
 //
 // 示例值：0
 func (builder *ReserveScopeConfigBuilder) AllowAllUsers(allowAllUsers int) *ReserveScopeConfigBuilder {
@@ -3143,6 +3143,164 @@ func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMat
 	return req
 }
 
+type RoomEvent struct {
+	RoomId       *string          `json:"room_id,omitempty"`        // 会议室ID
+	Name         *string          `json:"name,omitempty"`           // 会议室名称
+	Capacity     *int             `json:"capacity,omitempty"`       // 会议室能容纳的人数
+	Description  *string          `json:"description,omitempty"`    // 会议室的相关描述
+	DisplayId    *string          `json:"display_id,omitempty"`     // 会议室的展示ID
+	CustomRoomId *string          `json:"custom_room_id,omitempty"` // 自定义的会议室ID
+	RoomLevelId  *string          `json:"room_level_id,omitempty"`  // 层级ID
+	Path         []string         `json:"path,omitempty"`           // 层级路径
+	RoomStatus   *RoomStatusEvent `json:"room_status,omitempty"`    // 会议室状态
+}
+
+type RoomEventBuilder struct {
+	roomId           string // 会议室ID
+	roomIdFlag       bool
+	name             string // 会议室名称
+	nameFlag         bool
+	capacity         int // 会议室能容纳的人数
+	capacityFlag     bool
+	description      string // 会议室的相关描述
+	descriptionFlag  bool
+	displayId        string // 会议室的展示ID
+	displayIdFlag    bool
+	customRoomId     string // 自定义的会议室ID
+	customRoomIdFlag bool
+	roomLevelId      string // 层级ID
+	roomLevelIdFlag  bool
+	path             []string // 层级路径
+	pathFlag         bool
+	roomStatus       *RoomStatusEvent // 会议室状态
+	roomStatusFlag   bool
+}
+
+func NewRoomEventBuilder() *RoomEventBuilder {
+	builder := &RoomEventBuilder{}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *RoomEventBuilder) RoomId(roomId string) *RoomEventBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 会议室名称
+//
+// 示例值：测试会议室
+func (builder *RoomEventBuilder) Name(name string) *RoomEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 会议室能容纳的人数
+//
+// 示例值：10
+func (builder *RoomEventBuilder) Capacity(capacity int) *RoomEventBuilder {
+	builder.capacity = capacity
+	builder.capacityFlag = true
+	return builder
+}
+
+// 会议室的相关描述
+//
+// 示例值：测试会议室描述
+func (builder *RoomEventBuilder) Description(description string) *RoomEventBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 会议室的展示ID
+//
+// 示例值：LM134742334
+func (builder *RoomEventBuilder) DisplayId(displayId string) *RoomEventBuilder {
+	builder.displayId = displayId
+	builder.displayIdFlag = true
+	return builder
+}
+
+// 自定义的会议室ID
+//
+// 示例值：1234
+func (builder *RoomEventBuilder) CustomRoomId(customRoomId string) *RoomEventBuilder {
+	builder.customRoomId = customRoomId
+	builder.customRoomIdFlag = true
+	return builder
+}
+
+// 层级ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *RoomEventBuilder) RoomLevelId(roomLevelId string) *RoomEventBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 层级路径
+//
+// 示例值：[omm_4de32cf10a4358788ff4e09e37ebbf9b,omm_3c5dd7e09bac0c1758fcf9511bd1a771]
+func (builder *RoomEventBuilder) Path(path []string) *RoomEventBuilder {
+	builder.path = path
+	builder.pathFlag = true
+	return builder
+}
+
+// 会议室状态
+//
+// 示例值：
+func (builder *RoomEventBuilder) RoomStatus(roomStatus *RoomStatusEvent) *RoomEventBuilder {
+	builder.roomStatus = roomStatus
+	builder.roomStatusFlag = true
+	return builder
+}
+
+func (builder *RoomEventBuilder) Build() *RoomEvent {
+	req := &RoomEvent{}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.capacityFlag {
+		req.Capacity = &builder.capacity
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.displayIdFlag {
+		req.DisplayId = &builder.displayId
+
+	}
+	if builder.customRoomIdFlag {
+		req.CustomRoomId = &builder.customRoomId
+
+	}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+
+	}
+	if builder.pathFlag {
+		req.Path = builder.path
+	}
+	if builder.roomStatusFlag {
+		req.RoomStatus = builder.roomStatus
+	}
+	return req
+}
+
 type RoomLevel struct {
 	RoomLevelId   *string  `json:"room_level_id,omitempty"`   // 层级ID
 	Name          *string  `json:"name,omitempty"`            // 层级名称
@@ -3397,6 +3555,149 @@ func (builder *RoomStatusBuilder) Build() *RoomStatus {
 	return req
 }
 
+type RoomStatusEvent struct {
+	Status           *bool     `json:"status,omitempty"`             // 是否启用会议室
+	ScheduleStatus   *bool     `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用
+	DisableStartTime *string   `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间，单位sec）
+	DisableEndTime   *string   `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+	DisableReason    *string   `json:"disable_reason,omitempty"`     // 禁用原因
+	ContactIds       []*UserId `json:"contact_ids,omitempty"`        // 联系人列表
+	DisableNotice    *bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
+	ResumeNotice     *bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
+}
+
+type RoomStatusEventBuilder struct {
+	status               bool // 是否启用会议室
+	statusFlag           bool
+	scheduleStatus       bool // 会议室未来状态为启用或禁用
+	scheduleStatusFlag   bool
+	disableStartTime     string // 禁用开始时间（unix时间，单位sec）
+	disableStartTimeFlag bool
+	disableEndTime       string // 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+	disableEndTimeFlag   bool
+	disableReason        string // 禁用原因
+	disableReasonFlag    bool
+	contactIds           []*UserId // 联系人列表
+	contactIdsFlag       bool
+	disableNotice        bool // 是否在禁用时发送通知给预定了该会议室的员工
+	disableNoticeFlag    bool
+	resumeNotice         bool // 是否在恢复启用时发送通知给预定了该会议室的员工
+	resumeNoticeFlag     bool
+}
+
+func NewRoomStatusEventBuilder() *RoomStatusEventBuilder {
+	builder := &RoomStatusEventBuilder{}
+	return builder
+}
+
+// 是否启用会议室
+//
+// 示例值：true
+func (builder *RoomStatusEventBuilder) Status(status bool) *RoomStatusEventBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 会议室未来状态为启用或禁用
+//
+// 示例值：true
+func (builder *RoomStatusEventBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatusEventBuilder {
+	builder.scheduleStatus = scheduleStatus
+	builder.scheduleStatusFlag = true
+	return builder
+}
+
+// 禁用开始时间（unix时间，单位sec）
+//
+// 示例值：1652356050
+func (builder *RoomStatusEventBuilder) DisableStartTime(disableStartTime string) *RoomStatusEventBuilder {
+	builder.disableStartTime = disableStartTime
+	builder.disableStartTimeFlag = true
+	return builder
+}
+
+// 禁用结束时间（unix时间，单位sec，数值0表示永久禁用）
+//
+// 示例值：1652442450
+func (builder *RoomStatusEventBuilder) DisableEndTime(disableEndTime string) *RoomStatusEventBuilder {
+	builder.disableEndTime = disableEndTime
+	builder.disableEndTimeFlag = true
+	return builder
+}
+
+// 禁用原因
+//
+// 示例值：测试占用
+func (builder *RoomStatusEventBuilder) DisableReason(disableReason string) *RoomStatusEventBuilder {
+	builder.disableReason = disableReason
+	builder.disableReasonFlag = true
+	return builder
+}
+
+// 联系人列表
+//
+// 示例值：
+func (builder *RoomStatusEventBuilder) ContactIds(contactIds []*UserId) *RoomStatusEventBuilder {
+	builder.contactIds = contactIds
+	builder.contactIdsFlag = true
+	return builder
+}
+
+// 是否在禁用时发送通知给预定了该会议室的员工
+//
+// 示例值：true
+func (builder *RoomStatusEventBuilder) DisableNotice(disableNotice bool) *RoomStatusEventBuilder {
+	builder.disableNotice = disableNotice
+	builder.disableNoticeFlag = true
+	return builder
+}
+
+// 是否在恢复启用时发送通知给预定了该会议室的员工
+//
+// 示例值：true
+func (builder *RoomStatusEventBuilder) ResumeNotice(resumeNotice bool) *RoomStatusEventBuilder {
+	builder.resumeNotice = resumeNotice
+	builder.resumeNoticeFlag = true
+	return builder
+}
+
+func (builder *RoomStatusEventBuilder) Build() *RoomStatusEvent {
+	req := &RoomStatusEvent{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.scheduleStatusFlag {
+		req.ScheduleStatus = &builder.scheduleStatus
+
+	}
+	if builder.disableStartTimeFlag {
+		req.DisableStartTime = &builder.disableStartTime
+
+	}
+	if builder.disableEndTimeFlag {
+		req.DisableEndTime = &builder.disableEndTime
+
+	}
+	if builder.disableReasonFlag {
+		req.DisableReason = &builder.disableReason
+
+	}
+	if builder.contactIdsFlag {
+		req.ContactIds = builder.contactIds
+	}
+	if builder.disableNoticeFlag {
+		req.DisableNotice = &builder.disableNotice
+
+	}
+	if builder.resumeNoticeFlag {
+		req.ResumeNotice = &builder.resumeNotice
+
+	}
+	return req
+}
+
 type ScopeConfig struct {
 	ScopeType   *int        `json:"scope_type,omitempty"`   // 查询节点范围
 	ScopeId     *string     `json:"scope_id,omitempty"`     // 查询节点ID：如果scope_type为1，则为层级ID，如果scope_type为2，则为会议室ID
@@ -3509,12 +3810,12 @@ func (builder *SubscribeDepartmentBuilder) Build() *SubscribeDepartment {
 }
 
 type SubscribeUser struct {
-	UserId   *string `json:"user_id,omitempty"`   // 审批人/预订人id
+	UserId   *string `json:"user_id,omitempty"`   // 审批人/预定人id
 	UserName *string `json:"user_name,omitempty"` // 预订人姓名
 }
 
 type SubscribeUserBuilder struct {
-	userId       string // 审批人/预订人id
+	userId       string // 审批人/预定人id
 	userIdFlag   bool
 	userName     string // 预订人姓名
 	userNameFlag bool
@@ -3525,7 +3826,7 @@ func NewSubscribeUserBuilder() *SubscribeUserBuilder {
 	return builder
 }
 
-// 审批人/预订人id
+// 审批人/预定人id
 //
 // 示例值：ou_a27b07a9071d90577c0177bcec98f856
 func (builder *SubscribeUserBuilder) UserId(userId string) *SubscribeUserBuilder {
@@ -3558,25 +3859,25 @@ func (builder *SubscribeUserBuilder) Build() *SubscribeUser {
 
 type TimeConfig struct {
 	TimeSwitch    *int    `json:"time_switch,omitempty"`     // 预定时间开关：0 代表关闭，1 代表开启
-	DaysInAdvance *int    `json:"days_in_advance,omitempty"` // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
-	OpeningHour   *string `json:"opening_hour,omitempty"`    // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	DaysInAdvance *int    `json:"days_in_advance,omitempty"` // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
+	OpeningHour   *string `json:"opening_hour,omitempty"`    // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 	StartTime     *string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 	EndTime       *string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	MaxDuration   *int    `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+	MaxDuration   *int    `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
 }
 
 type TimeConfigBuilder struct {
 	timeSwitch        int // 预定时间开关：0 代表关闭，1 代表开启
 	timeSwitchFlag    bool
-	daysInAdvance     int // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
+	daysInAdvance     int // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
 	daysInAdvanceFlag bool
-	openingHour       string // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	openingHour       string // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 	openingHourFlag   bool
 	startTime         string // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 	startTimeFlag     bool
 	endTime           string // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 	endTimeFlag       bool
-	maxDuration       int // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+	maxDuration       int // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
 	maxDurationFlag   bool
 }
 
@@ -3594,7 +3895,7 @@ func (builder *TimeConfigBuilder) TimeSwitch(timeSwitch int) *TimeConfigBuilder 
 	return builder
 }
 
-// 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-99]）;<b>说明</b>：不填写时，默认更新为 2
+// 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
 //
 // 示例值：30
 func (builder *TimeConfigBuilder) DaysInAdvance(daysInAdvance int) *TimeConfigBuilder {
@@ -3603,7 +3904,7 @@ func (builder *TimeConfigBuilder) DaysInAdvance(daysInAdvance int) *TimeConfigBu
 	return builder
 }
 
-// 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 0;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+// 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
 //
 // 示例值：27900
 func (builder *TimeConfigBuilder) OpeningHour(openingHour string) *TimeConfigBuilder {
@@ -3630,7 +3931,7 @@ func (builder *TimeConfigBuilder) EndTime(endTime string) *TimeConfigBuilder {
 	return builder
 }
 
-// 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 99
+// 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
 //
 // 示例值：24
 func (builder *TimeConfigBuilder) MaxDuration(maxDuration int) *TimeConfigBuilder {
@@ -4648,6 +4949,255 @@ type ParticipantQualityListExportResp struct {
 }
 
 func (resp *ParticipantQualityListExportResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ResourceReservationListExportReqBodyBuilder struct {
+	roomLevelId     string // 会议室层级id
+	roomLevelIdFlag bool
+	needTopic       bool // 是否展示会议主题
+	needTopicFlag   bool
+	startTime       string // 查询开始时间（unix时间，单位sec）
+	startTimeFlag   bool
+	endTime         string // 查询结束时间（unix时间，单位sec）
+	endTimeFlag     bool
+	roomIds         []string // 待筛选的会议室id列表
+	roomIdsFlag     bool
+	isExclude       bool // 若为true表示导出room_ids范围外的会议室，默认为false
+	isExcludeFlag   bool
+}
+
+func NewResourceReservationListExportReqBodyBuilder() *ResourceReservationListExportReqBodyBuilder {
+	builder := &ResourceReservationListExportReqBodyBuilder{}
+	return builder
+}
+
+// 会议室层级id
+//
+//示例值：omm_608d34d82d531b27fa993902d350a307
+func (builder *ResourceReservationListExportReqBodyBuilder) RoomLevelId(roomLevelId string) *ResourceReservationListExportReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 是否展示会议主题
+//
+//示例值：true
+func (builder *ResourceReservationListExportReqBodyBuilder) NeedTopic(needTopic bool) *ResourceReservationListExportReqBodyBuilder {
+	builder.needTopic = needTopic
+	builder.needTopicFlag = true
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ResourceReservationListExportReqBodyBuilder) StartTime(startTime string) *ResourceReservationListExportReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+//示例值：1655276858
+func (builder *ResourceReservationListExportReqBodyBuilder) EndTime(endTime string) *ResourceReservationListExportReqBodyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 待筛选的会议室id列表
+//
+//示例值：["omm_eada1d61a550955240c28757e7dec3af"]
+func (builder *ResourceReservationListExportReqBodyBuilder) RoomIds(roomIds []string) *ResourceReservationListExportReqBodyBuilder {
+	builder.roomIds = roomIds
+	builder.roomIdsFlag = true
+	return builder
+}
+
+// 若为true表示导出room_ids范围外的会议室，默认为false
+//
+//示例值：false
+func (builder *ResourceReservationListExportReqBodyBuilder) IsExclude(isExclude bool) *ResourceReservationListExportReqBodyBuilder {
+	builder.isExclude = isExclude
+	builder.isExcludeFlag = true
+	return builder
+}
+
+func (builder *ResourceReservationListExportReqBodyBuilder) Build() *ResourceReservationListExportReqBody {
+	req := &ResourceReservationListExportReqBody{}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.needTopicFlag {
+		req.NeedTopic = &builder.needTopic
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	if builder.roomIdsFlag {
+		req.RoomIds = builder.roomIds
+	}
+	if builder.isExcludeFlag {
+		req.IsExclude = &builder.isExclude
+	}
+	return req
+}
+
+type ResourceReservationListExportPathReqBodyBuilder struct {
+	roomLevelId     string // 会议室层级id
+	roomLevelIdFlag bool
+	needTopic       bool // 是否展示会议主题
+	needTopicFlag   bool
+	startTime       string // 查询开始时间（unix时间，单位sec）
+	startTimeFlag   bool
+	endTime         string // 查询结束时间（unix时间，单位sec）
+	endTimeFlag     bool
+	roomIds         []string // 待筛选的会议室id列表
+	roomIdsFlag     bool
+	isExclude       bool // 若为true表示导出room_ids范围外的会议室，默认为false
+	isExcludeFlag   bool
+}
+
+func NewResourceReservationListExportPathReqBodyBuilder() *ResourceReservationListExportPathReqBodyBuilder {
+	builder := &ResourceReservationListExportPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议室层级id
+//
+// 示例值：omm_608d34d82d531b27fa993902d350a307
+func (builder *ResourceReservationListExportPathReqBodyBuilder) RoomLevelId(roomLevelId string) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 是否展示会议主题
+//
+// 示例值：true
+func (builder *ResourceReservationListExportPathReqBodyBuilder) NeedTopic(needTopic bool) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.needTopic = needTopic
+	builder.needTopicFlag = true
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ResourceReservationListExportPathReqBodyBuilder) StartTime(startTime string) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *ResourceReservationListExportPathReqBodyBuilder) EndTime(endTime string) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 待筛选的会议室id列表
+//
+// 示例值：["omm_eada1d61a550955240c28757e7dec3af"]
+func (builder *ResourceReservationListExportPathReqBodyBuilder) RoomIds(roomIds []string) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.roomIds = roomIds
+	builder.roomIdsFlag = true
+	return builder
+}
+
+// 若为true表示导出room_ids范围外的会议室，默认为false
+//
+// 示例值：false
+func (builder *ResourceReservationListExportPathReqBodyBuilder) IsExclude(isExclude bool) *ResourceReservationListExportPathReqBodyBuilder {
+	builder.isExclude = isExclude
+	builder.isExcludeFlag = true
+	return builder
+}
+
+func (builder *ResourceReservationListExportPathReqBodyBuilder) Build() (*ResourceReservationListExportReqBody, error) {
+	req := &ResourceReservationListExportReqBody{}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.needTopicFlag {
+		req.NeedTopic = &builder.needTopic
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	if builder.roomIdsFlag {
+		req.RoomIds = builder.roomIds
+	}
+	if builder.isExcludeFlag {
+		req.IsExclude = &builder.isExclude
+	}
+	return req, nil
+}
+
+type ResourceReservationListExportReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ResourceReservationListExportReqBody
+}
+
+func NewResourceReservationListExportReqBuilder() *ResourceReservationListExportReqBuilder {
+	builder := &ResourceReservationListExportReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 导出会议室预定数据，具体权限要求请参考「导出概述」
+func (builder *ResourceReservationListExportReqBuilder) Body(body *ResourceReservationListExportReqBody) *ResourceReservationListExportReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ResourceReservationListExportReqBuilder) Build() *ResourceReservationListExportReq {
+	req := &ResourceReservationListExportReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ResourceReservationListExportReqBody struct {
+	RoomLevelId *string  `json:"room_level_id,omitempty"` // 会议室层级id
+	NeedTopic   *bool    `json:"need_topic,omitempty"`    // 是否展示会议主题
+	StartTime   *string  `json:"start_time,omitempty"`    // 查询开始时间（unix时间，单位sec）
+	EndTime     *string  `json:"end_time,omitempty"`      // 查询结束时间（unix时间，单位sec）
+	RoomIds     []string `json:"room_ids,omitempty"`      // 待筛选的会议室id列表
+	IsExclude   *bool    `json:"is_exclude,omitempty"`    // 若为true表示导出room_ids范围外的会议室，默认为false
+}
+
+type ResourceReservationListExportReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ResourceReservationListExportReqBody `body:""`
+}
+
+type ResourceReservationListExportRespData struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务id
+}
+
+type ResourceReservationListExportResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ResourceReservationListExportRespData `json:"data"` // 业务数据
+}
+
+func (resp *ResourceReservationListExportResp) Success() bool {
 	return resp.Code == 0
 }
 

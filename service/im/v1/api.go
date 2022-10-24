@@ -56,7 +56,7 @@ type ImService struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息 - 消息卡片
+	Message          *message          // 消息
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
@@ -311,7 +311,7 @@ func (c *chat) Link(ctx context.Context, req *LinkChatReq, options ...larkcore.R
 //
 // - 获取用户或者机器人所在群列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL;- 获取的群列表不包含p2p单聊群
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL;- 获取的群列表不包含P2P单聊
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 //
@@ -411,7 +411,7 @@ func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkco
 //
 // - 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 获取内部群信息时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
 //
@@ -439,7 +439,7 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 //
 // - 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 若群开启了 ==仅群主和群管理员可编辑群信息== 配置，群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新群公告;- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置，所有成员可以更新群公告
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 操作者需要拥有群公告文档的阅读权限;- 获取内部群信息时，操作者须与群组在同一租户下;- 若群开启了 ==仅群主和群管理员可编辑群信息== 配置，群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新群公告;- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置，所有成员可以更新群公告
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 //
@@ -467,7 +467,7 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 //
 // - 将用户或机器人指定为群管理员。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以指定群管理员;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 指定机器人类型的管理员请使用 ==app_id==
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以指定群管理员
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/add_managers
 //
@@ -495,7 +495,7 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 //
 // - 删除指定的群管理员（用户或机器人）。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以删除群管理员;- 每次请求最多指定 50 个用户或者 5 个机器人;- 删除机器人类型的管理员请使用 ==app_id==
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 仅有群主可以删除群管理员
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/delete_managers
 //
@@ -551,7 +551,7 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 //
 // - 将用户或机器人移出群聊。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人; - 每次请求，最多移除50个用户或者5个机器人
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人;- 每次请求，最多移除50个用户或者5个机器人;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 //
@@ -577,9 +577,9 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 
 // 获取群成员列表
 //
-// - 如果用户在群中，则返回该群的成员列表。
+// - 获取用户/机器人所在群的群成员列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中; - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size;- 获取内部群信息时，操作者须与群组在同一租户下;- 获取外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 //
@@ -615,6 +615,8 @@ func (c *chatMembers) GetByIterator(ctx context.Context, req *GetChatMembersReq,
 //
 // - 根据使用的access_token判断对应的用户或者机器人是否在群里。
 //
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 获取内部群信息时，操作者须与群组在同一租户下;- 获取外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+//
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/isInChat_chatMembers.go
@@ -641,7 +643,7 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 //
 // - 用户或机器人主动加入群聊。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 目前仅支持加入公开群
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 目前仅支持加入公开群;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
 //
@@ -731,9 +733,9 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 
 // 添加会话标签页
 //
-// - 添加自定义会话标签页
+// - 添加自定义会话标签页。
 //
-// - 注意事项：;;- 只允许添加类型为doc和url的会话标签页;;- 创建时不需要设置tabID;;- 一个群内最多只允许添加20个自定义会话标签页;;- 会话标签页的名称不超过30个字符;;- 添加doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 不需要填写请求体中的`tab_id`字段;- 只允许添加类型为`doc`和`url`的会话标签页;- 添加doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create
 //
@@ -759,7 +761,9 @@ func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...
 
 // 删除会话标签页
 //
-// - 删除会话标签页
+// - 删除会话标签页。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许删除类型为`doc`和`url`的会话标签页;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/delete_tabs
 //
@@ -785,7 +789,9 @@ func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, opt
 
 // 拉取会话标签页
 //
-// - 拉取会话标签页
+// - 拉取会话标签页。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs
 //
@@ -811,9 +817,9 @@ func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options
 
 // 会话标签页排序
 //
-// - 会话标签页排序
+// - 会话标签页排序。
 //
-// - 注意事项：;;- 当前消息标签页固定为第一顺位，不参与排序，但是请求体中必须包含。;;- 请求体必须包含全部的TabID
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 消息标签页强制固定为第一顺位，不参与排序，但是请求体中必须包含该标签页的Tab ID;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/sort_tabs
 //
@@ -841,7 +847,7 @@ func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options
 //
 // - 更新会话标签页
 //
-// - 注意事项：;;- 只允许更新类型为doc和url的会话标签页;;- 会话标签页的名称不超过30个字符;;- 更新doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许更新类型为`doc`和`url`的会话标签页;- 更新doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/update_tabs
 //
@@ -1135,7 +1141,7 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 //
 // - 获取会话（包括单聊、群组）的历史消息（聊天记录）。
 //
-// - 接口级别权限默认只能获取单聊（p2p）消息，如果需要获取群组（group）消息，应用还必须拥有 ***获取群组中所有消息*** 权限
+// - 接口级别权限默认只能获取单聊（p2p）消息，如果需要获取群组（group）消息，应用还必须拥有 **==获取群组中所有消息==** 权限
 //
 // - - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 获取消息时，机器人必须在群组中
 //
@@ -1173,7 +1179,7 @@ func (m *message) ListByIterator(ctx context.Context, req *ListMessageReq, optio
 //
 // - 更新应用已发送的消息卡片内容。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 若以user_access_token更新消息，该操作用户必须是卡片消息的发送者;- 对所有人更新[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)，需在卡片的config属性中，显式声明`"update_multi":true`。 更新特定人的卡片内容，必须在用户对卡片进行交互操作后触发调用，参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)  ;- 当前仅支持更新未撤回的 **卡片消息**;- **不支持更新批量消息**;- 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB;- 仅支持修改14天内发送的消息;- 单条消息更新频控为**5QPS**
+// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 若以user_access_token更新消息，该操作用户必须是卡片消息的发送者;- 仅支持对所有人更新**未撤回**的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)消息，需在卡片的config属性中，显式声明 =="update_multi":true==。 ;- **不支持更新批量消息**;- 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB;- 仅支持修改14天内发送的消息;- 单条消息更新频控为**5QPS**
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 //

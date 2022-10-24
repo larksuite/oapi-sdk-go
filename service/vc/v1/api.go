@@ -42,7 +42,7 @@ type VcService struct {
 	MeetingRecording *meetingRecording // 录制
 	Report           *report           // 会议报告
 	Reserve          *reserve          // 预约
-	ReserveConfig    *reserveConfig    // 会议室预定范围
+	ReserveConfig    *reserveConfig    // reserve_config
 	RoomConfig       *roomConfig       // 会议室配置
 }
 
@@ -234,6 +234,32 @@ func (e *export) ParticipantQualityList(ctx context.Context, req *ParticipantQua
 	}
 	// 反序列响应结果
 	resp := &ParticipantQualityListExportResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 导出会议室预定数据
+//
+// - 导出会议室预定数据，具体权限要求请参考「导出概述」
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/resource_reservation_list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/resourceReservationList_export.go
+func (e *export) ResourceReservationList(ctx context.Context, req *ResourceReservationListExportReq, options ...larkcore.RequestOptionFunc) (*ResourceReservationListExportResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/exports/resource_reservation_list"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ResourceReservationListExportResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

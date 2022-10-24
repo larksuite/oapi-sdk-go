@@ -892,13 +892,13 @@ func (builder *FilterViewConditionBuilder) Build() *FilterViewCondition {
 
 type Find struct {
 	FindCondition *FindCondition `json:"find_condition,omitempty"` // 查找条件
-	Find          *string        `json:"find,omitempty"`           // 查找的字符串
+	Find          *string        `json:"find,omitempty"`           // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
 }
 
 type FindBuilder struct {
 	findCondition     *FindCondition // 查找条件
 	findConditionFlag bool
-	find              string // 查找的字符串
+	find              string // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
 	findFlag          bool
 }
 
@@ -916,9 +916,9 @@ func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBui
 	return builder
 }
 
-// 查找的字符串
+// 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
 //
-// 示例值：hello
+// 示例值：如下;;- 普通查找示例: “hello”;- 正则查找示例: "[A-Z]\w+" [正则表达式测试](https://regexr.com/)
 func (builder *FindBuilder) Find(find string) *FindBuilder {
 	builder.find = find
 	builder.findFlag = true
@@ -938,23 +938,23 @@ func (builder *FindBuilder) Build() *Find {
 }
 
 type FindCondition struct {
-	Range           *string `json:"range,omitempty"`             // 查找范围
-	MatchCase       *bool   `json:"match_case,omitempty"`        // 是否忽略大小写
-	MatchEntireCell *bool   `json:"match_entire_cell,omitempty"` // 是否匹配整个单元格
-	SearchByRegex   *bool   `json:"search_by_regex,omitempty"`   // 是否为正则匹配
-	IncludeFormulas *bool   `json:"include_formulas,omitempty"`  // 是否搜索公式内容
+	Range           *string `json:"range,omitempty"`             // 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	MatchCase       *bool   `json:"match_case,omitempty"`        // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
+	MatchEntireCell *bool   `json:"match_entire_cell,omitempty"` // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
+	SearchByRegex   *bool   `json:"search_by_regex,omitempty"`   // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
+	IncludeFormulas *bool   `json:"include_formulas,omitempty"`  // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
 }
 
 type FindConditionBuilder struct {
-	range_              string // 查找范围
+	range_              string // 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	rangeFlag           bool
-	matchCase           bool // 是否忽略大小写
+	matchCase           bool // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
 	matchCaseFlag       bool
-	matchEntireCell     bool // 是否匹配整个单元格
+	matchEntireCell     bool // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
 	matchEntireCellFlag bool
-	searchByRegex       bool // 是否为正则匹配
+	searchByRegex       bool // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
 	searchByRegexFlag   bool
-	includeFormulas     bool // 是否搜索公式内容
+	includeFormulas     bool // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
 	includeFormulasFlag bool
 }
 
@@ -963,16 +963,16 @@ func NewFindConditionBuilder() *FindConditionBuilder {
 	return builder
 }
 
-// 查找范围
+// 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 //
-// 示例值：0b**12!A1:H10
+// 示例值：PNIfrm!A1:C5
 func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder {
 	builder.range_ = range_
 	builder.rangeFlag = true
 	return builder
 }
 
-// 是否忽略大小写
+// 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
 //
 // 示例值：true
 func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBuilder {
@@ -981,7 +981,7 @@ func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBui
 	return builder
 }
 
-// 是否匹配整个单元格
+// 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
 //
 // 示例值：false
 func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *FindConditionBuilder {
@@ -990,7 +990,7 @@ func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *Find
 	return builder
 }
 
-// 是否为正则匹配
+// 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
 //
 // 示例值：false
 func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindConditionBuilder {
@@ -999,7 +999,7 @@ func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindCond
 	return builder
 }
 
-// 是否搜索公式内容
+// 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
 //
 // 示例值：false
 func (builder *FindConditionBuilder) IncludeFormulas(includeFormulas bool) *FindConditionBuilder {
@@ -2381,11 +2381,11 @@ func (builder *SegmentStyleStyleBuilder) Build() *SegmentStyleStyle {
 type Sheet struct {
 	SheetId        *string         `json:"sheet_id,omitempty"`        // 工作表id
 	Title          *string         `json:"title,omitempty"`           // 工作表标题
-	Index          *int            `json:"index,omitempty"`           // 工作表索引位置
-	Hidden         *bool           `json:"hidden,omitempty"`          // 工作表是否被隐藏
+	Index          *int            `json:"index,omitempty"`           // 工作表索引位置，索引从 0 开始计数。
+	Hidden         *bool           `json:"hidden,omitempty"`          // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
 	GridProperties *GridProperties `json:"grid_properties,omitempty"` // 单元格属性
-	ResourceType   *string         `json:"resource_type,omitempty"`   // 工作表类型
-	Merges         []*MergeRange   `json:"merges,omitempty"`          // 合并单元格
+	ResourceType   *string         `json:"resource_type,omitempty"`   // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
+	Merges         []*MergeRange   `json:"merges,omitempty"`          // 合并单元格的相关信息
 }
 
 type SheetBuilder struct {
@@ -2393,15 +2393,15 @@ type SheetBuilder struct {
 	sheetIdFlag        bool
 	title              string // 工作表标题
 	titleFlag          bool
-	index              int // 工作表索引位置
+	index              int // 工作表索引位置，索引从 0 开始计数。
 	indexFlag          bool
-	hidden             bool // 工作表是否被隐藏
+	hidden             bool // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
 	hiddenFlag         bool
 	gridProperties     *GridProperties // 单元格属性
 	gridPropertiesFlag bool
-	resourceType       string // 工作表类型
+	resourceType       string // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
 	resourceTypeFlag   bool
-	merges             []*MergeRange // 合并单元格
+	merges             []*MergeRange // 合并单元格的相关信息
 	mergesFlag         bool
 }
 
@@ -2428,7 +2428,7 @@ func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 	return builder
 }
 
-// 工作表索引位置
+// 工作表索引位置，索引从 0 开始计数。
 //
 // 示例值：0
 func (builder *SheetBuilder) Index(index int) *SheetBuilder {
@@ -2437,7 +2437,7 @@ func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 	return builder
 }
 
-// 工作表是否被隐藏
+// 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
 //
 // 示例值：false
 func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
@@ -2455,7 +2455,7 @@ func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *She
 	return builder
 }
 
-// 工作表类型
+// 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
 //
 // 示例值：sheet
 func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
@@ -2464,7 +2464,7 @@ func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 	return builder
 }
 
-// 合并单元格
+// 合并单元格的相关信息
 //
 // 示例值：
 func (builder *SheetBuilder) Merges(merges []*MergeRange) *SheetBuilder {
@@ -2648,7 +2648,7 @@ func (builder *SheetPropertiesBuilder) Build() *SheetProperties {
 
 type Spreadsheet struct {
 	Title            *string `json:"title,omitempty"`             // 表格标题
-	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 	Url              *string `json:"url,omitempty"`               // 文档url
 	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 表格token
 }
@@ -2656,7 +2656,7 @@ type Spreadsheet struct {
 type SpreadsheetBuilder struct {
 	title                string // 表格标题
 	titleFlag            bool
-	folderToken          string // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	folderToken          string // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 	folderTokenFlag      bool
 	url                  string // 文档url
 	urlFlag              bool
@@ -2678,7 +2678,7 @@ func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	return builder
 }
 
-// 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+// 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：fldcnMsNb*****hIW9IjG1LVswg
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
@@ -3039,7 +3039,7 @@ func NewCreateSpreadsheetReqBuilder() *CreateSpreadsheetReqBuilder {
 	return builder
 }
 
-// 使用该接口可以在指定的目录下创建在线表格。
+// 在指定目录下创建表格
 func (builder *CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet) *CreateSpreadsheetReqBuilder {
 	builder.spreadsheet = spreadsheet
 	return builder
@@ -3190,7 +3190,7 @@ func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 表格的 token
+// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：shtcnmBA*****yGehy8
 func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder {
@@ -3198,7 +3198,7 @@ func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken
 	return builder
 }
 
-// 子表的 id
+// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
 //
 // 示例值：0b**12
 func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder {
@@ -3206,7 +3206,7 @@ func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpre
 	return builder
 }
 
-// 按照指定的条件查找子表的某个范围内的数据符合条件的单元格位置。请求体中的 range 和 find 字段为必填。
+// 在指定范围内查找符合查找条件的单元格。
 func (builder *FindSpreadsheetSheetReqBuilder) Find(find *Find) *FindSpreadsheetSheetReqBuilder {
 	builder.find = find
 	return builder
@@ -3226,7 +3226,7 @@ type FindSpreadsheetSheetReq struct {
 }
 
 type FindSpreadsheetSheetRespData struct {
-	FindResult *FindReplaceResult `json:"find_result,omitempty"` // 查找返回符合条件的信息
+	FindResult *FindReplaceResult `json:"find_result,omitempty"` // 符合条件的信息
 }
 
 type FindSpreadsheetSheetResp struct {
@@ -3252,7 +3252,7 @@ func NewGetSpreadsheetSheetReqBuilder() *GetSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 电子表格的token
+// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：shtxxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetReqBuilder {
@@ -3260,7 +3260,7 @@ func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken 
 	return builder
 }
 
-// 工作表的id
+// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
 //
 // 示例值：giDk9k
 func (builder *GetSpreadsheetSheetReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetReqBuilder {

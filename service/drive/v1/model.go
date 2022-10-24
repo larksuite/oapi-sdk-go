@@ -3827,6 +3827,182 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
+type Version struct {
+	Name        *string `json:"name,omitempty"`         // 版本文档标题
+	Version     *string `json:"version,omitempty"`      // 版本文档版本号
+	ParentToken *string `json:"parent_token,omitempty"` // shtbcpM2mm3znrLfWnf4browTYp
+	OwnerId     *string `json:"owner_id,omitempty"`     // 版本文档所有者id
+	CreatorId   *string `json:"creator_id,omitempty"`   // 版本文档创建者id
+	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间
+	UpdateTime  *string `json:"update_time,omitempty"`  // 版本文档更新时间
+	Status      *string `json:"status,omitempty"`       // 版本文档状态
+	ObjType     *string `json:"obj_type,omitempty"`     // 版本文档类型
+	ParentType  *string `json:"parent_type,omitempty"`  // 源文档类型
+}
+
+type VersionBuilder struct {
+	name            string // 版本文档标题
+	nameFlag        bool
+	version         string // 版本文档版本号
+	versionFlag     bool
+	parentToken     string // shtbcpM2mm3znrLfWnf4browTYp
+	parentTokenFlag bool
+	ownerId         string // 版本文档所有者id
+	ownerIdFlag     bool
+	creatorId       string // 版本文档创建者id
+	creatorIdFlag   bool
+	createTime      string // 版本文档创建时间
+	createTimeFlag  bool
+	updateTime      string // 版本文档更新时间
+	updateTimeFlag  bool
+	status          string // 版本文档状态
+	statusFlag      bool
+	objType         string // 版本文档类型
+	objTypeFlag     bool
+	parentType      string // 源文档类型
+	parentTypeFlag  bool
+}
+
+func NewVersionBuilder() *VersionBuilder {
+	builder := &VersionBuilder{}
+	return builder
+}
+
+// 版本文档标题
+//
+// 示例值：文档标题
+func (builder *VersionBuilder) Name(name string) *VersionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 版本文档版本号
+//
+// 示例值：version1
+func (builder *VersionBuilder) Version(version string) *VersionBuilder {
+	builder.version = version
+	builder.versionFlag = true
+	return builder
+}
+
+// shtbcpM2mm3znrLfWnf4browTYp
+//
+// 示例值：1665739388
+func (builder *VersionBuilder) ParentToken(parentToken string) *VersionBuilder {
+	builder.parentToken = parentToken
+	builder.parentTokenFlag = true
+	return builder
+}
+
+// 版本文档所有者id
+//
+// 示例值：694699009591869450
+func (builder *VersionBuilder) OwnerId(ownerId string) *VersionBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+// 版本文档创建者id
+//
+// 示例值：694699009591869451
+func (builder *VersionBuilder) CreatorId(creatorId string) *VersionBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+
+// 版本文档创建时间
+//
+// 示例值：1660708537
+func (builder *VersionBuilder) CreateTime(createTime string) *VersionBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 版本文档更新时间
+//
+// 示例值：1660708537
+func (builder *VersionBuilder) UpdateTime(updateTime string) *VersionBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 版本文档状态
+//
+// 示例值：0
+func (builder *VersionBuilder) Status(status string) *VersionBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 版本文档类型
+//
+// 示例值：docx
+func (builder *VersionBuilder) ObjType(objType string) *VersionBuilder {
+	builder.objType = objType
+	builder.objTypeFlag = true
+	return builder
+}
+
+// 源文档类型
+//
+// 示例值：docx
+func (builder *VersionBuilder) ParentType(parentType string) *VersionBuilder {
+	builder.parentType = parentType
+	builder.parentTypeFlag = true
+	return builder
+}
+
+func (builder *VersionBuilder) Build() *Version {
+	req := &Version{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.versionFlag {
+		req.Version = &builder.version
+
+	}
+	if builder.parentTokenFlag {
+		req.ParentToken = &builder.parentToken
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.objTypeFlag {
+		req.ObjType = &builder.objType
+
+	}
+	if builder.parentTypeFlag {
+		req.ParentType = &builder.parentType
+
+	}
+	return req
+}
+
 type CreateExportTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	exportTask *ExportTask
@@ -5571,7 +5747,7 @@ func (builder *ListFileCommentReqBuilder) Limit(limit int) *ListFileCommentReqBu
 
 // 文档token
 //
-// 示例值：doccnHh7U87HOFpii5u5G*****
+// 示例值：XIHSdYSI7oMEU1xrsnxc8fabcef
 func (builder *ListFileCommentReqBuilder) FileToken(fileToken string) *ListFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -5603,7 +5779,7 @@ func (builder *ListFileCommentReqBuilder) IsSolved(isSolved bool) *ListFileComme
 
 //
 //
-// 示例值：6916106822734578184
+// 示例值：7153511712153412356
 func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -5611,7 +5787,7 @@ func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileC
 
 //
 //
-// 示例值：10
+// 示例值：
 func (builder *ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder

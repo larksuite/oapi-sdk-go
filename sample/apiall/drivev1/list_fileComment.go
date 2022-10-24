@@ -27,11 +27,11 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkdrive.NewListFileCommentReqBuilder().
-		FileToken("doccnHh7U87HOFpii5u5G*****").
+		FileToken("XIHSdYSI7oMEU1xrsnxc8fabcef").
 		FileType("doc").
 		UserIdType("user_id").
 		IsSolved(false).
-		PageToken("6916106822734578184").
+		PageToken("7153511712153412356").
 		PageSize(20).
 		Build()
 	// 发起请求

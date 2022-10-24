@@ -3399,7 +3399,7 @@ func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilde
 
 // 评论 id 列表
 //
-// 示例值：[1660030311959965796]
+// 示例值：["1660030311959965796"]
 func (builder *TextElementStyleBuilder) CommentIds(commentIds []string) *TextElementStyleBuilder {
 	builder.commentIds = commentIds
 	builder.commentIdsFlag = true

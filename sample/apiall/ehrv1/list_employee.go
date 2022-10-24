@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
@@ -34,7 +33,7 @@ func main() {
 		StartTime("1608690517811").
 		EndTime("1608690517811").
 		UserIdType("user_id").
-		UserIds([]string{"a", "b"}).
+		UserIds([]string{}).
 		PageToken("10").
 		PageSize(10).
 		Build()
