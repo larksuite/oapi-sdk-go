@@ -23,6 +23,7 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+  - [集成hertz框架](#集成hertz框架)
 
 - [处理卡片行为回调](#处理卡片行为回调)
   - [基本用法](#基本用法-2)
@@ -32,6 +33,7 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+  - [ 集成hertz框架](#集成hertz框架-1)
 - [加入答疑群](#加入答疑群)
 
 
@@ -689,6 +691,10 @@ func main() {
 ```
 
 
+### 集成hertz框架
+[集成hertz框架](https://github.com/hertz-contrib/lark-hertz)
+
+
 ## 处理卡片行为回调
 
 关于卡片行为相关的知识，可点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)
@@ -932,6 +938,10 @@ func main() {
       ...
 }
 ```
+
+### 集成hertz框架
+[集成hertz框架](https://github.com/hertz-contrib/lark-hertz)
+
 ## 加入答疑群
 [单击加入答疑群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=5b4ua18d-80e0-41b6-a7ea-1229b0feb78f)
 
