@@ -23,6 +23,7 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+  - [集成hertz框架](#集成hertz框架)
 
 - [处理卡片行为回调](#处理卡片行为回调)
   - [基本用法](#基本用法-2)
@@ -32,6 +33,7 @@
   - [集成gin框架](#集成gin框架)
     - [安装集成包](#安装集成包)
     - [集成示例](#集成示例)
+  - [ 集成hertz框架](#集成hertz框架-1)
 - [加入答疑群](#加入答疑群)
 
 
@@ -286,8 +288,6 @@ type HttpClient interface {
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"os"
 
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
@@ -335,7 +335,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
@@ -470,47 +469,53 @@ func main() {
 有些老版本的开放接口，不能生成结构化的 API， 导致 SDK 内无法提供结构化的使用方式，这时可使用原生模式进行调用：
 
 ```go
+
 import (
 	"context"
 	"fmt"
-	"os"
+	"net/http"
 
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 func main() {
-	// 创建 API Client
-	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithLogLevel(larkcore.LogLevelDebug))
+	// 创建client
+	client := lark.NewClient("appID", "appSecret")
+
+	// 自定义请求headers
+	header := make(http.Header)
+	header.Add("k1", "v1")
+	header.Add("k2", "v2")
 
 	// 发起请求
-	resp, err := cli.Do(context.Background(),
-		&larkcore.ApiReq{
-			HttpMethod:                http.MethodGet,
-			ApiPath:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
-			Body:                      nil,
-			QueryParams:               larkcore.QueryParams{"user_id_type": []string{"open_id"}},
-			PathParams:                larkcore.PathParams{"user_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d"},
-			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
-		},
-		larkcore.WithUserAccessToken("u-3Sr1oTO4V1FWxTFTFYuFCqhk2Vs4h5IbhMG00gmw0CXh"),
+	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
+		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
+			FolderToken("token").
+			Title("title").
+			Build(),
+		).
+		Build(),
+		larkcore.WithHeaders(header), // 设置自定义headers
 	)
 
-	// 错误处理
+	//处理错误
 	if err != nil {
-		fmt.Println(err)
+		// 处理err
 		return
 	}
 
-	// 获取请求 ID
-	fmt.Println(resp.RequestId())
+	// 服务端错误处理
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
 
-	// 处理请求结果
-	fmt.Println(resp.StatusCode)      // http status code
-	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body
+	// 业务数据处理
+	fmt.Println(larkcore.Prettify(resp.Data))
 }
+
 ```
 
 更多 API 调用示例：[./sample/callrawapi/api.go](./sample/callrawapi/api.go)
@@ -533,7 +538,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
 	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
@@ -584,52 +588,60 @@ func main() {
 针对 ISV 开发者，如果想在消息处理器内给对应租户的用户发送消息，则需先从消息事件内获取租户 key,然后使用下面方式调用消息 API 进行消息发送：
 
 ```go
+
 import (
 	"context"
 	"fmt"
+	lark "github.com/larksuite/oapi-sdk-go/v3"
 	"net/http"
+	"os"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
-	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
-    // 注册消息处理器
-    handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
-        // 处理消息 event，这里简单打印消息的内容 
-        fmt.Println(larkcore.Prettify(event))
-        fmt.Println(event.RequestId())
-        
-        // 获取租户 key 并发送消息
-        tenanKey := event.TenantKey()
-        
-        // ISV 给指定租户发送消息
-        resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-                ReceiveIdType(larkim.ReceiveIdTypeOpenId).
-                Body(larkim.NewCreateMessageReqBodyBuilder().
-                    MsgType(larkim.MsgTypePost).
-                    ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
-                    Content("text").
-                    Build(), larkcore.WithTenantKey(tenanKey)).
-                Build())
-                
-        // 发送结果处理，resp,err
-		
-        return nil
-    })
-    
-    // 注册 http 路由
-    http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
-    
-    // 启动 http 服务
-    err := http.ListenAndServe(":9999", nil)
-    if err != nil {
-        panic(err)
-    }
+
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithLogLevel(larkcore.LogLevelDebug))
+
+	// 注册消息处理器
+	handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		// 处理消息 event，这里简单打印消息的内容
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+
+		// 获取租户 key 并发送消息
+		tenantKey := event.TenantKey()
+
+		// ISV 给指定租户发送消息
+		resp, err := cli.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+			ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+			Body(larkim.NewCreateMessageReqBodyBuilder().
+				MsgType(larkim.MsgTypePost).
+				ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+				Content("text").
+				Build()).
+			Build(), larkcore.WithTenantKey(tenantKey))
+
+		// 发送结果处理，resp,err
+		fmt.Println(resp, err)
+
+		return nil
+	})
+
+	// 注册 http 路由
+	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	// 启动 http 服务
+	err := http.ListenAndServe(":9999", nil)
+	if err != nil {
+		panic(err)
+	}
 }
 
 ```
@@ -687,6 +699,10 @@ func main() {
 	gin.POST("/webhook/event", sdkginext.NewEventHandlerFunc(handler))
 }
 ```
+
+
+### 集成hertz框架
+[集成hertz框架](https://github.com/hertz-contrib/lark-hertz)
 
 
 ## 处理卡片行为回调
@@ -932,6 +948,10 @@ func main() {
       ...
 }
 ```
+
+### 集成hertz框架
+[集成hertz框架](https://github.com/hertz-contrib/lark-hertz)
+
 ## 加入答疑群
 [单击加入答疑群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=5b4ua18d-80e0-41b6-a7ea-1229b0feb78f)
 
