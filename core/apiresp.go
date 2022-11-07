@@ -13,7 +13,6 @@
 package larkcore
 
 import (
-	"encoding/json"
 	"fmt"
 	"mime"
 	"net/http"
@@ -39,11 +38,11 @@ func (resp ApiResp) Write(writer http.ResponseWriter) {
 	}
 }
 
-func (resp ApiResp) JSONUnmarshalBody(val interface{}) error {
+func (resp ApiResp) JSONUnmarshalBody(val interface{}, config *Config) error {
 	if !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
 		return fmt.Errorf("response content-type not json, response: %v", resp)
 	}
-	return json.Unmarshal(resp.RawBody, val)
+	return config.Serializable.Deserialize(resp.RawBody, val)
 }
 
 func (resp ApiResp) RequestId() string {

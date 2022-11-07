@@ -96,7 +96,7 @@ func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListCustomAttrResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, o
 	}
 	// 反序列响应结果
 	resp := &ChildrenDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 	}
 	// 反序列响应结果
 	resp := &DeleteDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -224,20 +224,18 @@ func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取部门信息列表
 //
-// - 该接口用于获取当前部门子部门列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 //
-// - - 使用 user_access_token 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，只筛查最多1000个部门的可见性。;;- 使用 ; tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。由于 ; parent_department_id 是非必填参数，填与不填存在<b>两种数据权限校验与返回</b>情况：;<br> <br>1、请求设置了 ; parent_department_id 为A（根部门0），会检验A是否在通讯录权限内，若在( parent_department_id=0 时会校验是否为全员权限），则返回部门下子部门列表（根据fetch_child决定是否递归），否则返回无部门通讯录权限错误码。;<br> <br>2、请求未带 ; parent_department_id 参数，如通讯录范围为全员权限，只返回根部门ID(部门ID为0)，否则返回根据通讯录范围配置的部门ID及子部门(根据 ; fetch_child 决定是否递归)。
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_department.go
 func (d *department) List(ctx context.Context, req *ListDepartmentReq, options ...larkcore.RequestOptionFunc) (*ListDepartmentResp, error) {
@@ -252,7 +250,7 @@ func (d *department) List(ctx context.Context, req *ListDepartmentReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +286,7 @@ func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, optio
 	}
 	// 反序列响应结果
 	resp := &ParentDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +322,7 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 	}
 	// 反序列响应结果
 	resp := &PatchDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -352,7 +350,7 @@ func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, optio
 	}
 	// 反序列响应结果
 	resp := &SearchDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +384,7 @@ func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepart
 	}
 	// 反序列响应结果
 	resp := &UnbindDepartmentChatDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -414,7 +412,7 @@ func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, optio
 	}
 	// 反序列响应结果
 	resp := &UpdateDepartmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -440,7 +438,7 @@ func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEn
 	}
 	// 反序列响应结果
 	resp := &CreateEmployeeTypeEnumResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -466,7 +464,7 @@ func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEn
 	}
 	// 反序列响应结果
 	resp := &DeleteEmployeeTypeEnumResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -492,7 +490,7 @@ func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumRe
 	}
 	// 反序列响应结果
 	resp := &ListEmployeeTypeEnumResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +524,7 @@ func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEn
 	}
 	// 反序列响应结果
 	resp := &UpdateEmployeeTypeEnumResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -552,7 +550,7 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -578,7 +576,7 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &DeleteGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -604,7 +602,7 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &GetGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +628,7 @@ func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, opt
 	}
 	// 反序列响应结果
 	resp := &MemberBelongGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -656,7 +654,7 @@ func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &PatchGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -682,7 +680,7 @@ func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options
 	}
 	// 反序列响应结果
 	resp := &SimplelistGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -716,7 +714,7 @@ func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options .
 	}
 	// 反序列响应结果
 	resp := &AddGroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -744,7 +742,7 @@ func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq,
 	}
 	// 反序列响应结果
 	resp := &BatchAddGroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -772,7 +770,7 @@ func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemb
 	}
 	// 反序列响应结果
 	resp := &BatchRemoveGroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -798,7 +796,7 @@ func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, opt
 	}
 	// 反序列响应结果
 	resp := &RemoveGroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -824,7 +822,7 @@ func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMember
 	}
 	// 反序列响应结果
 	resp := &SimplelistGroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -850,7 +848,7 @@ func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListScopeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -876,7 +874,7 @@ func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, o
 	}
 	// 反序列响应结果
 	resp := &BindDepartmentUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -902,7 +900,7 @@ func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -928,7 +926,7 @@ func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DeleteUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -954,7 +952,7 @@ func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -980,7 +978,7 @@ func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1006,7 +1004,7 @@ func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, o
 	}
 	// 反序列响应结果
 	resp := &ListDepartmentUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1032,7 +1030,7 @@ func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &PatchUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1058,7 +1056,7 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 	}
 	// 反序列响应结果
 	resp := &UnbindDepartmentUnitResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1086,7 +1084,7 @@ func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options .
 	}
 	// 反序列响应结果
 	resp := &BatchGetIdUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1114,7 +1112,7 @@ func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1142,7 +1140,7 @@ func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DeleteUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1170,7 +1168,7 @@ func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserRe
 	}
 	// 反序列响应结果
 	resp := &FindByDepartmentUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1204,20 +1202,18 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取用户列表
 //
-// - 基于部门ID获取部门下直属用户列表。;[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 //
-// - - 使用 user_access_token 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;-  tenant_access_token  基于应用通讯录范围进行权限鉴定。由于 department_id 是非必填参数，填与不填存在<b>两种数据权限校验与返回</b>情况：<br>1、请求设置了 department_id ;（根部门为0），会检验所带部门ID是否具有通讯录权限（如果带上 ; department_id=0 会校验是否有全员权限），有则返回部门下直属的成员列表, 否则提示无部门权限的错误码返回。<br>2、请求未带 ;  department_id 参数，则会返回权限范围内的独立用户（权限范围直接包含了某用户，则该用户视为权限范围内的独立用户）。
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_user.go
 func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error) {
@@ -1232,7 +1228,7 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1266,7 +1262,7 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &PatchUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1294,7 +1290,7 @@ func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &UpdateUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}

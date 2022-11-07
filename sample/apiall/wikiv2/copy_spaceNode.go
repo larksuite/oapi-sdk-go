@@ -28,11 +28,11 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewCopySpaceNodeReqBuilder().
 		SpaceId("6946843325487912356").
-		NodeToken("wikcnKQ1k3pcuo5uSK4t8Vabcef").
+		NodeToken("wikcnKQ1k3p******8Vabce").
 		Body(larkwiki.NewCopySpaceNodeReqBodyBuilder().
-			TargetParentToken("wikcnKQ1k3pcuo5uSK4t8Vabcef").
+			TargetParentToken("wikcnKQ1k3p******8Vabce").
 			TargetSpaceId("6946843325487912356").
-			Title("新标题").
+			Title("新标题。").
 			Build()).
 		Build()
 	// 发起请求

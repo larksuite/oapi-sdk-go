@@ -74,7 +74,7 @@ func (t *task) BatchDeleteCollaborator(ctx context.Context, req *BatchDeleteColl
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteCollaboratorTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (t *task) BatchDeleteFollower(ctx context.Context, req *BatchDeleteFollower
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteFollowerTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (t *task) BatchDeleteFollower(ctx context.Context, req *BatchDeleteFollower
 
 // 完成任务
 //
-// - 该接口用于将任务状态修改为”已完成“
+// - 该接口用于将任务状态修改为“已完成”。;完成任务是指整个任务全部完成，而不支持执行者分别完成任务，执行成功后，任务对所有关联用户都变为完成状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/complete
 //
@@ -126,7 +126,7 @@ func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &CompleteTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...la
 
 // 创建任务
 //
-// - 该接口可以创建一个任务（基本信息），如果需要绑定协作者等需要调用别的资源管理接口。其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。当使用tenant_access_token 调用接口时，如果user_id_type为user_id，则不会返回creator_id。
+// - 该接口可以创建一个任务，支持填写任务的基本信息，包括任务的标题，描述及协作者等。;在此基础上，创建任务时可以设置截止时间和重复规则，将任务设置为定期执行的重复任务。通过添加协作者，则可以让其他用户协同完成该任务。;此外，接口也提供了一些支持自定义内容的字段，调用方可以实现定制化效果，如完成任务后跳转到指定结束界面。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
 //
@@ -152,7 +152,7 @@ func (t *task) Create(ctx context.Context, req *CreateTaskReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func (t *task) Delete(ctx context.Context, req *DeleteTaskReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DeleteTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +230,7 @@ func (t *task) List(ctx context.Context, req *ListTaskReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +264,7 @@ func (t *task) Patch(ctx context.Context, req *PatchTaskReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &PatchTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options .
 	}
 	// 反序列响应结果
 	resp := &UncompleteTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +299,7 @@ func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options .
 
 // 新增执行者
 //
-// - 该接口用于新增任务执行者，一次性可以添加多个执行者。新增的执行者必须是用户的ID。
+// - 该接口用于新增任务执行者，一次性可以添加多个执行者。;只有任务的创建者和执行者才能添加执行者，关注人无权限添加。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
 //
@@ -316,7 +316,7 @@ func (t *taskCollaborator) Create(ctx context.Context, req *CreateTaskCollaborat
 	}
 	// 反序列响应结果
 	resp := &CreateTaskCollaboratorResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +342,7 @@ func (t *taskCollaborator) Delete(ctx context.Context, req *DeleteTaskCollaborat
 	}
 	// 反序列响应结果
 	resp := &DeleteTaskCollaboratorResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +368,7 @@ func (t *taskCollaborator) List(ctx context.Context, req *ListTaskCollaboratorRe
 	}
 	// 反序列响应结果
 	resp := &ListTaskCollaboratorResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +402,7 @@ func (t *taskComment) Create(ctx context.Context, req *CreateTaskCommentReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateTaskCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +428,7 @@ func (t *taskComment) Delete(ctx context.Context, req *DeleteTaskCommentReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteTaskCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -454,7 +454,7 @@ func (t *taskComment) Get(ctx context.Context, req *GetTaskCommentReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetTaskCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -480,7 +480,7 @@ func (t *taskComment) List(ctx context.Context, req *ListTaskCommentReq, options
 	}
 	// 反序列响应结果
 	resp := &ListTaskCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +514,7 @@ func (t *taskComment) Update(ctx context.Context, req *UpdateTaskCommentReq, opt
 	}
 	// 反序列响应结果
 	resp := &UpdateTaskCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +540,7 @@ func (t *taskFollower) Create(ctx context.Context, req *CreateTaskFollowerReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateTaskFollowerResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +566,7 @@ func (t *taskFollower) Delete(ctx context.Context, req *DeleteTaskFollowerReq, o
 	}
 	// 反序列响应结果
 	resp := &DeleteTaskFollowerResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -592,7 +592,7 @@ func (t *taskFollower) List(ctx context.Context, req *ListTaskFollowerReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListTaskFollowerResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -626,7 +626,7 @@ func (t *taskReminder) Create(ctx context.Context, req *CreateTaskReminderReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateTaskReminderResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -652,7 +652,7 @@ func (t *taskReminder) Delete(ctx context.Context, req *DeleteTaskReminderReq, o
 	}
 	// 反序列响应结果
 	resp := &DeleteTaskReminderResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -678,7 +678,7 @@ func (t *taskReminder) List(ctx context.Context, req *ListTaskReminderReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListTaskReminderResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

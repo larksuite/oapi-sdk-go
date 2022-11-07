@@ -131,6 +131,42 @@ const (
 )
 
 const (
+	UserIdTypeCreateRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeGetRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeListRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeMgetRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeMgetRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeMgetRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypePatchRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	UserIdTypeSearchRoomUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchRoomUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
 	NodeScopeTenant          = 1 // 租户
 	NodeScopeCountryDistrict = 2 // 国家/地区
 	NodeScopeCity            = 3 // 城市
@@ -160,6 +196,30 @@ const (
 	UserIdTypeSetRoomConfigUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeSetRoomConfigUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSetRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	ScopeTypeRoomLevel = 1 // 会议室层级
+	ScopeTypeRoom      = 2 // 会议室
+
+)
+
+const (
+	UserIdTypeCreateScopeConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateScopeConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateScopeConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	ScopeTypeGetScopeConfigRoomLevel = 1 // 会议室层级
+	ScopeTypeGetScopeConfigRoom      = 2 // 会议室
+
+)
+
+const (
+	UserIdTypeGetScopeConfigUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetScopeConfigUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetScopeConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 type Alert struct {
@@ -1548,7 +1608,7 @@ func (builder *MeetingParticipantBuilder) Build() *MeetingParticipant {
 type MeetingParticipantResult struct {
 	Id       *string `json:"id,omitempty"`        // 用户ID
 	UserType *int    `json:"user_type,omitempty"` // 用户类型
-	Result   *int    `json:"result,omitempty"`    // 邀请结果
+	Result   *int    `json:"result,omitempty"`    // 移除结果
 }
 
 type MeetingParticipantResultBuilder struct {
@@ -1556,7 +1616,7 @@ type MeetingParticipantResultBuilder struct {
 	idFlag       bool
 	userType     int // 用户类型
 	userTypeFlag bool
-	result       int // 邀请结果
+	result       int // 移除结果
 	resultFlag   bool
 }
 
@@ -1583,7 +1643,7 @@ func (builder *MeetingParticipantResultBuilder) UserType(userType int) *MeetingP
 	return builder
 }
 
-// 邀请结果
+// 移除结果
 //
 // 示例值：1
 func (builder *MeetingParticipantResultBuilder) Result(result int) *MeetingParticipantResultBuilder {
@@ -2731,7 +2791,7 @@ func (builder *RoomBuilder) CustomRoomId(customRoomId string) *RoomBuilder {
 
 // 层级ID
 //
-// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
 func (builder *RoomBuilder) RoomLevelId(roomLevelId string) *RoomBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -2740,7 +2800,7 @@ func (builder *RoomBuilder) RoomLevelId(roomLevelId string) *RoomBuilder {
 
 // 层级路径
 //
-// 示例值：[omm_4de32cf10a4358788ff4e09e37ebbf9b,omm_3c5dd7e09bac0c1758fcf9511bd1a771]
+// 示例值：[omb_8d020b12fe49e82847c2af3c193d5754,omb_8d020b12fe49e82847c2af3c193d5754]
 func (builder *RoomBuilder) Path(path []string) *RoomBuilder {
 	builder.path = path
 	builder.pathFlag = true
@@ -3237,7 +3297,7 @@ func (builder *RoomEventBuilder) CustomRoomId(customRoomId string) *RoomEventBui
 
 // 层级ID
 //
-// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
 func (builder *RoomEventBuilder) RoomLevelId(roomLevelId string) *RoomEventBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -3246,7 +3306,7 @@ func (builder *RoomEventBuilder) RoomLevelId(roomLevelId string) *RoomEventBuild
 
 // 层级路径
 //
-// 示例值：[omm_4de32cf10a4358788ff4e09e37ebbf9b,omm_3c5dd7e09bac0c1758fcf9511bd1a771]
+// 示例值：[omb_8d020b12fe49e82847c2af3c193d5754,omb_8d020b12fe49e82847c2af3c193d5754]
 func (builder *RoomEventBuilder) Path(path []string) *RoomEventBuilder {
 	builder.path = path
 	builder.pathFlag = true
@@ -3350,7 +3410,7 @@ func (builder *RoomLevelBuilder) Name(name string) *RoomLevelBuilder {
 
 // 父层级ID
 //
-// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
 func (builder *RoomLevelBuilder) ParentId(parentId string) *RoomLevelBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
@@ -3359,7 +3419,7 @@ func (builder *RoomLevelBuilder) ParentId(parentId string) *RoomLevelBuilder {
 
 // 层级路径
 //
-// 示例值：
+// 示例值：[omb_8d020b12fe49e82847c2af3c193d5754, omb_8d020b12fe49e82847c2af3c193d5754]
 func (builder *RoomLevelBuilder) Path(path []string) *RoomLevelBuilder {
 	builder.path = path
 	builder.pathFlag = true
@@ -5436,7 +5496,7 @@ func (resp *InviteMeetingResp) Success() bool {
 }
 
 type KickoutMeetingReqBodyBuilder struct {
-	kickoutUsers     []*MeetingUser // 需踢出的用户列表
+	kickoutUsers     []*MeetingUser // 需移除的用户列表
 	kickoutUsersFlag bool
 }
 
@@ -5445,7 +5505,7 @@ func NewKickoutMeetingReqBodyBuilder() *KickoutMeetingReqBodyBuilder {
 	return builder
 }
 
-// 需踢出的用户列表
+// 需移除的用户列表
 //
 //示例值：
 func (builder *KickoutMeetingReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingReqBodyBuilder {
@@ -5463,7 +5523,7 @@ func (builder *KickoutMeetingReqBodyBuilder) Build() *KickoutMeetingReqBody {
 }
 
 type KickoutMeetingPathReqBodyBuilder struct {
-	kickoutUsers     []*MeetingUser // 需踢出的用户列表
+	kickoutUsers     []*MeetingUser // 需移除的用户列表
 	kickoutUsersFlag bool
 }
 
@@ -5472,7 +5532,7 @@ func NewKickoutMeetingPathReqBodyBuilder() *KickoutMeetingPathReqBodyBuilder {
 	return builder
 }
 
-// 需踢出的用户列表
+// 需移除的用户列表
 //
 // 示例值：
 func (builder *KickoutMeetingPathReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingPathReqBodyBuilder {
@@ -5535,7 +5595,7 @@ func (builder *KickoutMeetingReqBuilder) Build() *KickoutMeetingReq {
 }
 
 type KickoutMeetingReqBody struct {
-	KickoutUsers []*MeetingUser `json:"kickout_users,omitempty"` // 需踢出的用户列表
+	KickoutUsers []*MeetingUser `json:"kickout_users,omitempty"` // 需移除的用户列表
 }
 
 type KickoutMeetingReq struct {
@@ -5544,7 +5604,7 @@ type KickoutMeetingReq struct {
 }
 
 type KickoutMeetingRespData struct {
-	KickoutResults []*MeetingParticipantResult `json:"kickout_results,omitempty"` // 踢出结果
+	KickoutResults []*MeetingParticipantResult `json:"kickout_results,omitempty"` // 移除结果
 }
 
 type KickoutMeetingResp struct {
@@ -6964,6 +7024,671 @@ func (resp *ReserveScopeReserveConfigResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	room   *Room
+}
+
+func NewCreateRoomReqBuilder() *CreateRoomReqBuilder {
+	builder := &CreateRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *CreateRoomReqBuilder) UserIdType(userIdType string) *CreateRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口用于创建会议室
+func (builder *CreateRoomReqBuilder) Room(room *Room) *CreateRoomReqBuilder {
+	builder.room = room
+	return builder
+}
+
+func (builder *CreateRoomReqBuilder) Build() *CreateRoomReq {
+	req := &CreateRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.room
+	return req
+}
+
+type CreateRoomReq struct {
+	apiReq *larkcore.ApiReq
+	Room   *Room `body:""`
+}
+
+type CreateRoomRespData struct {
+	Room *Room `json:"room,omitempty"` // 会议室详情
+}
+
+type CreateRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateRoomRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteRoomReqBuilder() *DeleteRoomReqBuilder {
+	builder := &DeleteRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *DeleteRoomReqBuilder) RoomId(roomId string) *DeleteRoomReqBuilder {
+	builder.apiReq.PathParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+func (builder *DeleteRoomReqBuilder) Build() *DeleteRoomReq {
+	req := &DeleteRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteRoomReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetRoomReqBuilder() *GetRoomReqBuilder {
+	builder := &GetRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9c
+func (builder *GetRoomReqBuilder) RoomId(roomId string) *GetRoomReqBuilder {
+	builder.apiReq.PathParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *GetRoomReqBuilder) UserIdType(userIdType string) *GetRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetRoomReqBuilder) Build() *GetRoomReq {
+	req := &GetRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetRoomReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetRoomRespData struct {
+	Room *Room `json:"room,omitempty"` // 会议室详情
+}
+
+type GetRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetRoomRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListRoomReqBuilder() *ListRoomReqBuilder {
+	builder := &ListRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListRoomReqBuilder) Limit(limit int) *ListRoomReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListRoomReqBuilder) PageSize(pageSize int) *ListRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：10
+func (builder *ListRoomReqBuilder) PageToken(pageToken string) *ListRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 层级ID，当需要获取租户下会议室列表时，room_level_id可传空
+//
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *ListRoomReqBuilder) RoomLevelId(roomLevelId string) *ListRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("room_level_id", fmt.Sprint(roomLevelId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *ListRoomReqBuilder) UserIdType(userIdType string) *ListRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListRoomReqBuilder) Build() *ListRoomReq {
+	req := &ListRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListRoomReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListRoomRespData struct {
+	Rooms     []*Room `json:"rooms,omitempty"`      // 会议室列表
+	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token，下次请求时传入
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否还有数据
+}
+
+type ListRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListRoomRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MgetRoomReqBodyBuilder struct {
+	roomIds     []string // 会议室id列表
+	roomIdsFlag bool
+}
+
+func NewMgetRoomReqBodyBuilder() *MgetRoomReqBodyBuilder {
+	builder := &MgetRoomReqBodyBuilder{}
+	return builder
+}
+
+// 会议室id列表
+//
+//示例值：["omm_4de32cf10a4358788ff4e09e37ebbf9b","omm_3c5dd7e09bac0c1758fcf9511bd1a771"]
+func (builder *MgetRoomReqBodyBuilder) RoomIds(roomIds []string) *MgetRoomReqBodyBuilder {
+	builder.roomIds = roomIds
+	builder.roomIdsFlag = true
+	return builder
+}
+
+func (builder *MgetRoomReqBodyBuilder) Build() *MgetRoomReqBody {
+	req := &MgetRoomReqBody{}
+	if builder.roomIdsFlag {
+		req.RoomIds = builder.roomIds
+	}
+	return req
+}
+
+type MgetRoomPathReqBodyBuilder struct {
+	roomIds     []string // 会议室id列表
+	roomIdsFlag bool
+}
+
+func NewMgetRoomPathReqBodyBuilder() *MgetRoomPathReqBodyBuilder {
+	builder := &MgetRoomPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议室id列表
+//
+// 示例值：["omm_4de32cf10a4358788ff4e09e37ebbf9b","omm_3c5dd7e09bac0c1758fcf9511bd1a771"]
+func (builder *MgetRoomPathReqBodyBuilder) RoomIds(roomIds []string) *MgetRoomPathReqBodyBuilder {
+	builder.roomIds = roomIds
+	builder.roomIdsFlag = true
+	return builder
+}
+
+func (builder *MgetRoomPathReqBodyBuilder) Build() (*MgetRoomReqBody, error) {
+	req := &MgetRoomReqBody{}
+	if builder.roomIdsFlag {
+		req.RoomIds = builder.roomIds
+	}
+	return req, nil
+}
+
+type MgetRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MgetRoomReqBody
+}
+
+func NewMgetRoomReqBuilder() *MgetRoomReqBuilder {
+	builder := &MgetRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *MgetRoomReqBuilder) UserIdType(userIdType string) *MgetRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口可以使用会议室ID批量查询会议室详情
+func (builder *MgetRoomReqBuilder) Body(body *MgetRoomReqBody) *MgetRoomReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MgetRoomReqBuilder) Build() *MgetRoomReq {
+	req := &MgetRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MgetRoomReqBody struct {
+	RoomIds []string `json:"room_ids,omitempty"` // 会议室id列表
+}
+
+type MgetRoomReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MgetRoomReqBody `body:""`
+}
+
+type MgetRoomRespData struct {
+	Items []*Room `json:"items,omitempty"` // 会议室列表
+}
+
+type MgetRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MgetRoomRespData `json:"data"` // 业务数据
+}
+
+func (resp *MgetRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	room   *Room
+}
+
+func NewPatchRoomReqBuilder() *PatchRoomReqBuilder {
+	builder := &PatchRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *PatchRoomReqBuilder) RoomId(roomId string) *PatchRoomReqBuilder {
+	builder.apiReq.PathParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *PatchRoomReqBuilder) UserIdType(userIdType string) *PatchRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口可以用来更新某个会议室的信息
+func (builder *PatchRoomReqBuilder) Room(room *Room) *PatchRoomReqBuilder {
+	builder.room = room
+	return builder
+}
+
+func (builder *PatchRoomReqBuilder) Build() *PatchRoomReq {
+	req := &PatchRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.room
+	return req
+}
+
+type PatchRoomReq struct {
+	apiReq *larkcore.ApiReq
+	Room   *Room `body:""`
+}
+
+type PatchRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchRoomReqBodyBuilder struct {
+	customRoomIds       []string // 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+	customRoomIdsFlag   bool
+	keyword             string // 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+	keywordFlag         bool
+	roomLevelId         string // 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+	roomLevelIdFlag     bool
+	searchLevelName     bool // 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+	searchLevelNameFlag bool
+	pageSize            int // 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+	pageSizeFlag        bool
+	pageToken           string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+	pageTokenFlag       bool
+}
+
+func NewSearchRoomReqBodyBuilder() *SearchRoomReqBodyBuilder {
+	builder := &SearchRoomReqBodyBuilder{}
+	return builder
+}
+
+// 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+//
+//示例值：["10001"]
+func (builder *SearchRoomReqBodyBuilder) CustomRoomIds(customRoomIds []string) *SearchRoomReqBodyBuilder {
+	builder.customRoomIds = customRoomIds
+	builder.customRoomIdsFlag = true
+	return builder
+}
+
+// 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+//
+//示例值：测试会议室
+func (builder *SearchRoomReqBodyBuilder) Keyword(keyword string) *SearchRoomReqBodyBuilder {
+	builder.keyword = keyword
+	builder.keywordFlag = true
+	return builder
+}
+
+// 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+//
+//示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *SearchRoomReqBodyBuilder) RoomLevelId(roomLevelId string) *SearchRoomReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+//
+//示例值：true
+func (builder *SearchRoomReqBodyBuilder) SearchLevelName(searchLevelName bool) *SearchRoomReqBodyBuilder {
+	builder.searchLevelName = searchLevelName
+	builder.searchLevelNameFlag = true
+	return builder
+}
+
+// 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+//
+//示例值：10
+func (builder *SearchRoomReqBodyBuilder) PageSize(pageSize int) *SearchRoomReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+//
+//示例值：0
+func (builder *SearchRoomReqBodyBuilder) PageToken(pageToken string) *SearchRoomReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+func (builder *SearchRoomReqBodyBuilder) Build() *SearchRoomReqBody {
+	req := &SearchRoomReqBody{}
+	if builder.customRoomIdsFlag {
+		req.CustomRoomIds = builder.customRoomIds
+	}
+	if builder.keywordFlag {
+		req.Keyword = &builder.keyword
+	}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.searchLevelNameFlag {
+		req.SearchLevelName = &builder.searchLevelName
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
+}
+
+type SearchRoomPathReqBodyBuilder struct {
+	customRoomIds       []string // 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+	customRoomIdsFlag   bool
+	keyword             string // 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+	keywordFlag         bool
+	roomLevelId         string // 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+	roomLevelIdFlag     bool
+	searchLevelName     bool // 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+	searchLevelNameFlag bool
+	pageSize            int // 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+	pageSizeFlag        bool
+	pageToken           string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+	pageTokenFlag       bool
+}
+
+func NewSearchRoomPathReqBodyBuilder() *SearchRoomPathReqBodyBuilder {
+	builder := &SearchRoomPathReqBodyBuilder{}
+	return builder
+}
+
+// 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+//
+// 示例值：["10001"]
+func (builder *SearchRoomPathReqBodyBuilder) CustomRoomIds(customRoomIds []string) *SearchRoomPathReqBodyBuilder {
+	builder.customRoomIds = customRoomIds
+	builder.customRoomIdsFlag = true
+	return builder
+}
+
+// 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+//
+// 示例值：测试会议室
+func (builder *SearchRoomPathReqBodyBuilder) Keyword(keyword string) *SearchRoomPathReqBodyBuilder {
+	builder.keyword = keyword
+	builder.keywordFlag = true
+	return builder
+}
+
+// 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+//
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *SearchRoomPathReqBodyBuilder) RoomLevelId(roomLevelId string) *SearchRoomPathReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+//
+// 示例值：true
+func (builder *SearchRoomPathReqBodyBuilder) SearchLevelName(searchLevelName bool) *SearchRoomPathReqBodyBuilder {
+	builder.searchLevelName = searchLevelName
+	builder.searchLevelNameFlag = true
+	return builder
+}
+
+// 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+//
+// 示例值：10
+func (builder *SearchRoomPathReqBodyBuilder) PageSize(pageSize int) *SearchRoomPathReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+//
+// 示例值：0
+func (builder *SearchRoomPathReqBodyBuilder) PageToken(pageToken string) *SearchRoomPathReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+func (builder *SearchRoomPathReqBodyBuilder) Build() (*SearchRoomReqBody, error) {
+	req := &SearchRoomReqBody{}
+	if builder.customRoomIdsFlag {
+		req.CustomRoomIds = builder.customRoomIds
+	}
+	if builder.keywordFlag {
+		req.Keyword = &builder.keyword
+	}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.searchLevelNameFlag {
+		req.SearchLevelName = &builder.searchLevelName
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req, nil
+}
+
+type SearchRoomReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchRoomReqBody
+}
+
+func NewSearchRoomReqBuilder() *SearchRoomReqBuilder {
+	builder := &SearchRoomReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *SearchRoomReqBuilder) UserIdType(userIdType string) *SearchRoomReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口可以用来搜索会议室，支持使用关键词进行搜索，也支持使用自定义会议室ID进行查询
+func (builder *SearchRoomReqBuilder) Body(body *SearchRoomReqBody) *SearchRoomReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchRoomReqBuilder) Build() *SearchRoomReq {
+	req := &SearchRoomReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchRoomReqBody struct {
+	CustomRoomIds   []string `json:"custom_room_ids,omitempty"`   // 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+	Keyword         *string  `json:"keyword,omitempty"`           // 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+	RoomLevelId     *string  `json:"room_level_id,omitempty"`     // 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+	SearchLevelName *bool    `json:"search_level_name,omitempty"` // 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+	PageSize        *int     `json:"page_size,omitempty"`         // 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+	PageToken       *string  `json:"page_token,omitempty"`        // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+}
+
+type SearchRoomReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchRoomReqBody `body:""`
+}
+
+type SearchRoomRespData struct {
+	Rooms     []*Room `json:"rooms,omitempty"`      // 会议室列表
+	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token，下次请求时传入
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否还有数据
+}
+
+type SearchRoomResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchRoomRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchRoomResp) Success() bool {
+	return resp.Code == 0
+}
+
 type QueryRoomConfigReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -6987,7 +7712,7 @@ func (builder *QueryRoomConfigReqBuilder) Scope(scope int) *QueryRoomConfigReqBu
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-// 示例值：086
+// 示例值：1
 func (builder *QueryRoomConfigReqBuilder) CountryId(countryId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("country_id", fmt.Sprint(countryId))
 	return builder
@@ -6995,7 +7720,7 @@ func (builder *QueryRoomConfigReqBuilder) CountryId(countryId string) *QueryRoom
 
 // 城市ID scope为3时需要此参数
 //
-// 示例值：001
+// 示例值：2
 func (builder *QueryRoomConfigReqBuilder) DistrictId(districtId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("district_id", fmt.Sprint(districtId))
 	return builder
@@ -7003,7 +7728,7 @@ func (builder *QueryRoomConfigReqBuilder) DistrictId(districtId string) *QueryRo
 
 // 建筑ID scope为4，5时需要此参数
 //
-// 示例值：22
+// 示例值：3
 func (builder *QueryRoomConfigReqBuilder) BuildingId(buildingId string) *QueryRoomConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("building_id", fmt.Sprint(buildingId))
 	return builder
@@ -7095,7 +7820,7 @@ func (builder *SetRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomConfigReqBo
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-//示例值：086
+//示例值：1
 func (builder *SetRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoomConfigReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
@@ -7104,7 +7829,7 @@ func (builder *SetRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoom
 
 // 城市ID scope为3时需要此参数
 //
-//示例值：223
+//示例值：2
 func (builder *SetRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRoomConfigReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
@@ -7113,7 +7838,7 @@ func (builder *SetRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRo
 
 // 建筑ID scope为4，5时需要此参数
 //
-//示例值：66
+//示例值：3
 func (builder *SetRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRoomConfigReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
@@ -7122,7 +7847,7 @@ func (builder *SetRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRo
 
 // 楼层 scope为5时需要此参数
 //
-//示例值：3
+//示例值：4
 func (builder *SetRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoomConfigReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
@@ -7206,7 +7931,7 @@ func (builder *SetRoomConfigPathReqBodyBuilder) Scope(scope int) *SetRoomConfigP
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-// 示例值：086
+// 示例值：1
 func (builder *SetRoomConfigPathReqBodyBuilder) CountryId(countryId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
@@ -7215,7 +7940,7 @@ func (builder *SetRoomConfigPathReqBodyBuilder) CountryId(countryId string) *Set
 
 // 城市ID scope为3时需要此参数
 //
-// 示例值：223
+// 示例值：2
 func (builder *SetRoomConfigPathReqBodyBuilder) DistrictId(districtId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
@@ -7224,7 +7949,7 @@ func (builder *SetRoomConfigPathReqBodyBuilder) DistrictId(districtId string) *S
 
 // 建筑ID scope为4，5时需要此参数
 //
-// 示例值：66
+// 示例值：3
 func (builder *SetRoomConfigPathReqBodyBuilder) BuildingId(buildingId string) *SetRoomConfigPathReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
@@ -7233,7 +7958,7 @@ func (builder *SetRoomConfigPathReqBodyBuilder) BuildingId(buildingId string) *S
 
 // 楼层 scope为5时需要此参数
 //
-// 示例值：3
+// 示例值：4
 func (builder *SetRoomConfigPathReqBodyBuilder) FloorName(floorName string) *SetRoomConfigPathReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
@@ -7306,7 +8031,7 @@ func (builder *SetRoomConfigReqBuilder) UserIdType(userIdType string) *SetRoomCo
 	return builder
 }
 
-// 设置一个范围内的会议室配置。
+//
 func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoomConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -7341,6 +8066,613 @@ type SetRoomConfigResp struct {
 }
 
 func (resp *SetRoomConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateRoomLevelReqBuilder struct {
+	apiReq    *larkcore.ApiReq
+	roomLevel *RoomLevel
+}
+
+func NewCreateRoomLevelReqBuilder() *CreateRoomLevelReqBuilder {
+	builder := &CreateRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 该接口用于创建会议室层级
+func (builder *CreateRoomLevelReqBuilder) RoomLevel(roomLevel *RoomLevel) *CreateRoomLevelReqBuilder {
+	builder.roomLevel = roomLevel
+	return builder
+}
+
+func (builder *CreateRoomLevelReqBuilder) Build() *CreateRoomLevelReq {
+	req := &CreateRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.roomLevel
+	return req
+}
+
+type CreateRoomLevelReq struct {
+	apiReq    *larkcore.ApiReq
+	RoomLevel *RoomLevel `body:""`
+}
+
+type CreateRoomLevelRespData struct {
+	RoomLevel *RoomLevel `json:"room_level,omitempty"` // 层级详情
+}
+
+type CreateRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateRoomLevelRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DelRoomLevelReqBodyBuilder struct {
+	roomLevelId     string // 层级ID
+	roomLevelIdFlag bool
+	deleteChild     bool // 是否删除所有子层级
+	deleteChildFlag bool
+}
+
+func NewDelRoomLevelReqBodyBuilder() *DelRoomLevelReqBodyBuilder {
+	builder := &DelRoomLevelReqBodyBuilder{}
+	return builder
+}
+
+// 层级ID
+//
+//示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *DelRoomLevelReqBodyBuilder) RoomLevelId(roomLevelId string) *DelRoomLevelReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 是否删除所有子层级
+//
+//示例值：false
+func (builder *DelRoomLevelReqBodyBuilder) DeleteChild(deleteChild bool) *DelRoomLevelReqBodyBuilder {
+	builder.deleteChild = deleteChild
+	builder.deleteChildFlag = true
+	return builder
+}
+
+func (builder *DelRoomLevelReqBodyBuilder) Build() *DelRoomLevelReqBody {
+	req := &DelRoomLevelReqBody{}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.deleteChildFlag {
+		req.DeleteChild = &builder.deleteChild
+	}
+	return req
+}
+
+type DelRoomLevelPathReqBodyBuilder struct {
+	roomLevelId     string // 层级ID
+	roomLevelIdFlag bool
+	deleteChild     bool // 是否删除所有子层级
+	deleteChildFlag bool
+}
+
+func NewDelRoomLevelPathReqBodyBuilder() *DelRoomLevelPathReqBodyBuilder {
+	builder := &DelRoomLevelPathReqBodyBuilder{}
+	return builder
+}
+
+// 层级ID
+//
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *DelRoomLevelPathReqBodyBuilder) RoomLevelId(roomLevelId string) *DelRoomLevelPathReqBodyBuilder {
+	builder.roomLevelId = roomLevelId
+	builder.roomLevelIdFlag = true
+	return builder
+}
+
+// 是否删除所有子层级
+//
+// 示例值：false
+func (builder *DelRoomLevelPathReqBodyBuilder) DeleteChild(deleteChild bool) *DelRoomLevelPathReqBodyBuilder {
+	builder.deleteChild = deleteChild
+	builder.deleteChildFlag = true
+	return builder
+}
+
+func (builder *DelRoomLevelPathReqBodyBuilder) Build() (*DelRoomLevelReqBody, error) {
+	req := &DelRoomLevelReqBody{}
+	if builder.roomLevelIdFlag {
+		req.RoomLevelId = &builder.roomLevelId
+	}
+	if builder.deleteChildFlag {
+		req.DeleteChild = &builder.deleteChild
+	}
+	return req, nil
+}
+
+type DelRoomLevelReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DelRoomLevelReqBody
+}
+
+func NewDelRoomLevelReqBuilder() *DelRoomLevelReqBuilder {
+	builder := &DelRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 该接口可以用来删除某个会议室层级
+func (builder *DelRoomLevelReqBuilder) Body(body *DelRoomLevelReqBody) *DelRoomLevelReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DelRoomLevelReqBuilder) Build() *DelRoomLevelReq {
+	req := &DelRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DelRoomLevelReqBody struct {
+	RoomLevelId *string `json:"room_level_id,omitempty"` // 层级ID
+	DeleteChild *bool   `json:"delete_child,omitempty"`  // 是否删除所有子层级
+}
+
+type DelRoomLevelReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DelRoomLevelReqBody `body:""`
+}
+
+type DelRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DelRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetRoomLevelReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetRoomLevelReqBuilder() *GetRoomLevelReqBuilder {
+	builder := &GetRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 层级ID，查询租户层级可传0
+//
+// 示例值：omb_57c9cc7d9a81e27e54c8fabfd02759e7
+func (builder *GetRoomLevelReqBuilder) RoomLevelId(roomLevelId string) *GetRoomLevelReqBuilder {
+	builder.apiReq.PathParams.Set("room_level_id", fmt.Sprint(roomLevelId))
+	return builder
+}
+
+func (builder *GetRoomLevelReqBuilder) Build() *GetRoomLevelReq {
+	req := &GetRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetRoomLevelReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetRoomLevelRespData struct {
+	RoomLevel *RoomLevel `json:"room_level,omitempty"` // 会议室层级详情
+}
+
+type GetRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetRoomLevelRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListRoomLevelReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListRoomLevelReqBuilder() *ListRoomLevelReqBuilder {
+	builder := &ListRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListRoomLevelReqBuilder) Limit(limit int) *ListRoomLevelReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 层级ID，当需要获取租户下层级列表时，room_level_id可传空
+//
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *ListRoomLevelReqBuilder) RoomLevelId(roomLevelId string) *ListRoomLevelReqBuilder {
+	builder.apiReq.QueryParams.Set("room_level_id", fmt.Sprint(roomLevelId))
+	return builder
+}
+
+// 分页尺寸大小
+//
+// 示例值：10
+func (builder *ListRoomLevelReqBuilder) PageSize(pageSize int) *ListRoomLevelReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍历.下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *ListRoomLevelReqBuilder) PageToken(pageToken string) *ListRoomLevelReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListRoomLevelReqBuilder) Build() *ListRoomLevelReq {
+	req := &ListRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListRoomLevelReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListRoomLevelRespData struct {
+	Items     []*RoomLevel `json:"items,omitempty"`      // 会议室层级列表
+	PageToken *string      `json:"page_token,omitempty"` //
+	HasMore   *bool        `json:"has_more,omitempty"`   //
+}
+
+type ListRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListRoomLevelRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MgetRoomLevelReqBodyBuilder struct {
+	levelIds     []string // 层级ID列表
+	levelIdsFlag bool
+}
+
+func NewMgetRoomLevelReqBodyBuilder() *MgetRoomLevelReqBodyBuilder {
+	builder := &MgetRoomLevelReqBodyBuilder{}
+	return builder
+}
+
+// 层级ID列表
+//
+//示例值：["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
+func (builder *MgetRoomLevelReqBodyBuilder) LevelIds(levelIds []string) *MgetRoomLevelReqBodyBuilder {
+	builder.levelIds = levelIds
+	builder.levelIdsFlag = true
+	return builder
+}
+
+func (builder *MgetRoomLevelReqBodyBuilder) Build() *MgetRoomLevelReqBody {
+	req := &MgetRoomLevelReqBody{}
+	if builder.levelIdsFlag {
+		req.LevelIds = builder.levelIds
+	}
+	return req
+}
+
+type MgetRoomLevelPathReqBodyBuilder struct {
+	levelIds     []string // 层级ID列表
+	levelIdsFlag bool
+}
+
+func NewMgetRoomLevelPathReqBodyBuilder() *MgetRoomLevelPathReqBodyBuilder {
+	builder := &MgetRoomLevelPathReqBodyBuilder{}
+	return builder
+}
+
+// 层级ID列表
+//
+// 示例值：["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
+func (builder *MgetRoomLevelPathReqBodyBuilder) LevelIds(levelIds []string) *MgetRoomLevelPathReqBodyBuilder {
+	builder.levelIds = levelIds
+	builder.levelIdsFlag = true
+	return builder
+}
+
+func (builder *MgetRoomLevelPathReqBodyBuilder) Build() (*MgetRoomLevelReqBody, error) {
+	req := &MgetRoomLevelReqBody{}
+	if builder.levelIdsFlag {
+		req.LevelIds = builder.levelIds
+	}
+	return req, nil
+}
+
+type MgetRoomLevelReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MgetRoomLevelReqBody
+}
+
+func NewMgetRoomLevelReqBuilder() *MgetRoomLevelReqBuilder {
+	builder := &MgetRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 该接口可以使用会议室层级ID批量查询会议室层级详情
+func (builder *MgetRoomLevelReqBuilder) Body(body *MgetRoomLevelReqBody) *MgetRoomLevelReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MgetRoomLevelReqBuilder) Build() *MgetRoomLevelReq {
+	req := &MgetRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MgetRoomLevelReqBody struct {
+	LevelIds []string `json:"level_ids,omitempty"` // 层级ID列表
+}
+
+type MgetRoomLevelReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MgetRoomLevelReqBody `body:""`
+}
+
+type MgetRoomLevelRespData struct {
+	Items []*RoomLevel `json:"items,omitempty"` // 会议室层级列表
+}
+
+type MgetRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MgetRoomLevelRespData `json:"data"` // 业务数据
+}
+
+func (resp *MgetRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchRoomLevelReqBuilder struct {
+	apiReq    *larkcore.ApiReq
+	roomLevel *RoomLevel
+}
+
+func NewPatchRoomLevelReqBuilder() *PatchRoomLevelReqBuilder {
+	builder := &PatchRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 层级ID
+//
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+func (builder *PatchRoomLevelReqBuilder) RoomLevelId(roomLevelId string) *PatchRoomLevelReqBuilder {
+	builder.apiReq.PathParams.Set("room_level_id", fmt.Sprint(roomLevelId))
+	return builder
+}
+
+// 该接口可以用来更新某个会议室层级的信息
+func (builder *PatchRoomLevelReqBuilder) RoomLevel(roomLevel *RoomLevel) *PatchRoomLevelReqBuilder {
+	builder.roomLevel = roomLevel
+	return builder
+}
+
+func (builder *PatchRoomLevelReqBuilder) Build() *PatchRoomLevelReq {
+	req := &PatchRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.roomLevel
+	return req
+}
+
+type PatchRoomLevelReq struct {
+	apiReq    *larkcore.ApiReq
+	RoomLevel *RoomLevel `body:""`
+}
+
+type PatchRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchRoomLevelReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewSearchRoomLevelReqBuilder() *SearchRoomLevelReqBuilder {
+	builder := &SearchRoomLevelReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用于查询指定会议室层级的自定义会议室层级ID
+//
+// 示例值：1000,1001
+func (builder *SearchRoomLevelReqBuilder) CustomLevelIds(customLevelIds string) *SearchRoomLevelReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_level_ids", fmt.Sprint(customLevelIds))
+	return builder
+}
+
+func (builder *SearchRoomLevelReqBuilder) Build() *SearchRoomLevelReq {
+	req := &SearchRoomLevelReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type SearchRoomLevelReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type SearchRoomLevelRespData struct {
+	LevelIds []string `json:"level_ids,omitempty"` // 层级ID列表
+}
+
+type SearchRoomLevelResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchRoomLevelRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchRoomLevelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateScopeConfigReqBuilder struct {
+	apiReq      *larkcore.ApiReq
+	scopeConfig *ScopeConfig
+}
+
+func NewCreateScopeConfigReqBuilder() *CreateScopeConfigReqBuilder {
+	builder := &CreateScopeConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *CreateScopeConfigReqBuilder) UserIdType(userIdType string) *CreateScopeConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口可以用来设置某个会议层级范围下或者某个会议室的配置
+func (builder *CreateScopeConfigReqBuilder) ScopeConfig(scopeConfig *ScopeConfig) *CreateScopeConfigReqBuilder {
+	builder.scopeConfig = scopeConfig
+	return builder
+}
+
+func (builder *CreateScopeConfigReqBuilder) Build() *CreateScopeConfigReq {
+	req := &CreateScopeConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.scopeConfig
+	return req
+}
+
+type CreateScopeConfigReq struct {
+	apiReq      *larkcore.ApiReq
+	ScopeConfig *ScopeConfig `body:""`
+}
+
+type CreateScopeConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CreateScopeConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetScopeConfigReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetScopeConfigReqBuilder() *GetScopeConfigReqBuilder {
+	builder := &GetScopeConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 查询节点范围
+//
+// 示例值：1
+func (builder *GetScopeConfigReqBuilder) ScopeType(scopeType int) *GetScopeConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_type", fmt.Sprint(scopeType))
+	return builder
+}
+
+// 查询节点ID：如果scope_type为1，则为层级ID，如果scope_type为2，则为会议室ID
+//
+// 示例值：omm_608d34d82d531b27fa993902d350a307
+func (builder *GetScopeConfigReqBuilder) ScopeId(scopeId string) *GetScopeConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_id", fmt.Sprint(scopeId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型，默认使用open_id可不填
+//
+// 示例值：
+func (builder *GetScopeConfigReqBuilder) UserIdType(userIdType string) *GetScopeConfigReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetScopeConfigReqBuilder) Build() *GetScopeConfigReq {
+	req := &GetScopeConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetScopeConfigReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetScopeConfigRespData struct {
+	CurrentConfig *ScopeConfig   `json:"current_config,omitempty"` // 当前节点的配置，根据层级顺序从底向上进行合并计算后的结果；如果当前节点某个值已配置，则取该节点的值，否则会从该节点的父层级节点获取，如果父节点依然未配置，则继续向上递归获取；若所有节点均未配置，则该值返回为空
+	OriginConfigs []*ScopeConfig `json:"origin_configs,omitempty"` // 所有节点的原始配置，按照层级顺序从底向上返回；如果某节点某个值未配置，则该值返回为空
+}
+
+type GetScopeConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetScopeConfigRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetScopeConfigResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -7481,6 +8813,48 @@ func (m *P2MeetingShareStartedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
+type P2RoomCreatedV1Data struct {
+	Room *RoomEvent `json:"room,omitempty"` // 会议室信息
+}
+
+type P2RoomCreatedV1 struct {
+	*larkevent.EventV2Base                      // 事件基础数据
+	*larkevent.EventReq                         // 请求原生数据
+	Event                  *P2RoomCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomCreatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2RoomDeletedV1Data struct {
+	Room *RoomEvent `json:"room,omitempty"` // 会议室信息
+}
+
+type P2RoomDeletedV1 struct {
+	*larkevent.EventV2Base                      // 事件基础数据
+	*larkevent.EventReq                         // 请求原生数据
+	Event                  *P2RoomDeletedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomDeletedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2RoomUpdatedV1Data struct {
+	Room *RoomEvent `json:"room,omitempty"` // 会议室详情
+}
+
+type P2RoomUpdatedV1 struct {
+	*larkevent.EventV2Base                      // 事件基础数据
+	*larkevent.EventReq                         // 请求原生数据
+	Event                  *P2RoomUpdatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
 type ListAlertIterator struct {
 	nextPageToken *string
 	items         []*Alert
@@ -7586,5 +8960,113 @@ func (iterator *ListByNoMeetingIterator) Next() (bool, *Meeting, error) {
 }
 
 func (iterator *ListByNoMeetingIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListRoomIterator struct {
+	nextPageToken *string
+	items         []*Room
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListRoomReq
+	listFunc      func(ctx context.Context, req *ListRoomReq, options ...larkcore.RequestOptionFunc) (*ListRoomResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListRoomIterator) Next() (bool, *Room, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Rooms) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Rooms
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListRoomIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListRoomLevelIterator struct {
+	nextPageToken *string
+	items         []*RoomLevel
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListRoomLevelReq
+	listFunc      func(ctx context.Context, req *ListRoomLevelReq, options ...larkcore.RequestOptionFunc) (*ListRoomLevelResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListRoomLevelIterator) Next() (bool, *RoomLevel, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListRoomLevelIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

@@ -15,16 +15,35 @@ package main
 import (
 	"context"
 	"fmt"
+	"net"
+	"net/http"
 	"os"
+	"time"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
-	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	larkapplication "github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
+
+	var customTransport http.RoundTripper = &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		DisableKeepAlives:     true,
+	}
+	httpClient := &http.Client{Transport: customTransport}
+
+	client := lark.NewClient(appID, appSecret, lark.WithHttpClient(httpClient))
+
 	resp, err := client.Application.Application.Get(context.Background(), larkapplication.NewGetApplicationReqBuilder().
 		UserIdType(larkapplication.UserIdTypeUserId).
 		AppId("cli_a1eccc36c278900d").Lang("zh_cn").Build())

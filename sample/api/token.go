@@ -44,12 +44,14 @@ func GetAppAccessTokenBySelfBuiltApp() {
 }
 
 func GetAppAccessTokenByMarketApp() {
-	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug))
+	var appID, appSecret = "cli_a271fc46df38d017", "IH38Skhm4flL54qGP67BCxbSKKoqg4Y4"
+	client := lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithOpenBaseUrl("https://open.larksuite-boe.com"))
+
 	var resp, err = client.GetAppAccessTokenByMarketplaceApp(context.Background(), &larkcore.MarketplaceAppAccessTokenReq{
 		AppID:     appID,
 		AppSecret: appSecret,
-		AppTicket: "ssss",
+		AppTicket: "g203arcEEE7CCKQHNBUNTS3RCURRR5MKFD6BJAQY",
 	})
 
 	if err != nil {
@@ -87,11 +89,11 @@ func GetTenantAccessTokenBySelfBuiltApp() {
 }
 
 func GetTenantAccessTokenByMarketApp() {
-	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var appID, appSecret = "cli_a271fc46df38d017", "IH38Skhm4flL54qGP67BCxbSKKoqg4Y4"
 	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug))
 	var resp, err = client.GetTenantAccessTokenByMarketplaceApp(context.Background(), &larkcore.MarketplaceTenantAccessTokenReq{
-		AppAccessToken: "ssss",
-		TenantKey:      appSecret,
+		AppAccessToken: "a-g203ardk3WIVTKS3YB2TGKYGGSD3OAMSW66SSYS3",
+		TenantKey:      "tenantkey",
 	})
 
 	if err != nil {
@@ -194,6 +196,5 @@ func AuthenUserInfo() {
 }
 
 func main() {
-	GetAuthenAccessToken()
-	//AuthenUserInfo()
+	GetTenantAccessTokenBySelfBuiltApp()
 }

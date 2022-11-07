@@ -15,6 +15,7 @@ package main
 import (
 	"context"
 	"fmt"
+	larkhelpdesk "github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 	"net/http"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
@@ -30,7 +31,7 @@ import (
 
 func main() {
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("verificationToken", "")
+	handler := dispatcher.NewEventDispatcher("TtCLrvEaxLBs6uvvTyxAbedihOkvPzzc", "")
 	handler.OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
@@ -158,6 +159,12 @@ func main() {
 		// 处理解密后的 消息体
 		fmt.Println(plainEventJsonStr)
 
+		return nil
+	}).OnP2TicketMessageCreatedV1(func(ctx context.Context, event *larkhelpdesk.P2TicketMessageCreatedV1) error {
+		fmt.Println(event)
+		return nil
+	}).OnP2TicketUpdatedV1(func(ctx context.Context, event *larkhelpdesk.P2TicketUpdatedV1) error {
+		fmt.Println(event)
 		return nil
 	})
 

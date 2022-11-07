@@ -15,16 +15,15 @@ package main
 import (
 	"context"
 	"fmt"
+	lark "github.com/larksuite/oapi-sdk-go/v3"
+	larkcard "github.com/larksuite/oapi-sdk-go/v3/card"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	larkgray_test_open_sg "github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
+	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/larksuite/oapi-sdk-go/v3"
-	"github.com/larksuite/oapi-sdk-go/v3/card"
-	"github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
-	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func uploadImage(client *lark.Client) {
@@ -90,7 +89,7 @@ func uploadFile(client *lark.Client) {
 
 func downFile(client *lark.Client) {
 
-	resp, err := client.Im.File.Get(context.Background(), larkim.NewGetFileReqBuilder().FileKey("file_v2_f2ff1863-5bcd-433c-8eac-ddda30d6986g").Build())
+	resp, err := client.Im.File.Get(context.Background(), larkim.NewGetFileReqBuilder().FileKey("file_v2_21d3ce59-5d45-4421-9e09-a1733fdd67fg").Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -191,10 +190,10 @@ func sendTextMsg(client *lark.Client) {
 		Build()
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.ReceiveIdTypeChatId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeText).
-			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			ReceiveId("oc_073bc625285ef06b2c58852143a47675").
 			Content(content).
 			Build()).
 		Build())
@@ -341,7 +340,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 				Build(),
 			larkcard.NewMessageCardField().
 				Text(larkcard.NewMessageCardLarkMd().
-					Content("**👤 一级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
+					Content("**👤 一级值班：**\n<at id=ou_0b401d49bc16fe03077e593cfa9e2ae7>加多</at>").
 					Build()).
 				IsShort(true).
 				Build(),
@@ -354,20 +353,10 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 				Build(),
 			larkcard.NewMessageCardField().
 				Text(larkcard.NewMessageCardLarkMd().
-					Content("**👤 二级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
+					Content("**👤 二级值班：**\n<at id=ou_0b401d49bc16fe03077e593cfa9e2ae7>加多</at>").
 					Build()).
 				IsShort(true).
 				Build()}).
-		Build()
-
-	divElement2 := larkcard.NewMessageCardImage().
-		Alt(larkcard.NewMessageCardPlainText().
-			Content("").
-			Build()).
-		ImgKey("img_v2_8b2ebeaf-c97c-411d-a4dc-4323e8cba10g").
-		Title(larkcard.NewMessageCardLarkMd().
-			Content("支付方式 支付成功率低于 50%：").
-			Build()).
 		Build()
 
 	divElement3 := larkcard.NewMessageCardNote().
@@ -434,7 +423,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 	cardContent, err := larkcard.NewMessageCard().
 		Config(config).
 		Header(header).
-		Elements([]larkcard.MessageCardElement{divElement1, divElement2, divElement3, divElement4, divElement5, divElement6}).
+		Elements([]larkcard.MessageCardElement{divElement1, divElement3, divElement4, divElement5, divElement6}).
 		CardLink(cardLink).
 		String()
 	if err != nil {
@@ -443,10 +432,10 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 	}
 
 	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.ReceiveIdTypeChatId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeInteractive).
-			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			ReceiveId("oc_073bc625285ef06b2c58852143a47675").
 			Content(cardContent).
 			Build()).
 		Build()
@@ -748,8 +737,8 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 	enCnPostAt := &larkim.MessagePostAt{UserId: "ou_c245b0a7dff2725cfa2fb104f8b48b9d", UserName: "jiaduo"}
 
 	// 图片
-	zhCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
-	enCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	//zhCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	//enCnPostImage := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
 
 	// 第二行
 	// 文本 &超链接
@@ -760,25 +749,25 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 	enUsPostText22 := &larkim.MessagePostText{Text: "英文内容", UnEscape: false}
 
 	// 图片
-	zhCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
-	enCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	//zhCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
+	//enCnPostImage2 := &larkim.MessagePostImage{ImageKey: "img_v2_a66c4f79-c7b5-4899-b5e3-622766c4f82g"}
 
 	// 中文
 	zhCn := larkim.NewMessagePostContent().
 		ContentTitle("我是一个标题").
 		AppendContent([]larkim.MessagePostElement{zhCnPostText, zhCnPostA, zhCnPostAt}).
-		AppendContent([]larkim.MessagePostElement{zhCnPostImage}).
+		//AppendContent([]larkim.MessagePostElement{zhCnPostImage}).
 		AppendContent([]larkim.MessagePostElement{zhCnPostText21, zhCnPostText22}).
-		AppendContent([]larkim.MessagePostElement{zhCnPostImage2}).
+		//AppendContent([]larkim.MessagePostElement{zhCnPostImage2}).
 		Build()
 
 	// 英文
 	enUs := larkim.NewMessagePostContent().
 		ContentTitle("im a title").
 		AppendContent([]larkim.MessagePostElement{enUsPostA, enUsPostText, enCnPostAt}).
-		AppendContent([]larkim.MessagePostElement{enCnPostImage}).
+		//AppendContent([]larkim.MessagePostElement{enCnPostImage}).
 		AppendContent([]larkim.MessagePostElement{enUsPostText21, enUsPostText22}).
-		AppendContent([]larkim.MessagePostElement{enCnPostImage2}).
+		//AppendContent([]larkim.MessagePostElement{enCnPostImage2}).
 		Build()
 
 	// 构建消息体
@@ -804,6 +793,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 
 	if resp.Success() {
 		fmt.Println(larkcore.Prettify(resp))
+		fmt.Println(*resp.Data.MessageId)
 	} else {
 		fmt.Println(resp.RequestId(), resp.Msg, resp.Code)
 	}
@@ -941,10 +931,10 @@ func main() {
 	var client = lark.NewClient(appID, appSecret)
 
 	// 发送文本消息
-	sendTextMsg(client)
+	//sendTextMsg(client)
 
 	// 发送富文本消息
-	//sendPostMsgUseBuilder(client)
+	sendPostMsgUseBuilder(client)
 
 	// 发送图片消息
 	//uploadImage(client)
@@ -975,7 +965,7 @@ func main() {
 	// 发送表情
 	//sendStickerMsg(client)
 
-	//downFile(feishu_client)
+	//downFile(client)
 	//downLoadImageV2(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(feishu_client)

@@ -130,8 +130,8 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type P2MeetingRoomCreatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` // 会议室名称
-	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
+	RoomName *string `json:"room_name,omitempty"` //
+	RoomId   *string `json:"room_id,omitempty"`   //
 }
 
 type P2MeetingRoomCreatedV1 struct {
@@ -145,8 +145,8 @@ func (m *P2MeetingRoomCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomDeletedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` // 会议室名称
-	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
+	RoomName *string `json:"room_name,omitempty"` //
+	RoomId   *string `json:"room_id,omitempty"`   //
 }
 
 type P2MeetingRoomDeletedV1 struct {
@@ -160,8 +160,8 @@ func (m *P2MeetingRoomDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomStatusChangedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` // 会议室名称
-	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
+	RoomName *string `json:"room_name,omitempty"` //
+	RoomId   *string `json:"room_id,omitempty"`   //
 }
 
 type P2MeetingRoomStatusChangedV1 struct {
@@ -175,8 +175,8 @@ func (m *P2MeetingRoomStatusChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomUpdatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` // Meeting room name
-	RoomId   *string `json:"room_id,omitempty"`   // Meeting room ID
+	RoomName *string `json:"room_name,omitempty"` //
+	RoomId   *string `json:"room_id,omitempty"`   //
 }
 
 type P2MeetingRoomUpdatedV1 struct {

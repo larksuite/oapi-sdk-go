@@ -64,7 +64,7 @@ func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateDataSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (d *dataSource) Delete(ctx context.Context, req *DeleteDataSourceReq, optio
 	}
 	// 反序列响应结果
 	resp := &DeleteDataSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (d *dataSource) Get(ctx context.Context, req *GetDataSourceReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetDataSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (d *dataSource) List(ctx context.Context, req *ListDataSourceReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListDataSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (d *dataSource) Patch(ctx context.Context, req *PatchDataSourceReq, options
 	}
 	// 反序列响应结果
 	resp := &PatchDataSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (d *dataSourceItem) Create(ctx context.Context, req *CreateDataSourceItemRe
 	}
 	// 反序列响应结果
 	resp := &CreateDataSourceItemResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func (d *dataSourceItem) Delete(ctx context.Context, req *DeleteDataSourceItemRe
 	}
 	// 反序列响应结果
 	resp := &DeleteDataSourceItemResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetDataSourceItemResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +280,7 @@ func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &CreateSchemaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +306,7 @@ func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &DeleteSchemaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +332,7 @@ func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetSchemaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -358,7 +358,7 @@ func (s *schema) Patch(ctx context.Context, req *PatchSchemaReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &PatchSchemaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}

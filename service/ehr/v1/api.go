@@ -68,7 +68,7 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ListEmployeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -6093,10 +6093,13 @@ func (builder *BackgroundCheckFeedbackInfoBuilder) Build() *BackgroundCheckFeedb
 type BackgroundCheckOrder struct {
 	OrderId          *string                        `json:"order_id,omitempty"`           // 背调 ID
 	ApplicationId    *string                        `json:"application_id,omitempty"`     // 投递 ID
+	OrderStatus      *int                           `json:"order_status,omitempty"`       // 背调状态
 	AccountThirdType *int                           `json:"account_third_type,omitempty"` // 供应商名称
 	Package          *string                        `json:"package,omitempty"`            // 背调套餐
+	Name             *string                        `json:"name,omitempty"`               // 背调名称（仅手动录入的背调结果具有）
 	FeedbackInfoList []*BackgroundCheckFeedbackInfo `json:"feedback_info_list,omitempty"` // 背调报告信息
-	ProcessInfoList  []*BackgroundCheckProcessInfo  `json:"process_info_list,omitempty"`  // 背调进度
+	ProcessInfoList  []*BackgroundCheckProcessInfo  `json:"process_info_list,omitempty"`  // 进度
+	UploadTime       *string                        `json:"upload_time,omitempty"`        // 录入时间（仅手动录入的背调结果具有）
 }
 
 type BackgroundCheckOrderBuilder struct {
@@ -6104,14 +6107,20 @@ type BackgroundCheckOrderBuilder struct {
 	orderIdFlag          bool
 	applicationId        string // 投递 ID
 	applicationIdFlag    bool
+	orderStatus          int // 背调状态
+	orderStatusFlag      bool
 	accountThirdType     int // 供应商名称
 	accountThirdTypeFlag bool
 	package_             string // 背调套餐
 	packageFlag          bool
+	name                 string // 背调名称（仅手动录入的背调结果具有）
+	nameFlag             bool
 	feedbackInfoList     []*BackgroundCheckFeedbackInfo // 背调报告信息
 	feedbackInfoListFlag bool
-	processInfoList      []*BackgroundCheckProcessInfo // 背调进度
+	processInfoList      []*BackgroundCheckProcessInfo // 进度
 	processInfoListFlag  bool
+	uploadTime           string // 录入时间（仅手动录入的背调结果具有）
+	uploadTimeFlag       bool
 }
 
 func NewBackgroundCheckOrderBuilder() *BackgroundCheckOrderBuilder {
@@ -6137,6 +6146,15 @@ func (builder *BackgroundCheckOrderBuilder) ApplicationId(applicationId string) 
 	return builder
 }
 
+// 背调状态
+//
+// 示例值：2
+func (builder *BackgroundCheckOrderBuilder) OrderStatus(orderStatus int) *BackgroundCheckOrderBuilder {
+	builder.orderStatus = orderStatus
+	builder.orderStatusFlag = true
+	return builder
+}
+
 // 供应商名称
 //
 // 示例值：1
@@ -6155,6 +6173,15 @@ func (builder *BackgroundCheckOrderBuilder) Package(package_ string) *Background
 	return builder
 }
 
+// 背调名称（仅手动录入的背调结果具有）
+//
+// 示例值：录入的背调
+func (builder *BackgroundCheckOrderBuilder) Name(name string) *BackgroundCheckOrderBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
 // 背调报告信息
 //
 // 示例值：
@@ -6164,12 +6191,21 @@ func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []
 	return builder
 }
 
-// 背调进度
+// 进度
 //
 // 示例值：
 func (builder *BackgroundCheckOrderBuilder) ProcessInfoList(processInfoList []*BackgroundCheckProcessInfo) *BackgroundCheckOrderBuilder {
 	builder.processInfoList = processInfoList
 	builder.processInfoListFlag = true
+	return builder
+}
+
+// 录入时间（仅手动录入的背调结果具有）
+//
+// 示例值：1662476247755
+func (builder *BackgroundCheckOrderBuilder) UploadTime(uploadTime string) *BackgroundCheckOrderBuilder {
+	builder.uploadTime = uploadTime
+	builder.uploadTimeFlag = true
 	return builder
 }
 
@@ -6183,6 +6219,10 @@ func (builder *BackgroundCheckOrderBuilder) Build() *BackgroundCheckOrder {
 		req.ApplicationId = &builder.applicationId
 
 	}
+	if builder.orderStatusFlag {
+		req.OrderStatus = &builder.orderStatus
+
+	}
 	if builder.accountThirdTypeFlag {
 		req.AccountThirdType = &builder.accountThirdType
 
@@ -6191,24 +6231,32 @@ func (builder *BackgroundCheckOrderBuilder) Build() *BackgroundCheckOrder {
 		req.Package = &builder.package_
 
 	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
 	if builder.feedbackInfoListFlag {
 		req.FeedbackInfoList = builder.feedbackInfoList
 	}
 	if builder.processInfoListFlag {
 		req.ProcessInfoList = builder.processInfoList
 	}
+	if builder.uploadTimeFlag {
+		req.UploadTime = &builder.uploadTime
+
+	}
 	return req
 }
 
 type BackgroundCheckProcessInfo struct {
-	Process    *string `json:"process,omitempty"`     // 背调状态
-	UpdateTime *string `json:"update_time,omitempty"` // 状态更新时间
+	Process    *string `json:"process,omitempty"`     // 背调进度
+	UpdateTime *string `json:"update_time,omitempty"` // 进度更新时间
 }
 
 type BackgroundCheckProcessInfoBuilder struct {
-	process        string // 背调状态
+	process        string // 背调进度
 	processFlag    bool
-	updateTime     string // 状态更新时间
+	updateTime     string // 进度更新时间
 	updateTimeFlag bool
 }
 
@@ -6217,7 +6265,7 @@ func NewBackgroundCheckProcessInfoBuilder() *BackgroundCheckProcessInfoBuilder {
 	return builder
 }
 
-// 背调状态
+// 背调进度
 //
 // 示例值：待安排
 func (builder *BackgroundCheckProcessInfoBuilder) Process(process string) *BackgroundCheckProcessInfoBuilder {
@@ -6226,7 +6274,7 @@ func (builder *BackgroundCheckProcessInfoBuilder) Process(process string) *Backg
 	return builder
 }
 
-// 状态更新时间
+// 进度更新时间
 //
 // 示例值：1638359554952
 func (builder *BackgroundCheckProcessInfoBuilder) UpdateTime(updateTime string) *BackgroundCheckProcessInfoBuilder {
@@ -31288,9 +31336,9 @@ func NewListApplicationInterviewReqBuilder() *ListApplicationInterviewReqBuilder
 	return builder
 }
 
-// 投递ID
+// 投递 ID
 //
-// 示例值：6949805467799537964
+// 示例值：6960663240925956555
 func (builder *ListApplicationInterviewReqBuilder) ApplicationId(applicationId string) *ListApplicationInterviewReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder

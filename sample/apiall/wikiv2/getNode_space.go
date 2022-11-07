@@ -27,7 +27,7 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkwiki.NewGetNodeSpaceReqBuilder().
-		Token("wikcnKQ1k3pcuo5uSK4t8VN6kVf").
+		Token("wikcnKQ1k3p******8Vabcef").
 		Build()
 	// 发起请求
 	resp, err := client.Wiki.Space.GetNode(context.Background(), req)

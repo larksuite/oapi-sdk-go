@@ -919,6 +919,7 @@ type ChatTab struct {
 	TabName    *string         `json:"tab_name,omitempty"`    // Tab名称;;**注意**：会话标签页的名称不能超过30个字符
 	TabType    *string         `json:"tab_type,omitempty"`    // Tab类型
 	TabContent *ChatTabContent `json:"tab_content,omitempty"` // Tab内容
+	TabConfig  *ChatTabConfig  `json:"tab_config,omitempty"`  // Tab的配置
 }
 
 type ChatTabBuilder struct {
@@ -930,6 +931,8 @@ type ChatTabBuilder struct {
 	tabTypeFlag    bool
 	tabContent     *ChatTabContent // Tab内容
 	tabContentFlag bool
+	tabConfig      *ChatTabConfig // Tab的配置
+	tabConfigFlag  bool
 }
 
 func NewChatTabBuilder() *ChatTabBuilder {
@@ -973,6 +976,15 @@ func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBu
 	return builder
 }
 
+// Tab的配置
+//
+// 示例值：
+func (builder *ChatTabBuilder) TabConfig(tabConfig *ChatTabConfig) *ChatTabBuilder {
+	builder.tabConfig = tabConfig
+	builder.tabConfigFlag = true
+	return builder
+}
+
 func (builder *ChatTabBuilder) Build() *ChatTab {
 	req := &ChatTab{}
 	if builder.tabIdFlag {
@@ -989,6 +1001,9 @@ func (builder *ChatTabBuilder) Build() *ChatTab {
 	}
 	if builder.tabContentFlag {
 		req.TabContent = builder.tabContent
+	}
+	if builder.tabConfigFlag {
+		req.TabConfig = builder.tabConfig
 	}
 	return req
 }
@@ -3671,7 +3686,7 @@ func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
 
 // 操作人身份，用户或应用
 //
-// 示例值：user
+// 示例值：app/user
 func (builder *OperatorBuilder) OperatorType(operatorType string) *OperatorBuilder {
 	builder.operatorType = operatorType
 	builder.operatorTypeFlag = true
@@ -4550,7 +4565,7 @@ type CreateChatReqBodyBuilder struct {
 	i18nNamesFlag              bool
 	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应，不同 ID 的说明参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：创建外部群时，必须指定群主
 	ownerIdFlag                bool
-	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定。;;**注意**：最多同时邀请 50 个用户
+	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定;;**注意**：最多同时邀请 50 个用户
 	userIdListFlag             bool
 	botIdList                  []string // 创建群时邀请的群机器人; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
 	botIdListFlag              bool
@@ -4618,7 +4633,7 @@ func (builder *CreateChatReqBodyBuilder) OwnerId(ownerId string) *CreateChatReqB
 	return builder
 }
 
-// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定。;;**注意**：最多同时邀请 50 个用户
+// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定;;**注意**：最多同时邀请 50 个用户
 //
 //示例值：["4d7a3c6g"]
 func (builder *CreateChatReqBodyBuilder) UserIdList(userIdList []string) *CreateChatReqBodyBuilder {
@@ -4745,7 +4760,7 @@ type CreateChatPathReqBodyBuilder struct {
 	i18nNamesFlag              bool
 	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应，不同 ID 的说明参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：创建外部群时，必须指定群主
 	ownerIdFlag                bool
-	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定。;;**注意**：最多同时邀请 50 个用户
+	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定;;**注意**：最多同时邀请 50 个用户
 	userIdListFlag             bool
 	botIdList                  []string // 创建群时邀请的群机器人; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
 	botIdListFlag              bool
@@ -4817,7 +4832,7 @@ func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChat
 	return builder
 }
 
-// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定。;;**注意**：最多同时邀请 50 个用户
+// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定;;**注意**：最多同时邀请 50 个用户
 //
 // 示例值：["4d7a3c6g"]
 func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
@@ -4983,7 +4998,7 @@ type CreateChatReqBody struct {
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
 	OwnerId                *string    `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应，不同 ID 的说明参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：创建外部群时，必须指定群主
-	UserIdList             []string   `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定。;;**注意**：最多同时邀请 50 个用户
+	UserIdList             []string   `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定;;**注意**：最多同时邀请 50 个用户
 	BotIdList              []string   `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
 	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组
 	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
@@ -5631,6 +5646,8 @@ type UpdateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 	toolkitIds                 []string // 群快捷组件列表
 	toolkitIdsFlag             bool
+	chatType                   string // 群类型
+	chatTypeFlag               bool
 }
 
 func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
@@ -6308,7 +6325,7 @@ func (resp *DeleteManagersChatManagersResp) Success() bool {
 }
 
 type CreateChatMembersReqBodyBuilder struct {
-	idList     []string // 成员列表;;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	idList     []string // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 	idListFlag bool
 }
 
@@ -6317,7 +6334,7 @@ func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
 	return builder
 }
 
-// 成员列表;;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+// 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
@@ -6335,7 +6352,7 @@ func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBod
 }
 
 type CreateChatMembersPathReqBodyBuilder struct {
-	idList     []string // 成员列表;;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	idList     []string // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 	idListFlag bool
 }
 
@@ -6344,7 +6361,7 @@ func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuild
 	return builder
 }
 
-// 成员列表;;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+// 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
@@ -6415,7 +6432,7 @@ func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 }
 
 type CreateChatMembersReqBody struct {
-	IdList []string `json:"id_list,omitempty"` // 成员列表;;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	IdList []string `json:"id_list,omitempty"` // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 }
 
 type CreateChatMembersReq struct {
@@ -6424,7 +6441,7 @@ type CreateChatMembersReq struct {
 }
 
 type CreateChatMembersRespData struct {
-	InvalidIdList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表
+	InvalidIdList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表;;**注意**：;- 当`success_type=0`时，`invalid_id_list`只包含已离职的用户ID;- 当`success_type=1`时，`invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
 	NotExistedIdList []string `json:"not_existed_id_list,omitempty"` // ID不存在的成员列表
 }
 
@@ -9607,10 +9624,12 @@ func (resp *ListPinResp) Success() bool {
 }
 
 type P2ChatDisbandedV1Data struct {
-	ChatId            *string `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorId        *UserId `json:"operator_id,omitempty"`         // 操作者的ID
-	External          *bool   `json:"external,omitempty"`            // 被解散的群是否是外部群
-	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 操作者的ID
+	External          *bool      `json:"external,omitempty"`            // 被解散的群是否是外部群
+	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	Name              *string    `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatDisbandedV1 struct {
@@ -9644,10 +9663,12 @@ func (m *P2ChatUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberBotAddedV1Data struct {
-	ChatId            *string `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorId        *UserId `json:"operator_id,omitempty"`         // 用户 ID
-	External          *bool   `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 用户 ID
+	External          *bool      `json:"external,omitempty"`            // 是否是外部群
+	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	Name              *string    `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatMemberBotAddedV1 struct {
@@ -9661,10 +9682,12 @@ func (m *P2ChatMemberBotAddedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberBotDeletedV1Data struct {
-	ChatId            *string `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorId        *UserId `json:"operator_id,omitempty"`         // 用户 ID
-	External          *bool   `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 用户 ID
+	External          *bool      `json:"external,omitempty"`            // 是否是外部群
+	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
+	Name              *string    `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatMemberBotDeletedV1 struct {
@@ -9683,6 +9706,8 @@ type P2ChatMemberUserAddedV1Data struct {
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
 	Users             []*ChatMemberUser `json:"users,omitempty"`               // 被添加的用户列表
+	Name              *string           `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames        `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatMemberUserAddedV1 struct {
@@ -9701,6 +9726,8 @@ type P2ChatMemberUserDeletedV1Data struct {
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
 	Users             []*ChatMemberUser `json:"users,omitempty"`               // 被移除用户列表
+	Name              *string           `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames        `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatMemberUserDeletedV1 struct {
@@ -9719,6 +9746,8 @@ type P2ChatMemberUserWithdrawnV1Data struct {
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
 	Users             []*ChatMemberUser `json:"users,omitempty"`               // 被撤销加群的用户列表
+	Name              *string           `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames        `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 type P2ChatMemberUserWithdrawnV1 struct {
@@ -9743,6 +9772,23 @@ type P2MessageReadV1 struct {
 }
 
 func (m *P2MessageReadV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2MessageRecalledV1Data struct {
+	MessageId  *string `json:"message_id,omitempty"`  // 消息ID
+	ChatId     *string `json:"chat_id,omitempty"`     // 群ID
+	RecallTime *string `json:"recall_time,omitempty"` // 撤回事件
+	RecallType *string `json:"recall_type,omitempty"` // 撤回类型
+}
+
+type P2MessageRecalledV1 struct {
+	*larkevent.EventV2Base                          // 事件基础数据
+	*larkevent.EventReq                             // 请求原生数据
+	Event                  *P2MessageRecalledV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2MessageRecalledV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

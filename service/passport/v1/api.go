@@ -54,7 +54,7 @@ func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &QuerySessionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -75,7 +75,7 @@ func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListAccessRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordA
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +144,7 @@ func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc
 	}
 	// 反序列响应结果
 	resp := &ListDeviceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +200,7 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +234,7 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &PatchUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...lark
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -293,7 +293,7 @@ func (u *userFace) Update(ctx context.Context, req *UpdateUserFaceReq, options .
 	}
 	// 反序列响应结果
 	resp := &UpdateUserFaceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}

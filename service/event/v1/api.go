@@ -56,7 +56,7 @@ func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListOutboundIpResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, o.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -40,6 +40,7 @@ func main() {
 			UnitIds([]string{}).
 			CreateGroupChat(false).
 			Leaders([]*larkcontact.DepartmentLeader{larkcontact.NewDepartmentLeaderBuilder().Build()}).
+			GroupChatEmployeeTypes([]int{}).
 			Build()).
 		Build()
 	// 发起请求

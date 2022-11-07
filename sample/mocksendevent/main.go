@@ -66,7 +66,7 @@ func mockEncryptedBody(encrypteKey string) []byte {
 	eventBody := EventV2Body{
 		P2UserCreatedV3: usersCreatedEvent,
 		Challenge:       "1212",
-		Type:            "url_verification",
+		Type:            "url_verification1",
 	}
 
 	en, _ := larkcore.EncryptedEventMsg(context.Background(), eventBody, encrypteKey)
@@ -214,6 +214,16 @@ func mockMessageReceiveEventV1() []byte {
 	body1, _ := json.Marshal(event)
 
 	return body1
+}
+
+func mockhelpdeskTicketUpdatedV1() []byte {
+	body := "{\"schema\":\"2.0\",\"header\":{\"event_id\":\"bb8d3850b92f2cac9ce68862ebd63eb5\",\"token\":\"OGfWLx8LMOJYkaz3p4TxDgwvIxZWEcS3\",\"create_time\":\"1666593118336\",\"event_type\":\"helpdesk.ticket.updated_v1\",\"tenant_key\":\"736588c9260f175d\",\"app_id\":\"cli_9f8f27b375e9100c\"},\"event\":{\"object\":{\"chat_id\":\"oc_b3829240889c07a32126f8ad05891497\",\"closed_at\":1666593118000,\"created_at\":1666592755000,\"guest\":{\"id\":{\"open_id\":\"ou_dee0f0f124eca432bb4d1787025b3c4b\",\"union_id\":\"on_e434dd79941dfee7deb6fe3e41a8dd18\",\"user_id\":\"5f4a6a3b\"},\"name\":\"-\"},\"helpdesk_id\":\"6868205580868141059\",\"solve\":1,\"stage\":1,\"status\":50,\"ticket_id\":\"7157961378652045340\",\"updated_at\":1666593118000},\"old_object\":{\"status\":1,\"updated_at\":1666592755000}}}"
+	return []byte(body)
+}
+
+func mockhelpdeskTicketCreatedV1() []byte {
+	body := "{\"schema\":\"2.0\",\"header\":{\"event_id\":\"7b378539bfbdd0a94a18af7a374cff47\",\"token\":\"OGfWLx8LMOJYkaz3p4TxDgwvIxZWEcS3\",\"create_time\":\"1666583338473\",\"event_type\":\"helpdesk.ticket_message.created_v1\",\"tenant_key\":\"736588c9260f175d\",\"app_id\":\"cli_9f8f27b375e9100c\"},\"event\":{\"chat_id\":\"oc_3f37a0031825d258e3f66d5a8b600c7d\",\"content\":{\"content\":\"**猜你想问**\\n--------\\n[安装使用哪些软件属于盗版软件？]\\n[腾讯相关软件下载（微信/腾讯会议/QQ/QQ浏览器等）]\\n[以上都不是，转人工服务]\\n\",\"msg_type\":\"text\"},\"event_id\":\"debbc874-1c84-b9bf-55cd-a8ab3dfb4e0c\",\"message_id\":\"om_4b95319c9e249e4e60800ec08f863bee\",\"msg_type\":\"text\",\"position\":222,\"sender_type\":1,\"text\":\"**猜你想问**\\n--------\\n[安装使用哪些软件属于盗版软件？]\\n[腾讯相关软件下载（微信/腾讯会议/QQ/QQ浏览器等）]\\n[以上都不是，转人工服务]\\n\",\"ticket\":{\"status\":1,\"ticket_id\":\"7157919461389959171\"},\"ticket_message_id\":\"7157920934710771713\"}}"
+	return []byte(body)
 }
 
 func mockUserStatusChangedEventV1() []byte {

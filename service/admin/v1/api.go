@@ -81,7 +81,7 @@ func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAdminDeptStatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAdminUserStatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (b *badge) Create(ctx context.Context, req *CreateBadgeReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateBadgeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (b *badge) Get(ctx context.Context, req *GetBadgeReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &GetBadgeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func (b *badge) List(ctx context.Context, req *ListBadgeReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListBadgeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (b *badge) Update(ctx context.Context, req *UpdateBadgeReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &UpdateBadgeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func (b *badgeGrant) Create(ctx context.Context, req *CreateBadgeGrantReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateBadgeGrantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +273,7 @@ func (b *badgeGrant) Delete(ctx context.Context, req *DeleteBadgeGrantReq, optio
 	}
 	// 反序列响应结果
 	resp := &DeleteBadgeGrantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +299,7 @@ func (b *badgeGrant) Get(ctx context.Context, req *GetBadgeGrantReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetBadgeGrantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -325,7 +325,7 @@ func (b *badgeGrant) List(ctx context.Context, req *ListBadgeGrantReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListBadgeGrantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +359,7 @@ func (b *badgeGrant) Update(ctx context.Context, req *UpdateBadgeGrantReq, optio
 	}
 	// 反序列响应结果
 	resp := &UpdateBadgeGrantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +386,7 @@ func (b *badgeImage) Create(ctx context.Context, req *CreateBadgeImageReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateBadgeImageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -412,7 +412,7 @@ func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...
 	}
 	// 反序列响应结果
 	resp := &ResetPasswordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}

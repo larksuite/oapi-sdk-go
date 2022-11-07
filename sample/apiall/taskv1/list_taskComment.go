@@ -31,6 +31,7 @@ func main() {
 		PageSize(10).
 		PageToken("").
 		ListDirection(0).
+		UserIdType("user_id").
 		Build()
 	// 发起请求
 	resp, err := client.Task.TaskComment.List(context.Background(), req)

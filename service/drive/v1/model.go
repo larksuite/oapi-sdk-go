@@ -1234,12 +1234,12 @@ func (builder *DocsLinkBuilder) Build() *DocsLink {
 
 type ExportTask struct {
 	FileExtension *string `json:"file_extension,omitempty"` // 导出文件扩展名
-	Token         *string `json:"token,omitempty"`          // 导出文档 token
-	Type          *string `json:"type,omitempty"`           // 导出文档类型
+	Token         *string `json:"token,omitempty"`          // 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Type          *string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735)
 	FileName      *string `json:"file_name,omitempty"`      // 导出文件名
-	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
+	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id;;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list) 文档中的 table_id
 	FileToken     *string `json:"file_token,omitempty"`     // 导出文件 drive token
-	FileSize      *int    `json:"file_size,omitempty"`      // 导出文件大小
+	FileSize      *int    `json:"file_size,omitempty"`      // 导出文件大小，单位字节
 	JobErrorMsg   *string `json:"job_error_msg,omitempty"`  // 任务失败原因
 	JobStatus     *int    `json:"job_status,omitempty"`     // 任务状态
 }
@@ -1247,17 +1247,17 @@ type ExportTask struct {
 type ExportTaskBuilder struct {
 	fileExtension     string // 导出文件扩展名
 	fileExtensionFlag bool
-	token             string // 导出文档 token
+	token             string // 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	tokenFlag         bool
-	type_             string // 导出文档类型
+	type_             string // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735)
 	typeFlag          bool
 	fileName          string // 导出文件名
 	fileNameFlag      bool
-	subId             string // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
+	subId             string // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id;;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list) 文档中的 table_id
 	subIdFlag         bool
 	fileToken         string // 导出文件 drive token
 	fileTokenFlag     bool
-	fileSize          int // 导出文件大小
+	fileSize          int // 导出文件大小，单位字节
 	fileSizeFlag      bool
 	jobErrorMsg       string // 任务失败原因
 	jobErrorMsgFlag   bool
@@ -1279,7 +1279,7 @@ func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTas
 	return builder
 }
 
-// 导出文档 token
+// 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
@@ -1288,7 +1288,7 @@ func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
 	return builder
 }
 
-// 导出文档类型
+// 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735)
 //
 // 示例值：doc
 func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
@@ -1306,7 +1306,7 @@ func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
 	return builder
 }
 
-// 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query);;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)
+// 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id;;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list) 文档中的 table_id
 //
 // 示例值：tblKz5D60T4JlfcT
 func (builder *ExportTaskBuilder) SubId(subId string) *ExportTaskBuilder {
@@ -1324,7 +1324,7 @@ func (builder *ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder
 	return builder
 }
 
-// 导出文件大小
+// 导出文件大小，单位字节
 //
 // 示例值：34356
 func (builder *ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder {
@@ -4017,7 +4017,7 @@ func NewCreateExportTaskReqBuilder() *CreateExportTaskReqBuilder {
 	return builder
 }
 
-// 创建导出任务，将云文档导出为文件
+// 创建导出任务，将云文件导出为指定格式的本地文件。该接口为异步接口，需要通过轮询 [查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get) 接口获取任务结果。
 func (builder *CreateExportTaskReqBuilder) ExportTask(exportTask *ExportTask) *CreateExportTaskReqBuilder {
 	builder.exportTask = exportTask
 	return builder
@@ -4118,7 +4118,7 @@ func NewGetExportTaskReqBuilder() *GetExportTaskReqBuilder {
 	return builder
 }
 
-// 导出任务ID
+// 导出任务ID，[创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段
 //
 // 示例值：6933093124755423251
 func (builder *GetExportTaskReqBuilder) Ticket(ticket string) *GetExportTaskReqBuilder {
@@ -4126,7 +4126,7 @@ func (builder *GetExportTaskReqBuilder) Ticket(ticket string) *GetExportTaskReqB
 	return builder
 }
 
-// 导出文档的 token
+// 导出文档的 token;;[如何获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnZVxxxxxxxxxxxxGiyBgYqe
 func (builder *GetExportTaskReqBuilder) Token(token string) *GetExportTaskReqBuilder {
@@ -5761,11 +5761,11 @@ func (builder *ListFileCommentReqBuilder) FileType(fileType string) *ListFileCom
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 是否全文评论
 //
-// 示例值：
-func (builder *ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder {
-	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+// 示例值：false
+func (builder *ListFileCommentReqBuilder) IsWhole(isWhole bool) *ListFileCommentReqBuilder {
+	builder.apiReq.QueryParams.Set("is_whole", fmt.Sprint(isWhole))
 	return builder
 }
 
@@ -5777,7 +5777,7 @@ func (builder *ListFileCommentReqBuilder) IsSolved(isSolved bool) *ListFileComme
 	return builder
 }
 
-//
+// 评论分页参数
 //
 // 示例值：7153511712153412356
 func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileCommentReqBuilder {
@@ -5785,11 +5785,19 @@ func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileC
 	return builder
 }
 
+// 获取满足 commen_id > page_token 的评论数量
 //
+// 示例值：10
+func (builder *ListFileCommentReqBuilder) PageSize(pageSize string) *ListFileCommentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
 //
 // 示例值：
-func (builder *ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommentReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+func (builder *ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 

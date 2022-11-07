@@ -28,9 +28,9 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewQueryRoomConfigReqBuilder().
 		Scope(5).
-		CountryId("086").
-		DistrictId("001").
-		BuildingId("22").
+		CountryId("1").
+		DistrictId("2").
+		BuildingId("3").
 		FloorName("4").
 		RoomId("6383786266263").
 		UserIdType("user_id").

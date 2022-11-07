@@ -1785,6 +1785,110 @@ func (resp *CreateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ExtractEntityReqBodyBuilder struct {
+	text     string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	textFlag bool
+}
+
+func NewExtractEntityReqBodyBuilder() *ExtractEntityReqBodyBuilder {
+	builder := &ExtractEntityReqBodyBuilder{}
+	return builder
+}
+
+// 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+//
+//示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+func (builder *ExtractEntityReqBodyBuilder) Text(text string) *ExtractEntityReqBodyBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *ExtractEntityReqBodyBuilder) Build() *ExtractEntityReqBody {
+	req := &ExtractEntityReqBody{}
+	if builder.textFlag {
+		req.Text = &builder.text
+	}
+	return req
+}
+
+type ExtractEntityPathReqBodyBuilder struct {
+	text     string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	textFlag bool
+}
+
+func NewExtractEntityPathReqBodyBuilder() *ExtractEntityPathReqBodyBuilder {
+	builder := &ExtractEntityPathReqBodyBuilder{}
+	return builder
+}
+
+// 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+//
+// 示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+func (builder *ExtractEntityPathReqBodyBuilder) Text(text string) *ExtractEntityPathReqBodyBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *ExtractEntityPathReqBodyBuilder) Build() (*ExtractEntityReqBody, error) {
+	req := &ExtractEntityReqBody{}
+	if builder.textFlag {
+		req.Text = &builder.text
+	}
+	return req, nil
+}
+
+type ExtractEntityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ExtractEntityReqBody
+}
+
+func NewExtractEntityReqBuilder() *ExtractEntityReqBuilder {
+	builder := &ExtractEntityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 提取文本中可能成为百科词条的词语，且不会过滤已经成为百科词条的词语。同时，会返回推荐的别名。
+func (builder *ExtractEntityReqBuilder) Body(body *ExtractEntityReqBody) *ExtractEntityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ExtractEntityReqBuilder) Build() *ExtractEntityReq {
+	req := &ExtractEntityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ExtractEntityReqBody struct {
+	Text *string `json:"text,omitempty"` // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+}
+
+type ExtractEntityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ExtractEntityReqBody `body:""`
+}
+
+type ExtractEntityRespData struct {
+	EntityWord []*EntityWord `json:"entity_word,omitempty"` // 文本中可能的成为百科词条的词汇
+}
+
+type ExtractEntityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ExtractEntityRespData `json:"data"` // 业务数据
+}
+
+func (resp *ExtractEntityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }

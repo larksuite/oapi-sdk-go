@@ -56,7 +56,7 @@ func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options .
 	}
 	// 反序列响应结果
 	resp := &CreateIdentityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}

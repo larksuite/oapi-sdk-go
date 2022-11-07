@@ -79,7 +79,7 @@ func (a *appRecommendRule) List(ctx context.Context, req *ListAppRecommendRuleRe
 	}
 	// 反序列响应结果
 	resp := &ListAppRecommendRuleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, optio
 	}
 	// 反序列响应结果
 	resp := &PatchApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApp
 	}
 	// 反序列响应结果
 	resp := &UnderauditlistApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 	}
 	// 反序列响应结果
 	resp := &OverviewApplicationAppUsageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +227,7 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 	}
 	// 反序列响应结果
 	resp := &GetApplicationAppVersionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -253,7 +253,7 @@ func (a *applicationAppVersion) List(ctx context.Context, req *ListApplicationAp
 	}
 	// 反序列响应结果
 	resp := &ListApplicationAppVersionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +287,7 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 	}
 	// 反序列响应结果
 	resp := &PatchApplicationAppVersionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeed
 	}
 	// 反序列响应结果
 	resp := &ListApplicationFeedbackResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +339,7 @@ func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFe
 	}
 	// 反序列响应结果
 	resp := &PatchApplicationFeedbackResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}

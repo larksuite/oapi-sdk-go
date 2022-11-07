@@ -145,3 +145,45 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx co
 	dispatcher.eventType2EventHandler["vc.meeting.share_started_v1"] = larkvc.NewP2MeetingShareStartedV1Handler(handler)
 	return dispatcher
 }
+
+// 创建会议室
+//
+// - 当创建会议室时，会触发该事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/created
+func (dispatcher *EventDispatcher) OnP2RoomCreatedV1(handler func(ctx context.Context, event *larkvc.P2RoomCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room.created_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room.created_v1"] = larkvc.NewP2RoomCreatedV1Handler(handler)
+	return dispatcher
+}
+
+// 删除会议室
+//
+// - 当删除会议室时，会触发该事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/deleted
+func (dispatcher *EventDispatcher) OnP2RoomDeletedV1(handler func(ctx context.Context, event *larkvc.P2RoomDeletedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room.deleted_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room.deleted_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room.deleted_v1"] = larkvc.NewP2RoomDeletedV1Handler(handler)
+	return dispatcher
+}
+
+// 更新会议室
+//
+// - 当更新会议室时，会触发该事件
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/updated
+func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Context, event *larkvc.P2RoomUpdatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room.updated_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room.updated_v1"] = larkvc.NewP2RoomUpdatedV1Handler(handler)
+	return dispatcher
+}

@@ -75,7 +75,7 @@ func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &UploadImageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &BatchGetOkrResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, o.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &ListPeriodResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +157,7 @@ func (p *progressRecord) Create(ctx context.Context, req *CreateProgressRecordRe
 	}
 	// 反序列响应结果
 	resp := &CreateProgressRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +183,7 @@ func (p *progressRecord) Delete(ctx context.Context, req *DeleteProgressRecordRe
 	}
 	// 反序列响应结果
 	resp := &DeleteProgressRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +209,7 @@ func (p *progressRecord) Get(ctx context.Context, req *GetProgressRecordReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetProgressRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func (p *progressRecord) Update(ctx context.Context, req *UpdateProgressRecordRe
 	}
 	// 反序列响应结果
 	resp := &UpdateProgressRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (u *userOkr) List(ctx context.Context, req *ListUserOkrReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &ListUserOkrResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}

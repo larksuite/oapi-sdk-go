@@ -55,7 +55,7 @@ func (d *authen) AuthenAccessToken(ctx context.Context, req *AuthenAccessTokenRe
 	}
 	// 反序列响应结果
 	resp := &AuthenAccessTokenResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (d *authen) RefreshAuthenAccessToken(ctx context.Context, req *RefreshAuthe
 	}
 	// 反序列响应结果
 	resp := &RefreshAuthenAccessTokenResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (d *authen) AuthenUserInfo(ctx context.Context, options ...larkcore.Request
 	}
 	// 反序列响应结果
 	resp := &AuthenUserInfoResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (d *driveExplorer) CreateFile(ctx context.Context, req *CreateFileReq, opti
 	}
 	// 反序列响应结果
 	resp := &CreateFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}

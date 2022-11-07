@@ -146,6 +146,20 @@ func (dispatcher *EventDispatcher) OnP2MessageReadV1(handler func(ctx context.Co
 	return dispatcher
 }
 
+// 消息撤回事件
+//
+// - 消息被撤回后触发此事件。
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/recalled
+func (dispatcher *EventDispatcher) OnP2MessageRecalledV1(handler func(ctx context.Context, event *larkim.P2MessageRecalledV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["im.message.recalled_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "im.message.recalled_v1")
+	}
+	dispatcher.eventType2EventHandler["im.message.recalled_v1"] = larkim.NewP2MessageRecalledV1Handler(handler)
+	return dispatcher
+}
+
 // 接收消息
 //
 // - 机器人接收到用户发送的消息后触发此事件。

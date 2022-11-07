@@ -70,7 +70,7 @@ func (c *classification) List(ctx context.Context, req *ListClassificationReq, o
 	}
 	// 反序列响应结果
 	resp := &ListClassificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func (d *draft) Create(ctx context.Context, req *CreateDraftReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateDraftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (d *draft) Update(ctx context.Context, req *UpdateDraftReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &UpdateDraftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,33 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &CreateEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 提取潜在的百科词条
+//
+// - 提取文本中可能成为百科词条的词语，且不会过滤已经成为百科词条的词语。同时，会返回推荐的别名。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/extract
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/baikev1/extract_entity.go
+func (e *entity) Extract(ctx context.Context, req *ExtractEntityReq, options ...larkcore.RequestOptionFunc) (*ExtractEntityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/baike/v1/entities/extract"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ExtractEntityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +214,7 @@ func (e *entity) Get(ctx context.Context, req *GetEntityReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +240,7 @@ func (e *entity) Highlight(ctx context.Context, req *HighlightEntityReq, options
 	}
 	// 反序列响应结果
 	resp := &HighlightEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +266,7 @@ func (e *entity) List(ctx context.Context, req *ListEntityReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &ListEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +300,7 @@ func (e *entity) Match(ctx context.Context, req *MatchEntityReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &MatchEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +326,7 @@ func (e *entity) Search(ctx context.Context, req *SearchEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &SearchEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +360,7 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &UpdateEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +392,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -393,7 +419,7 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &UploadFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}

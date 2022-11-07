@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewCreateSpaceMemberReqBuilder().
 		SpaceId("1565676577122621").
-		NeedNotification(false).
+		NeedNotification(true).
 		Member(larkwiki.NewMemberBuilder().
 			MemberType("").
 			MemberId("").

@@ -60,12 +60,12 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
+	Admin                  *larkadmin.AdminService                                     // 管理后台-数据报表
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
 	Baike                  *larkbaike.BaikeService                                     // 企业百科
-	Bitable                *larkbitable.BitableService                                 // 云文档-电子表格
+	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
 	Contact                *larkcontact.ContactService                                 // 通讯录
@@ -160,6 +160,12 @@ func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	}
 }
 
+func WithSerialization(serializable larkcore.Serializable) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.Serializable = serializable
+	}
+}
+
 func WithReqTimeout(reqTimeout time.Duration) ClientOptionFunc {
 	return func(config *larkcore.Config) {
 		config.ReqTimeout = reqTimeout
@@ -191,6 +197,9 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 
 	// 构建缓存
 	larkcore.NewCache(config)
+
+	// 创建序列化器
+	larkcore.NewSerialization(config)
 
 	// 创建httpclient
 	larkcore.NewHttpClient(config)

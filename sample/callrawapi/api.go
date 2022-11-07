@@ -190,6 +190,42 @@ func rawApiGetTokenCallOld() {
 	fmt.Println(resp.Header)          // http header
 	fmt.Println(string(resp.RawBody)) // http body
 }
+
+// 原生 API 调用推荐用法
+func CreateDoc() {
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true))
+
+	//发起请求
+	body := map[string]interface{}{}
+	body["folder_token"] = "fldcnqquW1svRIYVT2Np6IuLCKd"
+	body["title"] = "哈喽哈喽"
+
+	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   "https://open.feishu.cn/open-apis/docx/v1/documents",
+		Body:                      body,
+		PathParams:                nil,
+		QueryParams:               nil,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp},
+	})
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+}
+
 func main() {
-	rawApiGetTokenCallOld()
+	CreateDoc()
 }

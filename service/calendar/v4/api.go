@@ -94,7 +94,7 @@ func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options .
 	}
 	// 反序列响应结果
 	resp := &CreateCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options .
 	}
 	// 反序列响应结果
 	resp := &DeleteCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &GetCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ListCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +206,7 @@ func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...
 	}
 	// 反序列响应结果
 	resp := &PatchCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +232,7 @@ func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options
 	}
 	// 反序列响应结果
 	resp := &PrimaryCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +258,7 @@ func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options .
 	}
 	// 反序列响应结果
 	resp := &SearchCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +294,7 @@ func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, opt
 	}
 	// 反序列响应结果
 	resp := &SubscribeCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -323,7 +323,7 @@ func (c *calendar) Subscription(ctx context.Context, options ...larkcore.Request
 	}
 	// 反序列响应结果
 	resp := &SubscriptionCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -351,7 +351,7 @@ func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq,
 	}
 	// 反序列响应结果
 	resp := &UnsubscribeCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +380,7 @@ func (c *calendar) Unsubscription(ctx context.Context, options ...larkcore.Reque
 	}
 	// 反序列响应结果
 	resp := &UnsubscriptionCalendarResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -408,7 +408,7 @@ func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateCalendarAclResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +436,7 @@ func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteCalendarAclResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +464,7 @@ func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options
 	}
 	// 反序列响应结果
 	resp := &ListCalendarAclResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +500,7 @@ func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalenda
 	}
 	// 反序列响应结果
 	resp := &SubscriptionCalendarAclResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -528,7 +528,7 @@ func (c *calendarAcl) Unsubscription(ctx context.Context, req *UnsubscriptionCal
 	}
 	// 反序列响应结果
 	resp := &UnsubscriptionCalendarAclResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -556,7 +556,7 @@ func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq,
 	}
 	// 反序列响应结果
 	resp := &CreateCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -584,7 +584,7 @@ func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq,
 	}
 	// 反序列响应结果
 	resp := &DeleteCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -612,7 +612,7 @@ func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, optio
 	}
 	// 反序列响应结果
 	resp := &GetCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -640,7 +640,7 @@ func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -668,7 +668,7 @@ func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, o
 	}
 	// 反序列响应结果
 	resp := &PatchCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -696,7 +696,7 @@ func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq,
 	}
 	// 反序列响应结果
 	resp := &SearchCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -732,7 +732,7 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 	}
 	// 反序列响应结果
 	resp := &SubscriptionCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -760,7 +760,7 @@ func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionC
 	}
 	// 反序列响应结果
 	resp := &UnsubscriptionCalendarEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -788,7 +788,7 @@ func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDelet
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteCalendarEventAttendeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -816,7 +816,7 @@ func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarE
 	}
 	// 反序列响应结果
 	resp := &CreateCalendarEventAttendeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -844,7 +844,7 @@ func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEvent
 	}
 	// 反序列响应结果
 	resp := &ListCalendarEventAttendeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -880,7 +880,7 @@ func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCal
 	}
 	// 反序列响应结果
 	resp := &ListCalendarEventAttendeeChatMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -916,7 +916,7 @@ func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBinding
 	}
 	// 反序列响应结果
 	resp := &CreateExchangeBindingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -944,7 +944,7 @@ func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBinding
 	}
 	// 反序列响应结果
 	resp := &DeleteExchangeBindingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -972,7 +972,7 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 	}
 	// 反序列响应结果
 	resp := &GetExchangeBindingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -998,7 +998,7 @@ func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ListFreebusyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1024,7 +1024,7 @@ func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavCon
 	}
 	// 反序列响应结果
 	resp := &GenerateCaldavConfSettingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1050,7 +1050,7 @@ func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateTimeoffEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1076,7 +1076,7 @@ func (t *timeoffEvent) Delete(ctx context.Context, req *DeleteTimeoffEventReq, o
 	}
 	// 反序列响应结果
 	resp := &DeleteTimeoffEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -54,7 +54,7 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateMotoResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetMotoResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListMotoResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}

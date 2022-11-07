@@ -918,7 +918,7 @@ func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBui
 
 // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
 //
-// 示例值：如下;;- 普通查找示例: “hello”;- 正则查找示例: "[A-Z]\w+" [正则表达式测试](https://regexr.com/)
+// 示例值：如下;;- 普通查找示例: "hello";- 正则查找示例: "[A-Z]\w+"
 func (builder *FindBuilder) Find(find string) *FindBuilder {
 	builder.find = find
 	builder.findFlag = true

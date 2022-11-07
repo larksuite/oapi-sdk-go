@@ -56,7 +56,7 @@ func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq,
 	}
 	// 反序列响应结果
 	resp := &FileRecognizeSpeechResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeech
 	}
 	// 反序列响应结果
 	resp := &StreamRecognizeSpeechResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -40,13 +40,13 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 文件夹
+	File             *file             // 下载
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
 	FileStatistics   *fileStatistics   // file.statistics
 	FileSubscription *fileSubscription // 订阅
 	ImportTask       *importTask       // 导入
-	Media            *media            // 分片上传
+	Media            *media            // 素材
 	Meta             *meta             // meta
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
@@ -88,7 +88,7 @@ type permissionPublic struct {
 
 // 创建导出任务
 //
-// - 创建导出任务，将云文档导出为文件
+// - 创建导出任务，将云文件导出为指定格式的本地文件。该接口为异步接口，需要通过轮询 [查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get) 接口获取任务结果。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
 //
@@ -105,7 +105,7 @@ func (e *exportTask) Create(ctx context.Context, req *CreateExportTaskReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateExportTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (e *exportTask) Download(ctx context.Context, req *DownloadExportTaskReq, o
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (e *exportTask) Download(ctx context.Context, req *DownloadExportTaskReq, o
 
 // 查询导出任务结果
 //
-// - 根据创建导出任务的ticket查询导出任务的结果
+// - 根据[创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)的ticket查询导出任务的结果，前提条件需要先调用创建导出任务接口。;;通过该接口获取到下载文件的 token 后调用[下载导出文件接口](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)将文件进行下载
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
 //
@@ -163,7 +163,7 @@ func (e *exportTask) Get(ctx context.Context, req *GetExportTaskReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetExportTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +191,7 @@ func (f *file) Copy(ctx context.Context, req *CopyFileReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &CopyFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func (f *file) CreateFolder(ctx context.Context, req *CreateFolderFileReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateFolderFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +249,7 @@ func (f *file) Delete(ctx context.Context, req *DeleteFileReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DeleteFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -309,7 +309,7 @@ func (f *file) List(ctx context.Context, req *ListFileReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &MoveFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +361,7 @@ func (f *file) Subscribe(ctx context.Context, req *SubscribeFileReq, options ...
 	}
 	// 反序列响应结果
 	resp := &SubscribeFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -387,7 +387,7 @@ func (f *file) TaskCheck(ctx context.Context, req *TaskCheckFileReq, options ...
 	}
 	// 反序列响应结果
 	resp := &TaskCheckFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +418,7 @@ func (f *file) UploadAll(ctx context.Context, req *UploadAllFileReq, options ...
 	}
 	// 反序列响应结果
 	resp := &UploadAllFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -446,7 +446,7 @@ func (f *file) UploadFinish(ctx context.Context, req *UploadFinishFileReq, optio
 	}
 	// 反序列响应结果
 	resp := &UploadFinishFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -475,7 +475,7 @@ func (f *file) UploadPart(ctx context.Context, req *UploadPartFileReq, options .
 	}
 	// 反序列响应结果
 	resp := &UploadPartFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -505,7 +505,7 @@ func (f *file) UploadPrepare(ctx context.Context, req *UploadPrepareFileReq, opt
 	}
 	// 反序列响应结果
 	resp := &UploadPrepareFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -531,7 +531,7 @@ func (f *fileComment) Create(ctx context.Context, req *CreateFileCommentReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateFileCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -557,7 +557,7 @@ func (f *fileComment) Get(ctx context.Context, req *GetFileCommentReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetFileCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -583,7 +583,7 @@ func (f *fileComment) List(ctx context.Context, req *ListFileCommentReq, options
 	}
 	// 反序列响应结果
 	resp := &ListFileCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -617,7 +617,7 @@ func (f *fileComment) Patch(ctx context.Context, req *PatchFileCommentReq, optio
 	}
 	// 反序列响应结果
 	resp := &PatchFileCommentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -643,7 +643,7 @@ func (f *fileCommentReply) Delete(ctx context.Context, req *DeleteFileCommentRep
 	}
 	// 反序列响应结果
 	resp := &DeleteFileCommentReplyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -669,7 +669,7 @@ func (f *fileCommentReply) Update(ctx context.Context, req *UpdateFileCommentRep
 	}
 	// 反序列响应结果
 	resp := &UpdateFileCommentReplyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -695,7 +695,7 @@ func (f *fileStatistics) Get(ctx context.Context, req *GetFileStatisticsReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetFileStatisticsResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -721,7 +721,7 @@ func (f *fileSubscription) Create(ctx context.Context, req *CreateFileSubscripti
 	}
 	// 反序列响应结果
 	resp := &CreateFileSubscriptionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -747,7 +747,7 @@ func (f *fileSubscription) Get(ctx context.Context, req *GetFileSubscriptionReq,
 	}
 	// 反序列响应结果
 	resp := &GetFileSubscriptionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -773,7 +773,7 @@ func (f *fileSubscription) Patch(ctx context.Context, req *PatchFileSubscription
 	}
 	// 反序列响应结果
 	resp := &PatchFileSubscriptionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -799,7 +799,7 @@ func (i *importTask) Create(ctx context.Context, req *CreateImportTaskReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateImportTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -825,7 +825,7 @@ func (i *importTask) Get(ctx context.Context, req *GetImportTaskReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetImportTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -853,7 +853,7 @@ func (m *media) BatchGetTmpDownloadUrl(ctx context.Context, req *BatchGetTmpDown
 	}
 	// 反序列响应结果
 	resp := &BatchGetTmpDownloadUrlMediaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -887,7 +887,7 @@ func (m *media) Download(ctx context.Context, req *DownloadMediaReq, options ...
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -918,7 +918,7 @@ func (m *media) UploadAll(ctx context.Context, req *UploadAllMediaReq, options .
 	}
 	// 反序列响应结果
 	resp := &UploadAllMediaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -946,7 +946,7 @@ func (m *media) UploadFinish(ctx context.Context, req *UploadFinishMediaReq, opt
 	}
 	// 反序列响应结果
 	resp := &UploadFinishMediaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -975,7 +975,7 @@ func (m *media) UploadPart(ctx context.Context, req *UploadPartMediaReq, options
 	}
 	// 反序列响应结果
 	resp := &UploadPartMediaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1005,7 +1005,7 @@ func (m *media) UploadPrepare(ctx context.Context, req *UploadPrepareMediaReq, o
 	}
 	// 反序列响应结果
 	resp := &UploadPrepareMediaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1031,7 +1031,7 @@ func (m *meta) BatchQuery(ctx context.Context, req *BatchQueryMetaReq, options .
 	}
 	// 反序列响应结果
 	resp := &BatchQueryMetaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1057,7 +1057,7 @@ func (p *permissionMember) Create(ctx context.Context, req *CreatePermissionMemb
 	}
 	// 反序列响应结果
 	resp := &CreatePermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1083,7 +1083,7 @@ func (p *permissionMember) Delete(ctx context.Context, req *DeletePermissionMemb
 	}
 	// 反序列响应结果
 	resp := &DeletePermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1111,7 +1111,7 @@ func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberRe
 	}
 	// 反序列响应结果
 	resp := &ListPermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1139,7 +1139,7 @@ func (p *permissionMember) Update(ctx context.Context, req *UpdatePermissionMemb
 	}
 	// 反序列响应结果
 	resp := &UpdatePermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1165,7 +1165,7 @@ func (p *permissionPublic) Get(ctx context.Context, req *GetPermissionPublicReq,
 	}
 	// 反序列响应结果
 	resp := &GetPermissionPublicResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1191,7 +1191,7 @@ func (p *permissionPublic) Patch(ctx context.Context, req *PatchPermissionPublic
 	}
 	// 反序列响应结果
 	resp := &PatchPermissionPublicResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}

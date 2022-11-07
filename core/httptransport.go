@@ -14,7 +14,6 @@ package larkcore
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net"
@@ -32,6 +31,12 @@ func NewHttpClient(config *Config) {
 		} else {
 			config.HttpClient = &http.Client{Timeout: config.ReqTimeout}
 		}
+	}
+}
+
+func NewSerialization(config *Config) {
+	if config.Serializable == nil {
+		config.Serializable = &DefaultSerialization{}
 	}
 }
 
@@ -219,7 +224,7 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 		}
 
 		codeError := &CodeError{}
-		err = json.Unmarshal(rawResp.RawBody, codeError)
+		err = config.Serializable.Deserialize(rawResp.RawBody, codeError)
 		if err != nil {
 			return nil, err
 		}

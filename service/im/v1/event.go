@@ -178,6 +178,26 @@ func (h *P2MessageReadV1Handler) Handle(ctx context.Context, event interface{}) 
 }
 
 // 消息处理器定义
+type P2MessageRecalledV1Handler struct {
+	handler func(context.Context, *P2MessageRecalledV1) error
+}
+
+func NewP2MessageRecalledV1Handler(handler func(context.Context, *P2MessageRecalledV1) error) *P2MessageRecalledV1Handler {
+	h := &P2MessageRecalledV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2MessageRecalledV1Handler) Event() interface{} {
+	return &P2MessageRecalledV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2MessageRecalledV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2MessageRecalledV1))
+}
+
+// 消息处理器定义
 type P2MessageReceiveV1Handler struct {
 	handler func(context.Context, *P2MessageReceiveV1) error
 }

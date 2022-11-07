@@ -76,7 +76,7 @@ func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateSpaceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -104,18 +104,18 @@ func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &GetSpaceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取节点信息
+// 获取知识空间节点信息
 //
-// - 获取节点信息
+// - 获取知识空间节点信息
 //
-// - 知识库权限要求：;- 节点阅读权限
+// - 知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 节点阅读权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node
 //
@@ -132,7 +132,7 @@ func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &GetNodeSpaceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,7 @@ func (s *space) List(ctx context.Context, req *ListSpaceReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListSpaceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -177,9 +177,9 @@ func (s *space) ListByIterator(ctx context.Context, req *ListSpaceReq, options .
 
 // 添加知识空间成员
 //
-// - 添加知识空间成员（管理员）。;;- 公开知识空间（visibility为public）对租户所有用户可见，因此不支持再添加成员，但可以添加管理员。;;  相关错误：131101 public wiki space can't create member.;- 个人知识空间 （type为person）为个人管理的知识空间，不支持添加其他管理员（包括应用/机器人）。但可以添加成员。;;  相关错误：131101 person wiki space can't create admin.
+// - 添加知识空间成员或管理员。
 //
-// - 知识库权限要求;- 为知识空间管理员
+// - 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制：;- 可见性限制：公开知识空间（visibility为public）对租户所有用户可见，因此不支持再添加成员，但可以添加管理员。;- 类型限制：个人知识空间 （type为person）为个人管理的知识空间，不支持添加其他管理员（包括应用/机器人）。但可以添加成员。;;;知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 为知识空间管理员
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/create
 //
@@ -196,7 +196,7 @@ func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateSpaceMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -205,9 +205,9 @@ func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, opt
 
 // 删除知识空间成员
 //
-// - 此接口用于删除知识空间成员。;;- 公开知识空间（visibility为public）对租户所有用户可见，因此不支持再删除成员，但可以删除管理员。;;- 个人知识空间 （type为person）为个人管理的知识空间，不支持删除管理员。但可以删除成员。
+// - 此接口用于删除知识空间成员或管理员。
 //
-// - 知识库权限要求;- 为知识空间管理员
+// - 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制：;- 可见性限制：公开知识空间（visibility为public）对租户所有用户可见，因此不支持再删除成员，但可以删除管理员。;- 类型限制：个人知识空间 （type为person）为个人管理的知识空间，不支持删除管理员。但可以删除成员。;;;知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 为知识空间管理员
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/delete
 //
@@ -224,16 +224,16 @@ func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteSpaceMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 创建节点副本
+// 创建知识空间节点副本
 //
-// - 此接口用于创建节点副本到指定地点。
+// - 此接口用于在知识空间创建节点副本到指定位置。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/copy
 //
@@ -250,18 +250,18 @@ func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...
 	}
 	// 反序列响应结果
 	resp := &CopySpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 创建节点
+// 创建知识空间节点
 //
-// - 此接口用于在知识库里创建节点。
+// - 此接口用于在知识节点里创建[节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)到指定位置。
 //
-// - 知识库权限要求：;- **父节点**容器编辑权限
+// - 知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- **父节点**容器编辑权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create
 //
@@ -278,18 +278,18 @@ func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options
 	}
 	// 反序列响应结果
 	resp := &CreateSpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取子节点列表
+// 获取知识空间子节点列表
 //
 // - 此接口用于分页获取Wiki节点的子节点列表。;;此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。
 //
-// - 知识库权限要求：;- 父节点阅读权限
+// - 知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 父节点阅读权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/list
 //
@@ -306,7 +306,7 @@ func (s *spaceNode) List(ctx context.Context, req *ListSpaceNodeReq, options ...
 	}
 	// 反序列响应结果
 	resp := &ListSpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -342,20 +342,20 @@ func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...
 	}
 	// 反序列响应结果
 	resp := &MoveSpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 添加已有云文档至知识库
+// 移动云空间文档至知识空间
 //
-// - 该接口允许添加已有云文档至知识库，并挂载在指定父页面下
+// - 该接口允许移动云空间文档至知识空间，并挂载在指定位置
 //
-// - ### 移动操作 ###;移动后，文档将从“我的空间”或“共享空间”转移至“知识库”，并将从以下功能入口消失：;- 云空间主页：最近访问、快速访问;- 我的空间;- 共享空间;- 收藏;;### 权限变更 ###;移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。;</md-alert
+// - ### 移动操作 ###;移动后，文档将从“我的空间”或“共享空间”转移至“知识库”后，无法从下列入口查看到文档：;- 云空间主页：快速访问;- 我的空间;- 共享空间;;### 权限变更 ###;移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。;</md-alert
 //
-// - 仅支持文档所有者发起请求;;此接口为异步接口。若移动已完成（或节点已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
+// - 此接口为异步接口。若移动已完成（或文档已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki
 //
@@ -372,7 +372,7 @@ func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpace
 	}
 	// 反序列响应结果
 	resp := &MoveDocsToWikiSpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -400,7 +400,7 @@ func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeRe
 	}
 	// 反序列响应结果
 	resp := &UpdateTitleSpaceNodeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +428,7 @@ func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, o
 	}
 	// 反序列响应结果
 	resp := &UpdateSpaceSettingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -439,7 +439,7 @@ func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, o
 //
 // - 该方法用于获取wiki异步任务的结果
 //
-// - 知识库权限要求：;- 为任务创建者（用户或应用/机器人）
+// - 知识库权限要求，当前 access token 所代表的用户或应用（机器人）：;- 为任务创建者
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get
 //
@@ -456,7 +456,7 @@ func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -99,7 +99,7 @@ func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options
 	}
 	// 反序列响应结果
 	resp := &CreateMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options
 	}
 	// 反序列响应结果
 	resp := &DeleteMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &GetMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...
 	}
 	// 反序列响应结果
 	resp := &ListMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options .
 	}
 	// 反序列响应结果
 	resp := &PatchMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +237,7 @@ func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options
 	}
 	// 反序列响应结果
 	resp := &UpdateMailgroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasRe
 	}
 	// 反序列响应结果
 	resp := &CreateMailgroupAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -289,7 +289,7 @@ func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasRe
 	}
 	// 反序列响应结果
 	resp := &DeleteMailgroupAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +315,7 @@ func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, o
 	}
 	// 反序列响应结果
 	resp := &ListMailgroupAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -341,7 +341,7 @@ func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMember
 	}
 	// 反序列响应结果
 	resp := &CreateMailgroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -367,7 +367,7 @@ func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMember
 	}
 	// 反序列响应结果
 	resp := &DeleteMailgroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -393,7 +393,7 @@ func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, o
 	}
 	// 反序列响应结果
 	resp := &GetMailgroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -419,7 +419,7 @@ func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq,
 	}
 	// 反序列响应结果
 	resp := &ListMailgroupMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -453,7 +453,7 @@ func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailg
 	}
 	// 反序列响应结果
 	resp := &CreateMailgroupPermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -479,7 +479,7 @@ func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailg
 	}
 	// 反序列响应结果
 	resp := &DeleteMailgroupPermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -505,7 +505,7 @@ func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPe
 	}
 	// 反序列响应结果
 	resp := &GetMailgroupPermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -531,7 +531,7 @@ func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroup
 	}
 	// 反序列响应结果
 	resp := &ListMailgroupPermissionMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -565,7 +565,7 @@ func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq,
 	}
 	// 反序列响应结果
 	resp := &CreatePublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -591,7 +591,7 @@ func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq,
 	}
 	// 反序列响应结果
 	resp := &DeletePublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -617,7 +617,7 @@ func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, optio
 	}
 	// 反序列响应结果
 	resp := &GetPublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -643,7 +643,7 @@ func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListPublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -677,7 +677,7 @@ func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, o
 	}
 	// 反序列响应结果
 	resp := &PatchPublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -703,7 +703,7 @@ func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq,
 	}
 	// 反序列响应结果
 	resp := &UpdatePublicMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -729,7 +729,7 @@ func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailbo
 	}
 	// 反序列响应结果
 	resp := &CreatePublicMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -755,7 +755,7 @@ func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailbo
 	}
 	// 反序列响应结果
 	resp := &DeletePublicMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -781,7 +781,7 @@ func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAli
 	}
 	// 反序列响应结果
 	resp := &ListPublicMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -807,7 +807,7 @@ func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailbox
 	}
 	// 反序列响应结果
 	resp := &ClearPublicMailboxMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -833,7 +833,7 @@ func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailb
 	}
 	// 反序列响应结果
 	resp := &CreatePublicMailboxMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -859,7 +859,7 @@ func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailb
 	}
 	// 反序列响应结果
 	resp := &DeletePublicMailboxMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -885,7 +885,7 @@ func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemb
 	}
 	// 反序列响应结果
 	resp := &GetPublicMailboxMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -911,7 +911,7 @@ func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMe
 	}
 	// 反序列响应结果
 	resp := &ListPublicMailboxMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -945,7 +945,7 @@ func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &QueryUserResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -971,7 +971,7 @@ func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteUserMailboxResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -997,7 +997,7 @@ func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAli
 	}
 	// 反序列响应结果
 	resp := &CreateUserMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1023,7 +1023,7 @@ func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAli
 	}
 	// 反序列响应结果
 	resp := &DeleteUserMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1049,7 +1049,7 @@ func (u *userMailboxAlias) List(ctx context.Context, req *ListUserMailboxAliasRe
 	}
 	// 反序列响应结果
 	resp := &ListUserMailboxAliasResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}

@@ -8883,7 +8883,7 @@ type CreateExternalApprovalReq struct {
 }
 
 type CreateExternalApprovalRespData struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code，用户自定义，定义的唯一标识
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code，审批生成的唯一标识，用于三方审批实例同步时使用
 }
 
 type CreateExternalApprovalResp struct {

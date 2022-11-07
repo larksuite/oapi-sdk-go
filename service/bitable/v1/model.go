@@ -1929,9 +1929,10 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 }
 
 type AppTableView struct {
-	ViewId   *string `json:"view_id,omitempty"`   // 视图Id
-	ViewName *string `json:"view_name,omitempty"` // 视图名字
-	ViewType *string `json:"view_type,omitempty"` // 视图类型
+	ViewId   *string               `json:"view_id,omitempty"`   // 视图Id
+	ViewName *string               `json:"view_name,omitempty"` // 视图名字
+	ViewType *string               `json:"view_type,omitempty"` // 视图类型
+	Property *AppTableViewProperty `json:"property,omitempty"`  // 视图属性
 }
 
 type AppTableViewBuilder struct {
@@ -1941,6 +1942,8 @@ type AppTableViewBuilder struct {
 	viewNameFlag bool
 	viewType     string // 视图类型
 	viewTypeFlag bool
+	property     *AppTableViewProperty // 视图属性
+	propertyFlag bool
 }
 
 func NewAppTableViewBuilder() *AppTableViewBuilder {
@@ -1975,6 +1978,15 @@ func (builder *AppTableViewBuilder) ViewType(viewType string) *AppTableViewBuild
 	return builder
 }
 
+// 视图属性
+//
+// 示例值：
+func (builder *AppTableViewBuilder) Property(property *AppTableViewProperty) *AppTableViewBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
 func (builder *AppTableViewBuilder) Build() *AppTableView {
 	req := &AppTableView{}
 	if builder.viewIdFlag {
@@ -1987,6 +1999,214 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 	}
 	if builder.viewTypeFlag {
 		req.ViewType = &builder.viewType
+
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req
+}
+
+type AppTableViewProperty struct {
+	FilterInfo   *AppTableViewPropertyFilterInfo `json:"filter_info,omitempty"`   // 过滤条件
+	HiddenFields []string                        `json:"hidden_fields,omitempty"` // 隐藏字段ID列表
+}
+
+type AppTableViewPropertyBuilder struct {
+	filterInfo       *AppTableViewPropertyFilterInfo // 过滤条件
+	filterInfoFlag   bool
+	hiddenFields     []string // 隐藏字段ID列表
+	hiddenFieldsFlag bool
+}
+
+func NewAppTableViewPropertyBuilder() *AppTableViewPropertyBuilder {
+	builder := &AppTableViewPropertyBuilder{}
+	return builder
+}
+
+// 过滤条件
+//
+// 示例值：
+func (builder *AppTableViewPropertyBuilder) FilterInfo(filterInfo *AppTableViewPropertyFilterInfo) *AppTableViewPropertyBuilder {
+	builder.filterInfo = filterInfo
+	builder.filterInfoFlag = true
+	return builder
+}
+
+// 隐藏字段ID列表
+//
+// 示例值：["fldCGzANXx", "fldCGzANXx"]
+func (builder *AppTableViewPropertyBuilder) HiddenFields(hiddenFields []string) *AppTableViewPropertyBuilder {
+	builder.hiddenFields = hiddenFields
+	builder.hiddenFieldsFlag = true
+	return builder
+}
+
+func (builder *AppTableViewPropertyBuilder) Build() *AppTableViewProperty {
+	req := &AppTableViewProperty{}
+	if builder.filterInfoFlag {
+		req.FilterInfo = builder.filterInfo
+	}
+	if builder.hiddenFieldsFlag {
+		req.HiddenFields = builder.hiddenFields
+	}
+	return req
+}
+
+type AppTableViewPropertyFilterInfo struct {
+	Conjunction      *string                                    `json:"conjunction,omitempty"`       // 多个筛选条件的关系
+	Conditions       []*AppTableViewPropertyFilterInfoCondition `json:"conditions,omitempty"`        // 筛选条件
+	ConditionOmitted *bool                                      `json:"condition_omitted,omitempty"` // 筛选条件是否缺省
+}
+
+type AppTableViewPropertyFilterInfoBuilder struct {
+	conjunction          string // 多个筛选条件的关系
+	conjunctionFlag      bool
+	conditions           []*AppTableViewPropertyFilterInfoCondition // 筛选条件
+	conditionsFlag       bool
+	conditionOmitted     bool // 筛选条件是否缺省
+	conditionOmittedFlag bool
+}
+
+func NewAppTableViewPropertyFilterInfoBuilder() *AppTableViewPropertyFilterInfoBuilder {
+	builder := &AppTableViewPropertyFilterInfoBuilder{}
+	return builder
+}
+
+// 多个筛选条件的关系
+//
+// 示例值：and
+func (builder *AppTableViewPropertyFilterInfoBuilder) Conjunction(conjunction string) *AppTableViewPropertyFilterInfoBuilder {
+	builder.conjunction = conjunction
+	builder.conjunctionFlag = true
+	return builder
+}
+
+// 筛选条件
+//
+// 示例值：
+func (builder *AppTableViewPropertyFilterInfoBuilder) Conditions(conditions []*AppTableViewPropertyFilterInfoCondition) *AppTableViewPropertyFilterInfoBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+// 筛选条件是否缺省
+//
+// 示例值：false
+func (builder *AppTableViewPropertyFilterInfoBuilder) ConditionOmitted(conditionOmitted bool) *AppTableViewPropertyFilterInfoBuilder {
+	builder.conditionOmitted = conditionOmitted
+	builder.conditionOmittedFlag = true
+	return builder
+}
+
+func (builder *AppTableViewPropertyFilterInfoBuilder) Build() *AppTableViewPropertyFilterInfo {
+	req := &AppTableViewPropertyFilterInfo{}
+	if builder.conjunctionFlag {
+		req.Conjunction = &builder.conjunction
+
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	if builder.conditionOmittedFlag {
+		req.ConditionOmitted = &builder.conditionOmitted
+
+	}
+	return req
+}
+
+type AppTableViewPropertyFilterInfoCondition struct {
+	FieldId     *string `json:"field_id,omitempty"`     // 用于过滤的字段唯一ID
+	Operator    *string `json:"operator,omitempty"`     // 过滤操作的类型
+	Value       *string `json:"value,omitempty"`        // 筛选值
+	ConditionId *string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
+	FieldType   *string `json:"field_type,omitempty"`   // 用于过滤的字段类型
+}
+
+type AppTableViewPropertyFilterInfoConditionBuilder struct {
+	fieldId         string // 用于过滤的字段唯一ID
+	fieldIdFlag     bool
+	operator        string // 过滤操作的类型
+	operatorFlag    bool
+	value           string // 筛选值
+	valueFlag       bool
+	conditionId     string // 过滤条件的唯一ID
+	conditionIdFlag bool
+	fieldType       string // 用于过滤的字段类型
+	fieldTypeFlag   bool
+}
+
+func NewAppTableViewPropertyFilterInfoConditionBuilder() *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder := &AppTableViewPropertyFilterInfoConditionBuilder{}
+	return builder
+}
+
+// 用于过滤的字段唯一ID
+//
+// 示例值：单选
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldId(fieldId string) *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+// 过滤操作的类型
+//
+// 示例值：is
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Operator(operator string) *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+
+// 筛选值
+//
+// 示例值：["optbdVHf4q", "optrpd3eIJ"]
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Value(value string) *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 过滤条件的唯一ID
+//
+// 示例值：conNaOEK6O
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) ConditionId(conditionId string) *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder.conditionId = conditionId
+	builder.conditionIdFlag = true
+	return builder
+}
+
+// 用于过滤的字段类型
+//
+// 示例值：3
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldType(fieldType string) *AppTableViewPropertyFilterInfoConditionBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Build() *AppTableViewPropertyFilterInfoCondition {
+	req := &AppTableViewPropertyFilterInfoCondition{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.conditionIdFlag {
+		req.ConditionId = &builder.conditionId
+
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
 
 	}
 	return req

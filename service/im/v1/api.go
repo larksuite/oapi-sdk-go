@@ -56,7 +56,7 @@ type ImService struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息
+	Message          *message          // 消息加急
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
@@ -132,7 +132,7 @@ func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, o
 	}
 	// 反序列响应结果
 	resp := &DeleteBatchMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,7 @@ func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMes
 	}
 	// 反序列响应结果
 	resp := &GetProgressBatchMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageRe
 	}
 	// 反序列响应结果
 	resp := &ReadUserBatchMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +216,7 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +227,7 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 //
 // - 解散群组。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 如果使用tenant_access_token，需要机器人符合以下任一情况才可解散群：;	- 机器人是群主;	- 机器人是群的创建者且具备==更新应用所创建群的群信息==权限;- 如果使用user_access_token，需要对应的用户是群主才可解散群;- 解散外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 如果使用tenant_access_token，需要机器人符合以下任一情况才可解散群：;	- 机器人是群主;	- 机器人是群的创建者且具备==更新应用所创建群的群信息==权限;- 如果使用user_access_token，需要对应的用户是群主才可解散群
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 //
@@ -244,7 +244,7 @@ func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DeleteChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkco
 //
 // - 获取群名称、群描述、群头像、群主 ID 等群基本信息。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）;- 获取内部群信息时，操作者须与群组在同一租户下;- 获取外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）;- 获取内部群信息时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 //
@@ -272,7 +272,7 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 //
 // - 获取指定群的分享链接
 //
-// - 注意事项:;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 单聊、密聊、团队群不支持分享群链接;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用;- 当群聊开启了 ==仅群主和群管理员可添加群成员/分享群== 设置时，仅**群主**和**群管理员**可以获取群分享链接;- 获取内部群分享链接时，操作者须与群组在同一租户下;- 获取外部群分享链接时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项:;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 单聊、密聊、团队群不支持分享群链接;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用;- 当群聊开启了 ==仅群主和群管理员可添加群成员/分享群== 设置时，仅**群主**和**群管理员**可以获取群分享链接;- 获取内部群分享链接时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
 //
@@ -300,7 +300,7 @@ func (c *chat) Link(ctx context.Context, req *LinkChatReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &LinkChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -328,7 +328,7 @@ func (c *chat) List(ctx context.Context, req *ListChatReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -364,7 +364,7 @@ func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &SearchChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -383,7 +383,7 @@ func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options
 //
 // - 更新群头像、群名称、群描述、群配置、转让群主等。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 对于群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新所有信息;- 对于不满足上述权限条件的群成员或机器人：;	- 若未开启 ==仅群主和群管理员可编辑群信息== 配置，仅可更新群头像、群名称、群描述、群国际化名称信息;	- 若开启了 ==仅群主和群管理员可编辑群信息== 配置，任何群信息都不能修改;- 更新外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 对于群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新所有信息;- 对于不满足上述权限条件的群成员或机器人：;	- 若未开启 ==仅群主和群管理员可编辑群信息== 配置，仅可更新群头像、群名称、群描述、群国际化名称信息;	- 若开启了 ==仅群主和群管理员可编辑群信息== 配置，任何群信息都不能修改
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 //
@@ -400,7 +400,7 @@ func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &UpdateChatResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +428,7 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 	}
 	// 反序列响应结果
 	resp := &GetChatAnnouncementResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -456,7 +456,7 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 	}
 	// 反序列响应结果
 	resp := &PatchChatAnnouncementResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -484,7 +484,7 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 	}
 	// 反序列响应结果
 	resp := &AddManagersChatManagersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -512,7 +512,7 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 	}
 	// 反序列响应结果
 	resp := &DeleteManagersChatManagersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -523,7 +523,7 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 //
 // - 将用户或机器人拉入群聊。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 如需拉用户进群，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability); - 机器人或授权用户必须在群组中;- 外部租户不能被加入到内部群中;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限; - 在开启 ==仅群主和群管理员可添加群成员== 的设置时，仅有群主/管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可以拉用户或者机器人进群; - 在未开启 ==仅群主和群管理员可添加群成员== 的设置时，所有群成员都可以拉用户或机器人进群
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 如需拉用户进群，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability); - 机器人或授权用户必须在群组中;- 外部租户不能被加入到内部群中;- 操作内部群时，操作者须与群组在同一租户下; - 在开启 ==仅群主和群管理员可添加群成员== 的设置时，仅有群主/管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可以拉用户或者机器人进群; - 在未开启 ==仅群主和群管理员可添加群成员== 的设置时，所有群成员都可以拉用户或机器人进群
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 //
@@ -540,7 +540,7 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateChatMembersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -551,7 +551,7 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 //
 // - 将用户或机器人移出群聊。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人;- 每次请求，最多移除50个用户或者5个机器人;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人;- 每次请求，最多移除50个用户或者5个机器人;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 //
@@ -568,7 +568,7 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteChatMembersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -579,7 +579,7 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 //
 // - 获取用户/机器人所在群的群成员列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中; - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size;- 获取内部群信息时，操作者须与群组在同一租户下;- 获取外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中; - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size;- 获取内部群信息时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 //
@@ -596,7 +596,7 @@ func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetChatMembersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -615,7 +615,7 @@ func (c *chatMembers) GetByIterator(ctx context.Context, req *GetChatMembersReq,
 //
 // - 根据使用的access_token判断对应的用户或者机器人是否在群里。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 获取内部群信息时，操作者须与群组在同一租户下;- 获取外部群信息时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 获取内部群信息时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 //
@@ -632,7 +632,7 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 	}
 	// 反序列响应结果
 	resp := &IsInChatChatMembersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +660,7 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, opt
 	}
 	// 反序列响应结果
 	resp := &MeJoinChatMembersResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +688,7 @@ func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetChatModerationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -724,7 +724,7 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 	}
 	// 反序列响应结果
 	resp := &UpdateChatModerationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -735,7 +735,7 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 //
 // - 添加自定义会话标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 不需要填写请求体中的`tab_id`字段;- 只允许添加类型为`doc`和`url`的会话标签页;- 添加doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许添加类型为`doc`和`url`的会话标签页;- 添加doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- tab_config字段当前只对`url`类型的会话标签页生效;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以添加会话标签页;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create
 //
@@ -752,7 +752,7 @@ func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...
 	}
 	// 反序列响应结果
 	resp := &CreateChatTabResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -763,7 +763,7 @@ func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...
 //
 // - 删除会话标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许删除类型为`doc`和`url`的会话标签页;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许删除类型为`doc`和`url`的会话标签页;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以删除会话标签页;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/delete_tabs
 //
@@ -780,7 +780,7 @@ func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, opt
 	}
 	// 反序列响应结果
 	resp := &DeleteTabsChatTabResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -791,7 +791,7 @@ func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, opt
 //
 // - 拉取会话标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs
 //
@@ -808,7 +808,7 @@ func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options
 	}
 	// 反序列响应结果
 	resp := &ListTabsChatTabResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -819,7 +819,7 @@ func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options
 //
 // - 会话标签页排序。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 消息标签页强制固定为第一顺位，不参与排序，但是请求体中必须包含该标签页的Tab ID;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 消息标签页强制固定为第一顺位，不参与排序，但是请求体中必须包含该标签页的Tab ID;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/sort_tabs
 //
@@ -836,7 +836,7 @@ func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options
 	}
 	// 反序列响应结果
 	resp := &SortTabsChatTabResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -847,7 +847,7 @@ func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options
 //
 // - 更新会话标签页
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许更新类型为`doc`和`url`的会话标签页;- 更新doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 操作内部群时，操作者须与群组在同一租户下;- 操作外部群时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app);- 机器人或授权用户必须在群里;- 只允许更新类型为`doc`和`url`的会话标签页;- 更新doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以更新会话标签页;- 操作内部群时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/update_tabs
 //
@@ -864,7 +864,7 @@ func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, opt
 	}
 	// 反序列响应结果
 	resp := &UpdateTabsChatTabResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -875,7 +875,7 @@ func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, opt
 //
 // - 撤销会话中的置顶。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 撤销内部群置顶时，操作者须与群组在同一租户下;- 撤销外部群置顶时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 撤销内部群置顶时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/delete_top_notice
 //
@@ -892,7 +892,7 @@ func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNotic
 	}
 	// 反序列响应结果
 	resp := &DeleteTopNoticeChatTopNoticeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -903,7 +903,7 @@ func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNotic
 //
 // - 更新会话中的群置顶信息，可以将群中的某一条消息，或者群公告置顶显示。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 更新内部群置顶时，操作者须与群组在同一租户下;- 更新外部群置顶时，请先在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限
+// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app); - 机器人或授权用户必须在群组中;- 更新内部群置顶时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
 //
@@ -920,7 +920,7 @@ func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatT
 	}
 	// 反序列响应结果
 	resp := &PutTopNoticeChatTopNoticeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -949,7 +949,7 @@ func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -983,7 +983,7 @@ func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.Req
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1012,7 +1012,7 @@ func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateImageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1046,7 +1046,7 @@ func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.R
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1074,7 +1074,7 @@ func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...
 	}
 	// 反序列响应结果
 	resp := &CreateMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1102,7 +1102,7 @@ func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...
 	}
 	// 反序列响应结果
 	resp := &DeleteMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1130,7 +1130,7 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &GetMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1145,7 +1145,7 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 //
 // - - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ;- 获取消息时，机器人必须在群组中
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uADO3YjLwgzN24CM4cjN
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_message.go
 func (m *message) List(ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error) {
@@ -1160,7 +1160,7 @@ func (m *message) List(ctx context.Context, req *ListMessageReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &ListMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1196,7 +1196,7 @@ func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &PatchMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1224,7 +1224,7 @@ func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, optio
 	}
 	// 反序列响应结果
 	resp := &ReadUsersMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1252,7 +1252,7 @@ func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ReplyMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1282,7 +1282,7 @@ func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, optio
 	}
 	// 反序列响应结果
 	resp := &UrgentAppMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1312,7 +1312,7 @@ func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, o
 	}
 	// 反序列响应结果
 	resp := &UrgentPhoneMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1342,7 +1342,7 @@ func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, optio
 	}
 	// 反序列响应结果
 	resp := &UrgentSmsMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1370,7 +1370,7 @@ func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReaction
 	}
 	// 反序列响应结果
 	resp := &CreateMessageReactionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1398,7 +1398,7 @@ func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReaction
 	}
 	// 反序列响应结果
 	resp := &DeleteMessageReactionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1426,7 +1426,7 @@ func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq,
 	}
 	// 反序列响应结果
 	resp := &ListMessageReactionResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1468,7 +1468,7 @@ func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, o
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1496,7 +1496,7 @@ func (p *pin) Create(ctx context.Context, req *CreatePinReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &CreatePinResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1524,7 +1524,7 @@ func (p *pin) Delete(ctx context.Context, req *DeletePinReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &DeletePinResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1552,7 +1552,7 @@ func (p *pin) List(ctx context.Context, req *ListPinReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &ListPinResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err
 	}

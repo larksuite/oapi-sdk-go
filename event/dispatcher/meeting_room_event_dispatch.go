@@ -18,13 +18,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/meeting_room/v1"
 )
 
-// 会议室创建
 //
-// - 会议室被创建将触发此事件。
 //
-// - 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/created
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"]
 	if existed {
@@ -34,13 +32,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx con
 	return dispatcher
 }
 
-// 会议室删除
 //
-// - 会议室被删除将触发此事件。
 //
-// - 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/deleted
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRoomDeletedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"]
 	if existed {
@@ -50,13 +46,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomDeletedV1(handler func(ctx con
 	return dispatcher
 }
 
-// 会议室状态信息变更
 //
-// - 会议室状态信息变更将触发此事件。
 //
-// - 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/status_changed
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRoomStatusChangedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomStatusChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"]
 	if existed {
@@ -66,13 +60,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomStatusChangedV1(handler func(c
 	return dispatcher
 }
 
-// 会议室属性变更
 //
-// - 会议室属性更新将触发此事件。
 //
-// - 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/updated
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRoomUpdatedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"]
 	if existed {

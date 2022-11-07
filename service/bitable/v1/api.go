@@ -101,7 +101,7 @@ func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.Reque
 	}
 	// 反序列响应结果
 	resp := &GetAppResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &UpdateAppResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (a *appDashboard) List(ctx context.Context, req *ListAppDashboardReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListAppDashboardResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...
 	}
 	// 反序列响应结果
 	resp := &CreateAppRoleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...
 	}
 	// 反序列响应结果
 	resp := &DeleteAppRoleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +245,7 @@ func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &ListAppRoleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...
 	}
 	// 反序列响应结果
 	resp := &UpdateAppRoleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +307,7 @@ func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRole
 	}
 	// 反序列响应结果
 	resp := &BatchCreateAppRoleMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -333,7 +333,7 @@ func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRole
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteAppRoleMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +359,7 @@ func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq,
 	}
 	// 反序列响应结果
 	resp := &CreateAppRoleMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -385,7 +385,7 @@ func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq,
 	}
 	// 反序列响应结果
 	resp := &DeleteAppRoleMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -411,7 +411,7 @@ func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAppRoleMemberResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -447,7 +447,7 @@ func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq,
 	}
 	// 反序列响应结果
 	resp := &BatchCreateAppTableResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -475,7 +475,7 @@ func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq,
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteAppTableResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -503,7 +503,7 @@ func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options .
 	}
 	// 反序列响应结果
 	resp := &CreateAppTableResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -531,7 +531,7 @@ func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options .
 	}
 	// 反序列响应结果
 	resp := &DeleteAppTableResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -559,7 +559,7 @@ func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ListAppTableResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -595,7 +595,7 @@ func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq,
 	}
 	// 反序列响应结果
 	resp := &CreateAppTableFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -623,7 +623,7 @@ func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq,
 	}
 	// 反序列响应结果
 	resp := &DeleteAppTableFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -651,7 +651,7 @@ func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAppTableFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -687,7 +687,7 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	}
 	// 反序列响应结果
 	resp := &UpdateAppTableFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -715,7 +715,7 @@ func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options
 	}
 	// 反序列响应结果
 	resp := &GetAppTableFormResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -743,7 +743,7 @@ func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, opt
 	}
 	// 反序列响应结果
 	resp := &PatchAppTableFormResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -771,7 +771,7 @@ func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormField
 	}
 	// 反序列响应结果
 	resp := &ListAppTableFormFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -807,7 +807,7 @@ func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFie
 	}
 	// 反序列响应结果
 	resp := &PatchAppTableFormFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -835,7 +835,7 @@ func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTab
 	}
 	// 反序列响应结果
 	resp := &BatchCreateAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -863,7 +863,7 @@ func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTab
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -891,7 +891,7 @@ func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTab
 	}
 	// 反序列响应结果
 	resp := &BatchUpdateAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -919,7 +919,7 @@ func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordRe
 	}
 	// 反序列响应结果
 	resp := &CreateAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -947,7 +947,7 @@ func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordRe
 	}
 	// 反序列响应结果
 	resp := &DeleteAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -975,7 +975,7 @@ func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1003,7 +1003,7 @@ func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, o
 	}
 	// 反序列响应结果
 	resp := &ListAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1039,7 +1039,7 @@ func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordRe
 	}
 	// 反序列响应结果
 	resp := &UpdateAppTableRecordResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1067,7 +1067,7 @@ func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateAppTableViewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1095,7 +1095,7 @@ func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, o
 	}
 	// 反序列响应结果
 	resp := &DeleteAppTableViewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1123,7 +1123,7 @@ func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListAppTableViewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}

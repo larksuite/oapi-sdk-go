@@ -59,7 +59,7 @@ func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFun
 	}
 	// 反序列响应结果
 	resp := &QueryTenantResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

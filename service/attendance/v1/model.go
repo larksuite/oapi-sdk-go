@@ -822,7 +822,7 @@ type Group struct {
 	ExceptDeptIds           []string                 `json:"except_dept_ids,omitempty"`             // 排除的部门 ID
 	BindUserIds             []string                 `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID
 	ExceptUserIds           []string                 `json:"except_user_ids,omitempty"`             // 排除的用户 ID
-	GroupLeaderIds          []string                 `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表，必选字段
+	GroupLeaderIds          []string                 `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表，必选字段（需至少拥有考勤组管理员权限）
 	SubGroupLeaderIds       []string                 `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表
 	AllowOutPunch           *bool                    `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
 	OutPunchNeedApproval    *bool                    `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
@@ -882,7 +882,7 @@ type GroupBuilder struct {
 	bindUserIdsFlag             bool
 	exceptUserIds               []string // 排除的用户 ID
 	exceptUserIdsFlag           bool
-	groupLeaderIds              []string // 考勤主负责人 ID 列表，必选字段
+	groupLeaderIds              []string // 考勤主负责人 ID 列表，必选字段（需至少拥有考勤组管理员权限）
 	groupLeaderIdsFlag          bool
 	subGroupLeaderIds           []string // 考勤子负责人 ID 列表
 	subGroupLeaderIdsFlag       bool
@@ -1038,7 +1038,7 @@ func (builder *GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder
 	return builder
 }
 
-// 考勤主负责人 ID 列表，必选字段
+// 考勤主负责人 ID 列表，必选字段（需至少拥有考勤组管理员权限）
 //
 // 示例值：2bg4a9be
 func (builder *GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuilder {
@@ -3728,7 +3728,7 @@ func (builder *UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder {
 
 // 记录生成方式
 //
-// 示例值：0
+// 示例值：在开放平台调用时，此参数无效，内部值始终是7
 func (builder *UserFlowBuilder) Type(type_ int) *UserFlowBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -6756,7 +6756,7 @@ func (resp *QueryUserApprovalResp) Success() bool {
 }
 
 type BatchCreateUserDailyShiftReqBodyBuilder struct {
-	userDailyShifts     []*UserDailyShift // 班表信息列表
+	userDailyShifts     []*UserDailyShift // 班表信息列表（数量限制50以内）
 	userDailyShiftsFlag bool
 	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag      bool
@@ -6767,7 +6767,7 @@ func NewBatchCreateUserDailyShiftReqBodyBuilder() *BatchCreateUserDailyShiftReqB
 	return builder
 }
 
-// 班表信息列表
+// 班表信息列表（数量限制50以内）
 //
 //示例值：
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftReqBodyBuilder {
@@ -6797,7 +6797,7 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUser
 }
 
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
-	userDailyShifts     []*UserDailyShift // 班表信息列表
+	userDailyShifts     []*UserDailyShift // 班表信息列表（数量限制50以内）
 	userDailyShiftsFlag bool
 	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 	operatorIdFlag      bool
@@ -6808,7 +6808,7 @@ func NewBatchCreateUserDailyShiftPathReqBodyBuilder() *BatchCreateUserDailyShift
 	return builder
 }
 
-// 班表信息列表
+// 班表信息列表（数量限制50以内）
 //
 // 示例值：
 func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftPathReqBodyBuilder {
@@ -6874,7 +6874,7 @@ func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDail
 }
 
 type BatchCreateUserDailyShiftReqBody struct {
-	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
+	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表（数量限制50以内）
 	OperatorId      *string           `json:"operator_id,omitempty"`       // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 }
 
@@ -7069,7 +7069,7 @@ func (resp *QueryUserDailyShiftResp) Success() bool {
 }
 
 type BatchCreateUserFlowReqBodyBuilder struct {
-	flowRecords     []*UserFlow // 打卡流水记录列表
+	flowRecords     []*UserFlow // 打卡流水记录列表(数量限制50)
 	flowRecordsFlag bool
 }
 
@@ -7078,7 +7078,7 @@ func NewBatchCreateUserFlowReqBodyBuilder() *BatchCreateUserFlowReqBodyBuilder {
 	return builder
 }
 
-// 打卡流水记录列表
+// 打卡流水记录列表(数量限制50)
 //
 //示例值：
 func (builder *BatchCreateUserFlowReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowReqBodyBuilder {
@@ -7096,7 +7096,7 @@ func (builder *BatchCreateUserFlowReqBodyBuilder) Build() *BatchCreateUserFlowRe
 }
 
 type BatchCreateUserFlowPathReqBodyBuilder struct {
-	flowRecords     []*UserFlow // 打卡流水记录列表
+	flowRecords     []*UserFlow // 打卡流水记录列表(数量限制50)
 	flowRecordsFlag bool
 }
 
@@ -7105,7 +7105,7 @@ func NewBatchCreateUserFlowPathReqBodyBuilder() *BatchCreateUserFlowPathReqBodyB
 	return builder
 }
 
-// 打卡流水记录列表
+// 打卡流水记录列表(数量限制50)
 //
 // 示例值：
 func (builder *BatchCreateUserFlowPathReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowPathReqBodyBuilder {
@@ -7159,7 +7159,7 @@ func (builder *BatchCreateUserFlowReqBuilder) Build() *BatchCreateUserFlowReq {
 }
 
 type BatchCreateUserFlowReqBody struct {
-	FlowRecords []*UserFlow `json:"flow_records,omitempty"` // 打卡流水记录列表
+	FlowRecords []*UserFlow `json:"flow_records,omitempty"` // 打卡流水记录列表(数量限制50)
 }
 
 type BatchCreateUserFlowReq struct {
@@ -7670,7 +7670,7 @@ type QueryUserStatsDataReqBodyBuilder struct {
 	needHistoryFlag      bool
 	currentGroupOnly     bool // 只展示当前考勤组
 	currentGroupOnlyFlag bool
-	userId               string // 查询用户id，同【更新统计设置】、【查询统计设置】user_id
+	userId               string // 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 	userIdFlag           bool
 }
 
@@ -7742,7 +7742,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) CurrentGroupOnly(currentGroupOn
 	return builder
 }
 
-// 查询用户id，同【更新统计设置】、【查询统计设置】user_id
+// 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 //
 //示例值：ec8ddg56
 func (builder *QueryUserStatsDataReqBodyBuilder) UserId(userId string) *QueryUserStatsDataReqBodyBuilder {
@@ -7795,7 +7795,7 @@ type QueryUserStatsDataPathReqBodyBuilder struct {
 	needHistoryFlag      bool
 	currentGroupOnly     bool // 只展示当前考勤组
 	currentGroupOnlyFlag bool
-	userId               string // 查询用户id，同【更新统计设置】、【查询统计设置】user_id
+	userId               string // 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 	userIdFlag           bool
 }
 
@@ -7867,7 +7867,7 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) CurrentGroupOnly(currentGro
 	return builder
 }
 
-// 查询用户id，同【更新统计设置】、【查询统计设置】user_id
+// 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 //
 // 示例值：ec8ddg56
 func (builder *QueryUserStatsDataPathReqBodyBuilder) UserId(userId string) *QueryUserStatsDataPathReqBodyBuilder {
@@ -7949,7 +7949,7 @@ type QueryUserStatsDataReqBody struct {
 	UserIds          []string `json:"user_ids,omitempty"`           // 查询的用户 ID 列表;（用户数量不超过 200）
 	NeedHistory      *bool    `json:"need_history,omitempty"`       // 是否需要历史数据
 	CurrentGroupOnly *bool    `json:"current_group_only,omitempty"` // 只展示当前考勤组
-	UserId           *string  `json:"user_id,omitempty"`            // 查询用户id，同【更新统计设置】、【查询统计设置】user_id
+	UserId           *string  `json:"user_id,omitempty"`            // 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 }
 
 type QueryUserStatsDataReq struct {
@@ -7958,7 +7958,7 @@ type QueryUserStatsDataReq struct {
 }
 
 type QueryUserStatsDataRespData struct {
-	UserDatas []*UserStatsData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条）
+	UserDatas []*UserStatsData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条，超过1000条会截断）
 }
 
 type QueryUserStatsDataResp struct {

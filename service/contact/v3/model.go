@@ -818,48 +818,51 @@ func (builder *CustomAttrOptionsBuilder) Build() *CustomAttrOptions {
 }
 
 type Department struct {
-	Name               *string             `json:"name,omitempty"`                 // 部门名称
-	I18nName           *DepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称
-	ParentDepartmentId *string             `json:"parent_department_id,omitempty"` // 父部门的ID;;* 创建根部门，该参数值为 “0”
-	DepartmentId       *string             `json:"department_id,omitempty"`        // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
-	OpenDepartmentId   *string             `json:"open_department_id,omitempty"`   // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
-	LeaderUserId       *string             `json:"leader_user_id,omitempty"`       // 部门主管用户ID
-	ChatId             *string             `json:"chat_id,omitempty"`              // 部门群ID
-	Order              *string             `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
-	UnitIds            []string            `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        *int                `json:"member_count,omitempty"`         // 部门下用户的个数
-	Status             *DepartmentStatus   `json:"status,omitempty"`               // 部门状态
-	CreateGroupChat    *bool               `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建
-	Leaders            []*DepartmentLeader `json:"leaders,omitempty"`              // 部门负责人
+	Name                   *string             `json:"name,omitempty"`                      // 部门名称
+	I18nName               *DepartmentI18nName `json:"i18n_name,omitempty"`                 // 国际化的部门名称
+	ParentDepartmentId     *string             `json:"parent_department_id,omitempty"`      // 父部门的ID;;* 创建根部门，该参数值为 “0”
+	DepartmentId           *string             `json:"department_id,omitempty"`             // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
+	OpenDepartmentId       *string             `json:"open_department_id,omitempty"`        // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
+	LeaderUserId           *string             `json:"leader_user_id,omitempty"`            // 部门主管用户ID
+	ChatId                 *string             `json:"chat_id,omitempty"`                   // 部门群ID
+	Order                  *string             `json:"order,omitempty"`                     // 部门的排序，即部门在其同级部门的展示顺序
+	UnitIds                []string            `json:"unit_ids,omitempty"`                  // 部门单位自定义ID列表，当前只支持一个
+	MemberCount            *int                `json:"member_count,omitempty"`              // 部门下用户的个数
+	Status                 *DepartmentStatus   `json:"status,omitempty"`                    // 部门状态
+	CreateGroupChat        *bool               `json:"create_group_chat,omitempty"`         // 是否创建部门群，默认不创建
+	Leaders                []*DepartmentLeader `json:"leaders,omitempty"`                   // 部门负责人
+	GroupChatEmployeeTypes []int               `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制
 }
 
 type DepartmentBuilder struct {
-	name                   string // 部门名称
-	nameFlag               bool
-	i18nName               *DepartmentI18nName // 国际化的部门名称
-	i18nNameFlag           bool
-	parentDepartmentId     string // 父部门的ID;;* 创建根部门，该参数值为 “0”
-	parentDepartmentIdFlag bool
-	departmentId           string // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
-	departmentIdFlag       bool
-	openDepartmentId       string // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
-	openDepartmentIdFlag   bool
-	leaderUserId           string // 部门主管用户ID
-	leaderUserIdFlag       bool
-	chatId                 string // 部门群ID
-	chatIdFlag             bool
-	order                  string // 部门的排序，即部门在其同级部门的展示顺序
-	orderFlag              bool
-	unitIds                []string // 部门单位自定义ID列表，当前只支持一个
-	unitIdsFlag            bool
-	memberCount            int // 部门下用户的个数
-	memberCountFlag        bool
-	status                 *DepartmentStatus // 部门状态
-	statusFlag             bool
-	createGroupChat        bool // 是否创建部门群，默认不创建
-	createGroupChatFlag    bool
-	leaders                []*DepartmentLeader // 部门负责人
-	leadersFlag            bool
+	name                       string // 部门名称
+	nameFlag                   bool
+	i18nName                   *DepartmentI18nName // 国际化的部门名称
+	i18nNameFlag               bool
+	parentDepartmentId         string // 父部门的ID;;* 创建根部门，该参数值为 “0”
+	parentDepartmentIdFlag     bool
+	departmentId               string // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
+	departmentIdFlag           bool
+	openDepartmentId           string // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
+	openDepartmentIdFlag       bool
+	leaderUserId               string // 部门主管用户ID
+	leaderUserIdFlag           bool
+	chatId                     string // 部门群ID
+	chatIdFlag                 bool
+	order                      string // 部门的排序，即部门在其同级部门的展示顺序
+	orderFlag                  bool
+	unitIds                    []string // 部门单位自定义ID列表，当前只支持一个
+	unitIdsFlag                bool
+	memberCount                int // 部门下用户的个数
+	memberCountFlag            bool
+	status                     *DepartmentStatus // 部门状态
+	statusFlag                 bool
+	createGroupChat            bool // 是否创建部门群，默认不创建
+	createGroupChatFlag        bool
+	leaders                    []*DepartmentLeader // 部门负责人
+	leadersFlag                bool
+	groupChatEmployeeTypes     []int // 部门群雇员类型限制
+	groupChatEmployeeTypesFlag bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -984,6 +987,15 @@ func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Departme
 	return builder
 }
 
+// 部门群雇员类型限制
+//
+// 示例值：
+func (builder *DepartmentBuilder) GroupChatEmployeeTypes(groupChatEmployeeTypes []int) *DepartmentBuilder {
+	builder.groupChatEmployeeTypes = groupChatEmployeeTypes
+	builder.groupChatEmployeeTypesFlag = true
+	return builder
+}
+
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
 	if builder.nameFlag {
@@ -1033,6 +1045,9 @@ func (builder *DepartmentBuilder) Build() *Department {
 	}
 	if builder.leadersFlag {
 		req.Leaders = builder.leaders
+	}
+	if builder.groupChatEmployeeTypesFlag {
+		req.GroupChatEmployeeTypes = builder.groupChatEmployeeTypes
 	}
 	return req
 }
@@ -4349,15 +4364,15 @@ func (builder *ListDepartmentReqBuilder) UserIdType(userIdType string) *ListDepa
 
 // 此次调用中使用的部门ID的类型
 //
-// 示例值：open_department_id
+// 示例值：
 func (builder *ListDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
-// 父部门的ID，填上获取部门下所有子部门，此处填写的 ID 必须是 department_id_type 指定的 ID。
+// 父部门的ID，填上获取部门下所有子部门
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：
 func (builder *ListDepartmentReqBuilder) ParentDepartmentId(parentDepartmentId string) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("parent_department_id", fmt.Sprint(parentDepartmentId))
 	return builder
@@ -4365,7 +4380,7 @@ func (builder *ListDepartmentReqBuilder) ParentDepartmentId(parentDepartmentId s
 
 // 是否递归获取子部门
 //
-// 示例值：是否递归获取子部门，默认值：false
+// 示例值：
 func (builder *ListDepartmentReqBuilder) FetchChild(fetchChild bool) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("fetch_child", fmt.Sprint(fetchChild))
 	return builder
@@ -4373,7 +4388,7 @@ func (builder *ListDepartmentReqBuilder) FetchChild(fetchChild bool) *ListDepart
 
 //
 //
-// 示例值：AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
+// 示例值：
 func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -4381,7 +4396,7 @@ func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepart
 
 //
 //
-// 示例值：10
+// 示例值：
 func (builder *ListDepartmentReqBuilder) PageSize(pageSize int) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -7908,7 +7923,7 @@ func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBui
 
 // 此次调用中使用的部门ID的类型
 //
-// 示例值：open_department_type
+// 示例值：
 func (builder *ListUserReqBuilder) DepartmentIdType(departmentIdType string) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -7916,7 +7931,7 @@ func (builder *ListUserReqBuilder) DepartmentIdType(departmentIdType string) *Li
 
 // 填写该字段表示获取部门下所有用户，选填。
 //
-// 示例值：od-xxxxxxxxxxxxx
+// 示例值：
 func (builder *ListUserReqBuilder) DepartmentId(departmentId string) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -7924,7 +7939,7 @@ func (builder *ListUserReqBuilder) DepartmentId(departmentId string) *ListUserRe
 
 //
 //
-// 示例值：AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS%2BJKiSIkdexPw=
+// 示例值：
 func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -7932,7 +7947,7 @@ func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuild
 
 //
 //
-// 示例值：10
+// 示例值：
 func (builder *ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -7955,7 +7970,7 @@ type ListUserReq struct {
 type ListUserRespData struct {
 	HasMore   *bool   `json:"has_more,omitempty"`   // 是否有下一页数据
 	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
-	Items     []*User `json:"items,omitempty"`      // -
+	Items     []*User `json:"items,omitempty"`      //
 }
 
 type ListUserResp struct {

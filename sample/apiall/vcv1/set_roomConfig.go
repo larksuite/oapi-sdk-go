@@ -30,10 +30,10 @@ func main() {
 		UserIdType("user_id").
 		Body(larkvc.NewSetRoomConfigReqBodyBuilder().
 			Scope(5).
-			CountryId("086").
-			DistrictId("223").
-			BuildingId("66").
-			FloorName("3").
+			CountryId("1").
+			DistrictId("2").
+			BuildingId("3").
+			FloorName("4").
 			RoomId("67687262867363").
 			RoomConfig(larkvc.NewRoomConfigBuilder().Build()).
 			Build()).

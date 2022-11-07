@@ -29,9 +29,9 @@ func main() {
 	req := larkwiki.NewMoveDocsToWikiSpaceNodeReqBuilder().
 		SpaceId("1565676577122621").
 		Body(larkwiki.NewMoveDocsToWikiSpaceNodeReqBodyBuilder().
-			ParentWikiToken("wikbcOHIFxB0PJS2UTd2kF2SP6c").
+			ParentWikiToken("wikcnKQ1k3p******8Vabce").
 			ObjType("doc").
-			ObjToken("docbc6e1qBqt1O5mCBVA1QUKVEg").
+			ObjToken("doccnzAaOD******Wabcdef").
 			Apply(true).
 			Build()).
 		Build()

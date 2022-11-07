@@ -15,7 +15,6 @@ package larkcore
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -39,7 +38,7 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, acc
 		option.FileUpload = true
 	}
 
-	contentType, rawBody, err := translator.payload(body)
+	contentType, rawBody, err := translator.payload(body, config.Serializable)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +85,7 @@ func (translator *ReqTranslator) translateOld(ctx context.Context, input interfa
 		option.FileUpload = true
 	}
 
-	contentType, rawBody, err := translator.payload(body)
+	contentType, rawBody, err := translator.payload(body, config.Serializable)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +218,7 @@ func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, p
 	return newPath, nil
 }
 
-func (translator *ReqTranslator) payload(body interface{}) (string, []byte, error) {
+func (translator *ReqTranslator) payload(body interface{}, serializable Serializable) (string, []byte, error) {
 	if fd, ok := body.(*Formdata); ok {
 		return fd.content()
 	}
@@ -227,7 +226,7 @@ func (translator *ReqTranslator) payload(body interface{}) (string, []byte, erro
 	if body == nil {
 		return contentType, nil, nil
 	}
-	bs, err := json.Marshal(body)
+	bs, err := serializable.Serialize(body)
 	return contentType, bs, err
 }
 

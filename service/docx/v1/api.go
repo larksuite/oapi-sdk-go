@@ -68,7 +68,7 @@ func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options .
 	}
 	// 反序列响应结果
 	resp := &CreateDocumentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &GetDocumentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, o
 	}
 	// 反序列响应结果
 	resp := &RawContentDocumentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumen
 	}
 	// 反序列响应结果
 	resp := &BatchUpdateDocumentBlockResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, optio
 	}
 	// 反序列响应结果
 	resp := &GetDocumentBlockResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -218,7 +218,7 @@ func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListDocumentBlockResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, o
 	}
 	// 反序列响应结果
 	resp := &PatchDocumentBlockResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 	}
 	// 反序列响应结果
 	resp := &BatchDeleteDocumentBlockChildrenResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -316,7 +316,7 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 	}
 	// 反序列响应结果
 	resp := &CreateDocumentBlockChildrenResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -346,7 +346,7 @@ func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockCh
 	}
 	// 反序列响应结果
 	resp := &GetDocumentBlockChildrenResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
 	if err != nil {
 		return nil, err
 	}

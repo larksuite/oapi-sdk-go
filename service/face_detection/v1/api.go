@@ -56,7 +56,7 @@ func (i *image) DetectFaceAttributes(ctx context.Context, req *DetectFaceAttribu
 	}
 	// 反序列响应结果
 	resp := &DetectFaceAttributesImageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}

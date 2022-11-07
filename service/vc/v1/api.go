@@ -30,7 +30,10 @@ func NewService(config *larkcore.Config) *VcService {
 	v.Report = &report{service: v}
 	v.Reserve = &reserve{service: v}
 	v.ReserveConfig = &reserveConfig{service: v}
+	v.Room = &room{service: v}
 	v.RoomConfig = &roomConfig{service: v}
+	v.RoomLevel = &roomLevel{service: v}
+	v.ScopeConfig = &scopeConfig{service: v}
 	return v
 }
 
@@ -43,7 +46,10 @@ type VcService struct {
 	Report           *report           // 会议报告
 	Reserve          *reserve          // 预约
 	ReserveConfig    *reserveConfig    // reserve_config
-	RoomConfig       *roomConfig       // 会议室配置
+	Room             *room             // 会议室
+	RoomConfig       *roomConfig       // room_config
+	RoomLevel        *roomLevel        // 会议室层级
+	ScopeConfig      *scopeConfig      // 会议室配置
 }
 
 type alert struct {
@@ -67,7 +73,16 @@ type reserve struct {
 type reserveConfig struct {
 	service *VcService
 }
+type room struct {
+	service *VcService
+}
 type roomConfig struct {
+	service *VcService
+}
+type roomLevel struct {
+	service *VcService
+}
+type scopeConfig struct {
 	service *VcService
 }
 
@@ -90,7 +105,7 @@ func (a *alert) List(ctx context.Context, req *ListAlertReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListAlertResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +145,7 @@ func (e *export) Download(ctx context.Context, req *DownloadExportReq, options .
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +171,7 @@ func (e *export) Get(ctx context.Context, req *GetExportReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetExportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +197,7 @@ func (e *export) MeetingList(ctx context.Context, req *MeetingListExportReq, opt
 	}
 	// 反序列响应结果
 	resp := &MeetingListExportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +223,7 @@ func (e *export) ParticipantList(ctx context.Context, req *ParticipantListExport
 	}
 	// 反序列响应结果
 	resp := &ParticipantListExportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +249,7 @@ func (e *export) ParticipantQualityList(ctx context.Context, req *ParticipantQua
 	}
 	// 反序列响应结果
 	resp := &ParticipantQualityListExportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +275,7 @@ func (e *export) ResourceReservationList(ctx context.Context, req *ResourceReser
 	}
 	// 反序列响应结果
 	resp := &ResourceReservationListExportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +303,7 @@ func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &EndMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -316,7 +331,7 @@ func (m *meeting) Get(ctx context.Context, req *GetMeetingReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &GetMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +359,7 @@ func (m *meeting) Invite(ctx context.Context, req *InviteMeetingReq, options ...
 	}
 	// 反序列响应结果
 	resp := &InviteMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +385,7 @@ func (m *meeting) Kickout(ctx context.Context, req *KickoutMeetingReq, options .
 	}
 	// 反序列响应结果
 	resp := &KickoutMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -396,7 +411,7 @@ func (m *meeting) ListByNo(ctx context.Context, req *ListByNoMeetingReq, options
 	}
 	// 反序列响应结果
 	resp := &ListByNoMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +447,7 @@ func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options .
 	}
 	// 反序列响应结果
 	resp := &SetHostMeetingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -460,7 +475,7 @@ func (m *meetingRecording) Get(ctx context.Context, req *GetMeetingRecordingReq,
 	}
 	// 反序列响应结果
 	resp := &GetMeetingRecordingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -488,7 +503,7 @@ func (m *meetingRecording) SetPermission(ctx context.Context, req *SetPermission
 	}
 	// 反序列响应结果
 	resp := &SetPermissionMeetingRecordingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -516,7 +531,7 @@ func (m *meetingRecording) Start(ctx context.Context, req *StartMeetingRecording
 	}
 	// 反序列响应结果
 	resp := &StartMeetingRecordingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +559,7 @@ func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingRe
 	}
 	// 反序列响应结果
 	resp := &StopMeetingRecordingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -572,7 +587,7 @@ func (r *report) GetDaily(ctx context.Context, req *GetDailyReportReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetDailyReportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -600,7 +615,7 @@ func (r *report) GetTopUser(ctx context.Context, req *GetTopUserReportReq, optio
 	}
 	// 反序列响应结果
 	resp := &GetTopUserReportResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -628,7 +643,7 @@ func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ApplyReserveResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -656,7 +671,7 @@ func (r *reserve) Delete(ctx context.Context, req *DeleteReserveReq, options ...
 	}
 	// 反序列响应结果
 	resp := &DeleteReserveResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -684,7 +699,7 @@ func (r *reserve) Get(ctx context.Context, req *GetReserveReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &GetReserveResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -712,7 +727,7 @@ func (r *reserve) GetActiveMeeting(ctx context.Context, req *GetActiveMeetingRes
 	}
 	// 反序列响应结果
 	resp := &GetActiveMeetingReserveResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -740,7 +755,7 @@ func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...
 	}
 	// 反序列响应结果
 	resp := &UpdateReserveResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -766,7 +781,7 @@ func (r *reserveConfig) Patch(ctx context.Context, req *PatchReserveConfigReq, o
 	}
 	// 反序列响应结果
 	resp := &PatchReserveConfigResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -792,20 +807,208 @@ func (r *reserveConfig) ReserveScope(ctx context.Context, req *ReserveScopeReser
 	}
 	// 反序列响应结果
 	resp := &ReserveScopeReserveConfigResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 查询会议室配置
+// 创建会议室
 //
-// - 查询一个范围内的会议室配置。
+// - 该接口用于创建会议室
 //
-// - 根据查询范围传入对应的参数
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/create
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/create_room.go
+func (r *room) Create(ctx context.Context, req *CreateRoomReq, options ...larkcore.RequestOptionFunc) (*CreateRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除会议室
+//
+// - 该接口可以用来删除某个会议室
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/delete_room.go
+func (r *room) Delete(ctx context.Context, req *DeleteRoomReq, options ...larkcore.RequestOptionFunc) (*DeleteRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms/:room_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 查询会议室详情
+//
+// - 该接口可以使用会议室ID查询会议室详情
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_room.go
+func (r *room) Get(ctx context.Context, req *GetRoomReq, options ...larkcore.RequestOptionFunc) (*GetRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms/:room_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 查询会议室列表
+//
+// - 该接口可以用来查询某个会议室层级下会议室列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/list_room.go
+func (r *room) List(ctx context.Context, req *ListRoomReq, options ...larkcore.RequestOptionFunc) (*ListRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *room) ListByIterator(ctx context.Context, req *ListRoomReq, options ...larkcore.RequestOptionFunc) (*ListRoomIterator, error) {
+	return &ListRoomIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: r.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// 批量查询会议室详情
+//
+// - 该接口可以使用会议室ID批量查询会议室详情
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/mget
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/mget_room.go
+func (r *room) Mget(ctx context.Context, req *MgetRoomReq, options ...larkcore.RequestOptionFunc) (*MgetRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms/mget"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &MgetRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新会议室
+//
+// - 该接口可以用来更新某个会议室的信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/patch_room.go
+func (r *room) Patch(ctx context.Context, req *PatchRoomReq, options ...larkcore.RequestOptionFunc) (*PatchRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms/:room_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 搜索会议室
+//
+// - 该接口可以用来搜索会议室，支持使用关键词进行搜索，也支持使用自定义会议室ID进行查询
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/search_room.go
+func (r *room) Search(ctx context.Context, req *SearchRoomReq, options ...larkcore.RequestOptionFunc) (*SearchRoomResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/rooms/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchRoomResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=vc&resource=room_config&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/query_roomConfig.go
 func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options ...larkcore.RequestOptionFunc) (*QueryRoomConfigResp, error) {
@@ -820,20 +1023,18 @@ func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options
 	}
 	// 反序列响应结果
 	resp := &QueryRoomConfigResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 设置会议室配置
 //
-// - 设置一个范围内的会议室配置。
 //
-// - 根据设置范围传入对应的参数
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set&project=vc&resource=room_config&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/set_roomConfig.go
 func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...larkcore.RequestOptionFunc) (*SetRoomConfigResp, error) {
@@ -848,7 +1049,249 @@ func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...
 	}
 	// 反序列响应结果
 	resp := &SetRoomConfigResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建会议室层级
+//
+// - 该接口用于创建会议室层级
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/create_roomLevel.go
+func (r *roomLevel) Create(ctx context.Context, req *CreateRoomLevelReq, options ...larkcore.RequestOptionFunc) (*CreateRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除会议室层级
+//
+// - 该接口可以用来删除某个会议室层级
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/del
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/del_roomLevel.go
+func (r *roomLevel) Del(ctx context.Context, req *DelRoomLevelReq, options ...larkcore.RequestOptionFunc) (*DelRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels/del"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DelRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 查询会议室层级详情
+//
+// - 该接口可以使用会议室层级ID查询会议室层级详情
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_roomLevel.go
+func (r *roomLevel) Get(ctx context.Context, req *GetRoomLevelReq, options ...larkcore.RequestOptionFunc) (*GetRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels/:room_level_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 查询会议室层级列表
+//
+// - 该接口用来查询某个会议室层级下的子层级列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/list_roomLevel.go
+func (r *roomLevel) List(ctx context.Context, req *ListRoomLevelReq, options ...larkcore.RequestOptionFunc) (*ListRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *roomLevel) ListByIterator(ctx context.Context, req *ListRoomLevelReq, options ...larkcore.RequestOptionFunc) (*ListRoomLevelIterator, error) {
+	return &ListRoomLevelIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: r.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// 批量查询会议室层级详情
+//
+// - 该接口可以使用会议室层级ID批量查询会议室层级详情
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/mget
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/mget_roomLevel.go
+func (r *roomLevel) Mget(ctx context.Context, req *MgetRoomLevelReq, options ...larkcore.RequestOptionFunc) (*MgetRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels/mget"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &MgetRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新会议室层级
+//
+// - 该接口可以用来更新某个会议室层级的信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/patch_roomLevel.go
+func (r *roomLevel) Patch(ctx context.Context, req *PatchRoomLevelReq, options ...larkcore.RequestOptionFunc) (*PatchRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels/:room_level_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 搜索会议室层级
+//
+// - 该接口可以用来搜索会议室层级，支持使用自定义会议室层级ID进行查询
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/search
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/search_roomLevel.go
+func (r *roomLevel) Search(ctx context.Context, req *SearchRoomLevelReq, options ...larkcore.RequestOptionFunc) (*SearchRoomLevelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_levels/search"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchRoomLevelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 设置会议室配置
+//
+// - 该接口可以用来设置某个会议层级范围下或者某个会议室的配置
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/scope_config/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/create_scopeConfig.go
+func (s *scopeConfig) Create(ctx context.Context, req *CreateScopeConfigReq, options ...larkcore.RequestOptionFunc) (*CreateScopeConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/scope_config"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateScopeConfigResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 查询会议室配置
+//
+// - 该接口可以用来查询某个会议层级范围下或者某个会议室的配置
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/scope_config/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_scopeConfig.go
+func (s *scopeConfig) Get(ctx context.Context, req *GetScopeConfigReq, options ...larkcore.RequestOptionFunc) (*GetScopeConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/scope_config"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetScopeConfigResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}

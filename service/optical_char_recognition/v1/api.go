@@ -56,7 +56,7 @@ func (i *image) BasicRecognize(ctx context.Context, req *BasicRecognizeImageReq,
 	}
 	// 反序列响应结果
 	resp := &BasicRecognizeImageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}

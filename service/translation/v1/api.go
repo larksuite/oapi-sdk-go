@@ -56,7 +56,7 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &DetectTextResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...
 	}
 	// 反序列响应结果
 	resp := &TranslateTextResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

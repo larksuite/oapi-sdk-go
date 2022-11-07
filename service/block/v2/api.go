@@ -59,7 +59,7 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &CreateEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &UpdateEntityResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +111,7 @@ func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...
 	}
 	// 反序列响应结果
 	resp := &CreateMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}

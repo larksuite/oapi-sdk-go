@@ -33,4 +33,5 @@ type Config struct {
 	TokenCache        Cache
 	LogReqAtDebug     bool
 	Header            http.Header
+	Serializable      Serializable
 }

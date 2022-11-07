@@ -117,7 +117,7 @@ func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq,
 	}
 	// 反序列响应结果
 	resp := &ProcessApprovalInfoResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &UploadFileResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +230,7 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &DeleteGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &GetGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +282,7 @@ func (g *group) List(ctx context.Context, req *ListGroupReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -318,7 +318,7 @@ func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &SearchGroupResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, g.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -346,7 +346,7 @@ func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &CreateShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -372,7 +372,7 @@ func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &DeleteShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -398,7 +398,7 @@ func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &GetShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -424,7 +424,7 @@ func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &ListShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -458,7 +458,7 @@ func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &QueryShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -469,7 +469,7 @@ func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkco
 //
 // - 由于部分企业使用的是自己的审批系统，而不是飞书审批系统，因此员工的请假、加班等数据无法流入到飞书考勤系统中，导致员工在请假时间段内依然收到打卡提醒，并且被记为缺卡。;;对于这些只使用飞书考勤系统，而未使用飞书审批系统的企业，可以通过考勤开放接口的形式，将三方审批结果数据回写到飞书考勤系统中。
 //
-// - 目前支持写入加班、请假、出差和外出这四种审批结果，写入只会追加(insert)，不会覆盖(update)
+// - 目前支持写入加班、请假、出差和外出这四种审批结果，写入只会追加(insert)，不会覆盖(update)（开放接口导入的加班假期记录，在管理后台的假期加班里查不到，只能通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 //
@@ -486,7 +486,7 @@ func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateUserApprovalResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +514,7 @@ func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, opt
 	}
 	// 反序列响应结果
 	resp := &QueryUserApprovalResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +540,7 @@ func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDa
 	}
 	// 反序列响应结果
 	resp := &BatchCreateUserDailyShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +566,7 @@ func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq,
 	}
 	// 反序列响应结果
 	resp := &QueryUserDailyShiftResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -594,7 +594,7 @@ func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq,
 	}
 	// 反序列响应结果
 	resp := &BatchCreateUserFlowResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -620,7 +620,7 @@ func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &GetUserFlowResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -648,7 +648,7 @@ func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...
 	}
 	// 反序列响应结果
 	resp := &QueryUserFlowResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -674,7 +674,7 @@ func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, opt
 	}
 	// 反序列响应结果
 	resp := &ModifyUserSettingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -700,7 +700,7 @@ func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, optio
 	}
 	// 反序列响应结果
 	resp := &QueryUserSettingResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -726,7 +726,7 @@ func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, o
 	}
 	// 反序列响应结果
 	resp := &QueryUserStatsDataResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -752,7 +752,7 @@ func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq,
 	}
 	// 反序列响应结果
 	resp := &QueryUserStatsFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -778,7 +778,7 @@ func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, o
 	}
 	// 反序列响应结果
 	resp := &QueryUserStatsViewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -804,7 +804,7 @@ func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq,
 	}
 	// 反序列响应结果
 	resp := &UpdateUserStatsViewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -832,7 +832,7 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 	}
 	// 反序列响应结果
 	resp := &QueryUserTaskResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -858,7 +858,7 @@ func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyRe
 	}
 	// 反序列响应结果
 	resp := &CreateUserTaskRemedyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -884,7 +884,7 @@ func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq,
 	}
 	// 反序列响应结果
 	resp := &QueryUserTaskRemedyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -910,7 +910,7 @@ func (u *userTaskRemedy) QueryUserAllowedRemedys(ctx context.Context, req *Query
 	}
 	// 反序列响应结果
 	resp := &QueryUserAllowedRemedysUserTaskRemedyResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err
 	}

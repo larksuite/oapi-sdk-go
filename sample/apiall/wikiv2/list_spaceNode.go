@@ -30,7 +30,7 @@ func main() {
 		SpaceId("6946843325487906839").
 		PageSize(10).
 		PageToken("6946843325487456878").
-		ParentNodeToken("wikcnKQ1k3pcuo5uSK4t8VN6kVf").
+		ParentNodeToken("wikcnKQ1k3p******8Vabce").
 		Build()
 	// 发起请求
 	resp, err := client.Wiki.SpaceNode.List(context.Background(), req)

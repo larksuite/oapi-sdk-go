@@ -29,8 +29,8 @@ func main() {
 	req := larkcontact.NewListUserReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-		DepartmentId("od-xxxxxxxxxxxxx").
-		PageToken("AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS%2BJKiSIkdexPw=").
+		DepartmentId("").
+		PageToken("").
 		PageSize(20).
 		Build()
 	// 发起请求

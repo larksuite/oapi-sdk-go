@@ -40,14 +40,14 @@ func NewService(config *larkcore.Config) *HireService {
 type HireService struct {
 	config               *larkcore.Config
 	Application          *application          // 投递
-	ApplicationInterview *applicationInterview // 面试
+	ApplicationInterview *applicationInterview // application.interview
 	Attachment           *attachment           // 附件
 	Employee             *employee             // 入职
 	Job                  *job                  // 职位
 	JobManager           *jobManager           // job.manager
 	JobProcess           *jobProcess           // 流程
 	Note                 *note                 // 备注
-	OfferSchema          *offerSchema          // offer
+	OfferSchema          *offerSchema          // offer_schema
 	Referral             *referral             // 内推
 	ResumeSource         *resumeSource         // 简历来源
 	Talent               *talent               // 人才
@@ -94,7 +94,7 @@ type talent struct {
 //
 // - 根据人才 ID 和职位 ID 创建投递
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/create_application
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_application.go
 func (a *application) Create(ctx context.Context, req *CreateApplicationReq, options ...larkcore.RequestOptionFunc) (*CreateApplicationResp, error) {
@@ -109,7 +109,7 @@ func (a *application) Create(ctx context.Context, req *CreateApplicationReq, opt
 	}
 	// 反序列响应结果
 	resp := &CreateApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (a *application) Create(ctx context.Context, req *CreateApplicationReq, opt
 //
 // - 根据投递 ID 获取单个投递信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
@@ -135,7 +135,7 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 //
 // - 根据限定条件获取投递列表信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application-list
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_application.go
 func (a *application) List(ctx context.Context, req *ListApplicationReq, options ...larkcore.RequestOptionFunc) (*ListApplicationResp, error) {
@@ -161,7 +161,7 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 	}
 	// 反序列响应结果
 	resp := &ListApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 //
 // - 根据投递 ID 获取 Offer 信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/get-application-offer
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/offer_application.go
 func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, options ...larkcore.RequestOptionFunc) (*OfferApplicationResp, error) {
@@ -187,7 +187,7 @@ func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, optio
 	}
 	// 反序列响应结果
 	resp := &OfferApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +198,7 @@ func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, optio
 //
 // - 根据投递 ID 修改投递状态为「已终止」
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQzM1YjL0MTN24CNzUjN/terminate-application
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/terminate
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/terminate_application.go
 func (a *application) Terminate(ctx context.Context, req *TerminateApplicationReq, options ...larkcore.RequestOptionFunc) (*TerminateApplicationResp, error) {
@@ -213,7 +213,7 @@ func (a *application) Terminate(ctx context.Context, req *TerminateApplicationRe
 	}
 	// 反序列响应结果
 	resp := &TerminateApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -224,7 +224,7 @@ func (a *application) Terminate(ctx context.Context, req *TerminateApplicationRe
 //
 // - 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段，可通过「转移阶段」接口变更投递状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uczM1YjL3MTN24yNzUjN
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_onboard
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/transferOnboard_application.go
 func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardApplicationReq, options ...larkcore.RequestOptionFunc) (*TransferOnboardApplicationResp, error) {
@@ -239,18 +239,18 @@ func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardA
 	}
 	// 反序列响应结果
 	resp := &TransferOnboardApplicationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取面试记录列表
 //
-// - 根据投递 ID 获取面试记录列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application-interview/list
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=application.interview&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_applicationInterview.go
 func (a *applicationInterview) List(ctx context.Context, req *ListApplicationInterviewReq, options ...larkcore.RequestOptionFunc) (*ListApplicationInterviewResp, error) {
@@ -265,7 +265,7 @@ func (a *applicationInterview) List(ctx context.Context, req *ListApplicationInt
 	}
 	// 反序列响应结果
 	resp := &ListApplicationInterviewResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +291,7 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetAttachmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	}
 	// 反序列响应结果
 	resp := &PreviewAttachmentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +343,7 @@ func (e *employee) Get(ctx context.Context, req *GetEmployeeReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &GetEmployeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +369,7 @@ func (e *employee) GetByApplication(ctx context.Context, req *GetByApplicationEm
 	}
 	// 反序列响应结果
 	resp := &GetByApplicationEmployeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +395,7 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 	}
 	// 反序列响应结果
 	resp := &PatchEmployeeResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -406,7 +406,7 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 //
 // - 根据职位 ID 获取职位信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/job/get-job
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_job.go
 func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.RequestOptionFunc) (*GetJobResp, error) {
@@ -421,7 +421,7 @@ func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.Reque
 	}
 	// 反序列响应结果
 	resp := &GetJobResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -447,7 +447,7 @@ func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetJobManagerResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -458,7 +458,7 @@ func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...
 //
 // - 获取全部招聘流程信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/jop-process/get-process
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobProcess.go
 func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options ...larkcore.RequestOptionFunc) (*ListJobProcessResp, error) {
@@ -473,7 +473,7 @@ func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListJobProcessResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -499,7 +499,7 @@ func (n *note) Create(ctx context.Context, req *CreateNoteReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &CreateNoteResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -525,7 +525,7 @@ func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &GetNoteResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -551,7 +551,7 @@ func (n *note) List(ctx context.Context, req *ListNoteReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &ListNoteResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -577,18 +577,18 @@ func (n *note) Patch(ctx context.Context, req *PatchNoteReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &PatchNoteResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
 
-// 获取 Offer 申请表详细信息
 //
-// - 根据 Offer 申请表 ID，获取 Offer 申请表的详细信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_schema/get
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=offer_schema&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_offerSchema.go
 func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options ...larkcore.RequestOptionFunc) (*GetOfferSchemaResp, error) {
@@ -603,7 +603,7 @@ func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options .
 	}
 	// 反序列响应结果
 	resp := &GetOfferSchemaResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, o.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -629,7 +629,7 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 	}
 	// 反序列响应结果
 	resp := &GetByApplicationReferralResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -655,7 +655,7 @@ func (r *resumeSource) List(ctx context.Context, req *ListResumeSourceReq, optio
 	}
 	// 反序列响应结果
 	resp := &ListResumeSourceResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -674,7 +674,7 @@ func (r *resumeSource) ListByIterator(ctx context.Context, req *ListResumeSource
 //
 // - 根据人才 ID 获取人才信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUzM1YjL1MTN24SNzUjN/get-talent
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_talent.go
 func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore.RequestOptionFunc) (*GetTalentResp, error) {
@@ -689,7 +689,7 @@ func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetTalentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

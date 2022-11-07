@@ -399,7 +399,7 @@ func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImag
 
 // 图片链接，通过上传图片接口获取
 //
-// 示例值：https://internal-api-okr.feishu-boe.cn/stream/api/downloadFile/?file_token=boxbcMTBQO9ofLjWkDuPxkxOA2c\&ticket=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0YXJnZXRfaWQiOiI3MDQxNDMwMzc3NjQyMDgyMzIzIiwidGFyZ2V0X3R5cGUiOjMsImFjdGlvbiI6MiwiZmlsZV90b2tlbiI6ImJveGJjTVRCUU85b2ZMaldrRHVQeGt4T0EyYyIsInVzZXJfaWQiOiI2OTY5ODU1NTAxNzQ0ODM0MDkyIiwidGVuYW50X2lkIjoiNjg3NzUwMjY4NzYwOTQwNjk5MCIsImV4cCI6MTY0MDE1NTk2M30.yc4qV2pkGUVwSO53-N_XGgeMucjmDn9iso1Ez_8vpghFz8YdeSDf4NHQpxOHYHc8RURvwI0a5UTNKKJ9CWagTQ
+// 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *ContentImageItemBuilder) Url(url string) *ContentImageItemBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -3104,7 +3104,7 @@ type OkrObjective struct {
 	Id                                 *string                              `json:"id,omitempty"`                                      // Objective ID
 	Permission                         *int                                 `json:"permission,omitempty"`                              // 权限
 	Content                            *string                              `json:"content,omitempty"`                                 // Objective 内容
-	ProgressReport                     *string                              `json:"progress_report,omitempty"`                         // Objective 进度记录内容
+	ProgressReport                     *string                              `json:"progress_report,omitempty"`                         // Objective 备注内容
 	Score                              *int                                 `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
 	Weight                             *float64                             `json:"weight,omitempty"`                                  // Objective的权重（0 - 100）
 	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`                           // Objective进度
@@ -3115,7 +3115,7 @@ type OkrObjective struct {
 	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
 	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
 	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
-	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑备注的时间 毫秒
 	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
 	Deadline                           *string                              `json:"deadline,omitempty"`                                // 截止时间 毫秒
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
@@ -3128,7 +3128,7 @@ type OkrObjectiveBuilder struct {
 	permissionFlag                         bool
 	content                                string // Objective 内容
 	contentFlag                            bool
-	progressReport                         string // Objective 进度记录内容
+	progressReport                         string // Objective 备注内容
 	progressReportFlag                     bool
 	score                                  int // Objective 分数（0 - 100）
 	scoreFlag                              bool
@@ -3150,7 +3150,7 @@ type OkrObjectiveBuilder struct {
 	progressRateStatusLastUpdatedTimeFlag  bool
 	progressRecordLastUpdatedTime          string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
 	progressRecordLastUpdatedTimeFlag      bool
-	progressReportLastUpdatedTime          string // 最后一次编辑进展记录/备注的时间 毫秒
+	progressReportLastUpdatedTime          string // 最后一次编辑备注的时间 毫秒
 	progressReportLastUpdatedTimeFlag      bool
 	scoreLastUpdatedTime                   string // 最后一次打分更新时间 毫秒
 	scoreLastUpdatedTimeFlag               bool
@@ -3192,7 +3192,7 @@ func (builder *OkrObjectiveBuilder) Content(content string) *OkrObjectiveBuilder
 	return builder
 }
 
-// Objective 进度记录内容
+// Objective 备注内容
 //
 // 示例值：Objective 进度记录内容
 func (builder *OkrObjectiveBuilder) ProgressReport(progressReport string) *OkrObjectiveBuilder {
@@ -3291,7 +3291,7 @@ func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecord
 	return builder
 }
 
-// 最后一次编辑进展记录/备注的时间 毫秒
+// 最后一次编辑备注的时间 毫秒
 //
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveBuilder {
@@ -3520,7 +3520,7 @@ type OkrObjectiveKr struct {
 	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
 	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
 	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
-	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑备注的时间 毫秒
 	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
 	Deadline                           *string                              `json:"deadline,omitempty"`                                // 截止时间 毫秒
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
@@ -3547,7 +3547,7 @@ type OkrObjectiveKrBuilder struct {
 	progressRateStatusLastUpdatedTimeFlag  bool
 	progressRecordLastUpdatedTime          string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
 	progressRecordLastUpdatedTimeFlag      bool
-	progressReportLastUpdatedTime          string // 最后一次编辑进展记录/备注的时间 毫秒
+	progressReportLastUpdatedTime          string // 最后一次编辑备注的时间 毫秒
 	progressReportLastUpdatedTimeFlag      bool
 	scoreLastUpdatedTime                   string // 最后一次打分更新时间 毫秒
 	scoreLastUpdatedTimeFlag               bool
@@ -3652,7 +3652,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressReco
 	return builder
 }
 
-// 最后一次编辑进展记录/备注的时间 毫秒
+// 最后一次编辑备注的时间 毫秒
 //
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveKrBuilder {

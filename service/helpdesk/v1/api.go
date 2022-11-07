@@ -118,7 +118,7 @@ func (a *agent) AgentEmail(ctx context.Context, options ...larkcore.RequestOptio
 	}
 	// 反序列响应结果
 	resp := &AgentEmailAgentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +144,7 @@ func (a *agent) Patch(ctx context.Context, req *PatchAgentReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &PatchAgentResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (a *agentSchedules) Delete(ctx context.Context, req *DeleteAgentSchedulesRe
 	}
 	// 反序列响应结果
 	resp := &DeleteAgentSchedulesResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (a *agentSchedules) Get(ctx context.Context, req *GetAgentSchedulesReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetAgentSchedulesResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -222,7 +222,7 @@ func (a *agentSchedules) Patch(ctx context.Context, req *PatchAgentSchedulesReq,
 	}
 	// 反序列响应结果
 	resp := &PatchAgentSchedulesResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (a *agentSchedule) Create(ctx context.Context, req *CreateAgentScheduleReq,
 	}
 	// 反序列响应结果
 	resp := &CreateAgentScheduleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +274,7 @@ func (a *agentSchedule) List(ctx context.Context, req *ListAgentScheduleReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAgentScheduleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +300,7 @@ func (a *agentSkill) Create(ctx context.Context, req *CreateAgentSkillReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateAgentSkillResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -326,7 +326,7 @@ func (a *agentSkill) Delete(ctx context.Context, req *DeleteAgentSkillReq, optio
 	}
 	// 反序列响应结果
 	resp := &DeleteAgentSkillResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -352,7 +352,7 @@ func (a *agentSkill) Get(ctx context.Context, req *GetAgentSkillReq, options ...
 	}
 	// 反序列响应结果
 	resp := &GetAgentSkillResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +381,7 @@ func (a *agentSkill) List(ctx context.Context, options ...larkcore.RequestOption
 	}
 	// 反序列响应结果
 	resp := &ListAgentSkillResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -407,7 +407,7 @@ func (a *agentSkill) Patch(ctx context.Context, req *PatchAgentSkillReq, options
 	}
 	// 反序列响应结果
 	resp := &PatchAgentSkillResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +436,7 @@ func (a *agentSkillRule) List(ctx context.Context, options ...larkcore.RequestOp
 	}
 	// 反序列响应结果
 	resp := &ListAgentSkillRuleResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +462,7 @@ func (b *botMessage) Create(ctx context.Context, req *CreateBotMessageReq, optio
 	}
 	// 反序列响应结果
 	resp := &CreateBotMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, b.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -488,7 +488,7 @@ func (c *category) Create(ctx context.Context, req *CreateCategoryReq, options .
 	}
 	// 反序列响应结果
 	resp := &CreateCategoryResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +514,7 @@ func (c *category) Delete(ctx context.Context, req *DeleteCategoryReq, options .
 	}
 	// 反序列响应结果
 	resp := &DeleteCategoryResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +540,7 @@ func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &GetCategoryResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +566,7 @@ func (c *category) List(ctx context.Context, req *ListCategoryReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &ListCategoryResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -592,7 +592,7 @@ func (c *category) Patch(ctx context.Context, req *PatchCategoryReq, options ...
 	}
 	// 反序列响应结果
 	resp := &PatchCategoryResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -618,7 +618,7 @@ func (e *event) Subscribe(ctx context.Context, req *SubscribeEventReq, options .
 	}
 	// 反序列响应结果
 	resp := &SubscribeEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -644,7 +644,7 @@ func (e *event) Unsubscribe(ctx context.Context, req *UnsubscribeEventReq, optio
 	}
 	// 反序列响应结果
 	resp := &UnsubscribeEventResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -670,7 +670,7 @@ func (f *faq) Create(ctx context.Context, req *CreateFaqReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &CreateFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -696,7 +696,7 @@ func (f *faq) Delete(ctx context.Context, req *DeleteFaqReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &DeleteFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -728,7 +728,7 @@ func (f *faq) FaqImage(ctx context.Context, req *FaqImageFaqReq, options ...lark
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -754,7 +754,7 @@ func (f *faq) Get(ctx context.Context, req *GetFaqReq, options ...larkcore.Reque
 	}
 	// 反序列响应结果
 	resp := &GetFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -780,7 +780,7 @@ func (f *faq) List(ctx context.Context, req *ListFaqReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &ListFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -814,7 +814,7 @@ func (f *faq) Patch(ctx context.Context, req *PatchFaqReq, options ...larkcore.R
 	}
 	// 反序列响应结果
 	resp := &PatchFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -840,7 +840,7 @@ func (f *faq) Search(ctx context.Context, req *SearchFaqReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &SearchFaqResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -874,7 +874,7 @@ func (n *notification) CancelApprove(ctx context.Context, req *CancelApproveNoti
 	}
 	// 反序列响应结果
 	resp := &CancelApproveNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -900,7 +900,7 @@ func (n *notification) CancelSend(ctx context.Context, req *CancelSendNotificati
 	}
 	// 反序列响应结果
 	resp := &CancelSendNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -926,7 +926,7 @@ func (n *notification) Create(ctx context.Context, req *CreateNotificationReq, o
 	}
 	// 反序列响应结果
 	resp := &CreateNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -952,7 +952,7 @@ func (n *notification) ExecuteSend(ctx context.Context, req *ExecuteSendNotifica
 	}
 	// 反序列响应结果
 	resp := &ExecuteSendNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -978,7 +978,7 @@ func (n *notification) Get(ctx context.Context, req *GetNotificationReq, options
 	}
 	// 反序列响应结果
 	resp := &GetNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1004,7 +1004,7 @@ func (n *notification) Patch(ctx context.Context, req *PatchNotificationReq, opt
 	}
 	// 反序列响应结果
 	resp := &PatchNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1030,7 +1030,7 @@ func (n *notification) Preview(ctx context.Context, req *PreviewNotificationReq,
 	}
 	// 反序列响应结果
 	resp := &PreviewNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1056,7 +1056,7 @@ func (n *notification) SubmitApprove(ctx context.Context, req *SubmitApproveNoti
 	}
 	// 反序列响应结果
 	resp := &SubmitApproveNotificationResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, n.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1082,7 +1082,7 @@ func (t *ticket) AnswerUserQuery(ctx context.Context, req *AnswerUserQueryTicket
 	}
 	// 反序列响应结果
 	resp := &AnswerUserQueryTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1108,7 +1108,7 @@ func (t *ticket) CustomizedFields(ctx context.Context, req *CustomizedFieldsTick
 	}
 	// 反序列响应结果
 	resp := &CustomizedFieldsTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1134,7 +1134,7 @@ func (t *ticket) Get(ctx context.Context, req *GetTicketReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1160,7 +1160,7 @@ func (t *ticket) List(ctx context.Context, req *ListTicketReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &ListTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1186,7 +1186,7 @@ func (t *ticket) StartService(ctx context.Context, req *StartServiceTicketReq, o
 	}
 	// 反序列响应结果
 	resp := &StartServiceTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1218,7 +1218,7 @@ func (t *ticket) TicketImage(ctx context.Context, req *TicketImageTicketReq, opt
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1244,7 +1244,7 @@ func (t *ticket) Update(ctx context.Context, req *UpdateTicketReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &UpdateTicketResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1270,7 +1270,7 @@ func (t *ticketMessage) Create(ctx context.Context, req *CreateTicketMessageReq,
 	}
 	// 反序列响应结果
 	resp := &CreateTicketMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1296,7 +1296,7 @@ func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListTicketMessageResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1322,7 +1322,7 @@ func (t *ticketCustomizedField) Create(ctx context.Context, req *CreateTicketCus
 	}
 	// 反序列响应结果
 	resp := &CreateTicketCustomizedFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1348,7 +1348,7 @@ func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCus
 	}
 	// 反序列响应结果
 	resp := &DeleteTicketCustomizedFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1374,7 +1374,7 @@ func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomize
 	}
 	// 反序列响应结果
 	resp := &GetTicketCustomizedFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1400,7 +1400,7 @@ func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomi
 	}
 	// 反序列响应结果
 	resp := &ListTicketCustomizedFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1426,7 +1426,7 @@ func (t *ticketCustomizedField) Patch(ctx context.Context, req *PatchTicketCusto
 	}
 	// 反序列响应结果
 	resp := &PatchTicketCustomizedFieldResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
 	if err != nil {
 		return nil, err
 	}

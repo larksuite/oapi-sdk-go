@@ -279,7 +279,7 @@ func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 
 // block 的孩子 id 列表
 //
-// 示例值：[doxcnO6UW6wAw2qIcYf4hZpFIth]
+// 示例值：["doxcnO6UW6wAw2qIcYf4hZpFIth"]
 func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -657,7 +657,7 @@ func (builder *BlockBuilder) OkrProgress(okrProgress *OkrProgress) *BlockBuilder
 
 // 评论 id 列表
 //
-// 示例值：[1660030311959965796]
+// 示例值：["1660030311959965796"]
 func (builder *BlockBuilder) CommentIds(commentIds []string) *BlockBuilder {
 	builder.commentIds = commentIds
 	builder.commentIdsFlag = true

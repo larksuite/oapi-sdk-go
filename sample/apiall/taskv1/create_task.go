@@ -39,8 +39,8 @@ func main() {
 			CollaboratorIds([]string{}).
 			FollowerIds([]string{}).
 			RepeatRule("FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR").
-			RichSummary("每天喝八杯水，保持身心愉悦[飞书开放平台](https://open.feishu.cn/)").
-			RichDescription("多吃水果，多运动，健康生活，快乐工作。[飞书开放平台](https://open.feishu.cn/)").
+			RichSummary("每天喝八杯水，保持身心愉悦。[谷歌](https://www.google.com/)").
+			RichDescription("多吃水果，多运动，健康生活，快乐工作。[谷歌](https://www.google.com/)").
 			Build()).
 		Build()
 	// 发起请求
