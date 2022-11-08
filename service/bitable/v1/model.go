@@ -19,7 +19,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 const (
@@ -1121,11 +1121,11 @@ func (builder *AppTableBuilder) Build() *AppTable {
 }
 
 type AppTableField struct {
-	FieldId     *string                   `json:"field_id,omitempty"`    // 多维表格字段 id
-	FieldName   *string                   `json:"field_name,omitempty"`  // 多维表格字段名
-	Type        *int                      `json:"type,omitempty"`        // 多维表格字段类型
-	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
-	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
+	FieldId     *string                     `json:"field_id,omitempty"`    // 多维表格字段 id
+	FieldName   *string                     `json:"field_name,omitempty"`  // 多维表格字段名
+	Type        *int                        `json:"type,omitempty"`        // 多维表格字段类型
+	Property    *AppTableFieldProperty      `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Description []*AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }
 
 type AppTableFieldBuilder struct {
@@ -1137,7 +1137,7 @@ type AppTableFieldBuilder struct {
 	typeFlag        bool
 	property        *AppTableFieldProperty // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	propertyFlag    bool
-	description     *AppTableFieldDescription // 字段的描述
+	description     []*AppTableFieldDescription // 字段的描述
 	descriptionFlag bool
 }
 
@@ -1185,7 +1185,7 @@ func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *
 // 字段的描述
 //
 // 示例值：
-func (builder *AppTableFieldBuilder) Description(description *AppTableFieldDescription) *AppTableFieldBuilder {
+func (builder *AppTableFieldBuilder) Description(description []*AppTableFieldDescription) *AppTableFieldBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
@@ -2960,7 +2960,7 @@ func NewUpdateAppReqBodyBuilder() *UpdateAppReqBodyBuilder {
 
 // 新的多维表格名字
 //
-//示例值：新的多维表格名字
+// 示例值：新的多维表格名字
 func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -2969,7 +2969,7 @@ func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuild
 
 // 多维表格是否开启高级权限
 //
-//示例值：true
+// 示例值：true
 func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedFlag = true
@@ -3418,7 +3418,7 @@ func NewBatchCreateAppRoleMemberReqBodyBuilder() *BatchCreateAppRoleMemberReqBod
 
 // 协作者列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -3534,7 +3534,7 @@ func NewBatchDeleteAppRoleMemberReqBodyBuilder() *BatchDeleteAppRoleMemberReqBod
 
 // 协作者列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
@@ -3867,7 +3867,7 @@ func NewBatchCreateAppTableReqBodyBuilder() *BatchCreateAppTableReqBodyBuilder {
 
 // tables
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppTableReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesFlag = true
@@ -3989,7 +3989,7 @@ func NewBatchDeleteAppTableReqBodyBuilder() *BatchDeleteAppTableReqBodyBuilder {
 
 // 删除的多条tableid列表
 //
-//示例值：["tblsRc9GRRXKqhvW"]
+// 示例值：["tblsRc9GRRXKqhvW"]
 func (builder *BatchDeleteAppTableReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsFlag = true
@@ -4097,7 +4097,7 @@ func NewCreateAppTableReqBodyBuilder() *CreateAppTableReqBodyBuilder {
 
 // 数据表
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppTableReqBodyBuilder) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
 	builder.table = table
 	builder.tableFlag = true
@@ -4284,16 +4284,12 @@ func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableRe
 	return builder
 }
 
-//
-//
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
-//
 // 示例值：10
 func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
@@ -4510,16 +4506,12 @@ func (builder *ListAppTableFieldReqBuilder) TextFieldAsArray(textFieldAsArray bo
 	return builder
 }
 
-//
-//
 // 示例值：fldwJ4YrtB
 func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
-//
 // 示例值：10
 func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
@@ -4945,7 +4937,7 @@ func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqB
 
 // 记录
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -5075,7 +5067,7 @@ func NewBatchDeleteAppTableRecordReqBodyBuilder() *BatchDeleteAppTableRecordReqB
 
 // 删除的多条记录id列表
 //
-//示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
+// 示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
 func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -5196,7 +5188,7 @@ func NewBatchUpdateAppTableRecordReqBodyBuilder() *BatchUpdateAppTableRecordReqB
 
 // 记录
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -5644,16 +5636,12 @@ func (builder *ListAppTableRecordReqBuilder) AutomaticFields(automaticFields boo
 	return builder
 }
 
-//
-//
 // 示例值：recn0hoyXL
 func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
-//
 // 示例值：10
 func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
