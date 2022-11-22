@@ -42,6 +42,7 @@ func main() {
 			JoinMessageVisibility("only_owner").
 			LeaveMessageVisibility("only_owner").
 			MembershipApproval("no_approval_required").
+			ChatType("private").
 			Build()).
 		Build()
 	// 发起请求

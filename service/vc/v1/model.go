@@ -3044,7 +3044,7 @@ func (builder *RoomDigitalSignageBuilder) Build() *RoomDigitalSignage {
 }
 
 type RoomDigitalSignageMaterial struct {
-	Id           *string `json:"id,omitempty"`            // 素材ID
+	Id           *string `json:"id,omitempty"`            // 素材ID，当设置新素材时，无需传递该字段
 	Name         *string `json:"name,omitempty"`          // 素材名称
 	MaterialType *int    `json:"material_type,omitempty"` // 素材类型
 	Url          *string `json:"url,omitempty"`           // 素材url
@@ -3056,7 +3056,7 @@ type RoomDigitalSignageMaterial struct {
 }
 
 type RoomDigitalSignageMaterialBuilder struct {
-	id               string // 素材ID
+	id               string // 素材ID，当设置新素材时，无需传递该字段
 	idFlag           bool
 	name             string // 素材名称
 	nameFlag         bool
@@ -3081,7 +3081,7 @@ func NewRoomDigitalSignageMaterialBuilder() *RoomDigitalSignageMaterialBuilder {
 	return builder
 }
 
-// 素材ID
+// 素材ID，当设置新素材时，无需传递该字段
 //
 // 示例值：7847784676276
 func (builder *RoomDigitalSignageMaterialBuilder) Id(id string) *RoomDigitalSignageMaterialBuilder {
@@ -3480,7 +3480,7 @@ type RoomStatus struct {
 	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因
 	ContactIds       []string `json:"contact_ids,omitempty"`        // 联系人列表，id类型由user_id_type参数决定
 	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
-	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人
 }
 
 type RoomStatusBuilder struct {
@@ -3498,7 +3498,7 @@ type RoomStatusBuilder struct {
 	contactIdsFlag       bool
 	disableNotice        bool // 是否在禁用时发送通知给预定了该会议室的员工
 	disableNoticeFlag    bool
-	resumeNotice         bool // 是否在恢复启用时发送通知给预定了该会议室的员工
+	resumeNotice         bool // 是否在恢复启用时发送通知给联系人
 	resumeNoticeFlag     bool
 }
 
@@ -3570,7 +3570,7 @@ func (builder *RoomStatusBuilder) DisableNotice(disableNotice bool) *RoomStatusB
 	return builder
 }
 
-// 是否在恢复启用时发送通知给预定了该会议室的员工
+// 是否在恢复启用时发送通知给联系人
 //
 // 示例值：true
 func (builder *RoomStatusBuilder) ResumeNotice(resumeNotice bool) *RoomStatusBuilder {
@@ -6271,7 +6271,7 @@ func (builder *GetTopUserReportReqBuilder) OrderBy(orderBy int) *GetTopUserRepor
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *GetTopUserReportReqBuilder) UserIdType(userIdType string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6305,6 +6305,8 @@ func (resp *GetTopUserReportResp) Success() bool {
 type ApplyReserveReqBodyBuilder struct {
 	endTime             string // 预约到期时间（unix时间，单位sec），多人会议必填
 	endTimeFlag         bool
+	ownerId             string // 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
+	ownerIdFlag         bool
 	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
@@ -6323,6 +6325,15 @@ func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime string) *ApplyReserve
 	return builder
 }
 
+// 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
+//
+//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ApplyReserveReqBodyBuilder) OwnerId(ownerId string) *ApplyReserveReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
 // 会议设置
 //
 //示例值：
@@ -6337,6 +6348,9 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
 	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+	}
 	if builder.meetingSettingsFlag {
 		req.MeetingSettings = builder.meetingSettings
 	}
@@ -6346,6 +6360,8 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 type ApplyReservePathReqBodyBuilder struct {
 	endTime             string // 预约到期时间（unix时间，单位sec），多人会议必填
 	endTimeFlag         bool
+	ownerId             string // 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
+	ownerIdFlag         bool
 	meetingSettings     *ReserveMeetingSetting // 会议设置
 	meetingSettingsFlag bool
 }
@@ -6364,6 +6380,15 @@ func (builder *ApplyReservePathReqBodyBuilder) EndTime(endTime string) *ApplyRes
 	return builder
 }
 
+// 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *ApplyReservePathReqBodyBuilder) OwnerId(ownerId string) *ApplyReservePathReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
 // 会议设置
 //
 // 示例值：
@@ -6377,6 +6402,9 @@ func (builder *ApplyReservePathReqBodyBuilder) Build() (*ApplyReserveReqBody, er
 	req := &ApplyReserveReqBody{}
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
 	}
 	if builder.meetingSettingsFlag {
 		req.MeetingSettings = builder.meetingSettings
@@ -6422,6 +6450,7 @@ func (builder *ApplyReserveReqBuilder) Build() *ApplyReserveReq {
 
 type ApplyReserveReqBody struct {
 	EndTime         *string                `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec），多人会议必填
+	OwnerId         *string                `json:"owner_id,omitempty"`         // 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"` // 会议设置
 }
 
@@ -6509,7 +6538,7 @@ func (builder *GetReserveReqBuilder) ReserveId(reserveId string) *GetReserveReqB
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *GetReserveReqBuilder) UserIdType(userIdType string) *GetReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6572,7 +6601,7 @@ func (builder *GetActiveMeetingReserveReqBuilder) WithParticipants(withParticipa
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *GetActiveMeetingReserveReqBuilder) UserIdType(userIdType string) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6918,7 +6947,7 @@ func (builder *PatchReserveConfigReqBuilder) ReserveConfigId(reserveConfigId str
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *PatchReserveConfigReqBuilder) UserIdType(userIdType string) *PatchReserveConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6991,7 +7020,7 @@ func (builder *ReserveScopeReserveConfigReqBuilder) ScopeType(scopeType string) 
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *ReserveScopeReserveConfigReqBuilder) UserIdType(userIdType string) *ReserveScopeReserveConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7040,7 +7069,7 @@ func NewCreateRoomReqBuilder() *CreateRoomReqBuilder {
 
 // 此次调用中使用的用户ID的类型，默认使用open_id可不填
 //
-// 示例值：
+// 示例值：open_id
 func (builder *CreateRoomReqBuilder) UserIdType(userIdType string) *CreateRoomReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7394,7 +7423,7 @@ func (builder *PatchRoomReqBuilder) RoomId(roomId string) *PatchRoomReqBuilder {
 
 // 此次调用中使用的用户ID的类型，默认使用open_id可不填
 //
-// 示例值：
+// 示例值：open_id
 func (builder *PatchRoomReqBuilder) UserIdType(userIdType string) *PatchRoomReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8579,7 +8608,7 @@ func NewCreateScopeConfigReqBuilder() *CreateScopeConfigReqBuilder {
 
 // 此次调用中使用的用户ID的类型，默认使用open_id可不填
 //
-// 示例值：
+// 示例值：open_id
 func (builder *CreateScopeConfigReqBuilder) UserIdType(userIdType string) *CreateScopeConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

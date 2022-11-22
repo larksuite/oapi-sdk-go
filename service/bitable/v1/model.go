@@ -1820,26 +1820,26 @@ func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedFiel
 }
 
 type AppTableRecord struct {
-	RecordId         *string                `json:"record_id,omitempty"`          // 记录 id，更新多条记录时必填
-	CreatedBy        *Person                `json:"created_by,omitempty"`         // 创建人
-	CreatedTime      *int                   `json:"created_time,omitempty"`       // 创建时间
-	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 修改人
-	LastModifiedTime *int                   `json:"last_modified_time,omitempty"` // 最近更新时间
-	Fields           map[string]interface{} `json:"fields,omitempty"`             // 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	RecordId         *string                `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
+	CreatedBy        *Person                `json:"created_by,omitempty"`         // 该记录的创建人
+	CreatedTime      *int                   `json:"created_time,omitempty"`       // 该记录的创建时间
+	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
+	LastModifiedTime *int                   `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
+	Fields           map[string]interface{} `json:"fields,omitempty"`             // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
 type AppTableRecordBuilder struct {
-	recordId             string // 记录 id，更新多条记录时必填
+	recordId             string // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 	recordIdFlag         bool
-	createdBy            *Person // 创建人
+	createdBy            *Person // 该记录的创建人
 	createdByFlag        bool
-	createdTime          int // 创建时间
+	createdTime          int // 该记录的创建时间
 	createdTimeFlag      bool
-	lastModifiedBy       *Person // 修改人
+	lastModifiedBy       *Person // 该记录最新一次更新的修改人
 	lastModifiedByFlag   bool
-	lastModifiedTime     int // 最近更新时间
+	lastModifiedTime     int // 该记录最近一次的更新时间
 	lastModifiedTimeFlag bool
-	fields               map[string]interface{} // 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	fields               map[string]interface{} // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 	fieldsFlag           bool
 }
 
@@ -1848,7 +1848,7 @@ func NewAppTableRecordBuilder() *AppTableRecordBuilder {
 	return builder
 }
 
-// 记录 id，更新多条记录时必填
+// 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 //
 // 示例值：recqwIwhc6
 func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordBuilder {
@@ -1857,7 +1857,7 @@ func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordB
 	return builder
 }
 
-// 创建人
+// 该记录的创建人
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableRecordBuilder {
@@ -1866,7 +1866,7 @@ func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableReco
 	return builder
 }
 
-// 创建时间
+// 该记录的创建时间
 //
 // 示例值：1610281603
 func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableRecordBuilder {
@@ -1875,7 +1875,7 @@ func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableReco
 	return builder
 }
 
-// 修改人
+// 该记录最新一次更新的修改人
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *AppTableRecordBuilder {
@@ -1884,7 +1884,7 @@ func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *Ap
 	return builder
 }
 
-// 最近更新时间
+// 该记录最近一次的更新时间
 //
 // 示例值：1610281603
 func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *AppTableRecordBuilder {
@@ -1893,7 +1893,7 @@ func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *Ap
 	return builder
 }
 
-// 记录字段;;关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+// 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
@@ -2373,20 +2373,20 @@ func (builder *DeleteRecordBuilder) Build() *DeleteRecord {
 }
 
 type DisplayApp struct {
-	AppToken   *string `json:"app_token,omitempty"`   // 多维表格的 app_token
+	AppToken   *string `json:"app_token,omitempty"`   // 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 	Name       *string `json:"name,omitempty"`        // 多维表格的名字
-	Revision   *int    `json:"revision,omitempty"`    // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
-	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
+	Revision   *int    `json:"revision,omitempty"`    // 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
 }
 
 type DisplayAppBuilder struct {
-	appToken       string // 多维表格的 app_token
+	appToken       string // 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 	appTokenFlag   bool
 	name           string // 多维表格的名字
 	nameFlag       bool
-	revision       int // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+	revision       int // 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
 	revisionFlag   bool
-	isAdvanced     bool // 多维表格是否已开启高级权限
+	isAdvanced     bool // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
 	isAdvancedFlag bool
 }
 
@@ -2395,7 +2395,7 @@ func NewDisplayAppBuilder() *DisplayAppBuilder {
 	return builder
 }
 
-// 多维表格的 app_token
+// 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：
 func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
@@ -2413,7 +2413,7 @@ func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
 	return builder
 }
 
-// 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+// 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
 //
 // 示例值：
 func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
@@ -2422,7 +2422,7 @@ func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
 	return builder
 }
 
-// 多维表格是否已开启高级权限
+// 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
 //
 // 示例值：
 func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder {
@@ -2645,20 +2645,20 @@ func (builder *LocationBuilder) Build() *Location {
 }
 
 type Person struct {
-	Id     *string `json:"id,omitempty"`      // 人员Id
-	Name   *string `json:"name,omitempty"`    // 中文姓名
-	EnName *string `json:"en_name,omitempty"` // 英文姓名
-	Email  *string `json:"email,omitempty"`   // 邮箱
+	Id     *string `json:"id,omitempty"`      // 用户id，id类型等于user_id_type所指定的类型。
+	Name   *string `json:"name,omitempty"`    // 用户的中文名称
+	EnName *string `json:"en_name,omitempty"` // 用户的英文名称
+	Email  *string `json:"email,omitempty"`   // 用户的邮箱
 }
 
 type PersonBuilder struct {
-	id         string // 人员Id
+	id         string // 用户id，id类型等于user_id_type所指定的类型。
 	idFlag     bool
-	name       string // 中文姓名
+	name       string // 用户的中文名称
 	nameFlag   bool
-	enName     string // 英文姓名
+	enName     string // 用户的英文名称
 	enNameFlag bool
-	email      string // 邮箱
+	email      string // 用户的邮箱
 	emailFlag  bool
 }
 
@@ -2667,7 +2667,7 @@ func NewPersonBuilder() *PersonBuilder {
 	return builder
 }
 
-// 人员Id
+// 用户id，id类型等于user_id_type所指定的类型。
 //
 // 示例值：testesttest
 func (builder *PersonBuilder) Id(id string) *PersonBuilder {
@@ -2676,7 +2676,7 @@ func (builder *PersonBuilder) Id(id string) *PersonBuilder {
 	return builder
 }
 
-// 中文姓名
+// 用户的中文名称
 //
 // 示例值：黄泡泡
 func (builder *PersonBuilder) Name(name string) *PersonBuilder {
@@ -2685,7 +2685,7 @@ func (builder *PersonBuilder) Name(name string) *PersonBuilder {
 	return builder
 }
 
-// 英文姓名
+// 用户的英文名称
 //
 // 示例值：Paopao Huang
 func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
@@ -2694,7 +2694,7 @@ func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
 	return builder
 }
 
-// 邮箱
+// 用户的邮箱
 //
 // 示例值：huangpaopao@feishu.cn
 func (builder *PersonBuilder) Email(email string) *PersonBuilder {
@@ -2913,7 +2913,7 @@ func NewGetAppReqBuilder() *GetAppReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
@@ -4934,7 +4934,7 @@ func (resp *PatchAppTableFormFieldResp) Success() bool {
 }
 
 type BatchCreateAppTableRecordReqBodyBuilder struct {
-	records     []*AppTableRecord // 记录
+	records     []*AppTableRecord // 本次请求将要新增的记录列表
 	recordsFlag bool
 }
 
@@ -4943,7 +4943,7 @@ func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqB
 	return builder
 }
 
-// 记录
+// 本次请求将要新增的记录列表
 //
 //示例值：
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
@@ -4961,7 +4961,7 @@ func (builder *BatchCreateAppTableRecordReqBodyBuilder) Build() *BatchCreateAppT
 }
 
 type BatchCreateAppTableRecordPathReqBodyBuilder struct {
-	records     []*AppTableRecord // 记录
+	records     []*AppTableRecord // 本次请求将要新增的记录列表
 	recordsFlag bool
 }
 
@@ -4970,7 +4970,7 @@ func NewBatchCreateAppTableRecordPathReqBodyBuilder() *BatchCreateAppTableRecord
 	return builder
 }
 
-// 记录
+// 本次请求将要新增的记录列表
 //
 // 示例值：
 func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
@@ -5001,7 +5001,7 @@ func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuild
 	return builder
 }
 
-// bitable app token
+// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
@@ -5009,7 +5009,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *B
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder {
@@ -5041,7 +5041,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTable
 }
 
 type BatchCreateAppTableRecordReqBody struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 记录
+	Records []*AppTableRecord `json:"records,omitempty"` // 本次请求将要新增的记录列表
 }
 
 type BatchCreateAppTableRecordReq struct {
@@ -5050,7 +5050,7 @@ type BatchCreateAppTableRecordReq struct {
 }
 
 type BatchCreateAppTableRecordRespData struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 记录
+	Records []*AppTableRecord `json:"records,omitempty"` // 本次请求新增的记录列表
 }
 
 type BatchCreateAppTableRecordResp struct {
@@ -5328,7 +5328,7 @@ func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
@@ -5336,7 +5336,7 @@ func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *Create
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
 //
 // 示例值：tblUa9vcYjWQYJCj
 func (builder *CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder {
@@ -5373,7 +5373,7 @@ type CreateAppTableRecordReq struct {
 }
 
 type CreateAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"` // 记录
+	Record *AppTableRecord `json:"record,omitempty"` // 新增的记录的内容
 }
 
 type CreateAppTableRecordResp struct {
@@ -5564,7 +5564,7 @@ func (builder *ListAppTableRecordReqBuilder) Limit(limit int) *ListAppTableRecor
 	return builder
 }
 
-// bitable app token
+// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder {
@@ -5572,7 +5572,7 @@ func (builder *ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppT
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
 //
 // 示例值：tblxI2tWaxP5dG7p
 func (builder *ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTableRecordReqBuilder {
@@ -5580,7 +5580,7 @@ func (builder *ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTab
 	return builder
 }
 
-// 视图 id;;注意：如 filter 或 sort 有值，view_id 会被忽略。
+// 视图的唯一标识符，获取指定视图下的记录[view_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe);;注意：;当 filter 参数 或 sort 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的view_id 会被忽略。
 //
 // 示例值：vewqhz51lk
 func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTableRecordReqBuilder {
@@ -5588,7 +5588,7 @@ func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTable
 	return builder
 }
 
-// 筛选参数;;注意：;;1.筛选记录的表达式不超过2000个字符。;;2.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;3.仅支持字段在页面展示字符值进行筛选。;;详细请参考[记录筛选开发指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
+// 筛选参数，用于指定本次查询的筛选条件;;注意：;;1.不支持对“人员”以及“关联字段”的属性进行过滤筛选，如人员的 OpenID。;;2.指定筛选条件时，参数长度不超过2000个字符。;;;详细请参考[筛选条件支持的公式](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter)
 //
 // 示例值：AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)
 func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {
@@ -5596,7 +5596,7 @@ func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTable
 	return builder
 }
 
-// 排序参数;;注意：;;1.表达式需要不超过1000字符。;;2.不支持对带“公式”和“关联字段”的表的使用。;;3.使用引号将字段名称和顺序逆序连接起来。
+// 排序参数，用于指定本次查询返回结果的顺序;;注意：;;1.不支持对带“公式”和“关联字段”的表的使用。;;2.指定排序条件时，参数长度不超过1000字符。;;3.当存在多个排序条件时，数据将根据条件顺序逐层排序
 //
 // 示例值：["字段1 DESC","字段2 ASC"]
 func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder {
@@ -5604,9 +5604,9 @@ func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableReco
 	return builder
 }
 
-// 字段名称
+// 字段名称，用于指定本次查询返回记录中包含的字段
 //
-// 示例值：["字段1"]
+// 示例值：["字段1","字段2"]
 func (builder *ListAppTableRecordReqBuilder) FieldNames(fieldNames string) *ListAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("field_names", fmt.Sprint(fieldNames))
 	return builder
@@ -5628,7 +5628,7 @@ func (builder *ListAppTableRecordReqBuilder) UserIdType(userIdType string) *List
 	return builder
 }
 
-// 控制公式、查找引用是否显示完整的原样返回结果
+// 默认值为false，返回当前字段的默认类型和结果；当该参数的值为true时，公式 和 查找引用 类型的字段，将会以 被引用字段 的格式返回
 //
 // 示例值：true
 func (builder *ListAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *ListAppTableRecordReqBuilder {
@@ -5678,8 +5678,8 @@ type ListAppTableRecordReq struct {
 type ListAppTableRecordRespData struct {
 	HasMore   *bool             `json:"has_more,omitempty"`   // 是否有下一页数据
 	PageToken *string           `json:"page_token,omitempty"` // 下一页分页的token
-	Total     *int              `json:"total,omitempty"`      // 总数
-	Items     []*AppTableRecord `json:"items,omitempty"`      // 记录信息
+	Total     *int              `json:"total,omitempty"`      // 本次请求返回的总记录数
+	Items     []*AppTableRecord `json:"items,omitempty"`      // 本次请求返回的全部记录列表
 }
 
 type ListAppTableRecordResp struct {
@@ -5706,7 +5706,7 @@ func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
@@ -5714,7 +5714,7 @@ func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *Update
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder {
@@ -5722,7 +5722,7 @@ func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAp
 	return builder
 }
 
-// 单条记录的 id
+// 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 //
 // 示例值：recqwIwhc6
 func (builder *UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder {
@@ -5759,7 +5759,7 @@ type UpdateAppTableRecordReq struct {
 }
 
 type UpdateAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"` // {;	"fields": {;		"人力评估": 2,;		"任务执行人": [;			{;				"id": "ou_debc524b2d8cb187704df652b43d29de";			};		],;		"任务描述": "多渠道收集用户反馈",;		"对应 OKR": [;			"recqwIwhc6",;			"recOuEJMvN";		],;		"截止日期": 1609516800000,;		"是否完成": true,;		"状态": "已结束",;		"相关部门": [;			"销售",;			"客服";		];	};}
+	Record *AppTableRecord `json:"record,omitempty"` // 记录更新后的内容
 }
 
 type UpdateAppTableRecordResp struct {

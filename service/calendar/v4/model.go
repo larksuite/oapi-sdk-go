@@ -5102,7 +5102,7 @@ func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize 
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5155,7 +5155,7 @@ func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5262,7 +5262,7 @@ func (builder *GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetExchangeBindingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

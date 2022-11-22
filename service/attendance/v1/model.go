@@ -54,6 +54,7 @@ const (
 const (
 	CheckDateTypePeriodTime = "PeriodTime" // 单据作用时间（即写入的end_time）
 	CheckDateTypeCreateTime = "CreateTime" // 单据创建时间
+	CheckDateTypeUpdateTime = "UpdateTime" // 单据状态更新时间
 )
 
 const (
@@ -172,6 +173,7 @@ const (
 const (
 	CheckDateTypeQueryUserTaskRemedyPeriodTime = "PeriodTime" // 单据作用时间（即remedy_time）
 	CheckDateTypeQueryUserTaskRemedyCreateTime = "CreateTime" // 单据创建时间
+	CheckDateTypeQueryUserTaskRemedyUpdateTime = "UpdateTime" // 单据状态更新时间
 )
 
 const (
@@ -6537,6 +6539,10 @@ type QueryUserApprovalReqBodyBuilder struct {
 	checkDateTypeFlag bool
 	status            int // 查询状态（不填默认查询已通过状态）
 	statusFlag        bool
+	checkTimeFrom     string // 查询的起始时间，精确到秒的时间戳
+	checkTimeFromFlag bool
+	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
+	checkTimeToFlag   bool
 }
 
 func NewQueryUserApprovalReqBodyBuilder() *QueryUserApprovalReqBodyBuilder {
@@ -6589,6 +6595,24 @@ func (builder *QueryUserApprovalReqBodyBuilder) Status(status int) *QueryUserApp
 	return builder
 }
 
+// 查询的起始时间，精确到秒的时间戳
+//
+//示例值：1566641088
+func (builder *QueryUserApprovalReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserApprovalReqBodyBuilder {
+	builder.checkTimeFrom = checkTimeFrom
+	builder.checkTimeFromFlag = true
+	return builder
+}
+
+// 查询的结束时间，精确到秒的时间戳
+//
+//示例值：1592561088
+func (builder *QueryUserApprovalReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserApprovalReqBodyBuilder {
+	builder.checkTimeTo = checkTimeTo
+	builder.checkTimeToFlag = true
+	return builder
+}
+
 func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBody {
 	req := &QueryUserApprovalReqBody{}
 	if builder.userIdsFlag {
@@ -6606,6 +6630,12 @@ func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBod
 	if builder.statusFlag {
 		req.Status = &builder.status
 	}
+	if builder.checkTimeFromFlag {
+		req.CheckTimeFrom = &builder.checkTimeFrom
+	}
+	if builder.checkTimeToFlag {
+		req.CheckTimeTo = &builder.checkTimeTo
+	}
 	return req
 }
 
@@ -6620,6 +6650,10 @@ type QueryUserApprovalPathReqBodyBuilder struct {
 	checkDateTypeFlag bool
 	status            int // 查询状态（不填默认查询已通过状态）
 	statusFlag        bool
+	checkTimeFrom     string // 查询的起始时间，精确到秒的时间戳
+	checkTimeFromFlag bool
+	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
+	checkTimeToFlag   bool
 }
 
 func NewQueryUserApprovalPathReqBodyBuilder() *QueryUserApprovalPathReqBodyBuilder {
@@ -6672,6 +6706,24 @@ func (builder *QueryUserApprovalPathReqBodyBuilder) Status(status int) *QueryUse
 	return builder
 }
 
+// 查询的起始时间，精确到秒的时间戳
+//
+// 示例值：1566641088
+func (builder *QueryUserApprovalPathReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserApprovalPathReqBodyBuilder {
+	builder.checkTimeFrom = checkTimeFrom
+	builder.checkTimeFromFlag = true
+	return builder
+}
+
+// 查询的结束时间，精确到秒的时间戳
+//
+// 示例值：1592561088
+func (builder *QueryUserApprovalPathReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserApprovalPathReqBodyBuilder {
+	builder.checkTimeTo = checkTimeTo
+	builder.checkTimeToFlag = true
+	return builder
+}
+
 func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalReqBody, error) {
 	req := &QueryUserApprovalReqBody{}
 	if builder.userIdsFlag {
@@ -6688,6 +6740,12 @@ func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalR
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
+	}
+	if builder.checkTimeFromFlag {
+		req.CheckTimeFrom = &builder.checkTimeFrom
+	}
+	if builder.checkTimeToFlag {
+		req.CheckTimeTo = &builder.checkTimeTo
 	}
 	return req, nil
 }
@@ -6734,6 +6792,8 @@ type QueryUserApprovalReqBody struct {
 	CheckDateTo   *int     `json:"check_date_to,omitempty"`   // 查询的结束工作日，与 check_date_from 的时间间隔不超过 30 天
 	CheckDateType *string  `json:"check_date_type,omitempty"` // 查询依据的时间类型（不填默认依据PeriodTime）
 	Status        *int     `json:"status,omitempty"`          // 查询状态（不填默认查询已通过状态）
+	CheckTimeFrom *string  `json:"check_time_from,omitempty"` // 查询的起始时间，精确到秒的时间戳
+	CheckTimeTo   *string  `json:"check_time_to,omitempty"`   // 查询的结束时间，精确到秒的时间戳
 }
 
 type QueryUserApprovalReq struct {
@@ -8465,7 +8525,7 @@ func (resp *UpdateUserStatsViewResp) Success() bool {
 }
 
 type QueryUserTaskReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表
+	userIds           []string // employee_no 或 employee_id 列表，长度不超过 50
 	userIdsFlag       bool
 	checkDateFrom     int // 查询的起始工作日
 	checkDateFromFlag bool
@@ -8478,7 +8538,7 @@ func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
 	return builder
 }
 
-// employee_no 或 employee_id 列表
+// employee_no 或 employee_id 列表，长度不超过 50
 //
 //示例值：abd754f7
 func (builder *QueryUserTaskReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskReqBodyBuilder {
@@ -8520,7 +8580,7 @@ func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 }
 
 type QueryUserTaskPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表
+	userIds           []string // employee_no 或 employee_id 列表，长度不超过 50
 	userIdsFlag       bool
 	checkDateFrom     int // 查询的起始工作日
 	checkDateFromFlag bool
@@ -8533,7 +8593,7 @@ func NewQueryUserTaskPathReqBodyBuilder() *QueryUserTaskPathReqBodyBuilder {
 	return builder
 }
 
-// employee_no 或 employee_id 列表
+// employee_no 或 employee_id 列表，长度不超过 50
 //
 // 示例值：abd754f7
 func (builder *QueryUserTaskPathReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskPathReqBodyBuilder {
@@ -8627,7 +8687,7 @@ func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
 }
 
 type QueryUserTaskReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
+	UserIds       []string `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表，长度不超过 50
 	CheckDateFrom *int     `json:"check_date_from,omitempty"` // 查询的起始工作日
 	CheckDateTo   *int     `json:"check_date_to,omitempty"`   // 查询的结束工作日
 }

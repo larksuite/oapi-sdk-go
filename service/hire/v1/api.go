@@ -39,7 +39,7 @@ func NewService(config *larkcore.Config) *HireService {
 
 type HireService struct {
 	config               *larkcore.Config
-	Application          *application          // 投递
+	Application          *application          // 入职
 	ApplicationInterview *applicationInterview // application.interview
 	Attachment           *attachment           // 附件
 	Employee             *employee             // 入职

@@ -60,7 +60,7 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-数据报表
+	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
@@ -78,7 +78,7 @@ type Client struct {
 	Helpdesk               *larkhelpdesk.HelpdeskService                               // 服务台
 	Hire                   *larkhire.HireService                                       // 招聘
 	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService        // 实名认证
-	Im                     *larkim.ImService                                           // 消息与群组
+	Im                     *larkim.ImService                                           // 消息卡片
 	Mail                   *larkmail.MailService                                       // 邮箱
 	Okr                    *larkokr.OkrService                                         // OKR
 	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力

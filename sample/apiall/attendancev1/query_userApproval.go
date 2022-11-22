@@ -34,6 +34,8 @@ func main() {
 			CheckDateTo(20190820).
 			CheckDateType("PeriodTime").
 			Status(2).
+			CheckTimeFrom("1566641088").
+			CheckTimeTo("1592561088").
 			Build()).
 		Build()
 	// 发起请求

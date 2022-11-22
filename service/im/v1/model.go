@@ -884,11 +884,11 @@ func (builder *ChatMembersBuilder) Build() *ChatMembers {
 }
 
 type ChatMenuTree struct {
-	ChatMenuTopLevels []*ChatMenuTopLevel `json:"chat_menu_top_levels,omitempty"` // 菜单列表
+	ChatMenuTopLevels []*ChatMenuTopLevel `json:"chat_menu_top_levels,omitempty"` // 一级菜单列表
 }
 
 type ChatMenuTreeBuilder struct {
-	chatMenuTopLevels     []*ChatMenuTopLevel // 菜单列表
+	chatMenuTopLevels     []*ChatMenuTopLevel // 一级菜单列表
 	chatMenuTopLevelsFlag bool
 }
 
@@ -897,7 +897,7 @@ func NewChatMenuTreeBuilder() *ChatMenuTreeBuilder {
 	return builder
 }
 
-// 菜单列表
+// 一级菜单列表
 //
 // 示例值：
 func (builder *ChatMenuTreeBuilder) ChatMenuTopLevels(chatMenuTopLevels []*ChatMenuTopLevel) *ChatMenuTreeBuilder {
@@ -1281,40 +1281,28 @@ func (builder *ChatChangeBuilder) Build() *ChatChange {
 }
 
 type ChatMenuItem struct {
-	ChatMenuItemId *string                   `json:"chat_menu_item_id,omitempty"` //
-	ActionType     *string                   `json:"action_type,omitempty"`       // 菜单类型
-	RedirectLink   *ChatMenuItemRedirectLink `json:"redirect_link,omitempty"`     // 跳转链接
-	ImageKey       *string                   `json:"image_key,omitempty"`         // image_key
-	Name           *string                   `json:"name,omitempty"`              // 名称
-	I18nNames      *I18nNames                `json:"i18n_names,omitempty"`        // 国际化名称
+	ActionType   *string                   `json:"action_type,omitempty"`   // 菜单类型
+	RedirectLink *ChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
+	ImageKey     *string                   `json:"image_key,omitempty"`     // image_key
+	Name         *string                   `json:"name,omitempty"`          // 名称
+	I18nNames    *I18nNames                `json:"i18n_names,omitempty"`    // 国际化名称
 }
 
 type ChatMenuItemBuilder struct {
-	chatMenuItemId     string //
-	chatMenuItemIdFlag bool
-	actionType         string // 菜单类型
-	actionTypeFlag     bool
-	redirectLink       *ChatMenuItemRedirectLink // 跳转链接
-	redirectLinkFlag   bool
-	imageKey           string // image_key
-	imageKeyFlag       bool
-	name               string // 名称
-	nameFlag           bool
-	i18nNames          *I18nNames // 国际化名称
-	i18nNamesFlag      bool
+	actionType       string // 菜单类型
+	actionTypeFlag   bool
+	redirectLink     *ChatMenuItemRedirectLink // 跳转链接
+	redirectLinkFlag bool
+	imageKey         string // image_key
+	imageKeyFlag     bool
+	name             string // 名称
+	nameFlag         bool
+	i18nNames        *I18nNames // 国际化名称
+	i18nNamesFlag    bool
 }
 
 func NewChatMenuItemBuilder() *ChatMenuItemBuilder {
 	builder := &ChatMenuItemBuilder{}
-	return builder
-}
-
-//
-//
-// 示例值：
-func (builder *ChatMenuItemBuilder) ChatMenuItemId(chatMenuItemId string) *ChatMenuItemBuilder {
-	builder.chatMenuItemId = chatMenuItemId
-	builder.chatMenuItemIdFlag = true
 	return builder
 }
 
@@ -1365,10 +1353,6 @@ func (builder *ChatMenuItemBuilder) I18nNames(i18nNames *I18nNames) *ChatMenuIte
 
 func (builder *ChatMenuItemBuilder) Build() *ChatMenuItem {
 	req := &ChatMenuItem{}
-	if builder.chatMenuItemIdFlag {
-		req.ChatMenuItemId = &builder.chatMenuItemId
-
-	}
 	if builder.actionTypeFlag {
 		req.ActionType = &builder.actionType
 
@@ -1536,7 +1520,7 @@ func (builder *ChatMenuSecondLevelBuilder) Build() *ChatMenuSecondLevel {
 type ChatMenuTopLevel struct {
 	ChatMenuTopLevelId *string                `json:"chat_menu_top_level_id,omitempty"` // 一级菜单ID
 	ChatMenuItem       *ChatMenuItem          `json:"chat_menu_item,omitempty"`         // 一级菜单信息
-	Children           []*ChatMenuSecondLevel `json:"children,omitempty"`               // 子节点
+	Children           []*ChatMenuSecondLevel `json:"children,omitempty"`               // 二级菜单列表
 }
 
 type ChatMenuTopLevelBuilder struct {
@@ -1544,7 +1528,7 @@ type ChatMenuTopLevelBuilder struct {
 	chatMenuTopLevelIdFlag bool
 	chatMenuItem           *ChatMenuItem // 一级菜单信息
 	chatMenuItemFlag       bool
-	children               []*ChatMenuSecondLevel // 子节点
+	children               []*ChatMenuSecondLevel // 二级菜单列表
 	childrenFlag           bool
 }
 
@@ -1571,7 +1555,7 @@ func (builder *ChatMenuTopLevelBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem)
 	return builder
 }
 
-// 子节点
+// 二级菜单列表
 //
 // 示例值：
 func (builder *ChatMenuTopLevelBuilder) Children(children []*ChatMenuSecondLevel) *ChatMenuTopLevelBuilder {
@@ -4573,7 +4557,7 @@ type CreateChatReqBodyBuilder struct {
 	chatModeFlag               bool
 	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
-	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；;;**注意**：创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限。
+	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 	externalFlag               bool
 	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
@@ -4669,7 +4653,7 @@ func (builder *CreateChatReqBodyBuilder) ChatType(chatType string) *CreateChatRe
 	return builder
 }
 
-// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；;;**注意**：创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限。
+// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 //
 //示例值：false
 func (builder *CreateChatReqBodyBuilder) External(external bool) *CreateChatReqBodyBuilder {
@@ -4768,7 +4752,7 @@ type CreateChatPathReqBodyBuilder struct {
 	chatModeFlag               bool
 	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
-	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；;;**注意**：创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限。
+	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 	externalFlag               bool
 	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
@@ -4868,7 +4852,7 @@ func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateCh
 	return builder
 }
 
-// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；;;**注意**：创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限。
+// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 //
 // 示例值：false
 func (builder *CreateChatPathReqBodyBuilder) External(external bool) *CreateChatPathReqBodyBuilder {
@@ -4978,6 +4962,14 @@ func (builder *CreateChatReqBuilder) SetBotManager(setBotManager bool) *CreateCh
 	return builder
 }
 
+// 由开发者生成的唯一字符串序列，用于创建群组请求去重；持有相同uuid的请求10小时内只可成功创建1个群聊
+//
+// 示例值：b13g2t38-1jd2-458b-8djf-dtbca5104204
+func (builder *CreateChatReqBuilder) Uuid(uuid string) *CreateChatReqBuilder {
+	builder.apiReq.QueryParams.Set("uuid", fmt.Sprint(uuid))
+	return builder
+}
+
 // 创建群并设置群头像、群名、群描述等。
 func (builder *CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatReqBuilder {
 	builder.body = body
@@ -5002,7 +4994,7 @@ type CreateChatReqBody struct {
 	BotIdList              []string   `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
 	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组
 	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	External               *bool      `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；;;**注意**：创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 ==在外部群调用群聊的 API 及事件== 权限。
+	External               *bool      `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
@@ -5241,7 +5233,7 @@ func (builder *LinkChatReqBuilder) ChatId(chatId string) *LinkChatReqBuilder {
 	return builder
 }
 
-// 获取指定群的分享链接
+// 获取指定群的分享链接。
 func (builder *LinkChatReqBuilder) Body(body *LinkChatReqBody) *LinkChatReqBuilder {
 	builder.body = body
 	return builder
@@ -5445,7 +5437,7 @@ type UpdateChatReqBodyBuilder struct {
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	addMemberPermission        string // 邀请用户或机器人入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	addMemberPermissionFlag    bool
 	shareCardPermission        string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
 	shareCardPermissionFlag    bool
@@ -5461,6 +5453,9 @@ type UpdateChatReqBodyBuilder struct {
 	leaveMessageVisibilityFlag bool
 	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
+
+	chatType     string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeFlag bool
 }
 
 func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
@@ -5504,7 +5499,7 @@ func (builder *UpdateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Update
 	return builder
 }
 
-// 邀请用户或机器人入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 //示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatReqBodyBuilder {
@@ -5576,6 +5571,15 @@ func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
+// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+//
+//示例值：private
+func (builder *UpdateChatReqBodyBuilder) ChatType(chatType string) *UpdateChatReqBodyBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+
 func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -5614,6 +5618,9 @@ func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
 	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+	}
 	return req
 }
 
@@ -5626,7 +5633,7 @@ type UpdateChatPathReqBodyBuilder struct {
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	addMemberPermission        string // 邀请用户或机器人入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	addMemberPermissionFlag    bool
 	shareCardPermission        string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
 	shareCardPermissionFlag    bool
@@ -5646,7 +5653,7 @@ type UpdateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 	toolkitIds                 []string // 群快捷组件列表
 	toolkitIdsFlag             bool
-	chatType                   string // 群类型
+	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
 }
 
@@ -5691,7 +5698,7 @@ func (builder *UpdateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Up
 	return builder
 }
 
-// 邀请用户或机器人入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
@@ -5763,6 +5770,15 @@ func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
+// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+//
+// 示例值：private
+func (builder *UpdateChatPathReqBodyBuilder) ChatType(chatType string) *UpdateChatPathReqBodyBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+
 func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error) {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -5800,6 +5816,9 @@ func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error)
 	}
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
 	}
 	return req, nil
 }
@@ -5854,7 +5873,7 @@ type UpdateChatReqBody struct {
 	Name                   *string    `json:"name,omitempty"`                     // 群名称
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
 	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
@@ -5863,6 +5882,7 @@ type UpdateChatReqBody struct {
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
+	ChatType *string `json:"chat_type,omitempty"` // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 }
 
 type UpdateChatReq struct {
@@ -6325,7 +6345,7 @@ func (resp *DeleteManagersChatManagersResp) Success() bool {
 }
 
 type CreateChatMembersReqBodyBuilder struct {
-	idList     []string // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	idList     []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 	idListFlag bool
 }
 
@@ -6334,7 +6354,7 @@ func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
 	return builder
 }
 
-// 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+// 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
@@ -6352,7 +6372,7 @@ func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBod
 }
 
 type CreateChatMembersPathReqBodyBuilder struct {
-	idList     []string // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	idList     []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 	idListFlag bool
 }
 
@@ -6361,7 +6381,7 @@ func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuild
 	return builder
 }
 
-// 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+// 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
@@ -6432,7 +6452,7 @@ func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 }
 
 type CreateChatMembersReqBody struct {
-	IdList []string `json:"id_list,omitempty"` // 成员ID列表，获取ID请参见	[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
+	IdList []string `json:"id_list,omitempty"` // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。
 }
 
 type CreateChatMembersReq struct {

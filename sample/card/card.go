@@ -115,7 +115,7 @@ func main() {
 	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
 	// 启动http服务
-	err := http.ListenAndServe(":9999", nil)
+	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		panic(err)
 	}

@@ -24,22 +24,71 @@ import (
 )
 
 const (
-	TargetTypeOkr的O  = 2 // okr的O
-	TargetTypeOkr的KR = 3 // okr的KR
+	TargetTypeObjective = 2 // okr的O
+	TargetTypeKeyResult = 3 // okr的KR
 
 )
 
 const (
-	UserIdTypeUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TargetTypeCreateProgressRecordOkr的O  = 2 // okr的O
-	TargetTypeCreateProgressRecordOkr的KR = 3 // okr的KR
+	UserIdTypeGetMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+)
 
+const (
+	UserIdTypeListMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypePatchMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeBatchGetOkrUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeBatchGetOkrUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeBatchGetOkrOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeBatchGetOkrPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	TargetTypeCreateProgressRecordObjective = 2 // okr的O
+	TargetTypeCreateProgressRecordKeyResult = 3 // okr的KR
+
+)
+
+const (
+	UserIdTypeCreateProgressRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateProgressRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeGetProgressRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetProgressRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUpdateProgressRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateProgressRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeQueryReviewUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeQueryReviewUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeQueryReviewOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeQueryReviewPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
@@ -367,7 +416,7 @@ func (builder *ContentGalleryBuilder) Build() *ContentGallery {
 
 type ContentImageItem struct {
 	FileToken *string  `json:"fileToken,omitempty"` // 图片 token，通过上传图片接口获取
-	Url       *string  `json:"url,omitempty"`       // 图片链接，通过上传图片接口获取
+	Src       *string  `json:"src,omitempty"`       // 图片链接
 	Width     *float64 `json:"width,omitempty"`     // 图片宽，单位px
 	Height    *float64 `json:"height,omitempty"`    // 图片高，单位px
 }
@@ -375,8 +424,8 @@ type ContentImageItem struct {
 type ContentImageItemBuilder struct {
 	fileToken     string // 图片 token，通过上传图片接口获取
 	fileTokenFlag bool
-	url           string // 图片链接，通过上传图片接口获取
-	urlFlag       bool
+	src           string // 图片链接
+	srcFlag       bool
 	width         float64 // 图片宽，单位px
 	widthFlag     bool
 	height        float64 // 图片高，单位px
@@ -397,12 +446,12 @@ func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImag
 	return builder
 }
 
-// 图片链接，通过上传图片接口获取
+// 图片链接
 //
 // 示例值：https://bytedance.feishu.cn/drive/home/
-func (builder *ContentImageItemBuilder) Url(url string) *ContentImageItemBuilder {
-	builder.url = url
-	builder.urlFlag = true
+func (builder *ContentImageItemBuilder) Src(src string) *ContentImageItemBuilder {
+	builder.src = src
+	builder.srcFlag = true
 	return builder
 }
 
@@ -430,8 +479,8 @@ func (builder *ContentImageItemBuilder) Build() *ContentImageItem {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.urlFlag {
-		req.Url = &builder.url
+	if builder.srcFlag {
+		req.Src = &builder.src
 
 	}
 	if builder.widthFlag {
@@ -665,11 +714,11 @@ func (builder *ContentParagraphElementBuilder) Build() *ContentParagraphElement 
 }
 
 type ContentParagraphStyle struct {
-	List []*ContentList `json:"list,omitempty"` // 有序列表/无序列表/任务列表
+	List *ContentList `json:"list,omitempty"` // 有序列表/无序列表/任务列表
 }
 
 type ContentParagraphStyleBuilder struct {
-	list     []*ContentList // 有序列表/无序列表/任务列表
+	list     *ContentList // 有序列表/无序列表/任务列表
 	listFlag bool
 }
 
@@ -681,7 +730,7 @@ func NewContentParagraphStyleBuilder() *ContentParagraphStyleBuilder {
 // 有序列表/无序列表/任务列表
 //
 // 示例值：
-func (builder *ContentParagraphStyleBuilder) List(list []*ContentList) *ContentParagraphStyleBuilder {
+func (builder *ContentParagraphStyleBuilder) List(list *ContentList) *ContentParagraphStyleBuilder {
 	builder.list = list
 	builder.listFlag = true
 	return builder
@@ -1023,7 +1072,7 @@ func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 
 // 图片下载链接
 //
-// 示例值：https://internal-api-okr.feishu-boe.cn/stream/api/downloadFile/?file_token=boxbcLxEnhUE3REJSAwAbVFZwPf&ticket=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0YXJnZXRfaWQiOiI3MDQxNDMwMzc3NjQyMDgyMzIzIiwidGFyZ2V0X3R5cGUiOjMsImFjdGlvbiI6MiwiZmlsZV90b2tlbiI6ImJveGJjTHhFbmhVRTNSRUpTQXdBYlZGWndQZiIsInVzZXJfaWQiOiI2OTY5ODU1NTAxNzQ0ODM0MDkyIiwidGVuYW50X2lkIjoiNjg3NzUwMjY4NzYwOTQwNjk5MCIsImV4cCI6MTYzOTcyNTUwM30.G2RD3LJBycZuF0Myi2WD4IdJ1N5jB24KGjLrm9e4peNlF8uy2XflINVcTpvN6drshITErHu0ehibJI5Fci-Pkw
+// 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *ImageInfoBuilder) Url(url string) *ImageInfoBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -3921,7 +3970,7 @@ func NewOkrReviewPeriodUrlBuilder() *OkrReviewPeriodUrlBuilder {
 
 // 文档链接
 //
-// 示例值：https://okr-boe1.feishu-boe.cn/docs/docbc0cvt2wT0Yq34Tn7YemH5Qb
+// 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -4111,14 +4160,14 @@ func (builder *PeriodBuilder) Build() *Period {
 
 type ProgressItem struct {
 	Content     *string  `json:"content,omitempty"`      // 进度内容
-	Timestamp   *int     `json:"timestamp,omitempty"`    // 更新时间
+	Timestamp   *string  `json:"timestamp,omitempty"`    // 更新时间
 	MentionList []string `json:"mention_list,omitempty"` // 负责人
 }
 
 type ProgressItemBuilder struct {
 	content         string // 进度内容
 	contentFlag     bool
-	timestamp       int // 更新时间
+	timestamp       string // 更新时间
 	timestampFlag   bool
 	mentionList     []string // 负责人
 	mentionListFlag bool
@@ -4141,7 +4190,7 @@ func (builder *ProgressItemBuilder) Content(content string) *ProgressItemBuilder
 // 更新时间
 //
 // 示例值：
-func (builder *ProgressItemBuilder) Timestamp(timestamp int) *ProgressItemBuilder {
+func (builder *ProgressItemBuilder) Timestamp(timestamp string) *ProgressItemBuilder {
 	builder.timestamp = timestamp
 	builder.timestampFlag = true
 	return builder
@@ -5254,7 +5303,8 @@ type UploadImageReq struct {
 }
 
 type UploadImageRespData struct {
-	Data *ImageInfo `json:"data,omitempty"` // 图片url和token信息
+	FileToken *string `json:"file_token,omitempty"` // 图片token
+	Url       *string `json:"url,omitempty"`        // 图片下载链接
 }
 
 type UploadImageResp struct {
@@ -5264,6 +5314,658 @@ type UploadImageResp struct {
 }
 
 func (resp *UploadImageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListMetricSourceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListMetricSourceReqBuilder() *ListMetricSourceReqBuilder {
+	builder := &ListMetricSourceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：6969864184272078374
+func (builder *ListMetricSourceReqBuilder) PageToken(pageToken string) *ListMetricSourceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数
+//
+// 示例值：10
+func (builder *ListMetricSourceReqBuilder) PageSize(pageSize string) *ListMetricSourceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *ListMetricSourceReqBuilder) Build() *ListMetricSourceReq {
+	req := &ListMetricSourceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListMetricSourceReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListMetricSourceRespData struct {
+	Total     *int            `json:"total,omitempty"`      // 符合条件的记录总数
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string         `json:"page_token,omitempty"` // 下一页页码
+	Items     []*MetricSource `json:"items,omitempty"`      // 指标库列表
+}
+
+type ListMetricSourceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListMetricSourceRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListMetricSourceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListMetricSourceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListMetricSourceTableReqBuilder() *ListMetricSourceTableReqBuilder {
+	builder := &ListMetricSourceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// okr指标库id
+//
+// 示例值：7041857032248410131
+func (builder *ListMetricSourceTableReqBuilder) MetricSourceId(metricSourceId string) *ListMetricSourceTableReqBuilder {
+	builder.apiReq.PathParams.Set("metric_source_id", fmt.Sprint(metricSourceId))
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：6969864184272078374
+func (builder *ListMetricSourceTableReqBuilder) PageToken(pageToken string) *ListMetricSourceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数
+//
+// 示例值：10
+func (builder *ListMetricSourceTableReqBuilder) PageSize(pageSize string) *ListMetricSourceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *ListMetricSourceTableReqBuilder) Build() *ListMetricSourceTableReq {
+	req := &ListMetricSourceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListMetricSourceTableReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListMetricSourceTableRespData struct {
+	Total     *int           `json:"total,omitempty"`      // 符合条件的记录总数
+	HasMore   *bool          `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string        `json:"page_token,omitempty"` // 下一页页码
+	Items     []*MetricTable `json:"items,omitempty"`      // 指标表列表
+}
+
+type ListMetricSourceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListMetricSourceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListMetricSourceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateMetricSourceTableItemReqBodyBuilder struct {
+	items     []*MetricItemRequest // 指标列表
+	itemsFlag bool
+}
+
+func NewBatchUpdateMetricSourceTableItemReqBodyBuilder() *BatchUpdateMetricSourceTableItemReqBodyBuilder {
+	builder := &BatchUpdateMetricSourceTableItemReqBodyBuilder{}
+	return builder
+}
+
+// 指标列表
+//
+//示例值：
+func (builder *BatchUpdateMetricSourceTableItemReqBodyBuilder) Items(items []*MetricItemRequest) *BatchUpdateMetricSourceTableItemReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchUpdateMetricSourceTableItemReqBodyBuilder) Build() *BatchUpdateMetricSourceTableItemReqBody {
+	req := &BatchUpdateMetricSourceTableItemReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type BatchUpdateMetricSourceTableItemPathReqBodyBuilder struct {
+	items     []*MetricItemRequest // 指标列表
+	itemsFlag bool
+}
+
+func NewBatchUpdateMetricSourceTableItemPathReqBodyBuilder() *BatchUpdateMetricSourceTableItemPathReqBodyBuilder {
+	builder := &BatchUpdateMetricSourceTableItemPathReqBodyBuilder{}
+	return builder
+}
+
+// 指标列表
+//
+// 示例值：
+func (builder *BatchUpdateMetricSourceTableItemPathReqBodyBuilder) Items(items []*MetricItemRequest) *BatchUpdateMetricSourceTableItemPathReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchUpdateMetricSourceTableItemPathReqBodyBuilder) Build() (*BatchUpdateMetricSourceTableItemReqBody, error) {
+	req := &BatchUpdateMetricSourceTableItemReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req, nil
+}
+
+type BatchUpdateMetricSourceTableItemReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchUpdateMetricSourceTableItemReqBody
+}
+
+func NewBatchUpdateMetricSourceTableItemReqBuilder() *BatchUpdateMetricSourceTableItemReqBuilder {
+	builder := &BatchUpdateMetricSourceTableItemReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// okr指标库id
+//
+// 示例值：7041857032248410131
+func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *BatchUpdateMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_source_id", fmt.Sprint(metricSourceId))
+	return builder
+}
+
+// okr指标表id
+//
+// 示例值：7041857032248410131
+func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *BatchUpdateMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_table_id", fmt.Sprint(metricTableId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchUpdateMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *BatchUpdateMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// - 该接口用于批量更新多项指标，单次调用最多更新 100 条记录。接口仅限 OKR 企业版使用。;;  更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
+func (builder *BatchUpdateMetricSourceTableItemReqBuilder) Body(body *BatchUpdateMetricSourceTableItemReqBody) *BatchUpdateMetricSourceTableItemReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchUpdateMetricSourceTableItemReqBuilder) Build() *BatchUpdateMetricSourceTableItemReq {
+	req := &BatchUpdateMetricSourceTableItemReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchUpdateMetricSourceTableItemReqBody struct {
+	Items []*MetricItemRequest `json:"items,omitempty"` // 指标列表
+}
+
+type BatchUpdateMetricSourceTableItemReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchUpdateMetricSourceTableItemReqBody `body:""`
+}
+
+type BatchUpdateMetricSourceTableItemRespData struct {
+	Items       []*MetricItem       `json:"items,omitempty"`        // 指标项列表
+	FailedItems []*FailedMetricItem `json:"failed_items,omitempty"` // 更新失败列表
+}
+
+type BatchUpdateMetricSourceTableItemResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchUpdateMetricSourceTableItemRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchUpdateMetricSourceTableItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetMetricSourceTableItemReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetMetricSourceTableItemReqBuilder() *GetMetricSourceTableItemReqBuilder {
+	builder := &GetMetricSourceTableItemReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// okr指标库id
+//
+// 示例值：7041857032248410131
+func (builder *GetMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *GetMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_source_id", fmt.Sprint(metricSourceId))
+	return builder
+}
+
+// okr指标表id
+//
+// 示例值：7041857032248410131
+func (builder *GetMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *GetMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_table_id", fmt.Sprint(metricTableId))
+	return builder
+}
+
+// okr指标项id
+//
+// 示例值：7041857032248410131
+func (builder *GetMetricSourceTableItemReqBuilder) MetricItemId(metricItemId string) *GetMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_item_id", fmt.Sprint(metricItemId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *GetMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetMetricSourceTableItemReqBuilder) Build() *GetMetricSourceTableItemReq {
+	req := &GetMetricSourceTableItemReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetMetricSourceTableItemReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetMetricSourceTableItemRespData struct {
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
+	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
+	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
+	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
+	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
+}
+
+type GetMetricSourceTableItemResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetMetricSourceTableItemRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetMetricSourceTableItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListMetricSourceTableItemReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListMetricSourceTableItemReqBuilder() *ListMetricSourceTableItemReqBuilder {
+	builder := &ListMetricSourceTableItemReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// okr指标库id
+//
+// 示例值：7041857032248410131
+func (builder *ListMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *ListMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_source_id", fmt.Sprint(metricSourceId))
+	return builder
+}
+
+// okr指标表id
+//
+// 示例值：7041857032248410131
+func (builder *ListMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *ListMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_table_id", fmt.Sprint(metricTableId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *ListMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：6969864184272078374
+func (builder *ListMetricSourceTableItemReqBuilder) PageToken(pageToken string) *ListMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数
+//
+// 示例值：10
+func (builder *ListMetricSourceTableItemReqBuilder) PageSize(pageSize string) *ListMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *ListMetricSourceTableItemReqBuilder) Build() *ListMetricSourceTableItemReq {
+	req := &ListMetricSourceTableItemReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListMetricSourceTableItemReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListMetricSourceTableItemRespData struct {
+	Total     *int          `json:"total,omitempty"`      // 符合条件的记录总数
+	HasMore   *bool         `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string       `json:"page_token,omitempty"` // 下一页页码
+	Items     []*MetricItem `json:"items,omitempty"`      // 指标项列表
+}
+
+type ListMetricSourceTableItemResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListMetricSourceTableItemRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListMetricSourceTableItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchMetricSourceTableItemReqBodyBuilder struct {
+	metricInitialValue     float64 // 指标起始值
+	metricInitialValueFlag bool
+	metricTargetValue      float64 // 指标目标值
+	metricTargetValueFlag  bool
+	metricCurrentValue     float64 // 指标进度值
+	metricCurrentValueFlag bool
+	supportedUserId        string // 指标支撑的上级人员 id
+	supportedUserIdFlag    bool
+}
+
+func NewPatchMetricSourceTableItemReqBodyBuilder() *PatchMetricSourceTableItemReqBodyBuilder {
+	builder := &PatchMetricSourceTableItemReqBodyBuilder{}
+	return builder
+}
+
+// 指标起始值
+//
+//示例值：1.0
+func (builder *PatchMetricSourceTableItemReqBodyBuilder) MetricInitialValue(metricInitialValue float64) *PatchMetricSourceTableItemReqBodyBuilder {
+	builder.metricInitialValue = metricInitialValue
+	builder.metricInitialValueFlag = true
+	return builder
+}
+
+// 指标目标值
+//
+//示例值：3.0
+func (builder *PatchMetricSourceTableItemReqBodyBuilder) MetricTargetValue(metricTargetValue float64) *PatchMetricSourceTableItemReqBodyBuilder {
+	builder.metricTargetValue = metricTargetValue
+	builder.metricTargetValueFlag = true
+	return builder
+}
+
+// 指标进度值
+//
+//示例值：2.0
+func (builder *PatchMetricSourceTableItemReqBodyBuilder) MetricCurrentValue(metricCurrentValue float64) *PatchMetricSourceTableItemReqBodyBuilder {
+	builder.metricCurrentValue = metricCurrentValue
+	builder.metricCurrentValueFlag = true
+	return builder
+}
+
+// 指标支撑的上级人员 id
+//
+//示例值：7041857032248410131
+func (builder *PatchMetricSourceTableItemReqBodyBuilder) SupportedUserId(supportedUserId string) *PatchMetricSourceTableItemReqBodyBuilder {
+	builder.supportedUserId = supportedUserId
+	builder.supportedUserIdFlag = true
+	return builder
+}
+
+func (builder *PatchMetricSourceTableItemReqBodyBuilder) Build() *PatchMetricSourceTableItemReqBody {
+	req := &PatchMetricSourceTableItemReqBody{}
+	if builder.metricInitialValueFlag {
+		req.MetricInitialValue = &builder.metricInitialValue
+	}
+	if builder.metricTargetValueFlag {
+		req.MetricTargetValue = &builder.metricTargetValue
+	}
+	if builder.metricCurrentValueFlag {
+		req.MetricCurrentValue = &builder.metricCurrentValue
+	}
+	if builder.supportedUserIdFlag {
+		req.SupportedUserId = &builder.supportedUserId
+	}
+	return req
+}
+
+type PatchMetricSourceTableItemPathReqBodyBuilder struct {
+	metricInitialValue     float64 // 指标起始值
+	metricInitialValueFlag bool
+	metricTargetValue      float64 // 指标目标值
+	metricTargetValueFlag  bool
+	metricCurrentValue     float64 // 指标进度值
+	metricCurrentValueFlag bool
+	supportedUserId        string // 指标支撑的上级人员 id
+	supportedUserIdFlag    bool
+}
+
+func NewPatchMetricSourceTableItemPathReqBodyBuilder() *PatchMetricSourceTableItemPathReqBodyBuilder {
+	builder := &PatchMetricSourceTableItemPathReqBodyBuilder{}
+	return builder
+}
+
+// 指标起始值
+//
+// 示例值：1.0
+func (builder *PatchMetricSourceTableItemPathReqBodyBuilder) MetricInitialValue(metricInitialValue float64) *PatchMetricSourceTableItemPathReqBodyBuilder {
+	builder.metricInitialValue = metricInitialValue
+	builder.metricInitialValueFlag = true
+	return builder
+}
+
+// 指标目标值
+//
+// 示例值：3.0
+func (builder *PatchMetricSourceTableItemPathReqBodyBuilder) MetricTargetValue(metricTargetValue float64) *PatchMetricSourceTableItemPathReqBodyBuilder {
+	builder.metricTargetValue = metricTargetValue
+	builder.metricTargetValueFlag = true
+	return builder
+}
+
+// 指标进度值
+//
+// 示例值：2.0
+func (builder *PatchMetricSourceTableItemPathReqBodyBuilder) MetricCurrentValue(metricCurrentValue float64) *PatchMetricSourceTableItemPathReqBodyBuilder {
+	builder.metricCurrentValue = metricCurrentValue
+	builder.metricCurrentValueFlag = true
+	return builder
+}
+
+// 指标支撑的上级人员 id
+//
+// 示例值：7041857032248410131
+func (builder *PatchMetricSourceTableItemPathReqBodyBuilder) SupportedUserId(supportedUserId string) *PatchMetricSourceTableItemPathReqBodyBuilder {
+	builder.supportedUserId = supportedUserId
+	builder.supportedUserIdFlag = true
+	return builder
+}
+
+func (builder *PatchMetricSourceTableItemPathReqBodyBuilder) Build() (*PatchMetricSourceTableItemReqBody, error) {
+	req := &PatchMetricSourceTableItemReqBody{}
+	if builder.metricInitialValueFlag {
+		req.MetricInitialValue = &builder.metricInitialValue
+	}
+	if builder.metricTargetValueFlag {
+		req.MetricTargetValue = &builder.metricTargetValue
+	}
+	if builder.metricCurrentValueFlag {
+		req.MetricCurrentValue = &builder.metricCurrentValue
+	}
+	if builder.supportedUserIdFlag {
+		req.SupportedUserId = &builder.supportedUserId
+	}
+	return req, nil
+}
+
+type PatchMetricSourceTableItemReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchMetricSourceTableItemReqBody
+}
+
+func NewPatchMetricSourceTableItemReqBuilder() *PatchMetricSourceTableItemReqBuilder {
+	builder := &PatchMetricSourceTableItemReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// okr指标库id
+//
+// 示例值：7041857032248410131
+func (builder *PatchMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *PatchMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_source_id", fmt.Sprint(metricSourceId))
+	return builder
+}
+
+// okr指标表id
+//
+// 示例值：7041857032248410131
+func (builder *PatchMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *PatchMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_table_id", fmt.Sprint(metricTableId))
+	return builder
+}
+
+// okr指标项id
+//
+// 示例值：7041857032248410131
+func (builder *PatchMetricSourceTableItemReqBuilder) MetricItemId(metricItemId string) *PatchMetricSourceTableItemReqBuilder {
+	builder.apiReq.PathParams.Set("metric_item_id", fmt.Sprint(metricItemId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *PatchMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *PatchMetricSourceTableItemReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// - 该接口用于更新某项指标，接口仅限 OKR 企业版使用。;;	更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
+func (builder *PatchMetricSourceTableItemReqBuilder) Body(body *PatchMetricSourceTableItemReqBody) *PatchMetricSourceTableItemReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchMetricSourceTableItemReqBuilder) Build() *PatchMetricSourceTableItemReq {
+	req := &PatchMetricSourceTableItemReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchMetricSourceTableItemReqBody struct {
+	MetricInitialValue *float64 `json:"metric_initial_value,omitempty"` // 指标起始值
+	MetricTargetValue  *float64 `json:"metric_target_value,omitempty"`  // 指标目标值
+	MetricCurrentValue *float64 `json:"metric_current_value,omitempty"` // 指标进度值
+	SupportedUserId    *string  `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员 id
+}
+
+type PatchMetricSourceTableItemReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchMetricSourceTableItemReqBody `body:""`
+}
+
+type PatchMetricSourceTableItemRespData struct {
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
+	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
+	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
+	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
+	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
+}
+
+type PatchMetricSourceTableItemResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchMetricSourceTableItemRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchMetricSourceTableItemResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -5567,6 +6269,14 @@ func NewCreateProgressRecordReqBuilder() *CreateProgressRecordReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CreateProgressRecordReqBuilder) UserIdType(userIdType string) *CreateProgressRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 // 创建OKR进展记录
 func (builder *CreateProgressRecordReqBuilder) Body(body *CreateProgressRecordReqBody) *CreateProgressRecordReqBuilder {
 	builder.body = body
@@ -5576,6 +6286,7 @@ func (builder *CreateProgressRecordReqBuilder) Body(body *CreateProgressRecordRe
 func (builder *CreateProgressRecordReqBuilder) Build() *CreateProgressRecordReq {
 	req := &CreateProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -5594,7 +6305,9 @@ type CreateProgressRecordReq struct {
 }
 
 type CreateProgressRecordRespData struct {
-	Data *ProgressRecord `json:"data,omitempty"` // 成功创建的进展详情
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
+	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
 
 type CreateProgressRecordResp struct {
@@ -5669,10 +6382,19 @@ func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetPr
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetProgressRecordReqBuilder) UserIdType(userIdType string) *GetProgressRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *GetProgressRecordReqBuilder) Build() *GetProgressRecordReq {
 	req := &GetProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -5772,6 +6494,14 @@ func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *Up
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *UpdateProgressRecordReqBuilder) UserIdType(userIdType string) *UpdateProgressRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 // 根据OKR进展记录ID更新进展详情
 func (builder *UpdateProgressRecordReqBuilder) Body(body *UpdateProgressRecordReqBody) *UpdateProgressRecordReqBuilder {
 	builder.body = body
@@ -5782,6 +6512,7 @@ func (builder *UpdateProgressRecordReqBuilder) Build() *UpdateProgressRecordReq 
 	req := &UpdateProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -5796,7 +6527,9 @@ type UpdateProgressRecordReq struct {
 }
 
 type UpdateProgressRecordRespData struct {
-	Data *ProgressRecord `json:"data,omitempty"` // 更新后的进行详情
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
+	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
 
 type UpdateProgressRecordResp struct {
@@ -5806,6 +6539,72 @@ type UpdateProgressRecordResp struct {
 }
 
 func (resp *UpdateProgressRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryReviewReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewQueryReviewReqBuilder() *QueryReviewReqBuilder {
+	builder := &QueryReviewReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *QueryReviewReqBuilder) UserIdType(userIdType string) *QueryReviewReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 目标用户id列表，最多5个
+//
+// 示例值：ou_e6139117c300506837def50545420c6a
+func (builder *QueryReviewReqBuilder) UserIds(userIds []string) *QueryReviewReqBuilder {
+	for _, v := range userIds {
+		builder.apiReq.QueryParams.Add("user_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// period_id列表，最多5个
+//
+// 示例值：7067724095781142548
+func (builder *QueryReviewReqBuilder) PeriodIds(periodIds []string) *QueryReviewReqBuilder {
+	for _, v := range periodIds {
+		builder.apiReq.QueryParams.Add("period_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+func (builder *QueryReviewReqBuilder) Build() *QueryReviewReq {
+	req := &QueryReviewReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type QueryReviewReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type QueryReviewRespData struct {
+	ReviewList []*OkrReview `json:"review_list,omitempty"` // OKR复盘 列表
+}
+
+type QueryReviewResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryReviewRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryReviewResp) Success() bool {
 	return resp.Code == 0
 }
 

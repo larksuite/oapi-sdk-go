@@ -90,10 +90,8 @@ const (
 )
 
 const (
-	FileTypeCreateFileCommentDoc   = "doc"   // 文档
-	FileTypeCreateFileCommentSheet = "sheet" // 表格
-	FileTypeCreateFileCommentFile  = "file"  // 文件
-	FileTypeCreateFileCommentDocx  = "docx"  // 新版文档
+	FileTypeCreateFileCommentDoc  = "doc"  // 文档
+	FileTypeCreateFileCommentDocx = "docx" // 新版文档
 )
 
 const (
@@ -1073,15 +1071,18 @@ func (builder *BitableTableRecordActionBuilder) Build() *BitableTableRecordActio
 }
 
 type BitableTableRecordActionField struct {
-	FieldId    *string `json:"field_id,omitempty"`    // 字段 ID
-	FieldValue *string `json:"field_value,omitempty"` // 字段值
+	FieldId            *string                                `json:"field_id,omitempty"`             // 字段 ID
+	FieldValue         *string                                `json:"field_value,omitempty"`          // 字段值
+	FieldIdentityValue *BitableTableRecordActionFieldIdentity `json:"field_identity_value,omitempty"` // 人员字段补充信息
 }
 
 type BitableTableRecordActionFieldBuilder struct {
-	fieldId        string // 字段 ID
-	fieldIdFlag    bool
-	fieldValue     string // 字段值
-	fieldValueFlag bool
+	fieldId                string // 字段 ID
+	fieldIdFlag            bool
+	fieldValue             string // 字段值
+	fieldValueFlag         bool
+	fieldIdentityValue     *BitableTableRecordActionFieldIdentity // 人员字段补充信息
+	fieldIdentityValueFlag bool
 }
 
 func NewBitableTableRecordActionFieldBuilder() *BitableTableRecordActionFieldBuilder {
@@ -1107,6 +1108,15 @@ func (builder *BitableTableRecordActionFieldBuilder) FieldValue(fieldValue strin
 	return builder
 }
 
+// 人员字段补充信息
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldBuilder) FieldIdentityValue(fieldIdentityValue *BitableTableRecordActionFieldIdentity) *BitableTableRecordActionFieldBuilder {
+	builder.fieldIdentityValue = fieldIdentityValue
+	builder.fieldIdentityValueFlag = true
+	return builder
+}
+
 func (builder *BitableTableRecordActionFieldBuilder) Build() *BitableTableRecordActionField {
 	req := &BitableTableRecordActionField{}
 	if builder.fieldIdFlag {
@@ -1115,6 +1125,119 @@ func (builder *BitableTableRecordActionFieldBuilder) Build() *BitableTableRecord
 	}
 	if builder.fieldValueFlag {
 		req.FieldValue = &builder.fieldValue
+
+	}
+	if builder.fieldIdentityValueFlag {
+		req.FieldIdentityValue = builder.fieldIdentityValue
+	}
+	return req
+}
+
+type BitableTableRecordActionFieldIdentity struct {
+	Users []*BitableTableRecordActionFieldIdentityUser `json:"users,omitempty"` // 用户信息列表
+}
+
+type BitableTableRecordActionFieldIdentityBuilder struct {
+	users     []*BitableTableRecordActionFieldIdentityUser // 用户信息列表
+	usersFlag bool
+}
+
+func NewBitableTableRecordActionFieldIdentityBuilder() *BitableTableRecordActionFieldIdentityBuilder {
+	builder := &BitableTableRecordActionFieldIdentityBuilder{}
+	return builder
+}
+
+// 用户信息列表
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldIdentityBuilder) Users(users []*BitableTableRecordActionFieldIdentityUser) *BitableTableRecordActionFieldIdentityBuilder {
+	builder.users = users
+	builder.usersFlag = true
+	return builder
+}
+
+func (builder *BitableTableRecordActionFieldIdentityBuilder) Build() *BitableTableRecordActionFieldIdentity {
+	req := &BitableTableRecordActionFieldIdentity{}
+	if builder.usersFlag {
+		req.Users = builder.users
+	}
+	return req
+}
+
+type BitableTableRecordActionFieldIdentityUser struct {
+	UserId    *UserId `json:"user_id,omitempty"`    // 用户ID
+	Name      *string `json:"name,omitempty"`       // 用户名称
+	EnName    *string `json:"en_name,omitempty"`    // 用户英文名称
+	AvatarUrl *string `json:"avatar_url,omitempty"` // 用户头像URL
+}
+
+type BitableTableRecordActionFieldIdentityUserBuilder struct {
+	userId        *UserId // 用户ID
+	userIdFlag    bool
+	name          string // 用户名称
+	nameFlag      bool
+	enName        string // 用户英文名称
+	enNameFlag    bool
+	avatarUrl     string // 用户头像URL
+	avatarUrlFlag bool
+}
+
+func NewBitableTableRecordActionFieldIdentityUserBuilder() *BitableTableRecordActionFieldIdentityUserBuilder {
+	builder := &BitableTableRecordActionFieldIdentityUserBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldIdentityUserBuilder) UserId(userId *UserId) *BitableTableRecordActionFieldIdentityUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 用户名称
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldIdentityUserBuilder) Name(name string) *BitableTableRecordActionFieldIdentityUserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 用户英文名称
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldIdentityUserBuilder) EnName(enName string) *BitableTableRecordActionFieldIdentityUserBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+
+// 用户头像URL
+//
+// 示例值：
+func (builder *BitableTableRecordActionFieldIdentityUserBuilder) AvatarUrl(avatarUrl string) *BitableTableRecordActionFieldIdentityUserBuilder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+
+func (builder *BitableTableRecordActionFieldIdentityUserBuilder) Build() *BitableTableRecordActionFieldIdentityUser {
+	req := &BitableTableRecordActionFieldIdentityUser{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
 
 	}
 	return req
@@ -1234,7 +1357,7 @@ func (builder *DocsLinkBuilder) Build() *DocsLink {
 
 type ExportTask struct {
 	FileExtension *string `json:"file_extension,omitempty"` // 导出文件扩展名
-	Token         *string `json:"token,omitempty"`          // 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Token         *string `json:"token,omitempty"`          // 导出文档 token [获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	Type          *string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735)
 	FileName      *string `json:"file_name,omitempty"`      // 导出文件名
 	SubId         *string `json:"sub_id,omitempty"`         // 导出子表ID，仅当将电子表格/多维表格导出为 csv 时使用;;;[获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id;;[获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list) 文档中的 table_id
@@ -1247,7 +1370,7 @@ type ExportTask struct {
 type ExportTaskBuilder struct {
 	fileExtension     string // 导出文件扩展名
 	fileExtensionFlag bool
-	token             string // 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	token             string // 导出文档 token [获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	tokenFlag         bool
 	type_             string // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735)
 	typeFlag          bool
@@ -1279,7 +1402,7 @@ func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTas
 	return builder
 }
 
-// 导出文档 token [获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+// 导出文档 token [获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doccnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
@@ -5795,7 +5918,7 @@ func (builder *ListFileCommentReqBuilder) PageSize(pageSize string) *ListFileCom
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6125,7 +6248,7 @@ func (builder *UpdateFileCommentReplyReqBuilder) FileType(fileType string) *Upda
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *UpdateFileCommentReplyReqBuilder) UserIdType(userIdType string) *UpdateFileCommentReplyReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7400,7 +7523,7 @@ func NewBatchQueryMetaReqBuilder() *BatchQueryMetaReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：user_id
 func (builder *BatchQueryMetaReqBuilder) UserIdType(userIdType string) *BatchQueryMetaReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

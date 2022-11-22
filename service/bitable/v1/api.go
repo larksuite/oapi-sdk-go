@@ -82,9 +82,9 @@ type appTableView struct {
 
 // 获取多维表格元数据
 //
-// - 通过 app_token 获取多维表格元数据
+// - 获取指定多维表格的元数据信息，包括多维表格名称，多维表格版本号，多维表格是否开启高级权限等。
 //
-// - 该接口支持调用频率上限为 20 QPS
+// - 该接口支持调用频率上限为 20 QPS（Query Per Second，每秒请求率）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
 //
@@ -818,7 +818,7 @@ func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFie
 //
 // - 该接口用于在数据表中新增多条记录，单次调用最多新增 500 条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_create
 //
@@ -902,7 +902,7 @@ func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTab
 //
 // - 该接口用于在数据表中新增一条记录
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
 //
@@ -986,7 +986,7 @@ func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, opt
 //
 // - 该接口用于列出数据表中的现有记录，单次最多列出 500 行记录，支持分页获取。
 //
-// - 该接口支持调用频率上限为 1000 次/分钟
+// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率），1000 QPM（Query Per Minute，每分钟请求率）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
 //
@@ -1022,7 +1022,7 @@ func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRe
 //
 // - 该接口用于更新数据表中的一条记录
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update
 //

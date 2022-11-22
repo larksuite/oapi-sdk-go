@@ -2946,24 +2946,30 @@ func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 }
 
 type Badge struct {
-	Id          *string `json:"id,omitempty"`           // 租户内勋章的唯一标识，该值由系统随机生成。
-	Name        *string `json:"name,omitempty"`         // 租户内唯一的勋章名称，最多30个字符。
-	Explanation *string `json:"explanation,omitempty"`  // 勋章的描述文案，最多100个字符。
-	DetailImage *string `json:"detail_image,omitempty"` // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	ShowImage   *string `json:"show_image,omitempty"`   // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	Id              *string `json:"id,omitempty"`               // 租户内勋章的唯一标识，该值由系统随机生成。
+	Name            *string `json:"name,omitempty"`             // 租户内唯一的勋章名称，最多30个字符。
+	Explanation     *string `json:"explanation,omitempty"`      // 勋章的描述文案，最多100个字符。
+	DetailImage     *string `json:"detail_image,omitempty"`     // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	ShowImage       *string `json:"show_image,omitempty"`       // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	I18nName        *I18n   `json:"i18n_name,omitempty"`        // 勋章的多语言名称，同name字段限制，最多30个字符。
+	I18nExplanation *I18n   `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
 }
 
 type BadgeBuilder struct {
-	id              string // 租户内勋章的唯一标识，该值由系统随机生成。
-	idFlag          bool
-	name            string // 租户内唯一的勋章名称，最多30个字符。
-	nameFlag        bool
-	explanation     string // 勋章的描述文案，最多100个字符。
-	explanationFlag bool
-	detailImage     string // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	detailImageFlag bool
-	showImage       string // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	showImageFlag   bool
+	id                  string // 租户内勋章的唯一标识，该值由系统随机生成。
+	idFlag              bool
+	name                string // 租户内唯一的勋章名称，最多30个字符。
+	nameFlag            bool
+	explanation         string // 勋章的描述文案，最多100个字符。
+	explanationFlag     bool
+	detailImage         string // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	detailImageFlag     bool
+	showImage           string // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	showImageFlag       bool
+	i18nName            *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
+	i18nNameFlag        bool
+	i18nExplanation     *I18n // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	i18nExplanationFlag bool
 }
 
 func NewBadgeBuilder() *BadgeBuilder {
@@ -3016,6 +3022,24 @@ func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 	return builder
 }
 
+// 勋章的多语言名称，同name字段限制，最多30个字符。
+//
+// 示例值：{		 "zh_cn": "激励勋章",		 "en_us": "Incentive Medal",		 "ja_jp": "奨励メダル"	 }
+func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+// 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+//
+// 示例值：{		 "zh_cn": "这枚勋章为了激励员工颁发。",		 "en_us": "This medal is awarded to motivate employees.",		 "ja_jp": "このメダルは、従業員のモチベーションを高めるために授与されます。"	 }
+func (builder *BadgeBuilder) I18nExplanation(i18nExplanation *I18n) *BadgeBuilder {
+	builder.i18nExplanation = i18nExplanation
+	builder.i18nExplanationFlag = true
+	return builder
+}
+
 func (builder *BadgeBuilder) Build() *Badge {
 	req := &Badge{}
 	if builder.idFlag {
@@ -3037,6 +3061,12 @@ func (builder *BadgeBuilder) Build() *Badge {
 	if builder.showImageFlag {
 		req.ShowImage = &builder.showImage
 
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.i18nExplanationFlag {
+		req.I18nExplanation = builder.i18nExplanation
 	}
 	return req
 }
@@ -3367,6 +3397,70 @@ func (builder *GrantBuilder) Build() *Grant {
 	}
 	if builder.groupIdsFlag {
 		req.GroupIds = builder.groupIds
+	}
+	return req
+}
+
+type I18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文文案
+	EnUs *string `json:"en_us,omitempty"` // 英文文案
+	JaJp *string `json:"ja_jp,omitempty"` // 日文文案
+}
+
+type I18nBuilder struct {
+	zhCn     string // 中文文案
+	zhCnFlag bool
+	enUs     string // 英文文案
+	enUsFlag bool
+	jaJp     string // 日文文案
+	jaJpFlag bool
+}
+
+func NewI18nBuilder() *I18nBuilder {
+	builder := &I18nBuilder{}
+	return builder
+}
+
+// 中文文案
+//
+// 示例值：激励勋章
+func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文文案
+//
+// 示例值：Incentive Medal
+func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+// 日文文案
+//
+// 示例值：奨励メダル
+func (builder *I18nBuilder) JaJp(jaJp string) *I18nBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *I18nBuilder) Build() *I18n {
+	req := &I18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
 	}
 	return req
 }
@@ -4935,6 +5029,14 @@ func (builder *ListBadgeGrantReqBuilder) UserIdType(userIdType string) *ListBadg
 // 示例值：open_department_id
 func (builder *ListBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *ListBadgeGrantReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 授予名单名称，精确匹配。
+//
+// 示例值：激励勋章的授予名单
+func (builder *ListBadgeGrantReqBuilder) Name(name string) *ListBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("name", fmt.Sprint(name))
 	return builder
 }
 

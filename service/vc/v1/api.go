@@ -636,7 +636,7 @@ func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...la
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/vc/v1/reserves/apply"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
 	if err != nil {
 		return nil, err

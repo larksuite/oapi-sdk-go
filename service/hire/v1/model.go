@@ -7435,6 +7435,7 @@ type CombinedJob struct {
 	RequiredDegree     *int                         `json:"required_degree,omitempty"`      // 学历要求
 	JobCategoryId      *string                      `json:"job_category_id,omitempty"`      // 序列
 	AddressIdList      []string                     `json:"address_id_list,omitempty"`      // 工作地点，枚举通过接口「获取地址列表」获取，选择地点用途为「职位地址」
+	JobAttribute       *int                         `json:"job_attribute,omitempty"`        // 职位属性，1是实体职位，2是虚拟职位
 }
 
 type CombinedJobBuilder struct {
@@ -7492,6 +7493,8 @@ type CombinedJobBuilder struct {
 	jobCategoryIdFlag      bool
 	addressIdList          []string // 工作地点，枚举通过接口「获取地址列表」获取，选择地点用途为「职位地址」
 	addressIdListFlag      bool
+	jobAttribute           int // 职位属性，1是实体职位，2是虚拟职位
+	jobAttributeFlag       bool
 }
 
 func NewCombinedJobBuilder() *CombinedJobBuilder {
@@ -7742,6 +7745,15 @@ func (builder *CombinedJobBuilder) AddressIdList(addressIdList []string) *Combin
 	return builder
 }
 
+// 职位属性，1是实体职位，2是虚拟职位
+//
+// 示例值：
+func (builder *CombinedJobBuilder) JobAttribute(jobAttribute int) *CombinedJobBuilder {
+	builder.jobAttribute = jobAttribute
+	builder.jobAttributeFlag = true
+	return builder
+}
+
 func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	req := &CombinedJob{}
 	if builder.idFlag {
@@ -7847,6 +7859,10 @@ func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	}
 	if builder.addressIdListFlag {
 		req.AddressIdList = builder.addressIdList
+	}
+	if builder.jobAttributeFlag {
+		req.JobAttribute = &builder.jobAttribute
+
 	}
 	return req
 }
@@ -8771,6 +8787,842 @@ func (builder *DummyBuilder) Build() *Dummy {
 	req := &Dummy{}
 	if builder.idFlag {
 		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type EcoAccountCustomField struct {
+	Scope           *int                         `json:"scope,omitempty"`             // 适用范围
+	CustomFieldList []*EcoAccountCustomFieldData `json:"custom_field_list,omitempty"` // 自定义字段列表
+}
+
+type EcoAccountCustomFieldBuilder struct {
+	scope               int // 适用范围
+	scopeFlag           bool
+	customFieldList     []*EcoAccountCustomFieldData // 自定义字段列表
+	customFieldListFlag bool
+}
+
+func NewEcoAccountCustomFieldBuilder() *EcoAccountCustomFieldBuilder {
+	builder := &EcoAccountCustomFieldBuilder{}
+	return builder
+}
+
+// 适用范围
+//
+// 示例值：1
+func (builder *EcoAccountCustomFieldBuilder) Scope(scope int) *EcoAccountCustomFieldBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 自定义字段列表
+//
+// 示例值：
+func (builder *EcoAccountCustomFieldBuilder) CustomFieldList(customFieldList []*EcoAccountCustomFieldData) *EcoAccountCustomFieldBuilder {
+	builder.customFieldList = customFieldList
+	builder.customFieldListFlag = true
+	return builder
+}
+
+func (builder *EcoAccountCustomFieldBuilder) Build() *EcoAccountCustomField {
+	req := &EcoAccountCustomField{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+
+	}
+	if builder.customFieldListFlag {
+		req.CustomFieldList = builder.customFieldList
+	}
+	return req
+}
+
+type EcoAccountCustomFieldData struct {
+	Key         *string `json:"key,omitempty"`         // 自定义字段的标识，同一 scope 内须唯一
+	Name        *I18n   `json:"name,omitempty"`        // 自定义字段的名称，用户在添加账号表单看到的控件标题
+	IsRequired  *bool   `json:"is_required,omitempty"` // 是否必填
+	Description *I18n   `json:"description,omitempty"` // 自定义字段的描述，用户在添加账号表单看到的 place holder
+}
+
+type EcoAccountCustomFieldDataBuilder struct {
+	key             string // 自定义字段的标识，同一 scope 内须唯一
+	keyFlag         bool
+	name            *I18n // 自定义字段的名称，用户在添加账号表单看到的控件标题
+	nameFlag        bool
+	isRequired      bool // 是否必填
+	isRequiredFlag  bool
+	description     *I18n // 自定义字段的描述，用户在添加账号表单看到的 place holder
+	descriptionFlag bool
+}
+
+func NewEcoAccountCustomFieldDataBuilder() *EcoAccountCustomFieldDataBuilder {
+	builder := &EcoAccountCustomFieldDataBuilder{}
+	return builder
+}
+
+// 自定义字段的标识，同一 scope 内须唯一
+//
+// 示例值：org_id
+func (builder *EcoAccountCustomFieldDataBuilder) Key(key string) *EcoAccountCustomFieldDataBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 自定义字段的名称，用户在添加账号表单看到的控件标题
+//
+// 示例值：
+func (builder *EcoAccountCustomFieldDataBuilder) Name(name *I18n) *EcoAccountCustomFieldDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否必填
+//
+// 示例值：true
+func (builder *EcoAccountCustomFieldDataBuilder) IsRequired(isRequired bool) *EcoAccountCustomFieldDataBuilder {
+	builder.isRequired = isRequired
+	builder.isRequiredFlag = true
+	return builder
+}
+
+// 自定义字段的描述，用户在添加账号表单看到的 place holder
+//
+// 示例值：
+func (builder *EcoAccountCustomFieldDataBuilder) Description(description *I18n) *EcoAccountCustomFieldDataBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *EcoAccountCustomFieldDataBuilder) Build() *EcoAccountCustomFieldData {
+	req := &EcoAccountCustomFieldData{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.isRequiredFlag {
+		req.IsRequired = &builder.isRequired
+
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	return req
+}
+
+type EcoAccountCustomFieldEventData struct {
+	Key   *string `json:"key,omitempty"`   // 自定义字段的标识
+	Value *string `json:"value,omitempty"` // 自定义字段的值
+}
+
+type EcoAccountCustomFieldEventDataBuilder struct {
+	key       string // 自定义字段的标识
+	keyFlag   bool
+	value     string // 自定义字段的值
+	valueFlag bool
+}
+
+func NewEcoAccountCustomFieldEventDataBuilder() *EcoAccountCustomFieldEventDataBuilder {
+	builder := &EcoAccountCustomFieldEventDataBuilder{}
+	return builder
+}
+
+// 自定义字段的标识
+//
+// 示例值：ord_id
+func (builder *EcoAccountCustomFieldEventDataBuilder) Key(key string) *EcoAccountCustomFieldEventDataBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 自定义字段的值
+//
+// 示例值：7233333
+func (builder *EcoAccountCustomFieldEventDataBuilder) Value(value string) *EcoAccountCustomFieldEventDataBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *EcoAccountCustomFieldEventDataBuilder) Build() *EcoAccountCustomFieldEventData {
+	req := &EcoAccountCustomFieldEventData{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckCreateEventCandidateInfo struct {
+	Name   *string                              `json:"name,omitempty"`   // 候选人姓名
+	Mobile *EcoBackgroundCheckCreateEventMobile `json:"mobile,omitempty"` // 候选人手机号
+	Email  *string                              `json:"email,omitempty"`  // 候选人邮箱
+}
+
+type EcoBackgroundCheckCreateEventCandidateInfoBuilder struct {
+	name       string // 候选人姓名
+	nameFlag   bool
+	mobile     *EcoBackgroundCheckCreateEventMobile // 候选人手机号
+	mobileFlag bool
+	email      string // 候选人邮箱
+	emailFlag  bool
+}
+
+func NewEcoBackgroundCheckCreateEventCandidateInfoBuilder() *EcoBackgroundCheckCreateEventCandidateInfoBuilder {
+	builder := &EcoBackgroundCheckCreateEventCandidateInfoBuilder{}
+	return builder
+}
+
+// 候选人姓名
+//
+// 示例值：王二
+func (builder *EcoBackgroundCheckCreateEventCandidateInfoBuilder) Name(name string) *EcoBackgroundCheckCreateEventCandidateInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 候选人手机号
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCreateEventCandidateInfoBuilder) Mobile(mobile *EcoBackgroundCheckCreateEventMobile) *EcoBackgroundCheckCreateEventCandidateInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 候选人邮箱
+//
+// 示例值：xxx@abc.vom
+func (builder *EcoBackgroundCheckCreateEventCandidateInfoBuilder) Email(email string) *EcoBackgroundCheckCreateEventCandidateInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCreateEventCandidateInfoBuilder) Build() *EcoBackgroundCheckCreateEventCandidateInfo {
+	req := &EcoBackgroundCheckCreateEventCandidateInfo{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = builder.mobile
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckCreateEventContactInfo struct {
+	Name   *string                              `json:"name,omitempty"`   // 联系人姓名
+	Mobile *EcoBackgroundCheckCreateEventMobile `json:"mobile,omitempty"` // 联系人手机号
+	Email  *string                              `json:"email,omitempty"`  // 联系人邮箱
+}
+
+type EcoBackgroundCheckCreateEventContactInfoBuilder struct {
+	name       string // 联系人姓名
+	nameFlag   bool
+	mobile     *EcoBackgroundCheckCreateEventMobile // 联系人手机号
+	mobileFlag bool
+	email      string // 联系人邮箱
+	emailFlag  bool
+}
+
+func NewEcoBackgroundCheckCreateEventContactInfoBuilder() *EcoBackgroundCheckCreateEventContactInfoBuilder {
+	builder := &EcoBackgroundCheckCreateEventContactInfoBuilder{}
+	return builder
+}
+
+// 联系人姓名
+//
+// 示例值：王二
+func (builder *EcoBackgroundCheckCreateEventContactInfoBuilder) Name(name string) *EcoBackgroundCheckCreateEventContactInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 联系人手机号
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCreateEventContactInfoBuilder) Mobile(mobile *EcoBackgroundCheckCreateEventMobile) *EcoBackgroundCheckCreateEventContactInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 联系人邮箱
+//
+// 示例值：xxx@abc.vom
+func (builder *EcoBackgroundCheckCreateEventContactInfoBuilder) Email(email string) *EcoBackgroundCheckCreateEventContactInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCreateEventContactInfoBuilder) Build() *EcoBackgroundCheckCreateEventContactInfo {
+	req := &EcoBackgroundCheckCreateEventContactInfo{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = builder.mobile
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckCreateEventCustomKv struct {
+	Key   *string `json:"key,omitempty"`   // 自定义字段标识
+	Value *string `json:"value,omitempty"` // 自定义字段值
+}
+
+type EcoBackgroundCheckCreateEventCustomKvBuilder struct {
+	key       string // 自定义字段标识
+	keyFlag   bool
+	value     string // 自定义字段值
+	valueFlag bool
+}
+
+func NewEcoBackgroundCheckCreateEventCustomKvBuilder() *EcoBackgroundCheckCreateEventCustomKvBuilder {
+	builder := &EcoBackgroundCheckCreateEventCustomKvBuilder{}
+	return builder
+}
+
+// 自定义字段标识
+//
+// 示例值：auth_token
+func (builder *EcoBackgroundCheckCreateEventCustomKvBuilder) Key(key string) *EcoBackgroundCheckCreateEventCustomKvBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 自定义字段值
+//
+// 示例值：apikey_1233kkka
+func (builder *EcoBackgroundCheckCreateEventCustomKvBuilder) Value(value string) *EcoBackgroundCheckCreateEventCustomKvBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCreateEventCustomKvBuilder) Build() *EcoBackgroundCheckCreateEventCustomKv {
+	req := &EcoBackgroundCheckCreateEventCustomKv{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckCreateEventMobile struct {
+	Code   *string `json:"code,omitempty"`   // 国家代码
+	Number *string `json:"number,omitempty"` // 手机号码
+}
+
+type EcoBackgroundCheckCreateEventMobileBuilder struct {
+	code       string // 国家代码
+	codeFlag   bool
+	number     string // 手机号码
+	numberFlag bool
+}
+
+func NewEcoBackgroundCheckCreateEventMobileBuilder() *EcoBackgroundCheckCreateEventMobileBuilder {
+	builder := &EcoBackgroundCheckCreateEventMobileBuilder{}
+	return builder
+}
+
+// 国家代码
+//
+// 示例值：86
+func (builder *EcoBackgroundCheckCreateEventMobileBuilder) Code(code string) *EcoBackgroundCheckCreateEventMobileBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 手机号码
+//
+// 示例值：18900001111
+func (builder *EcoBackgroundCheckCreateEventMobileBuilder) Number(number string) *EcoBackgroundCheckCreateEventMobileBuilder {
+	builder.number = number
+	builder.numberFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCreateEventMobileBuilder) Build() *EcoBackgroundCheckCreateEventMobile {
+	req := &EcoBackgroundCheckCreateEventMobile{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.numberFlag {
+		req.Number = &builder.number
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckCustomField struct {
+	AccountId       *string                              `json:"account_id,omitempty"`        // 背调账号 ID，可在「账号绑定」事件中获取
+	CustomFieldList []*EcoBackgroundCheckCustomFieldData `json:"custom_field_list,omitempty"` // 自定义字段列表
+}
+
+type EcoBackgroundCheckCustomFieldBuilder struct {
+	accountId           string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag       bool
+	customFieldList     []*EcoBackgroundCheckCustomFieldData // 自定义字段列表
+	customFieldListFlag bool
+}
+
+func NewEcoBackgroundCheckCustomFieldBuilder() *EcoBackgroundCheckCustomFieldBuilder {
+	builder := &EcoBackgroundCheckCustomFieldBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：6995842370159937061
+func (builder *EcoBackgroundCheckCustomFieldBuilder) AccountId(accountId string) *EcoBackgroundCheckCustomFieldBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 自定义字段列表
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCustomFieldBuilder) CustomFieldList(customFieldList []*EcoBackgroundCheckCustomFieldData) *EcoBackgroundCheckCustomFieldBuilder {
+	builder.customFieldList = customFieldList
+	builder.customFieldListFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCustomFieldBuilder) Build() *EcoBackgroundCheckCustomField {
+	req := &EcoBackgroundCheckCustomField{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+
+	}
+	if builder.customFieldListFlag {
+		req.CustomFieldList = builder.customFieldList
+	}
+	return req
+}
+
+type EcoBackgroundCheckCustomFieldData struct {
+	Type        *string                                    `json:"type,omitempty"`        // 自定义字段类型
+	Key         *string                                    `json:"key,omitempty"`         // 自定义字段的标识，在同一账号内唯一
+	Name        *I18n                                      `json:"name,omitempty"`        // 自定义字段的名称，用户在安排背调表单看到的控件标题
+	IsRequired  *bool                                      `json:"is_required,omitempty"` // 是否必填
+	Description *I18n                                      `json:"description,omitempty"` // 自定义字段的描述，如果是输入控件，为用户在安排背调表单看到的 placeholder 或 提示文字
+	Options     []*EcoBackgroundCheckCustomFieldDataOption `json:"options,omitempty"`     // type 为 select 或 multiselect 时必填，单选或多选的选项
+}
+
+type EcoBackgroundCheckCustomFieldDataBuilder struct {
+	type_           string // 自定义字段类型
+	typeFlag        bool
+	key             string // 自定义字段的标识，在同一账号内唯一
+	keyFlag         bool
+	name            *I18n // 自定义字段的名称，用户在安排背调表单看到的控件标题
+	nameFlag        bool
+	isRequired      bool // 是否必填
+	isRequiredFlag  bool
+	description     *I18n // 自定义字段的描述，如果是输入控件，为用户在安排背调表单看到的 placeholder 或 提示文字
+	descriptionFlag bool
+	options         []*EcoBackgroundCheckCustomFieldDataOption // type 为 select 或 multiselect 时必填，单选或多选的选项
+	optionsFlag     bool
+}
+
+func NewEcoBackgroundCheckCustomFieldDataBuilder() *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder := &EcoBackgroundCheckCustomFieldDataBuilder{}
+	return builder
+}
+
+// 自定义字段类型
+//
+// 示例值：text
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Type(type_ string) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 自定义字段的标识，在同一账号内唯一
+//
+// 示例值：candidate_resume
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Key(key string) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 自定义字段的名称，用户在安排背调表单看到的控件标题
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Name(name *I18n) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否必填
+//
+// 示例值：true
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) IsRequired(isRequired bool) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.isRequired = isRequired
+	builder.isRequiredFlag = true
+	return builder
+}
+
+// 自定义字段的描述，如果是输入控件，为用户在安排背调表单看到的 placeholder 或 提示文字
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Description(description *I18n) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// type 为 select 或 multiselect 时必填，单选或多选的选项
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Options(options []*EcoBackgroundCheckCustomFieldDataOption) *EcoBackgroundCheckCustomFieldDataBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCustomFieldDataBuilder) Build() *EcoBackgroundCheckCustomFieldData {
+	req := &EcoBackgroundCheckCustomFieldData{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.isRequiredFlag {
+		req.IsRequired = &builder.isRequired
+
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	return req
+}
+
+type EcoBackgroundCheckCustomFieldDataOption struct {
+	Key  *string `json:"key,omitempty"`  // 选项的 key
+	Name *I18n   `json:"name,omitempty"` // 选项的名称
+}
+
+type EcoBackgroundCheckCustomFieldDataOptionBuilder struct {
+	key      string // 选项的 key
+	keyFlag  bool
+	name     *I18n // 选项的名称
+	nameFlag bool
+}
+
+func NewEcoBackgroundCheckCustomFieldDataOptionBuilder() *EcoBackgroundCheckCustomFieldDataOptionBuilder {
+	builder := &EcoBackgroundCheckCustomFieldDataOptionBuilder{}
+	return builder
+}
+
+// 选项的 key
+//
+// 示例值：A
+func (builder *EcoBackgroundCheckCustomFieldDataOptionBuilder) Key(key string) *EcoBackgroundCheckCustomFieldDataOptionBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 选项的名称
+//
+// 示例值：
+func (builder *EcoBackgroundCheckCustomFieldDataOptionBuilder) Name(name *I18n) *EcoBackgroundCheckCustomFieldDataOptionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckCustomFieldDataOptionBuilder) Build() *EcoBackgroundCheckCustomFieldDataOption {
+	req := &EcoBackgroundCheckCustomFieldDataOption{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	return req
+}
+
+type EcoBackgroundCheckPackage struct {
+	AccountId         *string                                    `json:"account_id,omitempty"`          // 背调账号 ID，可在「账号绑定」事件中获取
+	PackageList       []*EcoBackgroundCheckPackageData           `json:"package_list,omitempty"`        // 背调套餐列表
+	AdditonalItemList []*EcoBackgroundCheckPackageAdditionalItem `json:"additonal_item_list,omitempty"` // 附加调查项列表
+}
+
+type EcoBackgroundCheckPackageBuilder struct {
+	accountId             string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag         bool
+	packageList           []*EcoBackgroundCheckPackageData // 背调套餐列表
+	packageListFlag       bool
+	additonalItemList     []*EcoBackgroundCheckPackageAdditionalItem // 附加调查项列表
+	additonalItemListFlag bool
+}
+
+func NewEcoBackgroundCheckPackageBuilder() *EcoBackgroundCheckPackageBuilder {
+	builder := &EcoBackgroundCheckPackageBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：ord_id
+func (builder *EcoBackgroundCheckPackageBuilder) AccountId(accountId string) *EcoBackgroundCheckPackageBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 背调套餐列表
+//
+// 示例值：
+func (builder *EcoBackgroundCheckPackageBuilder) PackageList(packageList []*EcoBackgroundCheckPackageData) *EcoBackgroundCheckPackageBuilder {
+	builder.packageList = packageList
+	builder.packageListFlag = true
+	return builder
+}
+
+// 附加调查项列表
+//
+// 示例值：
+func (builder *EcoBackgroundCheckPackageBuilder) AdditonalItemList(additonalItemList []*EcoBackgroundCheckPackageAdditionalItem) *EcoBackgroundCheckPackageBuilder {
+	builder.additonalItemList = additonalItemList
+	builder.additonalItemListFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckPackageBuilder) Build() *EcoBackgroundCheckPackage {
+	req := &EcoBackgroundCheckPackage{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+
+	}
+	if builder.packageListFlag {
+		req.PackageList = builder.packageList
+	}
+	if builder.additonalItemListFlag {
+		req.AdditonalItemList = builder.additonalItemList
+	}
+	return req
+}
+
+type EcoBackgroundCheckPackageAdditionalItem struct {
+	Id          *string `json:"id,omitempty"`          // 附件调查项 ID
+	Name        *string `json:"name,omitempty"`        // 附加调查项名称
+	Description *string `json:"description,omitempty"` // 附加调查项描述
+}
+
+type EcoBackgroundCheckPackageAdditionalItemBuilder struct {
+	id              string // 附件调查项 ID
+	idFlag          bool
+	name            string // 附加调查项名称
+	nameFlag        bool
+	description     string // 附加调查项描述
+	descriptionFlag bool
+}
+
+func NewEcoBackgroundCheckPackageAdditionalItemBuilder() *EcoBackgroundCheckPackageAdditionalItemBuilder {
+	builder := &EcoBackgroundCheckPackageAdditionalItemBuilder{}
+	return builder
+}
+
+// 附件调查项 ID
+//
+// 示例值：ext001
+func (builder *EcoBackgroundCheckPackageAdditionalItemBuilder) Id(id string) *EcoBackgroundCheckPackageAdditionalItemBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 附加调查项名称
+//
+// 示例值：工作履历信息验证X2
+func (builder *EcoBackgroundCheckPackageAdditionalItemBuilder) Name(name string) *EcoBackgroundCheckPackageAdditionalItemBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 附加调查项描述
+//
+// 示例值：详细调查
+func (builder *EcoBackgroundCheckPackageAdditionalItemBuilder) Description(description string) *EcoBackgroundCheckPackageAdditionalItemBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckPackageAdditionalItemBuilder) Build() *EcoBackgroundCheckPackageAdditionalItem {
+	req := &EcoBackgroundCheckPackageAdditionalItem{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckPackageData struct {
+	Id          *string `json:"id,omitempty"`          // 套餐 ID
+	Name        *string `json:"name,omitempty"`        // 背调名称
+	Description *string `json:"description,omitempty"` // 套餐描述
+}
+
+type EcoBackgroundCheckPackageDataBuilder struct {
+	id              string // 套餐 ID
+	idFlag          bool
+	name            string // 背调名称
+	nameFlag        bool
+	description     string // 套餐描述
+	descriptionFlag bool
+}
+
+func NewEcoBackgroundCheckPackageDataBuilder() *EcoBackgroundCheckPackageDataBuilder {
+	builder := &EcoBackgroundCheckPackageDataBuilder{}
+	return builder
+}
+
+// 套餐 ID
+//
+// 示例值：pkg001
+func (builder *EcoBackgroundCheckPackageDataBuilder) Id(id string) *EcoBackgroundCheckPackageDataBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 背调名称
+//
+// 示例值：基础套餐
+func (builder *EcoBackgroundCheckPackageDataBuilder) Name(name string) *EcoBackgroundCheckPackageDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 套餐描述
+//
+// 示例值：工作履历信息验证X1，工作表现鉴定评价X1，教育背景核实，公民身份信息验证，简历对比，民事诉讼调查
+func (builder *EcoBackgroundCheckPackageDataBuilder) Description(description string) *EcoBackgroundCheckPackageDataBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckPackageDataBuilder) Build() *EcoBackgroundCheckPackageData {
+	req := &EcoBackgroundCheckPackageData{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+type EcoBackgroundCheckReportFile struct {
+	ReportName *string `json:"report_name,omitempty"` // 报告名称
+	ReportUrl  *string `json:"report_url,omitempty"`  // 报告地址
+}
+
+type EcoBackgroundCheckReportFileBuilder struct {
+	reportName     string // 报告名称
+	reportNameFlag bool
+	reportUrl      string // 报告地址
+	reportUrlFlag  bool
+}
+
+func NewEcoBackgroundCheckReportFileBuilder() *EcoBackgroundCheckReportFileBuilder {
+	builder := &EcoBackgroundCheckReportFileBuilder{}
+	return builder
+}
+
+// 报告名称
+//
+// 示例值：阶段报告.pdf
+func (builder *EcoBackgroundCheckReportFileBuilder) ReportName(reportName string) *EcoBackgroundCheckReportFileBuilder {
+	builder.reportName = reportName
+	builder.reportNameFlag = true
+	return builder
+}
+
+// 报告地址
+//
+// 示例值：https://xxxxx/xxxxxx/xxxx.pdf
+func (builder *EcoBackgroundCheckReportFileBuilder) ReportUrl(reportUrl string) *EcoBackgroundCheckReportFileBuilder {
+	builder.reportUrl = reportUrl
+	builder.reportUrlFlag = true
+	return builder
+}
+
+func (builder *EcoBackgroundCheckReportFileBuilder) Build() *EcoBackgroundCheckReportFile {
+	req := &EcoBackgroundCheckReportFile{}
+	if builder.reportNameFlag {
+		req.ReportName = &builder.reportName
+
+	}
+	if builder.reportUrlFlag {
+		req.ReportUrl = &builder.reportUrl
 
 	}
 	return req
@@ -12955,6 +13807,7 @@ type Job struct {
 	MaxSalary          *int                 `json:"max_salary,omitempty"`           // 最高薪资，单位:k
 	RequiredDegree     *int                 `json:"required_degree,omitempty"`      // 学历要求
 	CityList           []*CodeNameObject    `json:"city_list,omitempty"`            // 工作地点列表
+	JobAttribute       *int                 `json:"job_attribute,omitempty"`        // 职位属性，1是实体职位，2是虚拟职位
 }
 
 type JobBuilder struct {
@@ -13020,6 +13873,8 @@ type JobBuilder struct {
 	requiredDegreeFlag     bool
 	cityList               []*CodeNameObject // 工作地点列表
 	cityListFlag           bool
+	jobAttribute           int // 职位属性，1是实体职位，2是虚拟职位
+	jobAttributeFlag       bool
 }
 
 func NewJobBuilder() *JobBuilder {
@@ -13306,6 +14161,15 @@ func (builder *JobBuilder) CityList(cityList []*CodeNameObject) *JobBuilder {
 	return builder
 }
 
+// 职位属性，1是实体职位，2是虚拟职位
+//
+// 示例值：1
+func (builder *JobBuilder) JobAttribute(jobAttribute int) *JobBuilder {
+	builder.jobAttribute = jobAttribute
+	builder.jobAttributeFlag = true
+	return builder
+}
+
 func (builder *JobBuilder) Build() *Job {
 	req := &Job{}
 	if builder.idFlag {
@@ -13419,6 +14283,10 @@ func (builder *JobBuilder) Build() *Job {
 	}
 	if builder.cityListFlag {
 		req.CityList = builder.cityList
+	}
+	if builder.jobAttributeFlag {
+		req.JobAttribute = &builder.jobAttribute
+
 	}
 	return req
 }
@@ -13732,6 +14600,7 @@ type JobConfig struct {
 	InterviewRoundConfList     []*JobConfigInterviewRoundConf `json:"interview_round_conf_list,omitempty"`      // 建议面试官列表
 	JrIdList                   []string                       `json:"jr_id_list,omitempty"`                     // 关联招聘需求，支持关联多个，枚举通过接口「获取招聘需求」获取
 	InterviewRoundTypeConfList []*JobConfigRoundType          `json:"interview_round_type_conf_list,omitempty"` // 面试轮次类型 ID 列表
+	RelatedJobIdList           []string                       `json:"related_job_id_list,omitempty"`            // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
 }
 
 type JobConfigBuilder struct {
@@ -13751,6 +14620,8 @@ type JobConfigBuilder struct {
 	jrIdListFlag                   bool
 	interviewRoundTypeConfList     []*JobConfigRoundType // 面试轮次类型 ID 列表
 	interviewRoundTypeConfListFlag bool
+	relatedJobIdList               []string // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
+	relatedJobIdListFlag           bool
 }
 
 func NewJobConfigBuilder() *JobConfigBuilder {
@@ -13830,6 +14701,15 @@ func (builder *JobConfigBuilder) InterviewRoundTypeConfList(interviewRoundTypeCo
 	return builder
 }
 
+// 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
+//
+// 示例值：6966533137982392320
+func (builder *JobConfigBuilder) RelatedJobIdList(relatedJobIdList []string) *JobConfigBuilder {
+	builder.relatedJobIdList = relatedJobIdList
+	builder.relatedJobIdListFlag = true
+	return builder
+}
+
 func (builder *JobConfigBuilder) Build() *JobConfig {
 	req := &JobConfig{}
 	if builder.offerApplySchemaIdFlag {
@@ -13858,6 +14738,9 @@ func (builder *JobConfigBuilder) Build() *JobConfig {
 	}
 	if builder.interviewRoundTypeConfListFlag {
 		req.InterviewRoundTypeConfList = builder.interviewRoundTypeConfList
+	}
+	if builder.relatedJobIdListFlag {
+		req.RelatedJobIdList = builder.relatedJobIdList
 	}
 	return req
 }
@@ -13965,6 +14848,8 @@ type JobConfigResult struct {
 	InterviewRoundList       []*JobConfigInterviewRound  `json:"interview_round_list,omitempty"`       // 建议面试官列表
 	JobRequirementList       []*IdNameObject             `json:"job_requirement_list,omitempty"`       // 招聘需求
 	InterviewRoundTypeList   []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`  // 面试轮次类型列表
+	RelatedJobList           []*IdNameObject             `json:"related_job_list,omitempty"`           // 关联职位列表
+	JobAttribute             *int                        `json:"job_attribute,omitempty"`              // 职位属性，1是实体职位，2是虚拟职位
 }
 
 type JobConfigResultBuilder struct {
@@ -13984,6 +14869,10 @@ type JobConfigResultBuilder struct {
 	jobRequirementListFlag       bool
 	interviewRoundTypeList       []*JobConfigRoundTypeResult // 面试轮次类型列表
 	interviewRoundTypeListFlag   bool
+	relatedJobList               []*IdNameObject // 关联职位列表
+	relatedJobListFlag           bool
+	jobAttribute                 int // 职位属性，1是实体职位，2是虚拟职位
+	jobAttributeFlag             bool
 }
 
 func NewJobConfigResultBuilder() *JobConfigResultBuilder {
@@ -14063,6 +14952,24 @@ func (builder *JobConfigResultBuilder) InterviewRoundTypeList(interviewRoundType
 	return builder
 }
 
+// 关联职位列表
+//
+// 示例值：
+func (builder *JobConfigResultBuilder) RelatedJobList(relatedJobList []*IdNameObject) *JobConfigResultBuilder {
+	builder.relatedJobList = relatedJobList
+	builder.relatedJobListFlag = true
+	return builder
+}
+
+// 职位属性，1是实体职位，2是虚拟职位
+//
+// 示例值：
+func (builder *JobConfigResultBuilder) JobAttribute(jobAttribute int) *JobConfigResultBuilder {
+	builder.jobAttribute = jobAttribute
+	builder.jobAttributeFlag = true
+	return builder
+}
+
 func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	req := &JobConfigResult{}
 	if builder.offerApplySchemaFlag {
@@ -14089,6 +14996,13 @@ func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	}
 	if builder.interviewRoundTypeListFlag {
 		req.InterviewRoundTypeList = builder.interviewRoundTypeList
+	}
+	if builder.relatedJobListFlag {
+		req.RelatedJobList = builder.relatedJobList
+	}
+	if builder.jobAttributeFlag {
+		req.JobAttribute = &builder.jobAttribute
+
 	}
 	return req
 }

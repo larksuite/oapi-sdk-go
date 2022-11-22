@@ -15,6 +15,7 @@ package main
 import (
 	"context"
 	"fmt"
+	larkapproval "github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 	"net/http"
 	"os"
 
@@ -201,6 +202,7 @@ func CreateDoc() {
 	body := map[string]interface{}{}
 	body["folder_token"] = "fldcnqquW1svRIYVT2Np6IuLCKd"
 	body["title"] = "哈喽哈喽"
+	body["ss"] = []larkapproval.NodeApprover{*larkapproval.NewNodeApproverBuilder().Key("").Value([]string{"aa"}).Build()}
 
 	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
 		HttpMethod:                http.MethodPost,
@@ -209,6 +211,37 @@ func CreateDoc() {
 		PathParams:                nil,
 		QueryParams:               nil,
 		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp},
+	}, larkcore.WithTenantKey("sss"))
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+}
+
+// 原生 API 调用推荐用法
+func GetRootFolderMeta() {
+	// 创建 API Client
+	var appID, appSecret = "cli_a0b9187584b8d01c", "8d0JWJrjIppJRPXDFmSmsb1IQDlm5gkv"
+	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithOpenBaseUrl("https://open.feishu-boe.cn"))
+
+	//发起请求
+	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   "/open-apis/drive/explorer/v2/root_folder/meta",
+		Body:                      nil,
+		PathParams:                nil,
+		QueryParams:               nil,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant},
 	})
 
 	// 错误处理
@@ -227,5 +260,5 @@ func CreateDoc() {
 }
 
 func main() {
-	CreateDoc()
+	GetRootFolderMeta()
 }

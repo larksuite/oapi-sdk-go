@@ -172,7 +172,7 @@ func main() {
 	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
 	// 启动服务
-	err := http.ListenAndServe(":9999", nil)
+	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		panic(err)
 	}

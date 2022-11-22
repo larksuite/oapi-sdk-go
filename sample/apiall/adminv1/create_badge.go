@@ -32,6 +32,8 @@ func main() {
 			Explanation("这枚勋章为了激励员工颁发。").
 			DetailImage("75a1949f-d9df-4b46-bc88-dacc51e88f3j").
 			ShowImage("03daa74a-159f-49e9-963e-b6c4d76103fj").
+			I18nName(larkadmin.NewI18nBuilder().Build()).
+			I18nExplanation(larkadmin.NewI18nBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -836,7 +836,7 @@ func main() {
 	//body := mockEncryptedBody(encryptedKey)
 
 	// 创建http req
-	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:9999/webhook/event", bytes.NewBuffer(body))
+	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:8888/webhook/event", bytes.NewBuffer(body))
 	if err != nil {
 		fmt.Println(err)
 		return
