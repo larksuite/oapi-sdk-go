@@ -72,7 +72,7 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq)
 	}
 	cardAction.EventReq = req
 
-	if larkevent.ReqType(cardAction.Type) != larkevent.ReqTypeChallenge {
+	if larkevent.ReqType(cardAction.Type) != larkevent.ReqTypeChallenge && !h.Config.SkipSignVerify {
 		err = h.VerifySign(ctx, req)
 		if err != nil {
 			return processError(ctx, h.Config.Logger, req.RequestURI, err)

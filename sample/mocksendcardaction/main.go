@@ -80,7 +80,7 @@ func main() {
 	body := mockCardAction()
 
 	// 创建http req
-	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:8888/webhook/card", bytes.NewBuffer(body))
+	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:7777/webhook/card", bytes.NewBuffer(body))
 	if err != nil {
 		fmt.Println(err)
 		return

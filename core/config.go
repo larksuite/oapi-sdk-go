@@ -34,4 +34,5 @@ type Config struct {
 	LogReqAtDebug     bool
 	Header            http.Header
 	Serializable      Serializable
+	SkipSignVerify    bool
 }

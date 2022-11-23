@@ -31,7 +31,7 @@ import (
 
 func main() {
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("TtCLrvEaxLBs6uvvTyxAbedihOkvPzzc", "")
+	handler := dispatcher.NewEventDispatcher("", "1212121212")
 	handler.OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
@@ -169,10 +169,11 @@ func main() {
 	})
 
 	// 注册 http 路由
-	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler,
+		larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
 	// 启动服务
-	err := http.ListenAndServe(":8888", nil)
+	err := http.ListenAndServe(":7777", nil)
 	if err != nil {
 		panic(err)
 	}

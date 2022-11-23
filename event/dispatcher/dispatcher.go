@@ -102,7 +102,7 @@ func (d *EventDispatcher) Handle(ctx context.Context, req *larkevent.EventReq) (
 	if err != nil {
 		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
-	if reqType != larkevent.ReqTypeChallenge {
+	if reqType != larkevent.ReqTypeChallenge && !d.Config.SkipSignVerify {
 		err = d.VerifySign(ctx, req)
 		if err != nil {
 			return processError(ctx, d.Config.Logger, req.RequestURI, err)

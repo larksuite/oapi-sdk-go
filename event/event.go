@@ -108,3 +108,9 @@ func WithLogLevel(logLevel larkcore.LogLevel) OptionFunc {
 		config.LogLevel = logLevel
 	}
 }
+
+func WithSkipSignVerify(skipSignVerify bool) OptionFunc {
+	return func(config *larkcore.Config) {
+		config.SkipSignVerify = skipSignVerify
+	}
+}
