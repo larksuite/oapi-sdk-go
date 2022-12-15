@@ -3914,11 +3914,14 @@ func (builder *UserBuilder) Build() *User {
 
 type UserAnnualReport struct {
 	Year2021 *UserReport2021 `json:"year_2021,omitempty"` // 2021用户年度报告
+	Year2022 *UserReport2022 `json:"year_2022,omitempty"` // 2022用户年度报告
 }
 
 type UserAnnualReportBuilder struct {
 	year2021     *UserReport2021 // 2021用户年度报告
 	year2021Flag bool
+	year2022     *UserReport2022 // 2022用户年度报告
+	year2022Flag bool
 }
 
 func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
@@ -3935,10 +3938,22 @@ func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *User
 	return builder
 }
 
+// 2022用户年度报告
+//
+// 示例值：
+func (builder *UserAnnualReportBuilder) Year2022(year2022 *UserReport2022) *UserAnnualReportBuilder {
+	builder.year2022 = year2022
+	builder.year2022Flag = true
+	return builder
+}
+
 func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	req := &UserAnnualReport{}
 	if builder.year2021Flag {
 		req.Year2021 = builder.year2021
+	}
+	if builder.year2022Flag {
+		req.Year2022 = builder.year2022
 	}
 	return req
 }
@@ -4354,6 +4369,470 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 	}
 	if builder.createReadUserCountFlag {
 		req.CreateReadUserCount = &builder.createReadUserCount
+
+	}
+	return req
+}
+
+type UserReport2022 struct {
+	UserId                  *string `json:"user_id,omitempty"`                      // 用户id
+	UserRegisterDate        *string `json:"user_register_date,omitempty"`           // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+	ActiveDayCount          *int    `json:"active_day_count,omitempty"`             // 用户2022年内在飞书有活跃的天数
+	MsgBusyDate             *string `json:"msg_busy_date,omitempty"`                // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+	MsgBusyDateSendMsgCount *string `json:"msg_busy_date_send_msg_count,omitempty"` // 全年发消息最多一天，发出的消息数
+	P2pChatCount            *string `json:"p2p_chat_count,omitempty"`               // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+	TalkedChatCount         *string `json:"talked_chat_count,omitempty"`            // 2022全年用户有过发言的飞书群的数量
+	PositiveReactionCount   *string `json:"positive_reaction_count,omitempty"`      // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+	FirstPositiveReaction   *string `json:"first_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第1的表情
+	SecondPositiveReaction  *string `json:"second_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第2的表情
+	ThirdPositiveReaction   *string `json:"third_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第3的表情
+	FourthPositiveReaction  *string `json:"fourth_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第4的表情
+	FifthPositiveReaction   *string `json:"fifth_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第5的表情
+	CreateFileCount         *string `json:"create_file_count,omitempty"`            // 2022全年用户本人创建过的飞书文档数量
+	CreatedFileViewCount    *string `json:"created_file_view_count,omitempty"`      // 此用户2022年创建的飞书文档的总阅读人数（含自己）
+	CommentFileCount        *string `json:"comment_file_count,omitempty"`           // 2022全年用户发表过评论的飞书文档数量
+	AttendEventCount        *string `json:"attend_event_count,omitempty"`           // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+	EventBusyDate           *string `json:"event_busy_date,omitempty"`              // 2022全年用户日程数量最多的一天，yyyyMMdd格式
+	EventBusyDateEventCount *string `json:"event_busy_date_event_count,omitempty"`  // 日程最多一天的日程数量
+	EventStartTimeRange1    *string `json:"event_start_time_range1,omitempty"`      // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+	ConferenceCreateCount   *string `json:"conference_create_count,omitempty"`      // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+	TotalPartiCount         *string `json:"total_parti_count,omitempty"`            // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+	OkrCumOCount            *string `json:"okr_cum_o_count,omitempty"`              // 2022全年此用户写过的O的数量（未删除）
+	OkrCumKrCount           *string `json:"okr_cum_kr_count,omitempty"`             // 2022全年此用户写过的KR的数量（未删除）
+	OkrAlignedUserCount     *string `json:"okr_aligned_user_count,omitempty"`       // 2022全年用户所写的OKR对齐过的去重人数（未删除）
+	PeopleInterviewNum      *string `json:"people_interview_num,omitempty"`         // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+	SendEmailCount          *string `json:"send_email_count,omitempty"`             // 2022全年此用户发出邮件数量
+	ReceiveEmailCount       *string `json:"receive_email_count,omitempty"`          // 2022全年此用户收到邮件数量
+}
+
+type UserReport2022Builder struct {
+	userId                      string // 用户id
+	userIdFlag                  bool
+	userRegisterDate            string // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+	userRegisterDateFlag        bool
+	activeDayCount              int // 用户2022年内在飞书有活跃的天数
+	activeDayCountFlag          bool
+	msgBusyDate                 string // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+	msgBusyDateFlag             bool
+	msgBusyDateSendMsgCount     string // 全年发消息最多一天，发出的消息数
+	msgBusyDateSendMsgCountFlag bool
+	p2pChatCount                string // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+	p2pChatCountFlag            bool
+	talkedChatCount             string // 2022全年用户有过发言的飞书群的数量
+	talkedChatCountFlag         bool
+	positiveReactionCount       string // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+	positiveReactionCountFlag   bool
+	firstPositiveReaction       string // 用户所收到的正向表情回复，排第1的表情
+	firstPositiveReactionFlag   bool
+	secondPositiveReaction      string // 用户所收到的正向表情回复，排第2的表情
+	secondPositiveReactionFlag  bool
+	thirdPositiveReaction       string // 用户所收到的正向表情回复，排第3的表情
+	thirdPositiveReactionFlag   bool
+	fourthPositiveReaction      string // 用户所收到的正向表情回复，排第4的表情
+	fourthPositiveReactionFlag  bool
+	fifthPositiveReaction       string // 用户所收到的正向表情回复，排第5的表情
+	fifthPositiveReactionFlag   bool
+	createFileCount             string // 2022全年用户本人创建过的飞书文档数量
+	createFileCountFlag         bool
+	createdFileViewCount        string // 此用户2022年创建的飞书文档的总阅读人数（含自己）
+	createdFileViewCountFlag    bool
+	commentFileCount            string // 2022全年用户发表过评论的飞书文档数量
+	commentFileCountFlag        bool
+	attendEventCount            string // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+	attendEventCountFlag        bool
+	eventBusyDate               string // 2022全年用户日程数量最多的一天，yyyyMMdd格式
+	eventBusyDateFlag           bool
+	eventBusyDateEventCount     string // 日程最多一天的日程数量
+	eventBusyDateEventCountFlag bool
+	eventStartTimeRange1        string // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+	eventStartTimeRange1Flag    bool
+	conferenceCreateCount       string // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+	conferenceCreateCountFlag   bool
+	totalPartiCount             string // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+	totalPartiCountFlag         bool
+	okrCumOCount                string // 2022全年此用户写过的O的数量（未删除）
+	okrCumOCountFlag            bool
+	okrCumKrCount               string // 2022全年此用户写过的KR的数量（未删除）
+	okrCumKrCountFlag           bool
+	okrAlignedUserCount         string // 2022全年用户所写的OKR对齐过的去重人数（未删除）
+	okrAlignedUserCountFlag     bool
+	peopleInterviewNum          string // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+	peopleInterviewNumFlag      bool
+	sendEmailCount              string // 2022全年此用户发出邮件数量
+	sendEmailCountFlag          bool
+	receiveEmailCount           string // 2022全年此用户收到邮件数量
+	receiveEmailCountFlag       bool
+}
+
+func NewUserReport2022Builder() *UserReport2022Builder {
+	builder := &UserReport2022Builder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+func (builder *UserReport2022Builder) UserId(userId string) *UserReport2022Builder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+//
+// 示例值：20220726
+func (builder *UserReport2022Builder) UserRegisterDate(userRegisterDate string) *UserReport2022Builder {
+	builder.userRegisterDate = userRegisterDate
+	builder.userRegisterDateFlag = true
+	return builder
+}
+
+// 用户2022年内在飞书有活跃的天数
+//
+// 示例值：120
+func (builder *UserReport2022Builder) ActiveDayCount(activeDayCount int) *UserReport2022Builder {
+	builder.activeDayCount = activeDayCount
+	builder.activeDayCountFlag = true
+	return builder
+}
+
+// 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+//
+// 示例值：20220817
+func (builder *UserReport2022Builder) MsgBusyDate(msgBusyDate string) *UserReport2022Builder {
+	builder.msgBusyDate = msgBusyDate
+	builder.msgBusyDateFlag = true
+	return builder
+}
+
+// 全年发消息最多一天，发出的消息数
+//
+// 示例值：588
+func (builder *UserReport2022Builder) MsgBusyDateSendMsgCount(msgBusyDateSendMsgCount string) *UserReport2022Builder {
+	builder.msgBusyDateSendMsgCount = msgBusyDateSendMsgCount
+	builder.msgBusyDateSendMsgCountFlag = true
+	return builder
+}
+
+// 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+//
+// 示例值：22
+func (builder *UserReport2022Builder) P2pChatCount(p2pChatCount string) *UserReport2022Builder {
+	builder.p2pChatCount = p2pChatCount
+	builder.p2pChatCountFlag = true
+	return builder
+}
+
+// 2022全年用户有过发言的飞书群的数量
+//
+// 示例值：18
+func (builder *UserReport2022Builder) TalkedChatCount(talkedChatCount string) *UserReport2022Builder {
+	builder.talkedChatCount = talkedChatCount
+	builder.talkedChatCountFlag = true
+	return builder
+}
+
+// 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+//
+// 示例值：100
+func (builder *UserReport2022Builder) PositiveReactionCount(positiveReactionCount string) *UserReport2022Builder {
+	builder.positiveReactionCount = positiveReactionCount
+	builder.positiveReactionCountFlag = true
+	return builder
+}
+
+// 用户所收到的正向表情回复，排第1的表情
+//
+// 示例值：thumbsup
+func (builder *UserReport2022Builder) FirstPositiveReaction(firstPositiveReaction string) *UserReport2022Builder {
+	builder.firstPositiveReaction = firstPositiveReaction
+	builder.firstPositiveReactionFlag = true
+	return builder
+}
+
+// 用户所收到的正向表情回复，排第2的表情
+//
+// 示例值：muscle
+func (builder *UserReport2022Builder) SecondPositiveReaction(secondPositiveReaction string) *UserReport2022Builder {
+	builder.secondPositiveReaction = secondPositiveReaction
+	builder.secondPositiveReactionFlag = true
+	return builder
+}
+
+// 用户所收到的正向表情回复，排第3的表情
+//
+// 示例值：fingerheart
+func (builder *UserReport2022Builder) ThirdPositiveReaction(thirdPositiveReaction string) *UserReport2022Builder {
+	builder.thirdPositiveReaction = thirdPositiveReaction
+	builder.thirdPositiveReactionFlag = true
+	return builder
+}
+
+// 用户所收到的正向表情回复，排第4的表情
+//
+// 示例值：applaud
+func (builder *UserReport2022Builder) FourthPositiveReaction(fourthPositiveReaction string) *UserReport2022Builder {
+	builder.fourthPositiveReaction = fourthPositiveReaction
+	builder.fourthPositiveReactionFlag = true
+	return builder
+}
+
+// 用户所收到的正向表情回复，排第5的表情
+//
+// 示例值：fistbump
+func (builder *UserReport2022Builder) FifthPositiveReaction(fifthPositiveReaction string) *UserReport2022Builder {
+	builder.fifthPositiveReaction = fifthPositiveReaction
+	builder.fifthPositiveReactionFlag = true
+	return builder
+}
+
+// 2022全年用户本人创建过的飞书文档数量
+//
+// 示例值：12
+func (builder *UserReport2022Builder) CreateFileCount(createFileCount string) *UserReport2022Builder {
+	builder.createFileCount = createFileCount
+	builder.createFileCountFlag = true
+	return builder
+}
+
+// 此用户2022年创建的飞书文档的总阅读人数（含自己）
+//
+// 示例值：11
+func (builder *UserReport2022Builder) CreatedFileViewCount(createdFileViewCount string) *UserReport2022Builder {
+	builder.createdFileViewCount = createdFileViewCount
+	builder.createdFileViewCountFlag = true
+	return builder
+}
+
+// 2022全年用户发表过评论的飞书文档数量
+//
+// 示例值：11
+func (builder *UserReport2022Builder) CommentFileCount(commentFileCount string) *UserReport2022Builder {
+	builder.commentFileCount = commentFileCount
+	builder.commentFileCountFlag = true
+	return builder
+}
+
+// 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+//
+// 示例值：123
+func (builder *UserReport2022Builder) AttendEventCount(attendEventCount string) *UserReport2022Builder {
+	builder.attendEventCount = attendEventCount
+	builder.attendEventCountFlag = true
+	return builder
+}
+
+// 2022全年用户日程数量最多的一天，yyyyMMdd格式
+//
+// 示例值：20220801
+func (builder *UserReport2022Builder) EventBusyDate(eventBusyDate string) *UserReport2022Builder {
+	builder.eventBusyDate = eventBusyDate
+	builder.eventBusyDateFlag = true
+	return builder
+}
+
+// 日程最多一天的日程数量
+//
+// 示例值：123
+func (builder *UserReport2022Builder) EventBusyDateEventCount(eventBusyDateEventCount string) *UserReport2022Builder {
+	builder.eventBusyDateEventCount = eventBusyDateEventCount
+	builder.eventBusyDateEventCountFlag = true
+	return builder
+}
+
+// 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+//
+// 示例值：10:00
+func (builder *UserReport2022Builder) EventStartTimeRange1(eventStartTimeRange1 string) *UserReport2022Builder {
+	builder.eventStartTimeRange1 = eventStartTimeRange1
+	builder.eventStartTimeRange1Flag = true
+	return builder
+}
+
+// 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+//
+// 示例值：123
+func (builder *UserReport2022Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2022Builder {
+	builder.conferenceCreateCount = conferenceCreateCount
+	builder.conferenceCreateCountFlag = true
+	return builder
+}
+
+// 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+//
+// 示例值：123
+func (builder *UserReport2022Builder) TotalPartiCount(totalPartiCount string) *UserReport2022Builder {
+	builder.totalPartiCount = totalPartiCount
+	builder.totalPartiCountFlag = true
+	return builder
+}
+
+// 2022全年此用户写过的O的数量（未删除）
+//
+// 示例值：123
+func (builder *UserReport2022Builder) OkrCumOCount(okrCumOCount string) *UserReport2022Builder {
+	builder.okrCumOCount = okrCumOCount
+	builder.okrCumOCountFlag = true
+	return builder
+}
+
+// 2022全年此用户写过的KR的数量（未删除）
+//
+// 示例值：123
+func (builder *UserReport2022Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2022Builder {
+	builder.okrCumKrCount = okrCumKrCount
+	builder.okrCumKrCountFlag = true
+	return builder
+}
+
+// 2022全年用户所写的OKR对齐过的去重人数（未删除）
+//
+// 示例值：123
+func (builder *UserReport2022Builder) OkrAlignedUserCount(okrAlignedUserCount string) *UserReport2022Builder {
+	builder.okrAlignedUserCount = okrAlignedUserCount
+	builder.okrAlignedUserCountFlag = true
+	return builder
+}
+
+// 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+//
+// 示例值：123
+func (builder *UserReport2022Builder) PeopleInterviewNum(peopleInterviewNum string) *UserReport2022Builder {
+	builder.peopleInterviewNum = peopleInterviewNum
+	builder.peopleInterviewNumFlag = true
+	return builder
+}
+
+// 2022全年此用户发出邮件数量
+//
+// 示例值：123
+func (builder *UserReport2022Builder) SendEmailCount(sendEmailCount string) *UserReport2022Builder {
+	builder.sendEmailCount = sendEmailCount
+	builder.sendEmailCountFlag = true
+	return builder
+}
+
+// 2022全年此用户收到邮件数量
+//
+// 示例值：123
+func (builder *UserReport2022Builder) ReceiveEmailCount(receiveEmailCount string) *UserReport2022Builder {
+	builder.receiveEmailCount = receiveEmailCount
+	builder.receiveEmailCountFlag = true
+	return builder
+}
+
+func (builder *UserReport2022Builder) Build() *UserReport2022 {
+	req := &UserReport2022{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userRegisterDateFlag {
+		req.UserRegisterDate = &builder.userRegisterDate
+
+	}
+	if builder.activeDayCountFlag {
+		req.ActiveDayCount = &builder.activeDayCount
+
+	}
+	if builder.msgBusyDateFlag {
+		req.MsgBusyDate = &builder.msgBusyDate
+
+	}
+	if builder.msgBusyDateSendMsgCountFlag {
+		req.MsgBusyDateSendMsgCount = &builder.msgBusyDateSendMsgCount
+
+	}
+	if builder.p2pChatCountFlag {
+		req.P2pChatCount = &builder.p2pChatCount
+
+	}
+	if builder.talkedChatCountFlag {
+		req.TalkedChatCount = &builder.talkedChatCount
+
+	}
+	if builder.positiveReactionCountFlag {
+		req.PositiveReactionCount = &builder.positiveReactionCount
+
+	}
+	if builder.firstPositiveReactionFlag {
+		req.FirstPositiveReaction = &builder.firstPositiveReaction
+
+	}
+	if builder.secondPositiveReactionFlag {
+		req.SecondPositiveReaction = &builder.secondPositiveReaction
+
+	}
+	if builder.thirdPositiveReactionFlag {
+		req.ThirdPositiveReaction = &builder.thirdPositiveReaction
+
+	}
+	if builder.fourthPositiveReactionFlag {
+		req.FourthPositiveReaction = &builder.fourthPositiveReaction
+
+	}
+	if builder.fifthPositiveReactionFlag {
+		req.FifthPositiveReaction = &builder.fifthPositiveReaction
+
+	}
+	if builder.createFileCountFlag {
+		req.CreateFileCount = &builder.createFileCount
+
+	}
+	if builder.createdFileViewCountFlag {
+		req.CreatedFileViewCount = &builder.createdFileViewCount
+
+	}
+	if builder.commentFileCountFlag {
+		req.CommentFileCount = &builder.commentFileCount
+
+	}
+	if builder.attendEventCountFlag {
+		req.AttendEventCount = &builder.attendEventCount
+
+	}
+	if builder.eventBusyDateFlag {
+		req.EventBusyDate = &builder.eventBusyDate
+
+	}
+	if builder.eventBusyDateEventCountFlag {
+		req.EventBusyDateEventCount = &builder.eventBusyDateEventCount
+
+	}
+	if builder.eventStartTimeRange1Flag {
+		req.EventStartTimeRange1 = &builder.eventStartTimeRange1
+
+	}
+	if builder.conferenceCreateCountFlag {
+		req.ConferenceCreateCount = &builder.conferenceCreateCount
+
+	}
+	if builder.totalPartiCountFlag {
+		req.TotalPartiCount = &builder.totalPartiCount
+
+	}
+	if builder.okrCumOCountFlag {
+		req.OkrCumOCount = &builder.okrCumOCount
+
+	}
+	if builder.okrCumKrCountFlag {
+		req.OkrCumKrCount = &builder.okrCumKrCount
+
+	}
+	if builder.okrAlignedUserCountFlag {
+		req.OkrAlignedUserCount = &builder.okrAlignedUserCount
+
+	}
+	if builder.peopleInterviewNumFlag {
+		req.PeopleInterviewNum = &builder.peopleInterviewNum
+
+	}
+	if builder.sendEmailCountFlag {
+		req.SendEmailCount = &builder.sendEmailCount
+
+	}
+	if builder.receiveEmailCountFlag {
+		req.ReceiveEmailCount = &builder.receiveEmailCount
 
 	}
 	return req

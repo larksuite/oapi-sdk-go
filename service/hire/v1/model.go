@@ -67,6 +67,12 @@ const (
 )
 
 const (
+	State导入成功 = 1 // 导入成功
+	State导入失败 = 2 // 导入失败
+
+)
+
+const (
 	UserIdTypeGetEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
 	UserIdTypeGetEmployeeUnionId = "union_id" // 以 union_id 来识别用户
 	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
@@ -109,6 +115,43 @@ const (
 )
 
 const (
+	ProcessType社招 = 1 // 社招
+	ProcessType校招 = 2 // 校招
+
+)
+
+const (
+	RequiredDegree小学及以上 = 1  // 小学及以上
+	RequiredDegree初中及以上 = 2  // 初中及以上
+	RequiredDegree专职及以上 = 3  // 专职及以上
+	RequiredDegree高中及以上 = 4  // 高中及以上
+	RequiredDegree大专及以上 = 5  // 大专及以上
+	RequiredDegree本科及以上 = 6  // 本科及以上
+	RequiredDegree硕士及以上 = 7  // 硕士及以上
+	RequiredDegree博士及以上 = 8  // 博士及以上
+	RequiredDegree不限    = 20 // 不限
+
+)
+
+const (
+	UserIdTypeCombinedCreateJobUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCombinedCreateJobUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCombinedCreateJobOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeCombinedCreateJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeCombinedCreateJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	UserIdTypeConfigJobUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeConfigJobUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeConfigJobOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeConfigJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
 	UserIdTypeGetJobUserId        = "user_id"         // 以user_id来识别用户
 	UserIdTypeGetJobUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeGetJobOpenId        = "open_id"         // 以open_id来识别用户
@@ -118,6 +161,12 @@ const (
 const (
 	DepartmentIdTypeGetJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeGetJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	UserIdTypeUpdateConfigJobUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateConfigJobUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateConfigJobOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -9628,6 +9677,562 @@ func (builder *EcoBackgroundCheckReportFileBuilder) Build() *EcoBackgroundCheckR
 	return req
 }
 
+type EcoExamCreateEventCandidateInfo struct {
+	Name   *string                   `json:"name,omitempty"`   // 候选人姓名
+	Mobile *EcoExamCreateEventMobile `json:"mobile,omitempty"` // 候选人手机号
+	Email  *string                   `json:"email,omitempty"`  // 候选人邮箱
+}
+
+type EcoExamCreateEventCandidateInfoBuilder struct {
+	name       string // 候选人姓名
+	nameFlag   bool
+	mobile     *EcoExamCreateEventMobile // 候选人手机号
+	mobileFlag bool
+	email      string // 候选人邮箱
+	emailFlag  bool
+}
+
+func NewEcoExamCreateEventCandidateInfoBuilder() *EcoExamCreateEventCandidateInfoBuilder {
+	builder := &EcoExamCreateEventCandidateInfoBuilder{}
+	return builder
+}
+
+// 候选人姓名
+//
+// 示例值：王二
+func (builder *EcoExamCreateEventCandidateInfoBuilder) Name(name string) *EcoExamCreateEventCandidateInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 候选人手机号
+//
+// 示例值：
+func (builder *EcoExamCreateEventCandidateInfoBuilder) Mobile(mobile *EcoExamCreateEventMobile) *EcoExamCreateEventCandidateInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 候选人邮箱
+//
+// 示例值：xxx@abc.vom
+func (builder *EcoExamCreateEventCandidateInfoBuilder) Email(email string) *EcoExamCreateEventCandidateInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *EcoExamCreateEventCandidateInfoBuilder) Build() *EcoExamCreateEventCandidateInfo {
+	req := &EcoExamCreateEventCandidateInfo{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = builder.mobile
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+type EcoExamCreateEventMobile struct {
+	Code   *string `json:"code,omitempty"`   // 国家代码
+	Number *string `json:"number,omitempty"` // 手机号码
+}
+
+type EcoExamCreateEventMobileBuilder struct {
+	code       string // 国家代码
+	codeFlag   bool
+	number     string // 手机号码
+	numberFlag bool
+}
+
+func NewEcoExamCreateEventMobileBuilder() *EcoExamCreateEventMobileBuilder {
+	builder := &EcoExamCreateEventMobileBuilder{}
+	return builder
+}
+
+// 国家代码
+//
+// 示例值：86
+func (builder *EcoExamCreateEventMobileBuilder) Code(code string) *EcoExamCreateEventMobileBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 手机号码
+//
+// 示例值：18900001111
+func (builder *EcoExamCreateEventMobileBuilder) Number(number string) *EcoExamCreateEventMobileBuilder {
+	builder.number = number
+	builder.numberFlag = true
+	return builder
+}
+
+func (builder *EcoExamCreateEventMobileBuilder) Build() *EcoExamCreateEventMobile {
+	req := &EcoExamCreateEventMobile{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.numberFlag {
+		req.Number = &builder.number
+
+	}
+	return req
+}
+
+type EcoExamLoginInfo struct {
+	ExamId   *string `json:"exam_id,omitempty"`  // 笔试 ID
+	ExamUrl  *string `json:"exam_url,omitempty"` // 笔试链接
+	Username *string `json:"username,omitempty"` // 用户名
+	Password *string `json:"password,omitempty"` // 密码
+}
+
+type EcoExamLoginInfoBuilder struct {
+	examId       string // 笔试 ID
+	examIdFlag   bool
+	examUrl      string // 笔试链接
+	examUrlFlag  bool
+	username     string // 用户名
+	usernameFlag bool
+	password     string // 密码
+	passwordFlag bool
+}
+
+func NewEcoExamLoginInfoBuilder() *EcoExamLoginInfoBuilder {
+	builder := &EcoExamLoginInfoBuilder{}
+	return builder
+}
+
+// 笔试 ID
+//
+// 示例值：exam001
+func (builder *EcoExamLoginInfoBuilder) ExamId(examId string) *EcoExamLoginInfoBuilder {
+	builder.examId = examId
+	builder.examIdFlag = true
+	return builder
+}
+
+// 笔试链接
+//
+// 示例值：https://xxxx/xxxx/xxxx
+func (builder *EcoExamLoginInfoBuilder) ExamUrl(examUrl string) *EcoExamLoginInfoBuilder {
+	builder.examUrl = examUrl
+	builder.examUrlFlag = true
+	return builder
+}
+
+// 用户名
+//
+// 示例值：waxsdfbhg
+func (builder *EcoExamLoginInfoBuilder) Username(username string) *EcoExamLoginInfoBuilder {
+	builder.username = username
+	builder.usernameFlag = true
+	return builder
+}
+
+// 密码
+//
+// 示例值：xxxxxx
+func (builder *EcoExamLoginInfoBuilder) Password(password string) *EcoExamLoginInfoBuilder {
+	builder.password = password
+	builder.passwordFlag = true
+	return builder
+}
+
+func (builder *EcoExamLoginInfoBuilder) Build() *EcoExamLoginInfo {
+	req := &EcoExamLoginInfo{}
+	if builder.examIdFlag {
+		req.ExamId = &builder.examId
+
+	}
+	if builder.examUrlFlag {
+		req.ExamUrl = &builder.examUrl
+
+	}
+	if builder.usernameFlag {
+		req.Username = &builder.username
+
+	}
+	if builder.passwordFlag {
+		req.Password = &builder.password
+
+	}
+	return req
+}
+
+type EcoExamPaper struct {
+	AccountId *string             `json:"account_id,omitempty"` // 账号 ID，可在「账号绑定」事件中获取
+	PaperList []*EcoExamPaperData `json:"paper_list,omitempty"` // 试卷列表
+}
+
+type EcoExamPaperBuilder struct {
+	accountId     string // 账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag bool
+	paperList     []*EcoExamPaperData // 试卷列表
+	paperListFlag bool
+}
+
+func NewEcoExamPaperBuilder() *EcoExamPaperBuilder {
+	builder := &EcoExamPaperBuilder{}
+	return builder
+}
+
+// 账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：7147998241542539527
+func (builder *EcoExamPaperBuilder) AccountId(accountId string) *EcoExamPaperBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 试卷列表
+//
+// 示例值：
+func (builder *EcoExamPaperBuilder) PaperList(paperList []*EcoExamPaperData) *EcoExamPaperBuilder {
+	builder.paperList = paperList
+	builder.paperListFlag = true
+	return builder
+}
+
+func (builder *EcoExamPaperBuilder) Build() *EcoExamPaper {
+	req := &EcoExamPaper{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+
+	}
+	if builder.paperListFlag {
+		req.PaperList = builder.paperList
+	}
+	return req
+}
+
+type EcoExamPaperData struct {
+	Id            *string `json:"id,omitempty"`             // 试卷 ID
+	Name          *string `json:"name,omitempty"`           // 试卷名称
+	Duration      *int    `json:"duration,omitempty"`       // 考试时长（分钟）
+	QuestionCount *int    `json:"question_count,omitempty"` // 试卷题目数量
+	StartTime     *string `json:"start_time,omitempty"`     // 开始时间，留空或不传表示不限制开始时间
+	EndTime       *string `json:"end_time,omitempty"`       // 结束时间，留空或不传表示不限制结束时间
+}
+
+type EcoExamPaperDataBuilder struct {
+	id                string // 试卷 ID
+	idFlag            bool
+	name              string // 试卷名称
+	nameFlag          bool
+	duration          int // 考试时长（分钟）
+	durationFlag      bool
+	questionCount     int // 试卷题目数量
+	questionCountFlag bool
+	startTime         string // 开始时间，留空或不传表示不限制开始时间
+	startTimeFlag     bool
+	endTime           string // 结束时间，留空或不传表示不限制结束时间
+	endTimeFlag       bool
+}
+
+func NewEcoExamPaperDataBuilder() *EcoExamPaperDataBuilder {
+	builder := &EcoExamPaperDataBuilder{}
+	return builder
+}
+
+// 试卷 ID
+//
+// 示例值：7147998241542539527
+func (builder *EcoExamPaperDataBuilder) Id(id string) *EcoExamPaperDataBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 试卷名称
+//
+// 示例值：春季测评
+func (builder *EcoExamPaperDataBuilder) Name(name string) *EcoExamPaperDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 考试时长（分钟）
+//
+// 示例值：30
+func (builder *EcoExamPaperDataBuilder) Duration(duration int) *EcoExamPaperDataBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+
+// 试卷题目数量
+//
+// 示例值：30
+func (builder *EcoExamPaperDataBuilder) QuestionCount(questionCount int) *EcoExamPaperDataBuilder {
+	builder.questionCount = questionCount
+	builder.questionCountFlag = true
+	return builder
+}
+
+// 开始时间，留空或不传表示不限制开始时间
+//
+// 示例值：1658676234053
+func (builder *EcoExamPaperDataBuilder) StartTime(startTime string) *EcoExamPaperDataBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 结束时间，留空或不传表示不限制结束时间
+//
+// 示例值：1672444800000
+func (builder *EcoExamPaperDataBuilder) EndTime(endTime string) *EcoExamPaperDataBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *EcoExamPaperDataBuilder) Build() *EcoExamPaperData {
+	req := &EcoExamPaperData{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	if builder.questionCountFlag {
+		req.QuestionCount = &builder.questionCount
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
+type EcoExamResult struct {
+	ExamId     *string                `json:"exam_id,omitempty"`     // 笔试 ID
+	Result     *string                `json:"result,omitempty"`      // 笔试结果
+	ResultTime *string                `json:"result_time,omitempty"` // 笔试结果时间
+	ReportList []*EcoExamResultReport `json:"report_list,omitempty"` // 报告列表
+	DetailList []*EcoExamResultDetail `json:"detail_list,omitempty"` // 详细评价结果
+}
+
+type EcoExamResultBuilder struct {
+	examId         string // 笔试 ID
+	examIdFlag     bool
+	result         string // 笔试结果
+	resultFlag     bool
+	resultTime     string // 笔试结果时间
+	resultTimeFlag bool
+	reportList     []*EcoExamResultReport // 报告列表
+	reportListFlag bool
+	detailList     []*EcoExamResultDetail // 详细评价结果
+	detailListFlag bool
+}
+
+func NewEcoExamResultBuilder() *EcoExamResultBuilder {
+	builder := &EcoExamResultBuilder{}
+	return builder
+}
+
+// 笔试 ID
+//
+// 示例值：exam001
+func (builder *EcoExamResultBuilder) ExamId(examId string) *EcoExamResultBuilder {
+	builder.examId = examId
+	builder.examIdFlag = true
+	return builder
+}
+
+// 笔试结果
+//
+// 示例值：60.5
+func (builder *EcoExamResultBuilder) Result(result string) *EcoExamResultBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 笔试结果时间
+//
+// 示例值：1658676234053
+func (builder *EcoExamResultBuilder) ResultTime(resultTime string) *EcoExamResultBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+// 示例值：
+func (builder *EcoExamResultBuilder) ReportList(reportList []*EcoExamResultReport) *EcoExamResultBuilder {
+	builder.reportList = reportList
+	builder.reportListFlag = true
+	return builder
+}
+
+// 详细评价结果
+//
+// 示例值：
+func (builder *EcoExamResultBuilder) DetailList(detailList []*EcoExamResultDetail) *EcoExamResultBuilder {
+	builder.detailList = detailList
+	builder.detailListFlag = true
+	return builder
+}
+
+func (builder *EcoExamResultBuilder) Build() *EcoExamResult {
+	req := &EcoExamResult{}
+	if builder.examIdFlag {
+		req.ExamId = &builder.examId
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+
+	}
+	if builder.reportListFlag {
+		req.ReportList = builder.reportList
+	}
+	if builder.detailListFlag {
+		req.DetailList = builder.detailList
+	}
+	return req
+}
+
+type EcoExamResultDetail struct {
+	Id     *string `json:"id,omitempty"`     // 评价 ID
+	Name   *string `json:"name,omitempty"`   // 评价名称
+	Result *string `json:"result,omitempty"` // 评价结果
+}
+
+type EcoExamResultDetailBuilder struct {
+	id         string // 评价 ID
+	idFlag     bool
+	name       string // 评价名称
+	nameFlag   bool
+	result     string // 评价结果
+	resultFlag bool
+}
+
+func NewEcoExamResultDetailBuilder() *EcoExamResultDetailBuilder {
+	builder := &EcoExamResultDetailBuilder{}
+	return builder
+}
+
+// 评价 ID
+//
+// 示例值：pj001
+func (builder *EcoExamResultDetailBuilder) Id(id string) *EcoExamResultDetailBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 评价名称
+//
+// 示例值：基本功
+func (builder *EcoExamResultDetailBuilder) Name(name string) *EcoExamResultDetailBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 评价结果
+//
+// 示例值：优秀
+func (builder *EcoExamResultDetailBuilder) Result(result string) *EcoExamResultDetailBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+func (builder *EcoExamResultDetailBuilder) Build() *EcoExamResultDetail {
+	req := &EcoExamResultDetail{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	return req
+}
+
+type EcoExamResultReport struct {
+	Name *string `json:"name,omitempty"` // 报告名称
+	Url  *string `json:"url,omitempty"`  // 报告链接
+}
+
+type EcoExamResultReportBuilder struct {
+	name     string // 报告名称
+	nameFlag bool
+	url      string // 报告链接
+	urlFlag  bool
+}
+
+func NewEcoExamResultReportBuilder() *EcoExamResultReportBuilder {
+	builder := &EcoExamResultReportBuilder{}
+	return builder
+}
+
+// 报告名称
+//
+// 示例值：阶段报告.pdf
+func (builder *EcoExamResultReportBuilder) Name(name string) *EcoExamResultReportBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 报告链接
+//
+// 示例值：https://xxxxx/xxxxxx/xxxx.pdf
+func (builder *EcoExamResultReportBuilder) Url(url string) *EcoExamResultReportBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *EcoExamResultReportBuilder) Build() *EcoExamResultReport {
+	req := &EcoExamResultReport{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
 type EducationInfo struct {
 	Degree          *int    `json:"degree,omitempty"`           // 学历
 	EndTime         *int    `json:"end_time,omitempty"`         // 结束时间
@@ -12011,6 +12616,260 @@ func (builder *InterviewAddressBuilder) Build() *InterviewAddress {
 	}
 	if builder.countryFlag {
 		req.Country = builder.country
+	}
+	return req
+}
+
+type InterviewAppointmentConfig struct {
+	EnableInterviewAppointmentByInterviewer *bool                              `json:"enable_interview_appointment_by_interviewer,omitempty"` // 是否开启面试官自助约面
+	Config                                  *InterviewAppointmentConfigContent `json:"config,omitempty"`                                      // 配置详情
+}
+
+type InterviewAppointmentConfigBuilder struct {
+	enableInterviewAppointmentByInterviewer     bool // 是否开启面试官自助约面
+	enableInterviewAppointmentByInterviewerFlag bool
+	config                                      *InterviewAppointmentConfigContent // 配置详情
+	configFlag                                  bool
+}
+
+func NewInterviewAppointmentConfigBuilder() *InterviewAppointmentConfigBuilder {
+	builder := &InterviewAppointmentConfigBuilder{}
+	return builder
+}
+
+// 是否开启面试官自助约面
+//
+// 示例值：true
+func (builder *InterviewAppointmentConfigBuilder) EnableInterviewAppointmentByInterviewer(enableInterviewAppointmentByInterviewer bool) *InterviewAppointmentConfigBuilder {
+	builder.enableInterviewAppointmentByInterviewer = enableInterviewAppointmentByInterviewer
+	builder.enableInterviewAppointmentByInterviewerFlag = true
+	return builder
+}
+
+// 配置详情
+//
+// 示例值：
+func (builder *InterviewAppointmentConfigBuilder) Config(config *InterviewAppointmentConfigContent) *InterviewAppointmentConfigBuilder {
+	builder.config = config
+	builder.configFlag = true
+	return builder
+}
+
+func (builder *InterviewAppointmentConfigBuilder) Build() *InterviewAppointmentConfig {
+	req := &InterviewAppointmentConfig{}
+	if builder.enableInterviewAppointmentByInterviewerFlag {
+		req.EnableInterviewAppointmentByInterviewer = &builder.enableInterviewAppointmentByInterviewer
+
+	}
+	if builder.configFlag {
+		req.Config = builder.config
+	}
+	return req
+}
+
+type InterviewAppointmentConfigContent struct {
+	InterviewType                         *int     `json:"interview_type,omitempty"`                            // 面试类型
+	TalentTimezoneCode                    *string  `json:"talent_timezone_code,omitempty"`                      // 时区
+	ContactUserId                         *string  `json:"contact_user_id,omitempty"`                           // 联系人id
+	ContactMobile                         *string  `json:"contact_mobile,omitempty"`                            // 联系人电话
+	ContactEmail                          *string  `json:"contact_email,omitempty"`                             // 联系人邮箱
+	AddressId                             *string  `json:"address_id,omitempty"`                                // 地址id
+	VideoType                             *int     `json:"video_type,omitempty"`                                // 地址id
+	Cc                                    []string `json:"cc,omitempty"`                                        // 抄送人id lsit
+	Remark                                *string  `json:"remark,omitempty"`                                    // 备注
+	InterviewNotificationTemplateId       *string  `json:"interview_notification_template_id,omitempty"`        // 面试通知模板
+	AppointmentNotificationTemplateId     *string  `json:"appointment_notification_template_id,omitempty"`      // 预约通知模板
+	CancelInterviewNotificationTemplateId *string  `json:"cancel_interview_notification_template_id,omitempty"` // 取消面试通知
+}
+
+type InterviewAppointmentConfigContentBuilder struct {
+	interviewType                             int // 面试类型
+	interviewTypeFlag                         bool
+	talentTimezoneCode                        string // 时区
+	talentTimezoneCodeFlag                    bool
+	contactUserId                             string // 联系人id
+	contactUserIdFlag                         bool
+	contactMobile                             string // 联系人电话
+	contactMobileFlag                         bool
+	contactEmail                              string // 联系人邮箱
+	contactEmailFlag                          bool
+	addressId                                 string // 地址id
+	addressIdFlag                             bool
+	videoType                                 int // 地址id
+	videoTypeFlag                             bool
+	cc                                        []string // 抄送人id lsit
+	ccFlag                                    bool
+	remark                                    string // 备注
+	remarkFlag                                bool
+	interviewNotificationTemplateId           string // 面试通知模板
+	interviewNotificationTemplateIdFlag       bool
+	appointmentNotificationTemplateId         string // 预约通知模板
+	appointmentNotificationTemplateIdFlag     bool
+	cancelInterviewNotificationTemplateId     string // 取消面试通知
+	cancelInterviewNotificationTemplateIdFlag bool
+}
+
+func NewInterviewAppointmentConfigContentBuilder() *InterviewAppointmentConfigContentBuilder {
+	builder := &InterviewAppointmentConfigContentBuilder{}
+	return builder
+}
+
+// 面试类型
+//
+// 示例值：
+func (builder *InterviewAppointmentConfigContentBuilder) InterviewType(interviewType int) *InterviewAppointmentConfigContentBuilder {
+	builder.interviewType = interviewType
+	builder.interviewTypeFlag = true
+	return builder
+}
+
+// 时区
+//
+// 示例值：Asia/Shanghai
+func (builder *InterviewAppointmentConfigContentBuilder) TalentTimezoneCode(talentTimezoneCode string) *InterviewAppointmentConfigContentBuilder {
+	builder.talentTimezoneCode = talentTimezoneCode
+	builder.talentTimezoneCodeFlag = true
+	return builder
+}
+
+// 联系人id
+//
+// 示例值：ou_c99c5f35d542efc7ee492afe11af19ef
+func (builder *InterviewAppointmentConfigContentBuilder) ContactUserId(contactUserId string) *InterviewAppointmentConfigContentBuilder {
+	builder.contactUserId = contactUserId
+	builder.contactUserIdFlag = true
+	return builder
+}
+
+// 联系人电话
+//
+// 示例值：
+func (builder *InterviewAppointmentConfigContentBuilder) ContactMobile(contactMobile string) *InterviewAppointmentConfigContentBuilder {
+	builder.contactMobile = contactMobile
+	builder.contactMobileFlag = true
+	return builder
+}
+
+// 联系人邮箱
+//
+// 示例值：
+func (builder *InterviewAppointmentConfigContentBuilder) ContactEmail(contactEmail string) *InterviewAppointmentConfigContentBuilder {
+	builder.contactEmail = contactEmail
+	builder.contactEmailFlag = true
+	return builder
+}
+
+// 地址id
+//
+// 示例值：6960663240925956576
+func (builder *InterviewAppointmentConfigContentBuilder) AddressId(addressId string) *InterviewAppointmentConfigContentBuilder {
+	builder.addressId = addressId
+	builder.addressIdFlag = true
+	return builder
+}
+
+// 地址id
+//
+// 示例值：
+func (builder *InterviewAppointmentConfigContentBuilder) VideoType(videoType int) *InterviewAppointmentConfigContentBuilder {
+	builder.videoType = videoType
+	builder.videoTypeFlag = true
+	return builder
+}
+
+// 抄送人id lsit
+//
+// 示例值：ou_c99c5f35d542efc7ee492afe11af19ef
+func (builder *InterviewAppointmentConfigContentBuilder) Cc(cc []string) *InterviewAppointmentConfigContentBuilder {
+	builder.cc = cc
+	builder.ccFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：备注
+func (builder *InterviewAppointmentConfigContentBuilder) Remark(remark string) *InterviewAppointmentConfigContentBuilder {
+	builder.remark = remark
+	builder.remarkFlag = true
+	return builder
+}
+
+// 面试通知模板
+//
+// 示例值：6960663240925956573
+func (builder *InterviewAppointmentConfigContentBuilder) InterviewNotificationTemplateId(interviewNotificationTemplateId string) *InterviewAppointmentConfigContentBuilder {
+	builder.interviewNotificationTemplateId = interviewNotificationTemplateId
+	builder.interviewNotificationTemplateIdFlag = true
+	return builder
+}
+
+// 预约通知模板
+//
+// 示例值：6960663240925956573
+func (builder *InterviewAppointmentConfigContentBuilder) AppointmentNotificationTemplateId(appointmentNotificationTemplateId string) *InterviewAppointmentConfigContentBuilder {
+	builder.appointmentNotificationTemplateId = appointmentNotificationTemplateId
+	builder.appointmentNotificationTemplateIdFlag = true
+	return builder
+}
+
+// 取消面试通知
+//
+// 示例值：6960663240925956573
+func (builder *InterviewAppointmentConfigContentBuilder) CancelInterviewNotificationTemplateId(cancelInterviewNotificationTemplateId string) *InterviewAppointmentConfigContentBuilder {
+	builder.cancelInterviewNotificationTemplateId = cancelInterviewNotificationTemplateId
+	builder.cancelInterviewNotificationTemplateIdFlag = true
+	return builder
+}
+
+func (builder *InterviewAppointmentConfigContentBuilder) Build() *InterviewAppointmentConfigContent {
+	req := &InterviewAppointmentConfigContent{}
+	if builder.interviewTypeFlag {
+		req.InterviewType = &builder.interviewType
+
+	}
+	if builder.talentTimezoneCodeFlag {
+		req.TalentTimezoneCode = &builder.talentTimezoneCode
+
+	}
+	if builder.contactUserIdFlag {
+		req.ContactUserId = &builder.contactUserId
+
+	}
+	if builder.contactMobileFlag {
+		req.ContactMobile = &builder.contactMobile
+
+	}
+	if builder.contactEmailFlag {
+		req.ContactEmail = &builder.contactEmail
+
+	}
+	if builder.addressIdFlag {
+		req.AddressId = &builder.addressId
+
+	}
+	if builder.videoTypeFlag {
+		req.VideoType = &builder.videoType
+
+	}
+	if builder.ccFlag {
+		req.Cc = builder.cc
+	}
+	if builder.remarkFlag {
+		req.Remark = &builder.remark
+
+	}
+	if builder.interviewNotificationTemplateIdFlag {
+		req.InterviewNotificationTemplateId = &builder.interviewNotificationTemplateId
+
+	}
+	if builder.appointmentNotificationTemplateIdFlag {
+		req.AppointmentNotificationTemplateId = &builder.appointmentNotificationTemplateId
+
+	}
+	if builder.cancelInterviewNotificationTemplateIdFlag {
+		req.CancelInterviewNotificationTemplateId = &builder.cancelInterviewNotificationTemplateId
+
 	}
 	return req
 }
@@ -14601,6 +15460,7 @@ type JobConfig struct {
 	JrIdList                   []string                       `json:"jr_id_list,omitempty"`                     // 关联招聘需求，支持关联多个，枚举通过接口「获取招聘需求」获取
 	InterviewRoundTypeConfList []*JobConfigRoundType          `json:"interview_round_type_conf_list,omitempty"` // 面试轮次类型 ID 列表
 	RelatedJobIdList           []string                       `json:"related_job_id_list,omitempty"`            // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
+	InterviewAppointmentConfig *InterviewAppointmentConfig    `json:"interview_appointment_config,omitempty"`   // 自助约面配置
 }
 
 type JobConfigBuilder struct {
@@ -14622,6 +15482,8 @@ type JobConfigBuilder struct {
 	interviewRoundTypeConfListFlag bool
 	relatedJobIdList               []string // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
 	relatedJobIdListFlag           bool
+	interviewAppointmentConfig     *InterviewAppointmentConfig // 自助约面配置
+	interviewAppointmentConfigFlag bool
 }
 
 func NewJobConfigBuilder() *JobConfigBuilder {
@@ -14710,6 +15572,15 @@ func (builder *JobConfigBuilder) RelatedJobIdList(relatedJobIdList []string) *Jo
 	return builder
 }
 
+// 自助约面配置
+//
+// 示例值：
+func (builder *JobConfigBuilder) InterviewAppointmentConfig(interviewAppointmentConfig *InterviewAppointmentConfig) *JobConfigBuilder {
+	builder.interviewAppointmentConfig = interviewAppointmentConfig
+	builder.interviewAppointmentConfigFlag = true
+	return builder
+}
+
 func (builder *JobConfigBuilder) Build() *JobConfig {
 	req := &JobConfig{}
 	if builder.offerApplySchemaIdFlag {
@@ -14741,6 +15612,9 @@ func (builder *JobConfigBuilder) Build() *JobConfig {
 	}
 	if builder.relatedJobIdListFlag {
 		req.RelatedJobIdList = builder.relatedJobIdList
+	}
+	if builder.interviewAppointmentConfigFlag {
+		req.InterviewAppointmentConfig = builder.interviewAppointmentConfig
 	}
 	return req
 }
@@ -23844,21 +24718,27 @@ func (builder *TalentBasicInfoBuilder) Build() *TalentBasicInfo {
 }
 
 type TalentBatchInfo struct {
-	TalentId     *string `json:"talent_id,omitempty"`     // 人才 ID
-	MobileCode   *string `json:"mobile_code,omitempty"`   // 手机国家区号
-	MobileNumber *string `json:"mobile_number,omitempty"` // 手机号
-	Email        *string `json:"email,omitempty"`         // 邮箱
+	TalentId             *string `json:"talent_id,omitempty"`             // 人才 ID
+	MobileCode           *string `json:"mobile_code,omitempty"`           // 手机国家区号
+	MobileNumber         *string `json:"mobile_number,omitempty"`         // 手机号
+	Email                *string `json:"email,omitempty"`                 // 邮箱
+	IdentificationType   *int    `json:"identification_type,omitempty"`   // 证件类型，可参考招聘枚举常量 IdentificationType 枚举定义
+	IdentificationNumber *string `json:"identification_number,omitempty"` // 证件号
 }
 
 type TalentBatchInfoBuilder struct {
-	talentId         string // 人才 ID
-	talentIdFlag     bool
-	mobileCode       string // 手机国家区号
-	mobileCodeFlag   bool
-	mobileNumber     string // 手机号
-	mobileNumberFlag bool
-	email            string // 邮箱
-	emailFlag        bool
+	talentId                 string // 人才 ID
+	talentIdFlag             bool
+	mobileCode               string // 手机国家区号
+	mobileCodeFlag           bool
+	mobileNumber             string // 手机号
+	mobileNumberFlag         bool
+	email                    string // 邮箱
+	emailFlag                bool
+	identificationType       int // 证件类型，可参考招聘枚举常量 IdentificationType 枚举定义
+	identificationTypeFlag   bool
+	identificationNumber     string // 证件号
+	identificationNumberFlag bool
 }
 
 func NewTalentBatchInfoBuilder() *TalentBatchInfoBuilder {
@@ -23902,6 +24782,24 @@ func (builder *TalentBatchInfoBuilder) Email(email string) *TalentBatchInfoBuild
 	return builder
 }
 
+// 证件类型，可参考招聘枚举常量 IdentificationType 枚举定义
+//
+// 示例值：1
+func (builder *TalentBatchInfoBuilder) IdentificationType(identificationType int) *TalentBatchInfoBuilder {
+	builder.identificationType = identificationType
+	builder.identificationTypeFlag = true
+	return builder
+}
+
+// 证件号
+//
+// 示例值：130xxxxxxxxx
+func (builder *TalentBatchInfoBuilder) IdentificationNumber(identificationNumber string) *TalentBatchInfoBuilder {
+	builder.identificationNumber = identificationNumber
+	builder.identificationNumberFlag = true
+	return builder
+}
+
 func (builder *TalentBatchInfoBuilder) Build() *TalentBatchInfo {
 	req := &TalentBatchInfo{}
 	if builder.talentIdFlag {
@@ -23918,6 +24816,14 @@ func (builder *TalentBatchInfoBuilder) Build() *TalentBatchInfo {
 	}
 	if builder.emailFlag {
 		req.Email = &builder.email
+
+	}
+	if builder.identificationTypeFlag {
+		req.IdentificationType = &builder.identificationType
+
+	}
+	if builder.identificationNumberFlag {
+		req.IdentificationNumber = &builder.identificationNumber
 
 	}
 	return req
@@ -32411,6 +33317,56 @@ func (resp *PreviewAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
+type PatchEhrImportTaskReqBuilder struct {
+	apiReq        *larkcore.ApiReq
+	ehrImportTask *EhrImportTask
+}
+
+func NewPatchEhrImportTaskReqBuilder() *PatchEhrImportTaskReqBuilder {
+	builder := &PatchEhrImportTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 导入任务 ID
+//
+// 示例值：623455234
+func (builder *PatchEhrImportTaskReqBuilder) EhrImportTaskId(ehrImportTaskId string) *PatchEhrImportTaskReqBuilder {
+	builder.apiReq.PathParams.Set("ehr_import_task_id", fmt.Sprint(ehrImportTaskId))
+	return builder
+}
+
+// 在处理完导入 e-HR 事件后，可调用该接口，更新  e-HR 导入任务结果
+func (builder *PatchEhrImportTaskReqBuilder) EhrImportTask(ehrImportTask *EhrImportTask) *PatchEhrImportTaskReqBuilder {
+	builder.ehrImportTask = ehrImportTask
+	return builder
+}
+
+func (builder *PatchEhrImportTaskReqBuilder) Build() *PatchEhrImportTaskReq {
+	req := &PatchEhrImportTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.ehrImportTask
+	return req
+}
+
+type PatchEhrImportTaskReq struct {
+	apiReq        *larkcore.ApiReq
+	EhrImportTask *EhrImportTask `body:""`
+}
+
+type PatchEhrImportTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchEhrImportTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetEmployeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -32608,6 +33564,126 @@ func (resp *PatchEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CombinedCreateJobReqBuilder struct {
+	apiReq      *larkcore.ApiReq
+	combinedJob *CombinedJob
+}
+
+func NewCombinedCreateJobReqBuilder() *CombinedCreateJobReqBuilder {
+	builder := &CombinedCreateJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *CombinedCreateJobReqBuilder) UserIdType(userIdType string) *CombinedCreateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：此次调用中使用的部门 ID 的类型
+func (builder *CombinedCreateJobReqBuilder) DepartmentIdType(departmentIdType string) *CombinedCreateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 新建职位，字段的是否必填，以系统中的「职位字段管理」中的设置为准。
+func (builder *CombinedCreateJobReqBuilder) CombinedJob(combinedJob *CombinedJob) *CombinedCreateJobReqBuilder {
+	builder.combinedJob = combinedJob
+	return builder
+}
+
+func (builder *CombinedCreateJobReqBuilder) Build() *CombinedCreateJobReq {
+	req := &CombinedCreateJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.combinedJob
+	return req
+}
+
+type CombinedCreateJobReq struct {
+	apiReq      *larkcore.ApiReq
+	CombinedJob *CombinedJob `body:""`
+}
+
+type CombinedCreateJobRespData struct {
+	DefaultJobPost *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"` // 职位广告
+	Job            *Job                             `json:"job,omitempty"`              // 职位
+	JobManager     *JobManager                      `json:"job_manager,omitempty"`      // 职位负责人
+}
+
+type CombinedCreateJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CombinedCreateJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *CombinedCreateJobResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ConfigJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewConfigJobReqBuilder() *ConfigJobReqBuilder {
+	builder := &ConfigJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 职位 ID
+//
+// 示例值：6960663240925956660
+func (builder *ConfigJobReqBuilder) JobId(jobId string) *ConfigJobReqBuilder {
+	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ConfigJobReqBuilder) UserIdType(userIdType string) *ConfigJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ConfigJobReqBuilder) Build() *ConfigJobReq {
+	req := &ConfigJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ConfigJobReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ConfigJobRespData struct {
+	JobConfig *JobConfigResult `json:"job_config,omitempty"` //
+}
+
+type ConfigJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ConfigJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *ConfigJobResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -32668,6 +33744,70 @@ type GetJobResp struct {
 }
 
 func (resp *GetJobResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateConfigJobReqBuilder struct {
+	apiReq    *larkcore.ApiReq
+	jobConfig *JobConfig
+}
+
+func NewUpdateConfigJobReqBuilder() *UpdateConfigJobReqBuilder {
+	builder := &UpdateConfigJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 职位 ID
+//
+// 示例值：6960663240925956660
+func (builder *UpdateConfigJobReqBuilder) JobId(jobId string) *UpdateConfigJobReqBuilder {
+	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *UpdateConfigJobReqBuilder) UserIdType(userIdType string) *UpdateConfigJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 更新职位设置，包括面试评价表、Offer 申请表等。接口将按照所选择的「更新选项」进行设置参数校验和更新。
+func (builder *UpdateConfigJobReqBuilder) JobConfig(jobConfig *JobConfig) *UpdateConfigJobReqBuilder {
+	builder.jobConfig = jobConfig
+	return builder
+}
+
+func (builder *UpdateConfigJobReqBuilder) Build() *UpdateConfigJobReq {
+	req := &UpdateConfigJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.jobConfig
+	return req
+}
+
+type UpdateConfigJobReq struct {
+	apiReq    *larkcore.ApiReq
+	JobConfig *JobConfig `body:""`
+}
+
+type UpdateConfigJobRespData struct {
+	JobConfig *JobConfigResult `json:"job_config,omitempty"` // 职位信息
+}
+
+type UpdateConfigJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UpdateConfigJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *UpdateConfigJobResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -33260,6 +34400,226 @@ type ListResumeSourceResp struct {
 }
 
 func (resp *ListResumeSourceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchGetIdTalentReqBodyBuilder struct {
+	mobileCode                   string // 手机国家区号，默认值：86，即中国大陆地区
+	mobileCodeFlag               bool
+	mobileNumberList             []string // 手机号，区号均采用 mobile_code 参数的值，最多 100 个
+	mobileNumberListFlag         bool
+	emailList                    []string // 邮箱信息列表，最多 100 个
+	emailListFlag                bool
+	identificationType           int // 证件类型，可参考招聘枚举常量文档下的 IdentificationType 枚举定义
+	identificationTypeFlag       bool
+	identificationNumberList     []string // 证件号
+	identificationNumberListFlag bool
+}
+
+func NewBatchGetIdTalentReqBodyBuilder() *BatchGetIdTalentReqBodyBuilder {
+	builder := &BatchGetIdTalentReqBodyBuilder{}
+	return builder
+}
+
+// 手机国家区号，默认值：86，即中国大陆地区
+//
+//示例值：86
+func (builder *BatchGetIdTalentReqBodyBuilder) MobileCode(mobileCode string) *BatchGetIdTalentReqBodyBuilder {
+	builder.mobileCode = mobileCode
+	builder.mobileCodeFlag = true
+	return builder
+}
+
+// 手机号，区号均采用 mobile_code 参数的值，最多 100 个
+//
+//示例值：182900291190
+func (builder *BatchGetIdTalentReqBodyBuilder) MobileNumberList(mobileNumberList []string) *BatchGetIdTalentReqBodyBuilder {
+	builder.mobileNumberList = mobileNumberList
+	builder.mobileNumberListFlag = true
+	return builder
+}
+
+// 邮箱信息列表，最多 100 个
+//
+//示例值：foo@bytedance.com
+func (builder *BatchGetIdTalentReqBodyBuilder) EmailList(emailList []string) *BatchGetIdTalentReqBodyBuilder {
+	builder.emailList = emailList
+	builder.emailListFlag = true
+	return builder
+}
+
+// 证件类型，可参考招聘枚举常量文档下的 IdentificationType 枚举定义
+//
+//示例值：1
+func (builder *BatchGetIdTalentReqBodyBuilder) IdentificationType(identificationType int) *BatchGetIdTalentReqBodyBuilder {
+	builder.identificationType = identificationType
+	builder.identificationTypeFlag = true
+	return builder
+}
+
+// 证件号
+//
+//示例值：130xxxxxxx
+func (builder *BatchGetIdTalentReqBodyBuilder) IdentificationNumberList(identificationNumberList []string) *BatchGetIdTalentReqBodyBuilder {
+	builder.identificationNumberList = identificationNumberList
+	builder.identificationNumberListFlag = true
+	return builder
+}
+
+func (builder *BatchGetIdTalentReqBodyBuilder) Build() *BatchGetIdTalentReqBody {
+	req := &BatchGetIdTalentReqBody{}
+	if builder.mobileCodeFlag {
+		req.MobileCode = &builder.mobileCode
+	}
+	if builder.mobileNumberListFlag {
+		req.MobileNumberList = builder.mobileNumberList
+	}
+	if builder.emailListFlag {
+		req.EmailList = builder.emailList
+	}
+	if builder.identificationTypeFlag {
+		req.IdentificationType = &builder.identificationType
+	}
+	if builder.identificationNumberListFlag {
+		req.IdentificationNumberList = builder.identificationNumberList
+	}
+	return req
+}
+
+type BatchGetIdTalentPathReqBodyBuilder struct {
+	mobileCode                   string // 手机国家区号，默认值：86，即中国大陆地区
+	mobileCodeFlag               bool
+	mobileNumberList             []string // 手机号，区号均采用 mobile_code 参数的值，最多 100 个
+	mobileNumberListFlag         bool
+	emailList                    []string // 邮箱信息列表，最多 100 个
+	emailListFlag                bool
+	identificationType           int // 证件类型，可参考招聘枚举常量文档下的 IdentificationType 枚举定义
+	identificationTypeFlag       bool
+	identificationNumberList     []string // 证件号
+	identificationNumberListFlag bool
+}
+
+func NewBatchGetIdTalentPathReqBodyBuilder() *BatchGetIdTalentPathReqBodyBuilder {
+	builder := &BatchGetIdTalentPathReqBodyBuilder{}
+	return builder
+}
+
+// 手机国家区号，默认值：86，即中国大陆地区
+//
+// 示例值：86
+func (builder *BatchGetIdTalentPathReqBodyBuilder) MobileCode(mobileCode string) *BatchGetIdTalentPathReqBodyBuilder {
+	builder.mobileCode = mobileCode
+	builder.mobileCodeFlag = true
+	return builder
+}
+
+// 手机号，区号均采用 mobile_code 参数的值，最多 100 个
+//
+// 示例值：182900291190
+func (builder *BatchGetIdTalentPathReqBodyBuilder) MobileNumberList(mobileNumberList []string) *BatchGetIdTalentPathReqBodyBuilder {
+	builder.mobileNumberList = mobileNumberList
+	builder.mobileNumberListFlag = true
+	return builder
+}
+
+// 邮箱信息列表，最多 100 个
+//
+// 示例值：foo@bytedance.com
+func (builder *BatchGetIdTalentPathReqBodyBuilder) EmailList(emailList []string) *BatchGetIdTalentPathReqBodyBuilder {
+	builder.emailList = emailList
+	builder.emailListFlag = true
+	return builder
+}
+
+// 证件类型，可参考招聘枚举常量文档下的 IdentificationType 枚举定义
+//
+// 示例值：1
+func (builder *BatchGetIdTalentPathReqBodyBuilder) IdentificationType(identificationType int) *BatchGetIdTalentPathReqBodyBuilder {
+	builder.identificationType = identificationType
+	builder.identificationTypeFlag = true
+	return builder
+}
+
+// 证件号
+//
+// 示例值：130xxxxxxx
+func (builder *BatchGetIdTalentPathReqBodyBuilder) IdentificationNumberList(identificationNumberList []string) *BatchGetIdTalentPathReqBodyBuilder {
+	builder.identificationNumberList = identificationNumberList
+	builder.identificationNumberListFlag = true
+	return builder
+}
+
+func (builder *BatchGetIdTalentPathReqBodyBuilder) Build() (*BatchGetIdTalentReqBody, error) {
+	req := &BatchGetIdTalentReqBody{}
+	if builder.mobileCodeFlag {
+		req.MobileCode = &builder.mobileCode
+	}
+	if builder.mobileNumberListFlag {
+		req.MobileNumberList = builder.mobileNumberList
+	}
+	if builder.emailListFlag {
+		req.EmailList = builder.emailList
+	}
+	if builder.identificationTypeFlag {
+		req.IdentificationType = &builder.identificationType
+	}
+	if builder.identificationNumberListFlag {
+		req.IdentificationNumberList = builder.identificationNumberList
+	}
+	return req, nil
+}
+
+type BatchGetIdTalentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchGetIdTalentReqBody
+}
+
+func NewBatchGetIdTalentReqBuilder() *BatchGetIdTalentReqBuilder {
+	builder := &BatchGetIdTalentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 通过手机号或邮箱获取人才 ID
+func (builder *BatchGetIdTalentReqBuilder) Body(body *BatchGetIdTalentReqBody) *BatchGetIdTalentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchGetIdTalentReqBuilder) Build() *BatchGetIdTalentReq {
+	req := &BatchGetIdTalentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchGetIdTalentReqBody struct {
+	MobileCode               *string  `json:"mobile_code,omitempty"`                // 手机国家区号，默认值：86，即中国大陆地区
+	MobileNumberList         []string `json:"mobile_number_list,omitempty"`         // 手机号，区号均采用 mobile_code 参数的值，最多 100 个
+	EmailList                []string `json:"email_list,omitempty"`                 // 邮箱信息列表，最多 100 个
+	IdentificationType       *int     `json:"identification_type,omitempty"`        // 证件类型，可参考招聘枚举常量文档下的 IdentificationType 枚举定义
+	IdentificationNumberList []string `json:"identification_number_list,omitempty"` // 证件号
+}
+
+type BatchGetIdTalentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchGetIdTalentReqBody `body:""`
+}
+
+type BatchGetIdTalentRespData struct {
+	Talent []*TalentBatchInfo `json:"talent,omitempty"` // 人才信息列表
+}
+
+type BatchGetIdTalentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchGetIdTalentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchGetIdTalentResp) Success() bool {
 	return resp.Code == 0
 }
 

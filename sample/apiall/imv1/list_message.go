@@ -31,8 +31,8 @@ func main() {
 		ContainerId("oc_234jsi43d3ssi993d43545f").
 		StartTime("1609296809").
 		EndTime("1608594809").
-		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
 		PageSize(20).
+		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
 		Build()
 	// 发起请求
 	resp, err := client.Im.Message.List(context.Background(), req)

@@ -29,13 +29,13 @@ func main() {
 	req := larkapproval.NewPreviewInstanceReqBuilder().
 		UserIdType("open_id").
 		Body(larkapproval.NewPreviewInstanceReqBodyBuilder().
-			UserId("").
-			ApprovalCode("").
-			DepartmentId("").
+			UserId("发起审批用户id，按照user_id_type类型填写").
+			ApprovalCode("C2CAAA90-70D9-3214-906B-B6FFF947F00D").
+			DepartmentId("6982332863116876308").
 			Form("").
-			InstanceCode("").
+			InstanceCode("12345CA6-97AC-32BB-8231-47C33FFFCCFD").
 			Locale("zh-CN: 中文 en-US: 英文").
-			TaskId("").
+			TaskId("6982332863116876308").
 			Build()).
 		Build()
 	// 发起请求

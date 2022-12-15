@@ -3223,6 +3223,70 @@ func (builder *UserCustomAttrValueBuilder) Build() *UserCustomAttrValue {
 	return req
 }
 
+type UserDepartmentInfo struct {
+	DepartmentId    *string `json:"department_id,omitempty"`    // 对应的部门ID
+	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在部门内的排序
+	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户的部门间的排序
+}
+
+type UserDepartmentInfoBuilder struct {
+	departmentId        string // 对应的部门ID
+	departmentIdFlag    bool
+	userOrder           int // 用户在部门内的排序
+	userOrderFlag       bool
+	departmentOrder     int // 用户的部门间的排序
+	departmentOrderFlag bool
+}
+
+func NewUserDepartmentInfoBuilder() *UserDepartmentInfoBuilder {
+	builder := &UserDepartmentInfoBuilder{}
+	return builder
+}
+
+// 对应的部门ID
+//
+// 示例值：
+func (builder *UserDepartmentInfoBuilder) DepartmentId(departmentId string) *UserDepartmentInfoBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 用户在部门内的排序
+//
+// 示例值：
+func (builder *UserDepartmentInfoBuilder) UserOrder(userOrder int) *UserDepartmentInfoBuilder {
+	builder.userOrder = userOrder
+	builder.userOrderFlag = true
+	return builder
+}
+
+// 用户的部门间的排序
+//
+// 示例值：
+func (builder *UserDepartmentInfoBuilder) DepartmentOrder(departmentOrder int) *UserDepartmentInfoBuilder {
+	builder.departmentOrder = departmentOrder
+	builder.departmentOrderFlag = true
+	return builder
+}
+
+func (builder *UserDepartmentInfoBuilder) Build() *UserDepartmentInfo {
+	req := &UserDepartmentInfo{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.userOrderFlag {
+		req.UserOrder = &builder.userOrder
+
+	}
+	if builder.departmentOrderFlag {
+		req.DepartmentOrder = &builder.departmentOrder
+
+	}
+	return req
+}
+
 type UserEvent struct {
 	OpenId          *string `json:"open_id,omitempty"`          // 用户的open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	UnionId         *string `json:"union_id,omitempty"`         // 用户的union_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)

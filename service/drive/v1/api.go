@@ -40,7 +40,7 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 事件
+	File             *file             // 分片上传
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
 	FileStatistics   *fileStatistics   // file.statistics

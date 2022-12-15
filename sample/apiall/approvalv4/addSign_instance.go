@@ -28,11 +28,11 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewAddSignInstanceReqBuilder().
 		Body(larkapproval.NewAddSignInstanceReqBodyBuilder().
-			UserId("").
-			ApprovalCode("").
-			InstanceCode("").
-			TaskId("").
-			Comment("").
+			UserId("b16g66e3").
+			ApprovalCode("3B68E280-CF10-4198-B4CD-2E3BB97981D8").
+			InstanceCode("289330DE-FBF1-4A47-91F9-9EFCCF11BCAE").
+			TaskId("6955096766400167956").
+			Comment("addSignComment").
 			AddSignUserIds([]string{}).
 			AddSignType(3).
 			ApprovalMethod(1).

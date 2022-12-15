@@ -42,6 +42,12 @@ const (
 )
 
 const (
+	UserIdTypeGetApprovalUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetApprovalUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetApprovalOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	DepartmentIdTypeCreateExternalApprovalDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeCreateExternalApprovalOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
@@ -8647,6 +8653,22 @@ func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuild
 	return builder
 }
 
+// 可选是否返回有数据权限审批流程管理员ID列表
+//
+// 示例值：false
+func (builder *GetApprovalReqBuilder) WithAdminId(withAdminId bool) *GetApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("with_admin_id", fmt.Sprint(withAdminId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetApprovalReqBuilder) UserIdType(userIdType string) *GetApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *GetApprovalReqBuilder) Build() *GetApprovalReq {
 	req := &GetApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8660,11 +8682,12 @@ type GetApprovalReq struct {
 }
 
 type GetApprovalRespData struct {
-	ApprovalName *string               `json:"approval_name,omitempty"` // 审批名称
-	Status       *string               `json:"status,omitempty"`        // 审批定义状态
-	Form         *string               `json:"form,omitempty"`          // 控件信息，见下方form字段说明
-	NodeList     []*ApprovalNodeInfo   `json:"node_list,omitempty"`     // 节点信息
-	Viewers      []*ApprovalViewerInfo `json:"viewers,omitempty"`       // 可见人列表
+	ApprovalName     *string               `json:"approval_name,omitempty"`      // 审批名称
+	Status           *string               `json:"status,omitempty"`             // 审批定义状态
+	Form             *string               `json:"form,omitempty"`               // 控件信息，见下方form字段说明
+	NodeList         []*ApprovalNodeInfo   `json:"node_list,omitempty"`          // 节点信息
+	Viewers          []*ApprovalViewerInfo `json:"viewers,omitempty"`            // 可见人列表
+	ApprovalAdminIds []string              `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
 }
 
 type GetApprovalResp struct {
@@ -8705,7 +8728,7 @@ func (builder *ListApprovalReqBuilder) PageSize(pageSize int) *ListApprovalReqBu
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取下一页结果
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：ASDJHA1323_sda1JSASDFD
 func (builder *ListApprovalReqBuilder) PageToken(pageToken string) *ListApprovalReqBuilder {
@@ -8737,8 +8760,8 @@ type ListApprovalReq struct {
 
 type ListApprovalRespData struct {
 	Items     []*Definition `json:"items,omitempty"`      // 审批定义列表
-	PageToken *string       `json:"page_token,omitempty"` //
-	HasMore   *bool         `json:"has_more,omitempty"`   //
+	PageToken *string       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool         `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListApprovalResp struct {
@@ -9267,21 +9290,21 @@ func (resp *ListExternalTaskResp) Success() bool {
 }
 
 type AddSignInstanceReqBodyBuilder struct {
-	userId             string //
+	userId             string // 操作用户id
 	userIdFlag         bool
-	approvalCode       string //
+	approvalCode       string // 审批定义code
 	approvalCodeFlag   bool
-	instanceCode       string //
+	instanceCode       string // 审批实例code
 	instanceCodeFlag   bool
-	taskId             string //
+	taskId             string // 任务id
 	taskIdFlag         bool
-	comment            string //
+	comment            string // 意见
 	commentFlag        bool
-	addSignUserIds     []string //
+	addSignUserIds     []string // 被加签人id
 	addSignUserIdsFlag bool
-	addSignType        int //
+	addSignType        int // 1/2/3分别代表前加签/后加签/并加签
 	addSignTypeFlag    bool
-	approvalMethod     int //
+	approvalMethod     int // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 	approvalMethodFlag bool
 }
 
@@ -9290,52 +9313,52 @@ func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 	return builder
 }
 
+// 操作用户id
 //
-//
-//示例值：
+//示例值：b16g66e3
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
 
+// 审批定义code
 //
-//
-//示例值：
+//示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
 	return builder
 }
 
+// 审批实例code
 //
-//
-//示例值：
+//示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
 func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
 	return builder
 }
 
+// 任务id
 //
-//
-//示例值：
+//示例值：6955096766400167956
 func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
 	return builder
 }
 
+// 意见
 //
-//
-//示例值：
+//示例值：addSignComment
 func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignInstanceReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
 	return builder
 }
 
-//
+// 被加签人id
 //
 //示例值：
 func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
@@ -9344,7 +9367,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []st
 	return builder
 }
 
-//
+// 1/2/3分别代表前加签/后加签/并加签
 //
 //示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
@@ -9353,7 +9376,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddS
 	return builder
 }
 
-//
+// 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 //
 //示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
@@ -9392,21 +9415,21 @@ func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 }
 
 type AddSignInstancePathReqBodyBuilder struct {
-	userId             string //
+	userId             string // 操作用户id
 	userIdFlag         bool
-	approvalCode       string //
+	approvalCode       string // 审批定义code
 	approvalCodeFlag   bool
-	instanceCode       string //
+	instanceCode       string // 审批实例code
 	instanceCodeFlag   bool
-	taskId             string //
+	taskId             string // 任务id
 	taskIdFlag         bool
-	comment            string //
+	comment            string // 意见
 	commentFlag        bool
-	addSignUserIds     []string //
+	addSignUserIds     []string // 被加签人id
 	addSignUserIdsFlag bool
-	addSignType        int //
+	addSignType        int // 1/2/3分别代表前加签/后加签/并加签
 	addSignTypeFlag    bool
-	approvalMethod     int //
+	approvalMethod     int // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 	approvalMethodFlag bool
 }
 
@@ -9415,52 +9438,52 @@ func NewAddSignInstancePathReqBodyBuilder() *AddSignInstancePathReqBodyBuilder {
 	return builder
 }
 
+// 操作用户id
 //
-//
-// 示例值：
+// 示例值：b16g66e3
 func (builder *AddSignInstancePathReqBodyBuilder) UserId(userId string) *AddSignInstancePathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
 
+// 审批定义code
 //
-//
-// 示例值：
+// 示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
 func (builder *AddSignInstancePathReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstancePathReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
 	return builder
 }
 
+// 审批实例code
 //
-//
-// 示例值：
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
 func (builder *AddSignInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstancePathReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
 	return builder
 }
 
+// 任务id
 //
-//
-// 示例值：
+// 示例值：6955096766400167956
 func (builder *AddSignInstancePathReqBodyBuilder) TaskId(taskId string) *AddSignInstancePathReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
 	return builder
 }
 
+// 意见
 //
-//
-// 示例值：
+// 示例值：addSignComment
 func (builder *AddSignInstancePathReqBodyBuilder) Comment(comment string) *AddSignInstancePathReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
 	return builder
 }
 
-//
+// 被加签人id
 //
 // 示例值：
 func (builder *AddSignInstancePathReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstancePathReqBodyBuilder {
@@ -9469,7 +9492,7 @@ func (builder *AddSignInstancePathReqBodyBuilder) AddSignUserIds(addSignUserIds 
 	return builder
 }
 
-//
+// 1/2/3分别代表前加签/后加签/并加签
 //
 // 示例值：1
 func (builder *AddSignInstancePathReqBodyBuilder) AddSignType(addSignType int) *AddSignInstancePathReqBodyBuilder {
@@ -9478,7 +9501,7 @@ func (builder *AddSignInstancePathReqBodyBuilder) AddSignType(addSignType int) *
 	return builder
 }
 
-//
+// 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 //
 // 示例值：1
 func (builder *AddSignInstancePathReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstancePathReqBodyBuilder {
@@ -9544,14 +9567,14 @@ func (builder *AddSignInstanceReqBuilder) Build() *AddSignInstanceReq {
 }
 
 type AddSignInstanceReqBody struct {
-	UserId         *string  `json:"user_id,omitempty"`           //
-	ApprovalCode   *string  `json:"approval_code,omitempty"`     //
-	InstanceCode   *string  `json:"instance_code,omitempty"`     //
-	TaskId         *string  `json:"task_id,omitempty"`           //
-	Comment        *string  `json:"comment,omitempty"`           //
-	AddSignUserIds []string `json:"add_sign_user_ids,omitempty"` //
-	AddSignType    *int     `json:"add_sign_type,omitempty"`     //
-	ApprovalMethod *int     `json:"approval_method,omitempty"`   //
+	UserId         *string  `json:"user_id,omitempty"`           // 操作用户id
+	ApprovalCode   *string  `json:"approval_code,omitempty"`     // 审批定义code
+	InstanceCode   *string  `json:"instance_code,omitempty"`     // 审批实例code
+	TaskId         *string  `json:"task_id,omitempty"`           // 任务id
+	Comment        *string  `json:"comment,omitempty"`           // 意见
+	AddSignUserIds []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
+	AddSignType    *int     `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
+	ApprovalMethod *int     `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 }
 
 type AddSignInstanceReq struct {
@@ -9915,7 +9938,7 @@ func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 
 // 用户id
 //
-//示例值：
+//示例值：发起审批用户id，按照user_id_type类型填写
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -9924,7 +9947,7 @@ func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInst
 
 // 审批定义code
 //
-//示例值：
+//示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
 func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -9933,7 +9956,7 @@ func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 部门id
 //
-//示例值：
+//示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -9942,7 +9965,7 @@ func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) 
 
 // 表单数据
 //
-//示例值：
+//示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
 func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstanceReqBodyBuilder {
 	builder.form = form
 	builder.formFlag = true
@@ -9951,7 +9974,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstance
 
 // 审批实例code
 //
-//示例值：
+//示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
 func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -9969,7 +9992,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInst
 
 // 任务id
 //
-//示例值：
+//示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -10026,7 +10049,7 @@ func NewPreviewInstancePathReqBodyBuilder() *PreviewInstancePathReqBodyBuilder {
 
 // 用户id
 //
-// 示例值：
+// 示例值：发起审批用户id，按照user_id_type类型填写
 func (builder *PreviewInstancePathReqBodyBuilder) UserId(userId string) *PreviewInstancePathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -10035,7 +10058,7 @@ func (builder *PreviewInstancePathReqBodyBuilder) UserId(userId string) *Preview
 
 // 审批定义code
 //
-// 示例值：
+// 示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
 func (builder *PreviewInstancePathReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstancePathReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -10044,7 +10067,7 @@ func (builder *PreviewInstancePathReqBodyBuilder) ApprovalCode(approvalCode stri
 
 // 部门id
 //
-// 示例值：
+// 示例值：6982332863116876308
 func (builder *PreviewInstancePathReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstancePathReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -10053,7 +10076,7 @@ func (builder *PreviewInstancePathReqBodyBuilder) DepartmentId(departmentId stri
 
 // 表单数据
 //
-// 示例值：
+// 示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
 func (builder *PreviewInstancePathReqBodyBuilder) Form(form string) *PreviewInstancePathReqBodyBuilder {
 	builder.form = form
 	builder.formFlag = true
@@ -10062,7 +10085,7 @@ func (builder *PreviewInstancePathReqBodyBuilder) Form(form string) *PreviewInst
 
 // 审批实例code
 //
-// 示例值：
+// 示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
 func (builder *PreviewInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstancePathReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -10080,7 +10103,7 @@ func (builder *PreviewInstancePathReqBodyBuilder) Locale(locale string) *Preview
 
 // 任务id
 //
-// 示例值：
+// 示例值：6982332863116876308
 func (builder *PreviewInstancePathReqBodyBuilder) TaskId(taskId string) *PreviewInstancePathReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -10129,7 +10152,7 @@ func NewPreviewInstanceReqBuilder() *PreviewInstanceReqBuilder {
 
 // open_id(ou_开头)，union_id(on_开头)，user_id(字符串)。user_id_type不填默认为open_id
 //
-// 示例值：
+// 示例值：open_id
 func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *PreviewInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -10165,7 +10188,7 @@ type PreviewInstanceReq struct {
 }
 
 type PreviewInstanceRespData struct {
-	PreviewNodes []*PreviewNode `json:"preview_nodes,omitempty"` //
+	PreviewNodes []*PreviewNode `json:"preview_nodes,omitempty"` // 预览节点信息
 }
 
 type PreviewInstanceResp struct {
@@ -10566,7 +10589,7 @@ func (builder *ListInstanceCommentReqBuilder) UserId(userId string) *ListInstanc
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
 func (builder *ListInstanceCommentReqBuilder) PageToken(pageToken string) *ListInstanceCommentReqBuilder {
@@ -10574,7 +10597,7 @@ func (builder *ListInstanceCommentReqBuilder) PageToken(pageToken string) *ListI
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListInstanceCommentReqBuilder) PageSize(pageSize int) *ListInstanceCommentReqBuilder {

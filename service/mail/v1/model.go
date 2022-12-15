@@ -346,6 +346,38 @@ func (builder *MailgroupBuilder) Build() *Mailgroup {
 	return req
 }
 
+type MailgroupManager struct {
+	UserId *string `json:"user_id,omitempty"` // 管理员用户ID
+}
+
+type MailgroupManagerBuilder struct {
+	userId     string // 管理员用户ID
+	userIdFlag bool
+}
+
+func NewMailgroupManagerBuilder() *MailgroupManagerBuilder {
+	builder := &MailgroupManagerBuilder{}
+	return builder
+}
+
+// 管理员用户ID
+//
+// 示例值：xxxxxx
+func (builder *MailgroupManagerBuilder) UserId(userId string) *MailgroupManagerBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *MailgroupManagerBuilder) Build() *MailgroupManager {
+	req := &MailgroupManager{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
 type MailgroupMember struct {
 	MemberId     *string `json:"member_id,omitempty"`     // 邮件组内成员唯一标识
 	Email        *string `json:"email,omitempty"`         // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）

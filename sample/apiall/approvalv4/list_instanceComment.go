@@ -31,7 +31,7 @@ func main() {
 		UserIdType("user_id").
 		UserId("e5286g26").
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
-		PageSize(20).
+		PageSize(10).
 		Build()
 	// 发起请求
 	resp, err := client.Approval.InstanceComment.List(context.Background(), req)

@@ -23,12 +23,12 @@ import (
 )
 
 const (
-	ObjTypeObjTypeDoc      = "doc"      // doc
-	ObjTypeObjTypeSheet    = "sheet"    // sheet
-	ObjTypeObjTypeMindNote = "mindnote" // mindnote
-	ObjTypeObjTypeBitable  = "bitable"  // bitable
-	ObjTypeObjTypeFile     = "file"     // file
-	ObjTypeObjTypeDocx     = "docx"     // docx
+	ObjTypeObjTypeDoc      = "doc"      // 旧版文档
+	ObjTypeObjTypeSheet    = "sheet"    // 表格
+	ObjTypeObjTypeMindNote = "mindnote" // 思维导图
+	ObjTypeObjTypeBitable  = "bitable"  // 多维表格
+	ObjTypeObjTypeFile     = "file"     // 文件
+	ObjTypeObjTypeDocx     = "docx"     // 新版文档
 )
 
 const (

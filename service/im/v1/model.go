@@ -4948,7 +4948,7 @@ func NewCreateChatReqBuilder() *CreateChatReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8469,19 +8469,19 @@ func (builder *ListMessageReqBuilder) EndTime(endTime string) *ListMessageReqBui
 	return builder
 }
 
+// 分页大小
 //
-//
-// 示例值：GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==
-func (builder *ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+// 示例值：20
+func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 //
 //
-// 示例值：20
-func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+// 示例值：GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==
+func (builder *ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 

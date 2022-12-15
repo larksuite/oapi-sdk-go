@@ -340,7 +340,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 				Build(),
 			larkcard.NewMessageCardField().
 				Text(larkcard.NewMessageCardLarkMd().
-					Content("**👤 一级值班：**\n<at id=ou_0b401d49bc16fe03077e593cfa9e2ae7>加多</at>").
+					Content("**👤 一级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
 					Build()).
 				IsShort(true).
 				Build(),
@@ -353,7 +353,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 				Build(),
 			larkcard.NewMessageCardField().
 				Text(larkcard.NewMessageCardLarkMd().
-					Content("**👤 二级值班：**\n<at id=ou_0b401d49bc16fe03077e593cfa9e2ae7>加多</at>").
+					Content("**👤 二级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
 					Build()).
 				IsShort(true).
 				Build()}).
@@ -419,11 +419,16 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 		AndroidUrl("http://www.jianshu.com").
 		Build()
 
+	low := "low"
+	priority := larkcard.NewMessageCardMarkdown().
+		Content(fmt.Sprintf(`**Priority**: (~~*%s*~~)  **%s**`, low, "high")).
+		Build()
+	fmt.Println(priority)
 	// 卡片消息体
 	cardContent, err := larkcard.NewMessageCard().
 		Config(config).
 		Header(header).
-		Elements([]larkcard.MessageCardElement{divElement1, divElement3, divElement4, divElement5, divElement6}).
+		Elements([]larkcard.MessageCardElement{divElement1, divElement3, divElement4, divElement5, divElement6, priority}).
 		CardLink(cardLink).
 		String()
 	if err != nil {
@@ -432,10 +437,10 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 	}
 
 	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeChatId).
+		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeInteractive).
-			ReceiveId("oc_073bc625285ef06b2c58852143a47675").
+			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(cardContent).
 			Build()).
 		Build()
@@ -927,14 +932,13 @@ func (c *CustomHttpClient) Do(req *http.Request) (*http.Response, error) {
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-
-	var client = lark.NewClient(appID, appSecret)
+	client := lark.NewClient(appID, appSecret)
 
 	// 发送文本消息
-	//sendTextMsg(client)
+	sendTextMsg(client)
 
 	// 发送富文本消息
-	sendPostMsgUseBuilder(client)
+	//sendPostMsgUseBuilder(client)
 
 	// 发送图片消息
 	//uploadImage(client)

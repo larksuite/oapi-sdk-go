@@ -27,8 +27,8 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkgray_test_open_sg.NewGetMotoReqBuilder().
-		MotoId("").
-		BodyLevel("").
+		MotoId("1234").
+		BodyLevel("1234").
 		Build()
 	// 发起请求
 	resp, err := client.GrayTestOpenSg.Moto.Get(context.Background(), req)

@@ -4500,6 +4500,53 @@ func (builder *NavigateMetaBuilder) Build() *NavigateMeta {
 	return req
 }
 
+type Operator struct {
+	OperatorName *string `json:"operator_name,omitempty"` // 用户名称
+	OperatorId   *UserId `json:"operator_id,omitempty"`   // 用户id
+}
+
+type OperatorBuilder struct {
+	operatorName     string // 用户名称
+	operatorNameFlag bool
+	operatorId       *UserId // 用户id
+	operatorIdFlag   bool
+}
+
+func NewOperatorBuilder() *OperatorBuilder {
+	builder := &OperatorBuilder{}
+	return builder
+}
+
+// 用户名称
+//
+// 示例值：张三
+func (builder *OperatorBuilder) OperatorName(operatorName string) *OperatorBuilder {
+	builder.operatorName = operatorName
+	builder.operatorNameFlag = true
+	return builder
+}
+
+// 用户id
+//
+// 示例值：ou_ff0b7ba35fb********67dfc8b885136
+func (builder *OperatorBuilder) OperatorId(operatorId *UserId) *OperatorBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
+
+func (builder *OperatorBuilder) Build() *Operator {
+	req := &Operator{}
+	if builder.operatorNameFlag {
+		req.OperatorName = &builder.operatorName
+
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = builder.operatorId
+	}
+	return req
+}
+
 type PlusMenu struct {
 	PcAppLink     *string `json:"pc_app_link,omitempty"`     // pc 端链接
 	MobileAppLink *string `json:"mobile_app_link,omitempty"` // 移动端链接

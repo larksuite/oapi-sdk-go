@@ -32,6 +32,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/block/v2"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
@@ -69,6 +70,7 @@ type Client struct {
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
 	Contact                *larkcontact.ContactService                                 // 通讯录
+	Corehr                 *larkcorehr.CorehrService                                   // CoreHR
 	Docx                   *larkdocx.DocxService                                       // 云文档-文档
 	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
 	Ehr                    *larkehr.EhrService                                         // 智能人事
@@ -78,7 +80,7 @@ type Client struct {
 	Helpdesk               *larkhelpdesk.HelpdeskService                               // 服务台
 	Hire                   *larkhire.HireService                                       // 招聘
 	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService        // 实名认证
-	Im                     *larkim.ImService                                           // 消息卡片
+	Im                     *larkim.ImService                                           // 消息与群组
 	Mail                   *larkmail.MailService                                       // 邮箱
 	Okr                    *larkokr.OkrService                                         // OKR
 	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力
@@ -224,6 +226,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Block = larkblock.NewService(config)
 	client.Calendar = larkcalendar.NewService(config)
 	client.Contact = larkcontact.NewService(config)
+	client.Corehr = larkcorehr.NewService(config)
 	client.Docx = larkdocx.NewService(config)
 	client.Drive = larkdrive.NewService(config)
 	client.Ehr = larkehr.NewService(config)

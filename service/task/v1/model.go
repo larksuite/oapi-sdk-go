@@ -720,7 +720,7 @@ func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 
 // 任务创建的来源
 //
-// 示例值：
+// 示例值：6
 func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	builder.source = source
 	builder.sourceFlag = true

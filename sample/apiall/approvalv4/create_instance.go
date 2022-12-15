@@ -38,8 +38,8 @@ func main() {
 			NodeCcUserIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
 			NodeCcOpenIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
 			Uuid("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
-			AllowResubmit(false).
-			AllowSubmitAgain(false).
+			AllowResubmit(true).
+			AllowSubmitAgain(true).
 			Build()).
 		Build()
 	// 发起请求

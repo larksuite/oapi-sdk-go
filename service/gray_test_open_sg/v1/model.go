@@ -244,7 +244,7 @@ func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 
 // desc33333
 //
-// 示例值：
+// 示例值：1234
 func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
 	builder.apiReq.PathParams.Set("moto_id", fmt.Sprint(motoId))
 	return builder
@@ -252,7 +252,7 @@ func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
 
 // desc
 //
-// 示例值：
+// 示例值：1234
 func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("body_level", fmt.Sprint(bodyLevel))
 	return builder
