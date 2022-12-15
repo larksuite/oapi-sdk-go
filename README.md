@@ -470,52 +470,47 @@ func main() {
 
 ```go
 
+
 import (
 	"context"
 	"fmt"
-	"net/http"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
+	"net/http"
+	"os"
 )
 
 func main() {
-	// 创建client
-	client := lark.NewClient("appID", "appSecret")
-
-	// 自定义请求headers
-	header := make(http.Header)
-	header.Add("k1", "v1")
-	header.Add("k2", "v2")
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret)
 
 	// 发起请求
-	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
-		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
-			FolderToken("token").
-			Title("title").
-			Build(),
-		).
-		Build(),
-		larkcore.WithHeaders(header), // 设置自定义headers
+	resp, err := cli.Do(context.Background(),
+		&larkcore.ApiReq{
+			HttpMethod:                http.MethodGet,
+			ApiPath:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
+			Body:                      nil,
+			QueryParams:               larkcore.QueryParams{"user_id_type": []string{"open_id"}},
+			PathParams:                larkcore.PathParams{"user_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d"},
+			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
+		},
 	)
 
-	//处理错误
+	// 错误处理
 	if err != nil {
-		// 处理err
+		fmt.Println(err)
 		return
 	}
 
-	// 服务端错误处理
-	if !resp.Success() {
-		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
-		return
-	}
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
 
-	// 业务数据处理
-	fmt.Println(larkcore.Prettify(resp.Data))
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body,二进制数据
 }
-
 ```
 
 更多 API 调用示例：[./sample/callrawapi/api.go](./sample/callrawapi/api.go)
