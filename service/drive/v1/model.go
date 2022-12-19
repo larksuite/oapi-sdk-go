@@ -244,6 +244,7 @@ const (
 	TokenTypeV2Docx     = "docx"     // 新版文档
 	TokenTypeV2Folder   = "folder"   // 文件夹
 	TokenTypeV2Mindnote = "mindnote" // 思维笔记
+	TokenTypeV2Minutes  = "minutes"  // 妙记
 )
 
 const (
@@ -255,6 +256,7 @@ const (
 	TokenTypeV2DeletePermissionMemberDocx     = "docx"     // 文档
 	TokenTypeV2DeletePermissionMemberFolder   = "folder"   // 文件夹
 	TokenTypeV2DeletePermissionMemberMindnote = "mindnote" // 思维笔记
+	TokenTypeV2DeletePermissionMemberMinutes  = "minutes"  // 妙记
 )
 
 const (
@@ -273,6 +275,7 @@ const (
 	TokenTypeBitable  = "bitable"  // 多维表格
 	TokenTypeDocx     = "docx"     // 新版文档
 	TokenTypeMindnote = "mindnote" // 思维笔记
+	TokenTypeMinutes  = "minutes"  // 妙记
 )
 
 const (
@@ -297,15 +300,18 @@ const (
 	TokenTypeUpdatePermissionMemberBitable  = "bitable"  // 多维表格
 	TokenTypeUpdatePermissionMemberDocx     = "docx"     // 文档
 	TokenTypeUpdatePermissionMemberMindnote = "mindnote" // 思维笔记
+	TokenTypeUpdatePermissionMemberMinutes  = "minutes"  // 妙记
 )
 
 const (
-	TokenTypeGetPermissionPublicDoc     = "doc"     // 文档
-	TokenTypeGetPermissionPublicSheet   = "sheet"   // 电子表格
-	TokenTypeGetPermissionPublicFile    = "file"    // 云空间文件
-	TokenTypeGetPermissionPublicWiki    = "wiki"    // 知识库节点
-	TokenTypeGetPermissionPublicBitable = "bitable" // 多维表格
-	TokenTypeGetPermissionPublicDocx    = "docx"    // 文档
+	TokenTypeGetPermissionPublicDoc      = "doc"      // 文档
+	TokenTypeGetPermissionPublicSheet    = "sheet"    // 电子表格
+	TokenTypeGetPermissionPublicFile     = "file"     // 云空间文件
+	TokenTypeGetPermissionPublicWiki     = "wiki"     // 知识库节点
+	TokenTypeGetPermissionPublicBitable  = "bitable"  // 多维表格
+	TokenTypeGetPermissionPublicDocx     = "docx"     // 文档
+	TokenTypeGetPermissionPublicMindnote = "mindnote" // 思维笔记
+	TokenTypeGetPermissionPublicMinutes  = "minutes"  // 妙记
 )
 
 const (
@@ -334,12 +340,14 @@ const (
 )
 
 const (
-	TokenTypePatchPermissionPublicDoc     = "doc"     // 文档
-	TokenTypePatchPermissionPublicSheet   = "sheet"   // 电子表格
-	TokenTypePatchPermissionPublicFile    = "file"    // 云空间文件
-	TokenTypePatchPermissionPublicWiki    = "wiki"    // 知识库节点
-	TokenTypePatchPermissionPublicBitable = "bitable" // 多维表格
-	TokenTypePatchPermissionPublicDocx    = "docx"    // 文档
+	TokenTypePatchPermissionPublicDoc      = "doc"      // 文档
+	TokenTypePatchPermissionPublicSheet    = "sheet"    // 电子表格
+	TokenTypePatchPermissionPublicFile     = "file"     // 云空间文件
+	TokenTypePatchPermissionPublicWiki     = "wiki"     // 知识库节点
+	TokenTypePatchPermissionPublicBitable  = "bitable"  // 多维表格
+	TokenTypePatchPermissionPublicDocx     = "docx"     // 文档
+	TokenTypePatchPermissionPublicMindnote = "mindnote" // 思维笔记
+	TokenTypePatchPermissionPublicMinutes  = "minutes"  // 妙记
 )
 
 type ApplyMemberRequest struct {
@@ -5911,14 +5919,14 @@ func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileC
 // 获取满足 commen_id > page_token 的评论数量
 //
 // 示例值：10
-func (builder *ListFileCommentReqBuilder) PageSize(pageSize string) *ListFileCommentReqBuilder {
+func (builder *ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6248,7 +6256,7 @@ func (builder *UpdateFileCommentReplyReqBuilder) FileType(fileType string) *Upda
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *UpdateFileCommentReplyReqBuilder) UserIdType(userIdType string) *UpdateFileCommentReplyReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7523,7 +7531,7 @@ func NewBatchQueryMetaReqBuilder() *BatchQueryMetaReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *BatchQueryMetaReqBuilder) UserIdType(userIdType string) *BatchQueryMetaReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

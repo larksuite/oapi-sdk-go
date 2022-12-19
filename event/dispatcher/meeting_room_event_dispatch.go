@@ -46,11 +46,13 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomDeletedV1(handler func(ctx con
 	return dispatcher
 }
 
+// 会议室状态信息变更
 //
+// - 会议室状态信息变更将触发此事件。
 //
-// -
+// - 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/status_changed
 func (dispatcher *EventDispatcher) OnP2MeetingRoomStatusChangedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomStatusChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"]
 	if existed {

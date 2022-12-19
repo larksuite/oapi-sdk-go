@@ -593,7 +593,7 @@ type ApprovalCreate struct {
 	ApprovalName      *string                  `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
 	ApprovalCode      *string                  `json:"approval_code,omitempty"`       // 传空表示新建
 	Description       *string                  `json:"description,omitempty"`         // 审批描述的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
-	Viewers           []*ApprovalCreateViewers `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 view_type 为 USER，需要填写viewer_user_id；;; 2. 当 view_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 view_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+	Viewers           []*ApprovalCreateViewers `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
 	Form              *ApprovalForm            `json:"form,omitempty"`                // 审批定义表单
 	NodeList          []*ApprovalNode          `json:"node_list,omitempty"`           // 审批定义节点，需要将开始节点作为 list 第一个元素，结束节点作为最后一个元素
 	Settings          *ApprovalSetting         `json:"settings,omitempty"`            // 审批定义其他设置
@@ -610,7 +610,7 @@ type ApprovalCreateBuilder struct {
 	approvalCodeFlag      bool
 	description           string // 审批描述的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
 	descriptionFlag       bool
-	viewers               []*ApprovalCreateViewers // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 view_type 为 USER，需要填写viewer_user_id；;; 2. 当 view_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 view_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+	viewers               []*ApprovalCreateViewers // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
 	viewersFlag           bool
 	form                  *ApprovalForm // 审批定义表单
 	formFlag              bool
@@ -660,7 +660,7 @@ func (builder *ApprovalCreateBuilder) Description(description string) *ApprovalC
 	return builder
 }
 
-// viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 view_type 为 USER，需要填写viewer_user_id；;; 2. 当 view_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 view_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+// viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
 //
 // 示例值：
 func (builder *ApprovalCreateBuilder) Viewers(viewers []*ApprovalCreateViewers) *ApprovalCreateBuilder {
@@ -1016,16 +1016,16 @@ func (builder *ApprovalCreateExternalBuilder) Build() *ApprovalCreateExternal {
 
 type ApprovalCreateViewers struct {
 	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型
-	ViewerUserId       *string `json:"viewer_user_id,omitempty"`       // 当 view_type 是 USER，根据user_id_type填写用户id
-	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"` // 当 view_type 为DEPARTMENT，根据department_id_type填写部门id
+	ViewerUserId       *string `json:"viewer_user_id,omitempty"`       // 当 viewer_type 是 USER，根据user_id_type填写用户id
+	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
 }
 
 type ApprovalCreateViewersBuilder struct {
 	viewerType             string // 可见人类型
 	viewerTypeFlag         bool
-	viewerUserId           string // 当 view_type 是 USER，根据user_id_type填写用户id
+	viewerUserId           string // 当 viewer_type 是 USER，根据user_id_type填写用户id
 	viewerUserIdFlag       bool
-	viewerDepartmentId     string // 当 view_type 为DEPARTMENT，根据department_id_type填写部门id
+	viewerDepartmentId     string // 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
 	viewerDepartmentIdFlag bool
 }
 
@@ -1043,7 +1043,7 @@ func (builder *ApprovalCreateViewersBuilder) ViewerType(viewerType string) *Appr
 	return builder
 }
 
-// 当 view_type 是 USER，根据user_id_type填写用户id
+// 当 viewer_type 是 USER，根据user_id_type填写用户id
 //
 // 示例值：19a294c2
 func (builder *ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *ApprovalCreateViewersBuilder {
@@ -1052,7 +1052,7 @@ func (builder *ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *
 	return builder
 }
 
-// 当 view_type 为DEPARTMENT，根据department_id_type填写部门id
+// 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
 //
 // 示例值：od-ac9d697abfa990b715dcc33d58a62a9d
 func (builder *ApprovalCreateViewersBuilder) ViewerDepartmentId(viewerDepartmentId string) *ApprovalCreateViewersBuilder {
@@ -3125,7 +3125,7 @@ type ExternalInstance struct {
 	ApprovalCode          *string                     `json:"approval_code,omitempty"`            // 审批定义 code， 创建审批定义返回的值，表示该实例属于哪个流程；该字段会影响到列表中该实例的标题，标题取自对应定义的 name 字段
 	Status                *string                     `json:"status,omitempty"`                   // 审批实例状态
 	Extra                 *string                     `json:"extra,omitempty"`                    // 审批实例扩展 JSON
-	InstanceId            *string                     `json:"instance_id,omitempty"`              // 审批实例唯一标识，用户自定义，需确保证租户、应用下唯一
+	InstanceId            *string                     `json:"instance_id,omitempty"`              // 审批实例唯一标识，用户自定义，需确保证租户下唯一
 	Links                 *ExternalInstanceLink       `json:"links,omitempty"`                    // 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	Title                 *string                     `json:"title,omitempty"`                    // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
 	Form                  []*ExternalInstanceForm     `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
@@ -3154,7 +3154,7 @@ type ExternalInstanceBuilder struct {
 	statusFlag                bool
 	extra                     string // 审批实例扩展 JSON
 	extraFlag                 bool
-	instanceId                string // 审批实例唯一标识，用户自定义，需确保证租户、应用下唯一
+	instanceId                string // 审批实例唯一标识，用户自定义，需确保证租户下唯一
 	instanceIdFlag            bool
 	links                     *ExternalInstanceLink // 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
 	linksFlag                 bool
@@ -3228,7 +3228,7 @@ func (builder *ExternalInstanceBuilder) Extra(extra string) *ExternalInstanceBui
 	return builder
 }
 
-// 审批实例唯一标识，用户自定义，需确保证租户、应用下唯一
+// 审批实例唯一标识，用户自定义，需确保证租户下唯一
 //
 // 示例值：24492654
 func (builder *ExternalInstanceBuilder) InstanceId(instanceId string) *ExternalInstanceBuilder {

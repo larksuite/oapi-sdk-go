@@ -29,7 +29,7 @@ func main() {
 	req := larkcontact.NewUnbindDepartmentChatDepartmentReqBuilder().
 		DepartmentIdType("open_department_id").
 		Body(larkcontact.NewUnbindDepartmentChatDepartmentReqBodyBuilder().
-			DepartmentId("od-4e6ac4d14bcd5071a37a39de902c7141").
+			DepartmentId("D096").
 			Build()).
 		Build()
 	// 发起请求

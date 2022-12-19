@@ -36,13 +36,13 @@ func NewService(config *larkcore.Config) *CalendarService {
 
 type CalendarService struct {
 	config                          *larkcore.Config
-	Calendar                        *calendar                        // 日历
-	CalendarAcl                     *calendarAcl                     // 用户访问控制
+	Calendar                        *calendar                        // 日历管理
+	CalendarAcl                     *calendarAcl                     // 日历访问控制
 	CalendarEvent                   *calendarEvent                   // 日程
 	CalendarEventAttendee           *calendarEventAttendee           // 日程参与人
 	CalendarEventAttendeeChatMember *calendarEventAttendeeChatMember // 日程参与人群成员
 	ExchangeBinding                 *exchangeBinding                 // Exchange绑定
-	Freebusy                        *freebusy                        // 忙闲
+	Freebusy                        *freebusy                        // freebusy
 	Setting                         *setting                         // 日历设置
 	TimeoffEvent                    *timeoffEvent                    // 请假
 }
@@ -75,7 +75,7 @@ type timeoffEvent struct {
 	service *CalendarService
 }
 
-// 创建日历
+// 创建共享日历
 //
 // - 该接口用于为当前身份（应用 / 用户）创建一个共享日历。;;身份由 Header Authorization 的 Token 类型决定。
 //
@@ -101,7 +101,7 @@ func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options .
 	return resp, err
 }
 
-// 删除日历
+// 删除共享日历
 //
 // - 该接口用于以当前身份（应用 / 用户）删除一个共享日历。;;身份由 Header Authorization 的 Token 类型决定。
 //
@@ -129,7 +129,7 @@ func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options .
 	return resp, err
 }
 
-// 获取日历
+// 查询日历信息
 //
 // - 该接口用于以当前身份（应用 / 用户）根据日历 ID 获取日历信息。;;身份由 Header Authorization 的 Token 类型决定。
 //
@@ -157,7 +157,7 @@ func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...lark
 	return resp, err
 }
 
-// 获取日历列表
+// 查询日历列表
 //
 // - 该接口用于分页获得当前身份（应用 / 用户）的日历列表。;;身份由 Header Authorization 的 Token 类型决定。
 //
@@ -185,7 +185,7 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 	return resp, err
 }
 
-// 更新日历
+// 更新日历信息
 //
 // - 该接口用于以当前身份（应用 / 用户）修改日历信息。;;身份由 Header Authorization 的 Token 类型决定。
 //
@@ -213,7 +213,7 @@ func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...
 	return resp, err
 }
 
-// 获取主日历
+// 查询主日历信息
 //
 // - 获取当前身份的主日历信息。
 //
@@ -979,7 +979,7 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 	return resp, err
 }
 
-// 查询忙闲
+// 查询主日历忙闲信息
 //
 // - 查询用户主日历或会议室的忙闲信息。
 //

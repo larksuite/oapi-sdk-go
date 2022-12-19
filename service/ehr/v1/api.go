@@ -30,8 +30,8 @@ func NewService(config *larkcore.Config) *EhrService {
 
 type EhrService struct {
 	config     *larkcore.Config
-	Attachment *attachment // 附件
-	Employee   *employee   // 员工
+	Attachment *attachment // 飞书人事（标准版)
+	Employee   *employee   // 飞书人事（标准版)
 }
 
 type attachment struct {

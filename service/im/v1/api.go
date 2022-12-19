@@ -56,7 +56,7 @@ type ImService struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息加急
+	Message          *message          // 消息
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
@@ -283,7 +283,7 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 //
 // - 获取指定群的分享链接。
 //
-// - 注意事项:;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人或授权用户必须在群组中;- 单聊、密聊、团队群不支持分享群链接;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用;- 当群聊开启了 ==仅群主和群管理员可添加群成员/分享群== 设置时，仅**群主**和**群管理员**可以获取群分享链接;- 获取内部群分享链接时，操作者须与群组在同一租户下
+// - 注意事项:;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - access_token所对应的 **机器人** 或 **授权用户** 必须在`chat_id`参数指定的群组中;- 单聊、密聊、团队群不支持分享群链接;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用;- 当群聊开启了 ==仅群主和群管理员可添加群成员/分享群== 设置时，仅**群主**和**群管理员**可以获取群分享链接;- 获取内部群分享链接时，操作者须与群组在同一租户下
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
 //

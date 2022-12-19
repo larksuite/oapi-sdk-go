@@ -160,8 +160,8 @@ func (m *P2MeetingRoomDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomStatusChangedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` //
-	RoomId   *string `json:"room_id,omitempty"`   //
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+	RoomId   *string `json:"room_id,omitempty"`   // 会议室 ID
 }
 
 type P2MeetingRoomStatusChangedV1 struct {

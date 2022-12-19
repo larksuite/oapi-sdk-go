@@ -7796,7 +7796,7 @@ func (builder *CombinedJobBuilder) AddressIdList(addressIdList []string) *Combin
 
 // 职位属性，1是实体职位，2是虚拟职位
 //
-// 示例值：
+// 示例值：职位类别
 func (builder *CombinedJobBuilder) JobAttribute(jobAttribute int) *CombinedJobBuilder {
 	builder.jobAttribute = jobAttribute
 	builder.jobAttributeFlag = true
@@ -12716,7 +12716,7 @@ func NewInterviewAppointmentConfigContentBuilder() *InterviewAppointmentConfigCo
 
 // 面试类型
 //
-// 示例值：
+// 示例值：1
 func (builder *InterviewAppointmentConfigContentBuilder) InterviewType(interviewType int) *InterviewAppointmentConfigContentBuilder {
 	builder.interviewType = interviewType
 	builder.interviewTypeFlag = true
@@ -12743,7 +12743,7 @@ func (builder *InterviewAppointmentConfigContentBuilder) ContactUserId(contactUs
 
 // 联系人电话
 //
-// 示例值：
+// 示例值：151********
 func (builder *InterviewAppointmentConfigContentBuilder) ContactMobile(contactMobile string) *InterviewAppointmentConfigContentBuilder {
 	builder.contactMobile = contactMobile
 	builder.contactMobileFlag = true
@@ -12752,7 +12752,7 @@ func (builder *InterviewAppointmentConfigContentBuilder) ContactMobile(contactMo
 
 // 联系人邮箱
 //
-// 示例值：
+// 示例值：test@email
 func (builder *InterviewAppointmentConfigContentBuilder) ContactEmail(contactEmail string) *InterviewAppointmentConfigContentBuilder {
 	builder.contactEmail = contactEmail
 	builder.contactEmailFlag = true
@@ -12770,7 +12770,7 @@ func (builder *InterviewAppointmentConfigContentBuilder) AddressId(addressId str
 
 // 地址id
 //
-// 示例值：
+// 示例值：1
 func (builder *InterviewAppointmentConfigContentBuilder) VideoType(videoType int) *InterviewAppointmentConfigContentBuilder {
 	builder.videoType = videoType
 	builder.videoTypeFlag = true
@@ -15837,7 +15837,7 @@ func (builder *JobConfigResultBuilder) RelatedJobList(relatedJobList []*IdNameOb
 
 // 职位属性，1是实体职位，2是虚拟职位
 //
-// 示例值：
+// 示例值：1
 func (builder *JobConfigResultBuilder) JobAttribute(jobAttribute int) *JobConfigResultBuilder {
 	builder.jobAttribute = jobAttribute
 	builder.jobAttributeFlag = true
@@ -32554,7 +32554,7 @@ func (builder *OfferApplicationReqBuilder) UserIdType(userIdType string) *OfferA
 
 // 此次调用中使用的部门 ID 的类型
 //
-// 示例值：
+// 示例值：open_department_id
 func (builder *OfferApplicationReqBuilder) DepartmentIdType(departmentIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -33671,7 +33671,7 @@ type ConfigJobReq struct {
 }
 
 type ConfigJobRespData struct {
-	JobConfig *JobConfigResult `json:"job_config,omitempty"` //
+	JobConfig *JobConfigResult `json:"job_config,omitempty"` // 职位配置
 }
 
 type ConfigJobResp struct {
@@ -34583,7 +34583,7 @@ func NewBatchGetIdTalentReqBuilder() *BatchGetIdTalentReqBuilder {
 	return builder
 }
 
-// 通过手机号或邮箱获取人才 ID
+// 通过人才信息获取人才 ID
 func (builder *BatchGetIdTalentReqBuilder) Body(body *BatchGetIdTalentReqBody) *BatchGetIdTalentReqBuilder {
 	builder.body = body
 	return builder

@@ -263,7 +263,7 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 
 // 创建数据范式
 //
-// - 创建一个数据源
+// - 创建一个数据范式
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/create
 //

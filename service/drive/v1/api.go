@@ -40,13 +40,13 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 分片上传
+	File             *file             // 下载
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
 	FileStatistics   *fileStatistics   // file.statistics
 	FileSubscription *fileSubscription // 订阅
 	ImportTask       *importTask       // 导入
-	Media            *media            // 素材
+	Media            *media            // 分片上传
 	Meta             *meta             // meta
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
@@ -344,7 +344,7 @@ func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.R
 
 // 订阅云文档事件
 //
-// - 该接口仅支持**文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 该接口仅支持**文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)(暂不支持单独订阅文档维度的某类事件)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
 //

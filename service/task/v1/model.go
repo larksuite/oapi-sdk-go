@@ -351,13 +351,13 @@ func (builder *DueBuilder) Build() *Due {
 
 type Follower struct {
 	Id     *string  `json:"id,omitempty"`      // 任务关注人 ID
-	IdList []string `json:"id_list,omitempty"` // 要添加的关注人ID列表
+	IdList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表
 }
 
 type FollowerBuilder struct {
 	id         string // 任务关注人 ID
 	idFlag     bool
-	idList     []string // 要添加的关注人ID列表
+	idList     []string // 要删除的关注人ID列表
 	idListFlag bool
 }
 
@@ -375,7 +375,7 @@ func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 	return builder
 }
 
-// 要添加的关注人ID列表
+// 要删除的关注人ID列表
 //
 // 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
 func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {

@@ -789,7 +789,7 @@ type Meeting struct {
 	EndTime                     *string               `json:"end_time,omitempty"`                      // 会议结束时间（unix时间，单位sec）
 	HostUser                    *MeetingUser          `json:"host_user,omitempty"`                     // 主持人
 	Status                      *int                  `json:"status,omitempty"`                        // 会议状态
-	ParticipantCount            *string               `json:"participant_count,omitempty"`             // 参会人数
+	ParticipantCount            *string               `json:"participant_count,omitempty"`             // 参会峰值人数
 	ParticipantCountAccumulated *string               `json:"participant_count_accumulated,omitempty"` // 累计参会人数
 	Participants                []*MeetingParticipant `json:"participants,omitempty"`                  // 参会人列表
 	Ability                     *MeetingAbility       `json:"ability,omitempty"`                       // 会中使用的能力
@@ -814,7 +814,7 @@ type MeetingBuilder struct {
 	hostUserFlag                    bool
 	status                          int // 会议状态
 	statusFlag                      bool
-	participantCount                string // 参会人数
+	participantCount                string // 参会峰值人数
 	participantCountFlag            bool
 	participantCountAccumulated     string // 累计参会人数
 	participantCountAccumulatedFlag bool
@@ -910,7 +910,7 @@ func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
 	return builder
 }
 
-// 参会人数
+// 参会峰值人数
 //
 // 示例值：10
 func (builder *MeetingBuilder) ParticipantCount(participantCount string) *MeetingBuilder {
@@ -2089,7 +2089,7 @@ type Reserve struct {
 	MeetingNo       *string                `json:"meeting_no,omitempty"`       // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	Url             *string                `json:"url,omitempty"`              // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	AppLink         *string                `json:"app_link,omitempty"`         // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
-	LiveLink        *string                `json:"live_link,omitempty"`        // 直播链接
+	LiveLink        *string                `json:"live_link,omitempty"`        // 会议转直播链接
 	EndTime         *string                `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec）
 	ExpireStatus    *int                   `json:"expire_status,omitempty"`    // 过期状态
 	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`  // 预约人ID
@@ -2105,7 +2105,7 @@ type ReserveBuilder struct {
 	urlFlag             bool
 	appLink             string // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
 	appLinkFlag         bool
-	liveLink            string // 直播链接
+	liveLink            string // 会议转直播链接
 	liveLinkFlag        bool
 	endTime             string // 预约到期时间（unix时间，单位sec）
 	endTimeFlag         bool
@@ -2158,7 +2158,7 @@ func (builder *ReserveBuilder) AppLink(appLink string) *ReserveBuilder {
 	return builder
 }
 
-// 直播链接
+// 会议转直播链接
 //
 // 示例值：https://meetings.feishu.cn/s/1gub381l4gglv
 func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
@@ -2951,8 +2951,8 @@ func (builder *RoomConfigBuilder) Build() *RoomConfig {
 type RoomDigitalSignage struct {
 	Enable       *bool                         `json:"enable,omitempty"`        // 是否开启数字标牌功能
 	Mute         *bool                         `json:"mute,omitempty"`          // 是否静音播放
-	StartDisplay *int                          `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
-	StopDisplay  *int                          `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
+	StartDisplay *int                          `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
+	StopDisplay  *int                          `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
 	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
@@ -2961,9 +2961,9 @@ type RoomDigitalSignageBuilder struct {
 	enableFlag       bool
 	mute             bool // 是否静音播放
 	muteFlag         bool
-	startDisplay     int // 日程会议开始前n分钟结束播放
+	startDisplay     int // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
 	startDisplayFlag bool
-	stopDisplay      int // 会议结束后n分钟开始播放
+	stopDisplay      int // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
 	stopDisplayFlag  bool
 	materials        []*RoomDigitalSignageMaterial // 素材列表
 	materialsFlag    bool
@@ -2992,7 +2992,7 @@ func (builder *RoomDigitalSignageBuilder) Mute(mute bool) *RoomDigitalSignageBui
 	return builder
 }
 
-// 日程会议开始前n分钟结束播放
+// 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
 //
 // 示例值：3
 func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDigitalSignageBuilder {
@@ -3001,7 +3001,7 @@ func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDi
 	return builder
 }
 
-// 会议结束后n分钟开始播放
+// 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
 //
 // 示例值：3
 func (builder *RoomDigitalSignageBuilder) StopDisplay(stopDisplay int) *RoomDigitalSignageBuilder {
@@ -3048,7 +3048,7 @@ type RoomDigitalSignageMaterial struct {
 	Name         *string `json:"name,omitempty"`          // 素材名称
 	MaterialType *int    `json:"material_type,omitempty"` // 素材类型
 	Url          *string `json:"url,omitempty"`           // 素材url
-	Duration     *int    `json:"duration,omitempty"`      // 播放时长（单位sec）
+	Duration     *int    `json:"duration,omitempty"`      // 播放时长（单位sec），取值1~43200
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5
 	Vid          *string `json:"vid,omitempty"`           // 素材文件vid
@@ -3064,7 +3064,7 @@ type RoomDigitalSignageMaterialBuilder struct {
 	materialTypeFlag bool
 	url              string // 素材url
 	urlFlag          bool
-	duration         int // 播放时长（单位sec）
+	duration         int // 播放时长（单位sec），取值1~43200
 	durationFlag     bool
 	cover            string // 素材封面url
 	coverFlag        bool
@@ -3117,7 +3117,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Url(url string) *RoomDigitalSi
 	return builder
 }
 
-// 播放时长（单位sec）
+// 播放时长（单位sec），取值1~43200
 //
 // 示例值：15
 func (builder *RoomDigitalSignageMaterialBuilder) Duration(duration int) *RoomDigitalSignageMaterialBuilder {

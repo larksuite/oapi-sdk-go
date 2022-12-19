@@ -28,7 +28,7 @@ func NewService(config *larkcore.Config) *TenantService {
 
 type TenantService struct {
 	config *larkcore.Config
-	Tenant *tenant // 企业
+	Tenant *tenant // 企业信息
 }
 
 type tenant struct {

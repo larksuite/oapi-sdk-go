@@ -177,9 +177,9 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 
 // 删除部门
 //
-// - 该接口用于向通讯录中删除部门。
+// - 该接口用于从通讯录中删除部门。
 //
-// - 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
+// - 应用需要同时拥有待删除部门及其父部门的通讯录授权。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 //
@@ -303,9 +303,9 @@ func (d *department) ParentByIterator(ctx context.Context, req *ParentDepartment
 
 // 修改部门部分信息
 //
-// - 该接口用于更新通讯录中部门的信息中的任一个字段。
+// - 该接口用于更新通讯录中部门的信息。
 //
-// - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
+// - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
 //
@@ -395,7 +395,7 @@ func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepart
 //
 // - 该接口用于更新当前部门所有信息。
 //
-// - - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。;; - 没有填写的字段会被置为空值（order字段除外）。
+// - - 调用该接口需要具有该部门与更新部门信息涉及的通讯录权限。;; - 没有填写的字段会被置为空值（order字段除外）。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 //
@@ -857,7 +857,7 @@ func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore
 
 // 建立部门与单位的绑定关系
 //
-// - 通过该接口建立部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败
+// - 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
 //
@@ -883,7 +883,7 @@ func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, o
 
 // 创建单位
 //
-// - 使用该接口创建单位，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位。
+// - 该接口用于创建单位。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
 //
@@ -935,7 +935,7 @@ func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkco
 
 // 获取单位信息
 //
-// - 调用该接口获取单位信息，需有获取单位的权限
+// - 该接口用于获取单位信息
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 //
@@ -1121,9 +1121,9 @@ func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkco
 
 // 删除用户
 //
-// - 该接口向通讯录删除一个用户信息，可以理解为员工离职。
+// - 该接口用于从通讯录删除一个用户信息，可以理解为员工离职。
 //
-// - - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。;- 应用商店应用无权限调用接口。;- 用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
+// - - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。;- 用户可以在删除员工时设置删除员工数据（如文档）的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 //
@@ -1273,7 +1273,7 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 //
 // - 该接口用于更新通讯录中用户的字段。
 //
-// - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
+// - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有变更前、后所有新部门的通讯录授权。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
 //

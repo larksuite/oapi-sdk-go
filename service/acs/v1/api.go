@@ -34,10 +34,10 @@ func NewService(config *larkcore.Config) *AcsService {
 type AcsService struct {
 	config                  *larkcore.Config
 	AccessRecord            *accessRecord            // 门禁记录
-	AccessRecordAccessPhoto *accessRecordAccessPhoto // 识别图片
+	AccessRecordAccessPhoto *accessRecordAccessPhoto // access_record.access_photo
 	Device                  *device                  // 门禁设备
-	User                    *user                    // 用户
-	UserFace                *userFace                // 人脸图片
+	User                    *user                    // 用户管理
+	UserFace                *userFace                // user.face
 }
 
 type accessRecord struct {
@@ -58,7 +58,7 @@ type userFace struct {
 
 // 获取门禁记录列表
 //
-// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录。;;该接口返回满足查询参数的识别记录
+// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录。;;该接口返回满足查询参数的识别记录。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/list
 //
@@ -90,9 +90,9 @@ func (a *accessRecord) ListByIterator(ctx context.Context, req *ListAccessRecord
 		limit:    req.Limit}, nil
 }
 
-// 下载人脸识别图片
+// 下载开门时的人脸识别图片
 //
-// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录，对于使用人脸识别方式进行开门的识别记录，还会有抓拍图。;;可以用该接口下载开门时的人脸识别照片
+// - 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录，对于使用人脸识别方式进行开门的识别记录，还会有抓拍图。;;可以用该接口下载开门时的人脸识别照片。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record-access_photo/get
 //
@@ -122,9 +122,9 @@ func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordA
 	return resp, err
 }
 
-// 获取设备列表
+// 获取门禁设备列表
 //
-// - 使用该接口获取租户内所有设备
+// - 使用该接口获取租户内所有门禁设备。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/device/list
 //
@@ -181,9 +181,9 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 
 // 获取用户列表
 //
-// - 使用该接口获取智能门禁中所有用户信息
+// - 使用该接口获取智能门禁中所有用户信息。
 //
-// - 只能获取已加入智能门禁权限组的用户
+// - 只能获取已加入智能门禁权限组的用户。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/list
 //
@@ -243,7 +243,7 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 
 // 下载人脸图片
 //
-// - 对于已经录入人脸图片的用户，可以使用该接口下载用户人脸图片
+// - 对于已经录入人脸图片的用户，可以使用该接口下载用户人脸图片。
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/get
 //

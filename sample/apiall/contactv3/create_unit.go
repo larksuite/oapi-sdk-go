@@ -30,7 +30,7 @@ func main() {
 		Body(larkcontact.NewCreateUnitReqBodyBuilder().
 			UnitId("BU121").
 			Name("消费者事业部").
-			UnitType("事业部").
+			UnitType("子公司").
 			Build()).
 		Build()
 	// 发起请求

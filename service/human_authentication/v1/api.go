@@ -28,7 +28,7 @@ func NewService(config *larkcore.Config) *HumanAuthenticationService {
 
 type HumanAuthenticationService struct {
 	config   *larkcore.Config
-	Identity *identity // 身份
+	Identity *identity // 实名认证
 }
 
 type identity struct {

@@ -3766,13 +3766,13 @@ func (builder *OkrObjectiveKrBuilder) Build() *OkrObjectiveKr {
 
 type OkrObjectiveProgressRate struct {
 	Percent *int    `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  *string `json:"status,omitempty"`  // Objective 进度状态
+	Status  *string `json:"status,omitempty"`  // Objective 进度状态:;- "-1" 暂无;- "0" 正常;- "1" 风险;- "2" 延期
 }
 
 type OkrObjectiveProgressRateBuilder struct {
 	percent     int // Objective 进度百分比 >= 0
 	percentFlag bool
-	status      string // Objective 进度状态
+	status      string // Objective 进度状态:;- "-1" 暂无;- "0" 正常;- "1" 风险;- "2" 延期
 	statusFlag  bool
 }
 
@@ -3790,7 +3790,7 @@ func (builder *OkrObjectiveProgressRateBuilder) Percent(percent int) *OkrObjecti
 	return builder
 }
 
-// Objective 进度状态
+// Objective 进度状态:;- "-1" 暂无;- "0" 正常;- "1" 风险;- "2" 延期
 //
 // 示例值：1
 func (builder *OkrObjectiveProgressRateBuilder) Status(status string) *OkrObjectiveProgressRateBuilder {
@@ -4128,20 +4128,20 @@ func (builder *PeriodBuilder) Build() *Period {
 }
 
 type PeriodRule struct {
-	PeriodRuleId *string `json:"period_rule_id,omitempty"` // 周期规则
-	Type         *string `json:"type,omitempty"`           // 周期类型. year: 年度周期. month: 月份周期
+	PeriodRuleId *string `json:"period_rule_id,omitempty"` // 周期规则ID
+	Type         *string `json:"type,omitempty"`           // 周期类型;- year: 年度周期;- month: 月度周期
 	Length       *int    `json:"length,omitempty"`         // 周期长度（月)
-	FirstMonth   *int    `json:"first_month,omitempty"`    // 周期长度（月)
+	FirstMonth   *int    `json:"first_month,omitempty"`    // 每年首个开始月份
 }
 
 type PeriodRuleBuilder struct {
-	periodRuleId     string // 周期规则
+	periodRuleId     string // 周期规则ID
 	periodRuleIdFlag bool
-	type_            string // 周期类型. year: 年度周期. month: 月份周期
+	type_            string // 周期类型;- year: 年度周期;- month: 月度周期
 	typeFlag         bool
 	length           int // 周期长度（月)
 	lengthFlag       bool
-	firstMonth       int // 周期长度（月)
+	firstMonth       int // 每年首个开始月份
 	firstMonthFlag   bool
 }
 
@@ -4150,7 +4150,7 @@ func NewPeriodRuleBuilder() *PeriodRuleBuilder {
 	return builder
 }
 
-// 周期规则
+// 周期规则ID
 //
 // 示例值：134
 func (builder *PeriodRuleBuilder) PeriodRuleId(periodRuleId string) *PeriodRuleBuilder {
@@ -4159,7 +4159,7 @@ func (builder *PeriodRuleBuilder) PeriodRuleId(periodRuleId string) *PeriodRuleB
 	return builder
 }
 
-// 周期类型. year: 年度周期. month: 月份周期
+// 周期类型;- year: 年度周期;- month: 月度周期
 //
 // 示例值：year
 func (builder *PeriodRuleBuilder) Type(type_ string) *PeriodRuleBuilder {
@@ -4177,7 +4177,7 @@ func (builder *PeriodRuleBuilder) Length(length int) *PeriodRuleBuilder {
 	return builder
 }
 
-// 周期长度（月)
+// 每年首个开始月份
 //
 // 示例值：12
 func (builder *PeriodRuleBuilder) FirstMonth(firstMonth int) *PeriodRuleBuilder {

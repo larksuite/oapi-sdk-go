@@ -3088,6 +3088,128 @@ func (resp *UpdateAppResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CopyAppDashboardReqBodyBuilder struct {
+	name     string // 仪表盘名称
+	nameFlag bool
+}
+
+func NewCopyAppDashboardReqBodyBuilder() *CopyAppDashboardReqBodyBuilder {
+	builder := &CopyAppDashboardReqBodyBuilder{}
+	return builder
+}
+
+// 仪表盘名称
+//
+//示例值：Dashboard
+func (builder *CopyAppDashboardReqBodyBuilder) Name(name string) *CopyAppDashboardReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *CopyAppDashboardReqBodyBuilder) Build() *CopyAppDashboardReqBody {
+	req := &CopyAppDashboardReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	return req
+}
+
+type CopyAppDashboardPathReqBodyBuilder struct {
+	name     string // 仪表盘名称
+	nameFlag bool
+}
+
+func NewCopyAppDashboardPathReqBodyBuilder() *CopyAppDashboardPathReqBodyBuilder {
+	builder := &CopyAppDashboardPathReqBodyBuilder{}
+	return builder
+}
+
+// 仪表盘名称
+//
+// 示例值：Dashboard
+func (builder *CopyAppDashboardPathReqBodyBuilder) Name(name string) *CopyAppDashboardPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *CopyAppDashboardPathReqBodyBuilder) Build() (*CopyAppDashboardReqBody, error) {
+	req := &CopyAppDashboardReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	return req, nil
+}
+
+type CopyAppDashboardReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CopyAppDashboardReqBody
+}
+
+func NewCopyAppDashboardReqBuilder() *CopyAppDashboardReqBuilder {
+	builder := &CopyAppDashboardReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 多维表格 token
+//
+// 示例值：basbcldP5xZeskcHDFZQfeToydb
+func (builder *CopyAppDashboardReqBuilder) AppToken(appToken string) *CopyAppDashboardReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+// 多维表格 block_id
+//
+// 示例值：blkEsvEEaNllY2UV
+func (builder *CopyAppDashboardReqBuilder) BlockId(blockId string) *CopyAppDashboardReqBuilder {
+	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
+	return builder
+}
+
+// 该接口用于根据现有仪表盘复制出新的仪表盘
+func (builder *CopyAppDashboardReqBuilder) Body(body *CopyAppDashboardReqBody) *CopyAppDashboardReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CopyAppDashboardReqBuilder) Build() *CopyAppDashboardReq {
+	req := &CopyAppDashboardReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CopyAppDashboardReqBody struct {
+	Name *string `json:"name,omitempty"` // 仪表盘名称
+}
+
+type CopyAppDashboardReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CopyAppDashboardReqBody `body:""`
+}
+
+type CopyAppDashboardRespData struct {
+	BlockId *string `json:"block_id,omitempty"` // 多维表格 block_id
+	Name    *string `json:"name,omitempty"`     // block 名称
+}
+
+type CopyAppDashboardResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CopyAppDashboardRespData `json:"data"` // 业务数据
+}
+
+func (resp *CopyAppDashboardResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListAppDashboardReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -5892,6 +6014,68 @@ func (resp *DeleteAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetAppTableViewReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetAppTableViewReqBuilder() *GetAppTableViewReqBuilder {
+	builder := &GetAppTableViewReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// bitable app token
+//
+// 示例值：bascnCMII2ORej2RItqpZZUNMIe
+func (builder *GetAppTableViewReqBuilder) AppToken(appToken string) *GetAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
+func (builder *GetAppTableViewReqBuilder) TableId(tableId string) *GetAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	return builder
+}
+
+// 视图 ID
+//
+// 示例值：vewTpR1urY
+func (builder *GetAppTableViewReqBuilder) ViewId(viewId string) *GetAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewId))
+	return builder
+}
+
+func (builder *GetAppTableViewReqBuilder) Build() *GetAppTableViewReq {
+	req := &GetAppTableViewReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetAppTableViewReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetAppTableViewRespData struct {
+	View *AppTableView `json:"view,omitempty"` // 视图信息
+}
+
+type GetAppTableViewResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetAppTableViewRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetAppTableViewResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListAppTableViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -5973,6 +6157,164 @@ type ListAppTableViewResp struct {
 }
 
 func (resp *ListAppTableViewResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchAppTableViewReqBodyBuilder struct {
+	viewName     string // 视图名称
+	viewNameFlag bool
+	property     *AppTableViewProperty // 视图属性
+	propertyFlag bool
+}
+
+func NewPatchAppTableViewReqBodyBuilder() *PatchAppTableViewReqBodyBuilder {
+	builder := &PatchAppTableViewReqBodyBuilder{}
+	return builder
+}
+
+// 视图名称
+//
+//示例值：grid
+func (builder *PatchAppTableViewReqBodyBuilder) ViewName(viewName string) *PatchAppTableViewReqBodyBuilder {
+	builder.viewName = viewName
+	builder.viewNameFlag = true
+	return builder
+}
+
+// 视图属性
+//
+//示例值：
+func (builder *PatchAppTableViewReqBodyBuilder) Property(property *AppTableViewProperty) *PatchAppTableViewReqBodyBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+func (builder *PatchAppTableViewReqBodyBuilder) Build() *PatchAppTableViewReqBody {
+	req := &PatchAppTableViewReqBody{}
+	if builder.viewNameFlag {
+		req.ViewName = &builder.viewName
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req
+}
+
+type PatchAppTableViewPathReqBodyBuilder struct {
+	viewName     string // 视图名称
+	viewNameFlag bool
+	property     *AppTableViewProperty // 视图属性
+	propertyFlag bool
+}
+
+func NewPatchAppTableViewPathReqBodyBuilder() *PatchAppTableViewPathReqBodyBuilder {
+	builder := &PatchAppTableViewPathReqBodyBuilder{}
+	return builder
+}
+
+// 视图名称
+//
+// 示例值：grid
+func (builder *PatchAppTableViewPathReqBodyBuilder) ViewName(viewName string) *PatchAppTableViewPathReqBodyBuilder {
+	builder.viewName = viewName
+	builder.viewNameFlag = true
+	return builder
+}
+
+// 视图属性
+//
+// 示例值：
+func (builder *PatchAppTableViewPathReqBodyBuilder) Property(property *AppTableViewProperty) *PatchAppTableViewPathReqBodyBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+func (builder *PatchAppTableViewPathReqBodyBuilder) Build() (*PatchAppTableViewReqBody, error) {
+	req := &PatchAppTableViewReqBody{}
+	if builder.viewNameFlag {
+		req.ViewName = &builder.viewName
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req, nil
+}
+
+type PatchAppTableViewReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchAppTableViewReqBody
+}
+
+func NewPatchAppTableViewReqBuilder() *PatchAppTableViewReqBuilder {
+	builder := &PatchAppTableViewReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// bitable app token
+//
+// 示例值：bascng7vrxcxpig7geggXiCtadY
+func (builder *PatchAppTableViewReqBuilder) AppToken(appToken string) *PatchAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+// table id
+//
+// 示例值：tblsRc9GRRXKqhvW
+func (builder *PatchAppTableViewReqBuilder) TableId(tableId string) *PatchAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	return builder
+}
+
+// 视图 ID
+//
+// 示例值：vewTpR1urY
+func (builder *PatchAppTableViewReqBuilder) ViewId(viewId string) *PatchAppTableViewReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewId))
+	return builder
+}
+
+// 该接口用于增量修改视图信息
+func (builder *PatchAppTableViewReqBuilder) Body(body *PatchAppTableViewReqBody) *PatchAppTableViewReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchAppTableViewReqBuilder) Build() *PatchAppTableViewReq {
+	req := &PatchAppTableViewReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchAppTableViewReqBody struct {
+	ViewName *string               `json:"view_name,omitempty"` // 视图名称
+	Property *AppTableViewProperty `json:"property,omitempty"`  // 视图属性
+}
+
+type PatchAppTableViewReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchAppTableViewReqBody `body:""`
+}
+
+type PatchAppTableViewRespData struct {
+	View *AppTableView `json:"view,omitempty"` // 视图信息
+}
+
+type PatchAppTableViewResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchAppTableViewRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 

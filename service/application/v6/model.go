@@ -607,7 +607,7 @@ type AppI18nInfo struct {
 	I18nKey     *string `json:"i18n_key,omitempty"`    // 国际化语言的 key
 	Name        *string `json:"name,omitempty"`        // 应用国际化名称
 	Description *string `json:"description,omitempty"` // 应用国际化描述（副标题）
-	HelpUse     *string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+	HelpUse     *string `json:"help_use,omitempty"`    // 国际化帮助文档链接
 }
 
 type AppI18nInfoBuilder struct {
@@ -617,7 +617,7 @@ type AppI18nInfoBuilder struct {
 	nameFlag        bool
 	description     string // 应用国际化描述（副标题）
 	descriptionFlag bool
-	helpUse         string // 帮助国际化文档链接
+	helpUse         string // 国际化帮助文档链接
 	helpUseFlag     bool
 }
 
@@ -653,7 +653,7 @@ func (builder *AppI18nInfoBuilder) Description(description string) *AppI18nInfoB
 	return builder
 }
 
-// 帮助国际化文档链接
+// 国际化帮助文档链接
 //
 // 示例值：https://www.example.com
 func (builder *AppI18nInfoBuilder) HelpUse(helpUse string) *AppI18nInfoBuilder {
@@ -4502,13 +4502,13 @@ func (builder *NavigateMetaBuilder) Build() *NavigateMeta {
 
 type Operator struct {
 	OperatorName *string `json:"operator_name,omitempty"` // 用户名称
-	OperatorId   *UserId `json:"operator_id,omitempty"`   // 用户id
+	OperatorId   *UserId `json:"operator_id,omitempty"`   // 用户 ID
 }
 
 type OperatorBuilder struct {
 	operatorName     string // 用户名称
 	operatorNameFlag bool
-	operatorId       *UserId // 用户id
+	operatorId       *UserId // 用户 ID
 	operatorIdFlag   bool
 }
 
@@ -4526,7 +4526,7 @@ func (builder *OperatorBuilder) OperatorName(operatorName string) *OperatorBuild
 	return builder
 }
 
-// 用户id
+// 用户 ID
 //
 // 示例值：ou_ff0b7ba35fb********67dfc8b885136
 func (builder *OperatorBuilder) OperatorId(operatorId *UserId) *OperatorBuilder {

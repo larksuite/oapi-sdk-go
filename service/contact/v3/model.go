@@ -820,7 +820,7 @@ func (builder *CustomAttrOptionsBuilder) Build() *CustomAttrOptions {
 type Department struct {
 	Name                   *string             `json:"name,omitempty"`                      // 部门名称
 	I18nName               *DepartmentI18nName `json:"i18n_name,omitempty"`                 // 国际化的部门名称
-	ParentDepartmentId     *string             `json:"parent_department_id,omitempty"`      // 父部门的ID;;* 创建根部门，该参数值为 “0”
+	ParentDepartmentId     *string             `json:"parent_department_id,omitempty"`      // 父部门的ID;;* 在根部门下创建新部门，该参数值为 “0”
 	DepartmentId           *string             `json:"department_id,omitempty"`             // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
 	OpenDepartmentId       *string             `json:"open_department_id,omitempty"`        // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
 	LeaderUserId           *string             `json:"leader_user_id,omitempty"`            // 部门主管用户ID
@@ -831,7 +831,7 @@ type Department struct {
 	Status                 *DepartmentStatus   `json:"status,omitempty"`                    // 部门状态
 	CreateGroupChat        *bool               `json:"create_group_chat,omitempty"`         // 是否创建部门群，默认不创建
 	Leaders                []*DepartmentLeader `json:"leaders,omitempty"`                   // 部门负责人
-	GroupChatEmployeeTypes []int               `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制
+	GroupChatEmployeeTypes []int               `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 }
 
 type DepartmentBuilder struct {
@@ -839,7 +839,7 @@ type DepartmentBuilder struct {
 	nameFlag                   bool
 	i18nName                   *DepartmentI18nName // 国际化的部门名称
 	i18nNameFlag               bool
-	parentDepartmentId         string // 父部门的ID;;* 创建根部门，该参数值为 “0”
+	parentDepartmentId         string // 父部门的ID;;* 在根部门下创建新部门，该参数值为 “0”
 	parentDepartmentIdFlag     bool
 	departmentId               string // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
 	departmentIdFlag           bool
@@ -861,7 +861,7 @@ type DepartmentBuilder struct {
 	createGroupChatFlag        bool
 	leaders                    []*DepartmentLeader // 部门负责人
 	leadersFlag                bool
-	groupChatEmployeeTypes     []int // 部门群雇员类型限制
+	groupChatEmployeeTypes     []int // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 	groupChatEmployeeTypesFlag bool
 }
 
@@ -888,7 +888,7 @@ func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *Depart
 	return builder
 }
 
-// 父部门的ID;;* 创建根部门，该参数值为 “0”
+// 父部门的ID;;* 在根部门下创建新部门，该参数值为 “0”
 //
 // 示例值：D067
 func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
@@ -987,9 +987,9 @@ func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Departme
 	return builder
 }
 
-// 部门群雇员类型限制
+// 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 //
-// 示例值：
+// 示例值：[1,2,3]
 func (builder *DepartmentBuilder) GroupChatEmployeeTypes(groupChatEmployeeTypes []int) *DepartmentBuilder {
 	builder.groupChatEmployeeTypes = groupChatEmployeeTypes
 	builder.groupChatEmployeeTypesFlag = true
@@ -2121,12 +2121,12 @@ func (builder *OldUserObjectBuilder) Build() *OldUserObject {
 }
 
 type ResourceAcceptor struct {
-	ProcessingType *string `json:"processing_type,omitempty"`  // 资源处理类型
+	ProcessingType *string `json:"processing_type,omitempty"`  // 邮件处理方式
 	AcceptorUserId *string `json:"acceptor_user_id,omitempty"` // 在 processing_type 为 1 （转移资源时），邮件资源接收者
 }
 
 type ResourceAcceptorBuilder struct {
-	processingType     string // 资源处理类型
+	processingType     string // 邮件处理方式
 	processingTypeFlag bool
 	acceptorUserId     string // 在 processing_type 为 1 （转移资源时），邮件资源接收者
 	acceptorUserIdFlag bool
@@ -2137,7 +2137,7 @@ func NewResourceAcceptorBuilder() *ResourceAcceptorBuilder {
 	return builder
 }
 
-// 资源处理类型
+// 邮件处理方式
 //
 // 示例值：1
 func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *ResourceAcceptorBuilder {
@@ -2388,13 +2388,13 @@ func (builder *ShareUserBuilder) Build() *ShareUser {
 }
 
 type Unit struct {
-	UnitId   *string `json:"unit_id,omitempty"`   // 单位的自定义ID
+	UnitId   *string `json:"unit_id,omitempty"`   // 单位ID
 	Name     *string `json:"name,omitempty"`      // 单位的名字
 	UnitType *string `json:"unit_type,omitempty"` // 单位的类型
 }
 
 type UnitBuilder struct {
-	unitId       string // 单位的自定义ID
+	unitId       string // 单位ID
 	unitIdFlag   bool
 	name         string // 单位的名字
 	nameFlag     bool
@@ -2407,7 +2407,7 @@ func NewUnitBuilder() *UnitBuilder {
 	return builder
 }
 
-// 单位的自定义ID
+// 单位ID
 //
 // 示例值：BU121
 func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
@@ -4137,7 +4137,7 @@ func (builder *ChildrenDepartmentReqBuilder) Limit(limit int) *ChildrenDepartmen
 
 // 部门ID，根部门的部门ID 为0;;department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *ChildrenDepartmentReqBuilder) DepartmentId(departmentId string) *ChildrenDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -4300,7 +4300,7 @@ func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
 
 // 部门ID，需要与查询参数中传入的department_id_type类型保持一致。
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *DeleteDepartmentReqBuilder) DepartmentId(departmentId string) *DeleteDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -4350,7 +4350,7 @@ func NewGetDepartmentReqBuilder() *GetDepartmentReqBuilder {
 
 // 需要获取的部门ID;;不同 ID 的说明及获取方式 参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *GetDepartmentReqBuilder) DepartmentId(departmentId string) *GetDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -4600,9 +4600,9 @@ func NewPatchDepartmentReqBuilder() *PatchDepartmentReqBuilder {
 	return builder
 }
 
-// 部门ID，需要与查询参数中传入的department_id_type类型保持一致。
+// 部门ID，需要与查询参数中传入的department_id_type类型保持一致。;;注意：除需要满足正则规则外，同时不能以od-开头
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *PatchDepartmentReqBuilder) DepartmentId(departmentId string) *PatchDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -4624,7 +4624,7 @@ func (builder *PatchDepartmentReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 该接口用于更新通讯录中部门的信息中的任一个字段。
+// 该接口用于更新通讯录中部门的信息。
 func (builder *PatchDepartmentReqBuilder) Department(department *Department) *PatchDepartmentReqBuilder {
 	builder.department = department
 	return builder
@@ -4819,7 +4819,7 @@ func NewUnbindDepartmentChatDepartmentReqBodyBuilder() *UnbindDepartmentChatDepa
 
 // 部门ID
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+//示例值：D096
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -4846,7 +4846,7 @@ func NewUnbindDepartmentChatDepartmentPathReqBodyBuilder() *UnbindDepartmentChat
 
 // 部门ID
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -4929,9 +4929,9 @@ func NewUpdateDepartmentReqBuilder() *UpdateDepartmentReqBuilder {
 	return builder
 }
 
-// 部门ID，需要与查询参数中传入的department_id_type类型保持一致。
+// 部门ID，需要与查询参数中传入的department_id_type类型保持一致。;;;注意：除需要满足正则规则外，同时不能以od-开头
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：D096
 func (builder *UpdateDepartmentReqBuilder) DepartmentId(departmentId string) *UpdateDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -6596,7 +6596,7 @@ func NewBindDepartmentUnitReqBuilder() *BindDepartmentUnitReqBuilder {
 	return builder
 }
 
-// 通过该接口建立部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败
+// 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)
 func (builder *BindDepartmentUnitReqBuilder) Body(body *BindDepartmentUnitReqBody) *BindDepartmentUnitReqBuilder {
 	builder.body = body
 	return builder
@@ -6630,11 +6630,11 @@ func (resp *BindDepartmentUnitResp) Success() bool {
 }
 
 type CreateUnitReqBodyBuilder struct {
-	unitId       string // 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母
+	unitId       string // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 	unitIdFlag   bool
-	name         string // 单位的名字，长度范围为1-100个字
+	name         string // 单位的名字，长度范围为1-100个字符
 	nameFlag     bool
-	unitType     string // 单位类型，长度范围为1-100个字，创建后不可修改
+	unitType     string // 单位类型，长度范围为1-100个字符，创建后不可修改
 	unitTypeFlag bool
 }
 
@@ -6643,7 +6643,7 @@ func NewCreateUnitReqBodyBuilder() *CreateUnitReqBodyBuilder {
 	return builder
 }
 
-// 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母
+// 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 //
 //示例值：BU121
 func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBodyBuilder {
@@ -6652,7 +6652,7 @@ func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBod
 	return builder
 }
 
-// 单位的名字，长度范围为1-100个字
+// 单位的名字，长度范围为1-100个字符
 //
 //示例值：消费者事业部
 func (builder *CreateUnitReqBodyBuilder) Name(name string) *CreateUnitReqBodyBuilder {
@@ -6661,9 +6661,9 @@ func (builder *CreateUnitReqBodyBuilder) Name(name string) *CreateUnitReqBodyBui
 	return builder
 }
 
-// 单位类型，长度范围为1-100个字，创建后不可修改
+// 单位类型，长度范围为1-100个字符，创建后不可修改
 //
-//示例值：事业部
+//示例值：子公司
 func (builder *CreateUnitReqBodyBuilder) UnitType(unitType string) *CreateUnitReqBodyBuilder {
 	builder.unitType = unitType
 	builder.unitTypeFlag = true
@@ -6685,11 +6685,11 @@ func (builder *CreateUnitReqBodyBuilder) Build() *CreateUnitReqBody {
 }
 
 type CreateUnitPathReqBodyBuilder struct {
-	unitId       string // 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母
+	unitId       string // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 	unitIdFlag   bool
-	name         string // 单位的名字，长度范围为1-100个字
+	name         string // 单位的名字，长度范围为1-100个字符
 	nameFlag     bool
-	unitType     string // 单位类型，长度范围为1-100个字，创建后不可修改
+	unitType     string // 单位类型，长度范围为1-100个字符，创建后不可修改
 	unitTypeFlag bool
 }
 
@@ -6698,7 +6698,7 @@ func NewCreateUnitPathReqBodyBuilder() *CreateUnitPathReqBodyBuilder {
 	return builder
 }
 
-// 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母
+// 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 //
 // 示例值：BU121
 func (builder *CreateUnitPathReqBodyBuilder) UnitId(unitId string) *CreateUnitPathReqBodyBuilder {
@@ -6707,7 +6707,7 @@ func (builder *CreateUnitPathReqBodyBuilder) UnitId(unitId string) *CreateUnitPa
 	return builder
 }
 
-// 单位的名字，长度范围为1-100个字
+// 单位的名字，长度范围为1-100个字符
 //
 // 示例值：消费者事业部
 func (builder *CreateUnitPathReqBodyBuilder) Name(name string) *CreateUnitPathReqBodyBuilder {
@@ -6716,9 +6716,9 @@ func (builder *CreateUnitPathReqBodyBuilder) Name(name string) *CreateUnitPathRe
 	return builder
 }
 
-// 单位类型，长度范围为1-100个字，创建后不可修改
+// 单位类型，长度范围为1-100个字符，创建后不可修改
 //
-// 示例值：事业部
+// 示例值：子公司
 func (builder *CreateUnitPathReqBodyBuilder) UnitType(unitType string) *CreateUnitPathReqBodyBuilder {
 	builder.unitType = unitType
 	builder.unitTypeFlag = true
@@ -6753,7 +6753,7 @@ func NewCreateUnitReqBuilder() *CreateUnitReqBuilder {
 	return builder
 }
 
-// 使用该接口创建单位，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位。
+// 该接口用于创建单位。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
 func (builder *CreateUnitReqBuilder) Body(body *CreateUnitReqBody) *CreateUnitReqBuilder {
 	builder.body = body
 	return builder
@@ -6767,9 +6767,9 @@ func (builder *CreateUnitReqBuilder) Build() *CreateUnitReq {
 }
 
 type CreateUnitReqBody struct {
-	UnitId   *string `json:"unit_id,omitempty"`   // 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母
-	Name     *string `json:"name,omitempty"`      // 单位的名字，长度范围为1-100个字
-	UnitType *string `json:"unit_type,omitempty"` // 单位类型，长度范围为1-100个字，创建后不可修改
+	UnitId   *string `json:"unit_id,omitempty"`   // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
+	Name     *string `json:"name,omitempty"`      // 单位的名字，长度范围为1-100个字符
+	UnitType *string `json:"unit_type,omitempty"` // 单位类型，长度范围为1-100个字符，创建后不可修改
 }
 
 type CreateUnitReq struct {
@@ -6778,7 +6778,7 @@ type CreateUnitReq struct {
 }
 
 type CreateUnitRespData struct {
-	UnitId *string `json:"unit_id,omitempty"` // 单位的自定义ID
+	UnitId *string `json:"unit_id,omitempty"` // 单位ID，可自定义
 }
 
 type CreateUnitResp struct {
@@ -7764,7 +7764,7 @@ func (builder *DeleteUserReqBuilder) UserIdType(userIdType string) *DeleteUserRe
 	return builder
 }
 
-// 该接口向通讯录删除一个用户信息，可以理解为员工离职。
+// 该接口用于从通讯录删除一个用户信息，可以理解为员工离职。
 func (builder *DeleteUserReqBuilder) Body(body *DeleteUserReqBody) *DeleteUserReqBuilder {
 	builder.body = body
 	return builder

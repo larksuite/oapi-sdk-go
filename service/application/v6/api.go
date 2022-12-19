@@ -33,7 +33,7 @@ func NewService(config *larkcore.Config) *ApplicationService {
 
 type ApplicationService struct {
 	config                *larkcore.Config
-	AppRecommendRule      *appRecommendRule      // 推荐规则
+	AppRecommendRule      *appRecommendRule      // 我的常用推荐规则
 	Application           *application           // 应用
 	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
 	ApplicationAppVersion *applicationAppVersion // 事件
@@ -210,7 +210,7 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 
 // 获取应用版本信息
 //
-// - 根据 app_id，version_id 获取对应应用版本的信息
+// - 根据应用 ID 和应用版本 ID 来获取同租户下的应用版本的信息
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
 //

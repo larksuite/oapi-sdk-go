@@ -1251,7 +1251,7 @@ func (builder *StatisticalReportBuilder) CorrectInfo(correctInfo *CorrectInfo) *
 
 // 天维度的时间戳，用于确认数据最近一次更新时间
 //
-// 示例值：
+// 示例值：“20221101”
 func (builder *StatisticalReportBuilder) UpdateDate(updateDate string) *StatisticalReportBuilder {
 	builder.updateDate = updateDate
 	builder.updateDateFlag = true
@@ -1373,39 +1373,57 @@ func (builder *TermBuilder) Build() *Term {
 }
 
 type WordInfo struct {
-	InputTotal            *int  `json:"input_total,omitempty"`              // 用户输入的总词汇量
-	DedupInputTotal       *int  `json:"dedup_input_total,omitempty"`        // 用户输入的去重后的总词汇量
-	EachdayInput          []int `json:"eachday_input,omitempty"`            // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	EachdayDedupInput     []int `json:"eachday_dedup_input,omitempty"`      // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	SendMessageTotal      *int  `json:"send_message_total,omitempty"`       // 发送的消息总数
-	SendEnMessageTotal    *int  `json:"send_en_message_total,omitempty"`    // 发送的英语消息总数
-	ReceiveMessageTotal   *int  `json:"receive_message_total,omitempty"`    // 接收消息的数量
-	ReceiveEnMessageTotal *int  `json:"receive_en_message_total,omitempty"` // 接收英文消息的数量
-	HistoryWordsTotal     *int  `json:"history_words_total,omitempty"`      // 历史总计英语词数（包含新增）
-	NewWordsTotal         *int  `json:"new_words_total,omitempty"`          // 新增英语词数
+	InputTotal                   *int     `json:"input_total,omitempty"`                       // 用户输入的总词汇量
+	DedupInputTotal              *int     `json:"dedup_input_total,omitempty"`                 // 用户输入的去重后的总词汇量
+	EachdayInput                 []int    `json:"eachday_input,omitempty"`                     // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	EachdayDedupInput            []int    `json:"eachday_dedup_input,omitempty"`               // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	SendMessageTotal             *int     `json:"send_message_total,omitempty"`                // 发送的消息总数
+	SendEnMessageTotal           *int     `json:"send_en_message_total,omitempty"`             // 发送的英语消息总数
+	ReceiveMessageTotal          *int     `json:"receive_message_total,omitempty"`             // 接收消息的数量
+	ReceiveEnMessageTotal        *int     `json:"receive_en_message_total,omitempty"`          // 接收英文消息的数量
+	HistoryWordsTotal            *int     `json:"history_words_total,omitempty"`               // 历史总计英语词数（包含新增）
+	NewWordsTotal                *int     `json:"new_words_total,omitempty"`                   // 新增英语词数
+	EachdaySendEnMessage         []int    `json:"eachday_send_en_message,omitempty"`           // 时间区间内每一天发送的英语消息数
+	EachdaySendMessage           []int    `json:"eachday_send_message,omitempty"`              // 时间区间内每一天发送的消息数
+	EachdayReceiveEnMessage      []int    `json:"eachday_receive_en_message,omitempty"`        // 时间区间内每一天接收的英文消息数
+	EachdayReceiveMessage        []int    `json:"eachday_receive_message,omitempty"`           // 时间区间内每一天接收的英文消息数
+	SendEngMessageRateRingGrowth *float64 `json:"send_eng_message_rate_ring_growth,omitempty"` // 发送消息占比环比增长变化
+	SendEngWordsRingGrowth       *int     `json:"send_eng_words_ring_growth,omitempty"`        // 发送英文单词数环比增长变化
 }
 
 type WordInfoBuilder struct {
-	inputTotal                int // 用户输入的总词汇量
-	inputTotalFlag            bool
-	dedupInputTotal           int // 用户输入的去重后的总词汇量
-	dedupInputTotalFlag       bool
-	eachdayInput              []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	eachdayInputFlag          bool
-	eachdayDedupInput         []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	eachdayDedupInputFlag     bool
-	sendMessageTotal          int // 发送的消息总数
-	sendMessageTotalFlag      bool
-	sendEnMessageTotal        int // 发送的英语消息总数
-	sendEnMessageTotalFlag    bool
-	receiveMessageTotal       int // 接收消息的数量
-	receiveMessageTotalFlag   bool
-	receiveEnMessageTotal     int // 接收英文消息的数量
-	receiveEnMessageTotalFlag bool
-	historyWordsTotal         int // 历史总计英语词数（包含新增）
-	historyWordsTotalFlag     bool
-	newWordsTotal             int // 新增英语词数
-	newWordsTotalFlag         bool
+	inputTotal                       int // 用户输入的总词汇量
+	inputTotalFlag                   bool
+	dedupInputTotal                  int // 用户输入的去重后的总词汇量
+	dedupInputTotalFlag              bool
+	eachdayInput                     []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayInputFlag                 bool
+	eachdayDedupInput                []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayDedupInputFlag            bool
+	sendMessageTotal                 int // 发送的消息总数
+	sendMessageTotalFlag             bool
+	sendEnMessageTotal               int // 发送的英语消息总数
+	sendEnMessageTotalFlag           bool
+	receiveMessageTotal              int // 接收消息的数量
+	receiveMessageTotalFlag          bool
+	receiveEnMessageTotal            int // 接收英文消息的数量
+	receiveEnMessageTotalFlag        bool
+	historyWordsTotal                int // 历史总计英语词数（包含新增）
+	historyWordsTotalFlag            bool
+	newWordsTotal                    int // 新增英语词数
+	newWordsTotalFlag                bool
+	eachdaySendEnMessage             []int // 时间区间内每一天发送的英语消息数
+	eachdaySendEnMessageFlag         bool
+	eachdaySendMessage               []int // 时间区间内每一天发送的消息数
+	eachdaySendMessageFlag           bool
+	eachdayReceiveEnMessage          []int // 时间区间内每一天接收的英文消息数
+	eachdayReceiveEnMessageFlag      bool
+	eachdayReceiveMessage            []int // 时间区间内每一天接收的英文消息数
+	eachdayReceiveMessageFlag        bool
+	sendEngMessageRateRingGrowth     float64 // 发送消息占比环比增长变化
+	sendEngMessageRateRingGrowthFlag bool
+	sendEngWordsRingGrowth           int // 发送英文单词数环比增长变化
+	sendEngWordsRingGrowthFlag       bool
 }
 
 func NewWordInfoBuilder() *WordInfoBuilder {
@@ -1415,7 +1433,7 @@ func NewWordInfoBuilder() *WordInfoBuilder {
 
 // 用户输入的总词汇量
 //
-// 示例值：
+// 示例值：100
 func (builder *WordInfoBuilder) InputTotal(inputTotal int) *WordInfoBuilder {
 	builder.inputTotal = inputTotal
 	builder.inputTotalFlag = true
@@ -1424,7 +1442,7 @@ func (builder *WordInfoBuilder) InputTotal(inputTotal int) *WordInfoBuilder {
 
 // 用户输入的去重后的总词汇量
 //
-// 示例值：
+// 示例值：50
 func (builder *WordInfoBuilder) DedupInputTotal(dedupInputTotal int) *WordInfoBuilder {
 	builder.dedupInputTotal = dedupInputTotal
 	builder.dedupInputTotalFlag = true
@@ -1451,7 +1469,7 @@ func (builder *WordInfoBuilder) EachdayDedupInput(eachdayDedupInput []int) *Word
 
 // 发送的消息总数
 //
-// 示例值：
+// 示例值：200
 func (builder *WordInfoBuilder) SendMessageTotal(sendMessageTotal int) *WordInfoBuilder {
 	builder.sendMessageTotal = sendMessageTotal
 	builder.sendMessageTotalFlag = true
@@ -1460,7 +1478,7 @@ func (builder *WordInfoBuilder) SendMessageTotal(sendMessageTotal int) *WordInfo
 
 // 发送的英语消息总数
 //
-// 示例值：
+// 示例值：150
 func (builder *WordInfoBuilder) SendEnMessageTotal(sendEnMessageTotal int) *WordInfoBuilder {
 	builder.sendEnMessageTotal = sendEnMessageTotal
 	builder.sendEnMessageTotalFlag = true
@@ -1469,7 +1487,7 @@ func (builder *WordInfoBuilder) SendEnMessageTotal(sendEnMessageTotal int) *Word
 
 // 接收消息的数量
 //
-// 示例值：
+// 示例值：500
 func (builder *WordInfoBuilder) ReceiveMessageTotal(receiveMessageTotal int) *WordInfoBuilder {
 	builder.receiveMessageTotal = receiveMessageTotal
 	builder.receiveMessageTotalFlag = true
@@ -1478,7 +1496,7 @@ func (builder *WordInfoBuilder) ReceiveMessageTotal(receiveMessageTotal int) *Wo
 
 // 接收英文消息的数量
 //
-// 示例值：
+// 示例值：100
 func (builder *WordInfoBuilder) ReceiveEnMessageTotal(receiveEnMessageTotal int) *WordInfoBuilder {
 	builder.receiveEnMessageTotal = receiveEnMessageTotal
 	builder.receiveEnMessageTotalFlag = true
@@ -1487,7 +1505,7 @@ func (builder *WordInfoBuilder) ReceiveEnMessageTotal(receiveEnMessageTotal int)
 
 // 历史总计英语词数（包含新增）
 //
-// 示例值：
+// 示例值：300
 func (builder *WordInfoBuilder) HistoryWordsTotal(historyWordsTotal int) *WordInfoBuilder {
 	builder.historyWordsTotal = historyWordsTotal
 	builder.historyWordsTotalFlag = true
@@ -1496,10 +1514,64 @@ func (builder *WordInfoBuilder) HistoryWordsTotal(historyWordsTotal int) *WordIn
 
 // 新增英语词数
 //
-// 示例值：
+// 示例值：20
 func (builder *WordInfoBuilder) NewWordsTotal(newWordsTotal int) *WordInfoBuilder {
 	builder.newWordsTotal = newWordsTotal
 	builder.newWordsTotalFlag = true
+	return builder
+}
+
+// 时间区间内每一天发送的英语消息数
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdaySendEnMessage(eachdaySendEnMessage []int) *WordInfoBuilder {
+	builder.eachdaySendEnMessage = eachdaySendEnMessage
+	builder.eachdaySendEnMessageFlag = true
+	return builder
+}
+
+// 时间区间内每一天发送的消息数
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdaySendMessage(eachdaySendMessage []int) *WordInfoBuilder {
+	builder.eachdaySendMessage = eachdaySendMessage
+	builder.eachdaySendMessageFlag = true
+	return builder
+}
+
+// 时间区间内每一天接收的英文消息数
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdayReceiveEnMessage(eachdayReceiveEnMessage []int) *WordInfoBuilder {
+	builder.eachdayReceiveEnMessage = eachdayReceiveEnMessage
+	builder.eachdayReceiveEnMessageFlag = true
+	return builder
+}
+
+// 时间区间内每一天接收的英文消息数
+//
+// 示例值：
+func (builder *WordInfoBuilder) EachdayReceiveMessage(eachdayReceiveMessage []int) *WordInfoBuilder {
+	builder.eachdayReceiveMessage = eachdayReceiveMessage
+	builder.eachdayReceiveMessageFlag = true
+	return builder
+}
+
+// 发送消息占比环比增长变化
+//
+// 示例值：2.1
+func (builder *WordInfoBuilder) SendEngMessageRateRingGrowth(sendEngMessageRateRingGrowth float64) *WordInfoBuilder {
+	builder.sendEngMessageRateRingGrowth = sendEngMessageRateRingGrowth
+	builder.sendEngMessageRateRingGrowthFlag = true
+	return builder
+}
+
+// 发送英文单词数环比增长变化
+//
+// 示例值：9
+func (builder *WordInfoBuilder) SendEngWordsRingGrowth(sendEngWordsRingGrowth int) *WordInfoBuilder {
+	builder.sendEngWordsRingGrowth = sendEngWordsRingGrowth
+	builder.sendEngWordsRingGrowthFlag = true
 	return builder
 }
 
@@ -1541,6 +1613,26 @@ func (builder *WordInfoBuilder) Build() *WordInfo {
 	}
 	if builder.newWordsTotalFlag {
 		req.NewWordsTotal = &builder.newWordsTotal
+
+	}
+	if builder.eachdaySendEnMessageFlag {
+		req.EachdaySendEnMessage = builder.eachdaySendEnMessage
+	}
+	if builder.eachdaySendMessageFlag {
+		req.EachdaySendMessage = builder.eachdaySendMessage
+	}
+	if builder.eachdayReceiveEnMessageFlag {
+		req.EachdayReceiveEnMessage = builder.eachdayReceiveEnMessage
+	}
+	if builder.eachdayReceiveMessageFlag {
+		req.EachdayReceiveMessage = builder.eachdayReceiveMessage
+	}
+	if builder.sendEngMessageRateRingGrowthFlag {
+		req.SendEngMessageRateRingGrowth = &builder.sendEngMessageRateRingGrowth
+
+	}
+	if builder.sendEngWordsRingGrowthFlag {
+		req.SendEngWordsRingGrowth = &builder.sendEngWordsRingGrowth
 
 	}
 	return req

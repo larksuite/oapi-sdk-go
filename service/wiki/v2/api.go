@@ -321,7 +321,7 @@ func (s *spaceNode) ListByIterator(ctx context.Context, req *ListSpaceNodeReq, o
 		limit:    req.Limit}, nil
 }
 
-// 移动节点
+// 移动知识空间节点
 //
 // - 此方法用于在Wiki内移动节点，支持跨知识空间移动。如果有子节点，会携带子节点一起移动。
 //
@@ -379,7 +379,7 @@ func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpace
 	return resp, err
 }
 
-// 更新标题
+// 更新知识空间节点标题
 //
 // - 此接口用于更新节点标题
 //

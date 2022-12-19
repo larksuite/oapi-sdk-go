@@ -32,7 +32,7 @@ func main() {
 		IsWhole(false).
 		IsSolved(false).
 		PageToken("7153511712153412356").
-		PageSize("10").
+		PageSize(10).
 		UserIdType("user_id").
 		Build()
 	// 发起请求

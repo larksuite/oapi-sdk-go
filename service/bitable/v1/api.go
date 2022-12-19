@@ -138,6 +138,32 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 	return resp, err
 }
 
+// 复制仪表盘
+//
+// - 该接口用于根据现有仪表盘复制出新的仪表盘
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/copy
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/copy_appDashboard.go
+func (a *appDashboard) Copy(ctx context.Context, req *CopyAppDashboardReq, options ...larkcore.RequestOptionFunc) (*CopyAppDashboardResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/dashboards/:block_id/copy"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CopyAppDashboardResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 列出仪表盘
 //
 // - 根据 app_token，获取多维表格下的所有仪表盘
@@ -1102,6 +1128,32 @@ func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, o
 	return resp, err
 }
 
+// 检索视图
+//
+// - 该接口根据 view_id 检索现有视图
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/get_appTableView.go
+func (a *appTableView) Get(ctx context.Context, req *GetAppTableViewReq, options ...larkcore.RequestOptionFunc) (*GetAppTableViewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAppTableViewResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 列出视图
 //
 // - 根据 app_token 和 table_id，获取数据表的所有视图
@@ -1136,4 +1188,30 @@ func (a *appTableView) ListByIterator(ctx context.Context, req *ListAppTableView
 		listFunc: a.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// 更新视图
+//
+// - 该接口用于增量修改视图信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTableView.go
+func (a *appTableView) Patch(ctx context.Context, req *PatchAppTableViewReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableViewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchAppTableViewResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }

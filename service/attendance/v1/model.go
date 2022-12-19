@@ -8775,7 +8775,7 @@ type QueryUserTaskRemedyReqBodyBuilder struct {
 	checkTimeFromFlag bool
 	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
 	checkTimeToFlag   bool
-	checkDateType     string // 查询依据的时间类型（不填默认依据PeriodTime）
+	checkDateType     string // 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 	checkDateTypeFlag bool
 	status            int // 查询状态（不填默认查询已通过状态）
 	statusFlag        bool
@@ -8813,7 +8813,7 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeTo(checkTimeTo string
 	return builder
 }
 
-// 查询依据的时间类型（不填默认依据PeriodTime）
+// 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 //
 //示例值：PeriodTime
 func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckDateType(checkDateType string) *QueryUserTaskRemedyReqBodyBuilder {
@@ -8858,7 +8858,7 @@ type QueryUserTaskRemedyPathReqBodyBuilder struct {
 	checkTimeFromFlag bool
 	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
 	checkTimeToFlag   bool
-	checkDateType     string // 查询依据的时间类型（不填默认依据PeriodTime）
+	checkDateType     string // 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 	checkDateTypeFlag bool
 	status            int // 查询状态（不填默认查询已通过状态）
 	statusFlag        bool
@@ -8896,7 +8896,7 @@ func (builder *QueryUserTaskRemedyPathReqBodyBuilder) CheckTimeTo(checkTimeTo st
 	return builder
 }
 
-// 查询依据的时间类型（不填默认依据PeriodTime）
+// 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 //
 // 示例值：PeriodTime
 func (builder *QueryUserTaskRemedyPathReqBodyBuilder) CheckDateType(checkDateType string) *QueryUserTaskRemedyPathReqBodyBuilder {
@@ -8974,7 +8974,7 @@ type QueryUserTaskRemedyReqBody struct {
 	UserIds       []string `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
 	CheckTimeFrom *string  `json:"check_time_from,omitempty"` // 查询的起始时间，精确到秒的时间戳
 	CheckTimeTo   *string  `json:"check_time_to,omitempty"`   // 查询的结束时间，精确到秒的时间戳
-	CheckDateType *string  `json:"check_date_type,omitempty"` // 查询依据的时间类型（不填默认依据PeriodTime）
+	CheckDateType *string  `json:"check_date_type,omitempty"` // 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 	Status        *int     `json:"status,omitempty"`          // 查询状态（不填默认查询已通过状态）
 }
 

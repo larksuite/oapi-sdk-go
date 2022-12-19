@@ -40,10 +40,10 @@ func NewService(config *larkcore.Config) *HireService {
 
 type HireService struct {
 	config               *larkcore.Config
-	Application          *application          // 投递
+	Application          *application          // 入职
 	ApplicationInterview *applicationInterview // application.interview
 	Attachment           *attachment           // 附件
-	EhrImportTask        *ehrImportTask        // 导入 e-HR（灰度租户可见）
+	EhrImportTask        *ehrImportTask        // 导入 e-HR
 	Employee             *employee             // 入职
 	Job                  *job                  // 职位
 	JobManager           *jobManager           // job.manager
@@ -459,11 +459,11 @@ func (j *job) CombinedCreate(ctx context.Context, req *CombinedCreateJobReq, opt
 	return resp, err
 }
 
+// 获取职位设置
 //
+// - 获取职位设置
 //
-// -
-//
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=config&project=hire&resource=job&version=v1
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/config
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/config_job.go
 func (j *job) Config(ctx context.Context, req *ConfigJobReq, options ...larkcore.RequestOptionFunc) (*ConfigJobResp, error) {
@@ -779,9 +779,9 @@ func (r *resumeSource) ListByIterator(ctx context.Context, req *ListResumeSource
 		limit:    req.Limit}, nil
 }
 
-// 通过手机号或邮箱获取人才 ID
+// 通过人才信息获取人才 ID
 //
-// - 通过手机号或邮箱获取人才 ID
+// - 通过人才信息获取人才 ID
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id
 //

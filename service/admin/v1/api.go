@@ -38,7 +38,7 @@ type AdminService struct {
 	Badge         *badge         // 勋章
 	BadgeGrant    *badgeGrant    // 勋章授予名单
 	BadgeImage    *badgeImage    // 勋章图片
-	Password      *password      // 密码
+	Password      *password      // 登录密码管理
 }
 
 type adminDeptStat struct {
