@@ -313,14 +313,14 @@ func (translator *ReqTranslator) parseInput(input interface{}, option *RequestOp
 		fieldType := vt.Field(i)
 		if path, ok := fieldType.Tag.Lookup("path"); ok {
 			hasHTTPTag = true
-			if path != "" && !isEmptyValue(fieldValue) {
+			if path != "" && !isEmptyVal(fieldValue) {
 				paths[path] = reflect.Indirect(fieldValue).Interface()
 			}
 			continue
 		}
 		if query, ok := fieldType.Tag.Lookup("query"); ok {
 			hasHTTPTag = true
-			if query != "" && !isEmptyValue(fieldValue) {
+			if query != "" && !isEmptyVal(fieldValue) {
 				queries[query] = reflect.Indirect(fieldValue).Interface()
 			}
 			continue
@@ -356,7 +356,7 @@ func toFormdata(body interface{}) *Formdata {
 	for i := 0; i < t.NumField(); i++ {
 		fieldValue := v.Field(i)
 		fieldType := t.Field(i)
-		if isEmptyValue(fieldValue) {
+		if isEmptyVal(fieldValue) {
 			continue
 		}
 		if fieldName := fieldType.Tag.Get("json"); fieldName != "" {

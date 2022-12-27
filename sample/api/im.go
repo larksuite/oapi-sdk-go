@@ -935,10 +935,10 @@ func main() {
 	client := lark.NewClient(appID, appSecret)
 
 	// 发送文本消息
-	sendTextMsg(client)
+	//sendTextMsg(client)
 
 	// 发送富文本消息
-	//sendPostMsgUseBuilder(client)
+	sendPostMsgUseBuilder(client)
 
 	// 发送图片消息
 	//uploadImage(client)
