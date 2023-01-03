@@ -22,20 +22,22 @@ import (
 )
 
 // PATCH /open-apis/helpdesk/v1/agents/:agent_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhelpdesk.NewPatchAgentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhelpdesk.NewPatchAgentReqBuilder().
 		AgentId("ou_14777d82ffef0f707de5a8c7ff2c5ebe").
-		Body(larkhelpdesk.NewPatchAgentReqBodyBuilder().
+		
+	   Body(larkhelpdesk.NewPatchAgentReqBodyBuilder().
 			Status(0).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Helpdesk.Agent.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Helpdesk.Agent.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -22,18 +22,21 @@ import (
 )
 
 // GET /open-apis/drive/v1/medias/:file_token/download
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewDownloadMediaReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewDownloadMediaReqBuilder().
 		FileToken("boxcnrHpsg1QDqXAAAyachabcef").
+		
 		Extra("[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)").
-		Build()
-	// 发起请求
-	resp, err := client.Drive.Media.Download(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.Media.Download(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

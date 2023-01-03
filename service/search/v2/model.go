@@ -1135,6 +1135,37 @@ func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
 	return req
 }
 
+type SchemaEnumOptions struct {
+	PossibleValues []string `json:"possible_values,omitempty"` // 用户自定filter 枚举值数组，最大长度为50
+}
+
+type SchemaEnumOptionsBuilder struct {
+	possibleValues     []string // 用户自定filter 枚举值数组，最大长度为50
+	possibleValuesFlag bool
+}
+
+func NewSchemaEnumOptionsBuilder() *SchemaEnumOptionsBuilder {
+	builder := &SchemaEnumOptionsBuilder{}
+	return builder
+}
+
+// 用户自定filter 枚举值数组，最大长度为50
+//
+// 示例值：v1
+func (builder *SchemaEnumOptionsBuilder) PossibleValues(possibleValues []string) *SchemaEnumOptionsBuilder {
+	builder.possibleValues = possibleValues
+	builder.possibleValuesFlag = true
+	return builder
+}
+
+func (builder *SchemaEnumOptionsBuilder) Build() *SchemaEnumOptions {
+	req := &SchemaEnumOptions{}
+	if builder.possibleValuesFlag {
+		req.PossibleValues = builder.possibleValues
+	}
+	return req
+}
+
 type SchemaProperty struct {
 	Name            *string                `json:"name,omitempty"`             // 属性名
 	Type            *string                `json:"type,omitempty"`             // 属性类型
@@ -1819,19 +1850,19 @@ func (builder *ListDataSourceReqBuilder) View(view int) *ListDataSourceReqBuilde
 	return builder
 }
 
-//
-//
-// 示例值：PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ
-func (builder *ListDataSourceReqBuilder) PageToken(pageToken string) *ListDataSourceReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListDataSourceReqBuilder) PageSize(pageSize int) *ListDataSourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ
+func (builder *ListDataSourceReqBuilder) PageToken(pageToken string) *ListDataSourceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 

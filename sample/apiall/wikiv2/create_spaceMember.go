@@ -22,23 +22,28 @@ import (
 )
 
 // POST /open-apis/wiki/v2/spaces/:space_id/members
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkwiki.NewCreateSpaceMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkwiki.NewCreateSpaceMemberReqBuilder().
 		SpaceId("1565676577122621").
+		
 		NeedNotification(true).
-		Member(larkwiki.NewMemberBuilder().
+	   Member(larkwiki.NewMemberBuilder().
 			MemberType("").
+			
 			MemberId("").
+			
 			MemberRole("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Wiki.SpaceMember.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Wiki.SpaceMember.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

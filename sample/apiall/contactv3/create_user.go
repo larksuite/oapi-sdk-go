@@ -22,42 +22,66 @@ import (
 )
 
 // POST /open-apis/contact/v3/users
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewCreateUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewCreateUserReqBuilder().
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		ClientToken("xxxx-xxxxx-xxx").
-		User(larkcontact.NewUserBuilder().
+		
+	   User(larkcontact.NewUserBuilder().
 			UserId("").
+			
 			Name("").
+			
 			EnName("").
+			
 			Nickname("").
+			
 			Email("").
+			
 			Mobile("").
+			
 			MobileVisible(false).
 			Gender(0).
 			AvatarKey("").
+			
 			DepartmentIds([]string{}).
 			LeaderUserId("").
+			
 			City("").
+			
 			Country("").
+			
 			WorkStation("").
+			
 			JoinTime(0).
 			EmployeeNo("").
+			
 			EmployeeType(0).
+			
 			Orders([]*larkcontact.UserOrder{larkcontact.NewUserOrderBuilder().Build()}).
 			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("").
+			
+			
+			
 			JobTitle("").
+			
+			
+			
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -72,3 +96,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

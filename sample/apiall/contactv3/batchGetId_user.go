@@ -22,21 +22,23 @@ import (
 )
 
 // POST /open-apis/contact/v3/users/batch_get_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewBatchGetIdUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewBatchGetIdUserReqBuilder().
 		UserIdType("open_id").
-		Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
+		
+	   Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
 			Emails([]string{}).
 			Mobiles([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.BatchGetId(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.BatchGetId(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -22,18 +22,21 @@ import (
 )
 
 // DELETE /open-apis/admin/v1/badges/:badge_id/grants/:grant_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewDeleteBadgeGrantReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewDeleteBadgeGrantReqBuilder().
 		BadgeId("m_DjMzaK").
+		
 		GrantId("g_uS4yux").
-		Build()
-	// 发起请求
-	resp, err := client.Admin.BadgeGrant.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.BadgeGrant.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

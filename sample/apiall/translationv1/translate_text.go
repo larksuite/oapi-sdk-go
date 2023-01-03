@@ -22,22 +22,26 @@ import (
 )
 
 // POST /open-apis/translation/v1/text/translate
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktranslation.NewTranslateTextReqBuilder().
-		Body(larktranslation.NewTranslateTextReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktranslation.NewTranslateTextReqBuilder().
+	   Body(larktranslation.NewTranslateTextReqBodyBuilder().
 			SourceLanguage("zh").
+			
 			Text("尝试使用一下飞书吧").
+			
 			TargetLanguage("en").
+			
 			Glossary([]*larktranslation.Term{larktranslation.NewTermBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Translation.Text.Translate(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Translation.Text.Translate(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

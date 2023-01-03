@@ -22,25 +22,31 @@ import (
 )
 
 // PUT /open-apis/admin/v1/badges/:badge_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewUpdateBadgeReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewUpdateBadgeReqBuilder().
 		BadgeId("m_MzfKDM").
-		Badge(larkadmin.NewBadgeBuilder().
+		
+	   Badge(larkadmin.NewBadgeBuilder().
 			Name("激励勋章").
+			
 			Explanation("这枚勋章为了激励员工颁发。").
+			
 			DetailImage("75a1949f-d9df-4b46-bc88-dacc51e88f3j").
+			
 			ShowImage("03daa74a-159f-49e9-963e-b6c4d76103fj").
+			
 			I18nName(larkadmin.NewI18nBuilder().Build()).
 			I18nExplanation(larkadmin.NewI18nBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Admin.Badge.Update(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.Badge.Update(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

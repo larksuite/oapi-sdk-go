@@ -47,12 +47,6 @@ const (
 )
 
 const (
-	UserIdTypeCreateAppTableUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateAppTableUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateAppTableOpenId  = "open_id"  // 以open_id来识别用户
-)
-
-const (
 	TypeText         = 1    // 多行文本
 	TypeNumber       = 2    // 数字
 	TypeSingleSelect = 3    // 单选
@@ -1116,6 +1110,100 @@ func (builder *AppTableBuilder) Build() *AppTable {
 	if builder.nameFlag {
 		req.Name = &builder.name
 
+	}
+	return req
+}
+
+type AppTableCreateHeader struct {
+	FieldId     *string                   `json:"field_id,omitempty"`    // 字段Id
+	FieldName   *string                   `json:"field_name,omitempty"`  // 字段名
+	Type        *int                      `json:"type,omitempty"`        // 字段类型
+	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性
+	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
+}
+
+type AppTableCreateHeaderBuilder struct {
+	fieldId         string // 字段Id
+	fieldIdFlag     bool
+	fieldName       string // 字段名
+	fieldNameFlag   bool
+	type_           int // 字段类型
+	typeFlag        bool
+	property        *AppTableFieldProperty // 字段属性
+	propertyFlag    bool
+	description     *AppTableFieldDescription // 字段的描述
+	descriptionFlag bool
+}
+
+func NewAppTableCreateHeaderBuilder() *AppTableCreateHeaderBuilder {
+	builder := &AppTableCreateHeaderBuilder{}
+	return builder
+}
+
+// 字段Id
+//
+// 示例值：fldDOzItFG
+func (builder *AppTableCreateHeaderBuilder) FieldId(fieldId string) *AppTableCreateHeaderBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+// 字段名
+//
+// 示例值：文本
+func (builder *AppTableCreateHeaderBuilder) FieldName(fieldName string) *AppTableCreateHeaderBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *AppTableCreateHeaderBuilder) Type(type_ int) *AppTableCreateHeaderBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 字段属性
+//
+// 示例值：
+func (builder *AppTableCreateHeaderBuilder) Property(property *AppTableFieldProperty) *AppTableCreateHeaderBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+// 字段的描述
+//
+// 示例值：
+func (builder *AppTableCreateHeaderBuilder) Description(description *AppTableFieldDescription) *AppTableCreateHeaderBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *AppTableCreateHeaderBuilder) Build() *AppTableCreateHeader {
+	req := &AppTableCreateHeader{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
 	}
 	return req
 }
@@ -2773,12 +2861,18 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 }
 
 type ReqTable struct {
-	Name *string `json:"name,omitempty"` // 数据表名字，必填字段
+	Name            *string                 `json:"name,omitempty"`              // 数据表名字，必填字段
+	DefaultViewName *string                 `json:"default_view_name,omitempty"` // 默认表格视图的名称
+	Fields          []*AppTableCreateHeader `json:"fields,omitempty"`            // 允许设置数据表的初始字段,默认第一个字段为索引列
 }
 
 type ReqTableBuilder struct {
-	name     string // 数据表名字，必填字段
-	nameFlag bool
+	name                string // 数据表名字，必填字段
+	nameFlag            bool
+	defaultViewName     string // 默认表格视图的名称
+	defaultViewNameFlag bool
+	fields              []*AppTableCreateHeader // 允许设置数据表的初始字段,默认第一个字段为索引列
+	fieldsFlag          bool
 }
 
 func NewReqTableBuilder() *ReqTableBuilder {
@@ -2795,11 +2889,36 @@ func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
 	return builder
 }
 
+// 默认表格视图的名称
+//
+// 示例值：表格
+func (builder *ReqTableBuilder) DefaultViewName(defaultViewName string) *ReqTableBuilder {
+	builder.defaultViewName = defaultViewName
+	builder.defaultViewNameFlag = true
+	return builder
+}
+
+// 允许设置数据表的初始字段,默认第一个字段为索引列
+//
+// 示例值：
+func (builder *ReqTableBuilder) Fields(fields []*AppTableCreateHeader) *ReqTableBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
 func (builder *ReqTableBuilder) Build() *ReqTable {
 	req := &ReqTable{}
 	if builder.nameFlag {
 		req.Name = &builder.name
 
+	}
+	if builder.defaultViewNameFlag {
+		req.DefaultViewName = &builder.defaultViewName
+
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
 	}
 	return req
 }
@@ -4283,14 +4402,6 @@ func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTab
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
-//
-// 示例值：
-func (builder *CreateAppTableReqBuilder) UserIdType(userIdType string) *CreateAppTableReqBuilder {
-	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
-	return builder
-}
-
 // 新增一个数据表
 func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder {
 	builder.body = body
@@ -4301,7 +4412,6 @@ func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
 	req := &CreateAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -4316,7 +4426,9 @@ type CreateAppTableReq struct {
 }
 
 type CreateAppTableRespData struct {
-	TableId *string `json:"table_id,omitempty"` // table id
+	TableId       *string  `json:"table_id,omitempty"`        // table id
+	DefaultViewId *string  `json:"default_view_id,omitempty"` // 默认表格视图的id，该字段仅在请求参数中填写了default_view_name或fields才会返回
+	FieldIdList   []string `json:"field_id_list,omitempty"`   // 数据表初始字段的id列表，该字段仅在请求参数中填写了fields才会返回
 }
 
 type CreateAppTableResp struct {
@@ -4451,6 +4563,127 @@ type ListAppTableResp struct {
 }
 
 func (resp *ListAppTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchAppTableReqBodyBuilder struct {
+	name     string // 数据表的新名称
+	nameFlag bool
+}
+
+func NewPatchAppTableReqBodyBuilder() *PatchAppTableReqBodyBuilder {
+	builder := &PatchAppTableReqBodyBuilder{}
+	return builder
+}
+
+// 数据表的新名称
+//
+//示例值：
+func (builder *PatchAppTableReqBodyBuilder) Name(name string) *PatchAppTableReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *PatchAppTableReqBodyBuilder) Build() *PatchAppTableReqBody {
+	req := &PatchAppTableReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	return req
+}
+
+type PatchAppTablePathReqBodyBuilder struct {
+	name     string // 数据表的新名称
+	nameFlag bool
+}
+
+func NewPatchAppTablePathReqBodyBuilder() *PatchAppTablePathReqBodyBuilder {
+	builder := &PatchAppTablePathReqBodyBuilder{}
+	return builder
+}
+
+// 数据表的新名称
+//
+// 示例值：
+func (builder *PatchAppTablePathReqBodyBuilder) Name(name string) *PatchAppTablePathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *PatchAppTablePathReqBodyBuilder) Build() (*PatchAppTableReqBody, error) {
+	req := &PatchAppTableReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	return req, nil
+}
+
+type PatchAppTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchAppTableReqBody
+}
+
+func NewPatchAppTableReqBuilder() *PatchAppTableReqBuilder {
+	builder := &PatchAppTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 多维表格 app_token，请参照接入指南获取
+//
+// 示例值：
+func (builder *PatchAppTableReqBuilder) AppToken(appToken string) *PatchAppTableReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+// 多维表格 table_id，请参照接入指南获取
+//
+// 示例值：
+func (builder *PatchAppTableReqBuilder) TableId(tableId string) *PatchAppTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	return builder
+}
+
+//
+func (builder *PatchAppTableReqBuilder) Body(body *PatchAppTableReqBody) *PatchAppTableReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchAppTableReqBuilder) Build() *PatchAppTableReq {
+	req := &PatchAppTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchAppTableReqBody struct {
+	Name *string `json:"name,omitempty"` // 数据表的新名称
+}
+
+type PatchAppTableReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchAppTableReqBody `body:""`
+}
+
+type PatchAppTableRespData struct {
+	Name *string `json:"name,omitempty"` // 数据表的名称
+}
+
+type PatchAppTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchAppTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 

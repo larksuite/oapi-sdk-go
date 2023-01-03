@@ -22,22 +22,26 @@ import (
 )
 
 // PATCH /open-apis/drive/v1/files/:file_token/subscriptions/:subscription_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewPatchFileSubscriptionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewPatchFileSubscriptionReqBuilder().
 		FileToken("doxcnxxxxxxxxxxxxxxxxxxxxxx").
+		
 		SubscriptionId("1234567890987654321").
-		Body(larkdrive.NewPatchFileSubscriptionReqBodyBuilder().
+		
+	   Body(larkdrive.NewPatchFileSubscriptionReqBodyBuilder().
 			IsSubscribe(true).
 			FileType("doc").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.FileSubscription.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.FileSubscription.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -22,17 +22,19 @@ import (
 )
 
 // POST /open-apis/task/v1/tasks/:task_id/uncomplete
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewUncompleteTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewUncompleteTaskReqBuilder().
 		TaskId("bb54ab99-d360-434f-bcaa-a4cc4c05840e").
-		Build()
-	// 发起请求
-	resp, err := client.Task.Task.Uncomplete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Task.Task.Uncomplete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

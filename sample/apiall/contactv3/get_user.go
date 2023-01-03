@@ -22,19 +22,23 @@ import (
 )
 
 // GET /open-apis/contact/v3/users/:user_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewGetUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewGetUserReqBuilder().
 		UserId("7be5fg9a").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

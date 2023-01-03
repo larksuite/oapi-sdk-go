@@ -22,21 +22,26 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/tickets
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhelpdesk.NewListTicketReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhelpdesk.NewListTicketReqBuilder().
 		TicketId("123456").
+		
 		AgentId("ou_b5de90429xxx").
+		
 		ClosedById("ou_b5de90429xxx").
+		
 		Type(1).
 		Channel(0).
 		Solved(1).
 		Score(1).
 		StatusList([]int{}).
 		GuestName("abc").
+		
 		GuestId("ou_b5de90429xxx").
+		
 		Tags([]string{}).
 		Page(1).
 		PageSize(20).
@@ -44,11 +49,12 @@ func main() {
 		CreateTimeEnd(1616920429000).
 		UpdateTimeStart(1616920429000).
 		UpdateTimeEnd(1616920429000).
-		Build()
-	// 发起请求
-	resp, err := client.Helpdesk.Ticket.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Helpdesk.Ticket.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -63,3 +69,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

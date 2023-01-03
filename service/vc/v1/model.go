@@ -1193,30 +1193,33 @@ func (builder *MeetingAbilityBuilder) Build() *MeetingAbility {
 }
 
 type MeetingEventMeeting struct {
-	Id        *string           `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
-	Topic     *string           `json:"topic,omitempty"`      // 会议主题
-	MeetingNo *string           `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
-	StartTime *string           `json:"start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
-	EndTime   *string           `json:"end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
-	HostUser  *MeetingEventUser `json:"host_user,omitempty"`  // 会议主持人
-	Owner     *MeetingEventUser `json:"owner,omitempty"`      // 会议拥有者
+	Id            *string           `json:"id,omitempty"`             // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+	Topic         *string           `json:"topic,omitempty"`          // 会议主题
+	MeetingNo     *string           `json:"meeting_no,omitempty"`     // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	MeetingSource *int              `json:"meeting_source,omitempty"` // 会议创建源
+	StartTime     *string           `json:"start_time,omitempty"`     // 会议开始时间（unix时间，单位sec）
+	EndTime       *string           `json:"end_time,omitempty"`       // 会议结束时间（unix时间，单位sec）
+	HostUser      *MeetingEventUser `json:"host_user,omitempty"`      // 会议主持人
+	Owner         *MeetingEventUser `json:"owner,omitempty"`          // 会议拥有者
 }
 
 type MeetingEventMeetingBuilder struct {
-	id            string // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
-	idFlag        bool
-	topic         string // 会议主题
-	topicFlag     bool
-	meetingNo     string // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
-	meetingNoFlag bool
-	startTime     string // 会议开始时间（unix时间，单位sec）
-	startTimeFlag bool
-	endTime       string // 会议结束时间（unix时间，单位sec）
-	endTimeFlag   bool
-	hostUser      *MeetingEventUser // 会议主持人
-	hostUserFlag  bool
-	owner         *MeetingEventUser // 会议拥有者
-	ownerFlag     bool
+	id                string // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+	idFlag            bool
+	topic             string // 会议主题
+	topicFlag         bool
+	meetingNo         string // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	meetingNoFlag     bool
+	meetingSource     int // 会议创建源
+	meetingSourceFlag bool
+	startTime         string // 会议开始时间（unix时间，单位sec）
+	startTimeFlag     bool
+	endTime           string // 会议结束时间（unix时间，单位sec）
+	endTimeFlag       bool
+	hostUser          *MeetingEventUser // 会议主持人
+	hostUserFlag      bool
+	owner             *MeetingEventUser // 会议拥有者
+	ownerFlag         bool
 }
 
 func NewMeetingEventMeetingBuilder() *MeetingEventMeetingBuilder {
@@ -1248,6 +1251,15 @@ func (builder *MeetingEventMeetingBuilder) Topic(topic string) *MeetingEventMeet
 func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingEventMeetingBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
+	return builder
+}
+
+// 会议创建源
+//
+// 示例值：1
+func (builder *MeetingEventMeetingBuilder) MeetingSource(meetingSource int) *MeetingEventMeetingBuilder {
+	builder.meetingSource = meetingSource
+	builder.meetingSourceFlag = true
 	return builder
 }
 
@@ -1299,6 +1311,10 @@ func (builder *MeetingEventMeetingBuilder) Build() *MeetingEventMeeting {
 	}
 	if builder.meetingNoFlag {
 		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.meetingSourceFlag {
+		req.MeetingSource = &builder.meetingSource
 
 	}
 	if builder.startTimeFlag {
@@ -6271,7 +6287,7 @@ func (builder *GetTopUserReportReqBuilder) OrderBy(orderBy int) *GetTopUserRepor
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *GetTopUserReportReqBuilder) UserIdType(userIdType string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6538,7 +6554,7 @@ func (builder *GetReserveReqBuilder) ReserveId(reserveId string) *GetReserveReqB
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *GetReserveReqBuilder) UserIdType(userIdType string) *GetReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6601,7 +6617,7 @@ func (builder *GetActiveMeetingReserveReqBuilder) WithParticipants(withParticipa
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *GetActiveMeetingReserveReqBuilder) UserIdType(userIdType string) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6947,7 +6963,7 @@ func (builder *PatchReserveConfigReqBuilder) ReserveConfigId(reserveConfigId str
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *PatchReserveConfigReqBuilder) UserIdType(userIdType string) *PatchReserveConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7020,7 +7036,7 @@ func (builder *ReserveScopeReserveConfigReqBuilder) ScopeType(scopeType string) 
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *ReserveScopeReserveConfigReqBuilder) UserIdType(userIdType string) *ReserveScopeReserveConfigReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8703,6 +8719,36 @@ type GetScopeConfigResp struct {
 
 func (resp *GetScopeConfigResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2MeetingAllMeetingEndedV1Data struct {
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
+}
+
+type P2MeetingAllMeetingEndedV1 struct {
+	*larkevent.EventV2Base                                 // 事件基础数据
+	*larkevent.EventReq                                    // 请求原生数据
+	Event                  *P2MeetingAllMeetingEndedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2MeetingAllMeetingEndedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2MeetingAllMeetingStartedV1Data struct {
+	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`  // 会议数据
+	Operator *MeetingEventUser    `json:"operator,omitempty"` // 事件操作人
+}
+
+type P2MeetingAllMeetingStartedV1 struct {
+	*larkevent.EventV2Base                                   // 事件基础数据
+	*larkevent.EventReq                                      // 请求原生数据
+	Event                  *P2MeetingAllMeetingStartedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2MeetingAllMeetingStartedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type P2MeetingJoinMeetingV1Data struct {

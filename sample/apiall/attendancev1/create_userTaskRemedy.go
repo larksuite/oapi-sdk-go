@@ -22,26 +22,32 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_task_remedys
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkattendance.NewCreateUserTaskRemedyReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkattendance.NewCreateUserTaskRemedyReqBuilder().
 		EmployeeType("employee_id").
-		UserTaskRemedy(larkattendance.NewUserTaskRemedyBuilder().
+		
+	   UserTaskRemedy(larkattendance.NewUserTaskRemedyBuilder().
 			UserId("abd754f7").
+			
 			RemedyDate(20210701).
 			PunchNo(0).
 			WorkType(1).
 			RemedyTime("").
+			
 			Reason("忘记打卡").
+			
 			Time("1611476284").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Attendance.UserTaskRemedy.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Attendance.UserTaskRemedy.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

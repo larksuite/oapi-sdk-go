@@ -22,19 +22,21 @@ import (
 )
 
 // GET /open-apis/search/v2/data_sources
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larksearch.NewListDataSourceReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larksearch.NewListDataSourceReqBuilder().
 		View(0).
+		PageSize(10).
 		PageToken("PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ").
-		PageSize(20).
-		Build()
-	// 发起请求
-	resp, err := client.Search.DataSource.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Search.DataSource.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

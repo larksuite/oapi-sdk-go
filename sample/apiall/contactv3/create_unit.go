@@ -22,21 +22,25 @@ import (
 )
 
 // POST /open-apis/contact/v3/unit
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewCreateUnitReqBuilder().
-		Body(larkcontact.NewCreateUnitReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewCreateUnitReqBuilder().
+	   Body(larkcontact.NewCreateUnitReqBodyBuilder().
 			UnitId("BU121").
+			
 			Name("消费者事业部").
+			
 			UnitType("子公司").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.Unit.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.Unit.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

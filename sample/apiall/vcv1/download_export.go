@@ -22,17 +22,19 @@ import (
 )
 
 // GET /open-apis/vc/v1/exports/download
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewDownloadExportReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewDownloadExportReqBuilder().
 		FileToken("6yHu7Igp7Igy62Ez6fLr6IJz7j9i5WMe6fHq5yZeY2Jz6yLqYAMAY46fZfEz64Lr5fYyYQ==").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Export.Download(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Export.Download(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

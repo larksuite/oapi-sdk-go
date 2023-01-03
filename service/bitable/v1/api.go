@@ -600,6 +600,32 @@ func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, opt
 		limit:    req.Limit}, nil
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTable.go
+func (a *appTable) Patch(ctx context.Context, req *PatchAppTableReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchAppTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 新增字段
 //
 // - 该接口用于在数据表中新增一个字段

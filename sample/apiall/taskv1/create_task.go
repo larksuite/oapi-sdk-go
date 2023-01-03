@@ -22,31 +22,40 @@ import (
 )
 
 // POST /open-apis/task/v1/tasks
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTaskReqBuilder().
 		UserIdType("user_id").
-		Task(larktask.NewTaskBuilder().
+		
+	   Task(larktask.NewTaskBuilder().
 			Summary("每天喝八杯水，保持身心愉悦").
+			
 			Description("多吃水果，多运动，健康生活，快乐工作。").
+			
 			Extra("dGVzdA==").
+			
 			Due(larktask.NewDueBuilder().Build()).
 			Origin(larktask.NewOriginBuilder().Build()).
 			CanEdit(false).
 			Custom("").
+			
 			CollaboratorIds([]string{}).
 			FollowerIds([]string{}).
 			RepeatRule("FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR").
+			
 			RichSummary("每天喝八杯水，保持身心愉悦。[谷歌](https://www.google.com/)").
+			
 			RichDescription("多吃水果，多运动，健康生活，快乐工作。[谷歌](https://www.google.com/)").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.Task.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.Task.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,3 +70,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

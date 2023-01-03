@@ -22,19 +22,21 @@ import (
 )
 
 // POST /open-apis/baike/v1/entities/match
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbaike.NewMatchEntityReqBuilder().
-		Body(larkbaike.NewMatchEntityReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbaike.NewMatchEntityReqBuilder().
+	   Body(larkbaike.NewMatchEntityReqBodyBuilder().
 			Word("企业百科").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Baike.Entity.Match(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Baike.Entity.Match(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

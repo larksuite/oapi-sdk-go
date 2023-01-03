@@ -22,24 +22,30 @@ import (
 )
 
 // POST /open-apis/approval/v4/instances/specified_rollback
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewSpecifiedRollbackInstanceReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewSpecifiedRollbackInstanceReqBuilder().
 		UserIdType("user_id").
-		SpecifiedRollback(larkapproval.NewSpecifiedRollbackBuilder().
+		
+	   SpecifiedRollback(larkapproval.NewSpecifiedRollbackBuilder().
 			UserId("893g4c45").
+			
 			TaskId("7026591166355210260").
+			
 			Reason("申请事项填写不具体，请重新填写").
+			
 			Extra("暂不填写").
+			
 			TaskDefKeyList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.Instance.SpecifiedRollback(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.Instance.SpecifiedRollback(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

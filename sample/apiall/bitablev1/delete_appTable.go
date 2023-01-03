@@ -22,18 +22,21 @@ import (
 )
 
 // DELETE /open-apis/bitable/v1/apps/:app_token/tables/:table_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewDeleteAppTableReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewDeleteAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
+		
 		TableId("tblsRc9GRRXKqhvW").
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.AppTable.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.AppTable.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

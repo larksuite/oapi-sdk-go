@@ -22,24 +22,31 @@ import (
 )
 
 // POST /open-apis/task/v1/tasks/:task_id/comments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTaskCommentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTaskCommentReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
+		
 		UserIdType("user_id").
-		Comment(larktask.NewCommentBuilder().
+		
+	   Comment(larktask.NewCommentBuilder().
 			Content("举杯邀明月，对影成三人").
+			
 			ParentId("6937231762296684564").
+			
 			CreateMilliTime("1657075055135").
+			
 			RichContent("举杯邀明月，对影成三人<at id=7058204817822318612></at>").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.TaskComment.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.TaskComment.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

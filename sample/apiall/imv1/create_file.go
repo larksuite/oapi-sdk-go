@@ -19,31 +19,34 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
-	"os"
+		"os"
 )
 
 // POST /open-apis/im/v1/files
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// 创建请求对象
-	req := larkim.NewCreateFileReqBuilder().
-		Body(larkim.NewCreateFileReqBodyBuilder().
+   // 创建请求对象
+   req := larkim.NewCreateFileReqBuilder().
+	   Body(larkim.NewCreateFileReqBodyBuilder().
 			FileType("mp4").
+			
 			FileName("测试视频.mp4").
+			
 			Duration(3000).
 			File(file).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Im.File.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Im.File.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

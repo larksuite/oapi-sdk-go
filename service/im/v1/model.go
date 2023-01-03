@@ -173,9 +173,9 @@ const (
 )
 
 const (
-	UserIdTypeListMessageReactionOpenId  = "open_id"  //
-	UserIdTypeListMessageReactionUnionId = "union_id" //
-	UserIdTypeListMessageReactionUserId  = "user_id"  //
+	UserIdTypeListMessageReactionOpenId  = "open_id"  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	UserIdTypeListMessageReactionUnionId = "union_id" // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	UserIdTypeListMessageReactionUserId  = "user_id"  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
 type BatchMessage struct {
@@ -2762,6 +2762,53 @@ func (builder *ListModeratorBuilder) Build() *ListModerator {
 	}
 	if builder.tenantKeyFlag {
 		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+type ListNotifyStatus struct {
+	UserId           *UserId `json:"user_id,omitempty"`            // 用户id
+	NotifyStatusType *string `json:"notify_status_type,omitempty"` // 加急状态类型
+}
+
+type ListNotifyStatusBuilder struct {
+	userId               *UserId // 用户id
+	userIdFlag           bool
+	notifyStatusType     string // 加急状态类型
+	notifyStatusTypeFlag bool
+}
+
+func NewListNotifyStatusBuilder() *ListNotifyStatusBuilder {
+	builder := &ListNotifyStatusBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：
+func (builder *ListNotifyStatusBuilder) UserId(userId *UserId) *ListNotifyStatusBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 加急状态类型
+//
+// 示例值：
+func (builder *ListNotifyStatusBuilder) NotifyStatusType(notifyStatusType string) *ListNotifyStatusBuilder {
+	builder.notifyStatusType = notifyStatusType
+	builder.notifyStatusTypeFlag = true
+	return builder
+}
+
+func (builder *ListNotifyStatusBuilder) Build() *ListNotifyStatus {
+	req := &ListNotifyStatus{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.notifyStatusTypeFlag {
+		req.NotifyStatusType = &builder.notifyStatusType
 
 	}
 	return req
@@ -6765,6 +6812,541 @@ type MeJoinChatMembersResp struct {
 }
 
 func (resp *MeJoinChatMembersResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchChatMenuItemReqBodyBuilder struct {
+	updateFields     []string // 要修改的字段
+	updateFieldsFlag bool
+	chatMenuItem     *ChatMenuItem // 元信息
+	chatMenuItemFlag bool
+}
+
+func NewPatchChatMenuItemReqBodyBuilder() *PatchChatMenuItemReqBodyBuilder {
+	builder := &PatchChatMenuItemReqBodyBuilder{}
+	return builder
+}
+
+// 要修改的字段
+//
+//示例值：["ICON"]
+func (builder *PatchChatMenuItemReqBodyBuilder) UpdateFields(updateFields []string) *PatchChatMenuItemReqBodyBuilder {
+	builder.updateFields = updateFields
+	builder.updateFieldsFlag = true
+	return builder
+}
+
+// 元信息
+//
+//示例值：
+func (builder *PatchChatMenuItemReqBodyBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *PatchChatMenuItemReqBodyBuilder {
+	builder.chatMenuItem = chatMenuItem
+	builder.chatMenuItemFlag = true
+	return builder
+}
+
+func (builder *PatchChatMenuItemReqBodyBuilder) Build() *PatchChatMenuItemReqBody {
+	req := &PatchChatMenuItemReqBody{}
+	if builder.updateFieldsFlag {
+		req.UpdateFields = builder.updateFields
+	}
+	if builder.chatMenuItemFlag {
+		req.ChatMenuItem = builder.chatMenuItem
+	}
+	return req
+}
+
+type PatchChatMenuItemPathReqBodyBuilder struct {
+	updateFields     []string // 要修改的字段
+	updateFieldsFlag bool
+	chatMenuItem     *ChatMenuItem // 元信息
+	chatMenuItemFlag bool
+}
+
+func NewPatchChatMenuItemPathReqBodyBuilder() *PatchChatMenuItemPathReqBodyBuilder {
+	builder := &PatchChatMenuItemPathReqBodyBuilder{}
+	return builder
+}
+
+// 要修改的字段
+//
+// 示例值：["ICON"]
+func (builder *PatchChatMenuItemPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchChatMenuItemPathReqBodyBuilder {
+	builder.updateFields = updateFields
+	builder.updateFieldsFlag = true
+	return builder
+}
+
+// 元信息
+//
+// 示例值：
+func (builder *PatchChatMenuItemPathReqBodyBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *PatchChatMenuItemPathReqBodyBuilder {
+	builder.chatMenuItem = chatMenuItem
+	builder.chatMenuItemFlag = true
+	return builder
+}
+
+func (builder *PatchChatMenuItemPathReqBodyBuilder) Build() (*PatchChatMenuItemReqBody, error) {
+	req := &PatchChatMenuItemReqBody{}
+	if builder.updateFieldsFlag {
+		req.UpdateFields = builder.updateFields
+	}
+	if builder.chatMenuItemFlag {
+		req.ChatMenuItem = builder.chatMenuItem
+	}
+	return req, nil
+}
+
+type PatchChatMenuItemReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchChatMenuItemReqBody
+}
+
+func NewPatchChatMenuItemReqBuilder() *PatchChatMenuItemReqBuilder {
+	builder := &PatchChatMenuItemReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *PatchChatMenuItemReqBuilder) ChatId(chatId string) *PatchChatMenuItemReqBuilder {
+	builder.apiReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	return builder
+}
+
+// 一级或二级菜单ID，通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口通过群ID获取菜单ID。
+//
+// 示例值：7156553273518882844
+func (builder *PatchChatMenuItemReqBuilder) MenuItemId(menuItemId string) *PatchChatMenuItemReqBuilder {
+	builder.apiReq.PathParams.Set("menu_item_id", fmt.Sprint(menuItemId))
+	return builder
+}
+
+// 修改某个一级菜单或者二级菜单的元信息。
+func (builder *PatchChatMenuItemReqBuilder) Body(body *PatchChatMenuItemReqBody) *PatchChatMenuItemReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchChatMenuItemReqBuilder) Build() *PatchChatMenuItemReq {
+	req := &PatchChatMenuItemReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchChatMenuItemReqBody struct {
+	UpdateFields []string      `json:"update_fields,omitempty"`  // 要修改的字段
+	ChatMenuItem *ChatMenuItem `json:"chat_menu_item,omitempty"` // 元信息
+}
+
+type PatchChatMenuItemReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchChatMenuItemReqBody `body:""`
+}
+
+type PatchChatMenuItemRespData struct {
+	ChatMenuItem *ChatMenuItem `json:"chat_menu_item,omitempty"` // 修改后的菜单元信息
+}
+
+type PatchChatMenuItemResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchChatMenuItemRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchChatMenuItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateChatMenuTreeReqBodyBuilder struct {
+	menuTree     *ChatMenuTree // 要向群内追加的菜单
+	menuTreeFlag bool
+}
+
+func NewCreateChatMenuTreeReqBodyBuilder() *CreateChatMenuTreeReqBodyBuilder {
+	builder := &CreateChatMenuTreeReqBodyBuilder{}
+	return builder
+}
+
+// 要向群内追加的菜单
+//
+//示例值：
+func (builder *CreateChatMenuTreeReqBodyBuilder) MenuTree(menuTree *ChatMenuTree) *CreateChatMenuTreeReqBodyBuilder {
+	builder.menuTree = menuTree
+	builder.menuTreeFlag = true
+	return builder
+}
+
+func (builder *CreateChatMenuTreeReqBodyBuilder) Build() *CreateChatMenuTreeReqBody {
+	req := &CreateChatMenuTreeReqBody{}
+	if builder.menuTreeFlag {
+		req.MenuTree = builder.menuTree
+	}
+	return req
+}
+
+type CreateChatMenuTreePathReqBodyBuilder struct {
+	menuTree     *ChatMenuTree // 要向群内追加的菜单
+	menuTreeFlag bool
+}
+
+func NewCreateChatMenuTreePathReqBodyBuilder() *CreateChatMenuTreePathReqBodyBuilder {
+	builder := &CreateChatMenuTreePathReqBodyBuilder{}
+	return builder
+}
+
+// 要向群内追加的菜单
+//
+// 示例值：
+func (builder *CreateChatMenuTreePathReqBodyBuilder) MenuTree(menuTree *ChatMenuTree) *CreateChatMenuTreePathReqBodyBuilder {
+	builder.menuTree = menuTree
+	builder.menuTreeFlag = true
+	return builder
+}
+
+func (builder *CreateChatMenuTreePathReqBodyBuilder) Build() (*CreateChatMenuTreeReqBody, error) {
+	req := &CreateChatMenuTreeReqBody{}
+	if builder.menuTreeFlag {
+		req.MenuTree = builder.menuTree
+	}
+	return req, nil
+}
+
+type CreateChatMenuTreeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateChatMenuTreeReqBody
+}
+
+func NewCreateChatMenuTreeReqBuilder() *CreateChatMenuTreeReqBuilder {
+	builder := &CreateChatMenuTreeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *CreateChatMenuTreeReqBuilder) ChatId(chatId string) *CreateChatMenuTreeReqBuilder {
+	builder.apiReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	return builder
+}
+
+// 向群内添加群菜单。
+func (builder *CreateChatMenuTreeReqBuilder) Body(body *CreateChatMenuTreeReqBody) *CreateChatMenuTreeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateChatMenuTreeReqBuilder) Build() *CreateChatMenuTreeReq {
+	req := &CreateChatMenuTreeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateChatMenuTreeReqBody struct {
+	MenuTree *ChatMenuTree `json:"menu_tree,omitempty"` // 要向群内追加的菜单
+}
+
+type CreateChatMenuTreeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateChatMenuTreeReqBody `body:""`
+}
+
+type CreateChatMenuTreeRespData struct {
+	MenuTree *ChatMenuTree `json:"menu_tree,omitempty"` // 追加后群内现有菜单
+}
+
+type CreateChatMenuTreeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateChatMenuTreeRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateChatMenuTreeResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteChatMenuTreeReqBodyBuilder struct {
+	chatMenuTopLevelIds     []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsFlag bool
+}
+
+func NewDeleteChatMenuTreeReqBodyBuilder() *DeleteChatMenuTreeReqBodyBuilder {
+	builder := &DeleteChatMenuTreeReqBodyBuilder{}
+	return builder
+}
+
+// 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+//
+//示例值：7156553273518882844
+func (builder *DeleteChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreeReqBodyBuilder {
+	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
+	builder.chatMenuTopLevelIdsFlag = true
+	return builder
+}
+
+func (builder *DeleteChatMenuTreeReqBodyBuilder) Build() *DeleteChatMenuTreeReqBody {
+	req := &DeleteChatMenuTreeReqBody{}
+	if builder.chatMenuTopLevelIdsFlag {
+		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
+	}
+	return req
+}
+
+type DeleteChatMenuTreePathReqBodyBuilder struct {
+	chatMenuTopLevelIds     []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsFlag bool
+}
+
+func NewDeleteChatMenuTreePathReqBodyBuilder() *DeleteChatMenuTreePathReqBodyBuilder {
+	builder := &DeleteChatMenuTreePathReqBodyBuilder{}
+	return builder
+}
+
+// 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+//
+// 示例值：7156553273518882844
+func (builder *DeleteChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreePathReqBodyBuilder {
+	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
+	builder.chatMenuTopLevelIdsFlag = true
+	return builder
+}
+
+func (builder *DeleteChatMenuTreePathReqBodyBuilder) Build() (*DeleteChatMenuTreeReqBody, error) {
+	req := &DeleteChatMenuTreeReqBody{}
+	if builder.chatMenuTopLevelIdsFlag {
+		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
+	}
+	return req, nil
+}
+
+type DeleteChatMenuTreeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DeleteChatMenuTreeReqBody
+}
+
+func NewDeleteChatMenuTreeReqBuilder() *DeleteChatMenuTreeReqBuilder {
+	builder := &DeleteChatMenuTreeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *DeleteChatMenuTreeReqBuilder) ChatId(chatId string) *DeleteChatMenuTreeReqBuilder {
+	builder.apiReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	return builder
+}
+
+// 删除群内菜单。
+func (builder *DeleteChatMenuTreeReqBuilder) Body(body *DeleteChatMenuTreeReqBody) *DeleteChatMenuTreeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DeleteChatMenuTreeReqBuilder) Build() *DeleteChatMenuTreeReq {
+	req := &DeleteChatMenuTreeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeleteChatMenuTreeReqBody struct {
+	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+}
+
+type DeleteChatMenuTreeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DeleteChatMenuTreeReqBody `body:""`
+}
+
+type DeleteChatMenuTreeRespData struct {
+	MenuTree *ChatMenuTree `json:"menu_tree,omitempty"` // 群内现有菜单
+}
+
+type DeleteChatMenuTreeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *DeleteChatMenuTreeRespData `json:"data"` // 业务数据
+}
+
+func (resp *DeleteChatMenuTreeResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetChatMenuTreeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetChatMenuTreeReqBuilder() *GetChatMenuTreeReqBuilder {
+	builder := &GetChatMenuTreeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *GetChatMenuTreeReqBuilder) ChatId(chatId string) *GetChatMenuTreeReqBuilder {
+	builder.apiReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	return builder
+}
+
+func (builder *GetChatMenuTreeReqBuilder) Build() *GetChatMenuTreeReq {
+	req := &GetChatMenuTreeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetChatMenuTreeReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetChatMenuTreeRespData struct {
+	MenuTree *ChatMenuTree `json:"menu_tree,omitempty"` // 群内所有菜单
+}
+
+type GetChatMenuTreeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetChatMenuTreeRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetChatMenuTreeResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SortChatMenuTreeReqBodyBuilder struct {
+	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsFlag bool
+}
+
+func NewSortChatMenuTreeReqBodyBuilder() *SortChatMenuTreeReqBodyBuilder {
+	builder := &SortChatMenuTreeReqBodyBuilder{}
+	return builder
+}
+
+// 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+//
+//示例值：7156553273518882844
+func (builder *SortChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreeReqBodyBuilder {
+	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
+	builder.chatMenuTopLevelIdsFlag = true
+	return builder
+}
+
+func (builder *SortChatMenuTreeReqBodyBuilder) Build() *SortChatMenuTreeReqBody {
+	req := &SortChatMenuTreeReqBody{}
+	if builder.chatMenuTopLevelIdsFlag {
+		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
+	}
+	return req
+}
+
+type SortChatMenuTreePathReqBodyBuilder struct {
+	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsFlag bool
+}
+
+func NewSortChatMenuTreePathReqBodyBuilder() *SortChatMenuTreePathReqBodyBuilder {
+	builder := &SortChatMenuTreePathReqBodyBuilder{}
+	return builder
+}
+
+// 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+//
+// 示例值：7156553273518882844
+func (builder *SortChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreePathReqBodyBuilder {
+	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
+	builder.chatMenuTopLevelIdsFlag = true
+	return builder
+}
+
+func (builder *SortChatMenuTreePathReqBodyBuilder) Build() (*SortChatMenuTreeReqBody, error) {
+	req := &SortChatMenuTreeReqBody{}
+	if builder.chatMenuTopLevelIdsFlag {
+		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
+	}
+	return req, nil
+}
+
+type SortChatMenuTreeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SortChatMenuTreeReqBody
+}
+
+func NewSortChatMenuTreeReqBuilder() *SortChatMenuTreeReqBuilder {
+	builder := &SortChatMenuTreeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *SortChatMenuTreeReqBuilder) ChatId(chatId string) *SortChatMenuTreeReqBuilder {
+	builder.apiReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	return builder
+}
+
+// 给一个群内的一级菜单排序。
+func (builder *SortChatMenuTreeReqBuilder) Body(body *SortChatMenuTreeReqBody) *SortChatMenuTreeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SortChatMenuTreeReqBuilder) Build() *SortChatMenuTreeReq {
+	req := &SortChatMenuTreeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SortChatMenuTreeReqBody struct {
+	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+}
+
+type SortChatMenuTreeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SortChatMenuTreeReqBody `body:""`
+}
+
+type SortChatMenuTreeRespData struct {
+	MenuTree *ChatMenuTree `json:"menu_tree,omitempty"` // 排序后群内菜单
+}
+
+type SortChatMenuTreeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SortChatMenuTreeRespData `json:"data"` // 业务数据
+}
+
+func (resp *SortChatMenuTreeResp) Success() bool {
 	return resp.Code == 0
 }
 

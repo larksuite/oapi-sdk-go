@@ -22,18 +22,21 @@ import (
 )
 
 // GET /open-apis/vc/v1/reports/get_daily
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewGetDailyReportReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewGetDailyReportReqBuilder().
 		StartTime("1608888867").
+		
 		EndTime("1608888966").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Report.GetDaily(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Report.GetDaily(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

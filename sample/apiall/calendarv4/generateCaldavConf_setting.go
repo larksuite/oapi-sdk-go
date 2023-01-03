@@ -22,19 +22,21 @@ import (
 )
 
 // POST /open-apis/calendar/v4/settings/generate_caldav_conf
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewGenerateCaldavConfSettingReqBuilder().
-		Body(larkcalendar.NewGenerateCaldavConfSettingReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewGenerateCaldavConfSettingReqBuilder().
+	   Body(larkcalendar.NewGenerateCaldavConfSettingReqBodyBuilder().
 			DeviceName("iPhone").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.Setting.GenerateCaldavConf(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.Setting.GenerateCaldavConf(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

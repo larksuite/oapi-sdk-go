@@ -23,6 +23,9 @@ import (
 func NewService(config *larkcore.Config) *OkrService {
 	o := &OkrService{config: config}
 	o.Image = &image{service: o}
+	o.MetricSource = &metricSource{service: o}
+	o.MetricSourceTable = &metricSourceTable{service: o}
+	o.MetricSourceTableItem = &metricSourceTableItem{service: o}
 	o.Okr = &okr{service: o}
 	o.Period = &period{service: o}
 	o.ProgressRecord = &progressRecord{service: o}
@@ -31,15 +34,27 @@ func NewService(config *larkcore.Config) *OkrService {
 }
 
 type OkrService struct {
-	config         *larkcore.Config
-	Image          *image          // 图片
-	Okr            *okr            // OKR
-	Period         *period         // OKR周期
-	ProgressRecord *progressRecord // OKR进展记录
-	UserOkr        *userOkr        // 用户OKR
+	config                *larkcore.Config
+	Image                 *image                 // 图片
+	MetricSource          *metricSource          // 指标库
+	MetricSourceTable     *metricSourceTable     // 指标表
+	MetricSourceTableItem *metricSourceTableItem // 指标项
+	Okr                   *okr                   // OKR
+	Period                *period                // OKR周期
+	ProgressRecord        *progressRecord        // OKR进展记录
+	UserOkr               *userOkr               // 用户OKR
 }
 
 type image struct {
+	service *OkrService
+}
+type metricSource struct {
+	service *OkrService
+}
+type metricSourceTable struct {
+	service *OkrService
+}
+type metricSourceTableItem struct {
 	service *OkrService
 }
 type okr struct {
@@ -76,6 +91,162 @@ func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...lark
 	// 反序列响应结果
 	resp := &UploadImageResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取指标库
+//
+// - 获取租户下全部 OKR 指标库（仅限 OKR 企业版使用）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSource.go
+func (m *metricSource) List(ctx context.Context, req *ListMetricSourceReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListMetricSourceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取指标表
+//
+// - 获取指定指标库下有哪些指标表（仅限 OKR 企业版使用）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTable.go
+func (m *metricSourceTable) List(ctx context.Context, req *ListMetricSourceTableReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources/:metric_source_id/tables"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListMetricSourceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 批量更新指标项
+//
+// - - 该接口用于批量更新多项指标，单次调用最多更新 100 条记录。接口仅限 OKR 企业版使用。;;  更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchUpdate_metricSourceTableItem.go
+func (m *metricSourceTableItem) BatchUpdate(ctx context.Context, req *BatchUpdateMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateMetricSourceTableItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items/batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateMetricSourceTableItemResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取指标项详情
+//
+// - 获取某项指标的具体内容（仅限 OKR 企业版使用）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_metricSourceTableItem.go
+func (m *metricSourceTableItem) Get(ctx context.Context, req *GetMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*GetMetricSourceTableItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items/:metric_item_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetMetricSourceTableItemResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取指标项
+//
+// - 获取指定指标表下的所有指标项（仅限 OKR 企业版使用）
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTableItem.go
+func (m *metricSourceTableItem) List(ctx context.Context, req *ListMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceTableItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListMetricSourceTableItemResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新指标项
+//
+// - - 该接口用于更新某项指标，接口仅限 OKR 企业版使用。;;	更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/patch_metricSourceTableItem.go
+func (m *metricSourceTableItem) Patch(ctx context.Context, req *PatchMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*PatchMetricSourceTableItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items/:metric_item_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchMetricSourceTableItemResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
 	if err != nil {
 		return nil, err
 	}

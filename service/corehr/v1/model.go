@@ -2385,6 +2385,430 @@ func (builder *CountryRegionBuilder) Build() *CountryRegion {
 	return req
 }
 
+type CpstBandWidth struct {
+	UpperLimit *string `json:"upper_limit,omitempty"` // 上限
+	LowerLimit *string `json:"lower_limit,omitempty"` // 下限
+}
+
+type CpstBandWidthBuilder struct {
+	upperLimit     string // 上限
+	upperLimitFlag bool
+	lowerLimit     string // 下限
+	lowerLimitFlag bool
+}
+
+func NewCpstBandWidthBuilder() *CpstBandWidthBuilder {
+	builder := &CpstBandWidthBuilder{}
+	return builder
+}
+
+// 上限
+//
+// 示例值：15000
+func (builder *CpstBandWidthBuilder) UpperLimit(upperLimit string) *CpstBandWidthBuilder {
+	builder.upperLimit = upperLimit
+	builder.upperLimitFlag = true
+	return builder
+}
+
+// 下限
+//
+// 示例值：10000
+func (builder *CpstBandWidthBuilder) LowerLimit(lowerLimit string) *CpstBandWidthBuilder {
+	builder.lowerLimit = lowerLimit
+	builder.lowerLimitFlag = true
+	return builder
+}
+
+func (builder *CpstBandWidthBuilder) Build() *CpstBandWidth {
+	req := &CpstBandWidth{}
+	if builder.upperLimitFlag {
+		req.UpperLimit = &builder.upperLimit
+
+	}
+	if builder.lowerLimitFlag {
+		req.LowerLimit = &builder.lowerLimit
+
+	}
+	return req
+}
+
+type CpstCurrency struct {
+	CurrencyId *string   `json:"currency_id,omitempty"` // 币种ID
+	Code       *string   `json:"code,omitempty"`        // 币种code
+	Name       *CpstI18n `json:"name,omitempty"`        // 币种名称
+}
+
+type CpstCurrencyBuilder struct {
+	currencyId     string // 币种ID
+	currencyIdFlag bool
+	code           string // 币种code
+	codeFlag       bool
+	name           *CpstI18n // 币种名称
+	nameFlag       bool
+}
+
+func NewCpstCurrencyBuilder() *CpstCurrencyBuilder {
+	builder := &CpstCurrencyBuilder{}
+	return builder
+}
+
+// 币种ID
+//
+// 示例值：6863329932261459464
+func (builder *CpstCurrencyBuilder) CurrencyId(currencyId string) *CpstCurrencyBuilder {
+	builder.currencyId = currencyId
+	builder.currencyIdFlag = true
+	return builder
+}
+
+// 币种code
+//
+// 示例值：CNY
+func (builder *CpstCurrencyBuilder) Code(code string) *CpstCurrencyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 币种名称
+//
+// 示例值：
+func (builder *CpstCurrencyBuilder) Name(name *CpstI18n) *CpstCurrencyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *CpstCurrencyBuilder) Build() *CpstCurrency {
+	req := &CpstCurrency{}
+	if builder.currencyIdFlag {
+		req.CurrencyId = &builder.currencyId
+
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	return req
+}
+
+type CpstGrade struct {
+	GradeId            *string                 `json:"grade_id,omitempty"`             // 薪资等级ID
+	GradeTid           *string                 `json:"grade_tid,omitempty"`            // 薪资等级时间轴ID
+	GradeStandardValue *CpstGradeStandardValue `json:"grade_standard_value,omitempty"` // 带宽上下限和标准值
+	Currency           *CpstCurrency           `json:"currency,omitempty"`             // 币种
+	Description        *CpstI18n               `json:"description,omitempty"`          // 薪资标准描述
+}
+
+type CpstGradeBuilder struct {
+	gradeId                string // 薪资等级ID
+	gradeIdFlag            bool
+	gradeTid               string // 薪资等级时间轴ID
+	gradeTidFlag           bool
+	gradeStandardValue     *CpstGradeStandardValue // 带宽上下限和标准值
+	gradeStandardValueFlag bool
+	currency               *CpstCurrency // 币种
+	currencyFlag           bool
+	description            *CpstI18n // 薪资标准描述
+	descriptionFlag        bool
+}
+
+func NewCpstGradeBuilder() *CpstGradeBuilder {
+	builder := &CpstGradeBuilder{}
+	return builder
+}
+
+// 薪资等级ID
+//
+// 示例值：7174758360888215084
+func (builder *CpstGradeBuilder) GradeId(gradeId string) *CpstGradeBuilder {
+	builder.gradeId = gradeId
+	builder.gradeIdFlag = true
+	return builder
+}
+
+// 薪资等级时间轴ID
+//
+// 示例值：7174758360888247852
+func (builder *CpstGradeBuilder) GradeTid(gradeTid string) *CpstGradeBuilder {
+	builder.gradeTid = gradeTid
+	builder.gradeTidFlag = true
+	return builder
+}
+
+// 带宽上下限和标准值
+//
+// 示例值：
+func (builder *CpstGradeBuilder) GradeStandardValue(gradeStandardValue *CpstGradeStandardValue) *CpstGradeBuilder {
+	builder.gradeStandardValue = gradeStandardValue
+	builder.gradeStandardValueFlag = true
+	return builder
+}
+
+// 币种
+//
+// 示例值：
+func (builder *CpstGradeBuilder) Currency(currency *CpstCurrency) *CpstGradeBuilder {
+	builder.currency = currency
+	builder.currencyFlag = true
+	return builder
+}
+
+// 薪资标准描述
+//
+// 示例值：
+func (builder *CpstGradeBuilder) Description(description *CpstI18n) *CpstGradeBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *CpstGradeBuilder) Build() *CpstGrade {
+	req := &CpstGrade{}
+	if builder.gradeIdFlag {
+		req.GradeId = &builder.gradeId
+
+	}
+	if builder.gradeTidFlag {
+		req.GradeTid = &builder.gradeTid
+
+	}
+	if builder.gradeStandardValueFlag {
+		req.GradeStandardValue = builder.gradeStandardValue
+	}
+	if builder.currencyFlag {
+		req.Currency = builder.currency
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	return req
+}
+
+type CpstGradeStandardValue struct {
+	ReferenceObject *ReferenceObject  `json:"reference_object,omitempty"` // 薪资标准的关联对象，项目或者指标
+	StandardType    *CpstStandardType `json:"standard_type,omitempty"`    // 薪资标准类型
+	BandWidth       *CpstBandWidth    `json:"band_width,omitempty"`       // 上下限
+	StandardValue   *string           `json:"standard_value,omitempty"`   // 标准值
+}
+
+type CpstGradeStandardValueBuilder struct {
+	referenceObject     *ReferenceObject // 薪资标准的关联对象，项目或者指标
+	referenceObjectFlag bool
+	standardType        *CpstStandardType // 薪资标准类型
+	standardTypeFlag    bool
+	bandWidth           *CpstBandWidth // 上下限
+	bandWidthFlag       bool
+	standardValue       string // 标准值
+	standardValueFlag   bool
+}
+
+func NewCpstGradeStandardValueBuilder() *CpstGradeStandardValueBuilder {
+	builder := &CpstGradeStandardValueBuilder{}
+	return builder
+}
+
+// 薪资标准的关联对象，项目或者指标
+//
+// 示例值：
+func (builder *CpstGradeStandardValueBuilder) ReferenceObject(referenceObject *ReferenceObject) *CpstGradeStandardValueBuilder {
+	builder.referenceObject = referenceObject
+	builder.referenceObjectFlag = true
+	return builder
+}
+
+// 薪资标准类型
+//
+// 示例值：
+func (builder *CpstGradeStandardValueBuilder) StandardType(standardType *CpstStandardType) *CpstGradeStandardValueBuilder {
+	builder.standardType = standardType
+	builder.standardTypeFlag = true
+	return builder
+}
+
+// 上下限
+//
+// 示例值：
+func (builder *CpstGradeStandardValueBuilder) BandWidth(bandWidth *CpstBandWidth) *CpstGradeStandardValueBuilder {
+	builder.bandWidth = bandWidth
+	builder.bandWidthFlag = true
+	return builder
+}
+
+// 标准值
+//
+// 示例值：12000
+func (builder *CpstGradeStandardValueBuilder) StandardValue(standardValue string) *CpstGradeStandardValueBuilder {
+	builder.standardValue = standardValue
+	builder.standardValueFlag = true
+	return builder
+}
+
+func (builder *CpstGradeStandardValueBuilder) Build() *CpstGradeStandardValue {
+	req := &CpstGradeStandardValue{}
+	if builder.referenceObjectFlag {
+		req.ReferenceObject = builder.referenceObject
+	}
+	if builder.standardTypeFlag {
+		req.StandardType = builder.standardType
+	}
+	if builder.bandWidthFlag {
+		req.BandWidth = builder.bandWidth
+	}
+	if builder.standardValueFlag {
+		req.StandardValue = &builder.standardValue
+
+	}
+	return req
+}
+
+type CpstI18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文
+	EnUs *string `json:"en_us,omitempty"` // 英文
+}
+
+type CpstI18nBuilder struct {
+	zhCn     string // 中文
+	zhCnFlag bool
+	enUs     string // 英文
+	enUsFlag bool
+}
+
+func NewCpstI18nBuilder() *CpstI18nBuilder {
+	builder := &CpstI18nBuilder{}
+	return builder
+}
+
+// 中文
+//
+// 示例值：中文名称
+func (builder *CpstI18nBuilder) ZhCn(zhCn string) *CpstI18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文
+//
+// 示例值：english name
+func (builder *CpstI18nBuilder) EnUs(enUs string) *CpstI18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *CpstI18nBuilder) Build() *CpstI18n {
+	req := &CpstI18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+type CpstMatchItem struct {
+	StandardId    *string    `json:"standard_id,omitempty"`    // 薪资标准表ID
+	Grade         *CpstGrade `json:"grade,omitempty"`          // 薪资等级
+	EffectiveTime *string    `json:"effective_time,omitempty"` // 生效时间
+}
+
+type CpstMatchItemBuilder struct {
+	standardId        string // 薪资标准表ID
+	standardIdFlag    bool
+	grade             *CpstGrade // 薪资等级
+	gradeFlag         bool
+	effectiveTime     string // 生效时间
+	effectiveTimeFlag bool
+}
+
+func NewCpstMatchItemBuilder() *CpstMatchItemBuilder {
+	builder := &CpstMatchItemBuilder{}
+	return builder
+}
+
+// 薪资标准表ID
+//
+// 示例值：7174758593538295340
+func (builder *CpstMatchItemBuilder) StandardId(standardId string) *CpstMatchItemBuilder {
+	builder.standardId = standardId
+	builder.standardIdFlag = true
+	return builder
+}
+
+// 薪资等级
+//
+// 示例值：
+func (builder *CpstMatchItemBuilder) Grade(grade *CpstGrade) *CpstMatchItemBuilder {
+	builder.grade = grade
+	builder.gradeFlag = true
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：1660924800000
+func (builder *CpstMatchItemBuilder) EffectiveTime(effectiveTime string) *CpstMatchItemBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+func (builder *CpstMatchItemBuilder) Build() *CpstMatchItem {
+	req := &CpstMatchItem{}
+	if builder.standardIdFlag {
+		req.StandardId = &builder.standardId
+
+	}
+	if builder.gradeFlag {
+		req.Grade = builder.grade
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	return req
+}
+
+type CpstStandardType struct {
+	ApiName *string `json:"api_name,omitempty"` // 薪资标准类型
+}
+
+type CpstStandardTypeBuilder struct {
+	apiName     string // 薪资标准类型
+	apiNameFlag bool
+}
+
+func NewCpstStandardTypeBuilder() *CpstStandardTypeBuilder {
+	builder := &CpstStandardTypeBuilder{}
+	return builder
+}
+
+// 薪资标准类型
+//
+// 示例值：standard_value
+func (builder *CpstStandardTypeBuilder) ApiName(apiName string) *CpstStandardTypeBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+func (builder *CpstStandardTypeBuilder) Build() *CpstStandardType {
+	req := &CpstStandardType{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	return req
+}
+
 type Currency struct {
 	Id                 *string `json:"id,omitempty"`                    // 货币id
 	CountryRegionId    *string `json:"country_region_id,omitempty"`     // 货币所属国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
@@ -3153,6 +3577,53 @@ func (builder *DependentBuilder) Build() *Dependent {
 	return req
 }
 
+type DimensionValue struct {
+	ApiName   *string  `json:"api_name,omitempty"`   // 管理维度名称 eg. department（部门）、job_family(序列) 更多可以去元数据平台搜索cpst_management_dimension
+	ValueList []string `json:"value_list,omitempty"` // 值列表 例如部门ID
+}
+
+type DimensionValueBuilder struct {
+	apiName       string // 管理维度名称 eg. department（部门）、job_family(序列) 更多可以去元数据平台搜索cpst_management_dimension
+	apiNameFlag   bool
+	valueList     []string // 值列表 例如部门ID
+	valueListFlag bool
+}
+
+func NewDimensionValueBuilder() *DimensionValueBuilder {
+	builder := &DimensionValueBuilder{}
+	return builder
+}
+
+// 管理维度名称 eg. department（部门）、job_family(序列) 更多可以去元数据平台搜索cpst_management_dimension
+//
+// 示例值：department
+func (builder *DimensionValueBuilder) ApiName(apiName string) *DimensionValueBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 值列表 例如部门ID
+//
+// 示例值：
+func (builder *DimensionValueBuilder) ValueList(valueList []string) *DimensionValueBuilder {
+	builder.valueList = valueList
+	builder.valueListFlag = true
+	return builder
+}
+
+func (builder *DimensionValueBuilder) Build() *DimensionValue {
+	req := &DimensionValue{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.valueListFlag {
+		req.ValueList = builder.valueList
+	}
+	return req
+}
+
 type Education struct {
 	School           []*I18n            `json:"school,omitempty"`              // 学校
 	LevelOfEducation *Enum              `json:"level_of_education,omitempty"`  // 学历，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
@@ -3663,8 +4134,6 @@ type Employment struct {
 	ReasonForOffboarding *Enum                `json:"reason_for_offboarding,omitempty"` // 离职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
 	CostCenterList       []*JobDataCostCenter `json:"cost_center_list,omitempty"`       // 成本中心id列表
 	AtsApplicationId     *string              `json:"ats_application_id,omitempty"`     // 招聘应用 ID
-	Rehire               *Enum                `json:"rehire,omitempty"`                 // 是否离职重聘
-	RehireEmploymentId   *string              `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
 }
 
 type EmploymentBuilder struct {
@@ -3724,10 +4193,6 @@ type EmploymentBuilder struct {
 	costCenterListFlag       bool
 	atsApplicationId         string // 招聘应用 ID
 	atsApplicationIdFlag     bool
-	rehire                   *Enum // 是否离职重聘
-	rehireFlag               bool
-	rehireEmploymentId       string // 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
-	rehireEmploymentIdFlag   bool
 }
 
 func NewEmploymentBuilder() *EmploymentBuilder {
@@ -3987,24 +4452,6 @@ func (builder *EmploymentBuilder) AtsApplicationId(atsApplicationId string) *Emp
 	return builder
 }
 
-// 是否离职重聘
-//
-// 示例值：
-func (builder *EmploymentBuilder) Rehire(rehire *Enum) *EmploymentBuilder {
-	builder.rehire = rehire
-	builder.rehireFlag = true
-	return builder
-}
-
-// 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
-//
-// 示例值：
-func (builder *EmploymentBuilder) RehireEmploymentId(rehireEmploymentId string) *EmploymentBuilder {
-	builder.rehireEmploymentId = rehireEmploymentId
-	builder.rehireEmploymentIdFlag = true
-	return builder
-}
-
 func (builder *EmploymentBuilder) Build() *Employment {
 	req := &Employment{}
 	if builder.prehireIdFlag {
@@ -4113,13 +4560,6 @@ func (builder *EmploymentBuilder) Build() *Employment {
 		req.AtsApplicationId = &builder.atsApplicationId
 
 	}
-	if builder.rehireFlag {
-		req.Rehire = builder.rehire
-	}
-	if builder.rehireEmploymentIdFlag {
-		req.RehireEmploymentId = &builder.rehireEmploymentId
-
-	}
 	return req
 }
 
@@ -4199,8 +4639,6 @@ type EmploymentCreate struct {
 	ReasonForOffboarding *Enum                `json:"reason_for_offboarding,omitempty"` // 离职原因
 	CostCenterList       []*JobDataCostCenter `json:"cost_center_list,omitempty"`       // 成本中心id列表
 	AtsApplicationId     *string              `json:"ats_application_id,omitempty"`     // 招聘应用 ID
-	Rehire               *Enum                `json:"rehire,omitempty"`                 // 是否离职重聘
-	RehireEmploymentId   *string              `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID
 }
 
 type EmploymentCreateBuilder struct {
@@ -4260,10 +4698,6 @@ type EmploymentCreateBuilder struct {
 	costCenterListFlag       bool
 	atsApplicationId         string // 招聘应用 ID
 	atsApplicationIdFlag     bool
-	rehire                   *Enum // 是否离职重聘
-	rehireFlag               bool
-	rehireEmploymentId       string // 历史雇佣信息 ID
-	rehireEmploymentIdFlag   bool
 }
 
 func NewEmploymentCreateBuilder() *EmploymentCreateBuilder {
@@ -4523,24 +4957,6 @@ func (builder *EmploymentCreateBuilder) AtsApplicationId(atsApplicationId string
 	return builder
 }
 
-// 是否离职重聘
-//
-// 示例值：
-func (builder *EmploymentCreateBuilder) Rehire(rehire *Enum) *EmploymentCreateBuilder {
-	builder.rehire = rehire
-	builder.rehireFlag = true
-	return builder
-}
-
-// 历史雇佣信息 ID
-//
-// 示例值：7051837122449425964
-func (builder *EmploymentCreateBuilder) RehireEmploymentId(rehireEmploymentId string) *EmploymentCreateBuilder {
-	builder.rehireEmploymentId = rehireEmploymentId
-	builder.rehireEmploymentIdFlag = true
-	return builder
-}
-
 func (builder *EmploymentCreateBuilder) Build() *EmploymentCreate {
 	req := &EmploymentCreate{}
 	if builder.prehireIdFlag {
@@ -4647,13 +5063,6 @@ func (builder *EmploymentCreateBuilder) Build() *EmploymentCreate {
 	}
 	if builder.atsApplicationIdFlag {
 		req.AtsApplicationId = &builder.atsApplicationId
-
-	}
-	if builder.rehireFlag {
-		req.Rehire = builder.rehire
-	}
-	if builder.rehireEmploymentIdFlag {
-		req.RehireEmploymentId = &builder.rehireEmploymentId
 
 	}
 	return req
@@ -5931,6 +6340,8 @@ type HiberarchyCommon struct {
 	ExpirationTime *string            `json:"expiration_time,omitempty"` // 失效时间
 	Code           *string            `json:"code,omitempty"`            // 编码
 	Description    []*I18n            `json:"description,omitempty"`     // 描述
+	TreeOrder      *string            `json:"tree_order,omitempty"`      // 树形排序，代表同层级的部门排序序号
+	ListOrder      *string            `json:"list_order,omitempty"`      // 列表排序，代表所有部门的混排序号
 	CustomFields   []*ObjectFieldData `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
@@ -5951,6 +6362,10 @@ type HiberarchyCommonBuilder struct {
 	codeFlag           bool
 	description        []*I18n // 描述
 	descriptionFlag    bool
+	treeOrder          string // 树形排序，代表同层级的部门排序序号
+	treeOrderFlag      bool
+	listOrder          string // 列表排序，代表所有部门的混排序号
+	listOrderFlag      bool
 	customFields       []*ObjectFieldData // 自定义字段
 	customFieldsFlag   bool
 }
@@ -6032,6 +6447,24 @@ func (builder *HiberarchyCommonBuilder) Description(description []*I18n) *Hibera
 	return builder
 }
 
+// 树形排序，代表同层级的部门排序序号
+//
+// 示例值：
+func (builder *HiberarchyCommonBuilder) TreeOrder(treeOrder string) *HiberarchyCommonBuilder {
+	builder.treeOrder = treeOrder
+	builder.treeOrderFlag = true
+	return builder
+}
+
+// 列表排序，代表所有部门的混排序号
+//
+// 示例值：
+func (builder *HiberarchyCommonBuilder) ListOrder(listOrder string) *HiberarchyCommonBuilder {
+	builder.listOrder = listOrder
+	builder.listOrderFlag = true
+	return builder
+}
+
 // 自定义字段
 //
 // 示例值：
@@ -6071,6 +6504,14 @@ func (builder *HiberarchyCommonBuilder) Build() *HiberarchyCommon {
 	}
 	if builder.descriptionFlag {
 		req.Description = builder.description
+	}
+	if builder.treeOrderFlag {
+		req.TreeOrder = &builder.treeOrder
+
+	}
+	if builder.listOrderFlag {
+		req.ListOrder = &builder.listOrder
+
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
@@ -11361,6 +11802,54 @@ func (builder *ProcessBuilder) Id(id string) *ProcessBuilder {
 
 func (builder *ProcessBuilder) Build() *Process {
 	req := &Process{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type ReferenceObject struct {
+	ApiName *string `json:"api_name,omitempty"` // cpst_item(项目)、 cpst_indicator(指标)
+	Id      *string `json:"id,omitempty"`       // 值列表 例如部门ID
+}
+
+type ReferenceObjectBuilder struct {
+	apiName     string // cpst_item(项目)、 cpst_indicator(指标)
+	apiNameFlag bool
+	id          string // 值列表 例如部门ID
+	idFlag      bool
+}
+
+func NewReferenceObjectBuilder() *ReferenceObjectBuilder {
+	builder := &ReferenceObjectBuilder{}
+	return builder
+}
+
+// cpst_item(项目)、 cpst_indicator(指标)
+//
+// 示例值：cpst_item
+func (builder *ReferenceObjectBuilder) ApiName(apiName string) *ReferenceObjectBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 值列表 例如部门ID
+//
+// 示例值：7156853394442044972
+func (builder *ReferenceObjectBuilder) Id(id string) *ReferenceObjectBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *ReferenceObjectBuilder) Build() *ReferenceObject {
+	req := &ReferenceObject{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
 	if builder.idFlag {
 		req.Id = &builder.id
 

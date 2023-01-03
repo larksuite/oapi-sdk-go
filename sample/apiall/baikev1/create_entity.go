@@ -22,25 +22,30 @@ import (
 )
 
 // POST /open-apis/baike/v1/entities
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbaike.NewCreateEntityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbaike.NewCreateEntityReqBuilder().
 		UserIdType("user_id").
-		Entity(larkbaike.NewEntityBuilder().
+		
+	   Entity(larkbaike.NewEntityBuilder().
 			MainKeys([]*larkbaike.Term{larkbaike.NewTermBuilder().Build()}).
+			
 			Aliases([]*larkbaike.Term{larkbaike.NewTermBuilder().Build()}).
 			Description("企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通").
+			
 			RelatedMeta(larkbaike.NewRelatedMetaBuilder().Build()).
 			OuterInfo(larkbaike.NewOuterInfoBuilder().Build()).
 			RichText("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Baike.Entity.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Baike.Entity.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

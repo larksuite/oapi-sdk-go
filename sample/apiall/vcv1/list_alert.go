@@ -22,22 +22,27 @@ import (
 )
 
 // GET /open-apis/vc/v1/alerts
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewListAlertReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewListAlertReqBuilder().
 		StartTime("1608888867").
+		
 		EndTime("1608888867").
+		
 		QueryType(1).
 		QueryValue("6911188411932033028").
+		
 		PageSize(100).
 		PageToken("100").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Alert.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Alert.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

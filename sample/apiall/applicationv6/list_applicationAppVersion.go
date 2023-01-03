@@ -22,22 +22,27 @@ import (
 )
 
 // GET /open-apis/application/v6/applications/:app_id/app_versions
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewListApplicationAppVersionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewListApplicationAppVersionReqBuilder().
 		AppId("cli_9b445f5258795107").
+		
 		Lang("zh_cn").
+		
 		PageSize(20).
 		PageToken("new-e3c5a0627cdf0c2e057da7257b90376a").
+		
 		Order(0).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Application.ApplicationAppVersion.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Application.ApplicationAppVersion.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

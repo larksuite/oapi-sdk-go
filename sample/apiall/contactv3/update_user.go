@@ -22,42 +22,63 @@ import (
 )
 
 // PUT /open-apis/contact/v3/users/:user_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewUpdateUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewUpdateUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		User(larkcontact.NewUserBuilder().
+		
+	   User(larkcontact.NewUserBuilder().
 			Name("").
+			
 			EnName("").
+			
 			Nickname("").
+			
 			Email("").
+			
 			Mobile("").
+			
 			MobileVisible(false).
 			Gender(0).
 			AvatarKey("").
+			
 			DepartmentIds([]string{}).
 			LeaderUserId("").
+			
 			City("").
+			
 			Country("").
+			
 			WorkStation("").
+			
 			JoinTime(0).
 			EmployeeNo("").
+			
 			EmployeeType(0).
+			
 			Orders([]*larkcontact.UserOrder{larkcontact.NewUserOrderBuilder().Build()}).
 			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("").
+			
+			
+			
 			JobTitle("").
+			
 			IsFrozen(false).
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.Update(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.Update(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -72,3 +93,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

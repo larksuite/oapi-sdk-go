@@ -22,17 +22,19 @@ import (
 )
 
 // GET /open-apis/im/v1/chats/:chat_id/members/is_in_chat
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewIsInChatChatMembersReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewIsInChatChatMembersReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
-		Build()
-	// 发起请求
-	resp, err := client.Im.ChatMembers.IsInChat(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Im.ChatMembers.IsInChat(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

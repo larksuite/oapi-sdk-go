@@ -22,20 +22,24 @@ import (
 )
 
 // GET /open-apis/approval/v4/approvals/:approval_code
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewGetApprovalReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewGetApprovalReqBuilder().
 		ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
+		
 		Locale("zh-CN").
+		
 		WithAdminId(false).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Approval.Approval.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.Approval.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+
