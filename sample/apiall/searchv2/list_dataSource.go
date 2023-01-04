@@ -28,8 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larksearch.NewListDataSourceReqBuilder().
 		View(0).
+		PageSize(10).
 		PageToken("PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ").
-		PageSize(20).
 		Build()
 	// 发起请求
 	resp, err := client.Search.DataSource.List(context.Background(), req)

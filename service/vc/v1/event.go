@@ -18,6 +18,46 @@ import (
 )
 
 // 消息处理器定义
+type P2MeetingAllMeetingEndedV1Handler struct {
+	handler func(context.Context, *P2MeetingAllMeetingEndedV1) error
+}
+
+func NewP2MeetingAllMeetingEndedV1Handler(handler func(context.Context, *P2MeetingAllMeetingEndedV1) error) *P2MeetingAllMeetingEndedV1Handler {
+	h := &P2MeetingAllMeetingEndedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2MeetingAllMeetingEndedV1Handler) Event() interface{} {
+	return &P2MeetingAllMeetingEndedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2MeetingAllMeetingEndedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2MeetingAllMeetingEndedV1))
+}
+
+// 消息处理器定义
+type P2MeetingAllMeetingStartedV1Handler struct {
+	handler func(context.Context, *P2MeetingAllMeetingStartedV1) error
+}
+
+func NewP2MeetingAllMeetingStartedV1Handler(handler func(context.Context, *P2MeetingAllMeetingStartedV1) error) *P2MeetingAllMeetingStartedV1Handler {
+	h := &P2MeetingAllMeetingStartedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2MeetingAllMeetingStartedV1Handler) Event() interface{} {
+	return &P2MeetingAllMeetingStartedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2MeetingAllMeetingStartedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2MeetingAllMeetingStartedV1))
+}
+
+// 消息处理器定义
 type P2MeetingJoinMeetingV1Handler struct {
 	handler func(context.Context, *P2MeetingJoinMeetingV1) error
 }

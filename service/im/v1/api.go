@@ -30,6 +30,8 @@ func NewService(config *larkcore.Config) *ImService {
 	i.ChatMemberBot = &chatMemberBot{service: i}
 	i.ChatMemberUser = &chatMemberUser{service: i}
 	i.ChatMembers = &chatMembers{service: i}
+	i.ChatMenuItem = &chatMenuItem{service: i}
+	i.ChatMenuTree = &chatMenuTree{service: i}
 	i.ChatModeration = &chatModeration{service: i}
 	i.ChatTab = &chatTab{service: i}
 	i.ChatTopNotice = &chatTopNotice{service: i}
@@ -51,6 +53,8 @@ type ImService struct {
 	ChatMemberBot    *chatMemberBot    // 事件
 	ChatMemberUser   *chatMemberUser   // 事件
 	ChatMembers      *chatMembers      // 群组 - 群成员
+	ChatMenuItem     *chatMenuItem     // chat.menu_item
+	ChatMenuTree     *chatMenuTree     // 群组 - 群菜单
 	ChatModeration   *chatModeration   // chat.moderation
 	ChatTab          *chatTab          // 群组 - 会话标签页
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
@@ -81,6 +85,12 @@ type chatMemberUser struct {
 	service *ImService
 }
 type chatMembers struct {
+	service *ImService
+}
+type chatMenuItem struct {
+	service *ImService
+}
+type chatMenuTree struct {
 	service *ImService
 }
 type chatModeration struct {
@@ -660,6 +670,146 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, opt
 	}
 	// 反序列响应结果
 	resp := &MeJoinChatMembersResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 修改群菜单元信息
+//
+// - 修改某个一级菜单或者二级菜单的元信息。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_item/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/patch_chatMenuItem.go
+func (c *chatMenuItem) Patch(ctx context.Context, req *PatchChatMenuItemReq, options ...larkcore.RequestOptionFunc) (*PatchChatMenuItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/menu_items/:menu_item_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchChatMenuItemResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 添加群菜单
+//
+// - 向群内添加群菜单。
+//
+// - 注意事项：;- 该API是向群内追加菜单，群内原来存在的菜单并不会被覆盖。操作API后，将返回群内所有菜单。;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 一个群内，一级菜单最多有3个，每个一级菜单最多有5个二级菜单。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_chatMenuTree.go
+func (c *chatMenuTree) Create(ctx context.Context, req *CreateChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*CreateChatMenuTreeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/menu_tree"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateChatMenuTreeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除群菜单。
+//
+// - 删除群内菜单。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 操作API后，将返回群内所有菜单。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_chatMenuTree.go
+func (c *chatMenuTree) Delete(ctx context.Context, req *DeleteChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*DeleteChatMenuTreeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/menu_tree"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteChatMenuTreeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取群内菜单
+//
+// - 通过群ID获取群内菜单。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chatMenuTree.go
+func (c *chatMenuTree) Get(ctx context.Context, req *GetChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*GetChatMenuTreeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/menu_tree"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetChatMenuTreeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 排序群菜单
+//
+// - 给一个群内的一级菜单排序。
+//
+// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 操作API后，将返回群内所有菜单。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/sort
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/sort_chatMenuTree.go
+func (c *chatMenuTree) Sort(ctx context.Context, req *SortChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*SortChatMenuTreeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/menu_tree/sort"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SortChatMenuTreeResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err

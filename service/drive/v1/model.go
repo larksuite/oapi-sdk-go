@@ -205,8 +205,10 @@ const (
 
 const (
 	ParentTypeUploadPrepareMediaDocImage            = "doc_image"             // docs图片
+	ParentTypeUploadPrepareMediaDocxImage           = "docx_image"            // docx图片
 	ParentTypeUploadPrepareMediaSheetImage          = "sheet_image"           // sheet图片
 	ParentTypeUploadPrepareMediaDocFile             = "doc_file"              // doc文件
+	ParentTypeUploadPrepareMediaDocxFile            = "docx_file"             // docx文件
 	ParentTypeUploadPrepareMediaSheetFile           = "sheet_file"            // sheet文件
 	ParentTypeUploadPrepareMediaVcVirtualBackground = "vc_virtual_background" // vc虚拟背景
 	ParentTypeUploadPrepareMediaBitableImage        = "bitable_image"         // bitable图片

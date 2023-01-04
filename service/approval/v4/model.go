@@ -5204,6 +5204,8 @@ type InstanceSearchApproval struct {
 	Name       *string                         `json:"name,omitempty"`        // 审批定义名称
 	IsExternal *bool                           `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *InstanceSearchApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
+	ApprovalId *string                         `json:"approval_id,omitempty"` // 审批定义Id
+	Icon       *string                         `json:"icon,omitempty"`        // 审批定义图标信息
 }
 
 type InstanceSearchApprovalBuilder struct {
@@ -5215,6 +5217,10 @@ type InstanceSearchApprovalBuilder struct {
 	isExternalFlag bool
 	external       *InstanceSearchApprovalExternal // 第三方审批信息
 	externalFlag   bool
+	approvalId     string // 审批定义Id
+	approvalIdFlag bool
+	icon           string // 审批定义图标信息
+	iconFlag       bool
 }
 
 func NewInstanceSearchApprovalBuilder() *InstanceSearchApprovalBuilder {
@@ -5258,6 +5264,24 @@ func (builder *InstanceSearchApprovalBuilder) External(external *InstanceSearchA
 	return builder
 }
 
+// 审批定义Id
+//
+// 示例值：7090754740375519252
+func (builder *InstanceSearchApprovalBuilder) ApprovalId(approvalId string) *InstanceSearchApprovalBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+
+// 审批定义图标信息
+//
+// 示例值：https://lf3-ea.bytetos.com/obj/goofy/ee/approval/approval-admin/image/iconLib/v3/person.png
+func (builder *InstanceSearchApprovalBuilder) Icon(icon string) *InstanceSearchApprovalBuilder {
+	builder.icon = icon
+	builder.iconFlag = true
+	return builder
+}
+
 func (builder *InstanceSearchApprovalBuilder) Build() *InstanceSearchApproval {
 	req := &InstanceSearchApproval{}
 	if builder.codeFlag {
@@ -5274,6 +5298,14 @@ func (builder *InstanceSearchApprovalBuilder) Build() *InstanceSearchApproval {
 	}
 	if builder.externalFlag {
 		req.External = builder.external
+	}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.iconFlag {
+		req.Icon = &builder.icon
+
 	}
 	return req
 }
@@ -5831,7 +5863,6 @@ type InstanceTimeline struct {
 	Ext        *string           `json:"ext,omitempty"`          // 动态其他信息，json格式，目前包括 user_id_list, user_id，open_id_list，open_id
 	NodeKey    *string           `json:"node_key,omitempty"`     // 产生task的节点key
 	Files      []*File           `json:"files,omitempty"`        // 审批附件
-	FileList   []*File           `json:"file_list,omitempty"`    // 审批附件
 }
 
 type InstanceTimelineBuilder struct {
@@ -5859,8 +5890,6 @@ type InstanceTimelineBuilder struct {
 	nodeKeyFlag    bool
 	files          []*File // 审批附件
 	filesFlag      bool
-	fileList       []*File // 审批附件
-	fileListFlag   bool
 }
 
 func NewInstanceTimelineBuilder() *InstanceTimelineBuilder {
@@ -5906,7 +5935,7 @@ func (builder *InstanceTimelineBuilder) OpenId(openId string) *InstanceTimelineB
 
 // 被抄送人列表
 //
-// 示例值：f7cb567e
+// 示例值：
 func (builder *InstanceTimelineBuilder) UserIdList(userIdList []string) *InstanceTimelineBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListFlag = true
@@ -5915,7 +5944,7 @@ func (builder *InstanceTimelineBuilder) UserIdList(userIdList []string) *Instanc
 
 // 被抄送人列表
 //
-// 示例值：ou_123456
+// 示例值：
 func (builder *InstanceTimelineBuilder) OpenIdList(openIdList []string) *InstanceTimelineBuilder {
 	builder.openIdList = openIdList
 	builder.openIdListFlag = true
@@ -5976,15 +6005,6 @@ func (builder *InstanceTimelineBuilder) Files(files []*File) *InstanceTimelineBu
 	return builder
 }
 
-// 审批附件
-//
-// 示例值：
-func (builder *InstanceTimelineBuilder) FileList(fileList []*File) *InstanceTimelineBuilder {
-	builder.fileList = fileList
-	builder.fileListFlag = true
-	return builder
-}
-
 func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	req := &InstanceTimeline{}
 	if builder.typeFlag {
@@ -6031,8 +6051,322 @@ func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	if builder.filesFlag {
 		req.Files = builder.files
 	}
-	if builder.fileListFlag {
-		req.FileList = builder.fileList
+	return req
+}
+
+type ManageableDefinition struct {
+	ApprovalCode     *string  `json:"approval_code,omitempty"`      // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalName     *string  `json:"approval_name,omitempty"`      // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+	ApprovalStatus   *string  `json:"approval_status,omitempty"`    // 审批定义状态
+	ApprovalAdminIds []string `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
+}
+
+type ManageableDefinitionBuilder struct {
+	approvalCode         string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	approvalCodeFlag     bool
+	approvalName         string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+	approvalNameFlag     bool
+	approvalStatus       string // 审批定义状态
+	approvalStatusFlag   bool
+	approvalAdminIds     []string // 有数据管理权限的审批流程管理员ID
+	approvalAdminIdsFlag bool
+}
+
+func NewManageableDefinitionBuilder() *ManageableDefinitionBuilder {
+	builder := &ManageableDefinitionBuilder{}
+	return builder
+}
+
+// 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *ManageableDefinitionBuilder) ApprovalCode(approvalCode string) *ManageableDefinitionBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeFlag = true
+	return builder
+}
+
+// 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
+//
+// 示例值：请假
+func (builder *ManageableDefinitionBuilder) ApprovalName(approvalName string) *ManageableDefinitionBuilder {
+	builder.approvalName = approvalName
+	builder.approvalNameFlag = true
+	return builder
+}
+
+// 审批定义状态
+//
+// 示例值：ACTIVE
+func (builder *ManageableDefinitionBuilder) ApprovalStatus(approvalStatus string) *ManageableDefinitionBuilder {
+	builder.approvalStatus = approvalStatus
+	builder.approvalStatusFlag = true
+	return builder
+}
+
+// 有数据管理权限的审批流程管理员ID
+//
+// 示例值：
+func (builder *ManageableDefinitionBuilder) ApprovalAdminIds(approvalAdminIds []string) *ManageableDefinitionBuilder {
+	builder.approvalAdminIds = approvalAdminIds
+	builder.approvalAdminIdsFlag = true
+	return builder
+}
+
+func (builder *ManageableDefinitionBuilder) Build() *ManageableDefinition {
+	req := &ManageableDefinition{}
+	if builder.approvalCodeFlag {
+		req.ApprovalCode = &builder.approvalCode
+
+	}
+	if builder.approvalNameFlag {
+		req.ApprovalName = &builder.approvalName
+
+	}
+	if builder.approvalStatusFlag {
+		req.ApprovalStatus = &builder.approvalStatus
+
+	}
+	if builder.approvalAdminIdsFlag {
+		req.ApprovalAdminIds = builder.approvalAdminIds
+	}
+	return req
+}
+
+type ManageableInstanceItem struct {
+	Instance *ManageableInstanceNode `json:"instance,omitempty"` // 审批实例信息
+}
+
+type ManageableInstanceItemBuilder struct {
+	instance     *ManageableInstanceNode // 审批实例信息
+	instanceFlag bool
+}
+
+func NewManageableInstanceItemBuilder() *ManageableInstanceItemBuilder {
+	builder := &ManageableInstanceItemBuilder{}
+	return builder
+}
+
+// 审批实例信息
+//
+// 示例值：
+func (builder *ManageableInstanceItemBuilder) Instance(instance *ManageableInstanceNode) *ManageableInstanceItemBuilder {
+	builder.instance = instance
+	builder.instanceFlag = true
+	return builder
+}
+
+func (builder *ManageableInstanceItemBuilder) Build() *ManageableInstanceItem {
+	req := &ManageableInstanceItem{}
+	if builder.instanceFlag {
+		req.Instance = builder.instance
+	}
+	return req
+}
+
+type ManageableInstanceNode struct {
+	Code           *string  `json:"code,omitempty"`             // 审批实例 code
+	StartUserId    *string  `json:"start_user_id,omitempty"`    // 审批实例发起人id
+	CurrentUserIds []string `json:"current_user_ids,omitempty"` // 当前处理人id
+	DepartmentId   *string  `json:"department_id,omitempty"`    // 审批实例所属部门id
+	NodeName       *string  `json:"node_name,omitempty"`        // 当前处理节点名称
+	Form           *string  `json:"form,omitempty"`             // json字符串，控件值
+	Version        *string  `json:"version,omitempty"`          // 审批实例对应的审批定义版本
+	StartTime      *string  `json:"start_time,omitempty"`       // 审批实例发起时间
+	EndTime        *string  `json:"end_time,omitempty"`         // 审批实例结束时间
+	Status         *string  `json:"status,omitempty"`           // 审批实例状态
+	SerialId       *string  `json:"serial_id,omitempty"`        // 审批流水号
+	StatusDisplay  *string  `json:"status_display,omitempty"`   // 审批状态展示值
+}
+
+type ManageableInstanceNodeBuilder struct {
+	code               string // 审批实例 code
+	codeFlag           bool
+	startUserId        string // 审批实例发起人id
+	startUserIdFlag    bool
+	currentUserIds     []string // 当前处理人id
+	currentUserIdsFlag bool
+	departmentId       string // 审批实例所属部门id
+	departmentIdFlag   bool
+	nodeName           string // 当前处理节点名称
+	nodeNameFlag       bool
+	form               string // json字符串，控件值
+	formFlag           bool
+	version            string // 审批实例对应的审批定义版本
+	versionFlag        bool
+	startTime          string // 审批实例发起时间
+	startTimeFlag      bool
+	endTime            string // 审批实例结束时间
+	endTimeFlag        bool
+	status             string // 审批实例状态
+	statusFlag         bool
+	serialId           string // 审批流水号
+	serialIdFlag       bool
+	statusDisplay      string // 审批状态展示值
+	statusDisplayFlag  bool
+}
+
+func NewManageableInstanceNodeBuilder() *ManageableInstanceNodeBuilder {
+	builder := &ManageableInstanceNodeBuilder{}
+	return builder
+}
+
+// 审批实例 code
+//
+// 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
+func (builder *ManageableInstanceNodeBuilder) Code(code string) *ManageableInstanceNodeBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 审批实例发起人id
+//
+// 示例值：lwiu098wj
+func (builder *ManageableInstanceNodeBuilder) StartUserId(startUserId string) *ManageableInstanceNodeBuilder {
+	builder.startUserId = startUserId
+	builder.startUserIdFlag = true
+	return builder
+}
+
+// 当前处理人id
+//
+// 示例值：lwiu098wj
+func (builder *ManageableInstanceNodeBuilder) CurrentUserIds(currentUserIds []string) *ManageableInstanceNodeBuilder {
+	builder.currentUserIds = currentUserIds
+	builder.currentUserIdsFlag = true
+	return builder
+}
+
+// 审批实例所属部门id
+//
+// 示例值：od-8ec33ffec336c3a39a278bc25e931676
+func (builder *ManageableInstanceNodeBuilder) DepartmentId(departmentId string) *ManageableInstanceNodeBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 当前处理节点名称
+//
+// 示例值：审批节点1
+func (builder *ManageableInstanceNodeBuilder) NodeName(nodeName string) *ManageableInstanceNodeBuilder {
+	builder.nodeName = nodeName
+	builder.nodeNameFlag = true
+	return builder
+}
+
+// json字符串，控件值
+//
+// 示例值：[{\"id\": \"widget1\",\"custom_id\": \"user_info\",\"name\": \"Item application\",\"type\": \"textarea\"},\"value\":\"aaaa\"]
+func (builder *ManageableInstanceNodeBuilder) Form(form string) *ManageableInstanceNodeBuilder {
+	builder.form = form
+	builder.formFlag = true
+	return builder
+}
+
+// 审批实例对应的审批定义版本
+//
+// 示例值：7129705107930742803
+func (builder *ManageableInstanceNodeBuilder) Version(version string) *ManageableInstanceNodeBuilder {
+	builder.version = version
+	builder.versionFlag = true
+	return builder
+}
+
+// 审批实例发起时间
+//
+// 示例值：1547654251506
+func (builder *ManageableInstanceNodeBuilder) StartTime(startTime string) *ManageableInstanceNodeBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 审批实例结束时间
+//
+// 示例值：1547654251506
+func (builder *ManageableInstanceNodeBuilder) EndTime(endTime string) *ManageableInstanceNodeBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 审批实例状态
+//
+// 示例值：PENDING
+func (builder *ManageableInstanceNodeBuilder) Status(status string) *ManageableInstanceNodeBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 审批流水号
+//
+// 示例值：201902020001
+func (builder *ManageableInstanceNodeBuilder) SerialId(serialId string) *ManageableInstanceNodeBuilder {
+	builder.serialId = serialId
+	builder.serialIdFlag = true
+	return builder
+}
+
+// 审批状态展示值
+//
+// 示例值："已通过"
+func (builder *ManageableInstanceNodeBuilder) StatusDisplay(statusDisplay string) *ManageableInstanceNodeBuilder {
+	builder.statusDisplay = statusDisplay
+	builder.statusDisplayFlag = true
+	return builder
+}
+
+func (builder *ManageableInstanceNodeBuilder) Build() *ManageableInstanceNode {
+	req := &ManageableInstanceNode{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.startUserIdFlag {
+		req.StartUserId = &builder.startUserId
+
+	}
+	if builder.currentUserIdsFlag {
+		req.CurrentUserIds = builder.currentUserIds
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.nodeNameFlag {
+		req.NodeName = &builder.nodeName
+
+	}
+	if builder.formFlag {
+		req.Form = &builder.form
+
+	}
+	if builder.versionFlag {
+		req.Version = &builder.version
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.serialIdFlag {
+		req.SerialId = &builder.serialId
+
+	}
+	if builder.statusDisplayFlag {
+		req.StatusDisplay = &builder.statusDisplay
+
 	}
 	return req
 }
@@ -8146,14 +8480,16 @@ func (builder *TripGroupBuilder) Build() *TripGroup {
 }
 
 type TripGroupSchedule struct {
-	TripStartTime  *string `json:"trip_start_time,omitempty"` // 开始时间
-	TripEndTime    *string `json:"trip_end_time,omitempty"`   // 结束时间
-	TripInterval   *string `json:"trip_interval,omitempty"`   // 周期
-	Departure      *string `json:"departure,omitempty"`       // 出发地
-	Destination    *string `json:"destination,omitempty"`     // 目的地
-	Transportation *string `json:"transportation,omitempty"`  // 交通工具
-	TripType       *string `json:"trip_type,omitempty"`       // 出差类型
-	Remark         *string `json:"remark,omitempty"`          // 备注
+	TripStartTime  *string  `json:"trip_start_time,omitempty"` // 开始时间
+	TripEndTime    *string  `json:"trip_end_time,omitempty"`   // 结束时间
+	TripInterval   *string  `json:"trip_interval,omitempty"`   // 周期
+	Departure      *string  `json:"departure,omitempty"`       // 出发地
+	Destination    *string  `json:"destination,omitempty"`     // 目的地
+	Transportation *string  `json:"transportation,omitempty"`  // 交通工具
+	TripType       *string  `json:"trip_type,omitempty"`       // 出差类型
+	Remark         *string  `json:"remark,omitempty"`          // 备注
+	DepartureId    *string  `json:"departure_id,omitempty"`    // 出发地id
+	DestinationIds []string `json:"destination_ids,omitempty"` // 目的地id列表
 }
 
 type TripGroupScheduleBuilder struct {
@@ -8173,6 +8509,10 @@ type TripGroupScheduleBuilder struct {
 	tripTypeFlag       bool
 	remark             string // 备注
 	remarkFlag         bool
+	departureId        string // 出发地id
+	departureIdFlag    bool
+	destinationIds     []string // 目的地id列表
+	destinationIdsFlag bool
 }
 
 func NewTripGroupScheduleBuilder() *TripGroupScheduleBuilder {
@@ -8182,7 +8522,7 @@ func NewTripGroupScheduleBuilder() *TripGroupScheduleBuilder {
 
 // 开始时间
 //
-// 示例值：
+// 示例值：2022-08-25 12:00:00
 func (builder *TripGroupScheduleBuilder) TripStartTime(tripStartTime string) *TripGroupScheduleBuilder {
 	builder.tripStartTime = tripStartTime
 	builder.tripStartTimeFlag = true
@@ -8191,7 +8531,7 @@ func (builder *TripGroupScheduleBuilder) TripStartTime(tripStartTime string) *Tr
 
 // 结束时间
 //
-// 示例值：
+// 示例值：2022-09-01 00:00:00
 func (builder *TripGroupScheduleBuilder) TripEndTime(tripEndTime string) *TripGroupScheduleBuilder {
 	builder.tripEndTime = tripEndTime
 	builder.tripEndTimeFlag = true
@@ -8200,7 +8540,7 @@ func (builder *TripGroupScheduleBuilder) TripEndTime(tripEndTime string) *TripGr
 
 // 周期
 //
-// 示例值：
+// 示例值：561600
 func (builder *TripGroupScheduleBuilder) TripInterval(tripInterval string) *TripGroupScheduleBuilder {
 	builder.tripInterval = tripInterval
 	builder.tripIntervalFlag = true
@@ -8209,7 +8549,7 @@ func (builder *TripGroupScheduleBuilder) TripInterval(tripInterval string) *Trip
 
 // 出发地
 //
-// 示例值：
+// 示例值：中国
 func (builder *TripGroupScheduleBuilder) Departure(departure string) *TripGroupScheduleBuilder {
 	builder.departure = departure
 	builder.departureFlag = true
@@ -8218,7 +8558,7 @@ func (builder *TripGroupScheduleBuilder) Departure(departure string) *TripGroupS
 
 // 目的地
 //
-// 示例值：
+// 示例值：中国
 func (builder *TripGroupScheduleBuilder) Destination(destination string) *TripGroupScheduleBuilder {
 	builder.destination = destination
 	builder.destinationFlag = true
@@ -8227,7 +8567,7 @@ func (builder *TripGroupScheduleBuilder) Destination(destination string) *TripGr
 
 // 交通工具
 //
-// 示例值：
+// 示例值：飞机
 func (builder *TripGroupScheduleBuilder) Transportation(transportation string) *TripGroupScheduleBuilder {
 	builder.transportation = transportation
 	builder.transportationFlag = true
@@ -8236,7 +8576,7 @@ func (builder *TripGroupScheduleBuilder) Transportation(transportation string) *
 
 // 出差类型
 //
-// 示例值：
+// 示例值：往返
 func (builder *TripGroupScheduleBuilder) TripType(tripType string) *TripGroupScheduleBuilder {
 	builder.tripType = tripType
 	builder.tripTypeFlag = true
@@ -8245,10 +8585,28 @@ func (builder *TripGroupScheduleBuilder) TripType(tripType string) *TripGroupSch
 
 // 备注
 //
-// 示例值：
+// 示例值：备注内容
 func (builder *TripGroupScheduleBuilder) Remark(remark string) *TripGroupScheduleBuilder {
 	builder.remark = remark
 	builder.remarkFlag = true
+	return builder
+}
+
+// 出发地id
+//
+// 示例值：6c758b5dc54930abc7a454c7477d3496cfca0a62fd941e0093b2d819e0e263a6
+func (builder *TripGroupScheduleBuilder) DepartureId(departureId string) *TripGroupScheduleBuilder {
+	builder.departureId = departureId
+	builder.departureIdFlag = true
+	return builder
+}
+
+// 目的地id列表
+//
+// 示例值：
+func (builder *TripGroupScheduleBuilder) DestinationIds(destinationIds []string) *TripGroupScheduleBuilder {
+	builder.destinationIds = destinationIds
+	builder.destinationIdsFlag = true
 	return builder
 }
 
@@ -8285,6 +8643,13 @@ func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
 	if builder.remarkFlag {
 		req.Remark = &builder.remark
 
+	}
+	if builder.departureIdFlag {
+		req.DepartureId = &builder.departureId
+
+	}
+	if builder.destinationIdsFlag {
+		req.DestinationIds = builder.destinationIds
 	}
 	return req
 }
@@ -9812,6 +10177,7 @@ type GetInstanceRespData struct {
 	RevertedInstanceCode *string             `json:"reverted_instance_code,omitempty"` // 撤销的原实例 code,仅在查询撤销实例时显示该字段
 	ApprovalCode         *string             `json:"approval_code,omitempty"`          // 审批定义 Code
 	Reverted             *bool               `json:"reverted,omitempty"`               // 单据是否被撤销
+	InstanceCode         *string             `json:"instance_code,omitempty"`          // 审批实例 Code
 }
 
 type GetInstanceResp struct {

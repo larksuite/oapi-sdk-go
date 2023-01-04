@@ -28,11 +28,11 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewUploadPrepareMediaReqBuilder().
 		MediaUploadInfo(larkdrive.NewMediaUploadInfoBuilder().
-			FileName("").
+			FileName("123.txt").
 			ParentType("doc_image").
-			ParentNode("").
-			Size(0).
-			Extra("").
+			ParentNode("fldcnxxxxxx").
+			Size(1024).
+			Extra("test").
 			Build()).
 		Build()
 	// 发起请求

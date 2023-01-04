@@ -28,7 +28,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewCreateAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		UserIdType("user_id").
 		Body(larkbitable.NewCreateAppTableReqBodyBuilder().
 			Table(larkbitable.NewReqTableBuilder().Build()).
 			Build()).

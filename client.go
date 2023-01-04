@@ -27,6 +27,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/authen/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/block/v2"
@@ -65,11 +66,12 @@ type Client struct {
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
+	Authen                 *larkauthen.AuthenService                                   //
 	Baike                  *larkbaike.BaikeService                                     // 企业百科
 	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
-	Contact                *larkcontact.ContactService                                 // 通讯录
+	Contact                *larkcontact.ContactService                                 // 搜索
 	Corehr                 *larkcorehr.CorehrService                                   // CoreHR
 	Docx                   *larkdocx.DocxService                                       // 云文档-文档
 	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
@@ -221,6 +223,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Application = larkapplication.NewService(config)
 	client.Approval = larkapproval.NewService(config)
 	client.Attendance = larkattendance.NewService(config)
+	client.Authen = larkauthen.NewService(config)
 	client.Baike = larkbaike.NewService(config)
 	client.Bitable = larkbitable.NewService(config)
 	client.Block = larkblock.NewService(config)

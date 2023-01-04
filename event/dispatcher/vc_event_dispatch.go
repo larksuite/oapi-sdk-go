@@ -18,6 +18,34 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingEndedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.meeting.all_meeting_ended_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.meeting.all_meeting_ended_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.meeting.all_meeting_ended_v1"] = larkvc.NewP2MeetingAllMeetingEndedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingStartedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.meeting.all_meeting_started_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.meeting.all_meeting_started_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.meeting.all_meeting_started_v1"] = larkvc.NewP2MeetingAllMeetingStartedV1Handler(handler)
+	return dispatcher
+}
+
 // 加入会议
 //
 // - 发生在有人加入会议时

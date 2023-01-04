@@ -29,6 +29,7 @@ func main() {
 	req := larkbitable.NewCreateAppTableFieldReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
+		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b97").
 		AppTableField(larkbitable.NewAppTableFieldBuilder().
 			FieldName("").
 			Type(1).
