@@ -22,24 +22,21 @@ import (
 )
 
 // PATCH /open-apis/application/v6/applications/:app_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapplication.NewPatchApplicationReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapplication.NewPatchApplicationReqBuilder().
 		AppId("cli_9b445f5258795107").
-		
 		Lang("zh_cn").
-		
-	   Application(larkapplication.NewApplicationBuilder().
+		Application(larkapplication.NewApplicationBuilder().
 			CommonCategories([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Application.Application.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Application.Application.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

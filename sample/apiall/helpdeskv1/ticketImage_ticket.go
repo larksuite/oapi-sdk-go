@@ -22,22 +22,19 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/ticket_images
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewTicketImageTicketReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewTicketImageTicketReqBuilder().
 		TicketId("12345").
-		
 		MsgId("12345").
-		
 		Index(0).
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.Ticket.TicketImage(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.Ticket.TicketImage(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

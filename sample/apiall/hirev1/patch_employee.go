@@ -22,28 +22,24 @@ import (
 )
 
 // PATCH /open-apis/hire/v1/employees/:employee_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewPatchEmployeeReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewPatchEmployeeReqBuilder().
 		EmployeeId("123").
-		
 		UserIdType("open_id").
-		
 		DepartmentIdType("people_admin_department_id").
-		
-	   ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
+		ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
 			Operation(1).
 			ConversionInfo(larkhire.NewEmployeeConversionInfoBuilder().Build()).
 			OverboardInfo(larkhire.NewEmployeeOverboardInfoBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Employee.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Employee.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

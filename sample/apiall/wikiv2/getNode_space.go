@@ -22,19 +22,17 @@ import (
 )
 
 // GET /open-apis/wiki/v2/spaces/get_node
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkwiki.NewGetNodeSpaceReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkwiki.NewGetNodeSpaceReqBuilder().
 		Token("wikcnKQ1k3p******8Vabcef").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Wiki.Space.GetNode(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Wiki.Space.GetNode(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

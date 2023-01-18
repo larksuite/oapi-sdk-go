@@ -19,31 +19,29 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
-		"os"
+	"os"
 )
 
 // POST /open-apis/attendance/v1/files/upload
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-   // 创建请求对象
-   req := larkattendance.NewUploadFileReqBuilder().
+	// 创建请求对象
+	req := larkattendance.NewUploadFileReqBuilder().
 		FileName("人脸照片.jpg").
-		
-	   Body(larkattendance.NewUploadFileReqBodyBuilder().
+		Body(larkattendance.NewUploadFileReqBodyBuilder().
 			File(file).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.File.Upload(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.File.Upload(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +56,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

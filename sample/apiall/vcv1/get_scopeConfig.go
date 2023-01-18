@@ -22,22 +22,19 @@ import (
 )
 
 // GET /open-apis/vc/v1/scope_config
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewGetScopeConfigReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewGetScopeConfigReqBuilder().
 		ScopeType(1).
 		ScopeId("omm_608d34d82d531b27fa993902d350a307").
-		
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.ScopeConfig.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.ScopeConfig.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

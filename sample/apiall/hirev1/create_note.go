@@ -22,30 +22,24 @@ import (
 )
 
 // POST /open-apis/hire/v1/notes
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewCreateNoteReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewCreateNoteReqBuilder().
 		UserIdType("open_id").
-		
-	   Note(larkhire.NewNoteBuilder().
+		Note(larkhire.NewNoteBuilder().
 			TalentId("6916472453069883661").
-			
 			ApplicationId("6891565253964859661").
-			
 			CreatorId("ou_f476cb099ac9227c9bae09ce46112579").
-			
 			Content("测试5").
-			
 			Privacy(1).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Note.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Note.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

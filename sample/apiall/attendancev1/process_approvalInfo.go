@@ -22,24 +22,21 @@ import (
 )
 
 // POST /open-apis/attendance/v1/approval_infos/process
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewProcessApprovalInfoReqBuilder().
-	   Body(larkattendance.NewProcessApprovalInfoReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewProcessApprovalInfoReqBuilder().
+		Body(larkattendance.NewProcessApprovalInfoReqBodyBuilder().
 			ApprovalId("6737202939523236113").
-			
 			ApprovalType("remedy").
-			
 			Status(4).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.ApprovalInfo.Process(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.ApprovalInfo.Process(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

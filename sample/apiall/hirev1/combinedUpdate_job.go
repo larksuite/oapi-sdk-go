@@ -22,65 +22,47 @@ import (
 )
 
 // POST /open-apis/hire/v1/jobs/:job_id/combined_update
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewCombinedUpdateJobReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewCombinedUpdateJobReqBuilder().
 		JobId("6960663240925956660").
-		
 		UserIdType("open_id").
-		
 		DepartmentIdType("open_department_id").
-		
-	   CombinedJob(larkhire.NewCombinedJobBuilder().
+		CombinedJob(larkhire.NewCombinedJobBuilder().
 			Id("6960663240925956576").
-			
 			Experience(1).
 			ExpiryTime(1622484739955).
 			CustomizedDataList([]*larkhire.CombinedJobObjectValueMap{larkhire.NewCombinedJobObjectValueMapBuilder().Build()}).
 			MinLevelId("6960663240925956547").
-			
 			MinSalary(1000).
 			Title("后端研发").
-			
 			JobManagers(larkhire.NewJobManagerBuilder().Build()).
 			JobProcessId("6960663240925956554").
-			
 			SubjectId("6960663240925956555").
-			
 			JobFunctionId("6960663240925956555").
-			
 			DepartmentId("6960663240925956549").
-			
 			HeadCount(100).
 			IsNeverExpired(false).
 			MaxSalary(2000).
 			Requirement("熟悉后端研发").
-			
 			AddressId("6960663240925956553").
-			
 			Description("后端研发岗位描述").
-			
 			HighlightList([]string{}).
 			JobTypeId("6960663240925956551").
-			
 			MaxLevelId("6960663240925956548").
-			
 			RequiredDegree(20).
 			JobCategoryId("6960663240925956550").
-			
 			AddressIdList([]string{}).
 			JobAttribute(1).
 			ExpiryTimestamp("1622484739955").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Job.CombinedUpdate(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Job.CombinedUpdate(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -95,4 +77,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

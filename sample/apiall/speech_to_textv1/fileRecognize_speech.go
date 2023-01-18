@@ -22,21 +22,20 @@ import (
 )
 
 // POST /open-apis/speech_to_text/v1/speech/file_recognize
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkspeech_to_text.NewFileRecognizeSpeechReqBuilder().
-	   Body(larkspeech_to_text.NewFileRecognizeSpeechReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkspeech_to_text.NewFileRecognizeSpeechReqBuilder().
+		Body(larkspeech_to_text.NewFileRecognizeSpeechReqBodyBuilder().
 			Speech(larkspeech_to_text.NewSpeechBuilder().Build()).
 			Config(larkspeech_to_text.NewFileConfigBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.SpeechToText.Speech.FileRecognize(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.SpeechToText.Speech.FileRecognize(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

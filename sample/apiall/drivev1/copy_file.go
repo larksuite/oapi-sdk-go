@@ -22,28 +22,23 @@ import (
 )
 
 // POST /open-apis/drive/v1/files/:file_token/copy
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdrive.NewCopyFileReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdrive.NewCopyFileReqBuilder().
 		FileToken("doccngpahSdXrFPIBD4XdIabcef").
-		
-	   Body(larkdrive.NewCopyFileReqBodyBuilder().
+		Body(larkdrive.NewCopyFileReqBodyBuilder().
 			Name("test.txt").
-			
 			Type("doc").
-			
 			FolderToken("fldbcO1UuPz8VwnpPx5a92abcef").
-			
 			Extra([]*larkdrive.Property{larkdrive.NewPropertyBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Drive.File.Copy(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Drive.File.Copy(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +53,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

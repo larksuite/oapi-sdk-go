@@ -22,24 +22,21 @@ import (
 )
 
 // DELETE /open-apis/im/v1/chats/:chat_id/members
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewDeleteChatMembersReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewDeleteChatMembersReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
-		
 		MemberIdType("open_id").
-		
-	   Body(larkim.NewDeleteChatMembersReqBodyBuilder().
+		Body(larkim.NewDeleteChatMembersReqBodyBuilder().
 			IdList([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Im.ChatMembers.Delete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.ChatMembers.Delete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,27 +22,22 @@ import (
 )
 
 // GET /open-apis/docx/v1/documents/:document_id/blocks/:block_id/children
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdocx.NewGetDocumentBlockChildrenReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdocx.NewGetDocumentBlockChildrenReqBuilder().
 		DocumentId("doxcnePuYufKa49ISjhD8Ih0ikh").
-		
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
-		
 		DocumentRevisionId(-1).
 		PageToken("aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo").
-		
 		PageSize(500).
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Docx.DocumentBlockChildren.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Docx.DocumentBlockChildren.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

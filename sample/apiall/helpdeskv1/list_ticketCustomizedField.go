@@ -22,23 +22,21 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/ticket_customized_fields
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewListTicketCustomizedFieldReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewListTicketCustomizedFieldReqBuilder().
 		PageToken("6948728206392295444").
-		
 		PageSize(20).
-	   Body(larkhelpdesk.NewListTicketCustomizedFieldReqBodyBuilder().
+		Body(larkhelpdesk.NewListTicketCustomizedFieldReqBodyBuilder().
 			Visible(true).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.TicketCustomizedField.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.TicketCustomizedField.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

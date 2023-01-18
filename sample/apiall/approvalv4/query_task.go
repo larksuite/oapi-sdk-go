@@ -22,26 +22,21 @@ import (
 )
 
 // GET /open-apis/approval/v4/tasks/query
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewQueryTaskReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewQueryTaskReqBuilder().
 		PageSize(100).
 		PageToken("1").
-		
 		UserId("example_user_id").
-		
 		Topic("1").
-		
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Task.Query(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Task.Query(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

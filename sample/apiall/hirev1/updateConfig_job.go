@@ -22,36 +22,30 @@ import (
 )
 
 // POST /open-apis/hire/v1/jobs/:job_id/update_config
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewUpdateConfigJobReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewUpdateConfigJobReqBuilder().
 		JobId("6960663240925956660").
-		
 		UserIdType("user_id").
-		
-	   JobConfig(larkhire.NewJobConfigBuilder().
+		JobConfig(larkhire.NewJobConfigBuilder().
 			OfferApplySchemaId("6960663240925956573").
-			
 			OfferProcessConf("6960663240925956572").
-			
 			RecommendedEvaluatorIdList([]string{}).
 			UpdateOptionList([]int{}).
 			AssessmentTemplateBizId("6960663240925956571").
-			
 			InterviewRoundConfList([]*larkhire.JobConfigInterviewRoundConf{larkhire.NewJobConfigInterviewRoundConfBuilder().Build()}).
 			JrIdList([]string{}).
 			InterviewRoundTypeConfList([]*larkhire.JobConfigRoundType{larkhire.NewJobConfigRoundTypeBuilder().Build()}).
 			RelatedJobIdList([]string{}).
 			InterviewAppointmentConfig(larkhire.NewInterviewAppointmentConfigBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Job.UpdateConfig(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Job.UpdateConfig(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -66,4 +60,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,19 +22,17 @@ import (
 )
 
 // DELETE /open-apis/helpdesk/v1/agent_skills/:agent_skill_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewDeleteAgentSkillReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewDeleteAgentSkillReqBuilder().
 		AgentSkillId("test-skill-id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.AgentSkill.Delete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.AgentSkill.Delete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

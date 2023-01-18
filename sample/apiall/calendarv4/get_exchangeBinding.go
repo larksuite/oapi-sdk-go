@@ -22,21 +22,18 @@ import (
 )
 
 // GET /open-apis/calendar/v4/exchange_bindings/:exchange_binding_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcalendar.NewGetExchangeBindingReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcalendar.NewGetExchangeBindingReqBuilder().
 		ExchangeBindingId("ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20=").
-		
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Calendar.ExchangeBinding.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Calendar.ExchangeBinding.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +48,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

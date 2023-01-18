@@ -22,27 +22,22 @@ import (
 )
 
 // POST /open-apis/approval/v4/instances/cancel
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewCancelInstanceReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewCancelInstanceReqBuilder().
 		UserIdType("user_id").
-		
-	   InstanceCancel(larkapproval.NewInstanceCancelBuilder().
+		InstanceCancel(larkapproval.NewInstanceCancelBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
-			
 			InstanceCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
-			
 			UserId("f7cb567e").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Instance.Cancel(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Instance.Cancel(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

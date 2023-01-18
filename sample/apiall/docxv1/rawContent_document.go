@@ -22,20 +22,18 @@ import (
 )
 
 // GET /open-apis/docx/v1/documents/:document_id/raw_content
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdocx.NewRawContentDocumentReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdocx.NewRawContentDocumentReqBuilder().
 		DocumentId("doxbcmEtbFrbbq10nPNu8gO1F3b").
-		
 		Lang(0).
-	   Build()
-   // 发起请求
-   resp,err := client.Docx.Document.RawContent(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Docx.Document.RawContent(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,4 +48,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

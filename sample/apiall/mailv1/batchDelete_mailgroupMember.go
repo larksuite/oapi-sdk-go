@@ -22,22 +22,20 @@ import (
 )
 
 // DELETE /open-apis/mail/v1/mailgroups/:mailgroup_id/members/batch_delete
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkmail.NewBatchDeleteMailgroupMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkmail.NewBatchDeleteMailgroupMemberReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
-		
-	   Body(larkmail.NewBatchDeleteMailgroupMemberReqBodyBuilder().
+		Body(larkmail.NewBatchDeleteMailgroupMemberReqBodyBuilder().
 			MemberIdList([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Mail.MailgroupMember.BatchDelete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Mail.MailgroupMember.BatchDelete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

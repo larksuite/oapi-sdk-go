@@ -22,26 +22,21 @@ import (
 )
 
 // GET /open-apis/contact/v3/group/:group_id/member/simplelist
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewSimplelistGroupMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewSimplelistGroupMemberReqBuilder().
 		GroupId("g128187").
-		
 		PageSize(50).
 		PageToken("AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=").
-		
 		MemberIdType("open_id").
-		
 		MemberType("user").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.GroupMember.Simplelist(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.GroupMember.Simplelist(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

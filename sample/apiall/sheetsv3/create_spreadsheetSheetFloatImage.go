@@ -22,33 +22,27 @@ import (
 )
 
 // POST /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larksheets.NewCreateSpreadsheetSheetFloatImageReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larksheets.NewCreateSpreadsheetSheetFloatImageReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
-		
 		SheetId("0b**12").
-		
-	   FloatImage(larksheets.NewFloatImageBuilder().
+		FloatImage(larksheets.NewFloatImageBuilder().
 			FloatImageId("").
-			
 			FloatImageToken("").
-			
 			Range("").
-			
 			Width(0.0).
 			Height(0.0).
 			OffsetX(0.0).
 			OffsetY(0.0).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Sheets.SpreadsheetSheetFloatImage.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Sheets.SpreadsheetSheetFloatImage.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -63,4 +57,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

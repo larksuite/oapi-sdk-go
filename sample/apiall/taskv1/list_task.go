@@ -22,27 +22,22 @@ import (
 )
 
 // GET /open-apis/task/v1/tasks
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larktask.NewListTaskReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larktask.NewListTaskReqBuilder().
 		PageSize(10).
 		PageToken("MTYzMTg3ODUxNQ==").
-		
 		StartCreateTime("1652323331").
-		
 		EndCreateTime("1652323335").
-		
 		TaskCompleted(false).
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Task.Task.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Task.Task.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

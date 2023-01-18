@@ -22,22 +22,20 @@ import (
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/tables
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewCreateAppTableReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewCreateAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		
-	   Body(larkbitable.NewCreateAppTableReqBodyBuilder().
+		Body(larkbitable.NewCreateAppTableReqBodyBuilder().
 			Table(larkbitable.NewReqTableBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.AppTable.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.AppTable.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

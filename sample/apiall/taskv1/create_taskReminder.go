@@ -22,22 +22,20 @@ import (
 )
 
 // POST /open-apis/task/v1/tasks/:task_id/reminders
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larktask.NewCreateTaskReminderReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larktask.NewCreateTaskReminderReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
-		
-	   Reminder(larktask.NewReminderBuilder().
+		Reminder(larktask.NewReminderBuilder().
 			RelativeFireMinute(30).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Task.TaskReminder.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Task.TaskReminder.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

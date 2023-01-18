@@ -22,24 +22,21 @@ import (
 )
 
 // PUT /open-apis/bitable/v1/apps/:app_token
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewUpdateAppReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewUpdateAppReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		
-	   Body(larkbitable.NewUpdateAppReqBodyBuilder().
+		Body(larkbitable.NewUpdateAppReqBodyBuilder().
 			Name("新的多维表格名字").
-			
 			IsAdvanced(true).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.App.Update(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.App.Update(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

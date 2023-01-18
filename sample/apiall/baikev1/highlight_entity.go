@@ -22,21 +22,19 @@ import (
 )
 
 // POST /open-apis/baike/v1/entities/highlight
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbaike.NewHighlightEntityReqBuilder().
-	   Body(larkbaike.NewHighlightEntityReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbaike.NewHighlightEntityReqBuilder().
+		Body(larkbaike.NewHighlightEntityReqBodyBuilder().
 			Text("企业百科是飞书提供的一款知识管理工具").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Baike.Entity.Highlight(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Baike.Entity.Highlight(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

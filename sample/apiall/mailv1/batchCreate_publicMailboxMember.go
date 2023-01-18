@@ -22,24 +22,21 @@ import (
 )
 
 // POST /open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/batch_create
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkmail.NewBatchCreatePublicMailboxMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkmail.NewBatchCreatePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
-		
 		UserIdType("user_id").
-		
-	   Body(larkmail.NewBatchCreatePublicMailboxMemberReqBodyBuilder().
+		Body(larkmail.NewBatchCreatePublicMailboxMemberReqBodyBuilder().
 			Items([]*larkmail.PublicMailboxMember{larkmail.NewPublicMailboxMemberBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Mail.PublicMailboxMember.BatchCreate(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Mail.PublicMailboxMember.BatchCreate(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

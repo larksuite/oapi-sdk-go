@@ -22,31 +22,25 @@ import (
 )
 
 // GET /open-apis/ehr/v1/employees
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkehr.NewListEmployeeReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkehr.NewListEmployeeReqBuilder().
 		View("basic").
-		
 		Status([]int{}).
 		Type([]int{}).
 		StartTime("1608690517811").
-		
 		EndTime("1608690517811").
-		
 		UserIdType("user_id").
-		
 		UserIds([]string{}).
 		PageToken("10").
-		
 		PageSize(10).
-	   Build()
-   // 发起请求
-   resp,err := client.Ehr.Employee.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Ehr.Employee.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,4 +55,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

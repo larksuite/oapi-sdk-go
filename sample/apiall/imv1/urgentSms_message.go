@@ -22,24 +22,21 @@ import (
 )
 
 // PATCH /open-apis/im/v1/messages/:message_id/urgent_sms
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewUrgentSmsMessageReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewUrgentSmsMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-		
 		UserIdType("user_id").
-		
-	   UrgentReceivers(larkim.NewUrgentReceiversBuilder().
+		UrgentReceivers(larkim.NewUrgentReceiversBuilder().
 			UserIdList([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Im.Message.UrgentSms(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.Message.UrgentSms(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

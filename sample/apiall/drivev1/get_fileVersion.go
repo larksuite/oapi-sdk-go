@@ -22,28 +22,22 @@ import (
 )
 
 // GET /open-apis/drive/v1/files/:file_token/versions/:version_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdrive.NewGetFileVersionReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdrive.NewGetFileVersionReqBuilder().
 		FileToken("shtbcqqoXZJaKYrfN5IHQg4sVFZ").
-		
 		VersionId("file_version").
-		
 		ObjType("doc/sheet/bitable/docx").
-		
 		UserIdType("open_id").
-		
 		PageToken("1665739388").
-		
 		PageSize(20).
-	   Build()
-   // 发起请求
-   resp,err := client.Drive.FileVersion.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Drive.FileVersion.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

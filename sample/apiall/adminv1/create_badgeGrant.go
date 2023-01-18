@@ -22,35 +22,29 @@ import (
 )
 
 // POST /open-apis/admin/v1/badges/:badge_id/grants
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkadmin.NewCreateBadgeGrantReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkadmin.NewCreateBadgeGrantReqBuilder().
 		BadgeId("m_DjMzaK").
-		
 		UserIdType("open_id").
-		
 		DepartmentIdType("open_department_id").
-		
-	   Grant(larkadmin.NewGrantBuilder().
+		Grant(larkadmin.NewGrantBuilder().
 			Name("激励勋章的授予名单").
-			
 			GrantType(0).
 			TimeZone("Asia/Shanghai").
-			
 			RuleDetail(larkadmin.NewRuleDetailBuilder().Build()).
 			IsGrantAll(false).
 			UserIds([]string{}).
 			DepartmentIds([]string{}).
 			GroupIds([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Admin.BadgeGrant.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Admin.BadgeGrant.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -65,4 +59,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

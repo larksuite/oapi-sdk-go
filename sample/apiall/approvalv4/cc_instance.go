@@ -22,30 +22,24 @@ import (
 )
 
 // POST /open-apis/approval/v4/instances/cc
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewCcInstanceReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewCcInstanceReqBuilder().
 		UserIdType("user_id").
-		
-	   InstanceCc(larkapproval.NewInstanceCcBuilder().
+		InstanceCc(larkapproval.NewInstanceCcBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
-			
 			InstanceCode("7C468A54-8745-2245-9675-08B7C63E7A85").
-			
 			UserId("f7cb567e").
-			
 			CcUserIds([]string{}).
 			Comment("ok").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Instance.Cc(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Instance.Cc(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

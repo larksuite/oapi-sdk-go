@@ -22,26 +22,22 @@ import (
 )
 
 // POST /open-apis/hire/v1/applications
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewCreateApplicationReqBuilder().
-	   Body(larkhire.NewCreateApplicationReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewCreateApplicationReqBuilder().
+		Body(larkhire.NewCreateApplicationReqBodyBuilder().
 			TalentId("12312312312").
-			
 			JobId("12312312312").
-			
 			ResumeSourceId("7115289562569591070").
-			
 			ApplicationPreferredCityCodeList([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Application.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Application.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

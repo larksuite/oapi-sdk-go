@@ -22,24 +22,21 @@ import (
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewBatchCreateAppRoleMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewBatchCreateAppRoleMemberReqBuilder().
 		AppToken("bascnnKKvcoUblgmmhZkYqabcef").
-		
 		RoleId("rolNGhPqks").
-		
-	   Body(larkbitable.NewBatchCreateAppRoleMemberReqBodyBuilder().
+		Body(larkbitable.NewBatchCreateAppRoleMemberReqBodyBuilder().
 			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.AppRoleMember.BatchCreate(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.AppRoleMember.BatchCreate(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,35 +22,27 @@ import (
 )
 
 // PATCH /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewPatchAppTableFormFieldReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewPatchAppTableFormFieldReqBuilder().
 		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
-		
 		TableId("tblsRc9GRRXKqhvW").
-		
 		FormId("vewTpR1urY").
-		
 		FieldId("fldjX7dUj5").
-		
-	   AppTableFormPatchedField(larkbitable.NewAppTableFormPatchedFieldBuilder().
+		AppTableFormPatchedField(larkbitable.NewAppTableFormPatchedFieldBuilder().
 			PreFieldId("").
-			
 			Title("").
-			
 			Description("").
-			
 			Required(false).
 			Visible(false).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.AppTableFormField.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.AppTableFormField.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -65,4 +57,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

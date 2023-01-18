@@ -22,22 +22,19 @@ import (
 )
 
 // GET /open-apis/approval/v4/approvals
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewListApprovalReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewListApprovalReqBuilder().
 		PageSize(10).
 		PageToken("ASDJHA1323_sda1JSASDFD").
-		
 		Locale("zh-CN").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Approval.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Approval.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

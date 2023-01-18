@@ -22,43 +22,30 @@ import (
 )
 
 // POST /open-apis/block/v2/entities
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkblock.NewCreateEntityReqBuilder().
-	   Body(larkblock.NewCreateEntityReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkblock.NewCreateEntityReqBuilder().
+		Body(larkblock.NewCreateEntityReqBodyBuilder().
 			Title("已阅block").
-			
 			BlockTypeId("blk_614c1c952f800014b27f87d6").
-			
 			SourceData("").
-			
 			SourceMeta("").
-			
 			Version("1").
-			
 			SourceLink("").
-			
 			Owner("ou_fa7aa170f92d1615de63371ac425a767").
-			
 			Extra("{}").
-			
 			I18nSummary("").
-			
 			I18nPreview("").
-			
 			Summary("").
-			
 			Preview("").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Block.Entity.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Block.Entity.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -73,4 +60,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

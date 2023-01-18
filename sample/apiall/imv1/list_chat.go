@@ -22,22 +22,19 @@ import (
 )
 
 // GET /open-apis/im/v1/chats
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewListChatReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewListChatReqBuilder().
 		UserIdType("user_id").
-		
 		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
-		
 		PageSize(20).
-	   Build()
-   // 发起请求
-   resp,err := client.Im.Chat.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.Chat.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

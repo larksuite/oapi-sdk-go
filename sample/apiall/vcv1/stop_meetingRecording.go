@@ -22,19 +22,17 @@ import (
 )
 
 // PATCH /open-apis/vc/v1/meetings/:meeting_id/recording/stop
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewStopMeetingRecordingReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewStopMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.MeetingRecording.Stop(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.MeetingRecording.Stop(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

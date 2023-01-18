@@ -22,41 +22,32 @@ import (
 )
 
 // POST /open-apis/contact/v3/departments
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewCreateDepartmentReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewCreateDepartmentReqBuilder().
 		UserIdType("user_id").
-		
 		DepartmentIdType("open_department_id").
-		
 		ClientToken("473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E").
-		
-	   Department(larkcontact.NewDepartmentBuilder().
+		Department(larkcontact.NewDepartmentBuilder().
 			Name("DemoName").
-			
 			I18nName(larkcontact.NewDepartmentI18nNameBuilder().Build()).
 			ParentDepartmentId("D067").
-			
 			DepartmentId("").
-			
 			LeaderUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
-			
 			Order("100").
-			
 			UnitIds([]string{}).
 			CreateGroupChat(false).
 			Leaders([]*larkcontact.DepartmentLeader{larkcontact.NewDepartmentLeaderBuilder().Build()}).
 			GroupChatEmployeeTypes([]int{}).
 			DepartmentHrbps([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.Department.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.Department.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -71,4 +62,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

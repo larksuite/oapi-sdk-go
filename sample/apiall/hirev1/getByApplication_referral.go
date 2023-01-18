@@ -22,21 +22,18 @@ import (
 )
 
 // GET /open-apis/hire/v1/referrals/get_by_application
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhire.NewGetByApplicationReferralReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhire.NewGetByApplicationReferralReqBuilder().
 		ApplicationId("6134134355464633").
-		
 		UserIdType("open_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Hire.Referral.GetByApplication(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Hire.Referral.GetByApplication(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +48,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

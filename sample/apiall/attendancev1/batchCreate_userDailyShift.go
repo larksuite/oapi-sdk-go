@@ -22,24 +22,21 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_daily_shifts/batch_create
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewBatchCreateUserDailyShiftReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewBatchCreateUserDailyShiftReqBuilder().
 		EmployeeType("employee_id").
-		
-	   Body(larkattendance.NewBatchCreateUserDailyShiftReqBodyBuilder().
+		Body(larkattendance.NewBatchCreateUserDailyShiftReqBodyBuilder().
 			UserDailyShifts([]*larkattendance.UserDailyShift{larkattendance.NewUserDailyShiftBuilder().Build()}).
 			OperatorId("dd31248a").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.UserDailyShift.BatchCreate(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.UserDailyShift.BatchCreate(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

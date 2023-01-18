@@ -22,19 +22,17 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/tickets/:ticket_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewGetTicketReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewGetTicketReqBuilder().
 		TicketId("123456").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.Ticket.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.Ticket.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

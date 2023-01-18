@@ -22,22 +22,17 @@ import (
 )
 
 // POST /open-apis/approval/v4/approvals
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewCreateApprovalReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewCreateApprovalReqBuilder().
 		DepartmentIdType("open_department_id").
-		
 		UserIdType("user_id").
-		
-	   ApprovalCreate(larkapproval.NewApprovalCreateBuilder().
+		ApprovalCreate(larkapproval.NewApprovalCreateBuilder().
 			ApprovalName("@i18n@approval_name").
-			
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
-			
 			Description("@i18n@description").
-			
 			Viewers([]*larkapproval.ApprovalCreateViewers{larkapproval.NewApprovalCreateViewersBuilder().Build()}).
 			Form(larkapproval.NewApprovalFormBuilder().Build()).
 			NodeList([]*larkapproval.ApprovalNode{larkapproval.NewApprovalNodeBuilder().Build()}).
@@ -47,12 +42,11 @@ func main(){
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			ProcessManagerIds([]string{}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Approval.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Approval.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -67,4 +61,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

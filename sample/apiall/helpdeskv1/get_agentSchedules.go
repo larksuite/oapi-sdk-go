@@ -22,19 +22,17 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/agents/:agent_id/schedules
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewGetAgentSchedulesReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewGetAgentSchedulesReqBuilder().
 		AgentId("	客服 id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.AgentSchedules.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.AgentSchedules.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

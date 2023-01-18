@@ -19,32 +19,30 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
-		"os"
+	"os"
 )
 
 // POST /open-apis/okr/v1/images/upload
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-   // 创建请求对象
-   req := larkokr.NewUploadImageReqBuilder().
-	   Body(larkokr.NewUploadImageReqBodyBuilder().
+	// 创建请求对象
+	req := larkokr.NewUploadImageReqBuilder().
+		Body(larkokr.NewUploadImageReqBodyBuilder().
 			Data(file).
 			TargetId("6974586812998174252").
-			
 			TargetType(1).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Okr.Image.Upload(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Okr.Image.Upload(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -59,4 +57,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

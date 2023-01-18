@@ -22,26 +22,21 @@ import (
 )
 
 // GET /open-apis/vc/v1/meetings/list_by_no
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewListByNoMeetingReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewListByNoMeetingReqBuilder().
 		MeetingNo("123456789").
-		
 		StartTime("1608888867").
-		
 		EndTime("1608888867").
-		
 		PageToken("5").
-		
 		PageSize(20).
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.Meeting.ListByNo(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.Meeting.ListByNo(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

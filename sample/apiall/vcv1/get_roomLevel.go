@@ -22,19 +22,17 @@ import (
 )
 
 // GET /open-apis/vc/v1/room_levels/:room_level_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewGetRoomLevelReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewGetRoomLevelReqBuilder().
 		RoomLevelId("omb_57c9cc7d9a81e27e54c8fabfd02759e7").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.RoomLevel.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.RoomLevel.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

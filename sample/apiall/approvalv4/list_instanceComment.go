@@ -22,26 +22,21 @@ import (
 )
 
 // GET /open-apis/approval/v4/instances/:instance_id/comments
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewListInstanceCommentReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewListInstanceCommentReqBuilder().
 		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
-		
 		UserIdType("user_id").
-		
 		UserId("e5286g26").
-		
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
-		
 		PageSize(10).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.InstanceComment.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.InstanceComment.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

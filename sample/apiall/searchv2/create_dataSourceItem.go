@@ -22,28 +22,24 @@ import (
 )
 
 // POST /open-apis/search/v2/data_sources/:data_source_id/items
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larksearch.NewCreateDataSourceItemReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larksearch.NewCreateDataSourceItemReqBuilder().
 		DataSourceId("service_ticket").
-		
-	   Item(larksearch.NewItemBuilder().
+		Item(larksearch.NewItemBuilder().
 			Id("").
-			
 			Acl([]*larksearch.Acl{larksearch.NewAclBuilder().Build()}).
 			Metadata(larksearch.NewItemMetadataBuilder().Build()).
 			StructuredData("").
-			
 			Content(larksearch.NewItemContentBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Search.DataSourceItem.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Search.DataSourceItem.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,25 +22,22 @@ import (
 )
 
 // POST /open-apis/helpdesk/v1/start_service
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewStartServiceTicketReqBuilder().
-	   Body(larkhelpdesk.NewStartServiceTicketReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewStartServiceTicketReqBuilder().
+		Body(larkhelpdesk.NewStartServiceTicketReqBodyBuilder().
 			HumanService(false).
 			AppointedAgents([]string{}).
 			OpenId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
-			
 			CustomizedInfo("测试自定义字段信息").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.Ticket.StartService(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.Ticket.StartService(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

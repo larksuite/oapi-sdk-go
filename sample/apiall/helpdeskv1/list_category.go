@@ -22,21 +22,19 @@ import (
 )
 
 // GET /open-apis/helpdesk/v1/categories
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewListCategoryReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewListCategoryReqBuilder().
 		Lang("zh_cn").
-		
 		OrderBy(1).
 		Asc(true).
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.Category.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.Category.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

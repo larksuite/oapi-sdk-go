@@ -22,26 +22,22 @@ import (
 )
 
 // POST /open-apis/contact/v3/group
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewCreateGroupReqBuilder().
-	   Body(larkcontact.NewCreateGroupReqBodyBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewCreateGroupReqBuilder().
+		Body(larkcontact.NewCreateGroupReqBodyBuilder().
 			GroupId("g122817").
-			
 			Name("IT 外包组").
-			
 			Description("IT服务人员的集合").
-			
 			Type(1).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.Group.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.Group.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

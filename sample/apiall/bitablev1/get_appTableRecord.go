@@ -22,28 +22,23 @@ import (
 )
 
 // GET /open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewGetAppTableRecordReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewGetAppTableRecordReqBuilder().
 		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
-		
 		TableId("tblxI2tWaxP5dG7p").
-		
 		RecordId("recn0hoyXL").
-		
 		TextFieldAsArray(true).
 		UserIdType("user_id").
-		
 		DisplayFormulaRef(true).
 		AutomaticFields(true).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.AppTableRecord.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.AppTableRecord.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +53,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,32 +22,24 @@ import (
 )
 
 // GET /open-apis/admin/v1/admin_user_stats
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkadmin.NewListAdminUserStatReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkadmin.NewListAdminUserStatReqBuilder().
 		UserIdType("user_id").
-		
 		DepartmentIdType("open_department_id").
-		
 		StartDate("2020-02-15").
-		
 		EndDate("2020-02-15").
-		
 		DepartmentId("od-382e2793cfc9471f892e8a672987654c").
-		
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
-		
 		PageSize(10).
 		PageToken("2").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Admin.AdminUserStat.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Admin.AdminUserStat.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -62,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

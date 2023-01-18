@@ -22,24 +22,22 @@ import (
 )
 
 // POST /open-apis/contact/v3/employee_type_enums
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewCreateEmployeeTypeEnumReqBuilder().
-	   EmployeeTypeEnum(larkcontact.NewEmployeeTypeEnumBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewCreateEmployeeTypeEnumReqBuilder().
+		EmployeeTypeEnum(larkcontact.NewEmployeeTypeEnumBuilder().
 			Content("").
-			
 			EnumType(1).
 			EnumStatus(1).
 			I18nContent([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.EmployeeTypeEnum.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.EmployeeTypeEnum.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

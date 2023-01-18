@@ -22,27 +22,22 @@ import (
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkbitable.NewCreateAppTableViewReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkbitable.NewCreateAppTableViewReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		
 		TableId("tblsRc9GRRXKqhvW").
-		
-	   ReqView(larkbitable.NewReqViewBuilder().
+		ReqView(larkbitable.NewReqViewBuilder().
 			ViewName("表格视图1").
-			
 			ViewType("grid").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Bitable.AppTableView.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Bitable.AppTableView.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

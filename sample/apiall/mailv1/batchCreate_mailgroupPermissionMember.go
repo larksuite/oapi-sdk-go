@@ -22,26 +22,22 @@ import (
 )
 
 // POST /open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/batch_create
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkmail.NewBatchCreateMailgroupPermissionMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkmail.NewBatchCreateMailgroupPermissionMemberReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
-		
 		UserIdType("open_id").
-		
 		DepartmentIdType("open_department_id").
-		
-	   Body(larkmail.NewBatchCreateMailgroupPermissionMemberReqBodyBuilder().
+		Body(larkmail.NewBatchCreateMailgroupPermissionMemberReqBodyBuilder().
 			Items([]*larkmail.MailgroupPermissionMember{larkmail.NewMailgroupPermissionMemberBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Mail.MailgroupPermissionMember.BatchCreate(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Mail.MailgroupPermissionMember.BatchCreate(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -16,30 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // GET /open-apis/vc/v1/rooms
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewListRoomReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewListRoomReqBuilder().
 		PageSize(10).
 		PageToken("10").
-		
 		RoomLevelId("omb_4ad1a2c7a2fbc5fc9570f38456931293").
-		
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.Room.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.Room.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

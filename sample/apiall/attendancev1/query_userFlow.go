@@ -22,27 +22,23 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_flows/query
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewQueryUserFlowReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewQueryUserFlowReqBuilder().
 		EmployeeType("employee_id").
-		
 		IncludeTerminatedUser(true).
-	   Body(larkattendance.NewQueryUserFlowReqBodyBuilder().
+		Body(larkattendance.NewQueryUserFlowReqBodyBuilder().
 			UserIds([]string{}).
 			CheckTimeFrom("1566641088").
-			
 			CheckTimeTo("1566641088").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.UserFlow.Query(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.UserFlow.Query(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +53,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

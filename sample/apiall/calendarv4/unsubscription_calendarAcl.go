@@ -22,19 +22,17 @@ import (
 )
 
 // POST /open-apis/calendar/v4/calendars/:calendar_id/acls/unsubscription
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcalendar.NewUnsubscriptionCalendarAclReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcalendar.NewUnsubscriptionCalendarAclReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Calendar.CalendarAcl.Unsubscription(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Calendar.CalendarAcl.Unsubscription(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

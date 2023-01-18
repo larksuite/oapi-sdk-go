@@ -22,23 +22,19 @@ import (
 )
 
 // GET /open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkmail.NewGetPublicMailboxMemberReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkmail.NewGetPublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
-		
 		MemberId("xxxxxxxxxxxxxxx").
-		
 		UserIdType("user_id").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Mail.PublicMailboxMember.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Mail.PublicMailboxMember.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

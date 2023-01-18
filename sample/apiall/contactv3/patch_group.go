@@ -22,25 +22,21 @@ import (
 )
 
 // PATCH /open-apis/contact/v3/group/:group_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewPatchGroupReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewPatchGroupReqBuilder().
 		GroupId("g187131").
-		
-	   Body(larkcontact.NewPatchGroupReqBodyBuilder().
+		Body(larkcontact.NewPatchGroupReqBodyBuilder().
 			Name("外包 IT 用户组").
-			
 			Description("IT 外包用户组，需要进行细粒度权限管控").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.Group.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.Group.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

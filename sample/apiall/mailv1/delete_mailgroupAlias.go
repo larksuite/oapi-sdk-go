@@ -22,21 +22,18 @@ import (
 )
 
 // DELETE /open-apis/mail/v1/mailgroups/:mailgroup_id/aliases/:alias_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkmail.NewDeleteMailgroupAliasReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkmail.NewDeleteMailgroupAliasReqBuilder().
 		MailgroupId("xxxxxx 或 test_group@xx.xxx").
-		
 		AliasId("xxx@xx.xxx").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Mail.MailgroupAlias.Delete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Mail.MailgroupAlias.Delete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +48,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

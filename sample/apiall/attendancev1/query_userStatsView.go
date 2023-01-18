@@ -22,27 +22,22 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_stats_views/query
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewQueryUserStatsViewReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewQueryUserStatsViewReqBuilder().
 		EmployeeType("employee_id").
-		
-	   Body(larkattendance.NewQueryUserStatsViewReqBodyBuilder().
+		Body(larkattendance.NewQueryUserStatsViewReqBodyBuilder().
 			Locale("zh").
-			
 			StatsType("daily").
-			
 			UserId("dd31248a").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.UserStatsView.Query(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.UserStatsView.Query(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

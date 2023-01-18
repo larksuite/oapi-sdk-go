@@ -22,23 +22,19 @@ import (
 )
 
 // GET /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larksheets.NewGetSpreadsheetSheetFilterViewReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larksheets.NewGetSpreadsheetSheetFilterViewReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
-		
 		SheetId("0b**12").
-		
 		FilterViewId("pH9hbVcCXA").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Sheets.SpreadsheetSheetFilterView.Get(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Sheets.SpreadsheetSheetFilterView.Get(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,4 +49,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

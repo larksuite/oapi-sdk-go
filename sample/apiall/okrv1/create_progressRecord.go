@@ -22,29 +22,24 @@ import (
 )
 
 // POST /open-apis/okr/v1/progress_records
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkokr.NewCreateProgressRecordReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkokr.NewCreateProgressRecordReqBuilder().
 		UserIdType("user_id").
-		
-	   Body(larkokr.NewCreateProgressRecordReqBodyBuilder().
+		Body(larkokr.NewCreateProgressRecordReqBodyBuilder().
 			SourceTitle("周报系统").
-			
 			SourceUrl("https://www.zhoubao.com").
-			
 			TargetId("7041430377642082323").
-			
 			TargetType(1).
 			Content(larkokr.NewContentBlockBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Okr.ProgressRecord.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Okr.ProgressRecord.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -59,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,19 +22,17 @@ import (
 )
 
 // DELETE /open-apis/helpdesk/v1/categories/:id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkhelpdesk.NewDeleteCategoryReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkhelpdesk.NewDeleteCategoryReqBuilder().
 		Id("6948728206392295444").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Helpdesk.Category.Delete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Helpdesk.Category.Delete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,4 +47,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

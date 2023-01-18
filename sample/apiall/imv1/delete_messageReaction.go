@@ -22,21 +22,18 @@ import (
 )
 
 // DELETE /open-apis/im/v1/messages/:message_id/reactions/:reaction_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewDeleteMessageReactionReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewDeleteMessageReactionReqBuilder().
 		MessageId("om_8964d1b4*********2b31383276113").
-		
 		ReactionId("ZCaCIjUBVVWSrm5L-3ZTw*************sNa8dHVplEzzSfJVUVLMLcS_").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Im.MessageReaction.Delete(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.MessageReaction.Delete(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,4 +48,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

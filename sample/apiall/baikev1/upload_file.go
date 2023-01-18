@@ -19,31 +19,29 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
-		"os"
+	"os"
 )
 
 // POST /open-apis/baike/v1/files/upload
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-   // 创建请求对象
-   req := larkbaike.NewUploadFileReqBuilder().
-	   File(larkbaike.NewFileBuilder().
+	// 创建请求对象
+	req := larkbaike.NewUploadFileReqBuilder().
+		File(larkbaike.NewFileBuilder().
 			Name("示例图片.png").
-			
 			File(file).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Baike.File.Upload(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Baike.File.Upload(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +56,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

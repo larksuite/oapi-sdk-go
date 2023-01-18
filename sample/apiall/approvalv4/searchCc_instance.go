@@ -22,44 +22,31 @@ import (
 )
 
 // POST /open-apis/approval/v4/instances/search_cc
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewSearchCcInstanceReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewSearchCcInstanceReqBuilder().
 		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
-		
 		UserIdType("user_id").
-		
-	   CcSearch(larkapproval.NewCcSearchBuilder().
+		CcSearch(larkapproval.NewCcSearchBuilder().
 			UserId("lwiu098wj").
-			
 			ApprovalCode("EB828003-9FFE-4B3F-AA50-2E199E2ED942").
-			
 			InstanceCode("EB828003-9FFE-4B3F-AA50-2E199E2ED943").
-			
 			InstanceExternalId("EB828003-9FFE-4B3F-AA50-2E199E2ED976").
-			
 			GroupExternalId("1234567").
-			
 			CcTitle("test").
-			
 			ReadStatus("READ").
-			
 			CcCreateTimeFrom("1547654251506").
-			
 			CcCreateTimeTo("1547654251506").
-			
 			Locale("zh-CN").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.Instance.SearchCc(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.Instance.SearchCc(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -74,4 +61,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

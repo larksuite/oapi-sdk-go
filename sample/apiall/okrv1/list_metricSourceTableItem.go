@@ -22,27 +22,21 @@ import (
 )
 
 // GET /open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkokr.NewListMetricSourceTableItemReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkokr.NewListMetricSourceTableItemReqBuilder().
 		MetricSourceId("7041857032248410131").
-		
 		MetricTableId("7041857032248410131").
-		
 		UserIdType("open_id").
-		
 		PageToken("6969864184272078374").
-		
 		PageSize("10").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Okr.MetricSourceTableItem.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Okr.MetricSourceTableItem.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

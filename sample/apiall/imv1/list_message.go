@@ -22,28 +22,22 @@ import (
 )
 
 // GET /open-apis/im/v1/messages
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewListMessageReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewListMessageReqBuilder().
 		ContainerIdType("chat").
-		
 		ContainerId("oc_234jsi43d3ssi993d43545f").
-		
 		StartTime("1609296809").
-		
 		EndTime("1608594809").
-		
 		PageSize(20).
 		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Im.Message.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.Message.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

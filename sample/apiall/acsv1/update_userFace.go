@@ -19,37 +19,32 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
-		"os"
+	"os"
 )
 
 // PUT /open-apis/acs/v1/users/:user_id/face
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-   // 创建请求对象
-   req := larkacs.NewUpdateUserFaceReqBuilder().
+	// 创建请求对象
+	req := larkacs.NewUpdateUserFaceReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
-		
 		UserIdType("user_id").
-		
-	   File(larkacs.NewFileBuilder().
+		File(larkacs.NewFileBuilder().
 			Files(file).
 			FileType("jpg").
-			
 			FileName("efeqz12f.jpg").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Acs.UserFace.Update(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Acs.UserFace.Update(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -64,4 +59,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

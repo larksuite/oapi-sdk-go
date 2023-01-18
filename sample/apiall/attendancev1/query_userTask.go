@@ -22,26 +22,24 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_tasks/query
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewQueryUserTaskReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewQueryUserTaskReqBuilder().
 		EmployeeType("employee_id").
-		
 		IgnoreInvalidUsers(true).
 		IncludeTerminatedUser(true).
-	   Body(larkattendance.NewQueryUserTaskReqBodyBuilder().
+		Body(larkattendance.NewQueryUserTaskReqBodyBuilder().
 			UserIds([]string{}).
 			CheckDateFrom(20190817).
 			CheckDateTo(20190820).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.UserTask.Query(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.UserTask.Query(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

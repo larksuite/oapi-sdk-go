@@ -22,24 +22,21 @@ import (
 )
 
 // POST /open-apis/calendar/v4/calendars/search
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcalendar.NewSearchCalendarReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcalendar.NewSearchCalendarReqBuilder().
 		PageToken("10").
-		
 		PageSize(20).
-	   Body(larkcalendar.NewSearchCalendarReqBodyBuilder().
+		Body(larkcalendar.NewSearchCalendarReqBodyBuilder().
 			Query("query words").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Calendar.Calendar.Search(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Calendar.Calendar.Search(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +51,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

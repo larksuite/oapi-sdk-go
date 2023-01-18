@@ -22,22 +22,20 @@ import (
 )
 
 // POST /open-apis/im/v1/chats/:chat_id/chat_tabs/update_tabs
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewUpdateTabsChatTabReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewUpdateTabsChatTabReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
-		
-	   Body(larkim.NewUpdateTabsChatTabReqBodyBuilder().
+		Body(larkim.NewUpdateTabsChatTabReqBodyBuilder().
 			ChatTabs([]*larkim.ChatTab{larkim.NewChatTabBuilder().Build()}).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Im.ChatTab.UpdateTabs(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.ChatTab.UpdateTabs(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

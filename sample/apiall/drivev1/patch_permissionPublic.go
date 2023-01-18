@@ -22,33 +22,26 @@ import (
 )
 
 // PATCH /open-apis/drive/v1/permissions/:token/public
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdrive.NewPatchPermissionPublicReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdrive.NewPatchPermissionPublicReqBuilder().
 		Token("doccnBKgoMyY5OMbUG6FioTXuBe").
-		
 		Type("doc").
-		
-	   PermissionPublicRequest(larkdrive.NewPermissionPublicRequestBuilder().
+		PermissionPublicRequest(larkdrive.NewPermissionPublicRequestBuilder().
 			ExternalAccess(true).
 			SecurityEntity("anyone_can_view").
-			
 			CommentEntity("anyone_can_view").
-			
 			ShareEntity("anyone").
-			
 			LinkShareEntity("tenant_readable").
-			
 			InviteExternal(true).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Drive.PermissionPublic.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Drive.PermissionPublic.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -63,4 +56,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

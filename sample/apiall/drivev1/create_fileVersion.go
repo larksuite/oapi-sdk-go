@@ -22,43 +22,30 @@ import (
 )
 
 // POST /open-apis/drive/v1/files/:file_token/versions
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkdrive.NewCreateFileVersionReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkdrive.NewCreateFileVersionReqBuilder().
 		FileToken("doxbcyvqZlSc9WlHvQMlSJwUrsb").
-		
 		UserIdType("user_id").
-		
-	   Version(larkdrive.NewVersionBuilder().
+		Version(larkdrive.NewVersionBuilder().
 			Name("文档标题").
-			
 			Version("version1").
-			
 			ParentToken("").
-			
 			OwnerId("694699009591869450").
-			
 			CreatorId("694699009591869451").
-			
 			CreateTime("1660708537").
-			
 			UpdateTime("1660708537").
-			
 			Status("0，1，2").
-			
 			ObjType("doc/docx/sheet/bitable").
-			
 			ParentType("doc/docx/sheet/bitable").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Drive.FileVersion.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Drive.FileVersion.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -73,4 +60,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

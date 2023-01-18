@@ -22,27 +22,24 @@ import (
 )
 
 // GET /open-apis/approval/v4/external_tasks
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkapproval.NewListExternalTaskReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkapproval.NewListExternalTaskReqBuilder().
 		PageSize(50).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
-		
-	   Body(larkapproval.NewListExternalTaskReqBodyBuilder().
+		Body(larkapproval.NewListExternalTaskReqBodyBuilder().
 			ApprovalCodes([]string{}).
 			InstanceIds([]string{}).
 			UserIds([]string{}).
 			Status("PENDING").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Approval.ExternalTask.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Approval.ExternalTask.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

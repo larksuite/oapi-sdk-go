@@ -22,28 +22,23 @@ import (
 )
 
 // POST /open-apis/contact/v3/departments/search
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkcontact.NewSearchDepartmentReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkcontact.NewSearchDepartmentReqBuilder().
 		UserIdType("user_id").
-		
 		DepartmentIdType("open_department_id").
-		
 		PageToken("AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR").
-		
 		PageSize(20).
-	   Body(larkcontact.NewSearchDepartmentReqBodyBuilder().
+		Body(larkcontact.NewSearchDepartmentReqBodyBuilder().
 			Query("DemoName").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Contact.Department.Search(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Contact.Department.Search(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +53,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

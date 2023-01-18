@@ -22,27 +22,22 @@ import (
 )
 
 // POST /open-apis/im/v1/messages/:message_id/reply
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewReplyMessageReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewReplyMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-		
-	   Body(larkim.NewReplyMessageReqBodyBuilder().
+		Body(larkim.NewReplyMessageReqBodyBuilder().
 			Content("").
-			
 			MsgType("text").
-			
 			Uuid("a0d69e20-1dd1-458b-k525-dfeca4015204").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Im.Message.Reply(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.Message.Reply(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

@@ -22,28 +22,24 @@ import (
 )
 
 // PATCH /open-apis/vc/v1/reserve_configs/:reserve_config_id
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkvc.NewPatchReserveConfigReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkvc.NewPatchReserveConfigReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
-		
 		UserIdType("user_id").
-		
-	   Body(larkvc.NewPatchReserveConfigReqBodyBuilder().
+		Body(larkvc.NewPatchReserveConfigReqBodyBuilder().
 			ScopeType("2").
-			
 			ApprovalConfig(larkvc.NewApprovalConfigBuilder().Build()).
 			TimeConfig(larkvc.NewTimeConfigBuilder().Build()).
 			ReserveScopeConfig(larkvc.NewReserveScopeConfigBuilder().Build()).
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Vc.ReserveConfig.Patch(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Vc.ReserveConfig.Patch(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,4 +54,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

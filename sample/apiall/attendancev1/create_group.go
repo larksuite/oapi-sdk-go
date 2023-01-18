@@ -22,26 +22,22 @@ import (
 )
 
 // POST /open-apis/attendance/v1/groups
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkattendance.NewCreateGroupReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkattendance.NewCreateGroupReqBuilder().
 		EmployeeType("employee_id").
-		
 		DeptType("od-fcb45c28a45311afd441b8869541ece8").
-		
-	   Body(larkattendance.NewCreateGroupReqBodyBuilder().
+		Body(larkattendance.NewCreateGroupReqBodyBuilder().
 			Group(larkattendance.NewGroupBuilder().Build()).
 			OperatorId("dd31248a").
-			
 			Build()).
-	   Build()
-   // 发起请求
-   resp,err := client.Attendance.Group.Create(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Attendance.Group.Create(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,4 +52,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-

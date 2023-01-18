@@ -22,24 +22,20 @@ import (
 )
 
 // GET /open-apis/im/v1/messages/:message_id/read_users
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larkim.NewReadUsersMessageReqBuilder().
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larkim.NewReadUsersMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-		
 		UserIdType("user_id").
-		
 		PageSize(20).
 		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
-		
-	   Build()
-   // 发起请求
-   resp,err := client.Im.Message.ReadUsers(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Im.Message.ReadUsers(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,4 +50,3 @@ func main(){
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-
