@@ -40,7 +40,7 @@ func NewService(config *larkcore.Config) *HireService {
 
 type HireService struct {
 	config               *larkcore.Config
-	Application          *application          // 投递
+	Application          *application          // 入职
 	ApplicationInterview *applicationInterview // application.interview
 	Attachment           *attachment           // 附件
 	EhrImportTask        *ehrImportTask        // 导入 e-HR
@@ -452,6 +452,32 @@ func (j *job) CombinedCreate(ctx context.Context, req *CombinedCreateJobReq, opt
 	}
 	// 反序列响应结果
 	resp := &CombinedCreateJobResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新职位
+//
+// - 更新职位信息，该接口为全量更新，若字段没有返回值，则原有值将会被清空。字段的是否必填，将以系统中的「职位字段管理」中的设置为准。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/combinedUpdate_job.go
+func (j *job) CombinedUpdate(ctx context.Context, req *CombinedUpdateJobReq, options ...larkcore.RequestOptionFunc) (*CombinedUpdateJobResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/jobs/:job_id/combined_update"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CombinedUpdateJobResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
 	if err != nil {
 		return nil, err

@@ -22,28 +22,38 @@ import (
 )
 
 // DELETE /open-apis/contact/v3/users/:user_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewDeleteUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewDeleteUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+		
 		UserIdType("open_id").
-		Body(larkcontact.NewDeleteUserReqBodyBuilder().
+		
+	   Body(larkcontact.NewDeleteUserReqBodyBuilder().
 			DepartmentChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			ExternalChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			DocsAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			CalendarAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			ApplicationAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			MinutesAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			SurveyAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			EmailAcceptor(larkcontact.NewResourceAcceptorBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.Delete(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -58,3 +68,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

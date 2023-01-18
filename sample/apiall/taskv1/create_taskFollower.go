@@ -22,22 +22,26 @@ import (
 )
 
 // POST /open-apis/task/v1/tasks/:task_id/followers
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTaskFollowerReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTaskFollowerReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
+		
 		UserIdType("user_id").
-		Follower(larktask.NewFollowerBuilder().
+		
+	   Follower(larktask.NewFollowerBuilder().
 			Id("ou_99e1a581b36ecc4862cbfbce473f3123").
+			
 			IdList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.TaskFollower.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.TaskFollower.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

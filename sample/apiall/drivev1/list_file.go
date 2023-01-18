@@ -22,19 +22,22 @@ import (
 )
 
 // GET /open-apis/drive/v1/files
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewListFileReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewListFileReqBuilder().
 		PageSize(10).
 		PageToken("MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef").
+		
 		FolderToken("fldbcO1UuPz8VwnpPx5a9abcef").
-		Build()
-	// 发起请求
-	resp, err := client.Drive.File.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.File.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

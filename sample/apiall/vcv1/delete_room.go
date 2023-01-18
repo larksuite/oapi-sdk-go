@@ -22,17 +22,19 @@ import (
 )
 
 // DELETE /open-apis/vc/v1/rooms/:room_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewDeleteRoomReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewDeleteRoomReqBuilder().
 		RoomId("omm_4de32cf10a4358788ff4e09e37ebbf9b").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Room.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Room.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

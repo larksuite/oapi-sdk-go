@@ -22,20 +22,23 @@ import (
 )
 
 // POST /open-apis/docx/v1/documents
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdocx.NewCreateDocumentReqBuilder().
-		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdocx.NewCreateDocumentReqBuilder().
+	   Body(larkdocx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("fldcnqquW1svRIYVT2Np6IuLCKd").
+			
 			Title("undefined").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Docx.Document.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Docx.Document.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

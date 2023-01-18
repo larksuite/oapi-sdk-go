@@ -1641,6 +1641,86 @@ func (builder *AuditContextBuilder) Build() *AuditContext {
 	return req
 }
 
+type AuditDetail struct {
+	Mc          *string `json:"mc,omitempty"`           // mac地址
+	DeviceModel *string `json:"device_model,omitempty"` // 设备模型
+	Os          *string `json:"os,omitempty"`           // 操作系统
+	City        *string `json:"city,omitempty"`         // ip属地
+}
+
+type AuditDetailBuilder struct {
+	mc              string // mac地址
+	mcFlag          bool
+	deviceModel     string // 设备模型
+	deviceModelFlag bool
+	os              string // 操作系统
+	osFlag          bool
+	city            string // ip属地
+	cityFlag        bool
+}
+
+func NewAuditDetailBuilder() *AuditDetailBuilder {
+	builder := &AuditDetailBuilder{}
+	return builder
+}
+
+// mac地址
+//
+// 示例值：08:00:20:0A:8C:6D
+func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
+	builder.mc = mc
+	builder.mcFlag = true
+	return builder
+}
+
+// 设备模型
+//
+// 示例值：iphone14
+func (builder *AuditDetailBuilder) DeviceModel(deviceModel string) *AuditDetailBuilder {
+	builder.deviceModel = deviceModel
+	builder.deviceModelFlag = true
+	return builder
+}
+
+// 操作系统
+//
+// 示例值：mac os
+func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
+	builder.os = os
+	builder.osFlag = true
+	return builder
+}
+
+// ip属地
+//
+// 示例值：北京
+func (builder *AuditDetailBuilder) City(city string) *AuditDetailBuilder {
+	builder.city = city
+	builder.cityFlag = true
+	return builder
+}
+
+func (builder *AuditDetailBuilder) Build() *AuditDetail {
+	req := &AuditDetail{}
+	if builder.mcFlag {
+		req.Mc = &builder.mc
+
+	}
+	if builder.deviceModelFlag {
+		req.DeviceModel = &builder.deviceModel
+
+	}
+	if builder.osFlag {
+		req.Os = &builder.os
+
+	}
+	if builder.cityFlag {
+		req.City = &builder.city
+
+	}
+	return req
+}
+
 type AuditEventExtend struct {
 	CommentType                 *string `json:"comment_type,omitempty"`                     // 评论类型
 	AppDetail                   *string `json:"app_detail,omitempty"`                       // app信息
@@ -1834,6 +1914,7 @@ type AuditInfo struct {
 	Extend          *AuditEventExtend       `json:"extend,omitempty"`            // 事件级别的扩展
 	OperatorAppName *string                 `json:"operator_app_name,omitempty"` // 第三方isv名称
 	CommonDrawers   *ApiAuditCommonDrawers  `json:"common_drawers,omitempty"`    // 扩展字段信息
+	AuditDetail     *AuditDetail            `json:"audit_detail,omitempty"`      // 日志扩展信息
 }
 
 type AuditInfoBuilder struct {
@@ -1869,6 +1950,8 @@ type AuditInfoBuilder struct {
 	operatorAppNameFlag bool
 	commonDrawers       *ApiAuditCommonDrawers // 扩展字段信息
 	commonDrawersFlag   bool
+	auditDetail         *AuditDetail // 日志扩展信息
+	auditDetailFlag     bool
 }
 
 func NewAuditInfoBuilder() *AuditInfoBuilder {
@@ -1878,7 +1961,7 @@ func NewAuditInfoBuilder() *AuditInfoBuilder {
 
 // 事件id
 //
-// 示例值：
+// 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
@@ -1887,7 +1970,7 @@ func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 
 // 唯一id
 //
-// 示例值：
+// 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 	builder.uniqueId = uniqueId
 	builder.uniqueIdFlag = true
@@ -1896,7 +1979,7 @@ func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 
 // 事件名称
 //
-// 示例值：
+// 示例值：space_read_doc
 func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 	builder.eventName = eventName
 	builder.eventNameFlag = true
@@ -1914,7 +1997,7 @@ func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInf
 
 // 模块
 //
-// 示例值：
+// 示例值：1
 func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder {
 	builder.eventModule = eventModule
 	builder.eventModuleFlag = true
@@ -1932,7 +2015,7 @@ func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilde
 
 // 操作人id
 //
-// 示例值：
+// 示例值：11111111111111
 func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
 	builder.operatorValue = operatorValue
 	builder.operatorValueFlag = true
@@ -1959,7 +2042,7 @@ func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) 
 
 // 事件时间
 //
-// 示例值：
+// 示例值：1669046400
 func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 	builder.eventTime = eventTime
 	builder.eventTimeFlag = true
@@ -1968,7 +2051,7 @@ func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 
 // ip信息
 //
-// 示例值：
+// 示例值：192.168.168.1
 func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 	builder.ip = ip
 	builder.ipFlag = true
@@ -1977,7 +2060,7 @@ func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 
 // 第三方isvID
 //
-// 示例值：
+// 示例值：xxx
 func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
 	builder.operatorApp = operatorApp
 	builder.operatorAppFlag = true
@@ -2004,7 +2087,7 @@ func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuil
 
 // 第三方isv名称
 //
-// 示例值：
+// 示例值：xxx
 func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
 	builder.operatorAppName = operatorAppName
 	builder.operatorAppNameFlag = true
@@ -2017,6 +2100,15 @@ func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditI
 func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDrawers) *AuditInfoBuilder {
 	builder.commonDrawers = commonDrawers
 	builder.commonDrawersFlag = true
+	return builder
+}
+
+// 日志扩展信息
+//
+// 示例值：
+func (builder *AuditInfoBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInfoBuilder {
+	builder.auditDetail = auditDetail
+	builder.auditDetailFlag = true
 	return builder
 }
 
@@ -2079,6 +2171,9 @@ func (builder *AuditInfoBuilder) Build() *AuditInfo {
 	}
 	if builder.commonDrawersFlag {
 		req.CommonDrawers = builder.commonDrawers
+	}
+	if builder.auditDetailFlag {
+		req.AuditDetail = builder.auditDetail
 	}
 	return req
 }
@@ -5863,9 +5958,9 @@ func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	return builder
 }
 
+// 用户ID类型
 //
-//
-// 示例值：
+// 示例值：user_id
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

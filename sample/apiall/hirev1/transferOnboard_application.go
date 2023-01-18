@@ -22,31 +22,43 @@ import (
 )
 
 // POST /open-apis/hire/v1/applications/:application_id/transfer_onboard
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewTransferOnboardApplicationReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewTransferOnboardApplicationReqBuilder().
 		ApplicationId("7073372582620416300").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("people_admin_department_id").
-		Body(larkhire.NewTransferOnboardApplicationReqBodyBuilder().
+		
+	   Body(larkhire.NewTransferOnboardApplicationReqBodyBuilder().
 			ActualOnboardTime(1616428800000).
 			ExpectedConversionTime(1616428800000).
 			JobRequirementId("6960663240925956402").
+			
 			OperatorId("ou-xxx").
+			
 			OnboardCityCode("CT_2").
+			
 			Department("6966123381141866028").
+			
 			Leader("ou-xxx").
+			
 			Sequence("7006234385490345986").
+			
 			Level("6937934036379650311").
+			
 			EmployeeType("1").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Hire.Application.TransferOnboard(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.Application.TransferOnboard(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,3 +73,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

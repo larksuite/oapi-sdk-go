@@ -22,21 +22,24 @@ import (
 )
 
 // PATCH /open-apis/vc/v1/meetings/:meeting_id/recording/set_permission
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewSetPermissionMeetingRecordingReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewSetPermissionMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
+		
 		UserIdType("user_id").
-		Body(larkvc.NewSetPermissionMeetingRecordingReqBodyBuilder().
+		
+	   Body(larkvc.NewSetPermissionMeetingRecordingReqBodyBuilder().
 			PermissionObjects([]*larkvc.RecordingPermissionObject{larkvc.NewRecordingPermissionObjectBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Vc.MeetingRecording.SetPermission(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.MeetingRecording.SetPermission(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

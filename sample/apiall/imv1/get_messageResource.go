@@ -22,19 +22,23 @@ import (
 )
 
 // GET /open-apis/im/v1/messages/:message_id/resources/:file_key
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewGetMessageResourceReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewGetMessageResourceReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
+		
 		FileKey("file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g").
+		
 		Type("image").
-		Build()
-	// 发起请求
-	resp, err := client.Im.MessageResource.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Im.MessageResource.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

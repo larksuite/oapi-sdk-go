@@ -19,32 +19,35 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
-	"os"
+		"os"
 )
 
 // POST /open-apis/drive/v1/files/upload_part
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// 创建请求对象
-	req := larkdrive.NewUploadPartFileReqBuilder().
-		Body(larkdrive.NewUploadPartFileReqBodyBuilder().
+   // 创建请求对象
+   req := larkdrive.NewUploadPartFileReqBuilder().
+	   Body(larkdrive.NewUploadPartFileReqBodyBuilder().
 			UploadId("7111211691345512356").
+			
 			Seq(0).
 			Size(4194304).
 			Checksum("12342388237783212356").
+			
 			File(file).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.File.UploadPart(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.File.UploadPart(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -59,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

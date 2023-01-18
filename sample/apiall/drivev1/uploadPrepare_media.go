@@ -22,23 +22,28 @@ import (
 )
 
 // POST /open-apis/drive/v1/medias/upload_prepare
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewUploadPrepareMediaReqBuilder().
-		MediaUploadInfo(larkdrive.NewMediaUploadInfoBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewUploadPrepareMediaReqBuilder().
+	   MediaUploadInfo(larkdrive.NewMediaUploadInfoBuilder().
 			FileName("123.txt").
+			
 			ParentType("doc_image").
+			
 			ParentNode("fldcnxxxxxx").
+			
 			Size(1024).
 			Extra("test").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.Media.UploadPrepare(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.Media.UploadPrepare(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

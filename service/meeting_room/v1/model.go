@@ -17,6 +17,116 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
+type EventUids struct {
+	EventUids []*EventUid `json:"EventUids,omitempty"` // EventUids
+}
+
+type EventUidsBuilder struct {
+	eventUids     []*EventUid // EventUids
+	eventUidsFlag bool
+}
+
+func NewEventUidsBuilder() *EventUidsBuilder {
+	builder := &EventUidsBuilder{}
+	return builder
+}
+
+// EventUids
+//
+// 示例值：
+func (builder *EventUidsBuilder) EventUids(eventUids []*EventUid) *EventUidsBuilder {
+	builder.eventUids = eventUids
+	builder.eventUidsFlag = true
+	return builder
+}
+
+func (builder *EventUidsBuilder) Build() *EventUids {
+	req := &EventUids{}
+	if builder.eventUidsFlag {
+		req.EventUids = builder.eventUids
+	}
+	return req
+}
+
+type EventInfo struct {
+	Uid          *string  `json:"uid,omitempty"`           // 日程唯一ID
+	OriginalTime *int     `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+	Summary      *string  `json:"summary,omitempty"`       // 日程主题
+	Vchat        []*Vchat `json:"vchat,omitempty"`         // 视频会议信息
+}
+
+type EventInfoBuilder struct {
+	uid              string // 日程唯一ID
+	uidFlag          bool
+	originalTime     int // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+	originalTimeFlag bool
+	summary          string // 日程主题
+	summaryFlag      bool
+	vchat            []*Vchat // 视频会议信息
+	vchatFlag        bool
+}
+
+func NewEventInfoBuilder() *EventInfoBuilder {
+	builder := &EventInfoBuilder{}
+	return builder
+}
+
+// 日程唯一ID
+//
+// 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
+func (builder *EventInfoBuilder) Uid(uid string) *EventInfoBuilder {
+	builder.uid = uid
+	builder.uidFlag = true
+	return builder
+}
+
+// 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+//
+// 示例值：0
+func (builder *EventInfoBuilder) OriginalTime(originalTime int) *EventInfoBuilder {
+	builder.originalTime = originalTime
+	builder.originalTimeFlag = true
+	return builder
+}
+
+// 日程主题
+//
+// 示例值：test
+func (builder *EventInfoBuilder) Summary(summary string) *EventInfoBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+
+// 视频会议信息
+//
+// 示例值：
+func (builder *EventInfoBuilder) Vchat(vchat []*Vchat) *EventInfoBuilder {
+	builder.vchat = vchat
+	builder.vchatFlag = true
+	return builder
+}
+
+func (builder *EventInfoBuilder) Build() *EventInfo {
+	req := &EventInfo{}
+	if builder.uidFlag {
+		req.Uid = &builder.uid
+
+	}
+	if builder.originalTimeFlag {
+		req.OriginalTime = &builder.originalTime
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.vchatFlag {
+		req.Vchat = builder.vchat
+	}
+	return req
+}
+
 type EventTime struct {
 	TimeStamp *int `json:"time_stamp,omitempty"` //
 }
@@ -44,6 +154,54 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 	req := &EventTime{}
 	if builder.timeStampFlag {
 		req.TimeStamp = &builder.timeStamp
+
+	}
+	return req
+}
+
+type EventUid struct {
+	Uid          *string `json:"uid,omitempty"`           // 日程唯一ID
+	OriginalTime *int    `json:"original_time,omitempty"` // original_time
+}
+
+type EventUidBuilder struct {
+	uid              string // 日程唯一ID
+	uidFlag          bool
+	originalTime     int // original_time
+	originalTimeFlag bool
+}
+
+func NewEventUidBuilder() *EventUidBuilder {
+	builder := &EventUidBuilder{}
+	return builder
+}
+
+// 日程唯一ID
+//
+// 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
+func (builder *EventUidBuilder) Uid(uid string) *EventUidBuilder {
+	builder.uid = uid
+	builder.uidFlag = true
+	return builder
+}
+
+// original_time
+//
+// 示例值：0
+func (builder *EventUidBuilder) OriginalTime(originalTime int) *EventUidBuilder {
+	builder.originalTime = originalTime
+	builder.originalTimeFlag = true
+	return builder
+}
+
+func (builder *EventUidBuilder) Build() *EventUid {
+	req := &EventUid{}
+	if builder.uidFlag {
+		req.Uid = &builder.uid
+
+	}
+	if builder.originalTimeFlag {
+		req.OriginalTime = &builder.originalTime
 
 	}
 	return req
@@ -124,6 +282,54 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 	}
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+type Vchat struct {
+	MeetingUrl *string `json:"meeting_url,omitempty"` // 视频会议链接
+	VcType     *string `json:"vc_type,omitempty"`     // 视频会议类型
+}
+
+type VchatBuilder struct {
+	meetingUrl     string // 视频会议链接
+	meetingUrlFlag bool
+	vcType         string // 视频会议类型
+	vcTypeFlag     bool
+}
+
+func NewVchatBuilder() *VchatBuilder {
+	builder := &VchatBuilder{}
+	return builder
+}
+
+// 视频会议链接
+//
+// 示例值：https://vc.feishu.cn/j/935314044
+func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
+	builder.meetingUrl = meetingUrl
+	builder.meetingUrlFlag = true
+	return builder
+}
+
+// 视频会议类型
+//
+// 示例值：vc
+func (builder *VchatBuilder) VcType(vcType string) *VchatBuilder {
+	builder.vcType = vcType
+	builder.vcTypeFlag = true
+	return builder
+}
+
+func (builder *VchatBuilder) Build() *Vchat {
+	req := &Vchat{}
+	if builder.meetingUrlFlag {
+		req.MeetingUrl = &builder.meetingUrl
+
+	}
+	if builder.vcTypeFlag {
+		req.VcType = &builder.vcType
 
 	}
 	return req

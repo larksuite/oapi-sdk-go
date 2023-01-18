@@ -29,12 +29,6 @@ import (
 )
 
 const (
-	QueryTypeRoom = 1 // 会议室
-	QueryTypeErc  = 2 // erc
-
-)
-
-const (
 	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
@@ -459,6 +453,132 @@ func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
 	return req
 }
 
+type ApprovalConfigEvent struct {
+	ApprovalSwitch    *int                  `json:"approval_switch,omitempty"`    // 预定审批开关，0关闭，1打开
+	ApprovalCondition *int                  `json:"approval_condition,omitempty"` // 预定审批条件，0所有预定需要审批，1满足条件需审批
+	MeetingDuration   *float64              `json:"meeting_duration,omitempty"`   // 超过 meeting_duration小时需要审批
+	Approvers         []*SubscribeUserEvent `json:"approvers,omitempty"`          // 审批人列表
+}
+
+type ApprovalConfigEventBuilder struct {
+	approvalSwitch        int // 预定审批开关，0关闭，1打开
+	approvalSwitchFlag    bool
+	approvalCondition     int // 预定审批条件，0所有预定需要审批，1满足条件需审批
+	approvalConditionFlag bool
+	meetingDuration       float64 // 超过 meeting_duration小时需要审批
+	meetingDurationFlag   bool
+	approvers             []*SubscribeUserEvent // 审批人列表
+	approversFlag         bool
+}
+
+func NewApprovalConfigEventBuilder() *ApprovalConfigEventBuilder {
+	builder := &ApprovalConfigEventBuilder{}
+	return builder
+}
+
+// 预定审批开关，0关闭，1打开
+//
+// 示例值：0
+func (builder *ApprovalConfigEventBuilder) ApprovalSwitch(approvalSwitch int) *ApprovalConfigEventBuilder {
+	builder.approvalSwitch = approvalSwitch
+	builder.approvalSwitchFlag = true
+	return builder
+}
+
+// 预定审批条件，0所有预定需要审批，1满足条件需审批
+//
+// 示例值：0
+func (builder *ApprovalConfigEventBuilder) ApprovalCondition(approvalCondition int) *ApprovalConfigEventBuilder {
+	builder.approvalCondition = approvalCondition
+	builder.approvalConditionFlag = true
+	return builder
+}
+
+// 超过 meeting_duration小时需要审批
+//
+// 示例值：1
+func (builder *ApprovalConfigEventBuilder) MeetingDuration(meetingDuration float64) *ApprovalConfigEventBuilder {
+	builder.meetingDuration = meetingDuration
+	builder.meetingDurationFlag = true
+	return builder
+}
+
+// 审批人列表
+//
+// 示例值：[{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
+func (builder *ApprovalConfigEventBuilder) Approvers(approvers []*SubscribeUserEvent) *ApprovalConfigEventBuilder {
+	builder.approvers = approvers
+	builder.approversFlag = true
+	return builder
+}
+
+func (builder *ApprovalConfigEventBuilder) Build() *ApprovalConfigEvent {
+	req := &ApprovalConfigEvent{}
+	if builder.approvalSwitchFlag {
+		req.ApprovalSwitch = &builder.approvalSwitch
+
+	}
+	if builder.approvalConditionFlag {
+		req.ApprovalCondition = &builder.approvalCondition
+
+	}
+	if builder.meetingDurationFlag {
+		req.MeetingDuration = &builder.meetingDuration
+
+	}
+	if builder.approversFlag {
+		req.Approvers = builder.approvers
+	}
+	return req
+}
+
+type Conditions struct {
+	CustomKey  *string  `json:"custom_key,omitempty"`  // 自定义题目的key
+	OptionKeys []string `json:"option_keys,omitempty"` // 自定义选项的key
+}
+
+type ConditionsBuilder struct {
+	customKey      string // 自定义题目的key
+	customKeyFlag  bool
+	optionKeys     []string // 自定义选项的key
+	optionKeysFlag bool
+}
+
+func NewConditionsBuilder() *ConditionsBuilder {
+	builder := &ConditionsBuilder{}
+	return builder
+}
+
+// 自定义题目的key
+//
+// 示例值：167383928372636
+func (builder *ConditionsBuilder) CustomKey(customKey string) *ConditionsBuilder {
+	builder.customKey = customKey
+	builder.customKeyFlag = true
+	return builder
+}
+
+// 自定义选项的key
+//
+// 示例值：
+func (builder *ConditionsBuilder) OptionKeys(optionKeys []string) *ConditionsBuilder {
+	builder.optionKeys = optionKeys
+	builder.optionKeysFlag = true
+	return builder
+}
+
+func (builder *ConditionsBuilder) Build() *Conditions {
+	req := &Conditions{}
+	if builder.customKeyFlag {
+		req.CustomKey = &builder.customKey
+
+	}
+	if builder.optionKeysFlag {
+		req.OptionKeys = builder.optionKeys
+	}
+	return req
+}
+
 type Contact struct {
 	ContactType *int    `json:"contact_type,omitempty"` // 联系人类型
 	ContactName *string `json:"contact_name,omitempty"` // 联系人名
@@ -502,6 +622,164 @@ func (builder *ContactBuilder) Build() *Contact {
 	}
 	if builder.contactNameFlag {
 		req.ContactName = &builder.contactName
+
+	}
+	return req
+}
+
+type CustomList struct {
+	CustomType  *int          `json:"custom_type,omitempty"` // 问题类型
+	Key         *string       `json:"key,omitempty"`         // 自定义题目的key，用于设置显示条件
+	NeedFill    *bool         `json:"need_fill,omitempty"`   // 题目是否必填
+	Title       *string       `json:"title,omitempty"`       // 题目标题
+	Placeholder *string       `json:"placeholder,omitempty"` // 文本框题目对应的输入提示
+	Options     []*Options    `json:"options,omitempty"`     // 选项配置，单选多选时使用
+	Conditions  []*Conditions `json:"conditions,omitempty"`  // 条件设置，满足某条件才显示某问题
+}
+
+type CustomListBuilder struct {
+	customType      int // 问题类型
+	customTypeFlag  bool
+	key             string // 自定义题目的key，用于设置显示条件
+	keyFlag         bool
+	needFill        bool // 题目是否必填
+	needFillFlag    bool
+	title           string // 题目标题
+	titleFlag       bool
+	placeholder     string // 文本框题目对应的输入提示
+	placeholderFlag bool
+	options         []*Options // 选项配置，单选多选时使用
+	optionsFlag     bool
+	conditions      []*Conditions // 条件设置，满足某条件才显示某问题
+	conditionsFlag  bool
+}
+
+func NewCustomListBuilder() *CustomListBuilder {
+	builder := &CustomListBuilder{}
+	return builder
+}
+
+// 问题类型
+//
+// 示例值：1
+func (builder *CustomListBuilder) CustomType(customType int) *CustomListBuilder {
+	builder.customType = customType
+	builder.customTypeFlag = true
+	return builder
+}
+
+// 自定义题目的key，用于设置显示条件
+//
+// 示例值：238281272
+func (builder *CustomListBuilder) Key(key string) *CustomListBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 题目是否必填
+//
+// 示例值：false
+func (builder *CustomListBuilder) NeedFill(needFill bool) *CustomListBuilder {
+	builder.needFill = needFill
+	builder.needFillFlag = true
+	return builder
+}
+
+// 题目标题
+//
+// 示例值：第一题
+func (builder *CustomListBuilder) Title(title string) *CustomListBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 文本框题目对应的输入提示
+//
+// 示例值：请输入
+func (builder *CustomListBuilder) Placeholder(placeholder string) *CustomListBuilder {
+	builder.placeholder = placeholder
+	builder.placeholderFlag = true
+	return builder
+}
+
+// 选项配置，单选多选时使用
+//
+// 示例值：
+func (builder *CustomListBuilder) Options(options []*Options) *CustomListBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+// 条件设置，满足某条件才显示某问题
+//
+// 示例值：
+func (builder *CustomListBuilder) Conditions(conditions []*Conditions) *CustomListBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+func (builder *CustomListBuilder) Build() *CustomList {
+	req := &CustomList{}
+	if builder.customTypeFlag {
+		req.CustomType = &builder.customType
+
+	}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.needFillFlag {
+		req.NeedFill = &builder.needFill
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.placeholderFlag {
+		req.Placeholder = &builder.placeholder
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	return req
+}
+
+type Device struct {
+	Name *string `json:"name,omitempty"` // 设施名称
+}
+
+type DeviceBuilder struct {
+	name     string // 设施名称
+	nameFlag bool
+}
+
+func NewDeviceBuilder() *DeviceBuilder {
+	builder := &DeviceBuilder{}
+	return builder
+}
+
+// 设施名称
+//
+// 示例值：电话
+func (builder *DeviceBuilder) Name(name string) *DeviceBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *DeviceBuilder) Build() *Device {
+	req := &Device{}
+	if builder.nameFlag {
+		req.Name = &builder.name
 
 	}
 	return req
@@ -1397,6 +1675,294 @@ func (builder *MeetingEventUserBuilder) Build() *MeetingEventUser {
 	return req
 }
 
+type MeetingInfo struct {
+	MeetingId            *string `json:"meeting_id,omitempty"`             // 会议ID
+	MeetingTopic         *string `json:"meeting_topic,omitempty"`          // 会议主题
+	Organizer            *string `json:"organizer,omitempty"`              // 组织者
+	Department           *string `json:"department,omitempty"`             // 部门
+	UserId               *string `json:"user_id,omitempty"`                // 用户ID
+	EmployeeId           *string `json:"employee_id,omitempty"`            // 工号
+	Email                *string `json:"email,omitempty"`                  // 邮箱
+	Mobile               *string `json:"mobile,omitempty"`                 // 手机
+	MeetingStartTime     *string `json:"meeting_start_time,omitempty"`     // 会议开始时间
+	MeetingEndTime       *string `json:"meeting_end_time,omitempty"`       // 会议结束时间
+	MeetingDuration      *string `json:"meeting_duration,omitempty"`       // 会议持续时间
+	NumberOfParticipants *string `json:"number_of_participants,omitempty"` // 参会人数
+	Audio                *bool   `json:"audio,omitempty"`                  // 音频
+	Video                *bool   `json:"video,omitempty"`                  // 视频
+	Sharing              *bool   `json:"sharing,omitempty"`                // 共享
+	Recording            *bool   `json:"recording,omitempty"`              // 录制
+	Telephone            *bool   `json:"telephone,omitempty"`              // 电话
+}
+
+type MeetingInfoBuilder struct {
+	meetingId                string // 会议ID
+	meetingIdFlag            bool
+	meetingTopic             string // 会议主题
+	meetingTopicFlag         bool
+	organizer                string // 组织者
+	organizerFlag            bool
+	department               string // 部门
+	departmentFlag           bool
+	userId                   string // 用户ID
+	userIdFlag               bool
+	employeeId               string // 工号
+	employeeIdFlag           bool
+	email                    string // 邮箱
+	emailFlag                bool
+	mobile                   string // 手机
+	mobileFlag               bool
+	meetingStartTime         string // 会议开始时间
+	meetingStartTimeFlag     bool
+	meetingEndTime           string // 会议结束时间
+	meetingEndTimeFlag       bool
+	meetingDuration          string // 会议持续时间
+	meetingDurationFlag      bool
+	numberOfParticipants     string // 参会人数
+	numberOfParticipantsFlag bool
+	audio                    bool // 音频
+	audioFlag                bool
+	video                    bool // 视频
+	videoFlag                bool
+	sharing                  bool // 共享
+	sharingFlag              bool
+	recording                bool // 录制
+	recordingFlag            bool
+	telephone                bool // 电话
+	telephoneFlag            bool
+}
+
+func NewMeetingInfoBuilder() *MeetingInfoBuilder {
+	builder := &MeetingInfoBuilder{}
+	return builder
+}
+
+// 会议ID
+//
+// 示例值：705605196
+func (builder *MeetingInfoBuilder) MeetingId(meetingId string) *MeetingInfoBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdFlag = true
+	return builder
+}
+
+// 会议主题
+//
+// 示例值：讨论会
+func (builder *MeetingInfoBuilder) MeetingTopic(meetingTopic string) *MeetingInfoBuilder {
+	builder.meetingTopic = meetingTopic
+	builder.meetingTopicFlag = true
+	return builder
+}
+
+// 组织者
+//
+// 示例值：kehan
+func (builder *MeetingInfoBuilder) Organizer(organizer string) *MeetingInfoBuilder {
+	builder.organizer = organizer
+	builder.organizerFlag = true
+	return builder
+}
+
+// 部门
+//
+// 示例值：development
+func (builder *MeetingInfoBuilder) Department(department string) *MeetingInfoBuilder {
+	builder.department = department
+	builder.departmentFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：92f879
+func (builder *MeetingInfoBuilder) UserId(userId string) *MeetingInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 工号
+//
+// 示例值：202105149765
+func (builder *MeetingInfoBuilder) EmployeeId(employeeId string) *MeetingInfoBuilder {
+	builder.employeeId = employeeId
+	builder.employeeIdFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：xxxx@163.com
+func (builder *MeetingInfoBuilder) Email(email string) *MeetingInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 手机
+//
+// 示例值：021-673288
+func (builder *MeetingInfoBuilder) Mobile(mobile string) *MeetingInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 会议开始时间
+//
+// 示例值：2022.12.23 11:16:59 (GMT+08:00)
+func (builder *MeetingInfoBuilder) MeetingStartTime(meetingStartTime string) *MeetingInfoBuilder {
+	builder.meetingStartTime = meetingStartTime
+	builder.meetingStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间
+//
+// 示例值：2022.12.23 11:18:51 (GMT+08:00)
+func (builder *MeetingInfoBuilder) MeetingEndTime(meetingEndTime string) *MeetingInfoBuilder {
+	builder.meetingEndTime = meetingEndTime
+	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 会议持续时间
+//
+// 示例值：00:01:52
+func (builder *MeetingInfoBuilder) MeetingDuration(meetingDuration string) *MeetingInfoBuilder {
+	builder.meetingDuration = meetingDuration
+	builder.meetingDurationFlag = true
+	return builder
+}
+
+// 参会人数
+//
+// 示例值：1
+func (builder *MeetingInfoBuilder) NumberOfParticipants(numberOfParticipants string) *MeetingInfoBuilder {
+	builder.numberOfParticipants = numberOfParticipants
+	builder.numberOfParticipantsFlag = true
+	return builder
+}
+
+// 音频
+//
+// 示例值：true
+func (builder *MeetingInfoBuilder) Audio(audio bool) *MeetingInfoBuilder {
+	builder.audio = audio
+	builder.audioFlag = true
+	return builder
+}
+
+// 视频
+//
+// 示例值：true
+func (builder *MeetingInfoBuilder) Video(video bool) *MeetingInfoBuilder {
+	builder.video = video
+	builder.videoFlag = true
+	return builder
+}
+
+// 共享
+//
+// 示例值：false
+func (builder *MeetingInfoBuilder) Sharing(sharing bool) *MeetingInfoBuilder {
+	builder.sharing = sharing
+	builder.sharingFlag = true
+	return builder
+}
+
+// 录制
+//
+// 示例值：false
+func (builder *MeetingInfoBuilder) Recording(recording bool) *MeetingInfoBuilder {
+	builder.recording = recording
+	builder.recordingFlag = true
+	return builder
+}
+
+// 电话
+//
+// 示例值：false
+func (builder *MeetingInfoBuilder) Telephone(telephone bool) *MeetingInfoBuilder {
+	builder.telephone = telephone
+	builder.telephoneFlag = true
+	return builder
+}
+
+func (builder *MeetingInfoBuilder) Build() *MeetingInfo {
+	req := &MeetingInfo{}
+	if builder.meetingIdFlag {
+		req.MeetingId = &builder.meetingId
+
+	}
+	if builder.meetingTopicFlag {
+		req.MeetingTopic = &builder.meetingTopic
+
+	}
+	if builder.organizerFlag {
+		req.Organizer = &builder.organizer
+
+	}
+	if builder.departmentFlag {
+		req.Department = &builder.department
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.employeeIdFlag {
+		req.EmployeeId = &builder.employeeId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.meetingStartTimeFlag {
+		req.MeetingStartTime = &builder.meetingStartTime
+
+	}
+	if builder.meetingEndTimeFlag {
+		req.MeetingEndTime = &builder.meetingEndTime
+
+	}
+	if builder.meetingDurationFlag {
+		req.MeetingDuration = &builder.meetingDuration
+
+	}
+	if builder.numberOfParticipantsFlag {
+		req.NumberOfParticipants = &builder.numberOfParticipants
+
+	}
+	if builder.audioFlag {
+		req.Audio = &builder.audio
+
+	}
+	if builder.videoFlag {
+		req.Video = &builder.video
+
+	}
+	if builder.sharingFlag {
+		req.Sharing = &builder.sharing
+
+	}
+	if builder.recordingFlag {
+		req.Recording = &builder.recording
+
+	}
+	if builder.telephoneFlag {
+		req.Telephone = &builder.telephone
+
+	}
+	return req
+}
+
 type MeetingInviteStatus struct {
 	Id       *string `json:"id,omitempty"`        // 用户ID
 	UserType *int    `json:"user_type,omitempty"` // 用户类型
@@ -1733,6 +2299,561 @@ func (builder *MeetingUserBuilder) Build() *MeetingUser {
 	return req
 }
 
+type Options struct {
+	Text    *string `json:"text,omitempty"`     // 选项文本名称/其他选项的对应文本
+	Key     *string `json:"key,omitempty"`      // 选项的自定义key
+	IsOther *bool   `json:"is_other,omitempty"` // 区分是否为其他选项
+}
+
+type OptionsBuilder struct {
+	text        string // 选项文本名称/其他选项的对应文本
+	textFlag    bool
+	key         string // 选项的自定义key
+	keyFlag     bool
+	isOther     bool // 区分是否为其他选项
+	isOtherFlag bool
+}
+
+func NewOptionsBuilder() *OptionsBuilder {
+	builder := &OptionsBuilder{}
+	return builder
+}
+
+// 选项文本名称/其他选项的对应文本
+//
+// 示例值：选项1
+func (builder *OptionsBuilder) Text(text string) *OptionsBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+// 选项的自定义key
+//
+// 示例值：23213812938
+func (builder *OptionsBuilder) Key(key string) *OptionsBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 区分是否为其他选项
+//
+// 示例值：false
+func (builder *OptionsBuilder) IsOther(isOther bool) *OptionsBuilder {
+	builder.isOther = isOther
+	builder.isOtherFlag = true
+	return builder
+}
+
+func (builder *OptionsBuilder) Build() *Options {
+	req := &Options{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.isOtherFlag {
+		req.IsOther = &builder.isOther
+
+	}
+	return req
+}
+
+type Participant struct {
+	ParticipantName *string `json:"participant_name,omitempty"` // 参会者
+	Department      *string `json:"department,omitempty"`       // 部门
+	UserId          *string `json:"user_id,omitempty"`          // 用户ID
+	EmployeeId      *string `json:"employee_id,omitempty"`      // 工号
+	Phone           *string `json:"phone,omitempty"`            // 电话
+	Email           *string `json:"email,omitempty"`            // 邮箱
+	Device          *string `json:"device,omitempty"`           // 设备
+	AppVersion      *string `json:"app_version,omitempty"`      // 客户端版本
+	PublicIp        *string `json:"public_ip,omitempty"`        // 公网IP
+	InternalIp      *string `json:"internal_ip,omitempty"`      // 内网IP
+	UseRtcProxy     *bool   `json:"use_rtc_proxy,omitempty"`    // 代理服务
+	Location        *string `json:"location,omitempty"`         // 位置
+	NetworkType     *string `json:"network_type,omitempty"`     // 网络类型
+	Protocol        *string `json:"protocol,omitempty"`         // 连接类型
+	Microphone      *string `json:"microphone,omitempty"`       // 麦克风
+	Speaker         *string `json:"speaker,omitempty"`          // 扬声器
+	Camera          *string `json:"camera,omitempty"`           // 摄像头
+	Audio           *bool   `json:"audio,omitempty"`            // 音频
+	Video           *bool   `json:"video,omitempty"`            // 视频
+	Sharing         *bool   `json:"sharing,omitempty"`          // 共享
+	JoinTime        *string `json:"join_time,omitempty"`        // 入会时间
+	LeaveTime       *string `json:"leave_time,omitempty"`       // 离会时间
+	TimeInMeeting   *string `json:"time_in_meeting,omitempty"`  // 参会时长
+	LeaveReason     *string `json:"leave_reason,omitempty"`     // 离会原因
+}
+
+type ParticipantBuilder struct {
+	participantName     string // 参会者
+	participantNameFlag bool
+	department          string // 部门
+	departmentFlag      bool
+	userId              string // 用户ID
+	userIdFlag          bool
+	employeeId          string // 工号
+	employeeIdFlag      bool
+	phone               string // 电话
+	phoneFlag           bool
+	email               string // 邮箱
+	emailFlag           bool
+	device              string // 设备
+	deviceFlag          bool
+	appVersion          string // 客户端版本
+	appVersionFlag      bool
+	publicIp            string // 公网IP
+	publicIpFlag        bool
+	internalIp          string // 内网IP
+	internalIpFlag      bool
+	useRtcProxy         bool // 代理服务
+	useRtcProxyFlag     bool
+	location            string // 位置
+	locationFlag        bool
+	networkType         string // 网络类型
+	networkTypeFlag     bool
+	protocol            string // 连接类型
+	protocolFlag        bool
+	microphone          string // 麦克风
+	microphoneFlag      bool
+	speaker             string // 扬声器
+	speakerFlag         bool
+	camera              string // 摄像头
+	cameraFlag          bool
+	audio               bool // 音频
+	audioFlag           bool
+	video               bool // 视频
+	videoFlag           bool
+	sharing             bool // 共享
+	sharingFlag         bool
+	joinTime            string // 入会时间
+	joinTimeFlag        bool
+	leaveTime           string // 离会时间
+	leaveTimeFlag       bool
+	timeInMeeting       string // 参会时长
+	timeInMeetingFlag   bool
+	leaveReason         string // 离会原因
+	leaveReasonFlag     bool
+}
+
+func NewParticipantBuilder() *ParticipantBuilder {
+	builder := &ParticipantBuilder{}
+	return builder
+}
+
+// 参会者
+//
+// 示例值：kehan
+func (builder *ParticipantBuilder) ParticipantName(participantName string) *ParticipantBuilder {
+	builder.participantName = participantName
+	builder.participantNameFlag = true
+	return builder
+}
+
+// 部门
+//
+// 示例值：development
+func (builder *ParticipantBuilder) Department(department string) *ParticipantBuilder {
+	builder.department = department
+	builder.departmentFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：8efq90
+func (builder *ParticipantBuilder) UserId(userId string) *ParticipantBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 工号
+//
+// 示例值：202205789
+func (builder *ParticipantBuilder) EmployeeId(employeeId string) *ParticipantBuilder {
+	builder.employeeId = employeeId
+	builder.employeeIdFlag = true
+	return builder
+}
+
+// 电话
+//
+// 示例值：021-883889
+func (builder *ParticipantBuilder) Phone(phone string) *ParticipantBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：xxxx@163.com
+func (builder *ParticipantBuilder) Email(email string) *ParticipantBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 设备
+//
+// 示例值：windows
+func (builder *ParticipantBuilder) Device(device string) *ParticipantBuilder {
+	builder.device = device
+	builder.deviceFlag = true
+	return builder
+}
+
+// 客户端版本
+//
+// 示例值：5.26.0-alpha.38
+func (builder *ParticipantBuilder) AppVersion(appVersion string) *ParticipantBuilder {
+	builder.appVersion = appVersion
+	builder.appVersionFlag = true
+	return builder
+}
+
+// 公网IP
+//
+// 示例值：27.xx.xx.183
+func (builder *ParticipantBuilder) PublicIp(publicIp string) *ParticipantBuilder {
+	builder.publicIp = publicIp
+	builder.publicIpFlag = true
+	return builder
+}
+
+// 内网IP
+//
+// 示例值：192.xx.xx.13
+func (builder *ParticipantBuilder) InternalIp(internalIp string) *ParticipantBuilder {
+	builder.internalIp = internalIp
+	builder.internalIpFlag = true
+	return builder
+}
+
+// 代理服务
+//
+// 示例值：false
+func (builder *ParticipantBuilder) UseRtcProxy(useRtcProxy bool) *ParticipantBuilder {
+	builder.useRtcProxy = useRtcProxy
+	builder.useRtcProxyFlag = true
+	return builder
+}
+
+// 位置
+//
+// 示例值：东莞
+func (builder *ParticipantBuilder) Location(location string) *ParticipantBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+
+// 网络类型
+//
+// 示例值：wifi
+func (builder *ParticipantBuilder) NetworkType(networkType string) *ParticipantBuilder {
+	builder.networkType = networkType
+	builder.networkTypeFlag = true
+	return builder
+}
+
+// 连接类型
+//
+// 示例值：udp
+func (builder *ParticipantBuilder) Protocol(protocol string) *ParticipantBuilder {
+	builder.protocol = protocol
+	builder.protocolFlag = true
+	return builder
+}
+
+// 麦克风
+//
+// 示例值：麦克风阵列 (Realtek(R) Audio)
+func (builder *ParticipantBuilder) Microphone(microphone string) *ParticipantBuilder {
+	builder.microphone = microphone
+	builder.microphoneFlag = true
+	return builder
+}
+
+// 扬声器
+//
+// 示例值：扬声器 (Realtek(R) Audio)
+func (builder *ParticipantBuilder) Speaker(speaker string) *ParticipantBuilder {
+	builder.speaker = speaker
+	builder.speakerFlag = true
+	return builder
+}
+
+// 摄像头
+//
+// 示例值：HD Camera
+func (builder *ParticipantBuilder) Camera(camera string) *ParticipantBuilder {
+	builder.camera = camera
+	builder.cameraFlag = true
+	return builder
+}
+
+// 音频
+//
+// 示例值：true
+func (builder *ParticipantBuilder) Audio(audio bool) *ParticipantBuilder {
+	builder.audio = audio
+	builder.audioFlag = true
+	return builder
+}
+
+// 视频
+//
+// 示例值：true
+func (builder *ParticipantBuilder) Video(video bool) *ParticipantBuilder {
+	builder.video = video
+	builder.videoFlag = true
+	return builder
+}
+
+// 共享
+//
+// 示例值：false
+func (builder *ParticipantBuilder) Sharing(sharing bool) *ParticipantBuilder {
+	builder.sharing = sharing
+	builder.sharingFlag = true
+	return builder
+}
+
+// 入会时间
+//
+// 示例值：2022.12.23 11:16:59 (GMT+08:00)
+func (builder *ParticipantBuilder) JoinTime(joinTime string) *ParticipantBuilder {
+	builder.joinTime = joinTime
+	builder.joinTimeFlag = true
+	return builder
+}
+
+// 离会时间
+//
+// 示例值：2022.12.23 11:18:51 (GMT+08:00)
+func (builder *ParticipantBuilder) LeaveTime(leaveTime string) *ParticipantBuilder {
+	builder.leaveTime = leaveTime
+	builder.leaveTimeFlag = true
+	return builder
+}
+
+// 参会时长
+//
+// 示例值：00:01:52
+func (builder *ParticipantBuilder) TimeInMeeting(timeInMeeting string) *ParticipantBuilder {
+	builder.timeInMeeting = timeInMeeting
+	builder.timeInMeetingFlag = true
+	return builder
+}
+
+// 离会原因
+//
+// 示例值：主持人结束会议
+func (builder *ParticipantBuilder) LeaveReason(leaveReason string) *ParticipantBuilder {
+	builder.leaveReason = leaveReason
+	builder.leaveReasonFlag = true
+	return builder
+}
+
+func (builder *ParticipantBuilder) Build() *Participant {
+	req := &Participant{}
+	if builder.participantNameFlag {
+		req.ParticipantName = &builder.participantName
+
+	}
+	if builder.departmentFlag {
+		req.Department = &builder.department
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.employeeIdFlag {
+		req.EmployeeId = &builder.employeeId
+
+	}
+	if builder.phoneFlag {
+		req.Phone = &builder.phone
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.deviceFlag {
+		req.Device = &builder.device
+
+	}
+	if builder.appVersionFlag {
+		req.AppVersion = &builder.appVersion
+
+	}
+	if builder.publicIpFlag {
+		req.PublicIp = &builder.publicIp
+
+	}
+	if builder.internalIpFlag {
+		req.InternalIp = &builder.internalIp
+
+	}
+	if builder.useRtcProxyFlag {
+		req.UseRtcProxy = &builder.useRtcProxy
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.networkTypeFlag {
+		req.NetworkType = &builder.networkType
+
+	}
+	if builder.protocolFlag {
+		req.Protocol = &builder.protocol
+
+	}
+	if builder.microphoneFlag {
+		req.Microphone = &builder.microphone
+
+	}
+	if builder.speakerFlag {
+		req.Speaker = &builder.speaker
+
+	}
+	if builder.cameraFlag {
+		req.Camera = &builder.camera
+
+	}
+	if builder.audioFlag {
+		req.Audio = &builder.audio
+
+	}
+	if builder.videoFlag {
+		req.Video = &builder.video
+
+	}
+	if builder.sharingFlag {
+		req.Sharing = &builder.sharing
+
+	}
+	if builder.joinTimeFlag {
+		req.JoinTime = &builder.joinTime
+
+	}
+	if builder.leaveTimeFlag {
+		req.LeaveTime = &builder.leaveTime
+
+	}
+	if builder.timeInMeetingFlag {
+		req.TimeInMeeting = &builder.timeInMeeting
+
+	}
+	if builder.leaveReasonFlag {
+		req.LeaveReason = &builder.leaveReason
+
+	}
+	return req
+}
+
+type ParticipantQuality struct {
+	Network       *QualityNetwork      `json:"network,omitempty"`        // 网络
+	Audio         *QualityAudio        `json:"audio,omitempty"`          // 音频
+	Video         *QualityVideoSharing `json:"video,omitempty"`          // 视频
+	ScreenSharing *QualityVideoSharing `json:"screen_sharing,omitempty"` // 共享屏幕
+	CpuUsage      *QualityCpuUsage     `json:"cpu_usage,omitempty"`      // Cpu使用量
+}
+
+type ParticipantQualityBuilder struct {
+	network           *QualityNetwork // 网络
+	networkFlag       bool
+	audio             *QualityAudio // 音频
+	audioFlag         bool
+	video             *QualityVideoSharing // 视频
+	videoFlag         bool
+	screenSharing     *QualityVideoSharing // 共享屏幕
+	screenSharingFlag bool
+	cpuUsage          *QualityCpuUsage // Cpu使用量
+	cpuUsageFlag      bool
+}
+
+func NewParticipantQualityBuilder() *ParticipantQualityBuilder {
+	builder := &ParticipantQualityBuilder{}
+	return builder
+}
+
+// 网络
+//
+// 示例值：
+func (builder *ParticipantQualityBuilder) Network(network *QualityNetwork) *ParticipantQualityBuilder {
+	builder.network = network
+	builder.networkFlag = true
+	return builder
+}
+
+// 音频
+//
+// 示例值：
+func (builder *ParticipantQualityBuilder) Audio(audio *QualityAudio) *ParticipantQualityBuilder {
+	builder.audio = audio
+	builder.audioFlag = true
+	return builder
+}
+
+// 视频
+//
+// 示例值：
+func (builder *ParticipantQualityBuilder) Video(video *QualityVideoSharing) *ParticipantQualityBuilder {
+	builder.video = video
+	builder.videoFlag = true
+	return builder
+}
+
+// 共享屏幕
+//
+// 示例值：
+func (builder *ParticipantQualityBuilder) ScreenSharing(screenSharing *QualityVideoSharing) *ParticipantQualityBuilder {
+	builder.screenSharing = screenSharing
+	builder.screenSharingFlag = true
+	return builder
+}
+
+// Cpu使用量
+//
+// 示例值：
+func (builder *ParticipantQualityBuilder) CpuUsage(cpuUsage *QualityCpuUsage) *ParticipantQualityBuilder {
+	builder.cpuUsage = cpuUsage
+	builder.cpuUsageFlag = true
+	return builder
+}
+
+func (builder *ParticipantQualityBuilder) Build() *ParticipantQuality {
+	req := &ParticipantQuality{}
+	if builder.networkFlag {
+		req.Network = builder.network
+	}
+	if builder.audioFlag {
+		req.Audio = builder.audio
+	}
+	if builder.videoFlag {
+		req.Video = builder.video
+	}
+	if builder.screenSharingFlag {
+		req.ScreenSharing = builder.screenSharing
+	}
+	if builder.cpuUsageFlag {
+		req.CpuUsage = builder.cpuUsage
+	}
+	return req
+}
+
 type PstnSipInfo struct {
 	Nickname    *string `json:"nickname,omitempty"`     // 给pstn/sip用户设置的临时昵称
 	MainAddress *string `json:"main_address,omitempty"` // pstn/sip主机号，格式为：[国际冠字]-[电话区号][电话号码]，当前仅支持国内手机及固定电话号码
@@ -1776,6 +2897,598 @@ func (builder *PstnSipInfoBuilder) Build() *PstnSipInfo {
 	}
 	if builder.mainAddressFlag {
 		req.MainAddress = &builder.mainAddress
+
+	}
+	return req
+}
+
+type QualityAudio struct {
+	Time            *string `json:"time,omitempty"`             // 时间
+	MicInputVolume  *string `json:"mic_input_volume,omitempty"` // 麦克风采集音量
+	SpeakerVolume   *string `json:"speaker_volume,omitempty"`   // 扬声器播放音量
+	BitrateReceived *string `json:"bitrate_received,omitempty"` // 码率（接收）
+	LatencyReceived *string `json:"latency_received,omitempty"` // 延迟（接收）
+	JitterReceived  *string `json:"jitter_received,omitempty"`  // 抖动（接收）
+	BitrateSent     *string `json:"bitrate_sent,omitempty"`     // 码率（发送）
+	LatencySent     *string `json:"latency_sent,omitempty"`     // 延迟（发送）
+	JitterSent      *string `json:"jitter_sent,omitempty"`      // 抖动（发送）
+}
+
+type QualityAudioBuilder struct {
+	time                string // 时间
+	timeFlag            bool
+	micInputVolume      string // 麦克风采集音量
+	micInputVolumeFlag  bool
+	speakerVolume       string // 扬声器播放音量
+	speakerVolumeFlag   bool
+	bitrateReceived     string // 码率（接收）
+	bitrateReceivedFlag bool
+	latencyReceived     string // 延迟（接收）
+	latencyReceivedFlag bool
+	jitterReceived      string // 抖动（接收）
+	jitterReceivedFlag  bool
+	bitrateSent         string // 码率（发送）
+	bitrateSentFlag     bool
+	latencySent         string // 延迟（发送）
+	latencySentFlag     bool
+	jitterSent          string // 抖动（发送）
+	jitterSentFlag      bool
+}
+
+func NewQualityAudioBuilder() *QualityAudioBuilder {
+	builder := &QualityAudioBuilder{}
+	return builder
+}
+
+// 时间
+//
+// 示例值：2022.12.23 11:16:00 (GMT+08:00)
+func (builder *QualityAudioBuilder) Time(time string) *QualityAudioBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+
+// 麦克风采集音量
+//
+// 示例值：6dB
+func (builder *QualityAudioBuilder) MicInputVolume(micInputVolume string) *QualityAudioBuilder {
+	builder.micInputVolume = micInputVolume
+	builder.micInputVolumeFlag = true
+	return builder
+}
+
+// 扬声器播放音量
+//
+// 示例值：8dB
+func (builder *QualityAudioBuilder) SpeakerVolume(speakerVolume string) *QualityAudioBuilder {
+	builder.speakerVolume = speakerVolume
+	builder.speakerVolumeFlag = true
+	return builder
+}
+
+// 码率（接收）
+//
+// 示例值：3kbps
+func (builder *QualityAudioBuilder) BitrateReceived(bitrateReceived string) *QualityAudioBuilder {
+	builder.bitrateReceived = bitrateReceived
+	builder.bitrateReceivedFlag = true
+	return builder
+}
+
+// 延迟（接收）
+//
+// 示例值：100ms
+func (builder *QualityAudioBuilder) LatencyReceived(latencyReceived string) *QualityAudioBuilder {
+	builder.latencyReceived = latencyReceived
+	builder.latencyReceivedFlag = true
+	return builder
+}
+
+// 抖动（接收）
+//
+// 示例值：100ms
+func (builder *QualityAudioBuilder) JitterReceived(jitterReceived string) *QualityAudioBuilder {
+	builder.jitterReceived = jitterReceived
+	builder.jitterReceivedFlag = true
+	return builder
+}
+
+// 码率（发送）
+//
+// 示例值：9kbps
+func (builder *QualityAudioBuilder) BitrateSent(bitrateSent string) *QualityAudioBuilder {
+	builder.bitrateSent = bitrateSent
+	builder.bitrateSentFlag = true
+	return builder
+}
+
+// 延迟（发送）
+//
+// 示例值：100ms
+func (builder *QualityAudioBuilder) LatencySent(latencySent string) *QualityAudioBuilder {
+	builder.latencySent = latencySent
+	builder.latencySentFlag = true
+	return builder
+}
+
+// 抖动（发送）
+//
+// 示例值：100ms
+func (builder *QualityAudioBuilder) JitterSent(jitterSent string) *QualityAudioBuilder {
+	builder.jitterSent = jitterSent
+	builder.jitterSentFlag = true
+	return builder
+}
+
+func (builder *QualityAudioBuilder) Build() *QualityAudio {
+	req := &QualityAudio{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.micInputVolumeFlag {
+		req.MicInputVolume = &builder.micInputVolume
+
+	}
+	if builder.speakerVolumeFlag {
+		req.SpeakerVolume = &builder.speakerVolume
+
+	}
+	if builder.bitrateReceivedFlag {
+		req.BitrateReceived = &builder.bitrateReceived
+
+	}
+	if builder.latencyReceivedFlag {
+		req.LatencyReceived = &builder.latencyReceived
+
+	}
+	if builder.jitterReceivedFlag {
+		req.JitterReceived = &builder.jitterReceived
+
+	}
+	if builder.bitrateSentFlag {
+		req.BitrateSent = &builder.bitrateSent
+
+	}
+	if builder.latencySentFlag {
+		req.LatencySent = &builder.latencySent
+
+	}
+	if builder.jitterSentFlag {
+		req.JitterSent = &builder.jitterSent
+
+	}
+	return req
+}
+
+type QualityCpuUsage struct {
+	Time              *string `json:"time,omitempty"`                 // 时间
+	ClientAvgCpuUsage *string `json:"client_avg_cpu_usage,omitempty"` // 客户端平均 CPU 占用
+	ClientMaxCpuUsage *string `json:"client_max_cpu_usage,omitempty"` // 客户端最大 CPU 占用
+	SystemAvgCpuUsage *string `json:"system_avg_cpu_usage,omitempty"` // 系统平均 CPU 占用
+	SystemMaxCpuUsage *string `json:"system_max_cpu_usage,omitempty"` // 系统最大 CPU 占用
+}
+
+type QualityCpuUsageBuilder struct {
+	time                  string // 时间
+	timeFlag              bool
+	clientAvgCpuUsage     string // 客户端平均 CPU 占用
+	clientAvgCpuUsageFlag bool
+	clientMaxCpuUsage     string // 客户端最大 CPU 占用
+	clientMaxCpuUsageFlag bool
+	systemAvgCpuUsage     string // 系统平均 CPU 占用
+	systemAvgCpuUsageFlag bool
+	systemMaxCpuUsage     string // 系统最大 CPU 占用
+	systemMaxCpuUsageFlag bool
+}
+
+func NewQualityCpuUsageBuilder() *QualityCpuUsageBuilder {
+	builder := &QualityCpuUsageBuilder{}
+	return builder
+}
+
+// 时间
+//
+// 示例值：2022.12.23 11:17:00
+func (builder *QualityCpuUsageBuilder) Time(time string) *QualityCpuUsageBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+
+// 客户端平均 CPU 占用
+//
+// 示例值：0.8%
+func (builder *QualityCpuUsageBuilder) ClientAvgCpuUsage(clientAvgCpuUsage string) *QualityCpuUsageBuilder {
+	builder.clientAvgCpuUsage = clientAvgCpuUsage
+	builder.clientAvgCpuUsageFlag = true
+	return builder
+}
+
+// 客户端最大 CPU 占用
+//
+// 示例值：2.3%
+func (builder *QualityCpuUsageBuilder) ClientMaxCpuUsage(clientMaxCpuUsage string) *QualityCpuUsageBuilder {
+	builder.clientMaxCpuUsage = clientMaxCpuUsage
+	builder.clientMaxCpuUsageFlag = true
+	return builder
+}
+
+// 系统平均 CPU 占用
+//
+// 示例值：8.3%
+func (builder *QualityCpuUsageBuilder) SystemAvgCpuUsage(systemAvgCpuUsage string) *QualityCpuUsageBuilder {
+	builder.systemAvgCpuUsage = systemAvgCpuUsage
+	builder.systemAvgCpuUsageFlag = true
+	return builder
+}
+
+// 系统最大 CPU 占用
+//
+// 示例值：30%
+func (builder *QualityCpuUsageBuilder) SystemMaxCpuUsage(systemMaxCpuUsage string) *QualityCpuUsageBuilder {
+	builder.systemMaxCpuUsage = systemMaxCpuUsage
+	builder.systemMaxCpuUsageFlag = true
+	return builder
+}
+
+func (builder *QualityCpuUsageBuilder) Build() *QualityCpuUsage {
+	req := &QualityCpuUsage{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.clientAvgCpuUsageFlag {
+		req.ClientAvgCpuUsage = &builder.clientAvgCpuUsage
+
+	}
+	if builder.clientMaxCpuUsageFlag {
+		req.ClientMaxCpuUsage = &builder.clientMaxCpuUsage
+
+	}
+	if builder.systemAvgCpuUsageFlag {
+		req.SystemAvgCpuUsage = &builder.systemAvgCpuUsage
+
+	}
+	if builder.systemMaxCpuUsageFlag {
+		req.SystemMaxCpuUsage = &builder.systemMaxCpuUsage
+
+	}
+	return req
+}
+
+type QualityNetwork struct {
+	Time                  *string `json:"time,omitempty"`                     // 时间
+	NetworkDelay          *string `json:"network_delay,omitempty"`            // 网络延迟
+	BitrateReceived       *string `json:"bitrate_received,omitempty"`         // 码率（接收）
+	PacketLossAvgReceived *string `json:"packet_loss_avg_received,omitempty"` // 丢包 - 平均（接收）
+	PacketLossMaxReceived *string `json:"packet_loss_max_received,omitempty"` // 丢包 - 最大（接收）
+	BitrateSent           *string `json:"bitrate_sent,omitempty"`             // 码率（发送）
+	PacketLossAvgSent     *string `json:"packet_loss_avg_sent,omitempty"`     // 丢包 - 平均（发送）
+	PacketLossMaxSent     *string `json:"packet_loss_max_sent,omitempty"`     // 丢包 - 最大（发送）
+}
+
+type QualityNetworkBuilder struct {
+	time                      string // 时间
+	timeFlag                  bool
+	networkDelay              string // 网络延迟
+	networkDelayFlag          bool
+	bitrateReceived           string // 码率（接收）
+	bitrateReceivedFlag       bool
+	packetLossAvgReceived     string // 丢包 - 平均（接收）
+	packetLossAvgReceivedFlag bool
+	packetLossMaxReceived     string // 丢包 - 最大（接收）
+	packetLossMaxReceivedFlag bool
+	bitrateSent               string // 码率（发送）
+	bitrateSentFlag           bool
+	packetLossAvgSent         string // 丢包 - 平均（发送）
+	packetLossAvgSentFlag     bool
+	packetLossMaxSent         string // 丢包 - 最大（发送）
+	packetLossMaxSentFlag     bool
+}
+
+func NewQualityNetworkBuilder() *QualityNetworkBuilder {
+	builder := &QualityNetworkBuilder{}
+	return builder
+}
+
+// 时间
+//
+// 示例值：2022.12.23 11:16:00 (GMT+08:00)
+func (builder *QualityNetworkBuilder) Time(time string) *QualityNetworkBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+
+// 网络延迟
+//
+// 示例值：100ms
+func (builder *QualityNetworkBuilder) NetworkDelay(networkDelay string) *QualityNetworkBuilder {
+	builder.networkDelay = networkDelay
+	builder.networkDelayFlag = true
+	return builder
+}
+
+// 码率（接收）
+//
+// 示例值：8kbps
+func (builder *QualityNetworkBuilder) BitrateReceived(bitrateReceived string) *QualityNetworkBuilder {
+	builder.bitrateReceived = bitrateReceived
+	builder.bitrateReceivedFlag = true
+	return builder
+}
+
+// 丢包 - 平均（接收）
+//
+// 示例值：8%
+func (builder *QualityNetworkBuilder) PacketLossAvgReceived(packetLossAvgReceived string) *QualityNetworkBuilder {
+	builder.packetLossAvgReceived = packetLossAvgReceived
+	builder.packetLossAvgReceivedFlag = true
+	return builder
+}
+
+// 丢包 - 最大（接收）
+//
+// 示例值：9%
+func (builder *QualityNetworkBuilder) PacketLossMaxReceived(packetLossMaxReceived string) *QualityNetworkBuilder {
+	builder.packetLossMaxReceived = packetLossMaxReceived
+	builder.packetLossMaxReceivedFlag = true
+	return builder
+}
+
+// 码率（发送）
+//
+// 示例值：9kbps
+func (builder *QualityNetworkBuilder) BitrateSent(bitrateSent string) *QualityNetworkBuilder {
+	builder.bitrateSent = bitrateSent
+	builder.bitrateSentFlag = true
+	return builder
+}
+
+// 丢包 - 平均（发送）
+//
+// 示例值：8%
+func (builder *QualityNetworkBuilder) PacketLossAvgSent(packetLossAvgSent string) *QualityNetworkBuilder {
+	builder.packetLossAvgSent = packetLossAvgSent
+	builder.packetLossAvgSentFlag = true
+	return builder
+}
+
+// 丢包 - 最大（发送）
+//
+// 示例值：10%
+func (builder *QualityNetworkBuilder) PacketLossMaxSent(packetLossMaxSent string) *QualityNetworkBuilder {
+	builder.packetLossMaxSent = packetLossMaxSent
+	builder.packetLossMaxSentFlag = true
+	return builder
+}
+
+func (builder *QualityNetworkBuilder) Build() *QualityNetwork {
+	req := &QualityNetwork{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.networkDelayFlag {
+		req.NetworkDelay = &builder.networkDelay
+
+	}
+	if builder.bitrateReceivedFlag {
+		req.BitrateReceived = &builder.bitrateReceived
+
+	}
+	if builder.packetLossAvgReceivedFlag {
+		req.PacketLossAvgReceived = &builder.packetLossAvgReceived
+
+	}
+	if builder.packetLossMaxReceivedFlag {
+		req.PacketLossMaxReceived = &builder.packetLossMaxReceived
+
+	}
+	if builder.bitrateSentFlag {
+		req.BitrateSent = &builder.bitrateSent
+
+	}
+	if builder.packetLossAvgSentFlag {
+		req.PacketLossAvgSent = &builder.packetLossAvgSent
+
+	}
+	if builder.packetLossMaxSentFlag {
+		req.PacketLossMaxSent = &builder.packetLossMaxSent
+
+	}
+	return req
+}
+
+type QualityVideoSharing struct {
+	Time                      *string `json:"time,omitempty"`                        // 时间
+	BitrateReceived           *string `json:"bitrate_received,omitempty"`            // 码率（接收）
+	LatencyReceived           *string `json:"latency_received,omitempty"`            // 延迟（接收）
+	JitterReceived            *string `json:"jitter_received,omitempty"`             // 抖动（接收）
+	MaximumResolutionReceived *string `json:"maximum_resolution_received,omitempty"` // 最大分辨率（接收）
+	FramerateReceived         *string `json:"framerate_received,omitempty"`          // 帧率（接收）
+	BitrateSent               *string `json:"bitrate_sent,omitempty"`                // 码率（发送）
+	LatencySent               *string `json:"latency_sent,omitempty"`                // 延迟（发送）
+	JitterSent                *string `json:"jitter_sent,omitempty"`                 // 抖动（发送）
+	MaximumResolutionSent     *string `json:"maximum_resolution_sent,omitempty"`     // 最大分辨率（发送）
+	FramerateSent             *string `json:"framerate_sent,omitempty"`              // 帧率（发送）
+}
+
+type QualityVideoSharingBuilder struct {
+	time                          string // 时间
+	timeFlag                      bool
+	bitrateReceived               string // 码率（接收）
+	bitrateReceivedFlag           bool
+	latencyReceived               string // 延迟（接收）
+	latencyReceivedFlag           bool
+	jitterReceived                string // 抖动（接收）
+	jitterReceivedFlag            bool
+	maximumResolutionReceived     string // 最大分辨率（接收）
+	maximumResolutionReceivedFlag bool
+	framerateReceived             string // 帧率（接收）
+	framerateReceivedFlag         bool
+	bitrateSent                   string // 码率（发送）
+	bitrateSentFlag               bool
+	latencySent                   string // 延迟（发送）
+	latencySentFlag               bool
+	jitterSent                    string // 抖动（发送）
+	jitterSentFlag                bool
+	maximumResolutionSent         string // 最大分辨率（发送）
+	maximumResolutionSentFlag     bool
+	framerateSent                 string // 帧率（发送）
+	framerateSentFlag             bool
+}
+
+func NewQualityVideoSharingBuilder() *QualityVideoSharingBuilder {
+	builder := &QualityVideoSharingBuilder{}
+	return builder
+}
+
+// 时间
+//
+// 示例值：2022.12.23 11:16:00 (GMT+08:00)
+func (builder *QualityVideoSharingBuilder) Time(time string) *QualityVideoSharingBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+
+// 码率（接收）
+//
+// 示例值：8kbps
+func (builder *QualityVideoSharingBuilder) BitrateReceived(bitrateReceived string) *QualityVideoSharingBuilder {
+	builder.bitrateReceived = bitrateReceived
+	builder.bitrateReceivedFlag = true
+	return builder
+}
+
+// 延迟（接收）
+//
+// 示例值：100ms
+func (builder *QualityVideoSharingBuilder) LatencyReceived(latencyReceived string) *QualityVideoSharingBuilder {
+	builder.latencyReceived = latencyReceived
+	builder.latencyReceivedFlag = true
+	return builder
+}
+
+// 抖动（接收）
+//
+// 示例值：100ms
+func (builder *QualityVideoSharingBuilder) JitterReceived(jitterReceived string) *QualityVideoSharingBuilder {
+	builder.jitterReceived = jitterReceived
+	builder.jitterReceivedFlag = true
+	return builder
+}
+
+// 最大分辨率（接收）
+//
+// 示例值：1080P
+func (builder *QualityVideoSharingBuilder) MaximumResolutionReceived(maximumResolutionReceived string) *QualityVideoSharingBuilder {
+	builder.maximumResolutionReceived = maximumResolutionReceived
+	builder.maximumResolutionReceivedFlag = true
+	return builder
+}
+
+// 帧率（接收）
+//
+// 示例值：100fps
+func (builder *QualityVideoSharingBuilder) FramerateReceived(framerateReceived string) *QualityVideoSharingBuilder {
+	builder.framerateReceived = framerateReceived
+	builder.framerateReceivedFlag = true
+	return builder
+}
+
+// 码率（发送）
+//
+// 示例值：9kbps
+func (builder *QualityVideoSharingBuilder) BitrateSent(bitrateSent string) *QualityVideoSharingBuilder {
+	builder.bitrateSent = bitrateSent
+	builder.bitrateSentFlag = true
+	return builder
+}
+
+// 延迟（发送）
+//
+// 示例值：100ms
+func (builder *QualityVideoSharingBuilder) LatencySent(latencySent string) *QualityVideoSharingBuilder {
+	builder.latencySent = latencySent
+	builder.latencySentFlag = true
+	return builder
+}
+
+// 抖动（发送）
+//
+// 示例值：100ms
+func (builder *QualityVideoSharingBuilder) JitterSent(jitterSent string) *QualityVideoSharingBuilder {
+	builder.jitterSent = jitterSent
+	builder.jitterSentFlag = true
+	return builder
+}
+
+// 最大分辨率（发送）
+//
+// 示例值：4K
+func (builder *QualityVideoSharingBuilder) MaximumResolutionSent(maximumResolutionSent string) *QualityVideoSharingBuilder {
+	builder.maximumResolutionSent = maximumResolutionSent
+	builder.maximumResolutionSentFlag = true
+	return builder
+}
+
+// 帧率（发送）
+//
+// 示例值：90fps
+func (builder *QualityVideoSharingBuilder) FramerateSent(framerateSent string) *QualityVideoSharingBuilder {
+	builder.framerateSent = framerateSent
+	builder.framerateSentFlag = true
+	return builder
+}
+
+func (builder *QualityVideoSharingBuilder) Build() *QualityVideoSharing {
+	req := &QualityVideoSharing{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.bitrateReceivedFlag {
+		req.BitrateReceived = &builder.bitrateReceived
+
+	}
+	if builder.latencyReceivedFlag {
+		req.LatencyReceived = &builder.latencyReceived
+
+	}
+	if builder.jitterReceivedFlag {
+		req.JitterReceived = &builder.jitterReceived
+
+	}
+	if builder.maximumResolutionReceivedFlag {
+		req.MaximumResolutionReceived = &builder.maximumResolutionReceived
+
+	}
+	if builder.framerateReceivedFlag {
+		req.FramerateReceived = &builder.framerateReceived
+
+	}
+	if builder.bitrateSentFlag {
+		req.BitrateSent = &builder.bitrateSent
+
+	}
+	if builder.latencySentFlag {
+		req.LatencySent = &builder.latencySent
+
+	}
+	if builder.jitterSentFlag {
+		req.JitterSent = &builder.jitterSent
+
+	}
+	if builder.maximumResolutionSentFlag {
+		req.MaximumResolutionSent = &builder.maximumResolutionSent
+
+	}
+	if builder.framerateSentFlag {
+		req.FramerateSent = &builder.framerateSent
 
 	}
 	return req
@@ -2306,6 +4019,52 @@ func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission 
 	return req
 }
 
+type ReserveAdminConfig struct {
+	Depts []*SubscribeDepartment `json:"depts,omitempty"` // 预定管理部门
+	Users []*SubscribeUser       `json:"users,omitempty"` // 预定管理用户
+}
+
+type ReserveAdminConfigBuilder struct {
+	depts     []*SubscribeDepartment // 预定管理部门
+	deptsFlag bool
+	users     []*SubscribeUser // 预定管理用户
+	usersFlag bool
+}
+
+func NewReserveAdminConfigBuilder() *ReserveAdminConfigBuilder {
+	builder := &ReserveAdminConfigBuilder{}
+	return builder
+}
+
+// 预定管理部门
+//
+// 示例值：
+func (builder *ReserveAdminConfigBuilder) Depts(depts []*SubscribeDepartment) *ReserveAdminConfigBuilder {
+	builder.depts = depts
+	builder.deptsFlag = true
+	return builder
+}
+
+// 预定管理用户
+//
+// 示例值：
+func (builder *ReserveAdminConfigBuilder) Users(users []*SubscribeUser) *ReserveAdminConfigBuilder {
+	builder.users = users
+	builder.usersFlag = true
+	return builder
+}
+
+func (builder *ReserveAdminConfigBuilder) Build() *ReserveAdminConfig {
+	req := &ReserveAdminConfig{}
+	if builder.deptsFlag {
+		req.Depts = builder.depts
+	}
+	if builder.usersFlag {
+		req.Users = builder.users
+	}
+	return req
+}
+
 type ReserveAssignHost struct {
 	UserType *int    `json:"user_type,omitempty"` // 用户类型，仅支持设置同租户下的 Lark 用户
 	Id       *string `json:"id,omitempty"`        // 用户ID
@@ -2475,6 +4234,100 @@ func (builder *ReserveCorrectionCheckInfoBuilder) Build() *ReserveCorrectionChec
 	req := &ReserveCorrectionCheckInfo{}
 	if builder.invalidHostIdListFlag {
 		req.InvalidHostIdList = builder.invalidHostIdList
+	}
+	return req
+}
+
+type ReserveFormConfig struct {
+	ReserveForm   *bool            `json:"reserve_form,omitempty"`   // 预定表单开关
+	NotifiedUsers []*SubscribeUser `json:"notified_users,omitempty"` // 通知人列表
+	NotifiedTime  *int             `json:"notified_time,omitempty"`  // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
+	TimeUnit      *int             `json:"time_unit,omitempty"`      // 时间单位,1为分钟;2为小时;3为天，默认为天
+	CustomList    []*CustomList    `json:"custom_list,omitempty"`    // 题目选项配置
+}
+
+type ReserveFormConfigBuilder struct {
+	reserveForm       bool // 预定表单开关
+	reserveFormFlag   bool
+	notifiedUsers     []*SubscribeUser // 通知人列表
+	notifiedUsersFlag bool
+	notifiedTime      int // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
+	notifiedTimeFlag  bool
+	timeUnit          int // 时间单位,1为分钟;2为小时;3为天，默认为天
+	timeUnitFlag      bool
+	customList        []*CustomList // 题目选项配置
+	customListFlag    bool
+}
+
+func NewReserveFormConfigBuilder() *ReserveFormConfigBuilder {
+	builder := &ReserveFormConfigBuilder{}
+	return builder
+}
+
+// 预定表单开关
+//
+// 示例值：false
+func (builder *ReserveFormConfigBuilder) ReserveForm(reserveForm bool) *ReserveFormConfigBuilder {
+	builder.reserveForm = reserveForm
+	builder.reserveFormFlag = true
+	return builder
+}
+
+// 通知人列表
+//
+// 示例值：
+func (builder *ReserveFormConfigBuilder) NotifiedUsers(notifiedUsers []*SubscribeUser) *ReserveFormConfigBuilder {
+	builder.notifiedUsers = notifiedUsers
+	builder.notifiedUsersFlag = true
+	return builder
+}
+
+// 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
+//
+// 示例值：3
+func (builder *ReserveFormConfigBuilder) NotifiedTime(notifiedTime int) *ReserveFormConfigBuilder {
+	builder.notifiedTime = notifiedTime
+	builder.notifiedTimeFlag = true
+	return builder
+}
+
+// 时间单位,1为分钟;2为小时;3为天，默认为天
+//
+// 示例值：3
+func (builder *ReserveFormConfigBuilder) TimeUnit(timeUnit int) *ReserveFormConfigBuilder {
+	builder.timeUnit = timeUnit
+	builder.timeUnitFlag = true
+	return builder
+}
+
+// 题目选项配置
+//
+// 示例值：
+func (builder *ReserveFormConfigBuilder) CustomList(customList []*CustomList) *ReserveFormConfigBuilder {
+	builder.customList = customList
+	builder.customListFlag = true
+	return builder
+}
+
+func (builder *ReserveFormConfigBuilder) Build() *ReserveFormConfig {
+	req := &ReserveFormConfig{}
+	if builder.reserveFormFlag {
+		req.ReserveForm = &builder.reserveForm
+
+	}
+	if builder.notifiedUsersFlag {
+		req.NotifiedUsers = builder.notifiedUsers
+	}
+	if builder.notifiedTimeFlag {
+		req.NotifiedTime = &builder.notifiedTime
+
+	}
+	if builder.timeUnitFlag {
+		req.TimeUnit = &builder.timeUnit
+
+	}
+	if builder.customListFlag {
+		req.CustomList = builder.customList
 	}
 	return req
 }
@@ -2713,6 +4566,68 @@ func (builder *ReserveScopeConfigBuilder) Build() *ReserveScopeConfig {
 	return req
 }
 
+type ReserveScopeConfigEvent struct {
+	AllowAllUsers *int                   `json:"allow_all_users,omitempty"` // 可预定成员范围，0部分成员，1全部成员
+	AllowUsers    []*SubscribeUserEvent  `json:"allow_users,omitempty"`     // 可预定成员列表
+	AllowDepts    []*SubscribeDepartment `json:"allow_depts,omitempty"`     // 可预定部门列表
+}
+
+type ReserveScopeConfigEventBuilder struct {
+	allowAllUsers     int // 可预定成员范围，0部分成员，1全部成员
+	allowAllUsersFlag bool
+	allowUsers        []*SubscribeUserEvent // 可预定成员列表
+	allowUsersFlag    bool
+	allowDepts        []*SubscribeDepartment // 可预定部门列表
+	allowDeptsFlag    bool
+}
+
+func NewReserveScopeConfigEventBuilder() *ReserveScopeConfigEventBuilder {
+	builder := &ReserveScopeConfigEventBuilder{}
+	return builder
+}
+
+// 可预定成员范围，0部分成员，1全部成员
+//
+// 示例值：1
+func (builder *ReserveScopeConfigEventBuilder) AllowAllUsers(allowAllUsers int) *ReserveScopeConfigEventBuilder {
+	builder.allowAllUsers = allowAllUsers
+	builder.allowAllUsersFlag = true
+	return builder
+}
+
+// 可预定成员列表
+//
+// 示例值：[{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
+func (builder *ReserveScopeConfigEventBuilder) AllowUsers(allowUsers []*SubscribeUserEvent) *ReserveScopeConfigEventBuilder {
+	builder.allowUsers = allowUsers
+	builder.allowUsersFlag = true
+	return builder
+}
+
+// 可预定部门列表
+//
+// 示例值：[{department_id:"od-5c07f0c117cf8795f25610a69363ce31"}]
+func (builder *ReserveScopeConfigEventBuilder) AllowDepts(allowDepts []*SubscribeDepartment) *ReserveScopeConfigEventBuilder {
+	builder.allowDepts = allowDepts
+	builder.allowDeptsFlag = true
+	return builder
+}
+
+func (builder *ReserveScopeConfigEventBuilder) Build() *ReserveScopeConfigEvent {
+	req := &ReserveScopeConfigEvent{}
+	if builder.allowAllUsersFlag {
+		req.AllowAllUsers = &builder.allowAllUsers
+
+	}
+	if builder.allowUsersFlag {
+		req.AllowUsers = builder.allowUsers
+	}
+	if builder.allowDeptsFlag {
+		req.AllowDepts = builder.allowDepts
+	}
+	return req
+}
+
 type Room struct {
 	RoomId       *string     `json:"room_id,omitempty"`        // 会议室ID
 	Name         *string     `json:"name,omitempty"`           // 会议室名称
@@ -2723,6 +4638,7 @@ type Room struct {
 	RoomLevelId  *string     `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string    `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *RoomStatus `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*Device   `json:"device,omitempty"`         // 设施信息列表
 }
 
 type RoomBuilder struct {
@@ -2744,6 +4660,8 @@ type RoomBuilder struct {
 	pathFlag         bool
 	roomStatus       *RoomStatus // 会议室状态
 	roomStatusFlag   bool
+	device           []*Device // 设施信息列表
+	deviceFlag       bool
 }
 
 func NewRoomBuilder() *RoomBuilder {
@@ -2832,6 +4750,15 @@ func (builder *RoomBuilder) RoomStatus(roomStatus *RoomStatus) *RoomBuilder {
 	return builder
 }
 
+// 设施信息列表
+//
+// 示例值：
+func (builder *RoomBuilder) Device(device []*Device) *RoomBuilder {
+	builder.device = device
+	builder.deviceFlag = true
+	return builder
+}
+
 func (builder *RoomBuilder) Build() *Room {
 	req := &Room{}
 	if builder.roomIdFlag {
@@ -2867,6 +4794,9 @@ func (builder *RoomBuilder) Build() *Room {
 	}
 	if builder.roomStatusFlag {
 		req.RoomStatus = builder.roomStatus
+	}
+	if builder.deviceFlag {
+		req.Device = builder.device
 	}
 	return req
 }
@@ -3229,6 +5159,7 @@ type RoomEvent struct {
 	RoomLevelId  *string          `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string         `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *RoomStatusEvent `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*Device        `json:"device,omitempty"`         // 设施信息列表
 }
 
 type RoomEventBuilder struct {
@@ -3250,6 +5181,8 @@ type RoomEventBuilder struct {
 	pathFlag         bool
 	roomStatus       *RoomStatusEvent // 会议室状态
 	roomStatusFlag   bool
+	device           []*Device // 设施信息列表
+	deviceFlag       bool
 }
 
 func NewRoomEventBuilder() *RoomEventBuilder {
@@ -3338,6 +5271,15 @@ func (builder *RoomEventBuilder) RoomStatus(roomStatus *RoomStatusEvent) *RoomEv
 	return builder
 }
 
+// 设施信息列表
+//
+// 示例值：
+func (builder *RoomEventBuilder) Device(device []*Device) *RoomEventBuilder {
+	builder.device = device
+	builder.deviceFlag = true
+	return builder
+}
+
 func (builder *RoomEventBuilder) Build() *RoomEvent {
 	req := &RoomEvent{}
 	if builder.roomIdFlag {
@@ -3373,6 +5315,9 @@ func (builder *RoomEventBuilder) Build() *RoomEvent {
 	}
 	if builder.roomStatusFlag {
 		req.RoomStatus = builder.roomStatus
+	}
+	if builder.deviceFlag {
+		req.Device = builder.device
 	}
 	return req
 }
@@ -3483,6 +5428,278 @@ func (builder *RoomLevelBuilder) Build() *RoomLevel {
 	}
 	if builder.customGroupIdFlag {
 		req.CustomGroupId = &builder.customGroupId
+
+	}
+	return req
+}
+
+type RoomMeetingReservation struct {
+	RoomName             *string `json:"room_name,omitempty"`              // 会议室名称
+	EventTitle           *string `json:"event_title,omitempty"`            // 会议标题
+	Reserver             *string `json:"reserver,omitempty"`               // 预定人
+	DepartmentOfReserver *string `json:"department_of_reserver,omitempty"` // 预定人所属部门
+	GuestsNumber         *string `json:"guests_number,omitempty"`          // 邀约人数
+	AcceptedNumber       *string `json:"accepted_number,omitempty"`        // 接受人数
+	EventStartTime       *string `json:"event_start_time,omitempty"`       // 会议开始时间
+	EventEndTime         *string `json:"event_end_time,omitempty"`         // 会议结束时间
+	EventDuration        *string `json:"event_duration,omitempty"`         // 会议时长
+	ReservationStatus    *string `json:"reservation_status,omitempty"`     // 会议室预定状态
+	CheckInDevice        *string `json:"check_in_device,omitempty"`        // 签到设备
+	RoomCheckInStatus    *string `json:"room_check_in_status,omitempty"`   // 会议室签到状态
+	CheckInTime          *string `json:"check_in_time,omitempty"`          // 会议室签到时间
+	IsReleaseEarly       *string `json:"is_release_early,omitempty"`       // 是否提前释放
+	ReleasingPerson      *string `json:"releasing_person,omitempty"`       // 释放人
+	ReleasingTime        *string `json:"releasing_time,omitempty"`         // 释放时间
+}
+
+type RoomMeetingReservationBuilder struct {
+	roomName                 string // 会议室名称
+	roomNameFlag             bool
+	eventTitle               string // 会议标题
+	eventTitleFlag           bool
+	reserver                 string // 预定人
+	reserverFlag             bool
+	departmentOfReserver     string // 预定人所属部门
+	departmentOfReserverFlag bool
+	guestsNumber             string // 邀约人数
+	guestsNumberFlag         bool
+	acceptedNumber           string // 接受人数
+	acceptedNumberFlag       bool
+	eventStartTime           string // 会议开始时间
+	eventStartTimeFlag       bool
+	eventEndTime             string // 会议结束时间
+	eventEndTimeFlag         bool
+	eventDuration            string // 会议时长
+	eventDurationFlag        bool
+	reservationStatus        string // 会议室预定状态
+	reservationStatusFlag    bool
+	checkInDevice            string // 签到设备
+	checkInDeviceFlag        bool
+	roomCheckInStatus        string // 会议室签到状态
+	roomCheckInStatusFlag    bool
+	checkInTime              string // 会议室签到时间
+	checkInTimeFlag          bool
+	isReleaseEarly           string // 是否提前释放
+	isReleaseEarlyFlag       bool
+	releasingPerson          string // 释放人
+	releasingPersonFlag      bool
+	releasingTime            string // 释放时间
+	releasingTimeFlag        bool
+}
+
+func NewRoomMeetingReservationBuilder() *RoomMeetingReservationBuilder {
+	builder := &RoomMeetingReservationBuilder{}
+	return builder
+}
+
+// 会议室名称
+//
+// 示例值：VIP Meeting Room
+func (builder *RoomMeetingReservationBuilder) RoomName(roomName string) *RoomMeetingReservationBuilder {
+	builder.roomName = roomName
+	builder.roomNameFlag = true
+	return builder
+}
+
+// 会议标题
+//
+// 示例值：飞书邀请的日程
+func (builder *RoomMeetingReservationBuilder) EventTitle(eventTitle string) *RoomMeetingReservationBuilder {
+	builder.eventTitle = eventTitle
+	builder.eventTitleFlag = true
+	return builder
+}
+
+// 预定人
+//
+// 示例值：kehan
+func (builder *RoomMeetingReservationBuilder) Reserver(reserver string) *RoomMeetingReservationBuilder {
+	builder.reserver = reserver
+	builder.reserverFlag = true
+	return builder
+}
+
+// 预定人所属部门
+//
+// 示例值：development
+func (builder *RoomMeetingReservationBuilder) DepartmentOfReserver(departmentOfReserver string) *RoomMeetingReservationBuilder {
+	builder.departmentOfReserver = departmentOfReserver
+	builder.departmentOfReserverFlag = true
+	return builder
+}
+
+// 邀约人数
+//
+// 示例值：5
+func (builder *RoomMeetingReservationBuilder) GuestsNumber(guestsNumber string) *RoomMeetingReservationBuilder {
+	builder.guestsNumber = guestsNumber
+	builder.guestsNumberFlag = true
+	return builder
+}
+
+// 接受人数
+//
+// 示例值：2
+func (builder *RoomMeetingReservationBuilder) AcceptedNumber(acceptedNumber string) *RoomMeetingReservationBuilder {
+	builder.acceptedNumber = acceptedNumber
+	builder.acceptedNumberFlag = true
+	return builder
+}
+
+// 会议开始时间
+//
+// 示例值：2022.12.17 21:00:00 (GMT+08:00)
+func (builder *RoomMeetingReservationBuilder) EventStartTime(eventStartTime string) *RoomMeetingReservationBuilder {
+	builder.eventStartTime = eventStartTime
+	builder.eventStartTimeFlag = true
+	return builder
+}
+
+// 会议结束时间
+//
+// 示例值：2022.12.17 22:00:00 (GMT+08:00)
+func (builder *RoomMeetingReservationBuilder) EventEndTime(eventEndTime string) *RoomMeetingReservationBuilder {
+	builder.eventEndTime = eventEndTime
+	builder.eventEndTimeFlag = true
+	return builder
+}
+
+// 会议时长
+//
+// 示例值：1:00:00
+func (builder *RoomMeetingReservationBuilder) EventDuration(eventDuration string) *RoomMeetingReservationBuilder {
+	builder.eventDuration = eventDuration
+	builder.eventDurationFlag = true
+	return builder
+}
+
+// 会议室预定状态
+//
+// 示例值：预定成功
+func (builder *RoomMeetingReservationBuilder) ReservationStatus(reservationStatus string) *RoomMeetingReservationBuilder {
+	builder.reservationStatus = reservationStatus
+	builder.reservationStatusFlag = true
+	return builder
+}
+
+// 签到设备
+//
+// 示例值：签到板
+func (builder *RoomMeetingReservationBuilder) CheckInDevice(checkInDevice string) *RoomMeetingReservationBuilder {
+	builder.checkInDevice = checkInDevice
+	builder.checkInDeviceFlag = true
+	return builder
+}
+
+// 会议室签到状态
+//
+// 示例值：已签到
+func (builder *RoomMeetingReservationBuilder) RoomCheckInStatus(roomCheckInStatus string) *RoomMeetingReservationBuilder {
+	builder.roomCheckInStatus = roomCheckInStatus
+	builder.roomCheckInStatusFlag = true
+	return builder
+}
+
+// 会议室签到时间
+//
+// 示例值：2022.12.09 13:35:30 (GMT+08:00)
+func (builder *RoomMeetingReservationBuilder) CheckInTime(checkInTime string) *RoomMeetingReservationBuilder {
+	builder.checkInTime = checkInTime
+	builder.checkInTimeFlag = true
+	return builder
+}
+
+// 是否提前释放
+//
+// 示例值：已释放（手动释放）
+func (builder *RoomMeetingReservationBuilder) IsReleaseEarly(isReleaseEarly string) *RoomMeetingReservationBuilder {
+	builder.isReleaseEarly = isReleaseEarly
+	builder.isReleaseEarlyFlag = true
+	return builder
+}
+
+// 释放人
+//
+// 示例值：kehan
+func (builder *RoomMeetingReservationBuilder) ReleasingPerson(releasingPerson string) *RoomMeetingReservationBuilder {
+	builder.releasingPerson = releasingPerson
+	builder.releasingPersonFlag = true
+	return builder
+}
+
+// 释放时间
+//
+// 示例值：2022.12.20 11:25:15 (GMT+08:00)
+func (builder *RoomMeetingReservationBuilder) ReleasingTime(releasingTime string) *RoomMeetingReservationBuilder {
+	builder.releasingTime = releasingTime
+	builder.releasingTimeFlag = true
+	return builder
+}
+
+func (builder *RoomMeetingReservationBuilder) Build() *RoomMeetingReservation {
+	req := &RoomMeetingReservation{}
+	if builder.roomNameFlag {
+		req.RoomName = &builder.roomName
+
+	}
+	if builder.eventTitleFlag {
+		req.EventTitle = &builder.eventTitle
+
+	}
+	if builder.reserverFlag {
+		req.Reserver = &builder.reserver
+
+	}
+	if builder.departmentOfReserverFlag {
+		req.DepartmentOfReserver = &builder.departmentOfReserver
+
+	}
+	if builder.guestsNumberFlag {
+		req.GuestsNumber = &builder.guestsNumber
+
+	}
+	if builder.acceptedNumberFlag {
+		req.AcceptedNumber = &builder.acceptedNumber
+
+	}
+	if builder.eventStartTimeFlag {
+		req.EventStartTime = &builder.eventStartTime
+
+	}
+	if builder.eventEndTimeFlag {
+		req.EventEndTime = &builder.eventEndTime
+
+	}
+	if builder.eventDurationFlag {
+		req.EventDuration = &builder.eventDuration
+
+	}
+	if builder.reservationStatusFlag {
+		req.ReservationStatus = &builder.reservationStatus
+
+	}
+	if builder.checkInDeviceFlag {
+		req.CheckInDevice = &builder.checkInDevice
+
+	}
+	if builder.roomCheckInStatusFlag {
+		req.RoomCheckInStatus = &builder.roomCheckInStatus
+
+	}
+	if builder.checkInTimeFlag {
+		req.CheckInTime = &builder.checkInTime
+
+	}
+	if builder.isReleaseEarlyFlag {
+		req.IsReleaseEarly = &builder.isReleaseEarly
+
+	}
+	if builder.releasingPersonFlag {
+		req.ReleasingPerson = &builder.releasingPerson
+
+	}
+	if builder.releasingTimeFlag {
+		req.ReleasingTime = &builder.releasingTime
 
 	}
 	return req
@@ -3933,6 +6150,37 @@ func (builder *SubscribeUserBuilder) Build() *SubscribeUser {
 	return req
 }
 
+type SubscribeUserEvent struct {
+	UserId *UserId `json:"user_id,omitempty"` // 预定人/审批人id
+}
+
+type SubscribeUserEventBuilder struct {
+	userId     *UserId // 预定人/审批人id
+	userIdFlag bool
+}
+
+func NewSubscribeUserEventBuilder() *SubscribeUserEventBuilder {
+	builder := &SubscribeUserEventBuilder{}
+	return builder
+}
+
+// 预定人/审批人id
+//
+// 示例值：ou_e8bce6c3935ef1fc1b432992fd9d3db8
+func (builder *SubscribeUserEventBuilder) UserId(userId *UserId) *SubscribeUserEventBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *SubscribeUserEventBuilder) Build() *SubscribeUserEvent {
+	req := &SubscribeUserEvent{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
 type TimeConfig struct {
 	TimeSwitch    *int    `json:"time_switch,omitempty"`     // 预定时间开关：0 代表关闭，1 代表开启
 	DaysInAdvance *int    `json:"days_in_advance,omitempty"` // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
@@ -4107,104 +6355,6 @@ func (builder *UserIdBuilder) Build() *UserId {
 
 	}
 	return req
-}
-
-type ListAlertReqBuilder struct {
-	apiReq *larkcore.ApiReq
-	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
-}
-
-func NewListAlertReqBuilder() *ListAlertReqBuilder {
-	builder := &ListAlertReqBuilder{}
-	builder.apiReq = &larkcore.ApiReq{
-		PathParams:  larkcore.PathParams{},
-		QueryParams: larkcore.QueryParams{},
-	}
-	return builder
-}
-
-// 最大返回多少记录，当使用迭代器访问时才有效
-func (builder *ListAlertReqBuilder) Limit(limit int) *ListAlertReqBuilder {
-	builder.limit = limit
-	return builder
-}
-
-// 开始时间（unix时间，单位sec）
-//
-// 示例值：1608888867
-func (builder *ListAlertReqBuilder) StartTime(startTime string) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
-	return builder
-}
-
-// 结束时间（unix时间，单位sec）
-//
-// 示例值：1608888867
-func (builder *ListAlertReqBuilder) EndTime(endTime string) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
-	return builder
-}
-
-// 查询对象类型，不填返回所有
-//
-// 示例值：1
-func (builder *ListAlertReqBuilder) QueryType(queryType int) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("query_type", fmt.Sprint(queryType))
-	return builder
-}
-
-// 查询对象ID
-//
-// 示例值：6911188411932033028
-func (builder *ListAlertReqBuilder) QueryValue(queryValue string) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("query_value", fmt.Sprint(queryValue))
-	return builder
-}
-
-// 请求期望返回的告警记录数量，不足则返回全部，该值默认为 100，最大为 1000
-//
-// 示例值：100
-func (builder *ListAlertReqBuilder) PageSize(pageSize int) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
-	return builder
-}
-
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
-//
-// 示例值：100
-func (builder *ListAlertReqBuilder) PageToken(pageToken string) *ListAlertReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-func (builder *ListAlertReqBuilder) Build() *ListAlertReq {
-	req := &ListAlertReq{}
-	req.apiReq = &larkcore.ApiReq{}
-	req.Limit = builder.limit
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	return req
-}
-
-type ListAlertReq struct {
-	apiReq *larkcore.ApiReq
-	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
-}
-
-type ListAlertRespData struct {
-	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有数据
-	PageToken *string  `json:"page_token,omitempty"` // 下一页分页的token，下次请求时传入
-	Items     []*Alert `json:"items,omitempty"`      // 告警记录
-}
-
-type ListAlertResp struct {
-	*larkcore.ApiResp `json:"-"`
-	larkcore.CodeError
-	Data *ListAlertRespData `json:"data"` // 业务数据
-}
-
-func (resp *ListAlertResp) Success() bool {
-	return resp.Code == 0
 }
 
 type DownloadExportReqBuilder struct {
@@ -8928,60 +11078,6 @@ type P2RoomUpdatedV1 struct {
 
 func (m *P2RoomUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
-}
-
-type ListAlertIterator struct {
-	nextPageToken *string
-	items         []*Alert
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListAlertReq
-	listFunc      func(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertResp, error)
-	options       []larkcore.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListAlertIterator) Next() (bool, *Alert, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
-			return false, nil, nil
-		}
-
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListAlertIterator) NextPageToken() *string {
-	return iterator.nextPageToken
 }
 
 type ListByNoMeetingIterator struct {

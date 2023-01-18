@@ -22,26 +22,32 @@ import (
 )
 
 // PATCH /open-apis/okr/v1/metric_sources/:metric_source_id/tables/:metric_table_id/items/:metric_item_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkokr.NewPatchMetricSourceTableItemReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkokr.NewPatchMetricSourceTableItemReqBuilder().
 		MetricSourceId("7041857032248410131").
+		
 		MetricTableId("7041857032248410131").
+		
 		MetricItemId("7041857032248410131").
+		
 		UserIdType("open_id").
-		Body(larkokr.NewPatchMetricSourceTableItemReqBodyBuilder().
+		
+	   Body(larkokr.NewPatchMetricSourceTableItemReqBodyBuilder().
 			MetricInitialValue(1.0).
 			MetricTargetValue(3.0).
 			MetricCurrentValue(2.0).
 			SupportedUserId("7041857032248410131").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Okr.MetricSourceTableItem.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Okr.MetricSourceTableItem.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

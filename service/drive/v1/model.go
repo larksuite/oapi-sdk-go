@@ -190,6 +190,71 @@ const (
 )
 
 const (
+	StatusStatusExist   = "0" // 正常状态
+	StatusStatusDeleted = "1" // 删除状态
+	StatusStatusTrash   = "2" // 回收站状态
+)
+
+const (
+	ObjTypeDoc     = "doc"     // doc文档
+	ObjTypeSheet   = "sheet"   // sheet文档
+	ObjTypeBitable = "bitable" // bitable文档
+	ObjTypeDocx    = "docx"    // docx文档
+)
+
+const (
+	ParentTypeCreateFileVersionDoc            = "doc"     // doc文档
+	ParentTypeCreateFileVersionObjTypeSheet   = "sheet"   // sheet文档
+	ParentTypeCreateFileVersionObjTypeBitable = "bitable" // bitable文档
+	ParentTypeCreateFileVersionObjTypeDocx    = "docx"    // docx文档
+)
+
+const (
+	UserIdTypeCreateFileVersionUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateFileVersionUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateFileVersionOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	ObjTypeDeleteFileVersionDoc     = "doc"     // doc文档
+	ObjTypeDeleteFileVersionSheet   = "sheet"   // sheet文档
+	ObjTypeDeleteFileVersionBitable = "bitable" // bitable文档
+	ObjTypeDeleteFileVersionDocx    = "docx"    // docx文档
+)
+
+const (
+	UserIdTypeDeleteFileVersionOpenId  = "open_id"  // 用户open_id
+	UserIdTypeDeleteFileVersionUnionId = "union_id" // 用户union_id
+	UserIdTypeDeleteFileVersionUserId  = "user_id"  // 用户user_id
+)
+
+const (
+	ObjTypeGetFileVersionDoc     = "doc"     // doc文档
+	ObjTypeGetFileVersionSheet   = "sheet"   // sheet文档
+	ObjTypeGetFileVersionBitable = "bitable" // bitable文档
+	ObjTypeGetFileVersionDocx    = "docx"    // docx文档
+)
+
+const (
+	UserIdTypeGetFileVersionOpenId  = "open_id"  // 用户open_id
+	UserIdTypeGetFileVersionUnionId = "union_id" // 用户union_id
+	UserIdTypeGetFileVersionUserId  = "user_id"  // 用户user_id
+)
+
+const (
+	ObjTypeListFileVersionDoc     = "doc"     // doc文档
+	ObjTypeListFileVersionSheet   = "sheet"   // sheet文档
+	ObjTypeListFileVersionBitable = "bitable" // bitable文档
+	ObjTypeListFileVersionDocx    = "docx"    // docx文档
+)
+
+const (
+	UserIdTypeListFileVersionOpenId  = "open_id"  // 用户open_id
+	UserIdTypeListFileVersionUnionId = "union_id" // 用户union_id
+	UserIdTypeListFileVersionUserId  = "user_id"  // 用户user_id
+)
+
+const (
 	ParentTypeUploadAllMediaDocImage            = "doc_image"             // docs图片
 	ParentTypeUploadAllMediaDocxImage           = "docx_image"            // docx图片
 	ParentTypeUploadAllMediaSheetImage          = "sheet_image"           // sheet图片
@@ -224,6 +289,27 @@ const (
 )
 
 const (
+	TokenTypeDoc      = "doc"      // 文档
+	TokenTypeSheet    = "sheet"    // 电子表格
+	TokenTypeFile     = "file"     // 云空间文件
+	TokenTypeWiki     = "wiki"     // 知识库节点
+	TokenTypeBitable  = "bitable"  // 多维表格
+	TokenTypeDocx     = "docx"     // 新版文档
+	TokenTypeMindnote = "mindnote" // 思维笔记
+	TokenTypeMinutes  = "minutes"  // 妙记
+)
+
+const (
+	PermView    = "view"    // 阅读
+	PermEdit    = "edit"    // 编辑
+	PermShare   = "share"   // 分享
+	PermComment = "comment" // 评论
+	PermExport  = "export"  // 导出
+	PermCopy    = "copy"    // 拷贝
+	PermPrint   = "print"   // 打印
+)
+
+const (
 	MemberTypeEmail            = "email"            // 飞书邮箱
 	MemberTypeOpenId           = "openid"           // 开放平台ID
 	MemberTypeOpenChat         = "openchat"         // 开放平台群组ID
@@ -232,9 +318,9 @@ const (
 )
 
 const (
-	PermView       = "view"        // 可阅读角色
-	PermEdit       = "edit"        // 可编辑角色
-	PermFullAccess = "full_access" // 可管理角色
+	PermCreatePermissionMemberView       = "view"        // 可阅读角色
+	PermCreatePermissionMemberEdit       = "edit"        // 可编辑角色
+	PermCreatePermissionMemberFullAccess = "full_access" // 可管理角色
 )
 
 const (
@@ -270,14 +356,31 @@ const (
 )
 
 const (
-	TokenTypeDoc      = "doc"      // 文档
-	TokenTypeSheet    = "sheet"    // 电子表格
-	TokenTypeFile     = "file"     // 云空间文件
-	TokenTypeWiki     = "wiki"     // 知识库节点
-	TokenTypeBitable  = "bitable"  // 多维表格
-	TokenTypeDocx     = "docx"     // 新版文档
-	TokenTypeMindnote = "mindnote" // 思维笔记
-	TokenTypeMinutes  = "minutes"  // 妙记
+	TokenTypeListPermissionMemberDoc      = "doc"      // 文档
+	TokenTypeListPermissionMemberSheet    = "sheet"    // 电子表格
+	TokenTypeListPermissionMemberFile     = "file"     // 云空间文件
+	TokenTypeListPermissionMemberWiki     = "wiki"     // 知识库节点
+	TokenTypeListPermissionMemberBitable  = "bitable"  // 多维表格
+	TokenTypeListPermissionMemberDocx     = "docx"     // 新版文档
+	TokenTypeListPermissionMemberMindnote = "mindnote" // 思维笔记
+	TokenTypeListPermissionMemberMinutes  = "minutes"  // 妙记
+)
+
+const (
+	MemberTypeTransferOwnerPermissionMemberEmail  = "email"  // 飞书邮箱
+	MemberTypeTransferOwnerPermissionMemberOpenId = "openid" // 开放平台ID
+	MemberTypeTransferOwnerPermissionMemberUserId = "userid" // 用户自定义ID
+)
+
+const (
+	TokenTypeTransferOwnerPermissionMemberDoc      = "doc"      // 文档
+	TokenTypeTransferOwnerPermissionMemberSheet    = "sheet"    // 电子表格
+	TokenTypeTransferOwnerPermissionMemberFile     = "file"     // 云空间文件
+	TokenTypeTransferOwnerPermissionMemberWiki     = "wiki"     // 知识库节点
+	TokenTypeTransferOwnerPermissionMemberBitable  = "bitable"  // 多维表格
+	TokenTypeTransferOwnerPermissionMemberDocx     = "docx"     // 新版文档
+	TokenTypeTransferOwnerPermissionMemberMindnote = "mindnote" // 思维笔记
+	TokenTypeTransferOwnerPermissionMemberMinutes  = "minutes"  // 妙记
 )
 
 const (
@@ -6622,6 +6725,332 @@ func (resp *PatchFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateFileVersionReqBuilder struct {
+	apiReq  *larkcore.ApiReq
+	version *Version
+}
+
+func NewCreateFileVersionReqBuilder() *CreateFileVersionReqBuilder {
+	builder := &CreateFileVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 源文档token
+//
+// 示例值：doxbcyvqZlSc9WlHvQMlSJwUrsb
+func (builder *CreateFileVersionReqBuilder) FileToken(fileToken string) *CreateFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CreateFileVersionReqBuilder) UserIdType(userIdType string) *CreateFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建文档版本。
+func (builder *CreateFileVersionReqBuilder) Version(version *Version) *CreateFileVersionReqBuilder {
+	builder.version = version
+	return builder
+}
+
+func (builder *CreateFileVersionReqBuilder) Build() *CreateFileVersionReq {
+	req := &CreateFileVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.version
+	return req
+}
+
+type CreateFileVersionReq struct {
+	apiReq  *larkcore.ApiReq
+	Version *Version `body:""`
+}
+
+type CreateFileVersionRespData struct {
+	Name        *string `json:"name,omitempty"`         // 版本文档标题
+	Version     *string `json:"version,omitempty"`      // 版本文档版本号
+	ParentToken *string `json:"parent_token,omitempty"` // shtbcpM2mm3znrLfWnf4browTYp
+	OwnerId     *string `json:"owner_id,omitempty"`     // 版本文档所有者id
+	CreatorId   *string `json:"creator_id,omitempty"`   // 版本文档创建者id
+	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间
+	UpdateTime  *string `json:"update_time,omitempty"`  // 版本文档更新时间
+	Status      *string `json:"status,omitempty"`       // 版本文档状态
+	ObjType     *string `json:"obj_type,omitempty"`     // 版本文档类型
+	ParentType  *string `json:"parent_type,omitempty"`  // 源文档类型
+}
+
+type CreateFileVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateFileVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateFileVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteFileVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteFileVersionReqBuilder() *DeleteFileVersionReqBuilder {
+	builder := &DeleteFileVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 版本文档token
+//
+// 示例值：doxbcyvqZlSc9WlHvQMlSJwUrsb
+func (builder *DeleteFileVersionReqBuilder) FileToken(fileToken string) *DeleteFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 版本文档版本号
+//
+// 示例值：file_version
+func (builder *DeleteFileVersionReqBuilder) VersionId(versionId string) *DeleteFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：doc/docs/sheet/bitable
+func (builder *DeleteFileVersionReqBuilder) ObjType(objType string) *DeleteFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("obj_type", fmt.Sprint(objType))
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：
+func (builder *DeleteFileVersionReqBuilder) UserIdType(userIdType string) *DeleteFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *DeleteFileVersionReqBuilder) Build() *DeleteFileVersionReq {
+	req := &DeleteFileVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteFileVersionReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteFileVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteFileVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetFileVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetFileVersionReqBuilder() *GetFileVersionReqBuilder {
+	builder := &GetFileVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 源文档token
+//
+// 示例值：shtbcqqoXZJaKYrfN5IHQg4sVFZ
+func (builder *GetFileVersionReqBuilder) FileToken(fileToken string) *GetFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 版本文档版本号
+//
+// 示例值：file_version
+func (builder *GetFileVersionReqBuilder) VersionId(versionId string) *GetFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：doc/sheet/bitable/docx
+func (builder *GetFileVersionReqBuilder) ObjType(objType string) *GetFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("obj_type", fmt.Sprint(objType))
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：
+func (builder *GetFileVersionReqBuilder) UserIdType(userIdType string) *GetFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+//
+// 示例值：1665739388
+func (builder *GetFileVersionReqBuilder) PageToken(pageToken string) *GetFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+//
+// 示例值：10
+func (builder *GetFileVersionReqBuilder) PageSize(pageSize int) *GetFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *GetFileVersionReqBuilder) Build() *GetFileVersionReq {
+	req := &GetFileVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetFileVersionReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetFileVersionRespData struct {
+	Name        *string `json:"name,omitempty"`         // 版本文档标题
+	Version     *string `json:"version,omitempty"`      // 版本文档版本号
+	ParentToken *string `json:"parent_token,omitempty"` // shtbcpM2mm3znrLfWnf4browTYp
+	OwnerId     *string `json:"owner_id,omitempty"`     // 版本文档所有者id
+	CreatorId   *string `json:"creator_id,omitempty"`   // 版本文档创建者id
+	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间
+	UpdateTime  *string `json:"update_time,omitempty"`  // 版本文档更新时间
+	Status      *string `json:"status,omitempty"`       // 版本文档状态
+	ObjType     *string `json:"obj_type,omitempty"`     // 版本文档类型
+	ParentType  *string `json:"parent_type,omitempty"`  // 源文档类型
+}
+
+type GetFileVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetFileVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetFileVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListFileVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListFileVersionReqBuilder() *ListFileVersionReqBuilder {
+	builder := &ListFileVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListFileVersionReqBuilder) Limit(limit int) *ListFileVersionReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 源文档token
+//
+// 示例值：shtbcpM2mm3znrLfWnf4browTYp23
+func (builder *ListFileVersionReqBuilder) FileToken(fileToken string) *ListFileVersionReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListFileVersionReqBuilder) PageSize(pageSize int) *ListFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：1665739388
+func (builder *ListFileVersionReqBuilder) PageToken(pageToken string) *ListFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 原文档类型
+//
+// 示例值：doc/docx/sheet/bitable
+func (builder *ListFileVersionReqBuilder) ObjType(objType string) *ListFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("obj_type", fmt.Sprint(objType))
+	return builder
+}
+
+// 用户id类型
+//
+// 示例值：
+func (builder *ListFileVersionReqBuilder) UserIdType(userIdType string) *ListFileVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListFileVersionReqBuilder) Build() *ListFileVersionReq {
+	req := &ListFileVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListFileVersionReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListFileVersionRespData struct {
+	Items     []*Version `json:"items,omitempty"`      // 版本文档列表
+	PageToken *string    `json:"page_token,omitempty"` // 下一页请求token
+	HasMore   *bool      `json:"has_more,omitempty"`   // 是否有下一页数据
+}
+
+type ListFileVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListFileVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListFileVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateImportTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	importTask *ImportTask
@@ -7573,6 +8002,69 @@ func (resp *BatchQueryMetaResp) Success() bool {
 	return resp.Code == 0
 }
 
+type AuthPermissionMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewAuthPermissionMemberReqBuilder() *AuthPermissionMemberReqBuilder {
+	builder := &AuthPermissionMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *AuthPermissionMemberReqBuilder) Token(token string) *AuthPermissionMemberReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *AuthPermissionMemberReqBuilder) Type(type_ string) *AuthPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+// 需要判断的权限
+//
+// 示例值：view
+func (builder *AuthPermissionMemberReqBuilder) Action(action string) *AuthPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("action", fmt.Sprint(action))
+	return builder
+}
+
+func (builder *AuthPermissionMemberReqBuilder) Build() *AuthPermissionMemberReq {
+	req := &AuthPermissionMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type AuthPermissionMemberReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type AuthPermissionMemberRespData struct {
+	AuthResult *bool `json:"auth_result,omitempty"` // 是否有权限
+}
+
+type AuthPermissionMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *AuthPermissionMemberRespData `json:"data"` // 业务数据
+}
+
+func (resp *AuthPermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreatePermissionMemberReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	baseMember *BaseMember
@@ -7771,6 +8263,81 @@ type ListPermissionMemberResp struct {
 }
 
 func (resp *ListPermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type TransferOwnerPermissionMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	owner  *Owner
+}
+
+func NewTransferOwnerPermissionMemberReqBuilder() *TransferOwnerPermissionMemberReqBuilder {
+	builder := &TransferOwnerPermissionMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *TransferOwnerPermissionMemberReqBuilder) Token(token string) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *TransferOwnerPermissionMemberReqBuilder) Type(type_ string) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+// 是否需要通知新 Owner
+//
+// 示例值：true
+func (builder *TransferOwnerPermissionMemberReqBuilder) NeedNotification(needNotification bool) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
+	return builder
+}
+
+// 转移后是否需要移除原 Owner 的权限
+//
+// 示例值：false
+func (builder *TransferOwnerPermissionMemberReqBuilder) RemoveOldOwner(removeOldOwner bool) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("remove_old_owner", fmt.Sprint(removeOldOwner))
+	return builder
+}
+
+//
+func (builder *TransferOwnerPermissionMemberReqBuilder) Owner(owner *Owner) *TransferOwnerPermissionMemberReqBuilder {
+	builder.owner = owner
+	return builder
+}
+
+func (builder *TransferOwnerPermissionMemberReqBuilder) Build() *TransferOwnerPermissionMemberReq {
+	req := &TransferOwnerPermissionMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.owner
+	return req
+}
+
+type TransferOwnerPermissionMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Owner  *Owner `body:""`
+}
+
+type TransferOwnerPermissionMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *TransferOwnerPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -8171,5 +8738,59 @@ func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
 }
 
 func (iterator *ListFileCommentIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListFileVersionIterator struct {
+	nextPageToken *string
+	items         []*Version
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListFileVersionReq
+	listFunc      func(ctx context.Context, req *ListFileVersionReq, options ...larkcore.RequestOptionFunc) (*ListFileVersionResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListFileVersionIterator) Next() (bool, *Version, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListFileVersionIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

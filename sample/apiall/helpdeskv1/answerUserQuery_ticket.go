@@ -22,21 +22,24 @@ import (
 )
 
 // POST /open-apis/helpdesk/v1/tickets/:ticket_id/answer_user_query
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhelpdesk.NewAnswerUserQueryTicketReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhelpdesk.NewAnswerUserQueryTicketReqBuilder().
 		TicketId("6945345902185807891").
-		Body(larkhelpdesk.NewAnswerUserQueryTicketReqBodyBuilder().
+		
+	   Body(larkhelpdesk.NewAnswerUserQueryTicketReqBodyBuilder().
 			EventId("abcd").
+			
 			Faqs([]*larkhelpdesk.UserQueryFaqInfo{larkhelpdesk.NewUserQueryFaqInfoBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Helpdesk.Ticket.AnswerUserQuery(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Helpdesk.Ticket.AnswerUserQuery(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

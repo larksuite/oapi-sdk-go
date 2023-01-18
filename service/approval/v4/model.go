@@ -1371,6 +1371,7 @@ type ApprovalNodeInfo struct {
 	NodeType            *string                `json:"node_type,omitempty"`             // 审批方式
 	ApproverChosenMulti *bool                  `json:"approver_chosen_multi,omitempty"` // 是否支持多选：true-支持，发起、结束节点该值无意义
 	ApproverChosenRange []*ApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选范围
+	RequireSignature    *bool                  `json:"require_signature,omitempty"`     // 是否签名
 }
 
 type ApprovalNodeInfoBuilder struct {
@@ -1388,6 +1389,8 @@ type ApprovalNodeInfoBuilder struct {
 	approverChosenMultiFlag bool
 	approverChosenRange     []*ApproverChosenRange // 自选范围
 	approverChosenRangeFlag bool
+	requireSignature        bool // 是否签名
+	requireSignatureFlag    bool
 }
 
 func NewApprovalNodeInfoBuilder() *ApprovalNodeInfoBuilder {
@@ -1458,6 +1461,15 @@ func (builder *ApprovalNodeInfoBuilder) ApproverChosenRange(approverChosenRange 
 	return builder
 }
 
+// 是否签名
+//
+// 示例值：false
+func (builder *ApprovalNodeInfoBuilder) RequireSignature(requireSignature bool) *ApprovalNodeInfoBuilder {
+	builder.requireSignature = requireSignature
+	builder.requireSignatureFlag = true
+	return builder
+}
+
 func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 	req := &ApprovalNodeInfo{}
 	if builder.nameFlag {
@@ -1486,6 +1498,10 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 	}
 	if builder.approverChosenRangeFlag {
 		req.ApproverChosenRange = builder.approverChosenRange
+	}
+	if builder.requireSignatureFlag {
+		req.RequireSignature = &builder.requireSignature
+
 	}
 	return req
 }
@@ -4832,6 +4848,7 @@ type InstanceCreate struct {
 	Uuid                   *string         `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
 	AllowResubmit          *bool           `json:"allow_resubmit,omitempty"`             // 可配置是否可以再次提交
 	AllowSubmitAgain       *bool           `json:"allow_submit_again,omitempty"`         // 可配置是否可以重新提交
+	CancelBotNotification  *string         `json:"cancel_bot_notification,omitempty"`    // 配置bot是否取消通知结果
 }
 
 type InstanceCreateBuilder struct {
@@ -4859,6 +4876,8 @@ type InstanceCreateBuilder struct {
 	allowResubmitFlag          bool
 	allowSubmitAgain           bool // 可配置是否可以重新提交
 	allowSubmitAgainFlag       bool
+	cancelBotNotification      string // 配置bot是否取消通知结果
+	cancelBotNotificationFlag  bool
 }
 
 func NewInstanceCreateBuilder() *InstanceCreateBuilder {
@@ -4974,6 +4993,15 @@ func (builder *InstanceCreateBuilder) AllowSubmitAgain(allowSubmitAgain bool) *I
 	return builder
 }
 
+// 配置bot是否取消通知结果
+//
+// 示例值：0
+func (builder *InstanceCreateBuilder) CancelBotNotification(cancelBotNotification string) *InstanceCreateBuilder {
+	builder.cancelBotNotification = cancelBotNotification
+	builder.cancelBotNotificationFlag = true
+	return builder
+}
+
 func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	req := &InstanceCreate{}
 	if builder.approvalCodeFlag {
@@ -5018,6 +5046,10 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	}
 	if builder.allowSubmitAgainFlag {
 		req.AllowSubmitAgain = &builder.allowSubmitAgain
+
+	}
+	if builder.cancelBotNotificationFlag {
+		req.CancelBotNotification = &builder.cancelBotNotification
 
 	}
 	return req
@@ -8655,10 +8687,11 @@ func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
 }
 
 type TrusteeshipUrls struct {
-	FormDetailUrl       *string `json:"form_detail_url,omitempty"`       // 获取表单schema相关数据的url地址
-	ActionDefinitionUrl *string `json:"action_definition_url,omitempty"` // 表示获取审批操作区数据的url地址
-	ApprovalNodeUrl     *string `json:"approval_node_url,omitempty"`     // 获取审批记录相关数据的url地址
-	ActionCallbackUrl   *string `json:"action_callback_url,omitempty"`   // 进行审批操作时回调的url地址
+	FormDetailUrl       *string `json:"form_detail_url,omitempty"`        // 获取表单schema相关数据的url地址
+	ActionDefinitionUrl *string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的url地址
+	ApprovalNodeUrl     *string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的url地址
+	ActionCallbackUrl   *string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的url地址
+	PullBusinessDataUrl *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据url 地址,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
 }
 
 type TrusteeshipUrlsBuilder struct {
@@ -8670,6 +8703,8 @@ type TrusteeshipUrlsBuilder struct {
 	approvalNodeUrlFlag     bool
 	actionCallbackUrl       string // 进行审批操作时回调的url地址
 	actionCallbackUrlFlag   bool
+	pullBusinessDataUrl     string // 获取托管动态数据url 地址,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
+	pullBusinessDataUrlFlag bool
 }
 
 func NewTrusteeshipUrlsBuilder() *TrusteeshipUrlsBuilder {
@@ -8713,6 +8748,15 @@ func (builder *TrusteeshipUrlsBuilder) ActionCallbackUrl(actionCallbackUrl strin
 	return builder
 }
 
+// 获取托管动态数据url 地址,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
+//
+// 示例值：https://#{your_domain}/api/pull_business_data
+func (builder *TrusteeshipUrlsBuilder) PullBusinessDataUrl(pullBusinessDataUrl string) *TrusteeshipUrlsBuilder {
+	builder.pullBusinessDataUrl = pullBusinessDataUrl
+	builder.pullBusinessDataUrlFlag = true
+	return builder
+}
+
 func (builder *TrusteeshipUrlsBuilder) Build() *TrusteeshipUrls {
 	req := &TrusteeshipUrls{}
 	if builder.formDetailUrlFlag {
@@ -8729,6 +8773,10 @@ func (builder *TrusteeshipUrlsBuilder) Build() *TrusteeshipUrls {
 	}
 	if builder.actionCallbackUrlFlag {
 		req.ActionCallbackUrl = &builder.actionCallbackUrl
+
+	}
+	if builder.pullBusinessDataUrlFlag {
+		req.PullBusinessDataUrl = &builder.pullBusinessDataUrl
 
 	}
 	return req

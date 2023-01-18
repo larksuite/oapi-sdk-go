@@ -22,20 +22,23 @@ import (
 )
 
 // POST /open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewCreateUserMailboxAliasReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewCreateUserMailboxAliasReqBuilder().
 		UserMailboxId("user@xxx.xx").
-		EmailAlias(larkmail.NewEmailAliasBuilder().
+		
+	   EmailAlias(larkmail.NewEmailAliasBuilder().
 			EmailAlias("email_alias@xxx.xx").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Mail.UserMailboxAlias.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.UserMailboxAlias.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

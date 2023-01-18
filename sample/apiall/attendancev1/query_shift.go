@@ -22,17 +22,19 @@ import (
 )
 
 // POST /open-apis/attendance/v1/shifts/query
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkattendance.NewQueryShiftReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkattendance.NewQueryShiftReqBuilder().
 		ShiftName("早班").
-		Build()
-	// 发起请求
-	resp, err := client.Attendance.Shift.Query(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Attendance.Shift.Query(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

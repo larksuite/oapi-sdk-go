@@ -322,6 +322,58 @@ func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, o
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupMember.go
+func (m *mailgroupMember) BatchCreate(ctx context.Context, req *BatchCreateMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateMailgroupMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/members/batch_create"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreateMailgroupMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupMember.go
+func (m *mailgroupMember) BatchDelete(ctx context.Context, req *BatchDeleteMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteMailgroupMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/members/batch_delete"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteMailgroupMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 创建邮件组成员
 //
 // - 向邮件组添加单个成员
@@ -432,6 +484,58 @@ func (m *mailgroupMember) ListByIterator(ctx context.Context, req *ListMailgroup
 		listFunc: m.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.permission_member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupPermissionMember.go
+func (m *mailgroupPermissionMember) BatchCreate(ctx context.Context, req *BatchCreateMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateMailgroupPermissionMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/batch_create"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreateMailgroupPermissionMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.permission_member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupPermissionMember.go
+func (m *mailgroupPermissionMember) BatchDelete(ctx context.Context, req *BatchDeleteMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteMailgroupPermissionMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/batch_delete"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteMailgroupPermissionMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // 创建邮件组权限成员
@@ -781,6 +885,58 @@ func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAli
 	}
 	// 反序列响应结果
 	resp := &ListPublicMailboxAliasResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=public_mailbox.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_publicMailboxMember.go
+func (p *publicMailboxMember) BatchCreate(ctx context.Context, req *BatchCreatePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreatePublicMailboxMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/batch_create"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreatePublicMailboxMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=public_mailbox.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_publicMailboxMember.go
+func (p *publicMailboxMember) BatchDelete(ctx context.Context, req *BatchDeletePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeletePublicMailboxMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/batch_delete"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeletePublicMailboxMemberResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err

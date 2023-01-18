@@ -22,23 +22,25 @@ import (
 )
 
 // POST /open-apis/hire/v1/talents/batch_get_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewBatchGetIdTalentReqBuilder().
-		Body(larkhire.NewBatchGetIdTalentReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewBatchGetIdTalentReqBuilder().
+	   Body(larkhire.NewBatchGetIdTalentReqBodyBuilder().
 			MobileCode("86").
+			
 			MobileNumberList([]string{}).
 			EmailList([]string{}).
 			IdentificationType(1).
 			IdentificationNumberList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Hire.Talent.BatchGetId(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.Talent.BatchGetId(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -22,20 +22,24 @@ import (
 )
 
 // GET /open-apis/baike/v1/entities
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbaike.NewListEntityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbaike.NewListEntityReqBuilder().
 		PageSize(20).
 		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
+		
 		Provider("星云").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Baike.Entity.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Baike.Entity.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

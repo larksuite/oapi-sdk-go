@@ -62,7 +62,7 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
+	Admin                  *larkadmin.AdminService                                     // 管理后台-密码
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
@@ -71,7 +71,7 @@ type Client struct {
 	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
-	Contact                *larkcontact.ContactService                                 // 搜索
+	Contact                *larkcontact.ContactService                                 // 通讯录
 	Corehr                 *larkcorehr.CorehrService                                   // CoreHR
 	Docx                   *larkdocx.DocxService                                       // 云文档-文档
 	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理

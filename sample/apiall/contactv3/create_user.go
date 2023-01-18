@@ -22,42 +22,70 @@ import (
 )
 
 // POST /open-apis/contact/v3/users
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewCreateUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewCreateUserReqBuilder().
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		ClientToken("xxxx-xxxxx-xxx").
-		User(larkcontact.NewUserBuilder().
+		
+	   User(larkcontact.NewUserBuilder().
 			UserId("").
-			Name("").
-			EnName("").
-			Nickname("").
-			Email("").
-			Mobile("").
+			
+			Name("张三").
+			
+			EnName("San Zhang").
+			
+			Nickname("Alex Zhang").
+			
+			Email("zhangsan@gmail.com").
+			
+			Mobile("+41446681800").
+			
 			MobileVisible(false).
 			Gender(0).
-			AvatarKey("").
+			AvatarKey("2500c7a9-5fff-4d9a-a2de-3d59614ae28g").
+			
 			DepartmentIds([]string{}).
-			LeaderUserId("").
-			City("").
-			Country("").
-			WorkStation("").
-			JoinTime(0).
-			EmployeeNo("").
-			EmployeeType(0).
+			LeaderUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
+			City("杭州").
+			
+			Country("CN").
+			
+			WorkStation("北楼-H34").
+			
+			JoinTime(2147483647).
+			EmployeeNo("1").
+			
+			EmployeeType(1).
+			
 			Orders([]*larkcontact.UserOrder{larkcontact.NewUserOrderBuilder().Build()}).
 			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
-			EnterpriseEmail("").
-			JobTitle("").
+			EnterpriseEmail("demo@mail.com").
+			
+			
+			
+			JobTitle("xxxxx").
+			
+			
+			
+			
+			JobLevelId("mga5oa8ayjlp9rb").
+			
+			JobFamilyId("mga5oa8ayjlp9rb").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.User.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.User.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -72,3 +100,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

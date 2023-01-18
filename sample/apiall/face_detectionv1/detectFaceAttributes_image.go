@@ -22,19 +22,21 @@ import (
 )
 
 // POST /open-apis/face_detection/v1/image/detect_face_attributes
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkface_detection.NewDetectFaceAttributesImageReqBuilder().
-		Body(larkface_detection.NewDetectFaceAttributesImageReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkface_detection.NewDetectFaceAttributesImageReqBuilder().
+	   Body(larkface_detection.NewDetectFaceAttributesImageReqBodyBuilder().
 			Image("图片 base64 后的字符串").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.FaceDetection.Image.DetectFaceAttributes(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.FaceDetection.Image.DetectFaceAttributes(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

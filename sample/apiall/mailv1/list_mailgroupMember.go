@@ -22,21 +22,26 @@ import (
 )
 
 // GET /open-apis/mail/v1/mailgroups/:mailgroup_id/members
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewListMailgroupMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewListMailgroupMemberReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
+		
 		UserIdType("user_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		PageToken("xxx").
+		
 		PageSize(20).
-		Build()
-	// 发起请求
-	resp, err := client.Mail.MailgroupMember.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.MailgroupMember.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

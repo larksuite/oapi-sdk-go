@@ -23,7 +23,6 @@ import (
 
 func NewService(config *larkcore.Config) *VcService {
 	v := &VcService{config: config}
-	v.Alert = &alert{service: v}
 	v.Export = &export{service: v}
 	v.Meeting = &meeting{service: v}
 	v.MeetingRecording = &meetingRecording{service: v}
@@ -39,7 +38,6 @@ func NewService(config *larkcore.Config) *VcService {
 
 type VcService struct {
 	config           *larkcore.Config
-	Alert            *alert            // 告警中心
 	Export           *export           // 导出
 	Meeting          *meeting          // 会议
 	MeetingRecording *meetingRecording // 录制
@@ -52,9 +50,6 @@ type VcService struct {
 	ScopeConfig      *scopeConfig      // 会议室配置
 }
 
-type alert struct {
-	service *VcService
-}
 type export struct {
 	service *VcService
 }
@@ -84,40 +79,6 @@ type roomLevel struct {
 }
 type scopeConfig struct {
 	service *VcService
-}
-
-// 获取告警记录
-//
-// - 获取特定条件下租户的设备告警记录
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/alert/list
-//
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/list_alert.go
-func (a *alert) List(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertResp, error) {
-	// 发起请求
-	apiReq := req.apiReq
-	apiReq.ApiPath = "/open-apis/vc/v1/alerts"
-	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
-	if err != nil {
-		return nil, err
-	}
-	// 反序列响应结果
-	resp := &ListAlertResp{ApiResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *alert) ListByIterator(ctx context.Context, req *ListAlertReq, options ...larkcore.RequestOptionFunc) (*ListAlertIterator, error) {
-	return &ListAlertIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
 }
 
 // 下载导出文件

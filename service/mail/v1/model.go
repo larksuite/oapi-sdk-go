@@ -50,6 +50,17 @@ const (
 )
 
 const (
+	UserIdTypeBatchCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
 	TypeUSER          = "USER"           // internal user in the team
 	TypeDEPARTMENT    = "DEPARTMENT"     // member is a department
 	TypeCOMPANY       = "COMPANY"        // member is the company
@@ -66,8 +77,8 @@ const (
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeCreateMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -90,6 +101,17 @@ const (
 const (
 	DepartmentIdTypeListMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeListMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeBatchCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	DepartmentIdTypeBatchCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeBatchCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -130,6 +152,12 @@ const (
 const (
 	DepartmentIdTypeListMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeListMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeBatchCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchCreatePublicMailboxMemberUnionId = "union_id" // 以user_id来识别用户
+	UserIdTypeBatchCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -1297,6 +1325,244 @@ func (resp *ListMailgroupAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchCreateMailgroupMemberReqBodyBuilder struct {
+	items     []*MailgroupMember // 本次添加的邮件组成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreateMailgroupMemberReqBodyBuilder() *BatchCreateMailgroupMemberReqBodyBuilder {
+	builder := &BatchCreateMailgroupMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次添加的邮件组成员列表
+//
+//示例值：
+func (builder *BatchCreateMailgroupMemberReqBodyBuilder) Items(items []*MailgroupMember) *BatchCreateMailgroupMemberReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupMemberReqBodyBuilder) Build() *BatchCreateMailgroupMemberReqBody {
+	req := &BatchCreateMailgroupMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type BatchCreateMailgroupMemberPathReqBodyBuilder struct {
+	items     []*MailgroupMember // 本次添加的邮件组成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreateMailgroupMemberPathReqBodyBuilder() *BatchCreateMailgroupMemberPathReqBodyBuilder {
+	builder := &BatchCreateMailgroupMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次添加的邮件组成员列表
+//
+// 示例值：
+func (builder *BatchCreateMailgroupMemberPathReqBodyBuilder) Items(items []*MailgroupMember) *BatchCreateMailgroupMemberPathReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupMemberPathReqBodyBuilder) Build() (*BatchCreateMailgroupMemberReqBody, error) {
+	req := &BatchCreateMailgroupMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req, nil
+}
+
+type BatchCreateMailgroupMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateMailgroupMemberReqBody
+}
+
+func NewBatchCreateMailgroupMemberReqBuilder() *BatchCreateMailgroupMemberReqBuilder {
+	builder := &BatchCreateMailgroupMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
+func (builder *BatchCreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *BatchCreateMailgroupMemberReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *BatchCreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *BatchCreateMailgroupMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：
+func (builder *BatchCreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *BatchCreateMailgroupMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *BatchCreateMailgroupMemberReqBuilder) Body(body *BatchCreateMailgroupMemberReqBody) *BatchCreateMailgroupMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchCreateMailgroupMemberReqBuilder) Build() *BatchCreateMailgroupMemberReq {
+	req := &BatchCreateMailgroupMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchCreateMailgroupMemberReqBody struct {
+	Items []*MailgroupMember `json:"items,omitempty"` // 本次添加的邮件组成员列表
+}
+
+type BatchCreateMailgroupMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateMailgroupMemberReqBody `body:""`
+}
+
+type BatchCreateMailgroupMemberRespData struct {
+	Items []*MailgroupMember `json:"items,omitempty"` // 添加成功后的邮件组成员信息列表
+}
+
+type BatchCreateMailgroupMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchCreateMailgroupMemberRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchCreateMailgroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteMailgroupMemberReqBodyBuilder struct {
+	memberIdList     []string // 本次调用删除的成员ID列表
+	memberIdListFlag bool
+}
+
+func NewBatchDeleteMailgroupMemberReqBodyBuilder() *BatchDeleteMailgroupMemberReqBodyBuilder {
+	builder := &BatchDeleteMailgroupMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的成员ID列表
+//
+//示例值：
+func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberReqBodyBuilder {
+	builder.memberIdList = memberIdList
+	builder.memberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) Build() *BatchDeleteMailgroupMemberReqBody {
+	req := &BatchDeleteMailgroupMemberReqBody{}
+	if builder.memberIdListFlag {
+		req.MemberIdList = builder.memberIdList
+	}
+	return req
+}
+
+type BatchDeleteMailgroupMemberPathReqBodyBuilder struct {
+	memberIdList     []string // 本次调用删除的成员ID列表
+	memberIdListFlag bool
+}
+
+func NewBatchDeleteMailgroupMemberPathReqBodyBuilder() *BatchDeleteMailgroupMemberPathReqBodyBuilder {
+	builder := &BatchDeleteMailgroupMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的成员ID列表
+//
+// 示例值：
+func (builder *BatchDeleteMailgroupMemberPathReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberPathReqBodyBuilder {
+	builder.memberIdList = memberIdList
+	builder.memberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupMemberPathReqBodyBuilder) Build() (*BatchDeleteMailgroupMemberReqBody, error) {
+	req := &BatchDeleteMailgroupMemberReqBody{}
+	if builder.memberIdListFlag {
+		req.MemberIdList = builder.memberIdList
+	}
+	return req, nil
+}
+
+type BatchDeleteMailgroupMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteMailgroupMemberReqBody
+}
+
+func NewBatchDeleteMailgroupMemberReqBuilder() *BatchDeleteMailgroupMemberReqBuilder {
+	builder := &BatchDeleteMailgroupMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
+func (builder *BatchDeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *BatchDeleteMailgroupMemberReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+//
+func (builder *BatchDeleteMailgroupMemberReqBuilder) Body(body *BatchDeleteMailgroupMemberReqBody) *BatchDeleteMailgroupMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupMemberReqBuilder) Build() *BatchDeleteMailgroupMemberReq {
+	req := &BatchDeleteMailgroupMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteMailgroupMemberReqBody struct {
+	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的成员ID列表
+}
+
+type BatchDeleteMailgroupMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteMailgroupMemberReqBody `body:""`
+}
+
+type BatchDeleteMailgroupMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteMailgroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateMailgroupMemberReqBuilder struct {
 	apiReq          *larkcore.ApiReq
 	mailgroupMember *MailgroupMember
@@ -1585,6 +1851,244 @@ type ListMailgroupMemberResp struct {
 }
 
 func (resp *ListMailgroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchCreateMailgroupPermissionMemberReqBodyBuilder struct {
+	items     []*MailgroupPermissionMember // 本次添加的邮件组权限成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreateMailgroupPermissionMemberReqBodyBuilder() *BatchCreateMailgroupPermissionMemberReqBodyBuilder {
+	builder := &BatchCreateMailgroupPermissionMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次添加的邮件组权限成员列表
+//
+//示例值：
+func (builder *BatchCreateMailgroupPermissionMemberReqBodyBuilder) Items(items []*MailgroupPermissionMember) *BatchCreateMailgroupPermissionMemberReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupPermissionMemberReqBodyBuilder) Build() *BatchCreateMailgroupPermissionMemberReqBody {
+	req := &BatchCreateMailgroupPermissionMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type BatchCreateMailgroupPermissionMemberPathReqBodyBuilder struct {
+	items     []*MailgroupPermissionMember // 本次添加的邮件组权限成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreateMailgroupPermissionMemberPathReqBodyBuilder() *BatchCreateMailgroupPermissionMemberPathReqBodyBuilder {
+	builder := &BatchCreateMailgroupPermissionMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次添加的邮件组权限成员列表
+//
+// 示例值：
+func (builder *BatchCreateMailgroupPermissionMemberPathReqBodyBuilder) Items(items []*MailgroupPermissionMember) *BatchCreateMailgroupPermissionMemberPathReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupPermissionMemberPathReqBodyBuilder) Build() (*BatchCreateMailgroupPermissionMemberReqBody, error) {
+	req := &BatchCreateMailgroupPermissionMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req, nil
+}
+
+type BatchCreateMailgroupPermissionMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateMailgroupPermissionMemberReqBody
+}
+
+func NewBatchCreateMailgroupPermissionMemberReqBuilder() *BatchCreateMailgroupPermissionMemberReqBuilder {
+	builder := &BatchCreateMailgroupPermissionMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
+func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *BatchCreateMailgroupPermissionMemberReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *BatchCreateMailgroupPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
+func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *BatchCreateMailgroupPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) Body(body *BatchCreateMailgroupPermissionMemberReqBody) *BatchCreateMailgroupPermissionMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) Build() *BatchCreateMailgroupPermissionMemberReq {
+	req := &BatchCreateMailgroupPermissionMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchCreateMailgroupPermissionMemberReqBody struct {
+	Items []*MailgroupPermissionMember `json:"items,omitempty"` // 本次添加的邮件组权限成员列表
+}
+
+type BatchCreateMailgroupPermissionMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateMailgroupPermissionMemberReqBody `body:""`
+}
+
+type BatchCreateMailgroupPermissionMemberRespData struct {
+	Items []*MailgroupPermissionMember `json:"items,omitempty"` // 添加成功后的邮件组权限成员信息列表
+}
+
+type BatchCreateMailgroupPermissionMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchCreateMailgroupPermissionMemberRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchCreateMailgroupPermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteMailgroupPermissionMemberReqBodyBuilder struct {
+	permissionMemberIdList     []string // 本次调用删除的权限成员ID列表
+	permissionMemberIdListFlag bool
+}
+
+func NewBatchDeleteMailgroupPermissionMemberReqBodyBuilder() *BatchDeleteMailgroupPermissionMemberReqBodyBuilder {
+	builder := &BatchDeleteMailgroupPermissionMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的权限成员ID列表
+//
+//示例值：
+func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberReqBodyBuilder {
+	builder.permissionMemberIdList = permissionMemberIdList
+	builder.permissionMemberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) Build() *BatchDeleteMailgroupPermissionMemberReqBody {
+	req := &BatchDeleteMailgroupPermissionMemberReqBody{}
+	if builder.permissionMemberIdListFlag {
+		req.PermissionMemberIdList = builder.permissionMemberIdList
+	}
+	return req
+}
+
+type BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder struct {
+	permissionMemberIdList     []string // 本次调用删除的权限成员ID列表
+	permissionMemberIdListFlag bool
+}
+
+func NewBatchDeleteMailgroupPermissionMemberPathReqBodyBuilder() *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder {
+	builder := &BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的权限成员ID列表
+//
+// 示例值：
+func (builder *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder {
+	builder.permissionMemberIdList = permissionMemberIdList
+	builder.permissionMemberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder) Build() (*BatchDeleteMailgroupPermissionMemberReqBody, error) {
+	req := &BatchDeleteMailgroupPermissionMemberReqBody{}
+	if builder.permissionMemberIdListFlag {
+		req.PermissionMemberIdList = builder.permissionMemberIdList
+	}
+	return req, nil
+}
+
+type BatchDeleteMailgroupPermissionMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteMailgroupPermissionMemberReqBody
+}
+
+func NewBatchDeleteMailgroupPermissionMemberReqBuilder() *BatchDeleteMailgroupPermissionMemberReqBuilder {
+	builder := &BatchDeleteMailgroupPermissionMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a mail group
+//
+// 示例值：xxxxxxxxxxxxxxx or test_mail_group@xxx.xx
+func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *BatchDeleteMailgroupPermissionMemberReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+//
+func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) Body(body *BatchDeleteMailgroupPermissionMemberReqBody) *BatchDeleteMailgroupPermissionMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) Build() *BatchDeleteMailgroupPermissionMemberReq {
+	req := &BatchDeleteMailgroupPermissionMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteMailgroupPermissionMemberReqBody struct {
+	PermissionMemberIdList []string `json:"permission_member_id_list,omitempty"` // 本次调用删除的权限成员ID列表
+}
+
+type BatchDeleteMailgroupPermissionMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteMailgroupPermissionMemberReqBody `body:""`
+}
+
+type BatchDeleteMailgroupPermissionMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -2343,6 +2847,236 @@ type ListPublicMailboxAliasResp struct {
 }
 
 func (resp *ListPublicMailboxAliasResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchCreatePublicMailboxMemberReqBodyBuilder struct {
+	items     []*PublicMailboxMember // 本次调用添加的公共邮箱成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreatePublicMailboxMemberReqBodyBuilder() *BatchCreatePublicMailboxMemberReqBodyBuilder {
+	builder := &BatchCreatePublicMailboxMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用添加的公共邮箱成员列表
+//
+//示例值：
+func (builder *BatchCreatePublicMailboxMemberReqBodyBuilder) Items(items []*PublicMailboxMember) *BatchCreatePublicMailboxMemberReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreatePublicMailboxMemberReqBodyBuilder) Build() *BatchCreatePublicMailboxMemberReqBody {
+	req := &BatchCreatePublicMailboxMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type BatchCreatePublicMailboxMemberPathReqBodyBuilder struct {
+	items     []*PublicMailboxMember // 本次调用添加的公共邮箱成员列表
+	itemsFlag bool
+}
+
+func NewBatchCreatePublicMailboxMemberPathReqBodyBuilder() *BatchCreatePublicMailboxMemberPathReqBodyBuilder {
+	builder := &BatchCreatePublicMailboxMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用添加的公共邮箱成员列表
+//
+// 示例值：
+func (builder *BatchCreatePublicMailboxMemberPathReqBodyBuilder) Items(items []*PublicMailboxMember) *BatchCreatePublicMailboxMemberPathReqBodyBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *BatchCreatePublicMailboxMemberPathReqBodyBuilder) Build() (*BatchCreatePublicMailboxMemberReqBody, error) {
+	req := &BatchCreatePublicMailboxMemberReqBody{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req, nil
+}
+
+type BatchCreatePublicMailboxMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchCreatePublicMailboxMemberReqBody
+}
+
+func NewBatchCreatePublicMailboxMemberReqBuilder() *BatchCreatePublicMailboxMemberReqBuilder {
+	builder := &BatchCreatePublicMailboxMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a public mailbox
+//
+// 示例值：xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx
+func (builder *BatchCreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *BatchCreatePublicMailboxMemberReqBuilder {
+	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchCreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *BatchCreatePublicMailboxMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *BatchCreatePublicMailboxMemberReqBuilder) Body(body *BatchCreatePublicMailboxMemberReqBody) *BatchCreatePublicMailboxMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchCreatePublicMailboxMemberReqBuilder) Build() *BatchCreatePublicMailboxMemberReq {
+	req := &BatchCreatePublicMailboxMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchCreatePublicMailboxMemberReqBody struct {
+	Items []*PublicMailboxMember `json:"items,omitempty"` // 本次调用添加的公共邮箱成员列表
+}
+
+type BatchCreatePublicMailboxMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreatePublicMailboxMemberReqBody `body:""`
+}
+
+type BatchCreatePublicMailboxMemberRespData struct {
+	Items []*PublicMailboxMember `json:"items,omitempty"` // 添加成功后的公共邮箱成员信息列表
+}
+
+type BatchCreatePublicMailboxMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchCreatePublicMailboxMemberRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchCreatePublicMailboxMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeletePublicMailboxMemberReqBodyBuilder struct {
+	memberIdList     []string // 本次调用删除的公共邮箱成员ID列表
+	memberIdListFlag bool
+}
+
+func NewBatchDeletePublicMailboxMemberReqBodyBuilder() *BatchDeletePublicMailboxMemberReqBodyBuilder {
+	builder := &BatchDeletePublicMailboxMemberReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的公共邮箱成员ID列表
+//
+//示例值：
+func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberReqBodyBuilder {
+	builder.memberIdList = memberIdList
+	builder.memberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) Build() *BatchDeletePublicMailboxMemberReqBody {
+	req := &BatchDeletePublicMailboxMemberReqBody{}
+	if builder.memberIdListFlag {
+		req.MemberIdList = builder.memberIdList
+	}
+	return req
+}
+
+type BatchDeletePublicMailboxMemberPathReqBodyBuilder struct {
+	memberIdList     []string // 本次调用删除的公共邮箱成员ID列表
+	memberIdListFlag bool
+}
+
+func NewBatchDeletePublicMailboxMemberPathReqBodyBuilder() *BatchDeletePublicMailboxMemberPathReqBodyBuilder {
+	builder := &BatchDeletePublicMailboxMemberPathReqBodyBuilder{}
+	return builder
+}
+
+// 本次调用删除的公共邮箱成员ID列表
+//
+// 示例值：
+func (builder *BatchDeletePublicMailboxMemberPathReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberPathReqBodyBuilder {
+	builder.memberIdList = memberIdList
+	builder.memberIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeletePublicMailboxMemberPathReqBodyBuilder) Build() (*BatchDeletePublicMailboxMemberReqBody, error) {
+	req := &BatchDeletePublicMailboxMemberReqBody{}
+	if builder.memberIdListFlag {
+		req.MemberIdList = builder.memberIdList
+	}
+	return req, nil
+}
+
+type BatchDeletePublicMailboxMemberReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeletePublicMailboxMemberReqBody
+}
+
+func NewBatchDeletePublicMailboxMemberReqBuilder() *BatchDeletePublicMailboxMemberReqBuilder {
+	builder := &BatchDeletePublicMailboxMemberReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// The unique ID or email address of a public mailbox
+//
+// 示例值：xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx
+func (builder *BatchDeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *BatchDeletePublicMailboxMemberReqBuilder {
+	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	return builder
+}
+
+//
+func (builder *BatchDeletePublicMailboxMemberReqBuilder) Body(body *BatchDeletePublicMailboxMemberReqBody) *BatchDeletePublicMailboxMemberReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeletePublicMailboxMemberReqBuilder) Build() *BatchDeletePublicMailboxMemberReq {
+	req := &BatchDeletePublicMailboxMemberReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeletePublicMailboxMemberReqBody struct {
+	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的公共邮箱成员ID列表
+}
+
+type BatchDeletePublicMailboxMemberReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeletePublicMailboxMemberReqBody `body:""`
+}
+
+type BatchDeletePublicMailboxMemberResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeletePublicMailboxMemberResp) Success() bool {
 	return resp.Code == 0
 }
 

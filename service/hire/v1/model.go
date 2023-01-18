@@ -14,9 +14,10 @@
 package larkhire
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -114,21 +115,39 @@ const (
 )
 
 const (
-	ProcessType社招 = 1 // 社招
-	ProcessType校招 = 2 // 校招
+	ExperienceNoLimit         = 1 // 不限
+	ExperienceGraduate        = 2 // 应届毕业生
+	ExperienceUnderOneYear    = 3 // 1年以下
+	ExperienceOneToThreeYear  = 4 // 1-3年
+	ExperienceThreeToFiveYear = 5 // 3-5年
+	ExperienceFiveToSevenYear = 6 // 5-7年
+	ExperienceSevenToTenYear  = 7 // 7-10年
+	ExperienceOverTenYear     = 8 // 10年以上
 
 )
 
 const (
-	RequiredDegree小学及以上 = 1  // 小学及以上
-	RequiredDegree初中及以上 = 2  // 初中及以上
-	RequiredDegree专职及以上 = 3  // 专职及以上
-	RequiredDegree高中及以上 = 4  // 高中及以上
-	RequiredDegree大专及以上 = 5  // 大专及以上
-	RequiredDegree本科及以上 = 6  // 本科及以上
-	RequiredDegree硕士及以上 = 7  // 硕士及以上
-	RequiredDegree博士及以上 = 8  // 博士及以上
-	RequiredDegree不限    = 20 // 不限
+	ProcessTypeSocialProcess = 1 // 社招
+	ProcessTypeCampusProcess = 2 // 校招
+
+)
+
+const (
+	RequiredDegreePrimaryEducation            = 1  // 小学及以上
+	RequiredDegreeJuniorMiddleSchoolEducation = 2  // 初中及以上
+	RequiredDegreeSecondary                   = 3  // 专职及以上
+	RequiredDegreeSeniorSchoolGraduates       = 4  // 高中及以上
+	RequiredDegreeAssociate                   = 5  // 大专及以上
+	RequiredDegreeBachelor                    = 6  // 本科及以上
+	RequiredDegreeMaster                      = 7  // 硕士及以上
+	RequiredDegreePhd                         = 8  // 博士及以上
+	RequiredDegreeNoLimit                     = 20 // 不限
+
+)
+
+const (
+	JobAttributeConcrete = 1 // 实体职位
+	JobAttributeVirtual  = 2 // 虚拟职位
 
 )
 
@@ -141,6 +160,48 @@ const (
 const (
 	DepartmentIdTypeCombinedCreateJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeCombinedCreateJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	ExperienceCombinedUpdateJobNoLimit         = 1 // 不限
+	ExperienceCombinedUpdateJobGraduate        = 2 // 应届毕业生
+	ExperienceCombinedUpdateJobUnderOneYear    = 3 // 1年以下
+	ExperienceCombinedUpdateJobOneToThreeYear  = 4 // 1-3年
+	ExperienceCombinedUpdateJobThreeToFiveYear = 5 // 3-5年
+	ExperienceCombinedUpdateJobFiveToSevenYear = 6 // 5-7年
+	ExperienceCombinedUpdateJobSevenToTenYear  = 7 // 7-10年
+	ExperienceCombinedUpdateJobOverTenYear     = 8 // 10年以上
+
+)
+
+const (
+	RequiredDegreeCombinedUpdateJobPrimaryEducation            = 1  // 小学及以上
+	RequiredDegreeCombinedUpdateJobJuniorMiddleSchoolEducation = 2  // 初中及以上
+	RequiredDegreeCombinedUpdateJobSecondary                   = 3  // 专职及以上
+	RequiredDegreeCombinedUpdateJobSeniorSchoolGraduates       = 4  // 高中及以上
+	RequiredDegreeCombinedUpdateJobAssociate                   = 5  // 大专及以上
+	RequiredDegreeCombinedUpdateJobBachelor                    = 6  // 本科及以上
+	RequiredDegreeCombinedUpdateJobMaster                      = 7  // 硕士及以上
+	RequiredDegreeCombinedUpdateJobPhd                         = 8  // 博士及以上
+	RequiredDegreeCombinedUpdateJobNoLimit                     = 20 // 不限
+
+)
+
+const (
+	JobAttributeCombinedUpdateJobConcrete = 1 // 实体职位
+	JobAttributeCombinedUpdateJobVirtual  = 2 // 虚拟职位
+
+)
+
+const (
+	UserIdTypeCombinedUpdateJobUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCombinedUpdateJobUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCombinedUpdateJobOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeCombinedUpdateJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeCombinedUpdateJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
@@ -7484,6 +7545,7 @@ type CombinedJob struct {
 	JobCategoryId      *string                      `json:"job_category_id,omitempty"`      // 序列
 	AddressIdList      []string                     `json:"address_id_list,omitempty"`      // 工作地点，枚举通过接口「获取地址列表」获取，选择地点用途为「职位地址」
 	JobAttribute       *int                         `json:"job_attribute,omitempty"`        // 职位属性，1是实体职位，2是虚拟职位
+	ExpiryTimestamp    *string                      `json:"expiry_timestamp,omitempty"`     // 到期日期的毫秒时间戳
 }
 
 type CombinedJobBuilder struct {
@@ -7543,6 +7605,8 @@ type CombinedJobBuilder struct {
 	addressIdListFlag      bool
 	jobAttribute           int // 职位属性，1是实体职位，2是虚拟职位
 	jobAttributeFlag       bool
+	expiryTimestamp        string // 到期日期的毫秒时间戳
+	expiryTimestampFlag    bool
 }
 
 func NewCombinedJobBuilder() *CombinedJobBuilder {
@@ -7802,6 +7866,15 @@ func (builder *CombinedJobBuilder) JobAttribute(jobAttribute int) *CombinedJobBu
 	return builder
 }
 
+// 到期日期的毫秒时间戳
+//
+// 示例值：1622484739955
+func (builder *CombinedJobBuilder) ExpiryTimestamp(expiryTimestamp string) *CombinedJobBuilder {
+	builder.expiryTimestamp = expiryTimestamp
+	builder.expiryTimestampFlag = true
+	return builder
+}
+
 func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	req := &CombinedJob{}
 	if builder.idFlag {
@@ -7910,6 +7983,10 @@ func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	}
 	if builder.jobAttributeFlag {
 		req.JobAttribute = &builder.jobAttribute
+
+	}
+	if builder.expiryTimestampFlag {
+		req.ExpiryTimestamp = &builder.expiryTimestamp
 
 	}
 	return req
@@ -9439,18 +9516,18 @@ func (builder *EcoBackgroundCheckCustomFieldDataOptionBuilder) Build() *EcoBackg
 }
 
 type EcoBackgroundCheckPackage struct {
-	AccountId         *string                                    `json:"account_id,omitempty"`          // 背调账号 ID，可在「账号绑定」事件中获取
-	PackageList       []*EcoBackgroundCheckPackageData           `json:"package_list,omitempty"`        // 背调套餐列表
-	AdditonalItemList []*EcoBackgroundCheckPackageAdditionalItem `json:"additonal_item_list,omitempty"` // 附加调查项列表
+	AccountId          *string                                    `json:"account_id,omitempty"`           // 背调账号 ID，可在「账号绑定」事件中获取
+	PackageList        []*EcoBackgroundCheckPackageData           `json:"package_list,omitempty"`         // 背调套餐列表
+	AdditionalItemList []*EcoBackgroundCheckPackageAdditionalItem `json:"additional_item_list,omitempty"` // 附加调查项列表
 }
 
 type EcoBackgroundCheckPackageBuilder struct {
-	accountId             string // 背调账号 ID，可在「账号绑定」事件中获取
-	accountIdFlag         bool
-	packageList           []*EcoBackgroundCheckPackageData // 背调套餐列表
-	packageListFlag       bool
-	additonalItemList     []*EcoBackgroundCheckPackageAdditionalItem // 附加调查项列表
-	additonalItemListFlag bool
+	accountId              string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag          bool
+	packageList            []*EcoBackgroundCheckPackageData // 背调套餐列表
+	packageListFlag        bool
+	additionalItemList     []*EcoBackgroundCheckPackageAdditionalItem // 附加调查项列表
+	additionalItemListFlag bool
 }
 
 func NewEcoBackgroundCheckPackageBuilder() *EcoBackgroundCheckPackageBuilder {
@@ -9479,9 +9556,9 @@ func (builder *EcoBackgroundCheckPackageBuilder) PackageList(packageList []*EcoB
 // 附加调查项列表
 //
 // 示例值：
-func (builder *EcoBackgroundCheckPackageBuilder) AdditonalItemList(additonalItemList []*EcoBackgroundCheckPackageAdditionalItem) *EcoBackgroundCheckPackageBuilder {
-	builder.additonalItemList = additonalItemList
-	builder.additonalItemListFlag = true
+func (builder *EcoBackgroundCheckPackageBuilder) AdditionalItemList(additionalItemList []*EcoBackgroundCheckPackageAdditionalItem) *EcoBackgroundCheckPackageBuilder {
+	builder.additionalItemList = additionalItemList
+	builder.additionalItemListFlag = true
 	return builder
 }
 
@@ -9494,8 +9571,8 @@ func (builder *EcoBackgroundCheckPackageBuilder) Build() *EcoBackgroundCheckPack
 	if builder.packageListFlag {
 		req.PackageList = builder.packageList
 	}
-	if builder.additonalItemListFlag {
-		req.AdditonalItemList = builder.additonalItemList
+	if builder.additionalItemListFlag {
+		req.AdditionalItemList = builder.additionalItemList
 	}
 	return req
 }
@@ -9788,15 +9865,12 @@ func (builder *EcoExamCreateEventMobileBuilder) Build() *EcoExamCreateEventMobil
 }
 
 type EcoExamLoginInfo struct {
-	ExamId   *string `json:"exam_id,omitempty"`  // 笔试 ID
 	ExamUrl  *string `json:"exam_url,omitempty"` // 笔试链接
 	Username *string `json:"username,omitempty"` // 用户名
 	Password *string `json:"password,omitempty"` // 密码
 }
 
 type EcoExamLoginInfoBuilder struct {
-	examId       string // 笔试 ID
-	examIdFlag   bool
 	examUrl      string // 笔试链接
 	examUrlFlag  bool
 	username     string // 用户名
@@ -9807,15 +9881,6 @@ type EcoExamLoginInfoBuilder struct {
 
 func NewEcoExamLoginInfoBuilder() *EcoExamLoginInfoBuilder {
 	builder := &EcoExamLoginInfoBuilder{}
-	return builder
-}
-
-// 笔试 ID
-//
-// 示例值：exam001
-func (builder *EcoExamLoginInfoBuilder) ExamId(examId string) *EcoExamLoginInfoBuilder {
-	builder.examId = examId
-	builder.examIdFlag = true
 	return builder
 }
 
@@ -9848,10 +9913,6 @@ func (builder *EcoExamLoginInfoBuilder) Password(password string) *EcoExamLoginI
 
 func (builder *EcoExamLoginInfoBuilder) Build() *EcoExamLoginInfo {
 	req := &EcoExamLoginInfo{}
-	if builder.examIdFlag {
-		req.ExamId = &builder.examId
-
-	}
 	if builder.examUrlFlag {
 		req.ExamUrl = &builder.examUrl
 
@@ -10027,7 +10088,6 @@ func (builder *EcoExamPaperDataBuilder) Build() *EcoExamPaperData {
 }
 
 type EcoExamResult struct {
-	ExamId     *string                `json:"exam_id,omitempty"`     // 笔试 ID
 	Result     *string                `json:"result,omitempty"`      // 笔试结果
 	ResultTime *string                `json:"result_time,omitempty"` // 笔试结果时间
 	ReportList []*EcoExamResultReport `json:"report_list,omitempty"` // 报告列表
@@ -10035,8 +10095,6 @@ type EcoExamResult struct {
 }
 
 type EcoExamResultBuilder struct {
-	examId         string // 笔试 ID
-	examIdFlag     bool
 	result         string // 笔试结果
 	resultFlag     bool
 	resultTime     string // 笔试结果时间
@@ -10049,15 +10107,6 @@ type EcoExamResultBuilder struct {
 
 func NewEcoExamResultBuilder() *EcoExamResultBuilder {
 	builder := &EcoExamResultBuilder{}
-	return builder
-}
-
-// 笔试 ID
-//
-// 示例值：exam001
-func (builder *EcoExamResultBuilder) ExamId(examId string) *EcoExamResultBuilder {
-	builder.examId = examId
-	builder.examIdFlag = true
 	return builder
 }
 
@@ -10099,10 +10148,6 @@ func (builder *EcoExamResultBuilder) DetailList(detailList []*EcoExamResultDetai
 
 func (builder *EcoExamResultBuilder) Build() *EcoExamResult {
 	req := &EcoExamResult{}
-	if builder.examIdFlag {
-		req.ExamId = &builder.examId
-
-	}
 	if builder.resultFlag {
 		req.Result = &builder.result
 
@@ -14666,6 +14711,9 @@ type Job struct {
 	RequiredDegree     *int                 `json:"required_degree,omitempty"`      // 学历要求
 	CityList           []*CodeNameObject    `json:"city_list,omitempty"`            // 工作地点列表
 	JobAttribute       *int                 `json:"job_attribute,omitempty"`        // 职位属性，1是实体职位，2是虚拟职位
+	CreateTimestamp    *string              `json:"create_timestamp,omitempty"`     // 创建时间戳
+	UpdateTimestamp    *string              `json:"update_timestamp,omitempty"`     // 更新时间戳
+	ExpiryTimestamp    *string              `json:"expiry_timestamp,omitempty"`     // 到期时间戳
 }
 
 type JobBuilder struct {
@@ -14733,6 +14781,12 @@ type JobBuilder struct {
 	cityListFlag           bool
 	jobAttribute           int // 职位属性，1是实体职位，2是虚拟职位
 	jobAttributeFlag       bool
+	createTimestamp        string // 创建时间戳
+	createTimestampFlag    bool
+	updateTimestamp        string // 更新时间戳
+	updateTimestampFlag    bool
+	expiryTimestamp        string // 到期时间戳
+	expiryTimestampFlag    bool
 }
 
 func NewJobBuilder() *JobBuilder {
@@ -15028,6 +15082,33 @@ func (builder *JobBuilder) JobAttribute(jobAttribute int) *JobBuilder {
 	return builder
 }
 
+// 创建时间戳
+//
+// 示例值：1617170925462
+func (builder *JobBuilder) CreateTimestamp(createTimestamp string) *JobBuilder {
+	builder.createTimestamp = createTimestamp
+	builder.createTimestampFlag = true
+	return builder
+}
+
+// 更新时间戳
+//
+// 示例值：1617170925462
+func (builder *JobBuilder) UpdateTimestamp(updateTimestamp string) *JobBuilder {
+	builder.updateTimestamp = updateTimestamp
+	builder.updateTimestampFlag = true
+	return builder
+}
+
+// 到期时间戳
+//
+// 示例值：1622484739955
+func (builder *JobBuilder) ExpiryTimestamp(expiryTimestamp string) *JobBuilder {
+	builder.expiryTimestamp = expiryTimestamp
+	builder.expiryTimestampFlag = true
+	return builder
+}
+
 func (builder *JobBuilder) Build() *Job {
 	req := &Job{}
 	if builder.idFlag {
@@ -15144,6 +15225,18 @@ func (builder *JobBuilder) Build() *Job {
 	}
 	if builder.jobAttributeFlag {
 		req.JobAttribute = &builder.jobAttribute
+
+	}
+	if builder.createTimestampFlag {
+		req.CreateTimestamp = &builder.createTimestamp
+
+	}
+	if builder.updateTimestampFlag {
+		req.UpdateTimestamp = &builder.updateTimestamp
+
+	}
+	if builder.expiryTimestampFlag {
+		req.ExpiryTimestamp = &builder.expiryTimestamp
 
 	}
 	return req
@@ -33628,6 +33721,80 @@ func (resp *CombinedCreateJobResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CombinedUpdateJobReqBuilder struct {
+	apiReq      *larkcore.ApiReq
+	combinedJob *CombinedJob
+}
+
+func NewCombinedUpdateJobReqBuilder() *CombinedUpdateJobReqBuilder {
+	builder := &CombinedUpdateJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 职位 ID
+//
+// 示例值：6960663240925956660
+func (builder *CombinedUpdateJobReqBuilder) JobId(jobId string) *CombinedUpdateJobReqBuilder {
+	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *CombinedUpdateJobReqBuilder) UserIdType(userIdType string) *CombinedUpdateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *CombinedUpdateJobReqBuilder) DepartmentIdType(departmentIdType string) *CombinedUpdateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 更新职位信息，该接口为全量更新，若字段没有返回值，则原有值将会被清空。字段的是否必填，将以系统中的「职位字段管理」中的设置为准。
+func (builder *CombinedUpdateJobReqBuilder) CombinedJob(combinedJob *CombinedJob) *CombinedUpdateJobReqBuilder {
+	builder.combinedJob = combinedJob
+	return builder
+}
+
+func (builder *CombinedUpdateJobReqBuilder) Build() *CombinedUpdateJobReq {
+	req := &CombinedUpdateJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.combinedJob
+	return req
+}
+
+type CombinedUpdateJobReq struct {
+	apiReq      *larkcore.ApiReq
+	CombinedJob *CombinedJob `body:""`
+}
+
+type CombinedUpdateJobRespData struct {
+	DefaultJobPost *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"` // 职位广告
+	Job            *Job                             `json:"job,omitempty"`              // 职位
+	JobManager     *JobManager                      `json:"job_manager,omitempty"`      // 职位负责人
+}
+
+type CombinedUpdateJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CombinedUpdateJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *CombinedUpdateJobResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ConfigJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -33699,7 +33866,7 @@ func NewGetJobReqBuilder() *GetJobReqBuilder {
 // 职位 ID，请求Path中
 //
 // 示例值：6001
-func (builder *GetJobReqBuilder) JobId(jobId int) *GetJobReqBuilder {
+func (builder *GetJobReqBuilder) JobId(jobId string) *GetJobReqBuilder {
 	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
 	return builder
 }

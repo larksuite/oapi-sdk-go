@@ -22,41 +22,59 @@ import (
 )
 
 // POST /open-apis/approval/v4/external_instances
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewCreateExternalInstanceReqBuilder().
-		ExternalInstance(larkapproval.NewExternalInstanceBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewCreateExternalInstanceReqBuilder().
+	   ExternalInstance(larkapproval.NewExternalInstanceBuilder().
 			ApprovalCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
+			
 			Status("PENDING").
+			
 			Extra("").
+			
 			InstanceId("24492654").
+			
 			Links(larkapproval.NewExternalInstanceLinkBuilder().Build()).
 			Title("@i18n@1").
+			
 			Form([]*larkapproval.ExternalInstanceForm{larkapproval.NewExternalInstanceFormBuilder().Build()}).
 			UserId("a987sf9s").
+			
 			UserName("@i18n@9").
+			
 			OpenId("ou_be73cbc0ee35eb6ca54e9e7cc14998c1").
+			
 			DepartmentId("od-8ec33278bc2").
+			
 			DepartmentName("@i18n@10").
+			
 			StartTime("1556468012678").
+			
 			EndTime("1556468012678").
+			
 			UpdateTime("1556468012678").
+			
 			DisplayMethod("BROWSER").
+			
 			UpdateMode("UPDATE").
+			
 			TaskList([]*larkapproval.ExternalInstanceTaskNode{larkapproval.NewExternalInstanceTaskNodeBuilder().Build()}).
 			CcList([]*larkapproval.CcNode{larkapproval.NewCcNodeBuilder().Build()}).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			TrusteeshipUrlToken("788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306").
+			
 			TrusteeshipUserIdType("user_id").
+			
 			TrusteeshipUrls(larkapproval.NewTrusteeshipUrlsBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.ExternalInstance.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.ExternalInstance.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -71,3 +89,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

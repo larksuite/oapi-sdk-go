@@ -22,22 +22,27 @@ import (
 )
 
 // POST /open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/move
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkwiki.NewMoveSpaceNodeReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkwiki.NewMoveSpaceNodeReqBuilder().
 		SpaceId("7008061636015512345").
+		
 		NodeToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
-		Body(larkwiki.NewMoveSpaceNodeReqBodyBuilder().
+		
+	   Body(larkwiki.NewMoveSpaceNodeReqBodyBuilder().
 			TargetParentToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
+			
 			TargetSpaceId("7008061636015512345").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Wiki.SpaceNode.Move(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Wiki.SpaceNode.Move(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

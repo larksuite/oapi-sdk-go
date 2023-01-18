@@ -22,21 +22,25 @@ import (
 )
 
 // PATCH /open-apis/mail/v1/public_mailboxes/:public_mailbox_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewPatchPublicMailboxReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewPatchPublicMailboxReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
-		PublicMailbox(larkmail.NewPublicMailboxBuilder().
+		
+	   PublicMailbox(larkmail.NewPublicMailboxBuilder().
 			Email("test_public_mailbox@xxx.xx").
+			
 			Name("test public mailbox").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Mail.PublicMailbox.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.PublicMailbox.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

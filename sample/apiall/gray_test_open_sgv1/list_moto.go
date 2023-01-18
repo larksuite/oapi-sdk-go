@@ -22,19 +22,21 @@ import (
 )
 
 // GET /open-apis/gray_test_open_sg/v1/motos
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkgray_test_open_sg.NewListMotoReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkgray_test_open_sg.NewListMotoReqBuilder().
 		PageSize(0).
 		PageToken("").
+		
 		Level(0).
-		Build()
-	// 发起请求
-	resp, err := client.GrayTestOpenSg.Moto.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.GrayTestOpenSg.Moto.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

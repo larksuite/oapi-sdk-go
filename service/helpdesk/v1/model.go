@@ -1598,6 +1598,70 @@ func (builder *FaqUpdateInfoBuilder) Build() *FaqUpdateInfo {
 	return req
 }
 
+type I18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs *string `json:"en_us,omitempty"` // 英文描述
+	JaJp *string `json:"ja_jp,omitempty"` // 日文描述
+}
+
+type I18nBuilder struct {
+	zhCn     string // 中文描述
+	zhCnFlag bool
+	enUs     string // 英文描述
+	enUsFlag bool
+	jaJp     string // 日文描述
+	jaJpFlag bool
+}
+
+func NewI18nBuilder() *I18nBuilder {
+	builder := &I18nBuilder{}
+	return builder
+}
+
+// 中文描述
+//
+// 示例值：答案看不懂
+func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文描述
+//
+// 示例值：I don't understand
+func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+// 日文描述
+//
+// 示例值：回答が複雑すぎる
+func (builder *I18nBuilder) JaJp(jaJp string) *I18nBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *I18nBuilder) Build() *I18n {
+	req := &I18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	return req
+}
+
 type Notification struct {
 	Id                          *string                   `json:"id,omitempty"`                              // 非必填，创建成功后返回
 	JobName                     *string                   `json:"job_name,omitempty"`                        // 必填，任务名称
@@ -2147,7 +2211,7 @@ type Ticket struct {
 	CreatedAt                  *int                          `json:"created_at,omitempty"`                    // 工单创建时间
 	UpdatedAt                  *int                          `json:"updated_at,omitempty"`                    // 工单更新时间，没有值时为-1
 	ClosedAt                   *int                          `json:"closed_at,omitempty"`                     // 工单结束时间
-	DissatisfactionReason      []string                      `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
+	DissatisfactionReason      *I18n                         `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
 	Agents                     []*TicketUser                 `json:"agents,omitempty"`                        // 工单客服
 	Channel                    *int                          `json:"channel,omitempty"`                       // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
 	Solve                      *int                          `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
@@ -2186,7 +2250,7 @@ type TicketBuilder struct {
 	updatedAtFlag                  bool
 	closedAt                       int // 工单结束时间
 	closedAtFlag                   bool
-	dissatisfactionReason          []string // 不满意原因
+	dissatisfactionReason          *I18n // 不满意原因
 	dissatisfactionReasonFlag      bool
 	agents                         []*TicketUser // 工单客服
 	agentsFlag                     bool
@@ -2318,7 +2382,7 @@ func (builder *TicketBuilder) ClosedAt(closedAt int) *TicketBuilder {
 // 不满意原因
 //
 // 示例值：
-func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason []string) *TicketBuilder {
+func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason *I18n) *TicketBuilder {
 	builder.dissatisfactionReason = dissatisfactionReason
 	builder.dissatisfactionReasonFlag = true
 	return builder

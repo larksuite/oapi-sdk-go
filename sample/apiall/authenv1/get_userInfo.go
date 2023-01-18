@@ -21,13 +21,13 @@ import (
 )
 
 // GET /open-apis/authen/v1/user_info
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 发起请求
-	resp, err := client.Authen.UserInfo.Get(context.Background())
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 发起请求
+   resp,err := client.Authen.UserInfo.Get(context.Background())
 
-	// 处理错误
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -42,3 +42,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

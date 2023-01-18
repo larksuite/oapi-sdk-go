@@ -22,26 +22,34 @@ import (
 )
 
 // PATCH /open-apis/vc/v1/rooms/:room_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewPatchRoomReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewPatchRoomReqBuilder().
 		RoomId("omm_4de32cf10a4358788ff4e09e37ebbf9b").
+		
 		UserIdType("open_id").
-		Room(larkvc.NewRoomBuilder().
+		
+	   Room(larkvc.NewRoomBuilder().
 			Name("测试会议室").
+			
 			Capacity(10).
 			Description("测试会议室描述").
+			
 			CustomRoomId("1234").
+			
 			RoomLevelId("omb_8d020b12fe49e82847c2af3c193d5754").
+			
 			RoomStatus(larkvc.NewRoomStatusBuilder().Build()).
+			Device([]*larkvc.Device{larkvc.NewDeviceBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Room.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Room.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +64,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

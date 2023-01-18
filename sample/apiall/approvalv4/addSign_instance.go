@@ -22,26 +22,32 @@ import (
 )
 
 // POST /open-apis/approval/v4/instances/add_sign
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewAddSignInstanceReqBuilder().
-		Body(larkapproval.NewAddSignInstanceReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewAddSignInstanceReqBuilder().
+	   Body(larkapproval.NewAddSignInstanceReqBodyBuilder().
 			UserId("b16g66e3").
+			
 			ApprovalCode("3B68E280-CF10-4198-B4CD-2E3BB97981D8").
+			
 			InstanceCode("289330DE-FBF1-4A47-91F9-9EFCCF11BCAE").
+			
 			TaskId("6955096766400167956").
+			
 			Comment("addSignComment").
+			
 			AddSignUserIds([]string{}).
 			AddSignType(3).
 			ApprovalMethod(1).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.Instance.AddSign(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.Instance.AddSign(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

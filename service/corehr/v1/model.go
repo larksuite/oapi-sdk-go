@@ -4134,6 +4134,8 @@ type Employment struct {
 	ReasonForOffboarding *Enum                `json:"reason_for_offboarding,omitempty"` // 离职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
 	CostCenterList       []*JobDataCostCenter `json:"cost_center_list,omitempty"`       // 成本中心id列表
 	AtsApplicationId     *string              `json:"ats_application_id,omitempty"`     // 招聘应用 ID
+	Rehire               *Enum                `json:"rehire,omitempty"`                 // 是否离职重聘
+	RehireEmploymentId   *string              `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
 }
 
 type EmploymentBuilder struct {
@@ -4193,6 +4195,10 @@ type EmploymentBuilder struct {
 	costCenterListFlag       bool
 	atsApplicationId         string // 招聘应用 ID
 	atsApplicationIdFlag     bool
+	rehire                   *Enum // 是否离职重聘
+	rehireFlag               bool
+	rehireEmploymentId       string // 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
+	rehireEmploymentIdFlag   bool
 }
 
 func NewEmploymentBuilder() *EmploymentBuilder {
@@ -4452,6 +4458,24 @@ func (builder *EmploymentBuilder) AtsApplicationId(atsApplicationId string) *Emp
 	return builder
 }
 
+// 是否离职重聘
+//
+// 示例值：
+func (builder *EmploymentBuilder) Rehire(rehire *Enum) *EmploymentBuilder {
+	builder.rehire = rehire
+	builder.rehireFlag = true
+	return builder
+}
+
+// 历史雇佣信息 ID，可以通过【查询单个雇佣信息】查询详细信息
+//
+// 示例值：7164286667866966659
+func (builder *EmploymentBuilder) RehireEmploymentId(rehireEmploymentId string) *EmploymentBuilder {
+	builder.rehireEmploymentId = rehireEmploymentId
+	builder.rehireEmploymentIdFlag = true
+	return builder
+}
+
 func (builder *EmploymentBuilder) Build() *Employment {
 	req := &Employment{}
 	if builder.prehireIdFlag {
@@ -4560,6 +4584,13 @@ func (builder *EmploymentBuilder) Build() *Employment {
 		req.AtsApplicationId = &builder.atsApplicationId
 
 	}
+	if builder.rehireFlag {
+		req.Rehire = builder.rehire
+	}
+	if builder.rehireEmploymentIdFlag {
+		req.RehireEmploymentId = &builder.rehireEmploymentId
+
+	}
 	return req
 }
 
@@ -4639,6 +4670,8 @@ type EmploymentCreate struct {
 	ReasonForOffboarding *Enum                `json:"reason_for_offboarding,omitempty"` // 离职原因
 	CostCenterList       []*JobDataCostCenter `json:"cost_center_list,omitempty"`       // 成本中心id列表
 	AtsApplicationId     *string              `json:"ats_application_id,omitempty"`     // 招聘应用 ID
+	Rehire               *Enum                `json:"rehire,omitempty"`                 // 是否离职重聘
+	RehireEmploymentId   *string              `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID
 }
 
 type EmploymentCreateBuilder struct {
@@ -4698,6 +4731,10 @@ type EmploymentCreateBuilder struct {
 	costCenterListFlag       bool
 	atsApplicationId         string // 招聘应用 ID
 	atsApplicationIdFlag     bool
+	rehire                   *Enum // 是否离职重聘
+	rehireFlag               bool
+	rehireEmploymentId       string // 历史雇佣信息 ID
+	rehireEmploymentIdFlag   bool
 }
 
 func NewEmploymentCreateBuilder() *EmploymentCreateBuilder {
@@ -4957,6 +4994,24 @@ func (builder *EmploymentCreateBuilder) AtsApplicationId(atsApplicationId string
 	return builder
 }
 
+// 是否离职重聘
+//
+// 示例值：
+func (builder *EmploymentCreateBuilder) Rehire(rehire *Enum) *EmploymentCreateBuilder {
+	builder.rehire = rehire
+	builder.rehireFlag = true
+	return builder
+}
+
+// 历史雇佣信息 ID
+//
+// 示例值：7051837122449425964
+func (builder *EmploymentCreateBuilder) RehireEmploymentId(rehireEmploymentId string) *EmploymentCreateBuilder {
+	builder.rehireEmploymentId = rehireEmploymentId
+	builder.rehireEmploymentIdFlag = true
+	return builder
+}
+
 func (builder *EmploymentCreateBuilder) Build() *EmploymentCreate {
 	req := &EmploymentCreate{}
 	if builder.prehireIdFlag {
@@ -5063,6 +5118,13 @@ func (builder *EmploymentCreateBuilder) Build() *EmploymentCreate {
 	}
 	if builder.atsApplicationIdFlag {
 		req.AtsApplicationId = &builder.atsApplicationId
+
+	}
+	if builder.rehireFlag {
+		req.Rehire = builder.rehire
+	}
+	if builder.rehireEmploymentIdFlag {
+		req.RehireEmploymentId = &builder.rehireEmploymentId
 
 	}
 	return req

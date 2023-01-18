@@ -22,21 +22,24 @@ import (
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewBatchDeleteAppRoleMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewBatchDeleteAppRoleMemberReqBuilder().
 		AppToken("bascnnKKvcoUblgmmhZkYqabcef").
+		
 		RoleId("rolNGhPqks").
-		Body(larkbitable.NewBatchDeleteAppRoleMemberReqBodyBuilder().
+		
+	   Body(larkbitable.NewBatchDeleteAppRoleMemberReqBodyBuilder().
 			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.AppRoleMember.BatchDelete(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.AppRoleMember.BatchDelete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

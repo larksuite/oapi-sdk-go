@@ -22,25 +22,30 @@ import (
 )
 
 // POST /open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewCreateCalendarEventAttendeeReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewCreateCalendarEventAttendeeReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
+		
 		EventId("xxxxxxxxx_0").
+		
 		UserIdType("user_id").
-		Body(larkcalendar.NewCreateCalendarEventAttendeeReqBodyBuilder().
+		
+	   Body(larkcalendar.NewCreateCalendarEventAttendeeReqBodyBuilder().
 			Attendees([]*larkcalendar.CalendarEventAttendee{larkcalendar.NewCalendarEventAttendeeBuilder().Build()}).
 			NeedNotification(false).
 			InstanceStartTimeAdmin("1647320400").
+			
 			IsEnableAdmin(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.CalendarEventAttendee.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.CalendarEventAttendee.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

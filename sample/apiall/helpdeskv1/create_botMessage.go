@@ -22,23 +22,29 @@ import (
 )
 
 // POST /open-apis/helpdesk/v1/message
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhelpdesk.NewCreateBotMessageReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhelpdesk.NewCreateBotMessageReqBuilder().
 		UserIdType("user_id").
-		BotMessage(larkhelpdesk.NewBotMessageBuilder().
+		
+	   BotMessage(larkhelpdesk.NewBotMessageBuilder().
 			MsgType("post").
+			
 			Content("").
+			
 			ReceiverId("ou_7346484524").
+			
 			ReceiveType("chat").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Helpdesk.BotMessage.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Helpdesk.BotMessage.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +59,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

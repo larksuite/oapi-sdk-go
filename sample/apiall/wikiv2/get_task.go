@@ -22,18 +22,21 @@ import (
 )
 
 // GET /open-apis/wiki/v2/tasks/:task_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkwiki.NewGetTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkwiki.NewGetTaskReqBuilder().
 		TaskId("7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7").
+		
 		TaskType("move").
-		Build()
-	// 发起请求
-	resp, err := client.Wiki.Task.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Wiki.Task.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

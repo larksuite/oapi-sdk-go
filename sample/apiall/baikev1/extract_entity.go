@@ -22,19 +22,21 @@ import (
 )
 
 // POST /open-apis/baike/v1/entities/extract
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbaike.NewExtractEntityReqBuilder().
-		Body(larkbaike.NewExtractEntityReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbaike.NewExtractEntityReqBuilder().
+	   Body(larkbaike.NewExtractEntityReqBodyBuilder().
 			Text("企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Baike.Entity.Extract(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Baike.Entity.Extract(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

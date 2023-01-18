@@ -22,33 +22,41 @@ import (
 )
 
 // POST /open-apis/calendar/v4/calendars/:calendar_id/events
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewCreateCalendarEventReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewCreateCalendarEventReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
-		CalendarEvent(larkcalendar.NewCalendarEventBuilder().
+		
+	   CalendarEvent(larkcalendar.NewCalendarEventBuilder().
 			Summary("").
+			
 			Description("").
+			
 			NeedNotification(false).
 			StartTime(larkcalendar.NewTimeInfoBuilder().Build()).
 			EndTime(larkcalendar.NewTimeInfoBuilder().Build()).
 			Vchat(larkcalendar.NewVchatBuilder().Build()).
 			Visibility("default").
+			
 			AttendeeAbility("none").
+			
 			FreeBusyStatus("busy").
+			
 			Location(larkcalendar.NewEventLocationBuilder().Build()).
 			Color(0).
 			Reminders([]*larkcalendar.Reminder{larkcalendar.NewReminderBuilder().Build()}).
 			Recurrence("").
+			
 			Schemas([]*larkcalendar.Schema{larkcalendar.NewSchemaBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.CalendarEvent.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.CalendarEvent.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -63,3 +71,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

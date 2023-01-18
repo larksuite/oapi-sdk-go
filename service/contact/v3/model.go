@@ -517,6 +517,54 @@ func (builder *CollaborationTenantBuilder) Build() *CollaborationTenant {
 	return req
 }
 
+type ConfidentialMember struct {
+	UserId         *string `json:"user_id,omitempty"`         // 用户ID
+	IsConfidential *bool   `json:"is_confidential,omitempty"` // 是否机密
+}
+
+type ConfidentialMemberBuilder struct {
+	userId             string // 用户ID
+	userIdFlag         bool
+	isConfidential     bool // 是否机密
+	isConfidentialFlag bool
+}
+
+func NewConfidentialMemberBuilder() *ConfidentialMemberBuilder {
+	builder := &ConfidentialMemberBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：ou_ddbbb39b7b4a1a6366e6021f2efec495
+func (builder *ConfidentialMemberBuilder) UserId(userId string) *ConfidentialMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 是否机密
+//
+// 示例值：true
+func (builder *ConfidentialMemberBuilder) IsConfidential(isConfidential bool) *ConfidentialMemberBuilder {
+	builder.isConfidential = isConfidential
+	builder.isConfidentialFlag = true
+	return builder
+}
+
+func (builder *ConfidentialMemberBuilder) Build() *ConfidentialMember {
+	req := &ConfidentialMember{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.isConfidentialFlag {
+		req.IsConfidential = &builder.isConfidential
+
+	}
+	return req
+}
+
 type CustomAttr struct {
 	Id       *string            `json:"id,omitempty"`        // 自定义字段id
 	Type     *string            `json:"type,omitempty"`      // 自定义字段类型，可选值有:;- `TEXT`：纯文本，用于纯文本描述人员，如备注;- `HREF`：静态 URL，用于人员 Profile 跳转链接;- `ENUMERATION`：枚举，用于结构化描述人员，如民族;- `GENERIC_USER`：用户，用于描述人和人关系，如 HRBP;- `PICTURE_ENUM`：枚举图片，以结构化的图片描述人员，如在人员 Profile 展示荣誉徽章
@@ -832,6 +880,7 @@ type Department struct {
 	CreateGroupChat        *bool               `json:"create_group_chat,omitempty"`         // 是否创建部门群，默认不创建
 	Leaders                []*DepartmentLeader `json:"leaders,omitempty"`                   // 部门负责人
 	GroupChatEmployeeTypes []int               `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
+	DepartmentHrbps        []string            `json:"department_hrbps,omitempty"`          // 部门HRBP
 }
 
 type DepartmentBuilder struct {
@@ -863,6 +912,8 @@ type DepartmentBuilder struct {
 	leadersFlag                bool
 	groupChatEmployeeTypes     []int // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 	groupChatEmployeeTypesFlag bool
+	departmentHrbps            []string // 部门HRBP
+	departmentHrbpsFlag        bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -996,6 +1047,15 @@ func (builder *DepartmentBuilder) GroupChatEmployeeTypes(groupChatEmployeeTypes 
 	return builder
 }
 
+// 部门HRBP
+//
+// 示例值：
+func (builder *DepartmentBuilder) DepartmentHrbps(departmentHrbps []string) *DepartmentBuilder {
+	builder.departmentHrbps = departmentHrbps
+	builder.departmentHrbpsFlag = true
+	return builder
+}
+
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
 	if builder.nameFlag {
@@ -1048,6 +1108,9 @@ func (builder *DepartmentBuilder) Build() *Department {
 	}
 	if builder.groupChatEmployeeTypesFlag {
 		req.GroupChatEmployeeTypes = builder.groupChatEmployeeTypes
+	}
+	if builder.departmentHrbpsFlag {
+		req.DepartmentHrbps = builder.departmentHrbps
 	}
 	return req
 }
@@ -1205,8 +1268,9 @@ type DepartmentEvent struct {
 	ChatId             *string `json:"chat_id,omitempty"`              // 部门群ID
 	Order              *int    `json:"order,omitempty"`                // 部门的排序
 
-	Status  *DepartmentStatus   `json:"status,omitempty"`  // 部门状态
-	Leaders []*DepartmentLeader `json:"leaders,omitempty"` // 部门负责人
+	Status          *DepartmentStatus   `json:"status,omitempty"`           // 部门状态
+	Leaders         []*DepartmentLeader `json:"leaders,omitempty"`          // 部门负责人
+	DepartmentHrbps []*UserId           `json:"department_hrbps,omitempty"` // 部门HRBP
 }
 
 type DepartmentEventBuilder struct {
@@ -1225,10 +1289,12 @@ type DepartmentEventBuilder struct {
 	order                  int // 部门的排序
 	orderFlag              bool
 
-	status      *DepartmentStatus // 部门状态
-	statusFlag  bool
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	status              *DepartmentStatus // 部门状态
+	statusFlag          bool
+	leaders             []*DepartmentLeader // 部门负责人
+	leadersFlag         bool
+	departmentHrbps     []*UserId // 部门HRBP
+	departmentHrbpsFlag bool
 }
 
 func NewDepartmentEventBuilder() *DepartmentEventBuilder {
@@ -1317,6 +1383,15 @@ func (builder *DepartmentEventBuilder) Leaders(leaders []*DepartmentLeader) *Dep
 	return builder
 }
 
+// 部门HRBP
+//
+// 示例值：
+func (builder *DepartmentEventBuilder) DepartmentHrbps(departmentHrbps []*UserId) *DepartmentEventBuilder {
+	builder.departmentHrbps = departmentHrbps
+	builder.departmentHrbpsFlag = true
+	return builder
+}
+
 func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 	req := &DepartmentEvent{}
 	if builder.nameFlag {
@@ -1353,6 +1428,9 @@ func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 	}
 	if builder.leadersFlag {
 		req.Leaders = builder.leaders
+	}
+	if builder.departmentHrbpsFlag {
+		req.DepartmentHrbps = builder.departmentHrbps
 	}
 	return req
 }
@@ -1863,6 +1941,258 @@ func (builder *I18nContentBuilder) Build() *I18nContent {
 	if builder.valueFlag {
 		req.Value = &builder.value
 
+	}
+	return req
+}
+
+type JobFamily struct {
+	Name              *string        `json:"name,omitempty"`                 // 序列名称。1-100字符，支持中、英文及符号
+	Description       *string        `json:"description,omitempty"`          // 序列描述，描述序列详情信息
+	ParentJobFamilyId *string        `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值，对应唯一的序列名称。
+	Status            *bool          `json:"status,omitempty"`               // 是否启用
+	I18nName          []*I18nContent `json:"i18n_name,omitempty"`            // 多语言序列名称
+	I18nDescription   []*I18nContent `json:"i18n_description,omitempty"`     // 多语言描述
+	JobFamilyId       *string        `json:"job_family_id,omitempty"`        // 职级序列ID
+}
+
+type JobFamilyBuilder struct {
+	name                  string // 序列名称。1-100字符，支持中、英文及符号
+	nameFlag              bool
+	description           string // 序列描述，描述序列详情信息
+	descriptionFlag       bool
+	parentJobFamilyId     string // 上级序列ID。需是该租户的序列ID列表中的值，对应唯一的序列名称。
+	parentJobFamilyIdFlag bool
+	status                bool // 是否启用
+	statusFlag            bool
+	i18nName              []*I18nContent // 多语言序列名称
+	i18nNameFlag          bool
+	i18nDescription       []*I18nContent // 多语言描述
+	i18nDescriptionFlag   bool
+	jobFamilyId           string // 职级序列ID
+	jobFamilyIdFlag       bool
+}
+
+func NewJobFamilyBuilder() *JobFamilyBuilder {
+	builder := &JobFamilyBuilder{}
+	return builder
+}
+
+// 序列名称。1-100字符，支持中、英文及符号
+//
+// 示例值：产品
+func (builder *JobFamilyBuilder) Name(name string) *JobFamilyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 序列描述，描述序列详情信息
+//
+// 示例值：负责产品策略制定的相关工作
+func (builder *JobFamilyBuilder) Description(description string) *JobFamilyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 上级序列ID。需是该租户的序列ID列表中的值，对应唯一的序列名称。
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *JobFamilyBuilder {
+	builder.parentJobFamilyId = parentJobFamilyId
+	builder.parentJobFamilyIdFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true 表示启用, false表示未启用
+func (builder *JobFamilyBuilder) Status(status bool) *JobFamilyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 多语言序列名称
+//
+// 示例值：
+func (builder *JobFamilyBuilder) I18nName(i18nName []*I18nContent) *JobFamilyBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+// 多语言描述
+//
+// 示例值：
+func (builder *JobFamilyBuilder) I18nDescription(i18nDescription []*I18nContent) *JobFamilyBuilder {
+	builder.i18nDescription = i18nDescription
+	builder.i18nDescriptionFlag = true
+	return builder
+}
+
+// 职级序列ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *JobFamilyBuilder) JobFamilyId(jobFamilyId string) *JobFamilyBuilder {
+	builder.jobFamilyId = jobFamilyId
+	builder.jobFamilyIdFlag = true
+	return builder
+}
+
+func (builder *JobFamilyBuilder) Build() *JobFamily {
+	req := &JobFamily{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.parentJobFamilyIdFlag {
+		req.ParentJobFamilyId = &builder.parentJobFamilyId
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.i18nDescriptionFlag {
+		req.I18nDescription = builder.i18nDescription
+	}
+	if builder.jobFamilyIdFlag {
+		req.JobFamilyId = &builder.jobFamilyId
+
+	}
+	return req
+}
+
+type JobLevel struct {
+	Name            *string        `json:"name,omitempty"`             // 职级名称
+	Description     *string        `json:"description,omitempty"`      // 职级描述
+	Order           *int           `json:"order,omitempty"`            // 职级的排序，可填入自然数100-100000的数值，系统按照数值大小从小到大排序。不填写该字段时，默认新增排序在当前职级列表中最后位（最大值）
+	Status          *bool          `json:"status,omitempty"`           // 是否启用
+	JobLevelId      *string        `json:"job_level_id,omitempty"`     // 职级ID
+	I18nName        []*I18nContent `json:"i18n_name,omitempty"`        // 多语言名称
+	I18nDescription []*I18nContent `json:"i18n_description,omitempty"` // 多语言描述
+}
+
+type JobLevelBuilder struct {
+	name                string // 职级名称
+	nameFlag            bool
+	description         string // 职级描述
+	descriptionFlag     bool
+	order               int // 职级的排序，可填入自然数100-100000的数值，系统按照数值大小从小到大排序。不填写该字段时，默认新增排序在当前职级列表中最后位（最大值）
+	orderFlag           bool
+	status              bool // 是否启用
+	statusFlag          bool
+	jobLevelId          string // 职级ID
+	jobLevelIdFlag      bool
+	i18nName            []*I18nContent // 多语言名称
+	i18nNameFlag        bool
+	i18nDescription     []*I18nContent // 多语言描述
+	i18nDescriptionFlag bool
+}
+
+func NewJobLevelBuilder() *JobLevelBuilder {
+	builder := &JobLevelBuilder{}
+	return builder
+}
+
+// 职级名称
+//
+// 示例值：高级专家
+func (builder *JobLevelBuilder) Name(name string) *JobLevelBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 职级描述
+//
+// 示例值：公司内部中高级职称，有一定专业技术能力的人员
+func (builder *JobLevelBuilder) Description(description string) *JobLevelBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 职级的排序，可填入自然数100-100000的数值，系统按照数值大小从小到大排序。不填写该字段时，默认新增排序在当前职级列表中最后位（最大值）
+//
+// 示例值：200
+func (builder *JobLevelBuilder) Order(order int) *JobLevelBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *JobLevelBuilder) Status(status bool) *JobLevelBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 职级ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *JobLevelBuilder) JobLevelId(jobLevelId string) *JobLevelBuilder {
+	builder.jobLevelId = jobLevelId
+	builder.jobLevelIdFlag = true
+	return builder
+}
+
+// 多语言名称
+//
+// 示例值：
+func (builder *JobLevelBuilder) I18nName(i18nName []*I18nContent) *JobLevelBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+// 多语言描述
+//
+// 示例值：
+func (builder *JobLevelBuilder) I18nDescription(i18nDescription []*I18nContent) *JobLevelBuilder {
+	builder.i18nDescription = i18nDescription
+	builder.i18nDescriptionFlag = true
+	return builder
+}
+
+func (builder *JobLevelBuilder) Build() *JobLevel {
+	req := &JobLevel{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.jobLevelIdFlag {
+		req.JobLevelId = &builder.jobLevelId
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.i18nDescriptionFlag {
+		req.I18nDescription = builder.i18nDescription
 	}
 	return req
 }
@@ -2531,6 +2861,8 @@ type User struct {
 
 	IsFrozen *bool `json:"is_frozen,omitempty"` // 是否暂停用户
 
+	JobLevelId  *string `json:"job_level_id,omitempty"`  // 职级ID
+	JobFamilyId *string `json:"job_family_id,omitempty"` // 序列ID
 }
 
 type UserBuilder struct {
@@ -2591,6 +2923,11 @@ type UserBuilder struct {
 
 	isFrozen     bool // 是否暂停用户
 	isFrozenFlag bool
+
+	jobLevelId      string // 职级ID
+	jobLevelIdFlag  bool
+	jobFamilyId     string // 序列ID
+	jobFamilyIdFlag bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -2841,6 +3178,24 @@ func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 	return builder
 }
 
+// 职级ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *UserBuilder) JobLevelId(jobLevelId string) *UserBuilder {
+	builder.jobLevelId = jobLevelId
+	builder.jobLevelIdFlag = true
+	return builder
+}
+
+// 序列ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *UserBuilder) JobFamilyId(jobFamilyId string) *UserBuilder {
+	builder.jobFamilyId = jobFamilyId
+	builder.jobFamilyIdFlag = true
+	return builder
+}
+
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
 	if builder.unionIdFlag {
@@ -2950,6 +3305,14 @@ func (builder *UserBuilder) Build() *User {
 
 	}
 
+	if builder.jobLevelIdFlag {
+		req.JobLevelId = &builder.jobLevelId
+
+	}
+	if builder.jobFamilyIdFlag {
+		req.JobFamilyId = &builder.jobFamilyId
+
+	}
 	return req
 }
 
@@ -3314,7 +3677,9 @@ type UserEvent struct {
 
 	Orders []*UserOrder `json:"orders,omitempty"` // 用户排序信息
 
-	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"` // 自定义属性
+	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"`  // 自定义属性
+	JobLevelId  *string           `json:"job_level_id,omitempty"`  // 职级ID
+	JobFamilyId *string           `json:"job_family_id,omitempty"` // 序列ID
 }
 
 type UserEventBuilder struct {
@@ -3368,6 +3733,10 @@ type UserEventBuilder struct {
 
 	customAttrs     []*UserCustomAttr // 自定义属性
 	customAttrsFlag bool
+	jobLevelId      string // 职级ID
+	jobLevelIdFlag  bool
+	jobFamilyId     string // 序列ID
+	jobFamilyIdFlag bool
 }
 
 func NewUserEventBuilder() *UserEventBuilder {
@@ -3582,6 +3951,24 @@ func (builder *UserEventBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *Use
 	return builder
 }
 
+// 职级ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *UserEventBuilder) JobLevelId(jobLevelId string) *UserEventBuilder {
+	builder.jobLevelId = jobLevelId
+	builder.jobLevelIdFlag = true
+	return builder
+}
+
+// 序列ID
+//
+// 示例值：mga5oa8ayjlp9rb
+func (builder *UserEventBuilder) JobFamilyId(jobFamilyId string) *UserEventBuilder {
+	builder.jobFamilyId = jobFamilyId
+	builder.jobFamilyIdFlag = true
+	return builder
+}
+
 func (builder *UserEventBuilder) Build() *UserEvent {
 	req := &UserEvent{}
 	if builder.openIdFlag {
@@ -3674,6 +4061,14 @@ func (builder *UserEventBuilder) Build() *UserEvent {
 
 	if builder.customAttrsFlag {
 		req.CustomAttrs = builder.customAttrs
+	}
+	if builder.jobLevelIdFlag {
+		req.JobLevelId = &builder.jobLevelId
+
+	}
+	if builder.jobFamilyIdFlag {
+		req.JobFamilyId = &builder.jobFamilyId
+
 	}
 	return req
 }
@@ -3775,6 +4170,70 @@ func (builder *UserGroupBuilder) Build() *UserGroup {
 }
 
 type UserGroupMember struct {
+}
+
+type UserId struct {
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
+}
+
+type UserIdBuilder struct {
+	userId      string //
+	userIdFlag  bool
+	openId      string //
+	openIdFlag  bool
+	unionId     string //
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
 }
 
 type UserOrder struct {

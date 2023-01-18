@@ -22,25 +22,33 @@ import (
 )
 
 // POST /open-apis/vc/v1/exports/participant_quality_list
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewParticipantQualityListExportReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewParticipantQualityListExportReqBuilder().
 		UserIdType("user_id").
-		Body(larkvc.NewParticipantQualityListExportReqBodyBuilder().
+		
+	   Body(larkvc.NewParticipantQualityListExportReqBodyBuilder().
 			MeetingStartTime("1655276858").
+			
 			MeetingEndTime("1655276858").
+			
 			MeetingNo("123456789").
+			
 			JoinTime("1655276858").
+			
 			UserId("ou_3ec3f6a28a0d08c45d895276e8e5e19b").
+			
 			RoomId("omm_eada1d61a550955240c28757e7dec3af").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Vc.Export.ParticipantQualityList(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.Export.ParticipantQualityList(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +63,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

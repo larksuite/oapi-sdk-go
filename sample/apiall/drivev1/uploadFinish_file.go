@@ -22,20 +22,22 @@ import (
 )
 
 // POST /open-apis/drive/v1/files/upload_finish
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewUploadFinishFileReqBuilder().
-		Body(larkdrive.NewUploadFinishFileReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewUploadFinishFileReqBuilder().
+	   Body(larkdrive.NewUploadFinishFileReqBodyBuilder().
 			UploadId("7111211691345512356").
+			
 			BlockNum(1).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.File.UploadFinish(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.File.UploadFinish(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -29,6 +29,7 @@ func NewService(config *larkcore.Config) *DriveService {
 	d.FileCommentReply = &fileCommentReply{service: d}
 	d.FileStatistics = &fileStatistics{service: d}
 	d.FileSubscription = &fileSubscription{service: d}
+	d.FileVersion = &fileVersion{service: d}
 	d.ImportTask = &importTask{service: d}
 	d.Media = &media{service: d}
 	d.Meta = &meta{service: d}
@@ -40,13 +41,14 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config           *larkcore.Config
 	ExportTask       *exportTask       // 导出
-	File             *file             // 上传
+	File             *file             // 文件夹
 	FileComment      *fileComment      // 评论
 	FileCommentReply *fileCommentReply // 评论
 	FileStatistics   *fileStatistics   // file.statistics
 	FileSubscription *fileSubscription // 订阅
+	FileVersion      *fileVersion      // 文档版本
 	ImportTask       *importTask       // 导入
-	Media            *media            // 分片上传
+	Media            *media            // 素材
 	Meta             *meta             // meta
 	PermissionMember *permissionMember // 成员
 	PermissionPublic *permissionPublic // 设置
@@ -68,6 +70,9 @@ type fileStatistics struct {
 	service *DriveService
 }
 type fileSubscription struct {
+	service *DriveService
+}
+type fileVersion struct {
 	service *DriveService
 }
 type importTask struct {
@@ -780,6 +785,118 @@ func (f *fileSubscription) Patch(ctx context.Context, req *PatchFileSubscription
 	return resp, err
 }
 
+// 创建文档版本
+//
+// - 创建文档版本。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_fileVersion.go
+func (f *fileVersion) Create(ctx context.Context, req *CreateFileVersionReq, options ...larkcore.RequestOptionFunc) (*CreateFileVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateFileVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除文档版本
+//
+// - 删除文档版本。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/delete_fileVersion.go
+func (f *fileVersion) Delete(ctx context.Context, req *DeleteFileVersionReq, options ...larkcore.RequestOptionFunc) (*DeleteFileVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions/:version_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteFileVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取文档版本
+//
+// - 获取文档版本。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_fileVersion.go
+func (f *fileVersion) Get(ctx context.Context, req *GetFileVersionReq, options ...larkcore.RequestOptionFunc) (*GetFileVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions/:version_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetFileVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取文档版本列表
+//
+// - 获取文档所有版本。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileVersion.go
+func (f *fileVersion) List(ctx context.Context, req *ListFileVersionReq, options ...larkcore.RequestOptionFunc) (*ListFileVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListFileVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (f *fileVersion) ListByIterator(ctx context.Context, req *ListFileVersionReq, options ...larkcore.RequestOptionFunc) (*ListFileVersionIterator, error) {
+	return &ListFileVersionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: f.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // 创建导入任务
 //
 // - 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
@@ -1038,6 +1155,32 @@ func (m *meta) BatchQuery(ctx context.Context, req *BatchQueryMetaReq, options .
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=auth&project=drive&resource=permission.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/auth_permissionMember.go
+func (p *permissionMember) Auth(ctx context.Context, req *AuthPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*AuthPermissionMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/permissions/:token/members/auth"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AuthPermissionMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 增加协作者权限
 //
 // - 该接口用于根据 filetoken 给用户增加文档的权限。
@@ -1111,6 +1254,32 @@ func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberRe
 	}
 	// 反序列响应结果
 	resp := &ListPermissionMemberResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_owner&project=drive&resource=permission.member&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/transferOwner_permissionMember.go
+func (p *permissionMember) TransferOwner(ctx context.Context, req *TransferOwnerPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*TransferOwnerPermissionMemberResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/permissions/:token/members/transfer_owner"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TransferOwnerPermissionMemberResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
 	if err != nil {
 		return nil, err

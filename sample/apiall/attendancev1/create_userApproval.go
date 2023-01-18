@@ -22,20 +22,22 @@ import (
 )
 
 // POST /open-apis/attendance/v1/user_approvals
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkattendance.NewCreateUserApprovalReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkattendance.NewCreateUserApprovalReqBuilder().
 		EmployeeType("employee_id").
-		Body(larkattendance.NewCreateUserApprovalReqBodyBuilder().
+		
+	   Body(larkattendance.NewCreateUserApprovalReqBodyBuilder().
 			UserApproval(larkattendance.NewUserApprovalBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Attendance.UserApproval.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Attendance.UserApproval.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -22,21 +22,24 @@ import (
 )
 
 // PATCH /open-apis/acs/v1/users/:user_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkacs.NewPatchUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkacs.NewPatchUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+		
 		UserIdType("user_id").
-		User(larkacs.NewUserBuilder().
+		
+	   User(larkacs.NewUserBuilder().
 			Feature(larkacs.NewFeatureBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Acs.User.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Acs.User.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+
