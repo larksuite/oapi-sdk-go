@@ -174,6 +174,20 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx co
 	return dispatcher
 }
 
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ReserveConfigUpdatedV1(handler func(ctx context.Context, event *larkvc.P2ReserveConfigUpdatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.reserve_config.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.reserve_config.updated_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.reserve_config.updated_v1"] = larkvc.NewP2ReserveConfigUpdatedV1Handler(handler)
+	return dispatcher
+}
+
 // 创建会议室
 //
 // - 当创建会议室时，会触发该事件
@@ -213,5 +227,47 @@ func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Co
 		panic("event: multiple handler registrations for " + "vc.room.updated_v1")
 	}
 	dispatcher.eventType2EventHandler["vc.room.updated_v1"] = larkvc.NewP2RoomUpdatedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room_level.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room_level.created_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room_level.created_v1"] = larkvc.NewP2RoomLevelCreatedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelDeletedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room_level.deleted_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room_level.deleted_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room_level.deleted_v1"] = larkvc.NewP2RoomLevelDeletedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2RoomLevelUpdatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelUpdatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.room_level.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.room_level.updated_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.room_level.updated_v1"] = larkvc.NewP2RoomLevelUpdatedV1Handler(handler)
 	return dispatcher
 }

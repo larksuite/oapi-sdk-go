@@ -238,6 +238,26 @@ func (h *P2MeetingShareStartedV1Handler) Handle(ctx context.Context, event inter
 }
 
 // 消息处理器定义
+type P2ReserveConfigUpdatedV1Handler struct {
+	handler func(context.Context, *P2ReserveConfigUpdatedV1) error
+}
+
+func NewP2ReserveConfigUpdatedV1Handler(handler func(context.Context, *P2ReserveConfigUpdatedV1) error) *P2ReserveConfigUpdatedV1Handler {
+	h := &P2ReserveConfigUpdatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ReserveConfigUpdatedV1Handler) Event() interface{} {
+	return &P2ReserveConfigUpdatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ReserveConfigUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ReserveConfigUpdatedV1))
+}
+
+// 消息处理器定义
 type P2RoomCreatedV1Handler struct {
 	handler func(context.Context, *P2RoomCreatedV1) error
 }
@@ -295,4 +315,64 @@ func (h *P2RoomUpdatedV1Handler) Event() interface{} {
 // 回调开发者注册的handle
 func (h *P2RoomUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2RoomUpdatedV1))
+}
+
+// 消息处理器定义
+type P2RoomLevelCreatedV1Handler struct {
+	handler func(context.Context, *P2RoomLevelCreatedV1) error
+}
+
+func NewP2RoomLevelCreatedV1Handler(handler func(context.Context, *P2RoomLevelCreatedV1) error) *P2RoomLevelCreatedV1Handler {
+	h := &P2RoomLevelCreatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2RoomLevelCreatedV1Handler) Event() interface{} {
+	return &P2RoomLevelCreatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2RoomLevelCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2RoomLevelCreatedV1))
+}
+
+// 消息处理器定义
+type P2RoomLevelDeletedV1Handler struct {
+	handler func(context.Context, *P2RoomLevelDeletedV1) error
+}
+
+func NewP2RoomLevelDeletedV1Handler(handler func(context.Context, *P2RoomLevelDeletedV1) error) *P2RoomLevelDeletedV1Handler {
+	h := &P2RoomLevelDeletedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2RoomLevelDeletedV1Handler) Event() interface{} {
+	return &P2RoomLevelDeletedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2RoomLevelDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2RoomLevelDeletedV1))
+}
+
+// 消息处理器定义
+type P2RoomLevelUpdatedV1Handler struct {
+	handler func(context.Context, *P2RoomLevelUpdatedV1) error
+}
+
+func NewP2RoomLevelUpdatedV1Handler(handler func(context.Context, *P2RoomLevelUpdatedV1) error) *P2RoomLevelUpdatedV1Handler {
+	h := &P2RoomLevelUpdatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2RoomLevelUpdatedV1Handler) Event() interface{} {
+	return &P2RoomLevelUpdatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2RoomLevelUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2RoomLevelUpdatedV1))
 }

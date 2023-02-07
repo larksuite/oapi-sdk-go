@@ -21,19 +21,23 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// GET /open-apis/vc/v1/rooms
+// GET /open-apis/vc/v1/resource_reservation_list
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkvc.NewListRoomReqBuilder().
-		PageSize(10).
-		PageToken("10").
-		RoomLevelId("omb_4ad1a2c7a2fbc5fc9570f38456931293").
-		UserIdType("user_id").
+	req := larkvc.NewGetResourceReservationListReqBuilder().
+		RoomLevelId("omb_57c9cc7d9a81e27e54c8fabfd02759e7").
+		NeedTopic(true).
+		StartTime("1655276858").
+		EndTime("1655276858").
+		RoomIds([]string{}).
+		IsExclude(false).
+		PageSize(20).
+		PageToken("").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Room.List(context.Background(), req)
+	resp, err := client.Vc.ResourceReservationList.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

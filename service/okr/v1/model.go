@@ -6344,7 +6344,7 @@ func NewCreateProgressRecordReqBuilder() *CreateProgressRecordReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *CreateProgressRecordReqBuilder) UserIdType(userIdType string) *CreateProgressRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6457,7 +6457,7 @@ func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetPr
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *GetProgressRecordReqBuilder) UserIdType(userIdType string) *GetProgressRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6569,7 +6569,7 @@ func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *Up
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *UpdateProgressRecordReqBuilder) UserIdType(userIdType string) *UpdateProgressRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

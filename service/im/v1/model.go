@@ -4451,6 +4451,101 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
+type Widget struct {
+	WidgetId   *string    `json:"widget_id,omitempty"`   // 小组件ID
+	WidgetType *string    `json:"widget_type,omitempty"` // 小组件类型
+	WidgetUrl  *WidgetUrl `json:"widget_url,omitempty"`  // 小组件链接，必须以http开头
+}
+
+type WidgetBuilder struct {
+	widgetId       string // 小组件ID
+	widgetIdFlag   bool
+	widgetType     string // 小组件类型
+	widgetTypeFlag bool
+	widgetUrl      *WidgetUrl // 小组件链接，必须以http开头
+	widgetUrlFlag  bool
+}
+
+func NewWidgetBuilder() *WidgetBuilder {
+	builder := &WidgetBuilder{}
+	return builder
+}
+
+// 小组件ID
+//
+// 示例值：7117116451961487361
+func (builder *WidgetBuilder) WidgetId(widgetId string) *WidgetBuilder {
+	builder.widgetId = widgetId
+	builder.widgetIdFlag = true
+	return builder
+}
+
+// 小组件类型
+//
+// 示例值：URL
+func (builder *WidgetBuilder) WidgetType(widgetType string) *WidgetBuilder {
+	builder.widgetType = widgetType
+	builder.widgetTypeFlag = true
+	return builder
+}
+
+// 小组件链接，必须以http开头
+//
+// 示例值：
+func (builder *WidgetBuilder) WidgetUrl(widgetUrl *WidgetUrl) *WidgetBuilder {
+	builder.widgetUrl = widgetUrl
+	builder.widgetUrlFlag = true
+	return builder
+}
+
+func (builder *WidgetBuilder) Build() *Widget {
+	req := &Widget{}
+	if builder.widgetIdFlag {
+		req.WidgetId = &builder.widgetId
+
+	}
+	if builder.widgetTypeFlag {
+		req.WidgetType = &builder.widgetType
+
+	}
+	if builder.widgetUrlFlag {
+		req.WidgetUrl = builder.widgetUrl
+	}
+	return req
+}
+
+type WidgetUrl struct {
+	Url *string `json:"url,omitempty"` // 小组件的url
+}
+
+type WidgetUrlBuilder struct {
+	url     string // 小组件的url
+	urlFlag bool
+}
+
+func NewWidgetUrlBuilder() *WidgetUrlBuilder {
+	builder := &WidgetUrlBuilder{}
+	return builder
+}
+
+// 小组件的url
+//
+// 示例值：https://open.feishu.cn/document/home/index
+func (builder *WidgetUrlBuilder) Url(url string) *WidgetUrlBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *WidgetUrlBuilder) Build() *WidgetUrl {
+	req := &WidgetUrl{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
 type DeleteBatchMessageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }

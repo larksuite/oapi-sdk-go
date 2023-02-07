@@ -77,6 +77,24 @@ const (
 )
 
 const (
+	UserIdTypeGetMeetingListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMeetingListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMeetingListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeGetParticipantListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetParticipantListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetParticipantListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeGetParticipantQualityListUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetParticipantQualityListUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetParticipantQualityListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	TopUserOrderByMeetingCount    = 1 // 会议数量
 	TopUserOrderByMeetingDuration = 2 // 会议时长
 
@@ -122,6 +140,18 @@ const (
 	UserIdTypeReserveScopeReserveConfigUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeReserveScopeReserveConfigUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeReserveScopeReserveConfigOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeGetReserveConfigAdminUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetReserveConfigAdminUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetReserveConfigAdminOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypePatchReserveConfigAdminUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchReserveConfigAdminUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchReserveConfigAdminOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -4243,7 +4273,7 @@ type ReserveFormConfig struct {
 	NotifiedUsers []*SubscribeUser `json:"notified_users,omitempty"` // 通知人列表
 	NotifiedTime  *int             `json:"notified_time,omitempty"`  // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
 	TimeUnit      *int             `json:"time_unit,omitempty"`      // 时间单位,1为分钟;2为小时;3为天，默认为天
-	CustomList    []*CustomList    `json:"custom_list,omitempty"`    // 题目选项配置
+
 }
 
 type ReserveFormConfigBuilder struct {
@@ -4255,8 +4285,6 @@ type ReserveFormConfigBuilder struct {
 	notifiedTimeFlag  bool
 	timeUnit          int // 时间单位,1为分钟;2为小时;3为天，默认为天
 	timeUnitFlag      bool
-	customList        []*CustomList // 题目选项配置
-	customListFlag    bool
 }
 
 func NewReserveFormConfigBuilder() *ReserveFormConfigBuilder {
@@ -4300,15 +4328,6 @@ func (builder *ReserveFormConfigBuilder) TimeUnit(timeUnit int) *ReserveFormConf
 	return builder
 }
 
-// 题目选项配置
-//
-// 示例值：
-func (builder *ReserveFormConfigBuilder) CustomList(customList []*CustomList) *ReserveFormConfigBuilder {
-	builder.customList = customList
-	builder.customListFlag = true
-	return builder
-}
-
 func (builder *ReserveFormConfigBuilder) Build() *ReserveFormConfig {
 	req := &ReserveFormConfig{}
 	if builder.reserveFormFlag {
@@ -4326,9 +4345,7 @@ func (builder *ReserveFormConfigBuilder) Build() *ReserveFormConfig {
 		req.TimeUnit = &builder.timeUnit
 
 	}
-	if builder.customListFlag {
-		req.CustomList = builder.customList
-	}
+
 	return req
 }
 
@@ -8336,6 +8353,356 @@ func (resp *StopMeetingRecordingResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetMeetingListReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewGetMeetingListReqBuilder() *GetMeetingListReqBuilder {
+	builder := &GetMeetingListReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *GetMeetingListReqBuilder) Limit(limit int) *GetMeetingListReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetMeetingListReqBuilder) StartTime(startTime string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetMeetingListReqBuilder) EndTime(endTime string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	return builder
+}
+
+// 按9位会议号筛选（最多一个筛选条件）
+//
+// 示例值：123456789
+func (builder *GetMeetingListReqBuilder) MeetingNo(meetingNo string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_no", fmt.Sprint(meetingNo))
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *GetMeetingListReqBuilder) UserId(userId string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *GetMeetingListReqBuilder) RoomId(roomId string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+// 分页尺寸大小
+//
+// 示例值：20
+func (builder *GetMeetingListReqBuilder) PageSize(pageSize int) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍历.下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *GetMeetingListReqBuilder) PageToken(pageToken string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetMeetingListReqBuilder) UserIdType(userIdType string) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetMeetingListReqBuilder) Build() *GetMeetingListReq {
+	req := &GetMeetingListReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetMeetingListReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type GetMeetingListRespData struct {
+	MeetingList []*MeetingInfo `json:"meeting_list,omitempty"` // 会议列表
+	PageToken   *string        `json:"page_token,omitempty"`   // 下一页分页的token，下次请求时传入
+	HasMore     *bool          `json:"has_more,omitempty"`     // 是否还有数据
+}
+
+type GetMeetingListResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetMeetingListRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetMeetingListResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetParticipantListReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewGetParticipantListReqBuilder() *GetParticipantListReqBuilder {
+	builder := &GetParticipantListReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *GetParticipantListReqBuilder) Limit(limit int) *GetParticipantListReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetParticipantListReqBuilder) MeetingStartTime(meetingStartTime string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_start_time", fmt.Sprint(meetingStartTime))
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetParticipantListReqBuilder) MeetingEndTime(meetingEndTime string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_end_time", fmt.Sprint(meetingEndTime))
+	return builder
+}
+
+// 9位会议号
+//
+// 示例值：123456789
+func (builder *GetParticipantListReqBuilder) MeetingNo(meetingNo string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_no", fmt.Sprint(meetingNo))
+	return builder
+}
+
+// 按参会Lark用户筛选（最多一个筛选条件）
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *GetParticipantListReqBuilder) UserId(userId string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 按参会Rooms筛选（最多一个筛选条件）
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *GetParticipantListReqBuilder) RoomId(roomId string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+// 分页尺寸大小
+//
+// 示例值：20
+func (builder *GetParticipantListReqBuilder) PageSize(pageSize int) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍历.下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *GetParticipantListReqBuilder) PageToken(pageToken string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetParticipantListReqBuilder) UserIdType(userIdType string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetParticipantListReqBuilder) Build() *GetParticipantListReq {
+	req := &GetParticipantListReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetParticipantListReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type GetParticipantListRespData struct {
+	Participants []*Participant `json:"participants,omitempty"` // 参会人列表
+	PageToken    *string        `json:"page_token,omitempty"`   // 下一页分页的token，下次请求时传入
+	HasMore      *bool          `json:"has_more,omitempty"`     // 是否还有数据
+}
+
+type GetParticipantListResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetParticipantListRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetParticipantListResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetParticipantQualityListReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewGetParticipantQualityListReqBuilder() *GetParticipantQualityListReqBuilder {
+	builder := &GetParticipantQualityListReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *GetParticipantQualityListReqBuilder) Limit(limit int) *GetParticipantQualityListReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 会议开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetParticipantQualityListReqBuilder) MeetingStartTime(meetingStartTime string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_start_time", fmt.Sprint(meetingStartTime))
+	return builder
+}
+
+// 会议结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetParticipantQualityListReqBuilder) MeetingEndTime(meetingEndTime string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_end_time", fmt.Sprint(meetingEndTime))
+	return builder
+}
+
+// 9位会议号
+//
+// 示例值：123456789
+func (builder *GetParticipantQualityListReqBuilder) MeetingNo(meetingNo string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_no", fmt.Sprint(meetingNo))
+	return builder
+}
+
+// 参会人入会时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetParticipantQualityListReqBuilder) JoinTime(joinTime string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("join_time", fmt.Sprint(joinTime))
+	return builder
+}
+
+// 参会人为Lark用户时填入
+//
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+func (builder *GetParticipantQualityListReqBuilder) UserId(userId string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 参会人为Rooms时填入
+//
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
+func (builder *GetParticipantQualityListReqBuilder) RoomId(roomId string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("room_id", fmt.Sprint(roomId))
+	return builder
+}
+
+// 分页尺寸大小
+//
+// 示例值：20
+func (builder *GetParticipantQualityListReqBuilder) PageSize(pageSize int) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍历.下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *GetParticipantQualityListReqBuilder) PageToken(pageToken string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetParticipantQualityListReqBuilder) UserIdType(userIdType string) *GetParticipantQualityListReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetParticipantQualityListReqBuilder) Build() *GetParticipantQualityListReq {
+	req := &GetParticipantQualityListReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetParticipantQualityListReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type GetParticipantQualityListRespData struct {
+	ParticipantQualityList []*ParticipantQuality `json:"participant_quality_list,omitempty"` // 参会人参会质量列表
+	PageToken              *string               `json:"page_token,omitempty"`               // 下一页分页的token，下次请求时传入
+	HasMore                *bool                 `json:"has_more,omitempty"`                 // 是否还有数据
+}
+
+type GetParticipantQualityListResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetParticipantQualityListRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetParticipantQualityListResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetDailyReportReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -9216,6 +9583,331 @@ type ReserveScopeReserveConfigResp struct {
 }
 
 func (resp *ReserveScopeReserveConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetReserveConfigAdminReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetReserveConfigAdminReqBuilder() *GetReserveConfigAdminReqBuilder {
+	builder := &GetReserveConfigAdminReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级id
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *GetReserveConfigAdminReqBuilder) ReserveConfigId(reserveConfigId string) *GetReserveConfigAdminReqBuilder {
+	builder.apiReq.PathParams.Set("reserve_config_id", fmt.Sprint(reserveConfigId))
+	return builder
+}
+
+// 会议室或层级
+//
+// 示例值：2
+func (builder *GetReserveConfigAdminReqBuilder) ScopeType(scopeType int) *GetReserveConfigAdminReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_type", fmt.Sprint(scopeType))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetReserveConfigAdminReqBuilder) UserIdType(userIdType string) *GetReserveConfigAdminReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetReserveConfigAdminReqBuilder) Build() *GetReserveConfigAdminReq {
+	req := &GetReserveConfigAdminReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetReserveConfigAdminReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetReserveConfigAdminRespData struct {
+	ReserveAdminConfig *ReserveAdminConfig `json:"reserve_admin_config,omitempty"` // 预定管理员/部门
+}
+
+type GetReserveConfigAdminResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetReserveConfigAdminRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetReserveConfigAdminResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchReserveConfigAdminReqBodyBuilder struct {
+	scopeType              int // 1代表层级，2代表会议室
+	scopeTypeFlag          bool
+	reserveAdminConfig     *ReserveAdminConfig // 预定管理员或部门
+	reserveAdminConfigFlag bool
+}
+
+func NewPatchReserveConfigAdminReqBodyBuilder() *PatchReserveConfigAdminReqBodyBuilder {
+	builder := &PatchReserveConfigAdminReqBodyBuilder{}
+	return builder
+}
+
+// 1代表层级，2代表会议室
+//
+//示例值：2
+func (builder *PatchReserveConfigAdminReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigAdminReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 预定管理员或部门
+//
+//示例值：
+func (builder *PatchReserveConfigAdminReqBodyBuilder) ReserveAdminConfig(reserveAdminConfig *ReserveAdminConfig) *PatchReserveConfigAdminReqBodyBuilder {
+	builder.reserveAdminConfig = reserveAdminConfig
+	builder.reserveAdminConfigFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigAdminReqBodyBuilder) Build() *PatchReserveConfigAdminReqBody {
+	req := &PatchReserveConfigAdminReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.reserveAdminConfigFlag {
+		req.ReserveAdminConfig = builder.reserveAdminConfig
+	}
+	return req
+}
+
+type PatchReserveConfigAdminPathReqBodyBuilder struct {
+	scopeType              int // 1代表层级，2代表会议室
+	scopeTypeFlag          bool
+	reserveAdminConfig     *ReserveAdminConfig // 预定管理员或部门
+	reserveAdminConfigFlag bool
+}
+
+func NewPatchReserveConfigAdminPathReqBodyBuilder() *PatchReserveConfigAdminPathReqBodyBuilder {
+	builder := &PatchReserveConfigAdminPathReqBodyBuilder{}
+	return builder
+}
+
+// 1代表层级，2代表会议室
+//
+// 示例值：2
+func (builder *PatchReserveConfigAdminPathReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigAdminPathReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 预定管理员或部门
+//
+// 示例值：
+func (builder *PatchReserveConfigAdminPathReqBodyBuilder) ReserveAdminConfig(reserveAdminConfig *ReserveAdminConfig) *PatchReserveConfigAdminPathReqBodyBuilder {
+	builder.reserveAdminConfig = reserveAdminConfig
+	builder.reserveAdminConfigFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigAdminPathReqBodyBuilder) Build() (*PatchReserveConfigAdminReqBody, error) {
+	req := &PatchReserveConfigAdminReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.reserveAdminConfigFlag {
+		req.ReserveAdminConfig = builder.reserveAdminConfig
+	}
+	return req, nil
+}
+
+type PatchReserveConfigAdminReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchReserveConfigAdminReqBody
+}
+
+func NewPatchReserveConfigAdminReqBuilder() *PatchReserveConfigAdminReqBuilder {
+	builder := &PatchReserveConfigAdminReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级id
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *PatchReserveConfigAdminReqBuilder) ReserveConfigId(reserveConfigId string) *PatchReserveConfigAdminReqBuilder {
+	builder.apiReq.PathParams.Set("reserve_config_id", fmt.Sprint(reserveConfigId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *PatchReserveConfigAdminReqBuilder) UserIdType(userIdType string) *PatchReserveConfigAdminReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *PatchReserveConfigAdminReqBuilder) Body(body *PatchReserveConfigAdminReqBody) *PatchReserveConfigAdminReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchReserveConfigAdminReqBuilder) Build() *PatchReserveConfigAdminReq {
+	req := &PatchReserveConfigAdminReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchReserveConfigAdminReqBody struct {
+	ScopeType          *int                `json:"scope_type,omitempty"`           // 1代表层级，2代表会议室
+	ReserveAdminConfig *ReserveAdminConfig `json:"reserve_admin_config,omitempty"` // 预定管理员或部门
+}
+
+type PatchReserveConfigAdminReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchReserveConfigAdminReqBody `body:""`
+}
+
+type PatchReserveConfigAdminResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchReserveConfigAdminResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetResourceReservationListReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewGetResourceReservationListReqBuilder() *GetResourceReservationListReqBuilder {
+	builder := &GetResourceReservationListReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *GetResourceReservationListReqBuilder) Limit(limit int) *GetResourceReservationListReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 层级id
+//
+// 示例值：omb_57c9cc7d9a81e27e54c8fabfd02759e7
+func (builder *GetResourceReservationListReqBuilder) RoomLevelId(roomLevelId string) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("room_level_id", fmt.Sprint(roomLevelId))
+	return builder
+}
+
+// 是否展示会议主题
+//
+// 示例值：true
+func (builder *GetResourceReservationListReqBuilder) NeedTopic(needTopic bool) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("need_topic", fmt.Sprint(needTopic))
+	return builder
+}
+
+// 查询开始时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetResourceReservationListReqBuilder) StartTime(startTime string) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	return builder
+}
+
+// 查询结束时间（unix时间，单位sec）
+//
+// 示例值：1655276858
+func (builder *GetResourceReservationListReqBuilder) EndTime(endTime string) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	return builder
+}
+
+// 待筛选的会议室id列表
+//
+// 示例值：
+func (builder *GetResourceReservationListReqBuilder) RoomIds(roomIds []string) *GetResourceReservationListReqBuilder {
+	for _, v := range roomIds {
+		builder.apiReq.QueryParams.Add("room_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 若为true表示导出room_ids范围外的会议室，默认为false
+//
+// 示例值：false
+func (builder *GetResourceReservationListReqBuilder) IsExclude(isExclude bool) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("is_exclude", fmt.Sprint(isExclude))
+	return builder
+}
+
+// 分页尺寸大小
+//
+// 示例值：20
+func (builder *GetResourceReservationListReqBuilder) PageSize(pageSize int) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍历.下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *GetResourceReservationListReqBuilder) PageToken(pageToken string) *GetResourceReservationListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *GetResourceReservationListReqBuilder) Build() *GetResourceReservationListReq {
+	req := &GetResourceReservationListReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetResourceReservationListReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type GetResourceReservationListRespData struct {
+	RoomReservationList []*RoomMeetingReservation `json:"room_reservation_list,omitempty"` // 会议室预定列表
+	PageToken           *string                   `json:"page_token,omitempty"`            // 下一页分页的token，下次请求时传入
+	HasMore             *bool                     `json:"has_more,omitempty"`              // 是否还有数据
+}
+
+type GetResourceReservationListResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetResourceReservationListRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetResourceReservationListResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -11038,6 +11730,24 @@ func (m *P2MeetingShareStartedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
+type P2ReserveConfigUpdatedV1Data struct {
+	ScopeId            *string                  `json:"scope_id,omitempty"`             // 会议室或层级id
+	ScopeType          *int                     `json:"scope_type,omitempty"`           // 1代表层级，2代表会议室
+	ApproveConfig      *ApprovalConfigEvent     `json:"approve_config,omitempty"`       // 预定审批设置
+	TimeConfig         *TimeConfig              `json:"time_config,omitempty"`          // 预定时间设置
+	ReserveScopeConfig *ReserveScopeConfigEvent `json:"reserve_scope_config,omitempty"` // 预定范围设置
+}
+
+type P2ReserveConfigUpdatedV1 struct {
+	*larkevent.EventV2Base                               // 事件基础数据
+	*larkevent.EventReq                                  // 请求原生数据
+	Event                  *P2ReserveConfigUpdatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ReserveConfigUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
 type P2RoomCreatedV1Data struct {
 	Room *RoomEvent `json:"room,omitempty"` // 会议室信息
 }
@@ -11077,6 +11787,49 @@ type P2RoomUpdatedV1 struct {
 }
 
 func (m *P2RoomUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2RoomLevelCreatedV1Data struct {
+	RoomLevel *RoomLevel `json:"room_level,omitempty"` // 层级信息
+}
+
+type P2RoomLevelCreatedV1 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2RoomLevelCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomLevelCreatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2RoomLevelDeletedV1Data struct {
+	RoomLevelId *string `json:"room_level_id,omitempty"` // 层级ID
+	DeleteChild *bool   `json:"delete_child,omitempty"`  // 是否删除所有子层级
+}
+
+type P2RoomLevelDeletedV1 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2RoomLevelDeletedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomLevelDeletedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2RoomLevelUpdatedV1Data struct {
+	RoomLevel *RoomLevel `json:"room_level,omitempty"` // 层级信息
+}
+
+type P2RoomLevelUpdatedV1 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2RoomLevelUpdatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2RoomLevelUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
@@ -11131,6 +11884,222 @@ func (iterator *ListByNoMeetingIterator) Next() (bool, *Meeting, error) {
 }
 
 func (iterator *ListByNoMeetingIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type GetMeetingListIterator struct {
+	nextPageToken *string
+	items         []*MeetingInfo
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetMeetingListReq
+	listFunc      func(ctx context.Context, req *GetMeetingListReq, options ...larkcore.RequestOptionFunc) (*GetMeetingListResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetMeetingListIterator) Next() (bool, *MeetingInfo, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.MeetingList) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.MeetingList
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *GetMeetingListIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type GetParticipantListIterator struct {
+	nextPageToken *string
+	items         []*Participant
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetParticipantListReq
+	listFunc      func(ctx context.Context, req *GetParticipantListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantListResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetParticipantListIterator) Next() (bool, *Participant, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Participants) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Participants
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *GetParticipantListIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type GetParticipantQualityListIterator struct {
+	nextPageToken *string
+	items         []*ParticipantQuality
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetParticipantQualityListReq
+	listFunc      func(ctx context.Context, req *GetParticipantQualityListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantQualityListResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetParticipantQualityListIterator) Next() (bool, *ParticipantQuality, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.ParticipantQualityList) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.ParticipantQualityList
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *GetParticipantQualityListIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type GetResourceReservationListIterator struct {
+	nextPageToken *string
+	items         []*RoomMeetingReservation
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetResourceReservationListReq
+	listFunc      func(ctx context.Context, req *GetResourceReservationListReq, options ...larkcore.RequestOptionFunc) (*GetResourceReservationListResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetResourceReservationListIterator) Next() (bool, *RoomMeetingReservation, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.RoomReservationList) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.RoomReservationList
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *GetResourceReservationListIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

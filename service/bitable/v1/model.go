@@ -142,6 +142,12 @@ const (
 	ViewTypeForm    = "form"    // 表单视图
 )
 
+const (
+	UserIdTypeListAppTableViewUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListAppTableViewUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListAppTableViewOpenId  = "open_id"  // 以open_id来识别用户
+)
+
 type App struct {
 	AppToken    *string `json:"app_token,omitempty"`    // 多维表格 app token
 	Name        *string `json:"name,omitempty"`         // 多维表格 App 名字
@@ -2017,21 +2023,27 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 }
 
 type AppTableView struct {
-	ViewId   *string               `json:"view_id,omitempty"`   // 视图Id
-	ViewName *string               `json:"view_name,omitempty"` // 视图名字
-	ViewType *string               `json:"view_type,omitempty"` // 视图类型
-	Property *AppTableViewProperty `json:"property,omitempty"`  // 视图属性
+	ViewId             *string               `json:"view_id,omitempty"`               // 视图Id
+	ViewName           *string               `json:"view_name,omitempty"`             // 视图名字
+	ViewType           *string               `json:"view_type,omitempty"`             // 视图类型
+	Property           *AppTableViewProperty `json:"property,omitempty"`              // 视图属性
+	ViewPublicLevel    *string               `json:"view_public_level,omitempty"`     // 视图公共等级 Public、Locked、Private
+	ViewPrivateOwnerId *string               `json:"view_private_owner_id,omitempty"` // 个人视图的owner_id，id类型和 user_id_type 参数保持一致
 }
 
 type AppTableViewBuilder struct {
-	viewId       string // 视图Id
-	viewIdFlag   bool
-	viewName     string // 视图名字
-	viewNameFlag bool
-	viewType     string // 视图类型
-	viewTypeFlag bool
-	property     *AppTableViewProperty // 视图属性
-	propertyFlag bool
+	viewId                 string // 视图Id
+	viewIdFlag             bool
+	viewName               string // 视图名字
+	viewNameFlag           bool
+	viewType               string // 视图类型
+	viewTypeFlag           bool
+	property               *AppTableViewProperty // 视图属性
+	propertyFlag           bool
+	viewPublicLevel        string // 视图公共等级 Public、Locked、Private
+	viewPublicLevelFlag    bool
+	viewPrivateOwnerId     string // 个人视图的owner_id，id类型和 user_id_type 参数保持一致
+	viewPrivateOwnerIdFlag bool
 }
 
 func NewAppTableViewBuilder() *AppTableViewBuilder {
@@ -2075,6 +2087,24 @@ func (builder *AppTableViewBuilder) Property(property *AppTableViewProperty) *Ap
 	return builder
 }
 
+// 视图公共等级 Public、Locked、Private
+//
+// 示例值：Public
+func (builder *AppTableViewBuilder) ViewPublicLevel(viewPublicLevel string) *AppTableViewBuilder {
+	builder.viewPublicLevel = viewPublicLevel
+	builder.viewPublicLevelFlag = true
+	return builder
+}
+
+// 个人视图的owner_id，id类型和 user_id_type 参数保持一致
+//
+// 示例值：ou_2910013f1e6456f16a0ce75ede950a0a
+func (builder *AppTableViewBuilder) ViewPrivateOwnerId(viewPrivateOwnerId string) *AppTableViewBuilder {
+	builder.viewPrivateOwnerId = viewPrivateOwnerId
+	builder.viewPrivateOwnerIdFlag = true
+	return builder
+}
+
 func (builder *AppTableViewBuilder) Build() *AppTableView {
 	req := &AppTableView{}
 	if builder.viewIdFlag {
@@ -2091,6 +2121,14 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 	}
 	if builder.propertyFlag {
 		req.Property = builder.property
+	}
+	if builder.viewPublicLevelFlag {
+		req.ViewPublicLevel = &builder.viewPublicLevel
+
+	}
+	if builder.viewPrivateOwnerIdFlag {
+		req.ViewPrivateOwnerId = &builder.viewPrivateOwnerId
+
 	}
 	return req
 }
@@ -3017,6 +3055,87 @@ func (builder *UrlBuilder) Build() *Url {
 
 	}
 	return req
+}
+
+type CreateAppReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	reqApp *ReqApp
+}
+
+func NewCreateAppReqBuilder() *CreateAppReqBuilder {
+	builder := &CreateAppReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 是否使用自定义配置创建方式，默认不使用
+//
+// 示例值：false
+func (builder *CreateAppReqBuilder) CustomizedConfig(customizedConfig bool) *CreateAppReqBuilder {
+	builder.apiReq.QueryParams.Set("customized_config", fmt.Sprint(customizedConfig))
+	return builder
+}
+
+// 源app，当使用自定义配置创建方式时有效
+//
+// 示例值：Xm5EbPVCInfoqRs0HKBbyIBjc1g
+func (builder *CreateAppReqBuilder) SourceAppToken(sourceAppToken string) *CreateAppReqBuilder {
+	builder.apiReq.QueryParams.Set("source_app_token", fmt.Sprint(sourceAppToken))
+	return builder
+}
+
+// 定制化权限配置类型列表，1为协作者列表，2为高级权限，类型是string
+//
+// 示例值：
+func (builder *CreateAppReqBuilder) CopyTypes(copyTypes []string) *CreateAppReqBuilder {
+	for _, v := range copyTypes {
+		builder.apiReq.QueryParams.Add("copy_types", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 只有旧逻辑场景才会用到，为new时会在旧逻辑场景切换到新场景，方便旧逻辑的业务方进行切换
+//
+// 示例值：new
+func (builder *CreateAppReqBuilder) ApiType(apiType string) *CreateAppReqBuilder {
+	builder.apiReq.QueryParams.Set("api_type", fmt.Sprint(apiType))
+	return builder
+}
+
+//
+func (builder *CreateAppReqBuilder) ReqApp(reqApp *ReqApp) *CreateAppReqBuilder {
+	builder.reqApp = reqApp
+	return builder
+}
+
+func (builder *CreateAppReqBuilder) Build() *CreateAppReq {
+	req := &CreateAppReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.reqApp
+	return req
+}
+
+type CreateAppReq struct {
+	apiReq *larkcore.ApiReq
+	ReqApp *ReqApp `body:""`
+}
+
+type CreateAppRespData struct {
+	App *App `json:"app,omitempty"` //
+}
+
+type CreateAppResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateAppRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateAppResp) Success() bool {
+	return resp.Code == 0
 }
 
 type GetAppReqBuilder struct {
@@ -6383,6 +6502,14 @@ func (builder *ListAppTableViewReqBuilder) PageSize(pageSize int) *ListAppTableV
 // 示例值：vewTpR1urY
 func (builder *ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppTableViewReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListAppTableViewReqBuilder) UserIdType(userIdType string) *ListAppTableViewReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 

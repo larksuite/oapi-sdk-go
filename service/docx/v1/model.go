@@ -65,6 +65,70 @@ const (
 	UserIdTypeGetDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
 )
 
+type AddOns struct {
+	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一ID
+	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+	Record          *string `json:"record,omitempty"`            // 文档小组件内容数据，JSON 字符串
+}
+
+type AddOnsBuilder struct {
+	componentId         string // 团队互动应用唯一ID
+	componentIdFlag     bool
+	componentTypeId     string // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+	componentTypeIdFlag bool
+	record              string // 文档小组件内容数据，JSON 字符串
+	recordFlag          bool
+}
+
+func NewAddOnsBuilder() *AddOnsBuilder {
+	builder := &AddOnsBuilder{}
+	return builder
+}
+
+// 团队互动应用唯一ID
+//
+// 示例值：7056882725002051603
+func (builder *AddOnsBuilder) ComponentId(componentId string) *AddOnsBuilder {
+	builder.componentId = componentId
+	builder.componentIdFlag = true
+	return builder
+}
+
+// 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+//
+// 示例值：blk_636a0a6657db8001c8df5488
+func (builder *AddOnsBuilder) ComponentTypeId(componentTypeId string) *AddOnsBuilder {
+	builder.componentTypeId = componentTypeId
+	builder.componentTypeIdFlag = true
+	return builder
+}
+
+// 文档小组件内容数据，JSON 字符串
+//
+// 示例值："{}"
+func (builder *AddOnsBuilder) Record(record string) *AddOnsBuilder {
+	builder.record = record
+	builder.recordFlag = true
+	return builder
+}
+
+func (builder *AddOnsBuilder) Build() *AddOns {
+	req := &AddOns{}
+	if builder.componentIdFlag {
+		req.ComponentId = &builder.componentId
+
+	}
+	if builder.componentTypeIdFlag {
+		req.ComponentTypeId = &builder.componentTypeId
+
+	}
+	if builder.recordFlag {
+		req.Record = &builder.record
+
+	}
+	return req
+}
+
 type Bitable struct {
 	Token    *string `json:"token,omitempty"`     // 多维表格文档 Token
 	ViewType *int    `json:"view_type,omitempty"` // 类型
@@ -146,6 +210,7 @@ type Block struct {
 	Iframe         *Iframe         `json:"iframe,omitempty"`          // 内嵌 Block
 	Image          *Image          `json:"image,omitempty"`           // 图片 Block
 	Isv            *Isv            `json:"isv,omitempty"`             // 三方 Block
+	AddOns         *AddOns         `json:"add_ons,omitempty"`         // Add-ons
 	Mindnote       *Mindnote       `json:"mindnote,omitempty"`        // 思维笔记 Block
 	Sheet          *Sheet          `json:"sheet,omitempty"`           // 电子表格 Block
 	Table          *Table          `json:"table,omitempty"`           // 表格 Block
@@ -226,6 +291,8 @@ type BlockBuilder struct {
 	imageFlag          bool
 	isv                *Isv // 三方 Block
 	isvFlag            bool
+	addOns             *AddOns // Add-ons
+	addOnsFlag         bool
 	mindnote           *Mindnote // 思维笔记 Block
 	mindnoteFlag       bool
 	sheet              *Sheet // 电子表格 Block
@@ -279,7 +346,7 @@ func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 
 // block 的孩子 id 列表
 //
-// 示例值：["doxcnO6UW6wAw2qIcYf4hZpFIth"]
+// 示例值：[doxcnO6UW6wAw2qIcYf4hZpFIth]
 func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -547,6 +614,15 @@ func (builder *BlockBuilder) Isv(isv *Isv) *BlockBuilder {
 	return builder
 }
 
+// Add-ons
+//
+// 示例值：
+func (builder *BlockBuilder) AddOns(addOns *AddOns) *BlockBuilder {
+	builder.addOns = addOns
+	builder.addOnsFlag = true
+	return builder
+}
+
 // 思维笔记 Block
 //
 // 示例值：
@@ -764,6 +840,9 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.isvFlag {
 		req.Isv = builder.isv
+	}
+	if builder.addOnsFlag {
+		req.AddOns = builder.addOns
 	}
 	if builder.mindnoteFlag {
 		req.Mindnote = builder.mindnote

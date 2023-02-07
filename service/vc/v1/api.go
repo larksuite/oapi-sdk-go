@@ -26,9 +26,14 @@ func NewService(config *larkcore.Config) *VcService {
 	v.Export = &export{service: v}
 	v.Meeting = &meeting{service: v}
 	v.MeetingRecording = &meetingRecording{service: v}
+	v.MeetingList = &meetingList{service: v}
+	v.ParticipantList = &participantList{service: v}
+	v.ParticipantQualityList = &participantQualityList{service: v}
 	v.Report = &report{service: v}
 	v.Reserve = &reserve{service: v}
 	v.ReserveConfig = &reserveConfig{service: v}
+	v.ReserveConfigAdmin = &reserveConfigAdmin{service: v}
+	v.ResourceReservationList = &resourceReservationList{service: v}
 	v.Room = &room{service: v}
 	v.RoomConfig = &roomConfig{service: v}
 	v.RoomLevel = &roomLevel{service: v}
@@ -37,17 +42,22 @@ func NewService(config *larkcore.Config) *VcService {
 }
 
 type VcService struct {
-	config           *larkcore.Config
-	Export           *export           // 导出
-	Meeting          *meeting          // 会议
-	MeetingRecording *meetingRecording // 录制
-	Report           *report           // 会议报告
-	Reserve          *reserve          // 预约
-	ReserveConfig    *reserveConfig    // reserve_config
-	Room             *room             // 会议室
-	RoomConfig       *roomConfig       // room_config
-	RoomLevel        *roomLevel        // 会议室层级
-	ScopeConfig      *scopeConfig      // 会议室配置
+	config                  *larkcore.Config
+	Export                  *export                  // 导出
+	Meeting                 *meeting                 // 会议
+	MeetingRecording        *meetingRecording        // 录制
+	MeetingList             *meetingList             // meeting_list
+	ParticipantList         *participantList         // participant_list
+	ParticipantQualityList  *participantQualityList  // participant_quality_list
+	Report                  *report                  // 会议报告
+	Reserve                 *reserve                 // 预约
+	ReserveConfig           *reserveConfig           // reserve_config
+	ReserveConfigAdmin      *reserveConfigAdmin      // reserve_config.admin
+	ResourceReservationList *resourceReservationList // resource_reservation_list
+	Room                    *room                    // 会议室
+	RoomConfig              *roomConfig              // room_config
+	RoomLevel               *roomLevel               // 会议室层级
+	ScopeConfig             *scopeConfig             // 会议室配置
 }
 
 type export struct {
@@ -59,6 +69,15 @@ type meeting struct {
 type meetingRecording struct {
 	service *VcService
 }
+type meetingList struct {
+	service *VcService
+}
+type participantList struct {
+	service *VcService
+}
+type participantQualityList struct {
+	service *VcService
+}
 type report struct {
 	service *VcService
 }
@@ -66,6 +85,12 @@ type reserve struct {
 	service *VcService
 }
 type reserveConfig struct {
+	service *VcService
+}
+type reserveConfigAdmin struct {
+	service *VcService
+}
+type resourceReservationList struct {
 	service *VcService
 }
 type room struct {
@@ -527,6 +552,108 @@ func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingRe
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=meeting_list&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_meetingList.go
+func (m *meetingList) Get(ctx context.Context, req *GetMeetingListReq, options ...larkcore.RequestOptionFunc) (*GetMeetingListResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/meeting_list"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetMeetingListResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *meetingList) GetByIterator(ctx context.Context, req *GetMeetingListReq, options ...larkcore.RequestOptionFunc) (*GetMeetingListIterator, error) {
+	return &GetMeetingListIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.Get,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=participant_list&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_participantList.go
+func (p *participantList) Get(ctx context.Context, req *GetParticipantListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantListResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/participant_list"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetParticipantListResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (p *participantList) GetByIterator(ctx context.Context, req *GetParticipantListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantListIterator, error) {
+	return &GetParticipantListIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: p.Get,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=participant_quality_list&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_participantQualityList.go
+func (p *participantQualityList) Get(ctx context.Context, req *GetParticipantQualityListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantQualityListResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/participant_quality_list"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetParticipantQualityListResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (p *participantQualityList) GetByIterator(ctx context.Context, req *GetParticipantQualityListReq, options ...larkcore.RequestOptionFunc) (*GetParticipantQualityListIterator, error) {
+	return &GetParticipantQualityListIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: p.Get,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // 获取会议报告
 //
 // - 获取一段时间内组织的每日会议使用报告。
@@ -773,6 +900,92 @@ func (r *reserveConfig) ReserveScope(ctx context.Context, req *ReserveScopeReser
 		return nil, err
 	}
 	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.admin&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_reserveConfigAdmin.go
+func (r *reserveConfigAdmin) Get(ctx context.Context, req *GetReserveConfigAdminReq, options ...larkcore.RequestOptionFunc) (*GetReserveConfigAdminResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/:reserve_config_id/admin"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetReserveConfigAdminResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=vc&resource=reserve_config.admin&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/patch_reserveConfigAdmin.go
+func (r *reserveConfigAdmin) Patch(ctx context.Context, req *PatchReserveConfigAdminReq, options ...larkcore.RequestOptionFunc) (*PatchReserveConfigAdminResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/:reserve_config_id/admin"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchReserveConfigAdminResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=resource_reservation_list&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_resourceReservationList.go
+func (r *resourceReservationList) Get(ctx context.Context, req *GetResourceReservationListReq, options ...larkcore.RequestOptionFunc) (*GetResourceReservationListResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/resource_reservation_list"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetResourceReservationListResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *resourceReservationList) GetByIterator(ctx context.Context, req *GetResourceReservationListReq, options ...larkcore.RequestOptionFunc) (*GetResourceReservationListIterator, error) {
+	return &GetResourceReservationListIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: r.Get,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 创建会议室

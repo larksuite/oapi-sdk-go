@@ -39,7 +39,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ext"
-	"github.com/larksuite/oapi-sdk-go/v3/service/face_detection/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -62,7 +61,7 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-密码
+	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
@@ -77,7 +76,6 @@ type Client struct {
 	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
 	Ehr                    *larkehr.EhrService                                         // 智能人事
 	Event                  *larkevent.EventService                                     // 事件订阅
-	FaceDetection          *larkface_detection.FaceDetectionService                    // AI能力
 	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService                //
 	Helpdesk               *larkhelpdesk.HelpdeskService                               // 服务台
 	Hire                   *larkhire.HireService                                       // 招聘
@@ -234,7 +232,6 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Drive = larkdrive.NewService(config)
 	client.Ehr = larkehr.NewService(config)
 	client.Event = larkevent.NewService(config)
-	client.FaceDetection = larkface_detection.NewService(config)
 	client.GrayTestOpenSg = larkgray_test_open_sg.NewService(config)
 	client.Helpdesk = larkhelpdesk.NewService(config)
 	client.Hire = larkhire.NewService(config)

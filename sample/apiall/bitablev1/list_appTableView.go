@@ -31,6 +31,7 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		PageSize(10).
 		PageToken("vewTpR1urY").
+		UserIdType("user_id").
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.AppTableView.List(context.Background(), req)

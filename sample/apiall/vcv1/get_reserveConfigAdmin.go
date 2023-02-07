@@ -21,19 +21,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-// GET /open-apis/vc/v1/rooms
+// GET /open-apis/vc/v1/reserve_configs/:reserve_config_id/admin
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkvc.NewListRoomReqBuilder().
-		PageSize(10).
-		PageToken("10").
-		RoomLevelId("omb_4ad1a2c7a2fbc5fc9570f38456931293").
+	req := larkvc.NewGetReserveConfigAdminReqBuilder().
+		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
+		ScopeType(2).
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Room.List(context.Background(), req)
+	resp, err := client.Vc.ReserveConfigAdmin.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

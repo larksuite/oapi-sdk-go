@@ -80,6 +80,32 @@ type appTableView struct {
 	service *BitableService
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_app.go
+func (a *app) Create(ctx context.Context, req *CreateAppReq, options ...larkcore.RequestOptionFunc) (*CreateAppResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAppResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 获取多维表格元数据
 //
 // - 获取指定多维表格的元数据信息，包括多维表格名称，多维表格版本号，多维表格是否开启高级权限等。
