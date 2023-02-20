@@ -1753,6 +1753,165 @@ func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
 	return req
 }
 
+type FunctionalRole struct {
+	RoleId   *string `json:"role_id,omitempty"`   // 角色内部ID
+	RoleName *string `json:"role_name,omitempty"` // 角色名称
+}
+
+type FunctionalRoleBuilder struct {
+	roleId       string // 角色内部ID
+	roleIdFlag   bool
+	roleName     string // 角色名称
+	roleNameFlag bool
+}
+
+func NewFunctionalRoleBuilder() *FunctionalRoleBuilder {
+	builder := &FunctionalRoleBuilder{}
+	return builder
+}
+
+// 角色内部ID
+//
+// 示例值：7vrj3vk70xk7v5r
+func (builder *FunctionalRoleBuilder) RoleId(roleId string) *FunctionalRoleBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+
+// 角色名称
+//
+// 示例值：测试角色
+func (builder *FunctionalRoleBuilder) RoleName(roleName string) *FunctionalRoleBuilder {
+	builder.roleName = roleName
+	builder.roleNameFlag = true
+	return builder
+}
+
+func (builder *FunctionalRoleBuilder) Build() *FunctionalRole {
+	req := &FunctionalRole{}
+	if builder.roleIdFlag {
+		req.RoleId = &builder.roleId
+
+	}
+	if builder.roleNameFlag {
+		req.RoleName = &builder.roleName
+
+	}
+	return req
+}
+
+type FunctionalRoleMember struct {
+	UserId        *string  `json:"user_id,omitempty"`        // 成员ID
+	ScopeType     *string  `json:"scope_type,omitempty"`     // 管理范围的类型
+	DepartmentIds []string `json:"department_ids,omitempty"` // 表示该角色成员的管理范围，scope_type为“指定范围”时，返回该值
+}
+
+type FunctionalRoleMemberBuilder struct {
+	userId            string // 成员ID
+	userIdFlag        bool
+	scopeType         string // 管理范围的类型
+	scopeTypeFlag     bool
+	departmentIds     []string // 表示该角色成员的管理范围，scope_type为“指定范围”时，返回该值
+	departmentIdsFlag bool
+}
+
+func NewFunctionalRoleMemberBuilder() *FunctionalRoleMemberBuilder {
+	builder := &FunctionalRoleMemberBuilder{}
+	return builder
+}
+
+// 成员ID
+//
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+func (builder *FunctionalRoleMemberBuilder) UserId(userId string) *FunctionalRoleMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 管理范围的类型
+//
+// 示例值：All
+func (builder *FunctionalRoleMemberBuilder) ScopeType(scopeType string) *FunctionalRoleMemberBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 表示该角色成员的管理范围，scope_type为“指定范围”时，返回该值
+//
+// 示例值：
+func (builder *FunctionalRoleMemberBuilder) DepartmentIds(departmentIds []string) *FunctionalRoleMemberBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+func (builder *FunctionalRoleMemberBuilder) Build() *FunctionalRoleMember {
+	req := &FunctionalRoleMember{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	return req
+}
+
+type FunctionalRoleMemberResult struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+	Reason *int    `json:"reason,omitempty"`  // 成员处理结果
+}
+
+type FunctionalRoleMemberResultBuilder struct {
+	userId     string // 用户ID
+	userIdFlag bool
+	reason     int // 成员处理结果
+	reasonFlag bool
+}
+
+func NewFunctionalRoleMemberResultBuilder() *FunctionalRoleMemberResultBuilder {
+	builder := &FunctionalRoleMemberResultBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+func (builder *FunctionalRoleMemberResultBuilder) UserId(userId string) *FunctionalRoleMemberResultBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 成员处理结果
+//
+// 示例值：0
+func (builder *FunctionalRoleMemberResultBuilder) Reason(reason int) *FunctionalRoleMemberResultBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *FunctionalRoleMemberResultBuilder) Build() *FunctionalRoleMemberResult {
+	req := &FunctionalRoleMemberResult{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	return req
+}
+
 type Group struct {
 	Id                    *string `json:"id,omitempty"`                      // 用户组ID
 	Name                  *string `json:"name,omitempty"`                    // 用户组名字
@@ -2450,6 +2609,70 @@ func (builder *OldUserObjectBuilder) Build() *OldUserObject {
 	return req
 }
 
+type ProductI18nName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 席位中文名
+	JaJp *string `json:"ja_jp,omitempty"` // 席位日文名
+	EnUs *string `json:"en_us,omitempty"` // 席位英文名
+}
+
+type ProductI18nNameBuilder struct {
+	zhCn     string // 席位中文名
+	zhCnFlag bool
+	jaJp     string // 席位日文名
+	jaJpFlag bool
+	enUs     string // 席位英文名
+	enUsFlag bool
+}
+
+func NewProductI18nNameBuilder() *ProductI18nNameBuilder {
+	builder := &ProductI18nNameBuilder{}
+	return builder
+}
+
+// 席位中文名
+//
+// 示例值：zh_cn_name
+func (builder *ProductI18nNameBuilder) ZhCn(zhCn string) *ProductI18nNameBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 席位日文名
+//
+// 示例值：ja_jp_name
+func (builder *ProductI18nNameBuilder) JaJp(jaJp string) *ProductI18nNameBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+// 席位英文名
+//
+// 示例值：en_name
+func (builder *ProductI18nNameBuilder) EnUs(enUs string) *ProductI18nNameBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *ProductI18nNameBuilder) Build() *ProductI18nName {
+	req := &ProductI18nName{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
 type ResourceAcceptor struct {
 	ProcessingType *string `json:"processing_type,omitempty"`  // 邮件处理方式
 	AcceptorUserId *string `json:"acceptor_user_id,omitempty"` // 在 processing_type 为 1 （转移资源时），邮件资源接收者
@@ -2861,8 +3084,10 @@ type User struct {
 
 	IsFrozen *bool `json:"is_frozen,omitempty"` // 是否暂停用户
 
-	JobLevelId  *string `json:"job_level_id,omitempty"`  // 职级ID
-	JobFamilyId *string `json:"job_family_id,omitempty"` // 序列ID
+	JobLevelId      *string           `json:"job_level_id,omitempty"`     // 职级ID
+	JobFamilyId     *string           `json:"job_family_id,omitempty"`    // 序列ID
+	SubscriptionIds []string          `json:"subscription_ids,omitempty"` // 分配给用户的席位ID列表
+	AssignInfo      []*UserAssignInfo `json:"assign_info,omitempty"`      // 用户席位列表
 }
 
 type UserBuilder struct {
@@ -2924,10 +3149,14 @@ type UserBuilder struct {
 	isFrozen     bool // 是否暂停用户
 	isFrozenFlag bool
 
-	jobLevelId      string // 职级ID
-	jobLevelIdFlag  bool
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobLevelId          string // 职级ID
+	jobLevelIdFlag      bool
+	jobFamilyId         string // 序列ID
+	jobFamilyIdFlag     bool
+	subscriptionIds     []string // 分配给用户的席位ID列表
+	subscriptionIdsFlag bool
+	assignInfo          []*UserAssignInfo // 用户席位列表
+	assignInfoFlag      bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -3196,6 +3425,24 @@ func (builder *UserBuilder) JobFamilyId(jobFamilyId string) *UserBuilder {
 	return builder
 }
 
+// 分配给用户的席位ID列表
+//
+// 示例值：
+func (builder *UserBuilder) SubscriptionIds(subscriptionIds []string) *UserBuilder {
+	builder.subscriptionIds = subscriptionIds
+	builder.subscriptionIdsFlag = true
+	return builder
+}
+
+// 用户席位列表
+//
+// 示例值：
+func (builder *UserBuilder) AssignInfo(assignInfo []*UserAssignInfo) *UserBuilder {
+	builder.assignInfo = assignInfo
+	builder.assignInfoFlag = true
+	return builder
+}
+
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
 	if builder.unionIdFlag {
@@ -3311,6 +3558,123 @@ func (builder *UserBuilder) Build() *User {
 	}
 	if builder.jobFamilyIdFlag {
 		req.JobFamilyId = &builder.jobFamilyId
+
+	}
+	if builder.subscriptionIdsFlag {
+		req.SubscriptionIds = builder.subscriptionIds
+	}
+	if builder.assignInfoFlag {
+		req.AssignInfo = builder.assignInfo
+	}
+	return req
+}
+
+type UserAssignInfo struct {
+	SubscriptionId *string          `json:"subscription_id,omitempty"`  // 席位id
+	LicensePlanKey *string          `json:"license_plan_key,omitempty"` // license_plan_key
+	ProductName    *string          `json:"product_name,omitempty"`     // 席位名称
+	I18nName       *ProductI18nName `json:"i18n_name,omitempty"`        // 国际化名称
+	StartTime      *string          `json:"start_time,omitempty"`       // 席位起始时间
+	EndTime        *string          `json:"end_time,omitempty"`         // 席位结束时间
+}
+
+type UserAssignInfoBuilder struct {
+	subscriptionId     string // 席位id
+	subscriptionIdFlag bool
+	licensePlanKey     string // license_plan_key
+	licensePlanKeyFlag bool
+	productName        string // 席位名称
+	productNameFlag    bool
+	i18nName           *ProductI18nName // 国际化名称
+	i18nNameFlag       bool
+	startTime          string // 席位起始时间
+	startTimeFlag      bool
+	endTime            string // 席位结束时间
+	endTimeFlag        bool
+}
+
+func NewUserAssignInfoBuilder() *UserAssignInfoBuilder {
+	builder := &UserAssignInfoBuilder{}
+	return builder
+}
+
+// 席位id
+//
+// 示例值：7079609167680782300
+func (builder *UserAssignInfoBuilder) SubscriptionId(subscriptionId string) *UserAssignInfoBuilder {
+	builder.subscriptionId = subscriptionId
+	builder.subscriptionIdFlag = true
+	return builder
+}
+
+// license_plan_key
+//
+// 示例值：suite_enterprise_e5
+func (builder *UserAssignInfoBuilder) LicensePlanKey(licensePlanKey string) *UserAssignInfoBuilder {
+	builder.licensePlanKey = licensePlanKey
+	builder.licensePlanKeyFlag = true
+	return builder
+}
+
+// 席位名称
+//
+// 示例值：旗舰版 E5
+func (builder *UserAssignInfoBuilder) ProductName(productName string) *UserAssignInfoBuilder {
+	builder.productName = productName
+	builder.productNameFlag = true
+	return builder
+}
+
+// 国际化名称
+//
+// 示例值：
+func (builder *UserAssignInfoBuilder) I18nName(i18nName *ProductI18nName) *UserAssignInfoBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+// 席位起始时间
+//
+// 示例值：1674981000
+func (builder *UserAssignInfoBuilder) StartTime(startTime string) *UserAssignInfoBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 席位结束时间
+//
+// 示例值：1674991000
+func (builder *UserAssignInfoBuilder) EndTime(endTime string) *UserAssignInfoBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *UserAssignInfoBuilder) Build() *UserAssignInfo {
+	req := &UserAssignInfo{}
+	if builder.subscriptionIdFlag {
+		req.SubscriptionId = &builder.subscriptionId
+
+	}
+	if builder.licensePlanKeyFlag {
+		req.LicensePlanKey = &builder.licensePlanKey
+
+	}
+	if builder.productNameFlag {
+		req.ProductName = &builder.productName
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
 
 	}
 	return req

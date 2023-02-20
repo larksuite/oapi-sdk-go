@@ -2771,21 +2771,24 @@ func (builder *LocationBuilder) Build() *Location {
 }
 
 type Person struct {
-	Id     *string `json:"id,omitempty"`      // 用户id，id类型等于user_id_type所指定的类型。
-	Name   *string `json:"name,omitempty"`    // 用户的中文名称
-	EnName *string `json:"en_name,omitempty"` // 用户的英文名称
-	Email  *string `json:"email,omitempty"`   // 用户的邮箱
+	Id        *string `json:"id,omitempty"`         // 用户id，id类型等于user_id_type所指定的类型。
+	Name      *string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    *string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     *string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarUrl *string `json:"avatar_url,omitempty"` // 头像链接
 }
 
 type PersonBuilder struct {
-	id         string // 用户id，id类型等于user_id_type所指定的类型。
-	idFlag     bool
-	name       string // 用户的中文名称
-	nameFlag   bool
-	enName     string // 用户的英文名称
-	enNameFlag bool
-	email      string // 用户的邮箱
-	emailFlag  bool
+	id            string // 用户id，id类型等于user_id_type所指定的类型。
+	idFlag        bool
+	name          string // 用户的中文名称
+	nameFlag      bool
+	enName        string // 用户的英文名称
+	enNameFlag    bool
+	email         string // 用户的邮箱
+	emailFlag     bool
+	avatarUrl     string // 头像链接
+	avatarUrlFlag bool
 }
 
 func NewPersonBuilder() *PersonBuilder {
@@ -2829,6 +2832,15 @@ func (builder *PersonBuilder) Email(email string) *PersonBuilder {
 	return builder
 }
 
+// 头像链接
+//
+// 示例值：https://example.com/avatar
+func (builder *PersonBuilder) AvatarUrl(avatarUrl string) *PersonBuilder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+
 func (builder *PersonBuilder) Build() *Person {
 	req := &Person{}
 	if builder.idFlag {
@@ -2845,6 +2857,10 @@ func (builder *PersonBuilder) Build() *Person {
 	}
 	if builder.emailFlag {
 		req.Email = &builder.email
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
 
 	}
 	return req

@@ -41,6 +41,8 @@ func main() {
 			AllowResubmit(true).
 			AllowSubmitAgain(true).
 			CancelBotNotification("0").
+			ForbidRevoke(false).
+			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

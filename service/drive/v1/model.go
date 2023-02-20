@@ -2927,6 +2927,7 @@ type Meta struct {
 	LatestModifyUser *string `json:"latest_modify_user,omitempty"` // 最后编辑者
 	LatestModifyTime *string `json:"latest_modify_time,omitempty"` // 最后编辑时间（Unix时间戳）
 	Url              *string `json:"url,omitempty"`                // 文档链接
+	SecLabelName     *string `json:"sec_label_name,omitempty"`     // 文档密级标签名称
 }
 
 type MetaBuilder struct {
@@ -2946,6 +2947,8 @@ type MetaBuilder struct {
 	latestModifyTimeFlag bool
 	url                  string // 文档链接
 	urlFlag              bool
+	secLabelName         string // 文档密级标签名称
+	secLabelNameFlag     bool
 }
 
 func NewMetaBuilder() *MetaBuilder {
@@ -3025,6 +3028,15 @@ func (builder *MetaBuilder) Url(url string) *MetaBuilder {
 	return builder
 }
 
+// 文档密级标签名称
+//
+// 示例值：L2-内部
+func (builder *MetaBuilder) SecLabelName(secLabelName string) *MetaBuilder {
+	builder.secLabelName = secLabelName
+	builder.secLabelNameFlag = true
+	return builder
+}
+
 func (builder *MetaBuilder) Build() *Meta {
 	req := &Meta{}
 	if builder.docTokenFlag {
@@ -3057,6 +3069,10 @@ func (builder *MetaBuilder) Build() *Meta {
 	}
 	if builder.urlFlag {
 		req.Url = &builder.url
+
+	}
+	if builder.secLabelNameFlag {
+		req.SecLabelName = &builder.secLabelName
 
 	}
 	return req

@@ -21220,6 +21220,428 @@ func (builder *OfferSelectionObjectBuilder) Build() *OfferSelectionObject {
 	return req
 }
 
+type PortalJobPost struct {
+	Id                 *string                         `json:"id,omitempty"`                   // 职位广告 ID
+	Title              *string                         `json:"title,omitempty"`                // 标题
+	JobId              *string                         `json:"job_id,omitempty"`               // 职位 ID
+	JobCode            *string                         `json:"job_code,omitempty"`             // 职位编码
+	JobExpireTime      *string                         `json:"job_expire_time,omitempty"`      // 职位过期时间，「null」代表「长期有效」
+	JobActiveStatus    *int                            `json:"job_active_status,omitempty"`    // 职位状态
+	JobProcessType     *int                            `json:"job_process_type,omitempty"`     // 职位流程类型
+	JobRecruitmentType *IdNameObject                   `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
+	JobDepartment      *IdNameObject                   `json:"job_department,omitempty"`       // 职位部门
+	JobType            *IdNameObject                   `json:"job_type,omitempty"`             // 职位类型
+	Address            *CommonAddress                  `json:"address,omitempty"`              // 职位地址
+	MinSalary          *string                         `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
+	MaxSalary          *string                         `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
+	RequiredDegree     *int                            `json:"required_degree,omitempty"`      // 学历要求
+	Experience         *int                            `json:"experience,omitempty"`           // 经验
+	Headcount          *int                            `json:"headcount,omitempty"`            // 数量
+	HighLightList      []*IdNameObject                 `json:"high_light_list,omitempty"`      // 职位亮点
+	Description        *string                         `json:"description,omitempty"`          // 职位描述
+	Requirement        *string                         `json:"requirement,omitempty"`          // 职位要求
+	Creator            *IdNameObject                   `json:"creator,omitempty"`              // 创建人
+	CreateTime         *string                         `json:"create_time,omitempty"`          // 创建时间
+	ModifyTime         *string                         `json:"modify_time,omitempty"`          // 修改时间
+	CustomizedDataList []*WebsiteJobPostCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+	JobFunction        *IdNameObject                   `json:"job_function,omitempty"`         // 职能分类
+	Subject            *IdNameObject                   `json:"subject,omitempty"`              // 职位项目
+	AddressList        []*CommonAddress                `json:"address_list,omitempty"`         // 职位广告地址列表
+}
+
+type PortalJobPostBuilder struct {
+	id                     string // 职位广告 ID
+	idFlag                 bool
+	title                  string // 标题
+	titleFlag              bool
+	jobId                  string // 职位 ID
+	jobIdFlag              bool
+	jobCode                string // 职位编码
+	jobCodeFlag            bool
+	jobExpireTime          string // 职位过期时间，「null」代表「长期有效」
+	jobExpireTimeFlag      bool
+	jobActiveStatus        int // 职位状态
+	jobActiveStatusFlag    bool
+	jobProcessType         int // 职位流程类型
+	jobProcessTypeFlag     bool
+	jobRecruitmentType     *IdNameObject // 职位雇佣类型
+	jobRecruitmentTypeFlag bool
+	jobDepartment          *IdNameObject // 职位部门
+	jobDepartmentFlag      bool
+	jobType                *IdNameObject // 职位类型
+	jobTypeFlag            bool
+	address                *CommonAddress // 职位地址
+	addressFlag            bool
+	minSalary              string // 月薪范围-最低薪资
+	minSalaryFlag          bool
+	maxSalary              string // 月薪范围-最高薪资
+	maxSalaryFlag          bool
+	requiredDegree         int // 学历要求
+	requiredDegreeFlag     bool
+	experience             int // 经验
+	experienceFlag         bool
+	headcount              int // 数量
+	headcountFlag          bool
+	highLightList          []*IdNameObject // 职位亮点
+	highLightListFlag      bool
+	description            string // 职位描述
+	descriptionFlag        bool
+	requirement            string // 职位要求
+	requirementFlag        bool
+	creator                *IdNameObject // 创建人
+	creatorFlag            bool
+	createTime             string // 创建时间
+	createTimeFlag         bool
+	modifyTime             string // 修改时间
+	modifyTimeFlag         bool
+	customizedDataList     []*WebsiteJobPostCustomizedData // 自定义字段
+	customizedDataListFlag bool
+	jobFunction            *IdNameObject // 职能分类
+	jobFunctionFlag        bool
+	subject                *IdNameObject // 职位项目
+	subjectFlag            bool
+	addressList            []*CommonAddress // 职位广告地址列表
+	addressListFlag        bool
+}
+
+func NewPortalJobPostBuilder() *PortalJobPostBuilder {
+	builder := &PortalJobPostBuilder{}
+	return builder
+}
+
+// 职位广告 ID
+//
+// 示例值：1213213123123
+func (builder *PortalJobPostBuilder) Id(id string) *PortalJobPostBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 标题
+//
+// 示例值：测试
+func (builder *PortalJobPostBuilder) Title(title string) *PortalJobPostBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 职位 ID
+//
+// 示例值：xxx
+func (builder *PortalJobPostBuilder) JobId(jobId string) *PortalJobPostBuilder {
+	builder.jobId = jobId
+	builder.jobIdFlag = true
+	return builder
+}
+
+// 职位编码
+//
+// 示例值：007
+func (builder *PortalJobPostBuilder) JobCode(jobCode string) *PortalJobPostBuilder {
+	builder.jobCode = jobCode
+	builder.jobCodeFlag = true
+	return builder
+}
+
+// 职位过期时间，「null」代表「长期有效」
+//
+// 示例值：1111
+func (builder *PortalJobPostBuilder) JobExpireTime(jobExpireTime string) *PortalJobPostBuilder {
+	builder.jobExpireTime = jobExpireTime
+	builder.jobExpireTimeFlag = true
+	return builder
+}
+
+// 职位状态
+//
+// 示例值：1
+func (builder *PortalJobPostBuilder) JobActiveStatus(jobActiveStatus int) *PortalJobPostBuilder {
+	builder.jobActiveStatus = jobActiveStatus
+	builder.jobActiveStatusFlag = true
+	return builder
+}
+
+// 职位流程类型
+//
+// 示例值：1
+func (builder *PortalJobPostBuilder) JobProcessType(jobProcessType int) *PortalJobPostBuilder {
+	builder.jobProcessType = jobProcessType
+	builder.jobProcessTypeFlag = true
+	return builder
+}
+
+// 职位雇佣类型
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) JobRecruitmentType(jobRecruitmentType *IdNameObject) *PortalJobPostBuilder {
+	builder.jobRecruitmentType = jobRecruitmentType
+	builder.jobRecruitmentTypeFlag = true
+	return builder
+}
+
+// 职位部门
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) JobDepartment(jobDepartment *IdNameObject) *PortalJobPostBuilder {
+	builder.jobDepartment = jobDepartment
+	builder.jobDepartmentFlag = true
+	return builder
+}
+
+// 职位类型
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) JobType(jobType *IdNameObject) *PortalJobPostBuilder {
+	builder.jobType = jobType
+	builder.jobTypeFlag = true
+	return builder
+}
+
+// 职位地址
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) Address(address *CommonAddress) *PortalJobPostBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+
+// 月薪范围-最低薪资
+//
+// 示例值：5000
+func (builder *PortalJobPostBuilder) MinSalary(minSalary string) *PortalJobPostBuilder {
+	builder.minSalary = minSalary
+	builder.minSalaryFlag = true
+	return builder
+}
+
+// 月薪范围-最高薪资
+//
+// 示例值：10000
+func (builder *PortalJobPostBuilder) MaxSalary(maxSalary string) *PortalJobPostBuilder {
+	builder.maxSalary = maxSalary
+	builder.maxSalaryFlag = true
+	return builder
+}
+
+// 学历要求
+//
+// 示例值：1
+func (builder *PortalJobPostBuilder) RequiredDegree(requiredDegree int) *PortalJobPostBuilder {
+	builder.requiredDegree = requiredDegree
+	builder.requiredDegreeFlag = true
+	return builder
+}
+
+// 经验
+//
+// 示例值：1
+func (builder *PortalJobPostBuilder) Experience(experience int) *PortalJobPostBuilder {
+	builder.experience = experience
+	builder.experienceFlag = true
+	return builder
+}
+
+// 数量
+//
+// 示例值：12
+func (builder *PortalJobPostBuilder) Headcount(headcount int) *PortalJobPostBuilder {
+	builder.headcount = headcount
+	builder.headcountFlag = true
+	return builder
+}
+
+// 职位亮点
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) HighLightList(highLightList []*IdNameObject) *PortalJobPostBuilder {
+	builder.highLightList = highLightList
+	builder.highLightListFlag = true
+	return builder
+}
+
+// 职位描述
+//
+// 示例值：负责软件开发
+func (builder *PortalJobPostBuilder) Description(description string) *PortalJobPostBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 职位要求
+//
+// 示例值：大专
+func (builder *PortalJobPostBuilder) Requirement(requirement string) *PortalJobPostBuilder {
+	builder.requirement = requirement
+	builder.requirementFlag = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) Creator(creator *IdNameObject) *PortalJobPostBuilder {
+	builder.creator = creator
+	builder.creatorFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1111
+func (builder *PortalJobPostBuilder) CreateTime(createTime string) *PortalJobPostBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 修改时间
+//
+// 示例值：222
+func (builder *PortalJobPostBuilder) ModifyTime(modifyTime string) *PortalJobPostBuilder {
+	builder.modifyTime = modifyTime
+	builder.modifyTimeFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) CustomizedDataList(customizedDataList []*WebsiteJobPostCustomizedData) *PortalJobPostBuilder {
+	builder.customizedDataList = customizedDataList
+	builder.customizedDataListFlag = true
+	return builder
+}
+
+// 职能分类
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) JobFunction(jobFunction *IdNameObject) *PortalJobPostBuilder {
+	builder.jobFunction = jobFunction
+	builder.jobFunctionFlag = true
+	return builder
+}
+
+// 职位项目
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) Subject(subject *IdNameObject) *PortalJobPostBuilder {
+	builder.subject = subject
+	builder.subjectFlag = true
+	return builder
+}
+
+// 职位广告地址列表
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) AddressList(addressList []*CommonAddress) *PortalJobPostBuilder {
+	builder.addressList = addressList
+	builder.addressListFlag = true
+	return builder
+}
+
+func (builder *PortalJobPostBuilder) Build() *PortalJobPost {
+	req := &PortalJobPost{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.jobIdFlag {
+		req.JobId = &builder.jobId
+
+	}
+	if builder.jobCodeFlag {
+		req.JobCode = &builder.jobCode
+
+	}
+	if builder.jobExpireTimeFlag {
+		req.JobExpireTime = &builder.jobExpireTime
+
+	}
+	if builder.jobActiveStatusFlag {
+		req.JobActiveStatus = &builder.jobActiveStatus
+
+	}
+	if builder.jobProcessTypeFlag {
+		req.JobProcessType = &builder.jobProcessType
+
+	}
+	if builder.jobRecruitmentTypeFlag {
+		req.JobRecruitmentType = builder.jobRecruitmentType
+	}
+	if builder.jobDepartmentFlag {
+		req.JobDepartment = builder.jobDepartment
+	}
+	if builder.jobTypeFlag {
+		req.JobType = builder.jobType
+	}
+	if builder.addressFlag {
+		req.Address = builder.address
+	}
+	if builder.minSalaryFlag {
+		req.MinSalary = &builder.minSalary
+
+	}
+	if builder.maxSalaryFlag {
+		req.MaxSalary = &builder.maxSalary
+
+	}
+	if builder.requiredDegreeFlag {
+		req.RequiredDegree = &builder.requiredDegree
+
+	}
+	if builder.experienceFlag {
+		req.Experience = &builder.experience
+
+	}
+	if builder.headcountFlag {
+		req.Headcount = &builder.headcount
+
+	}
+	if builder.highLightListFlag {
+		req.HighLightList = builder.highLightList
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.requirementFlag {
+		req.Requirement = &builder.requirement
+
+	}
+	if builder.creatorFlag {
+		req.Creator = builder.creator
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.modifyTimeFlag {
+		req.ModifyTime = &builder.modifyTime
+
+	}
+	if builder.customizedDataListFlag {
+		req.CustomizedDataList = builder.customizedDataList
+	}
+	if builder.jobFunctionFlag {
+		req.JobFunction = builder.jobFunction
+	}
+	if builder.subjectFlag {
+		req.Subject = builder.subject
+	}
+	if builder.addressListFlag {
+		req.AddressList = builder.addressList
+	}
+	return req
+}
+
 type ProjectInfo struct {
 	Desc      *string `json:"desc,omitempty"`       // 描述
 	EndTime   *int    `json:"end_time,omitempty"`   // 结束时间

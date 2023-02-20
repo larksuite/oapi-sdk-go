@@ -38,9 +38,9 @@ type ApprovalService struct {
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 原生审批实例
+	Instance         *instance         // 审批查询
 	InstanceComment  *instanceComment  // 原生审批评论
-	Task             *task             // 原生审批任务
+	Task             *task             // 审批查询
 }
 
 type approval struct {

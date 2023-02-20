@@ -28,15 +28,16 @@ func main() {
 	// 创建请求对象
 	req := larksearch.NewCreateDataSourceReqBuilder().
 		DataSource(larksearch.NewDataSourceBuilder().
-			Name("").
+			Name("客服工单").
 			State(0).
-			Description("").
-			IconUrl("").
+			Description("搜索客服工单").
+			IconUrl("https://s3-imfile.feishucdn.com/static-resource/v1/585fd740-f52e-4098-b864-57a32082ba1g").
 			Template("search_common_card").
 			SearchableFields([]string{}).
 			I18nName(larksearch.NewI18nMetaBuilder().Build()).
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
-			SchemaId("").
+			SchemaId("7159054681489010384").
+			AppId("cli_a1306bed4738d01b").
 			Build()).
 		Build()
 	// 发起请求

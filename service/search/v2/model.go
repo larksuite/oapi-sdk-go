@@ -326,6 +326,7 @@ type DataSource struct {
 	I18nName         *I18nMeta `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *I18nMeta `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaId         *string   `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
+	AppId            *string   `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
 }
 
 type DataSourceBuilder struct {
@@ -355,6 +356,8 @@ type DataSourceBuilder struct {
 	i18nDescriptionFlag  bool
 	schemaId             string // 数据源关联的 schema 标识
 	schemaIdFlag         bool
+	appId                string // datasource对应的开放平台应用id
+	appIdFlag            bool
 }
 
 func NewDataSourceBuilder() *DataSourceBuilder {
@@ -400,7 +403,7 @@ func (builder *DataSourceBuilder) Description(description string) *DataSourceBui
 
 // 创建时间，使用Unix时间戳，单位为“秒”
 //
-// 示例值：
+// 示例值：1674309260
 func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
@@ -409,7 +412,7 @@ func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuild
 
 // 更新时间，使用Unix时间戳，单位为“秒”
 //
-// 示例值：
+// 示例值：1674309260
 func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
@@ -418,7 +421,7 @@ func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuild
 
 // 是否超限
 //
-// 示例值：
+// 示例值：false
 func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceBuilder {
 	builder.isExceedQuota = isExceedQuota
 	builder.isExceedQuotaFlag = true
@@ -479,6 +482,15 @@ func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
 	return builder
 }
 
+// datasource对应的开放平台应用id
+//
+// 示例值：cli_a1306bed4738d01b
+func (builder *DataSourceBuilder) AppId(appId string) *DataSourceBuilder {
+	builder.appId = appId
+	builder.appIdFlag = true
+	return builder
+}
+
 func (builder *DataSourceBuilder) Build() *DataSource {
 	req := &DataSource{}
 	if builder.idFlag {
@@ -528,6 +540,10 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	}
 	if builder.schemaIdFlag {
 		req.SchemaId = &builder.schemaId
+
+	}
+	if builder.appIdFlag {
+		req.AppId = &builder.appId
 
 	}
 	return req

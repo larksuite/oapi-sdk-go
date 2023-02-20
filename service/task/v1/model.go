@@ -126,6 +126,41 @@ const (
 	UserIdTypeListTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
 )
 
+type Attachment struct {
+}
+
+type Attatchment struct {
+	Guid *string `json:"guid,omitempty"` // 全局唯一ID
+}
+
+type AttatchmentBuilder struct {
+	guid     string // 全局唯一ID
+	guidFlag bool
+}
+
+func NewAttatchmentBuilder() *AttatchmentBuilder {
+	builder := &AttatchmentBuilder{}
+	return builder
+}
+
+// 全局唯一ID
+//
+// 示例值：dddd
+func (builder *AttatchmentBuilder) Guid(guid string) *AttatchmentBuilder {
+	builder.guid = guid
+	builder.guidFlag = true
+	return builder
+}
+
+func (builder *AttatchmentBuilder) Build() *Attatchment {
+	req := &Attatchment{}
+	if builder.guidFlag {
+		req.Guid = &builder.guid
+
+	}
+	return req
+}
+
 type Collaborator struct {
 	Id     *string  `json:"id,omitempty"`      // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
 	IdList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
@@ -867,6 +902,9 @@ func (builder *TaskBuilder) Build() *Task {
 
 	}
 	return req
+}
+
+type Tasklist struct {
 }
 
 type UserId struct {

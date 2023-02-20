@@ -376,6 +376,86 @@ func (builder *AddressBuilder) Build() *Address {
 	return req
 }
 
+type ApplicationInfo struct {
+	ApplyInitiatorId    *string `json:"apply_initiator_id,omitempty"`    // 离职审批发起人的雇佣 ID
+	ApplyInitiatingTime *string `json:"apply_initiating_time,omitempty"` // 离职申请流程发起时间
+	ApplyFinishTime     *string `json:"apply_finish_time,omitempty"`     // 离职申请流程结束时间
+	ProcessId           *string `json:"process_id,omitempty"`            // 流程 ID
+}
+
+type ApplicationInfoBuilder struct {
+	applyInitiatorId        string // 离职审批发起人的雇佣 ID
+	applyInitiatorIdFlag    bool
+	applyInitiatingTime     string // 离职申请流程发起时间
+	applyInitiatingTimeFlag bool
+	applyFinishTime         string // 离职申请流程结束时间
+	applyFinishTimeFlag     bool
+	processId               string // 流程 ID
+	processIdFlag           bool
+}
+
+func NewApplicationInfoBuilder() *ApplicationInfoBuilder {
+	builder := &ApplicationInfoBuilder{}
+	return builder
+}
+
+// 离职审批发起人的雇佣 ID
+//
+// 示例值：6838119494196871234
+func (builder *ApplicationInfoBuilder) ApplyInitiatorId(applyInitiatorId string) *ApplicationInfoBuilder {
+	builder.applyInitiatorId = applyInitiatorId
+	builder.applyInitiatorIdFlag = true
+	return builder
+}
+
+// 离职申请流程发起时间
+//
+// 示例值：2022-02-03 11:22:33
+func (builder *ApplicationInfoBuilder) ApplyInitiatingTime(applyInitiatingTime string) *ApplicationInfoBuilder {
+	builder.applyInitiatingTime = applyInitiatingTime
+	builder.applyInitiatingTimeFlag = true
+	return builder
+}
+
+// 离职申请流程结束时间
+//
+// 示例值：2022-02-03 11:22:33
+func (builder *ApplicationInfoBuilder) ApplyFinishTime(applyFinishTime string) *ApplicationInfoBuilder {
+	builder.applyFinishTime = applyFinishTime
+	builder.applyFinishTimeFlag = true
+	return builder
+}
+
+// 流程 ID
+//
+// 示例值：6838119494196871234
+func (builder *ApplicationInfoBuilder) ProcessId(processId string) *ApplicationInfoBuilder {
+	builder.processId = processId
+	builder.processIdFlag = true
+	return builder
+}
+
+func (builder *ApplicationInfoBuilder) Build() *ApplicationInfo {
+	req := &ApplicationInfo{}
+	if builder.applyInitiatorIdFlag {
+		req.ApplyInitiatorId = &builder.applyInitiatorId
+
+	}
+	if builder.applyInitiatingTimeFlag {
+		req.ApplyInitiatingTime = &builder.applyInitiatingTime
+
+	}
+	if builder.applyFinishTimeFlag {
+		req.ApplyFinishTime = &builder.applyFinishTime
+
+	}
+	if builder.processIdFlag {
+		req.ProcessId = &builder.processId
+
+	}
+	return req
+}
+
 type AssignedOrganization struct {
 	OrgKey    *string  `json:"org_key,omitempty"`     // 管理对象key
 	OrgName   *Name    `json:"org_name,omitempty"`    // 管理对象名称
@@ -1267,6 +1347,7 @@ type CommonSchemaConfig struct {
 	TextFieldSetting       *TextFieldSetting       `json:"text_field_setting,omitempty"`       // 文本配置信息
 	NumberFieldSetting     *NumberFieldSetting     `json:"number_field_setting,omitempty"`     // 数字配置信息
 	EnumFieldSetting       *EnumFieldSetting       `json:"enum_field_setting,omitempty"`       // 选项配置信息
+	LookupFieldSetting     *LookupFieldSetting     `json:"lookup_field_setting,omitempty"`     // 查找字段配置信息
 	DateTimeFieldSetting   *DateTimeFieldSetting   `json:"date_time_field_setting,omitempty"`  // 日期时间配置信息
 	AttachmentFieldSetting *AttachmentFieldSetting `json:"attachment_field_setting,omitempty"` // 附件配置信息
 	ImageFieldSetting      *ImageFieldSetting      `json:"image_field_setting,omitempty"`      // 图片配置信息
@@ -1279,6 +1360,8 @@ type CommonSchemaConfigBuilder struct {
 	numberFieldSettingFlag     bool
 	enumFieldSetting           *EnumFieldSetting // 选项配置信息
 	enumFieldSettingFlag       bool
+	lookupFieldSetting         *LookupFieldSetting // 查找字段配置信息
+	lookupFieldSettingFlag     bool
 	dateTimeFieldSetting       *DateTimeFieldSetting // 日期时间配置信息
 	dateTimeFieldSettingFlag   bool
 	attachmentFieldSetting     *AttachmentFieldSetting // 附件配置信息
@@ -1319,6 +1402,15 @@ func (builder *CommonSchemaConfigBuilder) EnumFieldSetting(enumFieldSetting *Enu
 	return builder
 }
 
+// 查找字段配置信息
+//
+// 示例值：
+func (builder *CommonSchemaConfigBuilder) LookupFieldSetting(lookupFieldSetting *LookupFieldSetting) *CommonSchemaConfigBuilder {
+	builder.lookupFieldSetting = lookupFieldSetting
+	builder.lookupFieldSettingFlag = true
+	return builder
+}
+
 // 日期时间配置信息
 //
 // 示例值：
@@ -1356,6 +1448,9 @@ func (builder *CommonSchemaConfigBuilder) Build() *CommonSchemaConfig {
 	}
 	if builder.enumFieldSettingFlag {
 		req.EnumFieldSetting = builder.enumFieldSetting
+	}
+	if builder.lookupFieldSettingFlag {
+		req.LookupFieldSetting = builder.lookupFieldSetting
 	}
 	if builder.dateTimeFieldSettingFlag {
 		req.DateTimeFieldSetting = builder.dateTimeFieldSetting
@@ -3088,6 +3183,133 @@ func (builder *CustomFieldBuilder) Build() *CustomField {
 	}
 	if builder.updateTimeFlag {
 		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
+type CustomFieldData struct {
+	CustomApiName *string     `json:"custom_api_name,omitempty"` // 自定义字段 apiname，即自定义字段的唯一标识
+	Name          *CustomName `json:"name,omitempty"`            // 自定义字段名称
+	Type          *int        `json:"type,omitempty"`            // 自定义字段类型
+	Value         *string     `json:"value,omitempty"`           // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+}
+
+type CustomFieldDataBuilder struct {
+	customApiName     string // 自定义字段 apiname，即自定义字段的唯一标识
+	customApiNameFlag bool
+	name              *CustomName // 自定义字段名称
+	nameFlag          bool
+	type_             int // 自定义字段类型
+	typeFlag          bool
+	value             string // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+	valueFlag         bool
+}
+
+func NewCustomFieldDataBuilder() *CustomFieldDataBuilder {
+	builder := &CustomFieldDataBuilder{}
+	return builder
+}
+
+// 自定义字段 apiname，即自定义字段的唯一标识
+//
+// 示例值：name
+func (builder *CustomFieldDataBuilder) CustomApiName(customApiName string) *CustomFieldDataBuilder {
+	builder.customApiName = customApiName
+	builder.customApiNameFlag = true
+	return builder
+}
+
+// 自定义字段名称
+//
+// 示例值：
+func (builder *CustomFieldDataBuilder) Name(name *CustomName) *CustomFieldDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 自定义字段类型
+//
+// 示例值：1
+func (builder *CustomFieldDataBuilder) Type(type_ int) *CustomFieldDataBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+//
+// 示例值："231"
+func (builder *CustomFieldDataBuilder) Value(value string) *CustomFieldDataBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *CustomFieldDataBuilder) Build() *CustomFieldData {
+	req := &CustomFieldData{}
+	if builder.customApiNameFlag {
+		req.CustomApiName = &builder.customApiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type CustomName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文
+	EnUs *string `json:"en_us,omitempty"` // 英文
+}
+
+type CustomNameBuilder struct {
+	zhCn     string // 中文
+	zhCnFlag bool
+	enUs     string // 英文
+	enUsFlag bool
+}
+
+func NewCustomNameBuilder() *CustomNameBuilder {
+	builder := &CustomNameBuilder{}
+	return builder
+}
+
+// 中文
+//
+// 示例值：自定义姓名
+func (builder *CustomNameBuilder) ZhCn(zhCn string) *CustomNameBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文
+//
+// 示例值：Custom Name
+func (builder *CustomNameBuilder) EnUs(enUs string) *CustomNameBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *CustomNameBuilder) Build() *CustomName {
+	req := &CustomName{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
 
 	}
 	return req
@@ -5257,11 +5479,14 @@ func (builder *EnumBuilder) Build() *Enum {
 
 type EnumFieldSetting struct {
 	EnumFieldOptionList []*CommonSchemaOption `json:"enum_field_option_list,omitempty"` // 选项信息
+	IsMultiple          *bool                 `json:"is_multiple,omitempty"`            // 是否为多选
 }
 
 type EnumFieldSettingBuilder struct {
 	enumFieldOptionList     []*CommonSchemaOption // 选项信息
 	enumFieldOptionListFlag bool
+	isMultiple              bool // 是否为多选
+	isMultipleFlag          bool
 }
 
 func NewEnumFieldSettingBuilder() *EnumFieldSettingBuilder {
@@ -5278,10 +5503,23 @@ func (builder *EnumFieldSettingBuilder) EnumFieldOptionList(enumFieldOptionList 
 	return builder
 }
 
+// 是否为多选
+//
+// 示例值：false
+func (builder *EnumFieldSettingBuilder) IsMultiple(isMultiple bool) *EnumFieldSettingBuilder {
+	builder.isMultiple = isMultiple
+	builder.isMultipleFlag = true
+	return builder
+}
+
 func (builder *EnumFieldSettingBuilder) Build() *EnumFieldSetting {
 	req := &EnumFieldSetting{}
 	if builder.enumFieldOptionListFlag {
 		req.EnumFieldOptionList = builder.enumFieldOptionList
+	}
+	if builder.isMultipleFlag {
+		req.IsMultiple = &builder.isMultiple
+
 	}
 	return req
 }
@@ -8839,6 +9077,54 @@ func (builder *LocationBuilder) Build() *Location {
 	return req
 }
 
+type LookupFieldSetting struct {
+	LookupObjApiName *string `json:"lookup_obj_api_name,omitempty"` // 查找字段对应的对象 apiname，可通过【获取自定义字段列表】接口获取这个对象中定义的自定义字段
+	IsMultiple       *bool   `json:"is_multiple,omitempty"`         // 是否为多值
+}
+
+type LookupFieldSettingBuilder struct {
+	lookupObjApiName     string // 查找字段对应的对象 apiname，可通过【获取自定义字段列表】接口获取这个对象中定义的自定义字段
+	lookupObjApiNameFlag bool
+	isMultiple           bool // 是否为多值
+	isMultipleFlag       bool
+}
+
+func NewLookupFieldSettingBuilder() *LookupFieldSettingBuilder {
+	builder := &LookupFieldSettingBuilder{}
+	return builder
+}
+
+// 查找字段对应的对象 apiname，可通过【获取自定义字段列表】接口获取这个对象中定义的自定义字段
+//
+// 示例值：employment
+func (builder *LookupFieldSettingBuilder) LookupObjApiName(lookupObjApiName string) *LookupFieldSettingBuilder {
+	builder.lookupObjApiName = lookupObjApiName
+	builder.lookupObjApiNameFlag = true
+	return builder
+}
+
+// 是否为多值
+//
+// 示例值：false
+func (builder *LookupFieldSettingBuilder) IsMultiple(isMultiple bool) *LookupFieldSettingBuilder {
+	builder.isMultiple = isMultiple
+	builder.isMultipleFlag = true
+	return builder
+}
+
+func (builder *LookupFieldSettingBuilder) Build() *LookupFieldSetting {
+	req := &LookupFieldSetting{}
+	if builder.lookupObjApiNameFlag {
+		req.LookupObjApiName = &builder.lookupObjApiName
+
+	}
+	if builder.isMultipleFlag {
+		req.IsMultiple = &builder.isMultiple
+
+	}
+	return req
+}
+
 type ManageRelation struct {
 	SubordinateDepartmentId *string `json:"subordinate_department_id,omitempty"` // 下级所在部门
 	SubordinateEmployeeId   *string `json:"subordinate_employee_id,omitempty"`   // 下级员工
@@ -9614,6 +9900,179 @@ func (builder *ObjectFieldDataBuilder) Build() *ObjectFieldData {
 	return req
 }
 
+type Offboarding struct {
+	InitiatingType       *string               `json:"initiating_type,omitempty"`       // 离职发起类型，包括：
+	Status               *string               `json:"status,omitempty"`                // 离职状态，包括：
+	ApplicationInfo      *ApplicationInfo      `json:"application_info,omitempty"`      // 离职审批信息
+	OffboardingInfo      *OffboardingInfo      `json:"offboarding_info,omitempty"`      // 员工离职信息
+	OffboardingChecklist *OffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
+}
+
+type OffboardingBuilder struct {
+	initiatingType           string // 离职发起类型，包括：
+	initiatingTypeFlag       bool
+	status                   string // 离职状态，包括：
+	statusFlag               bool
+	applicationInfo          *ApplicationInfo // 离职审批信息
+	applicationInfoFlag      bool
+	offboardingInfo          *OffboardingInfo // 员工离职信息
+	offboardingInfoFlag      bool
+	offboardingChecklist     *OffboardingChecklist // 离职办理流程信息
+	offboardingChecklistFlag bool
+}
+
+func NewOffboardingBuilder() *OffboardingBuilder {
+	builder := &OffboardingBuilder{}
+	return builder
+}
+
+// 离职发起类型，包括：
+//
+// 示例值：offboarding_directly
+func (builder *OffboardingBuilder) InitiatingType(initiatingType string) *OffboardingBuilder {
+	builder.initiatingType = initiatingType
+	builder.initiatingTypeFlag = true
+	return builder
+}
+
+// 离职状态，包括：
+//
+// 示例值：Approving
+func (builder *OffboardingBuilder) Status(status string) *OffboardingBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 离职审批信息
+//
+// 示例值：
+func (builder *OffboardingBuilder) ApplicationInfo(applicationInfo *ApplicationInfo) *OffboardingBuilder {
+	builder.applicationInfo = applicationInfo
+	builder.applicationInfoFlag = true
+	return builder
+}
+
+// 员工离职信息
+//
+// 示例值：
+func (builder *OffboardingBuilder) OffboardingInfo(offboardingInfo *OffboardingInfo) *OffboardingBuilder {
+	builder.offboardingInfo = offboardingInfo
+	builder.offboardingInfoFlag = true
+	return builder
+}
+
+// 离职办理流程信息
+//
+// 示例值：
+func (builder *OffboardingBuilder) OffboardingChecklist(offboardingChecklist *OffboardingChecklist) *OffboardingBuilder {
+	builder.offboardingChecklist = offboardingChecklist
+	builder.offboardingChecklistFlag = true
+	return builder
+}
+
+func (builder *OffboardingBuilder) Build() *Offboarding {
+	req := &Offboarding{}
+	if builder.initiatingTypeFlag {
+		req.InitiatingType = &builder.initiatingType
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.applicationInfoFlag {
+		req.ApplicationInfo = builder.applicationInfo
+	}
+	if builder.offboardingInfoFlag {
+		req.OffboardingInfo = builder.offboardingInfo
+	}
+	if builder.offboardingChecklistFlag {
+		req.OffboardingChecklist = builder.offboardingChecklist
+	}
+	return req
+}
+
+type OffboardingChecklist struct {
+	ChecklistStatus     *string `json:"checklist_status,omitempty"`      // 离职办理状态
+	ChecklistStartTime  *string `json:"checklist_start_time,omitempty"`  // 离职流转开始时间
+	ChecklistFinishTime *string `json:"checklist_finish_time,omitempty"` // 离职流转结束时间
+	ChecklistProcessId  *string `json:"checklist_process_id,omitempty"`  // 离职流转流程实例 ID
+}
+
+type OffboardingChecklistBuilder struct {
+	checklistStatus         string // 离职办理状态
+	checklistStatusFlag     bool
+	checklistStartTime      string // 离职流转开始时间
+	checklistStartTimeFlag  bool
+	checklistFinishTime     string // 离职流转结束时间
+	checklistFinishTimeFlag bool
+	checklistProcessId      string // 离职流转流程实例 ID
+	checklistProcessIdFlag  bool
+}
+
+func NewOffboardingChecklistBuilder() *OffboardingChecklistBuilder {
+	builder := &OffboardingChecklistBuilder{}
+	return builder
+}
+
+// 离职办理状态
+//
+// 示例值：AntiBegin
+func (builder *OffboardingChecklistBuilder) ChecklistStatus(checklistStatus string) *OffboardingChecklistBuilder {
+	builder.checklistStatus = checklistStatus
+	builder.checklistStatusFlag = true
+	return builder
+}
+
+// 离职流转开始时间
+//
+// 示例值：2022-02-03 11:22:33
+func (builder *OffboardingChecklistBuilder) ChecklistStartTime(checklistStartTime string) *OffboardingChecklistBuilder {
+	builder.checklistStartTime = checklistStartTime
+	builder.checklistStartTimeFlag = true
+	return builder
+}
+
+// 离职流转结束时间
+//
+// 示例值：2022-02-03 11:22:33
+func (builder *OffboardingChecklistBuilder) ChecklistFinishTime(checklistFinishTime string) *OffboardingChecklistBuilder {
+	builder.checklistFinishTime = checklistFinishTime
+	builder.checklistFinishTimeFlag = true
+	return builder
+}
+
+// 离职流转流程实例 ID
+//
+// 示例值：6838119494196871234
+func (builder *OffboardingChecklistBuilder) ChecklistProcessId(checklistProcessId string) *OffboardingChecklistBuilder {
+	builder.checklistProcessId = checklistProcessId
+	builder.checklistProcessIdFlag = true
+	return builder
+}
+
+func (builder *OffboardingChecklistBuilder) Build() *OffboardingChecklist {
+	req := &OffboardingChecklist{}
+	if builder.checklistStatusFlag {
+		req.ChecklistStatus = &builder.checklistStatus
+
+	}
+	if builder.checklistStartTimeFlag {
+		req.ChecklistStartTime = &builder.checklistStartTime
+
+	}
+	if builder.checklistFinishTimeFlag {
+		req.ChecklistFinishTime = &builder.checklistFinishTime
+
+	}
+	if builder.checklistProcessIdFlag {
+		req.ChecklistProcessId = &builder.checklistProcessId
+
+	}
+	return req
+}
+
 type OffboardingData struct {
 	OffboardingId                     *string `json:"offboarding_id,omitempty"`                       // 离职记录 id
 	EmploymentId                      *string `json:"employment_id,omitempty"`                        // 雇员 id
@@ -9722,6 +10181,162 @@ func (builder *OffboardingDataBuilder) Build() *OffboardingData {
 	if builder.createdTimeFlag {
 		req.CreatedTime = &builder.createdTime
 
+	}
+	return req
+}
+
+type OffboardingInfo struct {
+	EmploymentId              *string            `json:"employment_id,omitempty"`               // 离职员工的雇佣 ID
+	HrbpId                    []string           `json:"hrbp_id,omitempty"`                     // 员工的 hrbp 列表，所有的 hrbp
+	ExpectedOffboardingDate   *string            `json:"expected_offboarding_date,omitempty"`   // 期望离职日期
+	OffboardingDate           *string            `json:"offboarding_date,omitempty"`            // 离职日期
+	Reason                    *Enum              `json:"reason,omitempty"`                      // 离职原因
+	ReasonExplanation         *string            `json:"reason_explanation,omitempty"`          // 离职原因说明
+	EmployeeReason            *Enum              `json:"employee_reason,omitempty"`             // 离职原因（员工）
+	EmployeeReasonExplanation *string            `json:"employee_reason_explanation,omitempty"` // 离职原因说明（员工）
+	CustomFields              []*CustomFieldData `json:"custom_fields,omitempty"`               // 自定义字段
+}
+
+type OffboardingInfoBuilder struct {
+	employmentId                  string // 离职员工的雇佣 ID
+	employmentIdFlag              bool
+	hrbpId                        []string // 员工的 hrbp 列表，所有的 hrbp
+	hrbpIdFlag                    bool
+	expectedOffboardingDate       string // 期望离职日期
+	expectedOffboardingDateFlag   bool
+	offboardingDate               string // 离职日期
+	offboardingDateFlag           bool
+	reason                        *Enum // 离职原因
+	reasonFlag                    bool
+	reasonExplanation             string // 离职原因说明
+	reasonExplanationFlag         bool
+	employeeReason                *Enum // 离职原因（员工）
+	employeeReasonFlag            bool
+	employeeReasonExplanation     string // 离职原因说明（员工）
+	employeeReasonExplanationFlag bool
+	customFields                  []*CustomFieldData // 自定义字段
+	customFieldsFlag              bool
+}
+
+func NewOffboardingInfoBuilder() *OffboardingInfoBuilder {
+	builder := &OffboardingInfoBuilder{}
+	return builder
+}
+
+// 离职员工的雇佣 ID
+//
+// 示例值：6893014062142064135
+func (builder *OffboardingInfoBuilder) EmploymentId(employmentId string) *OffboardingInfoBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 员工的 hrbp 列表，所有的 hrbp
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) HrbpId(hrbpId []string) *OffboardingInfoBuilder {
+	builder.hrbpId = hrbpId
+	builder.hrbpIdFlag = true
+	return builder
+}
+
+// 期望离职日期
+//
+// 示例值：2022-02-08
+func (builder *OffboardingInfoBuilder) ExpectedOffboardingDate(expectedOffboardingDate string) *OffboardingInfoBuilder {
+	builder.expectedOffboardingDate = expectedOffboardingDate
+	builder.expectedOffboardingDateFlag = true
+	return builder
+}
+
+// 离职日期
+//
+// 示例值：2022-02-08
+func (builder *OffboardingInfoBuilder) OffboardingDate(offboardingDate string) *OffboardingInfoBuilder {
+	builder.offboardingDate = offboardingDate
+	builder.offboardingDateFlag = true
+	return builder
+}
+
+// 离职原因
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) Reason(reason *Enum) *OffboardingInfoBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 离职原因说明
+//
+// 示例值：升学
+func (builder *OffboardingInfoBuilder) ReasonExplanation(reasonExplanation string) *OffboardingInfoBuilder {
+	builder.reasonExplanation = reasonExplanation
+	builder.reasonExplanationFlag = true
+	return builder
+}
+
+// 离职原因（员工）
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) EmployeeReason(employeeReason *Enum) *OffboardingInfoBuilder {
+	builder.employeeReason = employeeReason
+	builder.employeeReasonFlag = true
+	return builder
+}
+
+// 离职原因说明（员工）
+//
+// 示例值：升学
+func (builder *OffboardingInfoBuilder) EmployeeReasonExplanation(employeeReasonExplanation string) *OffboardingInfoBuilder {
+	builder.employeeReasonExplanation = employeeReasonExplanation
+	builder.employeeReasonExplanationFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) CustomFields(customFields []*CustomFieldData) *OffboardingInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *OffboardingInfoBuilder) Build() *OffboardingInfo {
+	req := &OffboardingInfo{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.hrbpIdFlag {
+		req.HrbpId = builder.hrbpId
+	}
+	if builder.expectedOffboardingDateFlag {
+		req.ExpectedOffboardingDate = &builder.expectedOffboardingDate
+
+	}
+	if builder.offboardingDateFlag {
+		req.OffboardingDate = &builder.offboardingDate
+
+	}
+	if builder.reasonFlag {
+		req.Reason = builder.reason
+	}
+	if builder.reasonExplanationFlag {
+		req.ReasonExplanation = &builder.reasonExplanation
+
+	}
+	if builder.employeeReasonFlag {
+		req.EmployeeReason = builder.employeeReason
+	}
+	if builder.employeeReasonExplanationFlag {
+		req.EmployeeReasonExplanation = &builder.employeeReasonExplanation
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
