@@ -3003,6 +3003,7 @@ type Vchat struct {
 	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。
 	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingUrl  *string `json:"meeting_url,omitempty"` // 视频会议URL
+	LiveLink    *string `json:"live_link,omitempty"`   // VC视频会议转直播URL，当vc_type=vc时有值。
 }
 
 type VchatBuilder struct {
@@ -3014,6 +3015,8 @@ type VchatBuilder struct {
 	descriptionFlag bool
 	meetingUrl      string // 视频会议URL
 	meetingUrlFlag  bool
+	liveLink        string // VC视频会议转直播URL，当vc_type=vc时有值。
+	liveLinkFlag    bool
 }
 
 func NewVchatBuilder() *VchatBuilder {
@@ -3057,6 +3060,15 @@ func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
 	return builder
 }
 
+// VC视频会议转直播URL，当vc_type=vc时有值。
+//
+// 示例值：https://meetings.feishu.cn/s/1iof4hpw6i51w
+func (builder *VchatBuilder) LiveLink(liveLink string) *VchatBuilder {
+	builder.liveLink = liveLink
+	builder.liveLinkFlag = true
+	return builder
+}
+
 func (builder *VchatBuilder) Build() *Vchat {
 	req := &Vchat{}
 	if builder.vcTypeFlag {
@@ -3073,6 +3085,10 @@ func (builder *VchatBuilder) Build() *Vchat {
 	}
 	if builder.meetingUrlFlag {
 		req.MeetingUrl = &builder.meetingUrl
+
+	}
+	if builder.liveLinkFlag {
+		req.LiveLink = &builder.liveLink
 
 	}
 	return req
@@ -5102,7 +5118,7 @@ func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize 
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5155,7 +5171,7 @@ func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5262,7 +5278,7 @@ func (builder *GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：user_id
+// 示例值：
 func (builder *GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetExchangeBindingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

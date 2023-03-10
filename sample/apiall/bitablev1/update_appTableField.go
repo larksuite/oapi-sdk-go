@@ -31,7 +31,7 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		FieldId("fldPTb0U2y").
 		AppTableField(larkbitable.NewAppTableFieldBuilder().
-			FieldName("").
+			FieldName("字段名称").
 			Type(1).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
 			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).

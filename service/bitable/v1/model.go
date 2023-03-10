@@ -14,10 +14,9 @@
 package larkbitable
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1220,6 +1219,8 @@ type AppTableField struct {
 	Type        *int                      `json:"type,omitempty"`        // 多维表格字段类型
 	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
+	IsPrimary   *bool                     `json:"is_primary,omitempty"`  // 是否是索引列
+	UiType      *string                   `json:"ui_type,omitempty"`     // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
 }
 
 type AppTableFieldBuilder struct {
@@ -1233,6 +1234,10 @@ type AppTableFieldBuilder struct {
 	propertyFlag    bool
 	description     *AppTableFieldDescription // 字段的描述
 	descriptionFlag bool
+	isPrimary       bool // 是否是索引列
+	isPrimaryFlag   bool
+	uiType          string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiTypeFlag      bool
 }
 
 func NewAppTableFieldBuilder() *AppTableFieldBuilder {
@@ -1242,7 +1247,7 @@ func NewAppTableFieldBuilder() *AppTableFieldBuilder {
 
 // 多维表格字段 id
 //
-// 示例值：
+// 示例值：fldWJyCkFQ
 func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdFlag = true
@@ -1285,6 +1290,24 @@ func (builder *AppTableFieldBuilder) Description(description *AppTableFieldDescr
 	return builder
 }
 
+// 是否是索引列
+//
+// 示例值：true
+func (builder *AppTableFieldBuilder) IsPrimary(isPrimary bool) *AppTableFieldBuilder {
+	builder.isPrimary = isPrimary
+	builder.isPrimaryFlag = true
+	return builder
+}
+
+// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+//
+// 示例值：Progress
+func (builder *AppTableFieldBuilder) UiType(uiType string) *AppTableFieldBuilder {
+	builder.uiType = uiType
+	builder.uiTypeFlag = true
+	return builder
+}
+
 func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	req := &AppTableField{}
 	if builder.fieldIdFlag {
@@ -1304,6 +1327,14 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	}
 	if builder.descriptionFlag {
 		req.Description = builder.description
+	}
+	if builder.isPrimaryFlag {
+		req.IsPrimary = &builder.isPrimary
+
+	}
+	if builder.uiTypeFlag {
+		req.UiType = &builder.uiType
+
 	}
 	return req
 }
@@ -1916,9 +1947,9 @@ func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedFiel
 type AppTableRecord struct {
 	RecordId         *string                `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 	CreatedBy        *Person                `json:"created_by,omitempty"`         // 该记录的创建人
-	CreatedTime      *int                   `json:"created_time,omitempty"`       // 该记录的创建时间
+	CreatedTime      *int64                 `json:"created_time,omitempty"`       // 该记录的创建时间
 	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
-	LastModifiedTime *int                   `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
+	LastModifiedTime *int64                 `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
 	Fields           map[string]interface{} `json:"fields,omitempty"`             // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
@@ -1927,11 +1958,11 @@ type AppTableRecordBuilder struct {
 	recordIdFlag         bool
 	createdBy            *Person // 该记录的创建人
 	createdByFlag        bool
-	createdTime          int // 该记录的创建时间
+	createdTime          int64 // 该记录的创建时间
 	createdTimeFlag      bool
 	lastModifiedBy       *Person // 该记录最新一次更新的修改人
 	lastModifiedByFlag   bool
-	lastModifiedTime     int // 该记录最近一次的更新时间
+	lastModifiedTime     int64 // 该记录最近一次的更新时间
 	lastModifiedTimeFlag bool
 	fields               map[string]interface{} // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 	fieldsFlag           bool
@@ -1962,8 +1993,8 @@ func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableReco
 
 // 该记录的创建时间
 //
-// 示例值：1610281603
-func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableRecordBuilder {
+// 示例值：
+func (builder *AppTableRecordBuilder) CreatedTime(createdTime int64) *AppTableRecordBuilder {
 	builder.createdTime = createdTime
 	builder.createdTimeFlag = true
 	return builder
@@ -1980,8 +2011,8 @@ func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *Ap
 
 // 该记录最近一次的更新时间
 //
-// 示例值：1610281603
-func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *AppTableRecordBuilder {
+// 示例值：
+func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int64) *AppTableRecordBuilder {
 	builder.lastModifiedTime = lastModifiedTime
 	builder.lastModifiedTimeFlag = true
 	return builder

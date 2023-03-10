@@ -1691,6 +1691,54 @@ func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
 	return req
 }
 
+type Crc32Item struct {
+	PartId *string `json:"part_id,omitempty"` // 分片编号（1开始）
+	Crc32  *string `json:"crc32,omitempty"`   // crc32校验
+}
+
+type Crc32ItemBuilder struct {
+	partId     string // 分片编号（1开始）
+	partIdFlag bool
+	crc32      string // crc32校验
+	crc32Flag  bool
+}
+
+func NewCrc32ItemBuilder() *Crc32ItemBuilder {
+	builder := &Crc32ItemBuilder{}
+	return builder
+}
+
+// 分片编号（1开始）
+//
+// 示例值：1
+func (builder *Crc32ItemBuilder) PartId(partId string) *Crc32ItemBuilder {
+	builder.partId = partId
+	builder.partIdFlag = true
+	return builder
+}
+
+// crc32校验
+//
+// 示例值：12342388237783212356
+func (builder *Crc32ItemBuilder) Crc32(crc32 string) *Crc32ItemBuilder {
+	builder.crc32 = crc32
+	builder.crc32Flag = true
+	return builder
+}
+
+func (builder *Crc32ItemBuilder) Build() *Crc32Item {
+	req := &Crc32Item{}
+	if builder.partIdFlag {
+		req.PartId = &builder.partId
+
+	}
+	if builder.crc32Flag {
+		req.Crc32 = &builder.crc32
+
+	}
+	return req
+}
+
 type Emoji struct {
 	EmojiType *string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
 }
@@ -6603,8 +6651,9 @@ type CreateChatMembersReq struct {
 }
 
 type CreateChatMembersRespData struct {
-	InvalidIdList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表;;**注意**：;- 当`success_type=0`时，`invalid_id_list`只包含已离职的用户ID;- 当`success_type=1`时，`invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
-	NotExistedIdList []string `json:"not_existed_id_list,omitempty"` // ID不存在的成员列表
+	InvalidIdList         []string `json:"invalid_id_list,omitempty"`          // 无效成员列表;;**注意**：;- 当`success_type=0`时，`invalid_id_list`只包含已离职的用户ID;- 当`success_type=1`时，`invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
+	NotExistedIdList      []string `json:"not_existed_id_list,omitempty"`      // ID不存在的成员列表
+	PendingApprovalIdList []string `json:"pending_approval_id_list,omitempty"` // 等待群主或管理员审批的成员ID列表
 }
 
 type CreateChatMembersResp struct {

@@ -27,6 +27,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/auth/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/authen/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -65,6 +66,7 @@ type Client struct {
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
+	Auth                   *larkauth.AuthService                                       //
 	Authen                 *larkauthen.AuthenService                                   //
 	Baike                  *larkbaike.BaikeService                                     // 企业百科
 	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
@@ -221,6 +223,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Application = larkapplication.NewService(config)
 	client.Approval = larkapproval.NewService(config)
 	client.Attendance = larkattendance.NewService(config)
+	client.Auth = larkauth.NewService(config)
 	client.Authen = larkauthen.NewService(config)
 	client.Baike = larkbaike.NewService(config)
 	client.Bitable = larkbitable.NewService(config)

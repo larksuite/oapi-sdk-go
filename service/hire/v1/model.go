@@ -19,6 +19,8 @@ import (
 	"context"
 	"errors"
 
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -27863,6 +27865,7 @@ func (builder *TalentInterviewBuilder) Build() *TalentInterview {
 type TalentInterviewRegistrationSimple struct {
 	Id               *string `json:"id,omitempty"`                // ID
 	RegistrationTime *int    `json:"registration_time,omitempty"` // 创建时间
+	DownloadUrl      *string `json:"download_url,omitempty"`      // 下载链接
 }
 
 type TalentInterviewRegistrationSimpleBuilder struct {
@@ -27870,6 +27873,8 @@ type TalentInterviewRegistrationSimpleBuilder struct {
 	idFlag               bool
 	registrationTime     int // 创建时间
 	registrationTimeFlag bool
+	downloadUrl          string // 下载链接
+	downloadUrlFlag      bool
 }
 
 func NewTalentInterviewRegistrationSimpleBuilder() *TalentInterviewRegistrationSimpleBuilder {
@@ -27895,6 +27900,15 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(regist
 	return builder
 }
 
+// 下载链接
+//
+// 示例值：https://hire.feishu.cn/hire/file/blob/...token.../
+func (builder *TalentInterviewRegistrationSimpleBuilder) DownloadUrl(downloadUrl string) *TalentInterviewRegistrationSimpleBuilder {
+	builder.downloadUrl = downloadUrl
+	builder.downloadUrlFlag = true
+	return builder
+}
+
 func (builder *TalentInterviewRegistrationSimpleBuilder) Build() *TalentInterviewRegistrationSimple {
 	req := &TalentInterviewRegistrationSimple{}
 	if builder.idFlag {
@@ -27903,6 +27917,10 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) Build() *TalentIntervie
 	}
 	if builder.registrationTimeFlag {
 		req.RegistrationTime = &builder.registrationTime
+
+	}
+	if builder.downloadUrlFlag {
+		req.DownloadUrl = &builder.downloadUrl
 
 	}
 	return req
@@ -34038,7 +34056,7 @@ func (builder *PatchEmployeeReqBuilder) UserIdType(userIdType string) *PatchEmpl
 
 // 此次调用中使用的部门 ID 的类型
 //
-// 示例值：
+// 示例值：department_id
 func (builder *PatchEmployeeReqBuilder) DepartmentIdType(departmentIdType string) *PatchEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -35264,6 +35282,23 @@ type GetTalentResp struct {
 
 func (resp *GetTalentResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2ApplicationStageChangedV1Data struct {
+	ApplicationId *string `json:"application_id,omitempty"`  //
+	OriginStageId *string `json:"origin_stage_id,omitempty"` //
+	TargetStageId *string `json:"target_stage_id,omitempty"` //
+	UpdateTime    *int    `json:"update_time,omitempty"`     //
+}
+
+type P2ApplicationStageChangedV1 struct {
+	*larkevent.EventV2Base                                  // 事件基础数据
+	*larkevent.EventReq                                     // 请求原生数据
+	Event                  *P2ApplicationStageChangedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ApplicationStageChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type ListResumeSourceIterator struct {

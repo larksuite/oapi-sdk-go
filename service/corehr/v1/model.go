@@ -9902,7 +9902,7 @@ func (builder *ObjectFieldDataBuilder) Build() *ObjectFieldData {
 
 type Offboarding struct {
 	InitiatingType       *string               `json:"initiating_type,omitempty"`       // 离职发起类型，包括：
-	Status               *string               `json:"status,omitempty"`                // 离职状态，包括：
+	Status               *string               `json:"status,omitempty"`                // 离职状态
 	ApplicationInfo      *ApplicationInfo      `json:"application_info,omitempty"`      // 离职审批信息
 	OffboardingInfo      *OffboardingInfo      `json:"offboarding_info,omitempty"`      // 员工离职信息
 	OffboardingChecklist *OffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
@@ -9911,7 +9911,7 @@ type Offboarding struct {
 type OffboardingBuilder struct {
 	initiatingType           string // 离职发起类型，包括：
 	initiatingTypeFlag       bool
-	status                   string // 离职状态，包括：
+	status                   string // 离职状态
 	statusFlag               bool
 	applicationInfo          *ApplicationInfo // 离职审批信息
 	applicationInfoFlag      bool
@@ -9935,7 +9935,7 @@ func (builder *OffboardingBuilder) InitiatingType(initiatingType string) *Offboa
 	return builder
 }
 
-// 离职状态，包括：
+// 离职状态
 //
 // 示例值：Approving
 func (builder *OffboardingBuilder) Status(status string) *OffboardingBuilder {

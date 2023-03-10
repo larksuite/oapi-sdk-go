@@ -1773,6 +1773,7 @@ func (builder *AppVisibilityItemBuilder) Build() *AppVisibilityItem {
 type AppVisibleList struct {
 	OpenIds       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
 	DepartmentIds []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+	GroupIds      []string `json:"group_ids,omitempty"`      // 可见性成员 group_id 列表
 }
 
 type AppVisibleListBuilder struct {
@@ -1780,6 +1781,8 @@ type AppVisibleListBuilder struct {
 	openIdsFlag       bool
 	departmentIds     []string // 可见性部门的 id 列表
 	departmentIdsFlag bool
+	groupIds          []string // 可见性成员 group_id 列表
+	groupIdsFlag      bool
 }
 
 func NewAppVisibleListBuilder() *AppVisibleListBuilder {
@@ -1805,6 +1808,15 @@ func (builder *AppVisibleListBuilder) DepartmentIds(departmentIds []string) *App
 	return builder
 }
 
+// 可见性成员 group_id 列表
+//
+// 示例值：
+func (builder *AppVisibleListBuilder) GroupIds(groupIds []string) *AppVisibleListBuilder {
+	builder.groupIds = groupIds
+	builder.groupIdsFlag = true
+	return builder
+}
+
 func (builder *AppVisibleListBuilder) Build() *AppVisibleList {
 	req := &AppVisibleList{}
 	if builder.openIdsFlag {
@@ -1812,6 +1824,9 @@ func (builder *AppVisibleListBuilder) Build() *AppVisibleList {
 	}
 	if builder.departmentIdsFlag {
 		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.groupIdsFlag {
+		req.GroupIds = builder.groupIds
 	}
 	return req
 }
@@ -2141,6 +2156,53 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.ownerFlag {
 		req.Owner = builder.owner
+	}
+	return req
+}
+
+type ApplicationAppContactsRange struct {
+	ContactsScopeType *string         `json:"contacts_scope_type,omitempty"` // 通讯录可见性类型
+	VisibleList       *AppVisibleList `json:"visible_list,omitempty"`        // 可用名单
+}
+
+type ApplicationAppContactsRangeBuilder struct {
+	contactsScopeType     string // 通讯录可见性类型
+	contactsScopeTypeFlag bool
+	visibleList           *AppVisibleList // 可用名单
+	visibleListFlag       bool
+}
+
+func NewApplicationAppContactsRangeBuilder() *ApplicationAppContactsRangeBuilder {
+	builder := &ApplicationAppContactsRangeBuilder{}
+	return builder
+}
+
+// 通讯录可见性类型
+//
+// 示例值：some
+func (builder *ApplicationAppContactsRangeBuilder) ContactsScopeType(contactsScopeType string) *ApplicationAppContactsRangeBuilder {
+	builder.contactsScopeType = contactsScopeType
+	builder.contactsScopeTypeFlag = true
+	return builder
+}
+
+// 可用名单
+//
+// 示例值：
+func (builder *ApplicationAppContactsRangeBuilder) VisibleList(visibleList *AppVisibleList) *ApplicationAppContactsRangeBuilder {
+	builder.visibleList = visibleList
+	builder.visibleListFlag = true
+	return builder
+}
+
+func (builder *ApplicationAppContactsRangeBuilder) Build() *ApplicationAppContactsRange {
+	req := &ApplicationAppContactsRange{}
+	if builder.contactsScopeTypeFlag {
+		req.ContactsScopeType = &builder.contactsScopeType
+
+	}
+	if builder.visibleListFlag {
+		req.VisibleList = builder.visibleList
 	}
 	return req
 }
@@ -3353,6 +3415,214 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 	}
 	if builder.invisibleListFlag {
 		req.InvisibleList = builder.invisibleList
+	}
+	return req
+}
+
+type ApplicationVisibilityDepartmentWhiteBlackInfo struct {
+	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	InWhiteList  *bool   `json:"in_white_list,omitempty"` // 是否在白名单中
+	InBlackList  *bool   `json:"in_black_list,omitempty"` // 是否在黑名单中
+}
+
+type ApplicationVisibilityDepartmentWhiteBlackInfoBuilder struct {
+	departmentId     string // 部门ID
+	departmentIdFlag bool
+	inWhiteList      bool // 是否在白名单中
+	inWhiteListFlag  bool
+	inBlackList      bool // 是否在黑名单中
+	inBlackListFlag  bool
+}
+
+func NewApplicationVisibilityDepartmentWhiteBlackInfoBuilder() *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
+	builder := &ApplicationVisibilityDepartmentWhiteBlackInfoBuilder{}
+	return builder
+}
+
+// 部门ID
+//
+// 示例值：od-aa2c50a04769feefededb7a05b7525a8
+func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) DepartmentId(departmentId string) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 是否在白名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
+	builder.inWhiteList = inWhiteList
+	builder.inWhiteListFlag = true
+	return builder
+}
+
+// 是否在黑名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
+	builder.inBlackList = inBlackList
+	builder.inBlackListFlag = true
+	return builder
+}
+
+func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) Build() *ApplicationVisibilityDepartmentWhiteBlackInfo {
+	req := &ApplicationVisibilityDepartmentWhiteBlackInfo{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.inWhiteListFlag {
+		req.InWhiteList = &builder.inWhiteList
+
+	}
+	if builder.inBlackListFlag {
+		req.InBlackList = &builder.inBlackList
+
+	}
+	return req
+}
+
+type ApplicationVisibilityGroupWhiteBlackInfo struct {
+	GroupId     *string `json:"group_id,omitempty"`      // 用户组ID
+	InWhiteList *bool   `json:"in_white_list,omitempty"` // 是否在白名单中
+	InBlackList *bool   `json:"in_black_list,omitempty"` // 是否在黑名单中
+}
+
+type ApplicationVisibilityGroupWhiteBlackInfoBuilder struct {
+	groupId         string // 用户组ID
+	groupIdFlag     bool
+	inWhiteList     bool // 是否在白名单中
+	inWhiteListFlag bool
+	inBlackList     bool // 是否在黑名单中
+	inBlackListFlag bool
+}
+
+func NewApplicationVisibilityGroupWhiteBlackInfoBuilder() *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
+	builder := &ApplicationVisibilityGroupWhiteBlackInfoBuilder{}
+	return builder
+}
+
+// 用户组ID
+//
+// 示例值：96815a9cd9beg8g4
+func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) GroupId(groupId string) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
+// 是否在白名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
+	builder.inWhiteList = inWhiteList
+	builder.inWhiteListFlag = true
+	return builder
+}
+
+// 是否在黑名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
+	builder.inBlackList = inBlackList
+	builder.inBlackListFlag = true
+	return builder
+}
+
+func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) Build() *ApplicationVisibilityGroupWhiteBlackInfo {
+	req := &ApplicationVisibilityGroupWhiteBlackInfo{}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.inWhiteListFlag {
+		req.InWhiteList = &builder.inWhiteList
+
+	}
+	if builder.inBlackListFlag {
+		req.InBlackList = &builder.inBlackList
+
+	}
+	return req
+}
+
+type ApplicationVisibilityUserWhiteBlackInfo struct {
+	UserId      *string `json:"user_id,omitempty"`       // 用户ID
+	InWhiteList *bool   `json:"in_white_list,omitempty"` // 是否在白名单中
+	InBlackList *bool   `json:"in_black_list,omitempty"` // 是否在黑名单中
+	InPaidList  *bool   `json:"in_paid_list,omitempty"`  // 是否在付费名单中
+}
+
+type ApplicationVisibilityUserWhiteBlackInfoBuilder struct {
+	userId          string // 用户ID
+	userIdFlag      bool
+	inWhiteList     bool // 是否在白名单中
+	inWhiteListFlag bool
+	inBlackList     bool // 是否在黑名单中
+	inBlackListFlag bool
+	inPaidList      bool // 是否在付费名单中
+	inPaidListFlag  bool
+}
+
+func NewApplicationVisibilityUserWhiteBlackInfoBuilder() *ApplicationVisibilityUserWhiteBlackInfoBuilder {
+	builder := &ApplicationVisibilityUserWhiteBlackInfoBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
+func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) UserId(userId string) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 是否在白名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
+	builder.inWhiteList = inWhiteList
+	builder.inWhiteListFlag = true
+	return builder
+}
+
+// 是否在黑名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
+	builder.inBlackList = inBlackList
+	builder.inBlackListFlag = true
+	return builder
+}
+
+// 是否在付费名单中
+//
+// 示例值：false
+func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InPaidList(inPaidList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
+	builder.inPaidList = inPaidList
+	builder.inPaidListFlag = true
+	return builder
+}
+
+func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) Build() *ApplicationVisibilityUserWhiteBlackInfo {
+	req := &ApplicationVisibilityUserWhiteBlackInfo{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.inWhiteListFlag {
+		req.InWhiteList = &builder.inWhiteList
+
+	}
+	if builder.inBlackListFlag {
+		req.InBlackList = &builder.inBlackList
+
+	}
+	if builder.inPaidListFlag {
+		req.InPaidList = &builder.inPaidList
+
 	}
 	return req
 }

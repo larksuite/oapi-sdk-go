@@ -29,8 +29,8 @@ func main() {
 	req := larkcalendar.NewCreateCalendarEventReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		CalendarEvent(larkcalendar.NewCalendarEventBuilder().
-			Summary("").
-			Description("").
+			Summary("日程标题").
+			Description("日程描述").
 			NeedNotification(false).
 			StartTime(larkcalendar.NewTimeInfoBuilder().Build()).
 			EndTime(larkcalendar.NewTimeInfoBuilder().Build()).
@@ -41,7 +41,7 @@ func main() {
 			Location(larkcalendar.NewEventLocationBuilder().Build()).
 			Color(0).
 			Reminders([]*larkcalendar.Reminder{larkcalendar.NewReminderBuilder().Build()}).
-			Recurrence("").
+			Recurrence("FREQ=DAILY;INTERVAL=1").
 			Schemas([]*larkcalendar.Schema{larkcalendar.NewSchemaBuilder().Build()}).
 			Build()).
 		Build()
