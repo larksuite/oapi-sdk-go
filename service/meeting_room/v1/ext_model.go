@@ -29,21 +29,21 @@ type P1EventTimeV1 struct {
 }
 
 type P1MeetingRoomV1 struct {
-	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
+	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的 open_id 不同
 }
 
 type P1OrganizerV1 struct {
-	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
-	UserId string `json:"user_id,omitempty"` // 用户在ISV下的唯一标识，申请了"获取用户user ID"权限后才会返回
+	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的 open_id 不同
+	UserId string `json:"user_id,omitempty"` // 用户在 ISV 下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 }
 
 type P1ThirdPartyMeetingRoomChangedV1Data struct {
 	AppID        string             `json:"app_id,omitempty"`        // App ID
 	TenantKey    string             `json:"tenant_key,omitempty"`    // 企业标识
-	Type         string             `json:"type,omitempty"`          // 此事件此处始终为event_callback
+	Type         string             `json:"type,omitempty"`          // 此事件此处始终为 event_callback
 	EventTime    string             `json:"event_time,omitempty"`    //事件发生时间
 	Uid          string             `json:"uid,omitempty"`           // 日程的唯一标识
-	OriginalTime int                `json:"original_time,omitempty"` // 重复日程的例外的唯一标识，如果不是重复的日程，此处为0
+	OriginalTime int                `json:"original_time,omitempty"` // 重复日程的例外的唯一标识，如果不是重复的日程，此处为 0
 	Start        *P1EventTimeV1     `json:"start,omitempty"`         //日历的日程开始时间
 	End          *P1EventTimeV1     `json:"end,omitempty"`           //日历的日程结束时间
 	MeetingRoom  []*P1MeetingRoomV1 `json:"meeting_rooms,omitempty"` //日程关联的会议室

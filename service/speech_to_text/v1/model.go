@@ -82,14 +82,14 @@ func (builder *FileConfigBuilder) Build() *FileConfig {
 }
 
 type Speech struct {
-	Speech    *string `json:"speech,omitempty"`     // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
-	SpeechKey *string `json:"speech_key,omitempty"` // 上传到 drive 存储平台后获取到的 key （暂不支持）
+	Speech    *string `json:"speech,omitempty"`     // pcm 格式音频文件（文件识别）或音频分片（流式识别）经 base64 编码后的内容
+	SpeechKey *string `json:"speech_key,omitempty"` // 上传到 drive 存储平台后获取到的 key（暂不支持）
 }
 
 type SpeechBuilder struct {
-	speech        string // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+	speech        string // pcm 格式音频文件（文件识别）或音频分片（流式识别）经 base64 编码后的内容
 	speechFlag    bool
-	speechKey     string // 上传到 drive 存储平台后获取到的 key （暂不支持）
+	speechKey     string // 上传到 drive 存储平台后获取到的 key（暂不支持）
 	speechKeyFlag bool
 }
 
@@ -98,7 +98,7 @@ func NewSpeechBuilder() *SpeechBuilder {
 	return builder
 }
 
-// pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+// pcm 格式音频文件（文件识别）或音频分片（流式识别）经 base64 编码后的内容
 //
 // 示例值：PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg==
 func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
@@ -107,7 +107,7 @@ func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 	return builder
 }
 
-// 上传到 drive 存储平台后获取到的 key （暂不支持）
+// 上传到 drive 存储平台后获取到的 key（暂不支持）
 //
 // 示例值：
 func (builder *SpeechBuilder) SpeechKey(speechKey string) *SpeechBuilder {

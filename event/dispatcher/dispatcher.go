@@ -24,9 +24,9 @@ import (
 )
 
 type EventDispatcher struct {
-	// 事件map,key为事件类型，value为事件处理器
+	// 事件 map,key 为事件类型，value 为事件处理器
 	eventType2EventHandler map[string]larkevent.EventHandler
-	// 事件回调签名token，消息解密key
+	// 事件回调签名 token，消息解密 key
 	verificationToken string
 	eventEncryptKey   string
 	*larkcore.Config
@@ -50,7 +50,7 @@ func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatc
 		eventEncryptKey:        eventEncryptKey,
 		Config:                 &larkcore.Config{Logger: larkcore.NewEventLogger()},
 	}
-	// 注册app_ticket事件
+	// 注册 app_ticket 事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
 	return reqDispatcher
 }
@@ -161,7 +161,7 @@ func (d *EventDispatcher) VerifySign(ctx context.Context, req *larkevent.EventRe
 	if len(requestNonces) > 0 {
 		requestNonce = requestNonces[0]
 	}
-	// 执行sha256签名计算
+	// 执行 sha256 签名计算
 	targetSign := larkevent.Signature(requestTimestamp, requestNonce,
 		d.eventEncryptKey, string(req.Body))
 

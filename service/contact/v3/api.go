@@ -99,11 +99,11 @@ type user struct {
 //
 // - 获取企业自定义的用户字段配置信息
 //
-// - 调用该接口前，需要先确认[企业管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822)在[企业管理后台 - 组织架构 - 成员字段管理](http://www.feishu.cn/admin/contacts/employee-field-new/custom) 自定义字段管理栏开启了“允许开放平台API调用“。;;![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
+// - 调用该接口前，需要先确认 [企业管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822) 在 [企业管理后台 - 组织架构 - 成员字段管理](http://www.feishu.cn/admin/contacts/employee-field-new/custom) 自定义字段管理栏开启了 “允许开放平台 API 调用 “。;;![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_customAttr.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_customAttr.go
 func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options ...larkcore.RequestOptionFunc) (*ListCustomAttrResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -133,13 +133,13 @@ func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq,
 
 // 获取子部门列表
 //
-// - 通过部门ID获取部门的子部门列表。
+// - 通过部门 ID 获取部门的子部门列表。
 //
-// - - 部门ID 必填，根部门的部门ID 为0。;- 使用 `user_access_token` 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，最多1000个部门对该用户可见。;;- 使用 ;`tenant_access_token` 则基于应用的通讯录权限范围进行权限校验与过滤。;如果部门ID为0，会检验应用是否有全员通讯录权限，如果是非0 部门ID，则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码，有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
+// - - 部门 ID 必填，根部门的部门 ID 为 0。;- 使用 `user_access_token` 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，最多 1000 个部门对该用户可见。;;- 使用 ;`tenant_access_token` 则基于应用的通讯录权限范围进行权限校验与过滤。;如果部门 ID 为 0，会检验应用是否有全员通讯录权限，如果是非 0 部门 ID，则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码，有权限则返回部门下子部门列表（根据 fetch_child 决定是否递归）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/children_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/children_department.go
 func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, options ...larkcore.RequestOptionFunc) (*ChildrenDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -171,11 +171,11 @@ func (d *department) ChildrenByIterator(ctx context.Context, req *ChildrenDepart
 //
 // - 该接口用于向通讯录中创建部门。
 //
-// - 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门，则应用通讯录权限范围需要设置为“全部成员”。应用商店应用无权限调用此接口。
+// - 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门，则应用通讯录权限范围需要设置为 “全部成员”。应用商店应用无权限调用此接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_department.go
 func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, options ...larkcore.RequestOptionFunc) (*CreateDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -201,9 +201,9 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 //
 // - 应用需要同时拥有待删除部门及其父部门的通讯录授权。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_department.go
 func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, options ...larkcore.RequestOptionFunc) (*DeleteDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -229,9 +229,9 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 //
 // - - 使用`tenant_access_token`时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。;- 使用`user_access_token`时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_department.go
 func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...larkcore.RequestOptionFunc) (*GetDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -255,9 +255,9 @@ func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=department&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=department&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_department.go
 func (d *department) List(ctx context.Context, req *ListDepartmentReq, options ...larkcore.RequestOptionFunc) (*ListDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -289,11 +289,11 @@ func (d *department) ListByIterator(ctx context.Context, req *ListDepartmentReq,
 //
 // - 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。
 //
-// - 使用`tenant_access_token`时,该接口只返回可见性范围内的父部门信息。;例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。;使用user_access_token时,该接口只返回对于用户可见的父部门信息。
+// - 使用`tenant_access_token`时，该接口只返回可见性范围内的父部门信息。;例如：A >>B>>C>>D 四级部门，通讯录权限只到 B，那么查询 D 部门的 parent，会返回 B 和 C 两级部门。;使用 user_access_token 时，该接口只返回对于用户可见的父部门信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/parent_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/parent_department.go
 func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, options ...larkcore.RequestOptionFunc) (*ParentDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -327,9 +327,9 @@ func (d *department) ParentByIterator(ctx context.Context, req *ParentDepartment
 //
 // - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_department.go
 func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options ...larkcore.RequestOptionFunc) (*PatchDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -355,9 +355,9 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 //
 // - 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/search_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/search_department.go
 func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, options ...larkcore.RequestOptionFunc) (*SearchDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -389,9 +389,9 @@ func (d *department) SearchByIterator(ctx context.Context, req *SearchDepartment
 //
 // - 通过该接口将部门群转为普通群。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/unbind_department_chat
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/unbind_department_chat
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartmentChat_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartmentChat_department.go
 func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepartmentChatDepartmentReq, options ...larkcore.RequestOptionFunc) (*UnbindDepartmentChatDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -415,11 +415,11 @@ func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepart
 //
 // - 该接口用于更新当前部门所有信息。
 //
-// - - 调用该接口需要具有该部门与更新部门信息涉及的通讯录权限。;; - 没有填写的字段会被置为空值（order字段除外）。
+// - - 调用该接口需要具有该部门与更新部门信息涉及的通讯录权限。;; - 没有填写的字段会被置为空值（order 字段除外）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_department.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_department.go
 func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, options ...larkcore.RequestOptionFunc) (*UpdateDepartmentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -443,9 +443,9 @@ func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, optio
 //
 // - 新增自定义人员类型
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_employeeTypeEnum.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_employeeTypeEnum.go
 func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*CreateEmployeeTypeEnumResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -469,9 +469,9 @@ func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEn
 //
 // - 删除自定义人员类型
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_employeeTypeEnum.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_employeeTypeEnum.go
 func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*DeleteEmployeeTypeEnumResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -495,9 +495,9 @@ func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEn
 //
 // - 该接口用于获取员工的人员类型
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_employeeTypeEnum.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_employeeTypeEnum.go
 func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeTypeEnumResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -529,9 +529,9 @@ func (e *employeeTypeEnum) ListByIterator(ctx context.Context, req *ListEmployee
 //
 // - 更新自定义人员类型
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_employeeTypeEnum.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_employeeTypeEnum.go
 func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*UpdateEmployeeTypeEnumResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -555,9 +555,9 @@ func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEn
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=functional_role&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=functional_role&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_functionalRole.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_functionalRole.go
 func (f *functionalRole) Create(ctx context.Context, req *CreateFunctionalRoleReq, options ...larkcore.RequestOptionFunc) (*CreateFunctionalRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -581,9 +581,9 @@ func (f *functionalRole) Create(ctx context.Context, req *CreateFunctionalRoleRe
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=functional_role&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=functional_role&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_functionalRole.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_functionalRole.go
 func (f *functionalRole) Delete(ctx context.Context, req *DeleteFunctionalRoleReq, options ...larkcore.RequestOptionFunc) (*DeleteFunctionalRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -607,9 +607,9 @@ func (f *functionalRole) Delete(ctx context.Context, req *DeleteFunctionalRoleRe
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=functional_role&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=functional_role&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_functionalRole.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_functionalRole.go
 func (f *functionalRole) Update(ctx context.Context, req *UpdateFunctionalRoleReq, options ...larkcore.RequestOptionFunc) (*UpdateFunctionalRoleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -633,9 +633,9 @@ func (f *functionalRole) Update(ctx context.Context, req *UpdateFunctionalRoleRe
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=contact&resource=functional_role.member&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=contact&resource=functional_role.member&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchCreate_functionalRoleMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchCreate_functionalRoleMember.go
 func (f *functionalRoleMember) BatchCreate(ctx context.Context, req *BatchCreateFunctionalRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateFunctionalRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -659,9 +659,9 @@ func (f *functionalRoleMember) BatchCreate(ctx context.Context, req *BatchCreate
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=contact&resource=functional_role.member&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=contact&resource=functional_role.member&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchDelete_functionalRoleMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchDelete_functionalRoleMember.go
 func (f *functionalRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteFunctionalRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteFunctionalRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -685,9 +685,9 @@ func (f *functionalRoleMember) BatchDelete(ctx context.Context, req *BatchDelete
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=functional_role.member&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=functional_role.member&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_functionalRoleMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_functionalRoleMember.go
 func (f *functionalRoleMember) Get(ctx context.Context, req *GetFunctionalRoleMemberReq, options ...larkcore.RequestOptionFunc) (*GetFunctionalRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -711,9 +711,9 @@ func (f *functionalRoleMember) Get(ctx context.Context, req *GetFunctionalRoleMe
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=functional_role.member&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=functional_role.member&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_functionalRoleMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_functionalRoleMember.go
 func (f *functionalRoleMember) List(ctx context.Context, req *ListFunctionalRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ListFunctionalRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -745,9 +745,9 @@ func (f *functionalRoleMember) ListByIterator(ctx context.Context, req *ListFunc
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=scopes&project=contact&resource=functional_role.member&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=scopes&project=contact&resource=functional_role.member&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/scopes_functionalRoleMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/scopes_functionalRoleMember.go
 func (f *functionalRoleMember) Scopes(ctx context.Context, req *ScopesFunctionalRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ScopesFunctionalRoleMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -769,11 +769,11 @@ func (f *functionalRoleMember) Scopes(ctx context.Context, req *ScopesFunctional
 
 // 创建用户组
 //
-// - 使用该接口创建用户组，请注意创建用户组时应用的通讯录权限范围需为“全部员工”，否则会创建失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 使用该接口创建用户组，请注意创建用户组时应用的通讯录权限范围需为 “全部员工”，否则会创建失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_group.go
 func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...larkcore.RequestOptionFunc) (*CreateGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -795,11 +795,11 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 
 // 删除用户组
 //
-// - 通过该接口可删除企业中的用户组，请注意删除用户组时应用的通讯录权限范围需为“全部员工”，否则会删除失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 通过该接口可删除企业中的用户组，请注意删除用户组时应用的通讯录权限范围需为 “全部员工”，否则会删除失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_group.go
 func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...larkcore.RequestOptionFunc) (*DeleteGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -821,11 +821,11 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 
 // 查询用户组
 //
-// - 根据用户组 ID 查询某个用户组的基本信息，支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 根据用户组 ID 查询某个用户组的基本信息，支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是 “全部员工”，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_group.go
 func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.RequestOptionFunc) (*GetGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -847,11 +847,11 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 
 // 查询用户所属用户组
 //
-// - 通过该接口可查询该用户所属的用户组列表，可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”，则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是“全部员工”，则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 通过该接口可查询该用户所属的用户组列表，可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是 “全部员工”，则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是 “全部员工”，则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/member_belong
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/member_belong
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/memberBelong_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/memberBelong_group.go
 func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, options ...larkcore.RequestOptionFunc) (*MemberBelongGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -873,11 +873,11 @@ func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, opt
 
 // 更新用户组
 //
-// - 使用该接口更新用户组信息，请注意更新用户组时应用的通讯录权限范围需为“全部员工”，否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 使用该接口更新用户组信息，请注意更新用户组时应用的通讯录权限范围需为 “全部员工”，否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_group.go
 func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...larkcore.RequestOptionFunc) (*PatchGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -899,11 +899,11 @@ func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...larkco
 
 // 查询用户组列表
 //
-// - 通过该接口可查询企业的用户组列表，可分别查询普通用户组或动态用户组。如果应用的通讯录权限范围是“全部员工”，则可获取企业全部用户组列表。如果应用的通讯录权限范围不是“全部员工”，则仅可获取通讯录权限范围内的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 通过该接口可查询企业的用户组列表，可分别查询普通用户组或动态用户组。如果应用的通讯录权限范围是 “全部员工”，则可获取企业全部用户组列表。如果应用的通讯录权限范围不是 “全部员工”，则仅可获取通讯录权限范围内的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_group.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_group.go
 func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options ...larkcore.RequestOptionFunc) (*SimplelistGroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -933,11 +933,11 @@ func (g *group) SimplelistByIterator(ctx context.Context, req *SimplelistGroupRe
 
 // 添加用户组成员
 //
-// - 向用户组中添加成员(目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是“全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 向用户组中添加成员 (目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是 “全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是 “全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/add
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/add
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/add_groupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/add_groupMember.go
 func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options ...larkcore.RequestOptionFunc) (*AddGroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -959,13 +959,13 @@ func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options .
 
 // 批量添加用户组成员
 //
-// - 向普通用户组中批量添加成员(目前仅支持添加用户，暂不支持添加部门），如果应用的通讯录权限范围是“全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 向普通用户组中批量添加成员 (目前仅支持添加用户，暂不支持添加部门），如果应用的通讯录权限范围是 “全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是 “全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 请求体中的member_type，目前仅支持user， 未来将支持department。
+// - 请求体中的 member_type，目前仅支持 user， 未来将支持 department。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchAdd_groupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchAdd_groupMember.go
 func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchAddGroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -987,13 +987,13 @@ func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq,
 
 // 批量移除用户组成员
 //
-// - 从普通用户组中批量移除成员 (目前仅支持移除用户，暂不支持移除部门）。如果应用的通讯录权限范围是“全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 从普通用户组中批量移除成员 (目前仅支持移除用户，暂不支持移除部门）。如果应用的通讯录权限范围是 “全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是 “全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 请求体中的member_type，目前仅支持user， 未来将支持department。
+// - 请求体中的 member_type，目前仅支持 user， 未来将支持 department。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_remove
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_remove
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchRemove_groupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchRemove_groupMember.go
 func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchRemoveGroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1015,11 +1015,11 @@ func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemb
 
 // 移除用户组成员
 //
-// - 从用户组中移除成员 (目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是“全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 从用户组中移除成员 (目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是 “全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是 “全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/remove
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/remove
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/remove_groupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/remove_groupMember.go
 func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, options ...larkcore.RequestOptionFunc) (*RemoveGroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1041,11 +1041,11 @@ func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, opt
 
 // 查询用户组成员列表
 //
-// - 通过该接口可查询某个用户组的成员列表（支持查询成员中的用户和部门）, 本接口支持普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”，则可查询企业内任何用户组的成员列表。如果应用的通讯录权限范围不是“全部员工”，则仅可查询通讯录权限范围中的用户组的成员列表，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 通过该接口可查询某个用户组的成员列表（支持查询成员中的用户和部门），本接口支持普通用户组和动态用户组。如果应用的通讯录权限范围是 “全部员工”，则可查询企业内任何用户组的成员列表。如果应用的通讯录权限范围不是 “全部员工”，则仅可查询通讯录权限范围中的用户组的成员列表，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/simplelist
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/simplelist
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_groupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_groupMember.go
 func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMemberReq, options ...larkcore.RequestOptionFunc) (*SimplelistGroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1069,9 +1069,9 @@ func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMember
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_family&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_family&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_jobFamily.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_jobFamily.go
 func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options ...larkcore.RequestOptionFunc) (*CreateJobFamilyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1095,9 +1095,9 @@ func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_family&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_family&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_jobFamily.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_jobFamily.go
 func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options ...larkcore.RequestOptionFunc) (*DeleteJobFamilyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1121,9 +1121,9 @@ func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_family&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_family&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_jobFamily.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_jobFamily.go
 func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...larkcore.RequestOptionFunc) (*GetJobFamilyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1147,9 +1147,9 @@ func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...la
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_family&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_family&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_jobFamily.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_jobFamily.go
 func (j *jobFamily) List(ctx context.Context, req *ListJobFamilyReq, options ...larkcore.RequestOptionFunc) (*ListJobFamilyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1181,9 +1181,9 @@ func (j *jobFamily) ListByIterator(ctx context.Context, req *ListJobFamilyReq, o
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_family&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_family&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_jobFamily.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_jobFamily.go
 func (j *jobFamily) Update(ctx context.Context, req *UpdateJobFamilyReq, options ...larkcore.RequestOptionFunc) (*UpdateJobFamilyResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1207,9 +1207,9 @@ func (j *jobFamily) Update(ctx context.Context, req *UpdateJobFamilyReq, options
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_level&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_level&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_jobLevel.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_jobLevel.go
 func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options ...larkcore.RequestOptionFunc) (*CreateJobLevelResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1233,9 +1233,9 @@ func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options .
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_level&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_level&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_jobLevel.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_jobLevel.go
 func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options ...larkcore.RequestOptionFunc) (*DeleteJobLevelResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1259,9 +1259,9 @@ func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options .
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_level&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_level&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_jobLevel.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_jobLevel.go
 func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...larkcore.RequestOptionFunc) (*GetJobLevelResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1285,9 +1285,9 @@ func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...lark
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_level&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_level&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_jobLevel.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_jobLevel.go
 func (j *jobLevel) List(ctx context.Context, req *ListJobLevelReq, options ...larkcore.RequestOptionFunc) (*ListJobLevelResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1319,9 +1319,9 @@ func (j *jobLevel) ListByIterator(ctx context.Context, req *ListJobLevelReq, opt
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_level&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_level&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_jobLevel.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_jobLevel.go
 func (j *jobLevel) Update(ctx context.Context, req *UpdateJobLevelReq, options ...larkcore.RequestOptionFunc) (*UpdateJobLevelResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1345,9 +1345,9 @@ func (j *jobLevel) Update(ctx context.Context, req *UpdateJobLevelReq, options .
 //
 // - 该接口用于获取应用被授权可访问的通讯录范围，包括可访问的部门列表、用户列表和用户组列表。;授权范围为全员时，返回的部门列表为该企业所有的一级部门；否则返回的部门为管理员在设置授权范围时勾选的部门（不包含勾选部门的子部门）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_scope.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_scope.go
 func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore.RequestOptionFunc) (*ListScopeResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1369,11 +1369,11 @@ func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore
 
 // 建立部门与单位的绑定关系
 //
-// - 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)
+// - 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败，不同版本请参考 [飞书版本对比](https://www.feishu.cn/service)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/bindDepartment_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/bindDepartment_unit.go
 func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*BindDepartmentUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1395,11 +1395,11 @@ func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, o
 
 // 创建单位
 //
-// - 该接口用于创建单位。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
+// - 该接口用于创建单位。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位，不同版本请参考 [飞书版本对比](https://www.feishu.cn/service)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_unit.go
 func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...larkcore.RequestOptionFunc) (*CreateUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1423,9 +1423,9 @@ func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...larkco
 //
 // - 使用该接口删除单位，需要有更新单位的权限。注意：如果单位的单位类型被其它的业务使用，不允许删除。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_unit.go
 func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkcore.RequestOptionFunc) (*DeleteUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1449,9 +1449,9 @@ func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkco
 //
 // - 该接口用于获取单位信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_unit.go
 func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...larkcore.RequestOptionFunc) (*GetUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1475,9 +1475,9 @@ func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...larkcore.Req
 //
 // - 通过该接口获取企业的单位列表，需获取单位的权限
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_unit.go
 func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...larkcore.RequestOptionFunc) (*ListUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1501,9 +1501,9 @@ func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...larkcore.R
 //
 // - 通过该接口获取单位绑定的部门列表，需具有获取单位的权限
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list_department
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list_department
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/listDepartment_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/listDepartment_unit.go
 func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*ListDepartmentUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1527,9 +1527,9 @@ func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, o
 //
 // - 调用该接口，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以修改单位
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_unit.go
 func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...larkcore.RequestOptionFunc) (*PatchUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1553,9 +1553,9 @@ func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...larkcore
 //
 // - 通过该接口解除部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关功能，否则会解绑失败
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/unbind_department
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/unbind_department
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartment_unit.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartment_unit.go
 func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*UnbindDepartmentUnitResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1579,11 +1579,11 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 //
 // - 通过该接口，可使用手机号/邮箱获取用户的 ID 信息，具体获取支持的 ID 类型包括 open_id、user_id、union_id，可通过查询参数指定。
 //
-// - 如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则返回的用户ID列表为空。
+// - 如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则返回的用户 ID 列表为空。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchGetId_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchGetId_user.go
 func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options ...larkcore.RequestOptionFunc) (*BatchGetIdUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1605,13 +1605,13 @@ func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options .
 
 // 创建用户
 //
-// - 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+// - 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 //
 // - - 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。;- 应用商店应用无权限调用此接口。;- 创建用户后，会给用户发送邀请短信/邮件，用户在操作同意后才可访问团队。;- 返回数据中不返回手机号，如果需要请重新查询用户信息获取手机号。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_user.go
 func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkcore.RequestOptionFunc) (*CreateUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1635,11 +1635,11 @@ func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkco
 //
 // - 该接口用于从通讯录删除一个用户信息，可以理解为员工离职。
 //
-// - - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。;- 用户可以在删除员工时设置删除员工数据（如文档）的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
+// - - 若用户归属部门 A、部门 B，应用的通讯录权限范围必须包括部门 A 和部门 B 才可以删除用户。;- 用户可以在删除员工时设置删除员工数据（如文档）的接收者，如果不设置则由其 leader 接收，如果该员工没有 leader，则会将该员工的数据删除。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_user.go
 func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkcore.RequestOptionFunc) (*DeleteUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1661,13 +1661,13 @@ func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkco
 
 // 获取部门直属用户列表
 //
-// - 基于部门ID获取部门直属用户列表。
+// - 基于部门 ID 获取部门直属用户列表。
 //
-// - - 部门ID 必填，根部门的部门ID为0。;- 使用 `user_access_token` 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- 使用`tenant_access_token`会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0，则校验应用是否具有全员通讯录权限； 如果是非0的部门ID，则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码，有权限则返回对应部门下的直接用户列表。
+// - - 部门 ID 必填，根部门的部门 ID 为 0。;- 使用 `user_access_token` 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- 使用`tenant_access_token`会根据应用通讯录的范围进行权限过滤。 如果请求的部门 ID 为 0，则校验应用是否具有全员通讯录权限； 如果是非 0 的部门 ID，则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码，有权限则返回对应部门下的直接用户列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/findByDepartment_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/findByDepartment_user.go
 func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserReq, options ...larkcore.RequestOptionFunc) (*FindByDepartmentUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1699,9 +1699,9 @@ func (u *user) FindByDepartmentByIterator(ctx context.Context, req *FindByDepart
 //
 // - 该接口用于获取通讯录中单个用户的信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_user.go
 func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.RequestOptionFunc) (*GetUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1725,9 +1725,9 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=user&version=v3
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=user&version=v3
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_user.go
 func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1759,9 +1759,9 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 //
 // - 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_user.go
 func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore.RequestOptionFunc) (*PatchUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1787,9 +1787,9 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 //
 // - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有变更前、后所有新部门的通讯录授权。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_user.go
 func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkcore.RequestOptionFunc) (*UpdateUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

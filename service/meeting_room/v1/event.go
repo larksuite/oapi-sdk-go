@@ -32,7 +32,7 @@ func (h *P2MeetingRoomCreatedV1Handler) Event() interface{} {
 	return &P2MeetingRoomCreatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MeetingRoomCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MeetingRoomCreatedV1))
 }
@@ -52,7 +52,7 @@ func (h *P2MeetingRoomDeletedV1Handler) Event() interface{} {
 	return &P2MeetingRoomDeletedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MeetingRoomDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MeetingRoomDeletedV1))
 }
@@ -72,7 +72,7 @@ func (h *P2MeetingRoomStatusChangedV1Handler) Event() interface{} {
 	return &P2MeetingRoomStatusChangedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MeetingRoomStatusChangedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MeetingRoomStatusChangedV1))
 }
@@ -92,7 +92,7 @@ func (h *P2MeetingRoomUpdatedV1Handler) Event() interface{} {
 	return &P2MeetingRoomUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MeetingRoomUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MeetingRoomUpdatedV1))
 }

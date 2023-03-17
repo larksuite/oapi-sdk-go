@@ -24,7 +24,7 @@ import (
 	larkmeeting_room "github.com/larksuite/oapi-sdk-go/v3/service/meeting_room/v1"
 )
 
-// v1消息协议：用户购买应用商店付费应用成功后发送给应用ISV的通知事件。
+// v1 消息协议：用户购买应用商店付费应用成功后发送给应用 ISV 的通知事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/public-app-purchase
 func (dispatcher *EventDispatcher) OnP1OrderPaidV6(handler func(ctx context.Context, event *larkapplication.P1OrderPaidV6) error) *EventDispatcher {
@@ -36,7 +36,7 @@ func (dispatcher *EventDispatcher) OnP1OrderPaidV6(handler func(ctx context.Cont
 	return dispatcher
 }
 
-// v1消息协议：企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。自建应用无此事件。
+// v1 消息协议：企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。自建应用无此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-uninstalled
 func (dispatcher *EventDispatcher) OnP1AppUninstalledV6(handler func(ctx context.Context, event *larkapplication.P1AppUninstalledV6) error) *EventDispatcher {
@@ -48,7 +48,7 @@ func (dispatcher *EventDispatcher) OnP1AppUninstalledV6(handler func(ctx context
 	return dispatcher
 }
 
-// v1消息协议：当企业管理员在管理员后台启用、停用应用，或应用被平台停用时，开放平台推送 app_status_change 事件到请求网址。
+// v1 消息协议：当企业管理员在管理员后台启用、停用应用，或应用被平台停用时，开放平台推送 app_status_change 事件到请求网址。
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-enabled-or-disabled
 func (dispatcher *EventDispatcher) OnP1AppStatusChangedV6(handler func(ctx context.Context, event *larkapplication.P1AppStatusChangedV6) error) *EventDispatcher {
@@ -60,7 +60,7 @@ func (dispatcher *EventDispatcher) OnP1AppStatusChangedV6(handler func(ctx conte
 	return dispatcher
 }
 
-// v1消息协议：用户阅读机器人发送的消息后触发此事件。
+// v1 消息协议：用户阅读机器人发送的消息后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/message-read
 func (dispatcher *EventDispatcher) OnP1MessageReadV1(handler func(ctx context.Context, event *larkim.P1MessageReadV1) error) *EventDispatcher {
@@ -72,7 +72,7 @@ func (dispatcher *EventDispatcher) OnP1MessageReadV1(handler func(ctx context.Co
 	return dispatcher
 }
 
-// v1消息协议：当用户发送消息给机器人或在群聊中@机器人时触发此事件。
+// v1 消息协议：当用户发送消息给机器人或在群聊中 @机器人时触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/receive-message
 func (dispatcher *EventDispatcher) OnP1MessageReceiveV1(handler func(ctx context.Context, event *larkim.P1MessageReceiveV1) error) *EventDispatcher {
@@ -84,7 +84,7 @@ func (dispatcher *EventDispatcher) OnP1MessageReceiveV1(handler func(ctx context
 	return dispatcher
 }
 
-// v1消息协议：当员工的激活、暂停账号/恢复账号、操作离职时会触发此事件。此事件不依赖于任何权限。
+// v1 消息协议：当员工的激活、暂停账号/恢复账号、操作离职时会触发此事件。此事件不依赖于任何权限。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM//event/user-status-changed
 func (dispatcher *EventDispatcher) OnP1UserStatusChangedV3(handler func(ctx context.Context, event *larkcontact.P1UserStatusChangedV3) error) *EventDispatcher {
@@ -96,7 +96,7 @@ func (dispatcher *EventDispatcher) OnP1UserStatusChangedV3(handler func(ctx cont
 	return dispatcher
 }
 
-// v1消息协议：当员工加入企业（user_add）、离职（user_leave）、个人信息发生变化（user_update）时，推送此事件。
+// v1 消息协议：当员工加入企业（user_add）、离职（user_leave）、个人信息发生变化（user_update）时，推送此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM//event/employee-change
 func (dispatcher *EventDispatcher) OnP1UserChangedV3(handler func(ctx context.Context, event *larkcontact.P1UserChangedV3) error) *EventDispatcher {
@@ -120,7 +120,7 @@ func (dispatcher *EventDispatcher) OnP1UserChangedV3(handler func(ctx context.Co
 	return dispatcher
 }
 
-// v1消息协议：当新建部门（dept_add）、删除部门（dept_delete）、修改部门（dept_update）时，推送此事件。
+// v1 消息协议：当新建部门（dept_add）、删除部门（dept_delete）、修改部门（dept_update）时，推送此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM//event/department-update
 func (dispatcher *EventDispatcher) OnP1DepartmentChangedV3(handler func(ctx context.Context, event *larkcontact.P1DepartmentChangedV3) error) *EventDispatcher {
@@ -144,7 +144,7 @@ func (dispatcher *EventDispatcher) OnP1DepartmentChangedV3(handler func(ctx cont
 	return dispatcher
 }
 
-// v1消息协议：当应用申请了 以应用身份访问通讯录 权限后，管理员可以配置应用的通讯录授权范围,当此范围变化时，就会触发授权范围变化事件。
+// v1 消息协议：当应用申请了 以应用身份访问通讯录 权限后，管理员可以配置应用的通讯录授权范围，当此范围变化时，就会触发授权范围变化事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM//event/scope-change
 func (dispatcher *EventDispatcher) OnP1ContactScopeChangedV3(handler func(ctx context.Context, event *larkcontact.P1ContactScopeChangedV3) error) *EventDispatcher {
@@ -156,7 +156,7 @@ func (dispatcher *EventDispatcher) OnP1ContactScopeChangedV3(handler func(ctx co
 	return dispatcher
 }
 
-// v1消息协议：机器人被邀请加入群聊时触发此事件。
+// v1 消息协议：机器人被邀请加入群聊时触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-added-to-group
 func (dispatcher *EventDispatcher) OnP1AddBotV1(handler func(ctx context.Context, event *larkim.P1AddBotV1) error) *EventDispatcher {
@@ -168,7 +168,7 @@ func (dispatcher *EventDispatcher) OnP1AddBotV1(handler func(ctx context.Context
 	return dispatcher
 }
 
-// v1消息协议：机器人被从群聊中移除时触发此事件。
+// v1 消息协议：机器人被从群聊中移除时触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-removed-from-group
 func (dispatcher *EventDispatcher) OnP1RemoveAddBotV1(handler func(ctx context.Context, event *larkim.P1RemoveBotV1) error) *EventDispatcher {
@@ -180,7 +180,7 @@ func (dispatcher *EventDispatcher) OnP1RemoveAddBotV1(handler func(ctx context.C
 	return dispatcher
 }
 
-// v1消息协议：用户进群、出群后触发此事件
+// v1 消息协议：用户进群、出群后触发此事件
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
 func (dispatcher *EventDispatcher) OnP1UserInOutChatV1(handler func(ctx context.Context, event *larkim.P1UserInOutChatV1) error) *EventDispatcher {
@@ -204,7 +204,7 @@ func (dispatcher *EventDispatcher) OnP1UserInOutChatV1(handler func(ctx context.
 	return dispatcher
 }
 
-// v1消息协议：群聊被解散后触发此事件。
+// v1 消息协议：群聊被解散后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/group-closed
 func (dispatcher *EventDispatcher) OnP1ChatDisbandV1(handler func(ctx context.Context, event *larkim.P1ChatDisbandV1) error) *EventDispatcher {
@@ -216,7 +216,7 @@ func (dispatcher *EventDispatcher) OnP1ChatDisbandV1(handler func(ctx context.Co
 	return dispatcher
 }
 
-// v1消息协议：群配置修改后触发此事件。
+// v1 消息协议：群配置修改后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/group-configuration-changes
 func (dispatcher *EventDispatcher) OnP1GroupSettingUpdatedV1(handler func(ctx context.Context, event *larkim.P1GroupSettingUpdatedV1) error) *EventDispatcher {
@@ -228,7 +228,7 @@ func (dispatcher *EventDispatcher) OnP1GroupSettingUpdatedV1(handler func(ctx co
 	return dispatcher
 }
 
-// v1消息协议：当租户第一次安装并启用此应用时触发此事件，启用应用包含以下场景：
+// v1 消息协议：当租户第一次安装并启用此应用时触发此事件，启用应用包含以下场景：
 //  当租户管理员后台首次开通应用
 //  租户内的普通成员首次安装此应用
 //
@@ -242,7 +242,7 @@ func (dispatcher *EventDispatcher) OnP1AppOpenV6(handler func(ctx context.Contex
 	return dispatcher
 }
 
-// v1消息协议：首次会话是用户了解应用的重要机会，你可以发送操作说明、配置地址来指导用户开始使用你的应用。
+// v1 消息协议：首次会话是用户了解应用的重要机会，你可以发送操作说明、配置地址来指导用户开始使用你的应用。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
 func (dispatcher *EventDispatcher) OnP1P2PChatCreatedV1(handler func(ctx context.Context, event *larkim.P1P2PChatCreatedV1) error) *EventDispatcher {
@@ -254,7 +254,7 @@ func (dispatcher *EventDispatcher) OnP1P2PChatCreatedV1(handler func(ctx context
 	return dispatcher
 }
 
-// v1消息协议：当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
+// v1 消息协议：当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/third-room-event-changes
 func (dispatcher *EventDispatcher) OnP1ThirdPartyMeetingRoomChangedV1(handler func(ctx context.Context, event *larkmeeting_room.P1ThirdPartyMeetingRoomChangedV1) error) *EventDispatcher {
@@ -278,7 +278,7 @@ func (dispatcher *EventDispatcher) OnP1ThirdPartyMeetingRoomChangedV1(handler fu
 	return dispatcher
 }
 
-// v1消息协议：审批」应用的表单里如果包含 请假控件组，则在此表单审批通过后触发此事件。
+// v1 消息协议：审批」应用的表单里如果包含 请假控件组，则在此表单审批通过后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
 func (dispatcher *EventDispatcher) OnP1LeaveApprovalV4(handler func(ctx context.Context, event *larkapproval.P1LeaveApprovalV4) error) *EventDispatcher {
@@ -290,7 +290,7 @@ func (dispatcher *EventDispatcher) OnP1LeaveApprovalV4(handler func(ctx context.
 	return dispatcher
 }
 
-// v1消息协议：「审批」应用的表单里如果包含 加班控件组，则在此表单审批通过后触发此事件。
+// v1 消息协议：「审批」应用的表单里如果包含 加班控件组，则在此表单审批通过后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/overtime
 func (dispatcher *EventDispatcher) OnP1WorkApprovalV4(handler func(ctx context.Context, event *larkapproval.P1WorkApprovalV4) error) *EventDispatcher {
@@ -302,7 +302,7 @@ func (dispatcher *EventDispatcher) OnP1WorkApprovalV4(handler func(ctx context.C
 	return dispatcher
 }
 
-// v1消息协议：换班申请审批通过后触发此事件。 你可以在「打卡」应用里提交换班申请。
+// v1 消息协议：换班申请审批通过后触发此事件。 你可以在「打卡」应用里提交换班申请。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/shift-change
 func (dispatcher *EventDispatcher) OnP1ShiftApprovalV4(handler func(ctx context.Context, event *larkapproval.P1ShiftApprovalV4) error) *EventDispatcher {
@@ -314,7 +314,7 @@ func (dispatcher *EventDispatcher) OnP1ShiftApprovalV4(handler func(ctx context.
 	return dispatcher
 }
 
-// v1消息协议：补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
+// v1 消息协议：补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/attendance-record-correction
 func (dispatcher *EventDispatcher) OnP1RemedyApprovalV4(handler func(ctx context.Context, event *larkapproval.P1RemedyApprovalV4) error) *EventDispatcher {
@@ -326,7 +326,7 @@ func (dispatcher *EventDispatcher) OnP1RemedyApprovalV4(handler func(ctx context
 	return dispatcher
 }
 
-// v1消息协议：「审批」应用的表单里如果包含 出差控件组，则在此表单审批通过后触发此事件。
+// v1 消息协议：「审批」应用的表单里如果包含 出差控件组，则在此表单审批通过后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/business-trip
 func (dispatcher *EventDispatcher) OnP1TripApprovalV4(handler func(ctx context.Context, event *larkapproval.P1TripApprovalV4) error) *EventDispatcher {
@@ -338,7 +338,7 @@ func (dispatcher *EventDispatcher) OnP1TripApprovalV4(handler func(ctx context.C
 	return dispatcher
 }
 
-// v1消息协议：「审批」应用的表单里如果包含 外出控件组，则在此表单审批通过后触发此事件。
+// v1 消息协议：「审批」应用的表单里如果包含 外出控件组，则在此表单审批通过后触发此事件。
 //
 // 事件描述文档：https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/out-of-office
 func (dispatcher *EventDispatcher) OnP1OutApprovalV4(handler func(ctx context.Context, event *larkapproval.P1OutApprovalV4) error) *EventDispatcher {
@@ -360,7 +360,7 @@ func (dispatcher *EventDispatcher) OnCustomizedEvent(eventType string, handler f
 	return dispatcher
 }
 
-// 当 ISV 需要自己管理 app_ticket 和 token 时，需要注册该处理器,以获取app_ticket。这时 SDK 内将不能帮开发者自动获取和缓存token。
+// 当 ISV 需要自己管理 app_ticket 和 token 时，需要注册该处理器，以获取 app_ticket。这时 SDK 内将不能帮开发者自动获取和缓存 token。
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app_ticket-events
 func (dispatcher *EventDispatcher) OnAppTicketEvent(handler func(ctx context.Context, event *AppTicketEvent) error) *EventDispatcher {

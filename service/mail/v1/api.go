@@ -84,9 +84,9 @@ type userMailboxAlias struct {
 //
 // - 创建一个邮件组
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroup.go
 func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -110,9 +110,9 @@ func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options
 //
 // - 删除一个邮件组
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroup.go
 func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -136,9 +136,9 @@ func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options
 //
 // - 获取特定邮件组信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroup.go
 func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -162,9 +162,9 @@ func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...la
 //
 // - 分页批量获取邮件组
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroup.go
 func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -196,9 +196,9 @@ func (m *mailgroup) ListByIterator(ctx context.Context, req *ListMailgroupReq, o
 //
 // - 更新邮件组部分字段，没有填写的字段不会被更新
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/patch_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/patch_mailgroup.go
 func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options ...larkcore.RequestOptionFunc) (*PatchMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -222,9 +222,9 @@ func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options .
 //
 // - 更新邮件组所有信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_mailgroup.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_mailgroup.go
 func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options ...larkcore.RequestOptionFunc) (*UpdateMailgroupResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -248,9 +248,9 @@ func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options
 //
 // - 创建邮件组别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupAlias.go
 func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -274,9 +274,9 @@ func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasRe
 //
 // - 删除邮件组别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupAlias.go
 func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -300,9 +300,9 @@ func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasRe
 //
 // - 获取邮件组所有别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupAlias.go
 func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -326,9 +326,9 @@ func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, o
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupMember.go
 func (m *mailgroupMember) BatchCreate(ctx context.Context, req *BatchCreateMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -352,9 +352,9 @@ func (m *mailgroupMember) BatchCreate(ctx context.Context, req *BatchCreateMailg
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupMember.go
 func (m *mailgroupMember) BatchDelete(ctx context.Context, req *BatchDeleteMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -378,9 +378,9 @@ func (m *mailgroupMember) BatchDelete(ctx context.Context, req *BatchDeleteMailg
 //
 // - 向邮件组添加单个成员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupMember.go
 func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -404,9 +404,9 @@ func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMember
 //
 // - 删除邮件组单个成员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupMember.go
 func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -430,9 +430,9 @@ func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMember
 //
 // - 获取邮件组单个成员信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroupMember.go
 func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -456,9 +456,9 @@ func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, o
 //
 // - 分页批量获取邮件组成员列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupMember.go
 func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -490,9 +490,9 @@ func (m *mailgroupMember) ListByIterator(ctx context.Context, req *ListMailgroup
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.permission_member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.permission_member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) BatchCreate(ctx context.Context, req *BatchCreateMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -516,9 +516,9 @@ func (m *mailgroupPermissionMember) BatchCreate(ctx context.Context, req *BatchC
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.permission_member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.permission_member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) BatchDelete(ctx context.Context, req *BatchDeleteMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -542,9 +542,9 @@ func (m *mailgroupPermissionMember) BatchDelete(ctx context.Context, req *BatchD
 //
 // - 向邮件组添加单个自定义权限成员，添加后该成员可发送邮件到该邮件组
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -568,9 +568,9 @@ func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailg
 //
 // - 从自定义成员中删除单个成员，删除后该成员无法发送邮件到该邮件组
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -594,9 +594,9 @@ func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailg
 //
 // - 获取邮件组单个权限成员信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -620,9 +620,9 @@ func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPe
 //
 // - 分页批量获取邮件组权限成员列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupPermissionMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupPermissionMember.go
 func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupPermissionMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -654,9 +654,9 @@ func (m *mailgroupPermissionMember) ListByIterator(ctx context.Context, req *Lis
 //
 // - 创建一个公共邮箱
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailbox.go
 func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -680,9 +680,9 @@ func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq,
 //
 // - 该接口会永久删除公共邮箱地址。可用于释放邮箱回收站的公共邮箱地址，一旦删除，该邮箱地址将无法恢复。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailbox.go
 func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -706,9 +706,9 @@ func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq,
 //
 // - 获取公共邮箱信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_publicMailbox.go
 func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*GetPublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -732,9 +732,9 @@ func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, optio
 //
 // - 分页批量获取公共邮箱列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailbox.go
 func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -766,9 +766,9 @@ func (p *publicMailbox) ListByIterator(ctx context.Context, req *ListPublicMailb
 //
 // - 更新公共邮箱部分字段，没有填写的字段不会被更新
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/patch_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/patch_publicMailbox.go
 func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*PatchPublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -792,9 +792,9 @@ func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, o
 //
 // - 更新公共邮箱所有信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_publicMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_publicMailbox.go
 func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*UpdatePublicMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -818,9 +818,9 @@ func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq,
 //
 // - 创建公共邮箱别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailboxAlias.go
 func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -844,9 +844,9 @@ func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailbo
 //
 // - 删除公共邮箱别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailboxAlias.go
 func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -870,9 +870,9 @@ func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailbo
 //
 // - 获取所有公共邮箱别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailboxAlias.go
 func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -896,9 +896,9 @@ func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAli
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=public_mailbox.member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=public_mailbox.member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_publicMailboxMember.go
 func (p *publicMailboxMember) BatchCreate(ctx context.Context, req *BatchCreatePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreatePublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -922,9 +922,9 @@ func (p *publicMailboxMember) BatchCreate(ctx context.Context, req *BatchCreateP
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=public_mailbox.member&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=public_mailbox.member&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_publicMailboxMember.go
 func (p *publicMailboxMember) BatchDelete(ctx context.Context, req *BatchDeletePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeletePublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -948,9 +948,9 @@ func (p *publicMailboxMember) BatchDelete(ctx context.Context, req *BatchDeleteP
 //
 // - 删除公共邮箱所有成员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/clear_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/clear_publicMailboxMember.go
 func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ClearPublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -974,9 +974,9 @@ func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailbox
 //
 // - 向公共邮箱添加单个成员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_publicMailboxMember.go
 func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1000,9 +1000,9 @@ func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailb
 //
 // - 删除公共邮箱单个成员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_publicMailboxMember.go
 func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1026,9 +1026,9 @@ func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailb
 //
 // - 获取公共邮箱单个成员信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_publicMailboxMember.go
 func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*GetPublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1052,9 +1052,9 @@ func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemb
 //
 // - 分页批量获取公共邮箱成员列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailboxMember.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_publicMailboxMember.go
 func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxMemberResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1086,9 +1086,9 @@ func (p *publicMailboxMember) ListByIterator(ctx context.Context, req *ListPubli
 //
 // - 使用邮箱状态查询接口，可以输入邮箱地址，查询出该邮箱地址对应的类型以及状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user/query
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user/query
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/query_user.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/query_user.go
 func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...larkcore.RequestOptionFunc) (*QueryUserResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1112,9 +1112,9 @@ func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...larkcore
 //
 // - 该接口会永久删除用户邮箱地址。可用于删除位于邮箱回收站中的用户邮箱地址，一旦删除，将无法恢复。该接口支持邮件的转移，可以将被释放邮箱的邮件转移到另外一个可以使用的邮箱中。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailbox.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailbox.go
 func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1138,9 +1138,9 @@ func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, opt
 //
 // - 创建用户邮箱别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_userMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_userMailboxAlias.go
 func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*CreateUserMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1164,9 +1164,9 @@ func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAli
 //
 // - 删除用户邮箱别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailboxAlias.go
 func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -1190,9 +1190,9 @@ func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAli
 //
 // - 获取用户邮箱所有别名
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxAlias.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxAlias.go
 func (u *userMailboxAlias) List(ctx context.Context, req *ListUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxAliasResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

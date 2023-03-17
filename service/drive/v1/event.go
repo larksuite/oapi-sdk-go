@@ -32,7 +32,7 @@ func (h *P2FileBitableFieldChangedV1Handler) Event() interface{} {
 	return &P2FileBitableFieldChangedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileBitableFieldChangedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileBitableFieldChangedV1))
 }
@@ -52,7 +52,7 @@ func (h *P2FileDeletedV1Handler) Event() interface{} {
 	return &P2FileDeletedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileDeletedV1))
 }
@@ -72,7 +72,7 @@ func (h *P2FileEditV1Handler) Event() interface{} {
 	return &P2FileEditV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileEditV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileEditV1))
 }
@@ -92,7 +92,7 @@ func (h *P2FilePermissionMemberAddedV1Handler) Event() interface{} {
 	return &P2FilePermissionMemberAddedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FilePermissionMemberAddedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FilePermissionMemberAddedV1))
 }
@@ -112,7 +112,7 @@ func (h *P2FilePermissionMemberRemovedV1Handler) Event() interface{} {
 	return &P2FilePermissionMemberRemovedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FilePermissionMemberRemovedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FilePermissionMemberRemovedV1))
 }
@@ -132,7 +132,7 @@ func (h *P2FileReadV1Handler) Event() interface{} {
 	return &P2FileReadV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileReadV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileReadV1))
 }
@@ -152,7 +152,7 @@ func (h *P2FileTitleUpdatedV1Handler) Event() interface{} {
 	return &P2FileTitleUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileTitleUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileTitleUpdatedV1))
 }
@@ -172,7 +172,7 @@ func (h *P2FileTrashedV1Handler) Event() interface{} {
 	return &P2FileTrashedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2FileTrashedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileTrashedV1))
 }

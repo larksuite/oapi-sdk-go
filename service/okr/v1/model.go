@@ -24,71 +24,71 @@ import (
 )
 
 const (
-	TargetTypeObjective = 2 // okr的O
-	TargetTypeKeyResult = 3 // okr的KR
+	TargetTypeObjective = 2 // okr 的 O
+	TargetTypeKeyResult = 3 // okr 的 KR
 
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetMetricSourceTableItemUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetMetricSourceTableItemUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetMetricSourceTableItemOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListMetricSourceTableItemUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListMetricSourceTableItemUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListMetricSourceTableItemOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypePatchMetricSourceTableItemUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchMetricSourceTableItemUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchMetricSourceTableItemOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchMetricSourceTableItemUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypePatchMetricSourceTableItemUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypePatchMetricSourceTableItemOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeBatchGetOkrUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeBatchGetOkrUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeBatchGetOkrOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeBatchGetOkrPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeBatchGetOkrUserId        = "user_id"         // 以 user_id 来识别用户
+	UserIdTypeBatchGetOkrUnionId       = "union_id"        // 以 union_id 来识别用户
+	UserIdTypeBatchGetOkrOpenId        = "open_id"         // 以 open_id 来识别用户
+	UserIdTypeBatchGetOkrPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 const (
-	TargetTypeCreateProgressRecordObjective = 2 // okr的O
-	TargetTypeCreateProgressRecordKeyResult = 3 // okr的KR
+	TargetTypeCreateProgressRecordObjective = 2 // okr 的 O
+	TargetTypeCreateProgressRecordKeyResult = 3 // okr 的 KR
 
 )
 
 const (
-	UserIdTypeCreateProgressRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateProgressRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateProgressRecordUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateProgressRecordUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateProgressRecordOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetProgressRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetProgressRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetProgressRecordUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetProgressRecordUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetProgressRecordOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateProgressRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateProgressRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateProgressRecordOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateProgressRecordUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateProgressRecordUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateProgressRecordOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListUserOkrUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListUserOkrUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListUserOkrOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListUserOkrPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UserIdTypeListUserOkrUserId        = "user_id"         // 以 user_id 来识别用户
+	UserIdTypeListUserOkrUnionId       = "union_id"        // 以 union_id 来识别用户
+	UserIdTypeListUserOkrOpenId        = "open_id"         // 以 open_id 来识别用户
+	UserIdTypeListUserOkrPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 type AlignObjective struct {
@@ -249,20 +249,20 @@ func (builder *ContentBlockElementBuilder) Build() *ContentBlockElement {
 }
 
 type ContentColor struct {
-	Red   *int     `json:"red,omitempty"`   // 红 取值范围[0,255]
-	Green *int     `json:"green,omitempty"` // 绿 取值范围[0,255]
-	Blue  *int     `json:"blue,omitempty"`  // 蓝 取值范围[0,255]
-	Alpha *float64 `json:"alpha,omitempty"` // 透明度 取值范围[0,1]
+	Red   *int     `json:"red,omitempty"`   // 红 取值范围 [0,255]
+	Green *int     `json:"green,omitempty"` // 绿 取值范围 [0,255]
+	Blue  *int     `json:"blue,omitempty"`  // 蓝 取值范围 [0,255]
+	Alpha *float64 `json:"alpha,omitempty"` // 透明度 取值范围 [0,1]
 }
 
 type ContentColorBuilder struct {
-	red       int // 红 取值范围[0,255]
+	red       int // 红 取值范围 [0,255]
 	redFlag   bool
-	green     int // 绿 取值范围[0,255]
+	green     int // 绿 取值范围 [0,255]
 	greenFlag bool
-	blue      int // 蓝 取值范围[0,255]
+	blue      int // 蓝 取值范围 [0,255]
 	blueFlag  bool
-	alpha     float64 // 透明度 取值范围[0,1]
+	alpha     float64 // 透明度 取值范围 [0,1]
 	alphaFlag bool
 }
 
@@ -271,7 +271,7 @@ func NewContentColorBuilder() *ContentColorBuilder {
 	return builder
 }
 
-// 红 取值范围[0,255]
+// 红 取值范围 [0,255]
 //
 // 示例值：216
 func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
@@ -280,7 +280,7 @@ func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
 	return builder
 }
 
-// 绿 取值范围[0,255]
+// 绿 取值范围 [0,255]
 //
 // 示例值：191
 func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
@@ -289,7 +289,7 @@ func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
 	return builder
 }
 
-// 蓝 取值范围[0,255]
+// 蓝 取值范围 [0,255]
 //
 // 示例值：188
 func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
@@ -298,7 +298,7 @@ func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
 	return builder
 }
 
-// 透明度 取值范围[0,1]
+// 透明度 取值范围 [0,1]
 //
 // 示例值：0.1
 func (builder *ContentColorBuilder) Alpha(alpha float64) *ContentColorBuilder {
@@ -410,8 +410,8 @@ func (builder *ContentGalleryBuilder) Build() *ContentGallery {
 type ContentImageItem struct {
 	FileToken *string  `json:"fileToken,omitempty"` // 图片 token，通过上传图片接口获取
 	Src       *string  `json:"src,omitempty"`       // 图片链接
-	Width     *float64 `json:"width,omitempty"`     // 图片宽，单位px
-	Height    *float64 `json:"height,omitempty"`    // 图片高，单位px
+	Width     *float64 `json:"width,omitempty"`     // 图片宽，单位 px
+	Height    *float64 `json:"height,omitempty"`    // 图片高，单位 px
 }
 
 type ContentImageItemBuilder struct {
@@ -419,9 +419,9 @@ type ContentImageItemBuilder struct {
 	fileTokenFlag bool
 	src           string // 图片链接
 	srcFlag       bool
-	width         float64 // 图片宽，单位px
+	width         float64 // 图片宽，单位 px
 	widthFlag     bool
-	height        float64 // 图片高，单位px
+	height        float64 // 图片高，单位 px
 	heightFlag    bool
 }
 
@@ -448,7 +448,7 @@ func (builder *ContentImageItemBuilder) Src(src string) *ContentImageItemBuilder
 	return builder
 }
 
-// 图片宽，单位px
+// 图片宽，单位 px
 //
 // 示例值：458
 func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBuilder {
@@ -457,7 +457,7 @@ func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBu
 	return builder
 }
 
-// 图片高，单位px
+// 图片高，单位 px
 //
 // 示例值：372
 func (builder *ContentImageItemBuilder) Height(height float64) *ContentImageItemBuilder {
@@ -738,11 +738,11 @@ func (builder *ContentParagraphStyleBuilder) Build() *ContentParagraphStyle {
 }
 
 type ContentPerson struct {
-	OpenId *string `json:"openId,omitempty"` // 员工的OpenID
+	OpenId *string `json:"openId,omitempty"` // 员工的 OpenID
 }
 
 type ContentPersonBuilder struct {
-	openId     string // 员工的OpenID
+	openId     string // 员工的 OpenID
 	openIdFlag bool
 }
 
@@ -751,7 +751,7 @@ func NewContentPersonBuilder() *ContentPersonBuilder {
 	return builder
 }
 
-// 员工的OpenID
+// 员工的 OpenID
 //
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *ContentPersonBuilder) OpenId(openId string) *ContentPersonBuilder {
@@ -990,12 +990,12 @@ func (builder *DummyBuilder) Build() *Dummy {
 }
 
 type FailedMetricItem struct {
-	MetricItemId *string `json:"metric_item_id,omitempty"` // 指标项ID
+	MetricItemId *string `json:"metric_item_id,omitempty"` // 指标项 ID
 	Reason       *string `json:"reason,omitempty"`         // 失败原因
 }
 
 type FailedMetricItemBuilder struct {
-	metricItemId     string // 指标项ID
+	metricItemId     string // 指标项 ID
 	metricItemIdFlag bool
 	reason           string // 失败原因
 	reasonFlag       bool
@@ -1006,7 +1006,7 @@ func NewFailedMetricItemBuilder() *FailedMetricItemBuilder {
 	return builder
 }
 
-// 指标项ID
+// 指标项 ID
 //
 // 示例值：7139040982003302420
 func (builder *FailedMetricItemBuilder) MetricItemId(metricItemId string) *FailedMetricItemBuilder {
@@ -1038,12 +1038,12 @@ func (builder *FailedMetricItemBuilder) Build() *FailedMetricItem {
 }
 
 type ImageInfo struct {
-	FileToken *string `json:"file_token,omitempty"` // 图片token
+	FileToken *string `json:"file_token,omitempty"` // 图片 token
 	Url       *string `json:"url,omitempty"`        // 图片下载链接
 }
 
 type ImageInfoBuilder struct {
-	fileToken     string // 图片token
+	fileToken     string // 图片 token
 	fileTokenFlag bool
 	url           string // 图片下载链接
 	urlFlag       bool
@@ -1054,7 +1054,7 @@ func NewImageInfoBuilder() *ImageInfoBuilder {
 	return builder
 }
 
-// 图片token
+// 图片 token
 //
 // 示例值：boxbcLxEnhUE3REJSAwAbVFZwPf
 func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
@@ -1261,25 +1261,25 @@ func (builder *KrContentBuilder) Build() *KrContent {
 }
 
 type MetricItem struct {
-	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标项id
-	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
-	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标项 id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员 id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的 okr 周期
 	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
 	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
 	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
 	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
-	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
-	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员 id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的 kr
 	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
 	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
 }
 
 type MetricItemBuilder struct {
-	metricItemId           string // 指标项id
+	metricItemId           string // 指标项 id
 	metricItemIdFlag       bool
-	userId                 string // 指标承接人员id
+	userId                 string // 指标承接人员 id
 	userIdFlag             bool
-	periodId               string // 指标的okr周期
+	periodId               string // 指标的 okr 周期
 	periodIdFlag           bool
 	metricUnit             *MetricUnit // 指标单位
 	metricUnitFlag         bool
@@ -1289,9 +1289,9 @@ type MetricItemBuilder struct {
 	metricTargetValueFlag  bool
 	metricCurrentValue     float64 // 指标进度值
 	metricCurrentValueFlag bool
-	supportedUserId        string // 指标支撑的上级人员id
+	supportedUserId        string // 指标支撑的上级人员 id
 	supportedUserIdFlag    bool
-	krId                   string // 指标关联的kr
+	krId                   string // 指标关联的 kr
 	krIdFlag               bool
 	updatedAt              string // 更新时间
 	updatedAtFlag          bool
@@ -1304,7 +1304,7 @@ func NewMetricItemBuilder() *MetricItemBuilder {
 	return builder
 }
 
-// 指标项id
+// 指标项 id
 //
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) MetricItemId(metricItemId string) *MetricItemBuilder {
@@ -1313,7 +1313,7 @@ func (builder *MetricItemBuilder) MetricItemId(metricItemId string) *MetricItemB
 	return builder
 }
 
-// 指标承接人员id
+// 指标承接人员 id
 //
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) UserId(userId string) *MetricItemBuilder {
@@ -1322,7 +1322,7 @@ func (builder *MetricItemBuilder) UserId(userId string) *MetricItemBuilder {
 	return builder
 }
 
-// 指标的okr周期
+// 指标的 okr 周期
 //
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) PeriodId(periodId string) *MetricItemBuilder {
@@ -1367,7 +1367,7 @@ func (builder *MetricItemBuilder) MetricCurrentValue(metricCurrentValue float64)
 	return builder
 }
 
-// 指标支撑的上级人员id
+// 指标支撑的上级人员 id
 //
 // 示例值：ou_8e7d79ca2327bf4f0b3c37899d6abbd5
 func (builder *MetricItemBuilder) SupportedUserId(supportedUserId string) *MetricItemBuilder {
@@ -1376,7 +1376,7 @@ func (builder *MetricItemBuilder) SupportedUserId(supportedUserId string) *Metri
 	return builder
 }
 
-// 指标关联的kr
+// 指标关联的 kr
 //
 // 示例值：7139040982003302420
 func (builder *MetricItemBuilder) KrId(krId string) *MetricItemBuilder {
@@ -1452,7 +1452,7 @@ func (builder *MetricItemBuilder) Build() *MetricItem {
 }
 
 type MetricItemRequest struct {
-	MetricItemId       *string  `json:"metric_item_id,omitempty"`       // 指标表id
+	MetricItemId       *string  `json:"metric_item_id,omitempty"`       // 指标表 id
 	MetricInitialValue *float64 `json:"metric_initial_value,omitempty"` // 指标起始值
 	MetricTargetValue  *float64 `json:"metric_target_value,omitempty"`  // 指标目标值
 	MetricCurrentValue *float64 `json:"metric_current_value,omitempty"` // 指标进度值
@@ -1460,7 +1460,7 @@ type MetricItemRequest struct {
 }
 
 type MetricItemRequestBuilder struct {
-	metricItemId           string // 指标表id
+	metricItemId           string // 指标表 id
 	metricItemIdFlag       bool
 	metricInitialValue     float64 // 指标起始值
 	metricInitialValueFlag bool
@@ -1477,7 +1477,7 @@ func NewMetricItemRequestBuilder() *MetricItemRequestBuilder {
 	return builder
 }
 
-// 指标表id
+// 指标表 id
 //
 // 示例值：635782378412311
 func (builder *MetricItemRequestBuilder) MetricItemId(metricItemId string) *MetricItemRequestBuilder {
@@ -1581,7 +1581,7 @@ func (builder *MetricSourceBuilder) MetricSourceId(metricSourceId string) *Metri
 
 // 指标库名称
 //
-// 示例值：指标库A
+// 示例值：指标库 A
 func (builder *MetricSourceBuilder) MetricSourceName(metricSourceName string) *MetricSourceBuilder {
 	builder.metricSourceName = metricSourceName
 	builder.metricSourceNameFlag = true
@@ -1590,7 +1590,7 @@ func (builder *MetricSourceBuilder) MetricSourceName(metricSourceName string) *M
 
 // 指标名称
 //
-// 示例值：指标A
+// 示例值：指标 A
 func (builder *MetricSourceBuilder) MetricName(metricName string) *MetricSourceBuilder {
 	builder.metricName = metricName
 	builder.metricNameFlag = true
@@ -1629,7 +1629,7 @@ func (builder *MetricSourceBuilder) Build() *MetricSource {
 type MetricTable struct {
 	MetricTableId   *string `json:"metric_table_id,omitempty"`   // 指标表 id
 	MetricTableName *string `json:"metric_table_name,omitempty"` // 指标表名称
-	PeriodId        *string `json:"period_id,omitempty"`         // okr周期
+	PeriodId        *string `json:"period_id,omitempty"`         // okr 周期
 }
 
 type MetricTableBuilder struct {
@@ -1637,7 +1637,7 @@ type MetricTableBuilder struct {
 	metricTableIdFlag   bool
 	metricTableName     string // 指标表名称
 	metricTableNameFlag bool
-	periodId            string // okr周期
+	periodId            string // okr 周期
 	periodIdFlag        bool
 }
 
@@ -1657,14 +1657,14 @@ func (builder *MetricTableBuilder) MetricTableId(metricTableId string) *MetricTa
 
 // 指标表名称
 //
-// 示例值：指标表a
+// 示例值：指标表 a
 func (builder *MetricTableBuilder) MetricTableName(metricTableName string) *MetricTableBuilder {
 	builder.metricTableName = metricTableName
 	builder.metricTableNameFlag = true
 	return builder
 }
 
-// okr周期
+// okr 周期
 //
 // 示例值：635782378221221
 func (builder *MetricTableBuilder) PeriodId(periodId string) *MetricTableBuilder {
@@ -1755,8 +1755,8 @@ func (builder *MetricUnitBuilder) Build() *MetricUnit {
 }
 
 type Objective struct {
-	Id                    *string            `json:"id,omitempty"`                      // 目标的ID
-	OkrId                 *string            `json:"okr_id,omitempty"`                  // 所属的OKR ID
+	Id                    *string            `json:"id,omitempty"`                      // 目标的 ID
+	OkrId                 *string            `json:"okr_id,omitempty"`                  // 所属的 OKR ID
 	UserId                *string            `json:"user_id,omitempty"`                 // 拥有者的用户 UUID
 	Pos                   *string            `json:"pos,omitempty"`                     // Objective 在所属 OKR 中的排序
 	Score                 *string            `json:"score,omitempty"`                   // Objective 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
@@ -1770,9 +1770,9 @@ type Objective struct {
 }
 
 type ObjectiveBuilder struct {
-	id                        string // 目标的ID
+	id                        string // 目标的 ID
 	idFlag                    bool
-	okrId                     string // 所属的OKR ID
+	okrId                     string // 所属的 OKR ID
 	okrIdFlag                 bool
 	userId                    string // 拥有者的用户 UUID
 	userIdFlag                bool
@@ -1801,7 +1801,7 @@ func NewObjectiveBuilder() *ObjectiveBuilder {
 	return builder
 }
 
-// 目标的ID
+// 目标的 ID
 //
 // 示例值：
 func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
@@ -1810,7 +1810,7 @@ func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
 	return builder
 }
 
-// 所属的OKR ID
+// 所属的 OKR ID
 //
 // 示例值：
 func (builder *ObjectiveBuilder) OkrId(okrId string) *ObjectiveBuilder {
@@ -2196,17 +2196,17 @@ func (builder *OkrBuilder) Build() *Okr {
 }
 
 type OkrComment struct {
-	Id                *string                            `json:"id,omitempty"`                  // 全局评论ID
+	Id                *string                            `json:"id,omitempty"`                  // 全局评论 ID
 	Content           *string                            `json:"content,omitempty"`             // 全局评论内容
 	CommentTime       *int                               `json:"comment_time,omitempty"`        // 全局评论时间 毫秒
 	Commentator       *OkrObjectiveAlignedObjectiveOwner `json:"commentator,omitempty"`         // 评论人员
 	LastModifier      *OkrObjectiveAlignedObjectiveOwner `json:"last_modifier,omitempty"`       // 修改评论的用户
-	ContentModifyTime *int                               `json:"content_modify_time,omitempty"` // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
-	SolvedTime        *int                               `json:"solved_time,omitempty"`         // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+	ContentModifyTime *int                               `json:"content_modify_time,omitempty"` // 评论的被修改时间  0 表示未被修改过， ms 级别时间戳
+	SolvedTime        *int                               `json:"solved_time,omitempty"`         // 评论被解决的时间   0 表示未解决过， ms 级别时间戳
 }
 
 type OkrCommentBuilder struct {
-	id                    string // 全局评论ID
+	id                    string // 全局评论 ID
 	idFlag                bool
 	content               string // 全局评论内容
 	contentFlag           bool
@@ -2216,9 +2216,9 @@ type OkrCommentBuilder struct {
 	commentatorFlag       bool
 	lastModifier          *OkrObjectiveAlignedObjectiveOwner // 修改评论的用户
 	lastModifierFlag      bool
-	contentModifyTime     int // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+	contentModifyTime     int // 评论的被修改时间  0 表示未被修改过， ms 级别时间戳
 	contentModifyTimeFlag bool
-	solvedTime            int // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+	solvedTime            int // 评论被解决的时间   0 表示未解决过， ms 级别时间戳
 	solvedTimeFlag        bool
 }
 
@@ -2227,7 +2227,7 @@ func NewOkrCommentBuilder() *OkrCommentBuilder {
 	return builder
 }
 
-// 全局评论ID
+// 全局评论 ID
 //
 // 示例值：6976173067307927084
 func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
@@ -2272,7 +2272,7 @@ func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAligned
 	return builder
 }
 
-// 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+// 评论的被修改时间  0 表示未被修改过， ms 级别时间戳
 //
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrCommentBuilder {
@@ -2281,7 +2281,7 @@ func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrC
 	return builder
 }
 
-// 评论被解决的时间   0 表示未解决过， ms级别时间戳
+// 评论被解决的时间   0 表示未解决过， ms 级别时间戳
 //
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) SolvedTime(solvedTime int) *OkrCommentBuilder {
@@ -2323,14 +2323,14 @@ func (builder *OkrCommentBuilder) Build() *OkrComment {
 
 type OkrObjectiveAlignment struct {
 	Id     *string `json:"id,omitempty"`      // ID
-	ToId   *string `json:"to_id,omitempty"`   // 目标id
+	ToId   *string `json:"to_id,omitempty"`   // 目标 id
 	ToType *int    `json:"to_type,omitempty"` // 目标类型
 }
 
 type OkrObjectiveAlignmentBuilder struct {
 	id         string // ID
 	idFlag     bool
-	toId       string // 目标id
+	toId       string // 目标 id
 	toIdFlag   bool
 	toType     int // 目标类型
 	toTypeFlag bool
@@ -2350,7 +2350,7 @@ func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmen
 	return builder
 }
 
-// 目标id
+// 目标 id
 //
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlignmentBuilder {
@@ -2387,25 +2387,25 @@ func (builder *OkrObjectiveAlignmentBuilder) Build() *OkrObjectiveAlignment {
 
 type OkrBatch struct {
 	Id            *string         `json:"id,omitempty"`             // id
-	Permission    *int            `json:"permission,omitempty"`     // OKR的访问权限
+	Permission    *int            `json:"permission,omitempty"`     // OKR 的访问权限
 	PeriodId      *string         `json:"period_id,omitempty"`      // period_id
 	Name          *string         `json:"name,omitempty"`           // 名称
-	ObjectiveList []*OkrObjective `json:"objective_list,omitempty"` // Objective列表
-	ConfirmStatus *int            `json:"confirm_status,omitempty"` // OKR确认状态
+	ObjectiveList []*OkrObjective `json:"objective_list,omitempty"` // Objective 列表
+	ConfirmStatus *int            `json:"confirm_status,omitempty"` // OKR 确认状态
 }
 
 type OkrBatchBuilder struct {
 	id                string // id
 	idFlag            bool
-	permission        int // OKR的访问权限
+	permission        int // OKR 的访问权限
 	permissionFlag    bool
 	periodId          string // period_id
 	periodIdFlag      bool
 	name              string // 名称
 	nameFlag          bool
-	objectiveList     []*OkrObjective // Objective列表
+	objectiveList     []*OkrObjective // Objective 列表
 	objectiveListFlag bool
-	confirmStatus     int // OKR确认状态
+	confirmStatus     int // OKR 确认状态
 	confirmStatusFlag bool
 }
 
@@ -2423,7 +2423,7 @@ func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 	return builder
 }
 
-// OKR的访问权限
+// OKR 的访问权限
 //
 // 示例值：0
 func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
@@ -2450,7 +2450,7 @@ func (builder *OkrBatchBuilder) Name(name string) *OkrBatchBuilder {
 	return builder
 }
 
-// Objective列表
+// Objective 列表
 //
 // 示例值：
 func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *OkrBatchBuilder {
@@ -2459,7 +2459,7 @@ func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *Ok
 	return builder
 }
 
-// OKR确认状态
+// OKR 确认状态
 //
 // 示例值：0
 func (builder *OkrBatchBuilder) ConfirmStatus(confirmStatus int) *OkrBatchBuilder {
@@ -2640,8 +2640,8 @@ func (builder *OkrDetailBuilder) Build() *OkrDetail {
 
 type OkrDetailObjective struct {
 	Id                    *string                    `json:"id,omitempty"`                      // Objective ID
-	OkrId                 *string                    `json:"okr_id,omitempty"`                  // 所属okr id
-	UserId                *string                    `json:"user_id,omitempty"`                 // 用户id
+	OkrId                 *string                    `json:"okr_id,omitempty"`                  // 所属 okr id
+	UserId                *string                    `json:"user_id,omitempty"`                 // 用户 id
 	Pos                   *int                       `json:"pos,omitempty"`                     // pos
 	Score                 *int                       `json:"score,omitempty"`                   // 得分
 	Name                  *OkrName                   `json:"name,omitempty"`                    // Objective 名称
@@ -2657,9 +2657,9 @@ type OkrDetailObjective struct {
 type OkrDetailObjectiveBuilder struct {
 	id                        string // Objective ID
 	idFlag                    bool
-	okrId                     string // 所属okr id
+	okrId                     string // 所属 okr id
 	okrIdFlag                 bool
-	userId                    string // 用户id
+	userId                    string // 用户 id
 	userIdFlag                bool
 	pos                       int // pos
 	posFlag                   bool
@@ -2697,7 +2697,7 @@ func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuild
 	return builder
 }
 
-// 所属okr id
+// 所属 okr id
 //
 // 示例值：6976173067307927084
 func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiveBuilder {
@@ -2706,7 +2706,7 @@ func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiv
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：ou_186301103180d3469a0bfd6e80977ec9
 func (builder *OkrDetailObjectiveBuilder) UserId(userId string) *OkrDetailObjectiveBuilder {
@@ -2858,17 +2858,17 @@ func (builder *OkrDetailObjectiveBuilder) Build() *OkrDetailObjective {
 }
 
 type OkrDetailObjectiveAlign struct {
-	Id     *string `json:"id,omitempty"`      // Objective的ID
-	OkrId  *string `json:"okr_id,omitempty"`  // OKR的ID
-	UserId *string `json:"user_id,omitempty"` // 该Objective的Owner
+	Id     *string `json:"id,omitempty"`      // Objective 的 ID
+	OkrId  *string `json:"okr_id,omitempty"`  // OKR 的 ID
+	UserId *string `json:"user_id,omitempty"` // 该 Objective 的 Owner
 }
 
 type OkrDetailObjectiveAlignBuilder struct {
-	id         string // Objective的ID
+	id         string // Objective 的 ID
 	idFlag     bool
-	okrId      string // OKR的ID
+	okrId      string // OKR 的 ID
 	okrIdFlag  bool
-	userId     string // 该Objective的Owner
+	userId     string // 该 Objective 的 Owner
 	userIdFlag bool
 }
 
@@ -2877,7 +2877,7 @@ func NewOkrDetailObjectiveAlignBuilder() *OkrDetailObjectiveAlignBuilder {
 	return builder
 }
 
-// Objective的ID
+// Objective 的 ID
 //
 // 示例值：6975871409026975276
 func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjectiveAlignBuilder {
@@ -2886,7 +2886,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjective
 	return builder
 }
 
-// OKR的ID
+// OKR 的 ID
 //
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObjectiveAlignBuilder {
@@ -2895,7 +2895,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObj
 	return builder
 }
 
-// 该Objective的Owner
+// 该 Objective 的 Owner
 //
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) UserId(userId string) *OkrDetailObjectiveAlignBuilder {
@@ -2924,8 +2924,8 @@ func (builder *OkrDetailObjectiveAlignBuilder) Build() *OkrDetailObjectiveAlign 
 type OkrDetailObjectiveKr struct {
 	Id         *string  `json:"id,omitempty"`          // Key Result ID
 	Pos        *int     `json:"pos,omitempty"`         // pos
-	Score      *int     `json:"score,omitempty"`       // KeyResult打分（0 - 100）
-	Weight     *float64 `json:"weight,omitempty"`      // KeyResult的权重（0 - 100）（废弃）
+	Score      *int     `json:"score,omitempty"`       // KeyResult 打分（0 - 100）
+	Weight     *float64 `json:"weight,omitempty"`      // KeyResult 的权重（0 - 100）（废弃）
 	Content    *OkrName `json:"content,omitempty"`     // KeyResult 内容
 	CreateTime *int     `json:"create_time,omitempty"` // 创建时间 毫秒
 	ModifyTime *int     `json:"modify_time,omitempty"` // 修改时间 毫秒
@@ -2936,9 +2936,9 @@ type OkrDetailObjectiveKrBuilder struct {
 	idFlag         bool
 	pos            int // pos
 	posFlag        bool
-	score          int // KeyResult打分（0 - 100）
+	score          int // KeyResult 打分（0 - 100）
 	scoreFlag      bool
-	weight         float64 // KeyResult的权重（0 - 100）（废弃）
+	weight         float64 // KeyResult 的权重（0 - 100）（废弃）
 	weightFlag     bool
 	content        *OkrName // KeyResult 内容
 	contentFlag    bool
@@ -2971,7 +2971,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Pos(pos int) *OkrDetailObjectiveKrBu
 	return builder
 }
 
-// KeyResult打分（0 - 100）
+// KeyResult 打分（0 - 100）
 //
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjectiveKrBuilder {
@@ -2980,7 +2980,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjective
 	return builder
 }
 
-// KeyResult的权重（0 - 100）（废弃）
+// KeyResult 的权重（0 - 100）（废弃）
 //
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Weight(weight float64) *OkrDetailObjectiveKrBuilder {
@@ -3148,19 +3148,19 @@ type OkrObjective struct {
 	Content                            *string                              `json:"content,omitempty"`                                 // Objective 内容
 	ProgressReport                     *string                              `json:"progress_report,omitempty"`                         // Objective 备注内容
 	Score                              *int                                 `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
-	Weight                             *float64                             `json:"weight,omitempty"`                                  // Objective的权重（0 - 100）
-	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`                           // Objective进度
+	Weight                             *float64                             `json:"weight,omitempty"`                                  // Objective 的权重（0 - 100）
+	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`                           // Objective 进度
 	KrList                             []*OkrObjectiveKr                    `json:"kr_list,omitempty"`                                 // Objective KeyResult 列表
-	AlignedObjectiveList               []*OkrObjectiveAlignedObjective      `json:"aligned_objective_list,omitempty"`                  // 对齐到该Objective的Objective列表
-	AligningObjectiveList              []*OkrObjectiveAlignedObjective      `json:"aligning_objective_list,omitempty"`                 // 该Objective对齐到的Objective列表
-	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`                    // 该Objective的进度列表
+	AlignedObjectiveList               []*OkrObjectiveAlignedObjective      `json:"aligned_objective_list,omitempty"`                  // 对齐到该 Objective 的 Objective 列表
+	AligningObjectiveList              []*OkrObjectiveAlignedObjective      `json:"aligning_objective_list,omitempty"`                 // 该 Objective 对齐到的 Objective 列表
+	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`                    // 该 Objective 的进度列表
 	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
 	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
 	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
 	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑备注的时间 毫秒
 	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
 	Deadline                           *string                              `json:"deadline,omitempty"`                                // 截止时间 毫秒
-	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
+	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该 Objective 提到的人员列表
 }
 
 type OkrObjectiveBuilder struct {
@@ -3174,17 +3174,17 @@ type OkrObjectiveBuilder struct {
 	progressReportFlag                     bool
 	score                                  int // Objective 分数（0 - 100）
 	scoreFlag                              bool
-	weight                                 float64 // Objective的权重（0 - 100）
+	weight                                 float64 // Objective 的权重（0 - 100）
 	weightFlag                             bool
-	progressRate                           *OkrObjectiveProgressRate // Objective进度
+	progressRate                           *OkrObjectiveProgressRate // Objective 进度
 	progressRateFlag                       bool
 	krList                                 []*OkrObjectiveKr // Objective KeyResult 列表
 	krListFlag                             bool
-	alignedObjectiveList                   []*OkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
+	alignedObjectiveList                   []*OkrObjectiveAlignedObjective // 对齐到该 Objective 的 Objective 列表
 	alignedObjectiveListFlag               bool
-	aligningObjectiveList                  []*OkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
+	aligningObjectiveList                  []*OkrObjectiveAlignedObjective // 该 Objective 对齐到的 Objective 列表
 	aligningObjectiveListFlag              bool
-	progressRecordList                     []*ProgressRecordSimplify // 该Objective的进度列表
+	progressRecordList                     []*ProgressRecordSimplify // 该 Objective 的进度列表
 	progressRecordListFlag                 bool
 	progressRatePercentLastUpdatedTime     string // 最后一次进度百分比更新时间 毫秒
 	progressRatePercentLastUpdatedTimeFlag bool
@@ -3198,7 +3198,7 @@ type OkrObjectiveBuilder struct {
 	scoreLastUpdatedTimeFlag               bool
 	deadline                               string // 截止时间 毫秒
 	deadlineFlag                           bool
-	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
+	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner // 该 Objective 提到的人员列表
 	mentionedUserListFlag                  bool
 }
 
@@ -3252,7 +3252,7 @@ func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 	return builder
 }
 
-// Objective的权重（0 - 100）
+// Objective 的权重（0 - 100）
 //
 // 示例值：33.33
 func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
@@ -3261,7 +3261,7 @@ func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder 
 	return builder
 }
 
-// Objective进度
+// Objective 进度
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveBuilder {
@@ -3279,7 +3279,7 @@ func (builder *OkrObjectiveBuilder) KrList(krList []*OkrObjectiveKr) *OkrObjecti
 	return builder
 }
 
-// 对齐到该Objective的Objective列表
+// 对齐到该 Objective 的 Objective 列表
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
@@ -3288,7 +3288,7 @@ func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []
 	return builder
 }
 
-// 该Objective对齐到的Objective列表
+// 该 Objective 对齐到的 Objective 列表
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
@@ -3297,7 +3297,7 @@ func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList 
 	return builder
 }
 
-// 该Objective的进度列表
+// 该 Objective 的进度列表
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveBuilder {
@@ -3360,7 +3360,7 @@ func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuild
 	return builder
 }
 
-// 该Objective提到的人员列表
+// 该 Objective 提到的人员列表
 //
 // 示例值：
 func (builder *OkrObjectiveBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveBuilder {
@@ -3441,17 +3441,17 @@ func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 }
 
 type OkrObjectiveAlignedObjective struct {
-	Id    *string                            `json:"id,omitempty"`     // Objective的ID
-	OkrId *string                            `json:"okr_id,omitempty"` // OKR的ID
-	Owner *OkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	Id    *string                            `json:"id,omitempty"`     // Objective 的 ID
+	OkrId *string                            `json:"okr_id,omitempty"` // OKR 的 ID
+	Owner *OkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该 Objective 的 Owner
 }
 
 type OkrObjectiveAlignedObjectiveBuilder struct {
-	id        string // Objective的ID
+	id        string // Objective 的 ID
 	idFlag    bool
-	okrId     string // OKR的ID
+	okrId     string // OKR 的 ID
 	okrIdFlag bool
-	owner     *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
+	owner     *OkrObjectiveAlignedObjectiveOwner // 该 Objective 的 Owner
 	ownerFlag bool
 }
 
@@ -3460,7 +3460,7 @@ func NewOkrObjectiveAlignedObjectiveBuilder() *OkrObjectiveAlignedObjectiveBuild
 	return builder
 }
 
-// Objective的ID
+// Objective 的 ID
 //
 // 示例值：1231231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveAlignedObjectiveBuilder {
@@ -3469,7 +3469,7 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveA
 	return builder
 }
 
-// OKR的ID
+// OKR 的 ID
 //
 // 示例值：12323231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObjectiveAlignedObjectiveBuilder {
@@ -3478,7 +3478,7 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObje
 	return builder
 }
 
-// 该Objective的Owner
+// 该 Objective 的 Owner
 //
 // 示例值：
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Owner(owner *OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveAlignedObjectiveBuilder {
@@ -3554,18 +3554,18 @@ func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) Build() *OkrObjectiveAl
 type OkrObjectiveKr struct {
 	Id                                 *string                              `json:"id,omitempty"`                                      // Key Result ID
 	Content                            *string                              `json:"content,omitempty"`                                 // KeyResult 内容
-	Score                              *int                                 `json:"score,omitempty"`                                   // KeyResult打分（0 - 100）
-	Weight                             *int                                 `json:"weight,omitempty"`                                  // KeyResult权重（0 - 100）（废弃）
-	KrWeight                           *float64                             `json:"kr_weight,omitempty"`                               // KeyResult的权重（0 - 100）
-	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`                           // KR进度
-	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`                    // 该KR的进度列表
+	Score                              *int                                 `json:"score,omitempty"`                                   // KeyResult 打分（0 - 100）
+	Weight                             *int                                 `json:"weight,omitempty"`                                  // KeyResult 权重（0 - 100）（废弃）
+	KrWeight                           *float64                             `json:"kr_weight,omitempty"`                               // KeyResult 的权重（0 - 100）
+	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`                           // KR 进度
+	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`                    // 该 KR 的进度列表
 	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
 	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
 	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
 	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑备注的时间 毫秒
 	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
 	Deadline                           *string                              `json:"deadline,omitempty"`                                // 截止时间 毫秒
-	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
+	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`                     // 该 Objective 提到的人员列表
 }
 
 type OkrObjectiveKrBuilder struct {
@@ -3573,15 +3573,15 @@ type OkrObjectiveKrBuilder struct {
 	idFlag                                 bool
 	content                                string // KeyResult 内容
 	contentFlag                            bool
-	score                                  int // KeyResult打分（0 - 100）
+	score                                  int // KeyResult 打分（0 - 100）
 	scoreFlag                              bool
-	weight                                 int // KeyResult权重（0 - 100）（废弃）
+	weight                                 int // KeyResult 权重（0 - 100）（废弃）
 	weightFlag                             bool
-	krWeight                               float64 // KeyResult的权重（0 - 100）
+	krWeight                               float64 // KeyResult 的权重（0 - 100）
 	krWeightFlag                           bool
-	progressRate                           *OkrObjectiveProgressRate // KR进度
+	progressRate                           *OkrObjectiveProgressRate // KR 进度
 	progressRateFlag                       bool
-	progressRecordList                     []*ProgressRecordSimplify // 该KR的进度列表
+	progressRecordList                     []*ProgressRecordSimplify // 该 KR 的进度列表
 	progressRecordListFlag                 bool
 	progressRatePercentLastUpdatedTime     string // 最后一次进度百分比更新时间 毫秒
 	progressRatePercentLastUpdatedTimeFlag bool
@@ -3595,7 +3595,7 @@ type OkrObjectiveKrBuilder struct {
 	scoreLastUpdatedTimeFlag               bool
 	deadline                               string // 截止时间 毫秒
 	deadlineFlag                           bool
-	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
+	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner // 该 Objective 提到的人员列表
 	mentionedUserListFlag                  bool
 }
 
@@ -3622,7 +3622,7 @@ func (builder *OkrObjectiveKrBuilder) Content(content string) *OkrObjectiveKrBui
 	return builder
 }
 
-// KeyResult打分（0 - 100）
+// KeyResult 打分（0 - 100）
 //
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
@@ -3631,7 +3631,7 @@ func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
 	return builder
 }
 
-// KeyResult权重（0 - 100）（废弃）
+// KeyResult 权重（0 - 100）（废弃）
 //
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder {
@@ -3640,7 +3640,7 @@ func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder 
 	return builder
 }
 
-// KeyResult的权重（0 - 100）
+// KeyResult 的权重（0 - 100）
 //
 // 示例值：33.33
 func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKrBuilder {
@@ -3649,7 +3649,7 @@ func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKr
 	return builder
 }
 
-// KR进度
+// KR 进度
 //
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveKrBuilder {
@@ -3658,7 +3658,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectivePro
 	return builder
 }
 
-// 该KR的进度列表
+// 该 KR 的进度列表
 //
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveKrBuilder {
@@ -3721,7 +3721,7 @@ func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrB
 	return builder
 }
 
-// 该Objective提到的人员列表
+// 该 Objective 提到的人员列表
 //
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveKrBuilder {
@@ -3838,13 +3838,13 @@ func (builder *OkrObjectiveProgressRateBuilder) Build() *OkrObjectiveProgressRat
 
 type OkrReview struct {
 	UserId           *OkrObjectiveAlignedObjectiveOwner `json:"user_id,omitempty"`            // 复盘的用户
-	ReviewPeriodList []*OkrReviewPeriod                 `json:"review_period_list,omitempty"` // 用户对应的OKR复盘列表
+	ReviewPeriodList []*OkrReviewPeriod                 `json:"review_period_list,omitempty"` // 用户对应的 OKR 复盘列表
 }
 
 type OkrReviewBuilder struct {
 	userId               *OkrObjectiveAlignedObjectiveOwner // 复盘的用户
 	userIdFlag           bool
-	reviewPeriodList     []*OkrReviewPeriod // 用户对应的OKR复盘列表
+	reviewPeriodList     []*OkrReviewPeriod // 用户对应的 OKR 复盘列表
 	reviewPeriodListFlag bool
 }
 
@@ -3862,7 +3862,7 @@ func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwne
 	return builder
 }
 
-// 用户对应的OKR复盘列表
+// 用户对应的 OKR 复盘列表
 //
 // 示例值：
 func (builder *OkrReviewBuilder) ReviewPeriodList(reviewPeriodList []*OkrReviewPeriod) *OkrReviewBuilder {
@@ -3883,13 +3883,13 @@ func (builder *OkrReviewBuilder) Build() *OkrReview {
 }
 
 type OkrReviewPeriod struct {
-	PeriodId           *string               `json:"period_id,omitempty"`            // 周期ID
+	PeriodId           *string               `json:"period_id,omitempty"`            // 周期 ID
 	CycleReviewList    []*OkrReviewPeriodUrl `json:"cycle_review_list,omitempty"`    // 复盘文档
 	ProgressReportList []*OkrReviewPeriodUrl `json:"progress_report_list,omitempty"` // 进展报告
 }
 
 type OkrReviewPeriodBuilder struct {
-	periodId               string // 周期ID
+	periodId               string // 周期 ID
 	periodIdFlag           bool
 	cycleReviewList        []*OkrReviewPeriodUrl // 复盘文档
 	cycleReviewListFlag    bool
@@ -3902,7 +3902,7 @@ func NewOkrReviewPeriodBuilder() *OkrReviewPeriodBuilder {
 	return builder
 }
 
-// 周期ID
+// 周期 ID
 //
 // 示例值：6951461264858777132
 func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPeriodBuilder {
@@ -4152,14 +4152,14 @@ func (builder *PeriodBuilder) Build() *Period {
 }
 
 type PeriodRule struct {
-	PeriodRuleId *string `json:"period_rule_id,omitempty"` // 周期规则ID
+	PeriodRuleId *string `json:"period_rule_id,omitempty"` // 周期规则 ID
 	Type         *string `json:"type,omitempty"`           // 周期类型;- year: 年度周期;- month: 月度周期
 	Length       *int    `json:"length,omitempty"`         // 周期长度（月)
 	FirstMonth   *int    `json:"first_month,omitempty"`    // 每年首个开始月份
 }
 
 type PeriodRuleBuilder struct {
-	periodRuleId     string // 周期规则ID
+	periodRuleId     string // 周期规则 ID
 	periodRuleIdFlag bool
 	type_            string // 周期类型;- year: 年度周期;- month: 月度周期
 	typeFlag         bool
@@ -4174,7 +4174,7 @@ func NewPeriodRuleBuilder() *PeriodRuleBuilder {
 	return builder
 }
 
-// 周期规则ID
+// 周期规则 ID
 //
 // 示例值：134
 func (builder *PeriodRuleBuilder) PeriodRuleId(periodRuleId string) *PeriodRuleBuilder {
@@ -4343,13 +4343,13 @@ func (builder *ProgressRateBuilder) Build() *ProgressRate {
 }
 
 type ProgressRecord struct {
-	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展 ID
 	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
 	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
 
 type ProgressRecordBuilder struct {
-	progressId     string // OKR 进展ID
+	progressId     string // OKR 进展 ID
 	progressIdFlag bool
 	modifyTime     string // 进展更新时间 毫秒
 	modifyTimeFlag bool
@@ -4362,7 +4362,7 @@ func NewProgressRecordBuilder() *ProgressRecordBuilder {
 	return builder
 }
 
-// OKR 进展ID
+// OKR 进展 ID
 //
 // 示例值：7041469619902693396
 func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRecordBuilder {
@@ -4406,11 +4406,11 @@ func (builder *ProgressRecordBuilder) Build() *ProgressRecord {
 }
 
 type ProgressRecordSimplify struct {
-	Id *string `json:"id,omitempty"` // OKR 进展记录ID
+	Id *string `json:"id,omitempty"` // OKR 进展记录 ID
 }
 
 type ProgressRecordSimplifyBuilder struct {
-	id     string // OKR 进展记录ID
+	id     string // OKR 进展记录 ID
 	idFlag bool
 }
 
@@ -4419,7 +4419,7 @@ func NewProgressRecordSimplifyBuilder() *ProgressRecordSimplifyBuilder {
 	return builder
 }
 
-// OKR 进展记录ID
+// OKR 进展记录 ID
 //
 // 示例值：7041469619902693396
 func (builder *ProgressRecordSimplifyBuilder) Id(id string) *ProgressRecordSimplifyBuilder {
@@ -4438,26 +4438,26 @@ func (builder *ProgressRecordSimplifyBuilder) Build() *ProgressRecordSimplify {
 }
 
 type UpsertObjective struct {
-	Content      *string              `json:"content,omitempty"`       // OKR内容
+	Content      *string              `json:"content,omitempty"`       // OKR 内容
 	MentionList  []string             `json:"mention_list,omitempty"`  // 负责人列表
-	KrList       []*UpsertObjectiveKr `json:"kr_list,omitempty"`       // KR列表
-	ProgressRate *ProgressRate        `json:"progress_rate,omitempty"` // Objective进度状态
-	ProgressList []*ProgressItem      `json:"progress_list,omitempty"` // Objective进度列表
-	Weight       *float64             `json:"weight,omitempty"`        // OKR权重
+	KrList       []*UpsertObjectiveKr `json:"kr_list,omitempty"`       // KR 列表
+	ProgressRate *ProgressRate        `json:"progress_rate,omitempty"` // Objective 进度状态
+	ProgressList []*ProgressItem      `json:"progress_list,omitempty"` // Objective 进度列表
+	Weight       *float64             `json:"weight,omitempty"`        // OKR 权重
 }
 
 type UpsertObjectiveBuilder struct {
-	content          string // OKR内容
+	content          string // OKR 内容
 	contentFlag      bool
 	mentionList      []string // 负责人列表
 	mentionListFlag  bool
-	krList           []*UpsertObjectiveKr // KR列表
+	krList           []*UpsertObjectiveKr // KR 列表
 	krListFlag       bool
-	progressRate     *ProgressRate // Objective进度状态
+	progressRate     *ProgressRate // Objective 进度状态
 	progressRateFlag bool
-	progressList     []*ProgressItem // Objective进度列表
+	progressList     []*ProgressItem // Objective 进度列表
 	progressListFlag bool
-	weight           float64 // OKR权重
+	weight           float64 // OKR 权重
 	weightFlag       bool
 }
 
@@ -4466,7 +4466,7 @@ func NewUpsertObjectiveBuilder() *UpsertObjectiveBuilder {
 	return builder
 }
 
-// OKR内容
+// OKR 内容
 //
 // 示例值：okr
 func (builder *UpsertObjectiveBuilder) Content(content string) *UpsertObjectiveBuilder {
@@ -4484,7 +4484,7 @@ func (builder *UpsertObjectiveBuilder) MentionList(mentionList []string) *Upsert
 	return builder
 }
 
-// KR列表
+// KR 列表
 //
 // 示例值：
 func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *UpsertObjectiveBuilder {
@@ -4493,7 +4493,7 @@ func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *Upse
 	return builder
 }
 
-// Objective进度状态
+// Objective 进度状态
 //
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveBuilder {
@@ -4502,7 +4502,7 @@ func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) 
 	return builder
 }
 
-// Objective进度列表
+// Objective 进度列表
 //
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveBuilder {
@@ -4511,7 +4511,7 @@ func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem
 	return builder
 }
 
-// OKR权重
+// OKR 权重
 //
 // 示例值：100
 func (builder *UpsertObjectiveBuilder) Weight(weight float64) *UpsertObjectiveBuilder {
@@ -4546,26 +4546,26 @@ func (builder *UpsertObjectiveBuilder) Build() *UpsertObjective {
 }
 
 type UpsertObjectiveKr struct {
-	Content      *string         `json:"content,omitempty"`       // OKR内容
+	Content      *string         `json:"content,omitempty"`       // OKR 内容
 	MentionList  []string        `json:"mention_list,omitempty"`  // 负责人列表
 	Score        *int            `json:"score,omitempty"`         // 得分
-	ProgressRate *ProgressRate   `json:"progress_rate,omitempty"` // Objective进度状态
-	ProgressList []*ProgressItem `json:"progress_list,omitempty"` // Objective进度列表
-	Weight       *float64        `json:"weight,omitempty"`        // OKR权重
+	ProgressRate *ProgressRate   `json:"progress_rate,omitempty"` // Objective 进度状态
+	ProgressList []*ProgressItem `json:"progress_list,omitempty"` // Objective 进度列表
+	Weight       *float64        `json:"weight,omitempty"`        // OKR 权重
 }
 
 type UpsertObjectiveKrBuilder struct {
-	content          string // OKR内容
+	content          string // OKR 内容
 	contentFlag      bool
 	mentionList      []string // 负责人列表
 	mentionListFlag  bool
 	score            int // 得分
 	scoreFlag        bool
-	progressRate     *ProgressRate // Objective进度状态
+	progressRate     *ProgressRate // Objective 进度状态
 	progressRateFlag bool
-	progressList     []*ProgressItem // Objective进度列表
+	progressList     []*ProgressItem // Objective 进度列表
 	progressListFlag bool
-	weight           float64 // OKR权重
+	weight           float64 // OKR 权重
 	weightFlag       bool
 }
 
@@ -4574,7 +4574,7 @@ func NewUpsertObjectiveKrBuilder() *UpsertObjectiveKrBuilder {
 	return builder
 }
 
-// OKR内容
+// OKR 内容
 //
 // 示例值：okr
 func (builder *UpsertObjectiveKrBuilder) Content(content string) *UpsertObjectiveKrBuilder {
@@ -4601,7 +4601,7 @@ func (builder *UpsertObjectiveKrBuilder) Score(score int) *UpsertObjectiveKrBuil
 	return builder
 }
 
-// Objective进度状态
+// Objective 进度状态
 //
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveKrBuilder {
@@ -4610,7 +4610,7 @@ func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate
 	return builder
 }
 
-// Objective进度列表
+// Objective 进度列表
 //
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveKrBuilder {
@@ -4619,7 +4619,7 @@ func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressIt
 	return builder
 }
 
-// OKR权重
+// OKR 权重
 //
 // 示例值：100
 func (builder *UpsertObjectiveKrBuilder) Weight(weight float64) *UpsertObjectiveKrBuilder {
@@ -4688,19 +4688,19 @@ func (builder *UserBuilder) Build() *User {
 
 type UserOkr struct {
 	Id            *string             `json:"id,omitempty"`             // OKR ID
-	Name          *string             `json:"name,omitempty"`           // OKR周期名称(lang指定中英文)
-	Permission    *int                `json:"permission,omitempty"`     // 权限，0无权限，1有权限
-	ObjectiveList []*UserOkrObjective `json:"objective_list,omitempty"` // OKR的Objective 列表
+	Name          *string             `json:"name,omitempty"`           // OKR 周期名称 (lang 指定中英文)
+	Permission    *int                `json:"permission,omitempty"`     // 权限，0 无权限，1 有权限
+	ObjectiveList []*UserOkrObjective `json:"objective_list,omitempty"` // OKR 的 Objective 列表
 }
 
 type UserOkrBuilder struct {
 	id                string // OKR ID
 	idFlag            bool
-	name              string // OKR周期名称(lang指定中英文)
+	name              string // OKR 周期名称 (lang 指定中英文)
 	nameFlag          bool
-	permission        int // 权限，0无权限，1有权限
+	permission        int // 权限，0 无权限，1 有权限
 	permissionFlag    bool
-	objectiveList     []*UserOkrObjective // OKR的Objective 列表
+	objectiveList     []*UserOkrObjective // OKR 的 Objective 列表
 	objectiveListFlag bool
 }
 
@@ -4718,7 +4718,7 @@ func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 	return builder
 }
 
-// OKR周期名称(lang指定中英文)
+// OKR 周期名称 (lang 指定中英文)
 //
 // 示例值：
 func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
@@ -4727,7 +4727,7 @@ func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
 	return builder
 }
 
-// 权限，0无权限，1有权限
+// 权限，0 无权限，1 有权限
 //
 // 示例值：
 func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
@@ -4736,7 +4736,7 @@ func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
 	return builder
 }
 
-// OKR的Objective 列表
+// OKR 的 Objective 列表
 //
 // 示例值：
 func (builder *UserOkrBuilder) ObjectiveList(objectiveList []*UserOkrObjective) *UserOkrBuilder {
@@ -4767,20 +4767,20 @@ func (builder *UserOkrBuilder) Build() *UserOkr {
 
 type UserOkrObjective struct {
 	Id                    *string                             `json:"id,omitempty"`                      // Objective ID
-	Permission            *int                                `json:"permission,omitempty"`              // 权限，0无权限，1有权限
+	Permission            *int                                `json:"permission,omitempty"`              // 权限，0 无权限，1 有权限
 	Content               *string                             `json:"content,omitempty"`                 // Objective 内容
 	ProgressReport        *string                             `json:"progress_report,omitempty"`         // Objective 进度记录内容
 	Score                 *string                             `json:"score,omitempty"`                   // Objective 分数（0 - 100）
-	ProgressRate          *UserOkrObjectiveProgressRate       `json:"progress_rate,omitempty"`           // Objective进度
+	ProgressRate          *UserOkrObjectiveProgressRate       `json:"progress_rate,omitempty"`           // Objective 进度
 	KrList                []*UserOkrObjectiveKr               `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
-	AlignedObjectiveList  []*UserOkrObjectiveAlignedObjective `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
-	AligningObjectiveList []*UserOkrObjectiveAlignedObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
+	AlignedObjectiveList  []*UserOkrObjectiveAlignedObjective `json:"aligned_objective_list,omitempty"`  // 对齐到该 Objective 的 Objective 列表
+	AligningObjectiveList []*UserOkrObjectiveAlignedObjective `json:"aligning_objective_list,omitempty"` // 该 Objective 对齐到的 Objective 列表
 }
 
 type UserOkrObjectiveBuilder struct {
 	id                        string // Objective ID
 	idFlag                    bool
-	permission                int // 权限，0无权限，1有权限
+	permission                int // 权限，0 无权限，1 有权限
 	permissionFlag            bool
 	content                   string // Objective 内容
 	contentFlag               bool
@@ -4788,13 +4788,13 @@ type UserOkrObjectiveBuilder struct {
 	progressReportFlag        bool
 	score                     string // Objective 分数（0 - 100）
 	scoreFlag                 bool
-	progressRate              *UserOkrObjectiveProgressRate // Objective进度
+	progressRate              *UserOkrObjectiveProgressRate // Objective 进度
 	progressRateFlag          bool
 	krList                    []*UserOkrObjectiveKr // Objective KeyResult 列表
 	krListFlag                bool
-	alignedObjectiveList      []*UserOkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
+	alignedObjectiveList      []*UserOkrObjectiveAlignedObjective // 对齐到该 Objective 的 Objective 列表
 	alignedObjectiveListFlag  bool
-	aligningObjectiveList     []*UserOkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
+	aligningObjectiveList     []*UserOkrObjectiveAlignedObjective // 该 Objective 对齐到的 Objective 列表
 	aligningObjectiveListFlag bool
 }
 
@@ -4812,7 +4812,7 @@ func (builder *UserOkrObjectiveBuilder) Id(id string) *UserOkrObjectiveBuilder {
 	return builder
 }
 
-// 权限，0无权限，1有权限
+// 权限，0 无权限，1 有权限
 //
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Permission(permission int) *UserOkrObjectiveBuilder {
@@ -4848,7 +4848,7 @@ func (builder *UserOkrObjectiveBuilder) Score(score string) *UserOkrObjectiveBui
 	return builder
 }
 
-// Objective进度
+// Objective 进度
 //
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveBuilder {
@@ -4866,7 +4866,7 @@ func (builder *UserOkrObjectiveBuilder) KrList(krList []*UserOkrObjectiveKr) *Us
 	return builder
 }
 
-// 对齐到该Objective的Objective列表
+// 对齐到该 Objective 的 Objective 列表
 //
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
@@ -4875,7 +4875,7 @@ func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveLis
 	return builder
 }
 
-// 该Objective对齐到的Objective列表
+// 该 Objective 对齐到的 Objective 列表
 //
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
@@ -4922,17 +4922,17 @@ func (builder *UserOkrObjectiveBuilder) Build() *UserOkrObjective {
 }
 
 type UserOkrObjectiveAlignedObjective struct {
-	Id    *string                                `json:"id,omitempty"`     // Objective的ID
-	OkrId *string                                `json:"okr_id,omitempty"` // OKR的ID
-	Owner *UserOkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	Id    *string                                `json:"id,omitempty"`     // Objective 的 ID
+	OkrId *string                                `json:"okr_id,omitempty"` // OKR 的 ID
+	Owner *UserOkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该 Objective 的 Owner
 }
 
 type UserOkrObjectiveAlignedObjectiveBuilder struct {
-	id        string // Objective的ID
+	id        string // Objective 的 ID
 	idFlag    bool
-	okrId     string // OKR的ID
+	okrId     string // OKR 的 ID
 	okrIdFlag bool
-	owner     *UserOkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
+	owner     *UserOkrObjectiveAlignedObjectiveOwner // 该 Objective 的 Owner
 	ownerFlag bool
 }
 
@@ -4941,7 +4941,7 @@ func NewUserOkrObjectiveAlignedObjectiveBuilder() *UserOkrObjectiveAlignedObject
 	return builder
 }
 
-// Objective的ID
+// Objective 的 ID
 //
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrObjectiveAlignedObjectiveBuilder {
@@ -4950,7 +4950,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrOb
 	return builder
 }
 
-// OKR的ID
+// OKR 的 ID
 //
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *UserOkrObjectiveAlignedObjectiveBuilder {
@@ -4959,7 +4959,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *Use
 	return builder
 }
 
-// 该Objective的Owner
+// 该 Objective 的 Owner
 //
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Owner(owner *UserOkrObjectiveAlignedObjectiveOwner) *UserOkrObjectiveAlignedObjectiveBuilder {
@@ -5083,9 +5083,9 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) Build() *UserOkrObj
 type UserOkrObjectiveKr struct {
 	Id           *string                       `json:"id,omitempty"`            // Key Result ID
 	Content      *string                       `json:"content,omitempty"`       // KeyResult 内容
-	Score        *int                          `json:"score,omitempty"`         // KeyResult打分（0 - 100）
-	Weight       *int                          `json:"weight,omitempty"`        // KeyResult权重（0 - 100）
-	ProgressRate *UserOkrObjectiveProgressRate `json:"progress_rate,omitempty"` // Objective进度
+	Score        *int                          `json:"score,omitempty"`         // KeyResult 打分（0 - 100）
+	Weight       *int                          `json:"weight,omitempty"`        // KeyResult 权重（0 - 100）
+	ProgressRate *UserOkrObjectiveProgressRate `json:"progress_rate,omitempty"` // Objective 进度
 }
 
 type UserOkrObjectiveKrBuilder struct {
@@ -5093,11 +5093,11 @@ type UserOkrObjectiveKrBuilder struct {
 	idFlag           bool
 	content          string // KeyResult 内容
 	contentFlag      bool
-	score            int // KeyResult打分（0 - 100）
+	score            int // KeyResult 打分（0 - 100）
 	scoreFlag        bool
-	weight           int // KeyResult权重（0 - 100）
+	weight           int // KeyResult 权重（0 - 100）
 	weightFlag       bool
-	progressRate     *UserOkrObjectiveProgressRate // Objective进度
+	progressRate     *UserOkrObjectiveProgressRate // Objective 进度
 	progressRateFlag bool
 }
 
@@ -5124,7 +5124,7 @@ func (builder *UserOkrObjectiveKrBuilder) Content(content string) *UserOkrObject
 	return builder
 }
 
-// KeyResult打分（0 - 100）
+// KeyResult 打分（0 - 100）
 //
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBuilder {
@@ -5133,7 +5133,7 @@ func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBu
 	return builder
 }
 
-// KeyResult权重（0 - 100）
+// KeyResult 权重（0 - 100）
 //
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKrBuilder {
@@ -5142,7 +5142,7 @@ func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKr
 	return builder
 }
 
-// Objective进度
+// Objective 进度
 //
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveKrBuilder {
@@ -5177,13 +5177,13 @@ func (builder *UserOkrObjectiveKrBuilder) Build() *UserOkrObjectiveKr {
 
 type UserOkrObjectiveProgressRate struct {
 	Percent *int    `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  *string `json:"status,omitempty"`  // Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
+	Status  *string `json:"status,omitempty"`  // Objective 进度状态，undefined 未更新，normal 正常，risky 有风险，overdue 已延期
 }
 
 type UserOkrObjectiveProgressRateBuilder struct {
 	percent     int // Objective 进度百分比 >= 0
 	percentFlag bool
-	status      string // Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
+	status      string // Objective 进度状态，undefined 未更新，normal 正常，risky 有风险，overdue 已延期
 	statusFlag  bool
 }
 
@@ -5201,7 +5201,7 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Percent(percent int) *UserOk
 	return builder
 }
 
-// Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
+// Objective 进度状态，undefined 未更新，normal 正常，risky 有风险，overdue 已延期
 //
 // 示例值：
 func (builder *UserOkrObjectiveProgressRateBuilder) Status(status string) *UserOkrObjectiveProgressRateBuilder {
@@ -5226,7 +5226,7 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectivePro
 type UploadImageReqBodyBuilder struct {
 	data           io.Reader // 图片
 	dataFlag       bool
-	targetId       string // 图片的目标ID
+	targetId       string // 图片的目标 ID
 	targetIdFlag   bool
 	targetType     int // 图片使用的目标类型
 	targetTypeFlag bool
@@ -5246,7 +5246,7 @@ func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBo
 	return builder
 }
 
-// 图片的目标ID
+// 图片的目标 ID
 //
 //示例值：6974586812998174252
 func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImageReqBodyBuilder {
@@ -5281,7 +5281,7 @@ func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 type UploadImagePathReqBodyBuilder struct {
 	dataPath       string // 图片
 	dataPathFlag   bool
-	targetId       string // 图片的目标ID
+	targetId       string // 图片的目标 ID
 	targetIdFlag   bool
 	targetType     int // 图片使用的目标类型
 	targetTypeFlag bool
@@ -5301,7 +5301,7 @@ func (builder *UploadImagePathReqBodyBuilder) DataPath(dataPath string) *UploadI
 	return builder
 }
 
-// 图片的目标ID
+// 图片的目标 ID
 //
 // 示例值：6974586812998174252
 func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadImagePathReqBodyBuilder {
@@ -5366,7 +5366,7 @@ func (builder *UploadImageReqBuilder) Build() *UploadImageReq {
 
 type UploadImageReqBody struct {
 	Data       io.Reader `json:"data,omitempty"`        // 图片
-	TargetId   *string   `json:"target_id,omitempty"`   // 图片的目标ID
+	TargetId   *string   `json:"target_id,omitempty"`   // 图片的目标 ID
 	TargetType *int      `json:"target_type,omitempty"` // 图片使用的目标类型
 }
 
@@ -5376,7 +5376,7 @@ type UploadImageReq struct {
 }
 
 type UploadImageRespData struct {
-	FileToken *string `json:"file_token,omitempty"` // 图片token
+	FileToken *string `json:"file_token,omitempty"` // 图片 token
 	Url       *string `json:"url,omitempty"`        // 图片下载链接
 }
 
@@ -5403,7 +5403,7 @@ func NewListMetricSourceReqBuilder() *ListMetricSourceReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 页码标识，获取第一页传空，每次查询会返回下一页的 page_token
 //
 // 示例值：6969864184272078374
 func (builder *ListMetricSourceReqBuilder) PageToken(pageToken string) *ListMetricSourceReqBuilder {
@@ -5460,7 +5460,7 @@ func NewListMetricSourceTableReqBuilder() *ListMetricSourceTableReqBuilder {
 	return builder
 }
 
-// okr指标库id
+// okr 指标库 id
 //
 // 示例值：7041857032248410131
 func (builder *ListMetricSourceTableReqBuilder) MetricSourceId(metricSourceId string) *ListMetricSourceTableReqBuilder {
@@ -5468,7 +5468,7 @@ func (builder *ListMetricSourceTableReqBuilder) MetricSourceId(metricSourceId st
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 页码标识，获取第一页传空，每次查询会返回下一页的 page_token
 //
 // 示例值：6969864184272078374
 func (builder *ListMetricSourceTableReqBuilder) PageToken(pageToken string) *ListMetricSourceTableReqBuilder {
@@ -5581,7 +5581,7 @@ func NewBatchUpdateMetricSourceTableItemReqBuilder() *BatchUpdateMetricSourceTab
 	return builder
 }
 
-// okr指标库id
+// okr 指标库 id
 //
 // 示例值：7041857032248410131
 func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *BatchUpdateMetricSourceTableItemReqBuilder {
@@ -5589,7 +5589,7 @@ func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricSourceId(metric
 	return builder
 }
 
-// okr指标表id
+// okr 指标表 id
 //
 // 示例值：7041857032248410131
 func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *BatchUpdateMetricSourceTableItemReqBuilder {
@@ -5597,7 +5597,7 @@ func (builder *BatchUpdateMetricSourceTableItemReqBuilder) MetricTableId(metricT
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchUpdateMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *BatchUpdateMetricSourceTableItemReqBuilder {
@@ -5657,7 +5657,7 @@ func NewGetMetricSourceTableItemReqBuilder() *GetMetricSourceTableItemReqBuilder
 	return builder
 }
 
-// okr指标库id
+// okr 指标库 id
 //
 // 示例值：7041857032248410131
 func (builder *GetMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *GetMetricSourceTableItemReqBuilder {
@@ -5665,7 +5665,7 @@ func (builder *GetMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId
 	return builder
 }
 
-// okr指标表id
+// okr 指标表 id
 //
 // 示例值：7041857032248410131
 func (builder *GetMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *GetMetricSourceTableItemReqBuilder {
@@ -5673,7 +5673,7 @@ func (builder *GetMetricSourceTableItemReqBuilder) MetricTableId(metricTableId s
 	return builder
 }
 
-// okr指标项id
+// okr 指标项 id
 //
 // 示例值：7041857032248410131
 func (builder *GetMetricSourceTableItemReqBuilder) MetricItemId(metricItemId string) *GetMetricSourceTableItemReqBuilder {
@@ -5681,7 +5681,7 @@ func (builder *GetMetricSourceTableItemReqBuilder) MetricItemId(metricItemId str
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *GetMetricSourceTableItemReqBuilder {
@@ -5702,15 +5702,15 @@ type GetMetricSourceTableItemReq struct {
 }
 
 type GetMetricSourceTableItemRespData struct {
-	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表id
-	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
-	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表 id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员 id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的 okr 周期
 	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
 	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
 	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
 	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
-	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
-	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员 id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的 kr
 	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
 	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
 }
@@ -5738,7 +5738,7 @@ func NewListMetricSourceTableItemReqBuilder() *ListMetricSourceTableItemReqBuild
 	return builder
 }
 
-// okr指标库id
+// okr 指标库 id
 //
 // 示例值：7041857032248410131
 func (builder *ListMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *ListMetricSourceTableItemReqBuilder {
@@ -5746,7 +5746,7 @@ func (builder *ListMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceI
 	return builder
 }
 
-// okr指标表id
+// okr 指标表 id
 //
 // 示例值：7041857032248410131
 func (builder *ListMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *ListMetricSourceTableItemReqBuilder {
@@ -5754,7 +5754,7 @@ func (builder *ListMetricSourceTableItemReqBuilder) MetricTableId(metricTableId 
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *ListMetricSourceTableItemReqBuilder {
@@ -5762,7 +5762,7 @@ func (builder *ListMetricSourceTableItemReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 页码标识，获取第一页传空，每次查询会返回下一页的 page_token
 //
 // 示例值：6969864184272078374
 func (builder *ListMetricSourceTableItemReqBuilder) PageToken(pageToken string) *ListMetricSourceTableItemReqBuilder {
@@ -5959,7 +5959,7 @@ func NewPatchMetricSourceTableItemReqBuilder() *PatchMetricSourceTableItemReqBui
 	return builder
 }
 
-// okr指标库id
+// okr 指标库 id
 //
 // 示例值：7041857032248410131
 func (builder *PatchMetricSourceTableItemReqBuilder) MetricSourceId(metricSourceId string) *PatchMetricSourceTableItemReqBuilder {
@@ -5967,7 +5967,7 @@ func (builder *PatchMetricSourceTableItemReqBuilder) MetricSourceId(metricSource
 	return builder
 }
 
-// okr指标表id
+// okr 指标表 id
 //
 // 示例值：7041857032248410131
 func (builder *PatchMetricSourceTableItemReqBuilder) MetricTableId(metricTableId string) *PatchMetricSourceTableItemReqBuilder {
@@ -5975,7 +5975,7 @@ func (builder *PatchMetricSourceTableItemReqBuilder) MetricTableId(metricTableId
 	return builder
 }
 
-// okr指标项id
+// okr 指标项 id
 //
 // 示例值：7041857032248410131
 func (builder *PatchMetricSourceTableItemReqBuilder) MetricItemId(metricItemId string) *PatchMetricSourceTableItemReqBuilder {
@@ -5983,7 +5983,7 @@ func (builder *PatchMetricSourceTableItemReqBuilder) MetricItemId(metricItemId s
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *PatchMetricSourceTableItemReqBuilder) UserIdType(userIdType string) *PatchMetricSourceTableItemReqBuilder {
@@ -6019,15 +6019,15 @@ type PatchMetricSourceTableItemReq struct {
 }
 
 type PatchMetricSourceTableItemRespData struct {
-	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表id
-	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员id
-	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的okr周期
+	MetricItemId       *string     `json:"metric_item_id,omitempty"`       // 指标表 id
+	UserId             *string     `json:"user_id,omitempty"`              // 指标承接人员 id
+	PeriodId           *string     `json:"period_id,omitempty"`            // 指标的 okr 周期
 	MetricUnit         *MetricUnit `json:"metric_unit,omitempty"`          // 指标单位
 	MetricInitialValue *float64    `json:"metric_initial_value,omitempty"` // 指标起始值
 	MetricTargetValue  *float64    `json:"metric_target_value,omitempty"`  // 指标目标值
 	MetricCurrentValue *float64    `json:"metric_current_value,omitempty"` // 指标进度值
-	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员id
-	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的kr
+	SupportedUserId    *string     `json:"supported_user_id,omitempty"`    // 指标支撑的上级人员 id
+	KrId               *string     `json:"kr_id,omitempty"`                // 指标关联的 kr
 	UpdatedAt          *string     `json:"updated_at,omitempty"`           // 更新时间
 	UpdatedBy          *string     `json:"updated_by,omitempty"`           // 更新人
 }
@@ -6055,7 +6055,7 @@ func NewBatchGetOkrReqBuilder() *BatchGetOkrReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchGetOkrReqBuilder) UserIdType(userIdType string) *BatchGetOkrReqBuilder {
@@ -6063,7 +6063,7 @@ func (builder *BatchGetOkrReqBuilder) UserIdType(userIdType string) *BatchGetOkr
 	return builder
 }
 
-// OKR ID 列表，最多10个
+// OKR ID 列表，最多 10 个
 //
 // 示例值：7043693679567028244
 func (builder *BatchGetOkrReqBuilder) OkrIds(okrIds []string) *BatchGetOkrReqBuilder {
@@ -6073,7 +6073,7 @@ func (builder *BatchGetOkrReqBuilder) OkrIds(okrIds []string) *BatchGetOkrReqBui
 	return builder
 }
 
-// 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中
+// 请求 OKR 的语言版本（比如 @的人名），lang=en_us/zh_cn，请求 Query 中
 //
 // 示例值：zh_cn
 func (builder *BatchGetOkrReqBuilder) Lang(lang string) *BatchGetOkrReqBuilder {
@@ -6119,7 +6119,7 @@ func NewListPeriodReqBuilder() *ListPeriodReqBuilder {
 	return builder
 }
 
-// 分页标志page_token
+// 分页标志 page_token
 //
 // 示例值：xaasdasdax
 func (builder *ListPeriodReqBuilder) PageToken(pageToken string) *ListPeriodReqBuilder {
@@ -6127,7 +6127,7 @@ func (builder *ListPeriodReqBuilder) PageToken(pageToken string) *ListPeriodReqB
 	return builder
 }
 
-// 分页大小，默认10
+// 分页大小，默认 10
 //
 // 示例值：10
 func (builder *ListPeriodReqBuilder) PageSize(pageSize int) *ListPeriodReqBuilder {
@@ -6167,15 +6167,15 @@ type CreateProgressRecordReqBodyBuilder struct {
 	sourceTitleFlag     bool
 	sourceUrl           string // 进展来源链接
 	sourceUrlFlag       bool
-	targetId            string // 目标id，与target_type对应
+	targetId            string // 目标 id，与 target_type 对应
 	targetIdFlag        bool
 	targetType          int // 目标类型
 	targetTypeFlag      bool
 	content             *ContentBlock // 进展详情 富文本格式
 	contentFlag         bool
-	sourceUrlPc         string // pc进展来源链接
+	sourceUrlPc         string // pc 进展来源链接
 	sourceUrlPcFlag     bool
-	sourceUrlMobile     string // mobile进展来源链接
+	sourceUrlMobile     string // mobile 进展来源链接
 	sourceUrlMobileFlag bool
 }
 
@@ -6202,7 +6202,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *
 	return builder
 }
 
-// 目标id，与target_type对应
+// 目标 id，与 target_type 对应
 //
 //示例值：7041430377642082323
 func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordReqBodyBuilder {
@@ -6229,7 +6229,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock
 	return builder
 }
 
-// pc进展来源链接
+// pc 进展来源链接
 //
 //示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordReqBodyBuilder {
@@ -6238,7 +6238,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc strin
 	return builder
 }
 
-// mobile进展来源链接
+// mobile 进展来源链接
 //
 //示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordReqBodyBuilder {
@@ -6278,15 +6278,15 @@ type CreateProgressRecordPathReqBodyBuilder struct {
 	sourceTitleFlag     bool
 	sourceUrl           string // 进展来源链接
 	sourceUrlFlag       bool
-	targetId            string // 目标id，与target_type对应
+	targetId            string // 目标 id，与 target_type 对应
 	targetIdFlag        bool
 	targetType          int // 目标类型
 	targetTypeFlag      bool
 	content             *ContentBlock // 进展详情 富文本格式
 	contentFlag         bool
-	sourceUrlPc         string // pc进展来源链接
+	sourceUrlPc         string // pc 进展来源链接
 	sourceUrlPcFlag     bool
-	sourceUrlMobile     string // mobile进展来源链接
+	sourceUrlMobile     string // mobile 进展来源链接
 	sourceUrlMobileFlag bool
 }
 
@@ -6313,7 +6313,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrl(sourceUrl strin
 	return builder
 }
 
-// 目标id，与target_type对应
+// 目标 id，与 target_type 对应
 //
 // 示例值：7041430377642082323
 func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordPathReqBodyBuilder {
@@ -6340,7 +6340,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) Content(content *ContentB
 	return builder
 }
 
-// pc进展来源链接
+// pc 进展来源链接
 //
 // 示例值：open.feishu.cn
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordPathReqBodyBuilder {
@@ -6349,7 +6349,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlPc(sourceUrlPc s
 	return builder
 }
 
-// mobile进展来源链接
+// mobile 进展来源链接
 //
 // 示例值：open.feishu.cn
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordPathReqBodyBuilder {
@@ -6398,7 +6398,7 @@ func NewCreateProgressRecordReqBuilder() *CreateProgressRecordReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateProgressRecordReqBuilder) UserIdType(userIdType string) *CreateProgressRecordReqBuilder {
@@ -6406,7 +6406,7 @@ func (builder *CreateProgressRecordReqBuilder) UserIdType(userIdType string) *Cr
 	return builder
 }
 
-// 创建OKR进展记录
+// 创建 OKR 进展记录
 func (builder *CreateProgressRecordReqBuilder) Body(body *CreateProgressRecordReqBody) *CreateProgressRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -6423,11 +6423,11 @@ func (builder *CreateProgressRecordReqBuilder) Build() *CreateProgressRecordReq 
 type CreateProgressRecordReqBody struct {
 	SourceTitle     *string       `json:"source_title,omitempty"`      // 进展来源
 	SourceUrl       *string       `json:"source_url,omitempty"`        // 进展来源链接
-	TargetId        *string       `json:"target_id,omitempty"`         // 目标id，与target_type对应
+	TargetId        *string       `json:"target_id,omitempty"`         // 目标 id，与 target_type 对应
 	TargetType      *int          `json:"target_type,omitempty"`       // 目标类型
 	Content         *ContentBlock `json:"content,omitempty"`           // 进展详情 富文本格式
-	SourceUrlPc     *string       `json:"source_url_pc,omitempty"`     // pc进展来源链接
-	SourceUrlMobile *string       `json:"source_url_mobile,omitempty"` // mobile进展来源链接
+	SourceUrlPc     *string       `json:"source_url_pc,omitempty"`     // pc 进展来源链接
+	SourceUrlMobile *string       `json:"source_url_mobile,omitempty"` // mobile 进展来源链接
 }
 
 type CreateProgressRecordReq struct {
@@ -6436,7 +6436,7 @@ type CreateProgressRecordReq struct {
 }
 
 type CreateProgressRecordRespData struct {
-	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展 ID
 	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
 	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
@@ -6464,7 +6464,7 @@ func NewDeleteProgressRecordReqBuilder() *DeleteProgressRecordReqBuilder {
 	return builder
 }
 
-// 待删除的 OKR进展记录 ID
+// 待删除的 OKR 进展记录 ID
 //
 // 示例值：7041857032248410131
 func (builder *DeleteProgressRecordReqBuilder) ProgressId(progressId string) *DeleteProgressRecordReqBuilder {
@@ -6505,7 +6505,7 @@ func NewGetProgressRecordReqBuilder() *GetProgressRecordReqBuilder {
 	return builder
 }
 
-// 待查询的 OKR进展记录 ID
+// 待查询的 OKR 进展记录 ID
 //
 // 示例值：7041857032248410131
 func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetProgressRecordReqBuilder {
@@ -6513,7 +6513,7 @@ func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetPr
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetProgressRecordReqBuilder) UserIdType(userIdType string) *GetProgressRecordReqBuilder {
@@ -6534,7 +6534,7 @@ type GetProgressRecordReq struct {
 }
 
 type GetProgressRecordRespData struct {
-	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展 ID
 	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
 	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
@@ -6617,7 +6617,7 @@ func NewUpdateProgressRecordReqBuilder() *UpdateProgressRecordReqBuilder {
 	return builder
 }
 
-// 待更新的 OKR进展记录 ID
+// 待更新的 OKR 进展记录 ID
 //
 // 示例值：7041857032248410131
 func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *UpdateProgressRecordReqBuilder {
@@ -6625,7 +6625,7 @@ func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *Up
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateProgressRecordReqBuilder) UserIdType(userIdType string) *UpdateProgressRecordReqBuilder {
@@ -6633,7 +6633,7 @@ func (builder *UpdateProgressRecordReqBuilder) UserIdType(userIdType string) *Up
 	return builder
 }
 
-// 根据OKR进展记录ID更新进展详情
+// 根据 OKR 进展记录 ID 更新进展详情
 func (builder *UpdateProgressRecordReqBuilder) Body(body *UpdateProgressRecordReqBody) *UpdateProgressRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -6658,7 +6658,7 @@ type UpdateProgressRecordReq struct {
 }
 
 type UpdateProgressRecordRespData struct {
-	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展ID
+	ProgressId *string       `json:"progress_id,omitempty"` // OKR 进展 ID
 	ModifyTime *string       `json:"modify_time,omitempty"` // 进展更新时间 毫秒
 	Content    *ContentBlock `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
@@ -6686,7 +6686,7 @@ func NewListUserOkrReqBuilder() *ListUserOkrReqBuilder {
 	return builder
 }
 
-// 目标用户id
+// 目标用户 id
 //
 // 示例值：ou-asdasdasdasdasd
 func (builder *ListUserOkrReqBuilder) UserId(userId string) *ListUserOkrReqBuilder {
@@ -6694,7 +6694,7 @@ func (builder *ListUserOkrReqBuilder) UserId(userId string) *ListUserOkrReqBuild
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListUserOkrReqBuilder) UserIdType(userIdType string) *ListUserOkrReqBuilder {
@@ -6718,7 +6718,7 @@ func (builder *ListUserOkrReqBuilder) Limit(limit string) *ListUserOkrReqBuilder
 	return builder
 }
 
-// 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn
+// 请求 OKR 的语言版本（比如 @的人名），lang=en_us/zh_cn
 //
 // 示例值：zh_cn
 func (builder *ListUserOkrReqBuilder) Lang(lang string) *ListUserOkrReqBuilder {
@@ -6726,7 +6726,7 @@ func (builder *ListUserOkrReqBuilder) Lang(lang string) *ListUserOkrReqBuilder {
 	return builder
 }
 
-// period_id列表，最多10个
+// period_id 列表，最多 10 个
 //
 // 示例值：["6951461264858777132"]
 func (builder *ListUserOkrReqBuilder) PeriodIds(periodIds []string) *ListUserOkrReqBuilder {
@@ -6749,7 +6749,7 @@ type ListUserOkrReq struct {
 }
 
 type ListUserOkrRespData struct {
-	Total   *int        `json:"total,omitempty"`    // OKR周期总数
+	Total   *int        `json:"total,omitempty"`    // OKR 周期总数
 	OkrList []*OkrBatch `json:"okr_list,omitempty"` // OKR 列表
 }
 

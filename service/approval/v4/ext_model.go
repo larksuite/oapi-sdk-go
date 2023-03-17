@@ -27,10 +27,10 @@ func (m *P1LeaveApprovalV4) RawReq(req *larkevent.EventReq) {
 type P1LeaveApprovalV4Data struct {
 	AppID              string `json:"app_id,omitempty"`               // APP ID
 	TenantKey          string `json:"tenant_key,omitempty"`           // 企业标识
-	Type               string `json:"type,omitempty"`                 // 事件回调此处固定为event_callback
-	InstanceCode       string `json:"instance_code,omitempty"`        // 审批实例Code
-	UserID             string `json:"user_id,omitempty"`              // 用户id
-	OpenID             string `json:"open_id,omitempty"`              // 用户open_id
+	Type               string `json:"type,omitempty"`                 // 事件回调此处固定为 event_callback
+	InstanceCode       string `json:"instance_code,omitempty"`        // 审批实例 Code
+	UserID             string `json:"user_id,omitempty"`              // 用户 id
+	OpenID             string `json:"open_id,omitempty"`              // 用户 open_id
 	OriginInstanceCode string `json:"origin_instance_code,omitempty"` // 销假单关联的原始单据
 	StartTime          int64  `json:"start_time,omitempty"`           // 销假单关联的原始单据
 	EndTime            int64  `json:"end_time,omitempty"`             // 审批结束时间
@@ -69,10 +69,10 @@ func (m *P1WorkApprovalV4) RawReq(req *larkevent.EventReq) {
 type P1WorkApprovalV4Data struct {
 	AppID         string `json:"app_id,omitempty"`          // APP ID
 	TenantKey     string `json:"tenant_key,omitempty"`      // 企业标识
-	Type          string `json:"type,omitempty"`            //事件回调此处固定为event_callback
-	InstanceCode  string `json:"instance_code,omitempty"`   // 审批实例Code
-	EmployeeID    string `json:"employee_id,omitempty"`     // 用户id
-	OpenID        string `json:"open_id,omitempty"`         // 用户open_id
+	Type          string `json:"type,omitempty"`            //事件回调此处固定为 event_callback
+	InstanceCode  string `json:"instance_code,omitempty"`   // 审批实例 Code
+	EmployeeID    string `json:"employee_id,omitempty"`     // 用户 id
+	OpenID        string `json:"open_id,omitempty"`         // 用户 open_id
 	StartTime     int64  `json:"start_time,omitempty"`      // 审批发起时间
 	EndTime       int64  `json:"end_time,omitempty"`        // 审批结束时间
 	WorkType      string `json:"work_type,omitempty"`       // 加班类型
@@ -95,10 +95,10 @@ func (m *P1ShiftApprovalV4) RawReq(req *larkevent.EventReq) {
 type P1ShiftApprovalV4Data struct {
 	AppID        string `json:"app_id,omitempty"`        // APP ID
 	TenantKey    string `json:"tenant_key,omitempty"`    // 企业标识
-	Type         string `json:"type,omitempty"`          //事件回调此处固定为event_callback
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code
-	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
-	OpenID       string `json:"open_id,omitempty"`       // 用户open_id
+	Type         string `json:"type,omitempty"`          //事件回调此处固定为 event_callback
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code
+	EmployeeID   string `json:"employee_id,omitempty"`   // 用户 id
+	OpenID       string `json:"open_id,omitempty"`       // 用户 open_id
 	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间
 	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间
 	ShiftTime    string `json:"shift_time,omitempty"`    // 换班时间
@@ -119,10 +119,10 @@ func (m *P1RemedyApprovalV4) RawReq(req *larkevent.EventReq) {
 type P1RemedyApprovalV4Data struct {
 	AppID        string `json:"app_id,omitempty"`        // APP ID
 	TenantKey    string `json:"tenant_key,omitempty"`    // 企业标识
-	Type         string `json:"type,omitempty"`          //事件回调此处固定为event_callback
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code
-	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
-	OpenID       string `json:"open_id,omitempty"`       // 用户open_id
+	Type         string `json:"type,omitempty"`          //事件回调此处固定为 event_callback
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code
+	EmployeeID   string `json:"employee_id,omitempty"`   // 用户 id
+	OpenID       string `json:"open_id,omitempty"`       // 用户 open_id
 	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间
 	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间
 	RemedyTime   string `json:"remedy_time,omitempty"`   // 补卡时间
@@ -142,10 +142,10 @@ func (m *P1TripApprovalV4) RawReq(req *larkevent.EventReq) {
 type P1TripApprovalV4Data struct {
 	AppID        string                      `json:"app_id,omitempty"`        // APP ID
 	TenantKey    string                      `json:"tenant_key,omitempty"`    // 企业标识
-	Type         string                      `json:"type,omitempty"`          //事件回调此处固定为event_callback
-	InstanceCode string                      `json:"instance_code,omitempty"` // 审批实例Code
-	EmployeeID   string                      `json:"employee_id,omitempty"`   // 用户id
-	OpenID       string                      `json:"open_id,omitempty"`       // 用户open_id
+	Type         string                      `json:"type,omitempty"`          //事件回调此处固定为 event_callback
+	InstanceCode string                      `json:"instance_code,omitempty"` // 审批实例 Code
+	EmployeeID   string                      `json:"employee_id,omitempty"`   // 用户 id
+	OpenID       string                      `json:"open_id,omitempty"`       // 用户 open_id
 	StartTime    int64                       `json:"start_time,omitempty"`    // 审批发起时间
 	EndTime      int64                       `json:"end_time,omitempty"`      // 审批结束时间
 	Schedules    []*P1TripApprovalScheduleV4 `json:"schedules,omitempty"`     // Schedule 结构数组
@@ -185,7 +185,7 @@ type P1OutApprovalV4Data struct {
 	InstanceCode  string                         `json:"instance_code,omitempty"`  // 此审批的唯一标识
 	OutImage      string                         `json:"out_image,omitempty"`
 	OutInterval   int64                          `json:"out_interval,omitempty"`   // 外出时长，单位秒
-	OutName       string                         `json:"out_name,omitempty"`       // 通过i18n_resources里的信息换取相应语言的文案
+	OutName       string                         `json:"out_name,omitempty"`       // 通过 i18n_resources 里的信息换取相应语言的文案
 	OutReason     string                         `json:"out_reason,omitempty"`     // 外出事由
 	OutStartTime  string                         `json:"out_start_time,omitempty"` // 外出开始时间
 	OutEndTime    string                         `json:"out_end_time,omitempty"`   // 外出结束时间
@@ -193,13 +193,13 @@ type P1OutApprovalV4Data struct {
 	StartTime     int64                          `json:"start_time,omitempty"`     // 审批开始时间
 	EndTime       int64                          `json:"end_time,omitempty"`       // 审批结束时间
 	TenantKey     string                         `json:"tenant_key,omitempty"`     // 企业标识
-	Type          string                         `json:"type,omitempty"`           // 此事件此处始终为event_callback
-	OpenID        string                         `json:"open_id,omitempty"`        // 申请发起人open_id
+	Type          string                         `json:"type,omitempty"`           // 此事件此处始终为 event_callback
+	OpenID        string                         `json:"open_id,omitempty"`        // 申请发起人 open_id
 	UserID        string                         `json:"user_id,omitempty"`        // 申请发起人
 }
 
 type P1OutApprovalI18nResourceV4 struct {
 	IsDefault bool              `json:"is_default,omitempty"`
 	Locale    string            `json:"locale,omitempty"`
-	Texts     map[string]string `json:"texts,omitempty"` // key对应的文案
+	Texts     map[string]string `json:"texts,omitempty"` // key 对应的文案
 }

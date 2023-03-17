@@ -30,9 +30,9 @@ const (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -50,14 +50,14 @@ const (
 )
 
 const (
-	UserIdTypeBatchCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchCreateMailgroupMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeBatchCreateMailgroupMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeBatchCreateMailgroupMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
@@ -71,47 +71,47 @@ const (
 )
 
 const (
-	UserIdTypeCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateMailgroupMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateMailgroupMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateMailgroupMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateMailgroupMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeCreateMailgroupMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeGetMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetMailgroupMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetMailgroupMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetMailgroupMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeGetMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetMailgroupMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeGetMailgroupMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeListMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListMailgroupMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListMailgroupMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListMailgroupMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListMailgroupMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeListMailgroupMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeBatchCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchCreateMailgroupPermissionMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeBatchCreateMailgroupPermissionMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeBatchCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeBatchCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBatchCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeBatchCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeBatchCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
@@ -122,42 +122,42 @@ const (
 )
 
 const (
-	UserIdTypeCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeGetMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetMailgroupPermissionMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetMailgroupPermissionMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetMailgroupPermissionMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeGetMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeGetMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeListMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListMailgroupPermissionMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListMailgroupPermissionMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListMailgroupPermissionMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeListMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeBatchCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreatePublicMailboxMemberUnionId = "union_id" // 以user_id来识别用户
-	UserIdTypeBatchCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchCreatePublicMailboxMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeBatchCreatePublicMailboxMemberUnionId = "union_id" // 以 user_id 来识别用户
+	UserIdTypeBatchCreatePublicMailboxMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -165,21 +165,21 @@ const (
 )
 
 const (
-	UserIdTypeCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreatePublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreatePublicMailboxMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreatePublicMailboxMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreatePublicMailboxMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetPublicMailboxMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetPublicMailboxMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetPublicMailboxMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListPublicMailboxMemberUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListPublicMailboxMemberUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type EmailAlias struct {
@@ -231,7 +231,7 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 }
 
 type Mailgroup struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // 邮件组ID
+	MailgroupId             *string `json:"mailgroup_id,omitempty"`               // 邮件组 ID
 	Email                   *string `json:"email,omitempty"`                      // 邮件组地址
 	Name                    *string `json:"name,omitempty"`                       // 邮件组名称
 	Description             *string `json:"description,omitempty"`                // 邮件组描述
@@ -242,7 +242,7 @@ type Mailgroup struct {
 }
 
 type MailgroupBuilder struct {
-	mailgroupId                 string // 邮件组ID
+	mailgroupId                 string // 邮件组 ID
 	mailgroupIdFlag             bool
 	email                       string // 邮件组地址
 	emailFlag                   bool
@@ -265,7 +265,7 @@ func NewMailgroupBuilder() *MailgroupBuilder {
 	return builder
 }
 
-// 邮件组ID
+// 邮件组 ID
 //
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder {
@@ -375,11 +375,11 @@ func (builder *MailgroupBuilder) Build() *Mailgroup {
 }
 
 type MailgroupManager struct {
-	UserId *string `json:"user_id,omitempty"` // 管理员用户ID
+	UserId *string `json:"user_id,omitempty"` // 管理员用户 ID
 }
 
 type MailgroupManagerBuilder struct {
-	userId     string // 管理员用户ID
+	userId     string // 管理员用户 ID
 	userIdFlag bool
 }
 
@@ -388,7 +388,7 @@ func NewMailgroupManagerBuilder() *MailgroupManagerBuilder {
 	return builder
 }
 
-// 管理员用户ID
+// 管理员用户 ID
 //
 // 示例值：xxxxxx
 func (builder *MailgroupManagerBuilder) UserId(userId string) *MailgroupManagerBuilder {
@@ -408,20 +408,20 @@ func (builder *MailgroupManagerBuilder) Build() *MailgroupManager {
 
 type MailgroupMember struct {
 	MemberId     *string `json:"member_id,omitempty"`     // 邮件组内成员唯一标识
-	Email        *string `json:"email,omitempty"`         // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
-	UserId       *string `json:"user_id,omitempty"`       // 租户内用户的唯一标识（当成员类型是USER时有值）
-	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	Email        *string `json:"email,omitempty"`         // 成员邮箱地址（当成员类型是 EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER 时有值）
+	UserId       *string `json:"user_id,omitempty"`       // 租户内用户的唯一标识（当成员类型是 USER 时有值）
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
 	Type         *string `json:"type,omitempty"`          // 成员类型
 }
 
 type MailgroupMemberBuilder struct {
 	memberId         string // 邮件组内成员唯一标识
 	memberIdFlag     bool
-	email            string // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+	email            string // 成员邮箱地址（当成员类型是 EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER 时有值）
 	emailFlag        bool
-	userId           string // 租户内用户的唯一标识（当成员类型是USER时有值）
+	userId           string // 租户内用户的唯一标识（当成员类型是 USER 时有值）
 	userIdFlag       bool
-	departmentId     string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	departmentId     string // 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
 	departmentIdFlag bool
 	type_            string // 成员类型
 	typeFlag         bool
@@ -441,7 +441,7 @@ func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMembe
 	return builder
 }
 
-// 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+// 成员邮箱地址（当成员类型是 EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER 时有值）
 //
 // 示例值：test_memeber@xxx.xx
 func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
@@ -450,7 +450,7 @@ func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuild
 	return builder
 }
 
-// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 租户内用户的唯一标识（当成员类型是 USER 时有值）
 //
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder {
@@ -459,7 +459,7 @@ func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBui
 	return builder
 }
 
-// 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+// 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
 //
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder {
@@ -504,20 +504,20 @@ func (builder *MailgroupMemberBuilder) Build() *MailgroupMember {
 
 type MailgroupPermissionMember struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
-	UserId             *string `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
-	DepartmentId       *string `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
-	Email              *string `json:"email,omitempty"`                // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+	UserId             *string `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是 USER 时有值）
+	DepartmentId       *string `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
+	Email              *string `json:"email,omitempty"`                // 成员邮箱地址（当成员类型是 MAIL_GROUP/PUBLIC_MAILBOX 时有值）
 	Type               *string `json:"type,omitempty"`                 // 成员类型
 }
 
 type MailgroupPermissionMemberBuilder struct {
 	permissionMemberId     string // 权限组内成员唯一标识
 	permissionMemberIdFlag bool
-	userId                 string // 租户内用户的唯一标识（当成员类型是USER时有值）
+	userId                 string // 租户内用户的唯一标识（当成员类型是 USER 时有值）
 	userIdFlag             bool
-	departmentId           string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+	departmentId           string // 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
 	departmentIdFlag       bool
-	email                  string // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+	email                  string // 成员邮箱地址（当成员类型是 MAIL_GROUP/PUBLIC_MAILBOX 时有值）
 	emailFlag              bool
 	type_                  string // 成员类型
 	typeFlag               bool
@@ -537,7 +537,7 @@ func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMe
 	return builder
 }
 
-// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 租户内用户的唯一标识（当成员类型是 USER 时有值）
 //
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder {
@@ -546,7 +546,7 @@ func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *Mailgrou
 	return builder
 }
 
-// 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
+// 租户内部门的唯一标识（当成员类型是 DEPARTMENT 时有值）
 //
 // 示例值：xxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder {
@@ -555,7 +555,7 @@ func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId strin
 	return builder
 }
 
-// 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+// 成员邮箱地址（当成员类型是 MAIL_GROUP/PUBLIC_MAILBOX 时有值）
 //
 // 示例值：xxx@xx.x
 func (builder *MailgroupPermissionMemberBuilder) Email(email string) *MailgroupPermissionMemberBuilder {
@@ -599,11 +599,11 @@ func (builder *MailgroupPermissionMemberBuilder) Build() *MailgroupPermissionMem
 }
 
 type Message struct {
-	Raw *string `json:"raw,omitempty"` // MIME邮件数据，基于base64url编码
+	Raw *string `json:"raw,omitempty"` // MIME 邮件数据，基于 base64url 编码
 }
 
 type MessageBuilder struct {
-	raw     string // MIME邮件数据，基于base64url编码
+	raw     string // MIME 邮件数据，基于 base64url 编码
 	rawFlag bool
 }
 
@@ -612,7 +612,7 @@ func NewMessageBuilder() *MessageBuilder {
 	return builder
 }
 
-// MIME邮件数据，基于base64url编码
+// MIME 邮件数据，基于 base64url 编码
 //
 // 示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogdG9AeHh4Lnh4CmZyb206IHNlbmRlckB4eHgueHgKc3ViamVjdDogdGhpcyBpcyBhIHN1YmplY3QKCnRoaXMgaXMgdGhlIG1lc3NhZ2UgYm9keS4=
 func (builder *MessageBuilder) Raw(raw string) *MessageBuilder {
@@ -696,14 +696,14 @@ func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
 
 type PublicMailboxMember struct {
 	MemberId *string `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
-	UserId   *string `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是USER时有值）
+	UserId   *string `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是 USER 时有值）
 	Type     *string `json:"type,omitempty"`      // 成员类型
 }
 
 type PublicMailboxMemberBuilder struct {
 	memberId     string // 公共邮箱内成员唯一标识
 	memberIdFlag bool
-	userId       string // 租户内用户的唯一标识（当成员类型是USER时有值）
+	userId       string // 租户内用户的唯一标识（当成员类型是 USER 时有值）
 	userIdFlag   bool
 	type_        string // 成员类型
 	typeFlag     bool
@@ -723,7 +723,7 @@ func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMail
 	return builder
 }
 
-// 租户内用户的唯一标识（当成员类型是USER时有值）
+// 租户内用户的唯一标识（当成员类型是 USER 时有值）
 //
 // 示例值：xxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder {
@@ -888,7 +888,7 @@ func NewDeleteMailgroupReqBuilder() *DeleteMailgroupReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *DeleteMailgroupReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupReqBuilder {
@@ -929,7 +929,7 @@ func NewGetMailgroupReqBuilder() *GetMailgroupReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupReqBuilder {
@@ -989,7 +989,7 @@ func (builder *ListMailgroupReqBuilder) Limit(limit int) *ListMailgroupReqBuilde
 	return builder
 }
 
-// 邮件组管理员用户ID，用于获取该用户有管理权限的邮件组
+// 邮件组管理员用户 ID，用于获取该用户有管理权限的邮件组
 //
 // 示例值：ou_xxxxxx
 func (builder *ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *ListMailgroupReqBuilder {
@@ -997,7 +997,7 @@ func (builder *ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *Lis
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailgroupReqBuilder {
@@ -1037,7 +1037,7 @@ type ListMailgroupReq struct {
 
 type ListMailgroupRespData struct {
 	HasMore   *bool        `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string      `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string      `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*Mailgroup `json:"items,omitempty"`      // 邮件组列表
 }
 
@@ -1065,7 +1065,7 @@ func NewPatchMailgroupReqBuilder() *PatchMailgroupReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchMailgroupReqBuilder {
@@ -1127,7 +1127,7 @@ func NewUpdateMailgroupReqBuilder() *UpdateMailgroupReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *UpdateMailgroupReqBuilder {
@@ -1189,7 +1189,7 @@ func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
 	return builder
 }
 
-// 邮件组id或邮件组邮箱地址
+// 邮件组 id 或邮件组邮箱地址
 //
 // 示例值：xxxxxx 或者 xxx@xx.xxx
 func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder {
@@ -1243,7 +1243,7 @@ func NewDeleteMailgroupAliasReqBuilder() *DeleteMailgroupAliasReqBuilder {
 	return builder
 }
 
-// 邮件组id或邮件组邮箱地址
+// 邮件组 id 或邮件组邮箱地址
 //
 // 示例值：xxxxxx 或 test_group@xx.xxx
 func (builder *DeleteMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupAliasReqBuilder {
@@ -1292,7 +1292,7 @@ func NewListMailgroupAliasReqBuilder() *ListMailgroupAliasReqBuilder {
 	return builder
 }
 
-// 邮件组id或邮件组邮箱地址
+// 邮件组 id 或邮件组邮箱地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *ListMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupAliasReqBuilder {
@@ -1401,7 +1401,7 @@ func (builder *BatchCreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId str
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：open_id
 func (builder *BatchCreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *BatchCreateMailgroupMemberReqBuilder {
@@ -1409,7 +1409,7 @@ func (builder *BatchCreateMailgroupMemberReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：
 func (builder *BatchCreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *BatchCreateMailgroupMemberReqBuilder {
@@ -1456,7 +1456,7 @@ func (resp *BatchCreateMailgroupMemberResp) Success() bool {
 }
 
 type BatchDeleteMailgroupMemberReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的成员ID列表
+	memberIdList     []string // 本次调用删除的成员 ID 列表
 	memberIdListFlag bool
 }
 
@@ -1465,7 +1465,7 @@ func NewBatchDeleteMailgroupMemberReqBodyBuilder() *BatchDeleteMailgroupMemberRe
 	return builder
 }
 
-// 本次调用删除的成员ID列表
+// 本次调用删除的成员 ID 列表
 //
 //示例值：
 func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberReqBodyBuilder {
@@ -1483,7 +1483,7 @@ func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) Build() *BatchDeleteMai
 }
 
 type BatchDeleteMailgroupMemberPathReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的成员ID列表
+	memberIdList     []string // 本次调用删除的成员 ID 列表
 	memberIdListFlag bool
 }
 
@@ -1492,7 +1492,7 @@ func NewBatchDeleteMailgroupMemberPathReqBodyBuilder() *BatchDeleteMailgroupMemb
 	return builder
 }
 
-// 本次调用删除的成员ID列表
+// 本次调用删除的成员 ID 列表
 //
 // 示例值：
 func (builder *BatchDeleteMailgroupMemberPathReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberPathReqBodyBuilder {
@@ -1546,7 +1546,7 @@ func (builder *BatchDeleteMailgroupMemberReqBuilder) Build() *BatchDeleteMailgro
 }
 
 type BatchDeleteMailgroupMemberReqBody struct {
-	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的成员ID列表
+	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的成员 ID 列表
 }
 
 type BatchDeleteMailgroupMemberReq struct {
@@ -1577,7 +1577,7 @@ func NewCreateMailgroupMemberReqBuilder() *CreateMailgroupMemberReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupMemberReqBuilder {
@@ -1585,7 +1585,7 @@ func (builder *CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) 
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupMemberReqBuilder {
@@ -1593,7 +1593,7 @@ func (builder *CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *C
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupMemberReqBuilder {
@@ -1701,7 +1701,7 @@ func NewGetMailgroupMemberReqBuilder() *GetMailgroupMemberReqBuilder {
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupMemberReqBuilder {
@@ -1717,7 +1717,7 @@ func (builder *GetMailgroupMemberReqBuilder) MemberId(memberId string) *GetMailg
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupMemberReqBuilder {
@@ -1725,7 +1725,7 @@ func (builder *GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetM
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *GetMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupMemberReqBuilder {
@@ -1791,7 +1791,7 @@ func (builder *ListMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *L
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupMemberReqBuilder {
@@ -1799,7 +1799,7 @@ func (builder *ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *Lis
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupMemberReqBuilder {
@@ -1840,7 +1840,7 @@ type ListMailgroupMemberReq struct {
 
 type ListMailgroupMemberRespData struct {
 	HasMore   *bool              `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string            `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string            `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*MailgroupMember `json:"items,omitempty"`      // 邮件组成员列表
 }
 
@@ -1930,7 +1930,7 @@ func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailg
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：open_id
 func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *BatchCreateMailgroupPermissionMemberReqBuilder {
@@ -1938,7 +1938,7 @@ func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) UserIdType(userId
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *BatchCreateMailgroupPermissionMemberReqBuilder {
@@ -1985,7 +1985,7 @@ func (resp *BatchCreateMailgroupPermissionMemberResp) Success() bool {
 }
 
 type BatchDeleteMailgroupPermissionMemberReqBodyBuilder struct {
-	permissionMemberIdList     []string // 本次调用删除的权限成员ID列表
+	permissionMemberIdList     []string // 本次调用删除的权限成员 ID 列表
 	permissionMemberIdListFlag bool
 }
 
@@ -1994,7 +1994,7 @@ func NewBatchDeleteMailgroupPermissionMemberReqBodyBuilder() *BatchDeleteMailgro
 	return builder
 }
 
-// 本次调用删除的权限成员ID列表
+// 本次调用删除的权限成员 ID 列表
 //
 //示例值：
 func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberReqBodyBuilder {
@@ -2012,7 +2012,7 @@ func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) Build() *Batc
 }
 
 type BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder struct {
-	permissionMemberIdList     []string // 本次调用删除的权限成员ID列表
+	permissionMemberIdList     []string // 本次调用删除的权限成员 ID 列表
 	permissionMemberIdListFlag bool
 }
 
@@ -2021,7 +2021,7 @@ func NewBatchDeleteMailgroupPermissionMemberPathReqBodyBuilder() *BatchDeleteMai
 	return builder
 }
 
-// 本次调用删除的权限成员ID列表
+// 本次调用删除的权限成员 ID 列表
 //
 // 示例值：
 func (builder *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder {
@@ -2075,7 +2075,7 @@ func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) Build() *BatchDel
 }
 
 type BatchDeleteMailgroupPermissionMemberReqBody struct {
-	PermissionMemberIdList []string `json:"permission_member_id_list,omitempty"` // 本次调用删除的权限成员ID列表
+	PermissionMemberIdList []string `json:"permission_member_id_list,omitempty"` // 本次调用删除的权限成员 ID 列表
 }
 
 type BatchDeleteMailgroupPermissionMemberReq struct {
@@ -2106,7 +2106,7 @@ func NewCreateMailgroupPermissionMemberReqBuilder() *CreateMailgroupPermissionMe
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupPermissionMemberReqBuilder {
@@ -2114,7 +2114,7 @@ func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupI
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupPermissionMemberReqBuilder {
@@ -2122,7 +2122,7 @@ func (builder *CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：xxx
 func (builder *CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupPermissionMemberReqBuilder {
@@ -2230,7 +2230,7 @@ func NewGetMailgroupPermissionMemberReqBuilder() *GetMailgroupPermissionMemberRe
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *GetMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupPermissionMemberReqBuilder {
@@ -2246,7 +2246,7 @@ func (builder *GetMailgroupPermissionMemberReqBuilder) PermissionMemberId(permis
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupPermissionMemberReqBuilder {
@@ -2254,7 +2254,7 @@ func (builder *GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType str
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *GetMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupPermissionMemberReqBuilder {
@@ -2312,7 +2312,7 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) Limit(limit int) *ListMa
 	return builder
 }
 
-// 邮件组ID或者邮件组地址
+// 邮件组 ID 或者邮件组地址
 //
 // 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
 func (builder *ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupPermissionMemberReqBuilder {
@@ -2320,7 +2320,7 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId 
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupPermissionMemberReqBuilder {
@@ -2328,7 +2328,7 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型
 //
 // 示例值：open_department_id
 func (builder *ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupPermissionMemberReqBuilder {
@@ -2369,7 +2369,7 @@ type ListMailgroupPermissionMemberReq struct {
 
 type ListMailgroupPermissionMemberRespData struct {
 	HasMore   *bool                        `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string                      `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string                      `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*MailgroupPermissionMember `json:"items,omitempty"`      // 邮件组权限成员列表
 }
 
@@ -2572,7 +2572,7 @@ type ListPublicMailboxReq struct {
 
 type ListPublicMailboxRespData struct {
 	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*PublicMailbox `json:"items,omitempty"`      // 公共邮箱列表
 }
 
@@ -2714,7 +2714,7 @@ func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder
 	return builder
 }
 
-// 公共邮箱id或公共邮箱地址
+// 公共邮箱 id 或公共邮箱地址
 //
 // 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder {
@@ -2768,7 +2768,7 @@ func NewDeletePublicMailboxAliasReqBuilder() *DeletePublicMailboxAliasReqBuilder
 	return builder
 }
 
-// 公共邮箱id或公共邮箱地址
+// 公共邮箱 id 或公共邮箱地址
 //
 // 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *DeletePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxAliasReqBuilder {
@@ -2817,7 +2817,7 @@ func NewListPublicMailboxAliasReqBuilder() *ListPublicMailboxAliasReqBuilder {
 	return builder
 }
 
-// 公共邮箱id或公共邮箱邮件地址
+// 公共邮箱 id 或公共邮箱邮件地址
 //
 // 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *ListPublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxAliasReqBuilder {
@@ -2926,7 +2926,7 @@ func (builder *BatchCreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicM
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchCreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *BatchCreatePublicMailboxMemberReqBuilder {
@@ -2973,7 +2973,7 @@ func (resp *BatchCreatePublicMailboxMemberResp) Success() bool {
 }
 
 type BatchDeletePublicMailboxMemberReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的公共邮箱成员ID列表
+	memberIdList     []string // 本次调用删除的公共邮箱成员 ID 列表
 	memberIdListFlag bool
 }
 
@@ -2982,7 +2982,7 @@ func NewBatchDeletePublicMailboxMemberReqBodyBuilder() *BatchDeletePublicMailbox
 	return builder
 }
 
-// 本次调用删除的公共邮箱成员ID列表
+// 本次调用删除的公共邮箱成员 ID 列表
 //
 //示例值：
 func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberReqBodyBuilder {
@@ -3000,7 +3000,7 @@ func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) Build() *BatchDelet
 }
 
 type BatchDeletePublicMailboxMemberPathReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的公共邮箱成员ID列表
+	memberIdList     []string // 本次调用删除的公共邮箱成员 ID 列表
 	memberIdListFlag bool
 }
 
@@ -3009,7 +3009,7 @@ func NewBatchDeletePublicMailboxMemberPathReqBodyBuilder() *BatchDeletePublicMai
 	return builder
 }
 
-// 本次调用删除的公共邮箱成员ID列表
+// 本次调用删除的公共邮箱成员 ID 列表
 //
 // 示例值：
 func (builder *BatchDeletePublicMailboxMemberPathReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberPathReqBodyBuilder {
@@ -3063,7 +3063,7 @@ func (builder *BatchDeletePublicMailboxMemberReqBuilder) Build() *BatchDeletePub
 }
 
 type BatchDeletePublicMailboxMemberReqBody struct {
-	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的公共邮箱成员ID列表
+	MemberIdList []string `json:"member_id_list,omitempty"` // 本次调用删除的公共邮箱成员 ID 列表
 }
 
 type BatchDeletePublicMailboxMemberReq struct {
@@ -3143,7 +3143,7 @@ func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailbo
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *CreatePublicMailboxMemberReqBuilder {
@@ -3265,7 +3265,7 @@ func (builder *GetPublicMailboxMemberReqBuilder) MemberId(memberId string) *GetP
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *GetPublicMailboxMemberReqBuilder {
@@ -3329,7 +3329,7 @@ func (builder *ListPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxI
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *ListPublicMailboxMemberReqBuilder {
@@ -3370,7 +3370,7 @@ type ListPublicMailboxMemberReq struct {
 
 type ListPublicMailboxMemberRespData struct {
 	HasMore   *bool                  `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string                `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string                `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*PublicMailboxMember `json:"items,omitempty"`      // 公共邮箱成员列表
 }
 
@@ -3723,7 +3723,7 @@ func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -3777,7 +3777,7 @@ func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, err
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -3831,7 +3831,7 @@ func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupP
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -3885,7 +3885,7 @@ func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) 
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -3939,7 +3939,7 @@ func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMem
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

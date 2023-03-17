@@ -29,7 +29,7 @@ func main() {
 	req := larktask.NewListTaskReminderReqBuilder().
 		TaskId("0d38e26e-190a-49e9-93a2-35067763ed1f").
 		PageSize(50).
-		PageToken("「填写上次返回的page_token」").
+		PageToken("「填写上次返回的 page_token」").
 		Build()
 	// 发起请求
 	resp, err := client.Task.TaskReminder.List(context.Background(), req)

@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkattendance.NewSearchGroupReqBuilder().
 		Body(larkattendance.NewSearchGroupReqBodyBuilder().
-			GroupName("考勤组1").
+			GroupName("考勤组 1").
 			Build()).
 		Build()
 	// 发起请求

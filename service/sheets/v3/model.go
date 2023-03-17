@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type AddSheet struct {
@@ -138,14 +138,14 @@ func (builder *AppendDimensionBuilder) Build() *AppendDimension {
 }
 
 type BitableProperties struct {
-	BitableToken *string `json:"bitable_token,omitempty"` // 多维表格token
-	TableId      *string `json:"table_id,omitempty"`      // 数据表id
+	BitableToken *string `json:"bitable_token,omitempty"` // 多维表格 token
+	TableId      *string `json:"table_id,omitempty"`      // 数据表 id
 }
 
 type BitablePropertiesBuilder struct {
-	bitableToken     string // 多维表格token
+	bitableToken     string // 多维表格 token
 	bitableTokenFlag bool
-	tableId          string // 数据表id
+	tableId          string // 数据表 id
 	tableIdFlag      bool
 }
 
@@ -154,7 +154,7 @@ func NewBitablePropertiesBuilder() *BitablePropertiesBuilder {
 	return builder
 }
 
-// 多维表格token
+// 多维表格 token
 //
 // 示例值：basxxxxxxxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *BitablePropertiesBuilder {
@@ -163,7 +163,7 @@ func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *Bita
 	return builder
 }
 
-// 数据表id
+// 数据表 id
 //
 // 示例值：tblxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) TableId(tableId string) *BitablePropertiesBuilder {
@@ -638,13 +638,13 @@ func (builder *DimensionPropertiesBuilder) Build() *DimensionProperties {
 }
 
 type File struct {
-	FileToken    *string       `json:"file_token,omitempty"`    // 附件token
+	FileToken    *string       `json:"file_token,omitempty"`    // 附件 token
 	Name         *string       `json:"name,omitempty"`          // 附件名称
 	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` //
 }
 
 type FileBuilder struct {
-	fileToken        string // 附件token
+	fileToken        string // 附件 token
 	fileTokenFlag    bool
 	name             string // 附件名称
 	nameFlag         bool
@@ -657,7 +657,7 @@ func NewFileBuilder() *FileBuilder {
 	return builder
 }
 
-// 附件token
+// 附件 token
 //
 // 示例值：boxxxxxxx
 func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
@@ -1034,15 +1034,15 @@ func (builder *FindConditionBuilder) Build() *FindCondition {
 }
 
 type FindReplaceResult struct {
-	MatchedCells        []string `json:"matched_cells,omitempty"`         // 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
-	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"` // 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
+	MatchedCells        []string `json:"matched_cells,omitempty"`         // 符合查找条件的单元格数组，不包含公式，例如 ["A1", "A2"...]
+	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"` // 符合查找条件的含有公式的单元格数组，例如 ["B3", "H7"...]
 	RowsCount           *int     `json:"rows_count,omitempty"`            // 符合查找条件的总行数
 }
 
 type FindReplaceResultBuilder struct {
-	matchedCells            []string // 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
+	matchedCells            []string // 符合查找条件的单元格数组，不包含公式，例如 ["A1", "A2"...]
 	matchedCellsFlag        bool
-	matchedFormulaCells     []string // 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
+	matchedFormulaCells     []string // 符合查找条件的含有公式的单元格数组，例如 ["B3", "H7"...]
 	matchedFormulaCellsFlag bool
 	rowsCount               int // 符合查找条件的总行数
 	rowsCountFlag           bool
@@ -1053,7 +1053,7 @@ func NewFindReplaceResultBuilder() *FindReplaceResultBuilder {
 	return builder
 }
 
-// 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
+// 符合查找条件的单元格数组，不包含公式，例如 ["A1", "A2"...]
 //
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *FindReplaceResultBuilder {
@@ -1062,7 +1062,7 @@ func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *Fi
 	return builder
 }
 
-// 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
+// 符合查找条件的含有公式的单元格数组，例如 ["B3", "H7"...]
 //
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells []string) *FindReplaceResultBuilder {
@@ -1097,18 +1097,18 @@ func (builder *FindReplaceResultBuilder) Build() *FindReplaceResult {
 
 type FloatImage struct {
 	FloatImageId    *string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken *string  `json:"float_image_token,omitempty"` // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	FloatImageToken *string  `json:"float_image_token,omitempty"` //【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
 	Range           *string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位，只支持一个单元格
 	Width           *float64 `json:"width,omitempty"`             // 浮动图片的宽度，大于等于 20px
 	Height          *float64 `json:"height,omitempty"`            // 浮动图片的高度，大于等于 20px
-	OffsetX         *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
-	OffsetY         *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+	OffsetX         *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于 0 且小于所在单元格的宽度
+	OffsetY         *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于 0 且小于所在单元格的高度
 }
 
 type FloatImageBuilder struct {
 	floatImageId        string // 浮动图片 id
 	floatImageIdFlag    bool
-	floatImageToken     string // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	floatImageToken     string //【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
 	floatImageTokenFlag bool
 	range_              string // 浮动图片的左上角单元格定位，只支持一个单元格
 	rangeFlag           bool
@@ -1116,9 +1116,9 @@ type FloatImageBuilder struct {
 	widthFlag           bool
 	height              float64 // 浮动图片的高度，大于等于 20px
 	heightFlag          bool
-	offsetX             float64 // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
+	offsetX             float64 // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于 0 且小于所在单元格的宽度
 	offsetXFlag         bool
-	offsetY             float64 // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+	offsetY             float64 // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于 0 且小于所在单元格的高度
 	offsetYFlag         bool
 }
 
@@ -1136,7 +1136,7 @@ func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageB
 	return builder
 }
 
-// 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+//【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
 //
 // 示例值：boxbcbQsaSqIXsxxxxx1HCPJFbh
 func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *FloatImageBuilder {
@@ -1172,7 +1172,7 @@ func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
 	return builder
 }
 
-// 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
+// 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于 0 且小于所在单元格的宽度
 //
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
@@ -1181,7 +1181,7 @@ func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
 	return builder
 }
 
-// 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+// 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于 0 且小于所在单元格的高度
 //
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetY(offsetY float64) *FloatImageBuilder {
@@ -1289,19 +1289,19 @@ func (builder *FormulaBuilder) Build() *Formula {
 
 type GetSpreadsheet struct {
 	Title   *string `json:"title,omitempty"`    // 电子表格标题
-	OwnerId *string `json:"owner_id,omitempty"` // 电子表格owner
-	Token   *string `json:"token,omitempty"`    // 电子表格token
-	Url     *string `json:"url,omitempty"`      // 电子表格url
+	OwnerId *string `json:"owner_id,omitempty"` // 电子表格 owner
+	Token   *string `json:"token,omitempty"`    // 电子表格 token
+	Url     *string `json:"url,omitempty"`      // 电子表格 url
 }
 
 type GetSpreadsheetBuilder struct {
 	title       string // 电子表格标题
 	titleFlag   bool
-	ownerId     string // 电子表格owner
+	ownerId     string // 电子表格 owner
 	ownerIdFlag bool
-	token       string // 电子表格token
+	token       string // 电子表格 token
 	tokenFlag   bool
-	url         string // 电子表格url
+	url         string // 电子表格 url
 	urlFlag     bool
 }
 
@@ -1319,7 +1319,7 @@ func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder
 	return builder
 }
 
-// 电子表格owner
+// 电子表格 owner
 //
 // 示例值：ou_xxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBuilder {
@@ -1328,7 +1328,7 @@ func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBui
 	return builder
 }
 
-// 电子表格token
+// 电子表格 token
 //
 // 示例值：shtxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder {
@@ -1337,7 +1337,7 @@ func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder
 	return builder
 }
 
-// 电子表格url
+// 电子表格 url
 //
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *GetSpreadsheetBuilder) Url(url string) *GetSpreadsheetBuilder {
@@ -1448,11 +1448,11 @@ func (builder *GridPropertiesBuilder) Build() *GridProperties {
 }
 
 type Image struct {
-	ImageToken *string `json:"image_token,omitempty"` // 图片token
+	ImageToken *string `json:"image_token,omitempty"` // 图片 token
 }
 
 type ImageBuilder struct {
-	imageToken     string // 图片token
+	imageToken     string // 图片 token
 	imageTokenFlag bool
 }
 
@@ -1461,7 +1461,7 @@ func NewImageBuilder() *ImageBuilder {
 	return builder
 }
 
-// 图片token
+// 图片 token
 //
 // 示例值：boxxxxxxxxxx
 func (builder *ImageBuilder) ImageToken(imageToken string) *ImageBuilder {
@@ -1592,7 +1592,7 @@ func (builder *LinkBuilder) Build() *Link {
 type MentionDocument struct {
 	Title        *string       `json:"title,omitempty"`         // 文档标题
 	ObjectType   *string       `json:"object_type,omitempty"`   // 文档类型
-	Token        *string       `json:"token,omitempty"`         // 文档token
+	Token        *string       `json:"token,omitempty"`         // 文档 token
 	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` //
 }
 
@@ -1601,7 +1601,7 @@ type MentionDocumentBuilder struct {
 	titleFlag        bool
 	objectType       string // 文档类型
 	objectTypeFlag   bool
-	token            string // 文档token
+	token            string // 文档 token
 	tokenFlag        bool
 	segmentStyle     *SegmentStyle //
 	segmentStyleFlag bool
@@ -1630,7 +1630,7 @@ func (builder *MentionDocumentBuilder) ObjectType(objectType string) *MentionDoc
 	return builder
 }
 
-// 文档token
+// 文档 token
 //
 // 示例值：shtxxxxxxxxx
 func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuilder {
@@ -1670,7 +1670,7 @@ func (builder *MentionDocumentBuilder) Build() *MentionDocument {
 
 type MentionUser struct {
 	Name         *string       `json:"name,omitempty"`          // 用户名
-	UserId       *string       `json:"user_id,omitempty"`       // 用户id
+	UserId       *string       `json:"user_id,omitempty"`       // 用户 id
 	Notify       *bool         `json:"notify,omitempty"`        // 是否通知用户
 	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` //
 }
@@ -1678,7 +1678,7 @@ type MentionUser struct {
 type MentionUserBuilder struct {
 	name             string // 用户名
 	nameFlag         bool
-	userId           string // 用户id
+	userId           string // 用户 id
 	userIdFlag       bool
 	notify           bool // 是否通知用户
 	notifyFlag       bool
@@ -1700,7 +1700,7 @@ func (builder *MentionUserBuilder) Name(name string) *MentionUserBuilder {
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：ou_xxxxxxx
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
@@ -2189,11 +2189,11 @@ func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 }
 
 type RichValue struct {
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 }
 
 type RichValueBuilder struct {
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values     [][][]*CellValue // 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 	valuesFlag bool
 }
 
@@ -2202,7 +2202,7 @@ func NewRichValueBuilder() *RichValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+// 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 //
 // 示例值：数据
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {
@@ -2379,7 +2379,7 @@ func (builder *SegmentStyleStyleBuilder) Build() *SegmentStyleStyle {
 }
 
 type Sheet struct {
-	SheetId        *string         `json:"sheet_id,omitempty"`        // 工作表id
+	SheetId        *string         `json:"sheet_id,omitempty"`        // 工作表 id
 	Title          *string         `json:"title,omitempty"`           // 工作表标题
 	Index          *int            `json:"index,omitempty"`           // 工作表索引位置，索引从 0 开始计数。
 	Hidden         *bool           `json:"hidden,omitempty"`          // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
@@ -2389,7 +2389,7 @@ type Sheet struct {
 }
 
 type SheetBuilder struct {
-	sheetId            string // 工作表id
+	sheetId            string // 工作表 id
 	sheetIdFlag        bool
 	title              string // 工作表标题
 	titleFlag          bool
@@ -2410,7 +2410,7 @@ func NewSheetBuilder() *SheetBuilder {
 	return builder
 }
 
-// 工作表id
+// 工作表 id
 //
 // 示例值：sxj5ws
 func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
@@ -2507,7 +2507,7 @@ func (builder *SheetBuilder) Build() *Sheet {
 type SheetFilterInfo struct {
 	Range           *string       `json:"range,omitempty"`             // 筛选应用范围
 	FilteredOutRows []int         `json:"filtered_out_rows,omitempty"` // 筛选出来隐藏的行
-	FilterInfos     []*FilterInfo `json:"filter_infos,omitempty"`      // sheet的筛选条件
+	FilterInfos     []*FilterInfo `json:"filter_infos,omitempty"`      // sheet 的筛选条件
 }
 
 type SheetFilterInfoBuilder struct {
@@ -2515,7 +2515,7 @@ type SheetFilterInfoBuilder struct {
 	rangeFlag           bool
 	filteredOutRows     []int // 筛选出来隐藏的行
 	filteredOutRowsFlag bool
-	filterInfos         []*FilterInfo // sheet的筛选条件
+	filterInfos         []*FilterInfo // sheet 的筛选条件
 	filterInfosFlag     bool
 }
 
@@ -2542,7 +2542,7 @@ func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *S
 	return builder
 }
 
-// sheet的筛选条件
+// sheet 的筛选条件
 //
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilterInfos(filterInfos []*FilterInfo) *SheetFilterInfoBuilder {
@@ -2648,19 +2648,19 @@ func (builder *SheetPropertiesBuilder) Build() *SheetProperties {
 
 type Spreadsheet struct {
 	Title            *string `json:"title,omitempty"`             // 表格标题
-	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
-	Url              *string `json:"url,omitempty"`               // 文档url
-	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 表格token
+	FolderToken      *string `json:"folder_token,omitempty"`      // 文件夹 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	Url              *string `json:"url,omitempty"`               // 文档 url
+	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 表格 token
 }
 
 type SpreadsheetBuilder struct {
 	title                string // 表格标题
 	titleFlag            bool
-	folderToken          string // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	folderToken          string // 文件夹 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 	folderTokenFlag      bool
-	url                  string // 文档url
+	url                  string // 文档 url
 	urlFlag              bool
-	spreadsheetToken     string // 表格token
+	spreadsheetToken     string // 表格 token
 	spreadsheetTokenFlag bool
 }
 
@@ -2678,7 +2678,7 @@ func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	return builder
 }
 
-// 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 文件夹 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：fldcnMsNb*****hIW9IjG1LVswg
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
@@ -2687,7 +2687,7 @@ func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetB
 	return builder
 }
 
-// 文档url
+// 文档 url
 //
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
@@ -2696,7 +2696,7 @@ func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 	return builder
 }
 
-// 表格token
+// 表格 token
 //
 // 示例值：shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *SpreadsheetBuilder {
@@ -2948,13 +2948,13 @@ func (builder *UpdateSpreadsheetPropertiesBuilder) Build() *UpdateSpreadsheetPro
 
 type Value struct {
 	Range  *string          `json:"range,omitempty"`  // 范围
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 }
 
 type ValueBuilder struct {
 	range_     string // 范围
 	rangeFlag  bool
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values     [][][]*CellValue // 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 	valuesFlag bool
 }
 
@@ -2972,7 +2972,7 @@ func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+// 数据，数据结构参见 [单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
 //
 // 示例值：[]
 func (builder *ValueBuilder) Values(values [][][]*CellValue) *ValueBuilder {
@@ -3084,7 +3084,7 @@ func NewGetSpreadsheetReqBuilder() *GetSpreadsheetReqBuilder {
 	return builder
 }
 
-// 表格的token
+// 表格的 token
 //
 // 示例值：shtxxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetReqBuilder {
@@ -3092,7 +3092,7 @@ func (builder *GetSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken strin
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetSpreadsheetReqBuilder) UserIdType(userIdType string) *GetSpreadsheetReqBuilder {
@@ -3140,7 +3140,7 @@ func NewPatchSpreadsheetReqBuilder() *PatchSpreadsheetReqBuilder {
 	return builder
 }
 
-// 表格的token
+// 表格的 token
 //
 // 示例值：shtxxxxxxxxxxxxxxx
 func (builder *PatchSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetReqBuilder {
@@ -3190,7 +3190,7 @@ func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 表格的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：shtcnmBA*****yGehy8
 func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder {
@@ -3198,7 +3198,7 @@ func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken
 	return builder
 }
 
-// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
+// 工作表的 id，获取方式见 [获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
 //
 // 示例值：0b**12
 func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder {
@@ -3252,7 +3252,7 @@ func NewGetSpreadsheetSheetReqBuilder() *GetSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 表格的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：shtxxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetReqBuilder {
@@ -3260,7 +3260,7 @@ func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken 
 	return builder
 }
 
-// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
+// 工作表的 id，获取方式见 [获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
 //
 // 示例值：giDk9k
 func (builder *GetSpreadsheetSheetReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetReqBuilder {
@@ -3364,7 +3364,7 @@ func NewQuerySpreadsheetSheetReqBuilder() *QuerySpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 电子表格的token
+// 电子表格的 token
 //
 // 示例值：shtxxxxxxxxxxxxxxxx
 func (builder *QuerySpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetReqBuilder {
@@ -3427,7 +3427,7 @@ func (builder *ReplaceSpreadsheetSheetReqBuilder) SheetId(sheetId string) *Repla
 	return builder
 }
 
-// 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值，返回替换成功的单元格位置。一次请求最多允许替换5000个单元格，如果超过请将range缩小范围再操作。请求体中的 range、find、replaccement 字段必填。
+// 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值，返回替换成功的单元格位置。一次请求最多允许替换 5000 个单元格，如果超过请将 range 缩小范围再操作。请求体中的 range、find、replaccement 字段必填。
 func (builder *ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *ReplaceSpreadsheetSheetReqBuilder {
 	builder.replace = replace
 	return builder
@@ -3709,7 +3709,7 @@ func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId strin
 	return builder
 }
 
-// 根据传入的参数创建一个筛选视图。Id 和 名字可选，不填的话会默认生成；range 必填。Id 长度为10，由 0-9、a-z、A-Z 组合生成。名字长度不超过100。单个子表内的筛选视图个数不超过 150。
+// 根据传入的参数创建一个筛选视图。Id 和 名字可选，不填的话会默认生成；range 必填。Id 长度为 10，由 0-9、a-z、A-Z 组合生成。名字长度不超过 100。单个子表内的筛选视图个数不超过 150。
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *CreateSpreadsheetSheetFilterViewReqBuilder {
 	builder.filterView = filterView
 	return builder
@@ -3899,7 +3899,7 @@ func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterVie
 	return builder
 }
 
-// 更新筛选视图的名字或者筛选范围。名字长度不超过100，不能重复即子表内唯一；筛选范围不超过子表的最大范围。
+// 更新筛选视图的名字或者筛选范围。名字长度不超过 100，不能重复即子表内唯一；筛选范围不超过子表的最大范围。
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *PatchSpreadsheetSheetFilterViewReqBuilder {
 	builder.filterView = filterView
 	return builder
@@ -4363,7 +4363,7 @@ func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId strin
 	return builder
 }
 
-// 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
+// 根据传入的参数创建一张浮动图片。Float_image_token（[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和 range（只支持一个单元格）必填。Float_image_id 可选，不填的话会默认生成，长度为 10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片 + 单元格图片）总数不超过 4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder.floatImage = floatImage
 	return builder

@@ -32,7 +32,7 @@ func (h *P2ApprovalUpdatedV4Handler) Event() interface{} {
 	return &P2ApprovalUpdatedV4{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApprovalUpdatedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApprovalUpdatedV4))
 }

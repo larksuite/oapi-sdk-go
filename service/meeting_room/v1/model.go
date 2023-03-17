@@ -49,16 +49,16 @@ func (builder *EventUidsBuilder) Build() *EventUids {
 }
 
 type EventInfo struct {
-	Uid          *string  `json:"uid,omitempty"`           // 日程唯一ID
-	OriginalTime *int     `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+	Uid          *string  `json:"uid,omitempty"`           // 日程唯一 ID
+	OriginalTime *int     `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程，此处传 0；重复性日程的例外，传对应的 original_time
 	Summary      *string  `json:"summary,omitempty"`       // 日程主题
 	Vchat        []*Vchat `json:"vchat,omitempty"`         // 视频会议信息
 }
 
 type EventInfoBuilder struct {
-	uid              string // 日程唯一ID
+	uid              string // 日程唯一 ID
 	uidFlag          bool
-	originalTime     int // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+	originalTime     int // 日程实例原始时间。非重复性日程和重复性日程，此处传 0；重复性日程的例外，传对应的 original_time
 	originalTimeFlag bool
 	summary          string // 日程主题
 	summaryFlag      bool
@@ -71,7 +71,7 @@ func NewEventInfoBuilder() *EventInfoBuilder {
 	return builder
 }
 
-// 日程唯一ID
+// 日程唯一 ID
 //
 // 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
 func (builder *EventInfoBuilder) Uid(uid string) *EventInfoBuilder {
@@ -80,7 +80,7 @@ func (builder *EventInfoBuilder) Uid(uid string) *EventInfoBuilder {
 	return builder
 }
 
-// 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+// 日程实例原始时间。非重复性日程和重复性日程，此处传 0；重复性日程的例外，传对应的 original_time
 //
 // 示例值：0
 func (builder *EventInfoBuilder) OriginalTime(originalTime int) *EventInfoBuilder {
@@ -160,12 +160,12 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 }
 
 type EventUid struct {
-	Uid          *string `json:"uid,omitempty"`           // 日程唯一ID
+	Uid          *string `json:"uid,omitempty"`           // 日程唯一 ID
 	OriginalTime *int    `json:"original_time,omitempty"` // original_time
 }
 
 type EventUidBuilder struct {
-	uid              string // 日程唯一ID
+	uid              string // 日程唯一 ID
 	uidFlag          bool
 	originalTime     int // original_time
 	originalTimeFlag bool
@@ -176,7 +176,7 @@ func NewEventUidBuilder() *EventUidBuilder {
 	return builder
 }
 
-// 日程唯一ID
+// 日程唯一 ID
 //
 // 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
 func (builder *EventUidBuilder) Uid(uid string) *EventUidBuilder {
@@ -241,13 +241,13 @@ func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
 
 type UserInfo struct {
 	OpenId *string `json:"open_id,omitempty"` //
-	UserId *string `json:"user_id,omitempty"` // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+	UserId *string `json:"user_id,omitempty"` // 用户在 ISV 下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 }
 
 type UserInfoBuilder struct {
 	openId     string //
 	openIdFlag bool
-	userId     string // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+	userId     string // 用户在 ISV 下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 	userIdFlag bool
 }
 
@@ -265,7 +265,7 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	return builder
 }
 
-// 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+// 用户在 ISV 下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 //
 // 示例值：
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {

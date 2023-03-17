@@ -32,7 +32,7 @@ func (h *P2CalendarChangedV4Handler) Event() interface{} {
 	return &P2CalendarChangedV4{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2CalendarChangedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2CalendarChangedV4))
 }
@@ -52,7 +52,7 @@ func (h *P2CalendarAclCreatedV4Handler) Event() interface{} {
 	return &P2CalendarAclCreatedV4{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2CalendarAclCreatedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2CalendarAclCreatedV4))
 }
@@ -72,7 +72,7 @@ func (h *P2CalendarAclDeletedV4Handler) Event() interface{} {
 	return &P2CalendarAclDeletedV4{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2CalendarAclDeletedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2CalendarAclDeletedV4))
 }
@@ -92,7 +92,7 @@ func (h *P2CalendarEventChangedV4Handler) Event() interface{} {
 	return &P2CalendarEventChangedV4{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2CalendarEventChangedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2CalendarEventChangedV4))
 }

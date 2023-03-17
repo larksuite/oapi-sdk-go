@@ -378,22 +378,22 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 					Options([]*larkcard.MessageCardEmbedSelectOption{larkcard.NewMessageCardEmbedSelectOption().
 						Value("1").
 						Text(larkcard.NewMessageCardPlainText().
-							Content("屏蔽10分钟").
+							Content("屏蔽 10 分钟").
 							Build()),
 						larkcard.NewMessageCardEmbedSelectOption().
 							Value("2").
 							Text(larkcard.NewMessageCardPlainText().
-								Content("屏蔽30分钟").
+								Content("屏蔽 30 分钟").
 								Build()),
 						larkcard.NewMessageCardEmbedSelectOption().
 							Value("3").
 							Text(larkcard.NewMessageCardPlainText().
-								Content("屏蔽1小时").
+								Content("屏蔽 1 小时").
 								Build()),
 						larkcard.NewMessageCardEmbedSelectOption().
 							Value("4").
 							Text(larkcard.NewMessageCardPlainText().
-								Content("屏蔽24小时").
+								Content("屏蔽 24 小时").
 								Build()),
 					}).
 					Placeholder(larkcard.NewMessageCardPlainText().
@@ -678,13 +678,13 @@ func sendStickerMsg(client *lark.Client) {
 }
 
 func sendPostMsg(client *lark.Client) {
-	// 2.1 创建text与href元素
+	// 2.1 创建 text 与 href 元素
 	zhCnPostText := &larkim.MessagePostText{Text: "中文内容", UnEscape: false}
 	zhCnPostA := &larkim.MessagePostA{Text: "test content", Href: "http://www.baidu.com", UnEscape: false}
 	enUsPostText := &larkim.MessagePostText{Text: "英文内容", UnEscape: false}
 	enUsPostA := &larkim.MessagePostA{Text: "test content", Href: "http://www.baidu.com", UnEscape: false}
 
-	// 2.2 构建消息content
+	// 2.2 构建消息 content
 	zhCnMessagePostContent := &larkim.MessagePostContent{Title: "title1", Content: [][]larkim.MessagePostElement{{zhCnPostText, zhCnPostA}}}
 	enUsMessagePostContent := &larkim.MessagePostContent{Title: "title2", Content: [][]larkim.MessagePostElement{{enUsPostText, enUsPostA}}}
 	messagePostText := &larkim.MessagePost{ZhCN: zhCnMessagePostContent, EnUS: enUsMessagePostContent}
@@ -738,7 +738,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 	zhCnPostA := &larkim.MessagePostA{Text: "超链接", Href: "http://www.baidu.com", UnEscape: false}
 	enUsPostA := &larkim.MessagePostA{Text: "link", Href: "http://www.baidu.com", UnEscape: false}
 
-	// At人
+	// At 人
 	zhCnPostAt := &larkim.MessagePostAt{UserId: "ou_c245b0a7dff2725cfa2fb104f8b48b9d", UserName: "加多"}
 	enCnPostAt := &larkim.MessagePostAt{UserId: "ou_c245b0a7dff2725cfa2fb104f8b48b9d", UserName: "jiaduo"}
 
@@ -849,7 +849,7 @@ func sendRawReq(cli *lark.Client) {
 		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "陆续").
 		Build()
 
-	// 放到client里面
+	// 放到 client 里面
 	resp, err := cli.Post(context.Background(), "/open-apis/im/v1/messages?receive_id_type=open_id", map[string]interface{}{
 		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
 		"msg_type":   "text",
@@ -909,12 +909,12 @@ type CustomCache struct {
 }
 
 func (c *CustomCache) Set(ctx context.Context, key string, value string, expireTime time.Duration) error {
-	// 缓存token
+	// 缓存 token
 	return nil
 }
 
 func (c *CustomCache) Get(ctx context.Context, key string) (string, error) {
-	// 获取token
+	// 获取 token
 	token := ""
 	return token, nil
 }

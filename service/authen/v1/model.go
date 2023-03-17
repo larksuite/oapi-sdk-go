@@ -20,7 +20,7 @@ import (
 type UserAccessTokenInfo struct {
 	AccessToken      *string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
 	TokenType        *string `json:"token_type,omitempty"`         // token 类型
-	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位: 秒
+	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位：秒
 	Name             *string `json:"name,omitempty"`               // 用户姓名
 	EnName           *string `json:"en_name,omitempty"`            // 用户英文名称
 	AvatarUrl        *string `json:"avatar_url,omitempty"`         // 用户头像
@@ -28,15 +28,15 @@ type UserAccessTokenInfo struct {
 	AvatarMiddle     *string `json:"avatar_middle,omitempty"`      // 用户头像 240x240
 	AvatarBig        *string `json:"avatar_big,omitempty"`         // 用户头像 640x640
 	OpenId           *string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
-	UnionId          *string `json:"union_id,omitempty"`           // 用户统一ID
+	UnionId          *string `json:"union_id,omitempty"`           // 用户统一 ID
 	Email            *string `json:"email,omitempty"`              // 用户邮箱
 	EnterpriseEmail  *string `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 	UserId           *string `json:"user_id,omitempty"`            // 用户 user_id
 	Mobile           *string `json:"mobile,omitempty"`             // 用户手机号
 	TenantKey        *string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位: 秒
+	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位：秒
 	RefreshToken     *string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
-	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态session的唯一标识，为空则不返回
+	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态 session 的唯一标识，为空则不返回
 }
 
 type UserAccessTokenInfoBuilder struct {
@@ -44,7 +44,7 @@ type UserAccessTokenInfoBuilder struct {
 	accessTokenFlag      bool
 	tokenType            string // token 类型
 	tokenTypeFlag        bool
-	expiresIn            int // `access_token`的有效期，单位: 秒
+	expiresIn            int // `access_token`的有效期，单位：秒
 	expiresInFlag        bool
 	name                 string // 用户姓名
 	nameFlag             bool
@@ -60,7 +60,7 @@ type UserAccessTokenInfoBuilder struct {
 	avatarBigFlag        bool
 	openId               string // 用户在应用内的唯一标识
 	openIdFlag           bool
-	unionId              string // 用户统一ID
+	unionId              string // 用户统一 ID
 	unionIdFlag          bool
 	email                string // 用户邮箱
 	emailFlag            bool
@@ -72,11 +72,11 @@ type UserAccessTokenInfoBuilder struct {
 	mobileFlag           bool
 	tenantKey            string // 当前企业标识
 	tenantKeyFlag        bool
-	refreshExpiresIn     int // `refresh_token` 的有效期，单位: 秒
+	refreshExpiresIn     int // `refresh_token` 的有效期，单位：秒
 	refreshExpiresInFlag bool
 	refreshToken         string // 刷新用户 `access_token` 时使用的 token
 	refreshTokenFlag     bool
-	sid                  string // 用户当前登录态session的唯一标识，为空则不返回
+	sid                  string // 用户当前登录态 session 的唯一标识，为空则不返回
 	sidFlag              bool
 }
 
@@ -103,7 +103,7 @@ func (builder *UserAccessTokenInfoBuilder) TokenType(tokenType string) *UserAcce
 	return builder
 }
 
-// `access_token`的有效期，单位: 秒
+// `access_token`的有效期，单位：秒
 //
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) ExpiresIn(expiresIn int) *UserAccessTokenInfoBuilder {
@@ -175,7 +175,7 @@ func (builder *UserAccessTokenInfoBuilder) OpenId(openId string) *UserAccessToke
 	return builder
 }
 
-// 用户统一ID
+// 用户统一 ID
 //
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) UnionId(unionId string) *UserAccessTokenInfoBuilder {
@@ -229,7 +229,7 @@ func (builder *UserAccessTokenInfoBuilder) TenantKey(tenantKey string) *UserAcce
 	return builder
 }
 
-// `refresh_token` 的有效期，单位: 秒
+// `refresh_token` 的有效期，单位：秒
 //
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int) *UserAccessTokenInfoBuilder {
@@ -247,7 +247,7 @@ func (builder *UserAccessTokenInfoBuilder) RefreshToken(refreshToken string) *Us
 	return builder
 }
 
-// 用户当前登录态session的唯一标识，为空则不返回
+// 用户当前登录态 session 的唯一标识，为空则不返回
 //
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) Sid(sid string) *UserAccessTokenInfoBuilder {
@@ -345,7 +345,7 @@ type UserInfo struct {
 	AvatarMiddle    *string `json:"avatar_middle,omitempty"`    // 用户头像 240x240
 	AvatarBig       *string `json:"avatar_big,omitempty"`       // 用户头像 640x640
 	OpenId          *string `json:"open_id,omitempty"`          // 用户在应用内的唯一标识
-	UnionId         *string `json:"union_id,omitempty"`         // 用户统一ID
+	UnionId         *string `json:"union_id,omitempty"`         // 用户统一 ID
 	Email           *string `json:"email,omitempty"`            // 用户邮箱
 	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 	UserId          *string `json:"user_id,omitempty"`          // 用户 user_id
@@ -369,7 +369,7 @@ type UserInfoBuilder struct {
 	avatarBigFlag       bool
 	openId              string // 用户在应用内的唯一标识
 	openIdFlag          bool
-	unionId             string // 用户统一ID
+	unionId             string // 用户统一 ID
 	unionIdFlag         bool
 	email               string // 用户邮箱
 	emailFlag           bool
@@ -453,7 +453,7 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	return builder
 }
 
-// 用户统一ID
+// 用户统一 ID
 //
 // 示例值：
 func (builder *UserInfoBuilder) UnionId(unionId string) *UserInfoBuilder {
@@ -578,9 +578,9 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type CreateAccessTokenReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
+	grantType     string // 授权类型，** 固定值 **
 	grantTypeFlag bool
-	code          string // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+	code          string // 登录预授权码，调用 [获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) 接口获取
 	codeFlag      bool
 }
 
@@ -589,7 +589,7 @@ func NewCreateAccessTokenReqBodyBuilder() *CreateAccessTokenReqBodyBuilder {
 	return builder
 }
 
-// 授权类型，**固定值**
+// 授权类型，** 固定值 **
 //
 //示例值：authorization_code
 func (builder *CreateAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateAccessTokenReqBodyBuilder {
@@ -598,7 +598,7 @@ func (builder *CreateAccessTokenReqBodyBuilder) GrantType(grantType string) *Cre
 	return builder
 }
 
-// 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+// 登录预授权码，调用 [获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) 接口获取
 //
 //示例值：xMSldislSkdK
 func (builder *CreateAccessTokenReqBodyBuilder) Code(code string) *CreateAccessTokenReqBodyBuilder {
@@ -619,9 +619,9 @@ func (builder *CreateAccessTokenReqBodyBuilder) Build() *CreateAccessTokenReqBod
 }
 
 type CreateAccessTokenPathReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
+	grantType     string // 授权类型，** 固定值 **
 	grantTypeFlag bool
-	code          string // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+	code          string // 登录预授权码，调用 [获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) 接口获取
 	codeFlag      bool
 }
 
@@ -630,7 +630,7 @@ func NewCreateAccessTokenPathReqBodyBuilder() *CreateAccessTokenPathReqBodyBuild
 	return builder
 }
 
-// 授权类型，**固定值**
+// 授权类型，** 固定值 **
 //
 // 示例值：authorization_code
 func (builder *CreateAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateAccessTokenPathReqBodyBuilder {
@@ -639,7 +639,7 @@ func (builder *CreateAccessTokenPathReqBodyBuilder) GrantType(grantType string) 
 	return builder
 }
 
-// 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+// 登录预授权码，调用 [获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) 接口获取
 //
 // 示例值：xMSldislSkdK
 func (builder *CreateAccessTokenPathReqBodyBuilder) Code(code string) *CreateAccessTokenPathReqBodyBuilder {
@@ -687,8 +687,8 @@ func (builder *CreateAccessTokenReqBuilder) Build() *CreateAccessTokenReq {
 }
 
 type CreateAccessTokenReqBody struct {
-	GrantType *string `json:"grant_type,omitempty"` // 授权类型，**固定值**
-	Code      *string `json:"code,omitempty"`       // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+	GrantType *string `json:"grant_type,omitempty"` // 授权类型，** 固定值 **
+	Code      *string `json:"code,omitempty"`       // 登录预授权码，调用 [获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) 接口获取
 }
 
 type CreateAccessTokenReq struct {
@@ -699,7 +699,7 @@ type CreateAccessTokenReq struct {
 type CreateAccessTokenRespData struct {
 	AccessToken      *string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
 	TokenType        *string `json:"token_type,omitempty"`         // token 类型
-	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位: 秒
+	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位：秒
 	Name             *string `json:"name,omitempty"`               // 用户姓名
 	EnName           *string `json:"en_name,omitempty"`            // 用户英文名称
 	AvatarUrl        *string `json:"avatar_url,omitempty"`         // 用户头像
@@ -707,15 +707,15 @@ type CreateAccessTokenRespData struct {
 	AvatarMiddle     *string `json:"avatar_middle,omitempty"`      // 用户头像 240x240
 	AvatarBig        *string `json:"avatar_big,omitempty"`         // 用户头像 640x640
 	OpenId           *string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
-	UnionId          *string `json:"union_id,omitempty"`           // 用户统一ID
+	UnionId          *string `json:"union_id,omitempty"`           // 用户统一 ID
 	Email            *string `json:"email,omitempty"`              // 用户邮箱
 	EnterpriseEmail  *string `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 	UserId           *string `json:"user_id,omitempty"`            // 用户 user_id
 	Mobile           *string `json:"mobile,omitempty"`             // 用户手机号
 	TenantKey        *string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位: 秒
+	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位：秒
 	RefreshToken     *string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
-	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态session的唯一标识，为空则不返回
+	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态 session 的唯一标识，为空则不返回
 }
 
 type CreateAccessTokenResp struct {
@@ -729,9 +729,9 @@ func (resp *CreateAccessTokenResp) Success() bool {
 }
 
 type CreateRefreshAccessTokenReqBodyBuilder struct {
-	grantType        string // 授权类型，**固定值**：
+	grantType        string // 授权类型，** 固定值 **：
 	grantTypeFlag    bool
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取 user_access_token`接口和本接口均返回 `refresh_token`，** 每次请求，请注意使用最新获取到的`refresh_token`**
 	refreshTokenFlag bool
 }
 
@@ -740,7 +740,7 @@ func NewCreateRefreshAccessTokenReqBodyBuilder() *CreateRefreshAccessTokenReqBod
 	return builder
 }
 
-// 授权类型，**固定值**：
+// 授权类型，** 固定值 **：
 //
 //示例值：refresh_token
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateRefreshAccessTokenReqBodyBuilder {
@@ -749,7 +749,7 @@ func (builder *CreateRefreshAccessTokenReqBodyBuilder) GrantType(grantType strin
 	return builder
 }
 
-// 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+// 刷新 `user_access_token` 需要的凭证<br>获取 user_access_token`接口和本接口均返回 `refresh_token`，** 每次请求，请注意使用最新获取到的`refresh_token`**
 //
 //示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) RefreshToken(refreshToken string) *CreateRefreshAccessTokenReqBodyBuilder {
@@ -770,9 +770,9 @@ func (builder *CreateRefreshAccessTokenReqBodyBuilder) Build() *CreateRefreshAcc
 }
 
 type CreateRefreshAccessTokenPathReqBodyBuilder struct {
-	grantType        string // 授权类型，**固定值**：
+	grantType        string // 授权类型，** 固定值 **：
 	grantTypeFlag    bool
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取 user_access_token`接口和本接口均返回 `refresh_token`，** 每次请求，请注意使用最新获取到的`refresh_token`**
 	refreshTokenFlag bool
 }
 
@@ -781,7 +781,7 @@ func NewCreateRefreshAccessTokenPathReqBodyBuilder() *CreateRefreshAccessTokenPa
 	return builder
 }
 
-// 授权类型，**固定值**：
+// 授权类型，** 固定值 **：
 //
 // 示例值：refresh_token
 func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateRefreshAccessTokenPathReqBodyBuilder {
@@ -790,7 +790,7 @@ func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) GrantType(grantType s
 	return builder
 }
 
-// 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+// 刷新 `user_access_token` 需要的凭证<br>获取 user_access_token`接口和本接口均返回 `refresh_token`，** 每次请求，请注意使用最新获取到的`refresh_token`**
 //
 // 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) RefreshToken(refreshToken string) *CreateRefreshAccessTokenPathReqBodyBuilder {
@@ -838,8 +838,8 @@ func (builder *CreateRefreshAccessTokenReqBuilder) Build() *CreateRefreshAccessT
 }
 
 type CreateRefreshAccessTokenReqBody struct {
-	GrantType    *string `json:"grant_type,omitempty"`    // 授权类型，**固定值**：
-	RefreshToken *string `json:"refresh_token,omitempty"` // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	GrantType    *string `json:"grant_type,omitempty"`    // 授权类型，** 固定值 **：
+	RefreshToken *string `json:"refresh_token,omitempty"` // 刷新 `user_access_token` 需要的凭证<br>获取 user_access_token`接口和本接口均返回 `refresh_token`，** 每次请求，请注意使用最新获取到的`refresh_token`**
 }
 
 type CreateRefreshAccessTokenReq struct {
@@ -850,7 +850,7 @@ type CreateRefreshAccessTokenReq struct {
 type CreateRefreshAccessTokenRespData struct {
 	AccessToken      *string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
 	TokenType        *string `json:"token_type,omitempty"`         // token 类型
-	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位: 秒
+	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位：秒
 	Name             *string `json:"name,omitempty"`               // 用户姓名
 	EnName           *string `json:"en_name,omitempty"`            // 用户英文名称
 	AvatarUrl        *string `json:"avatar_url,omitempty"`         // 用户头像
@@ -858,15 +858,15 @@ type CreateRefreshAccessTokenRespData struct {
 	AvatarMiddle     *string `json:"avatar_middle,omitempty"`      // 用户头像 240x240
 	AvatarBig        *string `json:"avatar_big,omitempty"`         // 用户头像 640x640
 	OpenId           *string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
-	UnionId          *string `json:"union_id,omitempty"`           // 用户统一ID
+	UnionId          *string `json:"union_id,omitempty"`           // 用户统一 ID
 	Email            *string `json:"email,omitempty"`              // 用户邮箱
 	EnterpriseEmail  *string `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 	UserId           *string `json:"user_id,omitempty"`            // 用户 user_id
 	Mobile           *string `json:"mobile,omitempty"`             // 用户手机号
 	TenantKey        *string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位: 秒
+	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位：秒
 	RefreshToken     *string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
-	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态session的唯一标识，为空则不返回
+	Sid              *string `json:"sid,omitempty"`                // 用户当前登录态 session 的唯一标识，为空则不返回
 }
 
 type CreateRefreshAccessTokenResp struct {
@@ -887,7 +887,7 @@ type GetUserInfoRespData struct {
 	AvatarMiddle    *string `json:"avatar_middle,omitempty"`    // 用户头像 240x240
 	AvatarBig       *string `json:"avatar_big,omitempty"`       // 用户头像 640x640
 	OpenId          *string `json:"open_id,omitempty"`          // 用户在应用内的唯一标识
-	UnionId         *string `json:"union_id,omitempty"`         // 用户统一ID
+	UnionId         *string `json:"union_id,omitempty"`         // 用户统一 ID
 	Email           *string `json:"email,omitempty"`            // 用户邮箱
 	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 	UserId          *string `json:"user_id,omitempty"`          // 用户 user_id

@@ -27,7 +27,7 @@ type TenantAccessToken struct {
 }
 
 type CreateAppAccessTokenReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	appId         string // 应用唯一标识，创建应用后获得。有关 app_id 的详细介绍。
 	appIdFlag     bool
 	appSecret     string // 应用秘钥，创建应用后获得。
 	appSecretFlag bool
@@ -40,7 +40,7 @@ func NewCreateAppAccessTokenReqBodyBuilder() *CreateAppAccessTokenReqBodyBuilder
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+// 应用唯一标识，创建应用后获得。有关 app_id 的详细介绍。
 //
 //示例值：cli_ddfgkk38emd38
 func (builder *CreateAppAccessTokenReqBodyBuilder) AppId(appId string) *CreateAppAccessTokenReqBodyBuilder {
@@ -82,7 +82,7 @@ func (builder *CreateAppAccessTokenReqBodyBuilder) Build() *CreateAppAccessToken
 }
 
 type CreateAppAccessTokenPathReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	appId         string // 应用唯一标识，创建应用后获得。有关 app_id 的详细介绍。
 	appIdFlag     bool
 	appSecret     string // 应用秘钥，创建应用后获得。
 	appSecretFlag bool
@@ -95,7 +95,7 @@ func NewCreateAppAccessTokenPathReqBodyBuilder() *CreateAppAccessTokenPathReqBod
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+// 应用唯一标识，创建应用后获得。有关 app_id 的详细介绍。
 //
 // 示例值：cli_ddfgkk38emd38
 func (builder *CreateAppAccessTokenPathReqBodyBuilder) AppId(appId string) *CreateAppAccessTokenPathReqBodyBuilder {
@@ -164,7 +164,7 @@ func (builder *CreateAppAccessTokenReqBuilder) Build() *CreateAppAccessTokenReq 
 }
 
 type CreateAppAccessTokenReqBody struct {
-	AppId     *string `json:"app_id,omitempty"`     // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	AppId     *string `json:"app_id,omitempty"`     // 应用唯一标识，创建应用后获得。有关 app_id 的详细介绍。
 	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。
 	AppTicket *string `json:"app_ticket,omitempty"` // 平台定时推送给应用的临时凭证，通过事件监听机制获得。
 }
@@ -440,7 +440,7 @@ func (resp *ResendAppTicketResp) Success() bool {
 }
 
 type CreateTenantAccessTokenReqBodyBuilder struct {
-	appAccessToken     string // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	appAccessToken     string // 应用访问凭证，通过商店应用获取 app_access_token 接口获取。
 	appAccessTokenFlag bool
 	tenantKey          string // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
 	tenantKeyFlag      bool
@@ -451,7 +451,7 @@ func NewCreateTenantAccessTokenReqBodyBuilder() *CreateTenantAccessTokenReqBodyB
 	return builder
 }
 
-// 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+// 应用访问凭证，通过商店应用获取 app_access_token 接口获取。
 //
 //示例值：a-32bd8551db2f081cbfd26293f27516390b9feb04
 func (builder *CreateTenantAccessTokenReqBodyBuilder) AppAccessToken(appAccessToken string) *CreateTenantAccessTokenReqBodyBuilder {
@@ -481,7 +481,7 @@ func (builder *CreateTenantAccessTokenReqBodyBuilder) Build() *CreateTenantAcces
 }
 
 type CreateTenantAccessTokenPathReqBodyBuilder struct {
-	appAccessToken     string // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	appAccessToken     string // 应用访问凭证，通过商店应用获取 app_access_token 接口获取。
 	appAccessTokenFlag bool
 	tenantKey          string // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
 	tenantKeyFlag      bool
@@ -492,7 +492,7 @@ func NewCreateTenantAccessTokenPathReqBodyBuilder() *CreateTenantAccessTokenPath
 	return builder
 }
 
-// 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+// 应用访问凭证，通过商店应用获取 app_access_token 接口获取。
 //
 // 示例值：a-32bd8551db2f081cbfd26293f27516390b9feb04
 func (builder *CreateTenantAccessTokenPathReqBodyBuilder) AppAccessToken(appAccessToken string) *CreateTenantAccessTokenPathReqBodyBuilder {
@@ -549,7 +549,7 @@ func (builder *CreateTenantAccessTokenReqBuilder) Build() *CreateTenantAccessTok
 }
 
 type CreateTenantAccessTokenReqBody struct {
-	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证，通过商店应用获取 app_access_token 接口获取。
 	TenantKey      *string `json:"tenant_key,omitempty"`       // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
 }
 

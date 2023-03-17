@@ -39,9 +39,9 @@ type moto struct {
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=gray_test_open_sg&resource=moto&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=gray_test_open_sg&resource=moto&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/create_moto.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/create_moto.go
 func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkcore.RequestOptionFunc) (*CreateMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -65,9 +65,9 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkco
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=gray_test_open_sg&resource=moto&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=gray_test_open_sg&resource=moto&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/get_moto.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/get_moto.go
 func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.RequestOptionFunc) (*GetMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -91,9 +91,9 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.Req
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=gray_test_open_sg&resource=moto&version=v1
+// - 官网 API 文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=gray_test_open_sg&resource=moto&version=v1
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/list_moto.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/gray_test_open_sgv1/list_moto.go
 func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

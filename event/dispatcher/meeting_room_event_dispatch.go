@@ -22,7 +22,7 @@ import (
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"]
 	if existed {
@@ -36,7 +36,7 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx con
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2MeetingRoomDeletedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"]
 	if existed {
@@ -66,7 +66,7 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomStatusChangedV1(handler func(c
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2MeetingRoomUpdatedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"]
 	if existed {

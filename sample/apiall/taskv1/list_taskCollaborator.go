@@ -29,7 +29,7 @@ func main() {
 	req := larktask.NewListTaskCollaboratorReqBuilder().
 		TaskId("0d38e26e-190a-49e9-93a2-35067763ed1f").
 		PageSize(50).
-		PageToken("「上次返回的page_token」").
+		PageToken("「上次返回的 page_token」").
 		UserIdType("user_id").
 		Build()
 	// 发起请求

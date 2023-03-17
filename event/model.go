@@ -32,7 +32,7 @@ type EventV1Header struct {
 	OpenAppID string `json:"open_chat_id"` // Open App Id
 	OpenID    string `json:"open_id"`      // Open Id
 	TenantKey string `json:"tenant_key"`   // 租户 Key
-	Type      string `json:"type"`         // event_callback-事件推送，url_verification-url地址验证
+	Type      string `json:"type"`         // event_callback-事件推送，url_verification-url 地址验证
 }
 
 type EventV2Base struct {
@@ -73,16 +73,16 @@ func (req *EventReq) RequestId() string {
 }
 
 type EventResp struct {
-	Header     http.Header // http请求 header
-	Body       []byte      // http请求 body
-	StatusCode int         // http请求状态码
+	Header     http.Header // http 请求 header
+	Body       []byte      // http 请求 body
+	StatusCode int         // http 请求状态码
 }
 
 type EventBase struct {
 	Ts    string `json:"ts"`    // 事件发送的时间，一般近似于事件发生的时间。
 	UUID  string `json:"uuid"`  // 事件的唯一标识
-	Token string `json:"token"` // 即Verification Token
-	Type  string `json:"type"`  // event_callback-事件推送，url_verification-url地址验证
+	Token string `json:"token"` // 即 Verification Token
+	Type  string `json:"type"`  // event_callback-事件推送，url_verification-url 地址验证
 }
 
 type EventEncryptMsg struct {

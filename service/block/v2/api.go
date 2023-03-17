@@ -44,9 +44,9 @@ type message struct {
 //
 // - 开发者可以通过该接口将部分或全部数据存放于 BlockEntity。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_entity.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_entity.go
 func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...larkcore.RequestOptionFunc) (*CreateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -66,13 +66,13 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 	return resp, err
 }
 
-// 更新BlockEntity
+// 更新 BlockEntity
 //
-// - 开发者通过该接口可以更新存储在BlockEntity中的数据，并实时推送到端侧。
+// - 开发者通过该接口可以更新存储在 BlockEntity 中的数据，并实时推送到端侧。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/update_entity.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/update_entity.go
 func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...larkcore.RequestOptionFunc) (*UpdateEntityResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -92,13 +92,13 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	return resp, err
 }
 
-// Block协同数据推送
+// Block 协同数据推送
 //
-// - 根据BlockID向指定用户列表推送协同数据。
+// - 根据 BlockID 向指定用户列表推送协同数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_message.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_message.go
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

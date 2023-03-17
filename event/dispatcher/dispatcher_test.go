@@ -64,7 +64,7 @@ func TestVerifyUrlOk(t *testing.T) {
 }
 
 func TestVerifyUrlFailed(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		return nil
@@ -90,7 +90,7 @@ func mockEventReq(token string) *larkevent.EventReq {
 	var nonce = "nonce"
 	sourceSign := larkevent.Signature(timestamp, nonce, token, string(body))
 
-	// 添加header
+	// 添加 header
 	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
 	req.Header.Set(larkevent.EventRequestNonce, nonce)
 	req.Header.Set(larkevent.EventSignature, sourceSign)
@@ -104,7 +104,7 @@ func mockEventReq(token string) *larkevent.EventReq {
 }
 
 func TestParseReq(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	handler := NewEventDispatcher("", "").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		return nil
@@ -117,7 +117,7 @@ func TestParseReq(t *testing.T) {
 	larkcore.NewLogger(config)
 	handler.Config = config
 
-	// mock请求
+	// mock 请求
 	req := mockEventReq("121")
 	resp, err := handler.ParseReq(context.Background(), req)
 	if err != nil {
@@ -129,7 +129,7 @@ func TestParseReq(t *testing.T) {
 }
 
 func TestDecryptEvent(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		return nil
@@ -152,7 +152,7 @@ func TestDecryptEvent(t *testing.T) {
 }
 
 func TestVerifySignOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		return nil

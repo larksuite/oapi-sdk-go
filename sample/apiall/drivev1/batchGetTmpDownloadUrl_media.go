@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewBatchGetTmpDownloadUrlMediaReqBuilder().
 		FileTokens([]string{}).
-		Extra("[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)").
+		Extra("[请参考 - 上传点类型及对应 Extra 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)").
 		Build()
 	// 发起请求
 	resp, err := client.Drive.Media.BatchGetTmpDownloadUrl(context.Background(), req)

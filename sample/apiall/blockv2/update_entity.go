@@ -29,7 +29,7 @@ func main() {
 	req := larkblock.NewUpdateEntityReqBuilder().
 		BlockId("7794641623571830467").
 		Entity(larkblock.NewEntityBuilder().
-			Title("已阅block").
+			Title("已阅 block").
 			BlockTypeId("blk_6204893fee000013739f5359").
 			SourceData("").
 			SourceMeta("").

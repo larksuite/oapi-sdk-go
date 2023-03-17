@@ -16,9 +16,9 @@ import (
 	"net/http"
 )
 
-// HttpClient :sdk-core面向HttpClient接口编程，实现core与httpclient解耦
-//1.可以适配所有基于go-sdk内置httpclient构建的三方httpclient
-//2.可以方便的对httpclient进行mock, 方便编写单元测试
+// HttpClient :sdk-core 面向 HttpClient 接口编程，实现 core 与 httpclient 解耦
+//1.可以适配所有基于 go-sdk 内置 httpclient 构建的三方 httpclient
+//2.可以方便的对 httpclient 进行 mock，方便编写单元测试
 type HttpClient interface {
 	Do(*http.Request) (*http.Response, error)
 }

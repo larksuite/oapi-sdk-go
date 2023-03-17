@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
 )
 
 type Identity struct {
@@ -213,7 +213,7 @@ func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	return builder
 }
 
-// 用户的唯一标识（使用的ID类型见下一参数描述，不同ID类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）
+// 用户的唯一标识（使用的 ID 类型见下一参数描述，不同 ID 类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）
 //
 // 示例值：ou_2eb5483cb377daa5054bc6f86e2089a5
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
@@ -221,7 +221,7 @@ func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityRe
 	return builder
 }
 
-// 用户ID类型 open_id/user_id/union_id
+// 用户 ID 类型 open_id/user_id/union_id
 //
 // 示例值：
 func (builder *CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder {
@@ -255,7 +255,7 @@ type CreateIdentityReq struct {
 }
 
 type CreateIdentityRespData struct {
-	VerifyUid *string `json:"verify_uid,omitempty"` // 用户绑定实名身份的uid
+	VerifyUid *string `json:"verify_uid,omitempty"` // 用户绑定实名身份的 uid
 }
 
 type CreateIdentityResp struct {

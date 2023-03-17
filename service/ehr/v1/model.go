@@ -27,14 +27,14 @@ import (
 )
 
 const (
-	ViewBasic = "basic" // 概览, 只返回 id、name 等基本信息
+	ViewBasic = "basic" // 概览，只返回 id、name 等基本信息
 	ViewFull  = "full"  // 返回详细信息
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type Attachment struct {
@@ -166,14 +166,14 @@ func (builder *ContractCompanyBuilder) Build() *ContractCompany {
 }
 
 type CustomFields struct {
-	Key   *string `json:"key,omitempty"`   // 自定义字段key
+	Key   *string `json:"key,omitempty"`   // 自定义字段 key
 	Label *string `json:"label,omitempty"` // 自定义字段名称
 	Type  *string `json:"type,omitempty"`  // 自定义字段类型
 	Value *string `json:"value,omitempty"` // 根据 type 不同，结构不同，不同 type 对应的数据结构在 type 的枚举值中有描述
 }
 
 type CustomFieldsBuilder struct {
-	key       string // 自定义字段key
+	key       string // 自定义字段 key
 	keyFlag   bool
 	label     string // 自定义字段名称
 	labelFlag bool
@@ -188,7 +188,7 @@ func NewCustomFieldsBuilder() *CustomFieldsBuilder {
 	return builder
 }
 
-// 自定义字段key
+// 自定义字段 key
 //
 // 示例值：field_xxxxxxxx
 func (builder *CustomFieldsBuilder) Key(key string) *CustomFieldsBuilder {
@@ -285,7 +285,7 @@ func (builder *EducationBuilder) Level(level int) *EducationBuilder {
 
 // 毕业学校
 //
-// 示例值：XXXX大学
+// 示例值：XXXX 大学
 func (builder *EducationBuilder) School(school string) *EducationBuilder {
 	builder.school = school
 	builder.schoolFlag = true
@@ -294,7 +294,7 @@ func (builder *EducationBuilder) School(school string) *EducationBuilder {
 
 // 专业
 //
-// 示例值：XXX专业
+// 示例值：XXX 专业
 func (builder *EducationBuilder) Major(major string) *EducationBuilder {
 	builder.major = major
 	builder.majorFlag = true
@@ -1058,7 +1058,7 @@ func (builder *SystemFieldsBuilder) HukouType(hukouType int) *SystemFieldsBuilde
 
 // 户口所在地
 //
-// 示例值：北京市海淀区XXXX
+// 示例值：北京市海淀区 XXXX
 func (builder *SystemFieldsBuilder) HukouLocation(hukouLocation string) *SystemFieldsBuilder {
 	builder.hukouLocation = hukouLocation
 	builder.hukouLocationFlag = true
@@ -1265,7 +1265,7 @@ func (builder *SystemFieldsBuilder) PersonalEmail(personalEmail string) *SystemF
 
 // 家庭地址
 //
-// 示例值：北京市海淀区XXXXX
+// 示例值：北京市海淀区 XXXXX
 func (builder *SystemFieldsBuilder) FamilyAddress(familyAddress string) *SystemFieldsBuilder {
 	builder.familyAddress = familyAddress
 	builder.familyAddressFlag = true
@@ -1695,7 +1695,7 @@ func NewWorkExperienceBuilder() *WorkExperienceBuilder {
 
 // 公司
 //
-// 示例值：XXXX公司
+// 示例值：XXXX 公司
 func (builder *WorkExperienceBuilder) Company(company string) *WorkExperienceBuilder {
 	builder.company = company
 	builder.companyFlag = true
@@ -1704,7 +1704,7 @@ func (builder *WorkExperienceBuilder) Company(company string) *WorkExperienceBui
 
 // 部门
 //
-// 示例值：部门1
+// 示例值：部门 1
 func (builder *WorkExperienceBuilder) Department(department string) *WorkExperienceBuilder {
 	builder.department = department
 	builder.departmentFlag = true
@@ -1944,7 +1944,7 @@ func (builder *ListEmployeeReqBuilder) EndTime(endTime string) *ListEmployeeReqB
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmployeeReqBuilder {
@@ -1962,7 +1962,7 @@ func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeRe
 	return builder
 }
 
-// 分页标记，第一次请求可以不填，表示从头开始遍历；分页查询返回结果has_more 为 true 时会同时返回新的 page_token, 下次遍历可使用该返回的 page_token 获取更多信息。
+// 分页标记，第一次请求可以不填，表示从头开始遍历；分页查询返回结果 has_more 为 true 时会同时返回新的 page_token，下次遍历可使用该返回的 page_token 获取更多信息。
 //
 // 示例值：10
 func (builder *ListEmployeeReqBuilder) PageToken(pageToken string) *ListEmployeeReqBuilder {
@@ -2026,7 +2026,7 @@ func (iterator *ListEmployeeIterator) Next() (bool, *Employee, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

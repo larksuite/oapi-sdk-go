@@ -27,7 +27,7 @@ import (
 )
 
 func TestStartHttpServer(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := larkcard.NewCardActionHandler("12", "12", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
 		fmt.Println(larkcore.Prettify(cardAction))
 		return nil, nil

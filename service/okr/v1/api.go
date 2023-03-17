@@ -40,9 +40,9 @@ type OkrService struct {
 	MetricSourceTable     *metricSourceTable     // 指标表
 	MetricSourceTableItem *metricSourceTableItem // 指标项
 	Okr                   *okr                   // OKR
-	Period                *period                // OKR周期
-	ProgressRecord        *progressRecord        // OKR进展记录
-	UserOkr               *userOkr               // 用户OKR
+	Period                *period                // OKR 周期
+	ProgressRecord        *progressRecord        // OKR 进展记录
+	UserOkr               *userOkr               // 用户 OKR
 }
 
 type image struct {
@@ -74,9 +74,9 @@ type userOkr struct {
 //
 // - 上传图片
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/image/upload
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/image/upload
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/upload_image.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/upload_image.go
 func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...larkcore.RequestOptionFunc) (*UploadImageResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
@@ -101,9 +101,9 @@ func (i *image) Upload(ctx context.Context, req *UploadImageReq, options ...lark
 //
 // - 获取租户下全部 OKR 指标库（仅限 OKR 企业版使用）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSource.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSource.go
 func (m *metricSource) List(ctx context.Context, req *ListMetricSourceReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -127,9 +127,9 @@ func (m *metricSource) List(ctx context.Context, req *ListMetricSourceReq, optio
 //
 // - 获取指定指标库下有哪些指标表（仅限 OKR 企业版使用）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTable.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTable.go
 func (m *metricSourceTable) List(ctx context.Context, req *ListMetricSourceTableReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceTableResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -153,9 +153,9 @@ func (m *metricSourceTable) List(ctx context.Context, req *ListMetricSourceTable
 //
 // - - 该接口用于批量更新多项指标，单次调用最多更新 100 条记录。接口仅限 OKR 企业版使用。;;  更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/batch_update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/batch_update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchUpdate_metricSourceTableItem.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchUpdate_metricSourceTableItem.go
 func (m *metricSourceTableItem) BatchUpdate(ctx context.Context, req *BatchUpdateMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateMetricSourceTableItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -179,9 +179,9 @@ func (m *metricSourceTableItem) BatchUpdate(ctx context.Context, req *BatchUpdat
 //
 // - 获取某项指标的具体内容（仅限 OKR 企业版使用）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_metricSourceTableItem.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_metricSourceTableItem.go
 func (m *metricSourceTableItem) Get(ctx context.Context, req *GetMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*GetMetricSourceTableItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -205,9 +205,9 @@ func (m *metricSourceTableItem) Get(ctx context.Context, req *GetMetricSourceTab
 //
 // - 获取指定指标表下的所有指标项（仅限 OKR 企业版使用）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTableItem.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_metricSourceTableItem.go
 func (m *metricSourceTableItem) List(ctx context.Context, req *ListMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*ListMetricSourceTableItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -231,9 +231,9 @@ func (m *metricSourceTableItem) List(ctx context.Context, req *ListMetricSourceT
 //
 // - - 该接口用于更新某项指标，接口仅限 OKR 企业版使用。;;	更新成功后 OKR 系统会给以下人员发送消息通知：;;	- 首次更新目标值的人员 ;;	- 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员，不包含仅更新了进度值的人员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/patch_metricSourceTableItem.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/patch_metricSourceTableItem.go
 func (m *metricSourceTableItem) Patch(ctx context.Context, req *PatchMetricSourceTableItemReq, options ...larkcore.RequestOptionFunc) (*PatchMetricSourceTableItemResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -253,15 +253,15 @@ func (m *metricSourceTableItem) Patch(ctx context.Context, req *PatchMetricSourc
 	return resp, err
 }
 
-// 批量获取OKR
+// 批量获取 OKR
 //
-// - 根据OKR id批量获取OKR
+// - 根据 OKR id 批量获取 OKR
 //
-// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
+// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问 OKR 信息</md-perm>
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchGet_okr.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/batchGet_okr.go
 func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...larkcore.RequestOptionFunc) (*BatchGetOkrResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -281,15 +281,15 @@ func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...lark
 	return resp, err
 }
 
-// 获取OKR周期列表
+// 获取 OKR 周期列表
 //
-// - 获取OKR周期列表
+// - 获取 OKR 周期列表
 //
-// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
+// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问 OKR 信息</md-perm>
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_period.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_period.go
 func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkcore.RequestOptionFunc) (*ListPeriodResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -309,13 +309,13 @@ func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkco
 	return resp, err
 }
 
-// 创建OKR进展记录
+// 创建 OKR 进展记录
 //
-// - 创建OKR进展记录
+// - 创建 OKR 进展记录
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/create_progressRecord.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/create_progressRecord.go
 func (p *progressRecord) Create(ctx context.Context, req *CreateProgressRecordReq, options ...larkcore.RequestOptionFunc) (*CreateProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -335,13 +335,13 @@ func (p *progressRecord) Create(ctx context.Context, req *CreateProgressRecordRe
 	return resp, err
 }
 
-// 删除OKR进展记录
+// 删除 OKR 进展记录
 //
-// - 根据ID删除OKR进展记录
+// - 根据 ID 删除 OKR 进展记录
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/delete
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/delete
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/delete_progressRecord.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/delete_progressRecord.go
 func (p *progressRecord) Delete(ctx context.Context, req *DeleteProgressRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -361,13 +361,13 @@ func (p *progressRecord) Delete(ctx context.Context, req *DeleteProgressRecordRe
 	return resp, err
 }
 
-// 获取OKR进展记录
+// 获取 OKR 进展记录
 //
-// - 根据ID获取OKR进展记录详情
+// - 根据 ID 获取 OKR 进展记录详情
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_progressRecord.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/get_progressRecord.go
 func (p *progressRecord) Get(ctx context.Context, req *GetProgressRecordReq, options ...larkcore.RequestOptionFunc) (*GetProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -387,13 +387,13 @@ func (p *progressRecord) Get(ctx context.Context, req *GetProgressRecordReq, opt
 	return resp, err
 }
 
-// 更新OKR进展记录
+// 更新 OKR 进展记录
 //
-// - 根据OKR进展记录ID更新进展详情
+// - 根据 OKR 进展记录 ID 更新进展详情
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/update_progressRecord.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/update_progressRecord.go
 func (p *progressRecord) Update(ctx context.Context, req *UpdateProgressRecordReq, options ...larkcore.RequestOptionFunc) (*UpdateProgressRecordResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -413,15 +413,15 @@ func (p *progressRecord) Update(ctx context.Context, req *UpdateProgressRecordRe
 	return resp, err
 }
 
-// 获取用户的OKR列表
+// 获取用户的 OKR 列表
 //
-// - 根据用户的id获取OKR列表
+// - 根据用户的 id 获取 OKR 列表
 //
-// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
+// - 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限<md-perm ;href="https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问 OKR 信息</md-perm>
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_userOkr.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_userOkr.go
 func (u *userOkr) List(ctx context.Context, req *ListUserOkrReq, options ...larkcore.RequestOptionFunc) (*ListUserOkrResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

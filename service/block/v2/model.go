@@ -22,10 +22,10 @@ import (
 type Entity struct {
 	BlockId     *string `json:"block_id,omitempty"`      // block 唯一标识
 	Title       *string `json:"title,omitempty"`         // 标题
-	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型ID
+	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型 ID
 	SourceData  *string `json:"source_data,omitempty"`   // 业务数据 json
 	SourceMeta  *string `json:"source_meta,omitempty"`   // 元数据 json
-	Version     *string `json:"version,omitempty"`       // 版本号(自增)
+	Version     *string `json:"version,omitempty"`       // 版本号 (自增)
 	SourceLink  *string `json:"source_link,omitempty"`   // 链接
 	Summary     *string `json:"summary,omitempty"`       // 总括
 	Preview     *string `json:"preview,omitempty"`       // 预览
@@ -40,13 +40,13 @@ type EntityBuilder struct {
 	blockIdFlag     bool
 	title           string // 标题
 	titleFlag       bool
-	blockTypeId     string // block 类型ID
+	blockTypeId     string // block 类型 ID
 	blockTypeIdFlag bool
 	sourceData      string // 业务数据 json
 	sourceDataFlag  bool
 	sourceMeta      string // 元数据 json
 	sourceMetaFlag  bool
-	version         string // 版本号(自增)
+	version         string // 版本号 (自增)
 	versionFlag     bool
 	sourceLink      string // 链接
 	sourceLinkFlag  bool
@@ -87,7 +87,7 @@ func (builder *EntityBuilder) Title(title string) *EntityBuilder {
 	return builder
 }
 
-// block 类型ID
+// block 类型 ID
 //
 // 示例值：blk_6204893fee000013739f5359
 func (builder *EntityBuilder) BlockTypeId(blockTypeId string) *EntityBuilder {
@@ -114,7 +114,7 @@ func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 	return builder
 }
 
-// 版本号(自增)
+// 版本号 (自增)
 //
 // 示例值：1651716489253602
 func (builder *EntityBuilder) Version(version string) *EntityBuilder {
@@ -134,7 +134,7 @@ func (builder *EntityBuilder) SourceLink(sourceLink string) *EntityBuilder {
 
 // 总括
 //
-// 示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个 block"}
 func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 	builder.summary = summary
 	builder.summaryFlag = true
@@ -143,7 +143,7 @@ func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 
 // 预览
 //
-// 示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个 block"}
 func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 	builder.preview = preview
 	builder.previewFlag = true
@@ -152,7 +152,7 @@ func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 
 // 综述 json
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 	builder.i18nSummay = i18nSummay
 	builder.i18nSummayFlag = true
@@ -161,7 +161,7 @@ func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 
 // 预览 json
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *EntityBuilder) I18nPreview(i18nPreview string) *EntityBuilder {
 	builder.i18nPreview = i18nPreview
 	builder.i18nPreviewFlag = true
@@ -245,8 +245,8 @@ func (builder *EntityBuilder) Build() *Entity {
 
 type Message struct {
 	Body     *string  `json:"body,omitempty"`     // 协同数据内容
-	Version  *string  `json:"version,omitempty"`  // 版本号(自增)
-	BlockId  *string  `json:"block_id,omitempty"` // entity实体ID
+	Version  *string  `json:"version,omitempty"`  // 版本号 (自增)
+	BlockId  *string  `json:"block_id,omitempty"` // entity 实体 ID
 	Resource *string  `json:"resource,omitempty"` // 业务来源
 	OpenIds  []string `json:"open_ids,omitempty"` // 推送用户列表
 }
@@ -254,9 +254,9 @@ type Message struct {
 type MessageBuilder struct {
 	body         string // 协同数据内容
 	bodyFlag     bool
-	version      string // 版本号(自增)
+	version      string // 版本号 (自增)
 	versionFlag  bool
-	blockId      string // entity实体ID
+	blockId      string // entity 实体 ID
 	blockIdFlag  bool
 	resource     string // 业务来源
 	resourceFlag bool
@@ -278,7 +278,7 @@ func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 	return builder
 }
 
-// 版本号(自增)
+// 版本号 (自增)
 //
 // 示例值：1637565292196
 func (builder *MessageBuilder) Version(version string) *MessageBuilder {
@@ -287,7 +287,7 @@ func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 	return builder
 }
 
-// entity实体ID
+// entity 实体 ID
 //
 // 示例值：8116040162664047375
 func (builder *MessageBuilder) BlockId(blockId string) *MessageBuilder {
@@ -341,15 +341,15 @@ func (builder *MessageBuilder) Build() *Message {
 type CreateEntityReqBodyBuilder struct {
 	title           string // 标题
 	titleFlag       bool
-	blockTypeId     string // block 类型ID
+	blockTypeId     string // block 类型 ID
 	blockTypeIdFlag bool
 	sourceData      string // 内容
 	sourceDataFlag  bool
 	sourceMeta      string // 元数据
 	sourceMetaFlag  bool
-	version         string // 版本号(自增值)
+	version         string // 版本号 (自增值)
 	versionFlag     bool
-	sourceLink      string // block原链接
+	sourceLink      string // block 原链接
 	sourceLinkFlag  bool
 	owner           string // 所有者
 	ownerFlag       bool
@@ -372,14 +372,14 @@ func NewCreateEntityReqBodyBuilder() *CreateEntityReqBodyBuilder {
 
 // 标题
 //
-//示例值：已阅block
+//示例值：已阅 block
 func (builder *CreateEntityReqBodyBuilder) Title(title string) *CreateEntityReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
 
-// block 类型ID
+// block 类型 ID
 //
 //示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityReqBodyBuilder {
@@ -406,7 +406,7 @@ func (builder *CreateEntityReqBodyBuilder) SourceMeta(sourceMeta string) *Create
 	return builder
 }
 
-// 版本号(自增值)
+// 版本号 (自增值)
 //
 //示例值：1
 func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntityReqBodyBuilder {
@@ -415,7 +415,7 @@ func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntity
 	return builder
 }
 
-// block原链接
+// block 原链接
 //
 //示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
 func (builder *CreateEntityReqBodyBuilder) SourceLink(sourceLink string) *CreateEntityReqBodyBuilder {
@@ -444,7 +444,7 @@ func (builder *CreateEntityReqBodyBuilder) Extra(extra string) *CreateEntityReqB
 
 // 国际化概括
 //
-//示例值：{"cn":"这是一个block","va": "this is a block"}
+//示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nSummary(i18nSummary string) *CreateEntityReqBodyBuilder {
 	builder.i18nSummary = i18nSummary
 	builder.i18nSummaryFlag = true
@@ -453,7 +453,7 @@ func (builder *CreateEntityReqBodyBuilder) I18nSummary(i18nSummary string) *Crea
 
 // 国际化预览
 //
-//示例值：{"cn":"这是一个block","va": "this is a block"}
+//示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nPreview(i18nPreview string) *CreateEntityReqBodyBuilder {
 	builder.i18nPreview = i18nPreview
 	builder.i18nPreviewFlag = true
@@ -462,7 +462,7 @@ func (builder *CreateEntityReqBodyBuilder) I18nPreview(i18nPreview string) *Crea
 
 // 概括
 //
-//示例值：{"cn":"这是一个block"}
+//示例值：{"cn":"这是一个 block"}
 func (builder *CreateEntityReqBodyBuilder) Summary(summary string) *CreateEntityReqBodyBuilder {
 	builder.summary = summary
 	builder.summaryFlag = true
@@ -471,7 +471,7 @@ func (builder *CreateEntityReqBodyBuilder) Summary(summary string) *CreateEntity
 
 // 预览
 //
-//示例值：{"cn":"这是一个block"}
+//示例值：{"cn":"这是一个 block"}
 func (builder *CreateEntityReqBodyBuilder) Preview(preview string) *CreateEntityReqBodyBuilder {
 	builder.preview = preview
 	builder.previewFlag = true
@@ -522,15 +522,15 @@ func (builder *CreateEntityReqBodyBuilder) Build() *CreateEntityReqBody {
 type CreateEntityPathReqBodyBuilder struct {
 	title           string // 标题
 	titleFlag       bool
-	blockTypeId     string // block 类型ID
+	blockTypeId     string // block 类型 ID
 	blockTypeIdFlag bool
 	sourceData      string // 内容
 	sourceDataFlag  bool
 	sourceMeta      string // 元数据
 	sourceMetaFlag  bool
-	version         string // 版本号(自增值)
+	version         string // 版本号 (自增值)
 	versionFlag     bool
-	sourceLink      string // block原链接
+	sourceLink      string // block 原链接
 	sourceLinkFlag  bool
 	owner           string // 所有者
 	ownerFlag       bool
@@ -553,14 +553,14 @@ func NewCreateEntityPathReqBodyBuilder() *CreateEntityPathReqBodyBuilder {
 
 // 标题
 //
-// 示例值：已阅block
+// 示例值：已阅 block
 func (builder *CreateEntityPathReqBodyBuilder) Title(title string) *CreateEntityPathReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
 
-// block 类型ID
+// block 类型 ID
 //
 // 示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityPathReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityPathReqBodyBuilder {
@@ -587,7 +587,7 @@ func (builder *CreateEntityPathReqBodyBuilder) SourceMeta(sourceMeta string) *Cr
 	return builder
 }
 
-// 版本号(自增值)
+// 版本号 (自增值)
 //
 // 示例值：1
 func (builder *CreateEntityPathReqBodyBuilder) Version(version string) *CreateEntityPathReqBodyBuilder {
@@ -596,7 +596,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Version(version string) *CreateEn
 	return builder
 }
 
-// block原链接
+// block 原链接
 //
 // 示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
 func (builder *CreateEntityPathReqBodyBuilder) SourceLink(sourceLink string) *CreateEntityPathReqBodyBuilder {
@@ -625,7 +625,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Extra(extra string) *CreateEntity
 
 // 国际化概括
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *CreateEntityPathReqBodyBuilder) I18nSummary(i18nSummary string) *CreateEntityPathReqBodyBuilder {
 	builder.i18nSummary = i18nSummary
 	builder.i18nSummaryFlag = true
@@ -634,7 +634,7 @@ func (builder *CreateEntityPathReqBodyBuilder) I18nSummary(i18nSummary string) *
 
 // 国际化预览
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个 block","va": "this is a block"}
 func (builder *CreateEntityPathReqBodyBuilder) I18nPreview(i18nPreview string) *CreateEntityPathReqBodyBuilder {
 	builder.i18nPreview = i18nPreview
 	builder.i18nPreviewFlag = true
@@ -643,7 +643,7 @@ func (builder *CreateEntityPathReqBodyBuilder) I18nPreview(i18nPreview string) *
 
 // 概括
 //
-// 示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个 block"}
 func (builder *CreateEntityPathReqBodyBuilder) Summary(summary string) *CreateEntityPathReqBodyBuilder {
 	builder.summary = summary
 	builder.summaryFlag = true
@@ -652,7 +652,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Summary(summary string) *CreateEn
 
 // 预览
 //
-// 示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个 block"}
 func (builder *CreateEntityPathReqBodyBuilder) Preview(preview string) *CreateEntityPathReqBodyBuilder {
 	builder.preview = preview
 	builder.previewFlag = true
@@ -729,11 +729,11 @@ func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 
 type CreateEntityReqBody struct {
 	Title       *string `json:"title,omitempty"`         // 标题
-	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型ID
+	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型 ID
 	SourceData  *string `json:"source_data,omitempty"`   // 内容
 	SourceMeta  *string `json:"source_meta,omitempty"`   // 元数据
-	Version     *string `json:"version,omitempty"`       // 版本号(自增值)
-	SourceLink  *string `json:"source_link,omitempty"`   // block原链接
+	Version     *string `json:"version,omitempty"`       // 版本号 (自增值)
+	SourceLink  *string `json:"source_link,omitempty"`   // block 原链接
 	Owner       *string `json:"owner,omitempty"`         // 所有者
 	Extra       *string `json:"extra,omitempty"`         // 扩展字段
 	I18nSummary *string `json:"i18n_summary,omitempty"`  // 国际化概括
@@ -775,7 +775,7 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	return builder
 }
 
-// block唯一标识
+// block 唯一标识
 //
 // 示例值：7794641623571830467
 func (builder *UpdateEntityReqBuilder) BlockId(blockId string) *UpdateEntityReqBuilder {
@@ -783,7 +783,7 @@ func (builder *UpdateEntityReqBuilder) BlockId(blockId string) *UpdateEntityReqB
 	return builder
 }
 
-// 开发者通过该接口可以更新存储在BlockEntity中的数据，并实时推送到端侧。
+// 开发者通过该接口可以更新存储在 BlockEntity 中的数据，并实时推送到端侧。
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -825,7 +825,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-// 根据BlockID向指定用户列表推送协同数据。
+// 根据 BlockID 向指定用户列表推送协同数据。
 func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessageReqBuilder {
 	builder.message = message
 	return builder

@@ -54,7 +54,7 @@ func rawApiUserCallNew() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+	fmt.Println(string(resp.RawBody)) // http body，二进制数据
 }
 
 // 原生 API 调用推荐用法
@@ -86,7 +86,7 @@ func rawApiTenantCallNew() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+	fmt.Println(string(resp.RawBody)) // http body，二进制数据
 }
 
 // 老的原生调用方法，仅做兼容使用
@@ -225,7 +225,7 @@ func CreateDoc() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+	fmt.Println(string(resp.RawBody)) // http body，二进制数据
 }
 
 // 原生 API 调用推荐用法
@@ -256,7 +256,7 @@ func GetRootFolderMeta() {
 	// 处理请求结果
 	fmt.Println(resp.StatusCode)      // http status code
 	fmt.Println(resp.Header)          // http header
-	fmt.Println(string(resp.RawBody)) // http body,二进制数据
+	fmt.Println(string(resp.RawBody)) // http body，二进制数据
 }
 
 func main() {
