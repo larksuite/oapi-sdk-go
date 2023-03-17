@@ -32,7 +32,7 @@ func (h *P2ApplicationCreatedV6Handler) Event() interface{} {
 	return &P2ApplicationCreatedV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationCreatedV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationCreatedV6))
 }
@@ -52,7 +52,7 @@ func (h *P2ApplicationAppVersionAuditV6Handler) Event() interface{} {
 	return &P2ApplicationAppVersionAuditV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationAppVersionAuditV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationAppVersionAuditV6))
 }
@@ -72,7 +72,7 @@ func (h *P2ApplicationAppVersionPublishApplyV6Handler) Event() interface{} {
 	return &P2ApplicationAppVersionPublishApplyV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationAppVersionPublishApplyV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationAppVersionPublishApplyV6))
 }
@@ -92,7 +92,7 @@ func (h *P2ApplicationAppVersionPublishRevokeV6Handler) Event() interface{} {
 	return &P2ApplicationAppVersionPublishRevokeV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationAppVersionPublishRevokeV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationAppVersionPublishRevokeV6))
 }
@@ -112,7 +112,7 @@ func (h *P2ApplicationFeedbackCreatedV6Handler) Event() interface{} {
 	return &P2ApplicationFeedbackCreatedV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationFeedbackCreatedV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationFeedbackCreatedV6))
 }
@@ -132,7 +132,7 @@ func (h *P2ApplicationFeedbackUpdatedV6Handler) Event() interface{} {
 	return &P2ApplicationFeedbackUpdatedV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationFeedbackUpdatedV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationFeedbackUpdatedV6))
 }
@@ -152,7 +152,7 @@ func (h *P2ApplicationVisibilityAddedV6Handler) Event() interface{} {
 	return &P2ApplicationVisibilityAddedV6{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ApplicationVisibilityAddedV6Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApplicationVisibilityAddedV6))
 }

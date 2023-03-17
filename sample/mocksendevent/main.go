@@ -835,7 +835,7 @@ func main() {
 	//body := mockAppTicketEvent()
 	body := mockEncryptedBody(encryptedKey)
 
-	// 创建http req
+	// 创建 http req
 	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:7777/webhook/event", bytes.NewBuffer(body))
 	if err != nil {
 		fmt.Println(err)
@@ -848,7 +848,7 @@ func main() {
 	var token = encryptedKey
 	sourceSign := larkevent.Signature(timestamp, nonce, token, string(body))
 
-	// 添加header
+	// 添加 header
 	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
 	req.Header.Set(larkevent.EventRequestNonce, nonce)
 	req.Header.Set(larkevent.EventSignature, sourceSign)

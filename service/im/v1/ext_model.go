@@ -31,13 +31,13 @@ type P1AddBotV1Data struct {
 	AppID               string         `json:"app_id,omitempty"`                 // 应用 ID
 	ChatI18nNames       *ChatI18nNames `json:"chat_i18n_names,omitempty"`        // 群名称国际化字段
 	ChatName            string         `json:"chat_name,omitempty"`              // 群名称
-	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"` // 群主的employee_id（即“用户ID”。如果群主是机器人则没有这个字段，仅企业自建应用返回）
+	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"` // 群主的 employee_id（即 “用户 ID”。如果群主是机器人则没有这个字段，仅企业自建应用返回）
 	ChatOwnerName       string         `json:"chat_owner_name,omitempty"`        // 群主姓名
-	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`     // 群主的open_id
-	OpenChatID          string         `json:"open_chat_id,omitempty"`           // 群聊的id
-	OperatorEmployeeID  string         `json:"operator_employee_id,omitempty"`   // 操作者的emplolyee_id ，仅企业自建应用返回
+	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`     // 群主的 open_id
+	OpenChatID          string         `json:"open_chat_id,omitempty"`           // 群聊的 id
+	OperatorEmployeeID  string         `json:"operator_employee_id,omitempty"`   // 操作者的 emplolyee_id，仅企业自建应用返回
 	OperatorName        string         `json:"operator_name,omitempty"`          // 操作者姓名
-	OperatorOpenID      string         `json:"operator_open_id,omitempty"`       //操作者的open_id
+	OperatorOpenID      string         `json:"operator_open_id,omitempty"`       //操作者的 open_id
 	OwnerIsBot          bool           `json:"owner_is_bot,omitempty"`           //群主是否是机器人
 	TenantKey           string         `json:"tenant_key,omitempty"`             // 企业标识
 }
@@ -57,13 +57,13 @@ type P1RemoveBotV1Data struct {
 	AppID               string         `json:"app_id,omitempty"`                 // 应用 ID
 	ChatI18nNames       *ChatI18nNames `json:"chat_i18n_names,omitempty"`        // 群名称国际化字段
 	ChatName            string         `json:"chat_name,omitempty"`              // 群名称
-	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"` // 群主的employee_id（即“用户ID”。如果群主是机器人则没有这个字段，仅企业自建应用返回）
+	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"` // 群主的 employee_id（即 “用户 ID”。如果群主是机器人则没有这个字段，仅企业自建应用返回）
 	ChatOwnerName       string         `json:"chat_owner_name,omitempty"`        // 群主姓名
-	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`     // 群主的open_id
-	OpenChatID          string         `json:"open_chat_id,omitempty"`           // 群聊的id
+	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`     // 群主的 open_id
+	OpenChatID          string         `json:"open_chat_id,omitempty"`           // 群聊的 id
 	OperatorEmployeeID  string         `json:"operator_employee_id,omitempty"`   // 操作者姓名
-	OperatorName        string         `json:"operator_name,omitempty"`          // 操作者的emplolyee_id ，仅企业自建应用返回
-	OperatorOpenID      string         `json:"operator_open_id,omitempty"`       //操作者的open_id
+	OperatorName        string         `json:"operator_name,omitempty"`          // 操作者的 emplolyee_id，仅企业自建应用返回
+	OperatorOpenID      string         `json:"operator_open_id,omitempty"`       //操作者的 open_id
 	OwnerIsBot          bool           `json:"owner_is_bot,omitempty"`           //群主是否是机器人
 	TenantKey           string         `json:"tenant_key,omitempty"`             // 企业标识
 }
@@ -86,7 +86,7 @@ type P1P2PChatCreatedV1 struct {
 
 type P1P2PChatCreatedV1Data struct {
 	AppID     string        `json:"app_id,omitempty"`     // APP ID
-	ChatID    string        `json:"chat_id,omitempty"`    //机器人和用户的会话id
+	ChatID    string        `json:"chat_id,omitempty"`    //机器人和用户的会话 id
 	Operator  *P1OperatorV1 `json:"operator,omitempty"`   // 会话的发起人。可能是用户，也可能是机器人。
 	TenantKey string        `json:"tenant_key,omitempty"` // 企业标识
 	Type      string        `json:"type,omitempty"`       // 事件类型
@@ -98,21 +98,21 @@ func (m *P1P2PChatCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P1OperatorV1 struct {
-	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
-	UserId string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回
+	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的 open_id 不同
+	UserId string `json:"user_id,omitempty"` // 即 “用户 ID”，仅企业自建应用会返回
 }
 
 type P1UserV1 struct {
-	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
-	UserId string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回
+	OpenId string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的 open_id 不同
+	UserId string `json:"user_id,omitempty"` // 即 “用户 ID”，仅企业自建应用会返回
 	Name   string `json:"name,omitempty"`    // 姓名
 }
 
 type P1UserInOutChatV1Data struct {
 	Type      string        `json:"type,omitempty"`       // 事件类型，add_user_to_chat/remove_user_from_chat/revoke_add_user_from_chat
 	AppID     string        `json:"app_id,omitempty"`     // APP ID
-	ChatId    string        `json:"chat_id,omitempty"`    // 群聊的id
-	Operator  *P1OperatorV1 `json:"operator,omitempty"`   // 用户进出群的操作人。用户主动退群的话，operator 就是user自己
+	ChatId    string        `json:"chat_id,omitempty"`    // 群聊的 id
+	Operator  *P1OperatorV1 `json:"operator,omitempty"`   // 用户进出群的操作人。用户主动退群的话，operator 就是 user 自己
 	TenantKey string        `json:"tenant_key,omitempty"` // 企业标识
 	Users     []*P1UserV1   `json:"users,omitempty"`
 }
@@ -130,7 +130,7 @@ func (m *P1UserInOutChatV1) RawReq(req *larkevent.EventReq) {
 type P1ChatDisbandV1Data struct {
 	Type      string        `json:"type,omitempty"`       // 事件类型
 	AppID     string        `json:"app_id,omitempty"`     // APP ID
-	ChatId    string        `json:"chat_id,omitempty"`    // 群聊的id
+	ChatId    string        `json:"chat_id,omitempty"`    // 群聊的 id
 	Operator  *P1OperatorV1 `json:"operator,omitempty"`   // 解散群的人
 	TenantKey string        `json:"tenant_key,omitempty"` // 企业标识
 }
@@ -146,16 +146,16 @@ func (m *P1ChatDisbandV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P1GroupSettingChangeV1 struct {
-	OwnerOpenId         string `json:"owner_open_id,omitempty"`         // 当群主发生变化时会有下面2个字段。若群主未发生变化，则不会有这2个字段。
-	OwnerUserId         string `json:"owner_user_id,omitempty"`         // 当群主发生变化时会有下面2个字段。若群主未发生变化，则不会有这2个字段。
-	AddMemberPermission string `json:"add_member_permission,omitempty"` // 当“仅群主可添加群成员”配置变化时有下面的字段。
-	MessageNotification bool   `json:"message_notification,omitempty"`  // 当“消息提醒”配置变化时有下面的字段。
+	OwnerOpenId         string `json:"owner_open_id,omitempty"`         // 当群主发生变化时会有下面 2 个字段。若群主未发生变化，则不会有这 2 个字段。
+	OwnerUserId         string `json:"owner_user_id,omitempty"`         // 当群主发生变化时会有下面 2 个字段。若群主未发生变化，则不会有这 2 个字段。
+	AddMemberPermission string `json:"add_member_permission,omitempty"` // 当 “仅群主可添加群成员” 配置变化时有下面的字段。
+	MessageNotification bool   `json:"message_notification,omitempty"`  // 当 “消息提醒” 配置变化时有下面的字段。
 
 }
 type P1GroupSettingUpdatedV1Data struct {
 	Type         string                  `json:"type,omitempty"`       // 事件类型
-	AppID        string                  `json:"app_id,omitempty"`     // 应用ID
-	ChatId       string                  `json:"chat_id,omitempty"`    // 群聊ID
+	AppID        string                  `json:"app_id,omitempty"`     // 应用 ID
+	ChatId       string                  `json:"chat_id,omitempty"`    // 群聊 ID
 	Operator     *P1OperatorV1           `json:"operator,omitempty"`   // 配置变化的操作者
 	TenantKey    string                  `json:"tenant_key,omitempty"` // 企业标识
 	BeforeChange *P1GroupSettingChangeV1 `json:"before_change,omitempty"`
@@ -172,10 +172,10 @@ func (m *P1GroupSettingUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// protocol v1的 Message_Read
+// protocol v1 的 Message_Read
 type P1MessageReadV1Data struct {
 	MessageIdList []string `json:"message_id_list,omitempty"` // 已读消息列表
-	AppID         string   `json:"app_id"`                    // 应用ID
+	AppID         string   `json:"app_id"`                    // 应用 ID
 	OpenAppID     string   `json:"open_chat_id"`
 	OpenID        string   `json:"open_id"`
 	TenantKey     string   `json:"tenant_key"` // 企业标识
@@ -192,7 +192,7 @@ func (m *P1MessageReadV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// protocol v1的 message
+// protocol v1 的 message
 type P1MessageReceiveV1 struct {
 	*larkevent.EventBase
 	*larkevent.EventReq
@@ -205,28 +205,28 @@ func (m *P1MessageReceiveV1) RawReq(req *larkevent.EventReq) {
 
 type P1MessageReceiveV1Data struct {
 	Type             string   `json:"type,omitempty"`       // 事件类型
-	AppID            string   `json:"app_id,omitempty"`     // 应用ID
+	AppID            string   `json:"app_id,omitempty"`     // 应用 ID
 	TenantKey        string   `json:"tenant_key,omitempty"` // 企业标识
 	RootID           string   `json:"root_id,omitempty"`
 	ParentID         string   `json:"parent_id,omitempty"`
-	OpenChatID       string   `json:"open_chat_id,omitempty"`    //发消息的open_chat_id
-	ChatType         string   `json:"chat_type,omitempty"`       //私聊private，群聊group
+	OpenChatID       string   `json:"open_chat_id,omitempty"`    //发消息的 open_chat_id
+	ChatType         string   `json:"chat_type,omitempty"`       //私聊 private，群聊 group
 	MsgType          string   `json:"msg_type,omitempty"`        //消息类型
-	OpenID           string   `json:"open_id,omitempty"`         //发消息的用户open_id
-	EmployeeID       string   `json:"employee_id,omitempty"`     // 即“用户ID”，仅企业自建应用会返回
-	UnionID          string   `json:"union_id,omitempty"`        //发消息的用户union_id
-	OpenMessageID    string   `json:"open_message_id,omitempty"` //消息id
+	OpenID           string   `json:"open_id,omitempty"`         //发消息的用户 open_id
+	EmployeeID       string   `json:"employee_id,omitempty"`     // 即 “用户 ID”，仅企业自建应用会返回
+	UnionID          string   `json:"union_id,omitempty"`        //发消息的用户 union_id
+	OpenMessageID    string   `json:"open_message_id,omitempty"` //消息 id
 	IsMention        bool     `json:"is_mention,omitempty"`
-	Text             string   `json:"text,omitempty"`                // 消息文本，可能包含被@的人/机器人。
-	TextWithoutAtBot string   `json:"text_without_at_bot,omitempty"` //消息内容，会过滤掉at你的机器人的内容，当内容只有at机器人，该字段会被过滤。
+	Text             string   `json:"text,omitempty"`                // 消息文本，可能包含被 @的人/机器人。
+	TextWithoutAtBot string   `json:"text_without_at_bot,omitempty"` //消息内容，会过滤掉 at 你的机器人的内容，当内容只有 at 机器人，该字段会被过滤。
 	Title            string   `json:"title,omitempty"`               //消息标题
-	ImageKeys        []string `json:"image_keys,omitempty"`          //富文本里面的图片的keys
+	ImageKeys        []string `json:"image_keys,omitempty"`          //富文本里面的图片的 keys
 	ImageKey         string   `json:"image_key,omitempty"`           // image_key，获取图片内容请查/ssl:ttdoc/ukTMukTMukTM/uYzN5QjL2cTO04iN3kDN
 	FileKey          string   `json:"file_key,omitempty"`
 }
 
 /**
-text类型消息结构化
+text 类型消息结构化
 */
 type MessageText struct {
 	builder strings.Builder
@@ -267,7 +267,6 @@ func (t *MessageText) AtUser(userId, name string) *MessageText {
 	t.builder.WriteString(name)
 	t.builder.WriteString("</at>")
 	return t
-	return t
 }
 
 func (t *MessageText) AtAll() *MessageText {
@@ -282,7 +281,7 @@ func (t *MessageText) Build() string {
 }
 
 /**
- post类型消息结构化
+ post 类型消息结构化
 **/
 
 func NewMessagePost() *MessagePost {
@@ -441,7 +440,7 @@ func (m *MessagePostMedia) MarshalJSON() ([]byte, error) {
 }
 
 /**
- image类型消息结构化
+ image 类型消息结构化
 **/
 type MessageImage struct {
 	ImageKey string `json:"image_key,omitempty"`
@@ -471,7 +470,7 @@ func (m *MessageFile) String() (string, error) {
 }
 
 /**
-audio类型消息结构化
+audio 类型消息结构化
 **/
 type MessageAudio struct {
 	FileKey string `json:"file_key,omitempty"`
@@ -486,7 +485,7 @@ func (m *MessageAudio) String() (string, error) {
 }
 
 /**
-media类型消息结构化
+media 类型消息结构化
 **/
 type MessageMedia struct {
 	FileKey  string `json:"file_key,omitempty"`

@@ -30,49 +30,49 @@ const (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetDocumentBlockUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetDocumentBlockUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetDocumentBlockOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListDocumentBlockUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListDocumentBlockUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListDocumentBlockOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypePatchDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchDocumentBlockUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypePatchDocumentBlockUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypePatchDocumentBlockOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateDocumentBlockChildrenUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateDocumentBlockChildrenUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateDocumentBlockChildrenOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetDocumentBlockChildrenUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetDocumentBlockChildrenUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetDocumentBlockChildrenOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type AddOns struct {
-	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一ID
+	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一 ID
 	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
 	Record          *string `json:"record,omitempty"`            // 文档小组件内容数据，JSON 字符串
 }
 
 type AddOnsBuilder struct {
-	componentId         string // 团队互动应用唯一ID
+	componentId         string // 团队互动应用唯一 ID
 	componentIdFlag     bool
 	componentTypeId     string // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
 	componentTypeIdFlag bool
@@ -85,7 +85,7 @@ func NewAddOnsBuilder() *AddOnsBuilder {
 	return builder
 }
 
-// 团队互动应用唯一ID
+// 团队互动应用唯一 ID
 //
 // 示例值：7056882725002051603
 func (builder *AddOnsBuilder) ComponentId(componentId string) *AddOnsBuilder {
@@ -1015,11 +1015,11 @@ func (builder *ChatCardBuilder) Build() *ChatCard {
 }
 
 type DeleteGridColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"` // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
+	ColumnIndex *int `json:"column_index,omitempty"` // 删除列索引，从 0 开始，如 0 表示删除第一列（-1 表示删除最后一列）
 }
 
 type DeleteGridColumnRequestBuilder struct {
-	columnIndex     int // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
+	columnIndex     int // 删除列索引，从 0 开始，如 0 表示删除第一列（-1 表示删除最后一列）
 	columnIndexFlag bool
 }
 
@@ -1028,7 +1028,7 @@ func NewDeleteGridColumnRequestBuilder() *DeleteGridColumnRequestBuilder {
 	return builder
 }
 
-// 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）
+// 删除列索引，从 0 开始，如 0 表示删除第一列（-1 表示删除最后一列）
 //
 // 示例值：0
 func (builder *DeleteGridColumnRequestBuilder) ColumnIndex(columnIndex int) *DeleteGridColumnRequestBuilder {
@@ -1654,11 +1654,11 @@ func (builder *InlineFileBuilder) Build() *InlineFile {
 }
 
 type InsertGridColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"` // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
+	ColumnIndex *int `json:"column_index,omitempty"` // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1 表示在最后一列后插入）
 }
 
 type InsertGridColumnRequestBuilder struct {
-	columnIndex     int // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
+	columnIndex     int // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1 表示在最后一列后插入）
 	columnIndexFlag bool
 }
 
@@ -1667,7 +1667,7 @@ func NewInsertGridColumnRequestBuilder() *InsertGridColumnRequestBuilder {
 	return builder
 }
 
-// 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
+// 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1 表示在最后一列后插入）
 //
 // 示例值：1
 func (builder *InsertGridColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertGridColumnRequestBuilder {
@@ -1686,11 +1686,11 @@ func (builder *InsertGridColumnRequestBuilder) Build() *InsertGridColumnRequest 
 }
 
 type InsertTableColumnRequest struct {
-	ColumnIndex *int `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
+	ColumnIndex *int `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1 表示在表格末尾插入一列）
 }
 
 type InsertTableColumnRequestBuilder struct {
-	columnIndex     int // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
+	columnIndex     int // 插入的列在表格中的索引。（-1 表示在表格末尾插入一列）
 	columnIndexFlag bool
 }
 
@@ -1699,7 +1699,7 @@ func NewInsertTableColumnRequestBuilder() *InsertTableColumnRequestBuilder {
 	return builder
 }
 
-// 插入的列在表格中的索引。（-1表示在表格末尾插入一列）
+// 插入的列在表格中的索引。（-1 表示在表格末尾插入一列）
 //
 // 示例值：-1
 func (builder *InsertTableColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertTableColumnRequestBuilder {
@@ -1718,11 +1718,11 @@ func (builder *InsertTableColumnRequestBuilder) Build() *InsertTableColumnReques
 }
 
 type InsertTableRowRequest struct {
-	RowIndex *int `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
+	RowIndex *int `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1 表示在表格末尾插入一行）
 }
 
 type InsertTableRowRequestBuilder struct {
-	rowIndex     int // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
+	rowIndex     int // 插入的行在表格中的索引。（-1 表示在表格末尾插入一行）
 	rowIndexFlag bool
 }
 
@@ -1731,7 +1731,7 @@ func NewInsertTableRowRequestBuilder() *InsertTableRowRequestBuilder {
 	return builder
 }
 
-// 插入的行在表格中的索引。（-1表示在表格末尾插入一行）
+// 插入的行在表格中的索引。（-1 表示在表格末尾插入一行）
 //
 // 示例值：-1
 func (builder *InsertTableRowRequestBuilder) RowIndex(rowIndex int) *InsertTableRowRequestBuilder {
@@ -1750,12 +1750,12 @@ func (builder *InsertTableRowRequestBuilder) Build() *InsertTableRowRequest {
 }
 
 type Isv struct {
-	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一ID
+	ComponentId     *string `json:"component_id,omitempty"`      // 团队互动应用唯一 ID
 	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
 }
 
 type IsvBuilder struct {
-	componentId         string // 团队互动应用唯一ID
+	componentId         string // 团队互动应用唯一 ID
 	componentIdFlag     bool
 	componentTypeId     string // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
 	componentTypeIdFlag bool
@@ -1766,7 +1766,7 @@ func NewIsvBuilder() *IsvBuilder {
 	return builder
 }
 
-// 团队互动应用唯一ID
+// 团队互动应用唯一 ID
 //
 // 示例值：7056882725002051603
 func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
@@ -2131,7 +2131,7 @@ func (builder *ObjectiveIdWithKrIdBuilder) Build() *ObjectiveIdWithKrId {
 }
 
 type Okr struct {
-	OkrId               *string                `json:"okr_id,omitempty"`                // OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
+	OkrId               *string                `json:"okr_id,omitempty"`                // OKR ID，获取需要插入的 OKR ID 可见 [获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
 	Objectives          []*ObjectiveIdWithKrId `json:"objectives,omitempty"`            // OKR Block 中的 Objective ID 和 Key Result ID，此值为空时插入 OKR 下所有的 Objective 和 Key Result
 	PeriodDisplayStatus *string                `json:"period_display_status,omitempty"` // 周期的状态
 	PeriodNameZh        *string                `json:"period_name_zh,omitempty"`        // 周期名 - 中文
@@ -2141,7 +2141,7 @@ type Okr struct {
 }
 
 type OkrBuilder struct {
-	okrId                   string // OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
+	okrId                   string // OKR ID，获取需要插入的 OKR ID 可见 [获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
 	okrIdFlag               bool
 	objectives              []*ObjectiveIdWithKrId // OKR Block 中的 Objective ID 和 Key Result ID，此值为空时插入 OKR 下所有的 Objective 和 Key Result
 	objectivesFlag          bool
@@ -2162,7 +2162,7 @@ func NewOkrBuilder() *OkrBuilder {
 	return builder
 }
 
-// OKR ID，获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
+// OKR ID，获取需要插入的 OKR ID 可见 [获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
 //
 // 示例值：7076349900476448796
 func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
@@ -2545,7 +2545,7 @@ type OkrProgress struct {
 
 type OkrProgressRate struct {
 	Mode           *string  `json:"mode,omitempty"`            // 状态模式
-	Current        *float64 `json:"current,omitempty"`         // 当前进度, advanced 模式使用
+	Current        *float64 `json:"current,omitempty"`         // 当前进度，advanced 模式使用
 	Percent        *float64 `json:"percent,omitempty"`         // 当前进度百分比，simple 模式使用
 	ProgressStatus *string  `json:"progress_status,omitempty"` // 进展状态
 	Start          *float64 `json:"start,omitempty"`           // 进度起始值，advanced 模式使用
@@ -2556,7 +2556,7 @@ type OkrProgressRate struct {
 type OkrProgressRateBuilder struct {
 	mode               string // 状态模式
 	modeFlag           bool
-	current            float64 // 当前进度, advanced 模式使用
+	current            float64 // 当前进度，advanced 模式使用
 	currentFlag        bool
 	percent            float64 // 当前进度百分比，simple 模式使用
 	percentFlag        bool
@@ -2584,7 +2584,7 @@ func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder
 	return builder
 }
 
-// 当前进度, advanced 模式使用
+// 当前进度，advanced 模式使用
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRateBuilder {
@@ -3077,7 +3077,7 @@ func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
 type TableProperty struct {
 	RowSize     *int              `json:"row_size,omitempty"`     // 行数
 	ColumnSize  *int              `json:"column_size,omitempty"`  // 列数
-	ColumnWidth []int             `json:"column_width,omitempty"` // 列宽，单位px
+	ColumnWidth []int             `json:"column_width,omitempty"` // 列宽，单位 px
 	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`   // 单元格合并信息
 }
 
@@ -3086,7 +3086,7 @@ type TablePropertyBuilder struct {
 	rowSizeFlag     bool
 	columnSize      int // 列数
 	columnSizeFlag  bool
-	columnWidth     []int // 列宽，单位px
+	columnWidth     []int // 列宽，单位 px
 	columnWidthFlag bool
 	mergeInfo       []*TableMergeInfo // 单元格合并信息
 	mergeInfoFlag   bool
@@ -3115,7 +3115,7 @@ func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBu
 	return builder
 }
 
-// 列宽，单位px
+// 列宽，单位 px
 //
 // 示例值：100
 func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TablePropertyBuilder {
@@ -3153,11 +3153,11 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 }
 
 type Task struct {
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见 [获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 }
 
 type TaskBuilder struct {
-	taskId     string // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+	taskId     string // 任务 ID，查询具体任务详情见 [获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 	taskIdFlag bool
 }
 
@@ -3166,7 +3166,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+// 任务 ID，查询具体任务详情见 [获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 //
 // 示例值：
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
@@ -4228,7 +4228,7 @@ func (builder *ViewBuilder) Build() *View {
 }
 
 type CreateDocumentReqBodyBuilder struct {
-	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token 应用权限仅允许操作应用创建的目录
 	folderTokenFlag bool
 	title           string // 文档标题，只支持纯文本
 	titleFlag       bool
@@ -4239,7 +4239,7 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 	return builder
 }
 
-// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token 应用权限仅允许操作应用创建的目录
 //
 //示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
@@ -4269,7 +4269,7 @@ func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
 }
 
 type CreateDocumentPathReqBodyBuilder struct {
-	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token 应用权限仅允许操作应用创建的目录
 	folderTokenFlag bool
 	title           string // 文档标题，只支持纯文本
 	titleFlag       bool
@@ -4280,7 +4280,7 @@ func NewCreateDocumentPathReqBodyBuilder() *CreateDocumentPathReqBodyBuilder {
 	return builder
 }
 
-// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token 应用权限仅允许操作应用创建的目录
 //
 // 示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
@@ -4337,7 +4337,7 @@ func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 }
 
 type CreateDocumentReqBody struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token 应用权限仅允许操作应用创建的目录
 	Title       *string `json:"title,omitempty"`        // 文档标题，只支持纯文本
 }
 
@@ -4537,7 +4537,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string)
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder {
@@ -4553,7 +4553,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken strin
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchUpdateDocumentBlockReqBuilder) UserIdType(userIdType string) *BatchUpdateDocumentBlockReqBuilder {
@@ -4630,7 +4630,7 @@ func (builder *GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentB
 	return builder
 }
 
-// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 查询的文档版本，-1 表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder {
@@ -4638,7 +4638,7 @@ func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDocumentBlockReqBuilder {
@@ -4716,7 +4716,7 @@ func (builder *ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDoc
 	return builder
 }
 
-// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 查询的文档版本，-1 表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder {
@@ -4724,7 +4724,7 @@ func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionI
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListDocumentBlockReqBuilder {
@@ -4793,7 +4793,7 @@ func (builder *PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocum
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder {
@@ -4809,7 +4809,7 @@ func (builder *PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *Pa
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *PatchDocumentBlockReqBuilder {
@@ -4965,7 +4965,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId strin
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder {
@@ -5133,7 +5133,7 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *C
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder {
@@ -5149,7 +5149,7 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken st
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *CreateDocumentBlockChildrenReqBuilder {
@@ -5234,7 +5234,7 @@ func (builder *GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetD
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
 //
 // 示例值：-1
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder {
@@ -5258,7 +5258,7 @@ func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDo
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *GetDocumentBlockChildrenReqBuilder {
@@ -5315,7 +5315,7 @@ func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -5369,7 +5369,7 @@ func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

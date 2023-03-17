@@ -220,7 +220,7 @@ func (h *CardActionHandler) VerifySign(ctx context.Context, req *larkevent.Event
 		requestNonce = requestNonces[0]
 	}
 
-	// 执行sha1签名计算
+	// 执行 sha1 签名计算
 	targetSign := Signature(requestTimestamp, requestNonce,
 		h.verificationToken,
 		string(req.Body))

@@ -41,9 +41,9 @@ type text struct {
 //
 // - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/detect_text.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/detect_text.go
 func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkcore.RequestOptionFunc) (*DetectTextResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -69,9 +69,9 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkco
 //
 // - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/translate_text.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/translate_text.go
 func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...larkcore.RequestOptionFunc) (*TranslateTextResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

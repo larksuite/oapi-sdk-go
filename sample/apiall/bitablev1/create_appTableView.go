@@ -30,7 +30,7 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		ReqView(larkbitable.NewReqViewBuilder().
-			ViewName("表格视图1").
+			ViewName("表格视图 1").
 			ViewType("grid").
 			Build()).
 		Build()

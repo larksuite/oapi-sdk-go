@@ -30,7 +30,7 @@ func main() {
 		Body(larkcontact.NewCreateGroupReqBodyBuilder().
 			GroupId("g122817").
 			Name("IT 外包组").
-			Description("IT服务人员的集合").
+			Description("IT 服务人员的集合").
 			Type(1).
 			Build()).
 		Build()

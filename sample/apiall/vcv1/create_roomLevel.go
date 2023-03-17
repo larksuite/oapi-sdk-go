@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewCreateRoomLevelReqBuilder().
 		RoomLevel(larkvc.NewRoomLevelBuilder().
-			Name("测试层级2").
+			Name("测试层级 2").
 			ParentId("omb_8d020b12fe49e82847c2af3c193d5754").
 			CustomGroupId("zidingyi").
 			Build()).

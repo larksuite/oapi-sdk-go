@@ -25,7 +25,7 @@ import (
 )
 
 func TestVerifyUrlOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("12", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, nil
 	})
@@ -45,7 +45,7 @@ func TestVerifyUrlOk(t *testing.T) {
 }
 
 func TestVerifyUrlFailed(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("121", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, nil
 	})
@@ -106,7 +106,7 @@ func mockEventReq(token string) *larkevent.EventReq {
 }
 
 func TestVerifySignOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("121", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, nil
 	})
@@ -124,7 +124,7 @@ func TestVerifySignOk(t *testing.T) {
 }
 
 func TestVerifySignFailed(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("121", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, nil
 	})
@@ -142,7 +142,7 @@ func TestVerifySignFailed(t *testing.T) {
 }
 
 func TestDoHandleResultNilOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("12", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, nil
 	})
@@ -160,7 +160,7 @@ func TestDoHandleResultNilOk(t *testing.T) {
 }
 
 func TestDoHandleResultError(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("121", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		return nil, errors.New("im an error ")
 	})
@@ -175,7 +175,7 @@ func TestDoHandleResultError(t *testing.T) {
 }
 
 func TestDoHandleResultCustomRespOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("12", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
 		body := make(map[string]interface{})
 		body["content"] = "hello"
@@ -207,7 +207,7 @@ func TestDoHandleResultCustomRespOk(t *testing.T) {
 }
 
 func mockCardAction() *CardAction {
-	// 构建card，并返回
+	// 构建 card，并返回
 	value := map[string]interface{}{}
 	value["value"] = "1111sdfsfd"
 	value["tag"] = "b11111utton"
@@ -232,9 +232,9 @@ func mockCardAction() *CardAction {
 	return cardAction
 }
 func TestDoHandleResultCardOk(t *testing.T) {
-	// 创建card处理器
+	// 创建 card 处理器
 	cardHandler := NewCardActionHandler("12", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
-		// 构建card，并返回
+		// 构建 card，并返回
 		value := map[string]interface{}{}
 		value["value"] = "1111sdfsfd"
 		value["tag"] = "b11111utton"

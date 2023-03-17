@@ -26,7 +26,7 @@ import (
 )
 
 func createDocument(client *lark.Client) {
-	// 自定义请求headers
+	// 自定义请求 headers
 	header := make(http.Header)
 	header.Add("k1", "v1")
 	header.Add("k2", "v2")
@@ -39,13 +39,13 @@ func createDocument(client *lark.Client) {
 			Build(),
 		).
 		Build(),
-		larkcore.WithUserAccessToken("userToken"), // 设置用户Token
-		larkcore.WithHeaders(header),              // 设置自定义headers
+		larkcore.WithUserAccessToken("userToken"), // 设置用户 Token
+		larkcore.WithHeaders(header),              // 设置自定义 headers
 	)
 
 	//处理错误
 	if err != nil {
-		// 处理err
+		// 处理 err
 		return
 	}
 

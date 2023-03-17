@@ -29,39 +29,39 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetUserUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetUserUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetUserOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListUserOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListUserUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListUserUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListUserOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypePatchUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchUserOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchUserUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypePatchUserUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypePatchUserOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetUserFaceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetUserFaceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetUserFaceOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetUserFaceUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetUserFaceUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetUserFaceOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateUserFaceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateUserFaceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateUserFaceOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateUserFaceUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateUserFaceUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateUserFaceOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type AccessRecord struct {
@@ -322,14 +322,14 @@ func (builder *FeatureBuilder) Build() *Feature {
 
 type File struct {
 	Files    io.Reader `json:"files,omitempty"`     // 人脸图片内容
-	FileType *string   `json:"file_type,omitempty"` // 文件类型,可选的类型有jpg,png
+	FileType *string   `json:"file_type,omitempty"` // 文件类型，可选的类型有 jpg,png
 	FileName *string   `json:"file_name,omitempty"` // 带后缀的文件名
 }
 
 type FileBuilder struct {
 	files        io.Reader // 人脸图片内容
 	filesFlag    bool
-	fileType     string // 文件类型,可选的类型有jpg,png
+	fileType     string // 文件类型，可选的类型有 jpg,png
 	fileTypeFlag bool
 	fileName     string // 带后缀的文件名
 	fileNameFlag bool
@@ -342,14 +342,14 @@ func NewFileBuilder() *FileBuilder {
 
 // 人脸图片内容
 //
-// 示例值：jpg图片
+// 示例值：jpg 图片
 func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 	builder.files = files
 	builder.filesFlag = true
 	return builder
 }
 
-// 文件类型,可选的类型有jpg,png
+// 文件类型，可选的类型有 jpg,png
 //
 // 示例值：jpg
 func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
@@ -538,7 +538,7 @@ func (builder *ListAccessRecordReqBuilder) From(from int) *ListAccessRecordReqBu
 	return builder
 }
 
-// 记录结束时间，单位秒，;时间跨度不能超过30天
+// 记录结束时间，单位秒，;时间跨度不能超过 30 天
 //
 // 示例值：1624520521
 func (builder *ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilder {
@@ -554,7 +554,7 @@ func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId string) *ListAccess
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAccessRecordReqBuilder {
@@ -683,7 +683,7 @@ func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuilder {
@@ -753,7 +753,7 @@ func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuild
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder {
@@ -813,7 +813,7 @@ func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *PatchUserReqBuilder) UserIdType(userIdType string) *PatchUserReqBuilder {
@@ -879,7 +879,7 @@ func (builder *GetUserFaceReqBuilder) IsCropped(isCropped bool) *GetUserFaceReqB
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFaceReqBuilder {
@@ -945,7 +945,7 @@ func (builder *UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceRe
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateUserFaceReqBuilder) UserIdType(userIdType string) *UpdateUserFaceReqBuilder {
@@ -988,7 +988,7 @@ type P2AccessRecordCreatedV1Data struct {
 	DeviceId       *string `json:"device_id,omitempty"`        // 设备 ID
 	IsClockIn      *bool   `json:"is_clock_in,omitempty"`      // 是否打卡
 	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`     // 是否开门
-	AccessTime     *string `json:"access_time,omitempty"`      // 识别时间 （单位：秒）
+	AccessTime     *string `json:"access_time,omitempty"`      // 识别时间（单位：秒）
 }
 
 type P2AccessRecordCreatedV1 struct {
@@ -1035,7 +1035,7 @@ func (iterator *ListAccessRecordIterator) Next() (bool, *AccessRecord, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -1089,7 +1089,7 @@ func (iterator *ListUserIterator) Next() (bool, *User, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

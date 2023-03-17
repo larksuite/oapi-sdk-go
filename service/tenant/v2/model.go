@@ -257,7 +257,7 @@ func (builder *TenantBuilder) Build() *Tenant {
 }
 
 type TenantAssignInfo struct {
-	SubscriptionId *string          `json:"subscription_id,omitempty"`  // 席位id
+	SubscriptionId *string          `json:"subscription_id,omitempty"`  // 席位 id
 	LicensePlanKey *string          `json:"license_plan_key,omitempty"` // license_plan_key
 	ProductName    *string          `json:"product_name,omitempty"`     // 商业化产品名称
 	I18nName       *ProductI18nName `json:"i18n_name,omitempty"`        // 国际化名称
@@ -268,7 +268,7 @@ type TenantAssignInfo struct {
 }
 
 type TenantAssignInfoBuilder struct {
-	subscriptionId     string // 席位id
+	subscriptionId     string // 席位 id
 	subscriptionIdFlag bool
 	licensePlanKey     string // license_plan_key
 	licensePlanKeyFlag bool
@@ -291,7 +291,7 @@ func NewTenantAssignInfoBuilder() *TenantAssignInfoBuilder {
 	return builder
 }
 
-// 席位id
+// 席位 id
 //
 // 示例值：7079609167680782300
 func (builder *TenantAssignInfoBuilder) SubscriptionId(subscriptionId string) *TenantAssignInfoBuilder {

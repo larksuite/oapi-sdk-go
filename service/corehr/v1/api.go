@@ -39,9 +39,9 @@ type leave struct {
 //
 // - 批量获取员工的请假记录数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/leaveRequestHistory_leave.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/leaveRequestHistory_leave.go
 func (l *leave) LeaveRequestHistory(ctx context.Context, req *LeaveRequestHistoryLeaveReq, options ...larkcore.RequestOptionFunc) (*LeaveRequestHistoryLeaveResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

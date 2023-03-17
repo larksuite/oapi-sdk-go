@@ -28,7 +28,7 @@ const (
 type Credentials struct {
 	Email  *string `json:"email,omitempty"`   // 邮箱
 	Mobile *string `json:"mobile,omitempty"`  // 手机号
-	UserId *string `json:"user_id,omitempty"` // 用户id
+	UserId *string `json:"user_id,omitempty"` // 用户 id
 }
 
 type CredentialsBuilder struct {
@@ -36,7 +36,7 @@ type CredentialsBuilder struct {
 	emailFlag  bool
 	mobile     string // 手机号
 	mobileFlag bool
-	userId     string // 用户id
+	userId     string // 用户 id
 	userIdFlag bool
 }
 
@@ -63,7 +63,7 @@ func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：
 func (builder *CredentialsBuilder) UserId(userId string) *CredentialsBuilder {
@@ -93,11 +93,11 @@ type IdpCredential struct {
 }
 
 type IdpCredentialId struct {
-	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp侧租户唯一标识
+	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp 侧租户唯一标识
 }
 
 type IdpCredentialIdBuilder struct {
-	idpCredentialId     string // idp侧租户唯一标识
+	idpCredentialId     string // idp 侧租户唯一标识
 	idpCredentialIdFlag bool
 }
 
@@ -106,7 +106,7 @@ func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
 	return builder
 }
 
-// idp侧租户唯一标识
+// idp 侧租户唯一标识
 //
 // 示例值：
 func (builder *IdpCredentialIdBuilder) IdpCredentialId(idpCredentialId string) *IdpCredentialIdBuilder {
@@ -127,7 +127,7 @@ func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 type MaskSession struct {
 	CreateTime   *string `json:"create_time,omitempty"`   // 创建时间
 	TerminalType *int    `json:"terminal_type,omitempty"` // 客户端类型
-	UserId       *string `json:"user_id,omitempty"`       // 用户ID
+	UserId       *string `json:"user_id,omitempty"`       // 用户 ID
 }
 
 type MaskSessionBuilder struct {
@@ -135,7 +135,7 @@ type MaskSessionBuilder struct {
 	createTimeFlag   bool
 	terminalType     int // 客户端类型
 	terminalTypeFlag bool
-	userId           string // 用户ID
+	userId           string // 用户 ID
 	userIdFlag       bool
 }
 
@@ -162,7 +162,7 @@ func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBu
 	return builder
 }
 
-// 用户ID
+// 用户 ID
 //
 // 示例值：
 func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {

@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkoptical_char_recognition.NewBasicRecognizeImageReqBuilder().
 		Body(larkoptical_char_recognition.NewBasicRecognizeImageReqBodyBuilder().
-			Image("base64后的图片二进制数据").
+			Image("base64 后的图片二进制数据").
 			Build()).
 		Build()
 	// 发起请求

@@ -32,7 +32,7 @@ func (h *P2AccessRecordCreatedV1Handler) Event() interface{} {
 	return &P2AccessRecordCreatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2AccessRecordCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2AccessRecordCreatedV1))
 }
@@ -52,7 +52,7 @@ func (h *P2UserUpdatedV1Handler) Event() interface{} {
 	return &P2UserUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2UserUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2UserUpdatedV1))
 }

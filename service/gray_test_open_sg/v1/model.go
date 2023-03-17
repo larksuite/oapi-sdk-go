@@ -376,7 +376,7 @@ func (iterator *ListMotoIterator) Next() (bool, string, error) {
 		return false, "", nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, "", nil

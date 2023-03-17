@@ -32,7 +32,7 @@ func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
 
 // base64 后的图片数据
 //
-//示例值：base64后的图片二进制数据
+//示例值：base64 后的图片二进制数据
 func (builder *BasicRecognizeImageReqBodyBuilder) Image(image string) *BasicRecognizeImageReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
@@ -59,7 +59,7 @@ func NewBasicRecognizeImagePathReqBodyBuilder() *BasicRecognizeImagePathReqBodyB
 
 // base64 后的图片数据
 //
-// 示例值：base64后的图片二进制数据
+// 示例值：base64 后的图片二进制数据
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Image(image string) *BasicRecognizeImagePathReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true

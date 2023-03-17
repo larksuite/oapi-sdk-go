@@ -20,7 +20,7 @@ import (
 
 // 审核事件
 //
-// - Push审核状态通知事件
+// - Push 审核状态通知事件
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/events/approve
 func (dispatcher *EventDispatcher) OnP2NotificationApproveV1(handler func(ctx context.Context, event *larkhelpdesk.P2NotificationApproveV1) error) *EventDispatcher {

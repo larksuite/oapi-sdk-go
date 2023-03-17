@@ -29,7 +29,7 @@ func main() {
 	req := larkhire.NewPatchEhrImportTaskReqBuilder().
 		EhrImportTaskId("623455234").
 		EhrImportTask(larkhire.NewEhrImportTaskBuilder().
-			FailReason("当前HC不可用").
+			FailReason("当前 HC 不可用").
 			RedirectUrl("https://example.com").
 			State(1).
 			Build()).

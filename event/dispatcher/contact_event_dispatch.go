@@ -38,7 +38,7 @@ func (dispatcher *EventDispatcher) OnP2CustomAttrEventUpdatedV3(handler func(ctx
 //
 // - 创建通讯录部门时发送该事件给订阅应用。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/created
 func (dispatcher *EventDispatcher) OnP2DepartmentCreatedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentCreatedV3) error) *EventDispatcher {
@@ -54,7 +54,7 @@ func (dispatcher *EventDispatcher) OnP2DepartmentCreatedV3(handler func(ctx cont
 //
 // - 订阅这一事件可以获得被删除部门的信息。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/deleted
 func (dispatcher *EventDispatcher) OnP2DepartmentDeletedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentDeletedV3) error) *EventDispatcher {
@@ -70,7 +70,7 @@ func (dispatcher *EventDispatcher) OnP2DepartmentDeletedV3(handler func(ctx cont
 //
 // - 通过该事件订阅部门更新。`old_object`只展示被更新字段的原始值。应用身份访问通讯录的权限为历史版本，不推荐申请。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/updated
 func (dispatcher *EventDispatcher) OnP2DepartmentUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentUpdatedV3) error) *EventDispatcher {
@@ -170,7 +170,7 @@ func (dispatcher *EventDispatcher) OnP2ScopeUpdatedV3(handler func(ctx context.C
 //
 // - 通过该事件订阅员工入职。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/created
 func (dispatcher *EventDispatcher) OnP2UserCreatedV3(handler func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error) *EventDispatcher {
@@ -186,7 +186,7 @@ func (dispatcher *EventDispatcher) OnP2UserCreatedV3(handler func(ctx context.Co
 //
 // - 通过该事件订阅员工离职。应用身份访问通讯录的权限为历史版本，不推荐申请。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/deleted
 func (dispatcher *EventDispatcher) OnP2UserDeletedV3(handler func(ctx context.Context, event *larkcontact.P2UserDeletedV3) error) *EventDispatcher {
@@ -200,9 +200,9 @@ func (dispatcher *EventDispatcher) OnP2UserDeletedV3(handler func(ctx context.Co
 
 // 员工变更
 //
-// - 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。
+// - 通过该事件订阅员工变更。old_object 中只展示更新的字段的原始值。
 //
-// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
+// - 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考 [应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
 func (dispatcher *EventDispatcher) OnP2UserUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2UserUpdatedV3) error) *EventDispatcher {

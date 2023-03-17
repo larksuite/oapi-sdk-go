@@ -32,7 +32,7 @@ func (h *P2NotificationApproveV1Handler) Event() interface{} {
 	return &P2NotificationApproveV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2NotificationApproveV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2NotificationApproveV1))
 }
@@ -52,7 +52,7 @@ func (h *P2TicketCreatedV1Handler) Event() interface{} {
 	return &P2TicketCreatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TicketCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TicketCreatedV1))
 }
@@ -72,7 +72,7 @@ func (h *P2TicketUpdatedV1Handler) Event() interface{} {
 	return &P2TicketUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TicketUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TicketUpdatedV1))
 }
@@ -92,7 +92,7 @@ func (h *P2TicketMessageCreatedV1Handler) Event() interface{} {
 	return &P2TicketMessageCreatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TicketMessageCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TicketMessageCreatedV1))
 }

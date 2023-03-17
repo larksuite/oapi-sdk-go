@@ -62,20 +62,20 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
+	Admin                  *larkadmin.AdminService                                     // 管理后台 - 企业勋章
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
 	Auth                   *larkauth.AuthService                                       //
 	Authen                 *larkauthen.AuthenService                                   //
 	Baike                  *larkbaike.BaikeService                                     // 企业百科
-	Bitable                *larkbitable.BitableService                                 // 云文档-多维表格
+	Bitable                *larkbitable.BitableService                                 // 云文档 - 多维表格
 	Block                  *larkblock.BlockService                                     // 小组件
 	Calendar               *larkcalendar.CalendarService                               // 日历
 	Contact                *larkcontact.ContactService                                 // 通讯录
 	Corehr                 *larkcorehr.CorehrService                                   // CoreHR
-	Docx                   *larkdocx.DocxService                                       // 云文档-文档
-	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
+	Docx                   *larkdocx.DocxService                                       // 云文档 - 文档
+	Drive                  *larkdrive.DriveService                                     // 云文档 - 文件管理
 	Ehr                    *larkehr.EhrService                                         // 智能人事
 	Event                  *larkevent.EventService                                     // 事件订阅
 	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService                //
@@ -85,16 +85,16 @@ type Client struct {
 	Im                     *larkim.ImService                                           // 消息与群组
 	Mail                   *larkmail.MailService                                       // 邮箱
 	Okr                    *larkokr.OkrService                                         // OKR
-	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力
+	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI 能力
 	Passport               *larkpassport.PassportService                               // 帐号
 	Search                 *larksearch.SearchService                                   // 搜索
-	Sheets                 *larksheets.SheetsService                                   // 云文档-电子表格
-	SpeechToText           *larkspeech_to_text.SpeechToTextService                     // AI能力
+	Sheets                 *larksheets.SheetsService                                   // 云文档 - 电子表格
+	SpeechToText           *larkspeech_to_text.SpeechToTextService                     // AI 能力
 	Task                   *larktask.TaskService                                       // 任务
 	Tenant                 *larktenant.TenantService                                   // 企业信息
-	Translation            *larktranslation.TranslationService                         // AI能力
+	Translation            *larktranslation.TranslationService                         // AI 能力
 	Vc                     *larkvc.VcService                                           // 视频会议
-	Wiki                   *larkwiki.WikiService                                       // 云文档-知识库
+	Wiki                   *larkwiki.WikiService                                       // 云文档 - 知识库
 	Ext                    *larkext.ExtService
 }
 
@@ -205,14 +205,14 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	// 创建序列化器
 	larkcore.NewSerialization(config)
 
-	// 创建httpclient
+	// 创建 httpclient
 	larkcore.NewHttpClient(config)
 
-	// 创建sdk-client，并初始化服务
+	// 创建 sdk-client，并初始化服务
 	client := &Client{config: config}
 	initService(client, config)
 
-	// 触发重推 appTicket,如果是 ISV 的话
+	// 触发重推 appTicket，如果是 ISV 的话
 	resendAppTicketIfNeed(client)
 	return client
 }

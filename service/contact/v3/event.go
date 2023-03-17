@@ -32,7 +32,7 @@ func (h *P2CustomAttrEventUpdatedV3Handler) Event() interface{} {
 	return &P2CustomAttrEventUpdatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2CustomAttrEventUpdatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2CustomAttrEventUpdatedV3))
 }
@@ -52,7 +52,7 @@ func (h *P2DepartmentCreatedV3Handler) Event() interface{} {
 	return &P2DepartmentCreatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2DepartmentCreatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2DepartmentCreatedV3))
 }
@@ -72,7 +72,7 @@ func (h *P2DepartmentDeletedV3Handler) Event() interface{} {
 	return &P2DepartmentDeletedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2DepartmentDeletedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2DepartmentDeletedV3))
 }
@@ -92,7 +92,7 @@ func (h *P2DepartmentUpdatedV3Handler) Event() interface{} {
 	return &P2DepartmentUpdatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2DepartmentUpdatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2DepartmentUpdatedV3))
 }
@@ -112,7 +112,7 @@ func (h *P2EmployeeTypeEnumActivedV3Handler) Event() interface{} {
 	return &P2EmployeeTypeEnumActivedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2EmployeeTypeEnumActivedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2EmployeeTypeEnumActivedV3))
 }
@@ -132,7 +132,7 @@ func (h *P2EmployeeTypeEnumCreatedV3Handler) Event() interface{} {
 	return &P2EmployeeTypeEnumCreatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2EmployeeTypeEnumCreatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2EmployeeTypeEnumCreatedV3))
 }
@@ -152,7 +152,7 @@ func (h *P2EmployeeTypeEnumDeactivatedV3Handler) Event() interface{} {
 	return &P2EmployeeTypeEnumDeactivatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2EmployeeTypeEnumDeactivatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2EmployeeTypeEnumDeactivatedV3))
 }
@@ -172,7 +172,7 @@ func (h *P2EmployeeTypeEnumDeletedV3Handler) Event() interface{} {
 	return &P2EmployeeTypeEnumDeletedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2EmployeeTypeEnumDeletedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2EmployeeTypeEnumDeletedV3))
 }
@@ -192,7 +192,7 @@ func (h *P2EmployeeTypeEnumUpdatedV3Handler) Event() interface{} {
 	return &P2EmployeeTypeEnumUpdatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2EmployeeTypeEnumUpdatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2EmployeeTypeEnumUpdatedV3))
 }
@@ -212,7 +212,7 @@ func (h *P2ScopeUpdatedV3Handler) Event() interface{} {
 	return &P2ScopeUpdatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ScopeUpdatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ScopeUpdatedV3))
 }
@@ -232,7 +232,7 @@ func (h *P2UserCreatedV3Handler) Event() interface{} {
 	return &P2UserCreatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2UserCreatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2UserCreatedV3))
 }
@@ -252,7 +252,7 @@ func (h *P2UserDeletedV3Handler) Event() interface{} {
 	return &P2UserDeletedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2UserDeletedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2UserDeletedV3))
 }
@@ -272,7 +272,7 @@ func (h *P2UserUpdatedV3Handler) Event() interface{} {
 	return &P2UserUpdatedV3{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2UserUpdatedV3Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2UserUpdatedV3))
 }

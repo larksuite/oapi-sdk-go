@@ -24,7 +24,7 @@ import (
 )
 
 func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler larkevent.IReqHandler) {
-	// 转换http请求对象为标准请求对象
+	// 转换 http 请求对象为标准请求对象
 	ctx := context.Background()
 	eventReq, err := translate(ctx, req)
 	if err != nil {

@@ -41,9 +41,9 @@ type outboundIp struct {
 //
 // - IP 地址有变更可能，建议应用每隔 6 小时定时拉取最新的 IP 地址，以免由于企业防火墙设置，导致应用无法及时接收到飞书开放平台推送的事件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/eventv1/list_outboundIp.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/eventv1/list_outboundIp.go
 func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options ...larkcore.RequestOptionFunc) (*ListOutboundIpResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

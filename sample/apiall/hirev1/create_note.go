@@ -32,7 +32,7 @@ func main() {
 			TalentId("6916472453069883661").
 			ApplicationId("6891565253964859661").
 			CreatorId("ou_f476cb099ac9227c9bae09ce46112579").
-			Content("测试5").
+			Content("测试 5").
 			Privacy(1).
 			Build()).
 		Build()

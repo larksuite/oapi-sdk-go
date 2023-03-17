@@ -32,7 +32,7 @@ func (h *P2ChatDisbandedV1Handler) Event() interface{} {
 	return &P2ChatDisbandedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatDisbandedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatDisbandedV1))
 }
@@ -52,7 +52,7 @@ func (h *P2ChatUpdatedV1Handler) Event() interface{} {
 	return &P2ChatUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatUpdatedV1))
 }
@@ -72,7 +72,7 @@ func (h *P2ChatMemberBotAddedV1Handler) Event() interface{} {
 	return &P2ChatMemberBotAddedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatMemberBotAddedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatMemberBotAddedV1))
 }
@@ -92,7 +92,7 @@ func (h *P2ChatMemberBotDeletedV1Handler) Event() interface{} {
 	return &P2ChatMemberBotDeletedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatMemberBotDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatMemberBotDeletedV1))
 }
@@ -112,7 +112,7 @@ func (h *P2ChatMemberUserAddedV1Handler) Event() interface{} {
 	return &P2ChatMemberUserAddedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatMemberUserAddedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatMemberUserAddedV1))
 }
@@ -132,7 +132,7 @@ func (h *P2ChatMemberUserDeletedV1Handler) Event() interface{} {
 	return &P2ChatMemberUserDeletedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatMemberUserDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatMemberUserDeletedV1))
 }
@@ -152,7 +152,7 @@ func (h *P2ChatMemberUserWithdrawnV1Handler) Event() interface{} {
 	return &P2ChatMemberUserWithdrawnV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2ChatMemberUserWithdrawnV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ChatMemberUserWithdrawnV1))
 }
@@ -172,7 +172,7 @@ func (h *P2MessageReadV1Handler) Event() interface{} {
 	return &P2MessageReadV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MessageReadV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MessageReadV1))
 }
@@ -192,7 +192,7 @@ func (h *P2MessageRecalledV1Handler) Event() interface{} {
 	return &P2MessageRecalledV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MessageRecalledV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MessageRecalledV1))
 }
@@ -212,7 +212,7 @@ func (h *P2MessageReceiveV1Handler) Event() interface{} {
 	return &P2MessageReceiveV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MessageReceiveV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MessageReceiveV1))
 }
@@ -232,7 +232,7 @@ func (h *P2MessageReactionCreatedV1Handler) Event() interface{} {
 	return &P2MessageReactionCreatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MessageReactionCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MessageReactionCreatedV1))
 }
@@ -252,7 +252,7 @@ func (h *P2MessageReactionDeletedV1Handler) Event() interface{} {
 	return &P2MessageReactionDeletedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2MessageReactionDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2MessageReactionDeletedV1))
 }

@@ -22,7 +22,7 @@ import (
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingEndedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.all_meeting_ended_v1"]
 	if existed {
@@ -36,7 +36,7 @@ func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingStartedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.all_meeting_started_v1"]
 	if existed {
@@ -178,7 +178,7 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx co
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2ReserveConfigUpdatedV1(handler func(ctx context.Context, event *larkvc.P2ReserveConfigUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.reserve_config.updated_v1"]
 	if existed {
@@ -234,7 +234,7 @@ func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Co
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room_level.created_v1"]
 	if existed {
@@ -248,7 +248,7 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx conte
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room_level.deleted_v1"]
 	if existed {
@@ -262,7 +262,7 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx conte
 //
 // -
 //
-// - 事件描述文档链接:
+// - 事件描述文档链接：
 func (dispatcher *EventDispatcher) OnP2RoomLevelUpdatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room_level.updated_v1"]
 	if existed {

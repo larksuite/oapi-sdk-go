@@ -32,7 +32,7 @@ func (h *P2TaskUpdateTenantV1Handler) Event() interface{} {
 	return &P2TaskUpdateTenantV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TaskUpdateTenantV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TaskUpdateTenantV1))
 }
@@ -52,7 +52,7 @@ func (h *P2TaskUpdatedV1Handler) Event() interface{} {
 	return &P2TaskUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TaskUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TaskUpdatedV1))
 }
@@ -72,7 +72,7 @@ func (h *P2TaskCommentUpdatedV1Handler) Event() interface{} {
 	return &P2TaskCommentUpdatedV1{}
 }
 
-// 回调开发者注册的handle
+// 回调开发者注册的 handle
 func (h *P2TaskCommentUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2TaskCommentUpdatedV1))
 }

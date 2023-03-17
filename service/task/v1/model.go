@@ -25,69 +25,69 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeBatchDeleteFollowerTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchDeleteFollowerTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchDeleteFollowerTaskOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchDeleteFollowerTaskUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeBatchDeleteFollowerTaskUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeBatchDeleteFollowerTaskOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateTaskUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateTaskOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetTaskOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetTaskUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetTaskUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetTaskOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListTaskUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListTaskOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypePatchTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchTaskOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypePatchTaskUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypePatchTaskUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypePatchTaskOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskCollaboratorUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateTaskCollaboratorUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateTaskCollaboratorOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeDeleteTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeDeleteTaskCollaboratorUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeDeleteTaskCollaboratorUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeDeleteTaskCollaboratorOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskCollaboratorUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListTaskCollaboratorUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListTaskCollaboratorOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateTaskCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateTaskCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetTaskCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetTaskCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetTaskCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -97,44 +97,44 @@ const (
 )
 
 const (
-	UserIdTypeListTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListTaskCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListTaskCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateTaskCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateTaskCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateTaskCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateTaskFollowerUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateTaskFollowerUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateTaskFollowerOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeDeleteTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeDeleteTaskFollowerUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeDeleteTaskFollowerUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeDeleteTaskFollowerOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListTaskFollowerUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListTaskFollowerUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListTaskFollowerOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type Attachment struct {
 }
 
 type Attatchment struct {
-	Guid *string `json:"guid,omitempty"` // 全局唯一ID
+	Guid *string `json:"guid,omitempty"` // 全局唯一 ID
 }
 
 type AttatchmentBuilder struct {
-	guid     string // 全局唯一ID
+	guid     string // 全局唯一 ID
 	guidFlag bool
 }
 
@@ -143,7 +143,7 @@ func NewAttatchmentBuilder() *AttatchmentBuilder {
 	return builder
 }
 
-// 全局唯一ID
+// 全局唯一 ID
 //
 // 示例值：dddd
 func (builder *AttatchmentBuilder) Guid(guid string) *AttatchmentBuilder {
@@ -162,14 +162,14 @@ func (builder *AttatchmentBuilder) Build() *Attatchment {
 }
 
 type Collaborator struct {
-	Id     *string  `json:"id,omitempty"`      // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
-	IdList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	Id     *string  `json:"id,omitempty"`      // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用 id_list 字段;</md-alert>
+	IdList []string `json:"id_list,omitempty"` // 执行者的用户 ID 列表。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 }
 
 type CollaboratorBuilder struct {
-	id         string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+	id         string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用 id_list 字段;</md-alert>
 	idFlag     bool
-	idList     []string // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	idList     []string // 执行者的用户 ID 列表。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 	idListFlag bool
 }
 
@@ -178,7 +178,7 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 	return builder
 }
 
-// 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+// 任务执行者的 ID。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用 id_list 字段;</md-alert>
 //
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f1234
 func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
@@ -187,7 +187,7 @@ func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 	return builder
 }
 
-// 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 执行者的用户 ID 列表。;传入的值为 user_id 或 open_id，由 user_id_type 决定。user_id 和 open_id 的获取可见文档 [如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 //
 // 示例值：["ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0"]
 func (builder *CollaboratorBuilder) IdList(idList []string) *CollaboratorBuilder {
@@ -210,23 +210,23 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 
 type Comment struct {
 	Content         *string `json:"content,omitempty"`           // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
-	ParentId        *string `json:"parent_id,omitempty"`         // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	Id              *string `json:"id,omitempty"`                // 评论ID，由飞书服务器发号
+	ParentId        *string `json:"parent_id,omitempty"`         // 评论的父 ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+	Id              *string `json:"id,omitempty"`                // 评论 ID，由飞书服务器发号
 	CreateMilliTime *string `json:"create_milli_time,omitempty"` // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
-	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	CreatorId       *string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
 type CommentBuilder struct {
 	content             string // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
 	contentFlag         bool
-	parentId            string // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+	parentId            string // 评论的父 ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
 	parentIdFlag        bool
-	id                  string // 评论ID，由飞书服务器发号
+	id                  string // 评论 ID，由飞书服务器发号
 	idFlag              bool
 	createMilliTime     string // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
 	createMilliTimeFlag bool
-	richContent         string // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richContent         string // 富文本评论内容。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richContentFlag     bool
 	creatorId           string // 评论的创建者 ID。在创建评论时无需填充该字段
 	creatorIdFlag       bool
@@ -246,7 +246,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	return builder
 }
 
-// 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+// 评论的父 ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
 //
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
@@ -255,7 +255,7 @@ func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 	return builder
 }
 
-// 评论ID，由飞书服务器发号
+// 评论 ID，由飞书服务器发号
 //
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
@@ -273,7 +273,7 @@ func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentB
 	return builder
 }
 
-// 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 富文本评论内容。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 //
 // 示例值：举杯邀明月，对影成三人<at id=7058204817822318612></at>
 func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
@@ -321,15 +321,15 @@ func (builder *CommentBuilder) Build() *Comment {
 }
 
 type Due struct {
-	Time     *string `json:"time,omitempty"`       // 表示截止时间的Unix时间戳（单位为秒）。
-	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区。;传入值需要符合IANA Time Zone Database标准，规范见[Time Zone Database](https://www.iana.org/time-zones)。
+	Time     *string `json:"time,omitempty"`       // 表示截止时间的 Unix 时间戳（单位为秒）。
+	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区。;传入值需要符合 IANA Time Zone Database 标准，规范见 [Time Zone Database](https://www.iana.org/time-zones)。
 	IsAllDay *bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务。;包括如下取值：;- true：表示是全天任务，全天任务的截止时间为当天 UTC 时间的 0 点。;- false：表示不是全天任务。
 }
 
 type DueBuilder struct {
-	time         string // 表示截止时间的Unix时间戳（单位为秒）。
+	time         string // 表示截止时间的 Unix 时间戳（单位为秒）。
 	timeFlag     bool
-	timezone     string // 截止时间对应的时区。;传入值需要符合IANA Time Zone Database标准，规范见[Time Zone Database](https://www.iana.org/time-zones)。
+	timezone     string // 截止时间对应的时区。;传入值需要符合 IANA Time Zone Database 标准，规范见 [Time Zone Database](https://www.iana.org/time-zones)。
 	timezoneFlag bool
 	isAllDay     bool // 标记任务是否为全天任务。;包括如下取值：;- true：表示是全天任务，全天任务的截止时间为当天 UTC 时间的 0 点。;- false：表示不是全天任务。
 	isAllDayFlag bool
@@ -340,7 +340,7 @@ func NewDueBuilder() *DueBuilder {
 	return builder
 }
 
-// 表示截止时间的Unix时间戳（单位为秒）。
+// 表示截止时间的 Unix 时间戳（单位为秒）。
 //
 // 示例值：1623124318
 func (builder *DueBuilder) Time(time string) *DueBuilder {
@@ -349,7 +349,7 @@ func (builder *DueBuilder) Time(time string) *DueBuilder {
 	return builder
 }
 
-// 截止时间对应的时区。;传入值需要符合IANA Time Zone Database标准，规范见[Time Zone Database](https://www.iana.org/time-zones)。
+// 截止时间对应的时区。;传入值需要符合 IANA Time Zone Database 标准，规范见 [Time Zone Database](https://www.iana.org/time-zones)。
 //
 // 示例值：Asia/Shanghai
 func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
@@ -386,13 +386,13 @@ func (builder *DueBuilder) Build() *Due {
 
 type Follower struct {
 	Id     *string  `json:"id,omitempty"`      // 任务关注人 ID
-	IdList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表
+	IdList []string `json:"id_list,omitempty"` // 要删除的关注人 ID 列表
 }
 
 type FollowerBuilder struct {
 	id         string // 任务关注人 ID
 	idFlag     bool
-	idList     []string // 要删除的关注人ID列表
+	idList     []string // 要删除的关注人 ID 列表
 	idListFlag bool
 }
 
@@ -410,7 +410,7 @@ func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 	return builder
 }
 
-// 要删除的关注人ID列表
+// 要删除的关注人 ID 列表
 //
 // 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
 func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {
@@ -432,12 +432,12 @@ func (builder *FollowerBuilder) Build() *Follower {
 }
 
 type Href struct {
-	Url   *string `json:"url,omitempty"`   // 具体链接地址。;URL仅支持解析http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	Url   *string `json:"url,omitempty"`   // 具体链接地址。;URL 仅支持解析 http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Title *string `json:"title,omitempty"` // 链接对应的标题
 }
 
 type HrefBuilder struct {
-	url       string // 具体链接地址。;URL仅支持解析http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	url       string // 具体链接地址。;URL 仅支持解析 http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	urlFlag   bool
 	title     string // 链接对应的标题
 	titleFlag bool
@@ -448,7 +448,7 @@ func NewHrefBuilder() *HrefBuilder {
 	return builder
 }
 
-// 具体链接地址。;URL仅支持解析http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+// 具体链接地址。;URL 仅支持解析 http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 //
 // 示例值：https://support.feishu.com/internal/foo-bar
 func (builder *HrefBuilder) Url(url string) *HrefBuilder {
@@ -528,13 +528,13 @@ func (builder *OriginBuilder) Build() *Origin {
 
 type Reminder struct {
 	Id                 *string `json:"id,omitempty"`                   // 提醒时间设置的 ID（在删除时候需要使用这个）
-	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30）任务没有截止时间则为全天任务 (截止时间为 0)
 }
 
 type ReminderBuilder struct {
 	id                     string // 提醒时间设置的 ID（在删除时候需要使用这个）
 	idFlag                 bool
-	relativeFireMinute     int // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+	relativeFireMinute     int // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30）任务没有截止时间则为全天任务 (截止时间为 0)
 	relativeFireMinuteFlag bool
 }
 
@@ -552,7 +552,7 @@ func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	return builder
 }
 
-// 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+// 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30）任务没有截止时间则为全天任务 (截止时间为 0)
 //
 // 示例值：30
 func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
@@ -575,50 +575,50 @@ func (builder *ReminderBuilder) Build() *Reminder {
 }
 
 type Task struct {
-	Id              *string         `json:"id,omitempty"`               // 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
-	Summary         *string         `json:"summary,omitempty"`          // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用rich_summary字段。;创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
-	Description     *string         `json:"description,omitempty"`      // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用rich_description字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
-	CompleteTime    *string         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒），完成时间为0则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非0值。
-	CreatorId       *string         `json:"creator_id,omitempty"`       // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用tenant_access_token 调用接口时，如果是user_id_type是openid，则返回代表该应用身份的openid；当user_id_type为user_id时，不返回creator_id。原因是user_id代表一个真实飞书用户的id，应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
-	Extra           *string         `json:"extra,omitempty"`            // 附属信息。;接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
-	CreateTime      *string         `json:"create_time,omitempty"`      // 任务的创建时间的Unix时间戳（单位为秒）
-	UpdateTime      *string         `json:"update_time,omitempty"`      // 任务的更新时间的Unix时间戳（单位为秒）;创建任务时update_time与create_time相同
+	Id              *string         `json:"id,omitempty"`               // 任务的唯一 ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
+	Summary         *string         `json:"summary,omitempty"`          // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用 rich_summary 字段。;创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	Description     *string         `json:"description,omitempty"`      // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用 rich_description 字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+	CompleteTime    *string         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒），完成时间为 0 则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非 0 值。
+	CreatorId       *string         `json:"creator_id,omitempty"`       // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用 tenant_access_token 调用接口时，如果是 user_id_type 是 openid，则返回代表该应用身份的 openid；当 user_id_type 为 user_id 时，不返回 creator_id。原因是 user_id 代表一个真实飞书用户的 id，应用身份没有 user_id。使用 user_access_token 调用接口正常返回创建者。
+	Extra           *string         `json:"extra,omitempty"`            // 附属信息。;接入方可以传入 base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
+	CreateTime      *string         `json:"create_time,omitempty"`      // 任务的创建时间的 Unix 时间戳（单位为秒）
+	UpdateTime      *string         `json:"update_time,omitempty"`      // 任务的更新时间的 Unix 时间戳（单位为秒）;创建任务时 update_time 与 create_time 相同
 	Due             *Due            `json:"due,omitempty"`              // 任务的截止时间设置
 	Origin          *Origin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
-	CanEdit         *bool           `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
+	CanEdit         *bool           `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为 false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
 	Custom          *string         `json:"custom,omitempty"`           // 自定义完成配置。;此字段用于设置完成任务时的页面跳转，或展示提示语。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Source          *int            `json:"source,omitempty"`           // 任务创建的来源
 	Followers       []*Follower     `json:"followers,omitempty"`        // 任务的关注者
 	Collaborators   []*Collaborator `json:"collaborators,omitempty"`    // 任务的执行者
-	CollaboratorIds []string        `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	FollowerIds     []string        `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
-	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。
-	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	CollaboratorIds []string        `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	FollowerIds     []string        `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	RepeatRule      *string         `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式。;语法格式参见 [RRule 语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10 小节
+	RichSummary     *string         `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。
+	RichDescription *string         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 type TaskBuilder struct {
-	id                  string // 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
+	id                  string // 任务的唯一 ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
 	idFlag              bool
-	summary             string // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用rich_summary字段。;创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	summary             string // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用 rich_summary 字段。;创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
 	summaryFlag         bool
-	description         string // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用rich_description字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+	description         string // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用 rich_description 字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
 	descriptionFlag     bool
-	completeTime        string // 任务的完成时间戳（单位为秒），完成时间为0则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非0值。
+	completeTime        string // 任务的完成时间戳（单位为秒），完成时间为 0 则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非 0 值。
 	completeTimeFlag    bool
-	creatorId           string // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用tenant_access_token 调用接口时，如果是user_id_type是openid，则返回代表该应用身份的openid；当user_id_type为user_id时，不返回creator_id。原因是user_id代表一个真实飞书用户的id，应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
+	creatorId           string // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用 tenant_access_token 调用接口时，如果是 user_id_type 是 openid，则返回代表该应用身份的 openid；当 user_id_type 为 user_id 时，不返回 creator_id。原因是 user_id 代表一个真实飞书用户的 id，应用身份没有 user_id。使用 user_access_token 调用接口正常返回创建者。
 	creatorIdFlag       bool
-	extra               string // 附属信息。;接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
+	extra               string // 附属信息。;接入方可以传入 base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
 	extraFlag           bool
-	createTime          string // 任务的创建时间的Unix时间戳（单位为秒）
+	createTime          string // 任务的创建时间的 Unix 时间戳（单位为秒）
 	createTimeFlag      bool
-	updateTime          string // 任务的更新时间的Unix时间戳（单位为秒）;创建任务时update_time与create_time相同
+	updateTime          string // 任务的更新时间的 Unix 时间戳（单位为秒）;创建任务时 update_time 与 create_time 相同
 	updateTimeFlag      bool
 	due                 *Due // 任务的截止时间设置
 	dueFlag             bool
 	origin              *Origin // 任务关联的第三方平台来源信息
 	originFlag          bool
-	canEdit             bool // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
+	canEdit             bool // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为 false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
 	canEditFlag         bool
 	custom              string // 自定义完成配置。;此字段用于设置完成任务时的页面跳转，或展示提示语。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	customFlag          bool
@@ -628,15 +628,15 @@ type TaskBuilder struct {
 	followersFlag       bool
 	collaborators       []*Collaborator // 任务的执行者
 	collaboratorsFlag   bool
-	collaboratorIds     []string // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	collaboratorIds     []string // 创建任务时添加的执行者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 	collaboratorIdsFlag bool
-	followerIds         []string // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	followerIds         []string // 创建任务时添加的关注者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 	followerIdsFlag     bool
-	repeatRule          string // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
+	repeatRule          string // 重复任务的规则表达式。;语法格式参见 [RRule 语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10 小节
 	repeatRuleFlag      bool
-	richSummary         string // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。
+	richSummary         string // 富文本任务标题。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。
 	richSummaryFlag     bool
-	richDescription     string // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richDescription     string // 富文本任务备注。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	richDescriptionFlag bool
 }
 
@@ -645,7 +645,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
+// 任务的唯一 ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *TaskBuilder) Id(id string) *TaskBuilder {
@@ -654,25 +654,25 @@ func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 	return builder
 }
 
-// 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用rich_summary字段。;创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+// 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用 rich_summary 字段。;创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
 //
-// 示例值：完成本季度OKR编写
+// 示例值：完成本季度 OKR 编写
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	builder.summary = summary
 	builder.summaryFlag = true
 	return builder
 }
 
-// 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用rich_description字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+// 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用 rich_description 字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
 //
-// 示例值：对本次会议内容复盘总结，编写更新本季度OKR
+// 示例值：对本次会议内容复盘总结，编写更新本季度 OKR
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
 	return builder
 }
 
-// 任务的完成时间戳（单位为秒），完成时间为0则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非0值。
+// 任务的完成时间戳（单位为秒），完成时间为 0 则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非 0 值。
 //
 // 示例值：1623499200
 func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
@@ -681,7 +681,7 @@ func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 	return builder
 }
 
-// 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用tenant_access_token 调用接口时，如果是user_id_type是openid，则返回代表该应用身份的openid；当user_id_type为user_id时，不返回creator_id。原因是user_id代表一个真实飞书用户的id，应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
+// 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用 tenant_access_token 调用接口时，如果是 user_id_type 是 openid，则返回代表该应用身份的 openid；当 user_id_type 为 user_id 时，不返回 creator_id。原因是 user_id 代表一个真实飞书用户的 id，应用身份没有 user_id。使用 user_access_token 调用接口正常返回创建者。
 //
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f346a
 func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
@@ -690,7 +690,7 @@ func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 	return builder
 }
 
-// 附属信息。;接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
+// 附属信息。;接入方可以传入 base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
 //
 // 示例值：dGVzdA==
 func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
@@ -699,7 +699,7 @@ func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	return builder
 }
 
-// 任务的创建时间的Unix时间戳（单位为秒）
+// 任务的创建时间的 Unix 时间戳（单位为秒）
 //
 // 示例值：1623392486
 func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
@@ -708,7 +708,7 @@ func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 	return builder
 }
 
-// 任务的更新时间的Unix时间戳（单位为秒）;创建任务时update_time与create_time相同
+// 任务的更新时间的 Unix 时间戳（单位为秒）;创建任务时 update_time 与 create_time 相同
 //
 // 示例值：1623392486
 func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
@@ -735,7 +735,7 @@ func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 	return builder
 }
 
-// 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
+// 此字段用于控制该任务在飞书任务中心是否可编辑，默认为 false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
 //
 // 示例值：true
 func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
@@ -780,7 +780,7 @@ func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBu
 	return builder
 }
 
-// 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 创建任务时添加的执行者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 //
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuilder {
@@ -789,7 +789,7 @@ func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuild
 	return builder
 }
 
-// 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 创建任务时添加的关注者用户 id 列表。;传入的值为 user_id 或 open_id ，由 user_id_type 决定。user_id 和 open_id 的获取可见文档：[如何获取相关 id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 //
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
@@ -798,7 +798,7 @@ func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 	return builder
 }
 
-// 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
+// 重复任务的规则表达式。;语法格式参见 [RRule 语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10 小节
 //
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
@@ -807,18 +807,18 @@ func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 	return builder
 }
 
-// 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。
+// 富文本任务标题。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题 (summary 字段) 和任务富文本标题 (rich_summary 字段) 不能同时为空，需要至少填充其中一个字段。
 //
-// 示例值：完成本季度OKR编写\[飞书开放平台](https://open.feishu.cn/)
+// 示例值：完成本季度 OKR 编写\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 	builder.richSummary = richSummary
 	builder.richSummaryFlag = true
 	return builder
 }
 
-// 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+// 富文本任务备注。语法格式参见 [Markdown 模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 //
-// 示例值：对本次会议内容复盘总结，编写更新本季度OKR\[飞书开放平台](https://open.feishu.cn/)
+// 示例值：对本次会议内容复盘总结，编写更新本季度 OKR\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichDescription(richDescription string) *TaskBuilder {
 	builder.richDescription = richDescription
 	builder.richDescriptionFlag = true
@@ -1016,7 +1016,7 @@ func NewBatchDeleteCollaboratorTaskReqBuilder() *BatchDeleteCollaboratorTaskReqB
 	return builder
 }
 
-// 任务ID
+// 任务 ID
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *BatchDeleteCollaboratorTaskReqBuilder) TaskId(taskId string) *BatchDeleteCollaboratorTaskReqBuilder {
@@ -1024,7 +1024,7 @@ func (builder *BatchDeleteCollaboratorTaskReqBuilder) TaskId(taskId string) *Bat
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchDeleteCollaboratorTaskReqBuilder) UserIdType(userIdType string) *BatchDeleteCollaboratorTaskReqBuilder {
@@ -1053,7 +1053,7 @@ type BatchDeleteCollaboratorTaskReq struct {
 }
 
 type BatchDeleteCollaboratorTaskRespData struct {
-	Collaborators []string `json:"collaborators,omitempty"` // 实际删除的执行人用户ID列表
+	Collaborators []string `json:"collaborators,omitempty"` // 实际删除的执行人用户 ID 列表
 }
 
 type BatchDeleteCollaboratorTaskResp struct {
@@ -1080,7 +1080,7 @@ func NewBatchDeleteFollowerTaskReqBuilder() *BatchDeleteFollowerTaskReqBuilder {
 	return builder
 }
 
-// 任务ID
+// 任务 ID
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *BatchDeleteFollowerTaskReqBuilder) TaskId(taskId string) *BatchDeleteFollowerTaskReqBuilder {
@@ -1088,7 +1088,7 @@ func (builder *BatchDeleteFollowerTaskReqBuilder) TaskId(taskId string) *BatchDe
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *BatchDeleteFollowerTaskReqBuilder) UserIdType(userIdType string) *BatchDeleteFollowerTaskReqBuilder {
@@ -1117,7 +1117,7 @@ type BatchDeleteFollowerTaskReq struct {
 }
 
 type BatchDeleteFollowerTaskRespData struct {
-	Followers []string `json:"followers,omitempty"` // 实际删除的关注人用户ID列表
+	Followers []string `json:"followers,omitempty"` // 实际删除的关注人用户 ID 列表
 }
 
 type BatchDeleteFollowerTaskResp struct {
@@ -1143,7 +1143,7 @@ func NewCompleteTaskReqBuilder() *CompleteTaskReqBuilder {
 	return builder
 }
 
-// 任务 ID，可通过[创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create)时响应体中的id字段获取
+// 任务 ID，可通过 [创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create) 时响应体中的 id 字段获取
 //
 // 示例值：bb54ab99-d360-434f-bcaa-a4cc4c05840e
 func (builder *CompleteTaskReqBuilder) TaskId(taskId string) *CompleteTaskReqBuilder {
@@ -1185,7 +1185,7 @@ func NewCreateTaskReqBuilder() *CreateTaskReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskReqBuilder {
@@ -1288,7 +1288,7 @@ func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetTaskReqBuilder) UserIdType(userIdType string) *GetTaskReqBuilder {
@@ -1374,7 +1374,7 @@ func (builder *ListTaskReqBuilder) EndCreateTime(endCreateTime string) *ListTask
 	return builder
 }
 
-// 可用于查询时过滤任务完成状态。true表示只返回已完成的任务，false表示只返回未完成的任务。不填时表示同时返回两种完成状态的任务。
+// 可用于查询时过滤任务完成状态。true 表示只返回已完成的任务，false 表示只返回未完成的任务。不填时表示同时返回两种完成状态的任务。
 //
 // 示例值：false
 func (builder *ListTaskReqBuilder) TaskCompleted(taskCompleted bool) *ListTaskReqBuilder {
@@ -1382,7 +1382,7 @@ func (builder *ListTaskReqBuilder) TaskCompleted(taskCompleted bool) *ListTaskRe
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBuilder {
@@ -1524,7 +1524,7 @@ func (builder *PatchTaskReqBuilder) TaskId(taskId string) *PatchTaskReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqBuilder {
@@ -1626,7 +1626,7 @@ func NewCreateTaskCollaboratorReqBuilder() *CreateTaskCollaboratorReqBuilder {
 	return builder
 }
 
-// 任务 ID，可通过[创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create)时响应体中的id字段获取
+// 任务 ID，可通过 [创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create) 时响应体中的 id 字段获取
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTaskCollaboratorReqBuilder {
@@ -1634,7 +1634,7 @@ func (builder *CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTa
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateTaskCollaboratorReqBuilder) UserIdType(userIdType string) *CreateTaskCollaboratorReqBuilder {
@@ -1697,7 +1697,7 @@ func (builder *DeleteTaskCollaboratorReqBuilder) TaskId(taskId string) *DeleteTa
 	return builder
 }
 
-// 任务执行者 ID（Open ID或User ID，由user_id_type指定）
+// 任务执行者 ID（Open ID 或 User ID，由 user_id_type 指定）
 //
 // 示例值：ou_99e1a581b36ecc4862cbfbce123f346a
 func (builder *DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId string) *DeleteTaskCollaboratorReqBuilder {
@@ -1705,7 +1705,7 @@ func (builder *DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId s
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *DeleteTaskCollaboratorReqBuilder) UserIdType(userIdType string) *DeleteTaskCollaboratorReqBuilder {
@@ -1772,13 +1772,13 @@ func (builder *ListTaskCollaboratorReqBuilder) PageSize(pageSize int) *ListTaskC
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：「上次返回的page_token」
+// 示例值：「上次返回的 page_token」
 func (builder *ListTaskCollaboratorReqBuilder) PageToken(pageToken string) *ListTaskCollaboratorReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListTaskCollaboratorReqBuilder) UserIdType(userIdType string) *ListTaskCollaboratorReqBuilder {
@@ -1802,7 +1802,7 @@ type ListTaskCollaboratorReq struct {
 }
 
 type ListTaskCollaboratorRespData struct {
-	Items     []*Collaborator `json:"items,omitempty"`      // 返回的执行者ID列表
+	Items     []*Collaborator `json:"items,omitempty"`      // 返回的执行者 ID 列表
 	PageToken *string         `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 	HasMore   *bool           `json:"has_more,omitempty"`   // 是否还有更多数据
 }
@@ -1839,7 +1839,7 @@ func (builder *CreateTaskCommentReqBuilder) TaskId(taskId string) *CreateTaskCom
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateTaskCommentReqBuilder) UserIdType(userIdType string) *CreateTaskCommentReqBuilder {
@@ -1847,7 +1847,7 @@ func (builder *CreateTaskCommentReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-// 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论
+// 该接口用于创建和回复任务的评论。当 parent_id 字段为 0 时，为创建评论；当 parent_id 不为 0 时，为回复某条评论
 func (builder *CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTaskCommentReqBuilder {
 	builder.comment = comment
 	return builder
@@ -1894,7 +1894,7 @@ func NewDeleteTaskCommentReqBuilder() *DeleteTaskCommentReqBuilder {
 	return builder
 }
 
-// 任务ID
+// 任务 ID
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCommentReqBuilder {
@@ -1902,7 +1902,7 @@ func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCom
 	return builder
 }
 
-// 评论ID
+// 评论 ID
 //
 // 示例值：6937231762296684564
 func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId string) *DeleteTaskCommentReqBuilder {
@@ -1943,7 +1943,7 @@ func NewGetTaskCommentReqBuilder() *GetTaskCommentReqBuilder {
 	return builder
 }
 
-// 任务ID
+// 任务 ID
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentReqBuilder {
@@ -1951,7 +1951,7 @@ func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentRe
 	return builder
 }
 
-// 评论ID
+// 评论 ID
 //
 // 示例值：6937231762296684564
 func (builder *GetTaskCommentReqBuilder) CommentId(commentId string) *GetTaskCommentReqBuilder {
@@ -1959,7 +1959,7 @@ func (builder *GetTaskCommentReqBuilder) CommentId(commentId string) *GetTaskCom
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetTaskCommentReqBuilder) UserIdType(userIdType string) *GetTaskCommentReqBuilder {
@@ -2013,7 +2013,7 @@ func (builder *ListTaskCommentReqBuilder) Limit(limit int) *ListTaskCommentReqBu
 	return builder
 }
 
-// 任务id
+// 任务 id
 //
 // 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
 func (builder *ListTaskCommentReqBuilder) TaskId(taskId string) *ListTaskCommentReqBuilder {
@@ -2029,7 +2029,7 @@ func (builder *ListTaskCommentReqBuilder) PageSize(pageSize int) *ListTaskCommen
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token获取查询结果
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值："MTYzMTg3ODUxNQ=="
 func (builder *ListTaskCommentReqBuilder) PageToken(pageToken string) *ListTaskCommentReqBuilder {
@@ -2045,7 +2045,7 @@ func (builder *ListTaskCommentReqBuilder) ListDirection(listDirection int) *List
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListTaskCommentReqBuilder) UserIdType(userIdType string) *ListTaskCommentReqBuilder {
@@ -2180,7 +2180,7 @@ func NewUpdateTaskCommentReqBuilder() *UpdateTaskCommentReqBuilder {
 	return builder
 }
 
-// 任务ID
+// 任务 ID
 //
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCommentReqBuilder {
@@ -2196,7 +2196,7 @@ func (builder *UpdateTaskCommentReqBuilder) CommentId(commentId string) *UpdateT
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateTaskCommentReqBuilder) UserIdType(userIdType string) *UpdateTaskCommentReqBuilder {
@@ -2265,7 +2265,7 @@ func (builder *CreateTaskFollowerReqBuilder) TaskId(taskId string) *CreateTaskFo
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *CreateTaskFollowerReqBuilder {
@@ -2273,7 +2273,7 @@ func (builder *CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
-// 该接口用于创建任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
+// 该接口用于创建任务关注人。可以一次性添加多位关注人。关注人 ID 要使用表示用户的 ID。
 func (builder *CreateTaskFollowerReqBuilder) Follower(follower *Follower) *CreateTaskFollowerReqBuilder {
 	builder.follower = follower
 	return builder
@@ -2328,7 +2328,7 @@ func (builder *DeleteTaskFollowerReqBuilder) TaskId(taskId string) *DeleteTaskFo
 	return builder
 }
 
-// 任务关注人 ID（Open ID或User ID，由user_id_type指定）
+// 任务关注人 ID（Open ID 或 User ID，由 user_id_type 指定）
 //
 // 示例值：ou_87e1a581b36ecc4862cbfbce473f346a
 func (builder *DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *DeleteTaskFollowerReqBuilder {
@@ -2336,7 +2336,7 @@ func (builder *DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *Dele
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *DeleteTaskFollowerReqBuilder) UserIdType(userIdType string) *DeleteTaskFollowerReqBuilder {
@@ -2403,13 +2403,13 @@ func (builder *ListTaskFollowerReqBuilder) PageSize(pageSize int) *ListTaskFollo
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：「上次返回的page_token」
+// 示例值：「上次返回的 page_token」
 func (builder *ListTaskFollowerReqBuilder) PageToken(pageToken string) *ListTaskFollowerReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListTaskFollowerReqBuilder) UserIdType(userIdType string) *ListTaskFollowerReqBuilder {
@@ -2433,7 +2433,7 @@ type ListTaskFollowerReq struct {
 }
 
 type ListTaskFollowerRespData struct {
-	Items     []*Follower `json:"items,omitempty"`      // 返回的关注人ID列表
+	Items     []*Follower `json:"items,omitempty"`      // 返回的关注人 ID 列表
 	PageToken *string     `json:"page_token,omitempty"` // 分页标记，分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多数据
 }
@@ -2590,7 +2590,7 @@ func (builder *ListTaskReminderReqBuilder) PageSize(pageSize int) *ListTaskRemin
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：「填写上次返回的page_token」
+// 示例值：「填写上次返回的 page_token」
 func (builder *ListTaskReminderReqBuilder) PageToken(pageToken string) *ListTaskReminderReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -2629,7 +2629,7 @@ func (resp *ListTaskReminderResp) Success() bool {
 
 type P2TaskUpdateTenantV1Data struct {
 	UserIdList *UserIdList `json:"user_id_list,omitempty"` // 用户 ID 列表
-	TaskId     *string     `json:"task_id,omitempty"`      // 任务的id
+	TaskId     *string     `json:"task_id,omitempty"`      // 任务的 id
 	ObjectType *string     `json:"object_type,omitempty"`  // 变更的数据类型，可选值：;"task"，"collaborator"，"follower"
 	EventType  *string     `json:"event_type,omitempty"`   // 事件类型，可选值：;"create"，"delete"，"update"
 }
@@ -2645,7 +2645,7 @@ func (m *P2TaskUpdateTenantV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TaskUpdatedV1Data struct {
-	TaskId  *string `json:"task_id,omitempty"`  // 任务ID
+	TaskId  *string `json:"task_id,omitempty"`  // 任务 ID
 	ObjType *int    `json:"obj_type,omitempty"` // 通知类型（1：任务详情发生变化，2：任务协作者发生变化，3：任务关注者发生变化，4：任务提醒时间发生变化，5：任务完成，6：任务取消完成，7：任务删除）
 }
 
@@ -2660,9 +2660,9 @@ func (m *P2TaskUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2TaskCommentUpdatedV1Data struct {
-	TaskId    *string `json:"task_id,omitempty"`    // 任务ID
-	CommentId *string `json:"comment_id,omitempty"` // 任务评论ID
-	ParentId  *string `json:"parent_id,omitempty"`  // 任务评论父ID
+	TaskId    *string `json:"task_id,omitempty"`    // 任务 ID
+	CommentId *string `json:"comment_id,omitempty"` // 任务评论 ID
+	ParentId  *string `json:"parent_id,omitempty"`  // 任务评论父 ID
 	ObjType   *int    `json:"obj_type,omitempty"`   // 通知类型（1：创建评论，2：回复评论，3：更新评论，4：删除评论）
 }
 
@@ -2694,7 +2694,7 @@ func (iterator *ListTaskIterator) Next() (bool, *Task, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2748,7 +2748,7 @@ func (iterator *ListTaskCollaboratorIterator) Next() (bool, *Collaborator, error
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2802,7 +2802,7 @@ func (iterator *ListTaskCommentIterator) Next() (bool, *Comment, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2856,7 +2856,7 @@ func (iterator *ListTaskFollowerIterator) Next() (bool, *Follower, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2910,7 +2910,7 @@ func (iterator *ListTaskReminderIterator) Next() (bool, *Reminder, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

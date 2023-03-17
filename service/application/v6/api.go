@@ -64,9 +64,9 @@ type applicationVisibility struct {
 //
 // - 获取当前设置的推荐规则列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_recommend_rule/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_recommend_rule/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_appRecommendRule.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_appRecommendRule.go
 func (a *appRecommendRule) List(ctx context.Context, req *ListAppRecommendRuleReq, options ...larkcore.RequestOptionFunc) (*ListAppRecommendRuleResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -96,11 +96,11 @@ func (a *appRecommendRule) ListByIterator(ctx context.Context, req *ListAppRecom
 
 // 获取应用信息
 //
-// - 根据app_id获取应用的基础信息
+// - 根据 app_id 获取应用的基础信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_application.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -124,9 +124,9 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 //
 // - 更新应用的分组信息（分组会影响应用在工作台中的分类情况，请谨慎更新）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_application.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_application.go
 func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -150,9 +150,9 @@ func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, optio
 //
 // - 查看本企业下所有待审核的自建应用列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/underauditlist
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/underauditlist
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/underauditlist_application.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/underauditlist_application.go
 func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApplicationReq, options ...larkcore.RequestOptionFunc) (*UnderauditlistApplicationResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -184,11 +184,11 @@ func (a *application) UnderauditlistByIterator(ctx context.Context, req *Underau
 //
 // - 查看应用在某一天/某一周/某一个月的使用数据，可以查看租户整体对应用的使用情况，也可以分部门查看。
 //
-// - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上10点产出前一天的数据;3. 已经支持的指标包括：应用的活跃用户数、累计用户数、新增用户数、访问页面数、打开次数;4. 数据从飞书4.10版本开始统计，使用飞书版本4.10及以下版本的用户数据不会被统计到;5. 按照部门查看数据时，会展示当前部门以及其子部门的整体使用情况;6. 调用频控为100次/分
+// - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上 10 点产出前一天的数据;3. 已经支持的指标包括：应用的活跃用户数、累计用户数、新增用户数、访问页面数、打开次数;4. 数据从飞书 4.10 版本开始统计，使用飞书版本 4.10 及以下版本的用户数据不会被统计到;5. 按照部门查看数据时，会展示当前部门以及其子部门的整体使用情况;6. 调用频控为 100 次/分
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/overview
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/overview
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/overview_applicationAppUsage.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/overview_applicationAppUsage.go
 func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*OverviewApplicationAppUsageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -212,9 +212,9 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 //
 // - 根据应用 ID 和应用版本 ID 来获取同租户下的应用版本的信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_applicationAppVersion.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_applicationAppVersion.go
 func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*GetApplicationAppVersionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -238,9 +238,9 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 //
 // - 根据 app_id 获取对应应用版本列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationAppVersion.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationAppVersion.go
 func (a *applicationAppVersion) List(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -272,9 +272,9 @@ func (a *applicationAppVersion) ListByIterator(ctx context.Context, req *ListApp
 //
 // - 通过接口来更新应用版本的审核结果：通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由，并在修改后再次申请发布。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationAppVersion.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationAppVersion.go
 func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationAppVersionResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -298,9 +298,9 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 //
 // - 查询应用的反馈数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/list
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/list
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationFeedback.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationFeedback.go
 func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*ListApplicationFeedbackResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -324,9 +324,9 @@ func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeed
 //
 // - 更新应用的反馈数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/patch
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/patch
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationFeedback.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationFeedback.go
 func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationFeedbackResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

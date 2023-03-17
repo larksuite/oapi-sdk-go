@@ -41,9 +41,9 @@ type image struct {
 //
 // - 注意：返回值为 -1 表示该功能还暂未实现
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/face_detection-v1/image/detect_face_attributes
+// - 官网 API 文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/face_detection-v1/image/detect_face_attributes
 //
-// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/face_detectionv1/detectFaceAttributes_image.go
+// - 使用 Demo 链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/face_detectionv1/detectFaceAttributes_image.go
 func (i *image) DetectFaceAttributes(ctx context.Context, req *DetectFaceAttributesImageReq, options ...larkcore.RequestOptionFunc) (*DetectFaceAttributesImageResp, error) {
 	// 发起请求
 	apiReq := req.apiReq

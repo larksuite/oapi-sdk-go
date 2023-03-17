@@ -27,45 +27,45 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateDraftUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateDraftUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateDraftOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateDraftUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateDraftUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateDraftOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateEntityUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateEntityUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateEntityOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetEntityUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetEntityUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetEntityOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListEntityUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListEntityUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListEntityOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeSearchEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeSearchEntityUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeSearchEntityUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeSearchEntityOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateEntityUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateEntityUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateEntityOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type Abbreviation struct {
@@ -526,7 +526,7 @@ func (builder *DraftBuilder) Build() *Draft {
 }
 
 type Entity struct {
-	Id       *string `json:"id,omitempty"`        // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+	Id       *string `json:"id,omitempty"`        // 词条 ID（需要更新某个词条时填写，若是创建新词条可不填写）
 	MainKeys []*Term `json:"main_keys,omitempty"` // 词条名
 
 	Aliases     []*Term      `json:"aliases,omitempty"`      // 别名
@@ -536,11 +536,11 @@ type Entity struct {
 	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
 	Statistics  *Statistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *OuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    *string      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	RichText    *string      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description 字段将会失效可不填写），支持的格式参考 [企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview) 中的释义部分
 }
 
 type EntityBuilder struct {
-	id           string // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+	id           string // 词条 ID（需要更新某个词条时填写，若是创建新词条可不填写）
 	idFlag       bool
 	mainKeys     []*Term // 词条名
 	mainKeysFlag bool
@@ -559,7 +559,7 @@ type EntityBuilder struct {
 	statisticsFlag  bool
 	outerInfo       *OuterInfo // 外部系统关联数据
 	outerInfoFlag   bool
-	richText        string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	richText        string // 富文本格式（当填写富文本内容时，description 字段将会失效可不填写），支持的格式参考 [企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview) 中的释义部分
 	richTextFlag    bool
 }
 
@@ -568,7 +568,7 @@ func NewEntityBuilder() *EntityBuilder {
 	return builder
 }
 
-// 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+// 词条 ID（需要更新某个词条时填写，若是创建新词条可不填写）
 //
 // 示例值：enterprise_40217521
 func (builder *EntityBuilder) Id(id string) *EntityBuilder {
@@ -597,7 +597,7 @@ func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 
 // 词条释义（纯文本格式）
 //
-// 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
+// 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过 UGC 的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -649,9 +649,9 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	return builder
 }
 
-// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+// 富文本格式（当填写富文本内容时，description 字段将会失效可不填写），支持的格式参考 [企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview) 中的释义部分
 //
-// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
+// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过 UGC 的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 	builder.richText = richText
 	builder.richTextFlag = true
@@ -1375,8 +1375,8 @@ func (builder *TermBuilder) Build() *Term {
 type WordInfo struct {
 	InputTotal                   *int     `json:"input_total,omitempty"`                       // 用户输入的总词汇量
 	DedupInputTotal              *int     `json:"dedup_input_total,omitempty"`                 // 用户输入的去重后的总词汇量
-	EachdayInput                 []int    `json:"eachday_input,omitempty"`                     // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	EachdayDedupInput            []int    `json:"eachday_dedup_input,omitempty"`               // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	EachdayInput                 []int    `json:"eachday_input,omitempty"`                     // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
+	EachdayDedupInput            []int    `json:"eachday_dedup_input,omitempty"`               // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
 	SendMessageTotal             *int     `json:"send_message_total,omitempty"`                // 发送的消息总数
 	SendEnMessageTotal           *int     `json:"send_en_message_total,omitempty"`             // 发送的英语消息总数
 	ReceiveMessageTotal          *int     `json:"receive_message_total,omitempty"`             // 接收消息的数量
@@ -1396,9 +1396,9 @@ type WordInfoBuilder struct {
 	inputTotalFlag                   bool
 	dedupInputTotal                  int // 用户输入的去重后的总词汇量
 	dedupInputTotalFlag              bool
-	eachdayInput                     []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayInput                     []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
 	eachdayInputFlag                 bool
-	eachdayDedupInput                []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayDedupInput                []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
 	eachdayDedupInputFlag            bool
 	sendMessageTotal                 int // 发送的消息总数
 	sendMessageTotalFlag             bool
@@ -1449,7 +1449,7 @@ func (builder *WordInfoBuilder) DedupInputTotal(dedupInputTotal int) *WordInfoBu
 	return builder
 }
 
-// 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+// 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
 //
 // 示例值：
 func (builder *WordInfoBuilder) EachdayInput(eachdayInput []int) *WordInfoBuilder {
@@ -1458,7 +1458,7 @@ func (builder *WordInfoBuilder) EachdayInput(eachdayInput []int) *WordInfoBuilde
 	return builder
 }
 
-// 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+// 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标 6 为昨天，下标 5 位前天以此类推
 //
 // 示例值：
 func (builder *WordInfoBuilder) EachdayDedupInput(eachdayDedupInput []int) *WordInfoBuilder {
@@ -1717,7 +1717,7 @@ func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder {
@@ -1780,7 +1780,7 @@ func (builder *UpdateDraftReqBuilder) DraftId(draftId string) *UpdateDraftReqBui
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraftReqBuilder {
@@ -1836,7 +1836,7 @@ func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder {
@@ -2018,7 +2018,7 @@ func (builder *GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqBuilder {
@@ -2053,7 +2053,7 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text     string // 需要识别百科词条的内容（不超过1000字）
+	text     string // 需要识别百科词条的内容（不超过 1000 字）
 	textFlag bool
 }
 
@@ -2062,7 +2062,7 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 	return builder
 }
 
-// 需要识别百科词条的内容（不超过1000字）
+// 需要识别百科词条的内容（不超过 1000 字）
 //
 //示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
@@ -2080,7 +2080,7 @@ func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 }
 
 type HighlightEntityPathReqBodyBuilder struct {
-	text     string // 需要识别百科词条的内容（不超过1000字）
+	text     string // 需要识别百科词条的内容（不超过 1000 字）
 	textFlag bool
 }
 
@@ -2089,7 +2089,7 @@ func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 	return builder
 }
 
-// 需要识别百科词条的内容（不超过1000字）
+// 需要识别百科词条的内容（不超过 1000 字）
 //
 // 示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
@@ -2134,7 +2134,7 @@ func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 }
 
 type HighlightEntityReqBody struct {
-	Text *string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）
+	Text *string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过 1000 字）
 }
 
 type HighlightEntityReq struct {
@@ -2200,7 +2200,7 @@ func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBui
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityReqBuilder {
@@ -2432,7 +2432,7 @@ func (builder *SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBu
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEntityReqBuilder {
@@ -2503,7 +2503,7 @@ func (builder *UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityRe
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEntityReqBuilder {
@@ -2665,7 +2665,7 @@ func (iterator *ListClassificationIterator) Next() (bool, *Classification, error
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2719,7 +2719,7 @@ func (iterator *ListEntityIterator) Next() (bool, *Entity, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -2773,7 +2773,7 @@ func (iterator *SearchEntityIterator) Next() (bool, *Entity, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

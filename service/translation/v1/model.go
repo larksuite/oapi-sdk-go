@@ -179,7 +179,7 @@ type TranslateTextReqBodyBuilder struct {
 	textFlag           bool
 	targetLanguage     string // 目标语言
 	targetLanguageFlag bool
-	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128 个术语词）
 	glossaryFlag       bool
 }
 
@@ -215,7 +215,7 @@ func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string
 	return builder
 }
 
-// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128 个术语词）
 //
 //示例值：
 func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextReqBodyBuilder {
@@ -248,7 +248,7 @@ type TranslateTextPathReqBodyBuilder struct {
 	textFlag           bool
 	targetLanguage     string // 目标语言
 	targetLanguageFlag bool
-	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128 个术语词）
 	glossaryFlag       bool
 }
 
@@ -284,7 +284,7 @@ func (builder *TranslateTextPathReqBodyBuilder) TargetLanguage(targetLanguage st
 	return builder
 }
 
-// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+// 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128 个术语词）
 //
 // 示例值：
 func (builder *TranslateTextPathReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextPathReqBodyBuilder {
@@ -341,7 +341,7 @@ type TranslateTextReqBody struct {
 	SourceLanguage *string `json:"source_language,omitempty"` // 源语言
 	Text           *string `json:"text,omitempty"`            // 源文本
 	TargetLanguage *string `json:"target_language,omitempty"` // 目标语言
-	Glossary       []*Term `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	Glossary       []*Term `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128 个术语词）
 }
 
 type TranslateTextReq struct {

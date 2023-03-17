@@ -31,66 +31,66 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetChatUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetChatUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetChatOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetChatUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetChatUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetChatOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	ValidityPeriodOneWeek     = "week"        // 有效期7天
-	ValidityPeriodOneYear     = "year"        // 有效期1年
+	ValidityPeriodOneWeek     = "week"        // 有效期 7 天
+	ValidityPeriodOneYear     = "year"        // 有效期 1 年
 	ValidityPeriodPermanently = "permanently" // 永久有效
 )
 
 const (
-	UserIdTypeListChatUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListChatUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListChatOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeListChatUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListChatUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListChatOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeSearchChatUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchChatUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchChatOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeSearchChatUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeSearchChatUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeSearchChatOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateChatUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateChatUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateChatOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateChatUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateChatUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateChatOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeGetChatAnnouncementUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetChatAnnouncementUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetChatAnnouncementOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetChatAnnouncementUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetChatAnnouncementUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetChatAnnouncementOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	MemberIdTypeUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeOpenId  = "open_id"  // 以open_id来识别成员
-	MemberIdTypeAppId   = "app_id"   // 以app_id来识别成员
+	MemberIdTypeUserId  = "user_id"  // 以 user_id 来识别成员
+	MemberIdTypeUnionId = "union_id" // 以 union_id 来识别成员
+	MemberIdTypeOpenId  = "open_id"  // 以 open_id 来识别成员
+	MemberIdTypeAppId   = "app_id"   // 以 app_id 来识别成员
 )
 
 const (
-	MemberIdTypeDeleteManagersChatManagersUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeDeleteManagersChatManagersUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeDeleteManagersChatManagersOpenId  = "open_id"  // 以open_id来识别成员
-	MemberIdTypeDeleteManagersChatManagersAppId   = "app_id"   // 以app_id来识别成员
+	MemberIdTypeDeleteManagersChatManagersUserId  = "user_id"  // 以 user_id 来识别成员
+	MemberIdTypeDeleteManagersChatManagersUnionId = "union_id" // 以 union_id 来识别成员
+	MemberIdTypeDeleteManagersChatManagersOpenId  = "open_id"  // 以 open_id 来识别成员
+	MemberIdTypeDeleteManagersChatManagersAppId   = "app_id"   // 以 app_id 来识别成员
 )
 
 const (
-	MemberIdTypeCreateChatMembersUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeCreateChatMembersUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeCreateChatMembersOpenId  = "open_id"  // 以open_id来识别成员
-	MemberIdTypeCreateChatMembersAppId   = "app_id"   // 以app_id来识别成员
+	MemberIdTypeCreateChatMembersUserId  = "user_id"  // 以 user_id 来识别成员
+	MemberIdTypeCreateChatMembersUnionId = "union_id" // 以 union_id 来识别成员
+	MemberIdTypeCreateChatMembersOpenId  = "open_id"  // 以 open_id 来识别成员
+	MemberIdTypeCreateChatMembersAppId   = "app_id"   // 以 app_id 来识别成员
 )
 
 const (
@@ -101,38 +101,38 @@ const (
 )
 
 const (
-	MemberIdTypeDeleteChatMembersUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeDeleteChatMembersUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeDeleteChatMembersOpenId  = "open_id"  // 以open_id来识别成员
-	MemberIdTypeDeleteChatMembersAppId   = "app_id"   // 以app_id来识别成员
+	MemberIdTypeDeleteChatMembersUserId  = "user_id"  // 以 user_id 来识别成员
+	MemberIdTypeDeleteChatMembersUnionId = "union_id" // 以 union_id 来识别成员
+	MemberIdTypeDeleteChatMembersOpenId  = "open_id"  // 以 open_id 来识别成员
+	MemberIdTypeDeleteChatMembersAppId   = "app_id"   // 以 app_id 来识别成员
 )
 
 const (
-	MemberIdTypeGetChatMembersUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeGetChatMembersUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeGetChatMembersOpenId  = "open_id"  // 以open_id来识别成员
+	MemberIdTypeGetChatMembersUserId  = "user_id"  // 以 user_id 来识别成员
+	MemberIdTypeGetChatMembersUnionId = "union_id" // 以 union_id 来识别成员
+	MemberIdTypeGetChatMembersOpenId  = "open_id"  // 以 open_id 来识别成员
 )
 
 const (
-	UserIdTypeGetChatModerationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetChatModerationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetChatModerationOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetChatModerationUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetChatModerationUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetChatModerationOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUpdateChatModerationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateChatModerationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateChatModerationOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUpdateChatModerationUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUpdateChatModerationUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUpdateChatModerationOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	FileTypeOpus   = "opus"   // 上传opus音频文件
-	FileTypeMp4    = "mp4"    // 上传mp4视频文件
-	FileTypePdf    = "pdf"    // 上传pdf格式文件
-	FileTypeDoc    = "doc"    // 上传doc格式文件
-	FileTypeXls    = "xls"    // 上传xls格式文件
-	FileTypePpt    = "ppt"    // 上传ppt格式文件
-	FileTypeStream = "stream" // 上传stream格式文件
+	FileTypeOpus   = "opus"   // 上传 opus 音频文件
+	FileTypeMp4    = "mp4"    // 上传 mp4 视频文件
+	FileTypePdf    = "pdf"    // 上传 pdf 格式文件
+	FileTypeDoc    = "doc"    // 上传 doc 格式文件
+	FileTypeXls    = "xls"    // 上传 xls 格式文件
+	FileTypePpt    = "ppt"    // 上传 ppt 格式文件
+	FileTypeStream = "stream" // 上传 stream 格式文件
 )
 
 const (
@@ -141,35 +141,35 @@ const (
 )
 
 const (
-	ReceiveIdTypeOpenId  = "open_id"  // 以open_id来识别用户
-	ReceiveIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	ReceiveIdTypeUnionId = "union_id" // 以union_id来识别用户
-	ReceiveIdTypeEmail   = "email"    // 以email来识别用户
-	ReceiveIdTypeChatId  = "chat_id"  // 以chat_id来识别群聊
+	ReceiveIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+	ReceiveIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ReceiveIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ReceiveIdTypeEmail   = "email"    // 以 email 来识别用户
+	ReceiveIdTypeChatId  = "chat_id"  // 以 chat_id 来识别群聊
 )
 
 const (
-	UserIdTypeReadUsersMessageUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReadUsersMessageUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReadUsersMessageOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeReadUsersMessageUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeReadUsersMessageUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeReadUsersMessageOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUrgentAppMessageUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUrgentAppMessageUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUrgentAppMessageOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUrgentAppMessageUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUrgentAppMessageUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUrgentAppMessageOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUrgentPhoneMessageUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUrgentPhoneMessageUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUrgentPhoneMessageOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUrgentPhoneMessageUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUrgentPhoneMessageUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUrgentPhoneMessageOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeUrgentSmsMessageUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUrgentSmsMessageUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUrgentSmsMessageOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUrgentSmsMessageUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUrgentSmsMessageUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeUrgentSmsMessageOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -209,7 +209,7 @@ func (builder *BatchMessageBuilder) BatchMessageId(batchMessageId string) *Batch
 
 // 发送进度
 //
-// 示例值：json结构
+// 示例值：json 结构
 func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSendProgress) *BatchMessageBuilder {
 	builder.batchSendProgress = batchSendProgress
 	builder.batchSendProgressFlag = true
@@ -218,7 +218,7 @@ func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSe
 
 // 撤回进度
 //
-// 示例值：json结构
+// 示例值：json 结构
 func (builder *BatchMessageBuilder) BatchRecallProgress(batchRecallProgress *BatchRecallProgress) *BatchMessageBuilder {
 	builder.batchRecallProgress = batchRecallProgress
 	builder.batchRecallProgressFlag = true
@@ -337,15 +337,15 @@ func (builder *BatchMessageRecallProgressBuilder) Build() *BatchMessageRecallPro
 }
 
 type BatchMessageSendProgress struct {
-	ValidUserIdsCount   *int `json:"valid_user_ids_count,omitempty"`   // 批量请求中有效的userid数量(包含机器人不可见用户);;;;**注意**： ;当valid_user_ids_count为0有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
-	SuccessUserIdsCount *int `json:"success_user_ids_count,omitempty"` // 已经成功给用户发送成功的消息数量;;;;**注意**：最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
+	ValidUserIdsCount   *int `json:"valid_user_ids_count,omitempty"`   // 批量请求中有效的 userid 数量 (包含机器人不可见用户);;;;** 注意 **： ;当 valid_user_ids_count 为 0 有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有 openIDs、employeID、departmentiIDs 都不包含有效的用户
+	SuccessUserIdsCount *int `json:"success_user_ids_count,omitempty"` // 已经成功给用户发送成功的消息数量;;;;** 注意 **：最终 success_user_ids_count 不一定等于 valid_user_ids_count，因为 valid_user_ids_count 包含了对机器人不可见的用户
 	ReadUserIdsCount    *int `json:"read_user_ids_count,omitempty"`    // 已读信息用户数量
 }
 
 type BatchMessageSendProgressBuilder struct {
-	validUserIdsCount       int // 批量请求中有效的userid数量(包含机器人不可见用户);;;;**注意**： ;当valid_user_ids_count为0有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
+	validUserIdsCount       int // 批量请求中有效的 userid 数量 (包含机器人不可见用户);;;;** 注意 **： ;当 valid_user_ids_count 为 0 有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有 openIDs、employeID、departmentiIDs 都不包含有效的用户
 	validUserIdsCountFlag   bool
-	successUserIdsCount     int // 已经成功给用户发送成功的消息数量;;;;**注意**：最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
+	successUserIdsCount     int // 已经成功给用户发送成功的消息数量;;;;** 注意 **：最终 success_user_ids_count 不一定等于 valid_user_ids_count，因为 valid_user_ids_count 包含了对机器人不可见的用户
 	successUserIdsCountFlag bool
 	readUserIdsCount        int // 已读信息用户数量
 	readUserIdsCountFlag    bool
@@ -356,7 +356,7 @@ func NewBatchMessageSendProgressBuilder() *BatchMessageSendProgressBuilder {
 	return builder
 }
 
-// 批量请求中有效的userid数量(包含机器人不可见用户);;;;**注意**： ;当valid_user_ids_count为0有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
+// 批量请求中有效的 userid 数量 (包含机器人不可见用户);;;;** 注意 **： ;当 valid_user_ids_count 为 0 有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有 openIDs、employeID、departmentiIDs 都不包含有效的用户
 //
 // 示例值：204
 func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCount int) *BatchMessageSendProgressBuilder {
@@ -365,7 +365,7 @@ func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCo
 	return builder
 }
 
-// 已经成功给用户发送成功的消息数量;;;;**注意**：最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
+// 已经成功给用户发送成功的消息数量;;;;** 注意 **：最终 success_user_ids_count 不一定等于 valid_user_ids_count，因为 valid_user_ids_count 包含了对机器人不可见的用户
 //
 // 示例值：200
 func (builder *BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserIdsCount int) *BatchMessageSendProgressBuilder {
@@ -693,11 +693,11 @@ type ChatAnnouncement struct {
 }
 
 type ChatManagers struct {
-	ManagerId *string `json:"manager_id,omitempty"` // 群管理员ID
+	ManagerId *string `json:"manager_id,omitempty"` // 群管理员 ID
 }
 
 type ChatManagersBuilder struct {
-	managerId     string // 群管理员ID
+	managerId     string // 群管理员 ID
 	managerIdFlag bool
 }
 
@@ -706,7 +706,7 @@ func NewChatManagersBuilder() *ChatManagersBuilder {
 	return builder
 }
 
-// 群管理员ID
+// 群管理员 ID
 //
 // 示例值：
 func (builder *ChatManagersBuilder) ManagerId(managerId string) *ChatManagersBuilder {
@@ -790,14 +790,14 @@ func (builder *ChatMemberBotBuilder) Build() *ChatMemberBot {
 
 type ChatMemberUser struct {
 	Name      *string `json:"name,omitempty"`       // 用户名字
-	TenantKey *string `json:"tenant_key,omitempty"` // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	TenantKey *string `json:"tenant_key,omitempty"` // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	UserId    *UserId `json:"user_id,omitempty"`    // 用户 ID
 }
 
 type ChatMemberUserBuilder struct {
 	name          string // 用户名字
 	nameFlag      bool
-	tenantKey     string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKey     string // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	tenantKeyFlag bool
 	userId        *UserId // 用户 ID
 	userIdFlag    bool
@@ -817,7 +817,7 @@ func (builder *ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder {
 	return builder
 }
 
-// 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+// 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 //
 // 示例值：3774yuu3743
 func (builder *ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUserBuilder {
@@ -916,22 +916,22 @@ func (builder *ChatMenuTreeBuilder) Build() *ChatMenuTree {
 
 type ChatTab struct {
 	TabId      *string         `json:"tab_id,omitempty"`      // Tab ID
-	TabName    *string         `json:"tab_name,omitempty"`    // Tab名称;;**注意**：会话标签页的名称不能超过30个字符
-	TabType    *string         `json:"tab_type,omitempty"`    // Tab类型
-	TabContent *ChatTabContent `json:"tab_content,omitempty"` // Tab内容
-	TabConfig  *ChatTabConfig  `json:"tab_config,omitempty"`  // Tab的配置
+	TabName    *string         `json:"tab_name,omitempty"`    // Tab 名称;;** 注意 **：会话标签页的名称不能超过 30 个字符
+	TabType    *string         `json:"tab_type,omitempty"`    // Tab 类型
+	TabContent *ChatTabContent `json:"tab_content,omitempty"` // Tab 内容
+	TabConfig  *ChatTabConfig  `json:"tab_config,omitempty"`  // Tab 的配置
 }
 
 type ChatTabBuilder struct {
 	tabId          string // Tab ID
 	tabIdFlag      bool
-	tabName        string // Tab名称;;**注意**：会话标签页的名称不能超过30个字符
+	tabName        string // Tab 名称;;** 注意 **：会话标签页的名称不能超过 30 个字符
 	tabNameFlag    bool
-	tabType        string // Tab类型
+	tabType        string // Tab 类型
 	tabTypeFlag    bool
-	tabContent     *ChatTabContent // Tab内容
+	tabContent     *ChatTabContent // Tab 内容
 	tabContentFlag bool
-	tabConfig      *ChatTabConfig // Tab的配置
+	tabConfig      *ChatTabConfig // Tab 的配置
 	tabConfigFlag  bool
 }
 
@@ -949,7 +949,7 @@ func (builder *ChatTabBuilder) TabId(tabId string) *ChatTabBuilder {
 	return builder
 }
 
-// Tab名称;;**注意**：会话标签页的名称不能超过30个字符
+// Tab 名称;;** 注意 **：会话标签页的名称不能超过 30 个字符
 //
 // 示例值：文档
 func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
@@ -958,7 +958,7 @@ func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
 	return builder
 }
 
-// Tab类型
+// Tab 类型
 //
 // 示例值：doc
 func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
@@ -967,7 +967,7 @@ func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
 	return builder
 }
 
-// Tab内容
+// Tab 内容
 //
 // 示例值：
 func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBuilder {
@@ -976,7 +976,7 @@ func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBu
 	return builder
 }
 
-// Tab的配置
+// Tab 的配置
 //
 // 示例值：
 func (builder *ChatTabBuilder) TabConfig(tabConfig *ChatTabConfig) *ChatTabBuilder {
@@ -1009,14 +1009,14 @@ func (builder *ChatTabBuilder) Build() *ChatTab {
 }
 
 type ChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型;;**注意**：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
-	MessageId  *string `json:"message_id,omitempty"`  // 消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ActionType *string `json:"action_type,omitempty"` // 置顶的类型;;** 注意 **：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
+	MessageId  *string `json:"message_id,omitempty"`  // 消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 }
 
 type ChatTopNoticeBuilder struct {
-	actionType     string // 置顶的类型;;**注意**：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
+	actionType     string // 置顶的类型;;** 注意 **：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
 	actionTypeFlag bool
-	messageId      string // 消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageId      string // 消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	messageIdFlag  bool
 }
 
@@ -1025,7 +1025,7 @@ func NewChatTopNoticeBuilder() *ChatTopNoticeBuilder {
 	return builder
 }
 
-// 置顶的类型;;**注意**：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
+// 置顶的类型;;** 注意 **：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
 //
 // 示例值：2
 func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNoticeBuilder {
@@ -1034,7 +1034,7 @@ func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNotic
 	return builder
 }
 
-// 消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *ChatTopNoticeBuilder) MessageId(messageId string) *ChatTopNoticeBuilder {
@@ -1061,14 +1061,14 @@ type ChatChange struct {
 	Name                   *string    `json:"name,omitempty"`                     // 群名称
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
-	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
-	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
-	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 加人入群权限 (all_members/only_owner/unknown)
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限 (allowed/not_allowed/unknown)
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限 (all_members/only_owner/unknown)
+	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限 (all_members/only_owner/unknown)
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批 (no_approval_required/approval_required)
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性 (only_owner/all_members/not_anyone)
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性 (only_owner/all_members/not_anyone)
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限 (all_members/only_owner)
 	OwnerId                *UserId    `json:"owner_id,omitempty"`                 // 用户 ID
 
 }
@@ -1082,21 +1082,21 @@ type ChatChangeBuilder struct {
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	addMemberPermission        string // 加人入群权限(all_members/only_owner/unknown)
+	addMemberPermission        string // 加人入群权限 (all_members/only_owner/unknown)
 	addMemberPermissionFlag    bool
-	shareCardPermission        string // 群分享权限(allowed/not_allowed/unknown)
+	shareCardPermission        string // 群分享权限 (allowed/not_allowed/unknown)
 	shareCardPermissionFlag    bool
-	atAllPermission            string // at 所有人权限(all_members/only_owner/unknown)
+	atAllPermission            string // at 所有人权限 (all_members/only_owner/unknown)
 	atAllPermissionFlag        bool
-	editPermission             string // 群编辑权限(all_members/only_owner/unknown)
+	editPermission             string // 群编辑权限 (all_members/only_owner/unknown)
 	editPermissionFlag         bool
-	membershipApproval         string // 加群审批(no_approval_required/approval_required)
+	membershipApproval         string // 加群审批 (no_approval_required/approval_required)
 	membershipApprovalFlag     bool
-	joinMessageVisibility      string // 入群消息可见性(only_owner/all_members/not_anyone)
+	joinMessageVisibility      string // 入群消息可见性 (only_owner/all_members/not_anyone)
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string // 出群消息可见性(only_owner/all_members/not_anyone)
+	leaveMessageVisibility     string // 出群消息可见性 (only_owner/all_members/not_anyone)
 	leaveMessageVisibilityFlag bool
-	moderationPermission       string // 发言权限(all_members/only_owner)
+	moderationPermission       string // 发言权限 (all_members/only_owner)
 	moderationPermissionFlag   bool
 	ownerId                    *UserId // 用户 ID
 	ownerIdFlag                bool
@@ -1143,7 +1143,7 @@ func (builder *ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBui
 	return builder
 }
 
-// 加人入群权限(all_members/only_owner/unknown)
+// 加人入群权限 (all_members/only_owner/unknown)
 //
 // 示例值：all_members
 func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string) *ChatChangeBuilder {
@@ -1152,7 +1152,7 @@ func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string
 	return builder
 }
 
-// 群分享权限(allowed/not_allowed/unknown)
+// 群分享权限 (allowed/not_allowed/unknown)
 //
 // 示例值：allowed
 func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string) *ChatChangeBuilder {
@@ -1161,7 +1161,7 @@ func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string
 	return builder
 }
 
-// at 所有人权限(all_members/only_owner/unknown)
+// at 所有人权限 (all_members/only_owner/unknown)
 //
 // 示例值：only_owner
 func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatChangeBuilder {
@@ -1170,7 +1170,7 @@ func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatC
 	return builder
 }
 
-// 群编辑权限(all_members/only_owner/unknown)
+// 群编辑权限 (all_members/only_owner/unknown)
 //
 // 示例值：all_members
 func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatChangeBuilder {
@@ -1179,7 +1179,7 @@ func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatCha
 	return builder
 }
 
-// 加群审批(no_approval_required/approval_required)
+// 加群审批 (no_approval_required/approval_required)
 //
 // 示例值：approval_required
 func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) *ChatChangeBuilder {
@@ -1188,7 +1188,7 @@ func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) 
 	return builder
 }
 
-// 入群消息可见性(only_owner/all_members/not_anyone)
+// 入群消息可见性 (only_owner/all_members/not_anyone)
 //
 // 示例值：all_members
 func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility string) *ChatChangeBuilder {
@@ -1197,7 +1197,7 @@ func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility st
 	return builder
 }
 
-// 出群消息可见性(only_owner/all_members/not_anyone)
+// 出群消息可见性 (only_owner/all_members/not_anyone)
 //
 // 示例值：all_members
 func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *ChatChangeBuilder {
@@ -1206,7 +1206,7 @@ func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility 
 	return builder
 }
 
-// 发言权限(all_members/only_owner)
+// 发言权限 (all_members/only_owner)
 //
 // 示例值：all_members
 func (builder *ChatChangeBuilder) ModerationPermission(moderationPermission string) *ChatChangeBuilder {
@@ -1283,9 +1283,9 @@ func (builder *ChatChangeBuilder) Build() *ChatChange {
 type ChatMenuItem struct {
 	ActionType   *string                   `json:"action_type,omitempty"`   // 菜单类型
 	RedirectLink *ChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     *string                   `json:"image_key,omitempty"`     // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	Name         *string                   `json:"name,omitempty"`          // 名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	I18nNames    *I18nNames                `json:"i18n_names,omitempty"`    // 国际化名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;**注意：**;- 1中文=2英文=2其他语言字符=2字符
+	ImageKey     *string                   `json:"image_key,omitempty"`     // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key
+	Name         *string                   `json:"name,omitempty"`          // 名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;;** 注意：** ;- 1 中文=2 英文=2 其他语言字符=2 字符
+	I18nNames    *I18nNames                `json:"i18n_names,omitempty"`    // 国际化名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;** 注意：**;- 1 中文=2 英文=2 其他语言字符=2 字符
 }
 
 type ChatMenuItemBuilder struct {
@@ -1293,11 +1293,11 @@ type ChatMenuItemBuilder struct {
 	actionTypeFlag   bool
 	redirectLink     *ChatMenuItemRedirectLink // 跳转链接
 	redirectLinkFlag bool
-	imageKey         string // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
+	imageKey         string // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key
 	imageKeyFlag     bool
-	name             string // 名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	name             string // 名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;;** 注意：** ;- 1 中文=2 英文=2 其他语言字符=2 字符
 	nameFlag         bool
-	i18nNames        *I18nNames // 国际化名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;**注意：**;- 1中文=2英文=2其他语言字符=2字符
+	i18nNames        *I18nNames // 国际化名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;** 注意：**;- 1 中文=2 英文=2 其他语言字符=2 字符
 	i18nNamesFlag    bool
 }
 
@@ -1324,7 +1324,7 @@ func (builder *ChatMenuItemBuilder) RedirectLink(redirectLink *ChatMenuItemRedir
 	return builder
 }
 
-// image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
+// image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key
 //
 // 示例值：img_v2_b0fbe905-7988-4282-b882-82edd010336j
 func (builder *ChatMenuItemBuilder) ImageKey(imageKey string) *ChatMenuItemBuilder {
@@ -1333,7 +1333,7 @@ func (builder *ChatMenuItemBuilder) ImageKey(imageKey string) *ChatMenuItemBuild
 	return builder
 }
 
-// 名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+// 名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;;** 注意：** ;- 1 中文=2 英文=2 其他语言字符=2 字符
 //
 // 示例值：群聊
 func (builder *ChatMenuItemBuilder) Name(name string) *ChatMenuItemBuilder {
@@ -1342,7 +1342,7 @@ func (builder *ChatMenuItemBuilder) Name(name string) *ChatMenuItemBuilder {
 	return builder
 }
 
-// 国际化名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;**注意：**;- 1中文=2英文=2其他语言字符=2字符
+// 国际化名称，一级菜单名称字符数要在 1 到 8 范围内，二级菜单名称字符数要在 1 到 24 范围内;;** 注意：**;- 1 中文=2 英文=2 其他语言字符=2 字符
 //
 // 示例值：
 func (builder *ChatMenuItemBuilder) I18nNames(i18nNames *I18nNames) *ChatMenuItemBuilder {
@@ -1375,23 +1375,23 @@ func (builder *ChatMenuItemBuilder) Build() *ChatMenuItem {
 }
 
 type ChatMenuItemRedirectLink struct {
-	CommonUrl  *string `json:"common_url,omitempty"`  // 公用跳转链接，必须以http开头。
-	IosUrl     *string `json:"ios_url,omitempty"`     // IOS端跳转链接，当该字段不设置时，IOS端会使用common_url。必须以http开头。
-	AndroidUrl *string `json:"android_url,omitempty"` // Android端跳转链接，当该字段不设置时，Android端会使用common_url。必须以http开头。
-	PcUrl      *string `json:"pc_url,omitempty"`      // PC端跳转链接，当该字段不设置时，PC端会使用common_url。必须以http开头。
-	WebUrl     *string `json:"web_url,omitempty"`     // Web端跳转链接，当该字段不设置时，Web端会使用common_url。必须以http开头。
+	CommonUrl  *string `json:"common_url,omitempty"`  // 公用跳转链接，必须以 http 开头。
+	IosUrl     *string `json:"ios_url,omitempty"`     // IOS 端跳转链接，当该字段不设置时，IOS 端会使用 common_url。必须以 http 开头。
+	AndroidUrl *string `json:"android_url,omitempty"` // Android 端跳转链接，当该字段不设置时，Android 端会使用 common_url。必须以 http 开头。
+	PcUrl      *string `json:"pc_url,omitempty"`      // PC 端跳转链接，当该字段不设置时，PC 端会使用 common_url。必须以 http 开头。
+	WebUrl     *string `json:"web_url,omitempty"`     // Web 端跳转链接，当该字段不设置时，Web 端会使用 common_url。必须以 http 开头。
 }
 
 type ChatMenuItemRedirectLinkBuilder struct {
-	commonUrl      string // 公用跳转链接，必须以http开头。
+	commonUrl      string // 公用跳转链接，必须以 http 开头。
 	commonUrlFlag  bool
-	iosUrl         string // IOS端跳转链接，当该字段不设置时，IOS端会使用common_url。必须以http开头。
+	iosUrl         string // IOS 端跳转链接，当该字段不设置时，IOS 端会使用 common_url。必须以 http 开头。
 	iosUrlFlag     bool
-	androidUrl     string // Android端跳转链接，当该字段不设置时，Android端会使用common_url。必须以http开头。
+	androidUrl     string // Android 端跳转链接，当该字段不设置时，Android 端会使用 common_url。必须以 http 开头。
 	androidUrlFlag bool
-	pcUrl          string // PC端跳转链接，当该字段不设置时，PC端会使用common_url。必须以http开头。
+	pcUrl          string // PC 端跳转链接，当该字段不设置时，PC 端会使用 common_url。必须以 http 开头。
 	pcUrlFlag      bool
-	webUrl         string // Web端跳转链接，当该字段不设置时，Web端会使用common_url。必须以http开头。
+	webUrl         string // Web 端跳转链接，当该字段不设置时，Web 端会使用 common_url。必须以 http 开头。
 	webUrlFlag     bool
 }
 
@@ -1400,7 +1400,7 @@ func NewChatMenuItemRedirectLinkBuilder() *ChatMenuItemRedirectLinkBuilder {
 	return builder
 }
 
-// 公用跳转链接，必须以http开头。
+// 公用跳转链接，必须以 http 开头。
 //
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) CommonUrl(commonUrl string) *ChatMenuItemRedirectLinkBuilder {
@@ -1409,7 +1409,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) CommonUrl(commonUrl string) *Cha
 	return builder
 }
 
-// IOS端跳转链接，当该字段不设置时，IOS端会使用common_url。必须以http开头。
+// IOS 端跳转链接，当该字段不设置时，IOS 端会使用 common_url。必须以 http 开头。
 //
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) IosUrl(iosUrl string) *ChatMenuItemRedirectLinkBuilder {
@@ -1418,7 +1418,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) IosUrl(iosUrl string) *ChatMenuI
 	return builder
 }
 
-// Android端跳转链接，当该字段不设置时，Android端会使用common_url。必须以http开头。
+// Android 端跳转链接，当该字段不设置时，Android 端会使用 common_url。必须以 http 开头。
 //
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) AndroidUrl(androidUrl string) *ChatMenuItemRedirectLinkBuilder {
@@ -1427,7 +1427,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) AndroidUrl(androidUrl string) *C
 	return builder
 }
 
-// PC端跳转链接，当该字段不设置时，PC端会使用common_url。必须以http开头。
+// PC 端跳转链接，当该字段不设置时，PC 端会使用 common_url。必须以 http 开头。
 //
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) PcUrl(pcUrl string) *ChatMenuItemRedirectLinkBuilder {
@@ -1436,7 +1436,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) PcUrl(pcUrl string) *ChatMenuIte
 	return builder
 }
 
-// Web端跳转链接，当该字段不设置时，Web端会使用common_url。必须以http开头。
+// Web 端跳转链接，当该字段不设置时，Web 端会使用 common_url。必须以 http 开头。
 //
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) WebUrl(webUrl string) *ChatMenuItemRedirectLinkBuilder {
@@ -1471,12 +1471,12 @@ func (builder *ChatMenuItemRedirectLinkBuilder) Build() *ChatMenuItemRedirectLin
 }
 
 type ChatMenuSecondLevel struct {
-	ChatMenuSecondLevelId *string       `json:"chat_menu_second_level_id,omitempty"` // 二级菜单ID
+	ChatMenuSecondLevelId *string       `json:"chat_menu_second_level_id,omitempty"` // 二级菜单 ID
 	ChatMenuItem          *ChatMenuItem `json:"chat_menu_item,omitempty"`            // 二级菜单信息
 }
 
 type ChatMenuSecondLevelBuilder struct {
-	chatMenuSecondLevelId     string // 二级菜单ID
+	chatMenuSecondLevelId     string // 二级菜单 ID
 	chatMenuSecondLevelIdFlag bool
 	chatMenuItem              *ChatMenuItem // 二级菜单信息
 	chatMenuItemFlag          bool
@@ -1487,7 +1487,7 @@ func NewChatMenuSecondLevelBuilder() *ChatMenuSecondLevelBuilder {
 	return builder
 }
 
-// 二级菜单ID
+// 二级菜单 ID
 //
 // 示例值：7039638308221468675
 func (builder *ChatMenuSecondLevelBuilder) ChatMenuSecondLevelId(chatMenuSecondLevelId string) *ChatMenuSecondLevelBuilder {
@@ -1518,13 +1518,13 @@ func (builder *ChatMenuSecondLevelBuilder) Build() *ChatMenuSecondLevel {
 }
 
 type ChatMenuTopLevel struct {
-	ChatMenuTopLevelId *string                `json:"chat_menu_top_level_id,omitempty"` // 一级菜单ID
+	ChatMenuTopLevelId *string                `json:"chat_menu_top_level_id,omitempty"` // 一级菜单 ID
 	ChatMenuItem       *ChatMenuItem          `json:"chat_menu_item,omitempty"`         // 一级菜单信息
 	Children           []*ChatMenuSecondLevel `json:"children,omitempty"`               // 二级菜单列表
 }
 
 type ChatMenuTopLevelBuilder struct {
-	chatMenuTopLevelId     string // 一级菜单ID
+	chatMenuTopLevelId     string // 一级菜单 ID
 	chatMenuTopLevelIdFlag bool
 	chatMenuItem           *ChatMenuItem // 一级菜单信息
 	chatMenuItemFlag       bool
@@ -1537,7 +1537,7 @@ func NewChatMenuTopLevelBuilder() *ChatMenuTopLevelBuilder {
 	return builder
 }
 
-// 一级菜单ID
+// 一级菜单 ID
 //
 // 示例值：7117116451961487361
 func (builder *ChatMenuTopLevelBuilder) ChatMenuTopLevelId(chatMenuTopLevelId string) *ChatMenuTopLevelBuilder {
@@ -1580,14 +1580,14 @@ func (builder *ChatMenuTopLevelBuilder) Build() *ChatMenuTopLevel {
 }
 
 type ChatTabConfig struct {
-	IconKey   *string `json:"icon_key,omitempty"`    // 群Tab图标
-	IsBuiltIn *bool   `json:"is_built_in,omitempty"` // 群tab是否App内嵌打开
+	IconKey   *string `json:"icon_key,omitempty"`    // 群 Tab 图标
+	IsBuiltIn *bool   `json:"is_built_in,omitempty"` // 群 tab 是否 App 内嵌打开
 }
 
 type ChatTabConfigBuilder struct {
-	iconKey       string // 群Tab图标
+	iconKey       string // 群 Tab 图标
 	iconKeyFlag   bool
-	isBuiltIn     bool // 群tab是否App内嵌打开
+	isBuiltIn     bool // 群 tab 是否 App 内嵌打开
 	isBuiltInFlag bool
 }
 
@@ -1596,7 +1596,7 @@ func NewChatTabConfigBuilder() *ChatTabConfigBuilder {
 	return builder
 }
 
-// 群Tab图标
+// 群 Tab 图标
 //
 // 示例值：img_v2_b99741-7628-4abd-aad0-b881e4db83ig
 func (builder *ChatTabConfigBuilder) IconKey(iconKey string) *ChatTabConfigBuilder {
@@ -1605,7 +1605,7 @@ func (builder *ChatTabConfigBuilder) IconKey(iconKey string) *ChatTabConfigBuild
 	return builder
 }
 
-// 群tab是否App内嵌打开
+// 群 tab 是否 App 内嵌打开
 //
 // 示例值：false
 func (builder *ChatTabConfigBuilder) IsBuiltIn(isBuiltIn bool) *ChatTabConfigBuilder {
@@ -1628,15 +1628,15 @@ func (builder *ChatTabConfigBuilder) Build() *ChatTabConfig {
 }
 
 type ChatTabContent struct {
-	Url           *string `json:"url,omitempty"`            // URL类型
-	Doc           *string `json:"doc,omitempty"`            // Doc链接
+	Url           *string `json:"url,omitempty"`            // URL 类型
+	Doc           *string `json:"doc,omitempty"`            // Doc 链接
 	MeetingMinute *string `json:"meeting_minute,omitempty"` // 会议纪要
 }
 
 type ChatTabContentBuilder struct {
-	url               string // URL类型
+	url               string // URL 类型
 	urlFlag           bool
-	doc               string // Doc链接
+	doc               string // Doc 链接
 	docFlag           bool
 	meetingMinute     string // 会议纪要
 	meetingMinuteFlag bool
@@ -1647,7 +1647,7 @@ func NewChatTabContentBuilder() *ChatTabContentBuilder {
 	return builder
 }
 
-// URL类型
+// URL 类型
 //
 // 示例值：https://www.feishu.cn
 func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
@@ -1656,7 +1656,7 @@ func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
 	return builder
 }
 
-// Doc链接
+// Doc 链接
 //
 // 示例值：https://bytedance.feishu.cn/wiki/wikcnPIcqWjJQwkwDzrB9t40123xz
 func (builder *ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder {
@@ -1692,14 +1692,14 @@ func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
 }
 
 type Crc32Item struct {
-	PartId *string `json:"part_id,omitempty"` // 分片编号（1开始）
-	Crc32  *string `json:"crc32,omitempty"`   // crc32校验
+	PartId *string `json:"part_id,omitempty"` // 分片编号（1 开始）
+	Crc32  *string `json:"crc32,omitempty"`   // crc32 校验
 }
 
 type Crc32ItemBuilder struct {
-	partId     string // 分片编号（1开始）
+	partId     string // 分片编号（1 开始）
 	partIdFlag bool
-	crc32      string // crc32校验
+	crc32      string // crc32 校验
 	crc32Flag  bool
 }
 
@@ -1708,7 +1708,7 @@ func NewCrc32ItemBuilder() *Crc32ItemBuilder {
 	return builder
 }
 
-// 分片编号（1开始）
+// 分片编号（1 开始）
 //
 // 示例值：1
 func (builder *Crc32ItemBuilder) PartId(partId string) *Crc32ItemBuilder {
@@ -1717,7 +1717,7 @@ func (builder *Crc32ItemBuilder) PartId(partId string) *Crc32ItemBuilder {
 	return builder
 }
 
-// crc32校验
+// crc32 校验
 //
 // 示例值：12342388237783212356
 func (builder *Crc32ItemBuilder) Crc32(crc32 string) *Crc32ItemBuilder {
@@ -1740,11 +1740,11 @@ func (builder *Crc32ItemBuilder) Build() *Crc32Item {
 }
 
 type Emoji struct {
-	EmojiType *string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	EmojiType *string `json:"emoji_type,omitempty"` // emoji 类型 [emoji 类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
 }
 
 type EmojiBuilder struct {
-	emojiType     string // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	emojiType     string // emoji 类型 [emoji 类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
 	emojiTypeFlag bool
 }
 
@@ -1753,7 +1753,7 @@ func NewEmojiBuilder() *EmojiBuilder {
 	return builder
 }
 
-// emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+// emoji 类型 [emoji 类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
 //
 // 示例值：SMILE
 func (builder *EmojiBuilder) EmojiType(emojiType string) *EmojiBuilder {
@@ -1772,33 +1772,33 @@ func (builder *EmojiBuilder) Build() *Emoji {
 }
 
 type EventMessage struct {
-	MessageId   *string         `json:"message_id,omitempty"`   // 消息的open_message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootId      *string         `json:"root_id,omitempty"`      // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentId    *string         `json:"parent_id,omitempty"`    // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MessageId   *string         `json:"message_id,omitempty"`   // 消息的 open_message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	RootId      *string         `json:"root_id,omitempty"`      // 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentId    *string         `json:"parent_id,omitempty"`    // 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	CreateTime  *string         `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
 	ChatId      *string         `json:"chat_id,omitempty"`      // 消息所在的群组 ID
-	ChatType    *string         `json:"chat_type,omitempty"`    // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
+	ChatType    *string         `json:"chat_type,omitempty"`    // 消息所在的群组类型;;** 可选值有 **：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
 	MessageType *string         `json:"message_type,omitempty"` // 消息类型
-	Content     *string         `json:"content,omitempty"`      // 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	Content     *string         `json:"content,omitempty"`      // 消息内容，json 格式 ;[各类型消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	Mentions    []*MentionEvent `json:"mentions,omitempty"`     // 被提及用户的信息
 }
 
 type EventMessageBuilder struct {
-	messageId       string // 消息的open_message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageId       string // 消息的 open_message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	messageIdFlag   bool
-	rootId          string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	rootId          string // 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	rootIdFlag      bool
-	parentId        string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	parentId        string // 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	parentIdFlag    bool
 	createTime      string // 消息发送时间（毫秒）
 	createTimeFlag  bool
 	chatId          string // 消息所在的群组 ID
 	chatIdFlag      bool
-	chatType        string // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
+	chatType        string // 消息所在的群组类型;;** 可选值有 **：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
 	chatTypeFlag    bool
 	messageType     string // 消息类型
 	messageTypeFlag bool
-	content         string // 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	content         string // 消息内容，json 格式 ;[各类型消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	contentFlag     bool
 	mentions        []*MentionEvent // 被提及用户的信息
 	mentionsFlag    bool
@@ -1809,7 +1809,7 @@ func NewEventMessageBuilder() *EventMessageBuilder {
 	return builder
 }
 
-// 消息的open_message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 消息的 open_message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_5ce6d572455d361153b7cb51da133945
 func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBuilder {
@@ -1818,7 +1818,7 @@ func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBui
 	return builder
 }
 
-// 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_5ce6d572455d361153b7cb5xxfsdfsdfdsf
 func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
@@ -1827,7 +1827,7 @@ func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
 	return builder
 }
 
-// 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_5ce6d572455d361153b7cb5xxfsdfsdfdsf
 func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuilder {
@@ -1854,7 +1854,7 @@ func (builder *EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder {
 	return builder
 }
 
-// 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
+// 消息所在的群组类型;;** 可选值有 **：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
 //
 // 示例值：group
 func (builder *EventMessageBuilder) ChatType(chatType string) *EventMessageBuilder {
@@ -1872,7 +1872,7 @@ func (builder *EventMessageBuilder) MessageType(messageType string) *EventMessag
 	return builder
 }
 
-// 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+// 消息内容，json 格式 ;[各类型消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 //
 // 示例值：{\"text\":\"@_user_1 hello\"}
 func (builder *EventMessageBuilder) Content(content string) *EventMessageBuilder {
@@ -1933,7 +1933,7 @@ func (builder *EventMessageBuilder) Build() *EventMessage {
 type EventMessageReader struct {
 	ReaderId  *UserId `json:"reader_id,omitempty"`  // 用户 ID
 	ReadTime  *string `json:"read_time,omitempty"`  // 阅读时间
-	TenantKey *string `json:"tenant_key,omitempty"` // 租户key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	TenantKey *string `json:"tenant_key,omitempty"` // 租户 key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 }
 
 type EventMessageReaderBuilder struct {
@@ -1941,7 +1941,7 @@ type EventMessageReaderBuilder struct {
 	readerIdFlag  bool
 	readTime      string // 阅读时间
 	readTimeFlag  bool
-	tenantKey     string // 租户key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKey     string // 租户 key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 	tenantKeyFlag bool
 }
 
@@ -1968,7 +1968,7 @@ func (builder *EventMessageReaderBuilder) ReadTime(readTime string) *EventMessag
 	return builder
 }
 
-// 租户key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+// 租户 key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *EventMessageReaderBuilder) TenantKey(tenantKey string) *EventMessageReaderBuilder {
@@ -1995,16 +1995,16 @@ func (builder *EventMessageReaderBuilder) Build() *EventMessageReader {
 
 type EventSender struct {
 	SenderId   *UserId `json:"sender_id,omitempty"`   // 用户 ID
-	SenderType *string `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
-	TenantKey  *string `json:"tenant_key,omitempty"`  // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	SenderType *string `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户 (user) 发送的消息。
+	TenantKey  *string `json:"tenant_key,omitempty"`  // tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 }
 
 type EventSenderBuilder struct {
 	senderId       *UserId // 用户 ID
 	senderIdFlag   bool
-	senderType     string // 消息发送者类型。目前只支持用户(user)发送的消息。
+	senderType     string // 消息发送者类型。目前只支持用户 (user) 发送的消息。
 	senderTypeFlag bool
-	tenantKey      string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKey      string // tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 	tenantKeyFlag  bool
 }
 
@@ -2022,7 +2022,7 @@ func (builder *EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilde
 	return builder
 }
 
-// 消息发送者类型。目前只支持用户(user)发送的消息。
+// 消息发送者类型。目前只支持用户 (user) 发送的消息。
 //
 // 示例值：user
 func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBuilder {
@@ -2031,7 +2031,7 @@ func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBui
 	return builder
 }
 
-// tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+// tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *EventSenderBuilder) TenantKey(tenantKey string) *EventSenderBuilder {
@@ -2125,7 +2125,7 @@ func (builder *I18nNamesBuilder) Build() *I18nNames {
 
 type ImDepthData struct {
 	PDate                   *string  `json:"p_date,omitempty"`                      // 分区日期
-	DepartmentId            *string  `json:"department_id,omitempty"`               // 部门id
+	DepartmentId            *string  `json:"department_id,omitempty"`               // 部门 id
 	DepartmentPath          *string  `json:"department_path,omitempty"`             // 部门路径
 	SendMsgRate             *float64 `json:"send_msg_rate,omitempty"`               // 发消息用户渗透率
 	AvgSendMsgCnt           *float64 `json:"avg_send_msg_cnt,omitempty"`            // 人均发消息数量
@@ -2150,7 +2150,7 @@ type ImDepthData struct {
 type ImDepthDataBuilder struct {
 	pDate                       string // 分区日期
 	pDateFlag                   bool
-	departmentId                string // 部门id
+	departmentId                string // 部门 id
 	departmentIdFlag            bool
 	departmentPath              string // 部门路径
 	departmentPathFlag          bool
@@ -2206,7 +2206,7 @@ func (builder *ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder {
 	return builder
 }
 
-// 部门id
+// 部门 id
 //
 // 示例值：123456
 func (builder *ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDataBuilder {
@@ -2479,19 +2479,19 @@ type Image struct {
 }
 
 type ListChat struct {
-	ChatId      *string `json:"chat_id,omitempty"`       // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId      *string `json:"chat_id,omitempty"`       // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	Avatar      *string `json:"avatar,omitempty"`        // 群头像 URL
 	Name        *string `json:"name,omitempty"`          // 群名称
 	Description *string `json:"description,omitempty"`   // 群描述
 	OwnerId     *string `json:"owner_id,omitempty"`      // 群主 ID
 	OwnerIdType *string `json:"owner_id_type,omitempty"` // 群主 ID 类型
 	External    *bool   `json:"external,omitempty"`      // 是否是外部群
-	TenantKey   *string `json:"tenant_key,omitempty"`    // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	TenantKey   *string `json:"tenant_key,omitempty"`    // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 
 }
 
 type ListChatBuilder struct {
-	chatId          string // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	chatId          string // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	chatIdFlag      bool
 	avatar          string // 群头像 URL
 	avatarFlag      bool
@@ -2505,7 +2505,7 @@ type ListChatBuilder struct {
 	ownerIdTypeFlag bool
 	external        bool // 是否是外部群
 	externalFlag    bool
-	tenantKey       string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKey       string // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	tenantKeyFlag   bool
 }
 
@@ -2514,7 +2514,7 @@ func NewListChatBuilder() *ListChatBuilder {
 	return builder
 }
 
-// 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ListChatBuilder) ChatId(chatId string) *ListChatBuilder {
@@ -2577,7 +2577,7 @@ func (builder *ListChatBuilder) External(external bool) *ListChatBuilder {
 	return builder
 }
 
-// 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+// 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder {
@@ -2673,19 +2673,19 @@ func (builder *ListEventModeratorBuilder) Build() *ListEventModerator {
 
 type ListMember struct {
 	MemberIdType *string `json:"member_id_type,omitempty"` // 成员的用户 ID 类型，与查询参数中的 member_id_type 相同。取值为：`open_id`、`user_id`、`union_id`其中之一。
-	MemberId     *string `json:"member_id,omitempty"`      // 成员的用户ID，ID值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	MemberId     *string `json:"member_id,omitempty"`      // 成员的用户 ID，ID 值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name         *string `json:"name,omitempty"`           // 名字
-	TenantKey    *string `json:"tenant_key,omitempty"`     // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	TenantKey    *string `json:"tenant_key,omitempty"`     // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 }
 
 type ListMemberBuilder struct {
 	memberIdType     string // 成员的用户 ID 类型，与查询参数中的 member_id_type 相同。取值为：`open_id`、`user_id`、`union_id`其中之一。
 	memberIdTypeFlag bool
-	memberId         string // 成员的用户ID，ID值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	memberId         string // 成员的用户 ID，ID 值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	memberIdFlag     bool
 	name             string // 名字
 	nameFlag         bool
-	tenantKey        string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKey        string // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	tenantKeyFlag    bool
 }
 
@@ -2703,7 +2703,7 @@ func (builder *ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberB
 	return builder
 }
 
-// 成员的用户ID，ID值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+// 成员的用户 ID，ID 值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：4d7a3c6g
 func (builder *ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder {
@@ -2721,7 +2721,7 @@ func (builder *ListMemberBuilder) Name(name string) *ListMemberBuilder {
 	return builder
 }
 
-// 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+// 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 //
 // 示例值：
 func (builder *ListMemberBuilder) TenantKey(tenantKey string) *ListMemberBuilder {
@@ -2754,7 +2754,7 @@ func (builder *ListMemberBuilder) Build() *ListMember {
 type ListModerator struct {
 	UserIdType *string `json:"user_id_type,omitempty"` // 可发言用户 ID 类型
 	UserId     *string `json:"user_id,omitempty"`      // 可发言用户 ID
-	TenantKey  *string `json:"tenant_key,omitempty"`   // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	TenantKey  *string `json:"tenant_key,omitempty"`   // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 }
 
 type ListModeratorBuilder struct {
@@ -2762,7 +2762,7 @@ type ListModeratorBuilder struct {
 	userIdTypeFlag bool
 	userId         string // 可发言用户 ID
 	userIdFlag     bool
-	tenantKey      string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKey      string // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	tenantKeyFlag  bool
 }
 
@@ -2789,7 +2789,7 @@ func (builder *ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder
 	return builder
 }
 
-// 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+// 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 //
 // 示例值：
 func (builder *ListModeratorBuilder) TenantKey(tenantKey string) *ListModeratorBuilder {
@@ -2816,12 +2816,12 @@ func (builder *ListModeratorBuilder) Build() *ListModerator {
 }
 
 type ListNotifyStatus struct {
-	UserId           *UserId `json:"user_id,omitempty"`            // 用户id
+	UserId           *UserId `json:"user_id,omitempty"`            // 用户 id
 	NotifyStatusType *string `json:"notify_status_type,omitempty"` // 加急状态类型
 }
 
 type ListNotifyStatusBuilder struct {
-	userId               *UserId // 用户id
+	userId               *UserId // 用户 id
 	userIdFlag           bool
 	notifyStatusType     string // 加急状态类型
 	notifyStatusTypeFlag bool
@@ -2832,7 +2832,7 @@ func NewListNotifyStatusBuilder() *ListNotifyStatusBuilder {
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：
 func (builder *ListNotifyStatusBuilder) UserId(userId *UserId) *ListNotifyStatusBuilder {
@@ -2863,23 +2863,23 @@ func (builder *ListNotifyStatusBuilder) Build() *ListNotifyStatus {
 }
 
 type Mention struct {
-	Key       *string `json:"key,omitempty"`        // 被@的用户或机器人的序号。例如，第3个被@到的成员，值为“@_user_3”
-	Id        *string `json:"id,omitempty"`         // 被@的用户或者机器人的open_id
-	IdType    *string `json:"id_type,omitempty"`    // 被@的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
-	Name      *string `json:"name,omitempty"`       // 被@的用户或机器人的姓名
-	TenantKey *string `json:"tenant_key,omitempty"` // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	Key       *string `json:"key,omitempty"`        // 被 @的用户或机器人的序号。例如，第 3 个被 @到的成员，值为 “@_user_3”
+	Id        *string `json:"id,omitempty"`         // 被 @的用户或者机器人的 open_id
+	IdType    *string `json:"id_type,omitempty"`    // 被 @的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
+	Name      *string `json:"name,omitempty"`       // 被 @的用户或机器人的姓名
+	TenantKey *string `json:"tenant_key,omitempty"` // 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 }
 
 type MentionBuilder struct {
-	key           string // 被@的用户或机器人的序号。例如，第3个被@到的成员，值为“@_user_3”
+	key           string // 被 @的用户或机器人的序号。例如，第 3 个被 @到的成员，值为 “@_user_3”
 	keyFlag       bool
-	id            string // 被@的用户或者机器人的open_id
+	id            string // 被 @的用户或者机器人的 open_id
 	idFlag        bool
-	idType        string // 被@的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
+	idType        string // 被 @的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
 	idTypeFlag    bool
-	name          string // 被@的用户或机器人的姓名
+	name          string // 被 @的用户或机器人的姓名
 	nameFlag      bool
-	tenantKey     string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKey     string // 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 	tenantKeyFlag bool
 }
 
@@ -2888,7 +2888,7 @@ func NewMentionBuilder() *MentionBuilder {
 	return builder
 }
 
-// 被@的用户或机器人的序号。例如，第3个被@到的成员，值为“@_user_3”
+// 被 @的用户或机器人的序号。例如，第 3 个被 @到的成员，值为 “@_user_3”
 //
 // 示例值：@_user_1
 func (builder *MentionBuilder) Key(key string) *MentionBuilder {
@@ -2897,7 +2897,7 @@ func (builder *MentionBuilder) Key(key string) *MentionBuilder {
 	return builder
 }
 
-// 被@的用户或者机器人的open_id
+// 被 @的用户或者机器人的 open_id
 //
 // 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
 func (builder *MentionBuilder) Id(id string) *MentionBuilder {
@@ -2906,7 +2906,7 @@ func (builder *MentionBuilder) Id(id string) *MentionBuilder {
 	return builder
 }
 
-// 被@的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
+// 被 @的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
 //
 // 示例值：open_id
 func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
@@ -2915,7 +2915,7 @@ func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
 	return builder
 }
 
-// 被@的用户或机器人的姓名
+// 被 @的用户或机器人的姓名
 //
 // 示例值：Tom
 func (builder *MentionBuilder) Name(name string) *MentionBuilder {
@@ -2924,7 +2924,7 @@ func (builder *MentionBuilder) Name(name string) *MentionBuilder {
 	return builder
 }
 
-// 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+// 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *MentionBuilder) TenantKey(tenantKey string) *MentionBuilder {
@@ -2962,7 +2962,7 @@ type MentionEvent struct {
 	Key       *string `json:"key,omitempty"`        // mention key
 	Id        *UserId `json:"id,omitempty"`         // 用户 ID
 	Name      *string `json:"name,omitempty"`       // 用户姓名
-	TenantKey *string `json:"tenant_key,omitempty"` // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	TenantKey *string `json:"tenant_key,omitempty"` // tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 }
 
 type MentionEventBuilder struct {
@@ -2972,7 +2972,7 @@ type MentionEventBuilder struct {
 	idFlag        bool
 	name          string // 用户姓名
 	nameFlag      bool
-	tenantKey     string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKey     string // tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 	tenantKeyFlag bool
 }
 
@@ -3008,7 +3008,7 @@ func (builder *MentionEventBuilder) Name(name string) *MentionEventBuilder {
 	return builder
 }
 
-// tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+// tenant key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *MentionEventBuilder) TenantKey(tenantKey string) *MentionEventBuilder {
@@ -3038,10 +3038,10 @@ func (builder *MentionEventBuilder) Build() *MentionEvent {
 }
 
 type Message struct {
-	MessageId      *string      `json:"message_id,omitempty"`       // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootId         *string      `json:"root_id,omitempty"`          // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	MessageId      *string      `json:"message_id,omitempty"`       // 消息 id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	RootId         *string      `json:"root_id,omitempty"`          // 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [接收消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     *string      `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        *bool        `json:"deleted,omitempty"`          // 消息是否被撤回
@@ -3049,18 +3049,18 @@ type Message struct {
 	ChatId         *string      `json:"chat_id,omitempty"`          // 所属的群
 	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
 	Body           *MessageBody `json:"body,omitempty"`             // 消息内容
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被@的用户或机器人的id列表
-	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被 @的用户或机器人的 id 列表
+	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并转发消息中，上一层级的消息 id message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 }
 
 type MessageBuilder struct {
-	messageId          string // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageId          string // 消息 id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	messageIdFlag      bool
-	rootId             string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	rootId             string // 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	rootIdFlag         bool
-	parentId           string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	parentId           string // 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	parentIdFlag       bool
-	msgType            string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	msgType            string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [接收消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	msgTypeFlag        bool
 	createTime         string // 消息生成的时间戳（毫秒）
 	createTimeFlag     bool
@@ -3076,9 +3076,9 @@ type MessageBuilder struct {
 	senderFlag         bool
 	body               *MessageBody // 消息内容
 	bodyFlag           bool
-	mentions           []*Mention // 被@的用户或机器人的id列表
+	mentions           []*Mention // 被 @的用户或机器人的 id 列表
 	mentionsFlag       bool
-	upperMessageId     string // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	upperMessageId     string // 合并转发消息中，上一层级的消息 id message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	upperMessageIdFlag bool
 }
 
@@ -3087,7 +3087,7 @@ func NewMessageBuilder() *MessageBuilder {
 	return builder
 }
 
-// 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 消息 id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
@@ -3096,7 +3096,7 @@ func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
 	return builder
 }
 
-// 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 根消息 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_40eb06e7b84dc71c03e009ad3c754195
 func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
@@ -3105,7 +3105,7 @@ func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
 	return builder
 }
 
-// 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 父消息的 id，用于回复消息场景，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_d4be107c616aed9c1da8ed8068570a9f
 func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
@@ -3114,7 +3114,7 @@ func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
 	return builder
 }
 
-// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [接收消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 //
 // 示例值：card
 func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
@@ -3179,14 +3179,14 @@ func (builder *MessageBuilder) Sender(sender *Sender) *MessageBuilder {
 
 // 消息内容
 //
-// 示例值：json结构
+// 示例值：json 结构
 func (builder *MessageBuilder) Body(body *MessageBody) *MessageBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-// 被@的用户或机器人的id列表
+// 被 @的用户或机器人的 id 列表
 //
 // 示例值：
 func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
@@ -3195,7 +3195,7 @@ func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
 	return builder
 }
 
-// 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 合并转发消息中，上一层级的消息 id message_id，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_40eb06e7b84dc71c03e009ad3c754195
 func (builder *MessageBuilder) UpperMessageId(upperMessageId string) *MessageBuilder {
@@ -3259,20 +3259,20 @@ func (builder *MessageBuilder) Build() *Message {
 }
 
 type MessageReaction struct {
-	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction资源ID
-	Operator     *Operator `json:"operator,omitempty"`      // 添加reaction的操作人
-	ActionTime   *string   `json:"action_time,omitempty"`   // reaction动作的的unix timestamp(单位:ms)
-	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction 资源 ID
+	Operator     *Operator `json:"operator,omitempty"`      // 添加 reaction 的操作人
+	ActionTime   *string   `json:"action_time,omitempty"`   // reaction 动作的的 unix timestamp(单位:ms)
+	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction 资源类型
 }
 
 type MessageReactionBuilder struct {
-	reactionId       string // reaction资源ID
+	reactionId       string // reaction 资源 ID
 	reactionIdFlag   bool
-	operator         *Operator // 添加reaction的操作人
+	operator         *Operator // 添加 reaction 的操作人
 	operatorFlag     bool
-	actionTime       string // reaction动作的的unix timestamp(单位:ms)
+	actionTime       string // reaction 动作的的 unix timestamp(单位:ms)
 	actionTimeFlag   bool
-	reactionType     *Emoji // reaction资源类型
+	reactionType     *Emoji // reaction 资源类型
 	reactionTypeFlag bool
 }
 
@@ -3281,7 +3281,7 @@ func NewMessageReactionBuilder() *MessageReactionBuilder {
 	return builder
 }
 
-// reaction资源ID
+// reaction 资源 ID
 //
 // 示例值：
 func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageReactionBuilder {
@@ -3290,7 +3290,7 @@ func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageRea
 	return builder
 }
 
-// 添加reaction的操作人
+// 添加 reaction 的操作人
 //
 // 示例值：
 func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReactionBuilder {
@@ -3299,7 +3299,7 @@ func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReac
 	return builder
 }
 
-// reaction动作的的unix timestamp(单位:ms)
+// reaction 动作的的 unix timestamp(单位:ms)
 //
 // 示例值：
 func (builder *MessageReactionBuilder) ActionTime(actionTime string) *MessageReactionBuilder {
@@ -3308,7 +3308,7 @@ func (builder *MessageReactionBuilder) ActionTime(actionTime string) *MessageRea
 	return builder
 }
 
-// reaction资源类型
+// reaction 资源类型
 //
 // 示例值：
 func (builder *MessageReactionBuilder) ReactionType(reactionType *Emoji) *MessageReactionBuilder {
@@ -3340,11 +3340,11 @@ type MessageResource struct {
 }
 
 type MessageBody struct {
-	Content *string `json:"content,omitempty"` // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	Content *string `json:"content,omitempty"` // 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 }
 
 type MessageBodyBuilder struct {
-	content     string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	content     string // 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	contentFlag bool
 }
 
@@ -3353,7 +3353,7 @@ func NewMessageBodyBuilder() *MessageBodyBuilder {
 	return builder
 }
 
-// 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 // 示例值：text:测试消息
 func (builder *MessageBodyBuilder) Content(content string) *MessageBodyBuilder {
@@ -3372,12 +3372,12 @@ func (builder *MessageBodyBuilder) Build() *MessageBody {
 }
 
 type ModeratorList struct {
-	AddedMemberList   []*ListEventModerator `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有owner）
+	AddedMemberList   []*ListEventModerator `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有 owner）
 	RemovedMemberList []*ListEventModerator `json:"removed_member_list,omitempty"` // 被移除出可发言名单的用户列表
 }
 
 type ModeratorListBuilder struct {
-	addedMemberList       []*ListEventModerator // 被添加进可发言名单的用户列表（列表中一定会有owner）
+	addedMemberList       []*ListEventModerator // 被添加进可发言名单的用户列表（列表中一定会有 owner）
 	addedMemberListFlag   bool
 	removedMemberList     []*ListEventModerator // 被移除出可发言名单的用户列表
 	removedMemberListFlag bool
@@ -3388,7 +3388,7 @@ func NewModeratorListBuilder() *ModeratorListBuilder {
 	return builder
 }
 
-// 被添加进可发言名单的用户列表（列表中一定会有owner）
+// 被添加进可发言名单的用户列表（列表中一定会有 owner）
 //
 // 示例值：
 func (builder *ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEventModerator) *ModeratorListBuilder {
@@ -3419,7 +3419,7 @@ func (builder *ModeratorListBuilder) Build() *ModeratorList {
 
 type MsgProcessData struct {
 	PDate                   *string  `json:"p_date,omitempty"`                        // 分区日期
-	DepartmentId            *string  `json:"department_id,omitempty"`                 // 部门id
+	DepartmentId            *string  `json:"department_id,omitempty"`                 // 部门 id
 	DepartmentPath          *string  `json:"department_path,omitempty"`               // 部门路径
 	AvgImpMsgReadRate12h    *float64 `json:"avg_imp_msg_read_rate_12h,omitempty"`     // 人均重要消息 12 小时阅读率
 	MsgReadRate12h          *float64 `json:"msg_read_rate_12h,omitempty"`             // 人均 12 小时阅读率
@@ -3428,7 +3428,7 @@ type MsgProcessData struct {
 	AvgImpReadMsgCnt        *float64 `json:"avg_imp_read_msg_cnt,omitempty"`          // 人均重要消息阅读数
 	AvgImpReceiveMsgCnt     *float64 `json:"avg_imp_receive_msg_cnt,omitempty"`       // 人均重要消息接收数
 	HighLoadRate            *float64 `json:"high_load_rate,omitempty"`                // 信息高负载员工占比
-	BigGroupMsgRate         *float64 `json:"big_group_msg_rate,omitempty"`            // 大群（100人以上）消息占比
+	BigGroupMsgRate         *float64 `json:"big_group_msg_rate,omitempty"`            // 大群（100 人以上）消息占比
 	BigGroupTopicMsgRate    *float64 `json:"big_group_topic_msg_rate,omitempty"`      // 大群消息中话题消息占比
 	AvgReceiveBotMsgCnt     *float64 `json:"avg_receive_bot_msg_cnt,omitempty"`       // 人均接收 bot 消息数
 	AvgBotImpMsgReadRate12h *float64 `json:"avg_bot_imp_msg_read_rate_12h,omitempty"` // 重要 bot 消息 12 小时阅读率
@@ -3442,7 +3442,7 @@ type MsgProcessData struct {
 type MsgProcessDataBuilder struct {
 	pDate                       string // 分区日期
 	pDateFlag                   bool
-	departmentId                string // 部门id
+	departmentId                string // 部门 id
 	departmentIdFlag            bool
 	departmentPath              string // 部门路径
 	departmentPathFlag          bool
@@ -3460,7 +3460,7 @@ type MsgProcessDataBuilder struct {
 	avgImpReceiveMsgCntFlag     bool
 	highLoadRate                float64 // 信息高负载员工占比
 	highLoadRateFlag            bool
-	bigGroupMsgRate             float64 // 大群（100人以上）消息占比
+	bigGroupMsgRate             float64 // 大群（100 人以上）消息占比
 	bigGroupMsgRateFlag         bool
 	bigGroupTopicMsgRate        float64 // 大群消息中话题消息占比
 	bigGroupTopicMsgRateFlag    bool
@@ -3494,7 +3494,7 @@ func (builder *MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder
 	return builder
 }
 
-// 部门id
+// 部门 id
 //
 // 示例值：123456
 func (builder *MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProcessDataBuilder {
@@ -3575,7 +3575,7 @@ func (builder *MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgPro
 	return builder
 }
 
-// 大群（100人以上）消息占比
+// 大群（100 人以上）消息占比
 //
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *MsgProcessDataBuilder {
@@ -3738,12 +3738,12 @@ func (builder *MsgProcessDataBuilder) Build() *MsgProcessData {
 }
 
 type Operator struct {
-	OperatorId   *string `json:"operator_id,omitempty"`   // 操作人ID
+	OperatorId   *string `json:"operator_id,omitempty"`   // 操作人 ID
 	OperatorType *string `json:"operator_type,omitempty"` // 操作人身份，用户或应用
 }
 
 type OperatorBuilder struct {
-	operatorId       string // 操作人ID
+	operatorId       string // 操作人 ID
 	operatorIdFlag   bool
 	operatorType     string // 操作人身份，用户或应用
 	operatorTypeFlag bool
@@ -3754,7 +3754,7 @@ func NewOperatorBuilder() *OperatorBuilder {
 	return builder
 }
 
-// 操作人ID
+// 操作人 ID
 //
 // 示例值：ou_ff0b7ba35fb********67dfc8b885136
 func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
@@ -3786,23 +3786,23 @@ func (builder *OperatorBuilder) Build() *Operator {
 }
 
 type Pin struct {
-	MessageId      *string `json:"message_id,omitempty"`       // Pin的消息ID
-	ChatId         *string `json:"chat_id,omitempty"`          // Pin消息所在的群聊ID
-	OperatorId     *string `json:"operator_id,omitempty"`      // Pin的操作人ID
-	OperatorIdType *string `json:"operator_id_type,omitempty"` // Pin的操作人ID类型。当Pin的操作人为用户时，为==open_id==；当Pin的操作人为机器人时，为==app_id==
-	CreateTime     *string `json:"create_time,omitempty"`      // Pin的创建时间（毫秒级时间戳）
+	MessageId      *string `json:"message_id,omitempty"`       // Pin 的消息 ID
+	ChatId         *string `json:"chat_id,omitempty"`          // Pin 消息所在的群聊 ID
+	OperatorId     *string `json:"operator_id,omitempty"`      // Pin 的操作人 ID
+	OperatorIdType *string `json:"operator_id_type,omitempty"` // Pin 的操作人 ID 类型。当 Pin 的操作人为用户时，为==open_id==；当 Pin 的操作人为机器人时，为==app_id==
+	CreateTime     *string `json:"create_time,omitempty"`      // Pin 的创建时间（毫秒级时间戳）
 }
 
 type PinBuilder struct {
-	messageId          string // Pin的消息ID
+	messageId          string // Pin 的消息 ID
 	messageIdFlag      bool
-	chatId             string // Pin消息所在的群聊ID
+	chatId             string // Pin 消息所在的群聊 ID
 	chatIdFlag         bool
-	operatorId         string // Pin的操作人ID
+	operatorId         string // Pin 的操作人 ID
 	operatorIdFlag     bool
-	operatorIdType     string // Pin的操作人ID类型。当Pin的操作人为用户时，为==open_id==；当Pin的操作人为机器人时，为==app_id==
+	operatorIdType     string // Pin 的操作人 ID 类型。当 Pin 的操作人为用户时，为==open_id==；当 Pin 的操作人为机器人时，为==app_id==
 	operatorIdTypeFlag bool
-	createTime         string // Pin的创建时间（毫秒级时间戳）
+	createTime         string // Pin 的创建时间（毫秒级时间戳）
 	createTimeFlag     bool
 }
 
@@ -3811,7 +3811,7 @@ func NewPinBuilder() *PinBuilder {
 	return builder
 }
 
-// Pin的消息ID
+// Pin 的消息 ID
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *PinBuilder) MessageId(messageId string) *PinBuilder {
@@ -3820,7 +3820,7 @@ func (builder *PinBuilder) MessageId(messageId string) *PinBuilder {
 	return builder
 }
 
-// Pin消息所在的群聊ID
+// Pin 消息所在的群聊 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *PinBuilder) ChatId(chatId string) *PinBuilder {
@@ -3829,7 +3829,7 @@ func (builder *PinBuilder) ChatId(chatId string) *PinBuilder {
 	return builder
 }
 
-// Pin的操作人ID
+// Pin 的操作人 ID
 //
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *PinBuilder) OperatorId(operatorId string) *PinBuilder {
@@ -3838,7 +3838,7 @@ func (builder *PinBuilder) OperatorId(operatorId string) *PinBuilder {
 	return builder
 }
 
-// Pin的操作人ID类型。当Pin的操作人为用户时，为==open_id==；当Pin的操作人为机器人时，为==app_id==
+// Pin 的操作人 ID 类型。当 Pin 的操作人为用户时，为==open_id==；当 Pin 的操作人为机器人时，为==app_id==
 //
 // 示例值：open_id
 func (builder *PinBuilder) OperatorIdType(operatorIdType string) *PinBuilder {
@@ -3847,7 +3847,7 @@ func (builder *PinBuilder) OperatorIdType(operatorIdType string) *PinBuilder {
 	return builder
 }
 
-// Pin的创建时间（毫秒级时间戳）
+// Pin 的创建时间（毫秒级时间戳）
 //
 // 示例值：1615380573211
 func (builder *PinBuilder) CreateTime(createTime string) *PinBuilder {
@@ -3882,14 +3882,14 @@ func (builder *PinBuilder) Build() *Pin {
 }
 
 type PinedMessage struct {
-	Pin     *Pin     `json:"pin,omitempty"`     // Pin的操作信息
-	Message *Message `json:"message,omitempty"` // 被Pin的消息实体
+	Pin     *Pin     `json:"pin,omitempty"`     // Pin 的操作信息
+	Message *Message `json:"message,omitempty"` // 被 Pin 的消息实体
 }
 
 type PinedMessageBuilder struct {
-	pin         *Pin // Pin的操作信息
+	pin         *Pin // Pin 的操作信息
 	pinFlag     bool
-	message     *Message // 被Pin的消息实体
+	message     *Message // 被 Pin 的消息实体
 	messageFlag bool
 }
 
@@ -3898,7 +3898,7 @@ func NewPinedMessageBuilder() *PinedMessageBuilder {
 	return builder
 }
 
-// Pin的操作信息
+// Pin 的操作信息
 //
 // 示例值：
 func (builder *PinedMessageBuilder) Pin(pin *Pin) *PinedMessageBuilder {
@@ -3907,7 +3907,7 @@ func (builder *PinedMessageBuilder) Pin(pin *Pin) *PinedMessageBuilder {
 	return builder
 }
 
-// 被Pin的消息实体
+// 被 Pin 的消息实体
 //
 // 示例值：
 func (builder *PinedMessageBuilder) Message(message *Message) *PinedMessageBuilder {
@@ -3928,16 +3928,16 @@ func (builder *PinedMessageBuilder) Build() *PinedMessage {
 }
 
 type ReadUser struct {
-	UserIdType *string `json:"user_id_type,omitempty"` // 用户id类型
-	UserId     *string `json:"user_id,omitempty"`      // 用户id
+	UserIdType *string `json:"user_id_type,omitempty"` // 用户 id 类型
+	UserId     *string `json:"user_id,omitempty"`      // 用户 id
 	Timestamp  *string `json:"timestamp,omitempty"`    // 阅读时间
 	TenantKey  *string `json:"tenant_key,omitempty"`   // tenant key
 }
 
 type ReadUserBuilder struct {
-	userIdType     string // 用户id类型
+	userIdType     string // 用户 id 类型
 	userIdTypeFlag bool
-	userId         string // 用户id
+	userId         string // 用户 id
 	userIdFlag     bool
 	timestamp      string // 阅读时间
 	timestampFlag  bool
@@ -3950,7 +3950,7 @@ func NewReadUserBuilder() *ReadUserBuilder {
 	return builder
 }
 
-// 用户id类型
+// 用户 id 类型
 //
 // 示例值：open_id
 func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
@@ -3959,7 +3959,7 @@ func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：ou_9b851f7b51a9d58d109982337c46f3de
 func (builder *ReadUserBuilder) UserId(userId string) *ReadUserBuilder {
@@ -4008,20 +4008,20 @@ func (builder *ReadUserBuilder) Build() *ReadUser {
 }
 
 type Sender struct {
-	Id         *string `json:"id,omitempty"`          // 该字段标识发送者的id
-	IdType     *string `json:"id_type,omitempty"`     // 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
-	SenderType *string `json:"sender_type,omitempty"` // 该字段标识发送者的类型;;**可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
-	TenantKey  *string `json:"tenant_key,omitempty"`  // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	Id         *string `json:"id,omitempty"`          // 该字段标识发送者的 id
+	IdType     *string `json:"id_type,omitempty"`     // 该字段标识发送者的 id 类型;;** 可选值有：**;- `open_id`;- `app_id`
+	SenderType *string `json:"sender_type,omitempty"` // 该字段标识发送者的类型;;** 可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
+	TenantKey  *string `json:"tenant_key,omitempty"`  // 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 }
 
 type SenderBuilder struct {
-	id             string // 该字段标识发送者的id
+	id             string // 该字段标识发送者的 id
 	idFlag         bool
-	idType         string // 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
+	idType         string // 该字段标识发送者的 id 类型;;** 可选值有：**;- `open_id`;- `app_id`
 	idTypeFlag     bool
-	senderType     string // 该字段标识发送者的类型;;**可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
+	senderType     string // 该字段标识发送者的类型;;** 可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
 	senderTypeFlag bool
-	tenantKey      string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKey      string // 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 	tenantKeyFlag  bool
 }
 
@@ -4030,7 +4030,7 @@ func NewSenderBuilder() *SenderBuilder {
 	return builder
 }
 
-// 该字段标识发送者的id
+// 该字段标识发送者的 id
 //
 // 示例值：cli_9f427eec54ae901b
 func (builder *SenderBuilder) Id(id string) *SenderBuilder {
@@ -4039,7 +4039,7 @@ func (builder *SenderBuilder) Id(id string) *SenderBuilder {
 	return builder
 }
 
-// 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
+// 该字段标识发送者的 id 类型;;** 可选值有：**;- `open_id`;- `app_id`
 //
 // 示例值：app_id
 func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
@@ -4048,7 +4048,7 @@ func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
 	return builder
 }
 
-// 该字段标识发送者的类型;;**可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
+// 该字段标识发送者的类型;;** 可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
 //
 // 示例值：app
 func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
@@ -4057,7 +4057,7 @@ func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
 	return builder
 }
 
-// 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+// 为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
 //
 // 示例值：736588c9260f175e
 func (builder *SenderBuilder) TenantKey(tenantKey string) *SenderBuilder {
@@ -4088,14 +4088,14 @@ func (builder *SenderBuilder) Build() *Sender {
 }
 
 type SpecialFocus struct {
-	Id     *string `json:"id,omitempty"`      // 成员ID
-	IdType *string `json:"id_type,omitempty"` // 成员ID类型。根据member_id_type参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	Id     *string `json:"id,omitempty"`      // 成员 ID
+	IdType *string `json:"id_type,omitempty"` // 成员 ID 类型。根据 member_id_type 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 }
 
 type SpecialFocusBuilder struct {
-	id         string // 成员ID
+	id         string // 成员 ID
 	idFlag     bool
-	idType     string // 成员ID类型。根据member_id_type参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	idType     string // 成员 ID 类型。根据 member_id_type 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 	idTypeFlag bool
 }
 
@@ -4104,7 +4104,7 @@ func NewSpecialFocusBuilder() *SpecialFocusBuilder {
 	return builder
 }
 
-// 成员ID
+// 成员 ID
 //
 // 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
 func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
@@ -4113,7 +4113,7 @@ func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
 	return builder
 }
 
-// 成员ID类型。根据member_id_type参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+// 成员 ID 类型。根据 member_id_type 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 //
 // 示例值：
 func (builder *SpecialFocusBuilder) IdType(idType string) *SpecialFocusBuilder {
@@ -4136,15 +4136,15 @@ func (builder *SpecialFocusBuilder) Build() *SpecialFocus {
 }
 
 type SpecialFocusUnread struct {
-	Id          *string `json:"id,omitempty"`           // 成员ID
-	IdType      *string `json:"id_type,omitempty"`      // 成员ID类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	Id          *string `json:"id,omitempty"`           // 成员 ID
+	IdType      *string `json:"id_type,omitempty"`      // 成员 ID 类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 	UnreadCount *string `json:"unread_count,omitempty"` // 未读数
 }
 
 type SpecialFocusUnreadBuilder struct {
-	id              string // 成员ID
+	id              string // 成员 ID
 	idFlag          bool
-	idType          string // 成员ID类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	idType          string // 成员 ID 类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 	idTypeFlag      bool
 	unreadCount     string // 未读数
 	unreadCountFlag bool
@@ -4155,7 +4155,7 @@ func NewSpecialFocusUnreadBuilder() *SpecialFocusUnreadBuilder {
 	return builder
 }
 
-// 成员ID
+// 成员 ID
 //
 // 示例值：
 func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuilder {
@@ -4164,7 +4164,7 @@ func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuild
 	return builder
 }
 
-// 成员ID类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+// 成员 ID 类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户 ID；机器人返回`app_id`
 //
 // 示例值：
 func (builder *SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnreadBuilder {
@@ -4200,8 +4200,8 @@ func (builder *SpecialFocusUnreadBuilder) Build() *SpecialFocusUnread {
 }
 
 type Toolkit struct {
-	ToolkitId    *string              `json:"toolkit_id,omitempty"`    // 快捷组件ID
-	ImageKey     *string              `json:"image_key,omitempty"`     // 快捷组件小图标 ;;上传message类型的图片[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	ToolkitId    *string              `json:"toolkit_id,omitempty"`    // 快捷组件 ID
+	ImageKey     *string              `json:"image_key,omitempty"`     // 快捷组件小图标 ;;上传 message 类型的图片 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	ToolkitName  *string              `json:"toolkit_name,omitempty"`  // 快捷组件名称
 	I18nName     *I18nNames           `json:"i18n_name,omitempty"`     // 国际化名称
 	ToolkitType  *string              `json:"toolkit_type,omitempty"`  // 快捷组件类型
@@ -4210,9 +4210,9 @@ type Toolkit struct {
 }
 
 type ToolkitBuilder struct {
-	toolkitId        string // 快捷组件ID
+	toolkitId        string // 快捷组件 ID
 	toolkitIdFlag    bool
-	imageKey         string // 快捷组件小图标 ;;上传message类型的图片[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	imageKey         string // 快捷组件小图标 ;;上传 message 类型的图片 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 	imageKeyFlag     bool
 	toolkitName      string // 快捷组件名称
 	toolkitNameFlag  bool
@@ -4231,7 +4231,7 @@ func NewToolkitBuilder() *ToolkitBuilder {
 	return builder
 }
 
-// 快捷组件ID
+// 快捷组件 ID
 //
 // 示例值：7101214603622940671
 func (builder *ToolkitBuilder) ToolkitId(toolkitId string) *ToolkitBuilder {
@@ -4240,7 +4240,7 @@ func (builder *ToolkitBuilder) ToolkitId(toolkitId string) *ToolkitBuilder {
 	return builder
 }
 
-// 快捷组件小图标 ;;上传message类型的图片[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+// 快捷组件小图标 ;;上传 message 类型的图片 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
 //
 // 示例值：img_v2_2995edd9-a22c-44ca-9559-71bbc1e661bg
 func (builder *ToolkitBuilder) ImageKey(imageKey string) *ToolkitBuilder {
@@ -4326,13 +4326,13 @@ func (builder *ToolkitBuilder) Build() *Toolkit {
 
 type ToolkitCallback struct {
 	Webhook   *string `json:"webhook,omitempty"`    // 回调地址
-	ActionKey *string `json:"action_key,omitempty"` // 开发者自己识别的action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
+	ActionKey *string `json:"action_key,omitempty"` // 开发者自己识别的 action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
 }
 
 type ToolkitCallbackBuilder struct {
 	webhook       string // 回调地址
 	webhookFlag   bool
-	actionKey     string // 开发者自己识别的action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
+	actionKey     string // 开发者自己识别的 action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
 	actionKeyFlag bool
 }
 
@@ -4350,7 +4350,7 @@ func (builder *ToolkitCallbackBuilder) Webhook(webhook string) *ToolkitCallbackB
 	return builder
 }
 
-// 开发者自己识别的action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
+// 开发者自己识别的 action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
 //
 // 示例值：SendMessage
 func (builder *ToolkitCallbackBuilder) ActionKey(actionKey string) *ToolkitCallbackBuilder {
@@ -4373,11 +4373,11 @@ func (builder *ToolkitCallbackBuilder) Build() *ToolkitCallback {
 }
 
 type ToolkitRedirectLink struct {
-	Url *string `json:"url,omitempty"` // 跳转url
+	Url *string `json:"url,omitempty"` // 跳转 url
 }
 
 type ToolkitRedirectLinkBuilder struct {
-	url     string // 跳转url
+	url     string // 跳转 url
 	urlFlag bool
 }
 
@@ -4386,7 +4386,7 @@ func NewToolkitRedirectLinkBuilder() *ToolkitRedirectLinkBuilder {
 	return builder
 }
 
-// 跳转url
+// 跳转 url
 //
 // 示例值：https://applink.feishu.cn/client/calendar/open
 func (builder *ToolkitRedirectLinkBuilder) Url(url string) *ToolkitRedirectLinkBuilder {
@@ -4405,11 +4405,11 @@ func (builder *ToolkitRedirectLinkBuilder) Build() *ToolkitRedirectLink {
 }
 
 type UrgentReceivers struct {
-	UserIdList []string `json:"user_id_list,omitempty"` // 目标用户的ID，列表不可为空;;**注意**：;请确保所填的用户ID正确，并且用户在加急消息所在的群组中
+	UserIdList []string `json:"user_id_list,omitempty"` // 目标用户的 ID，列表不可为空;;** 注意 **：;请确保所填的用户 ID 正确，并且用户在加急消息所在的群组中
 }
 
 type UrgentReceiversBuilder struct {
-	userIdList     []string // 目标用户的ID，列表不可为空;;**注意**：;请确保所填的用户ID正确，并且用户在加急消息所在的群组中
+	userIdList     []string // 目标用户的 ID，列表不可为空;;** 注意 **：;请确保所填的用户 ID 正确，并且用户在加急消息所在的群组中
 	userIdListFlag bool
 }
 
@@ -4418,7 +4418,7 @@ func NewUrgentReceiversBuilder() *UrgentReceiversBuilder {
 	return builder
 }
 
-// 目标用户的ID，列表不可为空;;**注意**：;请确保所填的用户ID正确，并且用户在加急消息所在的群组中
+// 目标用户的 ID，列表不可为空;;** 注意 **：;请确保所填的用户 ID 正确，并且用户在加急消息所在的群组中
 //
 // 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
 func (builder *UrgentReceiversBuilder) UserIdList(userIdList []string) *UrgentReceiversBuilder {
@@ -4500,17 +4500,17 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type Widget struct {
-	WidgetId   *string    `json:"widget_id,omitempty"`   // 小组件ID
+	WidgetId   *string    `json:"widget_id,omitempty"`   // 小组件 ID
 	WidgetType *string    `json:"widget_type,omitempty"` // 小组件类型
-	WidgetUrl  *WidgetUrl `json:"widget_url,omitempty"`  // 小组件链接，必须以http开头
+	WidgetUrl  *WidgetUrl `json:"widget_url,omitempty"`  // 小组件链接，必须以 http 开头
 }
 
 type WidgetBuilder struct {
-	widgetId       string // 小组件ID
+	widgetId       string // 小组件 ID
 	widgetIdFlag   bool
 	widgetType     string // 小组件类型
 	widgetTypeFlag bool
-	widgetUrl      *WidgetUrl // 小组件链接，必须以http开头
+	widgetUrl      *WidgetUrl // 小组件链接，必须以 http 开头
 	widgetUrlFlag  bool
 }
 
@@ -4519,7 +4519,7 @@ func NewWidgetBuilder() *WidgetBuilder {
 	return builder
 }
 
-// 小组件ID
+// 小组件 ID
 //
 // 示例值：7117116451961487361
 func (builder *WidgetBuilder) WidgetId(widgetId string) *WidgetBuilder {
@@ -4537,7 +4537,7 @@ func (builder *WidgetBuilder) WidgetType(widgetType string) *WidgetBuilder {
 	return builder
 }
 
-// 小组件链接，必须以http开头
+// 小组件链接，必须以 http 开头
 //
 // 示例值：
 func (builder *WidgetBuilder) WidgetUrl(widgetUrl *WidgetUrl) *WidgetBuilder {
@@ -4563,11 +4563,11 @@ func (builder *WidgetBuilder) Build() *Widget {
 }
 
 type WidgetUrl struct {
-	Url *string `json:"url,omitempty"` // 小组件的url
+	Url *string `json:"url,omitempty"` // 小组件的 url
 }
 
 type WidgetUrlBuilder struct {
-	url     string // 小组件的url
+	url     string // 小组件的 url
 	urlFlag bool
 }
 
@@ -4576,7 +4576,7 @@ func NewWidgetUrlBuilder() *WidgetUrlBuilder {
 	return builder
 }
 
-// 小组件的url
+// 小组件的 url
 //
 // 示例值：https://open.feishu.cn/document/home/index
 func (builder *WidgetUrlBuilder) Url(url string) *WidgetUrlBuilder {
@@ -4607,7 +4607,7 @@ func NewDeleteBatchMessageReqBuilder() *DeleteBatchMessageReqBuilder {
 	return builder
 }
 
-// 待撤回的批量消息的ID，为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段，用于标识一次批量发送消息请求。
+// 待撤回的批量消息的 ID，为 [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM) 接口返回值中的`message_id`字段，用于标识一次批量发送消息请求。
 //
 // 示例值：bm-dc13264520392913993dd051dba21dcf
 func (builder *DeleteBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *DeleteBatchMessageReqBuilder {
@@ -4648,7 +4648,7 @@ func NewGetProgressBatchMessageReqBuilder() *GetProgressBatchMessageReqBuilder {
 	return builder
 }
 
-// 待查询的批量消息的ID，通过调用[批量发送消息接口](	https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到
+// 待查询的批量消息的 ID，通过调用 [批量发送消息接口](	https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM) 的返回值中得到
 //
 // 示例值：bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217
 func (builder *GetProgressBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *GetProgressBatchMessageReqBuilder {
@@ -4695,7 +4695,7 @@ func NewReadUserBatchMessageReqBuilder() *ReadUserBatchMessageReqBuilder {
 	return builder
 }
 
-// 待查询的批量消息的ID，通过调用[批量发送消息接口](	https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到
+// 待查询的批量消息的 ID，通过调用 [批量发送消息接口](	https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM) 的返回值中得到
 //
 // 示例值：bm_dc13264520392913993dd051dba21dcf
 func (builder *ReadUserBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *ReadUserBatchMessageReqBuilder {
@@ -4729,31 +4729,31 @@ func (resp *ReadUserBatchMessageResp) Success() bool {
 }
 
 type CreateChatReqBodyBuilder struct {
-	avatar                     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatar                     string // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 	avatarFlag                 bool
-	name                       string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	name                       string // 群名称;; ** 注意：** ;- 公开群名称的长度不得少于 2 个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 	nameFlag                   bool
 	description                string // 群描述
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID 值应与查询参数中的 ==user_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID
 	ownerIdFlag                bool
-	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID;;** 注意 **：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身 ID
 	userIdListFlag             bool
-	botIdList                  []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+	botIdList                  []string // 创建群时邀请的群机器人；可参考 [如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id) 来获取应用的 App ID; ;** 注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请 5 个机器人，并且群组最多容纳 15 个机器人
 	botIdListFlag              bool
-	chatMode                   string // 群模式;;**可选值有**：;- `group`：群组
+	chatMode                   string // 群模式;;** 可选值有 **：;- `group`：群组
 	chatModeFlag               bool
-	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatType                   string // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
 	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 	externalFlag               bool
-	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibility      string // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibility     string // 退群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	leaveMessageVisibilityFlag bool
-	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApproval         string // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 }
 
@@ -4762,7 +4762,7 @@ func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
 	return builder
 }
 
-// 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+// 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
 //示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *CreateChatReqBodyBuilder) Avatar(avatar string) *CreateChatReqBodyBuilder {
@@ -4771,7 +4771,7 @@ func (builder *CreateChatReqBodyBuilder) Avatar(avatar string) *CreateChatReqBod
 	return builder
 }
 
-// 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+// 群名称;; ** 注意：** ;- 公开群名称的长度不得少于 2 个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 //
 //示例值：测试群名称
 func (builder *CreateChatReqBodyBuilder) Name(name string) *CreateChatReqBodyBuilder {
@@ -4798,7 +4798,7 @@ func (builder *CreateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Create
 	return builder
 }
 
-// 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+// 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID 值应与查询参数中的 ==user_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID
 //
 //示例值：4d7a3c6g
 func (builder *CreateChatReqBodyBuilder) OwnerId(ownerId string) *CreateChatReqBodyBuilder {
@@ -4807,7 +4807,7 @@ func (builder *CreateChatReqBodyBuilder) OwnerId(ownerId string) *CreateChatReqB
 	return builder
 }
 
-// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID;;** 注意 **：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身 ID
 //
 //示例值：["4d7a3c6g"]
 func (builder *CreateChatReqBodyBuilder) UserIdList(userIdList []string) *CreateChatReqBodyBuilder {
@@ -4816,7 +4816,7 @@ func (builder *CreateChatReqBodyBuilder) UserIdList(userIdList []string) *Create
 	return builder
 }
 
-// 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+// 创建群时邀请的群机器人；可参考 [如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id) 来获取应用的 App ID; ;** 注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请 5 个机器人，并且群组最多容纳 15 个机器人
 //
 //示例值：["cli_a10fbf7e94b8d01d"]
 func (builder *CreateChatReqBodyBuilder) BotIdList(botIdList []string) *CreateChatReqBodyBuilder {
@@ -4825,7 +4825,7 @@ func (builder *CreateChatReqBodyBuilder) BotIdList(botIdList []string) *CreateCh
 	return builder
 }
 
-// 群模式;;**可选值有**：;- `group`：群组
+// 群模式;;** 可选值有 **：;- `group`：群组
 //
 //示例值：group
 func (builder *CreateChatReqBodyBuilder) ChatMode(chatMode string) *CreateChatReqBodyBuilder {
@@ -4834,7 +4834,7 @@ func (builder *CreateChatReqBodyBuilder) ChatMode(chatMode string) *CreateChatRe
 	return builder
 }
 
-// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+// 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 //
 //示例值：private
 func (builder *CreateChatReqBodyBuilder) ChatType(chatType string) *CreateChatReqBodyBuilder {
@@ -4852,7 +4852,7 @@ func (builder *CreateChatReqBodyBuilder) External(external bool) *CreateChatReqB
 	return builder
 }
 
-// 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 //示例值：all_members
 func (builder *CreateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatReqBodyBuilder {
@@ -4861,7 +4861,7 @@ func (builder *CreateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibi
 	return builder
 }
 
-// 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 退群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 //示例值：all_members
 func (builder *CreateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatReqBodyBuilder {
@@ -4870,7 +4870,7 @@ func (builder *CreateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisi
 	return builder
 }
 
-// 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+// 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
 //示例值：no_approval_required
 func (builder *CreateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatReqBodyBuilder {
@@ -4924,31 +4924,31 @@ func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 }
 
 type CreateChatPathReqBodyBuilder struct {
-	avatar                     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatar                     string // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 	avatarFlag                 bool
-	name                       string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	name                       string // 群名称;; ** 注意：** ;- 公开群名称的长度不得少于 2 个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 	nameFlag                   bool
 	description                string // 群描述
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID 值应与查询参数中的 ==user_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID
 	ownerIdFlag                bool
-	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID;;** 注意 **：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身 ID
 	userIdListFlag             bool
-	botIdList                  []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+	botIdList                  []string // 创建群时邀请的群机器人；可参考 [如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id) 来获取应用的 App ID; ;** 注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请 5 个机器人，并且群组最多容纳 15 个机器人
 	botIdListFlag              bool
-	chatMode                   string // 群模式;;**可选值有**：;- `group`：群组
+	chatMode                   string // 群模式;;** 可选值有 **：;- `group`：群组
 	chatModeFlag               bool
-	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatType                   string // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
 	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
 	externalFlag               bool
-	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibility      string // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibility     string // 退群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	leaveMessageVisibilityFlag bool
-	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApproval         string // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 	labels                     []string // 群标签
 	labelsFlag                 bool
@@ -4961,7 +4961,7 @@ func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
 	return builder
 }
 
-// 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+// 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
 // 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
@@ -4970,7 +4970,7 @@ func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPa
 	return builder
 }
 
-// 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+// 群名称;; ** 注意：** ;- 公开群名称的长度不得少于 2 个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 //
 // 示例值：测试群名称
 func (builder *CreateChatPathReqBodyBuilder) Name(name string) *CreateChatPathReqBodyBuilder {
@@ -4997,7 +4997,7 @@ func (builder *CreateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Cr
 	return builder
 }
 
-// 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+// 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID 值应与查询参数中的 ==user_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID
 //
 // 示例值：4d7a3c6g
 func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChatPathReqBodyBuilder {
@@ -5006,7 +5006,7 @@ func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChat
 	return builder
 }
 
-// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+// 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID;;** 注意 **：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身 ID
 //
 // 示例值：["4d7a3c6g"]
 func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
@@ -5015,7 +5015,7 @@ func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *Cr
 	return builder
 }
 
-// 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+// 创建群时邀请的群机器人；可参考 [如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id) 来获取应用的 App ID; ;** 注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请 5 个机器人，并且群组最多容纳 15 个机器人
 //
 // 示例值：["cli_a10fbf7e94b8d01d"]
 func (builder *CreateChatPathReqBodyBuilder) BotIdList(botIdList []string) *CreateChatPathReqBodyBuilder {
@@ -5024,7 +5024,7 @@ func (builder *CreateChatPathReqBodyBuilder) BotIdList(botIdList []string) *Crea
 	return builder
 }
 
-// 群模式;;**可选值有**：;- `group`：群组
+// 群模式;;** 可选值有 **：;- `group`：群组
 //
 // 示例值：group
 func (builder *CreateChatPathReqBodyBuilder) ChatMode(chatMode string) *CreateChatPathReqBodyBuilder {
@@ -5033,7 +5033,7 @@ func (builder *CreateChatPathReqBodyBuilder) ChatMode(chatMode string) *CreateCh
 	return builder
 }
 
-// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+// 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 //
 // 示例值：private
 func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateChatPathReqBodyBuilder {
@@ -5051,7 +5051,7 @@ func (builder *CreateChatPathReqBodyBuilder) External(external bool) *CreateChat
 	return builder
 }
 
-// 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatPathReqBodyBuilder {
@@ -5060,7 +5060,7 @@ func (builder *CreateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVi
 	return builder
 }
 
-// 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 退群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatPathReqBodyBuilder {
@@ -5069,7 +5069,7 @@ func (builder *CreateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessage
 	return builder
 }
 
-// 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+// 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
 // 示例值：no_approval_required
 func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatPathReqBodyBuilder {
@@ -5136,7 +5136,7 @@ func NewCreateChatReqBuilder() *CreateChatReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：open_id
 func (builder *CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder {
@@ -5152,7 +5152,7 @@ func (builder *CreateChatReqBuilder) SetBotManager(setBotManager bool) *CreateCh
 	return builder
 }
 
-// 由开发者生成的唯一字符串序列，用于创建群组请求去重；持有相同uuid的请求10小时内只可成功创建1个群聊
+// 由开发者生成的唯一字符串序列，用于创建群组请求去重；持有相同 uuid 的请求 10 小时内只可成功创建 1 个群聊
 //
 // 示例值：b13g2t38-1jd2-458b-8djf-dtbca5104204
 func (builder *CreateChatReqBuilder) Uuid(uuid string) *CreateChatReqBuilder {
@@ -5175,19 +5175,19 @@ func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
 }
 
 type CreateChatReqBody struct {
-	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
-	Name                   *string    `json:"name,omitempty"`                     // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	Name                   *string    `json:"name,omitempty"`                     // 群名称;; ** 注意：** ;- 公开群名称的长度不得少于 2 个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerId                *string    `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
-	UserIdList             []string   `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
-	BotIdList              []string   `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
-	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组
-	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	OwnerId                *string    `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID 值应与查询参数中的 ==user_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID
+	UserIdList             []string   `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取用户的 Open ID;;** 注意 **：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身 ID
+	BotIdList              []string   `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人；可参考 [如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id) 来获取应用的 App ID; ;** 注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请 5 个机器人，并且群组最多容纳 15 个机器人
+	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;** 可选值有 **：;- `group`：群组
+	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 	External               *bool      `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
 }
 
@@ -5197,26 +5197,26 @@ type CreateChatReq struct {
 }
 
 type CreateChatRespData struct {
-	ChatId                 *string    `json:"chat_id,omitempty"`                  // 群 ID，详情参见：[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId                 *string    `json:"chat_id,omitempty"`                  // 群 ID，详情参见：[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像 URL
 	Name                   *string    `json:"name,omitempty"`                     // 群名称
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：当群主是机器人时，该字段不返回
-	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;**注意**：当群主是机器人时，该字段不返回
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 拉 用户或机器人 入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
-	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组
-	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	ChatTag                *string    `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个;;**可选值有**：;- `inner`：内部群;- `tenant`：公司群;- `department`：部门群;- `edu`：教育群;- `meeting`：会议群;- `customer_service`：客服群
+	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID 值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;** 注意 **：当群主是机器人时，该字段不返回
+	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的 ID 类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;** 注意 **：当群主是机器人时，该字段不返回
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 拉 用户或机器人 入群权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;** 可选值有 **：;- `group`：群组
+	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
+	ChatTag                *string    `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个;;** 可选值有 **：;- `inner`：内部群;- `tenant`：公司群;- `department`：部门群;- `edu`：教育群;- `meeting`：会议群;- `customer_service`：客服群
 	External               *bool      `json:"external,omitempty"`                 // 是否是外部群
-	TenantKey              *string    `json:"tenant_key,omitempty"`               // 租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
-	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;- `moderator_list`：指定群成员
+	TenantKey              *string    `json:"tenant_key,omitempty"`               // 租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用里面的唯一标识
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;- `moderator_list`：指定群成员
 
 }
 
@@ -5243,7 +5243,7 @@ func NewDeleteChatReqBuilder() *DeleteChatReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *DeleteChatReqBuilder) ChatId(chatId string) *DeleteChatReqBuilder {
@@ -5284,7 +5284,7 @@ func NewGetChatReqBuilder() *GetChatReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder {
@@ -5292,7 +5292,7 @@ func (builder *GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetChatReqBuilder) UserIdType(userIdType string) *GetChatReqBuilder {
@@ -5317,21 +5317,21 @@ type GetChatRespData struct {
 	Name                   *string    `json:"name,omitempty"`                     // 群名称
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 群成员添加权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;;**注意**：单聊不返回该字段
-	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许;;**注意**：单聊不返回该字段
-	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;;**注意**：单聊不返回该字段
-	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;**注意**：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
-	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
-	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组;- `topic`: 话题;- `p2p`: 单聊
-	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群;;**注意**：单聊不返回该字段
-	ChatTag                *string    `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个;;**可选值有**：;- `inner`：内部群;- `tenant`：公司群;- `department`：部门群;- `edu`：教育群;- `meeting`：会议群;- `customer_service`：客服群;;**注意**：单聊不返回该字段
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见;;**注意**：单聊不返回该字段
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见;;**注意**：单聊不返回该字段
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批;;**注意**：单聊不返回该字段
-	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;- `moderator_list`：指定群成员
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 群成员添加权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;;** 注意 **：单聊不返回该字段
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许;;** 注意 **：单聊不返回该字段
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;;** 注意 **：单聊不返回该字段
+	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的 ID 类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;** 注意 **：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
+	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID 值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;** 注意 **：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
+	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;** 可选值有 **：;- `group`：群组;- `topic`: 话题;- `p2p`: 单聊
+	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群;;** 注意 **：单聊不返回该字段
+	ChatTag                *string    `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个;;** 可选值有 **：;- `inner`：内部群;- `tenant`：公司群;- `department`：部门群;- `edu`：教育群;- `meeting`：会议群;- `customer_service`：客服群;;** 注意 **：单聊不返回该字段
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见;;** 注意 **：单聊不返回该字段
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见;;** 注意 **：单聊不返回该字段
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批;;** 注意 **：单聊不返回该字段
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;- `moderator_list`：指定群成员
 	External               *bool      `json:"external,omitempty"`                 // 是否是外部群
-	TenantKey              *string    `json:"tenant_key,omitempty"`               // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	TenantKey              *string    `json:"tenant_key,omitempty"`               // 租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	UserCount              *string    `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               *string    `json:"bot_count,omitempty"`                // 群机器人数
 
@@ -5348,7 +5348,7 @@ func (resp *GetChatResp) Success() bool {
 }
 
 type LinkChatReqBodyBuilder struct {
-	validityPeriod     string // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+	validityPeriod     string // 群分享链接有效时长，可选值 week、year、permanently，分别表示 7 天、1 年以及永久有效
 	validityPeriodFlag bool
 }
 
@@ -5357,7 +5357,7 @@ func NewLinkChatReqBodyBuilder() *LinkChatReqBodyBuilder {
 	return builder
 }
 
-// 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+// 群分享链接有效时长，可选值 week、year、permanently，分别表示 7 天、1 年以及永久有效
 //
 //示例值：week
 func (builder *LinkChatReqBodyBuilder) ValidityPeriod(validityPeriod string) *LinkChatReqBodyBuilder {
@@ -5375,7 +5375,7 @@ func (builder *LinkChatReqBodyBuilder) Build() *LinkChatReqBody {
 }
 
 type LinkChatPathReqBodyBuilder struct {
-	validityPeriod     string // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+	validityPeriod     string // 群分享链接有效时长，可选值 week、year、permanently，分别表示 7 天、1 年以及永久有效
 	validityPeriodFlag bool
 }
 
@@ -5384,7 +5384,7 @@ func NewLinkChatPathReqBodyBuilder() *LinkChatPathReqBodyBuilder {
 	return builder
 }
 
-// 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+// 群分享链接有效时长，可选值 week、year、permanently，分别表示 7 天、1 年以及永久有效
 //
 // 示例值：week
 func (builder *LinkChatPathReqBodyBuilder) ValidityPeriod(validityPeriod string) *LinkChatPathReqBodyBuilder {
@@ -5415,7 +5415,7 @@ func NewLinkChatReqBuilder() *LinkChatReqBuilder {
 	return builder
 }
 
-// 待获取分享链接的群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：单聊、密聊、团队群不支持分享群链接
+// 待获取分享链接的群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：单聊、密聊、团队群不支持分享群链接
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *LinkChatReqBuilder) ChatId(chatId string) *LinkChatReqBuilder {
@@ -5438,7 +5438,7 @@ func (builder *LinkChatReqBuilder) Build() *LinkChatReq {
 }
 
 type LinkChatReqBody struct {
-	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长，可选值 week、year、permanently，分别表示 7 天、1 年以及永久有效
 }
 
 type LinkChatReq struct {
@@ -5482,7 +5482,7 @@ func (builder *ListChatReqBuilder) Limit(limit int) *ListChatReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBuilder {
@@ -5556,7 +5556,7 @@ func (builder *SearchChatReqBuilder) Limit(limit int) *SearchChatReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder {
@@ -5564,7 +5564,7 @@ func (builder *SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatRe
 	return builder
 }
 
-// 关键词;;**注意事项**：;- 关键词支持匹配群国际化名称、群成员名称;- 支持使用多语种搜索;- 支持拼音、前缀等模糊搜索;- 关键词为空值或长度超过`64`个字符时将返回空的结果
+// 关键词;;** 注意事项 **：;- 关键词支持匹配群国际化名称、群成员名称;- 支持使用多语种搜索;- 支持拼音、前缀等模糊搜索;- 关键词为空值或长度超过`64`个字符时将返回空的结果
 //
 // 示例值：abc
 func (builder *SearchChatReqBuilder) Query(query string) *SearchChatReqBuilder {
@@ -5619,7 +5619,7 @@ func (resp *SearchChatResp) Success() bool {
 }
 
 type UpdateChatReqBodyBuilder struct {
-	avatar                     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatar                     string // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 	avatarFlag                 bool
 	name                       string // 群名称
 	nameFlag                   bool
@@ -5627,24 +5627,24 @@ type UpdateChatReqBodyBuilder struct {
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则 share_card_permission 只能设置为`not_allowed`;- 若值设置为`all_members`，则 share_card_permission 只能设置为`allowed`;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	addMemberPermissionFlag    bool
-	shareCardPermission        string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
+	shareCardPermission        string // 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
 	shareCardPermissionFlag    bool
-	atAllPermission            string // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	atAllPermission            string // at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	atAllPermissionFlag        bool
-	editPermission             string // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	editPermission             string // 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	editPermissionFlag         bool
 	ownerId                    string // 新群主 ID
 	ownerIdFlag                bool
-	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibility      string // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibility     string // 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	leaveMessageVisibilityFlag bool
-	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApproval         string // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 
-	chatType     string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatType     string // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag bool
 }
 
@@ -5653,7 +5653,7 @@ func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
 	return builder
 }
 
-// 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+// 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
 //示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *UpdateChatReqBodyBuilder) Avatar(avatar string) *UpdateChatReqBodyBuilder {
@@ -5689,7 +5689,7 @@ func (builder *UpdateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Update
 	return builder
 }
 
-// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则 share_card_permission 只能设置为`not_allowed`;- 若值设置为`all_members`，则 share_card_permission 只能设置为`allowed`;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 //示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatReqBodyBuilder {
@@ -5698,7 +5698,7 @@ func (builder *UpdateChatReqBodyBuilder) AddMemberPermission(addMemberPermission
 	return builder
 }
 
-// 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
+// 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
 //
 //示例值：allowed
 func (builder *UpdateChatReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatReqBodyBuilder {
@@ -5707,7 +5707,7 @@ func (builder *UpdateChatReqBodyBuilder) ShareCardPermission(shareCardPermission
 	return builder
 }
 
-// at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 //示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatReqBodyBuilder {
@@ -5716,7 +5716,7 @@ func (builder *UpdateChatReqBodyBuilder) AtAllPermission(atAllPermission string)
 	return builder
 }
 
-// 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 //示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) EditPermission(editPermission string) *UpdateChatReqBodyBuilder {
@@ -5734,7 +5734,7 @@ func (builder *UpdateChatReqBodyBuilder) OwnerId(ownerId string) *UpdateChatReqB
 	return builder
 }
 
-// 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 //示例值：only_owner
 func (builder *UpdateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatReqBodyBuilder {
@@ -5743,7 +5743,7 @@ func (builder *UpdateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibi
 	return builder
 }
 
-// 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 //示例值：only_owner
 func (builder *UpdateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatReqBodyBuilder {
@@ -5752,7 +5752,7 @@ func (builder *UpdateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisi
 	return builder
 }
 
-// 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+// 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
 //示例值：no_approval_required
 func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatReqBodyBuilder {
@@ -5761,7 +5761,7 @@ func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
-// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+// 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 //
 //示例值：private
 func (builder *UpdateChatReqBodyBuilder) ChatType(chatType string) *UpdateChatReqBodyBuilder {
@@ -5815,7 +5815,7 @@ func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 }
 
 type UpdateChatPathReqBodyBuilder struct {
-	avatar                     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatar                     string // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 	avatarFlag                 bool
 	name                       string // 群名称
 	nameFlag                   bool
@@ -5823,27 +5823,27 @@ type UpdateChatPathReqBodyBuilder struct {
 	descriptionFlag            bool
 	i18nNames                  *I18nNames // 群国际化名称
 	i18nNamesFlag              bool
-	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	addMemberPermission        string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则 share_card_permission 只能设置为`not_allowed`;- 若值设置为`all_members`，则 share_card_permission 只能设置为`allowed`;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	addMemberPermissionFlag    bool
-	shareCardPermission        string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
+	shareCardPermission        string // 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
 	shareCardPermissionFlag    bool
-	atAllPermission            string // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	atAllPermission            string // at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	atAllPermissionFlag        bool
-	editPermission             string // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	editPermission             string // 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	editPermissionFlag         bool
 	ownerId                    string // 新群主 ID
 	ownerIdFlag                bool
-	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibility      string // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibility     string // 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	leaveMessageVisibilityFlag bool
-	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApproval         string // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 	labels                     []string // 群标签
 	labelsFlag                 bool
 	toolkitIds                 []string // 群快捷组件列表
 	toolkitIdsFlag             bool
-	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatType                   string // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
 }
 
@@ -5852,7 +5852,7 @@ func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
 	return builder
 }
 
-// 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+// 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
 // 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *UpdateChatPathReqBodyBuilder) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
@@ -5888,7 +5888,7 @@ func (builder *UpdateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Up
 	return builder
 }
 
-// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则 share_card_permission 只能设置为`not_allowed`;- 若值设置为`all_members`，则 share_card_permission 只能设置为`allowed`;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
@@ -5897,7 +5897,7 @@ func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermis
 	return builder
 }
 
-// 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
+// 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
 //
 // 示例值：allowed
 func (builder *UpdateChatPathReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatPathReqBodyBuilder {
@@ -5906,7 +5906,7 @@ func (builder *UpdateChatPathReqBodyBuilder) ShareCardPermission(shareCardPermis
 	return builder
 }
 
-// at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatPathReqBodyBuilder {
@@ -5915,7 +5915,7 @@ func (builder *UpdateChatPathReqBodyBuilder) AtAllPermission(atAllPermission str
 	return builder
 }
 
-// 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+// 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) EditPermission(editPermission string) *UpdateChatPathReqBodyBuilder {
@@ -5933,7 +5933,7 @@ func (builder *UpdateChatPathReqBodyBuilder) OwnerId(ownerId string) *UpdateChat
 	return builder
 }
 
-// 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 // 示例值：only_owner
 func (builder *UpdateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatPathReqBodyBuilder {
@@ -5942,7 +5942,7 @@ func (builder *UpdateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVi
 	return builder
 }
 
-// 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+// 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 // 示例值：only_owner
 func (builder *UpdateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatPathReqBodyBuilder {
@@ -5951,7 +5951,7 @@ func (builder *UpdateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessage
 	return builder
 }
 
-// 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+// 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
 // 示例值：no_approval_required
 func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatPathReqBodyBuilder {
@@ -5960,7 +5960,7 @@ func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
-// 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+// 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 //
 // 示例值：private
 func (builder *UpdateChatPathReqBodyBuilder) ChatType(chatType string) *UpdateChatPathReqBodyBuilder {
@@ -6027,7 +6027,7 @@ func NewUpdateChatReqBuilder() *UpdateChatReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder {
@@ -6035,7 +6035,7 @@ func (builder *UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateChatReqBuilder) UserIdType(userIdType string) *UpdateChatReqBuilder {
@@ -6059,20 +6059,20 @@ func (builder *UpdateChatReqBuilder) Build() *UpdateChatReq {
 }
 
 type UpdateChatReqBody struct {
-	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 	Name                   *string    `json:"name,omitempty"`                     // 群名称
 	Description            *string    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
-	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则 share_card_permission 只能设置为`not_allowed`;- 若值设置为`all_members`，则 share_card_permission 只能设置为`allowed`;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;** 可选值有 **：;- `allowed`：允许;- `not_allowed`：不允许
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;** 可选值有 **：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	OwnerId                *string    `json:"owner_id,omitempty"`                 // 新群主 ID
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;** 可选值有 **：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;** 可选值有 **：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
-	ChatType *string `json:"chat_type,omitempty"` // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	ChatType *string `json:"chat_type,omitempty"` // 群类型;;** 可选值有 **：;- `private`：私有群;- `public`：公开群
 }
 
 type UpdateChatReq struct {
@@ -6102,7 +6102,7 @@ func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
 	return builder
 }
 
-// 待获取公告的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：不支持P2P单聊
+// 待获取公告的群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：不支持 P2P 单聊
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder {
@@ -6110,7 +6110,7 @@ func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnno
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：open_id
 func (builder *GetChatAnnouncementReqBuilder) UserIdType(userIdType string) *GetChatAnnouncementReqBuilder {
@@ -6135,10 +6135,10 @@ type GetChatAnnouncementRespData struct {
 	Revision       *string `json:"revision,omitempty"`         // 文档当前版本号 纯数字
 	CreateTime     *string `json:"create_time,omitempty"`      // 文档生成的时间戳（秒）
 	UpdateTime     *string `json:"update_time,omitempty"`      // 文档更新的时间戳（秒）
-	OwnerIdType    *string `json:"owner_id_type,omitempty"`    // 文档所有者的 ID 类型;;- 如果所有者是用户，则与查询参数中的user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一，不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);- 如果所有者是机器人，为机器人应用的 `app_id`，详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)
-	OwnerId        *string `json:"owner_id,omitempty"`         // 文档所有者 ID，ID 值与owner_id_type 中的ID类型对应
-	ModifierIdType *string `json:"modifier_id_type,omitempty"` // 文档最新修改者 id 类型;; - 如果修改者是用户，则与查询参数中的user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一，不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);- 如果修改者是机器人，为机器人应用的 `app_id`，详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)
-	ModifierId     *string `json:"modifier_id,omitempty"`      // 文档最新修改者 ID，ID 值与modifier_id_type 中的ID类型对应
+	OwnerIdType    *string `json:"owner_id_type,omitempty"`    // 文档所有者的 ID 类型;;- 如果所有者是用户，则与查询参数中的 user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一，不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);- 如果所有者是机器人，为机器人应用的 `app_id`，详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)
+	OwnerId        *string `json:"owner_id,omitempty"`         // 文档所有者 ID，ID 值与 owner_id_type 中的 ID 类型对应
+	ModifierIdType *string `json:"modifier_id_type,omitempty"` // 文档最新修改者 id 类型;; - 如果修改者是用户，则与查询参数中的 user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一，不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);- 如果修改者是机器人，为机器人应用的 `app_id`，详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)
+	ModifierId     *string `json:"modifier_id,omitempty"`      // 文档最新修改者 ID，ID 值与 modifier_id_type 中的 ID 类型对应
 }
 
 type GetChatAnnouncementResp struct {
@@ -6152,9 +6152,9 @@ func (resp *GetChatAnnouncementResp) Success() bool {
 }
 
 type PatchChatAnnouncementReqBodyBuilder struct {
-	revision     string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
+	revision     string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get) 接口会返回
 	revisionFlag bool
-	requests     []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+	requests     []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN) 格式相同
 	requestsFlag bool
 }
 
@@ -6163,7 +6163,7 @@ func NewPatchChatAnnouncementReqBodyBuilder() *PatchChatAnnouncementReqBodyBuild
 	return builder
 }
 
-// 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
+// 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get) 接口会返回
 //
 //示例值：12
 func (builder *PatchChatAnnouncementReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementReqBodyBuilder {
@@ -6172,7 +6172,7 @@ func (builder *PatchChatAnnouncementReqBodyBuilder) Revision(revision string) *P
 	return builder
 }
 
-// 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+// 修改文档请求的序列化字段;;更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN) 格式相同
 //
 //示例值：{\"requestType\":\"InsertBlocksRequestType\",\"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\",\\\"textRun\\\":{\\\"text\\\":\\\"ylyyyyyDocs API Sample Content\\\",\\\"style\\\":{}}}],\\\"style\\\":{}}}]}\",\"location\":{\"zoneId\":\"0\",\"index\":0, \"endOfZone\": true}}}
 func (builder *PatchChatAnnouncementReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementReqBodyBuilder {
@@ -6193,9 +6193,9 @@ func (builder *PatchChatAnnouncementReqBodyBuilder) Build() *PatchChatAnnounceme
 }
 
 type PatchChatAnnouncementPathReqBodyBuilder struct {
-	revision     string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
+	revision     string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get) 接口会返回
 	revisionFlag bool
-	requests     []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+	requests     []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN) 格式相同
 	requestsFlag bool
 }
 
@@ -6204,7 +6204,7 @@ func NewPatchChatAnnouncementPathReqBodyBuilder() *PatchChatAnnouncementPathReqB
 	return builder
 }
 
-// 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
+// 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get) 接口会返回
 //
 // 示例值：12
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
@@ -6213,7 +6213,7 @@ func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string
 	return builder
 }
 
-// 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+// 修改文档请求的序列化字段;;更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN) 格式相同
 //
 // 示例值：{\"requestType\":\"InsertBlocksRequestType\",\"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\",\\\"textRun\\\":{\\\"text\\\":\\\"ylyyyyyDocs API Sample Content\\\",\\\"style\\\":{}}}],\\\"style\\\":{}}}]}\",\"location\":{\"zoneId\":\"0\",\"index\":0, \"endOfZone\": true}}}
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementPathReqBodyBuilder {
@@ -6247,7 +6247,7 @@ func NewPatchChatAnnouncementReqBuilder() *PatchChatAnnouncementReqBuilder {
 	return builder
 }
 
-// 待修改公告的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：不支持P2P单聊
+// 待修改公告的群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：不支持 P2P 单聊
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChatAnnouncementReqBuilder {
@@ -6255,7 +6255,7 @@ func (builder *PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChat
 	return builder
 }
 
-// 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// 更新会话中的群公告信息，更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN) 格式相同。
 func (builder *PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncementReqBody) *PatchChatAnnouncementReqBuilder {
 	builder.body = body
 	return builder
@@ -6270,8 +6270,8 @@ func (builder *PatchChatAnnouncementReqBuilder) Build() *PatchChatAnnouncementRe
 }
 
 type PatchChatAnnouncementReqBody struct {
-	Revision *string  `json:"revision,omitempty"` // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
-	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+	Revision *string  `json:"revision,omitempty"` // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get) 接口会返回
+	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段;;更新公告信息的格式和更新 [云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN) 格式相同
 }
 
 type PatchChatAnnouncementReq struct {
@@ -6289,7 +6289,7 @@ func (resp *PatchChatAnnouncementResp) Success() bool {
 }
 
 type AddManagersChatManagersReqBodyBuilder struct {
-	managerIds     []string // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+	managerIds     []string // 要增加的 manager_id;;** 注意 **：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 	managerIdsFlag bool
 }
 
@@ -6298,7 +6298,7 @@ func NewAddManagersChatManagersReqBodyBuilder() *AddManagersChatManagersReqBodyB
 	return builder
 }
 
-// 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+// 要增加的 manager_id;;** 注意 **：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *AddManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersReqBodyBuilder {
@@ -6316,7 +6316,7 @@ func (builder *AddManagersChatManagersReqBodyBuilder) Build() *AddManagersChatMa
 }
 
 type AddManagersChatManagersPathReqBodyBuilder struct {
-	managerIds     []string // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+	managerIds     []string // 要增加的 manager_id;;** 注意 **：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 	managerIdsFlag bool
 }
 
@@ -6325,7 +6325,7 @@ func NewAddManagersChatManagersPathReqBodyBuilder() *AddManagersChatManagersPath
 	return builder
 }
 
-// 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+// 要增加的 manager_id;;** 注意 **：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *AddManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
@@ -6356,7 +6356,7 @@ func NewAddManagersChatManagersReqBuilder() *AddManagersChatManagersReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`、`topic`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`、`topic`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddManagersChatManagersReqBuilder {
@@ -6364,7 +6364,7 @@ func (builder *AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddMana
 	return builder
 }
 
-// 群成员 ID 类型 open_id/user_id/union_id/app_id;;**注意**： 指定机器人类型的管理员请使用 ==app_id==
+// 群成员 ID 类型 open_id/user_id/union_id/app_id;;** 注意 **： 指定机器人类型的管理员请使用 ==app_id==
 //
 // 示例值：open_id
 func (builder *AddManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *AddManagersChatManagersReqBuilder {
@@ -6388,7 +6388,7 @@ func (builder *AddManagersChatManagersReqBuilder) Build() *AddManagersChatManage
 }
 
 type AddManagersChatManagersReqBody struct {
-	ManagerIds []string `json:"manager_ids,omitempty"` // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+	ManagerIds []string `json:"manager_ids,omitempty"` // 要增加的 manager_id;;** 注意 **：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 }
 
 type AddManagersChatManagersReq struct {
@@ -6412,7 +6412,7 @@ func (resp *AddManagersChatManagersResp) Success() bool {
 }
 
 type DeleteManagersChatManagersReqBodyBuilder struct {
-	managerIds     []string // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+	managerIds     []string // 要删除的 manager_id;;** 注意 **：每次请求最多指定 50 个用户或者 5 个机器人
 	managerIdsFlag bool
 }
 
@@ -6421,7 +6421,7 @@ func NewDeleteManagersChatManagersReqBodyBuilder() *DeleteManagersChatManagersRe
 	return builder
 }
 
-// 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+// 要删除的 manager_id;;** 注意 **：每次请求最多指定 50 个用户或者 5 个机器人
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersReqBodyBuilder {
@@ -6439,7 +6439,7 @@ func (builder *DeleteManagersChatManagersReqBodyBuilder) Build() *DeleteManagers
 }
 
 type DeleteManagersChatManagersPathReqBodyBuilder struct {
-	managerIds     []string // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+	managerIds     []string // 要删除的 manager_id;;** 注意 **：每次请求最多指定 50 个用户或者 5 个机器人
 	managerIdsFlag bool
 }
 
@@ -6448,7 +6448,7 @@ func NewDeleteManagersChatManagersPathReqBodyBuilder() *DeleteManagersChatManage
 	return builder
 }
 
-// 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+// 要删除的 manager_id;;** 注意 **：每次请求最多指定 50 个用户或者 5 个机器人
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
@@ -6479,7 +6479,7 @@ func NewDeleteManagersChatManagersReqBuilder() *DeleteManagersChatManagersReqBui
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`、`topic`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`、`topic`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *DeleteManagersChatManagersReqBuilder {
@@ -6487,7 +6487,7 @@ func (builder *DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *Dele
 	return builder
 }
 
-// 群成员 id 类型 open_id/user_id/union_id/app_id;;**注意**：删除机器人类型的管理员请使用 ==app_id==
+// 群成员 id 类型 open_id/user_id/union_id/app_id;;** 注意 **：删除机器人类型的管理员请使用 ==app_id==
 //
 // 示例值：open_id
 func (builder *DeleteManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *DeleteManagersChatManagersReqBuilder {
@@ -6511,7 +6511,7 @@ func (builder *DeleteManagersChatManagersReqBuilder) Build() *DeleteManagersChat
 }
 
 type DeleteManagersChatManagersReqBody struct {
-	ManagerIds []string `json:"manager_ids,omitempty"` // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+	ManagerIds []string `json:"manager_ids,omitempty"` // 要删除的 manager_id;;** 注意 **：每次请求最多指定 50 个用户或者 5 个机器人
 }
 
 type DeleteManagersChatManagersReq struct {
@@ -6535,7 +6535,7 @@ func (resp *DeleteManagersChatManagersResp) Success() bool {
 }
 
 type CreateChatMembersReqBodyBuilder struct {
-	idList     []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+	idList     []string // 成员 ID 列表，获取 ID 请参见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;** 注意 **：;- 成员列表不可为空;- 每次请求最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 	idListFlag bool
 }
 
@@ -6544,7 +6544,7 @@ func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
 	return builder
 }
 
-// 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+// 成员 ID 列表，获取 ID 请参见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;** 注意 **：;- 成员列表不可为空;- 每次请求最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
@@ -6562,7 +6562,7 @@ func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBod
 }
 
 type CreateChatMembersPathReqBodyBuilder struct {
-	idList     []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+	idList     []string // 成员 ID 列表，获取 ID 请参见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;** 注意 **：;- 成员列表不可为空;- 每次请求最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 	idListFlag bool
 }
 
@@ -6571,7 +6571,7 @@ func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuild
 	return builder
 }
 
-// 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+// 成员 ID 列表，获取 ID 请参见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;** 注意 **：;- 成员列表不可为空;- 每次请求最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
@@ -6602,7 +6602,7 @@ func NewCreateChatMembersReqBuilder() *CreateChatMembersReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`、`topic`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`、`topic`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMembersReqBuilder {
@@ -6610,7 +6610,7 @@ func (builder *CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMem
 	return builder
 }
 
-// 进群成员 ID 类型 open_id/user_id/union_id/app_id;;**注意**：拉机器人入群请使用 ==app_id==
+// 进群成员 ID 类型 open_id/user_id/union_id/app_id;;** 注意 **：拉机器人入群请使用 ==app_id==
 //
 // 示例值：open_id
 func (builder *CreateChatMembersReqBuilder) MemberIdType(memberIdType string) *CreateChatMembersReqBuilder {
@@ -6618,7 +6618,7 @@ func (builder *CreateChatMembersReqBuilder) MemberIdType(memberIdType string) *C
 	return builder
 }
 
-// 出现不可用ID后的处理方式 0/1/2
+// 出现不可用 ID 后的处理方式 0/1/2
 //
 // 示例值：0
 func (builder *CreateChatMembersReqBuilder) SucceedType(succeedType int) *CreateChatMembersReqBuilder {
@@ -6642,7 +6642,7 @@ func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 }
 
 type CreateChatMembersReqBody struct {
-	IdList []string `json:"id_list,omitempty"` // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+	IdList []string `json:"id_list,omitempty"` // 成员 ID 列表，获取 ID 请参见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;** 注意 **：;- 成员列表不可为空;- 每次请求最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 }
 
 type CreateChatMembersReq struct {
@@ -6651,9 +6651,9 @@ type CreateChatMembersReq struct {
 }
 
 type CreateChatMembersRespData struct {
-	InvalidIdList         []string `json:"invalid_id_list,omitempty"`          // 无效成员列表;;**注意**：;- 当`success_type=0`时，`invalid_id_list`只包含已离职的用户ID;- 当`success_type=1`时，`invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
-	NotExistedIdList      []string `json:"not_existed_id_list,omitempty"`      // ID不存在的成员列表
-	PendingApprovalIdList []string `json:"pending_approval_id_list,omitempty"` // 等待群主或管理员审批的成员ID列表
+	InvalidIdList         []string `json:"invalid_id_list,omitempty"`          // 无效成员列表;;** 注意 **：;- 当`success_type=0`时，`invalid_id_list`只包含已离职的用户 ID;- 当`success_type=1`时，`invalid_id_list`中包含已离职的、不可见的、应用未激活的 ID
+	NotExistedIdList      []string `json:"not_existed_id_list,omitempty"`      // ID 不存在的成员列表
+	PendingApprovalIdList []string `json:"pending_approval_id_list,omitempty"` // 等待群主或管理员审批的成员 ID 列表
 }
 
 type CreateChatMembersResp struct {
@@ -6667,7 +6667,7 @@ func (resp *CreateChatMembersResp) Success() bool {
 }
 
 type DeleteChatMembersReqBodyBuilder struct {
-	idList     []string // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+	idList     []string // 成员列表;;** 注意 **：;- 成员列表不可为空;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应
 	idListFlag bool
 }
 
@@ -6676,7 +6676,7 @@ func NewDeleteChatMembersReqBodyBuilder() *DeleteChatMembersReqBodyBuilder {
 	return builder
 }
 
-// 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+// 成员列表;;** 注意 **：;- 成员列表不可为空;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应
 //
 //示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteChatMembersReqBodyBuilder) IdList(idList []string) *DeleteChatMembersReqBodyBuilder {
@@ -6694,7 +6694,7 @@ func (builder *DeleteChatMembersReqBodyBuilder) Build() *DeleteChatMembersReqBod
 }
 
 type DeleteChatMembersPathReqBodyBuilder struct {
-	idList     []string // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+	idList     []string // 成员列表;;** 注意 **：;- 成员列表不可为空;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应
 	idListFlag bool
 }
 
@@ -6703,7 +6703,7 @@ func NewDeleteChatMembersPathReqBodyBuilder() *DeleteChatMembersPathReqBodyBuild
 	return builder
 }
 
-// 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+// 成员列表;;** 注意 **：;- 成员列表不可为空;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应
 //
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteChatMembersPathReqBodyBuilder) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
@@ -6734,7 +6734,7 @@ func NewDeleteChatMembersReqBuilder() *DeleteChatMembersReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`、`topic`的群组ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`、`topic`的群组 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMembersReqBuilder {
@@ -6742,7 +6742,7 @@ func (builder *DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMem
 	return builder
 }
 
-// 出群成员ID类型;;**注意**：移除机器人请使用 ==app_id==
+// 出群成员 ID 类型;;** 注意 **：移除机器人请使用 ==app_id==
 //
 // 示例值：open_id
 func (builder *DeleteChatMembersReqBuilder) MemberIdType(memberIdType string) *DeleteChatMembersReqBuilder {
@@ -6766,7 +6766,7 @@ func (builder *DeleteChatMembersReqBuilder) Build() *DeleteChatMembersReq {
 }
 
 type DeleteChatMembersReqBody struct {
-	IdList []string `json:"id_list,omitempty"` // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+	IdList []string `json:"id_list,omitempty"` // 成员列表;;** 注意 **：;- 成员列表不可为空;- 列表中填写的成员 ID 类型应与 ==member_id_type== 参数中选择的类型相对应
 }
 
 type DeleteChatMembersReq struct {
@@ -6808,7 +6808,7 @@ func (builder *GetChatMembersReqBuilder) Limit(limit int) *GetChatMembersReqBuil
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *GetChatMembersReqBuilder) ChatId(chatId string) *GetChatMembersReqBuilder {
@@ -6885,7 +6885,7 @@ func NewIsInChatChatMembersReqBuilder() *IsInChatChatMembersReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *IsInChatChatMembersReqBuilder) ChatId(chatId string) *IsInChatChatMembersReqBuilder {
@@ -6931,7 +6931,7 @@ func NewMeJoinChatMembersReqBuilder() *MeJoinChatMembersReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：;- 仅支持公开（Public）群类型;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：;- 仅支持公开（Public）群类型;- 对于已认证企业的飞书的群人数默认上限：普通群 5000 人，会议群 3000 人，话题群 5000 人
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *MeJoinChatMembersReqBuilder) ChatId(chatId string) *MeJoinChatMembersReqBuilder {
@@ -7055,7 +7055,7 @@ func NewPatchChatMenuItemReqBuilder() *PatchChatMenuItemReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *PatchChatMenuItemReqBuilder) ChatId(chatId string) *PatchChatMenuItemReqBuilder {
@@ -7063,7 +7063,7 @@ func (builder *PatchChatMenuItemReqBuilder) ChatId(chatId string) *PatchChatMenu
 	return builder
 }
 
-// 一级或二级菜单ID，通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口通过群ID获取菜单ID。
+// 一级或二级菜单 ID，通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口通过群 ID 获取菜单 ID。
 //
 // 示例值：7156553273518882844
 func (builder *PatchChatMenuItemReqBuilder) MenuItemId(menuItemId string) *PatchChatMenuItemReqBuilder {
@@ -7177,7 +7177,7 @@ func NewCreateChatMenuTreeReqBuilder() *CreateChatMenuTreeReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *CreateChatMenuTreeReqBuilder) ChatId(chatId string) *CreateChatMenuTreeReqBuilder {
@@ -7223,7 +7223,7 @@ func (resp *CreateChatMenuTreeResp) Success() bool {
 }
 
 type DeleteChatMenuTreeReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIds     []string // 群内要删除的一级菜单 ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 	chatMenuTopLevelIdsFlag bool
 }
 
@@ -7232,7 +7232,7 @@ func NewDeleteChatMenuTreeReqBodyBuilder() *DeleteChatMenuTreeReqBodyBuilder {
 	return builder
 }
 
-// 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+// 群内要删除的一级菜单 ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
 //示例值：7156553273518882844
 func (builder *DeleteChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreeReqBodyBuilder {
@@ -7250,7 +7250,7 @@ func (builder *DeleteChatMenuTreeReqBodyBuilder) Build() *DeleteChatMenuTreeReqB
 }
 
 type DeleteChatMenuTreePathReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIds     []string // 群内要删除的一级菜单 ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 	chatMenuTopLevelIdsFlag bool
 }
 
@@ -7259,7 +7259,7 @@ func NewDeleteChatMenuTreePathReqBodyBuilder() *DeleteChatMenuTreePathReqBodyBui
 	return builder
 }
 
-// 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+// 群内要删除的一级菜单 ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
 // 示例值：7156553273518882844
 func (builder *DeleteChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreePathReqBodyBuilder {
@@ -7290,7 +7290,7 @@ func NewDeleteChatMenuTreeReqBuilder() *DeleteChatMenuTreeReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *DeleteChatMenuTreeReqBuilder) ChatId(chatId string) *DeleteChatMenuTreeReqBuilder {
@@ -7313,7 +7313,7 @@ func (builder *DeleteChatMenuTreeReqBuilder) Build() *DeleteChatMenuTreeReq {
 }
 
 type DeleteChatMenuTreeReqBody struct {
-	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 群内要删除的一级菜单 ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 }
 
 type DeleteChatMenuTreeReq struct {
@@ -7348,7 +7348,7 @@ func NewGetChatMenuTreeReqBuilder() *GetChatMenuTreeReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *GetChatMenuTreeReqBuilder) ChatId(chatId string) *GetChatMenuTreeReqBuilder {
@@ -7382,7 +7382,7 @@ func (resp *GetChatMenuTreeResp) Success() bool {
 }
 
 type SortChatMenuTreeReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序 ID 列表需要跟群内目前存在的一级菜单 ID 列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 	chatMenuTopLevelIdsFlag bool
 }
 
@@ -7391,7 +7391,7 @@ func NewSortChatMenuTreeReqBodyBuilder() *SortChatMenuTreeReqBodyBuilder {
 	return builder
 }
 
-// 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+// 新的一级菜单的顺序，进行排序 ID 列表需要跟群内目前存在的一级菜单 ID 列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
 //示例值：7156553273518882844
 func (builder *SortChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreeReqBodyBuilder {
@@ -7409,7 +7409,7 @@ func (builder *SortChatMenuTreeReqBodyBuilder) Build() *SortChatMenuTreeReqBody 
 }
 
 type SortChatMenuTreePathReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序 ID 列表需要跟群内目前存在的一级菜单 ID 列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 	chatMenuTopLevelIdsFlag bool
 }
 
@@ -7418,7 +7418,7 @@ func NewSortChatMenuTreePathReqBodyBuilder() *SortChatMenuTreePathReqBodyBuilder
 	return builder
 }
 
-// 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+// 新的一级菜单的顺序，进行排序 ID 列表需要跟群内目前存在的一级菜单 ID 列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
 // 示例值：7156553273518882844
 func (builder *SortChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreePathReqBodyBuilder {
@@ -7449,7 +7449,7 @@ func NewSortChatMenuTreeReqBuilder() *SortChatMenuTreeReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：仅支持群模式为`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：仅支持群模式为`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *SortChatMenuTreeReqBuilder) ChatId(chatId string) *SortChatMenuTreeReqBuilder {
@@ -7472,7 +7472,7 @@ func (builder *SortChatMenuTreeReqBuilder) Build() *SortChatMenuTreeReq {
 }
 
 type SortChatMenuTreeReqBody struct {
-	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	ChatMenuTopLevelIds []string `json:"chat_menu_top_level_ids,omitempty"` // 新的一级菜单的顺序，进行排序 ID 列表需要跟群内目前存在的一级菜单 ID 列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 }
 
 type SortChatMenuTreeReq struct {
@@ -7514,7 +7514,7 @@ func (builder *GetChatModerationReqBuilder) Limit(limit int) *GetChatModerationR
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModerationReqBuilder {
@@ -7522,7 +7522,7 @@ func (builder *GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModera
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetChatModerationReqBuilder) UserIdType(userIdType string) *GetChatModerationReqBuilder {
@@ -7702,7 +7702,7 @@ func NewUpdateChatModerationReqBuilder() *UpdateChatModerationReqBuilder {
 	return builder
 }
 
-// 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChatModerationReqBuilder {
@@ -7710,7 +7710,7 @@ func (builder *UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChat
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UpdateChatModerationReqBuilder) UserIdType(userIdType string) *UpdateChatModerationReqBuilder {
@@ -7754,7 +7754,7 @@ func (resp *UpdateChatModerationResp) Success() bool {
 }
 
 type CreateChatTabReqBodyBuilder struct {
-	chatTabs     []*ChatTab // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+	chatTabs     []*ChatTab // 会话标签页;;** 注意 **：一个群内最多只允许添加 20 个自定义会话标签页
 	chatTabsFlag bool
 }
 
@@ -7763,7 +7763,7 @@ func NewCreateChatTabReqBodyBuilder() *CreateChatTabReqBodyBuilder {
 	return builder
 }
 
-// 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+// 会话标签页;;** 注意 **：一个群内最多只允许添加 20 个自定义会话标签页
 //
 //示例值：
 func (builder *CreateChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabReqBodyBuilder {
@@ -7781,7 +7781,7 @@ func (builder *CreateChatTabReqBodyBuilder) Build() *CreateChatTabReqBody {
 }
 
 type CreateChatTabPathReqBodyBuilder struct {
-	chatTabs     []*ChatTab // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+	chatTabs     []*ChatTab // 会话标签页;;** 注意 **：一个群内最多只允许添加 20 个自定义会话标签页
 	chatTabsFlag bool
 }
 
@@ -7790,7 +7790,7 @@ func NewCreateChatTabPathReqBodyBuilder() *CreateChatTabPathReqBodyBuilder {
 	return builder
 }
 
-// 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+// 会话标签页;;** 注意 **：一个群内最多只允许添加 20 个自定义会话标签页
 //
 // 示例值：
 func (builder *CreateChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
@@ -7821,7 +7821,7 @@ func NewCreateChatTabReqBuilder() *CreateChatTabReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：支持群模式为`p2p`与`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：支持群模式为`p2p`与`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *CreateChatTabReqBuilder) ChatId(chatId string) *CreateChatTabReqBuilder {
@@ -7844,7 +7844,7 @@ func (builder *CreateChatTabReqBuilder) Build() *CreateChatTabReq {
 }
 
 type CreateChatTabReqBody struct {
-	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"` // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"` // 会话标签页;;** 注意 **：一个群内最多只允许添加 20 个自定义会话标签页
 }
 
 type CreateChatTabReq struct {
@@ -7867,7 +7867,7 @@ func (resp *CreateChatTabResp) Success() bool {
 }
 
 type DeleteTabsChatTabReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+	tabIds     []string // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取
 	tabIdsFlag bool
 }
 
@@ -7876,7 +7876,7 @@ func NewDeleteTabsChatTabReqBodyBuilder() *DeleteTabsChatTabReqBodyBuilder {
 	return builder
 }
 
-// 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+// 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取
 //
 //示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *DeleteTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabReqBodyBuilder {
@@ -7894,7 +7894,7 @@ func (builder *DeleteTabsChatTabReqBodyBuilder) Build() *DeleteTabsChatTabReqBod
 }
 
 type DeleteTabsChatTabPathReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+	tabIds     []string // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取
 	tabIdsFlag bool
 }
 
@@ -7903,7 +7903,7 @@ func NewDeleteTabsChatTabPathReqBodyBuilder() *DeleteTabsChatTabPathReqBodyBuild
 	return builder
 }
 
-// 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+// 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取
 //
 // 示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *DeleteTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
@@ -7934,7 +7934,7 @@ func NewDeleteTabsChatTabReqBuilder() *DeleteTabsChatTabReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：支持群模式为`p2p`与`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：支持群模式为`p2p`与`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *DeleteTabsChatTabReqBuilder) ChatId(chatId string) *DeleteTabsChatTabReqBuilder {
@@ -7957,7 +7957,7 @@ func (builder *DeleteTabsChatTabReqBuilder) Build() *DeleteTabsChatTabReq {
 }
 
 type DeleteTabsChatTabReqBody struct {
-	TabIds []string `json:"tab_ids,omitempty"` // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+	TabIds []string `json:"tab_ids,omitempty"` // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取
 }
 
 type DeleteTabsChatTabReq struct {
@@ -7992,7 +7992,7 @@ func NewListTabsChatTabReqBuilder() *ListTabsChatTabReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：支持群模式为`p2p`与`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：支持群模式为`p2p`与`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ListTabsChatTabReqBuilder) ChatId(chatId string) *ListTabsChatTabReqBuilder {
@@ -8026,7 +8026,7 @@ func (resp *ListTabsChatTabResp) Success() bool {
 }
 
 type SortTabsChatTabReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+	tabIds     []string // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取;;** 注意 **：必须包含该会话中全部的 Tab ID
 	tabIdsFlag bool
 }
 
@@ -8035,7 +8035,7 @@ func NewSortTabsChatTabReqBodyBuilder() *SortTabsChatTabReqBodyBuilder {
 	return builder
 }
 
-// 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+// 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取;;** 注意 **：必须包含该会话中全部的 Tab ID
 //
 //示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *SortTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabReqBodyBuilder {
@@ -8053,7 +8053,7 @@ func (builder *SortTabsChatTabReqBodyBuilder) Build() *SortTabsChatTabReqBody {
 }
 
 type SortTabsChatTabPathReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+	tabIds     []string // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取;;** 注意 **：必须包含该会话中全部的 Tab ID
 	tabIdsFlag bool
 }
 
@@ -8062,7 +8062,7 @@ func NewSortTabsChatTabPathReqBodyBuilder() *SortTabsChatTabPathReqBodyBuilder {
 	return builder
 }
 
-// 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+// 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取;;** 注意 **：必须包含该会话中全部的 Tab ID
 //
 // 示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *SortTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
@@ -8093,7 +8093,7 @@ func NewSortTabsChatTabReqBuilder() *SortTabsChatTabReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：支持群模式为`p2p`与`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：支持群模式为`p2p`与`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *SortTabsChatTabReqBuilder) ChatId(chatId string) *SortTabsChatTabReqBuilder {
@@ -8116,7 +8116,7 @@ func (builder *SortTabsChatTabReqBuilder) Build() *SortTabsChatTabReq {
 }
 
 type SortTabsChatTabReqBody struct {
-	TabIds []string `json:"tab_ids,omitempty"` // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+	TabIds []string `json:"tab_ids,omitempty"` // 会话标签页 ID 列表，Tab ID 可以在 [添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create) 与 [拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs) 的返回值中获取;;** 注意 **：必须包含该会话中全部的 Tab ID
 }
 
 type SortTabsChatTabReq struct {
@@ -8206,7 +8206,7 @@ func NewUpdateTabsChatTabReqBuilder() *UpdateTabsChatTabReqBuilder {
 	return builder
 }
 
-// 群ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;**注意**：支持群模式为`p2p`与`group`的群ID
+// 群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description);;** 注意 **：支持群模式为`p2p`与`group`的群 ID
 //
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateTabsChatTabReqBuilder) ChatId(chatId string) *UpdateTabsChatTabReqBuilder {
@@ -8264,7 +8264,7 @@ func NewDeleteTopNoticeChatTopNoticeReqBuilder() *DeleteTopNoticeChatTopNoticeRe
 	return builder
 }
 
-// 待撤销置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 待撤销置顶的群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *DeleteTopNoticeChatTopNoticeReqBuilder {
@@ -8360,7 +8360,7 @@ func NewPutTopNoticeChatTopNoticeReqBuilder() *PutTopNoticeChatTopNoticeReqBuild
 	return builder
 }
 
-// 待修改置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 待修改置顶的群 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *PutTopNoticeChatTopNoticeReqBuilder {
@@ -8405,7 +8405,7 @@ type CreateFileReqBodyBuilder struct {
 	fileTypeFlag bool
 	fileName     string // 带后缀的文件名
 	fileNameFlag bool
-	duration     int // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+	duration     int // 文件的时长（视频、音频），单位：毫秒。不填充时无法显示具体时长。
 	durationFlag bool
 	file         io.Reader // 文件内容
 	fileFlag     bool
@@ -8434,7 +8434,7 @@ func (builder *CreateFileReqBodyBuilder) FileName(fileName string) *CreateFileRe
 	return builder
 }
 
-// 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+// 文件的时长（视频、音频），单位：毫秒。不填充时无法显示具体时长。
 //
 //示例值：3000
 func (builder *CreateFileReqBodyBuilder) Duration(duration int) *CreateFileReqBodyBuilder {
@@ -8474,7 +8474,7 @@ type CreateFilePathReqBodyBuilder struct {
 	fileTypeFlag bool
 	fileName     string // 带后缀的文件名
 	fileNameFlag bool
-	duration     int // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+	duration     int // 文件的时长（视频、音频），单位：毫秒。不填充时无法显示具体时长。
 	durationFlag bool
 	filePath     string // 文件内容
 	filePathFlag bool
@@ -8503,7 +8503,7 @@ func (builder *CreateFilePathReqBodyBuilder) FileName(fileName string) *CreateFi
 	return builder
 }
 
-// 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+// 文件的时长（视频、音频），单位：毫秒。不填充时无法显示具体时长。
 //
 // 示例值：3000
 func (builder *CreateFilePathReqBodyBuilder) Duration(duration int) *CreateFilePathReqBodyBuilder {
@@ -8572,7 +8572,7 @@ func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
 type CreateFileReqBody struct {
 	FileType *string   `json:"file_type,omitempty"` // 文件类型
 	FileName *string   `json:"file_name,omitempty"` // 带后缀的文件名
-	Duration *int      `json:"duration,omitempty"`  // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+	Duration *int      `json:"duration,omitempty"`  // 文件的时长（视频、音频），单位：毫秒。不填充时无法显示具体时长。
 	File     io.Reader `json:"file,omitempty"`      // 文件内容
 }
 
@@ -8582,7 +8582,7 @@ type CreateFileReq struct {
 }
 
 type CreateFileRespData struct {
-	FileKey *string `json:"file_key,omitempty"` // 文件的key
+	FileKey *string `json:"file_key,omitempty"` // 文件的 key
 }
 
 type CreateFileResp struct {
@@ -8608,7 +8608,7 @@ func NewGetFileReqBuilder() *GetFileReqBuilder {
 	return builder
 }
 
-// 文件的key，通过[上传文件](	https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口上传图片后获得
+// 文件的 key，通过 [上传文件](	https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create) 接口上传图片后获得
 //
 // 示例值：file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g
 func (builder *GetFileReqBuilder) FileKey(fileKey string) *GetFileReqBuilder {
@@ -8654,7 +8654,7 @@ func (resp *GetFileResp) WriteFile(fileName string) error {
 type CreateImageReqBodyBuilder struct {
 	imageType     string // 图片类型
 	imageTypeFlag bool
-	image         io.Reader // 图片内容;; **注意：** 上传的图片大小不能超过10MB
+	image         io.Reader // 图片内容;; ** 注意：** 上传的图片大小不能超过 10MB
 	imageFlag     bool
 }
 
@@ -8672,7 +8672,7 @@ func (builder *CreateImageReqBodyBuilder) ImageType(imageType string) *CreateIma
 	return builder
 }
 
-// 图片内容;; **注意：** 上传的图片大小不能超过10MB
+// 图片内容;; ** 注意：** 上传的图片大小不能超过 10MB
 //
 //示例值：二进制文件
 func (builder *CreateImageReqBodyBuilder) Image(image io.Reader) *CreateImageReqBodyBuilder {
@@ -8695,7 +8695,7 @@ func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
 type CreateImagePathReqBodyBuilder struct {
 	imageType     string // 图片类型
 	imageTypeFlag bool
-	imagePath     string // 图片内容;; **注意：** 上传的图片大小不能超过10MB
+	imagePath     string // 图片内容;; ** 注意：** 上传的图片大小不能超过 10MB
 	imagePathFlag bool
 }
 
@@ -8713,7 +8713,7 @@ func (builder *CreateImagePathReqBodyBuilder) ImageType(imageType string) *Creat
 	return builder
 }
 
-// 图片内容;; **注意：** 上传的图片大小不能超过10MB
+// 图片内容;; ** 注意：** 上传的图片大小不能超过 10MB
 //
 // 示例值：二进制文件
 func (builder *CreateImagePathReqBodyBuilder) ImagePath(imagePath string) *CreateImagePathReqBodyBuilder {
@@ -8751,7 +8751,7 @@ func NewCreateImageReqBuilder() *CreateImageReqBuilder {
 	return builder
 }
 
-// 上传图片接口，支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片。
+// 上传图片接口，支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO 格式图片。
 func (builder *CreateImageReqBuilder) Body(body *CreateImageReqBody) *CreateImageReqBuilder {
 	builder.body = body
 	return builder
@@ -8766,7 +8766,7 @@ func (builder *CreateImageReqBuilder) Build() *CreateImageReq {
 
 type CreateImageReqBody struct {
 	ImageType *string   `json:"image_type,omitempty"` // 图片类型
-	Image     io.Reader `json:"image,omitempty"`      // 图片内容;; **注意：** 上传的图片大小不能超过10MB
+	Image     io.Reader `json:"image,omitempty"`      // 图片内容;; ** 注意：** 上传的图片大小不能超过 10MB
 }
 
 type CreateImageReq struct {
@@ -8775,7 +8775,7 @@ type CreateImageReq struct {
 }
 
 type CreateImageRespData struct {
-	ImageKey *string `json:"image_key,omitempty"` // 图片的key
+	ImageKey *string `json:"image_key,omitempty"` // 图片的 key
 }
 
 type CreateImageResp struct {
@@ -8801,7 +8801,7 @@ func NewGetImageReqBuilder() *GetImageReqBuilder {
 	return builder
 }
 
-// 图片的key，通过[上传图片](	https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口上传图片后获得
+// 图片的 key，通过 [上传图片](	https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传图片后获得
 //
 // 示例值：img_8d5181ca-0aed-40f0-b0d1-b1452132afbg
 func (builder *GetImageReqBuilder) ImageKey(imageKey string) *GetImageReqBuilder {
@@ -8845,13 +8845,13 @@ func (resp *GetImageResp) WriteFile(fileName string) error {
 }
 
 type CreateMessageReqBodyBuilder struct {
-	receiveId     string // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
+	receiveId     string // 消息接收者的 ID，ID 类型应与查询参数==receive_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取消息接收者的 Open ID
 	receiveIdFlag bool
-	msgType       string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	msgType       string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	msgTypeFlag   bool
-	content       string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
+	content       string // 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，具体格式说明参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过 150KB;- 卡片及富文本消息请求体最大不能超过 30KB
 	contentFlag   bool
-	uuid          string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuid          string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 	uuidFlag      bool
 }
 
@@ -8860,7 +8860,7 @@ func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
 	return builder
 }
 
-// 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
+// 消息接收者的 ID，ID 类型应与查询参数==receive_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取消息接收者的 Open ID
 //
 //示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *CreateMessageReqBodyBuilder) ReceiveId(receiveId string) *CreateMessageReqBodyBuilder {
@@ -8869,7 +8869,7 @@ func (builder *CreateMessageReqBodyBuilder) ReceiveId(receiveId string) *CreateM
 	return builder
 }
 
-// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 //示例值：text
 func (builder *CreateMessageReqBodyBuilder) MsgType(msgType string) *CreateMessageReqBodyBuilder {
@@ -8878,7 +8878,7 @@ func (builder *CreateMessageReqBodyBuilder) MsgType(msgType string) *CreateMessa
 	return builder
 }
 
-// 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
+// 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，具体格式说明参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过 150KB;- 卡片及富文本消息请求体最大不能超过 30KB
 //
 //示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}
 func (builder *CreateMessageReqBodyBuilder) Content(content string) *CreateMessageReqBodyBuilder {
@@ -8887,7 +8887,7 @@ func (builder *CreateMessageReqBodyBuilder) Content(content string) *CreateMessa
 	return builder
 }
 
-// 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+// 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 //
 //示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateMessageReqBodyBuilder) Uuid(uuid string) *CreateMessageReqBodyBuilder {
@@ -8914,13 +8914,13 @@ func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
 }
 
 type CreateMessagePathReqBodyBuilder struct {
-	receiveId     string // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
+	receiveId     string // 消息接收者的 ID，ID 类型应与查询参数==receive_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取消息接收者的 Open ID
 	receiveIdFlag bool
-	msgType       string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	msgType       string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	msgTypeFlag   bool
-	content       string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
+	content       string // 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，具体格式说明参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过 150KB;- 卡片及富文本消息请求体最大不能超过 30KB
 	contentFlag   bool
-	uuid          string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuid          string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 	uuidFlag      bool
 }
 
@@ -8929,7 +8929,7 @@ func NewCreateMessagePathReqBodyBuilder() *CreateMessagePathReqBodyBuilder {
 	return builder
 }
 
-// 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
+// 消息接收者的 ID，ID 类型应与查询参数==receive_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取消息接收者的 Open ID
 //
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
@@ -8938,7 +8938,7 @@ func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *Cre
 	return builder
 }
 
-// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 // 示例值：text
 func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateMessagePathReqBodyBuilder {
@@ -8947,7 +8947,7 @@ func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateM
 	return builder
 }
 
-// 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
+// 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，具体格式说明参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过 150KB;- 卡片及富文本消息请求体最大不能超过 30KB
 //
 // 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}
 func (builder *CreateMessagePathReqBodyBuilder) Content(content string) *CreateMessagePathReqBodyBuilder {
@@ -8956,7 +8956,7 @@ func (builder *CreateMessagePathReqBodyBuilder) Content(content string) *CreateM
 	return builder
 }
 
-// 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+// 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 //
 // 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateMessagePathReqBodyBuilder) Uuid(uuid string) *CreateMessagePathReqBodyBuilder {
@@ -8996,7 +8996,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-// 消息接收者id类型 open_id/user_id/union_id/email/chat_id
+// 消息接收者 id 类型 open_id/user_id/union_id/email/chat_id
 //
 // 示例值：open_id
 func (builder *CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *CreateMessageReqBuilder {
@@ -9004,7 +9004,7 @@ func (builder *CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *Cre
 	return builder
 }
 
-// 给指定用户或者会话发送消息，支持文本、富文本、可交互的[消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
+// 给指定用户或者会话发送消息，支持文本、富文本、可交互的 [消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
 func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -9019,10 +9019,10 @@ func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 }
 
 type CreateMessageReqBody struct {
-	ReceiveId *string `json:"receive_id,omitempty"` // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
-	MsgType   *string `json:"msg_type,omitempty"`   // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
-	Content   *string `json:"content,omitempty"`    // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
-	Uuid      *string `json:"uuid,omitempty"`       // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	ReceiveId *string `json:"receive_id,omitempty"` // 消息接收者的 ID，ID 类型应与查询参数==receive_id_type== 对应；当 ID 类型为`open_id`时，可参考 [如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 来获取消息接收者的 Open ID
+	MsgType   *string `json:"msg_type,omitempty"`   // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，类型定义请参考 [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	Content   *string `json:"content,omitempty"`    // 消息内容，json 结构序列化后的字符串。不同 msg_type 对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user 等，具体格式说明参考：[发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过 150KB;- 卡片及富文本消息请求体最大不能超过 30KB
+	Uuid      *string `json:"uuid,omitempty"`       // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 }
 
 type CreateMessageReq struct {
@@ -9031,19 +9031,19 @@ type CreateMessageReq struct {
 }
 
 type CreateMessageRespData struct {
-	MessageId      *string      `json:"message_id,omitempty"`       // 消息id open_message_id
-	RootId         *string      `json:"root_id,omitempty"`          // 根消息id open_message_id
-	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
+	MessageId      *string      `json:"message_id,omitempty"`       // 消息 id open_message_id
+	RootId         *string      `json:"root_id,omitempty"`          // 根消息 id open_message_id
+	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的 id open_message_id
+	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image 等等
+	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳 (毫秒)
 	UpdateTime     *string      `json:"update_time,omitempty"`      // 消息更新的时间戳
 	Deleted        *bool        `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        *bool        `json:"updated,omitempty"`          // 消息是否被更新
 	ChatId         *string      `json:"chat_id,omitempty"`          // 所属的群
 	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
-	Body           *MessageBody `json:"body,omitempty"`             // 消息内容,json结构
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
-	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息id open_message_id
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容，json 结构
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的 id
+	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息 id open_message_id
 }
 
 type CreateMessageResp struct {
@@ -9069,7 +9069,7 @@ func NewDeleteMessageReqBuilder() *DeleteMessageReqBuilder {
 	return builder
 }
 
-// 待撤回的消息的ID
+// 待撤回的消息的 ID
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *DeleteMessageReqBuilder) MessageId(messageId string) *DeleteMessageReqBuilder {
@@ -9110,7 +9110,7 @@ func NewGetMessageReqBuilder() *GetMessageReqBuilder {
 	return builder
 }
 
-// 待获取消息内容的消息的ID
+// 待获取消息内容的消息的 ID
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqBuilder {
@@ -9171,7 +9171,7 @@ func (builder *ListMessageReqBuilder) ContainerIdType(containerIdType string) *L
 	return builder
 }
 
-// 容器的id，即chat的id，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 容器的 id，即 chat 的 id，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_234jsi43d3ssi993d43545f
 func (builder *ListMessageReqBuilder) ContainerId(containerId string) *ListMessageReqBuilder {
@@ -9227,7 +9227,7 @@ type ListMessageReq struct {
 
 type ListMessageRespData struct {
 	HasMore   *bool      `json:"has_more,omitempty"`   // 是否还有后续翻页
-	PageToken *string    `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string    `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*Message `json:"items,omitempty"`      // message[]
 }
 
@@ -9309,7 +9309,7 @@ func NewPatchMessageReqBuilder() *PatchMessageReqBuilder {
 	return builder
 }
 
-// 待更新的消息的ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待更新的消息的 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *PatchMessageReqBuilder) MessageId(messageId string) *PatchMessageReqBuilder {
@@ -9362,7 +9362,7 @@ func NewReadUsersMessageReqBuilder() *ReadUsersMessageReqBuilder {
 	return builder
 }
 
-// 待查询的消息的ID，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;**注意**：不支持查询批量消息
+// 待查询的消息的 ID，说明参见：[消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;** 注意 **：不支持查询批量消息
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUsersMessageReqBuilder {
@@ -9370,7 +9370,7 @@ func (builder *ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUser
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ReadUsersMessageReqBuilder) UserIdType(userIdType string) *ReadUsersMessageReqBuilder {
@@ -9386,7 +9386,7 @@ func (builder *ReadUsersMessageReqBuilder) PageSize(pageSize int) *ReadUsersMess
 	return builder
 }
 
-// 下一页分页的token
+// 下一页分页的 token
 //
 // 示例值：GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==
 func (builder *ReadUsersMessageReqBuilder) PageToken(pageToken string) *ReadUsersMessageReqBuilder {
@@ -9409,7 +9409,7 @@ type ReadUsersMessageReq struct {
 type ReadUsersMessageRespData struct {
 	Items     []*ReadUser `json:"items,omitempty"`      // -
 	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有下一页
-	PageToken *string     `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string     `json:"page_token,omitempty"` // 下一页分页的 token
 }
 
 type ReadUsersMessageResp struct {
@@ -9423,11 +9423,11 @@ func (resp *ReadUsersMessageResp) Success() bool {
 }
 
 type ReplyMessageReqBodyBuilder struct {
-	content     string // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	content     string // 消息内容 json 格式，格式说明参考: [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	contentFlag bool
 	msgType     string // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
 	msgTypeFlag bool
-	uuid        string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuid        string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 	uuidFlag    bool
 }
 
@@ -9436,7 +9436,7 @@ func NewReplyMessageReqBodyBuilder() *ReplyMessageReqBodyBuilder {
 	return builder
 }
 
-// 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息内容 json 格式，格式说明参考: [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 //示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}
 func (builder *ReplyMessageReqBodyBuilder) Content(content string) *ReplyMessageReqBodyBuilder {
@@ -9454,7 +9454,7 @@ func (builder *ReplyMessageReqBodyBuilder) MsgType(msgType string) *ReplyMessage
 	return builder
 }
 
-// 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+// 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 //
 //示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ReplyMessageReqBodyBuilder) Uuid(uuid string) *ReplyMessageReqBodyBuilder {
@@ -9478,11 +9478,11 @@ func (builder *ReplyMessageReqBodyBuilder) Build() *ReplyMessageReqBody {
 }
 
 type ReplyMessagePathReqBodyBuilder struct {
-	content     string // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	content     string // 消息内容 json 格式，格式说明参考: [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	contentFlag bool
 	msgType     string // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
 	msgTypeFlag bool
-	uuid        string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuid        string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 	uuidFlag    bool
 }
 
@@ -9491,7 +9491,7 @@ func NewReplyMessagePathReqBodyBuilder() *ReplyMessagePathReqBodyBuilder {
 	return builder
 }
 
-// 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+// 消息内容 json 格式，格式说明参考: [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
 // 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}
 func (builder *ReplyMessagePathReqBodyBuilder) Content(content string) *ReplyMessagePathReqBodyBuilder {
@@ -9509,7 +9509,7 @@ func (builder *ReplyMessagePathReqBodyBuilder) MsgType(msgType string) *ReplyMes
 	return builder
 }
 
-// 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+// 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 //
 // 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ReplyMessagePathReqBodyBuilder) Uuid(uuid string) *ReplyMessagePathReqBodyBuilder {
@@ -9546,7 +9546,7 @@ func NewReplyMessageReqBuilder() *ReplyMessageReqBuilder {
 	return builder
 }
 
-// 待回复的消息的ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待回复的消息的 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *ReplyMessageReqBuilder) MessageId(messageId string) *ReplyMessageReqBuilder {
@@ -9569,9 +9569,9 @@ func (builder *ReplyMessageReqBuilder) Build() *ReplyMessageReq {
 }
 
 type ReplyMessageReqBody struct {
-	Content *string `json:"content,omitempty"`  // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	Content *string `json:"content,omitempty"`  // 消息内容 json 格式，格式说明参考: [发送消息 Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	MsgType *string `json:"msg_type,omitempty"` // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
-	Uuid    *string `json:"uuid,omitempty"`     // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	Uuid    *string `json:"uuid,omitempty"`     // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同 uuid 的请求 1 小时内至多成功执行一次
 }
 
 type ReplyMessageReq struct {
@@ -9580,19 +9580,19 @@ type ReplyMessageReq struct {
 }
 
 type ReplyMessageRespData struct {
-	MessageId      *string      `json:"message_id,omitempty"`       // 消息id open_message_id
-	RootId         *string      `json:"root_id,omitempty"`          // 根消息id open_message_id
-	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
+	MessageId      *string      `json:"message_id,omitempty"`       // 消息 id open_message_id
+	RootId         *string      `json:"root_id,omitempty"`          // 根消息 id open_message_id
+	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的 id open_message_id
+	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image 等等
+	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳 (毫秒)
 	UpdateTime     *string      `json:"update_time,omitempty"`      // 消息更新的时间戳
 	Deleted        *bool        `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        *bool        `json:"updated,omitempty"`          // 消息是否被更新
 	ChatId         *string      `json:"chat_id,omitempty"`          // 所属的群
 	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
-	Body           *MessageBody `json:"body,omitempty"`             // 消息内容,json结构
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
-	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息id open_message_id
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容，json 结构
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的 id
+	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息 id open_message_id
 }
 
 type ReplyMessageResp struct {
@@ -9619,7 +9619,7 @@ func NewUrgentAppMessageReqBuilder() *UrgentAppMessageReqBuilder {
 	return builder
 }
 
-// 待加急的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;**注意**：不支持批量消息ID（bm_xxx）
+// 待加急的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;** 注意 **：不支持批量消息 ID（bm_xxx）
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAppMessageReqBuilder {
@@ -9627,7 +9627,7 @@ func (builder *UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAp
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UrgentAppMessageReqBuilder) UserIdType(userIdType string) *UrgentAppMessageReqBuilder {
@@ -9656,7 +9656,7 @@ type UrgentAppMessageReq struct {
 }
 
 type UrgentAppMessageRespData struct {
-	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户ID
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户 ID
 }
 
 type UrgentAppMessageResp struct {
@@ -9683,7 +9683,7 @@ func NewUrgentPhoneMessageReqBuilder() *UrgentPhoneMessageReqBuilder {
 	return builder
 }
 
-// 待加急的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;**注意**：不支持批量消息ID（bm_xxx）
+// 待加急的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;** 注意 **：不支持批量消息 ID（bm_xxx）
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *UrgentPhoneMessageReqBuilder {
@@ -9691,7 +9691,7 @@ func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *Urgent
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UrgentPhoneMessageReqBuilder) UserIdType(userIdType string) *UrgentPhoneMessageReqBuilder {
@@ -9720,7 +9720,7 @@ type UrgentPhoneMessageReq struct {
 }
 
 type UrgentPhoneMessageRespData struct {
-	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户ID
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户 ID
 }
 
 type UrgentPhoneMessageResp struct {
@@ -9747,7 +9747,7 @@ func NewUrgentSmsMessageReqBuilder() *UrgentSmsMessageReqBuilder {
 	return builder
 }
 
-// 待加急的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;**注意**：不支持批量消息ID（bm_xxx）
+// 待加急的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2);;** 注意 **：不支持批量消息 ID（bm_xxx）
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSmsMessageReqBuilder {
@@ -9755,7 +9755,7 @@ func (builder *UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSm
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *UrgentSmsMessageReqBuilder) UserIdType(userIdType string) *UrgentSmsMessageReqBuilder {
@@ -9784,7 +9784,7 @@ type UrgentSmsMessageReq struct {
 }
 
 type UrgentSmsMessageRespData struct {
-	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户ID
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户 ID
 }
 
 type UrgentSmsMessageResp struct {
@@ -9798,7 +9798,7 @@ func (resp *UrgentSmsMessageResp) Success() bool {
 }
 
 type CreateMessageReactionReqBodyBuilder struct {
-	reactionType     *Emoji // reaction资源类型
+	reactionType     *Emoji // reaction 资源类型
 	reactionTypeFlag bool
 }
 
@@ -9807,7 +9807,7 @@ func NewCreateMessageReactionReqBodyBuilder() *CreateMessageReactionReqBodyBuild
 	return builder
 }
 
-// reaction资源类型
+// reaction 资源类型
 //
 //示例值：
 func (builder *CreateMessageReactionReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionReqBodyBuilder {
@@ -9825,7 +9825,7 @@ func (builder *CreateMessageReactionReqBodyBuilder) Build() *CreateMessageReacti
 }
 
 type CreateMessageReactionPathReqBodyBuilder struct {
-	reactionType     *Emoji // reaction资源类型
+	reactionType     *Emoji // reaction 资源类型
 	reactionTypeFlag bool
 }
 
@@ -9834,7 +9834,7 @@ func NewCreateMessageReactionPathReqBodyBuilder() *CreateMessageReactionPathReqB
 	return builder
 }
 
-// reaction资源类型
+// reaction 资源类型
 //
 // 示例值：
 func (builder *CreateMessageReactionPathReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
@@ -9865,7 +9865,7 @@ func NewCreateMessageReactionReqBuilder() *CreateMessageReactionReqBuilder {
 	return builder
 }
 
-// 待添加reaction的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待添加 reaction 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_a8f2294b************a1a38afaac9d
 func (builder *CreateMessageReactionReqBuilder) MessageId(messageId string) *CreateMessageReactionReqBuilder {
@@ -9873,7 +9873,7 @@ func (builder *CreateMessageReactionReqBuilder) MessageId(messageId string) *Cre
 	return builder
 }
 
-// 给指定消息添加指定类型的表情回复（reaction即表情回复，本文档统一用“reaction”代称）。
+// 给指定消息添加指定类型的表情回复（reaction 即表情回复，本文档统一用 “reaction” 代称）。
 func (builder *CreateMessageReactionReqBuilder) Body(body *CreateMessageReactionReqBody) *CreateMessageReactionReqBuilder {
 	builder.body = body
 	return builder
@@ -9888,7 +9888,7 @@ func (builder *CreateMessageReactionReqBuilder) Build() *CreateMessageReactionRe
 }
 
 type CreateMessageReactionReqBody struct {
-	ReactionType *Emoji `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionType *Emoji `json:"reaction_type,omitempty"` // reaction 资源类型
 }
 
 type CreateMessageReactionReq struct {
@@ -9897,10 +9897,10 @@ type CreateMessageReactionReq struct {
 }
 
 type CreateMessageReactionRespData struct {
-	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction资源ID
-	Operator     *Operator `json:"operator,omitempty"`      // 添加reaction的操作人
-	ActionTime   *string   `json:"action_time,omitempty"`   // reaction动作的的unix timestamp(单位:ms)
-	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction 资源 ID
+	Operator     *Operator `json:"operator,omitempty"`      // 添加 reaction 的操作人
+	ActionTime   *string   `json:"action_time,omitempty"`   // reaction 动作的的 unix timestamp(单位:ms)
+	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction 资源类型
 }
 
 type CreateMessageReactionResp struct {
@@ -9926,7 +9926,7 @@ func NewDeleteMessageReactionReqBuilder() *DeleteMessageReactionReqBuilder {
 	return builder
 }
 
-// 待删除reaction的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待删除 reaction 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_8964d1b4*********2b31383276113
 func (builder *DeleteMessageReactionReqBuilder) MessageId(messageId string) *DeleteMessageReactionReqBuilder {
@@ -9934,7 +9934,7 @@ func (builder *DeleteMessageReactionReqBuilder) MessageId(messageId string) *Del
 	return builder
 }
 
-// 待删除reaction的资源id，可通过调用[添加消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create)接口或[获取消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list)获得
+// 待删除 reaction 的资源 id，可通过调用 [添加消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create) 接口或 [获取消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list) 获得
 //
 // 示例值：ZCaCIjUBVVWSrm5L-3ZTw*************sNa8dHVplEzzSfJVUVLMLcS_
 func (builder *DeleteMessageReactionReqBuilder) ReactionId(reactionId string) *DeleteMessageReactionReqBuilder {
@@ -9954,10 +9954,10 @@ type DeleteMessageReactionReq struct {
 }
 
 type DeleteMessageReactionRespData struct {
-	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction资源ID
-	Operator     *Operator `json:"operator,omitempty"`      // 添加reaction的操作人
-	ActionTime   *string   `json:"action_time,omitempty"`   // reaction动作的的unix timestamp(单位:ms)
-	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionId   *string   `json:"reaction_id,omitempty"`   // reaction 资源 ID
+	Operator     *Operator `json:"operator,omitempty"`      // 添加 reaction 的操作人
+	ActionTime   *string   `json:"action_time,omitempty"`   // reaction 动作的的 unix timestamp(单位:ms)
+	ReactionType *Emoji    `json:"reaction_type,omitempty"` // reaction 资源类型
 }
 
 type DeleteMessageReactionResp struct {
@@ -9990,7 +9990,7 @@ func (builder *ListMessageReactionReqBuilder) Limit(limit int) *ListMessageReact
 	return builder
 }
 
-// 待获取reaction的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待获取 reaction 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_8964d1b4*********2b31383276113
 func (builder *ListMessageReactionReqBuilder) MessageId(messageId string) *ListMessageReactionReqBuilder {
@@ -9998,7 +9998,7 @@ func (builder *ListMessageReactionReqBuilder) MessageId(messageId string) *ListM
 	return builder
 }
 
-// 待查询消息reaction的类型[emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce);;**注意**：不传入该参数，表示拉取所有类型reaction
+// 待查询消息 reaction 的类型 [emoji 类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce);;** 注意 **：不传入该参数，表示拉取所有类型 reaction
 //
 // 示例值：LAUGH
 func (builder *ListMessageReactionReqBuilder) ReactionType(reactionType string) *ListMessageReactionReqBuilder {
@@ -10022,7 +10022,7 @@ func (builder *ListMessageReactionReqBuilder) PageSize(pageSize int) *ListMessag
 	return builder
 }
 
-// 当操作人为用户时返回用户ID的类型
+// 当操作人为用户时返回用户 ID 的类型
 //
 // 示例值：
 func (builder *ListMessageReactionReqBuilder) UserIdType(userIdType string) *ListMessageReactionReqBuilder {
@@ -10046,9 +10046,9 @@ type ListMessageReactionReq struct {
 }
 
 type ListMessageReactionRespData struct {
-	Items     []*MessageReaction `json:"items,omitempty"`      //  查询指定reaction_type返回的reaction列表
+	Items     []*MessageReaction `json:"items,omitempty"`      //  查询指定 reaction_type 返回的 reaction 列表
 	HasMore   *bool              `json:"has_more,omitempty"`   // 是否还有后续翻页
-	PageToken *string            `json:"page_token,omitempty"` //  下一页分页的token
+	PageToken *string            `json:"page_token,omitempty"` //  下一页分页的 token
 }
 
 type ListMessageReactionResp struct {
@@ -10074,7 +10074,7 @@ func NewGetMessageResourceReqBuilder() *GetMessageResourceReqBuilder {
 	return builder
 }
 
-// 待查询资源对应的消息ID
+// 待查询资源对应的消息 ID
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *GetMessageResourceReqBuilder) MessageId(messageId string) *GetMessageResourceReqBuilder {
@@ -10082,7 +10082,7 @@ func (builder *GetMessageResourceReqBuilder) MessageId(messageId string) *GetMes
 	return builder
 }
 
-// 待查询资源的key;;**注意**：请求的 file_key 和 message_id 需要匹配
+// 待查询资源的 key;;** 注意 **：请求的 file_key 和 message_id 需要匹配
 //
 // 示例值：file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g
 func (builder *GetMessageResourceReqBuilder) FileKey(fileKey string) *GetMessageResourceReqBuilder {
@@ -10090,7 +10090,7 @@ func (builder *GetMessageResourceReqBuilder) FileKey(fileKey string) *GetMessage
 	return builder
 }
 
-// 资源类型，可选"image, file“； image对应消息中的 图片，富文本消息中的图片。  file对应消息中的 文件、音频、视频、（表情包除外）
+// 资源类型，可选"image, file“； image 对应消息中的 图片，富文本消息中的图片。  file 对应消息中的 文件、音频、视频、（表情包除外）
 //
 // 示例值：image
 func (builder *GetMessageResourceReqBuilder) Type(type_ string) *GetMessageResourceReqBuilder {
@@ -10135,7 +10135,7 @@ func (resp *GetMessageResourceResp) WriteFile(fileName string) error {
 }
 
 type CreatePinReqBodyBuilder struct {
-	messageId     string // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageId     string // 待 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	messageIdFlag bool
 }
 
@@ -10144,7 +10144,7 @@ func NewCreatePinReqBodyBuilder() *CreatePinReqBodyBuilder {
 	return builder
 }
 
-// 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 //示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *CreatePinReqBodyBuilder) MessageId(messageId string) *CreatePinReqBodyBuilder {
@@ -10162,7 +10162,7 @@ func (builder *CreatePinReqBodyBuilder) Build() *CreatePinReqBody {
 }
 
 type CreatePinPathReqBodyBuilder struct {
-	messageId     string // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageId     string // 待 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	messageIdFlag bool
 }
 
@@ -10171,7 +10171,7 @@ func NewCreatePinPathReqBodyBuilder() *CreatePinPathReqBodyBuilder {
 	return builder
 }
 
-// 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *CreatePinPathReqBodyBuilder) MessageId(messageId string) *CreatePinPathReqBodyBuilder {
@@ -10202,7 +10202,7 @@ func NewCreatePinReqBuilder() *CreatePinReqBuilder {
 	return builder
 }
 
-// Pin一条指定的消息。
+// Pin 一条指定的消息。
 func (builder *CreatePinReqBuilder) Body(body *CreatePinReqBody) *CreatePinReqBuilder {
 	builder.body = body
 	return builder
@@ -10216,7 +10216,7 @@ func (builder *CreatePinReqBuilder) Build() *CreatePinReq {
 }
 
 type CreatePinReqBody struct {
-	MessageId *string `json:"message_id,omitempty"` // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MessageId *string `json:"message_id,omitempty"` // 待 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 }
 
 type CreatePinReq struct {
@@ -10225,7 +10225,7 @@ type CreatePinReq struct {
 }
 
 type CreatePinRespData struct {
-	Pin *Pin `json:"pin,omitempty"` // Pin的操作信息
+	Pin *Pin `json:"pin,omitempty"` // Pin 的操作信息
 }
 
 type CreatePinResp struct {
@@ -10251,7 +10251,7 @@ func NewDeletePinReqBuilder() *DeletePinReqBuilder {
 	return builder
 }
 
-// 待移除Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+// 待移除 Pin 的消息 ID，详情参见 [消息 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *DeletePinReqBuilder) MessageId(messageId string) *DeletePinReqBuilder {
@@ -10299,7 +10299,7 @@ func (builder *ListPinReqBuilder) Limit(limit int) *ListPinReqBuilder {
 	return builder
 }
 
-// 待获取Pin消息的Chat ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+// 待获取 Pin 消息的 Chat ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：oc_234jsi43d3ssi993d43545f
 func (builder *ListPinReqBuilder) ChatId(chatId string) *ListPinReqBuilder {
@@ -10307,7 +10307,7 @@ func (builder *ListPinReqBuilder) ChatId(chatId string) *ListPinReqBuilder {
 	return builder
 }
 
-// Pin信息的起始时间（毫秒级时间戳）。若未填写默认获取到群聊内最早的Pin信息
+// Pin 信息的起始时间（毫秒级时间戳）。若未填写默认获取到群聊内最早的 Pin 信息
 //
 // 示例值：1658632251800
 func (builder *ListPinReqBuilder) StartTime(startTime string) *ListPinReqBuilder {
@@ -10315,7 +10315,7 @@ func (builder *ListPinReqBuilder) StartTime(startTime string) *ListPinReqBuilder
 	return builder
 }
 
-// Pin信息的结束时间（毫秒级时间戳）。若未填写默认从群聊内最新的Pin信息开始获取;;**注意**：`end_time`值应大于`start_time`值
+// Pin 信息的结束时间（毫秒级时间戳）。若未填写默认从群聊内最新的 Pin 信息开始获取;;** 注意 **：`end_time`值应大于`start_time`值
 //
 // 示例值：1658731646425
 func (builder *ListPinReqBuilder) EndTime(endTime string) *ListPinReqBuilder {
@@ -10331,7 +10331,7 @@ func (builder *ListPinReqBuilder) PageSize(pageSize int) *ListPinReqBuilder {
 	return builder
 }
 
-// 下一页分页的token
+// 下一页分页的 token
 //
 // 示例值：GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==
 func (builder *ListPinReqBuilder) PageToken(pageToken string) *ListPinReqBuilder {
@@ -10354,7 +10354,7 @@ type ListPinReq struct {
 }
 
 type ListPinRespData struct {
-	Items     []*Pin  `json:"items,omitempty"`      // Pin的操作信息
+	Items     []*Pin  `json:"items,omitempty"`      // Pin 的操作信息
 	HasMore   *bool   `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
@@ -10370,10 +10370,10 @@ func (resp *ListPinResp) Success() bool {
 }
 
 type P2ChatDisbandedV1Data struct {
-	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 操作者的ID
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 操作者的 ID
 	External          *bool      `json:"external,omitempty"`            // 被解散的群是否是外部群
-	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	Name              *string    `json:"name,omitempty"`                // 群名称
 	I18nNames         *I18nNames `json:"i18n_names,omitempty"`          // 群国际化名称
 }
@@ -10389,7 +10389,7 @@ func (m *P2ChatDisbandedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatUpdatedV1Data struct {
-	ChatId            *string        `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string        `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId        `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool          `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string        `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
@@ -10409,10 +10409,10 @@ func (m *P2ChatUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberBotAddedV1Data struct {
-	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool      `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	Name              *string    `json:"name,omitempty"`                // 群名称
 	I18nNames         *I18nNames `json:"i18n_names,omitempty"`          // 群国际化名称
 }
@@ -10428,7 +10428,7 @@ func (m *P2ChatMemberBotAddedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberBotDeletedV1Data struct {
-	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool      `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string    `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
@@ -10447,7 +10447,7 @@ func (m *P2ChatMemberBotDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberUserAddedV1Data struct {
-	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId           `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
@@ -10467,10 +10467,10 @@ func (m *P2ChatMemberUserAddedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberUserDeletedV1Data struct {
-	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId           `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	Users             []*ChatMemberUser `json:"users,omitempty"`               // 被移除用户列表
 	Name              *string           `json:"name,omitempty"`                // 群名称
 	I18nNames         *I18nNames        `json:"i18n_names,omitempty"`          // 群国际化名称
@@ -10487,10 +10487,10 @@ func (m *P2ChatMemberUserDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ChatMemberUserWithdrawnV1Data struct {
-	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatId            *string           `json:"chat_id,omitempty"`             // 群组 ID，详情参见 [群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId           `json:"operator_id,omitempty"`         // 用户 ID
 	External          *bool             `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key，为租户在飞书上的唯一标识，用来换取对应的 tenant_access_token，也可以用作租户在应用中的唯一标识
 	Users             []*ChatMemberUser `json:"users,omitempty"`               // 被撤销加群的用户列表
 	Name              *string           `json:"name,omitempty"`                // 群名称
 	I18nNames         *I18nNames        `json:"i18n_names,omitempty"`          // 群国际化名称
@@ -10522,8 +10522,8 @@ func (m *P2MessageReadV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MessageRecalledV1Data struct {
-	MessageId  *string `json:"message_id,omitempty"`  // 消息ID
-	ChatId     *string `json:"chat_id,omitempty"`     // 群ID
+	MessageId  *string `json:"message_id,omitempty"`  // 消息 ID
+	ChatId     *string `json:"chat_id,omitempty"`     // 群 ID
 	RecallTime *string `json:"recall_time,omitempty"` // 撤回事件
 	RecallType *string `json:"recall_type,omitempty"` // 撤回类型
 }
@@ -10609,7 +10609,7 @@ func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10663,7 +10663,7 @@ func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10717,7 +10717,7 @@ func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10771,7 +10771,7 @@ func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) 
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10825,7 +10825,7 @@ func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10879,7 +10879,7 @@ func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, err
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -10933,7 +10933,7 @@ func (iterator *ListPinIterator) Next() (bool, *Pin, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

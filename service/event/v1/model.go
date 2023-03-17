@@ -42,7 +42,7 @@ func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuil
 	return builder
 }
 
-// 分页大小，默认10，取值范围 10-50
+// 分页大小，默认 10，取值范围 10-50
 //
 // 示例值：10
 func (builder *ListOutboundIpReqBuilder) PageSize(pageSize int) *ListOutboundIpReqBuilder {
@@ -74,7 +74,7 @@ type ListOutboundIpReq struct {
 
 type ListOutboundIpRespData struct {
 	IpList    []string `json:"ip_list,omitempty"`    // outbound ip
-	PageToken *string  `json:"page_token,omitempty"` // 分页下次调用的page_token值
+	PageToken *string  `json:"page_token,omitempty"` // 分页下次调用的 page_token 值
 	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有分页数据
 }
 
@@ -106,7 +106,7 @@ func (iterator *ListOutboundIpIterator) Next() (bool, string, error) {
 		return false, "", nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, "", nil

@@ -29,7 +29,7 @@ func main() {
 	req := larkvc.NewPatchRoomLevelReqBuilder().
 		RoomLevelId("omb_4ad1a2c7a2fbc5fc9570f38456931293").
 		RoomLevel(larkvc.NewRoomLevelBuilder().
-			Name("测试层级2").
+			Name("测试层级 2").
 			ParentId("omb_8d020b12fe49e82847c2af3c193d5754").
 			CustomGroupId("zidingyi").
 			Build()).

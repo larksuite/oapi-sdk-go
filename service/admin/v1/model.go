@@ -27,19 +27,19 @@ import (
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListAdminUserStatDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListAdminUserStatOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListAdminUserStatDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeListAdminUserStatOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
@@ -49,36 +49,36 @@ const (
 )
 
 const (
-	UserIdTypeCreateBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeCreateBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeCreateBadgeGrantUserId  = "user_id"  // 用户的user_id
+	UserIdTypeCreateBadgeGrantOpenId  = "open_id"  // 用户的 open_id
+	UserIdTypeCreateBadgeGrantUnionId = "union_id" // 用户的 union_id
+	UserIdTypeCreateBadgeGrantUserId  = "user_id"  // 用户的 user_id
 )
 
 const (
-	DepartmentIdTypeCreateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeCreateBadgeGrantDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeCreateBadgeGrantOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeGetBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeGetBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeGetBadgeGrantUserId  = "user_id"  // 用户的user_id
+	UserIdTypeGetBadgeGrantOpenId  = "open_id"  // 用户的 open_id
+	UserIdTypeGetBadgeGrantUnionId = "union_id" // 用户的 union_id
+	UserIdTypeGetBadgeGrantUserId  = "user_id"  // 用户的 user_id
 )
 
 const (
-	DepartmentIdTypeGetBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeGetBadgeGrantDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeGetBadgeGrantOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	UserIdTypeListBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeListBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeListBadgeGrantUserId  = "user_id"  // 用户的user_id
+	UserIdTypeListBadgeGrantOpenId  = "open_id"  // 用户的 open_id
+	UserIdTypeListBadgeGrantUnionId = "union_id" // 用户的 union_id
+	UserIdTypeListBadgeGrantUserId  = "user_id"  // 用户的 user_id
 )
 
 const (
-	DepartmentIdTypeListBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeListBadgeGrantDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeListBadgeGrantOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
@@ -88,14 +88,14 @@ const (
 )
 
 const (
-	UserIdTypeUpdateBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeUpdateBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeUpdateBadgeGrantUserId  = "user_id"  // 用户的user_id
+	UserIdTypeUpdateBadgeGrantOpenId  = "open_id"  // 用户的 open_id
+	UserIdTypeUpdateBadgeGrantUnionId = "union_id" // 用户的 union_id
+	UserIdTypeUpdateBadgeGrantUserId  = "user_id"  // 用户的 user_id
 )
 
 const (
-	DepartmentIdTypeUpdateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUpdateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeUpdateBadgeGrantDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	DepartmentIdTypeUpdateBadgeGrantOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
@@ -112,7 +112,7 @@ const (
 
 type AdminDeptStat struct {
 	Date                 *string `json:"date,omitempty"`                    // 日期
-	DepartmentId         *string `json:"department_id,omitempty"`           // 部门的department_id 或者open_department_id
+	DepartmentId         *string `json:"department_id,omitempty"`           // 部门的 department_id 或者 open_department_id
 	DepartmentName       *string `json:"department_name,omitempty"`         // 部门名字
 	DepartmentPath       *string `json:"department_path,omitempty"`         // 部门路径
 	TotalUserNum         *int    `json:"total_user_num,omitempty"`          // 部门总人数
@@ -148,7 +148,7 @@ type AdminDeptStat struct {
 type AdminDeptStatBuilder struct {
 	date                     string // 日期
 	dateFlag                 bool
-	departmentId             string // 部门的department_id 或者open_department_id
+	departmentId             string // 部门的 department_id 或者 open_department_id
 	departmentIdFlag         bool
 	departmentName           string // 部门名字
 	departmentNameFlag       bool
@@ -226,7 +226,7 @@ func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
 	return builder
 }
 
-// 部门的department_id 或者open_department_id
+// 部门的 department_id 或者 open_department_id
 //
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDeptStatBuilder {
@@ -640,7 +640,7 @@ func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 
 type AdminUserStat struct {
 	Date             *string `json:"date,omitempty"`               // 日期
-	UserId           *string `json:"user_id,omitempty"`            // 用户ID
+	UserId           *string `json:"user_id,omitempty"`            // 用户 ID
 	UserName         *string `json:"user_name,omitempty"`          // 用户名
 	DepartmentName   *string `json:"department_name,omitempty"`    // 部门名
 	DepartmentPath   *string `json:"department_path,omitempty"`    // 部门路径
@@ -651,7 +651,7 @@ type AdminUserStat struct {
 	LastActiveTime   *string `json:"last_active_time,omitempty"`   // 最近活跃时间
 	ImActiveFlag     *int    `json:"im_active_flag,omitempty"`     // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
 	SendMessengerNum *int    `json:"send_messenger_num,omitempty"` // 发送消息数
-	DocsActiveFlag   *int    `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+	DocsActiveFlag   *int    `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件 1：文档/文件打开;事件 2：进入 docs 相关页面：如文档详情页，space 的各个页面"
 	CreateDocsNum    *int    `json:"create_docs_num,omitempty"`    // 创建文件数
 	CalActiveFlag    *int    `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
 	CreateCalNum     *int    `json:"create_cal_num,omitempty"`     // 创建日程数
@@ -667,7 +667,7 @@ type AdminUserStat struct {
 type AdminUserStatBuilder struct {
 	date                 string // 日期
 	dateFlag             bool
-	userId               string // 用户ID
+	userId               string // 用户 ID
 	userIdFlag           bool
 	userName             string // 用户名
 	userNameFlag         bool
@@ -689,7 +689,7 @@ type AdminUserStatBuilder struct {
 	imActiveFlagFlag     bool
 	sendMessengerNum     int // 发送消息数
 	sendMessengerNumFlag bool
-	docsActiveFlag       int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+	docsActiveFlag       int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件 1：文档/文件打开;事件 2：进入 docs 相关页面：如文档详情页，space 的各个页面"
 	docsActiveFlagFlag   bool
 	createDocsNum        int // 创建文件数
 	createDocsNumFlag    bool
@@ -727,7 +727,7 @@ func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
 	return builder
 }
 
-// 用户ID
+// 用户 ID
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder {
@@ -826,7 +826,7 @@ func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 	return builder
 }
 
-// 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+// 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件 1：文档/文件打开;事件 2：进入 docs 相关页面：如文档详情页，space 的各个页面"
 //
 // 示例值：1
 func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUserStatBuilder {
@@ -1118,23 +1118,23 @@ func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
 }
 
 type ApiAuditDrawerInfo struct {
-	InfoKey    *string `json:"info_key,omitempty"`     // key信息
-	InfoVal    *string `json:"info_val,omitempty"`     // val值
-	KeyI18nKey *string `json:"key_i18n_key,omitempty"` // key对应的i18nkey
-	ValType    *string `json:"val_type,omitempty"`     // val类型
-	ValI18nKey *string `json:"val_i18n_key,omitempty"` // val对应的i18nkey
+	InfoKey    *string `json:"info_key,omitempty"`     // key 信息
+	InfoVal    *string `json:"info_val,omitempty"`     // val 值
+	KeyI18nKey *string `json:"key_i18n_key,omitempty"` // key 对应的 i18nkey
+	ValType    *string `json:"val_type,omitempty"`     // val 类型
+	ValI18nKey *string `json:"val_i18n_key,omitempty"` // val 对应的 i18nkey
 }
 
 type ApiAuditDrawerInfoBuilder struct {
-	infoKey        string // key信息
+	infoKey        string // key 信息
 	infoKeyFlag    bool
-	infoVal        string // val值
+	infoVal        string // val 值
 	infoValFlag    bool
-	keyI18nKey     string // key对应的i18nkey
+	keyI18nKey     string // key 对应的 i18nkey
 	keyI18nKeyFlag bool
-	valType        string // val类型
+	valType        string // val 类型
 	valTypeFlag    bool
-	valI18nKey     string // val对应的i18nkey
+	valI18nKey     string // val 对应的 i18nkey
 	valI18nKeyFlag bool
 }
 
@@ -1143,7 +1143,7 @@ func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
 	return builder
 }
 
-// key信息
+// key 信息
 //
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawerInfoBuilder {
@@ -1152,7 +1152,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawe
 	return builder
 }
 
-// val值
+// val 值
 //
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawerInfoBuilder {
@@ -1161,7 +1161,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawe
 	return builder
 }
 
-// key对应的i18nkey
+// key 对应的 i18nkey
 //
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAuditDrawerInfoBuilder {
@@ -1170,7 +1170,7 @@ func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAudi
 	return builder
 }
 
-// val类型
+// val 类型
 //
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawerInfoBuilder {
@@ -1179,7 +1179,7 @@ func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawe
 	return builder
 }
 
-// val对应的i18nkey
+// val 对应的 i18nkey
 //
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValI18nKey(valI18nKey string) *ApiAuditDrawerInfoBuilder {
@@ -1215,35 +1215,35 @@ func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
 
 type AuditAndroidContext struct {
 	Udid            *string `json:"udid,omitempty"`              // UDID
-	Did             *string `json:"did,omitempty"`               // 设备ID
-	AppVer          *string `json:"app_ver,omitempty"`           // app的版本
-	Ver             *string `json:"ver,omitempty"`               // SecSDK版本
+	Did             *string `json:"did,omitempty"`               // 设备 ID
+	AppVer          *string `json:"app_ver,omitempty"`           // app 的版本
+	Ver             *string `json:"ver,omitempty"`               // SecSDK 版本
 	Region          *string `json:"region,omitempty"`            // 设备语言
 	IdI             *string `json:"id_i,omitempty"`              // 安卓版本号
 	IdR             *string `json:"id_r,omitempty"`              // 安卓版本
 	HwBrand         *string `json:"hw_brand,omitempty"`          // Brand
 	HwManuf         *string `json:"hw_manuf,omitempty"`          // 制造商
 	Wifip           *string `json:"wifip,omitempty"`             // wifi ip
-	RouteIip        *string `json:"route_iip,omitempty"`         // 路由IP
-	RouteGip        *string `json:"route_gip,omitempty"`         // 路由网关IP
-	EnvSu           *string `json:"env_su,omitempty"`            // 表示当前是否root
+	RouteIip        *string `json:"route_iip,omitempty"`         // 路由 IP
+	RouteGip        *string `json:"route_gip,omitempty"`         // 路由网关 IP
+	EnvSu           *string `json:"env_su,omitempty"`            // 表示当前是否 root
 	EnvTz           *string `json:"env_tz,omitempty"`            // 手机系统时区
 	EnvMl           *string `json:"env_ml,omitempty"`            // 手机系统语言
-	Location        *string `json:"location,omitempty"`          // GPS经纬度
-	ActiveIp        *string `json:"active_ip,omitempty"`         // 当前设备活跃ip
-	ActiveIpDetail  *string `json:"active_ip_detail,omitempty"`  // 当前设备活跃ip对应网卡类型
+	Location        *string `json:"location,omitempty"`          // GPS 经纬度
+	ActiveIp        *string `json:"active_ip,omitempty"`         // 当前设备活跃 ip
+	ActiveIpDetail  *string `json:"active_ip_detail,omitempty"`  // 当前设备活跃 ip 对应网卡类型
 	CellBaseStation *string `json:"cell_base_station,omitempty"` // 基站信息
-	IP              *string `json:"IP,omitempty"`                // 公网ip
+	IP              *string `json:"IP,omitempty"`                // 公网 ip
 }
 
 type AuditAndroidContextBuilder struct {
 	udid                string // UDID
 	udidFlag            bool
-	did                 string // 设备ID
+	did                 string // 设备 ID
 	didFlag             bool
-	appVer              string // app的版本
+	appVer              string // app 的版本
 	appVerFlag          bool
-	ver                 string // SecSDK版本
+	ver                 string // SecSDK 版本
 	verFlag             bool
 	region              string // 设备语言
 	regionFlag          bool
@@ -1257,25 +1257,25 @@ type AuditAndroidContextBuilder struct {
 	hwManufFlag         bool
 	wifip               string // wifi ip
 	wifipFlag           bool
-	routeIip            string // 路由IP
+	routeIip            string // 路由 IP
 	routeIipFlag        bool
-	routeGip            string // 路由网关IP
+	routeGip            string // 路由网关 IP
 	routeGipFlag        bool
-	envSu               string // 表示当前是否root
+	envSu               string // 表示当前是否 root
 	envSuFlag           bool
 	envTz               string // 手机系统时区
 	envTzFlag           bool
 	envMl               string // 手机系统语言
 	envMlFlag           bool
-	location            string // GPS经纬度
+	location            string // GPS 经纬度
 	locationFlag        bool
-	activeIp            string // 当前设备活跃ip
+	activeIp            string // 当前设备活跃 ip
 	activeIpFlag        bool
-	activeIpDetail      string // 当前设备活跃ip对应网卡类型
+	activeIpDetail      string // 当前设备活跃 ip 对应网卡类型
 	activeIpDetailFlag  bool
 	cellBaseStation     string // 基站信息
 	cellBaseStationFlag bool
-	iP                  string // 公网ip
+	iP                  string // 公网 ip
 	iPFlag              bool
 }
 
@@ -1293,7 +1293,7 @@ func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContex
 	return builder
 }
 
-// 设备ID
+// 设备 ID
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextBuilder {
@@ -1302,7 +1302,7 @@ func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextB
 	return builder
 }
 
-// app的版本
+// app 的版本
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidContextBuilder {
@@ -1311,7 +1311,7 @@ func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidCo
 	return builder
 }
 
-// SecSDK版本
+// SecSDK 版本
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextBuilder {
@@ -1374,7 +1374,7 @@ func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidCont
 	return builder
 }
 
-// 路由IP
+// 路由 IP
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndroidContextBuilder {
@@ -1383,7 +1383,7 @@ func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndro
 	return builder
 }
 
-// 路由网关IP
+// 路由网关 IP
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndroidContextBuilder {
@@ -1392,7 +1392,7 @@ func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndro
 	return builder
 }
 
-// 表示当前是否root
+// 表示当前是否 root
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidContextBuilder {
@@ -1419,7 +1419,7 @@ func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidCont
 	return builder
 }
 
-// GPS经纬度
+// GPS 经纬度
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndroidContextBuilder {
@@ -1428,7 +1428,7 @@ func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndro
 	return builder
 }
 
-// 当前设备活跃ip
+// 当前设备活跃 ip
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndroidContextBuilder {
@@ -1437,7 +1437,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndro
 	return builder
 }
 
-// 当前设备活跃ip对应网卡类型
+// 当前设备活跃 ip 对应网卡类型
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditAndroidContextBuilder {
@@ -1455,7 +1455,7 @@ func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation strin
 	return builder
 }
 
-// 公网ip
+// 公网 ip
 //
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IP(iP string) *AuditAndroidContextBuilder {
@@ -1551,22 +1551,22 @@ func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
 
 type AuditContext struct {
 	TerminalType   *int                 `json:"terminal_type,omitempty"`   // 终端类型
-	IosContext     *AuditIosContext     `json:"ios_context,omitempty"`     // ios的环境信息
-	PcContext      *AuditPcContext      `json:"pc_context,omitempty"`      // pc的环境信息
-	WebContext     *AuditWebContext     `json:"web_context,omitempty"`     // web的环境信息
-	AndroidContext *AuditAndroidContext `json:"android_context,omitempty"` // android的环境信息
+	IosContext     *AuditIosContext     `json:"ios_context,omitempty"`     // ios 的环境信息
+	PcContext      *AuditPcContext      `json:"pc_context,omitempty"`      // pc 的环境信息
+	WebContext     *AuditWebContext     `json:"web_context,omitempty"`     // web 的环境信息
+	AndroidContext *AuditAndroidContext `json:"android_context,omitempty"` // android 的环境信息
 }
 
 type AuditContextBuilder struct {
 	terminalType       int // 终端类型
 	terminalTypeFlag   bool
-	iosContext         *AuditIosContext // ios的环境信息
+	iosContext         *AuditIosContext // ios 的环境信息
 	iosContextFlag     bool
-	pcContext          *AuditPcContext // pc的环境信息
+	pcContext          *AuditPcContext // pc 的环境信息
 	pcContextFlag      bool
-	webContext         *AuditWebContext // web的环境信息
+	webContext         *AuditWebContext // web 的环境信息
 	webContextFlag     bool
-	androidContext     *AuditAndroidContext // android的环境信息
+	androidContext     *AuditAndroidContext // android 的环境信息
 	androidContextFlag bool
 }
 
@@ -1584,7 +1584,7 @@ func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContext
 	return builder
 }
 
-// ios的环境信息
+// ios 的环境信息
 //
 // 示例值：
 func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *AuditContextBuilder {
@@ -1593,7 +1593,7 @@ func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *Aud
 	return builder
 }
 
-// pc的环境信息
+// pc 的环境信息
 //
 // 示例值：
 func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditContextBuilder {
@@ -1602,7 +1602,7 @@ func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditC
 	return builder
 }
 
-// web的环境信息
+// web 的环境信息
 //
 // 示例值：
 func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *AuditContextBuilder {
@@ -1611,7 +1611,7 @@ func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *Aud
 	return builder
 }
 
-// android的环境信息
+// android 的环境信息
 //
 // 示例值：
 func (builder *AuditContextBuilder) AndroidContext(androidContext *AuditAndroidContext) *AuditContextBuilder {
@@ -1642,20 +1642,20 @@ func (builder *AuditContextBuilder) Build() *AuditContext {
 }
 
 type AuditDetail struct {
-	Mc          *string `json:"mc,omitempty"`           // mac地址
+	Mc          *string `json:"mc,omitempty"`           // mac 地址
 	DeviceModel *string `json:"device_model,omitempty"` // 设备模型
 	Os          *string `json:"os,omitempty"`           // 操作系统
-	City        *string `json:"city,omitempty"`         // ip属地
+	City        *string `json:"city,omitempty"`         // ip 属地
 }
 
 type AuditDetailBuilder struct {
-	mc              string // mac地址
+	mc              string // mac 地址
 	mcFlag          bool
 	deviceModel     string // 设备模型
 	deviceModelFlag bool
 	os              string // 操作系统
 	osFlag          bool
-	city            string // ip属地
+	city            string // ip 属地
 	cityFlag        bool
 }
 
@@ -1664,7 +1664,7 @@ func NewAuditDetailBuilder() *AuditDetailBuilder {
 	return builder
 }
 
-// mac地址
+// mac 地址
 //
 // 示例值：08:00:20:0A:8C:6D
 func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
@@ -1691,7 +1691,7 @@ func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
 	return builder
 }
 
-// ip属地
+// ip 属地
 //
 // 示例值：北京
 func (builder *AuditDetailBuilder) City(city string) *AuditDetailBuilder {
@@ -1723,7 +1723,7 @@ func (builder *AuditDetailBuilder) Build() *AuditDetail {
 
 type AuditEventExtend struct {
 	CommentType                 *string `json:"comment_type,omitempty"`                     // 评论类型
-	AppDetail                   *string `json:"app_detail,omitempty"`                       // app信息
+	AppDetail                   *string `json:"app_detail,omitempty"`                       // app 信息
 	TwoStepValidation           *bool   `json:"two_step_validation,omitempty"`              // 是否两步验证
 	LoginMethod                 *string `json:"login_method,omitempty"`                     // 登录方式
 	NewPeopleNumInVideo         *int    `json:"new_people_num_in_video,omitempty"`          // 创建新的{x}人会议/通话
@@ -1737,7 +1737,7 @@ type AuditEventExtend struct {
 type AuditEventExtendBuilder struct {
 	commentType                     string // 评论类型
 	commentTypeFlag                 bool
-	appDetail                       string // app信息
+	appDetail                       string // app 信息
 	appDetailFlag                   bool
 	twoStepValidation               bool // 是否两步验证
 	twoStepValidationFlag           bool
@@ -1771,7 +1771,7 @@ func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEv
 	return builder
 }
 
-// app信息
+// app 信息
 //
 // 示例值：
 func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventExtendBuilder {
@@ -1898,39 +1898,39 @@ func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
 }
 
 type AuditInfo struct {
-	EventId         *string                 `json:"event_id,omitempty"`          // 事件id
-	UniqueId        *string                 `json:"unique_id,omitempty"`         // 唯一id
+	EventId         *string                 `json:"event_id,omitempty"`          // 事件 id
+	UniqueId        *string                 `json:"unique_id,omitempty"`         // 唯一 id
 	EventName       *string                 `json:"event_name,omitempty"`        // 事件名称
-	DepartmentIds   []string                `json:"department_ids,omitempty"`    // 用户所属部门的ID列表
+	DepartmentIds   []string                `json:"department_ids,omitempty"`    // 用户所属部门的 ID 列表
 	EventModule     *int                    `json:"event_module,omitempty"`      // 模块
 	OperatorType    *int                    `json:"operator_type,omitempty"`     // 操作人类型
-	OperatorValue   *string                 `json:"operator_value,omitempty"`    // 操作人id
+	OperatorValue   *string                 `json:"operator_value,omitempty"`    // 操作人 id
 	Objects         []*AuditObjectEntity    `json:"objects,omitempty"`           // 操作对象列表
 	Recipients      []*AuditRecipientEntity `json:"recipients,omitempty"`        // 接收者对象列表
 	EventTime       *int                    `json:"event_time,omitempty"`        // 事件时间
-	Ip              *string                 `json:"ip,omitempty"`                // ip信息
-	OperatorApp     *string                 `json:"operator_app,omitempty"`      // 第三方isvID
+	Ip              *string                 `json:"ip,omitempty"`                // ip 信息
+	OperatorApp     *string                 `json:"operator_app,omitempty"`      // 第三方 isvID
 	AuditContext    *AuditContext           `json:"audit_context,omitempty"`     // 环境信息
 	Extend          *AuditEventExtend       `json:"extend,omitempty"`            // 事件级别的扩展
-	OperatorAppName *string                 `json:"operator_app_name,omitempty"` // 第三方isv名称
+	OperatorAppName *string                 `json:"operator_app_name,omitempty"` // 第三方 isv 名称
 	CommonDrawers   *ApiAuditCommonDrawers  `json:"common_drawers,omitempty"`    // 扩展字段信息
 	AuditDetail     *AuditDetail            `json:"audit_detail,omitempty"`      // 日志扩展信息
 }
 
 type AuditInfoBuilder struct {
-	eventId             string // 事件id
+	eventId             string // 事件 id
 	eventIdFlag         bool
-	uniqueId            string // 唯一id
+	uniqueId            string // 唯一 id
 	uniqueIdFlag        bool
 	eventName           string // 事件名称
 	eventNameFlag       bool
-	departmentIds       []string // 用户所属部门的ID列表
+	departmentIds       []string // 用户所属部门的 ID 列表
 	departmentIdsFlag   bool
 	eventModule         int // 模块
 	eventModuleFlag     bool
 	operatorType        int // 操作人类型
 	operatorTypeFlag    bool
-	operatorValue       string // 操作人id
+	operatorValue       string // 操作人 id
 	operatorValueFlag   bool
 	objects             []*AuditObjectEntity // 操作对象列表
 	objectsFlag         bool
@@ -1938,15 +1938,15 @@ type AuditInfoBuilder struct {
 	recipientsFlag      bool
 	eventTime           int // 事件时间
 	eventTimeFlag       bool
-	ip                  string // ip信息
+	ip                  string // ip 信息
 	ipFlag              bool
-	operatorApp         string // 第三方isvID
+	operatorApp         string // 第三方 isvID
 	operatorAppFlag     bool
 	auditContext        *AuditContext // 环境信息
 	auditContextFlag    bool
 	extend              *AuditEventExtend // 事件级别的扩展
 	extendFlag          bool
-	operatorAppName     string // 第三方isv名称
+	operatorAppName     string // 第三方 isv 名称
 	operatorAppNameFlag bool
 	commonDrawers       *ApiAuditCommonDrawers // 扩展字段信息
 	commonDrawersFlag   bool
@@ -1959,7 +1959,7 @@ func NewAuditInfoBuilder() *AuditInfoBuilder {
 	return builder
 }
 
-// 事件id
+// 事件 id
 //
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
@@ -1968,7 +1968,7 @@ func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 	return builder
 }
 
-// 唯一id
+// 唯一 id
 //
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
@@ -1986,7 +1986,7 @@ func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 	return builder
 }
 
-// 用户所属部门的ID列表
+// 用户所属部门的 ID 列表
 //
 // 示例值：
 func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInfoBuilder {
@@ -2013,7 +2013,7 @@ func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilde
 	return builder
 }
 
-// 操作人id
+// 操作人 id
 //
 // 示例值：11111111111111
 func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
@@ -2049,7 +2049,7 @@ func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 	return builder
 }
 
-// ip信息
+// ip 信息
 //
 // 示例值：192.168.168.1
 func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
@@ -2058,7 +2058,7 @@ func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 	return builder
 }
 
-// 第三方isvID
+// 第三方 isvID
 //
 // 示例值：xxx
 func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
@@ -2085,7 +2085,7 @@ func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuil
 	return builder
 }
 
-// 第三方isv名称
+// 第三方 isv 名称
 //
 // 示例值：xxx
 func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
@@ -2180,30 +2180,30 @@ func (builder *AuditInfoBuilder) Build() *AuditInfo {
 
 type AuditIosContext struct {
 	Udid            *string `json:"udid,omitempty"`              // UDID
-	Did             *string `json:"did,omitempty"`               // 设备ID
-	AppVer          *string `json:"app_ver,omitempty"`           // app的版本
-	Ver             *string `json:"ver,omitempty"`               // SecSDK版本
+	Did             *string `json:"did,omitempty"`               // 设备 ID
+	AppVer          *string `json:"app_ver,omitempty"`           // app 的版本
+	Ver             *string `json:"ver,omitempty"`               // SecSDK 版本
 	Os              *string `json:"os,omitempty"`                // 系统类型及版本
 	STZone          *string `json:"STZone,omitempty"`            // 系统时区
 	ML              *string `json:"ML,omitempty"`                // 当前语言
 	Sjd             *string `json:"sjd,omitempty"`               // 是否越狱
-	Proxyip         *string `json:"proxyip,omitempty"`           // 代理ip
+	Proxyip         *string `json:"proxyip,omitempty"`           // 代理 ip
 	Wifip           *string `json:"wifip,omitempty"`             // wifi ip
-	Location        *string `json:"location,omitempty"`          // GPS经纬度
-	ActiveIp        *string `json:"active_ip,omitempty"`         // 当前设备活跃ip
-	ActiveIpDetail  *string `json:"active_ip_detail,omitempty"`  // 当前设备活跃ip对应网卡类型
+	Location        *string `json:"location,omitempty"`          // GPS 经纬度
+	ActiveIp        *string `json:"active_ip,omitempty"`         // 当前设备活跃 ip
+	ActiveIpDetail  *string `json:"active_ip_detail,omitempty"`  // 当前设备活跃 ip 对应网卡类型
 	CellBaseStation *string `json:"cell_base_station,omitempty"` // 基站信息
-	IP              *string `json:"IP,omitempty"`                // 公网ip
+	IP              *string `json:"IP,omitempty"`                // 公网 ip
 }
 
 type AuditIosContextBuilder struct {
 	udid                string // UDID
 	udidFlag            bool
-	did                 string // 设备ID
+	did                 string // 设备 ID
 	didFlag             bool
-	appVer              string // app的版本
+	appVer              string // app 的版本
 	appVerFlag          bool
-	ver                 string // SecSDK版本
+	ver                 string // SecSDK 版本
 	verFlag             bool
 	os                  string // 系统类型及版本
 	osFlag              bool
@@ -2213,19 +2213,19 @@ type AuditIosContextBuilder struct {
 	mLFlag              bool
 	sjd                 string // 是否越狱
 	sjdFlag             bool
-	proxyip             string // 代理ip
+	proxyip             string // 代理 ip
 	proxyipFlag         bool
 	wifip               string // wifi ip
 	wifipFlag           bool
-	location            string // GPS经纬度
+	location            string // GPS 经纬度
 	locationFlag        bool
-	activeIp            string // 当前设备活跃ip
+	activeIp            string // 当前设备活跃 ip
 	activeIpFlag        bool
-	activeIpDetail      string // 当前设备活跃ip对应网卡类型
+	activeIpDetail      string // 当前设备活跃 ip 对应网卡类型
 	activeIpDetailFlag  bool
 	cellBaseStation     string // 基站信息
 	cellBaseStationFlag bool
-	iP                  string // 公网ip
+	iP                  string // 公网 ip
 	iPFlag              bool
 }
 
@@ -2243,7 +2243,7 @@ func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder
 	return builder
 }
 
-// 设备ID
+// 设备 ID
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
@@ -2252,7 +2252,7 @@ func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 	return builder
 }
 
-// app的版本
+// app 的版本
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBuilder {
@@ -2261,7 +2261,7 @@ func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBui
 	return builder
 }
 
-// SecSDK版本
+// SecSDK 版本
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
@@ -2306,7 +2306,7 @@ func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 	return builder
 }
 
-// 代理ip
+// 代理 ip
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextBuilder {
@@ -2324,7 +2324,7 @@ func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuild
 	return builder
 }
 
-// GPS经纬度
+// GPS 经纬度
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContextBuilder {
@@ -2333,7 +2333,7 @@ func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContex
 	return builder
 }
 
-// 当前设备活跃ip
+// 当前设备活跃 ip
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContextBuilder {
@@ -2342,7 +2342,7 @@ func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContex
 	return builder
 }
 
-// 当前设备活跃ip对应网卡类型
+// 当前设备活跃 ip 对应网卡类型
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditIosContextBuilder {
@@ -2360,7 +2360,7 @@ func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *
 	return builder
 }
 
-// 公网ip
+// 公网 ip
 //
 // 示例值：
 func (builder *AuditIosContextBuilder) IP(iP string) *AuditIosContextBuilder {
@@ -2438,15 +2438,15 @@ type AuditObjectDetail struct {
 	CloneSource                  *string `json:"clone_source,omitempty"`                    // 克隆来源
 	TextDetail                   *string `json:"text_detail,omitempty"`                     // 其他文本
 	FileName                     *string `json:"file_name,omitempty"`                       // 文件名称
-	ThirdPartyAppID              *string `json:"third_party_appID,omitempty"`               // 第三方APPID
+	ThirdPartyAppID              *string `json:"third_party_appID,omitempty"`               // 第三方 APPID
 	ContainFileNum               *int    `json:"contain_file_num,omitempty"`                // 文件或文件夹数量
 	PermissionSettingType        *string `json:"permission_setting_type,omitempty"`         // 链接分享设置
 	PermissionExternalAccessType *bool   `json:"permission_external_access_Type,omitempty"` // 是否开启外部访问设置
 	PermissionShareType          *string `json:"permission_share_type,omitempty"`           // 分享设置
-	FileServiceSource            *string `json:"file_service_source,omitempty"`             // file上传业务来源
-	OkrDownloadContent           *string `json:"okr_download_content,omitempty"`            // 下载OKR时的内容范围
-	ContainerType                *string `json:"container_type,omitempty"`                  // 容器类型，标识是否wiki
-	ContainerId                  *string `json:"container_id,omitempty"`                    // 容器id，wiki标识字段
+	FileServiceSource            *string `json:"file_service_source,omitempty"`             // file 上传业务来源
+	OkrDownloadContent           *string `json:"okr_download_content,omitempty"`            // 下载 OKR 时的内容范围
+	ContainerType                *string `json:"container_type,omitempty"`                  // 容器类型，标识是否 wiki
+	ContainerId                  *string `json:"container_id,omitempty"`                    // 容器 id，wiki 标识字段
 	CurrentPage                  *string `json:"current_page,omitempty"`                    // 截屏、录制的开始页面
 }
 
@@ -2457,7 +2457,7 @@ type AuditObjectDetailBuilder struct {
 	textDetailFlag                   bool
 	fileName                         string // 文件名称
 	fileNameFlag                     bool
-	thirdPartyAppID                  string // 第三方APPID
+	thirdPartyAppID                  string // 第三方 APPID
 	thirdPartyAppIDFlag              bool
 	containFileNum                   int // 文件或文件夹数量
 	containFileNumFlag               bool
@@ -2467,13 +2467,13 @@ type AuditObjectDetailBuilder struct {
 	permissionExternalAccessTypeFlag bool
 	permissionShareType              string // 分享设置
 	permissionShareTypeFlag          bool
-	fileServiceSource                string // file上传业务来源
+	fileServiceSource                string // file 上传业务来源
 	fileServiceSourceFlag            bool
-	okrDownloadContent               string // 下载OKR时的内容范围
+	okrDownloadContent               string // 下载 OKR 时的内容范围
 	okrDownloadContentFlag           bool
-	containerType                    string // 容器类型，标识是否wiki
+	containerType                    string // 容器类型，标识是否 wiki
 	containerTypeFlag                bool
-	containerId                      string // 容器id，wiki标识字段
+	containerId                      string // 容器 id，wiki 标识字段
 	containerIdFlag                  bool
 	currentPage                      string // 截屏、录制的开始页面
 	currentPageFlag                  bool
@@ -2511,7 +2511,7 @@ func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectD
 	return builder
 }
 
-// 第三方APPID
+// 第三方 APPID
 //
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string) *AuditObjectDetailBuilder {
@@ -2556,7 +2556,7 @@ func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType
 	return builder
 }
 
-// file上传业务来源
+// file 上传业务来源
 //
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource string) *AuditObjectDetailBuilder {
@@ -2565,7 +2565,7 @@ func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource str
 	return builder
 }
 
-// 下载OKR时的内容范围
+// 下载 OKR 时的内容范围
 //
 // 示例值：
 func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent string) *AuditObjectDetailBuilder {
@@ -2574,7 +2574,7 @@ func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent s
 	return builder
 }
 
-// 容器类型，标识是否wiki
+// 容器类型，标识是否 wiki
 //
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *AuditObjectDetailBuilder {
@@ -2583,7 +2583,7 @@ func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *Au
 	return builder
 }
 
-// 容器id，wiki标识字段
+// 容器 id，wiki 标识字段
 //
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditObjectDetailBuilder {
@@ -2660,7 +2660,7 @@ func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
 
 type AuditObjectEntity struct {
 	ObjectType   *string            `json:"object_type,omitempty"`   // 操作对象类型
-	ObjectValue  *string            `json:"object_value,omitempty"`  // 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	ObjectValue  *string            `json:"object_value,omitempty"`  // 操作对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 	ObjectName   *string            `json:"object_name,omitempty"`   // 操作对象名称，如会话名、文档名等
 	ObjectOwner  *string            `json:"object_owner,omitempty"`  // 操作对象的所有者
 	ObjectDetail *AuditObjectDetail `json:"object_detail,omitempty"` // object 详情
@@ -2669,7 +2669,7 @@ type AuditObjectEntity struct {
 type AuditObjectEntityBuilder struct {
 	objectType       string // 操作对象类型
 	objectTypeFlag   bool
-	objectValue      string // 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	objectValue      string // 操作对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 	objectValueFlag  bool
 	objectName       string // 操作对象名称，如会话名、文档名等
 	objectNameFlag   bool
@@ -2693,7 +2693,7 @@ func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObj
 	return builder
 }
 
-// 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+// 操作对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 //
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditObjectEntityBuilder {
@@ -2755,23 +2755,23 @@ func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
 
 type AuditPcContext struct {
 	Udid   *string `json:"udid,omitempty"`    // UDID
-	Did    *string `json:"did,omitempty"`     // 设备ID
-	AppVer *string `json:"app_ver,omitempty"` // app的版本
-	Ver    *string `json:"ver,omitempty"`     // SecSDK版本
+	Did    *string `json:"did,omitempty"`     // 设备 ID
+	AppVer *string `json:"app_ver,omitempty"` // app 的版本
+	Ver    *string `json:"ver,omitempty"`     // SecSDK 版本
 	Os     *string `json:"os,omitempty"`      // 客户端类型
 	Wifip  *string `json:"wifip,omitempty"`   // wifi ip
 	Region *string `json:"region,omitempty"`  // 设备区域
-	IP     *string `json:"IP,omitempty"`      // 公网ip
+	IP     *string `json:"IP,omitempty"`      // 公网 ip
 }
 
 type AuditPcContextBuilder struct {
 	udid       string // UDID
 	udidFlag   bool
-	did        string // 设备ID
+	did        string // 设备 ID
 	didFlag    bool
-	appVer     string // app的版本
+	appVer     string // app 的版本
 	appVerFlag bool
-	ver        string // SecSDK版本
+	ver        string // SecSDK 版本
 	verFlag    bool
 	os         string // 客户端类型
 	osFlag     bool
@@ -2779,7 +2779,7 @@ type AuditPcContextBuilder struct {
 	wifipFlag  bool
 	region     string // 设备区域
 	regionFlag bool
-	iP         string // 公网ip
+	iP         string // 公网 ip
 	iPFlag     bool
 }
 
@@ -2797,7 +2797,7 @@ func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 	return builder
 }
 
-// 设备ID
+// 设备 ID
 //
 // 示例值：
 func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
@@ -2806,7 +2806,7 @@ func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 	return builder
 }
 
-// app的版本
+// app 的版本
 //
 // 示例值：
 func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuilder {
@@ -2815,7 +2815,7 @@ func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuild
 	return builder
 }
 
-// SecSDK版本
+// SecSDK 版本
 //
 // 示例值：
 func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
@@ -2851,7 +2851,7 @@ func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuild
 	return builder
 }
 
-// 公网ip
+// 公网 ip
 //
 // 示例值：
 func (builder *AuditPcContextBuilder) IP(iP string) *AuditPcContextBuilder {
@@ -2931,14 +2931,14 @@ func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 
 type AuditRecipientEntity struct {
 	RecipientType   *string               `json:"recipient_type,omitempty"`   // 接收者对象类型
-	RecipientValue  *string               `json:"recipient_value,omitempty"`  // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	RecipientValue  *string               `json:"recipient_value,omitempty"`  // 接收者对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 	RecipientDetail *AuditRecipientDetail `json:"recipient_detail,omitempty"` // recipient 详情
 }
 
 type AuditRecipientEntityBuilder struct {
 	recipientType       string // 接收者对象类型
 	recipientTypeFlag   bool
-	recipientValue      string // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	recipientValue      string // 接收者对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 	recipientValueFlag  bool
 	recipientDetail     *AuditRecipientDetail // recipient 详情
 	recipientDetailFlag bool
@@ -2958,7 +2958,7 @@ func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) 
 	return builder
 }
 
-// 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+// 接收者对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
 //
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string) *AuditRecipientEntityBuilder {
@@ -2993,14 +2993,14 @@ func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
 }
 
 type AuditWebContext struct {
-	UserAgent *string `json:"user_agent,omitempty"` // UA信息
-	IP        *string `json:"IP,omitempty"`         // 本机IP
+	UserAgent *string `json:"user_agent,omitempty"` // UA 信息
+	IP        *string `json:"IP,omitempty"`         // 本机 IP
 }
 
 type AuditWebContextBuilder struct {
-	userAgent     string // UA信息
+	userAgent     string // UA 信息
 	userAgentFlag bool
-	iP            string // 本机IP
+	iP            string // 本机 IP
 	iPFlag        bool
 }
 
@@ -3009,7 +3009,7 @@ func NewAuditWebContextBuilder() *AuditWebContextBuilder {
 	return builder
 }
 
-// UA信息
+// UA 信息
 //
 // 示例值：
 func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebContextBuilder {
@@ -3018,7 +3018,7 @@ func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebCont
 	return builder
 }
 
-// 本机IP
+// 本机 IP
 //
 // 示例值：
 func (builder *AuditWebContextBuilder) IP(iP string) *AuditWebContextBuilder {
@@ -3042,28 +3042,28 @@ func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 
 type Badge struct {
 	Id              *string `json:"id,omitempty"`               // 租户内勋章的唯一标识，该值由系统随机生成。
-	Name            *string `json:"name,omitempty"`             // 租户内唯一的勋章名称，最多30个字符。
-	Explanation     *string `json:"explanation,omitempty"`      // 勋章的描述文案，最多100个字符。
-	DetailImage     *string `json:"detail_image,omitempty"`     // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	ShowImage       *string `json:"show_image,omitempty"`       // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	I18nName        *I18n   `json:"i18n_name,omitempty"`        // 勋章的多语言名称，同name字段限制，最多30个字符。
-	I18nExplanation *I18n   `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	Name            *string `json:"name,omitempty"`             // 租户内唯一的勋章名称，最多 30 个字符。
+	Explanation     *string `json:"explanation,omitempty"`      // 勋章的描述文案，最多 100 个字符。
+	DetailImage     *string `json:"detail_image,omitempty"`     // 企业勋章的详情图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
+	ShowImage       *string `json:"show_image,omitempty"`       // 企业勋章的头像挂饰图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
+	I18nName        *I18n   `json:"i18n_name,omitempty"`        // 勋章的多语言名称，同 name 字段限制，最多 30 个字符。
+	I18nExplanation *I18n   `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案，同 explanation 字段限制，最多 100 个字符。
 }
 
 type BadgeBuilder struct {
 	id                  string // 租户内勋章的唯一标识，该值由系统随机生成。
 	idFlag              bool
-	name                string // 租户内唯一的勋章名称，最多30个字符。
+	name                string // 租户内唯一的勋章名称，最多 30 个字符。
 	nameFlag            bool
-	explanation         string // 勋章的描述文案，最多100个字符。
+	explanation         string // 勋章的描述文案，最多 100 个字符。
 	explanationFlag     bool
-	detailImage         string // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	detailImage         string // 企业勋章的详情图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
 	detailImageFlag     bool
-	showImage           string // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	showImage           string // 企业勋章的头像挂饰图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
 	showImageFlag       bool
-	i18nName            *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
+	i18nName            *I18n // 勋章的多语言名称，同 name 字段限制，最多 30 个字符。
 	i18nNameFlag        bool
-	i18nExplanation     *I18n // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	i18nExplanation     *I18n // 勋章的多语言描述文案，同 explanation 字段限制，最多 100 个字符。
 	i18nExplanationFlag bool
 }
 
@@ -3081,7 +3081,7 @@ func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
 	return builder
 }
 
-// 租户内唯一的勋章名称，最多30个字符。
+// 租户内唯一的勋章名称，最多 30 个字符。
 //
 // 示例值：激励勋章
 func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
@@ -3090,7 +3090,7 @@ func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
 	return builder
 }
 
-// 勋章的描述文案，最多100个字符。
+// 勋章的描述文案，最多 100 个字符。
 //
 // 示例值：这枚勋章为了激励员工颁发。
 func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
@@ -3099,7 +3099,7 @@ func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
 	return builder
 }
 
-// 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+// 企业勋章的详情图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
 //
 // 示例值：75a1949f-d9df-4b46-bc88-dacc51e88f3j
 func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
@@ -3108,7 +3108,7 @@ func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
 	return builder
 }
 
-// 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+// 企业勋章的头像挂饰图 Key。1.权限校验：非本租户上传的图片 key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片 key 时，需使用 1h 内上传的图片 key。
 //
 // 示例值：03daa74a-159f-49e9-963e-b6c4d76103fj
 func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
@@ -3117,7 +3117,7 @@ func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 	return builder
 }
 
-// 勋章的多语言名称，同name字段限制，最多30个字符。
+// 勋章的多语言名称，同 name 字段限制，最多 30 个字符。
 //
 // 示例值：{		 "zh_cn": "激励勋章",		 "en_us": "Incentive Medal",		 "ja_jp": "奨励メダル"	 }
 func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
@@ -3126,7 +3126,7 @@ func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
 	return builder
 }
 
-// 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+// 勋章的多语言描述文案，同 explanation 字段限制，最多 100 个字符。
 //
 // 示例值：{		 "zh_cn": "这枚勋章为了激励员工颁发。",		 "en_us": "This medal is awarded to motivate employees.",		 "ja_jp": "このメダルは、従業員のモチベーションを高めるために授与されます。"	 }
 func (builder *BadgeBuilder) I18nExplanation(i18nExplanation *I18n) *BadgeBuilder {
@@ -3173,7 +3173,7 @@ type File struct {
 	Size       *string `json:"size,omitempty"`         // 文档大小
 	LastOpTime *string `json:"last_op_time,omitempty"` // 更新时间
 	Status     *string `json:"status,omitempty"`       // 文档状态
-	Token      *string `json:"token,omitempty"`        // 文档token
+	Token      *string `json:"token,omitempty"`        // 文档 token
 }
 
 type FileBuilder struct {
@@ -3189,7 +3189,7 @@ type FileBuilder struct {
 	lastOpTimeFlag bool
 	status         string // 文档状态
 	statusFlag     bool
-	token          string // 文档token
+	token          string // 文档 token
 	tokenFlag      bool
 }
 
@@ -3252,7 +3252,7 @@ func (builder *FileBuilder) Status(status string) *FileBuilder {
 	return builder
 }
 
-// 文档token
+// 文档 token
 //
 // 示例值：doxbcOIyUhrRBWSKpBGfzefQgHe
 func (builder *FileBuilder) Token(token string) *FileBuilder {
@@ -3294,11 +3294,11 @@ func (builder *FileBuilder) Build() *File {
 }
 
 type FileList struct {
-	Files []*File `json:"files,omitempty"` // 文档token
+	Files []*File `json:"files,omitempty"` // 文档 token
 }
 
 type FileListBuilder struct {
-	files     []*File // 文档token
+	files     []*File // 文档 token
 	filesFlag bool
 }
 
@@ -3307,7 +3307,7 @@ func NewFileListBuilder() *FileListBuilder {
 	return builder
 }
 
-// 文档token
+// 文档 token
 //
 // 示例值：
 func (builder *FileListBuilder) Files(files []*File) *FileListBuilder {
@@ -3326,37 +3326,37 @@ func (builder *FileListBuilder) Build() *FileList {
 
 type Grant struct {
 	Id            *string     `json:"id,omitempty"`             // 租户内授予名单的唯一标识，该值由系统随机生成。
-	BadgeId       *string     `json:"badge_id,omitempty"`       // 企业勋章的唯一ID
-	Name          *string     `json:"name,omitempty"`           // 勋章下唯一的授予事项，最多100个字符。
+	BadgeId       *string     `json:"badge_id,omitempty"`       // 企业勋章的唯一 ID
+	Name          *string     `json:"name,omitempty"`           // 勋章下唯一的授予事项，最多 100 个字符。
 	GrantType     *int        `json:"grant_type,omitempty"`     // 授予名单类型
-	TimeZone      *string     `json:"time_zone,omitempty"`      // 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
+	TimeZone      *string     `json:"time_zone,omitempty"`      // 授予名单的生效时间对应的时区，用于检查 RuleDetail 的时间戳的取值是否规范，取值范围为 TZ database name
 	RuleDetail    *RuleDetail `json:"rule_detail,omitempty"`    // 规则详情
-	IsGrantAll    *bool       `json:"is_grant_all,omitempty"`   // 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
-	UserIds       []string    `json:"user_ids,omitempty"`       // 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
-	DepartmentIds []string    `json:"department_ids,omitempty"` // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
-	GroupIds      []string    `json:"group_ids,omitempty"`      // 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	IsGrantAll    *bool       `json:"is_grant_all,omitempty"`   // 是否授予给全员。1.为 false 时，需要关联 1~500 个用户群体。2.为 true 时，不可关联用户、用户组、部门。
+	UserIds       []string    `json:"user_ids,omitempty"`       // 授予的用户 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	DepartmentIds []string    `json:"department_ids,omitempty"` // 授予的部门 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	GroupIds      []string    `json:"group_ids,omitempty"`      // 授予的用户组 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 }
 
 type GrantBuilder struct {
 	id                string // 租户内授予名单的唯一标识，该值由系统随机生成。
 	idFlag            bool
-	badgeId           string // 企业勋章的唯一ID
+	badgeId           string // 企业勋章的唯一 ID
 	badgeIdFlag       bool
-	name              string // 勋章下唯一的授予事项，最多100个字符。
+	name              string // 勋章下唯一的授予事项，最多 100 个字符。
 	nameFlag          bool
 	grantType         int // 授予名单类型
 	grantTypeFlag     bool
-	timeZone          string // 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
+	timeZone          string // 授予名单的生效时间对应的时区，用于检查 RuleDetail 的时间戳的取值是否规范，取值范围为 TZ database name
 	timeZoneFlag      bool
 	ruleDetail        *RuleDetail // 规则详情
 	ruleDetailFlag    bool
-	isGrantAll        bool // 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
+	isGrantAll        bool // 是否授予给全员。1.为 false 时，需要关联 1~500 个用户群体。2.为 true 时，不可关联用户、用户组、部门。
 	isGrantAllFlag    bool
-	userIds           []string // 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	userIds           []string // 授予的用户 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 	userIdsFlag       bool
-	departmentIds     []string // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	departmentIds     []string // 授予的部门 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 	departmentIdsFlag bool
-	groupIds          []string // 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	groupIds          []string // 授予的用户组 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 	groupIdsFlag      bool
 }
 
@@ -3374,7 +3374,7 @@ func (builder *GrantBuilder) Id(id string) *GrantBuilder {
 	return builder
 }
 
-// 企业勋章的唯一ID
+// 企业勋章的唯一 ID
 //
 // 示例值：m_qTR2HM
 func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
@@ -3383,7 +3383,7 @@ func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
 	return builder
 }
 
-// 勋章下唯一的授予事项，最多100个字符。
+// 勋章下唯一的授予事项，最多 100 个字符。
 //
 // 示例值：激励勋章的授予名单
 func (builder *GrantBuilder) Name(name string) *GrantBuilder {
@@ -3401,7 +3401,7 @@ func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
 	return builder
 }
 
-// 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
+// 授予名单的生效时间对应的时区，用于检查 RuleDetail 的时间戳的取值是否规范，取值范围为 TZ database name
 //
 // 示例值：Asia/Shanghai
 func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
@@ -3419,7 +3419,7 @@ func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
 	return builder
 }
 
-// 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
+// 是否授予给全员。1.为 false 时，需要关联 1~500 个用户群体。2.为 true 时，不可关联用户、用户组、部门。
 //
 // 示例值：false
 func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
@@ -3428,7 +3428,7 @@ func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
 	return builder
 }
 
-// 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+// 授予的用户 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 //
 // 示例值：[u273y71]
 func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
@@ -3437,7 +3437,7 @@ func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 	return builder
 }
 
-// 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+// 授予的部门 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 //
 // 示例值：[h121921]
 func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder {
@@ -3446,7 +3446,7 @@ func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder
 	return builder
 }
 
-// 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+// 授予的用户组 ID 列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 //
 // 示例值：[g122817]
 func (builder *GrantBuilder) GroupIds(groupIds []string) *GrantBuilder {
@@ -3593,16 +3593,16 @@ func (builder *PasswordBuilder) Build() *Password {
 }
 
 type RuleDetail struct {
-	EffectiveTime   *string `json:"effective_time,omitempty"`   // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
-	ExpirationTime  *string `json:"expiration_time,omitempty"`  // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
+	EffectiveTime   *string `json:"effective_time,omitempty"`   // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为 Asia/Shanghai 时区时的 1649606400
+	ExpirationTime  *string `json:"expiration_time,omitempty"`  // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过 effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的 23:59:59 时间戳，如时区为 Asia/Shanghai 时区时的 1649692799；4.永久有效：传值为 0 即可
 	Anniversary     *int    `json:"anniversary,omitempty"`      // 入职周年日。根据入职时间发放类型勋章，需要配置该字段。
 	EffectivePeriod *int    `json:"effective_period,omitempty"` // 有效期限。根据入职时间发放类型勋章，需要配置该字段。
 }
 
 type RuleDetailBuilder struct {
-	effectiveTime       string // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
+	effectiveTime       string // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为 Asia/Shanghai 时区时的 1649606400
 	effectiveTimeFlag   bool
-	expirationTime      string // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
+	expirationTime      string // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过 effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的 23:59:59 时间戳，如时区为 Asia/Shanghai 时区时的 1649692799；4.永久有效：传值为 0 即可
 	expirationTimeFlag  bool
 	anniversary         int // 入职周年日。根据入职时间发放类型勋章，需要配置该字段。
 	anniversaryFlag     bool
@@ -3615,7 +3615,7 @@ func NewRuleDetailBuilder() *RuleDetailBuilder {
 	return builder
 }
 
-// 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
+// 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为 Asia/Shanghai 时区时的 1649606400
 //
 // 示例值：1649606400
 func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetailBuilder {
@@ -3624,7 +3624,7 @@ func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetai
 	return builder
 }
 
-// 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
+// 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过 effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的 23:59:59 时间戳，如时区为 Asia/Shanghai 时区时的 1649692799；4.永久有效：传值为 0 即可
 //
 // 示例值：1649692799
 func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDetailBuilder {
@@ -3674,7 +3674,7 @@ func (builder *RuleDetailBuilder) Build() *RuleDetail {
 
 type SplashPageStat struct {
 	Date                      *string `json:"date,omitempty"`                        // 日期
-	SplashId                  *string `json:"splash_id,omitempty"`                   // 开屏素材id
+	SplashId                  *string `json:"splash_id,omitempty"`                   // 开屏素材 id
 	ImpressionCount           *int    `json:"impression_count,omitempty"`            // 曝光数
 	ClickCount                *int    `json:"click_count,omitempty"`                 // 点击数
 	SkipCount                 *int    `json:"skip_count,omitempty"`                  // 点击跳过数
@@ -3686,7 +3686,7 @@ type SplashPageStat struct {
 type SplashPageStatBuilder struct {
 	date                          string // 日期
 	dateFlag                      bool
-	splashId                      string // 开屏素材id
+	splashId                      string // 开屏素材 id
 	splashIdFlag                  bool
 	impressionCount               int // 曝光数
 	impressionCountFlag           bool
@@ -3716,7 +3716,7 @@ func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
 	return builder
 }
 
-// 开屏素材id
+// 开屏素材 id
 //
 // 示例值：
 func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatBuilder {
@@ -3817,23 +3817,23 @@ func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
 }
 
 type Task struct {
-	OriginalUserId    *string `json:"original_user_id,omitempty"`    // 文档原所有者ID
-	TargetOwnerId     *string `json:"target_owner_id,omitempty"`     // 目标用户ID
+	OriginalUserId    *string `json:"original_user_id,omitempty"`    // 文档原所有者 ID
+	TargetOwnerId     *string `json:"target_owner_id,omitempty"`     // 目标用户 ID
 	FileList          []*File `json:"file_list,omitempty"`           // 恢复文件列表
-	TaskId            *string `json:"task_id,omitempty"`             // 任务id
+	TaskId            *string `json:"task_id,omitempty"`             // 任务 id
 	Status            *int    `json:"status,omitempty"`              // 任务状态
 	OriginalUserEmail *string `json:"original_user_email,omitempty"` // 文档原所有者邮箱
 	TargetOwnerEmail  *string `json:"target_owner_email,omitempty"`  // 文档新所有者邮箱
 }
 
 type TaskBuilder struct {
-	originalUserId        string // 文档原所有者ID
+	originalUserId        string // 文档原所有者 ID
 	originalUserIdFlag    bool
-	targetOwnerId         string // 目标用户ID
+	targetOwnerId         string // 目标用户 ID
 	targetOwnerIdFlag     bool
 	fileList              []*File // 恢复文件列表
 	fileListFlag          bool
-	taskId                string // 任务id
+	taskId                string // 任务 id
 	taskIdFlag            bool
 	status                int // 任务状态
 	statusFlag            bool
@@ -3848,7 +3848,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 文档原所有者ID
+// 文档原所有者 ID
 //
 // 示例值：
 func (builder *TaskBuilder) OriginalUserId(originalUserId string) *TaskBuilder {
@@ -3857,7 +3857,7 @@ func (builder *TaskBuilder) OriginalUserId(originalUserId string) *TaskBuilder {
 	return builder
 }
 
-// 目标用户ID
+// 目标用户 ID
 //
 // 示例值：
 func (builder *TaskBuilder) TargetOwnerId(targetOwnerId string) *TaskBuilder {
@@ -3875,7 +3875,7 @@ func (builder *TaskBuilder) FileList(fileList []*File) *TaskBuilder {
 	return builder
 }
 
-// 任务id
+// 任务 id
 //
 // 示例值：
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
@@ -3946,7 +3946,7 @@ func (builder *TaskBuilder) Build() *Task {
 type User struct {
 	Name   *string `json:"name,omitempty"`   // 用户名称
 	Avatar *string `json:"avatar,omitempty"` // 用户头像
-	Id     *string `json:"id,omitempty"`     // 用户ID
+	Id     *string `json:"id,omitempty"`     // 用户 ID
 }
 
 type UserBuilder struct {
@@ -3954,7 +3954,7 @@ type UserBuilder struct {
 	nameFlag   bool
 	avatar     string // 用户头像
 	avatarFlag bool
-	id         string // 用户ID
+	id         string // 用户 ID
 	idFlag     bool
 }
 
@@ -3981,7 +3981,7 @@ func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 	return builder
 }
 
-// 用户ID
+// 用户 ID
 //
 // 示例值：6994699009591869459
 func (builder *UserBuilder) Id(id string) *UserBuilder {
@@ -4008,14 +4008,14 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type UserAnnualReport struct {
-	Year2021 *UserReport2021 `json:"year_2021,omitempty"` // 2021用户年度报告
-	Year2022 *UserReport2022 `json:"year_2022,omitempty"` // 2022用户年度报告
+	Year2021 *UserReport2021 `json:"year_2021,omitempty"` // 2021 用户年度报告
+	Year2022 *UserReport2022 `json:"year_2022,omitempty"` // 2022 用户年度报告
 }
 
 type UserAnnualReportBuilder struct {
-	year2021     *UserReport2021 // 2021用户年度报告
+	year2021     *UserReport2021 // 2021 用户年度报告
 	year2021Flag bool
-	year2022     *UserReport2022 // 2022用户年度报告
+	year2022     *UserReport2022 // 2022 用户年度报告
 	year2022Flag bool
 }
 
@@ -4024,7 +4024,7 @@ func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
 	return builder
 }
 
-// 2021用户年度报告
+// 2021 用户年度报告
 //
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *UserAnnualReportBuilder {
@@ -4033,7 +4033,7 @@ func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *User
 	return builder
 }
 
-// 2022用户年度报告
+// 2022 用户年度报告
 //
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2022(year2022 *UserReport2022) *UserAnnualReportBuilder {
@@ -4054,9 +4054,9 @@ func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 }
 
 type UserReport2021 struct {
-	ActiveDayCount                *int     `json:"active_day_count,omitempty"`                 // 活跃时长> 0的天数
+	ActiveDayCount                *int     `json:"active_day_count,omitempty"`                 // 活跃时长> 0 的天数
 	BusyWeek                      *string  `json:"busy_week,omitempty"`                        // 工作日平均活跃最长的一周，「2021W10」格式
-	P2pChatCount                  *string  `json:"p2p_chat_count,omitempty"`                   // 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
+	P2pChatCount                  *string  `json:"p2p_chat_count,omitempty"`                   // 单聊过的人数（仅限普通单聊，不包括 bot 等，不限本人是否有过发送消息）
 	TalkedChatCount               *string  `json:"talked_chat_count,omitempty"`                // 发过言的群数
 	FavoriteEmoji                 *string  `json:"favorite_emoji,omitempty"`                   // 任何场景下发的表情次数最多的一个表情
 	ReactionCount                 *string  `json:"reaction_count,omitempty"`                   // 本人使用快捷表情的次数
@@ -4068,25 +4068,25 @@ type UserReport2021 struct {
 	CreateFileCount               *string  `json:"create_file_count,omitempty"`                // 创建文档数
 	CooperateEditFileCount        *string  `json:"cooperate_edit_file_count,omitempty"`        // 参与协作文档数
 	LikeRecordCount               *string  `json:"like_record_count,omitempty"`                // 所属的文档共获得多少个点赞
-	OkrCumOCount                  *string  `json:"okr_cum_o_count,omitempty"`                  // 填写过的O的数量
-	OkrCumKrCount                 *string  `json:"okr_cum_kr_count,omitempty"`                 // 填写过的KR的数量
+	OkrCumOCount                  *string  `json:"okr_cum_o_count,omitempty"`                  // 填写过的 O 的数量
+	OkrCumKrCount                 *string  `json:"okr_cum_kr_count,omitempty"`                 // 填写过的 KR 的数量
 	OkrAlignedUserRankfirst       *string  `json:"okr_aligned_user_rankfirst,omitempty"`       // 被对齐次数最多的用户
 	ApprovalStartCount            *string  `json:"approval_start_count,omitempty"`             // 发起的审批流程数
 	ApprovalExecuteCount          *string  `json:"approval_execute_count,omitempty"`           // 处理的审批流程数
 	ApprovalRelationUserRankfirst *string  `json:"approval_relation_user_rankfirst,omitempty"` // 审批协作次数最多的用户（在同一个审批实例中出现过即算为审批协作）
-	UserId                        *string  `json:"user_id,omitempty"`                          // 用户id
+	UserId                        *string  `json:"user_id,omitempty"`                          // 用户 id
 	BusyWeekSumDuration           *string  `json:"busy_week_sum_duration,omitempty"`           // 工作日平均活跃最长的一周 的总活跃时长（分钟）
 	BusyWeekMdate                 *string  `json:"busy_week_mdate,omitempty"`                  // 工作日平均活跃最长的一周 的最早工作日
 	BusyWeekActDays               *int     `json:"busy_week_act_days,omitempty"`               // 工作日平均活跃最长的一周 有活跃的工作日天数
-	CreateReadUserCount           *string  `json:"create_read_user_count,omitempty"`           // 创建的文档被XXX人阅读过
+	CreateReadUserCount           *string  `json:"create_read_user_count,omitempty"`           // 创建的文档被 XXX 人阅读过
 }
 
 type UserReport2021Builder struct {
-	activeDayCount                    int // 活跃时长> 0的天数
+	activeDayCount                    int // 活跃时长> 0 的天数
 	activeDayCountFlag                bool
 	busyWeek                          string // 工作日平均活跃最长的一周，「2021W10」格式
 	busyWeekFlag                      bool
-	p2pChatCount                      string // 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
+	p2pChatCount                      string // 单聊过的人数（仅限普通单聊，不包括 bot 等，不限本人是否有过发送消息）
 	p2pChatCountFlag                  bool
 	talkedChatCount                   string // 发过言的群数
 	talkedChatCountFlag               bool
@@ -4110,9 +4110,9 @@ type UserReport2021Builder struct {
 	cooperateEditFileCountFlag        bool
 	likeRecordCount                   string // 所属的文档共获得多少个点赞
 	likeRecordCountFlag               bool
-	okrCumOCount                      string // 填写过的O的数量
+	okrCumOCount                      string // 填写过的 O 的数量
 	okrCumOCountFlag                  bool
-	okrCumKrCount                     string // 填写过的KR的数量
+	okrCumKrCount                     string // 填写过的 KR 的数量
 	okrCumKrCountFlag                 bool
 	okrAlignedUserRankfirst           string // 被对齐次数最多的用户
 	okrAlignedUserRankfirstFlag       bool
@@ -4122,7 +4122,7 @@ type UserReport2021Builder struct {
 	approvalExecuteCountFlag          bool
 	approvalRelationUserRankfirst     string // 审批协作次数最多的用户（在同一个审批实例中出现过即算为审批协作）
 	approvalRelationUserRankfirstFlag bool
-	userId                            string // 用户id
+	userId                            string // 用户 id
 	userIdFlag                        bool
 	busyWeekSumDuration               string // 工作日平均活跃最长的一周 的总活跃时长（分钟）
 	busyWeekSumDurationFlag           bool
@@ -4130,7 +4130,7 @@ type UserReport2021Builder struct {
 	busyWeekMdateFlag                 bool
 	busyWeekActDays                   int // 工作日平均活跃最长的一周 有活跃的工作日天数
 	busyWeekActDaysFlag               bool
-	createReadUserCount               string // 创建的文档被XXX人阅读过
+	createReadUserCount               string // 创建的文档被 XXX 人阅读过
 	createReadUserCountFlag           bool
 }
 
@@ -4139,7 +4139,7 @@ func NewUserReport2021Builder() *UserReport2021Builder {
 	return builder
 }
 
-// 活跃时长> 0的天数
+// 活跃时长> 0 的天数
 //
 // 示例值：111
 func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserReport2021Builder {
@@ -4157,7 +4157,7 @@ func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021B
 	return builder
 }
 
-// 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
+// 单聊过的人数（仅限普通单聊，不包括 bot 等，不限本人是否有过发送消息）
 //
 // 示例值：3
 func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserReport2021Builder {
@@ -4265,7 +4265,7 @@ func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *U
 	return builder
 }
 
-// 填写过的O的数量
+// 填写过的 O 的数量
 //
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserReport2021Builder {
@@ -4274,7 +4274,7 @@ func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserRep
 	return builder
 }
 
-// 填写过的KR的数量
+// 填写过的 KR 的数量
 //
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2021Builder {
@@ -4319,7 +4319,7 @@ func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRela
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Builder {
@@ -4355,7 +4355,7 @@ func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *User
 	return builder
 }
 
-// 创建的文档被XXX人阅读过
+// 创建的文档被 XXX 人阅读过
 //
 // 示例值：10
 func (builder *UserReport2021Builder) CreateReadUserCount(createReadUserCount string) *UserReport2021Builder {
@@ -4470,92 +4470,92 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 }
 
 type UserReport2022 struct {
-	UserId                  *string `json:"user_id,omitempty"`                      // 用户id
-	UserRegisterDate        *string `json:"user_register_date,omitempty"`           // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
-	ActiveDayCount          *int    `json:"active_day_count,omitempty"`             // 用户2022年内在飞书有活跃的天数
-	MsgBusyDate             *string `json:"msg_busy_date,omitempty"`                // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+	UserId                  *string `json:"user_id,omitempty"`                      // 用户 id
+	UserRegisterDate        *string `json:"user_register_date,omitempty"`           // 用户的飞书激活日期，yyyyMMdd 格式（201909 之前的用户可能是空
+	ActiveDayCount          *int    `json:"active_day_count,omitempty"`             // 用户 2022 年内在飞书有活跃的天数
+	MsgBusyDate             *string `json:"msg_busy_date,omitempty"`                // 2022 全年用户发出消息条数最多的一天，yyyyMMdd 格式
 	MsgBusyDateSendMsgCount *string `json:"msg_busy_date_send_msg_count,omitempty"` // 全年发消息最多一天，发出的消息数
-	P2pChatCount            *string `json:"p2p_chat_count,omitempty"`               // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
-	TalkedChatCount         *string `json:"talked_chat_count,omitempty"`            // 2022全年用户有过发言的飞书群的数量
-	PositiveReactionCount   *string `json:"positive_reaction_count,omitempty"`      // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
-	FirstPositiveReaction   *string `json:"first_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第1的表情
-	SecondPositiveReaction  *string `json:"second_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第2的表情
-	ThirdPositiveReaction   *string `json:"third_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第3的表情
-	FourthPositiveReaction  *string `json:"fourth_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第4的表情
-	FifthPositiveReaction   *string `json:"fifth_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第5的表情
-	CreateFileCount         *string `json:"create_file_count,omitempty"`            // 2022全年用户本人创建过的飞书文档数量
-	CreatedFileViewCount    *string `json:"created_file_view_count,omitempty"`      // 此用户2022年创建的飞书文档的总阅读人数（含自己）
-	CommentFileCount        *string `json:"comment_file_count,omitempty"`           // 2022全年用户发表过评论的飞书文档数量
-	AttendEventCount        *string `json:"attend_event_count,omitempty"`           // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
-	EventBusyDate           *string `json:"event_busy_date,omitempty"`              // 2022全年用户日程数量最多的一天，yyyyMMdd格式
+	P2pChatCount            *string `json:"p2p_chat_count,omitempty"`               // 2022 全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+	TalkedChatCount         *string `json:"talked_chat_count,omitempty"`            // 2022 全年用户有过发言的飞书群的数量
+	PositiveReactionCount   *string `json:"positive_reaction_count,omitempty"`      // 2022 全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+	FirstPositiveReaction   *string `json:"first_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第 1 的表情
+	SecondPositiveReaction  *string `json:"second_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第 2 的表情
+	ThirdPositiveReaction   *string `json:"third_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第 3 的表情
+	FourthPositiveReaction  *string `json:"fourth_positive_reaction,omitempty"`     // 用户所收到的正向表情回复，排第 4 的表情
+	FifthPositiveReaction   *string `json:"fifth_positive_reaction,omitempty"`      // 用户所收到的正向表情回复，排第 5 的表情
+	CreateFileCount         *string `json:"create_file_count,omitempty"`            // 2022 全年用户本人创建过的飞书文档数量
+	CreatedFileViewCount    *string `json:"created_file_view_count,omitempty"`      // 此用户 2022 年创建的飞书文档的总阅读人数（含自己）
+	CommentFileCount        *string `json:"comment_file_count,omitempty"`           // 2022 全年用户发表过评论的飞书文档数量
+	AttendEventCount        *string `json:"attend_event_count,omitempty"`           // 2022 全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+	EventBusyDate           *string `json:"event_busy_date,omitempty"`              // 2022 全年用户日程数量最多的一天，yyyyMMdd 格式
 	EventBusyDateEventCount *string `json:"event_busy_date_event_count,omitempty"`  // 日程最多一天的日程数量
-	EventStartTimeRange1    *string `json:"event_start_time_range1,omitempty"`      // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
-	ConferenceCreateCount   *string `json:"conference_create_count,omitempty"`      // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
-	TotalPartiCount         *string `json:"total_parti_count,omitempty"`            // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
-	OkrCumOCount            *string `json:"okr_cum_o_count,omitempty"`              // 2022全年此用户写过的O的数量（未删除）
-	OkrCumKrCount           *string `json:"okr_cum_kr_count,omitempty"`             // 2022全年此用户写过的KR的数量（未删除）
-	OkrAlignedUserCount     *string `json:"okr_aligned_user_count,omitempty"`       // 2022全年用户所写的OKR对齐过的去重人数（未删除）
-	PeopleInterviewNum      *string `json:"people_interview_num,omitempty"`         // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
-	SendEmailCount          *string `json:"send_email_count,omitempty"`             // 2022全年此用户发出邮件数量
-	ReceiveEmailCount       *string `json:"receive_email_count,omitempty"`          // 2022全年此用户收到邮件数量
+	EventStartTimeRange1    *string `json:"event_start_time_range1,omitempty"`      // 2022 全年，此用户最经常的日程开始时间，精确到分钟，HH:mm 格式
+	ConferenceCreateCount   *string `json:"conference_create_count,omitempty"`      // 2022 全年，基于此用户所创建的日程，发起了视频会议的次数
+	TotalPartiCount         *string `json:"total_parti_count,omitempty"`            // 2022 全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+	OkrCumOCount            *string `json:"okr_cum_o_count,omitempty"`              // 2022 全年此用户写过的 O 的数量（未删除）
+	OkrCumKrCount           *string `json:"okr_cum_kr_count,omitempty"`             // 2022 全年此用户写过的 KR 的数量（未删除）
+	OkrAlignedUserCount     *string `json:"okr_aligned_user_count,omitempty"`       // 2022 全年用户所写的 OKR 对齐过的去重人数（未删除）
+	PeopleInterviewNum      *string `json:"people_interview_num,omitempty"`         // 2022 全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+	SendEmailCount          *string `json:"send_email_count,omitempty"`             // 2022 全年此用户发出邮件数量
+	ReceiveEmailCount       *string `json:"receive_email_count,omitempty"`          // 2022 全年此用户收到邮件数量
 }
 
 type UserReport2022Builder struct {
-	userId                      string // 用户id
+	userId                      string // 用户 id
 	userIdFlag                  bool
-	userRegisterDate            string // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+	userRegisterDate            string // 用户的飞书激活日期，yyyyMMdd 格式（201909 之前的用户可能是空
 	userRegisterDateFlag        bool
-	activeDayCount              int // 用户2022年内在飞书有活跃的天数
+	activeDayCount              int // 用户 2022 年内在飞书有活跃的天数
 	activeDayCountFlag          bool
-	msgBusyDate                 string // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+	msgBusyDate                 string // 2022 全年用户发出消息条数最多的一天，yyyyMMdd 格式
 	msgBusyDateFlag             bool
 	msgBusyDateSendMsgCount     string // 全年发消息最多一天，发出的消息数
 	msgBusyDateSendMsgCountFlag bool
-	p2pChatCount                string // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+	p2pChatCount                string // 2022 全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
 	p2pChatCountFlag            bool
-	talkedChatCount             string // 2022全年用户有过发言的飞书群的数量
+	talkedChatCount             string // 2022 全年用户有过发言的飞书群的数量
 	talkedChatCountFlag         bool
-	positiveReactionCount       string // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+	positiveReactionCount       string // 2022 全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
 	positiveReactionCountFlag   bool
-	firstPositiveReaction       string // 用户所收到的正向表情回复，排第1的表情
+	firstPositiveReaction       string // 用户所收到的正向表情回复，排第 1 的表情
 	firstPositiveReactionFlag   bool
-	secondPositiveReaction      string // 用户所收到的正向表情回复，排第2的表情
+	secondPositiveReaction      string // 用户所收到的正向表情回复，排第 2 的表情
 	secondPositiveReactionFlag  bool
-	thirdPositiveReaction       string // 用户所收到的正向表情回复，排第3的表情
+	thirdPositiveReaction       string // 用户所收到的正向表情回复，排第 3 的表情
 	thirdPositiveReactionFlag   bool
-	fourthPositiveReaction      string // 用户所收到的正向表情回复，排第4的表情
+	fourthPositiveReaction      string // 用户所收到的正向表情回复，排第 4 的表情
 	fourthPositiveReactionFlag  bool
-	fifthPositiveReaction       string // 用户所收到的正向表情回复，排第5的表情
+	fifthPositiveReaction       string // 用户所收到的正向表情回复，排第 5 的表情
 	fifthPositiveReactionFlag   bool
-	createFileCount             string // 2022全年用户本人创建过的飞书文档数量
+	createFileCount             string // 2022 全年用户本人创建过的飞书文档数量
 	createFileCountFlag         bool
-	createdFileViewCount        string // 此用户2022年创建的飞书文档的总阅读人数（含自己）
+	createdFileViewCount        string // 此用户 2022 年创建的飞书文档的总阅读人数（含自己）
 	createdFileViewCountFlag    bool
-	commentFileCount            string // 2022全年用户发表过评论的飞书文档数量
+	commentFileCount            string // 2022 全年用户发表过评论的飞书文档数量
 	commentFileCountFlag        bool
-	attendEventCount            string // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+	attendEventCount            string // 2022 全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
 	attendEventCountFlag        bool
-	eventBusyDate               string // 2022全年用户日程数量最多的一天，yyyyMMdd格式
+	eventBusyDate               string // 2022 全年用户日程数量最多的一天，yyyyMMdd 格式
 	eventBusyDateFlag           bool
 	eventBusyDateEventCount     string // 日程最多一天的日程数量
 	eventBusyDateEventCountFlag bool
-	eventStartTimeRange1        string // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+	eventStartTimeRange1        string // 2022 全年，此用户最经常的日程开始时间，精确到分钟，HH:mm 格式
 	eventStartTimeRange1Flag    bool
-	conferenceCreateCount       string // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+	conferenceCreateCount       string // 2022 全年，基于此用户所创建的日程，发起了视频会议的次数
 	conferenceCreateCountFlag   bool
-	totalPartiCount             string // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+	totalPartiCount             string // 2022 全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
 	totalPartiCountFlag         bool
-	okrCumOCount                string // 2022全年此用户写过的O的数量（未删除）
+	okrCumOCount                string // 2022 全年此用户写过的 O 的数量（未删除）
 	okrCumOCountFlag            bool
-	okrCumKrCount               string // 2022全年此用户写过的KR的数量（未删除）
+	okrCumKrCount               string // 2022 全年此用户写过的 KR 的数量（未删除）
 	okrCumKrCountFlag           bool
-	okrAlignedUserCount         string // 2022全年用户所写的OKR对齐过的去重人数（未删除）
+	okrAlignedUserCount         string // 2022 全年用户所写的 OKR 对齐过的去重人数（未删除）
 	okrAlignedUserCountFlag     bool
-	peopleInterviewNum          string // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+	peopleInterviewNum          string // 2022 全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
 	peopleInterviewNumFlag      bool
-	sendEmailCount              string // 2022全年此用户发出邮件数量
+	sendEmailCount              string // 2022 全年此用户发出邮件数量
 	sendEmailCountFlag          bool
-	receiveEmailCount           string // 2022全年此用户收到邮件数量
+	receiveEmailCount           string // 2022 全年此用户收到邮件数量
 	receiveEmailCountFlag       bool
 }
 
@@ -4564,7 +4564,7 @@ func NewUserReport2022Builder() *UserReport2022Builder {
 	return builder
 }
 
-// 用户id
+// 用户 id
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserReport2022Builder) UserId(userId string) *UserReport2022Builder {
@@ -4573,7 +4573,7 @@ func (builder *UserReport2022Builder) UserId(userId string) *UserReport2022Build
 	return builder
 }
 
-// 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+// 用户的飞书激活日期，yyyyMMdd 格式（201909 之前的用户可能是空
 //
 // 示例值：20220726
 func (builder *UserReport2022Builder) UserRegisterDate(userRegisterDate string) *UserReport2022Builder {
@@ -4582,7 +4582,7 @@ func (builder *UserReport2022Builder) UserRegisterDate(userRegisterDate string) 
 	return builder
 }
 
-// 用户2022年内在飞书有活跃的天数
+// 用户 2022 年内在飞书有活跃的天数
 //
 // 示例值：120
 func (builder *UserReport2022Builder) ActiveDayCount(activeDayCount int) *UserReport2022Builder {
@@ -4591,7 +4591,7 @@ func (builder *UserReport2022Builder) ActiveDayCount(activeDayCount int) *UserRe
 	return builder
 }
 
-// 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+// 2022 全年用户发出消息条数最多的一天，yyyyMMdd 格式
 //
 // 示例值：20220817
 func (builder *UserReport2022Builder) MsgBusyDate(msgBusyDate string) *UserReport2022Builder {
@@ -4609,7 +4609,7 @@ func (builder *UserReport2022Builder) MsgBusyDateSendMsgCount(msgBusyDateSendMsg
 	return builder
 }
 
-// 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+// 2022 全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
 //
 // 示例值：22
 func (builder *UserReport2022Builder) P2pChatCount(p2pChatCount string) *UserReport2022Builder {
@@ -4618,7 +4618,7 @@ func (builder *UserReport2022Builder) P2pChatCount(p2pChatCount string) *UserRep
 	return builder
 }
 
-// 2022全年用户有过发言的飞书群的数量
+// 2022 全年用户有过发言的飞书群的数量
 //
 // 示例值：18
 func (builder *UserReport2022Builder) TalkedChatCount(talkedChatCount string) *UserReport2022Builder {
@@ -4627,7 +4627,7 @@ func (builder *UserReport2022Builder) TalkedChatCount(talkedChatCount string) *U
 	return builder
 }
 
-// 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+// 2022 全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
 //
 // 示例值：100
 func (builder *UserReport2022Builder) PositiveReactionCount(positiveReactionCount string) *UserReport2022Builder {
@@ -4636,7 +4636,7 @@ func (builder *UserReport2022Builder) PositiveReactionCount(positiveReactionCoun
 	return builder
 }
 
-// 用户所收到的正向表情回复，排第1的表情
+// 用户所收到的正向表情回复，排第 1 的表情
 //
 // 示例值：thumbsup
 func (builder *UserReport2022Builder) FirstPositiveReaction(firstPositiveReaction string) *UserReport2022Builder {
@@ -4645,7 +4645,7 @@ func (builder *UserReport2022Builder) FirstPositiveReaction(firstPositiveReactio
 	return builder
 }
 
-// 用户所收到的正向表情回复，排第2的表情
+// 用户所收到的正向表情回复，排第 2 的表情
 //
 // 示例值：muscle
 func (builder *UserReport2022Builder) SecondPositiveReaction(secondPositiveReaction string) *UserReport2022Builder {
@@ -4654,7 +4654,7 @@ func (builder *UserReport2022Builder) SecondPositiveReaction(secondPositiveReact
 	return builder
 }
 
-// 用户所收到的正向表情回复，排第3的表情
+// 用户所收到的正向表情回复，排第 3 的表情
 //
 // 示例值：fingerheart
 func (builder *UserReport2022Builder) ThirdPositiveReaction(thirdPositiveReaction string) *UserReport2022Builder {
@@ -4663,7 +4663,7 @@ func (builder *UserReport2022Builder) ThirdPositiveReaction(thirdPositiveReactio
 	return builder
 }
 
-// 用户所收到的正向表情回复，排第4的表情
+// 用户所收到的正向表情回复，排第 4 的表情
 //
 // 示例值：applaud
 func (builder *UserReport2022Builder) FourthPositiveReaction(fourthPositiveReaction string) *UserReport2022Builder {
@@ -4672,7 +4672,7 @@ func (builder *UserReport2022Builder) FourthPositiveReaction(fourthPositiveReact
 	return builder
 }
 
-// 用户所收到的正向表情回复，排第5的表情
+// 用户所收到的正向表情回复，排第 5 的表情
 //
 // 示例值：fistbump
 func (builder *UserReport2022Builder) FifthPositiveReaction(fifthPositiveReaction string) *UserReport2022Builder {
@@ -4681,7 +4681,7 @@ func (builder *UserReport2022Builder) FifthPositiveReaction(fifthPositiveReactio
 	return builder
 }
 
-// 2022全年用户本人创建过的飞书文档数量
+// 2022 全年用户本人创建过的飞书文档数量
 //
 // 示例值：12
 func (builder *UserReport2022Builder) CreateFileCount(createFileCount string) *UserReport2022Builder {
@@ -4690,7 +4690,7 @@ func (builder *UserReport2022Builder) CreateFileCount(createFileCount string) *U
 	return builder
 }
 
-// 此用户2022年创建的飞书文档的总阅读人数（含自己）
+// 此用户 2022 年创建的飞书文档的总阅读人数（含自己）
 //
 // 示例值：11
 func (builder *UserReport2022Builder) CreatedFileViewCount(createdFileViewCount string) *UserReport2022Builder {
@@ -4699,7 +4699,7 @@ func (builder *UserReport2022Builder) CreatedFileViewCount(createdFileViewCount 
 	return builder
 }
 
-// 2022全年用户发表过评论的飞书文档数量
+// 2022 全年用户发表过评论的飞书文档数量
 //
 // 示例值：11
 func (builder *UserReport2022Builder) CommentFileCount(commentFileCount string) *UserReport2022Builder {
@@ -4708,7 +4708,7 @@ func (builder *UserReport2022Builder) CommentFileCount(commentFileCount string) 
 	return builder
 }
 
-// 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+// 2022 全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
 //
 // 示例值：123
 func (builder *UserReport2022Builder) AttendEventCount(attendEventCount string) *UserReport2022Builder {
@@ -4717,7 +4717,7 @@ func (builder *UserReport2022Builder) AttendEventCount(attendEventCount string) 
 	return builder
 }
 
-// 2022全年用户日程数量最多的一天，yyyyMMdd格式
+// 2022 全年用户日程数量最多的一天，yyyyMMdd 格式
 //
 // 示例值：20220801
 func (builder *UserReport2022Builder) EventBusyDate(eventBusyDate string) *UserReport2022Builder {
@@ -4735,7 +4735,7 @@ func (builder *UserReport2022Builder) EventBusyDateEventCount(eventBusyDateEvent
 	return builder
 }
 
-// 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+// 2022 全年，此用户最经常的日程开始时间，精确到分钟，HH:mm 格式
 //
 // 示例值：10:00
 func (builder *UserReport2022Builder) EventStartTimeRange1(eventStartTimeRange1 string) *UserReport2022Builder {
@@ -4744,7 +4744,7 @@ func (builder *UserReport2022Builder) EventStartTimeRange1(eventStartTimeRange1 
 	return builder
 }
 
-// 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+// 2022 全年，基于此用户所创建的日程，发起了视频会议的次数
 //
 // 示例值：123
 func (builder *UserReport2022Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2022Builder {
@@ -4753,7 +4753,7 @@ func (builder *UserReport2022Builder) ConferenceCreateCount(conferenceCreateCoun
 	return builder
 }
 
-// 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+// 2022 全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
 //
 // 示例值：123
 func (builder *UserReport2022Builder) TotalPartiCount(totalPartiCount string) *UserReport2022Builder {
@@ -4762,7 +4762,7 @@ func (builder *UserReport2022Builder) TotalPartiCount(totalPartiCount string) *U
 	return builder
 }
 
-// 2022全年此用户写过的O的数量（未删除）
+// 2022 全年此用户写过的 O 的数量（未删除）
 //
 // 示例值：123
 func (builder *UserReport2022Builder) OkrCumOCount(okrCumOCount string) *UserReport2022Builder {
@@ -4771,7 +4771,7 @@ func (builder *UserReport2022Builder) OkrCumOCount(okrCumOCount string) *UserRep
 	return builder
 }
 
-// 2022全年此用户写过的KR的数量（未删除）
+// 2022 全年此用户写过的 KR 的数量（未删除）
 //
 // 示例值：123
 func (builder *UserReport2022Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2022Builder {
@@ -4780,7 +4780,7 @@ func (builder *UserReport2022Builder) OkrCumKrCount(okrCumKrCount string) *UserR
 	return builder
 }
 
-// 2022全年用户所写的OKR对齐过的去重人数（未删除）
+// 2022 全年用户所写的 OKR 对齐过的去重人数（未删除）
 //
 // 示例值：123
 func (builder *UserReport2022Builder) OkrAlignedUserCount(okrAlignedUserCount string) *UserReport2022Builder {
@@ -4789,7 +4789,7 @@ func (builder *UserReport2022Builder) OkrAlignedUserCount(okrAlignedUserCount st
 	return builder
 }
 
-// 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+// 2022 全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
 //
 // 示例值：123
 func (builder *UserReport2022Builder) PeopleInterviewNum(peopleInterviewNum string) *UserReport2022Builder {
@@ -4798,7 +4798,7 @@ func (builder *UserReport2022Builder) PeopleInterviewNum(peopleInterviewNum stri
 	return builder
 }
 
-// 2022全年此用户发出邮件数量
+// 2022 全年此用户发出邮件数量
 //
 // 示例值：123
 func (builder *UserReport2022Builder) SendEmailCount(sendEmailCount string) *UserReport2022Builder {
@@ -4807,7 +4807,7 @@ func (builder *UserReport2022Builder) SendEmailCount(sendEmailCount string) *Use
 	return builder
 }
 
-// 2022全年此用户收到邮件数量
+// 2022 全年此用户收到邮件数量
 //
 // 示例值：123
 func (builder *UserReport2022Builder) ReceiveEmailCount(receiveEmailCount string) *UserReport2022Builder {
@@ -4946,7 +4946,7 @@ func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	return builder
 }
 
-// 部门ID类型
+// 部门 ID 类型
 //
 // 示例值：open_department_id
 func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminDeptStatReqBuilder {
@@ -4954,7 +4954,7 @@ func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-// 起始日期（包含），格式是YYYY-mm-dd
+// 起始日期（包含），格式是 YYYY-mm-dd
 //
 // 示例值：2020-02-15
 func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdminDeptStatReqBuilder {
@@ -4962,7 +4962,7 @@ func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdm
 	return builder
 }
 
-// 终止日期（包含），格式是YYYY-mm-dd，起止日期之间相差不能超过91天（包含91天）
+// 终止日期（包含），格式是 YYYY-mm-dd，起止日期之间相差不能超过 91 天（包含 91 天）
 //
 // 示例值：2020-02-15
 func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDeptStatReqBuilder {
@@ -4970,7 +4970,7 @@ func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDe
 	return builder
 }
 
-// 部门的 ID，取决于department_id_type，仅支持根部门及其下前4级子部门
+// 部门的 ID，取决于 department_id_type，仅支持根部门及其下前 4 级子部门
 //
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *ListAdminDeptStatReqBuilder) DepartmentId(departmentId string) *ListAdminDeptStatReqBuilder {
@@ -4978,7 +4978,7 @@ func (builder *ListAdminDeptStatReqBuilder) DepartmentId(departmentId string) *L
 	return builder
 }
 
-// 是否包含子部门，如果该值为false，则只查出本部门直属用户活跃和功能使用数据；如果该值为true，则查出该部门以及其子部门（子部门层级最多不超过根部门下的前4级）的用户活跃和功能使用数据
+// 是否包含子部门，如果该值为 false，则只查出本部门直属用户活跃和功能使用数据；如果该值为 true，则查出该部门以及其子部门（子部门层级最多不超过根部门下的前 4 级）的用户活跃和功能使用数据
 //
 // 示例值：false
 func (builder *ListAdminDeptStatReqBuilder) ContainsChildDept(containsChildDept bool) *ListAdminDeptStatReqBuilder {
@@ -4986,7 +4986,7 @@ func (builder *ListAdminDeptStatReqBuilder) ContainsChildDept(containsChildDept 
 	return builder
 }
 
-// 分页大小，默认是10
+// 分页大小，默认是 10
 //
 // 示例值：10
 func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDeptStatReqBuilder {
@@ -4994,7 +4994,7 @@ func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDep
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+// 分页标记，第一次请求不填，表示从头开始遍历；当返回的 has_more 为 true 时，会返回新的 page_token，再次调用接口，传入这个 page_token，将获得下一页数据
 //
 // 示例值：2
 func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdminDeptStatReqBuilder {
@@ -5015,7 +5015,7 @@ type ListAdminDeptStatReq struct {
 
 type ListAdminDeptStatRespData struct {
 	HasMore   *bool            `json:"has_more,omitempty"`   // 分页查询时返回，代表是否还有更多数据
-	PageToken *string          `json:"page_token,omitempty"` // 分页标记，下一页分页的token
+	PageToken *string          `json:"page_token,omitempty"` // 分页标记，下一页分页的 token
 	Items     []*AdminDeptStat `json:"items,omitempty"`      // 数据报表
 }
 
@@ -5042,7 +5042,7 @@ func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListAdminUserStatReqBuilder {
@@ -5050,7 +5050,7 @@ func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListA
 	return builder
 }
 
-// 部门ID类型
+// 部门 ID 类型
 //
 // 示例值：open_department_id
 func (builder *ListAdminUserStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminUserStatReqBuilder {
@@ -5058,7 +5058,7 @@ func (builder *ListAdminUserStatReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-// 起始日期（包含），格式是YYYY-mm-dd
+// 起始日期（包含），格式是 YYYY-mm-dd
 //
 // 示例值：2020-02-15
 func (builder *ListAdminUserStatReqBuilder) StartDate(startDate string) *ListAdminUserStatReqBuilder {
@@ -5066,7 +5066,7 @@ func (builder *ListAdminUserStatReqBuilder) StartDate(startDate string) *ListAdm
 	return builder
 }
 
-// 终止日期（包含），格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）
+// 终止日期（包含），格式是 YYYY-mm-dd。起止日期之间相差不能超过 31 天（包含 31 天）
 //
 // 示例值：2020-02-15
 func (builder *ListAdminUserStatReqBuilder) EndDate(endDate string) *ListAdminUserStatReqBuilder {
@@ -5074,7 +5074,7 @@ func (builder *ListAdminUserStatReqBuilder) EndDate(endDate string) *ListAdminUs
 	return builder
 }
 
-// 部门的 ID，取决于department_id_type
+// 部门的 ID，取决于 department_id_type
 //
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *ListAdminUserStatReqBuilder) DepartmentId(departmentId string) *ListAdminUserStatReqBuilder {
@@ -5082,7 +5082,7 @@ func (builder *ListAdminUserStatReqBuilder) DepartmentId(departmentId string) *L
 	return builder
 }
 
-// 用户的open_id，user_id或者union_id，取决于user_id_type
+// 用户的 open_id，user_id 或者 union_id，取决于 user_id_type
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *ListAdminUserStatReqBuilder) UserId(userId string) *ListAdminUserStatReqBuilder {
@@ -5090,7 +5090,7 @@ func (builder *ListAdminUserStatReqBuilder) UserId(userId string) *ListAdminUser
 	return builder
 }
 
-// 分页大小，默认是10
+// 分页大小，默认是 10
 //
 // 示例值：10
 func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUserStatReqBuilder {
@@ -5098,7 +5098,7 @@ func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUse
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+// 分页标记，第一次请求不填，表示从头开始遍历；当返回的 has_more 为 true 时，会返回新的 page_token，再次调用接口，传入这个 page_token，将获得下一页数据
 //
 // 示例值：2
 func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdminUserStatReqBuilder {
@@ -5119,7 +5119,7 @@ type ListAdminUserStatReq struct {
 
 type ListAdminUserStatRespData struct {
 	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的 token
 	Items     []*AdminUserStat `json:"items,omitempty"`      // 数据报表
 }
 
@@ -5147,7 +5147,7 @@ func NewCreateBadgeReqBuilder() *CreateBadgeReqBuilder {
 	return builder
 }
 
-// 使用该接口可以创建一枚完整的勋章信息，一个租户下最多可创建1000枚勋章。
+// 使用该接口可以创建一枚完整的勋章信息，一个租户下最多可创建 1000 枚勋章。
 func (builder *CreateBadgeReqBuilder) Badge(badge *Badge) *CreateBadgeReqBuilder {
 	builder.badge = badge
 	return builder
@@ -5192,7 +5192,7 @@ func NewGetBadgeReqBuilder() *GetBadgeReqBuilder {
 	return builder
 }
 
-// 勋章id
+// 勋章 id
 //
 // 示例值：m_DjMzaK
 func (builder *GetBadgeReqBuilder) BadgeId(badgeId string) *GetBadgeReqBuilder {
@@ -5313,7 +5313,7 @@ func NewUpdateBadgeReqBuilder() *UpdateBadgeReqBuilder {
 	return builder
 }
 
-// 勋章ID
+// 勋章 ID
 //
 // 示例值：m_MzfKDM
 func (builder *UpdateBadgeReqBuilder) BadgeId(badgeId string) *UpdateBadgeReqBuilder {
@@ -5368,7 +5368,7 @@ func NewCreateBadgeGrantReqBuilder() *CreateBadgeGrantReqBuilder {
 	return builder
 }
 
-// 勋章ID
+// 勋章 ID
 //
 // 示例值：m_DjMzaK
 func (builder *CreateBadgeGrantReqBuilder) BadgeId(badgeId string) *CreateBadgeGrantReqBuilder {
@@ -5384,7 +5384,7 @@ func (builder *CreateBadgeGrantReqBuilder) UserIdType(userIdType string) *Create
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。
+// 此次调用中使用的部门 ID 的类型。
 //
 // 示例值：open_department_id
 func (builder *CreateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *CreateBadgeGrantReqBuilder {
@@ -5392,7 +5392,7 @@ func (builder *CreateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
-// 通过该接口可以为特定勋章创建一份授予名单，一枚勋章下最多可创建1000份授予名单。
+// 通过该接口可以为特定勋章创建一份授予名单，一枚勋章下最多可创建 1000 份授予名单。
 func (builder *CreateBadgeGrantReqBuilder) Grant(grant *Grant) *CreateBadgeGrantReqBuilder {
 	builder.grant = grant
 	return builder
@@ -5439,7 +5439,7 @@ func NewDeleteBadgeGrantReqBuilder() *DeleteBadgeGrantReqBuilder {
 	return builder
 }
 
-// 企业勋章的唯一ID
+// 企业勋章的唯一 ID
 //
 // 示例值：m_DjMzaK
 func (builder *DeleteBadgeGrantReqBuilder) BadgeId(badgeId string) *DeleteBadgeGrantReqBuilder {
@@ -5512,7 +5512,7 @@ func (builder *GetBadgeGrantReqBuilder) UserIdType(userIdType string) *GetBadgeG
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。
+// 此次调用中使用的部门 ID 的类型。
 //
 // 示例值：open_department_id
 func (builder *GetBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *GetBadgeGrantReqBuilder {
@@ -5566,7 +5566,7 @@ func (builder *ListBadgeGrantReqBuilder) Limit(limit int) *ListBadgeGrantReqBuil
 	return builder
 }
 
-// 企业勋章的唯一ID
+// 企业勋章的唯一 ID
 //
 // 示例值：m_DjMzaK
 func (builder *ListBadgeGrantReqBuilder) BadgeId(badgeId string) *ListBadgeGrantReqBuilder {
@@ -5598,7 +5598,7 @@ func (builder *ListBadgeGrantReqBuilder) UserIdType(userIdType string) *ListBadg
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。
+// 此次调用中使用的部门 ID 的类型。
 //
 // 示例值：open_department_id
 func (builder *ListBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *ListBadgeGrantReqBuilder {
@@ -5659,7 +5659,7 @@ func NewUpdateBadgeGrantReqBuilder() *UpdateBadgeGrantReqBuilder {
 	return builder
 }
 
-// 勋章ID
+// 勋章 ID
 //
 // 示例值：m_DjMzaK
 func (builder *UpdateBadgeGrantReqBuilder) BadgeId(badgeId string) *UpdateBadgeGrantReqBuilder {
@@ -5667,7 +5667,7 @@ func (builder *UpdateBadgeGrantReqBuilder) BadgeId(badgeId string) *UpdateBadgeG
 	return builder
 }
 
-// 授予名单ID
+// 授予名单 ID
 //
 // 示例值：g_uS4yux
 func (builder *UpdateBadgeGrantReqBuilder) GrantId(grantId string) *UpdateBadgeGrantReqBuilder {
@@ -5683,7 +5683,7 @@ func (builder *UpdateBadgeGrantReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型。
+// 此次调用中使用的部门 ID 的类型。
 //
 // 示例值：open_department_id
 func (builder *UpdateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *UpdateBadgeGrantReqBuilder {
@@ -5825,7 +5825,7 @@ func NewCreateBadgeImageReqBuilder() *CreateBadgeImageReqBuilder {
 	return builder
 }
 
-// 通过该接口可以上传勋章详情图、挂饰图的文件，获取对应的文件key
+// 通过该接口可以上传勋章详情图、挂饰图的文件，获取对应的文件 key
 func (builder *CreateBadgeImageReqBuilder) Body(body *CreateBadgeImageReqBody) *CreateBadgeImageReqBuilder {
 	builder.body = body
 	return builder
@@ -5849,7 +5849,7 @@ type CreateBadgeImageReq struct {
 }
 
 type CreateBadgeImageRespData struct {
-	ImageKey *string `json:"image_key,omitempty"` // 图片的key
+	ImageKey *string `json:"image_key,omitempty"` // 图片的 key
 }
 
 type CreateBadgeImageResp struct {
@@ -5863,9 +5863,9 @@ func (resp *CreateBadgeImageResp) Success() bool {
 }
 
 type ResetPasswordReqBodyBuilder struct {
-	password     *Password // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+	password     *Password // 需要重置的密码参数，不少于 8 个字符，字母、数字和符号，至少三选二
 	passwordFlag bool
-	userId       string // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+	userId       string // 待修改密码的用户 ID，只针对邮箱登录凭证与企业邮箱 (包括别名) 相等的用户生效
 	userIdFlag   bool
 }
 
@@ -5874,7 +5874,7 @@ func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 	return builder
 }
 
-// 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+// 需要重置的密码参数，不少于 8 个字符，字母、数字和符号，至少三选二
 //
 //示例值：1234abcd
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
@@ -5883,7 +5883,7 @@ func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetP
 	return builder
 }
 
-// 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+// 待修改密码的用户 ID，只针对邮箱登录凭证与企业邮箱 (包括别名) 相等的用户生效
 //
 //示例值：abc123
 func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPasswordReqBodyBuilder {
@@ -5904,9 +5904,9 @@ func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 }
 
 type ResetPasswordPathReqBodyBuilder struct {
-	password     *Password // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+	password     *Password // 需要重置的密码参数，不少于 8 个字符，字母、数字和符号，至少三选二
 	passwordFlag bool
-	userId       string // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+	userId       string // 待修改密码的用户 ID，只针对邮箱登录凭证与企业邮箱 (包括别名) 相等的用户生效
 	userIdFlag   bool
 }
 
@@ -5915,7 +5915,7 @@ func NewResetPasswordPathReqBodyBuilder() *ResetPasswordPathReqBodyBuilder {
 	return builder
 }
 
-// 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+// 需要重置的密码参数，不少于 8 个字符，字母、数字和符号，至少三选二
 //
 // 示例值：1234abcd
 func (builder *ResetPasswordPathReqBodyBuilder) Password(password *Password) *ResetPasswordPathReqBodyBuilder {
@@ -5924,7 +5924,7 @@ func (builder *ResetPasswordPathReqBodyBuilder) Password(password *Password) *Re
 	return builder
 }
 
-// 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+// 待修改密码的用户 ID，只针对邮箱登录凭证与企业邮箱 (包括别名) 相等的用户生效
 //
 // 示例值：abc123
 func (builder *ResetPasswordPathReqBodyBuilder) UserId(userId string) *ResetPasswordPathReqBodyBuilder {
@@ -5958,7 +5958,7 @@ func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	return builder
 }
 
-// 用户ID类型
+// 用户 ID 类型
 //
 // 示例值：user_id
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
@@ -5966,7 +5966,7 @@ func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPass
 	return builder
 }
 
-// 重置用户的企业邮箱密码，仅当用户的邮箱和企业邮箱(别名)一致时生效，可用于处理飞书企业邮箱登录死锁的问题。;;邮箱死锁：当用户的登录凭证与飞书企业邮箱一致时，目前飞书登录流程要求用户输入验证码，由于飞书邮箱无单独的帐号体系，则未登录时无法收取邮箱验证码，即陷入死锁
+// 重置用户的企业邮箱密码，仅当用户的邮箱和企业邮箱 (别名) 一致时生效，可用于处理飞书企业邮箱登录死锁的问题。;;邮箱死锁：当用户的登录凭证与飞书企业邮箱一致时，目前飞书登录流程要求用户输入验证码，由于飞书邮箱无单独的帐号体系，则未登录时无法收取邮箱验证码，即陷入死锁
 func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetPasswordReqBuilder {
 	builder.body = body
 	return builder
@@ -5981,8 +5981,8 @@ func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 }
 
 type ResetPasswordReqBody struct {
-	Password *Password `json:"password,omitempty"` // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
-	UserId   *string   `json:"user_id,omitempty"`  // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+	Password *Password `json:"password,omitempty"` // 需要重置的密码参数，不少于 8 个字符，字母、数字和符号，至少三选二
+	UserId   *string   `json:"user_id,omitempty"`  // 待修改密码的用户 ID，只针对邮箱登录凭证与企业邮箱 (包括别名) 相等的用户生效
 }
 
 type ResetPasswordReq struct {
@@ -6017,7 +6017,7 @@ func (iterator *ListBadgeIterator) Next() (bool, *Badge, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
@@ -6071,7 +6071,7 @@ func (iterator *ListBadgeGrantIterator) Next() (bool, *Grant, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil

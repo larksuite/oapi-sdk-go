@@ -42,14 +42,14 @@ const (
 
 type Acl struct {
 	Access *string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow。
-	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID ，依赖 type 描述。;;** 注 **：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
 	Type   *string `json:"type,omitempty"`   // 权限值类型
 }
 
 type AclBuilder struct {
 	access     string // 权限类型，优先级：Deny > Allow。
 	accessFlag bool
-	value      string // 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+	value      string // 设置的权限值，例如 userID ，依赖 type 描述。;;** 注 **：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
 	valueFlag  bool
 	type_      string // 权限值类型
 	typeFlag   bool
@@ -69,7 +69,7 @@ func (builder *AclBuilder) Access(access string) *AclBuilder {
 	return builder
 }
 
-// 设置的权限值，例如 userID ，依赖 type 描述。;;**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
+// 设置的权限值，例如 userID ，依赖 type 描述。;;** 注 **：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见；
 //
 // 示例值：d35e3c23
 func (builder *AclBuilder) Value(value string) *AclBuilder {
@@ -105,17 +105,17 @@ func (builder *AclBuilder) Build() *Acl {
 }
 
 type BatchItemResult struct {
-	ItemId    *string `json:"item_id,omitempty"`    // 数据项ID，对应一条索引数据的ID
+	ItemId    *string `json:"item_id,omitempty"`    // 数据项 ID，对应一条索引数据的 ID
 	IsSuccess *bool   `json:"is_success,omitempty"` // 判断单条数据是否成功
-	Err       *string `json:"err,omitempty"`        // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
+	Err       *string `json:"err,omitempty"`        // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则 err 是空字符串
 }
 
 type BatchItemResultBuilder struct {
-	itemId        string // 数据项ID，对应一条索引数据的ID
+	itemId        string // 数据项 ID，对应一条索引数据的 ID
 	itemIdFlag    bool
 	isSuccess     bool // 判断单条数据是否成功
 	isSuccessFlag bool
-	err           string // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
+	err           string // 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则 err 是空字符串
 	errFlag       bool
 }
 
@@ -124,7 +124,7 @@ func NewBatchItemResultBuilder() *BatchItemResultBuilder {
 	return builder
 }
 
-// 数据项ID，对应一条索引数据的ID
+// 数据项 ID，对应一条索引数据的 ID
 //
 // 示例值：
 func (builder *BatchItemResultBuilder) ItemId(itemId string) *BatchItemResultBuilder {
@@ -142,7 +142,7 @@ func (builder *BatchItemResultBuilder) IsSuccess(isSuccess bool) *BatchItemResul
 	return builder
 }
 
-// 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则err是空字符串
+// 如果单条数据失败，表示单条数据的错误信息；如果单条数据成功被索引，则 err 是空字符串
 //
 // 示例值：
 func (builder *BatchItemResultBuilder) Err(err string) *BatchItemResultBuilder {
@@ -169,32 +169,32 @@ func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
 }
 
 type ConnectDataSource struct {
-	ServiceUrl         *string `json:"service_url,omitempty"`         // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
-	ProjectName        *string `json:"project_name,omitempty"`        // 项目地址，只能包含小写字母，如bytedance_test
-	DisplayName        *string `json:"display_name,omitempty"`        // datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
-	Description        *string `json:"description,omitempty"`         // 描述datasource
+	ServiceUrl         *string `json:"service_url,omitempty"`         // 要托管的服务 API 地址，例如 https://open.feishu.cn/xxxx/xxxx
+	ProjectName        *string `json:"project_name,omitempty"`        // 项目地址，只能包含小写字母，如 bytedance_test
+	DisplayName        *string `json:"display_name,omitempty"`        // datasource 名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司 wiki
+	Description        *string `json:"description,omitempty"`         // 描述 datasource
 	IconUrl            *string `json:"icon_url,omitempty"`            // 图标
-	ProjectDescription *string `json:"project_description,omitempty"` // 托管api的描述
-	ContactEmail       *string `json:"contact_email,omitempty"`       // 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
-	TenantName         *string `json:"tenant_name,omitempty"`         // 创建api的组织名称，对企业开发者来说，建议使用企业名称
+	ProjectDescription *string `json:"project_description,omitempty"` // 托管 api 的描述
+	ContactEmail       *string `json:"contact_email,omitempty"`       // 联系人邮箱，开发人员的邮箱，用于托管 API 的 SLA（Service Level Agreement）问题沟通
+	TenantName         *string `json:"tenant_name,omitempty"`         // 创建 api 的组织名称，对企业开发者来说，建议使用企业名称
 }
 
 type ConnectDataSourceBuilder struct {
-	serviceUrl             string // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
+	serviceUrl             string // 要托管的服务 API 地址，例如 https://open.feishu.cn/xxxx/xxxx
 	serviceUrlFlag         bool
-	projectName            string // 项目地址，只能包含小写字母，如bytedance_test
+	projectName            string // 项目地址，只能包含小写字母，如 bytedance_test
 	projectNameFlag        bool
-	displayName            string // datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
+	displayName            string // datasource 名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司 wiki
 	displayNameFlag        bool
-	description            string // 描述datasource
+	description            string // 描述 datasource
 	descriptionFlag        bool
 	iconUrl                string // 图标
 	iconUrlFlag            bool
-	projectDescription     string // 托管api的描述
+	projectDescription     string // 托管 api 的描述
 	projectDescriptionFlag bool
-	contactEmail           string // 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
+	contactEmail           string // 联系人邮箱，开发人员的邮箱，用于托管 API 的 SLA（Service Level Agreement）问题沟通
 	contactEmailFlag       bool
-	tenantName             string // 创建api的组织名称，对企业开发者来说，建议使用企业名称
+	tenantName             string // 创建 api 的组织名称，对企业开发者来说，建议使用企业名称
 	tenantNameFlag         bool
 }
 
@@ -203,7 +203,7 @@ func NewConnectDataSourceBuilder() *ConnectDataSourceBuilder {
 	return builder
 }
 
-// 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
+// 要托管的服务 API 地址，例如 https://open.feishu.cn/xxxx/xxxx
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectDataSourceBuilder {
@@ -212,7 +212,7 @@ func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectD
 	return builder
 }
 
-// 项目地址，只能包含小写字母，如bytedance_test
+// 项目地址，只能包含小写字母，如 bytedance_test
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *ConnectDataSourceBuilder {
@@ -221,7 +221,7 @@ func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *Connec
 	return builder
 }
 
-// datasource名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司wiki
+// datasource 名称，会展示在飞书搜索分类按钮（searchTab）中，如：公司 wiki
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *ConnectDataSourceBuilder {
@@ -230,7 +230,7 @@ func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *Connec
 	return builder
 }
 
-// 描述datasource
+// 描述 datasource
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) Description(description string) *ConnectDataSourceBuilder {
@@ -248,7 +248,7 @@ func (builder *ConnectDataSourceBuilder) IconUrl(iconUrl string) *ConnectDataSou
 	return builder
 }
 
-// 托管api的描述
+// 托管 api 的描述
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription string) *ConnectDataSourceBuilder {
@@ -257,7 +257,7 @@ func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription s
 	return builder
 }
 
-// 联系人邮箱，开发人员的邮箱，用于托管API的SLA（Service Level Agreement）问题沟通
+// 联系人邮箱，开发人员的邮箱，用于托管 API 的 SLA（Service Level Agreement）问题沟通
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *ConnectDataSourceBuilder {
@@ -266,7 +266,7 @@ func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *Conn
 	return builder
 }
 
-// 创建api的组织名称，对企业开发者来说，建议使用企业名称
+// 创建 api 的组织名称，对企业开发者来说，建议使用企业名称
 //
 // 示例值：
 func (builder *ConnectDataSourceBuilder) TenantName(tenantName string) *ConnectDataSourceBuilder {
@@ -314,33 +314,33 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 
 type DataSource struct {
 	Id               *string   `json:"id,omitempty"`                // 数据源的唯一标识
-	Name             *string   `json:"name,omitempty"`              // data_source的展示名称
+	Name             *string   `json:"name,omitempty"`              // data_source 的展示名称
 	State            *int      `json:"state,omitempty"`             // 数据源状态，0-已上线，1-未上线。如果未填，默认是未上线状态。
 	Description      *string   `json:"description,omitempty"`       // 对于数据源的描述
-	CreateTime       *string   `json:"create_time,omitempty"`       // 创建时间，使用Unix时间戳，单位为“秒”
-	UpdateTime       *string   `json:"update_time,omitempty"`       // 更新时间，使用Unix时间戳，单位为“秒”
+	CreateTime       *string   `json:"create_time,omitempty"`       // 创建时间，使用 Unix 时间戳，单位为 “秒”
+	UpdateTime       *string   `json:"update_time,omitempty"`       // 更新时间，使用 Unix 时间戳，单位为 “秒”
 	IsExceedQuota    *bool     `json:"is_exceed_quota,omitempty"`   // 是否超限
 	IconUrl          *string   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
 	Template         *string   `json:"template,omitempty"`          // 数据源采用的展示模版名称
-	SearchableFields []string  `json:"searchable_fields,omitempty"` // 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
+	SearchableFields []string  `json:"searchable_fields,omitempty"` //【已废弃，如有定制需要请使用 “数据范式” 接口】描述哪些字段可以被搜索
 	I18nName         *I18nMeta `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *I18nMeta `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaId         *string   `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
-	AppId            *string   `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
+	AppId            *string   `json:"app_id,omitempty"`            // datasource 对应的开放平台应用 id
 }
 
 type DataSourceBuilder struct {
 	id                   string // 数据源的唯一标识
 	idFlag               bool
-	name                 string // data_source的展示名称
+	name                 string // data_source 的展示名称
 	nameFlag             bool
 	state                int // 数据源状态，0-已上线，1-未上线。如果未填，默认是未上线状态。
 	stateFlag            bool
 	description          string // 对于数据源的描述
 	descriptionFlag      bool
-	createTime           string // 创建时间，使用Unix时间戳，单位为“秒”
+	createTime           string // 创建时间，使用 Unix 时间戳，单位为 “秒”
 	createTimeFlag       bool
-	updateTime           string // 更新时间，使用Unix时间戳，单位为“秒”
+	updateTime           string // 更新时间，使用 Unix 时间戳，单位为 “秒”
 	updateTimeFlag       bool
 	isExceedQuota        bool // 是否超限
 	isExceedQuotaFlag    bool
@@ -348,7 +348,7 @@ type DataSourceBuilder struct {
 	iconUrlFlag          bool
 	template             string // 数据源采用的展示模版名称
 	templateFlag         bool
-	searchableFields     []string // 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
+	searchableFields     []string //【已废弃，如有定制需要请使用 “数据范式” 接口】描述哪些字段可以被搜索
 	searchableFieldsFlag bool
 	i18nName             *I18nMeta // 数据源的国际化展示名称
 	i18nNameFlag         bool
@@ -356,7 +356,7 @@ type DataSourceBuilder struct {
 	i18nDescriptionFlag  bool
 	schemaId             string // 数据源关联的 schema 标识
 	schemaIdFlag         bool
-	appId                string // datasource对应的开放平台应用id
+	appId                string // datasource 对应的开放平台应用 id
 	appIdFlag            bool
 }
 
@@ -374,7 +374,7 @@ func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 	return builder
 }
 
-// data_source的展示名称
+// data_source 的展示名称
 //
 // 示例值：客服工单
 func (builder *DataSourceBuilder) Name(name string) *DataSourceBuilder {
@@ -401,7 +401,7 @@ func (builder *DataSourceBuilder) Description(description string) *DataSourceBui
 	return builder
 }
 
-// 创建时间，使用Unix时间戳，单位为“秒”
+// 创建时间，使用 Unix 时间戳，单位为 “秒”
 //
 // 示例值：1674309260
 func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
@@ -410,7 +410,7 @@ func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuild
 	return builder
 }
 
-// 更新时间，使用Unix时间戳，单位为“秒”
+// 更新时间，使用 Unix 时间戳，单位为 “秒”
 //
 // 示例值：1674309260
 func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
@@ -446,9 +446,9 @@ func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
 	return builder
 }
 
-// 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
+//【已废弃，如有定制需要请使用 “数据范式” 接口】描述哪些字段可以被搜索
 //
-// 示例值：【已废弃，如有定制需要请使用“数据范式”接口】["field1", "field2"]
+// 示例值：【已废弃，如有定制需要请使用 “数据范式” 接口】["field1", "field2"]
 func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *DataSourceBuilder {
 	builder.searchableFields = searchableFields
 	builder.searchableFieldsFlag = true
@@ -482,7 +482,7 @@ func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
 	return builder
 }
 
-// datasource对应的开放平台应用id
+// datasource 对应的开放平台应用 id
 //
 // 示例值：cli_a1306bed4738d01b
 func (builder *DataSourceBuilder) AppId(appId string) *DataSourceBuilder {
@@ -617,7 +617,7 @@ type Item struct {
 	Id             *string       `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
 	Acl            []*Acl        `json:"acl,omitempty"`             // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
 	Metadata       *ItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData *string       `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+	StructuredData *string       `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段 (特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) ** 请求创建数据项 ** 部分
 	Content        *ItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
@@ -628,7 +628,7 @@ type ItemBuilder struct {
 	aclFlag            bool
 	metadata           *ItemMetadata // item 的元信息
 	metadataFlag       bool
-	structuredData     string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+	structuredData     string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段 (特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) ** 请求创建数据项 ** 部分
 	structuredDataFlag bool
 	content            *ItemContent // 非结构化数据，如文档文本，飞书搜索会用来做召回
 	contentFlag        bool
@@ -666,7 +666,7 @@ func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 	return builder
 }
 
-// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段 (特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) ** 请求创建数据项 ** 部分
 //
 // 示例值：{\"key\":\"value\"}
 func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
@@ -756,22 +756,22 @@ func (builder *ItemContentBuilder) Build() *ItemContent {
 
 type ItemMetadata struct {
 	Title           *string `json:"title,omitempty"`             // 该条数据记录对应的标题
-	SourceUrl       *string `json:"source_url,omitempty"`        // 该条数据记录对应的跳转url
+	SourceUrl       *string `json:"source_url,omitempty"`        // 该条数据记录对应的跳转 url
 	CreateTime      *int    `json:"create_time,omitempty"`       // 数据项的创建时间。Unix 时间，单位为秒
 	UpdateTime      *int    `json:"update_time,omitempty"`       // 数据项的更新时间。Unix 时间，单位为秒
-	SourceUrlMobile *string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
+	SourceUrlMobile *string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您 PC 端和移动端有不同的跳转地址，可以在这里写入移动端专用的 url，我们会在搜索时为您选择合适的地址
 }
 
 type ItemMetadataBuilder struct {
 	title               string // 该条数据记录对应的标题
 	titleFlag           bool
-	sourceUrl           string // 该条数据记录对应的跳转url
+	sourceUrl           string // 该条数据记录对应的跳转 url
 	sourceUrlFlag       bool
 	createTime          int // 数据项的创建时间。Unix 时间，单位为秒
 	createTimeFlag      bool
 	updateTime          int // 数据项的更新时间。Unix 时间，单位为秒
 	updateTimeFlag      bool
-	sourceUrlMobile     string // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
+	sourceUrlMobile     string // 移动端搜索命中的跳转地址。如果您 PC 端和移动端有不同的跳转地址，可以在这里写入移动端专用的 url，我们会在搜索时为您选择合适的地址
 	sourceUrlMobileFlag bool
 }
 
@@ -789,7 +789,7 @@ func (builder *ItemMetadataBuilder) Title(title string) *ItemMetadataBuilder {
 	return builder
 }
 
-// 该条数据记录对应的跳转url
+// 该条数据记录对应的跳转 url
 //
 // 示例值：http://www.abc.com.cn
 func (builder *ItemMetadataBuilder) SourceUrl(sourceUrl string) *ItemMetadataBuilder {
@@ -816,7 +816,7 @@ func (builder *ItemMetadataBuilder) UpdateTime(updateTime int) *ItemMetadataBuil
 	return builder
 }
 
-// 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址，可以在这里写入移动端专用的url，我们会在搜索时为您选择合适的地址
+// 移动端搜索命中的跳转地址。如果您 PC 端和移动端有不同的跳转地址，可以在这里写入移动端专用的 url，我们会在搜索时为您选择合适的地址
 //
 // 示例值：https://www.feishu.cn
 func (builder *ItemMetadataBuilder) SourceUrlMobile(sourceUrlMobile string) *ItemMetadataBuilder {
@@ -851,19 +851,19 @@ func (builder *ItemMetadataBuilder) Build() *ItemMetadata {
 }
 
 type ItemRecord struct {
-	ItemId       *string `json:"item_id,omitempty"`        // 冗余当前item的ID
-	DataSourceId *string `json:"data_source_id,omitempty"` // 数据源id
-	Version      *string `json:"version,omitempty"`        // 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+	ItemId       *string `json:"item_id,omitempty"`        // 冗余当前 item 的 ID
+	DataSourceId *string `json:"data_source_id,omitempty"` // 数据源 id
+	Version      *string `json:"version,omitempty"`        // 当前数据的最新版本号，其值等于上一次 item/create 接口传入的时间戳
 	CreatedAt    *string `json:"created_at,omitempty"`     // 第一次投递时间
 	UpdatedAt    *string `json:"updated_at,omitempty"`     // 上一次更新落库时间
 }
 
 type ItemRecordBuilder struct {
-	itemId           string // 冗余当前item的ID
+	itemId           string // 冗余当前 item 的 ID
 	itemIdFlag       bool
-	dataSourceId     string // 数据源id
+	dataSourceId     string // 数据源 id
 	dataSourceIdFlag bool
-	version          string // 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+	version          string // 当前数据的最新版本号，其值等于上一次 item/create 接口传入的时间戳
 	versionFlag      bool
 	createdAt        string // 第一次投递时间
 	createdAtFlag    bool
@@ -876,7 +876,7 @@ func NewItemRecordBuilder() *ItemRecordBuilder {
 	return builder
 }
 
-// 冗余当前item的ID
+// 冗余当前 item 的 ID
 //
 // 示例值：
 func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
@@ -885,7 +885,7 @@ func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
 	return builder
 }
 
-// 数据源id
+// 数据源 id
 //
 // 示例值：
 func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordBuilder {
@@ -894,7 +894,7 @@ func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordB
 	return builder
 }
 
-// 当前数据的最新版本号，其值等于上一次item/create接口传入的时间戳
+// 当前数据的最新版本号，其值等于上一次 item/create 接口传入的时间戳
 //
 // 示例值：
 func (builder *ItemRecordBuilder) Version(version string) *ItemRecordBuilder {
@@ -1152,11 +1152,11 @@ func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
 }
 
 type SchemaEnumOptions struct {
-	PossibleValues []string `json:"possible_values,omitempty"` // 用户自定filter 枚举值数组，最大长度为50
+	PossibleValues []string `json:"possible_values,omitempty"` // 用户自定 filter 枚举值数组，最大长度为 50
 }
 
 type SchemaEnumOptionsBuilder struct {
-	possibleValues     []string // 用户自定filter 枚举值数组，最大长度为50
+	possibleValues     []string // 用户自定 filter 枚举值数组，最大长度为 50
 	possibleValuesFlag bool
 }
 
@@ -1165,7 +1165,7 @@ func NewSchemaEnumOptionsBuilder() *SchemaEnumOptionsBuilder {
 	return builder
 }
 
-// 用户自定filter 枚举值数组，最大长度为50
+// 用户自定 filter 枚举值数组，最大长度为 50
 //
 // 示例值：v1
 func (builder *SchemaEnumOptionsBuilder) PossibleValues(possibleValues []string) *SchemaEnumOptionsBuilder {
@@ -1470,7 +1470,7 @@ type SchemaSearchOptions struct {
 	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`      // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）
 	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`         // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）
 	EnablePrefixMatch       *bool `json:"enable_prefix_match,omitempty"`        // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
-	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"` // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"` // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为 3-12）
 	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`         // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
 }
 
@@ -1481,7 +1481,7 @@ type SchemaSearchOptionsBuilder struct {
 	enableExactMatchFlag        bool
 	enablePrefixMatch           bool // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）
 	enablePrefixMatchFlag       bool
-	enableNumberSuffixMatch     bool // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+	enableNumberSuffixMatch     bool // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为 3-12）
 	enableNumberSuffixMatchFlag bool
 	enableCamelMatch            bool // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本，且包含驼峰形式英文的查找场景）
 	enableCamelMatchFlag        bool
@@ -1519,7 +1519,7 @@ func (builder *SchemaSearchOptionsBuilder) EnablePrefixMatch(enablePrefixMatch b
 	return builder
 }
 
-// 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）
+// 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为 3-12）
 //
 // 示例值：false
 func (builder *SchemaSearchOptionsBuilder) EnableNumberSuffixMatch(enableNumberSuffixMatch bool) *SchemaSearchOptionsBuilder {
@@ -1563,12 +1563,12 @@ func (builder *SchemaSearchOptionsBuilder) Build() *SchemaSearchOptions {
 }
 
 type SchemaSortOptions struct {
-	Priority *int    `json:"priority,omitempty"` // 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+	Priority *int    `json:"priority,omitempty"` // 排序的优先级，可选范围为 0~4，0 为最高优先级。如果优先级相同，则随机进行排序。默认为 0
 	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc
 }
 
 type SchemaSortOptionsBuilder struct {
-	priority     int // 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+	priority     int // 排序的优先级，可选范围为 0~4，0 为最高优先级。如果优先级相同，则随机进行排序。默认为 0
 	priorityFlag bool
 	order        string // 排序的顺序。默认为 desc
 	orderFlag    bool
@@ -1579,7 +1579,7 @@ func NewSchemaSortOptionsBuilder() *SchemaSortOptionsBuilder {
 	return builder
 }
 
-// 排序的优先级，可选范围为 0~4，0为最高优先级。如果优先级相同，则随机进行排序。默认为0
+// 排序的优先级，可选范围为 0~4，0 为最高优先级。如果优先级相同，则随机进行排序。默认为 0
 //
 // 示例值：0
 func (builder *SchemaSortOptionsBuilder) Priority(priority int) *SchemaSortOptionsBuilder {
@@ -1858,7 +1858,7 @@ func (builder *ListDataSourceReqBuilder) Limit(limit int) *ListDataSourceReqBuil
 	return builder
 }
 
-// 回包数据格式，0-全量数据；1-摘要数据。;;**注**：摘要数据仅包含"id"，"name"，"state"。
+// 回包数据格式，0-全量数据；1-摘要数据。;;** 注 **：摘要数据仅包含"id"，"name"，"state"。
 //
 // 示例值：0
 func (builder *ListDataSourceReqBuilder) View(view int) *ListDataSourceReqBuilder {
@@ -1921,9 +1921,9 @@ type PatchDataSourceReqBodyBuilder struct {
 	descriptionFlag     bool
 	iconUrl             string // 数据源在 search tab 上的展示图标路径
 	iconUrlFlag         bool
-	i18nName            *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	i18nName            *I18nMeta // 数据源名称多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 	i18nNameFlag        bool
-	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	i18nDescription     *I18nMeta // 数据源描述多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
 }
 
@@ -1968,7 +1968,7 @@ func (builder *PatchDataSourceReqBodyBuilder) IconUrl(iconUrl string) *PatchData
 	return builder
 }
 
-// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+// 数据源名称多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 //
 //示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourceReqBodyBuilder {
@@ -1977,7 +1977,7 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *Patc
 	return builder
 }
 
-// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+// 数据源描述多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 //
 //示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourceReqBodyBuilder {
@@ -2018,9 +2018,9 @@ type PatchDataSourcePathReqBodyBuilder struct {
 	descriptionFlag     bool
 	iconUrl             string // 数据源在 search tab 上的展示图标路径
 	iconUrlFlag         bool
-	i18nName            *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	i18nName            *I18nMeta // 数据源名称多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 	i18nNameFlag        bool
-	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	i18nDescription     *I18nMeta // 数据源描述多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
 }
 
@@ -2065,7 +2065,7 @@ func (builder *PatchDataSourcePathReqBodyBuilder) IconUrl(iconUrl string) *Patch
 	return builder
 }
 
-// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+// 数据源名称多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 //
 // 示例值：
 func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
@@ -2074,7 +2074,7 @@ func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *I18nMeta) *
 	return builder
 }
 
-// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+// 数据源描述多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 //
 // 示例值：
 func (builder *PatchDataSourcePathReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
@@ -2147,8 +2147,8 @@ type PatchDataSourceReqBody struct {
 	State           *int      `json:"state,omitempty"`            // 数据源状态，0-已上线，1-未上线
 	Description     *string   `json:"description,omitempty"`      // 对于数据源的描述
 	IconUrl         *string   `json:"icon_url,omitempty"`         // 数据源在 search tab 上的展示图标路径
-	I18nName        *I18nMeta `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
-	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	I18nName        *I18nMeta `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json 格式，key 为语言 locale，value 为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 }
 
 type PatchDataSourceReq struct {
@@ -2184,7 +2184,7 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	return builder
 }
 
-// 数据源的ID
+// 数据源的 ID
 //
 // 示例值：service_ticket
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
@@ -2233,7 +2233,7 @@ func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	return builder
 }
 
-// 数据源的ID
+// 数据源的 ID
 //
 // 示例值：service_ticket
 func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceItemReqBuilder {
@@ -2241,7 +2241,7 @@ func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string)
 	return builder
 }
 
-// 数据记录的ID
+// 数据记录的 ID
 //
 // 示例值：01010111
 func (builder *DeleteDataSourceItemReqBuilder) ItemId(itemId string) *DeleteDataSourceItemReqBuilder {
@@ -2282,7 +2282,7 @@ func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	return builder
 }
 
-// 数据源的id
+// 数据源的 id
 //
 // 示例值：service_ticket
 func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceItemReqBuilder {
@@ -2596,7 +2596,7 @@ func (iterator *ListDataSourceIterator) Next() (bool, *DataSource, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为 0 则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
 		if iterator.index != 0 && iterator.nextPageToken == nil {
 			return false, nil, nil
