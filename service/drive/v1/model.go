@@ -90,14 +90,27 @@ const (
 )
 
 const (
-	FileTypeCreateFileCommentDoc  = "doc"  // 文档
-	FileTypeCreateFileCommentDocx = "docx" // 新版文档
+	FileTypeBatchQueryFileCommentDoc   = "doc"   // 文档
+	FileTypeBatchQueryFileCommentSheet = "sheet" // 表格
+	FileTypeBatchQueryFileCommentFile  = "file"  // 文件
+	FileTypeBatchQueryFileCommentDocx  = "docx"  // 新版文档
 )
 
 const (
 	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	FileTypeCreateFileCommentDoc  = "doc"  // 文档
+	FileTypeCreateFileCommentDocx = "docx" // 新版文档
+)
+
+const (
+	UserIdTypeCreateFileCommentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateFileCommentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateFileCommentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -453,6 +466,39 @@ const (
 	TokenTypePatchPermissionPublicDocx     = "docx"     // 文档
 	TokenTypePatchPermissionPublicMindnote = "mindnote" // 思维笔记
 	TokenTypePatchPermissionPublicMinutes  = "minutes"  // 妙记
+)
+
+const (
+	TokenTypeCreatePermissionPublicPasswordDoc      = "doc"      // 文档
+	TokenTypeCreatePermissionPublicPasswordSheet    = "sheet"    // 电子表格
+	TokenTypeCreatePermissionPublicPasswordFile     = "file"     // 云空间文件
+	TokenTypeCreatePermissionPublicPasswordWiki     = "wiki"     // 知识库节点
+	TokenTypeCreatePermissionPublicPasswordBitable  = "bitable"  // 多维表格
+	TokenTypeCreatePermissionPublicPasswordDocx     = "docx"     // 新版文档
+	TokenTypeCreatePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
+	TokenTypeCreatePermissionPublicPasswordMinutes  = "minutes"  // 妙计
+)
+
+const (
+	TypeDeletePermissionPublicPasswordDoc      = "doc"      // 文档
+	TypeDeletePermissionPublicPasswordSheet    = "sheet"    // 电子表格
+	TypeDeletePermissionPublicPasswordFile     = "file"     // 云空间文件
+	TypeDeletePermissionPublicPasswordWiki     = "wiki"     // 知识库节点
+	TypeDeletePermissionPublicPasswordBitable  = "bitable"  // 多维表格
+	TypeDeletePermissionPublicPasswordDocx     = "docx"     // 新版文档
+	TypeDeletePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
+	TypeDeletePermissionPublicPasswordMinutes  = "minutes"  // 妙计
+)
+
+const (
+	TypeUpdatePermissionPublicPasswordDoc      = "doc"      // 文档
+	TypeUpdatePermissionPublicPasswordSheet    = "sheet"    // 电子表格
+	TypeUpdatePermissionPublicPasswordFile     = "file"     // 云空间文件
+	TypeUpdatePermissionPublicPasswordWiki     = "wiki"     // 知识库节点
+	TypeUpdatePermissionPublicPasswordBitable  = "bitable"  // 多维表格
+	TypeUpdatePermissionPublicPasswordDocx     = "docx"     // 新版文档
+	TypeUpdatePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
+	TypeUpdatePermissionPublicPasswordMinutes  = "minutes"  // 妙计
 )
 
 type ApplyMemberRequest struct {
@@ -2136,6 +2182,86 @@ func (builder *FileSubscriptionBuilder) Build() *FileSubscription {
 	return req
 }
 
+type FileViewRecord struct {
+	ViewerId     *string `json:"viewer_id,omitempty"`      // 访问者 ID
+	Name         *string `json:"name,omitempty"`           // 访问者名称
+	AvatarUrl    *string `json:"avatar_url,omitempty"`     // 访问者头像 URL
+	LastViewTime *string `json:"last_view_time,omitempty"` // 最近访问时间，秒级时间戳
+}
+
+type FileViewRecordBuilder struct {
+	viewerId         string // 访问者 ID
+	viewerIdFlag     bool
+	name             string // 访问者名称
+	nameFlag         bool
+	avatarUrl        string // 访问者头像 URL
+	avatarUrlFlag    bool
+	lastViewTime     string // 最近访问时间，秒级时间戳
+	lastViewTimeFlag bool
+}
+
+func NewFileViewRecordBuilder() *FileViewRecordBuilder {
+	builder := &FileViewRecordBuilder{}
+	return builder
+}
+
+// 访问者 ID
+//
+// 示例值：ou_cc19b2bfb93f8a44db4b4d6eababcef
+func (builder *FileViewRecordBuilder) ViewerId(viewerId string) *FileViewRecordBuilder {
+	builder.viewerId = viewerId
+	builder.viewerIdFlag = true
+	return builder
+}
+
+// 访问者名称
+//
+// 示例值：zhangsan
+func (builder *FileViewRecordBuilder) Name(name string) *FileViewRecordBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 访问者头像 URL
+//
+// 示例值：https://foo.icon.com/xxxx
+func (builder *FileViewRecordBuilder) AvatarUrl(avatarUrl string) *FileViewRecordBuilder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+
+// 最近访问时间，秒级时间戳
+//
+// 示例值：1679284285
+func (builder *FileViewRecordBuilder) LastViewTime(lastViewTime string) *FileViewRecordBuilder {
+	builder.lastViewTime = lastViewTime
+	builder.lastViewTimeFlag = true
+	return builder
+}
+
+func (builder *FileViewRecordBuilder) Build() *FileViewRecord {
+	req := &FileViewRecord{}
+	if builder.viewerIdFlag {
+		req.ViewerId = &builder.viewerId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
+
+	}
+	if builder.lastViewTimeFlag {
+		req.LastViewTime = &builder.lastViewTime
+
+	}
+	return req
+}
+
 type FileSearch struct {
 	DocsToken *string `json:"docs_token,omitempty"` // 文档token
 	DocsType  *string `json:"docs_type,omitempty"`  // 文档类型
@@ -3221,6 +3347,9 @@ func (builder *OwnerBuilder) Build() *Owner {
 	return req
 }
 
+type PermissionPublicPassword struct {
+}
+
 type PermissionPublic struct {
 	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外;;**可选值有：** ;- `true`: 允许;- `false`: 不允许
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载
@@ -3536,6 +3665,54 @@ func (builder *PropertyBuilder) Build() *Property {
 	}
 	if builder.valueFlag {
 		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type ReferEntity struct {
+	ReferToken *string `json:"refer_token,omitempty"` // 快捷方式指向的文档token
+	ReferType  *string `json:"refer_type,omitempty"`  // 快捷方式指向的文档类型
+}
+
+type ReferEntityBuilder struct {
+	referToken     string // 快捷方式指向的文档token
+	referTokenFlag bool
+	referType      string // 快捷方式指向的文档类型
+	referTypeFlag  bool
+}
+
+func NewReferEntityBuilder() *ReferEntityBuilder {
+	builder := &ReferEntityBuilder{}
+	return builder
+}
+
+// 快捷方式指向的文档token
+//
+// 示例值：doxbcGvhSVN0R6octqPwAEYNfFb
+func (builder *ReferEntityBuilder) ReferToken(referToken string) *ReferEntityBuilder {
+	builder.referToken = referToken
+	builder.referTokenFlag = true
+	return builder
+}
+
+// 快捷方式指向的文档类型
+//
+// 示例值：doc
+func (builder *ReferEntityBuilder) ReferType(referType string) *ReferEntityBuilder {
+	builder.referType = referType
+	builder.referTypeFlag = true
+	return builder
+}
+
+func (builder *ReferEntityBuilder) Build() *ReferEntity {
+	req := &ReferEntity{}
+	if builder.referTokenFlag {
+		req.ReferToken = &builder.referToken
+
+	}
+	if builder.referTypeFlag {
+		req.ReferType = &builder.referType
 
 	}
 	return req
@@ -4746,6 +4923,139 @@ func (resp *CreateFolderFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateShortcutFileReqBodyBuilder struct {
+	parentToken     string // 创建快捷方式的目标父文件夹 token
+	parentTokenFlag bool
+	referEntity     *ReferEntity // 快捷方式映射到的文档和文件列表信息
+	referEntityFlag bool
+}
+
+func NewCreateShortcutFileReqBodyBuilder() *CreateShortcutFileReqBodyBuilder {
+	builder := &CreateShortcutFileReqBodyBuilder{}
+	return builder
+}
+
+// 创建快捷方式的目标父文件夹 token
+//
+//示例值：fldbc5qgwyQnO0uedNllWuF3fAd
+func (builder *CreateShortcutFileReqBodyBuilder) ParentToken(parentToken string) *CreateShortcutFileReqBodyBuilder {
+	builder.parentToken = parentToken
+	builder.parentTokenFlag = true
+	return builder
+}
+
+// 快捷方式映射到的文档和文件列表信息
+//
+//示例值：
+func (builder *CreateShortcutFileReqBodyBuilder) ReferEntity(referEntity *ReferEntity) *CreateShortcutFileReqBodyBuilder {
+	builder.referEntity = referEntity
+	builder.referEntityFlag = true
+	return builder
+}
+
+func (builder *CreateShortcutFileReqBodyBuilder) Build() *CreateShortcutFileReqBody {
+	req := &CreateShortcutFileReqBody{}
+	if builder.parentTokenFlag {
+		req.ParentToken = &builder.parentToken
+	}
+	if builder.referEntityFlag {
+		req.ReferEntity = builder.referEntity
+	}
+	return req
+}
+
+type CreateShortcutFilePathReqBodyBuilder struct {
+	parentToken     string // 创建快捷方式的目标父文件夹 token
+	parentTokenFlag bool
+	referEntity     *ReferEntity // 快捷方式映射到的文档和文件列表信息
+	referEntityFlag bool
+}
+
+func NewCreateShortcutFilePathReqBodyBuilder() *CreateShortcutFilePathReqBodyBuilder {
+	builder := &CreateShortcutFilePathReqBodyBuilder{}
+	return builder
+}
+
+// 创建快捷方式的目标父文件夹 token
+//
+// 示例值：fldbc5qgwyQnO0uedNllWuF3fAd
+func (builder *CreateShortcutFilePathReqBodyBuilder) ParentToken(parentToken string) *CreateShortcutFilePathReqBodyBuilder {
+	builder.parentToken = parentToken
+	builder.parentTokenFlag = true
+	return builder
+}
+
+// 快捷方式映射到的文档和文件列表信息
+//
+// 示例值：
+func (builder *CreateShortcutFilePathReqBodyBuilder) ReferEntity(referEntity *ReferEntity) *CreateShortcutFilePathReqBodyBuilder {
+	builder.referEntity = referEntity
+	builder.referEntityFlag = true
+	return builder
+}
+
+func (builder *CreateShortcutFilePathReqBodyBuilder) Build() (*CreateShortcutFileReqBody, error) {
+	req := &CreateShortcutFileReqBody{}
+	if builder.parentTokenFlag {
+		req.ParentToken = &builder.parentToken
+	}
+	if builder.referEntityFlag {
+		req.ReferEntity = builder.referEntity
+	}
+	return req, nil
+}
+
+type CreateShortcutFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateShortcutFileReqBody
+}
+
+func NewCreateShortcutFileReqBuilder() *CreateShortcutFileReqBuilder {
+	builder := &CreateShortcutFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *CreateShortcutFileReqBuilder) Body(body *CreateShortcutFileReqBody) *CreateShortcutFileReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateShortcutFileReqBuilder) Build() *CreateShortcutFileReq {
+	req := &CreateShortcutFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateShortcutFileReqBody struct {
+	ParentToken *string      `json:"parent_token,omitempty"` // 创建快捷方式的目标父文件夹 token
+	ReferEntity *ReferEntity `json:"refer_entity,omitempty"` // 快捷方式映射到的文档和文件列表信息
+}
+
+type CreateShortcutFileReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateShortcutFileReqBody `body:""`
+}
+
+type CreateShortcutFileRespData struct {
+	SuccShortcutNode *File `json:"succ_shortcut_node,omitempty"` // 返回创建成功的shortcut节点
+}
+
+type CreateShortcutFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateShortcutFileRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateShortcutFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 type DeleteFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -5809,6 +6119,136 @@ type UploadPrepareFileResp struct {
 }
 
 func (resp *UploadPrepareFileResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchQueryFileCommentReqBodyBuilder struct {
+	commentIds     []string // 需要获取数据的评论id
+	commentIdsFlag bool
+}
+
+func NewBatchQueryFileCommentReqBodyBuilder() *BatchQueryFileCommentReqBodyBuilder {
+	builder := &BatchQueryFileCommentReqBodyBuilder{}
+	return builder
+}
+
+// 需要获取数据的评论id
+//
+//示例值：1654857036541812356
+func (builder *BatchQueryFileCommentReqBodyBuilder) CommentIds(commentIds []string) *BatchQueryFileCommentReqBodyBuilder {
+	builder.commentIds = commentIds
+	builder.commentIdsFlag = true
+	return builder
+}
+
+func (builder *BatchQueryFileCommentReqBodyBuilder) Build() *BatchQueryFileCommentReqBody {
+	req := &BatchQueryFileCommentReqBody{}
+	if builder.commentIdsFlag {
+		req.CommentIds = builder.commentIds
+	}
+	return req
+}
+
+type BatchQueryFileCommentPathReqBodyBuilder struct {
+	commentIds     []string // 需要获取数据的评论id
+	commentIdsFlag bool
+}
+
+func NewBatchQueryFileCommentPathReqBodyBuilder() *BatchQueryFileCommentPathReqBodyBuilder {
+	builder := &BatchQueryFileCommentPathReqBodyBuilder{}
+	return builder
+}
+
+// 需要获取数据的评论id
+//
+// 示例值：1654857036541812356
+func (builder *BatchQueryFileCommentPathReqBodyBuilder) CommentIds(commentIds []string) *BatchQueryFileCommentPathReqBodyBuilder {
+	builder.commentIds = commentIds
+	builder.commentIdsFlag = true
+	return builder
+}
+
+func (builder *BatchQueryFileCommentPathReqBodyBuilder) Build() (*BatchQueryFileCommentReqBody, error) {
+	req := &BatchQueryFileCommentReqBody{}
+	if builder.commentIdsFlag {
+		req.CommentIds = builder.commentIds
+	}
+	return req, nil
+}
+
+type BatchQueryFileCommentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchQueryFileCommentReqBody
+}
+
+func NewBatchQueryFileCommentReqBuilder() *BatchQueryFileCommentReqBuilder {
+	builder := &BatchQueryFileCommentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文档Token
+//
+// 示例值：doxbcdl03Vsxhm7Qmnj110abcef
+func (builder *BatchQueryFileCommentReqBuilder) FileToken(fileToken string) *BatchQueryFileCommentReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：doc;docx;sheet;file
+func (builder *BatchQueryFileCommentReqBuilder) FileType(fileType string) *BatchQueryFileCommentReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchQueryFileCommentReqBuilder) UserIdType(userIdType string) *BatchQueryFileCommentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 该接口用于根据评论 ID 列表批量获取评论。
+func (builder *BatchQueryFileCommentReqBuilder) Body(body *BatchQueryFileCommentReqBody) *BatchQueryFileCommentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchQueryFileCommentReqBuilder) Build() *BatchQueryFileCommentReq {
+	req := &BatchQueryFileCommentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchQueryFileCommentReqBody struct {
+	CommentIds []string `json:"comment_ids,omitempty"` // 需要获取数据的评论id
+}
+
+type BatchQueryFileCommentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchQueryFileCommentReqBody `body:""`
+}
+
+type BatchQueryFileCommentRespData struct {
+	Items []*FileComment `json:"items,omitempty"` // 评论的相关信息、回复的信息、回复分页的信息
+}
+
+type BatchQueryFileCommentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchQueryFileCommentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchQueryFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -6925,7 +7365,7 @@ func (builder *GetFileVersionReqBuilder) UserIdType(userIdType string) *GetFileV
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：1665739388
 func (builder *GetFileVersionReqBuilder) PageToken(pageToken string) *GetFileVersionReqBuilder {
@@ -6933,7 +7373,7 @@ func (builder *GetFileVersionReqBuilder) PageToken(pageToken string) *GetFileVer
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *GetFileVersionReqBuilder) PageSize(pageSize int) *GetFileVersionReqBuilder {
@@ -7030,7 +7470,7 @@ func (builder *ListFileVersionReqBuilder) ObjType(objType string) *ListFileVersi
 
 // 用户id类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *ListFileVersionReqBuilder) UserIdType(userIdType string) *ListFileVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8553,6 +8993,166 @@ type PatchPermissionPublicResp struct {
 }
 
 func (resp *PatchPermissionPublicResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreatePermissionPublicPasswordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewCreatePermissionPublicPasswordReqBuilder() *CreatePermissionPublicPasswordReqBuilder {
+	builder := &CreatePermissionPublicPasswordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *CreatePermissionPublicPasswordReqBuilder) Token(token string) *CreatePermissionPublicPasswordReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *CreatePermissionPublicPasswordReqBuilder) Type(type_ string) *CreatePermissionPublicPasswordReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+func (builder *CreatePermissionPublicPasswordReqBuilder) Build() *CreatePermissionPublicPasswordReq {
+	req := &CreatePermissionPublicPasswordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type CreatePermissionPublicPasswordReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type CreatePermissionPublicPasswordRespData struct {
+	Password *string `json:"password,omitempty"` // 密码
+}
+
+type CreatePermissionPublicPasswordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreatePermissionPublicPasswordRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreatePermissionPublicPasswordResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeletePermissionPublicPasswordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeletePermissionPublicPasswordReqBuilder() *DeletePermissionPublicPasswordReqBuilder {
+	builder := &DeletePermissionPublicPasswordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *DeletePermissionPublicPasswordReqBuilder) Token(token string) *DeletePermissionPublicPasswordReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *DeletePermissionPublicPasswordReqBuilder) Type(type_ string) *DeletePermissionPublicPasswordReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+func (builder *DeletePermissionPublicPasswordReqBuilder) Build() *DeletePermissionPublicPasswordReq {
+	req := &DeletePermissionPublicPasswordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeletePermissionPublicPasswordReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeletePermissionPublicPasswordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeletePermissionPublicPasswordResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdatePermissionPublicPasswordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewUpdatePermissionPublicPasswordReqBuilder() *UpdatePermissionPublicPasswordReqBuilder {
+	builder := &UpdatePermissionPublicPasswordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的 token
+//
+// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+func (builder *UpdatePermissionPublicPasswordReqBuilder) Token(token string) *UpdatePermissionPublicPasswordReqBuilder {
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文件类型，需要与文件的 token 相匹配
+//
+// 示例值：doc
+func (builder *UpdatePermissionPublicPasswordReqBuilder) Type(type_ string) *UpdatePermissionPublicPasswordReqBuilder {
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
+	return builder
+}
+
+func (builder *UpdatePermissionPublicPasswordReqBuilder) Build() *UpdatePermissionPublicPasswordReq {
+	req := &UpdatePermissionPublicPasswordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type UpdatePermissionPublicPasswordReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type UpdatePermissionPublicPasswordRespData struct {
+	Password *string `json:"password,omitempty"` // 密码
+}
+
+type UpdatePermissionPublicPasswordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UpdatePermissionPublicPasswordRespData `json:"data"` // 业务数据
+}
+
+func (resp *UpdatePermissionPublicPasswordResp) Success() bool {
 	return resp.Code == 0
 }
 

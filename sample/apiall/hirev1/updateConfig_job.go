@@ -37,6 +37,7 @@ func main() {
 			AssessmentTemplateBizId("6960663240925956571").
 			InterviewRoundConfList([]*larkhire.JobConfigInterviewRoundConf{larkhire.NewJobConfigInterviewRoundConfBuilder().Build()}).
 			JrIdList([]string{}).
+			InterviewRegistrationSchemaId("6930815272790114324").
 			InterviewRoundTypeConfList([]*larkhire.JobConfigRoundType{larkhire.NewJobConfigRoundTypeBuilder().Build()}).
 			RelatedJobIdList([]string{}).
 			InterviewAppointmentConfig(larkhire.NewInterviewAppointmentConfigBuilder().Build()).

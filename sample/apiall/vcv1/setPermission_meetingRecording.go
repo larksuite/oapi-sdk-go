@@ -31,6 +31,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkvc.NewSetPermissionMeetingRecordingReqBodyBuilder().
 			PermissionObjects([]*larkvc.RecordingPermissionObject{larkvc.NewRecordingPermissionObjectBuilder().Build()}).
+			ActionType(1).
 			Build()).
 		Build()
 	// 发起请求

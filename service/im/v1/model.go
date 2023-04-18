@@ -1071,6 +1071,7 @@ type ChatChange struct {
 	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
 	OwnerId                *UserId    `json:"owner_id,omitempty"`                 // 用户 ID
 
+	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
 }
 
 type ChatChangeBuilder struct {
@@ -1100,6 +1101,9 @@ type ChatChangeBuilder struct {
 	moderationPermissionFlag   bool
 	ownerId                    *UserId // 用户 ID
 	ownerIdFlag                bool
+
+	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag bool
 }
 
 func NewChatChangeBuilder() *ChatChangeBuilder {
@@ -1224,6 +1228,15 @@ func (builder *ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder {
 	return builder
 }
 
+// 防泄密模式设置
+//
+// 示例值：
+func (builder *ChatChangeBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *ChatChangeBuilder {
+	builder.restrictedModeSetting = restrictedModeSetting
+	builder.restrictedModeSettingFlag = true
+	return builder
+}
+
 func (builder *ChatChangeBuilder) Build() *ChatChange {
 	req := &ChatChange{}
 	if builder.avatarFlag {
@@ -1277,6 +1290,9 @@ func (builder *ChatChangeBuilder) Build() *ChatChange {
 		req.OwnerId = builder.ownerId
 	}
 
+	if builder.restrictedModeSettingFlag {
+		req.RestrictedModeSetting = builder.restrictedModeSetting
+	}
 	return req
 }
 
@@ -4007,6 +4023,86 @@ func (builder *ReadUserBuilder) Build() *ReadUser {
 	return req
 }
 
+type RestrictedModeSetting struct {
+	Status                         *bool   `json:"status,omitempty"`                            // 防泄密模式是否开启
+	ScreenshotHasPermissionSetting *string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏
+	DownloadHasPermissionSetting   *string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件
+	MessageHasPermissionSetting    *string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息
+}
+
+type RestrictedModeSettingBuilder struct {
+	status                             bool // 防泄密模式是否开启
+	statusFlag                         bool
+	screenshotHasPermissionSetting     string // 允许截屏录屏
+	screenshotHasPermissionSettingFlag bool
+	downloadHasPermissionSetting       string // 允许下载消息中图片、视频和文件
+	downloadHasPermissionSettingFlag   bool
+	messageHasPermissionSetting        string // 允许复制和转发消息
+	messageHasPermissionSettingFlag    bool
+}
+
+func NewRestrictedModeSettingBuilder() *RestrictedModeSettingBuilder {
+	builder := &RestrictedModeSettingBuilder{}
+	return builder
+}
+
+// 防泄密模式是否开启
+//
+// 示例值：true
+func (builder *RestrictedModeSettingBuilder) Status(status bool) *RestrictedModeSettingBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 允许截屏录屏
+//
+// 示例值：all_members
+func (builder *RestrictedModeSettingBuilder) ScreenshotHasPermissionSetting(screenshotHasPermissionSetting string) *RestrictedModeSettingBuilder {
+	builder.screenshotHasPermissionSetting = screenshotHasPermissionSetting
+	builder.screenshotHasPermissionSettingFlag = true
+	return builder
+}
+
+// 允许下载消息中图片、视频和文件
+//
+// 示例值：all_members
+func (builder *RestrictedModeSettingBuilder) DownloadHasPermissionSetting(downloadHasPermissionSetting string) *RestrictedModeSettingBuilder {
+	builder.downloadHasPermissionSetting = downloadHasPermissionSetting
+	builder.downloadHasPermissionSettingFlag = true
+	return builder
+}
+
+// 允许复制和转发消息
+//
+// 示例值：all_members
+func (builder *RestrictedModeSettingBuilder) MessageHasPermissionSetting(messageHasPermissionSetting string) *RestrictedModeSettingBuilder {
+	builder.messageHasPermissionSetting = messageHasPermissionSetting
+	builder.messageHasPermissionSettingFlag = true
+	return builder
+}
+
+func (builder *RestrictedModeSettingBuilder) Build() *RestrictedModeSetting {
+	req := &RestrictedModeSetting{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.screenshotHasPermissionSettingFlag {
+		req.ScreenshotHasPermissionSetting = &builder.screenshotHasPermissionSetting
+
+	}
+	if builder.downloadHasPermissionSettingFlag {
+		req.DownloadHasPermissionSetting = &builder.downloadHasPermissionSetting
+
+	}
+	if builder.messageHasPermissionSettingFlag {
+		req.MessageHasPermissionSetting = &builder.messageHasPermissionSetting
+
+	}
+	return req
+}
+
 type Sender struct {
 	Id         *string `json:"id,omitempty"`          // 该字段标识发送者的id
 	IdType     *string `json:"id_type,omitempty"`     // 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
@@ -4755,6 +4851,9 @@ type CreateChatReqBodyBuilder struct {
 	leaveMessageVisibilityFlag bool
 	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
+
+	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag bool
 }
 
 func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
@@ -4879,6 +4978,15 @@ func (builder *CreateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
+// 防泄密模式设置
+//
+//示例值：
+func (builder *CreateChatReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *CreateChatReqBodyBuilder {
+	builder.restrictedModeSetting = restrictedModeSetting
+	builder.restrictedModeSettingFlag = true
+	return builder
+}
+
 func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -4920,6 +5028,9 @@ func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
 	}
+	if builder.restrictedModeSettingFlag {
+		req.RestrictedModeSetting = builder.restrictedModeSetting
+	}
 	return req
 }
 
@@ -4954,6 +5065,8 @@ type CreateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 	toolkitIds                 []string // 群快捷组件列表
 	toolkitIdsFlag             bool
+	restrictedModeSetting      *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag  bool
 }
 
 func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
@@ -5078,6 +5191,15 @@ func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
+// 防泄密模式设置
+//
+// 示例值：
+func (builder *CreateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *CreateChatPathReqBodyBuilder {
+	builder.restrictedModeSetting = restrictedModeSetting
+	builder.restrictedModeSettingFlag = true
+	return builder
+}
+
 func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error) {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -5118,6 +5240,9 @@ func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error)
 	}
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
+	}
+	if builder.restrictedModeSettingFlag {
+		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
 	return req, nil
 }
@@ -5189,6 +5314,7 @@ type CreateChatReqBody struct {
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
+	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
 }
 
 type CreateChatReq struct {
@@ -5218,6 +5344,7 @@ type CreateChatRespData struct {
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	ModerationPermission   *string    `json:"moderation_permission,omitempty"`    // 发言权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员;- `moderator_list`：指定群成员
 
+	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
 }
 
 type CreateChatResp struct {
@@ -5323,6 +5450,8 @@ type GetChatRespData struct {
 	EditPermission         *string    `json:"edit_permission,omitempty"`          // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;**注意**：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
 	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：;- 当群主是机器人时不返回该字段;- 单聊不返回该字段
+	UserManagerIdList      []string   `json:"user_manager_id_list,omitempty"`     // 用户管理员列表
+	BotManagerIdList       []string   `json:"bot_manager_id_list,omitempty"`      // 机器人管理员列表
 	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组;- `topic`: 话题;- `p2p`: 单聊
 	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群;;**注意**：单聊不返回该字段
 	ChatTag                *string    `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个;;**可选值有**：;- `inner`：内部群;- `tenant`：公司群;- `department`：部门群;- `edu`：教育群;- `meeting`：会议群;- `customer_service`：客服群;;**注意**：单聊不返回该字段
@@ -5335,6 +5464,7 @@ type GetChatRespData struct {
 	UserCount              *string    `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               *string    `json:"bot_count,omitempty"`                // 群机器人数
 
+	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
 }
 
 type GetChatResp struct {
@@ -5490,7 +5620,7 @@ func (builder *ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBui
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
 func (builder *ListChatReqBuilder) PageToken(pageToken string) *ListChatReqBuilder {
@@ -5498,7 +5628,7 @@ func (builder *ListChatReqBuilder) PageToken(pageToken string) *ListChatReqBuild
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder {
@@ -5522,8 +5652,8 @@ type ListChatReq struct {
 
 type ListChatRespData struct {
 	Items     []*ListChat `json:"items,omitempty"`      // chat 列表
-	PageToken *string     `json:"page_token,omitempty"` //
-	HasMore   *bool       `json:"has_more,omitempty"`   //
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListChatResp struct {
@@ -5572,7 +5702,7 @@ func (builder *SearchChatReqBuilder) Query(query string) *SearchChatReqBuilder {
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
 func (builder *SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqBuilder {
@@ -5580,7 +5710,7 @@ func (builder *SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqB
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilder {
@@ -5604,7 +5734,7 @@ type SearchChatReq struct {
 
 type SearchChatRespData struct {
 	Items     []*ListChat `json:"items,omitempty"`      // chat 列表
-	PageToken *string     `json:"page_token,omitempty"` //
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多群组
 }
 
@@ -5644,8 +5774,10 @@ type UpdateChatReqBodyBuilder struct {
 	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 
-	chatType     string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	chatTypeFlag bool
+	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag bool
+	chatType                  string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeFlag              bool
 }
 
 func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
@@ -5761,6 +5893,15 @@ func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
+// 防泄密模式设置
+//
+//示例值：
+func (builder *UpdateChatReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *UpdateChatReqBodyBuilder {
+	builder.restrictedModeSetting = restrictedModeSetting
+	builder.restrictedModeSettingFlag = true
+	return builder
+}
+
 // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 //
 //示例值：private
@@ -5808,6 +5949,9 @@ func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
 	}
+	if builder.restrictedModeSettingFlag {
+		req.RestrictedModeSetting = builder.restrictedModeSetting
+	}
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
 	}
@@ -5843,6 +5987,8 @@ type UpdateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 	toolkitIds                 []string // 群快捷组件列表
 	toolkitIdsFlag             bool
+	restrictedModeSetting      *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag  bool
 	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
 }
@@ -5960,6 +6106,15 @@ func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
+// 防泄密模式设置
+//
+// 示例值：
+func (builder *UpdateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *UpdateChatPathReqBodyBuilder {
+	builder.restrictedModeSetting = restrictedModeSetting
+	builder.restrictedModeSettingFlag = true
+	return builder
+}
+
 // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 //
 // 示例值：private
@@ -6006,6 +6161,9 @@ func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error)
 	}
 	if builder.membershipApprovalFlag {
 		req.MembershipApproval = &builder.membershipApproval
+	}
+	if builder.restrictedModeSettingFlag {
+		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
@@ -6072,7 +6230,8 @@ type UpdateChatReqBody struct {
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
-	ChatType *string `json:"chat_type,omitempty"` // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
+	ChatType              *string                `json:"chat_type,omitempty"`               // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 }
 
 type UpdateChatReq struct {
@@ -6824,19 +6983,19 @@ func (builder *GetChatMembersReqBuilder) MemberIdType(memberIdType string) *GetC
 	return builder
 }
 
-//
-//
-// 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
-func (builder *GetChatMembersReqBuilder) PageToken(pageToken string) *GetChatMembersReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembersReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
+func (builder *GetChatMembersReqBuilder) PageToken(pageToken string) *GetChatMembersReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
@@ -6857,8 +7016,8 @@ type GetChatMembersReq struct {
 
 type GetChatMembersRespData struct {
 	Items       []*ListMember `json:"items,omitempty"`        // 成员列表
-	PageToken   *string       `json:"page_token,omitempty"`   //
-	HasMore     *bool         `json:"has_more,omitempty"`     //
+	PageToken   *string       `json:"page_token,omitempty"`   // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore     *bool         `json:"has_more,omitempty"`     // 是否还有更多项
 	MemberTotal *int          `json:"member_total,omitempty"` // 成员总数
 }
 
@@ -7530,19 +7689,19 @@ func (builder *GetChatModerationReqBuilder) UserIdType(userIdType string) *GetCh
 	return builder
 }
 
-//
-//
-// 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
-func (builder *GetChatModerationReqBuilder) PageToken(pageToken string) *GetChatModerationReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatModerationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
+func (builder *GetChatModerationReqBuilder) PageToken(pageToken string) *GetChatModerationReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
@@ -7563,8 +7722,8 @@ type GetChatModerationReq struct {
 
 type GetChatModerationRespData struct {
 	ModerationSetting *string          `json:"moderation_setting,omitempty"` // 群发言模式（all_members/only_owner/moderator_list，其中 moderator_list 表示部分用户可发言的模式）
-	PageToken         *string          `json:"page_token,omitempty"`         //
-	HasMore           *bool            `json:"has_more,omitempty"`           //
+	PageToken         *string          `json:"page_token,omitempty"`         // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore           *bool            `json:"has_more,omitempty"`           // 是否还有更多项
 	Items             []*ListModerator `json:"items,omitempty"`              // 可发言用户列表
 }
 
@@ -9203,7 +9362,7 @@ func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuil
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==
 func (builder *ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder {
@@ -9693,7 +9852,7 @@ func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *Urgent
 
 // 此次调用中使用的用户ID的类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *UrgentPhoneMessageReqBuilder) UserIdType(userIdType string) *UrgentPhoneMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder

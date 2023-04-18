@@ -35,6 +35,7 @@ func main() {
 			NeedNotification(false).
 			InstanceStartTimeAdmin("1647320400").
 			IsEnableAdmin(false).
+			AddOperatorToAttendee(false).
 			Build()).
 		Build()
 	// 发起请求

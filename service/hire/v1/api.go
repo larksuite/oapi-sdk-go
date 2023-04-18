@@ -27,6 +27,10 @@ func NewService(config *larkcore.Config) *HireService {
 	h.Attachment = &attachment{service: h}
 	h.EhrImportTask = &ehrImportTask{service: h}
 	h.Employee = &employee{service: h}
+	h.ExternalApplication = &externalApplication{service: h}
+	h.ExternalBackgroundCheck = &externalBackgroundCheck{service: h}
+	h.ExternalInterview = &externalInterview{service: h}
+	h.ExternalInterviewAssessment = &externalInterviewAssessment{service: h}
 	h.Job = &job{service: h}
 	h.JobManager = &jobManager{service: h}
 	h.JobProcess = &jobProcess{service: h}
@@ -35,24 +39,30 @@ func NewService(config *larkcore.Config) *HireService {
 	h.Referral = &referral{service: h}
 	h.ResumeSource = &resumeSource{service: h}
 	h.Talent = &talent{service: h}
+	h.TalentFolder = &talentFolder{service: h}
 	return h
 }
 
 type HireService struct {
-	config               *larkcore.Config
-	Application          *application          // 入职
-	ApplicationInterview *applicationInterview // application.interview
-	Attachment           *attachment           // 附件
-	EhrImportTask        *ehrImportTask        // 导入 e-HR
-	Employee             *employee             // 入职
-	Job                  *job                  // 职位
-	JobManager           *jobManager           // job.manager
-	JobProcess           *jobProcess           // 流程
-	Note                 *note                 // 备注
-	OfferSchema          *offerSchema          // offer_schema
-	Referral             *referral             // 内推
-	ResumeSource         *resumeSource         // 简历来源
-	Talent               *talent               // 人才
+	config                      *larkcore.Config
+	Application                 *application                 // 投递
+	ApplicationInterview        *applicationInterview        // application.interview
+	Attachment                  *attachment                  // 附件
+	EhrImportTask               *ehrImportTask               // 导入 e-HR
+	Employee                    *employee                    // 入职
+	ExternalApplication         *externalApplication         // 导入外部系统信息（灰度租户可见）
+	ExternalBackgroundCheck     *externalBackgroundCheck     // 导入外部系统信息（灰度租户可见）
+	ExternalInterview           *externalInterview           // 导入外部系统信息（灰度租户可见）
+	ExternalInterviewAssessment *externalInterviewAssessment // 导入外部系统信息（灰度租户可见）
+	Job                         *job                         // 职位
+	JobManager                  *jobManager                  // job.manager
+	JobProcess                  *jobProcess                  // 流程
+	Note                        *note                        // 备注
+	OfferSchema                 *offerSchema                 // offer_schema
+	Referral                    *referral                    // 内推
+	ResumeSource                *resumeSource                // 简历来源
+	Talent                      *talent                      // 人才
+	TalentFolder                *talentFolder                // talent_folder
 }
 
 type application struct {
@@ -68,6 +78,18 @@ type ehrImportTask struct {
 	service *HireService
 }
 type employee struct {
+	service *HireService
+}
+type externalApplication struct {
+	service *HireService
+}
+type externalBackgroundCheck struct {
+	service *HireService
+}
+type externalInterview struct {
+	service *HireService
+}
+type externalInterviewAssessment struct {
 	service *HireService
 }
 type job struct {
@@ -92,6 +114,9 @@ type resumeSource struct {
 	service *HireService
 }
 type talent struct {
+	service *HireService
+}
+type talentFolder struct {
 	service *HireService
 }
 
@@ -426,6 +451,110 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 	}
 	// 反序列响应结果
 	resp := &PatchEmployeeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建外部投递
+//
+// - 导入来自其他系统的投递信息，创建为外部投递
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalApplication.go
+func (e *externalApplication) Create(ctx context.Context, req *CreateExternalApplicationReq, options ...larkcore.RequestOptionFunc) (*CreateExternalApplicationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_applications"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateExternalApplicationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建外部背调
+//
+// - 导入来自其他系统的背调信息，创建为外部背调
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalBackgroundCheck.go
+func (e *externalBackgroundCheck) Create(ctx context.Context, req *CreateExternalBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*CreateExternalBackgroundCheckResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_background_checks"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateExternalBackgroundCheckResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建外部面试
+//
+// - 导入来自其他系统的面试信息，创建为外部面试
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalInterview.go
+func (e *externalInterview) Create(ctx context.Context, req *CreateExternalInterviewReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInterviewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_interviews"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateExternalInterviewResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建外部面评
+//
+// - 导入来自其他系统的面评信息，创建为外部面评
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview_assessment/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalInterviewAssessment.go
+func (e *externalInterviewAssessment) Create(ctx context.Context, req *CreateExternalInterviewAssessmentReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInterviewAssessmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_interview_assessments"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateExternalInterviewAssessmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
@@ -805,6 +934,32 @@ func (r *resumeSource) ListByIterator(ctx context.Context, req *ListResumeSource
 		limit:    req.Limit}, nil
 }
 
+// 将人才加入指定文件夹
+//
+// - 将人才加入指定文件夹
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/add_to_folder
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/addToFolder_talent.go
+func (t *talent) AddToFolder(ctx context.Context, req *AddToFolderTalentReq, options ...larkcore.RequestOptionFunc) (*AddToFolderTalentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/talents/add_to_folder"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AddToFolderTalentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 通过人才信息获取人才 ID
 //
 // - 通过人才信息获取人才 ID
@@ -855,4 +1010,38 @@ func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore
 		return nil, err
 	}
 	return resp, err
+}
+
+// 获取人才文件夹信息
+//
+// - 用于获取招聘系统中人才文件夹信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_talentFolder.go
+func (t *talentFolder) List(ctx context.Context, req *ListTalentFolderReq, options ...larkcore.RequestOptionFunc) (*ListTalentFolderResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/talent_folders"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListTalentFolderResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *talentFolder) ListByIterator(ctx context.Context, req *ListTalentFolderReq, options ...larkcore.RequestOptionFunc) (*ListTalentFolderIterator, error) {
+	return &ListTalentFolderIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: t.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

@@ -29,8 +29,8 @@ func main() {
 	req := larkim.NewGetChatModerationReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		UserIdType("user_id").
+		PageSize(10).
 		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
-		PageSize(20).
 		Build()
 	// 发起请求
 	resp, err := client.Im.ChatModeration.Get(context.Background(), req)

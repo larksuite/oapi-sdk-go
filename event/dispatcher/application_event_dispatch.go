@@ -115,3 +115,17 @@ func (dispatcher *EventDispatcher) OnP2ApplicationVisibilityAddedV6(handler func
 	dispatcher.eventType2EventHandler["application.application.visibility.added_v6"] = larkapplication.NewP2ApplicationVisibilityAddedV6Handler(handler)
 	return dispatcher
 }
+
+// 机器人自定义菜单
+//
+// - 当用户点击类型为事件的机器人菜单时触发
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/bot/events/menu
+func (dispatcher *EventDispatcher) OnP2BotMenuV6(handler func(ctx context.Context, event *larkapplication.P2BotMenuV6) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["application.bot.menu_v6"]
+	if existed {
+		panic("event: multiple handler registrations for " + "application.bot.menu_v6")
+	}
+	dispatcher.eventType2EventHandler["application.bot.menu_v6"] = larkapplication.NewP2BotMenuV6Handler(handler)
+	return dispatcher
+}

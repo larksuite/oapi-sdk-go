@@ -28,9 +28,13 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewPatchGroupReqBuilder().
 		GroupId("g187131").
+		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Body(larkcontact.NewPatchGroupReqBodyBuilder().
 			Name("外包 IT 用户组").
 			Description("IT 外包用户组，需要进行细粒度权限管控").
+			DynamicGroupRule(larkcontact.NewDynamicGroupRuleBuilder().Build()).
+			VisibleScope(larkcontact.NewGroupVisibleScopeBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

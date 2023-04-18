@@ -1781,6 +1781,34 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 	return resp, err
 }
 
+// 恢复已删除用户
+//
+// - 该接口用于恢复已删除用户（已离职的成员），仅自建应用可申请，应用商店应用无权调用接口。
+//
+// - - 仅支持恢复离职 30 天内的成员。恢复后，部分用户数据仍不可恢复，请谨慎调用。;- 待恢复成员的用户 ID 不能被企业内其他成员使用。如有重复，请先离职对应的成员，否则接口会报错。;- 待恢复成员的手机号和邮箱不能被企业内其他成员使用。如有重复，请先修改对应成员的信息，否则接口会报错。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/resurrect
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/resurrect_user.go
+func (u *user) Resurrect(ctx context.Context, req *ResurrectUserReq, options ...larkcore.RequestOptionFunc) (*ResurrectUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/users/:user_id/resurrect"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ResurrectUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 更新用户所有信息
 //
 // - 该接口用于更新通讯录中用户的字段。

@@ -1005,7 +1005,7 @@ func (builder *ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailg
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgroupReqBuilder {
@@ -1013,7 +1013,7 @@ func (builder *ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgro
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListMailgroupReqBuilder) PageSize(pageSize int) *ListMailgroupReqBuilder {
@@ -1807,7 +1807,7 @@ func (builder *ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType 
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListMailgroupMemberReqBuilder {
@@ -1815,7 +1815,7 @@ func (builder *ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListM
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListMailgroupMemberReqBuilder) PageSize(pageSize int) *ListMailgroupMemberReqBuilder {
@@ -2336,7 +2336,7 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departm
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken string) *ListMailgroupPermissionMemberReqBuilder {
@@ -2344,7 +2344,7 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken stri
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageSize(pageSize int) *ListMailgroupPermissionMemberReqBuilder {
@@ -2540,7 +2540,7 @@ func (builder *ListPublicMailboxReqBuilder) Limit(limit int) *ListPublicMailboxR
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPublicMailboxReqBuilder {
@@ -2548,7 +2548,7 @@ func (builder *ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPub
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListPublicMailboxReqBuilder) PageSize(pageSize int) *ListPublicMailboxReqBuilder {
@@ -3337,7 +3337,7 @@ func (builder *ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *ListPublicMailboxMemberReqBuilder {
@@ -3345,7 +3345,7 @@ func (builder *ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *L
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListPublicMailboxMemberReqBuilder) PageSize(pageSize int) *ListPublicMailboxMemberReqBuilder {
@@ -3663,7 +3663,7 @@ func (builder *ListUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId strin
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *ListUserMailboxAliasReqBuilder {
@@ -3671,7 +3671,7 @@ func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *List
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder {

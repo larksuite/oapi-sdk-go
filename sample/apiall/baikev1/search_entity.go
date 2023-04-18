@@ -27,11 +27,14 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkbaike.NewSearchEntityReqBuilder().
-		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
 		PageSize(20).
+		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
 		UserIdType("user_id").
 		Body(larkbaike.NewSearchEntityReqBodyBuilder().
 			Query("百科").
+			ClassificationFilter(larkbaike.NewClassificationFilterBuilder().Build()).
+			Sources([]int{}).
+			Creators([]string{}).
 			Build()).
 		Build()
 	// 发起请求

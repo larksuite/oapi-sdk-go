@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewUrgentPhoneMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-		UserIdType("user_id").
+		UserIdType("open_id").
 		UrgentReceivers(larkim.NewUrgentReceiversBuilder().
 			UserIdList([]string{}).
 			Build()).

@@ -224,6 +224,7 @@ type Block struct {
 	OkrKeyResult   *OkrKeyResult   `json:"okr_key_result,omitempty"`  // OKR Key Result
 	OkrProgress    *OkrProgress    `json:"okr_progress,omitempty"`    // OKR 进展信息
 	CommentIds     []string        `json:"comment_ids,omitempty"`     // 评论 id 列表
+	JiraIssue      *JiraIssue      `json:"jira_issue,omitempty"`      // Jira Issue
 }
 
 type BlockBuilder struct {
@@ -319,6 +320,8 @@ type BlockBuilder struct {
 	okrProgressFlag    bool
 	commentIds         []string // 评论 id 列表
 	commentIdsFlag     bool
+	jiraIssue          *JiraIssue // Jira Issue
+	jiraIssueFlag      bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -740,6 +743,15 @@ func (builder *BlockBuilder) CommentIds(commentIds []string) *BlockBuilder {
 	return builder
 }
 
+// Jira Issue
+//
+// 示例值：
+func (builder *BlockBuilder) JiraIssue(jiraIssue *JiraIssue) *BlockBuilder {
+	builder.jiraIssue = jiraIssue
+	builder.jiraIssueFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -882,6 +894,9 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.commentIdsFlag {
 		req.CommentIds = builder.commentIds
+	}
+	if builder.jiraIssueFlag {
+		req.JiraIssue = builder.jiraIssue
 	}
 	return req
 }
@@ -1792,6 +1807,54 @@ func (builder *IsvBuilder) Build() *Isv {
 	}
 	if builder.componentTypeIdFlag {
 		req.ComponentTypeId = &builder.componentTypeId
+
+	}
+	return req
+}
+
+type JiraIssue struct {
+	Id  *string `json:"id,omitempty"`  // Jira issue ID
+	Key *string `json:"key,omitempty"` // Jira issue key
+}
+
+type JiraIssueBuilder struct {
+	id      string // Jira issue ID
+	idFlag  bool
+	key     string // Jira issue key
+	keyFlag bool
+}
+
+func NewJiraIssueBuilder() *JiraIssueBuilder {
+	builder := &JiraIssueBuilder{}
+	return builder
+}
+
+// Jira issue ID
+//
+// 示例值：37159
+func (builder *JiraIssueBuilder) Id(id string) *JiraIssueBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// Jira issue key
+//
+// 示例值：Project-8317
+func (builder *JiraIssueBuilder) Key(key string) *JiraIssueBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+func (builder *JiraIssueBuilder) Build() *JiraIssue {
+	req := &JiraIssue{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.keyFlag {
+		req.Key = &builder.key
 
 	}
 	return req

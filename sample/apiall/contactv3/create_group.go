@@ -27,11 +27,15 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcontact.NewCreateGroupReqBuilder().
+		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Body(larkcontact.NewCreateGroupReqBodyBuilder().
 			GroupId("g122817").
 			Name("IT 外包组").
 			Description("IT服务人员的集合").
 			Type(1).
+			DynamicGroupRule(larkcontact.NewDynamicGroupRuleBuilder().Build()).
+			VisibleScope(larkcontact.NewGroupVisibleScopeBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

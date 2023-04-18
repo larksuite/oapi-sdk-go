@@ -114,6 +114,12 @@ const (
 )
 
 const (
+	TitleDisplayMethodDisplayAll           = 0 // 如果都有title，展示approval 和instance的title，竖线分割。
+	TitleDisplayMethodDisplayInstanceTitle = 1 // 如果都有title，只展示instance的title
+
+)
+
+const (
 	LocaleGetInstanceZhcn = "zh-CN" // 中文
 	LocaleGetInstanceEnus = "en-US" // 英文
 	LocaleGetInstanceJajp = "ja-JP" // 日文
@@ -1554,18 +1560,21 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 }
 
 type ApprovalSetting struct {
-	RevertInterval *int `json:"revert_interval,omitempty"` // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
-	RevertOption   *int `json:"revert_option,omitempty"`   // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
-	RejectOption   *int `json:"reject_option,omitempty"`   // 拒绝设置
+	RevertInterval      *int `json:"revert_interval,omitempty"`       // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+	RevertOption        *int `json:"revert_option,omitempty"`         // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+	RejectOption        *int `json:"reject_option,omitempty"`         // 拒绝设置
+	QuickApprovalOption *int `json:"quick_approval_option,omitempty"` // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
 }
 
 type ApprovalSettingBuilder struct {
-	revertInterval     int // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
-	revertIntervalFlag bool
-	revertOption       int // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
-	revertOptionFlag   bool
-	rejectOption       int // 拒绝设置
-	rejectOptionFlag   bool
+	revertInterval          int // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+	revertIntervalFlag      bool
+	revertOption            int // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+	revertOptionFlag        bool
+	rejectOption            int // 拒绝设置
+	rejectOptionFlag        bool
+	quickApprovalOption     int // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+	quickApprovalOptionFlag bool
 }
 
 func NewApprovalSettingBuilder() *ApprovalSettingBuilder {
@@ -1600,6 +1609,15 @@ func (builder *ApprovalSettingBuilder) RejectOption(rejectOption int) *ApprovalS
 	return builder
 }
 
+// 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+//
+// 示例值：1
+func (builder *ApprovalSettingBuilder) QuickApprovalOption(quickApprovalOption int) *ApprovalSettingBuilder {
+	builder.quickApprovalOption = quickApprovalOption
+	builder.quickApprovalOptionFlag = true
+	return builder
+}
+
 func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	req := &ApprovalSetting{}
 	if builder.revertIntervalFlag {
@@ -1612,6 +1630,10 @@ func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	}
 	if builder.rejectOptionFlag {
 		req.RejectOption = &builder.rejectOption
+
+	}
+	if builder.quickApprovalOptionFlag {
+		req.QuickApprovalOption = &builder.quickApprovalOption
 
 	}
 	return req
@@ -2864,6 +2886,165 @@ func (builder *CommentRequestBuilder) Build() *CommentRequest {
 	}
 	if builder.extraFlag {
 		req.Extra = &builder.extra
+
+	}
+	return req
+}
+
+type ConnectorLog struct {
+	LogData []*ConnectorLogData `json:"log_data,omitempty"` // 日志数据
+}
+
+type ConnectorLogBuilder struct {
+	logData     []*ConnectorLogData // 日志数据
+	logDataFlag bool
+}
+
+func NewConnectorLogBuilder() *ConnectorLogBuilder {
+	builder := &ConnectorLogBuilder{}
+	return builder
+}
+
+// 日志数据
+//
+// 示例值：
+func (builder *ConnectorLogBuilder) LogData(logData []*ConnectorLogData) *ConnectorLogBuilder {
+	builder.logData = logData
+	builder.logDataFlag = true
+	return builder
+}
+
+func (builder *ConnectorLogBuilder) Build() *ConnectorLog {
+	req := &ConnectorLog{}
+	if builder.logDataFlag {
+		req.LogData = builder.logData
+	}
+	return req
+}
+
+type ConnectorLogData struct {
+	DateTime *string `json:"date_time,omitempty"` // 时间
+	Data     *string `json:"data,omitempty"`      // 数据（脱敏）
+	Level    *string `json:"level,omitempty"`     // 数据等级
+	Pod      *string `json:"pod,omitempty"`       // 机器名称
+	Location *string `json:"location,omitempty"`  // 打印位置（脱敏）
+	Type     *string `json:"type,omitempty"`      // 数据类型
+	Version  *string `json:"version,omitempty"`   // 版本号
+}
+
+type ConnectorLogDataBuilder struct {
+	dateTime     string // 时间
+	dateTimeFlag bool
+	data         string // 数据（脱敏）
+	dataFlag     bool
+	level        string // 数据等级
+	levelFlag    bool
+	pod          string // 机器名称
+	podFlag      bool
+	location     string // 打印位置（脱敏）
+	locationFlag bool
+	type_        string // 数据类型
+	typeFlag     bool
+	version      string // 版本号
+	versionFlag  bool
+}
+
+func NewConnectorLogDataBuilder() *ConnectorLogDataBuilder {
+	builder := &ConnectorLogDataBuilder{}
+	return builder
+}
+
+// 时间
+//
+// 示例值：2023-03-23 10:05:11
+func (builder *ConnectorLogDataBuilder) DateTime(dateTime string) *ConnectorLogDataBuilder {
+	builder.dateTime = dateTime
+	builder.dateTimeFlag = true
+	return builder
+}
+
+// 数据（脱敏）
+//
+// 示例值：cwyFtNZSO7wKZ2Bi+WHJVbb6uZ3G2hlsje
+func (builder *ConnectorLogDataBuilder) Data(data string) *ConnectorLogDataBuilder {
+	builder.data = data
+	builder.dataFlag = true
+	return builder
+}
+
+// 数据等级
+//
+// 示例值：INFO
+func (builder *ConnectorLogDataBuilder) Level(level string) *ConnectorLogDataBuilder {
+	builder.level = level
+	builder.levelFlag = true
+	return builder
+}
+
+// 机器名称
+//
+// 示例值：C02GD65CMD6R
+func (builder *ConnectorLogDataBuilder) Pod(pod string) *ConnectorLogDataBuilder {
+	builder.pod = pod
+	builder.podFlag = true
+	return builder
+}
+
+// 打印位置（脱敏）
+//
+// 示例值：K+GFMIO+2aTIX8yXkPLK2hoEPof4
+func (builder *ConnectorLogDataBuilder) Location(location string) *ConnectorLogDataBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+
+// 数据类型
+//
+// 示例值：MONITOR
+func (builder *ConnectorLogDataBuilder) Type(type_ string) *ConnectorLogDataBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 版本号
+//
+// 示例值：2.0.1
+func (builder *ConnectorLogDataBuilder) Version(version string) *ConnectorLogDataBuilder {
+	builder.version = version
+	builder.versionFlag = true
+	return builder
+}
+
+func (builder *ConnectorLogDataBuilder) Build() *ConnectorLogData {
+	req := &ConnectorLogData{}
+	if builder.dateTimeFlag {
+		req.DateTime = &builder.dateTime
+
+	}
+	if builder.dataFlag {
+		req.Data = &builder.data
+
+	}
+	if builder.levelFlag {
+		req.Level = &builder.level
+
+	}
+	if builder.podFlag {
+		req.Pod = &builder.pod
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.versionFlag {
+		req.Version = &builder.version
 
 	}
 	return req
@@ -4961,6 +5142,8 @@ type InstanceCreate struct {
 	CancelBotNotification  *string         `json:"cancel_bot_notification,omitempty"`    // 配置bot是否取消通知结果
 	ForbidRevoke           *bool           `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销
 	I18nResources          []*I18nResource `json:"i18n_resources,omitempty"`             // 国际化文案
+	Title                  *string         `json:"title,omitempty"`                      // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	TitleDisplayMethod     *int            `json:"title_display_method,omitempty"`       // 详情页title展示模式
 }
 
 type InstanceCreateBuilder struct {
@@ -4994,6 +5177,10 @@ type InstanceCreateBuilder struct {
 	forbidRevokeFlag           bool
 	i18nResources              []*I18nResource // 国际化文案
 	i18nResourcesFlag          bool
+	title                      string // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	titleFlag                  bool
+	titleDisplayMethod         int // 详情页title展示模式
+	titleDisplayMethodFlag     bool
 }
 
 func NewInstanceCreateBuilder() *InstanceCreateBuilder {
@@ -5136,6 +5323,24 @@ func (builder *InstanceCreateBuilder) I18nResources(i18nResources []*I18nResourc
 	return builder
 }
 
+// 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+//
+// 示例值：@i18n@1
+func (builder *InstanceCreateBuilder) Title(title string) *InstanceCreateBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 详情页title展示模式
+//
+// 示例值：0
+func (builder *InstanceCreateBuilder) TitleDisplayMethod(titleDisplayMethod int) *InstanceCreateBuilder {
+	builder.titleDisplayMethod = titleDisplayMethod
+	builder.titleDisplayMethodFlag = true
+	return builder
+}
+
 func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	req := &InstanceCreate{}
 	if builder.approvalCodeFlag {
@@ -5192,6 +5397,14 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	}
 	if builder.i18nResourcesFlag {
 		req.I18nResources = builder.i18nResources
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.titleDisplayMethodFlag {
+		req.TitleDisplayMethod = &builder.titleDisplayMethod
+
 	}
 	return req
 }

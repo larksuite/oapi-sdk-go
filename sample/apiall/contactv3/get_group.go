@@ -28,6 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewGetGroupReqBuilder().
 		GroupId("g193821").
+		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Build()
 	// 发起请求
 	resp, err := client.Contact.Group.Get(context.Background(), req)

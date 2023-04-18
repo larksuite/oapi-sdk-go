@@ -14,9 +14,10 @@
 package larkbitable
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1221,6 +1222,7 @@ type AppTableField struct {
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 	IsPrimary   *bool                     `json:"is_primary,omitempty"`  // 是否是索引列
 	UiType      *string                   `json:"ui_type,omitempty"`     // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	IsHidden    *bool                     `json:"is_hidden,omitempty"`   // 是否是隐藏字段
 }
 
 type AppTableFieldBuilder struct {
@@ -1238,6 +1240,8 @@ type AppTableFieldBuilder struct {
 	isPrimaryFlag   bool
 	uiType          string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
 	uiTypeFlag      bool
+	isHidden        bool // 是否是隐藏字段
+	isHiddenFlag    bool
 }
 
 func NewAppTableFieldBuilder() *AppTableFieldBuilder {
@@ -1308,6 +1312,15 @@ func (builder *AppTableFieldBuilder) UiType(uiType string) *AppTableFieldBuilder
 	return builder
 }
 
+// 是否是隐藏字段
+//
+// 示例值：false
+func (builder *AppTableFieldBuilder) IsHidden(isHidden bool) *AppTableFieldBuilder {
+	builder.isHidden = isHidden
+	builder.isHiddenFlag = true
+	return builder
+}
+
 func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	req := &AppTableField{}
 	if builder.fieldIdFlag {
@@ -1334,6 +1347,10 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	}
 	if builder.uiTypeFlag {
 		req.UiType = &builder.uiType
+
+	}
+	if builder.isHiddenFlag {
+		req.IsHidden = &builder.isHidden
 
 	}
 	return req
@@ -3104,6 +3121,177 @@ func (builder *UrlBuilder) Build() *Url {
 	return req
 }
 
+type CopyAppReqBodyBuilder struct {
+	name               string // 多维表格 App 名字
+	nameFlag           bool
+	folderToken        string // 多维表格 App 归属文件夹
+	folderTokenFlag    bool
+	withoutContent     bool // 不复制文档内容，只复制文档结构
+	withoutContentFlag bool
+}
+
+func NewCopyAppReqBodyBuilder() *CopyAppReqBodyBuilder {
+	builder := &CopyAppReqBodyBuilder{}
+	return builder
+}
+
+// 多维表格 App 名字
+//
+//示例值：一篇新的多维表格
+func (builder *CopyAppReqBodyBuilder) Name(name string) *CopyAppReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 多维表格 App 归属文件夹
+//
+//示例值：fldbco*****CIMltVc
+func (builder *CopyAppReqBodyBuilder) FolderToken(folderToken string) *CopyAppReqBodyBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
+}
+
+// 不复制文档内容，只复制文档结构
+//
+//示例值：false
+func (builder *CopyAppReqBodyBuilder) WithoutContent(withoutContent bool) *CopyAppReqBodyBuilder {
+	builder.withoutContent = withoutContent
+	builder.withoutContentFlag = true
+	return builder
+}
+
+func (builder *CopyAppReqBodyBuilder) Build() *CopyAppReqBody {
+	req := &CopyAppReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+	}
+	if builder.withoutContentFlag {
+		req.WithoutContent = &builder.withoutContent
+	}
+	return req
+}
+
+type CopyAppPathReqBodyBuilder struct {
+	name               string // 多维表格 App 名字
+	nameFlag           bool
+	folderToken        string // 多维表格 App 归属文件夹
+	folderTokenFlag    bool
+	withoutContent     bool // 不复制文档内容，只复制文档结构
+	withoutContentFlag bool
+}
+
+func NewCopyAppPathReqBodyBuilder() *CopyAppPathReqBodyBuilder {
+	builder := &CopyAppPathReqBodyBuilder{}
+	return builder
+}
+
+// 多维表格 App 名字
+//
+// 示例值：一篇新的多维表格
+func (builder *CopyAppPathReqBodyBuilder) Name(name string) *CopyAppPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 多维表格 App 归属文件夹
+//
+// 示例值：fldbco*****CIMltVc
+func (builder *CopyAppPathReqBodyBuilder) FolderToken(folderToken string) *CopyAppPathReqBodyBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
+}
+
+// 不复制文档内容，只复制文档结构
+//
+// 示例值：false
+func (builder *CopyAppPathReqBodyBuilder) WithoutContent(withoutContent bool) *CopyAppPathReqBodyBuilder {
+	builder.withoutContent = withoutContent
+	builder.withoutContentFlag = true
+	return builder
+}
+
+func (builder *CopyAppPathReqBodyBuilder) Build() (*CopyAppReqBody, error) {
+	req := &CopyAppReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+	}
+	if builder.withoutContentFlag {
+		req.WithoutContent = &builder.withoutContent
+	}
+	return req, nil
+}
+
+type CopyAppReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CopyAppReqBody
+}
+
+func NewCopyAppReqBuilder() *CopyAppReqBuilder {
+	builder := &CopyAppReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 多维表格 App token
+//
+// 示例值：S404b*****e9PQsYDWYcNryFn0g
+func (builder *CopyAppReqBuilder) AppToken(appToken string) *CopyAppReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+//
+func (builder *CopyAppReqBuilder) Body(body *CopyAppReqBody) *CopyAppReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CopyAppReqBuilder) Build() *CopyAppReq {
+	req := &CopyAppReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CopyAppReqBody struct {
+	Name           *string `json:"name,omitempty"`            // 多维表格 App 名字
+	FolderToken    *string `json:"folder_token,omitempty"`    // 多维表格 App 归属文件夹
+	WithoutContent *bool   `json:"without_content,omitempty"` // 不复制文档内容，只复制文档结构
+}
+
+type CopyAppReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CopyAppReqBody `body:""`
+}
+
+type CopyAppRespData struct {
+	App *App `json:"app,omitempty"` //
+}
+
+type CopyAppResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CopyAppRespData `json:"data"` // 业务数据
+}
+
+func (resp *CopyAppResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateAppReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	reqApp *ReqApp
@@ -4684,7 +4872,7 @@ func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableRe
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder {
@@ -4692,7 +4880,7 @@ func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTable
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder {
@@ -5040,7 +5228,7 @@ func (builder *ListAppTableFieldReqBuilder) TextFieldAsArray(textFieldAsArray bo
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：fldwJ4YrtB
 func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder {
@@ -5048,7 +5236,7 @@ func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListApp
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder {
@@ -6190,7 +6378,7 @@ func (builder *ListAppTableRecordReqBuilder) AutomaticFields(automaticFields boo
 	return builder
 }
 
-//
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：recn0hoyXL
 func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder {
@@ -6198,7 +6386,7 @@ func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAp
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：10
 func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder {

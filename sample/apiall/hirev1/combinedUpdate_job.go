@@ -57,6 +57,7 @@ func main() {
 			AddressIdList([]string{}).
 			JobAttribute(1).
 			ExpiryTimestamp("1622484739955").
+			InterviewRegistrationSchemaId("6930815272790114324").
 			Build()).
 		Build()
 	// 发起请求

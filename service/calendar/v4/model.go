@@ -3003,7 +3003,7 @@ type Vchat struct {
 	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。
 	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingUrl  *string `json:"meeting_url,omitempty"` // 视频会议URL
-	LiveLink    *string `json:"live_link,omitempty"`   // VC视频会议转直播URL，当vc_type=vc时有值。
+
 }
 
 type VchatBuilder struct {
@@ -3015,8 +3015,6 @@ type VchatBuilder struct {
 	descriptionFlag bool
 	meetingUrl      string // 视频会议URL
 	meetingUrlFlag  bool
-	liveLink        string // VC视频会议转直播URL，当vc_type=vc时有值。
-	liveLinkFlag    bool
 }
 
 func NewVchatBuilder() *VchatBuilder {
@@ -3060,15 +3058,6 @@ func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
 	return builder
 }
 
-// VC视频会议转直播URL，当vc_type=vc时有值。
-//
-// 示例值：https://meetings.feishu.cn/s/1iof4hpw6i51w
-func (builder *VchatBuilder) LiveLink(liveLink string) *VchatBuilder {
-	builder.liveLink = liveLink
-	builder.liveLinkFlag = true
-	return builder
-}
-
 func (builder *VchatBuilder) Build() *Vchat {
 	req := &Vchat{}
 	if builder.vcTypeFlag {
@@ -3087,10 +3076,7 @@ func (builder *VchatBuilder) Build() *Vchat {
 		req.MeetingUrl = &builder.meetingUrl
 
 	}
-	if builder.liveLinkFlag {
-		req.LiveLink = &builder.liveLink
 
-	}
 	return req
 }
 
@@ -4757,6 +4743,8 @@ type CreateCalendarEventAttendeeReqBodyBuilder struct {
 	instanceStartTimeAdminFlag bool
 	isEnableAdmin              bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 	isEnableAdminFlag          bool
+	addOperatorToAttendee      bool // 是否添加会议室operate_id标识的用户到参与人
+	addOperatorToAttendeeFlag  bool
 }
 
 func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendeeReqBodyBuilder {
@@ -4800,6 +4788,15 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnable
 	return builder
 }
 
+// 是否添加会议室operate_id标识的用户到参与人
+//
+//示例值：false
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) AddOperatorToAttendee(addOperatorToAttendee bool) *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder.addOperatorToAttendee = addOperatorToAttendee
+	builder.addOperatorToAttendeeFlag = true
+	return builder
+}
+
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalendarEventAttendeeReqBody {
 	req := &CreateCalendarEventAttendeeReqBody{}
 	if builder.attendeesFlag {
@@ -4814,6 +4811,9 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalenda
 	if builder.isEnableAdminFlag {
 		req.IsEnableAdmin = &builder.isEnableAdmin
 	}
+	if builder.addOperatorToAttendeeFlag {
+		req.AddOperatorToAttendee = &builder.addOperatorToAttendee
+	}
 	return req
 }
 
@@ -4826,6 +4826,8 @@ type CreateCalendarEventAttendeePathReqBodyBuilder struct {
 	instanceStartTimeAdminFlag bool
 	isEnableAdmin              bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 	isEnableAdminFlag          bool
+	addOperatorToAttendee      bool // 是否添加会议室operate_id标识的用户到参与人
+	addOperatorToAttendeeFlag  bool
 }
 
 func NewCreateCalendarEventAttendeePathReqBodyBuilder() *CreateCalendarEventAttendeePathReqBodyBuilder {
@@ -4869,6 +4871,15 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEn
 	return builder
 }
 
+// 是否添加会议室operate_id标识的用户到参与人
+//
+// 示例值：false
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) AddOperatorToAttendee(addOperatorToAttendee bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder.addOperatorToAttendee = addOperatorToAttendee
+	builder.addOperatorToAttendeeFlag = true
+	return builder
+}
+
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCalendarEventAttendeeReqBody, error) {
 	req := &CreateCalendarEventAttendeeReqBody{}
 	if builder.attendeesFlag {
@@ -4882,6 +4893,9 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCa
 	}
 	if builder.isEnableAdminFlag {
 		req.IsEnableAdmin = &builder.isEnableAdmin
+	}
+	if builder.addOperatorToAttendeeFlag {
+		req.AddOperatorToAttendee = &builder.addOperatorToAttendee
 	}
 	return req, nil
 }
@@ -4944,6 +4958,7 @@ type CreateCalendarEventAttendeeReqBody struct {
 	NeedNotification       *bool                    `json:"need_notification,omitempty"`         // 是否给参与人发送bot通知 默认为true
 	InstanceStartTimeAdmin *string                  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段)
 	IsEnableAdmin          *bool                    `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
+	AddOperatorToAttendee  *bool                    `json:"add_operator_to_attendee,omitempty"`  // 是否添加会议室operate_id标识的用户到参与人
 }
 
 type CreateCalendarEventAttendeeReq struct {

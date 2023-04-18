@@ -867,6 +867,7 @@ type Group struct {
 	MemberEffectTime        *string                  `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
 	RestClockInNeedApproval *bool                    `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        *bool                    `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
+	MemberStatusChange      *MemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
 }
 
 type GroupBuilder struct {
@@ -970,6 +971,8 @@ type GroupBuilder struct {
 	restClockInNeedApprovalFlag bool
 	clockInNeedPhoto            bool // 每次打卡均需拍照
 	clockInNeedPhotoFlag        bool
+	memberStatusChange          *MemberStatusChange // 人员异动打卡设置
+	memberStatusChangeFlag      bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -1427,6 +1430,15 @@ func (builder *GroupBuilder) ClockInNeedPhoto(clockInNeedPhoto bool) *GroupBuild
 	return builder
 }
 
+// 人员异动打卡设置
+//
+// 示例值：
+func (builder *GroupBuilder) MemberStatusChange(memberStatusChange *MemberStatusChange) *GroupBuilder {
+	builder.memberStatusChange = memberStatusChange
+	builder.memberStatusChangeFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.groupIdFlag {
@@ -1616,6 +1628,9 @@ func (builder *GroupBuilder) Build() *Group {
 	if builder.clockInNeedPhotoFlag {
 		req.ClockInNeedPhoto = &builder.clockInNeedPhoto
 
+	}
+	if builder.memberStatusChangeFlag {
+		req.MemberStatusChange = builder.memberStatusChange
 	}
 	return req
 }
@@ -2390,6 +2405,86 @@ func (builder *MachineBuilder) Build() *Machine {
 	}
 	if builder.machineNameFlag {
 		req.MachineName = &builder.machineName
+
+	}
+	return req
+}
+
+type MemberStatusChange struct {
+	OnboardingOnNoNeedPunch   *bool `json:"onboarding_on_no_need_punch,omitempty"`   // 是否入职日上班无需打卡
+	OnboardingOffNoNeedPunch  *bool `json:"onboarding_off_no_need_punch,omitempty"`  // 是否入职日下班无需打卡
+	OffboardingOnNoNeedPunch  *bool `json:"offboarding_on_no_need_punch,omitempty"`  // 是否离职日上班无需打卡
+	OffboardingOffNoNeedPunch *bool `json:"offboarding_off_no_need_punch,omitempty"` // 是否离职日下班无需打卡
+}
+
+type MemberStatusChangeBuilder struct {
+	onboardingOnNoNeedPunch       bool // 是否入职日上班无需打卡
+	onboardingOnNoNeedPunchFlag   bool
+	onboardingOffNoNeedPunch      bool // 是否入职日下班无需打卡
+	onboardingOffNoNeedPunchFlag  bool
+	offboardingOnNoNeedPunch      bool // 是否离职日上班无需打卡
+	offboardingOnNoNeedPunchFlag  bool
+	offboardingOffNoNeedPunch     bool // 是否离职日下班无需打卡
+	offboardingOffNoNeedPunchFlag bool
+}
+
+func NewMemberStatusChangeBuilder() *MemberStatusChangeBuilder {
+	builder := &MemberStatusChangeBuilder{}
+	return builder
+}
+
+// 是否入职日上班无需打卡
+//
+// 示例值：false
+func (builder *MemberStatusChangeBuilder) OnboardingOnNoNeedPunch(onboardingOnNoNeedPunch bool) *MemberStatusChangeBuilder {
+	builder.onboardingOnNoNeedPunch = onboardingOnNoNeedPunch
+	builder.onboardingOnNoNeedPunchFlag = true
+	return builder
+}
+
+// 是否入职日下班无需打卡
+//
+// 示例值：false
+func (builder *MemberStatusChangeBuilder) OnboardingOffNoNeedPunch(onboardingOffNoNeedPunch bool) *MemberStatusChangeBuilder {
+	builder.onboardingOffNoNeedPunch = onboardingOffNoNeedPunch
+	builder.onboardingOffNoNeedPunchFlag = true
+	return builder
+}
+
+// 是否离职日上班无需打卡
+//
+// 示例值：false
+func (builder *MemberStatusChangeBuilder) OffboardingOnNoNeedPunch(offboardingOnNoNeedPunch bool) *MemberStatusChangeBuilder {
+	builder.offboardingOnNoNeedPunch = offboardingOnNoNeedPunch
+	builder.offboardingOnNoNeedPunchFlag = true
+	return builder
+}
+
+// 是否离职日下班无需打卡
+//
+// 示例值：false
+func (builder *MemberStatusChangeBuilder) OffboardingOffNoNeedPunch(offboardingOffNoNeedPunch bool) *MemberStatusChangeBuilder {
+	builder.offboardingOffNoNeedPunch = offboardingOffNoNeedPunch
+	builder.offboardingOffNoNeedPunchFlag = true
+	return builder
+}
+
+func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
+	req := &MemberStatusChange{}
+	if builder.onboardingOnNoNeedPunchFlag {
+		req.OnboardingOnNoNeedPunch = &builder.onboardingOnNoNeedPunch
+
+	}
+	if builder.onboardingOffNoNeedPunchFlag {
+		req.OnboardingOffNoNeedPunch = &builder.onboardingOffNoNeedPunch
+
+	}
+	if builder.offboardingOnNoNeedPunchFlag {
+		req.OffboardingOnNoNeedPunch = &builder.offboardingOnNoNeedPunch
+
+	}
+	if builder.offboardingOffNoNeedPunchFlag {
+		req.OffboardingOffNoNeedPunch = &builder.offboardingOffNoNeedPunch
 
 	}
 	return req
@@ -5921,12 +6016,12 @@ type GetGroupRespData struct {
 	GroupId                 *string                  `json:"group_id,omitempty"`                    // 考勤组的Id， 需要从获取用户打卡结果信息的接口中获取groupId，修改考勤组时必填
 	GroupName               *string                  `json:"group_name,omitempty"`                  // 考勤组名称
 	TimeZone                *string                  `json:"time_zone,omitempty"`                   // 考勤组时区
-	BindDeptIds             []string                 `json:"bind_dept_ids,omitempty"`               //
-	ExceptDeptIds           []string                 `json:"except_dept_ids,omitempty"`             //
-	BindUserIds             []string                 `json:"bind_user_ids,omitempty"`               //
-	ExceptUserIds           []string                 `json:"except_user_ids,omitempty"`             //
-	GroupLeaderIds          []string                 `json:"group_leader_ids,omitempty"`            //
-	SubGroupLeaderIds       []string                 `json:"sub_group_leader_ids,omitempty"`        //
+	BindDeptIds             []string                 `json:"bind_dept_ids,omitempty"`               // 参加考勤的部门id列表
+	ExceptDeptIds           []string                 `json:"except_dept_ids,omitempty"`             // 无需考勤的部门id列表
+	BindUserIds             []string                 `json:"bind_user_ids,omitempty"`               // 参加考勤的人员id列表
+	ExceptUserIds           []string                 `json:"except_user_ids,omitempty"`             // 参加考勤的人员id列表
+	GroupLeaderIds          []string                 `json:"group_leader_ids,omitempty"`            // 考勤组主负责人id列表
+	SubGroupLeaderIds       []string                 `json:"sub_group_leader_ids,omitempty"`        // 考勤组子负责人id列表
 	AllowOutPunch           *bool                    `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
 	OutPunchNeedApproval    *bool                    `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
 	OutPunchNeedRemark      *bool                    `json:"out_punch_need_remark,omitempty"`       // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）
@@ -5949,9 +6044,9 @@ type GetGroupRespData struct {
 	FacePunchCfg            *int                     `json:"face_punch_cfg,omitempty"`              // 人脸打卡规则， 1：每次打卡均需人脸识别 2：疑似需要
 	FaceDowngrade           *bool                    `json:"face_downgrade,omitempty"`              // 脸识别失败时允许普通拍照打卡
 	ReplaceBasicPic         *bool                    `json:"replace_basic_pic,omitempty"`           // 是否允许替换基准图片
-	Machines                []*Machine               `json:"machines,omitempty"`                    //
+	Machines                []*Machine               `json:"machines,omitempty"`                    // 考勤机信息
 	GpsRange                *int                     `json:"gps_range,omitempty"`                   // GPS打卡的地址范围
-	Locations               []*Location              `json:"locations,omitempty"`                   //
+	Locations               []*Location              `json:"locations,omitempty"`                   // GPS打卡的地址信息
 	GroupType               *int                     `json:"group_type,omitempty"`                  // 考勤类型 0：固定考勤  2：排班考勤， 3：自由班次
 	PunchDayShiftIds        []string                 `json:"punch_day_shift_ids,omitempty"`         // 固定班次必需填
 	FreePunchCfg            *FreePunchCfg            `json:"free_punch_cfg,omitempty"`              //
@@ -5967,6 +6062,7 @@ type GetGroupRespData struct {
 	MemberEffectTime        *string                  `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间，精确到秒的时间戳
 	RestClockInNeedApproval *bool                    `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        *bool                    `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
+	MemberStatusChange      *MemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
 }
 
 type GetGroupResp struct {

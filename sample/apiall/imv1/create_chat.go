@@ -44,6 +44,7 @@ func main() {
 			JoinMessageVisibility("all_members").
 			LeaveMessageVisibility("all_members").
 			MembershipApproval("no_approval_required").
+			RestrictedModeSetting(larkim.NewRestrictedModeSettingBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -27,27 +27,28 @@ const (
 )
 
 type Address struct {
-	FullAddressLocalScript   *string            `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
-	FullAddressWesternScript *string            `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
-	Id                       *string            `json:"id,omitempty"`                          // 地址ID
-	CountryRegionId          *string            `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionId                 *string            `json:"region_id,omitempty"`                   // 主要行政区
-	CityId                   *string            `json:"city_id,omitempty"`                     // 城市
-	DistinctId               *string            `json:"distinct_id,omitempty"`                 // 区/县
-	LocalAddressLine1        *string            `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
-	LocalAddressLine2        *string            `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
-	LocalAddressLine3        *string            `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
-	LocalAddressLine4        *string            `json:"local_address_line4,omitempty"`         // 地址行 4（非拉丁语系的本地文字）
-	LocalAddressLine5        *string            `json:"local_address_line5,omitempty"`         // 地址行 5（非拉丁语系的本地文字）
-	LocalAddressLine6        *string            `json:"local_address_line6,omitempty"`         // 地址行 6（非拉丁语系的本地文字）
-	LocalAddressLine7        *string            `json:"local_address_line7,omitempty"`         // 地址行 7（非拉丁语系的本地文字）
-	LocalAddressLine8        *string            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
-	LocalAddressLine9        *string            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
-	PostalCode               *string            `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*Enum            `json:"address_type_list,omitempty"`           // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
-	IsPrimary                *bool              `json:"is_primary,omitempty"`                  // 是否为主要地址
-	IsPublic                 *bool              `json:"is_public,omitempty"`                   // 是否为公开地址
-	CustomFields             []*ObjectFieldData `json:"custom_fields,omitempty"`               // 自定义字段
+	FullAddressLocalScript   *string `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
+	FullAddressWesternScript *string `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
+	Id                       *string `json:"id,omitempty"`                          // 地址ID
+	CountryRegionId          *string `json:"country_region_id,omitempty"`           // 国家 / 地区
+	RegionId                 *string `json:"region_id,omitempty"`                   // 主要行政区
+	CityId                   *string `json:"city_id,omitempty"`                     // 城市
+	DistinctId               *string `json:"distinct_id,omitempty"`                 // 区/县
+
+	LocalAddressLine1 *string            `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
+	LocalAddressLine2 *string            `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
+	LocalAddressLine3 *string            `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）
+	LocalAddressLine4 *string            `json:"local_address_line4,omitempty"` // 地址行 4（非拉丁语系的本地文字）
+	LocalAddressLine5 *string            `json:"local_address_line5,omitempty"` // 地址行 5（非拉丁语系的本地文字）
+	LocalAddressLine6 *string            `json:"local_address_line6,omitempty"` // 地址行 6（非拉丁语系的本地文字）
+	LocalAddressLine7 *string            `json:"local_address_line7,omitempty"` // 地址行 7（非拉丁语系的本地文字）
+	LocalAddressLine8 *string            `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）
+	LocalAddressLine9 *string            `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）
+	PostalCode        *string            `json:"postal_code,omitempty"`         // 邮政编码
+	AddressTypeList   []*Enum            `json:"address_type_list,omitempty"`   // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
+	IsPrimary         *bool              `json:"is_primary,omitempty"`          // 是否为主要地址
+	IsPublic          *bool              `json:"is_public,omitempty"`           // 是否为公开地址
+	CustomFields      []*ObjectFieldData `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
 type AddressBuilder struct {
@@ -65,34 +66,35 @@ type AddressBuilder struct {
 	cityIdFlag                   bool
 	distinctId                   string // 区/县
 	distinctIdFlag               bool
-	localAddressLine1            string // 地址行 1（非拉丁语系的本地文字）
-	localAddressLine1Flag        bool
-	localAddressLine2            string // 地址行 2（非拉丁语系的本地文字）
-	localAddressLine2Flag        bool
-	localAddressLine3            string // 地址行 3（非拉丁语系的本地文字）
-	localAddressLine3Flag        bool
-	localAddressLine4            string // 地址行 4（非拉丁语系的本地文字）
-	localAddressLine4Flag        bool
-	localAddressLine5            string // 地址行 5（非拉丁语系的本地文字）
-	localAddressLine5Flag        bool
-	localAddressLine6            string // 地址行 6（非拉丁语系的本地文字）
-	localAddressLine6Flag        bool
-	localAddressLine7            string // 地址行 7（非拉丁语系的本地文字）
-	localAddressLine7Flag        bool
-	localAddressLine8            string // 地址行 8（非拉丁语系的本地文字）
-	localAddressLine8Flag        bool
-	localAddressLine9            string // 地址行 9（非拉丁语系的本地文字）
-	localAddressLine9Flag        bool
-	postalCode                   string // 邮政编码
-	postalCodeFlag               bool
-	addressTypeList              []*Enum // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
-	addressTypeListFlag          bool
-	isPrimary                    bool // 是否为主要地址
-	isPrimaryFlag                bool
-	isPublic                     bool // 是否为公开地址
-	isPublicFlag                 bool
-	customFields                 []*ObjectFieldData // 自定义字段
-	customFieldsFlag             bool
+
+	localAddressLine1     string // 地址行 1（非拉丁语系的本地文字）
+	localAddressLine1Flag bool
+	localAddressLine2     string // 地址行 2（非拉丁语系的本地文字）
+	localAddressLine2Flag bool
+	localAddressLine3     string // 地址行 3（非拉丁语系的本地文字）
+	localAddressLine3Flag bool
+	localAddressLine4     string // 地址行 4（非拉丁语系的本地文字）
+	localAddressLine4Flag bool
+	localAddressLine5     string // 地址行 5（非拉丁语系的本地文字）
+	localAddressLine5Flag bool
+	localAddressLine6     string // 地址行 6（非拉丁语系的本地文字）
+	localAddressLine6Flag bool
+	localAddressLine7     string // 地址行 7（非拉丁语系的本地文字）
+	localAddressLine7Flag bool
+	localAddressLine8     string // 地址行 8（非拉丁语系的本地文字）
+	localAddressLine8Flag bool
+	localAddressLine9     string // 地址行 9（非拉丁语系的本地文字）
+	localAddressLine9Flag bool
+	postalCode            string // 邮政编码
+	postalCodeFlag        bool
+	addressTypeList       []*Enum // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
+	addressTypeListFlag   bool
+	isPrimary             bool // 是否为主要地址
+	isPrimaryFlag         bool
+	isPublic              bool // 是否为公开地址
+	isPublicFlag          bool
+	customFields          []*ObjectFieldData // 自定义字段
+	customFieldsFlag      bool
 }
 
 func NewAddressBuilder() *AddressBuilder {
@@ -319,6 +321,7 @@ func (builder *AddressBuilder) Build() *Address {
 		req.DistinctId = &builder.distinctId
 
 	}
+
 	if builder.localAddressLine1Flag {
 		req.LocalAddressLine1 = &builder.localAddressLine1
 
@@ -1012,48 +1015,43 @@ func (builder *BackgroundCheckTargetBuilder) Build() *BackgroundCheckTarget {
 }
 
 type BankAccount struct {
-	BankName               *string            `json:"bank_name,omitempty"`                // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
-	BankAccountNumber      *string            `json:"bank_account_number,omitempty"`      // 银行账号
-	AccountHolder          *string            `json:"account_holder,omitempty"`           // 开户人姓名
-	Bank                   *Enum              `json:"bank,omitempty"`                     // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
-	BankIdentificationCode *string            `json:"bank_identification_code,omitempty"` // 银行识别码
-	BranchName             *string            `json:"branch_name,omitempty"`              // 支行名称
-	BankId                 *string            `json:"bank_id,omitempty"`                  // 银行 ID
-	BranchId               *string            `json:"branch_id,omitempty"`                // 支行 ID
-	CustomFields           []*ObjectFieldData `json:"custom_fields,omitempty"`            // 自定义字段
-	CountryRegionId        *string            `json:"country_region_id,omitempty"`        // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
-	BankAccountUsage       []*Enum            `json:"bank_account_usage,omitempty"`       // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
-	BankAccountType        *Enum              `json:"bank_account_type,omitempty"`        // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
-	CurrencyId             *string            `json:"currency_id,omitempty"`              // 货币id
+	BankName          *string `json:"bank_name,omitempty"`           // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
+	BankAccountNumber *string `json:"bank_account_number,omitempty"` // 银行账号
+	AccountHolder     *string `json:"account_holder,omitempty"`      // 开户人姓名
+	Bank              *Enum   `json:"bank,omitempty"`                // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
+
+	BranchName *string `json:"branch_name,omitempty"` // 支行名称
+
+	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`      // 自定义字段
+	CountryRegionId  *string            `json:"country_region_id,omitempty"`  // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
+	BankAccountUsage []*Enum            `json:"bank_account_usage,omitempty"` // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
+	BankAccountType  *Enum              `json:"bank_account_type,omitempty"`  // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
+	CurrencyId       *string            `json:"currency_id,omitempty"`        // 货币id
 }
 
 type BankAccountBuilder struct {
-	bankName                   string // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
-	bankNameFlag               bool
-	bankAccountNumber          string // 银行账号
-	bankAccountNumberFlag      bool
-	accountHolder              string // 开户人姓名
-	accountHolderFlag          bool
-	bank                       *Enum // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
-	bankFlag                   bool
-	bankIdentificationCode     string // 银行识别码
-	bankIdentificationCodeFlag bool
-	branchName                 string // 支行名称
-	branchNameFlag             bool
-	bankId                     string // 银行 ID
-	bankIdFlag                 bool
-	branchId                   string // 支行 ID
-	branchIdFlag               bool
-	customFields               []*ObjectFieldData // 自定义字段
-	customFieldsFlag           bool
-	countryRegionId            string // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
-	countryRegionIdFlag        bool
-	bankAccountUsage           []*Enum // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
-	bankAccountUsageFlag       bool
-	bankAccountType            *Enum // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
-	bankAccountTypeFlag        bool
-	currencyId                 string // 货币id
-	currencyIdFlag             bool
+	bankName              string // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
+	bankNameFlag          bool
+	bankAccountNumber     string // 银行账号
+	bankAccountNumberFlag bool
+	accountHolder         string // 开户人姓名
+	accountHolderFlag     bool
+	bank                  *Enum // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
+	bankFlag              bool
+
+	branchName     string // 支行名称
+	branchNameFlag bool
+
+	customFields         []*ObjectFieldData // 自定义字段
+	customFieldsFlag     bool
+	countryRegionId      string // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
+	countryRegionIdFlag  bool
+	bankAccountUsage     []*Enum // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
+	bankAccountUsageFlag bool
+	bankAccountType      *Enum // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
+	bankAccountTypeFlag  bool
+	currencyId           string // 货币id
+	currencyIdFlag       bool
 }
 
 func NewBankAccountBuilder() *BankAccountBuilder {
@@ -1097,39 +1095,12 @@ func (builder *BankAccountBuilder) Bank(bank *Enum) *BankAccountBuilder {
 	return builder
 }
 
-// 银行识别码
-//
-// 示例值：1234
-func (builder *BankAccountBuilder) BankIdentificationCode(bankIdentificationCode string) *BankAccountBuilder {
-	builder.bankIdentificationCode = bankIdentificationCode
-	builder.bankIdentificationCodeFlag = true
-	return builder
-}
-
 // 支行名称
 //
 // 示例值：中国农业银行支行
 func (builder *BankAccountBuilder) BranchName(branchName string) *BankAccountBuilder {
 	builder.branchName = branchName
 	builder.branchNameFlag = true
-	return builder
-}
-
-// 银行 ID
-//
-// 示例值：8
-func (builder *BankAccountBuilder) BankId(bankId string) *BankAccountBuilder {
-	builder.bankId = bankId
-	builder.bankIdFlag = true
-	return builder
-}
-
-// 支行 ID
-//
-// 示例值：12
-func (builder *BankAccountBuilder) BranchId(branchId string) *BankAccountBuilder {
-	builder.branchId = branchId
-	builder.branchIdFlag = true
 	return builder
 }
 
@@ -1195,22 +1166,12 @@ func (builder *BankAccountBuilder) Build() *BankAccount {
 	if builder.bankFlag {
 		req.Bank = builder.bank
 	}
-	if builder.bankIdentificationCodeFlag {
-		req.BankIdentificationCode = &builder.bankIdentificationCode
 
-	}
 	if builder.branchNameFlag {
 		req.BranchName = &builder.branchName
 
 	}
-	if builder.bankIdFlag {
-		req.BankId = &builder.bankId
 
-	}
-	if builder.branchIdFlag {
-		req.BranchId = &builder.branchId
-
-	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
 	}
@@ -3356,6 +3317,7 @@ type Department struct {
 	EffectiveTime    *string            `json:"effective_time,omitempty"`    // 生效时间
 	ExpirationTime   *string            `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`     // 自定义字段
+	CostCenterId     *string            `json:"cost_center_id,omitempty"`    // 成本中心id
 }
 
 type DepartmentBuilder struct {
@@ -3375,6 +3337,8 @@ type DepartmentBuilder struct {
 	expirationTimeFlag   bool
 	customFields         []*ObjectFieldData // 自定义字段
 	customFieldsFlag     bool
+	costCenterId         string // 成本中心id
+	costCenterIdFlag     bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -3454,6 +3418,15 @@ func (builder *DepartmentBuilder) CustomFields(customFields []*ObjectFieldData) 
 	return builder
 }
 
+// 成本中心id
+//
+// 示例值：7142384817131652652
+func (builder *DepartmentBuilder) CostCenterId(costCenterId string) *DepartmentBuilder {
+	builder.costCenterId = costCenterId
+	builder.costCenterIdFlag = true
+	return builder
+}
+
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
 	if builder.idFlag {
@@ -3485,6 +3458,10 @@ func (builder *DepartmentBuilder) Build() *Department {
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
 	}
+	if builder.costCenterIdFlag {
+		req.CostCenterId = &builder.costCenterId
+
+	}
 	return req
 }
 
@@ -3497,6 +3474,7 @@ type DepartmentCreate struct {
 	EffectiveTime    *string            `json:"effective_time,omitempty"`    // 生效时间
 	ExpirationTime   *string            `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`     // 自定义字段
+	CostCenterId     *string            `json:"cost_center_id,omitempty"`    // 成本中心id
 }
 
 type DepartmentCreateBuilder struct {
@@ -3516,6 +3494,8 @@ type DepartmentCreateBuilder struct {
 	expirationTimeFlag   bool
 	customFields         []*ObjectFieldData // 自定义字段
 	customFieldsFlag     bool
+	costCenterId         string // 成本中心id
+	costCenterIdFlag     bool
 }
 
 func NewDepartmentCreateBuilder() *DepartmentCreateBuilder {
@@ -3595,6 +3575,15 @@ func (builder *DepartmentCreateBuilder) CustomFields(customFields []*ObjectField
 	return builder
 }
 
+// 成本中心id
+//
+// 示例值：7142384817131652652
+func (builder *DepartmentCreateBuilder) CostCenterId(costCenterId string) *DepartmentCreateBuilder {
+	builder.costCenterId = costCenterId
+	builder.costCenterIdFlag = true
+	return builder
+}
+
 func (builder *DepartmentCreateBuilder) Build() *DepartmentCreate {
 	req := &DepartmentCreate{}
 	if builder.idFlag {
@@ -3626,33 +3615,45 @@ func (builder *DepartmentCreateBuilder) Build() *DepartmentCreate {
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
 	}
+	if builder.costCenterIdFlag {
+		req.CostCenterId = &builder.costCenterId
+
+	}
 	return req
 }
 
 type Dependent struct {
-	Name                                 *PersonName        `json:"name,omitempty"`                                       // 亲属姓名
-	Relationship                         *Enum              `json:"relationship,omitempty"`                               // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
-	Gender                               *Enum              `json:"gender,omitempty"`                                     // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	DateOfBirth                          *string            `json:"date_of_birth,omitempty"`                              // 生日
-	NationalityId                        *string            `json:"nationality_id,omitempty"`                             // 国籍
+	Name          *PersonName `json:"name,omitempty"`           // 亲属姓名
+	Relationship  *Enum       `json:"relationship,omitempty"`   // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	Gender        *Enum       `json:"gender,omitempty"`         // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	DateOfBirth   *string     `json:"date_of_birth,omitempty"`  // 生日
+	NationalityId *string     `json:"nationality_id,omitempty"` // 国籍
+
 	NationalIdList                       []*NationalId      `json:"national_id_list,omitempty"`                           // 证件号码
 	SpousesWorkingStatus                 *Enum              `json:"spouses_working_status,omitempty"`                     // 配偶工作状态，比如working（在岗）、not_working（不在岗）
 	IsThisPersonCoveredByHealthInsurance *bool              `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
 	IsThisPersonAllowedForTaxDeduction   *bool              `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
 	CustomFields                         []*ObjectFieldData `json:"custom_fields,omitempty"`                              // 自定义字段
+	DependentName                        *string            `json:"dependent_name,omitempty"`                             // 家庭成员姓名
+	Employer                             *string            `json:"employer,omitempty"`                                   // 工作单位
+	Job                                  *string            `json:"job,omitempty"`                                        // 岗位
+	Phone                                *Phone             `json:"phone,omitempty"`                                      // 电话
+	Address                              *Address           `json:"address,omitempty"`                                    // 联系地址
+	BirthCertificateOfChild              []*File            `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
 }
 
 type DependentBuilder struct {
-	name                                     *PersonName // 亲属姓名
-	nameFlag                                 bool
-	relationship                             *Enum // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
-	relationshipFlag                         bool
-	gender                                   *Enum // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	genderFlag                               bool
-	dateOfBirth                              string // 生日
-	dateOfBirthFlag                          bool
-	nationalityId                            string // 国籍
-	nationalityIdFlag                        bool
+	name              *PersonName // 亲属姓名
+	nameFlag          bool
+	relationship      *Enum // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	relationshipFlag  bool
+	gender            *Enum // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	genderFlag        bool
+	dateOfBirth       string // 生日
+	dateOfBirthFlag   bool
+	nationalityId     string // 国籍
+	nationalityIdFlag bool
+
 	nationalIdList                           []*NationalId // 证件号码
 	nationalIdListFlag                       bool
 	spousesWorkingStatus                     *Enum // 配偶工作状态，比如working（在岗）、not_working（不在岗）
@@ -3663,6 +3664,18 @@ type DependentBuilder struct {
 	isThisPersonAllowedForTaxDeductionFlag   bool
 	customFields                             []*ObjectFieldData // 自定义字段
 	customFieldsFlag                         bool
+	dependentName                            string // 家庭成员姓名
+	dependentNameFlag                        bool
+	employer                                 string // 工作单位
+	employerFlag                             bool
+	job                                      string // 岗位
+	jobFlag                                  bool
+	phone                                    *Phone // 电话
+	phoneFlag                                bool
+	address                                  *Address // 联系地址
+	addressFlag                              bool
+	birthCertificateOfChild                  []*File // 出生证明
+	birthCertificateOfChildFlag              bool
 }
 
 func NewDependentBuilder() *DependentBuilder {
@@ -3760,6 +3773,60 @@ func (builder *DependentBuilder) CustomFields(customFields []*ObjectFieldData) *
 	return builder
 }
 
+// 家庭成员姓名
+//
+// 示例值：张三
+func (builder *DependentBuilder) DependentName(dependentName string) *DependentBuilder {
+	builder.dependentName = dependentName
+	builder.dependentNameFlag = true
+	return builder
+}
+
+// 工作单位
+//
+// 示例值：海淀区交警大队
+func (builder *DependentBuilder) Employer(employer string) *DependentBuilder {
+	builder.employer = employer
+	builder.employerFlag = true
+	return builder
+}
+
+// 岗位
+//
+// 示例值：保安
+func (builder *DependentBuilder) Job(job string) *DependentBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+
+// 电话
+//
+// 示例值：
+func (builder *DependentBuilder) Phone(phone *Phone) *DependentBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 联系地址
+//
+// 示例值：
+func (builder *DependentBuilder) Address(address *Address) *DependentBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+
+// 出生证明
+//
+// 示例值：
+func (builder *DependentBuilder) BirthCertificateOfChild(birthCertificateOfChild []*File) *DependentBuilder {
+	builder.birthCertificateOfChild = birthCertificateOfChild
+	builder.birthCertificateOfChildFlag = true
+	return builder
+}
+
 func (builder *DependentBuilder) Build() *Dependent {
 	req := &Dependent{}
 	if builder.nameFlag {
@@ -3779,6 +3846,7 @@ func (builder *DependentBuilder) Build() *Dependent {
 		req.NationalityId = &builder.nationalityId
 
 	}
+
 	if builder.nationalIdListFlag {
 		req.NationalIdList = builder.nationalIdList
 	}
@@ -3795,6 +3863,27 @@ func (builder *DependentBuilder) Build() *Dependent {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.dependentNameFlag {
+		req.DependentName = &builder.dependentName
+
+	}
+	if builder.employerFlag {
+		req.Employer = &builder.employer
+
+	}
+	if builder.jobFlag {
+		req.Job = &builder.job
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.addressFlag {
+		req.Address = builder.address
+	}
+	if builder.birthCertificateOfChildFlag {
+		req.BirthCertificateOfChild = builder.birthCertificateOfChild
 	}
 	return req
 }
@@ -7388,29 +7477,30 @@ func (builder *JobChangeBuilder) Build() *JobChange {
 }
 
 type JobData struct {
-	Id                       *string            `json:"id,omitempty"`                          // 任职信息 ID
-	VersionId                *string            `json:"version_id,omitempty"`                  // 任职记录版本 ID
-	JobLevelId               *string            `json:"job_level_id,omitempty"`                // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
-	EmployeeTypeId           *string            `json:"employee_type_id,omitempty"`            // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
-	WorkingHoursTypeId       *string            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
-	WorkLocationId           *string            `json:"work_location_id,omitempty"`            // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
-	DepartmentId             *string            `json:"department_id,omitempty"`               // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
-	JobId                    *string            `json:"job_id,omitempty"`                      // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
-	ProbationStartDate       *string            `json:"probation_start_date,omitempty"`        // 试用期开始日期
-	ProbationEndDate         *string            `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
-	PrimaryJobData           *bool              `json:"primary_job_data,omitempty"`            // 是否为主任职
-	EmploymentId             *string            `json:"employment_id,omitempty"`               // 雇佣 ID
-	EffectiveTime            *string            `json:"effective_time,omitempty"`              // 生效时间
-	ExpirationTime           *string            `json:"expiration_time,omitempty"`             // 失效时间
-	JobFamilyId              *string            `json:"job_family_id,omitempty"`               // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
-	AssignmentStartReason    *Enum              `json:"assignment_start_reason,omitempty"`     // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
-	ProbationExpectedEndDate *string            `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
-	ProbationOutcome         *Enum              `json:"probation_outcome,omitempty"`           // 试用期结果，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
-	WeeklyWorkingHours       *int               `json:"weekly_working_hours,omitempty"`        // 周工作时长
-	DirectManagerId          *string            `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID
-	DottedLineManagerIdList  []string           `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
-	SecondDirectManagerId    *string            `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
-	CustomFields             []*ObjectFieldData `json:"custom_fields,omitempty"`               // 自定义字段
+	Id                       *string                  `json:"id,omitempty"`                          // 任职信息 ID
+	VersionId                *string                  `json:"version_id,omitempty"`                  // 任职记录版本 ID
+	JobLevelId               *string                  `json:"job_level_id,omitempty"`                // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	EmployeeTypeId           *string                  `json:"employee_type_id,omitempty"`            // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
+	WorkingHoursTypeId       *string                  `json:"working_hours_type_id,omitempty"`       // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	WorkLocationId           *string                  `json:"work_location_id,omitempty"`            // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+	DepartmentId             *string                  `json:"department_id,omitempty"`               // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+	JobId                    *string                  `json:"job_id,omitempty"`                      // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+	ProbationStartDate       *string                  `json:"probation_start_date,omitempty"`        // 试用期开始日期
+	ProbationEndDate         *string                  `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
+	PrimaryJobData           *bool                    `json:"primary_job_data,omitempty"`            // 是否为主任职
+	EmploymentId             *string                  `json:"employment_id,omitempty"`               // 雇佣 ID
+	EffectiveTime            *string                  `json:"effective_time,omitempty"`              // 生效时间
+	ExpirationTime           *string                  `json:"expiration_time,omitempty"`             // 失效时间
+	JobFamilyId              *string                  `json:"job_family_id,omitempty"`               // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	AssignmentStartReason    *Enum                    `json:"assignment_start_reason,omitempty"`     // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	ProbationExpectedEndDate *string                  `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
+	ProbationOutcome         *Enum                    `json:"probation_outcome,omitempty"`           // 试用期结果，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	WeeklyWorkingHours       *int                     `json:"weekly_working_hours,omitempty"`        // 周工作时长
+	DirectManagerId          *string                  `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID
+	DottedLineManagerIdList  []string                 `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
+	SecondDirectManagerId    *string                  `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
+	CostCenterRate           []*SupportCostCenterItem `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
+	CustomFields             []*ObjectFieldData       `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
 type JobDataBuilder struct {
@@ -7458,6 +7548,8 @@ type JobDataBuilder struct {
 	dottedLineManagerIdListFlag  bool
 	secondDirectManagerId        string // 第二实线主管的任职记录ID
 	secondDirectManagerIdFlag    bool
+	costCenterRate               []*SupportCostCenterItem // 成本中心分摊信息
+	costCenterRateFlag           bool
 	customFields                 []*ObjectFieldData // 自定义字段
 	customFieldsFlag             bool
 }
@@ -7665,6 +7757,15 @@ func (builder *JobDataBuilder) SecondDirectManagerId(secondDirectManagerId strin
 	return builder
 }
 
+// 成本中心分摊信息
+//
+// 示例值：
+func (builder *JobDataBuilder) CostCenterRate(costCenterRate []*SupportCostCenterItem) *JobDataBuilder {
+	builder.costCenterRate = costCenterRate
+	builder.costCenterRateFlag = true
+	return builder
+}
+
 // 自定义字段
 //
 // 示例值：
@@ -7760,6 +7861,9 @@ func (builder *JobDataBuilder) Build() *JobData {
 	if builder.secondDirectManagerIdFlag {
 		req.SecondDirectManagerId = &builder.secondDirectManagerId
 
+	}
+	if builder.costCenterRateFlag {
+		req.CostCenterRate = builder.costCenterRate
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
@@ -10577,14 +10681,15 @@ func (builder *PermissionSecurityGroupBuilder) Build() *PermissionSecurityGroup 
 }
 
 type Person struct {
-	PhoneNumber              *string             `json:"phone_number,omitempty"`                // 个人手机号
-	LegalName                *string             `json:"legal_name,omitempty"`                  // 法定姓名
-	PreferredName            *string             `json:"preferred_name,omitempty"`              // 常用名
-	Id                       *string             `json:"id,omitempty"`                          // Person ID
-	NameList                 []*PersonName       `json:"name_list,omitempty"`                   // 姓名
-	Gender                   *Enum               `json:"gender,omitempty"`                      // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	DateOfBirth              *string             `json:"date_of_birth,omitempty"`               // 出生日期
-	NationalityId            *string             `json:"nationality_id,omitempty"`              // 国籍id
+	PhoneNumber   *string       `json:"phone_number,omitempty"`   // 个人手机号
+	LegalName     *string       `json:"legal_name,omitempty"`     // 法定姓名
+	PreferredName *string       `json:"preferred_name,omitempty"` // 常用名
+	Id            *string       `json:"id,omitempty"`             // Person ID
+	NameList      []*PersonName `json:"name_list,omitempty"`      // 姓名
+	Gender        *Enum         `json:"gender,omitempty"`         // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	DateOfBirth   *string       `json:"date_of_birth,omitempty"`  // 出生日期
+	NationalityId *string       `json:"nationality_id,omitempty"` // 国籍id
+
 	Race                     *Enum               `json:"race,omitempty"`                        // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
 	MaritalStatus            *Enum               `json:"marital_status,omitempty"`              // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
 	PhoneList                []*Phone            `json:"phone_list,omitempty"`                  // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见:;- 电话号码不为空;- is_primary = "true" ;- phone_usage = "home"
@@ -10608,22 +10713,23 @@ type Person struct {
 }
 
 type PersonBuilder struct {
-	phoneNumber                  string // 个人手机号
-	phoneNumberFlag              bool
-	legalName                    string // 法定姓名
-	legalNameFlag                bool
-	preferredName                string // 常用名
-	preferredNameFlag            bool
-	id                           string // Person ID
-	idFlag                       bool
-	nameList                     []*PersonName // 姓名
-	nameListFlag                 bool
-	gender                       *Enum // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	genderFlag                   bool
-	dateOfBirth                  string // 出生日期
-	dateOfBirthFlag              bool
-	nationalityId                string // 国籍id
-	nationalityIdFlag            bool
+	phoneNumber       string // 个人手机号
+	phoneNumberFlag   bool
+	legalName         string // 法定姓名
+	legalNameFlag     bool
+	preferredName     string // 常用名
+	preferredNameFlag bool
+	id                string // Person ID
+	idFlag            bool
+	nameList          []*PersonName // 姓名
+	nameListFlag      bool
+	gender            *Enum // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	genderFlag        bool
+	dateOfBirth       string // 出生日期
+	dateOfBirthFlag   bool
+	nationalityId     string // 国籍id
+	nationalityIdFlag bool
+
 	race                         *Enum // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
 	raceFlag                     bool
 	maritalStatus                *Enum // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
@@ -10955,6 +11061,7 @@ func (builder *PersonBuilder) Build() *Person {
 		req.NationalityId = &builder.nationalityId
 
 	}
+
 	if builder.raceFlag {
 		req.Race = builder.race
 	}
@@ -12015,15 +12122,16 @@ func (builder *PhoneBuilder) Build() *Phone {
 }
 
 type PreHire struct {
-	AtsApplicationId *string            `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
-	Id               *string            `json:"id,omitempty"`                 // 待入职ID
-	HireDate         *string            `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *Enum              `json:"employee_type,omitempty"`      // 雇佣类型
-	WorkerId         *string            `json:"worker_id,omitempty"`          // 人员编号
-	EmployeeTypeId   *string            `json:"employee_type_id,omitempty"`   // 雇佣类型
-	PersonId         *string            `json:"person_id,omitempty"`          // 引用Person ID
-	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`      // 自定义字段
-	OnboardingStatus *Enum              `json:"onboarding_status,omitempty"`  // 入职状态;;- 待入职(preboarding);;- 已删除(deleted);;- 准备就绪(day_one);;- 已撤销(withdrawn);;- 已完成(completed)
+	AtsApplicationId *string                  `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
+	Id               *string                  `json:"id,omitempty"`                 // 待入职ID
+	HireDate         *string                  `json:"hire_date,omitempty"`          // 入职日期
+	EmployeeType     *Enum                    `json:"employee_type,omitempty"`      // 雇佣类型
+	WorkerId         *string                  `json:"worker_id,omitempty"`          // 人员编号
+	EmployeeTypeId   *string                  `json:"employee_type_id,omitempty"`   // 雇佣类型
+	PersonId         *string                  `json:"person_id,omitempty"`          // 引用Person ID
+	CustomFields     []*ObjectFieldData       `json:"custom_fields,omitempty"`      // 自定义字段
+	CostCenterRate   []*SupportCostCenterItem `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
+	OnboardingStatus *Enum                    `json:"onboarding_status,omitempty"`  // 入职状态;;- 待入职(preboarding);;- 已删除(deleted);;- 准备就绪(day_one);;- 已撤销(withdrawn);;- 已完成(completed)
 }
 
 type PreHireBuilder struct {
@@ -12043,6 +12151,8 @@ type PreHireBuilder struct {
 	personIdFlag         bool
 	customFields         []*ObjectFieldData // 自定义字段
 	customFieldsFlag     bool
+	costCenterRate       []*SupportCostCenterItem // 成本中心分摊信息
+	costCenterRateFlag   bool
 	onboardingStatus     *Enum // 入职状态;;- 待入职(preboarding);;- 已删除(deleted);;- 准备就绪(day_one);;- 已撤销(withdrawn);;- 已完成(completed)
 	onboardingStatusFlag bool
 }
@@ -12124,6 +12234,15 @@ func (builder *PreHireBuilder) CustomFields(customFields []*ObjectFieldData) *Pr
 	return builder
 }
 
+// 成本中心分摊信息
+//
+// 示例值：
+func (builder *PreHireBuilder) CostCenterRate(costCenterRate []*SupportCostCenterItem) *PreHireBuilder {
+	builder.costCenterRate = costCenterRate
+	builder.costCenterRateFlag = true
+	return builder
+}
+
 // 入职状态;;- 待入职(preboarding);;- 已删除(deleted);;- 准备就绪(day_one);;- 已撤销(withdrawn);;- 已完成(completed)
 //
 // 示例值：
@@ -12165,6 +12284,9 @@ func (builder *PreHireBuilder) Build() *PreHire {
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
 	}
+	if builder.costCenterRateFlag {
+		req.CostCenterRate = builder.costCenterRate
+	}
 	if builder.onboardingStatusFlag {
 		req.OnboardingStatus = builder.onboardingStatus
 	}
@@ -12172,17 +12294,18 @@ func (builder *PreHireBuilder) Build() *PreHire {
 }
 
 type PreHireQuery struct {
-	AtsApplicationId *string            `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
-	Id               *string            `json:"id,omitempty"`                 // 实体在CoreHR内部的唯一键
-	HireDate         *string            `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *Enum              `json:"employee_type,omitempty"`      // 雇佣类型
-	WorkerId         *string            `json:"worker_id,omitempty"`          // 人员编号
-	EmployeeTypeId   *string            `json:"employee_type_id,omitempty"`   // 雇佣类型
-	PersonId         *string            `json:"person_id,omitempty"`          // 引用Person ID
-	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`      // 自定义字段
-	OnboardingStatus *Enum              `json:"onboarding_status,omitempty"`  // 入职状态
-	WorkEmailList    []*Email           `json:"work_email_list,omitempty"`    // 工作邮箱
-	DepartmentId     *string            `json:"department_id,omitempty"`      // 部门ID
+	AtsApplicationId *string                  `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
+	Id               *string                  `json:"id,omitempty"`                 // 实体在CoreHR内部的唯一键
+	HireDate         *string                  `json:"hire_date,omitempty"`          // 入职日期
+	EmployeeType     *Enum                    `json:"employee_type,omitempty"`      // 雇佣类型
+	WorkerId         *string                  `json:"worker_id,omitempty"`          // 人员编号
+	EmployeeTypeId   *string                  `json:"employee_type_id,omitempty"`   // 雇佣类型
+	PersonId         *string                  `json:"person_id,omitempty"`          // 引用Person ID
+	CustomFields     []*ObjectFieldData       `json:"custom_fields,omitempty"`      // 自定义字段
+	OnboardingStatus *Enum                    `json:"onboarding_status,omitempty"`  // 入职状态
+	CostCenterRate   []*SupportCostCenterItem `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
+	WorkEmailList    []*Email                 `json:"work_email_list,omitempty"`    // 工作邮箱
+	DepartmentId     *string                  `json:"department_id,omitempty"`      // 部门ID
 }
 
 type PreHireQueryBuilder struct {
@@ -12204,6 +12327,8 @@ type PreHireQueryBuilder struct {
 	customFieldsFlag     bool
 	onboardingStatus     *Enum // 入职状态
 	onboardingStatusFlag bool
+	costCenterRate       []*SupportCostCenterItem // 成本中心分摊信息
+	costCenterRateFlag   bool
 	workEmailList        []*Email // 工作邮箱
 	workEmailListFlag    bool
 	departmentId         string // 部门ID
@@ -12296,6 +12421,15 @@ func (builder *PreHireQueryBuilder) OnboardingStatus(onboardingStatus *Enum) *Pr
 	return builder
 }
 
+// 成本中心分摊信息
+//
+// 示例值：
+func (builder *PreHireQueryBuilder) CostCenterRate(costCenterRate []*SupportCostCenterItem) *PreHireQueryBuilder {
+	builder.costCenterRate = costCenterRate
+	builder.costCenterRateFlag = true
+	return builder
+}
+
 // 工作邮箱
 //
 // 示例值：
@@ -12348,6 +12482,9 @@ func (builder *PreHireQueryBuilder) Build() *PreHireQuery {
 	}
 	if builder.onboardingStatusFlag {
 		req.OnboardingStatus = builder.onboardingStatus
+	}
+	if builder.costCenterRateFlag {
+		req.CostCenterRate = builder.costCenterRate
 	}
 	if builder.workEmailListFlag {
 		req.WorkEmailList = builder.workEmailList
@@ -13196,50 +13333,52 @@ func (builder *TextFieldSettingBuilder) Build() *TextFieldSetting {
 }
 
 type TransferInfo struct {
-	Remark                     *string `json:"remark,omitempty"`                        // 备注
-	OfferInfo                  *string `json:"offer_info,omitempty"`                    // offer信息
-	TargetDottedManagerClean   *bool   `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级
-	ProbationExist             *bool   `json:"probation_exist,omitempty"`               // 是否有试用期
-	OriginalDepartment         *string `json:"original_department,omitempty"`           // 原部门
-	TargetDepartment           *string `json:"target_department,omitempty"`             // 新部门
-	OriginalWorkLocation       *string `json:"original_work_location,omitempty"`        // 原工作地点
-	TargetWorkLocation         *string `json:"target_work_location,omitempty"`          // 新工作地点
-	OriginalDirectManager      *string `json:"original_direct_manager,omitempty"`       // 原直属上级
-	TargetDirectManager        *string `json:"target_direct_manager,omitempty"`         // 新直属上级
-	OriginalDottedManager      *string `json:"original_dotted_manager,omitempty"`       // 原虚线上级
-	TargetDottedManager        *string `json:"target_dotted_manager,omitempty"`         // 新虚线上级
-	OriginalJob                *string `json:"original_job,omitempty"`                  // 原职务
-	TargetJob                  *string `json:"target_job,omitempty"`                    // 新职务
-	OriginalJobFamily          *string `json:"original_job_family,omitempty"`           // 原序列
-	TargetJobFamily            *string `json:"target_job_family,omitempty"`             // 新序列
-	OriginalJobLevel           *string `json:"original_job_level,omitempty"`            // 原级别
-	TargetJobLevel             *string `json:"target_job_level,omitempty"`              // 新级别
-	OriginalWorkforceType      *string `json:"original_workforce_type,omitempty"`       // 原人员类型
-	TargetWorkforceType        *string `json:"target_workforce_type,omitempty"`         // 新人员类型
-	OriginalCompany            *string `json:"original_company,omitempty"`              // 原公司
-	TargetCompany              *string `json:"target_company,omitempty"`                // 新公司
-	OriginalContractNumber     *string `json:"original_contract_number,omitempty"`      // 原合同编号
-	TargetContractNumber       *string `json:"target_contract_number,omitempty"`        // 新合同编号
-	OriginalContractType       *string `json:"original_contract_type,omitempty"`        // 原合同类型
-	TargetContractType         *string `json:"target_contract_type,omitempty"`          // 新合同类型
-	OriginalDurationType       *string `json:"original_duration_type,omitempty"`        // 原期限类型
-	TargetDurationType         *string `json:"target_duration_type,omitempty"`          // 新期限类型
-	OriginalSigningType        *string `json:"original_signing_type,omitempty"`         // 原签订类型
-	TargetSigningType          *string `json:"target_signing_type,omitempty"`           // 新签订类型
-	OriginalContractStartDate  *string `json:"original_contract_start_date,omitempty"`  // 原合同开始日期
-	TargetContractStartDate    *string `json:"target_contract_start_date,omitempty"`    // 新合同开始日期
-	OriginalContractEndDate    *string `json:"original_contract_end_date,omitempty"`    // 原合同结束日期
-	TargetContractEndDate      *string `json:"target_contract_end_date,omitempty"`      // 新合同结束日期
-	OriginalWorkingHoursType   *string `json:"original_working_hours_type,omitempty"`   // 原工时制度
-	TargetWorkingHoursType     *string `json:"target_working_hours_type,omitempty"`     // 新工时制度
-	OriginalWorkingCalendar    *string `json:"original_working_calendar,omitempty"`     // 原工作日历
-	TargetWorkingCalendar      *string `json:"target_working_calendar,omitempty"`       // 新工作日历
-	OriginalProbationEndDate   *string `json:"original_probation_end_date,omitempty"`   // 原试用期预计结束日期
-	TargetProbationEndDate     *string `json:"target_probation_end_date,omitempty"`     // 新试用期预计结束日期
-	OriginalWeeklyWorkingHours *string `json:"original_weekly_working_hours,omitempty"` // 原周工作时长
-	TargetWeeklyWorkingHours   *string `json:"target_weekly_working_hours,omitempty"`   // 新周工作时长
-	OriginalWorkShift          *string `json:"original_work_shift,omitempty"`           // 原排班
-	TargetWorkShift            *string `json:"target_work_shift,omitempty"`             // 新排班
+	Remark                     *string                  `json:"remark,omitempty"`                        // 备注
+	OfferInfo                  *string                  `json:"offer_info,omitempty"`                    // offer信息
+	TargetDottedManagerClean   *bool                    `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级
+	ProbationExist             *bool                    `json:"probation_exist,omitempty"`               // 是否有试用期
+	OriginalDepartment         *string                  `json:"original_department,omitempty"`           // 原部门
+	TargetDepartment           *string                  `json:"target_department,omitempty"`             // 新部门
+	OriginalWorkLocation       *string                  `json:"original_work_location,omitempty"`        // 原工作地点
+	TargetWorkLocation         *string                  `json:"target_work_location,omitempty"`          // 新工作地点
+	OriginalDirectManager      *string                  `json:"original_direct_manager,omitempty"`       // 原直属上级
+	TargetDirectManager        *string                  `json:"target_direct_manager,omitempty"`         // 新直属上级
+	OriginalDottedManager      *string                  `json:"original_dotted_manager,omitempty"`       // 原虚线上级
+	TargetDottedManager        *string                  `json:"target_dotted_manager,omitempty"`         // 新虚线上级
+	OriginalJob                *string                  `json:"original_job,omitempty"`                  // 原职务
+	TargetJob                  *string                  `json:"target_job,omitempty"`                    // 新职务
+	OriginalJobFamily          *string                  `json:"original_job_family,omitempty"`           // 原序列
+	TargetJobFamily            *string                  `json:"target_job_family,omitempty"`             // 新序列
+	OriginalJobLevel           *string                  `json:"original_job_level,omitempty"`            // 原级别
+	TargetJobLevel             *string                  `json:"target_job_level,omitempty"`              // 新级别
+	OriginalWorkforceType      *string                  `json:"original_workforce_type,omitempty"`       // 原人员类型
+	TargetWorkforceType        *string                  `json:"target_workforce_type,omitempty"`         // 新人员类型
+	OriginalCompany            *string                  `json:"original_company,omitempty"`              // 原公司
+	TargetCompany              *string                  `json:"target_company,omitempty"`                // 新公司
+	OriginalContractNumber     *string                  `json:"original_contract_number,omitempty"`      // 原合同编号
+	TargetContractNumber       *string                  `json:"target_contract_number,omitempty"`        // 新合同编号
+	OriginalContractType       *string                  `json:"original_contract_type,omitempty"`        // 原合同类型
+	TargetContractType         *string                  `json:"target_contract_type,omitempty"`          // 新合同类型
+	OriginalDurationType       *string                  `json:"original_duration_type,omitempty"`        // 原期限类型
+	TargetDurationType         *string                  `json:"target_duration_type,omitempty"`          // 新期限类型
+	OriginalSigningType        *string                  `json:"original_signing_type,omitempty"`         // 原签订类型
+	TargetSigningType          *string                  `json:"target_signing_type,omitempty"`           // 新签订类型
+	OriginalContractStartDate  *string                  `json:"original_contract_start_date,omitempty"`  // 原合同开始日期
+	TargetContractStartDate    *string                  `json:"target_contract_start_date,omitempty"`    // 新合同开始日期
+	OriginalContractEndDate    *string                  `json:"original_contract_end_date,omitempty"`    // 原合同结束日期
+	TargetContractEndDate      *string                  `json:"target_contract_end_date,omitempty"`      // 新合同结束日期
+	OriginalWorkingHoursType   *string                  `json:"original_working_hours_type,omitempty"`   // 原工时制度
+	TargetWorkingHoursType     *string                  `json:"target_working_hours_type,omitempty"`     // 新工时制度
+	OriginalWorkingCalendar    *string                  `json:"original_working_calendar,omitempty"`     // 原工作日历
+	TargetWorkingCalendar      *string                  `json:"target_working_calendar,omitempty"`       // 新工作日历
+	OriginalProbationEndDate   *string                  `json:"original_probation_end_date,omitempty"`   // 原试用期预计结束日期
+	TargetProbationEndDate     *string                  `json:"target_probation_end_date,omitempty"`     // 新试用期预计结束日期
+	OriginalWeeklyWorkingHours *string                  `json:"original_weekly_working_hours,omitempty"` // 原周工作时长
+	TargetWeeklyWorkingHours   *string                  `json:"target_weekly_working_hours,omitempty"`   // 新周工作时长
+	OriginalWorkShift          *string                  `json:"original_work_shift,omitempty"`           // 原排班
+	TargetWorkShift            *string                  `json:"target_work_shift,omitempty"`             // 新排班
+	OriginalCostCenterRate     []*SupportCostCenterItem `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊信息
+	TargetCostCenterRate       []*SupportCostCenterItem `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊信息
 }
 
 type TransferInfoBuilder struct {
@@ -13331,6 +13470,10 @@ type TransferInfoBuilder struct {
 	originalWorkShiftFlag          bool
 	targetWorkShift                string // 新排班
 	targetWorkShiftFlag            bool
+	originalCostCenterRate         []*SupportCostCenterItem // 原成本中心分摊信息
+	originalCostCenterRateFlag     bool
+	targetCostCenterRate           []*SupportCostCenterItem // 新成本中心分摊信息
+	targetCostCenterRateFlag       bool
 }
 
 func NewTransferInfoBuilder() *TransferInfoBuilder {
@@ -13734,6 +13877,24 @@ func (builder *TransferInfoBuilder) TargetWorkShift(targetWorkShift string) *Tra
 	return builder
 }
 
+// 原成本中心分摊信息
+//
+// 示例值：
+func (builder *TransferInfoBuilder) OriginalCostCenterRate(originalCostCenterRate []*SupportCostCenterItem) *TransferInfoBuilder {
+	builder.originalCostCenterRate = originalCostCenterRate
+	builder.originalCostCenterRateFlag = true
+	return builder
+}
+
+// 新成本中心分摊信息
+//
+// 示例值：
+func (builder *TransferInfoBuilder) TargetCostCenterRate(targetCostCenterRate []*SupportCostCenterItem) *TransferInfoBuilder {
+	builder.targetCostCenterRate = targetCostCenterRate
+	builder.targetCostCenterRateFlag = true
+	return builder
+}
+
 func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	req := &TransferInfo{}
 	if builder.remarkFlag {
@@ -13911,6 +14072,12 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	if builder.targetWorkShiftFlag {
 		req.TargetWorkShift = &builder.targetWorkShift
 
+	}
+	if builder.originalCostCenterRateFlag {
+		req.OriginalCostCenterRate = builder.originalCostCenterRate
+	}
+	if builder.targetCostCenterRateFlag {
+		req.TargetCostCenterRate = builder.targetCostCenterRate
 	}
 	return req
 }

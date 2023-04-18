@@ -43,6 +43,8 @@ func main() {
 			CancelBotNotification("0").
 			ForbidRevoke(false).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
+			Title("@i18n@1").
+			TitleDisplayMethod(0).
 			Build()).
 		Build()
 	// 发起请求

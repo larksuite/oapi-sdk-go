@@ -42,6 +42,7 @@ func main() {
 			JoinMessageVisibility("only_owner").
 			LeaveMessageVisibility("only_owner").
 			MembershipApproval("no_approval_required").
+			RestrictedModeSetting(larkim.NewRestrictedModeSettingBuilder().Build()).
 			ChatType("private").
 			Build()).
 		Build()
