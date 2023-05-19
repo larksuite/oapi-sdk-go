@@ -117,6 +117,13 @@ const (
 )
 
 const (
+	UserIdTypeListEvaluationUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeListEvaluationUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeListEvaluationOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeListEvaluationPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
 	JobRecruitmentTypeSocialRecruitment = 1 // 社招
 	JobRecruitmentTypeCampusRecruitment = 2 // 校招
 
@@ -298,6 +305,73 @@ const (
 	UserIdTypePatchNoteUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypePatchNoteOpenId        = "open_id"         // 以open_id来识别用户
 	UserIdTypePatchNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	OfferType正式Offer = 1 // 正式 Offer
+	OfferType实习Offer = 2 // 实习 Offer
+
+)
+
+const (
+	UserIdTypeCreateOfferUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeCreateOfferUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeCreateOfferOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeCreateOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	DepartmentIdTypeCreateOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeCreateOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	UserIdTypeGetOfferUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeGetOfferUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeGetOfferOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeGetOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	DepartmentIdTypeGetOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeGetOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	OperationInternOfferStatusOfferConfirmOnboarding = "confirm_onboarding" // 确认入职
+	OperationInternOfferStatusOfferCancelOnboarding  = "cancel_onboarding"  // 放弃入职
+	OperationInternOfferStatusOfferOffboard          = "offboard"           // 操作离职
+)
+
+const (
+	UserIdTypeListOfferUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeListOfferUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeListOfferOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeListOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	OfferStatusApproving       = 2 // 审批中
+	OfferStatusWithdrawn       = 3 // 审批已撤回
+	OfferStatusApproved        = 4 // 审批通过
+	OfferStatusRejected        = 5 // 审批不通过
+	OfferStatusOfferLetterSent = 6 // Offer已发出
+	OfferStatusOfferAccepted   = 7 // 候选人已接收
+	OfferStatusOfferRejected   = 8 // 候选人已拒绝
+	OfferStatusObsolete        = 9 // Offer 已失效
+
+)
+
+const (
+	UserIdTypeUpdateOfferUserId        = "user_id"         // 以user_id来识别用户
+	UserIdTypeUpdateOfferUnionId       = "union_id"        // 以union_id来识别用户
+	UserIdTypeUpdateOfferOpenId        = "open_id"         // 以open_id来识别用户
+	UserIdTypeUpdateOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	DepartmentIdTypeUpdateOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeUpdateOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
@@ -9045,6 +9119,180 @@ func (builder *DepartmentBuilder) Build() *Department {
 	if builder.enNameFlag {
 		req.EnName = &builder.enName
 
+	}
+	return req
+}
+
+type DiData struct {
+	Value           *string          `json:"value,omitempty"`            // 字段值 1. 单选： "1" 2. 多选："["1", "2"]" 3. 月份选择："{"date":"2022-01"}" 4. 年份选择："{"date":"2022"}" 5. 数字："123" 6. 单行文本："xxx " 7. 多行文本："xxx xxxx" 8. 日期范围 "[1688140800000,1688140800000]"
+	ObjectAttribute *ObjectAttribute `json:"object_attribute,omitempty"` // 字段属性
+}
+
+type DiDataBuilder struct {
+	value               string // 字段值 1. 单选： "1" 2. 多选："["1", "2"]" 3. 月份选择："{"date":"2022-01"}" 4. 年份选择："{"date":"2022"}" 5. 数字："123" 6. 单行文本："xxx " 7. 多行文本："xxx xxxx" 8. 日期范围 "[1688140800000,1688140800000]"
+	valueFlag           bool
+	objectAttribute     *ObjectAttribute // 字段属性
+	objectAttributeFlag bool
+}
+
+func NewDiDataBuilder() *DiDataBuilder {
+	builder := &DiDataBuilder{}
+	return builder
+}
+
+// 字段值 1. 单选： "1" 2. 多选："["1", "2"]" 3. 月份选择："{"date":"2022-01"}" 4. 年份选择："{"date":"2022"}" 5. 数字："123" 6. 单行文本："xxx " 7. 多行文本："xxx xxxx" 8. 日期范围 "[1688140800000,1688140800000]"
+//
+// 示例值："1"
+func (builder *DiDataBuilder) Value(value string) *DiDataBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 字段属性
+//
+// 示例值：
+func (builder *DiDataBuilder) ObjectAttribute(objectAttribute *ObjectAttribute) *DiDataBuilder {
+	builder.objectAttribute = objectAttribute
+	builder.objectAttributeFlag = true
+	return builder
+}
+
+func (builder *DiDataBuilder) Build() *DiData {
+	req := &DiData{}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.objectAttributeFlag {
+		req.ObjectAttribute = builder.objectAttribute
+	}
+	return req
+}
+
+type DiInfo struct {
+	Id            *string   `json:"id,omitempty"`             // DI信息 ID
+	ApplicationId *string   `json:"application_id,omitempty"` // 投递ID
+	TalentId      *string   `json:"talent_id,omitempty"`      // 人才ID
+	SourceType    *int      `json:"source_type,omitempty"`    // 数据来源
+	CreateTime    *string   `json:"create_time,omitempty"`    // 创建时间毫秒时间戳
+	UpdateTime    *string   `json:"update_time,omitempty"`    // 更新时间毫秒时间戳
+	DiData        []*DiData `json:"di_data,omitempty"`        // 多元信息
+}
+
+type DiInfoBuilder struct {
+	id                string // DI信息 ID
+	idFlag            bool
+	applicationId     string // 投递ID
+	applicationIdFlag bool
+	talentId          string // 人才ID
+	talentIdFlag      bool
+	sourceType        int // 数据来源
+	sourceTypeFlag    bool
+	createTime        string // 创建时间毫秒时间戳
+	createTimeFlag    bool
+	updateTime        string // 更新时间毫秒时间戳
+	updateTimeFlag    bool
+	diData            []*DiData // 多元信息
+	diDataFlag        bool
+}
+
+func NewDiInfoBuilder() *DiInfoBuilder {
+	builder := &DiInfoBuilder{}
+	return builder
+}
+
+// DI信息 ID
+//
+// 示例值："6784008015948283904"
+func (builder *DiInfoBuilder) Id(id string) *DiInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 投递ID
+//
+// 示例值："6784008015948283905"
+func (builder *DiInfoBuilder) ApplicationId(applicationId string) *DiInfoBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 人才ID
+//
+// 示例值："6784008015948283906"
+func (builder *DiInfoBuilder) TalentId(talentId string) *DiInfoBuilder {
+	builder.talentId = talentId
+	builder.talentIdFlag = true
+	return builder
+}
+
+// 数据来源
+//
+// 示例值：1
+func (builder *DiInfoBuilder) SourceType(sourceType int) *DiInfoBuilder {
+	builder.sourceType = sourceType
+	builder.sourceTypeFlag = true
+	return builder
+}
+
+// 创建时间毫秒时间戳
+//
+// 示例值："1681301987"
+func (builder *DiInfoBuilder) CreateTime(createTime string) *DiInfoBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 更新时间毫秒时间戳
+//
+// 示例值："1681301987"
+func (builder *DiInfoBuilder) UpdateTime(updateTime string) *DiInfoBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 多元信息
+//
+// 示例值：
+func (builder *DiInfoBuilder) DiData(diData []*DiData) *DiInfoBuilder {
+	builder.diData = diData
+	builder.diDataFlag = true
+	return builder
+}
+
+func (builder *DiInfoBuilder) Build() *DiInfo {
+	req := &DiInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+
+	}
+	if builder.talentIdFlag {
+		req.TalentId = &builder.talentId
+
+	}
+	if builder.sourceTypeFlag {
+		req.SourceType = &builder.sourceType
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.diDataFlag {
+		req.DiData = builder.diData
 	}
 	return req
 }
@@ -19019,6 +19267,115 @@ func (builder *NoteBuilder) Build() *Note {
 	}
 	if builder.privacyFlag {
 		req.Privacy = &builder.privacy
+
+	}
+	return req
+}
+
+type ObjectAttribute struct {
+	Title       *I18n `json:"title,omitempty"`       // 字段名称
+	Description *I18n `json:"description,omitempty"` // 字段描述
+	DataType    *int  `json:"data_type,omitempty"`   // 字段类型
+	Tags        []int `json:"tags,omitempty"`        // 字段标签
+	IsFcfData   *bool `json:"is_fcf_data,omitempty"` // 是否为居民数据
+	IsDiData    *bool `json:"is_di_data,omitempty"`  // 是否为多元化数据
+}
+
+type ObjectAttributeBuilder struct {
+	title           *I18n // 字段名称
+	titleFlag       bool
+	description     *I18n // 字段描述
+	descriptionFlag bool
+	dataType        int // 字段类型
+	dataTypeFlag    bool
+	tags            []int // 字段标签
+	tagsFlag        bool
+	isFcfData       bool // 是否为居民数据
+	isFcfDataFlag   bool
+	isDiData        bool // 是否为多元化数据
+	isDiDataFlag    bool
+}
+
+func NewObjectAttributeBuilder() *ObjectAttributeBuilder {
+	builder := &ObjectAttributeBuilder{}
+	return builder
+}
+
+// 字段名称
+//
+// 示例值：
+func (builder *ObjectAttributeBuilder) Title(title *I18n) *ObjectAttributeBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 字段描述
+//
+// 示例值：
+func (builder *ObjectAttributeBuilder) Description(description *I18n) *ObjectAttributeBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *ObjectAttributeBuilder) DataType(dataType int) *ObjectAttributeBuilder {
+	builder.dataType = dataType
+	builder.dataTypeFlag = true
+	return builder
+}
+
+// 字段标签
+//
+// 示例值：1
+func (builder *ObjectAttributeBuilder) Tags(tags []int) *ObjectAttributeBuilder {
+	builder.tags = tags
+	builder.tagsFlag = true
+	return builder
+}
+
+// 是否为居民数据
+//
+// 示例值：true
+func (builder *ObjectAttributeBuilder) IsFcfData(isFcfData bool) *ObjectAttributeBuilder {
+	builder.isFcfData = isFcfData
+	builder.isFcfDataFlag = true
+	return builder
+}
+
+// 是否为多元化数据
+//
+// 示例值：true
+func (builder *ObjectAttributeBuilder) IsDiData(isDiData bool) *ObjectAttributeBuilder {
+	builder.isDiData = isDiData
+	builder.isDiDataFlag = true
+	return builder
+}
+
+func (builder *ObjectAttributeBuilder) Build() *ObjectAttribute {
+	req := &ObjectAttribute{}
+	if builder.titleFlag {
+		req.Title = builder.title
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.dataTypeFlag {
+		req.DataType = &builder.dataType
+
+	}
+	if builder.tagsFlag {
+		req.Tags = builder.tags
+	}
+	if builder.isFcfDataFlag {
+		req.IsFcfData = &builder.isFcfData
+
+	}
+	if builder.isDiDataFlag {
+		req.IsDiData = &builder.isDiData
 
 	}
 	return req
@@ -34479,6 +34836,104 @@ func (resp *PatchEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListEvaluationReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListEvaluationReqBuilder() *ListEvaluationReqBuilder {
+	builder := &ListEvaluationReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListEvaluationReqBuilder) Limit(limit int) *ListEvaluationReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
+func (builder *ListEvaluationReqBuilder) PageToken(pageToken string) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量，最大100
+//
+// 示例值：100
+func (builder *ListEvaluationReqBuilder) PageSize(pageSize int) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 投递 ID
+//
+// 示例值：6875569957036738823
+func (builder *ListEvaluationReqBuilder) ApplicationId(applicationId string) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("application_id", fmt.Sprint(applicationId))
+	return builder
+}
+
+// 最早更新时间，毫秒级时间戳
+//
+// 示例值：1600843767338
+func (builder *ListEvaluationReqBuilder) UpdateStartTime(updateStartTime string) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("update_start_time", fmt.Sprint(updateStartTime))
+	return builder
+}
+
+// 最晚更新时间，毫秒级时间戳
+//
+// 示例值：1600843938726
+func (builder *ListEvaluationReqBuilder) UpdateEndTime(updateEndTime string) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("update_end_time", fmt.Sprint(updateEndTime))
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：open_id
+func (builder *ListEvaluationReqBuilder) UserIdType(userIdType string) *ListEvaluationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListEvaluationReqBuilder) Build() *ListEvaluationReq {
+	req := &ListEvaluationReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListEvaluationReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListEvaluationRespData struct {
+	HasMore   *bool         `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string       `json:"page_token,omitempty"` // 下一页页码
+	Items     []*Evaluation `json:"items,omitempty"`      // 简历评估信息列表
+}
+
+type ListEvaluationResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListEvaluationRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListEvaluationResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateExternalApplicationReqBuilder struct {
 	apiReq              *larkcore.ApiReq
 	externalApplication *ExternalApplication
@@ -35409,6 +35864,530 @@ func (resp *PatchNoteResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateOfferReqBuilder struct {
+	apiReq    *larkcore.ApiReq
+	offerInfo *OfferInfo
+}
+
+func NewCreateOfferReqBuilder() *CreateOfferReqBuilder {
+	builder := &CreateOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *CreateOfferReqBuilder) UserIdType(userIdType string) *CreateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *CreateOfferReqBuilder) DepartmentIdType(departmentIdType string) *CreateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 创建 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义
+func (builder *CreateOfferReqBuilder) OfferInfo(offerInfo *OfferInfo) *CreateOfferReqBuilder {
+	builder.offerInfo = offerInfo
+	return builder
+}
+
+func (builder *CreateOfferReqBuilder) Build() *CreateOfferReq {
+	req := &CreateOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.offerInfo
+	return req
+}
+
+type CreateOfferReq struct {
+	apiReq    *larkcore.ApiReq
+	OfferInfo *OfferInfo `body:""`
+}
+
+type CreateOfferRespData struct {
+	OfferId            *string                `json:"offer_id,omitempty"`             // Offer ID
+	ApplicationId      *string                `json:"application_id,omitempty"`       // 投递 ID
+	SchemaId           *string                `json:"schema_id,omitempty"`            // 模板 ID
+	OfferType          *int                   `json:"offer_type,omitempty"`           // Offer 类型
+	BasicInfo          *OfferBasicInfo        `json:"basic_info,omitempty"`           // Offer 基本信息
+	SalaryInfo         *OfferSalaryInfo       `json:"salary_info,omitempty"`          // Offer 薪资信息
+	CustomizedInfoList []*OfferCustomizedInfo `json:"customized_info_list,omitempty"` // 自定义信息
+}
+
+type CreateOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateOfferRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetOfferReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetOfferReqBuilder() *GetOfferReqBuilder {
+	builder := &GetOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// Offer ID
+//
+// 示例值：1111111
+func (builder *GetOfferReqBuilder) OfferId(offerId string) *GetOfferReqBuilder {
+	builder.apiReq.PathParams.Set("offer_id", fmt.Sprint(offerId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetOfferReqBuilder) UserIdType(userIdType string) *GetOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *GetOfferReqBuilder) DepartmentIdType(departmentIdType string) *GetOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+func (builder *GetOfferReqBuilder) Build() *GetOfferReq {
+	req := &GetOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetOfferReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetOfferRespData struct {
+	Offer *Offer `json:"offer,omitempty"` // Offer 详情
+}
+
+type GetOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetOfferRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
+type InternOfferStatusOfferReqBuilder struct {
+	apiReq            *larkcore.ApiReq
+	internOfferStatus *InternOfferStatus
+}
+
+func NewInternOfferStatusOfferReqBuilder() *InternOfferStatusOfferReqBuilder {
+	builder := &InternOfferStatusOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// Offer ID
+//
+// 示例值：7016605170635213100
+func (builder *InternOfferStatusOfferReqBuilder) OfferId(offerId string) *InternOfferStatusOfferReqBuilder {
+	builder.apiReq.PathParams.Set("offer_id", fmt.Sprint(offerId))
+	return builder
+}
+
+// 对「实习待入职」状态的实习 Offer 确认入职、放弃入职，或对「实习已入职」状态的实习 Offer 操作离职
+func (builder *InternOfferStatusOfferReqBuilder) InternOfferStatus(internOfferStatus *InternOfferStatus) *InternOfferStatusOfferReqBuilder {
+	builder.internOfferStatus = internOfferStatus
+	return builder
+}
+
+func (builder *InternOfferStatusOfferReqBuilder) Build() *InternOfferStatusOfferReq {
+	req := &InternOfferStatusOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.internOfferStatus
+	return req
+}
+
+type InternOfferStatusOfferReq struct {
+	apiReq            *larkcore.ApiReq
+	InternOfferStatus *InternOfferStatus `body:""`
+}
+
+type InternOfferStatusOfferRespData struct {
+	OfferId         *string                     `json:"offer_id,omitempty"`         // Offer ID
+	Operation       *string                     `json:"operation,omitempty"`        // 更新入/离职状态的操作
+	OnboardingInfo  *InternOfferOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息（当 operation 为 confirm_onboarding 时，该字段必填）
+	OffboardingInfo *InternOfferOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息（当 operation 为 offboard 时，该字段必填）
+}
+
+type InternOfferStatusOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *InternOfferStatusOfferRespData `json:"data"` // 业务数据
+}
+
+func (resp *InternOfferStatusOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListOfferReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListOfferReqBuilder() *ListOfferReqBuilder {
+	builder := &ListOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：1231231987
+func (builder *ListOfferReqBuilder) PageToken(pageToken string) *ListOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量，最大100
+//
+// 示例值：100
+func (builder *ListOfferReqBuilder) PageSize(pageSize int) *ListOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 人才 ID
+//
+// 示例值：7096320678581242123
+func (builder *ListOfferReqBuilder) TalentId(talentId string) *ListOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("talent_id", fmt.Sprint(talentId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListOfferReqBuilder) UserIdType(userIdType string) *ListOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListOfferReqBuilder) Build() *ListOfferReq {
+	req := &ListOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListOfferReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListOfferRespData struct {
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string          `json:"page_token,omitempty"` // 下一页页码
+	Items     []*OfferListInfo `json:"items,omitempty"`      // Offer 列表
+}
+
+type ListOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListOfferRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
+type OfferStatusOfferReqBodyBuilder struct {
+	offerStatus                 int // offer状态
+	offerStatusFlag             bool
+	expirationDate              string // offer 失效时间，当反馈状态是「offer已发出」时为必填项
+	expirationDateFlag          bool
+	terminationReasonIdList     []string // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+	terminationReasonIdListFlag bool
+	terminationReasonNote       string // 终止备注
+	terminationReasonNoteFlag   bool
+}
+
+func NewOfferStatusOfferReqBodyBuilder() *OfferStatusOfferReqBodyBuilder {
+	builder := &OfferStatusOfferReqBodyBuilder{}
+	return builder
+}
+
+// offer状态
+//
+//示例值：
+func (builder *OfferStatusOfferReqBodyBuilder) OfferStatus(offerStatus int) *OfferStatusOfferReqBodyBuilder {
+	builder.offerStatus = offerStatus
+	builder.offerStatusFlag = true
+	return builder
+}
+
+// offer 失效时间，当反馈状态是「offer已发出」时为必填项
+//
+//示例值：2023-01-01
+func (builder *OfferStatusOfferReqBodyBuilder) ExpirationDate(expirationDate string) *OfferStatusOfferReqBodyBuilder {
+	builder.expirationDate = expirationDate
+	builder.expirationDateFlag = true
+	return builder
+}
+
+// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+//
+//示例值：
+func (builder *OfferStatusOfferReqBodyBuilder) TerminationReasonIdList(terminationReasonIdList []string) *OfferStatusOfferReqBodyBuilder {
+	builder.terminationReasonIdList = terminationReasonIdList
+	builder.terminationReasonIdListFlag = true
+	return builder
+}
+
+// 终止备注
+//
+//示例值：不符合期望
+func (builder *OfferStatusOfferReqBodyBuilder) TerminationReasonNote(terminationReasonNote string) *OfferStatusOfferReqBodyBuilder {
+	builder.terminationReasonNote = terminationReasonNote
+	builder.terminationReasonNoteFlag = true
+	return builder
+}
+
+func (builder *OfferStatusOfferReqBodyBuilder) Build() *OfferStatusOfferReqBody {
+	req := &OfferStatusOfferReqBody{}
+	if builder.offerStatusFlag {
+		req.OfferStatus = &builder.offerStatus
+	}
+	if builder.expirationDateFlag {
+		req.ExpirationDate = &builder.expirationDate
+	}
+	if builder.terminationReasonIdListFlag {
+		req.TerminationReasonIdList = builder.terminationReasonIdList
+	}
+	if builder.terminationReasonNoteFlag {
+		req.TerminationReasonNote = &builder.terminationReasonNote
+	}
+	return req
+}
+
+type OfferStatusOfferPathReqBodyBuilder struct {
+	offerStatus                 int // offer状态
+	offerStatusFlag             bool
+	expirationDate              string // offer 失效时间，当反馈状态是「offer已发出」时为必填项
+	expirationDateFlag          bool
+	terminationReasonIdList     []string // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+	terminationReasonIdListFlag bool
+	terminationReasonNote       string // 终止备注
+	terminationReasonNoteFlag   bool
+}
+
+func NewOfferStatusOfferPathReqBodyBuilder() *OfferStatusOfferPathReqBodyBuilder {
+	builder := &OfferStatusOfferPathReqBodyBuilder{}
+	return builder
+}
+
+// offer状态
+//
+// 示例值：
+func (builder *OfferStatusOfferPathReqBodyBuilder) OfferStatus(offerStatus int) *OfferStatusOfferPathReqBodyBuilder {
+	builder.offerStatus = offerStatus
+	builder.offerStatusFlag = true
+	return builder
+}
+
+// offer 失效时间，当反馈状态是「offer已发出」时为必填项
+//
+// 示例值：2023-01-01
+func (builder *OfferStatusOfferPathReqBodyBuilder) ExpirationDate(expirationDate string) *OfferStatusOfferPathReqBodyBuilder {
+	builder.expirationDate = expirationDate
+	builder.expirationDateFlag = true
+	return builder
+}
+
+// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+//
+// 示例值：
+func (builder *OfferStatusOfferPathReqBodyBuilder) TerminationReasonIdList(terminationReasonIdList []string) *OfferStatusOfferPathReqBodyBuilder {
+	builder.terminationReasonIdList = terminationReasonIdList
+	builder.terminationReasonIdListFlag = true
+	return builder
+}
+
+// 终止备注
+//
+// 示例值：不符合期望
+func (builder *OfferStatusOfferPathReqBodyBuilder) TerminationReasonNote(terminationReasonNote string) *OfferStatusOfferPathReqBodyBuilder {
+	builder.terminationReasonNote = terminationReasonNote
+	builder.terminationReasonNoteFlag = true
+	return builder
+}
+
+func (builder *OfferStatusOfferPathReqBodyBuilder) Build() (*OfferStatusOfferReqBody, error) {
+	req := &OfferStatusOfferReqBody{}
+	if builder.offerStatusFlag {
+		req.OfferStatus = &builder.offerStatus
+	}
+	if builder.expirationDateFlag {
+		req.ExpirationDate = &builder.expirationDate
+	}
+	if builder.terminationReasonIdListFlag {
+		req.TerminationReasonIdList = builder.terminationReasonIdList
+	}
+	if builder.terminationReasonNoteFlag {
+		req.TerminationReasonNote = &builder.terminationReasonNote
+	}
+	return req, nil
+}
+
+type OfferStatusOfferReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *OfferStatusOfferReqBody
+}
+
+func NewOfferStatusOfferReqBuilder() *OfferStatusOfferReqBuilder {
+	builder := &OfferStatusOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// offer ID
+//
+// 示例值：6930815272790114324
+func (builder *OfferStatusOfferReqBuilder) OfferId(offerId string) *OfferStatusOfferReqBuilder {
+	builder.apiReq.PathParams.Set("offer_id", fmt.Sprint(offerId))
+	return builder
+}
+
+//
+func (builder *OfferStatusOfferReqBuilder) Body(body *OfferStatusOfferReqBody) *OfferStatusOfferReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *OfferStatusOfferReqBuilder) Build() *OfferStatusOfferReq {
+	req := &OfferStatusOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type OfferStatusOfferReqBody struct {
+	OfferStatus             *int     `json:"offer_status,omitempty"`               // offer状态
+	ExpirationDate          *string  `json:"expiration_date,omitempty"`            // offer 失效时间，当反馈状态是「offer已发出」时为必填项
+	TerminationReasonIdList []string `json:"termination_reason_id_list,omitempty"` // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+	TerminationReasonNote   *string  `json:"termination_reason_note,omitempty"`    // 终止备注
+}
+
+type OfferStatusOfferReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *OfferStatusOfferReqBody `body:""`
+}
+
+type OfferStatusOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *OfferStatusOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateOfferReqBuilder struct {
+	apiReq    *larkcore.ApiReq
+	offerInfo *OfferInfo
+}
+
+func NewUpdateOfferReqBuilder() *UpdateOfferReqBuilder {
+	builder := &UpdateOfferReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// Offer ID
+//
+// 示例值：7016605170635213100
+func (builder *UpdateOfferReqBuilder) OfferId(offerId string) *UpdateOfferReqBuilder {
+	builder.apiReq.PathParams.Set("offer_id", fmt.Sprint(offerId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *UpdateOfferReqBuilder) UserIdType(userIdType string) *UpdateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *UpdateOfferReqBuilder) DepartmentIdType(departmentIdType string) *UpdateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 1. 更新 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义；;2. 对系统中已存在的 offer 进行更新的，若更新 offer 中含有「修改需审批」的字段，更新后原 Offer 的审批会自动撤回，需要重新发起审批
+func (builder *UpdateOfferReqBuilder) OfferInfo(offerInfo *OfferInfo) *UpdateOfferReqBuilder {
+	builder.offerInfo = offerInfo
+	return builder
+}
+
+func (builder *UpdateOfferReqBuilder) Build() *UpdateOfferReq {
+	req := &UpdateOfferReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.offerInfo
+	return req
+}
+
+type UpdateOfferReq struct {
+	apiReq    *larkcore.ApiReq
+	OfferInfo *OfferInfo `body:""`
+}
+
+type UpdateOfferResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateOfferResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetOfferSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -35455,6 +36434,94 @@ type GetOfferSchemaResp struct {
 }
 
 func (resp *GetOfferSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListQuestionnaireReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListQuestionnaireReqBuilder() *ListQuestionnaireReqBuilder {
+	builder := &ListQuestionnaireReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：1231231987
+func (builder *ListQuestionnaireReqBuilder) PageToken(pageToken string) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量，最大100
+//
+// 示例值：100
+func (builder *ListQuestionnaireReqBuilder) PageSize(pageSize int) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 投递 ID
+//
+// 示例值：6985833807195212076
+func (builder *ListQuestionnaireReqBuilder) ApplicationId(applicationId string) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("application_id", fmt.Sprint(applicationId))
+	return builder
+}
+
+// 面试 ID
+//
+// 示例值：7038435261598763308
+func (builder *ListQuestionnaireReqBuilder) InterviewId(interviewId string) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("interview_id", fmt.Sprint(interviewId))
+	return builder
+}
+
+// 最早更新时间
+//
+// 示例值：1638848468868
+func (builder *ListQuestionnaireReqBuilder) UpdateStartTime(updateStartTime string) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("update_start_time", fmt.Sprint(updateStartTime))
+	return builder
+}
+
+// 最晚更新时间
+//
+// 示例值：1638848468869
+func (builder *ListQuestionnaireReqBuilder) UpdateEndTime(updateEndTime string) *ListQuestionnaireReqBuilder {
+	builder.apiReq.QueryParams.Set("update_end_time", fmt.Sprint(updateEndTime))
+	return builder
+}
+
+func (builder *ListQuestionnaireReqBuilder) Build() *ListQuestionnaireReq {
+	req := &ListQuestionnaireReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListQuestionnaireReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListQuestionnaireRespData struct {
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string          `json:"page_token,omitempty"` // 下一页页码
+	Items     []*Questionnaire `json:"items,omitempty"`      // 满意度评价列表
+}
+
+type ListQuestionnaireResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListQuestionnaireRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListQuestionnaireResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -36076,6 +37143,74 @@ type P2ApplicationStageChangedV1 struct {
 
 func (m *P2ApplicationStageChangedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
+}
+
+type P2OfferStatusChangedV1Data struct {
+	OfferId *string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID
+}
+
+type P2OfferStatusChangedV1 struct {
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2OfferStatusChangedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2OfferStatusChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type ListEvaluationIterator struct {
+	nextPageToken *string
+	items         []*Evaluation
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListEvaluationReq
+	listFunc      func(ctx context.Context, req *ListEvaluationReq, options ...larkcore.RequestOptionFunc) (*ListEvaluationResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListEvaluationIterator) Next() (bool, *Evaluation, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListEvaluationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListResumeSourceIterator struct {

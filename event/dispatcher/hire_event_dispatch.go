@@ -31,3 +31,17 @@ func (dispatcher *EventDispatcher) OnP2ApplicationStageChangedV1(handler func(ct
 	dispatcher.eventType2EventHandler["hire.application.stage_changed_v1"] = larkhire.NewP2ApplicationStageChangedV1Handler(handler)
 	return dispatcher
 }
+
+// Offer 状态变更
+//
+// - 当 Offer 状态发生变更时将触发该事件。
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/events/status_changed
+func (dispatcher *EventDispatcher) OnP2OfferStatusChangedV1(handler func(ctx context.Context, event *larkhire.P2OfferStatusChangedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.offer.status_changed_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.offer.status_changed_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.offer.status_changed_v1"] = larkhire.NewP2OfferStatusChangedV1Handler(handler)
+	return dispatcher
+}

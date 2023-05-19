@@ -8114,7 +8114,8 @@ type QueryUserStatsDataReq struct {
 }
 
 type QueryUserStatsDataRespData struct {
-	UserDatas []*UserStatsData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条，超过1000条会截断）
+	UserDatas       []*UserStatsData `json:"user_datas,omitempty"`        // 用户统计数据（限制1000条，超过1000条会截断）
+	InvalidUserList []string         `json:"invalid_user_list,omitempty"` // 无权限获取的用户列表
 }
 
 type QueryUserStatsDataResp struct {

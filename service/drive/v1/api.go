@@ -42,14 +42,14 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config                   *larkcore.Config
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 文件
+	File                     *file                     // 异步任务状态
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
 	FileSubscription         *fileSubscription         // 订阅
 	FileVersion              *fileVersion              // 文档版本
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 分片上传
+	Media                    *media                    // 素材
 	Meta                     *meta                     // meta
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置

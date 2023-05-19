@@ -149,6 +149,22 @@ const (
 )
 
 const (
+	ReceiveIdTypeForwardMessageOpenId  = "open_id"  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	ReceiveIdTypeForwardMessageUserId  = "user_id"  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	ReceiveIdTypeForwardMessageUnionId = "union_id" // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	ReceiveIdTypeForwardMessageEmail   = "email"    // 以用户的真实邮箱来标识用户。
+	ReceiveIdTypeForwardMessageChatId  = "chat_id"  // 以群ID来标识群聊。
+)
+
+const (
+	ReceiveIdTypeMergeForwardMessageOpenId  = "open_id"  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	ReceiveIdTypeMergeForwardMessageUserId  = "user_id"  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	ReceiveIdTypeMergeForwardMessageUnionId = "union_id" // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	ReceiveIdTypeMergeForwardMessageEmail   = "email"    // 以用户的真实邮箱来标识用户。
+	ReceiveIdTypeMergeForwardMessageChatId  = "chat_id"  // 以群ID来标识群聊。
+)
+
+const (
 	UserIdTypeReadUsersMessageUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeReadUsersMessageUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeReadUsersMessageOpenId  = "open_id"  // 以open_id来识别用户
@@ -9256,6 +9272,148 @@ func (resp *DeleteMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ForwardMessageReqBodyBuilder struct {
+	receiveId     string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdFlag bool
+}
+
+func NewForwardMessageReqBodyBuilder() *ForwardMessageReqBodyBuilder {
+	builder := &ForwardMessageReqBodyBuilder{}
+	return builder
+}
+
+// 依据receive_id_type的值，填写对应的转发目标的ID
+//
+//示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *ForwardMessageReqBodyBuilder) ReceiveId(receiveId string) *ForwardMessageReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
+}
+
+func (builder *ForwardMessageReqBodyBuilder) Build() *ForwardMessageReqBody {
+	req := &ForwardMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	return req
+}
+
+type ForwardMessagePathReqBodyBuilder struct {
+	receiveId     string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdFlag bool
+}
+
+func NewForwardMessagePathReqBodyBuilder() *ForwardMessagePathReqBodyBuilder {
+	builder := &ForwardMessagePathReqBodyBuilder{}
+	return builder
+}
+
+// 依据receive_id_type的值，填写对应的转发目标的ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *ForwardMessagePathReqBodyBuilder) ReceiveId(receiveId string) *ForwardMessagePathReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
+}
+
+func (builder *ForwardMessagePathReqBodyBuilder) Build() (*ForwardMessageReqBody, error) {
+	req := &ForwardMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	return req, nil
+}
+
+type ForwardMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ForwardMessageReqBody
+}
+
+func NewForwardMessageReqBuilder() *ForwardMessageReqBuilder {
+	builder := &ForwardMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 要转发的消息ID
+//
+// 示例值：om_dc13264520392913993dd051dba21dcf
+func (builder *ForwardMessageReqBuilder) MessageId(messageId string) *ForwardMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+// 消息接收者id类型 open_id/user_id/union_id/email/chat_id
+//
+// 示例值：
+func (builder *ForwardMessageReqBuilder) ReceiveIdType(receiveIdType string) *ForwardMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("receive_id_type", fmt.Sprint(receiveIdType))
+	return builder
+}
+
+// 由开发者生成的唯一字符串序列，用于转发消息请求去重；持有相同uuid的请求在1小时内向同一个目标的转发只可成功一次。
+//
+// 示例值：b13g2t38-1jd2-458b-8djf-dtbca5104204
+func (builder *ForwardMessageReqBuilder) Uuid(uuid string) *ForwardMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("uuid", fmt.Sprint(uuid))
+	return builder
+}
+
+// 转发一条消息
+func (builder *ForwardMessageReqBuilder) Body(body *ForwardMessageReqBody) *ForwardMessageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ForwardMessageReqBuilder) Build() *ForwardMessageReq {
+	req := &ForwardMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ForwardMessageReqBody struct {
+	ReceiveId *string `json:"receive_id,omitempty"` // 依据receive_id_type的值，填写对应的转发目标的ID
+}
+
+type ForwardMessageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ForwardMessageReqBody `body:""`
+}
+
+type ForwardMessageRespData struct {
+	MessageId      *string      `json:"message_id,omitempty"`       // 消息id open_message_id
+	RootId         *string      `json:"root_id,omitempty"`          // 根消息id open_message_id
+	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的id open_message_id
+	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
+	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
+	UpdateTime     *string      `json:"update_time,omitempty"`      // 消息更新的时间戳
+	Deleted        *bool        `json:"deleted,omitempty"`          // 消息是否被撤回
+	Updated        *bool        `json:"updated,omitempty"`          // 消息是否被更新
+	ChatId         *string      `json:"chat_id,omitempty"`          // 所属的群
+	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容,json结构
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
+	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息id open_message_id
+}
+
+type ForwardMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ForwardMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *ForwardMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetMessageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -9397,6 +9555,157 @@ type ListMessageResp struct {
 }
 
 func (resp *ListMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MergeForwardMessageReqBodyBuilder struct {
+	receiveId         string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdFlag     bool
+	messageIdList     []string // 要转发的消息ID列表
+	messageIdListFlag bool
+}
+
+func NewMergeForwardMessageReqBodyBuilder() *MergeForwardMessageReqBodyBuilder {
+	builder := &MergeForwardMessageReqBodyBuilder{}
+	return builder
+}
+
+// 依据receive_id_type的值，填写对应的转发目标的ID
+//
+//示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *MergeForwardMessageReqBodyBuilder) ReceiveId(receiveId string) *MergeForwardMessageReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
+}
+
+// 要转发的消息ID列表
+//
+//示例值：
+func (builder *MergeForwardMessageReqBodyBuilder) MessageIdList(messageIdList []string) *MergeForwardMessageReqBodyBuilder {
+	builder.messageIdList = messageIdList
+	builder.messageIdListFlag = true
+	return builder
+}
+
+func (builder *MergeForwardMessageReqBodyBuilder) Build() *MergeForwardMessageReqBody {
+	req := &MergeForwardMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	if builder.messageIdListFlag {
+		req.MessageIdList = builder.messageIdList
+	}
+	return req
+}
+
+type MergeForwardMessagePathReqBodyBuilder struct {
+	receiveId         string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdFlag     bool
+	messageIdList     []string // 要转发的消息ID列表
+	messageIdListFlag bool
+}
+
+func NewMergeForwardMessagePathReqBodyBuilder() *MergeForwardMessagePathReqBodyBuilder {
+	builder := &MergeForwardMessagePathReqBodyBuilder{}
+	return builder
+}
+
+// 依据receive_id_type的值，填写对应的转发目标的ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *MergeForwardMessagePathReqBodyBuilder) ReceiveId(receiveId string) *MergeForwardMessagePathReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
+}
+
+// 要转发的消息ID列表
+//
+// 示例值：
+func (builder *MergeForwardMessagePathReqBodyBuilder) MessageIdList(messageIdList []string) *MergeForwardMessagePathReqBodyBuilder {
+	builder.messageIdList = messageIdList
+	builder.messageIdListFlag = true
+	return builder
+}
+
+func (builder *MergeForwardMessagePathReqBodyBuilder) Build() (*MergeForwardMessageReqBody, error) {
+	req := &MergeForwardMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	if builder.messageIdListFlag {
+		req.MessageIdList = builder.messageIdList
+	}
+	return req, nil
+}
+
+type MergeForwardMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MergeForwardMessageReqBody
+}
+
+func NewMergeForwardMessageReqBuilder() *MergeForwardMessageReqBuilder {
+	builder := &MergeForwardMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 消息接收者id类型 open_id/user_id/union_id/email/chat_id
+//
+// 示例值：
+func (builder *MergeForwardMessageReqBuilder) ReceiveIdType(receiveIdType string) *MergeForwardMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("receive_id_type", fmt.Sprint(receiveIdType))
+	return builder
+}
+
+// 由开发者生成的唯一字符串序列，用于转发消息请求去重；持有相同uuid的请求在1小时内向同一个目标的转发只可成功一次。
+//
+// 示例值：b13g2t38-1jd2-458b-8djf-dtbca5104204
+func (builder *MergeForwardMessageReqBuilder) Uuid(uuid string) *MergeForwardMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("uuid", fmt.Sprint(uuid))
+	return builder
+}
+
+// 合并转发多条消息
+func (builder *MergeForwardMessageReqBuilder) Body(body *MergeForwardMessageReqBody) *MergeForwardMessageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MergeForwardMessageReqBuilder) Build() *MergeForwardMessageReq {
+	req := &MergeForwardMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MergeForwardMessageReqBody struct {
+	ReceiveId     *string  `json:"receive_id,omitempty"`      // 依据receive_id_type的值，填写对应的转发目标的ID
+	MessageIdList []string `json:"message_id_list,omitempty"` // 要转发的消息ID列表
+}
+
+type MergeForwardMessageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MergeForwardMessageReqBody `body:""`
+}
+
+type MergeForwardMessageRespData struct {
+	Message              *Message `json:"message,omitempty"`                 // 合并转发生成的新消息
+	InvalidMessageIdList []string `json:"invalid_message_id_list,omitempty"` // 无效的消息ID列表
+}
+
+type MergeForwardMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MergeForwardMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *MergeForwardMessageResp) Success() bool {
 	return resp.Code == 0
 }
 

@@ -27,28 +27,27 @@ const (
 )
 
 type Address struct {
-	FullAddressLocalScript   *string `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
-	FullAddressWesternScript *string `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
-	Id                       *string `json:"id,omitempty"`                          // 地址ID
-	CountryRegionId          *string `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionId                 *string `json:"region_id,omitempty"`                   // 主要行政区
-	CityId                   *string `json:"city_id,omitempty"`                     // 城市
-	DistinctId               *string `json:"distinct_id,omitempty"`                 // 区/县
-
-	LocalAddressLine1 *string            `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
-	LocalAddressLine2 *string            `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
-	LocalAddressLine3 *string            `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）
-	LocalAddressLine4 *string            `json:"local_address_line4,omitempty"` // 地址行 4（非拉丁语系的本地文字）
-	LocalAddressLine5 *string            `json:"local_address_line5,omitempty"` // 地址行 5（非拉丁语系的本地文字）
-	LocalAddressLine6 *string            `json:"local_address_line6,omitempty"` // 地址行 6（非拉丁语系的本地文字）
-	LocalAddressLine7 *string            `json:"local_address_line7,omitempty"` // 地址行 7（非拉丁语系的本地文字）
-	LocalAddressLine8 *string            `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）
-	LocalAddressLine9 *string            `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）
-	PostalCode        *string            `json:"postal_code,omitempty"`         // 邮政编码
-	AddressTypeList   []*Enum            `json:"address_type_list,omitempty"`   // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
-	IsPrimary         *bool              `json:"is_primary,omitempty"`          // 是否为主要地址
-	IsPublic          *bool              `json:"is_public,omitempty"`           // 是否为公开地址
-	CustomFields      []*ObjectFieldData `json:"custom_fields,omitempty"`       // 自定义字段
+	FullAddressLocalScript   *string            `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
+	FullAddressWesternScript *string            `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
+	Id                       *string            `json:"id,omitempty"`                          // 地址ID
+	CountryRegionId          *string            `json:"country_region_id,omitempty"`           // 国家 / 地区
+	RegionId                 *string            `json:"region_id,omitempty"`                   // 主要行政区
+	CityId                   *string            `json:"city_id,omitempty"`                     // 城市
+	DistinctId               *string            `json:"distinct_id,omitempty"`                 // 区/县
+	LocalAddressLine1        *string            `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
+	LocalAddressLine2        *string            `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
+	LocalAddressLine3        *string            `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
+	LocalAddressLine4        *string            `json:"local_address_line4,omitempty"`         // 地址行 4（非拉丁语系的本地文字）
+	LocalAddressLine5        *string            `json:"local_address_line5,omitempty"`         // 地址行 5（非拉丁语系的本地文字）
+	LocalAddressLine6        *string            `json:"local_address_line6,omitempty"`         // 地址行 6（非拉丁语系的本地文字）
+	LocalAddressLine7        *string            `json:"local_address_line7,omitempty"`         // 地址行 7（非拉丁语系的本地文字）
+	LocalAddressLine8        *string            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
+	LocalAddressLine9        *string            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
+	PostalCode               *string            `json:"postal_code,omitempty"`                 // 邮政编码
+	AddressTypeList          []*Enum            `json:"address_type_list,omitempty"`           // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
+	IsPrimary                *bool              `json:"is_primary,omitempty"`                  // 是否为主要地址
+	IsPublic                 *bool              `json:"is_public,omitempty"`                   // 是否为公开地址
+	CustomFields             []*ObjectFieldData `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
 type AddressBuilder struct {
@@ -66,35 +65,34 @@ type AddressBuilder struct {
 	cityIdFlag                   bool
 	distinctId                   string // 区/县
 	distinctIdFlag               bool
-
-	localAddressLine1     string // 地址行 1（非拉丁语系的本地文字）
-	localAddressLine1Flag bool
-	localAddressLine2     string // 地址行 2（非拉丁语系的本地文字）
-	localAddressLine2Flag bool
-	localAddressLine3     string // 地址行 3（非拉丁语系的本地文字）
-	localAddressLine3Flag bool
-	localAddressLine4     string // 地址行 4（非拉丁语系的本地文字）
-	localAddressLine4Flag bool
-	localAddressLine5     string // 地址行 5（非拉丁语系的本地文字）
-	localAddressLine5Flag bool
-	localAddressLine6     string // 地址行 6（非拉丁语系的本地文字）
-	localAddressLine6Flag bool
-	localAddressLine7     string // 地址行 7（非拉丁语系的本地文字）
-	localAddressLine7Flag bool
-	localAddressLine8     string // 地址行 8（非拉丁语系的本地文字）
-	localAddressLine8Flag bool
-	localAddressLine9     string // 地址行 9（非拉丁语系的本地文字）
-	localAddressLine9Flag bool
-	postalCode            string // 邮政编码
-	postalCodeFlag        bool
-	addressTypeList       []*Enum // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
-	addressTypeListFlag   bool
-	isPrimary             bool // 是否为主要地址
-	isPrimaryFlag         bool
-	isPublic              bool // 是否为公开地址
-	isPublicFlag          bool
-	customFields          []*ObjectFieldData // 自定义字段
-	customFieldsFlag      bool
+	localAddressLine1            string // 地址行 1（非拉丁语系的本地文字）
+	localAddressLine1Flag        bool
+	localAddressLine2            string // 地址行 2（非拉丁语系的本地文字）
+	localAddressLine2Flag        bool
+	localAddressLine3            string // 地址行 3（非拉丁语系的本地文字）
+	localAddressLine3Flag        bool
+	localAddressLine4            string // 地址行 4（非拉丁语系的本地文字）
+	localAddressLine4Flag        bool
+	localAddressLine5            string // 地址行 5（非拉丁语系的本地文字）
+	localAddressLine5Flag        bool
+	localAddressLine6            string // 地址行 6（非拉丁语系的本地文字）
+	localAddressLine6Flag        bool
+	localAddressLine7            string // 地址行 7（非拉丁语系的本地文字）
+	localAddressLine7Flag        bool
+	localAddressLine8            string // 地址行 8（非拉丁语系的本地文字）
+	localAddressLine8Flag        bool
+	localAddressLine9            string // 地址行 9（非拉丁语系的本地文字）
+	localAddressLine9Flag        bool
+	postalCode                   string // 邮政编码
+	postalCodeFlag               bool
+	addressTypeList              []*Enum // 地址类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
+	addressTypeListFlag          bool
+	isPrimary                    bool // 是否为主要地址
+	isPrimaryFlag                bool
+	isPublic                     bool // 是否为公开地址
+	isPublicFlag                 bool
+	customFields                 []*ObjectFieldData // 自定义字段
+	customFieldsFlag             bool
 }
 
 func NewAddressBuilder() *AddressBuilder {
@@ -321,7 +319,6 @@ func (builder *AddressBuilder) Build() *Address {
 		req.DistinctId = &builder.distinctId
 
 	}
-
 	if builder.localAddressLine1Flag {
 		req.LocalAddressLine1 = &builder.localAddressLine1
 
@@ -3623,12 +3620,11 @@ func (builder *DepartmentCreateBuilder) Build() *DepartmentCreate {
 }
 
 type Dependent struct {
-	Name          *PersonName `json:"name,omitempty"`           // 亲属姓名
-	Relationship  *Enum       `json:"relationship,omitempty"`   // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
-	Gender        *Enum       `json:"gender,omitempty"`         // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	DateOfBirth   *string     `json:"date_of_birth,omitempty"`  // 生日
-	NationalityId *string     `json:"nationality_id,omitempty"` // 国籍
-
+	Name                                 *PersonName        `json:"name,omitempty"`                                       // 亲属姓名
+	Relationship                         *Enum              `json:"relationship,omitempty"`                               // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	Gender                               *Enum              `json:"gender,omitempty"`                                     // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	DateOfBirth                          *string            `json:"date_of_birth,omitempty"`                              // 生日
+	NationalityId                        *string            `json:"nationality_id,omitempty"`                             // 国籍
 	NationalIdList                       []*NationalId      `json:"national_id_list,omitempty"`                           // 证件号码
 	SpousesWorkingStatus                 *Enum              `json:"spouses_working_status,omitempty"`                     // 配偶工作状态，比如working（在岗）、not_working（不在岗）
 	IsThisPersonCoveredByHealthInsurance *bool              `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
@@ -3643,17 +3639,16 @@ type Dependent struct {
 }
 
 type DependentBuilder struct {
-	name              *PersonName // 亲属姓名
-	nameFlag          bool
-	relationship      *Enum // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
-	relationshipFlag  bool
-	gender            *Enum // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	genderFlag        bool
-	dateOfBirth       string // 生日
-	dateOfBirthFlag   bool
-	nationalityId     string // 国籍
-	nationalityIdFlag bool
-
+	name                                     *PersonName // 亲属姓名
+	nameFlag                                 bool
+	relationship                             *Enum // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	relationshipFlag                         bool
+	gender                                   *Enum // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	genderFlag                               bool
+	dateOfBirth                              string // 生日
+	dateOfBirthFlag                          bool
+	nationalityId                            string // 国籍
+	nationalityIdFlag                        bool
 	nationalIdList                           []*NationalId // 证件号码
 	nationalIdListFlag                       bool
 	spousesWorkingStatus                     *Enum // 配偶工作状态，比如working（在岗）、not_working（不在岗）
@@ -3846,7 +3841,6 @@ func (builder *DependentBuilder) Build() *Dependent {
 		req.NationalityId = &builder.nationalityId
 
 	}
-
 	if builder.nationalIdListFlag {
 		req.NationalIdList = builder.nationalIdList
 	}
@@ -7014,6 +7008,54 @@ func (builder *I18nBuilder) Build() *I18n {
 	}
 	if builder.valueFlag {
 		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type IdInfo struct {
+	Id       *string `json:"id,omitempty"`        // 传入的 ID
+	TargetId *string `json:"target_id,omitempty"` // 目标 ID 值
+}
+
+type IdInfoBuilder struct {
+	id           string // 传入的 ID
+	idFlag       bool
+	targetId     string // 目标 ID 值
+	targetIdFlag bool
+}
+
+func NewIdInfoBuilder() *IdInfoBuilder {
+	builder := &IdInfoBuilder{}
+	return builder
+}
+
+// 传入的 ID
+//
+// 示例值：7224321696097404460
+func (builder *IdInfoBuilder) Id(id string) *IdInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 目标 ID 值
+//
+// 示例值：7224321696097404461
+func (builder *IdInfoBuilder) TargetId(targetId string) *IdInfoBuilder {
+	builder.targetId = targetId
+	builder.targetIdFlag = true
+	return builder
+}
+
+func (builder *IdInfoBuilder) Build() *IdInfo {
+	req := &IdInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.targetIdFlag {
+		req.TargetId = &builder.targetId
 
 	}
 	return req
@@ -10681,15 +10723,14 @@ func (builder *PermissionSecurityGroupBuilder) Build() *PermissionSecurityGroup 
 }
 
 type Person struct {
-	PhoneNumber   *string       `json:"phone_number,omitempty"`   // 个人手机号
-	LegalName     *string       `json:"legal_name,omitempty"`     // 法定姓名
-	PreferredName *string       `json:"preferred_name,omitempty"` // 常用名
-	Id            *string       `json:"id,omitempty"`             // Person ID
-	NameList      []*PersonName `json:"name_list,omitempty"`      // 姓名
-	Gender        *Enum         `json:"gender,omitempty"`         // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	DateOfBirth   *string       `json:"date_of_birth,omitempty"`  // 出生日期
-	NationalityId *string       `json:"nationality_id,omitempty"` // 国籍id
-
+	PhoneNumber              *string             `json:"phone_number,omitempty"`                // 个人手机号
+	LegalName                *string             `json:"legal_name,omitempty"`                  // 法定姓名
+	PreferredName            *string             `json:"preferred_name,omitempty"`              // 常用名
+	Id                       *string             `json:"id,omitempty"`                          // Person ID
+	NameList                 []*PersonName       `json:"name_list,omitempty"`                   // 姓名
+	Gender                   *Enum               `json:"gender,omitempty"`                      // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	DateOfBirth              *string             `json:"date_of_birth,omitempty"`               // 出生日期
+	NationalityId            *string             `json:"nationality_id,omitempty"`              // 国籍id
 	Race                     *Enum               `json:"race,omitempty"`                        // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
 	MaritalStatus            *Enum               `json:"marital_status,omitempty"`              // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
 	PhoneList                []*Phone            `json:"phone_list,omitempty"`                  // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见:;- 电话号码不为空;- is_primary = "true" ;- phone_usage = "home"
@@ -10713,23 +10754,22 @@ type Person struct {
 }
 
 type PersonBuilder struct {
-	phoneNumber       string // 个人手机号
-	phoneNumberFlag   bool
-	legalName         string // 法定姓名
-	legalNameFlag     bool
-	preferredName     string // 常用名
-	preferredNameFlag bool
-	id                string // Person ID
-	idFlag            bool
-	nameList          []*PersonName // 姓名
-	nameListFlag      bool
-	gender            *Enum // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
-	genderFlag        bool
-	dateOfBirth       string // 出生日期
-	dateOfBirthFlag   bool
-	nationalityId     string // 国籍id
-	nationalityIdFlag bool
-
+	phoneNumber                  string // 个人手机号
+	phoneNumberFlag              bool
+	legalName                    string // 法定姓名
+	legalNameFlag                bool
+	preferredName                string // 常用名
+	preferredNameFlag            bool
+	id                           string // Person ID
+	idFlag                       bool
+	nameList                     []*PersonName // 姓名
+	nameListFlag                 bool
+	gender                       *Enum // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	genderFlag                   bool
+	dateOfBirth                  string // 出生日期
+	dateOfBirthFlag              bool
+	nationalityId                string // 国籍id
+	nationalityIdFlag            bool
 	race                         *Enum // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
 	raceFlag                     bool
 	maritalStatus                *Enum // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
@@ -11061,7 +11101,6 @@ func (builder *PersonBuilder) Build() *Person {
 		req.NationalityId = &builder.nationalityId
 
 	}
-
 	if builder.raceFlag {
 		req.Race = builder.race
 	}
@@ -11744,7 +11783,7 @@ func (builder *PersonNameBuilder) Secondary(secondary string) *PersonNameBuilder
 
 // 尊称
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) Social(social *Enum) *PersonNameBuilder {
 	builder.social = social
 	builder.socialFlag = true
