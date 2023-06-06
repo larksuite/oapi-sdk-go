@@ -29,13 +29,14 @@ func main() {
 	req := larkcontact.NewCreateGroupReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-		Body(larkcontact.NewCreateGroupReqBodyBuilder().
-			GroupId("g122817").
+		Group(larkcontact.NewGroupBuilder().
 			Name("IT 外包组").
 			Description("IT服务人员的集合").
 			Type(1).
 			DynamicGroupRule(larkcontact.NewDynamicGroupRuleBuilder().Build()).
 			VisibleScope(larkcontact.NewGroupVisibleScopeBuilder().Build()).
+			DepartmentScopeList([]string{}).
+			GroupId("g122817").
 			Build()).
 		Build()
 	// 发起请求

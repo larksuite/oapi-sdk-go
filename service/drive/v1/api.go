@@ -30,6 +30,7 @@ func NewService(config *larkcore.Config) *DriveService {
 	d.FileStatistics = &fileStatistics{service: d}
 	d.FileSubscription = &fileSubscription{service: d}
 	d.FileVersion = &fileVersion{service: d}
+	d.FileViewRecord = &fileViewRecord{service: d}
 	d.ImportTask = &importTask{service: d}
 	d.Media = &media{service: d}
 	d.Meta = &meta{service: d}
@@ -42,14 +43,15 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config                   *larkcore.Config
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 异步任务状态
+	File                     *file                     // 下载
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
 	FileSubscription         *fileSubscription         // 订阅
 	FileVersion              *fileVersion              // 文档版本
+	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 素材
+	Media                    *media                    // 分片上传
 	Meta                     *meta                     // meta
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置
@@ -75,6 +77,9 @@ type fileSubscription struct {
 	service *DriveService
 }
 type fileVersion struct {
+	service *DriveService
+}
+type fileViewRecord struct {
 	service *DriveService
 }
 type importTask struct {
@@ -947,6 +952,40 @@ func (f *fileVersion) List(ctx context.Context, req *ListFileVersionReq, options
 }
 func (f *fileVersion) ListByIterator(ctx context.Context, req *ListFileVersionReq, options ...larkcore.RequestOptionFunc) (*ListFileVersionIterator, error) {
 	return &ListFileVersionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: f.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.view_record&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileViewRecord.go
+func (f *fileViewRecord) List(ctx context.Context, req *ListFileViewRecordReq, options ...larkcore.RequestOptionFunc) (*ListFileViewRecordResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/view_records"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListFileViewRecordResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (f *fileViewRecord) ListByIterator(ctx context.Context, req *ListFileViewRecordReq, options ...larkcore.RequestOptionFunc) (*ListFileViewRecordIterator, error) {
+	return &ListFileViewRecordIterator{
 		ctx:      ctx,
 		req:      req,
 		listFunc: f.List,

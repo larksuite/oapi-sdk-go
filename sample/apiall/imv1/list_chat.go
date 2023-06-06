@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewListChatReqBuilder().
 		UserIdType("user_id").
+		SortType("ByCreateTimeAsc").
 		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
 		PageSize(20).
 		Build()

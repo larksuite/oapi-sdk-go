@@ -192,8 +192,8 @@ const (
 )
 
 const (
-	CreateGroupTypeAssign  = 1 // 普通用户组
-	CreateGroupTypeDynamic = 2 // 动态用户组
+	GroupTypeAssign  = 1 // 普通用户组
+	GroupTypeDynamic = 2 // 动态用户组
 
 )
 
@@ -226,8 +226,8 @@ const (
 )
 
 const (
-	GroupTypeAssign  = 1 // 普通用户组
-	GroupTypeDynamic = 2 // 动态用户组
+	GroupTypeMemberBelongGroupAssign  = 1 // 普通用户组
+	GroupTypeMemberBelongGroupDynamic = 2 // 动态用户组
 
 )
 
@@ -2356,7 +2356,7 @@ func (builder *FunctionalRoleMemberResultBuilder) UserId(userId string) *Functio
 
 // 成员处理结果
 //
-// 示例值：0
+// 示例值：1
 func (builder *FunctionalRoleMemberResultBuilder) Reason(reason int) *FunctionalRoleMemberResultBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -2385,6 +2385,8 @@ type Group struct {
 	Type                  *int               `json:"type,omitempty"`                    // 用户组的类型
 	DynamicGroupRule      *DynamicGroupRule  `json:"dynamic_group_rule,omitempty"`      // 动态用户组的规则
 	VisibleScope          *GroupVisibleScope `json:"visible_scope,omitempty"`           // 用户组指定可见范围
+	DepartmentScopeList   []string           `json:"department_scope_list,omitempty"`   // 部门范围
+	GroupId               *string            `json:"group_id,omitempty"`                // 自定义用户组ID
 }
 
 type GroupBuilder struct {
@@ -2404,6 +2406,10 @@ type GroupBuilder struct {
 	dynamicGroupRuleFlag      bool
 	visibleScope              *GroupVisibleScope // 用户组指定可见范围
 	visibleScopeFlag          bool
+	departmentScopeList       []string // 部门范围
+	departmentScopeListFlag   bool
+	groupId                   string // 自定义用户组ID
+	groupIdFlag               bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -2483,6 +2489,24 @@ func (builder *GroupBuilder) VisibleScope(visibleScope *GroupVisibleScope) *Grou
 	return builder
 }
 
+// 部门范围
+//
+// 示例值：
+func (builder *GroupBuilder) DepartmentScopeList(departmentScopeList []string) *GroupBuilder {
+	builder.departmentScopeList = departmentScopeList
+	builder.departmentScopeListFlag = true
+	return builder
+}
+
+// 自定义用户组ID
+//
+// 示例值：4ba51ab38648f9cd
+func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.idFlag {
@@ -2514,6 +2538,13 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.visibleScopeFlag {
 		req.VisibleScope = builder.visibleScope
+	}
+	if builder.departmentScopeListFlag {
+		req.DepartmentScopeList = builder.departmentScopeList
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
 	}
 	return req
 }
@@ -5777,7 +5808,7 @@ type ListCustomAttrReq struct {
 
 type ListCustomAttrRespData struct {
 	Items     []*CustomAttr `json:"items,omitempty"`      // 自定义字段定义
-	PageToken *string       `json:"page_token,omitempty"` //
+	PageToken *string       `json:"page_token,omitempty"` // 分页标记
 	HasMore   *bool         `json:"has_more,omitempty"`   // 是否还有下一页
 }
 
@@ -6112,7 +6143,7 @@ func (builder *ListDepartmentReqBuilder) DepartmentIdType(departmentIdType strin
 
 // 父部门的ID，填上获取部门下所有子部门
 //
-// 示例值：
+// 示例值：od-80884c92e43e
 func (builder *ListDepartmentReqBuilder) ParentDepartmentId(parentDepartmentId string) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("parent_department_id", fmt.Sprint(parentDepartmentId))
 	return builder
@@ -6120,25 +6151,25 @@ func (builder *ListDepartmentReqBuilder) ParentDepartmentId(parentDepartmentId s
 
 // 是否递归获取子部门
 //
-// 示例值：
+// 示例值：false
 func (builder *ListDepartmentReqBuilder) FetchChild(fetchChild bool) *ListDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("fetch_child", fmt.Sprint(fetchChild))
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
+// 分页大小
 //
-// 示例值：
-func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepartmentReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+// 示例值：10
+func (builder *ListDepartmentReqBuilder) PageSize(pageSize int) *ListDepartmentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// 分页大小
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
-// 示例值：
-func (builder *ListDepartmentReqBuilder) PageSize(pageSize int) *ListDepartmentReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+// 示例值：5bc498db4617
+func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepartmentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
@@ -7689,203 +7720,9 @@ func (resp *ScopesFunctionalRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-type CreateGroupReqBodyBuilder struct {
-	groupId              string // 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。;;自定义group_id数据校验规则：;;最大长度：64 字符;;校验规则：数字、大小写字母的组合，不能包含空格
-	groupIdFlag          bool
-	name                 string // 用户组的名字，企业内唯一，最大长度：100 字符
-	nameFlag             bool
-	description          string // 用户组描述
-	descriptionFlag      bool
-	type_                int // 用户组的类型。默认为1表示普通用户组
-	typeFlag             bool
-	dynamicGroupRule     *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag bool
-	visibleScope         *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag     bool
-}
-
-func NewCreateGroupReqBodyBuilder() *CreateGroupReqBodyBuilder {
-	builder := &CreateGroupReqBodyBuilder{}
-	return builder
-}
-
-// 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。;;自定义group_id数据校验规则：;;最大长度：64 字符;;校验规则：数字、大小写字母的组合，不能包含空格
-//
-//示例值：g122817
-func (builder *CreateGroupReqBodyBuilder) GroupId(groupId string) *CreateGroupReqBodyBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
-}
-
-// 用户组的名字，企业内唯一，最大长度：100 字符
-//
-//示例值：IT 外包组
-func (builder *CreateGroupReqBodyBuilder) Name(name string) *CreateGroupReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-// 用户组描述
-//
-//示例值：IT服务人员的集合
-func (builder *CreateGroupReqBodyBuilder) Description(description string) *CreateGroupReqBodyBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
-}
-
-// 用户组的类型。默认为1表示普通用户组
-//
-//示例值：1
-func (builder *CreateGroupReqBodyBuilder) Type(type_ int) *CreateGroupReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-// 动态用户组的规则
-//
-//示例值：
-func (builder *CreateGroupReqBodyBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *CreateGroupReqBodyBuilder {
-	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
-	return builder
-}
-
-// 用户组指定可见范围
-//
-//示例值：
-func (builder *CreateGroupReqBodyBuilder) VisibleScope(visibleScope *GroupVisibleScope) *CreateGroupReqBodyBuilder {
-	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
-	return builder
-}
-
-func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
-	req := &CreateGroupReqBody{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.dynamicGroupRuleFlag {
-		req.DynamicGroupRule = builder.dynamicGroupRule
-	}
-	if builder.visibleScopeFlag {
-		req.VisibleScope = builder.visibleScope
-	}
-	return req
-}
-
-type CreateGroupPathReqBodyBuilder struct {
-	groupId              string // 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。;;自定义group_id数据校验规则：;;最大长度：64 字符;;校验规则：数字、大小写字母的组合，不能包含空格
-	groupIdFlag          bool
-	name                 string // 用户组的名字，企业内唯一，最大长度：100 字符
-	nameFlag             bool
-	description          string // 用户组描述
-	descriptionFlag      bool
-	type_                int // 用户组的类型。默认为1表示普通用户组
-	typeFlag             bool
-	dynamicGroupRule     *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag bool
-	visibleScope         *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag     bool
-}
-
-func NewCreateGroupPathReqBodyBuilder() *CreateGroupPathReqBodyBuilder {
-	builder := &CreateGroupPathReqBodyBuilder{}
-	return builder
-}
-
-// 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。;;自定义group_id数据校验规则：;;最大长度：64 字符;;校验规则：数字、大小写字母的组合，不能包含空格
-//
-// 示例值：g122817
-func (builder *CreateGroupPathReqBodyBuilder) GroupId(groupId string) *CreateGroupPathReqBodyBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
-}
-
-// 用户组的名字，企业内唯一，最大长度：100 字符
-//
-// 示例值：IT 外包组
-func (builder *CreateGroupPathReqBodyBuilder) Name(name string) *CreateGroupPathReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-// 用户组描述
-//
-// 示例值：IT服务人员的集合
-func (builder *CreateGroupPathReqBodyBuilder) Description(description string) *CreateGroupPathReqBodyBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
-}
-
-// 用户组的类型。默认为1表示普通用户组
-//
-// 示例值：1
-func (builder *CreateGroupPathReqBodyBuilder) Type(type_ int) *CreateGroupPathReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-// 动态用户组的规则
-//
-// 示例值：
-func (builder *CreateGroupPathReqBodyBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *CreateGroupPathReqBodyBuilder {
-	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
-	return builder
-}
-
-// 用户组指定可见范围
-//
-// 示例值：
-func (builder *CreateGroupPathReqBodyBuilder) VisibleScope(visibleScope *GroupVisibleScope) *CreateGroupPathReqBodyBuilder {
-	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
-	return builder
-}
-
-func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, error) {
-	req := &CreateGroupReqBody{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.dynamicGroupRuleFlag {
-		req.DynamicGroupRule = builder.dynamicGroupRule
-	}
-	if builder.visibleScopeFlag {
-		req.VisibleScope = builder.visibleScope
-	}
-	return req, nil
-}
-
 type CreateGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	body   *CreateGroupReqBody
+	group  *Group
 }
 
 func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
@@ -7914,8 +7751,8 @@ func (builder *CreateGroupReqBuilder) DepartmentIdType(departmentIdType string) 
 }
 
 // 使用该接口创建用户组，请注意创建用户组时应用的通讯录权限范围需为“全部员工”，否则会创建失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
-func (builder *CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGroupReqBuilder {
-	builder.body = body
+func (builder *CreateGroupReqBuilder) Group(group *Group) *CreateGroupReqBuilder {
+	builder.group = group
 	return builder
 }
 
@@ -7923,22 +7760,13 @@ func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	req := &CreateGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	req.apiReq.Body = builder.body
+	req.apiReq.Body = builder.group
 	return req
-}
-
-type CreateGroupReqBody struct {
-	GroupId          *string            `json:"group_id,omitempty"`           // 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。;;自定义group_id数据校验规则：;;最大长度：64 字符;;校验规则：数字、大小写字母的组合，不能包含空格
-	Name             *string            `json:"name,omitempty"`               // 用户组的名字，企业内唯一，最大长度：100 字符
-	Description      *string            `json:"description,omitempty"`        // 用户组描述
-	Type             *int               `json:"type,omitempty"`               // 用户组的类型。默认为1表示普通用户组
-	DynamicGroupRule *DynamicGroupRule  `json:"dynamic_group_rule,omitempty"` // 动态用户组的规则
-	VisibleScope     *GroupVisibleScope `json:"visible_scope,omitempty"`      // 用户组指定可见范围
 }
 
 type CreateGroupReq struct {
 	apiReq *larkcore.ApiReq
-	Body   *CreateGroupReqBody `body:""`
+	Group  *Group `body:""`
 }
 
 type CreateGroupRespData struct {
@@ -8139,147 +7967,9 @@ func (resp *MemberBelongGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-type PatchGroupReqBodyBuilder struct {
-	name                 string // 用户组的名字，企业内唯一，最大长度：100 字符
-	nameFlag             bool
-	description          string // 用户组描述信息;最大长度：500 字
-	descriptionFlag      bool
-	dynamicGroupRule     *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag bool
-	visibleScope         *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag     bool
-}
-
-func NewPatchGroupReqBodyBuilder() *PatchGroupReqBodyBuilder {
-	builder := &PatchGroupReqBodyBuilder{}
-	return builder
-}
-
-// 用户组的名字，企业内唯一，最大长度：100 字符
-//
-//示例值：外包 IT 用户组
-func (builder *PatchGroupReqBodyBuilder) Name(name string) *PatchGroupReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-// 用户组描述信息;最大长度：500 字
-//
-//示例值：IT 外包用户组，需要进行细粒度权限管控
-func (builder *PatchGroupReqBodyBuilder) Description(description string) *PatchGroupReqBodyBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
-}
-
-// 动态用户组的规则
-//
-//示例值：
-func (builder *PatchGroupReqBodyBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *PatchGroupReqBodyBuilder {
-	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
-	return builder
-}
-
-// 用户组指定可见范围
-//
-//示例值：
-func (builder *PatchGroupReqBodyBuilder) VisibleScope(visibleScope *GroupVisibleScope) *PatchGroupReqBodyBuilder {
-	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
-	return builder
-}
-
-func (builder *PatchGroupReqBodyBuilder) Build() *PatchGroupReqBody {
-	req := &PatchGroupReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-	}
-	if builder.dynamicGroupRuleFlag {
-		req.DynamicGroupRule = builder.dynamicGroupRule
-	}
-	if builder.visibleScopeFlag {
-		req.VisibleScope = builder.visibleScope
-	}
-	return req
-}
-
-type PatchGroupPathReqBodyBuilder struct {
-	name                 string // 用户组的名字，企业内唯一，最大长度：100 字符
-	nameFlag             bool
-	description          string // 用户组描述信息;最大长度：500 字
-	descriptionFlag      bool
-	dynamicGroupRule     *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag bool
-	visibleScope         *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag     bool
-}
-
-func NewPatchGroupPathReqBodyBuilder() *PatchGroupPathReqBodyBuilder {
-	builder := &PatchGroupPathReqBodyBuilder{}
-	return builder
-}
-
-// 用户组的名字，企业内唯一，最大长度：100 字符
-//
-// 示例值：外包 IT 用户组
-func (builder *PatchGroupPathReqBodyBuilder) Name(name string) *PatchGroupPathReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-// 用户组描述信息;最大长度：500 字
-//
-// 示例值：IT 外包用户组，需要进行细粒度权限管控
-func (builder *PatchGroupPathReqBodyBuilder) Description(description string) *PatchGroupPathReqBodyBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
-}
-
-// 动态用户组的规则
-//
-// 示例值：
-func (builder *PatchGroupPathReqBodyBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *PatchGroupPathReqBodyBuilder {
-	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
-	return builder
-}
-
-// 用户组指定可见范围
-//
-// 示例值：
-func (builder *PatchGroupPathReqBodyBuilder) VisibleScope(visibleScope *GroupVisibleScope) *PatchGroupPathReqBodyBuilder {
-	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
-	return builder
-}
-
-func (builder *PatchGroupPathReqBodyBuilder) Build() (*PatchGroupReqBody, error) {
-	req := &PatchGroupReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-	}
-	if builder.dynamicGroupRuleFlag {
-		req.DynamicGroupRule = builder.dynamicGroupRule
-	}
-	if builder.visibleScopeFlag {
-		req.VisibleScope = builder.visibleScope
-	}
-	return req, nil
-}
-
 type PatchGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
-	body   *PatchGroupReqBody
+	group  *Group
 }
 
 func NewPatchGroupReqBuilder() *PatchGroupReqBuilder {
@@ -8316,8 +8006,8 @@ func (builder *PatchGroupReqBuilder) DepartmentIdType(departmentIdType string) *
 }
 
 // 使用该接口更新用户组信息，请注意更新用户组时应用的通讯录权限范围需为“全部员工”，否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
-func (builder *PatchGroupReqBuilder) Body(body *PatchGroupReqBody) *PatchGroupReqBuilder {
-	builder.body = body
+func (builder *PatchGroupReqBuilder) Group(group *Group) *PatchGroupReqBuilder {
+	builder.group = group
 	return builder
 }
 
@@ -8326,20 +8016,13 @@ func (builder *PatchGroupReqBuilder) Build() *PatchGroupReq {
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
 	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	req.apiReq.Body = builder.body
+	req.apiReq.Body = builder.group
 	return req
-}
-
-type PatchGroupReqBody struct {
-	Name             *string            `json:"name,omitempty"`               // 用户组的名字，企业内唯一，最大长度：100 字符
-	Description      *string            `json:"description,omitempty"`        // 用户组描述信息;最大长度：500 字
-	DynamicGroupRule *DynamicGroupRule  `json:"dynamic_group_rule,omitempty"` // 动态用户组的规则
-	VisibleScope     *GroupVisibleScope `json:"visible_scope,omitempty"`      // 用户组指定可见范围
 }
 
 type PatchGroupReq struct {
 	apiReq *larkcore.ApiReq
-	Body   *PatchGroupReqBody `body:""`
+	Group  *Group `body:""`
 }
 
 type PatchGroupResp struct {
@@ -9620,7 +9303,7 @@ func (builder *ListScopeReqBuilder) PageToken(pageToken string) *ListScopeReqBui
 	return builder
 }
 
-// 分页大小，控制返回值所有列表长度之和
+// 分页大小，返回值所有列表长度之和不超过这个值
 //
 // 示例值：50
 func (builder *ListScopeReqBuilder) PageSize(pageSize int) *ListScopeReqBuilder {

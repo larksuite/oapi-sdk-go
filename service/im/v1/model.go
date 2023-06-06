@@ -55,6 +55,11 @@ const (
 )
 
 const (
+	SortTypeByCreateTimeAsc  = "ByCreateTimeAsc"  // 按群组创建时间升序排列
+	SortTypeByActiveTimeDesc = "ByActiveTimeDesc" // 按群组活跃时间降序排列
+)
+
+const (
 	UserIdTypeSearchChatUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeSearchChatUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSearchChatOpenId  = "open_id"  // 以open_id来识别用户
@@ -154,6 +159,11 @@ const (
 	ReceiveIdTypeForwardMessageUnionId = "union_id" // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
 	ReceiveIdTypeForwardMessageEmail   = "email"    // 以用户的真实邮箱来标识用户。
 	ReceiveIdTypeForwardMessageChatId  = "chat_id"  // 以群ID来标识群聊。
+)
+
+const (
+	SortTypeListMessageByCreateTimeAsc  = "ByCreateTimeAsc"  // 按消息创建时间升序排列
+	SortTypeListMessageByCreateTimeDesc = "ByCreateTimeDesc" // 按消息创建时间降序排列
 )
 
 const (
@@ -5636,6 +5646,14 @@ func (builder *ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBui
 	return builder
 }
 
+// 群组排序方式
+//
+// 示例值：ByCreateTimeAsc
+func (builder *ListChatReqBuilder) SortType(sortType string) *ListChatReqBuilder {
+	builder.apiReq.QueryParams.Set("sort_type", fmt.Sprint(sortType))
+	return builder
+}
+
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
 // 示例值：dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==
@@ -9509,6 +9527,14 @@ func (builder *ListMessageReqBuilder) StartTime(startTime string) *ListMessageRe
 // 示例值：1608594809
 func (builder *ListMessageReqBuilder) EndTime(endTime string) *ListMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	return builder
+}
+
+// 消息排序方式
+//
+// 示例值：ByCreateTimeAsc
+func (builder *ListMessageReqBuilder) SortType(sortType string) *ListMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("sort_type", fmt.Sprint(sortType))
 	return builder
 }
 

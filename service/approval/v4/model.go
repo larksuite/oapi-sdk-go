@@ -3099,15 +3099,36 @@ func (builder *CountBuilder) Build() *Count {
 }
 
 type Definition struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
-	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+	ApprovalCode     *string `json:"approval_code,omitempty"`      // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalName     *string `json:"approval_name,omitempty"`      // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+	GroupName        *string `json:"group_name,omitempty"`         // 分组名称，值的格式是 i18n key，文案放在 i18n_resource
+	Description      *string `json:"description,omitempty"`        // 审批定义的说明，值的格式是 i18n key，文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段
+	IconUrl          *string `json:"icon_url,omitempty"`           // 审批图标链接
+	GroupCode        *string `json:"group_code,omitempty"`         // 审批定义所属审批分组
+	IsExternal       *bool   `json:"is_external,omitempty"`        // 是否为第三方审批
+	CreateLinkPc     *string `json:"create_link_pc,omitempty"`     // PC端发起页链接
+	CreateLinkMobile *string `json:"create_link_mobile,omitempty"` // 移动端发起页链接
 }
 
 type DefinitionBuilder struct {
-	approvalCode     string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
-	approvalCodeFlag bool
-	approvalName     string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
-	approvalNameFlag bool
+	approvalCode         string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	approvalCodeFlag     bool
+	approvalName         string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+	approvalNameFlag     bool
+	groupName            string // 分组名称，值的格式是 i18n key，文案放在 i18n_resource
+	groupNameFlag        bool
+	description          string // 审批定义的说明，值的格式是 i18n key，文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段
+	descriptionFlag      bool
+	iconUrl              string // 审批图标链接
+	iconUrlFlag          bool
+	groupCode            string // 审批定义所属审批分组
+	groupCodeFlag        bool
+	isExternal           bool // 是否为第三方审批
+	isExternalFlag       bool
+	createLinkPc         string // PC端发起页链接
+	createLinkPcFlag     bool
+	createLinkMobile     string // 移动端发起页链接
+	createLinkMobileFlag bool
 }
 
 func NewDefinitionBuilder() *DefinitionBuilder {
@@ -3133,6 +3154,69 @@ func (builder *DefinitionBuilder) ApprovalName(approvalName string) *DefinitionB
 	return builder
 }
 
+// 分组名称，值的格式是 i18n key，文案放在 i18n_resource
+//
+// 示例值：分组名称
+func (builder *DefinitionBuilder) GroupName(groupName string) *DefinitionBuilder {
+	builder.groupName = groupName
+	builder.groupNameFlag = true
+	return builder
+}
+
+// 审批定义的说明，值的格式是 i18n key，文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段
+//
+// 示例值：审批定义说明
+func (builder *DefinitionBuilder) Description(description string) *DefinitionBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 审批图标链接
+//
+// 示例值：https://lf3-ea.bytetos.com/obj/goofy/ee/approval/approval-admin/image/iconLib/v3/person.png
+func (builder *DefinitionBuilder) IconUrl(iconUrl string) *DefinitionBuilder {
+	builder.iconUrl = iconUrl
+	builder.iconUrlFlag = true
+	return builder
+}
+
+// 审批定义所属审批分组
+//
+// 示例值：work_group
+func (builder *DefinitionBuilder) GroupCode(groupCode string) *DefinitionBuilder {
+	builder.groupCode = groupCode
+	builder.groupCodeFlag = true
+	return builder
+}
+
+// 是否为第三方审批
+//
+// 示例值：false
+func (builder *DefinitionBuilder) IsExternal(isExternal bool) *DefinitionBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+
+// PC端发起页链接
+//
+// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999
+func (builder *DefinitionBuilder) CreateLinkPc(createLinkPc string) *DefinitionBuilder {
+	builder.createLinkPc = createLinkPc
+	builder.createLinkPcFlag = true
+	return builder
+}
+
+// 移动端发起页链接
+//
+// 示例值：https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999
+func (builder *DefinitionBuilder) CreateLinkMobile(createLinkMobile string) *DefinitionBuilder {
+	builder.createLinkMobile = createLinkMobile
+	builder.createLinkMobileFlag = true
+	return builder
+}
+
 func (builder *DefinitionBuilder) Build() *Definition {
 	req := &Definition{}
 	if builder.approvalCodeFlag {
@@ -3141,6 +3225,34 @@ func (builder *DefinitionBuilder) Build() *Definition {
 	}
 	if builder.approvalNameFlag {
 		req.ApprovalName = &builder.approvalName
+
+	}
+	if builder.groupNameFlag {
+		req.GroupName = &builder.groupName
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.iconUrlFlag {
+		req.IconUrl = &builder.iconUrl
+
+	}
+	if builder.groupCodeFlag {
+		req.GroupCode = &builder.groupCode
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.createLinkPcFlag {
+		req.CreateLinkPc = &builder.createLinkPc
+
+	}
+	if builder.createLinkMobileFlag {
+		req.CreateLinkMobile = &builder.createLinkMobile
 
 	}
 	return req
@@ -12106,7 +12218,7 @@ func (resp *TransferTaskResp) Success() bool {
 }
 
 type P2ApprovalUpdatedV4Data struct {
-	Object *ApprovalEvent `json:"object,omitempty"` //
+	Object *ApprovalEvent `json:"object,omitempty"` // 事件详情数据
 }
 
 type P2ApprovalUpdatedV4 struct {

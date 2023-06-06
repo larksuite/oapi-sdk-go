@@ -268,6 +268,22 @@ const (
 )
 
 const (
+	FileTypeListFileViewRecordDoc      = "doc"      // 旧版文档
+	FileTypeListFileViewRecordDocx     = "docx"     // 新版文档
+	FileTypeListFileViewRecordSheet    = "sheet"    // 电子表格
+	FileTypeListFileViewRecordBitable  = "bitable"  // 多维表格
+	FileTypeListFileViewRecordMindnote = "mindnote" // 思维笔记
+	FileTypeListFileViewRecordWiki     = "wiki"     // 知识库文档
+	FileTypeListFileViewRecordFile     = "file"     // 文件
+)
+
+const (
+	ViewerIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	ViewerIdTypeUnionId = "union_id" // 以union_id来识别用户
+	ViewerIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	ParentTypeUploadAllMediaDocImage            = "doc_image"             // docs图片
 	ParentTypeUploadAllMediaDocxImage           = "docx_image"            // docx图片
 	ParentTypeUploadAllMediaSheetImage          = "sheet_image"           // sheet图片
@@ -7507,6 +7523,97 @@ func (resp *ListFileVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListFileViewRecordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListFileViewRecordReqBuilder() *ListFileViewRecordReqBuilder {
+	builder := &ListFileViewRecordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListFileViewRecordReqBuilder) Limit(limit int) *ListFileViewRecordReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 文档 token
+//
+// 示例值：XIHSdYSI7oMEU1xrsnxc8fabcef
+func (builder *ListFileViewRecordReqBuilder) FileToken(fileToken string) *ListFileViewRecordReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListFileViewRecordReqBuilder) PageSize(pageSize int) *ListFileViewRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：1674037112--7189934631754563585
+func (builder *ListFileViewRecordReqBuilder) PageToken(pageToken string) *ListFileViewRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：docx
+func (builder *ListFileViewRecordReqBuilder) FileType(fileType string) *ListFileViewRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+// 此次调用中使用的访问者 ID 的类型
+//
+// 示例值：open_id
+func (builder *ListFileViewRecordReqBuilder) ViewerIdType(viewerIdType string) *ListFileViewRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("viewer_id_type", fmt.Sprint(viewerIdType))
+	return builder
+}
+
+func (builder *ListFileViewRecordReqBuilder) Build() *ListFileViewRecordReq {
+	req := &ListFileViewRecordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListFileViewRecordReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListFileViewRecordRespData struct {
+	Items     []*FileViewRecord `json:"items,omitempty"`      // 访问记录列表
+	PageToken *string           `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool             `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListFileViewRecordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListFileViewRecordRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListFileViewRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateImportTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	importTask *ImportTask
@@ -9408,5 +9515,59 @@ func (iterator *ListFileVersionIterator) Next() (bool, *Version, error) {
 }
 
 func (iterator *ListFileVersionIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListFileViewRecordIterator struct {
+	nextPageToken *string
+	items         []*FileViewRecord
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListFileViewRecordReq
+	listFunc      func(ctx context.Context, req *ListFileViewRecordReq, options ...larkcore.RequestOptionFunc) (*ListFileViewRecordResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListFileViewRecordIterator) Next() (bool, *FileViewRecord, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListFileViewRecordIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

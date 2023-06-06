@@ -280,6 +280,9 @@ type Alert struct {
 	Contacts      []*Contact `json:"contacts,omitempty"`       // 告警联系人
 	NotifyMethods []int      `json:"notifyMethods,omitempty"`  // 通知方式
 	AlertRule     *string    `json:"alertRule,omitempty"`      // 规则名称
+	ProcessTime   *string    `json:"process_time,omitempty"`   // 处理时间
+	RecoverTime   *string    `json:"recover_time,omitempty"`   // 恢复时间
+	ProcessStatus *int       `json:"process_status,omitempty"` // 处理状态：待处理/处理中/已恢复
 }
 
 type AlertBuilder struct {
@@ -301,6 +304,12 @@ type AlertBuilder struct {
 	notifyMethodsFlag bool
 	alertRule         string // 规则名称
 	alertRuleFlag     bool
+	processTime       string // 处理时间
+	processTimeFlag   bool
+	recoverTime       string // 恢复时间
+	recoverTimeFlag   bool
+	processStatus     int // 处理状态：待处理/处理中/已恢复
+	processStatusFlag bool
 }
 
 func NewAlertBuilder() *AlertBuilder {
@@ -389,6 +398,33 @@ func (builder *AlertBuilder) AlertRule(alertRule string) *AlertBuilder {
 	return builder
 }
 
+// 处理时间
+//
+// 示例值：1656914944
+func (builder *AlertBuilder) ProcessTime(processTime string) *AlertBuilder {
+	builder.processTime = processTime
+	builder.processTimeFlag = true
+	return builder
+}
+
+// 恢复时间
+//
+// 示例值：1656914944
+func (builder *AlertBuilder) RecoverTime(recoverTime string) *AlertBuilder {
+	builder.recoverTime = recoverTime
+	builder.recoverTimeFlag = true
+	return builder
+}
+
+// 处理状态：待处理/处理中/已恢复
+//
+// 示例值：2
+func (builder *AlertBuilder) ProcessStatus(processStatus int) *AlertBuilder {
+	builder.processStatus = processStatus
+	builder.processStatusFlag = true
+	return builder
+}
+
 func (builder *AlertBuilder) Build() *Alert {
 	req := &Alert{}
 	if builder.alertIdFlag {
@@ -423,6 +459,18 @@ func (builder *AlertBuilder) Build() *Alert {
 	}
 	if builder.alertRuleFlag {
 		req.AlertRule = &builder.alertRule
+
+	}
+	if builder.processTimeFlag {
+		req.ProcessTime = &builder.processTime
+
+	}
+	if builder.recoverTimeFlag {
+		req.RecoverTime = &builder.recoverTime
+
+	}
+	if builder.processStatusFlag {
+		req.ProcessStatus = &builder.processStatus
 
 	}
 	return req

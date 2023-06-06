@@ -32,6 +32,34 @@ func (dispatcher *EventDispatcher) OnP2ApplicationStageChangedV1(handler func(ct
 	return dispatcher
 }
 
+//
+//
+// -
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr
+func (dispatcher *EventDispatcher) OnP2EhrImportTaskImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskImportedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.ehr_import_task.imported_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.ehr_import_task.imported_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.ehr_import_task.imported_v1"] = larkhire.NewP2EhrImportTaskImportedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EhrImportTaskForInternshipOfferImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskForInternshipOfferImportedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.ehr_import_task_for_internship_offer.imported_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.ehr_import_task_for_internship_offer.imported_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.ehr_import_task_for_internship_offer.imported_v1"] = larkhire.NewP2EhrImportTaskForInternshipOfferImportedV1Handler(handler)
+	return dispatcher
+}
+
 // Offer 状态变更
 //
 // - 当 Offer 状态发生变更时将触发该事件。

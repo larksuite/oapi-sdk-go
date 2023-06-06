@@ -38,6 +38,46 @@ func (h *P2ApplicationStageChangedV1Handler) Handle(ctx context.Context, event i
 }
 
 // 消息处理器定义
+type P2EhrImportTaskImportedV1Handler struct {
+	handler func(context.Context, *P2EhrImportTaskImportedV1) error
+}
+
+func NewP2EhrImportTaskImportedV1Handler(handler func(context.Context, *P2EhrImportTaskImportedV1) error) *P2EhrImportTaskImportedV1Handler {
+	h := &P2EhrImportTaskImportedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EhrImportTaskImportedV1Handler) Event() interface{} {
+	return &P2EhrImportTaskImportedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EhrImportTaskImportedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EhrImportTaskImportedV1))
+}
+
+// 消息处理器定义
+type P2EhrImportTaskForInternshipOfferImportedV1Handler struct {
+	handler func(context.Context, *P2EhrImportTaskForInternshipOfferImportedV1) error
+}
+
+func NewP2EhrImportTaskForInternshipOfferImportedV1Handler(handler func(context.Context, *P2EhrImportTaskForInternshipOfferImportedV1) error) *P2EhrImportTaskForInternshipOfferImportedV1Handler {
+	h := &P2EhrImportTaskForInternshipOfferImportedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EhrImportTaskForInternshipOfferImportedV1Handler) Event() interface{} {
+	return &P2EhrImportTaskForInternshipOfferImportedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EhrImportTaskForInternshipOfferImportedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EhrImportTaskForInternshipOfferImportedV1))
+}
+
+// 消息处理器定义
 type P2OfferStatusChangedV1Handler struct {
 	handler func(context.Context, *P2OfferStatusChangedV1) error
 }

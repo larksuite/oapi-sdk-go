@@ -29,10 +29,10 @@ func main() {
 	req := larkcontact.NewListDepartmentReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-		ParentDepartmentId("").
+		ParentDepartmentId("od-80884c92e43e").
 		FetchChild(false).
-		PageToken("").
-		PageSize(20).
+		PageSize(10).
+		PageToken("5bc498db4617").
 		Build()
 	// 发起请求
 	resp, err := client.Contact.Department.List(context.Background(), req)

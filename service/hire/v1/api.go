@@ -26,15 +26,19 @@ func NewService(config *larkcore.Config) *HireService {
 	h.ApplicationInterview = &applicationInterview{service: h}
 	h.Attachment = &attachment{service: h}
 	h.EhrImportTask = &ehrImportTask{service: h}
+	h.EhrImportTaskForInternshipOffer = &ehrImportTaskForInternshipOffer{service: h}
 	h.Employee = &employee{service: h}
 	h.Evaluation = &evaluation{service: h}
 	h.ExternalApplication = &externalApplication{service: h}
 	h.ExternalBackgroundCheck = &externalBackgroundCheck{service: h}
 	h.ExternalInterview = &externalInterview{service: h}
 	h.ExternalInterviewAssessment = &externalInterviewAssessment{service: h}
+	h.Interview = &interview{service: h}
 	h.Job = &job{service: h}
 	h.JobManager = &jobManager{service: h}
 	h.JobProcess = &jobProcess{service: h}
+	h.JobRequirement = &jobRequirement{service: h}
+	h.JobRequirementSchema = &jobRequirementSchema{service: h}
 	h.Note = &note{service: h}
 	h.Offer = &offer{service: h}
 	h.OfferSchema = &offerSchema{service: h}
@@ -47,28 +51,32 @@ func NewService(config *larkcore.Config) *HireService {
 }
 
 type HireService struct {
-	config                      *larkcore.Config
-	Application                 *application                 // 入职
-	ApplicationInterview        *applicationInterview        // application.interview
-	Attachment                  *attachment                  // 附件
-	EhrImportTask               *ehrImportTask               // 导入 e-HR
-	Employee                    *employee                    // 入职
-	Evaluation                  *evaluation                  // 评估（灰度租户可见）
-	ExternalApplication         *externalApplication         // 导入外部系统信息（灰度租户可见）
-	ExternalBackgroundCheck     *externalBackgroundCheck     // 导入外部系统信息（灰度租户可见）
-	ExternalInterview           *externalInterview           // 导入外部系统信息（灰度租户可见）
-	ExternalInterviewAssessment *externalInterviewAssessment // 导入外部系统信息（灰度租户可见）
-	Job                         *job                         // 职位
-	JobManager                  *jobManager                  // job.manager
-	JobProcess                  *jobProcess                  // 流程
-	Note                        *note                        // 备注
-	Offer                       *offer                       // Offer
-	OfferSchema                 *offerSchema                 // offer_schema
-	Questionnaire               *questionnaire               // 问卷（灰度租户可见）
-	Referral                    *referral                    // 内推
-	ResumeSource                *resumeSource                // 简历来源
-	Talent                      *talent                      // 人才
-	TalentFolder                *talentFolder                // talent_folder
+	config                          *larkcore.Config
+	Application                     *application                     // 投递
+	ApplicationInterview            *applicationInterview            // application.interview
+	Attachment                      *attachment                      // 附件
+	EhrImportTask                   *ehrImportTask                   // 导入 e-HR
+	EhrImportTaskForInternshipOffer *ehrImportTaskForInternshipOffer // ehr_import_task_for_internship_offer
+	Employee                        *employee                        // 入职
+	Evaluation                      *evaluation                      // 评估（灰度租户可见）
+	ExternalApplication             *externalApplication             // 导入外部系统信息（灰度租户可见）
+	ExternalBackgroundCheck         *externalBackgroundCheck         // 导入外部系统信息（灰度租户可见）
+	ExternalInterview               *externalInterview               // 导入外部系统信息（灰度租户可见）
+	ExternalInterviewAssessment     *externalInterviewAssessment     // 导入外部系统信息（灰度租户可见）
+	Interview                       *interview                       // 面试
+	Job                             *job                             // 职位
+	JobManager                      *jobManager                      // job.manager
+	JobProcess                      *jobProcess                      // 流程
+	JobRequirement                  *jobRequirement                  // 招聘需求（灰度租户可见）
+	JobRequirementSchema            *jobRequirementSchema            // job_requirement_schema
+	Note                            *note                            // 备注
+	Offer                           *offer                           // Offer
+	OfferSchema                     *offerSchema                     // offer_schema
+	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
+	Referral                        *referral                        // 内推
+	ResumeSource                    *resumeSource                    // 简历来源
+	Talent                          *talent                          // 人才
+	TalentFolder                    *talentFolder                    // talent_folder
 }
 
 type application struct {
@@ -81,6 +89,9 @@ type attachment struct {
 	service *HireService
 }
 type ehrImportTask struct {
+	service *HireService
+}
+type ehrImportTaskForInternshipOffer struct {
 	service *HireService
 }
 type employee struct {
@@ -101,6 +112,9 @@ type externalInterview struct {
 type externalInterviewAssessment struct {
 	service *HireService
 }
+type interview struct {
+	service *HireService
+}
 type job struct {
 	service *HireService
 }
@@ -108,6 +122,12 @@ type jobManager struct {
 	service *HireService
 }
 type jobProcess struct {
+	service *HireService
+}
+type jobRequirement struct {
+	service *HireService
+}
+type jobRequirementSchema struct {
 	service *HireService
 }
 type note struct {
@@ -533,6 +553,58 @@ func (e *externalApplication) Create(ctx context.Context, req *CreateExternalApp
 	return resp, err
 }
 
+//
+//
+// - 删除外部投递
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_application&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/delete_externalApplication.go
+func (e *externalApplication) Delete(ctx context.Context, req *DeleteExternalApplicationReq, options ...larkcore.RequestOptionFunc) (*DeleteExternalApplicationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_applications/:external_application_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteExternalApplicationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// - 更新外部投递
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=external_application&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_externalApplication.go
+func (e *externalApplication) Update(ctx context.Context, req *UpdateExternalApplicationReq, options ...larkcore.RequestOptionFunc) (*UpdateExternalApplicationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/external_applications/:external_application_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateExternalApplicationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 创建外部背调
 //
 // - 导入来自其他系统的背调信息，创建为外部背调
@@ -605,6 +677,32 @@ func (e *externalInterviewAssessment) Create(ctx context.Context, req *CreateExt
 	// 反序列响应结果
 	resp := &CreateExternalInterviewAssessmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取面试信息
+//
+// - 根据投递 ID 或面试时间获取面试信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_interview.go
+func (i *interview) List(ctx context.Context, req *ListInterviewReq, options ...larkcore.RequestOptionFunc) (*ListInterviewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/interviews"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListInterviewResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -786,6 +884,162 @@ func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options .
 	}
 	// 反序列响应结果
 	resp := &ListJobProcessResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建招聘需求
+//
+// - 创建招聘需求，除招聘需求编号为必填外，其他字段是否必填与飞书招聘「招聘需求字段管理」内设置一致
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_jobRequirement.go
+func (j *jobRequirement) Create(ctx context.Context, req *CreateJobRequirementReq, options ...larkcore.RequestOptionFunc) (*CreateJobRequirementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirements"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateJobRequirementResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除招聘需求
+//
+// - 删除招聘需求
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/delete_jobRequirement.go
+func (j *jobRequirement) Delete(ctx context.Context, req *DeleteJobRequirementReq, options ...larkcore.RequestOptionFunc) (*DeleteJobRequirementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirements/:job_requirement_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteJobRequirementResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取招聘需求列表
+//
+// - 获取招聘需求列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobRequirement.go
+func (j *jobRequirement) List(ctx context.Context, req *ListJobRequirementReq, options ...larkcore.RequestOptionFunc) (*ListJobRequirementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirements"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListJobRequirementResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// - 获取招聘需求信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_by_id&project=hire&resource=job_requirement&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/listById_jobRequirement.go
+func (j *jobRequirement) ListById(ctx context.Context, req *ListByIdJobRequirementReq, options ...larkcore.RequestOptionFunc) (*ListByIdJobRequirementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirements/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListByIdJobRequirementResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新招聘需求
+//
+// - 更新招聘需求
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_jobRequirement.go
+func (j *jobRequirement) Update(ctx context.Context, req *UpdateJobRequirementReq, options ...larkcore.RequestOptionFunc) (*UpdateJobRequirementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirements/:job_requirement_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateJobRequirementResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取招聘需求模板
+//
+// - 获取招聘需求模板
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement_schema/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobRequirementSchema.go
+func (j *jobRequirementSchema) List(ctx context.Context, req *ListJobRequirementSchemaReq, options ...larkcore.RequestOptionFunc) (*ListJobRequirementSchemaResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_requirement_schemas"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListJobRequirementSchemaResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
 	if err != nil {
 		return nil, err

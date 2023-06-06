@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewCreateCalendarEventReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
+		IdempotencyKey("25fdf41b-8c80-2ce1-e94c-de8b5e7aa7e6").
 		CalendarEvent(larkcalendar.NewCalendarEventBuilder().
 			Summary("日程标题").
 			Description("日程描述").
