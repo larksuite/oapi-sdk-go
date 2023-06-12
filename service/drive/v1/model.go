@@ -7381,22 +7381,6 @@ func (builder *GetFileVersionReqBuilder) UserIdType(userIdType string) *GetFileV
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
-//
-// 示例值：1665739388
-func (builder *GetFileVersionReqBuilder) PageToken(pageToken string) *GetFileVersionReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-// 分页大小
-//
-// 示例值：10
-func (builder *GetFileVersionReqBuilder) PageSize(pageSize int) *GetFileVersionReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
-	return builder
-}
-
 func (builder *GetFileVersionReqBuilder) Build() *GetFileVersionReq {
 	req := &GetFileVersionReq{}
 	req.apiReq = &larkcore.ApiReq{}

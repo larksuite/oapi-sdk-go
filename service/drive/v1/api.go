@@ -43,7 +43,7 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config                   *larkcore.Config
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 下载
+	File                     *file                     // 异步任务状态
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
@@ -51,7 +51,7 @@ type DriveService struct {
 	FileVersion              *fileVersion              // 文档版本
 	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 分片上传
+	Media                    *media                    // 素材
 	Meta                     *meta                     // meta
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置
@@ -859,7 +859,7 @@ func (f *fileVersion) Create(ctx context.Context, req *CreateFileVersionReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
 	if err != nil {
 		return nil, err
@@ -885,7 +885,7 @@ func (f *fileVersion) Delete(ctx context.Context, req *DeleteFileVersionReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions/:version_id"
 	apiReq.HttpMethod = http.MethodDelete
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
 	if err != nil {
 		return nil, err
@@ -937,7 +937,7 @@ func (f *fileVersion) List(ctx context.Context, req *ListFileVersionReq, options
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/versions"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
 	if err != nil {
 		return nil, err

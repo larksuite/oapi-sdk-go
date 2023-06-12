@@ -49,6 +49,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/optical_char_recognition/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/passport/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/speech_to_text/v1"
@@ -87,6 +88,7 @@ type Client struct {
 	Okr                    *larkokr.OkrService                                         // OKR
 	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力
 	Passport               *larkpassport.PassportService                               // 帐号
+	PersonalSettings       *larkpersonal_settings.PersonalSettingsService              // 个人设置
 	Search                 *larksearch.SearchService                                   // 搜索
 	Sheets                 *larksheets.SheetsService                                   // 云文档-电子表格
 	SpeechToText           *larkspeech_to_text.SpeechToTextService                     // AI能力
@@ -244,6 +246,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Okr = larkokr.NewService(config)
 	client.OpticalCharRecognition = larkoptical_char_recognition.NewService(config)
 	client.Passport = larkpassport.NewService(config)
+	client.PersonalSettings = larkpersonal_settings.NewService(config)
 	client.Search = larksearch.NewService(config)
 	client.Sheets = larksheets.NewService(config)
 	client.SpeechToText = larkspeech_to_text.NewService(config)

@@ -907,6 +907,8 @@ type Group struct {
 	GoOutNeedPunchCfg       *LeaveNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         *int                     `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *LeaveNeedPunchCfg       `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
+	NeedPunchMembers        []*PunchMember           `json:"need_punch_members,omitempty"`          // 需要打卡的人员配置（新）
+	NoNeedPunchMembers      []*PunchMember           `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员配置（新）
 }
 
 type GroupBuilder struct {
@@ -1026,6 +1028,10 @@ type GroupBuilder struct {
 	travelNeedPunchFlag         bool
 	travelNeedPunchCfg          *LeaveNeedPunchCfg // 出差期间打卡规则
 	travelNeedPunchCfgFlag      bool
+	needPunchMembers            []*PunchMember // 需要打卡的人员配置（新）
+	needPunchMembersFlag        bool
+	noNeedPunchMembers          []*PunchMember // 无需打卡的人员配置（新）
+	noNeedPunchMembersFlag      bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -1555,6 +1561,24 @@ func (builder *GroupBuilder) TravelNeedPunchCfg(travelNeedPunchCfg *LeaveNeedPun
 	return builder
 }
 
+// 需要打卡的人员配置（新）
+//
+// 示例值：
+func (builder *GroupBuilder) NeedPunchMembers(needPunchMembers []*PunchMember) *GroupBuilder {
+	builder.needPunchMembers = needPunchMembers
+	builder.needPunchMembersFlag = true
+	return builder
+}
+
+// 无需打卡的人员配置（新）
+//
+// 示例值：
+func (builder *GroupBuilder) NoNeedPunchMembers(noNeedPunchMembers []*PunchMember) *GroupBuilder {
+	builder.noNeedPunchMembers = noNeedPunchMembers
+	builder.noNeedPunchMembersFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.groupIdFlag {
@@ -1772,6 +1796,12 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.travelNeedPunchCfgFlag {
 		req.TravelNeedPunchCfg = builder.travelNeedPunchCfg
+	}
+	if builder.needPunchMembersFlag {
+		req.NeedPunchMembers = builder.needPunchMembers
+	}
+	if builder.noNeedPunchMembersFlag {
+		req.NoNeedPunchMembers = builder.noNeedPunchMembers
 	}
 	return req
 }
@@ -3189,6 +3219,53 @@ func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
 	return req
 }
 
+type PunchMember struct {
+	RuleScopeType  *int        `json:"rule_scope_type,omitempty"`  // 圈人方式：0 无 1全部 2自定义
+	ScopeGroupList *ScopeGroup `json:"scope_group_list,omitempty"` // 圈人规则列表
+}
+
+type PunchMemberBuilder struct {
+	ruleScopeType      int // 圈人方式：0 无 1全部 2自定义
+	ruleScopeTypeFlag  bool
+	scopeGroupList     *ScopeGroup // 圈人规则列表
+	scopeGroupListFlag bool
+}
+
+func NewPunchMemberBuilder() *PunchMemberBuilder {
+	builder := &PunchMemberBuilder{}
+	return builder
+}
+
+// 圈人方式：0 无 1全部 2自定义
+//
+// 示例值：0
+func (builder *PunchMemberBuilder) RuleScopeType(ruleScopeType int) *PunchMemberBuilder {
+	builder.ruleScopeType = ruleScopeType
+	builder.ruleScopeTypeFlag = true
+	return builder
+}
+
+// 圈人规则列表
+//
+// 示例值：
+func (builder *PunchMemberBuilder) ScopeGroupList(scopeGroupList *ScopeGroup) *PunchMemberBuilder {
+	builder.scopeGroupList = scopeGroupList
+	builder.scopeGroupListFlag = true
+	return builder
+}
+
+func (builder *PunchMemberBuilder) Build() *PunchMember {
+	req := &PunchMember{}
+	if builder.ruleScopeTypeFlag {
+		req.RuleScopeType = &builder.ruleScopeType
+
+	}
+	if builder.scopeGroupListFlag {
+		req.ScopeGroupList = builder.scopeGroupList
+	}
+	return req
+}
+
 type PunchSpecialDateShift struct {
 	PunchDay *int    `json:"punch_day,omitempty"` // 打卡日期
 	ShiftId  *string `json:"shift_id,omitempty"`  // 班次 ID
@@ -3536,6 +3613,132 @@ func (builder *ScheduleBuilder) Build() *Schedule {
 	}
 	if builder.shiftsFlag {
 		req.Shifts = builder.shifts
+	}
+	return req
+}
+
+type ScopeGroup struct {
+	ScopeValueType *int          `json:"scope_value_type,omitempty"` // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
+	OperationType  *int          `json:"operation_type,omitempty"`   // 范围类型（是否包含）
+	Right          []*ScopeValue `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
+	MemberIds      []string      `json:"member_ids,omitempty"`       // 部门/人员id列表
+}
+
+type ScopeGroupBuilder struct {
+	scopeValueType     int // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
+	scopeValueTypeFlag bool
+	operationType      int // 范围类型（是否包含）
+	operationTypeFlag  bool
+	right              []*ScopeValue // 如果是人员/部门类型 不需要使用该字段
+	rightFlag          bool
+	memberIds          []string // 部门/人员id列表
+	memberIdsFlag      bool
+}
+
+func NewScopeGroupBuilder() *ScopeGroupBuilder {
+	builder := &ScopeGroupBuilder{}
+	return builder
+}
+
+// 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
+//
+// 示例值：1
+func (builder *ScopeGroupBuilder) ScopeValueType(scopeValueType int) *ScopeGroupBuilder {
+	builder.scopeValueType = scopeValueType
+	builder.scopeValueTypeFlag = true
+	return builder
+}
+
+// 范围类型（是否包含）
+//
+// 示例值：1
+func (builder *ScopeGroupBuilder) OperationType(operationType int) *ScopeGroupBuilder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// 如果是人员/部门类型 不需要使用该字段
+//
+// 示例值：
+func (builder *ScopeGroupBuilder) Right(right []*ScopeValue) *ScopeGroupBuilder {
+	builder.right = right
+	builder.rightFlag = true
+	return builder
+}
+
+// 部门/人员id列表
+//
+// 示例值：
+func (builder *ScopeGroupBuilder) MemberIds(memberIds []string) *ScopeGroupBuilder {
+	builder.memberIds = memberIds
+	builder.memberIdsFlag = true
+	return builder
+}
+
+func (builder *ScopeGroupBuilder) Build() *ScopeGroup {
+	req := &ScopeGroup{}
+	if builder.scopeValueTypeFlag {
+		req.ScopeValueType = &builder.scopeValueType
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.rightFlag {
+		req.Right = builder.right
+	}
+	if builder.memberIdsFlag {
+		req.MemberIds = builder.memberIds
+	}
+	return req
+}
+
+type ScopeValue struct {
+	Key  *string `json:"key,omitempty"`  //  标识Key
+	Name *string `json:"name,omitempty"` // 名称
+}
+
+type ScopeValueBuilder struct {
+	key      string //  标识Key
+	keyFlag  bool
+	name     string // 名称
+	nameFlag bool
+}
+
+func NewScopeValueBuilder() *ScopeValueBuilder {
+	builder := &ScopeValueBuilder{}
+	return builder
+}
+
+//  标识Key
+//
+// 示例值：CH
+func (builder *ScopeValueBuilder) Key(key string) *ScopeValueBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：中国大陆
+func (builder *ScopeValueBuilder) Name(name string) *ScopeValueBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *ScopeValueBuilder) Build() *ScopeValue {
+	req := &ScopeValue{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
 	}
 	return req
 }
@@ -6769,6 +6972,8 @@ type GetGroupRespData struct {
 	GoOutNeedPunchCfg       *LeaveNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         *int                     `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *LeaveNeedPunchCfg       `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
+	NeedPunchMembers        []*PunchMember           `json:"need_punch_members,omitempty"`          // 需要打卡的人员配置（新）
+	NoNeedPunchMembers      []*PunchMember           `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员配置（新）
 }
 
 type GetGroupResp struct {
@@ -6833,8 +7038,8 @@ type ListGroupReq struct {
 
 type ListGroupRespData struct {
 	GroupList []*GroupMeta `json:"group_list,omitempty"` // 考勤组列表
-	PageToken *string      `json:"page_token,omitempty"` //
-	HasMore   *bool        `json:"has_more,omitempty"`   //
+	PageToken *string      `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool        `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListGroupResp struct {
