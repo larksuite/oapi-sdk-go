@@ -43,8 +43,8 @@ type P1LeaveApprovalV4Data struct {
 	LeaveUnit      string                           `json:"leave_unit,omitempty"`       // 请假最小时长
 	LeaveStartTime string                           `json:"leave_start_time,omitempty"` // 请假开始时间
 	LeaveEndTime   string                           `json:"leave_end_time,omitempty"`   // 请假结束时间
-	LeaveDetail    []string                         `json:"leave_detail,omitempty"`     // 具体的请假明细时间
-	LeaveRange     []string                         `json:"leave_range,omitempty"`      // 具体的请假时间范围
+	LeaveDetail    [][]string                       `json:"leave_detail,omitempty"`     // 具体的请假明细时间
+	LeaveRange     [][]string                       `json:"leave_range,omitempty"`      // 具体的请假时间范围
 	LeaveInterval  int64                            `json:"leave_interval,omitempty"`   // 请假时长，单位（秒）
 	LeaveReason    string                           `json:"leave_reason,omitempty"`     // 请假事由
 	I18nResources  []*P1LeaveApprovalI18nResourceV4 `json:"i18n_resources,omitempty"`   // 国际化文案
