@@ -41,6 +41,7 @@ func NewService(config *larkcore.Config) *ImService {
 	i.MessageReaction = &messageReaction{service: i}
 	i.MessageResource = &messageResource{service: i}
 	i.Pin = &pin{service: i}
+	i.SpecialFocus = &specialFocus{service: i}
 	return i
 }
 
@@ -60,10 +61,11 @@ type ImService struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息 - 消息卡片
+	Message          *message          // 消息
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
+	SpecialFocus     *specialFocus     // 特别关注（灰度租户可见）
 }
 
 type batchMessage struct {
@@ -118,6 +120,9 @@ type messageResource struct {
 	service *ImService
 }
 type pin struct {
+	service *ImService
+}
+type specialFocus struct {
 	service *ImService
 }
 
@@ -1461,6 +1466,32 @@ func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...la
 	return resp, err
 }
 
+//
+//
+// - 编辑已发送的消息内容，当前仅支持编辑文本和富文本消息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/update_message.go
+func (m *message) Update(ctx context.Context, req *UpdateMessageReq, options ...larkcore.RequestOptionFunc) (*UpdateMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/messages/:message_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 发送应用内加急
 //
 // - 对指定消息进行应用内加急。
@@ -1767,4 +1798,64 @@ func (p *pin) ListByIterator(ctx context.Context, req *ListPinReq, options ...la
 		listFunc: p.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// 获取特别关注列表
+//
+// - 获取用户的特别关注列表。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/special_focus/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_specialFocus.go
+func (s *specialFocus) List(ctx context.Context, req *ListSpecialFocusReq, options ...larkcore.RequestOptionFunc) (*ListSpecialFocusResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/special_focus"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListSpecialFocusResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (s *specialFocus) ListByIterator(ctx context.Context, req *ListSpecialFocusReq, options ...larkcore.RequestOptionFunc) (*ListSpecialFocusIterator, error) {
+	return &ListSpecialFocusIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: s.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// 获取特别关注未读信息
+//
+// - 支持按单聊类型和群聊类型获取用户的特别关注未读消息数。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/special_focus/unread
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/unread_specialFocus.go
+func (s *specialFocus) Unread(ctx context.Context, req *UnreadSpecialFocusReq, options ...larkcore.RequestOptionFunc) (*UnreadSpecialFocusResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/special_focus/unread"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, s.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnreadSpecialFocusResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, s.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }

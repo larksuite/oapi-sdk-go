@@ -167,6 +167,18 @@ const (
 )
 
 const (
+	UserIdTypeGetReserveConfigDisableInformUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetReserveConfigDisableInformUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetReserveConfigDisableInformOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypePatchReserveConfigDisableInformUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypePatchReserveConfigDisableInformUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypePatchReserveConfigDisableInformOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeGetReserveConfigFormUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeGetReserveConfigFormUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeGetReserveConfigFormOpenId  = "open_id"  // 以open_id来识别用户
@@ -244,6 +256,40 @@ const (
 	UserIdTypeSetRoomConfigUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeSetRoomConfigUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSetRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	NodeScopeSetCheckboardAccessCodeRoomConfigTenant          = 1 // 租户
+	NodeScopeSetCheckboardAccessCodeRoomConfigCountryDistrict = 2 // 国家/地区
+	NodeScopeSetCheckboardAccessCodeRoomConfigCity            = 3 // 城市
+	NodeScopeSetCheckboardAccessCodeRoomConfigBuilding        = 4 // 建筑
+	NodeScopeSetCheckboardAccessCodeRoomConfigFloor           = 5 // 楼层
+	NodeScopeSetCheckboardAccessCodeRoomConfigRoom            = 6 // 会议室
+
+)
+
+const (
+	ValidDayTypeDay   = 1  // 1天
+	ValidDayTypeWeek  = 7  // 7天
+	ValidDayTypeMonth = 30 // 30天
+
+)
+
+const (
+	NodeScopeSetRoomAccessCodeRoomConfigTenant          = 1 // 租户
+	NodeScopeSetRoomAccessCodeRoomConfigCountryDistrict = 2 // 国家/地区
+	NodeScopeSetRoomAccessCodeRoomConfigCity            = 3 // 城市
+	NodeScopeSetRoomAccessCodeRoomConfigBuilding        = 4 // 建筑
+	NodeScopeSetRoomAccessCodeRoomConfigFloor           = 5 // 楼层
+	NodeScopeSetRoomAccessCodeRoomConfigRoom            = 6 // 会议室
+
+)
+
+const (
+	ValidDayTypeSetRoomAccessCodeRoomConfigDay   = 1  // 1天
+	ValidDayTypeSetRoomAccessCodeRoomConfigWeek  = 7  // 7天
+	ValidDayTypeSetRoomAccessCodeRoomConfigMonth = 30 // 30天
+
 )
 
 const (
@@ -10072,6 +10118,215 @@ func (resp *PatchReserveConfigAdminResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetReserveConfigDisableInformReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetReserveConfigDisableInformReqBuilder() *GetReserveConfigDisableInformReqBuilder {
+	builder := &GetReserveConfigDisableInformReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级ID
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *GetReserveConfigDisableInformReqBuilder) ReserveConfigId(reserveConfigId string) *GetReserveConfigDisableInformReqBuilder {
+	builder.apiReq.PathParams.Set("reserve_config_id", fmt.Sprint(reserveConfigId))
+	return builder
+}
+
+// 1表示层级，2表示会议室
+//
+// 示例值：2
+func (builder *GetReserveConfigDisableInformReqBuilder) ScopeType(scopeType int) *GetReserveConfigDisableInformReqBuilder {
+	builder.apiReq.QueryParams.Set("scope_type", fmt.Sprint(scopeType))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetReserveConfigDisableInformReqBuilder) UserIdType(userIdType string) *GetReserveConfigDisableInformReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetReserveConfigDisableInformReqBuilder) Build() *GetReserveConfigDisableInformReq {
+	req := &GetReserveConfigDisableInformReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetReserveConfigDisableInformReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetReserveConfigDisableInformRespData struct {
+	DisableInform *DisableInformConfig `json:"disable_inform,omitempty"` // 会议室禁用通知配置
+}
+
+type GetReserveConfigDisableInformResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetReserveConfigDisableInformRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetReserveConfigDisableInformResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchReserveConfigDisableInformReqBodyBuilder struct {
+	scopeType         int // 1表示会议室层级，2表示会议室
+	scopeTypeFlag     bool
+	disableInform     *DisableInformConfig // 禁用通知配置
+	disableInformFlag bool
+}
+
+func NewPatchReserveConfigDisableInformReqBodyBuilder() *PatchReserveConfigDisableInformReqBodyBuilder {
+	builder := &PatchReserveConfigDisableInformReqBodyBuilder{}
+	return builder
+}
+
+// 1表示会议室层级，2表示会议室
+//
+//示例值：2
+func (builder *PatchReserveConfigDisableInformReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigDisableInformReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 禁用通知配置
+//
+//示例值：
+func (builder *PatchReserveConfigDisableInformReqBodyBuilder) DisableInform(disableInform *DisableInformConfig) *PatchReserveConfigDisableInformReqBodyBuilder {
+	builder.disableInform = disableInform
+	builder.disableInformFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigDisableInformReqBodyBuilder) Build() *PatchReserveConfigDisableInformReqBody {
+	req := &PatchReserveConfigDisableInformReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.disableInformFlag {
+		req.DisableInform = builder.disableInform
+	}
+	return req
+}
+
+type PatchReserveConfigDisableInformPathReqBodyBuilder struct {
+	scopeType         int // 1表示会议室层级，2表示会议室
+	scopeTypeFlag     bool
+	disableInform     *DisableInformConfig // 禁用通知配置
+	disableInformFlag bool
+}
+
+func NewPatchReserveConfigDisableInformPathReqBodyBuilder() *PatchReserveConfigDisableInformPathReqBodyBuilder {
+	builder := &PatchReserveConfigDisableInformPathReqBodyBuilder{}
+	return builder
+}
+
+// 1表示会议室层级，2表示会议室
+//
+// 示例值：2
+func (builder *PatchReserveConfigDisableInformPathReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigDisableInformPathReqBodyBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 禁用通知配置
+//
+// 示例值：
+func (builder *PatchReserveConfigDisableInformPathReqBodyBuilder) DisableInform(disableInform *DisableInformConfig) *PatchReserveConfigDisableInformPathReqBodyBuilder {
+	builder.disableInform = disableInform
+	builder.disableInformFlag = true
+	return builder
+}
+
+func (builder *PatchReserveConfigDisableInformPathReqBodyBuilder) Build() (*PatchReserveConfigDisableInformReqBody, error) {
+	req := &PatchReserveConfigDisableInformReqBody{}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+	}
+	if builder.disableInformFlag {
+		req.DisableInform = builder.disableInform
+	}
+	return req, nil
+}
+
+type PatchReserveConfigDisableInformReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchReserveConfigDisableInformReqBody
+}
+
+func NewPatchReserveConfigDisableInformReqBuilder() *PatchReserveConfigDisableInformReqBuilder {
+	builder := &PatchReserveConfigDisableInformReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 会议室或层级ID
+//
+// 示例值：omm_3c5dd7e09bac0c1758fcf9511bd1a771
+func (builder *PatchReserveConfigDisableInformReqBuilder) ReserveConfigId(reserveConfigId string) *PatchReserveConfigDisableInformReqBuilder {
+	builder.apiReq.PathParams.Set("reserve_config_id", fmt.Sprint(reserveConfigId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *PatchReserveConfigDisableInformReqBuilder) UserIdType(userIdType string) *PatchReserveConfigDisableInformReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *PatchReserveConfigDisableInformReqBuilder) Body(body *PatchReserveConfigDisableInformReqBody) *PatchReserveConfigDisableInformReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchReserveConfigDisableInformReqBuilder) Build() *PatchReserveConfigDisableInformReq {
+	req := &PatchReserveConfigDisableInformReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchReserveConfigDisableInformReqBody struct {
+	ScopeType     *int                 `json:"scope_type,omitempty"`     // 1表示会议室层级，2表示会议室
+	DisableInform *DisableInformConfig `json:"disable_inform,omitempty"` // 禁用通知配置
+}
+
+type PatchReserveConfigDisableInformReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchReserveConfigDisableInformReqBody `body:""`
+}
+
+type PatchReserveConfigDisableInformResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchReserveConfigDisableInformResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetReserveConfigFormReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -11439,6 +11694,562 @@ type SetRoomConfigResp struct {
 }
 
 func (resp *SetRoomConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SetCheckboardAccessCodeRoomConfigReqBodyBuilder struct {
+	scope          int // 设置节点范围
+	scopeFlag      bool
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryIdFlag  bool
+	districtId     string // 城市ID scope为3时需要此参数
+	districtIdFlag bool
+	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingIdFlag bool
+	floorName      string // 楼层 scope为5时需要此参数
+	floorNameFlag  bool
+	roomId         string // 会议室ID scope为6时需要此参数
+	roomIdFlag     bool
+	validDay       int // 有效天数
+	validDayFlag   bool
+}
+
+func NewSetCheckboardAccessCodeRoomConfigReqBodyBuilder() *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder := &SetCheckboardAccessCodeRoomConfigReqBodyBuilder{}
+	return builder
+}
+
+// 设置节点范围
+//
+//示例值：5
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) Scope(scope int) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+//示例值：1
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) CountryId(countryId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.countryId = countryId
+	builder.countryIdFlag = true
+	return builder
+}
+
+// 城市ID scope为3时需要此参数
+//
+//示例值：2
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.districtId = districtId
+	builder.districtIdFlag = true
+	return builder
+}
+
+// 建筑ID scope为4，5时需要此参数
+//
+//示例值：3
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.buildingId = buildingId
+	builder.buildingIdFlag = true
+	return builder
+}
+
+// 楼层 scope为5时需要此参数
+//
+//示例值：4
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) FloorName(floorName string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.floorName = floorName
+	builder.floorNameFlag = true
+	return builder
+}
+
+// 会议室ID scope为6时需要此参数
+//
+//示例值：67687262867363
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 有效天数
+//
+//示例值：1
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) ValidDay(validDay int) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
+	builder.validDay = validDay
+	builder.validDayFlag = true
+	return builder
+}
+
+func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) Build() *SetCheckboardAccessCodeRoomConfigReqBody {
+	req := &SetCheckboardAccessCodeRoomConfigReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.countryIdFlag {
+		req.CountryId = &builder.countryId
+	}
+	if builder.districtIdFlag {
+		req.DistrictId = &builder.districtId
+	}
+	if builder.buildingIdFlag {
+		req.BuildingId = &builder.buildingId
+	}
+	if builder.floorNameFlag {
+		req.FloorName = &builder.floorName
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	if builder.validDayFlag {
+		req.ValidDay = &builder.validDay
+	}
+	return req
+}
+
+type SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder struct {
+	scope          int // 设置节点范围
+	scopeFlag      bool
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryIdFlag  bool
+	districtId     string // 城市ID scope为3时需要此参数
+	districtIdFlag bool
+	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingIdFlag bool
+	floorName      string // 楼层 scope为5时需要此参数
+	floorNameFlag  bool
+	roomId         string // 会议室ID scope为6时需要此参数
+	roomIdFlag     bool
+	validDay       int // 有效天数
+	validDayFlag   bool
+}
+
+func NewSetCheckboardAccessCodeRoomConfigPathReqBodyBuilder() *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder := &SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder{}
+	return builder
+}
+
+// 设置节点范围
+//
+// 示例值：5
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) Scope(scope int) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+// 示例值：1
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) CountryId(countryId string) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.countryId = countryId
+	builder.countryIdFlag = true
+	return builder
+}
+
+// 城市ID scope为3时需要此参数
+//
+// 示例值：2
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) DistrictId(districtId string) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.districtId = districtId
+	builder.districtIdFlag = true
+	return builder
+}
+
+// 建筑ID scope为4，5时需要此参数
+//
+// 示例值：3
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) BuildingId(buildingId string) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.buildingId = buildingId
+	builder.buildingIdFlag = true
+	return builder
+}
+
+// 楼层 scope为5时需要此参数
+//
+// 示例值：4
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) FloorName(floorName string) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.floorName = floorName
+	builder.floorNameFlag = true
+	return builder
+}
+
+// 会议室ID scope为6时需要此参数
+//
+// 示例值：67687262867363
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) RoomId(roomId string) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 有效天数
+//
+// 示例值：1
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) ValidDay(validDay int) *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.validDay = validDay
+	builder.validDayFlag = true
+	return builder
+}
+
+func (builder *SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder) Build() (*SetCheckboardAccessCodeRoomConfigReqBody, error) {
+	req := &SetCheckboardAccessCodeRoomConfigReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.countryIdFlag {
+		req.CountryId = &builder.countryId
+	}
+	if builder.districtIdFlag {
+		req.DistrictId = &builder.districtId
+	}
+	if builder.buildingIdFlag {
+		req.BuildingId = &builder.buildingId
+	}
+	if builder.floorNameFlag {
+		req.FloorName = &builder.floorName
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	if builder.validDayFlag {
+		req.ValidDay = &builder.validDay
+	}
+	return req, nil
+}
+
+type SetCheckboardAccessCodeRoomConfigReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SetCheckboardAccessCodeRoomConfigReqBody
+}
+
+func NewSetCheckboardAccessCodeRoomConfigReqBuilder() *SetCheckboardAccessCodeRoomConfigReqBuilder {
+	builder := &SetCheckboardAccessCodeRoomConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *SetCheckboardAccessCodeRoomConfigReqBuilder) Body(body *SetCheckboardAccessCodeRoomConfigReqBody) *SetCheckboardAccessCodeRoomConfigReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SetCheckboardAccessCodeRoomConfigReqBuilder) Build() *SetCheckboardAccessCodeRoomConfigReq {
+	req := &SetCheckboardAccessCodeRoomConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SetCheckboardAccessCodeRoomConfigReqBody struct {
+	Scope      *int    `json:"scope,omitempty"`       // 设置节点范围
+	CountryId  *string `json:"country_id,omitempty"`  // 国家/地区ID scope为2，3时需要此参数
+	DistrictId *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数
+	BuildingId *string `json:"building_id,omitempty"` // 建筑ID scope为4，5时需要此参数
+	FloorName  *string `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数
+	RoomId     *string `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数
+	ValidDay   *int    `json:"valid_day,omitempty"`   // 有效天数
+}
+
+type SetCheckboardAccessCodeRoomConfigReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SetCheckboardAccessCodeRoomConfigReqBody `body:""`
+}
+
+type SetCheckboardAccessCodeRoomConfigRespData struct {
+	AccessCode *string `json:"access_code,omitempty"` // 部署访问码
+}
+
+type SetCheckboardAccessCodeRoomConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SetCheckboardAccessCodeRoomConfigRespData `json:"data"` // 业务数据
+}
+
+func (resp *SetCheckboardAccessCodeRoomConfigResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SetRoomAccessCodeRoomConfigReqBodyBuilder struct {
+	scope          int // 设置节点范围
+	scopeFlag      bool
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryIdFlag  bool
+	districtId     string // 城市ID scope为3时需要此参数
+	districtIdFlag bool
+	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingIdFlag bool
+	floorName      string // 楼层 scope为5时需要此参数
+	floorNameFlag  bool
+	roomId         string // 会议室ID scope为6时需要此参数
+	roomIdFlag     bool
+	validDay       int // 有效天数
+	validDayFlag   bool
+}
+
+func NewSetRoomAccessCodeRoomConfigReqBodyBuilder() *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder := &SetRoomAccessCodeRoomConfigReqBodyBuilder{}
+	return builder
+}
+
+// 设置节点范围
+//
+//示例值：5
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+//示例值：1
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.countryId = countryId
+	builder.countryIdFlag = true
+	return builder
+}
+
+// 城市ID scope为3时需要此参数
+//
+//示例值：2
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.districtId = districtId
+	builder.districtIdFlag = true
+	return builder
+}
+
+// 建筑ID scope为4，5时需要此参数
+//
+//示例值：3
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.buildingId = buildingId
+	builder.buildingIdFlag = true
+	return builder
+}
+
+// 楼层 scope为5时需要此参数
+//
+//示例值：4
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.floorName = floorName
+	builder.floorNameFlag = true
+	return builder
+}
+
+// 会议室ID scope为6时需要此参数
+//
+//示例值：67687262867363
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 有效天数
+//
+//示例值：1
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) ValidDay(validDay int) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
+	builder.validDay = validDay
+	builder.validDayFlag = true
+	return builder
+}
+
+func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) Build() *SetRoomAccessCodeRoomConfigReqBody {
+	req := &SetRoomAccessCodeRoomConfigReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.countryIdFlag {
+		req.CountryId = &builder.countryId
+	}
+	if builder.districtIdFlag {
+		req.DistrictId = &builder.districtId
+	}
+	if builder.buildingIdFlag {
+		req.BuildingId = &builder.buildingId
+	}
+	if builder.floorNameFlag {
+		req.FloorName = &builder.floorName
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	if builder.validDayFlag {
+		req.ValidDay = &builder.validDay
+	}
+	return req
+}
+
+type SetRoomAccessCodeRoomConfigPathReqBodyBuilder struct {
+	scope          int // 设置节点范围
+	scopeFlag      bool
+	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryIdFlag  bool
+	districtId     string // 城市ID scope为3时需要此参数
+	districtIdFlag bool
+	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingIdFlag bool
+	floorName      string // 楼层 scope为5时需要此参数
+	floorNameFlag  bool
+	roomId         string // 会议室ID scope为6时需要此参数
+	roomIdFlag     bool
+	validDay       int // 有效天数
+	validDayFlag   bool
+}
+
+func NewSetRoomAccessCodeRoomConfigPathReqBodyBuilder() *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder := &SetRoomAccessCodeRoomConfigPathReqBodyBuilder{}
+	return builder
+}
+
+// 设置节点范围
+//
+// 示例值：5
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) Scope(scope int) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 国家/地区ID scope为2，3时需要此参数
+//
+// 示例值：1
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) CountryId(countryId string) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.countryId = countryId
+	builder.countryIdFlag = true
+	return builder
+}
+
+// 城市ID scope为3时需要此参数
+//
+// 示例值：2
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) DistrictId(districtId string) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.districtId = districtId
+	builder.districtIdFlag = true
+	return builder
+}
+
+// 建筑ID scope为4，5时需要此参数
+//
+// 示例值：3
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) BuildingId(buildingId string) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.buildingId = buildingId
+	builder.buildingIdFlag = true
+	return builder
+}
+
+// 楼层 scope为5时需要此参数
+//
+// 示例值：4
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) FloorName(floorName string) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.floorName = floorName
+	builder.floorNameFlag = true
+	return builder
+}
+
+// 会议室ID scope为6时需要此参数
+//
+// 示例值：67687262867363
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) RoomId(roomId string) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 有效天数
+//
+// 示例值：1
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) ValidDay(validDay int) *SetRoomAccessCodeRoomConfigPathReqBodyBuilder {
+	builder.validDay = validDay
+	builder.validDayFlag = true
+	return builder
+}
+
+func (builder *SetRoomAccessCodeRoomConfigPathReqBodyBuilder) Build() (*SetRoomAccessCodeRoomConfigReqBody, error) {
+	req := &SetRoomAccessCodeRoomConfigReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.countryIdFlag {
+		req.CountryId = &builder.countryId
+	}
+	if builder.districtIdFlag {
+		req.DistrictId = &builder.districtId
+	}
+	if builder.buildingIdFlag {
+		req.BuildingId = &builder.buildingId
+	}
+	if builder.floorNameFlag {
+		req.FloorName = &builder.floorName
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+	}
+	if builder.validDayFlag {
+		req.ValidDay = &builder.validDay
+	}
+	return req, nil
+}
+
+type SetRoomAccessCodeRoomConfigReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SetRoomAccessCodeRoomConfigReqBody
+}
+
+func NewSetRoomAccessCodeRoomConfigReqBuilder() *SetRoomAccessCodeRoomConfigReqBuilder {
+	builder := &SetRoomAccessCodeRoomConfigReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *SetRoomAccessCodeRoomConfigReqBuilder) Body(body *SetRoomAccessCodeRoomConfigReqBody) *SetRoomAccessCodeRoomConfigReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SetRoomAccessCodeRoomConfigReqBuilder) Build() *SetRoomAccessCodeRoomConfigReq {
+	req := &SetRoomAccessCodeRoomConfigReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SetRoomAccessCodeRoomConfigReqBody struct {
+	Scope      *int    `json:"scope,omitempty"`       // 设置节点范围
+	CountryId  *string `json:"country_id,omitempty"`  // 国家/地区ID scope为2，3时需要此参数
+	DistrictId *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数
+	BuildingId *string `json:"building_id,omitempty"` // 建筑ID scope为4，5时需要此参数
+	FloorName  *string `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数
+	RoomId     *string `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数
+	ValidDay   *int    `json:"valid_day,omitempty"`   // 有效天数
+}
+
+type SetRoomAccessCodeRoomConfigReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SetRoomAccessCodeRoomConfigReqBody `body:""`
+}
+
+type SetRoomAccessCodeRoomConfigRespData struct {
+	AccessCode *string `json:"access_code,omitempty"` // 部署访问码
+}
+
+type SetRoomAccessCodeRoomConfigResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SetRoomAccessCodeRoomConfigRespData `json:"data"` // 业务数据
+}
+
+func (resp *SetRoomAccessCodeRoomConfigResp) Success() bool {
 	return resp.Code == 0
 }
 

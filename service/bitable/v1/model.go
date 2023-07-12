@@ -66,6 +66,7 @@ const (
 	TypeAutoSerial   = 1005 // 自动编号
 	TypePhoneNumber  = 13   // 电话号码
 	TypeLocation     = 22   // 地理位置
+	TypeGroupChat    = 23   // 群组
 
 )
 
@@ -89,6 +90,7 @@ const (
 	TypeUpdateAppTableFieldAutoSerial   = 1005 // 自动编号
 	TypeUpdateAppTableFieldPhoneNumber  = 13   // 电话号码
 	TypeUpdateAppTableFieldLocation     = 22   // 地理位置
+	TypeUpdateAppTableFieldGroupChat    = 23   // 群组
 
 )
 
@@ -147,6 +149,54 @@ const (
 	UserIdTypeListAppTableViewUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListAppTableViewOpenId  = "open_id"  // 以open_id来识别用户
 )
+
+type AllowedEditModes struct {
+	Manual *bool `json:"manual,omitempty"` // 是否允许手动录入
+	Scan   *bool `json:"scan,omitempty"`   // 是否允许移动端录入
+}
+
+type AllowedEditModesBuilder struct {
+	manual     bool // 是否允许手动录入
+	manualFlag bool
+	scan       bool // 是否允许移动端录入
+	scanFlag   bool
+}
+
+func NewAllowedEditModesBuilder() *AllowedEditModesBuilder {
+	builder := &AllowedEditModesBuilder{}
+	return builder
+}
+
+// 是否允许手动录入
+//
+// 示例值：true
+func (builder *AllowedEditModesBuilder) Manual(manual bool) *AllowedEditModesBuilder {
+	builder.manual = manual
+	builder.manualFlag = true
+	return builder
+}
+
+// 是否允许移动端录入
+//
+// 示例值：true
+func (builder *AllowedEditModesBuilder) Scan(scan bool) *AllowedEditModesBuilder {
+	builder.scan = scan
+	builder.scanFlag = true
+	return builder
+}
+
+func (builder *AllowedEditModesBuilder) Build() *AllowedEditModes {
+	req := &AllowedEditModes{}
+	if builder.manualFlag {
+		req.Manual = &builder.manual
+
+	}
+	if builder.scanFlag {
+		req.Scan = &builder.scan
+
+	}
+	return req
+}
 
 type App struct {
 	AppToken    *string `json:"app_token,omitempty"`    // 多维表格 app token
@@ -1416,6 +1466,12 @@ type AppTableFieldProperty struct {
 	AutoSerial        *AppFieldPropertyAutoSerial    `json:"auto_serial,omitempty"`        // 自动编号类型
 	Location          *AppFieldPropertyLocation      `json:"location,omitempty"`           // 地理位置输入方式
 	FormulaExpression *string                        `json:"formula_expression,omitempty"` // 公式字段的表达式
+	AllowedEditModes  *AllowedEditModes              `json:"allowed_edit_modes,omitempty"` // 字段支持的编辑模式
+	Min               *float64                       `json:"min,omitempty"`                // 进度、评分等字段的数据范围最小值
+	Max               *float64                       `json:"max,omitempty"`                // 进度、评分等字段的数据范围最大值
+	RangeCustomize    *bool                          `json:"range_customize,omitempty"`    // 进度等字段是否支持自定义范围
+	CurrencyCode      *string                        `json:"currency_code,omitempty"`      // 货币币种
+	Rating            *Rating                        `json:"rating,omitempty"`             // 评分字段的相关设置
 }
 
 type AppTableFieldPropertyBuilder struct {
@@ -1441,6 +1497,18 @@ type AppTableFieldPropertyBuilder struct {
 	locationFlag          bool
 	formulaExpression     string // 公式字段的表达式
 	formulaExpressionFlag bool
+	allowedEditModes      *AllowedEditModes // 字段支持的编辑模式
+	allowedEditModesFlag  bool
+	min                   float64 // 进度、评分等字段的数据范围最小值
+	minFlag               bool
+	max                   float64 // 进度、评分等字段的数据范围最大值
+	maxFlag               bool
+	rangeCustomize        bool // 进度等字段是否支持自定义范围
+	rangeCustomizeFlag    bool
+	currencyCode          string // 货币币种
+	currencyCodeFlag      bool
+	rating                *Rating // 评分字段的相关设置
+	ratingFlag            bool
 }
 
 func NewAppTableFieldPropertyBuilder() *AppTableFieldPropertyBuilder {
@@ -1547,6 +1615,60 @@ func (builder *AppTableFieldPropertyBuilder) FormulaExpression(formulaExpression
 	return builder
 }
 
+// 字段支持的编辑模式
+//
+// 示例值：
+func (builder *AppTableFieldPropertyBuilder) AllowedEditModes(allowedEditModes *AllowedEditModes) *AppTableFieldPropertyBuilder {
+	builder.allowedEditModes = allowedEditModes
+	builder.allowedEditModesFlag = true
+	return builder
+}
+
+// 进度、评分等字段的数据范围最小值
+//
+// 示例值：0
+func (builder *AppTableFieldPropertyBuilder) Min(min float64) *AppTableFieldPropertyBuilder {
+	builder.min = min
+	builder.minFlag = true
+	return builder
+}
+
+// 进度、评分等字段的数据范围最大值
+//
+// 示例值：10
+func (builder *AppTableFieldPropertyBuilder) Max(max float64) *AppTableFieldPropertyBuilder {
+	builder.max = max
+	builder.maxFlag = true
+	return builder
+}
+
+// 进度等字段是否支持自定义范围
+//
+// 示例值：true
+func (builder *AppTableFieldPropertyBuilder) RangeCustomize(rangeCustomize bool) *AppTableFieldPropertyBuilder {
+	builder.rangeCustomize = rangeCustomize
+	builder.rangeCustomizeFlag = true
+	return builder
+}
+
+// 货币币种
+//
+// 示例值：CNY
+func (builder *AppTableFieldPropertyBuilder) CurrencyCode(currencyCode string) *AppTableFieldPropertyBuilder {
+	builder.currencyCode = currencyCode
+	builder.currencyCodeFlag = true
+	return builder
+}
+
+// 评分字段的相关设置
+//
+// 示例值：
+func (builder *AppTableFieldPropertyBuilder) Rating(rating *Rating) *AppTableFieldPropertyBuilder {
+	builder.rating = rating
+	builder.ratingFlag = true
+	return builder
+}
+
 func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 	req := &AppTableFieldProperty{}
 	if builder.optionsFlag {
@@ -1589,6 +1711,28 @@ func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 	if builder.formulaExpressionFlag {
 		req.FormulaExpression = &builder.formulaExpression
 
+	}
+	if builder.allowedEditModesFlag {
+		req.AllowedEditModes = builder.allowedEditModes
+	}
+	if builder.minFlag {
+		req.Min = &builder.min
+
+	}
+	if builder.maxFlag {
+		req.Max = &builder.max
+
+	}
+	if builder.rangeCustomizeFlag {
+		req.RangeCustomize = &builder.rangeCustomize
+
+	}
+	if builder.currencyCodeFlag {
+		req.CurrencyCode = &builder.currencyCode
+
+	}
+	if builder.ratingFlag {
+		req.Rating = builder.rating
 	}
 	return req
 }
@@ -2182,15 +2326,18 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 }
 
 type AppTableViewProperty struct {
-	FilterInfo   *AppTableViewPropertyFilterInfo `json:"filter_info,omitempty"`   // 过滤条件
-	HiddenFields []string                        `json:"hidden_fields,omitempty"` // 隐藏字段ID列表
+	FilterInfo      *AppTableViewPropertyFilterInfo      `json:"filter_info,omitempty"`      // 过滤条件
+	HiddenFields    []string                             `json:"hidden_fields,omitempty"`    // 隐藏字段ID列表
+	HierarchyConfig *AppTableViewPropertyHierarchyConfig `json:"hierarchy_config,omitempty"` // 表格视图层级结构设置
 }
 
 type AppTableViewPropertyBuilder struct {
-	filterInfo       *AppTableViewPropertyFilterInfo // 过滤条件
-	filterInfoFlag   bool
-	hiddenFields     []string // 隐藏字段ID列表
-	hiddenFieldsFlag bool
+	filterInfo          *AppTableViewPropertyFilterInfo // 过滤条件
+	filterInfoFlag      bool
+	hiddenFields        []string // 隐藏字段ID列表
+	hiddenFieldsFlag    bool
+	hierarchyConfig     *AppTableViewPropertyHierarchyConfig // 表格视图层级结构设置
+	hierarchyConfigFlag bool
 }
 
 func NewAppTableViewPropertyBuilder() *AppTableViewPropertyBuilder {
@@ -2216,6 +2363,15 @@ func (builder *AppTableViewPropertyBuilder) HiddenFields(hiddenFields []string) 
 	return builder
 }
 
+// 表格视图层级结构设置
+//
+// 示例值：
+func (builder *AppTableViewPropertyBuilder) HierarchyConfig(hierarchyConfig *AppTableViewPropertyHierarchyConfig) *AppTableViewPropertyBuilder {
+	builder.hierarchyConfig = hierarchyConfig
+	builder.hierarchyConfigFlag = true
+	return builder
+}
+
 func (builder *AppTableViewPropertyBuilder) Build() *AppTableViewProperty {
 	req := &AppTableViewProperty{}
 	if builder.filterInfoFlag {
@@ -2223,6 +2379,9 @@ func (builder *AppTableViewPropertyBuilder) Build() *AppTableViewProperty {
 	}
 	if builder.hiddenFieldsFlag {
 		req.HiddenFields = builder.hiddenFields
+	}
+	if builder.hierarchyConfigFlag {
+		req.HierarchyConfig = builder.hierarchyConfig
 	}
 	return req
 }
@@ -2381,6 +2540,38 @@ func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Build() *AppTable
 	}
 	if builder.fieldTypeFlag {
 		req.FieldType = &builder.fieldType
+
+	}
+	return req
+}
+
+type AppTableViewPropertyHierarchyConfig struct {
+	FieldId *string `json:"field_id,omitempty"` // 层级结构的关联列id
+}
+
+type AppTableViewPropertyHierarchyConfigBuilder struct {
+	fieldId     string // 层级结构的关联列id
+	fieldIdFlag bool
+}
+
+func NewAppTableViewPropertyHierarchyConfigBuilder() *AppTableViewPropertyHierarchyConfigBuilder {
+	builder := &AppTableViewPropertyHierarchyConfigBuilder{}
+	return builder
+}
+
+// 层级结构的关联列id
+//
+// 示例值：fldTca**hb
+func (builder *AppTableViewPropertyHierarchyConfigBuilder) FieldId(fieldId string) *AppTableViewPropertyHierarchyConfigBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+func (builder *AppTableViewPropertyHierarchyConfigBuilder) Build() *AppTableViewPropertyHierarchyConfig {
+	req := &AppTableViewPropertyHierarchyConfig{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
 
 	}
 	return req
@@ -2690,6 +2881,70 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 	return req
 }
 
+type Group struct {
+	Id        *string `json:"id,omitempty"`         // 群组的id
+	Name      *string `json:"name,omitempty"`       // 群组名称
+	AvatarUrl *string `json:"avatar_url,omitempty"` // 群组头像链接
+}
+
+type GroupBuilder struct {
+	id            string // 群组的id
+	idFlag        bool
+	name          string // 群组名称
+	nameFlag      bool
+	avatarUrl     string // 群组头像链接
+	avatarUrlFlag bool
+}
+
+func NewGroupBuilder() *GroupBuilder {
+	builder := &GroupBuilder{}
+	return builder
+}
+
+// 群组的id
+//
+// 示例值：oc_a0553eda9014c201e***9b478895c230
+func (builder *GroupBuilder) Id(id string) *GroupBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 群组名称
+//
+// 示例值：群名称
+func (builder *GroupBuilder) Name(name string) *GroupBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 群组头像链接
+//
+// 示例值：https://***.feishu.cn/static-resource/avatar/v2_ba238e9f-8a81-407d-bffe-d***eaj_320.webp
+func (builder *GroupBuilder) AvatarUrl(avatarUrl string) *GroupBuilder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+
+func (builder *GroupBuilder) Build() *Group {
+	req := &Group{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
+
+	}
+	return req
+}
+
 type Location struct {
 	Location    *string `json:"location,omitempty"`     // 经纬度
 	Pname       *string `json:"pname,omitempty"`        // 省
@@ -2909,6 +3164,38 @@ func (builder *PersonBuilder) Build() *Person {
 	}
 	if builder.avatarUrlFlag {
 		req.AvatarUrl = &builder.avatarUrl
+
+	}
+	return req
+}
+
+type Rating struct {
+	Symbol *string `json:"symbol,omitempty"` // 评分字段的符号展示
+}
+
+type RatingBuilder struct {
+	symbol     string // 评分字段的符号展示
+	symbolFlag bool
+}
+
+func NewRatingBuilder() *RatingBuilder {
+	builder := &RatingBuilder{}
+	return builder
+}
+
+// 评分字段的符号展示
+//
+// 示例值：star
+func (builder *RatingBuilder) Symbol(symbol string) *RatingBuilder {
+	builder.symbol = symbol
+	builder.symbolFlag = true
+	return builder
+}
+
+func (builder *RatingBuilder) Build() *Rating {
+	req := &Rating{}
+	if builder.symbolFlag {
+		req.Symbol = &builder.symbol
 
 	}
 	return req

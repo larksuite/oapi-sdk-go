@@ -47,6 +47,20 @@ const (
 )
 
 const (
+	UserIdTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	UserIdTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	UserIdTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	UserIdTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+)
+
+const (
+	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的ID来识别用户
+	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+)
+
+const (
 	EmployeeTypeCreateUserApprovalEmployeeId = "employee_id" // 员工employeeId
 	EmployeeTypeCreateUserApprovalEmployeeNo = "employee_no" // 员工工号
 )
@@ -2165,7 +2179,7 @@ func (builder *LeaveAccrualRecordBuilder) GrantingQuantity(grantingQuantity stri
 
 // 授予单位，1表示天，2表示小时
 //
-// 示例值：1表示天，2表示小时
+// 示例值：1
 func (builder *LeaveAccrualRecordBuilder) GrantingUnit(grantingUnit int) *LeaveAccrualRecordBuilder {
 	builder.grantingUnit = grantingUnit
 	builder.grantingUnitFlag = true
@@ -2394,7 +2408,7 @@ func (builder *LeaveEmployExpireRecordBuilder) LeftGrantingQuantity(leftGranting
 
 // 授予单位，1表示天，2表示小时
 //
-// 示例值：1表示天，2表示小时
+// 示例值：1
 func (builder *LeaveEmployExpireRecordBuilder) GrantingUnit(grantingUnit int) *LeaveEmployExpireRecordBuilder {
 	builder.grantingUnit = grantingUnit
 	builder.grantingUnitFlag = true
@@ -3219,6 +3233,54 @@ func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
 	return req
 }
 
+type OvertimeRule struct {
+	OnOvertime  *string `json:"on_overtime,omitempty"`  // 加班上班时间
+	OffOvertime *string `json:"off_overtime,omitempty"` // 加班下班时间
+}
+
+type OvertimeRuleBuilder struct {
+	onOvertime      string // 加班上班时间
+	onOvertimeFlag  bool
+	offOvertime     string // 加班下班时间
+	offOvertimeFlag bool
+}
+
+func NewOvertimeRuleBuilder() *OvertimeRuleBuilder {
+	builder := &OvertimeRuleBuilder{}
+	return builder
+}
+
+// 加班上班时间
+//
+// 示例值：9：00
+func (builder *OvertimeRuleBuilder) OnOvertime(onOvertime string) *OvertimeRuleBuilder {
+	builder.onOvertime = onOvertime
+	builder.onOvertimeFlag = true
+	return builder
+}
+
+// 加班下班时间
+//
+// 示例值：18：00， 第二天凌晨2点， 26：00
+func (builder *OvertimeRuleBuilder) OffOvertime(offOvertime string) *OvertimeRuleBuilder {
+	builder.offOvertime = offOvertime
+	builder.offOvertimeFlag = true
+	return builder
+}
+
+func (builder *OvertimeRuleBuilder) Build() *OvertimeRule {
+	req := &OvertimeRule{}
+	if builder.onOvertimeFlag {
+		req.OnOvertime = &builder.onOvertime
+
+	}
+	if builder.offOvertimeFlag {
+		req.OffOvertime = &builder.offOvertime
+
+	}
+	return req
+}
+
 type PunchMember struct {
 	RuleScopeType  *int        `json:"rule_scope_type,omitempty"`  // 圈人方式：0 无 1全部 2自定义
 	ScopeGroupList *ScopeGroup `json:"scope_group_list,omitempty"` // 圈人规则列表
@@ -3754,6 +3816,7 @@ type Shift struct {
 	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
 	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
 }
 
 type ShiftBuilder struct {
@@ -3777,6 +3840,8 @@ type ShiftBuilder struct {
 	lateOffLateOnRuleFlag bool
 	restTimeRule          []*RestRule // 休息规则
 	restTimeRuleFlag      bool
+	overtimeRule          []*OvertimeRule // 打卡规则
+	overtimeRuleFlag      bool
 }
 
 func NewShiftBuilder() *ShiftBuilder {
@@ -3874,6 +3939,15 @@ func (builder *ShiftBuilder) RestTimeRule(restTimeRule []*RestRule) *ShiftBuilde
 	return builder
 }
 
+// 打卡规则
+//
+// 示例值：
+func (builder *ShiftBuilder) OvertimeRule(overtimeRule []*OvertimeRule) *ShiftBuilder {
+	builder.overtimeRule = overtimeRule
+	builder.overtimeRuleFlag = true
+	return builder
+}
+
 func (builder *ShiftBuilder) Build() *Shift {
 	req := &Shift{}
 	if builder.shiftIdFlag {
@@ -3911,6 +3985,9 @@ func (builder *ShiftBuilder) Build() *Shift {
 	}
 	if builder.restTimeRuleFlag {
 		req.RestTimeRule = builder.restTimeRule
+	}
+	if builder.overtimeRuleFlag {
+		req.OvertimeRule = builder.overtimeRule
 	}
 	return req
 }
@@ -4038,6 +4115,7 @@ type TaskResult struct {
 	CheckOutResultSupplement *string   `json:"check_out_result_supplement,omitempty"` // 下班打卡结果补充
 	CheckInShiftTime         *string   `json:"check_in_shift_time,omitempty"`         // 上班打卡时间
 	CheckOutShiftTime        *string   `json:"check_out_shift_time,omitempty"`        // 下班打卡时间
+	TaskShiftType            *int      `json:"task_shift_type,omitempty"`             // 班次类型，0正常，1加班班次
 }
 
 type TaskResultBuilder struct {
@@ -4061,6 +4139,8 @@ type TaskResultBuilder struct {
 	checkInShiftTimeFlag         bool
 	checkOutShiftTime            string // 下班打卡时间
 	checkOutShiftTimeFlag        bool
+	taskShiftType                int // 班次类型，0正常，1加班班次
+	taskShiftTypeFlag            bool
 }
 
 func NewTaskResultBuilder() *TaskResultBuilder {
@@ -4158,6 +4238,15 @@ func (builder *TaskResultBuilder) CheckOutShiftTime(checkOutShiftTime string) *T
 	return builder
 }
 
+// 班次类型，0正常，1加班班次
+//
+// 示例值：0
+func (builder *TaskResultBuilder) TaskShiftType(taskShiftType int) *TaskResultBuilder {
+	builder.taskShiftType = taskShiftType
+	builder.taskShiftTypeFlag = true
+	return builder
+}
+
 func (builder *TaskResultBuilder) Build() *TaskResult {
 	req := &TaskResult{}
 	if builder.checkInRecordIdFlag {
@@ -4196,6 +4285,10 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	}
 	if builder.checkOutShiftTimeFlag {
 		req.CheckOutShiftTime = &builder.checkOutShiftTime
+
+	}
+	if builder.taskShiftTypeFlag {
+		req.TaskShiftType = &builder.taskShiftType
 
 	}
 	return req
@@ -7403,6 +7496,14 @@ func (builder *PatchLeaveAccrualRecordReqBuilder) LeaveId(leaveId string) *Patch
 	return builder
 }
 
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *PatchLeaveAccrualRecordReqBuilder) UserIdType(userIdType string) *PatchLeaveAccrualRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 //
 func (builder *PatchLeaveAccrualRecordReqBuilder) Body(body *PatchLeaveAccrualRecordReqBody) *PatchLeaveAccrualRecordReqBuilder {
 	builder.body = body
@@ -7413,6 +7514,7 @@ func (builder *PatchLeaveAccrualRecordReqBuilder) Build() *PatchLeaveAccrualReco
 	req := &PatchLeaveAccrualRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -7634,6 +7736,14 @@ func (builder *GetLeaveEmployExpireRecordReqBuilder) LeaveId(leaveId string) *Ge
 	return builder
 }
 
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *GetLeaveEmployExpireRecordReqBuilder) UserIdType(userIdType string) *GetLeaveEmployExpireRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 //
 func (builder *GetLeaveEmployExpireRecordReqBuilder) Body(body *GetLeaveEmployExpireRecordReqBody) *GetLeaveEmployExpireRecordReqBuilder {
 	builder.body = body
@@ -7644,6 +7754,7 @@ func (builder *GetLeaveEmployExpireRecordReqBuilder) Build() *GetLeaveEmployExpi
 	req := &GetLeaveEmployExpireRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -7805,6 +7916,7 @@ type GetShiftRespData struct {
 	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
 	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
 }
 
 type GetShiftResp struct {
@@ -7869,8 +7981,8 @@ type ListShiftReq struct {
 
 type ListShiftRespData struct {
 	ShiftList []*Shift `json:"shift_list,omitempty"` // 班次列表
-	PageToken *string  `json:"page_token,omitempty"` //
-	HasMore   *bool    `json:"has_more,omitempty"`   //
+	PageToken *string  `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListShiftResp struct {
@@ -7926,6 +8038,7 @@ type QueryShiftRespData struct {
 	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
 	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
 }
 
 type QueryShiftResp struct {
@@ -10049,12 +10162,14 @@ func (resp *UpdateUserStatsViewResp) Success() bool {
 }
 
 type QueryUserTaskReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表，长度不超过 50
-	userIdsFlag       bool
-	checkDateFrom     int // 查询的起始工作日
-	checkDateFromFlag bool
-	checkDateTo       int // 查询的结束工作日
-	checkDateToFlag   bool
+	userIds                []string // employee_no 或 employee_id 列表，长度不超过 50
+	userIdsFlag            bool
+	checkDateFrom          int // 查询的起始工作日
+	checkDateFromFlag      bool
+	checkDateTo            int // 查询的结束工作日
+	checkDateToFlag        bool
+	needOvertimeResult     bool // 是否需要加班班段打卡结果
+	needOvertimeResultFlag bool
 }
 
 func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
@@ -10089,6 +10204,15 @@ func (builder *QueryUserTaskReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryU
 	return builder
 }
 
+// 是否需要加班班段打卡结果
+//
+//示例值：true
+func (builder *QueryUserTaskReqBodyBuilder) NeedOvertimeResult(needOvertimeResult bool) *QueryUserTaskReqBodyBuilder {
+	builder.needOvertimeResult = needOvertimeResult
+	builder.needOvertimeResultFlag = true
+	return builder
+}
+
 func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 	req := &QueryUserTaskReqBody{}
 	if builder.userIdsFlag {
@@ -10100,16 +10224,21 @@ func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 	if builder.checkDateToFlag {
 		req.CheckDateTo = &builder.checkDateTo
 	}
+	if builder.needOvertimeResultFlag {
+		req.NeedOvertimeResult = &builder.needOvertimeResult
+	}
 	return req
 }
 
 type QueryUserTaskPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表，长度不超过 50
-	userIdsFlag       bool
-	checkDateFrom     int // 查询的起始工作日
-	checkDateFromFlag bool
-	checkDateTo       int // 查询的结束工作日
-	checkDateToFlag   bool
+	userIds                []string // employee_no 或 employee_id 列表，长度不超过 50
+	userIdsFlag            bool
+	checkDateFrom          int // 查询的起始工作日
+	checkDateFromFlag      bool
+	checkDateTo            int // 查询的结束工作日
+	checkDateToFlag        bool
+	needOvertimeResult     bool // 是否需要加班班段打卡结果
+	needOvertimeResultFlag bool
 }
 
 func NewQueryUserTaskPathReqBodyBuilder() *QueryUserTaskPathReqBodyBuilder {
@@ -10144,6 +10273,15 @@ func (builder *QueryUserTaskPathReqBodyBuilder) CheckDateTo(checkDateTo int) *Qu
 	return builder
 }
 
+// 是否需要加班班段打卡结果
+//
+// 示例值：true
+func (builder *QueryUserTaskPathReqBodyBuilder) NeedOvertimeResult(needOvertimeResult bool) *QueryUserTaskPathReqBodyBuilder {
+	builder.needOvertimeResult = needOvertimeResult
+	builder.needOvertimeResultFlag = true
+	return builder
+}
+
 func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, error) {
 	req := &QueryUserTaskReqBody{}
 	if builder.userIdsFlag {
@@ -10154,6 +10292,9 @@ func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, 
 	}
 	if builder.checkDateToFlag {
 		req.CheckDateTo = &builder.checkDateTo
+	}
+	if builder.needOvertimeResultFlag {
+		req.NeedOvertimeResult = &builder.needOvertimeResult
 	}
 	return req, nil
 }
@@ -10211,9 +10352,10 @@ func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
 }
 
 type QueryUserTaskReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表，长度不超过 50
-	CheckDateFrom *int     `json:"check_date_from,omitempty"` // 查询的起始工作日
-	CheckDateTo   *int     `json:"check_date_to,omitempty"`   // 查询的结束工作日
+	UserIds            []string `json:"user_ids,omitempty"`             // employee_no 或 employee_id 列表，长度不超过 50
+	CheckDateFrom      *int     `json:"check_date_from,omitempty"`      // 查询的起始工作日
+	CheckDateTo        *int     `json:"check_date_to,omitempty"`        // 查询的结束工作日
+	NeedOvertimeResult *bool    `json:"need_overtime_result,omitempty"` // 是否需要加班班段打卡结果
 }
 
 type QueryUserTaskReq struct {

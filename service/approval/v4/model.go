@@ -1229,12 +1229,15 @@ func (builder *ApprovalEventBuilder) Build() *ApprovalEvent {
 }
 
 type ApprovalForm struct {
-	FormContent *string `json:"form_content,omitempty"` // 审批定义表单，json 数组，见下方form_content字段说明
+	FormContent    *string `json:"form_content,omitempty"`    // 审批定义表单，json 数组，见下方form_content字段说明
+	WidgetRelation *string `json:"widget_relation,omitempty"` // 控件之间数据条件约束表达式
 }
 
 type ApprovalFormBuilder struct {
-	formContent     string // 审批定义表单，json 数组，见下方form_content字段说明
-	formContentFlag bool
+	formContent        string // 审批定义表单，json 数组，见下方form_content字段说明
+	formContentFlag    bool
+	widgetRelation     string // 控件之间数据条件约束表达式
+	widgetRelationFlag bool
 }
 
 func NewApprovalFormBuilder() *ApprovalFormBuilder {
@@ -1251,10 +1254,23 @@ func (builder *ApprovalFormBuilder) FormContent(formContent string) *ApprovalFor
 	return builder
 }
 
+// 控件之间数据条件约束表达式
+//
+// 示例值：{\"groups\":[{\"id\":\"1\",\"parent_widgets_ids\":[\"widget1\",\"widget4\"],\"children_widget_ids\":[\"widget2.widget3\"],\"conditions\":[{\"parents_expr\":{\"type\":\"Multi\",\"expr\":{\"type\":\"and\",\"exprs\":[{\"type\":\"SingleWidget\",\"expr\":{\"type\":\"in\",\"widget_id\":\"widget1\",\"expect\":{\"type\":\"local\",\"value\":[{\"value\":\"value_0\"},{\"value\":\"value_1\"}]}}},{\"type\":\"Const\",\"expr\":{\"value\":true,\"widget_ids\":[\"widget4\"]}}]}},\"children_rule\":{\"expr\":{\"type\":\"SingleWidget\",\"expr\":{\"type\":\"in\",\"widget_id\":\"widget2.widget3\",\"expect\":{\"type\":\"local\",\"value\":[{\"value\":\"value_3\"},{\"value\":\"value_5\"}]}}},\"actions\":[{\"type\":\"SetOptions\",\"widget_id\":\"widget2.widget3\",\"value\":{\"type\":\"local\",\"value\":[{\"value\":\"value_3\"},{\"value\":\"value_4\"}]}}]}}]}]}
+func (builder *ApprovalFormBuilder) WidgetRelation(widgetRelation string) *ApprovalFormBuilder {
+	builder.widgetRelation = widgetRelation
+	builder.widgetRelationFlag = true
+	return builder
+}
+
 func (builder *ApprovalFormBuilder) Build() *ApprovalForm {
 	req := &ApprovalForm{}
 	if builder.formContentFlag {
 		req.FormContent = &builder.formContent
+
+	}
+	if builder.widgetRelationFlag {
+		req.WidgetRelation = &builder.widgetRelation
 
 	}
 	return req
@@ -9912,12 +9928,13 @@ type GetApprovalReq struct {
 }
 
 type GetApprovalRespData struct {
-	ApprovalName     *string               `json:"approval_name,omitempty"`      // 审批名称
-	Status           *string               `json:"status,omitempty"`             // 审批定义状态
-	Form             *string               `json:"form,omitempty"`               // 控件信息，见下方form字段说明
-	NodeList         []*ApprovalNodeInfo   `json:"node_list,omitempty"`          // 节点信息
-	Viewers          []*ApprovalViewerInfo `json:"viewers,omitempty"`            // 可见人列表
-	ApprovalAdminIds []string              `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
+	ApprovalName       *string               `json:"approval_name,omitempty"`        // 审批名称
+	Status             *string               `json:"status,omitempty"`               // 审批定义状态
+	Form               *string               `json:"form,omitempty"`                 // 控件信息，见下方form字段说明
+	NodeList           []*ApprovalNodeInfo   `json:"node_list,omitempty"`            // 节点信息
+	Viewers            []*ApprovalViewerInfo `json:"viewers,omitempty"`              // 可见人列表
+	ApprovalAdminIds   []string              `json:"approval_admin_ids,omitempty"`   // 有数据管理权限的审批流程管理员ID
+	FormWidgetRelation *string               `json:"form_widget_relation,omitempty"` // 组件之间值关联关系
 }
 
 type GetApprovalResp struct {

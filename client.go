@@ -46,6 +46,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/mdm/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/optical_char_recognition/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/passport/v1"
@@ -58,12 +59,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/translation/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
+	"github.com/larksuite/oapi-sdk-go/v3/service/workplace/v1"
 )
 
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-企业勋章
+	Admin                  *larkadmin.AdminService                                     // 管理后台-密码
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡
@@ -85,6 +87,7 @@ type Client struct {
 	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService        // 实名认证
 	Im                     *larkim.ImService                                           // 消息与群组
 	Mail                   *larkmail.MailService                                       // 邮箱
+	Mdm                    *larkmdm.MdmService                                         // 主数据
 	Okr                    *larkokr.OkrService                                         // OKR
 	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService // AI能力
 	Passport               *larkpassport.PassportService                               // 帐号
@@ -97,6 +100,7 @@ type Client struct {
 	Translation            *larktranslation.TranslationService                         // AI能力
 	Vc                     *larkvc.VcService                                           // 视频会议
 	Wiki                   *larkwiki.WikiService                                       // 云文档-知识库
+	Workplace              *larkworkplace.WorkplaceService                             //
 	Ext                    *larkext.ExtService
 }
 
@@ -243,6 +247,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.HumanAuthentication = larkhuman_authentication.NewService(config)
 	client.Im = larkim.NewService(config)
 	client.Mail = larkmail.NewService(config)
+	client.Mdm = larkmdm.NewService(config)
 	client.Okr = larkokr.NewService(config)
 	client.OpticalCharRecognition = larkoptical_char_recognition.NewService(config)
 	client.Passport = larkpassport.NewService(config)
@@ -255,6 +260,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Translation = larktranslation.NewService(config)
 	client.Vc = larkvc.NewService(config)
 	client.Wiki = larkwiki.NewService(config)
+	client.Workplace = larkworkplace.NewService(config)
 	client.Ext = larkext.NewService(config)
 }
 

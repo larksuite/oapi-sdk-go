@@ -5772,6 +5772,69 @@ func (builder *EnumBuilder) Build() *Enum {
 	return req
 }
 
+type EnumFieldOption struct {
+	OptionApiName *string `json:"option_api_name,omitempty"` // 选项 apiname，即选项的唯一标识
+	Active        *bool   `json:"active,omitempty"`          // 是否启用
+	Name          *Name   `json:"name,omitempty"`            // 选项名称（填写至少一个语言名称）
+}
+
+type EnumFieldOptionBuilder struct {
+	optionApiName     string // 选项 apiname，即选项的唯一标识
+	optionApiNameFlag bool
+	active            bool // 是否启用
+	activeFlag        bool
+	name              *Name // 选项名称（填写至少一个语言名称）
+	nameFlag          bool
+}
+
+func NewEnumFieldOptionBuilder() *EnumFieldOptionBuilder {
+	builder := &EnumFieldOptionBuilder{}
+	return builder
+}
+
+// 选项 apiname，即选项的唯一标识
+//
+// 示例值：grade_e
+func (builder *EnumFieldOptionBuilder) OptionApiName(optionApiName string) *EnumFieldOptionBuilder {
+	builder.optionApiName = optionApiName
+	builder.optionApiNameFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *EnumFieldOptionBuilder) Active(active bool) *EnumFieldOptionBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 选项名称（填写至少一个语言名称）
+//
+// 示例值：
+func (builder *EnumFieldOptionBuilder) Name(name *Name) *EnumFieldOptionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *EnumFieldOptionBuilder) Build() *EnumFieldOption {
+	req := &EnumFieldOption{}
+	if builder.optionApiNameFlag {
+		req.OptionApiName = &builder.optionApiName
+
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	return req
+}
+
 type EnumFieldSetting struct {
 	EnumFieldOptionList []*CommonSchemaOption `json:"enum_field_option_list,omitempty"` // 选项信息
 	IsMultiple          *bool                 `json:"is_multiple,omitempty"`            // 是否为多选
@@ -7044,7 +7107,7 @@ func (builder *HiberarchyCommonBuilder) Description(description []*I18n) *Hibera
 
 // 树形排序，代表同层级的部门排序序号
 //
-// 示例值：
+// 示例值：001000
 func (builder *HiberarchyCommonBuilder) TreeOrder(treeOrder string) *HiberarchyCommonBuilder {
 	builder.treeOrder = treeOrder
 	builder.treeOrderFlag = true
@@ -7053,7 +7116,7 @@ func (builder *HiberarchyCommonBuilder) TreeOrder(treeOrder string) *HiberarchyC
 
 // 列表排序，代表所有部门的混排序号
 //
-// 示例值：
+// 示例值：001000-001000
 func (builder *HiberarchyCommonBuilder) ListOrder(listOrder string) *HiberarchyCommonBuilder {
 	builder.listOrder = listOrder
 	builder.listOrderFlag = true
@@ -10552,6 +10615,9 @@ type OffboardingInfo struct {
 	ReasonExplanation         *string            `json:"reason_explanation,omitempty"`          // 离职原因说明
 	EmployeeReason            *Enum              `json:"employee_reason,omitempty"`             // 离职原因（员工）
 	EmployeeReasonExplanation *string            `json:"employee_reason_explanation,omitempty"` // 离职原因说明（员工）
+	AddBlockList              *string            `json:"add_block_list,omitempty"`              // 是否加入离职屏蔽名单
+	BlockReason               *Enum              `json:"block_reason,omitempty"`                // 屏蔽原因
+	BlockReasonExplanation    *string            `json:"block_reason_explanation,omitempty"`    // 屏蔽原因说明
 	CustomFields              []*CustomFieldData `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
@@ -10572,6 +10638,12 @@ type OffboardingInfoBuilder struct {
 	employeeReasonFlag            bool
 	employeeReasonExplanation     string // 离职原因说明（员工）
 	employeeReasonExplanationFlag bool
+	addBlockList                  string // 是否加入离职屏蔽名单
+	addBlockListFlag              bool
+	blockReason                   *Enum // 屏蔽原因
+	blockReasonFlag               bool
+	blockReasonExplanation        string // 屏蔽原因说明
+	blockReasonExplanationFlag    bool
 	customFields                  []*CustomFieldData // 自定义字段
 	customFieldsFlag              bool
 }
@@ -10653,6 +10725,33 @@ func (builder *OffboardingInfoBuilder) EmployeeReasonExplanation(employeeReasonE
 	return builder
 }
 
+// 是否加入离职屏蔽名单
+//
+// 示例值：false
+func (builder *OffboardingInfoBuilder) AddBlockList(addBlockList string) *OffboardingInfoBuilder {
+	builder.addBlockList = addBlockList
+	builder.addBlockListFlag = true
+	return builder
+}
+
+// 屏蔽原因
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) BlockReason(blockReason *Enum) *OffboardingInfoBuilder {
+	builder.blockReason = blockReason
+	builder.blockReasonFlag = true
+	return builder
+}
+
+// 屏蔽原因说明
+//
+// 示例值：xx 年 xx 月 xx 日因 xx 原因红线
+func (builder *OffboardingInfoBuilder) BlockReasonExplanation(blockReasonExplanation string) *OffboardingInfoBuilder {
+	builder.blockReasonExplanation = blockReasonExplanation
+	builder.blockReasonExplanationFlag = true
+	return builder
+}
+
 // 自定义字段
 //
 // 示例值：
@@ -10691,6 +10790,17 @@ func (builder *OffboardingInfoBuilder) Build() *OffboardingInfo {
 	}
 	if builder.employeeReasonExplanationFlag {
 		req.EmployeeReasonExplanation = &builder.employeeReasonExplanation
+
+	}
+	if builder.addBlockListFlag {
+		req.AddBlockList = &builder.addBlockList
+
+	}
+	if builder.blockReasonFlag {
+		req.BlockReason = builder.blockReason
+	}
+	if builder.blockReasonExplanationFlag {
+		req.BlockReasonExplanation = &builder.blockReasonExplanation
 
 	}
 	if builder.customFieldsFlag {
@@ -19970,6 +20080,12 @@ type SubmitOffboardingReqBodyBuilder struct {
 	offboardingReasonExplanationFlag      bool
 	initiatorId                           string // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
 	initiatorIdFlag                       bool
+	addBlockList                          bool // 是否加入离职屏蔽名单
+	addBlockListFlag                      bool
+	blockReason                           string // 屏蔽原因
+	blockReasonFlag                       bool
+	blockReasonExplanation                string // 屏蔽原因说明
+	blockReasonExplanationFlag            bool
 	customFields                          []*ObjectFieldData // 自定义字段
 	customFieldsFlag                      bool
 }
@@ -20033,6 +20149,33 @@ func (builder *SubmitOffboardingReqBodyBuilder) InitiatorId(initiatorId string) 
 	return builder
 }
 
+// 是否加入离职屏蔽名单
+//
+//示例值：false
+func (builder *SubmitOffboardingReqBodyBuilder) AddBlockList(addBlockList bool) *SubmitOffboardingReqBodyBuilder {
+	builder.addBlockList = addBlockList
+	builder.addBlockListFlag = true
+	return builder
+}
+
+// 屏蔽原因
+//
+//示例值：红线
+func (builder *SubmitOffboardingReqBodyBuilder) BlockReason(blockReason string) *SubmitOffboardingReqBodyBuilder {
+	builder.blockReason = blockReason
+	builder.blockReasonFlag = true
+	return builder
+}
+
+// 屏蔽原因说明
+//
+//示例值：xx 年 xx 月 xx 日因 xx 原因红线
+func (builder *SubmitOffboardingReqBodyBuilder) BlockReasonExplanation(blockReasonExplanation string) *SubmitOffboardingReqBodyBuilder {
+	builder.blockReasonExplanation = blockReasonExplanation
+	builder.blockReasonExplanationFlag = true
+	return builder
+}
+
 // 自定义字段
 //
 //示例值：
@@ -20062,6 +20205,15 @@ func (builder *SubmitOffboardingReqBodyBuilder) Build() *SubmitOffboardingReqBod
 	if builder.initiatorIdFlag {
 		req.InitiatorId = &builder.initiatorId
 	}
+	if builder.addBlockListFlag {
+		req.AddBlockList = &builder.addBlockList
+	}
+	if builder.blockReasonFlag {
+		req.BlockReason = &builder.blockReason
+	}
+	if builder.blockReasonExplanationFlag {
+		req.BlockReasonExplanation = &builder.blockReasonExplanation
+	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
 	}
@@ -20081,6 +20233,12 @@ type SubmitOffboardingPathReqBodyBuilder struct {
 	offboardingReasonExplanationFlag      bool
 	initiatorId                           string // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
 	initiatorIdFlag                       bool
+	addBlockList                          bool // 是否加入离职屏蔽名单
+	addBlockListFlag                      bool
+	blockReason                           string // 屏蔽原因
+	blockReasonFlag                       bool
+	blockReasonExplanation                string // 屏蔽原因说明
+	blockReasonExplanationFlag            bool
 	customFields                          []*ObjectFieldData // 自定义字段
 	customFieldsFlag                      bool
 }
@@ -20144,6 +20302,33 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) InitiatorId(initiatorId stri
 	return builder
 }
 
+// 是否加入离职屏蔽名单
+//
+// 示例值：false
+func (builder *SubmitOffboardingPathReqBodyBuilder) AddBlockList(addBlockList bool) *SubmitOffboardingPathReqBodyBuilder {
+	builder.addBlockList = addBlockList
+	builder.addBlockListFlag = true
+	return builder
+}
+
+// 屏蔽原因
+//
+// 示例值：红线
+func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReason(blockReason string) *SubmitOffboardingPathReqBodyBuilder {
+	builder.blockReason = blockReason
+	builder.blockReasonFlag = true
+	return builder
+}
+
+// 屏蔽原因说明
+//
+// 示例值：xx 年 xx 月 xx 日因 xx 原因红线
+func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReasonExplanation(blockReasonExplanation string) *SubmitOffboardingPathReqBodyBuilder {
+	builder.blockReasonExplanation = blockReasonExplanation
+	builder.blockReasonExplanationFlag = true
+	return builder
+}
+
 // 自定义字段
 //
 // 示例值：
@@ -20172,6 +20357,15 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) Build() (*SubmitOffboardingR
 	}
 	if builder.initiatorIdFlag {
 		req.InitiatorId = &builder.initiatorId
+	}
+	if builder.addBlockListFlag {
+		req.AddBlockList = &builder.addBlockList
+	}
+	if builder.blockReasonFlag {
+		req.BlockReason = &builder.blockReason
+	}
+	if builder.blockReasonExplanationFlag {
+		req.BlockReasonExplanation = &builder.blockReasonExplanation
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
@@ -20222,6 +20416,9 @@ type SubmitOffboardingReqBody struct {
 	OffboardingReasonUniqueIdentifier *string            `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 	OffboardingReasonExplanation      *string            `json:"offboarding_reason_explanation,omitempty"`       // 离职原因说明，长度限制6000
 	InitiatorId                       *string            `json:"initiator_id,omitempty"`                         // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
+	AddBlockList                      *bool              `json:"add_block_list,omitempty"`                       // 是否加入离职屏蔽名单
+	BlockReason                       *string            `json:"block_reason,omitempty"`                         // 屏蔽原因
+	BlockReasonExplanation            *string            `json:"block_reason_explanation,omitempty"`             // 屏蔽原因说明
 	CustomFields                      []*ObjectFieldData `json:"custom_fields,omitempty"`                        // 自定义字段
 }
 
@@ -20236,6 +20433,9 @@ type SubmitOffboardingRespData struct {
 	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因
 	OffboardingDate                   *string `json:"offboarding_date,omitempty"`                     // 离职日期
 	OffboardingReasonExplanation      *string `json:"offboarding_reason_explanation,omitempty"`       // 离职原因说明
+	AddBlockList                      *bool   `json:"add_block_list,omitempty"`                       // 是否加入离职屏蔽名单
+	BlockReason                       *string `json:"block_reason,omitempty"`                         // 屏蔽原因
+	BlockReasonExplanation            *string `json:"block_reason_explanation,omitempty"`             // 屏蔽原因说明
 	CreatedTime                       *string `json:"created_time,omitempty"`                         // 创建时间
 }
 

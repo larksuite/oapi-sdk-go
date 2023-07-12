@@ -204,6 +204,24 @@ const (
 	UserIdTypeListMessageReactionUserId  = "user_id"  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
+const (
+	MemberIdTypeListSpecialFocusUserId  = "user_id"  // 以user_id来识别成员
+	MemberIdTypeListSpecialFocusUnionId = "union_id" // 以union_id来识别成员
+	MemberIdTypeListSpecialFocusOpenId  = "open_id"  // 以open_id来识别成员
+)
+
+const (
+	ChatModeGroup = "group" // 群聊
+	ChatModeP2p   = "p2p"   // 单聊
+)
+
+const (
+	MemberIdTypeUnreadSpecialFocusUserId  = "user_id"  // 以user_id来识别成员
+	MemberIdTypeUnreadSpecialFocusUnionId = "union_id" // 以union_id来识别成员
+	MemberIdTypeUnreadSpecialFocusOpenId  = "open_id"  // 以open_id来识别成员
+	MemberIdTypeUnreadSpecialFocusAppId   = "app_id"   // 以app_id来识别成员
+)
+
 type BatchMessage struct {
 	BatchMessageId      *string              `json:"batch_message_id,omitempty"`      // 批量发消息的批次号，代表某次批量发送消息的唯一标识
 	BatchSendProgress   *BatchSendProgress   `json:"batch_send_progress,omitempty"`   // 发送进度
@@ -10099,6 +10117,160 @@ func (resp *ReplyMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateMessageReqBodyBuilder struct {
+	msgType     string // 消息的类型，仅支持文本(text)和富文本(post)类型
+	msgTypeFlag bool
+	content     string // 消息内容 JSON 格式
+	contentFlag bool
+}
+
+func NewUpdateMessageReqBodyBuilder() *UpdateMessageReqBodyBuilder {
+	builder := &UpdateMessageReqBodyBuilder{}
+	return builder
+}
+
+// 消息的类型，仅支持文本(text)和富文本(post)类型
+//
+//示例值：text
+func (builder *UpdateMessageReqBodyBuilder) MsgType(msgType string) *UpdateMessageReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
+}
+
+// 消息内容 JSON 格式
+//
+//示例值："{\"text\":\"Tom  test content\"}"
+func (builder *UpdateMessageReqBodyBuilder) Content(content string) *UpdateMessageReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *UpdateMessageReqBodyBuilder) Build() *UpdateMessageReqBody {
+	req := &UpdateMessageReqBody{}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req
+}
+
+type UpdateMessagePathReqBodyBuilder struct {
+	msgType     string // 消息的类型，仅支持文本(text)和富文本(post)类型
+	msgTypeFlag bool
+	content     string // 消息内容 JSON 格式
+	contentFlag bool
+}
+
+func NewUpdateMessagePathReqBodyBuilder() *UpdateMessagePathReqBodyBuilder {
+	builder := &UpdateMessagePathReqBodyBuilder{}
+	return builder
+}
+
+// 消息的类型，仅支持文本(text)和富文本(post)类型
+//
+// 示例值：text
+func (builder *UpdateMessagePathReqBodyBuilder) MsgType(msgType string) *UpdateMessagePathReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
+}
+
+// 消息内容 JSON 格式
+//
+// 示例值："{\"text\":\"Tom  test content\"}"
+func (builder *UpdateMessagePathReqBodyBuilder) Content(content string) *UpdateMessagePathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *UpdateMessagePathReqBodyBuilder) Build() (*UpdateMessageReqBody, error) {
+	req := &UpdateMessageReqBody{}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req, nil
+}
+
+type UpdateMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateMessageReqBody
+}
+
+func NewUpdateMessageReqBuilder() *UpdateMessageReqBuilder {
+	builder := &UpdateMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 消息ID
+//
+// 示例值：om_dc13264520392913993dd051dba21dcf
+func (builder *UpdateMessageReqBuilder) MessageId(messageId string) *UpdateMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+// 编辑已发送的消息内容，当前仅支持编辑文本和富文本消息。
+func (builder *UpdateMessageReqBuilder) Body(body *UpdateMessageReqBody) *UpdateMessageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateMessageReqBuilder) Build() *UpdateMessageReq {
+	req := &UpdateMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateMessageReqBody struct {
+	MsgType *string `json:"msg_type,omitempty"` // 消息的类型，仅支持文本(text)和富文本(post)类型
+	Content *string `json:"content,omitempty"`  // 消息内容 JSON 格式
+}
+
+type UpdateMessageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateMessageReqBody `body:""`
+}
+
+type UpdateMessageRespData struct {
+	MessageId      *string      `json:"message_id,omitempty"`       // 消息id open_message_id
+	RootId         *string      `json:"root_id,omitempty"`          // 根消息id open_message_id
+	ParentId       *string      `json:"parent_id,omitempty"`        // 父消息的id open_message_id
+	MsgType        *string      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
+	CreateTime     *string      `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
+	UpdateTime     *string      `json:"update_time,omitempty"`      // 消息更新的时间戳
+	Deleted        *bool        `json:"deleted,omitempty"`          // 消息是否被撤回
+	Updated        *bool        `json:"updated,omitempty"`          // 消息是否被更新
+	ChatId         *string      `json:"chat_id,omitempty"`          // 所属的群
+	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容,json结构
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
+	UpperMessageId *string      `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息id open_message_id
+}
+
+type UpdateMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UpdateMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *UpdateMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UrgentAppMessageReqBuilder struct {
 	apiReq          *larkcore.ApiReq
 	urgentReceivers *UrgentReceivers
@@ -10863,6 +11035,222 @@ func (resp *ListPinResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListSpecialFocusReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListSpecialFocusReqBuilder() *ListSpecialFocusReqBuilder {
+	builder := &ListSpecialFocusReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListSpecialFocusReqBuilder) Limit(limit int) *ListSpecialFocusReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 指定接口返回的成员ID类型
+//
+// 示例值：open_id
+func (builder *ListSpecialFocusReqBuilder) MemberIdType(memberIdType string) *ListSpecialFocusReqBuilder {
+	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListSpecialFocusReqBuilder) PageSize(pageSize int) *ListSpecialFocusReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+func (builder *ListSpecialFocusReqBuilder) PageToken(pageToken string) *ListSpecialFocusReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListSpecialFocusReqBuilder) Build() *ListSpecialFocusReq {
+	req := &ListSpecialFocusReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListSpecialFocusReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListSpecialFocusRespData struct {
+	Items     []*SpecialFocus `json:"items,omitempty"`      // 特别关注成员ID列表
+	PageToken *string         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListSpecialFocusResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListSpecialFocusRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListSpecialFocusResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UnreadSpecialFocusReqBodyBuilder struct {
+	idList       []string // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
+	idListFlag   bool
+	chatMode     string // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
+	chatModeFlag bool
+}
+
+func NewUnreadSpecialFocusReqBodyBuilder() *UnreadSpecialFocusReqBodyBuilder {
+	builder := &UnreadSpecialFocusReqBodyBuilder{}
+	return builder
+}
+
+// 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
+//
+//示例值：["ou_e167f0c694cb1c77bb040857dd963024","ou_a18fe85d22e7633852d8104226e99eac"]
+func (builder *UnreadSpecialFocusReqBodyBuilder) IdList(idList []string) *UnreadSpecialFocusReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
+}
+
+// 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
+//
+//示例值：group
+func (builder *UnreadSpecialFocusReqBodyBuilder) ChatMode(chatMode string) *UnreadSpecialFocusReqBodyBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeFlag = true
+	return builder
+}
+
+func (builder *UnreadSpecialFocusReqBodyBuilder) Build() *UnreadSpecialFocusReqBody {
+	req := &UnreadSpecialFocusReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	if builder.chatModeFlag {
+		req.ChatMode = &builder.chatMode
+	}
+	return req
+}
+
+type UnreadSpecialFocusPathReqBodyBuilder struct {
+	idList       []string // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
+	idListFlag   bool
+	chatMode     string // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
+	chatModeFlag bool
+}
+
+func NewUnreadSpecialFocusPathReqBodyBuilder() *UnreadSpecialFocusPathReqBodyBuilder {
+	builder := &UnreadSpecialFocusPathReqBodyBuilder{}
+	return builder
+}
+
+// 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
+//
+// 示例值：["ou_e167f0c694cb1c77bb040857dd963024","ou_a18fe85d22e7633852d8104226e99eac"]
+func (builder *UnreadSpecialFocusPathReqBodyBuilder) IdList(idList []string) *UnreadSpecialFocusPathReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
+}
+
+// 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
+//
+// 示例值：group
+func (builder *UnreadSpecialFocusPathReqBodyBuilder) ChatMode(chatMode string) *UnreadSpecialFocusPathReqBodyBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeFlag = true
+	return builder
+}
+
+func (builder *UnreadSpecialFocusPathReqBodyBuilder) Build() (*UnreadSpecialFocusReqBody, error) {
+	req := &UnreadSpecialFocusReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	if builder.chatModeFlag {
+		req.ChatMode = &builder.chatMode
+	}
+	return req, nil
+}
+
+type UnreadSpecialFocusReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UnreadSpecialFocusReqBody
+}
+
+func NewUnreadSpecialFocusReqBuilder() *UnreadSpecialFocusReqBuilder {
+	builder := &UnreadSpecialFocusReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 指定请求体中 ==id_list== 的ID类型
+//
+// 示例值：open_id
+func (builder *UnreadSpecialFocusReqBuilder) MemberIdType(memberIdType string) *UnreadSpecialFocusReqBuilder {
+	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	return builder
+}
+
+// 支持按单聊类型和群聊类型获取用户的特别关注未读消息数。
+func (builder *UnreadSpecialFocusReqBuilder) Body(body *UnreadSpecialFocusReqBody) *UnreadSpecialFocusReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UnreadSpecialFocusReqBuilder) Build() *UnreadSpecialFocusReq {
+	req := &UnreadSpecialFocusReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UnreadSpecialFocusReqBody struct {
+	IdList   []string `json:"id_list,omitempty"`   // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
+	ChatMode *string  `json:"chat_mode,omitempty"` // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
+}
+
+type UnreadSpecialFocusReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UnreadSpecialFocusReqBody `body:""`
+}
+
+type UnreadSpecialFocusRespData struct {
+	SpecialFocusUnread []*SpecialFocusUnread `json:"special_focus_unread,omitempty"` // 特别关注中未读的消息数
+}
+
+type UnreadSpecialFocusResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UnreadSpecialFocusRespData `json:"data"` // 业务数据
+}
+
+func (resp *UnreadSpecialFocusResp) Success() bool {
+	return resp.Code == 0
+}
+
 type P2ChatDisbandedV1Data struct {
 	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 操作者的ID
@@ -11460,5 +11848,59 @@ func (iterator *ListPinIterator) Next() (bool, *Pin, error) {
 }
 
 func (iterator *ListPinIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListSpecialFocusIterator struct {
+	nextPageToken *string
+	items         []*SpecialFocus
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListSpecialFocusReq
+	listFunc      func(ctx context.Context, req *ListSpecialFocusReq, options ...larkcore.RequestOptionFunc) (*ListSpecialFocusResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListSpecialFocusIterator) Next() (bool, *SpecialFocus, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListSpecialFocusIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

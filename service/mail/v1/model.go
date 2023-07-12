@@ -50,6 +50,24 @@ const (
 )
 
 const (
+	UserIdTypeBatchCreateMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchCreateMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchCreateMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeBatchDeleteMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchDeleteMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchDeleteMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeListMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeBatchCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeBatchCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeBatchCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
@@ -1542,6 +1560,323 @@ type ListMailgroupAliasResp struct {
 }
 
 func (resp *ListMailgroupAliasResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchCreateMailgroupManagerReqBodyBuilder struct {
+	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerListFlag bool
+}
+
+func NewBatchCreateMailgroupManagerReqBodyBuilder() *BatchCreateMailgroupManagerReqBodyBuilder {
+	builder := &BatchCreateMailgroupManagerReqBodyBuilder{}
+	return builder
+}
+
+// 邮件组管理员列表
+//
+//示例值：
+func (builder *BatchCreateMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchCreateMailgroupManagerReqBodyBuilder {
+	builder.mailgroupManagerList = mailgroupManagerList
+	builder.mailgroupManagerListFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupManagerReqBodyBuilder) Build() *BatchCreateMailgroupManagerReqBody {
+	req := &BatchCreateMailgroupManagerReqBody{}
+	if builder.mailgroupManagerListFlag {
+		req.MailgroupManagerList = builder.mailgroupManagerList
+	}
+	return req
+}
+
+type BatchCreateMailgroupManagerPathReqBodyBuilder struct {
+	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerListFlag bool
+}
+
+func NewBatchCreateMailgroupManagerPathReqBodyBuilder() *BatchCreateMailgroupManagerPathReqBodyBuilder {
+	builder := &BatchCreateMailgroupManagerPathReqBodyBuilder{}
+	return builder
+}
+
+// 邮件组管理员列表
+//
+// 示例值：
+func (builder *BatchCreateMailgroupManagerPathReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchCreateMailgroupManagerPathReqBodyBuilder {
+	builder.mailgroupManagerList = mailgroupManagerList
+	builder.mailgroupManagerListFlag = true
+	return builder
+}
+
+func (builder *BatchCreateMailgroupManagerPathReqBodyBuilder) Build() (*BatchCreateMailgroupManagerReqBody, error) {
+	req := &BatchCreateMailgroupManagerReqBody{}
+	if builder.mailgroupManagerListFlag {
+		req.MailgroupManagerList = builder.mailgroupManagerList
+	}
+	return req, nil
+}
+
+type BatchCreateMailgroupManagerReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateMailgroupManagerReqBody
+}
+
+func NewBatchCreateMailgroupManagerReqBuilder() *BatchCreateMailgroupManagerReqBuilder {
+	builder := &BatchCreateMailgroupManagerReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 邮件组ID或邮箱地址
+//
+// 示例值：xxxxxx 或 test_mail_group@xx.xx
+func (builder *BatchCreateMailgroupManagerReqBuilder) MailgroupId(mailgroupId string) *BatchCreateMailgroupManagerReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *BatchCreateMailgroupManagerReqBuilder) UserIdType(userIdType string) *BatchCreateMailgroupManagerReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 批量创建邮件组管理员
+func (builder *BatchCreateMailgroupManagerReqBuilder) Body(body *BatchCreateMailgroupManagerReqBody) *BatchCreateMailgroupManagerReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchCreateMailgroupManagerReqBuilder) Build() *BatchCreateMailgroupManagerReq {
+	req := &BatchCreateMailgroupManagerReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchCreateMailgroupManagerReqBody struct {
+	MailgroupManagerList []*MailgroupManager `json:"mailgroup_manager_list,omitempty"` // 邮件组管理员列表
+}
+
+type BatchCreateMailgroupManagerReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateMailgroupManagerReqBody `body:""`
+}
+
+type BatchCreateMailgroupManagerResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchCreateMailgroupManagerResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteMailgroupManagerReqBodyBuilder struct {
+	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerListFlag bool
+}
+
+func NewBatchDeleteMailgroupManagerReqBodyBuilder() *BatchDeleteMailgroupManagerReqBodyBuilder {
+	builder := &BatchDeleteMailgroupManagerReqBodyBuilder{}
+	return builder
+}
+
+// 邮件组管理员列表
+//
+//示例值：
+func (builder *BatchDeleteMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchDeleteMailgroupManagerReqBodyBuilder {
+	builder.mailgroupManagerList = mailgroupManagerList
+	builder.mailgroupManagerListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupManagerReqBodyBuilder) Build() *BatchDeleteMailgroupManagerReqBody {
+	req := &BatchDeleteMailgroupManagerReqBody{}
+	if builder.mailgroupManagerListFlag {
+		req.MailgroupManagerList = builder.mailgroupManagerList
+	}
+	return req
+}
+
+type BatchDeleteMailgroupManagerPathReqBodyBuilder struct {
+	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerListFlag bool
+}
+
+func NewBatchDeleteMailgroupManagerPathReqBodyBuilder() *BatchDeleteMailgroupManagerPathReqBodyBuilder {
+	builder := &BatchDeleteMailgroupManagerPathReqBodyBuilder{}
+	return builder
+}
+
+// 邮件组管理员列表
+//
+// 示例值：
+func (builder *BatchDeleteMailgroupManagerPathReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchDeleteMailgroupManagerPathReqBodyBuilder {
+	builder.mailgroupManagerList = mailgroupManagerList
+	builder.mailgroupManagerListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupManagerPathReqBodyBuilder) Build() (*BatchDeleteMailgroupManagerReqBody, error) {
+	req := &BatchDeleteMailgroupManagerReqBody{}
+	if builder.mailgroupManagerListFlag {
+		req.MailgroupManagerList = builder.mailgroupManagerList
+	}
+	return req, nil
+}
+
+type BatchDeleteMailgroupManagerReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteMailgroupManagerReqBody
+}
+
+func NewBatchDeleteMailgroupManagerReqBuilder() *BatchDeleteMailgroupManagerReqBuilder {
+	builder := &BatchDeleteMailgroupManagerReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 邮件组ID或者邮件组地址
+//
+// 示例值：xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx
+func (builder *BatchDeleteMailgroupManagerReqBuilder) MailgroupId(mailgroupId string) *BatchDeleteMailgroupManagerReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *BatchDeleteMailgroupManagerReqBuilder) UserIdType(userIdType string) *BatchDeleteMailgroupManagerReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 批量删除邮件组管理员
+func (builder *BatchDeleteMailgroupManagerReqBuilder) Body(body *BatchDeleteMailgroupManagerReqBody) *BatchDeleteMailgroupManagerReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteMailgroupManagerReqBuilder) Build() *BatchDeleteMailgroupManagerReq {
+	req := &BatchDeleteMailgroupManagerReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteMailgroupManagerReqBody struct {
+	MailgroupManagerList []*MailgroupManager `json:"mailgroup_manager_list,omitempty"` // 邮件组管理员列表
+}
+
+type BatchDeleteMailgroupManagerReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteMailgroupManagerReqBody `body:""`
+}
+
+type BatchDeleteMailgroupManagerResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteMailgroupManagerResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListMailgroupManagerReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListMailgroupManagerReqBuilder() *ListMailgroupManagerReqBuilder {
+	builder := &ListMailgroupManagerReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListMailgroupManagerReqBuilder) Limit(limit int) *ListMailgroupManagerReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 邮件组ID或邮箱地址
+//
+// 示例值：xxxxxx 或 test_mail_group@xx.xx
+func (builder *ListMailgroupManagerReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupManagerReqBuilder {
+	builder.apiReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：20
+func (builder *ListMailgroupManagerReqBuilder) PageSize(pageSize int) *ListMailgroupManagerReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：xxxxxx
+func (builder *ListMailgroupManagerReqBuilder) PageToken(pageToken string) *ListMailgroupManagerReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *ListMailgroupManagerReqBuilder) UserIdType(userIdType string) *ListMailgroupManagerReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListMailgroupManagerReqBuilder) Build() *ListMailgroupManagerReq {
+	req := &ListMailgroupManagerReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListMailgroupManagerReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListMailgroupManagerRespData struct {
+	Items     []*MailgroupManager `json:"items,omitempty"`      // 邮件组管理员列表
+	PageToken *string             `json:"page_token,omitempty"` // 分页标识
+	HasMore   *bool               `json:"has_more,omitempty"`   // 是否有更多数据
+}
+
+type ListMailgroupManagerResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListMailgroupManagerRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListMailgroupManagerResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -3976,6 +4311,60 @@ func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
 }
 
 func (iterator *ListMailgroupIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListMailgroupManagerIterator struct {
+	nextPageToken *string
+	items         []*MailgroupManager
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListMailgroupManagerReq
+	listFunc      func(ctx context.Context, req *ListMailgroupManagerReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupManagerResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListMailgroupManagerIterator) Next() (bool, *MailgroupManager, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListMailgroupManagerIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

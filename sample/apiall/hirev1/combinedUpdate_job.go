@@ -47,7 +47,6 @@ func main() {
 			IsNeverExpired(false).
 			MaxSalary(2000).
 			Requirement("熟悉后端研发").
-			AddressId("6960663240925956553").
 			Description("后端研发岗位描述").
 			HighlightList([]string{}).
 			JobTypeId("6960663240925956551").
@@ -57,7 +56,6 @@ func main() {
 			AddressIdList([]string{}).
 			JobAttribute(1).
 			ExpiryTimestamp("1622484739955").
-			InterviewRegistrationSchemaId("6930815272790114324").
 			Build()).
 		Build()
 	// 发起请求

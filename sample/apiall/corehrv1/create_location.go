@@ -34,8 +34,6 @@ func main() {
 			Address([]*larkcorehr.Address{larkcorehr.NewAddressBuilder().Build()}).
 			WorkingHoursTypeId("4690238309151997779").
 			EffectiveTime("2020-05-01 00:00:00").
-			ExpirationTime("2020-05-02 00:00:00").
-			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			Locale(larkcorehr.NewEnumBuilder().Build()).
 			TimeZoneId("123456789").
 			DisplayLanguageId("123456789").

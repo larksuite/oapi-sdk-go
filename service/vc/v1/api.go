@@ -34,6 +34,7 @@ func NewService(config *larkcore.Config) *VcService {
 	v.Reserve = &reserve{service: v}
 	v.ReserveConfig = &reserveConfig{service: v}
 	v.ReserveConfigAdmin = &reserveConfigAdmin{service: v}
+	v.ReserveConfigDisableInform = &reserveConfigDisableInform{service: v}
 	v.ReserveConfigForm = &reserveConfigForm{service: v}
 	v.ResourceReservationList = &resourceReservationList{service: v}
 	v.Room = &room{service: v}
@@ -44,24 +45,25 @@ func NewService(config *larkcore.Config) *VcService {
 }
 
 type VcService struct {
-	config                  *larkcore.Config
-	Alert                   *alert                   // 告警中心
-	Export                  *export                  // 导出
-	Meeting                 *meeting                 // 会议
-	MeetingRecording        *meetingRecording        // 录制
-	MeetingList             *meetingList             // meeting_list
-	ParticipantList         *participantList         // participant_list
-	ParticipantQualityList  *participantQualityList  // participant_quality_list
-	Report                  *report                  // 会议报告
-	Reserve                 *reserve                 // 预约
-	ReserveConfig           *reserveConfig           // reserve_config
-	ReserveConfigAdmin      *reserveConfigAdmin      // reserve_config.admin
-	ReserveConfigForm       *reserveConfigForm       // reserve_config.form
-	ResourceReservationList *resourceReservationList // resource_reservation_list
-	Room                    *room                    // 会议室
-	RoomConfig              *roomConfig              // room_config
-	RoomLevel               *roomLevel               // 会议室层级
-	ScopeConfig             *scopeConfig             // 会议室配置
+	config                     *larkcore.Config
+	Alert                      *alert                      // 告警中心
+	Export                     *export                     // 导出
+	Meeting                    *meeting                    // 会议
+	MeetingRecording           *meetingRecording           // 录制
+	MeetingList                *meetingList                // meeting_list
+	ParticipantList            *participantList            // participant_list
+	ParticipantQualityList     *participantQualityList     // participant_quality_list
+	Report                     *report                     // 会议报告
+	Reserve                    *reserve                    // 预约
+	ReserveConfig              *reserveConfig              // reserve_config
+	ReserveConfigAdmin         *reserveConfigAdmin         // reserve_config.admin
+	ReserveConfigDisableInform *reserveConfigDisableInform // reserve_config.disable_inform
+	ReserveConfigForm          *reserveConfigForm          // reserve_config.form
+	ResourceReservationList    *resourceReservationList    // resource_reservation_list
+	Room                       *room                       // 会议室
+	RoomConfig                 *roomConfig                 // room_config
+	RoomLevel                  *roomLevel                  // 会议室层级
+	ScopeConfig                *scopeConfig                // 会议室配置
 }
 
 type alert struct {
@@ -95,6 +97,9 @@ type reserveConfig struct {
 	service *VcService
 }
 type reserveConfigAdmin struct {
+	service *VcService
+}
+type reserveConfigDisableInform struct {
 	service *VcService
 }
 type reserveConfigForm struct {
@@ -1002,6 +1007,58 @@ func (r *reserveConfigAdmin) Patch(ctx context.Context, req *PatchReserveConfigA
 //
 // -
 //
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.disable_inform&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_reserveConfigDisableInform.go
+func (r *reserveConfigDisableInform) Get(ctx context.Context, req *GetReserveConfigDisableInformReq, options ...larkcore.RequestOptionFunc) (*GetReserveConfigDisableInformResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/:reserve_config_id/disable_inform"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetReserveConfigDisableInformResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=vc&resource=reserve_config.disable_inform&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/patch_reserveConfigDisableInform.go
+func (r *reserveConfigDisableInform) Patch(ctx context.Context, req *PatchReserveConfigDisableInformReq, options ...larkcore.RequestOptionFunc) (*PatchReserveConfigDisableInformResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/reserve_configs/:reserve_config_id/disable_inform"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchReserveConfigDisableInformResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.form&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_reserveConfigForm.go
@@ -1319,6 +1376,58 @@ func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...
 	}
 	// 反序列响应结果
 	resp := &SetRoomConfigResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set_checkboard_access_code&project=vc&resource=room_config&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/setCheckboardAccessCode_roomConfig.go
+func (r *roomConfig) SetCheckboardAccessCode(ctx context.Context, req *SetCheckboardAccessCodeRoomConfigReq, options ...larkcore.RequestOptionFunc) (*SetCheckboardAccessCodeRoomConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_configs/set_checkboard_access_code"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SetCheckboardAccessCodeRoomConfigResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set_room_access_code&project=vc&resource=room_config&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/setRoomAccessCode_roomConfig.go
+func (r *roomConfig) SetRoomAccessCode(ctx context.Context, req *SetRoomAccessCodeRoomConfigReq, options ...larkcore.RequestOptionFunc) (*SetRoomAccessCodeRoomConfigResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/room_configs/set_room_access_code"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SetRoomAccessCodeRoomConfigResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err

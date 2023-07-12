@@ -196,6 +196,166 @@ func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
 	return req
 }
 
+type Chunk struct {
+	ChunkId    *string  `json:"chunk_id,omitempty"`    // 文本块的唯一标识
+	DocId      *string  `json:"doc_id,omitempty"`      // 文档的唯一标识
+	DatasetId  *string  `json:"dataset_id,omitempty"`  // 该文档对应的数据集id
+	UpdateTime *string  `json:"update_time,omitempty"` // 更新时间，精确到秒级
+	Content    *string  `json:"content,omitempty"`     // 需要向量化的文本内容
+	FilterData *string  `json:"filter_data,omitempty"` // 数据集对应filter_shema的值
+	Score      *float64 `json:"score,omitempty"`       // 排序模型返回的分数
+	TokenNum   *int     `json:"token_num,omitempty"`   // 文本块的token数
+	Overlength *bool    `json:"overlength,omitempty"`  // 文本块的长度是否超过阈值
+}
+
+type ChunkBuilder struct {
+	chunkId        string // 文本块的唯一标识
+	chunkIdFlag    bool
+	docId          string // 文档的唯一标识
+	docIdFlag      bool
+	datasetId      string // 该文档对应的数据集id
+	datasetIdFlag  bool
+	updateTime     string // 更新时间，精确到秒级
+	updateTimeFlag bool
+	content        string // 需要向量化的文本内容
+	contentFlag    bool
+	filterData     string // 数据集对应filter_shema的值
+	filterDataFlag bool
+	score          float64 // 排序模型返回的分数
+	scoreFlag      bool
+	tokenNum       int // 文本块的token数
+	tokenNumFlag   bool
+	overlength     bool // 文本块的长度是否超过阈值
+	overlengthFlag bool
+}
+
+func NewChunkBuilder() *ChunkBuilder {
+	builder := &ChunkBuilder{}
+	return builder
+}
+
+// 文本块的唯一标识
+//
+// 示例值：3953903108179099661
+func (builder *ChunkBuilder) ChunkId(chunkId string) *ChunkBuilder {
+	builder.chunkId = chunkId
+	builder.chunkIdFlag = true
+	return builder
+}
+
+// 文档的唯一标识
+//
+// 示例值：3953903108179099667
+func (builder *ChunkBuilder) DocId(docId string) *ChunkBuilder {
+	builder.docId = docId
+	builder.docIdFlag = true
+	return builder
+}
+
+// 该文档对应的数据集id
+//
+// 示例值：6953903108179099667
+func (builder *ChunkBuilder) DatasetId(datasetId string) *ChunkBuilder {
+	builder.datasetId = datasetId
+	builder.datasetIdFlag = true
+	return builder
+}
+
+// 更新时间，精确到秒级
+//
+// 示例值：1990-12-31T23:59:60Z
+func (builder *ChunkBuilder) UpdateTime(updateTime string) *ChunkBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 需要向量化的文本内容
+//
+// 示例值：这是一段纯文本内容
+func (builder *ChunkBuilder) Content(content string) *ChunkBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 数据集对应filter_shema的值
+//
+// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+func (builder *ChunkBuilder) FilterData(filterData string) *ChunkBuilder {
+	builder.filterData = filterData
+	builder.filterDataFlag = true
+	return builder
+}
+
+// 排序模型返回的分数
+//
+// 示例值：0.9
+func (builder *ChunkBuilder) Score(score float64) *ChunkBuilder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+// 文本块的token数
+//
+// 示例值：480
+func (builder *ChunkBuilder) TokenNum(tokenNum int) *ChunkBuilder {
+	builder.tokenNum = tokenNum
+	builder.tokenNumFlag = true
+	return builder
+}
+
+// 文本块的长度是否超过阈值
+//
+// 示例值：false
+func (builder *ChunkBuilder) Overlength(overlength bool) *ChunkBuilder {
+	builder.overlength = overlength
+	builder.overlengthFlag = true
+	return builder
+}
+
+func (builder *ChunkBuilder) Build() *Chunk {
+	req := &Chunk{}
+	if builder.chunkIdFlag {
+		req.ChunkId = &builder.chunkId
+
+	}
+	if builder.docIdFlag {
+		req.DocId = &builder.docId
+
+	}
+	if builder.datasetIdFlag {
+		req.DatasetId = &builder.datasetId
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.filterDataFlag {
+		req.FilterData = &builder.filterData
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	if builder.tokenNumFlag {
+		req.TokenNum = &builder.tokenNum
+
+	}
+	if builder.overlengthFlag {
+		req.Overlength = &builder.overlength
+
+	}
+	return req
+}
+
 type ConnectDataSource struct {
 	ServiceUrl         *string `json:"service_url,omitempty"`         // 要托管的服务API地址，例如https://open.feishu.cn/xxxx/xxxx
 	ProjectName        *string `json:"project_name,omitempty"`        // 项目地址，只能包含小写字母，如bytedance_test
@@ -335,6 +495,101 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 	}
 	if builder.tenantNameFlag {
 		req.TenantName = &builder.tenantName
+
+	}
+	return req
+}
+
+type CreateDocParam struct {
+	DocId                *string  `json:"doc_id,omitempty"`                 // 文档的唯一标识，只允许英文字母、数字和下划线
+	FilterData           *string  `json:"filter_data,omitempty"`            // 文档对应filter_schema的值
+	Content              *string  `json:"content,omitempty"`                // 需要向量化的文本内容
+	Chunks               []string `json:"chunks,omitempty"`                 // 文本块列表
+	OverlengthHandleType *int     `json:"overlength_handle_type,omitempty"` // 如果文本块超过最大长度的话，确定返回错误还是进行截断，默认是返回错误
+}
+
+type CreateDocParamBuilder struct {
+	docId                    string // 文档的唯一标识，只允许英文字母、数字和下划线
+	docIdFlag                bool
+	filterData               string // 文档对应filter_schema的值
+	filterDataFlag           bool
+	content                  string // 需要向量化的文本内容
+	contentFlag              bool
+	chunks                   []string // 文本块列表
+	chunksFlag               bool
+	overlengthHandleType     int // 如果文本块超过最大长度的话，确定返回错误还是进行截断，默认是返回错误
+	overlengthHandleTypeFlag bool
+}
+
+func NewCreateDocParamBuilder() *CreateDocParamBuilder {
+	builder := &CreateDocParamBuilder{}
+	return builder
+}
+
+// 文档的唯一标识，只允许英文字母、数字和下划线
+//
+// 示例值：3953903108179099667
+func (builder *CreateDocParamBuilder) DocId(docId string) *CreateDocParamBuilder {
+	builder.docId = docId
+	builder.docIdFlag = true
+	return builder
+}
+
+// 文档对应filter_schema的值
+//
+// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+func (builder *CreateDocParamBuilder) FilterData(filterData string) *CreateDocParamBuilder {
+	builder.filterData = filterData
+	builder.filterDataFlag = true
+	return builder
+}
+
+// 需要向量化的文本内容
+//
+// 示例值：这是一段纯文本内容，模型会将这段话变成向量
+func (builder *CreateDocParamBuilder) Content(content string) *CreateDocParamBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 文本块列表
+//
+// 示例值：
+func (builder *CreateDocParamBuilder) Chunks(chunks []string) *CreateDocParamBuilder {
+	builder.chunks = chunks
+	builder.chunksFlag = true
+	return builder
+}
+
+// 如果文本块超过最大长度的话，确定返回错误还是进行截断，默认是返回错误
+//
+// 示例值：1
+func (builder *CreateDocParamBuilder) OverlengthHandleType(overlengthHandleType int) *CreateDocParamBuilder {
+	builder.overlengthHandleType = overlengthHandleType
+	builder.overlengthHandleTypeFlag = true
+	return builder
+}
+
+func (builder *CreateDocParamBuilder) Build() *CreateDocParam {
+	req := &CreateDocParam{}
+	if builder.docIdFlag {
+		req.DocId = &builder.docId
+
+	}
+	if builder.filterDataFlag {
+		req.FilterData = &builder.filterData
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.chunksFlag {
+		req.Chunks = builder.chunks
+	}
+	if builder.overlengthHandleTypeFlag {
+		req.OverlengthHandleType = &builder.overlengthHandleType
 
 	}
 	return req
@@ -573,6 +828,416 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	if builder.appIdFlag {
 		req.AppId = &builder.appId
 
+	}
+	return req
+}
+
+type Dataset struct {
+	DatasetId     *string         `json:"dataset_id,omitempty"`     // 数据集的唯一标识
+	AppId         *string         `json:"app_id,omitempty"`         // 该数据集对应的开放平台应用id
+	CreateTime    *string         `json:"create_time,omitempty"`    // 创建时间，精确到秒级
+	UpdateTime    *string         `json:"update_time,omitempty"`    // 更新时间
+	ChunkNum      *int            `json:"chunk_num,omitempty"`      // 数据集中的索引数据的数量
+	DocNum        *int            `json:"doc_num,omitempty"`        // 数据集中的数据项的数量
+	Name          *string         `json:"name,omitempty"`           // 数据源的名字，只允许英文字母、数字和下划线，需要保证应用内部的唯一性。
+	Description   *string         `json:"description,omitempty"`    // 描述该数据集的具体内容以及相关用途
+	FilterSchemas []*FilterSchema `json:"filter_schemas,omitempty"` // 过滤字段，每个数据集支持多个过滤字段
+	ModelConfig   *ModelConfig    `json:"model_config,omitempty"`   // 模型配置
+	ViewerAppIds  []string        `json:"viewer_app_ids,omitempty"` // 被授权可搜/可见的应用
+}
+
+type DatasetBuilder struct {
+	datasetId         string // 数据集的唯一标识
+	datasetIdFlag     bool
+	appId             string // 该数据集对应的开放平台应用id
+	appIdFlag         bool
+	createTime        string // 创建时间，精确到秒级
+	createTimeFlag    bool
+	updateTime        string // 更新时间
+	updateTimeFlag    bool
+	chunkNum          int // 数据集中的索引数据的数量
+	chunkNumFlag      bool
+	docNum            int // 数据集中的数据项的数量
+	docNumFlag        bool
+	name              string // 数据源的名字，只允许英文字母、数字和下划线，需要保证应用内部的唯一性。
+	nameFlag          bool
+	description       string // 描述该数据集的具体内容以及相关用途
+	descriptionFlag   bool
+	filterSchemas     []*FilterSchema // 过滤字段，每个数据集支持多个过滤字段
+	filterSchemasFlag bool
+	modelConfig       *ModelConfig // 模型配置
+	modelConfigFlag   bool
+	viewerAppIds      []string // 被授权可搜/可见的应用
+	viewerAppIdsFlag  bool
+}
+
+func NewDatasetBuilder() *DatasetBuilder {
+	builder := &DatasetBuilder{}
+	return builder
+}
+
+// 数据集的唯一标识
+//
+// 示例值：6953903108179099667
+func (builder *DatasetBuilder) DatasetId(datasetId string) *DatasetBuilder {
+	builder.datasetId = datasetId
+	builder.datasetIdFlag = true
+	return builder
+}
+
+// 该数据集对应的开放平台应用id
+//
+// 示例值：cli_a1306bed4738d01b
+func (builder *DatasetBuilder) AppId(appId string) *DatasetBuilder {
+	builder.appId = appId
+	builder.appIdFlag = true
+	return builder
+}
+
+// 创建时间，精确到秒级
+//
+// 示例值：1990-12-31T23:59:60Z
+func (builder *DatasetBuilder) CreateTime(createTime string) *DatasetBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：1990-12-31T23:59:60Z
+func (builder *DatasetBuilder) UpdateTime(updateTime string) *DatasetBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 数据集中的索引数据的数量
+//
+// 示例值：1000
+func (builder *DatasetBuilder) ChunkNum(chunkNum int) *DatasetBuilder {
+	builder.chunkNum = chunkNum
+	builder.chunkNumFlag = true
+	return builder
+}
+
+// 数据集中的数据项的数量
+//
+// 示例值：100
+func (builder *DatasetBuilder) DocNum(docNum int) *DatasetBuilder {
+	builder.docNum = docNum
+	builder.docNumFlag = true
+	return builder
+}
+
+// 数据源的名字，只允许英文字母、数字和下划线，需要保证应用内部的唯一性。
+//
+// 示例值：feishu_web_1
+func (builder *DatasetBuilder) Name(name string) *DatasetBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 描述该数据集的具体内容以及相关用途
+//
+// 示例值：飞书官网等网页上的数据，主要用于搜索问答
+func (builder *DatasetBuilder) Description(description string) *DatasetBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 过滤字段，每个数据集支持多个过滤字段
+//
+// 示例值：
+func (builder *DatasetBuilder) FilterSchemas(filterSchemas []*FilterSchema) *DatasetBuilder {
+	builder.filterSchemas = filterSchemas
+	builder.filterSchemasFlag = true
+	return builder
+}
+
+// 模型配置
+//
+// 示例值：
+func (builder *DatasetBuilder) ModelConfig(modelConfig *ModelConfig) *DatasetBuilder {
+	builder.modelConfig = modelConfig
+	builder.modelConfigFlag = true
+	return builder
+}
+
+// 被授权可搜/可见的应用
+//
+// 示例值：
+func (builder *DatasetBuilder) ViewerAppIds(viewerAppIds []string) *DatasetBuilder {
+	builder.viewerAppIds = viewerAppIds
+	builder.viewerAppIdsFlag = true
+	return builder
+}
+
+func (builder *DatasetBuilder) Build() *Dataset {
+	req := &Dataset{}
+	if builder.datasetIdFlag {
+		req.DatasetId = &builder.datasetId
+
+	}
+	if builder.appIdFlag {
+		req.AppId = &builder.appId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.chunkNumFlag {
+		req.ChunkNum = &builder.chunkNum
+
+	}
+	if builder.docNumFlag {
+		req.DocNum = &builder.docNum
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.filterSchemasFlag {
+		req.FilterSchemas = builder.filterSchemas
+	}
+	if builder.modelConfigFlag {
+		req.ModelConfig = builder.modelConfig
+	}
+	if builder.viewerAppIdsFlag {
+		req.ViewerAppIds = builder.viewerAppIds
+	}
+	return req
+}
+
+type Doc struct {
+	DocId      *string  `json:"doc_id,omitempty"`      // 文档的唯一标识，只允许英文字母、数字和下划线
+	FilterData *string  `json:"filter_data,omitempty"` // 文档对应filter_schema的值
+	Chunks     []*Chunk `json:"chunks,omitempty"`      // 文本块列表
+}
+
+type DocBuilder struct {
+	docId          string // 文档的唯一标识，只允许英文字母、数字和下划线
+	docIdFlag      bool
+	filterData     string // 文档对应filter_schema的值
+	filterDataFlag bool
+	chunks         []*Chunk // 文本块列表
+	chunksFlag     bool
+}
+
+func NewDocBuilder() *DocBuilder {
+	builder := &DocBuilder{}
+	return builder
+}
+
+// 文档的唯一标识，只允许英文字母、数字和下划线
+//
+// 示例值：3953903108179099667
+func (builder *DocBuilder) DocId(docId string) *DocBuilder {
+	builder.docId = docId
+	builder.docIdFlag = true
+	return builder
+}
+
+// 文档对应filter_schema的值
+//
+// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+func (builder *DocBuilder) FilterData(filterData string) *DocBuilder {
+	builder.filterData = filterData
+	builder.filterDataFlag = true
+	return builder
+}
+
+// 文本块列表
+//
+// 示例值：
+func (builder *DocBuilder) Chunks(chunks []*Chunk) *DocBuilder {
+	builder.chunks = chunks
+	builder.chunksFlag = true
+	return builder
+}
+
+func (builder *DocBuilder) Build() *Doc {
+	req := &Doc{}
+	if builder.docIdFlag {
+		req.DocId = &builder.docId
+
+	}
+	if builder.filterDataFlag {
+		req.FilterData = &builder.filterData
+
+	}
+	if builder.chunksFlag {
+		req.Chunks = builder.chunks
+	}
+	return req
+}
+
+type DocPassageParam struct {
+	Searchable *bool    `json:"searchable,omitempty"` // 是否要搜索doc
+	DocTokens  []string `json:"doc_tokens,omitempty"` // 搜索几篇特定doc
+}
+
+type DocPassageParamBuilder struct {
+	searchable     bool // 是否要搜索doc
+	searchableFlag bool
+	docTokens      []string // 搜索几篇特定doc
+	docTokensFlag  bool
+}
+
+func NewDocPassageParamBuilder() *DocPassageParamBuilder {
+	builder := &DocPassageParamBuilder{}
+	return builder
+}
+
+// 是否要搜索doc
+//
+// 示例值：false
+func (builder *DocPassageParamBuilder) Searchable(searchable bool) *DocPassageParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+// 搜索几篇特定doc
+//
+// 示例值：
+func (builder *DocPassageParamBuilder) DocTokens(docTokens []string) *DocPassageParamBuilder {
+	builder.docTokens = docTokens
+	builder.docTokensFlag = true
+	return builder
+}
+
+func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
+	req := &DocPassageParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	if builder.docTokensFlag {
+		req.DocTokens = builder.docTokens
+	}
+	return req
+}
+
+type FilterSchema struct {
+	Field      *string `json:"field,omitempty"`       // 过滤字段的名字
+	Type       *string `json:"type,omitempty"`        // 过滤字段的类型
+	DefaultVal *string `json:"default_val,omitempty"` // 过滤字段的默认值
+}
+
+type FilterSchemaBuilder struct {
+	field          string // 过滤字段的名字
+	fieldFlag      bool
+	type_          string // 过滤字段的类型
+	typeFlag       bool
+	defaultVal     string // 过滤字段的默认值
+	defaultValFlag bool
+}
+
+func NewFilterSchemaBuilder() *FilterSchemaBuilder {
+	builder := &FilterSchemaBuilder{}
+	return builder
+}
+
+// 过滤字段的名字
+//
+// 示例值：domain
+func (builder *FilterSchemaBuilder) Field(field string) *FilterSchemaBuilder {
+	builder.field = field
+	builder.fieldFlag = true
+	return builder
+}
+
+// 过滤字段的类型
+//
+// 示例值：list<string>
+func (builder *FilterSchemaBuilder) Type(type_ string) *FilterSchemaBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 过滤字段的默认值
+//
+// 示例值：-1
+func (builder *FilterSchemaBuilder) DefaultVal(defaultVal string) *FilterSchemaBuilder {
+	builder.defaultVal = defaultVal
+	builder.defaultValFlag = true
+	return builder
+}
+
+func (builder *FilterSchemaBuilder) Build() *FilterSchema {
+	req := &FilterSchema{}
+	if builder.fieldFlag {
+		req.Field = &builder.field
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.defaultValFlag {
+		req.DefaultVal = &builder.defaultVal
+
+	}
+	return req
+}
+
+type HelpdeskPassageParam struct {
+	Searchable  *bool    `json:"searchable,omitempty"`   // 是否要搜索服务台
+	HelpdeskIds []string `json:"helpdesk_ids,omitempty"` // 搜索特定的服务台
+}
+
+type HelpdeskPassageParamBuilder struct {
+	searchable      bool // 是否要搜索服务台
+	searchableFlag  bool
+	helpdeskIds     []string // 搜索特定的服务台
+	helpdeskIdsFlag bool
+}
+
+func NewHelpdeskPassageParamBuilder() *HelpdeskPassageParamBuilder {
+	builder := &HelpdeskPassageParamBuilder{}
+	return builder
+}
+
+// 是否要搜索服务台
+//
+// 示例值：false
+func (builder *HelpdeskPassageParamBuilder) Searchable(searchable bool) *HelpdeskPassageParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+// 搜索特定的服务台
+//
+// 示例值：
+func (builder *HelpdeskPassageParamBuilder) HelpdeskIds(helpdeskIds []string) *HelpdeskPassageParamBuilder {
+	builder.helpdeskIds = helpdeskIds
+	builder.helpdeskIdsFlag = true
+	return builder
+}
+
+func (builder *HelpdeskPassageParamBuilder) Build() *HelpdeskPassageParam {
+	req := &HelpdeskPassageParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	if builder.helpdeskIdsFlag {
+		req.HelpdeskIds = builder.helpdeskIds
 	}
 	return req
 }
@@ -970,6 +1635,306 @@ func (builder *ItemRecordBuilder) Build() *ItemRecord {
 	if builder.updatedAtFlag {
 		req.UpdatedAt = &builder.updatedAt
 
+	}
+	return req
+}
+
+type LlmModelConfig struct {
+	ModelName   *string  `json:"model_name,omitempty"`  // 模型名称
+	Prompt      *string  `json:"prompt,omitempty"`      // 自定义的问答prompt，占位符格式和go标准库-text/template保持一致
+	MaxToken    *int     `json:"max_token,omitempty"`   // 模型接收的最大token数
+	Temperature *float64 `json:"temperature,omitempty"` // 模型生成的温度系数
+}
+
+type LlmModelConfigBuilder struct {
+	modelName       string // 模型名称
+	modelNameFlag   bool
+	prompt          string // 自定义的问答prompt，占位符格式和go标准库-text/template保持一致
+	promptFlag      bool
+	maxToken        int // 模型接收的最大token数
+	maxTokenFlag    bool
+	temperature     float64 // 模型生成的温度系数
+	temperatureFlag bool
+}
+
+func NewLlmModelConfigBuilder() *LlmModelConfigBuilder {
+	builder := &LlmModelConfigBuilder{}
+	return builder
+}
+
+// 模型名称
+//
+// 示例值：gpt-3.5-turbo
+func (builder *LlmModelConfigBuilder) ModelName(modelName string) *LlmModelConfigBuilder {
+	builder.modelName = modelName
+	builder.modelNameFlag = true
+	return builder
+}
+
+// 自定义的问答prompt，占位符格式和go标准库-text/template保持一致
+//
+// 示例值：请根据以下文档回答问题，请仅依靠提供的文档段落回答问题。\n{{ range $index, $p := .Passages }}\n段落{{ $index }}：\n{{ $p }}\n{{ end }}\n请回答：\n{{ .Query }}
+func (builder *LlmModelConfigBuilder) Prompt(prompt string) *LlmModelConfigBuilder {
+	builder.prompt = prompt
+	builder.promptFlag = true
+	return builder
+}
+
+// 模型接收的最大token数
+//
+// 示例值：4096
+func (builder *LlmModelConfigBuilder) MaxToken(maxToken int) *LlmModelConfigBuilder {
+	builder.maxToken = maxToken
+	builder.maxTokenFlag = true
+	return builder
+}
+
+// 模型生成的温度系数
+//
+// 示例值：0.3
+func (builder *LlmModelConfigBuilder) Temperature(temperature float64) *LlmModelConfigBuilder {
+	builder.temperature = temperature
+	builder.temperatureFlag = true
+	return builder
+}
+
+func (builder *LlmModelConfigBuilder) Build() *LlmModelConfig {
+	req := &LlmModelConfig{}
+	if builder.modelNameFlag {
+		req.ModelName = &builder.modelName
+
+	}
+	if builder.promptFlag {
+		req.Prompt = &builder.prompt
+
+	}
+	if builder.maxTokenFlag {
+		req.MaxToken = &builder.maxToken
+
+	}
+	if builder.temperatureFlag {
+		req.Temperature = &builder.temperature
+
+	}
+	return req
+}
+
+type ModelConfig struct {
+	ModelName *string `json:"model_name,omitempty"` // 模型名称
+}
+
+type ModelConfigBuilder struct {
+	modelName     string // 模型名称
+	modelNameFlag bool
+}
+
+func NewModelConfigBuilder() *ModelConfigBuilder {
+	builder := &ModelConfigBuilder{}
+	return builder
+}
+
+// 模型名称
+//
+// 示例值：mrc-passage-encoder
+func (builder *ModelConfigBuilder) ModelName(modelName string) *ModelConfigBuilder {
+	builder.modelName = modelName
+	builder.modelNameFlag = true
+	return builder
+}
+
+func (builder *ModelConfigBuilder) Build() *ModelConfig {
+	req := &ModelConfig{}
+	if builder.modelNameFlag {
+		req.ModelName = &builder.modelName
+
+	}
+	return req
+}
+
+type Passage struct {
+	PassageId     *string  `json:"passage_id,omitempty"`     // passage的唯一标识
+	PassageSource *int     `json:"passage_source,omitempty"` // passage所属的数据源
+	Content       *string  `json:"content,omitempty"`        // 和query相关的文本段落
+	Title         *string  `json:"title,omitempty"`          // wiki或doc的题目
+	Url           *string  `json:"url,omitempty"`            // 跳转链接
+	Score         *float64 `json:"score,omitempty"`          // 文本段落和query的相关性分数
+}
+
+type PassageBuilder struct {
+	passageId         string // passage的唯一标识
+	passageIdFlag     bool
+	passageSource     int // passage所属的数据源
+	passageSourceFlag bool
+	content           string // 和query相关的文本段落
+	contentFlag       bool
+	title             string // wiki或doc的题目
+	titleFlag         bool
+	url               string // 跳转链接
+	urlFlag           bool
+	score             float64 // 文本段落和query的相关性分数
+	scoreFlag         bool
+}
+
+func NewPassageBuilder() *PassageBuilder {
+	builder := &PassageBuilder{}
+	return builder
+}
+
+// passage的唯一标识
+//
+// 示例值：7045980712687697921
+func (builder *PassageBuilder) PassageId(passageId string) *PassageBuilder {
+	builder.passageId = passageId
+	builder.passageIdFlag = true
+	return builder
+}
+
+// passage所属的数据源
+//
+// 示例值：1
+func (builder *PassageBuilder) PassageSource(passageSource int) *PassageBuilder {
+	builder.passageSource = passageSource
+	builder.passageSourceFlag = true
+	return builder
+}
+
+// 和query相关的文本段落
+//
+// 示例值：流程如下：xxxxxxx。可以在飞书官方官网上找到更详细内容。
+func (builder *PassageBuilder) Content(content string) *PassageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// wiki或doc的题目
+//
+// 示例值：文档的题目
+func (builder *PassageBuilder) Title(title string) *PassageBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 跳转链接
+//
+// 示例值：https://www.feishu.cn/hc/zh-CN/
+func (builder *PassageBuilder) Url(url string) *PassageBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+// 文本段落和query的相关性分数
+//
+// 示例值：0.94
+func (builder *PassageBuilder) Score(score float64) *PassageBuilder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+func (builder *PassageBuilder) Build() *Passage {
+	req := &Passage{}
+	if builder.passageIdFlag {
+		req.PassageId = &builder.passageId
+
+	}
+	if builder.passageSourceFlag {
+		req.PassageSource = &builder.passageSource
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	return req
+}
+
+type PassageParam struct {
+	DocParam      *DocPassageParam      `json:"doc_param,omitempty"`      // 搜doc的相关参数
+	WikiParam     *WikiPassageParam     `json:"wiki_param,omitempty"`     // 搜wiki的相关参数
+	WebParam      *WebPassageParam      `json:"web_param,omitempty"`      // 搜web的相关参数
+	HelpdeskParam *HelpdeskPassageParam `json:"helpdesk_param,omitempty"` // 搜helpdesk的相关参数
+}
+
+type PassageParamBuilder struct {
+	docParam          *DocPassageParam // 搜doc的相关参数
+	docParamFlag      bool
+	wikiParam         *WikiPassageParam // 搜wiki的相关参数
+	wikiParamFlag     bool
+	webParam          *WebPassageParam // 搜web的相关参数
+	webParamFlag      bool
+	helpdeskParam     *HelpdeskPassageParam // 搜helpdesk的相关参数
+	helpdeskParamFlag bool
+}
+
+func NewPassageParamBuilder() *PassageParamBuilder {
+	builder := &PassageParamBuilder{}
+	return builder
+}
+
+// 搜doc的相关参数
+//
+// 示例值：
+func (builder *PassageParamBuilder) DocParam(docParam *DocPassageParam) *PassageParamBuilder {
+	builder.docParam = docParam
+	builder.docParamFlag = true
+	return builder
+}
+
+// 搜wiki的相关参数
+//
+// 示例值：
+func (builder *PassageParamBuilder) WikiParam(wikiParam *WikiPassageParam) *PassageParamBuilder {
+	builder.wikiParam = wikiParam
+	builder.wikiParamFlag = true
+	return builder
+}
+
+// 搜web的相关参数
+//
+// 示例值：
+func (builder *PassageParamBuilder) WebParam(webParam *WebPassageParam) *PassageParamBuilder {
+	builder.webParam = webParam
+	builder.webParamFlag = true
+	return builder
+}
+
+// 搜helpdesk的相关参数
+//
+// 示例值：
+func (builder *PassageParamBuilder) HelpdeskParam(helpdeskParam *HelpdeskPassageParam) *PassageParamBuilder {
+	builder.helpdeskParam = helpdeskParam
+	builder.helpdeskParamFlag = true
+	return builder
+}
+
+func (builder *PassageParamBuilder) Build() *PassageParam {
+	req := &PassageParam{}
+	if builder.docParamFlag {
+		req.DocParam = builder.docParam
+	}
+	if builder.wikiParamFlag {
+		req.WikiParam = builder.wikiParam
+	}
+	if builder.webParamFlag {
+		req.WebParam = builder.webParam
+	}
+	if builder.helpdeskParamFlag {
+		req.HelpdeskParam = builder.helpdeskParam
 	}
 	return req
 }
@@ -1729,6 +2694,100 @@ func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
 	req := &SchemaTypeDefinitions{}
 	if builder.tagFlag {
 		req.Tag = builder.tag
+	}
+	return req
+}
+
+type WebPassageParam struct {
+	Searchable *bool    `json:"searchable,omitempty"` // 是否要搜索网页
+	Domains    []string `json:"domains,omitempty"`    // 搜索特定网页
+}
+
+type WebPassageParamBuilder struct {
+	searchable     bool // 是否要搜索网页
+	searchableFlag bool
+	domains        []string // 搜索特定网页
+	domainsFlag    bool
+}
+
+func NewWebPassageParamBuilder() *WebPassageParamBuilder {
+	builder := &WebPassageParamBuilder{}
+	return builder
+}
+
+// 是否要搜索网页
+//
+// 示例值：false
+func (builder *WebPassageParamBuilder) Searchable(searchable bool) *WebPassageParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+// 搜索特定网页
+//
+// 示例值：
+func (builder *WebPassageParamBuilder) Domains(domains []string) *WebPassageParamBuilder {
+	builder.domains = domains
+	builder.domainsFlag = true
+	return builder
+}
+
+func (builder *WebPassageParamBuilder) Build() *WebPassageParam {
+	req := &WebPassageParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	if builder.domainsFlag {
+		req.Domains = builder.domains
+	}
+	return req
+}
+
+type WikiPassageParam struct {
+	Searchable *bool    `json:"searchable,omitempty"` // 是否要搜索wiki
+	SpaceIds   []string `json:"space_ids,omitempty"`  // 搜索特定空间的wiki
+}
+
+type WikiPassageParamBuilder struct {
+	searchable     bool // 是否要搜索wiki
+	searchableFlag bool
+	spaceIds       []string // 搜索特定空间的wiki
+	spaceIdsFlag   bool
+}
+
+func NewWikiPassageParamBuilder() *WikiPassageParamBuilder {
+	builder := &WikiPassageParamBuilder{}
+	return builder
+}
+
+// 是否要搜索wiki
+//
+// 示例值：false
+func (builder *WikiPassageParamBuilder) Searchable(searchable bool) *WikiPassageParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+// 搜索特定空间的wiki
+//
+// 示例值：
+func (builder *WikiPassageParamBuilder) SpaceIds(spaceIds []string) *WikiPassageParamBuilder {
+	builder.spaceIds = spaceIds
+	builder.spaceIdsFlag = true
+	return builder
+}
+
+func (builder *WikiPassageParamBuilder) Build() *WikiPassageParam {
+	req := &WikiPassageParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	if builder.spaceIdsFlag {
+		req.SpaceIds = builder.spaceIds
 	}
 	return req
 }

@@ -4072,21 +4072,27 @@ func (builder *OkrSimpleBuilder) Build() *OkrSimple {
 }
 
 type Period struct {
-	Id     *string `json:"id,omitempty"`      // id
-	ZhName *string `json:"zh_name,omitempty"` // 中文名称
-	EnName *string `json:"en_name,omitempty"` // 英文名称
-	Status *int    `json:"status,omitempty"`  // 启用状态
+	Id              *string `json:"id,omitempty"`                // id
+	ZhName          *string `json:"zh_name,omitempty"`           // 中文名称
+	EnName          *string `json:"en_name,omitempty"`           // 英文名称
+	Status          *int    `json:"status,omitempty"`            // 启用状态
+	PeriodStartTime *string `json:"period_start_time,omitempty"` // 周期开始时间
+	PeriodEndTime   *string `json:"period_end_time,omitempty"`   // 周期结束时间
 }
 
 type PeriodBuilder struct {
-	id         string // id
-	idFlag     bool
-	zhName     string // 中文名称
-	zhNameFlag bool
-	enName     string // 英文名称
-	enNameFlag bool
-	status     int // 启用状态
-	statusFlag bool
+	id                  string // id
+	idFlag              bool
+	zhName              string // 中文名称
+	zhNameFlag          bool
+	enName              string // 英文名称
+	enNameFlag          bool
+	status              int // 启用状态
+	statusFlag          bool
+	periodStartTime     string // 周期开始时间
+	periodStartTimeFlag bool
+	periodEndTime       string // 周期结束时间
+	periodEndTimeFlag   bool
 }
 
 func NewPeriodBuilder() *PeriodBuilder {
@@ -4130,6 +4136,24 @@ func (builder *PeriodBuilder) Status(status int) *PeriodBuilder {
 	return builder
 }
 
+// 周期开始时间
+//
+// 示例值：1686740948123
+func (builder *PeriodBuilder) PeriodStartTime(periodStartTime string) *PeriodBuilder {
+	builder.periodStartTime = periodStartTime
+	builder.periodStartTimeFlag = true
+	return builder
+}
+
+// 周期结束时间
+//
+// 示例值：1686740948123
+func (builder *PeriodBuilder) PeriodEndTime(periodEndTime string) *PeriodBuilder {
+	builder.periodEndTime = periodEndTime
+	builder.periodEndTimeFlag = true
+	return builder
+}
+
 func (builder *PeriodBuilder) Build() *Period {
 	req := &Period{}
 	if builder.idFlag {
@@ -4146,6 +4170,14 @@ func (builder *PeriodBuilder) Build() *Period {
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
+
+	}
+	if builder.periodStartTimeFlag {
+		req.PeriodStartTime = &builder.periodStartTime
+
+	}
+	if builder.periodEndTimeFlag {
+		req.PeriodEndTime = &builder.periodEndTime
 
 	}
 	return req
@@ -4432,6 +4464,102 @@ func (builder *ProgressRecordSimplifyBuilder) Build() *ProgressRecordSimplify {
 	req := &ProgressRecordSimplify{}
 	if builder.idFlag {
 		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type TaskInfo struct {
+	TaskId   *string `json:"task_id,omitempty"`   // 任务管理多维表格的 id
+	AppToken *string `json:"app_token,omitempty"` // 多维表格作为文档的 token
+	UserId   *string `json:"user_id,omitempty"`   // 用户 id
+	OkrId    *string `json:"okr_id,omitempty"`    // OKR 内容 id
+	PeriodId *string `json:"period_id,omitempty"` // OKR 周期 id
+}
+
+type TaskInfoBuilder struct {
+	taskId       string // 任务管理多维表格的 id
+	taskIdFlag   bool
+	appToken     string // 多维表格作为文档的 token
+	appTokenFlag bool
+	userId       string // 用户 id
+	userIdFlag   bool
+	okrId        string // OKR 内容 id
+	okrIdFlag    bool
+	periodId     string // OKR 周期 id
+	periodIdFlag bool
+}
+
+func NewTaskInfoBuilder() *TaskInfoBuilder {
+	builder := &TaskInfoBuilder{}
+	return builder
+}
+
+// 任务管理多维表格的 id
+//
+// 示例值：1234454545656575
+func (builder *TaskInfoBuilder) TaskId(taskId string) *TaskInfoBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+// 多维表格作为文档的 token
+//
+// 示例值：fdhjaskfhasdfhlkasdhfldkshgh
+func (builder *TaskInfoBuilder) AppToken(appToken string) *TaskInfoBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+
+// 用户 id
+//
+// 示例值：ou-ux987dsf6x
+func (builder *TaskInfoBuilder) UserId(userId string) *TaskInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// OKR 内容 id
+//
+// 示例值：1234454545656575
+func (builder *TaskInfoBuilder) OkrId(okrId string) *TaskInfoBuilder {
+	builder.okrId = okrId
+	builder.okrIdFlag = true
+	return builder
+}
+
+// OKR 周期 id
+//
+// 示例值：1234454545656575
+func (builder *TaskInfoBuilder) PeriodId(periodId string) *TaskInfoBuilder {
+	builder.periodId = periodId
+	builder.periodIdFlag = true
+	return builder
+}
+
+func (builder *TaskInfoBuilder) Build() *TaskInfo {
+	req := &TaskInfo{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.appTokenFlag {
+		req.AppToken = &builder.appToken
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.okrIdFlag {
+		req.OkrId = &builder.okrId
+
+	}
+	if builder.periodIdFlag {
+		req.PeriodId = &builder.periodId
 
 	}
 	return req

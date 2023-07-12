@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkattendance.NewPatchLeaveAccrualRecordReqBuilder().
 		LeaveId("1").
+		UserIdType("open_id").
 		Body(larkattendance.NewPatchLeaveAccrualRecordReqBodyBuilder().
 			LeaveGrantingRecordId("1").
 			EmploymentId("1").

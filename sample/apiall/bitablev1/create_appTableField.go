@@ -35,6 +35,7 @@ func main() {
 			Type(1).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
 			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).
+			UiType("Progress").
 			Build()).
 		Build()
 	// 发起请求

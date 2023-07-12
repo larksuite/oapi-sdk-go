@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkattendance.NewGetLeaveEmployExpireRecordReqBuilder().
 		LeaveId("1").
+		UserIdType("open_id").
 		Body(larkattendance.NewGetLeaveEmployExpireRecordReqBodyBuilder().
 			EmploymentId("1").
 			LeaveTypeId("1").

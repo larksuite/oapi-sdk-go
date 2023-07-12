@@ -34,7 +34,7 @@ func NewService(config *larkcore.Config) *SheetsService {
 type SheetsService struct {
 	config                              *larkcore.Config
 	Spreadsheet                         *spreadsheet                         // 表格
-	SpreadsheetSheet                    *spreadsheetSheet                    // 行列
+	SpreadsheetSheet                    *spreadsheetSheet                    // 单元格
 	SpreadsheetSheetFilter              *spreadsheetSheetFilter              // 筛选
 	SpreadsheetSheetFilterView          *spreadsheetSheetFilterView          // 筛选视图
 	SpreadsheetSheetFilterViewCondition *spreadsheetSheetFilterViewCondition // 筛选条件

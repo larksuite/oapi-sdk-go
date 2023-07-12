@@ -44,6 +44,7 @@ func NewService(config *larkcore.Config) *HireService {
 	h.OfferSchema = &offerSchema{service: h}
 	h.Questionnaire = &questionnaire{service: h}
 	h.Referral = &referral{service: h}
+	h.ReferralWebsiteJobPost = &referralWebsiteJobPost{service: h}
 	h.ResumeSource = &resumeSource{service: h}
 	h.Talent = &talent{service: h}
 	h.TalentFolder = &talentFolder{service: h}
@@ -74,6 +75,7 @@ type HireService struct {
 	OfferSchema                     *offerSchema                     // offer_schema
 	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
 	Referral                        *referral                        // 内推
+	ReferralWebsiteJobPost          *referralWebsiteJobPost          // referral_website.job_post
 	ResumeSource                    *resumeSource                    // 简历来源
 	Talent                          *talent                          // 人才
 	TalentFolder                    *talentFolder                    // talent_folder
@@ -143,6 +145,9 @@ type questionnaire struct {
 	service *HireService
 }
 type referral struct {
+	service *HireService
+}
+type referralWebsiteJobPost struct {
 	service *HireService
 }
 type resumeSource struct {
@@ -1383,6 +1388,66 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 		return nil, err
 	}
 	return resp, err
+}
+
+//
+//
+// - 获取内推官网下职位广告详情
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=referral_website.job_post&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_referralWebsiteJobPost.go
+func (r *referralWebsiteJobPost) Get(ctx context.Context, req *GetReferralWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*GetReferralWebsiteJobPostResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_websites/job_posts/:job_post_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetReferralWebsiteJobPostResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// - 获取内推官网下的职位列表。自定义数据暂不支持列表获取，请从「获取内推官网下职位广告详情」接口获取
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=referral_website.job_post&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_referralWebsiteJobPost.go
+func (r *referralWebsiteJobPost) List(ctx context.Context, req *ListReferralWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*ListReferralWebsiteJobPostResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_websites/job_posts"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListReferralWebsiteJobPostResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *referralWebsiteJobPost) ListByIterator(ctx context.Context, req *ListReferralWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*ListReferralWebsiteJobPostIterator, error) {
+	return &ListReferralWebsiteJobPostIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: r.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 获取简历来源列表

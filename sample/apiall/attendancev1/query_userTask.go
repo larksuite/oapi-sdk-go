@@ -34,6 +34,7 @@ func main() {
 			UserIds([]string{}).
 			CheckDateFrom(20190817).
 			CheckDateTo(20190820).
+			NeedOvertimeResult(true).
 			Build()).
 		Build()
 	// 发起请求

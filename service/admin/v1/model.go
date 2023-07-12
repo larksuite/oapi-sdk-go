@@ -143,6 +143,12 @@ type AdminDeptStat struct {
 	CreateTaskUserNum    *int    `json:"create_task_user_num,omitempty"`    // 创建任务人数
 	CreateTaskNum        *int    `json:"create_task_num,omitempty"`         // 创建任务数
 	AvgCreateTaskNum     *string `json:"avg_create_task_num,omitempty"`     // 人均创建任务数
+	EmailSendCount       *string `json:"email_send_count,omitempty"`        // 邮件总发件量
+	EmailReceiveCount    *string `json:"email_receive_count,omitempty"`     // 邮件总收件量
+	EmailSendExtCount    *string `json:"email_send_ext_count,omitempty"`    // 对外发件数
+	EmailReceiveExtCount *string `json:"email_receive_ext_count,omitempty"` // 来自外部收件数
+	EmailSendInCount     *string `json:"email_send_in_count,omitempty"`     // 对内发件数
+	EmailReceiveInCount  *string `json:"email_receive_in_count,omitempty"`  // 来自内部收件数
 }
 
 type AdminDeptStatBuilder struct {
@@ -210,6 +216,18 @@ type AdminDeptStatBuilder struct {
 	createTaskNumFlag        bool
 	avgCreateTaskNum         string // 人均创建任务数
 	avgCreateTaskNumFlag     bool
+	emailSendCount           string // 邮件总发件量
+	emailSendCountFlag       bool
+	emailReceiveCount        string // 邮件总收件量
+	emailReceiveCountFlag    bool
+	emailSendExtCount        string // 对外发件数
+	emailSendExtCountFlag    bool
+	emailReceiveExtCount     string // 来自外部收件数
+	emailReceiveExtCountFlag bool
+	emailSendInCount         string // 对内发件数
+	emailSendInCountFlag     bool
+	emailReceiveInCount      string // 来自内部收件数
+	emailReceiveInCountFlag  bool
 }
 
 func NewAdminDeptStatBuilder() *AdminDeptStatBuilder {
@@ -505,6 +523,60 @@ func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *
 	return builder
 }
 
+// 邮件总发件量
+//
+// 示例值：2
+func (builder *AdminDeptStatBuilder) EmailSendCount(emailSendCount string) *AdminDeptStatBuilder {
+	builder.emailSendCount = emailSendCount
+	builder.emailSendCountFlag = true
+	return builder
+}
+
+// 邮件总收件量
+//
+// 示例值：3
+func (builder *AdminDeptStatBuilder) EmailReceiveCount(emailReceiveCount string) *AdminDeptStatBuilder {
+	builder.emailReceiveCount = emailReceiveCount
+	builder.emailReceiveCountFlag = true
+	return builder
+}
+
+// 对外发件数
+//
+// 示例值：4
+func (builder *AdminDeptStatBuilder) EmailSendExtCount(emailSendExtCount string) *AdminDeptStatBuilder {
+	builder.emailSendExtCount = emailSendExtCount
+	builder.emailSendExtCountFlag = true
+	return builder
+}
+
+// 来自外部收件数
+//
+// 示例值：5
+func (builder *AdminDeptStatBuilder) EmailReceiveExtCount(emailReceiveExtCount string) *AdminDeptStatBuilder {
+	builder.emailReceiveExtCount = emailReceiveExtCount
+	builder.emailReceiveExtCountFlag = true
+	return builder
+}
+
+// 对内发件数
+//
+// 示例值：6
+func (builder *AdminDeptStatBuilder) EmailSendInCount(emailSendInCount string) *AdminDeptStatBuilder {
+	builder.emailSendInCount = emailSendInCount
+	builder.emailSendInCountFlag = true
+	return builder
+}
+
+// 来自内部收件数
+//
+// 示例值：7
+func (builder *AdminDeptStatBuilder) EmailReceiveInCount(emailReceiveInCount string) *AdminDeptStatBuilder {
+	builder.emailReceiveInCount = emailReceiveInCount
+	builder.emailReceiveInCountFlag = true
+	return builder
+}
+
 func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 	req := &AdminDeptStat{}
 	if builder.dateFlag {
@@ -635,82 +707,124 @@ func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 		req.AvgCreateTaskNum = &builder.avgCreateTaskNum
 
 	}
+	if builder.emailSendCountFlag {
+		req.EmailSendCount = &builder.emailSendCount
+
+	}
+	if builder.emailReceiveCountFlag {
+		req.EmailReceiveCount = &builder.emailReceiveCount
+
+	}
+	if builder.emailSendExtCountFlag {
+		req.EmailSendExtCount = &builder.emailSendExtCount
+
+	}
+	if builder.emailReceiveExtCountFlag {
+		req.EmailReceiveExtCount = &builder.emailReceiveExtCount
+
+	}
+	if builder.emailSendInCountFlag {
+		req.EmailSendInCount = &builder.emailSendInCount
+
+	}
+	if builder.emailReceiveInCountFlag {
+		req.EmailReceiveInCount = &builder.emailReceiveInCount
+
+	}
 	return req
 }
 
 type AdminUserStat struct {
-	Date             *string `json:"date,omitempty"`               // 日期
-	UserId           *string `json:"user_id,omitempty"`            // 用户ID
-	UserName         *string `json:"user_name,omitempty"`          // 用户名
-	DepartmentName   *string `json:"department_name,omitempty"`    // 部门名
-	DepartmentPath   *string `json:"department_path,omitempty"`    // 部门路径
-	CreateTime       *string `json:"create_time,omitempty"`        // 账号创建时间
-	UserActiveFlag   *int    `json:"user_active_flag,omitempty"`   // 用户激活状态
-	RegisterTime     *string `json:"register_time,omitempty"`      // 激活时间
-	SuiteActiveFlag  *int    `json:"suite_active_flag,omitempty"`  // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
-	LastActiveTime   *string `json:"last_active_time,omitempty"`   // 最近活跃时间
-	ImActiveFlag     *int    `json:"im_active_flag,omitempty"`     // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
-	SendMessengerNum *int    `json:"send_messenger_num,omitempty"` // 发送消息数
-	DocsActiveFlag   *int    `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
-	CreateDocsNum    *int    `json:"create_docs_num,omitempty"`    // 创建文件数
-	CalActiveFlag    *int    `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
-	CreateCalNum     *int    `json:"create_cal_num,omitempty"`     // 创建日程数
-	VcActiveFlag     *int    `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
-	VcDuration       *int    `json:"vc_duration,omitempty"`        // 会议时长（分钟）
-	ActiveOs         *string `json:"active_os,omitempty"`          // 活跃设备
-	CreateTaskNum    *int    `json:"create_task_num,omitempty"`    // 创建任务数
-	VcNum            *int    `json:"vc_num,omitempty"`             // 会议数
-	AppPackageType   *string `json:"app_package_type,omitempty"`   // 飞书的应用类型名称
-	OsName           *string `json:"os_name,omitempty"`            // 操作系统名称
+	Date                 *string `json:"date,omitempty"`                    // 日期
+	UserId               *string `json:"user_id,omitempty"`                 // 用户ID
+	UserName             *string `json:"user_name,omitempty"`               // 用户名
+	DepartmentName       *string `json:"department_name,omitempty"`         // 部门名
+	DepartmentPath       *string `json:"department_path,omitempty"`         // 部门路径
+	CreateTime           *string `json:"create_time,omitempty"`             // 账号创建时间
+	UserActiveFlag       *int    `json:"user_active_flag,omitempty"`        // 用户激活状态
+	RegisterTime         *string `json:"register_time,omitempty"`           // 激活时间
+	SuiteActiveFlag      *int    `json:"suite_active_flag,omitempty"`       // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
+	LastActiveTime       *string `json:"last_active_time,omitempty"`        // 最近活跃时间
+	ImActiveFlag         *int    `json:"im_active_flag,omitempty"`          // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
+	SendMessengerNum     *int    `json:"send_messenger_num,omitempty"`      // 发送消息数
+	DocsActiveFlag       *int    `json:"docs_active_flag,omitempty"`        // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+	CreateDocsNum        *int    `json:"create_docs_num,omitempty"`         // 创建文件数
+	CalActiveFlag        *int    `json:"cal_active_flag,omitempty"`         // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
+	CreateCalNum         *int    `json:"create_cal_num,omitempty"`          // 创建日程数
+	VcActiveFlag         *int    `json:"vc_active_flag,omitempty"`          // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+	VcDuration           *int    `json:"vc_duration,omitempty"`             // 会议时长（分钟）
+	ActiveOs             *string `json:"active_os,omitempty"`               // 活跃设备
+	CreateTaskNum        *int    `json:"create_task_num,omitempty"`         // 创建任务数
+	VcNum                *int    `json:"vc_num,omitempty"`                  // 会议数
+	AppPackageType       *string `json:"app_package_type,omitempty"`        // 飞书的应用类型名称
+	OsName               *string `json:"os_name,omitempty"`                 // 操作系统名称
+	EmailSendCount       *string `json:"email_send_count,omitempty"`        // 邮件总发件量
+	EmailReceiveCount    *string `json:"email_receive_count,omitempty"`     // 邮件总收件量
+	EmailSendExtCount    *string `json:"email_send_ext_count,omitempty"`    // 对外发件数
+	EmailReceiveExtCount *string `json:"email_receive_ext_count,omitempty"` // 来自外部收件数
+	EmailSendInCount     *string `json:"email_send_in_count,omitempty"`     // 对内发件数
+	EmailReceiveInCount  *string `json:"email_receive_in_count,omitempty"`  // 来自内部收件数
 }
 
 type AdminUserStatBuilder struct {
-	date                 string // 日期
-	dateFlag             bool
-	userId               string // 用户ID
-	userIdFlag           bool
-	userName             string // 用户名
-	userNameFlag         bool
-	departmentName       string // 部门名
-	departmentNameFlag   bool
-	departmentPath       string // 部门路径
-	departmentPathFlag   bool
-	createTime           string // 账号创建时间
-	createTimeFlag       bool
-	userActiveFlag       int // 用户激活状态
-	userActiveFlagFlag   bool
-	registerTime         string // 激活时间
-	registerTimeFlag     bool
-	suiteActiveFlag      int // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
-	suiteActiveFlagFlag  bool
-	lastActiveTime       string // 最近活跃时间
-	lastActiveTimeFlag   bool
-	imActiveFlag         int // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
-	imActiveFlagFlag     bool
-	sendMessengerNum     int // 发送消息数
-	sendMessengerNumFlag bool
-	docsActiveFlag       int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
-	docsActiveFlagFlag   bool
-	createDocsNum        int // 创建文件数
-	createDocsNumFlag    bool
-	calActiveFlag        int // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
-	calActiveFlagFlag    bool
-	createCalNum         int // 创建日程数
-	createCalNumFlag     bool
-	vcActiveFlag         int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
-	vcActiveFlagFlag     bool
-	vcDuration           int // 会议时长（分钟）
-	vcDurationFlag       bool
-	activeOs             string // 活跃设备
-	activeOsFlag         bool
-	createTaskNum        int // 创建任务数
-	createTaskNumFlag    bool
-	vcNum                int // 会议数
-	vcNumFlag            bool
-	appPackageType       string // 飞书的应用类型名称
-	appPackageTypeFlag   bool
-	osName               string // 操作系统名称
-	osNameFlag           bool
+	date                     string // 日期
+	dateFlag                 bool
+	userId                   string // 用户ID
+	userIdFlag               bool
+	userName                 string // 用户名
+	userNameFlag             bool
+	departmentName           string // 部门名
+	departmentNameFlag       bool
+	departmentPath           string // 部门路径
+	departmentPathFlag       bool
+	createTime               string // 账号创建时间
+	createTimeFlag           bool
+	userActiveFlag           int // 用户激活状态
+	userActiveFlagFlag       bool
+	registerTime             string // 激活时间
+	registerTimeFlag         bool
+	suiteActiveFlag          int // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
+	suiteActiveFlagFlag      bool
+	lastActiveTime           string // 最近活跃时间
+	lastActiveTimeFlag       bool
+	imActiveFlag             int // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
+	imActiveFlagFlag         bool
+	sendMessengerNum         int // 发送消息数
+	sendMessengerNumFlag     bool
+	docsActiveFlag           int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+	docsActiveFlagFlag       bool
+	createDocsNum            int // 创建文件数
+	createDocsNumFlag        bool
+	calActiveFlag            int // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
+	calActiveFlagFlag        bool
+	createCalNum             int // 创建日程数
+	createCalNumFlag         bool
+	vcActiveFlag             int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+	vcActiveFlagFlag         bool
+	vcDuration               int // 会议时长（分钟）
+	vcDurationFlag           bool
+	activeOs                 string // 活跃设备
+	activeOsFlag             bool
+	createTaskNum            int // 创建任务数
+	createTaskNumFlag        bool
+	vcNum                    int // 会议数
+	vcNumFlag                bool
+	appPackageType           string // 飞书的应用类型名称
+	appPackageTypeFlag       bool
+	osName                   string // 操作系统名称
+	osNameFlag               bool
+	emailSendCount           string // 邮件总发件量
+	emailSendCountFlag       bool
+	emailReceiveCount        string // 邮件总收件量
+	emailReceiveCountFlag    bool
+	emailSendExtCount        string // 对外发件数
+	emailSendExtCountFlag    bool
+	emailReceiveExtCount     string // 来自外部收件数
+	emailReceiveExtCountFlag bool
+	emailSendInCount         string // 对内发件数
+	emailSendInCountFlag     bool
+	emailReceiveInCount      string // 来自内部收件数
+	emailReceiveInCountFlag  bool
 }
 
 func NewAdminUserStatBuilder() *AdminUserStatBuilder {
@@ -925,6 +1039,60 @@ func (builder *AdminUserStatBuilder) OsName(osName string) *AdminUserStatBuilder
 	return builder
 }
 
+// 邮件总发件量
+//
+// 示例值：2
+func (builder *AdminUserStatBuilder) EmailSendCount(emailSendCount string) *AdminUserStatBuilder {
+	builder.emailSendCount = emailSendCount
+	builder.emailSendCountFlag = true
+	return builder
+}
+
+// 邮件总收件量
+//
+// 示例值：3
+func (builder *AdminUserStatBuilder) EmailReceiveCount(emailReceiveCount string) *AdminUserStatBuilder {
+	builder.emailReceiveCount = emailReceiveCount
+	builder.emailReceiveCountFlag = true
+	return builder
+}
+
+// 对外发件数
+//
+// 示例值：4
+func (builder *AdminUserStatBuilder) EmailSendExtCount(emailSendExtCount string) *AdminUserStatBuilder {
+	builder.emailSendExtCount = emailSendExtCount
+	builder.emailSendExtCountFlag = true
+	return builder
+}
+
+// 来自外部收件数
+//
+// 示例值：5
+func (builder *AdminUserStatBuilder) EmailReceiveExtCount(emailReceiveExtCount string) *AdminUserStatBuilder {
+	builder.emailReceiveExtCount = emailReceiveExtCount
+	builder.emailReceiveExtCountFlag = true
+	return builder
+}
+
+// 对内发件数
+//
+// 示例值：6
+func (builder *AdminUserStatBuilder) EmailSendInCount(emailSendInCount string) *AdminUserStatBuilder {
+	builder.emailSendInCount = emailSendInCount
+	builder.emailSendInCountFlag = true
+	return builder
+}
+
+// 来自内部收件数
+//
+// 示例值：7
+func (builder *AdminUserStatBuilder) EmailReceiveInCount(emailReceiveInCount string) *AdminUserStatBuilder {
+	builder.emailReceiveInCount = emailReceiveInCount
+	builder.emailReceiveInCountFlag = true
+	return builder
+}
+
 func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 	req := &AdminUserStat{}
 	if builder.dateFlag {
@@ -1017,6 +1185,30 @@ func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 	}
 	if builder.osNameFlag {
 		req.OsName = &builder.osName
+
+	}
+	if builder.emailSendCountFlag {
+		req.EmailSendCount = &builder.emailSendCount
+
+	}
+	if builder.emailReceiveCountFlag {
+		req.EmailReceiveCount = &builder.emailReceiveCount
+
+	}
+	if builder.emailSendExtCountFlag {
+		req.EmailSendExtCount = &builder.emailSendExtCount
+
+	}
+	if builder.emailReceiveExtCountFlag {
+		req.EmailReceiveExtCount = &builder.emailReceiveExtCount
+
+	}
+	if builder.emailSendInCountFlag {
+		req.EmailSendInCount = &builder.emailSendInCount
+
+	}
+	if builder.emailReceiveInCountFlag {
+		req.EmailReceiveInCount = &builder.emailReceiveInCount
 
 	}
 	return req

@@ -131,6 +131,32 @@ func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq,
 		limit:    req.Limit}, nil
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=department&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batch_department.go
+func (d *department) Batch(ctx context.Context, req *BatchDepartmentReq, options ...larkcore.RequestOptionFunc) (*BatchDepartmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/departments/batch"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDepartmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 获取子部门列表
 //
 // - 通过部门ID获取部门的子部门列表。
@@ -1568,6 +1594,32 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 	}
 	// 反序列响应结果
 	resp := &UnbindDepartmentUnitResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=user&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batch_user.go
+func (u *user) Batch(ctx context.Context, req *BatchUserReq, options ...larkcore.RequestOptionFunc) (*BatchUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/users/batch"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUserResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
 	if err != nil {
 		return nil, err

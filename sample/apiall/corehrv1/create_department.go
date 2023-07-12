@@ -36,7 +36,6 @@ func main() {
 			IsConfidential(true).
 			HiberarchyCommon(larkcorehr.NewHiberarchyCommonBuilder().Build()).
 			EffectiveTime("2020-05-01 00:00:00").
-			ExpirationTime("2020-05-02 00:00:00").
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			CostCenterId("7142384817131652652").
 			Build()).

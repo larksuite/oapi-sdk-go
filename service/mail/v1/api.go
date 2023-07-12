@@ -24,6 +24,7 @@ func NewService(config *larkcore.Config) *MailService {
 	m := &MailService{config: config}
 	m.Mailgroup = &mailgroup{service: m}
 	m.MailgroupAlias = &mailgroupAlias{service: m}
+	m.MailgroupManager = &mailgroupManager{service: m}
 	m.MailgroupMember = &mailgroupMember{service: m}
 	m.MailgroupPermissionMember = &mailgroupPermissionMember{service: m}
 	m.PublicMailbox = &publicMailbox{service: m}
@@ -39,6 +40,7 @@ type MailService struct {
 	config                    *larkcore.Config
 	Mailgroup                 *mailgroup                 // 邮件组
 	MailgroupAlias            *mailgroupAlias            // 邮件组别名
+	MailgroupManager          *mailgroupManager          // 邮件组管理员
 	MailgroupMember           *mailgroupMember           // 邮件组成员
 	MailgroupPermissionMember *mailgroupPermissionMember // 邮件组权限成员
 	PublicMailbox             *publicMailbox             // 公共邮箱
@@ -53,6 +55,9 @@ type mailgroup struct {
 	service *MailService
 }
 type mailgroupAlias struct {
+	service *MailService
+}
+type mailgroupManager struct {
 	service *MailService
 }
 type mailgroupMember struct {
@@ -320,6 +325,92 @@ func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, o
 		return nil, err
 	}
 	return resp, err
+}
+
+// 批量创建邮件组管理员
+//
+// - 批量创建邮件组管理员
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-manager/batch_create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchCreate_mailgroupManager.go
+func (m *mailgroupManager) BatchCreate(ctx context.Context, req *BatchCreateMailgroupManagerReq, options ...larkcore.RequestOptionFunc) (*BatchCreateMailgroupManagerResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/managers/batch_create"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreateMailgroupManagerResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 批量删除邮件组管理员
+//
+// - 批量删除邮件组管理员
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-manager/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchDelete_mailgroupManager.go
+func (m *mailgroupManager) BatchDelete(ctx context.Context, req *BatchDeleteMailgroupManagerReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteMailgroupManagerResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/managers/batch_delete"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteMailgroupManagerResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 批量获取邮件组管理员
+//
+// - 批量获取邮件组管理员
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-manager/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_mailgroupManager.go
+func (m *mailgroupManager) List(ctx context.Context, req *ListMailgroupManagerReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupManagerResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/mailgroups/:mailgroup_id/managers"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListMailgroupManagerResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *mailgroupManager) ListByIterator(ctx context.Context, req *ListMailgroupManagerReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupManagerIterator, error) {
+	return &ListMailgroupManagerIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 //
