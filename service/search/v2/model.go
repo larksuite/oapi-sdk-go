@@ -1751,6 +1751,38 @@ func (builder *ModelConfigBuilder) Build() *ModelConfig {
 	return req
 }
 
+type NlsModelConfig struct {
+	ModelName *string `json:"model_name,omitempty"` // 模型名称
+}
+
+type NlsModelConfigBuilder struct {
+	modelName     string // 模型名称
+	modelNameFlag bool
+}
+
+func NewNlsModelConfigBuilder() *NlsModelConfigBuilder {
+	builder := &NlsModelConfigBuilder{}
+	return builder
+}
+
+// 模型名称
+//
+// 示例值：lark-online
+func (builder *NlsModelConfigBuilder) ModelName(modelName string) *NlsModelConfigBuilder {
+	builder.modelName = modelName
+	builder.modelNameFlag = true
+	return builder
+}
+
+func (builder *NlsModelConfigBuilder) Build() *NlsModelConfig {
+	req := &NlsModelConfig{}
+	if builder.modelNameFlag {
+		req.ModelName = &builder.modelName
+
+	}
+	return req
+}
+
 type Passage struct {
 	PassageId     *string  `json:"passage_id,omitempty"`     // passage的唯一标识
 	PassageSource *int     `json:"passage_source,omitempty"` // passage所属的数据源

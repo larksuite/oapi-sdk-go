@@ -34,12 +34,9 @@ func main() {
 		Employment(larkcorehr.NewEmploymentBuilder().
 			SeniorityDate("2020-01-01").
 			EmployeeNumber("1000000").
-			EffectiveTime("2020-01-01").
-			ExpirationTime("2021-01-01").
 			EmploymentType(larkcorehr.NewEnumBuilder().Build()).
 			PersonId("6919733936050406926").
 			PrimaryEmployment(true).
-			EmploymentStatus(larkcorehr.NewEnumBuilder().Build()).
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			WorkEmailList([]*larkcorehr.Email{larkcorehr.NewEmailBuilder().Build()}).
 			ReasonForOffboarding(larkcorehr.NewEnumBuilder().Build()).

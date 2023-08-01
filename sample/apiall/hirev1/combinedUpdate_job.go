@@ -56,6 +56,7 @@ func main() {
 			AddressIdList([]string{}).
 			JobAttribute(1).
 			ExpiryTimestamp("1622484739955").
+			TargetMajorIdList([]string{}).
 			Build()).
 		Build()
 	// 发起请求

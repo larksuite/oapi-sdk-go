@@ -124,9 +124,6 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		if option.Header.Get(httpHeaderRequestId) != "" {
 			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderRequestId)}
 		}
-		if option.Header.Get(HttpHeaderKeyLogId) != "" {
-			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", HttpHeaderKeyLogId)}
-		}
 	}
 
 	return nil

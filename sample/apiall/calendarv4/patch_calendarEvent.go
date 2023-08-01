@@ -29,6 +29,7 @@ func main() {
 	req := larkcalendar.NewPatchCalendarEventReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		EventId("00592a0e-7edf-4678-bc9d-1b77383ef08e_0").
+		UserIdType("user_id").
 		CalendarEvent(larkcalendar.NewCalendarEventBuilder().
 			Summary("日程标题").
 			Description("日程描述").

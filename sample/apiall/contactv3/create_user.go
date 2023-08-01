@@ -52,6 +52,7 @@ func main() {
 			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("demo@mail.com").
 			JobTitle("xxxxx").
+			Geo("cn").
 			JobLevelId("mga5oa8ayjlp9rb").
 			JobFamilyId("mga5oa8ayjlp9rb").
 			SubscriptionIds([]string{}).

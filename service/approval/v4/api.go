@@ -34,13 +34,13 @@ func NewService(config *larkcore.Config) *ApprovalService {
 
 type ApprovalService struct {
 	config           *larkcore.Config
-	Approval         *approval         // 原生审批定义
+	Approval         *approval         // 事件
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 原生审批实例
+	Instance         *instance         // 审批查询
 	InstanceComment  *instanceComment  // 原生审批评论
-	Task             *task             // 审批查询
+	Task             *task             // 原生审批任务
 }
 
 type approval struct {
@@ -192,6 +192,32 @@ func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprov
 	}
 	// 反序列响应结果
 	resp := &CreateExternalApprovalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=approval&resource=external_approval&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/get_externalApproval.go
+func (e *externalApproval) Get(ctx context.Context, req *GetExternalApprovalReq, options ...larkcore.RequestOptionFunc) (*GetExternalApprovalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/external_approvals/:approval_code"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetExternalApprovalResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err

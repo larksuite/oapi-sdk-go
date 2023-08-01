@@ -4869,26 +4869,25 @@ func (resp *ReadUserBatchMessageResp) Success() bool {
 }
 
 type CreateChatReqBodyBuilder struct {
-	avatar                     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
-	avatarFlag                 bool
-	name                       string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
-	nameFlag                   bool
-	description                string // 群描述
-	descriptionFlag            bool
-	i18nNames                  *I18nNames // 群国际化名称
-	i18nNamesFlag              bool
-	ownerId                    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
-	ownerIdFlag                bool
-	userIdList                 []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
-	userIdListFlag             bool
-	botIdList                  []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
-	botIdListFlag              bool
-	chatMode                   string // 群模式;;**可选值有**：;- `group`：群组
-	chatModeFlag               bool
-	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	chatTypeFlag               bool
-	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-	externalFlag               bool
+	avatar          string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatarFlag      bool
+	name            string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	nameFlag        bool
+	description     string // 群描述
+	descriptionFlag bool
+	i18nNames       *I18nNames // 群国际化名称
+	i18nNamesFlag   bool
+	ownerId         string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+	ownerIdFlag     bool
+	userIdList      []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+	userIdListFlag  bool
+	botIdList       []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+	botIdListFlag   bool
+	chatMode        string // 群模式;;**可选值有**：;- `group`：群组
+	chatModeFlag    bool
+	chatType        string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeFlag    bool
+
 	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
 	leaveMessageVisibility     string // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
@@ -4986,15 +4985,6 @@ func (builder *CreateChatReqBodyBuilder) ChatType(chatType string) *CreateChatRe
 	return builder
 }
 
-// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-//
-//示例值：false
-func (builder *CreateChatReqBodyBuilder) External(external bool) *CreateChatReqBodyBuilder {
-	builder.external = external
-	builder.externalFlag = true
-	return builder
-}
-
 // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 //示例值：all_members
@@ -5060,9 +5050,6 @@ func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
 	}
-	if builder.externalFlag {
-		req.External = &builder.external
-	}
 	if builder.joinMessageVisibilityFlag {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 	}
@@ -5097,7 +5084,7 @@ type CreateChatPathReqBodyBuilder struct {
 	chatModeFlag               bool
 	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
-	external                   bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
+	external                   bool // 是否是外部群
 	externalFlag               bool
 	joinMessageVisibility      string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	joinMessageVisibilityFlag  bool
@@ -5199,15 +5186,6 @@ func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateCh
 	return builder
 }
 
-// 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-//
-// 示例值：false
-func (builder *CreateChatPathReqBodyBuilder) External(external bool) *CreateChatPathReqBodyBuilder {
-	builder.external = external
-	builder.externalFlag = true
-	return builder
-}
-
 // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
 // 示例值：all_members
@@ -5272,9 +5250,6 @@ func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error)
 	}
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
-	}
-	if builder.externalFlag {
-		req.External = &builder.external
 	}
 	if builder.joinMessageVisibilityFlag {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
@@ -5344,19 +5319,19 @@ func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
 }
 
 type CreateChatReqBody struct {
-	Avatar                 *string    `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
-	Name                   *string    `json:"name,omitempty"`                     // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
-	Description            *string    `json:"description,omitempty"`              // 群描述
-	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerId                *string    `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
-	UserIdList             []string   `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
-	BotIdList              []string   `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
-	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式;;**可选值有**：;- `group`：群组
-	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	External               *bool      `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	Avatar      *string    `json:"avatar,omitempty"`       // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	Name        *string    `json:"name,omitempty"`         // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	Description *string    `json:"description,omitempty"`  // 群描述
+	I18nNames   *I18nNames `json:"i18n_names,omitempty"`   // 群国际化名称
+	OwnerId     *string    `json:"owner_id,omitempty"`     // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+	UserIdList  []string   `json:"user_id_list,omitempty"` // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+	BotIdList   []string   `json:"bot_id_list,omitempty"`  // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+	ChatMode    *string    `json:"chat_mode,omitempty"`    // 群模式;;**可选值有**：;- `group`：群组
+	ChatType    *string    `json:"chat_type,omitempty"`    // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+
+	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`  // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	LeaveMessageVisibility *string `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	MembershipApproval     *string `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
 	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
 }

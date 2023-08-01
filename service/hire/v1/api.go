@@ -45,9 +45,11 @@ func NewService(config *larkcore.Config) *HireService {
 	h.Questionnaire = &questionnaire{service: h}
 	h.Referral = &referral{service: h}
 	h.ReferralWebsiteJobPost = &referralWebsiteJobPost{service: h}
+	h.RegistrationSchema = &registrationSchema{service: h}
 	h.ResumeSource = &resumeSource{service: h}
 	h.Talent = &talent{service: h}
 	h.TalentFolder = &talentFolder{service: h}
+	h.TalentObject = &talentObject{service: h}
 	return h
 }
 
@@ -76,9 +78,11 @@ type HireService struct {
 	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
 	Referral                        *referral                        // 内推
 	ReferralWebsiteJobPost          *referralWebsiteJobPost          // referral_website.job_post
+	RegistrationSchema              *registrationSchema              // registration_schema
 	ResumeSource                    *resumeSource                    // 简历来源
 	Talent                          *talent                          // 人才
 	TalentFolder                    *talentFolder                    // talent_folder
+	TalentObject                    *talentObject                    // talent_object
 }
 
 type application struct {
@@ -150,6 +154,9 @@ type referral struct {
 type referralWebsiteJobPost struct {
 	service *HireService
 }
+type registrationSchema struct {
+	service *HireService
+}
 type resumeSource struct {
 	service *HireService
 }
@@ -157,6 +164,9 @@ type talent struct {
 	service *HireService
 }
 type talentFolder struct {
+	service *HireService
+}
+type talentObject struct {
 	service *HireService
 }
 
@@ -1450,6 +1460,40 @@ func (r *referralWebsiteJobPost) ListByIterator(ctx context.Context, req *ListRe
 		limit:    req.Limit}, nil
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=registration_schema&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_registrationSchema.go
+func (r *registrationSchema) List(ctx context.Context, req *ListRegistrationSchemaReq, options ...larkcore.RequestOptionFunc) (*ListRegistrationSchemaResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/registration_schemas"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListRegistrationSchemaResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *registrationSchema) ListByIterator(ctx context.Context, req *ListRegistrationSchemaReq, options ...larkcore.RequestOptionFunc) (*ListRegistrationSchemaIterator, error) {
+	return &ListRegistrationSchemaIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: r.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // 获取简历来源列表
 //
 // - 获取简历来源列表
@@ -1594,4 +1638,33 @@ func (t *talentFolder) ListByIterator(ctx context.Context, req *ListTalentFolder
 		listFunc: t.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// 获取人才字段
+//
+// - 获取人才字段
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/query_talentObject.go
+func (t *talentObject) Query(ctx context.Context, options ...larkcore.RequestOptionFunc) (*QueryTalentObjectResp, error) {
+	// 发起请求
+	apiReq := &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	apiReq.ApiPath = "/open-apis/hire/v1/talent_objects/query"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryTalentObjectResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }

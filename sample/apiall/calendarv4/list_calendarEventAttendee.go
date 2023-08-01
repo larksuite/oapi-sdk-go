@@ -30,6 +30,7 @@ func main() {
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		EventId("xxxxxxxxx_0").
 		UserIdType("user_id").
+		NeedResourceCustomization(true).
 		PageToken("780TRhwXXXXX").
 		PageSize(20).
 		Build()

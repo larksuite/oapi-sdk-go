@@ -33,9 +33,6 @@ func main() {
 			Name("IT 外包组").
 			Description("IT服务人员的集合").
 			Type(1).
-			DynamicGroupRule(larkcontact.NewDynamicGroupRuleBuilder().Build()).
-			VisibleScope(larkcontact.NewGroupVisibleScopeBuilder().Build()).
-			DepartmentScopeList([]string{}).
 			GroupId("g122817").
 			Build()).
 		Build()

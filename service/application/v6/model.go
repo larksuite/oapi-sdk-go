@@ -79,6 +79,18 @@ const (
 )
 
 const (
+	DepartmentIdTypeDepartmentOverviewApplicationAppUsageDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeDepartmentOverviewApplicationAppUsageOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	CycleTypeOverviewApplicationAppUsageDay   = 1 // 日活
+	CycleTypeOverviewApplicationAppUsageWeek  = 2 // 周活， date字段应该填自然周周一的日期
+	CycleTypeOverviewApplicationAppUsageMonth = 3 // 月活， date字段应该填自然月1号的日期
+
+)
+
+const (
 	AbilityApp = "app" // 返回应用整体的数据
 	AbilityMp  = "mp"  // 返回小程序的数据
 	AbilityH5  = "h5"  // 返回网页的数据
@@ -5640,6 +5652,275 @@ type UnderauditlistApplicationResp struct {
 }
 
 func (resp *UnderauditlistApplicationResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DepartmentOverviewApplicationAppUsageReqBodyBuilder struct {
+	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	dateFlag         bool
+	cycleType        int // 活跃周期的统计类型
+	cycleTypeFlag    bool
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	departmentIdFlag bool
+	recursion        int // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+	recursionFlag    bool
+	pageSize         int // 分页大小，取值范围 1~20
+	pageSizeFlag     bool
+	pageToken        string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+	pageTokenFlag    bool
+}
+
+func NewDepartmentOverviewApplicationAppUsageReqBodyBuilder() *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder := &DepartmentOverviewApplicationAppUsageReqBodyBuilder{}
+	return builder
+}
+
+// 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+//
+//示例值：2021-07-08
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Date(date string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 活跃周期的统计类型
+//
+//示例值：1
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.cycleType = cycleType
+	builder.cycleTypeFlag = true
+	return builder
+}
+
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+//
+//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+//
+//示例值：0
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Recursion(recursion int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.recursion = recursion
+	builder.recursionFlag = true
+	return builder
+}
+
+// 分页大小，取值范围 1~20
+//
+//示例值：10
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageSize(pageSize int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+//
+//示例值：new-1a8f509162ca3c95405838d05ccded09
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageToken(pageToken string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Build() *DepartmentOverviewApplicationAppUsageReqBody {
+	req := &DepartmentOverviewApplicationAppUsageReqBody{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+	}
+	if builder.cycleTypeFlag {
+		req.CycleType = &builder.cycleType
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recursionFlag {
+		req.Recursion = &builder.recursion
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
+}
+
+type DepartmentOverviewApplicationAppUsagePathReqBodyBuilder struct {
+	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	dateFlag         bool
+	cycleType        int // 活跃周期的统计类型
+	cycleTypeFlag    bool
+	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	departmentIdFlag bool
+	recursion        int // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+	recursionFlag    bool
+	pageSize         int // 分页大小，取值范围 1~20
+	pageSizeFlag     bool
+	pageToken        string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+	pageTokenFlag    bool
+}
+
+func NewDepartmentOverviewApplicationAppUsagePathReqBodyBuilder() *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder := &DepartmentOverviewApplicationAppUsagePathReqBodyBuilder{}
+	return builder
+}
+
+// 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+//
+// 示例值：2021-07-08
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) Date(date string) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 活跃周期的统计类型
+//
+// 示例值：1
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) CycleType(cycleType int) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.cycleType = cycleType
+	builder.cycleTypeFlag = true
+	return builder
+}
+
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+//
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+//
+// 示例值：0
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) Recursion(recursion int) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.recursion = recursion
+	builder.recursionFlag = true
+	return builder
+}
+
+// 分页大小，取值范围 1~20
+//
+// 示例值：10
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) PageSize(pageSize int) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+//
+// 示例值：new-1a8f509162ca3c95405838d05ccded09
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) PageToken(pageToken string) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) Build() (*DepartmentOverviewApplicationAppUsageReqBody, error) {
+	req := &DepartmentOverviewApplicationAppUsageReqBody{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+	}
+	if builder.cycleTypeFlag {
+		req.CycleType = &builder.cycleType
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recursionFlag {
+		req.Recursion = &builder.recursion
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req, nil
+}
+
+type DepartmentOverviewApplicationAppUsageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DepartmentOverviewApplicationAppUsageReqBody
+}
+
+func NewDepartmentOverviewApplicationAppUsageReqBuilder() *DepartmentOverviewApplicationAppUsageReqBuilder {
+	builder := &DepartmentOverviewApplicationAppUsageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 目标应用 ID
+//
+// 示例值：cli_9f115af860f7901b
+func (builder *DepartmentOverviewApplicationAppUsageReqBuilder) AppId(appId string) *DepartmentOverviewApplicationAppUsageReqBuilder {
+	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
+	return builder
+}
+
+// 调用中使用的部门ID的类型
+//
+// 示例值：open_department_id
+func (builder *DepartmentOverviewApplicationAppUsageReqBuilder) DepartmentIdType(departmentIdType string) *DepartmentOverviewApplicationAppUsageReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 查看应用在某一天/某一周/某一个月的使用数据，可以根据部门做多层子部门的筛选
+func (builder *DepartmentOverviewApplicationAppUsageReqBuilder) Body(body *DepartmentOverviewApplicationAppUsageReqBody) *DepartmentOverviewApplicationAppUsageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DepartmentOverviewApplicationAppUsageReqBuilder) Build() *DepartmentOverviewApplicationAppUsageReq {
+	req := &DepartmentOverviewApplicationAppUsageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DepartmentOverviewApplicationAppUsageReqBody struct {
+	Date         *string `json:"date,omitempty"`          // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	CycleType    *int    `json:"cycle_type,omitempty"`    // 活跃周期的统计类型
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	Recursion    *int    `json:"recursion,omitempty"`     // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+	PageSize     *int    `json:"page_size,omitempty"`     // 分页大小，取值范围 1~20
+	PageToken    *string `json:"page_token,omitempty"`    // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+}
+
+type DepartmentOverviewApplicationAppUsageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DepartmentOverviewApplicationAppUsageReqBody `body:""`
+}
+
+type DepartmentOverviewApplicationAppUsageRespData struct {
+	HasMore   *bool                            `json:"has_more,omitempty"`   // 分页查询时返回，代表是否还有更多数据
+	PageToken *string                          `json:"page_token,omitempty"` // 分页标记，下一页分页的token
+	Items     []*ApplicationDepartmentAppUsage `json:"items,omitempty"`      // 部门内员工使用应用的概览数据
+}
+
+type DepartmentOverviewApplicationAppUsageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *DepartmentOverviewApplicationAppUsageRespData `json:"data"` // 业务数据
+}
+
+func (resp *DepartmentOverviewApplicationAppUsageResp) Success() bool {
 	return resp.Code == 0
 }
 

@@ -65,6 +65,22 @@ const (
 )
 
 const (
+	FileTypeDoc     = "doc"     // 文档
+	FileTypeDocx    = "docx"    // docx文档
+	FileTypeSheet   = "sheet"   // 表格
+	FileTypeBitable = "bitable" // 多维表格
+	FileTypeFile    = "file"    // 文件
+)
+
+const (
+	FileTypeGetSubscribeFileDoc     = "doc"     // 文档
+	FileTypeGetSubscribeFileDocx    = "docx"    // docx文档
+	FileTypeGetSubscribeFileSheet   = "sheet"   // 表格
+	FileTypeGetSubscribeFileBitable = "bitable" // 多维表格
+	FileTypeGetSubscribeFileFile    = "file"    // 文件
+)
+
+const (
 	TypeMoveFileFile     = "file"     // 普通文件类型
 	TypeMoveFileDocx     = "docx"     // 新版文档类型
 	TypeMoveFileBitable  = "bitable"  // 多维表格类型
@@ -75,10 +91,10 @@ const (
 )
 
 const (
-	FileTypeDoc     = "doc"     // 文档
-	FileTypeDocx    = "docx"    // docx文档
-	FileTypeSheet   = "sheet"   // 表格
-	FileTypeBitable = "bitable" // 多维表格
+	FileTypeSubscribeFileDoc     = "doc"     // 文档
+	FileTypeSubscribeFileDocx    = "docx"    // docx文档
+	FileTypeSubscribeFileSheet   = "sheet"   // 表格
+	FileTypeSubscribeFileBitable = "bitable" // 多维表格
 )
 
 const (
@@ -5127,6 +5143,56 @@ func (resp *DeleteFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+type DeleteSubscribeFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteSubscribeFileReqBuilder() *DeleteSubscribeFileReqBuilder {
+	builder := &DeleteSubscribeFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文档token
+//
+// 示例值：doccnxxxxxxxxxxxxxxxxxxxxxx
+func (builder *DeleteSubscribeFileReqBuilder) FileToken(fileToken string) *DeleteSubscribeFileReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：doc
+func (builder *DeleteSubscribeFileReqBuilder) FileType(fileType string) *DeleteSubscribeFileReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+func (builder *DeleteSubscribeFileReqBuilder) Build() *DeleteSubscribeFileReq {
+	req := &DeleteSubscribeFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteSubscribeFileReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteSubscribeFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteSubscribeFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 type DownloadFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -5181,6 +5247,56 @@ func (resp *DownloadFileResp) WriteFile(fileName string) error {
 		return err
 	}
 	return nil
+}
+
+type GetSubscribeFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetSubscribeFileReqBuilder() *GetSubscribeFileReqBuilder {
+	builder := &GetSubscribeFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文档token
+//
+// 示例值：doccnxxxxxxxxxxxxxxxxxxxxxx
+func (builder *GetSubscribeFileReqBuilder) FileToken(fileToken string) *GetSubscribeFileReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：新版文档
+func (builder *GetSubscribeFileReqBuilder) FileType(fileType string) *GetSubscribeFileReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+func (builder *GetSubscribeFileReqBuilder) Build() *GetSubscribeFileReq {
+	req := &GetSubscribeFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetSubscribeFileReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetSubscribeFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *GetSubscribeFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListFileReqBuilder struct {
@@ -8856,6 +8972,14 @@ func (builder *TransferOwnerPermissionMemberReqBuilder) NeedNotification(needNot
 // 示例值：false
 func (builder *TransferOwnerPermissionMemberReqBuilder) RemoveOldOwner(removeOldOwner bool) *TransferOwnerPermissionMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("remove_old_owner", fmt.Sprint(removeOldOwner))
+	return builder
+}
+
+// 仅当内容不在共享文件夹中，此参数才会生效。如果设为false，系统会将该内容移至新所有者的个人空间根文件夹。如果设为 true，则留在原位置。
+//
+// 示例值：false
+func (builder *TransferOwnerPermissionMemberReqBuilder) StayPut(stayPut bool) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("stay_put", fmt.Sprint(stayPut))
 	return builder
 }
 

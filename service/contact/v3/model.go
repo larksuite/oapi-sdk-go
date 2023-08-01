@@ -335,7 +335,7 @@ const (
 )
 
 const (
-	GenderTypeUnkown = 0 // 未知
+	GenderTypeUnkown = 0 // 保密
 	GenderTypeMale   = 1 // 男
 	GenderTypeFemale = 2 // 女
 
@@ -392,7 +392,7 @@ const (
 )
 
 const (
-	GenderTypePatchUserUnkown = 0 // 未知
+	GenderTypePatchUserUnkown = 0 // 保密
 	GenderTypePatchUserMale   = 1 // 男
 	GenderTypePatchUserFemale = 2 // 女
 
@@ -421,7 +421,7 @@ const (
 )
 
 const (
-	GenderTypeUpdateUserUnkown = 0 // 未知
+	GenderTypeUpdateUserUnkown = 0 // 保密
 	GenderTypeUpdateUserMale   = 1 // 男
 	GenderTypeUpdateUserFemale = 2 // 女
 
@@ -436,6 +436,12 @@ const (
 const (
 	DepartmentIdTypeUpdateUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeUpdateUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeUpdateUserIdUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUpdateUserIdUserUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUpdateUserIdUserOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AvatarInfo struct {
@@ -2354,16 +2360,14 @@ func (builder *FunctionalRoleMemberResultBuilder) Build() *FunctionalRoleMemberR
 }
 
 type Group struct {
-	Id                    *string            `json:"id,omitempty"`                      // 用户组ID
-	Name                  *string            `json:"name,omitempty"`                    // 用户组名字
-	Description           *string            `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       *int               `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount *int               `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
-	Type                  *int               `json:"type,omitempty"`                    // 用户组的类型
-	DynamicGroupRule      *DynamicGroupRule  `json:"dynamic_group_rule,omitempty"`      // 动态用户组的规则
-	VisibleScope          *GroupVisibleScope `json:"visible_scope,omitempty"`           // 用户组指定可见范围
-	DepartmentScopeList   []string           `json:"department_scope_list,omitempty"`   // 部门范围
-	GroupId               *string            `json:"group_id,omitempty"`                // 自定义用户组ID
+	Id                    *string `json:"id,omitempty"`                      // 用户组ID
+	Name                  *string `json:"name,omitempty"`                    // 用户组名字
+	Description           *string `json:"description,omitempty"`             // 用户组描述
+	MemberUserCount       *int    `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
+	MemberDepartmentCount *int    `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
+	Type                  *int    `json:"type,omitempty"`                    // 用户组的类型
+
+	GroupId *string `json:"group_id,omitempty"` // 自定义用户组ID
 }
 
 type GroupBuilder struct {
@@ -2379,14 +2383,9 @@ type GroupBuilder struct {
 	memberDepartmentCountFlag bool
 	type_                     int // 用户组的类型
 	typeFlag                  bool
-	dynamicGroupRule          *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag      bool
-	visibleScope              *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag          bool
-	departmentScopeList       []string // 部门范围
-	departmentScopeListFlag   bool
-	groupId                   string // 自定义用户组ID
-	groupIdFlag               bool
+
+	groupId     string // 自定义用户组ID
+	groupIdFlag bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -2448,33 +2447,6 @@ func (builder *GroupBuilder) Type(type_ int) *GroupBuilder {
 	return builder
 }
 
-// 动态用户组的规则
-//
-// 示例值：
-func (builder *GroupBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *GroupBuilder {
-	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
-	return builder
-}
-
-// 用户组指定可见范围
-//
-// 示例值：
-func (builder *GroupBuilder) VisibleScope(visibleScope *GroupVisibleScope) *GroupBuilder {
-	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
-	return builder
-}
-
-// 部门范围
-//
-// 示例值：
-func (builder *GroupBuilder) DepartmentScopeList(departmentScopeList []string) *GroupBuilder {
-	builder.departmentScopeList = departmentScopeList
-	builder.departmentScopeListFlag = true
-	return builder
-}
-
 // 自定义用户组ID
 //
 // 示例值：4ba51ab38648f9cd
@@ -2510,15 +2482,7 @@ func (builder *GroupBuilder) Build() *Group {
 		req.Type = &builder.type_
 
 	}
-	if builder.dynamicGroupRuleFlag {
-		req.DynamicGroupRule = builder.dynamicGroupRule
-	}
-	if builder.visibleScopeFlag {
-		req.VisibleScope = builder.visibleScope
-	}
-	if builder.departmentScopeListFlag {
-		req.DepartmentScopeList = builder.departmentScopeList
-	}
+
 	if builder.groupIdFlag {
 		req.GroupId = &builder.groupId
 
@@ -3756,8 +3720,8 @@ type User struct {
 
 	JobTitle *string `json:"job_title,omitempty"` // 职务
 
-	IsFrozen *bool `json:"is_frozen,omitempty"` // 是否暂停用户
-
+	IsFrozen        *bool               `json:"is_frozen,omitempty"`        // 是否暂停用户
+	Geo             *string             `json:"geo,omitempty"`              // 数据驻留地
 	JobLevelId      *string             `json:"job_level_id,omitempty"`     // 职级ID
 	JobFamilyId     *string             `json:"job_family_id,omitempty"`    // 序列ID
 	SubscriptionIds []string            `json:"subscription_ids,omitempty"` // 分配给用户的席位ID列表
@@ -3821,9 +3785,10 @@ type UserBuilder struct {
 	jobTitle     string // 职务
 	jobTitleFlag bool
 
-	isFrozen     bool // 是否暂停用户
-	isFrozenFlag bool
-
+	isFrozen            bool // 是否暂停用户
+	isFrozenFlag        bool
+	geo                 string // 数据驻留地
+	geoFlag             bool
 	jobLevelId          string // 职级ID
 	jobLevelIdFlag      bool
 	jobFamilyId         string // 序列ID
@@ -4084,6 +4049,15 @@ func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 	return builder
 }
 
+// 数据驻留地
+//
+// 示例值：cn
+func (builder *UserBuilder) Geo(geo string) *UserBuilder {
+	builder.geo = geo
+	builder.geoFlag = true
+	return builder
+}
+
 // 职级ID
 //
 // 示例值：mga5oa8ayjlp9rb
@@ -4237,7 +4211,10 @@ func (builder *UserBuilder) Build() *User {
 		req.IsFrozen = &builder.isFrozen
 
 	}
+	if builder.geoFlag {
+		req.Geo = &builder.geo
 
+	}
 	if builder.jobLevelIdFlag {
 		req.JobLevelId = &builder.jobLevelId
 
@@ -9294,6 +9271,118 @@ func (resp *UpdateJobLevelResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetJobTitleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetJobTitleReqBuilder() *GetJobTitleReqBuilder {
+	builder := &GetJobTitleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 职务ID
+//
+// 示例值：dd39369b19b9
+func (builder *GetJobTitleReqBuilder) JobTitleId(jobTitleId string) *GetJobTitleReqBuilder {
+	builder.apiReq.PathParams.Set("job_title_id", fmt.Sprint(jobTitleId))
+	return builder
+}
+
+func (builder *GetJobTitleReqBuilder) Build() *GetJobTitleReq {
+	req := &GetJobTitleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetJobTitleReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetJobTitleRespData struct {
+	JobTitle *JobTitle `json:"job_title,omitempty"` // 职务信息
+}
+
+type GetJobTitleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetJobTitleRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetJobTitleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListJobTitleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListJobTitleReqBuilder() *ListJobTitleReqBuilder {
+	builder := &ListJobTitleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListJobTitleReqBuilder) Limit(limit int) *ListJobTitleReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListJobTitleReqBuilder) PageSize(pageSize int) *ListJobTitleReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值："xxx"
+func (builder *ListJobTitleReqBuilder) PageToken(pageToken string) *ListJobTitleReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListJobTitleReqBuilder) Build() *ListJobTitleReq {
+	req := &ListJobTitleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListJobTitleReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListJobTitleRespData struct {
+	Items     []*JobTitle `json:"items,omitempty"`      // 职务列表
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListJobTitleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListJobTitleRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListJobTitleResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListScopeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -11305,6 +11394,235 @@ func (resp *UpdateUserResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateUserIdUserReqBodyBuilder struct {
+	newUserId     string // 自定义新用户ID
+	newUserIdFlag bool
+}
+
+func NewUpdateUserIdUserReqBodyBuilder() *UpdateUserIdUserReqBodyBuilder {
+	builder := &UpdateUserIdUserReqBodyBuilder{}
+	return builder
+}
+
+// 自定义新用户ID
+//
+//示例值：3e3cf96b
+func (builder *UpdateUserIdUserReqBodyBuilder) NewUserId(newUserId string) *UpdateUserIdUserReqBodyBuilder {
+	builder.newUserId = newUserId
+	builder.newUserIdFlag = true
+	return builder
+}
+
+func (builder *UpdateUserIdUserReqBodyBuilder) Build() *UpdateUserIdUserReqBody {
+	req := &UpdateUserIdUserReqBody{}
+	if builder.newUserIdFlag {
+		req.NewUserId = &builder.newUserId
+	}
+	return req
+}
+
+type UpdateUserIdUserPathReqBodyBuilder struct {
+	newUserId     string // 自定义新用户ID
+	newUserIdFlag bool
+}
+
+func NewUpdateUserIdUserPathReqBodyBuilder() *UpdateUserIdUserPathReqBodyBuilder {
+	builder := &UpdateUserIdUserPathReqBodyBuilder{}
+	return builder
+}
+
+// 自定义新用户ID
+//
+// 示例值：3e3cf96b
+func (builder *UpdateUserIdUserPathReqBodyBuilder) NewUserId(newUserId string) *UpdateUserIdUserPathReqBodyBuilder {
+	builder.newUserId = newUserId
+	builder.newUserIdFlag = true
+	return builder
+}
+
+func (builder *UpdateUserIdUserPathReqBodyBuilder) Build() (*UpdateUserIdUserReqBody, error) {
+	req := &UpdateUserIdUserReqBody{}
+	if builder.newUserIdFlag {
+		req.NewUserId = &builder.newUserId
+	}
+	return req, nil
+}
+
+type UpdateUserIdUserReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateUserIdUserReqBody
+}
+
+func NewUpdateUserIdUserReqBuilder() *UpdateUserIdUserReqBuilder {
+	builder := &UpdateUserIdUserReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *UpdateUserIdUserReqBuilder) UserId(userId string) *UpdateUserIdUserReqBuilder {
+	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *UpdateUserIdUserReqBuilder) UserIdType(userIdType string) *UpdateUserIdUserReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *UpdateUserIdUserReqBuilder) Body(body *UpdateUserIdUserReqBody) *UpdateUserIdUserReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateUserIdUserReqBuilder) Build() *UpdateUserIdUserReq {
+	req := &UpdateUserIdUserReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateUserIdUserReqBody struct {
+	NewUserId *string `json:"new_user_id,omitempty"` // 自定义新用户ID
+}
+
+type UpdateUserIdUserReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateUserIdUserReqBody `body:""`
+}
+
+type UpdateUserIdUserResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateUserIdUserResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetWorkCityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetWorkCityReqBuilder() *GetWorkCityReqBuilder {
+	builder := &GetWorkCityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作城市ID
+//
+// 示例值：dd39369b19b9
+func (builder *GetWorkCityReqBuilder) WorkCityId(workCityId string) *GetWorkCityReqBuilder {
+	builder.apiReq.PathParams.Set("work_city_id", fmt.Sprint(workCityId))
+	return builder
+}
+
+func (builder *GetWorkCityReqBuilder) Build() *GetWorkCityReq {
+	req := &GetWorkCityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetWorkCityReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetWorkCityRespData struct {
+	WorkCity *WorkCity `json:"work_city,omitempty"` // 工作城市信息
+}
+
+type GetWorkCityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetWorkCityRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetWorkCityResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListWorkCityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListWorkCityReqBuilder() *ListWorkCityReqBuilder {
+	builder := &ListWorkCityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListWorkCityReqBuilder) Limit(limit int) *ListWorkCityReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListWorkCityReqBuilder) PageSize(pageSize int) *ListWorkCityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值："xxx"
+func (builder *ListWorkCityReqBuilder) PageToken(pageToken string) *ListWorkCityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListWorkCityReqBuilder) Build() *ListWorkCityReq {
+	req := &ListWorkCityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListWorkCityReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListWorkCityRespData struct {
+	Items     []*WorkCity `json:"items,omitempty"`      // 工作城市列表
+	PageToken *string     `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+type ListWorkCityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListWorkCityRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListWorkCityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type P2CustomAttrEventUpdatedV3Data struct {
 	Object    *CustomAttrEvent `json:"object,omitempty"`     // 变更后信息
 	OldObject *CustomAttrEvent `json:"old_object,omitempty"` // 变更前信息
@@ -12036,6 +12354,60 @@ func (iterator *ListJobLevelIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
+type ListJobTitleIterator struct {
+	nextPageToken *string
+	items         []*JobTitle
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListJobTitleReq
+	listFunc      func(ctx context.Context, req *ListJobTitleReq, options ...larkcore.RequestOptionFunc) (*ListJobTitleResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListJobTitleIterator) Next() (bool, *JobTitle, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListJobTitleIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
 type FindByDepartmentUserIterator struct {
 	nextPageToken *string
 	items         []*User
@@ -12141,5 +12513,59 @@ func (iterator *ListUserIterator) Next() (bool, *User, error) {
 }
 
 func (iterator *ListUserIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListWorkCityIterator struct {
+	nextPageToken *string
+	items         []*WorkCity
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListWorkCityReq
+	listFunc      func(ctx context.Context, req *ListWorkCityReq, options ...larkcore.RequestOptionFunc) (*ListWorkCityResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListWorkCityIterator) Next() (bool, *WorkCity, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListWorkCityIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

@@ -31,6 +31,7 @@ func main() {
 		Type("doc").
 		NeedNotification(true).
 		RemoveOldOwner(false).
+		StayPut(false).
 		Owner(larkdrive.NewOwnerBuilder().
 			MemberType("openid").
 			MemberId("string").

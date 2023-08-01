@@ -1902,7 +1902,7 @@ func (builder *MeetingEventUserBuilder) Build() *MeetingEventUser {
 }
 
 type MeetingInfo struct {
-	MeetingId            *string `json:"meeting_id,omitempty"`             // 会议ID
+	MeetingId            *string `json:"meeting_id,omitempty"`             // 9位会议号
 	MeetingTopic         *string `json:"meeting_topic,omitempty"`          // 会议主题
 	Organizer            *string `json:"organizer,omitempty"`              // 组织者
 	Department           *string `json:"department,omitempty"`             // 部门
@@ -1922,7 +1922,7 @@ type MeetingInfo struct {
 }
 
 type MeetingInfoBuilder struct {
-	meetingId                string // 会议ID
+	meetingId                string // 9位会议号
 	meetingIdFlag            bool
 	meetingTopic             string // 会议主题
 	meetingTopicFlag         bool
@@ -1963,7 +1963,7 @@ func NewMeetingInfoBuilder() *MeetingInfoBuilder {
 	return builder
 }
 
-// 会议ID
+// 9位会议号
 //
 // 示例值：705605196
 func (builder *MeetingInfoBuilder) MeetingId(meetingId string) *MeetingInfoBuilder {
@@ -5647,6 +5647,7 @@ func (builder *RoomLevelBuilder) Build() *RoomLevel {
 }
 
 type RoomMeetingReservation struct {
+	RoomId               *string `json:"room_id,omitempty"`                // 会议室ID
 	RoomName             *string `json:"room_name,omitempty"`              // 会议室名称
 	EventTitle           *string `json:"event_title,omitempty"`            // 会议标题
 	Reserver             *string `json:"reserver,omitempty"`               // 预定人
@@ -5666,6 +5667,8 @@ type RoomMeetingReservation struct {
 }
 
 type RoomMeetingReservationBuilder struct {
+	roomId                   string // 会议室ID
+	roomIdFlag               bool
 	roomName                 string // 会议室名称
 	roomNameFlag             bool
 	eventTitle               string // 会议标题
@@ -5702,6 +5705,15 @@ type RoomMeetingReservationBuilder struct {
 
 func NewRoomMeetingReservationBuilder() *RoomMeetingReservationBuilder {
 	builder := &RoomMeetingReservationBuilder{}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *RoomMeetingReservationBuilder) RoomId(roomId string) *RoomMeetingReservationBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
 	return builder
 }
 
@@ -5851,6 +5863,10 @@ func (builder *RoomMeetingReservationBuilder) ReleasingTime(releasingTime string
 
 func (builder *RoomMeetingReservationBuilder) Build() *RoomMeetingReservation {
 	req := &RoomMeetingReservation{}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
 	if builder.roomNameFlag {
 		req.RoomName = &builder.roomName
 
@@ -8810,7 +8826,7 @@ func (builder *GetParticipantListReqBuilder) Limit(limit int) *GetParticipantLis
 	return builder
 }
 
-// 会议开始时间（unix时间，单位sec）
+// 会议开始时间（需要精确到一分钟，unix时间，单位sec）
 //
 // 示例值：1655276858
 func (builder *GetParticipantListReqBuilder) MeetingStartTime(meetingStartTime string) *GetParticipantListReqBuilder {
@@ -8924,7 +8940,7 @@ func (builder *GetParticipantQualityListReqBuilder) Limit(limit int) *GetPartici
 	return builder
 }
 
-// 会议开始时间（unix时间，单位sec）
+// 会议开始时间（需要精确到一分钟，unix时间，单位sec）
 //
 // 示例值：1655276858
 func (builder *GetParticipantQualityListReqBuilder) MeetingStartTime(meetingStartTime string) *GetParticipantQualityListReqBuilder {

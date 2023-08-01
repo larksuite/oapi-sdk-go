@@ -40,7 +40,6 @@ func main() {
 			BotIdList([]string{}).
 			ChatMode("group").
 			ChatType("private").
-			External(false).
 			JoinMessageVisibility("all_members").
 			LeaveMessageVisibility("all_members").
 			MembershipApproval("no_approval_required").

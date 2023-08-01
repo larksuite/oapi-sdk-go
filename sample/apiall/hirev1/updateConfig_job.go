@@ -38,6 +38,7 @@ func main() {
 			InterviewRoundConfList([]*larkhire.JobConfigInterviewRoundConf{larkhire.NewJobConfigInterviewRoundConfBuilder().Build()}).
 			JrIdList([]string{}).
 			InterviewRegistrationSchemaId("6930815272790114324").
+			OnboardRegistrationSchemaId("6930815272790114324").
 			InterviewRoundTypeConfList([]*larkhire.JobConfigRoundType{larkhire.NewJobConfigRoundTypeBuilder().Build()}).
 			RelatedJobIdList([]string{}).
 			InterviewAppointmentConfig(larkhire.NewInterviewAppointmentConfigBuilder().Build()).

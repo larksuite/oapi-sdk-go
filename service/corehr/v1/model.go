@@ -8013,7 +8013,7 @@ func (builder *JobDataBuilder) JobFamilyId(jobFamilyId string) *JobDataBuilder {
 
 // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 //
-// 示例值：onboarding
+// 示例值：
 func (builder *JobDataBuilder) AssignmentStartReason(assignmentStartReason *Enum) *JobDataBuilder {
 	builder.assignmentStartReason = assignmentStartReason
 	builder.assignmentStartReasonFlag = true
@@ -18731,6 +18731,8 @@ type CreateLeaveGrantingRecordReqBodyBuilder struct {
 	grantingUnitFlag     bool
 	effectiveDate        string // 生效时间
 	effectiveDateFlag    bool
+	expirationDate       string // 失效时间
+	expirationDateFlag   bool
 	reason               []*I18n // 授予原因
 	reasonFlag           bool
 	externalId           string // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
@@ -18787,6 +18789,15 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EffectiveDate(effectiveD
 	return builder
 }
 
+// 失效时间
+//
+//示例值：2022-01-01
+func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExpirationDate(expirationDate string) *CreateLeaveGrantingRecordReqBodyBuilder {
+	builder.expirationDate = expirationDate
+	builder.expirationDateFlag = true
+	return builder
+}
+
 // 授予原因
 //
 //示例值：
@@ -18822,6 +18833,9 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) Build() *CreateLeaveGran
 	if builder.effectiveDateFlag {
 		req.EffectiveDate = &builder.effectiveDate
 	}
+	if builder.expirationDateFlag {
+		req.ExpirationDate = &builder.expirationDate
+	}
 	if builder.reasonFlag {
 		req.Reason = builder.reason
 	}
@@ -18842,6 +18856,8 @@ type CreateLeaveGrantingRecordPathReqBodyBuilder struct {
 	grantingUnitFlag     bool
 	effectiveDate        string // 生效时间
 	effectiveDateFlag    bool
+	expirationDate       string // 失效时间
+	expirationDateFlag   bool
 	reason               []*I18n // 授予原因
 	reasonFlag           bool
 	externalId           string // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
@@ -18898,6 +18914,15 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) EffectiveDate(effect
 	return builder
 }
 
+// 失效时间
+//
+// 示例值：2022-01-01
+func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) ExpirationDate(expirationDate string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
+	builder.expirationDate = expirationDate
+	builder.expirationDateFlag = true
+	return builder
+}
+
 // 授予原因
 //
 // 示例值：
@@ -18932,6 +18957,9 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) Build() (*CreateLeav
 	}
 	if builder.effectiveDateFlag {
 		req.EffectiveDate = &builder.effectiveDate
+	}
+	if builder.expirationDateFlag {
+		req.ExpirationDate = &builder.expirationDate
 	}
 	if builder.reasonFlag {
 		req.Reason = builder.reason
@@ -18984,6 +19012,7 @@ type CreateLeaveGrantingRecordReqBody struct {
 	GrantingQuantity *string `json:"granting_quantity,omitempty"` // 授予数量
 	GrantingUnit     *int    `json:"granting_unit,omitempty"`     // 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
 	EffectiveDate    *string `json:"effective_date,omitempty"`    // 生效时间
+	ExpirationDate   *string `json:"expiration_date,omitempty"`   // 失效时间
 	Reason           []*I18n `json:"reason,omitempty"`            // 授予原因
 	ExternalId       *string `json:"external_id,omitempty"`       // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
 }
@@ -21862,7 +21891,9 @@ func (m *P2JobChangeUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobDataChangedV1Data struct {
-	JobDataId *string `json:"job_data_id,omitempty"` // 主对象ID
+	JobDataId    *string `json:"job_data_id,omitempty"`    // 主对象ID
+	EmploymentId *string `json:"employment_id,omitempty"`  // 员工雇佣 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
 }
 
 type P2JobDataChangedV1 struct {
@@ -21876,7 +21907,9 @@ func (m *P2JobDataChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobDataEmployedV1Data struct {
-	JobDataId *string `json:"job_data_id,omitempty"` // 主对象ID
+	JobDataId    *string `json:"job_data_id,omitempty"`    // 主对象ID
+	EmploymentId *string `json:"employment_id,omitempty"`  // 员工雇佣 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
 }
 
 type P2JobDataEmployedV1 struct {

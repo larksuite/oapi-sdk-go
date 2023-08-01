@@ -59,6 +59,12 @@ const (
 )
 
 const (
+	UserIdTypeGetExternalApprovalUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetExternalApprovalUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetExternalApprovalOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	StatusPending    = "PENDING"    // 审批中
 	StatusApproved   = "APPROVED"   // 审批流程结束，结果为同意
 	StatusRejected   = "REJECTED"   // 审批流程结束，结果为拒绝
@@ -10089,6 +10095,69 @@ type CreateExternalApprovalResp struct {
 }
 
 func (resp *CreateExternalApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetExternalApprovalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetExternalApprovalReqBuilder() *GetExternalApprovalReqBuilder {
+	builder := &GetExternalApprovalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 审批定义code
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *GetExternalApprovalReqBuilder) ApprovalCode(approvalCode string) *GetExternalApprovalReqBuilder {
+	builder.apiReq.PathParams.Set("approval_code", fmt.Sprint(approvalCode))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetExternalApprovalReqBuilder) UserIdType(userIdType string) *GetExternalApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetExternalApprovalReqBuilder) Build() *GetExternalApprovalReq {
+	req := &GetExternalApprovalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetExternalApprovalReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetExternalApprovalRespData struct {
+	ApprovalName  *string                  `json:"approval_name,omitempty"`  // 审批定义名称
+	ApprovalCode  *string                  `json:"approval_code,omitempty"`  // 审批定义code
+	GroupCode     *string                  `json:"group_code,omitempty"`     // 审批定义所属分组
+	GroupName     *string                  `json:"group_name,omitempty"`     // 分组名称
+	Description   *string                  `json:"description,omitempty"`    // 审批定义的说明
+	External      *ApprovalCreateExternal  `json:"external,omitempty"`       // 三方审批定义相关
+	Viewers       []*ApprovalCreateViewers `json:"viewers,omitempty"`        // 可见人列表
+	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"` // 国际化文案
+	Managers      []string                 `json:"managers,omitempty"`       // 流程管理员
+}
+
+type GetExternalApprovalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetExternalApprovalRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetExternalApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 

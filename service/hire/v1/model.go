@@ -545,6 +545,13 @@ const (
 )
 
 const (
+	ScenarioInterviewRegistration  = 5  // 面试登记表
+	ScenarioOnboardRegistration    = 6  // 入职登记表
+	ScenarioInfoUpdateRegistration = 14 // 人才信息登记表
+
+)
+
+const (
 	UserIdTypeGetTalentUserId        = "user_id"         // 以 user_id 来识别用户
 	UserIdTypeGetTalentUnionId       = "union_id"        // 以 union_id 来识别用户
 	UserIdTypeGetTalentOpenId        = "open_id"         // 以 open_id 来识别用户
@@ -6617,12 +6624,63 @@ func (builder *AwardInfoBuilder) Build() *AwardInfo {
 	return req
 }
 
+type BackgroundCheckCustomFieldDataValue struct {
+	Key   *string `json:"key,omitempty"`   // 对应模板字段的Key
+	Value *string `json:"value,omitempty"` // 对应模板字段的value
+}
+
+type BackgroundCheckCustomFieldDataValueBuilder struct {
+	key       string // 对应模板字段的Key
+	keyFlag   bool
+	value     string // 对应模板字段的value
+	valueFlag bool
+}
+
+func NewBackgroundCheckCustomFieldDataValueBuilder() *BackgroundCheckCustomFieldDataValueBuilder {
+	builder := &BackgroundCheckCustomFieldDataValueBuilder{}
+	return builder
+}
+
+// 对应模板字段的Key
+//
+// 示例值：1
+func (builder *BackgroundCheckCustomFieldDataValueBuilder) Key(key string) *BackgroundCheckCustomFieldDataValueBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 对应模板字段的value
+//
+// 示例值：text
+func (builder *BackgroundCheckCustomFieldDataValueBuilder) Value(value string) *BackgroundCheckCustomFieldDataValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *BackgroundCheckCustomFieldDataValueBuilder) Build() *BackgroundCheckCustomFieldDataValue {
+	req := &BackgroundCheckCustomFieldDataValue{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
 type BackgroundCheckFeedbackInfo struct {
+	FeedbackId    *string `json:"feedback_id,omitempty"`    // 背调报告ID
 	AttachmentUrl *string `json:"attachment_url,omitempty"` // 背调信息附件下载链接
 	Result        *string `json:"result,omitempty"`         // 背调结果：红灯、黄灯、绿灯
 }
 
 type BackgroundCheckFeedbackInfoBuilder struct {
+	feedbackId        string // 背调报告ID
+	feedbackIdFlag    bool
 	attachmentUrl     string // 背调信息附件下载链接
 	attachmentUrlFlag bool
 	result            string // 背调结果：红灯、黄灯、绿灯
@@ -6631,6 +6689,15 @@ type BackgroundCheckFeedbackInfoBuilder struct {
 
 func NewBackgroundCheckFeedbackInfoBuilder() *BackgroundCheckFeedbackInfoBuilder {
 	builder := &BackgroundCheckFeedbackInfoBuilder{}
+	return builder
+}
+
+// 背调报告ID
+//
+// 示例值：6930815272790114324
+func (builder *BackgroundCheckFeedbackInfoBuilder) FeedbackId(feedbackId string) *BackgroundCheckFeedbackInfoBuilder {
+	builder.feedbackId = feedbackId
+	builder.feedbackIdFlag = true
 	return builder
 }
 
@@ -6654,6 +6721,10 @@ func (builder *BackgroundCheckFeedbackInfoBuilder) Result(result string) *Backgr
 
 func (builder *BackgroundCheckFeedbackInfoBuilder) Build() *BackgroundCheckFeedbackInfo {
 	req := &BackgroundCheckFeedbackInfo{}
+	if builder.feedbackIdFlag {
+		req.FeedbackId = &builder.feedbackId
+
+	}
 	if builder.attachmentUrlFlag {
 		req.AttachmentUrl = &builder.attachmentUrl
 
@@ -6665,16 +6736,78 @@ func (builder *BackgroundCheckFeedbackInfoBuilder) Build() *BackgroundCheckFeedb
 	return req
 }
 
+type BackgroundCheckItemInfo struct {
+	Id   *string `json:"id,omitempty"`   // 附加项的ID
+	Name *string `json:"name,omitempty"` // 附加项的名称
+}
+
+type BackgroundCheckItemInfoBuilder struct {
+	id       string // 附加项的ID
+	idFlag   bool
+	name     string // 附加项的名称
+	nameFlag bool
+}
+
+func NewBackgroundCheckItemInfoBuilder() *BackgroundCheckItemInfoBuilder {
+	builder := &BackgroundCheckItemInfoBuilder{}
+	return builder
+}
+
+// 附加项的ID
+//
+// 示例值：6930815272790114324
+func (builder *BackgroundCheckItemInfoBuilder) Id(id string) *BackgroundCheckItemInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 附加项的名称
+//
+// 示例值：户籍查询
+func (builder *BackgroundCheckItemInfoBuilder) Name(name string) *BackgroundCheckItemInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *BackgroundCheckItemInfoBuilder) Build() *BackgroundCheckItemInfo {
+	req := &BackgroundCheckItemInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
 type BackgroundCheckOrder struct {
-	OrderId          *string                        `json:"order_id,omitempty"`           // 背调 ID
-	ApplicationId    *string                        `json:"application_id,omitempty"`     // 投递 ID
-	OrderStatus      *int                           `json:"order_status,omitempty"`       // 背调状态
-	AccountThirdType *int                           `json:"account_third_type,omitempty"` // 供应商名称
-	Package          *string                        `json:"package,omitempty"`            // 背调套餐
-	Name             *string                        `json:"name,omitempty"`               // 背调名称（仅手动录入的背调结果具有）
-	FeedbackInfoList []*BackgroundCheckFeedbackInfo `json:"feedback_info_list,omitempty"` // 背调报告信息
-	ProcessInfoList  []*BackgroundCheckProcessInfo  `json:"process_info_list,omitempty"`  // 进度
-	UploadTime       *string                        `json:"upload_time,omitempty"`        // 录入时间（仅手动录入的背调结果具有）
+	OrderId          *string                                `json:"order_id,omitempty"`           // 背调 ID
+	ApplicationId    *string                                `json:"application_id,omitempty"`     // 投递 ID
+	OrderStatus      *int                                   `json:"order_status,omitempty"`       // 背调状态
+	AccountThirdType *int                                   `json:"account_third_type,omitempty"` // 供应商名称
+	Package          *string                                `json:"package,omitempty"`            // 背调套餐
+	Name             *string                                `json:"name,omitempty"`               // 背调名称（仅手动录入的背调结果具有）
+	FeedbackInfoList []*BackgroundCheckOrderFeedbackInfo    `json:"feedback_info_list,omitempty"` // 背调报告信息
+	ProcessInfoList  []*BackgroundCheckOrderProcessInfo     `json:"process_info_list,omitempty"`  // 进度
+	UploadTime       *string                                `json:"upload_time,omitempty"`        // 录入时间（仅手动录入的背调结果具有）
+	CandidateInfo    *UserContactInfo                       `json:"candidate_info,omitempty"`     // 候选人信息
+	CreatorInfo      *BackgroundCheckOrderCreator           `json:"creator_info,omitempty"`       // 背调发起人信息
+	ContactorInfo    *UserContactInfo                       `json:"contactor_info,omitempty"`     // 背调联系人信息
+	BeginTime        *string                                `json:"begin_time,omitempty"`         // 背调发起时间
+	EndTime          *string                                `json:"end_time,omitempty"`           // 背调结束时间
+	Conclusion       *string                                `json:"conclusion,omitempty"`         // 背调结论
+	ProviderInfo     *IdNameObject                          `json:"provider_info,omitempty"`      // 供应商信息
+	CustomFieldList  []*EcoBackgroundCheckCustomFieldData   `json:"custom_field_list,omitempty"`  // 自定义字段模板
+	CustomDataList   []*BackgroundCheckCustomFieldDataValue `json:"custom_data_list,omitempty"`   // 自定义字段值
+	ExtItemInfoList  []*BackgroundCheckItemInfo             `json:"ext_item_info_list,omitempty"` // 背调调查附加项
+	UpdateTime       *string                                `json:"update_time,omitempty"`        // 订单更新时间
+	Geo              *string                                `json:"geo,omitempty"`                // 属地
+	LocationCode     *string                                `json:"location_code,omitempty"`      // 国家城市编码
+	Remark           *string                                `json:"remark,omitempty"`             // 备注
 }
 
 type BackgroundCheckOrderBuilder struct {
@@ -6690,12 +6823,40 @@ type BackgroundCheckOrderBuilder struct {
 	packageFlag          bool
 	name                 string // 背调名称（仅手动录入的背调结果具有）
 	nameFlag             bool
-	feedbackInfoList     []*BackgroundCheckFeedbackInfo // 背调报告信息
+	feedbackInfoList     []*BackgroundCheckOrderFeedbackInfo // 背调报告信息
 	feedbackInfoListFlag bool
-	processInfoList      []*BackgroundCheckProcessInfo // 进度
+	processInfoList      []*BackgroundCheckOrderProcessInfo // 进度
 	processInfoListFlag  bool
 	uploadTime           string // 录入时间（仅手动录入的背调结果具有）
 	uploadTimeFlag       bool
+	candidateInfo        *UserContactInfo // 候选人信息
+	candidateInfoFlag    bool
+	creatorInfo          *BackgroundCheckOrderCreator // 背调发起人信息
+	creatorInfoFlag      bool
+	contactorInfo        *UserContactInfo // 背调联系人信息
+	contactorInfoFlag    bool
+	beginTime            string // 背调发起时间
+	beginTimeFlag        bool
+	endTime              string // 背调结束时间
+	endTimeFlag          bool
+	conclusion           string // 背调结论
+	conclusionFlag       bool
+	providerInfo         *IdNameObject // 供应商信息
+	providerInfoFlag     bool
+	customFieldList      []*EcoBackgroundCheckCustomFieldData // 自定义字段模板
+	customFieldListFlag  bool
+	customDataList       []*BackgroundCheckCustomFieldDataValue // 自定义字段值
+	customDataListFlag   bool
+	extItemInfoList      []*BackgroundCheckItemInfo // 背调调查附加项
+	extItemInfoListFlag  bool
+	updateTime           string // 订单更新时间
+	updateTimeFlag       bool
+	geo                  string // 属地
+	geoFlag              bool
+	locationCode         string // 国家城市编码
+	locationCodeFlag     bool
+	remark               string // 备注
+	remarkFlag           bool
 }
 
 func NewBackgroundCheckOrderBuilder() *BackgroundCheckOrderBuilder {
@@ -6760,7 +6921,7 @@ func (builder *BackgroundCheckOrderBuilder) Name(name string) *BackgroundCheckOr
 // 背调报告信息
 //
 // 示例值：
-func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []*BackgroundCheckFeedbackInfo) *BackgroundCheckOrderBuilder {
+func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []*BackgroundCheckOrderFeedbackInfo) *BackgroundCheckOrderBuilder {
 	builder.feedbackInfoList = feedbackInfoList
 	builder.feedbackInfoListFlag = true
 	return builder
@@ -6769,7 +6930,7 @@ func (builder *BackgroundCheckOrderBuilder) FeedbackInfoList(feedbackInfoList []
 // 进度
 //
 // 示例值：
-func (builder *BackgroundCheckOrderBuilder) ProcessInfoList(processInfoList []*BackgroundCheckProcessInfo) *BackgroundCheckOrderBuilder {
+func (builder *BackgroundCheckOrderBuilder) ProcessInfoList(processInfoList []*BackgroundCheckOrderProcessInfo) *BackgroundCheckOrderBuilder {
 	builder.processInfoList = processInfoList
 	builder.processInfoListFlag = true
 	return builder
@@ -6781,6 +6942,132 @@ func (builder *BackgroundCheckOrderBuilder) ProcessInfoList(processInfoList []*B
 func (builder *BackgroundCheckOrderBuilder) UploadTime(uploadTime string) *BackgroundCheckOrderBuilder {
 	builder.uploadTime = uploadTime
 	builder.uploadTimeFlag = true
+	return builder
+}
+
+// 候选人信息
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) CandidateInfo(candidateInfo *UserContactInfo) *BackgroundCheckOrderBuilder {
+	builder.candidateInfo = candidateInfo
+	builder.candidateInfoFlag = true
+	return builder
+}
+
+// 背调发起人信息
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) CreatorInfo(creatorInfo *BackgroundCheckOrderCreator) *BackgroundCheckOrderBuilder {
+	builder.creatorInfo = creatorInfo
+	builder.creatorInfoFlag = true
+	return builder
+}
+
+// 背调联系人信息
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) ContactorInfo(contactorInfo *UserContactInfo) *BackgroundCheckOrderBuilder {
+	builder.contactorInfo = contactorInfo
+	builder.contactorInfoFlag = true
+	return builder
+}
+
+// 背调发起时间
+//
+// 示例值：1686297649024
+func (builder *BackgroundCheckOrderBuilder) BeginTime(beginTime string) *BackgroundCheckOrderBuilder {
+	builder.beginTime = beginTime
+	builder.beginTimeFlag = true
+	return builder
+}
+
+// 背调结束时间
+//
+// 示例值：1686297649024
+func (builder *BackgroundCheckOrderBuilder) EndTime(endTime string) *BackgroundCheckOrderBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 背调结论
+//
+// 示例值：绿灯
+func (builder *BackgroundCheckOrderBuilder) Conclusion(conclusion string) *BackgroundCheckOrderBuilder {
+	builder.conclusion = conclusion
+	builder.conclusionFlag = true
+	return builder
+}
+
+// 供应商信息
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) ProviderInfo(providerInfo *IdNameObject) *BackgroundCheckOrderBuilder {
+	builder.providerInfo = providerInfo
+	builder.providerInfoFlag = true
+	return builder
+}
+
+// 自定义字段模板
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) CustomFieldList(customFieldList []*EcoBackgroundCheckCustomFieldData) *BackgroundCheckOrderBuilder {
+	builder.customFieldList = customFieldList
+	builder.customFieldListFlag = true
+	return builder
+}
+
+// 自定义字段值
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) CustomDataList(customDataList []*BackgroundCheckCustomFieldDataValue) *BackgroundCheckOrderBuilder {
+	builder.customDataList = customDataList
+	builder.customDataListFlag = true
+	return builder
+}
+
+// 背调调查附加项
+//
+// 示例值：
+func (builder *BackgroundCheckOrderBuilder) ExtItemInfoList(extItemInfoList []*BackgroundCheckItemInfo) *BackgroundCheckOrderBuilder {
+	builder.extItemInfoList = extItemInfoList
+	builder.extItemInfoListFlag = true
+	return builder
+}
+
+// 订单更新时间
+//
+// 示例值：1686809576215
+func (builder *BackgroundCheckOrderBuilder) UpdateTime(updateTime string) *BackgroundCheckOrderBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 属地
+//
+// 示例值：cn
+func (builder *BackgroundCheckOrderBuilder) Geo(geo string) *BackgroundCheckOrderBuilder {
+	builder.geo = geo
+	builder.geoFlag = true
+	return builder
+}
+
+// 国家城市编码
+//
+// 示例值：CN_1
+func (builder *BackgroundCheckOrderBuilder) LocationCode(locationCode string) *BackgroundCheckOrderBuilder {
+	builder.locationCode = locationCode
+	builder.locationCodeFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：候选人很优秀
+func (builder *BackgroundCheckOrderBuilder) Remark(remark string) *BackgroundCheckOrderBuilder {
+	builder.remark = remark
+	builder.remarkFlag = true
 	return builder
 }
 
@@ -6818,6 +7105,263 @@ func (builder *BackgroundCheckOrderBuilder) Build() *BackgroundCheckOrder {
 	}
 	if builder.uploadTimeFlag {
 		req.UploadTime = &builder.uploadTime
+
+	}
+	if builder.candidateInfoFlag {
+		req.CandidateInfo = builder.candidateInfo
+	}
+	if builder.creatorInfoFlag {
+		req.CreatorInfo = builder.creatorInfo
+	}
+	if builder.contactorInfoFlag {
+		req.ContactorInfo = builder.contactorInfo
+	}
+	if builder.beginTimeFlag {
+		req.BeginTime = &builder.beginTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.conclusionFlag {
+		req.Conclusion = &builder.conclusion
+
+	}
+	if builder.providerInfoFlag {
+		req.ProviderInfo = builder.providerInfo
+	}
+	if builder.customFieldListFlag {
+		req.CustomFieldList = builder.customFieldList
+	}
+	if builder.customDataListFlag {
+		req.CustomDataList = builder.customDataList
+	}
+	if builder.extItemInfoListFlag {
+		req.ExtItemInfoList = builder.extItemInfoList
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.geoFlag {
+		req.Geo = &builder.geo
+
+	}
+	if builder.locationCodeFlag {
+		req.LocationCode = &builder.locationCode
+
+	}
+	if builder.remarkFlag {
+		req.Remark = &builder.remark
+
+	}
+	return req
+}
+
+type BackgroundCheckOrderCreator struct {
+	UserId *string `json:"user_id,omitempty"` // 创建人ID
+}
+
+type BackgroundCheckOrderCreatorBuilder struct {
+	userId     string // 创建人ID
+	userIdFlag bool
+}
+
+func NewBackgroundCheckOrderCreatorBuilder() *BackgroundCheckOrderCreatorBuilder {
+	builder := &BackgroundCheckOrderCreatorBuilder{}
+	return builder
+}
+
+// 创建人ID
+//
+// 示例值：6930815272790114324
+func (builder *BackgroundCheckOrderCreatorBuilder) UserId(userId string) *BackgroundCheckOrderCreatorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *BackgroundCheckOrderCreatorBuilder) Build() *BackgroundCheckOrderCreator {
+	req := &BackgroundCheckOrderCreator{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+type BackgroundCheckOrderFeedbackInfo struct {
+	Id            *string `json:"id,omitempty"`             // 背调报告ID
+	AttachmentUrl *string `json:"attachment_url,omitempty"` // 背调信息附件下载链接
+	Result        *string `json:"result,omitempty"`         // 背调结果：红灯、黄灯、绿灯
+	ReportType    *int    `json:"report_type,omitempty"`    // 报告类型
+	CreateTime    *string `json:"create_time,omitempty"`    // 创建时间
+	ReportName    *string `json:"report_name,omitempty"`    // 报告名称
+}
+
+type BackgroundCheckOrderFeedbackInfoBuilder struct {
+	id                string // 背调报告ID
+	idFlag            bool
+	attachmentUrl     string // 背调信息附件下载链接
+	attachmentUrlFlag bool
+	result            string // 背调结果：红灯、黄灯、绿灯
+	resultFlag        bool
+	reportType        int // 报告类型
+	reportTypeFlag    bool
+	createTime        string // 创建时间
+	createTimeFlag    bool
+	reportName        string // 报告名称
+	reportNameFlag    bool
+}
+
+func NewBackgroundCheckOrderFeedbackInfoBuilder() *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder := &BackgroundCheckOrderFeedbackInfoBuilder{}
+	return builder
+}
+
+// 背调报告ID
+//
+// 示例值：6930815272790114324
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) Id(id string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 背调信息附件下载链接
+//
+// 示例值：https://feishucdn.com/staource/v1/2de04c10-5cda-4c50~?image_size=np&cutpe=&quity=&mat=g&stmat=.wp
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) AttachmentUrl(attachmentUrl string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.attachmentUrl = attachmentUrl
+	builder.attachmentUrlFlag = true
+	return builder
+}
+
+// 背调结果：红灯、黄灯、绿灯
+//
+// 示例值：红灯
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) Result(result string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 报告类型
+//
+// 示例值：1
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) ReportType(reportType int) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.reportType = reportType
+	builder.reportTypeFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1686645425868
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) CreateTime(createTime string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 报告名称
+//
+// 示例值：张三的背调报告
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) ReportName(reportName string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.reportName = reportName
+	builder.reportNameFlag = true
+	return builder
+}
+
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) Build() *BackgroundCheckOrderFeedbackInfo {
+	req := &BackgroundCheckOrderFeedbackInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.attachmentUrlFlag {
+		req.AttachmentUrl = &builder.attachmentUrl
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	if builder.reportTypeFlag {
+		req.ReportType = &builder.reportType
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.reportNameFlag {
+		req.ReportName = &builder.reportName
+
+	}
+	return req
+}
+
+type BackgroundCheckOrderProcessInfo struct {
+	Process    *string `json:"process,omitempty"`     // 背调进度
+	UpdateTime *string `json:"update_time,omitempty"` // 进度更新时间
+	EnProcess  *string `json:"en_process,omitempty"`  // 英文背调进度
+}
+
+type BackgroundCheckOrderProcessInfoBuilder struct {
+	process        string // 背调进度
+	processFlag    bool
+	updateTime     string // 进度更新时间
+	updateTimeFlag bool
+	enProcess      string // 英文背调进度
+	enProcessFlag  bool
+}
+
+func NewBackgroundCheckOrderProcessInfoBuilder() *BackgroundCheckOrderProcessInfoBuilder {
+	builder := &BackgroundCheckOrderProcessInfoBuilder{}
+	return builder
+}
+
+// 背调进度
+//
+// 示例值：待安排
+func (builder *BackgroundCheckOrderProcessInfoBuilder) Process(process string) *BackgroundCheckOrderProcessInfoBuilder {
+	builder.process = process
+	builder.processFlag = true
+	return builder
+}
+
+// 进度更新时间
+//
+// 示例值：1638359554952
+func (builder *BackgroundCheckOrderProcessInfoBuilder) UpdateTime(updateTime string) *BackgroundCheckOrderProcessInfoBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 英文背调进度
+//
+// 示例值：arranged
+func (builder *BackgroundCheckOrderProcessInfoBuilder) EnProcess(enProcess string) *BackgroundCheckOrderProcessInfoBuilder {
+	builder.enProcess = enProcess
+	builder.enProcessFlag = true
+	return builder
+}
+
+func (builder *BackgroundCheckOrderProcessInfoBuilder) Build() *BackgroundCheckOrderProcessInfo {
+	req := &BackgroundCheckOrderProcessInfo{}
+	if builder.processFlag {
+		req.Process = &builder.process
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.enProcessFlag {
+		req.EnProcess = &builder.enProcess
 
 	}
 	return req
@@ -8155,6 +8699,8 @@ type CombinedJob struct {
 	JobAttribute                  *int     `json:"job_attribute,omitempty"`                    // 职位属性，1是实体职位，2是虚拟职位
 	ExpiryTimestamp               *string  `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳
 	InterviewRegistrationSchemaId *string  `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID
+	OnboardRegistrationSchemaId   *string  `json:"onboard_registration_schema_id,omitempty"`   // 入职登记表ID
+	TargetMajorIdList             []string `json:"target_major_id_list,omitempty"`             // 目标专业ID List
 }
 
 type CombinedJobBuilder struct {
@@ -8217,6 +8763,10 @@ type CombinedJobBuilder struct {
 	expiryTimestampFlag               bool
 	interviewRegistrationSchemaId     string // 面试登记表ID
 	interviewRegistrationSchemaIdFlag bool
+	onboardRegistrationSchemaId       string // 入职登记表ID
+	onboardRegistrationSchemaIdFlag   bool
+	targetMajorIdList                 []string // 目标专业ID List
+	targetMajorIdListFlag             bool
 }
 
 func NewCombinedJobBuilder() *CombinedJobBuilder {
@@ -8485,6 +9035,24 @@ func (builder *CombinedJobBuilder) InterviewRegistrationSchemaId(interviewRegist
 	return builder
 }
 
+// 入职登记表ID
+//
+// 示例值：6930815272790114325
+func (builder *CombinedJobBuilder) OnboardRegistrationSchemaId(onboardRegistrationSchemaId string) *CombinedJobBuilder {
+	builder.onboardRegistrationSchemaId = onboardRegistrationSchemaId
+	builder.onboardRegistrationSchemaIdFlag = true
+	return builder
+}
+
+// 目标专业ID List
+//
+// 示例值：
+func (builder *CombinedJobBuilder) TargetMajorIdList(targetMajorIdList []string) *CombinedJobBuilder {
+	builder.targetMajorIdList = targetMajorIdList
+	builder.targetMajorIdListFlag = true
+	return builder
+}
+
 func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	req := &CombinedJob{}
 	if builder.idFlag {
@@ -8600,6 +9168,13 @@ func (builder *CombinedJobBuilder) Build() *CombinedJob {
 		req.InterviewRegistrationSchemaId = &builder.interviewRegistrationSchemaId
 
 	}
+	if builder.onboardRegistrationSchemaIdFlag {
+		req.OnboardRegistrationSchemaId = &builder.onboardRegistrationSchemaId
+
+	}
+	if builder.targetMajorIdListFlag {
+		req.TargetMajorIdList = builder.targetMajorIdList
+	}
 	return req
 }
 
@@ -8655,7 +9230,9 @@ type CombinedJobResult struct {
 	DefaultJobPost                  *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"`                   // 职位广告
 	Job                             *Job                             `json:"job,omitempty"`                                // 职位
 	JobManager                      *JobManager                      `json:"job_manager,omitempty"`                        // 职位负责人
-	InterviewRegistrationSchemaInfo *RegistrationInfo                `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	InterviewRegistrationSchemaInfo *RegistrationSchemaInfo          `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	OnboardRegistrationSchemaInfo   *RegistrationSchemaInfo          `json:"onboard_registration_schema_info,omitempty"`   // 入职登记表
+	TargetMajorList                 []*TargetMajorInfo               `json:"target_major_list,omitempty"`                  // 目标专业
 }
 
 type CombinedJobResultBuilder struct {
@@ -8665,8 +9242,12 @@ type CombinedJobResultBuilder struct {
 	jobFlag                             bool
 	jobManager                          *JobManager // 职位负责人
 	jobManagerFlag                      bool
-	interviewRegistrationSchemaInfo     *RegistrationInfo // 面试登记表
+	interviewRegistrationSchemaInfo     *RegistrationSchemaInfo // 面试登记表
 	interviewRegistrationSchemaInfoFlag bool
+	onboardRegistrationSchemaInfo       *RegistrationSchemaInfo // 入职登记表
+	onboardRegistrationSchemaInfoFlag   bool
+	targetMajorList                     []*TargetMajorInfo // 目标专业
+	targetMajorListFlag                 bool
 }
 
 func NewCombinedJobResultBuilder() *CombinedJobResultBuilder {
@@ -8704,9 +9285,27 @@ func (builder *CombinedJobResultBuilder) JobManager(jobManager *JobManager) *Com
 // 面试登记表
 //
 // 示例值：
-func (builder *CombinedJobResultBuilder) InterviewRegistrationSchemaInfo(interviewRegistrationSchemaInfo *RegistrationInfo) *CombinedJobResultBuilder {
+func (builder *CombinedJobResultBuilder) InterviewRegistrationSchemaInfo(interviewRegistrationSchemaInfo *RegistrationSchemaInfo) *CombinedJobResultBuilder {
 	builder.interviewRegistrationSchemaInfo = interviewRegistrationSchemaInfo
 	builder.interviewRegistrationSchemaInfoFlag = true
+	return builder
+}
+
+// 入职登记表
+//
+// 示例值：
+func (builder *CombinedJobResultBuilder) OnboardRegistrationSchemaInfo(onboardRegistrationSchemaInfo *RegistrationSchemaInfo) *CombinedJobResultBuilder {
+	builder.onboardRegistrationSchemaInfo = onboardRegistrationSchemaInfo
+	builder.onboardRegistrationSchemaInfoFlag = true
+	return builder
+}
+
+// 目标专业
+//
+// 示例值：
+func (builder *CombinedJobResultBuilder) TargetMajorList(targetMajorList []*TargetMajorInfo) *CombinedJobResultBuilder {
+	builder.targetMajorList = targetMajorList
+	builder.targetMajorListFlag = true
 	return builder
 }
 
@@ -8723,6 +9322,12 @@ func (builder *CombinedJobResultBuilder) Build() *CombinedJobResult {
 	}
 	if builder.interviewRegistrationSchemaInfoFlag {
 		req.InterviewRegistrationSchemaInfo = builder.interviewRegistrationSchemaInfo
+	}
+	if builder.onboardRegistrationSchemaInfoFlag {
+		req.OnboardRegistrationSchemaInfo = builder.onboardRegistrationSchemaInfo
+	}
+	if builder.targetMajorListFlag {
+		req.TargetMajorList = builder.targetMajorList
 	}
 	return req
 }
@@ -15546,6 +16151,7 @@ type Job struct {
 	CreateTimestamp    *string              `json:"create_timestamp,omitempty"`     // 创建时间戳
 	UpdateTimestamp    *string              `json:"update_timestamp,omitempty"`     // 更新时间戳
 	ExpiryTimestamp    *string              `json:"expiry_timestamp,omitempty"`     // 到期时间戳
+	TargetMajorList    []*TargetMajorInfo   `json:"target_major_list,omitempty"`    // 目标专业
 }
 
 type JobBuilder struct {
@@ -15619,6 +16225,8 @@ type JobBuilder struct {
 	updateTimestampFlag    bool
 	expiryTimestamp        string // 到期时间戳
 	expiryTimestampFlag    bool
+	targetMajorList        []*TargetMajorInfo // 目标专业
+	targetMajorListFlag    bool
 }
 
 func NewJobBuilder() *JobBuilder {
@@ -15941,6 +16549,15 @@ func (builder *JobBuilder) ExpiryTimestamp(expiryTimestamp string) *JobBuilder {
 	return builder
 }
 
+// 目标专业
+//
+// 示例值：
+func (builder *JobBuilder) TargetMajorList(targetMajorList []*TargetMajorInfo) *JobBuilder {
+	builder.targetMajorList = targetMajorList
+	builder.targetMajorListFlag = true
+	return builder
+}
+
 func (builder *JobBuilder) Build() *Job {
 	req := &Job{}
 	if builder.idFlag {
@@ -16070,6 +16687,9 @@ func (builder *JobBuilder) Build() *Job {
 	if builder.expiryTimestampFlag {
 		req.ExpiryTimestamp = &builder.expiryTimestamp
 
+	}
+	if builder.targetMajorListFlag {
+		req.TargetMajorList = builder.targetMajorList
 	}
 	return req
 }
@@ -16382,7 +17002,8 @@ type JobConfig struct {
 	AssessmentTemplateBizId       *string                        `json:"assessment_template_biz_id,omitempty"`       // 面试评价表，枚举通过接口「获取面试评价表列表」获取
 	InterviewRoundConfList        []*JobConfigInterviewRoundConf `json:"interview_round_conf_list,omitempty"`        // 建议面试官列表
 	JrIdList                      []string                       `json:"jr_id_list,omitempty"`                       // 关联招聘需求，支持关联多个，枚举通过接口「获取招聘需求」获取
-	InterviewRegistrationSchemaId *string                        `json:"interview_registration_schema_id,omitempty"` // 面试登记表 ID, 仅在面试登记表使用设置中开启按职位设置选项后生效
+	InterviewRegistrationSchemaId *string                        `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 面试登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
+	OnboardRegistrationSchemaId   *string                        `json:"onboard_registration_schema_id,omitempty"`   // 入职登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 入职登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
 	InterviewRoundTypeConfList    []*JobConfigRoundType          `json:"interview_round_type_conf_list,omitempty"`   // 面试轮次类型 ID 列表
 	RelatedJobIdList              []string                       `json:"related_job_id_list,omitempty"`              // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
 	InterviewAppointmentConfig    *InterviewAppointmentConfig    `json:"interview_appointment_config,omitempty"`     // 自助约面配置
@@ -16403,8 +17024,10 @@ type JobConfigBuilder struct {
 	interviewRoundConfListFlag        bool
 	jrIdList                          []string // 关联招聘需求，支持关联多个，枚举通过接口「获取招聘需求」获取
 	jrIdListFlag                      bool
-	interviewRegistrationSchemaId     string // 面试登记表 ID, 仅在面试登记表使用设置中开启按职位设置选项后生效
+	interviewRegistrationSchemaId     string // 面试登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 面试登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
 	interviewRegistrationSchemaIdFlag bool
+	onboardRegistrationSchemaId       string // 入职登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 入职登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
+	onboardRegistrationSchemaIdFlag   bool
 	interviewRoundTypeConfList        []*JobConfigRoundType // 面试轮次类型 ID 列表
 	interviewRoundTypeConfListFlag    bool
 	relatedJobIdList                  []string // 关联职位列表，如职位为实体职位则关联虚拟职位id，如职位为虚拟职位则关联实体职位id
@@ -16481,12 +17104,21 @@ func (builder *JobConfigBuilder) JrIdList(jrIdList []string) *JobConfigBuilder {
 	return builder
 }
 
-// 面试登记表 ID, 仅在面试登记表使用设置中开启按职位设置选项后生效
+// 面试登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 面试登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
 //
 // 示例值：6930815272790114324
 func (builder *JobConfigBuilder) InterviewRegistrationSchemaId(interviewRegistrationSchemaId string) *JobConfigBuilder {
 	builder.interviewRegistrationSchemaId = interviewRegistrationSchemaId
 	builder.interviewRegistrationSchemaIdFlag = true
+	return builder
+}
+
+// 入职登记表ID，当在飞书招聘「设置 - 信息登记表使用设置 - 入职登记表使用方式」中选择「HR 按职位选择登记表」时，该字段为必填；否则该字段不生效。
+//
+// 示例值：6930815272790114324
+func (builder *JobConfigBuilder) OnboardRegistrationSchemaId(onboardRegistrationSchemaId string) *JobConfigBuilder {
+	builder.onboardRegistrationSchemaId = onboardRegistrationSchemaId
+	builder.onboardRegistrationSchemaIdFlag = true
 	return builder
 }
 
@@ -16545,6 +17177,10 @@ func (builder *JobConfigBuilder) Build() *JobConfig {
 	}
 	if builder.interviewRegistrationSchemaIdFlag {
 		req.InterviewRegistrationSchemaId = &builder.interviewRegistrationSchemaId
+
+	}
+	if builder.onboardRegistrationSchemaIdFlag {
+		req.OnboardRegistrationSchemaId = &builder.onboardRegistrationSchemaId
 
 	}
 	if builder.interviewRoundTypeConfListFlag {
@@ -16654,42 +17290,45 @@ func (builder *JobConfigInterviewRoundConfBuilder) Build() *JobConfigInterviewRo
 }
 
 type JobConfigResult struct {
-	OfferApplySchema            *IdNameObject               `json:"offer_apply_schema,omitempty"`            // Offer 申请表
-	OfferProcessConf            *IdNameObject               `json:"offer_process_conf,omitempty"`            // Offer 审批流
-	RecommendedEvaluatorList    []*IdNameObject             `json:"recommended_evaluator_list,omitempty"`    // 建议评估人列表
-	AssessmentTemplate          *IdNameObject               `json:"assessment_template,omitempty"`           // 面试评价表
-	Id                          *string                     `json:"id,omitempty"`                            // 职位 ID
-	InterviewRoundList          []*JobConfigInterviewRound  `json:"interview_round_list,omitempty"`          // 建议面试官列表
-	JobRequirementList          []*IdNameObject             `json:"job_requirement_list,omitempty"`          // 招聘需求
-	InterviewRegistrationSchema *RegistrationInfo           `json:"interview_registration_schema,omitempty"` // 面试登记表
-	InterviewRoundTypeList      []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`     // 面试轮次类型列表
-	RelatedJobList              []*IdNameObject             `json:"related_job_list,omitempty"`              // 关联职位列表
-	JobAttribute                *int                        `json:"job_attribute,omitempty"`                 // 职位属性，1是实体职位，2是虚拟职位
+	OfferApplySchema         *IdNameObject               `json:"offer_apply_schema,omitempty"`         // Offer 申请表
+	OfferProcessConf         *IdNameObject               `json:"offer_process_conf,omitempty"`         // Offer 审批流
+	RecommendedEvaluatorList []*IdNameObject             `json:"recommended_evaluator_list,omitempty"` // 建议评估人列表
+	AssessmentTemplate       *IdNameObject               `json:"assessment_template,omitempty"`        // 面试评价表
+	Id                       *string                     `json:"id,omitempty"`                         // 职位 ID
+	InterviewRoundList       []*JobConfigInterviewRound  `json:"interview_round_list,omitempty"`       // 建议面试官列表
+	JobRequirementList       []*IdNameObject             `json:"job_requirement_list,omitempty"`       // 招聘需求
+	InterviewRegistration    *RegistrationInfo           `json:"interview_registration,omitempty"`     // 面试登记表
+	OnboardRegistration      *RegistrationInfo           `json:"onboard_registration,omitempty"`       // 入职登记表
+	InterviewRoundTypeList   []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`  // 面试轮次类型列表
+	RelatedJobList           []*IdNameObject             `json:"related_job_list,omitempty"`           // 关联职位列表
+	JobAttribute             *int                        `json:"job_attribute,omitempty"`              // 职位属性，1是实体职位，2是虚拟职位
 }
 
 type JobConfigResultBuilder struct {
-	offerApplySchema                *IdNameObject // Offer 申请表
-	offerApplySchemaFlag            bool
-	offerProcessConf                *IdNameObject // Offer 审批流
-	offerProcessConfFlag            bool
-	recommendedEvaluatorList        []*IdNameObject // 建议评估人列表
-	recommendedEvaluatorListFlag    bool
-	assessmentTemplate              *IdNameObject // 面试评价表
-	assessmentTemplateFlag          bool
-	id                              string // 职位 ID
-	idFlag                          bool
-	interviewRoundList              []*JobConfigInterviewRound // 建议面试官列表
-	interviewRoundListFlag          bool
-	jobRequirementList              []*IdNameObject // 招聘需求
-	jobRequirementListFlag          bool
-	interviewRegistrationSchema     *RegistrationInfo // 面试登记表
-	interviewRegistrationSchemaFlag bool
-	interviewRoundTypeList          []*JobConfigRoundTypeResult // 面试轮次类型列表
-	interviewRoundTypeListFlag      bool
-	relatedJobList                  []*IdNameObject // 关联职位列表
-	relatedJobListFlag              bool
-	jobAttribute                    int // 职位属性，1是实体职位，2是虚拟职位
-	jobAttributeFlag                bool
+	offerApplySchema             *IdNameObject // Offer 申请表
+	offerApplySchemaFlag         bool
+	offerProcessConf             *IdNameObject // Offer 审批流
+	offerProcessConfFlag         bool
+	recommendedEvaluatorList     []*IdNameObject // 建议评估人列表
+	recommendedEvaluatorListFlag bool
+	assessmentTemplate           *IdNameObject // 面试评价表
+	assessmentTemplateFlag       bool
+	id                           string // 职位 ID
+	idFlag                       bool
+	interviewRoundList           []*JobConfigInterviewRound // 建议面试官列表
+	interviewRoundListFlag       bool
+	jobRequirementList           []*IdNameObject // 招聘需求
+	jobRequirementListFlag       bool
+	interviewRegistration        *RegistrationInfo // 面试登记表
+	interviewRegistrationFlag    bool
+	onboardRegistration          *RegistrationInfo // 入职登记表
+	onboardRegistrationFlag      bool
+	interviewRoundTypeList       []*JobConfigRoundTypeResult // 面试轮次类型列表
+	interviewRoundTypeListFlag   bool
+	relatedJobList               []*IdNameObject // 关联职位列表
+	relatedJobListFlag           bool
+	jobAttribute                 int // 职位属性，1是实体职位，2是虚拟职位
+	jobAttributeFlag             bool
 }
 
 func NewJobConfigResultBuilder() *JobConfigResultBuilder {
@@ -16763,9 +17402,18 @@ func (builder *JobConfigResultBuilder) JobRequirementList(jobRequirementList []*
 // 面试登记表
 //
 // 示例值：
-func (builder *JobConfigResultBuilder) InterviewRegistrationSchema(interviewRegistrationSchema *RegistrationInfo) *JobConfigResultBuilder {
-	builder.interviewRegistrationSchema = interviewRegistrationSchema
-	builder.interviewRegistrationSchemaFlag = true
+func (builder *JobConfigResultBuilder) InterviewRegistration(interviewRegistration *RegistrationInfo) *JobConfigResultBuilder {
+	builder.interviewRegistration = interviewRegistration
+	builder.interviewRegistrationFlag = true
+	return builder
+}
+
+// 入职登记表
+//
+// 示例值：
+func (builder *JobConfigResultBuilder) OnboardRegistration(onboardRegistration *RegistrationInfo) *JobConfigResultBuilder {
+	builder.onboardRegistration = onboardRegistration
+	builder.onboardRegistrationFlag = true
 	return builder
 }
 
@@ -16820,8 +17468,11 @@ func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	if builder.jobRequirementListFlag {
 		req.JobRequirementList = builder.jobRequirementList
 	}
-	if builder.interviewRegistrationSchemaFlag {
-		req.InterviewRegistrationSchema = builder.interviewRegistrationSchema
+	if builder.interviewRegistrationFlag {
+		req.InterviewRegistration = builder.interviewRegistration
+	}
+	if builder.onboardRegistrationFlag {
+		req.OnboardRegistration = builder.onboardRegistration
 	}
 	if builder.interviewRoundTypeListFlag {
 		req.InterviewRoundTypeList = builder.interviewRoundTypeList
@@ -23299,6 +23950,86 @@ func (builder *ReferralBuilder) Build() *Referral {
 	return req
 }
 
+type RegistrationBasicInfo struct {
+	Id               *string `json:"id,omitempty"`                // ID
+	RegistrationTime *int    `json:"registration_time,omitempty"` // 创建时间
+	DownloadUrl      *string `json:"download_url,omitempty"`      // 下载链接
+	Scenario         *int    `json:"scenario,omitempty"`          // 登记表场景
+}
+
+type RegistrationBasicInfoBuilder struct {
+	id                   string // ID
+	idFlag               bool
+	registrationTime     int // 创建时间
+	registrationTimeFlag bool
+	downloadUrl          string // 下载链接
+	downloadUrlFlag      bool
+	scenario             int // 登记表场景
+	scenarioFlag         bool
+}
+
+func NewRegistrationBasicInfoBuilder() *RegistrationBasicInfoBuilder {
+	builder := &RegistrationBasicInfoBuilder{}
+	return builder
+}
+
+// ID
+//
+// 示例值：6833685612520950030
+func (builder *RegistrationBasicInfoBuilder) Id(id string) *RegistrationBasicInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1618494330932
+func (builder *RegistrationBasicInfoBuilder) RegistrationTime(registrationTime int) *RegistrationBasicInfoBuilder {
+	builder.registrationTime = registrationTime
+	builder.registrationTimeFlag = true
+	return builder
+}
+
+// 下载链接
+//
+// 示例值：https://hire.feishu.cn/hire/file/blob/...token.../
+func (builder *RegistrationBasicInfoBuilder) DownloadUrl(downloadUrl string) *RegistrationBasicInfoBuilder {
+	builder.downloadUrl = downloadUrl
+	builder.downloadUrlFlag = true
+	return builder
+}
+
+// 登记表场景
+//
+// 示例值：5
+func (builder *RegistrationBasicInfoBuilder) Scenario(scenario int) *RegistrationBasicInfoBuilder {
+	builder.scenario = scenario
+	builder.scenarioFlag = true
+	return builder
+}
+
+func (builder *RegistrationBasicInfoBuilder) Build() *RegistrationBasicInfo {
+	req := &RegistrationBasicInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.registrationTimeFlag {
+		req.RegistrationTime = &builder.registrationTime
+
+	}
+	if builder.downloadUrlFlag {
+		req.DownloadUrl = &builder.downloadUrl
+
+	}
+	if builder.scenarioFlag {
+		req.Scenario = &builder.scenario
+
+	}
+	return req
+}
+
 type RegistrationInfo struct {
 	SchemaId *string `json:"schema_id,omitempty"` // 面试登记表ID
 	Name     *string `json:"name,omitempty"`      // 面试登记表名称
@@ -23336,6 +24067,132 @@ func (builder *RegistrationInfoBuilder) Name(name string) *RegistrationInfoBuild
 
 func (builder *RegistrationInfoBuilder) Build() *RegistrationInfo {
 	req := &RegistrationInfo{}
+	if builder.schemaIdFlag {
+		req.SchemaId = &builder.schemaId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type RegistrationSchema struct {
+	Id        *string         `json:"id,omitempty"`        // 信息登记表模板 ID
+	Name      *string         `json:"name,omitempty"`      // 信息登记表模板名称
+	Scenarios []int           `json:"scenarios,omitempty"` // 登记表适用场景
+	Objects   []*CommonSchema `json:"objects,omitempty"`   // 模块列表
+}
+
+type RegistrationSchemaBuilder struct {
+	id            string // 信息登记表模板 ID
+	idFlag        bool
+	name          string // 信息登记表模板名称
+	nameFlag      bool
+	scenarios     []int // 登记表适用场景
+	scenariosFlag bool
+	objects       []*CommonSchema // 模块列表
+	objectsFlag   bool
+}
+
+func NewRegistrationSchemaBuilder() *RegistrationSchemaBuilder {
+	builder := &RegistrationSchemaBuilder{}
+	return builder
+}
+
+// 信息登记表模板 ID
+//
+// 示例值：7044739584859326764
+func (builder *RegistrationSchemaBuilder) Id(id string) *RegistrationSchemaBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 信息登记表模板名称
+//
+// 示例值：默认信息登记表
+func (builder *RegistrationSchemaBuilder) Name(name string) *RegistrationSchemaBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 登记表适用场景
+//
+// 示例值：
+func (builder *RegistrationSchemaBuilder) Scenarios(scenarios []int) *RegistrationSchemaBuilder {
+	builder.scenarios = scenarios
+	builder.scenariosFlag = true
+	return builder
+}
+
+// 模块列表
+//
+// 示例值：
+func (builder *RegistrationSchemaBuilder) Objects(objects []*CommonSchema) *RegistrationSchemaBuilder {
+	builder.objects = objects
+	builder.objectsFlag = true
+	return builder
+}
+
+func (builder *RegistrationSchemaBuilder) Build() *RegistrationSchema {
+	req := &RegistrationSchema{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.scenariosFlag {
+		req.Scenarios = builder.scenarios
+	}
+	if builder.objectsFlag {
+		req.Objects = builder.objects
+	}
+	return req
+}
+
+type RegistrationSchemaInfo struct {
+	SchemaId *string `json:"schema_id,omitempty"` // 信息登记表ID
+	Name     *string `json:"name,omitempty"`      // 信息登记表名称
+}
+
+type RegistrationSchemaInfoBuilder struct {
+	schemaId     string // 信息登记表ID
+	schemaIdFlag bool
+	name         string // 信息登记表名称
+	nameFlag     bool
+}
+
+func NewRegistrationSchemaInfoBuilder() *RegistrationSchemaInfoBuilder {
+	builder := &RegistrationSchemaInfoBuilder{}
+	return builder
+}
+
+// 信息登记表ID
+//
+// 示例值：6930815272790114324
+func (builder *RegistrationSchemaInfoBuilder) SchemaId(schemaId string) *RegistrationSchemaInfoBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+
+// 信息登记表名称
+//
+// 示例值：默认登记表
+func (builder *RegistrationSchemaInfoBuilder) Name(name string) *RegistrationSchemaInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *RegistrationSchemaInfoBuilder) Build() *RegistrationSchemaInfo {
+	req := &RegistrationSchemaInfo{}
 	if builder.schemaIdFlag {
 		req.SchemaId = &builder.schemaId
 
@@ -25671,6 +26528,7 @@ type Talent struct {
 	SnsList                   []*TalentSnsInfo                     `json:"sns_list,omitempty"`                    // 社交账号
 	ResumeSourceList          []*TalentResumeSource                `json:"resume_source_list,omitempty"`          // 简历来源
 	InterviewRegistrationList []*TalentInterviewRegistrationSimple `json:"interview_registration_list,omitempty"` // 面试登记表
+	RegistrationList          []*RegistrationBasicInfo             `json:"registration_list,omitempty"`           // 登记表列表
 	ResumeAttachmentIdList    []string                             `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）
 	CustomizedDataList        []*TalentCustomizedData              `json:"customized_data_list,omitempty"`        // 自定义模块
 	TopDegree                 *int                                 `json:"top_degree,omitempty"`                  // 最高学历
@@ -25704,6 +26562,8 @@ type TalentBuilder struct {
 	resumeSourceListFlag          bool
 	interviewRegistrationList     []*TalentInterviewRegistrationSimple // 面试登记表
 	interviewRegistrationListFlag bool
+	registrationList              []*RegistrationBasicInfo // 登记表列表
+	registrationListFlag          bool
 	resumeAttachmentIdList        []string // 简历附件id列表（按照简历创建时间降序）
 	resumeAttachmentIdListFlag    bool
 	customizedDataList            []*TalentCustomizedData // 自定义模块
@@ -25836,6 +26696,15 @@ func (builder *TalentBuilder) InterviewRegistrationList(interviewRegistrationLis
 	return builder
 }
 
+// 登记表列表
+//
+// 示例值：
+func (builder *TalentBuilder) RegistrationList(registrationList []*RegistrationBasicInfo) *TalentBuilder {
+	builder.registrationList = registrationList
+	builder.registrationListFlag = true
+	return builder
+}
+
 // 简历附件id列表（按照简历创建时间降序）
 //
 // 示例值：
@@ -25915,6 +26784,9 @@ func (builder *TalentBuilder) Build() *Talent {
 	}
 	if builder.interviewRegistrationListFlag {
 		req.InterviewRegistrationList = builder.interviewRegistrationList
+	}
+	if builder.registrationListFlag {
+		req.RegistrationList = builder.registrationList
 	}
 	if builder.resumeAttachmentIdListFlag {
 		req.ResumeAttachmentIdList = builder.resumeAttachmentIdList
@@ -30151,6 +31023,70 @@ func (builder *TalentWorksInfoBuilder) Build() *TalentWorksInfo {
 	return req
 }
 
+type TargetMajorInfo struct {
+	Id     *string `json:"id,omitempty"`      // 目标专业ID
+	ZhName *string `json:"zh_name,omitempty"` // 目标专业中文名称
+	EnName *string `json:"en_name,omitempty"` // 目标专业英文名称
+}
+
+type TargetMajorInfoBuilder struct {
+	id         string // 目标专业ID
+	idFlag     bool
+	zhName     string // 目标专业中文名称
+	zhNameFlag bool
+	enName     string // 目标专业英文名称
+	enNameFlag bool
+}
+
+func NewTargetMajorInfoBuilder() *TargetMajorInfoBuilder {
+	builder := &TargetMajorInfoBuilder{}
+	return builder
+}
+
+// 目标专业ID
+//
+// 示例值：6930815272790114324
+func (builder *TargetMajorInfoBuilder) Id(id string) *TargetMajorInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 目标专业中文名称
+//
+// 示例值：考古
+func (builder *TargetMajorInfoBuilder) ZhName(zhName string) *TargetMajorInfoBuilder {
+	builder.zhName = zhName
+	builder.zhNameFlag = true
+	return builder
+}
+
+// 目标专业英文名称
+//
+// 示例值：archeology
+func (builder *TargetMajorInfoBuilder) EnName(enName string) *TargetMajorInfoBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+
+func (builder *TargetMajorInfoBuilder) Build() *TargetMajorInfo {
+	req := &TargetMajorInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.zhNameFlag {
+		req.ZhName = &builder.zhName
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	return req
+}
+
 type TerminationReason struct {
 	Id                 *string `json:"id,omitempty"`                    // 终止原因 ID
 	Name               *I18n   `json:"name,omitempty"`                  // 终止原因名称
@@ -30840,6 +31776,70 @@ func (builder *TradeDetailBuilder) Build() *TradeDetail {
 	}
 	if builder.totalRechargeRewardInfoFlag {
 		req.TotalRechargeRewardInfo = builder.totalRechargeRewardInfo
+	}
+	return req
+}
+
+type UserContactInfo struct {
+	Name   *string `json:"name,omitempty"`   // 姓名
+	Mobile *string `json:"mobile,omitempty"` // 手机号
+	Email  *string `json:"email,omitempty"`  // 邮箱
+}
+
+type UserContactInfoBuilder struct {
+	name       string // 姓名
+	nameFlag   bool
+	mobile     string // 手机号
+	mobileFlag bool
+	email      string // 邮箱
+	emailFlag  bool
+}
+
+func NewUserContactInfoBuilder() *UserContactInfoBuilder {
+	builder := &UserContactInfoBuilder{}
+	return builder
+}
+
+// 姓名
+//
+// 示例值：王二
+func (builder *UserContactInfoBuilder) Name(name string) *UserContactInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 手机号
+//
+// 示例值：176xxxx1234
+func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：xxx@abc.vom
+func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
+	req := &UserContactInfo{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
 	}
 	return req
 }
@@ -33207,6 +34207,7 @@ type WebsiteJobPost struct {
 	JobFunction        *IdNameObject                   `json:"job_function,omitempty"`         // 职能分类
 	Subject            *IdNameObject                   `json:"subject,omitempty"`              // 职位项目
 	AddressList        []*CommonAddress                `json:"address_list,omitempty"`         // 职位广告地址列表
+	TargetMajorList    []*IdNameObject                 `json:"target_major_list,omitempty"`    // 目标专业
 }
 
 type WebsiteJobPostBuilder struct {
@@ -33264,6 +34265,8 @@ type WebsiteJobPostBuilder struct {
 	subjectFlag            bool
 	addressList            []*CommonAddress // 职位广告地址列表
 	addressListFlag        bool
+	targetMajorList        []*IdNameObject // 目标专业
+	targetMajorListFlag    bool
 }
 
 func NewWebsiteJobPostBuilder() *WebsiteJobPostBuilder {
@@ -33514,6 +34517,15 @@ func (builder *WebsiteJobPostBuilder) AddressList(addressList []*CommonAddress) 
 	return builder
 }
 
+// 目标专业
+//
+// 示例值：
+func (builder *WebsiteJobPostBuilder) TargetMajorList(targetMajorList []*IdNameObject) *WebsiteJobPostBuilder {
+	builder.targetMajorList = targetMajorList
+	builder.targetMajorListFlag = true
+	return builder
+}
+
 func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 	req := &WebsiteJobPost{}
 	if builder.idFlag {
@@ -33613,6 +34625,9 @@ func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 	}
 	if builder.addressListFlag {
 		req.AddressList = builder.addressList
+	}
+	if builder.targetMajorListFlag {
+		req.TargetMajorList = builder.targetMajorList
 	}
 	return req
 }
@@ -36006,7 +37021,9 @@ type CombinedCreateJobRespData struct {
 	DefaultJobPost                  *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"`                   // 职位广告
 	Job                             *Job                             `json:"job,omitempty"`                                // 职位
 	JobManager                      *JobManager                      `json:"job_manager,omitempty"`                        // 职位负责人
-	InterviewRegistrationSchemaInfo *RegistrationInfo                `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	InterviewRegistrationSchemaInfo *RegistrationSchemaInfo          `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	OnboardRegistrationSchemaInfo   *RegistrationSchemaInfo          `json:"onboard_registration_schema_info,omitempty"`   // 入职登记表
+	TargetMajorList                 []*TargetMajorInfo               `json:"target_major_list,omitempty"`                  // 目标专业
 }
 
 type CombinedCreateJobResp struct {
@@ -36081,7 +37098,9 @@ type CombinedUpdateJobRespData struct {
 	DefaultJobPost                  *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"`                   // 职位广告
 	Job                             *Job                             `json:"job,omitempty"`                                // 职位
 	JobManager                      *JobManager                      `json:"job_manager,omitempty"`                        // 职位负责人
-	InterviewRegistrationSchemaInfo *RegistrationInfo                `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	InterviewRegistrationSchemaInfo *RegistrationSchemaInfo          `json:"interview_registration_schema_info,omitempty"` // 面试登记表
+	OnboardRegistrationSchemaInfo   *RegistrationSchemaInfo          `json:"onboard_registration_schema_info,omitempty"`   // 入职登记表
+	TargetMajorList                 []*TargetMajorInfo               `json:"target_major_list,omitempty"`                  // 目标专业
 }
 
 type CombinedUpdateJobResp struct {
@@ -38027,6 +39046,80 @@ func (resp *ListReferralWebsiteJobPostResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListRegistrationSchemaReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListRegistrationSchemaReqBuilder() *ListRegistrationSchemaReqBuilder {
+	builder := &ListRegistrationSchemaReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListRegistrationSchemaReqBuilder) Limit(limit int) *ListRegistrationSchemaReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：20
+func (builder *ListRegistrationSchemaReqBuilder) PageSize(pageSize int) *ListRegistrationSchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6930815272790114324
+func (builder *ListRegistrationSchemaReqBuilder) PageToken(pageToken string) *ListRegistrationSchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 登记表适用场景；不填表示获取全部类型信息登记表
+//
+// 示例值：5
+func (builder *ListRegistrationSchemaReqBuilder) Scenario(scenario int) *ListRegistrationSchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("scenario", fmt.Sprint(scenario))
+	return builder
+}
+
+func (builder *ListRegistrationSchemaReqBuilder) Build() *ListRegistrationSchemaReq {
+	req := &ListRegistrationSchemaReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListRegistrationSchemaReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListRegistrationSchemaRespData struct {
+	Items     []*RegistrationSchema `json:"items,omitempty"`      // 信息登记表列表
+	PageToken *string               `json:"page_token,omitempty"` // 分页标记
+	HasMore   *bool                 `json:"has_more,omitempty"`   // 是否仍有数据
+}
+
+type ListRegistrationSchemaResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListRegistrationSchemaRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListRegistrationSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListResumeSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -38576,6 +39669,20 @@ func (resp *ListTalentFolderResp) Success() bool {
 	return resp.Code == 0
 }
 
+type QueryTalentObjectRespData struct {
+	Items []*CommonSchema `json:"items,omitempty"` // 数据列表
+}
+
+type QueryTalentObjectResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryTalentObjectRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryTalentObjectResp) Success() bool {
+	return resp.Code == 0
+}
+
 type P2ApplicationStageChangedV1Data struct {
 	ApplicationId *string `json:"application_id,omitempty"`  //
 	OriginStageId *string `json:"origin_stage_id,omitempty"` //
@@ -38751,6 +39858,60 @@ func (iterator *ListReferralWebsiteJobPostIterator) Next() (bool, *PortalJobPost
 }
 
 func (iterator *ListReferralWebsiteJobPostIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListRegistrationSchemaIterator struct {
+	nextPageToken *string
+	items         []*RegistrationSchema
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListRegistrationSchemaReq
+	listFunc      func(ctx context.Context, req *ListRegistrationSchemaReq, options ...larkcore.RequestOptionFunc) (*ListRegistrationSchemaResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListRegistrationSchemaIterator) Next() (bool, *RegistrationSchema, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListRegistrationSchemaIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

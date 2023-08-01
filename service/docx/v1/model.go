@@ -14,10 +14,9 @@
 package larkdocx
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1529,6 +1528,7 @@ type Image struct {
 	Width  *int    `json:"width,omitempty"`  // 宽度单位 px
 	Height *int    `json:"height,omitempty"` // 高度
 	Token  *string `json:"token,omitempty"`  // 图片 Token
+	Align  *int    `json:"align,omitempty"`  // 对齐方式
 }
 
 type ImageBuilder struct {
@@ -1538,6 +1538,8 @@ type ImageBuilder struct {
 	heightFlag bool
 	token      string // 图片 Token
 	tokenFlag  bool
+	align      int // 对齐方式
+	alignFlag  bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -1572,6 +1574,15 @@ func (builder *ImageBuilder) Token(token string) *ImageBuilder {
 	return builder
 }
 
+// 对齐方式
+//
+// 示例值：2
+func (builder *ImageBuilder) Align(align int) *ImageBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
 	if builder.widthFlag {
@@ -1584,6 +1595,10 @@ func (builder *ImageBuilder) Build() *Image {
 	}
 	if builder.tokenFlag {
 		req.Token = &builder.token
+
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
 
 	}
 	return req
@@ -1862,7 +1877,7 @@ func NewJiraIssueBuilder() *JiraIssueBuilder {
 
 // Jira issue ID
 //
-// 示例值：37159
+// 示例值：12345
 func (builder *JiraIssueBuilder) Id(id string) *JiraIssueBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -1871,7 +1886,7 @@ func (builder *JiraIssueBuilder) Id(id string) *JiraIssueBuilder {
 
 // Jira issue key
 //
-// 示例值：Project-8317
+// 示例值：Project-123
 func (builder *JiraIssueBuilder) Key(key string) *JiraIssueBuilder {
 	builder.key = key
 	builder.keyFlag = true
@@ -2976,12 +2991,21 @@ func (builder *ReplaceFileRequestBuilder) Build() *ReplaceFileRequest {
 }
 
 type ReplaceImageRequest struct {
-	Token *string `json:"token,omitempty"` // 图片 token
+	Token  *string `json:"token,omitempty"`  // 图片 token
+	Width  *int    `json:"width,omitempty"`  // 图片宽度，单位 px
+	Height *int    `json:"height,omitempty"` // 图片高度，单位 px
+	Align  *int    `json:"align,omitempty"`  // 对齐方式
 }
 
 type ReplaceImageRequestBuilder struct {
-	token     string // 图片 token
-	tokenFlag bool
+	token      string // 图片 token
+	tokenFlag  bool
+	width      int // 图片宽度，单位 px
+	widthFlag  bool
+	height     int // 图片高度，单位 px
+	heightFlag bool
+	align      int // 对齐方式
+	alignFlag  bool
 }
 
 func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
@@ -2998,10 +3022,49 @@ func (builder *ReplaceImageRequestBuilder) Token(token string) *ReplaceImageRequ
 	return builder
 }
 
+// 图片宽度，单位 px
+//
+// 示例值：100
+func (builder *ReplaceImageRequestBuilder) Width(width int) *ReplaceImageRequestBuilder {
+	builder.width = width
+	builder.widthFlag = true
+	return builder
+}
+
+// 图片高度，单位 px
+//
+// 示例值：100
+func (builder *ReplaceImageRequestBuilder) Height(height int) *ReplaceImageRequestBuilder {
+	builder.height = height
+	builder.heightFlag = true
+	return builder
+}
+
+// 对齐方式
+//
+// 示例值：2
+func (builder *ReplaceImageRequestBuilder) Align(align int) *ReplaceImageRequestBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
 func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	req := &ReplaceImageRequest{}
 	if builder.tokenFlag {
 		req.Token = &builder.token
+
+	}
+	if builder.widthFlag {
+		req.Width = &builder.width
+
+	}
+	if builder.heightFlag {
+		req.Height = &builder.height
+
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
 
 	}
 	return req
@@ -3169,21 +3232,27 @@ func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
 }
 
 type TableProperty struct {
-	RowSize     *int              `json:"row_size,omitempty"`     // 行数
-	ColumnSize  *int              `json:"column_size,omitempty"`  // 列数
-	ColumnWidth []int             `json:"column_width,omitempty"` // 列宽，单位px
-	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`   // 单元格合并信息
+	RowSize      *int              `json:"row_size,omitempty"`      // 行数
+	ColumnSize   *int              `json:"column_size,omitempty"`   // 列数
+	ColumnWidth  []int             `json:"column_width,omitempty"`  // 列宽，单位px
+	MergeInfo    []*TableMergeInfo `json:"merge_info,omitempty"`    // 单元格合并信息
+	HeaderRow    *bool             `json:"header_row,omitempty"`    // 设置首行为标题行
+	HeaderColumn *bool             `json:"header_column,omitempty"` // 设置首列为标题列
 }
 
 type TablePropertyBuilder struct {
-	rowSize         int // 行数
-	rowSizeFlag     bool
-	columnSize      int // 列数
-	columnSizeFlag  bool
-	columnWidth     []int // 列宽，单位px
-	columnWidthFlag bool
-	mergeInfo       []*TableMergeInfo // 单元格合并信息
-	mergeInfoFlag   bool
+	rowSize          int // 行数
+	rowSizeFlag      bool
+	columnSize       int // 列数
+	columnSizeFlag   bool
+	columnWidth      []int // 列宽，单位px
+	columnWidthFlag  bool
+	mergeInfo        []*TableMergeInfo // 单元格合并信息
+	mergeInfoFlag    bool
+	headerRow        bool // 设置首行为标题行
+	headerRowFlag    bool
+	headerColumn     bool // 设置首列为标题列
+	headerColumnFlag bool
 }
 
 func NewTablePropertyBuilder() *TablePropertyBuilder {
@@ -3227,6 +3296,24 @@ func (builder *TablePropertyBuilder) MergeInfo(mergeInfo []*TableMergeInfo) *Tab
 	return builder
 }
 
+// 设置首行为标题行
+//
+// 示例值：false
+func (builder *TablePropertyBuilder) HeaderRow(headerRow bool) *TablePropertyBuilder {
+	builder.headerRow = headerRow
+	builder.headerRowFlag = true
+	return builder
+}
+
+// 设置首列为标题列
+//
+// 示例值：false
+func (builder *TablePropertyBuilder) HeaderColumn(headerColumn bool) *TablePropertyBuilder {
+	builder.headerColumn = headerColumn
+	builder.headerColumnFlag = true
+	return builder
+}
+
 func (builder *TablePropertyBuilder) Build() *TableProperty {
 	req := &TableProperty{}
 	if builder.rowSizeFlag {
@@ -3242,6 +3329,14 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 	}
 	if builder.mergeInfoFlag {
 		req.MergeInfo = builder.mergeInfo
+	}
+	if builder.headerRowFlag {
+		req.HeaderRow = &builder.headerRow
+
+	}
+	if builder.headerColumnFlag {
+		req.HeaderColumn = &builder.headerColumn
+
 	}
 	return req
 }
@@ -4104,15 +4199,21 @@ func (builder *UpdateGridColumnWidthRatioRequestBuilder) Build() *UpdateGridColu
 }
 
 type UpdateTablePropertyRequest struct {
-	ColumnWidth *int `json:"column_width,omitempty"` // 表格列宽
-	ColumnIndex *int `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引
+	ColumnWidth  *int  `json:"column_width,omitempty"`  // 表格列宽
+	ColumnIndex  *int  `json:"column_index,omitempty"`  // 需要修改列宽的表格列的索引
+	HeaderRow    *bool `json:"header_row,omitempty"`    // 设置首行为标题行
+	HeaderColumn *bool `json:"header_column,omitempty"` // 设置首列为标题列
 }
 
 type UpdateTablePropertyRequestBuilder struct {
-	columnWidth     int // 表格列宽
-	columnWidthFlag bool
-	columnIndex     int // 需要修改列宽的表格列的索引
-	columnIndexFlag bool
+	columnWidth      int // 表格列宽
+	columnWidthFlag  bool
+	columnIndex      int // 需要修改列宽的表格列的索引
+	columnIndexFlag  bool
+	headerRow        bool // 设置首行为标题行
+	headerRowFlag    bool
+	headerColumn     bool // 设置首列为标题列
+	headerColumnFlag bool
 }
 
 func NewUpdateTablePropertyRequestBuilder() *UpdateTablePropertyRequestBuilder {
@@ -4138,6 +4239,24 @@ func (builder *UpdateTablePropertyRequestBuilder) ColumnIndex(columnIndex int) *
 	return builder
 }
 
+// 设置首行为标题行
+//
+// 示例值：false
+func (builder *UpdateTablePropertyRequestBuilder) HeaderRow(headerRow bool) *UpdateTablePropertyRequestBuilder {
+	builder.headerRow = headerRow
+	builder.headerRowFlag = true
+	return builder
+}
+
+// 设置首列为标题列
+//
+// 示例值：false
+func (builder *UpdateTablePropertyRequestBuilder) HeaderColumn(headerColumn bool) *UpdateTablePropertyRequestBuilder {
+	builder.headerColumn = headerColumn
+	builder.headerColumnFlag = true
+	return builder
+}
+
 func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRequest {
 	req := &UpdateTablePropertyRequest{}
 	if builder.columnWidthFlag {
@@ -4146,6 +4265,14 @@ func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRe
 	}
 	if builder.columnIndexFlag {
 		req.ColumnIndex = &builder.columnIndex
+
+	}
+	if builder.headerRowFlag {
+		req.HeaderRow = &builder.headerRow
+
+	}
+	if builder.headerColumnFlag {
+		req.HeaderColumn = &builder.headerColumn
 
 	}
 	return req

@@ -32,9 +32,11 @@ func NewService(config *larkcore.Config) *ContactService {
 	c.GroupMember = &groupMember{service: c}
 	c.JobFamily = &jobFamily{service: c}
 	c.JobLevel = &jobLevel{service: c}
+	c.JobTitle = &jobTitle{service: c}
 	c.Scope = &scope{service: c}
 	c.Unit = &unit{service: c}
 	c.User = &user{service: c}
+	c.WorkCity = &workCity{service: c}
 	return c
 }
 
@@ -50,9 +52,11 @@ type ContactService struct {
 	GroupMember          *groupMember          // 用户组成员
 	JobFamily            *jobFamily            // job_family
 	JobLevel             *jobLevel             // job_level
+	JobTitle             *jobTitle             // job_title
 	Scope                *scope                // 通讯录权限范围
 	Unit                 *unit                 // 单位
 	User                 *user                 // 用户
+	WorkCity             *workCity             // work_city
 }
 
 type customAttr struct {
@@ -85,6 +89,9 @@ type jobFamily struct {
 type jobLevel struct {
 	service *ContactService
 }
+type jobTitle struct {
+	service *ContactService
+}
 type scope struct {
 	service *ContactService
 }
@@ -92,6 +99,9 @@ type unit struct {
 	service *ContactService
 }
 type user struct {
+	service *ContactService
+}
+type workCity struct {
 	service *ContactService
 }
 
@@ -1367,6 +1377,66 @@ func (j *jobLevel) Update(ctx context.Context, req *UpdateJobLevelReq, options .
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_title&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_jobTitle.go
+func (j *jobTitle) Get(ctx context.Context, req *GetJobTitleReq, options ...larkcore.RequestOptionFunc) (*GetJobTitleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/job_titles/:job_title_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetJobTitleResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_title&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_jobTitle.go
+func (j *jobTitle) List(ctx context.Context, req *ListJobTitleReq, options ...larkcore.RequestOptionFunc) (*ListJobTitleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/job_titles"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListJobTitleResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (j *jobTitle) ListByIterator(ctx context.Context, req *ListJobTitleReq, options ...larkcore.RequestOptionFunc) (*ListJobTitleIterator, error) {
+	return &ListJobTitleIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: j.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // 获取通讯录授权范围
 //
 // - 该接口用于获取应用被授权可访问的通讯录范围，包括可访问的部门列表、用户列表和用户组列表。;授权范围为全员时，返回的部门列表为该企业所有的一级部门；否则返回的部门为管理员在设置授权范围时勾选的部门（不包含勾选部门的子部门）。
@@ -1887,4 +1957,90 @@ func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkco
 		return nil, err
 	}
 	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_user_id&project=contact&resource=user&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/updateUserId_user.go
+func (u *user) UpdateUserId(ctx context.Context, req *UpdateUserIdUserReq, options ...larkcore.RequestOptionFunc) (*UpdateUserIdUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/users/:user_id/update_user_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateUserIdUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=work_city&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_workCity.go
+func (w *workCity) Get(ctx context.Context, req *GetWorkCityReq, options ...larkcore.RequestOptionFunc) (*GetWorkCityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/work_cities/:work_city_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetWorkCityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=work_city&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_workCity.go
+func (w *workCity) List(ctx context.Context, req *ListWorkCityReq, options ...larkcore.RequestOptionFunc) (*ListWorkCityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/work_cities"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListWorkCityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (w *workCity) ListByIterator(ctx context.Context, req *ListWorkCityReq, options ...larkcore.RequestOptionFunc) (*ListWorkCityIterator, error) {
+	return &ListWorkCityIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: w.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

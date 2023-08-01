@@ -34,6 +34,7 @@ func main() {
 			GrantingQuantity("0.5").
 			GrantingUnit(1).
 			EffectiveDate("2022-01-01").
+			ExpirationDate("2022-01-01").
 			Reason([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			ExternalId("111").
 			Build()).
