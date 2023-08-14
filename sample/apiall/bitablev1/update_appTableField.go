@@ -32,7 +32,7 @@ func main() {
 		FieldId("fldPTb0U2y").
 		AppTableField(larkbitable.NewAppTableFieldBuilder().
 			FieldName("字段名称").
-			Type(1).
+			Type(0).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
 			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).
 			UiType("Progress").

@@ -3742,21 +3742,27 @@ func (builder *ScheduleBuilder) Build() *Schedule {
 }
 
 type ScopeGroup struct {
-	ScopeValueType *int          `json:"scope_value_type,omitempty"` // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
-	OperationType  *int          `json:"operation_type,omitempty"`   // 范围类型（是否包含）
-	Right          []*ScopeValue `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
-	MemberIds      []string      `json:"member_ids,omitempty"`       // 部门/人员id列表
+	ScopeValueType     *int          `json:"scope_value_type,omitempty"`      // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:工作城市 6:职级 7:序列 8:职务（企业版）9:工时制度（企业版） 100:自定义字段（企业版）
+	OperationType      *int          `json:"operation_type,omitempty"`        // 范围类型（是否包含）
+	Right              []*ScopeValue `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
+	MemberIds          []string      `json:"member_ids,omitempty"`            // 部门/人员id列表（具体类型根据scope_value_type判断）
+	CustomFieldID      *string       `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
+	CustomFieldObjType *string       `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型  "employment":主数据对象，员工雇佣信息 , "person":主数据对象，个人
 }
 
 type ScopeGroupBuilder struct {
-	scopeValueType     int // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
-	scopeValueTypeFlag bool
-	operationType      int // 范围类型（是否包含）
-	operationTypeFlag  bool
-	right              []*ScopeValue // 如果是人员/部门类型 不需要使用该字段
-	rightFlag          bool
-	memberIds          []string // 部门/人员id列表
-	memberIdsFlag      bool
+	scopeValueType         int // 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:工作城市 6:职级 7:序列 8:职务（企业版）9:工时制度（企业版） 100:自定义字段（企业版）
+	scopeValueTypeFlag     bool
+	operationType          int // 范围类型（是否包含）
+	operationTypeFlag      bool
+	right                  []*ScopeValue // 如果是人员/部门类型 不需要使用该字段
+	rightFlag              bool
+	memberIds              []string // 部门/人员id列表（具体类型根据scope_value_type判断）
+	memberIdsFlag          bool
+	customFieldID          string // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
+	customFieldIDFlag      bool
+	customFieldObjType     string // 企业版自定义字段对象类型  "employment":主数据对象，员工雇佣信息 , "person":主数据对象，个人
+	customFieldObjTypeFlag bool
 }
 
 func NewScopeGroupBuilder() *ScopeGroupBuilder {
@@ -3764,7 +3770,7 @@ func NewScopeGroupBuilder() *ScopeGroupBuilder {
 	return builder
 }
 
-// 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:性别 6:工作城市
+// 类型： 1: 部门 2：人员 3:国家地区 4:员工类型 5:工作城市 6:职级 7:序列 8:职务（企业版）9:工时制度（企业版） 100:自定义字段（企业版）
 //
 // 示例值：1
 func (builder *ScopeGroupBuilder) ScopeValueType(scopeValueType int) *ScopeGroupBuilder {
@@ -3791,12 +3797,30 @@ func (builder *ScopeGroupBuilder) Right(right []*ScopeValue) *ScopeGroupBuilder 
 	return builder
 }
 
-// 部门/人员id列表
+// 部门/人员id列表（具体类型根据scope_value_type判断）
 //
 // 示例值：
 func (builder *ScopeGroupBuilder) MemberIds(memberIds []string) *ScopeGroupBuilder {
 	builder.memberIds = memberIds
 	builder.memberIdsFlag = true
+	return builder
+}
+
+// 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
+//
+// 示例值：123213123
+func (builder *ScopeGroupBuilder) CustomFieldID(customFieldID string) *ScopeGroupBuilder {
+	builder.customFieldID = customFieldID
+	builder.customFieldIDFlag = true
+	return builder
+}
+
+// 企业版自定义字段对象类型  "employment":主数据对象，员工雇佣信息 , "person":主数据对象，个人
+//
+// 示例值：employment
+func (builder *ScopeGroupBuilder) CustomFieldObjType(customFieldObjType string) *ScopeGroupBuilder {
+	builder.customFieldObjType = customFieldObjType
+	builder.customFieldObjTypeFlag = true
 	return builder
 }
 
@@ -3815,6 +3839,14 @@ func (builder *ScopeGroupBuilder) Build() *ScopeGroup {
 	}
 	if builder.memberIdsFlag {
 		req.MemberIds = builder.memberIds
+	}
+	if builder.customFieldIDFlag {
+		req.CustomFieldID = &builder.customFieldID
+
+	}
+	if builder.customFieldObjTypeFlag {
+		req.CustomFieldObjType = &builder.customFieldObjType
+
 	}
 	return req
 }

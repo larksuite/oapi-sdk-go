@@ -17,6 +17,118 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type TokenInfo struct {
+	AccessToken      *string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源和访问某些open api
+	RefreshToken     *string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
+	TokenType        *string `json:"token_type,omitempty"`         // token 类型，固定值
+	ExpiresIn        *int    `json:"expires_in,omitempty"`         // `access_token`的有效期，单位: 秒，一般是两个小时左右，需要以返回结果为准
+	RefreshExpiresIn *int    `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期，单位: 秒，一般是30天左右，需要以返回结果为准
+	Scope            *string `json:"scope,omitempty"`              // 用户授予app的权限全集
+}
+
+type TokenInfoBuilder struct {
+	accessToken          string // user_access_token，用于获取用户资源和访问某些open api
+	accessTokenFlag      bool
+	refreshToken         string // 刷新用户 `access_token` 时使用的 token
+	refreshTokenFlag     bool
+	tokenType            string // token 类型，固定值
+	tokenTypeFlag        bool
+	expiresIn            int // `access_token`的有效期，单位: 秒，一般是两个小时左右，需要以返回结果为准
+	expiresInFlag        bool
+	refreshExpiresIn     int // `refresh_token` 的有效期，单位: 秒，一般是30天左右，需要以返回结果为准
+	refreshExpiresInFlag bool
+	scope                string // 用户授予app的权限全集
+	scopeFlag            bool
+}
+
+func NewTokenInfoBuilder() *TokenInfoBuilder {
+	builder := &TokenInfoBuilder{}
+	return builder
+}
+
+// user_access_token，用于获取用户资源和访问某些open api
+//
+// 示例值：u-5Dak9ZAxJ9tFUn8MaTD_BFM51FNdg5xzO0y010000HWb
+func (builder *TokenInfoBuilder) AccessToken(accessToken string) *TokenInfoBuilder {
+	builder.accessToken = accessToken
+	builder.accessTokenFlag = true
+	return builder
+}
+
+// 刷新用户 `access_token` 时使用的 token
+//
+// 示例值：ur-6EyFQZyplb9URrOx5NtT_HM53zrJg59HXwy040400G.e
+func (builder *TokenInfoBuilder) RefreshToken(refreshToken string) *TokenInfoBuilder {
+	builder.refreshToken = refreshToken
+	builder.refreshTokenFlag = true
+	return builder
+}
+
+// token 类型，固定值
+//
+// 示例值：Bearer
+func (builder *TokenInfoBuilder) TokenType(tokenType string) *TokenInfoBuilder {
+	builder.tokenType = tokenType
+	builder.tokenTypeFlag = true
+	return builder
+}
+
+// `access_token`的有效期，单位: 秒，一般是两个小时左右，需要以返回结果为准
+//
+// 示例值：7199
+func (builder *TokenInfoBuilder) ExpiresIn(expiresIn int) *TokenInfoBuilder {
+	builder.expiresIn = expiresIn
+	builder.expiresInFlag = true
+	return builder
+}
+
+// `refresh_token` 的有效期，单位: 秒，一般是30天左右，需要以返回结果为准
+//
+// 示例值：2591999
+func (builder *TokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int) *TokenInfoBuilder {
+	builder.refreshExpiresIn = refreshExpiresIn
+	builder.refreshExpiresInFlag = true
+	return builder
+}
+
+// 用户授予app的权限全集
+//
+// 示例值：auth:user.id:read bitable:app
+func (builder *TokenInfoBuilder) Scope(scope string) *TokenInfoBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+func (builder *TokenInfoBuilder) Build() *TokenInfo {
+	req := &TokenInfo{}
+	if builder.accessTokenFlag {
+		req.AccessToken = &builder.accessToken
+
+	}
+	if builder.refreshTokenFlag {
+		req.RefreshToken = &builder.refreshToken
+
+	}
+	if builder.tokenTypeFlag {
+		req.TokenType = &builder.tokenType
+
+	}
+	if builder.expiresInFlag {
+		req.ExpiresIn = &builder.expiresIn
+
+	}
+	if builder.refreshExpiresInFlag {
+		req.RefreshExpiresIn = &builder.refreshExpiresIn
+
+	}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+
+	}
+	return req
+}
+
 type UserAccessTokenInfo struct {
 	AccessToken      *string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
 	TokenType        *string `json:"token_type,omitempty"`         // token 类型

@@ -1085,15 +1085,18 @@ func (builder *DocBuilder) Build() *Doc {
 }
 
 type DocPassageParam struct {
-	Searchable *bool    `json:"searchable,omitempty"` // 是否要搜索doc
-	DocTokens  []string `json:"doc_tokens,omitempty"` // 搜索几篇特定doc
+	Searchable   *bool    `json:"searchable,omitempty"`    // 是否要搜索doc
+	DocTokens    []string `json:"doc_tokens,omitempty"`    // 搜索几篇特定doc
+	FolderTokens []string `json:"folder_tokens,omitempty"` // 搜索特定的文件夹
 }
 
 type DocPassageParamBuilder struct {
-	searchable     bool // 是否要搜索doc
-	searchableFlag bool
-	docTokens      []string // 搜索几篇特定doc
-	docTokensFlag  bool
+	searchable       bool // 是否要搜索doc
+	searchableFlag   bool
+	docTokens        []string // 搜索几篇特定doc
+	docTokensFlag    bool
+	folderTokens     []string // 搜索特定的文件夹
+	folderTokensFlag bool
 }
 
 func NewDocPassageParamBuilder() *DocPassageParamBuilder {
@@ -1119,6 +1122,15 @@ func (builder *DocPassageParamBuilder) DocTokens(docTokens []string) *DocPassage
 	return builder
 }
 
+// 搜索特定的文件夹
+//
+// 示例值：
+func (builder *DocPassageParamBuilder) FolderTokens(folderTokens []string) *DocPassageParamBuilder {
+	builder.folderTokens = folderTokens
+	builder.folderTokensFlag = true
+	return builder
+}
+
 func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	req := &DocPassageParam{}
 	if builder.searchableFlag {
@@ -1128,6 +1140,9 @@ func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	if builder.docTokensFlag {
 		req.DocTokens = builder.docTokens
 	}
+	if builder.folderTokensFlag {
+		req.FolderTokens = builder.folderTokens
+	}
 	return req
 }
 
@@ -1135,6 +1150,7 @@ type FilterSchema struct {
 	Field      *string `json:"field,omitempty"`       // 过滤字段的名字
 	Type       *string `json:"type,omitempty"`        // 过滤字段的类型
 	DefaultVal *string `json:"default_val,omitempty"` // 过滤字段的默认值
+	FieldType  *string `json:"field_type,omitempty"`  // 用于构建dsl过滤的类型，默认是enum
 }
 
 type FilterSchemaBuilder struct {
@@ -1144,6 +1160,8 @@ type FilterSchemaBuilder struct {
 	typeFlag       bool
 	defaultVal     string // 过滤字段的默认值
 	defaultValFlag bool
+	fieldType      string // 用于构建dsl过滤的类型，默认是enum
+	fieldTypeFlag  bool
 }
 
 func NewFilterSchemaBuilder() *FilterSchemaBuilder {
@@ -1178,6 +1196,15 @@ func (builder *FilterSchemaBuilder) DefaultVal(defaultVal string) *FilterSchemaB
 	return builder
 }
 
+// 用于构建dsl过滤的类型，默认是enum
+//
+// 示例值：enum
+func (builder *FilterSchemaBuilder) FieldType(fieldType string) *FilterSchemaBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
 func (builder *FilterSchemaBuilder) Build() *FilterSchema {
 	req := &FilterSchema{}
 	if builder.fieldFlag {
@@ -1190,6 +1217,10 @@ func (builder *FilterSchemaBuilder) Build() *FilterSchema {
 	}
 	if builder.defaultValFlag {
 		req.DefaultVal = &builder.defaultVal
+
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
 
 	}
 	return req
@@ -1790,6 +1821,7 @@ type Passage struct {
 	Title         *string  `json:"title,omitempty"`          // wiki或doc的题目
 	Url           *string  `json:"url,omitempty"`            // 跳转链接
 	Score         *float64 `json:"score,omitempty"`          // 文本段落和query的相关性分数
+	Extra         *string  `json:"extra,omitempty"`          // 其他source相关的字段
 }
 
 type PassageBuilder struct {
@@ -1805,6 +1837,8 @@ type PassageBuilder struct {
 	urlFlag           bool
 	score             float64 // 文本段落和query的相关性分数
 	scoreFlag         bool
+	extra             string // 其他source相关的字段
+	extraFlag         bool
 }
 
 func NewPassageBuilder() *PassageBuilder {
@@ -1866,6 +1900,15 @@ func (builder *PassageBuilder) Score(score float64) *PassageBuilder {
 	return builder
 }
 
+// 其他source相关的字段
+//
+// 示例值：{"obj_id":7263345601809530881}
+func (builder *PassageBuilder) Extra(extra string) *PassageBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
 func (builder *PassageBuilder) Build() *Passage {
 	req := &Passage{}
 	if builder.passageIdFlag {
@@ -1890,6 +1933,10 @@ func (builder *PassageBuilder) Build() *Passage {
 	}
 	if builder.scoreFlag {
 		req.Score = &builder.score
+
+	}
+	if builder.extraFlag {
+		req.Extra = &builder.extra
 
 	}
 	return req
@@ -2128,54 +2175,6 @@ func (builder *SchemaDisplayFieldMappingBuilder) Build() *SchemaDisplayFieldMapp
 	return req
 }
 
-type SchemaDisplayOption struct {
-	DisplayLabel *string `json:"display_label,omitempty"` // 对外展示的标签名
-	DisplayType  *string `json:"display_type,omitempty"`  // 对外展示类型
-}
-
-type SchemaDisplayOptionBuilder struct {
-	displayLabel     string // 对外展示的标签名
-	displayLabelFlag bool
-	displayType      string // 对外展示类型
-	displayTypeFlag  bool
-}
-
-func NewSchemaDisplayOptionBuilder() *SchemaDisplayOptionBuilder {
-	builder := &SchemaDisplayOptionBuilder{}
-	return builder
-}
-
-// 对外展示的标签名
-//
-// 示例值：
-func (builder *SchemaDisplayOptionBuilder) DisplayLabel(displayLabel string) *SchemaDisplayOptionBuilder {
-	builder.displayLabel = displayLabel
-	builder.displayLabelFlag = true
-	return builder
-}
-
-// 对外展示类型
-//
-// 示例值：
-func (builder *SchemaDisplayOptionBuilder) DisplayType(displayType string) *SchemaDisplayOptionBuilder {
-	builder.displayType = displayType
-	builder.displayTypeFlag = true
-	return builder
-}
-
-func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
-	req := &SchemaDisplayOption{}
-	if builder.displayLabelFlag {
-		req.DisplayLabel = &builder.displayLabel
-
-	}
-	if builder.displayTypeFlag {
-		req.DisplayType = &builder.displayType
-
-	}
-	return req
-}
-
 type SchemaEnumOptions struct {
 	PossibleValues []string `json:"possible_values,omitempty"` // 用户自定filter 枚举值数组，最大长度为50
 }
@@ -2207,6 +2206,180 @@ func (builder *SchemaEnumOptionsBuilder) Build() *SchemaEnumOptions {
 	return req
 }
 
+type SchemaFilterOptions struct {
+	DisplayName           *string                      `json:"display_name,omitempty"`            // 筛选器展示名称
+	I18nDisplayName       *I18nMeta                    `json:"i18n_display_name,omitempty"`       // 筛选器展示名称国际化字段
+	OptionMode            *string                      `json:"option_mode,omitempty"`             // 指明该筛选器支持单选或多选，默认单选
+	AssociatedSmartFilter *string                      `json:"associated_smart_filter,omitempty"` // 关联的综合筛选器。只有 filter_type 为"user"和"time"时可以关联。"user" -> "from"；"time" -> "date"。
+	FilterType            *string                      `json:"filter_type,omitempty"`             // 筛选器类型
+	PredefineEnumValues   []*SchemaPredefineEnumStruct `json:"predefine_enum_values,omitempty"`   // 预定义的展示枚举值。在 filter_type 为 "predefine_enum" 时必须填写
+	EnableClientFilter    *bool                        `json:"enable_client_filter,omitempty"`    // 是否开启客户端筛选器
+}
+
+type SchemaFilterOptionsBuilder struct {
+	displayName               string // 筛选器展示名称
+	displayNameFlag           bool
+	i18nDisplayName           *I18nMeta // 筛选器展示名称国际化字段
+	i18nDisplayNameFlag       bool
+	optionMode                string // 指明该筛选器支持单选或多选，默认单选
+	optionModeFlag            bool
+	associatedSmartFilter     string // 关联的综合筛选器。只有 filter_type 为"user"和"time"时可以关联。"user" -> "from"；"time" -> "date"。
+	associatedSmartFilterFlag bool
+	filterType                string // 筛选器类型
+	filterTypeFlag            bool
+	predefineEnumValues       []*SchemaPredefineEnumStruct // 预定义的展示枚举值。在 filter_type 为 "predefine_enum" 时必须填写
+	predefineEnumValuesFlag   bool
+	enableClientFilter        bool // 是否开启客户端筛选器
+	enableClientFilterFlag    bool
+}
+
+func NewSchemaFilterOptionsBuilder() *SchemaFilterOptionsBuilder {
+	builder := &SchemaFilterOptionsBuilder{}
+	return builder
+}
+
+// 筛选器展示名称
+//
+// 示例值：创建人
+func (builder *SchemaFilterOptionsBuilder) DisplayName(displayName string) *SchemaFilterOptionsBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+// 筛选器展示名称国际化字段
+//
+// 示例值：
+func (builder *SchemaFilterOptionsBuilder) I18nDisplayName(i18nDisplayName *I18nMeta) *SchemaFilterOptionsBuilder {
+	builder.i18nDisplayName = i18nDisplayName
+	builder.i18nDisplayNameFlag = true
+	return builder
+}
+
+// 指明该筛选器支持单选或多选，默认单选
+//
+// 示例值：single
+func (builder *SchemaFilterOptionsBuilder) OptionMode(optionMode string) *SchemaFilterOptionsBuilder {
+	builder.optionMode = optionMode
+	builder.optionModeFlag = true
+	return builder
+}
+
+// 关联的综合筛选器。只有 filter_type 为"user"和"time"时可以关联。"user" -> "from"；"time" -> "date"。
+//
+// 示例值：From
+func (builder *SchemaFilterOptionsBuilder) AssociatedSmartFilter(associatedSmartFilter string) *SchemaFilterOptionsBuilder {
+	builder.associatedSmartFilter = associatedSmartFilter
+	builder.associatedSmartFilterFlag = true
+	return builder
+}
+
+// 筛选器类型
+//
+// 示例值：user
+func (builder *SchemaFilterOptionsBuilder) FilterType(filterType string) *SchemaFilterOptionsBuilder {
+	builder.filterType = filterType
+	builder.filterTypeFlag = true
+	return builder
+}
+
+// 预定义的展示枚举值。在 filter_type 为 "predefine_enum" 时必须填写
+//
+// 示例值：
+func (builder *SchemaFilterOptionsBuilder) PredefineEnumValues(predefineEnumValues []*SchemaPredefineEnumStruct) *SchemaFilterOptionsBuilder {
+	builder.predefineEnumValues = predefineEnumValues
+	builder.predefineEnumValuesFlag = true
+	return builder
+}
+
+// 是否开启客户端筛选器
+//
+// 示例值：true
+func (builder *SchemaFilterOptionsBuilder) EnableClientFilter(enableClientFilter bool) *SchemaFilterOptionsBuilder {
+	builder.enableClientFilter = enableClientFilter
+	builder.enableClientFilterFlag = true
+	return builder
+}
+
+func (builder *SchemaFilterOptionsBuilder) Build() *SchemaFilterOptions {
+	req := &SchemaFilterOptions{}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.i18nDisplayNameFlag {
+		req.I18nDisplayName = builder.i18nDisplayName
+	}
+	if builder.optionModeFlag {
+		req.OptionMode = &builder.optionMode
+
+	}
+	if builder.associatedSmartFilterFlag {
+		req.AssociatedSmartFilter = &builder.associatedSmartFilter
+
+	}
+	if builder.filterTypeFlag {
+		req.FilterType = &builder.filterType
+
+	}
+	if builder.predefineEnumValuesFlag {
+		req.PredefineEnumValues = builder.predefineEnumValues
+	}
+	if builder.enableClientFilterFlag {
+		req.EnableClientFilter = &builder.enableClientFilter
+
+	}
+	return req
+}
+
+type SchemaPredefineEnumStruct struct {
+	Name *string `json:"name,omitempty"` // 枚举值的标识。在多枚举值定义中保持唯一
+	Text *string `json:"text,omitempty"` // 枚举值展示文案
+}
+
+type SchemaPredefineEnumStructBuilder struct {
+	name     string // 枚举值的标识。在多枚举值定义中保持唯一
+	nameFlag bool
+	text     string // 枚举值展示文案
+	textFlag bool
+}
+
+func NewSchemaPredefineEnumStructBuilder() *SchemaPredefineEnumStructBuilder {
+	builder := &SchemaPredefineEnumStructBuilder{}
+	return builder
+}
+
+// 枚举值的标识。在多枚举值定义中保持唯一
+//
+// 示例值：p0
+func (builder *SchemaPredefineEnumStructBuilder) Name(name string) *SchemaPredefineEnumStructBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 枚举值展示文案
+//
+// 示例值：最高优先级
+func (builder *SchemaPredefineEnumStructBuilder) Text(text string) *SchemaPredefineEnumStructBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *SchemaPredefineEnumStructBuilder) Build() *SchemaPredefineEnumStruct {
+	req := &SchemaPredefineEnumStruct{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	return req
+}
+
 type SchemaProperty struct {
 	Name            *string                `json:"name,omitempty"`             // 属性名
 	Type            *string                `json:"type,omitempty"`             // 属性类型
@@ -2216,6 +2389,8 @@ type SchemaProperty struct {
 	SortOptions     *SchemaSortOptions     `json:"sort_options,omitempty"`     // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
 	TypeDefinitions *SchemaTypeDefinitions `json:"type_definitions,omitempty"` // 相关类型数据的定义和约束
 	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`   // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+	IsFilterable    *bool                  `json:"is_filterable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被筛选。默认为 false
+	FilterOptions   *SchemaFilterOptions   `json:"filter_options,omitempty"`   // 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
 }
 
 type SchemaPropertyBuilder struct {
@@ -2235,6 +2410,10 @@ type SchemaPropertyBuilder struct {
 	typeDefinitionsFlag bool
 	searchOptions       *SchemaSearchOptions // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
 	searchOptionsFlag   bool
+	isFilterable        bool // 该属性是否可用作返回字段，为 false 时，该字段不会被筛选。默认为 false
+	isFilterableFlag    bool
+	filterOptions       *SchemaFilterOptions // 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+	filterOptionsFlag   bool
 }
 
 func NewSchemaPropertyBuilder() *SchemaPropertyBuilder {
@@ -2314,6 +2493,24 @@ func (builder *SchemaPropertyBuilder) SearchOptions(searchOptions *SchemaSearchO
 	return builder
 }
 
+// 该属性是否可用作返回字段，为 false 时，该字段不会被筛选。默认为 false
+//
+// 示例值：false
+func (builder *SchemaPropertyBuilder) IsFilterable(isFilterable bool) *SchemaPropertyBuilder {
+	builder.isFilterable = isFilterable
+	builder.isFilterableFlag = true
+	return builder
+}
+
+// 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+//
+// 示例值：
+func (builder *SchemaPropertyBuilder) FilterOptions(filterOptions *SchemaFilterOptions) *SchemaPropertyBuilder {
+	builder.filterOptions = filterOptions
+	builder.filterOptionsFlag = true
+	return builder
+}
+
 func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	req := &SchemaProperty{}
 	if builder.nameFlag {
@@ -2345,148 +2542,12 @@ func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	if builder.searchOptionsFlag {
 		req.SearchOptions = builder.searchOptions
 	}
-	return req
-}
-
-type SchemaPropertyDefinition struct {
-	Name                 *string              `json:"name,omitempty"`                   // 属性名称
-	IsReturnable         *bool                `json:"is_returnable,omitempty"`          // 搜索中是否可作为搜索结果返回
-	IsRepeatable         *bool                `json:"is_repeatable,omitempty"`          // 是否允许重复
-	IsSortable           *bool                `json:"is_sortable,omitempty"`            // 是否可用作排序
-	IsFacetable          *bool                `json:"is_facetable,omitempty"`           // 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
-	IsWildcardSearchable *bool                `json:"is_wildcard_searchable,omitempty"` // 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
-	Type                 *string              `json:"type,omitempty"`                   // 属性数据类型
-	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`        // 属性对外展示可选项
-}
-
-type SchemaPropertyDefinitionBuilder struct {
-	name                     string // 属性名称
-	nameFlag                 bool
-	isReturnable             bool // 搜索中是否可作为搜索结果返回
-	isReturnableFlag         bool
-	isRepeatable             bool // 是否允许重复
-	isRepeatableFlag         bool
-	isSortable               bool // 是否可用作排序
-	isSortableFlag           bool
-	isFacetable              bool // 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
-	isFacetableFlag          bool
-	isWildcardSearchable     bool // 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
-	isWildcardSearchableFlag bool
-	type_                    string // 属性数据类型
-	typeFlag                 bool
-	displayOptions           *SchemaDisplayOption // 属性对外展示可选项
-	displayOptionsFlag       bool
-}
-
-func NewSchemaPropertyDefinitionBuilder() *SchemaPropertyDefinitionBuilder {
-	builder := &SchemaPropertyDefinitionBuilder{}
-	return builder
-}
-
-// 属性名称
-//
-// 示例值：
-func (builder *SchemaPropertyDefinitionBuilder) Name(name string) *SchemaPropertyDefinitionBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-// 搜索中是否可作为搜索结果返回
-//
-// 示例值：false
-func (builder *SchemaPropertyDefinitionBuilder) IsReturnable(isReturnable bool) *SchemaPropertyDefinitionBuilder {
-	builder.isReturnable = isReturnable
-	builder.isReturnableFlag = true
-	return builder
-}
-
-// 是否允许重复
-//
-// 示例值：false
-func (builder *SchemaPropertyDefinitionBuilder) IsRepeatable(isRepeatable bool) *SchemaPropertyDefinitionBuilder {
-	builder.isRepeatable = isRepeatable
-	builder.isRepeatableFlag = true
-	return builder
-}
-
-// 是否可用作排序
-//
-// 示例值：false
-func (builder *SchemaPropertyDefinitionBuilder) IsSortable(isSortable bool) *SchemaPropertyDefinitionBuilder {
-	builder.isSortable = isSortable
-	builder.isSortableFlag = true
-	return builder
-}
-
-// 是否可用来生成 facet，仅支持 Boolean，Enum，String 类型属性。
-//
-// 示例值：false
-func (builder *SchemaPropertyDefinitionBuilder) IsFacetable(isFacetable bool) *SchemaPropertyDefinitionBuilder {
-	builder.isFacetable = isFacetable
-	builder.isFacetableFlag = true
-	return builder
-}
-
-// 是否可以对该属性使用通配符搜索，只支持 String 类型属性。
-//
-// 示例值：
-func (builder *SchemaPropertyDefinitionBuilder) IsWildcardSearchable(isWildcardSearchable bool) *SchemaPropertyDefinitionBuilder {
-	builder.isWildcardSearchable = isWildcardSearchable
-	builder.isWildcardSearchableFlag = true
-	return builder
-}
-
-// 属性数据类型
-//
-// 示例值：INTEGER
-func (builder *SchemaPropertyDefinitionBuilder) Type(type_ string) *SchemaPropertyDefinitionBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-// 属性对外展示可选项
-//
-// 示例值：
-func (builder *SchemaPropertyDefinitionBuilder) DisplayOptions(displayOptions *SchemaDisplayOption) *SchemaPropertyDefinitionBuilder {
-	builder.displayOptions = displayOptions
-	builder.displayOptionsFlag = true
-	return builder
-}
-
-func (builder *SchemaPropertyDefinitionBuilder) Build() *SchemaPropertyDefinition {
-	req := &SchemaPropertyDefinition{}
-	if builder.nameFlag {
-		req.Name = &builder.name
+	if builder.isFilterableFlag {
+		req.IsFilterable = &builder.isFilterable
 
 	}
-	if builder.isReturnableFlag {
-		req.IsReturnable = &builder.isReturnable
-
-	}
-	if builder.isRepeatableFlag {
-		req.IsRepeatable = &builder.isRepeatable
-
-	}
-	if builder.isSortableFlag {
-		req.IsSortable = &builder.isSortable
-
-	}
-	if builder.isFacetableFlag {
-		req.IsFacetable = &builder.isFacetable
-
-	}
-	if builder.isWildcardSearchableFlag {
-		req.IsWildcardSearchable = &builder.isWildcardSearchable
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.displayOptionsFlag {
-		req.DisplayOptions = builder.displayOptions
+	if builder.filterOptionsFlag {
+		req.FilterOptions = builder.filterOptions
 	}
 	return req
 }
@@ -2700,12 +2761,15 @@ func (builder *SchemaTagOptionsBuilder) Build() *SchemaTagOptions {
 }
 
 type SchemaTypeDefinitions struct {
-	Tag []*SchemaTagOptions `json:"tag,omitempty"` // 标签类型的定义
+	Tag     []*SchemaTagOptions  `json:"tag,omitempty"`      // 标签类型的定义
+	UserIds *SchemaUserIdsOption `json:"user_ids,omitempty"` // 用户身份标识
 }
 
 type SchemaTypeDefinitionsBuilder struct {
-	tag     []*SchemaTagOptions // 标签类型的定义
-	tagFlag bool
+	tag         []*SchemaTagOptions // 标签类型的定义
+	tagFlag     bool
+	userIds     *SchemaUserIdsOption // 用户身份标识
+	userIdsFlag bool
 }
 
 func NewSchemaTypeDefinitionsBuilder() *SchemaTypeDefinitionsBuilder {
@@ -2722,10 +2786,86 @@ func (builder *SchemaTypeDefinitionsBuilder) Tag(tag []*SchemaTagOptions) *Schem
 	return builder
 }
 
+// 用户身份标识
+//
+// 示例值：
+func (builder *SchemaTypeDefinitionsBuilder) UserIds(userIds *SchemaUserIdsOption) *SchemaTypeDefinitionsBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
 func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
 	req := &SchemaTypeDefinitions{}
 	if builder.tagFlag {
 		req.Tag = builder.tag
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type SchemaUserIdsOption struct {
+	IdType *string `json:"id_type,omitempty"` // 用户身份类型
+}
+
+type SchemaUserIdsOptionBuilder struct {
+	idType     string // 用户身份类型
+	idTypeFlag bool
+}
+
+func NewSchemaUserIdsOptionBuilder() *SchemaUserIdsOptionBuilder {
+	builder := &SchemaUserIdsOptionBuilder{}
+	return builder
+}
+
+// 用户身份类型
+//
+// 示例值：user_id
+func (builder *SchemaUserIdsOptionBuilder) IdType(idType string) *SchemaUserIdsOptionBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+
+func (builder *SchemaUserIdsOptionBuilder) Build() *SchemaUserIdsOption {
+	req := &SchemaUserIdsOption{}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	return req
+}
+
+type UserInfo struct {
+	UserLanguage *string `json:"user_language,omitempty"` // 用户使用语言类型
+}
+
+type UserInfoBuilder struct {
+	userLanguage     string // 用户使用语言类型
+	userLanguageFlag bool
+}
+
+func NewUserInfoBuilder() *UserInfoBuilder {
+	builder := &UserInfoBuilder{}
+	return builder
+}
+
+// 用户使用语言类型
+//
+// 示例值：English
+func (builder *UserInfoBuilder) UserLanguage(userLanguage string) *UserInfoBuilder {
+	builder.userLanguage = userLanguage
+	builder.userLanguageFlag = true
+	return builder
+}
+
+func (builder *UserInfoBuilder) Build() *UserInfo {
+	req := &UserInfo{}
+	if builder.userLanguageFlag {
+		req.UserLanguage = &builder.userLanguage
+
 	}
 	return req
 }

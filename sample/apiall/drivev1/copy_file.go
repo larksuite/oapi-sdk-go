@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewCopyFileReqBuilder().
 		FileToken("doccngpahSdXrFPIBD4XdIabcef").
+		UserIdType("user_id").
 		Body(larkdrive.NewCopyFileReqBodyBuilder().
 			Name("test.txt").
 			Type("doc").

@@ -2525,6 +2525,387 @@ func (builder *MeetingUserBuilder) Build() *MeetingUser {
 	return req
 }
 
+type MyAiObjectContext struct {
+	Type  *string `json:"type,omitempty"`   // 会话所在实体类型
+	BizId *string `json:"biz_id,omitempty"` // 业务资源 ID
+}
+
+type MyAiObjectContextBuilder struct {
+	type_     string // 会话所在实体类型
+	typeFlag  bool
+	bizId     string // 业务资源 ID
+	bizIdFlag bool
+}
+
+func NewMyAiObjectContextBuilder() *MyAiObjectContextBuilder {
+	builder := &MyAiObjectContextBuilder{}
+	return builder
+}
+
+// 会话所在实体类型
+//
+// 示例值：DOC
+func (builder *MyAiObjectContextBuilder) Type(type_ string) *MyAiObjectContextBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 业务资源 ID
+//
+// 示例值：ou_xxx
+func (builder *MyAiObjectContextBuilder) BizId(bizId string) *MyAiObjectContextBuilder {
+	builder.bizId = bizId
+	builder.bizIdFlag = true
+	return builder
+}
+
+func (builder *MyAiObjectContextBuilder) Build() *MyAiObjectContext {
+	req := &MyAiObjectContext{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.bizIdFlag {
+		req.BizId = &builder.bizId
+
+	}
+	return req
+}
+
+type MyAiPluginContext struct {
+	Key *string `json:"key,omitempty"` // 插件名称
+}
+
+type MyAiPluginContextBuilder struct {
+	key     string // 插件名称
+	keyFlag bool
+}
+
+func NewMyAiPluginContextBuilder() *MyAiPluginContextBuilder {
+	builder := &MyAiPluginContextBuilder{}
+	return builder
+}
+
+// 插件名称
+//
+// 示例值：Calendar
+func (builder *MyAiPluginContextBuilder) Key(key string) *MyAiPluginContextBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+func (builder *MyAiPluginContextBuilder) Build() *MyAiPluginContext {
+	req := &MyAiPluginContext{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	return req
+}
+
+type MyAiVcMeetingContentCommonResult struct {
+	MeetingContentReply *string `json:"meeting_content_reply,omitempty"` // 会议内容问答for自由对话
+}
+
+type MyAiVcMeetingContentCommonResultBuilder struct {
+	meetingContentReply     string // 会议内容问答for自由对话
+	meetingContentReplyFlag bool
+}
+
+func NewMyAiVcMeetingContentCommonResultBuilder() *MyAiVcMeetingContentCommonResultBuilder {
+	builder := &MyAiVcMeetingContentCommonResultBuilder{}
+	return builder
+}
+
+// 会议内容问答for自由对话
+//
+// 示例值：该会议xxx
+func (builder *MyAiVcMeetingContentCommonResultBuilder) MeetingContentReply(meetingContentReply string) *MyAiVcMeetingContentCommonResultBuilder {
+	builder.meetingContentReply = meetingContentReply
+	builder.meetingContentReplyFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingContentCommonResultBuilder) Build() *MyAiVcMeetingContentCommonResult {
+	req := &MyAiVcMeetingContentCommonResult{}
+	if builder.meetingContentReplyFlag {
+		req.MeetingContentReply = &builder.meetingContentReply
+
+	}
+	return req
+}
+
+type MyAiVcMeetingExtra struct {
+	VcMeetingId *string `json:"vc_meeting_id,omitempty"` // 会议id
+	VcLocale    *string `json:"vc_locale,omitempty"`     // 客户端语言
+}
+
+type MyAiVcMeetingExtraBuilder struct {
+	vcMeetingId     string // 会议id
+	vcMeetingIdFlag bool
+	vcLocale        string // 客户端语言
+	vcLocaleFlag    bool
+}
+
+func NewMyAiVcMeetingExtraBuilder() *MyAiVcMeetingExtraBuilder {
+	builder := &MyAiVcMeetingExtraBuilder{}
+	return builder
+}
+
+// 会议id
+//
+// 示例值：6909384684539478036
+func (builder *MyAiVcMeetingExtraBuilder) VcMeetingId(vcMeetingId string) *MyAiVcMeetingExtraBuilder {
+	builder.vcMeetingId = vcMeetingId
+	builder.vcMeetingIdFlag = true
+	return builder
+}
+
+// 客户端语言
+//
+// 示例值：zh_cn
+func (builder *MyAiVcMeetingExtraBuilder) VcLocale(vcLocale string) *MyAiVcMeetingExtraBuilder {
+	builder.vcLocale = vcLocale
+	builder.vcLocaleFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingExtraBuilder) Build() *MyAiVcMeetingExtra {
+	req := &MyAiVcMeetingExtra{}
+	if builder.vcMeetingIdFlag {
+		req.VcMeetingId = &builder.vcMeetingId
+
+	}
+	if builder.vcLocaleFlag {
+		req.VcLocale = &builder.vcLocale
+
+	}
+	return req
+}
+
+type MyAiVcMeetingOperationResult struct {
+	MeetingOperationReply *string `json:"meeting_operation_reply,omitempty"` // 会议操作回复
+}
+
+type MyAiVcMeetingOperationResultBuilder struct {
+	meetingOperationReply     string // 会议操作回复
+	meetingOperationReplyFlag bool
+}
+
+func NewMyAiVcMeetingOperationResultBuilder() *MyAiVcMeetingOperationResultBuilder {
+	builder := &MyAiVcMeetingOperationResultBuilder{}
+	return builder
+}
+
+// 会议操作回复
+//
+// 示例值：已成功执行
+func (builder *MyAiVcMeetingOperationResultBuilder) MeetingOperationReply(meetingOperationReply string) *MyAiVcMeetingOperationResultBuilder {
+	builder.meetingOperationReply = meetingOperationReply
+	builder.meetingOperationReplyFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingOperationResultBuilder) Build() *MyAiVcMeetingOperationResult {
+	req := &MyAiVcMeetingOperationResult{}
+	if builder.meetingOperationReplyFlag {
+		req.MeetingOperationReply = &builder.meetingOperationReply
+
+	}
+	return req
+}
+
+type MyAiVcMeetingRecapResult struct {
+	MeetingRecapOrFailReason *string `json:"meeting_recap_or_fail_reason,omitempty"` // 会议纪要for快捷指令
+	MeetingRecap             *string `json:"meeting_recap,omitempty"`                // 会议纪要for自由对话
+}
+
+type MyAiVcMeetingRecapResultBuilder struct {
+	meetingRecapOrFailReason     string // 会议纪要for快捷指令
+	meetingRecapOrFailReasonFlag bool
+	meetingRecap                 string // 会议纪要for自由对话
+	meetingRecapFlag             bool
+}
+
+func NewMyAiVcMeetingRecapResultBuilder() *MyAiVcMeetingRecapResultBuilder {
+	builder := &MyAiVcMeetingRecapResultBuilder{}
+	return builder
+}
+
+// 会议纪要for快捷指令
+//
+// 示例值：会议纪要内容是xxx，或该会议未打开录制，无法生成纪要
+func (builder *MyAiVcMeetingRecapResultBuilder) MeetingRecapOrFailReason(meetingRecapOrFailReason string) *MyAiVcMeetingRecapResultBuilder {
+	builder.meetingRecapOrFailReason = meetingRecapOrFailReason
+	builder.meetingRecapOrFailReasonFlag = true
+	return builder
+}
+
+// 会议纪要for自由对话
+//
+// 示例值：会议纪要内容是xxx
+func (builder *MyAiVcMeetingRecapResultBuilder) MeetingRecap(meetingRecap string) *MyAiVcMeetingRecapResultBuilder {
+	builder.meetingRecap = meetingRecap
+	builder.meetingRecapFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingRecapResultBuilder) Build() *MyAiVcMeetingRecapResult {
+	req := &MyAiVcMeetingRecapResult{}
+	if builder.meetingRecapOrFailReasonFlag {
+		req.MeetingRecapOrFailReason = &builder.meetingRecapOrFailReason
+
+	}
+	if builder.meetingRecapFlag {
+		req.MeetingRecap = &builder.meetingRecap
+
+	}
+	return req
+}
+
+type MyAiVcMeetingScenarioContext struct {
+	Plugins  []*MyAiPluginContext `json:"plugins,omitempty"`   // 会话选择的插件列表
+	Object   *MyAiObjectContext   `json:"object,omitempty"`    // 会话所在实体的信息
+	WorkMode *int                 `json:"work_mode,omitempty"` // 会话所处的业务模式
+	Scenario *string              `json:"scenario,omitempty"`  // 会话所处的业务场景
+	Extra    *MyAiVcMeetingExtra  `json:"extra,omitempty"`     // 透传数据
+}
+
+type MyAiVcMeetingScenarioContextBuilder struct {
+	plugins      []*MyAiPluginContext // 会话选择的插件列表
+	pluginsFlag  bool
+	object       *MyAiObjectContext // 会话所在实体的信息
+	objectFlag   bool
+	workMode     int // 会话所处的业务模式
+	workModeFlag bool
+	scenario     string // 会话所处的业务场景
+	scenarioFlag bool
+	extra        *MyAiVcMeetingExtra // 透传数据
+	extraFlag    bool
+}
+
+func NewMyAiVcMeetingScenarioContextBuilder() *MyAiVcMeetingScenarioContextBuilder {
+	builder := &MyAiVcMeetingScenarioContextBuilder{}
+	return builder
+}
+
+// 会话选择的插件列表
+//
+// 示例值：
+func (builder *MyAiVcMeetingScenarioContextBuilder) Plugins(plugins []*MyAiPluginContext) *MyAiVcMeetingScenarioContextBuilder {
+	builder.plugins = plugins
+	builder.pluginsFlag = true
+	return builder
+}
+
+// 会话所在实体的信息
+//
+// 示例值：
+func (builder *MyAiVcMeetingScenarioContextBuilder) Object(object *MyAiObjectContext) *MyAiVcMeetingScenarioContextBuilder {
+	builder.object = object
+	builder.objectFlag = true
+	return builder
+}
+
+// 会话所处的业务模式
+//
+// 示例值：1
+func (builder *MyAiVcMeetingScenarioContextBuilder) WorkMode(workMode int) *MyAiVcMeetingScenarioContextBuilder {
+	builder.workMode = workMode
+	builder.workModeFlag = true
+	return builder
+}
+
+// 会话所处的业务场景
+//
+// 示例值：IM
+func (builder *MyAiVcMeetingScenarioContextBuilder) Scenario(scenario string) *MyAiVcMeetingScenarioContextBuilder {
+	builder.scenario = scenario
+	builder.scenarioFlag = true
+	return builder
+}
+
+// 透传数据
+//
+// 示例值：
+func (builder *MyAiVcMeetingScenarioContextBuilder) Extra(extra *MyAiVcMeetingExtra) *MyAiVcMeetingScenarioContextBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingScenarioContextBuilder) Build() *MyAiVcMeetingScenarioContext {
+	req := &MyAiVcMeetingScenarioContext{}
+	if builder.pluginsFlag {
+		req.Plugins = builder.plugins
+	}
+	if builder.objectFlag {
+		req.Object = builder.object
+	}
+	if builder.workModeFlag {
+		req.WorkMode = &builder.workMode
+
+	}
+	if builder.scenarioFlag {
+		req.Scenario = &builder.scenario
+
+	}
+	if builder.extraFlag {
+		req.Extra = builder.extra
+	}
+	return req
+}
+
+type MyAiVcMeetingTodoTaskResult struct {
+	MeetingTodoTaskOrFailReason *string `json:"meeting_todo_task_or_fail_reason,omitempty"` // 会议待办for快捷指令
+	MeetingTodoTask             *string `json:"meeting_todo_task,omitempty"`                // 会议待办for自由对话
+}
+
+type MyAiVcMeetingTodoTaskResultBuilder struct {
+	meetingTodoTaskOrFailReason     string // 会议待办for快捷指令
+	meetingTodoTaskOrFailReasonFlag bool
+	meetingTodoTask                 string // 会议待办for自由对话
+	meetingTodoTaskFlag             bool
+}
+
+func NewMyAiVcMeetingTodoTaskResultBuilder() *MyAiVcMeetingTodoTaskResultBuilder {
+	builder := &MyAiVcMeetingTodoTaskResultBuilder{}
+	return builder
+}
+
+// 会议待办for快捷指令
+//
+// 示例值：会议待办是xxx，或因录制未打开，待办未生成
+func (builder *MyAiVcMeetingTodoTaskResultBuilder) MeetingTodoTaskOrFailReason(meetingTodoTaskOrFailReason string) *MyAiVcMeetingTodoTaskResultBuilder {
+	builder.meetingTodoTaskOrFailReason = meetingTodoTaskOrFailReason
+	builder.meetingTodoTaskOrFailReasonFlag = true
+	return builder
+}
+
+// 会议待办for自由对话
+//
+// 示例值：会议待办是xxx
+func (builder *MyAiVcMeetingTodoTaskResultBuilder) MeetingTodoTask(meetingTodoTask string) *MyAiVcMeetingTodoTaskResultBuilder {
+	builder.meetingTodoTask = meetingTodoTask
+	builder.meetingTodoTaskFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingTodoTaskResultBuilder) Build() *MyAiVcMeetingTodoTaskResult {
+	req := &MyAiVcMeetingTodoTaskResult{}
+	if builder.meetingTodoTaskOrFailReasonFlag {
+		req.MeetingTodoTaskOrFailReason = &builder.meetingTodoTaskOrFailReason
+
+	}
+	if builder.meetingTodoTaskFlag {
+		req.MeetingTodoTask = &builder.meetingTodoTask
+
+	}
+	return req
+}
+
 type Options struct {
 	Text    *string `json:"text,omitempty"`     // 选项文本名称/其他选项的对应文本
 	Key     *string `json:"key,omitempty"`      // 选项的自定义key

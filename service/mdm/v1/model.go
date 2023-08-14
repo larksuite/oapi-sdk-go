@@ -2391,6 +2391,38 @@ func (builder *MultiLanguageBuilder) Build() *MultiLanguage {
 	return req
 }
 
+type OpenApiUpdateVendor struct {
+	Id *string `json:"id,omitempty"` // id
+}
+
+type OpenApiUpdateVendorBuilder struct {
+	id     string // id
+	idFlag bool
+}
+
+func NewOpenApiUpdateVendorBuilder() *OpenApiUpdateVendorBuilder {
+	builder := &OpenApiUpdateVendorBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：1111111111
+func (builder *OpenApiUpdateVendorBuilder) Id(id string) *OpenApiUpdateVendorBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *OpenApiUpdateVendorBuilder) Build() *OpenApiUpdateVendor {
+	req := &OpenApiUpdateVendor{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
 type Project struct {
 	ProjectUid                 *string                      `json:"project_uid,omitempty"`                   // 项目唯一id
 	Code                       *string                      `json:"code,omitempty"`                          // 项目编码

@@ -3720,13 +3720,14 @@ type User struct {
 
 	JobTitle *string `json:"job_title,omitempty"` // 职务
 
-	IsFrozen        *bool               `json:"is_frozen,omitempty"`        // 是否暂停用户
-	Geo             *string             `json:"geo,omitempty"`              // 数据驻留地
-	JobLevelId      *string             `json:"job_level_id,omitempty"`     // 职级ID
-	JobFamilyId     *string             `json:"job_family_id,omitempty"`    // 序列ID
-	SubscriptionIds []string            `json:"subscription_ids,omitempty"` // 分配给用户的席位ID列表
-	AssignInfo      []*UserAssignInfo   `json:"assign_info,omitempty"`      // 用户席位列表
-	DepartmentPath  []*DepartmentDetail `json:"department_path,omitempty"`  // 部门路径
+	IsFrozen                *bool               `json:"is_frozen,omitempty"`                   // 是否暂停用户
+	Geo                     *string             `json:"geo,omitempty"`                         // 数据驻留地
+	JobLevelId              *string             `json:"job_level_id,omitempty"`                // 职级ID
+	JobFamilyId             *string             `json:"job_family_id,omitempty"`               // 序列ID
+	SubscriptionIds         []string            `json:"subscription_ids,omitempty"`            // 分配给用户的席位ID列表
+	AssignInfo              []*UserAssignInfo   `json:"assign_info,omitempty"`                 // 用户席位列表
+	DepartmentPath          []*DepartmentDetail `json:"department_path,omitempty"`             // 部门路径
+	DottedLineLeaderUserIds []string            `json:"dotted_line_leader_user_ids,omitempty"` // 虚线上级ID
 }
 
 type UserBuilder struct {
@@ -3785,20 +3786,22 @@ type UserBuilder struct {
 	jobTitle     string // 职务
 	jobTitleFlag bool
 
-	isFrozen            bool // 是否暂停用户
-	isFrozenFlag        bool
-	geo                 string // 数据驻留地
-	geoFlag             bool
-	jobLevelId          string // 职级ID
-	jobLevelIdFlag      bool
-	jobFamilyId         string // 序列ID
-	jobFamilyIdFlag     bool
-	subscriptionIds     []string // 分配给用户的席位ID列表
-	subscriptionIdsFlag bool
-	assignInfo          []*UserAssignInfo // 用户席位列表
-	assignInfoFlag      bool
-	departmentPath      []*DepartmentDetail // 部门路径
-	departmentPathFlag  bool
+	isFrozen                    bool // 是否暂停用户
+	isFrozenFlag                bool
+	geo                         string // 数据驻留地
+	geoFlag                     bool
+	jobLevelId                  string // 职级ID
+	jobLevelIdFlag              bool
+	jobFamilyId                 string // 序列ID
+	jobFamilyIdFlag             bool
+	subscriptionIds             []string // 分配给用户的席位ID列表
+	subscriptionIdsFlag         bool
+	assignInfo                  []*UserAssignInfo // 用户席位列表
+	assignInfoFlag              bool
+	departmentPath              []*DepartmentDetail // 部门路径
+	departmentPathFlag          bool
+	dottedLineLeaderUserIds     []string // 虚线上级ID
+	dottedLineLeaderUserIdsFlag bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -4103,6 +4106,15 @@ func (builder *UserBuilder) DepartmentPath(departmentPath []*DepartmentDetail) *
 	return builder
 }
 
+// 虚线上级ID
+//
+// 示例值：
+func (builder *UserBuilder) DottedLineLeaderUserIds(dottedLineLeaderUserIds []string) *UserBuilder {
+	builder.dottedLineLeaderUserIds = dottedLineLeaderUserIds
+	builder.dottedLineLeaderUserIdsFlag = true
+	return builder
+}
+
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
 	if builder.unionIdFlag {
@@ -4231,6 +4243,9 @@ func (builder *UserBuilder) Build() *User {
 	}
 	if builder.departmentPathFlag {
 		req.DepartmentPath = builder.departmentPath
+	}
+	if builder.dottedLineLeaderUserIdsFlag {
+		req.DottedLineLeaderUserIds = builder.dottedLineLeaderUserIds
 	}
 	return req
 }
@@ -4707,9 +4722,10 @@ type UserEvent struct {
 
 	Orders []*UserOrder `json:"orders,omitempty"` // 用户排序信息
 
-	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"`  // 自定义属性
-	JobLevelId  *string           `json:"job_level_id,omitempty"`  // 职级ID
-	JobFamilyId *string           `json:"job_family_id,omitempty"` // 序列ID
+	CustomAttrs             []*UserCustomAttr `json:"custom_attrs,omitempty"`                // 自定义属性
+	JobLevelId              *string           `json:"job_level_id,omitempty"`                // 职级ID
+	JobFamilyId             *string           `json:"job_family_id,omitempty"`               // 序列ID
+	DottedLineLeaderUserIds []string          `json:"dotted_line_leader_user_ids,omitempty"` // 虚线上级ID
 }
 
 type UserEventBuilder struct {
@@ -4761,12 +4777,14 @@ type UserEventBuilder struct {
 	orders     []*UserOrder // 用户排序信息
 	ordersFlag bool
 
-	customAttrs     []*UserCustomAttr // 自定义属性
-	customAttrsFlag bool
-	jobLevelId      string // 职级ID
-	jobLevelIdFlag  bool
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	customAttrs                 []*UserCustomAttr // 自定义属性
+	customAttrsFlag             bool
+	jobLevelId                  string // 职级ID
+	jobLevelIdFlag              bool
+	jobFamilyId                 string // 序列ID
+	jobFamilyIdFlag             bool
+	dottedLineLeaderUserIds     []string // 虚线上级ID
+	dottedLineLeaderUserIdsFlag bool
 }
 
 func NewUserEventBuilder() *UserEventBuilder {
@@ -4999,6 +5017,15 @@ func (builder *UserEventBuilder) JobFamilyId(jobFamilyId string) *UserEventBuild
 	return builder
 }
 
+// 虚线上级ID
+//
+// 示例值：
+func (builder *UserEventBuilder) DottedLineLeaderUserIds(dottedLineLeaderUserIds []string) *UserEventBuilder {
+	builder.dottedLineLeaderUserIds = dottedLineLeaderUserIds
+	builder.dottedLineLeaderUserIdsFlag = true
+	return builder
+}
+
 func (builder *UserEventBuilder) Build() *UserEvent {
 	req := &UserEvent{}
 	if builder.openIdFlag {
@@ -5099,6 +5126,9 @@ func (builder *UserEventBuilder) Build() *UserEvent {
 	if builder.jobFamilyIdFlag {
 		req.JobFamilyId = &builder.jobFamilyId
 
+	}
+	if builder.dottedLineLeaderUserIdsFlag {
+		req.DottedLineLeaderUserIds = builder.dottedLineLeaderUserIds
 	}
 	return req
 }

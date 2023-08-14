@@ -29,7 +29,7 @@ func main() {
 	req := larksearch.NewCreateDataSourceItemReqBuilder().
 		DataSourceId("service_ticket").
 		Item(larksearch.NewItemBuilder().
-			Id("").
+			Id("my_item_01010111").
 			Acl([]*larksearch.Acl{larksearch.NewAclBuilder().Build()}).
 			Metadata(larksearch.NewItemMetadataBuilder().Build()).
 			StructuredData("").

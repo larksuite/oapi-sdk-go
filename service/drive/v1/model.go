@@ -54,6 +54,18 @@ const (
 )
 
 const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeCreateShortcutFileUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateShortcutFileUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateShortcutFileOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	TypeDeleteFileFile     = "file"     // 文件类型
 	TypeDeleteFileDocx     = "docx"     // docx文档类型
 	TypeDeleteFileBitable  = "bitable"  // 多维表格类型
@@ -78,6 +90,22 @@ const (
 	FileTypeGetSubscribeFileSheet   = "sheet"   // 表格
 	FileTypeGetSubscribeFileBitable = "bitable" // 多维表格
 	FileTypeGetSubscribeFileFile    = "file"    // 文件
+)
+
+const (
+	OrderByEditedTime  = "EditedTime"  // 编辑时间排序
+	OrderByCreatedTime = "CreatedTime" // 创建时间排序
+)
+
+const (
+	DirectionASC  = "ASC"  // 升序
+	DirectionDESC = "DESC" // 降序
+)
+
+const (
+	UserIdTypeListFileUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListFileUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListFileOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -113,9 +141,9 @@ const (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeBatchQueryFileCommentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeBatchQueryFileCommentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeBatchQueryFileCommentOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -225,17 +253,11 @@ const (
 )
 
 const (
-	ObjTypeDoc     = "doc"     // doc文档
-	ObjTypeSheet   = "sheet"   // sheet文档
-	ObjTypeBitable = "bitable" // bitable文档
-	ObjTypeDocx    = "docx"    // docx文档
+	ObjTypeDocx = "docx" // 新版文档
 )
 
 const (
-	ParentTypeCreateFileVersionDoc            = "doc"     // doc文档
-	ParentTypeCreateFileVersionObjTypeSheet   = "sheet"   // sheet文档
-	ParentTypeCreateFileVersionObjTypeBitable = "bitable" // bitable文档
-	ParentTypeCreateFileVersionObjTypeDocx    = "docx"    // docx文档
+	ParentTypeCreateFileVersionObjTypeDocx = "docx" // 新版文档
 )
 
 const (
@@ -245,10 +267,7 @@ const (
 )
 
 const (
-	ObjTypeDeleteFileVersionDoc     = "doc"     // doc文档
-	ObjTypeDeleteFileVersionSheet   = "sheet"   // sheet文档
-	ObjTypeDeleteFileVersionBitable = "bitable" // bitable文档
-	ObjTypeDeleteFileVersionDocx    = "docx"    // docx文档
+	ObjTypeDeleteFileVersionDocx = "docx" // 新版文档
 )
 
 const (
@@ -258,10 +277,7 @@ const (
 )
 
 const (
-	ObjTypeGetFileVersionDoc     = "doc"     // doc文档
-	ObjTypeGetFileVersionSheet   = "sheet"   // sheet文档
-	ObjTypeGetFileVersionBitable = "bitable" // bitable文档
-	ObjTypeGetFileVersionDocx    = "docx"    // docx文档
+	ObjTypeGetFileVersionDocx = "docx" // 新版文档
 )
 
 const (
@@ -271,10 +287,7 @@ const (
 )
 
 const (
-	ObjTypeListFileVersionDoc     = "doc"     // doc文档
-	ObjTypeListFileVersionSheet   = "sheet"   // sheet文档
-	ObjTypeListFileVersionBitable = "bitable" // bitable文档
-	ObjTypeListFileVersionDocx    = "docx"    // docx文档
+	ObjTypeListFileVersionDocx = "docx" // 新版文档
 )
 
 const (
@@ -1706,6 +1719,9 @@ func (builder *ExportTaskBuilder) Build() *ExportTask {
 	return req
 }
 
+type Favorite struct {
+}
+
 type File struct {
 	Token        *string       `json:"token,omitempty"`         // 文件标识
 	Name         *string       `json:"name,omitempty"`          // 文件名
@@ -1713,6 +1729,9 @@ type File struct {
 	ParentToken  *string       `json:"parent_token,omitempty"`  // 父文件夹标识
 	Url          *string       `json:"url,omitempty"`           // 在浏览器中查看的链接
 	ShortcutInfo *ShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息
+	CreatedTime  *string       `json:"created_time,omitempty"`  // 文件创建时间
+	ModifiedTime *string       `json:"modified_time,omitempty"` // 文件最近修改时间
+	OwnerId      *string       `json:"owner_id,omitempty"`      // 文件所有者
 }
 
 type FileBuilder struct {
@@ -1728,6 +1747,12 @@ type FileBuilder struct {
 	urlFlag          bool
 	shortcutInfo     *ShortcutInfo // 快捷方式文件信息
 	shortcutInfoFlag bool
+	createdTime      string // 文件创建时间
+	createdTimeFlag  bool
+	modifiedTime     string // 文件最近修改时间
+	modifiedTimeFlag bool
+	ownerId          string // 文件所有者
+	ownerIdFlag      bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -1737,7 +1762,7 @@ func NewFileBuilder() *FileBuilder {
 
 // 文件标识
 //
-// 示例值：
+// 示例值：fldcnP8B5Fpr3UwVi24JykpuOic
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
 	builder.tokenFlag = true
@@ -1746,7 +1771,7 @@ func (builder *FileBuilder) Token(token string) *FileBuilder {
 
 // 文件名
 //
-// 示例值：
+// 示例值：测试
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1755,7 +1780,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 
 // 文件类型
 //
-// 示例值：
+// 示例值：doc
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -1764,7 +1789,7 @@ func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 
 // 父文件夹标识
 //
-// 示例值：
+// 示例值：fldcnP8B5Fpr3UwVi24JykpuOic
 func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 	builder.parentToken = parentToken
 	builder.parentTokenFlag = true
@@ -1773,7 +1798,7 @@ func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
 
 // 在浏览器中查看的链接
 //
-// 示例值：
+// 示例值：https://bytedance.feishu.cn/drive/folder/fldcnP8B5Fpr3UwVi24JykpuOic
 func (builder *FileBuilder) Url(url string) *FileBuilder {
 	builder.url = url
 	builder.urlFlag = true
@@ -1786,6 +1811,33 @@ func (builder *FileBuilder) Url(url string) *FileBuilder {
 func (builder *FileBuilder) ShortcutInfo(shortcutInfo *ShortcutInfo) *FileBuilder {
 	builder.shortcutInfo = shortcutInfo
 	builder.shortcutInfoFlag = true
+	return builder
+}
+
+// 文件创建时间
+//
+// 示例值：1686125119
+func (builder *FileBuilder) CreatedTime(createdTime string) *FileBuilder {
+	builder.createdTime = createdTime
+	builder.createdTimeFlag = true
+	return builder
+}
+
+// 文件最近修改时间
+//
+// 示例值：1686125119
+func (builder *FileBuilder) ModifiedTime(modifiedTime string) *FileBuilder {
+	builder.modifiedTime = modifiedTime
+	builder.modifiedTimeFlag = true
+	return builder
+}
+
+// 文件所有者
+//
+// 示例值：ou_b13d41c02edc52ce66aaae67bf1abcef
+func (builder *FileBuilder) OwnerId(ownerId string) *FileBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
 	return builder
 }
 
@@ -1813,6 +1865,18 @@ func (builder *FileBuilder) Build() *File {
 	}
 	if builder.shortcutInfoFlag {
 		req.ShortcutInfo = builder.shortcutInfo
+	}
+	if builder.createdTimeFlag {
+		req.CreatedTime = &builder.createdTime
+
+	}
+	if builder.modifiedTimeFlag {
+		req.ModifiedTime = &builder.modifiedTime
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
 	}
 	return req
 }
@@ -2132,6 +2196,9 @@ func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
 		req.Extra = builder.extra
 	}
 	return req
+}
+
+type FileFavorite struct {
 }
 
 type FileSubscription struct {
@@ -4781,6 +4848,14 @@ func (builder *CopyFileReqBuilder) FileToken(fileToken string) *CopyFileReqBuild
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CopyFileReqBuilder) UserIdType(userIdType string) *CopyFileReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 // 将文件复制到用户云空间的其他文件夹中。不支持复制文件夹。;;如果目标文件夹是我的空间，则复制的文件会在「**我的空间**」的「**归我所有**」列表里。
 func (builder *CopyFileReqBuilder) Body(body *CopyFileReqBody) *CopyFileReqBuilder {
 	builder.body = body
@@ -4791,6 +4866,7 @@ func (builder *CopyFileReqBuilder) Build() *CopyFileReq {
 	req := &CopyFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -5051,6 +5127,14 @@ func NewCreateShortcutFileReqBuilder() *CreateShortcutFileReqBuilder {
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CreateShortcutFileReqBuilder) UserIdType(userIdType string) *CreateShortcutFileReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 //
 func (builder *CreateShortcutFileReqBuilder) Body(body *CreateShortcutFileReqBody) *CreateShortcutFileReqBuilder {
 	builder.body = body
@@ -5060,6 +5144,7 @@ func (builder *CreateShortcutFileReqBuilder) Body(body *CreateShortcutFileReqBod
 func (builder *CreateShortcutFileReqBuilder) Build() *CreateShortcutFileReq {
 	req := &CreateShortcutFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
 	return req
 }
@@ -5336,6 +5421,30 @@ func (builder *ListFileReqBuilder) FolderToken(folderToken string) *ListFileReqB
 	return builder
 }
 
+// 排序规则
+//
+// 示例值：EditedTime
+func (builder *ListFileReqBuilder) OrderBy(orderBy string) *ListFileReqBuilder {
+	builder.apiReq.QueryParams.Set("order_by", fmt.Sprint(orderBy))
+	return builder
+}
+
+// 升序降序
+//
+// 示例值：DESC
+func (builder *ListFileReqBuilder) Direction(direction string) *ListFileReqBuilder {
+	builder.apiReq.QueryParams.Set("direction", fmt.Sprint(direction))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListFileReqBuilder) UserIdType(userIdType string) *ListFileReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *ListFileReqBuilder) Build() *ListFileReq {
 	req := &ListFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5350,7 +5459,7 @@ type ListFileReq struct {
 type ListFileRespData struct {
 	Files         []*File `json:"files,omitempty"`           // 文件夹清单列表
 	NextPageToken *string `json:"next_page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回下一次遍历的page_token，否则则不返回
-	HasMore       *bool   `json:"has_more,omitempty"`        //
+	HasMore       *bool   `json:"has_more,omitempty"`        // 是否有下一页
 }
 
 type ListFileResp struct {
@@ -7366,7 +7475,7 @@ type CreateFileVersionReq struct {
 type CreateFileVersionRespData struct {
 	Name        *string `json:"name,omitempty"`         // 版本文档标题
 	Version     *string `json:"version,omitempty"`      // 版本文档版本号
-	ParentToken *string `json:"parent_token,omitempty"` // shtbcpM2mm3znrLfWnf4browTYp
+	ParentToken *string `json:"parent_token,omitempty"` // 源文档token
 	OwnerId     *string `json:"owner_id,omitempty"`     // 版本文档所有者id
 	CreatorId   *string `json:"creator_id,omitempty"`   // 版本文档创建者id
 	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间
@@ -7512,7 +7621,7 @@ type GetFileVersionReq struct {
 type GetFileVersionRespData struct {
 	Name        *string `json:"name,omitempty"`         // 版本文档标题
 	Version     *string `json:"version,omitempty"`      // 版本文档版本号
-	ParentToken *string `json:"parent_token,omitempty"` // shtbcpM2mm3znrLfWnf4browTYp
+	ParentToken *string `json:"parent_token,omitempty"` // 源文档token
 	OwnerId     *string `json:"owner_id,omitempty"`     // 版本文档所有者id
 	CreatorId   *string `json:"creator_id,omitempty"`   // 版本文档创建者id
 	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间

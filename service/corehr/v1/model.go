@@ -8869,21 +8869,28 @@ func (builder *LeaveGrantingRecordBuilder) Build() *LeaveGrantingRecord {
 }
 
 type LeaveRequest struct {
-	LeaveRequestId     *string `json:"leave_request_id,omitempty"`     // 请假记录ID
-	EmploymentId       *string `json:"employment_id,omitempty"`        // 雇佣信息ID
-	EmploymentName     []*I18n `json:"employment_name,omitempty"`      // 员工姓名
-	LeaveTypeId        *string `json:"leave_type_id,omitempty"`        // 假期类型ID
-	LeaveTypeName      []*I18n `json:"leave_type_name,omitempty"`      // 假期类型名称
-	StartTime          *string `json:"start_time,omitempty"`           // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
-	EndTime            *string `json:"end_time,omitempty"`             // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
-	LeaveDuration      *string `json:"leave_duration,omitempty"`       // 假期时长
-	LeaveDurationUnit  *int    `json:"leave_duration_unit,omitempty"`  // 假期时长单位;;可选值有：;;- 1: 天;;- 2: 小时
-	LeaveRequestStatus *int    `json:"leave_request_status,omitempty"` // 请假记录的状态;;可选值有：;;- 1：已通过;;- 2：审批中;;- 3：审批中（更正）;- 4：审批中（取消休假）;- 5：审批中（返岗）;- 6：已返岗;- 7：已拒绝;- 8：已取消;- 9：已撤回
-	GrantSource        *string `json:"grant_source,omitempty"`         // 数据来源;;可选值有：;;- "manual"：手动创建;;- "system"：系统创建"
-	ReturnTime         *string `json:"return_time,omitempty"`          // 返岗时间
-	SubmittedAt        *string `json:"submitted_at,omitempty"`         // 发起时间
-	SubmittedBy        *string `json:"submitted_by,omitempty"`         // 发起人
-	Notes              *string `json:"notes,omitempty"`                // 备注
+	LeaveRequestId     *string               `json:"leave_request_id,omitempty"`     // 请假记录ID
+	EmploymentId       *string               `json:"employment_id,omitempty"`        // 雇佣信息ID
+	EmploymentName     []*I18n               `json:"employment_name,omitempty"`      // 员工姓名
+	LeaveTypeId        *string               `json:"leave_type_id,omitempty"`        // 假期类型ID
+	LeaveTypeName      []*I18n               `json:"leave_type_name,omitempty"`      // 假期类型名称
+	StartTime          *string               `json:"start_time,omitempty"`           // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	EndTime            *string               `json:"end_time,omitempty"`             // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	LeaveDuration      *string               `json:"leave_duration,omitempty"`       // 假期时长
+	LeaveDurationUnit  *int                  `json:"leave_duration_unit,omitempty"`  // 假期时长单位;;可选值有：;;- 1: 天;;- 2: 小时
+	LeaveRequestStatus *int                  `json:"leave_request_status,omitempty"` // 请假记录的状态;;可选值有：;;- 1：已通过;;- 2：审批中;;- 3：审批中（更正）;- 4：审批中（取消休假）;- 5：审批中（返岗）;- 6：已返岗;- 7：已拒绝;- 8：已取消;- 9：已撤回
+	GrantSource        *string               `json:"grant_source,omitempty"`         // 数据来源;;可选值有：;;- "manual"：手动创建;;- "system"：系统创建"
+	ReturnTime         *string               `json:"return_time,omitempty"`          // 返岗时间
+	SubmittedAt        *string               `json:"submitted_at,omitempty"`         // 发起时间
+	SubmittedBy        *string               `json:"submitted_by,omitempty"`         // 发起人
+	Notes              *string               `json:"notes,omitempty"`                // 备注
+	ApprovalDate       *string               `json:"approval_date,omitempty"`        // 审批通过日期
+	IsDeducted         *bool                 `json:"is_deducted,omitempty"`          // 是否带薪
+	Details            []*LeaveRequestDetail `json:"details,omitempty"`              // 请假详情
+	LeaveTypeCode      *string               `json:"leave_type_code,omitempty"`      // 假期类型枚举
+	ActualEndDate      *string               `json:"actual_end_date,omitempty"`      // 实际结束日期
+	EstimatedEndDate   *string               `json:"estimated_end_date,omitempty"`   // 预估结束日期
+	TimeZone           *string               `json:"time_zone,omitempty"`            // 时区
 }
 
 type LeaveRequestBuilder struct {
@@ -8917,6 +8924,20 @@ type LeaveRequestBuilder struct {
 	submittedByFlag        bool
 	notes                  string // 备注
 	notesFlag              bool
+	approvalDate           string // 审批通过日期
+	approvalDateFlag       bool
+	isDeducted             bool // 是否带薪
+	isDeductedFlag         bool
+	details                []*LeaveRequestDetail // 请假详情
+	detailsFlag            bool
+	leaveTypeCode          string // 假期类型枚举
+	leaveTypeCodeFlag      bool
+	actualEndDate          string // 实际结束日期
+	actualEndDateFlag      bool
+	estimatedEndDate       string // 预估结束日期
+	estimatedEndDateFlag   bool
+	timeZone               string // 时区
+	timeZoneFlag           bool
 }
 
 func NewLeaveRequestBuilder() *LeaveRequestBuilder {
@@ -9059,6 +9080,69 @@ func (builder *LeaveRequestBuilder) Notes(notes string) *LeaveRequestBuilder {
 	return builder
 }
 
+// 审批通过日期
+//
+// 示例值：2022-09-09
+func (builder *LeaveRequestBuilder) ApprovalDate(approvalDate string) *LeaveRequestBuilder {
+	builder.approvalDate = approvalDate
+	builder.approvalDateFlag = true
+	return builder
+}
+
+// 是否带薪
+//
+// 示例值：false
+func (builder *LeaveRequestBuilder) IsDeducted(isDeducted bool) *LeaveRequestBuilder {
+	builder.isDeducted = isDeducted
+	builder.isDeductedFlag = true
+	return builder
+}
+
+// 请假详情
+//
+// 示例值：
+func (builder *LeaveRequestBuilder) Details(details []*LeaveRequestDetail) *LeaveRequestBuilder {
+	builder.details = details
+	builder.detailsFlag = true
+	return builder
+}
+
+// 假期类型枚举
+//
+// 示例值：Annual Leave
+func (builder *LeaveRequestBuilder) LeaveTypeCode(leaveTypeCode string) *LeaveRequestBuilder {
+	builder.leaveTypeCode = leaveTypeCode
+	builder.leaveTypeCodeFlag = true
+	return builder
+}
+
+// 实际结束日期
+//
+// 示例值：2022-08-02
+func (builder *LeaveRequestBuilder) ActualEndDate(actualEndDate string) *LeaveRequestBuilder {
+	builder.actualEndDate = actualEndDate
+	builder.actualEndDateFlag = true
+	return builder
+}
+
+// 预估结束日期
+//
+// 示例值：2022-08-02
+func (builder *LeaveRequestBuilder) EstimatedEndDate(estimatedEndDate string) *LeaveRequestBuilder {
+	builder.estimatedEndDate = estimatedEndDate
+	builder.estimatedEndDateFlag = true
+	return builder
+}
+
+// 时区
+//
+// 示例值：Asia/Shanghai
+func (builder *LeaveRequestBuilder) TimeZone(timeZone string) *LeaveRequestBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	req := &LeaveRequest{}
 	if builder.leaveRequestIdFlag {
@@ -9117,6 +9201,129 @@ func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	}
 	if builder.notesFlag {
 		req.Notes = &builder.notes
+
+	}
+	if builder.approvalDateFlag {
+		req.ApprovalDate = &builder.approvalDate
+
+	}
+	if builder.isDeductedFlag {
+		req.IsDeducted = &builder.isDeducted
+
+	}
+	if builder.detailsFlag {
+		req.Details = builder.details
+	}
+	if builder.leaveTypeCodeFlag {
+		req.LeaveTypeCode = &builder.leaveTypeCode
+
+	}
+	if builder.actualEndDateFlag {
+		req.ActualEndDate = &builder.actualEndDate
+
+	}
+	if builder.estimatedEndDateFlag {
+		req.EstimatedEndDate = &builder.estimatedEndDate
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	return req
+}
+
+type LeaveRequestDetail struct {
+	LeaveRequestId    *string `json:"leave_request_id,omitempty"`    // 请假记录id
+	LeaveDate         *string `json:"leave_date,omitempty"`          // 假期发生日期
+	LeaveDuration     *string `json:"leave_duration,omitempty"`      // 假期时长
+	LeaveDurationUnit *int    `json:"leave_duration_unit,omitempty"` // 假期时长单位，1：天，2：小时
+	PaidType          *int    `json:"paid_type,omitempty"`           // 是否影响算薪，1：不参与算薪计算, 非对应的日期类型或者无对应的假期计划，2：影响算薪，3：不影响算薪
+}
+
+type LeaveRequestDetailBuilder struct {
+	leaveRequestId        string // 请假记录id
+	leaveRequestIdFlag    bool
+	leaveDate             string // 假期发生日期
+	leaveDateFlag         bool
+	leaveDuration         string // 假期时长
+	leaveDurationFlag     bool
+	leaveDurationUnit     int // 假期时长单位，1：天，2：小时
+	leaveDurationUnitFlag bool
+	paidType              int // 是否影响算薪，1：不参与算薪计算, 非对应的日期类型或者无对应的假期计划，2：影响算薪，3：不影响算薪
+	paidTypeFlag          bool
+}
+
+func NewLeaveRequestDetailBuilder() *LeaveRequestDetailBuilder {
+	builder := &LeaveRequestDetailBuilder{}
+	return builder
+}
+
+// 请假记录id
+//
+// 示例值：4718803945687580505
+func (builder *LeaveRequestDetailBuilder) LeaveRequestId(leaveRequestId string) *LeaveRequestDetailBuilder {
+	builder.leaveRequestId = leaveRequestId
+	builder.leaveRequestIdFlag = true
+	return builder
+}
+
+// 假期发生日期
+//
+// 示例值：2022-07-07
+func (builder *LeaveRequestDetailBuilder) LeaveDate(leaveDate string) *LeaveRequestDetailBuilder {
+	builder.leaveDate = leaveDate
+	builder.leaveDateFlag = true
+	return builder
+}
+
+// 假期时长
+//
+// 示例值：1
+func (builder *LeaveRequestDetailBuilder) LeaveDuration(leaveDuration string) *LeaveRequestDetailBuilder {
+	builder.leaveDuration = leaveDuration
+	builder.leaveDurationFlag = true
+	return builder
+}
+
+// 假期时长单位，1：天，2：小时
+//
+// 示例值：1
+func (builder *LeaveRequestDetailBuilder) LeaveDurationUnit(leaveDurationUnit int) *LeaveRequestDetailBuilder {
+	builder.leaveDurationUnit = leaveDurationUnit
+	builder.leaveDurationUnitFlag = true
+	return builder
+}
+
+// 是否影响算薪，1：不参与算薪计算, 非对应的日期类型或者无对应的假期计划，2：影响算薪，3：不影响算薪
+//
+// 示例值：1
+func (builder *LeaveRequestDetailBuilder) PaidType(paidType int) *LeaveRequestDetailBuilder {
+	builder.paidType = paidType
+	builder.paidTypeFlag = true
+	return builder
+}
+
+func (builder *LeaveRequestDetailBuilder) Build() *LeaveRequestDetail {
+	req := &LeaveRequestDetail{}
+	if builder.leaveRequestIdFlag {
+		req.LeaveRequestId = &builder.leaveRequestId
+
+	}
+	if builder.leaveDateFlag {
+		req.LeaveDate = &builder.leaveDate
+
+	}
+	if builder.leaveDurationFlag {
+		req.LeaveDuration = &builder.leaveDuration
+
+	}
+	if builder.leaveDurationUnitFlag {
+		req.LeaveDurationUnit = &builder.leaveDurationUnit
+
+	}
+	if builder.paidTypeFlag {
+		req.PaidType = &builder.paidType
 
 	}
 	return req
@@ -18453,6 +18660,14 @@ func (builder *LeaveBalancesLeaveReqBuilder) UserIdType(userIdType string) *Leav
 	return builder
 }
 
+// 查询时区
+//
+// 示例值：Asia/Shanghai
+func (builder *LeaveBalancesLeaveReqBuilder) TimeZone(timeZone string) *LeaveBalancesLeaveReqBuilder {
+	builder.apiReq.QueryParams.Set("time_zone", fmt.Sprint(timeZone))
+	return builder
+}
+
 func (builder *LeaveBalancesLeaveReqBuilder) Build() *LeaveBalancesLeaveReq {
 	req := &LeaveBalancesLeaveReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -18618,6 +18833,30 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMin(leaveUpdat
 // 示例值：2022-10-24 10:00:00
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMax(leaveUpdateTimeMax string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_update_time_max", fmt.Sprint(leaveUpdateTimeMax))
+	return builder
+}
+
+// 是否返回请假详情，若为true，将在每条请假记录的details字段返回请假详情
+//
+// 示例值：false
+func (builder *LeaveRequestHistoryLeaveReqBuilder) ReturnDetail(returnDetail bool) *LeaveRequestHistoryLeaveReqBuilder {
+	builder.apiReq.QueryParams.Set("return_detail", fmt.Sprint(returnDetail))
+	return builder
+}
+
+// 指定过滤长/短假类型，0表示不过滤，1表示仅获取短假，2表示仅获取长假, 默认0
+//
+// 示例值：1
+func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveTermType(leaveTermType int) *LeaveRequestHistoryLeaveReqBuilder {
+	builder.apiReq.QueryParams.Set("leave_term_type", fmt.Sprint(leaveTermType))
+	return builder
+}
+
+// 请假记录所在时区
+//
+// 示例值：Asia/Shanghai
+func (builder *LeaveRequestHistoryLeaveReqBuilder) TimeZone(timeZone string) *LeaveRequestHistoryLeaveReqBuilder {
+	builder.apiReq.QueryParams.Set("time_zone", fmt.Sprint(timeZone))
 	return builder
 }
 

@@ -47,51 +47,105 @@ const (
 )
 
 const (
-	TypeText         = 1    // 多行文本
-	TypeNumber       = 2    // 数字
+	TypeText         = 1    // 多行文本（默认值）、条码
+	TypeNumber       = 2    // 数字（默认值）、进度、货币、评分
 	TypeSingleSelect = 3    // 单选
 	TypeMultiSelect  = 4    // 多选
 	TypeDateTime     = 5    // 日期
 	TypeCheckbox     = 7    // 复选框
 	TypeUser         = 11   // 人员
+	TypePhoneNumber  = 13   // 电话号码
 	TypeUrl          = 15   // 超链接
 	TypeAttachment   = 17   // 附件
 	TypeLink         = 18   // 单向关联
 	TypeFormula      = 20   // 公式
 	TypeDuplexLink   = 21   // 双向关联
+	TypeLocation     = 22   // 地理位置
+	TypeGroupChat    = 23   // 群组
 	TypeCreatedTime  = 1001 // 创建时间
 	TypeModifiedTime = 1002 // 最后更新时间
 	TypeCreatedUser  = 1003 // 创建人
 	TypeModifiedUser = 1004 // 修改人
 	TypeAutoSerial   = 1005 // 自动编号
-	TypePhoneNumber  = 13   // 电话号码
-	TypeLocation     = 22   // 地理位置
-	TypeGroupChat    = 23   // 群组
 
 )
 
 const (
-	TypeUpdateAppTableFieldText         = 1    // 多行文本
-	TypeUpdateAppTableFieldNumber       = 2    // 数字
+	UiTypeText         = "Text"         // 多行文本
+	UiTypeBarcode      = "Barcode"      // 条码
+	UiTypeNumber       = "Number"       // 数字
+	UiTypeProgress     = "Progress"     // 进度
+	UiTypeCurrency     = "Currency"     // 货币
+	UiTypeRating       = "Rating"       // 评分
+	UiTypeSingleSelect = "SingleSelect" // 单选
+	UiTypeMultiSelect  = "MultiSelect"  // 多选
+	UiTypeDateTime     = "DateTime"     // 日期
+	UiTypeCheckbox     = "Checkbox"     // 复选框
+	UiTypeUser         = "User"         // 人员
+	UiTypeGroupChat    = "GroupChat"    // 群组
+	UiTypePhone        = "Phone"        // 电话号码
+	UiTypeURL          = "Url"          // 超链接
+	UiTypeAttachment   = "Attachment"   // 附件
+	UiTypeSingleLink   = "SingleLink"   // 单向关联
+	UiTypeFormula      = "Formula"      // 公式
+	UiTypeDuplexLink   = "DuplexLink"   // 双向关联
+	UiTypeLocation     = "Location"     // 地理位置
+	UiTypeCreatedTime  = "CreatedTime"  // 创建时间
+	UiTypeModifiedTime = "ModifiedTime" // 最后更新时间
+	UiTypeCreatedUser  = "CreatedUser"  // 创建人
+	UiTypeModifiedUser = "ModifiedUser" // 修改人
+	UiTypeAutoNumber   = "AutoNumber"   // 自动编号
+)
+
+const (
+	TypeUpdateAppTableFieldText         = 1    // 多行文本（默认值）、条码
+	TypeUpdateAppTableFieldNumber       = 2    // 数字（默认值）、进度、货币、评分
 	TypeUpdateAppTableFieldSingleSelect = 3    // 单选
 	TypeUpdateAppTableFieldMultiSelect  = 4    // 多选
 	TypeUpdateAppTableFieldDateTime     = 5    // 日期
 	TypeUpdateAppTableFieldCheckbox     = 7    // 复选框
 	TypeUpdateAppTableFieldUser         = 11   // 人员
+	TypeUpdateAppTableFieldPhoneNumber  = 13   // 电话号码
 	TypeUpdateAppTableFieldUrl          = 15   // 超链接
 	TypeUpdateAppTableFieldAttachment   = 17   // 附件
 	TypeUpdateAppTableFieldLink         = 18   // 单向关联
 	TypeUpdateAppTableFieldFormula      = 20   // 公式
 	TypeUpdateAppTableFieldDuplexLink   = 21   // 双向关联
+	TypeUpdateAppTableFieldLocation     = 22   // 地理位置
+	TypeUpdateAppTableFieldGroupChat    = 23   // 群组
 	TypeUpdateAppTableFieldCreatedTime  = 1001 // 创建时间
 	TypeUpdateAppTableFieldModifiedTime = 1002 // 最后更新时间
 	TypeUpdateAppTableFieldCreatedUser  = 1003 // 创建人
 	TypeUpdateAppTableFieldModifiedUser = 1004 // 修改人
 	TypeUpdateAppTableFieldAutoSerial   = 1005 // 自动编号
-	TypeUpdateAppTableFieldPhoneNumber  = 13   // 电话号码
-	TypeUpdateAppTableFieldLocation     = 22   // 地理位置
-	TypeUpdateAppTableFieldGroupChat    = 23   // 群组
 
+)
+
+const (
+	UiTypeUpdateAppTableFieldText         = "Text"         // 多行文本
+	UiTypeUpdateAppTableFieldBarcode      = "Barcode"      // 条码
+	UiTypeUpdateAppTableFieldNumber       = "Number"       // 数字
+	UiTypeUpdateAppTableFieldProgress     = "Progress"     // 进度
+	UiTypeUpdateAppTableFieldCurrency     = "Currency"     // 货币
+	UiTypeUpdateAppTableFieldRating       = "Rating"       // 评分
+	UiTypeUpdateAppTableFieldSingleSelect = "SingleSelect" // 单选
+	UiTypeUpdateAppTableFieldMultiSelect  = "MultiSelect"  // 多选
+	UiTypeUpdateAppTableFieldDateTime     = "DateTime"     // 日期
+	UiTypeUpdateAppTableFieldCheckbox     = "Checkbox"     // 复选框
+	UiTypeUpdateAppTableFieldUser         = "User"         // 人员
+	UiTypeUpdateAppTableFieldGroupChat    = "GroupChat"    // 群组
+	UiTypeUpdateAppTableFieldPhone        = "Phone"        // 电话号码
+	UiTypeUpdateAppTableFieldURL          = "Url"          // 超链接
+	UiTypeUpdateAppTableFieldAttachment   = "Attachment"   // 附件
+	UiTypeUpdateAppTableFieldSingleLink   = "SingleLink"   // 单向关联
+	UiTypeUpdateAppTableFieldFormula      = "Formula"      // 公式
+	UiTypeUpdateAppTableFieldDuplexLink   = "DuplexLink"   // 双向关联
+	UiTypeUpdateAppTableFieldLocation     = "Location"     // 地理位置
+	UiTypeUpdateAppTableFieldCreatedTime  = "CreatedTime"  // 创建时间
+	UiTypeUpdateAppTableFieldModifiedTime = "ModifiedTime" // 最后更新时间
+	UiTypeUpdateAppTableFieldCreatedUser  = "CreatedUser"  // 创建人
+	UiTypeUpdateAppTableFieldModifiedUser = "ModifiedUser" // 修改人
+	UiTypeUpdateAppTableFieldAutoNumber   = "AutoNumber"   // 自动编号
 )
 
 const (
@@ -1171,20 +1225,23 @@ func (builder *AppTableBuilder) Build() *AppTable {
 }
 
 type AppTableCreateHeader struct {
-	FieldId     *string                   `json:"field_id,omitempty"`    // 字段Id
 	FieldName   *string                   `json:"field_name,omitempty"`  // 字段名
 	Type        *int                      `json:"type,omitempty"`        // 字段类型
+	UiType      *string                   `json:"ui_type,omitempty"`     // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	FieldId     *string                   `json:"field_id,omitempty"`    // 字段Id
 	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }
 
 type AppTableCreateHeaderBuilder struct {
-	fieldId         string // 字段Id
-	fieldIdFlag     bool
 	fieldName       string // 字段名
 	fieldNameFlag   bool
 	type_           int // 字段类型
 	typeFlag        bool
+	uiType          string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiTypeFlag      bool
+	fieldId         string // 字段Id
+	fieldIdFlag     bool
 	property        *AppTableFieldProperty // 字段属性
 	propertyFlag    bool
 	description     *AppTableFieldDescription // 字段的描述
@@ -1193,15 +1250,6 @@ type AppTableCreateHeaderBuilder struct {
 
 func NewAppTableCreateHeaderBuilder() *AppTableCreateHeaderBuilder {
 	builder := &AppTableCreateHeaderBuilder{}
-	return builder
-}
-
-// 字段Id
-//
-// 示例值：fldDOzItFG
-func (builder *AppTableCreateHeaderBuilder) FieldId(fieldId string) *AppTableCreateHeaderBuilder {
-	builder.fieldId = fieldId
-	builder.fieldIdFlag = true
 	return builder
 }
 
@@ -1220,6 +1268,24 @@ func (builder *AppTableCreateHeaderBuilder) FieldName(fieldName string) *AppTabl
 func (builder *AppTableCreateHeaderBuilder) Type(type_ int) *AppTableCreateHeaderBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
+	return builder
+}
+
+// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+//
+// 示例值：Progress
+func (builder *AppTableCreateHeaderBuilder) UiType(uiType string) *AppTableCreateHeaderBuilder {
+	builder.uiType = uiType
+	builder.uiTypeFlag = true
+	return builder
+}
+
+// 字段Id
+//
+// 示例值：fldDOzItFG
+func (builder *AppTableCreateHeaderBuilder) FieldId(fieldId string) *AppTableCreateHeaderBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
 	return builder
 }
 
@@ -1243,16 +1309,20 @@ func (builder *AppTableCreateHeaderBuilder) Description(description *AppTableFie
 
 func (builder *AppTableCreateHeaderBuilder) Build() *AppTableCreateHeader {
 	req := &AppTableCreateHeader{}
-	if builder.fieldIdFlag {
-		req.FieldId = &builder.fieldId
-
-	}
 	if builder.fieldNameFlag {
 		req.FieldName = &builder.fieldName
 
 	}
 	if builder.typeFlag {
 		req.Type = &builder.type_
+
+	}
+	if builder.uiTypeFlag {
+		req.UiType = &builder.uiType
+
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
 
 	}
 	if builder.propertyFlag {
@@ -1265,19 +1335,17 @@ func (builder *AppTableCreateHeaderBuilder) Build() *AppTableCreateHeader {
 }
 
 type AppTableField struct {
-	FieldId     *string                   `json:"field_id,omitempty"`    // 多维表格字段 id
 	FieldName   *string                   `json:"field_name,omitempty"`  // 多维表格字段名
 	Type        *int                      `json:"type,omitempty"`        // 多维表格字段类型
 	Property    *AppTableFieldProperty    `json:"property,omitempty"`    // 字段属性，具体参考：[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 	IsPrimary   *bool                     `json:"is_primary,omitempty"`  // 是否是索引列
+	FieldId     *string                   `json:"field_id,omitempty"`    // 多维表格字段 id
 	UiType      *string                   `json:"ui_type,omitempty"`     // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
 	IsHidden    *bool                     `json:"is_hidden,omitempty"`   // 是否是隐藏字段
 }
 
 type AppTableFieldBuilder struct {
-	fieldId         string // 多维表格字段 id
-	fieldIdFlag     bool
 	fieldName       string // 多维表格字段名
 	fieldNameFlag   bool
 	type_           int // 多维表格字段类型
@@ -1288,6 +1356,8 @@ type AppTableFieldBuilder struct {
 	descriptionFlag bool
 	isPrimary       bool // 是否是索引列
 	isPrimaryFlag   bool
+	fieldId         string // 多维表格字段 id
+	fieldIdFlag     bool
 	uiType          string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
 	uiTypeFlag      bool
 	isHidden        bool // 是否是隐藏字段
@@ -1296,15 +1366,6 @@ type AppTableFieldBuilder struct {
 
 func NewAppTableFieldBuilder() *AppTableFieldBuilder {
 	builder := &AppTableFieldBuilder{}
-	return builder
-}
-
-// 多维表格字段 id
-//
-// 示例值：fldWJyCkFQ
-func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
-	builder.fieldId = fieldId
-	builder.fieldIdFlag = true
 	return builder
 }
 
@@ -1353,6 +1414,15 @@ func (builder *AppTableFieldBuilder) IsPrimary(isPrimary bool) *AppTableFieldBui
 	return builder
 }
 
+// 多维表格字段 id
+//
+// 示例值：fldWJyCkFQ
+func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
 // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
 //
 // 示例值：Progress
@@ -1373,10 +1443,6 @@ func (builder *AppTableFieldBuilder) IsHidden(isHidden bool) *AppTableFieldBuild
 
 func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	req := &AppTableField{}
-	if builder.fieldIdFlag {
-		req.FieldId = &builder.fieldId
-
-	}
 	if builder.fieldNameFlag {
 		req.FieldName = &builder.fieldName
 
@@ -1393,6 +1459,10 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	}
 	if builder.isPrimaryFlag {
 		req.IsPrimary = &builder.isPrimary
+
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
 
 	}
 	if builder.uiTypeFlag {

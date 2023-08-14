@@ -55,6 +55,7 @@ func main() {
 			JobLevelId("mga5oa8ayjlp9rb").
 			JobFamilyId("mga5oa8ayjlp9rb").
 			SubscriptionIds([]string{}).
+			DottedLineLeaderUserIds([]string{}).
 			Build()).
 		Build()
 	// 发起请求

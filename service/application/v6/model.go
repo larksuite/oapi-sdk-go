@@ -14,10 +14,9 @@
 package larkapplication
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -6962,7 +6961,7 @@ func (m *P2ApplicationVisibilityAddedV6) RawReq(req *larkevent.EventReq) {
 type P2BotMenuV6Data struct {
 	Operator  *Operator `json:"operator,omitempty"`  // 用户信息
 	EventKey  *string   `json:"event_key,omitempty"` // 菜单事件的唯一标识
-	Timestamp *string   `json:"timestamp,omitempty"` // 用户点击菜单时间
+	Timestamp *int64    `json:"timestamp,omitempty"` // 用户点击菜单时间
 }
 
 type P2BotMenuV6 struct {
