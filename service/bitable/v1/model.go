@@ -14,10 +14,9 @@
 package larkbitable
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -890,25 +889,25 @@ func (builder *AppRoleMemberIdBuilder) Build() *AppRoleMemberId {
 }
 
 type AppRoleTableRole struct {
-	TableName         *string                    `json:"table_name,omitempty"`          // 数据表名
-	TableId           *string                    `json:"table_id,omitempty"`            // 数据表ID
-	TablePerm         *int                       `json:"table_perm,omitempty"`          // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
-	RecRule           *AppRoleTableRoleRecRule   `json:"rec_rule,omitempty"`            // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
-	FieldPerm         *AppRoleTableRoleFieldPerm `json:"field_perm,omitempty"`          // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
-	AllowAddRecord    *bool                      `json:"allow_add_record,omitempty"`    // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
-	AllowDeleteRecord *bool                      `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+	TablePerm         *int                     `json:"table_perm,omitempty"`          // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+	TableName         *string                  `json:"table_name,omitempty"`          // 数据表名
+	TableId           *string                  `json:"table_id,omitempty"`            // 数据表ID
+	RecRule           *AppRoleTableRoleRecRule `json:"rec_rule,omitempty"`            // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	FieldPerm         map[string]int           `json:"field_perm,omitempty"`          // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
+	AllowAddRecord    *bool                    `json:"allow_add_record,omitempty"`    // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
+	AllowDeleteRecord *bool                    `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
 }
 
 type AppRoleTableRoleBuilder struct {
+	tablePerm             int // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+	tablePermFlag         bool
 	tableName             string // 数据表名
 	tableNameFlag         bool
 	tableId               string // 数据表ID
 	tableIdFlag           bool
-	tablePerm             int // 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
-	tablePermFlag         bool
 	recRule               *AppRoleTableRoleRecRule // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
 	recRuleFlag           bool
-	fieldPerm             *AppRoleTableRoleFieldPerm // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
+	fieldPerm             map[string]int // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
 	fieldPermFlag         bool
 	allowAddRecord        bool // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增。
 	allowAddRecordFlag    bool
@@ -918,6 +917,15 @@ type AppRoleTableRoleBuilder struct {
 
 func NewAppRoleTableRoleBuilder() *AppRoleTableRoleBuilder {
 	builder := &AppRoleTableRoleBuilder{}
+	return builder
+}
+
+// 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
+//
+// 示例值：0
+func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
+	builder.tablePerm = tablePerm
+	builder.tablePermFlag = true
 	return builder
 }
 
@@ -939,15 +947,6 @@ func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRol
 	return builder
 }
 
-// 数据表权限，`协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况，可通过指定`rec_rule`或`field_perm`参数实现相同的效果
-//
-// 示例值：0
-func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
-	builder.tablePerm = tablePerm
-	builder.tablePermFlag = true
-	return builder
-}
-
 // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
 //
 // 示例值：
@@ -960,7 +959,7 @@ func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule
 // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读。类型为 map，key 是字段名，value 是字段权限;;**value 枚举值有：**;- `1`：可阅读;- `2`：可编辑
 //
 // 示例值：{"姓名": 1, "年龄": 2}
-func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm *AppRoleTableRoleFieldPerm) *AppRoleTableRoleBuilder {
+func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm map[string]int) *AppRoleTableRoleBuilder {
 	builder.fieldPerm = fieldPerm
 	builder.fieldPermFlag = true
 	return builder
@@ -986,16 +985,16 @@ func (builder *AppRoleTableRoleBuilder) AllowDeleteRecord(allowDeleteRecord bool
 
 func (builder *AppRoleTableRoleBuilder) Build() *AppRoleTableRole {
 	req := &AppRoleTableRole{}
+	if builder.tablePermFlag {
+		req.TablePerm = &builder.tablePerm
+
+	}
 	if builder.tableNameFlag {
 		req.TableName = &builder.tableName
 
 	}
 	if builder.tableIdFlag {
 		req.TableId = &builder.tableId
-
-	}
-	if builder.tablePermFlag {
-		req.TablePerm = &builder.tablePerm
 
 	}
 	if builder.recRuleFlag {
@@ -1866,6 +1865,149 @@ func (builder *AppTableFieldPropertyOptionBuilder) Build() *AppTableFieldPropert
 	}
 	if builder.colorFlag {
 		req.Color = &builder.color
+
+	}
+	return req
+}
+
+type AppTableFieldForList struct {
+	FieldName   *string                `json:"field_name,omitempty"`  // 字段名
+	Type        *int                   `json:"type,omitempty"`        // 字段类型
+	Property    *AppTableFieldProperty `json:"property,omitempty"`    // 字段属性
+	Description interface{}            `json:"description,omitempty"` // 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+	IsPrimary   *bool                  `json:"is_primary,omitempty"`  // 是否是索引列
+	FieldId     *string                `json:"field_id,omitempty"`    // 字段Id
+	UiType      *string                `json:"ui_type,omitempty"`     // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	IsHidden    *bool                  `json:"is_hidden,omitempty"`   // 是否是隐藏字段
+}
+
+type AppTableFieldForListBuilder struct {
+	fieldName       string // 字段名
+	fieldNameFlag   bool
+	type_           int // 字段类型
+	typeFlag        bool
+	property        *AppTableFieldProperty // 字段属性
+	propertyFlag    bool
+	description     interface{} // 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+	descriptionFlag bool
+	isPrimary       bool // 是否是索引列
+	isPrimaryFlag   bool
+	fieldId         string // 字段Id
+	fieldIdFlag     bool
+	uiType          string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiTypeFlag      bool
+	isHidden        bool // 是否是隐藏字段
+	isHiddenFlag    bool
+}
+
+func NewAppTableFieldForListBuilder() *AppTableFieldForListBuilder {
+	builder := &AppTableFieldForListBuilder{}
+	return builder
+}
+
+// 字段名
+//
+// 示例值：字段名称
+func (builder *AppTableFieldForListBuilder) FieldName(fieldName string) *AppTableFieldForListBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *AppTableFieldForListBuilder) Type(type_ int) *AppTableFieldForListBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 字段属性
+//
+// 示例值：
+func (builder *AppTableFieldForListBuilder) Property(property *AppTableFieldProperty) *AppTableFieldForListBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+// 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+//
+// 示例值：
+func (builder *AppTableFieldForListBuilder) Description(description interface{}) *AppTableFieldForListBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 是否是索引列
+//
+// 示例值：true
+func (builder *AppTableFieldForListBuilder) IsPrimary(isPrimary bool) *AppTableFieldForListBuilder {
+	builder.isPrimary = isPrimary
+	builder.isPrimaryFlag = true
+	return builder
+}
+
+// 字段Id
+//
+// 示例值：fldWJyCkFQ
+func (builder *AppTableFieldForListBuilder) FieldId(fieldId string) *AppTableFieldForListBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+//
+// 示例值：Progress
+func (builder *AppTableFieldForListBuilder) UiType(uiType string) *AppTableFieldForListBuilder {
+	builder.uiType = uiType
+	builder.uiTypeFlag = true
+	return builder
+}
+
+// 是否是隐藏字段
+//
+// 示例值：false
+func (builder *AppTableFieldForListBuilder) IsHidden(isHidden bool) *AppTableFieldForListBuilder {
+	builder.isHidden = isHidden
+	builder.isHiddenFlag = true
+	return builder
+}
+
+func (builder *AppTableFieldForListBuilder) Build() *AppTableFieldForList {
+	req := &AppTableFieldForList{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.isPrimaryFlag {
+		req.IsPrimary = &builder.isPrimary
+
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.uiTypeFlag {
+		req.UiType = &builder.uiType
+
+	}
+	if builder.isHiddenFlag {
+		req.IsHidden = &builder.isHidden
 
 	}
 	return req
@@ -5617,10 +5759,10 @@ type ListAppTableFieldReq struct {
 }
 
 type ListAppTableFieldRespData struct {
-	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string          `json:"page_token,omitempty"` // 下一页分页的token
-	Total     *int             `json:"total,omitempty"`      // 总数
-	Items     []*AppTableField `json:"items,omitempty"`      // 字段信息
+	HasMore   *bool                   `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string                 `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int                    `json:"total,omitempty"`      // 总数
+	Items     []*AppTableFieldForList `json:"items,omitempty"`      // 字段信息
 }
 
 type ListAppTableFieldResp struct {
@@ -7513,7 +7655,7 @@ func (iterator *ListAppTableIterator) NextPageToken() *string {
 
 type ListAppTableFieldIterator struct {
 	nextPageToken *string
-	items         []*AppTableField
+	items         []*AppTableFieldForList
 	index         int
 	limit         int
 	ctx           context.Context
@@ -7523,7 +7665,7 @@ type ListAppTableFieldIterator struct {
 	curlNum       int
 }
 
-func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) {
+func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableFieldForList, error) {
 	// 达到最大量，则返回
 	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
