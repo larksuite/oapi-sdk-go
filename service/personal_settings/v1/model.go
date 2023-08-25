@@ -71,6 +71,54 @@ const (
 	SystemStatusColorCARMINE   = "CARMINE"   // 胭脂红色
 )
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type SystemStatus struct {
 	SystemStatusId *string                  `json:"system_status_id,omitempty"` // 系统状态ID
 	Title          *string                  `json:"title,omitempty"`            // 系统状态名称，名称字符数要在1到20范围内。不同系统状态的title不能重复。;; **注意：** ;- 1中文=2英文=2其他语言字符=2字符

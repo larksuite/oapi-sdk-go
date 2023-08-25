@@ -44,6 +44,8 @@ func main() {
 			MembershipApproval("no_approval_required").
 			RestrictedModeSetting(larkim.NewRestrictedModeSettingBuilder().Build()).
 			ChatType("private").
+			UrgentSetting("all_members").
+			VideoConferenceSetting("all_members").
 			Build()).
 		Build()
 	// 发起请求

@@ -23,6 +23,17 @@ import (
 )
 
 const (
+	ObjTypeForQueryObjTypeDoc      = "doc"      // 旧版文档
+	ObjTypeForQueryObjTypeDocx     = "docx"     // 新版文档
+	ObjTypeForQueryObjTypeSheet    = "sheet"    // 表格
+	ObjTypeForQueryObjTypeMindNote = "mindnote" // 思维导图
+	ObjTypeForQueryObjTypeBitable  = "bitable"  // 多维表格
+	ObjTypeForQueryObjTypeFile     = "file"     // 文件
+	ObjTypeForQueryObjTypeSlides   = "slides"   // 幻灯片
+	ObjTypeForQueryObjTypeWiki     = "wiki"     // 知识库节点
+)
+
+const (
 	ObjTypeObjTypeDoc      = "doc"      // 旧版文档
 	ObjTypeObjTypeSheet    = "sheet"    // 表格
 	ObjTypeObjTypeMindNote = "mindnote" // 思维导图
@@ -48,6 +59,54 @@ const (
 const (
 	TaskTypeMove = "move" // MoveDocsToWiki任务
 )
+
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
 
 type Member struct {
 	MemberType *string `json:"member_type,omitempty"` // “openchat” - 群id ;;“userid” - 用户id;;“email” - 邮箱;;“opendepartmentid” - 部门id;;“openid” - 应用openid;;“unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id;)
@@ -941,6 +1000,14 @@ func NewGetNodeSpaceReqBuilder() *GetNodeSpaceReqBuilder {
 // 示例值：wikcnKQ1k3p******8Vabcef
 func (builder *GetNodeSpaceReqBuilder) Token(token string) *GetNodeSpaceReqBuilder {
 	builder.apiReq.QueryParams.Set("token", fmt.Sprint(token))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：docx
+func (builder *GetNodeSpaceReqBuilder) ObjType(objType string) *GetNodeSpaceReqBuilder {
+	builder.apiReq.QueryParams.Set("obj_type", fmt.Sprint(objType))
 	return builder
 }
 

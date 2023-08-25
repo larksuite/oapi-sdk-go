@@ -43,7 +43,7 @@ func NewService(config *larkcore.Config) *DriveService {
 type DriveService struct {
 	config                   *larkcore.Config
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 文件
+	File                     *file                     // 下载
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
@@ -767,6 +767,40 @@ func (f *fileCommentReply) Delete(ctx context.Context, req *DeleteFileCommentRep
 		return nil, err
 	}
 	return resp, err
+}
+
+// 获取回复
+//
+// - 该接口用于根据评论 ID 以及分页参数，获取回复。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileCommentReply.go
+func (f *fileCommentReply) List(ctx context.Context, req *ListFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentReplyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListFileCommentReplyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (f *fileCommentReply) ListByIterator(ctx context.Context, req *ListFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentReplyIterator, error) {
+	return &ListFileCommentReplyIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: f.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 更新回复

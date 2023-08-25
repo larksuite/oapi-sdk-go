@@ -787,7 +787,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypePost).
-			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			ReceiveId("ou_a79a0f82add14976e3943f4deb17c3fa").
 			Content(postText).
 			Build()).
 		Build())

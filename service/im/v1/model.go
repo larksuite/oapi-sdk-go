@@ -31,6 +31,21 @@ import (
 )
 
 const (
+	UrgentSettingTypeOnlyOwner  = "only_owner"  // 仅群主和管理员
+	UrgentSettingTypeAllMembers = "all_members" // 所有成员
+)
+
+const (
+	VideoConferenceSettingTypeOnlyOwner  = "only_owner"  // 仅群主和管理员
+	VideoConferenceSettingTypeAllMembers = "all_members" // 所有成员
+)
+
+const (
+	EditPermissiontypeOnlyOwner  = "only_owner"  // 仅群主和管理员
+	EditPermissiontypeAllMembers = "all_members" // 所有成员
+)
+
+const (
 	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
@@ -63,6 +78,16 @@ const (
 	UserIdTypeSearchChatUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeSearchChatUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeSearchChatOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UrgentSettingTypeUpdateChatOnlyOwner  = "only_owner"  // 仅群主和管理员
+	UrgentSettingTypeUpdateChatAllMembers = "all_members" // 所有成员
+)
+
+const (
+	VideoConferenceSettingTypeUpdateChatOnlyOwner  = "only_owner"  // 仅群主和管理员
+	VideoConferenceSettingTypeUpdateChatAllMembers = "all_members" // 所有成员
 )
 
 const (
@@ -202,24 +227,6 @@ const (
 	UserIdTypeListMessageReactionOpenId  = "open_id"  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
 	UserIdTypeListMessageReactionUnionId = "union_id" // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
 	UserIdTypeListMessageReactionUserId  = "user_id"  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
-)
-
-const (
-	MemberIdTypeListSpecialFocusUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeListSpecialFocusUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeListSpecialFocusOpenId  = "open_id"  // 以open_id来识别成员
-)
-
-const (
-	ChatModeGroup = "group" // 群聊
-	ChatModeP2p   = "p2p"   // 单聊
-)
-
-const (
-	MemberIdTypeUnreadSpecialFocusUserId  = "user_id"  // 以user_id来识别成员
-	MemberIdTypeUnreadSpecialFocusUnionId = "union_id" // 以union_id来识别成员
-	MemberIdTypeUnreadSpecialFocusOpenId  = "open_id"  // 以open_id来识别成员
-	MemberIdTypeUnreadSpecialFocusAppId   = "app_id"   // 以app_id来识别成员
 )
 
 type BatchMessage struct {
@@ -1799,6 +1806,54 @@ func (builder *Crc32ItemBuilder) Build() *Crc32Item {
 	return req
 }
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type Emoji struct {
 	EmojiType *string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
 }
@@ -1836,11 +1891,13 @@ type EventMessage struct {
 	RootId      *string         `json:"root_id,omitempty"`      // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	ParentId    *string         `json:"parent_id,omitempty"`    // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	CreateTime  *string         `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
+	UpdateTime  *string         `json:"update_time,omitempty"`  // 消息更新时间（毫秒）
 	ChatId      *string         `json:"chat_id,omitempty"`      // 消息所在的群组 ID
 	ChatType    *string         `json:"chat_type,omitempty"`    // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
 	MessageType *string         `json:"message_type,omitempty"` // 消息类型
 	Content     *string         `json:"content,omitempty"`      // 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	Mentions    []*MentionEvent `json:"mentions,omitempty"`     // 被提及用户的信息
+	UserAgent   *string         `json:"user_agent,omitempty"`   // 用户代理
 }
 
 type EventMessageBuilder struct {
@@ -1852,6 +1909,8 @@ type EventMessageBuilder struct {
 	parentIdFlag    bool
 	createTime      string // 消息发送时间（毫秒）
 	createTimeFlag  bool
+	updateTime      string // 消息更新时间（毫秒）
+	updateTimeFlag  bool
 	chatId          string // 消息所在的群组 ID
 	chatIdFlag      bool
 	chatType        string // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
@@ -1862,6 +1921,8 @@ type EventMessageBuilder struct {
 	contentFlag     bool
 	mentions        []*MentionEvent // 被提及用户的信息
 	mentionsFlag    bool
+	userAgent       string // 用户代理
+	userAgentFlag   bool
 }
 
 func NewEventMessageBuilder() *EventMessageBuilder {
@@ -1902,6 +1963,15 @@ func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuild
 func (builder *EventMessageBuilder) CreateTime(createTime string) *EventMessageBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
+	return builder
+}
+
+// 消息更新时间（毫秒）
+//
+// 示例值：1687343654666
+func (builder *EventMessageBuilder) UpdateTime(updateTime string) *EventMessageBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
 	return builder
 }
 
@@ -1950,6 +2020,15 @@ func (builder *EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMes
 	return builder
 }
 
+// 用户代理
+//
+// 示例值：Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.53 Safari/537.36 Lark/6.7.5 LarkLocale/en_US ttnet SDK-Version/6.7.8
+func (builder *EventMessageBuilder) UserAgent(userAgent string) *EventMessageBuilder {
+	builder.userAgent = userAgent
+	builder.userAgentFlag = true
+	return builder
+}
+
 func (builder *EventMessageBuilder) Build() *EventMessage {
 	req := &EventMessage{}
 	if builder.messageIdFlag {
@@ -1966,6 +2045,10 @@ func (builder *EventMessageBuilder) Build() *EventMessage {
 	}
 	if builder.createTimeFlag {
 		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
 
 	}
 	if builder.chatIdFlag {
@@ -1986,6 +2069,10 @@ func (builder *EventMessageBuilder) Build() *EventMessage {
 	}
 	if builder.mentionsFlag {
 		req.Mentions = builder.mentions
+	}
+	if builder.userAgentFlag {
+		req.UserAgent = &builder.userAgent
+
 	}
 	return req
 }
@@ -4895,8 +4982,14 @@ type CreateChatReqBodyBuilder struct {
 	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 
-	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
-	restrictedModeSettingFlag bool
+	restrictedModeSetting      *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag  bool
+	urgentSetting              string // 谁可以加急
+	urgentSettingFlag          bool
+	videoConferenceSetting     string // 谁可以发起视频会议
+	videoConferenceSettingFlag bool
+	editPermission             string // 谁可以编辑群信息
+	editPermissionFlag         bool
 }
 
 func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
@@ -5021,6 +5114,33 @@ func (builder *CreateChatReqBodyBuilder) RestrictedModeSetting(restrictedModeSet
 	return builder
 }
 
+// 谁可以加急
+//
+//示例值：all_members
+func (builder *CreateChatReqBodyBuilder) UrgentSetting(urgentSetting string) *CreateChatReqBodyBuilder {
+	builder.urgentSetting = urgentSetting
+	builder.urgentSettingFlag = true
+	return builder
+}
+
+// 谁可以发起视频会议
+//
+//示例值：all_members
+func (builder *CreateChatReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *CreateChatReqBodyBuilder {
+	builder.videoConferenceSetting = videoConferenceSetting
+	builder.videoConferenceSettingFlag = true
+	return builder
+}
+
+// 谁可以编辑群信息
+//
+//示例值：all_members
+func (builder *CreateChatReqBodyBuilder) EditPermission(editPermission string) *CreateChatReqBodyBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
+}
+
 func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -5062,6 +5182,15 @@ func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	if builder.restrictedModeSettingFlag {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
+	if builder.urgentSettingFlag {
+		req.UrgentSetting = &builder.urgentSetting
+	}
+	if builder.videoConferenceSettingFlag {
+		req.VideoConferenceSetting = &builder.videoConferenceSetting
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
+	}
 	return req
 }
 
@@ -5098,6 +5227,14 @@ type CreateChatPathReqBodyBuilder struct {
 	toolkitIdsFlag             bool
 	restrictedModeSetting      *RestrictedModeSetting // 防泄密模式设置
 	restrictedModeSettingFlag  bool
+	urgentSetting              string // 谁可以加急
+	urgentSettingFlag          bool
+	videoConferenceSetting     string // 谁可以发起视频会议
+	videoConferenceSettingFlag bool
+	editPermission             string // 谁可以编辑群信息
+	editPermissionFlag         bool
+	chatTags                   []string // 群标签
+	chatTagsFlag               bool
 }
 
 func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
@@ -5222,6 +5359,33 @@ func (builder *CreateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedMod
 	return builder
 }
 
+// 谁可以加急
+//
+// 示例值：all_members
+func (builder *CreateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string) *CreateChatPathReqBodyBuilder {
+	builder.urgentSetting = urgentSetting
+	builder.urgentSettingFlag = true
+	return builder
+}
+
+// 谁可以发起视频会议
+//
+// 示例值：all_members
+func (builder *CreateChatPathReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *CreateChatPathReqBodyBuilder {
+	builder.videoConferenceSetting = videoConferenceSetting
+	builder.videoConferenceSettingFlag = true
+	return builder
+}
+
+// 谁可以编辑群信息
+//
+// 示例值：all_members
+func (builder *CreateChatPathReqBodyBuilder) EditPermission(editPermission string) *CreateChatPathReqBodyBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
+}
+
 func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error) {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -5262,6 +5426,15 @@ func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error)
 	}
 	if builder.restrictedModeSettingFlag {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
+	}
+	if builder.urgentSettingFlag {
+		req.UrgentSetting = &builder.urgentSetting
+	}
+	if builder.videoConferenceSettingFlag {
+		req.VideoConferenceSetting = &builder.videoConferenceSetting
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
 	}
 	return req, nil
 }
@@ -5333,7 +5506,11 @@ type CreateChatReqBody struct {
 	LeaveMessageVisibility *string `json:"leave_message_visibility,omitempty"` // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
-	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
+	RestrictedModeSetting  *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
+	UrgentSetting          *string                `json:"urgent_setting,omitempty"`           // 谁可以加急
+	VideoConferenceSetting *string                `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议
+	EditPermission         *string                `json:"edit_permission,omitempty"`          // 谁可以编辑群信息
+
 }
 
 type CreateChatReq struct {
@@ -5349,6 +5526,8 @@ type CreateChatRespData struct {
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
 	OwnerId                *string    `json:"owner_id,omitempty"`                 // 群主 ID，ID值与查询参数中的 ==user_id_type== 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**注意**：当群主是机器人时，该字段不返回
 	OwnerIdType            *string    `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型，与查询参数中的 ==user_id_type== 相同。取值为：`open_id`、`user_id`、`union_id`其中之一;;**注意**：当群主是机器人时，该字段不返回
+	UrgentSetting          *string    `json:"urgent_setting,omitempty"`           // 谁可以加急
+	VideoConferenceSetting *string    `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议
 	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`    // 拉 用户或机器人 入群权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`    // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
 	AtAllPermission        *string    `json:"at_all_permission,omitempty"`        // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
@@ -5483,7 +5662,9 @@ type GetChatRespData struct {
 	UserCount              *string    `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               *string    `json:"bot_count,omitempty"`                // 群机器人数
 
-	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
+	RestrictedModeSetting  *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
+	UrgentSetting          *string                `json:"urgent_setting,omitempty"`           // 谁可以加急
+	VideoConferenceSetting *string                `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议
 }
 
 type GetChatResp struct {
@@ -5801,10 +5982,14 @@ type UpdateChatReqBodyBuilder struct {
 	membershipApproval         string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 	membershipApprovalFlag     bool
 
-	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
-	restrictedModeSettingFlag bool
-	chatType                  string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	chatTypeFlag              bool
+	restrictedModeSetting      *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingFlag  bool
+	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeFlag               bool
+	urgentSetting              string // 谁可以加急
+	urgentSettingFlag          bool
+	videoConferenceSetting     string // 谁可以发起视频会议
+	videoConferenceSettingFlag bool
 }
 
 func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
@@ -5938,6 +6123,24 @@ func (builder *UpdateChatReqBodyBuilder) ChatType(chatType string) *UpdateChatRe
 	return builder
 }
 
+// 谁可以加急
+//
+//示例值：all_members
+func (builder *UpdateChatReqBodyBuilder) UrgentSetting(urgentSetting string) *UpdateChatReqBodyBuilder {
+	builder.urgentSetting = urgentSetting
+	builder.urgentSettingFlag = true
+	return builder
+}
+
+// 谁可以发起视频会议
+//
+//示例值：all_members
+func (builder *UpdateChatReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *UpdateChatReqBodyBuilder {
+	builder.videoConferenceSetting = videoConferenceSetting
+	builder.videoConferenceSettingFlag = true
+	return builder
+}
+
 func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -5982,6 +6185,12 @@ func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
 	}
+	if builder.urgentSettingFlag {
+		req.UrgentSetting = &builder.urgentSetting
+	}
+	if builder.videoConferenceSettingFlag {
+		req.VideoConferenceSetting = &builder.videoConferenceSetting
+	}
 	return req
 }
 
@@ -6018,6 +6227,10 @@ type UpdateChatPathReqBodyBuilder struct {
 	restrictedModeSettingFlag  bool
 	chatType                   string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 	chatTypeFlag               bool
+	urgentSetting              string // 谁可以加急
+	urgentSettingFlag          bool
+	videoConferenceSetting     string // 谁可以发起视频会议
+	videoConferenceSettingFlag bool
 }
 
 func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
@@ -6151,6 +6364,24 @@ func (builder *UpdateChatPathReqBodyBuilder) ChatType(chatType string) *UpdateCh
 	return builder
 }
 
+// 谁可以加急
+//
+// 示例值：all_members
+func (builder *UpdateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string) *UpdateChatPathReqBodyBuilder {
+	builder.urgentSetting = urgentSetting
+	builder.urgentSettingFlag = true
+	return builder
+}
+
+// 谁可以发起视频会议
+//
+// 示例值：all_members
+func (builder *UpdateChatPathReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *UpdateChatPathReqBodyBuilder {
+	builder.videoConferenceSetting = videoConferenceSetting
+	builder.videoConferenceSettingFlag = true
+	return builder
+}
+
 func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error) {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -6194,6 +6425,12 @@ func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error)
 	}
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
+	}
+	if builder.urgentSettingFlag {
+		req.UrgentSetting = &builder.urgentSetting
+	}
+	if builder.videoConferenceSettingFlag {
+		req.VideoConferenceSetting = &builder.videoConferenceSetting
 	}
 	return req, nil
 }
@@ -6257,8 +6494,10 @@ type UpdateChatReqBody struct {
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 
-	RestrictedModeSetting *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"` // 防泄密模式设置
-	ChatType              *string                `json:"chat_type,omitempty"`               // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	RestrictedModeSetting  *RestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
+	ChatType               *string                `json:"chat_type,omitempty"`                // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	UrgentSetting          *string                `json:"urgent_setting,omitempty"`           // 谁可以加急
+	VideoConferenceSetting *string                `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议
 }
 
 type UpdateChatReq struct {
@@ -11010,222 +11249,6 @@ func (resp *ListPinResp) Success() bool {
 	return resp.Code == 0
 }
 
-type ListSpecialFocusReqBuilder struct {
-	apiReq *larkcore.ApiReq
-	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
-}
-
-func NewListSpecialFocusReqBuilder() *ListSpecialFocusReqBuilder {
-	builder := &ListSpecialFocusReqBuilder{}
-	builder.apiReq = &larkcore.ApiReq{
-		PathParams:  larkcore.PathParams{},
-		QueryParams: larkcore.QueryParams{},
-	}
-	return builder
-}
-
-// 最大返回多少记录，当使用迭代器访问时才有效
-func (builder *ListSpecialFocusReqBuilder) Limit(limit int) *ListSpecialFocusReqBuilder {
-	builder.limit = limit
-	return builder
-}
-
-// 指定接口返回的成员ID类型
-//
-// 示例值：open_id
-func (builder *ListSpecialFocusReqBuilder) MemberIdType(memberIdType string) *ListSpecialFocusReqBuilder {
-	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
-	return builder
-}
-
-// 分页大小
-//
-// 示例值：10
-func (builder *ListSpecialFocusReqBuilder) PageSize(pageSize int) *ListSpecialFocusReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
-	return builder
-}
-
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
-//
-// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-func (builder *ListSpecialFocusReqBuilder) PageToken(pageToken string) *ListSpecialFocusReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-func (builder *ListSpecialFocusReqBuilder) Build() *ListSpecialFocusReq {
-	req := &ListSpecialFocusReq{}
-	req.apiReq = &larkcore.ApiReq{}
-	req.Limit = builder.limit
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	return req
-}
-
-type ListSpecialFocusReq struct {
-	apiReq *larkcore.ApiReq
-	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
-}
-
-type ListSpecialFocusRespData struct {
-	Items     []*SpecialFocus `json:"items,omitempty"`      // 特别关注成员ID列表
-	PageToken *string         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	HasMore   *bool           `json:"has_more,omitempty"`   // 是否还有更多项
-}
-
-type ListSpecialFocusResp struct {
-	*larkcore.ApiResp `json:"-"`
-	larkcore.CodeError
-	Data *ListSpecialFocusRespData `json:"data"` // 业务数据
-}
-
-func (resp *ListSpecialFocusResp) Success() bool {
-	return resp.Code == 0
-}
-
-type UnreadSpecialFocusReqBodyBuilder struct {
-	idList       []string // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
-	idListFlag   bool
-	chatMode     string // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
-	chatModeFlag bool
-}
-
-func NewUnreadSpecialFocusReqBodyBuilder() *UnreadSpecialFocusReqBodyBuilder {
-	builder := &UnreadSpecialFocusReqBodyBuilder{}
-	return builder
-}
-
-// 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
-//
-//示例值：["ou_e167f0c694cb1c77bb040857dd963024","ou_a18fe85d22e7633852d8104226e99eac"]
-func (builder *UnreadSpecialFocusReqBodyBuilder) IdList(idList []string) *UnreadSpecialFocusReqBodyBuilder {
-	builder.idList = idList
-	builder.idListFlag = true
-	return builder
-}
-
-// 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
-//
-//示例值：group
-func (builder *UnreadSpecialFocusReqBodyBuilder) ChatMode(chatMode string) *UnreadSpecialFocusReqBodyBuilder {
-	builder.chatMode = chatMode
-	builder.chatModeFlag = true
-	return builder
-}
-
-func (builder *UnreadSpecialFocusReqBodyBuilder) Build() *UnreadSpecialFocusReqBody {
-	req := &UnreadSpecialFocusReqBody{}
-	if builder.idListFlag {
-		req.IdList = builder.idList
-	}
-	if builder.chatModeFlag {
-		req.ChatMode = &builder.chatMode
-	}
-	return req
-}
-
-type UnreadSpecialFocusPathReqBodyBuilder struct {
-	idList       []string // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
-	idListFlag   bool
-	chatMode     string // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
-	chatModeFlag bool
-}
-
-func NewUnreadSpecialFocusPathReqBodyBuilder() *UnreadSpecialFocusPathReqBodyBuilder {
-	builder := &UnreadSpecialFocusPathReqBodyBuilder{}
-	return builder
-}
-
-// 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
-//
-// 示例值：["ou_e167f0c694cb1c77bb040857dd963024","ou_a18fe85d22e7633852d8104226e99eac"]
-func (builder *UnreadSpecialFocusPathReqBodyBuilder) IdList(idList []string) *UnreadSpecialFocusPathReqBodyBuilder {
-	builder.idList = idList
-	builder.idListFlag = true
-	return builder
-}
-
-// 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
-//
-// 示例值：group
-func (builder *UnreadSpecialFocusPathReqBodyBuilder) ChatMode(chatMode string) *UnreadSpecialFocusPathReqBodyBuilder {
-	builder.chatMode = chatMode
-	builder.chatModeFlag = true
-	return builder
-}
-
-func (builder *UnreadSpecialFocusPathReqBodyBuilder) Build() (*UnreadSpecialFocusReqBody, error) {
-	req := &UnreadSpecialFocusReqBody{}
-	if builder.idListFlag {
-		req.IdList = builder.idList
-	}
-	if builder.chatModeFlag {
-		req.ChatMode = &builder.chatMode
-	}
-	return req, nil
-}
-
-type UnreadSpecialFocusReqBuilder struct {
-	apiReq *larkcore.ApiReq
-	body   *UnreadSpecialFocusReqBody
-}
-
-func NewUnreadSpecialFocusReqBuilder() *UnreadSpecialFocusReqBuilder {
-	builder := &UnreadSpecialFocusReqBuilder{}
-	builder.apiReq = &larkcore.ApiReq{
-		PathParams:  larkcore.PathParams{},
-		QueryParams: larkcore.QueryParams{},
-	}
-	return builder
-}
-
-// 指定请求体中 ==id_list== 的ID类型
-//
-// 示例值：open_id
-func (builder *UnreadSpecialFocusReqBuilder) MemberIdType(memberIdType string) *UnreadSpecialFocusReqBuilder {
-	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
-	return builder
-}
-
-// 支持按单聊类型和群聊类型获取用户的特别关注未读消息数。
-func (builder *UnreadSpecialFocusReqBuilder) Body(body *UnreadSpecialFocusReqBody) *UnreadSpecialFocusReqBuilder {
-	builder.body = body
-	return builder
-}
-
-func (builder *UnreadSpecialFocusReqBuilder) Build() *UnreadSpecialFocusReq {
-	req := &UnreadSpecialFocusReq{}
-	req.apiReq = &larkcore.ApiReq{}
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	req.apiReq.Body = builder.body
-	return req
-}
-
-type UnreadSpecialFocusReqBody struct {
-	IdList   []string `json:"id_list,omitempty"`   // 特别关注ID列表。请根据 ==member_id_type== 参数填入`open_id`、`user_id`、`union_id`或`app_id`类型的ID
-	ChatMode *string  `json:"chat_mode,omitempty"` // 按群模式过滤特别关注;;**注意**：;- 当指定 ==chat_mode== 为 ==p2p==时，将返回用户与被特别关注者之间单聊的未读消息数。;- 当指定==chat_mode== 为==group==时，将返回被用户特别关注者在群聊中At用户且用户未读的消息数。
-}
-
-type UnreadSpecialFocusReq struct {
-	apiReq *larkcore.ApiReq
-	Body   *UnreadSpecialFocusReqBody `body:""`
-}
-
-type UnreadSpecialFocusRespData struct {
-	SpecialFocusUnread []*SpecialFocusUnread `json:"special_focus_unread,omitempty"` // 特别关注中未读的消息数
-}
-
-type UnreadSpecialFocusResp struct {
-	*larkcore.ApiResp `json:"-"`
-	larkcore.CodeError
-	Data *UnreadSpecialFocusRespData `json:"data"` // 业务数据
-}
-
-func (resp *UnreadSpecialFocusResp) Success() bool {
-	return resp.Code == 0
-}
-
 type P2ChatDisbandedV1Data struct {
 	ChatId            *string    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorId        *UserId    `json:"operator_id,omitempty"`         // 操作者的ID
@@ -11823,59 +11846,5 @@ func (iterator *ListPinIterator) Next() (bool, *Pin, error) {
 }
 
 func (iterator *ListPinIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
-
-type ListSpecialFocusIterator struct {
-	nextPageToken *string
-	items         []*SpecialFocus
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListSpecialFocusReq
-	listFunc      func(ctx context.Context, req *ListSpecialFocusReq, options ...larkcore.RequestOptionFunc) (*ListSpecialFocusResp, error)
-	options       []larkcore.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListSpecialFocusIterator) Next() (bool, *SpecialFocus, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
-			return false, nil, nil
-		}
-
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListSpecialFocusIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

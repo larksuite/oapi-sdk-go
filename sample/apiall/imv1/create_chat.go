@@ -44,6 +44,9 @@ func main() {
 			LeaveMessageVisibility("all_members").
 			MembershipApproval("no_approval_required").
 			RestrictedModeSetting(larkim.NewRestrictedModeSettingBuilder().Build()).
+			UrgentSetting("all_members").
+			VideoConferenceSetting("all_members").
+			EditPermission("all_members").
 			Build()).
 		Build()
 	// 发起请求

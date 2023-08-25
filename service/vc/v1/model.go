@@ -901,6 +901,54 @@ func (builder *CustomListBuilder) Build() *CustomList {
 	return req
 }
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type Device struct {
 	Name *string `json:"name,omitempty"` // 设施名称
 }
@@ -934,22 +982,34 @@ func (builder *DeviceBuilder) Build() *Device {
 }
 
 type DisableInformConfig struct {
-	IfInform      *bool                  `json:"if_inform,omitempty"`      // 禁用状态变更通知开关
-	InformedUsers []*SubscribeUser       `json:"informed_users,omitempty"` // 通知成员列表
-	InformedDepts []*SubscribeDepartment `json:"informed_depts,omitempty"` // 通知部门列表
+	IfCoverChildScope *bool                  `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	IfInform          *bool                  `json:"if_inform,omitempty"`            // 禁用状态变更通知开关
+	InformedUsers     []*SubscribeUser       `json:"informed_users,omitempty"`       // 通知成员列表
+	InformedDepts     []*SubscribeDepartment `json:"informed_depts,omitempty"`       // 通知部门列表
 }
 
 type DisableInformConfigBuilder struct {
-	ifInform          bool // 禁用状态变更通知开关
-	ifInformFlag      bool
-	informedUsers     []*SubscribeUser // 通知成员列表
-	informedUsersFlag bool
-	informedDepts     []*SubscribeDepartment // 通知部门列表
-	informedDeptsFlag bool
+	ifCoverChildScope     bool // 是否覆盖子层级及会议室
+	ifCoverChildScopeFlag bool
+	ifInform              bool // 禁用状态变更通知开关
+	ifInformFlag          bool
+	informedUsers         []*SubscribeUser // 通知成员列表
+	informedUsersFlag     bool
+	informedDepts         []*SubscribeDepartment // 通知部门列表
+	informedDeptsFlag     bool
 }
 
 func NewDisableInformConfigBuilder() *DisableInformConfigBuilder {
 	builder := &DisableInformConfigBuilder{}
+	return builder
+}
+
+// 是否覆盖子层级及会议室
+//
+// 示例值：true
+func (builder *DisableInformConfigBuilder) IfCoverChildScope(ifCoverChildScope bool) *DisableInformConfigBuilder {
+	builder.ifCoverChildScope = ifCoverChildScope
+	builder.ifCoverChildScopeFlag = true
 	return builder
 }
 
@@ -982,6 +1042,10 @@ func (builder *DisableInformConfigBuilder) InformedDepts(informedDepts []*Subscr
 
 func (builder *DisableInformConfigBuilder) Build() *DisableInformConfig {
 	req := &DisableInformConfig{}
+	if builder.ifCoverChildScopeFlag {
+		req.IfCoverChildScope = &builder.ifCoverChildScope
+
+	}
 	if builder.ifInformFlag {
 		req.IfInform = &builder.ifInform
 
@@ -4846,26 +4910,38 @@ func (builder *ReserveCorrectionCheckInfoBuilder) Build() *ReserveCorrectionChec
 }
 
 type ReserveFormConfig struct {
-	ReserveForm   *bool            `json:"reserve_form,omitempty"`   // 预定表单开关
-	NotifiedUsers []*SubscribeUser `json:"notified_users,omitempty"` // 通知人列表
-	NotifiedTime  *int             `json:"notified_time,omitempty"`  // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
-	TimeUnit      *int             `json:"time_unit,omitempty"`      // 时间单位,1为分钟;2为小时;3为天，默认为天
+	IfCoverChildScope *bool            `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	ReserveForm       *bool            `json:"reserve_form,omitempty"`         // 预定表单开关
+	NotifiedUsers     []*SubscribeUser `json:"notified_users,omitempty"`       // 通知人列表
+	NotifiedTime      *int             `json:"notified_time,omitempty"`        // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
+	TimeUnit          *int             `json:"time_unit,omitempty"`            // 时间单位,1为分钟;2为小时;3为天，默认为天
 
 }
 
 type ReserveFormConfigBuilder struct {
-	reserveForm       bool // 预定表单开关
-	reserveFormFlag   bool
-	notifiedUsers     []*SubscribeUser // 通知人列表
-	notifiedUsersFlag bool
-	notifiedTime      int // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
-	notifiedTimeFlag  bool
-	timeUnit          int // 时间单位,1为分钟;2为小时;3为天，默认为天
-	timeUnitFlag      bool
+	ifCoverChildScope     bool // 是否覆盖子层级及会议室
+	ifCoverChildScopeFlag bool
+	reserveForm           bool // 预定表单开关
+	reserveFormFlag       bool
+	notifiedUsers         []*SubscribeUser // 通知人列表
+	notifiedUsersFlag     bool
+	notifiedTime          int // 最晚于会议开始前 notified_time收到通知(单位:分/时/天)
+	notifiedTimeFlag      bool
+	timeUnit              int // 时间单位,1为分钟;2为小时;3为天，默认为天
+	timeUnitFlag          bool
 }
 
 func NewReserveFormConfigBuilder() *ReserveFormConfigBuilder {
 	builder := &ReserveFormConfigBuilder{}
+	return builder
+}
+
+// 是否覆盖子层级及会议室
+//
+// 示例值：true
+func (builder *ReserveFormConfigBuilder) IfCoverChildScope(ifCoverChildScope bool) *ReserveFormConfigBuilder {
+	builder.ifCoverChildScope = ifCoverChildScope
+	builder.ifCoverChildScopeFlag = true
 	return builder
 }
 
@@ -4907,6 +4983,10 @@ func (builder *ReserveFormConfigBuilder) TimeUnit(timeUnit int) *ReserveFormConf
 
 func (builder *ReserveFormConfigBuilder) Build() *ReserveFormConfig {
 	req := &ReserveFormConfig{}
+	if builder.ifCoverChildScopeFlag {
+		req.IfCoverChildScope = &builder.ifCoverChildScope
+
+	}
 	if builder.reserveFormFlag {
 		req.ReserveForm = &builder.reserveForm
 
@@ -5099,22 +5179,34 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 }
 
 type ReserveScopeConfig struct {
-	AllowAllUsers *int                   `json:"allow_all_users,omitempty"` // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
-	AllowUsers    []*SubscribeUser       `json:"allow_users,omitempty"`     // 可预定成员列表
-	AllowDepts    []*SubscribeDepartment `json:"allow_depts,omitempty"`     // 可预定部门列表
+	IfCoverChildScope *bool                  `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	AllowAllUsers     *int                   `json:"allow_all_users,omitempty"`      // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
+	AllowUsers        []*SubscribeUser       `json:"allow_users,omitempty"`          // 可预定成员列表
+	AllowDepts        []*SubscribeDepartment `json:"allow_depts,omitempty"`          // 可预定部门列表
 }
 
 type ReserveScopeConfigBuilder struct {
-	allowAllUsers     int // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
-	allowAllUsersFlag bool
-	allowUsers        []*SubscribeUser // 可预定成员列表
-	allowUsersFlag    bool
-	allowDepts        []*SubscribeDepartment // 可预定部门列表
-	allowDeptsFlag    bool
+	ifCoverChildScope     bool // 是否覆盖子层级及会议室
+	ifCoverChildScopeFlag bool
+	allowAllUsers         int // 可预定成员范围：0 代表部分成员，1 代表全部成员。;<b>说明</b>：;1.  此值必填。;2.  当设置为 0 时，至少需要 1 个预定部门或预定人
+	allowAllUsersFlag     bool
+	allowUsers            []*SubscribeUser // 可预定成员列表
+	allowUsersFlag        bool
+	allowDepts            []*SubscribeDepartment // 可预定部门列表
+	allowDeptsFlag        bool
 }
 
 func NewReserveScopeConfigBuilder() *ReserveScopeConfigBuilder {
 	builder := &ReserveScopeConfigBuilder{}
+	return builder
+}
+
+// 是否覆盖子层级及会议室
+//
+// 示例值：true
+func (builder *ReserveScopeConfigBuilder) IfCoverChildScope(ifCoverChildScope bool) *ReserveScopeConfigBuilder {
+	builder.ifCoverChildScope = ifCoverChildScope
+	builder.ifCoverChildScopeFlag = true
 	return builder
 }
 
@@ -5147,6 +5239,10 @@ func (builder *ReserveScopeConfigBuilder) AllowDepts(allowDepts []*SubscribeDepa
 
 func (builder *ReserveScopeConfigBuilder) Build() *ReserveScopeConfig {
 	req := &ReserveScopeConfig{}
+	if builder.ifCoverChildScopeFlag {
+		req.IfCoverChildScope = &builder.ifCoverChildScope
+
+	}
 	if builder.allowAllUsersFlag {
 		req.AllowAllUsers = &builder.allowAllUsers
 
@@ -5489,28 +5585,40 @@ func (builder *RoomConfigBuilder) Build() *RoomConfig {
 }
 
 type RoomDigitalSignage struct {
-	Enable       *bool                         `json:"enable,omitempty"`        // 是否开启数字标牌功能
-	Mute         *bool                         `json:"mute,omitempty"`          // 是否静音播放
-	StartDisplay *int                          `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
-	StopDisplay  *int                          `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
-	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+	IfCoverChildScope *bool                         `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	Enable            *bool                         `json:"enable,omitempty"`               // 是否开启数字标牌功能
+	Mute              *bool                         `json:"mute,omitempty"`                 // 是否静音播放
+	StartDisplay      *int                          `json:"start_display,omitempty"`        // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
+	StopDisplay       *int                          `json:"stop_display,omitempty"`         // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
+	Materials         []*RoomDigitalSignageMaterial `json:"materials,omitempty"`            // 素材列表
 }
 
 type RoomDigitalSignageBuilder struct {
-	enable           bool // 是否开启数字标牌功能
-	enableFlag       bool
-	mute             bool // 是否静音播放
-	muteFlag         bool
-	startDisplay     int // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
-	startDisplayFlag bool
-	stopDisplay      int // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
-	stopDisplayFlag  bool
-	materials        []*RoomDigitalSignageMaterial // 素材列表
-	materialsFlag    bool
+	ifCoverChildScope     bool // 是否覆盖子层级及会议室
+	ifCoverChildScopeFlag bool
+	enable                bool // 是否开启数字标牌功能
+	enableFlag            bool
+	mute                  bool // 是否静音播放
+	muteFlag              bool
+	startDisplay          int // 在会议结束n分钟后开始播放，取值1~720（仅对飞书会议室数字标牌生效）
+	startDisplayFlag      bool
+	stopDisplay           int // 在日程会议开始前n分钟停止播放，取值1~720（仅对飞书会议室数字标牌生效）
+	stopDisplayFlag       bool
+	materials             []*RoomDigitalSignageMaterial // 素材列表
+	materialsFlag         bool
 }
 
 func NewRoomDigitalSignageBuilder() *RoomDigitalSignageBuilder {
 	builder := &RoomDigitalSignageBuilder{}
+	return builder
+}
+
+// 是否覆盖子层级及会议室
+//
+// 示例值：true
+func (builder *RoomDigitalSignageBuilder) IfCoverChildScope(ifCoverChildScope bool) *RoomDigitalSignageBuilder {
+	builder.ifCoverChildScope = ifCoverChildScope
+	builder.ifCoverChildScopeFlag = true
 	return builder
 }
 
@@ -5561,6 +5669,10 @@ func (builder *RoomDigitalSignageBuilder) Materials(materials []*RoomDigitalSign
 
 func (builder *RoomDigitalSignageBuilder) Build() *RoomDigitalSignage {
 	req := &RoomDigitalSignage{}
+	if builder.ifCoverChildScopeFlag {
+		req.IfCoverChildScope = &builder.ifCoverChildScope
+
+	}
 	if builder.enableFlag {
 		req.Enable = &builder.enable
 
@@ -6792,31 +6904,43 @@ func (builder *SubscribeUserEventBuilder) Build() *SubscribeUserEvent {
 }
 
 type TimeConfig struct {
-	TimeSwitch    *int    `json:"time_switch,omitempty"`     // 预定时间开关：0 代表关闭，1 代表开启
-	DaysInAdvance *int    `json:"days_in_advance,omitempty"` // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
-	OpeningHour   *string `json:"opening_hour,omitempty"`    // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	StartTime     *string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	EndTime       *string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	MaxDuration   *int    `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
+	IfCoverChildScope *bool   `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	TimeSwitch        *int    `json:"time_switch,omitempty"`          // 预定时间开关：0 代表关闭，1 代表开启
+	DaysInAdvance     *int    `json:"days_in_advance,omitempty"`      // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
+	OpeningHour       *string `json:"opening_hour,omitempty"`         // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	StartTime         *string `json:"start_time,omitempty"`           // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	EndTime           *string `json:"end_time,omitempty"`             // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	MaxDuration       *int    `json:"max_duration,omitempty"`         // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
 }
 
 type TimeConfigBuilder struct {
-	timeSwitch        int // 预定时间开关：0 代表关闭，1 代表开启
-	timeSwitchFlag    bool
-	daysInAdvance     int // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
-	daysInAdvanceFlag bool
-	openingHour       string // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	openingHourFlag   bool
-	startTime         string // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	startTimeFlag     bool
-	endTime           string // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
-	endTimeFlag       bool
-	maxDuration       int // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
-	maxDurationFlag   bool
+	ifCoverChildScope     bool // 是否覆盖子层级及会议室
+	ifCoverChildScopeFlag bool
+	timeSwitch            int // 预定时间开关：0 代表关闭，1 代表开启
+	timeSwitchFlag        bool
+	daysInAdvance         int // 最早可提前 ; days_in_advance 预定会议室（单位：天，取值范围[1-730]）;<b>说明</b>：不填写时，默认更新为 365
+	daysInAdvanceFlag     bool
+	openingHour           string // 开放当天可于 ; opening_hour 开始预定（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时默认更新为 ; 28800 ;2.  如果填写的值不是 60 ; 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	openingHourFlag       bool
+	startTime             string // 每日可预定时间范围的开始时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 0 ，此时填写的  end_time 不得小于 30。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少超过 ; start_time 30 。;3.  如果填写的值不是 60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	startTimeFlag         bool
+	endTime               string // 每日可预定时间范围结束时间（单位：秒，取值范围[0,86400]）;<b>说明</b>：;1.  不填写时，默认更新为 86400 ，此时填写的; start_time 不得大于等于 86370 。;2.  当 start_time 与;  end_time 均填写时，; end_time 至少要超过;  start_time 30。;3.  如果填写的值不是  60 的倍数，则自动会更新为离其最近的 60 整数倍的值。
+	endTimeFlag           bool
+	maxDuration           int // 单次会议室可预定时长上限（单位：小时，取值范围[1,99]）;<b>说明</b>：不填写时默认更新为 2
+	maxDurationFlag       bool
 }
 
 func NewTimeConfigBuilder() *TimeConfigBuilder {
 	builder := &TimeConfigBuilder{}
+	return builder
+}
+
+// 是否覆盖子层级及会议室
+//
+// 示例值：true
+func (builder *TimeConfigBuilder) IfCoverChildScope(ifCoverChildScope bool) *TimeConfigBuilder {
+	builder.ifCoverChildScope = ifCoverChildScope
+	builder.ifCoverChildScopeFlag = true
 	return builder
 }
 
@@ -6876,6 +7000,10 @@ func (builder *TimeConfigBuilder) MaxDuration(maxDuration int) *TimeConfigBuilde
 
 func (builder *TimeConfigBuilder) Build() *TimeConfig {
 	req := &TimeConfig{}
+	if builder.ifCoverChildScopeFlag {
+		req.IfCoverChildScope = &builder.ifCoverChildScope
+
+	}
 	if builder.timeSwitchFlag {
 		req.TimeSwitch = &builder.timeSwitch
 

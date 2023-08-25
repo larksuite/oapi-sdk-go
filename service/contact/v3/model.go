@@ -1695,6 +1695,54 @@ func (builder *DepartmentI18nNameBuilder) Build() *DepartmentI18nName {
 	return req
 }
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type DepartmentParent struct {
 	DepartmentId *string  `json:"department_id,omitempty"` // 部门ID
 	ParentIds    []string `json:"parent_ids,omitempty"`    // 父部门ID列表，从直接父部门到根部门

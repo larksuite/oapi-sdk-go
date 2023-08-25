@@ -198,6 +198,19 @@ const (
 )
 
 const (
+	FileTypeListFileCommentReplyDoc   = "doc"   // 文档
+	FileTypeListFileCommentReplySheet = "sheet" // 表格
+	FileTypeListFileCommentReplyFile  = "file"  // 文件
+	FileTypeListFileCommentReplyDocx  = "docx"  // 新版本文档
+)
+
+const (
+	UserIdTypeListFileCommentReplyUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListFileCommentReplyUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListFileCommentReplyOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	FileTypeUpdateFileCommentReplyDoc   = "doc"   // 文档
 	FileTypeUpdateFileCommentReplySheet = "sheet" // 表格
 	FileTypeUpdateFileCommentReplyFile  = "file"  // 文件
@@ -1522,6 +1535,54 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 	}
 	if builder.permFlag {
 		req.Perm = &builder.perm
+
+	}
+	return req
+}
+
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
 	return req
@@ -6956,6 +7017,105 @@ func (resp *DeleteFileCommentReplyResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListFileCommentReplyReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListFileCommentReplyReqBuilder() *ListFileCommentReplyReqBuilder {
+	builder := &ListFileCommentReplyReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListFileCommentReplyReqBuilder) Limit(limit int) *ListFileCommentReplyReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 文档Token
+//
+// 示例值：doxbcdl03Vsxhm7Qmnj110abcef
+func (builder *ListFileCommentReplyReqBuilder) FileToken(fileToken string) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 评论ID
+//
+// 示例值：1654857036541812356
+func (builder *ListFileCommentReplyReqBuilder) CommentId(commentId string) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：10
+func (builder *ListFileCommentReplyReqBuilder) PageSize(pageSize int) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：1654857036541812356
+func (builder *ListFileCommentReplyReqBuilder) PageToken(pageToken string) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：docx
+func (builder *ListFileCommentReplyReqBuilder) FileType(fileType string) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListFileCommentReplyReqBuilder) UserIdType(userIdType string) *ListFileCommentReplyReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListFileCommentReplyReqBuilder) Build() *ListFileCommentReplyReq {
+	req := &ListFileCommentReplyReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListFileCommentReplyReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListFileCommentReplyRespData struct {
+	Items     []*FileCommentReply `json:"items,omitempty"`      // 回复列表
+	PageToken *string             `json:"page_token,omitempty"` //
+	HasMore   *bool               `json:"has_more,omitempty"`   //
+}
+
+type ListFileCommentReplyResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListFileCommentReplyRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListFileCommentReplyResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdateFileCommentReplyReqBodyBuilder struct {
 	content     *ReplyContent // 回复内容
 	contentFlag bool
@@ -9678,6 +9838,60 @@ func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
 }
 
 func (iterator *ListFileCommentIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListFileCommentReplyIterator struct {
+	nextPageToken *string
+	items         []*FileCommentReply
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListFileCommentReplyReq
+	listFunc      func(ctx context.Context, req *ListFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentReplyResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListFileCommentReplyIterator) Next() (bool, *FileCommentReply, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListFileCommentReplyIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

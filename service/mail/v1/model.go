@@ -200,6 +200,54 @@ const (
 	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type EmailAlias struct {
 	PrimaryEmail *string `json:"primary_email,omitempty"` // 主邮箱地址
 	EmailAlias   *string `json:"email_alias,omitempty"`   // 邮箱别名
@@ -291,6 +339,166 @@ func (builder *MailAddressBuilder) Build() *MailAddress {
 	}
 	if builder.nameFlag {
 		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type MailContact struct {
+	Id          *string `json:"id,omitempty"`           // 联系人 id
+	Name        *string `json:"name,omitempty"`         // 联系人姓名
+	Company     *string `json:"company,omitempty"`      // 联系人公司
+	Phone       *string `json:"phone,omitempty"`        // 联系人手机号
+	MailAddress *string `json:"mail_address,omitempty"` // 联系人邮箱
+	Tag         *string `json:"tag,omitempty"`          // 联系人标签
+	Remark      *string `json:"remark,omitempty"`       // 联系人备注
+	Avatar      *string `json:"avatar,omitempty"`       // 联系人头像
+	Position    *string `json:"position,omitempty"`     // 联系人职位
+}
+
+type MailContactBuilder struct {
+	id              string // 联系人 id
+	idFlag          bool
+	name            string // 联系人姓名
+	nameFlag        bool
+	company         string // 联系人公司
+	companyFlag     bool
+	phone           string // 联系人手机号
+	phoneFlag       bool
+	mailAddress     string // 联系人邮箱
+	mailAddressFlag bool
+	tag             string // 联系人标签
+	tagFlag         bool
+	remark          string // 联系人备注
+	remarkFlag      bool
+	avatar          string // 联系人头像
+	avatarFlag      bool
+	position        string // 联系人职位
+	positionFlag    bool
+}
+
+func NewMailContactBuilder() *MailContactBuilder {
+	builder := &MailContactBuilder{}
+	return builder
+}
+
+// 联系人 id
+//
+// 示例值：7256274576546463764
+func (builder *MailContactBuilder) Id(id string) *MailContactBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 联系人姓名
+//
+// 示例值：张三
+func (builder *MailContactBuilder) Name(name string) *MailContactBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 联系人公司
+//
+// 示例值：张三科技有限公司
+func (builder *MailContactBuilder) Company(company string) *MailContactBuilder {
+	builder.company = company
+	builder.companyFlag = true
+	return builder
+}
+
+// 联系人手机号
+//
+// 示例值：19912341234
+func (builder *MailContactBuilder) Phone(phone string) *MailContactBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 联系人邮箱
+//
+// 示例值：zhangsan@example.com
+func (builder *MailContactBuilder) MailAddress(mailAddress string) *MailContactBuilder {
+	builder.mailAddress = mailAddress
+	builder.mailAddressFlag = true
+	return builder
+}
+
+// 联系人标签
+//
+// 示例值：朋友
+func (builder *MailContactBuilder) Tag(tag string) *MailContactBuilder {
+	builder.tag = tag
+	builder.tagFlag = true
+	return builder
+}
+
+// 联系人备注
+//
+// 示例值：飞书发布会认识
+func (builder *MailContactBuilder) Remark(remark string) *MailContactBuilder {
+	builder.remark = remark
+	builder.remarkFlag = true
+	return builder
+}
+
+// 联系人头像
+//
+// 示例值：https://exampeimg.com/xxxx.jpg
+func (builder *MailContactBuilder) Avatar(avatar string) *MailContactBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+
+// 联系人职位
+//
+// 示例值：CEO
+func (builder *MailContactBuilder) Position(position string) *MailContactBuilder {
+	builder.position = position
+	builder.positionFlag = true
+	return builder
+}
+
+func (builder *MailContactBuilder) Build() *MailContact {
+	req := &MailContact{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.companyFlag {
+		req.Company = &builder.company
+
+	}
+	if builder.phoneFlag {
+		req.Phone = &builder.phone
+
+	}
+	if builder.mailAddressFlag {
+		req.MailAddress = &builder.mailAddress
+
+	}
+	if builder.tagFlag {
+		req.Tag = &builder.tag
+
+	}
+	if builder.remarkFlag {
+		req.Remark = &builder.remark
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.positionFlag {
+		req.Position = &builder.position
 
 	}
 	return req

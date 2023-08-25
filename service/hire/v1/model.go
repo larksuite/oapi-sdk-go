@@ -14,9 +14,10 @@
 package larkhire
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -158,9 +159,9 @@ const (
 )
 
 const (
-	Conclusion不通过 = 1 // 不通过
-	Conclusion通过  = 2 // 通过
-	Conclusion待定  = 3 // 待定
+	ConclusionFail           = 1 // 不通过
+	ConclusionPass           = 2 // 通过
+	ConclusionToBeDetermined = 3 // 待定
 
 )
 
@@ -10116,6 +10117,54 @@ func (builder *DepartmentBuilder) Build() *Department {
 	return req
 }
 
+type DepartmentId struct {
+	DepartmentId     *string `json:"department_id,omitempty"`      //
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
+}
+
+type DepartmentIdBuilder struct {
+	departmentId         string //
+	departmentIdFlag     bool
+	openDepartmentId     string //
+	openDepartmentIdFlag bool
+}
+
+func NewDepartmentIdBuilder() *DepartmentIdBuilder {
+	builder := &DepartmentIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *DepartmentIdBuilder) Build() *DepartmentId {
+	req := &DepartmentId{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
 type DiData struct {
 	Value           *string          `json:"value,omitempty"`            // 字段值 1. 单选： "1" 2. 多选："["1", "2"]" 3. 月份选择："{"date":"2022-01"}" 4. 年份选择："{"date":"2022"}" 5. 数字："123" 6. 单行文本："xxx " 7. 多行文本："xxx xxxx" 8. 日期范围 "[1688140800000,1688140800000]"
 	ObjectAttribute *ObjectAttribute `json:"object_attribute,omitempty"` // 字段属性
@@ -15436,11 +15485,10 @@ func (builder *InterviewMeetingRoomBuilder) Build() *InterviewMeetingRoom {
 }
 
 type InterviewRecord struct {
-	Id                      *string                         `json:"id,omitempty"`                        // 面试记录 ID
-	UserId                  *string                         `json:"user_id,omitempty"`                   // 面试官用户 ID
-	Content                 *string                         `json:"content,omitempty"`                   // 系统预设「记录」题目内容
-	MinJobLevelId           *string                         `json:"min_job_level_id,omitempty"`          // 建议定级下限的职级 ID
-	MaxJobLevelId           *string                         `json:"max_job_level_id,omitempty"`          // 建议定级上限的职级 ID
+	Id      *string `json:"id,omitempty"`      // 面试记录 ID
+	UserId  *string `json:"user_id,omitempty"` // 面试官用户 ID
+	Content *string `json:"content,omitempty"` // 系统预设「记录」题目内容
+
 	CommitStatus            *int                            `json:"commit_status,omitempty"`             // 提交状态
 	FeedbackSubmitTime      *int                            `json:"feedback_submit_time,omitempty"`      // 面试评价提交时间
 	Conclusion              *int                            `json:"conclusion,omitempty"`                // 面试结论
@@ -15450,16 +15498,13 @@ type InterviewRecord struct {
 }
 
 type InterviewRecordBuilder struct {
-	id                          string // 面试记录 ID
-	idFlag                      bool
-	userId                      string // 面试官用户 ID
-	userIdFlag                  bool
-	content                     string // 系统预设「记录」题目内容
-	contentFlag                 bool
-	minJobLevelId               string // 建议定级下限的职级 ID
-	minJobLevelIdFlag           bool
-	maxJobLevelId               string // 建议定级上限的职级 ID
-	maxJobLevelIdFlag           bool
+	id          string // 面试记录 ID
+	idFlag      bool
+	userId      string // 面试官用户 ID
+	userIdFlag  bool
+	content     string // 系统预设「记录」题目内容
+	contentFlag bool
+
 	commitStatus                int // 提交状态
 	commitStatusFlag            bool
 	feedbackSubmitTime          int // 面试评价提交时间
@@ -15503,24 +15548,6 @@ func (builder *InterviewRecordBuilder) UserId(userId string) *InterviewRecordBui
 func (builder *InterviewRecordBuilder) Content(content string) *InterviewRecordBuilder {
 	builder.content = content
 	builder.contentFlag = true
-	return builder
-}
-
-// 建议定级下限的职级 ID
-//
-// 示例值：6435238827342432
-func (builder *InterviewRecordBuilder) MinJobLevelId(minJobLevelId string) *InterviewRecordBuilder {
-	builder.minJobLevelId = minJobLevelId
-	builder.minJobLevelIdFlag = true
-	return builder
-}
-
-// 建议定级上限的职级 ID
-//
-// 示例值：643523885843573
-func (builder *InterviewRecordBuilder) MaxJobLevelId(maxJobLevelId string) *InterviewRecordBuilder {
-	builder.maxJobLevelId = maxJobLevelId
-	builder.maxJobLevelIdFlag = true
 	return builder
 }
 
@@ -15592,14 +15619,7 @@ func (builder *InterviewRecordBuilder) Build() *InterviewRecord {
 		req.Content = &builder.content
 
 	}
-	if builder.minJobLevelIdFlag {
-		req.MinJobLevelId = &builder.minJobLevelId
 
-	}
-	if builder.maxJobLevelIdFlag {
-		req.MaxJobLevelId = &builder.maxJobLevelId
-
-	}
 	if builder.commitStatusFlag {
 		req.CommitStatus = &builder.commitStatus
 
@@ -17290,45 +17310,48 @@ func (builder *JobConfigInterviewRoundConfBuilder) Build() *JobConfigInterviewRo
 }
 
 type JobConfigResult struct {
-	OfferApplySchema         *IdNameObject               `json:"offer_apply_schema,omitempty"`         // Offer 申请表
-	OfferProcessConf         *IdNameObject               `json:"offer_process_conf,omitempty"`         // Offer 审批流
-	RecommendedEvaluatorList []*IdNameObject             `json:"recommended_evaluator_list,omitempty"` // 建议评估人列表
-	AssessmentTemplate       *IdNameObject               `json:"assessment_template,omitempty"`        // 面试评价表
-	Id                       *string                     `json:"id,omitempty"`                         // 职位 ID
-	InterviewRoundList       []*JobConfigInterviewRound  `json:"interview_round_list,omitempty"`       // 建议面试官列表
-	JobRequirementList       []*IdNameObject             `json:"job_requirement_list,omitempty"`       // 招聘需求
-	InterviewRegistration    *RegistrationInfo           `json:"interview_registration,omitempty"`     // 面试登记表
-	OnboardRegistration      *RegistrationInfo           `json:"onboard_registration,omitempty"`       // 入职登记表
-	InterviewRoundTypeList   []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`  // 面试轮次类型列表
-	RelatedJobList           []*IdNameObject             `json:"related_job_list,omitempty"`           // 关联职位列表
-	JobAttribute             *int                        `json:"job_attribute,omitempty"`              // 职位属性，1是实体职位，2是虚拟职位
+	OfferApplySchema           *IdNameObject               `json:"offer_apply_schema,omitempty"`           // Offer 申请表
+	OfferProcessConf           *IdNameObject               `json:"offer_process_conf,omitempty"`           // Offer 审批流
+	RecommendedEvaluatorList   []*IdNameObject             `json:"recommended_evaluator_list,omitempty"`   // 建议评估人列表
+	AssessmentTemplate         *IdNameObject               `json:"assessment_template,omitempty"`          // 面试评价表
+	Id                         *string                     `json:"id,omitempty"`                           // 职位 ID
+	InterviewRoundList         []*JobConfigInterviewRound  `json:"interview_round_list,omitempty"`         // 建议面试官列表
+	JobRequirementList         []*IdNameObject             `json:"job_requirement_list,omitempty"`         // 招聘需求
+	InterviewRegistration      *RegistrationInfo           `json:"interview_registration,omitempty"`       // 面试登记表
+	OnboardRegistration        *RegistrationInfo           `json:"onboard_registration,omitempty"`         // 入职登记表
+	InterviewRoundTypeList     []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`    // 面试轮次类型列表
+	RelatedJobList             []*IdNameObject             `json:"related_job_list,omitempty"`             // 关联职位列表
+	JobAttribute               *int                        `json:"job_attribute,omitempty"`                // 职位属性，1是实体职位，2是虚拟职位
+	InterviewAppointmentConfig *InterviewAppointmentConfig `json:"interview_appointment_config,omitempty"` // 面试官安排面试配置
 }
 
 type JobConfigResultBuilder struct {
-	offerApplySchema             *IdNameObject // Offer 申请表
-	offerApplySchemaFlag         bool
-	offerProcessConf             *IdNameObject // Offer 审批流
-	offerProcessConfFlag         bool
-	recommendedEvaluatorList     []*IdNameObject // 建议评估人列表
-	recommendedEvaluatorListFlag bool
-	assessmentTemplate           *IdNameObject // 面试评价表
-	assessmentTemplateFlag       bool
-	id                           string // 职位 ID
-	idFlag                       bool
-	interviewRoundList           []*JobConfigInterviewRound // 建议面试官列表
-	interviewRoundListFlag       bool
-	jobRequirementList           []*IdNameObject // 招聘需求
-	jobRequirementListFlag       bool
-	interviewRegistration        *RegistrationInfo // 面试登记表
-	interviewRegistrationFlag    bool
-	onboardRegistration          *RegistrationInfo // 入职登记表
-	onboardRegistrationFlag      bool
-	interviewRoundTypeList       []*JobConfigRoundTypeResult // 面试轮次类型列表
-	interviewRoundTypeListFlag   bool
-	relatedJobList               []*IdNameObject // 关联职位列表
-	relatedJobListFlag           bool
-	jobAttribute                 int // 职位属性，1是实体职位，2是虚拟职位
-	jobAttributeFlag             bool
+	offerApplySchema               *IdNameObject // Offer 申请表
+	offerApplySchemaFlag           bool
+	offerProcessConf               *IdNameObject // Offer 审批流
+	offerProcessConfFlag           bool
+	recommendedEvaluatorList       []*IdNameObject // 建议评估人列表
+	recommendedEvaluatorListFlag   bool
+	assessmentTemplate             *IdNameObject // 面试评价表
+	assessmentTemplateFlag         bool
+	id                             string // 职位 ID
+	idFlag                         bool
+	interviewRoundList             []*JobConfigInterviewRound // 建议面试官列表
+	interviewRoundListFlag         bool
+	jobRequirementList             []*IdNameObject // 招聘需求
+	jobRequirementListFlag         bool
+	interviewRegistration          *RegistrationInfo // 面试登记表
+	interviewRegistrationFlag      bool
+	onboardRegistration            *RegistrationInfo // 入职登记表
+	onboardRegistrationFlag        bool
+	interviewRoundTypeList         []*JobConfigRoundTypeResult // 面试轮次类型列表
+	interviewRoundTypeListFlag     bool
+	relatedJobList                 []*IdNameObject // 关联职位列表
+	relatedJobListFlag             bool
+	jobAttribute                   int // 职位属性，1是实体职位，2是虚拟职位
+	jobAttributeFlag               bool
+	interviewAppointmentConfig     *InterviewAppointmentConfig // 面试官安排面试配置
+	interviewAppointmentConfigFlag bool
 }
 
 func NewJobConfigResultBuilder() *JobConfigResultBuilder {
@@ -17444,6 +17467,15 @@ func (builder *JobConfigResultBuilder) JobAttribute(jobAttribute int) *JobConfig
 	return builder
 }
 
+// 面试官安排面试配置
+//
+// 示例值：
+func (builder *JobConfigResultBuilder) InterviewAppointmentConfig(interviewAppointmentConfig *InterviewAppointmentConfig) *JobConfigResultBuilder {
+	builder.interviewAppointmentConfig = interviewAppointmentConfig
+	builder.interviewAppointmentConfigFlag = true
+	return builder
+}
+
 func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	req := &JobConfigResult{}
 	if builder.offerApplySchemaFlag {
@@ -17483,6 +17515,9 @@ func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	if builder.jobAttributeFlag {
 		req.JobAttribute = &builder.jobAttribute
 
+	}
+	if builder.interviewAppointmentConfigFlag {
+		req.InterviewAppointmentConfig = builder.interviewAppointmentConfig
 	}
 	return req
 }
@@ -39701,12 +39736,13 @@ func (m *P2ApplicationStageChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2EhrImportTaskImportedV1Data struct {
-	TaskId           *string `json:"task_id,omitempty"`            // 导入任务 ID
-	ApplicationId    *string `json:"application_id,omitempty"`     // 投递 ID
-	EhrDepartmentId  *string `json:"ehr_department_id,omitempty"`  // 导入部门 ID
-	EhrRequirementId *string `json:"ehr_requirement_id,omitempty"` // 招聘需求 ID
-	OperatorId       *string `json:"operator_id,omitempty"`        // 操作人的飞书招聘 user_id
-	OperatorUserId   *UserId `json:"operator_user_id,omitempty"`   // 操作人的飞书 user_id
+	TaskId           *string       `json:"task_id,omitempty"`            // 导入任务 ID
+	ApplicationId    *string       `json:"application_id,omitempty"`     // 投递 ID
+	EhrDepartmentId  *string       `json:"ehr_department_id,omitempty"`  // 导入部门 ID
+	EhrRequirementId *string       `json:"ehr_requirement_id,omitempty"` // 招聘需求 ID
+	OperatorId       *string       `json:"operator_id,omitempty"`        // 操作人的飞书招聘 user_id
+	OperatorUserId   *UserId       `json:"operator_user_id,omitempty"`   // 操作人的飞书 user_id
+	EhrDepartment    *DepartmentId `json:"ehr_department,omitempty"`     // 部门ID
 }
 
 type P2EhrImportTaskImportedV1 struct {
@@ -39720,13 +39756,14 @@ func (m *P2EhrImportTaskImportedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2EhrImportTaskForInternshipOfferImportedV1Data struct {
-	TaskId          *string `json:"task_id,omitempty"`           // 导入任务 ID
-	ApplicationId   *string `json:"application_id,omitempty"`    // 投递 ID
-	OfferId         *string `json:"offer_id,omitempty"`          // Offer ID
-	PreOnboardId    *string `json:"pre_onboard_id,omitempty"`    // 实习 ID
-	EhrDepartmentId *string `json:"ehr_department_id,omitempty"` // 导入部门 ID
-	OperatorId      *string `json:"operator_id,omitempty"`       // 操作人的飞书招聘 user_id
-	OperatorUserId  *UserId `json:"operator_user_id,omitempty"`  // 操作人的飞书 user_id
+	TaskId          *string       `json:"task_id,omitempty"`           // 导入任务 ID
+	ApplicationId   *string       `json:"application_id,omitempty"`    // 投递 ID
+	OfferId         *string       `json:"offer_id,omitempty"`          // Offer ID
+	PreOnboardId    *string       `json:"pre_onboard_id,omitempty"`    // 实习 ID
+	EhrDepartmentId *string       `json:"ehr_department_id,omitempty"` // 导入部门 ID
+	OperatorId      *string       `json:"operator_id,omitempty"`       // 操作人的飞书招聘 user_id
+	OperatorUserId  *UserId       `json:"operator_user_id,omitempty"`  // 操作人的飞书 user_id
+	EhrDepartment   *DepartmentId `json:"ehr_department,omitempty"`    // 部门ID
 }
 
 type P2EhrImportTaskForInternshipOfferImportedV1 struct {

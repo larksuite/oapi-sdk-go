@@ -1049,6 +1049,7 @@ type CardAction struct {
 	OpenID        string `json:"open_id"`
 	UserID        string `json:"user_id"`
 	OpenMessageID string `json:"open_message_id"`
+	OpenChatId    string `json:"open_chat_id"`
 	TenantKey     string `json:"tenant_key"`
 	Token         string `json:"token"`
 	Timezone      string `json:"timezone"`
