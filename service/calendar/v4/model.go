@@ -2561,6 +2561,7 @@ type EventCard struct {
 	ParticipantIds *string `json:"participant_ids,omitempty"`  // 日程参与人open ID
 	RecurrenceRule *string `json:"recurrence_rule,omitempty"`  // 日程的重复性规则
 	MeetingRoomIds *string `json:"meeting_room_ids,omitempty"` // 需要预定的会议室ID列表
+	Duration       *string `json:"duration,omitempty"`         // 需要预定的日程长度
 }
 
 type EventCardBuilder struct {
@@ -2578,6 +2579,8 @@ type EventCardBuilder struct {
 	recurrenceRuleFlag bool
 	meetingRoomIds     string // 需要预定的会议室ID列表
 	meetingRoomIdsFlag bool
+	duration           string // 需要预定的日程长度
+	durationFlag       bool
 }
 
 func NewEventCardBuilder() *EventCardBuilder {
@@ -2648,6 +2651,15 @@ func (builder *EventCardBuilder) MeetingRoomIds(meetingRoomIds string) *EventCar
 	return builder
 }
 
+// 需要预定的日程长度
+//
+// 示例值：1小时30分钟
+func (builder *EventCardBuilder) Duration(duration string) *EventCardBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+
 func (builder *EventCardBuilder) Build() *EventCard {
 	req := &EventCard{}
 	if builder.summaryFlag {
@@ -2676,6 +2688,10 @@ func (builder *EventCardBuilder) Build() *EventCard {
 	}
 	if builder.meetingRoomIdsFlag {
 		req.MeetingRoomIds = &builder.meetingRoomIds
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
 
 	}
 	return req
@@ -2983,6 +2999,7 @@ func (builder *ExchangeBindingBuilder) Build() *ExchangeBinding {
 type FreeTime struct {
 	FreeTimeStart *string `json:"free_time_start,omitempty"` // 空闲开始时间
 	FreeTimeEnd   *string `json:"free_time_end,omitempty"`   // 空闲结束时间
+	FreeTimeList  *string `json:"free_time_list,omitempty"`  // 空闲时间列表
 }
 
 type FreeTimeBuilder struct {
@@ -2990,6 +3007,8 @@ type FreeTimeBuilder struct {
 	freeTimeStartFlag bool
 	freeTimeEnd       string // 空闲结束时间
 	freeTimeEndFlag   bool
+	freeTimeList      string // 空闲时间列表
+	freeTimeListFlag  bool
 }
 
 func NewFreeTimeBuilder() *FreeTimeBuilder {
@@ -3015,6 +3034,15 @@ func (builder *FreeTimeBuilder) FreeTimeEnd(freeTimeEnd string) *FreeTimeBuilder
 	return builder
 }
 
+// 空闲时间列表
+//
+// 示例值：none
+func (builder *FreeTimeBuilder) FreeTimeList(freeTimeList string) *FreeTimeBuilder {
+	builder.freeTimeList = freeTimeList
+	builder.freeTimeListFlag = true
+	return builder
+}
+
 func (builder *FreeTimeBuilder) Build() *FreeTime {
 	req := &FreeTime{}
 	if builder.freeTimeStartFlag {
@@ -3023,6 +3051,10 @@ func (builder *FreeTimeBuilder) Build() *FreeTime {
 	}
 	if builder.freeTimeEndFlag {
 		req.FreeTimeEnd = &builder.freeTimeEnd
+
+	}
+	if builder.freeTimeListFlag {
+		req.FreeTimeList = &builder.freeTimeList
 
 	}
 	return req

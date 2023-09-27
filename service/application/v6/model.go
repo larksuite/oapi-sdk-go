@@ -153,6 +153,23 @@ const (
 )
 
 const (
+	ContactsRangeTypeEqualToAvailability = "equal_to_availability" // 与应用可用范围一致
+	ContactsRangeTypeSome                = "some"                  // 修改部分成员
+	ContactsRangeTypeAll                 = "all"                   // 全部成员范围
+)
+
+const (
+	UserIdTypePatchApplicationContactsRangeOpenId  = "open_id"  // 以open_id 标识成员
+	UserIdTypePatchApplicationContactsRangeUserId  = "user_id"  // 以user_id 标识用户
+	UserIdTypePatchApplicationContactsRangeUnionId = "union_id" // 以union_id 标识用户
+)
+
+const (
+	DepartmentIdTypePatchApplicationContactsRangeOpenDepartmentId = "open_department_id" // 以open_department_id标识部门
+	DepartmentIdTypePatchApplicationContactsRangeDepartmentId     = "department_id"      // 以department_id标识部门
+)
+
+const (
 	OpenFeedbackTypeFault  = 1 // 故障反馈
 	OpenFeedbackTypeAdvice = 2 // 产品建议
 
@@ -196,6 +213,65 @@ const (
 	DepartmentIdTypeCheckWhiteBlackListApplicationVisibilityDepartmentId     = "department_id"      // 以department_id来标识部门
 	DepartmentIdTypeCheckWhiteBlackListApplicationVisibilityOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
+
+const (
+	DepartmentIdTypePatchApplicationVisibilityOpenDepartmentId = "open_department_id" // 以open_department_id标识部门
+	DepartmentIdTypePatchApplicationVisibilityDepartmentId     = "department_id"      // 以department_id标识部门
+)
+
+const (
+	UserIdTypePatchApplicationVisibilityOpenId  = "open_id"  // 以open_id 标识用户
+	UserIdTypePatchApplicationVisibilityUserId  = "user_id"  // 以user_id 标识用户
+	UserIdTypePatchApplicationVisibilityUnionId = "union_id" // 以union_id 标识用户
+)
+
+type Accessibility struct {
+	Reason *string `json:"reason,omitempty"` // 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+	State  *string `json:"state,omitempty"`  // 访问状态,取值"Enable"或"Disable"
+}
+
+type AccessibilityBuilder struct {
+	reason     string // 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+	reasonFlag bool
+	state      string // 访问状态,取值"Enable"或"Disable"
+	stateFlag  bool
+}
+
+func NewAccessibilityBuilder() *AccessibilityBuilder {
+	builder := &AccessibilityBuilder{}
+	return builder
+}
+
+// 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+//
+// 示例值：应用发送消息过于频繁，暂停应用调用发送OpenAPI
+func (builder *AccessibilityBuilder) Reason(reason string) *AccessibilityBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 访问状态,取值"Enable"或"Disable"
+//
+// 示例值：Enable
+func (builder *AccessibilityBuilder) State(state string) *AccessibilityBuilder {
+	builder.state = state
+	builder.stateFlag = true
+	return builder
+}
+
+func (builder *AccessibilityBuilder) Build() *Accessibility {
+	req := &Accessibility{}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.stateFlag {
+		req.State = &builder.state
+
+	}
+	return req
+}
 
 type AppAbility struct {
 	Gadget           *Gadget            `json:"gadget,omitempty"`            // 小程序能力
@@ -533,6 +609,67 @@ func (builder *AppCommonCategoryBuilder) Build() *AppCommonCategory {
 	if builder.categoryFlag {
 		req.Category = &builder.category
 
+	}
+	return req
+}
+
+type AppContactsRangeIdList struct {
+	UserIds       []string `json:"user_ids,omitempty"`       // 成员id列表
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表
+	GroupIds      []string `json:"group_ids,omitempty"`      // 用户组列表
+}
+
+type AppContactsRangeIdListBuilder struct {
+	userIds           []string // 成员id列表
+	userIdsFlag       bool
+	departmentIds     []string // 部门id列表
+	departmentIdsFlag bool
+	groupIds          []string // 用户组列表
+	groupIdsFlag      bool
+}
+
+func NewAppContactsRangeIdListBuilder() *AppContactsRangeIdListBuilder {
+	builder := &AppContactsRangeIdListBuilder{}
+	return builder
+}
+
+// 成员id列表
+//
+// 示例值：
+func (builder *AppContactsRangeIdListBuilder) UserIds(userIds []string) *AppContactsRangeIdListBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 部门id列表
+//
+// 示例值：
+func (builder *AppContactsRangeIdListBuilder) DepartmentIds(departmentIds []string) *AppContactsRangeIdListBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 用户组列表
+//
+// 示例值：
+func (builder *AppContactsRangeIdListBuilder) GroupIds(groupIds []string) *AppContactsRangeIdListBuilder {
+	builder.groupIds = groupIds
+	builder.groupIdsFlag = true
+	return builder
+}
+
+func (builder *AppContactsRangeIdListBuilder) Build() *AppContactsRangeIdList {
+	req := &AppContactsRangeIdList{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.groupIdsFlag {
+		req.GroupIds = builder.groupIds
 	}
 	return req
 }
@@ -1747,6 +1884,67 @@ func (builder *AppVisibilityEventBuilder) Build() *AppVisibilityEvent {
 	}
 	if builder.invisibleListFlag {
 		req.InvisibleList = builder.invisibleList
+	}
+	return req
+}
+
+type AppVisibilityIdList struct {
+	UserIds       []string `json:"user_ids,omitempty"`       // 成员id列表(open_id/union_id/user_id)
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表(自定义部门id/open_department_id)
+	GroupIds      []string `json:"group_ids,omitempty"`      // 用户组id
+}
+
+type AppVisibilityIdListBuilder struct {
+	userIds           []string // 成员id列表(open_id/union_id/user_id)
+	userIdsFlag       bool
+	departmentIds     []string // 部门id列表(自定义部门id/open_department_id)
+	departmentIdsFlag bool
+	groupIds          []string // 用户组id
+	groupIdsFlag      bool
+}
+
+func NewAppVisibilityIdListBuilder() *AppVisibilityIdListBuilder {
+	builder := &AppVisibilityIdListBuilder{}
+	return builder
+}
+
+// 成员id列表(open_id/union_id/user_id)
+//
+// 示例值：
+func (builder *AppVisibilityIdListBuilder) UserIds(userIds []string) *AppVisibilityIdListBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 部门id列表(自定义部门id/open_department_id)
+//
+// 示例值：
+func (builder *AppVisibilityIdListBuilder) DepartmentIds(departmentIds []string) *AppVisibilityIdListBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 用户组id
+//
+// 示例值：
+func (builder *AppVisibilityIdListBuilder) GroupIds(groupIds []string) *AppVisibilityIdListBuilder {
+	builder.groupIds = groupIds
+	builder.groupIdsFlag = true
+	return builder
+}
+
+func (builder *AppVisibilityIdListBuilder) Build() *AppVisibilityIdList {
+	req := &AppVisibilityIdList{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.groupIdsFlag {
+		req.GroupIds = builder.groupIds
 	}
 	return req
 }
@@ -4863,6 +5061,69 @@ func (builder *NavigateMetaBuilder) Build() *NavigateMeta {
 	return req
 }
 
+type OpenapiOption struct {
+	HttpMethod    *string        `json:"http_method,omitempty"`   // OpenAPI HTTP method
+	UrlPattern    *string        `json:"url_pattern,omitempty"`   // OpenAPI HTTP URL
+	Accessibility *Accessibility `json:"accessibility,omitempty"` // 可访问性
+}
+
+type OpenapiOptionBuilder struct {
+	httpMethod        string // OpenAPI HTTP method
+	httpMethodFlag    bool
+	urlPattern        string // OpenAPI HTTP URL
+	urlPatternFlag    bool
+	accessibility     *Accessibility // 可访问性
+	accessibilityFlag bool
+}
+
+func NewOpenapiOptionBuilder() *OpenapiOptionBuilder {
+	builder := &OpenapiOptionBuilder{}
+	return builder
+}
+
+// OpenAPI HTTP method
+//
+// 示例值：GET
+func (builder *OpenapiOptionBuilder) HttpMethod(httpMethod string) *OpenapiOptionBuilder {
+	builder.httpMethod = httpMethod
+	builder.httpMethodFlag = true
+	return builder
+}
+
+// OpenAPI HTTP URL
+//
+// 示例值：/open-apis/contact/v3/users/:user_id
+func (builder *OpenapiOptionBuilder) UrlPattern(urlPattern string) *OpenapiOptionBuilder {
+	builder.urlPattern = urlPattern
+	builder.urlPatternFlag = true
+	return builder
+}
+
+// 可访问性
+//
+// 示例值：
+func (builder *OpenapiOptionBuilder) Accessibility(accessibility *Accessibility) *OpenapiOptionBuilder {
+	builder.accessibility = accessibility
+	builder.accessibilityFlag = true
+	return builder
+}
+
+func (builder *OpenapiOptionBuilder) Build() *OpenapiOption {
+	req := &OpenapiOption{}
+	if builder.httpMethodFlag {
+		req.HttpMethod = &builder.httpMethod
+
+	}
+	if builder.urlPatternFlag {
+		req.UrlPattern = &builder.urlPattern
+
+	}
+	if builder.accessibilityFlag {
+		req.Accessibility = builder.accessibility
+	}
+	return req
+}
+
 type Operator struct {
 	OperatorName *string `json:"operator_name,omitempty"` // 用户名称
 	OperatorId   *UserId `json:"operator_id,omitempty"`   // 用户 ID
@@ -6505,6 +6766,189 @@ func (resp *PatchApplicationAppVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
+type PatchApplicationContactsRangeReqBodyBuilder struct {
+	contactsRangeType     string // 更新范围方式
+	contactsRangeTypeFlag bool
+	addVisibleList        *AppContactsRangeIdList // 可见范围新增列表
+	addVisibleListFlag    bool
+	delVisibleList        *AppContactsRangeIdList // 删除可用名单
+	delVisibleListFlag    bool
+}
+
+func NewPatchApplicationContactsRangeReqBodyBuilder() *PatchApplicationContactsRangeReqBodyBuilder {
+	builder := &PatchApplicationContactsRangeReqBodyBuilder{}
+	return builder
+}
+
+// 更新范围方式
+//
+//示例值：some
+func (builder *PatchApplicationContactsRangeReqBodyBuilder) ContactsRangeType(contactsRangeType string) *PatchApplicationContactsRangeReqBodyBuilder {
+	builder.contactsRangeType = contactsRangeType
+	builder.contactsRangeTypeFlag = true
+	return builder
+}
+
+// 可见范围新增列表
+//
+//示例值：
+func (builder *PatchApplicationContactsRangeReqBodyBuilder) AddVisibleList(addVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
+	builder.addVisibleList = addVisibleList
+	builder.addVisibleListFlag = true
+	return builder
+}
+
+// 删除可用名单
+//
+//示例值：
+func (builder *PatchApplicationContactsRangeReqBodyBuilder) DelVisibleList(delVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
+	builder.delVisibleList = delVisibleList
+	builder.delVisibleListFlag = true
+	return builder
+}
+
+func (builder *PatchApplicationContactsRangeReqBodyBuilder) Build() *PatchApplicationContactsRangeReqBody {
+	req := &PatchApplicationContactsRangeReqBody{}
+	if builder.contactsRangeTypeFlag {
+		req.ContactsRangeType = &builder.contactsRangeType
+	}
+	if builder.addVisibleListFlag {
+		req.AddVisibleList = builder.addVisibleList
+	}
+	if builder.delVisibleListFlag {
+		req.DelVisibleList = builder.delVisibleList
+	}
+	return req
+}
+
+type PatchApplicationContactsRangePathReqBodyBuilder struct {
+	contactsRangeType     string // 更新范围方式
+	contactsRangeTypeFlag bool
+	addVisibleList        *AppContactsRangeIdList // 可见范围新增列表
+	addVisibleListFlag    bool
+	delVisibleList        *AppContactsRangeIdList // 删除可用名单
+	delVisibleListFlag    bool
+}
+
+func NewPatchApplicationContactsRangePathReqBodyBuilder() *PatchApplicationContactsRangePathReqBodyBuilder {
+	builder := &PatchApplicationContactsRangePathReqBodyBuilder{}
+	return builder
+}
+
+// 更新范围方式
+//
+// 示例值：some
+func (builder *PatchApplicationContactsRangePathReqBodyBuilder) ContactsRangeType(contactsRangeType string) *PatchApplicationContactsRangePathReqBodyBuilder {
+	builder.contactsRangeType = contactsRangeType
+	builder.contactsRangeTypeFlag = true
+	return builder
+}
+
+// 可见范围新增列表
+//
+// 示例值：
+func (builder *PatchApplicationContactsRangePathReqBodyBuilder) AddVisibleList(addVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangePathReqBodyBuilder {
+	builder.addVisibleList = addVisibleList
+	builder.addVisibleListFlag = true
+	return builder
+}
+
+// 删除可用名单
+//
+// 示例值：
+func (builder *PatchApplicationContactsRangePathReqBodyBuilder) DelVisibleList(delVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangePathReqBodyBuilder {
+	builder.delVisibleList = delVisibleList
+	builder.delVisibleListFlag = true
+	return builder
+}
+
+func (builder *PatchApplicationContactsRangePathReqBodyBuilder) Build() (*PatchApplicationContactsRangeReqBody, error) {
+	req := &PatchApplicationContactsRangeReqBody{}
+	if builder.contactsRangeTypeFlag {
+		req.ContactsRangeType = &builder.contactsRangeType
+	}
+	if builder.addVisibleListFlag {
+		req.AddVisibleList = builder.addVisibleList
+	}
+	if builder.delVisibleListFlag {
+		req.DelVisibleList = builder.delVisibleList
+	}
+	return req, nil
+}
+
+type PatchApplicationContactsRangeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchApplicationContactsRangeReqBody
+}
+
+func NewPatchApplicationContactsRangeReqBuilder() *PatchApplicationContactsRangeReqBuilder {
+	builder := &PatchApplicationContactsRangeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 应用id
+//
+// 示例值：cli_dsfjksdfee1
+func (builder *PatchApplicationContactsRangeReqBuilder) AppId(appId string) *PatchApplicationContactsRangeReqBuilder {
+	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
+	return builder
+}
+
+// 成员id类型
+//
+// 示例值：open_id
+func (builder *PatchApplicationContactsRangeReqBuilder) UserIdType(userIdType string) *PatchApplicationContactsRangeReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 部门id 类型
+//
+// 示例值：open_department_id
+func (builder *PatchApplicationContactsRangeReqBuilder) DepartmentIdType(departmentIdType string) *PatchApplicationContactsRangeReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *PatchApplicationContactsRangeReqBuilder) Body(body *PatchApplicationContactsRangeReqBody) *PatchApplicationContactsRangeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchApplicationContactsRangeReqBuilder) Build() *PatchApplicationContactsRangeReq {
+	req := &PatchApplicationContactsRangeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchApplicationContactsRangeReqBody struct {
+	ContactsRangeType *string                 `json:"contacts_range_type,omitempty"` // 更新范围方式
+	AddVisibleList    *AppContactsRangeIdList `json:"add_visible_list,omitempty"`    // 可见范围新增列表
+	DelVisibleList    *AppContactsRangeIdList `json:"del_visible_list,omitempty"`    // 删除可用名单
+}
+
+type PatchApplicationContactsRangeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchApplicationContactsRangeReqBody `body:""`
+}
+
+type PatchApplicationContactsRangeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchApplicationContactsRangeResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListApplicationFeedbackReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -6871,6 +7315,247 @@ type CheckWhiteBlackListApplicationVisibilityResp struct {
 }
 
 func (resp *CheckWhiteBlackListApplicationVisibilityResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchApplicationVisibilityReqBodyBuilder struct {
+	addVisibleList       *AppVisibilityIdList // 添加可用人员名单
+	addVisibleListFlag   bool
+	delVisibleList       *AppVisibilityIdList // 删除可用人员名单
+	delVisibleListFlag   bool
+	addInvisibleList     *AppVisibilityIdList // 添加禁用人员名单
+	addInvisibleListFlag bool
+	delInvisibleList     *AppVisibilityIdList // 删除禁用人员名单
+	delInvisibleListFlag bool
+	isVisibleToAll       bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	isVisibleToAllFlag   bool
+}
+
+func NewPatchApplicationVisibilityReqBodyBuilder() *PatchApplicationVisibilityReqBodyBuilder {
+	builder := &PatchApplicationVisibilityReqBodyBuilder{}
+	return builder
+}
+
+// 添加可用人员名单
+//
+//示例值：
+func (builder *PatchApplicationVisibilityReqBodyBuilder) AddVisibleList(addVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
+	builder.addVisibleList = addVisibleList
+	builder.addVisibleListFlag = true
+	return builder
+}
+
+// 删除可用人员名单
+//
+//示例值：
+func (builder *PatchApplicationVisibilityReqBodyBuilder) DelVisibleList(delVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
+	builder.delVisibleList = delVisibleList
+	builder.delVisibleListFlag = true
+	return builder
+}
+
+// 添加禁用人员名单
+//
+//示例值：
+func (builder *PatchApplicationVisibilityReqBodyBuilder) AddInvisibleList(addInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
+	builder.addInvisibleList = addInvisibleList
+	builder.addInvisibleListFlag = true
+	return builder
+}
+
+// 删除禁用人员名单
+//
+//示例值：
+func (builder *PatchApplicationVisibilityReqBodyBuilder) DelInvisibleList(delInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
+	builder.delInvisibleList = delInvisibleList
+	builder.delInvisibleListFlag = true
+	return builder
+}
+
+// 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+//
+//示例值：false
+func (builder *PatchApplicationVisibilityReqBodyBuilder) IsVisibleToAll(isVisibleToAll bool) *PatchApplicationVisibilityReqBodyBuilder {
+	builder.isVisibleToAll = isVisibleToAll
+	builder.isVisibleToAllFlag = true
+	return builder
+}
+
+func (builder *PatchApplicationVisibilityReqBodyBuilder) Build() *PatchApplicationVisibilityReqBody {
+	req := &PatchApplicationVisibilityReqBody{}
+	if builder.addVisibleListFlag {
+		req.AddVisibleList = builder.addVisibleList
+	}
+	if builder.delVisibleListFlag {
+		req.DelVisibleList = builder.delVisibleList
+	}
+	if builder.addInvisibleListFlag {
+		req.AddInvisibleList = builder.addInvisibleList
+	}
+	if builder.delInvisibleListFlag {
+		req.DelInvisibleList = builder.delInvisibleList
+	}
+	if builder.isVisibleToAllFlag {
+		req.IsVisibleToAll = &builder.isVisibleToAll
+	}
+	return req
+}
+
+type PatchApplicationVisibilityPathReqBodyBuilder struct {
+	addVisibleList       *AppVisibilityIdList // 添加可用人员名单
+	addVisibleListFlag   bool
+	delVisibleList       *AppVisibilityIdList // 删除可用人员名单
+	delVisibleListFlag   bool
+	addInvisibleList     *AppVisibilityIdList // 添加禁用人员名单
+	addInvisibleListFlag bool
+	delInvisibleList     *AppVisibilityIdList // 删除禁用人员名单
+	delInvisibleListFlag bool
+	isVisibleToAll       bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	isVisibleToAllFlag   bool
+}
+
+func NewPatchApplicationVisibilityPathReqBodyBuilder() *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder := &PatchApplicationVisibilityPathReqBodyBuilder{}
+	return builder
+}
+
+// 添加可用人员名单
+//
+// 示例值：
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddVisibleList(addVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder.addVisibleList = addVisibleList
+	builder.addVisibleListFlag = true
+	return builder
+}
+
+// 删除可用人员名单
+//
+// 示例值：
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelVisibleList(delVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder.delVisibleList = delVisibleList
+	builder.delVisibleListFlag = true
+	return builder
+}
+
+// 添加禁用人员名单
+//
+// 示例值：
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddInvisibleList(addInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder.addInvisibleList = addInvisibleList
+	builder.addInvisibleListFlag = true
+	return builder
+}
+
+// 删除禁用人员名单
+//
+// 示例值：
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelInvisibleList(delInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder.delInvisibleList = delInvisibleList
+	builder.delInvisibleListFlag = true
+	return builder
+}
+
+// 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+//
+// 示例值：false
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) IsVisibleToAll(isVisibleToAll bool) *PatchApplicationVisibilityPathReqBodyBuilder {
+	builder.isVisibleToAll = isVisibleToAll
+	builder.isVisibleToAllFlag = true
+	return builder
+}
+
+func (builder *PatchApplicationVisibilityPathReqBodyBuilder) Build() (*PatchApplicationVisibilityReqBody, error) {
+	req := &PatchApplicationVisibilityReqBody{}
+	if builder.addVisibleListFlag {
+		req.AddVisibleList = builder.addVisibleList
+	}
+	if builder.delVisibleListFlag {
+		req.DelVisibleList = builder.delVisibleList
+	}
+	if builder.addInvisibleListFlag {
+		req.AddInvisibleList = builder.addInvisibleList
+	}
+	if builder.delInvisibleListFlag {
+		req.DelInvisibleList = builder.delInvisibleList
+	}
+	if builder.isVisibleToAllFlag {
+		req.IsVisibleToAll = &builder.isVisibleToAll
+	}
+	return req, nil
+}
+
+type PatchApplicationVisibilityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchApplicationVisibilityReqBody
+}
+
+func NewPatchApplicationVisibilityReqBuilder() *PatchApplicationVisibilityReqBuilder {
+	builder := &PatchApplicationVisibilityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 应用id
+//
+// 示例值：cli_9b445f5258795107
+func (builder *PatchApplicationVisibilityReqBuilder) AppId(appId string) *PatchApplicationVisibilityReqBuilder {
+	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
+	return builder
+}
+
+// 部门id 类型
+//
+// 示例值：open_department_id
+func (builder *PatchApplicationVisibilityReqBuilder) DepartmentIdType(departmentIdType string) *PatchApplicationVisibilityReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// open_id 类型
+//
+// 示例值：open_id
+func (builder *PatchApplicationVisibilityReqBuilder) UserIdType(userIdType string) *PatchApplicationVisibilityReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *PatchApplicationVisibilityReqBuilder) Body(body *PatchApplicationVisibilityReqBody) *PatchApplicationVisibilityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchApplicationVisibilityReqBuilder) Build() *PatchApplicationVisibilityReq {
+	req := &PatchApplicationVisibilityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchApplicationVisibilityReqBody struct {
+	AddVisibleList   *AppVisibilityIdList `json:"add_visible_list,omitempty"`   // 添加可用人员名单
+	DelVisibleList   *AppVisibilityIdList `json:"del_visible_list,omitempty"`   // 删除可用人员名单
+	AddInvisibleList *AppVisibilityIdList `json:"add_invisible_list,omitempty"` // 添加禁用人员名单
+	DelInvisibleList *AppVisibilityIdList `json:"del_invisible_list,omitempty"` // 删除禁用人员名单
+	IsVisibleToAll   *bool                `json:"is_visible_to_all,omitempty"`  // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+}
+
+type PatchApplicationVisibilityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchApplicationVisibilityReqBody `body:""`
+}
+
+type PatchApplicationVisibilityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchApplicationVisibilityResp) Success() bool {
 	return resp.Code == 0
 }
 

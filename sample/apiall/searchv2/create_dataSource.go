@@ -38,6 +38,8 @@ func main() {
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			SchemaId("7159054681489010384").
 			AppId("cli_a1306bed4738d01b").
+			ConnectType(0).
+			ConnectorParam(larksearch.NewConnectorParamBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

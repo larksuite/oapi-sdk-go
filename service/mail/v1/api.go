@@ -831,7 +831,7 @@ func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/mail/v1/public_mailboxes"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
 	if err != nil {
 		return nil, err

@@ -23,19 +23,34 @@ import (
 func NewService(config *larkcore.Config) *AuthenService {
 	a := &AuthenService{config: config}
 	a.AccessToken = &accessToken{service: a}
+	a.Authorize = &authorize{service: a}
+	a.OidcAccessToken = &oidcAccessToken{service: a}
+	a.OidcRefreshAccessToken = &oidcRefreshAccessToken{service: a}
 	a.RefreshAccessToken = &refreshAccessToken{service: a}
 	a.UserInfo = &userInfo{service: a}
 	return a
 }
 
 type AuthenService struct {
-	config             *larkcore.Config
-	AccessToken        *accessToken        // access_token
-	RefreshAccessToken *refreshAccessToken // refresh_access_token
-	UserInfo           *userInfo           // user_info
+	config                 *larkcore.Config
+	AccessToken            *accessToken            // access_token
+	Authorize              *authorize              // authorize
+	OidcAccessToken        *oidcAccessToken        // oidc.access_token
+	OidcRefreshAccessToken *oidcRefreshAccessToken // oidc.refresh_access_token
+	RefreshAccessToken     *refreshAccessToken     // refresh_access_token
+	UserInfo               *userInfo               // user_info
 }
 
 type accessToken struct {
+	service *AuthenService
+}
+type authorize struct {
+	service *AuthenService
+}
+type oidcAccessToken struct {
+	service *AuthenService
+}
+type oidcRefreshAccessToken struct {
 	service *AuthenService
 }
 type refreshAccessToken struct {
@@ -65,6 +80,84 @@ func (a *accessToken) Create(ctx context.Context, req *CreateAccessTokenReq, opt
 	// 反序列响应结果
 	resp := &CreateAccessTokenResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=authen&resource=authorize&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/authenv1/get_authorize.go
+func (a *authorize) Get(ctx context.Context, req *GetAuthorizeReq, options ...larkcore.RequestOptionFunc) (*GetAuthorizeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/authen/v1/authorize"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAuthorizeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.access_token&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/authenv1/create_oidcAccessToken.go
+func (o *oidcAccessToken) Create(ctx context.Context, req *CreateOidcAccessTokenReq, options ...larkcore.RequestOptionFunc) (*CreateOidcAccessTokenResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/authen/v1/oidc/access_token"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp}
+	apiResp, err := larkcore.Request(ctx, apiReq, o.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateOidcAccessTokenResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, o.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.refresh_access_token&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/authenv1/create_oidcRefreshAccessToken.go
+func (o *oidcRefreshAccessToken) Create(ctx context.Context, req *CreateOidcRefreshAccessTokenReq, options ...larkcore.RequestOptionFunc) (*CreateOidcRefreshAccessTokenResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/authen/v1/oidc/refresh_access_token"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp}
+	apiResp, err := larkcore.Request(ctx, apiReq, o.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateOidcRefreshAccessTokenResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, o.service.config)
 	if err != nil {
 		return nil, err
 	}

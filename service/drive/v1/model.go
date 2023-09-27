@@ -244,13 +244,9 @@ const (
 )
 
 const (
-	SubscriptionTypeGetFileSubscriptionCommentUpdate = "comment_update" // 评论更新
-)
-
-const (
-	FileTypeGetFileSubscriptionDoc  = "doc"  // 文档
-	FileTypeGetFileSubscriptionDocx = "docx" // 文档2.0
-	FileTypeGetFileSubscriptionWiki = "wiki" // 知识库wiki
+	FileTypeGetFileSubscriptionDocs         = "doc"  // 旧版文档
+	FileTypeGetFileSubscriptionUpgradedDocs = "docx" // 新版文档
+	FileTypeGetFileSubscriptionWiki         = "wiki" // 云空间
 )
 
 const (
@@ -368,6 +364,7 @@ const (
 	TokenTypeDocx     = "docx"     // 新版文档
 	TokenTypeMindnote = "mindnote" // 思维笔记
 	TokenTypeMinutes  = "minutes"  // 妙记
+	TokenTypeSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -404,6 +401,7 @@ const (
 	TokenTypeV2Folder   = "folder"   // 文件夹
 	TokenTypeV2Mindnote = "mindnote" // 思维笔记
 	TokenTypeV2Minutes  = "minutes"  // 妙记
+	TokenTypeV2Slides   = "slides"   // 幻灯片
 )
 
 const (
@@ -416,6 +414,7 @@ const (
 	TokenTypeV2DeletePermissionMemberFolder   = "folder"   // 文件夹
 	TokenTypeV2DeletePermissionMemberMindnote = "mindnote" // 思维笔记
 	TokenTypeV2DeletePermissionMemberMinutes  = "minutes"  // 妙记
+	TokenTypeV2DeletePermissionMemberSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -435,6 +434,7 @@ const (
 	TokenTypeListPermissionMemberDocx     = "docx"     // 新版文档
 	TokenTypeListPermissionMemberMindnote = "mindnote" // 思维笔记
 	TokenTypeListPermissionMemberMinutes  = "minutes"  // 妙记
+	TokenTypeListPermissionMemberSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -452,6 +452,7 @@ const (
 	TokenTypeTransferOwnerPermissionMemberDocx     = "docx"     // 新版文档
 	TokenTypeTransferOwnerPermissionMemberMindnote = "mindnote" // 思维笔记
 	TokenTypeTransferOwnerPermissionMemberMinutes  = "minutes"  // 妙记
+	TokenTypeTransferOwnerPermissionMemberSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -477,6 +478,7 @@ const (
 	TokenTypeUpdatePermissionMemberDocx     = "docx"     // 文档
 	TokenTypeUpdatePermissionMemberMindnote = "mindnote" // 思维笔记
 	TokenTypeUpdatePermissionMemberMinutes  = "minutes"  // 妙记
+	TokenTypeUpdatePermissionMemberSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -488,6 +490,7 @@ const (
 	TokenTypeGetPermissionPublicDocx     = "docx"     // 文档
 	TokenTypeGetPermissionPublicMindnote = "mindnote" // 思维笔记
 	TokenTypeGetPermissionPublicMinutes  = "minutes"  // 妙记
+	TokenTypeGetPermissionPublicSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -524,6 +527,7 @@ const (
 	TokenTypePatchPermissionPublicDocx     = "docx"     // 文档
 	TokenTypePatchPermissionPublicMindnote = "mindnote" // 思维笔记
 	TokenTypePatchPermissionPublicMinutes  = "minutes"  // 妙记
+	TokenTypePatchPermissionPublicSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -535,6 +539,7 @@ const (
 	TokenTypeCreatePermissionPublicPasswordDocx     = "docx"     // 新版文档
 	TokenTypeCreatePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
 	TokenTypeCreatePermissionPublicPasswordMinutes  = "minutes"  // 妙计
+	TokenTypeCreatePermissionPublicPasswordSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -546,6 +551,7 @@ const (
 	TypeDeletePermissionPublicPasswordDocx     = "docx"     // 新版文档
 	TypeDeletePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
 	TypeDeletePermissionPublicPasswordMinutes  = "minutes"  // 妙计
+	TypeDeletePermissionPublicPasswordSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -557,6 +563,7 @@ const (
 	TypeUpdatePermissionPublicPasswordDocx     = "docx"     // 新版文档
 	TypeUpdatePermissionPublicPasswordMindnote = "mindnote" // 思维笔记
 	TypeUpdatePermissionPublicPasswordMinutes  = "minutes"  // 妙计
+	TypeUpdatePermissionPublicPasswordSlides   = "slides"   // 幻灯片
 )
 
 type ApplyMemberRequest struct {
@@ -7369,9 +7376,63 @@ func (resp *CreateFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetFileSubscriptionReqBodyBuilder struct {
+	fileType     string // 文档类型
+	fileTypeFlag bool
+}
+
+func NewGetFileSubscriptionReqBodyBuilder() *GetFileSubscriptionReqBodyBuilder {
+	builder := &GetFileSubscriptionReqBodyBuilder{}
+	return builder
+}
+
+// 文档类型
+//
+//示例值：doc
+func (builder *GetFileSubscriptionReqBodyBuilder) FileType(fileType string) *GetFileSubscriptionReqBodyBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
+}
+
+func (builder *GetFileSubscriptionReqBodyBuilder) Build() *GetFileSubscriptionReqBody {
+	req := &GetFileSubscriptionReqBody{}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+	}
+	return req
+}
+
+type GetFileSubscriptionPathReqBodyBuilder struct {
+	fileType     string // 文档类型
+	fileTypeFlag bool
+}
+
+func NewGetFileSubscriptionPathReqBodyBuilder() *GetFileSubscriptionPathReqBodyBuilder {
+	builder := &GetFileSubscriptionPathReqBodyBuilder{}
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：doc
+func (builder *GetFileSubscriptionPathReqBodyBuilder) FileType(fileType string) *GetFileSubscriptionPathReqBodyBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
+}
+
+func (builder *GetFileSubscriptionPathReqBodyBuilder) Build() (*GetFileSubscriptionReqBody, error) {
+	req := &GetFileSubscriptionReqBody{}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+	}
+	return req, nil
+}
+
 type GetFileSubscriptionReqBuilder struct {
-	apiReq           *larkcore.ApiReq
-	fileSubscription *FileSubscription
+	apiReq *larkcore.ApiReq
+	body   *GetFileSubscriptionReqBody
 }
 
 func NewGetFileSubscriptionReqBuilder() *GetFileSubscriptionReqBuilder {
@@ -7400,8 +7461,8 @@ func (builder *GetFileSubscriptionReqBuilder) SubscriptionId(subscriptionId stri
 }
 
 // 根据订阅ID获取该订阅的状态
-func (builder *GetFileSubscriptionReqBuilder) FileSubscription(fileSubscription *FileSubscription) *GetFileSubscriptionReqBuilder {
-	builder.fileSubscription = fileSubscription
+func (builder *GetFileSubscriptionReqBuilder) Body(body *GetFileSubscriptionReqBody) *GetFileSubscriptionReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -7409,13 +7470,17 @@ func (builder *GetFileSubscriptionReqBuilder) Build() *GetFileSubscriptionReq {
 	req := &GetFileSubscriptionReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.Body = builder.fileSubscription
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type GetFileSubscriptionReqBody struct {
+	FileType *string `json:"file_type,omitempty"` // 文档类型
+}
+
 type GetFileSubscriptionReq struct {
-	apiReq           *larkcore.ApiReq
-	FileSubscription *FileSubscription `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *GetFileSubscriptionReqBody `body:""`
 }
 
 type GetFileSubscriptionRespData struct {

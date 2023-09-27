@@ -26,6 +26,7 @@ func NewService(config *larkcore.Config) *ApplicationService {
 	a.Application = &application{service: a}
 	a.ApplicationAppUsage = &applicationAppUsage{service: a}
 	a.ApplicationAppVersion = &applicationAppVersion{service: a}
+	a.ApplicationContactsRange = &applicationContactsRange{service: a}
 	a.ApplicationFeedback = &applicationFeedback{service: a}
 	a.ApplicationVisibility = &applicationVisibility{service: a}
 	a.Bot = &bot{service: a}
@@ -33,14 +34,15 @@ func NewService(config *larkcore.Config) *ApplicationService {
 }
 
 type ApplicationService struct {
-	config                *larkcore.Config
-	AppRecommendRule      *appRecommendRule      // 我的常用推荐规则
-	Application           *application           // 应用
-	ApplicationAppUsage   *applicationAppUsage   // 应用使用情况
-	ApplicationAppVersion *applicationAppVersion // 事件
-	ApplicationFeedback   *applicationFeedback   // 应用反馈
-	ApplicationVisibility *applicationVisibility // 事件
-	Bot                   *bot                   // 事件
+	config                   *larkcore.Config
+	AppRecommendRule         *appRecommendRule         // 我的常用推荐规则
+	Application              *application              // 应用
+	ApplicationAppUsage      *applicationAppUsage      // 应用使用情况
+	ApplicationAppVersion    *applicationAppVersion    // 事件
+	ApplicationContactsRange *applicationContactsRange // application.contacts_range
+	ApplicationFeedback      *applicationFeedback      // 应用反馈
+	ApplicationVisibility    *applicationVisibility    // 事件
+	Bot                      *bot                      // 事件
 }
 
 type appRecommendRule struct {
@@ -53,6 +55,9 @@ type applicationAppUsage struct {
 	service *ApplicationService
 }
 type applicationAppVersion struct {
+	service *ApplicationService
+}
+type applicationContactsRange struct {
 	service *ApplicationService
 }
 type applicationFeedback struct {
@@ -379,6 +384,32 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 	return resp, err
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.contacts_range&version=v6
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationContactsRange.go
+func (a *applicationContactsRange) Patch(ctx context.Context, req *PatchApplicationContactsRangeReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationContactsRangeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/application/v6/applications/:app_id/contacts_range"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchApplicationContactsRangeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 获取应用反馈列表
 //
 // - 查询应用的反馈数据
@@ -450,6 +481,32 @@ func (a *applicationVisibility) CheckWhiteBlackList(ctx context.Context, req *Ch
 	}
 	// 反序列响应结果
 	resp := &CheckWhiteBlackListApplicationVisibilityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.visibility&version=v6
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationVisibility.go
+func (a *applicationVisibility) Patch(ctx context.Context, req *PatchApplicationVisibilityReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationVisibilityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/application/v6/applications/:app_id/visibility"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchApplicationVisibilityResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
 	if err != nil {
 		return nil, err

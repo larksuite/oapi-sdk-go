@@ -65,7 +65,7 @@ import (
 type Client struct {
 	config                 *larkcore.Config
 	Acs                    *larkacs.AcsService                                         // 智能门禁
-	Admin                  *larkadmin.AdminService                                     // 管理后台-密码
+	Admin                  *larkadmin.AdminService                                     // 管理后台-数据报表
 	Application            *larkapplication.ApplicationService                         // 应用信息
 	Approval               *larkapproval.ApprovalService                               // 审批
 	Attendance             *larkattendance.AttendanceService                           // 打卡

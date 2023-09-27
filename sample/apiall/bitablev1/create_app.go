@@ -34,6 +34,7 @@ func main() {
 		ReqApp(larkbitable.NewReqAppBuilder().
 			Name("一篇新的多维表格").
 			FolderToken("fldbcoh8O99CIMltVc").
+			TimeZone("Asia/Macau").
 			Build()).
 		Build()
 	// 发起请求

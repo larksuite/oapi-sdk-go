@@ -33,6 +33,7 @@ func main() {
 		TextFieldAsArray(true).
 		UserIdType("user_id").
 		DisplayFormulaRef(true).
+		WithSharedUrl(false).
 		AutomaticFields(true).
 		Build()
 	// 发起请求

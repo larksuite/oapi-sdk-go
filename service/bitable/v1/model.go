@@ -253,24 +253,30 @@ func (builder *AllowedEditModesBuilder) Build() *AllowedEditModes {
 }
 
 type App struct {
-	AppToken    *string `json:"app_token,omitempty"`    // 多维表格 app token
-	Name        *string `json:"name,omitempty"`         // 多维表格 App 名字
-	Revision    *int    `json:"revision,omitempty"`     // 多维表格 App 版本号
-	FolderToken *string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹
-	Url         *string `json:"url,omitempty"`          // 多维表格 App URL
+	AppToken       *string `json:"app_token,omitempty"`        // 多维表格 app token
+	Name           *string `json:"name,omitempty"`             // 多维表格 App 名字
+	Revision       *int    `json:"revision,omitempty"`         // 多维表格 App 版本号
+	FolderToken    *string `json:"folder_token,omitempty"`     // 多维表格 App 归属文件夹
+	Url            *string `json:"url,omitempty"`              // 多维表格 App URL
+	DefaultTableId *string `json:"default_table_id,omitempty"` // 默认的表格id
+	TimeZone       *string `json:"time_zone,omitempty"`        // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
 }
 
 type AppBuilder struct {
-	appToken        string // 多维表格 app token
-	appTokenFlag    bool
-	name            string // 多维表格 App 名字
-	nameFlag        bool
-	revision        int // 多维表格 App 版本号
-	revisionFlag    bool
-	folderToken     string // 多维表格 App 归属文件夹
-	folderTokenFlag bool
-	url             string // 多维表格 App URL
-	urlFlag         bool
+	appToken           string // 多维表格 app token
+	appTokenFlag       bool
+	name               string // 多维表格 App 名字
+	nameFlag           bool
+	revision           int // 多维表格 App 版本号
+	revisionFlag       bool
+	folderToken        string // 多维表格 App 归属文件夹
+	folderTokenFlag    bool
+	url                string // 多维表格 App URL
+	urlFlag            bool
+	defaultTableId     string // 默认的表格id
+	defaultTableIdFlag bool
+	timeZone           string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZoneFlag       bool
 }
 
 func NewAppBuilder() *AppBuilder {
@@ -323,6 +329,24 @@ func (builder *AppBuilder) Url(url string) *AppBuilder {
 	return builder
 }
 
+// 默认的表格id
+//
+// 示例值：
+func (builder *AppBuilder) DefaultTableId(defaultTableId string) *AppBuilder {
+	builder.defaultTableId = defaultTableId
+	builder.defaultTableIdFlag = true
+	return builder
+}
+
+// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+//
+// 示例值：
+func (builder *AppBuilder) TimeZone(timeZone string) *AppBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *AppBuilder) Build() *App {
 	req := &App{}
 	if builder.appTokenFlag {
@@ -343,6 +367,14 @@ func (builder *AppBuilder) Build() *App {
 	}
 	if builder.urlFlag {
 		req.Url = &builder.url
+
+	}
+	if builder.defaultTableIdFlag {
+		req.DefaultTableId = &builder.defaultTableId
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
 
 	}
 	return req
@@ -2319,15 +2351,17 @@ func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedFiel
 }
 
 type AppTableRecord struct {
+	Fields           map[string]interface{} `json:"fields,omitempty"`             // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 	RecordId         *string                `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 	CreatedBy        *Person                `json:"created_by,omitempty"`         // 该记录的创建人
 	CreatedTime      *int64                 `json:"created_time,omitempty"`       // 该记录的创建时间
 	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
 	LastModifiedTime *int64                 `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
-	Fields           map[string]interface{} `json:"fields,omitempty"`             // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
 type AppTableRecordBuilder struct {
+	fields               map[string]interface{} // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+	fieldsFlag           bool
 	recordId             string // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
 	recordIdFlag         bool
 	createdBy            *Person // 该记录的创建人
@@ -2338,12 +2372,19 @@ type AppTableRecordBuilder struct {
 	lastModifiedByFlag   bool
 	lastModifiedTime     int64 // 该记录最近一次的更新时间
 	lastModifiedTimeFlag bool
-	fields               map[string]interface{} // 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
-	fieldsFlag           bool
 }
 
 func NewAppTableRecordBuilder() *AppTableRecordBuilder {
 	builder := &AppTableRecordBuilder{}
+	return builder
+}
+
+// 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+//
+// 示例值：
+func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
 	return builder
 }
 
@@ -2367,7 +2408,7 @@ func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableReco
 
 // 该记录的创建时间
 //
-// 示例值：
+// 示例值：1675244156000
 func (builder *AppTableRecordBuilder) CreatedTime(createdTime int64) *AppTableRecordBuilder {
 	builder.createdTime = createdTime
 	builder.createdTimeFlag = true
@@ -2385,24 +2426,18 @@ func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *Ap
 
 // 该记录最近一次的更新时间
 //
-// 示例值：
+// 示例值：1677556020000
 func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int64) *AppTableRecordBuilder {
 	builder.lastModifiedTime = lastModifiedTime
 	builder.lastModifiedTimeFlag = true
 	return builder
 }
 
-// 数据表的字段，即数据表的列;;当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c);;不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
-//
-// 示例值：
-func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
-	builder.fields = fields
-	builder.fieldsFlag = true
-	return builder
-}
-
 func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 	req := &AppTableRecord{}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
 	if builder.recordIdFlag {
 		req.RecordId = &builder.recordId
 
@@ -2420,9 +2455,6 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 	if builder.lastModifiedTimeFlag {
 		req.LastModifiedTime = &builder.lastModifiedTime
 
-	}
-	if builder.fieldsFlag {
-		req.Fields = builder.fields
 	}
 	return req
 }
@@ -3003,6 +3035,7 @@ type DisplayApp struct {
 	Name       *string `json:"name,omitempty"`        // 多维表格的名字
 	Revision   *int    `json:"revision,omitempty"`    // 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
 	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
+	TimeZone   *string `json:"time_zone,omitempty"`   // 文档时区
 }
 
 type DisplayAppBuilder struct {
@@ -3014,6 +3047,8 @@ type DisplayAppBuilder struct {
 	revisionFlag   bool
 	isAdvanced     bool // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
 	isAdvancedFlag bool
+	timeZone       string // 文档时区
+	timeZoneFlag   bool
 }
 
 func NewDisplayAppBuilder() *DisplayAppBuilder {
@@ -3057,6 +3092,15 @@ func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder
 	return builder
 }
 
+// 文档时区
+//
+// 示例值：
+func (builder *DisplayAppBuilder) TimeZone(timeZone string) *DisplayAppBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *DisplayAppBuilder) Build() *DisplayApp {
 	req := &DisplayApp{}
 	if builder.appTokenFlag {
@@ -3075,6 +3119,10 @@ func (builder *DisplayAppBuilder) Build() *DisplayApp {
 		req.IsAdvanced = &builder.isAdvanced
 
 	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
 	return req
 }
 
@@ -3082,6 +3130,7 @@ type DisplayAppV2 struct {
 	AppToken   *string `json:"app_token,omitempty"`   // 多维表格的 app_token
 	Name       *string `json:"name,omitempty"`        // 多维表格的名字
 	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
+	TimeZone   *string `json:"time_zone,omitempty"`   // 文档时区
 }
 
 type DisplayAppV2Builder struct {
@@ -3091,6 +3140,8 @@ type DisplayAppV2Builder struct {
 	nameFlag       bool
 	isAdvanced     bool // 多维表格是否已开启高级权限
 	isAdvancedFlag bool
+	timeZone       string // 文档时区
+	timeZoneFlag   bool
 }
 
 func NewDisplayAppV2Builder() *DisplayAppV2Builder {
@@ -3125,6 +3176,15 @@ func (builder *DisplayAppV2Builder) IsAdvanced(isAdvanced bool) *DisplayAppV2Bui
 	return builder
 }
 
+// 文档时区
+//
+// 示例值：
+func (builder *DisplayAppV2Builder) TimeZone(timeZone string) *DisplayAppV2Builder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 	req := &DisplayAppV2{}
 	if builder.appTokenFlag {
@@ -3137,6 +3197,10 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 	}
 	if builder.isAdvancedFlag {
 		req.IsAdvanced = &builder.isAdvanced
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
 
 	}
 	return req
@@ -3465,6 +3529,7 @@ func (builder *RatingBuilder) Build() *Rating {
 type ReqApp struct {
 	Name        *string `json:"name,omitempty"`         // 多维表格App名字
 	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹
+	TimeZone    *string `json:"time_zone,omitempty"`    // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
 }
 
 type ReqAppBuilder struct {
@@ -3472,6 +3537,8 @@ type ReqAppBuilder struct {
 	nameFlag        bool
 	folderToken     string // 多维表格App归属文件夹
 	folderTokenFlag bool
+	timeZone        string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZoneFlag    bool
 }
 
 func NewReqAppBuilder() *ReqAppBuilder {
@@ -3497,6 +3564,15 @@ func (builder *ReqAppBuilder) FolderToken(folderToken string) *ReqAppBuilder {
 	return builder
 }
 
+// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+//
+// 示例值：Asia/Macau
+func (builder *ReqAppBuilder) TimeZone(timeZone string) *ReqAppBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *ReqAppBuilder) Build() *ReqApp {
 	req := &ReqApp{}
 	if builder.nameFlag {
@@ -3505,6 +3581,10 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 	}
 	if builder.folderTokenFlag {
 		req.FolderToken = &builder.folderToken
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
 
 	}
 	return req
@@ -3676,6 +3756,8 @@ type CopyAppReqBodyBuilder struct {
 	folderTokenFlag    bool
 	withoutContent     bool // 不复制文档内容，只复制文档结构
 	withoutContentFlag bool
+	timeZone           string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZoneFlag       bool
 }
 
 func NewCopyAppReqBodyBuilder() *CopyAppReqBodyBuilder {
@@ -3710,6 +3792,15 @@ func (builder *CopyAppReqBodyBuilder) WithoutContent(withoutContent bool) *CopyA
 	return builder
 }
 
+// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+//
+//示例值：Asia/Beijing
+func (builder *CopyAppReqBodyBuilder) TimeZone(timeZone string) *CopyAppReqBodyBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *CopyAppReqBodyBuilder) Build() *CopyAppReqBody {
 	req := &CopyAppReqBody{}
 	if builder.nameFlag {
@@ -3721,6 +3812,9 @@ func (builder *CopyAppReqBodyBuilder) Build() *CopyAppReqBody {
 	if builder.withoutContentFlag {
 		req.WithoutContent = &builder.withoutContent
 	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+	}
 	return req
 }
 
@@ -3731,6 +3825,8 @@ type CopyAppPathReqBodyBuilder struct {
 	folderTokenFlag    bool
 	withoutContent     bool // 不复制文档内容，只复制文档结构
 	withoutContentFlag bool
+	timeZone           string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZoneFlag       bool
 }
 
 func NewCopyAppPathReqBodyBuilder() *CopyAppPathReqBodyBuilder {
@@ -3765,6 +3861,15 @@ func (builder *CopyAppPathReqBodyBuilder) WithoutContent(withoutContent bool) *C
 	return builder
 }
 
+// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+//
+// 示例值：Asia/Beijing
+func (builder *CopyAppPathReqBodyBuilder) TimeZone(timeZone string) *CopyAppPathReqBodyBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
 func (builder *CopyAppPathReqBodyBuilder) Build() (*CopyAppReqBody, error) {
 	req := &CopyAppReqBody{}
 	if builder.nameFlag {
@@ -3775,6 +3880,9 @@ func (builder *CopyAppPathReqBodyBuilder) Build() (*CopyAppReqBody, error) {
 	}
 	if builder.withoutContentFlag {
 		req.WithoutContent = &builder.withoutContent
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
 	}
 	return req, nil
 }
@@ -3819,6 +3927,7 @@ type CopyAppReqBody struct {
 	Name           *string `json:"name,omitempty"`            // 多维表格 App 名字
 	FolderToken    *string `json:"folder_token,omitempty"`    // 多维表格 App 归属文件夹
 	WithoutContent *bool   `json:"without_content,omitempty"` // 不复制文档内容，只复制文档结构
+	TimeZone       *string `json:"time_zone,omitempty"`       // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
 }
 
 type CopyAppReq struct {
@@ -6789,6 +6898,14 @@ func (builder *GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAp
 // 示例值：true
 func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *GetAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
+	return builder
+}
+
+// 控制是否返回该记录的链接
+//
+// 示例值：
+func (builder *GetAppTableRecordReqBuilder) WithSharedUrl(withSharedUrl bool) *GetAppTableRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("with_shared_url", fmt.Sprint(withSharedUrl))
 	return builder
 }
 

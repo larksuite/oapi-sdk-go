@@ -30,6 +30,7 @@ func main() {
 		PublicMailbox(larkmail.NewPublicMailboxBuilder().
 			Email("test_public_mailbox@xxx.xx").
 			Name("test public mailbox").
+			Geo("cn").
 			Build()).
 		Build()
 	// 发起请求

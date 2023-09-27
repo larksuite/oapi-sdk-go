@@ -13948,6 +13948,85 @@ func (builder *TextFieldSettingBuilder) Build() *TextFieldSetting {
 	return req
 }
 
+type TranferEmploymentInfo struct {
+	RegularEmployeeStartDate *string            `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	SeniorityDate            *string            `json:"seniority_date,omitempty"`              // 司龄起算日期
+	EmployeeNumber           *string            `json:"employee_number,omitempty"`             // 员工编号
+	CustomFields             []*CustomFieldData `json:"custom_fields,omitempty"`               // 自定义字段
+}
+
+type TranferEmploymentInfoBuilder struct {
+	regularEmployeeStartDate     string // 转正式员工日期
+	regularEmployeeStartDateFlag bool
+	seniorityDate                string // 司龄起算日期
+	seniorityDateFlag            bool
+	employeeNumber               string // 员工编号
+	employeeNumberFlag           bool
+	customFields                 []*CustomFieldData // 自定义字段
+	customFieldsFlag             bool
+}
+
+func NewTranferEmploymentInfoBuilder() *TranferEmploymentInfoBuilder {
+	builder := &TranferEmploymentInfoBuilder{}
+	return builder
+}
+
+// 转正式员工日期
+//
+// 示例值：2023-01-01
+func (builder *TranferEmploymentInfoBuilder) RegularEmployeeStartDate(regularEmployeeStartDate string) *TranferEmploymentInfoBuilder {
+	builder.regularEmployeeStartDate = regularEmployeeStartDate
+	builder.regularEmployeeStartDateFlag = true
+	return builder
+}
+
+// 司龄起算日期
+//
+// 示例值：2023-01-01
+func (builder *TranferEmploymentInfoBuilder) SeniorityDate(seniorityDate string) *TranferEmploymentInfoBuilder {
+	builder.seniorityDate = seniorityDate
+	builder.seniorityDateFlag = true
+	return builder
+}
+
+// 员工编号
+//
+// 示例值：1111111
+func (builder *TranferEmploymentInfoBuilder) EmployeeNumber(employeeNumber string) *TranferEmploymentInfoBuilder {
+	builder.employeeNumber = employeeNumber
+	builder.employeeNumberFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *TranferEmploymentInfoBuilder) CustomFields(customFields []*CustomFieldData) *TranferEmploymentInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *TranferEmploymentInfoBuilder) Build() *TranferEmploymentInfo {
+	req := &TranferEmploymentInfo{}
+	if builder.regularEmployeeStartDateFlag {
+		req.RegularEmployeeStartDate = &builder.regularEmployeeStartDate
+
+	}
+	if builder.seniorityDateFlag {
+		req.SeniorityDate = &builder.seniorityDate
+
+	}
+	if builder.employeeNumberFlag {
+		req.EmployeeNumber = &builder.employeeNumber
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
 type TransferInfo struct {
 	Remark                     *string                  `json:"remark,omitempty"`                        // 备注
 	OfferInfo                  *string                  `json:"offer_info,omitempty"`                    // offer信息
@@ -13995,6 +14074,8 @@ type TransferInfo struct {
 	TargetWorkShift            *string                  `json:"target_work_shift,omitempty"`             // 新排班
 	OriginalCostCenterRate     []*SupportCostCenterItem `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊信息
 	TargetCostCenterRate       []*SupportCostCenterItem `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊信息
+	OriginalEmploymentChange   *TranferEmploymentInfo   `json:"original_employment_change,omitempty"`    // 原工作信息
+	TargetEmploymentChange     *TranferEmploymentInfo   `json:"target_employment_change,omitempty"`      // 新工作信息
 }
 
 type TransferInfoBuilder struct {
@@ -14090,6 +14171,10 @@ type TransferInfoBuilder struct {
 	originalCostCenterRateFlag     bool
 	targetCostCenterRate           []*SupportCostCenterItem // 新成本中心分摊信息
 	targetCostCenterRateFlag       bool
+	originalEmploymentChange       *TranferEmploymentInfo // 原工作信息
+	originalEmploymentChangeFlag   bool
+	targetEmploymentChange         *TranferEmploymentInfo // 新工作信息
+	targetEmploymentChangeFlag     bool
 }
 
 func NewTransferInfoBuilder() *TransferInfoBuilder {
@@ -14511,6 +14596,24 @@ func (builder *TransferInfoBuilder) TargetCostCenterRate(targetCostCenterRate []
 	return builder
 }
 
+// 原工作信息
+//
+// 示例值：
+func (builder *TransferInfoBuilder) OriginalEmploymentChange(originalEmploymentChange *TranferEmploymentInfo) *TransferInfoBuilder {
+	builder.originalEmploymentChange = originalEmploymentChange
+	builder.originalEmploymentChangeFlag = true
+	return builder
+}
+
+// 新工作信息
+//
+// 示例值：
+func (builder *TransferInfoBuilder) TargetEmploymentChange(targetEmploymentChange *TranferEmploymentInfo) *TransferInfoBuilder {
+	builder.targetEmploymentChange = targetEmploymentChange
+	builder.targetEmploymentChangeFlag = true
+	return builder
+}
+
 func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	req := &TransferInfo{}
 	if builder.remarkFlag {
@@ -14694,6 +14797,12 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	}
 	if builder.targetCostCenterRateFlag {
 		req.TargetCostCenterRate = builder.targetCostCenterRate
+	}
+	if builder.originalEmploymentChangeFlag {
+		req.OriginalEmploymentChange = builder.originalEmploymentChange
+	}
+	if builder.targetEmploymentChangeFlag {
+		req.TargetEmploymentChange = builder.targetEmploymentChange
 	}
 	return req
 }

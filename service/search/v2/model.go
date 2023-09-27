@@ -35,6 +35,12 @@ const (
 )
 
 const (
+	ConnectTypeDefault  = 0 // 调用搜索请求时，使用的是飞书搜索接口
+	ConnectTypeCallback = 1 // 调用搜索请求时，使用的是自定义回调函数的Uri
+
+)
+
+const (
 	ViewFULL  = 0 // 全量数据
 	ViewBASIC = 1 // 摘要数据
 
@@ -500,6 +506,54 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 	return req
 }
 
+type ConnectorParam struct {
+	CallbackUserIdType *int    `json:"callback_user_id_type,omitempty"` // 回调时Request里面的id类型
+	CallbackEndpoint   *string `json:"callback_endpoint,omitempty"`     // 回调时的地址，必须为POST地址
+}
+
+type ConnectorParamBuilder struct {
+	callbackUserIdType     int // 回调时Request里面的id类型
+	callbackUserIdTypeFlag bool
+	callbackEndpoint       string // 回调时的地址，必须为POST地址
+	callbackEndpointFlag   bool
+}
+
+func NewConnectorParamBuilder() *ConnectorParamBuilder {
+	builder := &ConnectorParamBuilder{}
+	return builder
+}
+
+// 回调时Request里面的id类型
+//
+// 示例值：1
+func (builder *ConnectorParamBuilder) CallbackUserIdType(callbackUserIdType int) *ConnectorParamBuilder {
+	builder.callbackUserIdType = callbackUserIdType
+	builder.callbackUserIdTypeFlag = true
+	return builder
+}
+
+// 回调时的地址，必须为POST地址
+//
+// 示例值：https://open.approval.cn/api/search
+func (builder *ConnectorParamBuilder) CallbackEndpoint(callbackEndpoint string) *ConnectorParamBuilder {
+	builder.callbackEndpoint = callbackEndpoint
+	builder.callbackEndpointFlag = true
+	return builder
+}
+
+func (builder *ConnectorParamBuilder) Build() *ConnectorParam {
+	req := &ConnectorParam{}
+	if builder.callbackUserIdTypeFlag {
+		req.CallbackUserIdType = &builder.callbackUserIdType
+
+	}
+	if builder.callbackEndpointFlag {
+		req.CallbackEndpoint = &builder.callbackEndpoint
+
+	}
+	return req
+}
+
 type CreateDocParam struct {
 	DocId                *string  `json:"doc_id,omitempty"`                 // 文档的唯一标识，只允许英文字母、数字和下划线
 	FilterData           *string  `json:"filter_data,omitempty"`            // 文档对应filter_schema的值
@@ -596,20 +650,22 @@ func (builder *CreateDocParamBuilder) Build() *CreateDocParam {
 }
 
 type DataSource struct {
-	Id               *string   `json:"id,omitempty"`                // 数据源的唯一标识
-	Name             *string   `json:"name,omitempty"`              // data_source的展示名称
-	State            *int      `json:"state,omitempty"`             // 数据源状态，0-已上线，1-未上线。如果未填，默认是未上线状态。
-	Description      *string   `json:"description,omitempty"`       // 对于数据源的描述
-	CreateTime       *string   `json:"create_time,omitempty"`       // 创建时间，使用Unix时间戳，单位为“秒”
-	UpdateTime       *string   `json:"update_time,omitempty"`       // 更新时间，使用Unix时间戳，单位为“秒”
-	IsExceedQuota    *bool     `json:"is_exceed_quota,omitempty"`   // 是否超限
-	IconUrl          *string   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
-	Template         *string   `json:"template,omitempty"`          // 数据源采用的展示模版名称
-	SearchableFields []string  `json:"searchable_fields,omitempty"` // 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
-	I18nName         *I18nMeta `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
-	I18nDescription  *I18nMeta `json:"i18n_description,omitempty"`  // 数据源的国际化描述
-	SchemaId         *string   `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
-	AppId            *string   `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
+	Id               *string         `json:"id,omitempty"`                // 数据源的唯一标识
+	Name             *string         `json:"name,omitempty"`              // data_source的展示名称
+	State            *int            `json:"state,omitempty"`             // 数据源状态，0-已上线，1-未上线。如果未填，默认是未上线状态。
+	Description      *string         `json:"description,omitempty"`       // 对于数据源的描述
+	CreateTime       *string         `json:"create_time,omitempty"`       // 创建时间，使用Unix时间戳，单位为“秒”
+	UpdateTime       *string         `json:"update_time,omitempty"`       // 更新时间，使用Unix时间戳，单位为“秒”
+	IsExceedQuota    *bool           `json:"is_exceed_quota,omitempty"`   // 是否超限
+	IconUrl          *string         `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
+	Template         *string         `json:"template,omitempty"`          // 数据源采用的展示模版名称
+	SearchableFields []string        `json:"searchable_fields,omitempty"` // 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
+	I18nName         *I18nMeta       `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
+	I18nDescription  *I18nMeta       `json:"i18n_description,omitempty"`  // 数据源的国际化描述
+	SchemaId         *string         `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
+	AppId            *string         `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
+	ConnectType      *int            `json:"connect_type,omitempty"`      // 搜索请求的接入方式
+	ConnectorParam   *ConnectorParam `json:"connector_param,omitempty"`   // 根据连接器类型不同所需要提供的相关参数
 }
 
 type DataSourceBuilder struct {
@@ -641,6 +697,10 @@ type DataSourceBuilder struct {
 	schemaIdFlag         bool
 	appId                string // datasource对应的开放平台应用id
 	appIdFlag            bool
+	connectType          int // 搜索请求的接入方式
+	connectTypeFlag      bool
+	connectorParam       *ConnectorParam // 根据连接器类型不同所需要提供的相关参数
+	connectorParamFlag   bool
 }
 
 func NewDataSourceBuilder() *DataSourceBuilder {
@@ -774,6 +834,24 @@ func (builder *DataSourceBuilder) AppId(appId string) *DataSourceBuilder {
 	return builder
 }
 
+// 搜索请求的接入方式
+//
+// 示例值：1
+func (builder *DataSourceBuilder) ConnectType(connectType int) *DataSourceBuilder {
+	builder.connectType = connectType
+	builder.connectTypeFlag = true
+	return builder
+}
+
+// 根据连接器类型不同所需要提供的相关参数
+//
+// 示例值：
+func (builder *DataSourceBuilder) ConnectorParam(connectorParam *ConnectorParam) *DataSourceBuilder {
+	builder.connectorParam = connectorParam
+	builder.connectorParamFlag = true
+	return builder
+}
+
 func (builder *DataSourceBuilder) Build() *DataSource {
 	req := &DataSource{}
 	if builder.idFlag {
@@ -828,6 +906,13 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	if builder.appIdFlag {
 		req.AppId = &builder.appId
 
+	}
+	if builder.connectTypeFlag {
+		req.ConnectType = &builder.connectType
+
+	}
+	if builder.connectorParamFlag {
+		req.ConnectorParam = builder.connectorParam
 	}
 	return req
 }
@@ -1136,6 +1221,7 @@ type DocPassageParam struct {
 	Searchable   *bool    `json:"searchable,omitempty"`    // 是否要搜索doc
 	DocTokens    []string `json:"doc_tokens,omitempty"`    // 搜索几篇特定doc
 	FolderTokens []string `json:"folder_tokens,omitempty"` // 搜索特定的文件夹
+	ObjIds       []string `json:"obj_ids,omitempty"`       // 搜索特定doc（仅限内部使用，有需求请用doc_tokens）
 }
 
 type DocPassageParamBuilder struct {
@@ -1145,6 +1231,8 @@ type DocPassageParamBuilder struct {
 	docTokensFlag    bool
 	folderTokens     []string // 搜索特定的文件夹
 	folderTokensFlag bool
+	objIds           []string // 搜索特定doc（仅限内部使用，有需求请用doc_tokens）
+	objIdsFlag       bool
 }
 
 func NewDocPassageParamBuilder() *DocPassageParamBuilder {
@@ -1179,6 +1267,15 @@ func (builder *DocPassageParamBuilder) FolderTokens(folderTokens []string) *DocP
 	return builder
 }
 
+// 搜索特定doc（仅限内部使用，有需求请用doc_tokens）
+//
+// 示例值：
+func (builder *DocPassageParamBuilder) ObjIds(objIds []string) *DocPassageParamBuilder {
+	builder.objIds = objIds
+	builder.objIdsFlag = true
+	return builder
+}
+
 func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	req := &DocPassageParam{}
 	if builder.searchableFlag {
@@ -1190,6 +1287,9 @@ func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	}
 	if builder.folderTokensFlag {
 		req.FolderTokens = builder.folderTokens
+	}
+	if builder.objIdsFlag {
+		req.ObjIds = builder.objIds
 	}
 	return req
 }
@@ -2262,6 +2362,7 @@ type SchemaFilterOptions struct {
 	FilterType            *string                      `json:"filter_type,omitempty"`             // 筛选器类型
 	PredefineEnumValues   []*SchemaPredefineEnumStruct `json:"predefine_enum_values,omitempty"`   // 预定义的展示枚举值。在 filter_type 为 "predefine_enum" 时必须填写
 	EnableClientFilter    *bool                        `json:"enable_client_filter,omitempty"`    // 是否开启客户端筛选器
+	ReferenceDatasourceId *string                      `json:"reference_datasource_id,omitempty"` // 可搜筛选器关联的数据源标识
 }
 
 type SchemaFilterOptionsBuilder struct {
@@ -2279,6 +2380,8 @@ type SchemaFilterOptionsBuilder struct {
 	predefineEnumValuesFlag   bool
 	enableClientFilter        bool // 是否开启客户端筛选器
 	enableClientFilterFlag    bool
+	referenceDatasourceId     string // 可搜筛选器关联的数据源标识
+	referenceDatasourceIdFlag bool
 }
 
 func NewSchemaFilterOptionsBuilder() *SchemaFilterOptionsBuilder {
@@ -2349,6 +2452,15 @@ func (builder *SchemaFilterOptionsBuilder) EnableClientFilter(enableClientFilter
 	return builder
 }
 
+// 可搜筛选器关联的数据源标识
+//
+// 示例值：7264565154409461234
+func (builder *SchemaFilterOptionsBuilder) ReferenceDatasourceId(referenceDatasourceId string) *SchemaFilterOptionsBuilder {
+	builder.referenceDatasourceId = referenceDatasourceId
+	builder.referenceDatasourceIdFlag = true
+	return builder
+}
+
 func (builder *SchemaFilterOptionsBuilder) Build() *SchemaFilterOptions {
 	req := &SchemaFilterOptions{}
 	if builder.displayNameFlag {
@@ -2375,6 +2487,10 @@ func (builder *SchemaFilterOptionsBuilder) Build() *SchemaFilterOptions {
 	}
 	if builder.enableClientFilterFlag {
 		req.EnableClientFilter = &builder.enableClientFilter
+
+	}
+	if builder.referenceDatasourceIdFlag {
+		req.ReferenceDatasourceId = &builder.referenceDatasourceId
 
 	}
 	return req
@@ -2966,8 +3082,11 @@ func (builder *WebPassageParamBuilder) Build() *WebPassageParam {
 }
 
 type WikiPassageParam struct {
-	Searchable *bool    `json:"searchable,omitempty"` // 是否要搜索wiki
-	SpaceIds   []string `json:"space_ids,omitempty"`  // 搜索特定空间的wiki
+	Searchable *bool    `json:"searchable,omitempty"`  // 是否要搜索wiki
+	SpaceIds   []string `json:"space_ids,omitempty"`   // 搜索特定空间的wiki
+	ObjIds     []string `json:"obj_ids,omitempty"`     // 在特定的wiki内搜索（仅限内部使用，有需求请用wiki_tokens）
+	WikiTokens []string `json:"wiki_tokens,omitempty"` // 在特定的wiki内搜索
+	NodeTokens []string `json:"node_tokens,omitempty"` // 在特定的wiki节点范围内搜索
 }
 
 type WikiPassageParamBuilder struct {
@@ -2975,6 +3094,12 @@ type WikiPassageParamBuilder struct {
 	searchableFlag bool
 	spaceIds       []string // 搜索特定空间的wiki
 	spaceIdsFlag   bool
+	objIds         []string // 在特定的wiki内搜索（仅限内部使用，有需求请用wiki_tokens）
+	objIdsFlag     bool
+	wikiTokens     []string // 在特定的wiki内搜索
+	wikiTokensFlag bool
+	nodeTokens     []string // 在特定的wiki节点范围内搜索
+	nodeTokensFlag bool
 }
 
 func NewWikiPassageParamBuilder() *WikiPassageParamBuilder {
@@ -3000,6 +3125,33 @@ func (builder *WikiPassageParamBuilder) SpaceIds(spaceIds []string) *WikiPassage
 	return builder
 }
 
+// 在特定的wiki内搜索（仅限内部使用，有需求请用wiki_tokens）
+//
+// 示例值：
+func (builder *WikiPassageParamBuilder) ObjIds(objIds []string) *WikiPassageParamBuilder {
+	builder.objIds = objIds
+	builder.objIdsFlag = true
+	return builder
+}
+
+// 在特定的wiki内搜索
+//
+// 示例值：
+func (builder *WikiPassageParamBuilder) WikiTokens(wikiTokens []string) *WikiPassageParamBuilder {
+	builder.wikiTokens = wikiTokens
+	builder.wikiTokensFlag = true
+	return builder
+}
+
+// 在特定的wiki节点范围内搜索
+//
+// 示例值：
+func (builder *WikiPassageParamBuilder) NodeTokens(nodeTokens []string) *WikiPassageParamBuilder {
+	builder.nodeTokens = nodeTokens
+	builder.nodeTokensFlag = true
+	return builder
+}
+
 func (builder *WikiPassageParamBuilder) Build() *WikiPassageParam {
 	req := &WikiPassageParam{}
 	if builder.searchableFlag {
@@ -3008,6 +3160,15 @@ func (builder *WikiPassageParamBuilder) Build() *WikiPassageParam {
 	}
 	if builder.spaceIdsFlag {
 		req.SpaceIds = builder.spaceIds
+	}
+	if builder.objIdsFlag {
+		req.ObjIds = builder.objIds
+	}
+	if builder.wikiTokensFlag {
+		req.WikiTokens = builder.wikiTokens
+	}
+	if builder.nodeTokensFlag {
+		req.NodeTokens = builder.nodeTokens
 	}
 	return req
 }
@@ -3363,6 +3524,8 @@ type PatchDataSourceReqBodyBuilder struct {
 	i18nNameFlag        bool
 	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
+	connectorParam      *ConnectorParam // 修改connector的相关配置
+	connectorParamFlag  bool
 }
 
 func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
@@ -3424,6 +3587,15 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I
 	return builder
 }
 
+// 修改connector的相关配置
+//
+//示例值：
+func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *ConnectorParam) *PatchDataSourceReqBodyBuilder {
+	builder.connectorParam = connectorParam
+	builder.connectorParamFlag = true
+	return builder
+}
+
 func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -3444,6 +3616,9 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	if builder.i18nDescriptionFlag {
 		req.I18nDescription = builder.i18nDescription
 	}
+	if builder.connectorParamFlag {
+		req.ConnectorParam = builder.connectorParam
+	}
 	return req
 }
 
@@ -3460,6 +3635,8 @@ type PatchDataSourcePathReqBodyBuilder struct {
 	i18nNameFlag        bool
 	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	i18nDescriptionFlag bool
+	connectorParam      *ConnectorParam // 修改connector的相关配置
+	connectorParamFlag  bool
 }
 
 func NewPatchDataSourcePathReqBodyBuilder() *PatchDataSourcePathReqBodyBuilder {
@@ -3521,6 +3698,15 @@ func (builder *PatchDataSourcePathReqBodyBuilder) I18nDescription(i18nDescriptio
 	return builder
 }
 
+// 修改connector的相关配置
+//
+// 示例值：
+func (builder *PatchDataSourcePathReqBodyBuilder) ConnectorParam(connectorParam *ConnectorParam) *PatchDataSourcePathReqBodyBuilder {
+	builder.connectorParam = connectorParam
+	builder.connectorParamFlag = true
+	return builder
+}
+
 func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBody, error) {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -3540,6 +3726,9 @@ func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBo
 	}
 	if builder.i18nDescriptionFlag {
 		req.I18nDescription = builder.i18nDescription
+	}
+	if builder.connectorParamFlag {
+		req.ConnectorParam = builder.connectorParam
 	}
 	return req, nil
 }
@@ -3581,12 +3770,13 @@ func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 }
 
 type PatchDataSourceReqBody struct {
-	Name            *string   `json:"name,omitempty"`             // 数据源的展示名称
-	State           *int      `json:"state,omitempty"`            // 数据源状态，0-已上线，1-未上线
-	Description     *string   `json:"description,omitempty"`      // 对于数据源的描述
-	IconUrl         *string   `json:"icon_url,omitempty"`         // 数据源在 search tab 上的展示图标路径
-	I18nName        *I18nMeta `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
-	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	Name            *string         `json:"name,omitempty"`             // 数据源的展示名称
+	State           *int            `json:"state,omitempty"`            // 数据源状态，0-已上线，1-未上线
+	Description     *string         `json:"description,omitempty"`      // 对于数据源的描述
+	IconUrl         *string         `json:"icon_url,omitempty"`         // 数据源在 search tab 上的展示图标路径
+	I18nName        *I18nMeta       `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	I18nDescription *I18nMeta       `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	ConnectorParam  *ConnectorParam `json:"connector_param,omitempty"`  // 修改connector的相关配置
 }
 
 type PatchDataSourceReq struct {

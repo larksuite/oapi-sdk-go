@@ -28,10 +28,10 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewCreateImportTaskReqBuilder().
 		ImportTask(larkdrive.NewImportTaskBuilder().
-			FileExtension("").
-			FileToken("").
-			Type("").
-			FileName("").
+			FileExtension("txt").
+			FileToken("boxbcHgfxdfxxxxxxxxxxxfMky").
+			Type("docx").
+			FileName("文件名").
 			Point(larkdrive.NewImportTaskMountPointBuilder().Build()).
 			Build()).
 		Build()

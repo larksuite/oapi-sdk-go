@@ -35,6 +35,7 @@ func main() {
 			IconUrl("https://www.xxx.com/open.jpg").
 			I18nName(larksearch.NewI18nMetaBuilder().Build()).
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
+			ConnectorParam(larksearch.NewConnectorParamBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

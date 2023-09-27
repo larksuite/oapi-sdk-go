@@ -27,6 +27,8 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkmail.NewListPublicMailboxReqBuilder().
+		UserId("").
+		UserIdType("user_id").
 		PageToken("xxx").
 		PageSize(20).
 		Build()

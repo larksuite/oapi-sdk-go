@@ -173,6 +173,12 @@ const (
 )
 
 const (
+	UserIdTypeListPublicMailboxUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListPublicMailboxUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListPublicMailboxOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeBatchCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeBatchCreatePublicMailboxMemberUnionId = "union_id" // 以user_id来识别用户
 	UserIdTypeBatchCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
@@ -199,6 +205,54 @@ const (
 	UserIdTypeListPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
 )
+
+type Attachment struct {
+	Body     *string `json:"body,omitempty"`     // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
+	Filename *string `json:"filename,omitempty"` // 附件文件名
+}
+
+type AttachmentBuilder struct {
+	body         string // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
+	bodyFlag     bool
+	filename     string // 附件文件名
+	filenameFlag bool
+}
+
+func NewAttachmentBuilder() *AttachmentBuilder {
+	builder := &AttachmentBuilder{}
+	return builder
+}
+
+// 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
+//
+// 示例值：aGVsbG8gd29ybGQK
+func (builder *AttachmentBuilder) Body(body string) *AttachmentBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 附件文件名
+//
+// 示例值：helloworld.txt
+func (builder *AttachmentBuilder) Filename(filename string) *AttachmentBuilder {
+	builder.filename = filename
+	builder.filenameFlag = true
+	return builder
+}
+
+func (builder *AttachmentBuilder) Build() *Attachment {
+	req := &Attachment{}
+	if builder.bodyFlag {
+		req.Body = &builder.body
+
+	}
+	if builder.filenameFlag {
+		req.Filename = &builder.filename
+
+	}
+	return req
+}
 
 type DepartmentId struct {
 	DepartmentId     *string `json:"department_id,omitempty"`      //
@@ -291,6 +345,86 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 	}
 	if builder.emailAliasFlag {
 		req.EmailAlias = &builder.emailAlias
+
+	}
+	return req
+}
+
+type Folder struct {
+	Id             *string `json:"id,omitempty"`               // folder id
+	Name           *string `json:"name,omitempty"`             // 文件夹名称
+	ParentFolderId *string `json:"parent_folder_id,omitempty"` // 父文件夹 id，该值为 0 表示根文件夹
+	FolderType     *int    `json:"folder_type,omitempty"`      // 文件夹类型
+}
+
+type FolderBuilder struct {
+	id                 string // folder id
+	idFlag             bool
+	name               string // 文件夹名称
+	nameFlag           bool
+	parentFolderId     string // 父文件夹 id，该值为 0 表示根文件夹
+	parentFolderIdFlag bool
+	folderType         int // 文件夹类型
+	folderTypeFlag     bool
+}
+
+func NewFolderBuilder() *FolderBuilder {
+	builder := &FolderBuilder{}
+	return builder
+}
+
+// folder id
+//
+// 示例值：12314123123123123
+func (builder *FolderBuilder) Id(id string) *FolderBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 文件夹名称
+//
+// 示例值：newsletter 相关
+func (builder *FolderBuilder) Name(name string) *FolderBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 父文件夹 id，该值为 0 表示根文件夹
+//
+// 示例值：725627422334644
+func (builder *FolderBuilder) ParentFolderId(parentFolderId string) *FolderBuilder {
+	builder.parentFolderId = parentFolderId
+	builder.parentFolderIdFlag = true
+	return builder
+}
+
+// 文件夹类型
+//
+// 示例值：1
+func (builder *FolderBuilder) FolderType(folderType int) *FolderBuilder {
+	builder.folderType = folderType
+	builder.folderTypeFlag = true
+	return builder
+}
+
+func (builder *FolderBuilder) Build() *Folder {
+	req := &Folder{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.parentFolderIdFlag {
+		req.ParentFolderId = &builder.parentFolderId
+
+	}
+	if builder.folderTypeFlag {
+		req.FolderType = &builder.folderType
 
 	}
 	return req
@@ -456,7 +590,7 @@ func (builder *MailContactBuilder) Avatar(avatar string) *MailContactBuilder {
 
 // 联系人职位
 //
-// 示例值：CEO
+// 示例值：CFO
 func (builder *MailContactBuilder) Position(position string) *MailContactBuilder {
 	builder.position = position
 	builder.positionFlag = true
@@ -885,6 +1019,7 @@ type Message struct {
 	SmtpMessageId *string        `json:"smtp_message_id,omitempty"` // RFC协议id
 	MessageId     *string        `json:"message_id,omitempty"`      // 邮件id
 	BodyPlainText *string        `json:"body_plain_text,omitempty"` // 正文纯文本(base64url)
+	Attachments   []*Attachment  `json:"attachments,omitempty"`     // 邮件附件列表
 }
 
 type MessageBuilder struct {
@@ -912,6 +1047,8 @@ type MessageBuilder struct {
 	messageIdFlag     bool
 	bodyPlainText     string // 正文纯文本(base64url)
 	bodyPlainTextFlag bool
+	attachments       []*Attachment // 邮件附件列表
+	attachmentsFlag   bool
 }
 
 func NewMessageBuilder() *MessageBuilder {
@@ -1027,6 +1164,15 @@ func (builder *MessageBuilder) BodyPlainText(bodyPlainText string) *MessageBuild
 	return builder
 }
 
+// 邮件附件列表
+//
+// 示例值：
+func (builder *MessageBuilder) Attachments(attachments []*Attachment) *MessageBuilder {
+	builder.attachments = attachments
+	builder.attachmentsFlag = true
+	return builder
+}
+
 func (builder *MessageBuilder) Build() *Message {
 	req := &Message{}
 	if builder.rawFlag {
@@ -1073,6 +1219,9 @@ func (builder *MessageBuilder) Build() *Message {
 		req.BodyPlainText = &builder.bodyPlainText
 
 	}
+	if builder.attachmentsFlag {
+		req.Attachments = builder.attachments
+	}
 	return req
 }
 
@@ -1080,6 +1229,7 @@ type PublicMailbox struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           *string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            *string `json:"name,omitempty"`              // 公共邮箱名称
+	Geo             *string `json:"geo,omitempty"`               // 数据驻留地
 }
 
 type PublicMailboxBuilder struct {
@@ -1089,6 +1239,8 @@ type PublicMailboxBuilder struct {
 	emailFlag           bool
 	name                string // 公共邮箱名称
 	nameFlag            bool
+	geo                 string // 数据驻留地
+	geoFlag             bool
 }
 
 func NewPublicMailboxBuilder() *PublicMailboxBuilder {
@@ -1123,6 +1275,15 @@ func (builder *PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder {
 	return builder
 }
 
+// 数据驻留地
+//
+// 示例值：cn
+func (builder *PublicMailboxBuilder) Geo(geo string) *PublicMailboxBuilder {
+	builder.geo = geo
+	builder.geoFlag = true
+	return builder
+}
+
 func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
 	req := &PublicMailbox{}
 	if builder.publicMailboxIdFlag {
@@ -1135,6 +1296,10 @@ func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
 	}
 	if builder.nameFlag {
 		req.Name = &builder.name
+
+	}
+	if builder.geoFlag {
+		req.Geo = &builder.geo
 
 	}
 	return req
@@ -1204,6 +1369,337 @@ func (builder *PublicMailboxMemberBuilder) Build() *PublicMailboxMember {
 	return req
 }
 
+type Rule struct {
+	Id                   *string        `json:"id,omitempty"`                       // 规则 id
+	Condition            *RuleCondition `json:"condition,omitempty"`                // 匹配条件
+	Action               *RuleAction    `json:"action,omitempty"`                   // 匹配命中后的操作
+	IgnoreTheRestOfRules *bool          `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
+	Name                 *string        `json:"name,omitempty"`                     // 规则名称
+	IsEnable             *bool          `json:"is_enable,omitempty"`                // 是否启用
+}
+
+type RuleBuilder struct {
+	id                       string // 规则 id
+	idFlag                   bool
+	condition                *RuleCondition // 匹配条件
+	conditionFlag            bool
+	action                   *RuleAction // 匹配命中后的操作
+	actionFlag               bool
+	ignoreTheRestOfRules     bool // 是否终点规则
+	ignoreTheRestOfRulesFlag bool
+	name                     string // 规则名称
+	nameFlag                 bool
+	isEnable                 bool // 是否启用
+	isEnableFlag             bool
+}
+
+func NewRuleBuilder() *RuleBuilder {
+	builder := &RuleBuilder{}
+	return builder
+}
+
+// 规则 id
+//
+// 示例值：123124123123
+func (builder *RuleBuilder) Id(id string) *RuleBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 匹配条件
+//
+// 示例值：
+func (builder *RuleBuilder) Condition(condition *RuleCondition) *RuleBuilder {
+	builder.condition = condition
+	builder.conditionFlag = true
+	return builder
+}
+
+// 匹配命中后的操作
+//
+// 示例值：
+func (builder *RuleBuilder) Action(action *RuleAction) *RuleBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+
+// 是否终点规则
+//
+// 示例值：false
+func (builder *RuleBuilder) IgnoreTheRestOfRules(ignoreTheRestOfRules bool) *RuleBuilder {
+	builder.ignoreTheRestOfRules = ignoreTheRestOfRules
+	builder.ignoreTheRestOfRulesFlag = true
+	return builder
+}
+
+// 规则名称
+//
+// 示例值：将李三的邮件标记为垃圾邮件
+func (builder *RuleBuilder) Name(name string) *RuleBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：false
+func (builder *RuleBuilder) IsEnable(isEnable bool) *RuleBuilder {
+	builder.isEnable = isEnable
+	builder.isEnableFlag = true
+	return builder
+}
+
+func (builder *RuleBuilder) Build() *Rule {
+	req := &Rule{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.conditionFlag {
+		req.Condition = builder.condition
+	}
+	if builder.actionFlag {
+		req.Action = builder.action
+	}
+	if builder.ignoreTheRestOfRulesFlag {
+		req.IgnoreTheRestOfRules = &builder.ignoreTheRestOfRules
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.isEnableFlag {
+		req.IsEnable = &builder.isEnable
+
+	}
+	return req
+}
+
+type RuleAction struct {
+	Items []*RuleActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
+}
+
+type RuleActionBuilder struct {
+	items     []*RuleActionItem // 匹配中规则后的操作列表
+	itemsFlag bool
+}
+
+func NewRuleActionBuilder() *RuleActionBuilder {
+	builder := &RuleActionBuilder{}
+	return builder
+}
+
+// 匹配中规则后的操作列表
+//
+// 示例值：
+func (builder *RuleActionBuilder) Items(items []*RuleActionItem) *RuleActionBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *RuleActionBuilder) Build() *RuleAction {
+	req := &RuleAction{}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type RuleActionItem struct {
+	Type  *int    `json:"type,omitempty"`  // 操作类型
+	Input *string `json:"input,omitempty"` // 当 type 为移动到文件夹时，该字段填文件夹的 id
+}
+
+type RuleActionItemBuilder struct {
+	type_     int // 操作类型
+	typeFlag  bool
+	input     string // 当 type 为移动到文件夹时，该字段填文件夹的 id
+	inputFlag bool
+}
+
+func NewRuleActionItemBuilder() *RuleActionItemBuilder {
+	builder := &RuleActionItemBuilder{}
+	return builder
+}
+
+// 操作类型
+//
+// 示例值：1
+func (builder *RuleActionItemBuilder) Type(type_ int) *RuleActionItemBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 当 type 为移动到文件夹时，该字段填文件夹的 id
+//
+// 示例值：283412371233
+func (builder *RuleActionItemBuilder) Input(input string) *RuleActionItemBuilder {
+	builder.input = input
+	builder.inputFlag = true
+	return builder
+}
+
+func (builder *RuleActionItemBuilder) Build() *RuleActionItem {
+	req := &RuleActionItem{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.inputFlag {
+		req.Input = &builder.input
+
+	}
+	return req
+}
+
+type RuleCondition struct {
+	MatchType *int                 `json:"match_type,omitempty"` // 匹配类型
+	Items     []*RuleConditionItem `json:"items,omitempty"`      // 匹配规则列表
+}
+
+type RuleConditionBuilder struct {
+	matchType     int // 匹配类型
+	matchTypeFlag bool
+	items         []*RuleConditionItem // 匹配规则列表
+	itemsFlag     bool
+}
+
+func NewRuleConditionBuilder() *RuleConditionBuilder {
+	builder := &RuleConditionBuilder{}
+	return builder
+}
+
+// 匹配类型
+//
+// 示例值：1
+func (builder *RuleConditionBuilder) MatchType(matchType int) *RuleConditionBuilder {
+	builder.matchType = matchType
+	builder.matchTypeFlag = true
+	return builder
+}
+
+// 匹配规则列表
+//
+// 示例值：
+func (builder *RuleConditionBuilder) Items(items []*RuleConditionItem) *RuleConditionBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *RuleConditionBuilder) Build() *RuleCondition {
+	req := &RuleCondition{}
+	if builder.matchTypeFlag {
+		req.MatchType = &builder.matchType
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type RuleConditionItem struct {
+	Type     *int    `json:"type,omitempty"`     // 匹配条件左值
+	Operator *int    `json:"operator,omitempty"` // 匹配条件操作符
+	Input    *string `json:"input,omitempty"`    // 匹配条件右值
+}
+
+type RuleConditionItemBuilder struct {
+	type_        int // 匹配条件左值
+	typeFlag     bool
+	operator     int // 匹配条件操作符
+	operatorFlag bool
+	input        string // 匹配条件右值
+	inputFlag    bool
+}
+
+func NewRuleConditionItemBuilder() *RuleConditionItemBuilder {
+	builder := &RuleConditionItemBuilder{}
+	return builder
+}
+
+// 匹配条件左值
+//
+// 示例值：1
+func (builder *RuleConditionItemBuilder) Type(type_ int) *RuleConditionItemBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 匹配条件操作符
+//
+// 示例值：1
+func (builder *RuleConditionItemBuilder) Operator(operator int) *RuleConditionItemBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+
+// 匹配条件右值
+//
+// 示例值：hello@world.com
+func (builder *RuleConditionItemBuilder) Input(input string) *RuleConditionItemBuilder {
+	builder.input = input
+	builder.inputFlag = true
+	return builder
+}
+
+func (builder *RuleConditionItemBuilder) Build() *RuleConditionItem {
+	req := &RuleConditionItem{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
+	}
+	if builder.inputFlag {
+		req.Input = &builder.input
+
+	}
+	return req
+}
+
+type Subscriber struct {
+	UserIds []*UserId `json:"user_ids,omitempty"` // 收到邮件的用户 id 列表
+}
+
+type SubscriberBuilder struct {
+	userIds     []*UserId // 收到邮件的用户 id 列表
+	userIdsFlag bool
+}
+
+func NewSubscriberBuilder() *SubscriberBuilder {
+	builder := &SubscriberBuilder{}
+	return builder
+}
+
+// 收到邮件的用户 id 列表
+//
+// 示例值：
+func (builder *SubscriberBuilder) UserIds(userIds []*UserId) *SubscriberBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *SubscriberBuilder) Build() *Subscriber {
+	req := &Subscriber{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
 type User struct {
 	Email  *string `json:"email,omitempty"`  // 邮箱地址
 	Status *int    `json:"status,omitempty"` // 邮箱地址状态
@@ -1263,6 +1759,70 @@ func (builder *UserBuilder) Build() *User {
 	}
 	if builder.typeFlag {
 		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+type UserId struct {
+	UserId  *string `json:"user_id,omitempty"`  //
+	OpenId  *string `json:"open_id,omitempty"`  //
+	UnionId *string `json:"union_id,omitempty"` //
+}
+
+type UserIdBuilder struct {
+	userId      string //
+	userIdFlag  bool
+	openId      string //
+	openIdFlag  bool
+	unionId     string //
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
 
 	}
 	return req
@@ -3182,6 +3742,7 @@ type CreatePublicMailboxRespData struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
 	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
 	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
+	Geo             *string `json:"geo,omitempty"`               // 数据驻留地
 }
 
 type CreatePublicMailboxResp struct {
@@ -3271,6 +3832,7 @@ type GetPublicMailboxRespData struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
 	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
 	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
+	Geo             *string `json:"geo,omitempty"`               // 数据驻留地
 }
 
 type GetPublicMailboxResp struct {
@@ -3300,6 +3862,22 @@ func NewListPublicMailboxReqBuilder() *ListPublicMailboxReqBuilder {
 // 最大返回多少记录，当使用迭代器访问时才有效
 func (builder *ListPublicMailboxReqBuilder) Limit(limit int) *ListPublicMailboxReqBuilder {
 	builder.limit = limit
+	return builder
+}
+
+// user_id
+//
+// 示例值：
+func (builder *ListPublicMailboxReqBuilder) UserId(userId string) *ListPublicMailboxReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListPublicMailboxReqBuilder) UserIdType(userIdType string) *ListPublicMailboxReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
@@ -3394,6 +3972,7 @@ type PatchPublicMailboxRespData struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
 	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
 	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
+
 }
 
 type PatchPublicMailboxResp struct {
@@ -3451,6 +4030,7 @@ type UpdatePublicMailboxRespData struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
 	Email           *string `json:"email,omitempty"`             // The public mailbox's email address
 	Name            *string `json:"name,omitempty"`              // The public mailbox's display name
+
 }
 
 type UpdatePublicMailboxResp struct {

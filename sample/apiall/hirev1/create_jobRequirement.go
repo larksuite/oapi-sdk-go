@@ -35,6 +35,7 @@ func main() {
 			DisplayProgress(1).
 			HeadCount(11).
 			RecruitmentTypeId("1618209327096").
+			EmployeeTypeId("6807409776231254285").
 			MaxLevelId("123").
 			MinLevelId("11").
 			SequenceId("111").
@@ -52,6 +53,8 @@ func main() {
 			AddressId("11").
 			Description("11").
 			CustomizedDataList([]*larkhire.JobRequirementCustomizedData{larkhire.NewJobRequirementCustomizedDataBuilder().Build()}).
+			ProcessType(1).
+			JobTypeId("6930815272790114324").
 			Build()).
 		Build()
 	// 发起请求
