@@ -38,6 +38,30 @@ const (
 )
 
 const (
+	UserIdTypeMatchCompensationStandardUserId         = "user_id"          // 以user_id来识别用户
+	UserIdTypeMatchCompensationStandardUnionId        = "union_id"         // 以union_id来识别用户
+	UserIdTypeMatchCompensationStandardOpenId         = "open_id"          // 以open_id来识别用户
+	UserIdTypeMatchCompensationStandardPeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
+)
+
+const (
+	DepartmentIdTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	ReferenceObjectApiCpstItem      = "cpst_item"      // 薪资项目
+	ReferenceObjectApiCpstIndicator = "cpst_indicator" // 薪资统计指标
+)
+
+const (
+	RecruitmentTypeExperiencedProfessionals = "experienced_professionals" // 社招
+	RecruitmentTypeRecentGraduates          = "recent_graduates"          // 校招
+	RecruitmentTypeRoutineIntern            = "routine_intern"            // 日常实习
+)
+
+const (
 	UserIdTypeCreateDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
 	UserIdTypeCreateDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
 	UserIdTypeCreateDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
@@ -45,9 +69,9 @@ const (
 )
 
 const (
-	DepartmentIdTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	DepartmentIdTypeCreateDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeCreateDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypeCreateDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
@@ -1638,6 +1662,7 @@ type CommonSchemaOption struct {
 	ApiName     *string `json:"api_name,omitempty"`    // 选项 api_name，即选项的唯一标识
 	Name        *Name   `json:"name,omitempty"`        // 选项名称
 	Description *Name   `json:"description,omitempty"` // 选项描述
+	IsOpen      *bool   `json:"is_open,omitempty"`     // 是否启用
 }
 
 type CommonSchemaOptionBuilder struct {
@@ -1647,6 +1672,8 @@ type CommonSchemaOptionBuilder struct {
 	nameFlag        bool
 	description     *Name // 选项描述
 	descriptionFlag bool
+	isOpen          bool // 是否启用
+	isOpenFlag      bool
 }
 
 func NewCommonSchemaOptionBuilder() *CommonSchemaOptionBuilder {
@@ -1681,6 +1708,15 @@ func (builder *CommonSchemaOptionBuilder) Description(description *Name) *Common
 	return builder
 }
 
+// 是否启用
+//
+// 示例值：true
+func (builder *CommonSchemaOptionBuilder) IsOpen(isOpen bool) *CommonSchemaOptionBuilder {
+	builder.isOpen = isOpen
+	builder.isOpenFlag = true
+	return builder
+}
+
 func (builder *CommonSchemaOptionBuilder) Build() *CommonSchemaOption {
 	req := &CommonSchemaOption{}
 	if builder.apiNameFlag {
@@ -1692,6 +1728,10 @@ func (builder *CommonSchemaOptionBuilder) Build() *CommonSchemaOption {
 	}
 	if builder.descriptionFlag {
 		req.Description = builder.description
+	}
+	if builder.isOpenFlag {
+		req.IsOpen = &builder.isOpen
+
 	}
 	return req
 }
@@ -4555,6 +4595,54 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	}
 	if builder.legalNameFlag {
 		req.LegalName = &builder.legalName
+
+	}
+	return req
+}
+
+type EmployeeDateType struct {
+	Date     *string `json:"date,omitempty"`      // 日期
+	DateType *int    `json:"date_type,omitempty"` // 日期类型,1=工作日;2=休息日;3=节假日
+}
+
+type EmployeeDateTypeBuilder struct {
+	date         string // 日期
+	dateFlag     bool
+	dateType     int // 日期类型,1=工作日;2=休息日;3=节假日
+	dateTypeFlag bool
+}
+
+func NewEmployeeDateTypeBuilder() *EmployeeDateTypeBuilder {
+	builder := &EmployeeDateTypeBuilder{}
+	return builder
+}
+
+// 日期
+//
+// 示例值：2023-07-18
+func (builder *EmployeeDateTypeBuilder) Date(date string) *EmployeeDateTypeBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 日期类型,1=工作日;2=休息日;3=节假日
+//
+// 示例值：1
+func (builder *EmployeeDateTypeBuilder) DateType(dateType int) *EmployeeDateTypeBuilder {
+	builder.dateType = dateType
+	builder.dateTypeFlag = true
+	return builder
+}
+
+func (builder *EmployeeDateTypeBuilder) Build() *EmployeeDateType {
+	req := &EmployeeDateType{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.dateTypeFlag {
+		req.DateType = &builder.dateType
 
 	}
 	return req
@@ -7866,6 +7954,7 @@ type JobData struct {
 	SecondDirectManagerId    *string                  `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
 	CostCenterRate           []*SupportCostCenterItem `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
 	CustomFields             []*ObjectFieldData       `json:"custom_fields,omitempty"`               // 自定义字段
+	WeeklyWorkingHoursV2     *float64                 `json:"weekly_working_hours_v2,omitempty"`     // 周工作时长v2
 }
 
 type JobDataBuilder struct {
@@ -7917,6 +8006,8 @@ type JobDataBuilder struct {
 	costCenterRateFlag           bool
 	customFields                 []*ObjectFieldData // 自定义字段
 	customFieldsFlag             bool
+	weeklyWorkingHoursV2         float64 // 周工作时长v2
+	weeklyWorkingHoursV2Flag     bool
 }
 
 func NewJobDataBuilder() *JobDataBuilder {
@@ -8140,6 +8231,15 @@ func (builder *JobDataBuilder) CustomFields(customFields []*ObjectFieldData) *Jo
 	return builder
 }
 
+// 周工作时长v2
+//
+// 示例值：37.5
+func (builder *JobDataBuilder) WeeklyWorkingHoursV2(weeklyWorkingHoursV2 float64) *JobDataBuilder {
+	builder.weeklyWorkingHoursV2 = weeklyWorkingHoursV2
+	builder.weeklyWorkingHoursV2Flag = true
+	return builder
+}
+
 func (builder *JobDataBuilder) Build() *JobData {
 	req := &JobData{}
 	if builder.idFlag {
@@ -8232,6 +8332,10 @@ func (builder *JobDataBuilder) Build() *JobData {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.weeklyWorkingHoursV2Flag {
+		req.WeeklyWorkingHoursV2 = &builder.weeklyWorkingHoursV2
+
 	}
 	return req
 }
@@ -8939,6 +9043,7 @@ type LeaveRequest struct {
 	ActualEndDate      *string               `json:"actual_end_date,omitempty"`      // 实际结束日期
 	EstimatedEndDate   *string               `json:"estimated_end_date,omitempty"`   // 预估结束日期
 	TimeZone           *string               `json:"time_zone,omitempty"`            // 时区
+	DataSource         *int                  `json:"data_source,omitempty"`          // 请假记录数据来源
 }
 
 type LeaveRequestBuilder struct {
@@ -8986,6 +9091,8 @@ type LeaveRequestBuilder struct {
 	estimatedEndDateFlag   bool
 	timeZone               string // 时区
 	timeZoneFlag           bool
+	dataSource             int // 请假记录数据来源
+	dataSourceFlag         bool
 }
 
 func NewLeaveRequestBuilder() *LeaveRequestBuilder {
@@ -9191,6 +9298,15 @@ func (builder *LeaveRequestBuilder) TimeZone(timeZone string) *LeaveRequestBuild
 	return builder
 }
 
+// 请假记录数据来源
+//
+// 示例值：1
+func (builder *LeaveRequestBuilder) DataSource(dataSource int) *LeaveRequestBuilder {
+	builder.dataSource = dataSource
+	builder.dataSourceFlag = true
+	return builder
+}
+
 func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	req := &LeaveRequest{}
 	if builder.leaveRequestIdFlag {
@@ -9276,6 +9392,10 @@ func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	}
 	if builder.timeZoneFlag {
 		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.dataSourceFlag {
+		req.DataSource = &builder.dataSource
 
 	}
 	return req
@@ -13631,6 +13751,118 @@ func (builder *SecurityGroupBuilder) Build() *SecurityGroup {
 	return req
 }
 
+type SortOption struct {
+	SortField            *string `json:"sort_field,omitempty"`               // 排序字段
+	SortOrder            *int    `json:"sort_order,omitempty"`               // 排序顺序
+	SortI18n             *int    `json:"sort_i18n,omitempty"`                // 0=中文关键字;1=英文关键字;2=拼音
+	SortByStrandLength   *bool   `json:"sort_by_strand_length,omitempty"`    // 按某个字段的层级深度排序
+	SortByPinyin         *bool   `json:"sort_by_pinyin,omitempty"`           // 是否按照拼音排序
+	SortByEnumValueOrder *bool   `json:"sort_by_enum_value_order,omitempty"` // 是否按照枚举类型 value_order 排序
+}
+
+type SortOptionBuilder struct {
+	sortField                string // 排序字段
+	sortFieldFlag            bool
+	sortOrder                int // 排序顺序
+	sortOrderFlag            bool
+	sortI18n                 int // 0=中文关键字;1=英文关键字;2=拼音
+	sortI18nFlag             bool
+	sortByStrandLength       bool // 按某个字段的层级深度排序
+	sortByStrandLengthFlag   bool
+	sortByPinyin             bool // 是否按照拼音排序
+	sortByPinyinFlag         bool
+	sortByEnumValueOrder     bool // 是否按照枚举类型 value_order 排序
+	sortByEnumValueOrderFlag bool
+}
+
+func NewSortOptionBuilder() *SortOptionBuilder {
+	builder := &SortOptionBuilder{}
+	return builder
+}
+
+// 排序字段
+//
+// 示例值：wk_id
+func (builder *SortOptionBuilder) SortField(sortField string) *SortOptionBuilder {
+	builder.sortField = sortField
+	builder.sortFieldFlag = true
+	return builder
+}
+
+// 排序顺序
+//
+// 示例值：0
+func (builder *SortOptionBuilder) SortOrder(sortOrder int) *SortOptionBuilder {
+	builder.sortOrder = sortOrder
+	builder.sortOrderFlag = true
+	return builder
+}
+
+// 0=中文关键字;1=英文关键字;2=拼音
+//
+// 示例值：1
+func (builder *SortOptionBuilder) SortI18n(sortI18n int) *SortOptionBuilder {
+	builder.sortI18n = sortI18n
+	builder.sortI18nFlag = true
+	return builder
+}
+
+// 按某个字段的层级深度排序
+//
+// 示例值：false
+func (builder *SortOptionBuilder) SortByStrandLength(sortByStrandLength bool) *SortOptionBuilder {
+	builder.sortByStrandLength = sortByStrandLength
+	builder.sortByStrandLengthFlag = true
+	return builder
+}
+
+// 是否按照拼音排序
+//
+// 示例值：false
+func (builder *SortOptionBuilder) SortByPinyin(sortByPinyin bool) *SortOptionBuilder {
+	builder.sortByPinyin = sortByPinyin
+	builder.sortByPinyinFlag = true
+	return builder
+}
+
+// 是否按照枚举类型 value_order 排序
+//
+// 示例值：false
+func (builder *SortOptionBuilder) SortByEnumValueOrder(sortByEnumValueOrder bool) *SortOptionBuilder {
+	builder.sortByEnumValueOrder = sortByEnumValueOrder
+	builder.sortByEnumValueOrderFlag = true
+	return builder
+}
+
+func (builder *SortOptionBuilder) Build() *SortOption {
+	req := &SortOption{}
+	if builder.sortFieldFlag {
+		req.SortField = &builder.sortField
+
+	}
+	if builder.sortOrderFlag {
+		req.SortOrder = &builder.sortOrder
+
+	}
+	if builder.sortI18nFlag {
+		req.SortI18n = &builder.sortI18n
+
+	}
+	if builder.sortByStrandLengthFlag {
+		req.SortByStrandLength = &builder.sortByStrandLength
+
+	}
+	if builder.sortByPinyinFlag {
+		req.SortByPinyin = &builder.sortByPinyin
+
+	}
+	if builder.sortByEnumValueOrderFlag {
+		req.SortByEnumValueOrder = &builder.sortByEnumValueOrder
+
+	}
+	return req
+}
+
 type Subdivision struct {
 	Id              *string `json:"id,omitempty"`                // 省份/行政区id
 	Name            []*I18n `json:"name,omitempty"`              // 省份/行政区名称
@@ -15108,6 +15340,274 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
+type WkCalendarI18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文值
+	EnUs *string `json:"en_us,omitempty"` // 英文值
+}
+
+type WkCalendarI18nBuilder struct {
+	zhCn     string // 中文值
+	zhCnFlag bool
+	enUs     string // 英文值
+	enUsFlag bool
+}
+
+func NewWkCalendarI18nBuilder() *WkCalendarI18nBuilder {
+	builder := &WkCalendarI18nBuilder{}
+	return builder
+}
+
+// 中文值
+//
+// 示例值：日历1
+func (builder *WkCalendarI18nBuilder) ZhCn(zhCn string) *WkCalendarI18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文值
+//
+// 示例值：calendar1
+func (builder *WkCalendarI18nBuilder) EnUs(enUs string) *WkCalendarI18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *WkCalendarI18nBuilder) Build() *WkCalendarI18n {
+	req := &WkCalendarI18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+type WkOption struct {
+	Count       *bool         `json:"count,omitempty"`        // 是否返回符合条件的工作日历总数
+	Offset      *int          `json:"offset,omitempty"`       // 分页查询的位移，从0开始
+	Limit       *int          `json:"limit,omitempty"`        // 分页查询 单次查询数量
+	SortOptions []*SortOption `json:"sort_options,omitempty"` // 排序
+}
+
+type WkOptionBuilder struct {
+	count           bool // 是否返回符合条件的工作日历总数
+	countFlag       bool
+	offset          int // 分页查询的位移，从0开始
+	offsetFlag      bool
+	limit           int // 分页查询 单次查询数量
+	limitFlag       bool
+	sortOptions     []*SortOption // 排序
+	sortOptionsFlag bool
+}
+
+func NewWkOptionBuilder() *WkOptionBuilder {
+	builder := &WkOptionBuilder{}
+	return builder
+}
+
+// 是否返回符合条件的工作日历总数
+//
+// 示例值：false
+func (builder *WkOptionBuilder) Count(count bool) *WkOptionBuilder {
+	builder.count = count
+	builder.countFlag = true
+	return builder
+}
+
+// 分页查询的位移，从0开始
+//
+// 示例值：0
+func (builder *WkOptionBuilder) Offset(offset int) *WkOptionBuilder {
+	builder.offset = offset
+	builder.offsetFlag = true
+	return builder
+}
+
+// 分页查询 单次查询数量
+//
+// 示例值：20
+func (builder *WkOptionBuilder) Limit(limit int) *WkOptionBuilder {
+	builder.limit = limit
+	builder.limitFlag = true
+	return builder
+}
+
+// 排序
+//
+// 示例值：
+func (builder *WkOptionBuilder) SortOptions(sortOptions []*SortOption) *WkOptionBuilder {
+	builder.sortOptions = sortOptions
+	builder.sortOptionsFlag = true
+	return builder
+}
+
+func (builder *WkOptionBuilder) Build() *WkOption {
+	req := &WkOption{}
+	if builder.countFlag {
+		req.Count = &builder.count
+
+	}
+	if builder.offsetFlag {
+		req.Offset = &builder.offset
+
+	}
+	if builder.limitFlag {
+		req.Limit = &builder.limit
+
+	}
+	if builder.sortOptionsFlag {
+		req.SortOptions = builder.sortOptions
+	}
+	return req
+}
+
+type WorkCalendarDetail struct {
+	CalendarId   *string         `json:"calendar_id,omitempty"`   // 工作日历ID
+	CalendarName *WkCalendarI18n `json:"calendar_name,omitempty"` // 工作日历名称
+	Enable       *bool           `json:"enable,omitempty"`        // 工作日历是否启用
+}
+
+type WorkCalendarDetailBuilder struct {
+	calendarId       string // 工作日历ID
+	calendarIdFlag   bool
+	calendarName     *WkCalendarI18n // 工作日历名称
+	calendarNameFlag bool
+	enable           bool // 工作日历是否启用
+	enableFlag       bool
+}
+
+func NewWorkCalendarDetailBuilder() *WorkCalendarDetailBuilder {
+	builder := &WorkCalendarDetailBuilder{}
+	return builder
+}
+
+// 工作日历ID
+//
+// 示例值：123456
+func (builder *WorkCalendarDetailBuilder) CalendarId(calendarId string) *WorkCalendarDetailBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
+}
+
+// 工作日历名称
+//
+// 示例值：
+func (builder *WorkCalendarDetailBuilder) CalendarName(calendarName *WkCalendarI18n) *WorkCalendarDetailBuilder {
+	builder.calendarName = calendarName
+	builder.calendarNameFlag = true
+	return builder
+}
+
+// 工作日历是否启用
+//
+// 示例值：true
+func (builder *WorkCalendarDetailBuilder) Enable(enable bool) *WorkCalendarDetailBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+
+func (builder *WorkCalendarDetailBuilder) Build() *WorkCalendarDetail {
+	req := &WorkCalendarDetail{}
+	if builder.calendarIdFlag {
+		req.CalendarId = &builder.calendarId
+
+	}
+	if builder.calendarNameFlag {
+		req.CalendarName = builder.calendarName
+	}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+
+	}
+	return req
+}
+
+type WorkCalendarFilter struct {
+	WkCalendarIds  []string  `json:"wk_calendar_ids,omitempty"`   // 工作日历ID列表
+	WkCalendarIdGt *string   `json:"wk_calendar_id_gt,omitempty"` // 工作日历ID大于
+	WkOption       *WkOption `json:"wk_option,omitempty"`         // 分页、排序等选项
+	OnlyEnable     *bool     `json:"only_enable,omitempty"`       // 是否只返回启用的工作日历，不填默认true
+}
+
+type WorkCalendarFilterBuilder struct {
+	wkCalendarIds      []string // 工作日历ID列表
+	wkCalendarIdsFlag  bool
+	wkCalendarIdGt     string // 工作日历ID大于
+	wkCalendarIdGtFlag bool
+	wkOption           *WkOption // 分页、排序等选项
+	wkOptionFlag       bool
+	onlyEnable         bool // 是否只返回启用的工作日历，不填默认true
+	onlyEnableFlag     bool
+}
+
+func NewWorkCalendarFilterBuilder() *WorkCalendarFilterBuilder {
+	builder := &WorkCalendarFilterBuilder{}
+	return builder
+}
+
+// 工作日历ID列表
+//
+// 示例值：
+func (builder *WorkCalendarFilterBuilder) WkCalendarIds(wkCalendarIds []string) *WorkCalendarFilterBuilder {
+	builder.wkCalendarIds = wkCalendarIds
+	builder.wkCalendarIdsFlag = true
+	return builder
+}
+
+// 工作日历ID大于
+//
+// 示例值：12344
+func (builder *WorkCalendarFilterBuilder) WkCalendarIdGt(wkCalendarIdGt string) *WorkCalendarFilterBuilder {
+	builder.wkCalendarIdGt = wkCalendarIdGt
+	builder.wkCalendarIdGtFlag = true
+	return builder
+}
+
+// 分页、排序等选项
+//
+// 示例值：
+func (builder *WorkCalendarFilterBuilder) WkOption(wkOption *WkOption) *WorkCalendarFilterBuilder {
+	builder.wkOption = wkOption
+	builder.wkOptionFlag = true
+	return builder
+}
+
+// 是否只返回启用的工作日历，不填默认true
+//
+// 示例值：true
+func (builder *WorkCalendarFilterBuilder) OnlyEnable(onlyEnable bool) *WorkCalendarFilterBuilder {
+	builder.onlyEnable = onlyEnable
+	builder.onlyEnableFlag = true
+	return builder
+}
+
+func (builder *WorkCalendarFilterBuilder) Build() *WorkCalendarFilter {
+	req := &WorkCalendarFilter{}
+	if builder.wkCalendarIdsFlag {
+		req.WkCalendarIds = builder.wkCalendarIds
+	}
+	if builder.wkCalendarIdGtFlag {
+		req.WkCalendarIdGt = &builder.wkCalendarIdGt
+
+	}
+	if builder.wkOptionFlag {
+		req.WkOption = builder.wkOption
+	}
+	if builder.onlyEnableFlag {
+		req.OnlyEnable = &builder.onlyEnable
+
+	}
+	return req
+}
+
 type WorkExperience struct {
 	CompanyOrganization []*I18n            `json:"company_organization,omitempty"` // 公司 / 组织
 	Department          []*I18n            `json:"department,omitempty"`           // 部门
@@ -15782,6 +16282,174 @@ type ListCompanyResp struct {
 }
 
 func (resp *ListCompanyResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MatchCompensationStandardReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewMatchCompensationStandardReqBuilder() *MatchCompensationStandardReqBuilder {
+	builder := &MatchCompensationStandardReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *MatchCompensationStandardReqBuilder) UserIdType(userIdType string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：
+func (builder *MatchCompensationStandardReqBuilder) DepartmentIdType(departmentIdType string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 雇员ID
+//
+// 示例值：7124293751317038636
+func (builder *MatchCompensationStandardReqBuilder) EmploymentId(employmentId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("employment_id", fmt.Sprint(employmentId))
+	return builder
+}
+
+// 薪资标准的关联对象，项目或者指标
+//
+// 示例值：
+func (builder *MatchCompensationStandardReqBuilder) ReferenceObjectApi(referenceObjectApi string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("reference_object_api", fmt.Sprint(referenceObjectApi))
+	return builder
+}
+
+// 薪资标准关联对象ID
+//
+// 示例值：7156853394442044972
+func (builder *MatchCompensationStandardReqBuilder) ReferenceObjectId(referenceObjectId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("reference_object_id", fmt.Sprint(referenceObjectId))
+	return builder
+}
+
+// 部门ID
+//
+// 示例值：od-53899868dd0da32292a2d809f0518c8f
+func (builder *MatchCompensationStandardReqBuilder) DepartmentId(departmentId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
+	return builder
+}
+
+// 工作地点ID
+//
+// 示例值：7094869485965870636
+func (builder *MatchCompensationStandardReqBuilder) WorkLocationId(workLocationId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("work_location_id", fmt.Sprint(workLocationId))
+	return builder
+}
+
+// 公司ID
+//
+// 示例值：7091599096804394540
+func (builder *MatchCompensationStandardReqBuilder) CompanyId(companyId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("company_id", fmt.Sprint(companyId))
+	return builder
+}
+
+// 职务序列ID
+//
+// 示例值：7039313681989502508
+func (builder *MatchCompensationStandardReqBuilder) JobFamilyId(jobFamilyId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id", fmt.Sprint(jobFamilyId))
+	return builder
+}
+
+// 职级ID
+//
+// 示例值：7086415175263258156
+func (builder *MatchCompensationStandardReqBuilder) JobLevelId(jobLevelId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id", fmt.Sprint(jobLevelId))
+	return builder
+}
+
+// 人员类型ID
+//
+// 示例值：7039310401359775276
+func (builder *MatchCompensationStandardReqBuilder) EmployeeTypeId(employeeTypeId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id", fmt.Sprint(employeeTypeId))
+	return builder
+}
+
+// 招聘类型
+//
+// 示例值：experienced_professionals
+func (builder *MatchCompensationStandardReqBuilder) RecruitmentType(recruitmentType string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("recruitment_type", fmt.Sprint(recruitmentType))
+	return builder
+}
+
+// 定调薪原因ID
+//
+// 示例值：6967639606963471117
+func (builder *MatchCompensationStandardReqBuilder) CpstChangeReasonId(cpstChangeReasonId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("cpst_change_reason_id", fmt.Sprint(cpstChangeReasonId))
+	return builder
+}
+
+// 薪资方案ID
+//
+// 示例值：6967639606963471118
+func (builder *MatchCompensationStandardReqBuilder) CpstPlanId(cpstPlanId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("cpst_plan_id", fmt.Sprint(cpstPlanId))
+	return builder
+}
+
+// 薪级薪等ID
+//
+// 示例值：6967639606963471119
+func (builder *MatchCompensationStandardReqBuilder) CpstSalaryLevelId(cpstSalaryLevelId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("cpst_salary_level_id", fmt.Sprint(cpstSalaryLevelId))
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：1660924800000
+func (builder *MatchCompensationStandardReqBuilder) EffectiveTime(effectiveTime string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("effective_time", fmt.Sprint(effectiveTime))
+	return builder
+}
+
+func (builder *MatchCompensationStandardReqBuilder) Build() *MatchCompensationStandardReq {
+	req := &MatchCompensationStandardReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type MatchCompensationStandardReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type MatchCompensationStandardRespData struct {
+	StandardId    *string    `json:"standard_id,omitempty"`    // 薪资标准表ID
+	Grade         *CpstGrade `json:"grade,omitempty"`          // 薪资等级
+	EffectiveTime *string    `json:"effective_time,omitempty"` // 生效时间
+}
+
+type MatchCompensationStandardResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MatchCompensationStandardRespData `json:"data"` // 业务数据
+}
+
+func (resp *MatchCompensationStandardResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -19014,6 +19682,14 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveTermType(leaveTermType i
 // 示例值：Asia/Shanghai
 func (builder *LeaveRequestHistoryLeaveReqBuilder) TimeZone(timeZone string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("time_zone", fmt.Sprint(timeZone))
+	return builder
+}
+
+// 请假记录数据源，1表示中国大陆休假，2表示海外休假，不传表示不过滤
+//
+// 示例值：1
+func (builder *LeaveRequestHistoryLeaveReqBuilder) DataSource(dataSource int) *LeaveRequestHistoryLeaveReqBuilder {
+	builder.apiReq.QueryParams.Set("data_source", fmt.Sprint(dataSource))
 	return builder
 }
 
@@ -22392,6 +23068,21 @@ type P2PersonUpdatedV1 struct {
 }
 
 func (m *P2PersonUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2PreHireUpdatedV1Data struct {
+	PreHireId    *string  `json:"pre_hire_id,omitempty"`   // 待入职 ID
+	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段
+}
+
+type P2PreHireUpdatedV1 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2PreHireUpdatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2PreHireUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

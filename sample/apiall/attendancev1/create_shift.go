@@ -39,7 +39,6 @@ func main() {
 			LateOffLateOnRule([]*larkattendance.LateOffLateOnRule{larkattendance.NewLateOffLateOnRuleBuilder().Build()}).
 			RestTimeRule([]*larkattendance.RestRule{larkattendance.NewRestRuleBuilder().Build()}).
 			OvertimeRule([]*larkattendance.OvertimeRule{larkattendance.NewOvertimeRuleBuilder().Build()}).
-			AllowPunchApproval(false).
 			Build()).
 		Build()
 	// 发起请求

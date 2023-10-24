@@ -51,7 +51,7 @@ type DriveService struct {
 	FileVersion              *fileVersion              // 文档版本
 	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 素材
+	Media                    *media                    // 分片上传
 	Meta                     *meta                     // meta
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置

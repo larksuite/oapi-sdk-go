@@ -10399,10 +10399,12 @@ func (resp *BatchUserResp) Success() bool {
 }
 
 type BatchGetIdUserReqBodyBuilder struct {
-	emails      []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
-	emailsFlag  bool
-	mobiles     []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
-	mobilesFlag bool
+	emails              []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
+	emailsFlag          bool
+	mobiles             []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	mobilesFlag         bool
+	includeResigned     bool // 查询结果包含离职员工，可查询离职用户的ID
+	includeResignedFlag bool
 }
 
 func NewBatchGetIdUserReqBodyBuilder() *BatchGetIdUserReqBodyBuilder {
@@ -10428,6 +10430,15 @@ func (builder *BatchGetIdUserReqBodyBuilder) Mobiles(mobiles []string) *BatchGet
 	return builder
 }
 
+// 查询结果包含离职员工，可查询离职用户的ID
+//
+//示例值：true
+func (builder *BatchGetIdUserReqBodyBuilder) IncludeResigned(includeResigned bool) *BatchGetIdUserReqBodyBuilder {
+	builder.includeResigned = includeResigned
+	builder.includeResignedFlag = true
+	return builder
+}
+
 func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 	req := &BatchGetIdUserReqBody{}
 	if builder.emailsFlag {
@@ -10436,14 +10447,19 @@ func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 	if builder.mobilesFlag {
 		req.Mobiles = builder.mobiles
 	}
+	if builder.includeResignedFlag {
+		req.IncludeResigned = &builder.includeResigned
+	}
 	return req
 }
 
 type BatchGetIdUserPathReqBodyBuilder struct {
-	emails      []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
-	emailsFlag  bool
-	mobiles     []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
-	mobilesFlag bool
+	emails              []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
+	emailsFlag          bool
+	mobiles             []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	mobilesFlag         bool
+	includeResigned     bool // 查询结果包含离职员工，可查询离职用户的ID
+	includeResignedFlag bool
 }
 
 func NewBatchGetIdUserPathReqBodyBuilder() *BatchGetIdUserPathReqBodyBuilder {
@@ -10469,6 +10485,15 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Mobiles(mobiles []string) *Batc
 	return builder
 }
 
+// 查询结果包含离职员工，可查询离职用户的ID
+//
+// 示例值：true
+func (builder *BatchGetIdUserPathReqBodyBuilder) IncludeResigned(includeResigned bool) *BatchGetIdUserPathReqBodyBuilder {
+	builder.includeResigned = includeResigned
+	builder.includeResignedFlag = true
+	return builder
+}
+
 func (builder *BatchGetIdUserPathReqBodyBuilder) Build() (*BatchGetIdUserReqBody, error) {
 	req := &BatchGetIdUserReqBody{}
 	if builder.emailsFlag {
@@ -10476,6 +10501,9 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Build() (*BatchGetIdUserReqBody
 	}
 	if builder.mobilesFlag {
 		req.Mobiles = builder.mobiles
+	}
+	if builder.includeResignedFlag {
+		req.IncludeResigned = &builder.includeResigned
 	}
 	return req, nil
 }
@@ -10517,8 +10545,9 @@ func (builder *BatchGetIdUserReqBuilder) Build() *BatchGetIdUserReq {
 }
 
 type BatchGetIdUserReqBody struct {
-	Emails  []string `json:"emails,omitempty"`  // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
-	Mobiles []string `json:"mobiles,omitempty"` // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	Emails          []string `json:"emails,omitempty"`           // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
+	Mobiles         []string `json:"mobiles,omitempty"`          // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	IncludeResigned *bool    `json:"include_resigned,omitempty"` // 查询结果包含离职员工，可查询离职用户的ID
 }
 
 type BatchGetIdUserReq struct {

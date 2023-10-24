@@ -9317,6 +9317,14 @@ func (builder *TransferOwnerPermissionMemberReqBuilder) StayPut(stayPut bool) *T
 	return builder
 }
 
+// 仅当 remove_old_owner = false 时，此参数才会生效 保留原文件所有者指定的权限角色
+//
+// 示例值：view
+func (builder *TransferOwnerPermissionMemberReqBuilder) OldOwnerPerm(oldOwnerPerm string) *TransferOwnerPermissionMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("old_owner_perm", fmt.Sprint(oldOwnerPerm))
+	return builder
+}
+
 //
 func (builder *TransferOwnerPermissionMemberReqBuilder) Owner(owner *Owner) *TransferOwnerPermissionMemberReqBuilder {
 	builder.owner = owner

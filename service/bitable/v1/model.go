@@ -3794,7 +3794,7 @@ func (builder *CopyAppReqBodyBuilder) WithoutContent(withoutContent bool) *CopyA
 
 // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
 //
-//示例值：Asia/Beijing
+//示例值：Asia/Shanghai
 func (builder *CopyAppReqBodyBuilder) TimeZone(timeZone string) *CopyAppReqBodyBuilder {
 	builder.timeZone = timeZone
 	builder.timeZoneFlag = true
@@ -3863,7 +3863,7 @@ func (builder *CopyAppPathReqBodyBuilder) WithoutContent(withoutContent bool) *C
 
 // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
 //
-// 示例值：Asia/Beijing
+// 示例值：Asia/Shanghai
 func (builder *CopyAppPathReqBodyBuilder) TimeZone(timeZone string) *CopyAppPathReqBodyBuilder {
 	builder.timeZone = timeZone
 	builder.timeZoneFlag = true

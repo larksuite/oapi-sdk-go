@@ -25,6 +25,7 @@ func NewService(config *larkcore.Config) *CorehrService {
 	c := &CorehrService{config: config}
 	c.AssignedUser = &assignedUser{service: c}
 	c.Company = &company{service: c}
+	c.CompensationStandard = &compensationStandard{service: c}
 	c.Contract = &contract{service: c}
 	c.CountryRegion = &countryRegion{service: c}
 	c.Currency = &currency{service: c}
@@ -60,6 +61,7 @@ type CorehrService struct {
 	config                  *larkcore.Config
 	AssignedUser            *assignedUser            // assigned_user
 	Company                 *company                 // 公司
+	CompensationStandard    *compensationStandard    // compensation_standard
 	Contract                *contract                // 合同
 	CountryRegion           *countryRegion           // 地理库信息
 	Currency                *currency                // 货币信息
@@ -94,6 +96,9 @@ type assignedUser struct {
 	service *CorehrService
 }
 type company struct {
+	service *CorehrService
+}
+type compensationStandard struct {
 	service *CorehrService
 }
 type contract struct {
@@ -304,6 +309,32 @@ func (c *company) List(ctx context.Context, req *ListCompanyReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &ListCompanyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// - 分页查询地点数据
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=match&project=corehr&resource=compensation_standard&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/match_compensationStandard.go
+func (c *compensationStandard) Match(ctx context.Context, req *MatchCompensationStandardReq, options ...larkcore.RequestOptionFunc) (*MatchCompensationStandardResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v1/compensation_standards/match"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &MatchCompensationStandardResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
 	if err != nil {
 		return nil, err

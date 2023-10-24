@@ -45,6 +45,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mdm/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
@@ -52,6 +53,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/passport/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
+	"github.com/larksuite/oapi-sdk-go/v3/service/security_and_compliance/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/speech_to_text/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -86,6 +88,7 @@ type Client struct {
 	Hire                   *larkhire.HireService                                       // 招聘
 	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService        // 实名认证
 	Im                     *larkim.ImService                                           // 消息与群组
+	Lingo                  *larklingo.LingoService                                     //
 	Mail                   *larkmail.MailService                                       // 邮箱
 	Mdm                    *larkmdm.MdmService                                         // 主数据
 	Okr                    *larkokr.OkrService                                         // OKR
@@ -93,6 +96,7 @@ type Client struct {
 	Passport               *larkpassport.PassportService                               // 帐号
 	PersonalSettings       *larkpersonal_settings.PersonalSettingsService              // 个人设置
 	Search                 *larksearch.SearchService                                   // 搜索
+	SecurityAndCompliance  *larksecurity_and_compliance.SecurityAndComplianceService   //
 	Sheets                 *larksheets.SheetsService                                   // 云文档-电子表格
 	SpeechToText           *larkspeech_to_text.SpeechToTextService                     // AI能力
 	Task                   *larktask.TaskService                                       // 任务
@@ -246,6 +250,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Hire = larkhire.NewService(config)
 	client.HumanAuthentication = larkhuman_authentication.NewService(config)
 	client.Im = larkim.NewService(config)
+	client.Lingo = larklingo.NewService(config)
 	client.Mail = larkmail.NewService(config)
 	client.Mdm = larkmdm.NewService(config)
 	client.Okr = larkokr.NewService(config)
@@ -253,6 +258,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Passport = larkpassport.NewService(config)
 	client.PersonalSettings = larkpersonal_settings.NewService(config)
 	client.Search = larksearch.NewService(config)
+	client.SecurityAndCompliance = larksecurity_and_compliance.NewService(config)
 	client.Sheets = larksheets.NewService(config)
 	client.SpeechToText = larkspeech_to_text.NewService(config)
 	client.Task = larktask.NewService(config)

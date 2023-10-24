@@ -23808,6 +23808,8 @@ type PortalJobPost struct {
 	JobRecruitmentType *IdNameObject                   `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
 	JobDepartment      *IdNameObject                   `json:"job_department,omitempty"`       // 职位部门
 	JobType            *IdNameObject                   `json:"job_type,omitempty"`             // 职位类型
+	MinJobLevel        *IdNameObject                   `json:"min_job_level,omitempty"`        // 最低职级
+	MaxJobLevel        *IdNameObject                   `json:"max_job_level,omitempty"`        // 最高职级
 	Address            *CommonAddress                  `json:"address,omitempty"`              // 职位地址
 	MinSalary          *string                         `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
 	MaxSalary          *string                         `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
@@ -23847,6 +23849,10 @@ type PortalJobPostBuilder struct {
 	jobDepartmentFlag      bool
 	jobType                *IdNameObject // 职位类型
 	jobTypeFlag            bool
+	minJobLevel            *IdNameObject // 最低职级
+	minJobLevelFlag        bool
+	maxJobLevel            *IdNameObject // 最高职级
+	maxJobLevelFlag        bool
 	address                *CommonAddress // 职位地址
 	addressFlag            bool
 	minSalary              string // 月薪范围-最低薪资
@@ -23973,6 +23979,24 @@ func (builder *PortalJobPostBuilder) JobDepartment(jobDepartment *IdNameObject) 
 func (builder *PortalJobPostBuilder) JobType(jobType *IdNameObject) *PortalJobPostBuilder {
 	builder.jobType = jobType
 	builder.jobTypeFlag = true
+	return builder
+}
+
+// 最低职级
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) MinJobLevel(minJobLevel *IdNameObject) *PortalJobPostBuilder {
+	builder.minJobLevel = minJobLevel
+	builder.minJobLevelFlag = true
+	return builder
+}
+
+// 最高职级
+//
+// 示例值：
+func (builder *PortalJobPostBuilder) MaxJobLevel(maxJobLevel *IdNameObject) *PortalJobPostBuilder {
+	builder.maxJobLevel = maxJobLevel
+	builder.maxJobLevelFlag = true
 	return builder
 }
 
@@ -24158,6 +24182,12 @@ func (builder *PortalJobPostBuilder) Build() *PortalJobPost {
 	}
 	if builder.jobTypeFlag {
 		req.JobType = builder.jobType
+	}
+	if builder.minJobLevelFlag {
+		req.MinJobLevel = builder.minJobLevel
+	}
+	if builder.maxJobLevelFlag {
+		req.MaxJobLevel = builder.maxJobLevel
 	}
 	if builder.addressFlag {
 		req.Address = builder.address
@@ -35289,6 +35319,8 @@ type WebsiteJobPost struct {
 	JobRecruitmentType *IdNameObject                   `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
 	JobDepartment      *IdNameObject                   `json:"job_department,omitempty"`       // 职位部门
 	JobType            *IdNameObject                   `json:"job_type,omitempty"`             // 职位类型
+	MinJobLevel        *IdNameObject                   `json:"min_job_level,omitempty"`        // 最低职级
+	MaxJobLevel        *IdNameObject                   `json:"max_job_level,omitempty"`        // 最高职级
 	Address            *CommonAddress                  `json:"address,omitempty"`              // 职位地址
 	MinSalary          *string                         `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
 	MaxSalary          *string                         `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
@@ -35301,12 +35333,12 @@ type WebsiteJobPost struct {
 	Creator            *IdNameObject                   `json:"creator,omitempty"`              // 创建人
 	CreateTime         *string                         `json:"create_time,omitempty"`          // 创建时间
 	ModifyTime         *string                         `json:"modify_time,omitempty"`          // 修改时间
-	PublishTime        *string                         `json:"publish_time,omitempty"`         // 发布时间
 	CustomizedDataList []*WebsiteJobPostCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 	JobFunction        *IdNameObject                   `json:"job_function,omitempty"`         // 职能分类
 	Subject            *IdNameObject                   `json:"subject,omitempty"`              // 职位项目
 	AddressList        []*CommonAddress                `json:"address_list,omitempty"`         // 职位广告地址列表
-	TargetMajorList    []*IdNameObject                 `json:"target_major_list,omitempty"`    // 目标专业
+
+	TargetMajorList []*IdNameObject `json:"target_major_list,omitempty"` // 目标专业
 }
 
 type WebsiteJobPostBuilder struct {
@@ -35330,6 +35362,10 @@ type WebsiteJobPostBuilder struct {
 	jobDepartmentFlag      bool
 	jobType                *IdNameObject // 职位类型
 	jobTypeFlag            bool
+	minJobLevel            *IdNameObject // 最低职级
+	minJobLevelFlag        bool
+	maxJobLevel            *IdNameObject // 最高职级
+	maxJobLevelFlag        bool
 	address                *CommonAddress // 职位地址
 	addressFlag            bool
 	minSalary              string // 月薪范围-最低薪资
@@ -35354,8 +35390,6 @@ type WebsiteJobPostBuilder struct {
 	createTimeFlag         bool
 	modifyTime             string // 修改时间
 	modifyTimeFlag         bool
-	publishTime            string // 发布时间
-	publishTimeFlag        bool
 	customizedDataList     []*WebsiteJobPostCustomizedData // 自定义字段
 	customizedDataListFlag bool
 	jobFunction            *IdNameObject // 职能分类
@@ -35364,8 +35398,9 @@ type WebsiteJobPostBuilder struct {
 	subjectFlag            bool
 	addressList            []*CommonAddress // 职位广告地址列表
 	addressListFlag        bool
-	targetMajorList        []*IdNameObject // 目标专业
-	targetMajorListFlag    bool
+
+	targetMajorList     []*IdNameObject // 目标专业
+	targetMajorListFlag bool
 }
 
 func NewWebsiteJobPostBuilder() *WebsiteJobPostBuilder {
@@ -35460,6 +35495,24 @@ func (builder *WebsiteJobPostBuilder) JobDepartment(jobDepartment *IdNameObject)
 func (builder *WebsiteJobPostBuilder) JobType(jobType *IdNameObject) *WebsiteJobPostBuilder {
 	builder.jobType = jobType
 	builder.jobTypeFlag = true
+	return builder
+}
+
+// 最低职级
+//
+// 示例值：
+func (builder *WebsiteJobPostBuilder) MinJobLevel(minJobLevel *IdNameObject) *WebsiteJobPostBuilder {
+	builder.minJobLevel = minJobLevel
+	builder.minJobLevelFlag = true
+	return builder
+}
+
+// 最高职级
+//
+// 示例值：
+func (builder *WebsiteJobPostBuilder) MaxJobLevel(maxJobLevel *IdNameObject) *WebsiteJobPostBuilder {
+	builder.maxJobLevel = maxJobLevel
+	builder.maxJobLevelFlag = true
 	return builder
 }
 
@@ -35571,15 +35624,6 @@ func (builder *WebsiteJobPostBuilder) ModifyTime(modifyTime string) *WebsiteJobP
 	return builder
 }
 
-// 发布时间
-//
-// 示例值：333
-func (builder *WebsiteJobPostBuilder) PublishTime(publishTime string) *WebsiteJobPostBuilder {
-	builder.publishTime = publishTime
-	builder.publishTimeFlag = true
-	return builder
-}
-
 // 自定义字段
 //
 // 示例值：
@@ -35664,6 +35708,12 @@ func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 	if builder.jobTypeFlag {
 		req.JobType = builder.jobType
 	}
+	if builder.minJobLevelFlag {
+		req.MinJobLevel = builder.minJobLevel
+	}
+	if builder.maxJobLevelFlag {
+		req.MaxJobLevel = builder.maxJobLevel
+	}
 	if builder.addressFlag {
 		req.Address = builder.address
 	}
@@ -35709,10 +35759,6 @@ func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.publishTimeFlag {
-		req.PublishTime = &builder.publishTime
-
-	}
 	if builder.customizedDataListFlag {
 		req.CustomizedDataList = builder.customizedDataList
 	}
@@ -35725,6 +35771,7 @@ func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 	if builder.addressListFlag {
 		req.AddressList = builder.addressList
 	}
+
 	if builder.targetMajorListFlag {
 		req.TargetMajorList = builder.targetMajorList
 	}
@@ -38973,6 +39020,72 @@ func (resp *ListJobRequirementSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListJobTypeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListJobTypeReqBuilder() *ListJobTypeReqBuilder {
+	builder := &ListJobTypeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListJobTypeReqBuilder) Limit(limit int) *ListJobTypeReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：
+func (builder *ListJobTypeReqBuilder) PageSize(pageSize int) *ListJobTypeReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：
+func (builder *ListJobTypeReqBuilder) PageToken(pageToken string) *ListJobTypeReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListJobTypeReqBuilder) Build() *ListJobTypeReq {
+	req := &ListJobTypeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListJobTypeReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListJobTypeRespData struct {
+	Items     []*JobTypeInfo `json:"items,omitempty"`      // 职位类别列表
+	PageToken *string        `json:"page_token,omitempty"` //
+	HasMore   *bool          `json:"has_more,omitempty"`   //
+}
+
+type ListJobTypeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListJobTypeRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListJobTypeResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateNoteReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	note   *Note
@@ -40914,6 +41027,60 @@ func (iterator *ListEvaluationIterator) Next() (bool, *Evaluation, error) {
 }
 
 func (iterator *ListEvaluationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListJobTypeIterator struct {
+	nextPageToken *string
+	items         []*JobTypeInfo
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListJobTypeReq
+	listFunc      func(ctx context.Context, req *ListJobTypeReq, options ...larkcore.RequestOptionFunc) (*ListJobTypeResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListJobTypeIterator) Next() (bool, *JobTypeInfo, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListJobTypeIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

@@ -215,6 +215,7 @@ type Tenant struct {
 	TenantTag *int    `json:"tenant_tag,omitempty"` // 个人版/团队版标志
 	TenantKey *string `json:"tenant_key,omitempty"` // 企业标识
 	Avatar    *Avatar `json:"avatar,omitempty"`     // 企业头像
+	Domain    *string `json:"domain,omitempty"`     // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
 }
 
 type TenantBuilder struct {
@@ -228,6 +229,8 @@ type TenantBuilder struct {
 	tenantKeyFlag bool
 	avatar        *Avatar // 企业头像
 	avatarFlag    bool
+	domain        string // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
+	domainFlag    bool
 }
 
 func NewTenantBuilder() *TenantBuilder {
@@ -280,6 +283,15 @@ func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 	return builder
 }
 
+// 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
+//
+// 示例值：newpoint.feishu-boe.cn
+func (builder *TenantBuilder) Domain(domain string) *TenantBuilder {
+	builder.domain = domain
+	builder.domainFlag = true
+	return builder
+}
+
 func (builder *TenantBuilder) Build() *Tenant {
 	req := &Tenant{}
 	if builder.nameFlag {
@@ -300,6 +312,10 @@ func (builder *TenantBuilder) Build() *Tenant {
 	}
 	if builder.avatarFlag {
 		req.Avatar = builder.avatar
+	}
+	if builder.domainFlag {
+		req.Domain = &builder.domain
+
 	}
 	return req
 }

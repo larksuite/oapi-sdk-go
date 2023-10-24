@@ -45,6 +45,7 @@ func main() {
 		ReturnDetail(false).
 		LeaveTermType(0).
 		TimeZone("Asia/Shanghai").
+		DataSource(1).
 		Build()
 	// 发起请求
 	resp, err := client.Corehr.Leave.LeaveRequestHistory(context.Background(), req)

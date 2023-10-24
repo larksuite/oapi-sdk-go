@@ -32,7 +32,7 @@ func main() {
 			Name("一篇新的多维表格").
 			FolderToken("fldbco*****CIMltVc").
 			WithoutContent(false).
-			TimeZone("Asia/Beijing").
+			TimeZone("Asia/Shanghai").
 			Build()).
 		Build()
 	// 发起请求

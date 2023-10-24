@@ -255,3 +255,17 @@ func (dispatcher *EventDispatcher) OnP2PersonUpdatedV1(handler func(ctx context.
 	dispatcher.eventType2EventHandler["corehr.person.updated_v1"] = larkcorehr.NewP2PersonUpdatedV1Handler(handler)
 	return dispatcher
 }
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2PreHireUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2PreHireUpdatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["corehr.pre_hire.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.pre_hire.updated_v1")
+	}
+	dispatcher.eventType2EventHandler["corehr.pre_hire.updated_v1"] = larkcorehr.NewP2PreHireUpdatedV1Handler(handler)
+	return dispatcher
+}

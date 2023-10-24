@@ -946,16 +946,9 @@ type GetAuthorizeReq struct {
 	apiReq *larkcore.ApiReq
 }
 
-type GetAuthorizeRespData struct {
-	RedirectUri *string `json:"redirect_uri,omitempty"` // 请求中传入的原始重定向 URL
-	Code        *string `json:"code,omitempty"`         // 登录预授权码
-	State       *string `json:"state,omitempty"`        // 请求中传入的 state 参数
-}
-
 type GetAuthorizeResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
-	Data *GetAuthorizeRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetAuthorizeResp) Success() bool {

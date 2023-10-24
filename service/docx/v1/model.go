@@ -916,6 +916,54 @@ func (builder *BlockBuilder) Build() *Block {
 	return req
 }
 
+type BlockIdRelation struct {
+	TemporaryBlockId *string `json:"temporary_block_id,omitempty"` // 用户传入的临时 BlockID
+	BlockId          *string `json:"block_id,omitempty"`           // 真实使用的 BlockID
+}
+
+type BlockIdRelationBuilder struct {
+	temporaryBlockId     string // 用户传入的临时 BlockID
+	temporaryBlockIdFlag bool
+	blockId              string // 真实使用的 BlockID
+	blockIdFlag          bool
+}
+
+func NewBlockIdRelationBuilder() *BlockIdRelationBuilder {
+	builder := &BlockIdRelationBuilder{}
+	return builder
+}
+
+// 用户传入的临时 BlockID
+//
+// 示例值：80bf5b2a-4dea-4c02-8a84-a0e682de463d
+func (builder *BlockIdRelationBuilder) TemporaryBlockId(temporaryBlockId string) *BlockIdRelationBuilder {
+	builder.temporaryBlockId = temporaryBlockId
+	builder.temporaryBlockIdFlag = true
+	return builder
+}
+
+// 真实使用的 BlockID
+//
+// 示例值：doxbcQOmtfkzY6BFFVQ86LH2J2d
+func (builder *BlockIdRelationBuilder) BlockId(blockId string) *BlockIdRelationBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
+}
+
+func (builder *BlockIdRelationBuilder) Build() *BlockIdRelation {
+	req := &BlockIdRelation{}
+	if builder.temporaryBlockIdFlag {
+		req.TemporaryBlockId = &builder.temporaryBlockId
+
+	}
+	if builder.blockIdFlag {
+		req.BlockId = &builder.blockId
+
+	}
+	return req
+}
+
 type Callout struct {
 	BackgroundColor *int    `json:"background_color,omitempty"` // 高亮块背景色
 	BorderColor     *int    `json:"border_color,omitempty"`     // 边框色

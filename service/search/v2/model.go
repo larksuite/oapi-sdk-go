@@ -666,6 +666,7 @@ type DataSource struct {
 	AppId            *string         `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
 	ConnectType      *int            `json:"connect_type,omitempty"`      // 搜索请求的接入方式
 	ConnectorParam   *ConnectorParam `json:"connector_param,omitempty"`   // 根据连接器类型不同所需要提供的相关参数
+	EnableAnswer     *bool           `json:"enable_answer,omitempty"`     // 是否使用问答服务
 }
 
 type DataSourceBuilder struct {
@@ -701,6 +702,8 @@ type DataSourceBuilder struct {
 	connectTypeFlag      bool
 	connectorParam       *ConnectorParam // 根据连接器类型不同所需要提供的相关参数
 	connectorParamFlag   bool
+	enableAnswer         bool // 是否使用问答服务
+	enableAnswerFlag     bool
 }
 
 func NewDataSourceBuilder() *DataSourceBuilder {
@@ -852,6 +855,15 @@ func (builder *DataSourceBuilder) ConnectorParam(connectorParam *ConnectorParam)
 	return builder
 }
 
+// 是否使用问答服务
+//
+// 示例值：false
+func (builder *DataSourceBuilder) EnableAnswer(enableAnswer bool) *DataSourceBuilder {
+	builder.enableAnswer = enableAnswer
+	builder.enableAnswerFlag = true
+	return builder
+}
+
 func (builder *DataSourceBuilder) Build() *DataSource {
 	req := &DataSource{}
 	if builder.idFlag {
@@ -913,6 +925,10 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	}
 	if builder.connectorParamFlag {
 		req.ConnectorParam = builder.connectorParam
+	}
+	if builder.enableAnswerFlag {
+		req.EnableAnswer = &builder.enableAnswer
+
 	}
 	return req
 }
@@ -1930,6 +1946,102 @@ func (builder *ModelConfigBuilder) Build() *ModelConfig {
 	return req
 }
 
+type ModelParam struct {
+	EncoderName     *string `json:"encoder_name,omitempty"`     // embedding模型名字
+	RankerName      *string `json:"ranker_name,omitempty"`      // 排序模型名字
+	FilterName      *string `json:"filter_name,omitempty"`      // 过滤模型名字
+	BoosterName     *string `json:"booster_name,omitempty"`     // 时效权威互动模型名字
+	PassageLanguage *string `json:"passage_language,omitempty"` // 选择返回的语种，可选{zh,en,ja,auto,all}，auto自动检测query的语种并过滤，all保留所有语种不做过滤，默认auto
+}
+
+type ModelParamBuilder struct {
+	encoderName         string // embedding模型名字
+	encoderNameFlag     bool
+	rankerName          string // 排序模型名字
+	rankerNameFlag      bool
+	filterName          string // 过滤模型名字
+	filterNameFlag      bool
+	boosterName         string // 时效权威互动模型名字
+	boosterNameFlag     bool
+	passageLanguage     string // 选择返回的语种，可选{zh,en,ja,auto,all}，auto自动检测query的语种并过滤，all保留所有语种不做过滤，默认auto
+	passageLanguageFlag bool
+}
+
+func NewModelParamBuilder() *ModelParamBuilder {
+	builder := &ModelParamBuilder{}
+	return builder
+}
+
+// embedding模型名字
+//
+// 示例值：lark-encoder
+func (builder *ModelParamBuilder) EncoderName(encoderName string) *ModelParamBuilder {
+	builder.encoderName = encoderName
+	builder.encoderNameFlag = true
+	return builder
+}
+
+// 排序模型名字
+//
+// 示例值：lark-ranker
+func (builder *ModelParamBuilder) RankerName(rankerName string) *ModelParamBuilder {
+	builder.rankerName = rankerName
+	builder.rankerNameFlag = true
+	return builder
+}
+
+// 过滤模型名字
+//
+// 示例值：lark-filter
+func (builder *ModelParamBuilder) FilterName(filterName string) *ModelParamBuilder {
+	builder.filterName = filterName
+	builder.filterNameFlag = true
+	return builder
+}
+
+// 时效权威互动模型名字
+//
+// 示例值：lark-booster
+func (builder *ModelParamBuilder) BoosterName(boosterName string) *ModelParamBuilder {
+	builder.boosterName = boosterName
+	builder.boosterNameFlag = true
+	return builder
+}
+
+// 选择返回的语种，可选{zh,en,ja,auto,all}，auto自动检测query的语种并过滤，all保留所有语种不做过滤，默认auto
+//
+// 示例值：zh
+func (builder *ModelParamBuilder) PassageLanguage(passageLanguage string) *ModelParamBuilder {
+	builder.passageLanguage = passageLanguage
+	builder.passageLanguageFlag = true
+	return builder
+}
+
+func (builder *ModelParamBuilder) Build() *ModelParam {
+	req := &ModelParam{}
+	if builder.encoderNameFlag {
+		req.EncoderName = &builder.encoderName
+
+	}
+	if builder.rankerNameFlag {
+		req.RankerName = &builder.rankerName
+
+	}
+	if builder.filterNameFlag {
+		req.FilterName = &builder.filterName
+
+	}
+	if builder.boosterNameFlag {
+		req.BoosterName = &builder.boosterName
+
+	}
+	if builder.passageLanguageFlag {
+		req.PassageLanguage = &builder.passageLanguage
+
+	}
+	return req
+}
+
 type NlsModelConfig struct {
 	ModelName *string `json:"model_name,omitempty"` // 模型名称
 }
@@ -1957,6 +2069,54 @@ func (builder *NlsModelConfigBuilder) Build() *NlsModelConfig {
 	req := &NlsModelConfig{}
 	if builder.modelNameFlag {
 		req.ModelName = &builder.modelName
+
+	}
+	return req
+}
+
+type ParaphraseResult struct {
+	Text  *string `json:"text,omitempty"`  // 改写后的结果
+	Extra *string `json:"extra,omitempty"` // 补充字段（json序列化）
+}
+
+type ParaphraseResultBuilder struct {
+	text      string // 改写后的结果
+	textFlag  bool
+	extra     string // 补充字段（json序列化）
+	extraFlag bool
+}
+
+func NewParaphraseResultBuilder() *ParaphraseResultBuilder {
+	builder := &ParaphraseResultBuilder{}
+	return builder
+}
+
+// 改写后的结果
+//
+// 示例值：改写后的结果
+func (builder *ParaphraseResultBuilder) Text(text string) *ParaphraseResultBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+// 补充字段（json序列化）
+//
+// 示例值：{"language": "en", "score": 0.85}
+func (builder *ParaphraseResultBuilder) Extra(extra string) *ParaphraseResultBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+func (builder *ParaphraseResultBuilder) Build() *ParaphraseResult {
+	req := &ParaphraseResult{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.extraFlag {
+		req.Extra = &builder.extra
 
 	}
 	return req
@@ -2166,6 +2326,69 @@ func (builder *PassageParamBuilder) Build() *PassageParam {
 	return req
 }
 
+type PatchSchemaProperty struct {
+	Name         *string                  `json:"name,omitempty"`          // 属性名
+	Desc         *string                  `json:"desc,omitempty"`          // 属性描述
+	AnswerOption *SchemaFieldAnswerOption `json:"answer_option,omitempty"` // 问答产品设置，仅在datasource中use_answer为true时生效
+}
+
+type PatchSchemaPropertyBuilder struct {
+	name             string // 属性名
+	nameFlag         bool
+	desc             string // 属性描述
+	descFlag         bool
+	answerOption     *SchemaFieldAnswerOption // 问答产品设置，仅在datasource中use_answer为true时生效
+	answerOptionFlag bool
+}
+
+func NewPatchSchemaPropertyBuilder() *PatchSchemaPropertyBuilder {
+	builder := &PatchSchemaPropertyBuilder{}
+	return builder
+}
+
+// 属性名
+//
+// 示例值：title
+func (builder *PatchSchemaPropertyBuilder) Name(name string) *PatchSchemaPropertyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 属性描述
+//
+// 示例值：desc
+func (builder *PatchSchemaPropertyBuilder) Desc(desc string) *PatchSchemaPropertyBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
+// 问答产品设置，仅在datasource中use_answer为true时生效
+//
+// 示例值：
+func (builder *PatchSchemaPropertyBuilder) AnswerOption(answerOption *SchemaFieldAnswerOption) *PatchSchemaPropertyBuilder {
+	builder.answerOption = answerOption
+	builder.answerOptionFlag = true
+	return builder
+}
+
+func (builder *PatchSchemaPropertyBuilder) Build() *PatchSchemaProperty {
+	req := &PatchSchemaProperty{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
+
+	}
+	if builder.answerOptionFlag {
+		req.AnswerOption = builder.answerOption
+	}
+	return req
+}
+
 type Schema struct {
 	Properties []*SchemaProperty `json:"properties,omitempty"` // 数据范式的属性定义
 	Display    *SchemaDisplay    `json:"display,omitempty"`    // 数据展示相关配置
@@ -2350,6 +2573,54 @@ func (builder *SchemaEnumOptionsBuilder) Build() *SchemaEnumOptions {
 	req := &SchemaEnumOptions{}
 	if builder.possibleValuesFlag {
 		req.PossibleValues = builder.possibleValues
+	}
+	return req
+}
+
+type SchemaFieldAnswerOption struct {
+	IsSearchable *bool `json:"is_searchable,omitempty"` // 是否用于搜索
+	IsReturnable *bool `json:"is_returnable,omitempty"` // 是否用于返回
+}
+
+type SchemaFieldAnswerOptionBuilder struct {
+	isSearchable     bool // 是否用于搜索
+	isSearchableFlag bool
+	isReturnable     bool // 是否用于返回
+	isReturnableFlag bool
+}
+
+func NewSchemaFieldAnswerOptionBuilder() *SchemaFieldAnswerOptionBuilder {
+	builder := &SchemaFieldAnswerOptionBuilder{}
+	return builder
+}
+
+// 是否用于搜索
+//
+// 示例值：false
+func (builder *SchemaFieldAnswerOptionBuilder) IsSearchable(isSearchable bool) *SchemaFieldAnswerOptionBuilder {
+	builder.isSearchable = isSearchable
+	builder.isSearchableFlag = true
+	return builder
+}
+
+// 是否用于返回
+//
+// 示例值：false
+func (builder *SchemaFieldAnswerOptionBuilder) IsReturnable(isReturnable bool) *SchemaFieldAnswerOptionBuilder {
+	builder.isReturnable = isReturnable
+	builder.isReturnableFlag = true
+	return builder
+}
+
+func (builder *SchemaFieldAnswerOptionBuilder) Build() *SchemaFieldAnswerOption {
+	req := &SchemaFieldAnswerOption{}
+	if builder.isSearchableFlag {
+		req.IsSearchable = &builder.isSearchable
+
+	}
+	if builder.isReturnableFlag {
+		req.IsReturnable = &builder.isReturnable
+
 	}
 	return req
 }
@@ -2545,16 +2816,18 @@ func (builder *SchemaPredefineEnumStructBuilder) Build() *SchemaPredefineEnumStr
 }
 
 type SchemaProperty struct {
-	Name            *string                `json:"name,omitempty"`             // 属性名
-	Type            *string                `json:"type,omitempty"`             // 属性类型
-	IsSearchable    *bool                  `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索，默认为 false
-	IsSortable      *bool                  `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
-	IsReturnable    *bool                  `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
-	SortOptions     *SchemaSortOptions     `json:"sort_options,omitempty"`     // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
-	TypeDefinitions *SchemaTypeDefinitions `json:"type_definitions,omitempty"` // 相关类型数据的定义和约束
-	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`   // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
-	IsFilterable    *bool                  `json:"is_filterable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被筛选。默认为 false
-	FilterOptions   *SchemaFilterOptions   `json:"filter_options,omitempty"`   // 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+	Name            *string                  `json:"name,omitempty"`             // 属性名
+	Type            *string                  `json:"type,omitempty"`             // 属性类型
+	IsSearchable    *bool                    `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索，默认为 false
+	IsSortable      *bool                    `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序，默认为 false。如果为 true，需要再配置 sortOptions
+	IsReturnable    *bool                    `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被召回和展示。默认为 false
+	SortOptions     *SchemaSortOptions       `json:"sort_options,omitempty"`     // 属性排序的可选配置，当 is_sortable 为 true 时，该字段为必填字段
+	TypeDefinitions *SchemaTypeDefinitions   `json:"type_definitions,omitempty"` // 相关类型数据的定义和约束
+	SearchOptions   *SchemaSearchOptions     `json:"search_options,omitempty"`   // 属性搜索的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+	IsFilterable    *bool                    `json:"is_filterable,omitempty"`    // 该属性是否可用作返回字段，为 false 时，该字段不会被筛选。默认为 false
+	FilterOptions   *SchemaFilterOptions     `json:"filter_options,omitempty"`   // 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
+	AnswerOption    *SchemaFieldAnswerOption `json:"answer_option,omitempty"`    // 问答产品设置，仅在datasource中enable_answer为true时生效
+	Desc            *string                  `json:"desc,omitempty"`             // 字段描述
 }
 
 type SchemaPropertyBuilder struct {
@@ -2578,6 +2851,10 @@ type SchemaPropertyBuilder struct {
 	isFilterableFlag    bool
 	filterOptions       *SchemaFilterOptions // 属性筛选的可选配置，当 is_searchable 为 true 时，该字段为必填参数
 	filterOptionsFlag   bool
+	answerOption        *SchemaFieldAnswerOption // 问答产品设置，仅在datasource中enable_answer为true时生效
+	answerOptionFlag    bool
+	desc                string // 字段描述
+	descFlag            bool
 }
 
 func NewSchemaPropertyBuilder() *SchemaPropertyBuilder {
@@ -2675,6 +2952,24 @@ func (builder *SchemaPropertyBuilder) FilterOptions(filterOptions *SchemaFilterO
 	return builder
 }
 
+// 问答产品设置，仅在datasource中enable_answer为true时生效
+//
+// 示例值：
+func (builder *SchemaPropertyBuilder) AnswerOption(answerOption *SchemaFieldAnswerOption) *SchemaPropertyBuilder {
+	builder.answerOption = answerOption
+	builder.answerOptionFlag = true
+	return builder
+}
+
+// 字段描述
+//
+// 示例值：desc
+func (builder *SchemaPropertyBuilder) Desc(desc string) *SchemaPropertyBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
 func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	req := &SchemaProperty{}
 	if builder.nameFlag {
@@ -2712,6 +3007,13 @@ func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	}
 	if builder.filterOptionsFlag {
 		req.FilterOptions = builder.filterOptions
+	}
+	if builder.answerOptionFlag {
+		req.AnswerOption = builder.answerOption
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
+
 	}
 	return req
 }
@@ -3004,11 +3306,14 @@ func (builder *SchemaUserIdsOptionBuilder) Build() *SchemaUserIdsOption {
 
 type UserInfo struct {
 	UserLanguage *string `json:"user_language,omitempty"` // 用户使用语言类型
+	Timezone     *string `json:"timezone,omitempty"`      // 用户时区
 }
 
 type UserInfoBuilder struct {
 	userLanguage     string // 用户使用语言类型
 	userLanguageFlag bool
+	timezone         string // 用户时区
+	timezoneFlag     bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -3025,10 +3330,23 @@ func (builder *UserInfoBuilder) UserLanguage(userLanguage string) *UserInfoBuild
 	return builder
 }
 
+// 用户时区
+//
+// 示例值：zh
+func (builder *UserInfoBuilder) Timezone(timezone string) *UserInfoBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
 	if builder.userLanguageFlag {
 		req.UserLanguage = &builder.userLanguage
+
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
 
 	}
 	return req
@@ -3526,6 +3844,8 @@ type PatchDataSourceReqBodyBuilder struct {
 	i18nDescriptionFlag bool
 	connectorParam      *ConnectorParam // 修改connector的相关配置
 	connectorParamFlag  bool
+	enableAnswer        bool // 是否使用问答服务
+	enableAnswerFlag    bool
 }
 
 func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
@@ -3596,6 +3916,15 @@ func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *Con
 	return builder
 }
 
+// 是否使用问答服务
+//
+//示例值：false
+func (builder *PatchDataSourceReqBodyBuilder) EnableAnswer(enableAnswer bool) *PatchDataSourceReqBodyBuilder {
+	builder.enableAnswer = enableAnswer
+	builder.enableAnswerFlag = true
+	return builder
+}
+
 func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -3619,6 +3948,9 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	if builder.connectorParamFlag {
 		req.ConnectorParam = builder.connectorParam
 	}
+	if builder.enableAnswerFlag {
+		req.EnableAnswer = &builder.enableAnswer
+	}
 	return req
 }
 
@@ -3637,6 +3969,8 @@ type PatchDataSourcePathReqBodyBuilder struct {
 	i18nDescriptionFlag bool
 	connectorParam      *ConnectorParam // 修改connector的相关配置
 	connectorParamFlag  bool
+	enableAnswer        bool // 是否使用问答服务
+	enableAnswerFlag    bool
 }
 
 func NewPatchDataSourcePathReqBodyBuilder() *PatchDataSourcePathReqBodyBuilder {
@@ -3707,6 +4041,15 @@ func (builder *PatchDataSourcePathReqBodyBuilder) ConnectorParam(connectorParam 
 	return builder
 }
 
+// 是否使用问答服务
+//
+// 示例值：false
+func (builder *PatchDataSourcePathReqBodyBuilder) EnableAnswer(enableAnswer bool) *PatchDataSourcePathReqBodyBuilder {
+	builder.enableAnswer = enableAnswer
+	builder.enableAnswerFlag = true
+	return builder
+}
+
 func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBody, error) {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -3729,6 +4072,9 @@ func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBo
 	}
 	if builder.connectorParamFlag {
 		req.ConnectorParam = builder.connectorParam
+	}
+	if builder.enableAnswerFlag {
+		req.EnableAnswer = &builder.enableAnswer
 	}
 	return req, nil
 }
@@ -3777,6 +4123,7 @@ type PatchDataSourceReqBody struct {
 	I18nName        *I18nMeta       `json:"i18n_name,omitempty"`        // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 	I18nDescription *I18nMeta       `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 	ConnectorParam  *ConnectorParam `json:"connector_param,omitempty"`  // 修改connector的相关配置
+	EnableAnswer    *bool           `json:"enable_answer,omitempty"`    // 是否使用问答服务
 }
 
 type PatchDataSourceReq struct {
@@ -4457,8 +4804,10 @@ func (resp *GetSchemaResp) Success() bool {
 }
 
 type PatchSchemaReqBodyBuilder struct {
-	display     *SchemaDisplay // 数据展示相关配置
-	displayFlag bool
+	display        *SchemaDisplay // 数据展示相关配置
+	displayFlag    bool
+	properties     []*PatchSchemaProperty // 数据范式的属性定义
+	propertiesFlag bool
 }
 
 func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
@@ -4475,17 +4824,31 @@ func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *Patch
 	return builder
 }
 
+// 数据范式的属性定义
+//
+//示例值：
+func (builder *PatchSchemaReqBodyBuilder) Properties(properties []*PatchSchemaProperty) *PatchSchemaReqBodyBuilder {
+	builder.properties = properties
+	builder.propertiesFlag = true
+	return builder
+}
+
 func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
 	req := &PatchSchemaReqBody{}
 	if builder.displayFlag {
 		req.Display = builder.display
 	}
+	if builder.propertiesFlag {
+		req.Properties = builder.properties
+	}
 	return req
 }
 
 type PatchSchemaPathReqBodyBuilder struct {
-	display     *SchemaDisplay // 数据展示相关配置
-	displayFlag bool
+	display        *SchemaDisplay // 数据展示相关配置
+	displayFlag    bool
+	properties     []*PatchSchemaProperty // 数据范式的属性定义
+	propertiesFlag bool
 }
 
 func NewPatchSchemaPathReqBodyBuilder() *PatchSchemaPathReqBodyBuilder {
@@ -4502,10 +4865,22 @@ func (builder *PatchSchemaPathReqBodyBuilder) Display(display *SchemaDisplay) *P
 	return builder
 }
 
+// 数据范式的属性定义
+//
+// 示例值：
+func (builder *PatchSchemaPathReqBodyBuilder) Properties(properties []*PatchSchemaProperty) *PatchSchemaPathReqBodyBuilder {
+	builder.properties = properties
+	builder.propertiesFlag = true
+	return builder
+}
+
 func (builder *PatchSchemaPathReqBodyBuilder) Build() (*PatchSchemaReqBody, error) {
 	req := &PatchSchemaReqBody{}
 	if builder.displayFlag {
 		req.Display = builder.display
+	}
+	if builder.propertiesFlag {
+		req.Properties = builder.properties
 	}
 	return req, nil
 }
@@ -4547,7 +4922,8 @@ func (builder *PatchSchemaReqBuilder) Build() *PatchSchemaReq {
 }
 
 type PatchSchemaReqBody struct {
-	Display *SchemaDisplay `json:"display,omitempty"` // 数据展示相关配置
+	Display    *SchemaDisplay         `json:"display,omitempty"`    // 数据展示相关配置
+	Properties []*PatchSchemaProperty `json:"properties,omitempty"` // 数据范式的属性定义
 }
 
 type PatchSchemaReq struct {

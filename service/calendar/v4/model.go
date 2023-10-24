@@ -3717,6 +3717,54 @@ func (builder *TimeInfoBuilder) Build() *TimeInfo {
 	return req
 }
 
+type TimeSpan struct {
+	StartTime *string `json:"start_time,omitempty"` // 空闲时间-开始时间
+	EndTime   *string `json:"end_time,omitempty"`   // 空闲时间-结束时间
+}
+
+type TimeSpanBuilder struct {
+	startTime     string // 空闲时间-开始时间
+	startTimeFlag bool
+	endTime       string // 空闲时间-结束时间
+	endTimeFlag   bool
+}
+
+func NewTimeSpanBuilder() *TimeSpanBuilder {
+	builder := &TimeSpanBuilder{}
+	return builder
+}
+
+// 空闲时间-开始时间
+//
+// 示例值：none
+func (builder *TimeSpanBuilder) StartTime(startTime string) *TimeSpanBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 空闲时间-结束时间
+//
+// 示例值：none
+func (builder *TimeSpanBuilder) EndTime(endTime string) *TimeSpanBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *TimeSpanBuilder) Build() *TimeSpan {
+	req := &TimeSpan{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
 type TimeoffEvent struct {
 	TimeoffEventId *string `json:"timeoff_event_id,omitempty"` // 请假日程ID。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02)
 	UserId         *string `json:"user_id,omitempty"`          // 用户id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
@@ -6243,6 +6291,119 @@ func (resp *ListCalendarEventAttendeeChatMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateCalendarEventMeetingChatReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewCreateCalendarEventMeetingChatReqBuilder() *CreateCalendarEventMeetingChatReqBuilder {
+	builder := &CreateCalendarEventMeetingChatReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 日历ID
+//
+// 示例值：feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn
+func (builder *CreateCalendarEventMeetingChatReqBuilder) CalendarId(calendarId string) *CreateCalendarEventMeetingChatReqBuilder {
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	return builder
+}
+
+// 日程ID
+//
+// 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_0
+func (builder *CreateCalendarEventMeetingChatReqBuilder) EventId(eventId string) *CreateCalendarEventMeetingChatReqBuilder {
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	return builder
+}
+
+func (builder *CreateCalendarEventMeetingChatReqBuilder) Build() *CreateCalendarEventMeetingChatReq {
+	req := &CreateCalendarEventMeetingChatReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type CreateCalendarEventMeetingChatReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type CreateCalendarEventMeetingChatRespData struct {
+	MeetingChatId *string `json:"meeting_chat_id,omitempty"` // 会议群ID
+	Applink       *string `json:"applink,omitempty"`         // 群分享链接
+}
+
+type CreateCalendarEventMeetingChatResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateCalendarEventMeetingChatRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateCalendarEventMeetingChatResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteCalendarEventMeetingChatReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteCalendarEventMeetingChatReqBuilder() *DeleteCalendarEventMeetingChatReqBuilder {
+	builder := &DeleteCalendarEventMeetingChatReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 日历ID
+//
+// 示例值：feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn
+func (builder *DeleteCalendarEventMeetingChatReqBuilder) CalendarId(calendarId string) *DeleteCalendarEventMeetingChatReqBuilder {
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	return builder
+}
+
+// 日程ID
+//
+// 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_0
+func (builder *DeleteCalendarEventMeetingChatReqBuilder) EventId(eventId string) *DeleteCalendarEventMeetingChatReqBuilder {
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	return builder
+}
+
+// 会议群ID
+//
+// 示例值：oc_a0553eda9014c201e6969b478895c230
+func (builder *DeleteCalendarEventMeetingChatReqBuilder) MeetingChatId(meetingChatId string) *DeleteCalendarEventMeetingChatReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_chat_id", fmt.Sprint(meetingChatId))
+	return builder
+}
+
+func (builder *DeleteCalendarEventMeetingChatReqBuilder) Build() *DeleteCalendarEventMeetingChatReq {
+	req := &DeleteCalendarEventMeetingChatReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteCalendarEventMeetingChatReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteCalendarEventMeetingChatResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteCalendarEventMeetingChatResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateExchangeBindingReqBuilder struct {
 	apiReq          *larkcore.ApiReq
 	exchangeBinding *ExchangeBinding
@@ -6860,8 +7021,9 @@ func (m *P2CalendarAclDeletedV4) RawReq(req *larkevent.EventReq) {
 }
 
 type P2CalendarEventChangedV4Data struct {
-	CalendarId *string   `json:"calendar_id,omitempty"`  // 日历id
-	UserIdList []*UserId `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
+	CalendarId      *string   `json:"calendar_id,omitempty"`       // 日历id
+	UserIdList      []*UserId `json:"user_id_list,omitempty"`      // 需要推送事件的用户列表
+	CalendarEventId *string   `json:"calendar_event_id,omitempty"` // 发生变更的日程ID
 }
 
 type P2CalendarEventChangedV4 struct {

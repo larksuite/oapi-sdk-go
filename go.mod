@@ -1,6 +1,7 @@
 module github.com/larksuite/oapi-sdk-go/v3
 
 go 1.13
+
 //
 //replace (
 //	github.com/larksuite/oapi-sdk-go/v3/core => ./core

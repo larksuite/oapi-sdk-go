@@ -39,6 +39,7 @@ func NewService(config *larkcore.Config) *HireService {
 	h.JobProcess = &jobProcess{service: h}
 	h.JobRequirement = &jobRequirement{service: h}
 	h.JobRequirementSchema = &jobRequirementSchema{service: h}
+	h.JobType = &jobType{service: h}
 	h.Note = &note{service: h}
 	h.Offer = &offer{service: h}
 	h.OfferSchema = &offerSchema{service: h}
@@ -72,6 +73,7 @@ type HireService struct {
 	JobProcess                      *jobProcess                      // 流程
 	JobRequirement                  *jobRequirement                  // 招聘需求（灰度租户可见）
 	JobRequirementSchema            *jobRequirementSchema            // job_requirement_schema
+	JobType                         *jobType                         // job_type
 	Note                            *note                            // 备注
 	Offer                           *offer                           // Offer
 	OfferSchema                     *offerSchema                     // offer_schema
@@ -134,6 +136,9 @@ type jobRequirement struct {
 	service *HireService
 }
 type jobRequirementSchema struct {
+	service *HireService
+}
+type jobType struct {
 	service *HireService
 }
 type note struct {
@@ -1060,6 +1065,40 @@ func (j *jobRequirementSchema) List(ctx context.Context, req *ListJobRequirement
 		return nil, err
 	}
 	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_type&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobType.go
+func (j *jobType) List(ctx context.Context, req *ListJobTypeReq, options ...larkcore.RequestOptionFunc) (*ListJobTypeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/job_types"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListJobTypeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (j *jobType) ListByIterator(ctx context.Context, req *ListJobTypeReq, options ...larkcore.RequestOptionFunc) (*ListJobTypeIterator, error) {
+	return &ListJobTypeIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: j.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // 创建备注

@@ -31,6 +31,12 @@ const (
 )
 
 const (
+	UserIdTypeListAppRecommendRuleUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListAppRecommendRuleUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListAppRecommendRuleOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
@@ -2126,6 +2132,7 @@ type Application struct {
 	Status           *int              `json:"status,omitempty"`             // 应用状态
 	SceneType        *int              `json:"scene_type,omitempty"`         // 应用类型
 	PaymentType      *int              `json:"payment_type,omitempty"`       // 付费类型
+	CreateSource     *string           `json:"create_source,omitempty"`      // 应用创建来源(目前仅Base应用返回)
 	RedirectUrls     []string          `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
 	OnlineVersionId  *string           `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID，若没有则为空
 	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID，若没有则为空
@@ -2151,6 +2158,8 @@ type ApplicationBuilder struct {
 	sceneTypeFlag        bool
 	paymentType          int // 付费类型
 	paymentTypeFlag      bool
+	createSource         string // 应用创建来源(目前仅Base应用返回)
+	createSourceFlag     bool
 	redirectUrls         []string // 安全设置中的重定向 URL
 	redirectUrlsFlag     bool
 	onlineVersionId      string // 发布在线上的应用版本 ID，若没有则为空
@@ -2224,6 +2233,15 @@ func (builder *ApplicationBuilder) SceneType(sceneType int) *ApplicationBuilder 
 func (builder *ApplicationBuilder) PaymentType(paymentType int) *ApplicationBuilder {
 	builder.paymentType = paymentType
 	builder.paymentTypeFlag = true
+	return builder
+}
+
+// 应用创建来源(目前仅Base应用返回)
+//
+// 示例值：base
+func (builder *ApplicationBuilder) CreateSource(createSource string) *ApplicationBuilder {
+	builder.createSource = createSource
+	builder.createSourceFlag = true
 	return builder
 }
 
@@ -2355,6 +2373,10 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.paymentTypeFlag {
 		req.PaymentType = &builder.paymentType
+
+	}
+	if builder.createSourceFlag {
+		req.CreateSource = &builder.createSource
 
 	}
 	if builder.redirectUrlsFlag {
@@ -5603,6 +5625,56 @@ func (builder *WorkplaceWidgetBuilder) Build() *WorkplaceWidget {
 
 	}
 	return req
+}
+
+type SetAppBadgeReqBuilder struct {
+	apiReq   *larkcore.ApiReq
+	appBadge *AppBadge
+}
+
+func NewSetAppBadgeReqBuilder() *SetAppBadgeReqBuilder {
+	builder := &SetAppBadgeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SetAppBadgeReqBuilder) UserIdType(userIdType string) *SetAppBadgeReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 更新应用红点信息，用于工作台场景
+func (builder *SetAppBadgeReqBuilder) AppBadge(appBadge *AppBadge) *SetAppBadgeReqBuilder {
+	builder.appBadge = appBadge
+	return builder
+}
+
+func (builder *SetAppBadgeReqBuilder) Build() *SetAppBadgeReq {
+	req := &SetAppBadgeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.appBadge
+	return req
+}
+
+type SetAppBadgeReq struct {
+	apiReq   *larkcore.ApiReq
+	AppBadge *AppBadge `body:""`
+}
+
+type SetAppBadgeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SetAppBadgeResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListAppRecommendRuleReqBuilder struct {

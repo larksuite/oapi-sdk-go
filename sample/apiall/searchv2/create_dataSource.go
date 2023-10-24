@@ -40,6 +40,7 @@ func main() {
 			AppId("cli_a1306bed4738d01b").
 			ConnectType(0).
 			ConnectorParam(larksearch.NewConnectorParamBuilder().Build()).
+			EnableAnswer(false).
 			Build()).
 		Build()
 	// 发起请求

@@ -36,6 +36,7 @@ func main() {
 			I18nName(larksearch.NewI18nMetaBuilder().Build()).
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			ConnectorParam(larksearch.NewConnectorParamBuilder().Build()).
+			EnableAnswer(false).
 			Build()).
 		Build()
 	// 发起请求

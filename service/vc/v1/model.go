@@ -2589,81 +2589,49 @@ func (builder *MeetingUserBuilder) Build() *MeetingUser {
 	return req
 }
 
-type MyAiAvPluginCallbackInfo struct {
-	BizId    *string `json:"biz_id,omitempty"`    // biz id info
-	BizType  *int    `json:"biz_type,omitempty"`  // biz type
-	ObjectId *string `json:"object_id,omitempty"` // object_id info
-	Type     *string `json:"type,omitempty"`      // type
+type MyAiAvPluginCardStatus struct {
+	FromStatus *string `json:"from_status,omitempty"` // card from status
+	ToStatus   *string `json:"to_status,omitempty"`   // card to status
 }
 
-type MyAiAvPluginCallbackInfoBuilder struct {
-	bizId        string // biz id info
-	bizIdFlag    bool
-	bizType      int // biz type
-	bizTypeFlag  bool
-	objectId     string // object_id info
-	objectIdFlag bool
-	type_        string // type
-	typeFlag     bool
+type MyAiAvPluginCardStatusBuilder struct {
+	fromStatus     string // card from status
+	fromStatusFlag bool
+	toStatus       string // card to status
+	toStatusFlag   bool
 }
 
-func NewMyAiAvPluginCallbackInfoBuilder() *MyAiAvPluginCallbackInfoBuilder {
-	builder := &MyAiAvPluginCallbackInfoBuilder{}
+func NewMyAiAvPluginCardStatusBuilder() *MyAiAvPluginCardStatusBuilder {
+	builder := &MyAiAvPluginCardStatusBuilder{}
 	return builder
 }
 
-// biz id info
+// card from status
 //
-// 示例值：file_3e042213
-func (builder *MyAiAvPluginCallbackInfoBuilder) BizId(bizId string) *MyAiAvPluginCallbackInfoBuilder {
-	builder.bizId = bizId
-	builder.bizIdFlag = true
+// 示例值：CREATED
+func (builder *MyAiAvPluginCardStatusBuilder) FromStatus(fromStatus string) *MyAiAvPluginCardStatusBuilder {
+	builder.fromStatus = fromStatus
+	builder.fromStatusFlag = true
 	return builder
 }
 
-// biz type
+// card to status
 //
-// 示例值：1
-func (builder *MyAiAvPluginCallbackInfoBuilder) BizType(bizType int) *MyAiAvPluginCallbackInfoBuilder {
-	builder.bizType = bizType
-	builder.bizTypeFlag = true
+// 示例值：INVALIDATED
+func (builder *MyAiAvPluginCardStatusBuilder) ToStatus(toStatus string) *MyAiAvPluginCardStatusBuilder {
+	builder.toStatus = toStatus
+	builder.toStatusFlag = true
 	return builder
 }
 
-// object_id info
-//
-// 示例值：1695036250478
-func (builder *MyAiAvPluginCallbackInfoBuilder) ObjectId(objectId string) *MyAiAvPluginCallbackInfoBuilder {
-	builder.objectId = objectId
-	builder.objectIdFlag = true
-	return builder
-}
-
-// type
-//
-// 示例值：Media
-func (builder *MyAiAvPluginCallbackInfoBuilder) Type(type_ string) *MyAiAvPluginCallbackInfoBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *MyAiAvPluginCallbackInfoBuilder) Build() *MyAiAvPluginCallbackInfo {
-	req := &MyAiAvPluginCallbackInfo{}
-	if builder.bizIdFlag {
-		req.BizId = &builder.bizId
+func (builder *MyAiAvPluginCardStatusBuilder) Build() *MyAiAvPluginCardStatus {
+	req := &MyAiAvPluginCardStatus{}
+	if builder.fromStatusFlag {
+		req.FromStatus = &builder.fromStatus
 
 	}
-	if builder.bizTypeFlag {
-		req.BizType = &builder.bizType
-
-	}
-	if builder.objectIdFlag {
-		req.ObjectId = &builder.objectId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
+	if builder.toStatusFlag {
+		req.ToStatus = &builder.toStatus
 
 	}
 	return req
@@ -2701,12 +2669,60 @@ func (builder *MyAiAvPluginCardVaribalesBuilder) Build() *MyAiAvPluginCardVariba
 	return req
 }
 
+type MyAiAvPluginContextSystemInfo struct {
+	Lang  *string `json:"lang,omitempty"`  // 语言
+	Brand *string `json:"brand,omitempty"` // 品牌
+}
+
+type MyAiAvPluginContextSystemInfoBuilder struct {
+	lang      string // 语言
+	langFlag  bool
+	brand     string // 品牌
+	brandFlag bool
+}
+
+func NewMyAiAvPluginContextSystemInfoBuilder() *MyAiAvPluginContextSystemInfoBuilder {
+	builder := &MyAiAvPluginContextSystemInfoBuilder{}
+	return builder
+}
+
+// 语言
+//
+// 示例值：English
+func (builder *MyAiAvPluginContextSystemInfoBuilder) Lang(lang string) *MyAiAvPluginContextSystemInfoBuilder {
+	builder.lang = lang
+	builder.langFlag = true
+	return builder
+}
+
+// 品牌
+//
+// 示例值：lark
+func (builder *MyAiAvPluginContextSystemInfoBuilder) Brand(brand string) *MyAiAvPluginContextSystemInfoBuilder {
+	builder.brand = brand
+	builder.brandFlag = true
+	return builder
+}
+
+func (builder *MyAiAvPluginContextSystemInfoBuilder) Build() *MyAiAvPluginContextSystemInfo {
+	req := &MyAiAvPluginContextSystemInfo{}
+	if builder.langFlag {
+		req.Lang = &builder.lang
+
+	}
+	if builder.brandFlag {
+		req.Brand = &builder.brand
+
+	}
+	return req
+}
+
 type MyAiAvPluginPresentInfo struct {
 	Type           *string                    `json:"type,omitempty"`             // present type
 	CardTemplateId *string                    `json:"card_template_id,omitempty"` // card template id
 	Body           *string                    `json:"body,omitempty"`             // body
 	CardVaribales  *MyAiAvPluginCardVaribales `json:"card_varibales,omitempty"`   //
-	CallbackInfo   *MyAiAvPluginCallbackInfo  `json:"callback_info,omitempty"`    //
+	CallbackInfo   *string                    `json:"callback_info,omitempty"`    // callback info
 }
 
 type MyAiAvPluginPresentInfoBuilder struct {
@@ -2718,7 +2734,7 @@ type MyAiAvPluginPresentInfoBuilder struct {
 	bodyFlag           bool
 	cardVaribales      *MyAiAvPluginCardVaribales //
 	cardVaribalesFlag  bool
-	callbackInfo       *MyAiAvPluginCallbackInfo //
+	callbackInfo       string // callback info
 	callbackInfoFlag   bool
 }
 
@@ -2763,10 +2779,10 @@ func (builder *MyAiAvPluginPresentInfoBuilder) CardVaribales(cardVaribales *MyAi
 	return builder
 }
 
+// callback info
 //
-//
-// 示例值：
-func (builder *MyAiAvPluginPresentInfoBuilder) CallbackInfo(callbackInfo *MyAiAvPluginCallbackInfo) *MyAiAvPluginPresentInfoBuilder {
+// 示例值：callback info
+func (builder *MyAiAvPluginPresentInfoBuilder) CallbackInfo(callbackInfo string) *MyAiAvPluginPresentInfoBuilder {
 	builder.callbackInfo = callbackInfo
 	builder.callbackInfoFlag = true
 	return builder
@@ -2790,17 +2806,19 @@ func (builder *MyAiAvPluginPresentInfoBuilder) Build() *MyAiAvPluginPresentInfo 
 		req.CardVaribales = builder.cardVaribales
 	}
 	if builder.callbackInfoFlag {
-		req.CallbackInfo = builder.callbackInfo
+		req.CallbackInfo = &builder.callbackInfo
+
 	}
 	return req
 }
 
 type MyAiAvPluginScenarioContext struct {
-	Plugins       []*MyAiPluginContext        `json:"plugins,omitempty"`        // 会话选择的插件列表
-	WorkMode      *int                        `json:"work_mode,omitempty"`      // 会话所处的业务模式
-	Scenario      *string                     `json:"scenario,omitempty"`       // 会话所处的业务场景
-	SessionId     *string                     `json:"session_id,omitempty"`     // 会话ID
-	UploadObjects []*MyAiAvPluginUploadObject `json:"upload_objects,omitempty"` // upload objects
+	Plugins       []*MyAiPluginContext           `json:"plugins,omitempty"`        // 会话选择的插件列表
+	WorkMode      *int                           `json:"work_mode,omitempty"`      // 会话所处的业务模式
+	Scenario      *string                        `json:"scenario,omitempty"`       // 会话所处的业务场景
+	SessionId     *string                        `json:"session_id,omitempty"`     // 会话ID
+	UploadObjects []*MyAiAvPluginUploadObject    `json:"upload_objects,omitempty"` // upload objects
+	SystemInfo    *MyAiAvPluginContextSystemInfo `json:"system_info,omitempty"`    // system info
 }
 
 type MyAiAvPluginScenarioContextBuilder struct {
@@ -2814,6 +2832,8 @@ type MyAiAvPluginScenarioContextBuilder struct {
 	sessionIdFlag     bool
 	uploadObjects     []*MyAiAvPluginUploadObject // upload objects
 	uploadObjectsFlag bool
+	systemInfo        *MyAiAvPluginContextSystemInfo // system info
+	systemInfoFlag    bool
 }
 
 func NewMyAiAvPluginScenarioContextBuilder() *MyAiAvPluginScenarioContextBuilder {
@@ -2866,6 +2886,15 @@ func (builder *MyAiAvPluginScenarioContextBuilder) UploadObjects(uploadObjects [
 	return builder
 }
 
+// system info
+//
+// 示例值：
+func (builder *MyAiAvPluginScenarioContextBuilder) SystemInfo(systemInfo *MyAiAvPluginContextSystemInfo) *MyAiAvPluginScenarioContextBuilder {
+	builder.systemInfo = systemInfo
+	builder.systemInfoFlag = true
+	return builder
+}
+
 func (builder *MyAiAvPluginScenarioContextBuilder) Build() *MyAiAvPluginScenarioContext {
 	req := &MyAiAvPluginScenarioContext{}
 	if builder.pluginsFlag {
@@ -2885,6 +2914,9 @@ func (builder *MyAiAvPluginScenarioContextBuilder) Build() *MyAiAvPluginScenario
 	}
 	if builder.uploadObjectsFlag {
 		req.UploadObjects = builder.uploadObjects
+	}
+	if builder.systemInfoFlag {
+		req.SystemInfo = builder.systemInfo
 	}
 	return req
 }
@@ -3098,12 +3130,15 @@ func (builder *MyAiResponsePresentBuilder) Build() *MyAiResponsePresent {
 }
 
 type MyAiRoomCommonResult struct {
-	RoomReply *string `json:"room_reply,omitempty"` // 通用回复
+	RoomReply       *string                  `json:"room_reply,omitempty"`       // 通用回复
+	OpenapiResponse *MyAiRoomOpenapiResponse `json:"openapi_response,omitempty"` // openapi 响应结果
 }
 
 type MyAiRoomCommonResultBuilder struct {
-	roomReply     string // 通用回复
-	roomReplyFlag bool
+	roomReply           string // 通用回复
+	roomReplyFlag       bool
+	openapiResponse     *MyAiRoomOpenapiResponse // openapi 响应结果
+	openapiResponseFlag bool
 }
 
 func NewMyAiRoomCommonResultBuilder() *MyAiRoomCommonResultBuilder {
@@ -3120,10 +3155,70 @@ func (builder *MyAiRoomCommonResultBuilder) RoomReply(roomReply string) *MyAiRoo
 	return builder
 }
 
+// openapi 响应结果
+//
+// 示例值：
+func (builder *MyAiRoomCommonResultBuilder) OpenapiResponse(openapiResponse *MyAiRoomOpenapiResponse) *MyAiRoomCommonResultBuilder {
+	builder.openapiResponse = openapiResponse
+	builder.openapiResponseFlag = true
+	return builder
+}
+
 func (builder *MyAiRoomCommonResultBuilder) Build() *MyAiRoomCommonResult {
 	req := &MyAiRoomCommonResult{}
 	if builder.roomReplyFlag {
 		req.RoomReply = &builder.roomReply
+
+	}
+	if builder.openapiResponseFlag {
+		req.OpenapiResponse = builder.openapiResponse
+	}
+	return req
+}
+
+type MyAiRoomOpenapiResponse struct {
+	ResponseType    *int    `json:"response_type,omitempty"`     // openapi 返回的意图类型，不同 tool 的不同值都不一样
+	ScheduleEventId *string `json:"schedule_event_id,omitempty"` // 日程 id
+}
+
+type MyAiRoomOpenapiResponseBuilder struct {
+	responseType        int // openapi 返回的意图类型，不同 tool 的不同值都不一样
+	responseTypeFlag    bool
+	scheduleEventId     string // 日程 id
+	scheduleEventIdFlag bool
+}
+
+func NewMyAiRoomOpenapiResponseBuilder() *MyAiRoomOpenapiResponseBuilder {
+	builder := &MyAiRoomOpenapiResponseBuilder{}
+	return builder
+}
+
+// openapi 返回的意图类型，不同 tool 的不同值都不一样
+//
+// 示例值：0
+func (builder *MyAiRoomOpenapiResponseBuilder) ResponseType(responseType int) *MyAiRoomOpenapiResponseBuilder {
+	builder.responseType = responseType
+	builder.responseTypeFlag = true
+	return builder
+}
+
+// 日程 id
+//
+// 示例值：111111111
+func (builder *MyAiRoomOpenapiResponseBuilder) ScheduleEventId(scheduleEventId string) *MyAiRoomOpenapiResponseBuilder {
+	builder.scheduleEventId = scheduleEventId
+	builder.scheduleEventIdFlag = true
+	return builder
+}
+
+func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse {
+	req := &MyAiRoomOpenapiResponse{}
+	if builder.responseTypeFlag {
+		req.ResponseType = &builder.responseType
+
+	}
+	if builder.scheduleEventIdFlag {
+		req.ScheduleEventId = &builder.scheduleEventId
 
 	}
 	return req
@@ -3511,15 +3606,24 @@ func (builder *MyAiVcRoomExtraBuilder) Build() *MyAiVcRoomExtra {
 }
 
 type MyAiVcRoomRequestCommonParam struct {
-	Language  *string `json:"language,omitempty"`   // 语言类型
-	UtcOffset *string `json:"utc_offset,omitempty"` // 时区偏移,单位分钟,480表示东八区
+	Language       *string                  `json:"language,omitempty"`        // 语言类型
+	UtcOffset      *string                  `json:"utc_offset,omitempty"`      // 时区偏移,单位分钟,480表示东八区
+	RoomId         *string                  `json:"room_id,omitempty"`         // 会议室 ID
+	ClientVersion  *string                  `json:"client_version,omitempty"`  // 客户端版本
+	OpenapiHistory *MyAiRoomOpenapiResponse `json:"openapi_history,omitempty"` // open api response 历史
 }
 
 type MyAiVcRoomRequestCommonParamBuilder struct {
-	language      string // 语言类型
-	languageFlag  bool
-	utcOffset     string // 时区偏移,单位分钟,480表示东八区
-	utcOffsetFlag bool
+	language           string // 语言类型
+	languageFlag       bool
+	utcOffset          string // 时区偏移,单位分钟,480表示东八区
+	utcOffsetFlag      bool
+	roomId             string // 会议室 ID
+	roomIdFlag         bool
+	clientVersion      string // 客户端版本
+	clientVersionFlag  bool
+	openapiHistory     *MyAiRoomOpenapiResponse // open api response 历史
+	openapiHistoryFlag bool
 }
 
 func NewMyAiVcRoomRequestCommonParamBuilder() *MyAiVcRoomRequestCommonParamBuilder {
@@ -3545,6 +3649,33 @@ func (builder *MyAiVcRoomRequestCommonParamBuilder) UtcOffset(utcOffset string) 
 	return builder
 }
 
+// 会议室 ID
+//
+// 示例值：12345678
+func (builder *MyAiVcRoomRequestCommonParamBuilder) RoomId(roomId string) *MyAiVcRoomRequestCommonParamBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+
+// 客户端版本
+//
+// 示例值：0.0.0-alpha.0
+func (builder *MyAiVcRoomRequestCommonParamBuilder) ClientVersion(clientVersion string) *MyAiVcRoomRequestCommonParamBuilder {
+	builder.clientVersion = clientVersion
+	builder.clientVersionFlag = true
+	return builder
+}
+
+// open api response 历史
+//
+// 示例值：
+func (builder *MyAiVcRoomRequestCommonParamBuilder) OpenapiHistory(openapiHistory *MyAiRoomOpenapiResponse) *MyAiVcRoomRequestCommonParamBuilder {
+	builder.openapiHistory = openapiHistory
+	builder.openapiHistoryFlag = true
+	return builder
+}
+
 func (builder *MyAiVcRoomRequestCommonParamBuilder) Build() *MyAiVcRoomRequestCommonParam {
 	req := &MyAiVcRoomRequestCommonParam{}
 	if builder.languageFlag {
@@ -3554,6 +3685,17 @@ func (builder *MyAiVcRoomRequestCommonParamBuilder) Build() *MyAiVcRoomRequestCo
 	if builder.utcOffsetFlag {
 		req.UtcOffset = &builder.utcOffset
 
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.clientVersionFlag {
+		req.ClientVersion = &builder.clientVersion
+
+	}
+	if builder.openapiHistoryFlag {
+		req.OpenapiHistory = builder.openapiHistory
 	}
 	return req
 }
@@ -3672,6 +3814,7 @@ type Participant struct {
 	ParticipantName *string `json:"participant_name,omitempty"` // 参会者
 	Department      *string `json:"department,omitempty"`       // 部门
 	UserId          *string `json:"user_id,omitempty"`          // 用户ID
+	MeetingRoomId   *string `json:"meeting_room_id,omitempty"`  // 会议室ID
 	EmployeeId      *string `json:"employee_id,omitempty"`      // 工号
 	Phone           *string `json:"phone,omitempty"`            // 电话
 	Email           *string `json:"email,omitempty"`            // 邮箱
@@ -3702,6 +3845,8 @@ type ParticipantBuilder struct {
 	departmentFlag      bool
 	userId              string // 用户ID
 	userIdFlag          bool
+	meetingRoomId       string // 会议室ID
+	meetingRoomIdFlag   bool
 	employeeId          string // 工号
 	employeeIdFlag      bool
 	phone               string // 电话
@@ -3775,6 +3920,15 @@ func (builder *ParticipantBuilder) Department(department string) *ParticipantBui
 func (builder *ParticipantBuilder) UserId(userId string) *ParticipantBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_8efq90
+func (builder *ParticipantBuilder) MeetingRoomId(meetingRoomId string) *ParticipantBuilder {
+	builder.meetingRoomId = meetingRoomId
+	builder.meetingRoomIdFlag = true
 	return builder
 }
 
@@ -3979,6 +4133,10 @@ func (builder *ParticipantBuilder) Build() *Participant {
 	}
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
+
+	}
+	if builder.meetingRoomIdFlag {
+		req.MeetingRoomId = &builder.meetingRoomId
 
 	}
 	if builder.employeeIdFlag {
@@ -6778,6 +6936,7 @@ type RoomMeetingReservation struct {
 	RoomName             *string `json:"room_name,omitempty"`              // 会议室名称
 	EventTitle           *string `json:"event_title,omitempty"`            // 会议标题
 	Reserver             *string `json:"reserver,omitempty"`               // 预定人
+	ReserverUserId       *string `json:"reserver_user_id,omitempty"`       // 预定人ID
 	DepartmentOfReserver *string `json:"department_of_reserver,omitempty"` // 预定人所属部门
 	GuestsNumber         *string `json:"guests_number,omitempty"`          // 邀约人数
 	AcceptedNumber       *string `json:"accepted_number,omitempty"`        // 接受人数
@@ -6802,6 +6961,8 @@ type RoomMeetingReservationBuilder struct {
 	eventTitleFlag           bool
 	reserver                 string // 预定人
 	reserverFlag             bool
+	reserverUserId           string // 预定人ID
+	reserverUserIdFlag       bool
 	departmentOfReserver     string // 预定人所属部门
 	departmentOfReserverFlag bool
 	guestsNumber             string // 邀约人数
@@ -6868,6 +7029,15 @@ func (builder *RoomMeetingReservationBuilder) EventTitle(eventTitle string) *Roo
 func (builder *RoomMeetingReservationBuilder) Reserver(reserver string) *RoomMeetingReservationBuilder {
 	builder.reserver = reserver
 	builder.reserverFlag = true
+	return builder
+}
+
+// 预定人ID
+//
+// 示例值：ou_1234567(UserID);cli_123123(BotID)
+func (builder *RoomMeetingReservationBuilder) ReserverUserId(reserverUserId string) *RoomMeetingReservationBuilder {
+	builder.reserverUserId = reserverUserId
+	builder.reserverUserIdFlag = true
 	return builder
 }
 
@@ -7004,6 +7174,10 @@ func (builder *RoomMeetingReservationBuilder) Build() *RoomMeetingReservation {
 	}
 	if builder.reserverFlag {
 		req.Reserver = &builder.reserver
+
+	}
+	if builder.reserverUserIdFlag {
+		req.ReserverUserId = &builder.reserverUserId
 
 	}
 	if builder.departmentOfReserverFlag {

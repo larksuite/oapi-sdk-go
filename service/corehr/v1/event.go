@@ -356,3 +356,23 @@ func (h *P2PersonUpdatedV1Handler) Event() interface{} {
 func (h *P2PersonUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2PersonUpdatedV1))
 }
+
+// 消息处理器定义
+type P2PreHireUpdatedV1Handler struct {
+	handler func(context.Context, *P2PreHireUpdatedV1) error
+}
+
+func NewP2PreHireUpdatedV1Handler(handler func(context.Context, *P2PreHireUpdatedV1) error) *P2PreHireUpdatedV1Handler {
+	h := &P2PreHireUpdatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2PreHireUpdatedV1Handler) Event() interface{} {
+	return &P2PreHireUpdatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2PreHireUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2PreHireUpdatedV1))
+}

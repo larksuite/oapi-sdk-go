@@ -27,6 +27,7 @@ func NewService(config *larkcore.Config) *CalendarService {
 	c.CalendarEvent = &calendarEvent{service: c}
 	c.CalendarEventAttendee = &calendarEventAttendee{service: c}
 	c.CalendarEventAttendeeChatMember = &calendarEventAttendeeChatMember{service: c}
+	c.CalendarEventMeetingChat = &calendarEventMeetingChat{service: c}
 	c.ExchangeBinding = &exchangeBinding{service: c}
 	c.Freebusy = &freebusy{service: c}
 	c.Setting = &setting{service: c}
@@ -41,6 +42,7 @@ type CalendarService struct {
 	CalendarEvent                   *calendarEvent                   // 日程
 	CalendarEventAttendee           *calendarEventAttendee           // 日程参与人
 	CalendarEventAttendeeChatMember *calendarEventAttendeeChatMember // 日程参与人群成员
+	CalendarEventMeetingChat        *calendarEventMeetingChat        // calendar.event.meeting_chat
 	ExchangeBinding                 *exchangeBinding                 // Exchange绑定
 	Freebusy                        *freebusy                        // freebusy
 	Setting                         *setting                         // 日历设置
@@ -60,6 +62,9 @@ type calendarEventAttendee struct {
 	service *CalendarService
 }
 type calendarEventAttendeeChatMember struct {
+	service *CalendarService
+}
+type calendarEventMeetingChat struct {
 	service *CalendarService
 }
 type exchangeBinding struct {
@@ -895,6 +900,58 @@ func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, re
 		limit:    req.Limit}, nil
 }
 
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event.meeting_chat&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarEventMeetingChat.go
+func (c *calendarEventMeetingChat) Create(ctx context.Context, req *CreateCalendarEventMeetingChatReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventMeetingChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/meeting_chat"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateCalendarEventMeetingChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar.event.meeting_chat&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendarEventMeetingChat.go
+func (c *calendarEventMeetingChat) Delete(ctx context.Context, req *DeleteCalendarEventMeetingChatReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarEventMeetingChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/meeting_chat"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteCalendarEventMeetingChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // 创建Exchange绑定关系
 //
 // - 本接口将Exchange账户绑定到飞书账户，进而支持Exchange日历的导入
@@ -991,7 +1048,7 @@ func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...la
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/calendar/v4/freebusy/list"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, f.service.config, options...)
 	if err != nil {
 		return nil, err

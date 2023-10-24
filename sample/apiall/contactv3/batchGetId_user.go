@@ -31,6 +31,7 @@ func main() {
 		Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
 			Emails([]string{}).
 			Mobiles([]string{}).
+			IncludeResigned(false).
 			Build()).
 		Build()
 	// 发起请求
