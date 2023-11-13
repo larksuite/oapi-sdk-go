@@ -37,6 +37,7 @@ func main() {
 			TerminationReason("不合适").
 			DeliveryType(1).
 			ModifyTime(1618500278645).
+			CreateTime(1618500278644).
 			TerminationType("health").
 			Build()).
 		Build()

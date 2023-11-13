@@ -7933,6 +7933,7 @@ type JobData struct {
 	Id                       *string                  `json:"id,omitempty"`                          // 任职信息 ID
 	VersionId                *string                  `json:"version_id,omitempty"`                  // 任职记录版本 ID
 	JobLevelId               *string                  `json:"job_level_id,omitempty"`                // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	JobGradeId               *string                  `json:"job_grade_id,omitempty"`                // 职等ID
 	EmployeeTypeId           *string                  `json:"employee_type_id,omitempty"`            // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
 	WorkingHoursTypeId       *string                  `json:"working_hours_type_id,omitempty"`       // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
 	WorkLocationId           *string                  `json:"work_location_id,omitempty"`            // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
@@ -7964,6 +7965,8 @@ type JobDataBuilder struct {
 	versionIdFlag                bool
 	jobLevelId                   string // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
 	jobLevelIdFlag               bool
+	jobGradeId                   string // 职等ID
+	jobGradeIdFlag               bool
 	employeeTypeId               string // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
 	employeeTypeIdFlag           bool
 	workingHoursTypeId           string // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
@@ -8039,6 +8042,15 @@ func (builder *JobDataBuilder) VersionId(versionId string) *JobDataBuilder {
 func (builder *JobDataBuilder) JobLevelId(jobLevelId string) *JobDataBuilder {
 	builder.jobLevelId = jobLevelId
 	builder.jobLevelIdFlag = true
+	return builder
+}
+
+// 职等ID
+//
+// 示例值：6890452208593372679
+func (builder *JobDataBuilder) JobGradeId(jobGradeId string) *JobDataBuilder {
+	builder.jobGradeId = jobGradeId
+	builder.jobGradeIdFlag = true
 	return builder
 }
 
@@ -8152,7 +8164,7 @@ func (builder *JobDataBuilder) JobFamilyId(jobFamilyId string) *JobDataBuilder {
 
 // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 //
-// 示例值：
+// 示例值：onboarding
 func (builder *JobDataBuilder) AssignmentStartReason(assignmentStartReason *Enum) *JobDataBuilder {
 	builder.assignmentStartReason = assignmentStartReason
 	builder.assignmentStartReasonFlag = true
@@ -8252,6 +8264,10 @@ func (builder *JobDataBuilder) Build() *JobData {
 	}
 	if builder.jobLevelIdFlag {
 		req.JobLevelId = &builder.jobLevelId
+
+	}
+	if builder.jobGradeIdFlag {
+		req.JobGradeId = &builder.jobGradeId
 
 	}
 	if builder.employeeTypeIdFlag {
@@ -22820,6 +22836,34 @@ type P2ContractCreatedV1 struct {
 }
 
 func (m *P2ContractCreatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ContractDeletedV1Data struct {
+	ContractId *string `json:"contract_id,omitempty"` // ID
+}
+
+type P2ContractDeletedV1 struct {
+	*larkevent.EventV2Base                          // 事件基础数据
+	*larkevent.EventReq                             // 请求原生数据
+	Event                  *P2ContractDeletedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ContractDeletedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ContractUpdatedV1Data struct {
+	ContractId *string `json:"contract_id,omitempty"` // ID
+}
+
+type P2ContractUpdatedV1 struct {
+	*larkevent.EventV2Base                          // 事件基础数据
+	*larkevent.EventReq                             // 请求原生数据
+	Event                  *P2ContractUpdatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ContractUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

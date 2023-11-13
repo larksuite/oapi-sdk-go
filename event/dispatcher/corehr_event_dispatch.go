@@ -32,6 +32,34 @@ func (dispatcher *EventDispatcher) OnP2ContractCreatedV1(handler func(ctx contex
 	return dispatcher
 }
 
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ContractDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractDeletedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["corehr.contract.deleted_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.contract.deleted_v1")
+	}
+	dispatcher.eventType2EventHandler["corehr.contract.deleted_v1"] = larkcorehr.NewP2ContractDeletedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ContractUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractUpdatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["corehr.contract.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.contract.updated_v1")
+	}
+	dispatcher.eventType2EventHandler["corehr.contract.updated_v1"] = larkcorehr.NewP2ContractUpdatedV1Handler(handler)
+	return dispatcher
+}
+
 // 部门创建
 //
 // - 飞书人事中「部门被创建」时将触发此事件。触发时间为部门实际生效时间，如在 2022-01-01 创建部门，部门生效时间设置为 2022-05-01，事件将在 2022-05-01 进行推送。

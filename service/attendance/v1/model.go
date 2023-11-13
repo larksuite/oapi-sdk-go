@@ -351,6 +351,70 @@ func (builder *AreaBuilder) Build() *Area {
 	return req
 }
 
+type ArrangeShiftGroup struct {
+	ShiftGroupId   *string `json:"shift_group_id,omitempty"`   // 班组id
+	GroupId        *string `json:"group_id,omitempty"`         // 考勤组id
+	ShiftGroupName *string `json:"shift_group_name,omitempty"` // 班组名称
+}
+
+type ArrangeShiftGroupBuilder struct {
+	shiftGroupId       string // 班组id
+	shiftGroupIdFlag   bool
+	groupId            string // 考勤组id
+	groupIdFlag        bool
+	shiftGroupName     string // 班组名称
+	shiftGroupNameFlag bool
+}
+
+func NewArrangeShiftGroupBuilder() *ArrangeShiftGroupBuilder {
+	builder := &ArrangeShiftGroupBuilder{}
+	return builder
+}
+
+// 班组id
+//
+// 示例值：7071200888781537300
+func (builder *ArrangeShiftGroupBuilder) ShiftGroupId(shiftGroupId string) *ArrangeShiftGroupBuilder {
+	builder.shiftGroupId = shiftGroupId
+	builder.shiftGroupIdFlag = true
+	return builder
+}
+
+// 考勤组id
+//
+// 示例值：7171200888781537301
+func (builder *ArrangeShiftGroupBuilder) GroupId(groupId string) *ArrangeShiftGroupBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
+// 班组名称
+//
+// 示例值：班组-测试班组
+func (builder *ArrangeShiftGroupBuilder) ShiftGroupName(shiftGroupName string) *ArrangeShiftGroupBuilder {
+	builder.shiftGroupName = shiftGroupName
+	builder.shiftGroupNameFlag = true
+	return builder
+}
+
+func (builder *ArrangeShiftGroupBuilder) Build() *ArrangeShiftGroup {
+	req := &ArrangeShiftGroup{}
+	if builder.shiftGroupIdFlag {
+		req.ShiftGroupId = &builder.shiftGroupId
+
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.shiftGroupNameFlag {
+		req.ShiftGroupName = &builder.shiftGroupName
+
+	}
+	return req
+}
+
 type ChildField struct {
 	Code     *string `json:"code,omitempty"`      // 子字段编号
 	Title    *string `json:"title,omitempty"`     // 子字段名称
@@ -650,6 +714,86 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	}
 	if builder.openDepartmentIdFlag {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type DurationItem struct {
+	Date           *string  `json:"date,omitempty"`            // 日期
+	Duration       *float64 `json:"duration,omitempty"`        // 加班时长
+	Unit           *int     `json:"unit,omitempty"`            // 加班单位
+	SettlementType *int     `json:"settlement_type,omitempty"` // 加班类型
+}
+
+type DurationItemBuilder struct {
+	date               string // 日期
+	dateFlag           bool
+	duration           float64 // 加班时长
+	durationFlag       bool
+	unit               int // 加班单位
+	unitFlag           bool
+	settlementType     int // 加班类型
+	settlementTypeFlag bool
+}
+
+func NewDurationItemBuilder() *DurationItemBuilder {
+	builder := &DurationItemBuilder{}
+	return builder
+}
+
+// 日期
+//
+// 示例值：20231010
+func (builder *DurationItemBuilder) Date(date string) *DurationItemBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 加班时长
+//
+// 示例值：20.0
+func (builder *DurationItemBuilder) Duration(duration float64) *DurationItemBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+
+// 加班单位
+//
+// 示例值：1
+func (builder *DurationItemBuilder) Unit(unit int) *DurationItemBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+
+// 加班类型
+//
+// 示例值：1
+func (builder *DurationItemBuilder) SettlementType(settlementType int) *DurationItemBuilder {
+	builder.settlementType = settlementType
+	builder.settlementTypeFlag = true
+	return builder
+}
+
+func (builder *DurationItemBuilder) Build() *DurationItem {
+	req := &DurationItem{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.settlementTypeFlag {
+		req.SettlementType = &builder.settlementType
 
 	}
 	return req
@@ -3630,6 +3774,54 @@ func (builder *OvertimeRuleBuilder) Build() *OvertimeRule {
 	return req
 }
 
+type OvertimeTimeRange struct {
+	StartTime *string `json:"start_time,omitempty"` // 开始时间
+	EndTime   *string `json:"end_time,omitempty"`   // 结束时间
+}
+
+type OvertimeTimeRangeBuilder struct {
+	startTime     string // 开始时间
+	startTimeFlag bool
+	endTime       string // 结束时间
+	endTimeFlag   bool
+}
+
+func NewOvertimeTimeRangeBuilder() *OvertimeTimeRangeBuilder {
+	builder := &OvertimeTimeRangeBuilder{}
+	return builder
+}
+
+// 开始时间
+//
+// 示例值：2023-09-25 07:00:00
+func (builder *OvertimeTimeRangeBuilder) StartTime(startTime string) *OvertimeTimeRangeBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 结束时间
+//
+// 示例值：2023-09-25 23:30:00
+func (builder *OvertimeTimeRangeBuilder) EndTime(endTime string) *OvertimeTimeRangeBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *OvertimeTimeRangeBuilder) Build() *OvertimeTimeRange {
+	req := &OvertimeTimeRange{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
 type PunchMember struct {
 	RuleScopeType  *int        `json:"rule_scope_type,omitempty"`  // 圈人方式：0 无 1全部 2自定义
 	ScopeGroupList *ScopeGroup `json:"scope_group_list,omitempty"` // 圈人规则列表
@@ -4970,6 +5162,53 @@ func (builder *UserApprovalBuilder) Build() *UserApproval {
 	if builder.timeZoneFlag {
 		req.TimeZone = &builder.timeZone
 
+	}
+	return req
+}
+
+type UserArrangeShiftGroup struct {
+	UserId     *string            `json:"user_id,omitempty"`     // 用户id
+	ShiftGroup *ArrangeShiftGroup `json:"shift_group,omitempty"` // 班组
+}
+
+type UserArrangeShiftGroupBuilder struct {
+	userId         string // 用户id
+	userIdFlag     bool
+	shiftGroup     *ArrangeShiftGroup // 班组
+	shiftGroupFlag bool
+}
+
+func NewUserArrangeShiftGroupBuilder() *UserArrangeShiftGroupBuilder {
+	builder := &UserArrangeShiftGroupBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：e1234123
+func (builder *UserArrangeShiftGroupBuilder) UserId(userId string) *UserArrangeShiftGroupBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 班组
+//
+// 示例值：
+func (builder *UserArrangeShiftGroupBuilder) ShiftGroup(shiftGroup *ArrangeShiftGroup) *UserArrangeShiftGroupBuilder {
+	builder.shiftGroup = shiftGroup
+	builder.shiftGroupFlag = true
+	return builder
+}
+
+func (builder *UserArrangeShiftGroupBuilder) Build() *UserArrangeShiftGroup {
+	req := &UserArrangeShiftGroup{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.shiftGroupFlag {
+		req.ShiftGroup = builder.shiftGroup
 	}
 	return req
 }

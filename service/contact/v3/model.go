@@ -134,6 +134,11 @@ const (
 )
 
 const (
+	DepartmentIdTypeUpdateDepartmentIdDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeUpdateDepartmentIdDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
 	EnumTypeDefualt = 1 // 内置类型
 	EnumTypeCustom  = 2 // 自定义
 
@@ -6774,6 +6779,123 @@ type UpdateDepartmentResp struct {
 }
 
 func (resp *UpdateDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateDepartmentIdDepartmentReqBodyBuilder struct {
+	newDepartmentId     string // 本部门的自定义部门新ID
+	newDepartmentIdFlag bool
+}
+
+func NewUpdateDepartmentIdDepartmentReqBodyBuilder() *UpdateDepartmentIdDepartmentReqBodyBuilder {
+	builder := &UpdateDepartmentIdDepartmentReqBodyBuilder{}
+	return builder
+}
+
+// 本部门的自定义部门新ID
+//
+//示例值：
+func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentReqBodyBuilder {
+	builder.newDepartmentId = newDepartmentId
+	builder.newDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) Build() *UpdateDepartmentIdDepartmentReqBody {
+	req := &UpdateDepartmentIdDepartmentReqBody{}
+	if builder.newDepartmentIdFlag {
+		req.NewDepartmentId = &builder.newDepartmentId
+	}
+	return req
+}
+
+type UpdateDepartmentIdDepartmentPathReqBodyBuilder struct {
+	newDepartmentId     string // 本部门的自定义部门新ID
+	newDepartmentIdFlag bool
+}
+
+func NewUpdateDepartmentIdDepartmentPathReqBodyBuilder() *UpdateDepartmentIdDepartmentPathReqBodyBuilder {
+	builder := &UpdateDepartmentIdDepartmentPathReqBodyBuilder{}
+	return builder
+}
+
+// 本部门的自定义部门新ID
+//
+// 示例值：
+func (builder *UpdateDepartmentIdDepartmentPathReqBodyBuilder) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentPathReqBodyBuilder {
+	builder.newDepartmentId = newDepartmentId
+	builder.newDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *UpdateDepartmentIdDepartmentPathReqBodyBuilder) Build() (*UpdateDepartmentIdDepartmentReqBody, error) {
+	req := &UpdateDepartmentIdDepartmentReqBody{}
+	if builder.newDepartmentIdFlag {
+		req.NewDepartmentId = &builder.newDepartmentId
+	}
+	return req, nil
+}
+
+type UpdateDepartmentIdDepartmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateDepartmentIdDepartmentReqBody
+}
+
+func NewUpdateDepartmentIdDepartmentReqBuilder() *UpdateDepartmentIdDepartmentReqBuilder {
+	builder := &UpdateDepartmentIdDepartmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 需要更新ID部门的ID
+//
+// 示例值：
+func (builder *UpdateDepartmentIdDepartmentReqBuilder) DepartmentId(departmentId string) *UpdateDepartmentIdDepartmentReqBuilder {
+	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
+	return builder
+}
+
+// 此次调用中使用的部门ID的类型
+//
+// 示例值：
+func (builder *UpdateDepartmentIdDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *UpdateDepartmentIdDepartmentReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *UpdateDepartmentIdDepartmentReqBuilder) Body(body *UpdateDepartmentIdDepartmentReqBody) *UpdateDepartmentIdDepartmentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateDepartmentIdDepartmentReqBuilder) Build() *UpdateDepartmentIdDepartmentReq {
+	req := &UpdateDepartmentIdDepartmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateDepartmentIdDepartmentReqBody struct {
+	NewDepartmentId *string `json:"new_department_id,omitempty"` // 本部门的自定义部门新ID
+}
+
+type UpdateDepartmentIdDepartmentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateDepartmentIdDepartmentReqBody `body:""`
+}
+
+type UpdateDepartmentIdDepartmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateDepartmentIdDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 

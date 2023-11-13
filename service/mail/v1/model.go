@@ -207,15 +207,21 @@ const (
 )
 
 type Attachment struct {
-	Body     *string `json:"body,omitempty"`     // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
-	Filename *string `json:"filename,omitempty"` // 附件文件名
+	Body           *string `json:"body,omitempty"`            // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
+	Filename       *string `json:"filename,omitempty"`        // 附件文件名
+	Id             *string `json:"id,omitempty"`              // 附件 id
+	AttachmentType *int    `json:"attachment_type,omitempty"` // 附件类型
 }
 
 type AttachmentBuilder struct {
-	body         string // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
-	bodyFlag     bool
-	filename     string // 附件文件名
-	filenameFlag bool
+	body               string // 附件的正文，使用 base64url 编码（支持的文件最大 37MB）
+	bodyFlag           bool
+	filename           string // 附件文件名
+	filenameFlag       bool
+	id                 string // 附件 id
+	idFlag             bool
+	attachmentType     int // 附件类型
+	attachmentTypeFlag bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -241,6 +247,24 @@ func (builder *AttachmentBuilder) Filename(filename string) *AttachmentBuilder {
 	return builder
 }
 
+// 附件 id
+//
+// 示例值：YQqYbQHoQoDqXjxWKhJbo8Gicjf
+func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 附件类型
+//
+// 示例值：1
+func (builder *AttachmentBuilder) AttachmentType(attachmentType int) *AttachmentBuilder {
+	builder.attachmentType = attachmentType
+	builder.attachmentTypeFlag = true
+	return builder
+}
+
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
 	if builder.bodyFlag {
@@ -249,6 +273,62 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	}
 	if builder.filenameFlag {
 		req.Filename = &builder.filename
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.attachmentTypeFlag {
+		req.AttachmentType = &builder.attachmentType
+
+	}
+	return req
+}
+
+type AttachmentDownloadUrlItem struct {
+	AttachmentId *string `json:"attachment_id,omitempty"` // 附件 id
+	DownloadUrl  *string `json:"download_url,omitempty"`  // 下载链接
+}
+
+type AttachmentDownloadUrlItemBuilder struct {
+	attachmentId     string // 附件 id
+	attachmentIdFlag bool
+	downloadUrl      string // 下载链接
+	downloadUrlFlag  bool
+}
+
+func NewAttachmentDownloadUrlItemBuilder() *AttachmentDownloadUrlItemBuilder {
+	builder := &AttachmentDownloadUrlItemBuilder{}
+	return builder
+}
+
+// 附件 id
+//
+// 示例值：YQqYbQHoQoDqXjxWKhJbo8Gicjf
+func (builder *AttachmentDownloadUrlItemBuilder) AttachmentId(attachmentId string) *AttachmentDownloadUrlItemBuilder {
+	builder.attachmentId = attachmentId
+	builder.attachmentIdFlag = true
+	return builder
+}
+
+// 下载链接
+//
+// 示例值：https://api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YTZiZGViMDg3NzRjMzEwOWRkMGI1MTJlYmQxYTFmYTBfZTA5ZjZiOWU4NDYzMzkxMDUyOTIxMzBmNTVjMjAyZTFfSUQ6NzI4MTE4Nzg1OTE5NTc3Mjk0N18xNjk1ODg4NjQyOjE2OTU4ODg3MDJfVjM
+func (builder *AttachmentDownloadUrlItemBuilder) DownloadUrl(downloadUrl string) *AttachmentDownloadUrlItemBuilder {
+	builder.downloadUrl = downloadUrl
+	builder.downloadUrlFlag = true
+	return builder
+}
+
+func (builder *AttachmentDownloadUrlItemBuilder) Build() *AttachmentDownloadUrlItem {
+	req := &AttachmentDownloadUrlItem{}
+	if builder.attachmentIdFlag {
+		req.AttachmentId = &builder.attachmentId
+
+	}
+	if builder.downloadUrlFlag {
+		req.DownloadUrl = &builder.downloadUrl
 
 	}
 	return req
@@ -351,21 +431,27 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 }
 
 type Folder struct {
-	Id             *string `json:"id,omitempty"`               // folder id
-	Name           *string `json:"name,omitempty"`             // 文件夹名称
-	ParentFolderId *string `json:"parent_folder_id,omitempty"` // 父文件夹 id，该值为 0 表示根文件夹
-	FolderType     *int    `json:"folder_type,omitempty"`      // 文件夹类型
+	Id                 *string `json:"id,omitempty"`                   // folder id
+	Name               *string `json:"name,omitempty"`                 // 文件夹名称
+	ParentFolderId     *string `json:"parent_folder_id,omitempty"`     // 父文件夹 id，该值为 0 表示根文件夹
+	FolderType         *int    `json:"folder_type,omitempty"`          // 文件夹类型
+	UnreadMessageCount *int    `json:"unread_message_count,omitempty"` // 未读邮件数量
+	UnreadThreadCount  *int    `json:"unread_thread_count,omitempty"`  // 未读会话数量
 }
 
 type FolderBuilder struct {
-	id                 string // folder id
-	idFlag             bool
-	name               string // 文件夹名称
-	nameFlag           bool
-	parentFolderId     string // 父文件夹 id，该值为 0 表示根文件夹
-	parentFolderIdFlag bool
-	folderType         int // 文件夹类型
-	folderTypeFlag     bool
+	id                     string // folder id
+	idFlag                 bool
+	name                   string // 文件夹名称
+	nameFlag               bool
+	parentFolderId         string // 父文件夹 id，该值为 0 表示根文件夹
+	parentFolderIdFlag     bool
+	folderType             int // 文件夹类型
+	folderTypeFlag         bool
+	unreadMessageCount     int // 未读邮件数量
+	unreadMessageCountFlag bool
+	unreadThreadCount      int // 未读会话数量
+	unreadThreadCountFlag  bool
 }
 
 func NewFolderBuilder() *FolderBuilder {
@@ -409,6 +495,24 @@ func (builder *FolderBuilder) FolderType(folderType int) *FolderBuilder {
 	return builder
 }
 
+// 未读邮件数量
+//
+// 示例值：3
+func (builder *FolderBuilder) UnreadMessageCount(unreadMessageCount int) *FolderBuilder {
+	builder.unreadMessageCount = unreadMessageCount
+	builder.unreadMessageCountFlag = true
+	return builder
+}
+
+// 未读会话数量
+//
+// 示例值：4
+func (builder *FolderBuilder) UnreadThreadCount(unreadThreadCount int) *FolderBuilder {
+	builder.unreadThreadCount = unreadThreadCount
+	builder.unreadThreadCountFlag = true
+	return builder
+}
+
 func (builder *FolderBuilder) Build() *Folder {
 	req := &Folder{}
 	if builder.idFlag {
@@ -425,6 +529,14 @@ func (builder *FolderBuilder) Build() *Folder {
 	}
 	if builder.folderTypeFlag {
 		req.FolderType = &builder.folderType
+
+	}
+	if builder.unreadMessageCountFlag {
+		req.UnreadMessageCount = &builder.unreadMessageCount
+
+	}
+	if builder.unreadThreadCountFlag {
+		req.UnreadThreadCount = &builder.unreadThreadCount
 
 	}
 	return req

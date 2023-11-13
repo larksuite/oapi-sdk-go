@@ -32,6 +32,62 @@ func (dispatcher *EventDispatcher) OnP2ApplicationStageChangedV1(handler func(ct
 	return dispatcher
 }
 
+// 帐号绑定
+//
+// - 招聘管理员添加三方服务商帐号时，系统会推送事件给应用开发者，开发者可根据事件获取用户添加的帐号类型（背调 或 笔试）和 帐号自定义字段信息，并根据这些信息识别用户在服务商处的身份，完成三方服务商帐号 和 招聘帐号之间的绑定，并根据用户服务商身份推送对应的背调套餐或试卷列表。
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created
+func (dispatcher *EventDispatcher) OnP2EcoAccountCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoAccountCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.eco_account.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.eco_account.created_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.eco_account.created_v1"] = larkhire.NewP2EcoAccountCreatedV1Handler(handler)
+	return dispatcher
+}
+
+// 终止背调
+//
+// - 用户在招聘系统终止背调后，系统会推送事件给对应的应用开发者。开发者可根据事件获取背调 ID，完成在三方服务商处的订单取消等后续操作。
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/canceled
+func (dispatcher *EventDispatcher) OnP2EcoBackgroundCheckCanceledV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCanceledV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.eco_background_check.canceled_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.eco_background_check.canceled_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.eco_background_check.canceled_v1"] = larkhire.NewP2EcoBackgroundCheckCanceledV1Handler(handler)
+	return dispatcher
+}
+
+// 创建背调
+//
+// - 用户在招聘系统安排背调后，系统会推送事件给对应的应用开发者。开发者可根据事件获取候选人信息、委托人信息和自定义字段信息，并根据这些信息完成在三方服务商处的背调订单创建。
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created
+func (dispatcher *EventDispatcher) OnP2EcoBackgroundCheckCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.eco_background_check.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.eco_background_check.created_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.eco_background_check.created_v1"] = larkhire.NewP2EcoBackgroundCheckCreatedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EcoExamCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoExamCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.eco_exam.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.eco_exam.created_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.eco_exam.created_v1"] = larkhire.NewP2EcoExamCreatedV1Handler(handler)
+	return dispatcher
+}
+
 //
 //
 // -
@@ -71,5 +127,19 @@ func (dispatcher *EventDispatcher) OnP2OfferStatusChangedV1(handler func(ctx con
 		panic("event: multiple handler registrations for " + "hire.offer.status_changed_v1")
 	}
 	dispatcher.eventType2EventHandler["hire.offer.status_changed_v1"] = larkhire.NewP2OfferStatusChangedV1Handler(handler)
+	return dispatcher
+}
+
+//
+//
+// -
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ReferralAccountAssetsUpdateV1(handler func(ctx context.Context, event *larkhire.P2ReferralAccountAssetsUpdateV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.referral_account.assets_update_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.referral_account.assets_update_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.referral_account.assets_update_v1"] = larkhire.NewP2ReferralAccountAssetsUpdateV1Handler(handler)
 	return dispatcher
 }

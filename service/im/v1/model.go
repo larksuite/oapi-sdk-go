@@ -187,6 +187,12 @@ const (
 )
 
 const (
+	UserIdTypeGetMessageUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetMessageUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetMessageOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	SortTypeListMessageByCreateTimeAsc  = "ByCreateTimeAsc"  // 按消息创建时间升序排列
 	SortTypeListMessageByCreateTimeDesc = "ByCreateTimeDesc" // 按消息创建时间降序排列
 )
@@ -9685,10 +9691,19 @@ func (builder *GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqB
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *GetMessageReqBuilder) UserIdType(userIdType string) *GetMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *GetMessageReqBuilder) Build() *GetMessageReq {
 	req := &GetMessageReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 

@@ -38,6 +38,86 @@ func (h *P2ApplicationStageChangedV1Handler) Handle(ctx context.Context, event i
 }
 
 // 消息处理器定义
+type P2EcoAccountCreatedV1Handler struct {
+	handler func(context.Context, *P2EcoAccountCreatedV1) error
+}
+
+func NewP2EcoAccountCreatedV1Handler(handler func(context.Context, *P2EcoAccountCreatedV1) error) *P2EcoAccountCreatedV1Handler {
+	h := &P2EcoAccountCreatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EcoAccountCreatedV1Handler) Event() interface{} {
+	return &P2EcoAccountCreatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EcoAccountCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EcoAccountCreatedV1))
+}
+
+// 消息处理器定义
+type P2EcoBackgroundCheckCanceledV1Handler struct {
+	handler func(context.Context, *P2EcoBackgroundCheckCanceledV1) error
+}
+
+func NewP2EcoBackgroundCheckCanceledV1Handler(handler func(context.Context, *P2EcoBackgroundCheckCanceledV1) error) *P2EcoBackgroundCheckCanceledV1Handler {
+	h := &P2EcoBackgroundCheckCanceledV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EcoBackgroundCheckCanceledV1Handler) Event() interface{} {
+	return &P2EcoBackgroundCheckCanceledV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EcoBackgroundCheckCanceledV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EcoBackgroundCheckCanceledV1))
+}
+
+// 消息处理器定义
+type P2EcoBackgroundCheckCreatedV1Handler struct {
+	handler func(context.Context, *P2EcoBackgroundCheckCreatedV1) error
+}
+
+func NewP2EcoBackgroundCheckCreatedV1Handler(handler func(context.Context, *P2EcoBackgroundCheckCreatedV1) error) *P2EcoBackgroundCheckCreatedV1Handler {
+	h := &P2EcoBackgroundCheckCreatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EcoBackgroundCheckCreatedV1Handler) Event() interface{} {
+	return &P2EcoBackgroundCheckCreatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EcoBackgroundCheckCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EcoBackgroundCheckCreatedV1))
+}
+
+// 消息处理器定义
+type P2EcoExamCreatedV1Handler struct {
+	handler func(context.Context, *P2EcoExamCreatedV1) error
+}
+
+func NewP2EcoExamCreatedV1Handler(handler func(context.Context, *P2EcoExamCreatedV1) error) *P2EcoExamCreatedV1Handler {
+	h := &P2EcoExamCreatedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2EcoExamCreatedV1Handler) Event() interface{} {
+	return &P2EcoExamCreatedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2EcoExamCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2EcoExamCreatedV1))
+}
+
+// 消息处理器定义
 type P2EhrImportTaskImportedV1Handler struct {
 	handler func(context.Context, *P2EhrImportTaskImportedV1) error
 }
@@ -95,4 +175,24 @@ func (h *P2OfferStatusChangedV1Handler) Event() interface{} {
 // 回调开发者注册的handle
 func (h *P2OfferStatusChangedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2OfferStatusChangedV1))
+}
+
+// 消息处理器定义
+type P2ReferralAccountAssetsUpdateV1Handler struct {
+	handler func(context.Context, *P2ReferralAccountAssetsUpdateV1) error
+}
+
+func NewP2ReferralAccountAssetsUpdateV1Handler(handler func(context.Context, *P2ReferralAccountAssetsUpdateV1) error) *P2ReferralAccountAssetsUpdateV1Handler {
+	h := &P2ReferralAccountAssetsUpdateV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ReferralAccountAssetsUpdateV1Handler) Event() interface{} {
+	return &P2ReferralAccountAssetsUpdateV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ReferralAccountAssetsUpdateV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ReferralAccountAssetsUpdateV1))
 }

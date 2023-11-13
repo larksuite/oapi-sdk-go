@@ -25,6 +25,13 @@ func NewService(config *larkcore.Config) *HireService {
 	h.Application = &application{service: h}
 	h.ApplicationInterview = &applicationInterview{service: h}
 	h.Attachment = &attachment{service: h}
+	h.EcoAccount = &ecoAccount{service: h}
+	h.EcoAccountCustomField = &ecoAccountCustomField{service: h}
+	h.EcoBackgroundCheck = &ecoBackgroundCheck{service: h}
+	h.EcoBackgroundCheckCustomField = &ecoBackgroundCheckCustomField{service: h}
+	h.EcoBackgroundCheckPackage = &ecoBackgroundCheckPackage{service: h}
+	h.EcoExam = &ecoExam{service: h}
+	h.EcoExamPaper = &ecoExamPaper{service: h}
 	h.EhrImportTask = &ehrImportTask{service: h}
 	h.EhrImportTaskForInternshipOffer = &ehrImportTaskForInternshipOffer{service: h}
 	h.Employee = &employee{service: h}
@@ -45,6 +52,7 @@ func NewService(config *larkcore.Config) *HireService {
 	h.OfferSchema = &offerSchema{service: h}
 	h.Questionnaire = &questionnaire{service: h}
 	h.Referral = &referral{service: h}
+	h.ReferralAccount = &referralAccount{service: h}
 	h.ReferralWebsiteJobPost = &referralWebsiteJobPost{service: h}
 	h.RegistrationSchema = &registrationSchema{service: h}
 	h.ResumeSource = &resumeSource{service: h}
@@ -59,6 +67,13 @@ type HireService struct {
 	Application                     *application                     // 投递
 	ApplicationInterview            *applicationInterview            // application.interview
 	Attachment                      *attachment                      // 附件
+	EcoAccount                      *ecoAccount                      // 事件
+	EcoAccountCustomField           *ecoAccountCustomField           // 生态对接账号自定义字段
+	EcoBackgroundCheck              *ecoBackgroundCheck              // 背调订单
+	EcoBackgroundCheckCustomField   *ecoBackgroundCheckCustomField   // 背调自定义字段
+	EcoBackgroundCheckPackage       *ecoBackgroundCheckPackage       // 背调套餐和附加调查项
+	EcoExam                         *ecoExam                         // eco_exam
+	EcoExamPaper                    *ecoExamPaper                    // eco_exam_paper
 	EhrImportTask                   *ehrImportTask                   // 导入 e-HR
 	EhrImportTaskForInternshipOffer *ehrImportTaskForInternshipOffer // ehr_import_task_for_internship_offer
 	Employee                        *employee                        // 入职
@@ -79,6 +94,7 @@ type HireService struct {
 	OfferSchema                     *offerSchema                     // offer_schema
 	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
 	Referral                        *referral                        // 内推
+	ReferralAccount                 *referralAccount                 // referral_account
 	ReferralWebsiteJobPost          *referralWebsiteJobPost          // referral_website.job_post
 	RegistrationSchema              *registrationSchema              // registration_schema
 	ResumeSource                    *resumeSource                    // 简历来源
@@ -94,6 +110,27 @@ type applicationInterview struct {
 	service *HireService
 }
 type attachment struct {
+	service *HireService
+}
+type ecoAccount struct {
+	service *HireService
+}
+type ecoAccountCustomField struct {
+	service *HireService
+}
+type ecoBackgroundCheck struct {
+	service *HireService
+}
+type ecoBackgroundCheckCustomField struct {
+	service *HireService
+}
+type ecoBackgroundCheckPackage struct {
+	service *HireService
+}
+type ecoExam struct {
+	service *HireService
+}
+type ecoExamPaper struct {
 	service *HireService
 }
 type ehrImportTask struct {
@@ -154,6 +191,9 @@ type questionnaire struct {
 	service *HireService
 }
 type referral struct {
+	service *HireService
+}
+type referralAccount struct {
 	service *HireService
 }
 type referralWebsiteJobPost struct {
@@ -403,6 +443,448 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	// 反序列响应结果
 	resp := &PreviewAttachmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除帐号自定义字段
+//
+// - 删除用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。删除后，不影响已添加帐号对应的自定义字段的值。但在添加新帐号时，将不能再使用此自定义字段。删除不支持撤销，对应的 key 将无法再次复用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoAccountCustomField.go
+func (e *ecoAccountCustomField) BatchDelete(ctx context.Context, req *BatchDeleteEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoAccountCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_account_custom_fields/batch_delete"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteEcoAccountCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新帐号自定义字段
+//
+// - 更新用户在服务商处的身份标示字段（如用户在服务商处的租户 ID），此方法只会更新同一 scope 内 key 一致的自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoAccountCustomField.go
+func (e *ecoAccountCustomField) BatchUpdate(ctx context.Context, req *BatchUpdateEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoAccountCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_account_custom_fields/batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateEcoAccountCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建帐号自定义字段
+//
+// - 定制用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。用户在飞书招聘后台添加帐号后，系统会推送「帐号绑定」事件给开发者，事件将携带用户填写的自定义字段信息，开发者可根据此信息识别飞书招聘用户在服务商处的身份信息，完成飞书招聘用户和服务商帐号的绑定，并以此来推送对应的套餐或试卷列表等。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoAccountCustomField.go
+func (e *ecoAccountCustomField) Create(ctx context.Context, req *CreateEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*CreateEcoAccountCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_account_custom_fields"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEcoAccountCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 终止背调订单
+//
+// - 终止背调订单
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/cancel
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/cancel_ecoBackgroundCheck.go
+func (e *ecoBackgroundCheck) Cancel(ctx context.Context, req *CancelEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*CancelEcoBackgroundCheckResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_checks/cancel"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CancelEcoBackgroundCheckResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新背调进度
+//
+// - 更新指定背调的进度信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateProgress_ecoBackgroundCheck.go
+func (e *ecoBackgroundCheck) UpdateProgress(ctx context.Context, req *UpdateProgressEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*UpdateProgressEcoBackgroundCheckResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_checks/update_progress"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateProgressEcoBackgroundCheckResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 回传背调的最终结果
+//
+// - 回传背调的最终结果
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateResult_ecoBackgroundCheck.go
+func (e *ecoBackgroundCheck) UpdateResult(ctx context.Context, req *UpdateResultEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*UpdateResultEcoBackgroundCheckResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_checks/update_result"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateResultEcoBackgroundCheckResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除背调自定义字段
+//
+// - 删除用户在发起背调时的自定义字段，删除不影响已创建的背调，删除后对应的自定义字段的 key 不能再复用。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoBackgroundCheckCustomField.go
+func (e *ecoBackgroundCheckCustomField) BatchDelete(ctx context.Context, req *BatchDeleteEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoBackgroundCheckCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_custom_fields/batch_delete"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteEcoBackgroundCheckCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新背调自定义字段
+//
+// - 更新用户在发起背调时的自定义字段。更新操作不支持更新自定义字段类型，且将影响已发起的背调表单展示。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoBackgroundCheckCustomField.go
+func (e *ecoBackgroundCheckCustomField) BatchUpdate(ctx context.Context, req *BatchUpdateEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoBackgroundCheckCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_custom_fields/batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateEcoBackgroundCheckCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 创建背调自定义字段
+//
+// - 定制用户在发起背调时的自定义字段
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoBackgroundCheckCustomField.go
+func (e *ecoBackgroundCheckCustomField) Create(ctx context.Context, req *CreateEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*CreateEcoBackgroundCheckCustomFieldResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_custom_fields"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEcoBackgroundCheckCustomFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除背调套餐和附加调查项
+//
+// - 删除指定帐号的指定背调套餐和附加调查项信息，删除不会影响已创建的背调。
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_delete
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoBackgroundCheckPackage.go
+func (e *ecoBackgroundCheckPackage) BatchDelete(ctx context.Context, req *BatchDeleteEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoBackgroundCheckPackageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_packages/batch_delete"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteEcoBackgroundCheckPackageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新背调套餐和附加调查项
+//
+// - 更新指定帐号可用的背调套餐和附加调查项信息，更新将影响已发起背调的表单项展示
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_update
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoBackgroundCheckPackage.go
+func (e *ecoBackgroundCheckPackage) BatchUpdate(ctx context.Context, req *BatchUpdateEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoBackgroundCheckPackageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_packages/batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateEcoBackgroundCheckPackageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// 推送背调套餐和附加调查项
+//
+// - 定制指定帐号可用的背调套餐和附加调查项信息
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoBackgroundCheckPackage.go
+func (e *ecoBackgroundCheckPackage) Create(ctx context.Context, req *CreateEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*CreateEcoBackgroundCheckPackageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_background_check_packages"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEcoBackgroundCheckPackageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=login_info&project=hire&resource=eco_exam&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/loginInfo_ecoExam.go
+func (e *ecoExam) LoginInfo(ctx context.Context, req *LoginInfoEcoExamReq, options ...larkcore.RequestOptionFunc) (*LoginInfoEcoExamResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_exams/:exam_id/login_info"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &LoginInfoEcoExamResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_result&project=hire&resource=eco_exam&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateResult_ecoExam.go
+func (e *ecoExam) UpdateResult(ctx context.Context, req *UpdateResultEcoExamReq, options ...larkcore.RequestOptionFunc) (*UpdateResultEcoExamResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_exams/:exam_id/update_result"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateResultEcoExamResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_exam_paper&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoExamPaper.go
+func (e *ecoExamPaper) BatchDelete(ctx context.Context, req *BatchDeleteEcoExamPaperReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoExamPaperResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_exam_papers/batch_delete"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteEcoExamPaperResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_exam_paper&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoExamPaper.go
+func (e *ecoExamPaper) BatchUpdate(ctx context.Context, req *BatchUpdateEcoExamPaperReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoExamPaperResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_exam_papers/batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateEcoExamPaperResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_exam_paper&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoExamPaper.go
+func (e *ecoExamPaper) Create(ctx context.Context, req *CreateEcoExamPaperReq, options ...larkcore.RequestOptionFunc) (*CreateEcoExamPaperResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/eco_exam_papers"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEcoExamPaperResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.service.config)
 	if err != nil {
 		return nil, err
 	}
@@ -1432,6 +1914,110 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 	}
 	// 反序列响应结果
 	resp := &GetByApplicationReferralResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=referral_account&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_referralAccount.go
+func (r *referralAccount) Create(ctx context.Context, req *CreateReferralAccountReq, options ...larkcore.RequestOptionFunc) (*CreateReferralAccountResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_account"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateReferralAccountResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=deactivate&project=hire&resource=referral_account&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/deactivate_referralAccount.go
+func (r *referralAccount) Deactivate(ctx context.Context, req *DeactivateReferralAccountReq, options ...larkcore.RequestOptionFunc) (*DeactivateReferralAccountResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_account/:referral_account_id/deactivate"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeactivateReferralAccountResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reconciliation&project=hire&resource=referral_account&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/reconciliation_referralAccount.go
+func (r *referralAccount) Reconciliation(ctx context.Context, req *ReconciliationReferralAccountReq, options ...larkcore.RequestOptionFunc) (*ReconciliationReferralAccountResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_account/reconciliation"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ReconciliationReferralAccountResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+//
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=withdraw&project=hire&resource=referral_account&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/withdraw_referralAccount.go
+func (r *referralAccount) Withdraw(ctx context.Context, req *WithdrawReferralAccountReq, options ...larkcore.RequestOptionFunc) (*WithdrawReferralAccountResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/referral_account/:referral_account_id/withdraw"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &WithdrawReferralAccountResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, r.service.config)
 	if err != nil {
 		return nil, err

@@ -51,6 +51,7 @@ const (
 	TypeCopyFileBitable  = "bitable"  // 多维表格类型
 	TypeCopyFileDocx     = "docx"     // 新版云文档类型
 	TypeCopyFileMindnote = "mindnote" // 思维笔记类型
+	TypeCopyFileSlides   = "slides"   // 幻灯片类型
 )
 
 const (
@@ -74,6 +75,7 @@ const (
 	TypeDeleteFileSheet    = "sheet"    // 电子表格类型
 	TypeDeleteFileMindnote = "mindnote" // 思维笔记类型
 	TypeDeleteFileShortcut = "shortcut" // 快捷方式类型
+	TypeDeleteFileSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -116,6 +118,7 @@ const (
 	TypeMoveFileSheet    = "sheet"    // 电子表格类型
 	TypeMoveFileMindnote = "mindnote" // 思维笔记类型
 	TypeMoveFileFolder   = "folder"   // 文件夹类型
+	TypeMoveFileSlides   = "slides"   // 幻灯片类型
 )
 
 const (
@@ -7363,7 +7366,10 @@ type CreateFileSubscriptionReq struct {
 }
 
 type CreateFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"` // 本次增加的文档订阅信息
+	SubscriptionId   *string `json:"subscription_id,omitempty"`   // 订阅关系ID
+	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅类型
+	IsSubcribe       *bool   `json:"is_subcribe,omitempty"`       // 是否订阅
+	FileType         *string `json:"file_type,omitempty"`         // 文档类型
 }
 
 type CreateFileSubscriptionResp struct {
@@ -7484,7 +7490,10 @@ type GetFileSubscriptionReq struct {
 }
 
 type GetFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"` // 文档订阅信息
+	SubscriptionId   *string `json:"subscription_id,omitempty"`   // 订阅关系ID
+	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅类型
+	IsSubcribe       *bool   `json:"is_subcribe,omitempty"`       // 是否订阅
+	FileType         *string `json:"file_type,omitempty"`         // 文档类型
 }
 
 type GetFileSubscriptionResp struct {
@@ -7634,7 +7643,10 @@ type PatchFileSubscriptionReq struct {
 }
 
 type PatchFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"` // 本次修改的文档订阅信息
+	SubscriptionId   *string `json:"subscription_id,omitempty"`   // 订阅关系ID
+	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅类型
+	IsSubcribe       *bool   `json:"is_subcribe,omitempty"`       // 是否订阅
+	FileType         *string `json:"file_type,omitempty"`         // 文档类型
 }
 
 type PatchFileSubscriptionResp struct {

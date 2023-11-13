@@ -3307,6 +3307,10 @@ func (builder *SchemaUserIdsOptionBuilder) Build() *SchemaUserIdsOption {
 type UserInfo struct {
 	UserLanguage *string `json:"user_language,omitempty"` // 用户使用语言类型
 	Timezone     *string `json:"timezone,omitempty"`      // 用户时区
+	UserId       *string `json:"user_id,omitempty"`       // 用户id
+	UserOpenId   *string `json:"user_open_id,omitempty"`  // 用户open id
+	TenantId     *string `json:"tenant_id,omitempty"`     // 租户id
+	Locale       *string `json:"locale,omitempty"`        // 地区
 }
 
 type UserInfoBuilder struct {
@@ -3314,6 +3318,14 @@ type UserInfoBuilder struct {
 	userLanguageFlag bool
 	timezone         string // 用户时区
 	timezoneFlag     bool
+	userId           string // 用户id
+	userIdFlag       bool
+	userOpenId       string // 用户open id
+	userOpenIdFlag   bool
+	tenantId         string // 租户id
+	tenantIdFlag     bool
+	locale           string // 地区
+	localeFlag       bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -3339,6 +3351,42 @@ func (builder *UserInfoBuilder) Timezone(timezone string) *UserInfoBuilder {
 	return builder
 }
 
+// 用户id
+//
+// 示例值：22
+func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 用户open id
+//
+// 示例值：ou_abc
+func (builder *UserInfoBuilder) UserOpenId(userOpenId string) *UserInfoBuilder {
+	builder.userOpenId = userOpenId
+	builder.userOpenIdFlag = true
+	return builder
+}
+
+// 租户id
+//
+// 示例值：22
+func (builder *UserInfoBuilder) TenantId(tenantId string) *UserInfoBuilder {
+	builder.tenantId = tenantId
+	builder.tenantIdFlag = true
+	return builder
+}
+
+// 地区
+//
+// 示例值：zh-cn
+func (builder *UserInfoBuilder) Locale(locale string) *UserInfoBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
 	if builder.userLanguageFlag {
@@ -3347,6 +3395,22 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 	}
 	if builder.timezoneFlag {
 		req.Timezone = &builder.timezone
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userOpenIdFlag {
+		req.UserOpenId = &builder.userOpenId
+
+	}
+	if builder.tenantIdFlag {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
 
 	}
 	return req

@@ -2637,6 +2637,38 @@ func (builder *MyAiAvPluginCardStatusBuilder) Build() *MyAiAvPluginCardStatus {
 	return req
 }
 
+type MyAiAvPluginCardVariables struct {
+	Content *string `json:"content,omitempty"` // content
+}
+
+type MyAiAvPluginCardVariablesBuilder struct {
+	content     string // content
+	contentFlag bool
+}
+
+func NewMyAiAvPluginCardVariablesBuilder() *MyAiAvPluginCardVariablesBuilder {
+	builder := &MyAiAvPluginCardVariablesBuilder{}
+	return builder
+}
+
+// content
+//
+// 示例值：{"tag": "markdown","content": "请稍等，正在生成妙记中，预计需要3分钟;"}
+func (builder *MyAiAvPluginCardVariablesBuilder) Content(content string) *MyAiAvPluginCardVariablesBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *MyAiAvPluginCardVariablesBuilder) Build() *MyAiAvPluginCardVariables {
+	req := &MyAiAvPluginCardVariables{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
 type MyAiAvPluginCardVaribales struct {
 	Content *string `json:"content,omitempty"` // content
 }
@@ -2670,15 +2702,24 @@ func (builder *MyAiAvPluginCardVaribalesBuilder) Build() *MyAiAvPluginCardVariba
 }
 
 type MyAiAvPluginContextSystemInfo struct {
-	Lang  *string `json:"lang,omitempty"`  // 语言
-	Brand *string `json:"brand,omitempty"` // 品牌
+	Lang       *string `json:"lang,omitempty"`        // 语言
+	Brand      *string `json:"brand,omitempty"`       // 品牌
+	Locale     *string `json:"locale,omitempty"`      // 客户端语言
+	SessionId  *string `json:"session_id,omitempty"`  // 会话ID
+	AppVersion *string `json:"app_version,omitempty"` // app version
 }
 
 type MyAiAvPluginContextSystemInfoBuilder struct {
-	lang      string // 语言
-	langFlag  bool
-	brand     string // 品牌
-	brandFlag bool
+	lang           string // 语言
+	langFlag       bool
+	brand          string // 品牌
+	brandFlag      bool
+	locale         string // 客户端语言
+	localeFlag     bool
+	sessionId      string // 会话ID
+	sessionIdFlag  bool
+	appVersion     string // app version
+	appVersionFlag bool
 }
 
 func NewMyAiAvPluginContextSystemInfoBuilder() *MyAiAvPluginContextSystemInfoBuilder {
@@ -2688,7 +2729,7 @@ func NewMyAiAvPluginContextSystemInfoBuilder() *MyAiAvPluginContextSystemInfoBui
 
 // 语言
 //
-// 示例值：English
+// 示例值：zh
 func (builder *MyAiAvPluginContextSystemInfoBuilder) Lang(lang string) *MyAiAvPluginContextSystemInfoBuilder {
 	builder.lang = lang
 	builder.langFlag = true
@@ -2704,6 +2745,33 @@ func (builder *MyAiAvPluginContextSystemInfoBuilder) Brand(brand string) *MyAiAv
 	return builder
 }
 
+// 客户端语言
+//
+// 示例值：zh_cn
+func (builder *MyAiAvPluginContextSystemInfoBuilder) Locale(locale string) *MyAiAvPluginContextSystemInfoBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+
+// 会话ID
+//
+// 示例值：7291019243332730998
+func (builder *MyAiAvPluginContextSystemInfoBuilder) SessionId(sessionId string) *MyAiAvPluginContextSystemInfoBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdFlag = true
+	return builder
+}
+
+// app version
+//
+// 示例值：7.4.0
+func (builder *MyAiAvPluginContextSystemInfoBuilder) AppVersion(appVersion string) *MyAiAvPluginContextSystemInfoBuilder {
+	builder.appVersion = appVersion
+	builder.appVersionFlag = true
+	return builder
+}
+
 func (builder *MyAiAvPluginContextSystemInfoBuilder) Build() *MyAiAvPluginContextSystemInfo {
 	req := &MyAiAvPluginContextSystemInfo{}
 	if builder.langFlag {
@@ -2714,6 +2782,18 @@ func (builder *MyAiAvPluginContextSystemInfoBuilder) Build() *MyAiAvPluginContex
 		req.Brand = &builder.brand
 
 	}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
+
+	}
+	if builder.sessionIdFlag {
+		req.SessionId = &builder.sessionId
+
+	}
+	if builder.appVersionFlag {
+		req.AppVersion = &builder.appVersion
+
+	}
 	return req
 }
 
@@ -2721,7 +2801,7 @@ type MyAiAvPluginPresentInfo struct {
 	Type           *string                    `json:"type,omitempty"`             // present type
 	CardTemplateId *string                    `json:"card_template_id,omitempty"` // card template id
 	Body           *string                    `json:"body,omitempty"`             // body
-	CardVaribales  *MyAiAvPluginCardVaribales `json:"card_varibales,omitempty"`   //
+	CardVariables  *MyAiAvPluginCardVariables `json:"card_variables,omitempty"`   //
 	CallbackInfo   *string                    `json:"callback_info,omitempty"`    // callback info
 }
 
@@ -2732,8 +2812,8 @@ type MyAiAvPluginPresentInfoBuilder struct {
 	cardTemplateIdFlag bool
 	body               string // body
 	bodyFlag           bool
-	cardVaribales      *MyAiAvPluginCardVaribales //
-	cardVaribalesFlag  bool
+	cardVariables      *MyAiAvPluginCardVariables //
+	cardVariablesFlag  bool
 	callbackInfo       string // callback info
 	callbackInfoFlag   bool
 }
@@ -2773,9 +2853,9 @@ func (builder *MyAiAvPluginPresentInfoBuilder) Body(body string) *MyAiAvPluginPr
 //
 //
 // 示例值：
-func (builder *MyAiAvPluginPresentInfoBuilder) CardVaribales(cardVaribales *MyAiAvPluginCardVaribales) *MyAiAvPluginPresentInfoBuilder {
-	builder.cardVaribales = cardVaribales
-	builder.cardVaribalesFlag = true
+func (builder *MyAiAvPluginPresentInfoBuilder) CardVariables(cardVariables *MyAiAvPluginCardVariables) *MyAiAvPluginPresentInfoBuilder {
+	builder.cardVariables = cardVariables
+	builder.cardVariablesFlag = true
 	return builder
 }
 
@@ -2802,8 +2882,8 @@ func (builder *MyAiAvPluginPresentInfoBuilder) Build() *MyAiAvPluginPresentInfo 
 		req.Body = &builder.body
 
 	}
-	if builder.cardVaribalesFlag {
-		req.CardVaribales = builder.cardVaribales
+	if builder.cardVariablesFlag {
+		req.CardVariables = builder.cardVariables
 	}
 	if builder.callbackInfoFlag {
 		req.CallbackInfo = &builder.callbackInfo
@@ -3179,6 +3259,7 @@ func (builder *MyAiRoomCommonResultBuilder) Build() *MyAiRoomCommonResult {
 type MyAiRoomOpenapiResponse struct {
 	ResponseType    *int    `json:"response_type,omitempty"`     // openapi 返回的意图类型，不同 tool 的不同值都不一样
 	ScheduleEventId *string `json:"schedule_event_id,omitempty"` // 日程 id
+	OtherMsg        *string `json:"other_msg,omitempty"`         // 其他信息
 }
 
 type MyAiRoomOpenapiResponseBuilder struct {
@@ -3186,6 +3267,8 @@ type MyAiRoomOpenapiResponseBuilder struct {
 	responseTypeFlag    bool
 	scheduleEventId     string // 日程 id
 	scheduleEventIdFlag bool
+	otherMsg            string // 其他信息
+	otherMsgFlag        bool
 }
 
 func NewMyAiRoomOpenapiResponseBuilder() *MyAiRoomOpenapiResponseBuilder {
@@ -3211,6 +3294,15 @@ func (builder *MyAiRoomOpenapiResponseBuilder) ScheduleEventId(scheduleEventId s
 	return builder
 }
 
+// 其他信息
+//
+// 示例值：{}
+func (builder *MyAiRoomOpenapiResponseBuilder) OtherMsg(otherMsg string) *MyAiRoomOpenapiResponseBuilder {
+	builder.otherMsg = otherMsg
+	builder.otherMsgFlag = true
+	return builder
+}
+
 func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse {
 	req := &MyAiRoomOpenapiResponse{}
 	if builder.responseTypeFlag {
@@ -3219,6 +3311,10 @@ func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse 
 	}
 	if builder.scheduleEventIdFlag {
 		req.ScheduleEventId = &builder.scheduleEventId
+
+	}
+	if builder.otherMsgFlag {
+		req.OtherMsg = &builder.otherMsg
 
 	}
 	return req
@@ -3257,24 +3353,27 @@ func (builder *MyAiVcMeetingContentCommonResultBuilder) Build() *MyAiVcMeetingCo
 }
 
 type MyAiVcMeetingExtra struct {
-	VcMeetingId     *string `json:"vc_meeting_id,omitempty"`     // 会议id
-	VcLocale        *string `json:"vc_locale,omitempty"`         // 客户端语言
-	VcApplinkHost   *string `json:"vc_applink_host,omitempty"`   // applink域名
-	VcAppVersion    *string `json:"vc_app_version,omitempty"`    // app版本
-	VcFeatureConfig *string `json:"vc_feature_config,omitempty"` // 功能开关，用于一些功能服务端确认客户端是否可以执行。
+	VcMeetingId              *string `json:"vc_meeting_id,omitempty"`                // 会议id
+	VcLocale                 *string `json:"vc_locale,omitempty"`                    // 客户端语言
+	VcApplinkHost            *string `json:"vc_applink_host,omitempty"`              // applink域名
+	VcAppVersion             *string `json:"vc_app_version,omitempty"`               // app版本
+	VcFeatureConfig          *string `json:"vc_feature_config,omitempty"`            // 功能开关，用于一些功能服务端确认客户端是否可以执行。
+	QuickExecuteParamRichTag *string `json:"quick_execute_param_rich_tag,omitempty"` // 端上富文本额外信息
 }
 
 type MyAiVcMeetingExtraBuilder struct {
-	vcMeetingId         string // 会议id
-	vcMeetingIdFlag     bool
-	vcLocale            string // 客户端语言
-	vcLocaleFlag        bool
-	vcApplinkHost       string // applink域名
-	vcApplinkHostFlag   bool
-	vcAppVersion        string // app版本
-	vcAppVersionFlag    bool
-	vcFeatureConfig     string // 功能开关，用于一些功能服务端确认客户端是否可以执行。
-	vcFeatureConfigFlag bool
+	vcMeetingId                  string // 会议id
+	vcMeetingIdFlag              bool
+	vcLocale                     string // 客户端语言
+	vcLocaleFlag                 bool
+	vcApplinkHost                string // applink域名
+	vcApplinkHostFlag            bool
+	vcAppVersion                 string // app版本
+	vcAppVersionFlag             bool
+	vcFeatureConfig              string // 功能开关，用于一些功能服务端确认客户端是否可以执行。
+	vcFeatureConfigFlag          bool
+	quickExecuteParamRichTag     string // 端上富文本额外信息
+	quickExecuteParamRichTagFlag bool
 }
 
 func NewMyAiVcMeetingExtraBuilder() *MyAiVcMeetingExtraBuilder {
@@ -3327,6 +3426,15 @@ func (builder *MyAiVcMeetingExtraBuilder) VcFeatureConfig(vcFeatureConfig string
 	return builder
 }
 
+// 端上富文本额外信息
+//
+// 示例值：json字符串
+func (builder *MyAiVcMeetingExtraBuilder) QuickExecuteParamRichTag(quickExecuteParamRichTag string) *MyAiVcMeetingExtraBuilder {
+	builder.quickExecuteParamRichTag = quickExecuteParamRichTag
+	builder.quickExecuteParamRichTagFlag = true
+	return builder
+}
+
 func (builder *MyAiVcMeetingExtraBuilder) Build() *MyAiVcMeetingExtra {
 	req := &MyAiVcMeetingExtra{}
 	if builder.vcMeetingIdFlag {
@@ -3347,6 +3455,10 @@ func (builder *MyAiVcMeetingExtraBuilder) Build() *MyAiVcMeetingExtra {
 	}
 	if builder.vcFeatureConfigFlag {
 		req.VcFeatureConfig = &builder.vcFeatureConfig
+
+	}
+	if builder.quickExecuteParamRichTagFlag {
+		req.QuickExecuteParamRichTag = &builder.quickExecuteParamRichTag
 
 	}
 	return req
@@ -14242,6 +14354,7 @@ type P2MeetingLeaveMeetingV1Data struct {
 	Meeting     *MeetingEventMeeting `json:"meeting,omitempty"`      // 会议数据
 	Operator    *MeetingEventUser    `json:"operator,omitempty"`     // 事件操作人
 	LeaveReason *int                 `json:"leave_reason,omitempty"` // 离开会议原因
+	LeaveUser   *MeetingEventUser    `json:"leave_user,omitempty"`   // 离会人
 }
 
 type P2MeetingLeaveMeetingV1 struct {

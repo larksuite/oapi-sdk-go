@@ -35,6 +35,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/document_ai/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
@@ -79,6 +80,7 @@ type Client struct {
 	Calendar               *larkcalendar.CalendarService                               // 日历
 	Contact                *larkcontact.ContactService                                 // 通讯录
 	Corehr                 *larkcorehr.CorehrService                                   // CoreHR
+	DocumentAi             *larkdocument_ai.DocumentAiService                          //
 	Docx                   *larkdocx.DocxService                                       // 云文档-文档
 	Drive                  *larkdrive.DriveService                                     // 云文档-文件管理
 	Ehr                    *larkehr.EhrService                                         // 智能人事
@@ -241,6 +243,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Calendar = larkcalendar.NewService(config)
 	client.Contact = larkcontact.NewService(config)
 	client.Corehr = larkcorehr.NewService(config)
+	client.DocumentAi = larkdocument_ai.NewService(config)
 	client.Docx = larkdocx.NewService(config)
 	client.Drive = larkdrive.NewService(config)
 	client.Ehr = larkehr.NewService(config)

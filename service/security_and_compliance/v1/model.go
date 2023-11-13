@@ -2402,7 +2402,7 @@ func (builder *GwRequestBuilder) PathParams(pathParams []*Param) *GwRequestBuild
 
 // 请求经网关解析后的query参数
 //
-// 示例值：{"docx_synced_block_host_token":["T7lCdrCcsrAH8oxmLfRbn4GecWf"],"docx_synced_block_host_type":["22"]}
+// 示例值：{\"docx_synced_block_host_token\":[\"T7lCdrCcsrAH8oxmLfRbn4GecWf\"],\"docx_synced_block_host_type\":[\"22\"]}
 func (builder *GwRequestBuilder) Query(query string) *GwRequestBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -2456,7 +2456,7 @@ func (builder *GwRequestBuilder) Origin(origin string) *GwRequestBuilder {
 
 // 请求头
 //
-// 示例值：{"x-lgw-locale": "en-US", "x-lgw-app-version": ""}
+// 示例值：{\"x-lgw-locale\": [\"en-US\"], \"x-lgw-app-version\": null}
 func (builder *GwRequestBuilder) Header(header string) *GwRequestBuilder {
 	builder.header = header
 	builder.headerFlag = true

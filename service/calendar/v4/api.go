@@ -256,7 +256,7 @@ func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
@@ -694,7 +694,7 @@ func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq,
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, c.service.config, options...)
 	if err != nil {
 		return nil, err

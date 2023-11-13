@@ -69,6 +69,24 @@ const (
 )
 
 const (
+	Scope背调 = 1 // 背调
+	Scope笔试 = 2 // 笔试
+
+)
+
+const (
+	ScopeBatchUpdateEcoAccountCustomField背调 = 1 // 背调
+	ScopeBatchUpdateEcoAccountCustomField笔试 = 2 // 笔试
+
+)
+
+const (
+	ScopeCreateEcoAccountCustomField背调 = 1 // 背调
+	ScopeCreateEcoAccountCustomField笔试 = 2 // 笔试
+
+)
+
+const (
 	State导入成功 = 1 // 导入成功
 	State导入失败 = 2 // 导入失败
 
@@ -7504,27 +7522,30 @@ func (builder *BackgroundCheckOrderCreatorBuilder) Build() *BackgroundCheckOrder
 }
 
 type BackgroundCheckOrderFeedbackInfo struct {
-	Id            *string `json:"id,omitempty"`             // 背调报告ID
-	AttachmentUrl *string `json:"attachment_url,omitempty"` // 背调信息附件下载链接
-	Result        *string `json:"result,omitempty"`         // 背调结果：红灯、黄灯、绿灯
-	ReportType    *int    `json:"report_type,omitempty"`    // 报告类型
-	CreateTime    *string `json:"create_time,omitempty"`    // 创建时间
-	ReportName    *string `json:"report_name,omitempty"`    // 报告名称
+	Id               *string `json:"id,omitempty"`                 // 背调报告ID
+	AttachmentUrl    *string `json:"attachment_url,omitempty"`     // 背调信息附件下载链接
+	ReportPreviewUrl *string `json:"report_preview_url,omitempty"` // 背调信息附件预览链接
+	Result           *string `json:"result,omitempty"`             // 背调结果：红灯、黄灯、绿灯
+	ReportType       *int    `json:"report_type,omitempty"`        // 报告类型
+	CreateTime       *string `json:"create_time,omitempty"`        // 创建时间
+	ReportName       *string `json:"report_name,omitempty"`        // 报告名称
 }
 
 type BackgroundCheckOrderFeedbackInfoBuilder struct {
-	id                string // 背调报告ID
-	idFlag            bool
-	attachmentUrl     string // 背调信息附件下载链接
-	attachmentUrlFlag bool
-	result            string // 背调结果：红灯、黄灯、绿灯
-	resultFlag        bool
-	reportType        int // 报告类型
-	reportTypeFlag    bool
-	createTime        string // 创建时间
-	createTimeFlag    bool
-	reportName        string // 报告名称
-	reportNameFlag    bool
+	id                   string // 背调报告ID
+	idFlag               bool
+	attachmentUrl        string // 背调信息附件下载链接
+	attachmentUrlFlag    bool
+	reportPreviewUrl     string // 背调信息附件预览链接
+	reportPreviewUrlFlag bool
+	result               string // 背调结果：红灯、黄灯、绿灯
+	resultFlag           bool
+	reportType           int // 报告类型
+	reportTypeFlag       bool
+	createTime           string // 创建时间
+	createTimeFlag       bool
+	reportName           string // 报告名称
+	reportNameFlag       bool
 }
 
 func NewBackgroundCheckOrderFeedbackInfoBuilder() *BackgroundCheckOrderFeedbackInfoBuilder {
@@ -7547,6 +7568,15 @@ func (builder *BackgroundCheckOrderFeedbackInfoBuilder) Id(id string) *Backgroun
 func (builder *BackgroundCheckOrderFeedbackInfoBuilder) AttachmentUrl(attachmentUrl string) *BackgroundCheckOrderFeedbackInfoBuilder {
 	builder.attachmentUrl = attachmentUrl
 	builder.attachmentUrlFlag = true
+	return builder
+}
+
+// 背调信息附件预览链接
+//
+// 示例值：https://feishucdn.com/preview/file/6930815272790114324/
+func (builder *BackgroundCheckOrderFeedbackInfoBuilder) ReportPreviewUrl(reportPreviewUrl string) *BackgroundCheckOrderFeedbackInfoBuilder {
+	builder.reportPreviewUrl = reportPreviewUrl
+	builder.reportPreviewUrlFlag = true
 	return builder
 }
 
@@ -7594,6 +7624,10 @@ func (builder *BackgroundCheckOrderFeedbackInfoBuilder) Build() *BackgroundCheck
 	}
 	if builder.attachmentUrlFlag {
 		req.AttachmentUrl = &builder.attachmentUrl
+
+	}
+	if builder.reportPreviewUrlFlag {
+		req.ReportPreviewUrl = &builder.reportPreviewUrl
 
 	}
 	if builder.resultFlag {
@@ -11551,15 +11585,18 @@ func (builder *EcoBackgroundCheckPackageDataBuilder) Build() *EcoBackgroundCheck
 }
 
 type EcoBackgroundCheckReportFile struct {
-	ReportName *string `json:"report_name,omitempty"` // 报告名称
-	ReportUrl  *string `json:"report_url,omitempty"`  // 报告地址
+	ReportName    *string `json:"report_name,omitempty"`     // 报告名称
+	ReportUrl     *string `json:"report_url,omitempty"`      // 报告地址
+	ReportUrlType *int    `json:"report_url_type,omitempty"` // 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接，2 为预览型链接
 }
 
 type EcoBackgroundCheckReportFileBuilder struct {
-	reportName     string // 报告名称
-	reportNameFlag bool
-	reportUrl      string // 报告地址
-	reportUrlFlag  bool
+	reportName        string // 报告名称
+	reportNameFlag    bool
+	reportUrl         string // 报告地址
+	reportUrlFlag     bool
+	reportUrlType     int // 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接，2 为预览型链接
+	reportUrlTypeFlag bool
 }
 
 func NewEcoBackgroundCheckReportFileBuilder() *EcoBackgroundCheckReportFileBuilder {
@@ -11585,6 +11622,15 @@ func (builder *EcoBackgroundCheckReportFileBuilder) ReportUrl(reportUrl string) 
 	return builder
 }
 
+// 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接，2 为预览型链接
+//
+// 示例值：1
+func (builder *EcoBackgroundCheckReportFileBuilder) ReportUrlType(reportUrlType int) *EcoBackgroundCheckReportFileBuilder {
+	builder.reportUrlType = reportUrlType
+	builder.reportUrlTypeFlag = true
+	return builder
+}
+
 func (builder *EcoBackgroundCheckReportFileBuilder) Build() *EcoBackgroundCheckReportFile {
 	req := &EcoBackgroundCheckReportFile{}
 	if builder.reportNameFlag {
@@ -11593,6 +11639,10 @@ func (builder *EcoBackgroundCheckReportFileBuilder) Build() *EcoBackgroundCheckR
 	}
 	if builder.reportUrlFlag {
 		req.ReportUrl = &builder.reportUrl
+
+	}
+	if builder.reportUrlTypeFlag {
+		req.ReportUrlType = &builder.reportUrlType
 
 	}
 	return req
@@ -12075,15 +12125,18 @@ func (builder *EcoExamResultDetailBuilder) Build() *EcoExamResultDetail {
 }
 
 type EcoExamResultReport struct {
-	Name *string `json:"name,omitempty"` // 报告名称
-	Url  *string `json:"url,omitempty"`  // 报告链接
+	Name       *string `json:"name,omitempty"`        // 报告名称
+	Url        *string `json:"url,omitempty"`         // 报告链接
+	AnswerTime *string `json:"answer_time,omitempty"` // 作答完成时间(毫秒时间戳)
 }
 
 type EcoExamResultReportBuilder struct {
-	name     string // 报告名称
-	nameFlag bool
-	url      string // 报告链接
-	urlFlag  bool
+	name           string // 报告名称
+	nameFlag       bool
+	url            string // 报告链接
+	urlFlag        bool
+	answerTime     string // 作答完成时间(毫秒时间戳)
+	answerTimeFlag bool
 }
 
 func NewEcoExamResultReportBuilder() *EcoExamResultReportBuilder {
@@ -12109,6 +12162,15 @@ func (builder *EcoExamResultReportBuilder) Url(url string) *EcoExamResultReportB
 	return builder
 }
 
+// 作答完成时间(毫秒时间戳)
+//
+// 示例值：1658676234053
+func (builder *EcoExamResultReportBuilder) AnswerTime(answerTime string) *EcoExamResultReportBuilder {
+	builder.answerTime = answerTime
+	builder.answerTimeFlag = true
+	return builder
+}
+
 func (builder *EcoExamResultReportBuilder) Build() *EcoExamResultReport {
 	req := &EcoExamResultReport{}
 	if builder.nameFlag {
@@ -12117,6 +12179,10 @@ func (builder *EcoExamResultReportBuilder) Build() *EcoExamResultReport {
 	}
 	if builder.urlFlag {
 		req.Url = &builder.url
+
+	}
+	if builder.answerTimeFlag {
+		req.AnswerTime = &builder.answerTime
 
 	}
 	return req
@@ -13029,6 +13095,7 @@ type ExternalApplication struct {
 	TerminationReason  *string `json:"termination_reason,omitempty"`   // 终止原因
 	DeliveryType       *int    `json:"delivery_type,omitempty"`        // 投递类型
 	ModifyTime         *int    `json:"modify_time,omitempty"`          // 更新时间
+	CreateTime         *int    `json:"create_time,omitempty"`          // 投递在外部系统创建时间
 	TerminationType    *string `json:"termination_type,omitempty"`     // 终止类型
 }
 
@@ -13053,6 +13120,8 @@ type ExternalApplicationBuilder struct {
 	deliveryTypeFlag       bool
 	modifyTime             int // 更新时间
 	modifyTimeFlag         bool
+	createTime             int // 投递在外部系统创建时间
+	createTimeFlag         bool
 	terminationType        string // 终止类型
 	terminationTypeFlag    bool
 }
@@ -13152,6 +13221,15 @@ func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int) *ExternalA
 	return builder
 }
 
+// 投递在外部系统创建时间
+//
+// 示例值：1618500278644
+func (builder *ExternalApplicationBuilder) CreateTime(createTime int) *ExternalApplicationBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
 // 终止类型
 //
 // 示例值：health
@@ -13201,6 +13279,10 @@ func (builder *ExternalApplicationBuilder) Build() *ExternalApplication {
 	}
 	if builder.modifyTimeFlag {
 		req.ModifyTime = &builder.modifyTime
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
 
 	}
 	if builder.terminationTypeFlag {
@@ -30741,6 +30823,70 @@ func (builder *TalentFolderBuilder) Build() *TalentFolder {
 	return req
 }
 
+type TalentFolderForList struct {
+	FolderId   *string `json:"folder_id,omitempty"`   // 文件夹ID
+	FolderName *string `json:"folder_name,omitempty"` // 名字
+	OwnerId    *string `json:"owner_id,omitempty"`    // 所有者ID
+}
+
+type TalentFolderForListBuilder struct {
+	folderId       string // 文件夹ID
+	folderIdFlag   bool
+	folderName     string // 名字
+	folderNameFlag bool
+	ownerId        string // 所有者ID
+	ownerIdFlag    bool
+}
+
+func NewTalentFolderForListBuilder() *TalentFolderForListBuilder {
+	builder := &TalentFolderForListBuilder{}
+	return builder
+}
+
+// 文件夹ID
+//
+// 示例值：7041806543797995820
+func (builder *TalentFolderForListBuilder) FolderId(folderId string) *TalentFolderForListBuilder {
+	builder.folderId = folderId
+	builder.folderIdFlag = true
+	return builder
+}
+
+// 名字
+//
+// 示例值：人才文件夹A1
+func (builder *TalentFolderForListBuilder) FolderName(folderName string) *TalentFolderForListBuilder {
+	builder.folderName = folderName
+	builder.folderNameFlag = true
+	return builder
+}
+
+// 所有者ID
+//
+// 示例值：ou_85bb308c57f597471cd2bb5b4f580245
+func (builder *TalentFolderForListBuilder) OwnerId(ownerId string) *TalentFolderForListBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+func (builder *TalentFolderForListBuilder) Build() *TalentFolderForList {
+	req := &TalentFolderForList{}
+	if builder.folderIdFlag {
+		req.FolderId = &builder.folderId
+
+	}
+	if builder.folderNameFlag {
+		req.FolderName = &builder.folderName
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	return req
+}
+
 type TalentIdentificationInfo struct {
 	IdentificationType   *int    `json:"identification_type,omitempty"`   // 证件类型
 	IdentificationNumber *string `json:"identification_number,omitempty"` // 证件号
@@ -37379,6 +37525,1591 @@ func (resp *PreviewAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchDeleteEcoAccountCustomFieldReqBodyBuilder struct {
+	scope                  int // 适用范围
+	scopeFlag              bool
+	customFieldKeyList     []string // 要删除的自定义字段的 key 列表
+	customFieldKeyListFlag bool
+}
+
+func NewBatchDeleteEcoAccountCustomFieldReqBodyBuilder() *BatchDeleteEcoAccountCustomFieldReqBodyBuilder {
+	builder := &BatchDeleteEcoAccountCustomFieldReqBodyBuilder{}
+	return builder
+}
+
+// 适用范围
+//
+//示例值：1
+func (builder *BatchDeleteEcoAccountCustomFieldReqBodyBuilder) Scope(scope int) *BatchDeleteEcoAccountCustomFieldReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 要删除的自定义字段的 key 列表
+//
+//示例值：123
+func (builder *BatchDeleteEcoAccountCustomFieldReqBodyBuilder) CustomFieldKeyList(customFieldKeyList []string) *BatchDeleteEcoAccountCustomFieldReqBodyBuilder {
+	builder.customFieldKeyList = customFieldKeyList
+	builder.customFieldKeyListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoAccountCustomFieldReqBodyBuilder) Build() *BatchDeleteEcoAccountCustomFieldReqBody {
+	req := &BatchDeleteEcoAccountCustomFieldReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.customFieldKeyListFlag {
+		req.CustomFieldKeyList = builder.customFieldKeyList
+	}
+	return req
+}
+
+type BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder struct {
+	scope                  int // 适用范围
+	scopeFlag              bool
+	customFieldKeyList     []string // 要删除的自定义字段的 key 列表
+	customFieldKeyListFlag bool
+}
+
+func NewBatchDeleteEcoAccountCustomFieldPathReqBodyBuilder() *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder {
+	builder := &BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder{}
+	return builder
+}
+
+// 适用范围
+//
+// 示例值：1
+func (builder *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder) Scope(scope int) *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 要删除的自定义字段的 key 列表
+//
+// 示例值：123
+func (builder *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder) CustomFieldKeyList(customFieldKeyList []string) *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder {
+	builder.customFieldKeyList = customFieldKeyList
+	builder.customFieldKeyListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoAccountCustomFieldPathReqBodyBuilder) Build() (*BatchDeleteEcoAccountCustomFieldReqBody, error) {
+	req := &BatchDeleteEcoAccountCustomFieldReqBody{}
+	if builder.scopeFlag {
+		req.Scope = &builder.scope
+	}
+	if builder.customFieldKeyListFlag {
+		req.CustomFieldKeyList = builder.customFieldKeyList
+	}
+	return req, nil
+}
+
+type BatchDeleteEcoAccountCustomFieldReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteEcoAccountCustomFieldReqBody
+}
+
+func NewBatchDeleteEcoAccountCustomFieldReqBuilder() *BatchDeleteEcoAccountCustomFieldReqBuilder {
+	builder := &BatchDeleteEcoAccountCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 删除用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。删除后，不影响已添加帐号对应的自定义字段的值。但在添加新帐号时，将不能再使用此自定义字段。删除不支持撤销，对应的 key 将无法再次复用。
+func (builder *BatchDeleteEcoAccountCustomFieldReqBuilder) Body(body *BatchDeleteEcoAccountCustomFieldReqBody) *BatchDeleteEcoAccountCustomFieldReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteEcoAccountCustomFieldReqBuilder) Build() *BatchDeleteEcoAccountCustomFieldReq {
+	req := &BatchDeleteEcoAccountCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteEcoAccountCustomFieldReqBody struct {
+	Scope              *int     `json:"scope,omitempty"`                 // 适用范围
+	CustomFieldKeyList []string `json:"custom_field_key_list,omitempty"` // 要删除的自定义字段的 key 列表
+}
+
+type BatchDeleteEcoAccountCustomFieldReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteEcoAccountCustomFieldReqBody `body:""`
+}
+
+type BatchDeleteEcoAccountCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteEcoAccountCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateEcoAccountCustomFieldReqBuilder struct {
+	apiReq                *larkcore.ApiReq
+	ecoAccountCustomField *EcoAccountCustomField
+}
+
+func NewBatchUpdateEcoAccountCustomFieldReqBuilder() *BatchUpdateEcoAccountCustomFieldReqBuilder {
+	builder := &BatchUpdateEcoAccountCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 更新用户在服务商处的身份标示字段（如用户在服务商处的租户 ID），此方法只会更新同一 scope 内 key 一致的自定义字段。
+func (builder *BatchUpdateEcoAccountCustomFieldReqBuilder) EcoAccountCustomField(ecoAccountCustomField *EcoAccountCustomField) *BatchUpdateEcoAccountCustomFieldReqBuilder {
+	builder.ecoAccountCustomField = ecoAccountCustomField
+	return builder
+}
+
+func (builder *BatchUpdateEcoAccountCustomFieldReqBuilder) Build() *BatchUpdateEcoAccountCustomFieldReq {
+	req := &BatchUpdateEcoAccountCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoAccountCustomField
+	return req
+}
+
+type BatchUpdateEcoAccountCustomFieldReq struct {
+	apiReq                *larkcore.ApiReq
+	EcoAccountCustomField *EcoAccountCustomField `body:""`
+}
+
+type BatchUpdateEcoAccountCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchUpdateEcoAccountCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateEcoAccountCustomFieldReqBuilder struct {
+	apiReq                *larkcore.ApiReq
+	ecoAccountCustomField *EcoAccountCustomField
+}
+
+func NewCreateEcoAccountCustomFieldReqBuilder() *CreateEcoAccountCustomFieldReqBuilder {
+	builder := &CreateEcoAccountCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 定制用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。用户在飞书招聘后台添加帐号后，系统会推送「帐号绑定」事件给开发者，事件将携带用户填写的自定义字段信息，开发者可根据此信息识别飞书招聘用户在服务商处的身份信息，完成飞书招聘用户和服务商帐号的绑定，并以此来推送对应的套餐或试卷列表等。
+func (builder *CreateEcoAccountCustomFieldReqBuilder) EcoAccountCustomField(ecoAccountCustomField *EcoAccountCustomField) *CreateEcoAccountCustomFieldReqBuilder {
+	builder.ecoAccountCustomField = ecoAccountCustomField
+	return builder
+}
+
+func (builder *CreateEcoAccountCustomFieldReqBuilder) Build() *CreateEcoAccountCustomFieldReq {
+	req := &CreateEcoAccountCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoAccountCustomField
+	return req
+}
+
+type CreateEcoAccountCustomFieldReq struct {
+	apiReq                *larkcore.ApiReq
+	EcoAccountCustomField *EcoAccountCustomField `body:""`
+}
+
+type CreateEcoAccountCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CreateEcoAccountCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CancelEcoBackgroundCheckReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID
+	backgroundCheckIdFlag bool
+}
+
+func NewCancelEcoBackgroundCheckReqBodyBuilder() *CancelEcoBackgroundCheckReqBodyBuilder {
+	builder := &CancelEcoBackgroundCheckReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID
+//
+//示例值：6931286400470354183
+func (builder *CancelEcoBackgroundCheckReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *CancelEcoBackgroundCheckReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+func (builder *CancelEcoBackgroundCheckReqBodyBuilder) Build() *CancelEcoBackgroundCheckReqBody {
+	req := &CancelEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	return req
+}
+
+type CancelEcoBackgroundCheckPathReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID
+	backgroundCheckIdFlag bool
+}
+
+func NewCancelEcoBackgroundCheckPathReqBodyBuilder() *CancelEcoBackgroundCheckPathReqBodyBuilder {
+	builder := &CancelEcoBackgroundCheckPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID
+//
+// 示例值：6931286400470354183
+func (builder *CancelEcoBackgroundCheckPathReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *CancelEcoBackgroundCheckPathReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+func (builder *CancelEcoBackgroundCheckPathReqBodyBuilder) Build() (*CancelEcoBackgroundCheckReqBody, error) {
+	req := &CancelEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	return req, nil
+}
+
+type CancelEcoBackgroundCheckReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CancelEcoBackgroundCheckReqBody
+}
+
+func NewCancelEcoBackgroundCheckReqBuilder() *CancelEcoBackgroundCheckReqBuilder {
+	builder := &CancelEcoBackgroundCheckReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 终止背调订单
+func (builder *CancelEcoBackgroundCheckReqBuilder) Body(body *CancelEcoBackgroundCheckReqBody) *CancelEcoBackgroundCheckReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CancelEcoBackgroundCheckReqBuilder) Build() *CancelEcoBackgroundCheckReq {
+	req := &CancelEcoBackgroundCheckReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CancelEcoBackgroundCheckReqBody struct {
+	BackgroundCheckId *string `json:"background_check_id,omitempty"` // 背调 ID
+}
+
+type CancelEcoBackgroundCheckReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CancelEcoBackgroundCheckReqBody `body:""`
+}
+
+type CancelEcoBackgroundCheckResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CancelEcoBackgroundCheckResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateProgressEcoBackgroundCheckReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID，招聘侧的 ID
+	backgroundCheckIdFlag bool
+	stageId               string // 阶段 ID，同一背调订单此 ID 不能重复
+	stageIdFlag           bool
+	stageEnName           string // 背调阶段英文名称
+	stageEnNameFlag       bool
+	stageName             string // 背调阶段名称
+	stageNameFlag         bool
+	stageTime             string // 进入到此背调阶段的时间
+	stageTimeFlag         bool
+	reportFileList        []*EcoBackgroundCheckReportFile // 报告列表
+	reportFileListFlag    bool
+}
+
+func NewUpdateProgressEcoBackgroundCheckReqBodyBuilder() *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder := &UpdateProgressEcoBackgroundCheckReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID，招聘侧的 ID
+//
+//示例值：6931286400470354183
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+// 阶段 ID，同一背调订单此 ID 不能重复
+//
+//示例值：6931286400470354183
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) StageId(stageId string) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.stageId = stageId
+	builder.stageIdFlag = true
+	return builder
+}
+
+// 背调阶段英文名称
+//
+//示例值：stage report
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) StageEnName(stageEnName string) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.stageEnName = stageEnName
+	builder.stageEnNameFlag = true
+	return builder
+}
+
+// 背调阶段名称
+//
+//示例值：阶段报告
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) StageName(stageName string) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.stageName = stageName
+	builder.stageNameFlag = true
+	return builder
+}
+
+// 进入到此背调阶段的时间
+//
+//示例值：1660123456789
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) StageTime(stageTime string) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.stageTime = stageTime
+	builder.stageTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+//示例值：
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) ReportFileList(reportFileList []*EcoBackgroundCheckReportFile) *UpdateProgressEcoBackgroundCheckReqBodyBuilder {
+	builder.reportFileList = reportFileList
+	builder.reportFileListFlag = true
+	return builder
+}
+
+func (builder *UpdateProgressEcoBackgroundCheckReqBodyBuilder) Build() *UpdateProgressEcoBackgroundCheckReqBody {
+	req := &UpdateProgressEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	if builder.stageIdFlag {
+		req.StageId = &builder.stageId
+	}
+	if builder.stageEnNameFlag {
+		req.StageEnName = &builder.stageEnName
+	}
+	if builder.stageNameFlag {
+		req.StageName = &builder.stageName
+	}
+	if builder.stageTimeFlag {
+		req.StageTime = &builder.stageTime
+	}
+	if builder.reportFileListFlag {
+		req.ReportFileList = builder.reportFileList
+	}
+	return req
+}
+
+type UpdateProgressEcoBackgroundCheckPathReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID，招聘侧的 ID
+	backgroundCheckIdFlag bool
+	stageId               string // 阶段 ID，同一背调订单此 ID 不能重复
+	stageIdFlag           bool
+	stageEnName           string // 背调阶段英文名称
+	stageEnNameFlag       bool
+	stageName             string // 背调阶段名称
+	stageNameFlag         bool
+	stageTime             string // 进入到此背调阶段的时间
+	stageTimeFlag         bool
+	reportFileList        []*EcoBackgroundCheckReportFile // 报告列表
+	reportFileListFlag    bool
+}
+
+func NewUpdateProgressEcoBackgroundCheckPathReqBodyBuilder() *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder := &UpdateProgressEcoBackgroundCheckPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID，招聘侧的 ID
+//
+// 示例值：6931286400470354183
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+// 阶段 ID，同一背调订单此 ID 不能重复
+//
+// 示例值：6931286400470354183
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) StageId(stageId string) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.stageId = stageId
+	builder.stageIdFlag = true
+	return builder
+}
+
+// 背调阶段英文名称
+//
+// 示例值：stage report
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) StageEnName(stageEnName string) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.stageEnName = stageEnName
+	builder.stageEnNameFlag = true
+	return builder
+}
+
+// 背调阶段名称
+//
+// 示例值：阶段报告
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) StageName(stageName string) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.stageName = stageName
+	builder.stageNameFlag = true
+	return builder
+}
+
+// 进入到此背调阶段的时间
+//
+// 示例值：1660123456789
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) StageTime(stageTime string) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.stageTime = stageTime
+	builder.stageTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+// 示例值：
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) ReportFileList(reportFileList []*EcoBackgroundCheckReportFile) *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder {
+	builder.reportFileList = reportFileList
+	builder.reportFileListFlag = true
+	return builder
+}
+
+func (builder *UpdateProgressEcoBackgroundCheckPathReqBodyBuilder) Build() (*UpdateProgressEcoBackgroundCheckReqBody, error) {
+	req := &UpdateProgressEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	if builder.stageIdFlag {
+		req.StageId = &builder.stageId
+	}
+	if builder.stageEnNameFlag {
+		req.StageEnName = &builder.stageEnName
+	}
+	if builder.stageNameFlag {
+		req.StageName = &builder.stageName
+	}
+	if builder.stageTimeFlag {
+		req.StageTime = &builder.stageTime
+	}
+	if builder.reportFileListFlag {
+		req.ReportFileList = builder.reportFileList
+	}
+	return req, nil
+}
+
+type UpdateProgressEcoBackgroundCheckReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateProgressEcoBackgroundCheckReqBody
+}
+
+func NewUpdateProgressEcoBackgroundCheckReqBuilder() *UpdateProgressEcoBackgroundCheckReqBuilder {
+	builder := &UpdateProgressEcoBackgroundCheckReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 更新指定背调的进度信息
+func (builder *UpdateProgressEcoBackgroundCheckReqBuilder) Body(body *UpdateProgressEcoBackgroundCheckReqBody) *UpdateProgressEcoBackgroundCheckReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateProgressEcoBackgroundCheckReqBuilder) Build() *UpdateProgressEcoBackgroundCheckReq {
+	req := &UpdateProgressEcoBackgroundCheckReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateProgressEcoBackgroundCheckReqBody struct {
+	BackgroundCheckId *string                         `json:"background_check_id,omitempty"` // 背调 ID，招聘侧的 ID
+	StageId           *string                         `json:"stage_id,omitempty"`            // 阶段 ID，同一背调订单此 ID 不能重复
+	StageEnName       *string                         `json:"stage_en_name,omitempty"`       // 背调阶段英文名称
+	StageName         *string                         `json:"stage_name,omitempty"`          // 背调阶段名称
+	StageTime         *string                         `json:"stage_time,omitempty"`          // 进入到此背调阶段的时间
+	ReportFileList    []*EcoBackgroundCheckReportFile `json:"report_file_list,omitempty"`    // 报告列表
+}
+
+type UpdateProgressEcoBackgroundCheckReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateProgressEcoBackgroundCheckReqBody `body:""`
+}
+
+type UpdateProgressEcoBackgroundCheckResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateProgressEcoBackgroundCheckResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateResultEcoBackgroundCheckReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID
+	backgroundCheckIdFlag bool
+	result                string // 背调结果
+	resultFlag            bool
+	resultTime            string // 背调结果时间
+	resultTimeFlag        bool
+	reportFileList        []*EcoBackgroundCheckReportFile // 报告列表
+	reportFileListFlag    bool
+}
+
+func NewUpdateResultEcoBackgroundCheckReqBodyBuilder() *UpdateResultEcoBackgroundCheckReqBodyBuilder {
+	builder := &UpdateResultEcoBackgroundCheckReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID
+//
+//示例值：6931286400470354183
+func (builder *UpdateResultEcoBackgroundCheckReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *UpdateResultEcoBackgroundCheckReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+// 背调结果
+//
+//示例值：无差异
+func (builder *UpdateResultEcoBackgroundCheckReqBodyBuilder) Result(result string) *UpdateResultEcoBackgroundCheckReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 背调结果时间
+//
+//示例值：1660123456789
+func (builder *UpdateResultEcoBackgroundCheckReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoBackgroundCheckReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+//示例值：
+func (builder *UpdateResultEcoBackgroundCheckReqBodyBuilder) ReportFileList(reportFileList []*EcoBackgroundCheckReportFile) *UpdateResultEcoBackgroundCheckReqBodyBuilder {
+	builder.reportFileList = reportFileList
+	builder.reportFileListFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoBackgroundCheckReqBodyBuilder) Build() *UpdateResultEcoBackgroundCheckReqBody {
+	req := &UpdateResultEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportFileListFlag {
+		req.ReportFileList = builder.reportFileList
+	}
+	return req
+}
+
+type UpdateResultEcoBackgroundCheckPathReqBodyBuilder struct {
+	backgroundCheckId     string // 背调 ID
+	backgroundCheckIdFlag bool
+	result                string // 背调结果
+	resultFlag            bool
+	resultTime            string // 背调结果时间
+	resultTimeFlag        bool
+	reportFileList        []*EcoBackgroundCheckReportFile // 报告列表
+	reportFileListFlag    bool
+}
+
+func NewUpdateResultEcoBackgroundCheckPathReqBodyBuilder() *UpdateResultEcoBackgroundCheckPathReqBodyBuilder {
+	builder := &UpdateResultEcoBackgroundCheckPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调 ID
+//
+// 示例值：6931286400470354183
+func (builder *UpdateResultEcoBackgroundCheckPathReqBodyBuilder) BackgroundCheckId(backgroundCheckId string) *UpdateResultEcoBackgroundCheckPathReqBodyBuilder {
+	builder.backgroundCheckId = backgroundCheckId
+	builder.backgroundCheckIdFlag = true
+	return builder
+}
+
+// 背调结果
+//
+// 示例值：无差异
+func (builder *UpdateResultEcoBackgroundCheckPathReqBodyBuilder) Result(result string) *UpdateResultEcoBackgroundCheckPathReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 背调结果时间
+//
+// 示例值：1660123456789
+func (builder *UpdateResultEcoBackgroundCheckPathReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoBackgroundCheckPathReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+// 示例值：
+func (builder *UpdateResultEcoBackgroundCheckPathReqBodyBuilder) ReportFileList(reportFileList []*EcoBackgroundCheckReportFile) *UpdateResultEcoBackgroundCheckPathReqBodyBuilder {
+	builder.reportFileList = reportFileList
+	builder.reportFileListFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoBackgroundCheckPathReqBodyBuilder) Build() (*UpdateResultEcoBackgroundCheckReqBody, error) {
+	req := &UpdateResultEcoBackgroundCheckReqBody{}
+	if builder.backgroundCheckIdFlag {
+		req.BackgroundCheckId = &builder.backgroundCheckId
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportFileListFlag {
+		req.ReportFileList = builder.reportFileList
+	}
+	return req, nil
+}
+
+type UpdateResultEcoBackgroundCheckReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateResultEcoBackgroundCheckReqBody
+}
+
+func NewUpdateResultEcoBackgroundCheckReqBuilder() *UpdateResultEcoBackgroundCheckReqBuilder {
+	builder := &UpdateResultEcoBackgroundCheckReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 回传背调的最终结果
+func (builder *UpdateResultEcoBackgroundCheckReqBuilder) Body(body *UpdateResultEcoBackgroundCheckReqBody) *UpdateResultEcoBackgroundCheckReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateResultEcoBackgroundCheckReqBuilder) Build() *UpdateResultEcoBackgroundCheckReq {
+	req := &UpdateResultEcoBackgroundCheckReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateResultEcoBackgroundCheckReqBody struct {
+	BackgroundCheckId *string                         `json:"background_check_id,omitempty"` // 背调 ID
+	Result            *string                         `json:"result,omitempty"`              // 背调结果
+	ResultTime        *string                         `json:"result_time,omitempty"`         // 背调结果时间
+	ReportFileList    []*EcoBackgroundCheckReportFile `json:"report_file_list,omitempty"`    // 报告列表
+}
+
+type UpdateResultEcoBackgroundCheckReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateResultEcoBackgroundCheckReqBody `body:""`
+}
+
+type UpdateResultEcoBackgroundCheckResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateResultEcoBackgroundCheckResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder struct {
+	accountId     string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag bool
+}
+
+func NewBatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder() *BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+//示例值：a001
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldReqBodyBuilder) Build() *BatchDeleteEcoBackgroundCheckCustomFieldReqBody {
+	req := &BatchDeleteEcoBackgroundCheckCustomFieldReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	return req
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder struct {
+	accountId     string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag bool
+}
+
+func NewBatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder() *BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：a001
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldPathReqBodyBuilder) Build() (*BatchDeleteEcoBackgroundCheckCustomFieldReqBody, error) {
+	req := &BatchDeleteEcoBackgroundCheckCustomFieldReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	return req, nil
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteEcoBackgroundCheckCustomFieldReqBody
+}
+
+func NewBatchDeleteEcoBackgroundCheckCustomFieldReqBuilder() *BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 删除用户在发起背调时的自定义字段，删除不影响已创建的背调，删除后对应的自定义字段的 key 不能再复用。
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder) Body(body *BatchDeleteEcoBackgroundCheckCustomFieldReqBody) *BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckCustomFieldReqBuilder) Build() *BatchDeleteEcoBackgroundCheckCustomFieldReq {
+	req := &BatchDeleteEcoBackgroundCheckCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldReqBody struct {
+	AccountId *string `json:"account_id,omitempty"` // 背调账号 ID，可在「账号绑定」事件中获取
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteEcoBackgroundCheckCustomFieldReqBody `body:""`
+}
+
+type BatchDeleteEcoBackgroundCheckCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteEcoBackgroundCheckCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder struct {
+	apiReq                        *larkcore.ApiReq
+	ecoBackgroundCheckCustomField *EcoBackgroundCheckCustomField
+}
+
+func NewBatchUpdateEcoBackgroundCheckCustomFieldReqBuilder() *BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder {
+	builder := &BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 更新用户在发起背调时的自定义字段。更新操作不支持更新自定义字段类型，且将影响已发起的背调表单展示。
+func (builder *BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder) EcoBackgroundCheckCustomField(ecoBackgroundCheckCustomField *EcoBackgroundCheckCustomField) *BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder {
+	builder.ecoBackgroundCheckCustomField = ecoBackgroundCheckCustomField
+	return builder
+}
+
+func (builder *BatchUpdateEcoBackgroundCheckCustomFieldReqBuilder) Build() *BatchUpdateEcoBackgroundCheckCustomFieldReq {
+	req := &BatchUpdateEcoBackgroundCheckCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoBackgroundCheckCustomField
+	return req
+}
+
+type BatchUpdateEcoBackgroundCheckCustomFieldReq struct {
+	apiReq                        *larkcore.ApiReq
+	EcoBackgroundCheckCustomField *EcoBackgroundCheckCustomField `body:""`
+}
+
+type BatchUpdateEcoBackgroundCheckCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchUpdateEcoBackgroundCheckCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateEcoBackgroundCheckCustomFieldReqBuilder struct {
+	apiReq                        *larkcore.ApiReq
+	ecoBackgroundCheckCustomField *EcoBackgroundCheckCustomField
+}
+
+func NewCreateEcoBackgroundCheckCustomFieldReqBuilder() *CreateEcoBackgroundCheckCustomFieldReqBuilder {
+	builder := &CreateEcoBackgroundCheckCustomFieldReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 定制用户在发起背调时的自定义字段
+func (builder *CreateEcoBackgroundCheckCustomFieldReqBuilder) EcoBackgroundCheckCustomField(ecoBackgroundCheckCustomField *EcoBackgroundCheckCustomField) *CreateEcoBackgroundCheckCustomFieldReqBuilder {
+	builder.ecoBackgroundCheckCustomField = ecoBackgroundCheckCustomField
+	return builder
+}
+
+func (builder *CreateEcoBackgroundCheckCustomFieldReqBuilder) Build() *CreateEcoBackgroundCheckCustomFieldReq {
+	req := &CreateEcoBackgroundCheckCustomFieldReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoBackgroundCheckCustomField
+	return req
+}
+
+type CreateEcoBackgroundCheckCustomFieldReq struct {
+	apiReq                        *larkcore.ApiReq
+	EcoBackgroundCheckCustomField *EcoBackgroundCheckCustomField `body:""`
+}
+
+type CreateEcoBackgroundCheckCustomFieldResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CreateEcoBackgroundCheckCustomFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder struct {
+	accountId                string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag            bool
+	packageIdList            []string // 要删除的套餐 ID 列表，删除套餐不影响已安排的背调
+	packageIdListFlag        bool
+	additionalItemIdList     []string // 要删除的附加调查项 ID 列表，删除附加调查项不影响已安排的背调
+	additionalItemIdListFlag bool
+}
+
+func NewBatchDeleteEcoBackgroundCheckPackageReqBodyBuilder() *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+//示例值：xd_bc_001
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 要删除的套餐 ID 列表，删除套餐不影响已安排的背调
+//
+//示例值：6996920667635566881
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder) PackageIdList(packageIdList []string) *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder {
+	builder.packageIdList = packageIdList
+	builder.packageIdListFlag = true
+	return builder
+}
+
+// 要删除的附加调查项 ID 列表，删除附加调查项不影响已安排的背调
+//
+//示例值：6996920667635566881
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder) AdditionalItemIdList(additionalItemIdList []string) *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder {
+	builder.additionalItemIdList = additionalItemIdList
+	builder.additionalItemIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBodyBuilder) Build() *BatchDeleteEcoBackgroundCheckPackageReqBody {
+	req := &BatchDeleteEcoBackgroundCheckPackageReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	if builder.packageIdListFlag {
+		req.PackageIdList = builder.packageIdList
+	}
+	if builder.additionalItemIdListFlag {
+		req.AdditionalItemIdList = builder.additionalItemIdList
+	}
+	return req
+}
+
+type BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder struct {
+	accountId                string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag            bool
+	packageIdList            []string // 要删除的套餐 ID 列表，删除套餐不影响已安排的背调
+	packageIdListFlag        bool
+	additionalItemIdList     []string // 要删除的附加调查项 ID 列表，删除附加调查项不影响已安排的背调
+	additionalItemIdListFlag bool
+}
+
+func NewBatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder() *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：xd_bc_001
+func (builder *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 要删除的套餐 ID 列表，删除套餐不影响已安排的背调
+//
+// 示例值：6996920667635566881
+func (builder *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder) PackageIdList(packageIdList []string) *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder {
+	builder.packageIdList = packageIdList
+	builder.packageIdListFlag = true
+	return builder
+}
+
+// 要删除的附加调查项 ID 列表，删除附加调查项不影响已安排的背调
+//
+// 示例值：6996920667635566881
+func (builder *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder) AdditionalItemIdList(additionalItemIdList []string) *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder {
+	builder.additionalItemIdList = additionalItemIdList
+	builder.additionalItemIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckPackagePathReqBodyBuilder) Build() (*BatchDeleteEcoBackgroundCheckPackageReqBody, error) {
+	req := &BatchDeleteEcoBackgroundCheckPackageReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	if builder.packageIdListFlag {
+		req.PackageIdList = builder.packageIdList
+	}
+	if builder.additionalItemIdListFlag {
+		req.AdditionalItemIdList = builder.additionalItemIdList
+	}
+	return req, nil
+}
+
+type BatchDeleteEcoBackgroundCheckPackageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteEcoBackgroundCheckPackageReqBody
+}
+
+func NewBatchDeleteEcoBackgroundCheckPackageReqBuilder() *BatchDeleteEcoBackgroundCheckPackageReqBuilder {
+	builder := &BatchDeleteEcoBackgroundCheckPackageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 删除指定帐号的指定背调套餐和附加调查项信息，删除不会影响已创建的背调。
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBuilder) Body(body *BatchDeleteEcoBackgroundCheckPackageReqBody) *BatchDeleteEcoBackgroundCheckPackageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteEcoBackgroundCheckPackageReqBuilder) Build() *BatchDeleteEcoBackgroundCheckPackageReq {
+	req := &BatchDeleteEcoBackgroundCheckPackageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteEcoBackgroundCheckPackageReqBody struct {
+	AccountId            *string  `json:"account_id,omitempty"`              // 背调账号 ID，可在「账号绑定」事件中获取
+	PackageIdList        []string `json:"package_id_list,omitempty"`         // 要删除的套餐 ID 列表，删除套餐不影响已安排的背调
+	AdditionalItemIdList []string `json:"additional_item_id_list,omitempty"` // 要删除的附加调查项 ID 列表，删除附加调查项不影响已安排的背调
+}
+
+type BatchDeleteEcoBackgroundCheckPackageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteEcoBackgroundCheckPackageReqBody `body:""`
+}
+
+type BatchDeleteEcoBackgroundCheckPackageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteEcoBackgroundCheckPackageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateEcoBackgroundCheckPackageReqBuilder struct {
+	apiReq                    *larkcore.ApiReq
+	ecoBackgroundCheckPackage *EcoBackgroundCheckPackage
+}
+
+func NewBatchUpdateEcoBackgroundCheckPackageReqBuilder() *BatchUpdateEcoBackgroundCheckPackageReqBuilder {
+	builder := &BatchUpdateEcoBackgroundCheckPackageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 更新指定帐号可用的背调套餐和附加调查项信息，更新将影响已发起背调的表单项展示
+func (builder *BatchUpdateEcoBackgroundCheckPackageReqBuilder) EcoBackgroundCheckPackage(ecoBackgroundCheckPackage *EcoBackgroundCheckPackage) *BatchUpdateEcoBackgroundCheckPackageReqBuilder {
+	builder.ecoBackgroundCheckPackage = ecoBackgroundCheckPackage
+	return builder
+}
+
+func (builder *BatchUpdateEcoBackgroundCheckPackageReqBuilder) Build() *BatchUpdateEcoBackgroundCheckPackageReq {
+	req := &BatchUpdateEcoBackgroundCheckPackageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoBackgroundCheckPackage
+	return req
+}
+
+type BatchUpdateEcoBackgroundCheckPackageReq struct {
+	apiReq                    *larkcore.ApiReq
+	EcoBackgroundCheckPackage *EcoBackgroundCheckPackage `body:""`
+}
+
+type BatchUpdateEcoBackgroundCheckPackageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchUpdateEcoBackgroundCheckPackageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateEcoBackgroundCheckPackageReqBuilder struct {
+	apiReq                    *larkcore.ApiReq
+	ecoBackgroundCheckPackage *EcoBackgroundCheckPackage
+}
+
+func NewCreateEcoBackgroundCheckPackageReqBuilder() *CreateEcoBackgroundCheckPackageReqBuilder {
+	builder := &CreateEcoBackgroundCheckPackageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 定制指定帐号可用的背调套餐和附加调查项信息
+func (builder *CreateEcoBackgroundCheckPackageReqBuilder) EcoBackgroundCheckPackage(ecoBackgroundCheckPackage *EcoBackgroundCheckPackage) *CreateEcoBackgroundCheckPackageReqBuilder {
+	builder.ecoBackgroundCheckPackage = ecoBackgroundCheckPackage
+	return builder
+}
+
+func (builder *CreateEcoBackgroundCheckPackageReqBuilder) Build() *CreateEcoBackgroundCheckPackageReq {
+	req := &CreateEcoBackgroundCheckPackageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoBackgroundCheckPackage
+	return req
+}
+
+type CreateEcoBackgroundCheckPackageReq struct {
+	apiReq                    *larkcore.ApiReq
+	EcoBackgroundCheckPackage *EcoBackgroundCheckPackage `body:""`
+}
+
+type CreateEcoBackgroundCheckPackageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CreateEcoBackgroundCheckPackageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type LoginInfoEcoExamReqBodyBuilder struct {
+	result            int // 状态码，0-成功 非零-错误码
+	resultFlag        bool
+	msg               string // 成功或失败的描述信息
+	msgFlag           bool
+	examLoginInfo     *EcoExamLoginInfo // 笔试作答信息
+	examLoginInfoFlag bool
+}
+
+func NewLoginInfoEcoExamReqBodyBuilder() *LoginInfoEcoExamReqBodyBuilder {
+	builder := &LoginInfoEcoExamReqBodyBuilder{}
+	return builder
+}
+
+// 状态码，0-成功 非零-错误码
+//
+//示例值：0
+func (builder *LoginInfoEcoExamReqBodyBuilder) Result(result int) *LoginInfoEcoExamReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 成功或失败的描述信息
+//
+//示例值：success
+func (builder *LoginInfoEcoExamReqBodyBuilder) Msg(msg string) *LoginInfoEcoExamReqBodyBuilder {
+	builder.msg = msg
+	builder.msgFlag = true
+	return builder
+}
+
+// 笔试作答信息
+//
+//示例值：
+func (builder *LoginInfoEcoExamReqBodyBuilder) ExamLoginInfo(examLoginInfo *EcoExamLoginInfo) *LoginInfoEcoExamReqBodyBuilder {
+	builder.examLoginInfo = examLoginInfo
+	builder.examLoginInfoFlag = true
+	return builder
+}
+
+func (builder *LoginInfoEcoExamReqBodyBuilder) Build() *LoginInfoEcoExamReqBody {
+	req := &LoginInfoEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.msgFlag {
+		req.Msg = &builder.msg
+	}
+	if builder.examLoginInfoFlag {
+		req.ExamLoginInfo = builder.examLoginInfo
+	}
+	return req
+}
+
+type LoginInfoEcoExamPathReqBodyBuilder struct {
+	result            int // 状态码，0-成功 非零-错误码
+	resultFlag        bool
+	msg               string // 成功或失败的描述信息
+	msgFlag           bool
+	examLoginInfo     *EcoExamLoginInfo // 笔试作答信息
+	examLoginInfoFlag bool
+}
+
+func NewLoginInfoEcoExamPathReqBodyBuilder() *LoginInfoEcoExamPathReqBodyBuilder {
+	builder := &LoginInfoEcoExamPathReqBodyBuilder{}
+	return builder
+}
+
+// 状态码，0-成功 非零-错误码
+//
+// 示例值：0
+func (builder *LoginInfoEcoExamPathReqBodyBuilder) Result(result int) *LoginInfoEcoExamPathReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 成功或失败的描述信息
+//
+// 示例值：success
+func (builder *LoginInfoEcoExamPathReqBodyBuilder) Msg(msg string) *LoginInfoEcoExamPathReqBodyBuilder {
+	builder.msg = msg
+	builder.msgFlag = true
+	return builder
+}
+
+// 笔试作答信息
+//
+// 示例值：
+func (builder *LoginInfoEcoExamPathReqBodyBuilder) ExamLoginInfo(examLoginInfo *EcoExamLoginInfo) *LoginInfoEcoExamPathReqBodyBuilder {
+	builder.examLoginInfo = examLoginInfo
+	builder.examLoginInfoFlag = true
+	return builder
+}
+
+func (builder *LoginInfoEcoExamPathReqBodyBuilder) Build() (*LoginInfoEcoExamReqBody, error) {
+	req := &LoginInfoEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.msgFlag {
+		req.Msg = &builder.msg
+	}
+	if builder.examLoginInfoFlag {
+		req.ExamLoginInfo = builder.examLoginInfo
+	}
+	return req, nil
+}
+
+type LoginInfoEcoExamReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *LoginInfoEcoExamReqBody
+}
+
+func NewLoginInfoEcoExamReqBuilder() *LoginInfoEcoExamReqBuilder {
+	builder := &LoginInfoEcoExamReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// exam id
+//
+// 示例值：7178536692385679677
+func (builder *LoginInfoEcoExamReqBuilder) ExamId(examId string) *LoginInfoEcoExamReqBuilder {
+	builder.apiReq.PathParams.Set("exam_id", fmt.Sprint(examId))
+	return builder
+}
+
+//
+func (builder *LoginInfoEcoExamReqBuilder) Body(body *LoginInfoEcoExamReqBody) *LoginInfoEcoExamReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *LoginInfoEcoExamReqBuilder) Build() *LoginInfoEcoExamReq {
+	req := &LoginInfoEcoExamReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type LoginInfoEcoExamReqBody struct {
+	Result        *int              `json:"result,omitempty"`          // 状态码，0-成功 非零-错误码
+	Msg           *string           `json:"msg,omitempty"`             // 成功或失败的描述信息
+	ExamLoginInfo *EcoExamLoginInfo `json:"exam_login_info,omitempty"` // 笔试作答信息
+}
+
+type LoginInfoEcoExamReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *LoginInfoEcoExamReqBody `body:""`
+}
+
+type LoginInfoEcoExamResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *LoginInfoEcoExamResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateResultEcoExamReqBuilder struct {
+	apiReq        *larkcore.ApiReq
+	ecoExamResult *EcoExamResult
+}
+
+func NewUpdateResultEcoExamReqBuilder() *UpdateResultEcoExamReqBuilder {
+	builder := &UpdateResultEcoExamReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// exam id
+//
+// 示例值：7178536692385679677
+func (builder *UpdateResultEcoExamReqBuilder) ExamId(examId string) *UpdateResultEcoExamReqBuilder {
+	builder.apiReq.PathParams.Set("exam_id", fmt.Sprint(examId))
+	return builder
+}
+
+//
+func (builder *UpdateResultEcoExamReqBuilder) EcoExamResult(ecoExamResult *EcoExamResult) *UpdateResultEcoExamReqBuilder {
+	builder.ecoExamResult = ecoExamResult
+	return builder
+}
+
+func (builder *UpdateResultEcoExamReqBuilder) Build() *UpdateResultEcoExamReq {
+	req := &UpdateResultEcoExamReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.ecoExamResult
+	return req
+}
+
+type UpdateResultEcoExamReq struct {
+	apiReq        *larkcore.ApiReq
+	EcoExamResult *EcoExamResult `body:""`
+}
+
+type UpdateResultEcoExamResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateResultEcoExamResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteEcoExamPaperReqBodyBuilder struct {
+	accountId       string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag   bool
+	paperIdList     []string // 试卷 ID 列表
+	paperIdListFlag bool
+}
+
+func NewBatchDeleteEcoExamPaperReqBodyBuilder() *BatchDeleteEcoExamPaperReqBodyBuilder {
+	builder := &BatchDeleteEcoExamPaperReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+//示例值：7147998241542539527
+func (builder *BatchDeleteEcoExamPaperReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoExamPaperReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 试卷 ID 列表
+//
+//示例值：
+func (builder *BatchDeleteEcoExamPaperReqBodyBuilder) PaperIdList(paperIdList []string) *BatchDeleteEcoExamPaperReqBodyBuilder {
+	builder.paperIdList = paperIdList
+	builder.paperIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoExamPaperReqBodyBuilder) Build() *BatchDeleteEcoExamPaperReqBody {
+	req := &BatchDeleteEcoExamPaperReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	if builder.paperIdListFlag {
+		req.PaperIdList = builder.paperIdList
+	}
+	return req
+}
+
+type BatchDeleteEcoExamPaperPathReqBodyBuilder struct {
+	accountId       string // 背调账号 ID，可在「账号绑定」事件中获取
+	accountIdFlag   bool
+	paperIdList     []string // 试卷 ID 列表
+	paperIdListFlag bool
+}
+
+func NewBatchDeleteEcoExamPaperPathReqBodyBuilder() *BatchDeleteEcoExamPaperPathReqBodyBuilder {
+	builder := &BatchDeleteEcoExamPaperPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调账号 ID，可在「账号绑定」事件中获取
+//
+// 示例值：7147998241542539527
+func (builder *BatchDeleteEcoExamPaperPathReqBodyBuilder) AccountId(accountId string) *BatchDeleteEcoExamPaperPathReqBodyBuilder {
+	builder.accountId = accountId
+	builder.accountIdFlag = true
+	return builder
+}
+
+// 试卷 ID 列表
+//
+// 示例值：
+func (builder *BatchDeleteEcoExamPaperPathReqBodyBuilder) PaperIdList(paperIdList []string) *BatchDeleteEcoExamPaperPathReqBodyBuilder {
+	builder.paperIdList = paperIdList
+	builder.paperIdListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteEcoExamPaperPathReqBodyBuilder) Build() (*BatchDeleteEcoExamPaperReqBody, error) {
+	req := &BatchDeleteEcoExamPaperReqBody{}
+	if builder.accountIdFlag {
+		req.AccountId = &builder.accountId
+	}
+	if builder.paperIdListFlag {
+		req.PaperIdList = builder.paperIdList
+	}
+	return req, nil
+}
+
+type BatchDeleteEcoExamPaperReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteEcoExamPaperReqBody
+}
+
+func NewBatchDeleteEcoExamPaperReqBuilder() *BatchDeleteEcoExamPaperReqBuilder {
+	builder := &BatchDeleteEcoExamPaperReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *BatchDeleteEcoExamPaperReqBuilder) Body(body *BatchDeleteEcoExamPaperReqBody) *BatchDeleteEcoExamPaperReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteEcoExamPaperReqBuilder) Build() *BatchDeleteEcoExamPaperReq {
+	req := &BatchDeleteEcoExamPaperReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteEcoExamPaperReqBody struct {
+	AccountId   *string  `json:"account_id,omitempty"`    // 背调账号 ID，可在「账号绑定」事件中获取
+	PaperIdList []string `json:"paper_id_list,omitempty"` // 试卷 ID 列表
+}
+
+type BatchDeleteEcoExamPaperReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteEcoExamPaperReqBody `body:""`
+}
+
+type BatchDeleteEcoExamPaperResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchDeleteEcoExamPaperResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateEcoExamPaperReqBuilder struct {
+	apiReq       *larkcore.ApiReq
+	ecoExamPaper *EcoExamPaper
+}
+
+func NewBatchUpdateEcoExamPaperReqBuilder() *BatchUpdateEcoExamPaperReqBuilder {
+	builder := &BatchUpdateEcoExamPaperReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *BatchUpdateEcoExamPaperReqBuilder) EcoExamPaper(ecoExamPaper *EcoExamPaper) *BatchUpdateEcoExamPaperReqBuilder {
+	builder.ecoExamPaper = ecoExamPaper
+	return builder
+}
+
+func (builder *BatchUpdateEcoExamPaperReqBuilder) Build() *BatchUpdateEcoExamPaperReq {
+	req := &BatchUpdateEcoExamPaperReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoExamPaper
+	return req
+}
+
+type BatchUpdateEcoExamPaperReq struct {
+	apiReq       *larkcore.ApiReq
+	EcoExamPaper *EcoExamPaper `body:""`
+}
+
+type BatchUpdateEcoExamPaperResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *BatchUpdateEcoExamPaperResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateEcoExamPaperReqBuilder struct {
+	apiReq       *larkcore.ApiReq
+	ecoExamPaper *EcoExamPaper
+}
+
+func NewCreateEcoExamPaperReqBuilder() *CreateEcoExamPaperReqBuilder {
+	builder := &CreateEcoExamPaperReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *CreateEcoExamPaperReqBuilder) EcoExamPaper(ecoExamPaper *EcoExamPaper) *CreateEcoExamPaperReqBuilder {
+	builder.ecoExamPaper = ecoExamPaper
+	return builder
+}
+
+func (builder *CreateEcoExamPaperReqBuilder) Build() *CreateEcoExamPaperReq {
+	req := &CreateEcoExamPaperReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.ecoExamPaper
+	return req
+}
+
+type CreateEcoExamPaperReq struct {
+	apiReq       *larkcore.ApiReq
+	EcoExamPaper *EcoExamPaper `body:""`
+}
+
+type CreateEcoExamPaperResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CreateEcoExamPaperResp) Success() bool {
+	return resp.Code == 0
+}
+
 type PatchEhrImportTaskReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	ehrImportTask *EhrImportTask
@@ -40114,6 +41845,491 @@ func (resp *GetByApplicationReferralResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateReferralAccountReqBodyBuilder struct {
+	mobile     *Mobile // 电话
+	mobileFlag bool
+	email      string // 邮箱
+	emailFlag  bool
+}
+
+func NewCreateReferralAccountReqBodyBuilder() *CreateReferralAccountReqBodyBuilder {
+	builder := &CreateReferralAccountReqBodyBuilder{}
+	return builder
+}
+
+// 电话
+//
+//示例值：
+func (builder *CreateReferralAccountReqBodyBuilder) Mobile(mobile *Mobile) *CreateReferralAccountReqBodyBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 邮箱
+//
+//示例值：hire@open.com
+func (builder *CreateReferralAccountReqBodyBuilder) Email(email string) *CreateReferralAccountReqBodyBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *CreateReferralAccountReqBodyBuilder) Build() *CreateReferralAccountReqBody {
+	req := &CreateReferralAccountReqBody{}
+	if builder.mobileFlag {
+		req.Mobile = builder.mobile
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+	}
+	return req
+}
+
+type CreateReferralAccountPathReqBodyBuilder struct {
+	mobile     *Mobile // 电话
+	mobileFlag bool
+	email      string // 邮箱
+	emailFlag  bool
+}
+
+func NewCreateReferralAccountPathReqBodyBuilder() *CreateReferralAccountPathReqBodyBuilder {
+	builder := &CreateReferralAccountPathReqBodyBuilder{}
+	return builder
+}
+
+// 电话
+//
+// 示例值：
+func (builder *CreateReferralAccountPathReqBodyBuilder) Mobile(mobile *Mobile) *CreateReferralAccountPathReqBodyBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：hire@open.com
+func (builder *CreateReferralAccountPathReqBodyBuilder) Email(email string) *CreateReferralAccountPathReqBodyBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *CreateReferralAccountPathReqBodyBuilder) Build() (*CreateReferralAccountReqBody, error) {
+	req := &CreateReferralAccountReqBody{}
+	if builder.mobileFlag {
+		req.Mobile = builder.mobile
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+	}
+	return req, nil
+}
+
+type CreateReferralAccountReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateReferralAccountReqBody
+}
+
+func NewCreateReferralAccountReqBuilder() *CreateReferralAccountReqBuilder {
+	builder := &CreateReferralAccountReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *CreateReferralAccountReqBuilder) Body(body *CreateReferralAccountReqBody) *CreateReferralAccountReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateReferralAccountReqBuilder) Build() *CreateReferralAccountReq {
+	req := &CreateReferralAccountReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateReferralAccountReqBody struct {
+	Mobile *Mobile `json:"mobile,omitempty"` // 电话
+	Email  *string `json:"email,omitempty"`  // 邮箱
+}
+
+type CreateReferralAccountReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateReferralAccountReqBody `body:""`
+}
+
+type CreateReferralAccountRespData struct {
+	Account *Account `json:"account,omitempty"` // 账号信息
+}
+
+type CreateReferralAccountResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateReferralAccountRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateReferralAccountResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeactivateReferralAccountReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeactivateReferralAccountReqBuilder() *DeactivateReferralAccountReqBuilder {
+	builder := &DeactivateReferralAccountReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 账户ID
+//
+// 示例值：6942778198054125570
+func (builder *DeactivateReferralAccountReqBuilder) ReferralAccountId(referralAccountId string) *DeactivateReferralAccountReqBuilder {
+	builder.apiReq.PathParams.Set("referral_account_id", fmt.Sprint(referralAccountId))
+	return builder
+}
+
+func (builder *DeactivateReferralAccountReqBuilder) Build() *DeactivateReferralAccountReq {
+	req := &DeactivateReferralAccountReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeactivateReferralAccountReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeactivateReferralAccountRespData struct {
+	Account *Account `json:"account,omitempty"` // 账号信息
+}
+
+type DeactivateReferralAccountResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *DeactivateReferralAccountRespData `json:"data"` // 业务数据
+}
+
+func (resp *DeactivateReferralAccountResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ReconciliationReferralAccountReqBodyBuilder struct {
+	startTransTime     string // 按时间范围进行对账时 时间段的起始交易时间
+	startTransTimeFlag bool
+	endTransTime       string // 按时间范围进行对账时 时间段的截止交易时间
+	endTransTimeFlag   bool
+	tradeDetails       []*TradeDetail // 交易信息
+	tradeDetailsFlag   bool
+}
+
+func NewReconciliationReferralAccountReqBodyBuilder() *ReconciliationReferralAccountReqBodyBuilder {
+	builder := &ReconciliationReferralAccountReqBodyBuilder{}
+	return builder
+}
+
+// 按时间范围进行对账时 时间段的起始交易时间
+//
+//示例值：1685416831621
+func (builder *ReconciliationReferralAccountReqBodyBuilder) StartTransTime(startTransTime string) *ReconciliationReferralAccountReqBodyBuilder {
+	builder.startTransTime = startTransTime
+	builder.startTransTimeFlag = true
+	return builder
+}
+
+// 按时间范围进行对账时 时间段的截止交易时间
+//
+//示例值：1685416831622
+func (builder *ReconciliationReferralAccountReqBodyBuilder) EndTransTime(endTransTime string) *ReconciliationReferralAccountReqBodyBuilder {
+	builder.endTransTime = endTransTime
+	builder.endTransTimeFlag = true
+	return builder
+}
+
+// 交易信息
+//
+//示例值：
+func (builder *ReconciliationReferralAccountReqBodyBuilder) TradeDetails(tradeDetails []*TradeDetail) *ReconciliationReferralAccountReqBodyBuilder {
+	builder.tradeDetails = tradeDetails
+	builder.tradeDetailsFlag = true
+	return builder
+}
+
+func (builder *ReconciliationReferralAccountReqBodyBuilder) Build() *ReconciliationReferralAccountReqBody {
+	req := &ReconciliationReferralAccountReqBody{}
+	if builder.startTransTimeFlag {
+		req.StartTransTime = &builder.startTransTime
+	}
+	if builder.endTransTimeFlag {
+		req.EndTransTime = &builder.endTransTime
+	}
+	if builder.tradeDetailsFlag {
+		req.TradeDetails = builder.tradeDetails
+	}
+	return req
+}
+
+type ReconciliationReferralAccountPathReqBodyBuilder struct {
+	startTransTime     string // 按时间范围进行对账时 时间段的起始交易时间
+	startTransTimeFlag bool
+	endTransTime       string // 按时间范围进行对账时 时间段的截止交易时间
+	endTransTimeFlag   bool
+	tradeDetails       []*TradeDetail // 交易信息
+	tradeDetailsFlag   bool
+}
+
+func NewReconciliationReferralAccountPathReqBodyBuilder() *ReconciliationReferralAccountPathReqBodyBuilder {
+	builder := &ReconciliationReferralAccountPathReqBodyBuilder{}
+	return builder
+}
+
+// 按时间范围进行对账时 时间段的起始交易时间
+//
+// 示例值：1685416831621
+func (builder *ReconciliationReferralAccountPathReqBodyBuilder) StartTransTime(startTransTime string) *ReconciliationReferralAccountPathReqBodyBuilder {
+	builder.startTransTime = startTransTime
+	builder.startTransTimeFlag = true
+	return builder
+}
+
+// 按时间范围进行对账时 时间段的截止交易时间
+//
+// 示例值：1685416831622
+func (builder *ReconciliationReferralAccountPathReqBodyBuilder) EndTransTime(endTransTime string) *ReconciliationReferralAccountPathReqBodyBuilder {
+	builder.endTransTime = endTransTime
+	builder.endTransTimeFlag = true
+	return builder
+}
+
+// 交易信息
+//
+// 示例值：
+func (builder *ReconciliationReferralAccountPathReqBodyBuilder) TradeDetails(tradeDetails []*TradeDetail) *ReconciliationReferralAccountPathReqBodyBuilder {
+	builder.tradeDetails = tradeDetails
+	builder.tradeDetailsFlag = true
+	return builder
+}
+
+func (builder *ReconciliationReferralAccountPathReqBodyBuilder) Build() (*ReconciliationReferralAccountReqBody, error) {
+	req := &ReconciliationReferralAccountReqBody{}
+	if builder.startTransTimeFlag {
+		req.StartTransTime = &builder.startTransTime
+	}
+	if builder.endTransTimeFlag {
+		req.EndTransTime = &builder.endTransTime
+	}
+	if builder.tradeDetailsFlag {
+		req.TradeDetails = builder.tradeDetails
+	}
+	return req, nil
+}
+
+type ReconciliationReferralAccountReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ReconciliationReferralAccountReqBody
+}
+
+func NewReconciliationReferralAccountReqBuilder() *ReconciliationReferralAccountReqBuilder {
+	builder := &ReconciliationReferralAccountReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *ReconciliationReferralAccountReqBuilder) Body(body *ReconciliationReferralAccountReqBody) *ReconciliationReferralAccountReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ReconciliationReferralAccountReqBuilder) Build() *ReconciliationReferralAccountReq {
+	req := &ReconciliationReferralAccountReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ReconciliationReferralAccountReqBody struct {
+	StartTransTime *string        `json:"start_trans_time,omitempty"` // 按时间范围进行对账时 时间段的起始交易时间
+	EndTransTime   *string        `json:"end_trans_time,omitempty"`   // 按时间范围进行对账时 时间段的截止交易时间
+	TradeDetails   []*TradeDetail `json:"trade_details,omitempty"`    // 交易信息
+}
+
+type ReconciliationReferralAccountReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ReconciliationReferralAccountReqBody `body:""`
+}
+
+type ReconciliationReferralAccountRespData struct {
+	CheckFailedList []*CheckFailedAccountInfo `json:"check_failed_list,omitempty"` // 核对失败的信息
+}
+
+type ReconciliationReferralAccountResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ReconciliationReferralAccountRespData `json:"data"` // 业务数据
+}
+
+func (resp *ReconciliationReferralAccountResp) Success() bool {
+	return resp.Code == 0
+}
+
+type WithdrawReferralAccountReqBodyBuilder struct {
+	withdrawBonusType     []int // 请求提现的奖励类型
+	withdrawBonusTypeFlag bool
+	externalOrderId       string // 提现单ID，请求时由请求方提供，后续关于本次提现操作的交互都以此提现单ID为标识进行，需要保证唯一,用于保证提现的幂等性，传入重复ID会返回对应提现单提取的金额明细
+	externalOrderIdFlag   bool
+}
+
+func NewWithdrawReferralAccountReqBodyBuilder() *WithdrawReferralAccountReqBodyBuilder {
+	builder := &WithdrawReferralAccountReqBodyBuilder{}
+	return builder
+}
+
+// 请求提现的奖励类型
+//
+//示例值：
+func (builder *WithdrawReferralAccountReqBodyBuilder) WithdrawBonusType(withdrawBonusType []int) *WithdrawReferralAccountReqBodyBuilder {
+	builder.withdrawBonusType = withdrawBonusType
+	builder.withdrawBonusTypeFlag = true
+	return builder
+}
+
+// 提现单ID，请求时由请求方提供，后续关于本次提现操作的交互都以此提现单ID为标识进行，需要保证唯一,用于保证提现的幂等性，传入重复ID会返回对应提现单提取的金额明细
+//
+//示例值：6942778198054125570
+func (builder *WithdrawReferralAccountReqBodyBuilder) ExternalOrderId(externalOrderId string) *WithdrawReferralAccountReqBodyBuilder {
+	builder.externalOrderId = externalOrderId
+	builder.externalOrderIdFlag = true
+	return builder
+}
+
+func (builder *WithdrawReferralAccountReqBodyBuilder) Build() *WithdrawReferralAccountReqBody {
+	req := &WithdrawReferralAccountReqBody{}
+	if builder.withdrawBonusTypeFlag {
+		req.WithdrawBonusType = builder.withdrawBonusType
+	}
+	if builder.externalOrderIdFlag {
+		req.ExternalOrderId = &builder.externalOrderId
+	}
+	return req
+}
+
+type WithdrawReferralAccountPathReqBodyBuilder struct {
+	withdrawBonusType     []int // 请求提现的奖励类型
+	withdrawBonusTypeFlag bool
+	externalOrderId       string // 提现单ID，请求时由请求方提供，后续关于本次提现操作的交互都以此提现单ID为标识进行，需要保证唯一,用于保证提现的幂等性，传入重复ID会返回对应提现单提取的金额明细
+	externalOrderIdFlag   bool
+}
+
+func NewWithdrawReferralAccountPathReqBodyBuilder() *WithdrawReferralAccountPathReqBodyBuilder {
+	builder := &WithdrawReferralAccountPathReqBodyBuilder{}
+	return builder
+}
+
+// 请求提现的奖励类型
+//
+// 示例值：
+func (builder *WithdrawReferralAccountPathReqBodyBuilder) WithdrawBonusType(withdrawBonusType []int) *WithdrawReferralAccountPathReqBodyBuilder {
+	builder.withdrawBonusType = withdrawBonusType
+	builder.withdrawBonusTypeFlag = true
+	return builder
+}
+
+// 提现单ID，请求时由请求方提供，后续关于本次提现操作的交互都以此提现单ID为标识进行，需要保证唯一,用于保证提现的幂等性，传入重复ID会返回对应提现单提取的金额明细
+//
+// 示例值：6942778198054125570
+func (builder *WithdrawReferralAccountPathReqBodyBuilder) ExternalOrderId(externalOrderId string) *WithdrawReferralAccountPathReqBodyBuilder {
+	builder.externalOrderId = externalOrderId
+	builder.externalOrderIdFlag = true
+	return builder
+}
+
+func (builder *WithdrawReferralAccountPathReqBodyBuilder) Build() (*WithdrawReferralAccountReqBody, error) {
+	req := &WithdrawReferralAccountReqBody{}
+	if builder.withdrawBonusTypeFlag {
+		req.WithdrawBonusType = builder.withdrawBonusType
+	}
+	if builder.externalOrderIdFlag {
+		req.ExternalOrderId = &builder.externalOrderId
+	}
+	return req, nil
+}
+
+type WithdrawReferralAccountReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *WithdrawReferralAccountReqBody
+}
+
+func NewWithdrawReferralAccountReqBuilder() *WithdrawReferralAccountReqBuilder {
+	builder := &WithdrawReferralAccountReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 账户ID
+//
+// 示例值：6942778198054125570
+func (builder *WithdrawReferralAccountReqBuilder) ReferralAccountId(referralAccountId string) *WithdrawReferralAccountReqBuilder {
+	builder.apiReq.PathParams.Set("referral_account_id", fmt.Sprint(referralAccountId))
+	return builder
+}
+
+//
+func (builder *WithdrawReferralAccountReqBuilder) Body(body *WithdrawReferralAccountReqBody) *WithdrawReferralAccountReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *WithdrawReferralAccountReqBuilder) Build() *WithdrawReferralAccountReq {
+	req := &WithdrawReferralAccountReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type WithdrawReferralAccountReqBody struct {
+	WithdrawBonusType []int   `json:"withdraw_bonus_type,omitempty"` // 请求提现的奖励类型
+	ExternalOrderId   *string `json:"external_order_id,omitempty"`   // 提现单ID，请求时由请求方提供，后续关于本次提现操作的交互都以此提现单ID为标识进行，需要保证唯一,用于保证提现的幂等性，传入重复ID会返回对应提现单提取的金额明细
+}
+
+type WithdrawReferralAccountReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *WithdrawReferralAccountReqBody `body:""`
+}
+
+type WithdrawReferralAccountRespData struct {
+	ExternalOrderId   *string      `json:"external_order_id,omitempty"`  // 请求时传入的提现单ID
+	TransTime         *string      `json:"trans_time,omitempty"`         // 交易时间戳，需要保存，用于统一交易时间，方便对账
+	WithdrawalDetails *BonusAmount `json:"withdrawal_details,omitempty"` // 本次提现金额明细
+}
+
+type WithdrawReferralAccountResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *WithdrawReferralAccountRespData `json:"data"` // 业务数据
+}
+
+func (resp *WithdrawReferralAccountResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetReferralWebsiteJobPostReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -40875,9 +43091,9 @@ type ListTalentFolderReq struct {
 }
 
 type ListTalentFolderRespData struct {
-	HasMore   *bool           `json:"has_more,omitempty"`   // 是否有下一页
-	PageToken *string         `json:"page_token,omitempty"` // 下一页页码
-	Items     []*TalentFolder `json:"items,omitempty"`      // 文件夹列表
+	HasMore   *bool                  `json:"has_more,omitempty"`   // 是否有下一页
+	PageToken *string                `json:"page_token,omitempty"` // 下一页页码
+	Items     []*TalentFolderForList `json:"items,omitempty"`      // 文件夹列表
 }
 
 type ListTalentFolderResp struct {
@@ -40918,6 +43134,77 @@ type P2ApplicationStageChangedV1 struct {
 }
 
 func (m *P2ApplicationStageChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2EcoAccountCreatedV1Data struct {
+	Scope           *int                              `json:"scope,omitempty"`             // 账号类型
+	AccountId       *string                           `json:"account_id,omitempty"`        // 账号 ID，招聘系统内唯一
+	AccountName     *string                           `json:"account_name,omitempty"`      // 账号名称
+	UsageList       []int                             `json:"usage_list,omitempty"`        // 账号适用范围，1-社招，2-校招
+	CustomFieldList []*EcoAccountCustomFieldEventData `json:"custom_field_list,omitempty"` // 自定义字段键值对
+}
+
+type P2EcoAccountCreatedV1 struct {
+	*larkevent.EventV2Base                            // 事件基础数据
+	*larkevent.EventReq                               // 请求原生数据
+	Event                  *P2EcoAccountCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2EcoAccountCreatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2EcoBackgroundCheckCanceledV1Data struct {
+	BackgroundCheckId *string `json:"background_check_id,omitempty"` // 背调 ID，招聘系统内唯一
+	TerminationReason *string `json:"termination_reason,omitempty"`  // 终止原因
+}
+
+type P2EcoBackgroundCheckCanceledV1 struct {
+	*larkevent.EventV2Base                                     // 事件基础数据
+	*larkevent.EventReq                                        // 请求原生数据
+	Event                  *P2EcoBackgroundCheckCanceledV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2EcoBackgroundCheckCanceledV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2EcoBackgroundCheckCreatedV1Data struct {
+	BackgroundCheckId    *string                                     `json:"background_check_id,omitempty"`     // 背调 ID，招聘系统内唯一
+	AccountId            *string                                     `json:"account_id,omitempty"`              // 账号 ID，招聘系统内唯一
+	PackageId            *string                                     `json:"package_id,omitempty"`              // 套餐 ID
+	AdditionalItemIdList []string                                    `json:"additional_item_id_list,omitempty"` // 附件调查项 ID 列表
+	Comment              *string                                     `json:"comment,omitempty"`                 // 备注
+	CandidateInfo        *EcoBackgroundCheckCreateEventCandidateInfo `json:"candidate_info,omitempty"`          // 候选人信息
+	ClientContactInfo    *EcoBackgroundCheckCreateEventContactInfo   `json:"client_contact_info,omitempty"`     // 联系人（委托人）信息
+	CustomFieldList      []*EcoBackgroundCheckCreateEventCustomKv    `json:"custom_field_list,omitempty"`       // 自定义字段键值对
+}
+
+type P2EcoBackgroundCheckCreatedV1 struct {
+	*larkevent.EventV2Base                                    // 事件基础数据
+	*larkevent.EventReq                                       // 请求原生数据
+	Event                  *P2EcoBackgroundCheckCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2EcoBackgroundCheckCreatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2EcoExamCreatedV1Data struct {
+	ExamId        *string                          `json:"exam_id,omitempty"`        // 笔试 ID，招聘系统内唯一
+	AccountId     *string                          `json:"account_id,omitempty"`     // 账号 ID，招聘系统内唯一
+	PaperId       *string                          `json:"paper_id,omitempty"`       // 试卷 ID
+	CandidateInfo *EcoExamCreateEventCandidateInfo `json:"candidate_info,omitempty"` // 候选人信息
+}
+
+type P2EcoExamCreatedV1 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2EcoExamCreatedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2EcoExamCreatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
@@ -40963,7 +43250,8 @@ func (m *P2EhrImportTaskForInternshipOfferImportedV1) RawReq(req *larkevent.Even
 }
 
 type P2OfferStatusChangedV1Data struct {
-	OfferId *string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID
+	OfferId     *string `json:"offer_id,omitempty"`     // 发生状态变更的 OfferID
+	OfferStatus *int    `json:"offer_status,omitempty"` // Offer 状态
 }
 
 type P2OfferStatusChangedV1 struct {
@@ -40973,6 +43261,22 @@ type P2OfferStatusChangedV1 struct {
 }
 
 func (m *P2OfferStatusChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ReferralAccountAssetsUpdateV1Data struct {
+	AccountId  *string `json:"account_id,omitempty"`  // 账户ID， 同一用户在同一租户同一应用中账户唯一
+	Assets     *Assets `json:"assets,omitempty"`      // 账户余额信息
+	ModifyTime *string `json:"modify_time,omitempty"` // 变更时间
+}
+
+type P2ReferralAccountAssetsUpdateV1 struct {
+	*larkevent.EventV2Base                                      // 事件基础数据
+	*larkevent.EventReq                                         // 请求原生数据
+	Event                  *P2ReferralAccountAssetsUpdateV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ReferralAccountAssetsUpdateV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
@@ -41248,7 +43552,7 @@ func (iterator *ListResumeSourceIterator) NextPageToken() *string {
 
 type ListTalentFolderIterator struct {
 	nextPageToken *string
-	items         []*TalentFolder
+	items         []*TalentFolderForList
 	index         int
 	limit         int
 	ctx           context.Context
@@ -41258,7 +43562,7 @@ type ListTalentFolderIterator struct {
 	curlNum       int
 }
 
-func (iterator *ListTalentFolderIterator) Next() (bool, *TalentFolder, error) {
+func (iterator *ListTalentFolderIterator) Next() (bool, *TalentFolderForList, error) {
 	// 达到最大量，则返回
 	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
