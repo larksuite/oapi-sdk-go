@@ -10,3 +10,4 @@ modules.txt
 *.json
 *.sh
 test.go
+sensitive_info_result.txt
