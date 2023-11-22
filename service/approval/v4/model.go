@@ -15,6 +15,7 @@ package larkapproval
 
 import (
 	"fmt"
+	"io"
 
 	"context"
 	"errors"
@@ -10081,6 +10082,92 @@ type UnsubscribeApprovalResp struct {
 
 func (resp *UnsubscribeApprovalResp) Success() bool {
 	return resp.Code == 0
+}
+
+func NewApprovalCreateFileReqBuilder() *ApprovalCreateFileReqBuilder {
+	builder := &ApprovalCreateFileReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+type ApprovalCreateFileReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ApprovalCreateFileReqBody
+}
+
+// 上传文件，可以上传视频，音频和常见的文件类型。
+func (builder *ApprovalCreateFileReqBuilder) Body(body *ApprovalCreateFileReqBody) *ApprovalCreateFileReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ApprovalCreateFileReqBuilder) Build() *ApprovalCreateFileReq {
+	req := &ApprovalCreateFileReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+func NewApprovalCreateFileReqBodyBuilder() *ApprovalCreateFileReqBodyBuilder {
+	builder := &ApprovalCreateFileReqBodyBuilder{}
+	return builder
+}
+
+type ApprovalCreateFileReqBodyBuilder struct {
+	name    string    //文件名（需包含文件扩展名，如“文件.doc”
+	type_   string    // 文件类型（image 或 attachment）
+	content io.Reader // 文件内容
+}
+
+func (builder *ApprovalCreateFileReqBodyBuilder) Name(name string) *ApprovalCreateFileReqBodyBuilder {
+	builder.name = name
+	return builder
+}
+
+func (builder *ApprovalCreateFileReqBodyBuilder) Type(type_ string) *ApprovalCreateFileReqBodyBuilder {
+	builder.type_ = type_
+	return builder
+}
+
+func (builder *ApprovalCreateFileReqBodyBuilder) Content(content io.Reader) *ApprovalCreateFileReqBodyBuilder {
+	builder.content = content
+	return builder
+}
+
+func (builder *ApprovalCreateFileReqBodyBuilder) Build() *ApprovalCreateFileReqBody {
+	req := &ApprovalCreateFileReqBody{}
+	req.Name = builder.name
+	req.Type = builder.type_
+	req.Content = builder.content
+	return req
+}
+
+type ApprovalCreateFileReqBody struct {
+	Name    string    `json:"name"`    //文件名（需包含文件扩展名，如“文件.doc”
+	Type    string    `json:"type"`    // 文件类型（image 或 attachment）
+	Content io.Reader `json:"content"` // 文件内容
+}
+
+type ApprovalCreateFileReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ApprovalCreateFileReqBody `body:""`
+}
+
+type ApprovalCreateFileRespData struct {
+	Code string `json:"code"` // 文件的key
+	Url  string `json:"url"`  // 文件的url路由
+}
+type ApprovalCreateFileResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ApprovalCreateFileRespData `json:"data"` // 业务数据
+}
+
+func (t *ApprovalCreateFileResp) Success() bool {
+	return t.Code == 0
 }
 
 type CreateExternalApprovalReqBuilder struct {
