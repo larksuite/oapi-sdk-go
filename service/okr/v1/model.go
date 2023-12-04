@@ -14,11 +14,9 @@
 package larkokr
 
 import (
-	"io"
-
 	"bytes"
-
 	"fmt"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -5433,9 +5431,9 @@ func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 type UploadImagePathReqBodyBuilder struct {
 	dataPath       string // 图片
 	dataPathFlag   bool
-	targetId       string // 图片的目标ID
+	targetId       string
 	targetIdFlag   bool
-	targetType     int // 图片使用的目标类型
+	targetType     int
 	targetTypeFlag bool
 }
 
@@ -5774,19 +5772,19 @@ func (builder *CreateProgressRecordReqBodyBuilder) Build() *CreateProgressRecord
 }
 
 type CreateProgressRecordPathReqBodyBuilder struct {
-	sourceTitle         string // 进展来源
+	sourceTitle         string
 	sourceTitleFlag     bool
-	sourceUrl           string // 进展来源链接
+	sourceUrl           string
 	sourceUrlFlag       bool
-	targetId            string // 目标id，与target_type对应
+	targetId            string
 	targetIdFlag        bool
-	targetType          int // 目标类型
+	targetType          int
 	targetTypeFlag      bool
-	content             *ContentBlock // 进展详情 富文本格式
+	content             *ContentBlock
 	contentFlag         bool
-	sourceUrlPc         string // pc进展来源链接
+	sourceUrlPc         string
 	sourceUrlPcFlag     bool
-	sourceUrlMobile     string // mobile进展来源链接
+	sourceUrlMobile     string
 	sourceUrlMobileFlag bool
 }
 
@@ -6077,7 +6075,7 @@ func (builder *UpdateProgressRecordReqBodyBuilder) Build() *UpdateProgressRecord
 }
 
 type UpdateProgressRecordPathReqBodyBuilder struct {
-	content     *ContentBlock // 进展详情 富文本格式
+	content     *ContentBlock
 	contentFlag bool
 }
 

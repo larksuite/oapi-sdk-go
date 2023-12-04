@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -30,12 +31,13 @@ func main() {
 		UserIdType("user_id").
 		PageSize(20).
 		PageToken("").
+
 		Body(larksearch.NewCreateAppReqBodyBuilder().
 			Query("测试应用").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Search.App.Create(context.Background(), req)
+	resp, err := client.Search.V2.App.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

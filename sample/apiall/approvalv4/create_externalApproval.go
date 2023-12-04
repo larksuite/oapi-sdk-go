@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -29,6 +30,7 @@ func main() {
 	req := larkapproval.NewCreateExternalApprovalReqBuilder().
 		DepartmentIdType("open_department_id").
 		UserIdType("user_id").
+
 		ExternalApproval(larkapproval.NewExternalApprovalBuilder().
 			ApprovalName("E78F1022-A166-447C-8320-E151DA90D70F").
 			ApprovalCode("permission_test").
@@ -42,7 +44,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Approval.ExternalApproval.Create(context.Background(), req)
+	resp, err := client.Approval.V4.ExternalApproval.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

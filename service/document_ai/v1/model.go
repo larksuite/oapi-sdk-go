@@ -14,9 +14,8 @@
 package larkdocument_ai
 
 import (
-	"io"
-
 	"bytes"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -2572,9 +2571,9 @@ func (builder *FieldExtractionContractReqBodyBuilder) Build() *FieldExtractionCo
 type FieldExtractionContractPathReqBodyBuilder struct {
 	filePath         string // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
 	filePathFlag     bool
-	pdfPageLimit     int // pdf页数限制，太长会导致latency增加，最大允许100页
+	pdfPageLimit     int
 	pdfPageLimitFlag bool
-	ocrMode          string // ocr 参数，当前支持force, pdf, unused三种格式
+	ocrMode          string
 	ocrModeFlag      bool
 }
 

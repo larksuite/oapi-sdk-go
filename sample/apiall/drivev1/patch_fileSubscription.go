@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -29,13 +30,14 @@ func main() {
 	req := larkdrive.NewPatchFileSubscriptionReqBuilder().
 		FileToken("doxcnxxxxxxxxxxxxxxxxxxxxxx").
 		SubscriptionId("1234567890987654321").
+
 		Body(larkdrive.NewPatchFileSubscriptionReqBodyBuilder().
 			IsSubscribe(true).
 			FileType("doc").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.FileSubscription.Patch(context.Background(), req)
+	resp, err := client.Drive.V1.FileSubscription.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

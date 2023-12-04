@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -29,13 +30,14 @@ func main() {
 	req := larksheets.NewUpdateSpreadsheetSheetFilterReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
+
 		UpdateSheetFilter(larksheets.NewUpdateSheetFilterBuilder().
 			Col("").
 			Condition(larksheets.NewConditionBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.SpreadsheetSheetFilter.Update(context.Background(), req)
+	resp, err := client.Sheets.V3.SpreadsheetSheetFilter.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

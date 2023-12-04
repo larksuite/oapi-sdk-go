@@ -315,9 +315,9 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Build() *FileRecognizeSpeechRe
 }
 
 type FileRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech // 语音资源
+	speech     *Speech
 	speechFlag bool
-	config     *FileConfig // 配置属性
+	config     *FileConfig
 	configFlag bool
 }
 
@@ -448,9 +448,9 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Build() *StreamRecognizeSpee
 }
 
 type StreamRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech // 语音资源
+	speech     *Speech
 	speechFlag bool
-	config     *StreamConfig // 配置属性
+	config     *StreamConfig
 	configFlag bool
 }
 

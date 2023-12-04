@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
-	"os"
 )
 
 // POST /open-apis/drive/v1/files/upload_part
@@ -42,7 +43,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.File.UploadPart(context.Background(), req)
+	resp, err := client.Drive.V1.File.UploadPart(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

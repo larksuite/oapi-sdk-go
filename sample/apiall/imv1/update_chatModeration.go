@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkim.NewUpdateChatModerationReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		UserIdType("user_id").
+
 		Body(larkim.NewUpdateChatModerationReqBodyBuilder().
 			ModerationSetting("moderator_list").
 			ModeratorAddedList([]string{}).
@@ -36,7 +38,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Im.ChatModeration.Update(context.Background(), req)
+	resp, err := client.Im.V1.ChatModeration.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

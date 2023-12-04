@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -30,6 +31,7 @@ func main() {
 		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
 		UserIdType("user_id").
 		UserId("e5286g26").
+
 		CommentRequest(larkapproval.NewCommentRequestBuilder().
 			Content("").
 			AtInfoList([]*larkapproval.CommentAtInfo{larkapproval.NewCommentAtInfoBuilder().Build()}).
@@ -40,7 +42,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Approval.InstanceComment.Create(context.Background(), req)
+	resp, err := client.Approval.V4.InstanceComment.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

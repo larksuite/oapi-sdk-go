@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewPatchRoomLevelReqBuilder().
 		RoomLevelId("omb_4ad1a2c7a2fbc5fc9570f38456931293").
+
 		RoomLevel(larkvc.NewRoomLevelBuilder().
 			Name("测试层级2").
 			ParentId("omb_8d020b12fe49e82847c2af3c193d5754").
@@ -35,7 +37,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Vc.RoomLevel.Patch(context.Background(), req)
+	resp, err := client.Vc.V1.RoomLevel.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

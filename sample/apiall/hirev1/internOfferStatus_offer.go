@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewInternOfferStatusOfferReqBuilder().
 		OfferId("7016605170635213100").
+
 		InternOfferStatus(larkhire.NewInternOfferStatusBuilder().
 			Operation("confirm_onboarding").
 			OnboardingInfo(larkhire.NewInternOfferOnboardingInfoBuilder().Build()).
@@ -35,7 +37,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Hire.Offer.InternOfferStatus(context.Background(), req)
+	resp, err := client.Hire.V1.Offer.InternOfferStatus(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

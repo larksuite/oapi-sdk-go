@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUpdateJobLevelReqBuilder().
 		JobLevelId("mga5oa8ayjlp9rb").
+
 		JobLevel(larkcontact.NewJobLevelBuilder().
 			Name("高级专家").
 			Description("公司内部中高级职称，有一定专业技术能力的人员").
@@ -38,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.JobLevel.Update(context.Background(), req)
+	resp, err := client.Contact.V3.JobLevel.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

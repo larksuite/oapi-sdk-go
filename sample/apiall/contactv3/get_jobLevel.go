@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,7 +31,7 @@ func main() {
 		JobLevelId("mga5oa8ayjlp9rb").
 		Build()
 	// 发起请求
-	resp, err := client.Contact.JobLevel.Get(context.Background(), req)
+	resp, err := client.Contact.V3.JobLevel.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

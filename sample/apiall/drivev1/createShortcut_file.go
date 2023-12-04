@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -28,13 +29,14 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewCreateShortcutFileReqBuilder().
 		UserIdType("user_id").
+
 		Body(larkdrive.NewCreateShortcutFileReqBodyBuilder().
 			ParentToken("fldbc5qgwyQnO0uedNllWuF3fAd").
 			ReferEntity(larkdrive.NewReferEntityBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.File.CreateShortcut(context.Background(), req)
+	resp, err := client.Drive.V1.File.CreateShortcut(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

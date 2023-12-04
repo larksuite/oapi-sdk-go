@@ -14,14 +14,11 @@
 package larkadmin
 
 import (
-	"io"
-
 	"bytes"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -6009,7 +6006,7 @@ func (builder *CreateBadgeImageReqBodyBuilder) Build() *CreateBadgeImageReqBody 
 type CreateBadgeImagePathReqBodyBuilder struct {
 	imageFilePath     string // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 	imageFilePathFlag bool
-	imageType         int // 图片的类型
+	imageType         int
 	imageTypeFlag     bool
 }
 
@@ -6144,9 +6141,9 @@ func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 }
 
 type ResetPasswordPathReqBodyBuilder struct {
-	password     *Password // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+	password     *Password
 	passwordFlag bool
-	userId       string // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+	userId       string
 	userIdFlag   bool
 }
 

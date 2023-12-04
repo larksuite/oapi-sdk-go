@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
-	"os"
 )
 
 // POST /open-apis/corehr/v1/persons/upload
@@ -39,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.Person.Upload(context.Background(), req)
+	resp, err := client.Corehr.V1.Person.Upload(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

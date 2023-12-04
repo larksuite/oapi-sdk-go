@@ -14,10 +14,9 @@
 package larksearch
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -3583,7 +3582,7 @@ func (builder *CreateAppReqBodyBuilder) Build() *CreateAppReqBody {
 }
 
 type CreateAppPathReqBodyBuilder struct {
-	query     string // 搜索关键词
+	query     string
 	queryFlag bool
 }
 
@@ -4019,21 +4018,21 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 }
 
 type PatchDataSourcePathReqBodyBuilder struct {
-	name                string // 数据源的展示名称
+	name                string
 	nameFlag            bool
-	state               int // 数据源状态，0-已上线，1-未上线
+	state               int
 	stateFlag           bool
-	description         string // 对于数据源的描述
+	description         string
 	descriptionFlag     bool
-	iconUrl             string // 数据源在 search tab 上的展示图标路径
+	iconUrl             string
 	iconUrlFlag         bool
-	i18nName            *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	i18nName            *I18nMeta
 	i18nNameFlag        bool
-	i18nDescription     *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	i18nDescription     *I18nMeta
 	i18nDescriptionFlag bool
-	connectorParam      *ConnectorParam // 修改connector的相关配置
+	connectorParam      *ConnectorParam
 	connectorParamFlag  bool
-	enableAnswer        bool // 是否使用问答服务
+	enableAnswer        bool
 	enableAnswerFlag    bool
 }
 
@@ -4502,23 +4501,23 @@ func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
 }
 
 type CreateMessagePathReqBodyBuilder struct {
-	query            string // 搜索关键词
+	query            string
 	queryFlag        bool
-	fromIds          []string // 消息来自user_id列表
+	fromIds          []string
 	fromIdsFlag      bool
-	chatIds          []string // 消息所在chat_id列表
+	chatIds          []string
 	chatIdsFlag      bool
-	messageType      string // 消息类型(file/image/media)
+	messageType      string
 	messageTypeFlag  bool
-	atChatterIds     []string // at用户user_id列表
+	atChatterIds     []string
 	atChatterIdsFlag bool
-	fromType         string // 消息来自类型(bot/user)
+	fromType         string
 	fromTypeFlag     bool
-	chatType         string // 会话类型(group_chat/p2p_chat)
+	chatType         string
 	chatTypeFlag     bool
-	startTime        string // 消息发送起始时间
+	startTime        string
 	startTimeFlag    bool
-	endTime          string // 消息发送结束时间
+	endTime          string
 	endTimeFlag      bool
 }
 
@@ -4909,9 +4908,9 @@ func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
 }
 
 type PatchSchemaPathReqBodyBuilder struct {
-	display        *SchemaDisplay // 数据展示相关配置
+	display        *SchemaDisplay
 	displayFlag    bool
-	properties     []*PatchSchemaProperty // 数据范式的属性定义
+	properties     []*PatchSchemaProperty
 	propertiesFlag bool
 }
 

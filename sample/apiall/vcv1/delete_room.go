@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -30,7 +31,7 @@ func main() {
 		RoomId("omm_4de32cf10a4358788ff4e09e37ebbf9b").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Room.Delete(context.Background(), req)
+	resp, err := client.Vc.V1.Room.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

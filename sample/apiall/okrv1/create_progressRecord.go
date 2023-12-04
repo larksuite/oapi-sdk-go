@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkokr.NewCreateProgressRecordReqBuilder().
 		UserIdType("user_id").
+
 		Body(larkokr.NewCreateProgressRecordReqBodyBuilder().
 			SourceTitle("周报系统").
 			SourceUrl("https://www.zhoubao.com").
@@ -39,7 +41,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Okr.ProgressRecord.Create(context.Background(), req)
+	resp, err := client.Okr.V1.ProgressRecord.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

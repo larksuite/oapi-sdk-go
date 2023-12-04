@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcontact.NewCreateGroupReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Group(larkcontact.NewGroupBuilder().
 			Name("IT 外包组").
 			Description("IT服务人员的集合").
@@ -37,7 +39,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.Group.Create(context.Background(), req)
+	resp, err := client.Contact.V3.Group.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

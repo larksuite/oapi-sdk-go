@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -29,13 +30,14 @@ func main() {
 	req := larkmail.NewCreatePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
 		UserIdType("user_id").
+
 		PublicMailboxMember(larkmail.NewPublicMailboxMemberBuilder().
 			UserId("xxxxxxxxxx").
 			Type("USER").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Mail.PublicMailboxMember.Create(context.Background(), req)
+	resp, err := client.Mail.V1.PublicMailboxMember.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

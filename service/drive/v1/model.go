@@ -14,16 +14,12 @@
 package larkdrive
 
 import (
-	"io"
-
 	"bytes"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -265,11 +261,13 @@ const (
 )
 
 const (
-	ObjTypeDocx = "docx" // 新版文档
+	ObjTypeDocx  = "docx"  // 新版文档
+	ObjTypeSheet = "sheet" // 电子表格
 )
 
 const (
-	ParentTypeCreateFileVersionObjTypeDocx = "docx" // 新版文档
+	ParentTypeCreateFileVersionObjTypeDocx  = "docx"  // 新版文档
+	ParentTypeCreateFileVersionObjTypeSheet = "sheet" // 电子表格
 )
 
 const (
@@ -279,7 +277,8 @@ const (
 )
 
 const (
-	ObjTypeDeleteFileVersionDocx = "docx" // 新版文档
+	ObjTypeDeleteFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeDeleteFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -289,7 +288,8 @@ const (
 )
 
 const (
-	ObjTypeGetFileVersionDocx = "docx" // 新版文档
+	ObjTypeGetFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeGetFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -299,7 +299,8 @@ const (
 )
 
 const (
-	ObjTypeListFileVersionDocx = "docx" // 新版文档
+	ObjTypeListFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeListFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -371,13 +372,14 @@ const (
 )
 
 const (
-	PermView    = "view"    // 阅读
-	PermEdit    = "edit"    // 编辑
-	PermShare   = "share"   // 分享
-	PermComment = "comment" // 评论
-	PermExport  = "export"  // 导出
-	PermCopy    = "copy"    // 拷贝
-	PermPrint   = "print"   // 打印
+	PermView         = "view"          // 阅读
+	PermEdit         = "edit"          // 编辑
+	PermShare        = "share"         // 分享
+	PermComment      = "comment"       // 评论
+	PermExport       = "export"        // 导出
+	PermCopy         = "copy"          // 拷贝
+	PermPrint        = "print"         // 打印
+	PermManagePublic = "manage_public" // 管理权限设置
 )
 
 const (
@@ -4829,13 +4831,13 @@ func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
 }
 
 type CopyFilePathReqBodyBuilder struct {
-	name            string // 被复制文件的新名称
+	name            string
 	nameFlag        bool
-	type_           string // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
+	type_           string
 	typeFlag        bool
-	folderToken     string // 文件被复制到的目标文件夹token
+	folderToken     string
 	folderTokenFlag bool
-	extra           []*Property // 用户自定义请求附加参数，用于实现特殊的复制语义
+	extra           []*Property
 	extraFlag       bool
 }
 
@@ -5010,9 +5012,9 @@ func (builder *CreateFolderFileReqBodyBuilder) Build() *CreateFolderFileReqBody 
 }
 
 type CreateFolderFilePathReqBodyBuilder struct {
-	name            string // 文件夹名称
+	name            string
 	nameFlag        bool
-	folderToken     string // 父文件夹token
+	folderToken     string
 	folderTokenFlag bool
 }
 
@@ -5144,9 +5146,9 @@ func (builder *CreateShortcutFileReqBodyBuilder) Build() *CreateShortcutFileReqB
 }
 
 type CreateShortcutFilePathReqBodyBuilder struct {
-	parentToken     string // 创建快捷方式的目标父文件夹 token
+	parentToken     string
 	parentTokenFlag bool
-	referEntity     *ReferEntity // 快捷方式映射到的文档和文件列表信息
+	referEntity     *ReferEntity
 	referEntityFlag bool
 }
 
@@ -5585,9 +5587,9 @@ func (builder *MoveFileReqBodyBuilder) Build() *MoveFileReqBody {
 }
 
 type MoveFilePathReqBodyBuilder struct {
-	type_           string // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
+	type_           string
 	typeFlag        bool
-	folderToken     string // 目标文件夹token
+	folderToken     string
 	folderTokenFlag bool
 }
 
@@ -5879,15 +5881,15 @@ func (builder *UploadAllFileReqBodyBuilder) Build() *UploadAllFileReqBody {
 }
 
 type UploadAllFilePathReqBodyBuilder struct {
-	fileName       string // 文件名。
+	fileName       string
 	fileNameFlag   bool
-	parentType     string // 上传点类型。
+	parentType     string
 	parentTypeFlag bool
-	parentNode     string // 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	parentNode     string
 	parentNodeFlag bool
-	size           int // 文件大小（以字节为单位）。
+	size           int
 	sizeFlag       bool
-	checksum       string // 文件adler32校验和(可选)。
+	checksum       string
 	checksumFlag   bool
 	filePath       string // 文件二进制内容。
 	filePathFlag   bool
@@ -6076,9 +6078,9 @@ func (builder *UploadFinishFileReqBodyBuilder) Build() *UploadFinishFileReqBody 
 }
 
 type UploadFinishFilePathReqBodyBuilder struct {
-	uploadId     string // 分片上传事务ID
+	uploadId     string
 	uploadIdFlag bool
-	blockNum     int // 分片数量
+	blockNum     int
 	blockNumFlag bool
 }
 
@@ -6251,13 +6253,13 @@ func (builder *UploadPartFileReqBodyBuilder) Build() *UploadPartFileReqBody {
 }
 
 type UploadPartFilePathReqBodyBuilder struct {
-	uploadId     string // 分片上传事务ID。
+	uploadId     string
 	uploadIdFlag bool
-	seq          int // 块号，从0开始计数。
+	seq          int
 	seqFlag      bool
-	size         int // 块大小（以字节为单位）。
+	size         int
 	sizeFlag     bool
-	checksum     string // 文件分块adler32校验和(可选)。
+	checksum     string
 	checksumFlag bool
 	filePath     string // 文件分片二进制内容。
 	filePathFlag bool
@@ -6462,7 +6464,7 @@ func (builder *BatchQueryFileCommentReqBodyBuilder) Build() *BatchQueryFileComme
 }
 
 type BatchQueryFileCommentPathReqBodyBuilder struct {
-	commentIds     []string // 需要获取数据的评论id
+	commentIds     []string
 	commentIdsFlag bool
 }
 
@@ -6864,7 +6866,7 @@ func (builder *PatchFileCommentReqBodyBuilder) Build() *PatchFileCommentReqBody 
 }
 
 type PatchFileCommentPathReqBodyBuilder struct {
-	isSolved     bool // 评论解决标志
+	isSolved     bool
 	isSolvedFlag bool
 }
 
@@ -7154,7 +7156,7 @@ func (builder *UpdateFileCommentReplyReqBodyBuilder) Build() *UpdateFileCommentR
 }
 
 type UpdateFileCommentReplyPathReqBodyBuilder struct {
-	content     *ReplyContent // 回复内容
+	content     *ReplyContent
 	contentFlag bool
 }
 
@@ -7410,7 +7412,7 @@ func (builder *GetFileSubscriptionReqBodyBuilder) Build() *GetFileSubscriptionRe
 }
 
 type GetFileSubscriptionPathReqBodyBuilder struct {
-	fileType     string // 文档类型
+	fileType     string
 	fileTypeFlag bool
 }
 
@@ -7548,9 +7550,9 @@ func (builder *PatchFileSubscriptionReqBodyBuilder) Build() *PatchFileSubscripti
 }
 
 type PatchFileSubscriptionPathReqBodyBuilder struct {
-	isSubscribe     bool // 是否订阅
+	isSubscribe     bool
 	isSubscribeFlag bool
-	fileType        string // 文档类型
+	fileType        string
 	fileTypeFlag    bool
 }
 
@@ -8385,17 +8387,17 @@ func (builder *UploadAllMediaReqBodyBuilder) Build() *UploadAllMediaReqBody {
 }
 
 type UploadAllMediaPathReqBodyBuilder struct {
-	fileName       string // 文件名。
+	fileName       string
 	fileNameFlag   bool
-	parentType     string // 上传点类型。
+	parentType     string
 	parentTypeFlag bool
-	parentNode     string // 上传点的token。
+	parentNode     string
 	parentNodeFlag bool
-	size           int // 文件大小（以字节为单位）。
+	size           int
 	sizeFlag       bool
-	checksum       string // 文件adler32校验和（可选）。
+	checksum       string
 	checksumFlag   bool
-	extra          string // 扩展信息(可选)。
+	extra          string
 	extraFlag      bool
 	filePath       string // 文件二进制内容。
 	filePathFlag   bool
@@ -8597,9 +8599,9 @@ func (builder *UploadFinishMediaReqBodyBuilder) Build() *UploadFinishMediaReqBod
 }
 
 type UploadFinishMediaPathReqBodyBuilder struct {
-	uploadId     string // 分片上传事务ID
+	uploadId     string
 	uploadIdFlag bool
-	blockNum     int // 分片数量
+	blockNum     int
 	blockNumFlag bool
 }
 
@@ -8772,13 +8774,13 @@ func (builder *UploadPartMediaReqBodyBuilder) Build() *UploadPartMediaReqBody {
 }
 
 type UploadPartMediaPathReqBodyBuilder struct {
-	uploadId     string // 分片上传事务ID。
+	uploadId     string
 	uploadIdFlag bool
-	seq          int // 块号，从0开始计数。
+	seq          int
 	seqFlag      bool
-	size         int // 块大小（以字节为单位）。
+	size         int
 	sizeFlag     bool
-	checksum     string // 文件分块adler32校验和(可选)。
+	checksum     string
 	checksumFlag bool
 	filePath     string // 文件分片二进制内容。
 	filePathFlag bool

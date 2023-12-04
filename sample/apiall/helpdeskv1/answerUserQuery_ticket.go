@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
@@ -28,13 +29,14 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewAnswerUserQueryTicketReqBuilder().
 		TicketId("6945345902185807891").
+
 		Body(larkhelpdesk.NewAnswerUserQueryTicketReqBodyBuilder().
 			EventId("abcd").
 			Faqs([]*larkhelpdesk.UserQueryFaqInfo{larkhelpdesk.NewUserQueryFaqInfoBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Helpdesk.Ticket.AnswerUserQuery(context.Background(), req)
+	resp, err := client.Helpdesk.V1.Ticket.AnswerUserQuery(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

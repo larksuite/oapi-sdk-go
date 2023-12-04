@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -31,7 +32,7 @@ func main() {
 		RoleId("roljRpwIUt").
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppRole.Delete(context.Background(), req)
+	resp, err := client.Bitable.V1.AppRole.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

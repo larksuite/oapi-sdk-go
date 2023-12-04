@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -30,7 +31,7 @@ func main() {
 		FileToken("6yHu7Igp7Igy62Ez6fLr6IJz7j9i5WMe6fHq5yZeY2Jz6yLqYAMAY46fZfEz64Lr5fYyYQ==").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Export.Download(context.Background(), req)
+	resp, err := client.Vc.V1.Export.Download(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

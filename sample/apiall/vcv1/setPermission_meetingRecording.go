@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -29,13 +30,14 @@ func main() {
 	req := larkvc.NewSetPermissionMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
+
 		Body(larkvc.NewSetPermissionMeetingRecordingReqBodyBuilder().
 			PermissionObjects([]*larkvc.RecordingPermissionObject{larkvc.NewRecordingPermissionObjectBuilder().Build()}).
 			ActionType(1).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Vc.MeetingRecording.SetPermission(context.Background(), req)
+	resp, err := client.Vc.V1.MeetingRecording.SetPermission(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

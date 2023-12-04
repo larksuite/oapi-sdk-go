@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -30,12 +31,13 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		UserIdType("user_id").
+
 		Body(larkbitable.NewBatchUpdateAppTableRecordReqBodyBuilder().
 			Records([]*larkbitable.AppTableRecord{larkbitable.NewAppTableRecordBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppTableRecord.BatchUpdate(context.Background(), req)
+	resp, err := client.Bitable.V1.AppTableRecord.BatchUpdate(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

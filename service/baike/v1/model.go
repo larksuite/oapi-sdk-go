@@ -14,14 +14,11 @@
 package larkbaike
 
 import (
-	"io"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -2047,7 +2044,7 @@ func (builder *ExtractEntityReqBodyBuilder) Build() *ExtractEntityReqBody {
 }
 
 type ExtractEntityPathReqBodyBuilder struct {
-	text     string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	text     string
 	textFlag bool
 }
 
@@ -2222,7 +2219,7 @@ func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 }
 
 type HighlightEntityPathReqBodyBuilder struct {
-	text     string // 需要识别百科词条的内容（不超过1000字）
+	text     string
 	textFlag bool
 }
 
@@ -2407,7 +2404,7 @@ func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
 }
 
 type MatchEntityPathReqBodyBuilder struct {
-	word     string // 搜索关键词，将与词条名、别名进行精准匹配
+	word     string
 	wordFlag bool
 }
 
@@ -2553,13 +2550,13 @@ func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
 }
 
 type SearchEntityPathReqBodyBuilder struct {
-	query                    string // 搜索关键词
+	query                    string
 	queryFlag                bool
-	classificationFilter     *ClassificationFilter // 分类筛选
+	classificationFilter     *ClassificationFilter
 	classificationFilterFlag bool
-	sources                  []int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
+	sources                  []int
 	sourcesFlag              bool
-	creators                 []string // 创建者
+	creators                 []string
 	creatorsFlag             bool
 }
 

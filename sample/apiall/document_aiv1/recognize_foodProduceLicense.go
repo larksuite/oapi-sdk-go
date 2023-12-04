@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/document_ai/v1"
-	"os"
 )
 
 // POST /open-apis/document_ai/v1/food_produce_license/recognize
@@ -38,7 +39,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.DocumentAi.FoodProduceLicense.Recognize(context.Background(), req)
+	resp, err := client.DocumentAi.V1.FoodProduceLicense.Recognize(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

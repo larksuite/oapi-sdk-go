@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -30,7 +31,7 @@ func main() {
 		ChatId("oc_5ad11d72b830411d72b836c20").
 		Build()
 	// 发起请求
-	resp, err := client.Im.ChatTopNotice.DeleteTopNotice(context.Background(), req)
+	resp, err := client.Im.V1.ChatTopNotice.DeleteTopNotice(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

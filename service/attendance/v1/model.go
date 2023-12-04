@@ -14,16 +14,12 @@
 package larkattendance
 
 import (
-	"io"
-
 	"bytes"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -3502,6 +3498,53 @@ func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
 	return req
 }
 
+type OpenApplyTimeRange struct {
+	OvertimeAttributionDate *string            `json:"overtime_attribution_date,omitempty"` // 加班所属日期
+	TimeRange               *OvertimeTimeRange `json:"time_range,omitempty"`                // 时段信息
+}
+
+type OpenApplyTimeRangeBuilder struct {
+	overtimeAttributionDate     string // 加班所属日期
+	overtimeAttributionDateFlag bool
+	timeRange                   *OvertimeTimeRange // 时段信息
+	timeRangeFlag               bool
+}
+
+func NewOpenApplyTimeRangeBuilder() *OpenApplyTimeRangeBuilder {
+	builder := &OpenApplyTimeRangeBuilder{}
+	return builder
+}
+
+// 加班所属日期
+//
+// 示例值：2023-09-25
+func (builder *OpenApplyTimeRangeBuilder) OvertimeAttributionDate(overtimeAttributionDate string) *OpenApplyTimeRangeBuilder {
+	builder.overtimeAttributionDate = overtimeAttributionDate
+	builder.overtimeAttributionDateFlag = true
+	return builder
+}
+
+// 时段信息
+//
+// 示例值：
+func (builder *OpenApplyTimeRangeBuilder) TimeRange(timeRange *OvertimeTimeRange) *OpenApplyTimeRangeBuilder {
+	builder.timeRange = timeRange
+	builder.timeRangeFlag = true
+	return builder
+}
+
+func (builder *OpenApplyTimeRangeBuilder) Build() *OpenApplyTimeRange {
+	req := &OpenApplyTimeRange{}
+	if builder.overtimeAttributionDateFlag {
+		req.OvertimeAttributionDate = &builder.overtimeAttributionDate
+
+	}
+	if builder.timeRangeFlag {
+		req.TimeRange = builder.timeRange
+	}
+	return req
+}
+
 type OvertimeClockCfg struct {
 	AllowPunchApproval *bool `json:"allow_punch_approval,omitempty"` // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
 }
@@ -4576,6 +4619,54 @@ func (builder *ShiftBuilder) Build() *Shift {
 	}
 	if builder.overtimeRuleFlag {
 		req.OvertimeRule = builder.overtimeRule
+	}
+	return req
+}
+
+type ShiftGroupUser struct {
+	ShiftGroupId *string `json:"shift_group_id,omitempty"` // 班组ID
+	UserId       *string `json:"user_id,omitempty"`        // 用户ID，根据传参user_id_type确定
+}
+
+type ShiftGroupUserBuilder struct {
+	shiftGroupId     string // 班组ID
+	shiftGroupIdFlag bool
+	userId           string // 用户ID，根据传参user_id_type确定
+	userIdFlag       bool
+}
+
+func NewShiftGroupUserBuilder() *ShiftGroupUserBuilder {
+	builder := &ShiftGroupUserBuilder{}
+	return builder
+}
+
+// 班组ID
+//
+// 示例值：7275180303583281171
+func (builder *ShiftGroupUserBuilder) ShiftGroupId(shiftGroupId string) *ShiftGroupUserBuilder {
+	builder.shiftGroupId = shiftGroupId
+	builder.shiftGroupIdFlag = true
+	return builder
+}
+
+// 用户ID，根据传参user_id_type确定
+//
+// 示例值：52aa1fa1
+func (builder *ShiftGroupUserBuilder) UserId(userId string) *ShiftGroupUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ShiftGroupUserBuilder) Build() *ShiftGroupUser {
+	req := &ShiftGroupUser{}
+	if builder.shiftGroupIdFlag {
+		req.ShiftGroupId = &builder.shiftGroupId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
 	}
 	return req
 }
@@ -6176,6 +6267,86 @@ func (builder *UserSettingBuilder) Build() *UserSetting {
 	return req
 }
 
+type UserShiftGroupsList struct {
+	ShiftGroupId   *string `json:"shift_group_id,omitempty"`   // 班组ID
+	ShiftGroupName *string `json:"shift_group_name,omitempty"` // 班组名称
+	GroupId        *string `json:"group_id,omitempty"`         // 考勤组ID
+	UpdateTime     *string `json:"update_time,omitempty"`      // 班组的最后更新时间
+}
+
+type UserShiftGroupsListBuilder struct {
+	shiftGroupId       string // 班组ID
+	shiftGroupIdFlag   bool
+	shiftGroupName     string // 班组名称
+	shiftGroupNameFlag bool
+	groupId            string // 考勤组ID
+	groupIdFlag        bool
+	updateTime         string // 班组的最后更新时间
+	updateTimeFlag     bool
+}
+
+func NewUserShiftGroupsListBuilder() *UserShiftGroupsListBuilder {
+	builder := &UserShiftGroupsListBuilder{}
+	return builder
+}
+
+// 班组ID
+//
+// 示例值：7301693071333261331
+func (builder *UserShiftGroupsListBuilder) ShiftGroupId(shiftGroupId string) *UserShiftGroupsListBuilder {
+	builder.shiftGroupId = shiftGroupId
+	builder.shiftGroupIdFlag = true
+	return builder
+}
+
+// 班组名称
+//
+// 示例值：飞书考勤班组
+func (builder *UserShiftGroupsListBuilder) ShiftGroupName(shiftGroupName string) *UserShiftGroupsListBuilder {
+	builder.shiftGroupName = shiftGroupName
+	builder.shiftGroupNameFlag = true
+	return builder
+}
+
+// 考勤组ID
+//
+// 示例值：7299769369813319699
+func (builder *UserShiftGroupsListBuilder) GroupId(groupId string) *UserShiftGroupsListBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
+// 班组的最后更新时间
+//
+// 示例值：2023-11-15 09:00:00
+func (builder *UserShiftGroupsListBuilder) UpdateTime(updateTime string) *UserShiftGroupsListBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *UserShiftGroupsListBuilder) Build() *UserShiftGroupsList {
+	req := &UserShiftGroupsList{}
+	if builder.shiftGroupIdFlag {
+		req.ShiftGroupId = &builder.shiftGroupId
+
+	}
+	if builder.shiftGroupNameFlag {
+		req.ShiftGroupName = &builder.shiftGroupName
+
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
 type UserStatsData struct {
 	Name   *string              `json:"name,omitempty"`    // 用户姓名
 	UserId *string              `json:"user_id,omitempty"` // 用户 ID
@@ -7123,11 +7294,11 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) Build() *ProcessApprovalInfoRe
 }
 
 type ProcessApprovalInfoPathReqBodyBuilder struct {
-	approvalId       string // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
+	approvalId       string
 	approvalIdFlag   bool
-	approvalType     string // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
+	approvalType     string
 	approvalTypeFlag bool
-	status           int // 审批状态，1：不通过，2：通过，4：撤销
+	status           int
 	statusFlag       bool
 }
 
@@ -7444,9 +7615,9 @@ func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 }
 
 type CreateGroupPathReqBodyBuilder struct {
-	group          *Group // 6921319402260496386
+	group          *Group
 	groupFlag      bool
-	operatorId     string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId     string
 	operatorIdFlag bool
 }
 
@@ -7813,9 +7984,9 @@ func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
 }
 
 type SearchGroupPathReqBodyBuilder struct {
-	groupName          string // 考勤组名称
+	groupName          string
 	groupNameFlag      bool
-	exactlyMatched     bool // 是否精准匹配，默认为false:模糊匹配; true:精准匹配
+	exactlyMatched     bool
 	exactlyMatchedFlag bool
 }
 
@@ -8004,19 +8175,19 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Build() *PatchLeaveAccrual
 }
 
 type PatchLeaveAccrualRecordPathReqBodyBuilder struct {
-	leaveGrantingRecordId     string // 授予记录的唯一ID
+	leaveGrantingRecordId     string
 	leaveGrantingRecordIdFlag bool
-	employmentId              string // 员工ID
+	employmentId              string
 	employmentIdFlag          bool
-	leaveTypeId               string // 假期类型ID
+	leaveTypeId               string
 	leaveTypeIdFlag           bool
-	reason                    []*LangText // 修改授予记录原因
+	reason                    []*LangText
 	reasonFlag                bool
-	timeOffset                int // 时间偏移，东八区：480	8*60
+	timeOffset                int
 	timeOffsetFlag            bool
-	expirationDate            string // 失效日期，格式"2020-01-01"
+	expirationDate            string
 	expirationDateFlag        bool
-	quantity                  string // 修改source 余额
+	quantity                  string
 	quantityFlag              bool
 }
 
@@ -8272,15 +8443,15 @@ func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) Build() *GetLeaveEmploy
 }
 
 type GetLeaveEmployExpireRecordPathReqBodyBuilder struct {
-	employmentId            string // 员工ID
+	employmentId            string
 	employmentIdFlag        bool
-	leaveTypeId             string // 假期类型ID
+	leaveTypeId             string
 	leaveTypeIdFlag         bool
-	startExpirationDate     string // 失效最早日期  2023-04-10 格式
+	startExpirationDate     string
 	startExpirationDateFlag bool
-	endExpirationDate       string // 失效最晚日期 2023-05-10 格式
+	endExpirationDate       string
 	endExpirationDateFlag   bool
-	timeOffset              int // 时间偏移，东八区：480	8*60， 如果没有这个参数，默认东八区
+	timeOffset              int
 	timeOffsetFlag          bool
 }
 
@@ -8721,7 +8892,7 @@ func (builder *CreateUserApprovalReqBodyBuilder) Build() *CreateUserApprovalReqB
 }
 
 type CreateUserApprovalPathReqBodyBuilder struct {
-	userApproval     *UserApproval // 审批信息
+	userApproval     *UserApproval
 	userApprovalFlag bool
 }
 
@@ -8918,19 +9089,19 @@ func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBod
 }
 
 type QueryUserApprovalPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表
+	userIds           []string
 	userIdsFlag       bool
-	checkDateFrom     int // 查询的起始工作日
+	checkDateFrom     int
 	checkDateFromFlag bool
-	checkDateTo       int // 查询的结束工作日，与 check_date_from 的时间间隔不超过 30 天
+	checkDateTo       int
 	checkDateToFlag   bool
-	checkDateType     string // 查询依据的时间类型（不填默认依据PeriodTime）
+	checkDateType     string
 	checkDateTypeFlag bool
-	status            int // 查询状态（不填默认查询已通过状态）
+	status            int
 	statusFlag        bool
-	checkTimeFrom     string // 查询的起始时间，精确到秒的时间戳
+	checkTimeFrom     string
 	checkTimeFromFlag bool
-	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
+	checkTimeTo       string
 	checkTimeToFlag   bool
 }
 
@@ -9135,9 +9306,9 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUser
 }
 
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
-	userDailyShifts     []*UserDailyShift // 班表信息列表（数量限制50以内）
+	userDailyShifts     []*UserDailyShift
 	userDailyShiftsFlag bool
-	operatorId          string // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
+	operatorId          string
 	operatorIdFlag      bool
 }
 
@@ -9291,11 +9462,11 @@ func (builder *QueryUserDailyShiftReqBodyBuilder) Build() *QueryUserDailyShiftRe
 }
 
 type QueryUserDailyShiftPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表
+	userIds           []string
 	userIdsFlag       bool
-	checkDateFrom     int // 查询的起始工作日
+	checkDateFrom     int
 	checkDateFromFlag bool
-	checkDateTo       int // 查询的结束工作日
+	checkDateTo       int
 	checkDateToFlag   bool
 }
 
@@ -9434,7 +9605,7 @@ func (builder *BatchCreateUserFlowReqBodyBuilder) Build() *BatchCreateUserFlowRe
 }
 
 type BatchCreateUserFlowPathReqBodyBuilder struct {
-	flowRecords     []*UserFlow // 打卡流水记录列表(数量限制50)
+	flowRecords     []*UserFlow
 	flowRecordsFlag bool
 }
 
@@ -9644,11 +9815,11 @@ func (builder *QueryUserFlowReqBodyBuilder) Build() *QueryUserFlowReqBody {
 }
 
 type QueryUserFlowPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表，长度不超过 50
+	userIds           []string
 	userIdsFlag       bool
-	checkTimeFrom     string // 查询的起始时间，时间戳
+	checkTimeFrom     string
 	checkTimeFromFlag bool
-	checkTimeTo       string // 查询的结束时间，时间戳
+	checkTimeTo       string
 	checkTimeToFlag   bool
 }
 
@@ -9795,7 +9966,7 @@ func (builder *ModifyUserSettingReqBodyBuilder) Build() *ModifyUserSettingReqBod
 }
 
 type ModifyUserSettingPathReqBodyBuilder struct {
-	userSetting     *UserSetting // 用户设置
+	userSetting     *UserSetting
 	userSettingFlag bool
 }
 
@@ -9908,7 +10079,7 @@ func (builder *QueryUserSettingReqBodyBuilder) Build() *QueryUserSettingReqBody 
 }
 
 type QueryUserSettingPathReqBodyBuilder struct {
-	userIds     []string // employee_no 或 employee_id 列表
+	userIds     []string
 	userIdsFlag bool
 }
 
@@ -10119,21 +10290,21 @@ func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqB
 }
 
 type QueryUserStatsDataPathReqBodyBuilder struct {
-	locale               string // 语言类型
+	locale               string
 	localeFlag           bool
-	statsType            string // 统计类型
+	statsType            string
 	statsTypeFlag        bool
-	startDate            int // 开始时间
+	startDate            int
 	startDateFlag        bool
-	endDate              int // 结束时间;（时间间隔不超过 31 天）
+	endDate              int
 	endDateFlag          bool
-	userIds              []string // 查询的用户 ID 列表;（用户数量不超过 200）
+	userIds              []string
 	userIdsFlag          bool
-	needHistory          bool // 是否需要历史数据
+	needHistory          bool
 	needHistoryFlag      bool
-	currentGroupOnly     bool // 只展示当前考勤组
+	currentGroupOnly     bool
 	currentGroupOnlyFlag bool
-	userId               string // 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
+	userId               string
 	userIdFlag           bool
 }
 
@@ -10380,13 +10551,13 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) Build() *QueryUserStatsFieldRe
 }
 
 type QueryUserStatsFieldPathReqBodyBuilder struct {
-	locale        string // 语言类型
+	locale        string
 	localeFlag    bool
-	statsType     string // 统计类型
+	statsType     string
 	statsTypeFlag bool
-	startDate     int // 开始时间
+	startDate     int
 	startDateFlag bool
-	endDate       int // 结束时间（时间间隔不超过 40 天）
+	endDate       int
 	endDateFlag   bool
 }
 
@@ -10566,11 +10737,11 @@ func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqB
 }
 
 type QueryUserStatsViewPathReqBodyBuilder struct {
-	locale        string // 语言类型
+	locale        string
 	localeFlag    bool
-	statsType     string // 统计类型
+	statsType     string
 	statsTypeFlag bool
-	userId        string // 查询用户id，同【查询统计数据】、【更新统计设置】user_id
+	userId        string
 	userIdFlag    bool
 }
 
@@ -10709,7 +10880,7 @@ func (builder *UpdateUserStatsViewReqBodyBuilder) Build() *UpdateUserStatsViewRe
 }
 
 type UpdateUserStatsViewPathReqBodyBuilder struct {
-	view     *UserStatsView // 统计设置
+	view     *UserStatsView
 	viewFlag bool
 }
 
@@ -10873,13 +11044,13 @@ func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 }
 
 type QueryUserTaskPathReqBodyBuilder struct {
-	userIds                []string // employee_no 或 employee_id 列表，长度不超过 50
+	userIds                []string
 	userIdsFlag            bool
-	checkDateFrom          int // 查询的起始工作日
+	checkDateFrom          int
 	checkDateFromFlag      bool
-	checkDateTo            int // 查询的结束工作日
+	checkDateTo            int
 	checkDateToFlag        bool
-	needOvertimeResult     bool // 是否需要加班班段打卡结果
+	needOvertimeResult     bool
 	needOvertimeResultFlag bool
 }
 
@@ -11160,15 +11331,15 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) Build() *QueryUserTaskRemedyRe
 }
 
 type QueryUserTaskRemedyPathReqBodyBuilder struct {
-	userIds           []string // employee_no 或 employee_id 列表
+	userIds           []string
 	userIdsFlag       bool
-	checkTimeFrom     string // 查询的起始时间，精确到秒的时间戳
+	checkTimeFrom     string
 	checkTimeFromFlag bool
-	checkTimeTo       string // 查询的结束时间，精确到秒的时间戳
+	checkTimeTo       string
 	checkTimeToFlag   bool
-	checkDateType     string // 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
+	checkDateType     string
 	checkDateTypeFlag bool
-	status            int // 查询状态（不填默认查询已通过状态）
+	status            int
 	statusFlag        bool
 }
 
@@ -11347,9 +11518,9 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) Build() *Que
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder struct {
-	userId         string // 用户 ID
+	userId         string
 	userIdFlag     bool
-	remedyDate     int // 补卡日期
+	remedyDate     int
 	remedyDateFlag bool
 }
 

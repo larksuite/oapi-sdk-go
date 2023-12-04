@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
@@ -29,12 +30,13 @@ func main() {
 	req := larkwiki.NewUpdateTitleSpaceNodeReqBuilder().
 		SpaceId("6946843325487912356").
 		NodeToken("wikcnKQ1k3pcuo5uSK4t8Vabcef").
+
 		Body(larkwiki.NewUpdateTitleSpaceNodeReqBodyBuilder().
 			Title("新标题").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Wiki.SpaceNode.UpdateTitle(context.Background(), req)
+	resp, err := client.Wiki.V2.SpaceNode.UpdateTitle(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

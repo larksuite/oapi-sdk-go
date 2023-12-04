@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -34,7 +35,7 @@ func main() {
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Task.TaskComment.List(context.Background(), req)
+	resp, err := client.Task.V1.TaskComment.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

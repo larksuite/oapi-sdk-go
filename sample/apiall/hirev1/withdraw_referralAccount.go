@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -28,13 +29,14 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewWithdrawReferralAccountReqBuilder().
 		ReferralAccountId("6942778198054125570").
+
 		Body(larkhire.NewWithdrawReferralAccountReqBodyBuilder().
 			WithdrawBonusType([]int{}).
 			ExternalOrderId("6942778198054125570").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Hire.ReferralAccount.Withdraw(context.Background(), req)
+	resp, err := client.Hire.V1.ReferralAccount.Withdraw(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

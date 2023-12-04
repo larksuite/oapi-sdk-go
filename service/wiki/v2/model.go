@@ -14,10 +14,9 @@
 package larkwiki
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -40,6 +39,7 @@ const (
 	ObjTypeObjTypeBitable  = "bitable"  // 多维表格
 	ObjTypeObjTypeFile     = "file"     // 文件
 	ObjTypeObjTypeDocx     = "docx"     // 新版文档
+	ObjTypeObjTypeSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -54,6 +54,7 @@ const (
 	MoveDocsToWikiObjTypeObjTypeMindNote = "mindnote" // mindnote（思维导图）
 	MoveDocsToWikiObjTypeObjTypeDocx     = "docx"     // docx
 	MoveDocsToWikiObjTypeObjTypeFile     = "file"     // file (文件)
+	MoveDocsToWikiObjTypeObjTypeSlides   = "slides"   // slides（幻灯片）
 )
 
 const (
@@ -1285,11 +1286,11 @@ func (builder *CopySpaceNodeReqBodyBuilder) Build() *CopySpaceNodeReqBody {
 }
 
 type CopySpaceNodePathReqBodyBuilder struct {
-	targetParentToken     string // 目标父节点token
+	targetParentToken     string
 	targetParentTokenFlag bool
-	targetSpaceId         string // 目标知识空间id
+	targetSpaceId         string
 	targetSpaceIdFlag     bool
-	title                 string // 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
+	title                 string
 	titleFlag             bool
 }
 
@@ -1588,9 +1589,9 @@ func (builder *MoveSpaceNodeReqBodyBuilder) Build() *MoveSpaceNodeReqBody {
 }
 
 type MoveSpaceNodePathReqBodyBuilder struct {
-	targetParentToken     string // 移动到的父节点token
+	targetParentToken     string
 	targetParentTokenFlag bool
-	targetSpaceId         string // 移动到的知识空间ID
+	targetSpaceId         string
 	targetSpaceIdFlag     bool
 }
 
@@ -1766,13 +1767,13 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Build() *MoveDocsToWikiSpa
 }
 
 type MoveDocsToWikiSpaceNodePathReqBodyBuilder struct {
-	parentWikiToken     string // 节点的父亲token。;;传空或不传时将移动为知识空间一级节点。
+	parentWikiToken     string
 	parentWikiTokenFlag bool
-	objType             string // 文档类型
+	objType             string
 	objTypeFlag         bool
-	objToken            string // 文档token
+	objToken            string
 	objTokenFlag        bool
-	apply               bool // 没有权限时，是否申请移动文档。;;如果申请移动，文档将在处理人同意时自动移动至指定位置。
+	apply               bool
 	applyFlag           bool
 }
 
@@ -1926,7 +1927,7 @@ func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Build() *UpdateTitleSpaceNode
 }
 
 type UpdateTitleSpaceNodePathReqBodyBuilder struct {
-	title     string // 节点新标题
+	title     string
 	titleFlag bool
 }
 

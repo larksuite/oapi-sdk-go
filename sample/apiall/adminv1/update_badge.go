@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkadmin.NewUpdateBadgeReqBuilder().
 		BadgeId("m_MzfKDM").
+
 		Badge(larkadmin.NewBadgeBuilder().
 			Name("激励勋章").
 			Explanation("这枚勋章为了激励员工颁发。").
@@ -38,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Admin.Badge.Update(context.Background(), req)
+	resp, err := client.Admin.V1.Badge.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

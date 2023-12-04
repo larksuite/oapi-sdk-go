@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkdrive.NewPatchPermissionPublicReqBuilder().
 		Token("doccnBKgoMyY5OMbUG6FioTXuBe").
 		Type("doc").
+
 		PermissionPublicRequest(larkdrive.NewPermissionPublicRequestBuilder().
 			ExternalAccess(true).
 			SecurityEntity("anyone_can_view").
@@ -39,7 +41,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.PermissionPublic.Patch(context.Background(), req)
+	resp, err := client.Drive.V1.PermissionPublic.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

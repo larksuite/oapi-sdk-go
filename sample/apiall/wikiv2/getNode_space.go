@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
@@ -31,7 +32,7 @@ func main() {
 		ObjType("wiki").
 		Build()
 	// 发起请求
-	resp, err := client.Wiki.Space.GetNode(context.Background(), req)
+	resp, err := client.Wiki.V2.Space.GetNode(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

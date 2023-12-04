@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -30,7 +31,7 @@ func main() {
 		TaskId("bb54ab99-d360-434f-bcaa-a4cc4c05840e").
 		Build()
 	// 发起请求
-	resp, err := client.Task.Task.Complete(context.Background(), req)
+	resp, err := client.Task.V1.Task.Complete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

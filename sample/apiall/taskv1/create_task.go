@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateTaskReqBuilder().
 		UserIdType("user_id").
+
 		Task(larktask.NewTaskBuilder().
 			Summary("每天喝八杯水，保持身心愉悦").
 			Description("多吃水果，多运动，健康生活，快乐工作。").
@@ -44,7 +46,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Task.Task.Create(context.Background(), req)
+	resp, err := client.Task.V1.Task.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

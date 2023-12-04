@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -29,13 +30,14 @@ func main() {
 	req := larksheets.NewMoveDimensionSpreadsheetSheetReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
+
 		MoveDimension(larksheets.NewMoveDimensionBuilder().
 			Source(larksheets.NewDimensionBuilder().Build()).
 			DestinationIndex(0).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.SpreadsheetSheet.MoveDimension(context.Background(), req)
+	resp, err := client.Sheets.V3.SpreadsheetSheet.MoveDimension(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

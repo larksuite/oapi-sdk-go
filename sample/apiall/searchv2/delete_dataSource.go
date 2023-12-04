@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -30,7 +31,7 @@ func main() {
 		DataSourceId("6953903108179099667").
 		Build()
 	// 发起请求
-	resp, err := client.Search.DataSource.Delete(context.Background(), req)
+	resp, err := client.Search.V2.DataSource.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

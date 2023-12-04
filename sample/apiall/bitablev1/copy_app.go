@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewCopyAppReqBuilder().
 		AppToken("S404b*****e9PQsYDWYcNryFn0g").
+
 		Body(larkbitable.NewCopyAppReqBodyBuilder().
 			Name("一篇新的多维表格").
 			FolderToken("fldbco*****CIMltVc").
@@ -36,7 +38,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.App.Copy(context.Background(), req)
+	resp, err := client.Bitable.V1.App.Copy(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

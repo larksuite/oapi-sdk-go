@@ -14,10 +14,9 @@
 package larktask
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -1513,9 +1512,9 @@ func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 }
 
 type PatchTaskPathReqBodyBuilder struct {
-	task             *Task // 被更新的任务实体基础信息
+	task             *Task
 	taskFlag         bool
-	updateFields     []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+	updateFields     []string
 	updateFieldsFlag bool
 }
 
@@ -2177,9 +2176,9 @@ func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBod
 }
 
 type UpdateTaskCommentPathReqBodyBuilder struct {
-	content         string // 新的评论内容
+	content         string
 	contentFlag     bool
-	richContent     string // 新的富文本评论内容（优先使用）
+	richContent     string
 	richContentFlag bool
 }
 

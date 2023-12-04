@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -35,7 +36,7 @@ func main() {
 		PageToken("100").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Alert.List(context.Background(), req)
+	resp, err := client.Vc.V1.Alert.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

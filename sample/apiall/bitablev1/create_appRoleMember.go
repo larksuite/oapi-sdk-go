@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -30,12 +31,13 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		RoleId("roljRpwIUt").
 		MemberIdType("open_id").
+
 		AppRoleMember(larkbitable.NewAppRoleMemberBuilder().
 			MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppRoleMember.Create(context.Background(), req)
+	resp, err := client.Bitable.V1.AppRoleMember.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
@@ -31,7 +32,7 @@ func main() {
 		ImageKey("img_b07ffac0-19c1-48a3-afca-599f8ea825fj").
 		Build()
 	// 发起请求
-	resp, err := client.Helpdesk.Faq.FaqImage(context.Background(), req)
+	resp, err := client.Helpdesk.V1.Faq.FaqImage(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

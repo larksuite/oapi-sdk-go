@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/block/v2"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkblock.NewUpdateEntityReqBuilder().
 		BlockId("7794641623571830467").
+
 		Entity(larkblock.NewEntityBuilder().
 			Title("已阅block").
 			BlockTypeId("blk_6204893fee000013739f5359").
@@ -44,7 +46,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Block.Entity.Update(context.Background(), req)
+	resp, err := client.Block.V2.Entity.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

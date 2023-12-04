@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -30,7 +31,7 @@ func main() {
 		ShiftName("早班").
 		Build()
 	// 发起请求
-	resp, err := client.Attendance.Shift.Query(context.Background(), req)
+	resp, err := client.Attendance.V1.Shift.Query(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

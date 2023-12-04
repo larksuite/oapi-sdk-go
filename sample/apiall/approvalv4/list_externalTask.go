@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -29,6 +30,7 @@ func main() {
 	req := larkapproval.NewListExternalTaskReqBuilder().
 		PageSize(50).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
+
 		Body(larkapproval.NewListExternalTaskReqBodyBuilder().
 			ApprovalCodes([]string{}).
 			InstanceIds([]string{}).
@@ -37,7 +39,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Approval.ExternalTask.List(context.Background(), req)
+	resp, err := client.Approval.V4.ExternalTask.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

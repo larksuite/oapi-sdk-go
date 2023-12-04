@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -32,7 +33,7 @@ func main() {
 		FloatImageId("ye06SS14ph").
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.SpreadsheetSheetFloatImage.Delete(context.Background(), req)
+	resp, err := client.Sheets.V3.SpreadsheetSheetFloatImage.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

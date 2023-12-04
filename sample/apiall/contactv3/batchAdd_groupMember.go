@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -28,12 +29,13 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewBatchAddGroupMemberReqBuilder().
 		GroupId("test_group").
+
 		Body(larkcontact.NewBatchAddGroupMemberReqBodyBuilder().
 			Members([]*larkcontact.Memberlist{larkcontact.NewMemberlistBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.GroupMember.BatchAdd(context.Background(), req)
+	resp, err := client.Contact.V3.GroupMember.BatchAdd(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

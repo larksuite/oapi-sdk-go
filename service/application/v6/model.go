@@ -14,10 +14,9 @@
 package larkapplication
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -6134,17 +6133,17 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Build() *Dep
 }
 
 type DepartmentOverviewApplicationAppUsagePathReqBodyBuilder struct {
-	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	date             string
 	dateFlag         bool
-	cycleType        int // 活跃周期的统计类型
+	cycleType        int
 	cycleTypeFlag    bool
-	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	departmentId     string
 	departmentIdFlag bool
-	recursion        int // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
+	recursion        int
 	recursionFlag    bool
-	pageSize         int // 分页大小，取值范围 1~20
+	pageSize         int
 	pageSizeFlag     bool
-	pageToken        string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+	pageToken        string
 	pageTokenFlag    bool
 }
 
@@ -6375,13 +6374,13 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Build() *OverviewAppli
 }
 
 type OverviewApplicationAppUsagePathReqBodyBuilder struct {
-	date             string // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
+	date             string
 	dateFlag         bool
-	cycleType        int // 活跃周期的统计类型
+	cycleType        int
 	cycleTypeFlag    bool
-	departmentId     string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	departmentId     string
 	departmentIdFlag bool
-	ability          string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
+	ability          string
 	abilityFlag      bool
 }
 
@@ -6894,11 +6893,11 @@ func (builder *PatchApplicationContactsRangeReqBodyBuilder) Build() *PatchApplic
 }
 
 type PatchApplicationContactsRangePathReqBodyBuilder struct {
-	contactsRangeType     string // 更新范围方式
+	contactsRangeType     string
 	contactsRangeTypeFlag bool
-	addVisibleList        *AppContactsRangeIdList // 可见范围新增列表
+	addVisibleList        *AppContactsRangeIdList
 	addVisibleListFlag    bool
-	delVisibleList        *AppContactsRangeIdList // 删除可用名单
+	delVisibleList        *AppContactsRangeIdList
 	delVisibleListFlag    bool
 }
 
@@ -7256,11 +7255,11 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) Build() *
 }
 
 type CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder struct {
-	userIds           []string // 用户ID列表
+	userIds           []string
 	userIdsFlag       bool
-	departmentIds     []string // 部门ID列表
+	departmentIds     []string
 	departmentIdsFlag bool
-	groupIds          []string // 用户组ID列表
+	groupIds          []string
 	groupIdsFlag      bool
 }
 
@@ -7474,15 +7473,15 @@ func (builder *PatchApplicationVisibilityReqBodyBuilder) Build() *PatchApplicati
 }
 
 type PatchApplicationVisibilityPathReqBodyBuilder struct {
-	addVisibleList       *AppVisibilityIdList // 添加可用人员名单
+	addVisibleList       *AppVisibilityIdList
 	addVisibleListFlag   bool
-	delVisibleList       *AppVisibilityIdList // 删除可用人员名单
+	delVisibleList       *AppVisibilityIdList
 	delVisibleListFlag   bool
-	addInvisibleList     *AppVisibilityIdList // 添加禁用人员名单
+	addInvisibleList     *AppVisibilityIdList
 	addInvisibleListFlag bool
-	delInvisibleList     *AppVisibilityIdList // 删除禁用人员名单
+	delInvisibleList     *AppVisibilityIdList
 	delInvisibleListFlag bool
-	isVisibleToAll       bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	isVisibleToAll       bool
 	isVisibleToAllFlag   bool
 }
 

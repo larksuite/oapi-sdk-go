@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -31,7 +32,7 @@ func main() {
 		SheetId("giDk9k").
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.SpreadsheetSheet.Get(context.Background(), req)
+	resp, err := client.Sheets.V3.SpreadsheetSheet.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

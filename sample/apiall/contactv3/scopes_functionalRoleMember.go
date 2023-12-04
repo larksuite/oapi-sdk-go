@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,13 +31,14 @@ func main() {
 		RoleId("7vrj3vk70xk7v5r").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Body(larkcontact.NewScopesFunctionalRoleMemberReqBodyBuilder().
 			Members([]string{}).
 			Departments([]string{}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.FunctionalRoleMember.Scopes(context.Background(), req)
+	resp, err := client.Contact.V3.FunctionalRoleMember.Scopes(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -30,12 +31,13 @@ func main() {
 		FileToken("doccnGp4UK1UskrOEJwBXd3****").
 		CommentId("6916106822734578184").
 		FileType("doc").
+
 		Body(larkdrive.NewPatchFileCommentReqBodyBuilder().
 			IsSolved(true).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Drive.FileComment.Patch(context.Background(), req)
+	resp, err := client.Drive.V1.FileComment.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

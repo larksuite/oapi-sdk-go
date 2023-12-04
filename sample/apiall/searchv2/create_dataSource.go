@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -44,7 +45,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Search.DataSource.Create(context.Background(), req)
+	resp, err := client.Search.V2.DataSource.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

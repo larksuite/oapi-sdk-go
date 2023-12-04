@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -29,13 +30,14 @@ func main() {
 	req := larkcalendar.NewCreateCalendarAclReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		UserIdType("user_id").
+
 		CalendarAcl(larkcalendar.NewCalendarAclBuilder().
 			Role("unknown").
 			Scope(larkcalendar.NewAclScopeBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Calendar.CalendarAcl.Create(context.Background(), req)
+	resp, err := client.Calendar.V4.CalendarAcl.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

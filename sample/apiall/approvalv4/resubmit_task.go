@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewResubmitTaskReqBuilder().
 		UserIdType("user_id").
+
 		TaskResubmit(larkapproval.NewTaskResubmitBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			InstanceCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
@@ -38,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Approval.Task.Resubmit(context.Background(), req)
+	resp, err := client.Approval.V4.Task.Resubmit(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -30,7 +31,7 @@ func main() {
 		ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 		Build()
 	// 发起请求
-	resp, err := client.Approval.Approval.Subscribe(context.Background(), req)
+	resp, err := client.Approval.V4.Approval.Subscribe(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -14,10 +14,9 @@
 package larkpersonal_settings
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -719,7 +718,7 @@ func (builder *BatchCloseSystemStatusReqBodyBuilder) Build() *BatchCloseSystemSt
 }
 
 type BatchCloseSystemStatusPathReqBodyBuilder struct {
-	userList     []string // 成员列表
+	userList     []string
 	userListFlag bool
 }
 
@@ -841,7 +840,7 @@ func (builder *BatchOpenSystemStatusReqBodyBuilder) Build() *BatchOpenSystemStat
 }
 
 type BatchOpenSystemStatusPathReqBodyBuilder struct {
-	userList     []*SystemStatusUserOpenParam // 开启列表
+	userList     []*SystemStatusUserOpenParam
 	userListFlag bool
 }
 
@@ -1130,9 +1129,9 @@ func (builder *PatchSystemStatusReqBodyBuilder) Build() *PatchSystemStatusReqBod
 }
 
 type PatchSystemStatusPathReqBodyBuilder struct {
-	systemStatus     *SystemStatus // 系统状态
+	systemStatus     *SystemStatus
 	systemStatusFlag bool
-	updateFields     []string // 需要更新的字段
+	updateFields     []string
 	updateFieldsFlag bool
 }
 

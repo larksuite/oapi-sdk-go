@@ -264,7 +264,7 @@ func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 }
 
 type QuerySessionPathReqBodyBuilder struct {
-	userIds     []string // 用户 ID
+	userIds     []string
 	userIdsFlag bool
 }
 

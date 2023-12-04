@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -30,7 +31,7 @@ func main() {
 		Id("150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150100").
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.File.Get(context.Background(), req)
+	resp, err := client.Corehr.V1.File.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

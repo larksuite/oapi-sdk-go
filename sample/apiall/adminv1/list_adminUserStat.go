@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
@@ -37,7 +38,7 @@ func main() {
 		PageToken("2").
 		Build()
 	// 发起请求
-	resp, err := client.Admin.AdminUserStat.List(context.Background(), req)
+	resp, err := client.Admin.V1.AdminUserStat.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

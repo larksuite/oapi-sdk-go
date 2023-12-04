@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -28,12 +29,13 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewQuerySecurityGroupReqBuilder().
 		DepartmentIdType("people_corehr_department_id").
+
 		Body(larkcorehr.NewQuerySecurityGroupReqBodyBuilder().
 			ItemList([]*larkcorehr.BpRoleOrganization{larkcorehr.NewBpRoleOrganizationBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.SecurityGroup.Query(context.Background(), req)
+	resp, err := client.Corehr.V1.SecurityGroup.Query(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

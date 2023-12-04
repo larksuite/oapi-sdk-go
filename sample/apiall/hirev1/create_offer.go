@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkhire.NewCreateOfferReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		OfferInfo(larkhire.NewOfferInfoBuilder().
 			ApplicationId("7013552389293279532").
 			SchemaId("7013318077945596204").
@@ -39,7 +41,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Hire.Offer.Create(context.Background(), req)
+	resp, err := client.Hire.V1.Offer.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

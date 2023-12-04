@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
@@ -30,6 +31,7 @@ func main() {
 		BadgeId("m_DjMzaK").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Grant(larkadmin.NewGrantBuilder().
 			Name("激励勋章的授予名单").
 			GrantType(0).
@@ -42,7 +44,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Admin.BadgeGrant.Create(context.Background(), req)
+	resp, err := client.Admin.V1.BadgeGrant.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

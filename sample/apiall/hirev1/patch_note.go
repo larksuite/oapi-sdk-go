@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -29,12 +30,13 @@ func main() {
 	req := larkhire.NewPatchNoteReqBuilder().
 		NoteId("6960663240925956401").
 		UserIdType("open_id").
+
 		Body(larkhire.NewPatchNoteReqBodyBuilder().
 			Content("111").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Hire.Note.Patch(context.Background(), req)
+	resp, err := client.Hire.V1.Note.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

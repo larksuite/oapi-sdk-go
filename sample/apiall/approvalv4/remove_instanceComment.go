@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -32,7 +33,7 @@ func main() {
 		UserId("ou_806a18fb5bdf525e38ba219733bdbd73").
 		Build()
 	// 发起请求
-	resp, err := client.Approval.InstanceComment.Remove(context.Background(), req)
+	resp, err := client.Approval.V4.InstanceComment.Remove(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

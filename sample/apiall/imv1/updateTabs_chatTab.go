@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -28,12 +29,13 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewUpdateTabsChatTabReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
+
 		Body(larkim.NewUpdateTabsChatTabReqBodyBuilder().
 			ChatTabs([]*larkim.ChatTab{larkim.NewChatTabBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Im.ChatTab.UpdateTabs(context.Background(), req)
+	resp, err := client.Im.V1.ChatTab.UpdateTabs(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -14,10 +14,9 @@
 package larkapproval
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -10237,7 +10236,7 @@ func (builder *CheckExternalInstanceReqBodyBuilder) Build() *CheckExternalInstan
 }
 
 type CheckExternalInstancePathReqBodyBuilder struct {
-	instances     []*ExteranlInstanceCheck // 校验的实例信息
+	instances     []*ExteranlInstanceCheck
 	instancesFlag bool
 }
 
@@ -10429,13 +10428,13 @@ func (builder *ListExternalTaskReqBodyBuilder) Build() *ListExternalTaskReqBody 
 }
 
 type ListExternalTaskPathReqBodyBuilder struct {
-	approvalCodes     []string // 审批定义 Code，用于指定只获取这些定义下的数据
+	approvalCodes     []string
 	approvalCodesFlag bool
-	instanceIds       []string // 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
+	instanceIds       []string
 	instanceIdsFlag   bool
-	userIds           []string // 审批人 user_id，用于指定只获取这些用户的数据
+	userIds           []string
 	userIdsFlag       bool
-	status            string // 审批任务状态，用于指定获取该状态下的数据
+	status            string
 	statusFlag        bool
 }
 
@@ -10705,21 +10704,21 @@ func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 }
 
 type AddSignInstancePathReqBodyBuilder struct {
-	userId             string // 操作用户id
+	userId             string
 	userIdFlag         bool
-	approvalCode       string // 审批定义code
+	approvalCode       string
 	approvalCodeFlag   bool
-	instanceCode       string // 审批实例code
+	instanceCode       string
 	instanceCodeFlag   bool
-	taskId             string // 任务id
+	taskId             string
 	taskIdFlag         bool
-	comment            string // 意见
+	comment            string
 	commentFlag        bool
-	addSignUserIds     []string // 被加签人id
+	addSignUserIds     []string
 	addSignUserIdsFlag bool
-	addSignType        int // 1/2/3分别代表前加签/后加签/并加签
+	addSignType        int
 	addSignTypeFlag    bool
-	approvalMethod     int // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
+	approvalMethod     int
 	approvalMethodFlag bool
 }
 
@@ -11317,19 +11316,19 @@ func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
 }
 
 type PreviewInstancePathReqBodyBuilder struct {
-	userId           string // 用户id
+	userId           string
 	userIdFlag       bool
-	approvalCode     string // 审批定义code
+	approvalCode     string
 	approvalCodeFlag bool
-	departmentId     string // 部门id
+	departmentId     string
 	departmentIdFlag bool
-	form             string // 表单数据
+	form             string
 	formFlag         bool
-	instanceCode     string // 审批实例code
+	instanceCode     string
 	instanceCodeFlag bool
-	locale           string // 语言类型
+	locale           string
 	localeFlag       bool
-	taskId           string // 任务id
+	taskId           string
 	taskIdFlag       bool
 }
 

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -30,7 +31,7 @@ func main() {
 		PublicMailboxId("xxxxxx 或 xxx@xx.xxx").
 		Build()
 	// 发起请求
-	resp, err := client.Mail.PublicMailboxAlias.List(context.Background(), req)
+	resp, err := client.Mail.V1.PublicMailboxAlias.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

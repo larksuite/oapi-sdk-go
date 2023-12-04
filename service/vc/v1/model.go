@@ -14,14 +14,11 @@
 package larkvc
 
 import (
-	"io"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -35,9 +32,21 @@ const (
 )
 
 const (
+	MeetingStatusTypeOngoing = 1 // 进行中
+	MeetingStatusTypePast    = 2 // 已结束
+
+)
+
+const (
 	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+)
+
+const (
+	MeetingStatusTypeParticipantListExportOngoing = 1 // 进行中
+	MeetingStatusTypeParticipantListExportPast    = 2 // 已结束
+
 )
 
 const (
@@ -89,9 +98,21 @@ const (
 )
 
 const (
+	MeetingStatusTypeGetMeetingListOngoing = 1 // 进行中
+	MeetingStatusTypeGetMeetingListPast    = 2 // 已结束
+
+)
+
+const (
 	UserIdTypeGetMeetingListUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeGetMeetingListUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeGetMeetingListOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	MeetingStatusTypeGetParticipantListOngoing = 1 // 进行中
+	MeetingStatusTypeGetParticipantListPast    = 2 // 已结束
+
 )
 
 const (
@@ -3260,6 +3281,7 @@ type MyAiRoomOpenapiResponse struct {
 	ResponseType    *int    `json:"response_type,omitempty"`     // openapi 返回的意图类型，不同 tool 的不同值都不一样
 	ScheduleEventId *string `json:"schedule_event_id,omitempty"` // 日程 id
 	OtherMsg        *string `json:"other_msg,omitempty"`         // 其他信息
+	OapiMsg         *string `json:"oapi_msg,omitempty"`          // oapi 传递的消息，用于缓存
 }
 
 type MyAiRoomOpenapiResponseBuilder struct {
@@ -3269,6 +3291,8 @@ type MyAiRoomOpenapiResponseBuilder struct {
 	scheduleEventIdFlag bool
 	otherMsg            string // 其他信息
 	otherMsgFlag        bool
+	oapiMsg             string // oapi 传递的消息，用于缓存
+	oapiMsgFlag         bool
 }
 
 func NewMyAiRoomOpenapiResponseBuilder() *MyAiRoomOpenapiResponseBuilder {
@@ -3303,6 +3327,15 @@ func (builder *MyAiRoomOpenapiResponseBuilder) OtherMsg(otherMsg string) *MyAiRo
 	return builder
 }
 
+// oapi 传递的消息，用于缓存
+//
+// 示例值：{}
+func (builder *MyAiRoomOpenapiResponseBuilder) OapiMsg(oapiMsg string) *MyAiRoomOpenapiResponseBuilder {
+	builder.oapiMsg = oapiMsg
+	builder.oapiMsgFlag = true
+	return builder
+}
+
 func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse {
 	req := &MyAiRoomOpenapiResponse{}
 	if builder.responseTypeFlag {
@@ -3315,6 +3348,10 @@ func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse 
 	}
 	if builder.otherMsgFlag {
 		req.OtherMsg = &builder.otherMsg
+
+	}
+	if builder.oapiMsgFlag {
+		req.OapiMsg = &builder.oapiMsg
 
 	}
 	return req
@@ -8219,16 +8256,18 @@ func (resp *GetExportResp) Success() bool {
 }
 
 type MeetingListExportReqBodyBuilder struct {
-	startTime     string // 查询开始时间（unix时间，单位sec）
-	startTimeFlag bool
-	endTime       string // 查询结束时间（unix时间，单位sec）
-	endTimeFlag   bool
-	meetingNo     string // 按9位会议号筛选（最多一个筛选条件）
-	meetingNoFlag bool
-	userId        string // 按参会Lark用户筛选（最多一个筛选条件）
-	userIdFlag    bool
-	roomId        string // 按参会Rooms筛选（最多一个筛选条件）
-	roomIdFlag    bool
+	startTime         string // 查询开始时间（unix时间，单位sec）
+	startTimeFlag     bool
+	endTime           string // 查询结束时间（unix时间，单位sec）
+	endTimeFlag       bool
+	meetingStatus     int // 会议状态（不传默认为已结束会议）
+	meetingStatusFlag bool
+	meetingNo         string // 按9位会议号筛选（最多一个筛选条件）
+	meetingNoFlag     bool
+	userId            string // 按参会Lark用户筛选（最多一个筛选条件）
+	userIdFlag        bool
+	roomId            string // 按参会Rooms筛选（最多一个筛选条件）
+	roomIdFlag        bool
 }
 
 func NewMeetingListExportReqBodyBuilder() *MeetingListExportReqBodyBuilder {
@@ -8251,6 +8290,15 @@ func (builder *MeetingListExportReqBodyBuilder) StartTime(startTime string) *Mee
 func (builder *MeetingListExportReqBodyBuilder) EndTime(endTime string) *MeetingListExportReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
+	return builder
+}
+
+// 会议状态（不传默认为已结束会议）
+//
+//示例值：2
+func (builder *MeetingListExportReqBodyBuilder) MeetingStatus(meetingStatus int) *MeetingListExportReqBodyBuilder {
+	builder.meetingStatus = meetingStatus
+	builder.meetingStatusFlag = true
 	return builder
 }
 
@@ -8289,6 +8337,9 @@ func (builder *MeetingListExportReqBodyBuilder) Build() *MeetingListExportReqBod
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
 	}
+	if builder.meetingStatusFlag {
+		req.MeetingStatus = &builder.meetingStatus
+	}
 	if builder.meetingNoFlag {
 		req.MeetingNo = &builder.meetingNo
 	}
@@ -8302,16 +8353,18 @@ func (builder *MeetingListExportReqBodyBuilder) Build() *MeetingListExportReqBod
 }
 
 type MeetingListExportPathReqBodyBuilder struct {
-	startTime     string // 查询开始时间（unix时间，单位sec）
-	startTimeFlag bool
-	endTime       string // 查询结束时间（unix时间，单位sec）
-	endTimeFlag   bool
-	meetingNo     string // 按9位会议号筛选（最多一个筛选条件）
-	meetingNoFlag bool
-	userId        string // 按参会Lark用户筛选（最多一个筛选条件）
-	userIdFlag    bool
-	roomId        string // 按参会Rooms筛选（最多一个筛选条件）
-	roomIdFlag    bool
+	startTime         string
+	startTimeFlag     bool
+	endTime           string
+	endTimeFlag       bool
+	meetingStatus     int
+	meetingStatusFlag bool
+	meetingNo         string
+	meetingNoFlag     bool
+	userId            string
+	userIdFlag        bool
+	roomId            string
+	roomIdFlag        bool
 }
 
 func NewMeetingListExportPathReqBodyBuilder() *MeetingListExportPathReqBodyBuilder {
@@ -8334,6 +8387,15 @@ func (builder *MeetingListExportPathReqBodyBuilder) StartTime(startTime string) 
 func (builder *MeetingListExportPathReqBodyBuilder) EndTime(endTime string) *MeetingListExportPathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
+	return builder
+}
+
+// 会议状态（不传默认为已结束会议）
+//
+// 示例值：2
+func (builder *MeetingListExportPathReqBodyBuilder) MeetingStatus(meetingStatus int) *MeetingListExportPathReqBodyBuilder {
+	builder.meetingStatus = meetingStatus
+	builder.meetingStatusFlag = true
 	return builder
 }
 
@@ -8371,6 +8433,9 @@ func (builder *MeetingListExportPathReqBodyBuilder) Build() (*MeetingListExportR
 	}
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
+	}
+	if builder.meetingStatusFlag {
+		req.MeetingStatus = &builder.meetingStatus
 	}
 	if builder.meetingNoFlag {
 		req.MeetingNo = &builder.meetingNo
@@ -8421,11 +8486,12 @@ func (builder *MeetingListExportReqBuilder) Build() *MeetingListExportReq {
 }
 
 type MeetingListExportReqBody struct {
-	StartTime *string `json:"start_time,omitempty"` // 查询开始时间（unix时间，单位sec）
-	EndTime   *string `json:"end_time,omitempty"`   // 查询结束时间（unix时间，单位sec）
-	MeetingNo *string `json:"meeting_no,omitempty"` // 按9位会议号筛选（最多一个筛选条件）
-	UserId    *string `json:"user_id,omitempty"`    // 按参会Lark用户筛选（最多一个筛选条件）
-	RoomId    *string `json:"room_id,omitempty"`    // 按参会Rooms筛选（最多一个筛选条件）
+	StartTime     *string `json:"start_time,omitempty"`     // 查询开始时间（unix时间，单位sec）
+	EndTime       *string `json:"end_time,omitempty"`       // 查询结束时间（unix时间，单位sec）
+	MeetingStatus *int    `json:"meeting_status,omitempty"` // 会议状态（不传默认为已结束会议）
+	MeetingNo     *string `json:"meeting_no,omitempty"`     // 按9位会议号筛选（最多一个筛选条件）
+	UserId        *string `json:"user_id,omitempty"`        // 按参会Lark用户筛选（最多一个筛选条件）
+	RoomId        *string `json:"room_id,omitempty"`        // 按参会Rooms筛选（最多一个筛选条件）
 }
 
 type MeetingListExportReq struct {
@@ -8452,6 +8518,8 @@ type ParticipantListExportReqBodyBuilder struct {
 	meetingStartTimeFlag bool
 	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
 	meetingEndTimeFlag   bool
+	meetingStatus        int // 会议状态（不传默认为已结束会议）
+	meetingStatusFlag    bool
 	meetingNo            string // 9位会议号
 	meetingNoFlag        bool
 	userId               string // 按参会Lark用户筛选（最多一个筛选条件）
@@ -8480,6 +8548,15 @@ func (builder *ParticipantListExportReqBodyBuilder) MeetingStartTime(meetingStar
 func (builder *ParticipantListExportReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantListExportReqBodyBuilder {
 	builder.meetingEndTime = meetingEndTime
 	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 会议状态（不传默认为已结束会议）
+//
+//示例值：2
+func (builder *ParticipantListExportReqBodyBuilder) MeetingStatus(meetingStatus int) *ParticipantListExportReqBodyBuilder {
+	builder.meetingStatus = meetingStatus
+	builder.meetingStatusFlag = true
 	return builder
 }
 
@@ -8518,6 +8595,9 @@ func (builder *ParticipantListExportReqBodyBuilder) Build() *ParticipantListExpo
 	if builder.meetingEndTimeFlag {
 		req.MeetingEndTime = &builder.meetingEndTime
 	}
+	if builder.meetingStatusFlag {
+		req.MeetingStatus = &builder.meetingStatus
+	}
 	if builder.meetingNoFlag {
 		req.MeetingNo = &builder.meetingNo
 	}
@@ -8531,15 +8611,17 @@ func (builder *ParticipantListExportReqBodyBuilder) Build() *ParticipantListExpo
 }
 
 type ParticipantListExportPathReqBodyBuilder struct {
-	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTime     string
 	meetingStartTimeFlag bool
-	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTime       string
 	meetingEndTimeFlag   bool
-	meetingNo            string // 9位会议号
+	meetingStatus        int
+	meetingStatusFlag    bool
+	meetingNo            string
 	meetingNoFlag        bool
-	userId               string // 按参会Lark用户筛选（最多一个筛选条件）
+	userId               string
 	userIdFlag           bool
-	roomId               string // 按参会Rooms筛选（最多一个筛选条件）
+	roomId               string
 	roomIdFlag           bool
 }
 
@@ -8563,6 +8645,15 @@ func (builder *ParticipantListExportPathReqBodyBuilder) MeetingStartTime(meeting
 func (builder *ParticipantListExportPathReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantListExportPathReqBodyBuilder {
 	builder.meetingEndTime = meetingEndTime
 	builder.meetingEndTimeFlag = true
+	return builder
+}
+
+// 会议状态（不传默认为已结束会议）
+//
+// 示例值：2
+func (builder *ParticipantListExportPathReqBodyBuilder) MeetingStatus(meetingStatus int) *ParticipantListExportPathReqBodyBuilder {
+	builder.meetingStatus = meetingStatus
+	builder.meetingStatusFlag = true
 	return builder
 }
 
@@ -8600,6 +8691,9 @@ func (builder *ParticipantListExportPathReqBodyBuilder) Build() (*ParticipantLis
 	}
 	if builder.meetingEndTimeFlag {
 		req.MeetingEndTime = &builder.meetingEndTime
+	}
+	if builder.meetingStatusFlag {
+		req.MeetingStatus = &builder.meetingStatus
 	}
 	if builder.meetingNoFlag {
 		req.MeetingNo = &builder.meetingNo
@@ -8652,6 +8746,7 @@ func (builder *ParticipantListExportReqBuilder) Build() *ParticipantListExportRe
 type ParticipantListExportReqBody struct {
 	MeetingStartTime *string `json:"meeting_start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
 	MeetingEndTime   *string `json:"meeting_end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
+	MeetingStatus    *int    `json:"meeting_status,omitempty"`     // 会议状态（不传默认为已结束会议）
 	MeetingNo        *string `json:"meeting_no,omitempty"`         // 9位会议号
 	UserId           *string `json:"user_id,omitempty"`            // 按参会Lark用户筛选（最多一个筛选条件）
 	RoomId           *string `json:"room_id,omitempty"`            // 按参会Rooms筛选（最多一个筛选条件）
@@ -8774,17 +8869,17 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) Build() *ParticipantQ
 }
 
 type ParticipantQualityListExportPathReqBodyBuilder struct {
-	meetingStartTime     string // 会议开始时间（unix时间，单位sec）
+	meetingStartTime     string
 	meetingStartTimeFlag bool
-	meetingEndTime       string // 会议结束时间（unix时间，单位sec）
+	meetingEndTime       string
 	meetingEndTimeFlag   bool
-	meetingNo            string // 9位会议号
+	meetingNo            string
 	meetingNoFlag        bool
-	joinTime             string // 参会人入会时间（unix时间，单位sec）
+	joinTime             string
 	joinTimeFlag         bool
-	userId               string // 参会人为Lark用户时填入，room_id和user_id必须只填一个
+	userId               string
 	userIdFlag           bool
-	roomId               string // 参会人为Rooms时填入，room_id和user_id必须只填一个
+	roomId               string
 	roomIdFlag           bool
 }
 
@@ -9032,17 +9127,17 @@ func (builder *ResourceReservationListExportReqBodyBuilder) Build() *ResourceRes
 }
 
 type ResourceReservationListExportPathReqBodyBuilder struct {
-	roomLevelId     string // 会议室层级id
+	roomLevelId     string
 	roomLevelIdFlag bool
-	needTopic       bool // 是否展示会议主题
+	needTopic       bool
 	needTopicFlag   bool
-	startTime       string // 查询开始时间（unix时间，单位sec）
+	startTime       string
 	startTimeFlag   bool
-	endTime         string // 查询结束时间（unix时间，单位sec）
+	endTime         string
 	endTimeFlag     bool
-	roomIds         []string // 待筛选的会议室id列表
+	roomIds         []string
 	roomIdsFlag     bool
-	isExclude       bool // 若为true表示导出room_ids范围外的会议室，默认为false
+	isExclude       bool
 	isExcludeFlag   bool
 }
 
@@ -9323,7 +9418,7 @@ func (builder *InviteMeetingReqBodyBuilder) Build() *InviteMeetingReqBody {
 }
 
 type InviteMeetingPathReqBodyBuilder struct {
-	invitees     []*MeetingUser // 被邀请的用户列表
+	invitees     []*MeetingUser
 	inviteesFlag bool
 }
 
@@ -9445,7 +9540,7 @@ func (builder *KickoutMeetingReqBodyBuilder) Build() *KickoutMeetingReqBody {
 }
 
 type KickoutMeetingPathReqBodyBuilder struct {
-	kickoutUsers     []*MeetingUser // 需移除的用户列表
+	kickoutUsers     []*MeetingUser
 	kickoutUsersFlag bool
 }
 
@@ -9671,9 +9766,9 @@ func (builder *SetHostMeetingReqBodyBuilder) Build() *SetHostMeetingReqBody {
 }
 
 type SetHostMeetingPathReqBodyBuilder struct {
-	hostUser        *MeetingUser // 将要设置的主持人
+	hostUser        *MeetingUser
 	hostUserFlag    bool
-	oldHostUser     *MeetingUser // 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
+	oldHostUser     *MeetingUser
 	oldHostUserFlag bool
 }
 
@@ -9868,9 +9963,9 @@ func (builder *SetPermissionMeetingRecordingReqBodyBuilder) Build() *SetPermissi
 }
 
 type SetPermissionMeetingRecordingPathReqBodyBuilder struct {
-	permissionObjects     []*RecordingPermissionObject // 授权对象列表
+	permissionObjects     []*RecordingPermissionObject
 	permissionObjectsFlag bool
-	actionType            int // 授权或者取消授权，默认授权
+	actionType            int
 	actionTypeFlag        bool
 }
 
@@ -10000,7 +10095,7 @@ func (builder *StartMeetingRecordingReqBodyBuilder) Build() *StartMeetingRecordi
 }
 
 type StartMeetingRecordingPathReqBodyBuilder struct {
-	timezone     int // 录制文件时间显示使用的时区[-12,12]
+	timezone     int
 	timezoneFlag bool
 }
 
@@ -10157,6 +10252,14 @@ func (builder *GetMeetingListReqBuilder) EndTime(endTime string) *GetMeetingList
 	return builder
 }
 
+// 会议状态
+//
+// 示例值：2
+func (builder *GetMeetingListReqBuilder) MeetingStatus(meetingStatus int) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_status", fmt.Sprint(meetingStatus))
+	return builder
+}
+
 // 按9位会议号筛选（最多一个筛选条件）
 //
 // 示例值：123456789
@@ -10263,11 +10366,19 @@ func (builder *GetParticipantListReqBuilder) MeetingStartTime(meetingStartTime s
 	return builder
 }
 
-// 会议结束时间（unix时间，单位sec）
+// 会议结束时间（unix时间，单位sec；对于进行中会议则传0）
 //
 // 示例值：1655276858
 func (builder *GetParticipantListReqBuilder) MeetingEndTime(meetingEndTime string) *GetParticipantListReqBuilder {
 	builder.apiReq.QueryParams.Set("meeting_end_time", fmt.Sprint(meetingEndTime))
+	return builder
+}
+
+// 会议状态（不传默认为已结束会议）
+//
+// 示例值：2
+func (builder *GetParticipantListReqBuilder) MeetingStatus(meetingStatus int) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("meeting_status", fmt.Sprint(meetingStatus))
 	return builder
 }
 
@@ -10659,11 +10770,11 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 }
 
 type ApplyReservePathReqBodyBuilder struct {
-	endTime             string // 预约到期时间（unix时间，单位sec），多人会议必填
+	endTime             string
 	endTimeFlag         bool
-	ownerId             string // 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
+	ownerId             string
 	ownerIdFlag         bool
-	meetingSettings     *ReserveMeetingSetting // 会议设置
+	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
 }
 
@@ -10976,9 +11087,9 @@ func (builder *UpdateReserveReqBodyBuilder) Build() *UpdateReserveReqBody {
 }
 
 type UpdateReservePathReqBodyBuilder struct {
-	endTime             string // 预约到期时间（unix时间，单位sec）
+	endTime             string
 	endTimeFlag         bool
-	meetingSettings     *ReserveMeetingSetting // 会议设置
+	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
 }
 
@@ -11156,13 +11267,13 @@ func (builder *PatchReserveConfigReqBodyBuilder) Build() *PatchReserveConfigReqB
 }
 
 type PatchReserveConfigPathReqBodyBuilder struct {
-	scopeType              string // 1 代表层级，2 代表会议室
+	scopeType              string
 	scopeTypeFlag          bool
-	approvalConfig         *ApprovalConfig // 预定审批设置
+	approvalConfig         *ApprovalConfig
 	approvalConfigFlag     bool
-	timeConfig             *TimeConfig // 预定时间设置
+	timeConfig             *TimeConfig
 	timeConfigFlag         bool
-	reserveScopeConfig     *ReserveScopeConfig // 预定范围设置
+	reserveScopeConfig     *ReserveScopeConfig
 	reserveScopeConfigFlag bool
 }
 
@@ -11459,9 +11570,9 @@ func (builder *PatchReserveConfigAdminReqBodyBuilder) Build() *PatchReserveConfi
 }
 
 type PatchReserveConfigAdminPathReqBodyBuilder struct {
-	scopeType              int // 1代表层级，2代表会议室
+	scopeType              int
 	scopeTypeFlag          bool
-	reserveAdminConfig     *ReserveAdminConfig // 预定管理员或部门
+	reserveAdminConfig     *ReserveAdminConfig
 	reserveAdminConfigFlag bool
 }
 
@@ -11668,9 +11779,9 @@ func (builder *PatchReserveConfigDisableInformReqBodyBuilder) Build() *PatchRese
 }
 
 type PatchReserveConfigDisableInformPathReqBodyBuilder struct {
-	scopeType         int // 1表示会议室层级，2表示会议室
+	scopeType         int
 	scopeTypeFlag     bool
-	disableInform     *DisableInformConfig // 禁用通知配置
+	disableInform     *DisableInformConfig
 	disableInformFlag bool
 }
 
@@ -11877,9 +11988,9 @@ func (builder *PatchReserveConfigFormReqBodyBuilder) Build() *PatchReserveConfig
 }
 
 type PatchReserveConfigFormPathReqBodyBuilder struct {
-	scopeType             int // 1代表层级，2代表会议室
+	scopeType             int
 	scopeTypeFlag         bool
-	reserveFormConfig     *ReserveFormConfig // 预定表单设置
+	reserveFormConfig     *ReserveFormConfig
 	reserveFormConfigFlag bool
 }
 
@@ -12358,7 +12469,7 @@ func (builder *MgetRoomReqBodyBuilder) Build() *MgetRoomReqBody {
 }
 
 type MgetRoomPathReqBodyBuilder struct {
-	roomIds     []string // 会议室id列表
+	roomIds     []string
 	roomIdsFlag bool
 }
 
@@ -12600,17 +12711,17 @@ func (builder *SearchRoomReqBodyBuilder) Build() *SearchRoomReqBody {
 }
 
 type SearchRoomPathReqBodyBuilder struct {
-	customRoomIds       []string // 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
+	customRoomIds       []string
 	customRoomIdsFlag   bool
-	keyword             string // 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
+	keyword             string
 	keywordFlag         bool
-	roomLevelId         string // 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
+	roomLevelId         string
 	roomLevelIdFlag     bool
-	searchLevelName     bool // 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
+	searchLevelName     bool
 	searchLevelNameFlag bool
-	pageSize            int // 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
+	pageSize            int
 	pageSizeFlag        bool
-	pageToken           string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
+	pageToken           string
 	pageTokenFlag       bool
 }
 
@@ -12972,19 +13083,19 @@ func (builder *SetRoomConfigReqBodyBuilder) Build() *SetRoomConfigReqBody {
 }
 
 type SetRoomConfigPathReqBodyBuilder struct {
-	scope          int // 设置节点范围
+	scope          int
 	scopeFlag      bool
-	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryId      string
 	countryIdFlag  bool
-	districtId     string // 城市ID scope为3时需要此参数
+	districtId     string
 	districtIdFlag bool
-	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingId     string
 	buildingIdFlag bool
-	floorName      string // 楼层 scope为5时需要此参数
+	floorName      string
 	floorNameFlag  bool
-	roomId         string // 会议室ID scope为6时需要此参数
+	roomId         string
 	roomIdFlag     bool
-	roomConfig     *RoomConfig // 会议室设置
+	roomConfig     *RoomConfig
 	roomConfigFlag bool
 }
 
@@ -13254,19 +13365,19 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) Build() *SetChec
 }
 
 type SetCheckboardAccessCodeRoomConfigPathReqBodyBuilder struct {
-	scope          int // 设置节点范围
+	scope          int
 	scopeFlag      bool
-	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryId      string
 	countryIdFlag  bool
-	districtId     string // 城市ID scope为3时需要此参数
+	districtId     string
 	districtIdFlag bool
-	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingId     string
 	buildingIdFlag bool
-	floorName      string // 楼层 scope为5时需要此参数
+	floorName      string
 	floorNameFlag  bool
-	roomId         string // 会议室ID scope为6时需要此参数
+	roomId         string
 	roomIdFlag     bool
-	validDay       int // 有效天数
+	validDay       int
 	validDayFlag   bool
 }
 
@@ -13532,19 +13643,19 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) Build() *SetRoomAccess
 }
 
 type SetRoomAccessCodeRoomConfigPathReqBodyBuilder struct {
-	scope          int // 设置节点范围
+	scope          int
 	scopeFlag      bool
-	countryId      string // 国家/地区ID scope为2，3时需要此参数
+	countryId      string
 	countryIdFlag  bool
-	districtId     string // 城市ID scope为3时需要此参数
+	districtId     string
 	districtIdFlag bool
-	buildingId     string // 建筑ID scope为4，5时需要此参数
+	buildingId     string
 	buildingIdFlag bool
-	floorName      string // 楼层 scope为5时需要此参数
+	floorName      string
 	floorNameFlag  bool
-	roomId         string // 会议室ID scope为6时需要此参数
+	roomId         string
 	roomIdFlag     bool
-	validDay       int // 有效天数
+	validDay       int
 	validDayFlag   bool
 }
 
@@ -13786,9 +13897,9 @@ func (builder *DelRoomLevelReqBodyBuilder) Build() *DelRoomLevelReqBody {
 }
 
 type DelRoomLevelPathReqBodyBuilder struct {
-	roomLevelId     string // 层级ID
+	roomLevelId     string
 	roomLevelIdFlag bool
-	deleteChild     bool // 是否删除所有子层级
+	deleteChild     bool
 	deleteChildFlag bool
 }
 
@@ -14020,7 +14131,7 @@ func (builder *MgetRoomLevelReqBodyBuilder) Build() *MgetRoomLevelReqBody {
 }
 
 type MgetRoomLevelPathReqBodyBuilder struct {
-	levelIds     []string // 层级ID列表
+	levelIds     []string
 	levelIdsFlag bool
 }
 

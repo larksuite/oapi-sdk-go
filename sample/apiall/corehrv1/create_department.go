@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -30,6 +31,7 @@ func main() {
 		ClientToken("12454646").
 		UserIdType("people_corehr_id").
 		DepartmentIdType("people_corehr_department_id").
+
 		DepartmentCreate(larkcorehr.NewDepartmentCreateBuilder().
 			SubType(larkcorehr.NewEnumBuilder().Build()).
 			Manager("6893013238632416776").
@@ -41,7 +43,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.Department.Create(context.Background(), req)
+	resp, err := client.Corehr.V1.Department.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

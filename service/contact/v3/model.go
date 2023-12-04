@@ -14,10 +14,9 @@
 package larkcontact
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -6481,7 +6480,7 @@ func (builder *SearchDepartmentReqBodyBuilder) Build() *SearchDepartmentReqBody 
 }
 
 type SearchDepartmentPathReqBodyBuilder struct {
-	query     string // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）
+	query     string
 	queryFlag bool
 }
 
@@ -6630,7 +6629,7 @@ func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) Build() *UnbindDepa
 }
 
 type UnbindDepartmentChatDepartmentPathReqBodyBuilder struct {
-	departmentId     string // 部门ID
+	departmentId     string
 	departmentIdFlag bool
 }
 
@@ -6810,7 +6809,7 @@ func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) Build() *UpdateDepart
 }
 
 type UpdateDepartmentIdDepartmentPathReqBodyBuilder struct {
-	newDepartmentId     string // 本部门的自定义部门新ID
+	newDepartmentId     string
 	newDepartmentIdFlag bool
 }
 
@@ -7135,7 +7134,7 @@ func (builder *CreateFunctionalRoleReqBodyBuilder) Build() *CreateFunctionalRole
 }
 
 type CreateFunctionalRolePathReqBodyBuilder struct {
-	roleName     string // 角色名称，在单租户下唯一
+	roleName     string
 	roleNameFlag bool
 }
 
@@ -7280,7 +7279,7 @@ func (builder *UpdateFunctionalRoleReqBodyBuilder) Build() *UpdateFunctionalRole
 }
 
 type UpdateFunctionalRolePathReqBodyBuilder struct {
-	roleName     string // 修改的角色名称，在单租户下唯一
+	roleName     string
 	roleNameFlag bool
 }
 
@@ -7388,7 +7387,7 @@ func (builder *BatchCreateFunctionalRoleMemberReqBodyBuilder) Build() *BatchCrea
 }
 
 type BatchCreateFunctionalRoleMemberPathReqBodyBuilder struct {
-	members     []string // 角色添加的角色成员列表（一批用户的UserID列表)
+	members     []string
 	membersFlag bool
 }
 
@@ -7510,7 +7509,7 @@ func (builder *BatchDeleteFunctionalRoleMemberReqBodyBuilder) Build() *BatchDele
 }
 
 type BatchDeleteFunctionalRoleMemberPathReqBodyBuilder struct {
-	members     []string // 角色删除的角色成员列表（一批用户的UserID列表)
+	members     []string
 	membersFlag bool
 }
 
@@ -7808,9 +7807,9 @@ func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Build() *ScopesFunction
 }
 
 type ScopesFunctionalRoleMemberPathReqBodyBuilder struct {
-	members         []string // 角色修改的角色成员列表（一批用户的UserID列表)
+	members         []string
 	membersFlag     bool
-	departments     []string // 角色内用户的管理范围
+	departments     []string
 	departmentsFlag bool
 }
 
@@ -8369,11 +8368,11 @@ func (builder *AddGroupMemberReqBodyBuilder) Build() *AddGroupMemberReqBody {
 }
 
 type AddGroupMemberPathReqBodyBuilder struct {
-	memberType       string // 用户组成员的类型，取值为 user
+	memberType       string
 	memberTypeFlag   bool
-	memberIdType     string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
+	memberIdType     string
 	memberIdTypeFlag bool
-	memberId         string // 添加的成员ID
+	memberId         string
 	memberIdFlag     bool
 }
 
@@ -8507,7 +8506,7 @@ func (builder *BatchAddGroupMemberReqBodyBuilder) Build() *BatchAddGroupMemberRe
 }
 
 type BatchAddGroupMemberPathReqBodyBuilder struct {
-	members     []*Memberlist // 待添加成员
+	members     []*Memberlist
 	membersFlag bool
 }
 
@@ -8620,7 +8619,7 @@ func (builder *BatchRemoveGroupMemberReqBodyBuilder) Build() *BatchRemoveGroupMe
 }
 
 type BatchRemoveGroupMemberPathReqBodyBuilder struct {
-	members     []*Memberlist // 待移除成员
+	members     []*Memberlist
 	membersFlag bool
 }
 
@@ -8756,11 +8755,11 @@ func (builder *RemoveGroupMemberReqBodyBuilder) Build() *RemoveGroupMemberReqBod
 }
 
 type RemoveGroupMemberPathReqBodyBuilder struct {
-	memberType       string // 用户组成员的类型，取值为 user
+	memberType       string
 	memberTypeFlag   bool
-	memberId         string // 操作移除的用户组成员ID
+	memberId         string
 	memberIdFlag     bool
-	memberIdType     string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
+	memberIdType     string
 	memberIdTypeFlag bool
 }
 
@@ -9713,11 +9712,11 @@ func (builder *BindDepartmentUnitReqBodyBuilder) Build() *BindDepartmentUnitReqB
 }
 
 type BindDepartmentUnitPathReqBodyBuilder struct {
-	unitId               string // 单位ID
+	unitId               string
 	unitIdFlag           bool
-	departmentId         string // 单位关联的部门ID
+	departmentId         string
 	departmentIdFlag     bool
-	departmentIdType     string // 此次调用中使用的部门ID的类型
+	departmentIdType     string
 	departmentIdTypeFlag bool
 }
 
@@ -9870,11 +9869,11 @@ func (builder *CreateUnitReqBodyBuilder) Build() *CreateUnitReqBody {
 }
 
 type CreateUnitPathReqBodyBuilder struct {
-	unitId       string // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
+	unitId       string
 	unitIdFlag   bool
-	name         string // 单位的名字，长度范围为1-100个字符
+	name         string
 	nameFlag     bool
-	unitType     string // 单位类型，长度范围为1-100个字符，创建后不可修改
+	unitType     string
 	unitTypeFlag bool
 }
 
@@ -10219,7 +10218,7 @@ func (builder *PatchUnitReqBodyBuilder) Build() *PatchUnitReqBody {
 }
 
 type PatchUnitPathReqBodyBuilder struct {
-	name     string // 单位的名字
+	name     string
 	nameFlag bool
 }
 
@@ -10355,11 +10354,11 @@ func (builder *UnbindDepartmentUnitReqBodyBuilder) Build() *UnbindDepartmentUnit
 }
 
 type UnbindDepartmentUnitPathReqBodyBuilder struct {
-	unitId               string // 单位ID
+	unitId               string
 	unitIdFlag           bool
-	departmentId         string // 预解除关联的部门ID
+	departmentId         string
 	departmentIdFlag     bool
-	departmentIdType     string // 此次调用中使用的部门ID的类型
+	departmentIdType     string
 	departmentIdTypeFlag bool
 }
 
@@ -10576,11 +10575,11 @@ func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 }
 
 type BatchGetIdUserPathReqBodyBuilder struct {
-	emails              []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
+	emails              []string
 	emailsFlag          bool
-	mobiles             []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	mobiles             []string
 	mobilesFlag         bool
-	includeResigned     bool // 查询结果包含离职员工，可查询离职用户的ID
+	includeResigned     bool
 	includeResignedFlag bool
 }
 
@@ -10888,21 +10887,21 @@ func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 }
 
 type DeleteUserPathReqBodyBuilder struct {
-	departmentChatAcceptorUserId     string // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人
+	departmentChatAcceptorUserId     string
 	departmentChatAcceptorUserIdFlag bool
-	externalChatAcceptorUserId       string // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群
+	externalChatAcceptorUserId       string
 	externalChatAcceptorUserIdFlag   bool
-	docsAcceptorUserId               string // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
+	docsAcceptorUserId               string
 	docsAcceptorUserIdFlag           bool
-	calendarAcceptorUserId           string // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
+	calendarAcceptorUserId           string
 	calendarAcceptorUserIdFlag       bool
-	applicationAcceptorUserId        string // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
+	applicationAcceptorUserId        string
 	applicationAcceptorUserIdFlag    bool
-	minutesAcceptorUserId            string // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
+	minutesAcceptorUserId            string
 	minutesAcceptorUserIdFlag        bool
-	surveyAcceptorUserId             string // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
+	surveyAcceptorUserId             string
 	surveyAcceptorUserIdFlag         bool
-	emailAcceptor                    *ResourceAcceptor // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
+	emailAcceptor                    *ResourceAcceptor
 	emailAcceptorFlag                bool
 }
 
@@ -11439,9 +11438,9 @@ func (builder *ResurrectUserReqBodyBuilder) Build() *ResurrectUserReqBody {
 }
 
 type ResurrectUserPathReqBodyBuilder struct {
-	departments         []*UserDepartmentInfo // 指定恢复后用户所在部门
+	departments         []*UserDepartmentInfo
 	departmentsFlag     bool
-	subscriptionIds     []string // 指定恢复后分配的席位
+	subscriptionIds     []string
 	subscriptionIdsFlag bool
 }
 
@@ -11651,7 +11650,7 @@ func (builder *UpdateUserIdUserReqBodyBuilder) Build() *UpdateUserIdUserReqBody 
 }
 
 type UpdateUserIdUserPathReqBodyBuilder struct {
-	newUserId     string // 自定义新用户ID
+	newUserId     string
 	newUserIdFlag bool
 }
 

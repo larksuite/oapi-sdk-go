@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -29,13 +30,14 @@ func main() {
 	req := larkvc.NewPatchReserveConfigAdminReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
 		UserIdType("user_id").
+
 		Body(larkvc.NewPatchReserveConfigAdminReqBodyBuilder().
 			ScopeType(2).
 			ReserveAdminConfig(larkvc.NewReserveAdminConfigBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Vc.ReserveConfigAdmin.Patch(context.Background(), req)
+	resp, err := client.Vc.V1.ReserveConfigAdmin.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

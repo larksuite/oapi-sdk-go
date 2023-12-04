@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewApplyReserveReqBuilder().
 		UserIdType("user_id").
+
 		Body(larkvc.NewApplyReserveReqBodyBuilder().
 			EndTime("1608888867").
 			OwnerId("ou_3ec3f6a28a0d08c45d895276e8e5e19b").
@@ -35,7 +37,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Vc.Reserve.Apply(context.Background(), req)
+	resp, err := client.Vc.V1.Reserve.Apply(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

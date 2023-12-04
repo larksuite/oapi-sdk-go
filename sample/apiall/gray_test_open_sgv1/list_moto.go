@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
@@ -32,7 +33,7 @@ func main() {
 		Level(0).
 		Build()
 	// 发起请求
-	resp, err := client.GrayTestOpenSg.Moto.List(context.Background(), req)
+	resp, err := client.GrayTestOpenSg.V1.Moto.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

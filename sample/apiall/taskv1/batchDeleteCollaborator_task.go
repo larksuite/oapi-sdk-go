@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -29,12 +30,13 @@ func main() {
 	req := larktask.NewBatchDeleteCollaboratorTaskReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		UserIdType("user_id").
+
 		Collaborator(larktask.NewCollaboratorBuilder().
 			IdList([]string{}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Task.Task.BatchDeleteCollaborator(context.Background(), req)
+	resp, err := client.Task.V1.Task.BatchDeleteCollaborator(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

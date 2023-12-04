@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/workplace/v1"
@@ -34,7 +35,7 @@ func main() {
 		CustomWorkplaceId("tpl_647184b585400013254c4ea6").
 		Build()
 	// 发起请求
-	resp, err := client.Workplace.CustomWorkplaceAccessData.Search(context.Background(), req)
+	resp, err := client.Workplace.V1.CustomWorkplaceAccessData.Search(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

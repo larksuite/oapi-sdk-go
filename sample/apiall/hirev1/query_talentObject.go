@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -25,7 +26,7 @@ func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 发起请求
-	resp, err := client.Hire.TalentObject.Query(context.Background())
+	resp, err := client.Hire.V1.TalentObject.Query(context.Background())
 
 	// 处理错误
 	if err != nil {

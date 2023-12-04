@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -30,6 +31,7 @@ func main() {
 		AppToken("bascnv1jIEppJdTCn3jOosabcef").
 		TableId("tblz8nadEUdxNMt5").
 		FormId("vew6oMbAa4").
+
 		AppTableForm(larkbitable.NewAppTableFormBuilder().
 			Name("").
 			Description("").
@@ -39,7 +41,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppTableForm.Patch(context.Background(), req)
+	resp, err := client.Bitable.V1.AppTableForm.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

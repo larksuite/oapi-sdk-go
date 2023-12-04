@@ -14,10 +14,9 @@
 package larkmail
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -2471,7 +2470,7 @@ func (builder *BatchCreateMailgroupManagerReqBodyBuilder) Build() *BatchCreateMa
 }
 
 type BatchCreateMailgroupManagerPathReqBodyBuilder struct {
-	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerList     []*MailgroupManager
 	mailgroupManagerListFlag bool
 }
 
@@ -2588,7 +2587,7 @@ func (builder *BatchDeleteMailgroupManagerReqBodyBuilder) Build() *BatchDeleteMa
 }
 
 type BatchDeleteMailgroupManagerPathReqBodyBuilder struct {
-	mailgroupManagerList     []*MailgroupManager // 邮件组管理员列表
+	mailgroupManagerList     []*MailgroupManager
 	mailgroupManagerListFlag bool
 }
 
@@ -2788,7 +2787,7 @@ func (builder *BatchCreateMailgroupMemberReqBodyBuilder) Build() *BatchCreateMai
 }
 
 type BatchCreateMailgroupMemberPathReqBodyBuilder struct {
-	items     []*MailgroupMember // 本次添加的邮件组成员列表
+	items     []*MailgroupMember
 	itemsFlag bool
 }
 
@@ -2918,7 +2917,7 @@ func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) Build() *BatchDeleteMai
 }
 
 type BatchDeleteMailgroupMemberPathReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的成员ID列表
+	memberIdList     []string
 	memberIdListFlag bool
 }
 
@@ -3317,7 +3316,7 @@ func (builder *BatchCreateMailgroupPermissionMemberReqBodyBuilder) Build() *Batc
 }
 
 type BatchCreateMailgroupPermissionMemberPathReqBodyBuilder struct {
-	items     []*MailgroupPermissionMember // 本次添加的邮件组权限成员列表
+	items     []*MailgroupPermissionMember
 	itemsFlag bool
 }
 
@@ -3447,7 +3446,7 @@ func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) Build() *Batc
 }
 
 type BatchDeleteMailgroupPermissionMemberPathReqBodyBuilder struct {
-	permissionMemberIdList     []string // 本次调用删除的权限成员ID列表
+	permissionMemberIdList     []string
 	permissionMemberIdListFlag bool
 }
 
@@ -4333,7 +4332,7 @@ func (builder *BatchCreatePublicMailboxMemberReqBodyBuilder) Build() *BatchCreat
 }
 
 type BatchCreatePublicMailboxMemberPathReqBodyBuilder struct {
-	items     []*PublicMailboxMember // 本次调用添加的公共邮箱成员列表
+	items     []*PublicMailboxMember
 	itemsFlag bool
 }
 
@@ -4455,7 +4454,7 @@ func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) Build() *BatchDelet
 }
 
 type BatchDeletePublicMailboxMemberPathReqBodyBuilder struct {
-	memberIdList     []string // 本次调用删除的公共邮箱成员ID列表
+	memberIdList     []string
 	memberIdListFlag bool
 }
 
@@ -4867,7 +4866,7 @@ func (builder *QueryUserReqBodyBuilder) Build() *QueryUserReqBody {
 }
 
 type QueryUserPathReqBodyBuilder struct {
-	emailList     []string // 需要查询的邮箱地址列表
+	emailList     []string
 	emailListFlag bool
 }
 

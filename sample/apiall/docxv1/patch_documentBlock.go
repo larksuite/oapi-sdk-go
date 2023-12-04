@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
@@ -32,6 +33,7 @@ func main() {
 		DocumentRevisionId(-1).
 		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
 		UserIdType("user_id").
+
 		UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
 			UpdateTextElements(larkdocx.NewUpdateTextElementsRequestBuilder().Build()).
 			UpdateTextStyle(larkdocx.NewUpdateTextStyleRequestBuilder().Build()).
@@ -51,7 +53,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Docx.DocumentBlock.Patch(context.Background(), req)
+	resp, err := client.Docx.V1.DocumentBlock.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

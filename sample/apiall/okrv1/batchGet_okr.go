@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
@@ -32,7 +33,7 @@ func main() {
 		Lang("zh_cn").
 		Build()
 	// 发起请求
-	resp, err := client.Okr.Okr.BatchGet(context.Background(), req)
+	resp, err := client.Okr.V1.Okr.BatchGet(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

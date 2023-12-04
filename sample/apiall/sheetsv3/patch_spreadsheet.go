@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -28,12 +29,13 @@ func main() {
 	// 创建请求对象
 	req := larksheets.NewPatchSpreadsheetReqBuilder().
 		SpreadsheetToken("shtxxxxxxxxxxxxxxx").
+
 		UpdateSpreadsheetProperties(larksheets.NewUpdateSpreadsheetPropertiesBuilder().
 			Title("title").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.Spreadsheet.Patch(context.Background(), req)
+	resp, err := client.Sheets.V3.Spreadsheet.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -14,10 +14,9 @@
 package larkdocx
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -4619,9 +4618,9 @@ func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
 }
 
 type CreateDocumentPathReqBodyBuilder struct {
-	folderToken     string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	folderToken     string
 	folderTokenFlag bool
-	title           string // 文档标题，只支持纯文本
+	title           string
 	titleFlag       bool
 }
 
@@ -4839,7 +4838,7 @@ func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Build() *BatchUpdateDocum
 }
 
 type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
-	requests     []*UpdateBlockRequest // 批量更新 Block
+	requests     []*UpdateBlockRequest
 	requestsFlag bool
 }
 
@@ -5245,9 +5244,9 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) Build() *BatchDel
 }
 
 type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
-	startIndex     int // 删除的起始索引（操作区间左闭右开）
+	startIndex     int
 	startIndexFlag bool
-	endIndex       int // 删除的末尾索引（操作区间左闭右开）
+	endIndex       int
 	endIndexFlag   bool
 }
 
@@ -5413,9 +5412,9 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Build() *CreateDocumen
 }
 
 type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
-	children     []*Block // 添加的孩子列表。
+	children     []*Block
 	childrenFlag bool
-	index        int // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+	index        int
 	indexFlag    bool
 }
 

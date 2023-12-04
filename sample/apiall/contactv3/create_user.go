@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,6 +31,7 @@ func main() {
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
 		ClientToken("xxxx-xxxxx-xxx").
+
 		User(larkcontact.NewUserBuilder().
 			UserId("").
 			Name("张三").
@@ -60,7 +62,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.User.Create(context.Background(), req)
+	resp, err := client.Contact.V3.User.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

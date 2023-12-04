@@ -144,7 +144,7 @@ func (builder *DetectTextReqBodyBuilder) Build() *DetectTextReqBody {
 }
 
 type DetectTextPathReqBodyBuilder struct {
-	text     string // 需要被识别语种的文本
+	text     string
 	textFlag bool
 }
 
@@ -290,13 +290,13 @@ func (builder *TranslateTextReqBodyBuilder) Build() *TranslateTextReqBody {
 }
 
 type TranslateTextPathReqBodyBuilder struct {
-	sourceLanguage     string // 源语言
+	sourceLanguage     string
 	sourceLanguageFlag bool
-	text               string // 源文本
+	text               string
 	textFlag           bool
-	targetLanguage     string // 目标语言
+	targetLanguage     string
 	targetLanguageFlag bool
-	glossary           []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	glossary           []*Term
 	glossaryFlag       bool
 }
 

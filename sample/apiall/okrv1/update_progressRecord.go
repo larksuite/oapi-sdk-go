@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
@@ -29,12 +30,13 @@ func main() {
 	req := larkokr.NewUpdateProgressRecordReqBuilder().
 		ProgressId("7041857032248410131").
 		UserIdType("user_id").
+
 		Body(larkokr.NewUpdateProgressRecordReqBodyBuilder().
 			Content(larkokr.NewContentBlockBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Okr.ProgressRecord.Update(context.Background(), req)
+	resp, err := client.Okr.V1.ProgressRecord.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

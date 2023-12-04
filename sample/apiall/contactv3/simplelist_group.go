@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -32,7 +33,7 @@ func main() {
 		Type(1).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.Group.Simplelist(context.Background(), req)
+	resp, err := client.Contact.V3.Group.Simplelist(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

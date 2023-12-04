@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewCreateTimeoffEventReqBuilder().
 		UserIdType("user_id").
+
 		TimeoffEvent(larkcalendar.NewTimeoffEventBuilder().
 			UserId("").
 			Timezone("").
@@ -38,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Calendar.TimeoffEvent.Create(context.Background(), req)
+	resp, err := client.Calendar.V4.TimeoffEvent.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

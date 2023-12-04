@@ -96,7 +96,7 @@ func (builder *BasicRecognizeImageReqBodyBuilder) Build() *BasicRecognizeImageRe
 }
 
 type BasicRecognizeImagePathReqBodyBuilder struct {
-	image     string // base64 后的图片数据
+	image     string
 	imageFlag bool
 }
 

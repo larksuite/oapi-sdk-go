@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -35,7 +36,7 @@ func main() {
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Drive.FileCommentReply.List(context.Background(), req)
+	resp, err := client.Drive.V1.FileCommentReply.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

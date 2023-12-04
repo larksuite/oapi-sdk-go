@@ -404,11 +404,11 @@ func mockUserInOutChatEventV1() []byte {
 				OpenId: "openid",
 				UserId: "userid",
 			},
-			Users: []*larkim.P1UserV1{&larkim.P1UserV1{
+			Users: []*larkim.P1UserV1{{
 				OpenId: "o1",
 				UserId: "u1",
 				Name:   "n1",
-			}, &larkim.P1UserV1{
+			}, {
 				OpenId: "o2",
 				UserId: "u2",
 				Name:   "n2",

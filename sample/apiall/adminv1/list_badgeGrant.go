@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
@@ -35,7 +36,7 @@ func main() {
 		Name("激励勋章的授予名单").
 		Build()
 	// 发起请求
-	resp, err := client.Admin.BadgeGrant.List(context.Background(), req)
+	resp, err := client.Admin.V1.BadgeGrant.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

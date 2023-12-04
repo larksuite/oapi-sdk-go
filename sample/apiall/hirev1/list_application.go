@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -38,7 +39,7 @@ func main() {
 		UpdateEndTime("1618500278663").
 		Build()
 	// 发起请求
-	resp, err := client.Hire.Application.List(context.Background(), req)
+	resp, err := client.Hire.V1.Application.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

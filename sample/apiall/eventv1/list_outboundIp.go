@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
@@ -31,7 +32,7 @@ func main() {
 		PageToken("xxx").
 		Build()
 	// 发起请求
-	resp, err := client.Event.OutboundIp.List(context.Background(), req)
+	resp, err := client.Event.V1.OutboundIp.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

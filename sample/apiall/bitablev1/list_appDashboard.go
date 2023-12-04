@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -32,7 +33,7 @@ func main() {
 		PageToken("blknkqrP3RqUkcAW").
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppDashboard.List(context.Background(), req)
+	resp, err := client.Bitable.V1.AppDashboard.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

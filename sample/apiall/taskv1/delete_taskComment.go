@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -31,7 +32,7 @@ func main() {
 		CommentId("6937231762296684564").
 		Build()
 	// 发起请求
-	resp, err := client.Task.TaskComment.Delete(context.Background(), req)
+	resp, err := client.Task.V1.TaskComment.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

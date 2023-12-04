@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
@@ -31,7 +32,7 @@ func main() {
 		PageToken("GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==").
 		Build()
 	// 发起请求
-	resp, err := client.PersonalSettings.SystemStatus.List(context.Background(), req)
+	resp, err := client.PersonalSettings.V1.SystemStatus.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

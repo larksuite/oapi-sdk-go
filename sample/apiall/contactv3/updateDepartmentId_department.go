@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -29,12 +30,13 @@ func main() {
 	req := larkcontact.NewUpdateDepartmentIdDepartmentReqBuilder().
 		DepartmentId("").
 		DepartmentIdType("department_id").
+
 		Body(larkcontact.NewUpdateDepartmentIdDepartmentReqBodyBuilder().
 			NewDepartmentId("").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.Department.UpdateDepartmentId(context.Background(), req)
+	resp, err := client.Contact.V3.Department.UpdateDepartmentId(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

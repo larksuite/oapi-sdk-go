@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -38,7 +39,7 @@ func main() {
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Vc.ParticipantQualityList.Get(context.Background(), req)
+	resp, err := client.Vc.V1.ParticipantQualityList.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

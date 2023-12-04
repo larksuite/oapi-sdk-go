@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkbaike.NewUpdateDraftReqBuilder().
 		DraftId("5347").
 		UserIdType("user_id").
+
 		Entity(larkbaike.NewEntityBuilder().
 			Id("enterprise_40217521").
 			MainKeys([]*larkbaike.Term{larkbaike.NewTermBuilder().Build()}).
@@ -39,7 +41,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Baike.Draft.Update(context.Background(), req)
+	resp, err := client.Baike.V1.Draft.Update(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
@@ -30,7 +31,7 @@ func main() {
 		ProgressId("7041857032248410131").
 		Build()
 	// 发起请求
-	resp, err := client.Okr.ProgressRecord.Delete(context.Background(), req)
+	resp, err := client.Okr.V1.ProgressRecord.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

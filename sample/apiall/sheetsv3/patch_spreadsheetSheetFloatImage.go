@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -30,6 +31,7 @@ func main() {
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
 		FloatImageId("ye06SS14ph").
+
 		FloatImage(larksheets.NewFloatImageBuilder().
 			FloatImageToken("").
 			Range("").
@@ -40,7 +42,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Sheets.SpreadsheetSheetFloatImage.Patch(context.Background(), req)
+	resp, err := client.Sheets.V3.SpreadsheetSheetFloatImage.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

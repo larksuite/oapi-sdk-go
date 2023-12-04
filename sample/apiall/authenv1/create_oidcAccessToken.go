@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/authen/v1"
@@ -33,7 +34,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Authen.OidcAccessToken.Create(context.Background(), req)
+	resp, err := client.Authen.V1.OidcAccessToken.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

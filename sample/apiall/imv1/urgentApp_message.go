@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,12 +30,13 @@ func main() {
 	req := larkim.NewUrgentAppMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		UserIdType("user_id").
+
 		UrgentReceivers(larkim.NewUrgentReceiversBuilder().
 			UserIdList([]string{}).
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Im.Message.UrgentApp(context.Background(), req)
+	resp, err := client.Im.V1.Message.UrgentApp(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

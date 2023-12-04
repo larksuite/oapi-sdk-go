@@ -113,7 +113,7 @@ func TestAppRecordStruct() {
 	fmt.Println(larkcore.Prettify(tableRecord.StringField("str")))
 	fmt.Println(larkcore.Prettify(tableRecord.ListUrlField("listurl")))
 	fmt.Println(larkcore.Prettify(tableRecord.ListStringField("liststr")))
-	fmt.Println(larkcore.Prettify((tableRecord.ListPersonField("listperson"))))
+	fmt.Println(larkcore.Prettify(tableRecord.ListPersonField("listperson")))
 	fmt.Println(larkcore.Prettify(tableRecord.ListAttachmentField("listattachment")))
 
 	boolField := tableRecord.BoolField("bool")

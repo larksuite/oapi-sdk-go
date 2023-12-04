@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateContractReqBuilder().
 		ClientToken("12454646").
+
 		Contract(larkcorehr.NewContractBuilder().
 			EffectiveTime("2050-01-01 00:00:00").
 			ExpirationTime("9999-12-31 23:59:59").
@@ -43,7 +45,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.Contract.Create(context.Background(), req)
+	resp, err := client.Corehr.V1.Contract.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -35,7 +36,7 @@ func main() {
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Application.ApplicationAppVersion.List(context.Background(), req)
+	resp, err := client.Application.V6.ApplicationAppVersion.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

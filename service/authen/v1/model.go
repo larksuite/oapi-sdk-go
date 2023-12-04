@@ -14,8 +14,6 @@
 package larkauthen
 
 import (
-	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -781,9 +779,9 @@ func (builder *CreateAccessTokenReqBodyBuilder) Build() *CreateAccessTokenReqBod
 }
 
 type CreateAccessTokenPathReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
+	grantType     string
 	grantTypeFlag bool
-	code          string // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+	code          string
 	codeFlag      bool
 }
 
@@ -890,71 +888,6 @@ func (resp *CreateAccessTokenResp) Success() bool {
 	return resp.Code == 0
 }
 
-type GetAuthorizeReqBuilder struct {
-	apiReq *larkcore.ApiReq
-}
-
-func NewGetAuthorizeReqBuilder() *GetAuthorizeReqBuilder {
-	builder := &GetAuthorizeReqBuilder{}
-	builder.apiReq = &larkcore.ApiReq{
-		PathParams:  larkcore.PathParams{},
-		QueryParams: larkcore.QueryParams{},
-	}
-	return builder
-}
-
-// 应用 ID，可以在开发者后台的-凭证与基础信息-页面查看 app_id，格式cli_xxx
-//
-// 示例值：cli_9dff7f6ae02ad104
-func (builder *GetAuthorizeReqBuilder) AppId(appId string) *GetAuthorizeReqBuilder {
-	builder.apiReq.QueryParams.Set("app_id", fmt.Sprint(appId))
-	return builder
-}
-
-// 应用回调地址，url需经过 "application/x-www-form-urlencoded" 格式编码。调用本接口前, 需要在开发者后台的**安全设置**页面配置重定向URL，支持配置多个。只有在重定向URL列表中的URL才会通过开放平台的安全校验
-//
-// 示例值：https%3A%2F%2F127.0.0.1%2Fmock
-func (builder *GetAuthorizeReqBuilder) RedirectUri(redirectUri string) *GetAuthorizeReqBuilder {
-	builder.apiReq.QueryParams.Set("redirect_uri", fmt.Sprint(redirectUri))
-	return builder
-}
-
-// 用户授予app的权限，参数格式是不同scope由空格分隔，区分大小写的字符串。业务需要根据自己内部场景，自主拼接调用open-api所需的scope。scope详细说明请参考：[申请API权限](https://open.feishu.cn/document/server-docs/application-scope/introduction)
-//
-// 示例值：contact:contact bitable:app:readonly
-func (builder *GetAuthorizeReqBuilder) Scope(scope string) *GetAuthorizeReqBuilder {
-	builder.apiReq.QueryParams.Set("scope", fmt.Sprint(scope))
-	return builder
-}
-
-// 用来维护请求和回调状态的附加字符串， 在授权完成回调时会附加此参数，应用可以根据此字符串来判断上下文关系
-//
-// 示例值：RANDOMSTATE
-func (builder *GetAuthorizeReqBuilder) State(state string) *GetAuthorizeReqBuilder {
-	builder.apiReq.QueryParams.Set("state", fmt.Sprint(state))
-	return builder
-}
-
-func (builder *GetAuthorizeReqBuilder) Build() *GetAuthorizeReq {
-	req := &GetAuthorizeReq{}
-	req.apiReq = &larkcore.ApiReq{}
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	return req
-}
-
-type GetAuthorizeReq struct {
-	apiReq *larkcore.ApiReq
-}
-
-type GetAuthorizeResp struct {
-	*larkcore.ApiResp `json:"-"`
-	larkcore.CodeError
-}
-
-func (resp *GetAuthorizeResp) Success() bool {
-	return resp.Code == 0
-}
-
 type CreateOidcAccessTokenReqBodyBuilder struct {
 	grantType     string // 授权类型，**固定值**
 	grantTypeFlag bool
@@ -997,9 +930,9 @@ func (builder *CreateOidcAccessTokenReqBodyBuilder) Build() *CreateOidcAccessTok
 }
 
 type CreateOidcAccessTokenPathReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
+	grantType     string
 	grantTypeFlag bool
-	code          string // 登录预授权码
+	code          string
 	codeFlag      bool
 }
 
@@ -1135,9 +1068,9 @@ func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) Build() *CreateOidcRe
 }
 
 type CreateOidcRefreshAccessTokenPathReqBodyBuilder struct {
-	grantType        string // 授权类型，**固定值**：
+	grantType        string
 	grantTypeFlag    bool
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshToken     string
 	refreshTokenFlag bool
 }
 
@@ -1273,9 +1206,9 @@ func (builder *CreateRefreshAccessTokenReqBodyBuilder) Build() *CreateRefreshAcc
 }
 
 type CreateRefreshAccessTokenPathReqBodyBuilder struct {
-	grantType        string // 授权类型，**固定值**：
+	grantType        string
 	grantTypeFlag    bool
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshToken     string
 	refreshTokenFlag bool
 }
 

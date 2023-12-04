@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -30,7 +31,7 @@ func main() {
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		Build()
 	// 发起请求
-	resp, err := client.Mail.Mailgroup.Delete(context.Background(), req)
+	resp, err := client.Mail.V1.Mailgroup.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

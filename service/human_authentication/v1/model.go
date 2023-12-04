@@ -193,11 +193,11 @@ func (builder *CreateIdentityReqBodyBuilder) Build() *CreateIdentityReqBody {
 }
 
 type CreateIdentityPathReqBodyBuilder struct {
-	identityName     string // 姓名
+	identityName     string
 	identityNameFlag bool
-	identityCode     string // 身份证号
+	identityCode     string
 	identityCodeFlag bool
-	mobile           string // 手机号
+	mobile           string
 	mobileFlag       bool
 }
 

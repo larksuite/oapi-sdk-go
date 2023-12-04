@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -30,12 +31,13 @@ func main() {
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		ReceiveIdType("open_id").
 		Uuid("b13g2t38-1jd2-458b-8djf-dtbca5104204").
+
 		Body(larkim.NewForwardMessageReqBodyBuilder().
 			ReceiveId("oc_a0553eda9014c201e6969b478895c230").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Im.Message.Forward(context.Background(), req)
+	resp, err := client.Im.V1.Message.Forward(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

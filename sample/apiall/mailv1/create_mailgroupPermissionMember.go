@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -30,6 +31,7 @@ func main() {
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		UserIdType("user_id").
 		DepartmentIdType("xxx").
+
 		MailgroupPermissionMember(larkmail.NewMailgroupPermissionMemberBuilder().
 			UserId("xxxxxxxxxx").
 			DepartmentId("xxxxxxxxxx").
@@ -38,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Mail.MailgroupPermissionMember.Create(context.Background(), req)
+	resp, err := client.Mail.V1.MailgroupPermissionMember.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

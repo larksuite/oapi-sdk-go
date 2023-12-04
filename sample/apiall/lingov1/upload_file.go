@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
-	"os"
 )
 
 // POST /open-apis/lingo/v1/files/upload
@@ -39,7 +40,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Lingo.File.Upload(context.Background(), req)
+	resp, err := client.Lingo.V1.File.Upload(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

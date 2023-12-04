@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -33,7 +34,7 @@ func main() {
 		UserIdType("user_id").
 		Build()
 	// 发起请求
-	resp, err := client.Calendar.CalendarEvent.Get(context.Background(), req)
+	resp, err := client.Calendar.V4.CalendarEvent.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

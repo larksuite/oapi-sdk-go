@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
@@ -29,13 +30,14 @@ func main() {
 	req := larkwiki.NewDeleteSpaceMemberReqBuilder().
 		SpaceId("7008061636015554580").
 		MemberId("g64fb7g7").
+
 		Member(larkwiki.NewMemberBuilder().
 			MemberType("").
 			MemberRole("").
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Wiki.SpaceMember.Delete(context.Background(), req)
+	resp, err := client.Wiki.V2.SpaceMember.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

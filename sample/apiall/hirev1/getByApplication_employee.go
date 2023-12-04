@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -32,7 +33,7 @@ func main() {
 		DepartmentIdType("people_admin_department_id").
 		Build()
 	// 发起请求
-	resp, err := client.Hire.Employee.GetByApplication(context.Background(), req)
+	resp, err := client.Hire.V1.Employee.GetByApplication(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

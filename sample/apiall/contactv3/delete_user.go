@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcontact.NewDeleteUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("open_id").
+
 		Body(larkcontact.NewDeleteUserReqBodyBuilder().
 			DepartmentChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			ExternalChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
@@ -41,7 +43,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Contact.User.Delete(context.Background(), req)
+	resp, err := client.Contact.V3.User.Delete(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

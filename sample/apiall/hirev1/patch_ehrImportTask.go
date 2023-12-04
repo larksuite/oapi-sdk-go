@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewPatchEhrImportTaskReqBuilder().
 		EhrImportTaskId("623455234").
+
 		EhrImportTask(larkhire.NewEhrImportTaskBuilder().
 			FailReason("当前HC不可用").
 			RedirectUrl("https://example.com").
@@ -35,7 +37,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Hire.EhrImportTask.Patch(context.Background(), req)
+	resp, err := client.Hire.V1.EhrImportTask.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

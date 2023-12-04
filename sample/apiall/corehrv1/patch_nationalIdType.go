@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcorehr.NewPatchNationalIdTypeReqBuilder().
 		NationalIdTypeId("1616161616").
 		ClientToken("12454646").
+
 		NationalIdType(larkcorehr.NewNationalIdTypeBuilder().
 			CountryRegionId("6862995747139225096").
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
@@ -41,7 +43,7 @@ func main() {
 			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Corehr.NationalIdType.Patch(context.Background(), req)
+	resp, err := client.Corehr.V1.NationalIdType.Patch(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

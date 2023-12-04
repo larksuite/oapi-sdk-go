@@ -14,14 +14,11 @@
 package larkhelpdesk
 
 import (
-	"io"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -4318,7 +4315,7 @@ func (builder *PatchAgentReqBodyBuilder) Build() *PatchAgentReqBody {
 }
 
 type PatchAgentPathReqBodyBuilder struct {
-	status     int // agent status
+	status     int
 	statusFlag bool
 }
 
@@ -4513,7 +4510,7 @@ func (builder *PatchAgentSchedulesReqBodyBuilder) Build() *PatchAgentSchedulesRe
 }
 
 type PatchAgentSchedulesPathReqBodyBuilder struct {
-	agentSchedule     *AgentScheduleUpdateInfo // 工作日程列表
+	agentSchedule     *AgentScheduleUpdateInfo
 	agentScheduleFlag bool
 }
 
@@ -4621,7 +4618,7 @@ func (builder *CreateAgentScheduleReqBodyBuilder) Build() *CreateAgentScheduleRe
 }
 
 type CreateAgentSchedulePathReqBodyBuilder struct {
-	agentSchedules     []*AgentScheduleUpdateInfo // 新客服日程
+	agentSchedules     []*AgentScheduleUpdateInfo
 	agentSchedulesFlag bool
 }
 
@@ -4796,11 +4793,11 @@ func (builder *CreateAgentSkillReqBodyBuilder) Build() *CreateAgentSkillReqBody 
 }
 
 type CreateAgentSkillPathReqBodyBuilder struct {
-	name         string // 技能名
+	name         string
 	nameFlag     bool
-	rules        []*AgentSkillRule // 技能rules
+	rules        []*AgentSkillRule
 	rulesFlag    bool
-	agentIds     []string // 客服 ids
+	agentIds     []string
 	agentIdsFlag bool
 }
 
@@ -5031,7 +5028,7 @@ func (builder *PatchAgentSkillReqBodyBuilder) Build() *PatchAgentSkillReqBody {
 }
 
 type PatchAgentSkillPathReqBodyBuilder struct {
-	agentSkill     *AgentSkill // 更新技能
+	agentSkill     *AgentSkill
 	agentSkillFlag bool
 }
 
@@ -5457,7 +5454,7 @@ func (builder *SubscribeEventReqBodyBuilder) Build() *SubscribeEventReqBody {
 }
 
 type SubscribeEventPathReqBodyBuilder struct {
-	events     []*Event // 可订阅的事件列表
+	events     []*Event
 	eventsFlag bool
 }
 
@@ -5556,7 +5553,7 @@ func (builder *UnsubscribeEventReqBodyBuilder) Build() *UnsubscribeEventReqBody 
 }
 
 type UnsubscribeEventPathReqBodyBuilder struct {
-	events     []*Event // event list to unsubscribe
+	events     []*Event
 	eventsFlag bool
 }
 
@@ -5655,7 +5652,7 @@ func (builder *CreateFaqReqBodyBuilder) Build() *CreateFaqReqBody {
 }
 
 type CreateFaqPathReqBodyBuilder struct {
-	faq     *FaqUpdateInfo // 知识库详情
+	faq     *FaqUpdateInfo
 	faqFlag bool
 }
 
@@ -6002,7 +5999,7 @@ func (builder *PatchFaqReqBodyBuilder) Build() *PatchFaqReqBody {
 }
 
 type PatchFaqPathReqBodyBuilder struct {
-	faq     *FaqUpdateInfo // 修改的知识库内容
+	faq     *FaqUpdateInfo
 	faqFlag bool
 }
 
@@ -6233,7 +6230,7 @@ func (builder *CancelSendNotificationReqBodyBuilder) Build() *CancelSendNotifica
 }
 
 type CancelSendNotificationPathReqBodyBuilder struct {
-	isRecall     bool // 是否召回已发送的消息,新人入职消息同样适用
+	isRecall     bool
 	isRecallFlag bool
 }
 
@@ -6397,7 +6394,7 @@ func (builder *ExecuteSendNotificationReqBodyBuilder) Build() *ExecuteSendNotifi
 }
 
 type ExecuteSendNotificationPathReqBodyBuilder struct {
-	sendAt     string // 发送时间戳(毫秒)
+	sendAt     string
 	sendAtFlag bool
 }
 
@@ -6661,7 +6658,7 @@ func (builder *SubmitApproveNotificationReqBodyBuilder) Build() *SubmitApproveNo
 }
 
 type SubmitApproveNotificationPathReqBodyBuilder struct {
-	reason     string // 提交审批理由
+	reason     string
 	reasonFlag bool
 }
 
@@ -6788,9 +6785,9 @@ func (builder *AnswerUserQueryTicketReqBodyBuilder) Build() *AnswerUserQueryTick
 }
 
 type AnswerUserQueryTicketPathReqBodyBuilder struct {
-	eventId     string // 事件ID,可从订阅事件中提取
+	eventId     string
 	eventIdFlag bool
-	faqs        []*UserQueryFaqInfo // faq结果列表
+	faqs        []*UserQueryFaqInfo
 	faqsFlag    bool
 }
 
@@ -7225,13 +7222,13 @@ func (builder *StartServiceTicketReqBodyBuilder) Build() *StartServiceTicketReqB
 }
 
 type StartServiceTicketPathReqBodyBuilder struct {
-	humanService        bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
+	humanService        bool
 	humanServiceFlag    bool
-	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	appointedAgents     []string
 	appointedAgentsFlag bool
-	openId              string // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	openId              string
 	openIdFlag          bool
-	customizedInfo      string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+	customizedInfo      string
 	customizedInfoFlag  bool
 }
 
@@ -7530,19 +7527,19 @@ func (builder *UpdateTicketReqBodyBuilder) Build() *UpdateTicketReqBody {
 }
 
 type UpdateTicketPathReqBodyBuilder struct {
-	status               int // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
+	status               int
 	statusFlag           bool
-	tagNames             []string // 新标签名
+	tagNames             []string
 	tagNamesFlag         bool
-	comment              string // 新评论
+	comment              string
 	commentFlag          bool
-	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
+	customizedFields     []*CustomizedFieldDisplayItem
 	customizedFieldsFlag bool
-	ticketType           int // ticket stage
+	ticketType           int
 	ticketTypeFlag       bool
-	solved               int // 工单是否解决，1: 未解决, 2: 已解决
+	solved               int
 	solvedFlag           bool
-	channel              int // 工单来源渠道ID
+	channel              int
 	channelFlag          bool
 }
 
@@ -7742,9 +7739,9 @@ func (builder *CreateTicketMessageReqBodyBuilder) Build() *CreateTicketMessageRe
 }
 
 type CreateTicketMessagePathReqBodyBuilder struct {
-	msgType     string // 消息类型；text：纯文本；post：富文本
+	msgType     string
 	msgTypeFlag bool
-	content     string // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+	content     string
 	contentFlag bool
 }
 
@@ -8092,7 +8089,7 @@ func (builder *ListTicketCustomizedFieldReqBodyBuilder) Build() *ListTicketCusto
 }
 
 type ListTicketCustomizedFieldPathReqBodyBuilder struct {
-	visible     bool // 是否可见
+	visible     bool
 	visibleFlag bool
 }
 

@@ -130,11 +130,11 @@ func (builder *CreateAppAccessTokenReqBodyBuilder) Build() *CreateAppAccessToken
 }
 
 type CreateAppAccessTokenPathReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	appId         string
 	appIdFlag     bool
-	appSecret     string // 应用秘钥，创建应用后获得。
+	appSecret     string
 	appSecretFlag bool
-	appTicket     string // 平台定时推送给应用的临时凭证，通过事件监听机制获得。
+	appTicket     string
 	appTicketFlag bool
 }
 
@@ -273,9 +273,9 @@ func (builder *InternalAppAccessTokenReqBodyBuilder) Build() *InternalAppAccessT
 }
 
 type InternalAppAccessTokenPathReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得。
+	appId         string
 	appIdFlag     bool
-	appSecret     string // 应用秘钥，创建应用后获得。
+	appSecret     string
 	appSecretFlag bool
 }
 
@@ -401,9 +401,9 @@ func (builder *ResendAppTicketReqBodyBuilder) Build() *ResendAppTicketReqBody {
 }
 
 type ResendAppTicketPathReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得
+	appId         string
 	appIdFlag     bool
-	appSecret     string // 应用秘钥，创建应用后获得
+	appSecret     string
 	appSecretFlag bool
 }
 
@@ -529,9 +529,9 @@ func (builder *CreateTenantAccessTokenReqBodyBuilder) Build() *CreateTenantAcces
 }
 
 type CreateTenantAccessTokenPathReqBodyBuilder struct {
-	appAccessToken     string // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	appAccessToken     string
 	appAccessTokenFlag bool
-	tenantKey          string // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
+	tenantKey          string
 	tenantKeyFlag      bool
 }
 
@@ -657,9 +657,9 @@ func (builder *InternalTenantAccessTokenReqBodyBuilder) Build() *InternalTenantA
 }
 
 type InternalTenantAccessTokenPathReqBodyBuilder struct {
-	appId         string // 应用唯一标识，创建应用后获得。
+	appId         string
 	appIdFlag     bool
-	appSecret     string // 应用秘钥，创建应用后获得。
+	appSecret     string
 	appSecretFlag bool
 }
 

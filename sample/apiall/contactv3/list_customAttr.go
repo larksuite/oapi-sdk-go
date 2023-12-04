@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -31,7 +32,7 @@ func main() {
 		PageToken("AQD9/Rn9eij9Pm39ED40/RYU5lvOM4s6zgbeeNNaWd%2BVKwAsoreeRWk0J2noGvJy").
 		Build()
 	// 发起请求
-	resp, err := client.Contact.CustomAttr.List(context.Background(), req)
+	resp, err := client.Contact.V3.CustomAttr.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {
