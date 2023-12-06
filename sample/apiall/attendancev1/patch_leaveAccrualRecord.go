@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkattendance.NewPatchLeaveAccrualRecordReqBuilder().
 		LeaveId("1").
 		UserIdType("open_id").
+
 		Body(larkattendance.NewPatchLeaveAccrualRecordReqBodyBuilder().
 			LeaveGrantingRecordId("1").
 			EmploymentId("1").

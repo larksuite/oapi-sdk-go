@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larklingo.NewCreateEntityReqBuilder().
 		RepoId("7152790921053274113").
 		UserIdType("user_id").
+
 		Entity(larklingo.NewEntityBuilder().
 			MainKeys([]*larklingo.Term{larklingo.NewTermBuilder().Build()}).
 			Aliases([]*larklingo.Term{larklingo.NewTermBuilder().Build()}).

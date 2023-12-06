@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkhire.NewPatchNoteReqBuilder().
 		NoteId("6960663240925956401").
 		UserIdType("open_id").
+
 		Body(larkhire.NewPatchNoteReqBodyBuilder().
 			Content("111").
 			Build()).

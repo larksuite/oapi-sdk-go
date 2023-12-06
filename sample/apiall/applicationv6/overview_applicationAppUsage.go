@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -29,6 +30,7 @@ func main() {
 	req := larkapplication.NewOverviewApplicationAppUsageReqBuilder().
 		AppId("cli_9f115af860f7901b").
 		DepartmentIdType("open_department_id").
+
 		Body(larkapplication.NewOverviewApplicationAppUsageReqBodyBuilder().
 			Date("2021-07-08").
 			CycleType(1).

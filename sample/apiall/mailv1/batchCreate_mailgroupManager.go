@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkmail.NewBatchCreateMailgroupManagerReqBuilder().
 		MailgroupId("xxxxxx 或 test_mail_group@xx.xx").
 		UserIdType("open_id").
+
 		Body(larkmail.NewBatchCreateMailgroupManagerReqBodyBuilder().
 			MailgroupManagerList([]*larkmail.MailgroupManager{larkmail.NewMailgroupManagerBuilder().Build()}).
 			Build()).

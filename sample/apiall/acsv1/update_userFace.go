@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
-	"os"
 )
 
 // PUT /open-apis/acs/v1/users/:user_id/face
@@ -35,6 +36,7 @@ func main() {
 	req := larkacs.NewUpdateUserFaceReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("user_id").
+
 		File(larkacs.NewFileBuilder().
 			Files(file).
 			FileType("jpg").

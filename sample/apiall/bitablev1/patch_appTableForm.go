@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -30,6 +31,7 @@ func main() {
 		AppToken("bascnv1jIEppJdTCn3jOosabcef").
 		TableId("tblz8nadEUdxNMt5").
 		FormId("vew6oMbAa4").
+
 		AppTableForm(larkbitable.NewAppTableFormBuilder().
 			Name("").
 			Description("").

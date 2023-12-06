@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewPatchUnitReqBuilder().
 		UnitId("BU121").
+
 		Body(larkcontact.NewPatchUnitReqBodyBuilder().
 			Name("消费者事业部").
 			Build()).

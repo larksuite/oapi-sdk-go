@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewSetRoomConfigReqBuilder().
 		UserIdType("user_id").
+
 		Body(larkvc.NewSetRoomConfigReqBodyBuilder().
 			Scope(5).
 			CountryId("1").

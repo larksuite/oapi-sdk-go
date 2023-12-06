@@ -14,10 +14,9 @@
 package larkwiki
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -40,6 +39,7 @@ const (
 	ObjTypeObjTypeBitable  = "bitable"  // 多维表格
 	ObjTypeObjTypeFile     = "file"     // 文件
 	ObjTypeObjTypeDocx     = "docx"     // 新版文档
+	ObjTypeObjTypeSlides   = "slides"   // 幻灯片
 )
 
 const (
@@ -54,6 +54,7 @@ const (
 	MoveDocsToWikiObjTypeObjTypeMindNote = "mindnote" // mindnote（思维导图）
 	MoveDocsToWikiObjTypeObjTypeDocx     = "docx"     // docx
 	MoveDocsToWikiObjTypeObjTypeFile     = "file"     // file (文件)
+	MoveDocsToWikiObjTypeObjTypeSlides   = "slides"   // slides（幻灯片）
 )
 
 const (

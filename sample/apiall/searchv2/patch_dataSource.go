@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larksearch.NewPatchDataSourceReqBuilder().
 		DataSourceId("service_ticket").
+
 		Body(larksearch.NewPatchDataSourceReqBodyBuilder().
 			Name("客服工单").
 			State(0).

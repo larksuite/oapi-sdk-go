@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateTaskReqBuilder().
 		UserIdType("user_id").
+
 		Task(larktask.NewTaskBuilder().
 			Summary("每天喝八杯水，保持身心愉悦").
 			Description("多吃水果，多运动，健康生活，快乐工作。").

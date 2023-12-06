@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkacs.NewPatchUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("user_id").
+
 		User(larkacs.NewUserBuilder().
 			Feature(larkacs.NewFeatureBuilder().Build()).
 			Build()).

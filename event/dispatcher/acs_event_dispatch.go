@@ -17,13 +17,12 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
-
 // 新增门禁访问记录
 //
 // - 门禁设备识别用户成功后发送该事件给订阅应用。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/events/created
-func (dispatcher *EventDispatcher) OnP2AccessRecordCreatedV1(handler func(ctx context.Context, event *larkacs.P2AccessRecordCreatedV1) error) *EventDispatcher {
+func ( dispatcher * EventDispatcher ) OnP2AccessRecordCreatedV1(handler func(ctx context.Context, event *larkacs.P2AccessRecordCreatedV1) error) * EventDispatcher{
 	_, existed := dispatcher.eventType2EventHandler["acs.access_record.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "acs.access_record.created_v1")
@@ -31,13 +30,12 @@ func (dispatcher *EventDispatcher) OnP2AccessRecordCreatedV1(handler func(ctx co
 	dispatcher.eventType2EventHandler["acs.access_record.created_v1"] = larkacs.NewP2AccessRecordCreatedV1Handler(handler)
 	return dispatcher
 }
-
 // 用户信息变更
 //
 // - 智能门禁用户特征值变化时，发送此事件。
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/events/updated
-func (dispatcher *EventDispatcher) OnP2UserUpdatedV1(handler func(ctx context.Context, event *larkacs.P2UserUpdatedV1) error) *EventDispatcher {
+func ( dispatcher * EventDispatcher ) OnP2UserUpdatedV1(handler func(ctx context.Context, event *larkacs.P2UserUpdatedV1) error) * EventDispatcher{
 	_, existed := dispatcher.eventType2EventHandler["acs.user.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "acs.user.updated_v1")

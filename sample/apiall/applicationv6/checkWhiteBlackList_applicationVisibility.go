@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -30,6 +31,7 @@ func main() {
 		AppId("cli_a3a3d00b40b8d01b").
 		UserIdType("open_id").
 		DepartmentIdType("department_id").
+
 		Body(larkapplication.NewCheckWhiteBlackListApplicationVisibilityReqBodyBuilder().
 			UserIds([]string{}).
 			DepartmentIds([]string{}).

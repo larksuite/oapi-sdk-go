@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkpersonal_settings.NewBatchOpenSystemStatusReqBuilder().
 		SystemStatusId("7101214603622940672").
 		UserIdType("open_id").
+
 		Body(larkpersonal_settings.NewBatchOpenSystemStatusReqBodyBuilder().
 			UserList([]*larkpersonal_settings.SystemStatusUserOpenParam{larkpersonal_settings.NewSystemStatusUserOpenParamBuilder().Build()}).
 			Build()).

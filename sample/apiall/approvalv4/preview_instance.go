@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewPreviewInstanceReqBuilder().
 		UserIdType("open_id").
+
 		Body(larkapproval.NewPreviewInstanceReqBodyBuilder().
 			UserId("发起审批用户id，按照user_id_type类型填写").
 			ApprovalCode("C2CAAA90-70D9-3214-906B-B6FFF947F00D").

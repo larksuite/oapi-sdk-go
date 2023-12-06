@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkattendance.NewQueryUserTaskRemedyReqBuilder().
 		EmployeeType("employee_id").
+
 		Body(larkattendance.NewQueryUserTaskRemedyReqBodyBuilder().
 			UserIds([]string{}).
 			CheckTimeFrom("1566641088").

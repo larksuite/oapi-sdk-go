@@ -14,10 +14,9 @@
 package larkbitable
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -2934,6 +2933,117 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	return req
 }
 
+type ChildrenFilter struct {
+	Conjunction *string      `json:"conjunction,omitempty"` // 条件逻辑连接词
+	Conditions  []*Condition `json:"conditions,omitempty"`  // 筛选条件集合
+}
+
+type ChildrenFilterBuilder struct {
+	conjunction     string // 条件逻辑连接词
+	conjunctionFlag bool
+	conditions      []*Condition // 筛选条件集合
+	conditionsFlag  bool
+}
+
+func NewChildrenFilterBuilder() *ChildrenFilterBuilder {
+	builder := &ChildrenFilterBuilder{}
+	return builder
+}
+
+// 条件逻辑连接词
+//
+// 示例值：and
+func (builder *ChildrenFilterBuilder) Conjunction(conjunction string) *ChildrenFilterBuilder {
+	builder.conjunction = conjunction
+	builder.conjunctionFlag = true
+	return builder
+}
+
+// 筛选条件集合
+//
+// 示例值：
+func (builder *ChildrenFilterBuilder) Conditions(conditions []*Condition) *ChildrenFilterBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+func (builder *ChildrenFilterBuilder) Build() *ChildrenFilter {
+	req := &ChildrenFilter{}
+	if builder.conjunctionFlag {
+		req.Conjunction = &builder.conjunction
+
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	return req
+}
+
+type Condition struct {
+	FieldName *string `json:"field_name,omitempty"` // 筛选条件的左值，值为字段的名称
+	Operator  *string `json:"operator,omitempty"`   // 条件运算符
+	Value     *string `json:"value,omitempty"`      // 目标值
+}
+
+type ConditionBuilder struct {
+	fieldName     string // 筛选条件的左值，值为字段的名称
+	fieldNameFlag bool
+	operator      string // 条件运算符
+	operatorFlag  bool
+	value         string // 目标值
+	valueFlag     bool
+}
+
+func NewConditionBuilder() *ConditionBuilder {
+	builder := &ConditionBuilder{}
+	return builder
+}
+
+// 筛选条件的左值，值为字段的名称
+//
+// 示例值：字段名称
+func (builder *ConditionBuilder) FieldName(fieldName string) *ConditionBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 条件运算符
+//
+// 示例值：is
+func (builder *ConditionBuilder) Operator(operator string) *ConditionBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+
+// 目标值
+//
+// 示例值：文本内容
+func (builder *ConditionBuilder) Value(value string) *ConditionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *ConditionBuilder) Build() *Condition {
+	req := &Condition{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
 type DeleteRecord struct {
 	Deleted  *bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordId *string `json:"record_id,omitempty"` // 删除的记录 ID
@@ -3202,6 +3312,68 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 	if builder.timeZoneFlag {
 		req.TimeZone = &builder.timeZone
 
+	}
+	return req
+}
+
+type FilterInfo struct {
+	Conjunction *string           `json:"conjunction,omitempty"` // 条件逻辑连接词
+	Conditions  []*Condition      `json:"conditions,omitempty"`  // 筛选条件集合
+	Children    []*ChildrenFilter `json:"children,omitempty"`    // 下一级筛选条件
+}
+
+type FilterInfoBuilder struct {
+	conjunction     string // 条件逻辑连接词
+	conjunctionFlag bool
+	conditions      []*Condition // 筛选条件集合
+	conditionsFlag  bool
+	children        []*ChildrenFilter // 下一级筛选条件
+	childrenFlag    bool
+}
+
+func NewFilterInfoBuilder() *FilterInfoBuilder {
+	builder := &FilterInfoBuilder{}
+	return builder
+}
+
+// 条件逻辑连接词
+//
+// 示例值：and
+func (builder *FilterInfoBuilder) Conjunction(conjunction string) *FilterInfoBuilder {
+	builder.conjunction = conjunction
+	builder.conjunctionFlag = true
+	return builder
+}
+
+// 筛选条件集合
+//
+// 示例值：
+func (builder *FilterInfoBuilder) Conditions(conditions []*Condition) *FilterInfoBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+// 下一级筛选条件
+//
+// 示例值：
+func (builder *FilterInfoBuilder) Children(children []*ChildrenFilter) *FilterInfoBuilder {
+	builder.children = children
+	builder.childrenFlag = true
+	return builder
+}
+
+func (builder *FilterInfoBuilder) Build() *FilterInfo {
+	req := &FilterInfo{}
+	if builder.conjunctionFlag {
+		req.Conjunction = &builder.conjunction
+
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	if builder.childrenFlag {
+		req.Children = builder.children
 	}
 	return req
 }
@@ -3696,6 +3868,54 @@ func (builder *ReqViewBuilder) Build() *ReqView {
 	}
 	if builder.viewTypeFlag {
 		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
+type Sort struct {
+	FieldName *string `json:"field_name,omitempty"` // 字段名称
+	Desc      *bool   `json:"desc,omitempty"`       // 是否倒序排序
+}
+
+type SortBuilder struct {
+	fieldName     string // 字段名称
+	fieldNameFlag bool
+	desc          bool // 是否倒序排序
+	descFlag      bool
+}
+
+func NewSortBuilder() *SortBuilder {
+	builder := &SortBuilder{}
+	return builder
+}
+
+// 字段名称
+//
+// 示例值：多行文本
+func (builder *SortBuilder) FieldName(fieldName string) *SortBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 是否倒序排序
+//
+// 示例值：true
+func (builder *SortBuilder) Desc(desc bool) *SortBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
+func (builder *SortBuilder) Build() *Sort {
+	req := &Sort{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
 
 	}
 	return req

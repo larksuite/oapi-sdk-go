@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,6 +31,7 @@ func main() {
 		DepartmentId("D096").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Department(larkcontact.NewDepartmentBuilder().
 			Name("DemoName").
 			I18nName(larkcontact.NewDepartmentI18nNameBuilder().Build()).

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewStartMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
+
 		Body(larkvc.NewStartMeetingRecordingReqBodyBuilder().
 			Timezone(8).
 			Build()).

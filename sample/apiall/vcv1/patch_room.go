@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkvc.NewPatchRoomReqBuilder().
 		RoomId("omm_4de32cf10a4358788ff4e09e37ebbf9b").
 		UserIdType("open_id").
+
 		Room(larkvc.NewRoomBuilder().
 			Name("测试会议室").
 			Capacity(10).

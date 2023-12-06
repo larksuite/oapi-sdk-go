@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkbitable.NewUpdateAppRoleReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		RoleId("roljRpwIUt").
+
 		AppRole(larkbitable.NewAppRoleBuilder().
 			RoleName("自定义权限1").
 			TableRoles([]*larkbitable.AppRoleTableRole{larkbitable.NewAppRoleTableRoleBuilder().Build()}).

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -30,6 +31,7 @@ func main() {
 		AppId("cli_9b445f5258795107").
 		DepartmentIdType("open_department_id").
 		UserIdType("open_id").
+
 		Body(larkapplication.NewPatchApplicationVisibilityReqBodyBuilder().
 			AddVisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).
 			DelVisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).

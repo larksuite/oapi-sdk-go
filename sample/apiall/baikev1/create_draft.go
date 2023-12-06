@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/baike/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkbaike.NewCreateDraftReqBuilder().
 		UserIdType("user_id").
+
 		Entity(larkbaike.NewEntityBuilder().
 			Id("enterprise_40217521").
 			MainKeys([]*larkbaike.Term{larkbaike.NewTermBuilder().Build()}).

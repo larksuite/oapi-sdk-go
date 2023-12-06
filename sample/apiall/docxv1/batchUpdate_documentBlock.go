@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
@@ -31,6 +32,7 @@ func main() {
 		DocumentRevisionId(-1).
 		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
 		UserIdType("user_id").
+
 		Body(larkdocx.NewBatchUpdateDocumentBlockReqBodyBuilder().
 			Requests([]*larkdocx.UpdateBlockRequest{larkdocx.NewUpdateBlockRequestBuilder().Build()}).
 			Build()).

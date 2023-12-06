@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -30,6 +31,7 @@ func main() {
 		UserIdType("user_id").
 		PageSize(20).
 		PageToken("").
+
 		Body(larksearch.NewCreateMessageReqBodyBuilder().
 			Query("测试消息").
 			FromIds([]string{}).

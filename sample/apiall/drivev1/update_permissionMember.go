@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -31,6 +32,7 @@ func main() {
 		MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		NeedNotification(false).
 		Type("doc").
+
 		BaseMember(larkdrive.NewBaseMemberBuilder().
 			MemberType("openid").
 			Perm("view").

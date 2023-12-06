@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateJobLevelReqBuilder().
 		ClientToken("12454646").
+
 		JobLevel(larkcorehr.NewJobLevelBuilder().
 			LevelOrder(9999).
 			Code("VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY=").

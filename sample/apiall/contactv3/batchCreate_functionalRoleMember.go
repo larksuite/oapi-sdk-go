@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcontact.NewBatchCreateFunctionalRoleMemberReqBuilder().
 		RoleId("7vrj3vk70xk7v5r").
 		UserIdType("open_id").
+
 		Body(larkcontact.NewBatchCreateFunctionalRoleMemberReqBodyBuilder().
 			Members([]string{}).
 			Build()).

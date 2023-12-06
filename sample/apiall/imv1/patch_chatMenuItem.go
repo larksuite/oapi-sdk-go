@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkim.NewPatchChatMenuItemReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		MenuItemId("7156553273518882844").
+
 		Body(larkim.NewPatchChatMenuItemReqBodyBuilder().
 			UpdateFields([]string{}).
 			ChatMenuItem(larkim.NewChatMenuItemBuilder().Build()).

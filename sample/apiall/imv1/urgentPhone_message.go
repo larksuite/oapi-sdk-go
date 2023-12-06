@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkim.NewUrgentPhoneMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		UserIdType("open_id").
+
 		UrgentReceivers(larkim.NewUrgentReceiversBuilder().
 			UserIdList([]string{}).
 			Build()).

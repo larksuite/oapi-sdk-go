@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkhelpdesk.NewPatchNotificationReqBuilder().
 		NotificationId("6985032626234982420").
 		UserIdType("user_id").
+
 		Notification(larkhelpdesk.NewNotificationBuilder().
 			Id("6981801914270744596").
 			JobName("测试推送任务").

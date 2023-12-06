@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcorehr.NewCreateJobChangeReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("people_corehr_department_id").
+
 		Body(larkcorehr.NewCreateJobChangeReqBodyBuilder().
 			TransferMode(2).
 			EmploymentId("ou_a294793e8fa21529f2a60e3e9de45520").

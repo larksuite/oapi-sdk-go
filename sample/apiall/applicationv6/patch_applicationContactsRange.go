@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -30,6 +31,7 @@ func main() {
 		AppId("cli_dsfjksdfee1").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Body(larkapplication.NewPatchApplicationContactsRangeReqBodyBuilder().
 			ContactsRangeType("some").
 			AddVisibleList(larkapplication.NewAppContactsRangeIdListBuilder().Build()).

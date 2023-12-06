@@ -14,9 +14,8 @@
 package larkdocument_ai
 
 import (
-	"io"
-
 	"bytes"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )

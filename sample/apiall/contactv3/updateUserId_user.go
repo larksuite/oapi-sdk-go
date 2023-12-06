@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcontact.NewUpdateUserIdUserReqBuilder().
 		UserId("").
 		UserIdType("user_id").
+
 		Body(larkcontact.NewUpdateUserIdUserReqBodyBuilder().
 			NewUserId("3e3cf96b").
 			Build()).

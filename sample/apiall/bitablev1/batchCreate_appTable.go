@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkbitable.NewBatchCreateAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		UserIdType("user_id").
+
 		Body(larkbitable.NewBatchCreateAppTableReqBodyBuilder().
 			Tables([]*larkbitable.ReqTable{larkbitable.NewReqTableBuilder().Build()}).
 			Build()).

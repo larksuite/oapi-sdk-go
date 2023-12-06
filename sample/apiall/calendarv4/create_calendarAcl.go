@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -29,6 +30,7 @@ func main() {
 	req := larkcalendar.NewCreateCalendarAclReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		UserIdType("user_id").
+
 		CalendarAcl(larkcalendar.NewCalendarAclBuilder().
 			Role("unknown").
 			Scope(larkcalendar.NewAclScopeBuilder().Build()).

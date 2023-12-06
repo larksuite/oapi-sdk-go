@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
@@ -30,6 +31,7 @@ func main() {
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		CommentId("6937231762296684564").
 		UserIdType("user_id").
+
 		Body(larktask.NewUpdateTaskCommentReqBodyBuilder().
 			Content("飞流直下三千尺，疑是银河落九天").
 			RichContent("飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>").

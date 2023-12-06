@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkattendance.NewUpdateUserStatsViewReqBuilder().
 		UserStatsViewId("TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09").
 		EmployeeType("employee_id").
+
 		Body(larkattendance.NewUpdateUserStatsViewReqBodyBuilder().
 			View(larkattendance.NewUserStatsViewBuilder().Build()).
 			Build()).

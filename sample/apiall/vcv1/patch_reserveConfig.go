@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkvc.NewPatchReserveConfigReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
 		UserIdType("user_id").
+
 		Body(larkvc.NewPatchReserveConfigReqBodyBuilder().
 			ScopeType("2").
 			ApprovalConfig(larkvc.NewApprovalConfigBuilder().Build()).

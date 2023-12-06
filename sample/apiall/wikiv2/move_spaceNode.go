@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
@@ -29,6 +30,7 @@ func main() {
 	req := larkwiki.NewMoveSpaceNodeReqBuilder().
 		SpaceId("7008061636015512345").
 		NodeToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
+
 		Body(larkwiki.NewMoveSpaceNodeReqBodyBuilder().
 			TargetParentToken("wikbcd6ydSUyOEzbdlt1BfpA5Yc").
 			TargetSpaceId("7008061636015512345").

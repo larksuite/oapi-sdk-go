@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -30,6 +31,7 @@ func main() {
 		ApplicationId("7073372582620416300").
 		UserIdType("open_id").
 		DepartmentIdType("people_admin_department_id").
+
 		Body(larkhire.NewTransferOnboardApplicationReqBodyBuilder().
 			ActualOnboardTime(1616428800000).
 			ExpectedConversionTime(1616428800000).

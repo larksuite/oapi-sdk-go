@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkmail.NewBatchCreatePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
 		UserIdType("user_id").
+
 		Body(larkmail.NewBatchCreatePublicMailboxMemberReqBodyBuilder().
 			Items([]*larkmail.PublicMailboxMember{larkmail.NewPublicMailboxMemberBuilder().Build()}).
 			Build()).

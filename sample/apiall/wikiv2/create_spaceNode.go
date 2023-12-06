@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
@@ -28,12 +29,13 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewCreateSpaceNodeReqBuilder().
 		SpaceId("6704147935988285963").
+
 		Node(larkwiki.NewNodeBuilder().
 			ObjType("doc").
-			ParentNodeToken("").
+			ParentNodeToken("wikcnKQ1k3p******8Vabcef").
 			NodeType("origin").
-			OriginNodeToken("").
-			Title("").
+			OriginNodeToken("wikcnKQ1k3p******8Vabcef").
+			Title("xxxx").
 			Build()).
 		Build()
 	// 发起请求

@@ -14,11 +14,9 @@
 package larkokr
 
 import (
-	"io"
-
 	"bytes"
-
 	"fmt"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )

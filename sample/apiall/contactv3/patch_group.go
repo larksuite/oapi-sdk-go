@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,6 +31,7 @@ func main() {
 		GroupId("g187131").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		Group(larkcontact.NewGroupBuilder().
 			Name("外包 IT 用户组").
 			Description("IT 外包用户组，需要进行细粒度权限管控").

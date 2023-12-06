@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkim.NewMergeForwardMessageReqBuilder().
 		ReceiveIdType("open_id").
 		Uuid("b13g2t38-1jd2-458b-8djf-dtbca5104204").
+
 		Body(larkim.NewMergeForwardMessageReqBodyBuilder().
 			ReceiveId("oc_a0553eda9014c201e6969b478895c230").
 			MessageIdList([]string{}).

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkmail.NewPatchPublicMailboxReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
+
 		PublicMailbox(larkmail.NewPublicMailboxBuilder().
 			Email("test_public_mailbox@xxx.xx").
 			Name("test public mailbox").

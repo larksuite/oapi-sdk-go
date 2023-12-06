@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
@@ -32,6 +33,7 @@ func main() {
 		UserIdType("user_id").
 		OperatorId("ou_4065981088f8ef67a504ba8bd6b24d85").
 		RejectReason("拒绝理由").
+
 		ApplicationAppVersion(larkapplication.NewApplicationAppVersionBuilder().
 			Status(1).
 			Build()).

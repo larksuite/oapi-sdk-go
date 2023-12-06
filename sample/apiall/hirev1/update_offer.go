@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -30,6 +31,7 @@ func main() {
 		OfferId("7016605170635213100").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
+
 		OfferInfo(larkhire.NewOfferInfoBuilder().
 			SchemaId("7013318077945596204").
 			BasicInfo(larkhire.NewOfferBasicInfoBuilder().Build()).

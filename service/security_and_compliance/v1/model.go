@@ -287,6 +287,530 @@ func (builder *AppDlpExecuteLogBuilder) Build() *AppDlpExecuteLog {
 	return req
 }
 
+type CreateMigrationEntity struct {
+	Id          *string `json:"id,omitempty"`           // 实体的 id
+	Type        *string `json:"type,omitempty"`         // 实体的类型
+	Location    *string `json:"location,omitempty"`     // 实体的数据驻留地
+	MailAddress *string `json:"mail_address,omitempty"` // 当通过 mailbox 创建实体迁移任务时，返回 mail address，如果没有，则返回空
+}
+
+type CreateMigrationEntityBuilder struct {
+	id              string // 实体的 id
+	idFlag          bool
+	type_           string // 实体的类型
+	typeFlag        bool
+	location        string // 实体的数据驻留地
+	locationFlag    bool
+	mailAddress     string // 当通过 mailbox 创建实体迁移任务时，返回 mail address，如果没有，则返回空
+	mailAddressFlag bool
+}
+
+func NewCreateMigrationEntityBuilder() *CreateMigrationEntityBuilder {
+	builder := &CreateMigrationEntityBuilder{}
+	return builder
+}
+
+// 实体的 id
+//
+// 示例值：43c58071254443c580712544
+func (builder *CreateMigrationEntityBuilder) Id(id string) *CreateMigrationEntityBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 实体的类型
+//
+// 示例值：sheets
+func (builder *CreateMigrationEntityBuilder) Type(type_ string) *CreateMigrationEntityBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 实体的数据驻留地
+//
+// 示例值：SG
+func (builder *CreateMigrationEntityBuilder) Location(location string) *CreateMigrationEntityBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+
+// 当通过 mailbox 创建实体迁移任务时，返回 mail address，如果没有，则返回空
+//
+// 示例值：xxx@xxx.xx
+func (builder *CreateMigrationEntityBuilder) MailAddress(mailAddress string) *CreateMigrationEntityBuilder {
+	builder.mailAddress = mailAddress
+	builder.mailAddressFlag = true
+	return builder
+}
+
+func (builder *CreateMigrationEntityBuilder) Build() *CreateMigrationEntity {
+	req := &CreateMigrationEntity{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.mailAddressFlag {
+		req.MailAddress = &builder.mailAddress
+
+	}
+	return req
+}
+
+type CreateMigrationItems struct {
+	TaskId     *string                `json:"task_id,omitempty"`     // 迁移任务的 id
+	TaskStatus *string                `json:"task_status,omitempty"` // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+	Entity     *CreateMigrationEntity `json:"entity,omitempty"`      // 实体
+}
+
+type CreateMigrationItemsBuilder struct {
+	taskId         string // 迁移任务的 id
+	taskIdFlag     bool
+	taskStatus     string // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+	taskStatusFlag bool
+	entity         *CreateMigrationEntity // 实体
+	entityFlag     bool
+}
+
+func NewCreateMigrationItemsBuilder() *CreateMigrationItemsBuilder {
+	builder := &CreateMigrationItemsBuilder{}
+	return builder
+}
+
+// 迁移任务的 id
+//
+// 示例值：134jsi43d3ssi993d435452
+func (builder *CreateMigrationItemsBuilder) TaskId(taskId string) *CreateMigrationItemsBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+// 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+//
+// 示例值：create
+func (builder *CreateMigrationItemsBuilder) TaskStatus(taskStatus string) *CreateMigrationItemsBuilder {
+	builder.taskStatus = taskStatus
+	builder.taskStatusFlag = true
+	return builder
+}
+
+// 实体
+//
+// 示例值：
+func (builder *CreateMigrationItemsBuilder) Entity(entity *CreateMigrationEntity) *CreateMigrationItemsBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
+}
+
+func (builder *CreateMigrationItemsBuilder) Build() *CreateMigrationItems {
+	req := &CreateMigrationItems{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.taskStatusFlag {
+		req.TaskStatus = &builder.taskStatus
+
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
+}
+
+type DataArchivingMessage struct {
+	SeqId *string `json:"seq_id,omitempty"` // 序号ID
+	Limit *int    `json:"limit,omitempty"`  // | 分页数量，单次拉取消息数，最大值1000 示例值：100 | | --- |
+}
+
+type DataArchivingMessageBuilder struct {
+	seqId     string // 序号ID
+	seqIdFlag bool
+	limit     int // | 分页数量，单次拉取消息数，最大值1000 示例值：100 | | --- |
+	limitFlag bool
+}
+
+func NewDataArchivingMessageBuilder() *DataArchivingMessageBuilder {
+	builder := &DataArchivingMessageBuilder{}
+	return builder
+}
+
+// 序号ID
+//
+// 示例值：1
+func (builder *DataArchivingMessageBuilder) SeqId(seqId string) *DataArchivingMessageBuilder {
+	builder.seqId = seqId
+	builder.seqIdFlag = true
+	return builder
+}
+
+// | 分页数量，单次拉取消息数，最大值1000 示例值：100 | | --- |
+//
+// 示例值：100
+func (builder *DataArchivingMessageBuilder) Limit(limit int) *DataArchivingMessageBuilder {
+	builder.limit = limit
+	builder.limitFlag = true
+	return builder
+}
+
+func (builder *DataArchivingMessageBuilder) Build() *DataArchivingMessage {
+	req := &DataArchivingMessage{}
+	if builder.seqIdFlag {
+		req.SeqId = &builder.seqId
+
+	}
+	if builder.limitFlag {
+		req.Limit = &builder.limit
+
+	}
+	return req
+}
+
+type DataArchivingMessageStruct struct {
+	MessageId         *string                  `json:"message_id,omitempty"`           // 消息id
+	MessageType       *int                     `json:"message_type,omitempty"`         // 消息类型
+	SenderInfo        *DataArchivingUserStruct `json:"sender_info,omitempty"`          // 发送者信息
+	ReceiverIds       []string                 `json:"receiver_ids,omitempty"`         // 接受者信息
+	ActionType        *string                  `json:"action_type,omitempty"`          // 操作类型
+	ChatId            *string                  `json:"chat_id,omitempty"`              // 会话ID
+	ActionTime        *string                  `json:"action_time,omitempty"`          // 消息动作时间戳ms
+	IsSuperChat       *bool                    `json:"is_super_chat,omitempty"`        // 是否超大群
+	IsCrossTenantChat *bool                    `json:"is_cross_tenant_chat,omitempty"` // 是否跨租户群
+	ChatName          *string                  `json:"chat_name,omitempty"`            // 会话名称
+	Content           *string                  `json:"content,omitempty"`              // 文本内容
+	ChatMode          *string                  `json:"chat_mode,omitempty"`            // 会话类型
+	ReactionType      *string                  `json:"reaction_type,omitempty"`        // reaction类型
+	ParentMsgId       *string                  `json:"parent_msg_id,omitempty"`        // 父id
+}
+
+type DataArchivingMessageStructBuilder struct {
+	messageId             string // 消息id
+	messageIdFlag         bool
+	messageType           int // 消息类型
+	messageTypeFlag       bool
+	senderInfo            *DataArchivingUserStruct // 发送者信息
+	senderInfoFlag        bool
+	receiverIds           []string // 接受者信息
+	receiverIdsFlag       bool
+	actionType            string // 操作类型
+	actionTypeFlag        bool
+	chatId                string // 会话ID
+	chatIdFlag            bool
+	actionTime            string // 消息动作时间戳ms
+	actionTimeFlag        bool
+	isSuperChat           bool // 是否超大群
+	isSuperChatFlag       bool
+	isCrossTenantChat     bool // 是否跨租户群
+	isCrossTenantChatFlag bool
+	chatName              string // 会话名称
+	chatNameFlag          bool
+	content               string // 文本内容
+	contentFlag           bool
+	chatMode              string // 会话类型
+	chatModeFlag          bool
+	reactionType          string // reaction类型
+	reactionTypeFlag      bool
+	parentMsgId           string // 父id
+	parentMsgIdFlag       bool
+}
+
+func NewDataArchivingMessageStructBuilder() *DataArchivingMessageStructBuilder {
+	builder := &DataArchivingMessageStructBuilder{}
+	return builder
+}
+
+// 消息id
+//
+// 示例值：om_829acd7aaae80c031837ad1946d7cf9f
+func (builder *DataArchivingMessageStructBuilder) MessageId(messageId string) *DataArchivingMessageStructBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+
+// 消息类型
+//
+// 示例值：1
+func (builder *DataArchivingMessageStructBuilder) MessageType(messageType int) *DataArchivingMessageStructBuilder {
+	builder.messageType = messageType
+	builder.messageTypeFlag = true
+	return builder
+}
+
+// 发送者信息
+//
+// 示例值：
+func (builder *DataArchivingMessageStructBuilder) SenderInfo(senderInfo *DataArchivingUserStruct) *DataArchivingMessageStructBuilder {
+	builder.senderInfo = senderInfo
+	builder.senderInfoFlag = true
+	return builder
+}
+
+// 接受者信息
+//
+// 示例值：
+func (builder *DataArchivingMessageStructBuilder) ReceiverIds(receiverIds []string) *DataArchivingMessageStructBuilder {
+	builder.receiverIds = receiverIds
+	builder.receiverIdsFlag = true
+	return builder
+}
+
+// 操作类型
+//
+// 示例值：send
+func (builder *DataArchivingMessageStructBuilder) ActionType(actionType string) *DataArchivingMessageStructBuilder {
+	builder.actionType = actionType
+	builder.actionTypeFlag = true
+	return builder
+}
+
+// 会话ID
+//
+// 示例值：oc_1263d7c4d513defb9f5df13214602aa6
+func (builder *DataArchivingMessageStructBuilder) ChatId(chatId string) *DataArchivingMessageStructBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+
+// 消息动作时间戳ms
+//
+// 示例值：1700191599000
+func (builder *DataArchivingMessageStructBuilder) ActionTime(actionTime string) *DataArchivingMessageStructBuilder {
+	builder.actionTime = actionTime
+	builder.actionTimeFlag = true
+	return builder
+}
+
+// 是否超大群
+//
+// 示例值：true
+func (builder *DataArchivingMessageStructBuilder) IsSuperChat(isSuperChat bool) *DataArchivingMessageStructBuilder {
+	builder.isSuperChat = isSuperChat
+	builder.isSuperChatFlag = true
+	return builder
+}
+
+// 是否跨租户群
+//
+// 示例值：true
+func (builder *DataArchivingMessageStructBuilder) IsCrossTenantChat(isCrossTenantChat bool) *DataArchivingMessageStructBuilder {
+	builder.isCrossTenantChat = isCrossTenantChat
+	builder.isCrossTenantChatFlag = true
+	return builder
+}
+
+// 会话名称
+//
+// 示例值：会话名称
+func (builder *DataArchivingMessageStructBuilder) ChatName(chatName string) *DataArchivingMessageStructBuilder {
+	builder.chatName = chatName
+	builder.chatNameFlag = true
+	return builder
+}
+
+// 文本内容
+//
+// 示例值：hello
+func (builder *DataArchivingMessageStructBuilder) Content(content string) *DataArchivingMessageStructBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 会话类型
+//
+// 示例值：group
+func (builder *DataArchivingMessageStructBuilder) ChatMode(chatMode string) *DataArchivingMessageStructBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeFlag = true
+	return builder
+}
+
+// reaction类型
+//
+// 示例值：FISTBUMP
+func (builder *DataArchivingMessageStructBuilder) ReactionType(reactionType string) *DataArchivingMessageStructBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
+}
+
+// 父id
+//
+// 示例值：om_829acd7aaae80c031837ad1946d7cf9f
+func (builder *DataArchivingMessageStructBuilder) ParentMsgId(parentMsgId string) *DataArchivingMessageStructBuilder {
+	builder.parentMsgId = parentMsgId
+	builder.parentMsgIdFlag = true
+	return builder
+}
+
+func (builder *DataArchivingMessageStructBuilder) Build() *DataArchivingMessageStruct {
+	req := &DataArchivingMessageStruct{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.messageTypeFlag {
+		req.MessageType = &builder.messageType
+
+	}
+	if builder.senderInfoFlag {
+		req.SenderInfo = builder.senderInfo
+	}
+	if builder.receiverIdsFlag {
+		req.ReceiverIds = builder.receiverIds
+	}
+	if builder.actionTypeFlag {
+		req.ActionType = &builder.actionType
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.actionTimeFlag {
+		req.ActionTime = &builder.actionTime
+
+	}
+	if builder.isSuperChatFlag {
+		req.IsSuperChat = &builder.isSuperChat
+
+	}
+	if builder.isCrossTenantChatFlag {
+		req.IsCrossTenantChat = &builder.isCrossTenantChat
+
+	}
+	if builder.chatNameFlag {
+		req.ChatName = &builder.chatName
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.chatModeFlag {
+		req.ChatMode = &builder.chatMode
+
+	}
+	if builder.reactionTypeFlag {
+		req.ReactionType = &builder.reactionType
+
+	}
+	if builder.parentMsgIdFlag {
+		req.ParentMsgId = &builder.parentMsgId
+
+	}
+	return req
+}
+
+type DataArchivingUser struct {
+	UserIds []string `json:"user_ids,omitempty"` // 归档人员列表
+}
+
+type DataArchivingUserBuilder struct {
+	userIds     []string // 归档人员列表
+	userIdsFlag bool
+}
+
+func NewDataArchivingUserBuilder() *DataArchivingUserBuilder {
+	builder := &DataArchivingUserBuilder{}
+	return builder
+}
+
+// 归档人员列表
+//
+// 示例值：
+func (builder *DataArchivingUserBuilder) UserIds(userIds []string) *DataArchivingUserBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *DataArchivingUserBuilder) Build() *DataArchivingUser {
+	req := &DataArchivingUser{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type DataArchivingUserStruct struct {
+	Type *string `json:"type,omitempty"` // 类型
+	Id   *string `json:"id,omitempty"`   // 值
+	Name *string `json:"name,omitempty"` // 姓名
+}
+
+type DataArchivingUserStructBuilder struct {
+	type_    string // 类型
+	typeFlag bool
+	id       string // 值
+	idFlag   bool
+	name     string // 姓名
+	nameFlag bool
+}
+
+func NewDataArchivingUserStructBuilder() *DataArchivingUserStructBuilder {
+	builder := &DataArchivingUserStructBuilder{}
+	return builder
+}
+
+// 类型
+//
+// 示例值：1
+func (builder *DataArchivingUserStructBuilder) Type(type_ string) *DataArchivingUserStructBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 值
+//
+// 示例值：352d9dgb
+func (builder *DataArchivingUserStructBuilder) Id(id string) *DataArchivingUserStructBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 姓名
+//
+// 示例值：莉莉
+func (builder *DataArchivingUserStructBuilder) Name(name string) *DataArchivingUserStructBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *DataArchivingUserStructBuilder) Build() *DataArchivingUserStruct {
+	req := &DataArchivingUserStruct{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId     *string `json:"department_id,omitempty"`      //
 	OpenDepartmentId *string `json:"open_department_id,omitempty"` //
@@ -969,6 +1493,102 @@ func (builder *DeviceRecordBuilder) Build() *DeviceRecord {
 	}
 	if builder.diskSerialNumberFlag {
 		req.DiskSerialNumber = &builder.diskSerialNumber
+
+	}
+	return req
+}
+
+type DirectoryItems struct {
+	EntityId         *string `json:"entity_id,omitempty"`          // 实体的 id
+	MailAddress      *string `json:"mail_address,omitempty"`       // 邮箱地址。当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空。
+	EntityLocation   *string `json:"entity_location,omitempty"`    // 实体的数据驻留地
+	EntityCreateTime *string `json:"entity_create_time,omitempty"` // 实体创建时间（毫秒级时间戳）
+	EntityType       *string `json:"entity_type,omitempty"`        // 实体的类型
+}
+
+type DirectoryItemsBuilder struct {
+	entityId             string // 实体的 id
+	entityIdFlag         bool
+	mailAddress          string // 邮箱地址。当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空。
+	mailAddressFlag      bool
+	entityLocation       string // 实体的数据驻留地
+	entityLocationFlag   bool
+	entityCreateTime     string // 实体创建时间（毫秒级时间戳）
+	entityCreateTimeFlag bool
+	entityType           string // 实体的类型
+	entityTypeFlag       bool
+}
+
+func NewDirectoryItemsBuilder() *DirectoryItemsBuilder {
+	builder := &DirectoryItemsBuilder{}
+	return builder
+}
+
+// 实体的 id
+//
+// 示例值：134jsi43d3ssi993d435452
+func (builder *DirectoryItemsBuilder) EntityId(entityId string) *DirectoryItemsBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
+}
+
+// 邮箱地址。当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空。
+//
+// 示例值：xxx@xxx.xx
+func (builder *DirectoryItemsBuilder) MailAddress(mailAddress string) *DirectoryItemsBuilder {
+	builder.mailAddress = mailAddress
+	builder.mailAddressFlag = true
+	return builder
+}
+
+// 实体的数据驻留地
+//
+// 示例值：SG
+func (builder *DirectoryItemsBuilder) EntityLocation(entityLocation string) *DirectoryItemsBuilder {
+	builder.entityLocation = entityLocation
+	builder.entityLocationFlag = true
+	return builder
+}
+
+// 实体创建时间（毫秒级时间戳）
+//
+// 示例值：1615380573411
+func (builder *DirectoryItemsBuilder) EntityCreateTime(entityCreateTime string) *DirectoryItemsBuilder {
+	builder.entityCreateTime = entityCreateTime
+	builder.entityCreateTimeFlag = true
+	return builder
+}
+
+// 实体的类型
+//
+// 示例值：sheets
+func (builder *DirectoryItemsBuilder) EntityType(entityType string) *DirectoryItemsBuilder {
+	builder.entityType = entityType
+	builder.entityTypeFlag = true
+	return builder
+}
+
+func (builder *DirectoryItemsBuilder) Build() *DirectoryItems {
+	req := &DirectoryItems{}
+	if builder.entityIdFlag {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.mailAddressFlag {
+		req.MailAddress = &builder.mailAddress
+
+	}
+	if builder.entityLocationFlag {
+		req.EntityLocation = &builder.entityLocation
+
+	}
+	if builder.entityCreateTimeFlag {
+		req.EntityCreateTime = &builder.entityCreateTime
+
+	}
+	if builder.entityTypeFlag {
+		req.EntityType = &builder.entityType
 
 	}
 	return req
@@ -2535,7 +3155,7 @@ func (builder *GwResponseBuilder) StatusCode(statusCode int) *GwResponseBuilder 
 
 // 返回头
 //
-// 示例值：{"Vary": "gzip"}
+// 示例值：{\"Vary\": [\"gzip\"]}
 func (builder *GwResponseBuilder) Header(header string) *GwResponseBuilder {
 	builder.header = header
 	builder.headerFlag = true
@@ -2868,6 +3488,213 @@ func (builder *MessageBuilder) Build() *Message {
 	}
 	if builder.createTimeFlag {
 		req.CreateTime = &builder.createTime
+
+	}
+	return req
+}
+
+type MigrationEntity struct {
+	Id          *string `json:"id,omitempty"`           // 迁移的实体 id
+	Location    *string `json:"location,omitempty"`     // 实体的数据驻留地
+	Type        *string `json:"type,omitempty"`         // 实体的类型
+	CreatorId   *string `json:"creator_id,omitempty"`   // 创建者的 id
+	CreatorType *string `json:"creator_type,omitempty"` // 创建者的类型
+	CreateTime  *string `json:"create_time,omitempty"`  // 实体创建时间（毫秒级时间戳）
+	MailAddress *string `json:"mail_address,omitempty"` // 当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空
+}
+
+type MigrationEntityBuilder struct {
+	id              string // 迁移的实体 id
+	idFlag          bool
+	location        string // 实体的数据驻留地
+	locationFlag    bool
+	type_           string // 实体的类型
+	typeFlag        bool
+	creatorId       string // 创建者的 id
+	creatorIdFlag   bool
+	creatorType     string // 创建者的类型
+	creatorTypeFlag bool
+	createTime      string // 实体创建时间（毫秒级时间戳）
+	createTimeFlag  bool
+	mailAddress     string // 当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空
+	mailAddressFlag bool
+}
+
+func NewMigrationEntityBuilder() *MigrationEntityBuilder {
+	builder := &MigrationEntityBuilder{}
+	return builder
+}
+
+// 迁移的实体 id
+//
+// 示例值：43c58071254443c580712544
+func (builder *MigrationEntityBuilder) Id(id string) *MigrationEntityBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 实体的数据驻留地
+//
+// 示例值：SG
+func (builder *MigrationEntityBuilder) Location(location string) *MigrationEntityBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+
+// 实体的类型
+//
+// 示例值：sheets
+func (builder *MigrationEntityBuilder) Type(type_ string) *MigrationEntityBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 创建者的 id
+//
+// 示例值：4443c580712544
+func (builder *MigrationEntityBuilder) CreatorId(creatorId string) *MigrationEntityBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+
+// 创建者的类型
+//
+// 示例值：user
+func (builder *MigrationEntityBuilder) CreatorType(creatorType string) *MigrationEntityBuilder {
+	builder.creatorType = creatorType
+	builder.creatorTypeFlag = true
+	return builder
+}
+
+// 实体创建时间（毫秒级时间戳）
+//
+// 示例值：1615380573411
+func (builder *MigrationEntityBuilder) CreateTime(createTime string) *MigrationEntityBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空
+//
+// 示例值：xxx@xxx.xx
+func (builder *MigrationEntityBuilder) MailAddress(mailAddress string) *MigrationEntityBuilder {
+	builder.mailAddress = mailAddress
+	builder.mailAddressFlag = true
+	return builder
+}
+
+func (builder *MigrationEntityBuilder) Build() *MigrationEntity {
+	req := &MigrationEntity{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.creatorTypeFlag {
+		req.CreatorType = &builder.creatorType
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.mailAddressFlag {
+		req.MailAddress = &builder.mailAddress
+
+	}
+	return req
+}
+
+type MigrationItems struct {
+	TaskId     *string          `json:"task_id,omitempty"`     // 迁移任务的 id
+	TaskStatus *string          `json:"task_status,omitempty"` // 任务状态
+	Entity     *MigrationEntity `json:"entity,omitempty"`      // 实体。当 entity 因为物理删除等原因找不到了，则不返回 entity 这个 obejct。
+	Message    *string          `json:"message,omitempty"`     // 只有当 task status 为 stop 时，返回 entity 找不到的信息。
+}
+
+type MigrationItemsBuilder struct {
+	taskId         string // 迁移任务的 id
+	taskIdFlag     bool
+	taskStatus     string // 任务状态
+	taskStatusFlag bool
+	entity         *MigrationEntity // 实体。当 entity 因为物理删除等原因找不到了，则不返回 entity 这个 obejct。
+	entityFlag     bool
+	message        string // 只有当 task status 为 stop 时，返回 entity 找不到的信息。
+	messageFlag    bool
+}
+
+func NewMigrationItemsBuilder() *MigrationItemsBuilder {
+	builder := &MigrationItemsBuilder{}
+	return builder
+}
+
+// 迁移任务的 id
+//
+// 示例值：DUoTvpjqEMgzaDU5CmfpPhx2ncp8nh+EGtQtXXQDiBdxp7QBYwI55YnfCM7Pmoxirb9V8k9CMaqLESoXLX7ny7qj7mNlbhHBMcvzsuemDpSN5aF9TmzNEJHtcmtEfdCr
+func (builder *MigrationItemsBuilder) TaskId(taskId string) *MigrationItemsBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+// 任务状态
+//
+// 示例值：create
+func (builder *MigrationItemsBuilder) TaskStatus(taskStatus string) *MigrationItemsBuilder {
+	builder.taskStatus = taskStatus
+	builder.taskStatusFlag = true
+	return builder
+}
+
+// 实体。当 entity 因为物理删除等原因找不到了，则不返回 entity 这个 obejct。
+//
+// 示例值：
+func (builder *MigrationItemsBuilder) Entity(entity *MigrationEntity) *MigrationItemsBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
+}
+
+// 只有当 task status 为 stop 时，返回 entity 找不到的信息。
+//
+// 示例值：Entity not exist.
+func (builder *MigrationItemsBuilder) Message(message string) *MigrationItemsBuilder {
+	builder.message = message
+	builder.messageFlag = true
+	return builder
+}
+
+func (builder *MigrationItemsBuilder) Build() *MigrationItems {
+	req := &MigrationItems{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.taskStatusFlag {
+		req.TaskStatus = &builder.taskStatus
+
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	if builder.messageFlag {
+		req.Message = &builder.message
 
 	}
 	return req

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -31,6 +32,7 @@ func main() {
 		SheetId("0b**12").
 		FilterViewId("pH9hbVcCXA").
 		ConditionId("E").
+
 		FilterViewCondition(larksheets.NewFilterViewConditionBuilder().
 			FilterType("").
 			CompareType("").

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUpdateJobFamilyReqBuilder().
 		JobFamilyId("mga5oa8ayjlp9rb").
+
 		JobFamily(larkcontact.NewJobFamilyBuilder().
 			Name("产品").
 			Description("负责产品策略制定的相关工作").

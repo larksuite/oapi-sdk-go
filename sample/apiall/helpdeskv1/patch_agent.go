@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewPatchAgentReqBuilder().
 		AgentId("ou_14777d82ffef0f707de5a8c7ff2c5ebe").
+
 		Body(larkhelpdesk.NewPatchAgentReqBodyBuilder().
 			Status(0).
 			Build()).

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkdrive.NewCreateFileVersionReqBuilder().
 		FileToken("doxbcyvqZlSc9WlHvQMlSJwUrsb").
 		UserIdType("user_id").
+
 		Version(larkdrive.NewVersionBuilder().
 			Name("文档标题").
 			Version("version1").

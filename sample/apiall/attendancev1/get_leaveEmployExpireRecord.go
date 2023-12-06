@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkattendance.NewGetLeaveEmployExpireRecordReqBuilder().
 		LeaveId("1").
 		UserIdType("open_id").
+
 		Body(larkattendance.NewGetLeaveEmployExpireRecordReqBodyBuilder().
 			EmploymentId("1").
 			LeaveTypeId("1").

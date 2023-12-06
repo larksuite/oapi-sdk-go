@@ -14,16 +14,12 @@
 package larkattendance
 
 import (
-	"io"
-
 	"bytes"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1120,6 +1116,7 @@ type Group struct {
 	BindDefaultDeptIds      []string                 `json:"bind_default_dept_ids,omitempty"`       // 默认出勤的部门id列表
 	BindDefaultUserIds      []string                 `json:"bind_default_user_ids,omitempty"`       // 默认出勤的用户ID列表
 	OvertimeClockCfg        *OvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`          // 加班打卡规则
+	NewCalendarId           *string                  `json:"new_calendar_id,omitempty"`             // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 }
 
 type GroupBuilder struct {
@@ -1253,6 +1250,8 @@ type GroupBuilder struct {
 	bindDefaultUserIdsFlag      bool
 	overtimeClockCfg            *OvertimeClockCfg // 加班打卡规则
 	overtimeClockCfgFlag        bool
+	newCalendarId               string // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
+	newCalendarIdFlag           bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -1845,6 +1844,15 @@ func (builder *GroupBuilder) OvertimeClockCfg(overtimeClockCfg *OvertimeClockCfg
 	return builder
 }
 
+// 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
+//
+// 示例值：通过查询考勤组接口获取的new_calendar_id，例如7302191700771358252
+func (builder *GroupBuilder) NewCalendarId(newCalendarId string) *GroupBuilder {
+	builder.newCalendarId = newCalendarId
+	builder.newCalendarIdFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.groupIdFlag {
@@ -2085,6 +2093,10 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.overtimeClockCfgFlag {
 		req.OvertimeClockCfg = builder.overtimeClockCfg
+	}
+	if builder.newCalendarIdFlag {
+		req.NewCalendarId = &builder.newCalendarId
+
 	}
 	return req
 }
@@ -3502,6 +3514,53 @@ func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
 	return req
 }
 
+type OpenApplyTimeRange struct {
+	OvertimeAttributionDate *string            `json:"overtime_attribution_date,omitempty"` // 加班所属日期
+	TimeRange               *OvertimeTimeRange `json:"time_range,omitempty"`                // 时段信息
+}
+
+type OpenApplyTimeRangeBuilder struct {
+	overtimeAttributionDate     string // 加班所属日期
+	overtimeAttributionDateFlag bool
+	timeRange                   *OvertimeTimeRange // 时段信息
+	timeRangeFlag               bool
+}
+
+func NewOpenApplyTimeRangeBuilder() *OpenApplyTimeRangeBuilder {
+	builder := &OpenApplyTimeRangeBuilder{}
+	return builder
+}
+
+// 加班所属日期
+//
+// 示例值：2023-09-25
+func (builder *OpenApplyTimeRangeBuilder) OvertimeAttributionDate(overtimeAttributionDate string) *OpenApplyTimeRangeBuilder {
+	builder.overtimeAttributionDate = overtimeAttributionDate
+	builder.overtimeAttributionDateFlag = true
+	return builder
+}
+
+// 时段信息
+//
+// 示例值：
+func (builder *OpenApplyTimeRangeBuilder) TimeRange(timeRange *OvertimeTimeRange) *OpenApplyTimeRangeBuilder {
+	builder.timeRange = timeRange
+	builder.timeRangeFlag = true
+	return builder
+}
+
+func (builder *OpenApplyTimeRangeBuilder) Build() *OpenApplyTimeRange {
+	req := &OpenApplyTimeRange{}
+	if builder.overtimeAttributionDateFlag {
+		req.OvertimeAttributionDate = &builder.overtimeAttributionDate
+
+	}
+	if builder.timeRangeFlag {
+		req.TimeRange = builder.timeRange
+	}
+	return req
+}
+
 type OvertimeClockCfg struct {
 	AllowPunchApproval *bool `json:"allow_punch_approval,omitempty"` // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
 }
@@ -4580,6 +4639,54 @@ func (builder *ShiftBuilder) Build() *Shift {
 	return req
 }
 
+type ShiftGroupUser struct {
+	ShiftGroupId *string `json:"shift_group_id,omitempty"` // 班组ID
+	UserId       *string `json:"user_id,omitempty"`        // 用户ID，根据传参user_id_type确定
+}
+
+type ShiftGroupUserBuilder struct {
+	shiftGroupId     string // 班组ID
+	shiftGroupIdFlag bool
+	userId           string // 用户ID，根据传参user_id_type确定
+	userIdFlag       bool
+}
+
+func NewShiftGroupUserBuilder() *ShiftGroupUserBuilder {
+	builder := &ShiftGroupUserBuilder{}
+	return builder
+}
+
+// 班组ID
+//
+// 示例值：7275180303583281171
+func (builder *ShiftGroupUserBuilder) ShiftGroupId(shiftGroupId string) *ShiftGroupUserBuilder {
+	builder.shiftGroupId = shiftGroupId
+	builder.shiftGroupIdFlag = true
+	return builder
+}
+
+// 用户ID，根据传参user_id_type确定
+//
+// 示例值：52aa1fa1
+func (builder *ShiftGroupUserBuilder) UserId(userId string) *ShiftGroupUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ShiftGroupUserBuilder) Build() *ShiftGroupUser {
+	req := &ShiftGroupUser{}
+	if builder.shiftGroupIdFlag {
+		req.ShiftGroupId = &builder.shiftGroupId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
 type StatusChange struct {
 	Index             *int    `json:"index,omitempty"`              //
 	BeforeStatus      *string `json:"before_status,omitempty"`      //
@@ -5325,6 +5432,7 @@ type UserFlow struct {
 	PhotoUrls []string `json:"photo_urls,omitempty"` // 打卡照片列表
 
 	CheckResult *string `json:"check_result,omitempty"` // 打卡结果
+	ExternalId  *string `json:"external_id,omitempty"`  // 用户导入的外部打卡记录ID
 }
 
 type UserFlowBuilder struct {
@@ -5356,6 +5464,8 @@ type UserFlowBuilder struct {
 
 	checkResult     string // 打卡结果
 	checkResultFlag bool
+	externalId      string // 用户导入的外部打卡记录ID
+	externalIdFlag  bool
 }
 
 func NewUserFlowBuilder() *UserFlowBuilder {
@@ -5480,6 +5590,15 @@ func (builder *UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder
 	return builder
 }
 
+// 用户导入的外部打卡记录ID
+//
+// 示例值：record_123
+func (builder *UserFlowBuilder) ExternalId(externalId string) *UserFlowBuilder {
+	builder.externalId = externalId
+	builder.externalIdFlag = true
+	return builder
+}
+
 func (builder *UserFlowBuilder) Build() *UserFlow {
 	req := &UserFlow{}
 	if builder.userIdFlag {
@@ -5533,6 +5652,10 @@ func (builder *UserFlowBuilder) Build() *UserFlow {
 
 	if builder.checkResultFlag {
 		req.CheckResult = &builder.checkResult
+
+	}
+	if builder.externalIdFlag {
+		req.ExternalId = &builder.externalId
 
 	}
 	return req
@@ -6171,6 +6294,86 @@ func (builder *UserSettingBuilder) Build() *UserSetting {
 	}
 	if builder.faceKeyUpdateTimeFlag {
 		req.FaceKeyUpdateTime = &builder.faceKeyUpdateTime
+
+	}
+	return req
+}
+
+type UserShiftGroupsList struct {
+	ShiftGroupId   *string `json:"shift_group_id,omitempty"`   // 班组ID
+	ShiftGroupName *string `json:"shift_group_name,omitempty"` // 班组名称
+	GroupId        *string `json:"group_id,omitempty"`         // 考勤组ID
+	UpdateTime     *string `json:"update_time,omitempty"`      // 班组的最后更新时间
+}
+
+type UserShiftGroupsListBuilder struct {
+	shiftGroupId       string // 班组ID
+	shiftGroupIdFlag   bool
+	shiftGroupName     string // 班组名称
+	shiftGroupNameFlag bool
+	groupId            string // 考勤组ID
+	groupIdFlag        bool
+	updateTime         string // 班组的最后更新时间
+	updateTimeFlag     bool
+}
+
+func NewUserShiftGroupsListBuilder() *UserShiftGroupsListBuilder {
+	builder := &UserShiftGroupsListBuilder{}
+	return builder
+}
+
+// 班组ID
+//
+// 示例值：7301693071333261331
+func (builder *UserShiftGroupsListBuilder) ShiftGroupId(shiftGroupId string) *UserShiftGroupsListBuilder {
+	builder.shiftGroupId = shiftGroupId
+	builder.shiftGroupIdFlag = true
+	return builder
+}
+
+// 班组名称
+//
+// 示例值：飞书考勤班组
+func (builder *UserShiftGroupsListBuilder) ShiftGroupName(shiftGroupName string) *UserShiftGroupsListBuilder {
+	builder.shiftGroupName = shiftGroupName
+	builder.shiftGroupNameFlag = true
+	return builder
+}
+
+// 考勤组ID
+//
+// 示例值：7299769369813319699
+func (builder *UserShiftGroupsListBuilder) GroupId(groupId string) *UserShiftGroupsListBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
+// 班组的最后更新时间
+//
+// 示例值：2023-11-15 09:00:00
+func (builder *UserShiftGroupsListBuilder) UpdateTime(updateTime string) *UserShiftGroupsListBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *UserShiftGroupsListBuilder) Build() *UserShiftGroupsList {
+	req := &UserShiftGroupsList{}
+	if builder.shiftGroupIdFlag {
+		req.ShiftGroupId = &builder.shiftGroupId
+
+	}
+	if builder.shiftGroupNameFlag {
+		req.ShiftGroupName = &builder.shiftGroupName
+
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
 
 	}
 	return req
@@ -7707,6 +7910,7 @@ type GetGroupRespData struct {
 	BindDefaultDeptIds      []string                 `json:"bind_default_dept_ids,omitempty"`       // 默认出勤的部门id列表
 	BindDefaultUserIds      []string                 `json:"bind_default_user_ids,omitempty"`       // 默认出勤的用户ID列表
 	OvertimeClockCfg        *OvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`          // 加班打卡规则
+	NewCalendarId           *string                  `json:"new_calendar_id,omitempty"`             // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 }
 
 type GetGroupResp struct {
@@ -9576,6 +9780,7 @@ type GetUserFlowRespData struct {
 	PhotoUrls []string `json:"photo_urls,omitempty"` // 打卡照片列表
 
 	CheckResult *string `json:"check_result,omitempty"` // 打卡结果
+	ExternalId  *string `json:"external_id,omitempty"`  // 用户导入的外部打卡记录ID
 }
 
 type GetUserFlowResp struct {

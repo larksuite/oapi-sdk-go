@@ -14,16 +14,12 @@
 package larkdrive
 
 import (
-	"io"
-
 	"bytes"
-
-	"io/ioutil"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -265,11 +261,13 @@ const (
 )
 
 const (
-	ObjTypeDocx = "docx" // 新版文档
+	ObjTypeDocx  = "docx"  // 新版文档
+	ObjTypeSheet = "sheet" // 电子表格
 )
 
 const (
-	ParentTypeCreateFileVersionObjTypeDocx = "docx" // 新版文档
+	ParentTypeCreateFileVersionObjTypeDocx  = "docx"  // 新版文档
+	ParentTypeCreateFileVersionObjTypeSheet = "sheet" // 电子表格
 )
 
 const (
@@ -279,7 +277,8 @@ const (
 )
 
 const (
-	ObjTypeDeleteFileVersionDocx = "docx" // 新版文档
+	ObjTypeDeleteFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeDeleteFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -289,7 +288,8 @@ const (
 )
 
 const (
-	ObjTypeGetFileVersionDocx = "docx" // 新版文档
+	ObjTypeGetFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeGetFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -299,7 +299,8 @@ const (
 )
 
 const (
-	ObjTypeListFileVersionDocx = "docx" // 新版文档
+	ObjTypeListFileVersionDocx  = "docx"  // 新版文档
+	ObjTypeListFileVersionSheet = "sheet" // 电子表格
 )
 
 const (
@@ -371,13 +372,14 @@ const (
 )
 
 const (
-	PermView    = "view"    // 阅读
-	PermEdit    = "edit"    // 编辑
-	PermShare   = "share"   // 分享
-	PermComment = "comment" // 评论
-	PermExport  = "export"  // 导出
-	PermCopy    = "copy"    // 拷贝
-	PermPrint   = "print"   // 打印
+	PermView         = "view"          // 阅读
+	PermEdit         = "edit"          // 编辑
+	PermShare        = "share"         // 分享
+	PermComment      = "comment"       // 评论
+	PermExport       = "export"        // 导出
+	PermCopy         = "copy"          // 拷贝
+	PermPrint        = "print"         // 打印
+	PermManagePublic = "manage_public" // 管理权限设置
 )
 
 const (
@@ -1948,6 +1950,116 @@ func (builder *FileBuilder) Build() *File {
 	if builder.ownerIdFlag {
 		req.OwnerId = &builder.ownerId
 
+	}
+	return req
+}
+
+type FileBlockChangeInfo struct {
+	BlockToken     *string `json:"block_token,omitempty"`      // 子block token
+	BlockTokenType *string `json:"block_token_type,omitempty"` // 子block文档类型
+	RevRanges      []int   `json:"rev_ranges,omitempty"`       // 起点版本和终点版本
+}
+
+type FileBlockChangeInfoBuilder struct {
+	blockToken         string // 子block token
+	blockTokenFlag     bool
+	blockTokenType     string // 子block文档类型
+	blockTokenTypeFlag bool
+	revRanges          []int // 起点版本和终点版本
+	revRangesFlag      bool
+}
+
+func NewFileBlockChangeInfoBuilder() *FileBlockChangeInfoBuilder {
+	builder := &FileBlockChangeInfoBuilder{}
+	return builder
+}
+
+// 子block token
+//
+// 示例值：doxcnxxxxxxxxxxxxxxxx
+func (builder *FileBlockChangeInfoBuilder) BlockToken(blockToken string) *FileBlockChangeInfoBuilder {
+	builder.blockToken = blockToken
+	builder.blockTokenFlag = true
+	return builder
+}
+
+// 子block文档类型
+//
+// 示例值：docx
+func (builder *FileBlockChangeInfoBuilder) BlockTokenType(blockTokenType string) *FileBlockChangeInfoBuilder {
+	builder.blockTokenType = blockTokenType
+	builder.blockTokenTypeFlag = true
+	return builder
+}
+
+// 起点版本和终点版本
+//
+// 示例值：
+func (builder *FileBlockChangeInfoBuilder) RevRanges(revRanges []int) *FileBlockChangeInfoBuilder {
+	builder.revRanges = revRanges
+	builder.revRangesFlag = true
+	return builder
+}
+
+func (builder *FileBlockChangeInfoBuilder) Build() *FileBlockChangeInfo {
+	req := &FileBlockChangeInfo{}
+	if builder.blockTokenFlag {
+		req.BlockToken = &builder.blockToken
+
+	}
+	if builder.blockTokenTypeFlag {
+		req.BlockTokenType = &builder.blockTokenType
+
+	}
+	if builder.revRangesFlag {
+		req.RevRanges = builder.revRanges
+	}
+	return req
+}
+
+type FileChangeInfo struct {
+	StartTime *int                   `json:"start_time,omitempty"` // 变更开始时间
+	Changes   []*FileBlockChangeInfo `json:"changes,omitempty"`    // 版本变更明细
+}
+
+type FileChangeInfoBuilder struct {
+	startTime     int // 变更开始时间
+	startTimeFlag bool
+	changes       []*FileBlockChangeInfo // 版本变更明细
+	changesFlag   bool
+}
+
+func NewFileChangeInfoBuilder() *FileChangeInfoBuilder {
+	builder := &FileChangeInfoBuilder{}
+	return builder
+}
+
+// 变更开始时间
+//
+// 示例值：1687748146
+func (builder *FileChangeInfoBuilder) StartTime(startTime int) *FileChangeInfoBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 版本变更明细
+//
+// 示例值：
+func (builder *FileChangeInfoBuilder) Changes(changes []*FileBlockChangeInfo) *FileChangeInfoBuilder {
+	builder.changes = changes
+	builder.changesFlag = true
+	return builder
+}
+
+func (builder *FileChangeInfoBuilder) Build() *FileChangeInfo {
+	req := &FileChangeInfo{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.changesFlag {
+		req.Changes = builder.changes
 	}
 	return req
 }

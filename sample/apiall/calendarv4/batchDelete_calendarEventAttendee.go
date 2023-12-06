@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -30,6 +31,7 @@ func main() {
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		EventId("xxxxxxxxx_0").
 		UserIdType("user_id").
+
 		Body(larkcalendar.NewBatchDeleteCalendarEventAttendeeReqBodyBuilder().
 			AttendeeIds([]string{}).
 			DeleteIds([]*larkcalendar.CalendarEventAttendeeId{larkcalendar.NewCalendarEventAttendeeIdBuilder().Build()}).

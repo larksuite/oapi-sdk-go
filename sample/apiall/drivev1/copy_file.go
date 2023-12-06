@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkdrive.NewCopyFileReqBuilder().
 		FileToken("doccngpahSdXrFPIBD4XdIabcef").
 		UserIdType("user_id").
+
 		Body(larkdrive.NewCopyFileReqBodyBuilder().
 			Name("test.txt").
 			Type("doc").

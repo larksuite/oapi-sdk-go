@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mdm/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkmdm.NewBindUserAuthDataRelationReqBuilder().
 		UserIdType("user_id").
+
 		UserAuthDataRelation(larkmdm.NewUserAuthDataRelationBuilder().
 			RootDimensionType("zijie").
 			SubDimensionTypes([]string{}).

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkgray_test_open_sg.NewCreateMotoReqBuilder().
 		DepartmentIdType("").
 		UserIdType("").
+
 		Level(larkgray_test_open_sg.NewLevelBuilder().
 			Level("").
 			Body("").

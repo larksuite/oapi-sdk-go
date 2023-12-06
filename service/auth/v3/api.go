@@ -45,9 +45,9 @@ type tenantAccessToken struct {
 	service *AuthService
 }
 
+// 
 //
-//
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=app_access_token&version=v3
 //
@@ -73,7 +73,7 @@ func (a *appAccessToken) Create(ctx context.Context, req *CreateAppAccessTokenRe
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=app_access_token&version=v3
 //
@@ -99,7 +99,7 @@ func (a *appAccessToken) Internal(ctx context.Context, req *InternalAppAccessTok
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resend&project=auth&resource=app_ticket&version=v3
 //
@@ -125,7 +125,7 @@ func (a *appTicket) Resend(ctx context.Context, req *ResendAppTicketReq, options
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=tenant_access_token&version=v3
 //
@@ -151,7 +151,7 @@ func (t *tenantAccessToken) Create(ctx context.Context, req *CreateTenantAccessT
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=tenant_access_token&version=v3
 //

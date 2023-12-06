@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/block/v2"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkblock.NewUpdateEntityReqBuilder().
 		BlockId("7794641623571830467").
+
 		Entity(larkblock.NewEntityBuilder().
 			Title("已阅block").
 			BlockTypeId("blk_6204893fee000013739f5359").

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkhuman_authentication.NewCreateIdentityReqBuilder().
 		UserId("ou_2eb5483cb377daa5054bc6f86e2089a5").
 		UserIdType("open_id").
+
 		Body(larkhuman_authentication.NewCreateIdentityReqBodyBuilder().
 			IdentityName("张三").
 			IdentityCode("4xxxxxxxx").

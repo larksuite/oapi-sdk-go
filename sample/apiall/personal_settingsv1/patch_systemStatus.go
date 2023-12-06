@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkpersonal_settings.NewPatchSystemStatusReqBuilder().
 		SystemStatusId("7101214603622940633").
+
 		Body(larkpersonal_settings.NewPatchSystemStatusReqBodyBuilder().
 			SystemStatus(larkpersonal_settings.NewSystemStatusBuilder().Build()).
 			UpdateFields([]string{}).

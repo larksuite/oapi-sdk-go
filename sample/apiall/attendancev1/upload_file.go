@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
-	"os"
 )
 
 // POST /open-apis/attendance/v1/files/upload
@@ -34,6 +35,7 @@ func main() {
 	// 创建请求对象
 	req := larkattendance.NewUploadFileReqBuilder().
 		FileName("人脸照片.jpg").
+
 		Body(larkattendance.NewUploadFileReqBodyBuilder().
 			File(file).
 			Build()).

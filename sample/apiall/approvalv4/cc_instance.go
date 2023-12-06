@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewCcInstanceReqBuilder().
 		UserIdType("user_id").
+
 		InstanceCc(larkapproval.NewInstanceCcBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			InstanceCode("7C468A54-8745-2245-9675-08B7C63E7A85").

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
@@ -30,6 +31,7 @@ func main() {
 		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
 		UserIdType("user_id").
+
 		TaskSearch(larkapproval.NewTaskSearchBuilder().
 			UserId("lwiu098wj").
 			ApprovalCode("EB828003-9FFE-4B3F-AA50-2E199E2ED942").

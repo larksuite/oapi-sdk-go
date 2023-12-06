@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -30,6 +31,7 @@ func main() {
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
 		ClientToken("xxxx-xxxxx-xxx").
+
 		User(larkcontact.NewUserBuilder().
 			UserId("").
 			Name("张三").

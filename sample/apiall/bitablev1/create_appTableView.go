@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkbitable.NewCreateAppTableViewReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
+
 		ReqView(larkbitable.NewReqViewBuilder().
 			ViewName("表格视图1").
 			ViewType("grid").

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewCreateMessageReactionReqBuilder().
 		MessageId("om_a8f2294b************a1a38afaac9d").
+
 		Body(larkim.NewCreateMessageReactionReqBodyBuilder().
 			ReactionType(larkim.NewEmojiBuilder().Build()).
 			Build()).

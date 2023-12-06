@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewInternOfferStatusOfferReqBuilder().
 		OfferId("7016605170635213100").
+
 		InternOfferStatus(larkhire.NewInternOfferStatusBuilder().
 			Operation("confirm_onboarding").
 			OnboardingInfo(larkhire.NewInternOfferOnboardingInfoBuilder().Build()).

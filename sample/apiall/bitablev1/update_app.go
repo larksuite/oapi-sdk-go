@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -28,6 +29,7 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewUpdateAppReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
+
 		Body(larkbitable.NewUpdateAppReqBodyBuilder().
 			Name("新的多维表格名字").
 			IsAdvanced(true).

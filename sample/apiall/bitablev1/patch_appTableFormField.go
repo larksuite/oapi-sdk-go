@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
@@ -31,6 +32,7 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		FormId("vewTpR1urY").
 		FieldId("fldjX7dUj5").
+
 		AppTableFormPatchedField(larkbitable.NewAppTableFormPatchedFieldBuilder().
 			PreFieldId("").
 			Title("").

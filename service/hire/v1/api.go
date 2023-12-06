@@ -373,7 +373,7 @@ func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardA
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=application.interview&version=v1
 //
@@ -763,7 +763,7 @@ func (e *ecoBackgroundCheckPackage) Create(ctx context.Context, req *CreateEcoBa
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=login_info&project=hire&resource=eco_exam&version=v1
 //
@@ -789,7 +789,7 @@ func (e *ecoExam) LoginInfo(ctx context.Context, req *LoginInfoEcoExamReq, optio
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_result&project=hire&resource=eco_exam&version=v1
 //
@@ -815,7 +815,7 @@ func (e *ecoExam) UpdateResult(ctx context.Context, req *UpdateResultEcoExamReq,
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -841,7 +841,7 @@ func (e *ecoExamPaper) BatchDelete(ctx context.Context, req *BatchDeleteEcoExamP
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -867,7 +867,7 @@ func (e *ecoExamPaper) BatchUpdate(ctx context.Context, req *BatchUpdateEcoExamP
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -1551,7 +1551,7 @@ func (j *jobRequirementSchema) List(ctx context.Context, req *ListJobRequirement
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_type&version=v1
 //
@@ -1793,7 +1793,7 @@ func (o *offer) List(ctx context.Context, req *ListOfferReq, options ...larkcore
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=offer_status&project=hire&resource=offer&version=v1
 //
@@ -1845,7 +1845,7 @@ func (o *offer) Update(ctx context.Context, req *UpdateOfferReq, options ...lark
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=offer_schema&version=v1
 //
@@ -1923,7 +1923,7 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=referral_account&version=v1
 //
@@ -1949,7 +1949,7 @@ func (r *referralAccount) Create(ctx context.Context, req *CreateReferralAccount
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=deactivate&project=hire&resource=referral_account&version=v1
 //
@@ -1975,7 +1975,7 @@ func (r *referralAccount) Deactivate(ctx context.Context, req *DeactivateReferra
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reconciliation&project=hire&resource=referral_account&version=v1
 //
@@ -2001,7 +2001,7 @@ func (r *referralAccount) Reconciliation(ctx context.Context, req *Reconciliatio
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=withdraw&project=hire&resource=referral_account&version=v1
 //
@@ -2087,7 +2087,7 @@ func (r *referralWebsiteJobPost) ListByIterator(ctx context.Context, req *ListRe
 
 //
 //
-// -
+// - 
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=registration_schema&version=v1
 //

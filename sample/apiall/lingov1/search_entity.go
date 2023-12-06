@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
@@ -31,6 +32,7 @@ func main() {
 		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
 		RepoId("7202510112396640276").
 		UserIdType("user_id").
+
 		Body(larklingo.NewSearchEntityReqBodyBuilder().
 			Query("飞书词典").
 			ClassificationFilter(larklingo.NewClassificationFilterBuilder().Build()).

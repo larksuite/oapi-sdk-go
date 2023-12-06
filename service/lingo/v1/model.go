@@ -2977,6 +2977,64 @@ func (resp *CreateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
+type DeleteEntityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteEntityReqBuilder() *DeleteEntityReqBuilder {
+	builder := &DeleteEntityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 词条 id
+//
+// 示例值：enterprise_43742132363
+func (builder *DeleteEntityReqBuilder) EntityId(entityId string) *DeleteEntityReqBuilder {
+	builder.apiReq.PathParams.Set("entity_id", fmt.Sprint(entityId))
+	return builder
+}
+
+// 数据提供方（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+//
+// 示例值：星云
+func (builder *DeleteEntityReqBuilder) Provider(provider string) *DeleteEntityReqBuilder {
+	builder.apiReq.QueryParams.Set("provider", fmt.Sprint(provider))
+	return builder
+}
+
+// 外部唯一 id（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+//
+// 示例值：123aaa
+func (builder *DeleteEntityReqBuilder) OuterId(outerId string) *DeleteEntityReqBuilder {
+	builder.apiReq.QueryParams.Set("outer_id", fmt.Sprint(outerId))
+	return builder
+}
+
+func (builder *DeleteEntityReqBuilder) Build() *DeleteEntityReq {
+	req := &DeleteEntityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteEntityReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteEntityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteEntityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }

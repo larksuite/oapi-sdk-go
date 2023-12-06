@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkvc.NewSetHostMeetingReqBuilder().
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
+
 		Body(larkvc.NewSetHostMeetingReqBodyBuilder().
 			HostUser(larkvc.NewMeetingUserBuilder().Build()).
 			OldHostUser(larkvc.NewMeetingUserBuilder().Build()).

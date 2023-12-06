@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -30,6 +31,7 @@ func main() {
 		EmployeeId("123").
 		UserIdType("open_id").
 		DepartmentIdType("people_admin_department_id").
+
 		ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
 			Operation(1).
 			ConversionInfo(larkhire.NewEmployeeConversionInfoBuilder().Build()).

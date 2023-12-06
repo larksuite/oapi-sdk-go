@@ -14,14 +14,11 @@
 package larkadmin
 
 import (
-	"io"
-
 	"bytes"
-
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -40,6 +37,17 @@ const (
 const (
 	DepartmentIdTypeListAdminUserStatDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	DepartmentIdTypeListAdminUserStatOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeListAuditInfoUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListAuditInfoUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListAuditInfoOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	OperatorTypeUser = "user" // 以user_id来识别用户
+	OperatorTypeBot  = "bot"  // 以bot_id来识别用户
 )
 
 const (
@@ -5373,6 +5381,128 @@ func (resp *ListAdminUserStatResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListAuditInfoReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListAuditInfoReqBuilder() *ListAuditInfoReqBuilder {
+	builder := &ListAuditInfoReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListAuditInfoReqBuilder) Limit(limit int) *ListAuditInfoReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListAuditInfoReqBuilder) UserIdType(userIdType string) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 起始时间戳
+//
+// 示例值：1668700799
+func (builder *ListAuditInfoReqBuilder) Latest(latest int) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("latest", fmt.Sprint(latest))
+	return builder
+}
+
+// 终止时间戳
+//
+// 示例值：1668528000
+func (builder *ListAuditInfoReqBuilder) Oldest(oldest int) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("oldest", fmt.Sprint(oldest))
+	return builder
+}
+
+// 事件名称
+//
+// 示例值：space_create_doc
+func (builder *ListAuditInfoReqBuilder) EventName(eventName string) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("event_name", fmt.Sprint(eventName))
+	return builder
+}
+
+// 操作者类型
+//
+// 示例值：
+func (builder *ListAuditInfoReqBuilder) OperatorType(operatorType string) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("operator_type", fmt.Sprint(operatorType))
+	return builder
+}
+
+// 操作者值
+//
+// 示例值：55ed16fe
+func (builder *ListAuditInfoReqBuilder) OperatorValue(operatorValue string) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("operator_value", fmt.Sprint(operatorValue))
+	return builder
+}
+
+// 模块
+//
+// 示例值：1
+func (builder *ListAuditInfoReqBuilder) EventModule(eventModule int) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("event_module", fmt.Sprint(eventModule))
+	return builder
+}
+
+// 下一页分页的token
+//
+// 示例值：LC39/f1%2B/Sz9Uv39Gf39/ew/cd5WY0gfGYFdixOW9cVk4bC79ituO/gx0qpPn1bYf92nz/kI0nNJOG3wCwDJKoNU%2BtyaXbpI8pV/9UNDMZT0BNeyanFH17Wv711Qh9anR3l2GjQfc2fUqXtxg1YPp63XyhYY4iRMv54ySRG7r%2BI89iS3zAoPzFuuU1MUJKsf
+func (builder *ListAuditInfoReqBuilder) PageToken(pageToken string) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 分页参数
+//
+// 示例值：20
+func (builder *ListAuditInfoReqBuilder) PageSize(pageSize int) *ListAuditInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *ListAuditInfoReqBuilder) Build() *ListAuditInfoReq {
+	req := &ListAuditInfoReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListAuditInfoReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListAuditInfoRespData struct {
+	HasMore   *bool        `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string      `json:"page_token,omitempty"` // 下一页分页的token
+	Items     []*AuditInfo `json:"items,omitempty"`      // 返回的具体数据内容
+}
+
+type ListAuditInfoResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListAuditInfoRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListAuditInfoResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateBadgeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	badge  *Badge
@@ -6237,6 +6367,60 @@ type ResetPasswordResp struct {
 
 func (resp *ResetPasswordResp) Success() bool {
 	return resp.Code == 0
+}
+
+type ListAuditInfoIterator struct {
+	nextPageToken *string
+	items         []*AuditInfo
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAuditInfoReq
+	listFunc      func(ctx context.Context, req *ListAuditInfoReq, options ...larkcore.RequestOptionFunc) (*ListAuditInfoResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAuditInfoIterator) Next() (bool, *AuditInfo, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAuditInfoIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListBadgeIterator struct {

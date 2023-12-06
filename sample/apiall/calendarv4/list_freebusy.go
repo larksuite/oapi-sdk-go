@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
@@ -28,11 +29,14 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewListFreebusyReqBuilder().
 		UserIdType("user_id").
+
 		Body(larkcalendar.NewListFreebusyReqBodyBuilder().
 			TimeMin("2020-10-28T12:00:00+08:00").
 			TimeMax("2020-12-28T12:00:00+08:00").
 			UserId("ou_xxxxxxxxxx").
 			RoomId("omm_xxxxxxxxxx").
+			IncludeExternalCalendar(true).
+			OnlyBusy(true).
 			Build()).
 		Build()
 	// 发起请求

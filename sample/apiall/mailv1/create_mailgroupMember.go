@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
@@ -30,6 +31,7 @@ func main() {
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		UserIdType("user_id").
 		DepartmentIdType("open_department_id").
+
 		MailgroupMember(larkmail.NewMailgroupMemberBuilder().
 			Email("test_memeber@xxx.xx").
 			UserId("xxxxxxxxxx").
