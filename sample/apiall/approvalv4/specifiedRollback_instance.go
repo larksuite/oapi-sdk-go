@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewSpecifiedRollbackInstanceReqBuilder().
 		UserIdType("user_id").
-
 		SpecifiedRollback(larkapproval.NewSpecifiedRollbackBuilder().
 			UserId("893g4c45").
 			TaskId("7026591166355210260").

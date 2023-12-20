@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewBatchQueryMetaReqBuilder().
 		UserIdType("user_id").
-
 		MetaRequest(larkdrive.NewMetaRequestBuilder().
 			RequestDocs([]*larkdrive.RequestDoc{larkdrive.NewRequestDocBuilder().Build()}).
 			WithUrl(false).

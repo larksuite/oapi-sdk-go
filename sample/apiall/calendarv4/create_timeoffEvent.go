@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewCreateTimeoffEventReqBuilder().
 		UserIdType("user_id").
-
 		TimeoffEvent(larkcalendar.NewTimeoffEventBuilder().
 			UserId("").
 			Timezone("").

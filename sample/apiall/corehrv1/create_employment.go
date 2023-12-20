@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateEmploymentReqBuilder().
 		ClientToken("12454646").
-
 		EmploymentCreate(larkcorehr.NewEmploymentCreateBuilder().
 			SeniorityDate("2020-01-01").
 			EmployeeNumber("1000000").

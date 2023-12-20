@@ -198,6 +198,12 @@ const (
 	AssessmentResultRejected = "rejected" // 不通过
 )
 
+const (
+	UserIdTypeGetProcessUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetProcessUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetProcessOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
 type AbnormalReason struct {
 	Id           *string                      `json:"id,omitempty"`            // 异常原因ID
 	Type         *int                         `json:"type,omitempty"`          // 异常原因类型，1-系统异常，2-用户自定义异常;
@@ -689,6 +695,196 @@ func (builder *AddressBuilder) Build() *Address {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ApprovalGroup struct {
+	ApprovalGroupId     *string  `json:"approval_group_id,omitempty"`     // 组织架构调整审批组 ID
+	ProcessId           *string  `json:"process_id,omitempty"`            // 组织架构调整流程 ID
+	ApprovalGroupStatus *string  `json:"approval_group_status,omitempty"` // 组织架构调整流程状态
+	Topic               *string  `json:"topic,omitempty"`                 // 调整主题
+	AdjustReason        *string  `json:"adjust_reason,omitempty"`         // 调整原因
+	EffectiveDate       *string  `json:"effective_date,omitempty"`        // 生效日期
+	CreatedBy           *string  `json:"created_by,omitempty"`            // 发起人
+	DraftId             *string  `json:"draft_id,omitempty"`              // 组织架构调整任务 ID
+	DraftStatus         *string  `json:"draft_status,omitempty"`          // 组织架构调整任务状态
+	DepartmentChanges   []string `json:"department_changes,omitempty"`    // 关联的部门调整记录 ID 列表
+	JobChanges          []string `json:"job_changes,omitempty"`           // 关联的人员调整记录 ID 列表
+}
+
+type ApprovalGroupBuilder struct {
+	approvalGroupId         string // 组织架构调整审批组 ID
+	approvalGroupIdFlag     bool
+	processId               string // 组织架构调整流程 ID
+	processIdFlag           bool
+	approvalGroupStatus     string // 组织架构调整流程状态
+	approvalGroupStatusFlag bool
+	topic                   string // 调整主题
+	topicFlag               bool
+	adjustReason            string // 调整原因
+	adjustReasonFlag        bool
+	effectiveDate           string // 生效日期
+	effectiveDateFlag       bool
+	createdBy               string // 发起人
+	createdByFlag           bool
+	draftId                 string // 组织架构调整任务 ID
+	draftIdFlag             bool
+	draftStatus             string // 组织架构调整任务状态
+	draftStatusFlag         bool
+	departmentChanges       []string // 关联的部门调整记录 ID 列表
+	departmentChangesFlag   bool
+	jobChanges              []string // 关联的人员调整记录 ID 列表
+	jobChangesFlag          bool
+}
+
+func NewApprovalGroupBuilder() *ApprovalGroupBuilder {
+	builder := &ApprovalGroupBuilder{}
+	return builder
+}
+
+// 组织架构调整审批组 ID
+//
+// 示例值：6991776076699549697
+func (builder *ApprovalGroupBuilder) ApprovalGroupId(approvalGroupId string) *ApprovalGroupBuilder {
+	builder.approvalGroupId = approvalGroupId
+	builder.approvalGroupIdFlag = true
+	return builder
+}
+
+// 组织架构调整流程 ID
+//
+// 示例值：6991776076699549697
+func (builder *ApprovalGroupBuilder) ProcessId(processId string) *ApprovalGroupBuilder {
+	builder.processId = processId
+	builder.processIdFlag = true
+	return builder
+}
+
+// 组织架构调整流程状态
+//
+// 示例值：
+func (builder *ApprovalGroupBuilder) ApprovalGroupStatus(approvalGroupStatus string) *ApprovalGroupBuilder {
+	builder.approvalGroupStatus = approvalGroupStatus
+	builder.approvalGroupStatusFlag = true
+	return builder
+}
+
+// 调整主题
+//
+// 示例值：测试组织架构调整
+func (builder *ApprovalGroupBuilder) Topic(topic string) *ApprovalGroupBuilder {
+	builder.topic = topic
+	builder.topicFlag = true
+	return builder
+}
+
+// 调整原因
+//
+// 示例值：测试
+func (builder *ApprovalGroupBuilder) AdjustReason(adjustReason string) *ApprovalGroupBuilder {
+	builder.adjustReason = adjustReason
+	builder.adjustReasonFlag = true
+	return builder
+}
+
+// 生效日期
+//
+// 示例值：2022-03-01
+func (builder *ApprovalGroupBuilder) EffectiveDate(effectiveDate string) *ApprovalGroupBuilder {
+	builder.effectiveDate = effectiveDate
+	builder.effectiveDateFlag = true
+	return builder
+}
+
+// 发起人
+//
+// 示例值：6974641477444060708
+func (builder *ApprovalGroupBuilder) CreatedBy(createdBy string) *ApprovalGroupBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+// 组织架构调整任务 ID
+//
+// 示例值：6991776076699549697
+func (builder *ApprovalGroupBuilder) DraftId(draftId string) *ApprovalGroupBuilder {
+	builder.draftId = draftId
+	builder.draftIdFlag = true
+	return builder
+}
+
+// 组织架构调整任务状态
+//
+// 示例值：
+func (builder *ApprovalGroupBuilder) DraftStatus(draftStatus string) *ApprovalGroupBuilder {
+	builder.draftStatus = draftStatus
+	builder.draftStatusFlag = true
+	return builder
+}
+
+// 关联的部门调整记录 ID 列表
+//
+// 示例值：
+func (builder *ApprovalGroupBuilder) DepartmentChanges(departmentChanges []string) *ApprovalGroupBuilder {
+	builder.departmentChanges = departmentChanges
+	builder.departmentChangesFlag = true
+	return builder
+}
+
+// 关联的人员调整记录 ID 列表
+//
+// 示例值：
+func (builder *ApprovalGroupBuilder) JobChanges(jobChanges []string) *ApprovalGroupBuilder {
+	builder.jobChanges = jobChanges
+	builder.jobChangesFlag = true
+	return builder
+}
+
+func (builder *ApprovalGroupBuilder) Build() *ApprovalGroup {
+	req := &ApprovalGroup{}
+	if builder.approvalGroupIdFlag {
+		req.ApprovalGroupId = &builder.approvalGroupId
+
+	}
+	if builder.processIdFlag {
+		req.ProcessId = &builder.processId
+
+	}
+	if builder.approvalGroupStatusFlag {
+		req.ApprovalGroupStatus = &builder.approvalGroupStatus
+
+	}
+	if builder.topicFlag {
+		req.Topic = &builder.topic
+
+	}
+	if builder.adjustReasonFlag {
+		req.AdjustReason = &builder.adjustReason
+
+	}
+	if builder.effectiveDateFlag {
+		req.EffectiveDate = &builder.effectiveDate
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.draftIdFlag {
+		req.DraftId = &builder.draftId
+
+	}
+	if builder.draftStatusFlag {
+		req.DraftStatus = &builder.draftStatus
+
+	}
+	if builder.departmentChangesFlag {
+		req.DepartmentChanges = builder.departmentChanges
+	}
+	if builder.jobChangesFlag {
+		req.JobChanges = builder.jobChanges
 	}
 	return req
 }
@@ -1979,6 +2175,52 @@ func (builder *CalculateParamBuilder) Build() *CalculateParam {
 	}
 	if builder.matchingRuleDimensionFlag {
 		req.MatchingRuleDimension = builder.matchingRuleDimension
+	}
+	return req
+}
+
+type ChangeFieldPair struct {
+	OriginValue *CustomFieldData `json:"origin_value,omitempty"` // 调整前
+	TargetValue *CustomFieldData `json:"target_value,omitempty"` // 调整后
+}
+
+type ChangeFieldPairBuilder struct {
+	originValue     *CustomFieldData // 调整前
+	originValueFlag bool
+	targetValue     *CustomFieldData // 调整后
+	targetValueFlag bool
+}
+
+func NewChangeFieldPairBuilder() *ChangeFieldPairBuilder {
+	builder := &ChangeFieldPairBuilder{}
+	return builder
+}
+
+// 调整前
+//
+// 示例值：
+func (builder *ChangeFieldPairBuilder) OriginValue(originValue *CustomFieldData) *ChangeFieldPairBuilder {
+	builder.originValue = originValue
+	builder.originValueFlag = true
+	return builder
+}
+
+// 调整后
+//
+// 示例值：
+func (builder *ChangeFieldPairBuilder) TargetValue(targetValue *CustomFieldData) *ChangeFieldPairBuilder {
+	builder.targetValue = targetValue
+	builder.targetValueFlag = true
+	return builder
+}
+
+func (builder *ChangeFieldPairBuilder) Build() *ChangeFieldPair {
+	req := &ChangeFieldPair{}
+	if builder.originValueFlag {
+		req.OriginValue = builder.originValue
+	}
+	if builder.targetValueFlag {
+		req.TargetValue = builder.targetValue
 	}
 	return req
 }
@@ -3790,6 +4032,85 @@ func (builder *DepartmentBuilder) Build() *Department {
 	return req
 }
 
+type DepartmentChange struct {
+	DepartmentChangeId   *string             `json:"department_change_id,omitempty"`   // 部门调整记录 ID
+	DepartmentId         *string             `json:"department_id,omitempty"`          // 部门 ID
+	DepartmentChangeType *string             `json:"department_change_type,omitempty"` // 调整类型
+	ReorganizationInfo   *ReorganizationInfo `json:"reorganization_info,omitempty"`    // 调整详细信息
+}
+
+type DepartmentChangeBuilder struct {
+	departmentChangeId       string // 部门调整记录 ID
+	departmentChangeIdFlag   bool
+	departmentId             string // 部门 ID
+	departmentIdFlag         bool
+	departmentChangeType     string // 调整类型
+	departmentChangeTypeFlag bool
+	reorganizationInfo       *ReorganizationInfo // 调整详细信息
+	reorganizationInfoFlag   bool
+}
+
+func NewDepartmentChangeBuilder() *DepartmentChangeBuilder {
+	builder := &DepartmentChangeBuilder{}
+	return builder
+}
+
+// 部门调整记录 ID
+//
+// 示例值：6991776076699549697
+func (builder *DepartmentChangeBuilder) DepartmentChangeId(departmentChangeId string) *DepartmentChangeBuilder {
+	builder.departmentChangeId = departmentChangeId
+	builder.departmentChangeIdFlag = true
+	return builder
+}
+
+// 部门 ID
+//
+// 示例值：6966236933198579208
+func (builder *DepartmentChangeBuilder) DepartmentId(departmentId string) *DepartmentChangeBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 调整类型
+//
+// 示例值：Create
+func (builder *DepartmentChangeBuilder) DepartmentChangeType(departmentChangeType string) *DepartmentChangeBuilder {
+	builder.departmentChangeType = departmentChangeType
+	builder.departmentChangeTypeFlag = true
+	return builder
+}
+
+// 调整详细信息
+//
+// 示例值：
+func (builder *DepartmentChangeBuilder) ReorganizationInfo(reorganizationInfo *ReorganizationInfo) *DepartmentChangeBuilder {
+	builder.reorganizationInfo = reorganizationInfo
+	builder.reorganizationInfoFlag = true
+	return builder
+}
+
+func (builder *DepartmentChangeBuilder) Build() *DepartmentChange {
+	req := &DepartmentChange{}
+	if builder.departmentChangeIdFlag {
+		req.DepartmentChangeId = &builder.departmentChangeId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentChangeTypeFlag {
+		req.DepartmentChangeType = &builder.departmentChangeType
+
+	}
+	if builder.reorganizationInfoFlag {
+		req.ReorganizationInfo = builder.reorganizationInfo
+	}
+	return req
+}
+
 type DepartmentHrbp struct {
 	DepartmentId *string  `json:"department_id,omitempty"` // 部门 ID
 	HrbpIds      []string `json:"hrbp_ids,omitempty"`      // 部门 HRBP 雇佣 ID
@@ -4373,13 +4694,13 @@ func (builder *DimensionBuilder) Build() *Dimension {
 
 type DimensionInfo struct {
 	Id   *string `json:"id,omitempty"`   // 维度id
-	Name *I18nV2 `json:"name,omitempty"` // 维度名称
+	Name []*I18n `json:"name,omitempty"` // 维度名称
 }
 
 type DimensionInfoBuilder struct {
 	id       string // 维度id
 	idFlag   bool
-	name     *I18nV2 // 维度名称
+	name     []*I18n // 维度名称
 	nameFlag bool
 }
 
@@ -4400,7 +4721,7 @@ func (builder *DimensionInfoBuilder) Id(id string) *DimensionInfoBuilder {
 // 维度名称
 //
 // 示例值：
-func (builder *DimensionInfoBuilder) Name(name *I18nV2) *DimensionInfoBuilder {
+func (builder *DimensionInfoBuilder) Name(name []*I18n) *DimensionInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
@@ -11828,6 +12149,7 @@ type PreHireEmploymentInfo struct {
 	DepartmentId         *string              `json:"department_id,omitempty"`           // 部门 ID ，可以通过【搜索部门信息】接口获取
 	CostCenterRates      []*JobDataCostCenter `json:"cost_center_rates,omitempty"`       // 成本中心分摊信息
 	OfficeLocationId     *string              `json:"office_location_id,omitempty"`      // 办公地点id ，详细信息可通过【批量查询地点】接口获得
+	WorkLocationId       *string              `json:"work_location_id,omitempty"`        // 工作地点id ，详细信息可通过【批量查询地点】接口获得
 	WorkStation          *string              `json:"work_station,omitempty"`            // 工位
 	WorkerId             *string              `json:"worker_id,omitempty"`               // 工号
 	CompensationType     *Enum                `json:"compensation_type,omitempty"`       // -| 薪资类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：compensation_type - object_api_name：pre_hire
@@ -11857,6 +12179,8 @@ type PreHireEmploymentInfoBuilder struct {
 	costCenterRatesFlag      bool
 	officeLocationId         string // 办公地点id ，详细信息可通过【批量查询地点】接口获得
 	officeLocationIdFlag     bool
+	workLocationId           string // 工作地点id ，详细信息可通过【批量查询地点】接口获得
+	workLocationIdFlag       bool
 	workStation              string // 工位
 	workStationFlag          bool
 	workerId                 string // 工号
@@ -11928,6 +12252,15 @@ func (builder *PreHireEmploymentInfoBuilder) CostCenterRates(costCenterRates []*
 func (builder *PreHireEmploymentInfoBuilder) OfficeLocationId(officeLocationId string) *PreHireEmploymentInfoBuilder {
 	builder.officeLocationId = officeLocationId
 	builder.officeLocationIdFlag = true
+	return builder
+}
+
+// 工作地点id ，详细信息可通过【批量查询地点】接口获得
+//
+// 示例值：6977976687350924832
+func (builder *PreHireEmploymentInfoBuilder) WorkLocationId(workLocationId string) *PreHireEmploymentInfoBuilder {
+	builder.workLocationId = workLocationId
+	builder.workLocationIdFlag = true
 	return builder
 }
 
@@ -12122,6 +12455,10 @@ func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	}
 	if builder.officeLocationIdFlag {
 		req.OfficeLocationId = &builder.officeLocationId
+
+	}
+	if builder.workLocationIdFlag {
+		req.WorkLocationId = &builder.workLocationId
 
 	}
 	if builder.workStationFlag {
@@ -13713,6 +14050,317 @@ func (builder *ProcessTodoItemBuilder) Build() *ProcessTodoItem {
 	return req
 }
 
+type ReorganizationInfo struct {
+	OriginalDepartmentNames    []*I18n            `json:"original_department_names,omitempty"`     // 原部门名称
+	TargetDepartmentNames      []*I18n            `json:"target_department_names,omitempty"`       // 调整后部门名称
+	OriginalDepartmentCode     *string            `json:"original_department_code,omitempty"`      // 原部门编码
+	TargetDepartmentCode       *string            `json:"target_department_code,omitempty"`        // 调整后部门编码
+	OriginalSubType            *Enum              `json:"original_sub_type,omitempty"`             // 原部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+	TargetSubType              *Enum              `json:"target_sub_type,omitempty"`               // 调整后部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+	OriginalDepartmentManager  *string            `json:"original_department_manager,omitempty"`   // 原部门负责人
+	TargetDepartmentManager    *string            `json:"target_department_manager,omitempty"`     // 调整后部门负责人
+	OriginalDescriptions       []*I18n            `json:"original_descriptions,omitempty"`         // 原描述
+	TargetDescriptions         []*I18n            `json:"target_descriptions,omitempty"`           // 调整后描述
+	OriginalCostCenter         *CostCenter        `json:"original_cost_center,omitempty"`          // 原默认成本中心
+	TargetCostCenter           *CostCenter        `json:"target_cost_center,omitempty"`            // 调整后默认成本中心
+	OriginalIsConfidential     *bool              `json:"original_is_confidential,omitempty"`      // 原是否保密
+	TargetIsConfidential       *bool              `json:"target_is_confidential,omitempty"`        // 调整后是否保密
+	OriginalStaffingModel      *bool              `json:"original_staffing_model,omitempty"`       // 原是否使用职务
+	TargetStaffingModel        *bool              `json:"target_staffing_model,omitempty"`         // 调整后是否使用职务
+	OriginalParentDepartmentId *string            `json:"original_parent_department_id,omitempty"` // 原上级部门
+	TargetParentDepartmentId   *string            `json:"target_parent_department_id,omitempty"`   // 调整后上级部门
+	CustomFields               []*ChangeFieldPair `json:"custom_fields,omitempty"`                 // 自定义字段
+}
+
+type ReorganizationInfoBuilder struct {
+	originalDepartmentNames        []*I18n // 原部门名称
+	originalDepartmentNamesFlag    bool
+	targetDepartmentNames          []*I18n // 调整后部门名称
+	targetDepartmentNamesFlag      bool
+	originalDepartmentCode         string // 原部门编码
+	originalDepartmentCodeFlag     bool
+	targetDepartmentCode           string // 调整后部门编码
+	targetDepartmentCodeFlag       bool
+	originalSubType                *Enum // 原部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+	originalSubTypeFlag            bool
+	targetSubType                  *Enum // 调整后部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+	targetSubTypeFlag              bool
+	originalDepartmentManager      string // 原部门负责人
+	originalDepartmentManagerFlag  bool
+	targetDepartmentManager        string // 调整后部门负责人
+	targetDepartmentManagerFlag    bool
+	originalDescriptions           []*I18n // 原描述
+	originalDescriptionsFlag       bool
+	targetDescriptions             []*I18n // 调整后描述
+	targetDescriptionsFlag         bool
+	originalCostCenter             *CostCenter // 原默认成本中心
+	originalCostCenterFlag         bool
+	targetCostCenter               *CostCenter // 调整后默认成本中心
+	targetCostCenterFlag           bool
+	originalIsConfidential         bool // 原是否保密
+	originalIsConfidentialFlag     bool
+	targetIsConfidential           bool // 调整后是否保密
+	targetIsConfidentialFlag       bool
+	originalStaffingModel          bool // 原是否使用职务
+	originalStaffingModelFlag      bool
+	targetStaffingModel            bool // 调整后是否使用职务
+	targetStaffingModelFlag        bool
+	originalParentDepartmentId     string // 原上级部门
+	originalParentDepartmentIdFlag bool
+	targetParentDepartmentId       string // 调整后上级部门
+	targetParentDepartmentIdFlag   bool
+	customFields                   []*ChangeFieldPair // 自定义字段
+	customFieldsFlag               bool
+}
+
+func NewReorganizationInfoBuilder() *ReorganizationInfoBuilder {
+	builder := &ReorganizationInfoBuilder{}
+	return builder
+}
+
+// 原部门名称
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) OriginalDepartmentNames(originalDepartmentNames []*I18n) *ReorganizationInfoBuilder {
+	builder.originalDepartmentNames = originalDepartmentNames
+	builder.originalDepartmentNamesFlag = true
+	return builder
+}
+
+// 调整后部门名称
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) TargetDepartmentNames(targetDepartmentNames []*I18n) *ReorganizationInfoBuilder {
+	builder.targetDepartmentNames = targetDepartmentNames
+	builder.targetDepartmentNamesFlag = true
+	return builder
+}
+
+// 原部门编码
+//
+// 示例值：D00000456
+func (builder *ReorganizationInfoBuilder) OriginalDepartmentCode(originalDepartmentCode string) *ReorganizationInfoBuilder {
+	builder.originalDepartmentCode = originalDepartmentCode
+	builder.originalDepartmentCodeFlag = true
+	return builder
+}
+
+// 调整后部门编码
+//
+// 示例值：D00000456
+func (builder *ReorganizationInfoBuilder) TargetDepartmentCode(targetDepartmentCode string) *ReorganizationInfoBuilder {
+	builder.targetDepartmentCode = targetDepartmentCode
+	builder.targetDepartmentCodeFlag = true
+	return builder
+}
+
+// 原部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) OriginalSubType(originalSubType *Enum) *ReorganizationInfoBuilder {
+	builder.originalSubType = originalSubType
+	builder.originalSubTypeFlag = true
+	return builder
+}
+
+// 调整后部门类型，枚举值可通过文档【飞书人事枚举常量】部门子类型（department_sub_type）枚举定义部分获得
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) TargetSubType(targetSubType *Enum) *ReorganizationInfoBuilder {
+	builder.targetSubType = targetSubType
+	builder.targetSubTypeFlag = true
+	return builder
+}
+
+// 原部门负责人
+//
+// 示例值：6974648866876573198
+func (builder *ReorganizationInfoBuilder) OriginalDepartmentManager(originalDepartmentManager string) *ReorganizationInfoBuilder {
+	builder.originalDepartmentManager = originalDepartmentManager
+	builder.originalDepartmentManagerFlag = true
+	return builder
+}
+
+// 调整后部门负责人
+//
+// 示例值：7013328578351842852
+func (builder *ReorganizationInfoBuilder) TargetDepartmentManager(targetDepartmentManager string) *ReorganizationInfoBuilder {
+	builder.targetDepartmentManager = targetDepartmentManager
+	builder.targetDepartmentManagerFlag = true
+	return builder
+}
+
+// 原描述
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) OriginalDescriptions(originalDescriptions []*I18n) *ReorganizationInfoBuilder {
+	builder.originalDescriptions = originalDescriptions
+	builder.originalDescriptionsFlag = true
+	return builder
+}
+
+// 调整后描述
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) TargetDescriptions(targetDescriptions []*I18n) *ReorganizationInfoBuilder {
+	builder.targetDescriptions = targetDescriptions
+	builder.targetDescriptionsFlag = true
+	return builder
+}
+
+// 原默认成本中心
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) OriginalCostCenter(originalCostCenter *CostCenter) *ReorganizationInfoBuilder {
+	builder.originalCostCenter = originalCostCenter
+	builder.originalCostCenterFlag = true
+	return builder
+}
+
+// 调整后默认成本中心
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) TargetCostCenter(targetCostCenter *CostCenter) *ReorganizationInfoBuilder {
+	builder.targetCostCenter = targetCostCenter
+	builder.targetCostCenterFlag = true
+	return builder
+}
+
+// 原是否保密
+//
+// 示例值：true
+func (builder *ReorganizationInfoBuilder) OriginalIsConfidential(originalIsConfidential bool) *ReorganizationInfoBuilder {
+	builder.originalIsConfidential = originalIsConfidential
+	builder.originalIsConfidentialFlag = true
+	return builder
+}
+
+// 调整后是否保密
+//
+// 示例值：true
+func (builder *ReorganizationInfoBuilder) TargetIsConfidential(targetIsConfidential bool) *ReorganizationInfoBuilder {
+	builder.targetIsConfidential = targetIsConfidential
+	builder.targetIsConfidentialFlag = true
+	return builder
+}
+
+// 原是否使用职务
+//
+// 示例值：true
+func (builder *ReorganizationInfoBuilder) OriginalStaffingModel(originalStaffingModel bool) *ReorganizationInfoBuilder {
+	builder.originalStaffingModel = originalStaffingModel
+	builder.originalStaffingModelFlag = true
+	return builder
+}
+
+// 调整后是否使用职务
+//
+// 示例值：false
+func (builder *ReorganizationInfoBuilder) TargetStaffingModel(targetStaffingModel bool) *ReorganizationInfoBuilder {
+	builder.targetStaffingModel = targetStaffingModel
+	builder.targetStaffingModelFlag = true
+	return builder
+}
+
+// 原上级部门
+//
+// 示例值：6974659700705068581
+func (builder *ReorganizationInfoBuilder) OriginalParentDepartmentId(originalParentDepartmentId string) *ReorganizationInfoBuilder {
+	builder.originalParentDepartmentId = originalParentDepartmentId
+	builder.originalParentDepartmentIdFlag = true
+	return builder
+}
+
+// 调整后上级部门
+//
+// 示例值：6974659700705068581
+func (builder *ReorganizationInfoBuilder) TargetParentDepartmentId(targetParentDepartmentId string) *ReorganizationInfoBuilder {
+	builder.targetParentDepartmentId = targetParentDepartmentId
+	builder.targetParentDepartmentIdFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) CustomFields(customFields []*ChangeFieldPair) *ReorganizationInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ReorganizationInfoBuilder) Build() *ReorganizationInfo {
+	req := &ReorganizationInfo{}
+	if builder.originalDepartmentNamesFlag {
+		req.OriginalDepartmentNames = builder.originalDepartmentNames
+	}
+	if builder.targetDepartmentNamesFlag {
+		req.TargetDepartmentNames = builder.targetDepartmentNames
+	}
+	if builder.originalDepartmentCodeFlag {
+		req.OriginalDepartmentCode = &builder.originalDepartmentCode
+
+	}
+	if builder.targetDepartmentCodeFlag {
+		req.TargetDepartmentCode = &builder.targetDepartmentCode
+
+	}
+	if builder.originalSubTypeFlag {
+		req.OriginalSubType = builder.originalSubType
+	}
+	if builder.targetSubTypeFlag {
+		req.TargetSubType = builder.targetSubType
+	}
+	if builder.originalDepartmentManagerFlag {
+		req.OriginalDepartmentManager = &builder.originalDepartmentManager
+
+	}
+	if builder.targetDepartmentManagerFlag {
+		req.TargetDepartmentManager = &builder.targetDepartmentManager
+
+	}
+	if builder.originalDescriptionsFlag {
+		req.OriginalDescriptions = builder.originalDescriptions
+	}
+	if builder.targetDescriptionsFlag {
+		req.TargetDescriptions = builder.targetDescriptions
+	}
+	if builder.originalCostCenterFlag {
+		req.OriginalCostCenter = builder.originalCostCenter
+	}
+	if builder.targetCostCenterFlag {
+		req.TargetCostCenter = builder.targetCostCenter
+	}
+	if builder.originalIsConfidentialFlag {
+		req.OriginalIsConfidential = &builder.originalIsConfidential
+
+	}
+	if builder.targetIsConfidentialFlag {
+		req.TargetIsConfidential = &builder.targetIsConfidential
+
+	}
+	if builder.originalStaffingModelFlag {
+		req.OriginalStaffingModel = &builder.originalStaffingModel
+
+	}
+	if builder.targetStaffingModelFlag {
+		req.TargetStaffingModel = &builder.targetStaffingModel
+
+	}
+	if builder.originalParentDepartmentIdFlag {
+		req.OriginalParentDepartmentId = &builder.originalParentDepartmentId
+
+	}
+	if builder.targetParentDepartmentIdFlag {
+		req.TargetParentDepartmentId = &builder.targetParentDepartmentId
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
 type ResidentTax struct {
 	YearResidentTax    *string            `json:"year_resident_tax,omitempty"`     // 年度
 	ResidentStatus     *Enum              `json:"resident_status,omitempty"`       // -| 居民身份，枚举值 api_name 可通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "resident_tax" - custom_api_name = "resident_status"
@@ -15299,7 +15947,7 @@ func (builder *WorkExperienceInfoBuilder) Build() *WorkExperienceInfo {
 
 type WorkforcePlan struct {
 	WorkforcePlanId   *string `json:"workforce_plan_id,omitempty"`   // 编制规划方案 ID
-	WorkforcePlanName *I18nV2 `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
+	WorkforcePlanName []*I18n `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
 	StartDate         *string `json:"start_date,omitempty"`          // 开始日期
 	EndDate           *string `json:"end_date,omitempty"`            // 结束日期
 	Active            *bool   `json:"active,omitempty"`              // 是否启用
@@ -15308,7 +15956,7 @@ type WorkforcePlan struct {
 type WorkforcePlanBuilder struct {
 	workforcePlanId       string // 编制规划方案 ID
 	workforcePlanIdFlag   bool
-	workforcePlanName     *I18nV2 // 编制规划方案名称
+	workforcePlanName     []*I18n // 编制规划方案名称
 	workforcePlanNameFlag bool
 	startDate             string // 开始日期
 	startDateFlag         bool
@@ -15335,7 +15983,7 @@ func (builder *WorkforcePlanBuilder) WorkforcePlanId(workforcePlanId string) *Wo
 // 编制规划方案名称
 //
 // 示例值：
-func (builder *WorkforcePlanBuilder) WorkforcePlanName(workforcePlanName *I18nV2) *WorkforcePlanBuilder {
+func (builder *WorkforcePlanBuilder) WorkforcePlanName(workforcePlanName []*I18n) *WorkforcePlanBuilder {
 	builder.workforcePlanName = workforcePlanName
 	builder.workforcePlanNameFlag = true
 	return builder
@@ -19813,6 +20461,175 @@ func (resp *PatchProbationAssessmentResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetProcessReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetProcessReqBuilder() *GetProcessReqBuilder {
+	builder := &GetProcessReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 流程ID
+//
+// 示例值：7278949005675988535
+func (builder *GetProcessReqBuilder) ProcessId(processId string) *GetProcessReqBuilder {
+	builder.apiReq.PathParams.Set("process_id", fmt.Sprint(processId))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *GetProcessReqBuilder) UserIdType(userIdType string) *GetProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetProcessReqBuilder) Build() *GetProcessReq {
+	req := &GetProcessReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetProcessReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetProcessRespData struct {
+	ProcessId          *string                `json:"process_id,omitempty"`           // 流程实例ID
+	Status             *int                   `json:"status,omitempty"`               // 流程状态
+	FlowTemplateId     *string                `json:"flow_template_id,omitempty"`     // 业务类型ID
+	FlowTemplateName   *DataengineI18n        `json:"flow_template_name,omitempty"`   // 业务类型名称
+	FlowDefinitionId   *string                `json:"flow_definition_id,omitempty"`   // 流程定义ID
+	FlowDefinitionName *DataengineI18n        `json:"flow_definition_name,omitempty"` // 流程定义名称
+	InitiatorId        *string                `json:"initiator_id,omitempty"`         // 流程发起人ID
+	InitiatorName      *DataengineI18n        `json:"initiator_name,omitempty"`       // 流程发起人姓名
+	CreateTime         *string                `json:"create_time,omitempty"`          // 流程发起时间，Unix毫秒时间戳
+	CompleteTime       *string                `json:"complete_time,omitempty"`        // 流程结束时间，Unix毫秒时间戳
+	StartLinks         *ProcessLink           `json:"start_links,omitempty"`          // 发起单据地址
+	Abstracts          []*ProcessAbstractItem `json:"abstracts,omitempty"`            // 流程摘要，会随着流程流转发生变化
+	Todos              []*ProcessTodoItem     `json:"todos,omitempty"`                // 待办列表
+	CcList             []*ProcessCcItem       `json:"cc_list,omitempty"`              // 抄送列表
+	DoneList           []*ProcessDoneItem     `json:"done_list,omitempty"`            // 已办列表
+}
+
+type GetProcessResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetProcessRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetProcessResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListProcessReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListProcessReqBuilder() *ListProcessReqBuilder {
+	builder := &ListProcessReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListProcessReqBuilder) Limit(limit int) *ListProcessReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 任务查询结束时间 (unix毫秒时间戳)，闭区间，开始时间和结束时间跨度不能超过31天
+//
+// 示例值：1547654251506
+func (builder *ListProcessReqBuilder) ModifyTimeTo(modifyTimeTo string) *ListProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("modify_time_to", fmt.Sprint(modifyTimeTo))
+	return builder
+}
+
+// 查询状态列表
+//
+// 示例值：
+func (builder *ListProcessReqBuilder) Statuses(statuses []int) *ListProcessReqBuilder {
+	for _, v := range statuses {
+		builder.apiReq.QueryParams.Add("statuses", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：7278949005675988535
+func (builder *ListProcessReqBuilder) PageToken(pageToken string) *ListProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：100
+func (builder *ListProcessReqBuilder) PageSize(pageSize int) *ListProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 查询开始时间（unix毫秒时间戳），闭区间，开始时间和结束时间跨度不能超过31天
+//
+// 示例值：1547654251506
+func (builder *ListProcessReqBuilder) ModifyTimeFrom(modifyTimeFrom string) *ListProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("modify_time_from", fmt.Sprint(modifyTimeFrom))
+	return builder
+}
+
+// 流程定义ID
+//
+// 示例值：people_6961286846093788680_7081951411982077732
+func (builder *ListProcessReqBuilder) FlowDefinitionId(flowDefinitionId string) *ListProcessReqBuilder {
+	builder.apiReq.QueryParams.Set("flow_definition_id", fmt.Sprint(flowDefinitionId))
+	return builder
+}
+
+func (builder *ListProcessReqBuilder) Build() *ListProcessReq {
+	req := &ListProcessReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListProcessReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListProcessRespData struct {
+	ProcessIds []string `json:"process_ids,omitempty"` // 流程实例ID列表
+	HasMore    *bool    `json:"has_more,omitempty"`    // 是否还有更多项
+	PageToken  *string  `json:"page_token,omitempty"`  // 有更多项时的分页键
+}
+
+type ListProcessResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListProcessRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListProcessResp) Success() bool {
+	return resp.Code == 0
+}
+
 type P2ProbationUpdatedV2Data struct {
 	EmploymentId           *string `json:"employment_id,omitempty"`             // 雇佣 ID
 	ProbationStatus        *string `json:"probation_status,omitempty"`          // 试用期状态
@@ -19826,6 +20643,54 @@ type P2ProbationUpdatedV2 struct {
 }
 
 func (m *P2ProbationUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ProcessUpdatedV2Data struct {
+	ProcessId *string `json:"process_id,omitempty"` // 流程实例ID
+	Status    *int    `json:"status,omitempty"`     // 变更后状态：1 发起/进行中，9 完成，2拒绝，4 撤回，8 撤销
+}
+
+type P2ProcessUpdatedV2 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2ProcessUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2ProcessUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ProcessApproverUpdatedV2Data struct {
+	ProcessId  *string `json:"process_id,omitempty"`  // 流程实例ID
+	ApproverId *string `json:"approver_id,omitempty"` // 单据ID
+	Type       *int    `json:"type,omitempty"`        // 单据类型
+	Status     *int    `json:"status,omitempty"`      // 单据状态
+}
+
+type P2ProcessApproverUpdatedV2 struct {
+	*larkevent.EventV2Base                                 // 事件基础数据
+	*larkevent.EventReq                                    // 请求原生数据
+	Event                  *P2ProcessApproverUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2ProcessApproverUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ProcessCcUpdatedV2Data struct {
+	ProcessId  *string `json:"process_id,omitempty"`  // 流程实例ID
+	ApproverId *string `json:"approver_id,omitempty"` // 抄送单据ID
+	Status     *int    `json:"status,omitempty"`      // 单据状态
+}
+
+type P2ProcessCcUpdatedV2 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2ProcessCcUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2ProcessCcUpdatedV2) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
@@ -20150,5 +21015,59 @@ func (iterator *SearchProbationIterator) Next() (bool, *ProbationInfo, error) {
 }
 
 func (iterator *SearchProbationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListProcessIterator struct {
+	nextPageToken *string
+	items         []string
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListProcessReq
+	listFunc      func(ctx context.Context, req *ListProcessReq, options ...larkcore.RequestOptionFunc) (*ListProcessResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListProcessIterator) Next() (bool, string, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, "", nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, "", nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, "", err
+		}
+
+		if resp.Code != 0 {
+			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.ProcessIds) == 0 {
+			return false, "", nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.ProcessIds
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListProcessIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

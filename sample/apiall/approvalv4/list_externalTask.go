@@ -30,7 +30,6 @@ func main() {
 	req := larkapproval.NewListExternalTaskReqBuilder().
 		PageSize(50).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
-
 		Body(larkapproval.NewListExternalTaskReqBodyBuilder().
 			ApprovalCodes([]string{}).
 			InstanceIds([]string{}).

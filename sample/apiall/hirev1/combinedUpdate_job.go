@@ -31,7 +31,8 @@ func main() {
 		JobId("6960663240925956660").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
 		CombinedJob(larkhire.NewCombinedJobBuilder().
 			Id("6960663240925956576").
 			Experience(1).

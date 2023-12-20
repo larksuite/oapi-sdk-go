@@ -21,7 +21,7 @@ import (
 	"time"
 )
 
-var tokenManager TokenManager = TokenManager{cache: cache}
+var tokenManager = TokenManager{cache: cache}
 
 type TokenManager struct {
 	cache Cache

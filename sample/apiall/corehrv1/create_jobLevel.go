@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateJobLevelReqBuilder().
 		ClientToken("12454646").
-
 		JobLevel(larkcorehr.NewJobLevelBuilder().
 			LevelOrder(9999).
 			Code("VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY=").

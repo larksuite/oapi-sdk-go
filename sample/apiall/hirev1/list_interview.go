@@ -34,6 +34,7 @@ func main() {
 		InterviewId("6888217964693309704").
 		StartTime("1609489908000").
 		EndTime("1610489908000").
+		JobLevelIdType("people_admin_job_level_id").
 		UserIdType("user_id").
 		Build()
 	// 发起请求

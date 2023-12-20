@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewCreateScopeConfigReqBuilder().
 		UserIdType("open_id").
-
 		ScopeConfig(larkvc.NewScopeConfigBuilder().
 			ScopeType(1).
 			ScopeId("omm_608d34d82d531b27fa993902d350a307").

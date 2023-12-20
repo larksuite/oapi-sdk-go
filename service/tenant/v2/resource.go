@@ -61,7 +61,7 @@ func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFun
 
 // Query
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=tenant&resource=tenant.product_assign_info&version=v2
 //

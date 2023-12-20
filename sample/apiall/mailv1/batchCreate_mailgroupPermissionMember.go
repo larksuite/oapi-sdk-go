@@ -31,7 +31,6 @@ func main() {
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Body(larkmail.NewBatchCreateMailgroupPermissionMemberReqBodyBuilder().
 			Items([]*larkmail.MailgroupPermissionMember{larkmail.NewMailgroupPermissionMemberBuilder().Build()}).
 			Build()).

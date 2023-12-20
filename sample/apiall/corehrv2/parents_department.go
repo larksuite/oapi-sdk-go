@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewParentsDepartmentReqBuilder().
 		DepartmentIdType("open_department_id").
-
 		Body(larkcorehr.NewParentsDepartmentReqBodyBuilder().
 			DepartmentIdList([]string{}).
 			Build()).

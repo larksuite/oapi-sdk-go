@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewParticipantListExportReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkvc.NewParticipantListExportReqBodyBuilder().
 			MeetingStartTime("1655276858").
 			MeetingEndTime("1655276858").

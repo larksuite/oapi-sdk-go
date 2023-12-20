@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewAddCustomFieldReqBuilder().
 		CustomFieldGuid("0110a4bd-f24b-4a93-8c1a-1732b94f9593").
-
 		Body(larktask.NewAddCustomFieldReqBodyBuilder().
 			ResourceType("tasklist").
 			ResourceId("0110a4bd-f24b-4a93-8c1a-1732b94f9593").

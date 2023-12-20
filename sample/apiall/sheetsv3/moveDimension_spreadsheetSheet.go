@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewMoveDimensionSpreadsheetSheetReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		MoveDimension(larksheets.NewMoveDimensionBuilder().
 			Source(larksheets.NewDimensionBuilder().Build()).
 			DestinationIndex(0).

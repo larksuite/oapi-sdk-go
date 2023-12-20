@@ -31,7 +31,6 @@ func main() {
 		UserIdType("user_id").
 		PageSize(20).
 		PageToken("").
-
 		Body(larksearch.NewCreateMessageReqBodyBuilder().
 			Query("测试消息").
 			FromIds([]string{}).

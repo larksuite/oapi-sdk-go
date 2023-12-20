@@ -32,7 +32,6 @@ func main() {
 		SheetId("0b**12").
 		FilterViewId("pH9hbVcCXA").
 		ConditionId("E").
-
 		FilterViewCondition(larksheets.NewFilterViewConditionBuilder().
 			FilterType("").
 			CompareType("").

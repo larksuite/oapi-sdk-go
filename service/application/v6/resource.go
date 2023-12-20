@@ -125,7 +125,7 @@ func (a *appRecommendRule) ListByIterator(ctx context.Context, req *ListAppRecom
 
 // ContactsRangeConfiguration
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=contacts_range_configuration&project=application&resource=application&version=v6
 //
@@ -405,7 +405,7 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.contacts_range&version=v6
 //
@@ -483,7 +483,7 @@ func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFe
 
 // CheckWhiteBlackList
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=check_white_black_list&project=application&resource=application.visibility&version=v6
 //
@@ -509,7 +509,7 @@ func (a *applicationVisibility) CheckWhiteBlackList(ctx context.Context, req *Ch
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.visibility&version=v6
 //

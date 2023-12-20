@@ -21,7 +21,7 @@ import (
 	"time"
 )
 
-var appTicketManager AppTicketManager = AppTicketManager{cache: cache}
+var appTicketManager = AppTicketManager{cache: cache}
 
 func GetAppTicketManager() *AppTicketManager {
 	return &appTicketManager

@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewAddMembersTasklistReqBuilder().
 		TasklistGuid("d300a75f-c56a-4be9-80d1-e47653028ceb").
 		UserIdType("open_id").
-
 		Body(larktask.NewAddMembersTasklistReqBodyBuilder().
 			Members([]*larktask.Member{larktask.NewMemberBuilder().Build()}).
 			Build()).

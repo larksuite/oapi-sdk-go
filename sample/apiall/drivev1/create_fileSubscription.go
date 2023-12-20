@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewCreateFileSubscriptionReqBuilder().
 		FileToken("doxcnxxxxxxxxxxxxxxxxxxxxxx").
-
 		FileSubscription(larkdrive.NewFileSubscriptionBuilder().
 			SubscriptionId("1234567890987654321").
 			SubscriptionType("comment_update").

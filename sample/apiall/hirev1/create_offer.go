@@ -30,7 +30,9 @@ func main() {
 	req := larkhire.NewCreateOfferReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
+		EmployeeTypeIdType("people_admin_employee_type_id").
 		OfferInfo(larkhire.NewOfferInfoBuilder().
 			ApplicationId("7013552389293279532").
 			SchemaId("7013318077945596204").

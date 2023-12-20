@@ -31,7 +31,6 @@ func main() {
 		BadgeId("m_DjMzaK").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Grant(larkadmin.NewGrantBuilder().
 			Name("激励勋章的授予名单").
 			GrantType(0).

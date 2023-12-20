@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewPatchTaskReqBuilder().
 		TaskGuid("e297ddff-06ca-4166-b917-4ce57cd3a7a0").
 		UserIdType("open_id").
-
 		Body(larktask.NewPatchTaskReqBodyBuilder().
 			Task(larktask.NewInputTaskBuilder().Build()).
 			UpdateFields([]string{}).

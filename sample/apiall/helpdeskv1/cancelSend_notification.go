@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewCancelSendNotificationReqBuilder().
 		NotificationId("6981801914270744596").
-
 		Body(larkhelpdesk.NewCancelSendNotificationReqBodyBuilder().
 			IsRecall(true).
 			Build()).

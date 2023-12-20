@@ -30,7 +30,8 @@ func main() {
 	req := larkhire.NewCombinedCreateJobReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
 		CombinedJob(larkhire.NewCombinedJobBuilder().
 			Code("R18").
 			Experience(1).

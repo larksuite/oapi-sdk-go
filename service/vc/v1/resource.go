@@ -591,7 +591,7 @@ func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingRe
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=meeting_list&version=v1
 //
@@ -625,7 +625,7 @@ func (m *meetingList) GetByIterator(ctx context.Context, req *GetMeetingListReq,
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=participant_list&version=v1
 //
@@ -659,7 +659,7 @@ func (p *participantList) GetByIterator(ctx context.Context, req *GetParticipant
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=participant_quality_list&version=v1
 //
@@ -941,7 +941,7 @@ func (r *reserveConfig) ReserveScope(ctx context.Context, req *ReserveScopeReser
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.admin&version=v1
 //
@@ -967,7 +967,7 @@ func (r *reserveConfigAdmin) Get(ctx context.Context, req *GetReserveConfigAdmin
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=vc&resource=reserve_config.admin&version=v1
 //
@@ -993,7 +993,7 @@ func (r *reserveConfigAdmin) Patch(ctx context.Context, req *PatchReserveConfigA
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.disable_inform&version=v1
 //
@@ -1019,7 +1019,7 @@ func (r *reserveConfigDisableInform) Get(ctx context.Context, req *GetReserveCon
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=vc&resource=reserve_config.disable_inform&version=v1
 //
@@ -1045,7 +1045,7 @@ func (r *reserveConfigDisableInform) Patch(ctx context.Context, req *PatchReserv
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=reserve_config.form&version=v1
 //
@@ -1071,7 +1071,7 @@ func (r *reserveConfigForm) Get(ctx context.Context, req *GetReserveConfigFormRe
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=vc&resource=reserve_config.form&version=v1
 //
@@ -1097,7 +1097,7 @@ func (r *reserveConfigForm) Patch(ctx context.Context, req *PatchReserveConfigFo
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=resource_reservation_list&version=v1
 //
@@ -1321,7 +1321,7 @@ func (r *room) Search(ctx context.Context, req *SearchRoomReq, options ...larkco
 
 // Query
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=vc&resource=room_config&version=v1
 //
@@ -1347,7 +1347,7 @@ func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options
 
 // Set
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set&project=vc&resource=room_config&version=v1
 //
@@ -1373,7 +1373,7 @@ func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...
 
 // SetCheckboardAccessCode
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set_checkboard_access_code&project=vc&resource=room_config&version=v1
 //
@@ -1399,7 +1399,7 @@ func (r *roomConfig) SetCheckboardAccessCode(ctx context.Context, req *SetCheckb
 
 // SetRoomAccessCode
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set_room_access_code&project=vc&resource=room_config&version=v1
 //

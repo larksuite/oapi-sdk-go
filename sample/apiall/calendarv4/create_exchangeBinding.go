@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewCreateExchangeBindingReqBuilder().
 		UserIdType("user_id").
-
 		ExchangeBinding(larkcalendar.NewExchangeBindingBuilder().
 			AdminAccount("").
 			ExchangeAccount("").

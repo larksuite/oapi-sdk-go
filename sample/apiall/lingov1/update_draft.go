@@ -30,7 +30,6 @@ func main() {
 	req := larklingo.NewUpdateDraftReqBuilder().
 		DraftId("7241543272228814852").
 		UserIdType("user_id").
-
 		Entity(larklingo.NewEntityBuilder().
 			Id("enterprise_40217521").
 			MainKeys([]*larklingo.Term{larklingo.NewTermBuilder().Build()}).

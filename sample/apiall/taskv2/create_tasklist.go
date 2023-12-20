@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateTasklistReqBuilder().
 		UserIdType("open_id").
-
 		InputTasklist(larktask.NewInputTasklistBuilder().
 			Name("年会工作任务清单").
 			Members([]*larktask.Member{larktask.NewMemberBuilder().Build()}).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewMoveDocsToWikiSpaceNodeReqBuilder().
 		SpaceId("1565676577122621").
-
 		Body(larkwiki.NewMoveDocsToWikiSpaceNodeReqBodyBuilder().
 			ParentWikiToken("wikcnKQ1k3p******8Vabce").
 			ObjType("doc").

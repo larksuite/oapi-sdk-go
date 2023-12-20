@@ -30,7 +30,6 @@ func main() {
 	req := larkmail.NewBatchCreatePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
 		UserIdType("user_id").
-
 		Body(larkmail.NewBatchCreatePublicMailboxMemberReqBodyBuilder().
 			Items([]*larkmail.PublicMailboxMember{larkmail.NewPublicMailboxMemberBuilder().Build()}).
 			Build()).

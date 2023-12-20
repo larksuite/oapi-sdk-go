@@ -30,7 +30,6 @@ func main() {
 	req := larkbitable.NewBatchCreateAppRoleMemberReqBuilder().
 		AppToken("bascnnKKvcoUblgmmhZkYqabcef").
 		RoleId("rolNGhPqks").
-
 		Body(larkbitable.NewBatchCreateAppRoleMemberReqBodyBuilder().
 			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).

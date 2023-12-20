@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkmdm.NewBindUserAuthDataRelationReqBuilder().
 		UserIdType("user_id").
-
 		UserAuthDataRelation(larkmdm.NewUserAuthDataRelationBuilder().
 			RootDimensionType("zijie").
 			SubDimensionTypes([]string{}).

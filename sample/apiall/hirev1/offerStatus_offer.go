@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewOfferStatusOfferReqBuilder().
 		OfferId("6930815272790114324").
-
 		Body(larkhire.NewOfferStatusOfferReqBodyBuilder().
 			OfferStatus(2).
 			ExpirationDate("2023-01-01").

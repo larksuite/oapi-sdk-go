@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewFindSpreadsheetSheetReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		Find(larksheets.NewFindBuilder().
 			FindCondition(larksheets.NewFindConditionBuilder().Build()).
 			Find("").

@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewCreateTaskCommentReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		UserIdType("user_id").
-
 		Comment(larktask.NewCommentBuilder().
 			Content("举杯邀明月，对影成三人").
 			ParentId("6937231762296684564").

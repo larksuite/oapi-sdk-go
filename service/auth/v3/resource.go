@@ -33,9 +33,9 @@ type tenantAccessToken struct {
 	config *larkcore.Config
 }
 
-// Create 
+// Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=app_access_token&version=v3
 //
@@ -61,7 +61,7 @@ func (a *appAccessToken) Create(ctx context.Context, req *CreateAppAccessTokenRe
 
 // Internal
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=app_access_token&version=v3
 //
@@ -87,7 +87,7 @@ func (a *appAccessToken) Internal(ctx context.Context, req *InternalAppAccessTok
 
 // Resend
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resend&project=auth&resource=app_ticket&version=v3
 //
@@ -113,7 +113,7 @@ func (a *appTicket) Resend(ctx context.Context, req *ResendAppTicketReq, options
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=tenant_access_token&version=v3
 //
@@ -139,7 +139,7 @@ func (t *tenantAccessToken) Create(ctx context.Context, req *CreateTenantAccessT
 
 // Internal
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=tenant_access_token&version=v3
 //

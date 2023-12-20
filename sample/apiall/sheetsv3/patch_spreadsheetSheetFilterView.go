@@ -31,7 +31,6 @@ func main() {
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
 		FilterViewId("pH9hbVcCXA").
-
 		FilterView(larksheets.NewFilterViewBuilder().
 			FilterViewName("").
 			Range("").

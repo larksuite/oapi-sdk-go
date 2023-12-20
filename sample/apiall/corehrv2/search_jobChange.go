@@ -32,7 +32,6 @@ func main() {
 		PageToken("6891251722631890445").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Body(larkcorehr.NewSearchJobChangeReqBodyBuilder().
 			EmploymentIds([]string{}).
 			JobChangeIds([]string{}).

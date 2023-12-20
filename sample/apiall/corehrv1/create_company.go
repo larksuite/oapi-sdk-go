@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateCompanyReqBuilder().
 		ClientToken("12454646").
-
 		Company(larkcorehr.NewCompanyBuilder().
 			HiberarchyCommon(larkcorehr.NewHiberarchyCommonBuilder().Build()).
 			Type(larkcorehr.NewEnumBuilder().Build()).

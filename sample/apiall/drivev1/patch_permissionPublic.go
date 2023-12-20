@@ -30,7 +30,6 @@ func main() {
 	req := larkdrive.NewPatchPermissionPublicReqBuilder().
 		Token("doccnBKgoMyY5OMbUG6FioTXuBe").
 		Type("doc").
-
 		PermissionPublicRequest(larkdrive.NewPermissionPublicRequestBuilder().
 			ExternalAccess(true).
 			SecurityEntity("anyone_can_view").

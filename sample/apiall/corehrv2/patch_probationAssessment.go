@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewPatchProbationAssessmentReqBuilder().
 		AssessmentId("7140964208476371331").
 		ClientToken("6822122262122064111").
-
 		AssessmentForCreate(larkcorehr.NewAssessmentForCreateBuilder().
 			AssessmentStatus("completed").
 			AssessmentResult("approved").

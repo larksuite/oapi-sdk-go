@@ -1954,6 +1954,116 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
+type FileBlockChangeInfo struct {
+	BlockToken     *string `json:"block_token,omitempty"`      // 子block token
+	BlockTokenType *string `json:"block_token_type,omitempty"` // 子block文档类型
+	RevRanges      []int   `json:"rev_ranges,omitempty"`       // 起点版本和终点版本
+}
+
+type FileBlockChangeInfoBuilder struct {
+	blockToken         string // 子block token
+	blockTokenFlag     bool
+	blockTokenType     string // 子block文档类型
+	blockTokenTypeFlag bool
+	revRanges          []int // 起点版本和终点版本
+	revRangesFlag      bool
+}
+
+func NewFileBlockChangeInfoBuilder() *FileBlockChangeInfoBuilder {
+	builder := &FileBlockChangeInfoBuilder{}
+	return builder
+}
+
+// 子block token
+//
+// 示例值：doxcnxxxxxxxxxxxxxxxx
+func (builder *FileBlockChangeInfoBuilder) BlockToken(blockToken string) *FileBlockChangeInfoBuilder {
+	builder.blockToken = blockToken
+	builder.blockTokenFlag = true
+	return builder
+}
+
+// 子block文档类型
+//
+// 示例值：docx
+func (builder *FileBlockChangeInfoBuilder) BlockTokenType(blockTokenType string) *FileBlockChangeInfoBuilder {
+	builder.blockTokenType = blockTokenType
+	builder.blockTokenTypeFlag = true
+	return builder
+}
+
+// 起点版本和终点版本
+//
+// 示例值：
+func (builder *FileBlockChangeInfoBuilder) RevRanges(revRanges []int) *FileBlockChangeInfoBuilder {
+	builder.revRanges = revRanges
+	builder.revRangesFlag = true
+	return builder
+}
+
+func (builder *FileBlockChangeInfoBuilder) Build() *FileBlockChangeInfo {
+	req := &FileBlockChangeInfo{}
+	if builder.blockTokenFlag {
+		req.BlockToken = &builder.blockToken
+
+	}
+	if builder.blockTokenTypeFlag {
+		req.BlockTokenType = &builder.blockTokenType
+
+	}
+	if builder.revRangesFlag {
+		req.RevRanges = builder.revRanges
+	}
+	return req
+}
+
+type FileChangeInfo struct {
+	StartTime *int                   `json:"start_time,omitempty"` // 变更开始时间
+	Changes   []*FileBlockChangeInfo `json:"changes,omitempty"`    // 版本变更明细
+}
+
+type FileChangeInfoBuilder struct {
+	startTime     int // 变更开始时间
+	startTimeFlag bool
+	changes       []*FileBlockChangeInfo // 版本变更明细
+	changesFlag   bool
+}
+
+func NewFileChangeInfoBuilder() *FileChangeInfoBuilder {
+	builder := &FileChangeInfoBuilder{}
+	return builder
+}
+
+// 变更开始时间
+//
+// 示例值：1687748146
+func (builder *FileChangeInfoBuilder) StartTime(startTime int) *FileChangeInfoBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 版本变更明细
+//
+// 示例值：
+func (builder *FileChangeInfoBuilder) Changes(changes []*FileBlockChangeInfo) *FileChangeInfoBuilder {
+	builder.changes = changes
+	builder.changesFlag = true
+	return builder
+}
+
+func (builder *FileChangeInfoBuilder) Build() *FileChangeInfo {
+	req := &FileChangeInfo{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.changesFlag {
+		req.Changes = builder.changes
+	}
+	return req
+}
+
 type FileComment struct {
 	CommentId    *string    `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
 	UserId       *string    `json:"user_id,omitempty"`        // 用户ID
@@ -2515,21 +2625,30 @@ func (builder *FileSearchBuilder) Build() *FileSearch {
 }
 
 type FileStatistics struct {
-	Uv        *int `json:"uv,omitempty"`         // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
-	Pv        *int `json:"pv,omitempty"`         // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
-	LikeCount *int `json:"like_count,omitempty"` // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
-	Timestamp *int `json:"timestamp,omitempty"`  // 时间戳（秒）
+	Uv             *int `json:"uv,omitempty"`               // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
+	Pv             *int `json:"pv,omitempty"`               // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
+	LikeCount      *int `json:"like_count,omitempty"`       // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
+	Timestamp      *int `json:"timestamp,omitempty"`        // 时间戳（秒）
+	UvToday        *int `json:"uv_today,omitempty"`         // 今日新增文档访问人数
+	PvToday        *int `json:"pv_today,omitempty"`         // 今日新增文档访问次数
+	LikeCountToday *int `json:"like_count_today,omitempty"` // 今日新增文档点赞数
 }
 
 type FileStatisticsBuilder struct {
-	uv            int // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
-	uvFlag        bool
-	pv            int // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
-	pvFlag        bool
-	likeCount     int // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
-	likeCountFlag bool
-	timestamp     int // 时间戳（秒）
-	timestampFlag bool
+	uv                 int // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
+	uvFlag             bool
+	pv                 int // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
+	pvFlag             bool
+	likeCount          int // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
+	likeCountFlag      bool
+	timestamp          int // 时间戳（秒）
+	timestampFlag      bool
+	uvToday            int // 今日新增文档访问人数
+	uvTodayFlag        bool
+	pvToday            int // 今日新增文档访问次数
+	pvTodayFlag        bool
+	likeCountToday     int // 今日新增文档点赞数
+	likeCountTodayFlag bool
 }
 
 func NewFileStatisticsBuilder() *FileStatisticsBuilder {
@@ -2573,6 +2692,33 @@ func (builder *FileStatisticsBuilder) Timestamp(timestamp int) *FileStatisticsBu
 	return builder
 }
 
+// 今日新增文档访问人数
+//
+// 示例值：1
+func (builder *FileStatisticsBuilder) UvToday(uvToday int) *FileStatisticsBuilder {
+	builder.uvToday = uvToday
+	builder.uvTodayFlag = true
+	return builder
+}
+
+// 今日新增文档访问次数
+//
+// 示例值：1
+func (builder *FileStatisticsBuilder) PvToday(pvToday int) *FileStatisticsBuilder {
+	builder.pvToday = pvToday
+	builder.pvTodayFlag = true
+	return builder
+}
+
+// 今日新增文档点赞数
+//
+// 示例值：1
+func (builder *FileStatisticsBuilder) LikeCountToday(likeCountToday int) *FileStatisticsBuilder {
+	builder.likeCountToday = likeCountToday
+	builder.likeCountTodayFlag = true
+	return builder
+}
+
 func (builder *FileStatisticsBuilder) Build() *FileStatistics {
 	req := &FileStatistics{}
 	if builder.uvFlag {
@@ -2589,6 +2735,18 @@ func (builder *FileStatisticsBuilder) Build() *FileStatistics {
 	}
 	if builder.timestampFlag {
 		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.uvTodayFlag {
+		req.UvToday = &builder.uvToday
+
+	}
+	if builder.pvTodayFlag {
+		req.PvToday = &builder.pvToday
+
+	}
+	if builder.likeCountTodayFlag {
+		req.LikeCountToday = &builder.likeCountToday
 
 	}
 	return req

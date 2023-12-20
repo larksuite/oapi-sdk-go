@@ -31,7 +31,6 @@ func main() {
 		UserIdType("user_id").
 		DepartmentIdType("open_department_id").
 		ClientToken("473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E").
-
 		Department(larkcontact.NewDepartmentBuilder().
 			Name("DemoName").
 			I18nName(larkcontact.NewDepartmentI18nNameBuilder().Build()).

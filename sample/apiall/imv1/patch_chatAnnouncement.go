@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewPatchChatAnnouncementReqBuilder().
 		ChatId("oc_5ad11d72b830411d72b836c20").
-
 		Body(larkim.NewPatchChatAnnouncementReqBodyBuilder().
 			Revision("12").
 			Requests([]string{}).

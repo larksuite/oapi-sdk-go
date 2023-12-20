@@ -29,9 +29,8 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"time"
 )
-
-import "time"
 
 // StringPtr returns a pointer to the string value passed in.
 func StringPtr(v string) *string {

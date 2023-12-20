@@ -30,7 +30,6 @@ func main() {
 	req := larkwiki.NewDeleteSpaceMemberReqBuilder().
 		SpaceId("7008061636015554580").
 		MemberId("g64fb7g7").
-
 		Member(larkwiki.NewMemberBuilder().
 			MemberType("").
 			MemberRole("").

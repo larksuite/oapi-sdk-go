@@ -30,7 +30,6 @@ func main() {
 	req := larkcontact.NewUpdateUserIdUserReqBuilder().
 		UserId("").
 		UserIdType("user_id").
-
 		Body(larkcontact.NewUpdateUserIdUserReqBodyBuilder().
 			NewUserId("3e3cf96b").
 			Build()).

@@ -30,7 +30,6 @@ func main() {
 	req := larkim.NewUpdateChatModerationReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		UserIdType("user_id").
-
 		Body(larkim.NewUpdateChatModerationReqBodyBuilder().
 			ModerationSetting("moderator_list").
 			ModeratorAddedList([]string{}).

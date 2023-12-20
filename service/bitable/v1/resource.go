@@ -68,9 +68,9 @@ type appTableView struct {
 	config *larkcore.Config
 }
 
-// Copy 
+// Copy
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=copy&project=bitable&resource=app&version=v1
 //
@@ -96,7 +96,7 @@ func (a *app) Copy(ctx context.Context, req *CopyAppReq, options ...larkcore.Req
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app&version=v1
 //
@@ -642,7 +642,7 @@ func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, opt
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/patch
 //

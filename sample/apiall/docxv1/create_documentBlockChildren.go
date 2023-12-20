@@ -33,7 +33,6 @@ func main() {
 		DocumentRevisionId(-1).
 		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b97").
 		UserIdType("user_id").
-
 		Body(larkdocx.NewCreateDocumentBlockChildrenReqBodyBuilder().
 			Children([]*larkdocx.Block{larkdocx.NewBlockBuilder().Build()}).
 			Index(-1).

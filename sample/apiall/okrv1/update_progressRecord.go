@@ -30,7 +30,6 @@ func main() {
 	req := larkokr.NewUpdateProgressRecordReqBuilder().
 		ProgressId("7041857032248410131").
 		UserIdType("user_id").
-
 		Body(larkokr.NewUpdateProgressRecordReqBodyBuilder().
 			Content(larkokr.NewContentBlockBuilder().Build()).
 			Build()).

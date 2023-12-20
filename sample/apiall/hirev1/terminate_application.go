@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewTerminateApplicationReqBuilder().
 		ApplicationId("12312312312").
-
 		Body(larkhire.NewTerminateApplicationReqBodyBuilder().
 			TerminationType(1).
 			TerminationReasonList([]string{}).

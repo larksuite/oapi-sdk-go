@@ -93,9 +93,9 @@ type vehicleLicense struct {
 	config *larkcore.Config
 }
 
-// Recognize 
+// Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=bank_card&version=v1
 //
@@ -122,7 +122,7 @@ func (b *bankCard) Recognize(ctx context.Context, req *RecognizeBankCardReq, opt
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=business_card&version=v1
 //
@@ -149,7 +149,7 @@ func (b *businessCard) Recognize(ctx context.Context, req *RecognizeBusinessCard
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=business_license&version=v1
 //
@@ -176,7 +176,7 @@ func (b *businessLicense) Recognize(ctx context.Context, req *RecognizeBusinessL
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=chinese_passport&version=v1
 //
@@ -203,7 +203,7 @@ func (c *chinesePassport) Recognize(ctx context.Context, req *RecognizeChinesePa
 
 // FieldExtraction
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=field_extraction&project=document_ai&resource=contract&version=v1
 //
@@ -230,7 +230,7 @@ func (c *contract) FieldExtraction(ctx context.Context, req *FieldExtractionCont
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=driving_license&version=v1
 //
@@ -257,7 +257,7 @@ func (d *drivingLicense) Recognize(ctx context.Context, req *RecognizeDrivingLic
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=food_manage_license&version=v1
 //
@@ -284,7 +284,7 @@ func (f *foodManageLicense) Recognize(ctx context.Context, req *RecognizeFoodMan
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=food_produce_license&version=v1
 //
@@ -311,7 +311,7 @@ func (f *foodProduceLicense) Recognize(ctx context.Context, req *RecognizeFoodPr
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=hkm_mainland_travel_permit&version=v1
 //
@@ -338,7 +338,7 @@ func (h *hkmMainlandTravelPermit) Recognize(ctx context.Context, req *RecognizeH
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=id_card&version=v1
 //
@@ -365,7 +365,7 @@ func (i *idCard) Recognize(ctx context.Context, req *RecognizeIdCardReq, options
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=taxi_invoice&version=v1
 //
@@ -392,7 +392,7 @@ func (t *taxiInvoice) Recognize(ctx context.Context, req *RecognizeTaxiInvoiceRe
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=train_invoice&version=v1
 //
@@ -419,7 +419,7 @@ func (t *trainInvoice) Recognize(ctx context.Context, req *RecognizeTrainInvoice
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=tw_mainland_travel_permit&version=v1
 //
@@ -446,7 +446,7 @@ func (t *twMainlandTravelPermit) Recognize(ctx context.Context, req *RecognizeTw
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vat_invoice&version=v1
 //
@@ -473,7 +473,7 @@ func (v *vatInvoice) Recognize(ctx context.Context, req *RecognizeVatInvoiceReq,
 
 // Recognize
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vehicle_license&version=v1
 //

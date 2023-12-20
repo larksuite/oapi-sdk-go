@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkbaike.NewCreateDraftReqBuilder().
 		UserIdType("user_id").
-
 		Entity(larkbaike.NewEntityBuilder().
 			Id("enterprise_40217521").
 			MainKeys([]*larkbaike.Term{larkbaike.NewTermBuilder().Build()}).

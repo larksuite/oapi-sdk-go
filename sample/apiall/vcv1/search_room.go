@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewSearchRoomReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkvc.NewSearchRoomReqBodyBuilder().
 			CustomRoomIds([]string{}).
 			Keyword("测试会议室").

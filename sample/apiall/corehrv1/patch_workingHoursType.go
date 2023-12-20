@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewPatchWorkingHoursTypeReqBuilder().
 		WorkingHoursTypeId("1616161616").
 		ClientToken("12454646").
-
 		WorkingHoursType(larkcorehr.NewWorkingHoursTypeBuilder().
 			Code("1").
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).

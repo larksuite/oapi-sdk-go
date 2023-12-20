@@ -30,7 +30,6 @@ func main() {
 	req := larkcontact.NewDeleteUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("open_id").
-
 		Body(larkcontact.NewDeleteUserReqBodyBuilder().
 			DepartmentChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			ExternalChatAcceptorUserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").

@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewKickoutMeetingReqBuilder().
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
-
 		Body(larkvc.NewKickoutMeetingReqBodyBuilder().
 			KickoutUsers([]*larkvc.MeetingUser{larkvc.NewMeetingUserBuilder().Build()}).
 			Build()).

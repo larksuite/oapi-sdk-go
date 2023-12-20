@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewPatchAgentSkillReqBuilder().
 		AgentSkillId("test-skill-id").
-
 		Body(larkhelpdesk.NewPatchAgentSkillReqBodyBuilder().
 			AgentSkill(larkhelpdesk.NewAgentSkillBuilder().Build()).
 			Build()).

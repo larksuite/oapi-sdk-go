@@ -96,6 +96,133 @@ const (
 	UserIdTypePatchTasklistActivitySubscriptionUserId  = "user_id"  // user_id
 )
 
+type ActivityRecord struct {
+	Key            *int    `json:"key,omitempty"`              // 动态类型的key
+	Content        *string `json:"content,omitempty"`          // 动态的内容
+	CreatedAt      *string `json:"created_at,omitempty"`       // 动态的发生的时间戳(ms)
+	OpUser         *Member `json:"op_user,omitempty"`          // 动态发起者
+	KeyName        *string `json:"key_name,omitempty"`         // key对应的名称
+	TargetTaskGuid *string `json:"target_task_guid,omitempty"` // 动态相关的任务的guid。当动态是一个任务的动态时有值。
+	TargetTaskName *string `json:"target_task_name,omitempty"` // target_task_guid对应的任务的名称。当target_task_guid有值时会提供。
+}
+
+type ActivityRecordBuilder struct {
+	key                int // 动态类型的key
+	keyFlag            bool
+	content            string // 动态的内容
+	contentFlag        bool
+	createdAt          string // 动态的发生的时间戳(ms)
+	createdAtFlag      bool
+	opUser             *Member // 动态发起者
+	opUserFlag         bool
+	keyName            string // key对应的名称
+	keyNameFlag        bool
+	targetTaskGuid     string // 动态相关的任务的guid。当动态是一个任务的动态时有值。
+	targetTaskGuidFlag bool
+	targetTaskName     string // target_task_guid对应的任务的名称。当target_task_guid有值时会提供。
+	targetTaskNameFlag bool
+}
+
+func NewActivityRecordBuilder() *ActivityRecordBuilder {
+	builder := &ActivityRecordBuilder{}
+	return builder
+}
+
+// 动态类型的key
+//
+// 示例值：138
+func (builder *ActivityRecordBuilder) Key(key int) *ActivityRecordBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 动态的内容
+//
+// 示例值：@小明 完成了工作计划的任务
+func (builder *ActivityRecordBuilder) Content(content string) *ActivityRecordBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 动态的发生的时间戳(ms)
+//
+// 示例值：1665469397000
+func (builder *ActivityRecordBuilder) CreatedAt(createdAt string) *ActivityRecordBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 动态发起者
+//
+// 示例值：
+func (builder *ActivityRecordBuilder) OpUser(opUser *Member) *ActivityRecordBuilder {
+	builder.opUser = opUser
+	builder.opUserFlag = true
+	return builder
+}
+
+// key对应的名称
+//
+// 示例值："add task into tasklist"
+func (builder *ActivityRecordBuilder) KeyName(keyName string) *ActivityRecordBuilder {
+	builder.keyName = keyName
+	builder.keyNameFlag = true
+	return builder
+}
+
+// 动态相关的任务的guid。当动态是一个任务的动态时有值。
+//
+// 示例值：ead413d9-4027-490e-9089-b1b241d3b15d
+func (builder *ActivityRecordBuilder) TargetTaskGuid(targetTaskGuid string) *ActivityRecordBuilder {
+	builder.targetTaskGuid = targetTaskGuid
+	builder.targetTaskGuidFlag = true
+	return builder
+}
+
+// target_task_guid对应的任务的名称。当target_task_guid有值时会提供。
+//
+// 示例值：完成本周周报。
+func (builder *ActivityRecordBuilder) TargetTaskName(targetTaskName string) *ActivityRecordBuilder {
+	builder.targetTaskName = targetTaskName
+	builder.targetTaskNameFlag = true
+	return builder
+}
+
+func (builder *ActivityRecordBuilder) Build() *ActivityRecord {
+	req := &ActivityRecord{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.opUserFlag {
+		req.OpUser = builder.opUser
+	}
+	if builder.keyNameFlag {
+		req.KeyName = &builder.keyName
+
+	}
+	if builder.targetTaskGuidFlag {
+		req.TargetTaskGuid = &builder.targetTaskGuid
+
+	}
+	if builder.targetTaskNameFlag {
+		req.TargetTaskName = &builder.targetTaskName
+
+	}
+	return req
+}
+
 type Attachment struct {
 	Guid       *string   `json:"guid,omitempty"`        // 附件guid
 	FileToken  *string   `json:"file_token,omitempty"`  // 附件在云文档系统中的token
@@ -2320,6 +2447,7 @@ type Member struct {
 	Id   *string `json:"id,omitempty"`   // 表示member的id
 	Type *string `json:"type,omitempty"` // 成员的类型
 	Role *string `json:"role,omitempty"` // 成员角色
+	Name *string `json:"name,omitempty"` // 成员名称
 }
 
 type MemberBuilder struct {
@@ -2329,6 +2457,8 @@ type MemberBuilder struct {
 	typeFlag bool
 	role     string // 成员角色
 	roleFlag bool
+	name     string // 成员名称
+	nameFlag bool
 }
 
 func NewMemberBuilder() *MemberBuilder {
@@ -2363,6 +2493,15 @@ func (builder *MemberBuilder) Role(role string) *MemberBuilder {
 	return builder
 }
 
+// 成员名称
+//
+// 示例值：张明德（明德）
+func (builder *MemberBuilder) Name(name string) *MemberBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
 func (builder *MemberBuilder) Build() *Member {
 	req := &Member{}
 	if builder.idFlag {
@@ -2375,6 +2514,10 @@ func (builder *MemberBuilder) Build() *Member {
 	}
 	if builder.roleFlag {
 		req.Role = &builder.role
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
 
 	}
 	return req

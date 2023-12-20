@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkadmin.NewResetPasswordReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkadmin.NewResetPasswordReqBodyBuilder().
 			Password(larkadmin.NewPasswordBuilder().Build()).
 			UserId("abc123").

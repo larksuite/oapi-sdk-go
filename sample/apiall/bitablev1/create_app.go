@@ -32,7 +32,6 @@ func main() {
 		SourceAppToken("Xm5EbPVCInfoqRs0HKBbyIBjc1g").
 		CopyTypes([]string{}).
 		ApiType("new").
-
 		ReqApp(larkbitable.NewReqAppBuilder().
 			Name("一篇新的多维表格").
 			FolderToken("fldbcoh8O99CIMltVc").

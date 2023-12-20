@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewPatchSectionReqBuilder().
 		SectionGuid("9842501a-9f47-4ff5-a622-d319eeecb97f").
 		UserIdType("open_id").
-
 		Body(larktask.NewPatchSectionReqBodyBuilder().
 			Section(larktask.NewInputSectionBuilder().Build()).
 			UpdateFields([]string{}).

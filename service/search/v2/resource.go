@@ -43,9 +43,9 @@ type schema struct {
 	config *larkcore.Config
 }
 
-// Create 
+// Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=search&resource=app&version=v2
 //
@@ -287,7 +287,7 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=search&resource=message&version=v2
 //

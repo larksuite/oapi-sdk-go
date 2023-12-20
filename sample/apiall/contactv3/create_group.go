@@ -30,7 +30,6 @@ func main() {
 	req := larkcontact.NewCreateGroupReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Group(larkcontact.NewGroupBuilder().
 			Name("IT 外包组").
 			Description("IT服务人员的集合").

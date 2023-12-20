@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewPatchUnitReqBuilder().
 		UnitId("BU121").
-
 		Body(larkcontact.NewPatchUnitReqBodyBuilder().
 			Name("消费者事业部").
 			Build()).

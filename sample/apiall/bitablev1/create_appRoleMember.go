@@ -31,7 +31,6 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		RoleId("roljRpwIUt").
 		MemberIdType("open_id").
-
 		AppRoleMember(larkbitable.NewAppRoleMemberBuilder().
 			MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 			Build()).

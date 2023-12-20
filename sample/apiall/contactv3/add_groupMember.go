@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewAddGroupMemberReqBuilder().
 		GroupId("g281721").
-
 		Body(larkcontact.NewAddGroupMemberReqBodyBuilder().
 			MemberType("user").
 			MemberIdType("open_id").

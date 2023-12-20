@@ -30,7 +30,6 @@ func main() {
 	req := larkbitable.NewCopyAppDashboardReqBuilder().
 		AppToken("basbcldP5xZeskcHDFZQfeToydb").
 		BlockId("blkEsvEEaNllY2UV").
-
 		Body(larkbitable.NewCopyAppDashboardReqBodyBuilder().
 			Name("Dashboard").
 			Build()).

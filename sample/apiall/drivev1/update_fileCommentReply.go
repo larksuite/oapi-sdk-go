@@ -33,7 +33,6 @@ func main() {
 		ReplyId("6916106822734594568").
 		FileType("doc").
 		UserIdType("user_id").
-
 		Body(larkdrive.NewUpdateFileCommentReplyReqBodyBuilder().
 			Content(larkdrive.NewReplyContentBuilder().Build()).
 			Build()).

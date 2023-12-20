@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUpdateJobLevelReqBuilder().
 		JobLevelId("mga5oa8ayjlp9rb").
-
 		JobLevel(larkcontact.NewJobLevelBuilder().
 			Name("高级专家").
 			Description("公司内部中高级职称，有一定专业技术能力的人员").

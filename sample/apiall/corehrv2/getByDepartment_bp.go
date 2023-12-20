@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewGetByDepartmentBpReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Body(larkcorehr.NewGetByDepartmentBpReqBodyBuilder().
 			DepartmentId("6893014062142064111").
 			Build()).

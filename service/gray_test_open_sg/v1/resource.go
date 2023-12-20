@@ -23,9 +23,9 @@ type moto struct {
 	config *larkcore.Config
 }
 
-// Create 
+// Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=gray_test_open_sg&resource=moto&version=v1
 //
@@ -51,7 +51,7 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkco
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=gray_test_open_sg&resource=moto&version=v1
 //
@@ -77,7 +77,7 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.Req
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=gray_test_open_sg&resource=moto&version=v1
 //

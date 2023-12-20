@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkmail.NewCreatePublicMailboxAliasReqBuilder().
 		PublicMailboxId("xxxxxx 或 xxx@xx.xxx").
-
 		EmailAlias(larkmail.NewEmailAliasBuilder().
 			EmailAlias("email_alias@xxx.xx").
 			Build()).

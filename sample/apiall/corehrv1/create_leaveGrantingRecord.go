@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateLeaveGrantingRecordReqBuilder().
 		UserIdType("open_id").
-
 		Body(larkcorehr.NewCreateLeaveGrantingRecordReqBodyBuilder().
 			LeaveTypeId("7111688079785723436").
 			EmploymentId("6982509313466189342").

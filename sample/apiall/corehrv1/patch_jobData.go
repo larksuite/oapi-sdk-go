@@ -32,7 +32,6 @@ func main() {
 		ClientToken("12454646").
 		UserIdType("people_corehr_id").
 		DepartmentIdType("people_corehr_department_id").
-
 		JobData(larkcorehr.NewJobDataBuilder().
 			JobLevelId("6890452208593372679").
 			JobGradeId("6890452208593372679").

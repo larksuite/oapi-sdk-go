@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewCreateTasklistActivitySubscriptionReqBuilder().
 		TasklistGuid("d19e3a2a-edc0-4e4e-b7cc-950e162b53ae").
 		UserIdType("open_id").
-
 		TasklistActivitySubscription(larktask.NewTasklistActivitySubscriptionBuilder().
 			Name("我的订阅").
 			Subscribers([]*larktask.Member{larktask.NewMemberBuilder().Build()}).

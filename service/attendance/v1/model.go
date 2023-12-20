@@ -1116,6 +1116,7 @@ type Group struct {
 	BindDefaultDeptIds      []string                 `json:"bind_default_dept_ids,omitempty"`       // 默认出勤的部门id列表
 	BindDefaultUserIds      []string                 `json:"bind_default_user_ids,omitempty"`       // 默认出勤的用户ID列表
 	OvertimeClockCfg        *OvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`          // 加班打卡规则
+	NewCalendarId           *string                  `json:"new_calendar_id,omitempty"`             // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 }
 
 type GroupBuilder struct {
@@ -1249,6 +1250,8 @@ type GroupBuilder struct {
 	bindDefaultUserIdsFlag      bool
 	overtimeClockCfg            *OvertimeClockCfg // 加班打卡规则
 	overtimeClockCfgFlag        bool
+	newCalendarId               string // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
+	newCalendarIdFlag           bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -1841,6 +1844,15 @@ func (builder *GroupBuilder) OvertimeClockCfg(overtimeClockCfg *OvertimeClockCfg
 	return builder
 }
 
+// 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
+//
+// 示例值：通过查询考勤组接口获取的new_calendar_id，例如7302191700771358252
+func (builder *GroupBuilder) NewCalendarId(newCalendarId string) *GroupBuilder {
+	builder.newCalendarId = newCalendarId
+	builder.newCalendarIdFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.groupIdFlag {
@@ -2081,6 +2093,10 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.overtimeClockCfgFlag {
 		req.OvertimeClockCfg = builder.overtimeClockCfg
+	}
+	if builder.newCalendarIdFlag {
+		req.NewCalendarId = &builder.newCalendarId
+
 	}
 	return req
 }
@@ -5416,6 +5432,7 @@ type UserFlow struct {
 	PhotoUrls []string `json:"photo_urls,omitempty"` // 打卡照片列表
 
 	CheckResult *string `json:"check_result,omitempty"` // 打卡结果
+	ExternalId  *string `json:"external_id,omitempty"`  // 用户导入的外部打卡记录ID
 }
 
 type UserFlowBuilder struct {
@@ -5447,6 +5464,8 @@ type UserFlowBuilder struct {
 
 	checkResult     string // 打卡结果
 	checkResultFlag bool
+	externalId      string // 用户导入的外部打卡记录ID
+	externalIdFlag  bool
 }
 
 func NewUserFlowBuilder() *UserFlowBuilder {
@@ -5571,6 +5590,15 @@ func (builder *UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder
 	return builder
 }
 
+// 用户导入的外部打卡记录ID
+//
+// 示例值：record_123
+func (builder *UserFlowBuilder) ExternalId(externalId string) *UserFlowBuilder {
+	builder.externalId = externalId
+	builder.externalIdFlag = true
+	return builder
+}
+
 func (builder *UserFlowBuilder) Build() *UserFlow {
 	req := &UserFlow{}
 	if builder.userIdFlag {
@@ -5624,6 +5652,10 @@ func (builder *UserFlowBuilder) Build() *UserFlow {
 
 	if builder.checkResultFlag {
 		req.CheckResult = &builder.checkResult
+
+	}
+	if builder.externalIdFlag {
+		req.ExternalId = &builder.externalId
 
 	}
 	return req
@@ -7878,6 +7910,7 @@ type GetGroupRespData struct {
 	BindDefaultDeptIds      []string                 `json:"bind_default_dept_ids,omitempty"`       // 默认出勤的部门id列表
 	BindDefaultUserIds      []string                 `json:"bind_default_user_ids,omitempty"`       // 默认出勤的用户ID列表
 	OvertimeClockCfg        *OvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`          // 加班打卡规则
+	NewCalendarId           *string                  `json:"new_calendar_id,omitempty"`             // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 }
 
 type GetGroupResp struct {
@@ -9747,6 +9780,7 @@ type GetUserFlowRespData struct {
 	PhotoUrls []string `json:"photo_urls,omitempty"` // 打卡照片列表
 
 	CheckResult *string `json:"check_result,omitempty"` // 打卡结果
+	ExternalId  *string `json:"external_id,omitempty"`  // 用户导入的外部打卡记录ID
 }
 
 type GetUserFlowResp struct {

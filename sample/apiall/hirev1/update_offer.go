@@ -31,7 +31,9 @@ func main() {
 		OfferId("7016605170635213100").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
+		EmployeeTypeIdType("people_admin_employee_type_id").
 		OfferInfo(larkhire.NewOfferInfoBuilder().
 			SchemaId("7013318077945596204").
 			BasicInfo(larkhire.NewOfferBasicInfoBuilder().Build()).

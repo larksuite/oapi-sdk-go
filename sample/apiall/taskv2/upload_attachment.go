@@ -35,7 +35,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewUploadAttachmentReqBuilder().
 		UserIdType("open_id").
-
 		InputAttachment(larktask.NewInputAttachmentBuilder().
 			ResourceType("task").
 			ResourceId("fe96108d-b004-4a47-b2f8-6886e758b3a5").

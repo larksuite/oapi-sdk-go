@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewBatchDeleteAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-
 		Body(larkbitable.NewBatchDeleteAppTableReqBodyBuilder().
 			TableIds([]string{}).
 			Build()).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewMgetRoomReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkvc.NewMgetRoomReqBodyBuilder().
 			RoomIds([]string{}).
 			Build()).

@@ -30,7 +30,6 @@ func main() {
 	req := larkmail.NewCreatePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx").
 		UserIdType("user_id").
-
 		PublicMailboxMember(larkmail.NewPublicMailboxMemberBuilder().
 			UserId("xxxxxxxxxx").
 			Type("USER").

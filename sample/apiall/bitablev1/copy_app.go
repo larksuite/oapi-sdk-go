@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewCopyAppReqBuilder().
 		AppToken("S404b*****e9PQsYDWYcNryFn0g").
-
 		Body(larkbitable.NewCopyAppReqBodyBuilder().
 			Name("一篇新的多维表格").
 			FolderToken("fldbco*****CIMltVc").

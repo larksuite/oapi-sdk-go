@@ -31,7 +31,6 @@ func main() {
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
 		FloatImageId("ye06SS14ph").
-
 		FloatImage(larksheets.NewFloatImageBuilder().
 			FloatImageToken("").
 			Range("").

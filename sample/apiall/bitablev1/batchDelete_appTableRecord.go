@@ -30,7 +30,6 @@ func main() {
 	req := larkbitable.NewBatchDeleteAppTableRecordReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
-
 		Body(larkbitable.NewBatchDeleteAppTableRecordReqBodyBuilder().
 			Records([]string{}).
 			Build()).

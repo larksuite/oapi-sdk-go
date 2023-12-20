@@ -31,7 +31,6 @@ func main() {
 		FileToken("doccnGp4UK1UskrOEJwBXd3****").
 		CommentId("6916106822734578184").
 		FileType("doc").
-
 		Body(larkdrive.NewPatchFileCommentReqBodyBuilder().
 			IsSolved(true).
 			Build()).

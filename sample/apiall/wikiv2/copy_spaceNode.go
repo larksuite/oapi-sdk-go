@@ -30,7 +30,6 @@ func main() {
 	req := larkwiki.NewCopySpaceNodeReqBuilder().
 		SpaceId("6946843325487912356").
 		NodeToken("wikcnKQ1k3p******8Vabce").
-
 		Body(larkwiki.NewCopySpaceNodeReqBodyBuilder().
 			TargetParentToken("wikcnKQ1k3p******8Vabce").
 			TargetSpaceId("6946843325487912356").

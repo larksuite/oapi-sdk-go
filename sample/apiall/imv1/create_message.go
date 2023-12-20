@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewCreateMessageReqBuilder().
 		ReceiveIdType("open_id").
-
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			ReceiveId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
 			MsgType("text").

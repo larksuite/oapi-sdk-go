@@ -31,7 +31,6 @@ func main() {
 		TasklistGuid("33991879-704f-444f-81d7-55a6aa7be80c").
 		ActivitySubscriptionGuid("f5ca6747-5ac3-422e-a97e-972c1b2c24f3").
 		UserIdType("open_id").
-
 		Body(larktask.NewPatchTasklistActivitySubscriptionReqBodyBuilder().
 			ActivitySubscription(larktask.NewTasklistActivitySubscriptionBuilder().Build()).
 			UpdateFields([]string{}).

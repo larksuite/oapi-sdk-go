@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewAddDependenciesTaskReqBuilder().
 		TaskGuid("93b7bd05-35e6-4371-b3c9-6b7cbd7100c0").
-
 		Body(larktask.NewAddDependenciesTaskReqBodyBuilder().
 			Dependencies([]*larktask.TaskDependency{larktask.NewTaskDependencyBuilder().Build()}).
 			Build()).

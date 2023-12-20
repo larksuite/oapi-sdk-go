@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateSectionReqBuilder().
 		UserIdType("open_id").
-
 		InputSection(larktask.NewInputSectionBuilder().
 			Name("已经审核过的任务").
 			ResourceType("tasklist").

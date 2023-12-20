@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewUpdateReserveReqBuilder().
 		ReserveId("6911188411932033028").
 		UserIdType("user_id").
-
 		Body(larkvc.NewUpdateReserveReqBodyBuilder().
 			EndTime("1608888867").
 			MeetingSettings(larkvc.NewReserveMeetingSettingBuilder().Build()).

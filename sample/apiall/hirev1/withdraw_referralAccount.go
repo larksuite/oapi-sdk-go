@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewWithdrawReferralAccountReqBuilder().
 		ReferralAccountId("6942778198054125570").
-
 		Body(larkhire.NewWithdrawReferralAccountReqBodyBuilder().
 			WithdrawBonusType([]int{}).
 			ExternalOrderId("6942778198054125570").

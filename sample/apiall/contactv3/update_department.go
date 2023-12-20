@@ -31,7 +31,6 @@ func main() {
 		DepartmentId("D096").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Department(larkcontact.NewDepartmentBuilder().
 			Name("DemoName").
 			I18nName(larkcontact.NewDepartmentI18nNameBuilder().Build()).

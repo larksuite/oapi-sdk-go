@@ -31,7 +31,6 @@ func main() {
 		FileToken("doccnGp4UK1UskrOEJwBXd3****").
 		FileType("doc").
 		UserIdType("user_id").
-
 		FileComment(larkdrive.NewFileCommentBuilder().
 			CommentId("").
 			UserId("").

@@ -3365,6 +3365,38 @@ func (builder *FreeTimeBuilder) Build() *FreeTime {
 	return req
 }
 
+type FreeTimeAi struct {
+	FreeTimeList *string `json:"free_time_list,omitempty"` // 空闲时间列表
+}
+
+type FreeTimeAiBuilder struct {
+	freeTimeList     string // 空闲时间列表
+	freeTimeListFlag bool
+}
+
+func NewFreeTimeAiBuilder() *FreeTimeAiBuilder {
+	builder := &FreeTimeAiBuilder{}
+	return builder
+}
+
+// 空闲时间列表
+//
+// 示例值：2023-12-05T15:00:00--2023-12-05T15:30:00;2023-12-05T15:30:00--2023-12-05T16:00:00;
+func (builder *FreeTimeAiBuilder) FreeTimeList(freeTimeList string) *FreeTimeAiBuilder {
+	builder.freeTimeList = freeTimeList
+	builder.freeTimeListFlag = true
+	return builder
+}
+
+func (builder *FreeTimeAiBuilder) Build() *FreeTimeAi {
+	req := &FreeTimeAi{}
+	if builder.freeTimeListFlag {
+		req.FreeTimeList = &builder.freeTimeList
+
+	}
+	return req
+}
+
 type FreeTimeSlot struct {
 	StartTime *string `json:"start_time,omitempty"` // 空闲时间段的开始时间
 	EndTime   *string `json:"end_time,omitempty"`   // 空闲时间段的结束时间

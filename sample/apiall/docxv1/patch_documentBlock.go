@@ -33,7 +33,6 @@ func main() {
 		DocumentRevisionId(-1).
 		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
 		UserIdType("user_id").
-
 		UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
 			UpdateTextElements(larkdocx.NewUpdateTextElementsRequestBuilder().Build()).
 			UpdateTextStyle(larkdocx.NewUpdateTextStyleRequestBuilder().Build()).
@@ -50,6 +49,7 @@ func main() {
 			ReplaceImage(larkdocx.NewReplaceImageRequestBuilder().Build()).
 			ReplaceFile(larkdocx.NewReplaceFileRequestBuilder().Build()).
 			UpdateText(larkdocx.NewUpdateTextRequestBuilder().Build()).
+			UpdateTask(larkdocx.NewUpdateTaskRequestBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -30,7 +30,6 @@ func main() {
 	req := larkmail.NewBatchCreateMailgroupManagerReqBuilder().
 		MailgroupId("xxxxxx 或 test_mail_group@xx.xx").
 		UserIdType("open_id").
-
 		Body(larkmail.NewBatchCreateMailgroupManagerReqBodyBuilder().
 			MailgroupManagerList([]*larkmail.MailgroupManager{larkmail.NewMailgroupManagerBuilder().Build()}).
 			Build()).

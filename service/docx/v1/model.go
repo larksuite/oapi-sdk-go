@@ -225,6 +225,7 @@ type Block struct {
 	CommentIds     []string        `json:"comment_ids,omitempty"`     // 评论 id 列表
 	JiraIssue      *JiraIssue      `json:"jira_issue,omitempty"`      // Jira Issue
 	WikiCatalog    *WikiCatalog    `json:"wiki_catalog,omitempty"`    // Wiki 子目录 Block
+	Board          *Board          `json:"board,omitempty"`           // 画板 Block
 }
 
 type BlockBuilder struct {
@@ -324,6 +325,8 @@ type BlockBuilder struct {
 	jiraIssueFlag      bool
 	wikiCatalog        *WikiCatalog // Wiki 子目录 Block
 	wikiCatalogFlag    bool
+	board              *Board // 画板 Block
+	boardFlag          bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -763,6 +766,15 @@ func (builder *BlockBuilder) WikiCatalog(wikiCatalog *WikiCatalog) *BlockBuilder
 	return builder
 }
 
+// 画板 Block
+//
+// 示例值：
+func (builder *BlockBuilder) Board(board *Board) *BlockBuilder {
+	builder.board = board
+	builder.boardFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -912,6 +924,9 @@ func (builder *BlockBuilder) Build() *Block {
 	if builder.wikiCatalogFlag {
 		req.WikiCatalog = builder.wikiCatalog
 	}
+	if builder.boardFlag {
+		req.Board = builder.board
+	}
 	return req
 }
 
@@ -958,6 +973,86 @@ func (builder *BlockIdRelationBuilder) Build() *BlockIdRelation {
 	}
 	if builder.blockIdFlag {
 		req.BlockId = &builder.blockId
+
+	}
+	return req
+}
+
+type Board struct {
+	Token  *string `json:"token,omitempty"`  // 画板 token
+	Align  *int    `json:"align,omitempty"`  // 对齐方式
+	Width  *int    `json:"width,omitempty"`  // 宽度，单位 px；不填时自动适应文档宽度；值超出文档最大宽度时，页面渲染为文档最大宽度
+	Height *int    `json:"height,omitempty"` // 高度，单位 px；不填时自动根据画板内容计算；值超出屏幕两倍高度时，页面渲染为屏幕两倍高度
+}
+
+type BoardBuilder struct {
+	token      string // 画板 token
+	tokenFlag  bool
+	align      int // 对齐方式
+	alignFlag  bool
+	width      int // 宽度，单位 px；不填时自动适应文档宽度；值超出文档最大宽度时，页面渲染为文档最大宽度
+	widthFlag  bool
+	height     int // 高度，单位 px；不填时自动根据画板内容计算；值超出屏幕两倍高度时，页面渲染为屏幕两倍高度
+	heightFlag bool
+}
+
+func NewBoardBuilder() *BoardBuilder {
+	builder := &BoardBuilder{}
+	return builder
+}
+
+// 画板 token
+//
+// 示例值：EfSPwsv03hVDKJbh1FWczJbWn90
+func (builder *BoardBuilder) Token(token string) *BoardBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+// 对齐方式
+//
+// 示例值：2
+func (builder *BoardBuilder) Align(align int) *BoardBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
+// 宽度，单位 px；不填时自动适应文档宽度；值超出文档最大宽度时，页面渲染为文档最大宽度
+//
+// 示例值：300
+func (builder *BoardBuilder) Width(width int) *BoardBuilder {
+	builder.width = width
+	builder.widthFlag = true
+	return builder
+}
+
+// 高度，单位 px；不填时自动根据画板内容计算；值超出屏幕两倍高度时，页面渲染为屏幕两倍高度
+//
+// 示例值：300
+func (builder *BoardBuilder) Height(height int) *BoardBuilder {
+	builder.height = height
+	builder.heightFlag = true
+	return builder
+}
+
+func (builder *BoardBuilder) Build() *Board {
+	req := &Board{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
+
+	}
+	if builder.widthFlag {
+		req.Width = &builder.width
+
+	}
+	if builder.heightFlag {
+		req.Height = &builder.height
 
 	}
 	return req
@@ -1303,18 +1398,21 @@ type Divider struct {
 }
 
 type Document struct {
-	DocumentId *string `json:"document_id,omitempty"` // 文档唯一标识
-	RevisionId *int    `json:"revision_id,omitempty"` // 文档版本 ID
-	Title      *string `json:"title,omitempty"`       // 文档标题
+	DocumentId     *string                 `json:"document_id,omitempty"`     // 文档唯一标识
+	RevisionId     *int                    `json:"revision_id,omitempty"`     // 文档版本 ID
+	Title          *string                 `json:"title,omitempty"`           // 文档标题
+	DisplaySetting *DocumentDisplaySetting `json:"display_setting,omitempty"` // 文档展示设置
 }
 
 type DocumentBuilder struct {
-	documentId     string // 文档唯一标识
-	documentIdFlag bool
-	revisionId     int // 文档版本 ID
-	revisionIdFlag bool
-	title          string // 文档标题
-	titleFlag      bool
+	documentId         string // 文档唯一标识
+	documentIdFlag     bool
+	revisionId         int // 文档版本 ID
+	revisionIdFlag     bool
+	title              string // 文档标题
+	titleFlag          bool
+	displaySetting     *DocumentDisplaySetting // 文档展示设置
+	displaySettingFlag bool
 }
 
 func NewDocumentBuilder() *DocumentBuilder {
@@ -1349,6 +1447,15 @@ func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
 	return builder
 }
 
+// 文档展示设置
+//
+// 示例值：
+func (builder *DocumentBuilder) DisplaySetting(displaySetting *DocumentDisplaySetting) *DocumentBuilder {
+	builder.displaySetting = displaySetting
+	builder.displaySettingFlag = true
+	return builder
+}
+
 func (builder *DocumentBuilder) Build() *Document {
 	req := &Document{}
 	if builder.documentIdFlag {
@@ -1361,6 +1468,137 @@ func (builder *DocumentBuilder) Build() *Document {
 	}
 	if builder.titleFlag {
 		req.Title = &builder.title
+
+	}
+	if builder.displaySettingFlag {
+		req.DisplaySetting = builder.displaySetting
+	}
+	return req
+}
+
+type DocumentDisplaySetting struct {
+	ShowAuthors        *bool `json:"show_authors,omitempty"`         // 文档信息中是否展示文档作者
+	ShowCreateTime     *bool `json:"show_create_time,omitempty"`     // 文档信息中是否展示文档创建时间
+	ShowPv             *bool `json:"show_pv,omitempty"`              // 文档信息中是否展示文档访问次数
+	ShowUv             *bool `json:"show_uv,omitempty"`              // 文档信息中是否展示文档访问人数
+	ShowLikeCount      *bool `json:"show_like_count,omitempty"`      // 文档信息中是否展示点赞总数
+	ShowCommentCount   *bool `json:"show_comment_count,omitempty"`   // 文档信息中是否展示评论总数
+	ShowRelatedMatters *bool `json:"show_related_matters,omitempty"` // 文档信息中是否展示关联事项
+}
+
+type DocumentDisplaySettingBuilder struct {
+	showAuthors            bool // 文档信息中是否展示文档作者
+	showAuthorsFlag        bool
+	showCreateTime         bool // 文档信息中是否展示文档创建时间
+	showCreateTimeFlag     bool
+	showPv                 bool // 文档信息中是否展示文档访问次数
+	showPvFlag             bool
+	showUv                 bool // 文档信息中是否展示文档访问人数
+	showUvFlag             bool
+	showLikeCount          bool // 文档信息中是否展示点赞总数
+	showLikeCountFlag      bool
+	showCommentCount       bool // 文档信息中是否展示评论总数
+	showCommentCountFlag   bool
+	showRelatedMatters     bool // 文档信息中是否展示关联事项
+	showRelatedMattersFlag bool
+}
+
+func NewDocumentDisplaySettingBuilder() *DocumentDisplaySettingBuilder {
+	builder := &DocumentDisplaySettingBuilder{}
+	return builder
+}
+
+// 文档信息中是否展示文档作者
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowAuthors(showAuthors bool) *DocumentDisplaySettingBuilder {
+	builder.showAuthors = showAuthors
+	builder.showAuthorsFlag = true
+	return builder
+}
+
+// 文档信息中是否展示文档创建时间
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowCreateTime(showCreateTime bool) *DocumentDisplaySettingBuilder {
+	builder.showCreateTime = showCreateTime
+	builder.showCreateTimeFlag = true
+	return builder
+}
+
+// 文档信息中是否展示文档访问次数
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowPv(showPv bool) *DocumentDisplaySettingBuilder {
+	builder.showPv = showPv
+	builder.showPvFlag = true
+	return builder
+}
+
+// 文档信息中是否展示文档访问人数
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowUv(showUv bool) *DocumentDisplaySettingBuilder {
+	builder.showUv = showUv
+	builder.showUvFlag = true
+	return builder
+}
+
+// 文档信息中是否展示点赞总数
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowLikeCount(showLikeCount bool) *DocumentDisplaySettingBuilder {
+	builder.showLikeCount = showLikeCount
+	builder.showLikeCountFlag = true
+	return builder
+}
+
+// 文档信息中是否展示评论总数
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowCommentCount(showCommentCount bool) *DocumentDisplaySettingBuilder {
+	builder.showCommentCount = showCommentCount
+	builder.showCommentCountFlag = true
+	return builder
+}
+
+// 文档信息中是否展示关联事项
+//
+// 示例值：true
+func (builder *DocumentDisplaySettingBuilder) ShowRelatedMatters(showRelatedMatters bool) *DocumentDisplaySettingBuilder {
+	builder.showRelatedMatters = showRelatedMatters
+	builder.showRelatedMattersFlag = true
+	return builder
+}
+
+func (builder *DocumentDisplaySettingBuilder) Build() *DocumentDisplaySetting {
+	req := &DocumentDisplaySetting{}
+	if builder.showAuthorsFlag {
+		req.ShowAuthors = &builder.showAuthors
+
+	}
+	if builder.showCreateTimeFlag {
+		req.ShowCreateTime = &builder.showCreateTime
+
+	}
+	if builder.showPvFlag {
+		req.ShowPv = &builder.showPv
+
+	}
+	if builder.showUvFlag {
+		req.ShowUv = &builder.showUv
+
+	}
+	if builder.showLikeCountFlag {
+		req.ShowLikeCount = &builder.showLikeCount
+
+	}
+	if builder.showCommentCountFlag {
+		req.ShowCommentCount = &builder.showCommentCount
+
+	}
+	if builder.showRelatedMattersFlag {
+		req.ShowRelatedMatters = &builder.showRelatedMatters
 
 	}
 	return req
@@ -3439,11 +3677,14 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 
 type Task struct {
 	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+	Folded *bool   `json:"folded,omitempty"`  // 折叠状态
 }
 
 type TaskBuilder struct {
 	taskId     string // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 	taskIdFlag bool
+	folded     bool // 折叠状态
+	foldedFlag bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -3453,10 +3694,19 @@ func NewTaskBuilder() *TaskBuilder {
 
 // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
 //
-// 示例值：
+// 示例值：ba5040f4-8116-4042-ab3c-254e5cfe3ce7
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
+	return builder
+}
+
+// 折叠状态
+//
+// 示例值：false
+func (builder *TaskBuilder) Folded(folded bool) *TaskBuilder {
+	builder.folded = folded
+	builder.foldedFlag = true
 	return builder
 }
 
@@ -3464,6 +3714,10 @@ func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
 	if builder.taskIdFlag {
 		req.TaskId = &builder.taskId
+
+	}
+	if builder.foldedFlag {
+		req.Folded = &builder.folded
 
 	}
 	return req
@@ -4023,6 +4277,7 @@ type UpdateBlockRequest struct {
 	ReplaceFile                *ReplaceFileRequest                `json:"replace_file,omitempty"`                   // 替换附件请求
 	BlockId                    *string                            `json:"block_id,omitempty"`                       // Block 唯一标识
 	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`                    // 更新文本元素及样式请求
+	UpdateTask                 *UpdateTaskRequest                 `json:"update_task,omitempty"`                    // 更新任务 Block 请求
 }
 
 type UpdateBlockRequestBuilder struct {
@@ -4058,6 +4313,8 @@ type UpdateBlockRequestBuilder struct {
 	blockIdFlag                    bool
 	updateText                     *UpdateTextRequest // 更新文本元素及样式请求
 	updateTextFlag                 bool
+	updateTask                     *UpdateTaskRequest // 更新任务 Block 请求
+	updateTaskFlag                 bool
 }
 
 func NewUpdateBlockRequestBuilder() *UpdateBlockRequestBuilder {
@@ -4209,6 +4466,15 @@ func (builder *UpdateBlockRequestBuilder) UpdateText(updateText *UpdateTextReque
 	return builder
 }
 
+// 更新任务 Block 请求
+//
+// 示例值：
+func (builder *UpdateBlockRequestBuilder) UpdateTask(updateTask *UpdateTaskRequest) *UpdateBlockRequestBuilder {
+	builder.updateTask = updateTask
+	builder.updateTaskFlag = true
+	return builder
+}
+
 func (builder *UpdateBlockRequestBuilder) Build() *UpdateBlockRequest {
 	req := &UpdateBlockRequest{}
 	if builder.updateTextElementsFlag {
@@ -4259,6 +4525,40 @@ func (builder *UpdateBlockRequestBuilder) Build() *UpdateBlockRequest {
 	}
 	if builder.updateTextFlag {
 		req.UpdateText = builder.updateText
+	}
+	if builder.updateTaskFlag {
+		req.UpdateTask = builder.updateTask
+	}
+	return req
+}
+
+type UpdateDocumentRequest struct {
+	UpdateDisplaySetting *DocumentDisplaySetting `json:"update_display_setting,omitempty"` // 更新文档的展示设置
+}
+
+type UpdateDocumentRequestBuilder struct {
+	updateDisplaySetting     *DocumentDisplaySetting // 更新文档的展示设置
+	updateDisplaySettingFlag bool
+}
+
+func NewUpdateDocumentRequestBuilder() *UpdateDocumentRequestBuilder {
+	builder := &UpdateDocumentRequestBuilder{}
+	return builder
+}
+
+// 更新文档的展示设置
+//
+// 示例值：
+func (builder *UpdateDocumentRequestBuilder) UpdateDisplaySetting(updateDisplaySetting *DocumentDisplaySetting) *UpdateDocumentRequestBuilder {
+	builder.updateDisplaySetting = updateDisplaySetting
+	builder.updateDisplaySettingFlag = true
+	return builder
+}
+
+func (builder *UpdateDocumentRequestBuilder) Build() *UpdateDocumentRequest {
+	req := &UpdateDocumentRequest{}
+	if builder.updateDisplaySettingFlag {
+		req.UpdateDisplaySetting = builder.updateDisplaySetting
 	}
 	return req
 }
@@ -4369,6 +4669,54 @@ func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRe
 	}
 	if builder.headerColumnFlag {
 		req.HeaderColumn = &builder.headerColumn
+
+	}
+	return req
+}
+
+type UpdateTaskRequest struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID。该字段仅在首次更新 Task Block 时生效，更新成功后，后续请求中将忽略该字段。
+	Folded *bool   `json:"folded,omitempty"`  // 折叠状态，字段为空时不更新折叠状态
+}
+
+type UpdateTaskRequestBuilder struct {
+	taskId     string // 任务 ID。该字段仅在首次更新 Task Block 时生效，更新成功后，后续请求中将忽略该字段。
+	taskIdFlag bool
+	folded     bool // 折叠状态，字段为空时不更新折叠状态
+	foldedFlag bool
+}
+
+func NewUpdateTaskRequestBuilder() *UpdateTaskRequestBuilder {
+	builder := &UpdateTaskRequestBuilder{}
+	return builder
+}
+
+// 任务 ID。该字段仅在首次更新 Task Block 时生效，更新成功后，后续请求中将忽略该字段。
+//
+// 示例值：ba5040f4-8116-4042-ab3c-254e5cfe3ce7
+func (builder *UpdateTaskRequestBuilder) TaskId(taskId string) *UpdateTaskRequestBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+
+// 折叠状态，字段为空时不更新折叠状态
+//
+// 示例值：false
+func (builder *UpdateTaskRequestBuilder) Folded(folded bool) *UpdateTaskRequestBuilder {
+	builder.folded = folded
+	builder.foldedFlag = true
+	return builder
+}
+
+func (builder *UpdateTaskRequestBuilder) Build() *UpdateTaskRequest {
+	req := &UpdateTaskRequest{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.foldedFlag {
+		req.Folded = &builder.folded
 
 	}
 	return req

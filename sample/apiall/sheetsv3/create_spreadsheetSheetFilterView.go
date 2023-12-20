@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewCreateSpreadsheetSheetFilterViewReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		FilterView(larksheets.NewFilterViewBuilder().
 			FilterViewId("").
 			FilterViewName("").

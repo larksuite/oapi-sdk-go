@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewUpdateTabsChatTabReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
-
 		Body(larkim.NewUpdateTabsChatTabReqBodyBuilder().
 			ChatTabs([]*larkim.ChatTab{larkim.NewChatTabBuilder().Build()}).
 			Build()).

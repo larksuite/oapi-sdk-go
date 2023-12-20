@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewCreateAppRoleReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-
 		AppRole(larkbitable.NewAppRoleBuilder().
 			RoleName("自定义权限1").
 			TableRoles([]*larkbitable.AppRoleTableRole{larkbitable.NewAppRoleTableRoleBuilder().Build()}).

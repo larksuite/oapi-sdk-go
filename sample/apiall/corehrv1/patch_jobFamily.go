@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewPatchJobFamilyReqBuilder().
 		JobFamilyId("1616161616").
 		ClientToken("12454646").
-
 		JobFamily(larkcorehr.NewJobFamilyBuilder().
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			Active(true).

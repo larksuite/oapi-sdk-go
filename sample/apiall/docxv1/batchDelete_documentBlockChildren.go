@@ -32,7 +32,6 @@ func main() {
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
 		DocumentRevisionId(-1).
 		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b97").
-
 		Body(larkdocx.NewBatchDeleteDocumentBlockChildrenReqBodyBuilder().
 			StartIndex(0).
 			EndIndex(1).

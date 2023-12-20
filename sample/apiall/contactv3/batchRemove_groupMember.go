@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewBatchRemoveGroupMemberReqBuilder().
 		GroupId("test_group").
-
 		Body(larkcontact.NewBatchRemoveGroupMemberReqBodyBuilder().
 			Members([]*larkcontact.Memberlist{larkcontact.NewMemberlistBuilder().Build()}).
 			Build()).

@@ -32,7 +32,6 @@ func main() {
 		DocumentRevisionId(-1).
 		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
 		UserIdType("user_id").
-
 		Body(larkdocx.NewBatchUpdateDocumentBlockReqBodyBuilder().
 			Requests([]*larkdocx.UpdateBlockRequest{larkdocx.NewUpdateBlockRequestBuilder().Build()}).
 			Build()).

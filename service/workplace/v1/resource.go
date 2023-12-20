@@ -33,9 +33,9 @@ type workplaceBlockAccessData struct {
 	config *larkcore.Config
 }
 
-// Search 
+// Search
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=workplace&resource=custom_workplace_access_data&version=v1
 //
@@ -61,7 +61,7 @@ func (c *customWorkplaceAccessData) Search(ctx context.Context, req *SearchCusto
 
 // Search
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=workplace&resource=workplace_access_data&version=v1
 //
@@ -87,7 +87,7 @@ func (w *workplaceAccessData) Search(ctx context.Context, req *SearchWorkplaceAc
 
 // Search
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=workplace&resource=workplace_block_access_data&version=v1
 //

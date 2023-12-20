@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewSetHostMeetingReqBuilder().
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
-
 		Body(larkvc.NewSetHostMeetingReqBodyBuilder().
 			HostUser(larkvc.NewMeetingUserBuilder().Build()).
 			OldHostUser(larkvc.NewMeetingUserBuilder().Build()).

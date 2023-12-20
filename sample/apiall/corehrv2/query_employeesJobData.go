@@ -32,7 +32,6 @@ func main() {
 		PageToken("6891251722631890445").
 		UserIdType("open_id").
 		DepartmentIdType("people_corehr_department_id").
-
 		Body(larkcorehr.NewQueryEmployeesJobDataReqBodyBuilder().
 			GetAllVersion(false).
 			DataDate("2020-01-01").

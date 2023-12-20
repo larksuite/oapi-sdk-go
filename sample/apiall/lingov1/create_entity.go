@@ -30,7 +30,6 @@ func main() {
 	req := larklingo.NewCreateEntityReqBuilder().
 		RepoId("7152790921053274113").
 		UserIdType("user_id").
-
 		Entity(larklingo.NewEntityBuilder().
 			MainKeys([]*larklingo.Term{larklingo.NewTermBuilder().Build()}).
 			Aliases([]*larklingo.Term{larklingo.NewTermBuilder().Build()}).

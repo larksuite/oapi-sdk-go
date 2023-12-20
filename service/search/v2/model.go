@@ -3303,6 +3303,86 @@ func (builder *SchemaUserIdsOptionBuilder) Build() *SchemaUserIdsOption {
 	return req
 }
 
+type SeperatePassage struct {
+	PassageId *string `json:"passage_id,omitempty"` // passage_id
+	ObjId     *string `json:"obj_id,omitempty"`     // obj_id
+	Content   *string `json:"content,omitempty"`    // 内容
+	NumTokens *int    `json:"num_tokens,omitempty"` // passage的token数量
+}
+
+type SeperatePassageBuilder struct {
+	passageId     string // passage_id
+	passageIdFlag bool
+	objId         string // obj_id
+	objIdFlag     bool
+	content       string // 内容
+	contentFlag   bool
+	numTokens     int // passage的token数量
+	numTokensFlag bool
+}
+
+func NewSeperatePassageBuilder() *SeperatePassageBuilder {
+	builder := &SeperatePassageBuilder{}
+	return builder
+}
+
+// passage_id
+//
+// 示例值：6953165194634772508
+func (builder *SeperatePassageBuilder) PassageId(passageId string) *SeperatePassageBuilder {
+	builder.passageId = passageId
+	builder.passageIdFlag = true
+	return builder
+}
+
+// obj_id
+//
+// 示例值：6953165194634772508
+func (builder *SeperatePassageBuilder) ObjId(objId string) *SeperatePassageBuilder {
+	builder.objId = objId
+	builder.objIdFlag = true
+	return builder
+}
+
+// 内容
+//
+// 示例值：这是一段passage
+func (builder *SeperatePassageBuilder) Content(content string) *SeperatePassageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// passage的token数量
+//
+// 示例值：12
+func (builder *SeperatePassageBuilder) NumTokens(numTokens int) *SeperatePassageBuilder {
+	builder.numTokens = numTokens
+	builder.numTokensFlag = true
+	return builder
+}
+
+func (builder *SeperatePassageBuilder) Build() *SeperatePassage {
+	req := &SeperatePassage{}
+	if builder.passageIdFlag {
+		req.PassageId = &builder.passageId
+
+	}
+	if builder.objIdFlag {
+		req.ObjId = &builder.objId
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.numTokensFlag {
+		req.NumTokens = &builder.numTokens
+
+	}
+	return req
+}
+
 type UserInfo struct {
 	UserLanguage *string `json:"user_language,omitempty"` // 用户使用语言类型
 	Timezone     *string `json:"timezone,omitempty"`      // 用户时区

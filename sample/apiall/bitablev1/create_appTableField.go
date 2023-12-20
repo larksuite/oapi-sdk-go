@@ -31,7 +31,6 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b97").
-
 		AppTableField(larkbitable.NewAppTableFieldBuilder().
 			FieldName("字段名称").
 			Type(0).

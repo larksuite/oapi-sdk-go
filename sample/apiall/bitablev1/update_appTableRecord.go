@@ -32,7 +32,6 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		RecordId("recqwIwhc6").
 		UserIdType("user_id").
-
 		AppTableRecord(larkbitable.NewAppTableRecordBuilder().
 			Fields(map[string]interface{}{}).
 			Build()).

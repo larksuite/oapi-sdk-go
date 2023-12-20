@@ -30,7 +30,6 @@ func main() {
 	req := larkmail.NewBatchDeleteMailgroupManagerReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		UserIdType("open_id").
-
 		Body(larkmail.NewBatchDeleteMailgroupManagerReqBodyBuilder().
 			MailgroupManagerList([]*larkmail.MailgroupManager{larkmail.NewMailgroupManagerBuilder().Build()}).
 			Build()).

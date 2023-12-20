@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewRemoveRemindersTaskReqBuilder().
 		TaskGuid("d300a75f-c56a-4be9-80d1-e47653028ceb").
 		UserIdType("open_id").
-
 		Body(larktask.NewRemoveRemindersTaskReqBodyBuilder().
 			ReminderIds([]string{}).
 			Build()).

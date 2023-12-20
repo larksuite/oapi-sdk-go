@@ -43,9 +43,9 @@ type userInfo struct {
 	config *larkcore.Config
 }
 
-// Create 
+// Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=access_token&version=v1
 //
@@ -71,7 +71,7 @@ func (a *accessToken) Create(ctx context.Context, req *CreateAccessTokenReq, opt
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.access_token&version=v1
 //
@@ -97,7 +97,7 @@ func (o *oidcAccessToken) Create(ctx context.Context, req *CreateOidcAccessToken
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.refresh_access_token&version=v1
 //
@@ -123,7 +123,7 @@ func (o *oidcRefreshAccessToken) Create(ctx context.Context, req *CreateOidcRefr
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=refresh_access_token&version=v1
 //
@@ -149,7 +149,7 @@ func (r *refreshAccessToken) Create(ctx context.Context, req *CreateRefreshAcces
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=authen&resource=user_info&version=v1
 //

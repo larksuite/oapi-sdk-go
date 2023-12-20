@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewBatchGetEmployeesBpReqBuilder().
 		UserIdType("open_id").
-
 		Body(larkcorehr.NewBatchGetEmployeesBpReqBodyBuilder().
 			EmploymentIds([]string{}).
 			GetAll(false).

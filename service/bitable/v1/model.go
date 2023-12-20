@@ -2821,6 +2821,70 @@ func (builder *AppTableViewPropertyHierarchyConfigBuilder) Build() *AppTableView
 	return req
 }
 
+type AppWorkflow struct {
+	WorkflowId *string `json:"workflow_id,omitempty"` // 自动化工作流的id
+	Status     *string `json:"status,omitempty"`      // 自动化工作流的状态
+	Title      *string `json:"title,omitempty"`       // 自动化工作流的名称
+}
+
+type AppWorkflowBuilder struct {
+	workflowId     string // 自动化工作流的id
+	workflowIdFlag bool
+	status         string // 自动化工作流的状态
+	statusFlag     bool
+	title          string // 自动化工作流的名称
+	titleFlag      bool
+}
+
+func NewAppWorkflowBuilder() *AppWorkflowBuilder {
+	builder := &AppWorkflowBuilder{}
+	return builder
+}
+
+// 自动化工作流的id
+//
+// 示例值：72934597xxxx9998484
+func (builder *AppWorkflowBuilder) WorkflowId(workflowId string) *AppWorkflowBuilder {
+	builder.workflowId = workflowId
+	builder.workflowIdFlag = true
+	return builder
+}
+
+// 自动化工作流的状态
+//
+// 示例值：Enable
+func (builder *AppWorkflowBuilder) Status(status string) *AppWorkflowBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 自动化工作流的名称
+//
+// 示例值：流程
+func (builder *AppWorkflowBuilder) Title(title string) *AppWorkflowBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+func (builder *AppWorkflowBuilder) Build() *AppWorkflow {
+	req := &AppWorkflow{}
+	if builder.workflowIdFlag {
+		req.WorkflowId = &builder.workflowId
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req
+}
+
 type Attachment struct {
 	FileToken *string `json:"file_token,omitempty"` // attachment token
 	Name      *string `json:"name,omitempty"`       // attachment name
@@ -2981,9 +3045,9 @@ func (builder *ChildrenFilterBuilder) Build() *ChildrenFilter {
 }
 
 type Condition struct {
-	FieldName *string `json:"field_name,omitempty"` // 筛选条件的左值，值为字段的名称
-	Operator  *string `json:"operator,omitempty"`   // 条件运算符
-	Value     *string `json:"value,omitempty"`      // 目标值
+	FieldName *string  `json:"field_name,omitempty"` // 筛选条件的左值，值为字段的名称
+	Operator  *string  `json:"operator,omitempty"`   // 条件运算符
+	Value     []string `json:"value,omitempty"`      // 目标值
 }
 
 type ConditionBuilder struct {
@@ -2991,7 +3055,7 @@ type ConditionBuilder struct {
 	fieldNameFlag bool
 	operator      string // 条件运算符
 	operatorFlag  bool
-	value         string // 目标值
+	value         []string // 目标值
 	valueFlag     bool
 }
 
@@ -3020,8 +3084,8 @@ func (builder *ConditionBuilder) Operator(operator string) *ConditionBuilder {
 
 // 目标值
 //
-// 示例值：文本内容
-func (builder *ConditionBuilder) Value(value string) *ConditionBuilder {
+// 示例值：
+func (builder *ConditionBuilder) Value(value []string) *ConditionBuilder {
 	builder.value = value
 	builder.valueFlag = true
 	return builder
@@ -3038,8 +3102,7 @@ func (builder *ConditionBuilder) Build() *Condition {
 
 	}
 	if builder.valueFlag {
-		req.Value = &builder.value
-
+		req.Value = builder.value
 	}
 	return req
 }
@@ -3317,9 +3380,9 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 }
 
 type FilterInfo struct {
-	Conjunction *string           `json:"conjunction,omitempty"` // 条件逻辑连接词
-	Conditions  []*Condition      `json:"conditions,omitempty"`  // 筛选条件集合
-	Children    []*ChildrenFilter `json:"children,omitempty"`    // 下一级筛选条件
+	Conjunction *string      `json:"conjunction,omitempty"` // 条件逻辑连接词
+	Conditions  []*Condition `json:"conditions,omitempty"`  // 筛选条件集合
+
 }
 
 type FilterInfoBuilder struct {
@@ -3327,8 +3390,6 @@ type FilterInfoBuilder struct {
 	conjunctionFlag bool
 	conditions      []*Condition // 筛选条件集合
 	conditionsFlag  bool
-	children        []*ChildrenFilter // 下一级筛选条件
-	childrenFlag    bool
 }
 
 func NewFilterInfoBuilder() *FilterInfoBuilder {
@@ -3354,15 +3415,6 @@ func (builder *FilterInfoBuilder) Conditions(conditions []*Condition) *FilterInf
 	return builder
 }
 
-// 下一级筛选条件
-//
-// 示例值：
-func (builder *FilterInfoBuilder) Children(children []*ChildrenFilter) *FilterInfoBuilder {
-	builder.children = children
-	builder.childrenFlag = true
-	return builder
-}
-
 func (builder *FilterInfoBuilder) Build() *FilterInfo {
 	req := &FilterInfo{}
 	if builder.conjunctionFlag {
@@ -3372,9 +3424,7 @@ func (builder *FilterInfoBuilder) Build() *FilterInfo {
 	if builder.conditionsFlag {
 		req.Conditions = builder.conditions
 	}
-	if builder.childrenFlag {
-		req.Children = builder.children
-	}
+
 	return req
 }
 

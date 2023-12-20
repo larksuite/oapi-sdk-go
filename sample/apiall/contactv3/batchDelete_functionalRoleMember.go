@@ -30,7 +30,6 @@ func main() {
 	req := larkcontact.NewBatchDeleteFunctionalRoleMemberReqBuilder().
 		RoleId("7vrj3vk70xk7v5r").
 		UserIdType("open_id").
-
 		Body(larkcontact.NewBatchDeleteFunctionalRoleMemberReqBodyBuilder().
 			Members([]string{}).
 			Build()).

@@ -26,6 +26,9 @@ type V2 struct {
 	PreHire             *preHire             // 待入职
 	Probation           *probation           // probation
 	ProbationAssessment *probationAssessment // probation.assessment
+	Process             *process             // process
+	ProcessApprover     *processApprover     // process.approver
+	ProcessCc           *processCc           // process.cc
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -46,6 +49,9 @@ func New(config *larkcore.Config) *V2 {
 		PreHire:             &preHire{config: config},
 		Probation:           &probation{config: config},
 		ProbationAssessment: &probationAssessment{config: config},
+		Process:             &process{config: config},
+		ProcessApprover:     &processApprover{config: config},
+		ProcessCc:           &processCc{config: config},
 	}
 }
 
@@ -97,10 +103,19 @@ type probation struct {
 type probationAssessment struct {
 	config *larkcore.Config
 }
+type process struct {
+	config *larkcore.Config
+}
+type processApprover struct {
+	config *larkcore.Config
+}
+type processCc struct {
+	config *larkcore.Config
+}
 
-// GetByDepartment 
+// GetByDepartment
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_department&project=corehr&resource=bp&version=v2
 //
@@ -220,7 +235,7 @@ func (c *contract) SearchByIterator(ctx context.Context, req *SearchContractReq,
 
 // Parents
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=parents&project=corehr&resource=department&version=v2
 //
@@ -340,7 +355,7 @@ func (e *employee) SearchByIterator(ctx context.Context, req *SearchEmployeeReq,
 
 // BatchGet
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=employees.bp&version=v2
 //
@@ -366,7 +381,7 @@ func (e *employeesBp) BatchGet(ctx context.Context, req *BatchGetEmployeesBpReq,
 
 // BatchGet
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=employees.job_data&version=v2
 //
@@ -392,7 +407,7 @@ func (e *employeesJobData) BatchGet(ctx context.Context, req *BatchGetEmployeesJ
 
 // Query
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=employees.job_data&version=v2
 //
@@ -608,7 +623,7 @@ func (p *person) Create(ctx context.Context, req *CreatePersonReq, options ...la
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=person&version=v2
 //
@@ -660,7 +675,7 @@ func (p *preHire) Create(ctx context.Context, req *CreatePreHireReq, options ...
 
 // EnableDisableAssessment
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=enable_disable_assessment&project=corehr&resource=probation&version=v2
 //
@@ -686,7 +701,7 @@ func (p *probation) EnableDisableAssessment(ctx context.Context, req *EnableDisa
 
 // Search
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=probation&version=v2
 //
@@ -720,7 +735,7 @@ func (p *probation) SearchByIterator(ctx context.Context, req *SearchProbationRe
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=probation.assessment&version=v2
 //
@@ -746,7 +761,7 @@ func (p *probationAssessment) Create(ctx context.Context, req *CreateProbationAs
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=probation.assessment&version=v2
 //
@@ -772,7 +787,7 @@ func (p *probationAssessment) Delete(ctx context.Context, req *DeleteProbationAs
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=probation.assessment&version=v2
 //
@@ -794,4 +809,64 @@ func (p *probationAssessment) Patch(ctx context.Context, req *PatchProbationAsse
 		return nil, err
 	}
 	return resp, err
+}
+
+// Get
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=process&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/get_process.go
+func (p *process) Get(ctx context.Context, req *GetProcessReq, options ...larkcore.RequestOptionFunc) (*GetProcessResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/processes/:process_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetProcessResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=process&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/list_process.go
+func (p *process) List(ctx context.Context, req *ListProcessReq, options ...larkcore.RequestOptionFunc) (*ListProcessResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/processes"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListProcessResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (p *process) ListByIterator(ctx context.Context, req *ListProcessReq, options ...larkcore.RequestOptionFunc) (*ListProcessIterator, error) {
+	return &ListProcessIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: p.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

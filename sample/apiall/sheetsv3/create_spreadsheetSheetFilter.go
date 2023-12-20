@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewCreateSpreadsheetSheetFilterReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		CreateSheetFilter(larksheets.NewCreateSheetFilterBuilder().
 			Range("").
 			Col("").

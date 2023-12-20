@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewUpdateResultEcoExamReqBuilder().
 		ExamId("7178536692385679677").
-
 		EcoExamResult(larkhire.NewEcoExamResultBuilder().
 			Result("60.5").
 			ResultTime("1658676234053").

@@ -30,7 +30,6 @@ func main() {
 	req := larkim.NewUpdateChatReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		UserIdType("user_id").
-
 		Body(larkim.NewUpdateChatReqBodyBuilder().
 			Avatar("default-avatar_44ae0ca3-e140-494b-956f-78091e348435").
 			Name("群聊").

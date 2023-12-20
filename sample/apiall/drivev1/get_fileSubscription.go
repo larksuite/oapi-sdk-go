@@ -30,7 +30,6 @@ func main() {
 	req := larkdrive.NewGetFileSubscriptionReqBuilder().
 		FileToken("doxcnxxxxxxxxxxxxxxxxxxxxxx").
 		SubscriptionId("1234567890987654321").
-
 		Body(larkdrive.NewGetFileSubscriptionReqBodyBuilder().
 			FileType("doc").
 			Build()).

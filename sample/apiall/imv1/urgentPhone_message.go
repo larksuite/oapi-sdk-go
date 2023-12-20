@@ -30,7 +30,6 @@ func main() {
 	req := larkim.NewUrgentPhoneMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		UserIdType("open_id").
-
 		UrgentReceivers(larkim.NewUrgentReceiversBuilder().
 			UserIdList([]string{}).
 			Build()).

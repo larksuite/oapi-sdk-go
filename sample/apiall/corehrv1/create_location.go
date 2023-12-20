@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateLocationReqBuilder().
 		ClientToken("12454646").
-
 		Location(larkcorehr.NewLocationBuilder().
 			HiberarchyCommon(larkcorehr.NewHiberarchyCommonBuilder().Build()).
 			LocationUsageList([]*larkcorehr.Enum{larkcorehr.NewEnumBuilder().Build()}).

@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewSetPermissionMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
-
 		Body(larkvc.NewSetPermissionMeetingRecordingReqBodyBuilder().
 			PermissionObjects([]*larkvc.RecordingPermissionObject{larkvc.NewRecordingPermissionObjectBuilder().Build()}).
 			ActionType(1).

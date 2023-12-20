@@ -30,7 +30,6 @@ func main() {
 	req := larkcontact.NewUpdateDepartmentIdDepartmentReqBuilder().
 		DepartmentId("").
 		DepartmentIdType("department_id").
-
 		Body(larkcontact.NewUpdateDepartmentIdDepartmentReqBodyBuilder().
 			NewDepartmentId("").
 			Build()).

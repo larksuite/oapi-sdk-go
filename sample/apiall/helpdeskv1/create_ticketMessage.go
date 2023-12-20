@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewCreateTicketMessageReqBuilder().
 		TicketId("6948728206392295444").
-
 		Body(larkhelpdesk.NewCreateTicketMessageReqBodyBuilder().
 			MsgType("post").
 			Content("").

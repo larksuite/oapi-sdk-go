@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewPatchCategoryReqBuilder().
 		Id("6948728206392295444").
-
 		Category(larkhelpdesk.NewCategoryBuilder().
 			Name("").
 			ParentId("").

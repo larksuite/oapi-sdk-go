@@ -31,7 +31,6 @@ func main() {
 		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
 		UserIdType("user_id").
 		UserId("e5286g26").
-
 		CommentRequest(larkapproval.NewCommentRequestBuilder().
 			Content("").
 			AtInfoList([]*larkapproval.CommentAtInfo{larkapproval.NewCommentAtInfoBuilder().Build()}).

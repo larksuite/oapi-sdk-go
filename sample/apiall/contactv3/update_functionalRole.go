@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUpdateFunctionalRoleReqBuilder().
 		RoleId("7vrj3vk70xk7v5r").
-
 		Body(larkcontact.NewUpdateFunctionalRoleReqBodyBuilder().
 			RoleName("考勤管理员").
 			Build()).

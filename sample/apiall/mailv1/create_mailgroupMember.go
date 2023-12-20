@@ -31,7 +31,6 @@ func main() {
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
 		UserIdType("user_id").
 		DepartmentIdType("open_department_id").
-
 		MailgroupMember(larkmail.NewMailgroupMemberBuilder().
 			Email("test_memeber@xxx.xx").
 			UserId("xxxxxxxxxx").

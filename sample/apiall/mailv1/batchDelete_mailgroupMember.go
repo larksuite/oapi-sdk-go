@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkmail.NewBatchDeleteMailgroupMemberReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
-
 		Body(larkmail.NewBatchDeleteMailgroupMemberReqBodyBuilder().
 			MemberIdList([]string{}).
 			Build()).

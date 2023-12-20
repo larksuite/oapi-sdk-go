@@ -44,9 +44,9 @@ type repo struct {
 	config *larkcore.Config
 }
 
-// List 
+// List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=classification&version=v1
 //
@@ -80,7 +80,7 @@ func (c *classification) ListByIterator(ctx context.Context, req *ListClassifica
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=lingo&resource=draft&version=v1
 //
@@ -106,7 +106,7 @@ func (d *draft) Create(ctx context.Context, req *CreateDraftReq, options ...lark
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=lingo&resource=draft&version=v1
 //
@@ -132,7 +132,7 @@ func (d *draft) Update(ctx context.Context, req *UpdateDraftReq, options ...lark
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=lingo&resource=entity&version=v1
 //
@@ -158,7 +158,7 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=lingo&resource=entity&version=v1
 //
@@ -184,7 +184,7 @@ func (e *entity) Delete(ctx context.Context, req *DeleteEntityReq, options ...la
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=lingo&resource=entity&version=v1
 //
@@ -210,7 +210,7 @@ func (e *entity) Get(ctx context.Context, req *GetEntityReq, options ...larkcore
 
 // Highlight
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=highlight&project=lingo&resource=entity&version=v1
 //
@@ -236,7 +236,7 @@ func (e *entity) Highlight(ctx context.Context, req *HighlightEntityReq, options
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=entity&version=v1
 //
@@ -270,7 +270,7 @@ func (e *entity) ListByIterator(ctx context.Context, req *ListEntityReq, options
 
 // Match
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=match&project=lingo&resource=entity&version=v1
 //
@@ -296,7 +296,7 @@ func (e *entity) Match(ctx context.Context, req *MatchEntityReq, options ...lark
 
 // Search
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=lingo&resource=entity&version=v1
 //
@@ -330,7 +330,7 @@ func (e *entity) SearchByIterator(ctx context.Context, req *SearchEntityReq, opt
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=lingo&resource=entity&version=v1
 //
@@ -356,7 +356,7 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 
 // Download
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=lingo&resource=file&version=v1
 //
@@ -388,7 +388,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 
 // Upload
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=lingo&resource=file&version=v1
 //
@@ -415,7 +415,7 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=repo&version=v1
 //

@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewCreateProbationAssessmentReqBuilder().
 		ClientToken("6822122262122064111").
 		UserIdType("open_id").
-
 		Body(larkcorehr.NewCreateProbationAssessmentReqBodyBuilder().
 			EmploymentId("7140964208476371111").
 			Assessments([]*larkcorehr.AssessmentForCreate{larkcorehr.NewAssessmentForCreateBuilder().Build()}).

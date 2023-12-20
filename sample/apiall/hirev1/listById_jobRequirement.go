@@ -30,7 +30,9 @@ func main() {
 	req := larkhire.NewListByIdJobRequirementReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
+		EmployeeTypeIdType("people_admin_employee_type_id").
 		Body(larkhire.NewListByIdJobRequirementReqBodyBuilder().
 			IdList([]string{}).
 			Build()).

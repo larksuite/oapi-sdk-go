@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewPatchCalendarReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
-
 		Calendar(larkcalendar.NewCalendarBuilder().
 			Summary("").
 			Description("").

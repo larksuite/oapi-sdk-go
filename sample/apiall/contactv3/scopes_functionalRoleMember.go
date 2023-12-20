@@ -31,7 +31,6 @@ func main() {
 		RoleId("7vrj3vk70xk7v5r").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Body(larkcontact.NewScopesFunctionalRoleMemberReqBodyBuilder().
 			Members([]string{}).
 			Departments([]string{}).

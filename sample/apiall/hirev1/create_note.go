@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewCreateNoteReqBuilder().
 		UserIdType("open_id").
-
 		Note(larkhire.NewNoteBuilder().
 			TalentId("6916472453069883661").
 			ApplicationId("6891565253964859661").

@@ -304,6 +304,32 @@ func (c *company) List(ctx context.Context, req *ListCompanyReq, options ...lark
 	return resp, err
 }
 
+// Patch
+//
+// - 更新公司数据
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=company&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_company.go
+func (c *company) Patch(ctx context.Context, req *PatchCompanyReq, options ...larkcore.RequestOptionFunc) (*PatchCompanyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v1/companies/:company_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchCompanyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Match
 //
 // - 分页查询地点数据
@@ -982,7 +1008,7 @@ func (e *employment) Patch(ctx context.Context, req *PatchEmploymentReq, options
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=file&version=v1
 //

@@ -131,7 +131,7 @@ func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq,
 
 // Batch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=department&version=v3
 //
@@ -277,7 +277,7 @@ func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=department&version=v3
 //
@@ -465,7 +465,7 @@ func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, optio
 
 // UpdateDepartmentId
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_department_id&project=contact&resource=department&version=v3
 //
@@ -603,7 +603,7 @@ func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEn
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=functional_role&version=v3
 //
@@ -629,7 +629,7 @@ func (f *functionalRole) Create(ctx context.Context, req *CreateFunctionalRoleRe
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=functional_role&version=v3
 //
@@ -655,7 +655,7 @@ func (f *functionalRole) Delete(ctx context.Context, req *DeleteFunctionalRoleRe
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=functional_role&version=v3
 //
@@ -681,7 +681,7 @@ func (f *functionalRole) Update(ctx context.Context, req *UpdateFunctionalRoleRe
 
 // BatchCreate
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=contact&resource=functional_role.member&version=v3
 //
@@ -707,7 +707,7 @@ func (f *functionalRoleMember) BatchCreate(ctx context.Context, req *BatchCreate
 
 // BatchDelete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=contact&resource=functional_role.member&version=v3
 //
@@ -733,7 +733,7 @@ func (f *functionalRoleMember) BatchDelete(ctx context.Context, req *BatchDelete
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=functional_role.member&version=v3
 //
@@ -759,7 +759,7 @@ func (f *functionalRoleMember) Get(ctx context.Context, req *GetFunctionalRoleMe
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=functional_role.member&version=v3
 //
@@ -793,7 +793,7 @@ func (f *functionalRoleMember) ListByIterator(ctx context.Context, req *ListFunc
 
 // Scopes
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=scopes&project=contact&resource=functional_role.member&version=v3
 //
@@ -1117,7 +1117,7 @@ func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMember
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_family&version=v3
 //
@@ -1143,7 +1143,7 @@ func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_family&version=v3
 //
@@ -1169,7 +1169,7 @@ func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_family&version=v3
 //
@@ -1195,7 +1195,7 @@ func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...la
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_family&version=v3
 //
@@ -1229,7 +1229,7 @@ func (j *jobFamily) ListByIterator(ctx context.Context, req *ListJobFamilyReq, o
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_family&version=v3
 //
@@ -1255,7 +1255,7 @@ func (j *jobFamily) Update(ctx context.Context, req *UpdateJobFamilyReq, options
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_level&version=v3
 //
@@ -1281,7 +1281,7 @@ func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options .
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_level&version=v3
 //
@@ -1307,7 +1307,7 @@ func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options .
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_level&version=v3
 //
@@ -1333,7 +1333,7 @@ func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...lark
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_level&version=v3
 //
@@ -1367,7 +1367,7 @@ func (j *jobLevel) ListByIterator(ctx context.Context, req *ListJobLevelReq, opt
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_level&version=v3
 //
@@ -1393,7 +1393,7 @@ func (j *jobLevel) Update(ctx context.Context, req *UpdateJobLevelReq, options .
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_title&version=v3
 //
@@ -1419,7 +1419,7 @@ func (j *jobTitle) Get(ctx context.Context, req *GetJobTitleReq, options ...lark
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_title&version=v3
 //
@@ -1687,7 +1687,7 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 
 // Batch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=user&version=v3
 //
@@ -1859,7 +1859,7 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=user&version=v3
 //
@@ -1975,7 +1975,7 @@ func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkco
 
 // UpdateUserId
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_user_id&project=contact&resource=user&version=v3
 //
@@ -2001,7 +2001,7 @@ func (u *user) UpdateUserId(ctx context.Context, req *UpdateUserIdUserReq, optio
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=work_city&version=v3
 //
@@ -2027,7 +2027,7 @@ func (w *workCity) Get(ctx context.Context, req *GetWorkCityReq, options ...lark
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=work_city&version=v3
 //

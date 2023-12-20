@@ -32,7 +32,6 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		FormId("vewTpR1urY").
 		FieldId("fldjX7dUj5").
-
 		AppTableFormPatchedField(larkbitable.NewAppTableFormPatchedFieldBuilder().
 			PreFieldId("").
 			Title("").

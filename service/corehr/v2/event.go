@@ -36,3 +36,63 @@ func (h *P2ProbationUpdatedV2Handler) Event() interface{} {
 func (h *P2ProbationUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ProbationUpdatedV2))
 }
+
+// 消息处理器定义
+type P2ProcessUpdatedV2Handler struct {
+	handler func(context.Context, *P2ProcessUpdatedV2) error
+}
+
+func NewP2ProcessUpdatedV2Handler(handler func(context.Context, *P2ProcessUpdatedV2) error) *P2ProcessUpdatedV2Handler {
+	h := &P2ProcessUpdatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ProcessUpdatedV2Handler) Event() interface{} {
+	return &P2ProcessUpdatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ProcessUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ProcessUpdatedV2))
+}
+
+// 消息处理器定义
+type P2ProcessApproverUpdatedV2Handler struct {
+	handler func(context.Context, *P2ProcessApproverUpdatedV2) error
+}
+
+func NewP2ProcessApproverUpdatedV2Handler(handler func(context.Context, *P2ProcessApproverUpdatedV2) error) *P2ProcessApproverUpdatedV2Handler {
+	h := &P2ProcessApproverUpdatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ProcessApproverUpdatedV2Handler) Event() interface{} {
+	return &P2ProcessApproverUpdatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ProcessApproverUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ProcessApproverUpdatedV2))
+}
+
+// 消息处理器定义
+type P2ProcessCcUpdatedV2Handler struct {
+	handler func(context.Context, *P2ProcessCcUpdatedV2) error
+}
+
+func NewP2ProcessCcUpdatedV2Handler(handler func(context.Context, *P2ProcessCcUpdatedV2) error) *P2ProcessCcUpdatedV2Handler {
+	h := &P2ProcessCcUpdatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ProcessCcUpdatedV2Handler) Event() interface{} {
+	return &P2ProcessCcUpdatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ProcessCcUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ProcessCcUpdatedV2))
+}

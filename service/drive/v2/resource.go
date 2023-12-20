@@ -23,9 +23,9 @@ type permissionPublic struct {
 	config *larkcore.Config
 }
 
-// Get 
+// Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=permission.public&version=v2
 //
@@ -51,7 +51,7 @@ func (p *permissionPublic) Get(ctx context.Context, req *GetPermissionPublicReq,
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=drive&resource=permission.public&version=v2
 //

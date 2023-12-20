@@ -30,7 +30,6 @@ func main() {
 	req := larkbitable.NewPatchAppTableReqBuilder().
 		AppToken("").
 		TableId("").
-
 		Body(larkbitable.NewPatchAppTableReqBodyBuilder().
 			Name("").
 			Build()).

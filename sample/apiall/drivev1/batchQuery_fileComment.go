@@ -31,7 +31,6 @@ func main() {
 		FileToken("doxbcdl03Vsxhm7Qmnj110abcef").
 		FileType("doc;docx;sheet;file").
 		UserIdType("user_id").
-
 		Body(larkdrive.NewBatchQueryFileCommentReqBodyBuilder().
 			CommentIds([]string{}).
 			Build()).

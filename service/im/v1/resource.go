@@ -25,7 +25,7 @@ type V1 struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息
+	Message          *message          // 消息加急
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin

@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewCreateTaskSubtaskReqBuilder().
 		TaskGuid("e297ddff-06ca-4166-b917-4ce57cd3a7a0").
 		UserIdType("open_id").
-
 		InputTask(larktask.NewInputTaskBuilder().
 			Summary("针对全年销售进行一次复盘").
 			Description("需要事先阅读复盘总结文档").

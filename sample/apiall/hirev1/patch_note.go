@@ -30,7 +30,6 @@ func main() {
 	req := larkhire.NewPatchNoteReqBuilder().
 		NoteId("6960663240925956401").
 		UserIdType("open_id").
-
 		Body(larkhire.NewPatchNoteReqBodyBuilder().
 			Content("111").
 			Build()).

@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewPatchCustomFieldReqBuilder().
 		CustomFieldGuid("5ffbe0ca-6600-41e0-a634-2b38cbcf13b8").
 		UserIdType("open_id").
-
 		Body(larktask.NewPatchCustomFieldReqBodyBuilder().
 			CustomField(larktask.NewInputCustomFieldBuilder().Build()).
 			UpdateFields([]string{}).

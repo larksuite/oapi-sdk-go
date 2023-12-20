@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewUpdateTicketReqBuilder().
 		TicketId("6945345902185807891").
-
 		Body(larkhelpdesk.NewUpdateTicketReqBodyBuilder().
 			Status(1).
 			TagNames([]string{}).

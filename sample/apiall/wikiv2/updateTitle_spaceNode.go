@@ -30,7 +30,6 @@ func main() {
 	req := larkwiki.NewUpdateTitleSpaceNodeReqBuilder().
 		SpaceId("6946843325487912356").
 		NodeToken("wikcnKQ1k3pcuo5uSK4t8Vabcef").
-
 		Body(larkwiki.NewUpdateTitleSpaceNodeReqBodyBuilder().
 			Title("新标题").
 			Build()).

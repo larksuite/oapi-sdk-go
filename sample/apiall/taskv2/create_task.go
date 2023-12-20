@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateTaskReqBuilder().
 		UserIdType("open_id").
-
 		InputTask(larktask.NewInputTaskBuilder().
 			Summary("针对全年销售进行一次复盘").
 			Description("需要事先阅读复盘总结文档").

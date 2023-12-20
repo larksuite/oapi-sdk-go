@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewUpdateAppReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-
 		Body(larkbitable.NewUpdateAppReqBodyBuilder().
 			Name("新的多维表格名字").
 			IsAdvanced(true).

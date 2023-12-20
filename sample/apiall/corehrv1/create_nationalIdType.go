@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateNationalIdTypeReqBuilder().
 		ClientToken("12454646").
-
 		NationalIdType(larkcorehr.NewNationalIdTypeBuilder().
 			CountryRegionId("6862995747139225096").
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).

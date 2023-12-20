@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreatePersonReqBuilder().
 		ClientToken("12454646").
-
 		PersonInfo(larkcorehr.NewPersonInfoBuilder().
 			NameList([]*larkcorehr.PersonName{larkcorehr.NewPersonNameBuilder().Build()}).
 			Gender(larkcorehr.NewEnumBuilder().Build()).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewExecuteSendNotificationReqBuilder().
 		NotificationId("6985032626234982420").
-
 		Body(larkhelpdesk.NewExecuteSendNotificationReqBodyBuilder().
 			SendAt("1624326025000").
 			Build()).

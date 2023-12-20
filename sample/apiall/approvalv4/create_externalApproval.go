@@ -30,7 +30,6 @@ func main() {
 	req := larkapproval.NewCreateExternalApprovalReqBuilder().
 		DepartmentIdType("open_department_id").
 		UserIdType("user_id").
-
 		ExternalApproval(larkapproval.NewExternalApprovalBuilder().
 			ApprovalName("E78F1022-A166-447C-8320-E151DA90D70F").
 			ApprovalCode("permission_test").

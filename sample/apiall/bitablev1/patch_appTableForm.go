@@ -31,7 +31,6 @@ func main() {
 		AppToken("bascnv1jIEppJdTCn3jOosabcef").
 		TableId("tblz8nadEUdxNMt5").
 		FormId("vew6oMbAa4").
-
 		AppTableForm(larkbitable.NewAppTableFormBuilder().
 			Name("").
 			Description("").

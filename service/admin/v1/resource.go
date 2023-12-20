@@ -12,6 +12,7 @@ import (
 type V1 struct {
 	AdminDeptStat *adminDeptStat // 部门维度的数据报表
 	AdminUserStat *adminUserStat // 用户维度的数据报表
+	AuditInfo     *auditInfo     // 行为审计日志（灰度租户可见）
 	Badge         *badge         // 勋章
 	BadgeGrant    *badgeGrant    // 勋章授予名单
 	BadgeImage    *badgeImage    // 勋章图片
@@ -22,6 +23,7 @@ func New(config *larkcore.Config) *V1 {
 	return &V1{
 		AdminDeptStat: &adminDeptStat{config: config},
 		AdminUserStat: &adminUserStat{config: config},
+		AuditInfo:     &auditInfo{config: config},
 		Badge:         &badge{config: config},
 		BadgeGrant:    &badgeGrant{config: config},
 		BadgeImage:    &badgeImage{config: config},
@@ -33,6 +35,9 @@ type adminDeptStat struct {
 	config *larkcore.Config
 }
 type adminUserStat struct {
+	config *larkcore.Config
+}
+type auditInfo struct {
 	config *larkcore.Config
 }
 type badge struct {
@@ -102,6 +107,40 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 		return nil, err
 	}
 	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uQjM5YjL0ITO24CNykjN/audit_log/audit_data_get
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/adminv1/list_auditInfo.go
+func (a *auditInfo) List(ctx context.Context, req *ListAuditInfoReq, options ...larkcore.RequestOptionFunc) (*ListAuditInfoResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/audit_infos"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAuditInfoResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *auditInfo) ListByIterator(ctx context.Context, req *ListAuditInfoReq, options ...larkcore.RequestOptionFunc) (*ListAuditInfoIterator, error) {
+	return &ListAuditInfoIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // Create 创建勋章

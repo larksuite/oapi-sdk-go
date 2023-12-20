@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkvc.NewStartMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
-
 		Body(larkvc.NewStartMeetingRecordingReqBodyBuilder().
 			Timezone(8).
 			Build()).

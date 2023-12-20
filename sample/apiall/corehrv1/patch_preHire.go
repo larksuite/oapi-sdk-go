@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewPatchPreHireReqBuilder().
 		PreHireId("1616161616").
 		ClientToken("12454646").
-
 		PreHire(larkcorehr.NewPreHireBuilder().
 			AtsApplicationId("4719168654814483759").
 			HireDate("2020-01-01").

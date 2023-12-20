@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewSubmitOffboardingReqBuilder().
 		UserIdType("people_corehr_id").
-
 		Body(larkcorehr.NewSubmitOffboardingReqBodyBuilder().
 			OffboardingMode(1).
 			EmploymentId("6982509313466189342").

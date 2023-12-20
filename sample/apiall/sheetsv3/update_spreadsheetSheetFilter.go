@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewUpdateSpreadsheetSheetFilterReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		UpdateSheetFilter(larksheets.NewUpdateSheetFilterBuilder().
 			Col("").
 			Condition(larksheets.NewConditionBuilder().Build()).

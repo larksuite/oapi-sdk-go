@@ -32,6 +32,7 @@ func main() {
 		PageSize(1).
 		TalentId("7096320678581242123").
 		UserIdType("user_id").
+		EmployeeTypeIdType("people_admin_employee_type_id").
 		Build()
 	// 发起请求
 	resp, err := client.Hire.V1.Offer.List(context.Background(), req)

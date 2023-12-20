@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewPatchReserveConfigReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
 		UserIdType("user_id").
-
 		Body(larkvc.NewPatchReserveConfigReqBodyBuilder().
 			ScopeType("2").
 			ApprovalConfig(larkvc.NewApprovalConfigBuilder().Build()).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewCreateShortcutFileReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkdrive.NewCreateShortcutFileReqBodyBuilder().
 			ParentToken("fldbc5qgwyQnO0uedNllWuF3fAd").
 			ReferEntity(larkdrive.NewReferEntityBuilder().Build()).

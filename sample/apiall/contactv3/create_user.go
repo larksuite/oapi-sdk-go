@@ -31,7 +31,6 @@ func main() {
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
 		ClientToken("xxxx-xxxxx-xxx").
-
 		User(larkcontact.NewUserBuilder().
 			UserId("").
 			Name("张三").

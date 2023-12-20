@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewPutTopNoticeChatTopNoticeReqBuilder().
 		ChatId("oc_5ad11d72b830411d72b836c20").
-
 		Body(larkim.NewPutTopNoticeChatTopNoticeReqBodyBuilder().
 			ChatTopNotice([]*larkim.ChatTopNotice{larkim.NewChatTopNoticeBuilder().Build()}).
 			Build()).

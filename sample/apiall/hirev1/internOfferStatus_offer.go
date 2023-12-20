@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewInternOfferStatusOfferReqBuilder().
 		OfferId("7016605170635213100").
-
 		InternOfferStatus(larkhire.NewInternOfferStatusBuilder().
 			Operation("confirm_onboarding").
 			OnboardingInfo(larkhire.NewInternOfferOnboardingInfoBuilder().Build()).

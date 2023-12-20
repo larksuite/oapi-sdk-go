@@ -31,7 +31,6 @@ func main() {
 		GroupId("g187131").
 		UserIdType("open_id").
 		DepartmentIdType("open_department_id").
-
 		Group(larkcontact.NewGroupBuilder().
 			Name("外包 IT 用户组").
 			Description("IT 外包用户组，需要进行细粒度权限管控").

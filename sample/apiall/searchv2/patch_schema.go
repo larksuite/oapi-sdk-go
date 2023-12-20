@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larksearch.NewPatchSchemaReqBuilder().
 		SchemaId("custom_schema_id").
-
 		Body(larksearch.NewPatchSchemaReqBodyBuilder().
 			Display(larksearch.NewSchemaDisplayBuilder().Build()).
 			Properties([]*larksearch.PatchSchemaProperty{larksearch.NewPatchSchemaPropertyBuilder().Build()}).

@@ -30,7 +30,6 @@ func main() {
 	req := larkdrive.NewCreateFileVersionReqBuilder().
 		FileToken("doxbcyvqZlSc9WlHvQMlSJwUrsb").
 		UserIdType("user_id").
-
 		Version(larkdrive.NewVersionBuilder().
 			Name("文档标题").
 			Version("version1").

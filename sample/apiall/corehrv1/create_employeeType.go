@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateEmployeeTypeReqBuilder().
 		ClientToken("12454646").
-
 		EmployeeType(larkcorehr.NewEmployeeTypeBuilder().
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			DefaultEmployeeType(true).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larksearch.NewPatchDataSourceReqBuilder().
 		DataSourceId("service_ticket").
-
 		Body(larksearch.NewPatchDataSourceReqBodyBuilder().
 			Name("客服工单").
 			State(0).

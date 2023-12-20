@@ -30,7 +30,6 @@ func main() {
 	req := larkcorehr.NewBatchGetEmployeesJobDataReqBuilder().
 		UserIdType("open_id").
 		DepartmentIdType("people_corehr_department_id").
-
 		Body(larkcorehr.NewBatchGetEmployeesJobDataReqBodyBuilder().
 			EmploymentIds([]string{}).
 			GetAllVersion(false).

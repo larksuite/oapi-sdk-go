@@ -34,7 +34,6 @@ func main() {
 		RemoveOldOwner(false).
 		StayPut(false).
 		OldOwnerPerm("full_access").
-
 		Owner(larkdrive.NewOwnerBuilder().
 			MemberType("openid").
 			MemberId("string").

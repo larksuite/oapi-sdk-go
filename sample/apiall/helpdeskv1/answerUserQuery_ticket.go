@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewAnswerUserQueryTicketReqBuilder().
 		TicketId("6945345902185807891").
-
 		Body(larkhelpdesk.NewAnswerUserQueryTicketReqBodyBuilder().
 			EventId("abcd").
 			Faqs([]*larkhelpdesk.UserQueryFaqInfo{larkhelpdesk.NewUserQueryFaqInfoBuilder().Build()}).

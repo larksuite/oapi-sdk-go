@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larklingo.NewMatchEntityReqBuilder().
 		RepoId("7202510112396640276").
-
 		Body(larklingo.NewMatchEntityReqBodyBuilder().
 			Word("企业百科").
 			Build()).

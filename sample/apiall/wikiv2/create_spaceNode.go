@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewCreateSpaceNodeReqBuilder().
 		SpaceId("6704147935988285963").
-
 		Node(larkwiki.NewNodeBuilder().
 			ObjType("doc").
 			ParentNodeToken("wikcnKQ1k3p******8Vabcef").

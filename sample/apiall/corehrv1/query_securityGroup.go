@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewQuerySecurityGroupReqBuilder().
 		DepartmentIdType("people_corehr_department_id").
-
 		Body(larkcorehr.NewQuerySecurityGroupReqBodyBuilder().
 			ItemList([]*larkcorehr.BpRoleOrganization{larkcorehr.NewBpRoleOrganizationBuilder().Build()}).
 			Build()).

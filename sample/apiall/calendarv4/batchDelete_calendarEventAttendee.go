@@ -31,7 +31,6 @@ func main() {
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		EventId("xxxxxxxxx_0").
 		UserIdType("user_id").
-
 		Body(larkcalendar.NewBatchDeleteCalendarEventAttendeeReqBodyBuilder().
 			AttendeeIds([]string{}).
 			DeleteIds([]*larkcalendar.CalendarEventAttendeeId{larkcalendar.NewCalendarEventAttendeeIdBuilder().Build()}).

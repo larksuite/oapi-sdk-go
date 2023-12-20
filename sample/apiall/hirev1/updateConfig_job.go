@@ -30,7 +30,6 @@ func main() {
 	req := larkhire.NewUpdateConfigJobReqBuilder().
 		JobId("6960663240925956660").
 		UserIdType("user_id").
-
 		JobConfig(larkhire.NewJobConfigBuilder().
 			OfferApplySchemaId("6960663240925956573").
 			OfferProcessConf("6960663240925956572").

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewMoveFileReqBuilder().
 		FileToken("boxcnrHpsg1QDqXAAAyachabcef").
-
 		Body(larkdrive.NewMoveFileReqBodyBuilder().
 			Type("file").
 			FolderToken("fldbcO1UuPz8VwnpPx5a92abcef").

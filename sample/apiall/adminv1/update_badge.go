@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkadmin.NewUpdateBadgeReqBuilder().
 		BadgeId("m_MzfKDM").
-
 		Badge(larkadmin.NewBadgeBuilder().
 			Name("激励勋章").
 			Explanation("这枚勋章为了激励员工颁发。").

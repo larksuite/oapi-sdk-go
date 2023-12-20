@@ -31,7 +31,6 @@ func main() {
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		EventId("xxxxxxxxx_0").
 		UserIdType("user_id").
-
 		Body(larkcalendar.NewCreateCalendarEventAttendeeReqBodyBuilder().
 			Attendees([]*larkcalendar.CalendarEventAttendee{larkcalendar.NewCalendarEventAttendeeBuilder().Build()}).
 			NeedNotification(false).

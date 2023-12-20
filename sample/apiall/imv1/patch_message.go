@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewPatchMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-
 		Body(larkim.NewPatchMessageReqBodyBuilder().
 			Content("参考链接").
 			Build()).

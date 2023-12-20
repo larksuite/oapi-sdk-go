@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewSearchAssignedUserReqBuilder().
 		UserIdType("people_corehr_id").
-
 		Body(larkcorehr.NewSearchAssignedUserReqBodyBuilder().
 			RoleId("100").
 			ManagementScopeList([]*larkcorehr.ManagementScope{larkcorehr.NewManagementScopeBuilder().Build()}).

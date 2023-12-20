@@ -31,7 +31,6 @@ func main() {
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		IdempotencyKey("25fdf41b-8c80-2ce1-e94c-de8b5e7aa7e6").
 		UserIdType("user_id").
-
 		CalendarEvent(larkcalendar.NewCalendarEventBuilder().
 			Summary("日程标题").
 			Description("日程描述").

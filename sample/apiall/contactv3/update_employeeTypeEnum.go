@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUpdateEmployeeTypeEnumReqBuilder().
 		EnumId("exGeIjow7zIqWMy+ONkFxA==").
-
 		EmployeeTypeEnum(larkcontact.NewEmployeeTypeEnumBuilder().
 			Content("").
 			EnumType(1).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkim.NewReplyMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
-
 		Body(larkim.NewReplyMessageReqBodyBuilder().
 			Content("").
 			MsgType("text").

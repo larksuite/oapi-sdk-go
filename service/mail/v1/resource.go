@@ -403,7 +403,7 @@ func (m *mailgroupManager) ListByIterator(ctx context.Context, req *ListMailgrou
 
 // BatchCreate
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.member&version=v1
 //
@@ -429,7 +429,7 @@ func (m *mailgroupMember) BatchCreate(ctx context.Context, req *BatchCreateMailg
 
 // BatchDelete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.member&version=v1
 //
@@ -567,7 +567,7 @@ func (m *mailgroupMember) ListByIterator(ctx context.Context, req *ListMailgroup
 
 // BatchCreate
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=mailgroup.permission_member&version=v1
 //
@@ -593,7 +593,7 @@ func (m *mailgroupPermissionMember) BatchCreate(ctx context.Context, req *BatchC
 
 // BatchDelete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=mailgroup.permission_member&version=v1
 //
@@ -973,7 +973,7 @@ func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAli
 
 // BatchCreate
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=mail&resource=public_mailbox.member&version=v1
 //
@@ -999,7 +999,7 @@ func (p *publicMailboxMember) BatchCreate(ctx context.Context, req *BatchCreateP
 
 // BatchDelete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=mail&resource=public_mailbox.member&version=v1
 //

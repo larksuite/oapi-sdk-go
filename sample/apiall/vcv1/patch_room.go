@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewPatchRoomReqBuilder().
 		RoomId("omm_4de32cf10a4358788ff4e09e37ebbf9b").
 		UserIdType("open_id").
-
 		Room(larkvc.NewRoomBuilder().
 			Name("测试会议室").
 			Capacity(10).

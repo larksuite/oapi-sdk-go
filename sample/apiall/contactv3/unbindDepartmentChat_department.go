@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewUnbindDepartmentChatDepartmentReqBuilder().
 		DepartmentIdType("open_department_id").
-
 		Body(larkcontact.NewUnbindDepartmentChatDepartmentReqBodyBuilder().
 			DepartmentId("D096").
 			Build()).

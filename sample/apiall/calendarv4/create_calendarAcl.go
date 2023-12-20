@@ -30,7 +30,6 @@ func main() {
 	req := larkcalendar.NewCreateCalendarAclReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
 		UserIdType("user_id").
-
 		CalendarAcl(larkcalendar.NewCalendarAclBuilder().
 			Role("unknown").
 			Scope(larkcalendar.NewAclScopeBuilder().Build()).

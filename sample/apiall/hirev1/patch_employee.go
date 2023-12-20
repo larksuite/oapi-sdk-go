@@ -31,7 +31,9 @@ func main() {
 		EmployeeId("123").
 		UserIdType("open_id").
 		DepartmentIdType("people_admin_department_id").
-
+		JobLevelIdType("people_admin_job_level_id").
+		JobFamilyIdType("people_admin_job_category_id").
+		EmployeeTypeIdType("people_admin_employee_type_id").
 		ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
 			Operation(1).
 			ConversionInfo(larkhire.NewEmployeeConversionInfoBuilder().Build()).

@@ -12,7 +12,7 @@ import (
 
 type V1 struct {
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 事件
+	File                     *file                     // 文件夹
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
@@ -231,7 +231,7 @@ func (f *file) CreateFolder(ctx context.Context, req *CreateFolderFileReq, optio
 
 // CreateShortcut
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_shortcut&project=drive&resource=file&version=v1
 //
@@ -1035,7 +1035,7 @@ func (f *fileVersion) ListByIterator(ctx context.Context, req *ListFileVersionRe
 
 // List
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.view_record&version=v1
 //
@@ -1327,7 +1327,7 @@ func (m *meta) BatchQuery(ctx context.Context, req *BatchQueryMetaReq, options .
 
 // Auth
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=auth&project=drive&resource=permission.member&version=v1
 //
@@ -1433,7 +1433,7 @@ func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberRe
 
 // TransferOwner
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_owner&project=drive&resource=permission.member&version=v1
 //
@@ -1539,7 +1539,7 @@ func (p *permissionPublic) Patch(ctx context.Context, req *PatchPermissionPublic
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=permission.public.password&version=v1
 //
@@ -1565,7 +1565,7 @@ func (p *permissionPublicPassword) Create(ctx context.Context, req *CreatePermis
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=permission.public.password&version=v1
 //
@@ -1591,7 +1591,7 @@ func (p *permissionPublicPassword) Delete(ctx context.Context, req *DeletePermis
 
 // Update
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=drive&resource=permission.public.password&version=v1
 //

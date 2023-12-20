@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larksheets.NewPatchSpreadsheetReqBuilder().
 		SpreadsheetToken("shtxxxxxxxxxxxxxxx").
-
 		UpdateSpreadsheetProperties(larksheets.NewUpdateSpreadsheetPropertiesBuilder().
 			Title("title").
 			Build()).

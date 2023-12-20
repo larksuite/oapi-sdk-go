@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkokr.NewCreateProgressRecordReqBuilder().
 		UserIdType("user_id").
-
 		Body(larkokr.NewCreateProgressRecordReqBodyBuilder().
 			SourceTitle("周报系统").
 			SourceUrl("https://www.zhoubao.com").

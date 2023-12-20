@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkblock.NewUpdateEntityReqBuilder().
 		BlockId("7794641623571830467").
-
 		Entity(larkblock.NewEntityBuilder().
 			Title("已阅block").
 			BlockTypeId("blk_6204893fee000013739f5359").

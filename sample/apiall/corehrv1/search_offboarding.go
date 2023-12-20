@@ -31,7 +31,6 @@ func main() {
 		PageSize(100).
 		PageToken("6891251722631890445").
 		UserIdType("open_id").
-
 		Body(larkcorehr.NewSearchOffboardingReqBodyBuilder().
 			EmploymentIds([]string{}).
 			ApplyInitiatingTimeStart("2022-01-01 11:22:33").

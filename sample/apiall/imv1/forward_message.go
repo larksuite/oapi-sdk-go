@@ -31,7 +31,6 @@ func main() {
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		ReceiveIdType("open_id").
 		Uuid("b13g2t38-1jd2-458b-8djf-dtbca5104204").
-
 		Body(larkim.NewForwardMessageReqBodyBuilder().
 			ReceiveId("oc_a0553eda9014c201e6969b478895c230").
 			Build()).

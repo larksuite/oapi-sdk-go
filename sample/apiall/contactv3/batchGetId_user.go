@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewBatchGetIdUserReqBuilder().
 		UserIdType("open_id").
-
 		Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
 			Emails([]string{}).
 			Mobiles([]string{}).

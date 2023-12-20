@@ -890,7 +890,7 @@ func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, re
 
 // Create
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event.meeting_chat&version=v4
 //
@@ -916,7 +916,7 @@ func (c *calendarEventMeetingChat) Create(ctx context.Context, req *CreateCalend
 
 // Delete
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar.event.meeting_chat&version=v4
 //

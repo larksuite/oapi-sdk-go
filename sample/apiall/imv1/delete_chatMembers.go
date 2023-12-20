@@ -30,7 +30,6 @@ func main() {
 	req := larkim.NewDeleteChatMembersReqBuilder().
 		ChatId("oc_a0553eda9014c201e6969b478895c230").
 		MemberIdType("open_id").
-
 		Body(larkim.NewDeleteChatMembersReqBodyBuilder().
 			IdList([]string{}).
 			Build()).

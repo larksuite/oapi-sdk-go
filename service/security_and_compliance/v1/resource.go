@@ -23,9 +23,9 @@ type openapiLog struct {
 	config *larkcore.Config
 }
 
-// ListData 
+// ListData
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_data&project=security_and_compliance&resource=openapi_log&version=v1
 //

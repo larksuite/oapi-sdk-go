@@ -325,7 +325,7 @@ func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...lark
 
 // Patch
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=attendance&resource=leave_accrual_record&version=v1
 //
@@ -351,7 +351,7 @@ func (l *leaveAccrualRecord) Patch(ctx context.Context, req *PatchLeaveAccrualRe
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=attendance&resource=leave_employ_expire_record&version=v1
 //

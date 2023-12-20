@@ -31,7 +31,6 @@ func main() {
 		UserIdType("user_id").
 		PageSize(20).
 		PageToken("").
-
 		Body(larksearch.NewCreateAppReqBodyBuilder().
 			Query("测试应用").
 			Build()).

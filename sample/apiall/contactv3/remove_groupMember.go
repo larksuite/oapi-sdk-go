@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcontact.NewRemoveGroupMemberReqBuilder().
 		GroupId("g198123").
-
 		Body(larkcontact.NewRemoveGroupMemberReqBodyBuilder().
 			MemberType("user").
 			MemberId("xj82871k").

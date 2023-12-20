@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewCreateBotMessageReqBuilder().
 		UserIdType("user_id").
-
 		BotMessage(larkhelpdesk.NewBotMessageBuilder().
 			MsgType("post").
 			Content("").

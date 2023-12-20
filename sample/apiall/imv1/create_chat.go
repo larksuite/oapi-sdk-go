@@ -31,7 +31,6 @@ func main() {
 		UserIdType("open_id").
 		SetBotManager(false).
 		Uuid("b13g2t38-1jd2-458b-8djf-dtbca5104204").
-
 		Body(larkim.NewCreateChatReqBodyBuilder().
 			Avatar("default-avatar_44ae0ca3-e140-494b-956f-78091e348435").
 			Name("测试群名称").

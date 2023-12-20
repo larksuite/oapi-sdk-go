@@ -30,7 +30,6 @@ func main() {
 	req := larksheets.NewCreateSpreadsheetSheetFloatImageReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
 		SheetId("0b**12").
-
 		FloatImage(larksheets.NewFloatImageBuilder().
 			FloatImageId("").
 			FloatImageToken("").

@@ -32,7 +32,6 @@ func main() {
 		ClientToken("12454646").
 		UserIdType("people_corehr_id").
 		DepartmentIdType("people_corehr_department_id").
-
 		Department(larkcorehr.NewDepartmentBuilder().
 			Id("4719456877659520852").
 			SubType(larkcorehr.NewEnumBuilder().Build()).

@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewUpdateExternalApplicationReqBuilder().
 		ExternalApplicationId("6960663240925956660").
-
 		ExternalApplication(larkhire.NewExternalApplicationBuilder().
 			ExternalId("123").
 			JobRecruitmentType(1).

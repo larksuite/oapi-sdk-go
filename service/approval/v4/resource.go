@@ -14,7 +14,7 @@ type V4 struct {
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 原生审批实例
+	Instance         *instance         // 审批查询
 	InstanceComment  *instanceComment  // 原生审批评论
 	Task             *task             // 原生审批任务
 }
@@ -189,7 +189,7 @@ func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprov
 
 // Get
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=approval&resource=external_approval&version=v4
 //
@@ -301,7 +301,7 @@ func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTask
 
 // AddSign
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
 //
@@ -465,7 +465,7 @@ func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, opt
 
 // Preview
 //
-// - 
+// -
 //
 // - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
 //

@@ -31,7 +31,6 @@ func main() {
 		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
 		UserIdType("user_id").
-
 		InstanceSearch(larkapproval.NewInstanceSearchBuilder().
 			UserId("lwiu098wj").
 			ApprovalCode("EB828003-9FFE-4B3F-AA50-2E199E2ED942").

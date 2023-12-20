@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkcorehr.NewCreateJobReqBuilder().
 		ClientToken("12454646").
-
 		Job(larkcorehr.NewJobBuilder().
 			Code("JP422119").
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).

@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewPatchCommentReqBuilder().
 		CommentId("7198104824246747156").
 		UserIdType("open_id").
-
 		Body(larktask.NewPatchCommentReqBodyBuilder().
 			Comment(larktask.NewInputCommentBuilder().Build()).
 			UpdateFields([]string{}).

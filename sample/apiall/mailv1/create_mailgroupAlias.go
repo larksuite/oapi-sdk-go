@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkmail.NewCreateMailgroupAliasReqBuilder().
 		MailgroupId("xxxxxx 或者 xxx@xx.xxx").
-
 		EmailAlias(larkmail.NewEmailAliasBuilder().
 			EmailAlias("email_alias@xxx.xx").
 			Build()).

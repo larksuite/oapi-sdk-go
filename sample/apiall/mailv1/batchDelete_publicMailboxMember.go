@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkmail.NewBatchDeletePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
-
 		Body(larkmail.NewBatchDeletePublicMailboxMemberReqBodyBuilder().
 			MemberIdList([]string{}).
 			Build()).

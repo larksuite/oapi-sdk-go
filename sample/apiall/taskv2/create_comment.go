@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateCommentReqBuilder().
 		UserIdType("open_id").
-
 		InputComment(larktask.NewInputCommentBuilder().
 			Content("这是一条评论。").
 			ReplyToCommentId("6937231762296684564").

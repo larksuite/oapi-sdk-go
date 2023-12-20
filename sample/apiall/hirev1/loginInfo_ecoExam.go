@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewLoginInfoEcoExamReqBuilder().
 		ExamId("7178536692385679677").
-
 		Body(larkhire.NewLoginInfoEcoExamReqBodyBuilder().
 			Result(0).
 			Msg("success").

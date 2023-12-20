@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkwiki.NewUpdateSpaceSettingReqBuilder().
 		SpaceId("1565676577122621").
-
 		Setting(larkwiki.NewSettingBuilder().
 			CreateSetting("").
 			SecuritySetting("").

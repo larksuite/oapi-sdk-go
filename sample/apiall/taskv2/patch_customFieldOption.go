@@ -30,7 +30,6 @@ func main() {
 	req := larktask.NewPatchCustomFieldOptionReqBuilder().
 		CustomFieldGuid("b13adf3c-cad6-4e02-8929-550c112b5633").
 		OptionGuid("b13adf3c-cad6-4e02-8929-550c112b5633").
-
 		Body(larktask.NewPatchCustomFieldOptionReqBodyBuilder().
 			Option(larktask.NewInputOptionBuilder().Build()).
 			UpdateFields([]string{}).

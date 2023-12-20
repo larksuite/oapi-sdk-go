@@ -30,7 +30,6 @@ func main() {
 	req := larkbitable.NewBatchCreateAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		UserIdType("user_id").
-
 		Body(larkbitable.NewBatchCreateAppTableReqBodyBuilder().
 			Tables([]*larkbitable.ReqTable{larkbitable.NewReqTableBuilder().Build()}).
 			Build()).

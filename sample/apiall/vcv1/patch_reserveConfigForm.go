@@ -30,7 +30,6 @@ func main() {
 	req := larkvc.NewPatchReserveConfigFormReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
 		UserIdType("user_id").
-
 		Body(larkvc.NewPatchReserveConfigFormReqBodyBuilder().
 			ScopeType(2).
 			ReserveFormConfig(larkvc.NewReserveFormConfigBuilder().Build()).

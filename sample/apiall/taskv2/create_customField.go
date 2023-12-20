@@ -39,6 +39,7 @@ func main() {
 			DatetimeSetting(larktask.NewDatetimeSettingBuilder().Build()).
 			SingleSelectSetting(larktask.NewSelectSettingBuilder().Build()).
 			MultiSelectSetting(larktask.NewSelectSettingBuilder().Build()).
+			TextSetting(larktask.NewTextSettingBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

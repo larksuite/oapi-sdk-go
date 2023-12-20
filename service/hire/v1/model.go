@@ -35,6 +35,21 @@ const (
 )
 
 const (
+	JobLevelIdTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	TerminationType我们拒绝了候选人 = 1  // 我们拒绝了候选人
 	TerminationType候选人拒绝了我们 = 22 // 候选人拒绝了我们
 	TerminationType其他       = 27 // 其他
@@ -54,10 +69,30 @@ const (
 )
 
 const (
+	JobLevelIdTypeTransferOnboardApplicationPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeTransferOnboardApplicationJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeTransferOnboardApplicationPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeTransferOnboardApplicationJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeTransferOnboardApplicationPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeTransferOnboardApplicationEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeListApplicationInterviewUserId        = "user_id"         // 以user_id来识别用户
 	UserIdTypeListApplicationInterviewUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeListApplicationInterviewOpenId        = "open_id"         // 以open_id来识别用户
 	UserIdTypeListApplicationInterviewPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	JobLevelIdTypeListApplicationInterviewPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListApplicationInterviewJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
@@ -104,6 +139,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeGetEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeGetEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeGetEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeGetEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeGetEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeGetEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeGetByApplicationEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
 	UserIdTypeGetByApplicationEmployeeUnionId = "union_id" // 以 union_id 来识别用户
 	UserIdTypeGetByApplicationEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
@@ -113,6 +163,21 @@ const (
 	DepartmentIdTypeGetByApplicationEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
 	DepartmentIdTypeGetByApplicationEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
 	DepartmentIdTypeGetByApplicationEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeGetByApplicationEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeGetByApplicationEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeGetByApplicationEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeGetByApplicationEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeGetByApplicationEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeGetByApplicationEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
@@ -131,6 +196,21 @@ const (
 	DepartmentIdTypePatchEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
 	DepartmentIdTypePatchEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
 	DepartmentIdTypePatchEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypePatchEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypePatchEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypePatchEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypePatchEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypePatchEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypePatchEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
@@ -180,6 +260,11 @@ const (
 	ConclusionPass           = 2 // 通过
 	ConclusionToBeDetermined = 3 // 待定
 
+)
+
+const (
+	JobLevelIdTypeListInterviewPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListInterviewJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
@@ -237,6 +322,16 @@ const (
 )
 
 const (
+	JobLevelIdTypeCombinedCreateJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeCombinedCreateJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeCombinedCreateJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeCombinedCreateJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
 	ExperienceCombinedUpdateJobNoLimit         = 1 // 不限
 	ExperienceCombinedUpdateJobGraduate        = 2 // 应届毕业生
 	ExperienceCombinedUpdateJobUnderOneYear    = 3 // 1年以下
@@ -279,6 +374,16 @@ const (
 )
 
 const (
+	JobLevelIdTypeCombinedUpdateJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeCombinedUpdateJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeCombinedUpdateJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeCombinedUpdateJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
 	UserIdTypeConfigJobUserId        = "user_id"         // 以user_id来识别用户
 	UserIdTypeConfigJobUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeConfigJobOpenId        = "open_id"         // 以open_id来识别用户
@@ -295,6 +400,16 @@ const (
 const (
 	DepartmentIdTypeGetJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeGetJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeGetJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeGetJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeGetJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeGetJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
@@ -364,6 +479,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeCreateJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeCreateJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeCreateJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeCreateJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeCreateJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeCreateJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeListJobRequirementUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeListJobRequirementUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
@@ -375,6 +505,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeListJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeListJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeListJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeListJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeListJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeListByIdJobRequirementUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeListByIdJobRequirementUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListByIdJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
@@ -383,6 +528,21 @@ const (
 const (
 	DepartmentIdTypeListByIdJobRequirementOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeListByIdJobRequirementDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeListByIdJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListByIdJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeListByIdJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeListByIdJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeListByIdJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeListByIdJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
@@ -439,6 +599,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeUpdateJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeUpdateJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeUpdateJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeUpdateJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeUpdateJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeUpdateJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	PrivacyPrivate = 1 // 私密
 	PrivacyPublic  = 2 // 公开
 
@@ -491,6 +666,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeCreateOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeCreateOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeCreateOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeCreateOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeCreateOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeCreateOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeGetOfferUserId        = "user_id"         // 以user_id来识别用户
 	UserIdTypeGetOfferUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeGetOfferOpenId        = "open_id"         // 以open_id来识别用户
@@ -500,6 +690,21 @@ const (
 const (
 	DepartmentIdTypeGetOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeGetOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeGetOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeGetOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeGetOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeGetOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeGetOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeGetOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
@@ -513,6 +718,11 @@ const (
 	UserIdTypeListOfferUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeListOfferOpenId        = "open_id"         // 以open_id来识别用户
 	UserIdTypeListOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+)
+
+const (
+	EmployeeTypeIdTypeListOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeListOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
@@ -540,6 +750,21 @@ const (
 )
 
 const (
+	JobLevelIdTypeUpdateOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeUpdateOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeUpdateOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeUpdateOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	EmployeeTypeIdTypeUpdateOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	EmployeeTypeIdTypeUpdateOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+)
+
+const (
 	UserIdTypeGetByApplicationReferralUserId        = "user_id"         // 以user_id来识别用户
 	UserIdTypeGetByApplicationReferralUnionId       = "union_id"        // 以union_id来识别用户
 	UserIdTypeGetByApplicationReferralOpenId        = "open_id"         // 以open_id来识别用户
@@ -558,6 +783,11 @@ const (
 )
 
 const (
+	JobLevelIdTypeGetReferralWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeGetReferralWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
 	ProcessTypeListReferralWebsiteJobPostSocialProcess = 1 // 社招
 	ProcessTypeListReferralWebsiteJobPostCampusProcess = 2 // 校招
 
@@ -572,6 +802,11 @@ const (
 const (
 	DepartmentIdTypeListReferralWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 	DepartmentIdTypeListReferralWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeListReferralWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListReferralWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
@@ -37234,6 +37469,30 @@ func (builder *OfferApplicationReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *OfferApplicationReqBuilder) JobLevelIdType(jobLevelIdType string) *OfferApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *OfferApplicationReqBuilder) JobFamilyIdType(jobFamilyIdType string) *OfferApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *OfferApplicationReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *OfferApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 func (builder *OfferApplicationReqBuilder) Build() *OfferApplicationReq {
 	req := &OfferApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -37770,6 +38029,30 @@ func (builder *TransferOnboardApplicationReqBuilder) DepartmentIdType(department
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *TransferOnboardApplicationReqBuilder) JobLevelIdType(jobLevelIdType string) *TransferOnboardApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *TransferOnboardApplicationReqBuilder) JobFamilyIdType(jobFamilyIdType string) *TransferOnboardApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *TransferOnboardApplicationReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *TransferOnboardApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 // 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段，可通过「转移阶段」接口变更投递状态
 func (builder *TransferOnboardApplicationReqBuilder) Body(body *TransferOnboardApplicationReqBody) *TransferOnboardApplicationReqBuilder {
 	builder.body = body
@@ -37859,6 +38142,14 @@ func (builder *ListApplicationInterviewReqBuilder) PageToken(pageToken string) *
 // 示例值：open_id
 func (builder *ListApplicationInterviewReqBuilder) UserIdType(userIdType string) *ListApplicationInterviewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListApplicationInterviewReqBuilder) JobLevelIdType(jobLevelIdType string) *ListApplicationInterviewReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
 	return builder
 }
 
@@ -39663,6 +39954,30 @@ func (builder *GetEmployeeReqBuilder) DepartmentIdType(departmentIdType string) 
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *GetEmployeeReqBuilder) JobLevelIdType(jobLevelIdType string) *GetEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *GetEmployeeReqBuilder) JobFamilyIdType(jobFamilyIdType string) *GetEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *GetEmployeeReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *GetEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 func (builder *GetEmployeeReqBuilder) Build() *GetEmployeeReq {
 	req := &GetEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -39726,6 +40041,30 @@ func (builder *GetByApplicationEmployeeReqBuilder) DepartmentIdType(departmentId
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *GetByApplicationEmployeeReqBuilder) JobLevelIdType(jobLevelIdType string) *GetByApplicationEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *GetByApplicationEmployeeReqBuilder) JobFamilyIdType(jobFamilyIdType string) *GetByApplicationEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *GetByApplicationEmployeeReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *GetByApplicationEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 func (builder *GetByApplicationEmployeeReqBuilder) Build() *GetByApplicationEmployeeReq {
 	req := &GetByApplicationEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -39786,6 +40125,30 @@ func (builder *PatchEmployeeReqBuilder) UserIdType(userIdType string) *PatchEmpl
 // 示例值：department_id
 func (builder *PatchEmployeeReqBuilder) DepartmentIdType(departmentIdType string) *PatchEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *PatchEmployeeReqBuilder) JobLevelIdType(jobLevelIdType string) *PatchEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *PatchEmployeeReqBuilder) JobFamilyIdType(jobFamilyIdType string) *PatchEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *PatchEmployeeReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *PatchEmployeeReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
@@ -40276,6 +40639,14 @@ func (builder *ListInterviewReqBuilder) EndTime(endTime string) *ListInterviewRe
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListInterviewReqBuilder) JobLevelIdType(jobLevelIdType string) *ListInterviewReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
 // 此次调用中使用的用户ID的类型
 //
 // 示例值：
@@ -40338,6 +40709,22 @@ func (builder *CombinedCreateJobReqBuilder) UserIdType(userIdType string) *Combi
 // 示例值：此次调用中使用的部门 ID 的类型
 func (builder *CombinedCreateJobReqBuilder) DepartmentIdType(departmentIdType string) *CombinedCreateJobReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *CombinedCreateJobReqBuilder) JobLevelIdType(jobLevelIdType string) *CombinedCreateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *CombinedCreateJobReqBuilder) JobFamilyIdType(jobFamilyIdType string) *CombinedCreateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
 	return builder
 }
 
@@ -40414,6 +40801,22 @@ func (builder *CombinedUpdateJobReqBuilder) UserIdType(userIdType string) *Combi
 // 示例值：
 func (builder *CombinedUpdateJobReqBuilder) DepartmentIdType(departmentIdType string) *CombinedUpdateJobReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *CombinedUpdateJobReqBuilder) JobLevelIdType(jobLevelIdType string) *CombinedUpdateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *CombinedUpdateJobReqBuilder) JobFamilyIdType(jobFamilyIdType string) *CombinedUpdateJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
 	return builder
 }
 
@@ -40545,6 +40948,22 @@ func (builder *GetJobReqBuilder) UserIdType(userIdType string) *GetJobReqBuilder
 // 示例值：
 func (builder *GetJobReqBuilder) DepartmentIdType(departmentIdType string) *GetJobReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *GetJobReqBuilder) JobLevelIdType(jobLevelIdType string) *GetJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *GetJobReqBuilder) JobFamilyIdType(jobFamilyIdType string) *GetJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
 	return builder
 }
 
@@ -40787,6 +41206,30 @@ func (builder *CreateJobRequirementReqBuilder) DepartmentIdType(departmentIdType
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *CreateJobRequirementReqBuilder) JobLevelIdType(jobLevelIdType string) *CreateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *CreateJobRequirementReqBuilder) JobFamilyIdType(jobFamilyIdType string) *CreateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *CreateJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *CreateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 // 创建招聘需求，除招聘需求编号为必填外，其他字段是否必填与飞书招聘「招聘需求字段管理」内设置一致
 func (builder *CreateJobRequirementReqBuilder) JobRequirement(jobRequirement *JobRequirement) *CreateJobRequirementReqBuilder {
 	builder.jobRequirement = jobRequirement
@@ -40946,6 +41389,30 @@ func (builder *ListJobRequirementReqBuilder) DepartmentIdType(departmentIdType s
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListJobRequirementReqBuilder) JobLevelIdType(jobLevelIdType string) *ListJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *ListJobRequirementReqBuilder) JobFamilyIdType(jobFamilyIdType string) *ListJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *ListJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *ListJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 func (builder *ListJobRequirementReqBuilder) Build() *ListJobRequirementReq {
 	req := &ListJobRequirementReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -41057,6 +41524,30 @@ func (builder *ListByIdJobRequirementReqBuilder) DepartmentIdType(departmentIdTy
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListByIdJobRequirementReqBuilder) JobLevelIdType(jobLevelIdType string) *ListByIdJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *ListByIdJobRequirementReqBuilder) JobFamilyIdType(jobFamilyIdType string) *ListByIdJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *ListByIdJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *ListByIdJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 // 获取招聘需求信息
 func (builder *ListByIdJobRequirementReqBuilder) Body(body *ListByIdJobRequirementReqBody) *ListByIdJobRequirementReqBuilder {
 	builder.body = body
@@ -41129,6 +41620,30 @@ func (builder *UpdateJobRequirementReqBuilder) UserIdType(userIdType string) *Up
 // 示例值：
 func (builder *UpdateJobRequirementReqBuilder) DepartmentIdType(departmentIdType string) *UpdateJobRequirementReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *UpdateJobRequirementReqBuilder) JobLevelIdType(jobLevelIdType string) *UpdateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *UpdateJobRequirementReqBuilder) JobFamilyIdType(jobFamilyIdType string) *UpdateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *UpdateJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *UpdateJobRequirementReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
@@ -41617,6 +42132,30 @@ func (builder *CreateOfferReqBuilder) DepartmentIdType(departmentIdType string) 
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *CreateOfferReqBuilder) JobLevelIdType(jobLevelIdType string) *CreateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *CreateOfferReqBuilder) JobFamilyIdType(jobFamilyIdType string) *CreateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *CreateOfferReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *CreateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
+	return builder
+}
+
 // 创建 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义
 func (builder *CreateOfferReqBuilder) OfferInfo(offerInfo *OfferInfo) *CreateOfferReqBuilder {
 	builder.offerInfo = offerInfo
@@ -41690,6 +42229,30 @@ func (builder *GetOfferReqBuilder) UserIdType(userIdType string) *GetOfferReqBui
 // 示例值：
 func (builder *GetOfferReqBuilder) DepartmentIdType(departmentIdType string) *GetOfferReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *GetOfferReqBuilder) JobLevelIdType(jobLevelIdType string) *GetOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *GetOfferReqBuilder) JobFamilyIdType(jobFamilyIdType string) *GetOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *GetOfferReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *GetOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
@@ -41819,6 +42382,14 @@ func (builder *ListOfferReqBuilder) TalentId(talentId string) *ListOfferReqBuild
 // 示例值：
 func (builder *ListOfferReqBuilder) UserIdType(userIdType string) *ListOfferReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *ListOfferReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *ListOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
@@ -42079,6 +42650,30 @@ func (builder *UpdateOfferReqBuilder) UserIdType(userIdType string) *UpdateOffer
 // 示例值：
 func (builder *UpdateOfferReqBuilder) DepartmentIdType(departmentIdType string) *UpdateOfferReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *UpdateOfferReqBuilder) JobLevelIdType(jobLevelIdType string) *UpdateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *UpdateOfferReqBuilder) JobFamilyIdType(jobFamilyIdType string) *UpdateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+// 此次调用中使用的「人员类型 ID」的类型
+//
+// 示例值：
+func (builder *UpdateOfferReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *UpdateOfferReqBuilder {
+	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
@@ -42833,6 +43428,14 @@ func (builder *GetReferralWebsiteJobPostReqBuilder) DepartmentIdType(departmentI
 	return builder
 }
 
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *GetReferralWebsiteJobPostReqBuilder) JobLevelIdType(jobLevelIdType string) *GetReferralWebsiteJobPostReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
 func (builder *GetReferralWebsiteJobPostReqBuilder) Build() *GetReferralWebsiteJobPostReq {
 	req := &GetReferralWebsiteJobPostReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -42916,6 +43519,14 @@ func (builder *ListReferralWebsiteJobPostReqBuilder) UserIdType(userIdType strin
 // 示例值：
 func (builder *ListReferralWebsiteJobPostReqBuilder) DepartmentIdType(departmentIdType string) *ListReferralWebsiteJobPostReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListReferralWebsiteJobPostReqBuilder) JobLevelIdType(jobLevelIdType string) *ListReferralWebsiteJobPostReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
 	return builder
 }
 

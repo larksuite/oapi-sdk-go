@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larktask.NewCreateCustomFieldOptionReqBuilder().
 		CustomFieldGuid("b13adf3c-cad6-4e02-8929-550c112b5633").
-
 		InputOption(larktask.NewInputOptionBuilder().
 			Name("高优").
 			ColorIndex(10).

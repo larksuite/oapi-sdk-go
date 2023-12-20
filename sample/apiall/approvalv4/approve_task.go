@@ -29,7 +29,6 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewApproveTaskReqBuilder().
 		UserIdType("user_id").
-
 		TaskApprove(larkapproval.NewTaskApproveBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			InstanceCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
