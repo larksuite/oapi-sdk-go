@@ -61,10 +61,14 @@ func NewURLPreviewGetEventHandler(handler func(context.Context, *URLPreviewGetEv
 
 // 返回事件的消息体的实例，用于反序列化用
 func (h *URLPreviewGetEventHandler) Event() interface{} {
-	return &URLPreviewGetEventHandler{}
+	return &URLPreviewGetEvent{}
 }
 
 // 回调开发者注册的handle
 func (h *URLPreviewGetEventHandler) Handle(ctx context.Context, event interface{}) (interface{}, error) {
 	return h.handler(ctx, event.(*URLPreviewGetEvent))
+}
+
+func (m *URLPreviewGetEvent) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }

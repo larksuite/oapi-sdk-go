@@ -47,10 +47,11 @@ func (d *EventDispatcher) InitConfig(options ...larkevent.OptionFunc) {
 
 func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatcher {
 	reqDispatcher := &EventDispatcher{
-		eventType2EventHandler: make(map[string]larkevent.EventHandler),
-		verificationToken:      verificationToken,
-		eventEncryptKey:        eventEncryptKey,
-		Config:                 &larkcore.Config{Logger: larkcore.NewEventLogger()},
+		eventType2EventHandler:       make(map[string]larkevent.EventHandler),
+		callbackType2CallbackHandler: make(map[string]larkevent.CallbackHandler),
+		verificationToken:            verificationToken,
+		eventEncryptKey:              eventEncryptKey,
+		Config:                       &larkcore.Config{Logger: larkcore.NewEventLogger()},
 	}
 	// 注册app_ticket事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
@@ -99,7 +100,6 @@ func (d *EventDispatcher) Handle(ctx context.Context, req *larkevent.EventReq) (
 	if err != nil {
 		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
-
 	reqType, challenge, token, eventType, err := parse(plainEventJsonStr)
 	if err != nil {
 		return processError(ctx, d.Config.Logger, req.RequestURI, err)

@@ -14,7 +14,7 @@ import (
 
 func main() {
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("", "")
+	handler := dispatcher.NewEventDispatcher("test_token", "test_encrypt_key")
 	handler.OnCustomizedEvent("custom_event_type", func(ctx context.Context, event *larkevent.EventReq) error {
 		// 原生消息体
 		fmt.Println(string(event.Body))

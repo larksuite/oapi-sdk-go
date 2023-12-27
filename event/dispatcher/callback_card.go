@@ -87,10 +87,14 @@ func NewCardActionTriggerEventHandler(handler func(context.Context, *CardActionT
 
 // 返回事件的消息体的实例，用于反序列化用
 func (h *CardActionTriggerEventHandler) Event() interface{} {
-	return &CardActionTriggerEventHandler{}
+	return &CardActionTriggerEvent{}
 }
 
 // 回调开发者注册的handle
 func (h *CardActionTriggerEventHandler) Handle(ctx context.Context, event interface{}) (interface{}, error) {
 	return h.handler(ctx, event.(*CardActionTriggerEvent))
+}
+
+func (m *CardActionTriggerEvent) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
