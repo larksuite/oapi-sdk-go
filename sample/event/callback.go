@@ -1,4 +1,4 @@
-package event
+package main
 
 import (
 	"context"
@@ -14,7 +14,7 @@ import (
 
 func main() {
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("", "1212121212")
+	handler := dispatcher.NewEventDispatcher("", "")
 	handler.OnCustomizedEvent("custom_event_type", func(ctx context.Context, event *larkevent.EventReq) error {
 		// 原生消息体
 		fmt.Println(string(event.Body))
