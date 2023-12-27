@@ -21,12 +21,17 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 type EventHandler interface {
 	Event() interface{}                        // 用于返回事件消息结构体（即承载回调消息内容的结构体）
 	Handle(context.Context, interface{}) error // 用于处理事件
+}
+
+type CallbackHandler interface {
+	Event() interface{}
+	Handle(context.Context, interface{}) (interface{}, error) //处理回调
 }
 
 type EventHandlerModel interface {

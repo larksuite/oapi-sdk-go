@@ -20,12 +20,14 @@ import (
 	"net/http"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/event"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
 type EventDispatcher struct {
 	// 事件map,key为事件类型，value为事件处理器
 	eventType2EventHandler map[string]larkevent.EventHandler
+	// 事件map,key为事件类型，value为回调处理器
+	callbackType2CallbackHandler map[string]larkevent.CallbackHandler
 	// 事件回调签名token，消息解密key
 	verificationToken string
 	eventEncryptKey   string
@@ -246,6 +248,40 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType larkevent.ReqTyp
 	}
 	if resp != nil {
 		return resp, nil
+	}
+
+	// 回调处理器
+	callbackHandler := d.callbackType2CallbackHandler[eventType]
+	if callbackHandler != nil {
+		// 反序列化
+		eventMsg := callbackHandler.Event()
+		// if _, ok := callbackHandler.(*defaultHandler); !ok {
+		err = json.Unmarshal([]byte(plainEventJsonStr), eventMsg)
+		if err != nil {
+			return nil, err
+		}
+		// } else {
+		// 	eventMsg = req
+		// }
+
+		if msg, ok := eventMsg.(larkevent.EventHandlerModel); ok {
+			msg.RawReq(req)
+		}
+
+		// 执行处理器
+		body, err := callbackHandler.Handle(ctx, eventMsg)
+		if err != nil {
+			return nil, err
+		}
+		bodyStr, _ := json.Marshal(body)
+		header := map[string][]string{}
+		header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+		eventResp := &larkevent.EventResp{
+			Header:     header,
+			Body:       bodyStr,
+			StatusCode: http.StatusOK,
+		}
+		return eventResp, nil
 	}
 
 	// 查找处理器
