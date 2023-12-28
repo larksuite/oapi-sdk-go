@@ -13,11 +13,9 @@ type URLPreviewGetEvent struct {
 }
 
 type URLPreviewGetRequest struct {
-	Operator *Operator       `json:"operator,omitempty"`
-	Token    string          `json:"token,omitempty"` // 更新卡片用的token(凭证)
-	Action   *CallBackAction `json:"action,omitempty"`
-	Host     string          `json:"host,omitempty"` // 宿主: im_message/im_top_notice
-	Context  *Context        `json:"context,omitempty"`
+	Operator *Operator `json:"operator,omitempty"`
+	Host     string    `json:"host,omitempty"` // 宿主: im_message/im_top_notice
+	Context  *Context  `json:"context,omitempty"`
 }
 
 type URLPreviewGetResponse struct {

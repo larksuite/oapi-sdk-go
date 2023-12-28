@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	larkcard "github.com/larksuite/oapi-sdk-go/v3/card"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
@@ -14,7 +13,7 @@ import (
 
 func main() {
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("test_token", "test_encrypt_key")
+	handler := dispatcher.NewEventDispatcher("token", "encrypt_key")
 	handler.OnCustomizedEvent("custom_event_type", func(ctx context.Context, event *larkevent.EventReq) error {
 		// 原生消息体
 		fmt.Println(string(event.Body))
@@ -42,27 +41,37 @@ func main() {
 	}).OnP2CardNewProtocalURLPreviewGet(func(ctx context.Context, event *dispatcher.URLPreviewGetEvent) (*dispatcher.URLPreviewGetResponse, error) {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
+
+		// response
 		return &dispatcher.URLPreviewGetResponse{
 			Inline: &dispatcher.Inline{
 				Title:    "title",
 				ImageKey: "image_key",
 			},
 			Card: &dispatcher.Card{
-				Type: "raw",
-				Data: &larkcard.MessageCard{},
+				Type: "template",
+				Data: &dispatcher.TemplateCard{
+					TemplateID:       "xxx",
+					TemplateVariable: map[string]interface{}{},
+				},
 			},
 		}, nil
 	}).OnP2CardNewProtocalCardActionTrigger(func(ctx context.Context, event *dispatcher.CardActionTriggerEvent) (*dispatcher.CardActionTriggerReponse, error) {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
+
+		// response
 		return &dispatcher.CardActionTriggerReponse{
 			Toast: &dispatcher.Toast{
 				Type:    "info",
 				Content: "toast",
 			},
 			Card: &dispatcher.Card{
-				Type: "raw",
-				Data: &larkcard.MessageCard{},
+				Type: "template",
+				Data: &dispatcher.TemplateCard{
+					TemplateID:       "xxx",
+					TemplateVariable: map[string]interface{}{},
+				},
 			},
 		}, nil
 	})

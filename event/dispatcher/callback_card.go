@@ -3,7 +3,6 @@ package dispatcher
 import (
 	"context"
 
-	larkcard "github.com/larksuite/oapi-sdk-go/v3/card"
 	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
@@ -57,12 +56,12 @@ type Card struct {
 	// template/raw
 	Type string `json:"type,omitempty"`
 	// type为raw时：data为larkcard.MessageCard; type为raw时，data为TemplateCard
-	Data *larkcard.MessageCard `json:"data,omitempty"`
+	Data interface{} `json:"data,omitempty"`
 }
 
 type TemplateCard struct {
-	TemplateID          string                 `json:"template_id"`
-	TemplateVariable    map[string]interface{} `json:"template_variable"`
+	TemplateID          string                 `json:"template_id,omitempty"`
+	TemplateVariable    map[string]interface{} `json:"template_variable,omitempty"`
 	TemplateVersionName string                 `json:"template_version_name,omitempty"`
 }
 
