@@ -35,6 +35,13 @@ const (
 )
 
 const (
+	StatusNormalStatus = 1 // 正常状态
+	StatusMarkInvalid  = 2 // 标记失效
+	StatusHiddenPeriod = 3 // 隐藏周期
+
+)
+
+const (
 	TargetTypeCreateProgressRecordObjective = 2 // okr的O
 	TargetTypeCreateProgressRecordKeyResult = 3 // okr的KR
 
@@ -5604,6 +5611,141 @@ func (resp *BatchGetOkrResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreatePeriodReqBodyBuilder struct {
+	periodRuleId     string // 周期规则 id
+	periodRuleIdFlag bool
+	startMonth       string // 周期起始年月
+	startMonthFlag   bool
+}
+
+func NewCreatePeriodReqBodyBuilder() *CreatePeriodReqBodyBuilder {
+	builder := &CreatePeriodReqBodyBuilder{}
+	return builder
+}
+
+// 周期规则 id
+//
+//示例值：6969864184272078374
+func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodReqBodyBuilder {
+	builder.periodRuleId = periodRuleId
+	builder.periodRuleIdFlag = true
+	return builder
+}
+
+// 周期起始年月
+//
+//示例值：2022-01
+func (builder *CreatePeriodReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodReqBodyBuilder {
+	builder.startMonth = startMonth
+	builder.startMonthFlag = true
+	return builder
+}
+
+func (builder *CreatePeriodReqBodyBuilder) Build() *CreatePeriodReqBody {
+	req := &CreatePeriodReqBody{}
+	if builder.periodRuleIdFlag {
+		req.PeriodRuleId = &builder.periodRuleId
+	}
+	if builder.startMonthFlag {
+		req.StartMonth = &builder.startMonth
+	}
+	return req
+}
+
+type CreatePeriodPathReqBodyBuilder struct {
+	periodRuleId     string
+	periodRuleIdFlag bool
+	startMonth       string
+	startMonthFlag   bool
+}
+
+func NewCreatePeriodPathReqBodyBuilder() *CreatePeriodPathReqBodyBuilder {
+	builder := &CreatePeriodPathReqBodyBuilder{}
+	return builder
+}
+
+// 周期规则 id
+//
+// 示例值：6969864184272078374
+func (builder *CreatePeriodPathReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodPathReqBodyBuilder {
+	builder.periodRuleId = periodRuleId
+	builder.periodRuleIdFlag = true
+	return builder
+}
+
+// 周期起始年月
+//
+// 示例值：2022-01
+func (builder *CreatePeriodPathReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodPathReqBodyBuilder {
+	builder.startMonth = startMonth
+	builder.startMonthFlag = true
+	return builder
+}
+
+func (builder *CreatePeriodPathReqBodyBuilder) Build() (*CreatePeriodReqBody, error) {
+	req := &CreatePeriodReqBody{}
+	if builder.periodRuleIdFlag {
+		req.PeriodRuleId = &builder.periodRuleId
+	}
+	if builder.startMonthFlag {
+		req.StartMonth = &builder.startMonth
+	}
+	return req, nil
+}
+
+type CreatePeriodReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreatePeriodReqBody
+}
+
+func NewCreatePeriodReqBuilder() *CreatePeriodReqBuilder {
+	builder := &CreatePeriodReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 根据周期规则创建一个 OKR 周期
+func (builder *CreatePeriodReqBuilder) Body(body *CreatePeriodReqBody) *CreatePeriodReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreatePeriodReqBuilder) Build() *CreatePeriodReq {
+	req := &CreatePeriodReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreatePeriodReqBody struct {
+	PeriodRuleId *string `json:"period_rule_id,omitempty"` // 周期规则 id
+	StartMonth   *string `json:"start_month,omitempty"`    // 周期起始年月
+}
+
+type CreatePeriodReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreatePeriodReqBody `body:""`
+}
+
+type CreatePeriodRespData struct {
+	PeriodId   *string `json:"period_id,omitempty"`   // 周期id
+	StartMonth *string `json:"start_month,omitempty"` // 周期起始年月
+	EndMonth   *string `json:"end_month,omitempty"`   // 周期结束年月
+}
+
+type CreatePeriodResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreatePeriodRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreatePeriodResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListPeriodReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -5657,6 +5799,134 @@ type ListPeriodResp struct {
 }
 
 func (resp *ListPeriodResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchPeriodReqBodyBuilder struct {
+	status     int // 周期显示状态
+	statusFlag bool
+}
+
+func NewPatchPeriodReqBodyBuilder() *PatchPeriodReqBodyBuilder {
+	builder := &PatchPeriodReqBodyBuilder{}
+	return builder
+}
+
+// 周期显示状态
+//
+//示例值：1
+func (builder *PatchPeriodReqBodyBuilder) Status(status int) *PatchPeriodReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *PatchPeriodReqBodyBuilder) Build() *PatchPeriodReqBody {
+	req := &PatchPeriodReqBody{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req
+}
+
+type PatchPeriodPathReqBodyBuilder struct {
+	status     int
+	statusFlag bool
+}
+
+func NewPatchPeriodPathReqBodyBuilder() *PatchPeriodPathReqBodyBuilder {
+	builder := &PatchPeriodPathReqBodyBuilder{}
+	return builder
+}
+
+// 周期显示状态
+//
+// 示例值：1
+func (builder *PatchPeriodPathReqBodyBuilder) Status(status int) *PatchPeriodPathReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *PatchPeriodPathReqBodyBuilder) Build() (*PatchPeriodReqBody, error) {
+	req := &PatchPeriodReqBody{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req, nil
+}
+
+type PatchPeriodReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchPeriodReqBody
+}
+
+func NewPatchPeriodReqBuilder() *PatchPeriodReqBuilder {
+	builder := &PatchPeriodReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 周期id
+//
+// 示例值：6969864184272078374
+func (builder *PatchPeriodReqBuilder) PeriodId(periodId string) *PatchPeriodReqBuilder {
+	builder.apiReq.PathParams.Set("period_id", fmt.Sprint(periodId))
+	return builder
+}
+
+// 修改某个 OKR 周期的状态为「正常」、「失效」或「隐藏」，对租户所有人生效，请谨慎操作
+func (builder *PatchPeriodReqBuilder) Body(body *PatchPeriodReqBody) *PatchPeriodReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchPeriodReqBuilder) Build() *PatchPeriodReq {
+	req := &PatchPeriodReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchPeriodReqBody struct {
+	Status *int `json:"status,omitempty"` // 周期显示状态
+}
+
+type PatchPeriodReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchPeriodReqBody `body:""`
+}
+
+type PatchPeriodRespData struct {
+	PeriodId *string `json:"period_id,omitempty"` // 周期规则id
+	Status   *int    `json:"status,omitempty"`    // 周期显示状态
+}
+
+type PatchPeriodResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchPeriodRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchPeriodResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListPeriodRuleRespData struct {
+	PeriodRules []*PeriodRule `json:"period_rules,omitempty"` // 周期规则列表
+}
+
+type ListPeriodRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListPeriodRuleRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListPeriodRuleResp) Success() bool {
 	return resp.Code == 0
 }
 

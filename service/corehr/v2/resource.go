@@ -10,51 +10,95 @@ import (
 )
 
 type V2 struct {
-	Bp                  *bp                  // bp
-	Company             *company             // company
-	Contract            *contract            // contract
-	Department          *department          // department
-	Employee            *employee            // employee
-	EmployeesBp         *employeesBp         // employees.bp
-	EmployeesJobData    *employeesJobData    // employees.job_data
-	Job                 *job                 // job
-	JobChange           *jobChange           // job_change
-	JobFamily           *jobFamily           // job_family
-	JobLevel            *jobLevel            // job_level
-	Location            *location            // location
-	Person              *person              // person
-	PreHire             *preHire             // 待入职
-	Probation           *probation           // probation
-	ProbationAssessment *probationAssessment // probation.assessment
-	Process             *process             // process
-	ProcessApprover     *processApprover     // process.approver
-	ProcessCc           *processCc           // process.cc
+	BasicInfoBank                     *basicInfoBank                     // basic_info.bank
+	BasicInfoBankBranch               *basicInfoBankBranch               // basic_info.bank_branch
+	BasicInfoCity                     *basicInfoCity                     // basic_info.city
+	BasicInfoCountryRegion            *basicInfoCountryRegion            // basic_info.country_region
+	BasicInfoCountryRegionSubdivision *basicInfoCountryRegionSubdivision // basic_info.country_region_subdivision
+	BasicInfoCurrency                 *basicInfoCurrency                 // basic_info.currency
+	BasicInfoDistrict                 *basicInfoDistrict                 // basic_info.district
+	BasicInfoNationality              *basicInfoNationality              // basic_info.nationality
+	Bp                                *bp                                // bp
+	Company                           *company                           // company
+	Contract                          *contract                          // contract
+	CostCenter                        *costCenter                        // cost_center
+	CostCenterVersion                 *costCenterVersion                 // cost_center.version
+	Department                        *department                        // department
+	Employee                          *employee                          // employee
+	EmployeesBp                       *employeesBp                       // employees.bp
+	EmployeesJobData                  *employeesJobData                  // employees.job_data
+	Job                               *job                               // job
+	JobChange                         *jobChange                         // job_change
+	JobFamily                         *jobFamily                         // job_family
+	JobLevel                          *jobLevel                          // job_level
+	Location                          *location                          // location
+	Person                            *person                            // person
+	PreHire                           *preHire                           // 待入职
+	Probation                         *probation                         // probation
+	ProbationAssessment               *probationAssessment               // probation.assessment
+	Process                           *process                           // process
+	ProcessApprover                   *processApprover                   // process.approver
+	ProcessCc                         *processCc                         // process.cc
 }
 
 func New(config *larkcore.Config) *V2 {
 	return &V2{
-		Bp:                  &bp{config: config},
-		Company:             &company{config: config},
-		Contract:            &contract{config: config},
-		Department:          &department{config: config},
-		Employee:            &employee{config: config},
-		EmployeesBp:         &employeesBp{config: config},
-		EmployeesJobData:    &employeesJobData{config: config},
-		Job:                 &job{config: config},
-		JobChange:           &jobChange{config: config},
-		JobFamily:           &jobFamily{config: config},
-		JobLevel:            &jobLevel{config: config},
-		Location:            &location{config: config},
-		Person:              &person{config: config},
-		PreHire:             &preHire{config: config},
-		Probation:           &probation{config: config},
-		ProbationAssessment: &probationAssessment{config: config},
-		Process:             &process{config: config},
-		ProcessApprover:     &processApprover{config: config},
-		ProcessCc:           &processCc{config: config},
+		BasicInfoBank:                     &basicInfoBank{config: config},
+		BasicInfoBankBranch:               &basicInfoBankBranch{config: config},
+		BasicInfoCity:                     &basicInfoCity{config: config},
+		BasicInfoCountryRegion:            &basicInfoCountryRegion{config: config},
+		BasicInfoCountryRegionSubdivision: &basicInfoCountryRegionSubdivision{config: config},
+		BasicInfoCurrency:                 &basicInfoCurrency{config: config},
+		BasicInfoDistrict:                 &basicInfoDistrict{config: config},
+		BasicInfoNationality:              &basicInfoNationality{config: config},
+		Bp:                                &bp{config: config},
+		Company:                           &company{config: config},
+		Contract:                          &contract{config: config},
+		CostCenter:                        &costCenter{config: config},
+		CostCenterVersion:                 &costCenterVersion{config: config},
+		Department:                        &department{config: config},
+		Employee:                          &employee{config: config},
+		EmployeesBp:                       &employeesBp{config: config},
+		EmployeesJobData:                  &employeesJobData{config: config},
+		Job:                               &job{config: config},
+		JobChange:                         &jobChange{config: config},
+		JobFamily:                         &jobFamily{config: config},
+		JobLevel:                          &jobLevel{config: config},
+		Location:                          &location{config: config},
+		Person:                            &person{config: config},
+		PreHire:                           &preHire{config: config},
+		Probation:                         &probation{config: config},
+		ProbationAssessment:               &probationAssessment{config: config},
+		Process:                           &process{config: config},
+		ProcessApprover:                   &processApprover{config: config},
+		ProcessCc:                         &processCc{config: config},
 	}
 }
 
+type basicInfoBank struct {
+	config *larkcore.Config
+}
+type basicInfoBankBranch struct {
+	config *larkcore.Config
+}
+type basicInfoCity struct {
+	config *larkcore.Config
+}
+type basicInfoCountryRegion struct {
+	config *larkcore.Config
+}
+type basicInfoCountryRegionSubdivision struct {
+	config *larkcore.Config
+}
+type basicInfoCurrency struct {
+	config *larkcore.Config
+}
+type basicInfoDistrict struct {
+	config *larkcore.Config
+}
+type basicInfoNationality struct {
+	config *larkcore.Config
+}
 type bp struct {
 	config *larkcore.Config
 }
@@ -62,6 +106,12 @@ type company struct {
 	config *larkcore.Config
 }
 type contract struct {
+	config *larkcore.Config
+}
+type costCenter struct {
+	config *larkcore.Config
+}
+type costCenterVersion struct {
 	config *larkcore.Config
 }
 type department struct {
@@ -111,6 +161,278 @@ type processApprover struct {
 }
 type processCc struct {
 	config *larkcore.Config
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.bank&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoBank.go
+func (b *basicInfoBank) Search(ctx context.Context, req *SearchBasicInfoBankReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/banks/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoBankResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoBank) SearchByIterator(ctx context.Context, req *SearchBasicInfoBankReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankIterator, error) {
+	return &SearchBasicInfoBankIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.bank_branch&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoBankBranch.go
+func (b *basicInfoBankBranch) Search(ctx context.Context, req *SearchBasicInfoBankBranchReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankBranchResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/bank_branchs/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoBankBranchResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoBankBranch) SearchByIterator(ctx context.Context, req *SearchBasicInfoBankBranchReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankBranchIterator, error) {
+	return &SearchBasicInfoBankBranchIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.city&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoCity.go
+func (b *basicInfoCity) Search(ctx context.Context, req *SearchBasicInfoCityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/cities/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoCityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoCity) SearchByIterator(ctx context.Context, req *SearchBasicInfoCityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCityIterator, error) {
+	return &SearchBasicInfoCityIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.country_region&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoCountryRegion.go
+func (b *basicInfoCountryRegion) Search(ctx context.Context, req *SearchBasicInfoCountryRegionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/country_regions/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoCountryRegionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoCountryRegion) SearchByIterator(ctx context.Context, req *SearchBasicInfoCountryRegionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionIterator, error) {
+	return &SearchBasicInfoCountryRegionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.country_region_subdivision&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoCountryRegionSubdivision.go
+func (b *basicInfoCountryRegionSubdivision) Search(ctx context.Context, req *SearchBasicInfoCountryRegionSubdivisionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionSubdivisionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/country_region_subdivisions/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoCountryRegionSubdivisionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoCountryRegionSubdivision) SearchByIterator(ctx context.Context, req *SearchBasicInfoCountryRegionSubdivisionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionSubdivisionIterator, error) {
+	return &SearchBasicInfoCountryRegionSubdivisionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.currency&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoCurrency.go
+func (b *basicInfoCurrency) Search(ctx context.Context, req *SearchBasicInfoCurrencyReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCurrencyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/currencies/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoCurrencyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoCurrency) SearchByIterator(ctx context.Context, req *SearchBasicInfoCurrencyReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCurrencyIterator, error) {
+	return &SearchBasicInfoCurrencyIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.district&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoDistrict.go
+func (b *basicInfoDistrict) Search(ctx context.Context, req *SearchBasicInfoDistrictReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoDistrictResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/districts/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoDistrictResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoDistrict) SearchByIterator(ctx context.Context, req *SearchBasicInfoDistrictReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoDistrictIterator, error) {
+	return &SearchBasicInfoDistrictIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.nationality&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_basicInfoNationality.go
+func (b *basicInfoNationality) Search(ctx context.Context, req *SearchBasicInfoNationalityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoNationalityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/basic_info/nationalities/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchBasicInfoNationalityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *basicInfoNationality) SearchByIterator(ctx context.Context, req *SearchBasicInfoNationalityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoNationalityIterator, error) {
+	return &SearchBasicInfoNationalityIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.Search,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // GetByDepartment
@@ -231,6 +553,188 @@ func (c *contract) SearchByIterator(ctx context.Context, req *SearchContractReq,
 		listFunc: c.Search,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// Create
+//
+// - 创建成本中心
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_costCenter.go
+func (c *costCenter) Create(ctx context.Context, req *CreateCostCenterReq, options ...larkcore.RequestOptionFunc) (*CreateCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_costCenter.go
+func (c *costCenter) Delete(ctx context.Context, req *DeleteCostCenterReq, options ...larkcore.RequestOptionFunc) (*DeleteCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/:cost_center_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 创建成本中心版本
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_costCenter.go
+func (c *costCenter) Patch(ctx context.Context, req *PatchCostCenterReq, options ...larkcore.RequestOptionFunc) (*PatchCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/:cost_center_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Search
+//
+// - 查询成本中心信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/search_costCenter.go
+func (c *costCenter) Search(ctx context.Context, req *SearchCostCenterReq, options ...larkcore.RequestOptionFunc) (*SearchCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// - 创建成本中心版本
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=cost_center.version&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_costCenterVersion.go
+func (c *costCenterVersion) Create(ctx context.Context, req *CreateCostCenterVersionReq, options ...larkcore.RequestOptionFunc) (*CreateCostCenterVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/:cost_center_id/versions"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateCostCenterVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 撤销成本中心版本
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=cost_center.version&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_costCenterVersion.go
+func (c *costCenterVersion) Delete(ctx context.Context, req *DeleteCostCenterVersionReq, options ...larkcore.RequestOptionFunc) (*DeleteCostCenterVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/:cost_center_id/versions/:version_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteCostCenterVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 创建成本中心版本
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=cost_center.version&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_costCenterVersion.go
+func (c *costCenterVersion) Patch(ctx context.Context, req *PatchCostCenterVersionReq, options ...larkcore.RequestOptionFunc) (*PatchCostCenterVersionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/:cost_center_id/versions/:version_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchCostCenterVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // Parents

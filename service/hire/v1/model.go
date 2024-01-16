@@ -413,6 +413,12 @@ const (
 )
 
 const (
+	UserIdTypeRecruiterJobUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeRecruiterJobUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeRecruiterJobOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeUpdateConfigJobUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUpdateConfigJobUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeUpdateConfigJobOpenId  = "open_id"  // 以open_id来识别用户
@@ -30535,7 +30541,7 @@ func (builder *TalentCompetitionInfoBuilder) Build() *TalentCompetitionInfo {
 
 type TalentCustomizedAttachment struct {
 	FileId      *string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    *string `json:"file_name,omitempty"`    // 附件名称
+	Name        *string `json:"name,omitempty"`         // 附件名称
 	ContentType *string `json:"content_type,omitempty"` // 附件类型
 	FileSize    *int    `json:"file_size,omitempty"`    // 附件大小
 }
@@ -30543,8 +30549,8 @@ type TalentCustomizedAttachment struct {
 type TalentCustomizedAttachmentBuilder struct {
 	fileId          string // 附件 ID
 	fileIdFlag      bool
-	fileName        string // 附件名称
-	fileNameFlag    bool
+	name            string // 附件名称
+	nameFlag        bool
 	contentType     string // 附件类型
 	contentTypeFlag bool
 	fileSize        int // 附件大小
@@ -30568,9 +30574,9 @@ func (builder *TalentCustomizedAttachmentBuilder) FileId(fileId string) *TalentC
 // 附件名称
 //
 // 示例值：1.13测试1的面试记录.pdf
-func (builder *TalentCustomizedAttachmentBuilder) FileName(fileName string) *TalentCustomizedAttachmentBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
+func (builder *TalentCustomizedAttachmentBuilder) Name(name string) *TalentCustomizedAttachmentBuilder {
+	builder.name = name
+	builder.nameFlag = true
 	return builder
 }
 
@@ -30598,8 +30604,8 @@ func (builder *TalentCustomizedAttachmentBuilder) Build() *TalentCustomizedAttac
 		req.FileId = &builder.fileId
 
 	}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
+	if builder.nameFlag {
+		req.Name = &builder.name
 
 	}
 	if builder.contentTypeFlag {
@@ -35238,6 +35244,7 @@ func (builder *WebsiteDeliveryDtoBuilder) Build() *WebsiteDeliveryDto {
 type WebsiteDeliveryEducation struct {
 	EducationType   *int                             `json:"education_type,omitempty"`   // 学历类型
 	EndTime         *int                             `json:"end_time,omitempty"`         // 结束时间 ,如果是至今传值 -1
+	EndTimeV2       *int                             `json:"end_time_v2,omitempty"`      // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
 	FieldOfStudy    *string                          `json:"field_of_study,omitempty"`   // 专业
 	School          *string                          `json:"school,omitempty"`           // 学校
 	StartTime       *int                             `json:"start_time,omitempty"`       // 开始时间
@@ -35251,6 +35258,8 @@ type WebsiteDeliveryEducationBuilder struct {
 	educationTypeFlag   bool
 	endTime             int // 结束时间 ,如果是至今传值 -1
 	endTimeFlag         bool
+	endTimeV2           int // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
+	endTimeV2Flag       bool
 	fieldOfStudy        string // 专业
 	fieldOfStudyFlag    bool
 	school              string // 学校
@@ -35285,6 +35294,15 @@ func (builder *WebsiteDeliveryEducationBuilder) EducationType(educationType int)
 func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int) *WebsiteDeliveryEducationBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
+	return builder
+}
+
+// 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
+//
+// 示例值：1618500278663
+func (builder *WebsiteDeliveryEducationBuilder) EndTimeV2(endTimeV2 int) *WebsiteDeliveryEducationBuilder {
+	builder.endTimeV2 = endTimeV2
+	builder.endTimeV2Flag = true
 	return builder
 }
 
@@ -35350,6 +35368,10 @@ func (builder *WebsiteDeliveryEducationBuilder) Build() *WebsiteDeliveryEducatio
 	}
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
+
+	}
+	if builder.endTimeV2Flag {
+		req.EndTimeV2 = &builder.endTimeV2
 
 	}
 	if builder.fieldOfStudyFlag {
@@ -40990,6 +41012,61 @@ type GetJobResp struct {
 }
 
 func (resp *GetJobResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecruiterJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewRecruiterJobReqBuilder() *RecruiterJobReqBuilder {
+	builder := &RecruiterJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 职位 ID
+//
+// 示例值：6960663240925956555
+func (builder *RecruiterJobReqBuilder) JobId(jobId string) *RecruiterJobReqBuilder {
+	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *RecruiterJobReqBuilder) UserIdType(userIdType string) *RecruiterJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *RecruiterJobReqBuilder) Build() *RecruiterJobReq {
+	req := &RecruiterJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type RecruiterJobReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type RecruiterJobRespData struct {
+	Info *JobRecruiter2 `json:"info,omitempty"` // 职位负责人
+}
+
+type RecruiterJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecruiterJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecruiterJobResp) Success() bool {
 	return resp.Code == 0
 }
 

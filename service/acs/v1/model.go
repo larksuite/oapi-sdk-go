@@ -32,6 +32,18 @@ const (
 )
 
 const (
+	UserIdTypeCreateRuleExternalUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateRuleExternalUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateRuleExternalOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeGetRuleExternalUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeGetRuleExternalUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeGetRuleExternalOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
@@ -59,6 +71,18 @@ const (
 	UserIdTypeUpdateUserFaceUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUpdateUserFaceUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeUpdateUserFaceOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeCreateVisitorUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeCreateVisitorUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeCreateVisitorOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeDeleteVisitorUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDeleteVisitorUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDeleteVisitorOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AccessRecord struct {
@@ -770,6 +794,7 @@ type Rule struct {
 	Visitors     []*UserExternal      `json:"visitors,omitempty"`      // 权限组包含的访客列表
 	RemindFace   *bool                `json:"remind_face,omitempty"`   // 是否通知人员录入
 	OpeningTime  *OpeningTimeExternal `json:"opening_time,omitempty"`  // 开门时间段
+	IsTemp       *bool                `json:"is_temp,omitempty"`       // 是否为临时权限组
 }
 
 type RuleBuilder struct {
@@ -791,6 +816,8 @@ type RuleBuilder struct {
 	remindFaceFlag   bool
 	openingTime      *OpeningTimeExternal // 开门时间段
 	openingTimeFlag  bool
+	isTemp           bool // 是否为临时权限组
+	isTempFlag       bool
 }
 
 func NewRuleBuilder() *RuleBuilder {
@@ -879,6 +906,15 @@ func (builder *RuleBuilder) OpeningTime(openingTime *OpeningTimeExternal) *RuleB
 	return builder
 }
 
+// 是否为临时权限组
+//
+// 示例值：false
+func (builder *RuleBuilder) IsTemp(isTemp bool) *RuleBuilder {
+	builder.isTemp = isTemp
+	builder.isTempFlag = true
+	return builder
+}
+
 func (builder *RuleBuilder) Build() *Rule {
 	req := &Rule{}
 	if builder.idFlag {
@@ -912,6 +948,10 @@ func (builder *RuleBuilder) Build() *Rule {
 	}
 	if builder.openingTimeFlag {
 		req.OpeningTime = builder.openingTime
+	}
+	if builder.isTempFlag {
+		req.IsTemp = &builder.isTemp
+
 	}
 	return req
 }
@@ -964,21 +1004,24 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type UserExternal struct {
-	UserType *int    `json:"user_type,omitempty"` // 用户类型
-	UserId   *string `json:"user_id,omitempty"`   // 用户id
-	UserName *string `json:"user_name,omitempty"` // 用户名称
-	PhoneNum *string `json:"phone_num,omitempty"` // 电话号码
+	UserType     *int    `json:"user_type,omitempty"`     // 用户类型
+	UserId       *string `json:"user_id,omitempty"`       // 用户id
+	UserName     *string `json:"user_name,omitempty"`     // 用户名称
+	PhoneNum     *string `json:"phone_num,omitempty"`     // 电话号码
+	DepartmentId *string `json:"department_id,omitempty"` // 部门id
 }
 
 type UserExternalBuilder struct {
-	userType     int // 用户类型
-	userTypeFlag bool
-	userId       string // 用户id
-	userIdFlag   bool
-	userName     string // 用户名称
-	userNameFlag bool
-	phoneNum     string // 电话号码
-	phoneNumFlag bool
+	userType         int // 用户类型
+	userTypeFlag     bool
+	userId           string // 用户id
+	userIdFlag       bool
+	userName         string // 用户名称
+	userNameFlag     bool
+	phoneNum         string // 电话号码
+	phoneNumFlag     bool
+	departmentId     string // 部门id
+	departmentIdFlag bool
 }
 
 func NewUserExternalBuilder() *UserExternalBuilder {
@@ -1022,6 +1065,15 @@ func (builder *UserExternalBuilder) PhoneNum(phoneNum string) *UserExternalBuild
 	return builder
 }
 
+// 部门id
+//
+// 示例值：od-f7d44ab733f7602f5cc5194735fd9aaf
+func (builder *UserExternalBuilder) DepartmentId(departmentId string) *UserExternalBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
 func (builder *UserExternalBuilder) Build() *UserExternal {
 	req := &UserExternal{}
 	if builder.userTypeFlag {
@@ -1038,6 +1090,10 @@ func (builder *UserExternalBuilder) Build() *UserExternal {
 	}
 	if builder.phoneNumFlag {
 		req.PhoneNum = &builder.phoneNum
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
 
 	}
 	return req
@@ -1272,6 +1328,350 @@ type ListDeviceResp struct {
 }
 
 func (resp *ListDeviceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateRuleExternalReqBodyBuilder struct {
+	rule     *Rule // 权限组信息
+	ruleFlag bool
+}
+
+func NewCreateRuleExternalReqBodyBuilder() *CreateRuleExternalReqBodyBuilder {
+	builder := &CreateRuleExternalReqBodyBuilder{}
+	return builder
+}
+
+// 权限组信息
+//
+//示例值：
+func (builder *CreateRuleExternalReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalReqBodyBuilder {
+	builder.rule = rule
+	builder.ruleFlag = true
+	return builder
+}
+
+func (builder *CreateRuleExternalReqBodyBuilder) Build() *CreateRuleExternalReqBody {
+	req := &CreateRuleExternalReqBody{}
+	if builder.ruleFlag {
+		req.Rule = builder.rule
+	}
+	return req
+}
+
+type CreateRuleExternalPathReqBodyBuilder struct {
+	rule     *Rule
+	ruleFlag bool
+}
+
+func NewCreateRuleExternalPathReqBodyBuilder() *CreateRuleExternalPathReqBodyBuilder {
+	builder := &CreateRuleExternalPathReqBodyBuilder{}
+	return builder
+}
+
+// 权限组信息
+//
+// 示例值：
+func (builder *CreateRuleExternalPathReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalPathReqBodyBuilder {
+	builder.rule = rule
+	builder.ruleFlag = true
+	return builder
+}
+
+func (builder *CreateRuleExternalPathReqBodyBuilder) Build() (*CreateRuleExternalReqBody, error) {
+	req := &CreateRuleExternalReqBody{}
+	if builder.ruleFlag {
+		req.Rule = builder.rule
+	}
+	return req, nil
+}
+
+type CreateRuleExternalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateRuleExternalReqBody
+}
+
+func NewCreateRuleExternalReqBuilder() *CreateRuleExternalReqBuilder {
+	builder := &CreateRuleExternalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 权限组id-为空创建,不为空则更新
+//
+// 示例值：7298933941867135276
+func (builder *CreateRuleExternalReqBuilder) RuleId(ruleId string) *CreateRuleExternalReqBuilder {
+	builder.apiReq.QueryParams.Set("rule_id", fmt.Sprint(ruleId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CreateRuleExternalReqBuilder) UserIdType(userIdType string) *CreateRuleExternalReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CreateRuleExternalReqBuilder) Body(body *CreateRuleExternalReqBody) *CreateRuleExternalReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateRuleExternalReqBuilder) Build() *CreateRuleExternalReq {
+	req := &CreateRuleExternalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateRuleExternalReqBody struct {
+	Rule *Rule `json:"rule,omitempty"` // 权限组信息
+}
+
+type CreateRuleExternalReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateRuleExternalReqBody `body:""`
+}
+
+type CreateRuleExternalRespData struct {
+	RuleId *string `json:"rule_id,omitempty"` // 权限组id
+}
+
+type CreateRuleExternalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateRuleExternalRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateRuleExternalResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteRuleExternalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteRuleExternalReqBuilder() *DeleteRuleExternalReqBuilder {
+	builder := &DeleteRuleExternalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 权限组id
+//
+// 示例值：7298933941867135276
+func (builder *DeleteRuleExternalReqBuilder) RuleId(ruleId string) *DeleteRuleExternalReqBuilder {
+	builder.apiReq.QueryParams.Set("rule_id", fmt.Sprint(ruleId))
+	return builder
+}
+
+func (builder *DeleteRuleExternalReqBuilder) Build() *DeleteRuleExternalReq {
+	req := &DeleteRuleExternalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteRuleExternalReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteRuleExternalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteRuleExternalResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeviceBindRuleExternalReqBodyBuilder struct {
+	deviceId     string // 设备id
+	deviceIdFlag bool
+	ruleIds      []string // 权限组id列表
+	ruleIdsFlag  bool
+}
+
+func NewDeviceBindRuleExternalReqBodyBuilder() *DeviceBindRuleExternalReqBodyBuilder {
+	builder := &DeviceBindRuleExternalReqBodyBuilder{}
+	return builder
+}
+
+// 设备id
+//
+//示例值：6939433228970082593
+func (builder *DeviceBindRuleExternalReqBodyBuilder) DeviceId(deviceId string) *DeviceBindRuleExternalReqBodyBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+
+// 权限组id列表
+//
+//示例值：
+func (builder *DeviceBindRuleExternalReqBodyBuilder) RuleIds(ruleIds []string) *DeviceBindRuleExternalReqBodyBuilder {
+	builder.ruleIds = ruleIds
+	builder.ruleIdsFlag = true
+	return builder
+}
+
+func (builder *DeviceBindRuleExternalReqBodyBuilder) Build() *DeviceBindRuleExternalReqBody {
+	req := &DeviceBindRuleExternalReqBody{}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+	}
+	if builder.ruleIdsFlag {
+		req.RuleIds = builder.ruleIds
+	}
+	return req
+}
+
+type DeviceBindRuleExternalPathReqBodyBuilder struct {
+	deviceId     string
+	deviceIdFlag bool
+	ruleIds      []string
+	ruleIdsFlag  bool
+}
+
+func NewDeviceBindRuleExternalPathReqBodyBuilder() *DeviceBindRuleExternalPathReqBodyBuilder {
+	builder := &DeviceBindRuleExternalPathReqBodyBuilder{}
+	return builder
+}
+
+// 设备id
+//
+// 示例值：6939433228970082593
+func (builder *DeviceBindRuleExternalPathReqBodyBuilder) DeviceId(deviceId string) *DeviceBindRuleExternalPathReqBodyBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+
+// 权限组id列表
+//
+// 示例值：
+func (builder *DeviceBindRuleExternalPathReqBodyBuilder) RuleIds(ruleIds []string) *DeviceBindRuleExternalPathReqBodyBuilder {
+	builder.ruleIds = ruleIds
+	builder.ruleIdsFlag = true
+	return builder
+}
+
+func (builder *DeviceBindRuleExternalPathReqBodyBuilder) Build() (*DeviceBindRuleExternalReqBody, error) {
+	req := &DeviceBindRuleExternalReqBody{}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+	}
+	if builder.ruleIdsFlag {
+		req.RuleIds = builder.ruleIds
+	}
+	return req, nil
+}
+
+type DeviceBindRuleExternalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DeviceBindRuleExternalReqBody
+}
+
+func NewDeviceBindRuleExternalReqBuilder() *DeviceBindRuleExternalReqBuilder {
+	builder := &DeviceBindRuleExternalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *DeviceBindRuleExternalReqBuilder) Body(body *DeviceBindRuleExternalReqBody) *DeviceBindRuleExternalReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DeviceBindRuleExternalReqBuilder) Build() *DeviceBindRuleExternalReq {
+	req := &DeviceBindRuleExternalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeviceBindRuleExternalReqBody struct {
+	DeviceId *string  `json:"device_id,omitempty"` // 设备id
+	RuleIds  []string `json:"rule_ids,omitempty"`  // 权限组id列表
+}
+
+type DeviceBindRuleExternalReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DeviceBindRuleExternalReqBody `body:""`
+}
+
+type DeviceBindRuleExternalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeviceBindRuleExternalResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetRuleExternalReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetRuleExternalReqBuilder() *GetRuleExternalReqBuilder {
+	builder := &GetRuleExternalReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 设备id
+//
+// 示例值：7296700518380863767
+func (builder *GetRuleExternalReqBuilder) DeviceId(deviceId string) *GetRuleExternalReqBuilder {
+	builder.apiReq.QueryParams.Set("device_id", fmt.Sprint(deviceId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetRuleExternalReqBuilder) UserIdType(userIdType string) *GetRuleExternalReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetRuleExternalReqBuilder) Build() *GetRuleExternalReq {
+	req := &GetRuleExternalReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetRuleExternalReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetRuleExternalRespData struct {
+	Rules []*Rule `json:"rules,omitempty"` // 设备权限组信息
+}
+
+type GetRuleExternalResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetRuleExternalRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetRuleExternalResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -1592,6 +1992,169 @@ type UpdateUserFaceResp struct {
 }
 
 func (resp *UpdateUserFaceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateVisitorReqBodyBuilder struct {
+	user     *UserExternal // 访客信息
+	userFlag bool
+}
+
+func NewCreateVisitorReqBodyBuilder() *CreateVisitorReqBodyBuilder {
+	builder := &CreateVisitorReqBodyBuilder{}
+	return builder
+}
+
+// 访客信息
+//
+//示例值：
+func (builder *CreateVisitorReqBodyBuilder) User(user *UserExternal) *CreateVisitorReqBodyBuilder {
+	builder.user = user
+	builder.userFlag = true
+	return builder
+}
+
+func (builder *CreateVisitorReqBodyBuilder) Build() *CreateVisitorReqBody {
+	req := &CreateVisitorReqBody{}
+	if builder.userFlag {
+		req.User = builder.user
+	}
+	return req
+}
+
+type CreateVisitorPathReqBodyBuilder struct {
+	user     *UserExternal
+	userFlag bool
+}
+
+func NewCreateVisitorPathReqBodyBuilder() *CreateVisitorPathReqBodyBuilder {
+	builder := &CreateVisitorPathReqBodyBuilder{}
+	return builder
+}
+
+// 访客信息
+//
+// 示例值：
+func (builder *CreateVisitorPathReqBodyBuilder) User(user *UserExternal) *CreateVisitorPathReqBodyBuilder {
+	builder.user = user
+	builder.userFlag = true
+	return builder
+}
+
+func (builder *CreateVisitorPathReqBodyBuilder) Build() (*CreateVisitorReqBody, error) {
+	req := &CreateVisitorReqBody{}
+	if builder.userFlag {
+		req.User = builder.user
+	}
+	return req, nil
+}
+
+type CreateVisitorReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateVisitorReqBody
+}
+
+func NewCreateVisitorReqBuilder() *CreateVisitorReqBuilder {
+	builder := &CreateVisitorReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *CreateVisitorReqBuilder) UserIdType(userIdType string) *CreateVisitorReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CreateVisitorReqBuilder) Body(body *CreateVisitorReqBody) *CreateVisitorReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateVisitorReqBuilder) Build() *CreateVisitorReq {
+	req := &CreateVisitorReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateVisitorReqBody struct {
+	User *UserExternal `json:"user,omitempty"` // 访客信息
+}
+
+type CreateVisitorReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateVisitorReqBody `body:""`
+}
+
+type CreateVisitorRespData struct {
+	VisitorId *string `json:"visitor_id,omitempty"` // 访客的id
+}
+
+type CreateVisitorResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateVisitorRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateVisitorResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteVisitorReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteVisitorReqBuilder() *DeleteVisitorReqBuilder {
+	builder := &DeleteVisitorReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 访客id
+//
+// 示例值：6939433228970082566
+func (builder *DeleteVisitorReqBuilder) VisitorId(visitorId string) *DeleteVisitorReqBuilder {
+	builder.apiReq.PathParams.Set("visitor_id", fmt.Sprint(visitorId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *DeleteVisitorReqBuilder) UserIdType(userIdType string) *DeleteVisitorReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *DeleteVisitorReqBuilder) Build() *DeleteVisitorReq {
+	req := &DeleteVisitorReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DeleteVisitorReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteVisitorResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteVisitorResp) Success() bool {
 	return resp.Code == 0
 }
 

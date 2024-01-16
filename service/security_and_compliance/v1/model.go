@@ -1882,6 +1882,7 @@ type DlpExecuteLog struct {
 	DocumentLink      *string            `json:"document_link,omitempty"`       // 文档链接
 	EvidenceDetail    *DlpEvidenceDetail `json:"evidence_detail,omitempty"`     // 证据详情
 	HitPolicies       []*DlpHitPolicy    `json:"hit_policies,omitempty"`        // 命中策略
+	FileToken         *string            `json:"file_token,omitempty"`          // 文件token
 }
 
 type DlpExecuteLogBuilder struct {
@@ -1937,6 +1938,8 @@ type DlpExecuteLogBuilder struct {
 	evidenceDetailFlag    bool
 	hitPolicies           []*DlpHitPolicy // 命中策略
 	hitPoliciesFlag       bool
+	fileToken             string // 文件token
+	fileTokenFlag         bool
 }
 
 func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
@@ -2178,6 +2181,15 @@ func (builder *DlpExecuteLogBuilder) HitPolicies(hitPolicies []*DlpHitPolicy) *D
 	return builder
 }
 
+// 文件token
+//
+// 示例值：token-aaddtken
+func (builder *DlpExecuteLogBuilder) FileToken(fileToken string) *DlpExecuteLogBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+
 func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	req := &DlpExecuteLog{}
 	if builder.applicableServiceFlag {
@@ -2281,6 +2293,10 @@ func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	}
 	if builder.hitPoliciesFlag {
 		req.HitPolicies = builder.hitPolicies
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
 	}
 	return req
 }

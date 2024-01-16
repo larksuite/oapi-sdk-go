@@ -18,12 +18,14 @@ type V1 struct {
 	DrivingLicense          *drivingLicense          // driving_license
 	FoodManageLicense       *foodManageLicense       // food_manage_license
 	FoodProduceLicense      *foodProduceLicense      // food_produce_license
+	HealthCertificate       *healthCertificate       // health_certificate
 	HkmMainlandTravelPermit *hkmMainlandTravelPermit // hkm_mainland_travel_permit
 	IdCard                  *idCard                  // id_card
 	TaxiInvoice             *taxiInvoice             // taxi_invoice
 	TrainInvoice            *trainInvoice            // train_invoice
 	TwMainlandTravelPermit  *twMainlandTravelPermit  // tw_mainland_travel_permit
 	VatInvoice              *vatInvoice              // vat_invoice
+	VehicleInvoice          *vehicleInvoice          // vehicle_invoice
 	VehicleLicense          *vehicleLicense          // vehicle_license
 }
 
@@ -37,12 +39,14 @@ func New(config *larkcore.Config) *V1 {
 		DrivingLicense:          &drivingLicense{config: config},
 		FoodManageLicense:       &foodManageLicense{config: config},
 		FoodProduceLicense:      &foodProduceLicense{config: config},
+		HealthCertificate:       &healthCertificate{config: config},
 		HkmMainlandTravelPermit: &hkmMainlandTravelPermit{config: config},
 		IdCard:                  &idCard{config: config},
 		TaxiInvoice:             &taxiInvoice{config: config},
 		TrainInvoice:            &trainInvoice{config: config},
 		TwMainlandTravelPermit:  &twMainlandTravelPermit{config: config},
 		VatInvoice:              &vatInvoice{config: config},
+		VehicleInvoice:          &vehicleInvoice{config: config},
 		VehicleLicense:          &vehicleLicense{config: config},
 	}
 }
@@ -71,6 +75,9 @@ type foodManageLicense struct {
 type foodProduceLicense struct {
 	config *larkcore.Config
 }
+type healthCertificate struct {
+	config *larkcore.Config
+}
 type hkmMainlandTravelPermit struct {
 	config *larkcore.Config
 }
@@ -87,6 +94,9 @@ type twMainlandTravelPermit struct {
 	config *larkcore.Config
 }
 type vatInvoice struct {
+	config *larkcore.Config
+}
+type vehicleInvoice struct {
 	config *larkcore.Config
 }
 type vehicleLicense struct {
@@ -313,6 +323,33 @@ func (f *foodProduceLicense) Recognize(ctx context.Context, req *RecognizeFoodPr
 //
 // -
 //
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=health_certificate&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/document_aiv1/recognize_healthCertificate.go
+func (h *healthCertificate) Recognize(ctx context.Context, req *RecognizeHealthCertificateReq, options ...larkcore.RequestOptionFunc) (*RecognizeHealthCertificateResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/document_ai/v1/health_certificate/recognize"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, h.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecognizeHealthCertificateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, h.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Recognize
+//
+// -
+//
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=hkm_mainland_travel_permit&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/document_aiv1/recognize_hkmMainlandTravelPermit.go
@@ -464,6 +501,33 @@ func (v *vatInvoice) Recognize(ctx context.Context, req *RecognizeVatInvoiceReq,
 	}
 	// 反序列响应结果
 	resp := &RecognizeVatInvoiceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, v.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Recognize
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vehicle_invoice&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/document_aiv1/recognize_vehicleInvoice.go
+func (v *vehicleInvoice) Recognize(ctx context.Context, req *RecognizeVehicleInvoiceReq, options ...larkcore.RequestOptionFunc) (*RecognizeVehicleInvoiceResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/document_ai/v1/vehicle_invoice/recognize"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, v.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecognizeVehicleInvoiceResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, v.config)
 	if err != nil {
 		return nil, err

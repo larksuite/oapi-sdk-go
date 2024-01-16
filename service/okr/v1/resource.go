@@ -13,6 +13,7 @@ type V1 struct {
 	Image          *image          // 图片
 	Okr            *okr            // OKR
 	Period         *period         // OKR周期
+	PeriodRule     *periodRule     // 周期规则
 	ProgressRecord *progressRecord // OKR进展记录
 	UserOkr        *userOkr        // 用户OKR
 }
@@ -22,6 +23,7 @@ func New(config *larkcore.Config) *V1 {
 		Image:          &image{config: config},
 		Okr:            &okr{config: config},
 		Period:         &period{config: config},
+		PeriodRule:     &periodRule{config: config},
 		ProgressRecord: &progressRecord{config: config},
 		UserOkr:        &userOkr{config: config},
 	}
@@ -34,6 +36,9 @@ type okr struct {
 	config *larkcore.Config
 }
 type period struct {
+	config *larkcore.Config
+}
+type periodRule struct {
 	config *larkcore.Config
 }
 type progressRecord struct {
@@ -98,6 +103,32 @@ func (o *okr) BatchGet(ctx context.Context, req *BatchGetOkrReq, options ...lark
 	return resp, err
 }
 
+// Create 创建 OKR 周期
+//
+// - 根据周期规则创建一个 OKR 周期
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/create
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/create_period.go
+func (p *period) Create(ctx context.Context, req *CreatePeriodReq, options ...larkcore.RequestOptionFunc) (*CreatePeriodResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/periods"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreatePeriodResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // List 获取OKR周期列表
 //
 // - 获取OKR周期列表
@@ -119,6 +150,61 @@ func (p *period) List(ctx context.Context, req *ListPeriodReq, options ...larkco
 	}
 	// 反序列响应结果
 	resp := &ListPeriodResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch 修改 OKR 周期状态
+//
+// - 修改某个 OKR 周期的状态为「正常」、「失效」或「隐藏」，对租户所有人生效，请谨慎操作
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/patch
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/patch_period.go
+func (p *period) Patch(ctx context.Context, req *PatchPeriodReq, options ...larkcore.RequestOptionFunc) (*PatchPeriodResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/okr/v1/periods/:period_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchPeriodResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List 获取 OKR 周期规则
+//
+// - 获取租户的周期规则列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period_rule/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/okrv1/list_periodRule.go
+func (p *periodRule) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListPeriodRuleResp, error) {
+	// 发起请求
+	apiReq := &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	apiReq.ApiPath = "/open-apis/okr/v1/period_rules"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListPeriodRuleResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.config)
 	if err != nil {
 		return nil, err

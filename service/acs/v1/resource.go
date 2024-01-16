@@ -14,8 +14,10 @@ type V1 struct {
 	AccessRecord            *accessRecord            // 门禁记录
 	AccessRecordAccessPhoto *accessRecordAccessPhoto // access_record.access_photo
 	Device                  *device                  // 门禁设备
+	RuleExternal            *ruleExternal            // rule_external
 	User                    *user                    // 用户管理
 	UserFace                *userFace                // user.face
+	Visitor                 *visitor                 // visitor
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -23,8 +25,10 @@ func New(config *larkcore.Config) *V1 {
 		AccessRecord:            &accessRecord{config: config},
 		AccessRecordAccessPhoto: &accessRecordAccessPhoto{config: config},
 		Device:                  &device{config: config},
+		RuleExternal:            &ruleExternal{config: config},
 		User:                    &user{config: config},
 		UserFace:                &userFace{config: config},
+		Visitor:                 &visitor{config: config},
 	}
 }
 
@@ -37,10 +41,16 @@ type accessRecordAccessPhoto struct {
 type device struct {
 	config *larkcore.Config
 }
+type ruleExternal struct {
+	config *larkcore.Config
+}
 type user struct {
 	config *larkcore.Config
 }
 type userFace struct {
+	config *larkcore.Config
+}
+type visitor struct {
 	config *larkcore.Config
 }
 
@@ -133,6 +143,110 @@ func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc
 	// 反序列响应结果
 	resp := &ListDeviceResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=acs&resource=rule_external&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/create_ruleExternal.go
+func (r *ruleExternal) Create(ctx context.Context, req *CreateRuleExternalReq, options ...larkcore.RequestOptionFunc) (*CreateRuleExternalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/rule_external"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateRuleExternalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=acs&resource=rule_external&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/delete_ruleExternal.go
+func (r *ruleExternal) Delete(ctx context.Context, req *DeleteRuleExternalReq, options ...larkcore.RequestOptionFunc) (*DeleteRuleExternalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/rule_external"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteRuleExternalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DeviceBind
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=device_bind&project=acs&resource=rule_external&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/deviceBind_ruleExternal.go
+func (r *ruleExternal) DeviceBind(ctx context.Context, req *DeviceBindRuleExternalReq, options ...larkcore.RequestOptionFunc) (*DeviceBindRuleExternalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/rule_external/device_bind"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeviceBindRuleExternalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=acs&resource=rule_external&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/get_ruleExternal.go
+func (r *ruleExternal) Get(ctx context.Context, req *GetRuleExternalReq, options ...larkcore.RequestOptionFunc) (*GetRuleExternalResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/rule_external"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetRuleExternalResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.config)
 	if err != nil {
 		return nil, err
 	}
@@ -282,6 +396,58 @@ func (u *userFace) Update(ctx context.Context, req *UpdateUserFaceReq, options .
 	// 反序列响应结果
 	resp := &UpdateUserFaceResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=acs&resource=visitor&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/create_visitor.go
+func (v *visitor) Create(ctx context.Context, req *CreateVisitorReq, options ...larkcore.RequestOptionFunc) (*CreateVisitorResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/visitors"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, v.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateVisitorResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, v.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=acs&resource=visitor&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/acsv1/delete_visitor.go
+func (v *visitor) Delete(ctx context.Context, req *DeleteVisitorReq, options ...larkcore.RequestOptionFunc) (*DeleteVisitorResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/visitors/:visitor_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, v.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteVisitorResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, v.config)
 	if err != nil {
 		return nil, err
 	}

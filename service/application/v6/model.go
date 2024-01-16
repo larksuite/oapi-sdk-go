@@ -429,6 +429,197 @@ func (builder *AppAbilityBuilder) Build() *AppAbility {
 	return req
 }
 
+type AppAbilityBot struct {
+	Enable                 *bool                `json:"enable,omitempty"`                    // 是否开启
+	MessageCardCallbackUrl *string              `json:"message_card_callback_url,omitempty"` // 消息卡片的回调地址
+	I18ns                  []*AppAbilityBotI18n `json:"i18ns,omitempty"`                     // 国际化内容
+}
+
+type AppAbilityBotBuilder struct {
+	enable                     bool // 是否开启
+	enableFlag                 bool
+	messageCardCallbackUrl     string // 消息卡片的回调地址
+	messageCardCallbackUrlFlag bool
+	i18ns                      []*AppAbilityBotI18n // 国际化内容
+	i18nsFlag                  bool
+}
+
+func NewAppAbilityBotBuilder() *AppAbilityBotBuilder {
+	builder := &AppAbilityBotBuilder{}
+	return builder
+}
+
+// 是否开启
+//
+// 示例值：true
+func (builder *AppAbilityBotBuilder) Enable(enable bool) *AppAbilityBotBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+
+// 消息卡片的回调地址
+//
+// 示例值：https://open.feishu.cn
+func (builder *AppAbilityBotBuilder) MessageCardCallbackUrl(messageCardCallbackUrl string) *AppAbilityBotBuilder {
+	builder.messageCardCallbackUrl = messageCardCallbackUrl
+	builder.messageCardCallbackUrlFlag = true
+	return builder
+}
+
+// 国际化内容
+//
+// 示例值：
+func (builder *AppAbilityBotBuilder) I18ns(i18ns []*AppAbilityBotI18n) *AppAbilityBotBuilder {
+	builder.i18ns = i18ns
+	builder.i18nsFlag = true
+	return builder
+}
+
+func (builder *AppAbilityBotBuilder) Build() *AppAbilityBot {
+	req := &AppAbilityBot{}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+
+	}
+	if builder.messageCardCallbackUrlFlag {
+		req.MessageCardCallbackUrl = &builder.messageCardCallbackUrl
+
+	}
+	if builder.i18nsFlag {
+		req.I18ns = builder.i18ns
+	}
+	return req
+}
+
+type AppAbilityBotI18n struct {
+	I18nKey        *string `json:"i18n_key,omitempty"`         // 语种类型
+	GetStartedDesc *string `json:"get_started_desc,omitempty"` // 如何开始使用描述文案
+}
+
+type AppAbilityBotI18nBuilder struct {
+	i18nKey            string // 语种类型
+	i18nKeyFlag        bool
+	getStartedDesc     string // 如何开始使用描述文案
+	getStartedDescFlag bool
+}
+
+func NewAppAbilityBotI18nBuilder() *AppAbilityBotI18nBuilder {
+	builder := &AppAbilityBotI18nBuilder{}
+	return builder
+}
+
+// 语种类型
+//
+// 示例值：zh_cn
+func (builder *AppAbilityBotI18nBuilder) I18nKey(i18nKey string) *AppAbilityBotI18nBuilder {
+	builder.i18nKey = i18nKey
+	builder.i18nKeyFlag = true
+	return builder
+}
+
+// 如何开始使用描述文案
+//
+// 示例值：如何使用机器人
+func (builder *AppAbilityBotI18nBuilder) GetStartedDesc(getStartedDesc string) *AppAbilityBotI18nBuilder {
+	builder.getStartedDesc = getStartedDesc
+	builder.getStartedDescFlag = true
+	return builder
+}
+
+func (builder *AppAbilityBotI18nBuilder) Build() *AppAbilityBotI18n {
+	req := &AppAbilityBotI18n{}
+	if builder.i18nKeyFlag {
+		req.I18nKey = &builder.i18nKey
+
+	}
+	if builder.getStartedDescFlag {
+		req.GetStartedDesc = &builder.getStartedDesc
+
+	}
+	return req
+}
+
+type AppAbilityWeb struct {
+	Enable            *bool   `json:"enable,omitempty"`                // 是否开启网页应用能力
+	PcUrl             *string `json:"pc_url,omitempty"`                // PC端链接
+	PcNewPageOpenMode *string `json:"pc_new_page_open_mode,omitempty"` // PC端新页面打开方式
+	MobileUrl         *string `json:"mobile_url,omitempty"`            // 移动端链接
+}
+
+type AppAbilityWebBuilder struct {
+	enable                bool // 是否开启网页应用能力
+	enableFlag            bool
+	pcUrl                 string // PC端链接
+	pcUrlFlag             bool
+	pcNewPageOpenMode     string // PC端新页面打开方式
+	pcNewPageOpenModeFlag bool
+	mobileUrl             string // 移动端链接
+	mobileUrlFlag         bool
+}
+
+func NewAppAbilityWebBuilder() *AppAbilityWebBuilder {
+	builder := &AppAbilityWebBuilder{}
+	return builder
+}
+
+// 是否开启网页应用能力
+//
+// 示例值：true
+func (builder *AppAbilityWebBuilder) Enable(enable bool) *AppAbilityWebBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+
+// PC端链接
+//
+// 示例值：https://open.feishu.cn/
+func (builder *AppAbilityWebBuilder) PcUrl(pcUrl string) *AppAbilityWebBuilder {
+	builder.pcUrl = pcUrl
+	builder.pcUrlFlag = true
+	return builder
+}
+
+// PC端新页面打开方式
+//
+// 示例值：new_tab
+func (builder *AppAbilityWebBuilder) PcNewPageOpenMode(pcNewPageOpenMode string) *AppAbilityWebBuilder {
+	builder.pcNewPageOpenMode = pcNewPageOpenMode
+	builder.pcNewPageOpenModeFlag = true
+	return builder
+}
+
+// 移动端链接
+//
+// 示例值：https://open.feishu.cn/
+func (builder *AppAbilityWebBuilder) MobileUrl(mobileUrl string) *AppAbilityWebBuilder {
+	builder.mobileUrl = mobileUrl
+	builder.mobileUrlFlag = true
+	return builder
+}
+
+func (builder *AppAbilityWebBuilder) Build() *AppAbilityWeb {
+	req := &AppAbilityWeb{}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+
+	}
+	if builder.pcUrlFlag {
+		req.PcUrl = &builder.pcUrl
+
+	}
+	if builder.pcNewPageOpenModeFlag {
+		req.PcNewPageOpenMode = &builder.pcNewPageOpenMode
+
+	}
+	if builder.mobileUrlFlag {
+		req.MobileUrl = &builder.mobileUrl
+
+	}
+	return req
+}
+
 type AppAdminUser struct {
 	AdminType []string `json:"admin_type,omitempty"` // 管理员类型列表，如果该管理员同时是超级管理员 又是管理员，则同时返回两个角色。 ""super_admin""：超级管理员 ""admin""：管理员 返回示例：[""super_admin"",""admin""]"
 	UserId    *string  `json:"user_id,omitempty"`    // 反馈用户id，租户内用户的唯一标识 ，ID值与查询参数中的user_id_type对应
@@ -570,6 +761,54 @@ func (builder *AppBadgeBuilder) Build() *AppBadge {
 	return req
 }
 
+type AppCollaborator struct {
+	Type   *string `json:"type,omitempty"`    // 人员类型
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+}
+
+type AppCollaboratorBuilder struct {
+	type_      string // 人员类型
+	typeFlag   bool
+	userId     string // 用户ID
+	userIdFlag bool
+}
+
+func NewAppCollaboratorBuilder() *AppCollaboratorBuilder {
+	builder := &AppCollaboratorBuilder{}
+	return builder
+}
+
+// 人员类型
+//
+// 示例值：administrator
+func (builder *AppCollaboratorBuilder) Type(type_ string) *AppCollaboratorBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：ou_d317f090b7258ad0372aa53963cda70d
+func (builder *AppCollaboratorBuilder) UserId(userId string) *AppCollaboratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *AppCollaboratorBuilder) Build() *AppCollaborator {
+	req := &AppCollaborator{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
 type AppCommonCategory struct {
 	I18nKey  *string `json:"i18n_key,omitempty"` // 国际化语言的 key
 	Category *string `json:"category,omitempty"` // 应用分类
@@ -614,6 +853,424 @@ func (builder *AppCommonCategoryBuilder) Build() *AppCommonCategory {
 	if builder.categoryFlag {
 		req.Category = &builder.category
 
+	}
+	return req
+}
+
+type AppConfigContactsRange struct {
+	ContactsRangeType *string                 `json:"contacts_range_type,omitempty"` // 更新范围方式
+	VisibleList       *AppContactsRangeIdList `json:"visible_list,omitempty"`        // 通讯录可用人员列表
+}
+
+type AppConfigContactsRangeBuilder struct {
+	contactsRangeType     string // 更新范围方式
+	contactsRangeTypeFlag bool
+	visibleList           *AppContactsRangeIdList // 通讯录可用人员列表
+	visibleListFlag       bool
+}
+
+func NewAppConfigContactsRangeBuilder() *AppConfigContactsRangeBuilder {
+	builder := &AppConfigContactsRangeBuilder{}
+	return builder
+}
+
+// 更新范围方式
+//
+// 示例值：some
+func (builder *AppConfigContactsRangeBuilder) ContactsRangeType(contactsRangeType string) *AppConfigContactsRangeBuilder {
+	builder.contactsRangeType = contactsRangeType
+	builder.contactsRangeTypeFlag = true
+	return builder
+}
+
+// 通讯录可用人员列表
+//
+// 示例值：
+func (builder *AppConfigContactsRangeBuilder) VisibleList(visibleList *AppContactsRangeIdList) *AppConfigContactsRangeBuilder {
+	builder.visibleList = visibleList
+	builder.visibleListFlag = true
+	return builder
+}
+
+func (builder *AppConfigContactsRangeBuilder) Build() *AppConfigContactsRange {
+	req := &AppConfigContactsRange{}
+	if builder.contactsRangeTypeFlag {
+		req.ContactsRangeType = &builder.contactsRangeType
+
+	}
+	if builder.visibleListFlag {
+		req.VisibleList = builder.visibleList
+	}
+	return req
+}
+
+type AppConfigEvent struct {
+	SubscriptionType *string  `json:"subscription_type,omitempty"` // 订阅方式
+	RequestUrl       *string  `json:"request_url,omitempty"`       // 接收事件的服务器地址
+	AddEvents        []string `json:"add_events,omitempty"`        // 添加事件列表
+	RemoveEvents     []string `json:"remove_events,omitempty"`     // 删除事件列表
+}
+
+type AppConfigEventBuilder struct {
+	subscriptionType     string // 订阅方式
+	subscriptionTypeFlag bool
+	requestUrl           string // 接收事件的服务器地址
+	requestUrlFlag       bool
+	addEvents            []string // 添加事件列表
+	addEventsFlag        bool
+	removeEvents         []string // 删除事件列表
+	removeEventsFlag     bool
+}
+
+func NewAppConfigEventBuilder() *AppConfigEventBuilder {
+	builder := &AppConfigEventBuilder{}
+	return builder
+}
+
+// 订阅方式
+//
+// 示例值：webhook
+func (builder *AppConfigEventBuilder) SubscriptionType(subscriptionType string) *AppConfigEventBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeFlag = true
+	return builder
+}
+
+// 接收事件的服务器地址
+//
+// 示例值：https://open.feishu.cn/
+func (builder *AppConfigEventBuilder) RequestUrl(requestUrl string) *AppConfigEventBuilder {
+	builder.requestUrl = requestUrl
+	builder.requestUrlFlag = true
+	return builder
+}
+
+// 添加事件列表
+//
+// 示例值：
+func (builder *AppConfigEventBuilder) AddEvents(addEvents []string) *AppConfigEventBuilder {
+	builder.addEvents = addEvents
+	builder.addEventsFlag = true
+	return builder
+}
+
+// 删除事件列表
+//
+// 示例值：
+func (builder *AppConfigEventBuilder) RemoveEvents(removeEvents []string) *AppConfigEventBuilder {
+	builder.removeEvents = removeEvents
+	builder.removeEventsFlag = true
+	return builder
+}
+
+func (builder *AppConfigEventBuilder) Build() *AppConfigEvent {
+	req := &AppConfigEvent{}
+	if builder.subscriptionTypeFlag {
+		req.SubscriptionType = &builder.subscriptionType
+
+	}
+	if builder.requestUrlFlag {
+		req.RequestUrl = &builder.requestUrl
+
+	}
+	if builder.addEventsFlag {
+		req.AddEvents = builder.addEvents
+	}
+	if builder.removeEventsFlag {
+		req.RemoveEvents = builder.removeEvents
+	}
+	return req
+}
+
+type AppConfigScope struct {
+	AddScopes    []*AppConfigScopeItem `json:"add_scopes,omitempty"`    // 新增权限
+	RemoveScopes []*AppConfigScopeItem `json:"remove_scopes,omitempty"` // 删除权限
+}
+
+type AppConfigScopeBuilder struct {
+	addScopes        []*AppConfigScopeItem // 新增权限
+	addScopesFlag    bool
+	removeScopes     []*AppConfigScopeItem // 删除权限
+	removeScopesFlag bool
+}
+
+func NewAppConfigScopeBuilder() *AppConfigScopeBuilder {
+	builder := &AppConfigScopeBuilder{}
+	return builder
+}
+
+// 新增权限
+//
+// 示例值：
+func (builder *AppConfigScopeBuilder) AddScopes(addScopes []*AppConfigScopeItem) *AppConfigScopeBuilder {
+	builder.addScopes = addScopes
+	builder.addScopesFlag = true
+	return builder
+}
+
+// 删除权限
+//
+// 示例值：
+func (builder *AppConfigScopeBuilder) RemoveScopes(removeScopes []*AppConfigScopeItem) *AppConfigScopeBuilder {
+	builder.removeScopes = removeScopes
+	builder.removeScopesFlag = true
+	return builder
+}
+
+func (builder *AppConfigScopeBuilder) Build() *AppConfigScope {
+	req := &AppConfigScope{}
+	if builder.addScopesFlag {
+		req.AddScopes = builder.addScopes
+	}
+	if builder.removeScopesFlag {
+		req.RemoveScopes = builder.removeScopes
+	}
+	return req
+}
+
+type AppConfigScopeItem struct {
+	ScopeName *string `json:"scope_name,omitempty"` // 权限名称
+	TokenType *string `json:"token_type,omitempty"` // 身份类型
+}
+
+type AppConfigScopeItemBuilder struct {
+	scopeName     string // 权限名称
+	scopeNameFlag bool
+	tokenType     string // 身份类型
+	tokenTypeFlag bool
+}
+
+func NewAppConfigScopeItemBuilder() *AppConfigScopeItemBuilder {
+	builder := &AppConfigScopeItemBuilder{}
+	return builder
+}
+
+// 权限名称
+//
+// 示例值：im:message
+func (builder *AppConfigScopeItemBuilder) ScopeName(scopeName string) *AppConfigScopeItemBuilder {
+	builder.scopeName = scopeName
+	builder.scopeNameFlag = true
+	return builder
+}
+
+// 身份类型
+//
+// 示例值：tenant
+func (builder *AppConfigScopeItemBuilder) TokenType(tokenType string) *AppConfigScopeItemBuilder {
+	builder.tokenType = tokenType
+	builder.tokenTypeFlag = true
+	return builder
+}
+
+func (builder *AppConfigScopeItemBuilder) Build() *AppConfigScopeItem {
+	req := &AppConfigScopeItem{}
+	if builder.scopeNameFlag {
+		req.ScopeName = &builder.scopeName
+
+	}
+	if builder.tokenTypeFlag {
+		req.TokenType = &builder.tokenType
+
+	}
+	return req
+}
+
+type AppConfigSecurity struct {
+	Add    *AppConfigSecurityItem `json:"add,omitempty"`    // 新增项
+	Remove *AppConfigSecurityItem `json:"remove,omitempty"` // 删除列表
+}
+
+type AppConfigSecurityBuilder struct {
+	add        *AppConfigSecurityItem // 新增项
+	addFlag    bool
+	remove     *AppConfigSecurityItem // 删除列表
+	removeFlag bool
+}
+
+func NewAppConfigSecurityBuilder() *AppConfigSecurityBuilder {
+	builder := &AppConfigSecurityBuilder{}
+	return builder
+}
+
+// 新增项
+//
+// 示例值：
+func (builder *AppConfigSecurityBuilder) Add(add *AppConfigSecurityItem) *AppConfigSecurityBuilder {
+	builder.add = add
+	builder.addFlag = true
+	return builder
+}
+
+// 删除列表
+//
+// 示例值：
+func (builder *AppConfigSecurityBuilder) Remove(remove *AppConfigSecurityItem) *AppConfigSecurityBuilder {
+	builder.remove = remove
+	builder.removeFlag = true
+	return builder
+}
+
+func (builder *AppConfigSecurityBuilder) Build() *AppConfigSecurity {
+	req := &AppConfigSecurity{}
+	if builder.addFlag {
+		req.Add = builder.add
+	}
+	if builder.removeFlag {
+		req.Remove = builder.remove
+	}
+	return req
+}
+
+type AppConfigSecurityItem struct {
+	RedirectUrls          []string `json:"redirect_urls,omitempty"`            // 重定向URL
+	AllowedIps            []string `json:"allowed_ips,omitempty"`              // IP白名单 IP需要填写调用方出口公网IP地址
+	H5TrustedDomains      []string `json:"h5_trusted_domains,omitempty"`       // H5可信域名仅可信域名内的 H5 可以访问 JSAPI，部分需要鉴权的 JSAPI 必填。
+	WebViewTrustedDomains []string `json:"web_view_trusted_domains,omitempty"` // Web-View 可信域名
+	AllowedSchemas        []string `json:"allowed_schemas,omitempty"`          // 小程序协议名白名单
+	AllowedServerDomains  []string `json:"allowed_server_domains,omitempty"`   // 服务器可信域名
+}
+
+type AppConfigSecurityItemBuilder struct {
+	redirectUrls              []string // 重定向URL
+	redirectUrlsFlag          bool
+	allowedIps                []string // IP白名单 IP需要填写调用方出口公网IP地址
+	allowedIpsFlag            bool
+	h5TrustedDomains          []string // H5可信域名仅可信域名内的 H5 可以访问 JSAPI，部分需要鉴权的 JSAPI 必填。
+	h5TrustedDomainsFlag      bool
+	webViewTrustedDomains     []string // Web-View 可信域名
+	webViewTrustedDomainsFlag bool
+	allowedSchemas            []string // 小程序协议名白名单
+	allowedSchemasFlag        bool
+	allowedServerDomains      []string // 服务器可信域名
+	allowedServerDomainsFlag  bool
+}
+
+func NewAppConfigSecurityItemBuilder() *AppConfigSecurityItemBuilder {
+	builder := &AppConfigSecurityItemBuilder{}
+	return builder
+}
+
+// 重定向URL
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) RedirectUrls(redirectUrls []string) *AppConfigSecurityItemBuilder {
+	builder.redirectUrls = redirectUrls
+	builder.redirectUrlsFlag = true
+	return builder
+}
+
+// IP白名单 IP需要填写调用方出口公网IP地址
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) AllowedIps(allowedIps []string) *AppConfigSecurityItemBuilder {
+	builder.allowedIps = allowedIps
+	builder.allowedIpsFlag = true
+	return builder
+}
+
+// H5可信域名仅可信域名内的 H5 可以访问 JSAPI，部分需要鉴权的 JSAPI 必填。
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) H5TrustedDomains(h5TrustedDomains []string) *AppConfigSecurityItemBuilder {
+	builder.h5TrustedDomains = h5TrustedDomains
+	builder.h5TrustedDomainsFlag = true
+	return builder
+}
+
+// Web-View 可信域名
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) WebViewTrustedDomains(webViewTrustedDomains []string) *AppConfigSecurityItemBuilder {
+	builder.webViewTrustedDomains = webViewTrustedDomains
+	builder.webViewTrustedDomainsFlag = true
+	return builder
+}
+
+// 小程序协议名白名单
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) AllowedSchemas(allowedSchemas []string) *AppConfigSecurityItemBuilder {
+	builder.allowedSchemas = allowedSchemas
+	builder.allowedSchemasFlag = true
+	return builder
+}
+
+// 服务器可信域名
+//
+// 示例值：
+func (builder *AppConfigSecurityItemBuilder) AllowedServerDomains(allowedServerDomains []string) *AppConfigSecurityItemBuilder {
+	builder.allowedServerDomains = allowedServerDomains
+	builder.allowedServerDomainsFlag = true
+	return builder
+}
+
+func (builder *AppConfigSecurityItemBuilder) Build() *AppConfigSecurityItem {
+	req := &AppConfigSecurityItem{}
+	if builder.redirectUrlsFlag {
+		req.RedirectUrls = builder.redirectUrls
+	}
+	if builder.allowedIpsFlag {
+		req.AllowedIps = builder.allowedIps
+	}
+	if builder.h5TrustedDomainsFlag {
+		req.H5TrustedDomains = builder.h5TrustedDomains
+	}
+	if builder.webViewTrustedDomainsFlag {
+		req.WebViewTrustedDomains = builder.webViewTrustedDomains
+	}
+	if builder.allowedSchemasFlag {
+		req.AllowedSchemas = builder.allowedSchemas
+	}
+	if builder.allowedServerDomainsFlag {
+		req.AllowedServerDomains = builder.allowedServerDomains
+	}
+	return req
+}
+
+type AppConfigVisibility struct {
+	IsVisibleToAll *bool                `json:"is_visible_to_all,omitempty"` // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	VisibleList    *AppVisibilityIdList `json:"visible_list,omitempty"`      // 可用人员列表
+}
+
+type AppConfigVisibilityBuilder struct {
+	isVisibleToAll     bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	isVisibleToAllFlag bool
+	visibleList        *AppVisibilityIdList // 可用人员列表
+	visibleListFlag    bool
+}
+
+func NewAppConfigVisibilityBuilder() *AppConfigVisibilityBuilder {
+	builder := &AppConfigVisibilityBuilder{}
+	return builder
+}
+
+// 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+//
+// 示例值：false
+func (builder *AppConfigVisibilityBuilder) IsVisibleToAll(isVisibleToAll bool) *AppConfigVisibilityBuilder {
+	builder.isVisibleToAll = isVisibleToAll
+	builder.isVisibleToAllFlag = true
+	return builder
+}
+
+// 可用人员列表
+//
+// 示例值：
+func (builder *AppConfigVisibilityBuilder) VisibleList(visibleList *AppVisibilityIdList) *AppConfigVisibilityBuilder {
+	builder.visibleList = visibleList
+	builder.visibleListFlag = true
+	return builder
+}
+
+func (builder *AppConfigVisibilityBuilder) Build() *AppConfigVisibility {
+	req := &AppConfigVisibility{}
+	if builder.isVisibleToAllFlag {
+		req.IsVisibleToAll = &builder.isVisibleToAll
+
+	}
+	if builder.visibleListFlag {
+		req.VisibleList = builder.visibleList
 	}
 	return req
 }
@@ -7638,6 +8295,7 @@ type P2ApplicationCreatedV6Data struct {
 	Avatar          *string `json:"avatar,omitempty"`           // 应用图标链接
 	AppSceneType    *int    `json:"app_scene_type,omitempty"`   // 应用类型，0: 自建应用，1: 应用商店应用
 	PrimaryLanguage *string `json:"primary_language,omitempty"` // 应用主语言
+	CreateSource    *string `json:"create_source,omitempty"`    // 应用创建来源
 }
 
 type P2ApplicationCreatedV6 struct {

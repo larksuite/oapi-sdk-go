@@ -1370,6 +1370,85 @@ func (builder *FoodProduceLicenseBuilder) Build() *FoodProduceLicense {
 	return req
 }
 
+type HealthCertificate struct {
+	Entities []*HealthCertificateEntity `json:"entities,omitempty"` // 识别出的实体类型
+}
+
+type HealthCertificateBuilder struct {
+	entities     []*HealthCertificateEntity // 识别出的实体类型
+	entitiesFlag bool
+}
+
+func NewHealthCertificateBuilder() *HealthCertificateBuilder {
+	builder := &HealthCertificateBuilder{}
+	return builder
+}
+
+// 识别出的实体类型
+//
+// 示例值：
+func (builder *HealthCertificateBuilder) Entities(entities []*HealthCertificateEntity) *HealthCertificateBuilder {
+	builder.entities = entities
+	builder.entitiesFlag = true
+	return builder
+}
+
+func (builder *HealthCertificateBuilder) Build() *HealthCertificate {
+	req := &HealthCertificate{}
+	if builder.entitiesFlag {
+		req.Entities = builder.entities
+	}
+	return req
+}
+
+type HealthCertificateEntity struct {
+	Type  *string `json:"type,omitempty"`  // 识别的字段种类
+	Value *string `json:"value,omitempty"` // 识别出字段的文本信息
+}
+
+type HealthCertificateEntityBuilder struct {
+	type_     string // 识别的字段种类
+	typeFlag  bool
+	value     string // 识别出字段的文本信息
+	valueFlag bool
+}
+
+func NewHealthCertificateEntityBuilder() *HealthCertificateEntityBuilder {
+	builder := &HealthCertificateEntityBuilder{}
+	return builder
+}
+
+// 识别的字段种类
+//
+// 示例值：id_number
+func (builder *HealthCertificateEntityBuilder) Type(type_ string) *HealthCertificateEntityBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 识别出字段的文本信息
+//
+// 示例值：张三
+func (builder *HealthCertificateEntityBuilder) Value(value string) *HealthCertificateEntityBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *HealthCertificateEntityBuilder) Build() *HealthCertificateEntity {
+	req := &HealthCertificateEntity{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
 type HkmMainlandTravelPermit struct {
 	Entities []*HkmMainlandTravelPermitEntity `json:"entities,omitempty"` // 识别出的实体类型
 }
@@ -2039,6 +2118,85 @@ func (builder *VehicleEntityBuilder) Value(value string) *VehicleEntityBuilder {
 
 func (builder *VehicleEntityBuilder) Build() *VehicleEntity {
 	req := &VehicleEntity{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type VehicleInvoice struct {
+	Entities []*VehicleInvoiceEntity `json:"entities,omitempty"` // 识别出的实体类型
+}
+
+type VehicleInvoiceBuilder struct {
+	entities     []*VehicleInvoiceEntity // 识别出的实体类型
+	entitiesFlag bool
+}
+
+func NewVehicleInvoiceBuilder() *VehicleInvoiceBuilder {
+	builder := &VehicleInvoiceBuilder{}
+	return builder
+}
+
+// 识别出的实体类型
+//
+// 示例值：
+func (builder *VehicleInvoiceBuilder) Entities(entities []*VehicleInvoiceEntity) *VehicleInvoiceBuilder {
+	builder.entities = entities
+	builder.entitiesFlag = true
+	return builder
+}
+
+func (builder *VehicleInvoiceBuilder) Build() *VehicleInvoice {
+	req := &VehicleInvoice{}
+	if builder.entitiesFlag {
+		req.Entities = builder.entities
+	}
+	return req
+}
+
+type VehicleInvoiceEntity struct {
+	Type  *string `json:"type,omitempty"`  // 识别的字段种类
+	Value *string `json:"value,omitempty"` // 识别出字段的文本信息
+}
+
+type VehicleInvoiceEntityBuilder struct {
+	type_     string // 识别的字段种类
+	typeFlag  bool
+	value     string // 识别出字段的文本信息
+	valueFlag bool
+}
+
+func NewVehicleInvoiceEntityBuilder() *VehicleInvoiceEntityBuilder {
+	builder := &VehicleInvoiceEntityBuilder{}
+	return builder
+}
+
+// 识别的字段种类
+//
+// 示例值：SalerName
+func (builder *VehicleInvoiceEntityBuilder) Type(type_ string) *VehicleInvoiceEntityBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 识别出字段的文本信息
+//
+// 示例值：xxxx公司
+func (builder *VehicleInvoiceEntityBuilder) Value(value string) *VehicleInvoiceEntityBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *VehicleInvoiceEntityBuilder) Build() *VehicleInvoiceEntity {
+	req := &VehicleInvoiceEntity{}
 	if builder.typeFlag {
 		req.Type = &builder.type_
 
@@ -3010,6 +3168,114 @@ func (resp *RecognizeFoodProduceLicenseResp) Success() bool {
 	return resp.Code == 0
 }
 
+type RecognizeHealthCertificateReqBodyBuilder struct {
+	file     io.Reader // 识别的健康证源文件
+	fileFlag bool
+}
+
+func NewRecognizeHealthCertificateReqBodyBuilder() *RecognizeHealthCertificateReqBodyBuilder {
+	builder := &RecognizeHealthCertificateReqBodyBuilder{}
+	return builder
+}
+
+// 识别的健康证源文件
+//
+//示例值：
+func (builder *RecognizeHealthCertificateReqBodyBuilder) File(file io.Reader) *RecognizeHealthCertificateReqBodyBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+
+func (builder *RecognizeHealthCertificateReqBodyBuilder) Build() *RecognizeHealthCertificateReqBody {
+	req := &RecognizeHealthCertificateReqBody{}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	return req
+}
+
+type RecognizeHealthCertificatePathReqBodyBuilder struct {
+	filePath     string // 识别的健康证源文件
+	filePathFlag bool
+}
+
+func NewRecognizeHealthCertificatePathReqBodyBuilder() *RecognizeHealthCertificatePathReqBodyBuilder {
+	builder := &RecognizeHealthCertificatePathReqBodyBuilder{}
+	return builder
+}
+
+// 识别的健康证源文件
+//
+// 示例值：
+func (builder *RecognizeHealthCertificatePathReqBodyBuilder) FilePath(filePath string) *RecognizeHealthCertificatePathReqBodyBuilder {
+	builder.filePath = filePath
+	builder.filePathFlag = true
+	return builder
+}
+
+func (builder *RecognizeHealthCertificatePathReqBodyBuilder) Build() (*RecognizeHealthCertificateReqBody, error) {
+	req := &RecognizeHealthCertificateReqBody{}
+	if builder.filePathFlag {
+		data, err := larkcore.File2Bytes(builder.filePath)
+		if err != nil {
+			return nil, err
+		}
+		req.File = bytes.NewBuffer(data)
+	}
+	return req, nil
+}
+
+type RecognizeHealthCertificateReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecognizeHealthCertificateReqBody
+}
+
+func NewRecognizeHealthCertificateReqBuilder() *RecognizeHealthCertificateReqBuilder {
+	builder := &RecognizeHealthCertificateReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *RecognizeHealthCertificateReqBuilder) Body(body *RecognizeHealthCertificateReqBody) *RecognizeHealthCertificateReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecognizeHealthCertificateReqBuilder) Build() *RecognizeHealthCertificateReq {
+	req := &RecognizeHealthCertificateReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecognizeHealthCertificateReqBody struct {
+	File io.Reader `json:"file,omitempty"` // 识别的健康证源文件
+}
+
+type RecognizeHealthCertificateReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecognizeHealthCertificateReqBody `body:""`
+}
+
+type RecognizeHealthCertificateRespData struct {
+	HealthCertificate *HealthCertificate `json:"health_certificate,omitempty"` // 健康证信息
+}
+
+type RecognizeHealthCertificateResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecognizeHealthCertificateRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecognizeHealthCertificateResp) Success() bool {
+	return resp.Code == 0
+}
+
 type RecognizeHkmMainlandTravelPermitReqBodyBuilder struct {
 	file     io.Reader // 识别的港澳居民来往内地通行证源文件
 	fileFlag bool
@@ -3655,6 +3921,114 @@ type RecognizeVatInvoiceResp struct {
 }
 
 func (resp *RecognizeVatInvoiceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecognizeVehicleInvoiceReqBodyBuilder struct {
+	file     io.Reader // 识别的机动车发票源文件
+	fileFlag bool
+}
+
+func NewRecognizeVehicleInvoiceReqBodyBuilder() *RecognizeVehicleInvoiceReqBodyBuilder {
+	builder := &RecognizeVehicleInvoiceReqBodyBuilder{}
+	return builder
+}
+
+// 识别的机动车发票源文件
+//
+//示例值：
+func (builder *RecognizeVehicleInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVehicleInvoiceReqBodyBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+
+func (builder *RecognizeVehicleInvoiceReqBodyBuilder) Build() *RecognizeVehicleInvoiceReqBody {
+	req := &RecognizeVehicleInvoiceReqBody{}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	return req
+}
+
+type RecognizeVehicleInvoicePathReqBodyBuilder struct {
+	filePath     string // 识别的机动车发票源文件
+	filePathFlag bool
+}
+
+func NewRecognizeVehicleInvoicePathReqBodyBuilder() *RecognizeVehicleInvoicePathReqBodyBuilder {
+	builder := &RecognizeVehicleInvoicePathReqBodyBuilder{}
+	return builder
+}
+
+// 识别的机动车发票源文件
+//
+// 示例值：
+func (builder *RecognizeVehicleInvoicePathReqBodyBuilder) FilePath(filePath string) *RecognizeVehicleInvoicePathReqBodyBuilder {
+	builder.filePath = filePath
+	builder.filePathFlag = true
+	return builder
+}
+
+func (builder *RecognizeVehicleInvoicePathReqBodyBuilder) Build() (*RecognizeVehicleInvoiceReqBody, error) {
+	req := &RecognizeVehicleInvoiceReqBody{}
+	if builder.filePathFlag {
+		data, err := larkcore.File2Bytes(builder.filePath)
+		if err != nil {
+			return nil, err
+		}
+		req.File = bytes.NewBuffer(data)
+	}
+	return req, nil
+}
+
+type RecognizeVehicleInvoiceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecognizeVehicleInvoiceReqBody
+}
+
+func NewRecognizeVehicleInvoiceReqBuilder() *RecognizeVehicleInvoiceReqBuilder {
+	builder := &RecognizeVehicleInvoiceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *RecognizeVehicleInvoiceReqBuilder) Body(body *RecognizeVehicleInvoiceReqBody) *RecognizeVehicleInvoiceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecognizeVehicleInvoiceReqBuilder) Build() *RecognizeVehicleInvoiceReq {
+	req := &RecognizeVehicleInvoiceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecognizeVehicleInvoiceReqBody struct {
+	File io.Reader `json:"file,omitempty"` // 识别的机动车发票源文件
+}
+
+type RecognizeVehicleInvoiceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecognizeVehicleInvoiceReqBody `body:""`
+}
+
+type RecognizeVehicleInvoiceRespData struct {
+	VehicleInvoice *VehicleInvoice `json:"vehicle_invoice,omitempty"` // 机动车发票信息
+}
+
+type RecognizeVehicleInvoiceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecognizeVehicleInvoiceRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecognizeVehicleInvoiceResp) Success() bool {
 	return resp.Code == 0
 }
 

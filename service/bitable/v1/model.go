@@ -2698,7 +2698,7 @@ type AppTableViewPropertyFilterInfoCondition struct {
 	Operator    *string `json:"operator,omitempty"`     // 过滤操作的类型
 	Value       *string `json:"value,omitempty"`        // 筛选值
 	ConditionId *string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
-	FieldType   *string `json:"field_type,omitempty"`   // 用于过滤的字段类型
+	FieldType   *int    `json:"field_type,omitempty"`   // 用于过滤的字段类型
 }
 
 type AppTableViewPropertyFilterInfoConditionBuilder struct {
@@ -2710,7 +2710,7 @@ type AppTableViewPropertyFilterInfoConditionBuilder struct {
 	valueFlag       bool
 	conditionId     string // 过滤条件的唯一ID
 	conditionIdFlag bool
-	fieldType       string // 用于过滤的字段类型
+	fieldType       int // 用于过滤的字段类型
 	fieldTypeFlag   bool
 }
 
@@ -2758,7 +2758,7 @@ func (builder *AppTableViewPropertyFilterInfoConditionBuilder) ConditionId(condi
 // 用于过滤的字段类型
 //
 // 示例值：3
-func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldType(fieldType string) *AppTableViewPropertyFilterInfoConditionBuilder {
+func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldType(fieldType int) *AppTableViewPropertyFilterInfoConditionBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeFlag = true
 	return builder

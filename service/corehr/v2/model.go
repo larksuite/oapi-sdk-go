@@ -57,6 +57,41 @@ const (
 )
 
 const (
+	UserIdTypeCreateCostCenterUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeCreateCostCenterUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeCreateCostCenterOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeCreateCostCenterPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypePatchCostCenterUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypePatchCostCenterUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypePatchCostCenterOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypePatchCostCenterPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypeSearchCostCenterUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeSearchCostCenterUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeSearchCostCenterOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeSearchCostCenterPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypeCreateCostCenterVersionUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeCreateCostCenterVersionUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeCreateCostCenterVersionOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeCreateCostCenterVersionPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypePatchCostCenterVersionUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypePatchCostCenterVersionUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypePatchCostCenterVersionOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypePatchCostCenterVersionPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
 	DepartmentIdTypeParentsDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
 	DepartmentIdTypeParentsDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
 	DepartmentIdTypeParentsDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
@@ -385,6 +420,8 @@ type Address struct {
 	CountryRegionId          *string `json:"country_region_id,omitempty"`           // 国家 / 地区
 	RegionId                 *string `json:"region_id,omitempty"`                   // 主要行政区
 
+	CityIdV2          *string            `json:"city_id_v2,omitempty"`          // 城市
+	DistrictIdV2      *string            `json:"district_id_v2,omitempty"`      // 区/县
 	LocalAddressLine1 *string            `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2 *string            `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3 *string            `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）
@@ -413,6 +450,10 @@ type AddressBuilder struct {
 	regionId                     string // 主要行政区
 	regionIdFlag                 bool
 
+	cityIdV2              string // 城市
+	cityIdV2Flag          bool
+	districtIdV2          string // 区/县
+	districtIdV2Flag      bool
 	localAddressLine1     string // 地址行 1（非拉丁语系的本地文字）
 	localAddressLine1Flag bool
 	localAddressLine2     string // 地址行 2（非拉丁语系的本地文字）
@@ -490,6 +531,24 @@ func (builder *AddressBuilder) CountryRegionId(countryRegionId string) *AddressB
 func (builder *AddressBuilder) RegionId(regionId string) *AddressBuilder {
 	builder.regionId = regionId
 	builder.regionIdFlag = true
+	return builder
+}
+
+// 城市
+//
+// 示例值：6863333254578046471
+func (builder *AddressBuilder) CityIdV2(cityIdV2 string) *AddressBuilder {
+	builder.cityIdV2 = cityIdV2
+	builder.cityIdV2Flag = true
+	return builder
+}
+
+// 区/县
+//
+// 示例值：6863333516579440141
+func (builder *AddressBuilder) DistrictIdV2(districtIdV2 string) *AddressBuilder {
+	builder.districtIdV2 = districtIdV2
+	builder.districtIdV2Flag = true
 	return builder
 }
 
@@ -642,6 +701,14 @@ func (builder *AddressBuilder) Build() *Address {
 
 	}
 
+	if builder.cityIdV2Flag {
+		req.CityIdV2 = &builder.cityIdV2
+
+	}
+	if builder.districtIdV2Flag {
+		req.DistrictIdV2 = &builder.districtIdV2
+
+	}
 	if builder.localAddressLine1Flag {
 		req.LocalAddressLine1 = &builder.localAddressLine1
 
@@ -1260,6 +1327,8 @@ type BankAccount struct {
 
 	BranchName *string `json:"branch_name,omitempty"` // 支行名称
 
+	BankIdV2         *string            `json:"bank_id_v2,omitempty"`         // 银行 ID，详细信息可通过【查询银行信息】接口查询获得
+	BranchIdV2       *string            `json:"branch_id_v2,omitempty"`       // 支行 ID，要求必须为填入银行的支行，详细信息可通过【查询支行信息】接口查询获得
 	CountryRegionId  *string            `json:"country_region_id,omitempty"`  // 国家/地区 ID，详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage []*Enum            `json:"bank_account_usage,omitempty"` // 银行卡用途，枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType  *Enum              `json:"bank_account_type,omitempty"`  // 银行卡类型，枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
@@ -1279,6 +1348,10 @@ type BankAccountBuilder struct {
 	branchName     string // 支行名称
 	branchNameFlag bool
 
+	bankIdV2             string // 银行 ID，详细信息可通过【查询银行信息】接口查询获得
+	bankIdV2Flag         bool
+	branchIdV2           string // 支行 ID，要求必须为填入银行的支行，详细信息可通过【查询支行信息】接口查询获得
+	branchIdV2Flag       bool
 	countryRegionId      string // 国家/地区 ID，详细信息可通过【查询国家/地区信息】接口查询获得
 	countryRegionIdFlag  bool
 	bankAccountUsage     []*Enum // 银行卡用途，枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
@@ -1331,6 +1404,24 @@ func (builder *BankAccountBuilder) AccountHolder(accountHolder string) *BankAcco
 func (builder *BankAccountBuilder) BranchName(branchName string) *BankAccountBuilder {
 	builder.branchName = branchName
 	builder.branchNameFlag = true
+	return builder
+}
+
+// 银行 ID，详细信息可通过【查询银行信息】接口查询获得
+//
+// 示例值：MDBH00000001
+func (builder *BankAccountBuilder) BankIdV2(bankIdV2 string) *BankAccountBuilder {
+	builder.bankIdV2 = bankIdV2
+	builder.bankIdV2Flag = true
+	return builder
+}
+
+// 支行 ID，要求必须为填入银行的支行，详细信息可通过【查询支行信息】接口查询获得
+//
+// 示例值：MDBK00000017
+func (builder *BankAccountBuilder) BranchIdV2(branchIdV2 string) *BankAccountBuilder {
+	builder.branchIdV2 = branchIdV2
+	builder.branchIdV2Flag = true
 	return builder
 }
 
@@ -1408,6 +1499,14 @@ func (builder *BankAccountBuilder) Build() *BankAccount {
 
 	}
 
+	if builder.bankIdV2Flag {
+		req.BankIdV2 = &builder.bankIdV2
+
+	}
+	if builder.branchIdV2Flag {
+		req.BranchIdV2 = &builder.branchIdV2
+
+	}
 	if builder.countryRegionIdFlag {
 		req.CountryRegionId = &builder.countryRegionId
 
@@ -2321,60 +2420,66 @@ func (builder *CityBuilder) Build() *City {
 }
 
 type Company struct {
-	CompanyId               *string                 `json:"company_id,omitempty"`                // 公司 ID
-	HiberarchyCommon        *HiberarchyCommon       `json:"hiberarchy_common,omitempty"`         // 公司基本信息
-	Type                    *Enum                   `json:"type,omitempty"`                      // 性质
-	IndustryList            []*Enum                 `json:"industry_list,omitempty"`             // 行业
-	LegalRepresentative     []*I18n                 `json:"legal_representative,omitempty"`      // 法定代表人
-	PostCode                *string                 `json:"post_code,omitempty"`                 // 邮编
-	TaxPayerId              *string                 `json:"tax_payer_id,omitempty"`              // 纳税人识别号
-	Confidential            *bool                   `json:"confidential,omitempty"`              // confidential
-	SubTypeList             []*Enum                 `json:"sub_type_list,omitempty"`             // 主体类型
-	BranchCompany           *bool                   `json:"branch_company,omitempty"`            // 是否为分公司
-	PrimaryManager          []*I18n                 `json:"primary_manager,omitempty"`           // 主要负责人
-	Currency                *Currency               `json:"currency,omitempty"`                  // 默认币种
-	Phone                   *PhoneNumberAndAreaCode `json:"phone,omitempty"`                     // 电话
-	Fax                     *PhoneNumberAndAreaCode `json:"fax,omitempty"`                       // 传真
-	RegisteredOfficeAddress []*I18n                 `json:"registered_office_address,omitempty"` // 注册地址
-	OfficeAddress           []*I18n                 `json:"office_address,omitempty"`            // 办公地址
-	CustomFields            []*CustomFieldData      `json:"custom_fields,omitempty"`             // 自定义字段
+	CompanyId                   *string                 `json:"company_id,omitempty"`                     // 公司 ID
+	HiberarchyCommon            *HiberarchyCommon       `json:"hiberarchy_common,omitempty"`              // 公司基本信息
+	Type                        *Enum                   `json:"type,omitempty"`                           // 性质
+	IndustryList                []*Enum                 `json:"industry_list,omitempty"`                  // 行业
+	LegalRepresentative         []*I18n                 `json:"legal_representative,omitempty"`           // 法定代表人
+	PostCode                    *string                 `json:"post_code,omitempty"`                      // 邮编
+	TaxPayerId                  *string                 `json:"tax_payer_id,omitempty"`                   // 纳税人识别号
+	Confidential                *bool                   `json:"confidential,omitempty"`                   // confidential
+	SubTypeList                 []*Enum                 `json:"sub_type_list,omitempty"`                  // 主体类型
+	BranchCompany               *bool                   `json:"branch_company,omitempty"`                 // 是否为分公司
+	PrimaryManager              []*I18n                 `json:"primary_manager,omitempty"`                // 主要负责人
+	Currency                    *Currency               `json:"currency,omitempty"`                       // 默认币种
+	Phone                       *PhoneNumberAndAreaCode `json:"phone,omitempty"`                          // 电话
+	Fax                         *PhoneNumberAndAreaCode `json:"fax,omitempty"`                            // 传真
+	RegisteredOfficeAddress     []*I18n                 `json:"registered_office_address,omitempty"`      // 完整注册地址
+	OfficeAddress               []*I18n                 `json:"office_address,omitempty"`                 // 完整办公地址
+	RegisteredOfficeAddressInfo *Address                `json:"registered_office_address_info,omitempty"` // 注册地址
+	OfficeAddressInfo           *Address                `json:"office_address_info,omitempty"`            // 办公地址
+	CustomFields                []*CustomFieldData      `json:"custom_fields,omitempty"`                  // 自定义字段
 }
 
 type CompanyBuilder struct {
-	companyId                   string // 公司 ID
-	companyIdFlag               bool
-	hiberarchyCommon            *HiberarchyCommon // 公司基本信息
-	hiberarchyCommonFlag        bool
-	type_                       *Enum // 性质
-	typeFlag                    bool
-	industryList                []*Enum // 行业
-	industryListFlag            bool
-	legalRepresentative         []*I18n // 法定代表人
-	legalRepresentativeFlag     bool
-	postCode                    string // 邮编
-	postCodeFlag                bool
-	taxPayerId                  string // 纳税人识别号
-	taxPayerIdFlag              bool
-	confidential                bool // confidential
-	confidentialFlag            bool
-	subTypeList                 []*Enum // 主体类型
-	subTypeListFlag             bool
-	branchCompany               bool // 是否为分公司
-	branchCompanyFlag           bool
-	primaryManager              []*I18n // 主要负责人
-	primaryManagerFlag          bool
-	currency                    *Currency // 默认币种
-	currencyFlag                bool
-	phone                       *PhoneNumberAndAreaCode // 电话
-	phoneFlag                   bool
-	fax                         *PhoneNumberAndAreaCode // 传真
-	faxFlag                     bool
-	registeredOfficeAddress     []*I18n // 注册地址
-	registeredOfficeAddressFlag bool
-	officeAddress               []*I18n // 办公地址
-	officeAddressFlag           bool
-	customFields                []*CustomFieldData // 自定义字段
-	customFieldsFlag            bool
+	companyId                       string // 公司 ID
+	companyIdFlag                   bool
+	hiberarchyCommon                *HiberarchyCommon // 公司基本信息
+	hiberarchyCommonFlag            bool
+	type_                           *Enum // 性质
+	typeFlag                        bool
+	industryList                    []*Enum // 行业
+	industryListFlag                bool
+	legalRepresentative             []*I18n // 法定代表人
+	legalRepresentativeFlag         bool
+	postCode                        string // 邮编
+	postCodeFlag                    bool
+	taxPayerId                      string // 纳税人识别号
+	taxPayerIdFlag                  bool
+	confidential                    bool // confidential
+	confidentialFlag                bool
+	subTypeList                     []*Enum // 主体类型
+	subTypeListFlag                 bool
+	branchCompany                   bool // 是否为分公司
+	branchCompanyFlag               bool
+	primaryManager                  []*I18n // 主要负责人
+	primaryManagerFlag              bool
+	currency                        *Currency // 默认币种
+	currencyFlag                    bool
+	phone                           *PhoneNumberAndAreaCode // 电话
+	phoneFlag                       bool
+	fax                             *PhoneNumberAndAreaCode // 传真
+	faxFlag                         bool
+	registeredOfficeAddress         []*I18n // 完整注册地址
+	registeredOfficeAddressFlag     bool
+	officeAddress                   []*I18n // 完整办公地址
+	officeAddressFlag               bool
+	registeredOfficeAddressInfo     *Address // 注册地址
+	registeredOfficeAddressInfoFlag bool
+	officeAddressInfo               *Address // 办公地址
+	officeAddressInfoFlag           bool
+	customFields                    []*CustomFieldData // 自定义字段
+	customFieldsFlag                bool
 }
 
 func NewCompanyBuilder() *CompanyBuilder {
@@ -2508,7 +2613,7 @@ func (builder *CompanyBuilder) Fax(fax *PhoneNumberAndAreaCode) *CompanyBuilder 
 	return builder
 }
 
-// 注册地址
+// 完整注册地址
 //
 // 示例值：
 func (builder *CompanyBuilder) RegisteredOfficeAddress(registeredOfficeAddress []*I18n) *CompanyBuilder {
@@ -2517,12 +2622,30 @@ func (builder *CompanyBuilder) RegisteredOfficeAddress(registeredOfficeAddress [
 	return builder
 }
 
-// 办公地址
+// 完整办公地址
 //
 // 示例值：
 func (builder *CompanyBuilder) OfficeAddress(officeAddress []*I18n) *CompanyBuilder {
 	builder.officeAddress = officeAddress
 	builder.officeAddressFlag = true
+	return builder
+}
+
+// 注册地址
+//
+// 示例值：
+func (builder *CompanyBuilder) RegisteredOfficeAddressInfo(registeredOfficeAddressInfo *Address) *CompanyBuilder {
+	builder.registeredOfficeAddressInfo = registeredOfficeAddressInfo
+	builder.registeredOfficeAddressInfoFlag = true
+	return builder
+}
+
+// 办公地址
+//
+// 示例值：
+func (builder *CompanyBuilder) OfficeAddressInfo(officeAddressInfo *Address) *CompanyBuilder {
+	builder.officeAddressInfo = officeAddressInfo
+	builder.officeAddressInfoFlag = true
 	return builder
 }
 
@@ -2589,6 +2712,12 @@ func (builder *CompanyBuilder) Build() *Company {
 	}
 	if builder.officeAddressFlag {
 		req.OfficeAddress = builder.officeAddress
+	}
+	if builder.registeredOfficeAddressInfoFlag {
+		req.RegisteredOfficeAddressInfo = builder.registeredOfficeAddressInfo
+	}
+	if builder.officeAddressInfoFlag {
+		req.OfficeAddressInfo = builder.officeAddressInfo
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
@@ -4354,6 +4483,7 @@ type Dependent struct {
 	Gender       *Enum       `json:"gender,omitempty"`        // 性别
 	DateOfBirth  *string     `json:"date_of_birth,omitempty"` // 生日
 
+	NationalityIdV2                      *string            `json:"nationality_id_v2,omitempty"`                          // 国籍 ID，可通过【查询国籍信息】接口查询
 	NationalIdList                       []*NationalId      `json:"national_id_list,omitempty"`                           // 证件号码
 	SpousesWorkingStatus                 *Enum              `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
 	IsThisPersonCoveredByHealthInsurance *bool              `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
@@ -4377,6 +4507,8 @@ type DependentBuilder struct {
 	dateOfBirth      string // 生日
 	dateOfBirthFlag  bool
 
+	nationalityIdV2                          string // 国籍 ID，可通过【查询国籍信息】接口查询
+	nationalityIdV2Flag                      bool
 	nationalIdList                           []*NationalId // 证件号码
 	nationalIdListFlag                       bool
 	spousesWorkingStatus                     *Enum // 配偶工作状态
@@ -4439,6 +4571,15 @@ func (builder *DependentBuilder) Gender(gender *Enum) *DependentBuilder {
 func (builder *DependentBuilder) DateOfBirth(dateOfBirth string) *DependentBuilder {
 	builder.dateOfBirth = dateOfBirth
 	builder.dateOfBirthFlag = true
+	return builder
+}
+
+// 国籍 ID，可通过【查询国籍信息】接口查询
+//
+// 示例值：6862995745046267401
+func (builder *DependentBuilder) NationalityIdV2(nationalityIdV2 string) *DependentBuilder {
+	builder.nationalityIdV2 = nationalityIdV2
+	builder.nationalityIdV2Flag = true
 	return builder
 }
 
@@ -4557,6 +4698,10 @@ func (builder *DependentBuilder) Build() *Dependent {
 
 	}
 
+	if builder.nationalityIdV2Flag {
+		req.NationalityIdV2 = &builder.nationalityIdV2
+
+	}
 	if builder.nationalIdListFlag {
 		req.NationalIdList = builder.nationalIdList
 	}
@@ -10439,6 +10584,7 @@ type OnboardingTask struct {
 	TaskName   *string `json:"task_name,omitempty"`   // 任务名称
 	TaskStatus *string `json:"task_status,omitempty"` // 任务名称
 	OperatorId *string `json:"operator_id,omitempty"` // 当前操作人雇佣 ID
+	TaskCode   *string `json:"task_code,omitempty"`   // 任务code
 }
 
 type OnboardingTaskBuilder struct {
@@ -10448,6 +10594,8 @@ type OnboardingTaskBuilder struct {
 	taskStatusFlag bool
 	operatorId     string // 当前操作人雇佣 ID
 	operatorIdFlag bool
+	taskCode       string // 任务code
+	taskCodeFlag   bool
 }
 
 func NewOnboardingTaskBuilder() *OnboardingTaskBuilder {
@@ -10482,6 +10630,15 @@ func (builder *OnboardingTaskBuilder) OperatorId(operatorId string) *OnboardingT
 	return builder
 }
 
+// 任务code
+//
+// 示例值：task_11
+func (builder *OnboardingTaskBuilder) TaskCode(taskCode string) *OnboardingTaskBuilder {
+	builder.taskCode = taskCode
+	builder.taskCodeFlag = true
+	return builder
+}
+
 func (builder *OnboardingTaskBuilder) Build() *OnboardingTask {
 	req := &OnboardingTask{}
 	if builder.taskNameFlag {
@@ -10494,6 +10651,10 @@ func (builder *OnboardingTaskBuilder) Build() *OnboardingTask {
 	}
 	if builder.operatorIdFlag {
 		req.OperatorId = &builder.operatorId
+
+	}
+	if builder.taskCodeFlag {
+		req.TaskCode = &builder.taskCode
 
 	}
 	return req
@@ -10510,6 +10671,7 @@ type PersonInfo struct {
 	Gender                   *Enum         `json:"gender,omitempty"`                      // -| 性别，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：gender - object_api_name：person
 	DateOfBirth              *string       `json:"date_of_birth,omitempty"`               // 出生日期
 
+	NationalityIdV2          *string               `json:"nationality_id_v2,omitempty"`           // 国籍 ID，可通过【查询国籍信息】接口查询
 	Race                     *Enum                 `json:"race,omitempty"`                        // -| 民族 / 种族，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：ethnicity_race - object_api_name：person
 	MaritalStatus            *Enum                 `json:"marital_status,omitempty"`              // -| 婚姻状况，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：marital_status - object_api_name：person
 	PhoneList                []*Phone              `json:"phone_list,omitempty"`                  // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见
@@ -10569,6 +10731,8 @@ type PersonInfoBuilder struct {
 	dateOfBirth                  string // 出生日期
 	dateOfBirthFlag              bool
 
+	nationalityIdV2              string // 国籍 ID，可通过【查询国籍信息】接口查询
+	nationalityIdV2Flag          bool
 	race                         *Enum // -| 民族 / 种族，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：ethnicity_race - object_api_name：person
 	raceFlag                     bool
 	maritalStatus                *Enum // -| 婚姻状况，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：marital_status - object_api_name：person
@@ -10728,6 +10892,15 @@ func (builder *PersonInfoBuilder) Gender(gender *Enum) *PersonInfoBuilder {
 func (builder *PersonInfoBuilder) DateOfBirth(dateOfBirth string) *PersonInfoBuilder {
 	builder.dateOfBirth = dateOfBirth
 	builder.dateOfBirthFlag = true
+	return builder
+}
+
+// 国籍 ID，可通过【查询国籍信息】接口查询
+//
+// 示例值：6862995757234914821
+func (builder *PersonInfoBuilder) NationalityIdV2(nationalityIdV2 string) *PersonInfoBuilder {
+	builder.nationalityIdV2 = nationalityIdV2
+	builder.nationalityIdV2Flag = true
 	return builder
 }
 
@@ -11101,6 +11274,10 @@ func (builder *PersonInfoBuilder) Build() *PersonInfo {
 
 	}
 
+	if builder.nationalityIdV2Flag {
+		req.NationalityIdV2 = &builder.nationalityIdV2
+
+	}
 	if builder.raceFlag {
 		req.Race = builder.race
 	}
@@ -11949,6 +12126,7 @@ type PreHire struct {
 	ProbationInfo  *PreHireProbationInfo  `json:"probation_info,omitempty"`  // 试用期信息
 	ContractInfo   *PreHireContractInfo   `json:"contract_info,omitempty"`   // 合同信息
 	PreHireId      *string                `json:"pre_hire_id,omitempty"`     // 待入职 id
+
 }
 
 type PreHireBuilder struct {
@@ -12046,6 +12224,7 @@ func (builder *PreHireBuilder) Build() *PreHire {
 		req.PreHireId = &builder.preHireId
 
 	}
+
 	return req
 }
 
@@ -16259,6 +16438,1505 @@ func (builder *WorkforcePlanEaiDetailBuilder) Build() *WorkforcePlanEaiDetail {
 	return req
 }
 
+type SearchBasicInfoBankReqBodyBuilder struct {
+	bankIdList       []string // 银行 ID 列表，与「银行名称列表」查询条件至少填写一项
+	bankIdListFlag   bool
+	bankNameList     []string // 银行名称列表，支持对银行名称精确搜索
+	bankNameListFlag bool
+	statusList       []int // 状态列表
+	statusListFlag   bool
+}
+
+func NewSearchBasicInfoBankReqBodyBuilder() *SearchBasicInfoBankReqBodyBuilder {
+	builder := &SearchBasicInfoBankReqBodyBuilder{}
+	return builder
+}
+
+// 银行 ID 列表，与「银行名称列表」查询条件至少填写一项
+//
+//示例值：
+func (builder *SearchBasicInfoBankReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankReqBodyBuilder {
+	builder.bankIdList = bankIdList
+	builder.bankIdListFlag = true
+	return builder
+}
+
+// 银行名称列表，支持对银行名称精确搜索
+//
+//示例值：
+func (builder *SearchBasicInfoBankReqBodyBuilder) BankNameList(bankNameList []string) *SearchBasicInfoBankReqBodyBuilder {
+	builder.bankNameList = bankNameList
+	builder.bankNameListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoBankReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoBankReqBodyBuilder) Build() *SearchBasicInfoBankReqBody {
+	req := &SearchBasicInfoBankReqBody{}
+	if builder.bankIdListFlag {
+		req.BankIdList = builder.bankIdList
+	}
+	if builder.bankNameListFlag {
+		req.BankNameList = builder.bankNameList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoBankPathReqBodyBuilder struct {
+	bankIdList       []string
+	bankIdListFlag   bool
+	bankNameList     []string
+	bankNameListFlag bool
+	statusList       []int
+	statusListFlag   bool
+}
+
+func NewSearchBasicInfoBankPathReqBodyBuilder() *SearchBasicInfoBankPathReqBodyBuilder {
+	builder := &SearchBasicInfoBankPathReqBodyBuilder{}
+	return builder
+}
+
+// 银行 ID 列表，与「银行名称列表」查询条件至少填写一项
+//
+// 示例值：
+func (builder *SearchBasicInfoBankPathReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankPathReqBodyBuilder {
+	builder.bankIdList = bankIdList
+	builder.bankIdListFlag = true
+	return builder
+}
+
+// 银行名称列表，支持对银行名称精确搜索
+//
+// 示例值：
+func (builder *SearchBasicInfoBankPathReqBodyBuilder) BankNameList(bankNameList []string) *SearchBasicInfoBankPathReqBodyBuilder {
+	builder.bankNameList = bankNameList
+	builder.bankNameListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoBankPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoBankPathReqBodyBuilder) Build() (*SearchBasicInfoBankReqBody, error) {
+	req := &SearchBasicInfoBankReqBody{}
+	if builder.bankIdListFlag {
+		req.BankIdList = builder.bankIdList
+	}
+	if builder.bankNameListFlag {
+		req.BankNameList = builder.bankNameList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoBankReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoBankReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoBankReqBuilder() *SearchBasicInfoBankReqBuilder {
+	builder := &SearchBasicInfoBankReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoBankReqBuilder) Limit(limit int) *SearchBasicInfoBankReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoBankReqBuilder) PageSize(pageSize int) *SearchBasicInfoBankReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoBankReqBuilder) PageToken(pageToken string) *SearchBasicInfoBankReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoBankReqBuilder) Body(body *SearchBasicInfoBankReqBody) *SearchBasicInfoBankReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoBankReqBuilder) Build() *SearchBasicInfoBankReq {
+	req := &SearchBasicInfoBankReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoBankReqBody struct {
+	BankIdList   []string `json:"bank_id_list,omitempty"`   // 银行 ID 列表，与「银行名称列表」查询条件至少填写一项
+	BankNameList []string `json:"bank_name_list,omitempty"` // 银行名称列表，支持对银行名称精确搜索
+	StatusList   []int    `json:"status_list,omitempty"`    // 状态列表
+}
+
+type SearchBasicInfoBankReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoBankReqBody `body:""`
+	Limit  int                         // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoBankRespData struct {
+	Items     []*Bank `json:"items,omitempty"`      // 查询的银行信息
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoBankResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoBankRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoBankResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoBankBranchReqBodyBuilder struct {
+	bankIdList             []string // 银行 ID 列表，与「支行 ID 列表」、「支行名称列表」至少填写一项
+	bankIdListFlag         bool
+	bankBranchIdList       []string // 支行 ID 列表
+	bankBranchIdListFlag   bool
+	bankBranchNameList     []string // 支行名称列表，支持对支行名称精确搜索
+	bankBranchNameListFlag bool
+	statusList             []int // 状态列表
+	statusListFlag         bool
+}
+
+func NewSearchBasicInfoBankBranchReqBodyBuilder() *SearchBasicInfoBankBranchReqBodyBuilder {
+	builder := &SearchBasicInfoBankBranchReqBodyBuilder{}
+	return builder
+}
+
+// 银行 ID 列表，与「支行 ID 列表」、「支行名称列表」至少填写一项
+//
+//示例值：
+func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
+	builder.bankIdList = bankIdList
+	builder.bankIdListFlag = true
+	return builder
+}
+
+// 支行 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchIdList(bankBranchIdList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
+	builder.bankBranchIdList = bankBranchIdList
+	builder.bankBranchIdListFlag = true
+	return builder
+}
+
+// 支行名称列表，支持对支行名称精确搜索
+//
+//示例值：
+func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchNameList(bankBranchNameList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
+	builder.bankBranchNameList = bankBranchNameList
+	builder.bankBranchNameListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoBankBranchReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankBranchReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoBankBranchReqBodyBuilder) Build() *SearchBasicInfoBankBranchReqBody {
+	req := &SearchBasicInfoBankBranchReqBody{}
+	if builder.bankIdListFlag {
+		req.BankIdList = builder.bankIdList
+	}
+	if builder.bankBranchIdListFlag {
+		req.BankBranchIdList = builder.bankBranchIdList
+	}
+	if builder.bankBranchNameListFlag {
+		req.BankBranchNameList = builder.bankBranchNameList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoBankBranchPathReqBodyBuilder struct {
+	bankIdList             []string
+	bankIdListFlag         bool
+	bankBranchIdList       []string
+	bankBranchIdListFlag   bool
+	bankBranchNameList     []string
+	bankBranchNameListFlag bool
+	statusList             []int
+	statusListFlag         bool
+}
+
+func NewSearchBasicInfoBankBranchPathReqBodyBuilder() *SearchBasicInfoBankBranchPathReqBodyBuilder {
+	builder := &SearchBasicInfoBankBranchPathReqBodyBuilder{}
+	return builder
+}
+
+// 银行 ID 列表，与「支行 ID 列表」、「支行名称列表」至少填写一项
+//
+// 示例值：
+func (builder *SearchBasicInfoBankBranchPathReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankBranchPathReqBodyBuilder {
+	builder.bankIdList = bankIdList
+	builder.bankIdListFlag = true
+	return builder
+}
+
+// 支行 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoBankBranchPathReqBodyBuilder) BankBranchIdList(bankBranchIdList []string) *SearchBasicInfoBankBranchPathReqBodyBuilder {
+	builder.bankBranchIdList = bankBranchIdList
+	builder.bankBranchIdListFlag = true
+	return builder
+}
+
+// 支行名称列表，支持对支行名称精确搜索
+//
+// 示例值：
+func (builder *SearchBasicInfoBankBranchPathReqBodyBuilder) BankBranchNameList(bankBranchNameList []string) *SearchBasicInfoBankBranchPathReqBodyBuilder {
+	builder.bankBranchNameList = bankBranchNameList
+	builder.bankBranchNameListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoBankBranchPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankBranchPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoBankBranchPathReqBodyBuilder) Build() (*SearchBasicInfoBankBranchReqBody, error) {
+	req := &SearchBasicInfoBankBranchReqBody{}
+	if builder.bankIdListFlag {
+		req.BankIdList = builder.bankIdList
+	}
+	if builder.bankBranchIdListFlag {
+		req.BankBranchIdList = builder.bankBranchIdList
+	}
+	if builder.bankBranchNameListFlag {
+		req.BankBranchNameList = builder.bankBranchNameList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoBankBranchReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoBankBranchReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoBankBranchReqBuilder() *SearchBasicInfoBankBranchReqBuilder {
+	builder := &SearchBasicInfoBankBranchReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoBankBranchReqBuilder) Limit(limit int) *SearchBasicInfoBankBranchReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoBankBranchReqBuilder) PageSize(pageSize int) *SearchBasicInfoBankBranchReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoBankBranchReqBuilder) PageToken(pageToken string) *SearchBasicInfoBankBranchReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoBankBranchReqBuilder) Body(body *SearchBasicInfoBankBranchReqBody) *SearchBasicInfoBankBranchReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoBankBranchReqBuilder) Build() *SearchBasicInfoBankBranchReq {
+	req := &SearchBasicInfoBankBranchReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoBankBranchReqBody struct {
+	BankIdList         []string `json:"bank_id_list,omitempty"`          // 银行 ID 列表，与「支行 ID 列表」、「支行名称列表」至少填写一项
+	BankBranchIdList   []string `json:"bank_branch_id_list,omitempty"`   // 支行 ID 列表
+	BankBranchNameList []string `json:"bank_branch_name_list,omitempty"` // 支行名称列表，支持对支行名称精确搜索
+	StatusList         []int    `json:"status_list,omitempty"`           // 状态列表
+}
+
+type SearchBasicInfoBankBranchReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoBankBranchReqBody `body:""`
+	Limit  int                               // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoBankBranchRespData struct {
+	Items     []*BankBranch `json:"items,omitempty"`      // 查询的支行信息
+	PageToken *string       `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool         `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoBankBranchResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoBankBranchRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoBankBranchResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoCityReqBodyBuilder struct {
+	countryRegionSubdivisionIdList     []string // 省份/行政区 ID 列表，可通过【查询省份/行政区信息】接口获取
+	countryRegionSubdivisionIdListFlag bool
+	cityIdList                         []string // 城市 ID 列表
+	cityIdListFlag                     bool
+	statusList                         []int // 状态列表
+	statusListFlag                     bool
+}
+
+func NewSearchBasicInfoCityReqBodyBuilder() *SearchBasicInfoCityReqBodyBuilder {
+	builder := &SearchBasicInfoCityReqBodyBuilder{}
+	return builder
+}
+
+// 省份/行政区 ID 列表，可通过【查询省份/行政区信息】接口获取
+//
+//示例值：
+func (builder *SearchBasicInfoCityReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCityReqBodyBuilder {
+	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
+	builder.countryRegionSubdivisionIdListFlag = true
+	return builder
+}
+
+// 城市 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoCityReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoCityReqBodyBuilder {
+	builder.cityIdList = cityIdList
+	builder.cityIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoCityReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCityReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCityReqBodyBuilder) Build() *SearchBasicInfoCityReqBody {
+	req := &SearchBasicInfoCityReqBody{}
+	if builder.countryRegionSubdivisionIdListFlag {
+		req.CountryRegionSubdivisionIdList = builder.countryRegionSubdivisionIdList
+	}
+	if builder.cityIdListFlag {
+		req.CityIdList = builder.cityIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoCityPathReqBodyBuilder struct {
+	countryRegionSubdivisionIdList     []string
+	countryRegionSubdivisionIdListFlag bool
+	cityIdList                         []string
+	cityIdListFlag                     bool
+	statusList                         []int
+	statusListFlag                     bool
+}
+
+func NewSearchBasicInfoCityPathReqBodyBuilder() *SearchBasicInfoCityPathReqBodyBuilder {
+	builder := &SearchBasicInfoCityPathReqBodyBuilder{}
+	return builder
+}
+
+// 省份/行政区 ID 列表，可通过【查询省份/行政区信息】接口获取
+//
+// 示例值：
+func (builder *SearchBasicInfoCityPathReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCityPathReqBodyBuilder {
+	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
+	builder.countryRegionSubdivisionIdListFlag = true
+	return builder
+}
+
+// 城市 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCityPathReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoCityPathReqBodyBuilder {
+	builder.cityIdList = cityIdList
+	builder.cityIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCityPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCityPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCityPathReqBodyBuilder) Build() (*SearchBasicInfoCityReqBody, error) {
+	req := &SearchBasicInfoCityReqBody{}
+	if builder.countryRegionSubdivisionIdListFlag {
+		req.CountryRegionSubdivisionIdList = builder.countryRegionSubdivisionIdList
+	}
+	if builder.cityIdListFlag {
+		req.CityIdList = builder.cityIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoCityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoCityReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoCityReqBuilder() *SearchBasicInfoCityReqBuilder {
+	builder := &SearchBasicInfoCityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoCityReqBuilder) Limit(limit int) *SearchBasicInfoCityReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoCityReqBuilder) PageSize(pageSize int) *SearchBasicInfoCityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoCityReqBuilder) PageToken(pageToken string) *SearchBasicInfoCityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoCityReqBuilder) Body(body *SearchBasicInfoCityReqBody) *SearchBasicInfoCityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoCityReqBuilder) Build() *SearchBasicInfoCityReq {
+	req := &SearchBasicInfoCityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoCityReqBody struct {
+	CountryRegionSubdivisionIdList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/行政区 ID 列表，可通过【查询省份/行政区信息】接口获取
+	CityIdList                     []string `json:"city_id_list,omitempty"`                       // 城市 ID 列表
+	StatusList                     []int    `json:"status_list,omitempty"`                        // 状态列表
+}
+
+type SearchBasicInfoCityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoCityReqBody `body:""`
+	Limit  int                         // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoCityRespData struct {
+	Items     []*City `json:"items,omitempty"`      // 查询的城市信息
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoCityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoCityRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoCityResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoCountryRegionReqBodyBuilder struct {
+	countryRegionIdList     []string // 国家/地区 ID 列表
+	countryRegionIdListFlag bool
+	statusList              []int // 状态列表
+	statusListFlag          bool
+}
+
+func NewSearchBasicInfoCountryRegionReqBodyBuilder() *SearchBasicInfoCountryRegionReqBodyBuilder {
+	builder := &SearchBasicInfoCountryRegionReqBodyBuilder{}
+	return builder
+}
+
+// 国家/地区 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) Build() *SearchBasicInfoCountryRegionReqBody {
+	req := &SearchBasicInfoCountryRegionReqBody{}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoCountryRegionPathReqBodyBuilder struct {
+	countryRegionIdList     []string
+	countryRegionIdListFlag bool
+	statusList              []int
+	statusListFlag          bool
+}
+
+func NewSearchBasicInfoCountryRegionPathReqBodyBuilder() *SearchBasicInfoCountryRegionPathReqBodyBuilder {
+	builder := &SearchBasicInfoCountryRegionPathReqBodyBuilder{}
+	return builder
+}
+
+// 国家/地区 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCountryRegionPathReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionPathReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCountryRegionPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionPathReqBodyBuilder) Build() (*SearchBasicInfoCountryRegionReqBody, error) {
+	req := &SearchBasicInfoCountryRegionReqBody{}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoCountryRegionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoCountryRegionReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoCountryRegionReqBuilder() *SearchBasicInfoCountryRegionReqBuilder {
+	builder := &SearchBasicInfoCountryRegionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoCountryRegionReqBuilder) Limit(limit int) *SearchBasicInfoCountryRegionReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoCountryRegionReqBuilder) PageSize(pageSize int) *SearchBasicInfoCountryRegionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoCountryRegionReqBuilder) PageToken(pageToken string) *SearchBasicInfoCountryRegionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoCountryRegionReqBuilder) Body(body *SearchBasicInfoCountryRegionReqBody) *SearchBasicInfoCountryRegionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionReqBuilder) Build() *SearchBasicInfoCountryRegionReq {
+	req := &SearchBasicInfoCountryRegionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoCountryRegionReqBody struct {
+	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
+	StatusList          []int    `json:"status_list,omitempty"`            // 状态列表
+}
+
+type SearchBasicInfoCountryRegionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoCountryRegionReqBody `body:""`
+	Limit  int                                  // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoCountryRegionRespData struct {
+	Items     []*CountryRegion `json:"items,omitempty"`      // 查询的国家/地区信息
+	PageToken *string          `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool            `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoCountryRegionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoCountryRegionRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoCountryRegionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder struct {
+	countryRegionIdList                []string // 国家/地区 ID 列表，可通过【查询国家/地区信息】接口获取
+	countryRegionIdListFlag            bool
+	countryRegionSubdivisionIdList     []string // 省份/行政区 ID 列表
+	countryRegionSubdivisionIdListFlag bool
+	statusList                         []int // 状态列表
+	statusListFlag                     bool
+}
+
+func NewSearchBasicInfoCountryRegionSubdivisionReqBodyBuilder() *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
+	builder := &SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder{}
+	return builder
+}
+
+// 国家/地区 ID 列表，可通过【查询国家/地区信息】接口获取
+//
+//示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 省份/行政区 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
+	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
+	builder.countryRegionSubdivisionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) Build() *SearchBasicInfoCountryRegionSubdivisionReqBody {
+	req := &SearchBasicInfoCountryRegionSubdivisionReqBody{}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.countryRegionSubdivisionIdListFlag {
+		req.CountryRegionSubdivisionIdList = builder.countryRegionSubdivisionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder struct {
+	countryRegionIdList                []string
+	countryRegionIdListFlag            bool
+	countryRegionSubdivisionIdList     []string
+	countryRegionSubdivisionIdListFlag bool
+	statusList                         []int
+	statusListFlag                     bool
+}
+
+func NewSearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder() *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder {
+	builder := &SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder{}
+	return builder
+}
+
+// 国家/地区 ID 列表，可通过【查询国家/地区信息】接口获取
+//
+// 示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 省份/行政区 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder {
+	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
+	builder.countryRegionSubdivisionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionSubdivisionPathReqBodyBuilder) Build() (*SearchBasicInfoCountryRegionSubdivisionReqBody, error) {
+	req := &SearchBasicInfoCountryRegionSubdivisionReqBody{}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.countryRegionSubdivisionIdListFlag {
+		req.CountryRegionSubdivisionIdList = builder.countryRegionSubdivisionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoCountryRegionSubdivisionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoCountryRegionSubdivisionReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoCountryRegionSubdivisionReqBuilder() *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
+	builder := &SearchBasicInfoCountryRegionSubdivisionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) Limit(limit int) *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) PageSize(pageSize int) *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) PageToken(pageToken string) *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) Body(body *SearchBasicInfoCountryRegionSubdivisionReqBody) *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) Build() *SearchBasicInfoCountryRegionSubdivisionReq {
+	req := &SearchBasicInfoCountryRegionSubdivisionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoCountryRegionSubdivisionReqBody struct {
+	CountryRegionIdList            []string `json:"country_region_id_list,omitempty"`             // 国家/地区 ID 列表，可通过【查询国家/地区信息】接口获取
+	CountryRegionSubdivisionIdList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/行政区 ID 列表
+	StatusList                     []int    `json:"status_list,omitempty"`                        // 状态列表
+}
+
+type SearchBasicInfoCountryRegionSubdivisionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoCountryRegionSubdivisionReqBody `body:""`
+	Limit  int                                             // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoCountryRegionSubdivisionRespData struct {
+	Items     []*CountryRegionSubdivision `json:"items,omitempty"`      // 查询的省份/行政区信息
+	PageToken *string                     `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool                       `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoCountryRegionSubdivisionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoCountryRegionSubdivisionRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoCountryRegionSubdivisionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoCurrencyReqBodyBuilder struct {
+	currencyIdList     []string // 货币 ID 列表
+	currencyIdListFlag bool
+	statusList         []int // 状态列表
+	statusListFlag     bool
+}
+
+func NewSearchBasicInfoCurrencyReqBodyBuilder() *SearchBasicInfoCurrencyReqBodyBuilder {
+	builder := &SearchBasicInfoCurrencyReqBodyBuilder{}
+	return builder
+}
+
+// 货币 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoCurrencyReqBodyBuilder) CurrencyIdList(currencyIdList []string) *SearchBasicInfoCurrencyReqBodyBuilder {
+	builder.currencyIdList = currencyIdList
+	builder.currencyIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoCurrencyReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCurrencyReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCurrencyReqBodyBuilder) Build() *SearchBasicInfoCurrencyReqBody {
+	req := &SearchBasicInfoCurrencyReqBody{}
+	if builder.currencyIdListFlag {
+		req.CurrencyIdList = builder.currencyIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoCurrencyPathReqBodyBuilder struct {
+	currencyIdList     []string
+	currencyIdListFlag bool
+	statusList         []int
+	statusListFlag     bool
+}
+
+func NewSearchBasicInfoCurrencyPathReqBodyBuilder() *SearchBasicInfoCurrencyPathReqBodyBuilder {
+	builder := &SearchBasicInfoCurrencyPathReqBodyBuilder{}
+	return builder
+}
+
+// 货币 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCurrencyPathReqBodyBuilder) CurrencyIdList(currencyIdList []string) *SearchBasicInfoCurrencyPathReqBodyBuilder {
+	builder.currencyIdList = currencyIdList
+	builder.currencyIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoCurrencyPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCurrencyPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoCurrencyPathReqBodyBuilder) Build() (*SearchBasicInfoCurrencyReqBody, error) {
+	req := &SearchBasicInfoCurrencyReqBody{}
+	if builder.currencyIdListFlag {
+		req.CurrencyIdList = builder.currencyIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoCurrencyReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoCurrencyReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoCurrencyReqBuilder() *SearchBasicInfoCurrencyReqBuilder {
+	builder := &SearchBasicInfoCurrencyReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoCurrencyReqBuilder) Limit(limit int) *SearchBasicInfoCurrencyReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoCurrencyReqBuilder) PageSize(pageSize int) *SearchBasicInfoCurrencyReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoCurrencyReqBuilder) PageToken(pageToken string) *SearchBasicInfoCurrencyReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoCurrencyReqBuilder) Body(body *SearchBasicInfoCurrencyReqBody) *SearchBasicInfoCurrencyReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoCurrencyReqBuilder) Build() *SearchBasicInfoCurrencyReq {
+	req := &SearchBasicInfoCurrencyReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoCurrencyReqBody struct {
+	CurrencyIdList []string `json:"currency_id_list,omitempty"` // 货币 ID 列表
+	StatusList     []int    `json:"status_list,omitempty"`      // 状态列表
+}
+
+type SearchBasicInfoCurrencyReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoCurrencyReqBody `body:""`
+	Limit  int                             // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoCurrencyRespData struct {
+	Items     []*Currency `json:"items,omitempty"`      // 查询的货币信息
+	PageToken *string     `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoCurrencyResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoCurrencyRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoCurrencyResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoDistrictReqBodyBuilder struct {
+	cityIdList         []string // 所属城市 ID 列表，详细信息可通过【查询城市信息】接口查询获得
+	cityIdListFlag     bool
+	districtIdList     []string // 区/县 ID 列表
+	districtIdListFlag bool
+	statusList         []int // 状态列表
+	statusListFlag     bool
+}
+
+func NewSearchBasicInfoDistrictReqBodyBuilder() *SearchBasicInfoDistrictReqBodyBuilder {
+	builder := &SearchBasicInfoDistrictReqBodyBuilder{}
+	return builder
+}
+
+// 所属城市 ID 列表，详细信息可通过【查询城市信息】接口查询获得
+//
+//示例值：
+func (builder *SearchBasicInfoDistrictReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoDistrictReqBodyBuilder {
+	builder.cityIdList = cityIdList
+	builder.cityIdListFlag = true
+	return builder
+}
+
+// 区/县 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoDistrictReqBodyBuilder) DistrictIdList(districtIdList []string) *SearchBasicInfoDistrictReqBodyBuilder {
+	builder.districtIdList = districtIdList
+	builder.districtIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoDistrictReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoDistrictReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoDistrictReqBodyBuilder) Build() *SearchBasicInfoDistrictReqBody {
+	req := &SearchBasicInfoDistrictReqBody{}
+	if builder.cityIdListFlag {
+		req.CityIdList = builder.cityIdList
+	}
+	if builder.districtIdListFlag {
+		req.DistrictIdList = builder.districtIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoDistrictPathReqBodyBuilder struct {
+	cityIdList         []string
+	cityIdListFlag     bool
+	districtIdList     []string
+	districtIdListFlag bool
+	statusList         []int
+	statusListFlag     bool
+}
+
+func NewSearchBasicInfoDistrictPathReqBodyBuilder() *SearchBasicInfoDistrictPathReqBodyBuilder {
+	builder := &SearchBasicInfoDistrictPathReqBodyBuilder{}
+	return builder
+}
+
+// 所属城市 ID 列表，详细信息可通过【查询城市信息】接口查询获得
+//
+// 示例值：
+func (builder *SearchBasicInfoDistrictPathReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoDistrictPathReqBodyBuilder {
+	builder.cityIdList = cityIdList
+	builder.cityIdListFlag = true
+	return builder
+}
+
+// 区/县 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoDistrictPathReqBodyBuilder) DistrictIdList(districtIdList []string) *SearchBasicInfoDistrictPathReqBodyBuilder {
+	builder.districtIdList = districtIdList
+	builder.districtIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoDistrictPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoDistrictPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoDistrictPathReqBodyBuilder) Build() (*SearchBasicInfoDistrictReqBody, error) {
+	req := &SearchBasicInfoDistrictReqBody{}
+	if builder.cityIdListFlag {
+		req.CityIdList = builder.cityIdList
+	}
+	if builder.districtIdListFlag {
+		req.DistrictIdList = builder.districtIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoDistrictReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoDistrictReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoDistrictReqBuilder() *SearchBasicInfoDistrictReqBuilder {
+	builder := &SearchBasicInfoDistrictReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoDistrictReqBuilder) Limit(limit int) *SearchBasicInfoDistrictReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoDistrictReqBuilder) PageSize(pageSize int) *SearchBasicInfoDistrictReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoDistrictReqBuilder) PageToken(pageToken string) *SearchBasicInfoDistrictReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoDistrictReqBuilder) Body(body *SearchBasicInfoDistrictReqBody) *SearchBasicInfoDistrictReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoDistrictReqBuilder) Build() *SearchBasicInfoDistrictReq {
+	req := &SearchBasicInfoDistrictReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoDistrictReqBody struct {
+	CityIdList     []string `json:"city_id_list,omitempty"`     // 所属城市 ID 列表，详细信息可通过【查询城市信息】接口查询获得
+	DistrictIdList []string `json:"district_id_list,omitempty"` // 区/县 ID 列表
+	StatusList     []int    `json:"status_list,omitempty"`      // 状态列表
+}
+
+type SearchBasicInfoDistrictReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoDistrictReqBody `body:""`
+	Limit  int                             // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoDistrictRespData struct {
+	Items     []*District `json:"items,omitempty"`      // 查询的区/县信息
+	PageToken *string     `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool       `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoDistrictResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoDistrictRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoDistrictResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchBasicInfoNationalityReqBodyBuilder struct {
+	nationalityIdList       []string // 国籍 ID 列表
+	nationalityIdListFlag   bool
+	countryRegionIdList     []string // 国家 / 地区 ID 列表
+	countryRegionIdListFlag bool
+	statusList              []int // 状态列表
+	statusListFlag          bool
+}
+
+func NewSearchBasicInfoNationalityReqBodyBuilder() *SearchBasicInfoNationalityReqBodyBuilder {
+	builder := &SearchBasicInfoNationalityReqBodyBuilder{}
+	return builder
+}
+
+// 国籍 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoNationalityReqBodyBuilder) NationalityIdList(nationalityIdList []string) *SearchBasicInfoNationalityReqBodyBuilder {
+	builder.nationalityIdList = nationalityIdList
+	builder.nationalityIdListFlag = true
+	return builder
+}
+
+// 国家 / 地区 ID 列表
+//
+//示例值：
+func (builder *SearchBasicInfoNationalityReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoNationalityReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+//示例值：
+func (builder *SearchBasicInfoNationalityReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoNationalityReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoNationalityReqBodyBuilder) Build() *SearchBasicInfoNationalityReqBody {
+	req := &SearchBasicInfoNationalityReqBody{}
+	if builder.nationalityIdListFlag {
+		req.NationalityIdList = builder.nationalityIdList
+	}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req
+}
+
+type SearchBasicInfoNationalityPathReqBodyBuilder struct {
+	nationalityIdList       []string
+	nationalityIdListFlag   bool
+	countryRegionIdList     []string
+	countryRegionIdListFlag bool
+	statusList              []int
+	statusListFlag          bool
+}
+
+func NewSearchBasicInfoNationalityPathReqBodyBuilder() *SearchBasicInfoNationalityPathReqBodyBuilder {
+	builder := &SearchBasicInfoNationalityPathReqBodyBuilder{}
+	return builder
+}
+
+// 国籍 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoNationalityPathReqBodyBuilder) NationalityIdList(nationalityIdList []string) *SearchBasicInfoNationalityPathReqBodyBuilder {
+	builder.nationalityIdList = nationalityIdList
+	builder.nationalityIdListFlag = true
+	return builder
+}
+
+// 国家 / 地区 ID 列表
+//
+// 示例值：
+func (builder *SearchBasicInfoNationalityPathReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoNationalityPathReqBodyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
+// 状态列表
+//
+// 示例值：
+func (builder *SearchBasicInfoNationalityPathReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoNationalityPathReqBodyBuilder {
+	builder.statusList = statusList
+	builder.statusListFlag = true
+	return builder
+}
+
+func (builder *SearchBasicInfoNationalityPathReqBodyBuilder) Build() (*SearchBasicInfoNationalityReqBody, error) {
+	req := &SearchBasicInfoNationalityReqBody{}
+	if builder.nationalityIdListFlag {
+		req.NationalityIdList = builder.nationalityIdList
+	}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
+	}
+	if builder.statusListFlag {
+		req.StatusList = builder.statusList
+	}
+	return req, nil
+}
+
+type SearchBasicInfoNationalityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchBasicInfoNationalityReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchBasicInfoNationalityReqBuilder() *SearchBasicInfoNationalityReqBuilder {
+	builder := &SearchBasicInfoNationalityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchBasicInfoNationalityReqBuilder) Limit(limit int) *SearchBasicInfoNationalityReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchBasicInfoNationalityReqBuilder) PageSize(pageSize int) *SearchBasicInfoNationalityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchBasicInfoNationalityReqBuilder) PageToken(pageToken string) *SearchBasicInfoNationalityReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+//
+func (builder *SearchBasicInfoNationalityReqBuilder) Body(body *SearchBasicInfoNationalityReqBody) *SearchBasicInfoNationalityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchBasicInfoNationalityReqBuilder) Build() *SearchBasicInfoNationalityReq {
+	req := &SearchBasicInfoNationalityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchBasicInfoNationalityReqBody struct {
+	NationalityIdList   []string `json:"nationality_id_list,omitempty"`    // 国籍 ID 列表
+	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 国家 / 地区 ID 列表
+	StatusList          []int    `json:"status_list,omitempty"`            // 状态列表
+}
+
+type SearchBasicInfoNationalityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchBasicInfoNationalityReqBody `body:""`
+	Limit  int                                // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchBasicInfoNationalityRespData struct {
+	Items     []*Nationality `json:"items,omitempty"`      // 查询的国籍信息
+	PageToken *string        `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool          `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchBasicInfoNationalityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchBasicInfoNationalityRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchBasicInfoNationalityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetByDepartmentBpReqBodyBuilder struct {
 	departmentId     string // 部门 ID
 	departmentIdFlag bool
@@ -16733,6 +18411,1051 @@ type SearchContractResp struct {
 }
 
 func (resp *SearchContractResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateCostCenterReqBuilder struct {
+	apiReq     *larkcore.ApiReq
+	costCenter *CostCenter
+}
+
+func NewCreateCostCenterReqBuilder() *CreateCostCenterReqBuilder {
+	builder := &CreateCostCenterReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *CreateCostCenterReqBuilder) UserIdType(userIdType string) *CreateCostCenterReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建成本中心
+func (builder *CreateCostCenterReqBuilder) CostCenter(costCenter *CostCenter) *CreateCostCenterReqBuilder {
+	builder.costCenter = costCenter
+	return builder
+}
+
+func (builder *CreateCostCenterReqBuilder) Build() *CreateCostCenterReq {
+	req := &CreateCostCenterReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.costCenter
+	return req
+}
+
+type CreateCostCenterReq struct {
+	apiReq     *larkcore.ApiReq
+	CostCenter *CostCenter `body:""`
+}
+
+type CreateCostCenterRespData struct {
+	CostCenter *CostCenter `json:"cost_center,omitempty"` //
+}
+
+type CreateCostCenterResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateCostCenterRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateCostCenterResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteCostCenterReqBodyBuilder struct {
+	operationReason     string // 操作原因
+	operationReasonFlag bool
+}
+
+func NewDeleteCostCenterReqBodyBuilder() *DeleteCostCenterReqBodyBuilder {
+	builder := &DeleteCostCenterReqBodyBuilder{}
+	return builder
+}
+
+// 操作原因
+//
+//示例值：随着组织架构调整，该成本中心不再使用
+func (builder *DeleteCostCenterReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *DeleteCostCenterReqBodyBuilder) Build() *DeleteCostCenterReqBody {
+	req := &DeleteCostCenterReqBody{}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req
+}
+
+type DeleteCostCenterPathReqBodyBuilder struct {
+	operationReason     string
+	operationReasonFlag bool
+}
+
+func NewDeleteCostCenterPathReqBodyBuilder() *DeleteCostCenterPathReqBodyBuilder {
+	builder := &DeleteCostCenterPathReqBodyBuilder{}
+	return builder
+}
+
+// 操作原因
+//
+// 示例值：随着组织架构调整，该成本中心不再使用
+func (builder *DeleteCostCenterPathReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterPathReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *DeleteCostCenterPathReqBodyBuilder) Build() (*DeleteCostCenterReqBody, error) {
+	req := &DeleteCostCenterReqBody{}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req, nil
+}
+
+type DeleteCostCenterReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DeleteCostCenterReqBody
+}
+
+func NewDeleteCostCenterReqBuilder() *DeleteCostCenterReqBuilder {
+	builder := &DeleteCostCenterReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *DeleteCostCenterReqBuilder) CostCenterId(costCenterId string) *DeleteCostCenterReqBuilder {
+	builder.apiReq.PathParams.Set("cost_center_id", fmt.Sprint(costCenterId))
+	return builder
+}
+
+//
+func (builder *DeleteCostCenterReqBuilder) Body(body *DeleteCostCenterReqBody) *DeleteCostCenterReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DeleteCostCenterReqBuilder) Build() *DeleteCostCenterReq {
+	req := &DeleteCostCenterReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeleteCostCenterReqBody struct {
+	OperationReason *string `json:"operation_reason,omitempty"` // 操作原因
+}
+
+type DeleteCostCenterReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DeleteCostCenterReqBody `body:""`
+}
+
+type DeleteCostCenterResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteCostCenterResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchCostCenterReqBodyBuilder struct {
+	effectiveTime       string // 生效时间
+	effectiveTimeFlag   bool
+	active              bool // 启用停用状态
+	activeFlag          bool
+	operationReason     string // 操作原因
+	operationReasonFlag bool
+}
+
+func NewPatchCostCenterReqBodyBuilder() *PatchCostCenterReqBodyBuilder {
+	builder := &PatchCostCenterReqBodyBuilder{}
+	return builder
+}
+
+// 生效时间
+//
+//示例值：2020-01-01
+func (builder *PatchCostCenterReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+//示例值：true
+func (builder *PatchCostCenterReqBodyBuilder) Active(active bool) *PatchCostCenterReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 操作原因
+//
+//示例值：强行操作
+func (builder *PatchCostCenterReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *PatchCostCenterReqBodyBuilder) Build() *PatchCostCenterReqBody {
+	req := &PatchCostCenterReqBody{}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req
+}
+
+type PatchCostCenterPathReqBodyBuilder struct {
+	effectiveTime       string
+	effectiveTimeFlag   bool
+	active              bool
+	activeFlag          bool
+	operationReason     string
+	operationReasonFlag bool
+}
+
+func NewPatchCostCenterPathReqBodyBuilder() *PatchCostCenterPathReqBodyBuilder {
+	builder := &PatchCostCenterPathReqBodyBuilder{}
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：2020-01-01
+func (builder *PatchCostCenterPathReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterPathReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+// 示例值：true
+func (builder *PatchCostCenterPathReqBodyBuilder) Active(active bool) *PatchCostCenterPathReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 操作原因
+//
+// 示例值：强行操作
+func (builder *PatchCostCenterPathReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterPathReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *PatchCostCenterPathReqBodyBuilder) Build() (*PatchCostCenterReqBody, error) {
+	req := &PatchCostCenterReqBody{}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req, nil
+}
+
+type PatchCostCenterReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchCostCenterReqBody
+}
+
+func NewPatchCostCenterReqBuilder() *PatchCostCenterReqBuilder {
+	builder := &PatchCostCenterReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchCostCenterReqBuilder) CostCenterId(costCenterId string) *PatchCostCenterReqBuilder {
+	builder.apiReq.PathParams.Set("cost_center_id", fmt.Sprint(costCenterId))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *PatchCostCenterReqBuilder) UserIdType(userIdType string) *PatchCostCenterReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建成本中心版本
+func (builder *PatchCostCenterReqBuilder) Body(body *PatchCostCenterReqBody) *PatchCostCenterReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchCostCenterReqBuilder) Build() *PatchCostCenterReq {
+	req := &PatchCostCenterReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchCostCenterReqBody struct {
+	EffectiveTime   *string `json:"effective_time,omitempty"`   // 生效时间
+	Active          *bool   `json:"active,omitempty"`           // 启用停用状态
+	OperationReason *string `json:"operation_reason,omitempty"` // 操作原因
+}
+
+type PatchCostCenterReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchCostCenterReqBody `body:""`
+}
+
+type PatchCostCenterRespData struct {
+	CostCenter *CostCenter `json:"cost_center,omitempty"` //
+}
+
+type PatchCostCenterResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchCostCenterRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchCostCenterResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchCostCenterReqBodyBuilder struct {
+	costCenterIdList       []string // 成本中心ID 列表
+	costCenterIdListFlag   bool
+	nameList               []string // 成长中心名称列表，精确匹配
+	nameListFlag           bool
+	code                   string // 成本中心编码
+	codeFlag               bool
+	parentCostCenterId     string // 上级成本中心ID，可用于查询直接下级成本中心
+	parentCostCenterIdFlag bool
+	getAllVersion          bool // 是否获取所有陈本中心版本
+	getAllVersionFlag      bool
+}
+
+func NewSearchCostCenterReqBodyBuilder() *SearchCostCenterReqBodyBuilder {
+	builder := &SearchCostCenterReqBodyBuilder{}
+	return builder
+}
+
+// 成本中心ID 列表
+//
+//示例值：
+func (builder *SearchCostCenterReqBodyBuilder) CostCenterIdList(costCenterIdList []string) *SearchCostCenterReqBodyBuilder {
+	builder.costCenterIdList = costCenterIdList
+	builder.costCenterIdListFlag = true
+	return builder
+}
+
+// 成长中心名称列表，精确匹配
+//
+//示例值：
+func (builder *SearchCostCenterReqBodyBuilder) NameList(nameList []string) *SearchCostCenterReqBodyBuilder {
+	builder.nameList = nameList
+	builder.nameListFlag = true
+	return builder
+}
+
+// 成本中心编码
+//
+//示例值：MDPD00000023
+func (builder *SearchCostCenterReqBodyBuilder) Code(code string) *SearchCostCenterReqBodyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 上级成本中心ID，可用于查询直接下级成本中心
+//
+//示例值：6862995757234914824
+func (builder *SearchCostCenterReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *SearchCostCenterReqBodyBuilder {
+	builder.parentCostCenterId = parentCostCenterId
+	builder.parentCostCenterIdFlag = true
+	return builder
+}
+
+// 是否获取所有陈本中心版本
+//
+//示例值：true
+func (builder *SearchCostCenterReqBodyBuilder) GetAllVersion(getAllVersion bool) *SearchCostCenterReqBodyBuilder {
+	builder.getAllVersion = getAllVersion
+	builder.getAllVersionFlag = true
+	return builder
+}
+
+func (builder *SearchCostCenterReqBodyBuilder) Build() *SearchCostCenterReqBody {
+	req := &SearchCostCenterReqBody{}
+	if builder.costCenterIdListFlag {
+		req.CostCenterIdList = builder.costCenterIdList
+	}
+	if builder.nameListFlag {
+		req.NameList = builder.nameList
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+	}
+	if builder.parentCostCenterIdFlag {
+		req.ParentCostCenterId = &builder.parentCostCenterId
+	}
+	if builder.getAllVersionFlag {
+		req.GetAllVersion = &builder.getAllVersion
+	}
+	return req
+}
+
+type SearchCostCenterPathReqBodyBuilder struct {
+	costCenterIdList       []string
+	costCenterIdListFlag   bool
+	nameList               []string
+	nameListFlag           bool
+	code                   string
+	codeFlag               bool
+	parentCostCenterId     string
+	parentCostCenterIdFlag bool
+	getAllVersion          bool
+	getAllVersionFlag      bool
+}
+
+func NewSearchCostCenterPathReqBodyBuilder() *SearchCostCenterPathReqBodyBuilder {
+	builder := &SearchCostCenterPathReqBodyBuilder{}
+	return builder
+}
+
+// 成本中心ID 列表
+//
+// 示例值：
+func (builder *SearchCostCenterPathReqBodyBuilder) CostCenterIdList(costCenterIdList []string) *SearchCostCenterPathReqBodyBuilder {
+	builder.costCenterIdList = costCenterIdList
+	builder.costCenterIdListFlag = true
+	return builder
+}
+
+// 成长中心名称列表，精确匹配
+//
+// 示例值：
+func (builder *SearchCostCenterPathReqBodyBuilder) NameList(nameList []string) *SearchCostCenterPathReqBodyBuilder {
+	builder.nameList = nameList
+	builder.nameListFlag = true
+	return builder
+}
+
+// 成本中心编码
+//
+// 示例值：MDPD00000023
+func (builder *SearchCostCenterPathReqBodyBuilder) Code(code string) *SearchCostCenterPathReqBodyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 上级成本中心ID，可用于查询直接下级成本中心
+//
+// 示例值：6862995757234914824
+func (builder *SearchCostCenterPathReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *SearchCostCenterPathReqBodyBuilder {
+	builder.parentCostCenterId = parentCostCenterId
+	builder.parentCostCenterIdFlag = true
+	return builder
+}
+
+// 是否获取所有陈本中心版本
+//
+// 示例值：true
+func (builder *SearchCostCenterPathReqBodyBuilder) GetAllVersion(getAllVersion bool) *SearchCostCenterPathReqBodyBuilder {
+	builder.getAllVersion = getAllVersion
+	builder.getAllVersionFlag = true
+	return builder
+}
+
+func (builder *SearchCostCenterPathReqBodyBuilder) Build() (*SearchCostCenterReqBody, error) {
+	req := &SearchCostCenterReqBody{}
+	if builder.costCenterIdListFlag {
+		req.CostCenterIdList = builder.costCenterIdList
+	}
+	if builder.nameListFlag {
+		req.NameList = builder.nameList
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+	}
+	if builder.parentCostCenterIdFlag {
+		req.ParentCostCenterId = &builder.parentCostCenterId
+	}
+	if builder.getAllVersionFlag {
+		req.GetAllVersion = &builder.getAllVersion
+	}
+	return req, nil
+}
+
+type SearchCostCenterReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchCostCenterReqBody
+}
+
+func NewSearchCostCenterReqBuilder() *SearchCostCenterReqBuilder {
+	builder := &SearchCostCenterReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *SearchCostCenterReqBuilder) PageSize(pageSize int) *SearchCostCenterReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *SearchCostCenterReqBuilder) PageToken(pageToken string) *SearchCostCenterReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *SearchCostCenterReqBuilder) UserIdType(userIdType string) *SearchCostCenterReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 查询成本中心信息
+func (builder *SearchCostCenterReqBuilder) Body(body *SearchCostCenterReqBody) *SearchCostCenterReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchCostCenterReqBuilder) Build() *SearchCostCenterReq {
+	req := &SearchCostCenterReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchCostCenterReqBody struct {
+	CostCenterIdList   []string `json:"cost_center_id_list,omitempty"`   // 成本中心ID 列表
+	NameList           []string `json:"name_list,omitempty"`             // 成长中心名称列表，精确匹配
+	Code               *string  `json:"code,omitempty"`                  // 成本中心编码
+	ParentCostCenterId *string  `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID，可用于查询直接下级成本中心
+	GetAllVersion      *bool    `json:"get_all_version,omitempty"`       // 是否获取所有陈本中心版本
+}
+
+type SearchCostCenterReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchCostCenterReqBody `body:""`
+}
+
+type SearchCostCenterRespData struct {
+	Items     []*CostCenterVersion `json:"items,omitempty"`      // 成本中心信息
+	PageToken *string              `json:"page_token,omitempty"` // 下一页页码
+	HasMore   *bool                `json:"has_more,omitempty"`   // 是否有下一页
+}
+
+type SearchCostCenterResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchCostCenterRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchCostCenterResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateCostCenterVersionReqBuilder struct {
+	apiReq            *larkcore.ApiReq
+	costCenterVersion *CostCenterVersion
+}
+
+func NewCreateCostCenterVersionReqBuilder() *CreateCostCenterVersionReqBuilder {
+	builder := &CreateCostCenterVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *CreateCostCenterVersionReqBuilder) CostCenterId(costCenterId string) *CreateCostCenterVersionReqBuilder {
+	builder.apiReq.PathParams.Set("cost_center_id", fmt.Sprint(costCenterId))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *CreateCostCenterVersionReqBuilder) UserIdType(userIdType string) *CreateCostCenterVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建成本中心版本
+func (builder *CreateCostCenterVersionReqBuilder) CostCenterVersion(costCenterVersion *CostCenterVersion) *CreateCostCenterVersionReqBuilder {
+	builder.costCenterVersion = costCenterVersion
+	return builder
+}
+
+func (builder *CreateCostCenterVersionReqBuilder) Build() *CreateCostCenterVersionReq {
+	req := &CreateCostCenterVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.costCenterVersion
+	return req
+}
+
+type CreateCostCenterVersionReq struct {
+	apiReq            *larkcore.ApiReq
+	CostCenterVersion *CostCenterVersion `body:""`
+}
+
+type CreateCostCenterVersionRespData struct {
+	Version *CostCenterVersion `json:"version,omitempty"` //
+}
+
+type CreateCostCenterVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateCostCenterVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateCostCenterVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteCostCenterVersionReqBodyBuilder struct {
+	operationReason     string // 操作原因
+	operationReasonFlag bool
+}
+
+func NewDeleteCostCenterVersionReqBodyBuilder() *DeleteCostCenterVersionReqBodyBuilder {
+	builder := &DeleteCostCenterVersionReqBodyBuilder{}
+	return builder
+}
+
+// 操作原因
+//
+//示例值：随着组织架构调整，该成本中心不再使用
+func (builder *DeleteCostCenterVersionReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterVersionReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *DeleteCostCenterVersionReqBodyBuilder) Build() *DeleteCostCenterVersionReqBody {
+	req := &DeleteCostCenterVersionReqBody{}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req
+}
+
+type DeleteCostCenterVersionPathReqBodyBuilder struct {
+	operationReason     string
+	operationReasonFlag bool
+}
+
+func NewDeleteCostCenterVersionPathReqBodyBuilder() *DeleteCostCenterVersionPathReqBodyBuilder {
+	builder := &DeleteCostCenterVersionPathReqBodyBuilder{}
+	return builder
+}
+
+// 操作原因
+//
+// 示例值：随着组织架构调整，该成本中心不再使用
+func (builder *DeleteCostCenterVersionPathReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterVersionPathReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *DeleteCostCenterVersionPathReqBodyBuilder) Build() (*DeleteCostCenterVersionReqBody, error) {
+	req := &DeleteCostCenterVersionReqBody{}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req, nil
+}
+
+type DeleteCostCenterVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DeleteCostCenterVersionReqBody
+}
+
+func NewDeleteCostCenterVersionReqBuilder() *DeleteCostCenterVersionReqBuilder {
+	builder := &DeleteCostCenterVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *DeleteCostCenterVersionReqBuilder) CostCenterId(costCenterId string) *DeleteCostCenterVersionReqBuilder {
+	builder.apiReq.PathParams.Set("cost_center_id", fmt.Sprint(costCenterId))
+	return builder
+}
+
+// 版本ID
+//
+// 示例值：6862995757234914824
+func (builder *DeleteCostCenterVersionReqBuilder) VersionId(versionId string) *DeleteCostCenterVersionReqBuilder {
+	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
+	return builder
+}
+
+// 撤销成本中心版本
+func (builder *DeleteCostCenterVersionReqBuilder) Body(body *DeleteCostCenterVersionReqBody) *DeleteCostCenterVersionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DeleteCostCenterVersionReqBuilder) Build() *DeleteCostCenterVersionReq {
+	req := &DeleteCostCenterVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeleteCostCenterVersionReqBody struct {
+	OperationReason *string `json:"operation_reason,omitempty"` // 操作原因
+}
+
+type DeleteCostCenterVersionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DeleteCostCenterVersionReqBody `body:""`
+}
+
+type DeleteCostCenterVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteCostCenterVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchCostCenterVersionReqBodyBuilder struct {
+	name                   []*I18n // 成本中心名称
+	nameFlag               bool
+	parentCostCenterId     string // 上级成本中心ID
+	parentCostCenterIdFlag bool
+	managers               []string // 成本中心负责人ID 列表，可通过雇佣信息接口查询获得
+	managersFlag           bool
+	description            []*I18n // 成本中心描述
+	descriptionFlag        bool
+	effectiveTime          string // 生效时间
+	effectiveTimeFlag      bool
+	operationReason        string // 操作原因
+	operationReasonFlag    bool
+}
+
+func NewPatchCostCenterVersionReqBodyBuilder() *PatchCostCenterVersionReqBodyBuilder {
+	builder := &PatchCostCenterVersionReqBodyBuilder{}
+	return builder
+}
+
+// 成本中心名称
+//
+//示例值：
+func (builder *PatchCostCenterVersionReqBodyBuilder) Name(name []*I18n) *PatchCostCenterVersionReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 上级成本中心ID
+//
+//示例值：6862995757234914824
+func (builder *PatchCostCenterVersionReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *PatchCostCenterVersionReqBodyBuilder {
+	builder.parentCostCenterId = parentCostCenterId
+	builder.parentCostCenterIdFlag = true
+	return builder
+}
+
+// 成本中心负责人ID 列表，可通过雇佣信息接口查询获得
+//
+//示例值：
+func (builder *PatchCostCenterVersionReqBodyBuilder) Managers(managers []string) *PatchCostCenterVersionReqBodyBuilder {
+	builder.managers = managers
+	builder.managersFlag = true
+	return builder
+}
+
+// 成本中心描述
+//
+//示例值：
+func (builder *PatchCostCenterVersionReqBodyBuilder) Description(description []*I18n) *PatchCostCenterVersionReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 生效时间
+//
+//示例值：2020-01-01
+func (builder *PatchCostCenterVersionReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterVersionReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 操作原因
+//
+//示例值：强行操作
+func (builder *PatchCostCenterVersionReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterVersionReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *PatchCostCenterVersionReqBodyBuilder) Build() *PatchCostCenterVersionReqBody {
+	req := &PatchCostCenterVersionReqBody{}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.parentCostCenterIdFlag {
+		req.ParentCostCenterId = &builder.parentCostCenterId
+	}
+	if builder.managersFlag {
+		req.Managers = builder.managers
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req
+}
+
+type PatchCostCenterVersionPathReqBodyBuilder struct {
+	name                   []*I18n
+	nameFlag               bool
+	parentCostCenterId     string
+	parentCostCenterIdFlag bool
+	managers               []string
+	managersFlag           bool
+	description            []*I18n
+	descriptionFlag        bool
+	effectiveTime          string
+	effectiveTimeFlag      bool
+	operationReason        string
+	operationReasonFlag    bool
+}
+
+func NewPatchCostCenterVersionPathReqBodyBuilder() *PatchCostCenterVersionPathReqBodyBuilder {
+	builder := &PatchCostCenterVersionPathReqBodyBuilder{}
+	return builder
+}
+
+// 成本中心名称
+//
+// 示例值：
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) Name(name []*I18n) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 上级成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.parentCostCenterId = parentCostCenterId
+	builder.parentCostCenterIdFlag = true
+	return builder
+}
+
+// 成本中心负责人ID 列表，可通过雇佣信息接口查询获得
+//
+// 示例值：
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) Managers(managers []string) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.managers = managers
+	builder.managersFlag = true
+	return builder
+}
+
+// 成本中心描述
+//
+// 示例值：
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) Description(description []*I18n) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：2020-01-01
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 操作原因
+//
+// 示例值：强行操作
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterVersionPathReqBodyBuilder {
+	builder.operationReason = operationReason
+	builder.operationReasonFlag = true
+	return builder
+}
+
+func (builder *PatchCostCenterVersionPathReqBodyBuilder) Build() (*PatchCostCenterVersionReqBody, error) {
+	req := &PatchCostCenterVersionReqBody{}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.parentCostCenterIdFlag {
+		req.ParentCostCenterId = &builder.parentCostCenterId
+	}
+	if builder.managersFlag {
+		req.Managers = builder.managers
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.operationReasonFlag {
+		req.OperationReason = &builder.operationReason
+	}
+	return req, nil
+}
+
+type PatchCostCenterVersionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PatchCostCenterVersionReqBody
+}
+
+func NewPatchCostCenterVersionReqBuilder() *PatchCostCenterVersionReqBuilder {
+	builder := &PatchCostCenterVersionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 成本中心ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchCostCenterVersionReqBuilder) CostCenterId(costCenterId string) *PatchCostCenterVersionReqBuilder {
+	builder.apiReq.PathParams.Set("cost_center_id", fmt.Sprint(costCenterId))
+	return builder
+}
+
+// 版本ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchCostCenterVersionReqBuilder) VersionId(versionId string) *PatchCostCenterVersionReqBuilder {
+	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *PatchCostCenterVersionReqBuilder) UserIdType(userIdType string) *PatchCostCenterVersionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建成本中心版本
+func (builder *PatchCostCenterVersionReqBuilder) Body(body *PatchCostCenterVersionReqBody) *PatchCostCenterVersionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PatchCostCenterVersionReqBuilder) Build() *PatchCostCenterVersionReq {
+	req := &PatchCostCenterVersionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PatchCostCenterVersionReqBody struct {
+	Name               []*I18n  `json:"name,omitempty"`                  // 成本中心名称
+	ParentCostCenterId *string  `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID
+	Managers           []string `json:"managers,omitempty"`              // 成本中心负责人ID 列表，可通过雇佣信息接口查询获得
+	Description        []*I18n  `json:"description,omitempty"`           // 成本中心描述
+	EffectiveTime      *string  `json:"effective_time,omitempty"`        // 生效时间
+	OperationReason    *string  `json:"operation_reason,omitempty"`      // 操作原因
+}
+
+type PatchCostCenterVersionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PatchCostCenterVersionReqBody `body:""`
+}
+
+type PatchCostCenterVersionRespData struct {
+	Version *CostCenterVersion `json:"version,omitempty"` //
+}
+
+type PatchCostCenterVersionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchCostCenterVersionRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchCostCenterVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -18903,12 +21626,16 @@ func (resp *ListJobResp) Success() bool {
 }
 
 type SearchJobChangeReqBodyBuilder struct {
-	employmentIds     []string // 雇员 ID 列表
-	employmentIdsFlag bool
-	jobChangeIds      []string // 异动记录 ID 列表
-	jobChangeIdsFlag  bool
-	statuses          []string // 异动状态，多个状态之间为「或」的关系
-	statusesFlag      bool
+	employmentIds          []string // 雇员 ID 列表
+	employmentIdsFlag      bool
+	jobChangeIds           []string // 异动记录 ID 列表
+	jobChangeIdsFlag       bool
+	statuses               []string // 异动状态，多个状态之间为「或」的关系
+	statusesFlag           bool
+	effectiveDateStart     string // 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+	effectiveDateStartFlag bool
+	effectiveDateEnd       string // 异动生效日期 - 搜索范围结束
+	effectiveDateEndFlag   bool
 }
 
 func NewSearchJobChangeReqBodyBuilder() *SearchJobChangeReqBodyBuilder {
@@ -18943,6 +21670,24 @@ func (builder *SearchJobChangeReqBodyBuilder) Statuses(statuses []string) *Searc
 	return builder
 }
 
+// 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+//
+//示例值：2022-01-01
+func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *SearchJobChangeReqBodyBuilder {
+	builder.effectiveDateStart = effectiveDateStart
+	builder.effectiveDateStartFlag = true
+	return builder
+}
+
+// 异动生效日期 - 搜索范围结束
+//
+//示例值：2022-01-01
+func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *SearchJobChangeReqBodyBuilder {
+	builder.effectiveDateEnd = effectiveDateEnd
+	builder.effectiveDateEndFlag = true
+	return builder
+}
+
 func (builder *SearchJobChangeReqBodyBuilder) Build() *SearchJobChangeReqBody {
 	req := &SearchJobChangeReqBody{}
 	if builder.employmentIdsFlag {
@@ -18954,16 +21699,26 @@ func (builder *SearchJobChangeReqBodyBuilder) Build() *SearchJobChangeReqBody {
 	if builder.statusesFlag {
 		req.Statuses = builder.statuses
 	}
+	if builder.effectiveDateStartFlag {
+		req.EffectiveDateStart = &builder.effectiveDateStart
+	}
+	if builder.effectiveDateEndFlag {
+		req.EffectiveDateEnd = &builder.effectiveDateEnd
+	}
 	return req
 }
 
 type SearchJobChangePathReqBodyBuilder struct {
-	employmentIds     []string
-	employmentIdsFlag bool
-	jobChangeIds      []string
-	jobChangeIdsFlag  bool
-	statuses          []string
-	statusesFlag      bool
+	employmentIds          []string
+	employmentIdsFlag      bool
+	jobChangeIds           []string
+	jobChangeIdsFlag       bool
+	statuses               []string
+	statusesFlag           bool
+	effectiveDateStart     string
+	effectiveDateStartFlag bool
+	effectiveDateEnd       string
+	effectiveDateEndFlag   bool
 }
 
 func NewSearchJobChangePathReqBodyBuilder() *SearchJobChangePathReqBodyBuilder {
@@ -18998,6 +21753,24 @@ func (builder *SearchJobChangePathReqBodyBuilder) Statuses(statuses []string) *S
 	return builder
 }
 
+// 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+//
+// 示例值：2022-01-01
+func (builder *SearchJobChangePathReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *SearchJobChangePathReqBodyBuilder {
+	builder.effectiveDateStart = effectiveDateStart
+	builder.effectiveDateStartFlag = true
+	return builder
+}
+
+// 异动生效日期 - 搜索范围结束
+//
+// 示例值：2022-01-01
+func (builder *SearchJobChangePathReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *SearchJobChangePathReqBodyBuilder {
+	builder.effectiveDateEnd = effectiveDateEnd
+	builder.effectiveDateEndFlag = true
+	return builder
+}
+
 func (builder *SearchJobChangePathReqBodyBuilder) Build() (*SearchJobChangeReqBody, error) {
 	req := &SearchJobChangeReqBody{}
 	if builder.employmentIdsFlag {
@@ -19008,6 +21781,12 @@ func (builder *SearchJobChangePathReqBodyBuilder) Build() (*SearchJobChangeReqBo
 	}
 	if builder.statusesFlag {
 		req.Statuses = builder.statuses
+	}
+	if builder.effectiveDateStartFlag {
+		req.EffectiveDateStart = &builder.effectiveDateStart
+	}
+	if builder.effectiveDateEndFlag {
+		req.EffectiveDateEnd = &builder.effectiveDateEnd
 	}
 	return req, nil
 }
@@ -19081,9 +21860,11 @@ func (builder *SearchJobChangeReqBuilder) Build() *SearchJobChangeReq {
 }
 
 type SearchJobChangeReqBody struct {
-	EmploymentIds []string `json:"employment_ids,omitempty"` // 雇员 ID 列表
-	JobChangeIds  []string `json:"job_change_ids,omitempty"` // 异动记录 ID 列表
-	Statuses      []string `json:"statuses,omitempty"`       // 异动状态，多个状态之间为「或」的关系
+	EmploymentIds      []string `json:"employment_ids,omitempty"`       // 雇员 ID 列表
+	JobChangeIds       []string `json:"job_change_ids,omitempty"`       // 异动记录 ID 列表
+	Statuses           []string `json:"statuses,omitempty"`             // 异动状态，多个状态之间为「或」的关系
+	EffectiveDateStart *string  `json:"effective_date_start,omitempty"` // 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+	EffectiveDateEnd   *string  `json:"effective_date_end,omitempty"`   // 异动生效日期 - 搜索范围结束
 }
 
 type SearchJobChangeReq struct {
@@ -20692,6 +23473,438 @@ type P2ProcessCcUpdatedV2 struct {
 
 func (m *P2ProcessCcUpdatedV2) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
+}
+
+type SearchBasicInfoBankIterator struct {
+	nextPageToken *string
+	items         []*Bank
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoBankReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoBankReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoBankIterator) Next() (bool, *Bank, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoBankIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoBankBranchIterator struct {
+	nextPageToken *string
+	items         []*BankBranch
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoBankBranchReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoBankBranchReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoBankBranchResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoBankBranchIterator) Next() (bool, *BankBranch, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoBankBranchIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoCityIterator struct {
+	nextPageToken *string
+	items         []*City
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoCityReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoCityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCityResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoCityIterator) Next() (bool, *City, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoCityIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoCountryRegionIterator struct {
+	nextPageToken *string
+	items         []*CountryRegion
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoCountryRegionReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoCountryRegionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoCountryRegionIterator) Next() (bool, *CountryRegion, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoCountryRegionIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoCountryRegionSubdivisionIterator struct {
+	nextPageToken *string
+	items         []*CountryRegionSubdivision
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoCountryRegionSubdivisionReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoCountryRegionSubdivisionReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCountryRegionSubdivisionResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoCountryRegionSubdivisionIterator) Next() (bool, *CountryRegionSubdivision, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoCountryRegionSubdivisionIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoCurrencyIterator struct {
+	nextPageToken *string
+	items         []*Currency
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoCurrencyReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoCurrencyReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoCurrencyResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoCurrencyIterator) Next() (bool, *Currency, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoCurrencyIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoDistrictIterator struct {
+	nextPageToken *string
+	items         []*District
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoDistrictReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoDistrictReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoDistrictResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoDistrictIterator) Next() (bool, *District, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoDistrictIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchBasicInfoNationalityIterator struct {
+	nextPageToken *string
+	items         []*Nationality
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchBasicInfoNationalityReq
+	listFunc      func(ctx context.Context, req *SearchBasicInfoNationalityReq, options ...larkcore.RequestOptionFunc) (*SearchBasicInfoNationalityResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchBasicInfoNationalityIterator) Next() (bool, *Nationality, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchBasicInfoNationalityIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListBpIterator struct {

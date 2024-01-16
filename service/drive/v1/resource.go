@@ -12,7 +12,7 @@ import (
 
 type V1 struct {
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 文件夹
+	File                     *file                     // 文件
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics

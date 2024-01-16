@@ -29,6 +29,7 @@ type V1 struct {
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
+	Thread           *thread           // thread
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -51,6 +52,7 @@ func New(config *larkcore.Config) *V1 {
 		MessageReaction:  &messageReaction{config: config},
 		MessageResource:  &messageResource{config: config},
 		Pin:              &pin{config: config},
+		Thread:           &thread{config: config},
 	}
 }
 
@@ -106,6 +108,9 @@ type messageResource struct {
 	config *larkcore.Config
 }
 type pin struct {
+	config *larkcore.Config
+}
+type thread struct {
 	config *larkcore.Config
 }
 
@@ -1287,7 +1292,7 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages/:message_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -1781,4 +1786,30 @@ func (p *pin) ListByIterator(ctx context.Context, req *ListPinReq, options ...la
 		listFunc: p.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// Forward
+//
+// - 转发
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=forward&project=im&resource=thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/forward_thread.go
+func (t *thread) Forward(ctx context.Context, req *ForwardThreadReq, options ...larkcore.RequestOptionFunc) (*ForwardThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/threads/:thread_id/forward"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ForwardThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }

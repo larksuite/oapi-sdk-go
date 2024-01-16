@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -39,6 +38,7 @@ func main() {
 			OwnerId("4d7a3c6g").
 			UserIdList([]string{}).
 			BotIdList([]string{}).
+			GroupMessageType("chat").
 			ChatMode("group").
 			ChatType("private").
 			JoinMessageVisibility("all_members").

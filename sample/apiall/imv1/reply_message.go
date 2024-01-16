@@ -16,7 +16,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -32,6 +31,7 @@ func main() {
 		Body(larkim.NewReplyMessageReqBodyBuilder().
 			Content("").
 			MsgType("text").
+			ReplyInThread(false).
 			Uuid("a0d69e20-1dd1-458b-k525-dfeca4015204").
 			Build()).
 		Build()
