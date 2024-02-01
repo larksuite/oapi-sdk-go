@@ -1110,6 +1110,32 @@ func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRe
 		limit:    req.Limit}, nil
 }
 
+// Search
+//
+// - 查找多维表格记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=bitable&resource=app.table.record&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/search_appTableRecord.go
+func (a *appTableRecord) Search(ctx context.Context, req *SearchAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*SearchAppTableRecordResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchAppTableRecordResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Update 更新记录
 //
 // - 该接口用于更新数据表中的一条记录

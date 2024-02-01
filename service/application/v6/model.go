@@ -7856,6 +7856,114 @@ func (resp *PatchApplicationFeedbackResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateApplicationManagementReqBodyBuilder struct {
+	enable     bool // 启用/停用应用
+	enableFlag bool
+}
+
+func NewUpdateApplicationManagementReqBodyBuilder() *UpdateApplicationManagementReqBodyBuilder {
+	builder := &UpdateApplicationManagementReqBodyBuilder{}
+	return builder
+}
+
+// 启用/停用应用
+//
+//示例值：true
+func (builder *UpdateApplicationManagementReqBodyBuilder) Enable(enable bool) *UpdateApplicationManagementReqBodyBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+
+func (builder *UpdateApplicationManagementReqBodyBuilder) Build() *UpdateApplicationManagementReqBody {
+	req := &UpdateApplicationManagementReqBody{}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+	}
+	return req
+}
+
+type UpdateApplicationManagementPathReqBodyBuilder struct {
+	enable     bool
+	enableFlag bool
+}
+
+func NewUpdateApplicationManagementPathReqBodyBuilder() *UpdateApplicationManagementPathReqBodyBuilder {
+	builder := &UpdateApplicationManagementPathReqBodyBuilder{}
+	return builder
+}
+
+// 启用/停用应用
+//
+// 示例值：true
+func (builder *UpdateApplicationManagementPathReqBodyBuilder) Enable(enable bool) *UpdateApplicationManagementPathReqBodyBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+
+func (builder *UpdateApplicationManagementPathReqBodyBuilder) Build() (*UpdateApplicationManagementReqBody, error) {
+	req := &UpdateApplicationManagementReqBody{}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+	}
+	return req, nil
+}
+
+type UpdateApplicationManagementReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateApplicationManagementReqBody
+}
+
+func NewUpdateApplicationManagementReqBuilder() *UpdateApplicationManagementReqBuilder {
+	builder := &UpdateApplicationManagementReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 应用ID
+//
+// 示例值：cli_a4517c8461f8100a
+func (builder *UpdateApplicationManagementReqBuilder) AppId(appId string) *UpdateApplicationManagementReqBuilder {
+	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
+	return builder
+}
+
+//
+func (builder *UpdateApplicationManagementReqBuilder) Body(body *UpdateApplicationManagementReqBody) *UpdateApplicationManagementReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateApplicationManagementReqBuilder) Build() *UpdateApplicationManagementReq {
+	req := &UpdateApplicationManagementReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateApplicationManagementReqBody struct {
+	Enable *bool `json:"enable,omitempty"` // 启用/停用应用
+}
+
+type UpdateApplicationManagementReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateApplicationManagementReqBody `body:""`
+}
+
+type UpdateApplicationManagementResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateApplicationManagementResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CheckWhiteBlackListApplicationVisibilityReqBodyBuilder struct {
 	userIds           []string // 用户ID列表
 	userIdsFlag       bool

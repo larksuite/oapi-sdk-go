@@ -3910,6 +3910,7 @@ type Department struct {
 	Active             *bool              `json:"active,omitempty"`               // 是否启用
 	Description        []*I18n            `json:"description,omitempty"`          // 描述
 	CustomFields       []*CustomFieldData `json:"custom_fields,omitempty"`        // 自定义字段
+	StaffingModel      *Enum              `json:"staffing_model,omitempty"`       // 是否使用职务
 }
 
 type DepartmentBuilder struct {
@@ -3945,6 +3946,8 @@ type DepartmentBuilder struct {
 	descriptionFlag        bool
 	customFields           []*CustomFieldData // 自定义字段
 	customFieldsFlag       bool
+	staffingModel          *Enum // 是否使用职务
+	staffingModelFlag      bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -4096,6 +4099,15 @@ func (builder *DepartmentBuilder) CustomFields(customFields []*CustomFieldData) 
 	return builder
 }
 
+// 是否使用职务
+//
+// 示例值：
+func (builder *DepartmentBuilder) StaffingModel(staffingModel *Enum) *DepartmentBuilder {
+	builder.staffingModel = staffingModel
+	builder.staffingModelFlag = true
+	return builder
+}
+
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
 	if builder.idFlag {
@@ -4157,6 +4169,9 @@ func (builder *DepartmentBuilder) Build() *Department {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.staffingModelFlag {
+		req.StaffingModel = builder.staffingModel
 	}
 	return req
 }
@@ -5377,6 +5392,8 @@ type EmergencyContact struct {
 	PhoneList    []*Phone           `json:"phone_list,omitempty"`    // 电话
 	LegalName    *string            `json:"legal_name,omitempty"`    // 法定姓名
 	CustomFields []*CustomFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	Address      *Address           `json:"address,omitempty"`       // 联系地址
+	Email        *Email             `json:"email,omitempty"`         // 邮箱
 }
 
 type EmergencyContactBuilder struct {
@@ -5392,6 +5409,10 @@ type EmergencyContactBuilder struct {
 	legalNameFlag    bool
 	customFields     []*CustomFieldData // 自定义字段
 	customFieldsFlag bool
+	address          *Address // 联系地址
+	addressFlag      bool
+	email            *Email // 邮箱
+	emailFlag        bool
 }
 
 func NewEmergencyContactBuilder() *EmergencyContactBuilder {
@@ -5453,6 +5474,24 @@ func (builder *EmergencyContactBuilder) CustomFields(customFields []*CustomField
 	return builder
 }
 
+// 联系地址
+//
+// 示例值：
+func (builder *EmergencyContactBuilder) Address(address *Address) *EmergencyContactBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：
+func (builder *EmergencyContactBuilder) Email(email *Email) *EmergencyContactBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
 func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	req := &EmergencyContact{}
 	if builder.nameFlag {
@@ -5473,6 +5512,12 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.addressFlag {
+		req.Address = builder.address
+	}
+	if builder.emailFlag {
+		req.Email = builder.email
 	}
 	return req
 }
@@ -12349,6 +12394,11 @@ type PreHireEmploymentInfo struct {
 	RehireEmploymentId   *string              `json:"rehire_employment_id,omitempty"`    // -| 历史雇佣信息 ID ，雇佣信息详细信息可以通过「查询单个雇佣信息」API 获得，系统会检验当前雇佣信息的合法性，要求： - 雇佣信息为该人员最后一次雇佣记录 - 雇佣信息的雇员状态 = "terminated" - 该人员不存在其他待入职记录
 	WorkingHoursType     *string              `json:"working_hours_type,omitempty"`      // -| 工时制度 ID ，可通过【查询单个工时制度】接口获取
 	WeeklyWorkingHoursV2 *float64             `json:"weekly_working_hours_v2,omitempty"` // 周工作时长v2（单位：小时）
+	OfficeAddress        *Address             `json:"office_address,omitempty"`          // 办公地址
+	WorkingCalendarId    *string              `json:"working_calendar_id,omitempty"`     // 工作日历
+	UpdatedAt            *string              `json:"updated_at,omitempty"`              // 更新时间
+	SuspectedRehiring    *bool                `json:"suspected_rehiring,omitempty"`      // 是否疑似重聘
+	CustomFields         []*CustomFieldData   `json:"custom_fields,omitempty"`           // 自定义字段
 }
 
 type PreHireEmploymentInfoBuilder struct {
@@ -12400,6 +12450,16 @@ type PreHireEmploymentInfoBuilder struct {
 	workingHoursTypeFlag     bool
 	weeklyWorkingHoursV2     float64 // 周工作时长v2（单位：小时）
 	weeklyWorkingHoursV2Flag bool
+	officeAddress            *Address // 办公地址
+	officeAddressFlag        bool
+	workingCalendarId        string // 工作日历
+	workingCalendarIdFlag    bool
+	updatedAt                string // 更新时间
+	updatedAtFlag            bool
+	suspectedRehiring        bool // 是否疑似重聘
+	suspectedRehiringFlag    bool
+	customFields             []*CustomFieldData // 自定义字段
+	customFieldsFlag         bool
 }
 
 func NewPreHireEmploymentInfoBuilder() *PreHireEmploymentInfoBuilder {
@@ -12623,6 +12683,51 @@ func (builder *PreHireEmploymentInfoBuilder) WeeklyWorkingHoursV2(weeklyWorkingH
 	return builder
 }
 
+// 办公地址
+//
+// 示例值：
+func (builder *PreHireEmploymentInfoBuilder) OfficeAddress(officeAddress *Address) *PreHireEmploymentInfoBuilder {
+	builder.officeAddress = officeAddress
+	builder.officeAddressFlag = true
+	return builder
+}
+
+// 工作日历
+//
+// 示例值：6977973225846343173
+func (builder *PreHireEmploymentInfoBuilder) WorkingCalendarId(workingCalendarId string) *PreHireEmploymentInfoBuilder {
+	builder.workingCalendarId = workingCalendarId
+	builder.workingCalendarIdFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：2023-01-10 10:29
+func (builder *PreHireEmploymentInfoBuilder) UpdatedAt(updatedAt string) *PreHireEmploymentInfoBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 是否疑似重聘
+//
+// 示例值：false
+func (builder *PreHireEmploymentInfoBuilder) SuspectedRehiring(suspectedRehiring bool) *PreHireEmploymentInfoBuilder {
+	builder.suspectedRehiring = suspectedRehiring
+	builder.suspectedRehiringFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *PreHireEmploymentInfoBuilder) CustomFields(customFields []*CustomFieldData) *PreHireEmploymentInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	req := &PreHireEmploymentInfo{}
 	if builder.departmentIdFlag {
@@ -12719,6 +12824,24 @@ func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 		req.WeeklyWorkingHoursV2 = &builder.weeklyWorkingHoursV2
 
 	}
+	if builder.officeAddressFlag {
+		req.OfficeAddress = builder.officeAddress
+	}
+	if builder.workingCalendarIdFlag {
+		req.WorkingCalendarId = &builder.workingCalendarId
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.suspectedRehiringFlag {
+		req.SuspectedRehiring = &builder.suspectedRehiring
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
 	return req
 }
 
@@ -12731,8 +12854,10 @@ type PreHireOnboardingInfo struct {
 	RecruitmentType      *string           `json:"recruitment_type,omitempty"`       // -| 招聘来源 ，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "recruitment_type"
 	OnboardingLocationId *string           `json:"onboarding_location_id,omitempty"` // -| 入职地点id , 详细信息可通过【批量查询地点】接口获得
 	CompanySponsoredVisa *bool             `json:"company_sponsored_visa,omitempty"` // -| 需要公司办理签证
-	OnboardingStatus     *bool             `json:"onboarding_status,omitempty"`      // -| 入职状态
+	OnboardingStatus     *string           `json:"onboarding_status,omitempty"`      // -| 入职状态
 	OnboardingTaskList   []*OnboardingTask `json:"onboarding_task_list,omitempty"`   // 入职任务列表
+	OnboardingAddress    *Address          `json:"onboarding_address,omitempty"`     // 入职地址
+	FlowName             []*I18n           `json:"flow_name,omitempty"`              // 入职流程
 }
 
 type PreHireOnboardingInfoBuilder struct {
@@ -12752,10 +12877,14 @@ type PreHireOnboardingInfoBuilder struct {
 	onboardingLocationIdFlag bool
 	companySponsoredVisa     bool // -| 需要公司办理签证
 	companySponsoredVisaFlag bool
-	onboardingStatus         bool // -| 入职状态
+	onboardingStatus         string // -| 入职状态
 	onboardingStatusFlag     bool
 	onboardingTaskList       []*OnboardingTask // 入职任务列表
 	onboardingTaskListFlag   bool
+	onboardingAddress        *Address // 入职地址
+	onboardingAddressFlag    bool
+	flowName                 []*I18n // 入职流程
+	flowNameFlag             bool
 }
 
 func NewPreHireOnboardingInfoBuilder() *PreHireOnboardingInfoBuilder {
@@ -12838,7 +12967,7 @@ func (builder *PreHireOnboardingInfoBuilder) CompanySponsoredVisa(companySponsor
 // -| 入职状态
 //
 // 示例值：
-func (builder *PreHireOnboardingInfoBuilder) OnboardingStatus(onboardingStatus bool) *PreHireOnboardingInfoBuilder {
+func (builder *PreHireOnboardingInfoBuilder) OnboardingStatus(onboardingStatus string) *PreHireOnboardingInfoBuilder {
 	builder.onboardingStatus = onboardingStatus
 	builder.onboardingStatusFlag = true
 	return builder
@@ -12850,6 +12979,24 @@ func (builder *PreHireOnboardingInfoBuilder) OnboardingStatus(onboardingStatus b
 func (builder *PreHireOnboardingInfoBuilder) OnboardingTaskList(onboardingTaskList []*OnboardingTask) *PreHireOnboardingInfoBuilder {
 	builder.onboardingTaskList = onboardingTaskList
 	builder.onboardingTaskListFlag = true
+	return builder
+}
+
+// 入职地址
+//
+// 示例值：
+func (builder *PreHireOnboardingInfoBuilder) OnboardingAddress(onboardingAddress *Address) *PreHireOnboardingInfoBuilder {
+	builder.onboardingAddress = onboardingAddress
+	builder.onboardingAddressFlag = true
+	return builder
+}
+
+// 入职流程
+//
+// 示例值：
+func (builder *PreHireOnboardingInfoBuilder) FlowName(flowName []*I18n) *PreHireOnboardingInfoBuilder {
+	builder.flowName = flowName
+	builder.flowNameFlag = true
 	return builder
 }
 
@@ -12893,6 +13040,12 @@ func (builder *PreHireOnboardingInfoBuilder) Build() *PreHireOnboardingInfo {
 	}
 	if builder.onboardingTaskListFlag {
 		req.OnboardingTaskList = builder.onboardingTaskList
+	}
+	if builder.onboardingAddressFlag {
+		req.OnboardingAddress = builder.onboardingAddress
+	}
+	if builder.flowNameFlag {
+		req.FlowName = builder.flowName
 	}
 	return req
 }

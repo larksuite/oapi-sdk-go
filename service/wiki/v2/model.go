@@ -22,6 +22,25 @@ import (
 )
 
 const (
+	ShowLanguageLangZH   = "zh"    // 中文（简体）（中华人民共和国）
+	ShowLanguageLangID   = "id"    // 印尼语（印度尼西亚）
+	ShowLanguageLangDE   = "de"    // 德语（德国）
+	ShowLanguageLangEN   = "en"    // 英语（美国）
+	ShowLanguageLangES   = "es"    // 西班牙语（西班牙）
+	ShowLanguageLangFR   = "fr"    // 法语（法国）
+	ShowLanguageLangIT   = "it"    // 意大利语（意大利）
+	ShowLanguageLangPT   = "pt"    // 葡萄牙语（巴西）
+	ShowLanguageLangVI   = "vi"    // 越南语（越南）
+	ShowLanguageLangRU   = "ru"    // 俄语（俄罗斯）
+	ShowLanguageLangHI   = "hi"    // 印地语（印度）
+	ShowLanguageLangTH   = "th"    // 泰语（泰国）
+	ShowLanguageLangKO   = "ko"    // 韩语（韩国）
+	ShowLanguageLangJA   = "ja"    // 日语（日本）
+	ShowLanguageLangZHHK = "zh-HK" // 中文（中国香港）
+	ShowLanguageLangZHTW = "zh-TW" // 中文（中国台湾）
+)
+
+const (
 	ObjTypeForQueryObjTypeDoc      = "doc"      // 旧版文档
 	ObjTypeForQueryObjTypeDocx     = "docx"     // 新版文档
 	ObjTypeForQueryObjTypeSheet    = "sheet"    // 表格
@@ -30,6 +49,25 @@ const (
 	ObjTypeForQueryObjTypeFile     = "file"     // 文件
 	ObjTypeForQueryObjTypeSlides   = "slides"   // 幻灯片
 	ObjTypeForQueryObjTypeWiki     = "wiki"     // 知识库节点
+)
+
+const (
+	ShowLanguageListSpaceLangZH   = "zh"    // 中文（简体）（中华人民共和国）
+	ShowLanguageListSpaceLangID   = "id"    // 印尼语（印度尼西亚）
+	ShowLanguageListSpaceLangDE   = "de"    // 德语（德国）
+	ShowLanguageListSpaceLangEN   = "en"    // 英语（美国）
+	ShowLanguageListSpaceLangES   = "es"    // 西班牙语（西班牙）
+	ShowLanguageListSpaceLangFR   = "fr"    // 法语（法国）
+	ShowLanguageListSpaceLangIT   = "it"    // 意大利语（意大利）
+	ShowLanguageListSpaceLangPT   = "pt"    // 葡萄牙语（巴西）
+	ShowLanguageListSpaceLangVI   = "vi"    // 越南语（越南）
+	ShowLanguageListSpaceLangRU   = "ru"    // 俄语（俄罗斯）
+	ShowLanguageListSpaceLangHI   = "hi"    // 印地语（印度）
+	ShowLanguageListSpaceLangTH   = "th"    // 泰语（泰国）
+	ShowLanguageListSpaceLangKO   = "ko"    // 韩语（韩国）
+	ShowLanguageListSpaceLangJA   = "ja"    // 日语（日本）
+	ShowLanguageListSpaceLangZHHK = "zh-HK" // 中文（中国香港）
+	ShowLanguageListSpaceLangZHTW = "zh-TW" // 中文（中国台湾）
 )
 
 const (
@@ -958,10 +996,19 @@ func (builder *GetSpaceReqBuilder) SpaceId(spaceId string) *GetSpaceReqBuilder {
 	return builder
 }
 
+// 当查询个人文档库时，指定返回的文档库名称展示语言。可选值有：zh, id, de, en, es, fr, it, pt, vi, ru, hi, th, ko, ja, zh-HK, zh-TW。
+//
+// 示例值：zh
+func (builder *GetSpaceReqBuilder) Lang(lang string) *GetSpaceReqBuilder {
+	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
+	return builder
+}
+
 func (builder *GetSpaceReqBuilder) Build() *GetSpaceReq {
 	req := &GetSpaceReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -1073,6 +1120,14 @@ func (builder *ListSpaceReqBuilder) PageToken(pageToken string) *ListSpaceReqBui
 	return builder
 }
 
+// 当查询个人文档库时，指定返回的文档库名称展示语言。可选值有：zh, id, de, en, es, fr, it, pt, vi, ru, hi, th, ko, ja, zh-HK, zh-TW。
+//
+// 示例值：zh
+func (builder *ListSpaceReqBuilder) Lang(lang string) *ListSpaceReqBuilder {
+	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
+	return builder
+}
+
 func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 	req := &ListSpaceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1089,8 +1144,8 @@ type ListSpaceReq struct {
 
 type ListSpaceRespData struct {
 	Items     []*Space `json:"items,omitempty"`      // 数据列表
-	PageToken *string  `json:"page_token,omitempty"` //
-	HasMore   *bool    `json:"has_more,omitempty"`   //
+	PageToken *string  `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   *bool    `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type ListSpaceResp struct {

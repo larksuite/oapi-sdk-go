@@ -17,6 +17,7 @@ type V6 struct {
 	ApplicationAppVersion    *applicationAppVersion    // 事件
 	ApplicationContactsRange *applicationContactsRange // application.contacts_range
 	ApplicationFeedback      *applicationFeedback      // 应用反馈
+	ApplicationManagement    *applicationManagement    // application.management
 	ApplicationVisibility    *applicationVisibility    // 事件
 	Bot                      *bot                      // 事件
 }
@@ -30,6 +31,7 @@ func New(config *larkcore.Config) *V6 {
 		ApplicationAppVersion:    &applicationAppVersion{config: config},
 		ApplicationContactsRange: &applicationContactsRange{config: config},
 		ApplicationFeedback:      &applicationFeedback{config: config},
+		ApplicationManagement:    &applicationManagement{config: config},
 		ApplicationVisibility:    &applicationVisibility{config: config},
 		Bot:                      &bot{config: config},
 	}
@@ -54,6 +56,9 @@ type applicationContactsRange struct {
 	config *larkcore.Config
 }
 type applicationFeedback struct {
+	config *larkcore.Config
+}
+type applicationManagement struct {
 	config *larkcore.Config
 }
 type applicationVisibility struct {
@@ -474,6 +479,32 @@ func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFe
 	}
 	// 反序列响应结果
 	resp := &PatchApplicationFeedbackResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Update
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=application&resource=application.management&version=v6
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/update_applicationManagement.go
+func (a *applicationManagement) Update(ctx context.Context, req *UpdateApplicationManagementReq, options ...larkcore.RequestOptionFunc) (*UpdateApplicationManagementResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/application/v6/applications/:app_id/management"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateApplicationManagementResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		return nil, err

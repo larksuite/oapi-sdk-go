@@ -3732,6 +3732,7 @@ type Department struct {
 	ExpirationTime   *string            `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterId     *string            `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *Enum              `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 type DepartmentBuilder struct {
@@ -3753,6 +3754,8 @@ type DepartmentBuilder struct {
 	customFieldsFlag     bool
 	costCenterId         string // 成本中心id
 	costCenterIdFlag     bool
+	staffingModel        *Enum // 是否使用职务
+	staffingModelFlag    bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -3841,6 +3844,15 @@ func (builder *DepartmentBuilder) CostCenterId(costCenterId string) *DepartmentB
 	return builder
 }
 
+// 是否使用职务
+//
+// 示例值：
+func (builder *DepartmentBuilder) StaffingModel(staffingModel *Enum) *DepartmentBuilder {
+	builder.staffingModel = staffingModel
+	builder.staffingModelFlag = true
+	return builder
+}
+
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
 	if builder.idFlag {
@@ -3876,6 +3888,9 @@ func (builder *DepartmentBuilder) Build() *Department {
 		req.CostCenterId = &builder.costCenterId
 
 	}
+	if builder.staffingModelFlag {
+		req.StaffingModel = builder.staffingModel
+	}
 	return req
 }
 
@@ -3889,6 +3904,7 @@ type DepartmentCreate struct {
 	ExpirationTime   *string            `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*ObjectFieldData `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterId     *string            `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *Enum              `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 type DepartmentCreateBuilder struct {
@@ -3910,6 +3926,8 @@ type DepartmentCreateBuilder struct {
 	customFieldsFlag     bool
 	costCenterId         string // 成本中心id
 	costCenterIdFlag     bool
+	staffingModel        *Enum // 是否使用职务
+	staffingModelFlag    bool
 }
 
 func NewDepartmentCreateBuilder() *DepartmentCreateBuilder {
@@ -3998,6 +4016,15 @@ func (builder *DepartmentCreateBuilder) CostCenterId(costCenterId string) *Depar
 	return builder
 }
 
+// 是否使用职务
+//
+// 示例值：
+func (builder *DepartmentCreateBuilder) StaffingModel(staffingModel *Enum) *DepartmentCreateBuilder {
+	builder.staffingModel = staffingModel
+	builder.staffingModelFlag = true
+	return builder
+}
+
 func (builder *DepartmentCreateBuilder) Build() *DepartmentCreate {
 	req := &DepartmentCreate{}
 	if builder.idFlag {
@@ -4032,6 +4059,9 @@ func (builder *DepartmentCreateBuilder) Build() *DepartmentCreate {
 	if builder.costCenterIdFlag {
 		req.CostCenterId = &builder.costCenterId
 
+	}
+	if builder.staffingModelFlag {
+		req.StaffingModel = builder.staffingModel
 	}
 	return req
 }

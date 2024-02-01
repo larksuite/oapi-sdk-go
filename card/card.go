@@ -65,8 +65,14 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq)
 			eventResp = recoveryResult()
 		}
 	}()
+
+	plain, err := h.decrypt(req.Body)
+	if err != nil {
+		return processError(ctx, h.Config.Logger, req.RequestURI, err)
+	}
+
 	cardAction := &CardAction{}
-	err := json.Unmarshal(req.Body, cardAction)
+	err = json.Unmarshal(plain, cardAction)
 	if err != nil {
 		return processError(ctx, h.Config.Logger, req.RequestURI, err)
 	}
@@ -84,6 +90,28 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq)
 		return processError(ctx, h.Config.Logger, req.RequestURI, err)
 	}
 	return result
+}
+
+func (h *CardActionHandler) decrypt(bs []byte) ([]byte, error) {
+	var plain []byte
+	var encrypt larkevent.EventEncryptMsg
+	err := json.Unmarshal(bs, &encrypt)
+	if err != nil {
+		return nil, err
+	}
+	if encrypt.Encrypt != "" {
+		if h.eventEncryptKey == "" {
+			return nil, fmt.Errorf("encrypt_key not found")
+		}
+		plain, err = larkevent.EventDecrypt(encrypt.Encrypt, h.eventEncryptKey)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		plain = bs
+	}
+
+	return plain, nil
 }
 
 func (h *CardActionHandler) Logger() larkcore.Logger {

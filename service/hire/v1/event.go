@@ -18,6 +18,26 @@ import (
 )
 
 // 消息处理器定义
+type P2ApplicationDeletedV1Handler struct {
+	handler func(context.Context, *P2ApplicationDeletedV1) error
+}
+
+func NewP2ApplicationDeletedV1Handler(handler func(context.Context, *P2ApplicationDeletedV1) error) *P2ApplicationDeletedV1Handler {
+	h := &P2ApplicationDeletedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ApplicationDeletedV1Handler) Event() interface{} {
+	return &P2ApplicationDeletedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ApplicationDeletedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ApplicationDeletedV1))
+}
+
+// 消息处理器定义
 type P2ApplicationStageChangedV1Handler struct {
 	handler func(context.Context, *P2ApplicationStageChangedV1) error
 }

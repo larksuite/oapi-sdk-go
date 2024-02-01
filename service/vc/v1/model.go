@@ -28,6 +28,7 @@ import (
 const (
 	QueryTypeRoom = 1 // 会议室
 	QueryTypeErc  = 2 // erc
+	QueryTypeSip  = 3 // SIP会议室系统
 
 )
 
@@ -338,45 +339,54 @@ const (
 )
 
 type Alert struct {
-	AlertId       *string    `json:"alert_id,omitempty"`       // 告警ID
-	ResourceScope *string    `json:"resource_scope,omitempty"` // 触发告警规则的会议室/服务器具体的名称
-	MonitorTarget *int       `json:"monitor_target,omitempty"` // 触发告警规则的监控对象
-	AlertStrategy *string    `json:"alert_strategy,omitempty"` // 告警规则的规则描述
-	AlertTime     *string    `json:"alert_time,omitempty"`     // 告警通知发生时间（unix时间，单位sec）
-	AlertLevel    *int       `json:"alert_level,omitempty"`    // 告警等级：严重/警告/提醒
-	Contacts      []*Contact `json:"contacts,omitempty"`       // 告警联系人
-	NotifyMethods []int      `json:"notifyMethods,omitempty"`  // 通知方式
-	AlertRule     *string    `json:"alertRule,omitempty"`      // 规则名称
-	ProcessTime   *string    `json:"process_time,omitempty"`   // 处理时间
-	RecoverTime   *string    `json:"recover_time,omitempty"`   // 恢复时间
-	ProcessStatus *int       `json:"process_status,omitempty"` // 处理状态：待处理/处理中/已恢复
+	AlertId              *string    `json:"alert_id,omitempty"`                // 告警ID
+	ResourceScope        *string    `json:"resource_scope,omitempty"`          // 触发告警规则的会议室/服务器具体的名称
+	MonitorTarget        *int       `json:"monitor_target,omitempty"`          // 触发告警规则的监控对象
+	AlertStrategy        *string    `json:"alert_strategy,omitempty"`          // 告警规则的规则描述
+	AlertTime            *string    `json:"alert_time,omitempty"`              // 告警通知发生时间（unix时间，单位sec）
+	AlertLevel           *int       `json:"alert_level,omitempty"`             // 告警等级：严重/警告/提醒
+	Contacts             []*Contact `json:"contacts,omitempty"`                // 告警联系人
+	NotifyMethods        []int      `json:"notifyMethods,omitempty"`           // 通知方式
+	AlertRule            *string    `json:"alertRule,omitempty"`               // 规则名称
+	ProcessTime          *string    `json:"process_time,omitempty"`            // 处理时间
+	RecoverTime          *string    `json:"recover_time,omitempty"`            // 恢复时间
+	ProcessStatus        *int       `json:"process_status,omitempty"`          // 处理状态：待处理/处理中/已恢复
+	AlertRuleId          *string    `json:"alert_rule_id,omitempty"`           // 告警规则ID
+	MonitorTargetRoomId  *string    `json:"monitor_target_room_id,omitempty"`  // 触发告警规则的会议室ID，当触发告警规则的是会议室时返回该信息
+	MonitorTargetRoomMac *string    `json:"monitor_target_room_mac,omitempty"` // 触发告警规则的会议室主机Mac地址，当monitor_target=1时返回该信息
 }
 
 type AlertBuilder struct {
-	alertId           string // 告警ID
-	alertIdFlag       bool
-	resourceScope     string // 触发告警规则的会议室/服务器具体的名称
-	resourceScopeFlag bool
-	monitorTarget     int // 触发告警规则的监控对象
-	monitorTargetFlag bool
-	alertStrategy     string // 告警规则的规则描述
-	alertStrategyFlag bool
-	alertTime         string // 告警通知发生时间（unix时间，单位sec）
-	alertTimeFlag     bool
-	alertLevel        int // 告警等级：严重/警告/提醒
-	alertLevelFlag    bool
-	contacts          []*Contact // 告警联系人
-	contactsFlag      bool
-	notifyMethods     []int // 通知方式
-	notifyMethodsFlag bool
-	alertRule         string // 规则名称
-	alertRuleFlag     bool
-	processTime       string // 处理时间
-	processTimeFlag   bool
-	recoverTime       string // 恢复时间
-	recoverTimeFlag   bool
-	processStatus     int // 处理状态：待处理/处理中/已恢复
-	processStatusFlag bool
+	alertId                  string // 告警ID
+	alertIdFlag              bool
+	resourceScope            string // 触发告警规则的会议室/服务器具体的名称
+	resourceScopeFlag        bool
+	monitorTarget            int // 触发告警规则的监控对象
+	monitorTargetFlag        bool
+	alertStrategy            string // 告警规则的规则描述
+	alertStrategyFlag        bool
+	alertTime                string // 告警通知发生时间（unix时间，单位sec）
+	alertTimeFlag            bool
+	alertLevel               int // 告警等级：严重/警告/提醒
+	alertLevelFlag           bool
+	contacts                 []*Contact // 告警联系人
+	contactsFlag             bool
+	notifyMethods            []int // 通知方式
+	notifyMethodsFlag        bool
+	alertRule                string // 规则名称
+	alertRuleFlag            bool
+	processTime              string // 处理时间
+	processTimeFlag          bool
+	recoverTime              string // 恢复时间
+	recoverTimeFlag          bool
+	processStatus            int // 处理状态：待处理/处理中/已恢复
+	processStatusFlag        bool
+	alertRuleId              string // 告警规则ID
+	alertRuleIdFlag          bool
+	monitorTargetRoomId      string // 触发告警规则的会议室ID，当触发告警规则的是会议室时返回该信息
+	monitorTargetRoomIdFlag  bool
+	monitorTargetRoomMac     string // 触发告警规则的会议室主机Mac地址，当monitor_target=1时返回该信息
+	monitorTargetRoomMacFlag bool
 }
 
 func NewAlertBuilder() *AlertBuilder {
@@ -492,6 +502,33 @@ func (builder *AlertBuilder) ProcessStatus(processStatus int) *AlertBuilder {
 	return builder
 }
 
+// 告警规则ID
+//
+// 示例值：100
+func (builder *AlertBuilder) AlertRuleId(alertRuleId string) *AlertBuilder {
+	builder.alertRuleId = alertRuleId
+	builder.alertRuleIdFlag = true
+	return builder
+}
+
+// 触发告警规则的会议室ID，当触发告警规则的是会议室时返回该信息
+//
+// 示例值：omm_4de32cf10a4358788ff4e09e37ebbf9b
+func (builder *AlertBuilder) MonitorTargetRoomId(monitorTargetRoomId string) *AlertBuilder {
+	builder.monitorTargetRoomId = monitorTargetRoomId
+	builder.monitorTargetRoomIdFlag = true
+	return builder
+}
+
+// 触发告警规则的会议室主机Mac地址，当monitor_target=1时返回该信息
+//
+// 示例值：52:60:19:9c:97:21
+func (builder *AlertBuilder) MonitorTargetRoomMac(monitorTargetRoomMac string) *AlertBuilder {
+	builder.monitorTargetRoomMac = monitorTargetRoomMac
+	builder.monitorTargetRoomMacFlag = true
+	return builder
+}
+
 func (builder *AlertBuilder) Build() *Alert {
 	req := &Alert{}
 	if builder.alertIdFlag {
@@ -538,6 +575,18 @@ func (builder *AlertBuilder) Build() *Alert {
 	}
 	if builder.processStatusFlag {
 		req.ProcessStatus = &builder.processStatus
+
+	}
+	if builder.alertRuleIdFlag {
+		req.AlertRuleId = &builder.alertRuleId
+
+	}
+	if builder.monitorTargetRoomIdFlag {
+		req.MonitorTargetRoomId = &builder.monitorTargetRoomId
+
+	}
+	if builder.monitorTargetRoomMacFlag {
+		req.MonitorTargetRoomMac = &builder.monitorTargetRoomMac
 
 	}
 	return req
@@ -3070,6 +3119,101 @@ func (builder *MyAiAvPluginUploadObjectBuilder) Build() *MyAiAvPluginUploadObjec
 	return req
 }
 
+type MyAiCallbackAction struct {
+	Value *MyAiCallbackActionValue `json:"value,omitempty"` // 卡片交互回调的value
+	Tag   *string                  `json:"tag,omitempty"`   // 交互的类型
+}
+
+type MyAiCallbackActionBuilder struct {
+	value     *MyAiCallbackActionValue // 卡片交互回调的value
+	valueFlag bool
+	tag       string // 交互的类型
+	tagFlag   bool
+}
+
+func NewMyAiCallbackActionBuilder() *MyAiCallbackActionBuilder {
+	builder := &MyAiCallbackActionBuilder{}
+	return builder
+}
+
+// 卡片交互回调的value
+//
+// 示例值：
+func (builder *MyAiCallbackActionBuilder) Value(value *MyAiCallbackActionValue) *MyAiCallbackActionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 交互的类型
+//
+// 示例值：button
+func (builder *MyAiCallbackActionBuilder) Tag(tag string) *MyAiCallbackActionBuilder {
+	builder.tag = tag
+	builder.tagFlag = true
+	return builder
+}
+
+func (builder *MyAiCallbackActionBuilder) Build() *MyAiCallbackAction {
+	req := &MyAiCallbackAction{}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	if builder.tagFlag {
+		req.Tag = &builder.tag
+
+	}
+	return req
+}
+
+type MyAiCallbackActionValue struct {
+	Body   *string `json:"body,omitempty"`   // myai卡片交互回调的value
+	Handle *string `json:"handle,omitempty"` // 用户的交互操作
+}
+
+type MyAiCallbackActionValueBuilder struct {
+	body       string // myai卡片交互回调的value
+	bodyFlag   bool
+	handle     string // 用户的交互操作
+	handleFlag bool
+}
+
+func NewMyAiCallbackActionValueBuilder() *MyAiCallbackActionValueBuilder {
+	builder := &MyAiCallbackActionValueBuilder{}
+	return builder
+}
+
+// myai卡片交互回调的value
+//
+// 示例值：struct
+func (builder *MyAiCallbackActionValueBuilder) Body(body string) *MyAiCallbackActionValueBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 用户的交互操作
+//
+// 示例值：confirm
+func (builder *MyAiCallbackActionValueBuilder) Handle(handle string) *MyAiCallbackActionValueBuilder {
+	builder.handle = handle
+	builder.handleFlag = true
+	return builder
+}
+
+func (builder *MyAiCallbackActionValueBuilder) Build() *MyAiCallbackActionValue {
+	req := &MyAiCallbackActionValue{}
+	if builder.bodyFlag {
+		req.Body = &builder.body
+
+	}
+	if builder.handleFlag {
+		req.Handle = &builder.handle
+
+	}
+	return req
+}
+
 type MyAiObjectContext struct {
 	Type  *string `json:"type,omitempty"`   // 会话所在实体类型
 	BizId *string `json:"biz_id,omitempty"` // 业务资源 ID
@@ -3353,6 +3497,277 @@ func (builder *MyAiRoomOpenapiResponseBuilder) Build() *MyAiRoomOpenapiResponse 
 	if builder.oapiMsgFlag {
 		req.OapiMsg = &builder.oapiMsg
 
+	}
+	return req
+}
+
+type MyAiSipCardVariables struct {
+	Text     *string `json:"text,omitempty"`      // 占位符类型为TEXT时对应的值
+	ImageKey *string `json:"image_key,omitempty"` // 占位符类型为IMAGE时对应的值
+}
+
+type MyAiSipCardVariablesBuilder struct {
+	text         string // 占位符类型为TEXT时对应的值
+	textFlag     bool
+	imageKey     string // 占位符类型为IMAGE时对应的值
+	imageKeyFlag bool
+}
+
+func NewMyAiSipCardVariablesBuilder() *MyAiSipCardVariablesBuilder {
+	builder := &MyAiSipCardVariablesBuilder{}
+	return builder
+}
+
+// 占位符类型为TEXT时对应的值
+//
+// 示例值：{}
+func (builder *MyAiSipCardVariablesBuilder) Text(text string) *MyAiSipCardVariablesBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+// 占位符类型为IMAGE时对应的值
+//
+// 示例值：img_v3_0275_6ffaa4b5-2d6a-4caf-b754-4a37db40160j
+func (builder *MyAiSipCardVariablesBuilder) ImageKey(imageKey string) *MyAiSipCardVariablesBuilder {
+	builder.imageKey = imageKey
+	builder.imageKeyFlag = true
+	return builder
+}
+
+func (builder *MyAiSipCardVariablesBuilder) Build() *MyAiSipCardVariables {
+	req := &MyAiSipCardVariables{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.imageKeyFlag {
+		req.ImageKey = &builder.imageKey
+
+	}
+	return req
+}
+
+type MyAiSipImageProperty struct {
+	Theme  *string `json:"theme,omitempty"`  // 图像主题
+	Number *int    `json:"number,omitempty"` // 图像张数
+	Size   *string `json:"size,omitempty"`   // 图像尺寸
+}
+
+type MyAiSipImagePropertyBuilder struct {
+	theme      string // 图像主题
+	themeFlag  bool
+	number     int // 图像张数
+	numberFlag bool
+	size       string // 图像尺寸
+	sizeFlag   bool
+}
+
+func NewMyAiSipImagePropertyBuilder() *MyAiSipImagePropertyBuilder {
+	builder := &MyAiSipImagePropertyBuilder{}
+	return builder
+}
+
+// 图像主题
+//
+// 示例值：中国农历新年户外场景
+func (builder *MyAiSipImagePropertyBuilder) Theme(theme string) *MyAiSipImagePropertyBuilder {
+	builder.theme = theme
+	builder.themeFlag = true
+	return builder
+}
+
+// 图像张数
+//
+// 示例值：4
+func (builder *MyAiSipImagePropertyBuilder) Number(number int) *MyAiSipImagePropertyBuilder {
+	builder.number = number
+	builder.numberFlag = true
+	return builder
+}
+
+// 图像尺寸
+//
+// 示例值：128x128
+func (builder *MyAiSipImagePropertyBuilder) Size(size string) *MyAiSipImagePropertyBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *MyAiSipImagePropertyBuilder) Build() *MyAiSipImageProperty {
+	req := &MyAiSipImageProperty{}
+	if builder.themeFlag {
+		req.Theme = &builder.theme
+
+	}
+	if builder.numberFlag {
+		req.Number = &builder.number
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+type MyAiSipPresent struct {
+	Type           *string               `json:"type,omitempty"`             // 透传数据类型
+	Body           *string               `json:"body,omitempty"`             // 透传消息体
+	OperationType  *string               `json:"operation_type,omitempty"`   // 在交互卡片的场景下，完成交互，对交互行为做出的响应
+	Interactable   *bool                 `json:"interactable,omitempty"`     // 是否为交互卡片
+	OperationUrl   *string               `json:"operation_url,omitempty"`    // 卡片后续链路交互的请求地址
+	CallbackUrl    *string               `json:"callback_url,omitempty"`     // 透传数据上屏后，回调业务方的url，支持open API、RPC两种方式
+	CallbackInfo   *string               `json:"callback_info,omitempty"`    // 透传数据上屏后，回调给业务方的数据（适用开放平台卡片）
+	CardTemplateId *string               `json:"card_template_id,omitempty"` // 模版信息（适用于模版卡片）
+	CardVariables  *MyAiSipCardVariables `json:"card_variables,omitempty"`   // 模版变量信息（适用于模版卡片）
+}
+
+type MyAiSipPresentBuilder struct {
+	type_              string // 透传数据类型
+	typeFlag           bool
+	body               string // 透传消息体
+	bodyFlag           bool
+	operationType      string // 在交互卡片的场景下，完成交互，对交互行为做出的响应
+	operationTypeFlag  bool
+	interactable       bool // 是否为交互卡片
+	interactableFlag   bool
+	operationUrl       string // 卡片后续链路交互的请求地址
+	operationUrlFlag   bool
+	callbackUrl        string // 透传数据上屏后，回调业务方的url，支持open API、RPC两种方式
+	callbackUrlFlag    bool
+	callbackInfo       string // 透传数据上屏后，回调给业务方的数据（适用开放平台卡片）
+	callbackInfoFlag   bool
+	cardTemplateId     string // 模版信息（适用于模版卡片）
+	cardTemplateIdFlag bool
+	cardVariables      *MyAiSipCardVariables // 模版变量信息（适用于模版卡片）
+	cardVariablesFlag  bool
+}
+
+func NewMyAiSipPresentBuilder() *MyAiSipPresentBuilder {
+	builder := &MyAiSipPresentBuilder{}
+	return builder
+}
+
+// 透传数据类型
+//
+// 示例值：card
+func (builder *MyAiSipPresentBuilder) Type(type_ string) *MyAiSipPresentBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 透传消息体
+//
+// 示例值：{}
+func (builder *MyAiSipPresentBuilder) Body(body string) *MyAiSipPresentBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 在交互卡片的场景下，完成交互，对交互行为做出的响应
+//
+// 示例值：UPDATE
+func (builder *MyAiSipPresentBuilder) OperationType(operationType string) *MyAiSipPresentBuilder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// 是否为交互卡片
+//
+// 示例值：true
+func (builder *MyAiSipPresentBuilder) Interactable(interactable bool) *MyAiSipPresentBuilder {
+	builder.interactable = interactable
+	builder.interactableFlag = true
+	return builder
+}
+
+// 卡片后续链路交互的请求地址
+//
+// 示例值：https://xxxx
+func (builder *MyAiSipPresentBuilder) OperationUrl(operationUrl string) *MyAiSipPresentBuilder {
+	builder.operationUrl = operationUrl
+	builder.operationUrlFlag = true
+	return builder
+}
+
+// 透传数据上屏后，回调业务方的url，支持open API、RPC两种方式
+//
+// 示例值：sd://psm
+func (builder *MyAiSipPresentBuilder) CallbackUrl(callbackUrl string) *MyAiSipPresentBuilder {
+	builder.callbackUrl = callbackUrl
+	builder.callbackUrlFlag = true
+	return builder
+}
+
+// 透传数据上屏后，回调给业务方的数据（适用开放平台卡片）
+//
+// 示例值：{}
+func (builder *MyAiSipPresentBuilder) CallbackInfo(callbackInfo string) *MyAiSipPresentBuilder {
+	builder.callbackInfo = callbackInfo
+	builder.callbackInfoFlag = true
+	return builder
+}
+
+// 模版信息（适用于模版卡片）
+//
+// 示例值：default
+func (builder *MyAiSipPresentBuilder) CardTemplateId(cardTemplateId string) *MyAiSipPresentBuilder {
+	builder.cardTemplateId = cardTemplateId
+	builder.cardTemplateIdFlag = true
+	return builder
+}
+
+// 模版变量信息（适用于模版卡片）
+//
+// 示例值：
+func (builder *MyAiSipPresentBuilder) CardVariables(cardVariables *MyAiSipCardVariables) *MyAiSipPresentBuilder {
+	builder.cardVariables = cardVariables
+	builder.cardVariablesFlag = true
+	return builder
+}
+
+func (builder *MyAiSipPresentBuilder) Build() *MyAiSipPresent {
+	req := &MyAiSipPresent{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.bodyFlag {
+		req.Body = &builder.body
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.interactableFlag {
+		req.Interactable = &builder.interactable
+
+	}
+	if builder.operationUrlFlag {
+		req.OperationUrl = &builder.operationUrl
+
+	}
+	if builder.callbackUrlFlag {
+		req.CallbackUrl = &builder.callbackUrl
+
+	}
+	if builder.callbackInfoFlag {
+		req.CallbackInfo = &builder.callbackInfo
+
+	}
+	if builder.cardTemplateIdFlag {
+		req.CardTemplateId = &builder.cardTemplateId
+
+	}
+	if builder.cardVariablesFlag {
+		req.CardVariables = builder.cardVariables
 	}
 	return req
 }

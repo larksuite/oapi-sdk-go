@@ -184,6 +184,12 @@ const (
 )
 
 const (
+	UserIdTypeSearchAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchAppTableRecordUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeUpdateAppTableRecordUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeUpdateAppTableRecordUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeUpdateAppTableRecordOpenId  = "open_id"  // 以open_id来识别用户
@@ -7358,6 +7364,271 @@ type ListAppTableRecordResp struct {
 }
 
 func (resp *ListAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchAppTableRecordReqBodyBuilder struct {
+	viewId              string // 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+	viewIdFlag          bool
+	fieldNames          []string // 指定要返回的字段
+	fieldNamesFlag      bool
+	sort                []*Sort // 排序条件
+	sortFlag            bool
+	filter              *FilterInfo // 筛选条件
+	filterFlag          bool
+	automaticFields     bool // 控制是否返回自动计算的字段, true 表示返回
+	automaticFieldsFlag bool
+}
+
+func NewSearchAppTableRecordReqBodyBuilder() *SearchAppTableRecordReqBodyBuilder {
+	builder := &SearchAppTableRecordReqBodyBuilder{}
+	return builder
+}
+
+// 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+//
+//示例值：viex
+func (builder *SearchAppTableRecordReqBodyBuilder) ViewId(viewId string) *SearchAppTableRecordReqBodyBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+
+// 指定要返回的字段
+//
+//示例值：
+func (builder *SearchAppTableRecordReqBodyBuilder) FieldNames(fieldNames []string) *SearchAppTableRecordReqBodyBuilder {
+	builder.fieldNames = fieldNames
+	builder.fieldNamesFlag = true
+	return builder
+}
+
+// 排序条件
+//
+//示例值：
+func (builder *SearchAppTableRecordReqBodyBuilder) Sort(sort []*Sort) *SearchAppTableRecordReqBodyBuilder {
+	builder.sort = sort
+	builder.sortFlag = true
+	return builder
+}
+
+// 筛选条件
+//
+//示例值：
+func (builder *SearchAppTableRecordReqBodyBuilder) Filter(filter *FilterInfo) *SearchAppTableRecordReqBodyBuilder {
+	builder.filter = filter
+	builder.filterFlag = true
+	return builder
+}
+
+// 控制是否返回自动计算的字段, true 表示返回
+//
+//示例值：
+func (builder *SearchAppTableRecordReqBodyBuilder) AutomaticFields(automaticFields bool) *SearchAppTableRecordReqBodyBuilder {
+	builder.automaticFields = automaticFields
+	builder.automaticFieldsFlag = true
+	return builder
+}
+
+func (builder *SearchAppTableRecordReqBodyBuilder) Build() *SearchAppTableRecordReqBody {
+	req := &SearchAppTableRecordReqBody{}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+	}
+	if builder.fieldNamesFlag {
+		req.FieldNames = builder.fieldNames
+	}
+	if builder.sortFlag {
+		req.Sort = builder.sort
+	}
+	if builder.filterFlag {
+		req.Filter = builder.filter
+	}
+	if builder.automaticFieldsFlag {
+		req.AutomaticFields = &builder.automaticFields
+	}
+	return req
+}
+
+type SearchAppTableRecordPathReqBodyBuilder struct {
+	viewId              string
+	viewIdFlag          bool
+	fieldNames          []string
+	fieldNamesFlag      bool
+	sort                []*Sort
+	sortFlag            bool
+	filter              *FilterInfo
+	filterFlag          bool
+	automaticFields     bool
+	automaticFieldsFlag bool
+}
+
+func NewSearchAppTableRecordPathReqBodyBuilder() *SearchAppTableRecordPathReqBodyBuilder {
+	builder := &SearchAppTableRecordPathReqBodyBuilder{}
+	return builder
+}
+
+// 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+//
+// 示例值：viex
+func (builder *SearchAppTableRecordPathReqBodyBuilder) ViewId(viewId string) *SearchAppTableRecordPathReqBodyBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+
+// 指定要返回的字段
+//
+// 示例值：
+func (builder *SearchAppTableRecordPathReqBodyBuilder) FieldNames(fieldNames []string) *SearchAppTableRecordPathReqBodyBuilder {
+	builder.fieldNames = fieldNames
+	builder.fieldNamesFlag = true
+	return builder
+}
+
+// 排序条件
+//
+// 示例值：
+func (builder *SearchAppTableRecordPathReqBodyBuilder) Sort(sort []*Sort) *SearchAppTableRecordPathReqBodyBuilder {
+	builder.sort = sort
+	builder.sortFlag = true
+	return builder
+}
+
+// 筛选条件
+//
+// 示例值：
+func (builder *SearchAppTableRecordPathReqBodyBuilder) Filter(filter *FilterInfo) *SearchAppTableRecordPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterFlag = true
+	return builder
+}
+
+// 控制是否返回自动计算的字段, true 表示返回
+//
+// 示例值：
+func (builder *SearchAppTableRecordPathReqBodyBuilder) AutomaticFields(automaticFields bool) *SearchAppTableRecordPathReqBodyBuilder {
+	builder.automaticFields = automaticFields
+	builder.automaticFieldsFlag = true
+	return builder
+}
+
+func (builder *SearchAppTableRecordPathReqBodyBuilder) Build() (*SearchAppTableRecordReqBody, error) {
+	req := &SearchAppTableRecordReqBody{}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+	}
+	if builder.fieldNamesFlag {
+		req.FieldNames = builder.fieldNames
+	}
+	if builder.sortFlag {
+		req.Sort = builder.sort
+	}
+	if builder.filterFlag {
+		req.Filter = builder.filter
+	}
+	if builder.automaticFieldsFlag {
+		req.AutomaticFields = &builder.automaticFields
+	}
+	return req, nil
+}
+
+type SearchAppTableRecordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchAppTableRecordReqBody
+}
+
+func NewSearchAppTableRecordReqBuilder() *SearchAppTableRecordReqBuilder {
+	builder := &SearchAppTableRecordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 表格token
+//
+// 示例值：NQRxbRkBMa6OnZsjtERcxhNWnNh
+func (builder *SearchAppTableRecordReqBuilder) AppToken(appToken string) *SearchAppTableRecordReqBuilder {
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	return builder
+}
+
+// 表ID
+//
+// 示例值：tbl0xe5g8PP3U3cS
+func (builder *SearchAppTableRecordReqBuilder) TableId(tableId string) *SearchAppTableRecordReqBuilder {
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：open_id
+func (builder *SearchAppTableRecordReqBuilder) UserIdType(userIdType string) *SearchAppTableRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
+//
+// 示例值：
+func (builder *SearchAppTableRecordReqBuilder) PageToken(pageToken string) *SearchAppTableRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：
+func (builder *SearchAppTableRecordReqBuilder) PageSize(pageSize int) *SearchAppTableRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 查找多维表格记录
+func (builder *SearchAppTableRecordReqBuilder) Body(body *SearchAppTableRecordReqBody) *SearchAppTableRecordReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchAppTableRecordReqBuilder) Build() *SearchAppTableRecordReq {
+	req := &SearchAppTableRecordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchAppTableRecordReqBody struct {
+	ViewId          *string     `json:"view_id,omitempty"`          // 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+	FieldNames      []string    `json:"field_names,omitempty"`      // 指定要返回的字段
+	Sort            []*Sort     `json:"sort,omitempty"`             // 排序条件
+	Filter          *FilterInfo `json:"filter,omitempty"`           // 筛选条件
+	AutomaticFields *bool       `json:"automatic_fields,omitempty"` // 控制是否返回自动计算的字段, true 表示返回
+}
+
+type SearchAppTableRecordReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchAppTableRecordReqBody `body:""`
+}
+
+type SearchAppTableRecordRespData struct {
+	Items     *AppTableRecord `json:"items,omitempty"`      // record 结果
+	HasMore   *bool           `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string         `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int            `json:"total,omitempty"`      // 总数
+}
+
+type SearchAppTableRecordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchAppTableRecordRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 

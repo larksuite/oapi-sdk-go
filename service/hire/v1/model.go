@@ -24,9 +24,15 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeOfferApplicationUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeOfferApplicationUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeOfferApplicationOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -410,6 +416,27 @@ const (
 const (
 	JobFamilyIdTypeGetJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
 	JobFamilyIdTypeGetJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+)
+
+const (
+	UserIdTypeListJobUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeListJobUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeListJobOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
+	DepartmentIdTypeListJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	DepartmentIdTypeListJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+)
+
+const (
+	JobLevelIdTypeListJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobLevelIdTypeListJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	JobFamilyIdTypeListJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	JobFamilyIdTypeListJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
@@ -2336,6 +2363,7 @@ type Application struct {
 	TerminationReasonList        []string                        `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表
 	TerminationReasonNote        *string                         `json:"termination_reason_note,omitempty"`         // 终止备注
 	ApplicationPreferredCityList []*CodeNameObject               `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
+	CreatorId                    *string                         `json:"creator_id,omitempty"`                      // 投递创建人 ID，仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推），其余情况返回为空（如候选人主动投递）
 }
 
 type ApplicationBuilder struct {
@@ -2373,6 +2401,8 @@ type ApplicationBuilder struct {
 	terminationReasonNoteFlag        bool
 	applicationPreferredCityList     []*CodeNameObject // 意向投递城市列表
 	applicationPreferredCityListFlag bool
+	creatorId                        string // 投递创建人 ID，仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推），其余情况返回为空（如候选人主动投递）
+	creatorIdFlag                    bool
 }
 
 func NewApplicationBuilder() *ApplicationBuilder {
@@ -2533,6 +2563,15 @@ func (builder *ApplicationBuilder) ApplicationPreferredCityList(applicationPrefe
 	return builder
 }
 
+// 投递创建人 ID，仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推），其余情况返回为空（如候选人主动投递）
+//
+// 示例值：ou_ce613028fe74745421f5dc320bb9c709
+func (builder *ApplicationBuilder) CreatorId(creatorId string) *ApplicationBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+
 func (builder *ApplicationBuilder) Build() *Application {
 	req := &Application{}
 	if builder.idFlag {
@@ -2596,6 +2635,10 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.applicationPreferredCityListFlag {
 		req.ApplicationPreferredCityList = builder.applicationPreferredCityList
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
 	}
 	return req
 }
@@ -8938,6 +8981,7 @@ func (builder *BasicInfoBuilder) Build() *BasicInfo {
 
 type BonusAmount struct {
 	PointBonus *int `json:"point_bonus,omitempty"` // 积分奖励
+
 }
 
 type BonusAmountBuilder struct {
@@ -8961,10 +9005,12 @@ func (builder *BonusAmountBuilder) PointBonus(pointBonus int) *BonusAmountBuilde
 
 func (builder *BonusAmountBuilder) Build() *BonusAmount {
 	req := &BonusAmount{}
+
 	if builder.pointBonusFlag {
 		req.PointBonus = &builder.pointBonus
 
 	}
+
 	return req
 }
 
@@ -9081,14 +9127,14 @@ func (builder *CareerInfoBuilder) Build() *CareerInfo {
 }
 
 type Cash struct {
-	CurrencyType *string `json:"currency_type,omitempty"` // 币种
-	Amount       *int    `json:"amount,omitempty"`        // 数额
+	CurrencyType *string  `json:"currency_type,omitempty"` // 币种
+	Amount       *float64 `json:"amount,omitempty"`        // 数额
 }
 
 type CashBuilder struct {
 	currencyType     string // 币种
 	currencyTypeFlag bool
-	amount           int // 数额
+	amount           float64 // 数额
 	amountFlag       bool
 }
 
@@ -9109,7 +9155,7 @@ func (builder *CashBuilder) CurrencyType(currencyType string) *CashBuilder {
 // 数额
 //
 // 示例值：100
-func (builder *CashBuilder) Amount(amount int) *CashBuilder {
+func (builder *CashBuilder) Amount(amount float64) *CashBuilder {
 	builder.amount = amount
 	builder.amountFlag = true
 	return builder
@@ -14303,6 +14349,309 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Build() *ExternalInt
 	}
 	if builder.descriptionFlag {
 		req.Description = &builder.description
+
+	}
+	return req
+}
+
+type ExternalReward struct {
+	ReferralUserId *string      `json:"referral_user_id,omitempty"` // 内推人ID
+	CreateUserId   *string      `json:"create_user_id,omitempty"`   // 奖励创建人，管理员与内推人可见，若不传，则默认为「外部系统」
+	ConfirmUserId  *string      `json:"confirm_user_id,omitempty"`  // 奖励确认人，若导入的「内推奖励状态」为「已确认」可传入，若不传，则默认为「外部系统」
+	PayUserId      *string      `json:"pay_user_id,omitempty"`      // 奖励发放人，导入奖励状态为「已发放」的奖励传入，若不传，则默认为「外部系统」
+	ExternalId     *string      `json:"external_id,omitempty"`      // 外部系统奖励唯一id（仅用于幂等）
+	ApplicationId  *string      `json:"application_id,omitempty"`   // 投递id，和「人才id」二选一
+	TalentId       *string      `json:"talent_id,omitempty"`        // 人才id，和「投递id」二选一
+	JobId          *string      `json:"job_id,omitempty"`           // 职位id，当参数包含「人才id」时，可以选填职位id
+	Reason         *string      `json:"reason,omitempty"`           // 奖励原因
+	RuleType       *int         `json:"rule_type,omitempty"`        // 导入的奖励规则类型，将展示在内推奖励明细中，管理员与内推人可见
+	Bonus          *BonusAmount `json:"bonus,omitempty"`            // 奖励数据
+	Stage          *int         `json:"stage,omitempty"`            // 导入的内推奖励状态
+	CreateTime     *string      `json:"create_time,omitempty"`      // 奖励产生时间，内推奖励触发时间，若未传入，取接口传入时间
+	ConfirmTime    *string      `json:"confirm_time,omitempty"`     // 奖励确认时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+	PayTime        *string      `json:"pay_time,omitempty"`         // 奖励发放时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+	OnboardTime    *string      `json:"onboard_time,omitempty"`     // 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+	ConversionTime *string      `json:"conversion_time,omitempty"`  // 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+	Comment        *string      `json:"comment,omitempty"`          // 操作备注，管理员与内推人可见，若为空，将展示为奖励原因
+}
+
+type ExternalRewardBuilder struct {
+	referralUserId     string // 内推人ID
+	referralUserIdFlag bool
+	createUserId       string // 奖励创建人，管理员与内推人可见，若不传，则默认为「外部系统」
+	createUserIdFlag   bool
+	confirmUserId      string // 奖励确认人，若导入的「内推奖励状态」为「已确认」可传入，若不传，则默认为「外部系统」
+	confirmUserIdFlag  bool
+	payUserId          string // 奖励发放人，导入奖励状态为「已发放」的奖励传入，若不传，则默认为「外部系统」
+	payUserIdFlag      bool
+	externalId         string // 外部系统奖励唯一id（仅用于幂等）
+	externalIdFlag     bool
+	applicationId      string // 投递id，和「人才id」二选一
+	applicationIdFlag  bool
+	talentId           string // 人才id，和「投递id」二选一
+	talentIdFlag       bool
+	jobId              string // 职位id，当参数包含「人才id」时，可以选填职位id
+	jobIdFlag          bool
+	reason             string // 奖励原因
+	reasonFlag         bool
+	ruleType           int // 导入的奖励规则类型，将展示在内推奖励明细中，管理员与内推人可见
+	ruleTypeFlag       bool
+	bonus              *BonusAmount // 奖励数据
+	bonusFlag          bool
+	stage              int // 导入的内推奖励状态
+	stageFlag          bool
+	createTime         string // 奖励产生时间，内推奖励触发时间，若未传入，取接口传入时间
+	createTimeFlag     bool
+	confirmTime        string // 奖励确认时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+	confirmTimeFlag    bool
+	payTime            string // 奖励发放时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+	payTimeFlag        bool
+	onboardTime        string // 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+	onboardTimeFlag    bool
+	conversionTime     string // 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+	conversionTimeFlag bool
+	comment            string // 操作备注，管理员与内推人可见，若为空，将展示为奖励原因
+	commentFlag        bool
+}
+
+func NewExternalRewardBuilder() *ExternalRewardBuilder {
+	builder := &ExternalRewardBuilder{}
+	return builder
+}
+
+// 内推人ID
+//
+// 示例值：on_94a1ee5551019f18cd73d9f111898cf2
+func (builder *ExternalRewardBuilder) ReferralUserId(referralUserId string) *ExternalRewardBuilder {
+	builder.referralUserId = referralUserId
+	builder.referralUserIdFlag = true
+	return builder
+}
+
+// 奖励创建人，管理员与内推人可见，若不传，则默认为「外部系统」
+//
+// 示例值：on_94a1ee5551019f18cd73d9f111898cf2
+func (builder *ExternalRewardBuilder) CreateUserId(createUserId string) *ExternalRewardBuilder {
+	builder.createUserId = createUserId
+	builder.createUserIdFlag = true
+	return builder
+}
+
+// 奖励确认人，若导入的「内推奖励状态」为「已确认」可传入，若不传，则默认为「外部系统」
+//
+// 示例值：on_94a1ee5551019f18cd73d9f111898cf2
+func (builder *ExternalRewardBuilder) ConfirmUserId(confirmUserId string) *ExternalRewardBuilder {
+	builder.confirmUserId = confirmUserId
+	builder.confirmUserIdFlag = true
+	return builder
+}
+
+// 奖励发放人，导入奖励状态为「已发放」的奖励传入，若不传，则默认为「外部系统」
+//
+// 示例值：on_94a1ee5551019f18cd73d9f111898cf2
+func (builder *ExternalRewardBuilder) PayUserId(payUserId string) *ExternalRewardBuilder {
+	builder.payUserId = payUserId
+	builder.payUserIdFlag = true
+	return builder
+}
+
+// 外部系统奖励唯一id（仅用于幂等）
+//
+// 示例值：6930815272790114324
+func (builder *ExternalRewardBuilder) ExternalId(externalId string) *ExternalRewardBuilder {
+	builder.externalId = externalId
+	builder.externalIdFlag = true
+	return builder
+}
+
+// 投递id，和「人才id」二选一
+//
+// 示例值：6930815272790114325
+func (builder *ExternalRewardBuilder) ApplicationId(applicationId string) *ExternalRewardBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 人才id，和「投递id」二选一
+//
+// 示例值：6930815272790114326
+func (builder *ExternalRewardBuilder) TalentId(talentId string) *ExternalRewardBuilder {
+	builder.talentId = talentId
+	builder.talentIdFlag = true
+	return builder
+}
+
+// 职位id，当参数包含「人才id」时，可以选填职位id
+//
+// 示例值：6930815272790114327
+func (builder *ExternalRewardBuilder) JobId(jobId string) *ExternalRewardBuilder {
+	builder.jobId = jobId
+	builder.jobIdFlag = true
+	return builder
+}
+
+// 奖励原因
+//
+// 示例值：首次推荐
+func (builder *ExternalRewardBuilder) Reason(reason string) *ExternalRewardBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 导入的奖励规则类型，将展示在内推奖励明细中，管理员与内推人可见
+//
+// 示例值：1
+func (builder *ExternalRewardBuilder) RuleType(ruleType int) *ExternalRewardBuilder {
+	builder.ruleType = ruleType
+	builder.ruleTypeFlag = true
+	return builder
+}
+
+// 奖励数据
+//
+// 示例值：
+func (builder *ExternalRewardBuilder) Bonus(bonus *BonusAmount) *ExternalRewardBuilder {
+	builder.bonus = bonus
+	builder.bonusFlag = true
+	return builder
+}
+
+// 导入的内推奖励状态
+//
+// 示例值：1
+func (builder *ExternalRewardBuilder) Stage(stage int) *ExternalRewardBuilder {
+	builder.stage = stage
+	builder.stageFlag = true
+	return builder
+}
+
+// 奖励产生时间，内推奖励触发时间，若未传入，取接口传入时间
+//
+// 示例值：1704720275000
+func (builder *ExternalRewardBuilder) CreateTime(createTime string) *ExternalRewardBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 奖励确认时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+//
+// 示例值：1704720275000
+func (builder *ExternalRewardBuilder) ConfirmTime(confirmTime string) *ExternalRewardBuilder {
+	builder.confirmTime = confirmTime
+	builder.confirmTimeFlag = true
+	return builder
+}
+
+// 奖励发放时间，若导入的「内推奖励状态」为「已确认」可传入，若未传入，取接口传入时间
+//
+// 示例值：1704720275001
+func (builder *ExternalRewardBuilder) PayTime(payTime string) *ExternalRewardBuilder {
+	builder.payTime = payTime
+	builder.payTimeFlag = true
+	return builder
+}
+
+// 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+//
+// 示例值：1704720275002
+func (builder *ExternalRewardBuilder) OnboardTime(onboardTime string) *ExternalRewardBuilder {
+	builder.onboardTime = onboardTime
+	builder.onboardTimeFlag = true
+	return builder
+}
+
+// 入职时间，管理员与内推人可见，若为「入职奖励」可传入
+//
+// 示例值：1704720275003
+func (builder *ExternalRewardBuilder) ConversionTime(conversionTime string) *ExternalRewardBuilder {
+	builder.conversionTime = conversionTime
+	builder.conversionTimeFlag = true
+	return builder
+}
+
+// 操作备注，管理员与内推人可见，若为空，将展示为奖励原因
+//
+// 示例值：已发放
+func (builder *ExternalRewardBuilder) Comment(comment string) *ExternalRewardBuilder {
+	builder.comment = comment
+	builder.commentFlag = true
+	return builder
+}
+
+func (builder *ExternalRewardBuilder) Build() *ExternalReward {
+	req := &ExternalReward{}
+	if builder.referralUserIdFlag {
+		req.ReferralUserId = &builder.referralUserId
+
+	}
+	if builder.createUserIdFlag {
+		req.CreateUserId = &builder.createUserId
+
+	}
+	if builder.confirmUserIdFlag {
+		req.ConfirmUserId = &builder.confirmUserId
+
+	}
+	if builder.payUserIdFlag {
+		req.PayUserId = &builder.payUserId
+
+	}
+	if builder.externalIdFlag {
+		req.ExternalId = &builder.externalId
+
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+
+	}
+	if builder.talentIdFlag {
+		req.TalentId = &builder.talentId
+
+	}
+	if builder.jobIdFlag {
+		req.JobId = &builder.jobId
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.ruleTypeFlag {
+		req.RuleType = &builder.ruleType
+
+	}
+	if builder.bonusFlag {
+		req.Bonus = builder.bonus
+	}
+	if builder.stageFlag {
+		req.Stage = &builder.stage
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.confirmTimeFlag {
+		req.ConfirmTime = &builder.confirmTime
+
+	}
+	if builder.payTimeFlag {
+		req.PayTime = &builder.payTime
+
+	}
+	if builder.onboardTimeFlag {
+		req.OnboardTime = &builder.onboardTime
+
+	}
+	if builder.conversionTimeFlag {
+		req.ConversionTime = &builder.conversionTime
+
+	}
+	if builder.commentFlag {
+		req.Comment = &builder.comment
 
 	}
 	return req
@@ -37306,6 +37655,14 @@ func (builder *GetApplicationReqBuilder) ApplicationId(applicationId string) *Ge
 	return builder
 }
 
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *GetApplicationReqBuilder) UserIdType(userIdType string) *GetApplicationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 // 请求控制参数，用于控制接口响应逻辑。如需一次查询多个用户ID，可通过将同一参数名多次传递，并且每次传递不同的参数值。
 //
 // 示例值：
@@ -41015,6 +41372,110 @@ func (resp *GetJobResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListJobReqBuilder() *ListJobReqBuilder {
+	builder := &ListJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最早更新时间，毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *ListJobReqBuilder) UpdateStartTime(updateStartTime string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("update_start_time", fmt.Sprint(updateStartTime))
+	return builder
+}
+
+// 最晚更新时间，毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *ListJobReqBuilder) UpdateEndTime(updateEndTime string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("update_end_time", fmt.Sprint(updateEndTime))
+	return builder
+}
+
+// 分页大小, 不能超过 20
+//
+// 示例值：10
+func (builder *ListJobReqBuilder) PageSize(pageSize int) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==
+func (builder *ListJobReqBuilder) PageToken(pageToken string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *ListJobReqBuilder) UserIdType(userIdType string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *ListJobReqBuilder) DepartmentIdType(departmentIdType string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 此次调用中使用的「职级 ID」的类型
+//
+// 示例值：
+func (builder *ListJobReqBuilder) JobLevelIdType(jobLevelIdType string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
+	return builder
+}
+
+// 此次调用中使用的「序列 ID」的类型
+//
+// 示例值：
+func (builder *ListJobReqBuilder) JobFamilyIdType(jobFamilyIdType string) *ListJobReqBuilder {
+	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
+	return builder
+}
+
+func (builder *ListJobReqBuilder) Build() *ListJobReq {
+	req := &ListJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListJobReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListJobRespData struct {
+	HasMore   *bool   `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Items     []*Job  `json:"items,omitempty"`      // 列表
+}
+
+type ListJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListJobResp) Success() bool {
+	return resp.Code == 0
+}
+
 type RecruiterJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -44272,6 +44733,20 @@ type QueryTalentObjectResp struct {
 
 func (resp *QueryTalentObjectResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2ApplicationDeletedV1Data struct {
+	ApplicationIds []string `json:"application_ids,omitempty"` // 投递 ID 列表
+}
+
+type P2ApplicationDeletedV1 struct {
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2ApplicationDeletedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ApplicationDeletedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type P2ApplicationStageChangedV1Data struct {

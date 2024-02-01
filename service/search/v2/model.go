@@ -286,7 +286,7 @@ func (builder *ChunkBuilder) Content(content string) *ChunkBuilder {
 
 // 数据集对应filter_shema的值
 //
-// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+// 示例值：{\"domains\": [\"domain1\"],\"versions\": [\"v1\"]}
 func (builder *ChunkBuilder) FilterData(filterData string) *ChunkBuilder {
 	builder.filterData = filterData
 	builder.filterDataFlag = true
@@ -590,7 +590,7 @@ func (builder *CreateDocParamBuilder) DocId(docId string) *CreateDocParamBuilder
 
 // 文档对应filter_schema的值
 //
-// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+// 示例值：{\"domains\": [\"domain1\"],\"versions\": [\"v1\"]}
 func (builder *CreateDocParamBuilder) FilterData(filterData string) *CreateDocParamBuilder {
 	builder.filterData = filterData
 	builder.filterDataFlag = true
@@ -1169,6 +1169,69 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type DialogSearchRequest struct {
+	ToolRawInstruction           *string          `json:"tool_raw_instruction,omitempty"`            // 用户问题
+	ScenarioContextSchemaVersion *string          `json:"scenario_context_schema_version,omitempty"` // 场景上下文的schema版本号
+	ScenarioContext              *ScenarioContext `json:"scenario_context,omitempty"`                // 场景上下文
+}
+
+type DialogSearchRequestBuilder struct {
+	toolRawInstruction               string // 用户问题
+	toolRawInstructionFlag           bool
+	scenarioContextSchemaVersion     string // 场景上下文的schema版本号
+	scenarioContextSchemaVersionFlag bool
+	scenarioContext                  *ScenarioContext // 场景上下文
+	scenarioContextFlag              bool
+}
+
+func NewDialogSearchRequestBuilder() *DialogSearchRequestBuilder {
+	builder := &DialogSearchRequestBuilder{}
+	return builder
+}
+
+// 用户问题
+//
+// 示例值：帮我找一下昨天发的文档
+func (builder *DialogSearchRequestBuilder) ToolRawInstruction(toolRawInstruction string) *DialogSearchRequestBuilder {
+	builder.toolRawInstruction = toolRawInstruction
+	builder.toolRawInstructionFlag = true
+	return builder
+}
+
+// 场景上下文的schema版本号
+//
+// 示例值：v1
+func (builder *DialogSearchRequestBuilder) ScenarioContextSchemaVersion(scenarioContextSchemaVersion string) *DialogSearchRequestBuilder {
+	builder.scenarioContextSchemaVersion = scenarioContextSchemaVersion
+	builder.scenarioContextSchemaVersionFlag = true
+	return builder
+}
+
+// 场景上下文
+//
+// 示例值：
+func (builder *DialogSearchRequestBuilder) ScenarioContext(scenarioContext *ScenarioContext) *DialogSearchRequestBuilder {
+	builder.scenarioContext = scenarioContext
+	builder.scenarioContextFlag = true
+	return builder
+}
+
+func (builder *DialogSearchRequestBuilder) Build() *DialogSearchRequest {
+	req := &DialogSearchRequest{}
+	if builder.toolRawInstructionFlag {
+		req.ToolRawInstruction = &builder.toolRawInstruction
+
+	}
+	if builder.scenarioContextSchemaVersionFlag {
+		req.ScenarioContextSchemaVersion = &builder.scenarioContextSchemaVersion
+
+	}
+	if builder.scenarioContextFlag {
+		req.ScenarioContext = builder.scenarioContext
+	}
+	return req
+}
+
 type Doc struct {
 	DocId      *string  `json:"doc_id,omitempty"`      // 文档的唯一标识，只允许英文字母、数字和下划线
 	FilterData *string  `json:"filter_data,omitempty"` // 文档对应filter_schema的值
@@ -1200,7 +1263,7 @@ func (builder *DocBuilder) DocId(docId string) *DocBuilder {
 
 // 文档对应filter_schema的值
 //
-// 示例值：{"domains": ["domain1"],"versions": ["v1"]}
+// 示例值：{\"domains\": [\"domain1\"],\"versions\": [\"v1\"]}
 func (builder *DocBuilder) FilterData(filterData string) *DocBuilder {
 	builder.filterData = filterData
 	builder.filterDataFlag = true
@@ -1913,6 +1976,54 @@ func (builder *LlmModelConfigBuilder) Build() *LlmModelConfig {
 	return req
 }
 
+type MemoryMessage struct {
+	Role    *string `json:"role,omitempty"`    // 发送消息的角色
+	Content *string `json:"content,omitempty"` // 消息内容
+}
+
+type MemoryMessageBuilder struct {
+	role        string // 发送消息的角色
+	roleFlag    bool
+	content     string // 消息内容
+	contentFlag bool
+}
+
+func NewMemoryMessageBuilder() *MemoryMessageBuilder {
+	builder := &MemoryMessageBuilder{}
+	return builder
+}
+
+// 发送消息的角色
+//
+// 示例值：human
+func (builder *MemoryMessageBuilder) Role(role string) *MemoryMessageBuilder {
+	builder.role = role
+	builder.roleFlag = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：番茄炒蛋怎么做？
+func (builder *MemoryMessageBuilder) Content(content string) *MemoryMessageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *MemoryMessageBuilder) Build() *MemoryMessage {
+	req := &MemoryMessage{}
+	if builder.roleFlag {
+		req.Role = &builder.role
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
 type ModelConfig struct {
 	ModelName *string `json:"model_name,omitempty"` // 模型名称
 }
@@ -2209,7 +2320,7 @@ func (builder *PassageBuilder) Score(score float64) *PassageBuilder {
 
 // 其他source相关的字段
 //
-// 示例值：{"obj_id":7263345601809530881}
+// 示例值：{\"obj_id\":7263345601809530881}
 func (builder *PassageBuilder) Extra(extra string) *PassageBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
@@ -2384,6 +2495,322 @@ func (builder *PatchSchemaPropertyBuilder) Build() *PatchSchemaProperty {
 	}
 	if builder.answerOptionFlag {
 		req.AnswerOption = builder.answerOption
+	}
+	return req
+}
+
+type Present struct {
+	Type           *string                `json:"type,omitempty"`             // 透传数据类型
+	Body           *string                `json:"body,omitempty"`             // 透传消息体
+	OperationType  *string                `json:"operation_type,omitempty"`   // 在交互卡片的场景下，如果用户完成交互，根据交互行为 Tool 对该交互行为做出的响应
+	Interactable   *bool                  `json:"interactable,omitempty"`     // 用来定义工具输出的卡片是否为交互卡片
+	OperationUrl   *string                `json:"operation_url,omitempty"`    // 卡片后续链路交互的请求地址
+	CallbackUrl    *string                `json:"callback_url,omitempty"`     // 透传数据上屏后，回调业务方的 url；支持 Open API 与 RPC 两种方式
+	CallbackInfo   *string                `json:"callback_info,omitempty"`    // 透传数据上屏后，回调给业务方的数据，仅在 type = card 时会回调
+	CardTemplateId *string                `json:"card_template_id,omitempty"` // 仅 type = template_card 时使用，代表模版卡片的模版信息
+	CardVariables  *TemplateCardVariables `json:"card_variables,omitempty"`   // 仅 type = template_card 使用，对应到模版卡片中模版里的变量信息，类型应该是map<string, string>
+}
+
+type PresentBuilder struct {
+	type_              string // 透传数据类型
+	typeFlag           bool
+	body               string // 透传消息体
+	bodyFlag           bool
+	operationType      string // 在交互卡片的场景下，如果用户完成交互，根据交互行为 Tool 对该交互行为做出的响应
+	operationTypeFlag  bool
+	interactable       bool // 用来定义工具输出的卡片是否为交互卡片
+	interactableFlag   bool
+	operationUrl       string // 卡片后续链路交互的请求地址
+	operationUrlFlag   bool
+	callbackUrl        string // 透传数据上屏后，回调业务方的 url；支持 Open API 与 RPC 两种方式
+	callbackUrlFlag    bool
+	callbackInfo       string // 透传数据上屏后，回调给业务方的数据，仅在 type = card 时会回调
+	callbackInfoFlag   bool
+	cardTemplateId     string // 仅 type = template_card 时使用，代表模版卡片的模版信息
+	cardTemplateIdFlag bool
+	cardVariables      *TemplateCardVariables // 仅 type = template_card 使用，对应到模版卡片中模版里的变量信息，类型应该是map<string, string>
+	cardVariablesFlag  bool
+}
+
+func NewPresentBuilder() *PresentBuilder {
+	builder := &PresentBuilder{}
+	return builder
+}
+
+// 透传数据类型
+//
+// 示例值：card
+func (builder *PresentBuilder) Type(type_ string) *PresentBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 透传消息体
+//
+// 示例值：raw
+func (builder *PresentBuilder) Body(body string) *PresentBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 在交互卡片的场景下，如果用户完成交互，根据交互行为 Tool 对该交互行为做出的响应
+//
+// 示例值：UPDATE
+func (builder *PresentBuilder) OperationType(operationType string) *PresentBuilder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// 用来定义工具输出的卡片是否为交互卡片
+//
+// 示例值：true
+func (builder *PresentBuilder) Interactable(interactable bool) *PresentBuilder {
+	builder.interactable = interactable
+	builder.interactableFlag = true
+	return builder
+}
+
+// 卡片后续链路交互的请求地址
+//
+// 示例值：https://open.feishu-boe.cn/open-apis/lark_ai/operation
+func (builder *PresentBuilder) OperationUrl(operationUrl string) *PresentBuilder {
+	builder.operationUrl = operationUrl
+	builder.operationUrlFlag = true
+	return builder
+}
+
+// 透传数据上屏后，回调业务方的 url；支持 Open API 与 RPC 两种方式
+//
+// 示例值：Open API - https://open.feishu-boe.cn/open-apis/lark_ai/callback；RPC - sd://p.s.m
+func (builder *PresentBuilder) CallbackUrl(callbackUrl string) *PresentBuilder {
+	builder.callbackUrl = callbackUrl
+	builder.callbackUrlFlag = true
+	return builder
+}
+
+// 透传数据上屏后，回调给业务方的数据，仅在 type = card 时会回调
+//
+// 示例值：可以是纯文本:"callback raw data"；也可以是 json string:"{\"biz_id":\"search_context_id\"}"
+func (builder *PresentBuilder) CallbackInfo(callbackInfo string) *PresentBuilder {
+	builder.callbackInfo = callbackInfo
+	builder.callbackInfoFlag = true
+	return builder
+}
+
+// 仅 type = template_card 时使用，代表模版卡片的模版信息
+//
+// 示例值：default
+func (builder *PresentBuilder) CardTemplateId(cardTemplateId string) *PresentBuilder {
+	builder.cardTemplateId = cardTemplateId
+	builder.cardTemplateIdFlag = true
+	return builder
+}
+
+// 仅 type = template_card 使用，对应到模版卡片中模版里的变量信息，类型应该是map<string, string>
+//
+// 示例值：
+func (builder *PresentBuilder) CardVariables(cardVariables *TemplateCardVariables) *PresentBuilder {
+	builder.cardVariables = cardVariables
+	builder.cardVariablesFlag = true
+	return builder
+}
+
+func (builder *PresentBuilder) Build() *Present {
+	req := &Present{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.bodyFlag {
+		req.Body = &builder.body
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.interactableFlag {
+		req.Interactable = &builder.interactable
+
+	}
+	if builder.operationUrlFlag {
+		req.OperationUrl = &builder.operationUrl
+
+	}
+	if builder.callbackUrlFlag {
+		req.CallbackUrl = &builder.callbackUrl
+
+	}
+	if builder.callbackInfoFlag {
+		req.CallbackInfo = &builder.callbackInfo
+
+	}
+	if builder.cardTemplateIdFlag {
+		req.CardTemplateId = &builder.cardTemplateId
+
+	}
+	if builder.cardVariablesFlag {
+		req.CardVariables = builder.cardVariables
+	}
+	return req
+}
+
+type ScenarioContext struct {
+	Extra              *ScenarioContextExtra `json:"extra,omitempty"`                // 拓展信息
+	SystemInfo         *SystemInfo           `json:"system_info,omitempty"`          // AI Engine填充的系统信息
+	Memory             []*MemoryMessage      `json:"memory,omitempty"`               // 会话的历史对话
+	Scenario           *string               `json:"scenario,omitempty"`             // 会话所处的业务场景
+	WorkMode           *int                  `json:"work_mode,omitempty"`            // 会话所处的业务模式
+	ToolRawInstruction *string               `json:"tool_raw_instruction,omitempty"` // 用户原始的问题描述
+}
+
+type ScenarioContextBuilder struct {
+	extra                  *ScenarioContextExtra // 拓展信息
+	extraFlag              bool
+	systemInfo             *SystemInfo // AI Engine填充的系统信息
+	systemInfoFlag         bool
+	memory                 []*MemoryMessage // 会话的历史对话
+	memoryFlag             bool
+	scenario               string // 会话所处的业务场景
+	scenarioFlag           bool
+	workMode               int // 会话所处的业务模式
+	workModeFlag           bool
+	toolRawInstruction     string // 用户原始的问题描述
+	toolRawInstructionFlag bool
+}
+
+func NewScenarioContextBuilder() *ScenarioContextBuilder {
+	builder := &ScenarioContextBuilder{}
+	return builder
+}
+
+// 拓展信息
+//
+// 示例值：v1
+func (builder *ScenarioContextBuilder) Extra(extra *ScenarioContextExtra) *ScenarioContextBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+// AI Engine填充的系统信息
+//
+// 示例值：aa
+func (builder *ScenarioContextBuilder) SystemInfo(systemInfo *SystemInfo) *ScenarioContextBuilder {
+	builder.systemInfo = systemInfo
+	builder.systemInfoFlag = true
+	return builder
+}
+
+// 会话的历史对话
+//
+// 示例值：
+func (builder *ScenarioContextBuilder) Memory(memory []*MemoryMessage) *ScenarioContextBuilder {
+	builder.memory = memory
+	builder.memoryFlag = true
+	return builder
+}
+
+// 会话所处的业务场景
+//
+// 示例值：IM
+func (builder *ScenarioContextBuilder) Scenario(scenario string) *ScenarioContextBuilder {
+	builder.scenario = scenario
+	builder.scenarioFlag = true
+	return builder
+}
+
+// 会话所处的业务模式
+//
+// 示例值：1
+func (builder *ScenarioContextBuilder) WorkMode(workMode int) *ScenarioContextBuilder {
+	builder.workMode = workMode
+	builder.workModeFlag = true
+	return builder
+}
+
+// 用户原始的问题描述
+//
+// 示例值：我想问xxx问题
+func (builder *ScenarioContextBuilder) ToolRawInstruction(toolRawInstruction string) *ScenarioContextBuilder {
+	builder.toolRawInstruction = toolRawInstruction
+	builder.toolRawInstructionFlag = true
+	return builder
+}
+
+func (builder *ScenarioContextBuilder) Build() *ScenarioContext {
+	req := &ScenarioContext{}
+	if builder.extraFlag {
+		req.Extra = builder.extra
+	}
+	if builder.systemInfoFlag {
+		req.SystemInfo = builder.systemInfo
+	}
+	if builder.memoryFlag {
+		req.Memory = builder.memory
+	}
+	if builder.scenarioFlag {
+		req.Scenario = &builder.scenario
+
+	}
+	if builder.workModeFlag {
+		req.WorkMode = &builder.workMode
+
+	}
+	if builder.toolRawInstructionFlag {
+		req.ToolRawInstruction = &builder.toolRawInstruction
+
+	}
+	return req
+}
+
+type ScenarioContextExtra struct {
+	GroundingId *string `json:"grounding_id,omitempty"` // Grounding ID
+	ModelKey    *string `json:"model_key,omitempty"`    // 模型 key
+}
+
+type ScenarioContextExtraBuilder struct {
+	groundingId     string // Grounding ID
+	groundingIdFlag bool
+	modelKey        string // 模型 key
+	modelKeyFlag    bool
+}
+
+func NewScenarioContextExtraBuilder() *ScenarioContextExtraBuilder {
+	builder := &ScenarioContextExtraBuilder{}
+	return builder
+}
+
+// Grounding ID
+//
+// 示例值：123
+func (builder *ScenarioContextExtraBuilder) GroundingId(groundingId string) *ScenarioContextExtraBuilder {
+	builder.groundingId = groundingId
+	builder.groundingIdFlag = true
+	return builder
+}
+
+// 模型 key
+//
+// 示例值：lark-online
+func (builder *ScenarioContextExtraBuilder) ModelKey(modelKey string) *ScenarioContextExtraBuilder {
+	builder.modelKey = modelKey
+	builder.modelKeyFlag = true
+	return builder
+}
+
+func (builder *ScenarioContextExtraBuilder) Build() *ScenarioContextExtra {
+	req := &ScenarioContextExtra{}
+	if builder.groundingIdFlag {
+		req.GroundingId = &builder.groundingId
+
+	}
+	if builder.modelKeyFlag {
+		req.ModelKey = &builder.modelKey
+
 	}
 	return req
 }
@@ -3381,6 +3808,169 @@ func (builder *SeperatePassageBuilder) Build() *SeperatePassage {
 
 	}
 	return req
+}
+
+type SystemInfo struct {
+	Time       *string `json:"time,omitempty"`        // 用户时间
+	TimeZone   *string `json:"time_zone,omitempty"`   // 用户时区
+	Lang       *string `json:"lang,omitempty"`        // 用户问题的语种
+	Brand      *string `json:"brand,omitempty"`       // 客户端品牌
+	Weekday    *string `json:"weekday,omitempty"`     // 星期信息
+	SessionId  *string `json:"session_id,omitempty"`  // 一次话题的唯一标识
+	ShadowName *string `json:"shadow_name,omitempty"` // 用户赋予飞飞的名字
+	MsgId      *string `json:"msg_id,omitempty"`      // 消息 ID
+	AgentId    *string `json:"agent_id,omitempty"`    // 场景 ID
+}
+
+type SystemInfoBuilder struct {
+	time           string // 用户时间
+	timeFlag       bool
+	timeZone       string // 用户时区
+	timeZoneFlag   bool
+	lang           string // 用户问题的语种
+	langFlag       bool
+	brand          string // 客户端品牌
+	brandFlag      bool
+	weekday        string // 星期信息
+	weekdayFlag    bool
+	sessionId      string // 一次话题的唯一标识
+	sessionIdFlag  bool
+	shadowName     string // 用户赋予飞飞的名字
+	shadowNameFlag bool
+	msgId          string // 消息 ID
+	msgIdFlag      bool
+	agentId        string // 场景 ID
+	agentIdFlag    bool
+}
+
+func NewSystemInfoBuilder() *SystemInfoBuilder {
+	builder := &SystemInfoBuilder{}
+	return builder
+}
+
+// 用户时间
+//
+// 示例值：2006-01-02 15:04:05
+func (builder *SystemInfoBuilder) Time(time string) *SystemInfoBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+
+// 用户时区
+//
+// 示例值：Asia/Shanghai
+func (builder *SystemInfoBuilder) TimeZone(timeZone string) *SystemInfoBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
+// 用户问题的语种
+//
+// 示例值：en
+func (builder *SystemInfoBuilder) Lang(lang string) *SystemInfoBuilder {
+	builder.lang = lang
+	builder.langFlag = true
+	return builder
+}
+
+// 客户端品牌
+//
+// 示例值：feishu
+func (builder *SystemInfoBuilder) Brand(brand string) *SystemInfoBuilder {
+	builder.brand = brand
+	builder.brandFlag = true
+	return builder
+}
+
+// 星期信息
+//
+// 示例值：Monday
+func (builder *SystemInfoBuilder) Weekday(weekday string) *SystemInfoBuilder {
+	builder.weekday = weekday
+	builder.weekdayFlag = true
+	return builder
+}
+
+// 一次话题的唯一标识
+//
+// 示例值：123456
+func (builder *SystemInfoBuilder) SessionId(sessionId string) *SystemInfoBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdFlag = true
+	return builder
+}
+
+// 用户赋予飞飞的名字
+//
+// 示例值：Bob
+func (builder *SystemInfoBuilder) ShadowName(shadowName string) *SystemInfoBuilder {
+	builder.shadowName = shadowName
+	builder.shadowNameFlag = true
+	return builder
+}
+
+// 消息 ID
+//
+// 示例值：om_0c1e199622cec22ffcc490392b12cdac
+func (builder *SystemInfoBuilder) MsgId(msgId string) *SystemInfoBuilder {
+	builder.msgId = msgId
+	builder.msgIdFlag = true
+	return builder
+}
+
+// 场景 ID
+//
+// 示例值：7302361858671902739
+func (builder *SystemInfoBuilder) AgentId(agentId string) *SystemInfoBuilder {
+	builder.agentId = agentId
+	builder.agentIdFlag = true
+	return builder
+}
+
+func (builder *SystemInfoBuilder) Build() *SystemInfo {
+	req := &SystemInfo{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.langFlag {
+		req.Lang = &builder.lang
+
+	}
+	if builder.brandFlag {
+		req.Brand = &builder.brand
+
+	}
+	if builder.weekdayFlag {
+		req.Weekday = &builder.weekday
+
+	}
+	if builder.sessionIdFlag {
+		req.SessionId = &builder.sessionId
+
+	}
+	if builder.shadowNameFlag {
+		req.ShadowName = &builder.shadowName
+
+	}
+	if builder.msgIdFlag {
+		req.MsgId = &builder.msgId
+
+	}
+	if builder.agentIdFlag {
+		req.AgentId = &builder.agentId
+
+	}
+	return req
+}
+
+type TemplateCardVariables struct {
 }
 
 type UserInfo struct {

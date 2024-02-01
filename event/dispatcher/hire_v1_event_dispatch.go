@@ -18,6 +18,20 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
+// 删除投递
+//
+// - 删除投递
+//
+// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/events/deleted
+func (dispatcher *EventDispatcher) OnP2ApplicationDeletedV1(handler func(ctx context.Context, event *larkhire.P2ApplicationDeletedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["hire.application.deleted_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "hire.application.deleted_v1")
+	}
+	dispatcher.eventType2EventHandler["hire.application.deleted_v1"] = larkhire.NewP2ApplicationDeletedV1Handler(handler)
+	return dispatcher
+}
+
 //
 //
 // -

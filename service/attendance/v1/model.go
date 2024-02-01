@@ -3632,6 +3632,7 @@ type OvertimeApplyDetail struct {
 	Duration   *string `json:"duration,omitempty"`     // 加班时长，两位小数
 	Unit       *int    `json:"unit,omitempty"`         // 加班单位
 	IsTimeBank *bool   `json:"is_time_bank,omitempty"` // 是否是综合工时
+	UpdateTime *string `json:"update_time,omitempty"`  // 添加更新数据时间
 }
 
 type OvertimeApplyDetailBuilder struct {
@@ -3647,6 +3648,8 @@ type OvertimeApplyDetailBuilder struct {
 	unitFlag       bool
 	isTimeBank     bool // 是否是综合工时
 	isTimeBankFlag bool
+	updateTime     string // 添加更新数据时间
+	updateTimeFlag bool
 }
 
 func NewOvertimeApplyDetailBuilder() *OvertimeApplyDetailBuilder {
@@ -3708,6 +3711,15 @@ func (builder *OvertimeApplyDetailBuilder) IsTimeBank(isTimeBank bool) *Overtime
 	return builder
 }
 
+// 添加更新数据时间
+//
+// 示例值：2023-12-31 12:00:00
+func (builder *OvertimeApplyDetailBuilder) UpdateTime(updateTime string) *OvertimeApplyDetailBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
 func (builder *OvertimeApplyDetailBuilder) Build() *OvertimeApplyDetail {
 	req := &OvertimeApplyDetail{}
 	if builder.userIdFlag {
@@ -3732,6 +3744,10 @@ func (builder *OvertimeApplyDetailBuilder) Build() *OvertimeApplyDetail {
 	}
 	if builder.isTimeBankFlag {
 		req.IsTimeBank = &builder.isTimeBank
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
 
 	}
 	return req
@@ -3781,6 +3797,9 @@ type OvertimeDetail struct {
 	EffectiveTime     *string `json:"effective_time,omitempty"`      // 生效时间时间戳
 	ProgressStartTime *string `json:"progress_start_time,omitempty"` // 流程开始时间戳
 	Date              *string `json:"date,omitempty"`                // 加班日期
+	UpdateTime        *string `json:"update_time,omitempty"`         // 数据更新时间
+	IsTimeBank        *bool   `json:"is_time_bank,omitempty"`        // 是否是综合工时产生的加班明细
+	InstanceId        *string `json:"instance_id,omitempty"`         // 加班明细对应的审批单ID，如果为空代表改加班明细不是审批转入的
 }
 
 type OvertimeDetailBuilder struct {
@@ -3806,6 +3825,12 @@ type OvertimeDetailBuilder struct {
 	progressStartTimeFlag bool
 	date                  string // 加班日期
 	dateFlag              bool
+	updateTime            string // 数据更新时间
+	updateTimeFlag        bool
+	isTimeBank            bool // 是否是综合工时产生的加班明细
+	isTimeBankFlag        bool
+	instanceId            string // 加班明细对应的审批单ID，如果为空代表改加班明细不是审批转入的
+	instanceIdFlag        bool
 }
 
 func NewOvertimeDetailBuilder() *OvertimeDetailBuilder {
@@ -3912,6 +3937,33 @@ func (builder *OvertimeDetailBuilder) Date(date string) *OvertimeDetailBuilder {
 	return builder
 }
 
+// 数据更新时间
+//
+// 示例值：2023-12-31
+func (builder *OvertimeDetailBuilder) UpdateTime(updateTime string) *OvertimeDetailBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 是否是综合工时产生的加班明细
+//
+// 示例值：false
+func (builder *OvertimeDetailBuilder) IsTimeBank(isTimeBank bool) *OvertimeDetailBuilder {
+	builder.isTimeBank = isTimeBank
+	builder.isTimeBankFlag = true
+	return builder
+}
+
+// 加班明细对应的审批单ID，如果为空代表改加班明细不是审批转入的
+//
+// 示例值：1234
+func (builder *OvertimeDetailBuilder) InstanceId(instanceId string) *OvertimeDetailBuilder {
+	builder.instanceId = instanceId
+	builder.instanceIdFlag = true
+	return builder
+}
+
 func (builder *OvertimeDetailBuilder) Build() *OvertimeDetail {
 	req := &OvertimeDetail{}
 	if builder.idFlag {
@@ -3956,6 +4008,18 @@ func (builder *OvertimeDetailBuilder) Build() *OvertimeDetail {
 	}
 	if builder.dateFlag {
 		req.Date = &builder.date
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.isTimeBankFlag {
+		req.IsTimeBank = &builder.isTimeBank
+
+	}
+	if builder.instanceIdFlag {
+		req.InstanceId = &builder.instanceId
 
 	}
 	return req

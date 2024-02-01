@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -40,6 +41,7 @@ func main() {
 			EffectiveTime("2020-05-01 00:00:00").
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			CostCenterId("7142384817131652652").
+			StaffingModel(larkcorehr.NewEnumBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

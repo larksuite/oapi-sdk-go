@@ -7333,22 +7333,59 @@ func (builder *MyAiMessageCallbackRequestBuilder) Build() *MyAiMessageCallbackRe
 	return req
 }
 
+type MyAiObjectScenarioContext struct {
+	Object *ObjectContext `json:"object,omitempty"` // object
+}
+
+type MyAiObjectScenarioContextBuilder struct {
+	object     *ObjectContext // object
+	objectFlag bool
+}
+
+func NewMyAiObjectScenarioContextBuilder() *MyAiObjectScenarioContextBuilder {
+	builder := &MyAiObjectScenarioContextBuilder{}
+	return builder
+}
+
+// object
+//
+// 示例值：
+func (builder *MyAiObjectScenarioContextBuilder) Object(object *ObjectContext) *MyAiObjectScenarioContextBuilder {
+	builder.object = object
+	builder.objectFlag = true
+	return builder
+}
+
+func (builder *MyAiObjectScenarioContextBuilder) Build() *MyAiObjectScenarioContext {
+	req := &MyAiObjectScenarioContext{}
+	if builder.objectFlag {
+		req.Object = builder.object
+	}
+	return req
+}
+
 type MyAiPresent struct {
-	Type         *string `json:"type,omitempty"`          // present type
-	Body         *string `json:"body,omitempty"`          // response body
-	CallbackUrl  *string `json:"callback_url,omitempty"`  // msg callback url
-	CallbackInfo *string `json:"callback_info,omitempty"` // approval context
+	Type           *string                   `json:"type,omitempty"`             // present type
+	Body           *string                   `json:"body,omitempty"`             // response body
+	CallbackUrl    *string                   `json:"callback_url,omitempty"`     // msg callback url
+	CallbackInfo   *string                   `json:"callback_info,omitempty"`    // approval context
+	CardTemplateId *string                   `json:"card_template_id,omitempty"` // template ID
+	CardVariables  *MyAiPresentCardVariables `json:"card_variables,omitempty"`   // 卡片变量
 }
 
 type MyAiPresentBuilder struct {
-	type_            string // present type
-	typeFlag         bool
-	body             string // response body
-	bodyFlag         bool
-	callbackUrl      string // msg callback url
-	callbackUrlFlag  bool
-	callbackInfo     string // approval context
-	callbackInfoFlag bool
+	type_              string // present type
+	typeFlag           bool
+	body               string // response body
+	bodyFlag           bool
+	callbackUrl        string // msg callback url
+	callbackUrlFlag    bool
+	callbackInfo       string // approval context
+	callbackInfoFlag   bool
+	cardTemplateId     string // template ID
+	cardTemplateIdFlag bool
+	cardVariables      *MyAiPresentCardVariables // 卡片变量
+	cardVariablesFlag  bool
 }
 
 func NewMyAiPresentBuilder() *MyAiPresentBuilder {
@@ -7392,6 +7429,24 @@ func (builder *MyAiPresentBuilder) CallbackInfo(callbackInfo string) *MyAiPresen
 	return builder
 }
 
+// template ID
+//
+// 示例值：default
+func (builder *MyAiPresentBuilder) CardTemplateId(cardTemplateId string) *MyAiPresentBuilder {
+	builder.cardTemplateId = cardTemplateId
+	builder.cardTemplateIdFlag = true
+	return builder
+}
+
+// 卡片变量
+//
+// 示例值：
+func (builder *MyAiPresentBuilder) CardVariables(cardVariables *MyAiPresentCardVariables) *MyAiPresentBuilder {
+	builder.cardVariables = cardVariables
+	builder.cardVariablesFlag = true
+	return builder
+}
+
 func (builder *MyAiPresentBuilder) Build() *MyAiPresent {
 	req := &MyAiPresent{}
 	if builder.typeFlag {
@@ -7408,6 +7463,61 @@ func (builder *MyAiPresentBuilder) Build() *MyAiPresent {
 	}
 	if builder.callbackInfoFlag {
 		req.CallbackInfo = &builder.callbackInfo
+
+	}
+	if builder.cardTemplateIdFlag {
+		req.CardTemplateId = &builder.cardTemplateId
+
+	}
+	if builder.cardVariablesFlag {
+		req.CardVariables = builder.cardVariables
+	}
+	return req
+}
+
+type MyAiPresentCardVariables struct {
+	Prologue     *string `json:"prologue,omitempty"`      // 文字
+	QuickActions *string `json:"quick_actions,omitempty"` // 快捷指令
+}
+
+type MyAiPresentCardVariablesBuilder struct {
+	prologue         string // 文字
+	prologueFlag     bool
+	quickActions     string // 快捷指令
+	quickActionsFlag bool
+}
+
+func NewMyAiPresentCardVariablesBuilder() *MyAiPresentCardVariablesBuilder {
+	builder := &MyAiPresentCardVariablesBuilder{}
+	return builder
+}
+
+// 文字
+//
+// 示例值：text
+func (builder *MyAiPresentCardVariablesBuilder) Prologue(prologue string) *MyAiPresentCardVariablesBuilder {
+	builder.prologue = prologue
+	builder.prologueFlag = true
+	return builder
+}
+
+// 快捷指令
+//
+// 示例值：{}
+func (builder *MyAiPresentCardVariablesBuilder) QuickActions(quickActions string) *MyAiPresentCardVariablesBuilder {
+	builder.quickActions = quickActions
+	builder.quickActionsFlag = true
+	return builder
+}
+
+func (builder *MyAiPresentCardVariablesBuilder) Build() *MyAiPresentCardVariables {
+	req := &MyAiPresentCardVariables{}
+	if builder.prologueFlag {
+		req.Prologue = &builder.prologue
+
+	}
+	if builder.quickActionsFlag {
+		req.QuickActions = &builder.quickActions
 
 	}
 	return req

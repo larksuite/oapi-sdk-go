@@ -1681,6 +1681,7 @@ type DlpEvidenceDetail struct {
 	FileTypeHits    []string             `json:"file_type_hits,omitempty"`     // 命中文件类型
 	FileNameExtHits []string             `json:"file_name_ext_hits,omitempty"` // 命中文件拓展名
 	TriggerSnippets []*DlpPolicyHitProof `json:"trigger_snippets,omitempty"`   // 命中片段
+	SecureLabelHits []string             `json:"secure_label_hits,omitempty"`  // 命中密级标签
 }
 
 type DlpEvidenceDetailBuilder struct {
@@ -1698,6 +1699,8 @@ type DlpEvidenceDetailBuilder struct {
 	fileNameExtHitsFlag bool
 	triggerSnippets     []*DlpPolicyHitProof // 命中片段
 	triggerSnippetsFlag bool
+	secureLabelHits     []string // 命中密级标签
+	secureLabelHitsFlag bool
 }
 
 func NewDlpEvidenceDetailBuilder() *DlpEvidenceDetailBuilder {
@@ -1768,6 +1771,15 @@ func (builder *DlpEvidenceDetailBuilder) TriggerSnippets(triggerSnippets []*DlpP
 	return builder
 }
 
+// 命中密级标签
+//
+// 示例值：
+func (builder *DlpEvidenceDetailBuilder) SecureLabelHits(secureLabelHits []string) *DlpEvidenceDetailBuilder {
+	builder.secureLabelHits = secureLabelHits
+	builder.secureLabelHitsFlag = true
+	return builder
+}
+
 func (builder *DlpEvidenceDetailBuilder) Build() *DlpEvidenceDetail {
 	req := &DlpEvidenceDetail{}
 	if builder.keywordHitsFlag {
@@ -1790,6 +1802,9 @@ func (builder *DlpEvidenceDetailBuilder) Build() *DlpEvidenceDetail {
 	}
 	if builder.triggerSnippetsFlag {
 		req.TriggerSnippets = builder.triggerSnippets
+	}
+	if builder.secureLabelHitsFlag {
+		req.SecureLabelHits = builder.secureLabelHits
 	}
 	return req
 }

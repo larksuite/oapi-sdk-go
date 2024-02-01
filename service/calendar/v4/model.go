@@ -4885,11 +4885,14 @@ func (builder *SchemaBuilder) Build() *Schema {
 
 type SearchEventData struct {
 	Events []*EventBriefInfoAi `json:"events,omitempty"` // 日程列表
+	Msg    *string             `json:"msg,omitempty"`    // 返回给prompt展示内容
 }
 
 type SearchEventDataBuilder struct {
 	events     []*EventBriefInfoAi // 日程列表
 	eventsFlag bool
+	msg        string // 返回给prompt展示内容
+	msgFlag    bool
 }
 
 func NewSearchEventDataBuilder() *SearchEventDataBuilder {
@@ -4906,10 +4909,23 @@ func (builder *SearchEventDataBuilder) Events(events []*EventBriefInfoAi) *Searc
 	return builder
 }
 
+// 返回给prompt展示内容
+//
+// 示例值：帮我展示卡片消息
+func (builder *SearchEventDataBuilder) Msg(msg string) *SearchEventDataBuilder {
+	builder.msg = msg
+	builder.msgFlag = true
+	return builder
+}
+
 func (builder *SearchEventDataBuilder) Build() *SearchEventData {
 	req := &SearchEventData{}
 	if builder.eventsFlag {
 		req.Events = builder.events
+	}
+	if builder.msgFlag {
+		req.Msg = &builder.msg
+
 	}
 	return req
 }
