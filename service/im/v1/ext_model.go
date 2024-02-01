@@ -300,7 +300,7 @@ func (m *MessagePost) EnUs(enUs *MessagePostContent) *MessagePost {
 	return m
 }
 
-func (m *MessagePost) JaJs(jaJp *MessagePostContent) *MessagePost {
+func (m *MessagePost) JaJp(jaJp *MessagePostContent) *MessagePost {
 	m.JaJP = jaJp
 	return m
 }
