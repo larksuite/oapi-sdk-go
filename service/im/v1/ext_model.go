@@ -233,15 +233,11 @@ type MessageText struct {
 }
 
 func NewTextMsgBuilder() *MessageText {
-	m := &MessageText{}
-	m.builder.WriteString("{\"text\":\"")
-	return m
+	return &MessageText{}
 }
 
 func NewMessageTextBuilder() *MessageText {
-	m := &MessageText{}
-	m.builder.WriteString("{\"text\":\"")
-	return m
+	return &MessageText{}
 }
 
 func (t *MessageText) Text(text string) *MessageText {
@@ -251,34 +247,36 @@ func (t *MessageText) Text(text string) *MessageText {
 
 func (t *MessageText) TextLine(text string) *MessageText {
 	t.builder.WriteString(text)
-	t.builder.WriteString("\\n")
+	t.builder.WriteString("\n")
 	return t
 }
 
 func (t *MessageText) Line() *MessageText {
-	t.builder.WriteString("\\n")
+	t.builder.WriteString("\n")
 	return t
 }
 
 func (t *MessageText) AtUser(userId, name string) *MessageText {
-	t.builder.WriteString("<at user_id=\\\"")
+	t.builder.WriteString("<at user_id=\"")
 	t.builder.WriteString(userId)
-	t.builder.WriteString("\\\">")
+	t.builder.WriteString("\">")
 	t.builder.WriteString(name)
 	t.builder.WriteString("</at>")
-	return t
 	return t
 }
 
 func (t *MessageText) AtAll() *MessageText {
-	t.builder.WriteString("<at user_id=\\\"all\\\">")
-	t.builder.WriteString("</at>")
+	t.builder.WriteString("<at user_id=\"all\"></at>")
 	return t
 }
 
-func (t *MessageText) Build() string {
-	t.builder.WriteString("\"}")
-	return t.builder.String()
+func (t *MessageText) Build() (string, error) {
+	m := map[string]string{"text": t.builder.String()}
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
 }
 
 /**
