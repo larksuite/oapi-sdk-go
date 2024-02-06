@@ -97,7 +97,7 @@ func getCustomResp() interface{} {
 }
 func main() {
 	// 创建card处理器
-	cardHandler := larkcard.NewCardActionHandler("jgK59XsRZqJ5fXhfOKVkWb7bZag7RFAi", "h9585OsNHv02zAOZnmu2PgpQmKyMHusv", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
 		fmt.Println(larkcore.Prettify(cardAction))
 		fmt.Println(cardAction.RequestId())
 

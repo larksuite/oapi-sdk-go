@@ -16,11 +16,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
+	"os"
 )
 
 // POST /open-apis/drive/v1/medias/upload_part

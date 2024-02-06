@@ -7127,6 +7127,101 @@ func (builder *MessageBuilder) Build() *Message {
 	return req
 }
 
+type MyAiCardAction struct {
+	Tag   *string        `json:"tag,omitempty"`   // tag
+	Value *MyAiCardValue `json:"value,omitempty"` // value
+}
+
+type MyAiCardActionBuilder struct {
+	tag       string // tag
+	tagFlag   bool
+	value     *MyAiCardValue // value
+	valueFlag bool
+}
+
+func NewMyAiCardActionBuilder() *MyAiCardActionBuilder {
+	builder := &MyAiCardActionBuilder{}
+	return builder
+}
+
+// tag
+//
+// 示例值：button
+func (builder *MyAiCardActionBuilder) Tag(tag string) *MyAiCardActionBuilder {
+	builder.tag = tag
+	builder.tagFlag = true
+	return builder
+}
+
+// value
+//
+// 示例值：
+func (builder *MyAiCardActionBuilder) Value(value *MyAiCardValue) *MyAiCardActionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *MyAiCardActionBuilder) Build() *MyAiCardAction {
+	req := &MyAiCardAction{}
+	if builder.tagFlag {
+		req.Tag = &builder.tag
+
+	}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	return req
+}
+
+type MyAiCardValue struct {
+	Body   *string `json:"body,omitempty"`   // body
+	Handle *string `json:"handle,omitempty"` // handle
+}
+
+type MyAiCardValueBuilder struct {
+	body       string // body
+	bodyFlag   bool
+	handle     string // handle
+	handleFlag bool
+}
+
+func NewMyAiCardValueBuilder() *MyAiCardValueBuilder {
+	builder := &MyAiCardValueBuilder{}
+	return builder
+}
+
+// body
+//
+// 示例值：value body
+func (builder *MyAiCardValueBuilder) Body(body string) *MyAiCardValueBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// handle
+//
+// 示例值：handle
+func (builder *MyAiCardValueBuilder) Handle(handle string) *MyAiCardValueBuilder {
+	builder.handle = handle
+	builder.handleFlag = true
+	return builder
+}
+
+func (builder *MyAiCardValueBuilder) Build() *MyAiCardValue {
+	req := &MyAiCardValue{}
+	if builder.bodyFlag {
+		req.Body = &builder.body
+
+	}
+	if builder.handleFlag {
+		req.Handle = &builder.handle
+
+	}
+	return req
+}
+
 type MyAiComment struct {
 	UserName *string `json:"user_name,omitempty"` // 用户姓名
 	Comment  *string `json:"comment,omitempty"`   // 评论
@@ -7371,6 +7466,9 @@ type MyAiPresent struct {
 	CallbackInfo   *string                   `json:"callback_info,omitempty"`    // approval context
 	CardTemplateId *string                   `json:"card_template_id,omitempty"` // template ID
 	CardVariables  *MyAiPresentCardVariables `json:"card_variables,omitempty"`   // 卡片变量
+	Interactable   *bool                     `json:"interactable,omitempty"`     // interactable
+	OperationType  *string                   `json:"operation_type,omitempty"`   // operation_type
+	OperationUrl   *string                   `json:"operation_url,omitempty"`    // operation_url
 }
 
 type MyAiPresentBuilder struct {
@@ -7386,6 +7484,12 @@ type MyAiPresentBuilder struct {
 	cardTemplateIdFlag bool
 	cardVariables      *MyAiPresentCardVariables // 卡片变量
 	cardVariablesFlag  bool
+	interactable       bool // interactable
+	interactableFlag   bool
+	operationType      string // operation_type
+	operationTypeFlag  bool
+	operationUrl       string // operation_url
+	operationUrlFlag   bool
 }
 
 func NewMyAiPresentBuilder() *MyAiPresentBuilder {
@@ -7447,6 +7551,33 @@ func (builder *MyAiPresentBuilder) CardVariables(cardVariables *MyAiPresentCardV
 	return builder
 }
 
+// interactable
+//
+// 示例值：true false
+func (builder *MyAiPresentBuilder) Interactable(interactable bool) *MyAiPresentBuilder {
+	builder.interactable = interactable
+	builder.interactableFlag = true
+	return builder
+}
+
+// operation_type
+//
+// 示例值：operation_type
+func (builder *MyAiPresentBuilder) OperationType(operationType string) *MyAiPresentBuilder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// operation_url
+//
+// 示例值：https://open-boe.feichu.com
+func (builder *MyAiPresentBuilder) OperationUrl(operationUrl string) *MyAiPresentBuilder {
+	builder.operationUrl = operationUrl
+	builder.operationUrlFlag = true
+	return builder
+}
+
 func (builder *MyAiPresentBuilder) Build() *MyAiPresent {
 	req := &MyAiPresent{}
 	if builder.typeFlag {
@@ -7471,6 +7602,18 @@ func (builder *MyAiPresentBuilder) Build() *MyAiPresent {
 	}
 	if builder.cardVariablesFlag {
 		req.CardVariables = builder.cardVariables
+	}
+	if builder.interactableFlag {
+		req.Interactable = &builder.interactable
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.operationUrlFlag {
+		req.OperationUrl = &builder.operationUrl
+
 	}
 	return req
 }

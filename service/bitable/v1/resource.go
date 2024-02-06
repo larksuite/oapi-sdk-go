@@ -1135,6 +1135,14 @@ func (a *appTableRecord) Search(ctx context.Context, req *SearchAppTableRecordRe
 	}
 	return resp, err
 }
+func (a *appTableRecord) SearchByIterator(ctx context.Context, req *SearchAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*SearchAppTableRecordIterator, error) {
+	return &SearchAppTableRecordIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
 
 // Update 更新记录
 //

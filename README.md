@@ -42,7 +42,7 @@
 ## 安装
 
 ```shell
-go get -u github.com/larksuite/oapi-sdk-go/v3@v3.1.3
+go get -u github.com/larksuite/oapi-sdk-go/v3@v3.1.4
 ```
 
 ## API Client

@@ -7536,6 +7536,7 @@ func (builder *SearchAppTableRecordPathReqBodyBuilder) Build() (*SearchAppTableR
 type SearchAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchAppTableRecordReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
 }
 
 func NewSearchAppTableRecordReqBuilder() *SearchAppTableRecordReqBuilder {
@@ -7544,6 +7545,12 @@ func NewSearchAppTableRecordReqBuilder() *SearchAppTableRecordReqBuilder {
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchAppTableRecordReqBuilder) Limit(limit int) *SearchAppTableRecordReqBuilder {
+	builder.limit = limit
 	return builder
 }
 
@@ -7596,6 +7603,7 @@ func (builder *SearchAppTableRecordReqBuilder) Body(body *SearchAppTableRecordRe
 func (builder *SearchAppTableRecordReqBuilder) Build() *SearchAppTableRecordReq {
 	req := &SearchAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
 	req.apiReq.PathParams = builder.apiReq.PathParams
 	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	req.apiReq.Body = builder.body
@@ -7613,13 +7621,15 @@ type SearchAppTableRecordReqBody struct {
 type SearchAppTableRecordReq struct {
 	apiReq *larkcore.ApiReq
 	Body   *SearchAppTableRecordReqBody `body:""`
+	Limit  int                          // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
 }
 
 type SearchAppTableRecordRespData struct {
-	Items     *AppTableRecord `json:"items,omitempty"`      // record 结果
-	HasMore   *bool           `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string         `json:"page_token,omitempty"` // 下一页分页的token
-	Total     *int            `json:"total,omitempty"`      // 总数
+	Items     []*AppTableRecord `json:"items,omitempty"`      // record 结果
+	HasMore   *bool             `json:"has_more,omitempty"`   // 是否有下一页数据
+	PageToken *string           `json:"page_token,omitempty"` // 下一页分页的token
+	Total     *int              `json:"total,omitempty"`      // 总数
 }
 
 type SearchAppTableRecordResp struct {
@@ -8519,6 +8529,60 @@ func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error
 }
 
 func (iterator *ListAppTableRecordIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchAppTableRecordIterator struct {
+	nextPageToken *string
+	items         []*AppTableRecord
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchAppTableRecordReq
+	listFunc      func(ctx context.Context, req *SearchAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*SearchAppTableRecordResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchAppTableRecordIterator) Next() (bool, *AppTableRecord, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchAppTableRecordIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

@@ -429,6 +429,102 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 	return req
 }
 
+type EventLog struct {
+	MailFrom      *string `json:"mail_from,omitempty"`       // 发信人
+	RcptTo        *string `json:"rcpt_to,omitempty"`         // 收信人
+	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // 邮件ID
+	EventType     *string `json:"event_type,omitempty"`      // 行为类型
+	Timestamp     *int    `json:"timestamp,omitempty"`       // 时间戳
+}
+
+type EventLogBuilder struct {
+	mailFrom          string // 发信人
+	mailFromFlag      bool
+	rcptTo            string // 收信人
+	rcptToFlag        bool
+	smtpMessageId     string // 邮件ID
+	smtpMessageIdFlag bool
+	eventType         string // 行为类型
+	eventTypeFlag     bool
+	timestamp         int // 时间戳
+	timestampFlag     bool
+}
+
+func NewEventLogBuilder() *EventLogBuilder {
+	builder := &EventLogBuilder{}
+	return builder
+}
+
+// 发信人
+//
+// 示例值：abc@example.com
+func (builder *EventLogBuilder) MailFrom(mailFrom string) *EventLogBuilder {
+	builder.mailFrom = mailFrom
+	builder.mailFromFlag = true
+	return builder
+}
+
+// 收信人
+//
+// 示例值：abc@example.com
+func (builder *EventLogBuilder) RcptTo(rcptTo string) *EventLogBuilder {
+	builder.rcptTo = rcptTo
+	builder.rcptToFlag = true
+	return builder
+}
+
+// 邮件ID
+//
+// 示例值：abc@example.com
+func (builder *EventLogBuilder) SmtpMessageId(smtpMessageId string) *EventLogBuilder {
+	builder.smtpMessageId = smtpMessageId
+	builder.smtpMessageIdFlag = true
+	return builder
+}
+
+// 行为类型
+//
+// 示例值：auto_forward
+func (builder *EventLogBuilder) EventType(eventType string) *EventLogBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+// 时间戳
+//
+// 示例值：1706882657
+func (builder *EventLogBuilder) Timestamp(timestamp int) *EventLogBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+
+func (builder *EventLogBuilder) Build() *EventLog {
+	req := &EventLog{}
+	if builder.mailFromFlag {
+		req.MailFrom = &builder.mailFrom
+
+	}
+	if builder.rcptToFlag {
+		req.RcptTo = &builder.rcptTo
+
+	}
+	if builder.smtpMessageIdFlag {
+		req.SmtpMessageId = &builder.smtpMessageId
+
+	}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	return req
+}
+
 type Folder struct {
 	Id                 *string `json:"id,omitempty"`                   // folder id
 	Name               *string `json:"name,omitempty"`                 // 文件夹名称
