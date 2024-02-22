@@ -29,6 +29,7 @@ func main() {
 	req := larkcorehr.NewPatchPersonReqBuilder().
 		PersonId("12454646").
 		ClientToken("12454646").
+		NoNeedQuery(false).
 		PersonInfo(larkcorehr.NewPersonInfoBuilder().
 			NameList([]*larkcorehr.PersonName{larkcorehr.NewPersonNameBuilder().Build()}).
 			Gender(larkcorehr.NewEnumBuilder().Build()).

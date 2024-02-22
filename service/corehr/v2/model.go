@@ -1769,42 +1769,48 @@ func (builder *BasicEmployeeBuilder) Build() *BasicEmployee {
 }
 
 type BasicInfo struct {
-	Name                  *Name   `json:"name,omitempty"`                    // 描述
-	PhoneNumber           *string `json:"phone_number,omitempty"`            // 手机号
-	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 区号
-	Email                 *string `json:"email,omitempty"`                   // 个人邮箱
-	DateOfBirth           *string `json:"date_of_birth,omitempty"`           // 生日
-	PersonalIdNumber      *string `json:"personal_id_number,omitempty"`      // 证件号
-	DateEnteredWorkforce  *string `json:"date_entered_workforce,omitempty"`  // 参加工作日期
-	GenderId              *string `json:"gender_id,omitempty"`               // 性别
-	NationalityId         *string `json:"nationality_id,omitempty"`          // 国籍
-	HomeAddress           *string `json:"home_address,omitempty"`            // 家庭地址
-	WorkerId              *string `json:"worker_id,omitempty"`               // 人员编号
+	Name                        *Name    `json:"name,omitempty"`                           // 描述
+	PhoneNumber                 *string  `json:"phone_number,omitempty"`                   // 手机号
+	InternationalAreaCode       *string  `json:"international_area_code,omitempty"`        // 区号
+	Email                       *string  `json:"email,omitempty"`                          // 个人邮箱
+	DateOfBirth                 *string  `json:"date_of_birth,omitempty"`                  // 生日
+	PersonalIdNumber            *string  `json:"personal_id_number,omitempty"`             // 证件号
+	DateEnteredWorkforce        *string  `json:"date_entered_workforce,omitempty"`         // 参加工作日期
+	GenderId                    *string  `json:"gender_id,omitempty"`                      // 性别
+	NationalityId               *string  `json:"nationality_id,omitempty"`                 // 国籍
+	AdditionalNationalityIdList []string `json:"additional_nationality_id_list,omitempty"` // 其他国籍
+	CitizenshipStatusIdList     []string `json:"citizenship_status_id_list,omitempty"`     // 公民身份
+	HomeAddress                 *string  `json:"home_address,omitempty"`                   // 家庭地址
+	WorkerId                    *string  `json:"worker_id,omitempty"`                      // 人员编号
 }
 
 type BasicInfoBuilder struct {
-	name                      *Name // 描述
-	nameFlag                  bool
-	phoneNumber               string // 手机号
-	phoneNumberFlag           bool
-	internationalAreaCode     string // 区号
-	internationalAreaCodeFlag bool
-	email                     string // 个人邮箱
-	emailFlag                 bool
-	dateOfBirth               string // 生日
-	dateOfBirthFlag           bool
-	personalIdNumber          string // 证件号
-	personalIdNumberFlag      bool
-	dateEnteredWorkforce      string // 参加工作日期
-	dateEnteredWorkforceFlag  bool
-	genderId                  string // 性别
-	genderIdFlag              bool
-	nationalityId             string // 国籍
-	nationalityIdFlag         bool
-	homeAddress               string // 家庭地址
-	homeAddressFlag           bool
-	workerId                  string // 人员编号
-	workerIdFlag              bool
+	name                            *Name // 描述
+	nameFlag                        bool
+	phoneNumber                     string // 手机号
+	phoneNumberFlag                 bool
+	internationalAreaCode           string // 区号
+	internationalAreaCodeFlag       bool
+	email                           string // 个人邮箱
+	emailFlag                       bool
+	dateOfBirth                     string // 生日
+	dateOfBirthFlag                 bool
+	personalIdNumber                string // 证件号
+	personalIdNumberFlag            bool
+	dateEnteredWorkforce            string // 参加工作日期
+	dateEnteredWorkforceFlag        bool
+	genderId                        string // 性别
+	genderIdFlag                    bool
+	nationalityId                   string // 国籍
+	nationalityIdFlag               bool
+	additionalNationalityIdList     []string // 其他国籍
+	additionalNationalityIdListFlag bool
+	citizenshipStatusIdList         []string // 公民身份
+	citizenshipStatusIdListFlag     bool
+	homeAddress                     string // 家庭地址
+	homeAddressFlag                 bool
+	workerId                        string // 人员编号
+	workerIdFlag                    bool
 }
 
 func NewBasicInfoBuilder() *BasicInfoBuilder {
@@ -1893,6 +1899,24 @@ func (builder *BasicInfoBuilder) NationalityId(nationalityId string) *BasicInfoB
 	return builder
 }
 
+// 其他国籍
+//
+// 示例值：[6862995757234914824]
+func (builder *BasicInfoBuilder) AdditionalNationalityIdList(additionalNationalityIdList []string) *BasicInfoBuilder {
+	builder.additionalNationalityIdList = additionalNationalityIdList
+	builder.additionalNationalityIdListFlag = true
+	return builder
+}
+
+// 公民身份
+//
+// 示例值：[6862995757234914824]
+func (builder *BasicInfoBuilder) CitizenshipStatusIdList(citizenshipStatusIdList []string) *BasicInfoBuilder {
+	builder.citizenshipStatusIdList = citizenshipStatusIdList
+	builder.citizenshipStatusIdListFlag = true
+	return builder
+}
+
 // 家庭地址
 //
 // 示例值：home addr
@@ -1947,6 +1971,12 @@ func (builder *BasicInfoBuilder) Build() *BasicInfo {
 	if builder.nationalityIdFlag {
 		req.NationalityId = &builder.nationalityId
 
+	}
+	if builder.additionalNationalityIdListFlag {
+		req.AdditionalNationalityIdList = builder.additionalNationalityIdList
+	}
+	if builder.citizenshipStatusIdListFlag {
+		req.CitizenshipStatusIdList = builder.citizenshipStatusIdList
 	}
 	if builder.homeAddressFlag {
 		req.HomeAddress = &builder.homeAddress
@@ -2320,6 +2350,116 @@ func (builder *ChangeFieldPairBuilder) Build() *ChangeFieldPair {
 	}
 	if builder.targetValueFlag {
 		req.TargetValue = builder.targetValue
+	}
+	return req
+}
+
+type CitizenshipStatus struct {
+	Id                *string `json:"id,omitempty"`                 // 公民身份id
+	CountryRegionId   *string `json:"country_region_id,omitempty"`  // 国家/地区id
+	Active            *bool   `json:"active,omitempty"`             // 是否启用
+	Name              []*I18n `json:"name,omitempty"`               // 名称
+	CitizenshipStatus []*I18n `json:"citizenship_status,omitempty"` // 公民身份
+	ViewOrder         *string `json:"view_order,omitempty"`         // 排序
+}
+
+type CitizenshipStatusBuilder struct {
+	id                    string // 公民身份id
+	idFlag                bool
+	countryRegionId       string // 国家/地区id
+	countryRegionIdFlag   bool
+	active                bool // 是否启用
+	activeFlag            bool
+	name                  []*I18n // 名称
+	nameFlag              bool
+	citizenshipStatus     []*I18n // 公民身份
+	citizenshipStatusFlag bool
+	viewOrder             string // 排序
+	viewOrderFlag         bool
+}
+
+func NewCitizenshipStatusBuilder() *CitizenshipStatusBuilder {
+	builder := &CitizenshipStatusBuilder{}
+	return builder
+}
+
+// 公民身份id
+//
+// 示例值：6891251722631890445
+func (builder *CitizenshipStatusBuilder) Id(id string) *CitizenshipStatusBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 国家/地区id
+//
+// 示例值：6891251722631890445
+func (builder *CitizenshipStatusBuilder) CountryRegionId(countryRegionId string) *CitizenshipStatusBuilder {
+	builder.countryRegionId = countryRegionId
+	builder.countryRegionIdFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *CitizenshipStatusBuilder) Active(active bool) *CitizenshipStatusBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *CitizenshipStatusBuilder) Name(name []*I18n) *CitizenshipStatusBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 公民身份
+//
+// 示例值：
+func (builder *CitizenshipStatusBuilder) CitizenshipStatus(citizenshipStatus []*I18n) *CitizenshipStatusBuilder {
+	builder.citizenshipStatus = citizenshipStatus
+	builder.citizenshipStatusFlag = true
+	return builder
+}
+
+// 排序
+//
+// 示例值：1
+func (builder *CitizenshipStatusBuilder) ViewOrder(viewOrder string) *CitizenshipStatusBuilder {
+	builder.viewOrder = viewOrder
+	builder.viewOrderFlag = true
+	return builder
+}
+
+func (builder *CitizenshipStatusBuilder) Build() *CitizenshipStatus {
+	req := &CitizenshipStatus{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.countryRegionIdFlag {
+		req.CountryRegionId = &builder.countryRegionId
+
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.citizenshipStatusFlag {
+		req.CitizenshipStatus = builder.citizenshipStatus
+	}
+	if builder.viewOrderFlag {
+		req.ViewOrder = &builder.viewOrder
+
 	}
 	return req
 }
@@ -10160,6 +10300,8 @@ type OfferInfo struct {
 	ProbationEndDate     *string              `json:"probation_end_date,omitempty"`      // 试用期结束日期
 	ContractStartDate    *string              `json:"contract_start_date,omitempty"`     // 合同开始日期
 	ContractEndDate      *string              `json:"contract_end_date,omitempty"`       // 合同结束日期
+	DurationPeriod       *float64             `json:"duration_period,omitempty"`         // 合同期限时长
+	DurationUnit         *string              `json:"duration_unit,omitempty"`           // 合同期限单位
 	OnboardingDate       *string              `json:"onboarding_date,omitempty"`         // 入职日期
 	OnboardingLocationId *string              `json:"onboarding_location_id,omitempty"`  // 入职地点id
 	OfficeLocationId     *string              `json:"office_location_id,omitempty"`      // 办公地点id
@@ -10204,6 +10346,10 @@ type OfferInfoBuilder struct {
 	contractStartDateFlag    bool
 	contractEndDate          string // 合同结束日期
 	contractEndDateFlag      bool
+	durationPeriod           float64 // 合同期限时长
+	durationPeriodFlag       bool
+	durationUnit             string // 合同期限单位
+	durationUnitFlag         bool
 	onboardingDate           string // 入职日期
 	onboardingDateFlag       bool
 	onboardingLocationId     string // 入职地点id
@@ -10350,6 +10496,24 @@ func (builder *OfferInfoBuilder) ContractStartDate(contractStartDate string) *Of
 func (builder *OfferInfoBuilder) ContractEndDate(contractEndDate string) *OfferInfoBuilder {
 	builder.contractEndDate = contractEndDate
 	builder.contractEndDateFlag = true
+	return builder
+}
+
+// 合同期限时长
+//
+// 示例值：3
+func (builder *OfferInfoBuilder) DurationPeriod(durationPeriod float64) *OfferInfoBuilder {
+	builder.durationPeriod = durationPeriod
+	builder.durationPeriodFlag = true
+	return builder
+}
+
+// 合同期限单位
+//
+// 示例值：年
+func (builder *OfferInfoBuilder) DurationUnit(durationUnit string) *OfferInfoBuilder {
+	builder.durationUnit = durationUnit
+	builder.durationUnitFlag = true
 	return builder
 }
 
@@ -10556,6 +10720,14 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 		req.ContractEndDate = &builder.contractEndDate
 
 	}
+	if builder.durationPeriodFlag {
+		req.DurationPeriod = &builder.durationPeriod
+
+	}
+	if builder.durationUnitFlag {
+		req.DurationUnit = &builder.durationUnit
+
+	}
 	if builder.onboardingDateFlag {
 		req.OnboardingDate = &builder.onboardingDate
 
@@ -10716,7 +10888,8 @@ type PersonInfo struct {
 	Gender                   *Enum         `json:"gender,omitempty"`                      // -| 性别，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：gender - object_api_name：person
 	DateOfBirth              *string       `json:"date_of_birth,omitempty"`               // 出生日期
 
-	NationalityIdV2          *string               `json:"nationality_id_v2,omitempty"`           // 国籍 ID，可通过【查询国籍信息】接口查询
+	NationalityIdV2 *string `json:"nationality_id_v2,omitempty"` // 国籍 ID，可通过【查询国籍信息】接口查询
+
 	Race                     *Enum                 `json:"race,omitempty"`                        // -| 民族 / 种族，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：ethnicity_race - object_api_name：person
 	MaritalStatus            *Enum                 `json:"marital_status,omitempty"`              // -| 婚姻状况，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：marital_status - object_api_name：person
 	PhoneList                []*Phone              `json:"phone_list,omitempty"`                  // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见
@@ -10776,8 +10949,9 @@ type PersonInfoBuilder struct {
 	dateOfBirth                  string // 出生日期
 	dateOfBirthFlag              bool
 
-	nationalityIdV2              string // 国籍 ID，可通过【查询国籍信息】接口查询
-	nationalityIdV2Flag          bool
+	nationalityIdV2     string // 国籍 ID，可通过【查询国籍信息】接口查询
+	nationalityIdV2Flag bool
+
 	race                         *Enum // -| 民族 / 种族，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：ethnicity_race - object_api_name：person
 	raceFlag                     bool
 	maritalStatus                *Enum // -| 婚姻状况，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - custom_api_name：marital_status - object_api_name：person
@@ -11323,6 +11497,7 @@ func (builder *PersonInfoBuilder) Build() *PersonInfo {
 		req.NationalityIdV2 = &builder.nationalityIdV2
 
 	}
+
 	if builder.raceFlag {
 		req.Race = builder.race
 	}
@@ -22437,6 +22612,14 @@ func (builder *PatchPersonReqBuilder) PersonId(personId string) *PatchPersonReqB
 // 示例值：12454646
 func (builder *PatchPersonReqBuilder) ClientToken(clientToken string) *PatchPersonReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 根据no_need_query判断更新后是否做查询请求并返回个人信息
+//
+// 示例值：false
+func (builder *PatchPersonReqBuilder) NoNeedQuery(noNeedQuery bool) *PatchPersonReqBuilder {
+	builder.apiReq.QueryParams.Set("no_need_query", fmt.Sprint(noNeedQuery))
 	return builder
 }
 
