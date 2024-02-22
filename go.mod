@@ -35,3 +35,8 @@ go 1.13
 //	github.com/larksuite/oapi-sdk-go/v3/service/wiki => ./service/wiki
 //
 //)
+
+require (
+	github.com/gogo/protobuf v1.3.2
+	github.com/gorilla/websocket v1.5.0
+)

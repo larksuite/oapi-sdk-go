@@ -16,6 +16,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"strings"
 )
 
 type LogLevel int
@@ -90,6 +91,18 @@ func NewLogger(config *Config) {
 	}
 }
 
+func NewDefaultLogger(level LogLevel) *loggerProxy {
+	if level == 0 {
+		level = LogLevelInfo
+	}
+	return &loggerProxy{
+		LogLevel: level,
+		Logger: defaultLogger2{
+			logger: log.New(os.Stdout, "", log.Ldate|log.Lmicroseconds),
+		},
+	}
+}
+
 func NewEventLogger() Logger {
 	logger := defaultLogger{
 		logger: log.New(os.Stdout, "", log.LstdFlags),
@@ -115,4 +128,44 @@ func (l defaultLogger) Warn(ctx context.Context, args ...interface{}) {
 
 func (l defaultLogger) Error(ctx context.Context, args ...interface{}) {
 	l.logger.Printf("[Error] %v", args)
+}
+
+type defaultLogger2 struct {
+	logger *log.Logger
+}
+
+func (l defaultLogger2) Debug(ctx context.Context, args ...interface{}) {
+	l.logger.SetPrefix("[Debug] ")
+	format := make([]string, len(args))
+	for i := range format {
+		format[i] = "%v"
+	}
+	l.logger.Printf(strings.Join(format, " "), args...)
+}
+
+func (l defaultLogger2) Info(ctx context.Context, args ...interface{}) {
+	l.logger.SetPrefix("[Info] ")
+	format := make([]string, len(args))
+	for i := range format {
+		format[i] = "%v"
+	}
+	l.logger.Printf(strings.Join(format, " "), args...)
+}
+
+func (l defaultLogger2) Warn(ctx context.Context, args ...interface{}) {
+	l.logger.SetPrefix("[Warn] ")
+	format := make([]string, len(args))
+	for i := range format {
+		format[i] = "%v"
+	}
+	l.logger.Printf(strings.Join(format, " "), args...)
+}
+
+func (l defaultLogger2) Error(ctx context.Context, args ...interface{}) {
+	l.logger.SetPrefix("[Error] ")
+	format := make([]string, len(args))
+	for i := range format {
+		format[i] = "%v"
+	}
+	l.logger.Printf(strings.Join(format, " "), args...)
 }
