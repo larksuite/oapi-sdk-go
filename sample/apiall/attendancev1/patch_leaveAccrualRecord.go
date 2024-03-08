@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -37,6 +38,7 @@ func main() {
 			TimeOffset(480).
 			ExpirationDate("2020-01-01").
 			Quantity("1").
+			SectionType(1).
 			Build()).
 		Build()
 	// 发起请求

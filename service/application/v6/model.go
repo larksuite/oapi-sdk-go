@@ -2783,63 +2783,69 @@ func (builder *AppVisibleListEventBuilder) Build() *AppVisibleListEvent {
 }
 
 type Application struct {
-	AppId            *string           `json:"app_id,omitempty"`             // 应用的 app_id
-	CreatorId        *string           `json:"creator_id,omitempty"`         // 应用创建者（所有者）
-	Status           *int              `json:"status,omitempty"`             // 应用状态
-	SceneType        *int              `json:"scene_type,omitempty"`         // 应用类型
-	PaymentType      *int              `json:"payment_type,omitempty"`       // 付费类型
-	CreateSource     *string           `json:"create_source,omitempty"`      // 应用创建来源(目前仅Base应用返回)
-	RedirectUrls     []string          `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
-	OnlineVersionId  *string           `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID，若没有则为空
-	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID，若没有则为空
-	AppName          *string           `json:"app_name,omitempty"`           // 应用名称
-	AvatarUrl        *string           `json:"avatar_url,omitempty"`         // 应用图标 url
-	Description      *string           `json:"description,omitempty"`        // 应用默认描述
-	Scopes           []*AppScope       `json:"scopes,omitempty"`             // 应用权限列表
-	BackHomeUrl      *string           `json:"back_home_url,omitempty"`      // 后台主页地址
-	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`               // 应用的国际化信息列表
-	PrimaryLanguage  *string           `json:"primary_language,omitempty"`   // 应用主语言
-	CommonCategories []string          `json:"common_categories,omitempty"`  // 应用分类的国际化描述
-	Owner            *ApplicationOwner `json:"owner,omitempty"`              // 应用的所有者信息
+	AppId                *string           `json:"app_id,omitempty"`                 // 应用的 app_id
+	CreatorId            *string           `json:"creator_id,omitempty"`             // 应用创建者（所有者）
+	Status               *int              `json:"status,omitempty"`                 // 应用状态
+	SceneType            *int              `json:"scene_type,omitempty"`             // 应用类型
+	PaymentType          *int              `json:"payment_type,omitempty"`           // 付费类型
+	CreateSource         *string           `json:"create_source,omitempty"`          // 应用创建来源(目前仅Base应用返回)
+	RedirectUrls         []string          `json:"redirect_urls,omitempty"`          // 安全设置中的重定向 URL
+	OnlineVersionId      *string           `json:"online_version_id,omitempty"`      // 发布在线上的应用版本 ID，若没有则为空
+	UnauditVersionId     *string           `json:"unaudit_version_id,omitempty"`     // 在审核中的版本 ID，若没有则为空
+	AppName              *string           `json:"app_name,omitempty"`               // 应用名称
+	AvatarUrl            *string           `json:"avatar_url,omitempty"`             // 应用图标 url
+	Description          *string           `json:"description,omitempty"`            // 应用默认描述
+	Scopes               []*AppScope       `json:"scopes,omitempty"`                 // 应用权限列表
+	BackHomeUrl          *string           `json:"back_home_url,omitempty"`          // 后台主页地址
+	I18n                 []*AppI18nInfo    `json:"i18n,omitempty"`                   // 应用的国际化信息列表
+	PrimaryLanguage      *string           `json:"primary_language,omitempty"`       // 应用主语言
+	CommonCategories     []string          `json:"common_categories,omitempty"`      // 应用分类的国际化描述
+	Owner                *ApplicationOwner `json:"owner,omitempty"`                  // 应用的所有者信息
+	MobileDefaultAbility *string           `json:"mobile_default_ability,omitempty"` // 移动端默认能力
+	PcDefaultAbility     *string           `json:"pc_default_ability,omitempty"`     // PC端默认能力
 }
 
 type ApplicationBuilder struct {
-	appId                string // 应用的 app_id
-	appIdFlag            bool
-	creatorId            string // 应用创建者（所有者）
-	creatorIdFlag        bool
-	status               int // 应用状态
-	statusFlag           bool
-	sceneType            int // 应用类型
-	sceneTypeFlag        bool
-	paymentType          int // 付费类型
-	paymentTypeFlag      bool
-	createSource         string // 应用创建来源(目前仅Base应用返回)
-	createSourceFlag     bool
-	redirectUrls         []string // 安全设置中的重定向 URL
-	redirectUrlsFlag     bool
-	onlineVersionId      string // 发布在线上的应用版本 ID，若没有则为空
-	onlineVersionIdFlag  bool
-	unauditVersionId     string // 在审核中的版本 ID，若没有则为空
-	unauditVersionIdFlag bool
-	appName              string // 应用名称
-	appNameFlag          bool
-	avatarUrl            string // 应用图标 url
-	avatarUrlFlag        bool
-	description          string // 应用默认描述
-	descriptionFlag      bool
-	scopes               []*AppScope // 应用权限列表
-	scopesFlag           bool
-	backHomeUrl          string // 后台主页地址
-	backHomeUrlFlag      bool
-	i18n                 []*AppI18nInfo // 应用的国际化信息列表
-	i18nFlag             bool
-	primaryLanguage      string // 应用主语言
-	primaryLanguageFlag  bool
-	commonCategories     []string // 应用分类的国际化描述
-	commonCategoriesFlag bool
-	owner                *ApplicationOwner // 应用的所有者信息
-	ownerFlag            bool
+	appId                    string // 应用的 app_id
+	appIdFlag                bool
+	creatorId                string // 应用创建者（所有者）
+	creatorIdFlag            bool
+	status                   int // 应用状态
+	statusFlag               bool
+	sceneType                int // 应用类型
+	sceneTypeFlag            bool
+	paymentType              int // 付费类型
+	paymentTypeFlag          bool
+	createSource             string // 应用创建来源(目前仅Base应用返回)
+	createSourceFlag         bool
+	redirectUrls             []string // 安全设置中的重定向 URL
+	redirectUrlsFlag         bool
+	onlineVersionId          string // 发布在线上的应用版本 ID，若没有则为空
+	onlineVersionIdFlag      bool
+	unauditVersionId         string // 在审核中的版本 ID，若没有则为空
+	unauditVersionIdFlag     bool
+	appName                  string // 应用名称
+	appNameFlag              bool
+	avatarUrl                string // 应用图标 url
+	avatarUrlFlag            bool
+	description              string // 应用默认描述
+	descriptionFlag          bool
+	scopes                   []*AppScope // 应用权限列表
+	scopesFlag               bool
+	backHomeUrl              string // 后台主页地址
+	backHomeUrlFlag          bool
+	i18n                     []*AppI18nInfo // 应用的国际化信息列表
+	i18nFlag                 bool
+	primaryLanguage          string // 应用主语言
+	primaryLanguageFlag      bool
+	commonCategories         []string // 应用分类的国际化描述
+	commonCategoriesFlag     bool
+	owner                    *ApplicationOwner // 应用的所有者信息
+	ownerFlag                bool
+	mobileDefaultAbility     string // 移动端默认能力
+	mobileDefaultAbilityFlag bool
+	pcDefaultAbility         string // PC端默认能力
+	pcDefaultAbilityFlag     bool
 }
 
 func NewApplicationBuilder() *ApplicationBuilder {
@@ -3009,6 +3015,24 @@ func (builder *ApplicationBuilder) Owner(owner *ApplicationOwner) *ApplicationBu
 	return builder
 }
 
+// 移动端默认能力
+//
+// 示例值：gadget
+func (builder *ApplicationBuilder) MobileDefaultAbility(mobileDefaultAbility string) *ApplicationBuilder {
+	builder.mobileDefaultAbility = mobileDefaultAbility
+	builder.mobileDefaultAbilityFlag = true
+	return builder
+}
+
+// PC端默认能力
+//
+// 示例值：gadget
+func (builder *ApplicationBuilder) PcDefaultAbility(pcDefaultAbility string) *ApplicationBuilder {
+	builder.pcDefaultAbility = pcDefaultAbility
+	builder.pcDefaultAbilityFlag = true
+	return builder
+}
+
 func (builder *ApplicationBuilder) Build() *Application {
 	req := &Application{}
 	if builder.appIdFlag {
@@ -3077,6 +3101,14 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.ownerFlag {
 		req.Owner = builder.owner
+	}
+	if builder.mobileDefaultAbilityFlag {
+		req.MobileDefaultAbility = &builder.mobileDefaultAbility
+
+	}
+	if builder.pcDefaultAbilityFlag {
+		req.PcDefaultAbility = &builder.pcDefaultAbility
+
 	}
 	return req
 }
@@ -3193,6 +3225,7 @@ type ApplicationAppVersion struct {
 	PublishTime      *string           `json:"publish_time,omitempty"`      // 版本发布时间（单位：s）
 	Ability          *AppAbility       `json:"ability,omitempty"`           // 当前版本下应用开启的能力
 	Remark           *AppVersionRemark `json:"remark,omitempty"`            // 跟随应用版本的信息
+	EventInfos       []*Event          `json:"event_infos,omitempty"`       // 应用已订阅事件详情列表
 }
 
 type ApplicationAppVersionBuilder struct {
@@ -3228,6 +3261,8 @@ type ApplicationAppVersionBuilder struct {
 	abilityFlag          bool
 	remark               *AppVersionRemark // 跟随应用版本的信息
 	remarkFlag           bool
+	eventInfos           []*Event // 应用已订阅事件详情列表
+	eventInfosFlag       bool
 }
 
 func NewApplicationAppVersionBuilder() *ApplicationAppVersionBuilder {
@@ -3379,6 +3414,15 @@ func (builder *ApplicationAppVersionBuilder) Remark(remark *AppVersionRemark) *A
 	return builder
 }
 
+// 应用已订阅事件详情列表
+//
+// 示例值：
+func (builder *ApplicationAppVersionBuilder) EventInfos(eventInfos []*Event) *ApplicationAppVersionBuilder {
+	builder.eventInfos = eventInfos
+	builder.eventInfosFlag = true
+	return builder
+}
+
 func (builder *ApplicationAppVersionBuilder) Build() *ApplicationAppVersion {
 	req := &ApplicationAppVersion{}
 	if builder.appIdFlag {
@@ -3438,6 +3482,9 @@ func (builder *ApplicationAppVersionBuilder) Build() *ApplicationAppVersion {
 	}
 	if builder.remarkFlag {
 		req.Remark = builder.remark
+	}
+	if builder.eventInfosFlag {
+		req.EventInfos = builder.eventInfos
 	}
 	return req
 }
@@ -3801,24 +3848,30 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Build() *ApplicationDepartm
 }
 
 type ApplicationEventOwner struct {
-	Type     *int    `json:"type,omitempty"`      // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
-	Name     *string `json:"name,omitempty"`      // 应用开发商名称，仅商店应用返回
-	HelpDesk *string `json:"help_desk,omitempty"` // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
-	Email    *string `json:"email,omitempty"`     // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
-	Phone    *string `json:"phone,omitempty"`     // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	Type                   *int    `json:"type,omitempty"`                     // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
+	Name                   *string `json:"name,omitempty"`                     // 应用开发商名称，仅商店应用返回
+	HelpDesk               *string `json:"help_desk,omitempty"`                // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	Email                  *string `json:"email,omitempty"`                    // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	Phone                  *string `json:"phone,omitempty"`                    // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	OwnerId                *UserId `json:"owner_id,omitempty"`                 // 应用所有者用户ID
+	CustomerServiceAccount *string `json:"customer_service_account,omitempty"` // 客服账号
 }
 
 type ApplicationEventOwnerBuilder struct {
-	type_        int // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
-	typeFlag     bool
-	name         string // 应用开发商名称，仅商店应用返回
-	nameFlag     bool
-	helpDesk     string // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
-	helpDeskFlag bool
-	email        string // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
-	emailFlag    bool
-	phone        string // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
-	phoneFlag    bool
+	type_                      int // 应用所有者类型，可选值有：0：飞书科技（海外是另个名字企业），1：飞书合作伙伴，2：企业内成员
+	typeFlag                   bool
+	name                       string // 应用开发商名称，仅商店应用返回
+	nameFlag                   bool
+	helpDesk                   string // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	helpDeskFlag               bool
+	email                      string // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	emailFlag                  bool
+	phone                      string // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
+	phoneFlag                  bool
+	ownerId                    *UserId // 应用所有者用户ID
+	ownerIdFlag                bool
+	customerServiceAccount     string // 客服账号
+	customerServiceAccountFlag bool
 }
 
 func NewApplicationEventOwnerBuilder() *ApplicationEventOwnerBuilder {
@@ -3871,6 +3924,24 @@ func (builder *ApplicationEventOwnerBuilder) Phone(phone string) *ApplicationEve
 	return builder
 }
 
+// 应用所有者用户ID
+//
+// 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
+func (builder *ApplicationEventOwnerBuilder) OwnerId(ownerId *UserId) *ApplicationEventOwnerBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+// 客服账号
+//
+// 示例值：feishu@bytedance.com
+func (builder *ApplicationEventOwnerBuilder) CustomerServiceAccount(customerServiceAccount string) *ApplicationEventOwnerBuilder {
+	builder.customerServiceAccount = customerServiceAccount
+	builder.customerServiceAccountFlag = true
+	return builder
+}
+
 func (builder *ApplicationEventOwnerBuilder) Build() *ApplicationEventOwner {
 	req := &ApplicationEventOwner{}
 	if builder.typeFlag {
@@ -3891,6 +3962,13 @@ func (builder *ApplicationEventOwnerBuilder) Build() *ApplicationEventOwner {
 	}
 	if builder.phoneFlag {
 		req.Phone = &builder.phone
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = builder.ownerId
+	}
+	if builder.customerServiceAccountFlag {
+		req.CustomerServiceAccount = &builder.customerServiceAccount
 
 	}
 	return req
@@ -4167,27 +4245,30 @@ func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 }
 
 type ApplicationOwner struct {
-	Type     *int    `json:"type,omitempty"`      // 应用所有者类型
-	OwnerId  *string `json:"owner_id,omitempty"`  // 应用所有者ID
-	Name     *string `json:"name,omitempty"`      // 应用开发商名称(仅商店应用返回)
-	HelpDesk *string `json:"help_desk,omitempty"` // 应用开发商服务台链接(仅商店应用返回)
-	Email    *string `json:"email,omitempty"`     // 应用开发商的邮箱(仅商店应用返回)
-	Phone    *string `json:"phone,omitempty"`     // 应用开发商的手机号(仅商店应用返回)
+	Type                   *int    `json:"type,omitempty"`                     // 应用所有者类型
+	OwnerId                *string `json:"owner_id,omitempty"`                 // 应用所有者ID
+	Name                   *string `json:"name,omitempty"`                     // 应用开发商名称(仅商店应用返回)
+	HelpDesk               *string `json:"help_desk,omitempty"`                // 应用开发商服务台链接(仅商店应用返回)
+	Email                  *string `json:"email,omitempty"`                    // 应用开发商的邮箱(仅商店应用返回)
+	Phone                  *string `json:"phone,omitempty"`                    // 应用开发商的手机号(仅商店应用返回)
+	CustomerServiceAccount *string `json:"customer_service_account,omitempty"` // 客服账号，仅当商店应用配置了这种联系方式时才会返回
 }
 
 type ApplicationOwnerBuilder struct {
-	type_        int // 应用所有者类型
-	typeFlag     bool
-	ownerId      string // 应用所有者ID
-	ownerIdFlag  bool
-	name         string // 应用开发商名称(仅商店应用返回)
-	nameFlag     bool
-	helpDesk     string // 应用开发商服务台链接(仅商店应用返回)
-	helpDeskFlag bool
-	email        string // 应用开发商的邮箱(仅商店应用返回)
-	emailFlag    bool
-	phone        string // 应用开发商的手机号(仅商店应用返回)
-	phoneFlag    bool
+	type_                      int // 应用所有者类型
+	typeFlag                   bool
+	ownerId                    string // 应用所有者ID
+	ownerIdFlag                bool
+	name                       string // 应用开发商名称(仅商店应用返回)
+	nameFlag                   bool
+	helpDesk                   string // 应用开发商服务台链接(仅商店应用返回)
+	helpDeskFlag               bool
+	email                      string // 应用开发商的邮箱(仅商店应用返回)
+	emailFlag                  bool
+	phone                      string // 应用开发商的手机号(仅商店应用返回)
+	phoneFlag                  bool
+	customerServiceAccount     string // 客服账号，仅当商店应用配置了这种联系方式时才会返回
+	customerServiceAccountFlag bool
 }
 
 func NewApplicationOwnerBuilder() *ApplicationOwnerBuilder {
@@ -4249,6 +4330,15 @@ func (builder *ApplicationOwnerBuilder) Phone(phone string) *ApplicationOwnerBui
 	return builder
 }
 
+// 客服账号，仅当商店应用配置了这种联系方式时才会返回
+//
+// 示例值：feishu@bytedance.com
+func (builder *ApplicationOwnerBuilder) CustomerServiceAccount(customerServiceAccount string) *ApplicationOwnerBuilder {
+	builder.customerServiceAccount = customerServiceAccount
+	builder.customerServiceAccountFlag = true
+	return builder
+}
+
 func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
 	req := &ApplicationOwner{}
 	if builder.typeFlag {
@@ -4273,6 +4363,10 @@ func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
 	}
 	if builder.phoneFlag {
 		req.Phone = &builder.phone
+
+	}
+	if builder.customerServiceAccountFlag {
+		req.CustomerServiceAccount = &builder.customerServiceAccount
 
 	}
 	return req
@@ -5052,6 +5146,118 @@ func (builder *DocsBlockBuilder) Build() *DocsBlock {
 	}
 	if builder.pcIconUrlFlag {
 		req.PcIconUrl = &builder.pcIconUrl
+
+	}
+	return req
+}
+
+type Event struct {
+	EventType        *string `json:"event_type,omitempty"`        // 事件类型，事件唯一标识
+	EventName        *string `json:"event_name,omitempty"`        // 事件名称
+	EventDescription *string `json:"event_description,omitempty"` // 事件描述
+}
+
+type EventBuilder struct {
+	eventType            string // 事件类型，事件唯一标识
+	eventTypeFlag        bool
+	eventName            string // 事件名称
+	eventNameFlag        bool
+	eventDescription     string // 事件描述
+	eventDescriptionFlag bool
+}
+
+func NewEventBuilder() *EventBuilder {
+	builder := &EventBuilder{}
+	return builder
+}
+
+// 事件类型，事件唯一标识
+//
+// 示例值：im.chat.updated_v1
+func (builder *EventBuilder) EventType(eventType string) *EventBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+// 事件名称
+//
+// 示例值：群配置修改事件
+func (builder *EventBuilder) EventName(eventName string) *EventBuilder {
+	builder.eventName = eventName
+	builder.eventNameFlag = true
+	return builder
+}
+
+// 事件描述
+//
+// 示例值：群聊名称、头像、描述以及群编辑权限、群分享权限等被修改时推送事件
+func (builder *EventBuilder) EventDescription(eventDescription string) *EventBuilder {
+	builder.eventDescription = eventDescription
+	builder.eventDescriptionFlag = true
+	return builder
+}
+
+func (builder *EventBuilder) Build() *Event {
+	req := &Event{}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.eventNameFlag {
+		req.EventName = &builder.eventName
+
+	}
+	if builder.eventDescriptionFlag {
+		req.EventDescription = &builder.eventDescription
+
+	}
+	return req
+}
+
+type EventAndCallbackEncryptStrategy struct {
+	EncryptionKey     *string `json:"encryption_key,omitempty"`     // 加密key, 配置 Encrypt Key 后，开放平台将向请求地址推送加密后的事件
+	VerificationToken *string `json:"verification_token,omitempty"` // 开放平台向应用推送的事件中都带有此 Token，应用可以据此 Token 验证推送的事件是否属于该应用。
+}
+
+type EventAndCallbackEncryptStrategyBuilder struct {
+	encryptionKey         string // 加密key, 配置 Encrypt Key 后，开放平台将向请求地址推送加密后的事件
+	encryptionKeyFlag     bool
+	verificationToken     string // 开放平台向应用推送的事件中都带有此 Token，应用可以据此 Token 验证推送的事件是否属于该应用。
+	verificationTokenFlag bool
+}
+
+func NewEventAndCallbackEncryptStrategyBuilder() *EventAndCallbackEncryptStrategyBuilder {
+	builder := &EventAndCallbackEncryptStrategyBuilder{}
+	return builder
+}
+
+// 加密key, 配置 Encrypt Key 后，开放平台将向请求地址推送加密后的事件
+//
+// 示例值：xE4k2SkQgtbC8jZEviGRshiZrdPqdkRI
+func (builder *EventAndCallbackEncryptStrategyBuilder) EncryptionKey(encryptionKey string) *EventAndCallbackEncryptStrategyBuilder {
+	builder.encryptionKey = encryptionKey
+	builder.encryptionKeyFlag = true
+	return builder
+}
+
+// 开放平台向应用推送的事件中都带有此 Token，应用可以据此 Token 验证推送的事件是否属于该应用。
+//
+// 示例值：lVEjWtBAu6kVIgSLMV3C4f5W2sAAwvqS
+func (builder *EventAndCallbackEncryptStrategyBuilder) VerificationToken(verificationToken string) *EventAndCallbackEncryptStrategyBuilder {
+	builder.verificationToken = verificationToken
+	builder.verificationTokenFlag = true
+	return builder
+}
+
+func (builder *EventAndCallbackEncryptStrategyBuilder) Build() *EventAndCallbackEncryptStrategy {
+	req := &EventAndCallbackEncryptStrategy{}
+	if builder.encryptionKeyFlag {
+		req.EncryptionKey = &builder.encryptionKey
+
+	}
+	if builder.verificationTokenFlag {
+		req.VerificationToken = &builder.verificationToken
 
 	}
 	return req

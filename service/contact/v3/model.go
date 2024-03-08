@@ -342,6 +342,7 @@ const (
 	GenderTypeUnkown = 0 // 保密
 	GenderTypeMale   = 1 // 男
 	GenderTypeFemale = 2 // 女
+	GenderTypeOthers = 3 // 其他
 
 )
 
@@ -399,6 +400,7 @@ const (
 	GenderTypePatchUserUnkown = 0 // 保密
 	GenderTypePatchUserMale   = 1 // 男
 	GenderTypePatchUserFemale = 2 // 女
+	GenderTypePatchUserOthers = 3 // 其他
 
 )
 
@@ -428,6 +430,7 @@ const (
 	GenderTypeUpdateUserUnkown = 0 // 保密
 	GenderTypeUpdateUserMale   = 1 // 男
 	GenderTypeUpdateUserFemale = 2 // 女
+	GenderTypeUpdateUserOthers = 3 // 其他
 
 )
 

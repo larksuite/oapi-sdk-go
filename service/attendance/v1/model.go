@@ -2450,6 +2450,7 @@ type LeaveAccrualRecord struct {
 	CreatedBy        *string     `json:"created_by,omitempty"`        // 授予记录的创建人的ID
 	UpdatedAt        *string     `json:"updated_at,omitempty"`        // 授予记录的更新时间，unix时间戳
 	UpdatedBy        *string     `json:"updated_by,omitempty"`        // 授予记录的更新人的ID
+	SectionType      *int        `json:"section_type,omitempty"`      // 是否参与折算
 }
 
 type LeaveAccrualRecordBuilder struct {
@@ -2479,6 +2480,8 @@ type LeaveAccrualRecordBuilder struct {
 	updatedAtFlag        bool
 	updatedBy            string // 授予记录的更新人的ID
 	updatedByFlag        bool
+	sectionType          int // 是否参与折算
+	sectionTypeFlag      bool
 }
 
 func NewLeaveAccrualRecordBuilder() *LeaveAccrualRecordBuilder {
@@ -2603,6 +2606,15 @@ func (builder *LeaveAccrualRecordBuilder) UpdatedBy(updatedBy string) *LeaveAccr
 	return builder
 }
 
+// 是否参与折算
+//
+// 示例值：1
+func (builder *LeaveAccrualRecordBuilder) SectionType(sectionType int) *LeaveAccrualRecordBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 func (builder *LeaveAccrualRecordBuilder) Build() *LeaveAccrualRecord {
 	req := &LeaveAccrualRecord{}
 	if builder.idFlag {
@@ -2656,6 +2668,10 @@ func (builder *LeaveAccrualRecordBuilder) Build() *LeaveAccrualRecord {
 		req.UpdatedBy = &builder.updatedBy
 
 	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
+
+	}
 	return req
 }
 
@@ -2672,6 +2688,7 @@ type LeaveEmployExpireRecord struct {
 	IsUpdateByExternal   *bool       `json:"is_update_by_external,omitempty"`  // 是否已经被外部系统更改过
 	AccrualSource        *int        `json:"accrual_source,omitempty"`         // 授予来源
 	LeaveSubTypeId       *string     `json:"leave_sub_type_id,omitempty"`      // 假期子类型id
+	SectionType          *int        `json:"section_type,omitempty"`           // 是否参与清算
 }
 
 type LeaveEmployExpireRecordBuilder struct {
@@ -2699,6 +2716,8 @@ type LeaveEmployExpireRecordBuilder struct {
 	accrualSourceFlag        bool
 	leaveSubTypeId           string // 假期子类型id
 	leaveSubTypeIdFlag       bool
+	sectionType              int // 是否参与清算
+	sectionTypeFlag          bool
 }
 
 func NewLeaveEmployExpireRecordBuilder() *LeaveEmployExpireRecordBuilder {
@@ -2814,6 +2833,15 @@ func (builder *LeaveEmployExpireRecordBuilder) LeaveSubTypeId(leaveSubTypeId str
 	return builder
 }
 
+// 是否参与清算
+//
+// 示例值：1
+func (builder *LeaveEmployExpireRecordBuilder) SectionType(sectionType int) *LeaveEmployExpireRecordBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 func (builder *LeaveEmployExpireRecordBuilder) Build() *LeaveEmployExpireRecord {
 	req := &LeaveEmployExpireRecord{}
 	if builder.idFlag {
@@ -2861,6 +2889,10 @@ func (builder *LeaveEmployExpireRecordBuilder) Build() *LeaveEmployExpireRecord 
 	}
 	if builder.leaveSubTypeIdFlag {
 		req.LeaveSubTypeId = &builder.leaveSubTypeId
+
+	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
 
 	}
 	return req
@@ -3754,12 +3786,15 @@ func (builder *OvertimeApplyDetailBuilder) Build() *OvertimeApplyDetail {
 }
 
 type OvertimeClockCfg struct {
-	AllowPunchApproval *bool `json:"allow_punch_approval,omitempty"` // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
+	AllowPunchApproval           *bool `json:"allow_punch_approval,omitempty"`               // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
+	NeedClockOverTimeStartAndEnd *bool `json:"need_clock_over_time_start_and_end,omitempty"` // 加班开始和结束需打卡(需灰度)
 }
 
 type OvertimeClockCfgBuilder struct {
-	allowPunchApproval     bool // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
-	allowPunchApprovalFlag bool
+	allowPunchApproval               bool // 是否允许在非打卡时段申请打卡（仅灰度租户可用）
+	allowPunchApprovalFlag           bool
+	needClockOverTimeStartAndEnd     bool // 加班开始和结束需打卡(需灰度)
+	needClockOverTimeStartAndEndFlag bool
 }
 
 func NewOvertimeClockCfgBuilder() *OvertimeClockCfgBuilder {
@@ -3776,10 +3811,23 @@ func (builder *OvertimeClockCfgBuilder) AllowPunchApproval(allowPunchApproval bo
 	return builder
 }
 
+// 加班开始和结束需打卡(需灰度)
+//
+// 示例值：false
+func (builder *OvertimeClockCfgBuilder) NeedClockOverTimeStartAndEnd(needClockOverTimeStartAndEnd bool) *OvertimeClockCfgBuilder {
+	builder.needClockOverTimeStartAndEnd = needClockOverTimeStartAndEnd
+	builder.needClockOverTimeStartAndEndFlag = true
+	return builder
+}
+
 func (builder *OvertimeClockCfgBuilder) Build() *OvertimeClockCfg {
 	req := &OvertimeClockCfg{}
 	if builder.allowPunchApprovalFlag {
 		req.AllowPunchApproval = &builder.allowPunchApproval
+
+	}
+	if builder.needClockOverTimeStartAndEndFlag {
+		req.NeedClockOverTimeStartAndEnd = &builder.needClockOverTimeStartAndEnd
 
 	}
 	return req
@@ -4678,45 +4726,51 @@ func (builder *ScopeValueBuilder) Build() *ScopeValue {
 }
 
 type Shift struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         *string              `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        *int                 `json:"punch_times,omitempty"`           // 打卡次数
-	SubShiftLeaderIds []string             `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`      // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
-	FlexibleRule      []*FlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
-	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
+	ShiftId              *string              `json:"shift_id,omitempty"`                // 班次 ID
+	ShiftName            *string              `json:"shift_name,omitempty"`              // 班次名称
+	PunchTimes           *int                 `json:"punch_times,omitempty"`             // 打卡次数
+	SubShiftLeaderIds    []string             `json:"sub_shift_leader_ids,omitempty"`    // 排班组子负责人id列表
+	IsFlexible           *bool                `json:"is_flexible,omitempty"`             // 是否弹性打卡
+	FlexibleMinutes      *int                 `json:"flexible_minutes,omitempty"`        // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
+	FlexibleRule         []*FlexibleRule      `json:"flexible_rule,omitempty"`           // 弹性打卡时间设置
+	NoNeedOff            *bool                `json:"no_need_off,omitempty"`             // 不需要打下班卡
+	PunchTimeRule        []*PunchTimeRule     `json:"punch_time_rule,omitempty"`         // 打卡规则
+	LateOffLateOnRule    []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`   // 晚走晚到规则
+	RestTimeRule         []*RestRule          `json:"rest_time_rule,omitempty"`          // 休息规则
+	OvertimeRule         []*OvertimeRule      `json:"overtime_rule,omitempty"`           // 打卡规则
+	DayType              *int                 `json:"day_type,omitempty"`                // 日期类型，【是否弹性打卡 = ture】时，不可设置为“休息日”  可选值：1：工作日 2：休息日	 示例值：（默认值）1
+	OvertimeRestTimeRule []*RestRule          `json:"overtime_rest_time_rule,omitempty"` // 班外休息规则
 }
 
 type ShiftBuilder struct {
-	shiftId               string // 班次 ID
-	shiftIdFlag           bool
-	shiftName             string // 班次名称
-	shiftNameFlag         bool
-	punchTimes            int // 打卡次数
-	punchTimesFlag        bool
-	subShiftLeaderIds     []string // 排班组子负责人id列表
-	subShiftLeaderIdsFlag bool
-	isFlexible            bool // 是否弹性打卡
-	isFlexibleFlag        bool
-	flexibleMinutes       int // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
-	flexibleMinutesFlag   bool
-	flexibleRule          []*FlexibleRule // 弹性打卡时间设置
-	flexibleRuleFlag      bool
-	noNeedOff             bool // 不需要打下班卡
-	noNeedOffFlag         bool
-	punchTimeRule         []*PunchTimeRule // 打卡规则
-	punchTimeRuleFlag     bool
-	lateOffLateOnRule     []*LateOffLateOnRule // 晚走晚到规则
-	lateOffLateOnRuleFlag bool
-	restTimeRule          []*RestRule // 休息规则
-	restTimeRuleFlag      bool
-	overtimeRule          []*OvertimeRule // 打卡规则
-	overtimeRuleFlag      bool
+	shiftId                  string // 班次 ID
+	shiftIdFlag              bool
+	shiftName                string // 班次名称
+	shiftNameFlag            bool
+	punchTimes               int // 打卡次数
+	punchTimesFlag           bool
+	subShiftLeaderIds        []string // 排班组子负责人id列表
+	subShiftLeaderIdsFlag    bool
+	isFlexible               bool // 是否弹性打卡
+	isFlexibleFlag           bool
+	flexibleMinutes          int // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
+	flexibleMinutesFlag      bool
+	flexibleRule             []*FlexibleRule // 弹性打卡时间设置
+	flexibleRuleFlag         bool
+	noNeedOff                bool // 不需要打下班卡
+	noNeedOffFlag            bool
+	punchTimeRule            []*PunchTimeRule // 打卡规则
+	punchTimeRuleFlag        bool
+	lateOffLateOnRule        []*LateOffLateOnRule // 晚走晚到规则
+	lateOffLateOnRuleFlag    bool
+	restTimeRule             []*RestRule // 休息规则
+	restTimeRuleFlag         bool
+	overtimeRule             []*OvertimeRule // 打卡规则
+	overtimeRuleFlag         bool
+	dayType                  int // 日期类型，【是否弹性打卡 = ture】时，不可设置为“休息日”  可选值：1：工作日 2：休息日	 示例值：（默认值）1
+	dayTypeFlag              bool
+	overtimeRestTimeRule     []*RestRule // 班外休息规则
+	overtimeRestTimeRuleFlag bool
 }
 
 func NewShiftBuilder() *ShiftBuilder {
@@ -4832,6 +4886,24 @@ func (builder *ShiftBuilder) OvertimeRule(overtimeRule []*OvertimeRule) *ShiftBu
 	return builder
 }
 
+// 日期类型，【是否弹性打卡 = ture】时，不可设置为“休息日”  可选值：1：工作日 2：休息日	 示例值：（默认值）1
+//
+// 示例值：60
+func (builder *ShiftBuilder) DayType(dayType int) *ShiftBuilder {
+	builder.dayType = dayType
+	builder.dayTypeFlag = true
+	return builder
+}
+
+// 班外休息规则
+//
+// 示例值：
+func (builder *ShiftBuilder) OvertimeRestTimeRule(overtimeRestTimeRule []*RestRule) *ShiftBuilder {
+	builder.overtimeRestTimeRule = overtimeRestTimeRule
+	builder.overtimeRestTimeRuleFlag = true
+	return builder
+}
+
 func (builder *ShiftBuilder) Build() *Shift {
 	req := &Shift{}
 	if builder.shiftIdFlag {
@@ -4875,6 +4947,13 @@ func (builder *ShiftBuilder) Build() *Shift {
 	}
 	if builder.overtimeRuleFlag {
 		req.OvertimeRule = builder.overtimeRule
+	}
+	if builder.dayTypeFlag {
+		req.DayType = &builder.dayType
+
+	}
+	if builder.overtimeRestTimeRuleFlag {
+		req.OvertimeRestTimeRule = builder.overtimeRestTimeRule
 	}
 	return req
 }
@@ -8384,6 +8463,8 @@ type PatchLeaveAccrualRecordReqBodyBuilder struct {
 	expirationDateFlag        bool
 	quantity                  string // 修改source 余额
 	quantityFlag              bool
+	sectionType               int // 是否参与清算
+	sectionTypeFlag           bool
 }
 
 func NewPatchLeaveAccrualRecordReqBodyBuilder() *PatchLeaveAccrualRecordReqBodyBuilder {
@@ -8454,6 +8535,15 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Quantity(quantity string) 
 	return builder
 }
 
+// 是否参与清算
+//
+//示例值：1
+func (builder *PatchLeaveAccrualRecordReqBodyBuilder) SectionType(sectionType int) *PatchLeaveAccrualRecordReqBodyBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Build() *PatchLeaveAccrualRecordReqBody {
 	req := &PatchLeaveAccrualRecordReqBody{}
 	if builder.leaveGrantingRecordIdFlag {
@@ -8477,6 +8567,9 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Build() *PatchLeaveAccrual
 	if builder.quantityFlag {
 		req.Quantity = &builder.quantity
 	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
+	}
 	return req
 }
 
@@ -8495,6 +8588,8 @@ type PatchLeaveAccrualRecordPathReqBodyBuilder struct {
 	expirationDateFlag        bool
 	quantity                  string
 	quantityFlag              bool
+	sectionType               int
+	sectionTypeFlag           bool
 }
 
 func NewPatchLeaveAccrualRecordPathReqBodyBuilder() *PatchLeaveAccrualRecordPathReqBodyBuilder {
@@ -8565,6 +8660,15 @@ func (builder *PatchLeaveAccrualRecordPathReqBodyBuilder) Quantity(quantity stri
 	return builder
 }
 
+// 是否参与清算
+//
+// 示例值：1
+func (builder *PatchLeaveAccrualRecordPathReqBodyBuilder) SectionType(sectionType int) *PatchLeaveAccrualRecordPathReqBodyBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 func (builder *PatchLeaveAccrualRecordPathReqBodyBuilder) Build() (*PatchLeaveAccrualRecordReqBody, error) {
 	req := &PatchLeaveAccrualRecordReqBody{}
 	if builder.leaveGrantingRecordIdFlag {
@@ -8587,6 +8691,9 @@ func (builder *PatchLeaveAccrualRecordPathReqBodyBuilder) Build() (*PatchLeaveAc
 	}
 	if builder.quantityFlag {
 		req.Quantity = &builder.quantity
+	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
 	}
 	return req, nil
 }
@@ -8644,6 +8751,7 @@ type PatchLeaveAccrualRecordReqBody struct {
 	TimeOffset            *int        `json:"time_offset,omitempty"`              // 时间偏移，东八区：480	8*60
 	ExpirationDate        *string     `json:"expiration_date,omitempty"`          // 失效日期，格式"2020-01-01"
 	Quantity              *string     `json:"quantity,omitempty"`                 // 修改source 余额
+	SectionType           *int        `json:"section_type,omitempty"`             // 是否参与清算
 }
 
 type PatchLeaveAccrualRecordReq struct {
@@ -9023,18 +9131,20 @@ type GetShiftReq struct {
 }
 
 type GetShiftRespData struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`              // 班次Id
-	ShiftName         *string              `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        *int                 `json:"punch_times,omitempty"`           // 打卡次数
-	SubShiftLeaderIds []string             `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`      // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
-	FlexibleRule      []*FlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
-	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
+	ShiftId              *string              `json:"shift_id,omitempty"`                // 班次Id
+	ShiftName            *string              `json:"shift_name,omitempty"`              // 班次名称
+	PunchTimes           *int                 `json:"punch_times,omitempty"`             // 打卡次数
+	SubShiftLeaderIds    []string             `json:"sub_shift_leader_ids,omitempty"`    // 排班组子负责人id列表
+	IsFlexible           *bool                `json:"is_flexible,omitempty"`             // 是否弹性打卡
+	FlexibleMinutes      *int                 `json:"flexible_minutes,omitempty"`        // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
+	FlexibleRule         []*FlexibleRule      `json:"flexible_rule,omitempty"`           // 弹性打卡时间设置
+	NoNeedOff            *bool                `json:"no_need_off,omitempty"`             // 不需要打下班卡
+	PunchTimeRule        []*PunchTimeRule     `json:"punch_time_rule,omitempty"`         // 打卡规则
+	LateOffLateOnRule    []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`   // 晚走晚到规则
+	RestTimeRule         []*RestRule          `json:"rest_time_rule,omitempty"`          // 休息规则
+	OvertimeRule         []*OvertimeRule      `json:"overtime_rule,omitempty"`           // 打卡规则
+	DayType              *int                 `json:"day_type,omitempty"`                // 日期类型，【是否弹性打卡 = ture】时，不可设置为“休息日”  可选值：1：工作日 2：休息日	 示例值：（默认值）1
+	OvertimeRestTimeRule []*RestRule          `json:"overtime_rest_time_rule,omitempty"` // 班外休息规则
 }
 
 type GetShiftResp struct {
@@ -9146,18 +9256,20 @@ type QueryShiftReq struct {
 }
 
 type QueryShiftRespData struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`              // 班次Id
-	ShiftName         *string              `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        *int                 `json:"punch_times,omitempty"`           // 打卡次数
-	SubShiftLeaderIds []string             `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`      // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
-	FlexibleRule      []*FlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`        // 休息规则
-	OvertimeRule      []*OvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
+	ShiftId              *string              `json:"shift_id,omitempty"`                // 班次Id
+	ShiftName            *string              `json:"shift_name,omitempty"`              // 班次名称
+	PunchTimes           *int                 `json:"punch_times,omitempty"`             // 打卡次数
+	SubShiftLeaderIds    []string             `json:"sub_shift_leader_ids,omitempty"`    // 排班组子负责人id列表
+	IsFlexible           *bool                `json:"is_flexible,omitempty"`             // 是否弹性打卡
+	FlexibleMinutes      *int                 `json:"flexible_minutes,omitempty"`        // 弹性打卡时间，设置【上班最多可晚到】与【下班最多可早走】时间，如果不设置flexible_rule则生效
+	FlexibleRule         []*FlexibleRule      `json:"flexible_rule,omitempty"`           // 弹性打卡时间设置
+	NoNeedOff            *bool                `json:"no_need_off,omitempty"`             // 不需要打下班卡
+	PunchTimeRule        []*PunchTimeRule     `json:"punch_time_rule,omitempty"`         // 打卡规则
+	LateOffLateOnRule    []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`   // 晚走晚到规则
+	RestTimeRule         []*RestRule          `json:"rest_time_rule,omitempty"`          // 休息规则
+	OvertimeRule         []*OvertimeRule      `json:"overtime_rule,omitempty"`           // 打卡规则
+	DayType              *int                 `json:"day_type,omitempty"`                // 日期类型，【是否弹性打卡 = ture】时，不可设置为“休息日”  可选值：1：工作日 2：休息日	 示例值：（默认值）1
+	OvertimeRestTimeRule []*RestRule          `json:"overtime_rest_time_rule,omitempty"` // 班外休息规则
 }
 
 type QueryShiftResp struct {

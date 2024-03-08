@@ -3159,90 +3159,93 @@ func (builder *StartBuilder) Build() *Start {
 }
 
 type Task struct {
-	Guid           *string               `json:"guid,omitempty"`             // 任务guid，任务的唯一ID
-	Summary        *string               `json:"summary,omitempty"`          // 任务标题
-	Description    *string               `json:"description,omitempty"`      // 任务描述
-	Due            *Due                  `json:"due,omitempty"`              // 任务截止时间
-	Reminders      []*Reminder           `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
-	Creator        *Member               `json:"creator,omitempty"`          // 任务创建者
-	Members        []*Member             `json:"members,omitempty"`          // 任务成员列表
-	CompletedAt    *string               `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
-	Attachments    []*Attachment         `json:"attachments,omitempty"`      // 任务的附件列表
-	Origin         *Origin               `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	Extra          *string               `json:"extra,omitempty"`            // 任务附带的自定义数据。
-	Tasklists      []*TaskInTasklistInfo `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	RepeatRule     *string               `json:"repeat_rule,omitempty"`      // 如果任务为重复任务，返回重复任务的配置
-	ParentTaskGuid *string               `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务，返回父任务的guid
-	Mode           *int                  `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         *int                  `json:"source,omitempty"`           // 任务创建的来源
-	CustomComplete *CustomComplete       `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
-	TaskId         *string               `json:"task_id,omitempty"`          // 任务界面上的代码
-	CreatedAt      *string               `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
-	UpdatedAt      *string               `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
-	Status         *string               `json:"status,omitempty"`           // 任务的状态，支持"todo"和"done"两种状态
-	Url            *string               `json:"url,omitempty"`              // 任务的分享链接
-	Start          *Start                `json:"start,omitempty"`            // 任务的开始时间
-	SubtaskCount   *int                  `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
-	IsMilestone    *bool                 `json:"is_milestone,omitempty"`     // 是否是里程碑任务
-	CustomFields   []*CustomFieldValue   `json:"custom_fields,omitempty"`    // 任务的自定义字段值
-	Dependencies   []*TaskDependency     `json:"dependencies,omitempty"`     // 任务依赖
+	Guid            *string               `json:"guid,omitempty"`             // 任务guid，任务的唯一ID
+	Summary         *string               `json:"summary,omitempty"`          // 任务标题
+	Description     *string               `json:"description,omitempty"`      // 任务描述
+	Due             *Due                  `json:"due,omitempty"`              // 任务截止时间
+	Reminders       []*Reminder           `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
+	Creator         *Member               `json:"creator,omitempty"`          // 任务创建者
+	Members         []*Member             `json:"members,omitempty"`          // 任务成员列表
+	CompletedAt     *string               `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
+	Attachments     []*Attachment         `json:"attachments,omitempty"`      // 任务的附件列表
+	Origin          *Origin               `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	Extra           *string               `json:"extra,omitempty"`            // 任务附带的自定义数据。
+	Tasklists       []*TaskInTasklistInfo `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
+	RepeatRule      *string               `json:"repeat_rule,omitempty"`      // 如果任务为重复任务，返回重复任务的配置
+	ParentTaskGuid  *string               `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务，返回父任务的guid
+	Mode            *int                  `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
+	Source          *int                  `json:"source,omitempty"`           // 任务创建的来源
+	CustomComplete  *CustomComplete       `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
+	TaskId          *string               `json:"task_id,omitempty"`          // 任务界面上的代码
+	CreatedAt       *string               `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
+	UpdatedAt       *string               `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
+	Status          *string               `json:"status,omitempty"`           // 任务的状态，支持"todo"和"done"两种状态
+	Url             *string               `json:"url,omitempty"`              // 任务的分享链接
+	Start           *Start                `json:"start,omitempty"`            // 任务的开始时间
+	SubtaskCount    *int                  `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
+	IsMilestone     *bool                 `json:"is_milestone,omitempty"`     // 是否是里程碑任务
+	CustomFields    []*CustomFieldValue   `json:"custom_fields,omitempty"`    // 任务的自定义字段值
+	Dependencies    []*TaskDependency     `json:"dependencies,omitempty"`     // 任务依赖
+	AssigneeRelated []*TaskAssignee       `json:"assignee_related,omitempty"` // 任务执行者相关信息，如会签任务各执行者完成时间等
 }
 
 type TaskBuilder struct {
-	guid               string // 任务guid，任务的唯一ID
-	guidFlag           bool
-	summary            string // 任务标题
-	summaryFlag        bool
-	description        string // 任务描述
-	descriptionFlag    bool
-	due                *Due // 任务截止时间
-	dueFlag            bool
-	reminders          []*Reminder // 任务的提醒配置列表。目前每个任务最多有1个。
-	remindersFlag      bool
-	creator            *Member // 任务创建者
-	creatorFlag        bool
-	members            []*Member // 任务成员列表
-	membersFlag        bool
-	completedAt        string // 任务完成的时间戳(ms)
-	completedAtFlag    bool
-	attachments        []*Attachment // 任务的附件列表
-	attachmentsFlag    bool
-	origin             *Origin // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	originFlag         bool
-	extra              string // 任务附带的自定义数据。
-	extraFlag          bool
-	tasklists          []*TaskInTasklistInfo // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	tasklistsFlag      bool
-	repeatRule         string // 如果任务为重复任务，返回重复任务的配置
-	repeatRuleFlag     bool
-	parentTaskGuid     string // 如果当前任务为某个任务的子任务，返回父任务的guid
-	parentTaskGuidFlag bool
-	mode               int // 任务的模式。1 - 会签任务；2 - 或签任务
-	modeFlag           bool
-	source             int // 任务创建的来源
-	sourceFlag         bool
-	customComplete     *CustomComplete // 任务的自定义完成配置
-	customCompleteFlag bool
-	taskId             string // 任务界面上的代码
-	taskIdFlag         bool
-	createdAt          string // 任务创建时间戳(ms)
-	createdAtFlag      bool
-	updatedAt          string // 任务最后一次更新的时间戳(ms)
-	updatedAtFlag      bool
-	status             string // 任务的状态，支持"todo"和"done"两种状态
-	statusFlag         bool
-	url                string // 任务的分享链接
-	urlFlag            bool
-	start              *Start // 任务的开始时间
-	startFlag          bool
-	subtaskCount       int // 该任务的子任务的个数。
-	subtaskCountFlag   bool
-	isMilestone        bool // 是否是里程碑任务
-	isMilestoneFlag    bool
-	customFields       []*CustomFieldValue // 任务的自定义字段值
-	customFieldsFlag   bool
-	dependencies       []*TaskDependency // 任务依赖
-	dependenciesFlag   bool
+	guid                string // 任务guid，任务的唯一ID
+	guidFlag            bool
+	summary             string // 任务标题
+	summaryFlag         bool
+	description         string // 任务描述
+	descriptionFlag     bool
+	due                 *Due // 任务截止时间
+	dueFlag             bool
+	reminders           []*Reminder // 任务的提醒配置列表。目前每个任务最多有1个。
+	remindersFlag       bool
+	creator             *Member // 任务创建者
+	creatorFlag         bool
+	members             []*Member // 任务成员列表
+	membersFlag         bool
+	completedAt         string // 任务完成的时间戳(ms)
+	completedAtFlag     bool
+	attachments         []*Attachment // 任务的附件列表
+	attachmentsFlag     bool
+	origin              *Origin // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	originFlag          bool
+	extra               string // 任务附带的自定义数据。
+	extraFlag           bool
+	tasklists           []*TaskInTasklistInfo // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
+	tasklistsFlag       bool
+	repeatRule          string // 如果任务为重复任务，返回重复任务的配置
+	repeatRuleFlag      bool
+	parentTaskGuid      string // 如果当前任务为某个任务的子任务，返回父任务的guid
+	parentTaskGuidFlag  bool
+	mode                int // 任务的模式。1 - 会签任务；2 - 或签任务
+	modeFlag            bool
+	source              int // 任务创建的来源
+	sourceFlag          bool
+	customComplete      *CustomComplete // 任务的自定义完成配置
+	customCompleteFlag  bool
+	taskId              string // 任务界面上的代码
+	taskIdFlag          bool
+	createdAt           string // 任务创建时间戳(ms)
+	createdAtFlag       bool
+	updatedAt           string // 任务最后一次更新的时间戳(ms)
+	updatedAtFlag       bool
+	status              string // 任务的状态，支持"todo"和"done"两种状态
+	statusFlag          bool
+	url                 string // 任务的分享链接
+	urlFlag             bool
+	start               *Start // 任务的开始时间
+	startFlag           bool
+	subtaskCount        int // 该任务的子任务的个数。
+	subtaskCountFlag    bool
+	isMilestone         bool // 是否是里程碑任务
+	isMilestoneFlag     bool
+	customFields        []*CustomFieldValue // 任务的自定义字段值
+	customFieldsFlag    bool
+	dependencies        []*TaskDependency // 任务依赖
+	dependenciesFlag    bool
+	assigneeRelated     []*TaskAssignee // 任务执行者相关信息，如会签任务各执行者完成时间等
+	assigneeRelatedFlag bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -3493,6 +3496,15 @@ func (builder *TaskBuilder) Dependencies(dependencies []*TaskDependency) *TaskBu
 	return builder
 }
 
+// 任务执行者相关信息，如会签任务各执行者完成时间等
+//
+// 示例值：
+func (builder *TaskBuilder) AssigneeRelated(assigneeRelated []*TaskAssignee) *TaskBuilder {
+	builder.assigneeRelated = assigneeRelated
+	builder.assigneeRelatedFlag = true
+	return builder
+}
+
 func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
 	if builder.guidFlag {
@@ -3592,10 +3604,61 @@ func (builder *TaskBuilder) Build() *Task {
 	if builder.dependenciesFlag {
 		req.Dependencies = builder.dependencies
 	}
+	if builder.assigneeRelatedFlag {
+		req.AssigneeRelated = builder.assigneeRelated
+	}
 	return req
 }
 
 type TaskSubtask struct {
+}
+
+type TaskAssignee struct {
+	Id          *string `json:"id,omitempty"`           // 任务执行者的id
+	CompletedAt *string `json:"completed_at,omitempty"` // 会签任务中执行者完成的时间戳(ms)
+}
+
+type TaskAssigneeBuilder struct {
+	id              string // 任务执行者的id
+	idFlag          bool
+	completedAt     string // 会签任务中执行者完成的时间戳(ms)
+	completedAtFlag bool
+}
+
+func NewTaskAssigneeBuilder() *TaskAssigneeBuilder {
+	builder := &TaskAssigneeBuilder{}
+	return builder
+}
+
+// 任务执行者的id
+//
+// 示例值：ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f
+func (builder *TaskAssigneeBuilder) Id(id string) *TaskAssigneeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 会签任务中执行者完成的时间戳(ms)
+//
+// 示例值：1675742789470
+func (builder *TaskAssigneeBuilder) CompletedAt(completedAt string) *TaskAssigneeBuilder {
+	builder.completedAt = completedAt
+	builder.completedAtFlag = true
+	return builder
+}
+
+func (builder *TaskAssigneeBuilder) Build() *TaskAssignee {
+	req := &TaskAssignee{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.completedAtFlag {
+		req.CompletedAt = &builder.completedAt
+
+	}
+	return req
 }
 
 type TaskDependency struct {

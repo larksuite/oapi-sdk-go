@@ -21,6 +21,7 @@ type V1 struct {
 	HealthCertificate       *healthCertificate       // health_certificate
 	HkmMainlandTravelPermit *hkmMainlandTravelPermit // hkm_mainland_travel_permit
 	IdCard                  *idCard                  // id_card
+	Resume                  *resume                  // resume
 	TaxiInvoice             *taxiInvoice             // taxi_invoice
 	TrainInvoice            *trainInvoice            // train_invoice
 	TwMainlandTravelPermit  *twMainlandTravelPermit  // tw_mainland_travel_permit
@@ -42,6 +43,7 @@ func New(config *larkcore.Config) *V1 {
 		HealthCertificate:       &healthCertificate{config: config},
 		HkmMainlandTravelPermit: &hkmMainlandTravelPermit{config: config},
 		IdCard:                  &idCard{config: config},
+		Resume:                  &resume{config: config},
 		TaxiInvoice:             &taxiInvoice{config: config},
 		TrainInvoice:            &trainInvoice{config: config},
 		TwMainlandTravelPermit:  &twMainlandTravelPermit{config: config},
@@ -82,6 +84,9 @@ type hkmMainlandTravelPermit struct {
 	config *larkcore.Config
 }
 type idCard struct {
+	config *larkcore.Config
+}
+type resume struct {
 	config *larkcore.Config
 }
 type taxiInvoice struct {
@@ -394,6 +399,33 @@ func (i *idCard) Recognize(ctx context.Context, req *RecognizeIdCardReq, options
 	// 反序列响应结果
 	resp := &RecognizeIdCardResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Parse
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=parse&project=document_ai&resource=resume&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/document_aiv1/parse_resume.go
+func (r *resume) Parse(ctx context.Context, req *ParseResumeReq, options ...larkcore.RequestOptionFunc) (*ParseResumeResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/document_ai/v1/resume/parse"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, r.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ParseResumeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, r.config)
 	if err != nil {
 		return nil, err
 	}

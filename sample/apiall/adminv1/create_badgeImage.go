@@ -16,10 +16,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
-	"os"
 )
 
 // POST /open-apis/admin/v1/badge_images

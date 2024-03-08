@@ -1717,6 +1717,1051 @@ func (builder *RecognizedEntityBuilder) Build() *RecognizedEntity {
 	return req
 }
 
+type Resume struct {
+	FileMd5          *string              `json:"file_md5,omitempty"`          // 文件标识ID，依据文件内容自动生成
+	Content          *string              `json:"content,omitempty"`           // 文本内容，当接口返回成功时，该字段才存在
+	NewContent       *string              `json:"new_content,omitempty"`       // 经过排序后的文本内容，当接口返回成功时，该字段才存在
+	Name             *string              `json:"name,omitempty"`              // 名称
+	Email            *string              `json:"email,omitempty"`             // 邮箱
+	Mobile           *string              `json:"mobile,omitempty"`            // 手机号码
+	MobileIsVirtual  *bool                `json:"mobile_is_virtual,omitempty"` // 手机号码是否虚拟号码
+	CountryCode      *string              `json:"country_code,omitempty"`      // 手机号码国家编码
+	Educations       []*ResumeEducation   `json:"educations,omitempty"`        // 教育经历
+	Careers          []*ResumeCareer      `json:"careers,omitempty"`           // 职业经历
+	Projects         []*ResumeProject     `json:"projects,omitempty"`          // 项目经历
+	WorkYear         *int                 `json:"work_year,omitempty"`         // 工作年限，为空表示工作年限未知，数字单位为年，整数
+	DateOfBirth      *string              `json:"date_of_birth,omitempty"`     // 生日，格式YYYY-MM-DD
+	Gender           *int                 `json:"gender,omitempty"`            // 性别
+	WillingPositions []string             `json:"willing_positions,omitempty"` // 希望获得的职位列表
+	CurrentLocation  *string              `json:"current_location,omitempty"`  // 当前工作地点(城市)
+	WillingLocations []string             `json:"willing_locations,omitempty"` // 希望工作地点列表
+	HomeLocation     *string              `json:"home_location,omitempty"`     // 家乡(城市)
+	Languages        []*ResumeLanguage    `json:"languages,omitempty"`         // 语言
+	Awards           []*ResumeAward       `json:"awards,omitempty"`            // 获奖
+	Certificates     []*ResumeCertificate `json:"certificates,omitempty"`      // 证书
+	Competitions     []*ResumeCompetition `json:"competitions,omitempty"`      // 竞赛
+	SelfEvaluation   *string              `json:"self_evaluation,omitempty"`   // 自我评价
+	Urls             []string             `json:"urls,omitempty"`              // 链接列表
+	SocialLinks      []string             `json:"social_links,omitempty"`      // 社交链接
+}
+
+type ResumeBuilder struct {
+	fileMd5              string // 文件标识ID，依据文件内容自动生成
+	fileMd5Flag          bool
+	content              string // 文本内容，当接口返回成功时，该字段才存在
+	contentFlag          bool
+	newContent           string // 经过排序后的文本内容，当接口返回成功时，该字段才存在
+	newContentFlag       bool
+	name                 string // 名称
+	nameFlag             bool
+	email                string // 邮箱
+	emailFlag            bool
+	mobile               string // 手机号码
+	mobileFlag           bool
+	mobileIsVirtual      bool // 手机号码是否虚拟号码
+	mobileIsVirtualFlag  bool
+	countryCode          string // 手机号码国家编码
+	countryCodeFlag      bool
+	educations           []*ResumeEducation // 教育经历
+	educationsFlag       bool
+	careers              []*ResumeCareer // 职业经历
+	careersFlag          bool
+	projects             []*ResumeProject // 项目经历
+	projectsFlag         bool
+	workYear             int // 工作年限，为空表示工作年限未知，数字单位为年，整数
+	workYearFlag         bool
+	dateOfBirth          string // 生日，格式YYYY-MM-DD
+	dateOfBirthFlag      bool
+	gender               int // 性别
+	genderFlag           bool
+	willingPositions     []string // 希望获得的职位列表
+	willingPositionsFlag bool
+	currentLocation      string // 当前工作地点(城市)
+	currentLocationFlag  bool
+	willingLocations     []string // 希望工作地点列表
+	willingLocationsFlag bool
+	homeLocation         string // 家乡(城市)
+	homeLocationFlag     bool
+	languages            []*ResumeLanguage // 语言
+	languagesFlag        bool
+	awards               []*ResumeAward // 获奖
+	awardsFlag           bool
+	certificates         []*ResumeCertificate // 证书
+	certificatesFlag     bool
+	competitions         []*ResumeCompetition // 竞赛
+	competitionsFlag     bool
+	selfEvaluation       string // 自我评价
+	selfEvaluationFlag   bool
+	urls                 []string // 链接列表
+	urlsFlag             bool
+	socialLinks          []string // 社交链接
+	socialLinksFlag      bool
+}
+
+func NewResumeBuilder() *ResumeBuilder {
+	builder := &ResumeBuilder{}
+	return builder
+}
+
+// 文件标识ID，依据文件内容自动生成
+//
+// 示例值：825c59042dxxxxx3ff90b45xxxxx88
+func (builder *ResumeBuilder) FileMd5(fileMd5 string) *ResumeBuilder {
+	builder.fileMd5 = fileMd5
+	builder.fileMd5Flag = true
+	return builder
+}
+
+// 文本内容，当接口返回成功时，该字段才存在
+//
+// 示例值：XX负责行政人事管理和日常事务...
+func (builder *ResumeBuilder) Content(content string) *ResumeBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 经过排序后的文本内容，当接口返回成功时，该字段才存在
+//
+// 示例值：XX负责行政人事管理和日常事务...
+func (builder *ResumeBuilder) NewContent(newContent string) *ResumeBuilder {
+	builder.newContent = newContent
+	builder.newContentFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：张三
+func (builder *ResumeBuilder) Name(name string) *ResumeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：zhangsan.1111@bytedance.com
+func (builder *ResumeBuilder) Email(email string) *ResumeBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 手机号码
+//
+// 示例值：13600000000
+func (builder *ResumeBuilder) Mobile(mobile string) *ResumeBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+// 手机号码是否虚拟号码
+//
+// 示例值：false
+func (builder *ResumeBuilder) MobileIsVirtual(mobileIsVirtual bool) *ResumeBuilder {
+	builder.mobileIsVirtual = mobileIsVirtual
+	builder.mobileIsVirtualFlag = true
+	return builder
+}
+
+// 手机号码国家编码
+//
+// 示例值：86
+func (builder *ResumeBuilder) CountryCode(countryCode string) *ResumeBuilder {
+	builder.countryCode = countryCode
+	builder.countryCodeFlag = true
+	return builder
+}
+
+// 教育经历
+//
+// 示例值：
+func (builder *ResumeBuilder) Educations(educations []*ResumeEducation) *ResumeBuilder {
+	builder.educations = educations
+	builder.educationsFlag = true
+	return builder
+}
+
+// 职业经历
+//
+// 示例值：
+func (builder *ResumeBuilder) Careers(careers []*ResumeCareer) *ResumeBuilder {
+	builder.careers = careers
+	builder.careersFlag = true
+	return builder
+}
+
+// 项目经历
+//
+// 示例值：
+func (builder *ResumeBuilder) Projects(projects []*ResumeProject) *ResumeBuilder {
+	builder.projects = projects
+	builder.projectsFlag = true
+	return builder
+}
+
+// 工作年限，为空表示工作年限未知，数字单位为年，整数
+//
+// 示例值：5
+func (builder *ResumeBuilder) WorkYear(workYear int) *ResumeBuilder {
+	builder.workYear = workYear
+	builder.workYearFlag = true
+	return builder
+}
+
+// 生日，格式YYYY-MM-DD
+//
+// 示例值：1995-01-01
+func (builder *ResumeBuilder) DateOfBirth(dateOfBirth string) *ResumeBuilder {
+	builder.dateOfBirth = dateOfBirth
+	builder.dateOfBirthFlag = true
+	return builder
+}
+
+// 性别
+//
+// 示例值：1
+func (builder *ResumeBuilder) Gender(gender int) *ResumeBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+
+// 希望获得的职位列表
+//
+// 示例值：xxx岗位
+func (builder *ResumeBuilder) WillingPositions(willingPositions []string) *ResumeBuilder {
+	builder.willingPositions = willingPositions
+	builder.willingPositionsFlag = true
+	return builder
+}
+
+// 当前工作地点(城市)
+//
+// 示例值：上海
+func (builder *ResumeBuilder) CurrentLocation(currentLocation string) *ResumeBuilder {
+	builder.currentLocation = currentLocation
+	builder.currentLocationFlag = true
+	return builder
+}
+
+// 希望工作地点列表
+//
+// 示例值：
+func (builder *ResumeBuilder) WillingLocations(willingLocations []string) *ResumeBuilder {
+	builder.willingLocations = willingLocations
+	builder.willingLocationsFlag = true
+	return builder
+}
+
+// 家乡(城市)
+//
+// 示例值：上海
+func (builder *ResumeBuilder) HomeLocation(homeLocation string) *ResumeBuilder {
+	builder.homeLocation = homeLocation
+	builder.homeLocationFlag = true
+	return builder
+}
+
+// 语言
+//
+// 示例值：
+func (builder *ResumeBuilder) Languages(languages []*ResumeLanguage) *ResumeBuilder {
+	builder.languages = languages
+	builder.languagesFlag = true
+	return builder
+}
+
+// 获奖
+//
+// 示例值：
+func (builder *ResumeBuilder) Awards(awards []*ResumeAward) *ResumeBuilder {
+	builder.awards = awards
+	builder.awardsFlag = true
+	return builder
+}
+
+// 证书
+//
+// 示例值：
+func (builder *ResumeBuilder) Certificates(certificates []*ResumeCertificate) *ResumeBuilder {
+	builder.certificates = certificates
+	builder.certificatesFlag = true
+	return builder
+}
+
+// 竞赛
+//
+// 示例值：
+func (builder *ResumeBuilder) Competitions(competitions []*ResumeCompetition) *ResumeBuilder {
+	builder.competitions = competitions
+	builder.competitionsFlag = true
+	return builder
+}
+
+// 自我评价
+//
+// 示例值：我是一个...
+func (builder *ResumeBuilder) SelfEvaluation(selfEvaluation string) *ResumeBuilder {
+	builder.selfEvaluation = selfEvaluation
+	builder.selfEvaluationFlag = true
+	return builder
+}
+
+// 链接列表
+//
+// 示例值：
+func (builder *ResumeBuilder) Urls(urls []string) *ResumeBuilder {
+	builder.urls = urls
+	builder.urlsFlag = true
+	return builder
+}
+
+// 社交链接
+//
+// 示例值：
+func (builder *ResumeBuilder) SocialLinks(socialLinks []string) *ResumeBuilder {
+	builder.socialLinks = socialLinks
+	builder.socialLinksFlag = true
+	return builder
+}
+
+func (builder *ResumeBuilder) Build() *Resume {
+	req := &Resume{}
+	if builder.fileMd5Flag {
+		req.FileMd5 = &builder.fileMd5
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.newContentFlag {
+		req.NewContent = &builder.newContent
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.mobileIsVirtualFlag {
+		req.MobileIsVirtual = &builder.mobileIsVirtual
+
+	}
+	if builder.countryCodeFlag {
+		req.CountryCode = &builder.countryCode
+
+	}
+	if builder.educationsFlag {
+		req.Educations = builder.educations
+	}
+	if builder.careersFlag {
+		req.Careers = builder.careers
+	}
+	if builder.projectsFlag {
+		req.Projects = builder.projects
+	}
+	if builder.workYearFlag {
+		req.WorkYear = &builder.workYear
+
+	}
+	if builder.dateOfBirthFlag {
+		req.DateOfBirth = &builder.dateOfBirth
+
+	}
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.willingPositionsFlag {
+		req.WillingPositions = builder.willingPositions
+	}
+	if builder.currentLocationFlag {
+		req.CurrentLocation = &builder.currentLocation
+
+	}
+	if builder.willingLocationsFlag {
+		req.WillingLocations = builder.willingLocations
+	}
+	if builder.homeLocationFlag {
+		req.HomeLocation = &builder.homeLocation
+
+	}
+	if builder.languagesFlag {
+		req.Languages = builder.languages
+	}
+	if builder.awardsFlag {
+		req.Awards = builder.awards
+	}
+	if builder.certificatesFlag {
+		req.Certificates = builder.certificates
+	}
+	if builder.competitionsFlag {
+		req.Competitions = builder.competitions
+	}
+	if builder.selfEvaluationFlag {
+		req.SelfEvaluation = &builder.selfEvaluation
+
+	}
+	if builder.urlsFlag {
+		req.Urls = builder.urls
+	}
+	if builder.socialLinksFlag {
+		req.SocialLinks = builder.socialLinks
+	}
+	return req
+}
+
+type ResumeAward struct {
+	Award       *string `json:"award,omitempty"`       // 奖项
+	Date        *string `json:"date,omitempty"`        // 获奖时间，格式：YYYY
+	Description *string `json:"description,omitempty"` // 描述
+}
+
+type ResumeAwardBuilder struct {
+	award           string // 奖项
+	awardFlag       bool
+	date            string // 获奖时间，格式：YYYY
+	dateFlag        bool
+	description     string // 描述
+	descriptionFlag bool
+}
+
+func NewResumeAwardBuilder() *ResumeAwardBuilder {
+	builder := &ResumeAwardBuilder{}
+	return builder
+}
+
+// 奖项
+//
+// 示例值：XXX大赛奖项
+func (builder *ResumeAwardBuilder) Award(award string) *ResumeAwardBuilder {
+	builder.award = award
+	builder.awardFlag = true
+	return builder
+}
+
+// 获奖时间，格式：YYYY
+//
+// 示例值：2015
+func (builder *ResumeAwardBuilder) Date(date string) *ResumeAwardBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：曾获XXX大赛奖项...
+func (builder *ResumeAwardBuilder) Description(description string) *ResumeAwardBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *ResumeAwardBuilder) Build() *ResumeAward {
+	req := &ResumeAward{}
+	if builder.awardFlag {
+		req.Award = &builder.award
+
+	}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+type ResumeCareer struct {
+	Company        *string `json:"company,omitempty"`         // 公司名称
+	StartDate      *string `json:"start_date,omitempty"`      // 开始时间,格式：YYYY-MM-DD
+	StartTime      *string `json:"start_time,omitempty"`      // 始时间,格式：YYYY-MM-DD,跟start_date值一样
+	EndDate        *string `json:"end_date,omitempty"`        // 结束时间,格式：YYYY-MM-DD
+	EndTime        *string `json:"end_time,omitempty"`        // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	Title          *string `json:"title,omitempty"`           // 职位
+	Type           *int    `json:"type,omitempty"`            // 工作类型
+	TypeStr        *string `json:"type_str,omitempty"`        // 工作类型——'实习'、'全职'
+	JobDescription *string `json:"job_description,omitempty"` // 工作描述
+}
+
+type ResumeCareerBuilder struct {
+	company            string // 公司名称
+	companyFlag        bool
+	startDate          string // 开始时间,格式：YYYY-MM-DD
+	startDateFlag      bool
+	startTime          string // 始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeFlag      bool
+	endDate            string // 结束时间,格式：YYYY-MM-DD
+	endDateFlag        bool
+	endTime            string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	endTimeFlag        bool
+	title              string // 职位
+	titleFlag          bool
+	type_              int // 工作类型
+	typeFlag           bool
+	typeStr            string // 工作类型——'实习'、'全职'
+	typeStrFlag        bool
+	jobDescription     string // 工作描述
+	jobDescriptionFlag bool
+}
+
+func NewResumeCareerBuilder() *ResumeCareerBuilder {
+	builder := &ResumeCareerBuilder{}
+	return builder
+}
+
+// 公司名称
+//
+// 示例值：XX公司
+func (builder *ResumeCareerBuilder) Company(company string) *ResumeCareerBuilder {
+	builder.company = company
+	builder.companyFlag = true
+	return builder
+}
+
+// 开始时间,格式：YYYY-MM-DD
+//
+// 示例值：2022-01-03
+func (builder *ResumeCareerBuilder) StartDate(startDate string) *ResumeCareerBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 始时间,格式：YYYY-MM-DD,跟start_date值一样
+//
+// 示例值：2022-01-03
+func (builder *ResumeCareerBuilder) StartTime(startTime string) *ResumeCareerBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD
+//
+// 示例值：2023-01-03
+func (builder *ResumeCareerBuilder) EndDate(endDate string) *ResumeCareerBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+//
+// 示例值：2023-01-03
+func (builder *ResumeCareerBuilder) EndTime(endTime string) *ResumeCareerBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 职位
+//
+// 示例值：XXX工程师
+func (builder *ResumeCareerBuilder) Title(title string) *ResumeCareerBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 工作类型
+//
+// 示例值：2
+func (builder *ResumeCareerBuilder) Type(type_ int) *ResumeCareerBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 工作类型——'实习'、'全职'
+//
+// 示例值：全职
+func (builder *ResumeCareerBuilder) TypeStr(typeStr string) *ResumeCareerBuilder {
+	builder.typeStr = typeStr
+	builder.typeStrFlag = true
+	return builder
+}
+
+// 工作描述
+//
+// 示例值：负责XXX开发...
+func (builder *ResumeCareerBuilder) JobDescription(jobDescription string) *ResumeCareerBuilder {
+	builder.jobDescription = jobDescription
+	builder.jobDescriptionFlag = true
+	return builder
+}
+
+func (builder *ResumeCareerBuilder) Build() *ResumeCareer {
+	req := &ResumeCareer{}
+	if builder.companyFlag {
+		req.Company = &builder.company
+
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.typeStrFlag {
+		req.TypeStr = &builder.typeStr
+
+	}
+	if builder.jobDescriptionFlag {
+		req.JobDescription = &builder.jobDescription
+
+	}
+	return req
+}
+
+type ResumeCertificate struct {
+	Name *string `json:"name,omitempty"` // 证书名称
+	Desc *string `json:"desc,omitempty"` // 描述
+}
+
+type ResumeCertificateBuilder struct {
+	name     string // 证书名称
+	nameFlag bool
+	desc     string // 描述
+	descFlag bool
+}
+
+func NewResumeCertificateBuilder() *ResumeCertificateBuilder {
+	builder := &ResumeCertificateBuilder{}
+	return builder
+}
+
+// 证书名称
+//
+// 示例值：XXX证书
+func (builder *ResumeCertificateBuilder) Name(name string) *ResumeCertificateBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：曾获得XXX证书...
+func (builder *ResumeCertificateBuilder) Desc(desc string) *ResumeCertificateBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
+func (builder *ResumeCertificateBuilder) Build() *ResumeCertificate {
+	req := &ResumeCertificate{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
+
+	}
+	return req
+}
+
+type ResumeCompetition struct {
+	Name *string `json:"name,omitempty"` // 竞赛名称
+	Desc *string `json:"desc,omitempty"` // 描述
+}
+
+type ResumeCompetitionBuilder struct {
+	name     string // 竞赛名称
+	nameFlag bool
+	desc     string // 描述
+	descFlag bool
+}
+
+func NewResumeCompetitionBuilder() *ResumeCompetitionBuilder {
+	builder := &ResumeCompetitionBuilder{}
+	return builder
+}
+
+// 竞赛名称
+//
+// 示例值：XXX竞赛
+func (builder *ResumeCompetitionBuilder) Name(name string) *ResumeCompetitionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：曾参加XXX竞赛...
+func (builder *ResumeCompetitionBuilder) Desc(desc string) *ResumeCompetitionBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
+func (builder *ResumeCompetitionBuilder) Build() *ResumeCompetition {
+	req := &ResumeCompetition{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
+
+	}
+	return req
+}
+
+type ResumeEducation struct {
+	School        *string `json:"school,omitempty"`        // 学校名称
+	StartDate     *string `json:"start_date,omitempty"`    // 开始时间,格式：YYYY-MM-DD
+	StartTime     *string `json:"start_time,omitempty"`    // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	EndDate       *string `json:"end_date,omitempty"`      // 结束时间,格式：YYYY-MM-DD
+	EndTime       *string `json:"end_time,omitempty"`      // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	Major         *string `json:"major,omitempty"`         // 专业
+	Degree        *string `json:"degree,omitempty"`        // 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
+	Qualification *int    `json:"qualification,omitempty"` // 学历对应ID
+}
+
+type ResumeEducationBuilder struct {
+	school            string // 学校名称
+	schoolFlag        bool
+	startDate         string // 开始时间,格式：YYYY-MM-DD
+	startDateFlag     bool
+	startTime         string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeFlag     bool
+	endDate           string // 结束时间,格式：YYYY-MM-DD
+	endDateFlag       bool
+	endTime           string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	endTimeFlag       bool
+	major             string // 专业
+	majorFlag         bool
+	degree            string // 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
+	degreeFlag        bool
+	qualification     int // 学历对应ID
+	qualificationFlag bool
+}
+
+func NewResumeEducationBuilder() *ResumeEducationBuilder {
+	builder := &ResumeEducationBuilder{}
+	return builder
+}
+
+// 学校名称
+//
+// 示例值：A大学
+func (builder *ResumeEducationBuilder) School(school string) *ResumeEducationBuilder {
+	builder.school = school
+	builder.schoolFlag = true
+	return builder
+}
+
+// 开始时间,格式：YYYY-MM-DD
+//
+// 示例值：2020-01-03
+func (builder *ResumeEducationBuilder) StartDate(startDate string) *ResumeEducationBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+//
+// 示例值：2020-01-03
+func (builder *ResumeEducationBuilder) StartTime(startTime string) *ResumeEducationBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD
+//
+// 示例值：2021-01-03
+func (builder *ResumeEducationBuilder) EndDate(endDate string) *ResumeEducationBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+//
+// 示例值：至今
+func (builder *ResumeEducationBuilder) EndTime(endTime string) *ResumeEducationBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 专业
+//
+// 示例值：XX工程
+func (builder *ResumeEducationBuilder) Major(major string) *ResumeEducationBuilder {
+	builder.major = major
+	builder.majorFlag = true
+	return builder
+}
+
+// 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
+//
+// 示例值：本科
+func (builder *ResumeEducationBuilder) Degree(degree string) *ResumeEducationBuilder {
+	builder.degree = degree
+	builder.degreeFlag = true
+	return builder
+}
+
+// 学历对应ID
+//
+// 示例值：6
+func (builder *ResumeEducationBuilder) Qualification(qualification int) *ResumeEducationBuilder {
+	builder.qualification = qualification
+	builder.qualificationFlag = true
+	return builder
+}
+
+func (builder *ResumeEducationBuilder) Build() *ResumeEducation {
+	req := &ResumeEducation{}
+	if builder.schoolFlag {
+		req.School = &builder.school
+
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.majorFlag {
+		req.Major = &builder.major
+
+	}
+	if builder.degreeFlag {
+		req.Degree = &builder.degree
+
+	}
+	if builder.qualificationFlag {
+		req.Qualification = &builder.qualification
+
+	}
+	return req
+}
+
+type ResumeLanguage struct {
+	Level       *int    `json:"level,omitempty"`       // 语言等级
+	Description *string `json:"description,omitempty"` // 语言描述
+}
+
+type ResumeLanguageBuilder struct {
+	level           int // 语言等级
+	levelFlag       bool
+	description     string // 语言描述
+	descriptionFlag bool
+}
+
+func NewResumeLanguageBuilder() *ResumeLanguageBuilder {
+	builder := &ResumeLanguageBuilder{}
+	return builder
+}
+
+// 语言等级
+//
+// 示例值：6
+func (builder *ResumeLanguageBuilder) Level(level int) *ResumeLanguageBuilder {
+	builder.level = level
+	builder.levelFlag = true
+	return builder
+}
+
+// 语言描述
+//
+// 示例值：英语
+func (builder *ResumeLanguageBuilder) Description(description string) *ResumeLanguageBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *ResumeLanguageBuilder) Build() *ResumeLanguage {
+	req := &ResumeLanguage{}
+	if builder.levelFlag {
+		req.Level = &builder.level
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+type ResumeProject struct {
+	Name        *string `json:"name,omitempty"`        // 项目名称
+	Title       *string `json:"title,omitempty"`       // 项目岗位
+	StartDate   *string `json:"start_date,omitempty"`  // 开始时间,格式：YYYY-MM-DD
+	StartTime   *string `json:"start_time,omitempty"`  // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	EndDate     *string `json:"end_date,omitempty"`    // 结束时间,格式：YYYY-MM-DD
+	EndTime     *string `json:"end_time,omitempty"`    // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值
+	Description *string `json:"description,omitempty"` // 项目描述
+}
+
+type ResumeProjectBuilder struct {
+	name            string // 项目名称
+	nameFlag        bool
+	title           string // 项目岗位
+	titleFlag       bool
+	startDate       string // 开始时间,格式：YYYY-MM-DD
+	startDateFlag   bool
+	startTime       string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeFlag   bool
+	endDate         string // 结束时间,格式：YYYY-MM-DD
+	endDateFlag     bool
+	endTime         string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值
+	endTimeFlag     bool
+	description     string // 项目描述
+	descriptionFlag bool
+}
+
+func NewResumeProjectBuilder() *ResumeProjectBuilder {
+	builder := &ResumeProjectBuilder{}
+	return builder
+}
+
+// 项目名称
+//
+// 示例值：XX项目
+func (builder *ResumeProjectBuilder) Name(name string) *ResumeProjectBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 项目岗位
+//
+// 示例值：客户端研发
+func (builder *ResumeProjectBuilder) Title(title string) *ResumeProjectBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 开始时间,格式：YYYY-MM-DD
+//
+// 示例值：2023-01-03
+func (builder *ResumeProjectBuilder) StartDate(startDate string) *ResumeProjectBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+//
+// 示例值：2023-01-03
+func (builder *ResumeProjectBuilder) StartTime(startTime string) *ResumeProjectBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD
+//
+// 示例值：2023-01-04
+func (builder *ResumeProjectBuilder) EndDate(endDate string) *ResumeProjectBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值
+//
+// 示例值：2023-01-04
+func (builder *ResumeProjectBuilder) EndTime(endTime string) *ResumeProjectBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 项目描述
+//
+// 示例值：XXX项目是一个...
+func (builder *ResumeProjectBuilder) Description(description string) *ResumeProjectBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *ResumeProjectBuilder) Build() *ResumeProject {
+	req := &ResumeProject{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
 type TaxiEnitity struct {
 	Type  *string `json:"type,omitempty"`  // 识别的字段种类
 	Value *string `json:"value,omitempty"` // 识别出字段的文本信息
@@ -3489,6 +4534,114 @@ type RecognizeIdCardResp struct {
 }
 
 func (resp *RecognizeIdCardResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ParseResumeReqBodyBuilder struct {
+	file     io.Reader // 简历文件，支持 PDF / DOCX / PNG / JPG
+	fileFlag bool
+}
+
+func NewParseResumeReqBodyBuilder() *ParseResumeReqBodyBuilder {
+	builder := &ParseResumeReqBodyBuilder{}
+	return builder
+}
+
+// 简历文件，支持 PDF / DOCX / PNG / JPG
+//
+//示例值：
+func (builder *ParseResumeReqBodyBuilder) File(file io.Reader) *ParseResumeReqBodyBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+
+func (builder *ParseResumeReqBodyBuilder) Build() *ParseResumeReqBody {
+	req := &ParseResumeReqBody{}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	return req
+}
+
+type ParseResumePathReqBodyBuilder struct {
+	filePath     string // 简历文件，支持 PDF / DOCX / PNG / JPG
+	filePathFlag bool
+}
+
+func NewParseResumePathReqBodyBuilder() *ParseResumePathReqBodyBuilder {
+	builder := &ParseResumePathReqBodyBuilder{}
+	return builder
+}
+
+// 简历文件，支持 PDF / DOCX / PNG / JPG
+//
+// 示例值：
+func (builder *ParseResumePathReqBodyBuilder) FilePath(filePath string) *ParseResumePathReqBodyBuilder {
+	builder.filePath = filePath
+	builder.filePathFlag = true
+	return builder
+}
+
+func (builder *ParseResumePathReqBodyBuilder) Build() (*ParseResumeReqBody, error) {
+	req := &ParseResumeReqBody{}
+	if builder.filePathFlag {
+		data, err := larkcore.File2Bytes(builder.filePath)
+		if err != nil {
+			return nil, err
+		}
+		req.File = bytes.NewBuffer(data)
+	}
+	return req, nil
+}
+
+type ParseResumeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ParseResumeReqBody
+}
+
+func NewParseResumeReqBuilder() *ParseResumeReqBuilder {
+	builder := &ParseResumeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+func (builder *ParseResumeReqBuilder) Body(body *ParseResumeReqBody) *ParseResumeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ParseResumeReqBuilder) Build() *ParseResumeReq {
+	req := &ParseResumeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ParseResumeReqBody struct {
+	File io.Reader `json:"file,omitempty"` // 简历文件，支持 PDF / DOCX / PNG / JPG
+}
+
+type ParseResumeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ParseResumeReqBody `body:""`
+}
+
+type ParseResumeRespData struct {
+	Resumes []*Resume `json:"resumes,omitempty"` // 简历信息
+}
+
+type ParseResumeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ParseResumeRespData `json:"data"` // 业务数据
+}
+
+func (resp *ParseResumeResp) Success() bool {
 	return resp.Code == 0
 }
 

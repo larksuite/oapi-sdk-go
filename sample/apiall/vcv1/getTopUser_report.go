@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
@@ -31,6 +32,7 @@ func main() {
 		EndTime("1608889966").
 		Limit(10).
 		OrderBy(1).
+		Unit(0).
 		UserIdType("user_id").
 		Build()
 	// 发起请求

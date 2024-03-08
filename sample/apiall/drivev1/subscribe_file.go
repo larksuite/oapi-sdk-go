@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -29,6 +30,7 @@ func main() {
 	req := larkdrive.NewSubscribeFileReqBuilder().
 		FileToken("doccnxxxxxxxxxxxxxxxxxxxxxx").
 		FileType("doc").
+		EventType("file.created_in_folder_v1").
 		Build()
 	// 发起请求
 	resp, err := client.Drive.V1.File.Subscribe(context.Background(), req)

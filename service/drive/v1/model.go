@@ -80,6 +80,7 @@ const (
 	FileTypeSheet   = "sheet"   // 表格
 	FileTypeBitable = "bitable" // 多维表格
 	FileTypeFile    = "file"    // 文件
+	FileTypeFolder  = "folder"  // 文件夹
 )
 
 const (
@@ -88,6 +89,7 @@ const (
 	FileTypeGetSubscribeFileSheet   = "sheet"   // 表格
 	FileTypeGetSubscribeFileBitable = "bitable" // 多维表格
 	FileTypeGetSubscribeFileFile    = "file"    // 文件
+	FileTypeGetSubscribeFileFolder  = "folder"  // 文件夹
 )
 
 const (
@@ -122,6 +124,7 @@ const (
 	FileTypeSubscribeFileDocx    = "docx"    // docx文档
 	FileTypeSubscribeFileSheet   = "sheet"   // 表格
 	FileTypeSubscribeFileBitable = "bitable" // 多维表格
+	FileTypeSubscribeFileFolder  = "folder"  // 文件夹
 )
 
 const (
@@ -151,9 +154,9 @@ const (
 )
 
 const (
-	UserIdTypeCreateFileCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateFileCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateFileCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeCreateFileCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeCreateFileCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeCreateFileCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -164,9 +167,9 @@ const (
 )
 
 const (
-	UserIdTypeGetFileCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetFileCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetFileCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeGetFileCommentUserId  = "user_id"  // 以 user_id 来识别用户
+	UserIdTypeGetFileCommentUnionId = "union_id" // 以 union_id 来识别用户
+	UserIdTypeGetFileCommentOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
@@ -2272,15 +2275,17 @@ func (builder *FileCommentBuilder) Build() *FileComment {
 }
 
 type FileCommentReply struct {
+	Content    *ReplyContent `json:"content,omitempty"`     // 回复内容
 	ReplyId    *string       `json:"reply_id,omitempty"`    // 回复ID
 	UserId     *string       `json:"user_id,omitempty"`     // 用户ID
 	CreateTime *int          `json:"create_time,omitempty"` // 创建时间
 	UpdateTime *int          `json:"update_time,omitempty"` // 更新时间
-	Content    *ReplyContent `json:"content,omitempty"`     // 回复内容
 	Extra      *ReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容，图片token等
 }
 
 type FileCommentReplyBuilder struct {
+	content        *ReplyContent // 回复内容
+	contentFlag    bool
 	replyId        string // 回复ID
 	replyIdFlag    bool
 	userId         string // 用户ID
@@ -2289,14 +2294,21 @@ type FileCommentReplyBuilder struct {
 	createTimeFlag bool
 	updateTime     int // 更新时间
 	updateTimeFlag bool
-	content        *ReplyContent // 回复内容
-	contentFlag    bool
 	extra          *ReplyExtra // 回复的其他内容，图片token等
 	extraFlag      bool
 }
 
 func NewFileCommentReplyBuilder() *FileCommentReplyBuilder {
 	builder := &FileCommentReplyBuilder{}
+	return builder
+}
+
+// 回复内容
+//
+// 示例值：
+func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder {
+	builder.content = content
+	builder.contentFlag = true
 	return builder
 }
 
@@ -2336,15 +2348,6 @@ func (builder *FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentR
 	return builder
 }
 
-// 回复内容
-//
-// 示例值：
-func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
-}
-
 // 回复的其他内容，图片token等
 //
 // 示例值：
@@ -2356,6 +2359,9 @@ func (builder *FileCommentReplyBuilder) Extra(extra *ReplyExtra) *FileCommentRep
 
 func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
 	req := &FileCommentReply{}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
 	if builder.replyIdFlag {
 		req.ReplyId = &builder.replyId
 
@@ -2371,9 +2377,6 @@ func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
 	if builder.updateTimeFlag {
 		req.UpdateTime = &builder.updateTime
 
-	}
-	if builder.contentFlag {
-		req.Content = builder.content
 	}
 	if builder.extraFlag {
 		req.Extra = builder.extra
@@ -5488,6 +5491,14 @@ func (builder *DeleteSubscribeFileReqBuilder) FileType(fileType string) *DeleteS
 	return builder
 }
 
+// 事件类型
+//
+// 示例值：file.created_in_folder_v1
+func (builder *DeleteSubscribeFileReqBuilder) EventType(eventType string) *DeleteSubscribeFileReqBuilder {
+	builder.apiReq.QueryParams.Set("event_type", fmt.Sprint(eventType))
+	return builder
+}
+
 func (builder *DeleteSubscribeFileReqBuilder) Build() *DeleteSubscribeFileReq {
 	req := &DeleteSubscribeFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5594,6 +5605,14 @@ func (builder *GetSubscribeFileReqBuilder) FileType(fileType string) *GetSubscri
 	return builder
 }
 
+// 事件类型
+//
+// 示例值：file.created_in_folder_v1
+func (builder *GetSubscribeFileReqBuilder) EventType(eventType string) *GetSubscribeFileReqBuilder {
+	builder.apiReq.QueryParams.Set("event_type", fmt.Sprint(eventType))
+	return builder
+}
+
 func (builder *GetSubscribeFileReqBuilder) Build() *GetSubscribeFileReq {
 	req := &GetSubscribeFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5606,9 +5625,14 @@ type GetSubscribeFileReq struct {
 	apiReq *larkcore.ApiReq
 }
 
+type GetSubscribeFileRespData struct {
+	IsSubseribe *bool `json:"is_subseribe,omitempty"` // 是否有订阅，取值 true 表示已订阅；false 表示未订阅
+}
+
 type GetSubscribeFileResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *GetSubscribeFileRespData `json:"data"` // 业务数据
 }
 
 func (resp *GetSubscribeFileResp) Success() bool {
@@ -5871,6 +5895,14 @@ func (builder *SubscribeFileReqBuilder) FileToken(fileToken string) *SubscribeFi
 // 示例值：doc
 func (builder *SubscribeFileReqBuilder) FileType(fileType string) *SubscribeFileReqBuilder {
 	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：file.created_in_folder_v1
+func (builder *SubscribeFileReqBuilder) EventType(eventType string) *SubscribeFileReqBuilder {
+	builder.apiReq.QueryParams.Set("event_type", fmt.Sprint(eventType))
 	return builder
 }
 
@@ -6754,7 +6786,7 @@ func (builder *CreateFileCommentReqBuilder) FileType(fileType string) *CreateFil
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *CreateFileCommentReqBuilder) UserIdType(userIdType string) *CreateFileCommentReqBuilder {
@@ -6783,17 +6815,17 @@ type CreateFileCommentReq struct {
 }
 
 type CreateFileCommentRespData struct {
-	CommentId    *string    `json:"comment_id,omitempty"`     // 评论ID
-	UserId       *string    `json:"user_id,omitempty"`        // 用户ID
+	CommentId    *string    `json:"comment_id,omitempty"`     // 评论 ID
+	UserId       *string    `json:"user_id,omitempty"`        // 用户 ID
 	CreateTime   *int       `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   *int       `json:"update_time,omitempty"`    // 更新时间
 	IsSolved     *bool      `json:"is_solved,omitempty"`      // 是否已解决
 	SolvedTime   *int       `json:"solved_time,omitempty"`    // 解决评论时间
-	SolverUserId *string    `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
+	SolverUserId *string    `json:"solver_user_id,omitempty"` // 解决评论者的用户 ID
 	HasMore      *bool      `json:"has_more,omitempty"`       // 是否有更多回复
 	PageToken    *string    `json:"page_token,omitempty"`     // 回复分页标记
 	IsWhole      *bool      `json:"is_whole,omitempty"`       // 是否是全文评论
-	Quote        *string    `json:"quote,omitempty"`          // 如果是局部评论，引用字段
+	Quote        *string    `json:"quote,omitempty"`          // 局部评论的引用字段
 	ReplyList    *ReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -6844,7 +6876,7 @@ func (builder *GetFileCommentReqBuilder) FileType(fileType string) *GetFileComme
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型
+// 此次调用中使用的用户 ID 的类型
 //
 // 示例值：
 func (builder *GetFileCommentReqBuilder) UserIdType(userIdType string) *GetFileCommentReqBuilder {
@@ -6865,17 +6897,17 @@ type GetFileCommentReq struct {
 }
 
 type GetFileCommentRespData struct {
-	CommentId    *string    `json:"comment_id,omitempty"`     // 评论ID
-	UserId       *string    `json:"user_id,omitempty"`        // 用户ID
+	CommentId    *string    `json:"comment_id,omitempty"`     // 评论 ID
+	UserId       *string    `json:"user_id,omitempty"`        // 用户 ID
 	CreateTime   *int       `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   *int       `json:"update_time,omitempty"`    // 更新时间
 	IsSolved     *bool      `json:"is_solved,omitempty"`      // 是否已解决
 	SolvedTime   *int       `json:"solved_time,omitempty"`    // 解决评论时间
-	SolverUserId *string    `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
+	SolverUserId *string    `json:"solver_user_id,omitempty"` // 解决评论者的用户 ID
 	HasMore      *bool      `json:"has_more,omitempty"`       // 是否有更多回复
 	PageToken    *string    `json:"page_token,omitempty"`     // 回复分页标记
 	IsWhole      *bool      `json:"is_whole,omitempty"`       // 是否是全文评论
-	Quote        *string    `json:"quote,omitempty"`          // 如果是局部评论，引用字段
+	Quote        *string    `json:"quote,omitempty"`          // 局部评论的引用字段
 	ReplyList    *ReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -6982,7 +7014,7 @@ type ListFileCommentReq struct {
 
 type ListFileCommentRespData struct {
 	HasMore   *bool          `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken *string        `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string        `json:"page_token,omitempty"` // 下一页分页的 Token
 	Items     []*FileComment `json:"items,omitempty"`      // 评论列表
 }
 

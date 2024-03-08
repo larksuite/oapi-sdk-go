@@ -9038,6 +9038,7 @@ type LeaveGrantingRecord struct {
 	CreatedBy        *string `json:"created_by,omitempty"`        // 授予记录的创建人，值为创建人的员工 ID
 	UpdatedAt        *string `json:"updated_at,omitempty"`        // 授予记录的更新时间
 	UpdatedBy        *string `json:"updated_by,omitempty"`        // 授予记录的更新人，值为更新人的员工 ID
+	SectionType      *int    `json:"section_type,omitempty"`      // 是否参与折算
 }
 
 type LeaveGrantingRecordBuilder struct {
@@ -9067,6 +9068,8 @@ type LeaveGrantingRecordBuilder struct {
 	updatedAtFlag        bool
 	updatedBy            string // 授予记录的更新人，值为更新人的员工 ID
 	updatedByFlag        bool
+	sectionType          int // 是否参与折算
+	sectionTypeFlag      bool
 }
 
 func NewLeaveGrantingRecordBuilder() *LeaveGrantingRecordBuilder {
@@ -9191,6 +9194,15 @@ func (builder *LeaveGrantingRecordBuilder) UpdatedBy(updatedBy string) *LeaveGra
 	return builder
 }
 
+// 是否参与折算
+//
+// 示例值：1
+func (builder *LeaveGrantingRecordBuilder) SectionType(sectionType int) *LeaveGrantingRecordBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 func (builder *LeaveGrantingRecordBuilder) Build() *LeaveGrantingRecord {
 	req := &LeaveGrantingRecord{}
 	if builder.idFlag {
@@ -9242,6 +9254,10 @@ func (builder *LeaveGrantingRecordBuilder) Build() *LeaveGrantingRecord {
 	}
 	if builder.updatedByFlag {
 		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
 
 	}
 	return req
@@ -20254,6 +20270,8 @@ type CreateLeaveGrantingRecordReqBodyBuilder struct {
 	effectiveDateFlag    bool
 	expirationDate       string // 失效时间
 	expirationDateFlag   bool
+	sectionType          int // 是否参与折算
+	sectionTypeFlag      bool
 	reason               []*I18n // 授予原因
 	reasonFlag           bool
 	externalId           string // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
@@ -20319,6 +20337,15 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExpirationDate(expiratio
 	return builder
 }
 
+// 是否参与折算
+//
+//示例值：1
+func (builder *CreateLeaveGrantingRecordReqBodyBuilder) SectionType(sectionType int) *CreateLeaveGrantingRecordReqBodyBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 // 授予原因
 //
 //示例值：
@@ -20357,6 +20384,9 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) Build() *CreateLeaveGran
 	if builder.expirationDateFlag {
 		req.ExpirationDate = &builder.expirationDate
 	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
+	}
 	if builder.reasonFlag {
 		req.Reason = builder.reason
 	}
@@ -20379,6 +20409,8 @@ type CreateLeaveGrantingRecordPathReqBodyBuilder struct {
 	effectiveDateFlag    bool
 	expirationDate       string
 	expirationDateFlag   bool
+	sectionType          int
+	sectionTypeFlag      bool
 	reason               []*I18n
 	reasonFlag           bool
 	externalId           string
@@ -20444,6 +20476,15 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) ExpirationDate(expir
 	return builder
 }
 
+// 是否参与折算
+//
+// 示例值：1
+func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) SectionType(sectionType int) *CreateLeaveGrantingRecordPathReqBodyBuilder {
+	builder.sectionType = sectionType
+	builder.sectionTypeFlag = true
+	return builder
+}
+
 // 授予原因
 //
 // 示例值：
@@ -20481,6 +20522,9 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) Build() (*CreateLeav
 	}
 	if builder.expirationDateFlag {
 		req.ExpirationDate = &builder.expirationDate
+	}
+	if builder.sectionTypeFlag {
+		req.SectionType = &builder.sectionType
 	}
 	if builder.reasonFlag {
 		req.Reason = builder.reason
@@ -20534,6 +20578,7 @@ type CreateLeaveGrantingRecordReqBody struct {
 	GrantingUnit     *int    `json:"granting_unit,omitempty"`     // 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
 	EffectiveDate    *string `json:"effective_date,omitempty"`    // 生效时间
 	ExpirationDate   *string `json:"expiration_date,omitempty"`   // 失效时间
+	SectionType      *int    `json:"section_type,omitempty"`      // 是否参与折算
 	Reason           []*I18n `json:"reason,omitempty"`            // 授予原因
 	ExternalId       *string `json:"external_id,omitempty"`       // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
 }

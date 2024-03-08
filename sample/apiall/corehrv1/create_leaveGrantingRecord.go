@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
@@ -35,6 +36,7 @@ func main() {
 			GrantingUnit(1).
 			EffectiveDate("2022-01-01").
 			ExpirationDate("2022-01-01").
+			SectionType(1).
 			Reason([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			ExternalId("111").
 			Build()).

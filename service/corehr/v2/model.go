@@ -2165,6 +2165,54 @@ func (builder *BpBuilder) Build() *Bp {
 	return req
 }
 
+type BpmDataengineI18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // i18n类型字段，中文值
+	EnUs *string `json:"en_us,omitempty"` // i18n类型字段，英文值
+}
+
+type BpmDataengineI18nBuilder struct {
+	zhCn     string // i18n类型字段，中文值
+	zhCnFlag bool
+	enUs     string // i18n类型字段，英文值
+	enUsFlag bool
+}
+
+func NewBpmDataengineI18nBuilder() *BpmDataengineI18nBuilder {
+	builder := &BpmDataengineI18nBuilder{}
+	return builder
+}
+
+// i18n类型字段，中文值
+//
+// 示例值：zh_cn
+func (builder *BpmDataengineI18nBuilder) ZhCn(zhCn string) *BpmDataengineI18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// i18n类型字段，英文值
+//
+// 示例值：en_us
+func (builder *BpmDataengineI18nBuilder) EnUs(enUs string) *BpmDataengineI18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *BpmDataengineI18nBuilder) Build() *BpmDataengineI18n {
+	req := &BpmDataengineI18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
 type CalculateParam struct {
 	DepartmentId          *string           `json:"department_id,omitempty"`           // 部门 ID
 	EmployeeTypeId        *string           `json:"employee_type_id,omitempty"`        // 人员类型 ID
@@ -7175,6 +7223,317 @@ func (builder *FileBuilder) Build() *File {
 	if builder.idFlag {
 		req.Id = &builder.id
 
+	}
+	return req
+}
+
+type FormFieldVariableBoolValue struct {
+	Value *bool `json:"value,omitempty"` // 布尔变量的值
+}
+
+type FormFieldVariableBoolValueBuilder struct {
+	value     bool // 布尔变量的值
+	valueFlag bool
+}
+
+func NewFormFieldVariableBoolValueBuilder() *FormFieldVariableBoolValueBuilder {
+	builder := &FormFieldVariableBoolValueBuilder{}
+	return builder
+}
+
+// 布尔变量的值
+//
+// 示例值：true
+func (builder *FormFieldVariableBoolValueBuilder) Value(value bool) *FormFieldVariableBoolValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *FormFieldVariableBoolValueBuilder) Build() *FormFieldVariableBoolValue {
+	req := &FormFieldVariableBoolValue{}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type FormFieldVariableI18nValue struct {
+	Value *BpmDataengineI18n `json:"value,omitempty"` // 多语参数
+}
+
+type FormFieldVariableI18nValueBuilder struct {
+	value     *BpmDataengineI18n // 多语参数
+	valueFlag bool
+}
+
+func NewFormFieldVariableI18nValueBuilder() *FormFieldVariableI18nValueBuilder {
+	builder := &FormFieldVariableI18nValueBuilder{}
+	return builder
+}
+
+// 多语参数
+//
+// 示例值：
+func (builder *FormFieldVariableI18nValueBuilder) Value(value *BpmDataengineI18n) *FormFieldVariableI18nValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *FormFieldVariableI18nValueBuilder) Build() *FormFieldVariableI18nValue {
+	req := &FormFieldVariableI18nValue{}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	return req
+}
+
+type FormFieldVariableNullValue struct {
+}
+
+type FormFieldVariableNumberValue struct {
+	Value *int `json:"value,omitempty"` // 数值类型变量的值
+}
+
+type FormFieldVariableNumberValueBuilder struct {
+	value     int // 数值类型变量的值
+	valueFlag bool
+}
+
+func NewFormFieldVariableNumberValueBuilder() *FormFieldVariableNumberValueBuilder {
+	builder := &FormFieldVariableNumberValueBuilder{}
+	return builder
+}
+
+// 数值类型变量的值
+//
+// 示例值：1
+func (builder *FormFieldVariableNumberValueBuilder) Value(value int) *FormFieldVariableNumberValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *FormFieldVariableNumberValueBuilder) Build() *FormFieldVariableNumberValue {
+	req := &FormFieldVariableNumberValue{}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type FormFieldVariableStringValue struct {
+	Value *string `json:"value,omitempty"` // 文本类型变量的值
+}
+
+type FormFieldVariableStringValueBuilder struct {
+	value     string // 文本类型变量的值
+	valueFlag bool
+}
+
+func NewFormFieldVariableStringValueBuilder() *FormFieldVariableStringValueBuilder {
+	builder := &FormFieldVariableStringValueBuilder{}
+	return builder
+}
+
+// 文本类型变量的值
+//
+// 示例值：字符串
+func (builder *FormFieldVariableStringValueBuilder) Value(value string) *FormFieldVariableStringValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *FormFieldVariableStringValueBuilder) Build() *FormFieldVariableStringValue {
+	req := &FormFieldVariableStringValue{}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type FormVariableValueInfo struct {
+	TextValue       *FormFieldVariableStringValue `json:"text_value,omitempty"`       // 文本变量对象
+	NumberValue     *FormFieldVariableStringValue `json:"number_value,omitempty"`     // 数值变量对象
+	DateValue       *FormFieldVariableNumberValue `json:"date_value,omitempty"`       // 日期变量对象
+	EmploymentValue *FormFieldVariableStringValue `json:"employment_value,omitempty"` // 员工变量对象
+	DateTimeValue   *FormFieldVariableNumberValue `json:"date_time_value,omitempty"`  // 日期时间变量对象
+	EnumValue       *FormFieldVariableStringValue `json:"enum_value,omitempty"`       // 枚举变量对象
+	NullValue       *FormFieldVariableNullValue   `json:"null_value,omitempty"`       // 空变量对象
+	BoolValue       *FormFieldVariableBoolValue   `json:"bool_value,omitempty"`       // 布尔变量对象
+	DepartmentValue *FormFieldVariableStringValue `json:"department_value,omitempty"` // 部门变量对象
+	I18nValue       *FormFieldVariableI18nValue   `json:"i18n_value,omitempty"`       // i18n变量对象
+	ObjectValue     *FormFieldVariableStringValue `json:"object_value,omitempty"`     // 对象变量
+}
+
+type FormVariableValueInfoBuilder struct {
+	textValue           *FormFieldVariableStringValue // 文本变量对象
+	textValueFlag       bool
+	numberValue         *FormFieldVariableStringValue // 数值变量对象
+	numberValueFlag     bool
+	dateValue           *FormFieldVariableNumberValue // 日期变量对象
+	dateValueFlag       bool
+	employmentValue     *FormFieldVariableStringValue // 员工变量对象
+	employmentValueFlag bool
+	dateTimeValue       *FormFieldVariableNumberValue // 日期时间变量对象
+	dateTimeValueFlag   bool
+	enumValue           *FormFieldVariableStringValue // 枚举变量对象
+	enumValueFlag       bool
+	nullValue           *FormFieldVariableNullValue // 空变量对象
+	nullValueFlag       bool
+	boolValue           *FormFieldVariableBoolValue // 布尔变量对象
+	boolValueFlag       bool
+	departmentValue     *FormFieldVariableStringValue // 部门变量对象
+	departmentValueFlag bool
+	i18nValue           *FormFieldVariableI18nValue // i18n变量对象
+	i18nValueFlag       bool
+	objectValue         *FormFieldVariableStringValue // 对象变量
+	objectValueFlag     bool
+}
+
+func NewFormVariableValueInfoBuilder() *FormVariableValueInfoBuilder {
+	builder := &FormVariableValueInfoBuilder{}
+	return builder
+}
+
+// 文本变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) TextValue(textValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.textValue = textValue
+	builder.textValueFlag = true
+	return builder
+}
+
+// 数值变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) NumberValue(numberValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.numberValue = numberValue
+	builder.numberValueFlag = true
+	return builder
+}
+
+// 日期变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) DateValue(dateValue *FormFieldVariableNumberValue) *FormVariableValueInfoBuilder {
+	builder.dateValue = dateValue
+	builder.dateValueFlag = true
+	return builder
+}
+
+// 员工变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) EmploymentValue(employmentValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.employmentValue = employmentValue
+	builder.employmentValueFlag = true
+	return builder
+}
+
+// 日期时间变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) DateTimeValue(dateTimeValue *FormFieldVariableNumberValue) *FormVariableValueInfoBuilder {
+	builder.dateTimeValue = dateTimeValue
+	builder.dateTimeValueFlag = true
+	return builder
+}
+
+// 枚举变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) EnumValue(enumValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.enumValue = enumValue
+	builder.enumValueFlag = true
+	return builder
+}
+
+// 空变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) NullValue(nullValue *FormFieldVariableNullValue) *FormVariableValueInfoBuilder {
+	builder.nullValue = nullValue
+	builder.nullValueFlag = true
+	return builder
+}
+
+// 布尔变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) BoolValue(boolValue *FormFieldVariableBoolValue) *FormVariableValueInfoBuilder {
+	builder.boolValue = boolValue
+	builder.boolValueFlag = true
+	return builder
+}
+
+// 部门变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) DepartmentValue(departmentValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.departmentValue = departmentValue
+	builder.departmentValueFlag = true
+	return builder
+}
+
+// i18n变量对象
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) I18nValue(i18nValue *FormFieldVariableI18nValue) *FormVariableValueInfoBuilder {
+	builder.i18nValue = i18nValue
+	builder.i18nValueFlag = true
+	return builder
+}
+
+// 对象变量
+//
+// 示例值：
+func (builder *FormVariableValueInfoBuilder) ObjectValue(objectValue *FormFieldVariableStringValue) *FormVariableValueInfoBuilder {
+	builder.objectValue = objectValue
+	builder.objectValueFlag = true
+	return builder
+}
+
+func (builder *FormVariableValueInfoBuilder) Build() *FormVariableValueInfo {
+	req := &FormVariableValueInfo{}
+	if builder.textValueFlag {
+		req.TextValue = builder.textValue
+	}
+	if builder.numberValueFlag {
+		req.NumberValue = builder.numberValue
+	}
+	if builder.dateValueFlag {
+		req.DateValue = builder.dateValue
+	}
+	if builder.employmentValueFlag {
+		req.EmploymentValue = builder.employmentValue
+	}
+	if builder.dateTimeValueFlag {
+		req.DateTimeValue = builder.dateTimeValue
+	}
+	if builder.enumValueFlag {
+		req.EnumValue = builder.enumValue
+	}
+	if builder.nullValueFlag {
+		req.NullValue = builder.nullValue
+	}
+	if builder.boolValueFlag {
+		req.BoolValue = builder.boolValue
+	}
+	if builder.departmentValueFlag {
+		req.DepartmentValue = builder.departmentValue
+	}
+	if builder.i18nValueFlag {
+		req.I18nValue = builder.i18nValue
+	}
+	if builder.objectValueFlag {
+		req.ObjectValue = builder.objectValue
 	}
 	return req
 }
@@ -14056,6 +14415,101 @@ func (builder *ProbationInfoForSubmitBuilder) Build() *ProbationInfoForSubmit {
 	return req
 }
 
+type ProcessApprover struct {
+	Status         *int                   `json:"status,omitempty"`          // 将审批任务修改为同意/拒绝
+	UserId         *string                `json:"user_id,omitempty"`         // 按user_id_type类型传递。如果system_approval为false，则必填。否则非必填。
+	SystemApproval *bool                  `json:"system_approval,omitempty"` // true - 使用系统身份审批
+	Reason         *string                `json:"reason,omitempty"`          // 通过原因，长度限制为500
+	FieldValues    []*ProcessFormVariable `json:"field_values,omitempty"`    // 表单字段值
+}
+
+type ProcessApproverBuilder struct {
+	status             int // 将审批任务修改为同意/拒绝
+	statusFlag         bool
+	userId             string // 按user_id_type类型传递。如果system_approval为false，则必填。否则非必填。
+	userIdFlag         bool
+	systemApproval     bool // true - 使用系统身份审批
+	systemApprovalFlag bool
+	reason             string // 通过原因，长度限制为500
+	reasonFlag         bool
+	fieldValues        []*ProcessFormVariable // 表单字段值
+	fieldValuesFlag    bool
+}
+
+func NewProcessApproverBuilder() *ProcessApproverBuilder {
+	builder := &ProcessApproverBuilder{}
+	return builder
+}
+
+// 将审批任务修改为同意/拒绝
+//
+// 示例值：2
+func (builder *ProcessApproverBuilder) Status(status int) *ProcessApproverBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 按user_id_type类型传递。如果system_approval为false，则必填。否则非必填。
+//
+// 示例值：ou_91791271921729102012
+func (builder *ProcessApproverBuilder) UserId(userId string) *ProcessApproverBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// true - 使用系统身份审批
+//
+// 示例值：true
+func (builder *ProcessApproverBuilder) SystemApproval(systemApproval bool) *ProcessApproverBuilder {
+	builder.systemApproval = systemApproval
+	builder.systemApprovalFlag = true
+	return builder
+}
+
+// 通过原因，长度限制为500
+//
+// 示例值：原因自定义字符串
+func (builder *ProcessApproverBuilder) Reason(reason string) *ProcessApproverBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 表单字段值
+//
+// 示例值：原因自定义字符串
+func (builder *ProcessApproverBuilder) FieldValues(fieldValues []*ProcessFormVariable) *ProcessApproverBuilder {
+	builder.fieldValues = fieldValues
+	builder.fieldValuesFlag = true
+	return builder
+}
+
+func (builder *ProcessApproverBuilder) Build() *ProcessApprover {
+	req := &ProcessApprover{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.systemApprovalFlag {
+		req.SystemApproval = &builder.systemApproval
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.fieldValuesFlag {
+		req.FieldValues = builder.fieldValues
+	}
+	return req
+}
+
 type ProcessAbstractItem struct {
 	Name  *DataengineI18n `json:"name,omitempty"`  // 摘要标题
 	Value *DataengineI18n `json:"value,omitempty"` // 摘要值
@@ -14103,27 +14557,30 @@ func (builder *ProcessAbstractItemBuilder) Build() *ProcessAbstractItem {
 }
 
 type ProcessCcItem struct {
-	ApproverId   *string         `json:"approver_id,omitempty"`   // 单据ID
-	Links        *ProcessLink    `json:"links,omitempty"`         // 单据地址
-	OperatorId   *string         `json:"operator_id,omitempty"`   // 抄送人ID
-	OperatorName *DataengineI18n `json:"operator_name,omitempty"` // 抄送人姓名
-	NodeName     *DataengineI18n `json:"node_name,omitempty"`     // 节点名称
-	CreateTime   *string         `json:"create_time,omitempty"`   // 抄送时间，Unix毫秒时间戳
+	ApproverId       *string         `json:"approver_id,omitempty"`        // 单据ID
+	Links            *ProcessLink    `json:"links,omitempty"`              // 单据地址
+	OperatorId       *string         `json:"operator_id,omitempty"`        // 抄送人ID
+	OperatorName     *DataengineI18n `json:"operator_name,omitempty"`      // 抄送人姓名
+	NodeName         *DataengineI18n `json:"node_name,omitempty"`          // 节点名称
+	CreateTime       *string         `json:"create_time,omitempty"`        // 抄送时间，Unix毫秒时间戳
+	NodeDefinitionId *string         `json:"node_definition_id,omitempty"` // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
 }
 
 type ProcessCcItemBuilder struct {
-	approverId       string // 单据ID
-	approverIdFlag   bool
-	links            *ProcessLink // 单据地址
-	linksFlag        bool
-	operatorId       string // 抄送人ID
-	operatorIdFlag   bool
-	operatorName     *DataengineI18n // 抄送人姓名
-	operatorNameFlag bool
-	nodeName         *DataengineI18n // 节点名称
-	nodeNameFlag     bool
-	createTime       string // 抄送时间，Unix毫秒时间戳
-	createTimeFlag   bool
+	approverId           string // 单据ID
+	approverIdFlag       bool
+	links                *ProcessLink // 单据地址
+	linksFlag            bool
+	operatorId           string // 抄送人ID
+	operatorIdFlag       bool
+	operatorName         *DataengineI18n // 抄送人姓名
+	operatorNameFlag     bool
+	nodeName             *DataengineI18n // 节点名称
+	nodeNameFlag         bool
+	createTime           string // 抄送时间，Unix毫秒时间戳
+	createTimeFlag       bool
+	nodeDefinitionId     string // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+	nodeDefinitionIdFlag bool
 }
 
 func NewProcessCcItemBuilder() *ProcessCcItemBuilder {
@@ -14185,6 +14642,15 @@ func (builder *ProcessCcItemBuilder) CreateTime(createTime string) *ProcessCcIte
 	return builder
 }
 
+// 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+//
+// 示例值：approval_d25b5eddfef
+func (builder *ProcessCcItemBuilder) NodeDefinitionId(nodeDefinitionId string) *ProcessCcItemBuilder {
+	builder.nodeDefinitionId = nodeDefinitionId
+	builder.nodeDefinitionIdFlag = true
+	return builder
+}
+
 func (builder *ProcessCcItemBuilder) Build() *ProcessCcItem {
 	req := &ProcessCcItem{}
 	if builder.approverIdFlag {
@@ -14208,40 +14674,47 @@ func (builder *ProcessCcItemBuilder) Build() *ProcessCcItem {
 		req.CreateTime = &builder.createTime
 
 	}
+	if builder.nodeDefinitionIdFlag {
+		req.NodeDefinitionId = &builder.nodeDefinitionId
+
+	}
 	return req
 }
 
 type ProcessDoneItem struct {
-	ApproverId   *string         `json:"approver_id,omitempty"`   // 单据ID
-	Type         *int            `json:"type,omitempty"`          // 单据类型
-	Status       *int            `json:"status,omitempty"`        // 单据状态
-	Links        *ProcessLink    `json:"links,omitempty"`         // 单据地址
-	OperatorId   *string         `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorName *DataengineI18n `json:"operator_name,omitempty"` // 操作人姓名
-	NodeName     *DataengineI18n `json:"node_name,omitempty"`     // 节点名称
-	CreateTime   *string         `json:"create_time,omitempty"`   // 创建时间，Unix毫秒时间戳
-	CompleteTime *string         `json:"complete_time,omitempty"` // 完成时间，Unix毫秒时间戳
+	ApproverId       *string         `json:"approver_id,omitempty"`        // 单据ID
+	Type             *int            `json:"type,omitempty"`               // 单据类型
+	Status           *int            `json:"status,omitempty"`             // 单据状态
+	Links            *ProcessLink    `json:"links,omitempty"`              // 单据地址
+	OperatorId       *string         `json:"operator_id,omitempty"`        // 操作人ID
+	OperatorName     *DataengineI18n `json:"operator_name,omitempty"`      // 操作人姓名
+	NodeName         *DataengineI18n `json:"node_name,omitempty"`          // 节点名称
+	CreateTime       *string         `json:"create_time,omitempty"`        // 创建时间，Unix毫秒时间戳
+	CompleteTime     *string         `json:"complete_time,omitempty"`      // 完成时间，Unix毫秒时间戳
+	NodeDefinitionId *string         `json:"node_definition_id,omitempty"` // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
 }
 
 type ProcessDoneItemBuilder struct {
-	approverId       string // 单据ID
-	approverIdFlag   bool
-	type_            int // 单据类型
-	typeFlag         bool
-	status           int // 单据状态
-	statusFlag       bool
-	links            *ProcessLink // 单据地址
-	linksFlag        bool
-	operatorId       string // 操作人ID
-	operatorIdFlag   bool
-	operatorName     *DataengineI18n // 操作人姓名
-	operatorNameFlag bool
-	nodeName         *DataengineI18n // 节点名称
-	nodeNameFlag     bool
-	createTime       string // 创建时间，Unix毫秒时间戳
-	createTimeFlag   bool
-	completeTime     string // 完成时间，Unix毫秒时间戳
-	completeTimeFlag bool
+	approverId           string // 单据ID
+	approverIdFlag       bool
+	type_                int // 单据类型
+	typeFlag             bool
+	status               int // 单据状态
+	statusFlag           bool
+	links                *ProcessLink // 单据地址
+	linksFlag            bool
+	operatorId           string // 操作人ID
+	operatorIdFlag       bool
+	operatorName         *DataengineI18n // 操作人姓名
+	operatorNameFlag     bool
+	nodeName             *DataengineI18n // 节点名称
+	nodeNameFlag         bool
+	createTime           string // 创建时间，Unix毫秒时间戳
+	createTimeFlag       bool
+	completeTime         string // 完成时间，Unix毫秒时间戳
+	completeTimeFlag     bool
+	nodeDefinitionId     string // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+	nodeDefinitionIdFlag bool
 }
 
 func NewProcessDoneItemBuilder() *ProcessDoneItemBuilder {
@@ -14330,6 +14803,15 @@ func (builder *ProcessDoneItemBuilder) CompleteTime(completeTime string) *Proces
 	return builder
 }
 
+// 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+//
+// 示例值：approval_d25b5eddfef
+func (builder *ProcessDoneItemBuilder) NodeDefinitionId(nodeDefinitionId string) *ProcessDoneItemBuilder {
+	builder.nodeDefinitionId = nodeDefinitionId
+	builder.nodeDefinitionIdFlag = true
+	return builder
+}
+
 func (builder *ProcessDoneItemBuilder) Build() *ProcessDoneItem {
 	req := &ProcessDoneItem{}
 	if builder.approverIdFlag {
@@ -14364,6 +14846,57 @@ func (builder *ProcessDoneItemBuilder) Build() *ProcessDoneItem {
 	if builder.completeTimeFlag {
 		req.CompleteTime = &builder.completeTime
 
+	}
+	if builder.nodeDefinitionIdFlag {
+		req.NodeDefinitionId = &builder.nodeDefinitionId
+
+	}
+	return req
+}
+
+type ProcessFormVariable struct {
+	VariableApiName *string                `json:"variable_api_name,omitempty"` // 变量的apiName
+	VariableValue   *FormVariableValueInfo `json:"variable_value,omitempty"`    // 变量值
+}
+
+type ProcessFormVariableBuilder struct {
+	variableApiName     string // 变量的apiName
+	variableApiNameFlag bool
+	variableValue       *FormVariableValueInfo // 变量值
+	variableValueFlag   bool
+}
+
+func NewProcessFormVariableBuilder() *ProcessFormVariableBuilder {
+	builder := &ProcessFormVariableBuilder{}
+	return builder
+}
+
+// 变量的apiName
+//
+// 示例值：custom590dbafb84a
+func (builder *ProcessFormVariableBuilder) VariableApiName(variableApiName string) *ProcessFormVariableBuilder {
+	builder.variableApiName = variableApiName
+	builder.variableApiNameFlag = true
+	return builder
+}
+
+// 变量值
+//
+// 示例值：
+func (builder *ProcessFormVariableBuilder) VariableValue(variableValue *FormVariableValueInfo) *ProcessFormVariableBuilder {
+	builder.variableValue = variableValue
+	builder.variableValueFlag = true
+	return builder
+}
+
+func (builder *ProcessFormVariableBuilder) Build() *ProcessFormVariable {
+	req := &ProcessFormVariable{}
+	if builder.variableApiNameFlag {
+		req.VariableApiName = &builder.variableApiName
+
+	}
+	if builder.variableValueFlag {
+		req.VariableValue = builder.variableValue
 	}
 	return req
 }
@@ -14433,30 +14966,33 @@ func (builder *ProcessLinkBuilder) Build() *ProcessLink {
 }
 
 type ProcessTodoItem struct {
-	ApproverId   *string         `json:"approver_id,omitempty"`   // 单据ID
-	Type         *int            `json:"type,omitempty"`          // 单据类型
-	Links        *ProcessLink    `json:"links,omitempty"`         // 单据地址
-	OperatorId   *string         `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorName *DataengineI18n `json:"operator_name,omitempty"` // 操作人姓名
-	NodeName     *DataengineI18n `json:"node_name,omitempty"`     // 节点名称
-	CreateTime   *string         `json:"create_time,omitempty"`   // 创建时间，Unix毫秒时间戳
+	ApproverId       *string         `json:"approver_id,omitempty"`        // 单据ID
+	Type             *int            `json:"type,omitempty"`               // 单据类型
+	Links            *ProcessLink    `json:"links,omitempty"`              // 单据地址
+	OperatorId       *string         `json:"operator_id,omitempty"`        // 操作人ID
+	OperatorName     *DataengineI18n `json:"operator_name,omitempty"`      // 操作人姓名
+	NodeName         *DataengineI18n `json:"node_name,omitempty"`          // 节点名称
+	CreateTime       *string         `json:"create_time,omitempty"`        // 创建时间，Unix毫秒时间戳
+	NodeDefinitionId *string         `json:"node_definition_id,omitempty"` // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
 }
 
 type ProcessTodoItemBuilder struct {
-	approverId       string // 单据ID
-	approverIdFlag   bool
-	type_            int // 单据类型
-	typeFlag         bool
-	links            *ProcessLink // 单据地址
-	linksFlag        bool
-	operatorId       string // 操作人ID
-	operatorIdFlag   bool
-	operatorName     *DataengineI18n // 操作人姓名
-	operatorNameFlag bool
-	nodeName         *DataengineI18n // 节点名称
-	nodeNameFlag     bool
-	createTime       string // 创建时间，Unix毫秒时间戳
-	createTimeFlag   bool
+	approverId           string // 单据ID
+	approverIdFlag       bool
+	type_                int // 单据类型
+	typeFlag             bool
+	links                *ProcessLink // 单据地址
+	linksFlag            bool
+	operatorId           string // 操作人ID
+	operatorIdFlag       bool
+	operatorName         *DataengineI18n // 操作人姓名
+	operatorNameFlag     bool
+	nodeName             *DataengineI18n // 节点名称
+	nodeNameFlag         bool
+	createTime           string // 创建时间，Unix毫秒时间戳
+	createTimeFlag       bool
+	nodeDefinitionId     string // 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+	nodeDefinitionIdFlag bool
 }
 
 func NewProcessTodoItemBuilder() *ProcessTodoItemBuilder {
@@ -14527,6 +15063,15 @@ func (builder *ProcessTodoItemBuilder) CreateTime(createTime string) *ProcessTod
 	return builder
 }
 
+// 节点定义ID（注：在回退场景，同一个节点会对应多个节点实例）
+//
+// 示例值：approval_d25b5eddfef
+func (builder *ProcessTodoItemBuilder) NodeDefinitionId(nodeDefinitionId string) *ProcessTodoItemBuilder {
+	builder.nodeDefinitionId = nodeDefinitionId
+	builder.nodeDefinitionIdFlag = true
+	return builder
+}
+
 func (builder *ProcessTodoItemBuilder) Build() *ProcessTodoItem {
 	req := &ProcessTodoItem{}
 	if builder.approverIdFlag {
@@ -14553,6 +15098,3677 @@ func (builder *ProcessTodoItemBuilder) Build() *ProcessTodoItem {
 	if builder.createTimeFlag {
 		req.CreateTime = &builder.createTime
 
+	}
+	if builder.nodeDefinitionIdFlag {
+		req.NodeDefinitionId = &builder.nodeDefinitionId
+
+	}
+	return req
+}
+
+type ProfileSettingAddress struct {
+	AddressType        *string `json:"address_type,omitempty"`         // 地址类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "address" custom_api_name = "address_type"
+	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区ID
+	Region             *string `json:"region,omitempty"`               // 主要行政区ID
+	RegionSubdivision1 *string `json:"region_subdivision_1,omitempty"` // 主要行政区往下细分 1 层的行政区
+	RegionSubdivision2 *string `json:"region_subdivision_2,omitempty"` // 主要行政区往下细分 2 层的行政区
+	CityV2             *string `json:"city_v2,omitempty"`              // 城市V2 ID
+	CityText           *string `json:"city_text,omitempty"`            // 城市（文本）
+	LocalCityText      *string `json:"local_city_text,omitempty"`      // 城市（仅文本，非拉丁语系的本地文字）
+	CitySubdivision1   *string `json:"city_subdivision_1,omitempty"`   // 城市往下细分 1 层的行政区
+	CitySubdivision2   *string `json:"city_subdivision_2,omitempty"`   // 城市往下细分 2 层的行政区
+	DistrictV2         *string `json:"district_v2,omitempty"`          // 区/县V2 ID
+	PostalCode         *string `json:"postal_code,omitempty"`          // 邮政编码
+	AddressLine1       *string `json:"address_line_1,omitempty"`       // 地址行 1
+	LocalAddressLine1  *string `json:"local_address_line_1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
+	AddressLine2       *string `json:"address_line_2,omitempty"`       // 地址行 2
+	LocalAddressLine2  *string `json:"local_address_line_2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
+	AddressLine3       *string `json:"address_line_3,omitempty"`       // 地址行 3
+	LocalAddressLine3  *string `json:"local_address_line_3,omitempty"` // 地址行 3（非拉丁语系的本地文字）
+	AddressLine4       *string `json:"address_line_4,omitempty"`       // 地址行 4
+	LocalAddressLine5  *string `json:"local_address_line_5,omitempty"` // 地址行 5（非拉丁语系的本地文字）
+	AddressLine6       *string `json:"address_line_6,omitempty"`       // 地址行 6
+	LocalAddressLine6  *string `json:"local_address_line_6,omitempty"` // 地址行 6（非拉丁语系的本地文字）
+	AddressLine7       *string `json:"address_line_7,omitempty"`       // 地址行 7
+	LocalAddressLine7  *string `json:"local_address_line_7,omitempty"` // 地址行 7（非拉丁语系的本地文字）
+	AddressLine8       *string `json:"address_line_8,omitempty"`       // 地址行 8
+	LocalAddressLine8  *string `json:"local_address_line_8,omitempty"` // 地址行 8（非拉丁语系的本地文字）
+	AddressLine9       *string `json:"address_line_9,omitempty"`       // 地址行 9
+	LocalAddressLine9  *string `json:"local_address_line_9,omitempty"` // 地址行 9（非拉丁语系的本地文字）
+	LocalAddressLine4  *string `json:"local_address_line_4,omitempty"` // 地址行 4（非拉丁语系的本地文字）
+	AddressLine5       *string `json:"address_line_5,omitempty"`       // 地址行 5
+}
+
+type ProfileSettingAddressBuilder struct {
+	addressType            string // 地址类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "address" custom_api_name = "address_type"
+	addressTypeFlag        bool
+	countryRegion          string // 国家 / 地区ID
+	countryRegionFlag      bool
+	region                 string // 主要行政区ID
+	regionFlag             bool
+	regionSubdivision1     string // 主要行政区往下细分 1 层的行政区
+	regionSubdivision1Flag bool
+	regionSubdivision2     string // 主要行政区往下细分 2 层的行政区
+	regionSubdivision2Flag bool
+	cityV2                 string // 城市V2 ID
+	cityV2Flag             bool
+	cityText               string // 城市（文本）
+	cityTextFlag           bool
+	localCityText          string // 城市（仅文本，非拉丁语系的本地文字）
+	localCityTextFlag      bool
+	citySubdivision1       string // 城市往下细分 1 层的行政区
+	citySubdivision1Flag   bool
+	citySubdivision2       string // 城市往下细分 2 层的行政区
+	citySubdivision2Flag   bool
+	districtV2             string // 区/县V2 ID
+	districtV2Flag         bool
+	postalCode             string // 邮政编码
+	postalCodeFlag         bool
+	addressLine1           string // 地址行 1
+	addressLine1Flag       bool
+	localAddressLine1      string // 地址行 1（非拉丁语系的本地文字）
+	localAddressLine1Flag  bool
+	addressLine2           string // 地址行 2
+	addressLine2Flag       bool
+	localAddressLine2      string // 地址行 2（非拉丁语系的本地文字）
+	localAddressLine2Flag  bool
+	addressLine3           string // 地址行 3
+	addressLine3Flag       bool
+	localAddressLine3      string // 地址行 3（非拉丁语系的本地文字）
+	localAddressLine3Flag  bool
+	addressLine4           string // 地址行 4
+	addressLine4Flag       bool
+	localAddressLine5      string // 地址行 5（非拉丁语系的本地文字）
+	localAddressLine5Flag  bool
+	addressLine6           string // 地址行 6
+	addressLine6Flag       bool
+	localAddressLine6      string // 地址行 6（非拉丁语系的本地文字）
+	localAddressLine6Flag  bool
+	addressLine7           string // 地址行 7
+	addressLine7Flag       bool
+	localAddressLine7      string // 地址行 7（非拉丁语系的本地文字）
+	localAddressLine7Flag  bool
+	addressLine8           string // 地址行 8
+	addressLine8Flag       bool
+	localAddressLine8      string // 地址行 8（非拉丁语系的本地文字）
+	localAddressLine8Flag  bool
+	addressLine9           string // 地址行 9
+	addressLine9Flag       bool
+	localAddressLine9      string // 地址行 9（非拉丁语系的本地文字）
+	localAddressLine9Flag  bool
+	localAddressLine4      string // 地址行 4（非拉丁语系的本地文字）
+	localAddressLine4Flag  bool
+	addressLine5           string // 地址行 5
+	addressLine5Flag       bool
+}
+
+func NewProfileSettingAddressBuilder() *ProfileSettingAddressBuilder {
+	builder := &ProfileSettingAddressBuilder{}
+	return builder
+}
+
+// 地址类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "address" custom_api_name = "address_type"
+//
+// 示例值：home_address
+func (builder *ProfileSettingAddressBuilder) AddressType(addressType string) *ProfileSettingAddressBuilder {
+	builder.addressType = addressType
+	builder.addressTypeFlag = true
+	return builder
+}
+
+// 国家 / 地区ID
+//
+// 示例值：6862995757234914824
+func (builder *ProfileSettingAddressBuilder) CountryRegion(countryRegion string) *ProfileSettingAddressBuilder {
+	builder.countryRegion = countryRegion
+	builder.countryRegionFlag = true
+	return builder
+}
+
+// 主要行政区ID
+//
+// 示例值：6863326815667095047
+func (builder *ProfileSettingAddressBuilder) Region(region string) *ProfileSettingAddressBuilder {
+	builder.region = region
+	builder.regionFlag = true
+	return builder
+}
+
+// 主要行政区往下细分 1 层的行政区
+//
+// 示例值：行政区1
+func (builder *ProfileSettingAddressBuilder) RegionSubdivision1(regionSubdivision1 string) *ProfileSettingAddressBuilder {
+	builder.regionSubdivision1 = regionSubdivision1
+	builder.regionSubdivision1Flag = true
+	return builder
+}
+
+// 主要行政区往下细分 2 层的行政区
+//
+// 示例值：行政区2
+func (builder *ProfileSettingAddressBuilder) RegionSubdivision2(regionSubdivision2 string) *ProfileSettingAddressBuilder {
+	builder.regionSubdivision2 = regionSubdivision2
+	builder.regionSubdivision2Flag = true
+	return builder
+}
+
+// 城市V2 ID
+//
+// 示例值：6862995757234914829
+func (builder *ProfileSettingAddressBuilder) CityV2(cityV2 string) *ProfileSettingAddressBuilder {
+	builder.cityV2 = cityV2
+	builder.cityV2Flag = true
+	return builder
+}
+
+// 城市（文本）
+//
+// 示例值：北京市
+func (builder *ProfileSettingAddressBuilder) CityText(cityText string) *ProfileSettingAddressBuilder {
+	builder.cityText = cityText
+	builder.cityTextFlag = true
+	return builder
+}
+
+// 城市（仅文本，非拉丁语系的本地文字）
+//
+// 示例值：北京市
+func (builder *ProfileSettingAddressBuilder) LocalCityText(localCityText string) *ProfileSettingAddressBuilder {
+	builder.localCityText = localCityText
+	builder.localCityTextFlag = true
+	return builder
+}
+
+// 城市往下细分 1 层的行政区
+//
+// 示例值：行政区1
+func (builder *ProfileSettingAddressBuilder) CitySubdivision1(citySubdivision1 string) *ProfileSettingAddressBuilder {
+	builder.citySubdivision1 = citySubdivision1
+	builder.citySubdivision1Flag = true
+	return builder
+}
+
+// 城市往下细分 2 层的行政区
+//
+// 示例值：行政区2
+func (builder *ProfileSettingAddressBuilder) CitySubdivision2(citySubdivision2 string) *ProfileSettingAddressBuilder {
+	builder.citySubdivision2 = citySubdivision2
+	builder.citySubdivision2Flag = true
+	return builder
+}
+
+// 区/县V2 ID
+//
+// 示例值：6862995757234914831
+func (builder *ProfileSettingAddressBuilder) DistrictV2(districtV2 string) *ProfileSettingAddressBuilder {
+	builder.districtV2 = districtV2
+	builder.districtV2Flag = true
+	return builder
+}
+
+// 邮政编码
+//
+// 示例值：611530
+func (builder *ProfileSettingAddressBuilder) PostalCode(postalCode string) *ProfileSettingAddressBuilder {
+	builder.postalCode = postalCode
+	builder.postalCodeFlag = true
+	return builder
+}
+
+// 地址行 1
+//
+// 示例值：丹佛测试地址-纽埃时区
+func (builder *ProfileSettingAddressBuilder) AddressLine1(addressLine1 string) *ProfileSettingAddressBuilder {
+	builder.addressLine1 = addressLine1
+	builder.addressLine1Flag = true
+	return builder
+}
+
+// 地址行 1（非拉丁语系的本地文字）
+//
+// 示例值：丹佛测试地址-纽埃时区
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine1(localAddressLine1 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine1 = localAddressLine1
+	builder.localAddressLine1Flag = true
+	return builder
+}
+
+// 地址行 2
+//
+// 示例值：PoewH
+func (builder *ProfileSettingAddressBuilder) AddressLine2(addressLine2 string) *ProfileSettingAddressBuilder {
+	builder.addressLine2 = addressLine2
+	builder.addressLine2Flag = true
+	return builder
+}
+
+// 地址行 2（非拉丁语系的本地文字）
+//
+// 示例值：PoewH
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine2(localAddressLine2 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine2 = localAddressLine2
+	builder.localAddressLine2Flag = true
+	return builder
+}
+
+// 地址行 3
+//
+// 示例值：PoewH
+func (builder *ProfileSettingAddressBuilder) AddressLine3(addressLine3 string) *ProfileSettingAddressBuilder {
+	builder.addressLine3 = addressLine3
+	builder.addressLine3Flag = true
+	return builder
+}
+
+// 地址行 3（非拉丁语系的本地文字）
+//
+// 示例值：PoewH
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine3(localAddressLine3 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine3 = localAddressLine3
+	builder.localAddressLine3Flag = true
+	return builder
+}
+
+// 地址行 4
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) AddressLine4(addressLine4 string) *ProfileSettingAddressBuilder {
+	builder.addressLine4 = addressLine4
+	builder.addressLine4Flag = true
+	return builder
+}
+
+// 地址行 5（非拉丁语系的本地文字）
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine5(localAddressLine5 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine5 = localAddressLine5
+	builder.localAddressLine5Flag = true
+	return builder
+}
+
+// 地址行 6
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) AddressLine6(addressLine6 string) *ProfileSettingAddressBuilder {
+	builder.addressLine6 = addressLine6
+	builder.addressLine6Flag = true
+	return builder
+}
+
+// 地址行 6（非拉丁语系的本地文字）
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine6(localAddressLine6 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine6 = localAddressLine6
+	builder.localAddressLine6Flag = true
+	return builder
+}
+
+// 地址行 7
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) AddressLine7(addressLine7 string) *ProfileSettingAddressBuilder {
+	builder.addressLine7 = addressLine7
+	builder.addressLine7Flag = true
+	return builder
+}
+
+// 地址行 7（非拉丁语系的本地文字）
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine7(localAddressLine7 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine7 = localAddressLine7
+	builder.localAddressLine7Flag = true
+	return builder
+}
+
+// 地址行 8
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) AddressLine8(addressLine8 string) *ProfileSettingAddressBuilder {
+	builder.addressLine8 = addressLine8
+	builder.addressLine8Flag = true
+	return builder
+}
+
+// 地址行 8（非拉丁语系的本地文字）
+//
+// 示例值：rafSu
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine8(localAddressLine8 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine8 = localAddressLine8
+	builder.localAddressLine8Flag = true
+	return builder
+}
+
+// 地址行 9
+//
+// 示例值：McPRG
+func (builder *ProfileSettingAddressBuilder) AddressLine9(addressLine9 string) *ProfileSettingAddressBuilder {
+	builder.addressLine9 = addressLine9
+	builder.addressLine9Flag = true
+	return builder
+}
+
+// 地址行 9（非拉丁语系的本地文字）
+//
+// 示例值：McPRG
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine9(localAddressLine9 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine9 = localAddressLine9
+	builder.localAddressLine9Flag = true
+	return builder
+}
+
+// 地址行 4（非拉丁语系的本地文字）
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) LocalAddressLine4(localAddressLine4 string) *ProfileSettingAddressBuilder {
+	builder.localAddressLine4 = localAddressLine4
+	builder.localAddressLine4Flag = true
+	return builder
+}
+
+// 地址行 5
+//
+// 示例值：jmwJc
+func (builder *ProfileSettingAddressBuilder) AddressLine5(addressLine5 string) *ProfileSettingAddressBuilder {
+	builder.addressLine5 = addressLine5
+	builder.addressLine5Flag = true
+	return builder
+}
+
+func (builder *ProfileSettingAddressBuilder) Build() *ProfileSettingAddress {
+	req := &ProfileSettingAddress{}
+	if builder.addressTypeFlag {
+		req.AddressType = &builder.addressType
+
+	}
+	if builder.countryRegionFlag {
+		req.CountryRegion = &builder.countryRegion
+
+	}
+	if builder.regionFlag {
+		req.Region = &builder.region
+
+	}
+	if builder.regionSubdivision1Flag {
+		req.RegionSubdivision1 = &builder.regionSubdivision1
+
+	}
+	if builder.regionSubdivision2Flag {
+		req.RegionSubdivision2 = &builder.regionSubdivision2
+
+	}
+	if builder.cityV2Flag {
+		req.CityV2 = &builder.cityV2
+
+	}
+	if builder.cityTextFlag {
+		req.CityText = &builder.cityText
+
+	}
+	if builder.localCityTextFlag {
+		req.LocalCityText = &builder.localCityText
+
+	}
+	if builder.citySubdivision1Flag {
+		req.CitySubdivision1 = &builder.citySubdivision1
+
+	}
+	if builder.citySubdivision2Flag {
+		req.CitySubdivision2 = &builder.citySubdivision2
+
+	}
+	if builder.districtV2Flag {
+		req.DistrictV2 = &builder.districtV2
+
+	}
+	if builder.postalCodeFlag {
+		req.PostalCode = &builder.postalCode
+
+	}
+	if builder.addressLine1Flag {
+		req.AddressLine1 = &builder.addressLine1
+
+	}
+	if builder.localAddressLine1Flag {
+		req.LocalAddressLine1 = &builder.localAddressLine1
+
+	}
+	if builder.addressLine2Flag {
+		req.AddressLine2 = &builder.addressLine2
+
+	}
+	if builder.localAddressLine2Flag {
+		req.LocalAddressLine2 = &builder.localAddressLine2
+
+	}
+	if builder.addressLine3Flag {
+		req.AddressLine3 = &builder.addressLine3
+
+	}
+	if builder.localAddressLine3Flag {
+		req.LocalAddressLine3 = &builder.localAddressLine3
+
+	}
+	if builder.addressLine4Flag {
+		req.AddressLine4 = &builder.addressLine4
+
+	}
+	if builder.localAddressLine5Flag {
+		req.LocalAddressLine5 = &builder.localAddressLine5
+
+	}
+	if builder.addressLine6Flag {
+		req.AddressLine6 = &builder.addressLine6
+
+	}
+	if builder.localAddressLine6Flag {
+		req.LocalAddressLine6 = &builder.localAddressLine6
+
+	}
+	if builder.addressLine7Flag {
+		req.AddressLine7 = &builder.addressLine7
+
+	}
+	if builder.localAddressLine7Flag {
+		req.LocalAddressLine7 = &builder.localAddressLine7
+
+	}
+	if builder.addressLine8Flag {
+		req.AddressLine8 = &builder.addressLine8
+
+	}
+	if builder.localAddressLine8Flag {
+		req.LocalAddressLine8 = &builder.localAddressLine8
+
+	}
+	if builder.addressLine9Flag {
+		req.AddressLine9 = &builder.addressLine9
+
+	}
+	if builder.localAddressLine9Flag {
+		req.LocalAddressLine9 = &builder.localAddressLine9
+
+	}
+	if builder.localAddressLine4Flag {
+		req.LocalAddressLine4 = &builder.localAddressLine4
+
+	}
+	if builder.addressLine5Flag {
+		req.AddressLine5 = &builder.addressLine5
+
+	}
+	return req
+}
+
+type ProfileSettingBankAccount struct {
+	CountryRegion     *string  `json:"country_region,omitempty"`      // 国家 / 地区ID
+	BankName          *string  `json:"bank_name,omitempty"`           // 银行名称
+	BranchName        *string  `json:"branch_name,omitempty"`         // 支行名称
+	AccountHolder     *string  `json:"account_holder,omitempty"`      // 开户人姓名
+	BankAccountNumber *string  `json:"bank_account_number,omitempty"` // 银行账号
+	BankAccountUsages []string `json:"bank_account_usages,omitempty"` // 银行卡用途，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_usage"
+	BankAccountType   *string  `json:"bank_account_type,omitempty"`   // 银行卡类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_type"
+	BankId            *string  `json:"bank_id,omitempty"`             // 银行ID
+	BranchId          *string  `json:"branch_id,omitempty"`           // 银行支行ID
+}
+
+type ProfileSettingBankAccountBuilder struct {
+	countryRegion         string // 国家 / 地区ID
+	countryRegionFlag     bool
+	bankName              string // 银行名称
+	bankNameFlag          bool
+	branchName            string // 支行名称
+	branchNameFlag        bool
+	accountHolder         string // 开户人姓名
+	accountHolderFlag     bool
+	bankAccountNumber     string // 银行账号
+	bankAccountNumberFlag bool
+	bankAccountUsages     []string // 银行卡用途，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_usage"
+	bankAccountUsagesFlag bool
+	bankAccountType       string // 银行卡类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_type"
+	bankAccountTypeFlag   bool
+	bankId                string // 银行ID
+	bankIdFlag            bool
+	branchId              string // 银行支行ID
+	branchIdFlag          bool
+}
+
+func NewProfileSettingBankAccountBuilder() *ProfileSettingBankAccountBuilder {
+	builder := &ProfileSettingBankAccountBuilder{}
+	return builder
+}
+
+// 国家 / 地区ID
+//
+// 示例值：6862995757234914824
+func (builder *ProfileSettingBankAccountBuilder) CountryRegion(countryRegion string) *ProfileSettingBankAccountBuilder {
+	builder.countryRegion = countryRegion
+	builder.countryRegionFlag = true
+	return builder
+}
+
+// 银行名称
+//
+// 示例值：中国农业银行
+func (builder *ProfileSettingBankAccountBuilder) BankName(bankName string) *ProfileSettingBankAccountBuilder {
+	builder.bankName = bankName
+	builder.bankNameFlag = true
+	return builder
+}
+
+// 支行名称
+//
+// 示例值：中国农业银行支行
+func (builder *ProfileSettingBankAccountBuilder) BranchName(branchName string) *ProfileSettingBankAccountBuilder {
+	builder.branchName = branchName
+	builder.branchNameFlag = true
+	return builder
+}
+
+// 开户人姓名
+//
+// 示例值：孟十五
+func (builder *ProfileSettingBankAccountBuilder) AccountHolder(accountHolder string) *ProfileSettingBankAccountBuilder {
+	builder.accountHolder = accountHolder
+	builder.accountHolderFlag = true
+	return builder
+}
+
+// 银行账号
+//
+// 示例值：6231200000001223
+func (builder *ProfileSettingBankAccountBuilder) BankAccountNumber(bankAccountNumber string) *ProfileSettingBankAccountBuilder {
+	builder.bankAccountNumber = bankAccountNumber
+	builder.bankAccountNumberFlag = true
+	return builder
+}
+
+// 银行卡用途，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_usage"
+//
+// 示例值：payment
+func (builder *ProfileSettingBankAccountBuilder) BankAccountUsages(bankAccountUsages []string) *ProfileSettingBankAccountBuilder {
+	builder.bankAccountUsages = bankAccountUsages
+	builder.bankAccountUsagesFlag = true
+	return builder
+}
+
+// 银行卡类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "bank_account" custom_api_name = "bank_account_type"
+//
+// 示例值：savings
+func (builder *ProfileSettingBankAccountBuilder) BankAccountType(bankAccountType string) *ProfileSettingBankAccountBuilder {
+	builder.bankAccountType = bankAccountType
+	builder.bankAccountTypeFlag = true
+	return builder
+}
+
+// 银行ID
+//
+// 示例值：6862995757234914832
+func (builder *ProfileSettingBankAccountBuilder) BankId(bankId string) *ProfileSettingBankAccountBuilder {
+	builder.bankId = bankId
+	builder.bankIdFlag = true
+	return builder
+}
+
+// 银行支行ID
+//
+// 示例值：6862995757234914833
+func (builder *ProfileSettingBankAccountBuilder) BranchId(branchId string) *ProfileSettingBankAccountBuilder {
+	builder.branchId = branchId
+	builder.branchIdFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingBankAccountBuilder) Build() *ProfileSettingBankAccount {
+	req := &ProfileSettingBankAccount{}
+	if builder.countryRegionFlag {
+		req.CountryRegion = &builder.countryRegion
+
+	}
+	if builder.bankNameFlag {
+		req.BankName = &builder.bankName
+
+	}
+	if builder.branchNameFlag {
+		req.BranchName = &builder.branchName
+
+	}
+	if builder.accountHolderFlag {
+		req.AccountHolder = &builder.accountHolder
+
+	}
+	if builder.bankAccountNumberFlag {
+		req.BankAccountNumber = &builder.bankAccountNumber
+
+	}
+	if builder.bankAccountUsagesFlag {
+		req.BankAccountUsages = builder.bankAccountUsages
+	}
+	if builder.bankAccountTypeFlag {
+		req.BankAccountType = &builder.bankAccountType
+
+	}
+	if builder.bankIdFlag {
+		req.BankId = &builder.bankId
+
+	}
+	if builder.branchIdFlag {
+		req.BranchId = &builder.branchId
+
+	}
+	return req
+}
+
+type ProfileSettingCareer struct {
+	Educations      []*ProfileSettingEducation      `json:"educations,omitempty"`       // 教育经历
+	WorkExperiences []*ProfileSettingWorkExperience `json:"work_experiences,omitempty"` // 工作经历
+	CustomGroups    []*ProfileSettingCustomGroup    `json:"custom_groups,omitempty"`    // 自定义分组
+}
+
+type ProfileSettingCareerBuilder struct {
+	educations          []*ProfileSettingEducation // 教育经历
+	educationsFlag      bool
+	workExperiences     []*ProfileSettingWorkExperience // 工作经历
+	workExperiencesFlag bool
+	customGroups        []*ProfileSettingCustomGroup // 自定义分组
+	customGroupsFlag    bool
+}
+
+func NewProfileSettingCareerBuilder() *ProfileSettingCareerBuilder {
+	builder := &ProfileSettingCareerBuilder{}
+	return builder
+}
+
+// 教育经历
+//
+// 示例值：
+func (builder *ProfileSettingCareerBuilder) Educations(educations []*ProfileSettingEducation) *ProfileSettingCareerBuilder {
+	builder.educations = educations
+	builder.educationsFlag = true
+	return builder
+}
+
+// 工作经历
+//
+// 示例值：
+func (builder *ProfileSettingCareerBuilder) WorkExperiences(workExperiences []*ProfileSettingWorkExperience) *ProfileSettingCareerBuilder {
+	builder.workExperiences = workExperiences
+	builder.workExperiencesFlag = true
+	return builder
+}
+
+// 自定义分组
+//
+// 示例值：
+func (builder *ProfileSettingCareerBuilder) CustomGroups(customGroups []*ProfileSettingCustomGroup) *ProfileSettingCareerBuilder {
+	builder.customGroups = customGroups
+	builder.customGroupsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingCareerBuilder) Build() *ProfileSettingCareer {
+	req := &ProfileSettingCareer{}
+	if builder.educationsFlag {
+		req.Educations = builder.educations
+	}
+	if builder.workExperiencesFlag {
+		req.WorkExperiences = builder.workExperiences
+	}
+	if builder.customGroupsFlag {
+		req.CustomGroups = builder.customGroups
+	}
+	return req
+}
+
+type ProfileSettingCostCenter struct {
+	Id   *string `json:"id,omitempty"`   // 100
+	Rate *int    `json:"rate,omitempty"` // 分摊比例
+}
+
+type ProfileSettingCostCenterBuilder struct {
+	id       string // 100
+	idFlag   bool
+	rate     int // 分摊比例
+	rateFlag bool
+}
+
+func NewProfileSettingCostCenterBuilder() *ProfileSettingCostCenterBuilder {
+	builder := &ProfileSettingCostCenterBuilder{}
+	return builder
+}
+
+// 100
+//
+// 示例值：6950635856373745165
+func (builder *ProfileSettingCostCenterBuilder) Id(id string) *ProfileSettingCostCenterBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 分摊比例
+//
+// 示例值：100
+func (builder *ProfileSettingCostCenterBuilder) Rate(rate int) *ProfileSettingCostCenterBuilder {
+	builder.rate = rate
+	builder.rateFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingCostCenterBuilder) Build() *ProfileSettingCostCenter {
+	req := &ProfileSettingCostCenter{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.rateFlag {
+		req.Rate = &builder.rate
+
+	}
+	return req
+}
+
+type ProfileSettingCustomField struct {
+	FieldName *string `json:"field_name,omitempty"` // 字段名
+	Value     *string `json:"value,omitempty"`      // 字段值, 是 json 转义后的字符串，根据元数据定义不同，字段格式不同。使用方式可参考【操作手册】如何通过 OpenAPI 维护自定义字段
+}
+
+type ProfileSettingCustomFieldBuilder struct {
+	fieldName     string // 字段名
+	fieldNameFlag bool
+	value         string // 字段值, 是 json 转义后的字符串，根据元数据定义不同，字段格式不同。使用方式可参考【操作手册】如何通过 OpenAPI 维护自定义字段
+	valueFlag     bool
+}
+
+func NewProfileSettingCustomFieldBuilder() *ProfileSettingCustomFieldBuilder {
+	builder := &ProfileSettingCustomFieldBuilder{}
+	return builder
+}
+
+// 字段名
+//
+// 示例值：custom_field_1__c
+func (builder *ProfileSettingCustomFieldBuilder) FieldName(fieldName string) *ProfileSettingCustomFieldBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 字段值, 是 json 转义后的字符串，根据元数据定义不同，字段格式不同。使用方式可参考【操作手册】如何通过 OpenAPI 维护自定义字段
+//
+// 示例值：["custom_enum_0__c"]
+func (builder *ProfileSettingCustomFieldBuilder) Value(value string) *ProfileSettingCustomFieldBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingCustomFieldBuilder) Build() *ProfileSettingCustomField {
+	req := &ProfileSettingCustomField{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type ProfileSettingCustomGroup struct {
+	GroupName *string                          `json:"group_name,omitempty"` // 分组名
+	Items     []*ProfileSettingCustomGroupItem `json:"items,omitempty"`      // 分组数据
+}
+
+type ProfileSettingCustomGroupBuilder struct {
+	groupName     string // 分组名
+	groupNameFlag bool
+	items         []*ProfileSettingCustomGroupItem // 分组数据
+	itemsFlag     bool
+}
+
+func NewProfileSettingCustomGroupBuilder() *ProfileSettingCustomGroupBuilder {
+	builder := &ProfileSettingCustomGroupBuilder{}
+	return builder
+}
+
+// 分组名
+//
+// 示例值：custom_obj__c
+func (builder *ProfileSettingCustomGroupBuilder) GroupName(groupName string) *ProfileSettingCustomGroupBuilder {
+	builder.groupName = groupName
+	builder.groupNameFlag = true
+	return builder
+}
+
+// 分组数据
+//
+// 示例值：
+func (builder *ProfileSettingCustomGroupBuilder) Items(items []*ProfileSettingCustomGroupItem) *ProfileSettingCustomGroupBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingCustomGroupBuilder) Build() *ProfileSettingCustomGroup {
+	req := &ProfileSettingCustomGroup{}
+	if builder.groupNameFlag {
+		req.GroupName = &builder.groupName
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type ProfileSettingCustomGroupItem struct {
+	CustomFields []*ProfileSettingCustomField `json:"custom_fields,omitempty"` // 自定义字段
+}
+
+type ProfileSettingCustomGroupItemBuilder struct {
+	customFields     []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag bool
+}
+
+func NewProfileSettingCustomGroupItemBuilder() *ProfileSettingCustomGroupItemBuilder {
+	builder := &ProfileSettingCustomGroupItemBuilder{}
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingCustomGroupItemBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingCustomGroupItemBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingCustomGroupItemBuilder) Build() *ProfileSettingCustomGroupItem {
+	req := &ProfileSettingCustomGroupItem{}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingDataAttachment struct {
+	PersonalRecords []*ProfileSettingPersonalRecord `json:"personal_records,omitempty"` // 资料附件记录
+}
+
+type ProfileSettingDataAttachmentBuilder struct {
+	personalRecords     []*ProfileSettingPersonalRecord // 资料附件记录
+	personalRecordsFlag bool
+}
+
+func NewProfileSettingDataAttachmentBuilder() *ProfileSettingDataAttachmentBuilder {
+	builder := &ProfileSettingDataAttachmentBuilder{}
+	return builder
+}
+
+// 资料附件记录
+//
+// 示例值：
+func (builder *ProfileSettingDataAttachmentBuilder) PersonalRecords(personalRecords []*ProfileSettingPersonalRecord) *ProfileSettingDataAttachmentBuilder {
+	builder.personalRecords = personalRecords
+	builder.personalRecordsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingDataAttachmentBuilder) Build() *ProfileSettingDataAttachment {
+	req := &ProfileSettingDataAttachment{}
+	if builder.personalRecordsFlag {
+		req.PersonalRecords = builder.personalRecords
+	}
+	return req
+}
+
+type ProfileSettingDependent struct {
+	LegalName                 *string                      `json:"legal_name,omitempty"`                  // 姓名
+	DateOfBirth               *string                      `json:"date_of_birth,omitempty"`               // 生日
+	RelationshipWithDependent *string                      `json:"relationship_with_dependent,omitempty"` // 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name ="relationship_with_dependent"
+	Gender                    *string                      `json:"gender,omitempty"`                      // 性别，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name = "gender"
+	Phone                     *ProfileSettingPhone         `json:"phone,omitempty"`                       // 电话
+	Job                       *string                      `json:"job,omitempty"`                         // 岗位
+	ChildBirthCertificates    []*ProfileSettingFile        `json:"child_birth_certificates,omitempty"`    // 出生证明
+	Employer                  *string                      `json:"employer,omitempty"`                    // 工作单位
+	CustomFields              []*ProfileSettingCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	Address                   *ProfileSettingAddress       `json:"address,omitempty"`                     // 联系地址
+}
+
+type ProfileSettingDependentBuilder struct {
+	legalName                     string // 姓名
+	legalNameFlag                 bool
+	dateOfBirth                   string // 生日
+	dateOfBirthFlag               bool
+	relationshipWithDependent     string // 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name ="relationship_with_dependent"
+	relationshipWithDependentFlag bool
+	gender                        string // 性别，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name = "gender"
+	genderFlag                    bool
+	phone                         *ProfileSettingPhone // 电话
+	phoneFlag                     bool
+	job                           string // 岗位
+	jobFlag                       bool
+	childBirthCertificates        []*ProfileSettingFile // 出生证明
+	childBirthCertificatesFlag    bool
+	employer                      string // 工作单位
+	employerFlag                  bool
+	customFields                  []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag              bool
+	address                       *ProfileSettingAddress // 联系地址
+	addressFlag                   bool
+}
+
+func NewProfileSettingDependentBuilder() *ProfileSettingDependentBuilder {
+	builder := &ProfileSettingDependentBuilder{}
+	return builder
+}
+
+// 姓名
+//
+// 示例值：王大帅
+func (builder *ProfileSettingDependentBuilder) LegalName(legalName string) *ProfileSettingDependentBuilder {
+	builder.legalName = legalName
+	builder.legalNameFlag = true
+	return builder
+}
+
+// 生日
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingDependentBuilder) DateOfBirth(dateOfBirth string) *ProfileSettingDependentBuilder {
+	builder.dateOfBirth = dateOfBirth
+	builder.dateOfBirthFlag = true
+	return builder
+}
+
+// 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name ="relationship_with_dependent"
+//
+// 示例值：parent
+func (builder *ProfileSettingDependentBuilder) RelationshipWithDependent(relationshipWithDependent string) *ProfileSettingDependentBuilder {
+	builder.relationshipWithDependent = relationshipWithDependent
+	builder.relationshipWithDependentFlag = true
+	return builder
+}
+
+// 性别，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "dependent" custom_api_name = "gender"
+//
+// 示例值：female
+func (builder *ProfileSettingDependentBuilder) Gender(gender string) *ProfileSettingDependentBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+
+// 电话
+//
+// 示例值：
+func (builder *ProfileSettingDependentBuilder) Phone(phone *ProfileSettingPhone) *ProfileSettingDependentBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 岗位
+//
+// 示例值：岗位
+func (builder *ProfileSettingDependentBuilder) Job(job string) *ProfileSettingDependentBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+
+// 出生证明
+//
+// 示例值：
+func (builder *ProfileSettingDependentBuilder) ChildBirthCertificates(childBirthCertificates []*ProfileSettingFile) *ProfileSettingDependentBuilder {
+	builder.childBirthCertificates = childBirthCertificates
+	builder.childBirthCertificatesFlag = true
+	return builder
+}
+
+// 工作单位
+//
+// 示例值：飞书
+func (builder *ProfileSettingDependentBuilder) Employer(employer string) *ProfileSettingDependentBuilder {
+	builder.employer = employer
+	builder.employerFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingDependentBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingDependentBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+// 联系地址
+//
+// 示例值：
+func (builder *ProfileSettingDependentBuilder) Address(address *ProfileSettingAddress) *ProfileSettingDependentBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingDependentBuilder) Build() *ProfileSettingDependent {
+	req := &ProfileSettingDependent{}
+	if builder.legalNameFlag {
+		req.LegalName = &builder.legalName
+
+	}
+	if builder.dateOfBirthFlag {
+		req.DateOfBirth = &builder.dateOfBirth
+
+	}
+	if builder.relationshipWithDependentFlag {
+		req.RelationshipWithDependent = &builder.relationshipWithDependent
+
+	}
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.jobFlag {
+		req.Job = &builder.job
+
+	}
+	if builder.childBirthCertificatesFlag {
+		req.ChildBirthCertificates = builder.childBirthCertificates
+	}
+	if builder.employerFlag {
+		req.Employer = &builder.employer
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	if builder.addressFlag {
+		req.Address = builder.address
+	}
+	return req
+}
+
+type ProfileSettingEducation struct {
+	School           *string                      `json:"school,omitempty"`              // 学校
+	SchoolEnum       *string                      `json:"school_enum,omitempty"`         // "学校, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""school_name"""
+	StartDate        *string                      `json:"start_date,omitempty"`          // 开始日期
+	EndDate          *string                      `json:"end_date,omitempty"`            // 结束日期
+	LevelOfEducation *string                      `json:"level_of_education,omitempty"`  // 学历, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "level_of_education"
+	FieldOfStudy     *string                      `json:"field_of_study,omitempty"`      // 专业
+	Degree           *string                      `json:"degree,omitempty"`              // 学位,枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "degree"
+	FieldOfStudyEnum *string                      `json:"field_of_study_enum,omitempty"` // "专业，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""field_of_study_name"""
+	CustomFields     []*ProfileSettingCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+}
+
+type ProfileSettingEducationBuilder struct {
+	school               string // 学校
+	schoolFlag           bool
+	schoolEnum           string // "学校, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""school_name"""
+	schoolEnumFlag       bool
+	startDate            string // 开始日期
+	startDateFlag        bool
+	endDate              string // 结束日期
+	endDateFlag          bool
+	levelOfEducation     string // 学历, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "level_of_education"
+	levelOfEducationFlag bool
+	fieldOfStudy         string // 专业
+	fieldOfStudyFlag     bool
+	degree               string // 学位,枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "degree"
+	degreeFlag           bool
+	fieldOfStudyEnum     string // "专业，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""field_of_study_name"""
+	fieldOfStudyEnumFlag bool
+	customFields         []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag     bool
+}
+
+func NewProfileSettingEducationBuilder() *ProfileSettingEducationBuilder {
+	builder := &ProfileSettingEducationBuilder{}
+	return builder
+}
+
+// 学校
+//
+// 示例值：北京大学
+func (builder *ProfileSettingEducationBuilder) School(school string) *ProfileSettingEducationBuilder {
+	builder.school = school
+	builder.schoolFlag = true
+	return builder
+}
+
+// "学校, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""school_name"""
+//
+// 示例值：school-177
+func (builder *ProfileSettingEducationBuilder) SchoolEnum(schoolEnum string) *ProfileSettingEducationBuilder {
+	builder.schoolEnum = schoolEnum
+	builder.schoolEnumFlag = true
+	return builder
+}
+
+// 开始日期
+//
+// 示例值：2011-09-01
+func (builder *ProfileSettingEducationBuilder) StartDate(startDate string) *ProfileSettingEducationBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 结束日期
+//
+// 示例值：2015-06-30
+func (builder *ProfileSettingEducationBuilder) EndDate(endDate string) *ProfileSettingEducationBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 学历, 枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "level_of_education"
+//
+// 示例值：masters_degree
+func (builder *ProfileSettingEducationBuilder) LevelOfEducation(levelOfEducation string) *ProfileSettingEducationBuilder {
+	builder.levelOfEducation = levelOfEducation
+	builder.levelOfEducationFlag = true
+	return builder
+}
+
+// 专业
+//
+// 示例值：软件工程
+func (builder *ProfileSettingEducationBuilder) FieldOfStudy(fieldOfStudy string) *ProfileSettingEducationBuilder {
+	builder.fieldOfStudy = fieldOfStudy
+	builder.fieldOfStudyFlag = true
+	return builder
+}
+
+// 学位,枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "education" custom_api_name = "degree"
+//
+// 示例值：bachelors_degree
+func (builder *ProfileSettingEducationBuilder) Degree(degree string) *ProfileSettingEducationBuilder {
+	builder.degree = degree
+	builder.degreeFlag = true
+	return builder
+}
+
+// "专业，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = ""education"" custom_api_name = ""field_of_study_name"""
+//
+// 示例值：field_of_study-2
+func (builder *ProfileSettingEducationBuilder) FieldOfStudyEnum(fieldOfStudyEnum string) *ProfileSettingEducationBuilder {
+	builder.fieldOfStudyEnum = fieldOfStudyEnum
+	builder.fieldOfStudyEnumFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingEducationBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingEducationBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEducationBuilder) Build() *ProfileSettingEducation {
+	req := &ProfileSettingEducation{}
+	if builder.schoolFlag {
+		req.School = &builder.school
+
+	}
+	if builder.schoolEnumFlag {
+		req.SchoolEnum = &builder.schoolEnum
+
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.levelOfEducationFlag {
+		req.LevelOfEducation = &builder.levelOfEducation
+
+	}
+	if builder.fieldOfStudyFlag {
+		req.FieldOfStudy = &builder.fieldOfStudy
+
+	}
+	if builder.degreeFlag {
+		req.Degree = &builder.degree
+
+	}
+	if builder.fieldOfStudyEnumFlag {
+		req.FieldOfStudyEnum = &builder.fieldOfStudyEnum
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingEmergencyContact struct {
+	LegalName    *string                      `json:"legal_name,omitempty"`    // 姓名
+	Relationship *string                      `json:"relationship,omitempty"`  // 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "emergency_contract" custom_api_name = "relationship"
+	IsPrimary    *bool                        `json:"is_primary,omitempty"`    // 主要联系人
+	Phone        *ProfileSettingPhone         `json:"phone,omitempty"`         // 电话
+	Email        *string                      `json:"email,omitempty"`         // 邮箱
+	Address      *ProfileSettingAddress       `json:"address,omitempty"`       // 地址
+	CustomFields []*ProfileSettingCustomField `json:"custom_fields,omitempty"` // 自定义字段
+}
+
+type ProfileSettingEmergencyContactBuilder struct {
+	legalName        string // 姓名
+	legalNameFlag    bool
+	relationship     string // 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "emergency_contract" custom_api_name = "relationship"
+	relationshipFlag bool
+	isPrimary        bool // 主要联系人
+	isPrimaryFlag    bool
+	phone            *ProfileSettingPhone // 电话
+	phoneFlag        bool
+	email            string // 邮箱
+	emailFlag        bool
+	address          *ProfileSettingAddress // 地址
+	addressFlag      bool
+	customFields     []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag bool
+}
+
+func NewProfileSettingEmergencyContactBuilder() *ProfileSettingEmergencyContactBuilder {
+	builder := &ProfileSettingEmergencyContactBuilder{}
+	return builder
+}
+
+// 姓名
+//
+// 示例值：王大帅
+func (builder *ProfileSettingEmergencyContactBuilder) LegalName(legalName string) *ProfileSettingEmergencyContactBuilder {
+	builder.legalName = legalName
+	builder.legalNameFlag = true
+	return builder
+}
+
+// 关系，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "emergency_contract" custom_api_name = "relationship"
+//
+// 示例值：parent
+func (builder *ProfileSettingEmergencyContactBuilder) Relationship(relationship string) *ProfileSettingEmergencyContactBuilder {
+	builder.relationship = relationship
+	builder.relationshipFlag = true
+	return builder
+}
+
+// 主要联系人
+//
+// 示例值：true
+func (builder *ProfileSettingEmergencyContactBuilder) IsPrimary(isPrimary bool) *ProfileSettingEmergencyContactBuilder {
+	builder.isPrimary = isPrimary
+	builder.isPrimaryFlag = true
+	return builder
+}
+
+// 电话
+//
+// 示例值：
+func (builder *ProfileSettingEmergencyContactBuilder) Phone(phone *ProfileSettingPhone) *ProfileSettingEmergencyContactBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：1234567@example.feishu.cn
+func (builder *ProfileSettingEmergencyContactBuilder) Email(email string) *ProfileSettingEmergencyContactBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 地址
+//
+// 示例值：
+func (builder *ProfileSettingEmergencyContactBuilder) Address(address *ProfileSettingAddress) *ProfileSettingEmergencyContactBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingEmergencyContactBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingEmergencyContactBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmergencyContactBuilder) Build() *ProfileSettingEmergencyContact {
+	req := &ProfileSettingEmergencyContact{}
+	if builder.legalNameFlag {
+		req.LegalName = &builder.legalName
+
+	}
+	if builder.relationshipFlag {
+		req.Relationship = &builder.relationship
+
+	}
+	if builder.isPrimaryFlag {
+		req.IsPrimary = &builder.isPrimary
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.addressFlag {
+		req.Address = builder.address
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingEmpBasicInfoForUpdate struct {
+	EmployeeNumber           *string                      `json:"employee_number,omitempty"`             // 员工工号
+	RegularEmployeeStartDate *string                      `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	SeniorityDate            *string                      `json:"seniority_date,omitempty"`              // 资历起算日期
+	WorkEmail                *string                      `json:"work_email,omitempty"`                  // 工作邮箱
+	Phone                    *ProfileSettingPhone         `json:"phone,omitempty"`                       // 工作电话
+	CustomFields             []*ProfileSettingCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+}
+
+type ProfileSettingEmpBasicInfoForUpdateBuilder struct {
+	employeeNumber               string // 员工工号
+	employeeNumberFlag           bool
+	regularEmployeeStartDate     string // 转正式员工日期
+	regularEmployeeStartDateFlag bool
+	seniorityDate                string // 资历起算日期
+	seniorityDateFlag            bool
+	workEmail                    string // 工作邮箱
+	workEmailFlag                bool
+	phone                        *ProfileSettingPhone // 工作电话
+	phoneFlag                    bool
+	customFields                 []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag             bool
+}
+
+func NewProfileSettingEmpBasicInfoForUpdateBuilder() *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder := &ProfileSettingEmpBasicInfoForUpdateBuilder{}
+	return builder
+}
+
+// 员工工号
+//
+// 示例值：1000000
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) EmployeeNumber(employeeNumber string) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.employeeNumber = employeeNumber
+	builder.employeeNumberFlag = true
+	return builder
+}
+
+// 转正式员工日期
+//
+// 示例值：2021-02-01
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) RegularEmployeeStartDate(regularEmployeeStartDate string) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.regularEmployeeStartDate = regularEmployeeStartDate
+	builder.regularEmployeeStartDateFlag = true
+	return builder
+}
+
+// 资历起算日期
+//
+// 示例值：2021-02-01
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) SeniorityDate(seniorityDate string) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.seniorityDate = seniorityDate
+	builder.seniorityDateFlag = true
+	return builder
+}
+
+// 工作邮箱
+//
+// 示例值：12456@test.com
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) WorkEmail(workEmail string) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.workEmail = workEmail
+	builder.workEmailFlag = true
+	return builder
+}
+
+// 工作电话
+//
+// 示例值：
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) Phone(phone *ProfileSettingPhone) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingEmpBasicInfoForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmpBasicInfoForUpdateBuilder) Build() *ProfileSettingEmpBasicInfoForUpdate {
+	req := &ProfileSettingEmpBasicInfoForUpdate{}
+	if builder.employeeNumberFlag {
+		req.EmployeeNumber = &builder.employeeNumber
+
+	}
+	if builder.regularEmployeeStartDateFlag {
+		req.RegularEmployeeStartDate = &builder.regularEmployeeStartDate
+
+	}
+	if builder.seniorityDateFlag {
+		req.SeniorityDate = &builder.seniorityDate
+
+	}
+	if builder.workEmailFlag {
+		req.WorkEmail = &builder.workEmail
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingEmpContractRecord struct {
+	ContractNumber  *string `json:"contract_number,omitempty"`   // 合同协议编号
+	ContractType    *string `json:"contract_type,omitempty"`     // 合同类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "contract_type"
+	FirstParty      *string `json:"first_party,omitempty"`       // 甲方公司 ID, 引用Company的ID，详细信息可通过【查询单个公司】接口查询获得
+	EffectiveTime   *string `json:"effective_time,omitempty"`    // 合同开始日期
+	DurationType    *string `json:"duration_type,omitempty"`     // 期限类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "duration_type"
+	ContractEndDate *string `json:"contract_end_date,omitempty"` // 合同结束日期
+}
+
+type ProfileSettingEmpContractRecordBuilder struct {
+	contractNumber      string // 合同协议编号
+	contractNumberFlag  bool
+	contractType        string // 合同类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "contract_type"
+	contractTypeFlag    bool
+	firstParty          string // 甲方公司 ID, 引用Company的ID，详细信息可通过【查询单个公司】接口查询获得
+	firstPartyFlag      bool
+	effectiveTime       string // 合同开始日期
+	effectiveTimeFlag   bool
+	durationType        string // 期限类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "duration_type"
+	durationTypeFlag    bool
+	contractEndDate     string // 合同结束日期
+	contractEndDateFlag bool
+}
+
+func NewProfileSettingEmpContractRecordBuilder() *ProfileSettingEmpContractRecordBuilder {
+	builder := &ProfileSettingEmpContractRecordBuilder{}
+	return builder
+}
+
+// 合同协议编号
+//
+// 示例值：6919737965274990093
+func (builder *ProfileSettingEmpContractRecordBuilder) ContractNumber(contractNumber string) *ProfileSettingEmpContractRecordBuilder {
+	builder.contractNumber = contractNumber
+	builder.contractNumberFlag = true
+	return builder
+}
+
+// 合同类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "contract_type"
+//
+// 示例值：labor_contract
+func (builder *ProfileSettingEmpContractRecordBuilder) ContractType(contractType string) *ProfileSettingEmpContractRecordBuilder {
+	builder.contractType = contractType
+	builder.contractTypeFlag = true
+	return builder
+}
+
+// 甲方公司 ID, 引用Company的ID，详细信息可通过【查询单个公司】接口查询获得
+//
+// 示例值：6892686614112241165
+func (builder *ProfileSettingEmpContractRecordBuilder) FirstParty(firstParty string) *ProfileSettingEmpContractRecordBuilder {
+	builder.firstParty = firstParty
+	builder.firstPartyFlag = true
+	return builder
+}
+
+// 合同开始日期
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingEmpContractRecordBuilder) EffectiveTime(effectiveTime string) *ProfileSettingEmpContractRecordBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 期限类型，枚举值可选项 可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "contract" custom_api_name = "duration_type"
+//
+// 示例值：fixed_term
+func (builder *ProfileSettingEmpContractRecordBuilder) DurationType(durationType string) *ProfileSettingEmpContractRecordBuilder {
+	builder.durationType = durationType
+	builder.durationTypeFlag = true
+	return builder
+}
+
+// 合同结束日期
+//
+// 示例值：2050-01-01
+func (builder *ProfileSettingEmpContractRecordBuilder) ContractEndDate(contractEndDate string) *ProfileSettingEmpContractRecordBuilder {
+	builder.contractEndDate = contractEndDate
+	builder.contractEndDateFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmpContractRecordBuilder) Build() *ProfileSettingEmpContractRecord {
+	req := &ProfileSettingEmpContractRecord{}
+	if builder.contractNumberFlag {
+		req.ContractNumber = &builder.contractNumber
+
+	}
+	if builder.contractTypeFlag {
+		req.ContractType = &builder.contractType
+
+	}
+	if builder.firstPartyFlag {
+		req.FirstParty = &builder.firstParty
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.durationTypeFlag {
+		req.DurationType = &builder.durationType
+
+	}
+	if builder.contractEndDateFlag {
+		req.ContractEndDate = &builder.contractEndDate
+
+	}
+	return req
+}
+
+type ProfileSettingEmpInfoForUpdate struct {
+	BasicInfo     *ProfileSettingEmpBasicInfoForUpdate `json:"basic_info,omitempty"`     // 基本信息
+	ProbationInfo *ProfileSettingProbationInfo         `json:"probation_info,omitempty"` // 试用期信息
+}
+
+type ProfileSettingEmpInfoForUpdateBuilder struct {
+	basicInfo         *ProfileSettingEmpBasicInfoForUpdate // 基本信息
+	basicInfoFlag     bool
+	probationInfo     *ProfileSettingProbationInfo // 试用期信息
+	probationInfoFlag bool
+}
+
+func NewProfileSettingEmpInfoForUpdateBuilder() *ProfileSettingEmpInfoForUpdateBuilder {
+	builder := &ProfileSettingEmpInfoForUpdateBuilder{}
+	return builder
+}
+
+// 基本信息
+//
+// 示例值：
+func (builder *ProfileSettingEmpInfoForUpdateBuilder) BasicInfo(basicInfo *ProfileSettingEmpBasicInfoForUpdate) *ProfileSettingEmpInfoForUpdateBuilder {
+	builder.basicInfo = basicInfo
+	builder.basicInfoFlag = true
+	return builder
+}
+
+// 试用期信息
+//
+// 示例值：
+func (builder *ProfileSettingEmpInfoForUpdateBuilder) ProbationInfo(probationInfo *ProfileSettingProbationInfo) *ProfileSettingEmpInfoForUpdateBuilder {
+	builder.probationInfo = probationInfo
+	builder.probationInfoFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmpInfoForUpdateBuilder) Build() *ProfileSettingEmpInfoForUpdate {
+	req := &ProfileSettingEmpInfoForUpdate{}
+	if builder.basicInfoFlag {
+		req.BasicInfo = builder.basicInfo
+	}
+	if builder.probationInfoFlag {
+		req.ProbationInfo = builder.probationInfo
+	}
+	return req
+}
+
+type ProfileSettingEmploymentBasicInfo struct {
+	EmployeeNumber *string `json:"employee_number,omitempty"` // 员工编号
+
+	EffectiveTime            *string                      `json:"effective_time,omitempty"`              // 入职日期
+	RegularEmployeeStartDate *string                      `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	SeniorityDate            *string                      `json:"seniority_date,omitempty"`              // 资历起算日期
+	WorkEmail                *string                      `json:"work_email,omitempty"`                  // 工作邮箱
+	Phone                    *ProfileSettingPhone         `json:"phone,omitempty"`                       // 工作电话
+	CustomFields             []*ProfileSettingCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+}
+
+type ProfileSettingEmploymentBasicInfoBuilder struct {
+	employeeNumber     string // 员工编号
+	employeeNumberFlag bool
+
+	effectiveTime                string // 入职日期
+	effectiveTimeFlag            bool
+	regularEmployeeStartDate     string // 转正式员工日期
+	regularEmployeeStartDateFlag bool
+	seniorityDate                string // 资历起算日期
+	seniorityDateFlag            bool
+	workEmail                    string // 工作邮箱
+	workEmailFlag                bool
+	phone                        *ProfileSettingPhone // 工作电话
+	phoneFlag                    bool
+	customFields                 []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag             bool
+}
+
+func NewProfileSettingEmploymentBasicInfoBuilder() *ProfileSettingEmploymentBasicInfoBuilder {
+	builder := &ProfileSettingEmploymentBasicInfoBuilder{}
+	return builder
+}
+
+// 员工编号
+//
+// 示例值：1000000
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) EmployeeNumber(employeeNumber string) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.employeeNumber = employeeNumber
+	builder.employeeNumberFlag = true
+	return builder
+}
+
+// 入职日期
+//
+// 示例值：2021-01-01
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) EffectiveTime(effectiveTime string) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 转正式员工日期
+//
+// 示例值：2021-02-01
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) RegularEmployeeStartDate(regularEmployeeStartDate string) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.regularEmployeeStartDate = regularEmployeeStartDate
+	builder.regularEmployeeStartDateFlag = true
+	return builder
+}
+
+// 资历起算日期
+//
+// 示例值：2020-01-01
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) SeniorityDate(seniorityDate string) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.seniorityDate = seniorityDate
+	builder.seniorityDateFlag = true
+	return builder
+}
+
+// 工作邮箱
+//
+// 示例值：12456@test.com
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) WorkEmail(workEmail string) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.workEmail = workEmail
+	builder.workEmailFlag = true
+	return builder
+}
+
+// 工作电话
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) Phone(phone *ProfileSettingPhone) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingEmploymentBasicInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmploymentBasicInfoBuilder) Build() *ProfileSettingEmploymentBasicInfo {
+	req := &ProfileSettingEmploymentBasicInfo{}
+	if builder.employeeNumberFlag {
+		req.EmployeeNumber = &builder.employeeNumber
+
+	}
+
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.regularEmployeeStartDateFlag {
+		req.RegularEmployeeStartDate = &builder.regularEmployeeStartDate
+
+	}
+	if builder.seniorityDateFlag {
+		req.SeniorityDate = &builder.seniorityDate
+
+	}
+	if builder.workEmailFlag {
+		req.WorkEmail = &builder.workEmail
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingEmploymentInfo struct {
+	BasicInfo         *ProfileSettingEmploymentBasicInfo `json:"basic_info,omitempty"`          // 基本信息
+	ProbationInfo     *ProfileSettingProbationInfo       `json:"probation_info,omitempty"`      // 试用期信息
+	EmploymentRecord  *ProfileSettingEmploymentRecord    `json:"employment_record,omitempty"`   // 任职记录
+	EmpContractRecord *ProfileSettingEmpContractRecord   `json:"emp_contract_record,omitempty"` // 合同记录
+}
+
+type ProfileSettingEmploymentInfoBuilder struct {
+	basicInfo             *ProfileSettingEmploymentBasicInfo // 基本信息
+	basicInfoFlag         bool
+	probationInfo         *ProfileSettingProbationInfo // 试用期信息
+	probationInfoFlag     bool
+	employmentRecord      *ProfileSettingEmploymentRecord // 任职记录
+	employmentRecordFlag  bool
+	empContractRecord     *ProfileSettingEmpContractRecord // 合同记录
+	empContractRecordFlag bool
+}
+
+func NewProfileSettingEmploymentInfoBuilder() *ProfileSettingEmploymentInfoBuilder {
+	builder := &ProfileSettingEmploymentInfoBuilder{}
+	return builder
+}
+
+// 基本信息
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) BasicInfo(basicInfo *ProfileSettingEmploymentBasicInfo) *ProfileSettingEmploymentInfoBuilder {
+	builder.basicInfo = basicInfo
+	builder.basicInfoFlag = true
+	return builder
+}
+
+// 试用期信息
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) ProbationInfo(probationInfo *ProfileSettingProbationInfo) *ProfileSettingEmploymentInfoBuilder {
+	builder.probationInfo = probationInfo
+	builder.probationInfoFlag = true
+	return builder
+}
+
+// 任职记录
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) EmploymentRecord(employmentRecord *ProfileSettingEmploymentRecord) *ProfileSettingEmploymentInfoBuilder {
+	builder.employmentRecord = employmentRecord
+	builder.employmentRecordFlag = true
+	return builder
+}
+
+// 合同记录
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) EmpContractRecord(empContractRecord *ProfileSettingEmpContractRecord) *ProfileSettingEmploymentInfoBuilder {
+	builder.empContractRecord = empContractRecord
+	builder.empContractRecordFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmploymentInfoBuilder) Build() *ProfileSettingEmploymentInfo {
+	req := &ProfileSettingEmploymentInfo{}
+	if builder.basicInfoFlag {
+		req.BasicInfo = builder.basicInfo
+	}
+	if builder.probationInfoFlag {
+		req.ProbationInfo = builder.probationInfo
+	}
+	if builder.employmentRecordFlag {
+		req.EmploymentRecord = builder.employmentRecord
+	}
+	if builder.empContractRecordFlag {
+		req.EmpContractRecord = builder.empContractRecord
+	}
+	return req
+}
+
+type ProfileSettingEmploymentRecord struct {
+	EmployeeType                   *string                     `json:"employee_type,omitempty"`                      // 人员类型 ID
+	Department                     *string                     `json:"department,omitempty"`                         // 部门 ID
+	DirectManager                  *string                     `json:"direct_manager,omitempty"`                     // 实线主管雇佣ID
+	WorkingHoursType               *string                     `json:"working_hours_type,omitempty"`                 // 工时制度 ID
+	CostCenters                    []*ProfileSettingCostCenter `json:"cost_centers,omitempty"`                       // 成本中心分摊信息
+	DirectManagerEffectiveTime     *string                     `json:"direct_manager_effective_time,omitempty"`      // 实线主管入职日期
+	DottedLineManager              *string                     `json:"dotted_line_manager,omitempty"`                // 虚线主管雇佣ID
+	DottedLineManagerEffectiveTime *string                     `json:"dotted_line_manager_effective_time,omitempty"` // 虚线主管入职日期
+	Job                            *string                     `json:"job,omitempty"`                                // 职务 ID
+	JobFamily                      *string                     `json:"job_family,omitempty"`                         // 职务序列 ID
+	JobLevel                       *string                     `json:"job_level,omitempty"`                          // 职务级别 ID
+	JobGrade                       *string                     `json:"job_grade,omitempty"`                          // 职等 ID
+	WorkLocation                   *string                     `json:"work_location,omitempty"`                      // 工作地点 ID
+	WeeklyWorkingHours             *int                        `json:"weekly_working_hours,omitempty"`               // 周工作时长
+}
+
+type ProfileSettingEmploymentRecordBuilder struct {
+	employeeType                       string // 人员类型 ID
+	employeeTypeFlag                   bool
+	department                         string // 部门 ID
+	departmentFlag                     bool
+	directManager                      string // 实线主管雇佣ID
+	directManagerFlag                  bool
+	workingHoursType                   string // 工时制度 ID
+	workingHoursTypeFlag               bool
+	costCenters                        []*ProfileSettingCostCenter // 成本中心分摊信息
+	costCentersFlag                    bool
+	directManagerEffectiveTime         string // 实线主管入职日期
+	directManagerEffectiveTimeFlag     bool
+	dottedLineManager                  string // 虚线主管雇佣ID
+	dottedLineManagerFlag              bool
+	dottedLineManagerEffectiveTime     string // 虚线主管入职日期
+	dottedLineManagerEffectiveTimeFlag bool
+	job                                string // 职务 ID
+	jobFlag                            bool
+	jobFamily                          string // 职务序列 ID
+	jobFamilyFlag                      bool
+	jobLevel                           string // 职务级别 ID
+	jobLevelFlag                       bool
+	jobGrade                           string // 职等 ID
+	jobGradeFlag                       bool
+	workLocation                       string // 工作地点 ID
+	workLocationFlag                   bool
+	weeklyWorkingHours                 int // 周工作时长
+	weeklyWorkingHoursFlag             bool
+}
+
+func NewProfileSettingEmploymentRecordBuilder() *ProfileSettingEmploymentRecordBuilder {
+	builder := &ProfileSettingEmploymentRecordBuilder{}
+	return builder
+}
+
+// 人员类型 ID
+//
+// 示例值：6890452208593372679
+func (builder *ProfileSettingEmploymentRecordBuilder) EmployeeType(employeeType string) *ProfileSettingEmploymentRecordBuilder {
+	builder.employeeType = employeeType
+	builder.employeeTypeFlag = true
+	return builder
+}
+
+// 部门 ID
+//
+// 示例值：6890452208593372679
+func (builder *ProfileSettingEmploymentRecordBuilder) Department(department string) *ProfileSettingEmploymentRecordBuilder {
+	builder.department = department
+	builder.departmentFlag = true
+	return builder
+}
+
+// 实线主管雇佣ID
+//
+// 示例值：6893014062142064135
+func (builder *ProfileSettingEmploymentRecordBuilder) DirectManager(directManager string) *ProfileSettingEmploymentRecordBuilder {
+	builder.directManager = directManager
+	builder.directManagerFlag = true
+	return builder
+}
+
+// 工时制度 ID
+//
+// 示例值：6890452208593372600
+func (builder *ProfileSettingEmploymentRecordBuilder) WorkingHoursType(workingHoursType string) *ProfileSettingEmploymentRecordBuilder {
+	builder.workingHoursType = workingHoursType
+	builder.workingHoursTypeFlag = true
+	return builder
+}
+
+// 成本中心分摊信息
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentRecordBuilder) CostCenters(costCenters []*ProfileSettingCostCenter) *ProfileSettingEmploymentRecordBuilder {
+	builder.costCenters = costCenters
+	builder.costCentersFlag = true
+	return builder
+}
+
+// 实线主管入职日期
+//
+// 示例值：2020-01-01
+func (builder *ProfileSettingEmploymentRecordBuilder) DirectManagerEffectiveTime(directManagerEffectiveTime string) *ProfileSettingEmploymentRecordBuilder {
+	builder.directManagerEffectiveTime = directManagerEffectiveTime
+	builder.directManagerEffectiveTimeFlag = true
+	return builder
+}
+
+// 虚线主管雇佣ID
+//
+// 示例值：6893014062142064136
+func (builder *ProfileSettingEmploymentRecordBuilder) DottedLineManager(dottedLineManager string) *ProfileSettingEmploymentRecordBuilder {
+	builder.dottedLineManager = dottedLineManager
+	builder.dottedLineManagerFlag = true
+	return builder
+}
+
+// 虚线主管入职日期
+//
+// 示例值：2020-01-01
+func (builder *ProfileSettingEmploymentRecordBuilder) DottedLineManagerEffectiveTime(dottedLineManagerEffectiveTime string) *ProfileSettingEmploymentRecordBuilder {
+	builder.dottedLineManagerEffectiveTime = dottedLineManagerEffectiveTime
+	builder.dottedLineManagerEffectiveTimeFlag = true
+	return builder
+}
+
+// 职务 ID
+//
+// 示例值：6890452208593372679
+func (builder *ProfileSettingEmploymentRecordBuilder) Job(job string) *ProfileSettingEmploymentRecordBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+
+// 职务序列 ID
+//
+// 示例值：6890452208593372680
+func (builder *ProfileSettingEmploymentRecordBuilder) JobFamily(jobFamily string) *ProfileSettingEmploymentRecordBuilder {
+	builder.jobFamily = jobFamily
+	builder.jobFamilyFlag = true
+	return builder
+}
+
+// 职务级别 ID
+//
+// 示例值：6890452208593372681
+func (builder *ProfileSettingEmploymentRecordBuilder) JobLevel(jobLevel string) *ProfileSettingEmploymentRecordBuilder {
+	builder.jobLevel = jobLevel
+	builder.jobLevelFlag = true
+	return builder
+}
+
+// 职等 ID
+//
+// 示例值：6890452208593372682
+func (builder *ProfileSettingEmploymentRecordBuilder) JobGrade(jobGrade string) *ProfileSettingEmploymentRecordBuilder {
+	builder.jobGrade = jobGrade
+	builder.jobGradeFlag = true
+	return builder
+}
+
+// 工作地点 ID
+//
+// 示例值：6890452208593372683
+func (builder *ProfileSettingEmploymentRecordBuilder) WorkLocation(workLocation string) *ProfileSettingEmploymentRecordBuilder {
+	builder.workLocation = workLocation
+	builder.workLocationFlag = true
+	return builder
+}
+
+// 周工作时长
+//
+// 示例值：100
+func (builder *ProfileSettingEmploymentRecordBuilder) WeeklyWorkingHours(weeklyWorkingHours int) *ProfileSettingEmploymentRecordBuilder {
+	builder.weeklyWorkingHours = weeklyWorkingHours
+	builder.weeklyWorkingHoursFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingEmploymentRecordBuilder) Build() *ProfileSettingEmploymentRecord {
+	req := &ProfileSettingEmploymentRecord{}
+	if builder.employeeTypeFlag {
+		req.EmployeeType = &builder.employeeType
+
+	}
+	if builder.departmentFlag {
+		req.Department = &builder.department
+
+	}
+	if builder.directManagerFlag {
+		req.DirectManager = &builder.directManager
+
+	}
+	if builder.workingHoursTypeFlag {
+		req.WorkingHoursType = &builder.workingHoursType
+
+	}
+	if builder.costCentersFlag {
+		req.CostCenters = builder.costCenters
+	}
+	if builder.directManagerEffectiveTimeFlag {
+		req.DirectManagerEffectiveTime = &builder.directManagerEffectiveTime
+
+	}
+	if builder.dottedLineManagerFlag {
+		req.DottedLineManager = &builder.dottedLineManager
+
+	}
+	if builder.dottedLineManagerEffectiveTimeFlag {
+		req.DottedLineManagerEffectiveTime = &builder.dottedLineManagerEffectiveTime
+
+	}
+	if builder.jobFlag {
+		req.Job = &builder.job
+
+	}
+	if builder.jobFamilyFlag {
+		req.JobFamily = &builder.jobFamily
+
+	}
+	if builder.jobLevelFlag {
+		req.JobLevel = &builder.jobLevel
+
+	}
+	if builder.jobGradeFlag {
+		req.JobGrade = &builder.jobGrade
+
+	}
+	if builder.workLocationFlag {
+		req.WorkLocation = &builder.workLocation
+
+	}
+	if builder.weeklyWorkingHoursFlag {
+		req.WeeklyWorkingHours = &builder.weeklyWorkingHours
+
+	}
+	return req
+}
+
+type ProfileSettingFieldError struct {
+	FieldName *string `json:"field_name,omitempty"` // 字段路径
+	ErrorMsg  *string `json:"error_msg,omitempty"`  // 报错信息
+}
+
+type ProfileSettingFieldErrorBuilder struct {
+	fieldName     string // 字段路径
+	fieldNameFlag bool
+	errorMsg      string // 报错信息
+	errorMsgFlag  bool
+}
+
+func NewProfileSettingFieldErrorBuilder() *ProfileSettingFieldErrorBuilder {
+	builder := &ProfileSettingFieldErrorBuilder{}
+	return builder
+}
+
+// 字段路径
+//
+// 示例值：emp_contract_record.0.effective_time
+func (builder *ProfileSettingFieldErrorBuilder) FieldName(fieldName string) *ProfileSettingFieldErrorBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+// 报错信息
+//
+// 示例值：填写过程中新增以下必填信息 effective_time 等，请填写后重试
+func (builder *ProfileSettingFieldErrorBuilder) ErrorMsg(errorMsg string) *ProfileSettingFieldErrorBuilder {
+	builder.errorMsg = errorMsg
+	builder.errorMsgFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingFieldErrorBuilder) Build() *ProfileSettingFieldError {
+	req := &ProfileSettingFieldError{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.errorMsgFlag {
+		req.ErrorMsg = &builder.errorMsg
+
+	}
+	return req
+}
+
+type ProfileSettingFile struct {
+	FileId   *string `json:"file_id,omitempty"`   // 文件ID
+	MimeType *string `json:"mime_type,omitempty"` // 文件MIME类型
+	Name     *string `json:"name,omitempty"`      // 文件名
+	Size     *string `json:"size,omitempty"`      // 文件大小(KB)
+	Token    *string `json:"token,omitempty"`     // 文件token
+}
+
+type ProfileSettingFileBuilder struct {
+	fileId       string // 文件ID
+	fileIdFlag   bool
+	mimeType     string // 文件MIME类型
+	mimeTypeFlag bool
+	name         string // 文件名
+	nameFlag     bool
+	size         string // 文件大小(KB)
+	sizeFlag     bool
+	token        string // 文件token
+	tokenFlag    bool
+}
+
+func NewProfileSettingFileBuilder() *ProfileSettingFileBuilder {
+	builder := &ProfileSettingFileBuilder{}
+	return builder
+}
+
+// 文件ID
+//
+// 示例值：150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200
+func (builder *ProfileSettingFileBuilder) FileId(fileId string) *ProfileSettingFileBuilder {
+	builder.fileId = fileId
+	builder.fileIdFlag = true
+	return builder
+}
+
+// 文件MIME类型
+//
+// 示例值：zip
+func (builder *ProfileSettingFileBuilder) MimeType(mimeType string) *ProfileSettingFileBuilder {
+	builder.mimeType = mimeType
+	builder.mimeTypeFlag = true
+	return builder
+}
+
+// 文件名
+//
+// 示例值：附件.zip
+func (builder *ProfileSettingFileBuilder) Name(name string) *ProfileSettingFileBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 文件大小(KB)
+//
+// 示例值：1000
+func (builder *ProfileSettingFileBuilder) Size(size string) *ProfileSettingFileBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+// 文件token
+//
+// 示例值：0a423bc7ea7c4a439d066bf070616782
+func (builder *ProfileSettingFileBuilder) Token(token string) *ProfileSettingFileBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingFileBuilder) Build() *ProfileSettingFile {
+	req := &ProfileSettingFile{}
+	if builder.fileIdFlag {
+		req.FileId = &builder.fileId
+
+	}
+	if builder.mimeTypeFlag {
+		req.MimeType = &builder.mimeType
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+type ProfileSettingHukou struct {
+	HukouType     *string                      `json:"hukou_type,omitempty"`     // 户口类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "hukou_type"
+	HukouLocation *string                      `json:"hukou_location,omitempty"` // 户口所在地
+	CustomFields  []*ProfileSettingCustomField `json:"custom_fields,omitempty"`  // 自定义字段
+}
+
+type ProfileSettingHukouBuilder struct {
+	hukouType         string // 户口类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "hukou_type"
+	hukouTypeFlag     bool
+	hukouLocation     string // 户口所在地
+	hukouLocationFlag bool
+	customFields      []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag  bool
+}
+
+func NewProfileSettingHukouBuilder() *ProfileSettingHukouBuilder {
+	builder := &ProfileSettingHukouBuilder{}
+	return builder
+}
+
+// 户口类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "hukou_type"
+//
+// 示例值：local_urban_residence
+func (builder *ProfileSettingHukouBuilder) HukouType(hukouType string) *ProfileSettingHukouBuilder {
+	builder.hukouType = hukouType
+	builder.hukouTypeFlag = true
+	return builder
+}
+
+// 户口所在地
+//
+// 示例值：北京
+func (builder *ProfileSettingHukouBuilder) HukouLocation(hukouLocation string) *ProfileSettingHukouBuilder {
+	builder.hukouLocation = hukouLocation
+	builder.hukouLocationFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingHukouBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingHukouBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingHukouBuilder) Build() *ProfileSettingHukou {
+	req := &ProfileSettingHukou{}
+	if builder.hukouTypeFlag {
+		req.HukouType = &builder.hukouType
+
+	}
+	if builder.hukouLocationFlag {
+		req.HukouLocation = &builder.hukouLocation
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingI18n struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文
+	EnUs *string `json:"en_us,omitempty"` // 英文
+}
+
+type ProfileSettingI18nBuilder struct {
+	zhCn     string // 中文
+	zhCnFlag bool
+	enUs     string // 英文
+	enUsFlag bool
+}
+
+func NewProfileSettingI18nBuilder() *ProfileSettingI18nBuilder {
+	builder := &ProfileSettingI18nBuilder{}
+	return builder
+}
+
+// 中文
+//
+// 示例值：中文名
+func (builder *ProfileSettingI18nBuilder) ZhCn(zhCn string) *ProfileSettingI18nBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+
+// 英文
+//
+// 示例值：english name
+func (builder *ProfileSettingI18nBuilder) EnUs(enUs string) *ProfileSettingI18nBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingI18nBuilder) Build() *ProfileSettingI18n {
+	req := &ProfileSettingI18n{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+type ProfileSettingName struct {
+	AdditionalNameType *string `json:"additional_name_type,omitempty"` // 补充姓名类型, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "additional_name_type"
+	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID
+	FullName           *string `json:"full_name,omitempty"`            // 全名
+	Hereditary         *string `json:"hereditary,omitempty"`           // 姓氏称谓
+	MiddleName         *string `json:"middle_name,omitempty"`          // 中间名
+	Secondary          *string `json:"secondary,omitempty"`            // 第二姓氏
+	Social             *string `json:"social,omitempty"`               // 尊称,枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "social"
+	Tertiary           *string `json:"tertiary,omitempty"`             // 婚后姓氏
+	LocalFirstName2    *string `json:"local_first_name_2,omitempty"`   // 名 - 第二本地文字
+	LocalMiddleName    *string `json:"local_middle_name,omitempty"`    // 本地中间名
+	LocalPrimary       *string `json:"local_primary,omitempty"`        // 姓 - 本地文字
+	LocalPrimary2      *string `json:"local_primary_2,omitempty"`      // 姓 - 第二本地文字
+	LocalSecondary     *string `json:"local_secondary,omitempty"`      // 第二姓氏 - 本地文字
+	Title              *string `json:"title,omitempty"`                // 头衔, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "title"
+	LocalFirstName     *string `json:"local_first_name,omitempty"`     // 名 - 本地文字
+	CustomLocalName    *string `json:"custom_local_name,omitempty"`    // 自定义姓名（本地文字）
+	CustomWesternName  *string `json:"custom_western_name,omitempty"`  // 自定义姓名（西方文字）
+	NameType           *string `json:"name_type,omitempty"`            // 姓名类型
+	FirstName          *string `json:"first_name,omitempty"`           // 名
+	NamePrimary        *string `json:"name_primary,omitempty"`         // 姓
+}
+
+type ProfileSettingNameBuilder struct {
+	additionalNameType     string // 补充姓名类型, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "additional_name_type"
+	additionalNameTypeFlag bool
+	countryRegion          string // 国家 / 地区 ID
+	countryRegionFlag      bool
+	fullName               string // 全名
+	fullNameFlag           bool
+	hereditary             string // 姓氏称谓
+	hereditaryFlag         bool
+	middleName             string // 中间名
+	middleNameFlag         bool
+	secondary              string // 第二姓氏
+	secondaryFlag          bool
+	social                 string // 尊称,枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "social"
+	socialFlag             bool
+	tertiary               string // 婚后姓氏
+	tertiaryFlag           bool
+	localFirstName2        string // 名 - 第二本地文字
+	localFirstName2Flag    bool
+	localMiddleName        string // 本地中间名
+	localMiddleNameFlag    bool
+	localPrimary           string // 姓 - 本地文字
+	localPrimaryFlag       bool
+	localPrimary2          string // 姓 - 第二本地文字
+	localPrimary2Flag      bool
+	localSecondary         string // 第二姓氏 - 本地文字
+	localSecondaryFlag     bool
+	title                  string // 头衔, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "title"
+	titleFlag              bool
+	localFirstName         string // 名 - 本地文字
+	localFirstNameFlag     bool
+	customLocalName        string // 自定义姓名（本地文字）
+	customLocalNameFlag    bool
+	customWesternName      string // 自定义姓名（西方文字）
+	customWesternNameFlag  bool
+	nameType               string // 姓名类型
+	nameTypeFlag           bool
+	firstName              string // 名
+	firstNameFlag          bool
+	namePrimary            string // 姓
+	namePrimaryFlag        bool
+}
+
+func NewProfileSettingNameBuilder() *ProfileSettingNameBuilder {
+	builder := &ProfileSettingNameBuilder{}
+	return builder
+}
+
+// 补充姓名类型, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "additional_name_type"
+//
+// 示例值：emergency_contact_name
+func (builder *ProfileSettingNameBuilder) AdditionalNameType(additionalNameType string) *ProfileSettingNameBuilder {
+	builder.additionalNameType = additionalNameType
+	builder.additionalNameTypeFlag = true
+	return builder
+}
+
+// 国家 / 地区 ID
+//
+// 示例值：6862995757234914824
+func (builder *ProfileSettingNameBuilder) CountryRegion(countryRegion string) *ProfileSettingNameBuilder {
+	builder.countryRegion = countryRegion
+	builder.countryRegionFlag = true
+	return builder
+}
+
+// 全名
+//
+// 示例值：王大帅
+func (builder *ProfileSettingNameBuilder) FullName(fullName string) *ProfileSettingNameBuilder {
+	builder.fullName = fullName
+	builder.fullNameFlag = true
+	return builder
+}
+
+// 姓氏称谓
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) Hereditary(hereditary string) *ProfileSettingNameBuilder {
+	builder.hereditary = hereditary
+	builder.hereditaryFlag = true
+	return builder
+}
+
+// 中间名
+//
+// 示例值：大
+func (builder *ProfileSettingNameBuilder) MiddleName(middleName string) *ProfileSettingNameBuilder {
+	builder.middleName = middleName
+	builder.middleNameFlag = true
+	return builder
+}
+
+// 第二姓氏
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) Secondary(secondary string) *ProfileSettingNameBuilder {
+	builder.secondary = secondary
+	builder.secondaryFlag = true
+	return builder
+}
+
+// 尊称,枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "social"
+//
+// 示例值：ii
+func (builder *ProfileSettingNameBuilder) Social(social string) *ProfileSettingNameBuilder {
+	builder.social = social
+	builder.socialFlag = true
+	return builder
+}
+
+// 婚后姓氏
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) Tertiary(tertiary string) *ProfileSettingNameBuilder {
+	builder.tertiary = tertiary
+	builder.tertiaryFlag = true
+	return builder
+}
+
+// 名 - 第二本地文字
+//
+// 示例值：五
+func (builder *ProfileSettingNameBuilder) LocalFirstName2(localFirstName2 string) *ProfileSettingNameBuilder {
+	builder.localFirstName2 = localFirstName2
+	builder.localFirstName2Flag = true
+	return builder
+}
+
+// 本地中间名
+//
+// 示例值：大
+func (builder *ProfileSettingNameBuilder) LocalMiddleName(localMiddleName string) *ProfileSettingNameBuilder {
+	builder.localMiddleName = localMiddleName
+	builder.localMiddleNameFlag = true
+	return builder
+}
+
+// 姓 - 本地文字
+//
+// 示例值：黄
+func (builder *ProfileSettingNameBuilder) LocalPrimary(localPrimary string) *ProfileSettingNameBuilder {
+	builder.localPrimary = localPrimary
+	builder.localPrimaryFlag = true
+	return builder
+}
+
+// 姓 - 第二本地文字
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) LocalPrimary2(localPrimary2 string) *ProfileSettingNameBuilder {
+	builder.localPrimary2 = localPrimary2
+	builder.localPrimary2Flag = true
+	return builder
+}
+
+// 第二姓氏 - 本地文字
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) LocalSecondary(localSecondary string) *ProfileSettingNameBuilder {
+	builder.localSecondary = localSecondary
+	builder.localSecondaryFlag = true
+	return builder
+}
+
+// 头衔, 枚举值。可选项可以通过【获取字段详情】接口查询，查询参数如下： - object_api_name = "person_name" - custom_api_name = "title"
+//
+// 示例值：mr
+func (builder *ProfileSettingNameBuilder) Title(title string) *ProfileSettingNameBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 名 - 本地文字
+//
+// 示例值：四
+func (builder *ProfileSettingNameBuilder) LocalFirstName(localFirstName string) *ProfileSettingNameBuilder {
+	builder.localFirstName = localFirstName
+	builder.localFirstNameFlag = true
+	return builder
+}
+
+// 自定义姓名（本地文字）
+//
+// 示例值：王大帅
+func (builder *ProfileSettingNameBuilder) CustomLocalName(customLocalName string) *ProfileSettingNameBuilder {
+	builder.customLocalName = customLocalName
+	builder.customLocalNameFlag = true
+	return builder
+}
+
+// 自定义姓名（西方文字）
+//
+// 示例值：王大帅
+func (builder *ProfileSettingNameBuilder) CustomWesternName(customWesternName string) *ProfileSettingNameBuilder {
+	builder.customWesternName = customWesternName
+	builder.customWesternNameFlag = true
+	return builder
+}
+
+// 姓名类型
+//
+// 示例值：legal_name
+func (builder *ProfileSettingNameBuilder) NameType(nameType string) *ProfileSettingNameBuilder {
+	builder.nameType = nameType
+	builder.nameTypeFlag = true
+	return builder
+}
+
+// 名
+//
+// 示例值：帅
+func (builder *ProfileSettingNameBuilder) FirstName(firstName string) *ProfileSettingNameBuilder {
+	builder.firstName = firstName
+	builder.firstNameFlag = true
+	return builder
+}
+
+// 姓
+//
+// 示例值：王
+func (builder *ProfileSettingNameBuilder) NamePrimary(namePrimary string) *ProfileSettingNameBuilder {
+	builder.namePrimary = namePrimary
+	builder.namePrimaryFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingNameBuilder) Build() *ProfileSettingName {
+	req := &ProfileSettingName{}
+	if builder.additionalNameTypeFlag {
+		req.AdditionalNameType = &builder.additionalNameType
+
+	}
+	if builder.countryRegionFlag {
+		req.CountryRegion = &builder.countryRegion
+
+	}
+	if builder.fullNameFlag {
+		req.FullName = &builder.fullName
+
+	}
+	if builder.hereditaryFlag {
+		req.Hereditary = &builder.hereditary
+
+	}
+	if builder.middleNameFlag {
+		req.MiddleName = &builder.middleName
+
+	}
+	if builder.secondaryFlag {
+		req.Secondary = &builder.secondary
+
+	}
+	if builder.socialFlag {
+		req.Social = &builder.social
+
+	}
+	if builder.tertiaryFlag {
+		req.Tertiary = &builder.tertiary
+
+	}
+	if builder.localFirstName2Flag {
+		req.LocalFirstName2 = &builder.localFirstName2
+
+	}
+	if builder.localMiddleNameFlag {
+		req.LocalMiddleName = &builder.localMiddleName
+
+	}
+	if builder.localPrimaryFlag {
+		req.LocalPrimary = &builder.localPrimary
+
+	}
+	if builder.localPrimary2Flag {
+		req.LocalPrimary2 = &builder.localPrimary2
+
+	}
+	if builder.localSecondaryFlag {
+		req.LocalSecondary = &builder.localSecondary
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.localFirstNameFlag {
+		req.LocalFirstName = &builder.localFirstName
+
+	}
+	if builder.customLocalNameFlag {
+		req.CustomLocalName = &builder.customLocalName
+
+	}
+	if builder.customWesternNameFlag {
+		req.CustomWesternName = &builder.customWesternName
+
+	}
+	if builder.nameTypeFlag {
+		req.NameType = &builder.nameType
+
+	}
+	if builder.firstNameFlag {
+		req.FirstName = &builder.firstName
+
+	}
+	if builder.namePrimaryFlag {
+		req.NamePrimary = &builder.namePrimary
+
+	}
+	return req
+}
+
+type ProfileSettingNational struct {
+	CountryRegion    *string                      `json:"country_region,omitempty"`     // 国家/地区ID
+	NationalIdType   *string                      `json:"national_id_type,omitempty"`   // 国家证件类型ID
+	NationalIdNumber *string                      `json:"national_id_number,omitempty"` // 证件号码
+	IssuedDate       *string                      `json:"issued_date,omitempty"`        // 证件签发日期
+	IssuedBy         *string                      `json:"issued_by,omitempty"`          // 证件签发机构
+	ExpirationDate   *string                      `json:"expiration_date,omitempty"`    // 证件到期日期
+	CustomFields     []*ProfileSettingCustomField `json:"custom_fields,omitempty"`      // 自定义字段
+}
+
+type ProfileSettingNationalBuilder struct {
+	countryRegion        string // 国家/地区ID
+	countryRegionFlag    bool
+	nationalIdType       string // 国家证件类型ID
+	nationalIdTypeFlag   bool
+	nationalIdNumber     string // 证件号码
+	nationalIdNumberFlag bool
+	issuedDate           string // 证件签发日期
+	issuedDateFlag       bool
+	issuedBy             string // 证件签发机构
+	issuedByFlag         bool
+	expirationDate       string // 证件到期日期
+	expirationDateFlag   bool
+	customFields         []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag     bool
+}
+
+func NewProfileSettingNationalBuilder() *ProfileSettingNationalBuilder {
+	builder := &ProfileSettingNationalBuilder{}
+	return builder
+}
+
+// 国家/地区ID
+//
+// 示例值：6862995757234914824
+func (builder *ProfileSettingNationalBuilder) CountryRegion(countryRegion string) *ProfileSettingNationalBuilder {
+	builder.countryRegion = countryRegion
+	builder.countryRegionFlag = true
+	return builder
+}
+
+// 国家证件类型ID
+//
+// 示例值：6863330041896371725
+func (builder *ProfileSettingNationalBuilder) NationalIdType(nationalIdType string) *ProfileSettingNationalBuilder {
+	builder.nationalIdType = nationalIdType
+	builder.nationalIdTypeFlag = true
+	return builder
+}
+
+// 证件号码
+//
+// 示例值：1231131333
+func (builder *ProfileSettingNationalBuilder) NationalIdNumber(nationalIdNumber string) *ProfileSettingNationalBuilder {
+	builder.nationalIdNumber = nationalIdNumber
+	builder.nationalIdNumberFlag = true
+	return builder
+}
+
+// 证件签发日期
+//
+// 示例值：2020-04-01
+func (builder *ProfileSettingNationalBuilder) IssuedDate(issuedDate string) *ProfileSettingNationalBuilder {
+	builder.issuedDate = issuedDate
+	builder.issuedDateFlag = true
+	return builder
+}
+
+// 证件签发机构
+//
+// 示例值：北京市公安局
+func (builder *ProfileSettingNationalBuilder) IssuedBy(issuedBy string) *ProfileSettingNationalBuilder {
+	builder.issuedBy = issuedBy
+	builder.issuedByFlag = true
+	return builder
+}
+
+// 证件到期日期
+//
+// 示例值：2020-05-21
+func (builder *ProfileSettingNationalBuilder) ExpirationDate(expirationDate string) *ProfileSettingNationalBuilder {
+	builder.expirationDate = expirationDate
+	builder.expirationDateFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingNationalBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingNationalBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingNationalBuilder) Build() *ProfileSettingNational {
+	req := &ProfileSettingNational{}
+	if builder.countryRegionFlag {
+		req.CountryRegion = &builder.countryRegion
+
+	}
+	if builder.nationalIdTypeFlag {
+		req.NationalIdType = &builder.nationalIdType
+
+	}
+	if builder.nationalIdNumberFlag {
+		req.NationalIdNumber = &builder.nationalIdNumber
+
+	}
+	if builder.issuedDateFlag {
+		req.IssuedDate = &builder.issuedDate
+
+	}
+	if builder.issuedByFlag {
+		req.IssuedBy = &builder.issuedBy
+
+	}
+	if builder.expirationDateFlag {
+		req.ExpirationDate = &builder.expirationDate
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingPersonalBasicInfo struct {
+	LegalName            *ProfileSettingName          `json:"legal_name,omitempty"`             // 法定姓名
+	PreferredName        *ProfileSettingName          `json:"preferred_name,omitempty"`         // 常用姓名
+	Gender               *string                      `json:"gender,omitempty"`                 // 性别，枚举值 。可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "gender"
+	NationalityV2        *string                      `json:"nationality_v2,omitempty"`         // 国籍ID
+	EthnicityRace        *string                      `json:"ethnicity_race,omitempty"`         // 民族 / 种族，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "ethnicity_race"
+	Phone                *ProfileSettingPhone         `json:"phone,omitempty"`                  // 个人电话
+	Email                *string                      `json:"email,omitempty"`                  // 个人邮箱
+	DateOfBirth          *string                      `json:"date_of_birth,omitempty"`          // 出生日期
+	MaritalStatus        *string                      `json:"marital_status,omitempty"`         // 婚姻状况，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "marital_status"
+	IsDisabled           *bool                        `json:"is_disabled,omitempty"`            // 是否残疾
+	DisableCardNumber    *string                      `json:"disable_card_number,omitempty"`    // 残疾证号，is_disabled 为 true 时必填
+	IsMartyrFamily       *bool                        `json:"is_martyr_family,omitempty"`       // 是否为烈属
+	MartyrCardNumber     *string                      `json:"martyr_card_number,omitempty"`     // 烈属证号，is_martyr_family 为 true 时必填
+	IsOldAlone           *bool                        `json:"is_old_alone,omitempty"`           // 是否为孤老
+	BornCountryRegion    *string                      `json:"born_country_region,omitempty"`    // 出生国家/地区
+	PoliticalAffiliation *string                      `json:"political_affiliation,omitempty"`  // 政治面貌，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "political_affiliation"
+	NativeRegion         *string                      `json:"native_region,omitempty"`          // 籍贯(省份/行政区ID）
+	DateEnteredWorkforce *string                      `json:"date_entered_workforce,omitempty"` // 参加工作日期
+	FirstEntryTime       *string                      `json:"first_entry_time,omitempty"`       // 首次入境日期
+	LeaveTime            *string                      `json:"leave_time,omitempty"`             // 预计离境日期
+	CustomFields         []*ProfileSettingCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+}
+
+type ProfileSettingPersonalBasicInfoBuilder struct {
+	legalName                *ProfileSettingName // 法定姓名
+	legalNameFlag            bool
+	preferredName            *ProfileSettingName // 常用姓名
+	preferredNameFlag        bool
+	gender                   string // 性别，枚举值 。可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "gender"
+	genderFlag               bool
+	nationalityV2            string // 国籍ID
+	nationalityV2Flag        bool
+	ethnicityRace            string // 民族 / 种族，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "ethnicity_race"
+	ethnicityRaceFlag        bool
+	phone                    *ProfileSettingPhone // 个人电话
+	phoneFlag                bool
+	email                    string // 个人邮箱
+	emailFlag                bool
+	dateOfBirth              string // 出生日期
+	dateOfBirthFlag          bool
+	maritalStatus            string // 婚姻状况，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "marital_status"
+	maritalStatusFlag        bool
+	isDisabled               bool // 是否残疾
+	isDisabledFlag           bool
+	disableCardNumber        string // 残疾证号，is_disabled 为 true 时必填
+	disableCardNumberFlag    bool
+	isMartyrFamily           bool // 是否为烈属
+	isMartyrFamilyFlag       bool
+	martyrCardNumber         string // 烈属证号，is_martyr_family 为 true 时必填
+	martyrCardNumberFlag     bool
+	isOldAlone               bool // 是否为孤老
+	isOldAloneFlag           bool
+	bornCountryRegion        string // 出生国家/地区
+	bornCountryRegionFlag    bool
+	politicalAffiliation     string // 政治面貌，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "political_affiliation"
+	politicalAffiliationFlag bool
+	nativeRegion             string // 籍贯(省份/行政区ID）
+	nativeRegionFlag         bool
+	dateEnteredWorkforce     string // 参加工作日期
+	dateEnteredWorkforceFlag bool
+	firstEntryTime           string // 首次入境日期
+	firstEntryTimeFlag       bool
+	leaveTime                string // 预计离境日期
+	leaveTimeFlag            bool
+	customFields             []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag         bool
+}
+
+func NewProfileSettingPersonalBasicInfoBuilder() *ProfileSettingPersonalBasicInfoBuilder {
+	builder := &ProfileSettingPersonalBasicInfoBuilder{}
+	return builder
+}
+
+// 法定姓名
+//
+// 示例值：
+func (builder *ProfileSettingPersonalBasicInfoBuilder) LegalName(legalName *ProfileSettingName) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.legalName = legalName
+	builder.legalNameFlag = true
+	return builder
+}
+
+// 常用姓名
+//
+// 示例值：
+func (builder *ProfileSettingPersonalBasicInfoBuilder) PreferredName(preferredName *ProfileSettingName) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.preferredName = preferredName
+	builder.preferredNameFlag = true
+	return builder
+}
+
+// 性别，枚举值 。可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "gender"
+//
+// 示例值：female
+func (builder *ProfileSettingPersonalBasicInfoBuilder) Gender(gender string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+
+// 国籍ID
+//
+// 示例值：6862995757234914826
+func (builder *ProfileSettingPersonalBasicInfoBuilder) NationalityV2(nationalityV2 string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.nationalityV2 = nationalityV2
+	builder.nationalityV2Flag = true
+	return builder
+}
+
+// 民族 / 种族，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "ethnicity_race"
+//
+// 示例值：han
+func (builder *ProfileSettingPersonalBasicInfoBuilder) EthnicityRace(ethnicityRace string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.ethnicityRace = ethnicityRace
+	builder.ethnicityRaceFlag = true
+	return builder
+}
+
+// 个人电话
+//
+// 示例值：
+func (builder *ProfileSettingPersonalBasicInfoBuilder) Phone(phone *ProfileSettingPhone) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+// 个人邮箱
+//
+// 示例值：1234567@example.feishu.cn
+func (builder *ProfileSettingPersonalBasicInfoBuilder) Email(email string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 出生日期
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingPersonalBasicInfoBuilder) DateOfBirth(dateOfBirth string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.dateOfBirth = dateOfBirth
+	builder.dateOfBirthFlag = true
+	return builder
+}
+
+// 婚姻状况，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person" custom_api_name = "marital_status"
+//
+// 示例值：married
+func (builder *ProfileSettingPersonalBasicInfoBuilder) MaritalStatus(maritalStatus string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.maritalStatus = maritalStatus
+	builder.maritalStatusFlag = true
+	return builder
+}
+
+// 是否残疾
+//
+// 示例值：false
+func (builder *ProfileSettingPersonalBasicInfoBuilder) IsDisabled(isDisabled bool) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.isDisabled = isDisabled
+	builder.isDisabledFlag = true
+	return builder
+}
+
+// 残疾证号，is_disabled 为 true 时必填
+//
+// 示例值：92838277746172888312
+func (builder *ProfileSettingPersonalBasicInfoBuilder) DisableCardNumber(disableCardNumber string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.disableCardNumber = disableCardNumber
+	builder.disableCardNumberFlag = true
+	return builder
+}
+
+// 是否为烈属
+//
+// 示例值：false
+func (builder *ProfileSettingPersonalBasicInfoBuilder) IsMartyrFamily(isMartyrFamily bool) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.isMartyrFamily = isMartyrFamily
+	builder.isMartyrFamilyFlag = true
+	return builder
+}
+
+// 烈属证号，is_martyr_family 为 true 时必填
+//
+// 示例值：00001
+func (builder *ProfileSettingPersonalBasicInfoBuilder) MartyrCardNumber(martyrCardNumber string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.martyrCardNumber = martyrCardNumber
+	builder.martyrCardNumberFlag = true
+	return builder
+}
+
+// 是否为孤老
+//
+// 示例值：false
+func (builder *ProfileSettingPersonalBasicInfoBuilder) IsOldAlone(isOldAlone bool) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.isOldAlone = isOldAlone
+	builder.isOldAloneFlag = true
+	return builder
+}
+
+// 出生国家/地区
+//
+// 示例值：6862995757234914825
+func (builder *ProfileSettingPersonalBasicInfoBuilder) BornCountryRegion(bornCountryRegion string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.bornCountryRegion = bornCountryRegion
+	builder.bornCountryRegionFlag = true
+	return builder
+}
+
+// 政治面貌，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "person_info_chn" custom_api_name = "political_affiliation"
+//
+// 示例值：other
+func (builder *ProfileSettingPersonalBasicInfoBuilder) PoliticalAffiliation(politicalAffiliation string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.politicalAffiliation = politicalAffiliation
+	builder.politicalAffiliationFlag = true
+	return builder
+}
+
+// 籍贯(省份/行政区ID）
+//
+// 示例值：6862995757234914827
+func (builder *ProfileSettingPersonalBasicInfoBuilder) NativeRegion(nativeRegion string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.nativeRegion = nativeRegion
+	builder.nativeRegionFlag = true
+	return builder
+}
+
+// 参加工作日期
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingPersonalBasicInfoBuilder) DateEnteredWorkforce(dateEnteredWorkforce string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.dateEnteredWorkforce = dateEnteredWorkforce
+	builder.dateEnteredWorkforceFlag = true
+	return builder
+}
+
+// 首次入境日期
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingPersonalBasicInfoBuilder) FirstEntryTime(firstEntryTime string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.firstEntryTime = firstEntryTime
+	builder.firstEntryTimeFlag = true
+	return builder
+}
+
+// 预计离境日期
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingPersonalBasicInfoBuilder) LeaveTime(leaveTime string) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.leaveTime = leaveTime
+	builder.leaveTimeFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingPersonalBasicInfoBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingPersonalBasicInfoBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingPersonalBasicInfoBuilder) Build() *ProfileSettingPersonalBasicInfo {
+	req := &ProfileSettingPersonalBasicInfo{}
+	if builder.legalNameFlag {
+		req.LegalName = builder.legalName
+	}
+	if builder.preferredNameFlag {
+		req.PreferredName = builder.preferredName
+	}
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.nationalityV2Flag {
+		req.NationalityV2 = &builder.nationalityV2
+
+	}
+	if builder.ethnicityRaceFlag {
+		req.EthnicityRace = &builder.ethnicityRace
+
+	}
+	if builder.phoneFlag {
+		req.Phone = builder.phone
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.dateOfBirthFlag {
+		req.DateOfBirth = &builder.dateOfBirth
+
+	}
+	if builder.maritalStatusFlag {
+		req.MaritalStatus = &builder.maritalStatus
+
+	}
+	if builder.isDisabledFlag {
+		req.IsDisabled = &builder.isDisabled
+
+	}
+	if builder.disableCardNumberFlag {
+		req.DisableCardNumber = &builder.disableCardNumber
+
+	}
+	if builder.isMartyrFamilyFlag {
+		req.IsMartyrFamily = &builder.isMartyrFamily
+
+	}
+	if builder.martyrCardNumberFlag {
+		req.MartyrCardNumber = &builder.martyrCardNumber
+
+	}
+	if builder.isOldAloneFlag {
+		req.IsOldAlone = &builder.isOldAlone
+
+	}
+	if builder.bornCountryRegionFlag {
+		req.BornCountryRegion = &builder.bornCountryRegion
+
+	}
+	if builder.politicalAffiliationFlag {
+		req.PoliticalAffiliation = &builder.politicalAffiliation
+
+	}
+	if builder.nativeRegionFlag {
+		req.NativeRegion = &builder.nativeRegion
+
+	}
+	if builder.dateEnteredWorkforceFlag {
+		req.DateEnteredWorkforce = &builder.dateEnteredWorkforce
+
+	}
+	if builder.firstEntryTimeFlag {
+		req.FirstEntryTime = &builder.firstEntryTime
+
+	}
+	if builder.leaveTimeFlag {
+		req.LeaveTime = &builder.leaveTime
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingPersonalInfo struct {
+	PersonalBasicInfo *ProfileSettingPersonalBasicInfo  `json:"personal_basic_info,omitempty"` // 基本信息
+	EmergencyContacts []*ProfileSettingEmergencyContact `json:"emergency_contacts,omitempty"`  // 紧急联系人
+	BankAccounts      []*ProfileSettingBankAccount      `json:"bank_accounts,omitempty"`       // 银行账户
+	Nationals         []*ProfileSettingNational         `json:"nationals,omitempty"`           // 证件
+	ResidentTaxes     []*ProfileSettingResidentTax      `json:"resident_taxes,omitempty"`      // 居民身份信息
+	Dependents        []*ProfileSettingDependent        `json:"dependents,omitempty"`          // 家庭成员
+	Hukou             *ProfileSettingHukou              `json:"hukou,omitempty"`               // 户口
+	ContactAddresses  []*ProfileSettingAddress          `json:"contact_addresses,omitempty"`   // 联系地址
+	CustomGroups      []*ProfileSettingCustomGroup      `json:"custom_groups,omitempty"`       // 自定义分组
+}
+
+type ProfileSettingPersonalInfoBuilder struct {
+	personalBasicInfo     *ProfileSettingPersonalBasicInfo // 基本信息
+	personalBasicInfoFlag bool
+	emergencyContacts     []*ProfileSettingEmergencyContact // 紧急联系人
+	emergencyContactsFlag bool
+	bankAccounts          []*ProfileSettingBankAccount // 银行账户
+	bankAccountsFlag      bool
+	nationals             []*ProfileSettingNational // 证件
+	nationalsFlag         bool
+	residentTaxes         []*ProfileSettingResidentTax // 居民身份信息
+	residentTaxesFlag     bool
+	dependents            []*ProfileSettingDependent // 家庭成员
+	dependentsFlag        bool
+	hukou                 *ProfileSettingHukou // 户口
+	hukouFlag             bool
+	contactAddresses      []*ProfileSettingAddress // 联系地址
+	contactAddressesFlag  bool
+	customGroups          []*ProfileSettingCustomGroup // 自定义分组
+	customGroupsFlag      bool
+}
+
+func NewProfileSettingPersonalInfoBuilder() *ProfileSettingPersonalInfoBuilder {
+	builder := &ProfileSettingPersonalInfoBuilder{}
+	return builder
+}
+
+// 基本信息
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) PersonalBasicInfo(personalBasicInfo *ProfileSettingPersonalBasicInfo) *ProfileSettingPersonalInfoBuilder {
+	builder.personalBasicInfo = personalBasicInfo
+	builder.personalBasicInfoFlag = true
+	return builder
+}
+
+// 紧急联系人
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) EmergencyContacts(emergencyContacts []*ProfileSettingEmergencyContact) *ProfileSettingPersonalInfoBuilder {
+	builder.emergencyContacts = emergencyContacts
+	builder.emergencyContactsFlag = true
+	return builder
+}
+
+// 银行账户
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) BankAccounts(bankAccounts []*ProfileSettingBankAccount) *ProfileSettingPersonalInfoBuilder {
+	builder.bankAccounts = bankAccounts
+	builder.bankAccountsFlag = true
+	return builder
+}
+
+// 证件
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) Nationals(nationals []*ProfileSettingNational) *ProfileSettingPersonalInfoBuilder {
+	builder.nationals = nationals
+	builder.nationalsFlag = true
+	return builder
+}
+
+// 居民身份信息
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) ResidentTaxes(residentTaxes []*ProfileSettingResidentTax) *ProfileSettingPersonalInfoBuilder {
+	builder.residentTaxes = residentTaxes
+	builder.residentTaxesFlag = true
+	return builder
+}
+
+// 家庭成员
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) Dependents(dependents []*ProfileSettingDependent) *ProfileSettingPersonalInfoBuilder {
+	builder.dependents = dependents
+	builder.dependentsFlag = true
+	return builder
+}
+
+// 户口
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) Hukou(hukou *ProfileSettingHukou) *ProfileSettingPersonalInfoBuilder {
+	builder.hukou = hukou
+	builder.hukouFlag = true
+	return builder
+}
+
+// 联系地址
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) ContactAddresses(contactAddresses []*ProfileSettingAddress) *ProfileSettingPersonalInfoBuilder {
+	builder.contactAddresses = contactAddresses
+	builder.contactAddressesFlag = true
+	return builder
+}
+
+// 自定义分组
+//
+// 示例值：
+func (builder *ProfileSettingPersonalInfoBuilder) CustomGroups(customGroups []*ProfileSettingCustomGroup) *ProfileSettingPersonalInfoBuilder {
+	builder.customGroups = customGroups
+	builder.customGroupsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingPersonalInfoBuilder) Build() *ProfileSettingPersonalInfo {
+	req := &ProfileSettingPersonalInfo{}
+	if builder.personalBasicInfoFlag {
+		req.PersonalBasicInfo = builder.personalBasicInfo
+	}
+	if builder.emergencyContactsFlag {
+		req.EmergencyContacts = builder.emergencyContacts
+	}
+	if builder.bankAccountsFlag {
+		req.BankAccounts = builder.bankAccounts
+	}
+	if builder.nationalsFlag {
+		req.Nationals = builder.nationals
+	}
+	if builder.residentTaxesFlag {
+		req.ResidentTaxes = builder.residentTaxes
+	}
+	if builder.dependentsFlag {
+		req.Dependents = builder.dependents
+	}
+	if builder.hukouFlag {
+		req.Hukou = builder.hukou
+	}
+	if builder.contactAddressesFlag {
+		req.ContactAddresses = builder.contactAddresses
+	}
+	if builder.customGroupsFlag {
+		req.CustomGroups = builder.customGroups
+	}
+	return req
+}
+
+type ProfileSettingPersonalRecord struct {
+	ProfileType *string               `json:"profile_type,omitempty"` // 资料类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "personal_profile" custom_api_name = "profile_type"
+	Files       []*ProfileSettingFile `json:"files,omitempty"`        // 文件列表
+}
+
+type ProfileSettingPersonalRecordBuilder struct {
+	profileType     string // 资料类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "personal_profile" custom_api_name = "profile_type"
+	profileTypeFlag bool
+	files           []*ProfileSettingFile // 文件列表
+	filesFlag       bool
+}
+
+func NewProfileSettingPersonalRecordBuilder() *ProfileSettingPersonalRecordBuilder {
+	builder := &ProfileSettingPersonalRecordBuilder{}
+	return builder
+}
+
+// 资料类型，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "personal_profile" custom_api_name = "profile_type"
+//
+// 示例值：profile_type_1
+func (builder *ProfileSettingPersonalRecordBuilder) ProfileType(profileType string) *ProfileSettingPersonalRecordBuilder {
+	builder.profileType = profileType
+	builder.profileTypeFlag = true
+	return builder
+}
+
+// 文件列表
+//
+// 示例值：
+func (builder *ProfileSettingPersonalRecordBuilder) Files(files []*ProfileSettingFile) *ProfileSettingPersonalRecordBuilder {
+	builder.files = files
+	builder.filesFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingPersonalRecordBuilder) Build() *ProfileSettingPersonalRecord {
+	req := &ProfileSettingPersonalRecord{}
+	if builder.profileTypeFlag {
+		req.ProfileType = &builder.profileType
+
+	}
+	if builder.filesFlag {
+		req.Files = builder.files
+	}
+	return req
+}
+
+type ProfileSettingPhone struct {
+	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国际电话区号，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "phone" custom_api_name = "international_area_code"
+	PhoneNumber           *string `json:"phone_number,omitempty"`            // 电话号码
+}
+
+type ProfileSettingPhoneBuilder struct {
+	internationalAreaCode     string // 国际电话区号，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "phone" custom_api_name = "international_area_code"
+	internationalAreaCodeFlag bool
+	phoneNumber               string // 电话号码
+	phoneNumberFlag           bool
+}
+
+func NewProfileSettingPhoneBuilder() *ProfileSettingPhoneBuilder {
+	builder := &ProfileSettingPhoneBuilder{}
+	return builder
+}
+
+// 国际电话区号，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "phone" custom_api_name = "international_area_code"
+//
+// 示例值：86_china
+func (builder *ProfileSettingPhoneBuilder) InternationalAreaCode(internationalAreaCode string) *ProfileSettingPhoneBuilder {
+	builder.internationalAreaCode = internationalAreaCode
+	builder.internationalAreaCodeFlag = true
+	return builder
+}
+
+// 电话号码
+//
+// 示例值：13000000000
+func (builder *ProfileSettingPhoneBuilder) PhoneNumber(phoneNumber string) *ProfileSettingPhoneBuilder {
+	builder.phoneNumber = phoneNumber
+	builder.phoneNumberFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingPhoneBuilder) Build() *ProfileSettingPhone {
+	req := &ProfileSettingPhone{}
+	if builder.internationalAreaCodeFlag {
+		req.InternationalAreaCode = &builder.internationalAreaCode
+
+	}
+	if builder.phoneNumberFlag {
+		req.PhoneNumber = &builder.phoneNumber
+
+	}
+	return req
+}
+
+type ProfileSettingProbationInfo struct {
+	ProbationStartDate       *string `json:"probation_start_date,omitempty"`        // 试用期开始日期
+	ProbationExpectedEndDate *string `json:"probation_expected_end_date,omitempty"` // 试用期预计结束日期
+	ActualProbationEndDate   *string `json:"actual_probation_end_date,omitempty"`   // 试用期实际结束日期
+}
+
+type ProfileSettingProbationInfoBuilder struct {
+	probationStartDate           string // 试用期开始日期
+	probationStartDateFlag       bool
+	probationExpectedEndDate     string // 试用期预计结束日期
+	probationExpectedEndDateFlag bool
+	actualProbationEndDate       string // 试用期实际结束日期
+	actualProbationEndDateFlag   bool
+}
+
+func NewProfileSettingProbationInfoBuilder() *ProfileSettingProbationInfoBuilder {
+	builder := &ProfileSettingProbationInfoBuilder{}
+	return builder
+}
+
+// 试用期开始日期
+//
+// 示例值：2021-01-01
+func (builder *ProfileSettingProbationInfoBuilder) ProbationStartDate(probationStartDate string) *ProfileSettingProbationInfoBuilder {
+	builder.probationStartDate = probationStartDate
+	builder.probationStartDateFlag = true
+	return builder
+}
+
+// 试用期预计结束日期
+//
+// 示例值：2021-02-01
+func (builder *ProfileSettingProbationInfoBuilder) ProbationExpectedEndDate(probationExpectedEndDate string) *ProfileSettingProbationInfoBuilder {
+	builder.probationExpectedEndDate = probationExpectedEndDate
+	builder.probationExpectedEndDateFlag = true
+	return builder
+}
+
+// 试用期实际结束日期
+//
+// 示例值：2021-02-01
+func (builder *ProfileSettingProbationInfoBuilder) ActualProbationEndDate(actualProbationEndDate string) *ProfileSettingProbationInfoBuilder {
+	builder.actualProbationEndDate = actualProbationEndDate
+	builder.actualProbationEndDateFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingProbationInfoBuilder) Build() *ProfileSettingProbationInfo {
+	req := &ProfileSettingProbationInfo{}
+	if builder.probationStartDateFlag {
+		req.ProbationStartDate = &builder.probationStartDate
+
+	}
+	if builder.probationExpectedEndDateFlag {
+		req.ProbationExpectedEndDate = &builder.probationExpectedEndDate
+
+	}
+	if builder.actualProbationEndDateFlag {
+		req.ActualProbationEndDate = &builder.actualProbationEndDate
+
+	}
+	return req
+}
+
+type ProfileSettingResidentTax struct {
+	YearResidentTax  *string                      `json:"year_resident_tax,omitempty"`  // 年度
+	TaxCountryRegion *string                      `json:"tax_country_region,omitempty"` // 国家 / 地区ID
+	ResidentStatus   *string                      `json:"resident_status,omitempty"`    // 居民身份，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "resident_tax" custom_api_name = "resident_status"
+	CustomFields     []*ProfileSettingCustomField `json:"custom_fields,omitempty"`      // 自定义字段
+}
+
+type ProfileSettingResidentTaxBuilder struct {
+	yearResidentTax      string // 年度
+	yearResidentTaxFlag  bool
+	taxCountryRegion     string // 国家 / 地区ID
+	taxCountryRegionFlag bool
+	residentStatus       string // 居民身份，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "resident_tax" custom_api_name = "resident_status"
+	residentStatusFlag   bool
+	customFields         []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag     bool
+}
+
+func NewProfileSettingResidentTaxBuilder() *ProfileSettingResidentTaxBuilder {
+	builder := &ProfileSettingResidentTaxBuilder{}
+	return builder
+}
+
+// 年度
+//
+// 示例值：2006-01-02
+func (builder *ProfileSettingResidentTaxBuilder) YearResidentTax(yearResidentTax string) *ProfileSettingResidentTaxBuilder {
+	builder.yearResidentTax = yearResidentTax
+	builder.yearResidentTaxFlag = true
+	return builder
+}
+
+// 国家 / 地区ID
+//
+// 示例值：6862995757234914824
+func (builder *ProfileSettingResidentTaxBuilder) TaxCountryRegion(taxCountryRegion string) *ProfileSettingResidentTaxBuilder {
+	builder.taxCountryRegion = taxCountryRegion
+	builder.taxCountryRegionFlag = true
+	return builder
+}
+
+// 居民身份，枚举值。 可选项可通过【获取字段详情】接口查询，查询参数如下： object_api_name = "resident_tax" custom_api_name = "resident_status"
+//
+// 示例值：tax_residence
+func (builder *ProfileSettingResidentTaxBuilder) ResidentStatus(residentStatus string) *ProfileSettingResidentTaxBuilder {
+	builder.residentStatus = residentStatus
+	builder.residentStatusFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingResidentTaxBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingResidentTaxBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingResidentTaxBuilder) Build() *ProfileSettingResidentTax {
+	req := &ProfileSettingResidentTax{}
+	if builder.yearResidentTaxFlag {
+		req.YearResidentTax = &builder.yearResidentTax
+
+	}
+	if builder.taxCountryRegionFlag {
+		req.TaxCountryRegion = &builder.taxCountryRegion
+
+	}
+	if builder.residentStatusFlag {
+		req.ResidentStatus = &builder.residentStatus
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type ProfileSettingWorkExperience struct {
+	CompanyOrganization *ProfileSettingI18n          `json:"company_organization,omitempty"` // 公司 / 组织
+	Department          *ProfileSettingI18n          `json:"department,omitempty"`           // 部门
+	StartDate           *string                      `json:"start_date,omitempty"`           // 开始日期
+	EndDate             *string                      `json:"end_date,omitempty"`             // 结束日期
+	Job                 *ProfileSettingI18n          `json:"job,omitempty"`                  // 岗位
+	Description         *ProfileSettingI18n          `json:"description,omitempty"`          // 工作描述
+	CustomFields        []*ProfileSettingCustomField `json:"custom_fields,omitempty"`        // 自定义字段
+}
+
+type ProfileSettingWorkExperienceBuilder struct {
+	companyOrganization     *ProfileSettingI18n // 公司 / 组织
+	companyOrganizationFlag bool
+	department              *ProfileSettingI18n // 部门
+	departmentFlag          bool
+	startDate               string // 开始日期
+	startDateFlag           bool
+	endDate                 string // 结束日期
+	endDateFlag             bool
+	job                     *ProfileSettingI18n // 岗位
+	jobFlag                 bool
+	description             *ProfileSettingI18n // 工作描述
+	descriptionFlag         bool
+	customFields            []*ProfileSettingCustomField // 自定义字段
+	customFieldsFlag        bool
+}
+
+func NewProfileSettingWorkExperienceBuilder() *ProfileSettingWorkExperienceBuilder {
+	builder := &ProfileSettingWorkExperienceBuilder{}
+	return builder
+}
+
+// 公司 / 组织
+//
+// 示例值：
+func (builder *ProfileSettingWorkExperienceBuilder) CompanyOrganization(companyOrganization *ProfileSettingI18n) *ProfileSettingWorkExperienceBuilder {
+	builder.companyOrganization = companyOrganization
+	builder.companyOrganizationFlag = true
+	return builder
+}
+
+// 部门
+//
+// 示例值：
+func (builder *ProfileSettingWorkExperienceBuilder) Department(department *ProfileSettingI18n) *ProfileSettingWorkExperienceBuilder {
+	builder.department = department
+	builder.departmentFlag = true
+	return builder
+}
+
+// 开始日期
+//
+// 示例值：2020-01-01
+func (builder *ProfileSettingWorkExperienceBuilder) StartDate(startDate string) *ProfileSettingWorkExperienceBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 结束日期
+//
+// 示例值：2020-02-01
+func (builder *ProfileSettingWorkExperienceBuilder) EndDate(endDate string) *ProfileSettingWorkExperienceBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 岗位
+//
+// 示例值：
+func (builder *ProfileSettingWorkExperienceBuilder) Job(job *ProfileSettingI18n) *ProfileSettingWorkExperienceBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+
+// 工作描述
+//
+// 示例值：
+func (builder *ProfileSettingWorkExperienceBuilder) Description(description *ProfileSettingI18n) *ProfileSettingWorkExperienceBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *ProfileSettingWorkExperienceBuilder) CustomFields(customFields []*ProfileSettingCustomField) *ProfileSettingWorkExperienceBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *ProfileSettingWorkExperienceBuilder) Build() *ProfileSettingWorkExperience {
+	req := &ProfileSettingWorkExperience{}
+	if builder.companyOrganizationFlag {
+		req.CompanyOrganization = builder.companyOrganization
+	}
+	if builder.departmentFlag {
+		req.Department = builder.department
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.jobFlag {
+		req.Job = builder.job
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -21960,10 +26176,14 @@ type SearchJobChangeReqBodyBuilder struct {
 	jobChangeIdsFlag       bool
 	statuses               []string // 异动状态，多个状态之间为「或」的关系
 	statusesFlag           bool
-	effectiveDateStart     string // 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+	effectiveDateStart     string // 异动生效日期 - 搜索范围开始，需要与搜索范围结束一同使用
 	effectiveDateStartFlag bool
 	effectiveDateEnd       string // 异动生效日期 - 搜索范围结束
 	effectiveDateEndFlag   bool
+	updatedTimeStart       string // 异动更新时间 - 搜索范围开始，需要与搜索范围结束一同使用
+	updatedTimeStartFlag   bool
+	updatedTimeEnd         string // 异动更新时间 - 搜索范围结束
+	updatedTimeEndFlag     bool
 }
 
 func NewSearchJobChangeReqBodyBuilder() *SearchJobChangeReqBodyBuilder {
@@ -21998,7 +26218,7 @@ func (builder *SearchJobChangeReqBodyBuilder) Statuses(statuses []string) *Searc
 	return builder
 }
 
-// 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+// 异动生效日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
 //示例值：2022-01-01
 func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *SearchJobChangeReqBodyBuilder {
@@ -22013,6 +26233,24 @@ func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateStart(effectiveDateSt
 func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *SearchJobChangeReqBodyBuilder {
 	builder.effectiveDateEnd = effectiveDateEnd
 	builder.effectiveDateEndFlag = true
+	return builder
+}
+
+// 异动更新时间 - 搜索范围开始，需要与搜索范围结束一同使用
+//
+//示例值：1704084635000
+func (builder *SearchJobChangeReqBodyBuilder) UpdatedTimeStart(updatedTimeStart string) *SearchJobChangeReqBodyBuilder {
+	builder.updatedTimeStart = updatedTimeStart
+	builder.updatedTimeStartFlag = true
+	return builder
+}
+
+// 异动更新时间 - 搜索范围结束
+//
+//示例值：1704084635000
+func (builder *SearchJobChangeReqBodyBuilder) UpdatedTimeEnd(updatedTimeEnd string) *SearchJobChangeReqBodyBuilder {
+	builder.updatedTimeEnd = updatedTimeEnd
+	builder.updatedTimeEndFlag = true
 	return builder
 }
 
@@ -22033,6 +26271,12 @@ func (builder *SearchJobChangeReqBodyBuilder) Build() *SearchJobChangeReqBody {
 	if builder.effectiveDateEndFlag {
 		req.EffectiveDateEnd = &builder.effectiveDateEnd
 	}
+	if builder.updatedTimeStartFlag {
+		req.UpdatedTimeStart = &builder.updatedTimeStart
+	}
+	if builder.updatedTimeEndFlag {
+		req.UpdatedTimeEnd = &builder.updatedTimeEnd
+	}
 	return req
 }
 
@@ -22047,6 +26291,10 @@ type SearchJobChangePathReqBodyBuilder struct {
 	effectiveDateStartFlag bool
 	effectiveDateEnd       string
 	effectiveDateEndFlag   bool
+	updatedTimeStart       string
+	updatedTimeStartFlag   bool
+	updatedTimeEnd         string
+	updatedTimeEndFlag     bool
 }
 
 func NewSearchJobChangePathReqBodyBuilder() *SearchJobChangePathReqBodyBuilder {
@@ -22081,7 +26329,7 @@ func (builder *SearchJobChangePathReqBodyBuilder) Statuses(statuses []string) *S
 	return builder
 }
 
-// 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+// 异动生效日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
 // 示例值：2022-01-01
 func (builder *SearchJobChangePathReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *SearchJobChangePathReqBodyBuilder {
@@ -22096,6 +26344,24 @@ func (builder *SearchJobChangePathReqBodyBuilder) EffectiveDateStart(effectiveDa
 func (builder *SearchJobChangePathReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *SearchJobChangePathReqBodyBuilder {
 	builder.effectiveDateEnd = effectiveDateEnd
 	builder.effectiveDateEndFlag = true
+	return builder
+}
+
+// 异动更新时间 - 搜索范围开始，需要与搜索范围结束一同使用
+//
+// 示例值：1704084635000
+func (builder *SearchJobChangePathReqBodyBuilder) UpdatedTimeStart(updatedTimeStart string) *SearchJobChangePathReqBodyBuilder {
+	builder.updatedTimeStart = updatedTimeStart
+	builder.updatedTimeStartFlag = true
+	return builder
+}
+
+// 异动更新时间 - 搜索范围结束
+//
+// 示例值：1704084635000
+func (builder *SearchJobChangePathReqBodyBuilder) UpdatedTimeEnd(updatedTimeEnd string) *SearchJobChangePathReqBodyBuilder {
+	builder.updatedTimeEnd = updatedTimeEnd
+	builder.updatedTimeEndFlag = true
 	return builder
 }
 
@@ -22115,6 +26381,12 @@ func (builder *SearchJobChangePathReqBodyBuilder) Build() (*SearchJobChangeReqBo
 	}
 	if builder.effectiveDateEndFlag {
 		req.EffectiveDateEnd = &builder.effectiveDateEnd
+	}
+	if builder.updatedTimeStartFlag {
+		req.UpdatedTimeStart = &builder.updatedTimeStart
+	}
+	if builder.updatedTimeEndFlag {
+		req.UpdatedTimeEnd = &builder.updatedTimeEnd
 	}
 	return req, nil
 }
@@ -22191,8 +26463,10 @@ type SearchJobChangeReqBody struct {
 	EmploymentIds      []string `json:"employment_ids,omitempty"`       // 雇员 ID 列表
 	JobChangeIds       []string `json:"job_change_ids,omitempty"`       // 异动记录 ID 列表
 	Statuses           []string `json:"statuses,omitempty"`             // 异动状态，多个状态之间为「或」的关系
-	EffectiveDateStart *string  `json:"effective_date_start,omitempty"` // 异动生效日期-搜索范围开始，需要与搜索范围结束一同使用
+	EffectiveDateStart *string  `json:"effective_date_start,omitempty"` // 异动生效日期 - 搜索范围开始，需要与搜索范围结束一同使用
 	EffectiveDateEnd   *string  `json:"effective_date_end,omitempty"`   // 异动生效日期 - 搜索范围结束
+	UpdatedTimeStart   *string  `json:"updated_time_start,omitempty"`   // 异动更新时间 - 搜索范围开始，需要与搜索范围结束一同使用
+	UpdatedTimeEnd     *string  `json:"updated_time_end,omitempty"`     // 异动更新时间 - 搜索范围结束
 }
 
 type SearchJobChangeReq struct {
@@ -23766,6 +28040,7 @@ func (m *P2ProbationUpdatedV2) RawReq(req *larkevent.EventReq) {
 type P2ProcessUpdatedV2Data struct {
 	ProcessId *string `json:"process_id,omitempty"` // 流程实例ID
 	Status    *int    `json:"status,omitempty"`     // 变更后状态：1 发起/进行中，9 完成，2拒绝，4 撤回，8 撤销
+	BizType   *string `json:"biz_type,omitempty"`   // 业务类型
 }
 
 type P2ProcessUpdatedV2 struct {
@@ -23783,6 +28058,7 @@ type P2ProcessApproverUpdatedV2Data struct {
 	ApproverId *string `json:"approver_id,omitempty"` // 单据ID
 	Type       *int    `json:"type,omitempty"`        // 单据类型
 	Status     *int    `json:"status,omitempty"`      // 单据状态
+	BizType    *string `json:"biz_type,omitempty"`    // 业务类型
 }
 
 type P2ProcessApproverUpdatedV2 struct {
@@ -23799,6 +28075,7 @@ type P2ProcessCcUpdatedV2Data struct {
 	ProcessId  *string `json:"process_id,omitempty"`  // 流程实例ID
 	ApproverId *string `json:"approver_id,omitempty"` // 抄送单据ID
 	Status     *int    `json:"status,omitempty"`      // 单据状态
+	BizType    *string `json:"biz_type,omitempty"`    // 业务类型
 }
 
 type P2ProcessCcUpdatedV2 struct {

@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
@@ -37,6 +38,8 @@ func main() {
 			Statuses([]string{}).
 			EffectiveDateStart("2022-01-01").
 			EffectiveDateEnd("2022-01-01").
+			UpdatedTimeStart("1704084635000").
+			UpdatedTimeEnd("1704084635000").
 			Build()).
 		Build()
 	// 发起请求

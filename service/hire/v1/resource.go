@@ -2271,6 +2271,32 @@ func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore
 	return resp, err
 }
 
+// List 获取人才列表
+//
+// - 根据更新时间获取人才列表，仅支持获取默认字段信息，获取详细信息可调用「获取人才详细」接口
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_talent.go
+func (t *talent) List(ctx context.Context, req *ListTalentReq, options ...larkcore.RequestOptionFunc) (*ListTalentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/talents"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListTalentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // List 获取人才文件夹信息
 //
 // - 用于获取招聘系统中人才文件夹信息

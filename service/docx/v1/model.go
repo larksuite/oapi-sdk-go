@@ -128,6 +128,198 @@ func (builder *AddOnsBuilder) Build() *AddOns {
 	return req
 }
 
+type Agenda struct {
+}
+
+type AgendaItem struct {
+}
+
+type AgendaItemContent struct {
+}
+
+type AgendaItemTitle struct {
+	Elements []*AgendaTitleElement `json:"elements,omitempty"` // 文本元素
+	Align    *int                  `json:"align,omitempty"`    // 对齐方式
+}
+
+type AgendaItemTitleBuilder struct {
+	elements     []*AgendaTitleElement // 文本元素
+	elementsFlag bool
+	align        int // 对齐方式
+	alignFlag    bool
+}
+
+func NewAgendaItemTitleBuilder() *AgendaItemTitleBuilder {
+	builder := &AgendaItemTitleBuilder{}
+	return builder
+}
+
+// 文本元素
+//
+// 示例值：
+func (builder *AgendaItemTitleBuilder) Elements(elements []*AgendaTitleElement) *AgendaItemTitleBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+// 对齐方式
+//
+// 示例值：1
+func (builder *AgendaItemTitleBuilder) Align(align int) *AgendaItemTitleBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
+func (builder *AgendaItemTitleBuilder) Build() *AgendaItemTitle {
+	req := &AgendaItemTitle{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
+
+	}
+	return req
+}
+
+type AgendaTitleElement struct {
+	TextRun     *TextRun          `json:"text_run,omitempty"`     // 文字
+	MentionUser *MentionUser      `json:"mention_user,omitempty"` // @用户
+	MentionDoc  *MentionDoc       `json:"mention_doc,omitempty"`  // @文档
+	Reminder    *Reminder         `json:"reminder,omitempty"`     // 日期提醒
+	File        *InlineFile       `json:"file,omitempty"`         // 内联附件
+	Undefined   *UndefinedElement `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *InlineBlock      `json:"inline_block,omitempty"` // 内联 block
+	Equation    *Equation         `json:"equation,omitempty"`     // 公式
+}
+
+type AgendaTitleElementBuilder struct {
+	textRun         *TextRun // 文字
+	textRunFlag     bool
+	mentionUser     *MentionUser // @用户
+	mentionUserFlag bool
+	mentionDoc      *MentionDoc // @文档
+	mentionDocFlag  bool
+	reminder        *Reminder // 日期提醒
+	reminderFlag    bool
+	file            *InlineFile // 内联附件
+	fileFlag        bool
+	undefined       *UndefinedElement // 未支持的 TextElement
+	undefinedFlag   bool
+	inlineBlock     *InlineBlock // 内联 block
+	inlineBlockFlag bool
+	equation        *Equation // 公式
+	equationFlag    bool
+}
+
+func NewAgendaTitleElementBuilder() *AgendaTitleElementBuilder {
+	builder := &AgendaTitleElementBuilder{}
+	return builder
+}
+
+// 文字
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) TextRun(textRun *TextRun) *AgendaTitleElementBuilder {
+	builder.textRun = textRun
+	builder.textRunFlag = true
+	return builder
+}
+
+// @用户
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) MentionUser(mentionUser *MentionUser) *AgendaTitleElementBuilder {
+	builder.mentionUser = mentionUser
+	builder.mentionUserFlag = true
+	return builder
+}
+
+// @文档
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) MentionDoc(mentionDoc *MentionDoc) *AgendaTitleElementBuilder {
+	builder.mentionDoc = mentionDoc
+	builder.mentionDocFlag = true
+	return builder
+}
+
+// 日期提醒
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) Reminder(reminder *Reminder) *AgendaTitleElementBuilder {
+	builder.reminder = reminder
+	builder.reminderFlag = true
+	return builder
+}
+
+// 内联附件
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) File(file *InlineFile) *AgendaTitleElementBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+
+// 未支持的 TextElement
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) Undefined(undefined *UndefinedElement) *AgendaTitleElementBuilder {
+	builder.undefined = undefined
+	builder.undefinedFlag = true
+	return builder
+}
+
+// 内联 block
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) InlineBlock(inlineBlock *InlineBlock) *AgendaTitleElementBuilder {
+	builder.inlineBlock = inlineBlock
+	builder.inlineBlockFlag = true
+	return builder
+}
+
+// 公式
+//
+// 示例值：
+func (builder *AgendaTitleElementBuilder) Equation(equation *Equation) *AgendaTitleElementBuilder {
+	builder.equation = equation
+	builder.equationFlag = true
+	return builder
+}
+
+func (builder *AgendaTitleElementBuilder) Build() *AgendaTitleElement {
+	req := &AgendaTitleElement{}
+	if builder.textRunFlag {
+		req.TextRun = builder.textRun
+	}
+	if builder.mentionUserFlag {
+		req.MentionUser = builder.mentionUser
+	}
+	if builder.mentionDocFlag {
+		req.MentionDoc = builder.mentionDoc
+	}
+	if builder.reminderFlag {
+		req.Reminder = builder.reminder
+	}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	if builder.undefinedFlag {
+		req.Undefined = builder.undefined
+	}
+	if builder.inlineBlockFlag {
+		req.InlineBlock = builder.inlineBlock
+	}
+	if builder.equationFlag {
+		req.Equation = builder.equation
+	}
+	return req
+}
+
 type Bitable struct {
 	Token    *string `json:"token,omitempty"`     // 多维表格文档 Token
 	ViewType *int    `json:"view_type,omitempty"` // 类型
@@ -177,156 +369,168 @@ func (builder *BitableBuilder) Build() *Bitable {
 }
 
 type Block struct {
-	BlockId        *string         `json:"block_id,omitempty"`        // Block 唯一标识
-	ParentId       *string         `json:"parent_id,omitempty"`       // block 的父亲 id
-	Children       []string        `json:"children,omitempty"`        // block 的孩子 id 列表
-	BlockType      *int            `json:"block_type,omitempty"`      // block 类型
-	Page           *Text           `json:"page,omitempty"`            // 文档 Block
-	Text           *Text           `json:"text,omitempty"`            // 文本 Block
-	Heading1       *Text           `json:"heading1,omitempty"`        // 一级标题 Block
-	Heading2       *Text           `json:"heading2,omitempty"`        // 二级标题 Block
-	Heading3       *Text           `json:"heading3,omitempty"`        // 三级标题 Block
-	Heading4       *Text           `json:"heading4,omitempty"`        // 四级标题 Block
-	Heading5       *Text           `json:"heading5,omitempty"`        // 五级标题 Block
-	Heading6       *Text           `json:"heading6,omitempty"`        // 六级标题 Block
-	Heading7       *Text           `json:"heading7,omitempty"`        // 七级标题 Block
-	Heading8       *Text           `json:"heading8,omitempty"`        // 八级标题 Block
-	Heading9       *Text           `json:"heading9,omitempty"`        // 九级标题 Block
-	Bullet         *Text           `json:"bullet,omitempty"`          // 无序列表 Block
-	Ordered        *Text           `json:"ordered,omitempty"`         // 有序列表 Block
-	Code           *Text           `json:"code,omitempty"`            // 代码块 Block
-	Quote          *Text           `json:"quote,omitempty"`           // 引用 Block
-	Equation       *Text           `json:"equation,omitempty"`        // 公式 Block
-	Todo           *Text           `json:"todo,omitempty"`            // 待办事项 Block
-	Bitable        *Bitable        `json:"bitable,omitempty"`         // 多维表格 Block
-	Callout        *Callout        `json:"callout,omitempty"`         // 高亮块 Block
-	ChatCard       *ChatCard       `json:"chat_card,omitempty"`       // 群聊卡片 Block
-	Diagram        *Diagram        `json:"diagram,omitempty"`         // 流程图/UML Block
-	Divider        *Divider        `json:"divider,omitempty"`         // 分割线 Block
-	File           *File           `json:"file,omitempty"`            // 文件 Block
-	Grid           *Grid           `json:"grid,omitempty"`            // 分栏 Block
-	GridColumn     *GridColumn     `json:"grid_column,omitempty"`     // 分栏列 Block
-	Iframe         *Iframe         `json:"iframe,omitempty"`          // 内嵌 Block
-	Image          *Image          `json:"image,omitempty"`           // 图片 Block
-	Isv            *Isv            `json:"isv,omitempty"`             // 三方 Block
-	AddOns         *AddOns         `json:"add_ons,omitempty"`         // Add-ons
-	Mindnote       *Mindnote       `json:"mindnote,omitempty"`        // 思维笔记 Block
-	Sheet          *Sheet          `json:"sheet,omitempty"`           // 电子表格 Block
-	Table          *Table          `json:"table,omitempty"`           // 表格 Block
-	TableCell      *TableCell      `json:"table_cell,omitempty"`      // 单元格 Block
-	View           *View           `json:"view,omitempty"`            // 视图 Block
-	Undefined      *Undefined      `json:"undefined,omitempty"`       // 未支持 Block
-	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block
-	Task           *Task           `json:"task,omitempty"`            // 任务 Block
-	Okr            *Okr            `json:"okr,omitempty"`             // OKR Block，仅可在使用 `user_access_token` 时创建
-	OkrObjective   *OkrObjective   `json:"okr_objective,omitempty"`   // OKR Objective Block
-	OkrKeyResult   *OkrKeyResult   `json:"okr_key_result,omitempty"`  // OKR Key Result
-	OkrProgress    *OkrProgress    `json:"okr_progress,omitempty"`    // OKR 进展信息
-	CommentIds     []string        `json:"comment_ids,omitempty"`     // 评论 id 列表
-	JiraIssue      *JiraIssue      `json:"jira_issue,omitempty"`      // Jira Issue
-	WikiCatalog    *WikiCatalog    `json:"wiki_catalog,omitempty"`    // Wiki 子目录 Block
-	Board          *Board          `json:"board,omitempty"`           // 画板 Block
+	BlockId           *string            `json:"block_id,omitempty"`            // Block 唯一标识
+	ParentId          *string            `json:"parent_id,omitempty"`           // block 的父亲 id
+	Children          []string           `json:"children,omitempty"`            // block 的孩子 id 列表
+	BlockType         *int               `json:"block_type,omitempty"`          // block 类型
+	Page              *Text              `json:"page,omitempty"`                // 文档 Block
+	Text              *Text              `json:"text,omitempty"`                // 文本 Block
+	Heading1          *Text              `json:"heading1,omitempty"`            // 一级标题 Block
+	Heading2          *Text              `json:"heading2,omitempty"`            // 二级标题 Block
+	Heading3          *Text              `json:"heading3,omitempty"`            // 三级标题 Block
+	Heading4          *Text              `json:"heading4,omitempty"`            // 四级标题 Block
+	Heading5          *Text              `json:"heading5,omitempty"`            // 五级标题 Block
+	Heading6          *Text              `json:"heading6,omitempty"`            // 六级标题 Block
+	Heading7          *Text              `json:"heading7,omitempty"`            // 七级标题 Block
+	Heading8          *Text              `json:"heading8,omitempty"`            // 八级标题 Block
+	Heading9          *Text              `json:"heading9,omitempty"`            // 九级标题 Block
+	Bullet            *Text              `json:"bullet,omitempty"`              // 无序列表 Block
+	Ordered           *Text              `json:"ordered,omitempty"`             // 有序列表 Block
+	Code              *Text              `json:"code,omitempty"`                // 代码块 Block
+	Quote             *Text              `json:"quote,omitempty"`               // 引用 Block
+	Equation          *Text              `json:"equation,omitempty"`            // 公式 Block
+	Todo              *Text              `json:"todo,omitempty"`                // 待办事项 Block
+	Bitable           *Bitable           `json:"bitable,omitempty"`             // 多维表格 Block
+	Callout           *Callout           `json:"callout,omitempty"`             // 高亮块 Block
+	ChatCard          *ChatCard          `json:"chat_card,omitempty"`           // 群聊卡片 Block
+	Diagram           *Diagram           `json:"diagram,omitempty"`             // 流程图/UML Block
+	Divider           *Divider           `json:"divider,omitempty"`             // 分割线 Block
+	File              *File              `json:"file,omitempty"`                // 文件 Block
+	Grid              *Grid              `json:"grid,omitempty"`                // 分栏 Block
+	GridColumn        *GridColumn        `json:"grid_column,omitempty"`         // 分栏列 Block
+	Iframe            *Iframe            `json:"iframe,omitempty"`              // 内嵌 Block
+	Image             *Image             `json:"image,omitempty"`               // 图片 Block
+	Isv               *Isv               `json:"isv,omitempty"`                 // 三方 Block
+	AddOns            *AddOns            `json:"add_ons,omitempty"`             // Add-ons
+	Mindnote          *Mindnote          `json:"mindnote,omitempty"`            // 思维笔记 Block
+	Sheet             *Sheet             `json:"sheet,omitempty"`               // 电子表格 Block
+	Table             *Table             `json:"table,omitempty"`               // 表格 Block
+	TableCell         *TableCell         `json:"table_cell,omitempty"`          // 单元格 Block
+	View              *View              `json:"view,omitempty"`                // 视图 Block
+	Undefined         *Undefined         `json:"undefined,omitempty"`           // 未支持 Block
+	QuoteContainer    *QuoteContainer    `json:"quote_container,omitempty"`     // 引用容器 Block
+	Task              *Task              `json:"task,omitempty"`                // 任务 Block
+	Okr               *Okr               `json:"okr,omitempty"`                 // OKR Block，仅可在使用 `user_access_token` 时创建
+	OkrObjective      *OkrObjective      `json:"okr_objective,omitempty"`       // OKR Objective Block
+	OkrKeyResult      *OkrKeyResult      `json:"okr_key_result,omitempty"`      // OKR Key Result
+	OkrProgress       *OkrProgress       `json:"okr_progress,omitempty"`        // OKR 进展信息
+	CommentIds        []string           `json:"comment_ids,omitempty"`         // 评论 id 列表
+	JiraIssue         *JiraIssue         `json:"jira_issue,omitempty"`          // Jira Issue
+	WikiCatalog       *WikiCatalog       `json:"wiki_catalog,omitempty"`        // Wiki 子目录 Block
+	Board             *Board             `json:"board,omitempty"`               // 画板 Block
+	Agenda            *Agenda            `json:"agenda,omitempty"`              // 议程 Block
+	AgendaItem        *AgendaItem        `json:"agenda_item,omitempty"`         // 议程项 Block
+	AgendaItemTitle   *AgendaItemTitle   `json:"agenda_item_title,omitempty"`   // 议程项标题 Block
+	AgendaItemContent *AgendaItemContent `json:"agenda_item_content,omitempty"` // 议程项内容 Block
 }
 
 type BlockBuilder struct {
-	blockId            string // Block 唯一标识
-	blockIdFlag        bool
-	parentId           string // block 的父亲 id
-	parentIdFlag       bool
-	children           []string // block 的孩子 id 列表
-	childrenFlag       bool
-	blockType          int // block 类型
-	blockTypeFlag      bool
-	page               *Text // 文档 Block
-	pageFlag           bool
-	text               *Text // 文本 Block
-	textFlag           bool
-	heading1           *Text // 一级标题 Block
-	heading1Flag       bool
-	heading2           *Text // 二级标题 Block
-	heading2Flag       bool
-	heading3           *Text // 三级标题 Block
-	heading3Flag       bool
-	heading4           *Text // 四级标题 Block
-	heading4Flag       bool
-	heading5           *Text // 五级标题 Block
-	heading5Flag       bool
-	heading6           *Text // 六级标题 Block
-	heading6Flag       bool
-	heading7           *Text // 七级标题 Block
-	heading7Flag       bool
-	heading8           *Text // 八级标题 Block
-	heading8Flag       bool
-	heading9           *Text // 九级标题 Block
-	heading9Flag       bool
-	bullet             *Text // 无序列表 Block
-	bulletFlag         bool
-	ordered            *Text // 有序列表 Block
-	orderedFlag        bool
-	code               *Text // 代码块 Block
-	codeFlag           bool
-	quote              *Text // 引用 Block
-	quoteFlag          bool
-	equation           *Text // 公式 Block
-	equationFlag       bool
-	todo               *Text // 待办事项 Block
-	todoFlag           bool
-	bitable            *Bitable // 多维表格 Block
-	bitableFlag        bool
-	callout            *Callout // 高亮块 Block
-	calloutFlag        bool
-	chatCard           *ChatCard // 群聊卡片 Block
-	chatCardFlag       bool
-	diagram            *Diagram // 流程图/UML Block
-	diagramFlag        bool
-	divider            *Divider // 分割线 Block
-	dividerFlag        bool
-	file               *File // 文件 Block
-	fileFlag           bool
-	grid               *Grid // 分栏 Block
-	gridFlag           bool
-	gridColumn         *GridColumn // 分栏列 Block
-	gridColumnFlag     bool
-	iframe             *Iframe // 内嵌 Block
-	iframeFlag         bool
-	image              *Image // 图片 Block
-	imageFlag          bool
-	isv                *Isv // 三方 Block
-	isvFlag            bool
-	addOns             *AddOns // Add-ons
-	addOnsFlag         bool
-	mindnote           *Mindnote // 思维笔记 Block
-	mindnoteFlag       bool
-	sheet              *Sheet // 电子表格 Block
-	sheetFlag          bool
-	table              *Table // 表格 Block
-	tableFlag          bool
-	tableCell          *TableCell // 单元格 Block
-	tableCellFlag      bool
-	view               *View // 视图 Block
-	viewFlag           bool
-	undefined          *Undefined // 未支持 Block
-	undefinedFlag      bool
-	quoteContainer     *QuoteContainer // 引用容器 Block
-	quoteContainerFlag bool
-	task               *Task // 任务 Block
-	taskFlag           bool
-	okr                *Okr // OKR Block，仅可在使用 `user_access_token` 时创建
-	okrFlag            bool
-	okrObjective       *OkrObjective // OKR Objective Block
-	okrObjectiveFlag   bool
-	okrKeyResult       *OkrKeyResult // OKR Key Result
-	okrKeyResultFlag   bool
-	okrProgress        *OkrProgress // OKR 进展信息
-	okrProgressFlag    bool
-	commentIds         []string // 评论 id 列表
-	commentIdsFlag     bool
-	jiraIssue          *JiraIssue // Jira Issue
-	jiraIssueFlag      bool
-	wikiCatalog        *WikiCatalog // Wiki 子目录 Block
-	wikiCatalogFlag    bool
-	board              *Board // 画板 Block
-	boardFlag          bool
+	blockId               string // Block 唯一标识
+	blockIdFlag           bool
+	parentId              string // block 的父亲 id
+	parentIdFlag          bool
+	children              []string // block 的孩子 id 列表
+	childrenFlag          bool
+	blockType             int // block 类型
+	blockTypeFlag         bool
+	page                  *Text // 文档 Block
+	pageFlag              bool
+	text                  *Text // 文本 Block
+	textFlag              bool
+	heading1              *Text // 一级标题 Block
+	heading1Flag          bool
+	heading2              *Text // 二级标题 Block
+	heading2Flag          bool
+	heading3              *Text // 三级标题 Block
+	heading3Flag          bool
+	heading4              *Text // 四级标题 Block
+	heading4Flag          bool
+	heading5              *Text // 五级标题 Block
+	heading5Flag          bool
+	heading6              *Text // 六级标题 Block
+	heading6Flag          bool
+	heading7              *Text // 七级标题 Block
+	heading7Flag          bool
+	heading8              *Text // 八级标题 Block
+	heading8Flag          bool
+	heading9              *Text // 九级标题 Block
+	heading9Flag          bool
+	bullet                *Text // 无序列表 Block
+	bulletFlag            bool
+	ordered               *Text // 有序列表 Block
+	orderedFlag           bool
+	code                  *Text // 代码块 Block
+	codeFlag              bool
+	quote                 *Text // 引用 Block
+	quoteFlag             bool
+	equation              *Text // 公式 Block
+	equationFlag          bool
+	todo                  *Text // 待办事项 Block
+	todoFlag              bool
+	bitable               *Bitable // 多维表格 Block
+	bitableFlag           bool
+	callout               *Callout // 高亮块 Block
+	calloutFlag           bool
+	chatCard              *ChatCard // 群聊卡片 Block
+	chatCardFlag          bool
+	diagram               *Diagram // 流程图/UML Block
+	diagramFlag           bool
+	divider               *Divider // 分割线 Block
+	dividerFlag           bool
+	file                  *File // 文件 Block
+	fileFlag              bool
+	grid                  *Grid // 分栏 Block
+	gridFlag              bool
+	gridColumn            *GridColumn // 分栏列 Block
+	gridColumnFlag        bool
+	iframe                *Iframe // 内嵌 Block
+	iframeFlag            bool
+	image                 *Image // 图片 Block
+	imageFlag             bool
+	isv                   *Isv // 三方 Block
+	isvFlag               bool
+	addOns                *AddOns // Add-ons
+	addOnsFlag            bool
+	mindnote              *Mindnote // 思维笔记 Block
+	mindnoteFlag          bool
+	sheet                 *Sheet // 电子表格 Block
+	sheetFlag             bool
+	table                 *Table // 表格 Block
+	tableFlag             bool
+	tableCell             *TableCell // 单元格 Block
+	tableCellFlag         bool
+	view                  *View // 视图 Block
+	viewFlag              bool
+	undefined             *Undefined // 未支持 Block
+	undefinedFlag         bool
+	quoteContainer        *QuoteContainer // 引用容器 Block
+	quoteContainerFlag    bool
+	task                  *Task // 任务 Block
+	taskFlag              bool
+	okr                   *Okr // OKR Block，仅可在使用 `user_access_token` 时创建
+	okrFlag               bool
+	okrObjective          *OkrObjective // OKR Objective Block
+	okrObjectiveFlag      bool
+	okrKeyResult          *OkrKeyResult // OKR Key Result
+	okrKeyResultFlag      bool
+	okrProgress           *OkrProgress // OKR 进展信息
+	okrProgressFlag       bool
+	commentIds            []string // 评论 id 列表
+	commentIdsFlag        bool
+	jiraIssue             *JiraIssue // Jira Issue
+	jiraIssueFlag         bool
+	wikiCatalog           *WikiCatalog // Wiki 子目录 Block
+	wikiCatalogFlag       bool
+	board                 *Board // 画板 Block
+	boardFlag             bool
+	agenda                *Agenda // 议程 Block
+	agendaFlag            bool
+	agendaItem            *AgendaItem // 议程项 Block
+	agendaItemFlag        bool
+	agendaItemTitle       *AgendaItemTitle // 议程项标题 Block
+	agendaItemTitleFlag   bool
+	agendaItemContent     *AgendaItemContent // 议程项内容 Block
+	agendaItemContentFlag bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -775,6 +979,42 @@ func (builder *BlockBuilder) Board(board *Board) *BlockBuilder {
 	return builder
 }
 
+// 议程 Block
+//
+// 示例值：
+func (builder *BlockBuilder) Agenda(agenda *Agenda) *BlockBuilder {
+	builder.agenda = agenda
+	builder.agendaFlag = true
+	return builder
+}
+
+// 议程项 Block
+//
+// 示例值：
+func (builder *BlockBuilder) AgendaItem(agendaItem *AgendaItem) *BlockBuilder {
+	builder.agendaItem = agendaItem
+	builder.agendaItemFlag = true
+	return builder
+}
+
+// 议程项标题 Block
+//
+// 示例值：
+func (builder *BlockBuilder) AgendaItemTitle(agendaItemTitle *AgendaItemTitle) *BlockBuilder {
+	builder.agendaItemTitle = agendaItemTitle
+	builder.agendaItemTitleFlag = true
+	return builder
+}
+
+// 议程项内容 Block
+//
+// 示例值：
+func (builder *BlockBuilder) AgendaItemContent(agendaItemContent *AgendaItemContent) *BlockBuilder {
+	builder.agendaItemContent = agendaItemContent
+	builder.agendaItemContentFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -926,6 +1166,18 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.boardFlag {
 		req.Board = builder.board
+	}
+	if builder.agendaFlag {
+		req.Agenda = builder.agenda
+	}
+	if builder.agendaItemFlag {
+		req.AgendaItem = builder.agendaItem
+	}
+	if builder.agendaItemTitleFlag {
+		req.AgendaItemTitle = builder.agendaItemTitle
+	}
+	if builder.agendaItemContentFlag {
+		req.AgendaItemContent = builder.agendaItemContent
 	}
 	return req
 }
@@ -4111,24 +4363,30 @@ func (builder *TextRunBuilder) Build() *TextRun {
 }
 
 type TextStyle struct {
-	Align    *int  `json:"align,omitempty"`    // 对齐方式
-	Done     *bool `json:"done,omitempty"`     // todo 的完成状态
-	Folded   *bool `json:"folded,omitempty"`   // 文本的折叠状态
-	Language *int  `json:"language,omitempty"` // 代码块语言
-	Wrap     *bool `json:"wrap,omitempty"`     // 代码块是否自动换行
+	Align            *int    `json:"align,omitempty"`             // 对齐方式
+	Done             *bool   `json:"done,omitempty"`              // todo 的完成状态
+	Folded           *bool   `json:"folded,omitempty"`            // 文本的折叠状态
+	Language         *int    `json:"language,omitempty"`          // 代码块语言
+	Wrap             *bool   `json:"wrap,omitempty"`              // 代码块是否自动换行
+	BackgroundColor  *string `json:"background_color,omitempty"`  // 块背景色
+	IndentationLevel *string `json:"indentation_level,omitempty"` // 首行缩进级别
 }
 
 type TextStyleBuilder struct {
-	align        int // 对齐方式
-	alignFlag    bool
-	done         bool // todo 的完成状态
-	doneFlag     bool
-	folded       bool // 文本的折叠状态
-	foldedFlag   bool
-	language     int // 代码块语言
-	languageFlag bool
-	wrap         bool // 代码块是否自动换行
-	wrapFlag     bool
+	align                int // 对齐方式
+	alignFlag            bool
+	done                 bool // todo 的完成状态
+	doneFlag             bool
+	folded               bool // 文本的折叠状态
+	foldedFlag           bool
+	language             int // 代码块语言
+	languageFlag         bool
+	wrap                 bool // 代码块是否自动换行
+	wrapFlag             bool
+	backgroundColor      string // 块背景色
+	backgroundColorFlag  bool
+	indentationLevel     string // 首行缩进级别
+	indentationLevelFlag bool
 }
 
 func NewTextStyleBuilder() *TextStyleBuilder {
@@ -4181,6 +4439,24 @@ func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
 	return builder
 }
 
+// 块背景色
+//
+// 示例值：LightGrayBackground
+func (builder *TextStyleBuilder) BackgroundColor(backgroundColor string) *TextStyleBuilder {
+	builder.backgroundColor = backgroundColor
+	builder.backgroundColorFlag = true
+	return builder
+}
+
+// 首行缩进级别
+//
+// 示例值：NoIndent
+func (builder *TextStyleBuilder) IndentationLevel(indentationLevel string) *TextStyleBuilder {
+	builder.indentationLevel = indentationLevel
+	builder.indentationLevelFlag = true
+	return builder
+}
+
 func (builder *TextStyleBuilder) Build() *TextStyle {
 	req := &TextStyle{}
 	if builder.alignFlag {
@@ -4201,6 +4477,14 @@ func (builder *TextStyleBuilder) Build() *TextStyle {
 	}
 	if builder.wrapFlag {
 		req.Wrap = &builder.wrap
+
+	}
+	if builder.backgroundColorFlag {
+		req.BackgroundColor = &builder.backgroundColor
+
+	}
+	if builder.indentationLevelFlag {
+		req.IndentationLevel = &builder.indentationLevel
 
 	}
 	return req

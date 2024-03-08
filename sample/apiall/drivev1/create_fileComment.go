@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
@@ -31,17 +32,6 @@ func main() {
 		FileType("doc").
 		UserIdType("user_id").
 		FileComment(larkdrive.NewFileCommentBuilder().
-			CommentId("").
-			UserId("").
-			CreateTime(0).
-			UpdateTime(0).
-			IsSolved(false).
-			SolvedTime(0).
-			SolverUserId("").
-			HasMore(false).
-			PageToken("").
-			IsWhole(false).
-			Quote("").
 			ReplyList(larkdrive.NewReplyListBuilder().Build()).
 			Build()).
 		Build()

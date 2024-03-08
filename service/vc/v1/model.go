@@ -129,8 +129,24 @@ const (
 )
 
 const (
+	UnitTypeCN = 0 // 中国大陆
+	UnitTypeVA = 1 // 美国
+	UnitTypeSG = 2 // 新加坡
+	UnitTypeJP = 3 // 日本
+
+)
+
+const (
 	TopUserOrderByMeetingCount    = 1 // 会议数量
 	TopUserOrderByMeetingDuration = 2 // 会议时长
+
+)
+
+const (
+	UnitTypeGetTopUserReportCN = 0 // 中国大陆
+	UnitTypeGetTopUserReportVA = 1 // 美国
+	UnitTypeGetTopUserReportSG = 2 // 新加坡
+	UnitTypeGetTopUserReportJP = 3 // 日本
 
 )
 
@@ -3299,6 +3315,9 @@ type MyAiResponsePresent struct {
 	Body          *string `json:"body,omitempty"`           // 透传消息体
 	Interactable  *bool   `json:"interactable,omitempty"`   // 是否可交互
 	OperationType *string `json:"operation_type,omitempty"` // tool对卡片交互的响应
+	OperationUrl  *string `json:"operation_url,omitempty"`  // 卡片后续链路交互的请求地址
+	CallbackUrl   *string `json:"callback_url,omitempty"`   // 透传数据上屏后,回调业务方的url;支持Open API 与 rpc 两种方式。由业务方提供。
+	CallbackInfo  *string `json:"callback_info,omitempty"`  // 回调信息
 }
 
 type MyAiResponsePresentBuilder struct {
@@ -3310,6 +3329,12 @@ type MyAiResponsePresentBuilder struct {
 	interactableFlag  bool
 	operationType     string // tool对卡片交互的响应
 	operationTypeFlag bool
+	operationUrl      string // 卡片后续链路交互的请求地址
+	operationUrlFlag  bool
+	callbackUrl       string // 透传数据上屏后,回调业务方的url;支持Open API 与 rpc 两种方式。由业务方提供。
+	callbackUrlFlag   bool
+	callbackInfo      string // 回调信息
+	callbackInfoFlag  bool
 }
 
 func NewMyAiResponsePresentBuilder() *MyAiResponsePresentBuilder {
@@ -3353,6 +3378,33 @@ func (builder *MyAiResponsePresentBuilder) OperationType(operationType string) *
 	return builder
 }
 
+// 卡片后续链路交互的请求地址
+//
+// 示例值：https://open.feishu-boe.cn/open-apis/lark_ai/operation
+func (builder *MyAiResponsePresentBuilder) OperationUrl(operationUrl string) *MyAiResponsePresentBuilder {
+	builder.operationUrl = operationUrl
+	builder.operationUrlFlag = true
+	return builder
+}
+
+// 透传数据上屏后,回调业务方的url;支持Open API 与 rpc 两种方式。由业务方提供。
+//
+// 示例值：https://open.feishu-boe.cn/open-apis/lark_ai/callback
+func (builder *MyAiResponsePresentBuilder) CallbackUrl(callbackUrl string) *MyAiResponsePresentBuilder {
+	builder.callbackUrl = callbackUrl
+	builder.callbackUrlFlag = true
+	return builder
+}
+
+// 回调信息
+//
+// 示例值：call back raw data
+func (builder *MyAiResponsePresentBuilder) CallbackInfo(callbackInfo string) *MyAiResponsePresentBuilder {
+	builder.callbackInfo = callbackInfo
+	builder.callbackInfoFlag = true
+	return builder
+}
+
 func (builder *MyAiResponsePresentBuilder) Build() *MyAiResponsePresent {
 	req := &MyAiResponsePresent{}
 	if builder.typeFlag {
@@ -3369,6 +3421,18 @@ func (builder *MyAiResponsePresentBuilder) Build() *MyAiResponsePresent {
 	}
 	if builder.operationTypeFlag {
 		req.OperationType = &builder.operationType
+
+	}
+	if builder.operationUrlFlag {
+		req.OperationUrl = &builder.operationUrl
+
+	}
+	if builder.callbackUrlFlag {
+		req.CallbackUrl = &builder.callbackUrl
+
+	}
+	if builder.callbackInfoFlag {
+		req.CallbackInfo = &builder.callbackInfo
 
 	}
 	return req
@@ -3772,6 +3836,38 @@ func (builder *MyAiSipPresentBuilder) Build() *MyAiSipPresent {
 	return req
 }
 
+type MyAiVcAnalysisResult struct {
+	Reply *string `json:"reply,omitempty"` // result reply
+}
+
+type MyAiVcAnalysisResultBuilder struct {
+	reply     string // result reply
+	replyFlag bool
+}
+
+func NewMyAiVcAnalysisResultBuilder() *MyAiVcAnalysisResultBuilder {
+	builder := &MyAiVcAnalysisResultBuilder{}
+	return builder
+}
+
+// result reply
+//
+// 示例值：this is a reply
+func (builder *MyAiVcAnalysisResultBuilder) Reply(reply string) *MyAiVcAnalysisResultBuilder {
+	builder.reply = reply
+	builder.replyFlag = true
+	return builder
+}
+
+func (builder *MyAiVcAnalysisResultBuilder) Build() *MyAiVcAnalysisResult {
+	req := &MyAiVcAnalysisResult{}
+	if builder.replyFlag {
+		req.Reply = &builder.reply
+
+	}
+	return req
+}
+
 type MyAiVcMeetingContentCommonResult struct {
 	MeetingContentReply *string `json:"meeting_content_reply,omitempty"` // 会议内容问答for自由对话
 }
@@ -3997,24 +4093,27 @@ func (builder *MyAiVcMeetingRecapResultBuilder) Build() *MyAiVcMeetingRecapResul
 }
 
 type MyAiVcMeetingScenarioContext struct {
-	Plugins  []*MyAiPluginContext `json:"plugins,omitempty"`   // 会话选择的插件列表
-	Object   *MyAiObjectContext   `json:"object,omitempty"`    // 会话所在实体的信息
-	WorkMode *int                 `json:"work_mode,omitempty"` // 会话所处的业务模式
-	Scenario *string              `json:"scenario,omitempty"`  // 会话所处的业务场景
-	Extra    *MyAiVcMeetingExtra  `json:"extra,omitempty"`     // 透传数据
+	Plugins    []*MyAiPluginContext           `json:"plugins,omitempty"`     // 会话选择的插件列表
+	Object     *MyAiObjectContext             `json:"object,omitempty"`      // 会话所在实体的信息
+	WorkMode   *int                           `json:"work_mode,omitempty"`   // 会话所处的业务模式
+	Scenario   *string                        `json:"scenario,omitempty"`    // 会话所处的业务场景
+	Extra      *MyAiVcMeetingExtra            `json:"extra,omitempty"`       // 透传数据
+	SystemInfo *MyAiAvPluginContextSystemInfo `json:"system_info,omitempty"` // system info
 }
 
 type MyAiVcMeetingScenarioContextBuilder struct {
-	plugins      []*MyAiPluginContext // 会话选择的插件列表
-	pluginsFlag  bool
-	object       *MyAiObjectContext // 会话所在实体的信息
-	objectFlag   bool
-	workMode     int // 会话所处的业务模式
-	workModeFlag bool
-	scenario     string // 会话所处的业务场景
-	scenarioFlag bool
-	extra        *MyAiVcMeetingExtra // 透传数据
-	extraFlag    bool
+	plugins        []*MyAiPluginContext // 会话选择的插件列表
+	pluginsFlag    bool
+	object         *MyAiObjectContext // 会话所在实体的信息
+	objectFlag     bool
+	workMode       int // 会话所处的业务模式
+	workModeFlag   bool
+	scenario       string // 会话所处的业务场景
+	scenarioFlag   bool
+	extra          *MyAiVcMeetingExtra // 透传数据
+	extraFlag      bool
+	systemInfo     *MyAiAvPluginContextSystemInfo // system info
+	systemInfoFlag bool
 }
 
 func NewMyAiVcMeetingScenarioContextBuilder() *MyAiVcMeetingScenarioContextBuilder {
@@ -4067,6 +4166,15 @@ func (builder *MyAiVcMeetingScenarioContextBuilder) Extra(extra *MyAiVcMeetingEx
 	return builder
 }
 
+// system info
+//
+// 示例值：
+func (builder *MyAiVcMeetingScenarioContextBuilder) SystemInfo(systemInfo *MyAiAvPluginContextSystemInfo) *MyAiVcMeetingScenarioContextBuilder {
+	builder.systemInfo = systemInfo
+	builder.systemInfoFlag = true
+	return builder
+}
+
 func (builder *MyAiVcMeetingScenarioContextBuilder) Build() *MyAiVcMeetingScenarioContext {
 	req := &MyAiVcMeetingScenarioContext{}
 	if builder.pluginsFlag {
@@ -4085,6 +4193,41 @@ func (builder *MyAiVcMeetingScenarioContextBuilder) Build() *MyAiVcMeetingScenar
 	}
 	if builder.extraFlag {
 		req.Extra = builder.extra
+	}
+	if builder.systemInfoFlag {
+		req.SystemInfo = builder.systemInfo
+	}
+	return req
+}
+
+type MyAiVcMeetingSuggestQuestionResult struct {
+	Present *string `json:"present,omitempty"` // 推荐问题的卡片
+}
+
+type MyAiVcMeetingSuggestQuestionResultBuilder struct {
+	present     string // 推荐问题的卡片
+	presentFlag bool
+}
+
+func NewMyAiVcMeetingSuggestQuestionResultBuilder() *MyAiVcMeetingSuggestQuestionResultBuilder {
+	builder := &MyAiVcMeetingSuggestQuestionResultBuilder{}
+	return builder
+}
+
+// 推荐问题的卡片
+//
+// 示例值：{"type": "card","body": "xxxxxx","callback_info": ""}
+func (builder *MyAiVcMeetingSuggestQuestionResultBuilder) Present(present string) *MyAiVcMeetingSuggestQuestionResultBuilder {
+	builder.present = present
+	builder.presentFlag = true
+	return builder
+}
+
+func (builder *MyAiVcMeetingSuggestQuestionResultBuilder) Build() *MyAiVcMeetingSuggestQuestionResult {
+	req := &MyAiVcMeetingSuggestQuestionResult{}
+	if builder.presentFlag {
+		req.Present = &builder.present
+
 	}
 	return req
 }
@@ -11026,6 +11169,14 @@ func (builder *GetDailyReportReqBuilder) EndTime(endTime string) *GetDailyReport
 	return builder
 }
 
+// 数据驻留地
+//
+// 示例值：0
+func (builder *GetDailyReportReqBuilder) Unit(unit int) *GetDailyReportReqBuilder {
+	builder.apiReq.QueryParams.Set("unit", fmt.Sprint(unit))
+	return builder
+}
+
 func (builder *GetDailyReportReqBuilder) Build() *GetDailyReportReq {
 	req := &GetDailyReportReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -11093,6 +11244,14 @@ func (builder *GetTopUserReportReqBuilder) Limit(limit int) *GetTopUserReportReq
 // 示例值：1
 func (builder *GetTopUserReportReqBuilder) OrderBy(orderBy int) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("order_by", fmt.Sprint(orderBy))
+	return builder
+}
+
+// 数据驻留地
+//
+// 示例值：0
+func (builder *GetTopUserReportReqBuilder) Unit(unit int) *GetTopUserReportReqBuilder {
+	builder.apiReq.QueryParams.Set("unit", fmt.Sprint(unit))
 	return builder
 }
 

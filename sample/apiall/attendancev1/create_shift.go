@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
@@ -39,6 +40,8 @@ func main() {
 			LateOffLateOnRule([]*larkattendance.LateOffLateOnRule{larkattendance.NewLateOffLateOnRuleBuilder().Build()}).
 			RestTimeRule([]*larkattendance.RestRule{larkattendance.NewRestRuleBuilder().Build()}).
 			OvertimeRule([]*larkattendance.OvertimeRule{larkattendance.NewOvertimeRuleBuilder().Build()}).
+			DayType(60).
+			OvertimeRestTimeRule([]*larkattendance.RestRule{larkattendance.NewRestRuleBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

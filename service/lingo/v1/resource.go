@@ -168,7 +168,7 @@ func (e *entity) Delete(ctx context.Context, req *DeleteEntityReq, options ...la
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/lingo/v1/entities/:entity_id"
 	apiReq.HttpMethod = http.MethodDelete
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
 	if err != nil {
 		return nil, err

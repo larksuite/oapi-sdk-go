@@ -7146,7 +7146,7 @@ func NewMyAiCardActionBuilder() *MyAiCardActionBuilder {
 
 // tag
 //
-// 示例值：button
+// 示例值：button button
 func (builder *MyAiCardActionBuilder) Tag(tag string) *MyAiCardActionBuilder {
 	builder.tag = tag
 	builder.tagFlag = true
