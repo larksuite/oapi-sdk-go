@@ -267,7 +267,6 @@ func (t *MessageText) AtUser(userId, name string) *MessageText {
 	t.builder.WriteString(name)
 	t.builder.WriteString("</at>")
 	return t
-	return t
 }
 
 func (t *MessageText) AtAll() *MessageText {
