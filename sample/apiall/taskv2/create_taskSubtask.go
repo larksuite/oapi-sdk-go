@@ -16,32 +16,39 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // POST /open-apis/task/v2/tasks/:task_guid/subtasks
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTaskSubtaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTaskSubtaskReqBuilder().
 		TaskGuid("e297ddff-06ca-4166-b917-4ce57cd3a7a0").
+		
 		UserIdType("open_id").
-		InputTask(larktask.NewInputTaskBuilder().
+		
+	   InputTask(larktask.NewInputTaskBuilder().
 			Summary("针对全年销售进行一次复盘").
+			
 			Description("需要事先阅读复盘总结文档").
+			
 			Due(larktask.NewDueBuilder().Build()).
 			Origin(larktask.NewOriginBuilder().Build()).
 			Extra("dGVzdA==").
+			
 			CompletedAt("0").
+			
 			Members([]*larktask.Member{larktask.NewMemberBuilder().Build()}).
 			RepeatRule("FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR").
+			
 			CustomComplete(larktask.NewCustomCompleteBuilder().Build()).
 			Tasklists([]*larktask.TaskInTasklistInfo{larktask.NewTaskInTasklistInfoBuilder().Build()}).
 			ClientToken("daa2237f-8310-4707-a83b-52c8a81e0fb7").
+			
 			Start(larktask.NewStartBuilder().Build()).
 			Reminders([]*larktask.Reminder{larktask.NewReminderBuilder().Build()}).
 			Mode(2).
@@ -49,11 +56,12 @@ func main() {
 			CustomFields([]*larktask.InputCustomFieldValue{larktask.NewInputCustomFieldValueBuilder().Build()}).
 			DocxSource(larktask.NewDocxSourceBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.TaskSubtask.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.TaskSubtask.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -68,3 +76,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

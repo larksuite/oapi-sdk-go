@@ -16,32 +16,37 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
 )
 
 // GET /open-apis/admin/v1/audit_infos
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewListAuditInfoReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewListAuditInfoReqBuilder().
 		UserIdType("user_id").
+		
 		Latest(1668700799).
 		Oldest(1668528000).
 		EventName("space_create_doc").
+		
 		OperatorType("user").
+		
 		OperatorValue("55ed16fe").
+		
 		EventModule(1).
 		PageToken("LC39/f1%2B/Sz9Uv39Gf39/ew/cd5WY0gfGYFdixOW9cVk4bC79ituO/gx0qpPn1bYf92nz/kI0nNJOG3wCwDJKoNU%2BtyaXbpI8pV/9UNDMZT0BNeyanFH17Wv711Qh9anR3l2GjQfc2fUqXtxg1YPp63XyhYY4iRMv54ySRG7r%2BI89iS3zAoPzFuuU1MUJKsf").
+		
 		PageSize(20).
-		Build()
-	// 发起请求
-	resp, err := client.Admin.V1.AuditInfo.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.V1.AuditInfo.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

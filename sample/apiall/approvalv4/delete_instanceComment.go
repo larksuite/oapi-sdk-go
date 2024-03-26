@@ -16,27 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // DELETE /open-apis/approval/v4/instances/:instance_id/comments/:comment_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewDeleteInstanceCommentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewDeleteInstanceCommentReqBuilder().
 		InstanceId("6A123516-FB88-470D-A428-9AF58B71B3C0").
+		
 		CommentId("7081516627711606803").
+		
 		UserIdType("user_id").
+		
 		UserId("ou_806a18fb5bdf525e38ba219733bdbd73").
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.InstanceComment.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.InstanceComment.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

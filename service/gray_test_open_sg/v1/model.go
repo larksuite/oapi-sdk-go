@@ -14,9 +14,10 @@
 package larkgray_test_open_sg
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -38,8 +39,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -47,8 +46,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -243,7 +240,6 @@ func (builder *CreateMotoReqBuilder) UserIdType(userIdType string) *CreateMotoRe
 	return builder
 }
 
-//
 func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 	builder.level = level
 	return builder

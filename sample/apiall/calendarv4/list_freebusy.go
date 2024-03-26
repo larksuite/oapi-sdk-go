@@ -16,32 +16,37 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
 // POST /open-apis/calendar/v4/freebusy/list
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewListFreebusyReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewListFreebusyReqBuilder().
 		UserIdType("user_id").
-		Body(larkcalendar.NewListFreebusyReqBodyBuilder().
+		
+	   Body(larkcalendar.NewListFreebusyReqBodyBuilder().
 			TimeMin("2020-10-28T12:00:00+08:00").
+			
 			TimeMax("2020-12-28T12:00:00+08:00").
+			
 			UserId("ou_xxxxxxxxxx").
+			
 			RoomId("omm_xxxxxxxxxx").
+			
 			IncludeExternalCalendar(true).
 			OnlyBusy(true).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.V4.Freebusy.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.V4.Freebusy.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

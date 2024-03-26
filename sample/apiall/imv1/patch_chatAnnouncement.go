@@ -16,28 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 // PATCH /open-apis/im/v1/chats/:chat_id/announcement
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewPatchChatAnnouncementReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewPatchChatAnnouncementReqBuilder().
 		ChatId("oc_5ad11d72b830411d72b836c20").
-		Body(larkim.NewPatchChatAnnouncementReqBodyBuilder().
+		
+	   Body(larkim.NewPatchChatAnnouncementReqBodyBuilder().
 			Revision("12").
+			
 			Requests([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Im.V1.ChatAnnouncement.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Im.V1.ChatAnnouncement.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

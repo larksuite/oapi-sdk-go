@@ -16,29 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
 )
 
 // GET /open-apis/admin/v1/badges/:badge_id/grants
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewListBadgeGrantReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewListBadgeGrantReqBuilder().
 		BadgeId("m_DjMzaK").
+		
 		PageSize(10).
 		PageToken("om5fn1").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		Name("激励勋章的授予名单").
-		Build()
-	// 发起请求
-	resp, err := client.Admin.V1.BadgeGrant.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.V1.BadgeGrant.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

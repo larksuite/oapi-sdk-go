@@ -42,8 +42,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -51,8 +49,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -153,7 +149,7 @@ func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
 
 // 姓名
 //
-//示例值：张三
+// 示例值：张三
 func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
 	builder.identityName = identityName
 	builder.identityNameFlag = true
@@ -162,7 +158,7 @@ func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *
 
 // 身份证号
 //
-//示例值：4xxxxxxxx
+// 示例值：4xxxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityReqBodyBuilder {
 	builder.identityCode = identityCode
 	builder.identityCodeFlag = true
@@ -171,7 +167,7 @@ func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *
 
 // 手机号
 //
-//示例值：13xxxxxxx
+// 示例值：13xxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) Mobile(mobile string) *CreateIdentityReqBodyBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true

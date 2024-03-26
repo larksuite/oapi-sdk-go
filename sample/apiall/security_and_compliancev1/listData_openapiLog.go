@@ -16,31 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/security_and_compliance/v1"
 )
 
 // POST /open-apis/security_and_compliance/v1/openapi_logs/list_data
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larksecurity_and_compliance.NewListDataOpenapiLogReqBuilder().
-		ListOpenapiLogRequest(larksecurity_and_compliance.NewListOpenapiLogRequestBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larksecurity_and_compliance.NewListDataOpenapiLogReqBuilder().
+	   ListOpenapiLogRequest(larksecurity_and_compliance.NewListOpenapiLogRequestBuilder().
 			ApiKeys([]string{}).
 			StartTime(1610613336).
 			EndTime(1610613336).
 			AppId("cli_xxx").
+			
 			PageSize(20).
 			PageToken("xxx").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.SecurityAndCompliance.V1.OpenapiLog.ListData(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.SecurityAndCompliance.V1.OpenapiLog.ListData(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

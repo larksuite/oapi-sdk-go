@@ -16,27 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/probation/enable_disable_assessment
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewEnableDisableAssessmentProbationReqBuilder().
-		Body(larkcorehr.NewEnableDisableAssessmentProbationReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewEnableDisableAssessmentProbationReqBuilder().
+	   Body(larkcorehr.NewEnableDisableAssessmentProbationReqBodyBuilder().
 			Active(true).
 			AppUrl("https://qwe111.feishuapp.bytedance.net/ae/ui/apps/176612345027111/appPages/l11bsrwss13yt?dataGrid%41pye4fsbajo21l=%7B%7D&key=ffm41o1&dataGrid%41wmv98t29vif3kj=%1B%7D").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.Probation.EnableDisableAssessment(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.Probation.EnableDisableAssessment(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,24 +16,25 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 // GET /open-apis/im/v1/images/:image_key
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewGetImageReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewGetImageReqBuilder().
 		ImageKey("img_8d5181ca-0aed-40f0-b0d1-b1452132afbg").
-		Build()
-	// 发起请求
-	resp, err := client.Im.V1.Image.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Im.V1.Image.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // GET /open-apis/vc/v1/reports/get_top_user
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewGetTopUserReportReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewGetTopUserReportReqBuilder().
 		StartTime("1608888867").
+		
 		EndTime("1608889966").
+		
 		Limit(10).
 		OrderBy(1).
 		Unit(0).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.Report.GetTopUser(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.Report.GetTopUser(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

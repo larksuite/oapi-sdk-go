@@ -16,27 +16,29 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/authen/v1"
 )
 
 // POST /open-apis/authen/v1/oidc/refresh_access_token
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkauthen.NewCreateOidcRefreshAccessTokenReqBuilder().
-		Body(larkauthen.NewCreateOidcRefreshAccessTokenReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkauthen.NewCreateOidcRefreshAccessTokenReqBuilder().
+	   Body(larkauthen.NewCreateOidcRefreshAccessTokenReqBodyBuilder().
 			GrantType("refresh_token").
+			
 			RefreshToken("ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Authen.V1.OidcRefreshAccessToken.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Authen.V1.OidcRefreshAccessToken.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

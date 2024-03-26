@@ -16,31 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // POST /open-apis/hire/v1/eco_background_checks/update_progress
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewUpdateProgressEcoBackgroundCheckReqBuilder().
-		Body(larkhire.NewUpdateProgressEcoBackgroundCheckReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewUpdateProgressEcoBackgroundCheckReqBuilder().
+	   Body(larkhire.NewUpdateProgressEcoBackgroundCheckReqBodyBuilder().
 			BackgroundCheckId("6931286400470354183").
+			
 			StageId("6931286400470354183").
+			
 			StageEnName("stage report").
+			
 			StageName("阶段报告").
+			
 			StageTime("1660123456789").
+			
+			Result("通过").
+			
 			ReportFileList([]*larkhire.EcoBackgroundCheckReportFile{larkhire.NewEcoBackgroundCheckReportFileBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.EcoBackgroundCheck.UpdateProgress(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.EcoBackgroundCheck.UpdateProgress(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,32 +16,39 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // GET /open-apis/vc/v1/participant_list
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewGetParticipantListReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewGetParticipantListReqBuilder().
 		MeetingStartTime("1655276858").
+		
 		MeetingEndTime("1655276858").
+		
 		MeetingStatus(2).
 		MeetingNo("123456789").
+		
 		UserId("ou_3ec3f6a28a0d08c45d895276e8e5e19b").
+		
 		RoomId("omm_eada1d61a550955240c28757e7dec3af").
+		
 		PageSize(20).
 		PageToken("").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.ParticipantList.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.ParticipantList.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +63,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

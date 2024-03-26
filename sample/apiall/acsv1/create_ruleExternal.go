@@ -16,28 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
 // POST /open-apis/acs/v1/rule_external
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkacs.NewCreateRuleExternalReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkacs.NewCreateRuleExternalReqBuilder().
 		RuleId("7298933941867135276").
+		
 		UserIdType("user_id").
-		Body(larkacs.NewCreateRuleExternalReqBodyBuilder().
+		
+	   Body(larkacs.NewCreateRuleExternalReqBodyBuilder().
 			Rule(larkacs.NewRuleBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Acs.V1.RuleExternal.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Acs.V1.RuleExternal.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

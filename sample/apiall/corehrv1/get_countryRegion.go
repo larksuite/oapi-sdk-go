@@ -16,24 +16,25 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // GET /open-apis/corehr/v1/country_regions/:country_region_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewGetCountryRegionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewGetCountryRegionReqBuilder().
 		CountryRegionId("67489937334909845").
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.CountryRegion.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.CountryRegion.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,33 +16,41 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // POST /open-apis/approval/v4/instances/preview
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewPreviewInstanceReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewPreviewInstanceReqBuilder().
 		UserIdType("open_id").
-		Body(larkapproval.NewPreviewInstanceReqBodyBuilder().
+		
+	   Body(larkapproval.NewPreviewInstanceReqBodyBuilder().
 			UserId("发起审批用户id，按照user_id_type类型填写").
+			
 			ApprovalCode("C2CAAA90-70D9-3214-906B-B6FFF947F00D").
+			
 			DepartmentId("6982332863116876308").
+			
 			Form("").
+			
 			InstanceCode("12345CA6-97AC-32BB-8231-47C33FFFCCFD").
+			
 			Locale("zh-CN: 中文 en-US: 英文").
+			
 			TaskId("6982332863116876308").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.Instance.Preview(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.Instance.Preview(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +65,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

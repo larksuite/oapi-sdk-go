@@ -16,25 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
 // DELETE /open-apis/acs/v1/visitors/:visitor_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkacs.NewDeleteVisitorReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkacs.NewDeleteVisitorReqBuilder().
 		VisitorId("6939433228970082566").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Acs.V1.Visitor.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Acs.V1.Visitor.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

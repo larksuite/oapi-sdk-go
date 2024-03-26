@@ -16,26 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 // GET /open-apis/application/v6/app_recommend_rules
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewListAppRecommendRuleReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewListAppRecommendRuleReqBuilder().
 		PageSize(10).
 		PageToken("new-e11ee058b4a8ed2881da11ac7e37c4fc").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Application.V6.AppRecommendRule.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Application.V6.AppRecommendRule.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

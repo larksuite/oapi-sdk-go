@@ -14,9 +14,10 @@
 package larkdocx
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1583,8 +1584,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1592,8 +1591,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5222,7 +5219,7 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 
 // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 //
-//示例值：fldcnqquW1svRIYVT2Np6IuLCKd
+// 示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -5231,7 +5228,7 @@ func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *Cr
 
 // 文档标题，只支持纯文本
 //
-//示例值：undefined
+// 示例值：undefined
 func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocumentReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -5454,7 +5451,7 @@ func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBod
 
 // 批量更新 Block
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
@@ -5848,7 +5845,7 @@ func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlo
 
 // 删除的起始索引（操作区间左闭右开）
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
@@ -5857,7 +5854,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startI
 
 // 删除的末尾索引（操作区间左闭右开）
 //
-//示例值：1
+// 示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexFlag = true
@@ -6016,7 +6013,7 @@ func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildren
 
 // 添加的孩子列表。
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -6025,7 +6022,7 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*B
 
 // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true

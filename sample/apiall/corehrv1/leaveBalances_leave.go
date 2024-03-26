@@ -16,29 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // GET /open-apis/corehr/v1/leaves/leave_balances
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewLeaveBalancesLeaveReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewLeaveBalancesLeaveReqBuilder().
 		PageToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9").
+		
 		PageSize("20").
+		
 		AsOfDate("2022-07-29").
+		
 		EmploymentIdList([]string{}).
 		UserIdType("people_corehr_id").
+		
 		TimeZone("Asia/Shanghai").
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Leave.LeaveBalances(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Leave.LeaveBalances(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

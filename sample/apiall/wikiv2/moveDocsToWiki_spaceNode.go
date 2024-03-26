@@ -16,30 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
 // POST /open-apis/wiki/v2/spaces/:space_id/nodes/move_docs_to_wiki
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkwiki.NewMoveDocsToWikiSpaceNodeReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkwiki.NewMoveDocsToWikiSpaceNodeReqBuilder().
 		SpaceId("1565676577122621").
-		Body(larkwiki.NewMoveDocsToWikiSpaceNodeReqBodyBuilder().
+		
+	   Body(larkwiki.NewMoveDocsToWikiSpaceNodeReqBodyBuilder().
 			ParentWikiToken("wikcnKQ1k3p******8Vabce").
+			
 			ObjType("doc").
+			
 			ObjToken("doccnzAaOD******Wabcdef").
+			
 			Apply(true).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Wiki.V2.SpaceNode.MoveDocsToWiki(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Wiki.V2.SpaceNode.MoveDocsToWiki(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,19 +16,18 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 // GET /open-apis/okr/v1/period_rules
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 发起请求
-	resp, err := client.Okr.V1.PeriodRule.List(context.Background())
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 发起请求
+   resp,err := client.Okr.V1.PeriodRule.List(context.Background())
 
-	// 处理错误
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,3 +42,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

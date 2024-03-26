@@ -16,31 +16,35 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // POST /open-apis/hire/v1/external_interview_assessments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewCreateExternalInterviewAssessmentReqBuilder().
-		ExternalInterviewAssessment(larkhire.NewExternalInterviewAssessmentBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewCreateExternalInterviewAssessmentReqBuilder().
+	   ExternalInterviewAssessment(larkhire.NewExternalInterviewAssessmentBuilder().
 			ExternalId("123").
+			
 			Username("shaojiale").
+			
 			Conclusion(1).
 			AssessmentDimensionList([]*larkhire.ExternalInterviewAssessmentDimension{larkhire.NewExternalInterviewAssessmentDimensionBuilder().Build()}).
 			Content("hello world").
+			
 			ExternalInterviewId("6986199832494934316").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.ExternalInterviewAssessment.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.ExternalInterviewAssessment.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +59,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

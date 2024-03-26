@@ -16,28 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 // PATCH /open-apis/application/v6/applications/:app_id/feedbacks/:feedback_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewPatchApplicationFeedbackReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewPatchApplicationFeedbackReqBuilder().
 		AppId("cli_9f115af860f7901b").
+		
 		FeedbackId("7057888018203574291").
+		
 		UserIdType("open_id").
+		
 		Status(1).
 		OperatorId("ou_9565b69967831233761cc2f11b4c089f").
-		Build()
-	// 发起请求
-	resp, err := client.Application.V6.ApplicationFeedback.Patch(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Application.V6.ApplicationFeedback.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

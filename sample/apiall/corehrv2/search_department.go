@@ -16,37 +16,42 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/departments/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSearchDepartmentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSearchDepartmentReqBuilder().
 		PageSize(100).
 		PageToken("6891251722631890445").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		Body(larkcorehr.NewSearchDepartmentReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSearchDepartmentReqBodyBuilder().
 			Active(true).
 			GetAllChildren(false).
 			ManagerList([]string{}).
 			DepartmentIdList([]string{}).
 			NameList([]string{}).
 			ParentDepartmentId("7094136522860922222").
+			
 			CodeList([]string{}).
+			
 			Fields([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.Department.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.Department.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,3 +66,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

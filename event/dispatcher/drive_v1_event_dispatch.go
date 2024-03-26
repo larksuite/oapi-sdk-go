@@ -32,8 +32,6 @@ func (dispatcher *EventDispatcher) OnP2FileBitableFieldChangedV1(handler func(ct
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-deleted-completely
@@ -46,8 +44,6 @@ func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Co
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited
@@ -60,8 +56,6 @@ func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-add
@@ -74,8 +68,6 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
@@ -88,8 +80,6 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler fun
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
@@ -102,8 +92,6 @@ func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
@@ -116,8 +104,6 @@ func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can

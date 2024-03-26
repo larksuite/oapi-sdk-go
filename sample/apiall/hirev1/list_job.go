@@ -16,31 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // GET /open-apis/hire/v1/jobs
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewListJobReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewListJobReqBuilder().
 		UpdateStartTime("1618500278663").
+		
 		UpdateEndTime("1618500278663").
+		
 		PageSize(10).
 		PageToken("eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		JobLevelIdType("people_admin_job_level_id").
+		
 		JobFamilyIdType("people_admin_job_category_id").
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.Job.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.Job.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

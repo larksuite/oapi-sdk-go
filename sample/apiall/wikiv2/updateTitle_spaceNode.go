@@ -16,28 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki/v2"
 )
 
 // POST /open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/update_title
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkwiki.NewUpdateTitleSpaceNodeReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkwiki.NewUpdateTitleSpaceNodeReqBuilder().
 		SpaceId("6946843325487912356").
+		
 		NodeToken("wikcnKQ1k3pcuo5uSK4t8Vabcef").
-		Body(larkwiki.NewUpdateTitleSpaceNodeReqBodyBuilder().
+		
+	   Body(larkwiki.NewUpdateTitleSpaceNodeReqBodyBuilder().
 			Title("新标题").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Wiki.V2.SpaceNode.UpdateTitle(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Wiki.V2.SpaceNode.UpdateTitle(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

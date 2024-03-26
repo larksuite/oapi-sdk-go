@@ -16,28 +16,29 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/personal_settings/v1"
 )
 
 // PATCH /open-apis/personal_settings/v1/system_statuses/:system_status_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkpersonal_settings.NewPatchSystemStatusReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkpersonal_settings.NewPatchSystemStatusReqBuilder().
 		SystemStatusId("7101214603622940633").
-		Body(larkpersonal_settings.NewPatchSystemStatusReqBodyBuilder().
+		
+	   Body(larkpersonal_settings.NewPatchSystemStatusReqBodyBuilder().
 			SystemStatus(larkpersonal_settings.NewSystemStatusBuilder().Build()).
 			UpdateFields([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.PersonalSettings.V1.SystemStatus.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.PersonalSettings.V1.SystemStatus.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

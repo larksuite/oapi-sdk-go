@@ -16,36 +16,43 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // PATCH /open-apis/corehr/v1/pre_hires/:pre_hire_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewPatchPreHireReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewPatchPreHireReqBuilder().
 		PreHireId("1616161616").
+		
 		ClientToken("12454646").
-		PreHire(larkcorehr.NewPreHireBuilder().
+		
+	   PreHire(larkcorehr.NewPreHireBuilder().
 			AtsApplicationId("4719168654814483759").
+			
 			HireDate("2020-01-01").
+			
 			EmployeeType(larkcorehr.NewEnumBuilder().Build()).
 			WorkerId("1245646").
+			
 			EmployeeTypeId("正式").
+			
 			PersonId("656464648662").
+			
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			CostCenterRate([]*larkcorehr.SupportCostCenterItem{larkcorehr.NewSupportCostCenterItemBuilder().Build()}).
 			OnboardingStatus(larkcorehr.NewEnumBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.PreHire.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.PreHire.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,3 +67,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

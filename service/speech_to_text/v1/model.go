@@ -34,8 +34,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -43,8 +41,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -287,7 +283,7 @@ func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
 
 // 语音资源
 //
-//示例值：
+// 示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -296,7 +292,7 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRe
 
 // 配置属性
 //
-//示例值：
+// 示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true
@@ -420,7 +416,7 @@ func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuild
 
 // 语音资源
 //
-//示例值：
+// 示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -429,7 +425,7 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *Stre
 
 // 配置属性
 //
-//示例值：
+// 示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configFlag = true

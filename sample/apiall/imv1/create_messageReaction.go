@@ -16,27 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 // POST /open-apis/im/v1/messages/:message_id/reactions
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewCreateMessageReactionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewCreateMessageReactionReqBuilder().
 		MessageId("om_a8f2294b************a1a38afaac9d").
-		Body(larkim.NewCreateMessageReactionReqBodyBuilder().
+		
+	   Body(larkim.NewCreateMessageReactionReqBodyBuilder().
 			ReactionType(larkim.NewEmojiBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Im.V1.MessageReaction.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Im.V1.MessageReaction.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

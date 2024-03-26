@@ -16,24 +16,25 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/attendance/v1"
 )
 
 // DELETE /open-apis/attendance/v1/groups/:group_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkattendance.NewDeleteGroupReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkattendance.NewDeleteGroupReqBuilder().
 		GroupId("6919358128597097404").
-		Build()
-	// 发起请求
-	resp, err := client.Attendance.V1.Group.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Attendance.V1.Group.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

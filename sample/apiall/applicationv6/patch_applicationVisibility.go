@@ -16,33 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 // PATCH /open-apis/application/v6/applications/:app_id/visibility
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewPatchApplicationVisibilityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewPatchApplicationVisibilityReqBuilder().
 		AppId("cli_9b445f5258795107").
+		
 		DepartmentIdType("open_department_id").
+		
 		UserIdType("open_id").
-		Body(larkapplication.NewPatchApplicationVisibilityReqBodyBuilder().
+		
+	   Body(larkapplication.NewPatchApplicationVisibilityReqBodyBuilder().
 			AddVisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).
 			DelVisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).
 			AddInvisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).
 			DelInvisibleList(larkapplication.NewAppVisibilityIdListBuilder().Build()).
 			IsVisibleToAll(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Application.V6.ApplicationVisibility.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Application.V6.ApplicationVisibility.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

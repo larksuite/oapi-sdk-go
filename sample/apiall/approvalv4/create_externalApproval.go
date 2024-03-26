@@ -16,36 +16,43 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // POST /open-apis/approval/v4/external_approvals
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewCreateExternalApprovalReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewCreateExternalApprovalReqBuilder().
 		DepartmentIdType("open_department_id").
+		
 		UserIdType("user_id").
-		ExternalApproval(larkapproval.NewExternalApprovalBuilder().
+		
+	   ExternalApproval(larkapproval.NewExternalApprovalBuilder().
 			ApprovalName("E78F1022-A166-447C-8320-E151DA90D70F").
+			
 			ApprovalCode("permission_test").
+			
 			GroupCode("work_group").
+			
 			GroupName("@i18n@2").
+			
 			Description("@i18n@2").
+			
 			External(larkapproval.NewApprovalCreateExternalBuilder().Build()).
 			Viewers([]*larkapproval.ApprovalCreateViewers{larkapproval.NewApprovalCreateViewersBuilder().Build()}).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Managers([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.ExternalApproval.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.ExternalApproval.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,3 +67,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

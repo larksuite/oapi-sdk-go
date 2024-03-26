@@ -14,9 +14,10 @@
 package larkcontact
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -1719,8 +1720,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1728,8 +1727,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4417,9 +4414,10 @@ func (builder *UserAssignInfoBuilder) Build() *UserAssignInfo {
 }
 
 type UserContactInfo struct {
-	UserId *string `json:"user_id,omitempty"` // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
-	Mobile *string `json:"mobile,omitempty"`  // 手机号，通过手机号查询时返回
-	Email  *string `json:"email,omitempty"`   // 邮箱，通过邮箱查询时返回
+	UserId *string     `json:"user_id,omitempty"` // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
+	Mobile *string     `json:"mobile,omitempty"`  // 手机号，通过手机号查询时返回
+	Email  *string     `json:"email,omitempty"`   // 邮箱，通过邮箱查询时返回
+	Status *UserStatus `json:"status,omitempty"`  // 用户状态
 }
 
 type UserContactInfoBuilder struct {
@@ -4429,6 +4427,8 @@ type UserContactInfoBuilder struct {
 	mobileFlag bool
 	email      string // 邮箱，通过邮箱查询时返回
 	emailFlag  bool
+	status     *UserStatus // 用户状态
+	statusFlag bool
 }
 
 func NewUserContactInfoBuilder() *UserContactInfoBuilder {
@@ -4463,6 +4463,15 @@ func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuild
 	return builder
 }
 
+// 用户状态
+//
+// 示例值：
+func (builder *UserContactInfoBuilder) Status(status *UserStatus) *UserContactInfoBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
 func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 	req := &UserContactInfo{}
 	if builder.userIdFlag {
@@ -4476,6 +4485,9 @@ func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 	if builder.emailFlag {
 		req.Email = &builder.email
 
+	}
+	if builder.statusFlag {
+		req.Status = builder.status
 	}
 	return req
 }
@@ -5371,8 +5383,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -5380,8 +5390,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -5389,8 +5397,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -6467,7 +6473,7 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 
 // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）
 //
-//示例值：DemoName
+// 示例值：DemoName
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -6616,7 +6622,7 @@ func NewUnbindDepartmentChatDepartmentReqBodyBuilder() *UnbindDepartmentChatDepa
 
 // 部门ID
 //
-//示例值：D096
+// 示例值：D096
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -6796,7 +6802,7 @@ func NewUpdateDepartmentIdDepartmentReqBodyBuilder() *UpdateDepartmentIdDepartme
 
 // 本部门的自定义部门新ID
 //
-//示例值：
+// 示例值：
 func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentReqBodyBuilder {
 	builder.newDepartmentId = newDepartmentId
 	builder.newDepartmentIdFlag = true
@@ -6868,7 +6874,6 @@ func (builder *UpdateDepartmentIdDepartmentReqBuilder) DepartmentIdType(departme
 	return builder
 }
 
-//
 func (builder *UpdateDepartmentIdDepartmentReqBuilder) Body(body *UpdateDepartmentIdDepartmentReqBody) *UpdateDepartmentIdDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -7121,7 +7126,7 @@ func NewCreateFunctionalRoleReqBodyBuilder() *CreateFunctionalRoleReqBodyBuilder
 
 // 角色名称，在单租户下唯一
 //
-//示例值：考勤管理员
+// 示例值：考勤管理员
 func (builder *CreateFunctionalRoleReqBodyBuilder) RoleName(roleName string) *CreateFunctionalRoleReqBodyBuilder {
 	builder.roleName = roleName
 	builder.roleNameFlag = true
@@ -7177,7 +7182,6 @@ func NewCreateFunctionalRoleReqBuilder() *CreateFunctionalRoleReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateFunctionalRoleReqBuilder) Body(body *CreateFunctionalRoleReqBody) *CreateFunctionalRoleReqBuilder {
 	builder.body = body
 	return builder
@@ -7266,7 +7270,7 @@ func NewUpdateFunctionalRoleReqBodyBuilder() *UpdateFunctionalRoleReqBodyBuilder
 
 // 修改的角色名称，在单租户下唯一
 //
-//示例值：考勤管理员
+// 示例值：考勤管理员
 func (builder *UpdateFunctionalRoleReqBodyBuilder) RoleName(roleName string) *UpdateFunctionalRoleReqBodyBuilder {
 	builder.roleName = roleName
 	builder.roleNameFlag = true
@@ -7330,7 +7334,6 @@ func (builder *UpdateFunctionalRoleReqBuilder) RoleId(roleId string) *UpdateFunc
 	return builder
 }
 
-//
 func (builder *UpdateFunctionalRoleReqBuilder) Body(body *UpdateFunctionalRoleReqBody) *UpdateFunctionalRoleReqBuilder {
 	builder.body = body
 	return builder
@@ -7374,7 +7377,7 @@ func NewBatchCreateFunctionalRoleMemberReqBodyBuilder() *BatchCreateFunctionalRo
 
 // 角色添加的角色成员列表（一批用户的UserID列表)
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateFunctionalRoleMemberReqBodyBuilder) Members(members []string) *BatchCreateFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -7446,7 +7449,6 @@ func (builder *BatchCreateFunctionalRoleMemberReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
-//
 func (builder *BatchCreateFunctionalRoleMemberReqBuilder) Body(body *BatchCreateFunctionalRoleMemberReqBody) *BatchCreateFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -7496,7 +7498,7 @@ func NewBatchDeleteFunctionalRoleMemberReqBodyBuilder() *BatchDeleteFunctionalRo
 
 // 角色删除的角色成员列表（一批用户的UserID列表)
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteFunctionalRoleMemberReqBodyBuilder) Members(members []string) *BatchDeleteFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -7568,7 +7570,6 @@ func (builder *BatchDeleteFunctionalRoleMemberReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
-//
 func (builder *BatchDeleteFunctionalRoleMemberReqBuilder) Body(body *BatchDeleteFunctionalRoleMemberReqBody) *BatchDeleteFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -7782,7 +7783,7 @@ func NewScopesFunctionalRoleMemberReqBodyBuilder() *ScopesFunctionalRoleMemberRe
 
 // 角色修改的角色成员列表（一批用户的UserID列表)
 //
-//示例值：
+// 示例值：
 func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Members(members []string) *ScopesFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -7791,7 +7792,7 @@ func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Members(members []strin
 
 // 角色内用户的管理范围
 //
-//示例值：
+// 示例值：
 func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Departments(departments []string) *ScopesFunctionalRoleMemberReqBodyBuilder {
 	builder.departments = departments
 	builder.departmentsFlag = true
@@ -7888,7 +7889,6 @@ func (builder *ScopesFunctionalRoleMemberReqBuilder) DepartmentIdType(department
 	return builder
 }
 
-//
 func (builder *ScopesFunctionalRoleMemberReqBuilder) Body(body *ScopesFunctionalRoleMemberReqBody) *ScopesFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8331,7 +8331,7 @@ func NewAddGroupMemberReqBodyBuilder() *AddGroupMemberReqBodyBuilder {
 
 // 用户组成员的类型，取值为 user
 //
-//示例值：user
+// 示例值：user
 func (builder *AddGroupMemberReqBodyBuilder) MemberType(memberType string) *AddGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -8340,7 +8340,7 @@ func (builder *AddGroupMemberReqBodyBuilder) MemberType(memberType string) *AddG
 
 // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
 //
-//示例值：open_id
+// 示例值：open_id
 func (builder *AddGroupMemberReqBodyBuilder) MemberIdType(memberIdType string) *AddGroupMemberReqBodyBuilder {
 	builder.memberIdType = memberIdType
 	builder.memberIdTypeFlag = true
@@ -8349,7 +8349,7 @@ func (builder *AddGroupMemberReqBodyBuilder) MemberIdType(memberIdType string) *
 
 // 添加的成员ID
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AddGroupMemberReqBodyBuilder) MemberId(memberId string) *AddGroupMemberReqBodyBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
@@ -8493,7 +8493,7 @@ func NewBatchAddGroupMemberReqBodyBuilder() *BatchAddGroupMemberReqBodyBuilder {
 
 // 待添加成员
 //
-//示例值：
+// 示例值：
 func (builder *BatchAddGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchAddGroupMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -8606,7 +8606,7 @@ func NewBatchRemoveGroupMemberReqBodyBuilder() *BatchRemoveGroupMemberReqBodyBui
 
 // 待移除成员
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchRemoveGroupMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -8718,7 +8718,7 @@ func NewRemoveGroupMemberReqBodyBuilder() *RemoveGroupMemberReqBodyBuilder {
 
 // 用户组成员的类型，取值为 user
 //
-//示例值：user
+// 示例值：user
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberType(memberType string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -8727,7 +8727,7 @@ func (builder *RemoveGroupMemberReqBodyBuilder) MemberType(memberType string) *R
 
 // 操作移除的用户组成员ID
 //
-//示例值：xj82871k
+// 示例值：xj82871k
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberId(memberId string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberId = memberId
 	builder.memberIdFlag = true
@@ -8736,7 +8736,7 @@ func (builder *RemoveGroupMemberReqBodyBuilder) MemberId(memberId string) *Remov
 
 // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
 //
-//示例值：open_id
+// 示例值：open_id
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberIdType(memberIdType string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberIdType = memberIdType
 	builder.memberIdTypeFlag = true
@@ -8963,7 +8963,6 @@ func NewCreateJobFamilyReqBuilder() *CreateJobFamilyReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *CreateJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -9178,7 +9177,6 @@ func (builder *UpdateJobFamilyReqBuilder) JobFamilyId(jobFamilyId string) *Updat
 	return builder
 }
 
-//
 func (builder *UpdateJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *UpdateJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -9225,7 +9223,6 @@ func NewCreateJobLevelReqBuilder() *CreateJobLevelReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *CreateJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -9440,7 +9437,6 @@ func (builder *UpdateJobLevelReqBuilder) JobLevelId(jobLevelId string) *UpdateJo
 	return builder
 }
 
-//
 func (builder *UpdateJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *UpdateJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -9675,7 +9671,7 @@ func NewBindDepartmentUnitReqBodyBuilder() *BindDepartmentUnitReqBodyBuilder {
 
 // 单位ID
 //
-//示例值：BU121
+// 示例值：BU121
 func (builder *BindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *BindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -9684,7 +9680,7 @@ func (builder *BindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *BindDepa
 
 // 单位关联的部门ID
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId string) *BindDepartmentUnitReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -9693,7 +9689,7 @@ func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId strin
 
 // 此次调用中使用的部门ID的类型
 //
-//示例值：open_department_id
+// 示例值：open_department_id
 func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentIdType string) *BindDepartmentUnitReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
 	builder.departmentIdTypeFlag = true
@@ -9832,7 +9828,7 @@ func NewCreateUnitReqBodyBuilder() *CreateUnitReqBodyBuilder {
 
 // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 //
-//示例值：BU121
+// 示例值：BU121
 func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -9841,7 +9837,7 @@ func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBod
 
 // 单位的名字，长度范围为1-100个字符
 //
-//示例值：消费者事业部
+// 示例值：消费者事业部
 func (builder *CreateUnitReqBodyBuilder) Name(name string) *CreateUnitReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -9850,7 +9846,7 @@ func (builder *CreateUnitReqBodyBuilder) Name(name string) *CreateUnitReqBodyBui
 
 // 单位类型，长度范围为1-100个字符，创建后不可修改
 //
-//示例值：子公司
+// 示例值：子公司
 func (builder *CreateUnitReqBodyBuilder) UnitType(unitType string) *CreateUnitReqBodyBuilder {
 	builder.unitType = unitType
 	builder.unitTypeFlag = true
@@ -10205,7 +10201,7 @@ func NewPatchUnitReqBodyBuilder() *PatchUnitReqBodyBuilder {
 
 // 单位的名字
 //
-//示例值：消费者事业部
+// 示例值：消费者事业部
 func (builder *PatchUnitReqBodyBuilder) Name(name string) *PatchUnitReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -10317,7 +10313,7 @@ func NewUnbindDepartmentUnitReqBodyBuilder() *UnbindDepartmentUnitReqBodyBuilder
 
 // 单位ID
 //
-//示例值：BU121
+// 示例值：BU121
 func (builder *UnbindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -10326,7 +10322,7 @@ func (builder *UnbindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *Unbind
 
 // 预解除关联的部门ID
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -10335,7 +10331,7 @@ func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId str
 
 // 此次调用中使用的部门ID的类型
 //
-//示例值：open_department_id
+// 示例值：open_department_id
 func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentIdType string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
 	builder.departmentIdTypeFlag = true
@@ -10538,7 +10534,7 @@ func NewBatchGetIdUserReqBodyBuilder() *BatchGetIdUserReqBodyBuilder {
 
 // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
 //
-//示例值：zhangsan@a.com
+// 示例值：zhangsan@a.com
 func (builder *BatchGetIdUserReqBodyBuilder) Emails(emails []string) *BatchGetIdUserReqBodyBuilder {
 	builder.emails = emails
 	builder.emailsFlag = true
@@ -10547,7 +10543,7 @@ func (builder *BatchGetIdUserReqBodyBuilder) Emails(emails []string) *BatchGetId
 
 // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
 //
-//示例值：13812345678
+// 示例值：13812345678
 func (builder *BatchGetIdUserReqBodyBuilder) Mobiles(mobiles []string) *BatchGetIdUserReqBodyBuilder {
 	builder.mobiles = mobiles
 	builder.mobilesFlag = true
@@ -10556,7 +10552,7 @@ func (builder *BatchGetIdUserReqBodyBuilder) Mobiles(mobiles []string) *BatchGet
 
 // 查询结果包含离职员工，可查询离职用户的ID
 //
-//示例值：true
+// 示例值：true
 func (builder *BatchGetIdUserReqBodyBuilder) IncludeResigned(includeResigned bool) *BatchGetIdUserReqBodyBuilder {
 	builder.includeResigned = includeResigned
 	builder.includeResignedFlag = true
@@ -10790,7 +10786,7 @@ func NewDeleteUserReqBodyBuilder() *DeleteUserReqBodyBuilder {
 
 // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
 	builder.departmentChatAcceptorUserIdFlag = true
@@ -10799,7 +10795,7 @@ func (builder *DeleteUserReqBodyBuilder) DepartmentChatAcceptorUserId(department
 
 // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) ExternalChatAcceptorUserId(externalChatAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.externalChatAcceptorUserId = externalChatAcceptorUserId
 	builder.externalChatAcceptorUserIdFlag = true
@@ -10808,7 +10804,7 @@ func (builder *DeleteUserReqBodyBuilder) ExternalChatAcceptorUserId(externalChat
 
 // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) DocsAcceptorUserId(docsAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.docsAcceptorUserId = docsAcceptorUserId
 	builder.docsAcceptorUserIdFlag = true
@@ -10817,7 +10813,7 @@ func (builder *DeleteUserReqBodyBuilder) DocsAcceptorUserId(docsAcceptorUserId s
 
 // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) CalendarAcceptorUserId(calendarAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.calendarAcceptorUserId = calendarAcceptorUserId
 	builder.calendarAcceptorUserIdFlag = true
@@ -10826,7 +10822,7 @@ func (builder *DeleteUserReqBodyBuilder) CalendarAcceptorUserId(calendarAcceptor
 
 // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) ApplicationAcceptorUserId(applicationAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.applicationAcceptorUserId = applicationAcceptorUserId
 	builder.applicationAcceptorUserIdFlag = true
@@ -10835,7 +10831,7 @@ func (builder *DeleteUserReqBodyBuilder) ApplicationAcceptorUserId(applicationAc
 
 // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.minutesAcceptorUserId = minutesAcceptorUserId
 	builder.minutesAcceptorUserIdFlag = true
@@ -10844,7 +10840,7 @@ func (builder *DeleteUserReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUs
 
 // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.surveyAcceptorUserId = surveyAcceptorUserId
 	builder.surveyAcceptorUserIdFlag = true
@@ -10853,7 +10849,7 @@ func (builder *DeleteUserReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUser
 
 // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
 //
-//示例值：
+// 示例值：
 func (builder *DeleteUserReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAcceptor) *DeleteUserReqBodyBuilder {
 	builder.emailAcceptor = emailAcceptor
 	builder.emailAcceptorFlag = true
@@ -11413,7 +11409,7 @@ func NewResurrectUserReqBodyBuilder() *ResurrectUserReqBodyBuilder {
 
 // 指定恢复后用户所在部门
 //
-//示例值：
+// 示例值：
 func (builder *ResurrectUserReqBodyBuilder) Departments(departments []*UserDepartmentInfo) *ResurrectUserReqBodyBuilder {
 	builder.departments = departments
 	builder.departmentsFlag = true
@@ -11422,7 +11418,7 @@ func (builder *ResurrectUserReqBodyBuilder) Departments(departments []*UserDepar
 
 // 指定恢复后分配的席位
 //
-//示例值：
+// 示例值：
 func (builder *ResurrectUserReqBodyBuilder) SubscriptionIds(subscriptionIds []string) *ResurrectUserReqBodyBuilder {
 	builder.subscriptionIds = subscriptionIds
 	builder.subscriptionIdsFlag = true
@@ -11637,7 +11633,7 @@ func NewUpdateUserIdUserReqBodyBuilder() *UpdateUserIdUserReqBodyBuilder {
 
 // 自定义新用户ID
 //
-//示例值：3e3cf96b
+// 示例值：3e3cf96b
 func (builder *UpdateUserIdUserReqBodyBuilder) NewUserId(newUserId string) *UpdateUserIdUserReqBodyBuilder {
 	builder.newUserId = newUserId
 	builder.newUserIdFlag = true
@@ -11709,7 +11705,6 @@ func (builder *UpdateUserIdUserReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
-//
 func (builder *UpdateUserIdUserReqBuilder) Body(body *UpdateUserIdUserReqBody) *UpdateUserIdUserReqBuilder {
 	builder.body = body
 	return builder

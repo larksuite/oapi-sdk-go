@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
 // POST /open-apis/task/v1/tasks/:task_id/collaborators
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTaskCollaboratorReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTaskCollaboratorReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
+		
 		UserIdType("user_id").
-		Collaborator(larktask.NewCollaboratorBuilder().
+		
+	   Collaborator(larktask.NewCollaboratorBuilder().
 			Id("ou_99e1a581b36ecc4862cbfbce473f1234").
+			
 			IdList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V1.TaskCollaborator.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V1.TaskCollaborator.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

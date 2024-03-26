@@ -16,35 +16,46 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // GET /open-apis/hire/v1/job_requirements
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewListJobRequirementReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewListJobRequirementReqBuilder().
 		PageToken("1231231987").
+		
 		PageSize(1).
 		JobId("6001").
+		
 		CreateTimeBegin("1658980233000").
+		
 		CreateTimeEnd("1658980233000").
+		
 		UpdateTimeBegin("1658980233000").
+		
 		UpdateTimeEnd("1658980233000").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
+		
 		JobLevelIdType("people_admin_job_level_id").
+		
 		JobFamilyIdType("people_admin_job_category_id").
+		
 		EmployeeTypeIdType("people_admin_employee_type_id").
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.JobRequirement.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.JobRequirement.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -59,3 +70,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

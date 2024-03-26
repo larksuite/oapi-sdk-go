@@ -16,31 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
 // PUT /open-apis/drive/v1/permissions/:token/members/:member_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewUpdatePermissionMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewUpdatePermissionMemberReqBuilder().
 		Token("doccnBKgoMyY5OMbUG6FioTXuBe").
+		
 		MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+		
 		NeedNotification(false).
 		Type("doc").
-		BaseMember(larkdrive.NewBaseMemberBuilder().
+		
+	   BaseMember(larkdrive.NewBaseMemberBuilder().
 			MemberType("openid").
+			
 			Perm("view").
+			
+			Type("user").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.V1.PermissionMember.Update(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.V1.PermissionMember.Update(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

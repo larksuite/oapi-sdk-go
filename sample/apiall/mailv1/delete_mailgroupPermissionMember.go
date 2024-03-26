@@ -16,25 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
 // DELETE /open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewDeleteMailgroupPermissionMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewDeleteMailgroupPermissionMemberReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx or test_mail_group@xxx.xx").
+		
 		PermissionMemberId("xxxxxxxxxxxxxxx").
-		Build()
-	// 发起请求
-	resp, err := client.Mail.V1.MailgroupPermissionMember.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.V1.MailgroupPermissionMember.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

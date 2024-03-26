@@ -16,29 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // POST /open-apis/task/v2/tasks/:task_guid/add_tasklist
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewAddTasklistTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewAddTasklistTaskReqBuilder().
 		TaskGuid("d300a75f-c56a-4be9-80d1-e47653028ceb").
+		
 		UserIdType("open_id").
-		Body(larktask.NewAddTasklistTaskReqBodyBuilder().
+		
+	   Body(larktask.NewAddTasklistTaskReqBodyBuilder().
 			TasklistGuid("d300a75f-c56a-4be9-80d1-e47653028ceb").
+			
 			SectionGuid("d300a75f-c56a-4be9-80d1-e47653028ceb").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.Task.AddTasklist(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.Task.AddTasklist(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

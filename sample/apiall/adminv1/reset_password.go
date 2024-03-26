@@ -16,28 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
 )
 
 // POST /open-apis/admin/v1/password/reset
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewResetPasswordReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewResetPasswordReqBuilder().
 		UserIdType("user_id").
-		Body(larkadmin.NewResetPasswordReqBodyBuilder().
+		
+	   Body(larkadmin.NewResetPasswordReqBodyBuilder().
 			Password(larkadmin.NewPasswordBuilder().Build()).
 			UserId("abc123").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Admin.V1.Password.Reset(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.V1.Password.Reset(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

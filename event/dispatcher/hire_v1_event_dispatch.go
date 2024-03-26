@@ -32,8 +32,6 @@ func (dispatcher *EventDispatcher) OnP2ApplicationDeletedV1(handler func(ctx con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/application-stage-changed
@@ -88,8 +86,6 @@ func (dispatcher *EventDispatcher) OnP2EcoBackgroundCheckCreatedV1(handler func(
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -102,8 +98,6 @@ func (dispatcher *EventDispatcher) OnP2EcoExamCreatedV1(handler func(ctx context
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr
@@ -116,8 +110,6 @@ func (dispatcher *EventDispatcher) OnP2EhrImportTaskImportedV1(handler func(ctx 
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -144,8 +136,6 @@ func (dispatcher *EventDispatcher) OnP2OfferStatusChangedV1(handler func(ctx con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:

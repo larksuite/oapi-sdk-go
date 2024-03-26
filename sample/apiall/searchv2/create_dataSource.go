@@ -16,38 +16,44 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
 // POST /open-apis/search/v2/data_sources
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larksearch.NewCreateDataSourceReqBuilder().
-		DataSource(larksearch.NewDataSourceBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larksearch.NewCreateDataSourceReqBuilder().
+	   DataSource(larksearch.NewDataSourceBuilder().
 			Name("客服工单").
+			
 			State(0).
 			Description("搜索客服工单").
+			
 			IconUrl("https://s3-imfile.feishucdn.com/static-resource/v1/585fd740-f52e-4098-b864-57a32082ba1g").
+			
 			Template("search_common_card").
+			
 			SearchableFields([]string{}).
 			I18nName(larksearch.NewI18nMetaBuilder().Build()).
 			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			SchemaId("7159054681489010384").
+			
 			AppId("cli_a1306bed4738d01b").
+			
 			ConnectType(0).
 			ConnectorParam(larksearch.NewConnectorParamBuilder().Build()).
 			EnableAnswer(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Search.V2.DataSource.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Search.V2.DataSource.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -62,3 +68,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

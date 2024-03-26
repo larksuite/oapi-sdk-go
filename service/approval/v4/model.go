@@ -14,9 +14,10 @@
 package larkapproval
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -1124,8 +1125,6 @@ func NewApprovalEventBuilder() *ApprovalEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEventBuilder {
 	builder.approvalId = approvalId
@@ -1133,8 +1132,6 @@ func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *ApprovalEventBuilder {
 	builder.approvalCode = approvalCode
@@ -1142,8 +1139,6 @@ func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *Approval
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventBuilder {
 	builder.versionId = versionId
@@ -1151,8 +1146,6 @@ func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *ApprovalEventBuilder {
 	builder.widgetGroupType = widgetGroupType
@@ -1160,8 +1153,6 @@ func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *Appro
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *ApprovalEventBuilder {
 	builder.formDefinitionId = formDefinitionId
@@ -1169,8 +1160,6 @@ func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEventBuilder {
 	builder.processObj = processObj
@@ -1178,8 +1167,6 @@ func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventBuilder {
 	builder.timestamp = timestamp
@@ -1187,8 +1174,6 @@ func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Extra(extra string) *ApprovalEventBuilder {
 	builder.extra = extra
@@ -1581,10 +1566,14 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 }
 
 type ApprovalSetting struct {
-	RevertInterval      *int `json:"revert_interval,omitempty"`       // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
-	RevertOption        *int `json:"revert_option,omitempty"`         // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
-	RejectOption        *int `json:"reject_option,omitempty"`         // 拒绝设置
-	QuickApprovalOption *int `json:"quick_approval_option,omitempty"` // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+	RevertInterval      *int  `json:"revert_interval,omitempty"`       // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+	RevertOption        *int  `json:"revert_option,omitempty"`         // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+	RejectOption        *int  `json:"reject_option,omitempty"`         // 拒绝设置
+	QuickApprovalOption *int  `json:"quick_approval_option,omitempty"` // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+	OvertimeDisable     *bool `json:"overtime_disable,omitempty"`      // 流程关闭超时配置，传true就是关闭超时配置
+	OvertimeNoticeTime  *int  `json:"overtime_notice_time,omitempty"`  // 单据未处理超时时间，单位天
+	OvertimeCloseTime   *int  `json:"overtime_close_time,omitempty"`   // 单据已超时后，自动关闭时间，单位天
+	OvertimeRecoverTime *int  `json:"overtime_recover_time,omitempty"` // 单据自动关闭后，可恢复时间，单位天
 }
 
 type ApprovalSettingBuilder struct {
@@ -1596,6 +1585,14 @@ type ApprovalSettingBuilder struct {
 	rejectOptionFlag        bool
 	quickApprovalOption     int // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
 	quickApprovalOptionFlag bool
+	overtimeDisable         bool // 流程关闭超时配置，传true就是关闭超时配置
+	overtimeDisableFlag     bool
+	overtimeNoticeTime      int // 单据未处理超时时间，单位天
+	overtimeNoticeTimeFlag  bool
+	overtimeCloseTime       int // 单据已超时后，自动关闭时间，单位天
+	overtimeCloseTimeFlag   bool
+	overtimeRecoverTime     int // 单据自动关闭后，可恢复时间，单位天
+	overtimeRecoverTimeFlag bool
 }
 
 func NewApprovalSettingBuilder() *ApprovalSettingBuilder {
@@ -1639,6 +1636,42 @@ func (builder *ApprovalSettingBuilder) QuickApprovalOption(quickApprovalOption i
 	return builder
 }
 
+// 流程关闭超时配置，传true就是关闭超时配置
+//
+// 示例值：true
+func (builder *ApprovalSettingBuilder) OvertimeDisable(overtimeDisable bool) *ApprovalSettingBuilder {
+	builder.overtimeDisable = overtimeDisable
+	builder.overtimeDisableFlag = true
+	return builder
+}
+
+// 单据未处理超时时间，单位天
+//
+// 示例值：0
+func (builder *ApprovalSettingBuilder) OvertimeNoticeTime(overtimeNoticeTime int) *ApprovalSettingBuilder {
+	builder.overtimeNoticeTime = overtimeNoticeTime
+	builder.overtimeNoticeTimeFlag = true
+	return builder
+}
+
+// 单据已超时后，自动关闭时间，单位天
+//
+// 示例值：0
+func (builder *ApprovalSettingBuilder) OvertimeCloseTime(overtimeCloseTime int) *ApprovalSettingBuilder {
+	builder.overtimeCloseTime = overtimeCloseTime
+	builder.overtimeCloseTimeFlag = true
+	return builder
+}
+
+// 单据自动关闭后，可恢复时间，单位天
+//
+// 示例值：0
+func (builder *ApprovalSettingBuilder) OvertimeRecoverTime(overtimeRecoverTime int) *ApprovalSettingBuilder {
+	builder.overtimeRecoverTime = overtimeRecoverTime
+	builder.overtimeRecoverTimeFlag = true
+	return builder
+}
+
 func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	req := &ApprovalSetting{}
 	if builder.revertIntervalFlag {
@@ -1655,6 +1688,22 @@ func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	}
 	if builder.quickApprovalOptionFlag {
 		req.QuickApprovalOption = &builder.quickApprovalOption
+
+	}
+	if builder.overtimeDisableFlag {
+		req.OvertimeDisable = &builder.overtimeDisable
+
+	}
+	if builder.overtimeNoticeTimeFlag {
+		req.OvertimeNoticeTime = &builder.overtimeNoticeTime
+
+	}
+	if builder.overtimeCloseTimeFlag {
+		req.OvertimeCloseTime = &builder.overtimeCloseTime
+
+	}
+	if builder.overtimeRecoverTimeFlag {
+		req.OvertimeRecoverTime = &builder.overtimeRecoverTime
 
 	}
 	return req
@@ -3296,8 +3345,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3305,8 +3352,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5323,23 +5368,24 @@ func (builder *InstanceCommentBuilder) Build() *InstanceComment {
 }
 
 type InstanceCreate struct {
-	ApprovalCode           *string         `json:"approval_code,omitempty"`              // 审批定义 code
-	UserId                 *string         `json:"user_id,omitempty"`                    // 发起审批用户
-	OpenId                 *string         `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
-	DepartmentId           *string         `json:"department_id,omitempty"`              // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
-	Form                   *string         `json:"form,omitempty"`                       // json 数组，控件值
-	NodeApproverUserIdList []*NodeApprover `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点，则需要填写对应节点的审批人
-	NodeApproverOpenIdList []*NodeApprover `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
-	NodeCcUserIdList       []*NodeCc       `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点，则可填写对应节点的抄送人，单个节点最多选择20位抄送人
-	NodeCcOpenIdList       []*NodeCc       `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人
-	Uuid                   *string         `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
-	AllowResubmit          *bool           `json:"allow_resubmit,omitempty"`             // 可配置是否可以再次提交
-	AllowSubmitAgain       *bool           `json:"allow_submit_again,omitempty"`         // 可配置是否可以重新提交
-	CancelBotNotification  *string         `json:"cancel_bot_notification,omitempty"`    // 配置bot是否取消通知结果
-	ForbidRevoke           *bool           `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销
-	I18nResources          []*I18nResource `json:"i18n_resources,omitempty"`             // 国际化文案
-	Title                  *string         `json:"title,omitempty"`                      // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
-	TitleDisplayMethod     *int            `json:"title_display_method,omitempty"`       // 详情页title展示模式
+	ApprovalCode           *string             `json:"approval_code,omitempty"`              // 审批定义 code
+	UserId                 *string             `json:"user_id,omitempty"`                    // 发起审批用户
+	OpenId                 *string             `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
+	DepartmentId           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
+	Form                   *string             `json:"form,omitempty"`                       // json 数组，控件值
+	NodeApproverUserIdList []*NodeApprover     `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点，则需要填写对应节点的审批人
+	NodeApproverOpenIdList []*NodeApprover     `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
+	NodeCcUserIdList       []*NodeCc           `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点，则可填写对应节点的抄送人，单个节点最多选择20位抄送人
+	NodeCcOpenIdList       []*NodeCc           `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人
+	Uuid                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
+	AllowResubmit          *bool               `json:"allow_resubmit,omitempty"`             // 可配置是否可以再次提交
+	AllowSubmitAgain       *bool               `json:"allow_submit_again,omitempty"`         // 可配置是否可以重新提交
+	CancelBotNotification  *string             `json:"cancel_bot_notification,omitempty"`    // 配置bot是否取消通知结果
+	ForbidRevoke           *bool               `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销
+	I18nResources          []*I18nResource     `json:"i18n_resources,omitempty"`             // 国际化文案
+	Title                  *string             `json:"title,omitempty"`                      // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	TitleDisplayMethod     *int                `json:"title_display_method,omitempty"`       // 详情页title展示模式
+	NodeAutoApprovalList   []*NodeAutoApproval `json:"node_auto_approval_list,omitempty"`    // 自动通过节点ID
 }
 
 type InstanceCreateBuilder struct {
@@ -5377,6 +5423,8 @@ type InstanceCreateBuilder struct {
 	titleFlag                  bool
 	titleDisplayMethod         int // 详情页title展示模式
 	titleDisplayMethodFlag     bool
+	nodeAutoApprovalList       []*NodeAutoApproval // 自动通过节点ID
+	nodeAutoApprovalListFlag   bool
 }
 
 func NewInstanceCreateBuilder() *InstanceCreateBuilder {
@@ -5537,6 +5585,15 @@ func (builder *InstanceCreateBuilder) TitleDisplayMethod(titleDisplayMethod int)
 	return builder
 }
 
+// 自动通过节点ID
+//
+// 示例值：
+func (builder *InstanceCreateBuilder) NodeAutoApprovalList(nodeAutoApprovalList []*NodeAutoApproval) *InstanceCreateBuilder {
+	builder.nodeAutoApprovalList = nodeAutoApprovalList
+	builder.nodeAutoApprovalListFlag = true
+	return builder
+}
+
 func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	req := &InstanceCreate{}
 	if builder.approvalCodeFlag {
@@ -5601,6 +5658,9 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	if builder.titleDisplayMethodFlag {
 		req.TitleDisplayMethod = &builder.titleDisplayMethod
 
+	}
+	if builder.nodeAutoApprovalListFlag {
+		req.NodeAutoApprovalList = builder.nodeAutoApprovalList
 	}
 	return req
 }
@@ -7809,6 +7869,54 @@ func (builder *NodeApproverBuilder) Build() *NodeApprover {
 	return req
 }
 
+type NodeAutoApproval struct {
+	NodeIdType *string `json:"node_id_type,omitempty"` // 节点id的类型
+	NodeId     *string `json:"node_id,omitempty"`      // 节点id
+}
+
+type NodeAutoApprovalBuilder struct {
+	nodeIdType     string // 节点id的类型
+	nodeIdTypeFlag bool
+	nodeId         string // 节点id
+	nodeIdFlag     bool
+}
+
+func NewNodeAutoApprovalBuilder() *NodeAutoApprovalBuilder {
+	builder := &NodeAutoApprovalBuilder{}
+	return builder
+}
+
+// 节点id的类型
+//
+// 示例值：NON_CUSTOM
+func (builder *NodeAutoApprovalBuilder) NodeIdType(nodeIdType string) *NodeAutoApprovalBuilder {
+	builder.nodeIdType = nodeIdType
+	builder.nodeIdTypeFlag = true
+	return builder
+}
+
+// 节点id
+//
+// 示例值：manager_node_id
+func (builder *NodeAutoApprovalBuilder) NodeId(nodeId string) *NodeAutoApprovalBuilder {
+	builder.nodeId = nodeId
+	builder.nodeIdFlag = true
+	return builder
+}
+
+func (builder *NodeAutoApprovalBuilder) Build() *NodeAutoApproval {
+	req := &NodeAutoApproval{}
+	if builder.nodeIdTypeFlag {
+		req.NodeIdType = &builder.nodeIdType
+
+	}
+	if builder.nodeIdFlag {
+		req.NodeId = &builder.nodeId
+
+	}
+	return req
+}
+
 type NodeCc struct {
 	Key   *string  `json:"key,omitempty"`   // node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
 	Value []string `json:"value,omitempty"` // value: 审批人列表
@@ -8159,8 +8267,6 @@ func NewRemedyGroupBuilder() *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	builder.type_ = type_
@@ -8168,8 +8274,6 @@ func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -8177,8 +8281,6 @@ func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBuilder {
 	builder.employeeId = employeeId
@@ -8186,8 +8288,6 @@ func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder {
 	builder.startTime = startTime
@@ -8195,8 +8295,6 @@ func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder 
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	builder.endTime = endTime
@@ -8204,8 +8302,6 @@ func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilder {
 	builder.remedyTime = remedyTime
@@ -8213,8 +8309,6 @@ func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilde
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGroupBuilder {
 	builder.remedyReason = remedyReason
@@ -8222,8 +8316,6 @@ func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Status(status string) *RemedyGroupBuilder {
 	builder.status = status
@@ -8603,8 +8695,6 @@ func NewSignGroupBuilder() *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -8612,8 +8702,6 @@ func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	builder.userId = userId
@@ -8621,8 +8709,6 @@ func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuilder {
 	builder.accountCode = accountCode
@@ -8630,8 +8716,6 @@ func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuild
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode string) *SignGroupBuilder {
 	builder.boilerplateUniqueCode = boilerplateUniqueCode
@@ -8639,8 +8723,6 @@ func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode str
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	builder.startTime = startTime
@@ -8648,8 +8730,6 @@ func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	builder.endTime = endTime
@@ -8657,8 +8737,6 @@ func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) Type(type_ string) *SignGroupBuilder {
 	builder.type_ = type_
@@ -10751,8 +10829,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -10760,8 +10836,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -10769,8 +10843,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -11156,7 +11228,7 @@ func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuild
 
 // 校验的实例信息
 //
-//示例值：
+// 示例值：
 func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
 	builder.instances = instances
 	builder.instancesFlag = true
@@ -11312,7 +11384,7 @@ func NewListExternalTaskReqBodyBuilder() *ListExternalTaskReqBodyBuilder {
 
 // 审批定义 Code，用于指定只获取这些定义下的数据
 //
-//示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
+// 示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
 func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []string) *ListExternalTaskReqBodyBuilder {
 	builder.approvalCodes = approvalCodes
 	builder.approvalCodesFlag = true
@@ -11321,7 +11393,7 @@ func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []str
 
 // 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
 //
-//示例值：oa_159160304
+// 示例值：oa_159160304
 func (builder *ListExternalTaskReqBodyBuilder) InstanceIds(instanceIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.instanceIds = instanceIds
 	builder.instanceIdsFlag = true
@@ -11330,7 +11402,7 @@ func (builder *ListExternalTaskReqBodyBuilder) InstanceIds(instanceIds []string)
 
 // 审批人 user_id，用于指定只获取这些用户的数据
 //
-//示例值：112321
+// 示例值：112321
 func (builder *ListExternalTaskReqBodyBuilder) UserIds(userIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -11339,7 +11411,7 @@ func (builder *ListExternalTaskReqBodyBuilder) UserIds(userIds []string) *ListEx
 
 // 审批任务状态，用于指定获取该状态下的数据
 //
-//示例值：PENDING
+// 示例值：PENDING
 func (builder *ListExternalTaskReqBodyBuilder) Status(status string) *ListExternalTaskReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -11540,7 +11612,7 @@ func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 
 // 操作用户id
 //
-//示例值：b16g66e3
+// 示例值：b16g66e3
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -11549,7 +11621,7 @@ func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInst
 
 // 审批定义code
 //
-//示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
+// 示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -11558,7 +11630,7 @@ func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 审批实例code
 //
-//示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
 func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -11567,7 +11639,7 @@ func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 任务id
 //
-//示例值：6955096766400167956
+// 示例值：6955096766400167956
 func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -11576,7 +11648,7 @@ func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInst
 
 // 意见
 //
-//示例值：addSignComment
+// 示例值：addSignComment
 func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignInstanceReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
@@ -11585,7 +11657,7 @@ func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignIn
 
 // 被加签人id
 //
-//示例值：
+// 示例值：
 func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
 	builder.addSignUserIds = addSignUserIds
 	builder.addSignUserIdsFlag = true
@@ -11594,7 +11666,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []st
 
 // 1/2/3分别代表前加签/后加签/并加签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
 	builder.addSignType = addSignType
 	builder.addSignTypeFlag = true
@@ -11603,7 +11675,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddS
 
 // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
 	builder.approvalMethod = approvalMethod
 	builder.approvalMethodFlag = true
@@ -11778,7 +11850,6 @@ func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	return builder
 }
 
-//
 func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -12164,7 +12235,7 @@ func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 
 // 用户id
 //
-//示例值：发起审批用户id，按照user_id_type类型填写
+// 示例值：发起审批用户id，按照user_id_type类型填写
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -12173,7 +12244,7 @@ func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInst
 
 // 审批定义code
 //
-//示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
+// 示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
 func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -12182,7 +12253,7 @@ func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 部门id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -12191,7 +12262,7 @@ func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) 
 
 // 表单数据
 //
-//示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
+// 示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
 func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstanceReqBodyBuilder {
 	builder.form = form
 	builder.formFlag = true
@@ -12200,7 +12271,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstance
 
 // 审批实例code
 //
-//示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
+// 示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
 func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -12209,7 +12280,7 @@ func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 语言类型
 //
-//示例值：zh-CN: 中文 en-US: 英文
+// 示例值：zh-CN: 中文 en-US: 英文
 func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInstanceReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -12218,7 +12289,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInst
 
 // 任务id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -12384,7 +12455,6 @@ func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *Preview
 	return builder
 }
 
-//
 func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *PreviewInstanceReqBuilder {
 	builder.body = body
 	return builder

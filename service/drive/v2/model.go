@@ -104,8 +104,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -113,8 +111,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -130,6 +126,150 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	}
 	if builder.openDepartmentIdFlag {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type ExportJob struct {
+	FileExtension *string `json:"file_extension,omitempty"` // 导出文件扩展名
+	Token         *string `json:"token,omitempty"`          // 导出文档 token
+	Type          *string `json:"type,omitempty"`           // 导出文档类型
+	FileName      *string `json:"file_name,omitempty"`      // 导出文件名
+	FileToken     *string `json:"file_token,omitempty"`     // 导出文件 Drive Token
+	FileSize      *int    `json:"file_size,omitempty"`      // 导出文件大小
+	JobErrorMsg   *string `json:"job_error_msg,omitempty"`  // 任务失败原因
+	JobStatus     *int    `json:"job_status,omitempty"`     // 任务状态
+}
+
+type ExportJobBuilder struct {
+	fileExtension     string // 导出文件扩展名
+	fileExtensionFlag bool
+	token             string // 导出文档 token
+	tokenFlag         bool
+	type_             string // 导出文档类型
+	typeFlag          bool
+	fileName          string // 导出文件名
+	fileNameFlag      bool
+	fileToken         string // 导出文件 Drive Token
+	fileTokenFlag     bool
+	fileSize          int // 导出文件大小
+	fileSizeFlag      bool
+	jobErrorMsg       string // 任务失败原因
+	jobErrorMsgFlag   bool
+	jobStatus         int // 任务状态
+	jobStatusFlag     bool
+}
+
+func NewExportJobBuilder() *ExportJobBuilder {
+	builder := &ExportJobBuilder{}
+	return builder
+}
+
+// 导出文件扩展名
+//
+// 示例值：larkdoc
+func (builder *ExportJobBuilder) FileExtension(fileExtension string) *ExportJobBuilder {
+	builder.fileExtension = fileExtension
+	builder.fileExtensionFlag = true
+	return builder
+}
+
+// 导出文档 token
+//
+// 示例值：doccnxe5OxxxxxxxSNdsJviENsk
+func (builder *ExportJobBuilder) Token(token string) *ExportJobBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+// 导出文档类型
+//
+// 示例值：sheet
+func (builder *ExportJobBuilder) Type(type_ string) *ExportJobBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 导出文件名
+//
+// 示例值：docName
+func (builder *ExportJobBuilder) FileName(fileName string) *ExportJobBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+
+// 导出文件 Drive Token
+//
+// 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
+func (builder *ExportJobBuilder) FileToken(fileToken string) *ExportJobBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+
+// 导出文件大小
+//
+// 示例值：34356
+func (builder *ExportJobBuilder) FileSize(fileSize int) *ExportJobBuilder {
+	builder.fileSize = fileSize
+	builder.fileSizeFlag = true
+	return builder
+}
+
+// 任务失败原因
+//
+// 示例值：success
+func (builder *ExportJobBuilder) JobErrorMsg(jobErrorMsg string) *ExportJobBuilder {
+	builder.jobErrorMsg = jobErrorMsg
+	builder.jobErrorMsgFlag = true
+	return builder
+}
+
+// 任务状态
+//
+// 示例值：0
+func (builder *ExportJobBuilder) JobStatus(jobStatus int) *ExportJobBuilder {
+	builder.jobStatus = jobStatus
+	builder.jobStatusFlag = true
+	return builder
+}
+
+func (builder *ExportJobBuilder) Build() *ExportJob {
+	req := &ExportJob{}
+	if builder.fileExtensionFlag {
+		req.FileExtension = &builder.fileExtension
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.fileSizeFlag {
+		req.FileSize = &builder.fileSize
+
+	}
+	if builder.jobErrorMsgFlag {
+		req.JobErrorMsg = &builder.jobErrorMsg
+
+	}
+	if builder.jobStatusFlag {
+		req.JobStatus = &builder.jobStatus
 
 	}
 	return req
@@ -242,6 +382,213 @@ func (builder *FileLikeBuilder) Build() *FileLike {
 	}
 	if builder.userIsDesensitizedFlag {
 		req.UserIsDesensitized = &builder.userIsDesensitized
+
+	}
+	return req
+}
+
+type ImportJob struct {
+	FileExtension *string              `json:"file_extension,omitempty"` // 导入文件扩展名
+	FileToken     *string              `json:"file_token,omitempty"`     // 导入文件 Drive File Token
+	Type          *string              `json:"type,omitempty"`           // 导入文档类型
+	FileName      *string              `json:"file_name,omitempty"`      // 导入目标云文档文件名，若为空使用 Drive 文件名
+	Point         *ImportJobMountPoint `json:"point,omitempty"`          // 挂载点
+	JobStatus     *int                 `json:"job_status,omitempty"`     // 任务状态
+	JobErrorMsg   *string              `json:"job_error_msg,omitempty"`  // 任务失败原因
+	Token         *string              `json:"token,omitempty"`          // 导入云文档 Token
+	Url           *string              `json:"url,omitempty"`            // 导入云文档 URL
+}
+
+type ImportJobBuilder struct {
+	fileExtension     string // 导入文件扩展名
+	fileExtensionFlag bool
+	fileToken         string // 导入文件 Drive File Token
+	fileTokenFlag     bool
+	type_             string // 导入文档类型
+	typeFlag          bool
+	fileName          string // 导入目标云文档文件名，若为空使用 Drive 文件名
+	fileNameFlag      bool
+	point             *ImportJobMountPoint // 挂载点
+	pointFlag         bool
+	jobStatus         int // 任务状态
+	jobStatusFlag     bool
+	jobErrorMsg       string // 任务失败原因
+	jobErrorMsgFlag   bool
+	token             string // 导入云文档 Token
+	tokenFlag         bool
+	url               string // 导入云文档 URL
+	urlFlag           bool
+}
+
+func NewImportJobBuilder() *ImportJobBuilder {
+	builder := &ImportJobBuilder{}
+	return builder
+}
+
+// 导入文件扩展名
+//
+// 示例值：larkdoc
+func (builder *ImportJobBuilder) FileExtension(fileExtension string) *ImportJobBuilder {
+	builder.fileExtension = fileExtension
+	builder.fileExtensionFlag = true
+	return builder
+}
+
+// 导入文件 Drive File Token
+//
+// 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
+func (builder *ImportJobBuilder) FileToken(fileToken string) *ImportJobBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+
+// 导入文档类型
+//
+// 示例值：sheet
+func (builder *ImportJobBuilder) Type(type_ string) *ImportJobBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 导入目标云文档文件名，若为空使用 Drive 文件名
+//
+// 示例值：test
+func (builder *ImportJobBuilder) FileName(fileName string) *ImportJobBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+
+// 挂载点
+//
+// 示例值：
+func (builder *ImportJobBuilder) Point(point *ImportJobMountPoint) *ImportJobBuilder {
+	builder.point = point
+	builder.pointFlag = true
+	return builder
+}
+
+// 任务状态
+//
+// 示例值：
+func (builder *ImportJobBuilder) JobStatus(jobStatus int) *ImportJobBuilder {
+	builder.jobStatus = jobStatus
+	builder.jobStatusFlag = true
+	return builder
+}
+
+// 任务失败原因
+//
+// 示例值：success
+func (builder *ImportJobBuilder) JobErrorMsg(jobErrorMsg string) *ImportJobBuilder {
+	builder.jobErrorMsg = jobErrorMsg
+	builder.jobErrorMsgFlag = true
+	return builder
+}
+
+// 导入云文档 Token
+//
+// 示例值：shtcnVBTG6SuxxxxxxxkM2tUX
+func (builder *ImportJobBuilder) Token(token string) *ImportJobBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+// 导入云文档 URL
+//
+// 示例值：https://example.feishu.cn/sheets/shtcnVBTG6SuxxxxxxxkM2tUX
+func (builder *ImportJobBuilder) Url(url string) *ImportJobBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *ImportJobBuilder) Build() *ImportJob {
+	req := &ImportJob{}
+	if builder.fileExtensionFlag {
+		req.FileExtension = &builder.fileExtension
+
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.pointFlag {
+		req.Point = builder.point
+	}
+	if builder.jobStatusFlag {
+		req.JobStatus = &builder.jobStatus
+
+	}
+	if builder.jobErrorMsgFlag {
+		req.JobErrorMsg = &builder.jobErrorMsg
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+type ImportJobMountPoint struct {
+	MountType *int    `json:"mount_type,omitempty"` // 挂载类型
+	MountKey  *string `json:"mount_key,omitempty"`  // 挂载位置，对于 mount_type=1 ，云空间目录 Token ，空表示根目录
+}
+
+type ImportJobMountPointBuilder struct {
+	mountType     int // 挂载类型
+	mountTypeFlag bool
+	mountKey      string // 挂载位置，对于 mount_type=1 ，云空间目录 Token ，空表示根目录
+	mountKeyFlag  bool
+}
+
+func NewImportJobMountPointBuilder() *ImportJobMountPointBuilder {
+	builder := &ImportJobMountPointBuilder{}
+	return builder
+}
+
+// 挂载类型
+//
+// 示例值：
+func (builder *ImportJobMountPointBuilder) MountType(mountType int) *ImportJobMountPointBuilder {
+	builder.mountType = mountType
+	builder.mountTypeFlag = true
+	return builder
+}
+
+// 挂载位置，对于 mount_type=1 ，云空间目录 Token ，空表示根目录
+//
+// 示例值：Y1HiwCGd8iOYixkLRUvb6viVcoZ
+func (builder *ImportJobMountPointBuilder) MountKey(mountKey string) *ImportJobMountPointBuilder {
+	builder.mountKey = mountKey
+	builder.mountKeyFlag = true
+	return builder
+}
+
+func (builder *ImportJobMountPointBuilder) Build() *ImportJobMountPoint {
+	req := &ImportJobMountPoint{}
+	if builder.mountTypeFlag {
+		req.MountType = &builder.mountType
+
+	}
+	if builder.mountKeyFlag {
+		req.MountKey = &builder.mountKey
 
 	}
 	return req
@@ -636,7 +983,6 @@ func (builder *PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermiss
 	return builder
 }
 
-//
 func (builder *PatchPermissionPublicReqBuilder) PermissionPublic(permissionPublic *PermissionPublic) *PatchPermissionPublicReqBuilder {
 	builder.permissionPublic = permissionPublic
 	return builder

@@ -225,7 +225,8 @@ type P1MessageReceiveV1Data struct {
 	FileKey          string   `json:"file_key,omitempty"`
 }
 
-/**
+/*
+*
 text类型消息结构化
 */
 type MessageText struct {
@@ -440,9 +441,13 @@ func (m *MessagePostMedia) MarshalJSON() ([]byte, error) {
 	return messagePostElementJson(m)
 }
 
-/**
- image类型消息结构化
-**/
+/*
+*
+
+	image类型消息结构化
+
+*
+*/
 type MessageImage struct {
 	ImageKey string `json:"image_key,omitempty"`
 }
@@ -455,9 +460,11 @@ func (m *MessageImage) String() (string, error) {
 	return string(bs), nil
 }
 
-/**
+/*
+*
 文件类型消息结构化
-**/
+*
+*/
 type MessageFile struct {
 	FileKey string `json:"file_key,omitempty"`
 }
@@ -470,9 +477,11 @@ func (m *MessageFile) String() (string, error) {
 	return string(bs), nil
 }
 
-/**
+/*
+*
 audio类型消息结构化
-**/
+*
+*/
 type MessageAudio struct {
 	FileKey string `json:"file_key,omitempty"`
 }
@@ -485,9 +494,11 @@ func (m *MessageAudio) String() (string, error) {
 	return string(bs), nil
 }
 
-/**
+/*
+*
 media类型消息结构化
-**/
+*
+*/
 type MessageMedia struct {
 	FileKey  string `json:"file_key,omitempty"`
 	ImageKey string `json:"image_key,omitempty"`
@@ -501,9 +512,11 @@ func (m *MessageMedia) String() (string, error) {
 	return string(bs), nil
 }
 
-/**
+/*
+*
 sticker 类型消息结构化
-**/
+*
+*/
 type MessageSticker struct {
 	FileKey string `json:"file_key,omitempty"`
 }
@@ -630,7 +643,8 @@ func formatAsString(v reflect.Value, kind reflect.Kind) string {
 	return fmt.Sprintf("%v", v.Interface())
 }
 
-/**
+/*
+*
 消息类型，枚举值
 */
 const (

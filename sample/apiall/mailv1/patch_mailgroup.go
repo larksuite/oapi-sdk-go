@@ -16,30 +16,35 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
 // PATCH /open-apis/mail/v1/mailgroups/:mailgroup_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewPatchMailgroupReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewPatchMailgroupReqBuilder().
 		MailgroupId("xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx").
-		Mailgroup(larkmail.NewMailgroupBuilder().
+		
+	   Mailgroup(larkmail.NewMailgroupBuilder().
 			Email("test_mail_group@xxx.xx").
+			
 			Name("test mail group").
+			
 			Description("mail group for testing").
+			
 			WhoCanSendMail("ALL_INTERNAL_USERS").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Mail.V1.Mailgroup.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.V1.Mailgroup.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +59,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -102,8 +102,6 @@ func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackUpdatedV6(handler func
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-availability-scope-extended

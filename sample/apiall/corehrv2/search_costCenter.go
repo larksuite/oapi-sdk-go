@@ -16,33 +16,37 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/cost_centers/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSearchCostCenterReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSearchCostCenterReqBuilder().
 		PageSize(100).
 		PageToken("6891251722631890445").
+		
 		UserIdType("people_corehr_id").
-		Body(larkcorehr.NewSearchCostCenterReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSearchCostCenterReqBodyBuilder().
 			CostCenterIdList([]string{}).
 			NameList([]string{}).
 			Code("MDPD00000023").
+			
 			ParentCostCenterId("6862995757234914824").
+			
 			GetAllVersion(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.CostCenter.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.CostCenter.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

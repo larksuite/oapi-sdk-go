@@ -16,32 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // PUT /open-apis/contact/v3/job_families/:job_family_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewUpdateJobFamilyReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewUpdateJobFamilyReqBuilder().
 		JobFamilyId("mga5oa8ayjlp9rb").
-		JobFamily(larkcontact.NewJobFamilyBuilder().
+		
+	   JobFamily(larkcontact.NewJobFamilyBuilder().
 			Name("产品").
+			
 			Description("负责产品策略制定的相关工作").
+			
 			ParentJobFamilyId("mga5oa8ayjlp9rb").
+			
 			Status(false).
 			I18nName([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			I18nDescription([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.JobFamily.Update(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.JobFamily.Update(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

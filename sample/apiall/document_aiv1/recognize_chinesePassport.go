@@ -16,32 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/document_ai/v1"
+		"os"
 )
 
 // POST /open-apis/document_ai/v1/chinese_passport/recognize
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// 创建请求对象
-	req := larkdocument_ai.NewRecognizeChinesePassportReqBuilder().
-		Body(larkdocument_ai.NewRecognizeChinesePassportReqBodyBuilder().
+   // 创建请求对象
+   req := larkdocument_ai.NewRecognizeChinesePassportReqBuilder().
+	   Body(larkdocument_ai.NewRecognizeChinesePassportReqBodyBuilder().
 			File(file).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.DocumentAi.V1.ChinesePassport.Recognize(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.DocumentAi.V1.ChinesePassport.Recognize(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

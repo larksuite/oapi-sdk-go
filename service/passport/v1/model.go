@@ -106,8 +106,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -115,8 +113,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -248,7 +244,7 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 
 // 用户 ID
 //
-//示例值：["47f621ff"]
+// 示例值：["47f621ff"]
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -304,8 +300,6 @@ func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))

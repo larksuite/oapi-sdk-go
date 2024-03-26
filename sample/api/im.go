@@ -194,7 +194,7 @@ func sendTextMsg(client *lark.Client) {
 		ReceiveIdType(larkim.ReceiveIdTypeChatId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeText).
-			ReceiveId("oc_073bc625285ef06b2c58852143a47675").
+			ReceiveId("ou_e8daec8c7bd6269852c84239ac85db3e").
 			Content(content).
 			Build()).
 		Build())
@@ -295,7 +295,7 @@ func sendInteractiveMsg(client *lark.Client) {
 }
 
 // 运维报警通知
-//https://open.feishu.cn/tool/cardbuilder?from=cotentmodule
+// https://open.feishu.cn/tool/cardbuilder?from=cotentmodule
 func sendInteractiveMonitorMsg(client *lark.Client) {
 	// config
 	config := larkcard.NewMessageCardConfig().
@@ -698,7 +698,7 @@ func sendPostMsg(client *lark.Client) {
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypePost).
-			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			ReceiveId("ou_e8daec8c7bd6269852c84239ac85db3e").
 			Content(content).
 			Build()).
 		Build(), larkcore.WithRequestId("jiaduo_id"))
@@ -787,7 +787,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypePost).
-			ReceiveId("ou_a79a0f82add14976e3943f4deb17c3fa").
+			ReceiveId("ou_e8daec8c7bd6269852c84239ac85db3e").
 			Content(postText).
 			Build()).
 		Build())

@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 // POST /open-apis/im/v1/messages/merge_forward
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewMergeForwardMessageReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewMergeForwardMessageReqBuilder().
 		ReceiveIdType("open_id").
+		
 		Uuid("b13g2t38-1jd2-458b-8djf-dtbca5104204").
-		Body(larkim.NewMergeForwardMessageReqBodyBuilder().
+		
+	   Body(larkim.NewMergeForwardMessageReqBodyBuilder().
 			ReceiveId("oc_a0553eda9014c201e6969b478895c230").
+			
 			MessageIdList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Im.V1.Message.MergeForward(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Im.V1.Message.MergeForward(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

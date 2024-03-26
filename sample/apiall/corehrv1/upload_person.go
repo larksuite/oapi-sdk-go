@@ -16,33 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
+		"os"
 )
 
 // POST /open-apis/corehr/v1/persons/upload
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
 	file, err := os.Open("filepath")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// 创建请求对象
-	req := larkcorehr.NewUploadPersonReqBuilder().
-		Body(larkcorehr.NewUploadPersonReqBodyBuilder().
+   // 创建请求对象
+   req := larkcorehr.NewUploadPersonReqBuilder().
+	   Body(larkcorehr.NewUploadPersonReqBodyBuilder().
 			FileContent(file).
 			FileName("个人信息").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Person.Upload(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Person.Upload(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,27 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 // GET /open-apis/application/v6/applications/underauditlist
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewUnderauditlistApplicationReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewUnderauditlistApplicationReqBuilder().
 		Lang("zh_cn").
+		
 		PageToken("new-e3c5a0627cdf0c2e057da7257b90376a").
+		
 		PageSize(20).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Application.V6.Application.Underauditlist(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Application.V6.Application.Underauditlist(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

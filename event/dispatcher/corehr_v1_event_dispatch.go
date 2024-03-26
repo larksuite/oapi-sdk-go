@@ -18,8 +18,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -32,8 +30,6 @@ func (dispatcher *EventDispatcher) OnP2ContractCreatedV1(handler func(ctx contex
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -46,8 +42,6 @@ func (dispatcher *EventDispatcher) OnP2ContractDeletedV1(handler func(ctx contex
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -172,8 +166,6 @@ func (dispatcher *EventDispatcher) OnP2EmploymentUpdatedV1(handler func(ctx cont
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -186,8 +178,6 @@ func (dispatcher *EventDispatcher) OnP2JobCreatedV1(handler func(ctx context.Con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -200,8 +190,6 @@ func (dispatcher *EventDispatcher) OnP2JobDeletedV1(handler func(ctx context.Con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -270,8 +258,6 @@ func (dispatcher *EventDispatcher) OnP2OffboardingUpdatedV1(handler func(ctx con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -284,8 +270,6 @@ func (dispatcher *EventDispatcher) OnP2OrgRoleAuthorizationUpdatedV1(handler fun
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -298,8 +282,6 @@ func (dispatcher *EventDispatcher) OnP2PersonCreatedV1(handler func(ctx context.
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -326,8 +308,6 @@ func (dispatcher *EventDispatcher) OnP2PersonUpdatedV1(handler func(ctx context.
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:

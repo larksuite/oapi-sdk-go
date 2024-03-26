@@ -16,25 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // GET /open-apis/task/v2/custom_fields/:custom_field_guid
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewGetCustomFieldReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewGetCustomFieldReqBuilder().
 		CustomFieldGuid("5ffbe0ca-6600-41e0-a634-2b38cbcf13b8").
+		
 		UserIdType("open_id").
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.CustomField.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.CustomField.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

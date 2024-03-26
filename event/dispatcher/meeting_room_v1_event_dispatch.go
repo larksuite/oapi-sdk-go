@@ -18,8 +18,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/meeting_room/v1"
 )
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -32,8 +30,6 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx con
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -62,8 +58,6 @@ func (dispatcher *EventDispatcher) OnP2MeetingRoomStatusChangedV1(handler func(c
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:

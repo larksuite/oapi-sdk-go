@@ -14,9 +14,10 @@
 package larktask
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -336,8 +337,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -345,8 +344,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -977,8 +974,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -986,8 +981,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -995,8 +988,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -1484,7 +1475,7 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 
 // 被更新的任务实体基础信息
 //
-//示例值：
+// 示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
 	builder.task = task
 	builder.taskFlag = true
@@ -1493,7 +1484,7 @@ func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilde
 
 // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 //
-//示例值：["summary"]
+// 示例值：["summary"]
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsFlag = true
@@ -2148,7 +2139,7 @@ func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
 
 // 新的评论内容
 //
-//示例值：飞流直下三千尺，疑是银河落九天
+// 示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -2157,7 +2148,7 @@ func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateT
 
 // 新的富文本评论内容（优先使用）
 //
-//示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
+// 示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
 func (builder *UpdateTaskCommentReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentReqBodyBuilder {
 	builder.richContent = richContent
 	builder.richContentFlag = true

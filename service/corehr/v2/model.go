@@ -14,9 +14,10 @@
 package larkcorehr
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -89,6 +90,19 @@ const (
 	UserIdTypePatchCostCenterVersionUnionId        = "union_id"         // 以 union_id 来识别用户
 	UserIdTypePatchCostCenterVersionOpenId         = "open_id"          // 以 open_id 来识别用户
 	UserIdTypePatchCostCenterVersionPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypeBatchGetDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeBatchGetDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeBatchGetDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeBatchGetDepartmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	DepartmentIdTypeBatchGetDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeBatchGetDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypeBatchGetDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
@@ -1782,6 +1796,7 @@ type BasicInfo struct {
 	CitizenshipStatusIdList     []string `json:"citizenship_status_id_list,omitempty"`     // 公民身份
 	HomeAddress                 *string  `json:"home_address,omitempty"`                   // 家庭地址
 	WorkerId                    *string  `json:"worker_id,omitempty"`                      // 人员编号
+	UserGeo                     *string  `json:"user_geo,omitempty"`                       // 数据驻留地
 }
 
 type BasicInfoBuilder struct {
@@ -1811,6 +1826,8 @@ type BasicInfoBuilder struct {
 	homeAddressFlag                 bool
 	workerId                        string // 人员编号
 	workerIdFlag                    bool
+	userGeo                         string // 数据驻留地
+	userGeoFlag                     bool
 }
 
 func NewBasicInfoBuilder() *BasicInfoBuilder {
@@ -1935,6 +1952,15 @@ func (builder *BasicInfoBuilder) WorkerId(workerId string) *BasicInfoBuilder {
 	return builder
 }
 
+// 数据驻留地
+//
+// 示例值：cn
+func (builder *BasicInfoBuilder) UserGeo(userGeo string) *BasicInfoBuilder {
+	builder.userGeo = userGeo
+	builder.userGeoFlag = true
+	return builder
+}
+
 func (builder *BasicInfoBuilder) Build() *BasicInfo {
 	req := &BasicInfo{}
 	if builder.nameFlag {
@@ -1984,6 +2010,10 @@ func (builder *BasicInfoBuilder) Build() *BasicInfo {
 	}
 	if builder.workerIdFlag {
 		req.WorkerId = &builder.workerId
+
+	}
+	if builder.userGeoFlag {
+		req.UserGeo = &builder.userGeo
 
 	}
 	return req
@@ -2166,14 +2196,14 @@ func (builder *BpBuilder) Build() *Bp {
 }
 
 type BpmDataengineI18n struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // i18n类型字段，中文值
-	EnUs *string `json:"en_us,omitempty"` // i18n类型字段，英文值
+	ZhCn *string `json:"zh_cn,omitempty"` // （注json key是zh-CN，不是zh_cn）i18n类型字段，中文值
+	EnUs *string `json:"en_us,omitempty"` // （注json key是en-US，不是en_us）i18n类型字段，英文值
 }
 
 type BpmDataengineI18nBuilder struct {
-	zhCn     string // i18n类型字段，中文值
+	zhCn     string // （注json key是zh-CN，不是zh_cn）i18n类型字段，中文值
 	zhCnFlag bool
-	enUs     string // i18n类型字段，英文值
+	enUs     string // （注json key是en-US，不是en_us）i18n类型字段，英文值
 	enUsFlag bool
 }
 
@@ -2182,18 +2212,18 @@ func NewBpmDataengineI18nBuilder() *BpmDataengineI18nBuilder {
 	return builder
 }
 
-// i18n类型字段，中文值
+// （注json key是zh-CN，不是zh_cn）i18n类型字段，中文值
 //
-// 示例值：zh_cn
+// 示例值：北京
 func (builder *BpmDataengineI18nBuilder) ZhCn(zhCn string) *BpmDataengineI18nBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnFlag = true
 	return builder
 }
 
-// i18n类型字段，英文值
+// （注json key是en-US，不是en_us）i18n类型字段，英文值
 //
-// 示例值：en_us
+// 示例值：Beijing
 func (builder *BpmDataengineI18nBuilder) EnUs(enUs string) *BpmDataengineI18nBuilder {
 	builder.enUs = enUs
 	builder.enUsFlag = true
@@ -4507,8 +4537,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -4516,8 +4544,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5711,33 +5737,36 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 }
 
 type Employee struct {
-	EmploymentId         *string `json:"employment_id,omitempty"`          // 雇佣 ID
-	AtsApplicationId     *string `json:"ats_application_id,omitempty"`     // 招聘投递 ID ，详细信息可以通过【获取投递信息】接口查询获得
-	PrehireId            *string `json:"prehire_id,omitempty"`             // 待入职 ID
-	EmployeeNumber       *string `json:"employee_number,omitempty"`        // 工号
-	EmployeeTypeId       *string `json:"employee_type_id,omitempty"`       // 人员类型 ID，详细信息可通过【查询单个人员类型】接口获得
-	DepartmentId         *string `json:"department_id,omitempty"`          // 部门 ID，详细信息可通过【查询单个部门】接口获得
-	JobLevelId           *string `json:"job_level_id,omitempty"`           // 职级 ID，详细信息可通过【查询单个职务级别】接口获得
-	JobGradeId           *string `json:"job_grade_id,omitempty"`           // 职等 ID
-	WorkLocationId       *string `json:"work_location_id,omitempty"`       // 工作地点 ID，详细信息可通过【查询单个地点】接口获得
-	JobFamilyId          *string `json:"job_family_id,omitempty"`          // 序列 ID，详细信息可通过【查询单个职务序列】接口获得
-	JobId                *string `json:"job_id,omitempty"`                 // 职务 ID，详细信息可通过【查询单个职务】接口获得
-	CompanyId            *string `json:"company_id,omitempty"`             // 所属公司 ID，详细信息可通过【查询单个公司】接口获得
-	WorkingHoursTypeId   *string `json:"working_hours_type_id,omitempty"`  // 工时制度 ID，详细信息可通过【查询单个工时制度】接口获得
-	Tenure               *string `json:"tenure,omitempty"`                 // 司龄
-	SeniorityDate        *string `json:"seniority_date,omitempty"`         // 资历起算日期
-	EffectiveDate        *string `json:"effective_date,omitempty"`         // 当前雇佣记录的入职日期
-	PrimaryEmployment    *bool   `json:"primary_employment,omitempty"`     // 是否是主雇佣信息
-	ProbationPeriod      *int    `json:"probation_period,omitempty"`       // 试用期时长（月）
-	OnProbation          *bool   `json:"on_probation,omitempty"`           // 是否在试用期中
-	ProbationEndDate     *string `json:"probation_end_date,omitempty"`     // 试用期结束日期（实际结束日期）
-	DirectManagerId      *string `json:"direct_manager_id,omitempty"`      // 直接上级的雇佣 ID
-	DottedLineManagerId  *string `json:"dotted_line_manager_id,omitempty"` // 虚线上级的雇佣 ID
-	EmploymentType       *Enum   `json:"employment_type,omitempty"`        // 雇佣类型，枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
-	EmploymentStatus     *Enum   `json:"employment_status,omitempty"`      // 雇佣状态，枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
-	ExpirationDate       *string `json:"expiration_date,omitempty"`        // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
-	ReasonForOffboarding *Enum   `json:"reason_for_offboarding,omitempty"` // 离职原因，枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得
-	EmailAddress         *string `json:"email_address,omitempty"`          // 邮箱地址
+	EmploymentId         *string    `json:"employment_id,omitempty"`          // 雇佣 ID
+	AtsApplicationId     *string    `json:"ats_application_id,omitempty"`     // 招聘投递 ID ，详细信息可以通过【获取投递信息】接口查询获得
+	PrehireId            *string    `json:"prehire_id,omitempty"`             // 待入职 ID
+	EmployeeNumber       *string    `json:"employee_number,omitempty"`        // 工号
+	EmployeeTypeId       *string    `json:"employee_type_id,omitempty"`       // 人员类型 ID，详细信息可通过【查询单个人员类型】接口获得
+	DepartmentId         *string    `json:"department_id,omitempty"`          // 部门 ID，详细信息可通过【查询单个部门】接口获得
+	JobLevelId           *string    `json:"job_level_id,omitempty"`           // 职级 ID，详细信息可通过【查询单个职务级别】接口获得
+	JobLevel             *JobLevel  `json:"job_level,omitempty"`              // 职级
+	JobGradeId           *string    `json:"job_grade_id,omitempty"`           // 职等 ID
+	WorkLocationId       *string    `json:"work_location_id,omitempty"`       // 工作地点 ID，详细信息可通过【查询单个地点】接口获得
+	JobFamilyId          *string    `json:"job_family_id,omitempty"`          // 序列 ID，详细信息可通过【查询单个职务序列】接口获得
+	JobFamily            *JobFamily `json:"job_family,omitempty"`             // 序列
+	JobId                *string    `json:"job_id,omitempty"`                 // 职务 ID，详细信息可通过【查询单个职务】接口获得
+	Job                  *Job       `json:"job,omitempty"`                    // 职务
+	CompanyId            *string    `json:"company_id,omitempty"`             // 所属公司 ID，详细信息可通过【查询单个公司】接口获得
+	WorkingHoursTypeId   *string    `json:"working_hours_type_id,omitempty"`  // 工时制度 ID，详细信息可通过【查询单个工时制度】接口获得
+	Tenure               *string    `json:"tenure,omitempty"`                 // 司龄
+	SeniorityDate        *string    `json:"seniority_date,omitempty"`         // 资历起算日期
+	EffectiveDate        *string    `json:"effective_date,omitempty"`         // 当前雇佣记录的入职日期
+	PrimaryEmployment    *bool      `json:"primary_employment,omitempty"`     // 是否是主雇佣信息
+	ProbationPeriod      *int       `json:"probation_period,omitempty"`       // 试用期时长（月）
+	OnProbation          *bool      `json:"on_probation,omitempty"`           // 是否在试用期中
+	ProbationEndDate     *string    `json:"probation_end_date,omitempty"`     // 试用期结束日期（实际结束日期）
+	DirectManagerId      *string    `json:"direct_manager_id,omitempty"`      // 直接上级的雇佣 ID
+	DottedLineManagerId  *string    `json:"dotted_line_manager_id,omitempty"` // 虚线上级的雇佣 ID
+	EmploymentType       *Enum      `json:"employment_type,omitempty"`        // 雇佣类型，枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
+	EmploymentStatus     *Enum      `json:"employment_status,omitempty"`      // 雇佣状态，枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
+	ExpirationDate       *string    `json:"expiration_date,omitempty"`        // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
+	ReasonForOffboarding *Enum      `json:"reason_for_offboarding,omitempty"` // 离职原因，枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得
+	EmailAddress         *string    `json:"email_address,omitempty"`          // 邮箱地址
 
 	WorkEmailList            []*WorkEmail         `json:"work_email_list,omitempty"`             // 工作邮箱列表，只有当邮箱满足下面所有条件时，才在个人信息页面可见
 	CostCenterList           []*JobDataCostCenter `json:"cost_center_list,omitempty"`            // 成本中心列表
@@ -5764,6 +5793,9 @@ type Employee struct {
 	DottedLineManager        *BasicEmployee       `json:"dotted_line_manager,omitempty"`         // 虚线上级基本信息
 	TimeZone                 *string              `json:"time_zone,omitempty"`                   // 时区
 
+	ServiceCompany   *string `json:"service_company,omitempty"`   // 任职公司
+	CompensationType *Enum   `json:"compensation_type,omitempty"` // 薪资类型
+	WorkShift        *Enum   `json:"work_shift,omitempty"`        // 排班类型
 }
 
 type EmployeeBuilder struct {
@@ -5781,14 +5813,20 @@ type EmployeeBuilder struct {
 	departmentIdFlag         bool
 	jobLevelId               string // 职级 ID，详细信息可通过【查询单个职务级别】接口获得
 	jobLevelIdFlag           bool
+	jobLevel                 *JobLevel // 职级
+	jobLevelFlag             bool
 	jobGradeId               string // 职等 ID
 	jobGradeIdFlag           bool
 	workLocationId           string // 工作地点 ID，详细信息可通过【查询单个地点】接口获得
 	workLocationIdFlag       bool
 	jobFamilyId              string // 序列 ID，详细信息可通过【查询单个职务序列】接口获得
 	jobFamilyIdFlag          bool
+	jobFamily                *JobFamily // 序列
+	jobFamilyFlag            bool
 	jobId                    string // 职务 ID，详细信息可通过【查询单个职务】接口获得
 	jobIdFlag                bool
+	job                      *Job // 职务
+	jobFlag                  bool
 	companyId                string // 所属公司 ID，详细信息可通过【查询单个公司】接口获得
 	companyIdFlag            bool
 	workingHoursTypeId       string // 工时制度 ID，详细信息可通过【查询单个工时制度】接口获得
@@ -5870,6 +5908,13 @@ type EmployeeBuilder struct {
 	dottedLineManagerFlag        bool
 	timeZone                     string // 时区
 	timeZoneFlag                 bool
+
+	serviceCompany       string // 任职公司
+	serviceCompanyFlag   bool
+	compensationType     *Enum // 薪资类型
+	compensationTypeFlag bool
+	workShift            *Enum // 排班类型
+	workShiftFlag        bool
 }
 
 func NewEmployeeBuilder() *EmployeeBuilder {
@@ -5940,6 +5985,15 @@ func (builder *EmployeeBuilder) JobLevelId(jobLevelId string) *EmployeeBuilder {
 	return builder
 }
 
+// 职级
+//
+// 示例值：
+func (builder *EmployeeBuilder) JobLevel(jobLevel *JobLevel) *EmployeeBuilder {
+	builder.jobLevel = jobLevel
+	builder.jobLevelFlag = true
+	return builder
+}
+
 // 职等 ID
 //
 // 示例值：6893014062142064135
@@ -5967,12 +6021,30 @@ func (builder *EmployeeBuilder) JobFamilyId(jobFamilyId string) *EmployeeBuilder
 	return builder
 }
 
+// 序列
+//
+// 示例值：
+func (builder *EmployeeBuilder) JobFamily(jobFamily *JobFamily) *EmployeeBuilder {
+	builder.jobFamily = jobFamily
+	builder.jobFamilyFlag = true
+	return builder
+}
+
 // 职务 ID，详细信息可通过【查询单个职务】接口获得
 //
 // 示例值：6893014062142064135
 func (builder *EmployeeBuilder) JobId(jobId string) *EmployeeBuilder {
 	builder.jobId = jobId
 	builder.jobIdFlag = true
+	return builder
+}
+
+// 职务
+//
+// 示例值：
+func (builder *EmployeeBuilder) Job(job *Job) *EmployeeBuilder {
+	builder.job = job
+	builder.jobFlag = true
 	return builder
 }
 
@@ -6336,6 +6408,33 @@ func (builder *EmployeeBuilder) TimeZone(timeZone string) *EmployeeBuilder {
 	return builder
 }
 
+// 任职公司
+//
+// 示例值：7174374910734141112
+func (builder *EmployeeBuilder) ServiceCompany(serviceCompany string) *EmployeeBuilder {
+	builder.serviceCompany = serviceCompany
+	builder.serviceCompanyFlag = true
+	return builder
+}
+
+// 薪资类型
+//
+// 示例值：
+func (builder *EmployeeBuilder) CompensationType(compensationType *Enum) *EmployeeBuilder {
+	builder.compensationType = compensationType
+	builder.compensationTypeFlag = true
+	return builder
+}
+
+// 排班类型
+//
+// 示例值：
+func (builder *EmployeeBuilder) WorkShift(workShift *Enum) *EmployeeBuilder {
+	builder.workShift = workShift
+	builder.workShiftFlag = true
+	return builder
+}
+
 func (builder *EmployeeBuilder) Build() *Employee {
 	req := &Employee{}
 	if builder.employmentIdFlag {
@@ -6366,6 +6465,9 @@ func (builder *EmployeeBuilder) Build() *Employee {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
+	if builder.jobLevelFlag {
+		req.JobLevel = builder.jobLevel
+	}
 	if builder.jobGradeIdFlag {
 		req.JobGradeId = &builder.jobGradeId
 
@@ -6378,9 +6480,15 @@ func (builder *EmployeeBuilder) Build() *Employee {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
+	if builder.jobFamilyFlag {
+		req.JobFamily = builder.jobFamily
+	}
 	if builder.jobIdFlag {
 		req.JobId = &builder.jobId
 
+	}
+	if builder.jobFlag {
+		req.Job = builder.job
 	}
 	if builder.companyIdFlag {
 		req.CompanyId = &builder.companyId
@@ -6531,6 +6639,127 @@ func (builder *EmployeeBuilder) Build() *Employee {
 
 	}
 
+	if builder.serviceCompanyFlag {
+		req.ServiceCompany = &builder.serviceCompany
+
+	}
+	if builder.compensationTypeFlag {
+		req.CompensationType = builder.compensationType
+	}
+	if builder.workShiftFlag {
+		req.WorkShift = builder.workShift
+	}
+	return req
+}
+
+type EmployeeDomainEventData struct {
+	Id          *string  `json:"id,omitempty"`            // 变更实体的ID
+	Entity      *string  `json:"entity,omitempty"`        // 变更实体标识，ObjAPIName
+	AggEntity   *string  `json:"agg_entity,omitempty"`    // 聚合实体标识，父对象 ObjAPIName
+	AggEntityId *string  `json:"agg_entity_id,omitempty"` // 聚合实体ID 父对象ID
+	OptType     *int     `json:"opt_type,omitempty"`      // 操作类型
+	Fields      []string `json:"fields,omitempty"`        // 字段标识，ApiName
+}
+
+type EmployeeDomainEventDataBuilder struct {
+	id              string // 变更实体的ID
+	idFlag          bool
+	entity          string // 变更实体标识，ObjAPIName
+	entityFlag      bool
+	aggEntity       string // 聚合实体标识，父对象 ObjAPIName
+	aggEntityFlag   bool
+	aggEntityId     string // 聚合实体ID 父对象ID
+	aggEntityIdFlag bool
+	optType         int // 操作类型
+	optTypeFlag     bool
+	fields          []string // 字段标识，ApiName
+	fieldsFlag      bool
+}
+
+func NewEmployeeDomainEventDataBuilder() *EmployeeDomainEventDataBuilder {
+	builder := &EmployeeDomainEventDataBuilder{}
+	return builder
+}
+
+// 变更实体的ID
+//
+// 示例值：7291573441955235372
+func (builder *EmployeeDomainEventDataBuilder) Id(id string) *EmployeeDomainEventDataBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 变更实体标识，ObjAPIName
+//
+// 示例值：email
+func (builder *EmployeeDomainEventDataBuilder) Entity(entity string) *EmployeeDomainEventDataBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
+}
+
+// 聚合实体标识，父对象 ObjAPIName
+//
+// 示例值：person
+func (builder *EmployeeDomainEventDataBuilder) AggEntity(aggEntity string) *EmployeeDomainEventDataBuilder {
+	builder.aggEntity = aggEntity
+	builder.aggEntityFlag = true
+	return builder
+}
+
+// 聚合实体ID 父对象ID
+//
+// 示例值：7291273149417948716
+func (builder *EmployeeDomainEventDataBuilder) AggEntityId(aggEntityId string) *EmployeeDomainEventDataBuilder {
+	builder.aggEntityId = aggEntityId
+	builder.aggEntityIdFlag = true
+	return builder
+}
+
+// 操作类型
+//
+// 示例值：1
+func (builder *EmployeeDomainEventDataBuilder) OptType(optType int) *EmployeeDomainEventDataBuilder {
+	builder.optType = optType
+	builder.optTypeFlag = true
+	return builder
+}
+
+// 字段标识，ApiName
+//
+// 示例值：
+func (builder *EmployeeDomainEventDataBuilder) Fields(fields []string) *EmployeeDomainEventDataBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *EmployeeDomainEventDataBuilder) Build() *EmployeeDomainEventData {
+	req := &EmployeeDomainEventData{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.entityFlag {
+		req.Entity = &builder.entity
+
+	}
+	if builder.aggEntityFlag {
+		req.AggEntity = &builder.aggEntity
+
+	}
+	if builder.aggEntityIdFlag {
+		req.AggEntityId = &builder.aggEntityId
+
+	}
+	if builder.optTypeFlag {
+		req.OptType = &builder.optType
+
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
 	return req
 }
 
@@ -9110,7 +9339,10 @@ type JobData struct {
 	DottedLineManagers       []*BasicJobData      `json:"dotted_line_managers,omitempty"`        // 虚线上级
 	SecondDirectManager      *BasicJobData        `json:"second_direct_manager,omitempty"`       // 第二实线主管
 	CostCenterRates          []*JobDataCostCenter `json:"cost_center_rates,omitempty"`           // 成本中心分摊信息
-	CustomFields             []*CustomFieldData   `json:"custom_fields,omitempty"`               // 自定义字段
+	WorkShift                *Enum                `json:"work_shift,omitempty"`                  // 排班类型
+	CompensationType         *Enum                `json:"compensation_type,omitempty"`           // 薪资类型
+	ServiceCompany           *string              `json:"service_company,omitempty"`             // 任职公司
+
 }
 
 type JobDataBuilder struct {
@@ -9160,8 +9392,12 @@ type JobDataBuilder struct {
 	secondDirectManagerFlag      bool
 	costCenterRates              []*JobDataCostCenter // 成本中心分摊信息
 	costCenterRatesFlag          bool
-	customFields                 []*CustomFieldData // 自定义字段
-	customFieldsFlag             bool
+	workShift                    *Enum // 排班类型
+	workShiftFlag                bool
+	compensationType             *Enum // 薪资类型
+	compensationTypeFlag         bool
+	serviceCompany               string // 任职公司
+	serviceCompanyFlag           bool
 }
 
 func NewJobDataBuilder() *JobDataBuilder {
@@ -9376,12 +9612,30 @@ func (builder *JobDataBuilder) CostCenterRates(costCenterRates []*JobDataCostCen
 	return builder
 }
 
-// 自定义字段
+// 排班类型
 //
 // 示例值：
-func (builder *JobDataBuilder) CustomFields(customFields []*CustomFieldData) *JobDataBuilder {
-	builder.customFields = customFields
-	builder.customFieldsFlag = true
+func (builder *JobDataBuilder) WorkShift(workShift *Enum) *JobDataBuilder {
+	builder.workShift = workShift
+	builder.workShiftFlag = true
+	return builder
+}
+
+// 薪资类型
+//
+// 示例值：
+func (builder *JobDataBuilder) CompensationType(compensationType *Enum) *JobDataBuilder {
+	builder.compensationType = compensationType
+	builder.compensationTypeFlag = true
+	return builder
+}
+
+// 任职公司
+//
+// 示例值：6890452208593372680
+func (builder *JobDataBuilder) ServiceCompany(serviceCompany string) *JobDataBuilder {
+	builder.serviceCompany = serviceCompany
+	builder.serviceCompanyFlag = true
 	return builder
 }
 
@@ -9473,9 +9727,17 @@ func (builder *JobDataBuilder) Build() *JobData {
 	if builder.costCenterRatesFlag {
 		req.CostCenterRates = builder.costCenterRates
 	}
-	if builder.customFieldsFlag {
-		req.CustomFields = builder.customFields
+	if builder.workShiftFlag {
+		req.WorkShift = builder.workShift
 	}
+	if builder.compensationTypeFlag {
+		req.CompensationType = builder.compensationType
+	}
+	if builder.serviceCompanyFlag {
+		req.ServiceCompany = &builder.serviceCompany
+
+	}
+
 	return req
 }
 
@@ -10678,6 +10940,9 @@ type OfferInfo struct {
 	CostCenterRate       []*JobDataCostCenter `json:"cost_center_rate,omitempty"`        // 成本中心分摊信息
 	JobGradeId           *string              `json:"job_grade_id,omitempty"`            // 职等ID
 	CustomFields         []*ObjectFieldData   `json:"custom_fields,omitempty"`           // 自定义字段
+	ServiceCompany       *string              `json:"service_company,omitempty"`         // 任职公司
+	WorkShift            *string              `json:"work_shift,omitempty"`              // 排班
+	CompensationType     *string              `json:"compensation_type,omitempty"`       // 薪资类型
 }
 
 type OfferInfoBuilder struct {
@@ -10743,6 +11008,12 @@ type OfferInfoBuilder struct {
 	jobGradeIdFlag           bool
 	customFields             []*ObjectFieldData // 自定义字段
 	customFieldsFlag         bool
+	serviceCompany           string // 任职公司
+	serviceCompanyFlag       bool
+	workShift                string // 排班
+	workShiftFlag            bool
+	compensationType         string // 薪资类型
+	compensationTypeFlag     bool
 }
 
 func NewOfferInfoBuilder() *OfferInfoBuilder {
@@ -11029,6 +11300,33 @@ func (builder *OfferInfoBuilder) CustomFields(customFields []*ObjectFieldData) *
 	return builder
 }
 
+// 任职公司
+//
+// 示例值：6738317738688661772
+func (builder *OfferInfoBuilder) ServiceCompany(serviceCompany string) *OfferInfoBuilder {
+	builder.serviceCompany = serviceCompany
+	builder.serviceCompanyFlag = true
+	return builder
+}
+
+// 排班
+//
+// 示例值：work_shift
+func (builder *OfferInfoBuilder) WorkShift(workShift string) *OfferInfoBuilder {
+	builder.workShift = workShift
+	builder.workShiftFlag = true
+	return builder
+}
+
+// 薪资类型
+//
+// 示例值：hourly
+func (builder *OfferInfoBuilder) CompensationType(compensationType string) *OfferInfoBuilder {
+	builder.compensationType = compensationType
+	builder.compensationTypeFlag = true
+	return builder
+}
+
 func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	req := &OfferInfo{}
 	if builder.offerIdFlag {
@@ -11152,6 +11450,18 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.serviceCompanyFlag {
+		req.ServiceCompany = &builder.serviceCompany
+
+	}
+	if builder.workShiftFlag {
+		req.WorkShift = &builder.workShift
+
+	}
+	if builder.compensationTypeFlag {
+		req.CompensationType = &builder.compensationType
+
 	}
 	return req
 }
@@ -12465,14 +12775,11 @@ func (builder *PersonNameBuilder) Build() *PersonName {
 }
 
 type PersonalProfile struct {
-	PersonalProfileId   *string `json:"personal_profile_id,omitempty"`   // 个人资料 ID
 	PersonalProfileType *Enum   `json:"personal_profile_type,omitempty"` // 资料类型
 	Files               []*File `json:"files,omitempty"`                 // 上传文件列表
 }
 
 type PersonalProfileBuilder struct {
-	personalProfileId       string // 个人资料 ID
-	personalProfileIdFlag   bool
 	personalProfileType     *Enum // 资料类型
 	personalProfileTypeFlag bool
 	files                   []*File // 上传文件列表
@@ -12481,15 +12788,6 @@ type PersonalProfileBuilder struct {
 
 func NewPersonalProfileBuilder() *PersonalProfileBuilder {
 	builder := &PersonalProfileBuilder{}
-	return builder
-}
-
-// 个人资料 ID
-//
-// 示例值：150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200
-func (builder *PersonalProfileBuilder) PersonalProfileId(personalProfileId string) *PersonalProfileBuilder {
-	builder.personalProfileId = personalProfileId
-	builder.personalProfileIdFlag = true
 	return builder
 }
 
@@ -12513,10 +12811,7 @@ func (builder *PersonalProfileBuilder) Files(files []*File) *PersonalProfileBuil
 
 func (builder *PersonalProfileBuilder) Build() *PersonalProfile {
 	req := &PersonalProfile{}
-	if builder.personalProfileIdFlag {
-		req.PersonalProfileId = &builder.personalProfileId
 
-	}
 	if builder.personalProfileTypeFlag {
 		req.PersonalProfileType = builder.personalProfileType
 	}
@@ -19418,6 +19713,10 @@ type TransferInfo struct {
 	TargetEmploymentChange     *TranferEmploymentInfo `json:"target_employment_change,omitempty"`      // 新工作信息
 	OriginalJobGrade           *string                `json:"original_job_grade,omitempty"`            // 原职等
 	TargetJobGrade             *string                `json:"target_job_grade,omitempty"`              // 新职等
+	OriginalCompensationType   *string                `json:"original_compensation_type,omitempty"`    // 原薪资类型
+	TargetCompensationType     *string                `json:"target_compensation_type,omitempty"`      // 新薪资类型
+	OriginalServiceCompany     *string                `json:"original_service_company,omitempty"`      // 原任职公司
+	TargetServiceCompany       *string                `json:"target_service_company,omitempty"`        // 新任职公司
 }
 
 type TransferInfoBuilder struct {
@@ -19521,6 +19820,14 @@ type TransferInfoBuilder struct {
 	originalJobGradeFlag           bool
 	targetJobGrade                 string // 新职等
 	targetJobGradeFlag             bool
+	originalCompensationType       string // 原薪资类型
+	originalCompensationTypeFlag   bool
+	targetCompensationType         string // 新薪资类型
+	targetCompensationTypeFlag     bool
+	originalServiceCompany         string // 原任职公司
+	originalServiceCompanyFlag     bool
+	targetServiceCompany           string // 新任职公司
+	targetServiceCompanyFlag       bool
 }
 
 func NewTransferInfoBuilder() *TransferInfoBuilder {
@@ -19978,6 +20285,42 @@ func (builder *TransferInfoBuilder) TargetJobGrade(targetJobGrade string) *Trans
 	return builder
 }
 
+// 原薪资类型
+//
+// 示例值：hourly
+func (builder *TransferInfoBuilder) OriginalCompensationType(originalCompensationType string) *TransferInfoBuilder {
+	builder.originalCompensationType = originalCompensationType
+	builder.originalCompensationTypeFlag = true
+	return builder
+}
+
+// 新薪资类型
+//
+// 示例值：salary
+func (builder *TransferInfoBuilder) TargetCompensationType(targetCompensationType string) *TransferInfoBuilder {
+	builder.targetCompensationType = targetCompensationType
+	builder.targetCompensationTypeFlag = true
+	return builder
+}
+
+// 原任职公司
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) OriginalServiceCompany(originalServiceCompany string) *TransferInfoBuilder {
+	builder.originalServiceCompany = originalServiceCompany
+	builder.originalServiceCompanyFlag = true
+	return builder
+}
+
+// 新任职公司
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) TargetServiceCompany(targetServiceCompany string) *TransferInfoBuilder {
+	builder.targetServiceCompany = targetServiceCompany
+	builder.targetServiceCompanyFlag = true
+	return builder
+}
+
 func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	req := &TransferInfo{}
 	if builder.remarkFlag {
@@ -20174,6 +20517,22 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	}
 	if builder.targetJobGradeFlag {
 		req.TargetJobGrade = &builder.targetJobGrade
+
+	}
+	if builder.originalCompensationTypeFlag {
+		req.OriginalCompensationType = &builder.originalCompensationType
+
+	}
+	if builder.targetCompensationTypeFlag {
+		req.TargetCompensationType = &builder.targetCompensationType
+
+	}
+	if builder.originalServiceCompanyFlag {
+		req.OriginalServiceCompany = &builder.originalServiceCompany
+
+	}
+	if builder.targetServiceCompanyFlag {
+		req.TargetServiceCompany = &builder.targetServiceCompany
 
 	}
 	return req
@@ -20998,7 +21357,7 @@ func NewSearchBasicInfoBankReqBodyBuilder() *SearchBasicInfoBankReqBodyBuilder {
 
 // 银行 ID 列表，与「银行名称列表」查询条件至少填写一项
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankReqBodyBuilder {
 	builder.bankIdList = bankIdList
 	builder.bankIdListFlag = true
@@ -21007,7 +21366,7 @@ func (builder *SearchBasicInfoBankReqBodyBuilder) BankIdList(bankIdList []string
 
 // 银行名称列表，支持对银行名称精确搜索
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankReqBodyBuilder) BankNameList(bankNameList []string) *SearchBasicInfoBankReqBodyBuilder {
 	builder.bankNameList = bankNameList
 	builder.bankNameListFlag = true
@@ -21016,7 +21375,7 @@ func (builder *SearchBasicInfoBankReqBodyBuilder) BankNameList(bankNameList []st
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -21129,7 +21488,6 @@ func (builder *SearchBasicInfoBankReqBuilder) PageToken(pageToken string) *Searc
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoBankReqBuilder) Body(body *SearchBasicInfoBankReqBody) *SearchBasicInfoBankReqBuilder {
 	builder.body = body
 	return builder
@@ -21191,7 +21549,7 @@ func NewSearchBasicInfoBankBranchReqBodyBuilder() *SearchBasicInfoBankBranchReqB
 
 // 银行 ID 列表，与「支行 ID 列表」、「支行名称列表」至少填写一项
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankIdList(bankIdList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
 	builder.bankIdList = bankIdList
 	builder.bankIdListFlag = true
@@ -21200,7 +21558,7 @@ func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankIdList(bankIdList []
 
 // 支行 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchIdList(bankBranchIdList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
 	builder.bankBranchIdList = bankBranchIdList
 	builder.bankBranchIdListFlag = true
@@ -21209,7 +21567,7 @@ func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchIdList(bankBra
 
 // 支行名称列表，支持对支行名称精确搜索
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchNameList(bankBranchNameList []string) *SearchBasicInfoBankBranchReqBodyBuilder {
 	builder.bankBranchNameList = bankBranchNameList
 	builder.bankBranchNameListFlag = true
@@ -21218,7 +21576,7 @@ func (builder *SearchBasicInfoBankBranchReqBodyBuilder) BankBranchNameList(bankB
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoBankBranchReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoBankBranchReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -21348,7 +21706,6 @@ func (builder *SearchBasicInfoBankBranchReqBuilder) PageToken(pageToken string) 
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoBankBranchReqBuilder) Body(body *SearchBasicInfoBankBranchReqBody) *SearchBasicInfoBankBranchReqBuilder {
 	builder.body = body
 	return builder
@@ -21409,7 +21766,7 @@ func NewSearchBasicInfoCityReqBodyBuilder() *SearchBasicInfoCityReqBodyBuilder {
 
 // 省份/行政区 ID 列表，可通过【查询省份/行政区信息】接口获取
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCityReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCityReqBodyBuilder {
 	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
 	builder.countryRegionSubdivisionIdListFlag = true
@@ -21418,7 +21775,7 @@ func (builder *SearchBasicInfoCityReqBodyBuilder) CountryRegionSubdivisionIdList
 
 // 城市 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCityReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoCityReqBodyBuilder {
 	builder.cityIdList = cityIdList
 	builder.cityIdListFlag = true
@@ -21427,7 +21784,7 @@ func (builder *SearchBasicInfoCityReqBodyBuilder) CityIdList(cityIdList []string
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCityReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCityReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -21540,7 +21897,6 @@ func (builder *SearchBasicInfoCityReqBuilder) PageToken(pageToken string) *Searc
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoCityReqBuilder) Body(body *SearchBasicInfoCityReqBody) *SearchBasicInfoCityReqBuilder {
 	builder.body = body
 	return builder
@@ -21598,7 +21954,7 @@ func NewSearchBasicInfoCountryRegionReqBodyBuilder() *SearchBasicInfoCountryRegi
 
 // 国家/地区 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionReqBodyBuilder {
 	builder.countryRegionIdList = countryRegionIdList
 	builder.countryRegionIdListFlag = true
@@ -21607,7 +21963,7 @@ func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) CountryRegionIdList(c
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCountryRegionReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -21703,7 +22059,6 @@ func (builder *SearchBasicInfoCountryRegionReqBuilder) PageToken(pageToken strin
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoCountryRegionReqBuilder) Body(body *SearchBasicInfoCountryRegionReqBody) *SearchBasicInfoCountryRegionReqBuilder {
 	builder.body = body
 	return builder
@@ -21762,7 +22117,7 @@ func NewSearchBasicInfoCountryRegionSubdivisionReqBodyBuilder() *SearchBasicInfo
 
 // 国家/地区 ID 列表，可通过【查询国家/地区信息】接口获取
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
 	builder.countryRegionIdList = countryRegionIdList
 	builder.countryRegionIdListFlag = true
@@ -21771,7 +22126,7 @@ func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryReg
 
 // 省份/行政区 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryRegionSubdivisionIdList(countryRegionSubdivisionIdList []string) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
 	builder.countryRegionSubdivisionIdList = countryRegionSubdivisionIdList
 	builder.countryRegionSubdivisionIdListFlag = true
@@ -21780,7 +22135,7 @@ func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) CountryReg
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCountryRegionSubdivisionReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -21893,7 +22248,6 @@ func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) PageToken(page
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoCountryRegionSubdivisionReqBuilder) Body(body *SearchBasicInfoCountryRegionSubdivisionReqBody) *SearchBasicInfoCountryRegionSubdivisionReqBuilder {
 	builder.body = body
 	return builder
@@ -21951,7 +22305,7 @@ func NewSearchBasicInfoCurrencyReqBodyBuilder() *SearchBasicInfoCurrencyReqBodyB
 
 // 货币 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCurrencyReqBodyBuilder) CurrencyIdList(currencyIdList []string) *SearchBasicInfoCurrencyReqBodyBuilder {
 	builder.currencyIdList = currencyIdList
 	builder.currencyIdListFlag = true
@@ -21960,7 +22314,7 @@ func (builder *SearchBasicInfoCurrencyReqBodyBuilder) CurrencyIdList(currencyIdL
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoCurrencyReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoCurrencyReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -22056,7 +22410,6 @@ func (builder *SearchBasicInfoCurrencyReqBuilder) PageToken(pageToken string) *S
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoCurrencyReqBuilder) Body(body *SearchBasicInfoCurrencyReqBody) *SearchBasicInfoCurrencyReqBuilder {
 	builder.body = body
 	return builder
@@ -22115,7 +22468,7 @@ func NewSearchBasicInfoDistrictReqBodyBuilder() *SearchBasicInfoDistrictReqBodyB
 
 // 所属城市 ID 列表，详细信息可通过【查询城市信息】接口查询获得
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoDistrictReqBodyBuilder) CityIdList(cityIdList []string) *SearchBasicInfoDistrictReqBodyBuilder {
 	builder.cityIdList = cityIdList
 	builder.cityIdListFlag = true
@@ -22124,7 +22477,7 @@ func (builder *SearchBasicInfoDistrictReqBodyBuilder) CityIdList(cityIdList []st
 
 // 区/县 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoDistrictReqBodyBuilder) DistrictIdList(districtIdList []string) *SearchBasicInfoDistrictReqBodyBuilder {
 	builder.districtIdList = districtIdList
 	builder.districtIdListFlag = true
@@ -22133,7 +22486,7 @@ func (builder *SearchBasicInfoDistrictReqBodyBuilder) DistrictIdList(districtIdL
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoDistrictReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoDistrictReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -22246,7 +22599,6 @@ func (builder *SearchBasicInfoDistrictReqBuilder) PageToken(pageToken string) *S
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoDistrictReqBuilder) Body(body *SearchBasicInfoDistrictReqBody) *SearchBasicInfoDistrictReqBuilder {
 	builder.body = body
 	return builder
@@ -22306,7 +22658,7 @@ func NewSearchBasicInfoNationalityReqBodyBuilder() *SearchBasicInfoNationalityRe
 
 // 国籍 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoNationalityReqBodyBuilder) NationalityIdList(nationalityIdList []string) *SearchBasicInfoNationalityReqBodyBuilder {
 	builder.nationalityIdList = nationalityIdList
 	builder.nationalityIdListFlag = true
@@ -22315,7 +22667,7 @@ func (builder *SearchBasicInfoNationalityReqBodyBuilder) NationalityIdList(natio
 
 // 国家 / 地区 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoNationalityReqBodyBuilder) CountryRegionIdList(countryRegionIdList []string) *SearchBasicInfoNationalityReqBodyBuilder {
 	builder.countryRegionIdList = countryRegionIdList
 	builder.countryRegionIdListFlag = true
@@ -22324,7 +22676,7 @@ func (builder *SearchBasicInfoNationalityReqBodyBuilder) CountryRegionIdList(cou
 
 // 状态列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchBasicInfoNationalityReqBodyBuilder) StatusList(statusList []int) *SearchBasicInfoNationalityReqBodyBuilder {
 	builder.statusList = statusList
 	builder.statusListFlag = true
@@ -22437,7 +22789,6 @@ func (builder *SearchBasicInfoNationalityReqBuilder) PageToken(pageToken string)
 	return builder
 }
 
-//
 func (builder *SearchBasicInfoNationalityReqBuilder) Body(body *SearchBasicInfoNationalityReqBody) *SearchBasicInfoNationalityReqBuilder {
 	builder.body = body
 	return builder
@@ -22493,7 +22844,7 @@ func NewGetByDepartmentBpReqBodyBuilder() *GetByDepartmentBpReqBodyBuilder {
 
 // 部门 ID
 //
-//示例值：6893014062142064111
+// 示例值：6893014062142064111
 func (builder *GetByDepartmentBpReqBodyBuilder) DepartmentId(departmentId string) *GetByDepartmentBpReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -22565,7 +22916,6 @@ func (builder *GetByDepartmentBpReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-//
 func (builder *GetByDepartmentBpReqBuilder) Body(body *GetByDepartmentBpReqBody) *GetByDepartmentBpReqBuilder {
 	builder.body = body
 	return builder
@@ -22696,7 +23046,7 @@ func NewBatchGetCompanyReqBodyBuilder() *BatchGetCompanyReqBodyBuilder {
 
 // 公司 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetCompanyReqBodyBuilder) CompanyIds(companyIds []string) *BatchGetCompanyReqBodyBuilder {
 	builder.companyIds = companyIds
 	builder.companyIdsFlag = true
@@ -22802,7 +23152,7 @@ func NewSearchContractReqBodyBuilder() *SearchContractReqBodyBuilder {
 
 // 雇佣 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchContractReqBodyBuilder) EmploymentIdList(employmentIdList []string) *SearchContractReqBodyBuilder {
 	builder.employmentIdList = employmentIdList
 	builder.employmentIdListFlag = true
@@ -22811,7 +23161,7 @@ func (builder *SearchContractReqBodyBuilder) EmploymentIdList(employmentIdList [
 
 // 合同ID列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchContractReqBodyBuilder) ContractIdList(contractIdList []string) *SearchContractReqBodyBuilder {
 	builder.contractIdList = contractIdList
 	builder.contractIdListFlag = true
@@ -23025,7 +23375,7 @@ func NewDeleteCostCenterReqBodyBuilder() *DeleteCostCenterReqBodyBuilder {
 
 // 操作原因
 //
-//示例值：随着组织架构调整，该成本中心不再使用
+// 示例值：随着组织架构调整，该成本中心不再使用
 func (builder *DeleteCostCenterReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterReqBodyBuilder {
 	builder.operationReason = operationReason
 	builder.operationReasonFlag = true
@@ -23089,7 +23439,6 @@ func (builder *DeleteCostCenterReqBuilder) CostCenterId(costCenterId string) *De
 	return builder
 }
 
-//
 func (builder *DeleteCostCenterReqBuilder) Body(body *DeleteCostCenterReqBody) *DeleteCostCenterReqBuilder {
 	builder.body = body
 	return builder
@@ -23137,7 +23486,7 @@ func NewPatchCostCenterReqBodyBuilder() *PatchCostCenterReqBodyBuilder {
 
 // 生效时间
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *PatchCostCenterReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterReqBodyBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeFlag = true
@@ -23146,7 +23495,7 @@ func (builder *PatchCostCenterReqBodyBuilder) EffectiveTime(effectiveTime string
 
 // 启用停用状态
 //
-//示例值：true
+// 示例值：true
 func (builder *PatchCostCenterReqBodyBuilder) Active(active bool) *PatchCostCenterReqBodyBuilder {
 	builder.active = active
 	builder.activeFlag = true
@@ -23155,7 +23504,7 @@ func (builder *PatchCostCenterReqBodyBuilder) Active(active bool) *PatchCostCent
 
 // 操作原因
 //
-//示例值：强行操作
+// 示例值：强行操作
 func (builder *PatchCostCenterReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterReqBodyBuilder {
 	builder.operationReason = operationReason
 	builder.operationReasonFlag = true
@@ -23321,7 +23670,7 @@ func NewSearchCostCenterReqBodyBuilder() *SearchCostCenterReqBodyBuilder {
 
 // 成本中心ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchCostCenterReqBodyBuilder) CostCenterIdList(costCenterIdList []string) *SearchCostCenterReqBodyBuilder {
 	builder.costCenterIdList = costCenterIdList
 	builder.costCenterIdListFlag = true
@@ -23330,7 +23679,7 @@ func (builder *SearchCostCenterReqBodyBuilder) CostCenterIdList(costCenterIdList
 
 // 成长中心名称列表，精确匹配
 //
-//示例值：
+// 示例值：
 func (builder *SearchCostCenterReqBodyBuilder) NameList(nameList []string) *SearchCostCenterReqBodyBuilder {
 	builder.nameList = nameList
 	builder.nameListFlag = true
@@ -23339,7 +23688,7 @@ func (builder *SearchCostCenterReqBodyBuilder) NameList(nameList []string) *Sear
 
 // 成本中心编码
 //
-//示例值：MDPD00000023
+// 示例值：MDPD00000023
 func (builder *SearchCostCenterReqBodyBuilder) Code(code string) *SearchCostCenterReqBodyBuilder {
 	builder.code = code
 	builder.codeFlag = true
@@ -23348,7 +23697,7 @@ func (builder *SearchCostCenterReqBodyBuilder) Code(code string) *SearchCostCent
 
 // 上级成本中心ID，可用于查询直接下级成本中心
 //
-//示例值：6862995757234914824
+// 示例值：6862995757234914824
 func (builder *SearchCostCenterReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *SearchCostCenterReqBodyBuilder {
 	builder.parentCostCenterId = parentCostCenterId
 	builder.parentCostCenterIdFlag = true
@@ -23357,7 +23706,7 @@ func (builder *SearchCostCenterReqBodyBuilder) ParentCostCenterId(parentCostCent
 
 // 是否获取所有陈本中心版本
 //
-//示例值：true
+// 示例值：true
 func (builder *SearchCostCenterReqBodyBuilder) GetAllVersion(getAllVersion bool) *SearchCostCenterReqBodyBuilder {
 	builder.getAllVersion = getAllVersion
 	builder.getAllVersionFlag = true
@@ -23624,7 +23973,7 @@ func NewDeleteCostCenterVersionReqBodyBuilder() *DeleteCostCenterVersionReqBodyB
 
 // 操作原因
 //
-//示例值：随着组织架构调整，该成本中心不再使用
+// 示例值：随着组织架构调整，该成本中心不再使用
 func (builder *DeleteCostCenterVersionReqBodyBuilder) OperationReason(operationReason string) *DeleteCostCenterVersionReqBodyBuilder {
 	builder.operationReason = operationReason
 	builder.operationReasonFlag = true
@@ -23750,7 +24099,7 @@ func NewPatchCostCenterVersionReqBodyBuilder() *PatchCostCenterVersionReqBodyBui
 
 // 成本中心名称
 //
-//示例值：
+// 示例值：
 func (builder *PatchCostCenterVersionReqBodyBuilder) Name(name []*I18n) *PatchCostCenterVersionReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -23759,7 +24108,7 @@ func (builder *PatchCostCenterVersionReqBodyBuilder) Name(name []*I18n) *PatchCo
 
 // 上级成本中心ID
 //
-//示例值：6862995757234914824
+// 示例值：6862995757234914824
 func (builder *PatchCostCenterVersionReqBodyBuilder) ParentCostCenterId(parentCostCenterId string) *PatchCostCenterVersionReqBodyBuilder {
 	builder.parentCostCenterId = parentCostCenterId
 	builder.parentCostCenterIdFlag = true
@@ -23768,7 +24117,7 @@ func (builder *PatchCostCenterVersionReqBodyBuilder) ParentCostCenterId(parentCo
 
 // 成本中心负责人ID 列表，可通过雇佣信息接口查询获得
 //
-//示例值：
+// 示例值：
 func (builder *PatchCostCenterVersionReqBodyBuilder) Managers(managers []string) *PatchCostCenterVersionReqBodyBuilder {
 	builder.managers = managers
 	builder.managersFlag = true
@@ -23777,7 +24126,7 @@ func (builder *PatchCostCenterVersionReqBodyBuilder) Managers(managers []string)
 
 // 成本中心描述
 //
-//示例值：
+// 示例值：
 func (builder *PatchCostCenterVersionReqBodyBuilder) Description(description []*I18n) *PatchCostCenterVersionReqBodyBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -23786,7 +24135,7 @@ func (builder *PatchCostCenterVersionReqBodyBuilder) Description(description []*
 
 // 生效时间
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *PatchCostCenterVersionReqBodyBuilder) EffectiveTime(effectiveTime string) *PatchCostCenterVersionReqBodyBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeFlag = true
@@ -23795,7 +24144,7 @@ func (builder *PatchCostCenterVersionReqBodyBuilder) EffectiveTime(effectiveTime
 
 // 操作原因
 //
-//示例值：强行操作
+// 示例值：强行操作
 func (builder *PatchCostCenterVersionReqBodyBuilder) OperationReason(operationReason string) *PatchCostCenterVersionReqBodyBuilder {
 	builder.operationReason = operationReason
 	builder.operationReasonFlag = true
@@ -24003,6 +24352,184 @@ func (resp *PatchCostCenterVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchGetDepartmentReqBodyBuilder struct {
+	departmentIdList       []string // 部门 ID 列表
+	departmentIdListFlag   bool
+	fields                 []string // 返回数据的字段列表
+	fieldsFlag             bool
+	departmentNameList     []string // 部门名称精确匹配，最多传100个
+	departmentNameListFlag bool
+}
+
+func NewBatchGetDepartmentReqBodyBuilder() *BatchGetDepartmentReqBodyBuilder {
+	builder := &BatchGetDepartmentReqBodyBuilder{}
+	return builder
+}
+
+// 部门 ID 列表
+//
+// 示例值：
+func (builder *BatchGetDepartmentReqBodyBuilder) DepartmentIdList(departmentIdList []string) *BatchGetDepartmentReqBodyBuilder {
+	builder.departmentIdList = departmentIdList
+	builder.departmentIdListFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+// 示例值：
+func (builder *BatchGetDepartmentReqBodyBuilder) Fields(fields []string) *BatchGetDepartmentReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// 部门名称精确匹配，最多传100个
+//
+// 示例值：
+func (builder *BatchGetDepartmentReqBodyBuilder) DepartmentNameList(departmentNameList []string) *BatchGetDepartmentReqBodyBuilder {
+	builder.departmentNameList = departmentNameList
+	builder.departmentNameListFlag = true
+	return builder
+}
+
+func (builder *BatchGetDepartmentReqBodyBuilder) Build() *BatchGetDepartmentReqBody {
+	req := &BatchGetDepartmentReqBody{}
+	if builder.departmentIdListFlag {
+		req.DepartmentIdList = builder.departmentIdList
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.departmentNameListFlag {
+		req.DepartmentNameList = builder.departmentNameList
+	}
+	return req
+}
+
+type BatchGetDepartmentPathReqBodyBuilder struct {
+	departmentIdList       []string
+	departmentIdListFlag   bool
+	fields                 []string
+	fieldsFlag             bool
+	departmentNameList     []string
+	departmentNameListFlag bool
+}
+
+func NewBatchGetDepartmentPathReqBodyBuilder() *BatchGetDepartmentPathReqBodyBuilder {
+	builder := &BatchGetDepartmentPathReqBodyBuilder{}
+	return builder
+}
+
+// 部门 ID 列表
+//
+// 示例值：
+func (builder *BatchGetDepartmentPathReqBodyBuilder) DepartmentIdList(departmentIdList []string) *BatchGetDepartmentPathReqBodyBuilder {
+	builder.departmentIdList = departmentIdList
+	builder.departmentIdListFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+// 示例值：
+func (builder *BatchGetDepartmentPathReqBodyBuilder) Fields(fields []string) *BatchGetDepartmentPathReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// 部门名称精确匹配，最多传100个
+//
+// 示例值：
+func (builder *BatchGetDepartmentPathReqBodyBuilder) DepartmentNameList(departmentNameList []string) *BatchGetDepartmentPathReqBodyBuilder {
+	builder.departmentNameList = departmentNameList
+	builder.departmentNameListFlag = true
+	return builder
+}
+
+func (builder *BatchGetDepartmentPathReqBodyBuilder) Build() (*BatchGetDepartmentReqBody, error) {
+	req := &BatchGetDepartmentReqBody{}
+	if builder.departmentIdListFlag {
+		req.DepartmentIdList = builder.departmentIdList
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.departmentNameListFlag {
+		req.DepartmentNameList = builder.departmentNameList
+	}
+	return req, nil
+}
+
+type BatchGetDepartmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchGetDepartmentReqBody
+}
+
+func NewBatchGetDepartmentReqBuilder() *BatchGetDepartmentReqBuilder {
+	builder := &BatchGetDepartmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *BatchGetDepartmentReqBuilder) UserIdType(userIdType string) *BatchGetDepartmentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：open_department_id
+func (builder *BatchGetDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *BatchGetDepartmentReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+func (builder *BatchGetDepartmentReqBuilder) Body(body *BatchGetDepartmentReqBody) *BatchGetDepartmentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchGetDepartmentReqBuilder) Build() *BatchGetDepartmentReq {
+	req := &BatchGetDepartmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchGetDepartmentReqBody struct {
+	DepartmentIdList   []string `json:"department_id_list,omitempty"`   // 部门 ID 列表
+	Fields             []string `json:"fields,omitempty"`               // 返回数据的字段列表
+	DepartmentNameList []string `json:"department_name_list,omitempty"` // 部门名称精确匹配，最多传100个
+}
+
+type BatchGetDepartmentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchGetDepartmentReqBody `body:""`
+}
+
+type BatchGetDepartmentRespData struct {
+	Items []*Department `json:"items,omitempty"` // 查询的部门信息
+}
+
+type BatchGetDepartmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchGetDepartmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchGetDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ParentsDepartmentReqBodyBuilder struct {
 	departmentIdList     []string // 部门 ID 列表，一次性最多传入 100 个部门 ID
 	departmentIdListFlag bool
@@ -24015,7 +24542,7 @@ func NewParentsDepartmentReqBodyBuilder() *ParentsDepartmentReqBodyBuilder {
 
 // 部门 ID 列表，一次性最多传入 100 个部门 ID
 //
-//示例值：
+// 示例值：
 func (builder *ParentsDepartmentReqBodyBuilder) DepartmentIdList(departmentIdList []string) *ParentsDepartmentReqBodyBuilder {
 	builder.departmentIdList = departmentIdList
 	builder.departmentIdListFlag = true
@@ -24079,7 +24606,6 @@ func (builder *ParentsDepartmentReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-//
 func (builder *ParentsDepartmentReqBuilder) Body(body *ParentsDepartmentReqBody) *ParentsDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -24143,7 +24669,7 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 
 // 是否启用
 //
-//示例值：true
+// 示例值：true
 func (builder *SearchDepartmentReqBodyBuilder) Active(active bool) *SearchDepartmentReqBodyBuilder {
 	builder.active = active
 	builder.activeFlag = true
@@ -24152,7 +24678,7 @@ func (builder *SearchDepartmentReqBodyBuilder) Active(active bool) *SearchDepart
 
 // 当通过上级部门 ID 查询时，填写 true 返回所有子部门，填写 false 只返回直接下级部门
 //
-//示例值：false
+// 示例值：false
 func (builder *SearchDepartmentReqBodyBuilder) GetAllChildren(getAllChildren bool) *SearchDepartmentReqBodyBuilder {
 	builder.getAllChildren = getAllChildren
 	builder.getAllChildrenFlag = true
@@ -24161,7 +24687,7 @@ func (builder *SearchDepartmentReqBodyBuilder) GetAllChildren(getAllChildren boo
 
 // manager ID 列表;**字段权限要求：按照部门负责人搜索 (corehr:department.manager.search:read)**
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) ManagerList(managerList []string) *SearchDepartmentReqBodyBuilder {
 	builder.managerList = managerList
 	builder.managerListFlag = true
@@ -24170,7 +24696,7 @@ func (builder *SearchDepartmentReqBodyBuilder) ManagerList(managerList []string)
 
 // 部门 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) DepartmentIdList(departmentIdList []string) *SearchDepartmentReqBodyBuilder {
 	builder.departmentIdList = departmentIdList
 	builder.departmentIdListFlag = true
@@ -24179,7 +24705,7 @@ func (builder *SearchDepartmentReqBodyBuilder) DepartmentIdList(departmentIdList
 
 // 部门名称列表，需精确匹配
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) NameList(nameList []string) *SearchDepartmentReqBodyBuilder {
 	builder.nameList = nameList
 	builder.nameListFlag = true
@@ -24188,7 +24714,7 @@ func (builder *SearchDepartmentReqBodyBuilder) NameList(nameList []string) *Sear
 
 // 上级部门 ID ，可查询直接下级部门;**字段权限要求：按照上级部门搜索 (corehr:department.organize.search:read) **
 //
-//示例值：7094136522860922222
+// 示例值：7094136522860922222
 func (builder *SearchDepartmentReqBodyBuilder) ParentDepartmentId(parentDepartmentId string) *SearchDepartmentReqBodyBuilder {
 	builder.parentDepartmentId = parentDepartmentId
 	builder.parentDepartmentIdFlag = true
@@ -24197,7 +24723,7 @@ func (builder *SearchDepartmentReqBodyBuilder) ParentDepartmentId(parentDepartme
 
 // 部门 code 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) CodeList(codeList []string) *SearchDepartmentReqBodyBuilder {
 	builder.codeList = codeList
 	builder.codeListFlag = true
@@ -24206,7 +24732,7 @@ func (builder *SearchDepartmentReqBodyBuilder) CodeList(codeList []string) *Sear
 
 // 返回数据的字段列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) Fields(fields []string) *SearchDepartmentReqBodyBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -24490,7 +25016,7 @@ func NewBatchGetEmployeeReqBodyBuilder() *BatchGetEmployeeReqBodyBuilder {
 
 // 返回数据的字段列表，填写方式：为空时默认仅返回 ID
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeeReqBodyBuilder) Fields(fields []string) *BatchGetEmployeeReqBodyBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -24499,7 +25025,7 @@ func (builder *BatchGetEmployeeReqBodyBuilder) Fields(fields []string) *BatchGet
 
 // 雇佣 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeeReqBodyBuilder) EmploymentIds(employmentIds []string) *BatchGetEmployeeReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -24508,7 +25034,7 @@ func (builder *BatchGetEmployeeReqBodyBuilder) EmploymentIds(employmentIds []str
 
 // 个人信息 ID 列表，employment_ids参数有值时该参数不生效
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeeReqBodyBuilder) PersonIds(personIds []string) *BatchGetEmployeeReqBodyBuilder {
 	builder.personIds = personIds
 	builder.personIdsFlag = true
@@ -24517,7 +25043,7 @@ func (builder *BatchGetEmployeeReqBodyBuilder) PersonIds(personIds []string) *Ba
 
 // 主工作邮箱列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeeReqBodyBuilder) WorkEmails(workEmails []string) *BatchGetEmployeeReqBodyBuilder {
 	builder.workEmails = workEmails
 	builder.workEmailsFlag = true
@@ -24738,7 +25264,7 @@ func NewSearchEmployeeReqBodyBuilder() *SearchEmployeeReqBodyBuilder {
 
 // 返回数据的字段列表，填写方式：为空时默认仅返回 ID
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) Fields(fields []string) *SearchEmployeeReqBodyBuilder {
 	builder.fields = fields
 	builder.fieldsFlag = true
@@ -24747,7 +25273,7 @@ func (builder *SearchEmployeeReqBodyBuilder) Fields(fields []string) *SearchEmpl
 
 // 雇佣 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) EmploymentIdList(employmentIdList []string) *SearchEmployeeReqBodyBuilder {
 	builder.employmentIdList = employmentIdList
 	builder.employmentIdListFlag = true
@@ -24756,7 +25282,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EmploymentIdList(employmentIdList [
 
 // 工号列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) EmployeeNumberList(employeeNumberList []string) *SearchEmployeeReqBodyBuilder {
 	builder.employeeNumberList = employeeNumberList
 	builder.employeeNumberListFlag = true
@@ -24765,7 +25291,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EmployeeNumberList(employeeNumberLi
 
 // 邮箱，精确匹配查询
 //
-//示例值：13312345678@qq.com
+// 示例值：13312345678@qq.com
 func (builder *SearchEmployeeReqBodyBuilder) WorkEmail(workEmail string) *SearchEmployeeReqBodyBuilder {
 	builder.workEmail = workEmail
 	builder.workEmailFlag = true
@@ -24774,7 +25300,7 @@ func (builder *SearchEmployeeReqBodyBuilder) WorkEmail(workEmail string) *Search
 
 // 个人电话，精确匹配查询
 //
-//示例值：16760342300
+// 示例值：16760342300
 func (builder *SearchEmployeeReqBodyBuilder) PhoneNumber(phoneNumber string) *SearchEmployeeReqBodyBuilder {
 	builder.phoneNumber = phoneNumber
 	builder.phoneNumberFlag = true
@@ -24783,7 +25309,7 @@ func (builder *SearchEmployeeReqBodyBuilder) PhoneNumber(phoneNumber string) *Se
 
 // 搜索关键字，支持对邮箱、工号和姓名的模糊匹配
 //
-//示例值：张三
+// 示例值：张三
 func (builder *SearchEmployeeReqBodyBuilder) KeyWord(keyWord string) *SearchEmployeeReqBodyBuilder {
 	builder.keyWord = keyWord
 	builder.keyWordFlag = true
@@ -24792,7 +25318,7 @@ func (builder *SearchEmployeeReqBodyBuilder) KeyWord(keyWord string) *SearchEmpl
 
 // 雇佣状态
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) EmploymentStatus(employmentStatus string) *SearchEmployeeReqBodyBuilder {
 	builder.employmentStatus = employmentStatus
 	builder.employmentStatusFlag = true
@@ -24801,7 +25327,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EmploymentStatus(employmentStatus s
 
 // 人员类型 ID
 //
-//示例值：6971090097697521314
+// 示例值：6971090097697521314
 func (builder *SearchEmployeeReqBodyBuilder) EmployeeTypeId(employeeTypeId string) *SearchEmployeeReqBodyBuilder {
 	builder.employeeTypeId = employeeTypeId
 	builder.employeeTypeIdFlag = true
@@ -24810,7 +25336,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EmployeeTypeId(employeeTypeId strin
 
 // 部门 ID，根据员工主职的直接部门查询，可以通过【查询部门】API 获取 部门 ID
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) DepartmentIdList(departmentIdList []string) *SearchEmployeeReqBodyBuilder {
 	builder.departmentIdList = departmentIdList
 	builder.departmentIdListFlag = true
@@ -24819,7 +25345,7 @@ func (builder *SearchEmployeeReqBodyBuilder) DepartmentIdList(departmentIdList [
 
 // 直接上级的雇佣 ID，根据员工主职的直接上级查询
 //
-//示例值：7027024823985447820
+// 示例值：7027024823985447820
 func (builder *SearchEmployeeReqBodyBuilder) DirectManagerIdList(directManagerIdList []string) *SearchEmployeeReqBodyBuilder {
 	builder.directManagerIdList = directManagerIdList
 	builder.directManagerIdListFlag = true
@@ -24828,7 +25354,7 @@ func (builder *SearchEmployeeReqBodyBuilder) DirectManagerIdList(directManagerId
 
 // 虚线上级的雇佣 ID，根据员工主职的虚线上级查询
 //
-//示例值：7027024823985117820
+// 示例值：7027024823985117820
 func (builder *SearchEmployeeReqBodyBuilder) DottedLineManagerIdList(dottedLineManagerIdList []string) *SearchEmployeeReqBodyBuilder {
 	builder.dottedLineManagerIdList = dottedLineManagerIdList
 	builder.dottedLineManagerIdListFlag = true
@@ -24837,7 +25363,7 @@ func (builder *SearchEmployeeReqBodyBuilder) DottedLineManagerIdList(dottedLineM
 
 // 转正式员工日期-搜索范围开始
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *SearchEmployeeReqBodyBuilder) RegularEmployeeStartDateStart(regularEmployeeStartDateStart string) *SearchEmployeeReqBodyBuilder {
 	builder.regularEmployeeStartDateStart = regularEmployeeStartDateStart
 	builder.regularEmployeeStartDateStartFlag = true
@@ -24846,7 +25372,7 @@ func (builder *SearchEmployeeReqBodyBuilder) RegularEmployeeStartDateStart(regul
 
 // 转正式员工日期-搜索范围结束
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *SearchEmployeeReqBodyBuilder) RegularEmployeeStartDateEnd(regularEmployeeStartDateEnd string) *SearchEmployeeReqBodyBuilder {
 	builder.regularEmployeeStartDateEnd = regularEmployeeStartDateEnd
 	builder.regularEmployeeStartDateEndFlag = true
@@ -24855,7 +25381,7 @@ func (builder *SearchEmployeeReqBodyBuilder) RegularEmployeeStartDateEnd(regular
 
 // 入职日期-搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *SearchEmployeeReqBodyBuilder) EffectiveTimeStart(effectiveTimeStart string) *SearchEmployeeReqBodyBuilder {
 	builder.effectiveTimeStart = effectiveTimeStart
 	builder.effectiveTimeStartFlag = true
@@ -24864,7 +25390,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EffectiveTimeStart(effectiveTimeSta
 
 // 入职日期-搜索范围结束
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *SearchEmployeeReqBodyBuilder) EffectiveTimeEnd(effectiveTimeEnd string) *SearchEmployeeReqBodyBuilder {
 	builder.effectiveTimeEnd = effectiveTimeEnd
 	builder.effectiveTimeEndFlag = true
@@ -24873,7 +25399,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EffectiveTimeEnd(effectiveTimeEnd s
 
 // 工作地点 ID 列表，查询属于该工作地点及下级工作地点的员工
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) WorkLocationIdListIncludeSub(workLocationIdListIncludeSub []string) *SearchEmployeeReqBodyBuilder {
 	builder.workLocationIdListIncludeSub = workLocationIdListIncludeSub
 	builder.workLocationIdListIncludeSubFlag = true
@@ -24882,7 +25408,7 @@ func (builder *SearchEmployeeReqBodyBuilder) WorkLocationIdListIncludeSub(workLo
 
 // 常用英文全名精确搜索
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PreferredEnglishFullNameList(preferredEnglishFullNameList []string) *SearchEmployeeReqBodyBuilder {
 	builder.preferredEnglishFullNameList = preferredEnglishFullNameList
 	builder.preferredEnglishFullNameListFlag = true
@@ -24891,7 +25417,7 @@ func (builder *SearchEmployeeReqBodyBuilder) PreferredEnglishFullNameList(prefer
 
 // 常用本地全名精确搜索
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PreferredLocalFullNameList(preferredLocalFullNameList []string) *SearchEmployeeReqBodyBuilder {
 	builder.preferredLocalFullNameList = preferredLocalFullNameList
 	builder.preferredLocalFullNameListFlag = true
@@ -24900,7 +25426,7 @@ func (builder *SearchEmployeeReqBodyBuilder) PreferredLocalFullNameList(preferre
 
 // 居民身份证件号码精确搜索
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) NationalIdNumberList(nationalIdNumberList []string) *SearchEmployeeReqBodyBuilder {
 	builder.nationalIdNumberList = nationalIdNumberList
 	builder.nationalIdNumberListFlag = true
@@ -24909,7 +25435,7 @@ func (builder *SearchEmployeeReqBodyBuilder) NationalIdNumberList(nationalIdNumb
 
 // 个人电话列表，精确匹配查询
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PhoneNumberList(phoneNumberList []string) *SearchEmployeeReqBodyBuilder {
 	builder.phoneNumberList = phoneNumberList
 	builder.phoneNumberListFlag = true
@@ -24918,7 +25444,7 @@ func (builder *SearchEmployeeReqBodyBuilder) PhoneNumberList(phoneNumberList []s
 
 // 工作邮箱地址列表，精确匹配查询
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) EmailAddressList(emailAddressList []string) *SearchEmployeeReqBodyBuilder {
 	builder.emailAddressList = emailAddressList
 	builder.emailAddressListFlag = true
@@ -24927,7 +25453,7 @@ func (builder *SearchEmployeeReqBodyBuilder) EmailAddressList(emailAddressList [
 
 // 部门 ID 列表，查询属于该部门及下级部门的员工
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) DepartmentIdListIncludeSub(departmentIdListIncludeSub []string) *SearchEmployeeReqBodyBuilder {
 	builder.departmentIdListIncludeSub = departmentIdListIncludeSub
 	builder.departmentIdListIncludeSubFlag = true
@@ -25459,7 +25985,7 @@ func NewBatchGetEmployeesBpReqBodyBuilder() *BatchGetEmployeesBpReqBodyBuilder {
 
 // 员工雇佣 ID
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeesBpReqBodyBuilder) EmploymentIds(employmentIds []string) *BatchGetEmployeesBpReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -25468,7 +25994,7 @@ func (builder *BatchGetEmployeesBpReqBodyBuilder) EmploymentIds(employmentIds []
 
 // 是否获取全部 BP，true 为获取员工所在部门及来自上级部门的全部 HRBP 和属地 BP，false 为仅获取员工的直属 HRBP 和属地 BP（当员工所在部门、属地无 BP 时，会上钻找到最近的 BP），默认为 false
 //
-//示例值：true
+// 示例值：true
 func (builder *BatchGetEmployeesBpReqBodyBuilder) GetAll(getAll bool) *BatchGetEmployeesBpReqBodyBuilder {
 	builder.getAll = getAll
 	builder.getAllFlag = true
@@ -25549,7 +26075,6 @@ func (builder *BatchGetEmployeesBpReqBuilder) UserIdType(userIdType string) *Bat
 	return builder
 }
 
-//
 func (builder *BatchGetEmployeesBpReqBuilder) Body(body *BatchGetEmployeesBpReqBody) *BatchGetEmployeesBpReqBuilder {
 	builder.body = body
 	return builder
@@ -25608,7 +26133,7 @@ func NewBatchGetEmployeesJobDataReqBodyBuilder() *BatchGetEmployeesJobDataReqBod
 
 // 员工雇佣 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EmploymentIds(employmentIds []string) *BatchGetEmployeesJobDataReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -25617,7 +26142,7 @@ func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EmploymentIds(employmentI
 
 // 是否获取所有任职记录，true 为获取员工所有版本的任职记录，false 为仅获取当前生效的任职记录，默认为 false
 //
-//示例值：false
+// 示例值：false
 func (builder *BatchGetEmployeesJobDataReqBodyBuilder) GetAllVersion(getAllVersion bool) *BatchGetEmployeesJobDataReqBodyBuilder {
 	builder.getAllVersion = getAllVersion
 	builder.getAllVersionFlag = true
@@ -25626,7 +26151,7 @@ func (builder *BatchGetEmployeesJobDataReqBodyBuilder) GetAllVersion(getAllVersi
 
 // 生效日期 - 搜索范围开始
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *BatchGetEmployeesJobDataReqBodyBuilder {
 	builder.effectiveDateStart = effectiveDateStart
 	builder.effectiveDateStartFlag = true
@@ -25635,7 +26160,7 @@ func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EffectiveDateStart(effect
 
 // 生效日期 - 搜索范围结束
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *BatchGetEmployeesJobDataReqBodyBuilder {
 	builder.effectiveDateEnd = effectiveDateEnd
 	builder.effectiveDateEndFlag = true
@@ -25644,7 +26169,7 @@ func (builder *BatchGetEmployeesJobDataReqBodyBuilder) EffectiveDateEnd(effectiv
 
 // 查看数据日期，默认为今天
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *BatchGetEmployeesJobDataReqBodyBuilder) DataDate(dataDate string) *BatchGetEmployeesJobDataReqBodyBuilder {
 	builder.dataDate = dataDate
 	builder.dataDateFlag = true
@@ -25784,7 +26309,6 @@ func (builder *BatchGetEmployeesJobDataReqBuilder) DepartmentIdType(departmentId
 	return builder
 }
 
-//
 func (builder *BatchGetEmployeesJobDataReqBuilder) Body(body *BatchGetEmployeesJobDataReqBody) *BatchGetEmployeesJobDataReqBuilder {
 	builder.body = body
 	return builder
@@ -25843,7 +26367,7 @@ func NewQueryEmployeesJobDataReqBodyBuilder() *QueryEmployeesJobDataReqBodyBuild
 
 // 是否获取所有任职记录，true 为获取员工所有版本的任职记录，false 为仅获取当前生效的任职记录，默认为 false
 //
-//示例值：false
+// 示例值：false
 func (builder *QueryEmployeesJobDataReqBodyBuilder) GetAllVersion(getAllVersion bool) *QueryEmployeesJobDataReqBodyBuilder {
 	builder.getAllVersion = getAllVersion
 	builder.getAllVersionFlag = true
@@ -25852,7 +26376,7 @@ func (builder *QueryEmployeesJobDataReqBodyBuilder) GetAllVersion(getAllVersion 
 
 // 查看数据日期
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *QueryEmployeesJobDataReqBodyBuilder) DataDate(dataDate string) *QueryEmployeesJobDataReqBodyBuilder {
 	builder.dataDate = dataDate
 	builder.dataDateFlag = true
@@ -25861,7 +26385,7 @@ func (builder *QueryEmployeesJobDataReqBodyBuilder) DataDate(dataDate string) *Q
 
 // 生效日期 - 搜索范围开始
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *QueryEmployeesJobDataReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *QueryEmployeesJobDataReqBodyBuilder {
 	builder.effectiveDateStart = effectiveDateStart
 	builder.effectiveDateStartFlag = true
@@ -25870,7 +26394,7 @@ func (builder *QueryEmployeesJobDataReqBodyBuilder) EffectiveDateStart(effective
 
 // 生效日期 - 搜索范围结束
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *QueryEmployeesJobDataReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *QueryEmployeesJobDataReqBodyBuilder {
 	builder.effectiveDateEnd = effectiveDateEnd
 	builder.effectiveDateEndFlag = true
@@ -26009,7 +26533,6 @@ func (builder *QueryEmployeesJobDataReqBuilder) DepartmentIdType(departmentIdTyp
 	return builder
 }
 
-//
 func (builder *QueryEmployeesJobDataReqBuilder) Body(body *QueryEmployeesJobDataReqBody) *QueryEmployeesJobDataReqBuilder {
 	builder.body = body
 	return builder
@@ -26193,7 +26716,7 @@ func NewSearchJobChangeReqBodyBuilder() *SearchJobChangeReqBodyBuilder {
 
 // 雇员 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchJobChangeReqBodyBuilder) EmploymentIds(employmentIds []string) *SearchJobChangeReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -26202,7 +26725,7 @@ func (builder *SearchJobChangeReqBodyBuilder) EmploymentIds(employmentIds []stri
 
 // 异动记录 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchJobChangeReqBodyBuilder) JobChangeIds(jobChangeIds []string) *SearchJobChangeReqBodyBuilder {
 	builder.jobChangeIds = jobChangeIds
 	builder.jobChangeIdsFlag = true
@@ -26211,7 +26734,7 @@ func (builder *SearchJobChangeReqBodyBuilder) JobChangeIds(jobChangeIds []string
 
 // 异动状态，多个状态之间为「或」的关系
 //
-//示例值：Approved
+// 示例值：Approved
 func (builder *SearchJobChangeReqBodyBuilder) Statuses(statuses []string) *SearchJobChangeReqBodyBuilder {
 	builder.statuses = statuses
 	builder.statusesFlag = true
@@ -26220,7 +26743,7 @@ func (builder *SearchJobChangeReqBodyBuilder) Statuses(statuses []string) *Searc
 
 // 异动生效日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateStart(effectiveDateStart string) *SearchJobChangeReqBodyBuilder {
 	builder.effectiveDateStart = effectiveDateStart
 	builder.effectiveDateStartFlag = true
@@ -26229,7 +26752,7 @@ func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateStart(effectiveDateSt
 
 // 异动生效日期 - 搜索范围结束
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd string) *SearchJobChangeReqBodyBuilder {
 	builder.effectiveDateEnd = effectiveDateEnd
 	builder.effectiveDateEndFlag = true
@@ -26238,7 +26761,7 @@ func (builder *SearchJobChangeReqBodyBuilder) EffectiveDateEnd(effectiveDateEnd 
 
 // 异动更新时间 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：1704084635000
+// 示例值：1704084635000
 func (builder *SearchJobChangeReqBodyBuilder) UpdatedTimeStart(updatedTimeStart string) *SearchJobChangeReqBodyBuilder {
 	builder.updatedTimeStart = updatedTimeStart
 	builder.updatedTimeStartFlag = true
@@ -26247,7 +26770,7 @@ func (builder *SearchJobChangeReqBodyBuilder) UpdatedTimeStart(updatedTimeStart 
 
 // 异动更新时间 - 搜索范围结束
 //
-//示例值：1704084635000
+// 示例值：1704084635000
 func (builder *SearchJobChangeReqBodyBuilder) UpdatedTimeEnd(updatedTimeEnd string) *SearchJobChangeReqBodyBuilder {
 	builder.updatedTimeEnd = updatedTimeEnd
 	builder.updatedTimeEndFlag = true
@@ -26504,7 +27027,7 @@ func NewBatchGetJobFamilyReqBodyBuilder() *BatchGetJobFamilyReqBodyBuilder {
 
 // 序列 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetJobFamilyReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *BatchGetJobFamilyReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
 	builder.jobFamilyIdsFlag = true
@@ -26608,7 +27131,7 @@ func NewBatchGetJobLevelReqBodyBuilder() *BatchGetJobLevelReqBodyBuilder {
 
 // 职级 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetJobLevelReqBodyBuilder) JobLevelIds(jobLevelIds []string) *BatchGetJobLevelReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
 	builder.jobLevelIdsFlag = true
@@ -26712,7 +27235,7 @@ func NewBatchGetLocationReqBodyBuilder() *BatchGetLocationReqBodyBuilder {
 
 // 地点 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetLocationReqBodyBuilder) LocationIds(locationIds []string) *BatchGetLocationReqBodyBuilder {
 	builder.locationIds = locationIds
 	builder.locationIdsFlag = true
@@ -26897,7 +27420,6 @@ func (builder *PatchPersonReqBuilder) NoNeedQuery(noNeedQuery bool) *PatchPerson
 	return builder
 }
 
-//
 func (builder *PatchPersonReqBuilder) PersonInfo(personInfo *PersonInfo) *PatchPersonReqBuilder {
 	builder.personInfo = personInfo
 	return builder
@@ -26991,7 +27513,7 @@ func NewEnableDisableAssessmentProbationReqBodyBuilder() *EnableDisableAssessmen
 
 // 启用 / 停用状态。启用后可在试用期管理页面中可见试用期考核相关的字段。
 //
-//示例值：true
+// 示例值：true
 func (builder *EnableDisableAssessmentProbationReqBodyBuilder) Active(active bool) *EnableDisableAssessmentProbationReqBodyBuilder {
 	builder.active = active
 	builder.activeFlag = true
@@ -27000,7 +27522,7 @@ func (builder *EnableDisableAssessmentProbationReqBodyBuilder) Active(active boo
 
 // 试用期考核系统入口链接，当启用功能时该字段必填。
 //
-//示例值：https://qwe111.feishuapp.bytedance.net/ae/ui/apps/176612345027111/appPages/l11bsrwss13yt?dataGrid%41pye4fsbajo21l=%7B%7D&key=ffm41o1&dataGrid%41wmv98t29vif3kj=%1B%7D
+// 示例值：https://qwe111.feishuapp.bytedance.net/ae/ui/apps/176612345027111/appPages/l11bsrwss13yt?dataGrid%41pye4fsbajo21l=%7B%7D&key=ffm41o1&dataGrid%41wmv98t29vif3kj=%1B%7D
 func (builder *EnableDisableAssessmentProbationReqBodyBuilder) AppUrl(appUrl string) *EnableDisableAssessmentProbationReqBodyBuilder {
 	builder.appUrl = appUrl
 	builder.appUrlFlag = true
@@ -27073,7 +27595,6 @@ func NewEnableDisableAssessmentProbationReqBuilder() *EnableDisableAssessmentPro
 	return builder
 }
 
-//
 func (builder *EnableDisableAssessmentProbationReqBuilder) Body(body *EnableDisableAssessmentProbationReqBody) *EnableDisableAssessmentProbationReqBuilder {
 	builder.body = body
 	return builder
@@ -27141,7 +27662,7 @@ func NewSearchProbationReqBodyBuilder() *SearchProbationReqBodyBuilder {
 
 // 雇佣 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchProbationReqBodyBuilder) EmploymentIds(employmentIds []string) *SearchProbationReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -27150,7 +27671,7 @@ func (builder *SearchProbationReqBodyBuilder) EmploymentIds(employmentIds []stri
 
 // 部门 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchProbationReqBodyBuilder) DepartmentIds(departmentIds []string) *SearchProbationReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -27159,7 +27680,7 @@ func (builder *SearchProbationReqBodyBuilder) DepartmentIds(departmentIds []stri
 
 // 试用期开始日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2022-05-18
+// 示例值：2022-05-18
 func (builder *SearchProbationReqBodyBuilder) ProbationStartDateStart(probationStartDateStart string) *SearchProbationReqBodyBuilder {
 	builder.probationStartDateStart = probationStartDateStart
 	builder.probationStartDateStartFlag = true
@@ -27168,7 +27689,7 @@ func (builder *SearchProbationReqBodyBuilder) ProbationStartDateStart(probationS
 
 // 试用期开始日期 - 搜索范围结束
 //
-//示例值：2022-05-20
+// 示例值：2022-05-20
 func (builder *SearchProbationReqBodyBuilder) ProbationStartDateEnd(probationStartDateEnd string) *SearchProbationReqBodyBuilder {
 	builder.probationStartDateEnd = probationStartDateEnd
 	builder.probationStartDateEndFlag = true
@@ -27177,7 +27698,7 @@ func (builder *SearchProbationReqBodyBuilder) ProbationStartDateEnd(probationSta
 
 // 试用期预计结束日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2022-06-20
+// 示例值：2022-06-20
 func (builder *SearchProbationReqBodyBuilder) ProbationExpectedEndDateStart(probationExpectedEndDateStart string) *SearchProbationReqBodyBuilder {
 	builder.probationExpectedEndDateStart = probationExpectedEndDateStart
 	builder.probationExpectedEndDateStartFlag = true
@@ -27186,7 +27707,7 @@ func (builder *SearchProbationReqBodyBuilder) ProbationExpectedEndDateStart(prob
 
 // 试用期预计结束日期 - 搜索范围结束
 //
-//示例值：2022-07-20
+// 示例值：2022-07-20
 func (builder *SearchProbationReqBodyBuilder) ProbationExpectedEndDateEnd(probationExpectedEndDateEnd string) *SearchProbationReqBodyBuilder {
 	builder.probationExpectedEndDateEnd = probationExpectedEndDateEnd
 	builder.probationExpectedEndDateEndFlag = true
@@ -27195,7 +27716,7 @@ func (builder *SearchProbationReqBodyBuilder) ProbationExpectedEndDateEnd(probat
 
 // 试用期实际结束日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2022-08-20
+// 示例值：2022-08-20
 func (builder *SearchProbationReqBodyBuilder) ActualProbationEndDateStart(actualProbationEndDateStart string) *SearchProbationReqBodyBuilder {
 	builder.actualProbationEndDateStart = actualProbationEndDateStart
 	builder.actualProbationEndDateStartFlag = true
@@ -27204,7 +27725,7 @@ func (builder *SearchProbationReqBodyBuilder) ActualProbationEndDateStart(actual
 
 // 试用期实际结束日期 - 搜索范围结束
 //
-//示例值：2022-09-20
+// 示例值：2022-09-20
 func (builder *SearchProbationReqBodyBuilder) ActualProbationEndDateEnd(actualProbationEndDateEnd string) *SearchProbationReqBodyBuilder {
 	builder.actualProbationEndDateEnd = actualProbationEndDateEnd
 	builder.actualProbationEndDateEndFlag = true
@@ -27213,7 +27734,7 @@ func (builder *SearchProbationReqBodyBuilder) ActualProbationEndDateEnd(actualPr
 
 // 转正发起日期 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-//示例值：2022-10-20
+// 示例值：2022-10-20
 func (builder *SearchProbationReqBodyBuilder) InitiatingTimeStart(initiatingTimeStart string) *SearchProbationReqBodyBuilder {
 	builder.initiatingTimeStart = initiatingTimeStart
 	builder.initiatingTimeStartFlag = true
@@ -27222,7 +27743,7 @@ func (builder *SearchProbationReqBodyBuilder) InitiatingTimeStart(initiatingTime
 
 // 转正发起日期 - 搜索范围结束
 //
-//示例值：2022-11-20
+// 示例值：2022-11-20
 func (builder *SearchProbationReqBodyBuilder) InitiatingTimeEnd(initiatingTimeEnd string) *SearchProbationReqBodyBuilder {
 	builder.initiatingTimeEnd = initiatingTimeEnd
 	builder.initiatingTimeEndFlag = true
@@ -27231,7 +27752,7 @@ func (builder *SearchProbationReqBodyBuilder) InitiatingTimeEnd(initiatingTimeEn
 
 // 试用期状态
 //
-//示例值：approved
+// 示例值：approved
 func (builder *SearchProbationReqBodyBuilder) ProbationStatus(probationStatus string) *SearchProbationReqBodyBuilder {
 	builder.probationStatus = probationStatus
 	builder.probationStatusFlag = true
@@ -27240,7 +27761,7 @@ func (builder *SearchProbationReqBodyBuilder) ProbationStatus(probationStatus st
 
 // 试用期最终考核结果
 //
-//示例值：approved
+// 示例值：approved
 func (builder *SearchProbationReqBodyBuilder) FinalAssessmentResult(finalAssessmentResult string) *SearchProbationReqBodyBuilder {
 	builder.finalAssessmentResult = finalAssessmentResult
 	builder.finalAssessmentResultFlag = true
@@ -27249,7 +27770,7 @@ func (builder *SearchProbationReqBodyBuilder) FinalAssessmentResult(finalAssessm
 
 // 试用期最终考核等级
 //
-//示例值：grade_a
+// 示例值：grade_a
 func (builder *SearchProbationReqBodyBuilder) FinalAssessmentGrade(finalAssessmentGrade string) *SearchProbationReqBodyBuilder {
 	builder.finalAssessmentGrade = finalAssessmentGrade
 	builder.finalAssessmentGradeFlag = true
@@ -27548,7 +28069,6 @@ func (builder *SearchProbationReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-//
 func (builder *SearchProbationReqBuilder) Body(body *SearchProbationReqBody) *SearchProbationReqBuilder {
 	builder.body = body
 	return builder
@@ -27616,7 +28136,7 @@ func NewCreateProbationAssessmentReqBodyBuilder() *CreateProbationAssessmentReqB
 
 // 试用期人员的雇佣 ID
 //
-//示例值：7140964208476371111
+// 示例值：7140964208476371111
 func (builder *CreateProbationAssessmentReqBodyBuilder) EmploymentId(employmentId string) *CreateProbationAssessmentReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -27625,7 +28145,7 @@ func (builder *CreateProbationAssessmentReqBodyBuilder) EmploymentId(employmentI
 
 // 试用期考核结果列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateProbationAssessmentReqBodyBuilder) Assessments(assessments []*AssessmentForCreate) *CreateProbationAssessmentReqBodyBuilder {
 	builder.assessments = assessments
 	builder.assessmentsFlag = true
@@ -27714,7 +28234,6 @@ func (builder *CreateProbationAssessmentReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-//
 func (builder *CreateProbationAssessmentReqBuilder) Body(body *CreateProbationAssessmentReqBody) *CreateProbationAssessmentReqBuilder {
 	builder.body = body
 	return builder
@@ -27823,7 +28342,6 @@ func (builder *PatchProbationAssessmentReqBuilder) ClientToken(clientToken strin
 	return builder
 }
 
-//
 func (builder *PatchProbationAssessmentReqBuilder) AssessmentForCreate(assessmentForCreate *AssessmentForCreate) *PatchProbationAssessmentReqBuilder {
 	builder.assessmentForCreate = assessmentForCreate
 	return builder
@@ -28085,6 +28603,26 @@ type P2ProcessCcUpdatedV2 struct {
 }
 
 func (m *P2ProcessCcUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2ProcessNodeUpdatedV2Data struct {
+	FlowDefinitionId *string `json:"flow_definition_id,omitempty"` // 流程定义id
+	NodeDefinitionId *string `json:"node_definition_id,omitempty"` // 节点定义id
+	ProcessId        *string `json:"process_id,omitempty"`         // 流程运行实例id
+	ProcessNodeId    *string `json:"process_node_id,omitempty"`    // 节点运行实例id
+	NodeType         *int    `json:"node_type,omitempty"`          // 节点类型
+	NodeStatus       *int    `json:"node_status,omitempty"`        // 单据状态
+	BizType          *string `json:"biz_type,omitempty"`           // 业务类型
+}
+
+type P2ProcessNodeUpdatedV2 struct {
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2ProcessNodeUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2ProcessNodeUpdatedV2) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

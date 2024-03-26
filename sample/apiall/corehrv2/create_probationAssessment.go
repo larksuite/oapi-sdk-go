@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/probation/assessments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewCreateProbationAssessmentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewCreateProbationAssessmentReqBuilder().
 		ClientToken("6822122262122064111").
+		
 		UserIdType("open_id").
-		Body(larkcorehr.NewCreateProbationAssessmentReqBodyBuilder().
+		
+	   Body(larkcorehr.NewCreateProbationAssessmentReqBodyBuilder().
 			EmploymentId("7140964208476371111").
+			
 			Assessments([]*larkcorehr.AssessmentForCreate{larkcorehr.NewAssessmentForCreateBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.ProbationAssessment.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.ProbationAssessment.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

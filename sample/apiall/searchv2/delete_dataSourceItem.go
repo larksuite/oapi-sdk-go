@@ -16,25 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
 )
 
 // DELETE /open-apis/search/v2/data_sources/:data_source_id/items/:item_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larksearch.NewDeleteDataSourceItemReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larksearch.NewDeleteDataSourceItemReqBuilder().
 		DataSourceId("service_ticket").
+		
 		ItemId("01010111").
-		Build()
-	// 发起请求
-	resp, err := client.Search.V2.DataSourceItem.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Search.V2.DataSourceItem.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

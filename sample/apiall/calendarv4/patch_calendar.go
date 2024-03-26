@@ -16,31 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
 // PATCH /open-apis/calendar/v4/calendars/:calendar_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewPatchCalendarReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewPatchCalendarReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
-		Calendar(larkcalendar.NewCalendarBuilder().
+		
+	   Calendar(larkcalendar.NewCalendarBuilder().
 			Summary("").
+			
 			Description("").
+			
 			Permissions("private").
+			
 			Color(0).
 			SummaryAlias("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.V4.Calendar.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.V4.Calendar.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

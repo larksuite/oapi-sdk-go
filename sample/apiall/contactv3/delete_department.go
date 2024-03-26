@@ -16,25 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // DELETE /open-apis/contact/v3/departments/:department_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewDeleteDepartmentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewDeleteDepartmentReqBuilder().
 		DepartmentId("D096").
+		
 		DepartmentIdType("open_department_id").
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.Department.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.Department.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

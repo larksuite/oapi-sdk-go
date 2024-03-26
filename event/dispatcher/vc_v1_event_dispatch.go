@@ -18,8 +18,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -32,8 +30,6 @@ func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -174,8 +170,6 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx co
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -230,8 +224,6 @@ func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Co
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -244,8 +236,6 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:
@@ -258,8 +248,6 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
 // - 事件描述文档链接:

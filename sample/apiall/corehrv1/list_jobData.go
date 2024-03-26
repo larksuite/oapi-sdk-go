@@ -16,32 +16,39 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // GET /open-apis/corehr/v1/job_datas
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewListJobDataReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewListJobDataReqBuilder().
 		PageToken("6994718879515739656").
+		
 		PageSize("100").
+		
 		EmploymentId("7072306364927985196").
+		
 		JobDataIdList([]string{}).
 		DepartmentId("6887868781834536462").
+		
 		JobId("6893014062142064135").
+		
 		GetAllVersion(false).
 		UserIdType("people_corehr_id").
+		
 		DepartmentIdType("people_corehr_department_id").
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.JobData.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.JobData.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +63,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

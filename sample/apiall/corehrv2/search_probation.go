@@ -16,42 +16,56 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/probation/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSearchProbationReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSearchProbationReqBuilder().
 		PageSize(100).
 		PageToken("6891251722631890445").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		Body(larkcorehr.NewSearchProbationReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSearchProbationReqBodyBuilder().
 			EmploymentIds([]string{}).
 			DepartmentIds([]string{}).
 			ProbationStartDateStart("2022-05-18").
+			
 			ProbationStartDateEnd("2022-05-20").
+			
 			ProbationExpectedEndDateStart("2022-06-20").
+			
 			ProbationExpectedEndDateEnd("2022-07-20").
+			
 			ActualProbationEndDateStart("2022-08-20").
+			
 			ActualProbationEndDateEnd("2022-09-20").
+			
 			InitiatingTimeStart("2022-10-20").
+			
 			InitiatingTimeEnd("2022-11-20").
+			
 			ProbationStatus("approved").
+			
 			FinalAssessmentResult("approved").
+			
 			FinalAssessmentGrade("grade_a").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.Probation.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.Probation.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -66,3 +80,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

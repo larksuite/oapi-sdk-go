@@ -16,26 +16,29 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // GET /open-apis/task/v2/tasklists/:tasklist_guid/activity_subscriptions/:activity_subscription_guid
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewGetTasklistActivitySubscriptionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewGetTasklistActivitySubscriptionReqBuilder().
 		TasklistGuid("33991879-704f-444f-81d7-55a6aa7be80c").
+		
 		ActivitySubscriptionGuid("33991879-704f-444f-81d7-55a6aa7be80c").
+		
 		UserIdType("open_id").
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.TasklistActivitySubscription.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.TasklistActivitySubscription.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +53,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

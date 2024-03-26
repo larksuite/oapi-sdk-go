@@ -16,31 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // POST /open-apis/task/v2/tasklists/:tasklist_guid/activity_subscriptions
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateTasklistActivitySubscriptionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateTasklistActivitySubscriptionReqBuilder().
 		TasklistGuid("d19e3a2a-edc0-4e4e-b7cc-950e162b53ae").
+		
 		UserIdType("open_id").
-		TasklistActivitySubscription(larktask.NewTasklistActivitySubscriptionBuilder().
+		
+	   TasklistActivitySubscription(larktask.NewTasklistActivitySubscriptionBuilder().
 			Name("我的订阅").
+			
 			Subscribers([]*larktask.Member{larktask.NewMemberBuilder().Build()}).
 			IncludeKeys([]int{}).
 			Disabled(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.TasklistActivitySubscription.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.TasklistActivitySubscription.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

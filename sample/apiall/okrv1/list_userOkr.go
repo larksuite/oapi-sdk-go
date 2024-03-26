@@ -16,29 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 )
 
 // GET /open-apis/okr/v1/users/:user_id/okrs
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkokr.NewListUserOkrReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkokr.NewListUserOkrReqBuilder().
 		UserId("ou-asdasdasdasdasd").
+		
 		UserIdType("open_id").
+		
 		Offset("0").
+		
 		Limit("5").
+		
 		Lang("zh_cn").
+		
 		PeriodIds([]string{}).
-		Build()
-	// 发起请求
-	resp, err := client.Okr.V1.UserOkr.List(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Okr.V1.UserOkr.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

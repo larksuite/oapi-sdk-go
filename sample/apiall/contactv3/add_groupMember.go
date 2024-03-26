@@ -16,29 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // POST /open-apis/contact/v3/group/:group_id/member/add
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewAddGroupMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewAddGroupMemberReqBuilder().
 		GroupId("g281721").
-		Body(larkcontact.NewAddGroupMemberReqBodyBuilder().
+		
+	   Body(larkcontact.NewAddGroupMemberReqBodyBuilder().
 			MemberType("user").
+			
 			MemberIdType("open_id").
+			
 			MemberId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.GroupMember.Add(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.GroupMember.Add(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

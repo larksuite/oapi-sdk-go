@@ -34,8 +34,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -43,8 +41,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -128,7 +124,7 @@ func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
 
 // 需要被识别语种的文本
 //
-//示例值：你好
+// 示例值：你好
 func (builder *DetectTextReqBodyBuilder) Text(text string) *DetectTextReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -238,7 +234,7 @@ func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
 
 // 源语言
 //
-//示例值：zh
+// 示例值：zh
 func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageFlag = true
@@ -247,7 +243,7 @@ func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string
 
 // 源文本
 //
-//示例值：尝试使用一下飞书吧
+// 示例值：尝试使用一下飞书吧
 func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -256,7 +252,7 @@ func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqB
 
 // 目标语言
 //
-//示例值：en
+// 示例值：en
 func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
 	builder.targetLanguageFlag = true
@@ -265,7 +261,7 @@ func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string
 
 // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 //
-//示例值：
+// 示例值：
 func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextReqBodyBuilder {
 	builder.glossary = glossary
 	builder.glossaryFlag = true

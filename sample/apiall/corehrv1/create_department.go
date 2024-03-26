@@ -16,36 +16,43 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/departments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewCreateDepartmentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewCreateDepartmentReqBuilder().
 		ClientToken("12454646").
+		
 		UserIdType("people_corehr_id").
+		
 		DepartmentIdType("people_corehr_department_id").
-		DepartmentCreate(larkcorehr.NewDepartmentCreateBuilder().
+		
+	   DepartmentCreate(larkcorehr.NewDepartmentCreateBuilder().
 			SubType(larkcorehr.NewEnumBuilder().Build()).
 			Manager("6893013238632416776").
+			
 			IsConfidential(true).
 			HiberarchyCommon(larkcorehr.NewHiberarchyCommonBuilder().Build()).
 			EffectiveTime("2020-05-01 00:00:00").
+			
+			
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			CostCenterId("7142384817131652652").
+			
 			StaffingModel(larkcorehr.NewEnumBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Department.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Department.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,3 +67,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -60,8 +60,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -69,8 +67,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -763,7 +759,7 @@ func NewRemoveRuleViewReqBodyBuilder() *RemoveRuleViewReqBodyBuilder {
 
 // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
 //
-//示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
+// 示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
 func (builder *RemoveRuleViewReqBodyBuilder) UserIds(userIds []string) *RemoveRuleViewReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -827,8 +823,6 @@ func (builder *RemoveRuleViewReqBuilder) RuleId(ruleId string) *RemoveRuleViewRe
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemoveRuleViewReqBuilder) UserIdType(userIdType string) *RemoveRuleViewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -890,7 +884,7 @@ func NewQueryTaskReqBodyBuilder() *QueryTaskReqBodyBuilder {
 
 // 提交开始时间时间戳
 //
-//示例值：1622427266
+// 示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitStartTime(commitStartTime int) *QueryTaskReqBodyBuilder {
 	builder.commitStartTime = commitStartTime
 	builder.commitStartTimeFlag = true
@@ -899,7 +893,7 @@ func (builder *QueryTaskReqBodyBuilder) CommitStartTime(commitStartTime int) *Qu
 
 // 提交结束时间时间戳
 //
-//示例值：1622427266
+// 示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryTaskReqBodyBuilder {
 	builder.commitEndTime = commitEndTime
 	builder.commitEndTimeFlag = true
@@ -908,7 +902,7 @@ func (builder *QueryTaskReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryT
 
 // 汇报规则ID
 //
-//示例值：6894419345318182932
+// 示例值：6894419345318182932
 func (builder *QueryTaskReqBodyBuilder) RuleId(ruleId string) *QueryTaskReqBodyBuilder {
 	builder.ruleId = ruleId
 	builder.ruleIdFlag = true
@@ -917,7 +911,7 @@ func (builder *QueryTaskReqBodyBuilder) RuleId(ruleId string) *QueryTaskReqBodyB
 
 // 用户ID
 //
-//示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
+// 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
 func (builder *QueryTaskReqBodyBuilder) UserId(userId string) *QueryTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -926,7 +920,7 @@ func (builder *QueryTaskReqBodyBuilder) UserId(userId string) *QueryTaskReqBodyB
 
 // 分页标识符
 //
-//示例值：6895699275733778451
+// 示例值：6895699275733778451
 func (builder *QueryTaskReqBodyBuilder) PageToken(pageToken string) *QueryTaskReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -935,7 +929,7 @@ func (builder *QueryTaskReqBodyBuilder) PageToken(pageToken string) *QueryTaskRe
 
 // 单次分页返回的条数
 //
-//示例值：10
+// 示例值：10
 func (builder *QueryTaskReqBodyBuilder) PageSize(pageSize int) *QueryTaskReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true

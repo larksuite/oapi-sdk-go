@@ -16,24 +16,25 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
 // DELETE /open-apis/calendar/v4/timeoff_events/:timeoff_event_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewDeleteTimeoffEventReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewDeleteTimeoffEventReqBuilder().
 		TimeoffEventId("timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39").
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.V4.TimeoffEvent.Delete(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.V4.TimeoffEvent.Delete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,3 +49,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -673,7 +673,7 @@ func NewDetectFaceAttributesImageReqBodyBuilder() *DetectFaceAttributesImageReqB
 
 // 图片 base64 数据
 //
-//示例值：图片 base64 后的字符串
+// 示例值：图片 base64 后的字符串
 func (builder *DetectFaceAttributesImageReqBodyBuilder) Image(image string) *DetectFaceAttributesImageReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true

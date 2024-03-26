@@ -16,30 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
 // GET /open-apis/drive/v1/files/:file_token/comments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewListFileCommentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewListFileCommentReqBuilder().
 		FileToken("XIHSdYSI7oMEU1xrsnxc8fabcef").
+		
 		FileType("doc").
+		
 		IsWhole(false).
 		IsSolved(false).
 		PageToken("7153511712153412356").
+		
 		PageSize(10).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Drive.V1.FileComment.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.V1.FileComment.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

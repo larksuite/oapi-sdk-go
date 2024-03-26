@@ -16,32 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 )
 
 // POST /open-apis/helpdesk/v1/notifications
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhelpdesk.NewCreateNotificationReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhelpdesk.NewCreateNotificationReqBuilder().
 		UserIdType("user_id").
-		Notification(larkhelpdesk.NewNotificationBuilder().
+		
+	   Notification(larkhelpdesk.NewNotificationBuilder().
 			Id("6981801914270744596").
+			
 			JobName("测试推送任务").
+			
 			Status(0).
 			CreateUser(larkhelpdesk.NewNotificationUserBuilder().Build()).
 			CreatedAt("1626332244719").
+			
 			UpdateUser(larkhelpdesk.NewNotificationUserBuilder().Build()).
 			UpdatedAt("1626332244719").
+			
 			TargetUserCount(1).
 			SentUserCount(1).
 			ReadUserCount(1).
 			SendAt("1626332244719").
+			
 			PushContent("").
+			
 			PushType(0).
 			PushScopeType(0).
 			NewStaffScopeType(0).
@@ -50,12 +56,14 @@ func main() {
 			DepartmentList([]*larkhelpdesk.NotificationDepartment{larkhelpdesk.NewNotificationDepartmentBuilder().Build()}).
 			ChatList([]*larkhelpdesk.NotificationChat{larkhelpdesk.NewNotificationChatBuilder().Build()}).
 			Ext("{}").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Helpdesk.V1.Notification.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Helpdesk.V1.Notification.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -70,3 +78,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

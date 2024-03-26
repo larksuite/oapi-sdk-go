@@ -16,38 +16,46 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/offboardings/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSearchOffboardingReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSearchOffboardingReqBuilder().
 		PageSize(100).
 		PageToken("6891251722631890445").
+		
 		UserIdType("open_id").
-		Body(larkcorehr.NewSearchOffboardingReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSearchOffboardingReqBodyBuilder().
 			EmploymentIds([]string{}).
 			ApplyInitiatingTimeStart("2022-01-01 11:22:33").
+			
 			ApplyInitiatingTimeEnd("2022-01-01 11:22:33").
+			
 			ExpectedOffboardingDateStart("2022-01-01").
+			
 			ExpectedOffboardingDateEnd("2022-01-01").
+			
 			OffboardingDateStart("2022-01-01").
+			
 			OffboardingDateEnd("2022-01-01").
+			
 			Statuses([]string{}).
 			Reasons([]string{}).
 			EmployeeReasons([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Offboarding.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Offboarding.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -62,3 +70,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,33 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 // POST /open-apis/application/v6/applications/:app_id/app_usage/department_overview
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapplication.NewDepartmentOverviewApplicationAppUsageReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapplication.NewDepartmentOverviewApplicationAppUsageReqBuilder().
 		AppId("cli_9f115af860f7901b").
+		
 		DepartmentIdType("open_department_id").
-		Body(larkapplication.NewDepartmentOverviewApplicationAppUsageReqBodyBuilder().
+		
+	   Body(larkapplication.NewDepartmentOverviewApplicationAppUsageReqBodyBuilder().
 			Date("2021-07-08").
+			
 			CycleType(1).
 			DepartmentId("od-4e6ac4d14bcd5071a37a39de902c7141").
+			
 			Recursion(0).
 			PageSize(10).
 			PageToken("new-1a8f509162ca3c95405838d05ccded09").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Application.V6.ApplicationAppUsage.DepartmentOverview(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Application.V6.ApplicationAppUsage.DepartmentOverview(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

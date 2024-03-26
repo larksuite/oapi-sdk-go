@@ -16,30 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // PATCH /open-apis/hire/v1/offers/:offer_id/offer_status
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewOfferStatusOfferReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewOfferStatusOfferReqBuilder().
 		OfferId("6930815272790114324").
-		Body(larkhire.NewOfferStatusOfferReqBodyBuilder().
+		
+	   Body(larkhire.NewOfferStatusOfferReqBodyBuilder().
 			OfferStatus(2).
 			ExpirationDate("2023-01-01").
+			
 			TerminationReasonIdList([]string{}).
 			TerminationReasonNote("不符合期望").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.Offer.OfferStatus(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.Offer.OfferStatus(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

@@ -16,27 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/tables/batch_delete
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewBatchDeleteAppTableReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewBatchDeleteAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		Body(larkbitable.NewBatchDeleteAppTableReqBodyBuilder().
+		
+	   Body(larkbitable.NewBatchDeleteAppTableReqBodyBuilder().
 			TableIds([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.V1.AppTable.BatchDelete(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.V1.AppTable.BatchDelete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

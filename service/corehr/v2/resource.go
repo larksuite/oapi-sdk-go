@@ -4,9 +4,8 @@ package larkcorehr
 
 import (
 	"context"
-	"net/http"
-
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"net/http"
 )
 
 type V2 struct {
@@ -39,6 +38,7 @@ type V2 struct {
 	Process                           *process                           // process
 	ProcessApprover                   *processApprover                   // process.approver
 	ProcessCc                         *processCc                         // process.cc
+	ProcessNode                       *processNode                       // process.node
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -72,6 +72,7 @@ func New(config *larkcore.Config) *V2 {
 		Process:                           &process{config: config},
 		ProcessApprover:                   &processApprover{config: config},
 		ProcessCc:                         &processCc{config: config},
+		ProcessNode:                       &processNode{config: config},
 	}
 }
 
@@ -160,6 +161,9 @@ type processApprover struct {
 	config *larkcore.Config
 }
 type processCc struct {
+	config *larkcore.Config
+}
+type processNode struct {
 	config *larkcore.Config
 }
 
@@ -731,6 +735,32 @@ func (c *costCenterVersion) Patch(ctx context.Context, req *PatchCostCenterVersi
 	// 反序列响应结果
 	resp := &PatchCostCenterVersionResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchGet
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=department&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchGet_department.go
+func (d *department) BatchGet(ctx context.Context, req *BatchGetDepartmentReq, options ...larkcore.RequestOptionFunc) (*BatchGetDepartmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/departments/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetDepartmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
 	if err != nil {
 		return nil, err
 	}

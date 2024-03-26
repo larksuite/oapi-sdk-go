@@ -16,26 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // PATCH /open-apis/corehr/v2/persons/:person_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewPatchPersonReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewPatchPersonReqBuilder().
 		PersonId("12454646").
+		
 		ClientToken("12454646").
+		
 		NoNeedQuery(false).
-		PersonInfo(larkcorehr.NewPersonInfoBuilder().
+	   PersonInfo(larkcorehr.NewPersonInfoBuilder().
 			NameList([]*larkcorehr.PersonName{larkcorehr.NewPersonNameBuilder().Build()}).
 			Gender(larkcorehr.NewEnumBuilder().Build()).
 			DateOfBirth("2020-01-01").
+			
+			
 			NationalityIdV2("6862995757234914821").
+			
 			Race(larkcorehr.NewEnumBuilder().Build()).
 			MaritalStatus(larkcorehr.NewEnumBuilder().Build()).
 			PhoneList([]*larkcorehr.Phone{larkcorehr.NewPhoneBuilder().Build()}).
@@ -48,28 +52,39 @@ func main() {
 			DependentList([]*larkcorehr.Dependent{larkcorehr.NewDependentBuilder().Build()}).
 			EmergencyContactList([]*larkcorehr.EmergencyContact{larkcorehr.NewEmergencyContactBuilder().Build()}).
 			DateEnteredWorkforce("2020-10-01").
+			
 			ProfileImageId("dfysuc8x76dsfsw").
+			
 			PersonalProfile([]*larkcorehr.PersonalProfile{larkcorehr.NewPersonalProfileBuilder().Build()}).
 			NativeRegion("6863326262618752111").
+			
 			HukouType(larkcorehr.NewEnumBuilder().Build()).
 			HukouLocation("山东省平阴县").
+			
 			TalentId("6863326262618752123").
+			
 			CustomFields([]*larkcorehr.CustomFieldData{larkcorehr.NewCustomFieldDataBuilder().Build()}).
 			BornCountryRegion("中国").
+			
 			IsDisabled(true).
 			DisableCardNumber("1110000").
+			
 			IsMartyrFamily(true).
 			MartyrCardNumber("1110000").
+			
 			IsOldAlone(true).
 			ResidentTaxes([]*larkcorehr.ResidentTax{larkcorehr.NewResidentTaxBuilder().Build()}).
 			FirstEntryTime("2021-01-02").
+			
 			LeaveTime("2022-01-02").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.Person.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.Person.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -84,3 +99,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

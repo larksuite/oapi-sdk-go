@@ -16,36 +16,44 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/offboardings/submit
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSubmitOffboardingReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSubmitOffboardingReqBuilder().
 		UserIdType("people_corehr_id").
-		Body(larkcorehr.NewSubmitOffboardingReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSubmitOffboardingReqBodyBuilder().
 			OffboardingMode(1).
 			EmploymentId("6982509313466189342").
+			
 			OffboardingDate("2022-05-18").
+			
 			OffboardingReasonUniqueIdentifier("reason_for_offboarding_option8").
+			
 			OffboardingReasonExplanation("离职原因说明").
+			
 			InitiatorId("6982509313466189341").
+			
 			AddBlockList(false).
 			BlockReason("红线").
+			
 			BlockReasonExplanation("xx 年 xx 月 xx 日因 xx 原因红线").
+			
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Offboarding.Submit(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Offboarding.Submit(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,3 +68,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

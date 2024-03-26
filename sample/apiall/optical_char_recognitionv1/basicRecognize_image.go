@@ -16,26 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/optical_char_recognition/v1"
 )
 
 // POST /open-apis/optical_char_recognition/v1/image/basic_recognize
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkoptical_char_recognition.NewBasicRecognizeImageReqBuilder().
-		Body(larkoptical_char_recognition.NewBasicRecognizeImageReqBodyBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkoptical_char_recognition.NewBasicRecognizeImageReqBuilder().
+	   Body(larkoptical_char_recognition.NewBasicRecognizeImageReqBodyBuilder().
 			Image("base64后的图片二进制数据").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.OpticalCharRecognition.V1.Image.BasicRecognize(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.OpticalCharRecognition.V1.Image.BasicRecognize(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +51,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

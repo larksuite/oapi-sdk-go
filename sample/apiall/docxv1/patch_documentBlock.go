@@ -16,24 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 // PATCH /open-apis/docx/v1/documents/:document_id/blocks/:block_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdocx.NewPatchDocumentBlockReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdocx.NewPatchDocumentBlockReqBuilder().
 		DocumentId("doxcnePuYufKa49ISjhD8Ih0ikh").
+		
 		BlockId("doxcnO6UW6wAw2qIcYf4hZpFIth").
+		
 		DocumentRevisionId(-1).
 		ClientToken("0e2633a3-aa1a-4171-af9e-0768ff863566").
+		
 		UserIdType("user_id").
-		UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
+		
+	   UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
 			UpdateTextElements(larkdocx.NewUpdateTextElementsRequestBuilder().Build()).
 			UpdateTextStyle(larkdocx.NewUpdateTextStyleRequestBuilder().Build()).
 			UpdateTableProperty(larkdocx.NewUpdateTablePropertyRequestBuilder().Build()).
@@ -51,11 +54,12 @@ func main() {
 			UpdateText(larkdocx.NewUpdateTextRequestBuilder().Build()).
 			UpdateTask(larkdocx.NewUpdateTaskRequestBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Docx.V1.DocumentBlock.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Docx.V1.DocumentBlock.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -70,3 +74,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

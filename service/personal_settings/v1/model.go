@@ -14,9 +14,10 @@
 package larkpersonal_settings
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -87,8 +88,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -96,8 +95,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -702,7 +699,7 @@ func NewBatchCloseSystemStatusReqBodyBuilder() *BatchCloseSystemStatusReqBodyBui
 
 // 成员列表
 //
-//示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
+// 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *BatchCloseSystemStatusReqBodyBuilder) UserList(userList []string) *BatchCloseSystemStatusReqBodyBuilder {
 	builder.userList = userList
 	builder.userListFlag = true
@@ -824,7 +821,7 @@ func NewBatchOpenSystemStatusReqBodyBuilder() *BatchOpenSystemStatusReqBodyBuild
 
 // 开启列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchOpenSystemStatusReqBodyBuilder) UserList(userList []*SystemStatusUserOpenParam) *BatchOpenSystemStatusReqBodyBuilder {
 	builder.userList = userList
 	builder.userListFlag = true
@@ -1101,7 +1098,7 @@ func NewPatchSystemStatusReqBodyBuilder() *PatchSystemStatusReqBodyBuilder {
 
 // 系统状态
 //
-//示例值：
+// 示例值：
 func (builder *PatchSystemStatusReqBodyBuilder) SystemStatus(systemStatus *SystemStatus) *PatchSystemStatusReqBodyBuilder {
 	builder.systemStatus = systemStatus
 	builder.systemStatusFlag = true
@@ -1110,7 +1107,7 @@ func (builder *PatchSystemStatusReqBodyBuilder) SystemStatus(systemStatus *Syste
 
 // 需要更新的字段
 //
-//示例值：['TITLE']
+// 示例值：['TITLE']
 func (builder *PatchSystemStatusReqBodyBuilder) UpdateFields(updateFields []string) *PatchSystemStatusReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsFlag = true

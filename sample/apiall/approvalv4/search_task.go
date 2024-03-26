@@ -16,40 +16,52 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // POST /open-apis/approval/v4/tasks/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewSearchTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewSearchTaskReqBuilder().
 		PageSize(10).
 		PageToken("nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU").
+		
 		UserIdType("user_id").
-		TaskSearch(larkapproval.NewTaskSearchBuilder().
+		
+	   TaskSearch(larkapproval.NewTaskSearchBuilder().
 			UserId("lwiu098wj").
+			
 			ApprovalCode("EB828003-9FFE-4B3F-AA50-2E199E2ED942").
+			
 			InstanceCode("EB828003-9FFE-4B3F-AA50-2E199E2ED943").
+			
 			InstanceExternalId("EB828003-9FFE-4B3F-AA50-2E199E2ED976").
+			
 			GroupExternalId("1234567").
+			
 			TaskTitle("test").
+			
 			TaskStatus("PENDING").
+			
 			TaskStartTimeFrom("1547654251506").
+			
 			TaskStartTimeTo("1547654251506").
+			
 			Locale("zh-CN").
+			
 			TaskStatusList([]string{}).
 			Order(2).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.Task.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.Task.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -64,3 +76,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

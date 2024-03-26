@@ -16,30 +16,34 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
 // PATCH /open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewPatchAppTableViewReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewPatchAppTableViewReqBuilder().
 		AppToken("bascng7vrxcxpig7geggXiCtadY").
+		
 		TableId("tblsRc9GRRXKqhvW").
+		
 		ViewId("vewTpR1urY").
-		Body(larkbitable.NewPatchAppTableViewReqBodyBuilder().
+		
+	   Body(larkbitable.NewPatchAppTableViewReqBodyBuilder().
 			ViewName("grid").
+			
 			Property(larkbitable.NewAppTableViewPropertyBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.V1.AppTableView.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.V1.AppTableView.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +58,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

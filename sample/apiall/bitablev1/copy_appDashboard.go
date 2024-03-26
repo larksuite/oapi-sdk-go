@@ -16,28 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/dashboards/:block_id/copy
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewCopyAppDashboardReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewCopyAppDashboardReqBuilder().
 		AppToken("basbcldP5xZeskcHDFZQfeToydb").
+		
 		BlockId("blkEsvEEaNllY2UV").
-		Body(larkbitable.NewCopyAppDashboardReqBodyBuilder().
+		
+	   Body(larkbitable.NewCopyAppDashboardReqBodyBuilder().
 			Name("Dashboard").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.V1.AppDashboard.Copy(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.V1.AppDashboard.Copy(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

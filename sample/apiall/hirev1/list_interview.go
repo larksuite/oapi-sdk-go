@@ -16,31 +16,38 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
 
 // GET /open-apis/hire/v1/interviews
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhire.NewListInterviewReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhire.NewListInterviewReqBuilder().
 		PageSize(10).
 		PageToken("xx").
+		
 		ApplicationId("6134134355464633").
+		
 		InterviewId("6888217964693309704").
+		
 		StartTime("1609489908000").
+		
 		EndTime("1610489908000").
+		
 		JobLevelIdType("people_admin_job_level_id").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Hire.V1.Interview.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Hire.V1.Interview.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +62,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

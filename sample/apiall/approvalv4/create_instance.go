@@ -16,42 +16,51 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // POST /open-apis/approval/v4/instances
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewCreateInstanceReqBuilder().
-		InstanceCreate(larkapproval.NewInstanceCreateBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewCreateInstanceReqBuilder().
+	   InstanceCreate(larkapproval.NewInstanceCreateBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
+			
 			UserId("f7cb567e").
+			
 			OpenId("ou_123456").
+			
 			DepartmentId("123456").
+			
 			Form("").
+			
 			NodeApproverUserIdList([]*larkapproval.NodeApprover{larkapproval.NewNodeApproverBuilder().Build()}).
 			NodeApproverOpenIdList([]*larkapproval.NodeApprover{larkapproval.NewNodeApproverBuilder().Build()}).
 			NodeCcUserIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
 			NodeCcOpenIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
 			Uuid("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
+			
 			AllowResubmit(true).
 			AllowSubmitAgain(true).
 			CancelBotNotification("0").
+			
 			ForbidRevoke(false).
 			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Title("@i18n@1").
+			
 			TitleDisplayMethod(0).
+			NodeAutoApprovalList([]*larkapproval.NodeAutoApproval{larkapproval.NewNodeAutoApprovalBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.Instance.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.Instance.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -66,3 +75,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

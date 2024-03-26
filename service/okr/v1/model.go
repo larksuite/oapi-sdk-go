@@ -14,9 +14,11 @@
 package larkokr
 
 import (
-	"bytes"
-	"fmt"
 	"io"
+
+	"bytes"
+
+	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -955,8 +957,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -964,8 +964,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5396,7 +5394,7 @@ func NewUploadImageReqBodyBuilder() *UploadImageReqBodyBuilder {
 
 // 图片
 //
-//示例值：file binary
+// 示例值：file binary
 func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBodyBuilder {
 	builder.data = data
 	builder.dataFlag = true
@@ -5405,7 +5403,7 @@ func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBo
 
 // 图片的目标ID
 //
-//示例值：6974586812998174252
+// 示例值：6974586812998174252
 func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImageReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
@@ -5414,7 +5412,7 @@ func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImage
 
 // 图片使用的目标类型
 //
-//示例值：1
+// 示例值：1
 func (builder *UploadImageReqBodyBuilder) TargetType(targetType int) *UploadImageReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeFlag = true
@@ -5625,7 +5623,7 @@ func NewCreatePeriodReqBodyBuilder() *CreatePeriodReqBodyBuilder {
 
 // 周期规则 id
 //
-//示例值：6969864184272078374
+// 示例值：6969864184272078374
 func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodReqBodyBuilder {
 	builder.periodRuleId = periodRuleId
 	builder.periodRuleIdFlag = true
@@ -5634,7 +5632,7 @@ func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *Cr
 
 // 周期起始年月
 //
-//示例值：2022-01
+// 示例值：2022-01
 func (builder *CreatePeriodReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodReqBodyBuilder {
 	builder.startMonth = startMonth
 	builder.startMonthFlag = true
@@ -5814,7 +5812,7 @@ func NewPatchPeriodReqBodyBuilder() *PatchPeriodReqBodyBuilder {
 
 // 周期显示状态
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchPeriodReqBodyBuilder) Status(status int) *PatchPeriodReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -5954,7 +5952,7 @@ func NewCreateProgressRecordReqBodyBuilder() *CreateProgressRecordReqBodyBuilder
 
 // 进展来源
 //
-//示例值：周报系统
+// 示例值：周报系统
 func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceTitle = sourceTitle
 	builder.sourceTitleFlag = true
@@ -5963,7 +5961,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle strin
 
 // 进展来源链接
 //
-//示例值：https://www.zhoubao.com
+// 示例值：https://www.zhoubao.com
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrl = sourceUrl
 	builder.sourceUrlFlag = true
@@ -5972,7 +5970,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *
 
 // 目标id，与target_type对应
 //
-//示例值：7041430377642082323
+// 示例值：7041430377642082323
 func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
@@ -5981,7 +5979,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *Cr
 
 // 目标类型
 //
-//示例值：1
+// 示例值：1
 func (builder *CreateProgressRecordReqBodyBuilder) TargetType(targetType int) *CreateProgressRecordReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeFlag = true
@@ -5990,7 +5988,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) TargetType(targetType int) *C
 
 // 进展详情 富文本格式
 //
-//示例值：
+// 示例值：
 func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *CreateProgressRecordReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -5999,7 +5997,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock
 
 // pc进展来源链接
 //
-//示例值：open.feishu.cn
+// 示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlPc = sourceUrlPc
 	builder.sourceUrlPcFlag = true
@@ -6008,7 +6006,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc strin
 
 // mobile进展来源链接
 //
-//示例值：open.feishu.cn
+// 示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
 	builder.sourceUrlMobileFlag = true
@@ -6329,7 +6327,7 @@ func NewUpdateProgressRecordReqBodyBuilder() *UpdateProgressRecordReqBodyBuilder
 
 // 进展详情 富文本格式
 //
-//示例值：
+// 示例值：
 func (builder *UpdateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *UpdateProgressRecordReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true

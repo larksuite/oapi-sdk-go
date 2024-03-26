@@ -16,27 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
 )
 
 // GET /open-apis/lingo/v1/entities/:entity_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larklingo.NewGetEntityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larklingo.NewGetEntityReqBuilder().
 		EntityId("enterprise_0").
+		
 		Provider("星云").
+		
 		OuterId("123aaa").
+		
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Lingo.V1.Entity.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Lingo.V1.Entity.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

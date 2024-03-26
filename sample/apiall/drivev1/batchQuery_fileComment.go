@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
 // POST /open-apis/drive/v1/files/:file_token/comments/batch_query
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkdrive.NewBatchQueryFileCommentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkdrive.NewBatchQueryFileCommentReqBuilder().
 		FileToken("doxbcdl03Vsxhm7Qmnj110abcef").
+		
 		FileType("doc;docx;sheet;file").
+		
 		UserIdType("user_id").
-		Body(larkdrive.NewBatchQueryFileCommentReqBodyBuilder().
+		
+	   Body(larkdrive.NewBatchQueryFileCommentReqBodyBuilder().
 			CommentIds([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Drive.V1.FileComment.BatchQuery(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Drive.V1.FileComment.BatchQuery(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

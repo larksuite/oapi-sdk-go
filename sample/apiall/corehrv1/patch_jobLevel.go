@@ -16,33 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // PATCH /open-apis/corehr/v1/job_levels/:job_level_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewPatchJobLevelReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewPatchJobLevelReqBuilder().
 		JobLevelId("1616161616").
+		
 		ClientToken("12454646").
-		JobLevel(larkcorehr.NewJobLevelBuilder().
+		
+	   JobLevel(larkcorehr.NewJobLevelBuilder().
 			LevelOrder(9999).
 			Code("VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY=").
+			
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			Description([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			Active(true).
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.JobLevel.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.JobLevel.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

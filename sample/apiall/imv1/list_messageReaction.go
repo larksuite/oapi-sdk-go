@@ -16,28 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 // GET /open-apis/im/v1/messages/:message_id/reactions
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkim.NewListMessageReactionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkim.NewListMessageReactionReqBuilder().
 		MessageId("om_8964d1b4*********2b31383276113").
+		
 		ReactionType("LAUGH").
+		
 		PageToken("YhljsPiGfUgnVAg9urvRFd-BvSqRL20wMZNAWfa9xXkud6UKCybPuUgQ1vM26dj6").
+		
 		PageSize(10).
 		UserIdType("open_id").
-		Build()
-	// 发起请求
-	resp, err := client.Im.V1.MessageReaction.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Im.V1.MessageReaction.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

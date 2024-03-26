@@ -16,33 +16,37 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/lingo/v1"
 )
 
 // POST /open-apis/lingo/v1/entities/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larklingo.NewSearchEntityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larklingo.NewSearchEntityReqBuilder().
 		PageSize(20).
 		PageToken("b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c").
+		
 		RepoId("7202510112396640276").
+		
 		UserIdType("user_id").
-		Body(larklingo.NewSearchEntityReqBodyBuilder().
+		
+	   Body(larklingo.NewSearchEntityReqBodyBuilder().
 			Query("飞书词典").
+			
 			ClassificationFilter(larklingo.NewClassificationFilterBuilder().Build()).
 			Sources([]int{}).
 			Creators([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Lingo.V1.Entity.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Lingo.V1.Entity.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -57,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

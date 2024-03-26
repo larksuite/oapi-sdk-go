@@ -16,28 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
 // GET /open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewListAppTableFormFieldReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewListAppTableFormFieldReqBuilder().
 		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
+		
 		TableId("tblxI2tWaxP5dG7p").
+		
 		FormId("vewTpR1urY").
+		
 		PageSize(10).
 		PageToken("vewTpR1urY").
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.V1.AppTableFormField.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.V1.AppTableFormField.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

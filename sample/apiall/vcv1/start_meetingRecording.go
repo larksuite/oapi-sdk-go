@@ -16,27 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // PATCH /open-apis/vc/v1/meetings/:meeting_id/recording/start
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewStartMeetingRecordingReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewStartMeetingRecordingReqBuilder().
 		MeetingId("6911188411932033028").
-		Body(larkvc.NewStartMeetingRecordingReqBodyBuilder().
+		
+	   Body(larkvc.NewStartMeetingRecordingReqBodyBuilder().
 			Timezone(8).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.MeetingRecording.Start(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.MeetingRecording.Start(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

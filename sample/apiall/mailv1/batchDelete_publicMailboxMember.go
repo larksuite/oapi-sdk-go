@@ -16,27 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
 
 // DELETE /open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/batch_delete
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkmail.NewBatchDeletePublicMailboxMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkmail.NewBatchDeletePublicMailboxMemberReqBuilder().
 		PublicMailboxId("xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx").
-		Body(larkmail.NewBatchDeletePublicMailboxMemberReqBodyBuilder().
+		
+	   Body(larkmail.NewBatchDeletePublicMailboxMemberReqBodyBuilder().
 			MemberIdList([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Mail.V1.PublicMailboxMember.BatchDelete(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Mail.V1.PublicMailboxMember.BatchDelete(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

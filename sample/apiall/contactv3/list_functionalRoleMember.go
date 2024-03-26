@@ -16,28 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // GET /open-apis/contact/v3/functional_roles/:role_id/members
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewListFunctionalRoleMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewListFunctionalRoleMemberReqBuilder().
 		RoleId("7vrj3vk70xk7v5r").
+		
 		PageSize(20).
 		PageToken("dawdewd").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.FunctionalRoleMember.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.FunctionalRoleMember.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

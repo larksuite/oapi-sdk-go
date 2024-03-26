@@ -16,40 +16,48 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/employments
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewCreateEmploymentReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewCreateEmploymentReqBuilder().
 		ClientToken("12454646").
-		EmploymentCreate(larkcorehr.NewEmploymentCreateBuilder().
+		
+	   EmploymentCreate(larkcorehr.NewEmploymentCreateBuilder().
 			SeniorityDate("2020-01-01").
+			
 			EmployeeNumber("1000000").
+			
 			EffectiveTime("2020-01-01").
+			
 			ExpirationTime("2021-01-01").
+			
 			EmploymentType(larkcorehr.NewEnumBuilder().Build()).
 			PersonId("6919733936050406926").
+			
 			PrimaryEmployment(true).
 			EmploymentStatus(larkcorehr.NewEnumBuilder().Build()).
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			WorkEmailList([]*larkcorehr.Email{larkcorehr.NewEmailBuilder().Build()}).
 			ReasonForOffboarding(larkcorehr.NewEnumBuilder().Build()).
 			AtsApplicationId("6838119494196871234").
+			
 			Rehire(larkcorehr.NewEnumBuilder().Build()).
 			RehireEmploymentId("7051837122449425964").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Employment.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Employment.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -64,3 +72,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

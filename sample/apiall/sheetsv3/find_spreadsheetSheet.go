@@ -16,29 +16,32 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
 // POST /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/find
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larksheets.NewFindSpreadsheetSheetReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larksheets.NewFindSpreadsheetSheetReqBuilder().
 		SpreadsheetToken("shtcnmBA*****yGehy8").
+		
 		SheetId("0b**12").
-		Find(larksheets.NewFindBuilder().
+		
+	   Find(larksheets.NewFindBuilder().
 			FindCondition(larksheets.NewFindConditionBuilder().Build()).
 			Find("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Sheets.V3.SpreadsheetSheet.Find(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Sheets.V3.SpreadsheetSheet.Find(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +56,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

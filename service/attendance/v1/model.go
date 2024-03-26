@@ -14,12 +14,16 @@
 package larkattendance
 
 import (
+	"io"
+
 	"bytes"
+
+	"io/ioutil"
+
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
-	"io"
-	"io/ioutil"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -319,8 +323,6 @@ func (builder *AreaBuilder) Radius(radius string) *AreaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AreaBuilder) Coords(coords []*Coordinate) *AreaBuilder {
 	builder.coords = coords
@@ -684,8 +686,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -693,8 +693,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3212,8 +3210,6 @@ func (builder *LocationInfoBuilder) Status(status int) *LocationInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *LocationInfoBuilder) Geofences(geofences []*Area) *LocationInfoBuilder {
 	builder.geofences = geofences
@@ -3247,8 +3243,6 @@ func NewLocationInfoEventBuilder() *LocationInfoEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *LocationInfoEventBuilder) Coord(coord *Coordinate) *LocationInfoEventBuilder {
 	builder.coord = coord
@@ -3374,8 +3368,6 @@ func (builder *LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *LocationRecordBuilder) ClientInfo(clientInfo string) *LocationRecordBuilder {
 	builder.clientInfo = clientInfo
@@ -3458,8 +3450,6 @@ func (builder *LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuil
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *LocationSettingBuilder) UserId(userId string) *LocationSettingBuilder {
 	builder.userId = userId
@@ -4489,8 +4479,6 @@ func NewScanWifiInfoBuilder() *ScanWifiInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
 	builder.ssid = ssid
@@ -4498,8 +4486,6 @@ func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ScanWifiInfoBuilder) Bssid(bssid string) *ScanWifiInfoBuilder {
 	builder.bssid = bssid
@@ -4694,7 +4680,7 @@ func NewScopeValueBuilder() *ScopeValueBuilder {
 	return builder
 }
 
-//  标识Key
+//	标识Key
 //
 // 示例值：CH
 func (builder *ScopeValueBuilder) Key(key string) *ScopeValueBuilder {
@@ -5035,8 +5021,6 @@ func NewStatusChangeBuilder() *StatusChangeBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
 	builder.index = index
@@ -5044,8 +5028,6 @@ func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusChangeBuilder {
 	builder.beforeStatus = beforeStatus
@@ -5053,8 +5035,6 @@ func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusCha
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusChangeBuilder {
 	builder.currentStatus = currentStatus
@@ -5062,8 +5042,6 @@ func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusC
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *StatusChangeBuilder {
 	builder.beforeSupplement = beforeSupplement
@@ -5071,8 +5049,6 @@ func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *S
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) *StatusChangeBuilder {
 	builder.currentSupplement = currentSupplement
@@ -5080,8 +5056,6 @@ func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) 
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *StatusChangeBuilder) WorkType(workType string) *StatusChangeBuilder {
 	builder.workType = workType
@@ -6013,8 +5987,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6022,8 +5994,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6031,8 +6001,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -7520,8 +7488,6 @@ func NewWifiInfoBuilder() *WifiInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *WifiInfoBuilder) Status(status int) *WifiInfoBuilder {
 	builder.status = status
@@ -7561,8 +7527,6 @@ func NewWifiInfoEventBuilder() *WifiInfoEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
 	builder.ssid = ssid
@@ -7570,8 +7534,6 @@ func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
 	builder.bssid = bssid
@@ -7579,8 +7541,6 @@ func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBuilder {
 	builder.lastssid = lastssid
@@ -7588,8 +7548,6 @@ func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *WifiInfoEventBuilder) Lastbssid(lastbssid string) *WifiInfoEventBuilder {
 	builder.lastbssid = lastbssid
@@ -7634,7 +7592,7 @@ func NewProcessApprovalInfoReqBodyBuilder() *ProcessApprovalInfoReqBodyBuilder {
 
 // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 //
-//示例值：6737202939523236113
+// 示例值：6737202939523236113
 func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoReqBodyBuilder {
 	builder.approvalId = approvalId
 	builder.approvalIdFlag = true
@@ -7643,7 +7601,7 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalId(approvalId string) 
 
 // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
 //
-//示例值：remedy
+// 示例值：remedy
 func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalType(approvalType string) *ProcessApprovalInfoReqBodyBuilder {
 	builder.approvalType = approvalType
 	builder.approvalTypeFlag = true
@@ -7652,7 +7610,7 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalType(approvalType stri
 
 // 审批状态，1：不通过，2：通过，4：撤销
 //
-//示例值：4
+// 示例值：4
 func (builder *ProcessApprovalInfoReqBodyBuilder) Status(status int) *ProcessApprovalInfoReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -7848,7 +7806,7 @@ func NewUploadFileReqBodyBuilder() *UploadFileReqBodyBuilder {
 
 // 文件内容
 //
-//示例值：二进制文件
+// 示例值：二进制文件
 func (builder *UploadFileReqBodyBuilder) File(file io.Reader) *UploadFileReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -7967,7 +7925,7 @@ func NewCreateGroupReqBodyBuilder() *CreateGroupReqBodyBuilder {
 
 // 6921319402260496386
 //
-//示例值：
+// 示例值：
 func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBodyBuilder {
 	builder.group = group
 	builder.groupFlag = true
@@ -7976,7 +7934,7 @@ func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBod
 
 // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
-//示例值：dd31248a
+// 示例值：dd31248a
 func (builder *CreateGroupReqBodyBuilder) OperatorId(operatorId string) *CreateGroupReqBodyBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdFlag = true
@@ -8353,7 +8311,7 @@ func NewSearchGroupReqBodyBuilder() *SearchGroupReqBodyBuilder {
 
 // 考勤组名称
 //
-//示例值：考勤组1
+// 示例值：考勤组1
 func (builder *SearchGroupReqBodyBuilder) GroupName(groupName string) *SearchGroupReqBodyBuilder {
 	builder.groupName = groupName
 	builder.groupNameFlag = true
@@ -8474,7 +8432,7 @@ func NewPatchLeaveAccrualRecordReqBodyBuilder() *PatchLeaveAccrualRecordReqBodyB
 
 // 授予记录的唯一ID
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) LeaveGrantingRecordId(leaveGrantingRecordId string) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.leaveGrantingRecordId = leaveGrantingRecordId
 	builder.leaveGrantingRecordIdFlag = true
@@ -8483,7 +8441,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) LeaveGrantingRecordId(leav
 
 // 员工ID
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) EmploymentId(employmentId string) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -8492,7 +8450,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) EmploymentId(employmentId 
 
 // 假期类型ID
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) LeaveTypeId(leaveTypeId string) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdFlag = true
@@ -8501,7 +8459,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) LeaveTypeId(leaveTypeId st
 
 // 修改授予记录原因
 //
-//示例值：
+// 示例值：
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Reason(reason []*LangText) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -8510,7 +8468,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Reason(reason []*LangText)
 
 // 时间偏移，东八区：480	8*60
 //
-//示例值：480
+// 示例值：480
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) TimeOffset(timeOffset int) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.timeOffset = timeOffset
 	builder.timeOffsetFlag = true
@@ -8519,7 +8477,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) TimeOffset(timeOffset int)
 
 // 失效日期，格式"2020-01-01"
 //
-//示例值：2020-01-01
+// 示例值：2020-01-01
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) ExpirationDate(expirationDate string) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.expirationDate = expirationDate
 	builder.expirationDateFlag = true
@@ -8528,7 +8486,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) ExpirationDate(expirationD
 
 // 修改source 余额
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Quantity(quantity string) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.quantity = quantity
 	builder.quantityFlag = true
@@ -8537,7 +8495,7 @@ func (builder *PatchLeaveAccrualRecordReqBodyBuilder) Quantity(quantity string) 
 
 // 是否参与清算
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchLeaveAccrualRecordReqBodyBuilder) SectionType(sectionType int) *PatchLeaveAccrualRecordReqBodyBuilder {
 	builder.sectionType = sectionType
 	builder.sectionTypeFlag = true
@@ -8728,7 +8686,6 @@ func (builder *PatchLeaveAccrualRecordReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-//
 func (builder *PatchLeaveAccrualRecordReqBuilder) Body(body *PatchLeaveAccrualRecordReqBody) *PatchLeaveAccrualRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -8793,7 +8750,7 @@ func NewGetLeaveEmployExpireRecordReqBodyBuilder() *GetLeaveEmployExpireRecordRe
 
 // 员工ID
 //
-//示例值：1
+// 示例值：1
 func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) EmploymentId(employmentId string) *GetLeaveEmployExpireRecordReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -8802,7 +8759,7 @@ func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) EmploymentId(employment
 
 // 假期类型ID
 //
-//示例值：1
+// 示例值：1
 func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) LeaveTypeId(leaveTypeId string) *GetLeaveEmployExpireRecordReqBodyBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdFlag = true
@@ -8811,7 +8768,7 @@ func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) LeaveTypeId(leaveTypeId
 
 // 失效最早日期  2023-04-10 格式
 //
-//示例值：2023-04-10
+// 示例值：2023-04-10
 func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) StartExpirationDate(startExpirationDate string) *GetLeaveEmployExpireRecordReqBodyBuilder {
 	builder.startExpirationDate = startExpirationDate
 	builder.startExpirationDateFlag = true
@@ -8820,7 +8777,7 @@ func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) StartExpirationDate(sta
 
 // 失效最晚日期 2023-05-10 格式
 //
-//示例值：2023-05-10
+// 示例值：2023-05-10
 func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) EndExpirationDate(endExpirationDate string) *GetLeaveEmployExpireRecordReqBodyBuilder {
 	builder.endExpirationDate = endExpirationDate
 	builder.endExpirationDateFlag = true
@@ -8829,7 +8786,7 @@ func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) EndExpirationDate(endEx
 
 // 时间偏移，东八区：480	8*60， 如果没有这个参数，默认东八区
 //
-//示例值：480
+// 示例值：480
 func (builder *GetLeaveEmployExpireRecordReqBodyBuilder) TimeOffset(timeOffset int) *GetLeaveEmployExpireRecordReqBodyBuilder {
 	builder.timeOffset = timeOffset
 	builder.timeOffsetFlag = true
@@ -8969,7 +8926,6 @@ func (builder *GetLeaveEmployExpireRecordReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-//
 func (builder *GetLeaveEmployExpireRecordReqBuilder) Body(body *GetLeaveEmployExpireRecordReqBody) *GetLeaveEmployExpireRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -9294,7 +9250,7 @@ func NewCreateUserApprovalReqBodyBuilder() *CreateUserApprovalReqBodyBuilder {
 
 // 审批信息
 //
-//示例值：
+// 示例值：
 func (builder *CreateUserApprovalReqBodyBuilder) UserApproval(userApproval *UserApproval) *CreateUserApprovalReqBodyBuilder {
 	builder.userApproval = userApproval
 	builder.userApprovalFlag = true
@@ -9419,7 +9375,7 @@ func NewQueryUserApprovalReqBodyBuilder() *QueryUserApprovalReqBodyBuilder {
 
 // employee_no 或 employee_id 列表
 //
-//示例值：["abd754f7"]
+// 示例值：["abd754f7"]
 func (builder *QueryUserApprovalReqBodyBuilder) UserIds(userIds []string) *QueryUserApprovalReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -9428,7 +9384,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) UserIds(userIds []string) *Query
 
 // 查询的起始工作日
 //
-//示例值：20190817
+// 示例值：20190817
 func (builder *QueryUserApprovalReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserApprovalReqBodyBuilder {
 	builder.checkDateFrom = checkDateFrom
 	builder.checkDateFromFlag = true
@@ -9437,7 +9393,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) CheckDateFrom(checkDateFrom int)
 
 // 查询的结束工作日，与 check_date_from 的时间间隔不超过 30 天
 //
-//示例值：20190820
+// 示例值：20190820
 func (builder *QueryUserApprovalReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserApprovalReqBodyBuilder {
 	builder.checkDateTo = checkDateTo
 	builder.checkDateToFlag = true
@@ -9446,7 +9402,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) CheckDateTo(checkDateTo int) *Qu
 
 // 查询依据的时间类型（不填默认依据PeriodTime）
 //
-//示例值：PeriodTime
+// 示例值：PeriodTime
 func (builder *QueryUserApprovalReqBodyBuilder) CheckDateType(checkDateType string) *QueryUserApprovalReqBodyBuilder {
 	builder.checkDateType = checkDateType
 	builder.checkDateTypeFlag = true
@@ -9455,7 +9411,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) CheckDateType(checkDateType stri
 
 // 查询状态（不填默认查询已通过状态）
 //
-//示例值：2
+// 示例值：2
 func (builder *QueryUserApprovalReqBodyBuilder) Status(status int) *QueryUserApprovalReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -9464,7 +9420,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) Status(status int) *QueryUserApp
 
 // 查询的起始时间，精确到秒的时间戳
 //
-//示例值：1566641088
+// 示例值：1566641088
 func (builder *QueryUserApprovalReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserApprovalReqBodyBuilder {
 	builder.checkTimeFrom = checkTimeFrom
 	builder.checkTimeFromFlag = true
@@ -9473,7 +9429,7 @@ func (builder *QueryUserApprovalReqBodyBuilder) CheckTimeFrom(checkTimeFrom stri
 
 // 查询的结束时间，精确到秒的时间戳
 //
-//示例值：1592561088
+// 示例值：1592561088
 func (builder *QueryUserApprovalReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserApprovalReqBodyBuilder {
 	builder.checkTimeTo = checkTimeTo
 	builder.checkTimeToFlag = true
@@ -9696,7 +9652,7 @@ func NewBatchCreateUserDailyShiftReqBodyBuilder() *BatchCreateUserDailyShiftReqB
 
 // 班表信息列表（数量限制50以内）
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftReqBodyBuilder {
 	builder.userDailyShifts = userDailyShifts
 	builder.userDailyShiftsFlag = true
@@ -9705,7 +9661,7 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDail
 
 // 操作人uid，如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines)，则此字段为必填字段
 //
-//示例值：dd31248a
+// 示例值：dd31248a
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftReqBodyBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdFlag = true
@@ -9840,7 +9796,7 @@ func NewQueryUserDailyShiftReqBodyBuilder() *QueryUserDailyShiftReqBodyBuilder {
 
 // employee_no 或 employee_id 列表
 //
-//示例值：["abd754f7"]
+// 示例值：["abd754f7"]
 func (builder *QueryUserDailyShiftReqBodyBuilder) UserIds(userIds []string) *QueryUserDailyShiftReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -9849,7 +9805,7 @@ func (builder *QueryUserDailyShiftReqBodyBuilder) UserIds(userIds []string) *Que
 
 // 查询的起始工作日
 //
-//示例值：20190817
+// 示例值：20190817
 func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserDailyShiftReqBodyBuilder {
 	builder.checkDateFrom = checkDateFrom
 	builder.checkDateFromFlag = true
@@ -9858,7 +9814,7 @@ func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateFrom(checkDateFrom in
 
 // 查询的结束工作日
 //
-//示例值：20190820
+// 示例值：20190820
 func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserDailyShiftReqBodyBuilder {
 	builder.checkDateTo = checkDateTo
 	builder.checkDateToFlag = true
@@ -10007,7 +9963,7 @@ func NewBatchCreateUserFlowReqBodyBuilder() *BatchCreateUserFlowReqBodyBuilder {
 
 // 打卡流水记录列表(数量限制50)
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateUserFlowReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowReqBodyBuilder {
 	builder.flowRecords = flowRecords
 	builder.flowRecordsFlag = true
@@ -10194,7 +10150,7 @@ func NewQueryUserFlowReqBodyBuilder() *QueryUserFlowReqBodyBuilder {
 
 // employee_no 或 employee_id 列表，长度不超过 50
 //
-//示例值：[ "abd754f7"]
+// 示例值：[ "abd754f7"]
 func (builder *QueryUserFlowReqBodyBuilder) UserIds(userIds []string) *QueryUserFlowReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -10203,7 +10159,7 @@ func (builder *QueryUserFlowReqBodyBuilder) UserIds(userIds []string) *QueryUser
 
 // 查询的起始时间，时间戳
 //
-//示例值：1566641088
+// 示例值：1566641088
 func (builder *QueryUserFlowReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserFlowReqBodyBuilder {
 	builder.checkTimeFrom = checkTimeFrom
 	builder.checkTimeFromFlag = true
@@ -10212,7 +10168,7 @@ func (builder *QueryUserFlowReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) 
 
 // 查询的结束时间，时间戳
 //
-//示例值：1566641088
+// 示例值：1566641088
 func (builder *QueryUserFlowReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserFlowReqBodyBuilder {
 	builder.checkTimeTo = checkTimeTo
 	builder.checkTimeToFlag = true
@@ -10369,7 +10325,7 @@ func NewModifyUserSettingReqBodyBuilder() *ModifyUserSettingReqBodyBuilder {
 
 // 用户设置
 //
-//示例值：
+// 示例值：
 func (builder *ModifyUserSettingReqBodyBuilder) UserSetting(userSetting *UserSetting) *ModifyUserSettingReqBodyBuilder {
 	builder.userSetting = userSetting
 	builder.userSettingFlag = true
@@ -10482,7 +10438,7 @@ func NewQueryUserSettingReqBodyBuilder() *QueryUserSettingReqBodyBuilder {
 
 // employee_no 或 employee_id 列表
 //
-//示例值：["abd754f7"]
+// 示例值：["abd754f7"]
 func (builder *QueryUserSettingReqBodyBuilder) UserIds(userIds []string) *QueryUserSettingReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -10609,7 +10565,7 @@ func NewQueryUserStatsDataReqBodyBuilder() *QueryUserStatsDataReqBodyBuilder {
 
 // 语言类型
 //
-//示例值：zh
+// 示例值：zh
 func (builder *QueryUserStatsDataReqBodyBuilder) Locale(locale string) *QueryUserStatsDataReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -10618,7 +10574,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) Locale(locale string) *QueryUse
 
 // 统计类型
 //
-//示例值：month
+// 示例值：month
 func (builder *QueryUserStatsDataReqBodyBuilder) StatsType(statsType string) *QueryUserStatsDataReqBodyBuilder {
 	builder.statsType = statsType
 	builder.statsTypeFlag = true
@@ -10627,7 +10583,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) StatsType(statsType string) *Qu
 
 // 开始时间
 //
-//示例值：20210316
+// 示例值：20210316
 func (builder *QueryUserStatsDataReqBodyBuilder) StartDate(startDate int) *QueryUserStatsDataReqBodyBuilder {
 	builder.startDate = startDate
 	builder.startDateFlag = true
@@ -10636,7 +10592,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) StartDate(startDate int) *Query
 
 // 结束时间;（时间间隔不超过 31 天）
 //
-//示例值：20210323
+// 示例值：20210323
 func (builder *QueryUserStatsDataReqBodyBuilder) EndDate(endDate int) *QueryUserStatsDataReqBodyBuilder {
 	builder.endDate = endDate
 	builder.endDateFlag = true
@@ -10645,7 +10601,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) EndDate(endDate int) *QueryUser
 
 // 查询的用户 ID 列表;（用户数量不超过 200）
 //
-//示例值：[;		"ec8ddg56",;		"4dbb52f2",;		"4167842e";	]
+// 示例值：[;		"ec8ddg56",;		"4dbb52f2",;		"4167842e";	]
 func (builder *QueryUserStatsDataReqBodyBuilder) UserIds(userIds []string) *QueryUserStatsDataReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -10654,7 +10610,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) UserIds(userIds []string) *Quer
 
 // 是否需要历史数据
 //
-//示例值：true
+// 示例值：true
 func (builder *QueryUserStatsDataReqBodyBuilder) NeedHistory(needHistory bool) *QueryUserStatsDataReqBodyBuilder {
 	builder.needHistory = needHistory
 	builder.needHistoryFlag = true
@@ -10663,7 +10619,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) NeedHistory(needHistory bool) *
 
 // 只展示当前考勤组
 //
-//示例值：true
+// 示例值：true
 func (builder *QueryUserStatsDataReqBodyBuilder) CurrentGroupOnly(currentGroupOnly bool) *QueryUserStatsDataReqBodyBuilder {
 	builder.currentGroupOnly = currentGroupOnly
 	builder.currentGroupOnlyFlag = true
@@ -10672,7 +10628,7 @@ func (builder *QueryUserStatsDataReqBodyBuilder) CurrentGroupOnly(currentGroupOn
 
 // 查询用户id，同【更新统计设置】、【查询统计设置】user_id（新系统用户必填，否则会报错）
 //
-//示例值：ec8ddg56
+// 示例值：ec8ddg56
 func (builder *QueryUserStatsDataReqBodyBuilder) UserId(userId string) *QueryUserStatsDataReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -10918,7 +10874,7 @@ func NewQueryUserStatsFieldReqBodyBuilder() *QueryUserStatsFieldReqBodyBuilder {
 
 // 语言类型
 //
-//示例值：zh
+// 示例值：zh
 func (builder *QueryUserStatsFieldReqBodyBuilder) Locale(locale string) *QueryUserStatsFieldReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -10927,7 +10883,7 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) Locale(locale string) *QueryUs
 
 // 统计类型
 //
-//示例值：daily
+// 示例值：daily
 func (builder *QueryUserStatsFieldReqBodyBuilder) StatsType(statsType string) *QueryUserStatsFieldReqBodyBuilder {
 	builder.statsType = statsType
 	builder.statsTypeFlag = true
@@ -10936,7 +10892,7 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) StatsType(statsType string) *Q
 
 // 开始时间
 //
-//示例值：20210316
+// 示例值：20210316
 func (builder *QueryUserStatsFieldReqBodyBuilder) StartDate(startDate int) *QueryUserStatsFieldReqBodyBuilder {
 	builder.startDate = startDate
 	builder.startDateFlag = true
@@ -10945,7 +10901,7 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) StartDate(startDate int) *Quer
 
 // 结束时间（时间间隔不超过 40 天）
 //
-//示例值：20210323
+// 示例值：20210323
 func (builder *QueryUserStatsFieldReqBodyBuilder) EndDate(endDate int) *QueryUserStatsFieldReqBodyBuilder {
 	builder.endDate = endDate
 	builder.endDateFlag = true
@@ -11116,7 +11072,7 @@ func NewQueryUserStatsViewReqBodyBuilder() *QueryUserStatsViewReqBodyBuilder {
 
 // 语言类型
 //
-//示例值：zh
+// 示例值：zh
 func (builder *QueryUserStatsViewReqBodyBuilder) Locale(locale string) *QueryUserStatsViewReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -11125,7 +11081,7 @@ func (builder *QueryUserStatsViewReqBodyBuilder) Locale(locale string) *QueryUse
 
 // 统计类型
 //
-//示例值：daily
+// 示例值：daily
 func (builder *QueryUserStatsViewReqBodyBuilder) StatsType(statsType string) *QueryUserStatsViewReqBodyBuilder {
 	builder.statsType = statsType
 	builder.statsTypeFlag = true
@@ -11134,7 +11090,7 @@ func (builder *QueryUserStatsViewReqBodyBuilder) StatsType(statsType string) *Qu
 
 // 查询用户id，同【查询统计数据】、【更新统计设置】user_id
 //
-//示例值：dd31248a
+// 示例值：dd31248a
 func (builder *QueryUserStatsViewReqBodyBuilder) UserId(userId string) *QueryUserStatsViewReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -11283,7 +11239,7 @@ func NewUpdateUserStatsViewReqBodyBuilder() *UpdateUserStatsViewReqBodyBuilder {
 
 // 统计设置
 //
-//示例值：
+// 示例值：
 func (builder *UpdateUserStatsViewReqBodyBuilder) View(view *UserStatsView) *UpdateUserStatsViewReqBodyBuilder {
 	builder.view = view
 	builder.viewFlag = true
@@ -11411,7 +11367,7 @@ func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
 
 // employee_no 或 employee_id 列表，长度不超过 50
 //
-//示例值：abd754f7
+// 示例值：abd754f7
 func (builder *QueryUserTaskReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -11420,7 +11376,7 @@ func (builder *QueryUserTaskReqBodyBuilder) UserIds(userIds []string) *QueryUser
 
 // 查询的起始工作日
 //
-//示例值：20190817
+// 示例值：20190817
 func (builder *QueryUserTaskReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserTaskReqBodyBuilder {
 	builder.checkDateFrom = checkDateFrom
 	builder.checkDateFromFlag = true
@@ -11429,7 +11385,7 @@ func (builder *QueryUserTaskReqBodyBuilder) CheckDateFrom(checkDateFrom int) *Qu
 
 // 查询的结束工作日
 //
-//示例值：20190820
+// 示例值：20190820
 func (builder *QueryUserTaskReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserTaskReqBodyBuilder {
 	builder.checkDateTo = checkDateTo
 	builder.checkDateToFlag = true
@@ -11438,7 +11394,7 @@ func (builder *QueryUserTaskReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryU
 
 // 是否需要加班班段打卡结果
 //
-//示例值：true
+// 示例值：true
 func (builder *QueryUserTaskReqBodyBuilder) NeedOvertimeResult(needOvertimeResult bool) *QueryUserTaskReqBodyBuilder {
 	builder.needOvertimeResult = needOvertimeResult
 	builder.needOvertimeResultFlag = true
@@ -11686,7 +11642,7 @@ func NewQueryUserTaskRemedyReqBodyBuilder() *QueryUserTaskRemedyReqBodyBuilder {
 
 // employee_no 或 employee_id 列表
 //
-//示例值：["abd754f7"]
+// 示例值：["abd754f7"]
 func (builder *QueryUserTaskRemedyReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -11695,7 +11651,7 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) UserIds(userIds []string) *Que
 
 // 查询的起始时间，精确到秒的时间戳
 //
-//示例值：1566641088
+// 示例值：1566641088
 func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.checkTimeFrom = checkTimeFrom
 	builder.checkTimeFromFlag = true
@@ -11704,7 +11660,7 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeFrom(checkTimeFrom st
 
 // 查询的结束时间，精确到秒的时间戳
 //
-//示例值：1592561088
+// 示例值：1592561088
 func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.checkTimeTo = checkTimeTo
 	builder.checkTimeToFlag = true
@@ -11713,7 +11669,7 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeTo(checkTimeTo string
 
 // 查询依据的时间类型（默认依据PeriodTime，如果使用非默认的，非特定租户不支持）
 //
-//示例值：PeriodTime
+// 示例值：PeriodTime
 func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckDateType(checkDateType string) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.checkDateType = checkDateType
 	builder.checkDateTypeFlag = true
@@ -11722,7 +11678,7 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckDateType(checkDateType st
 
 // 查询状态（不填默认查询已通过状态）
 //
-//示例值：2
+// 示例值：2
 func (builder *QueryUserTaskRemedyReqBodyBuilder) Status(status int) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -11909,7 +11865,7 @@ func NewQueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder() *QueryUserAllowedR
 
 // 用户 ID
 //
-//示例值：abd754f7
+// 示例值：abd754f7
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -11918,7 +11874,7 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) UserId(userI
 
 // 补卡日期
 //
-//示例值：20210104
+// 示例值：20210104
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) RemedyDate(remedyDate int) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
 	builder.remedyDate = remedyDate
 	builder.remedyDateFlag = true

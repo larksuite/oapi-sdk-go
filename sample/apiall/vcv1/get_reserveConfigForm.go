@@ -16,26 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // GET /open-apis/vc/v1/reserve_configs/:reserve_config_id/form
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewGetReserveConfigFormReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewGetReserveConfigFormReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
+		
 		ScopeType(2).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.ReserveConfigForm.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.ReserveConfigForm.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

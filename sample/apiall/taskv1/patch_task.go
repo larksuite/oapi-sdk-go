@@ -16,29 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
 // PATCH /open-apis/task/v1/tasks/:task_id
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewPatchTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewPatchTaskReqBuilder().
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
+		
 		UserIdType("user_id").
-		Body(larktask.NewPatchTaskReqBodyBuilder().
+		
+	   Body(larktask.NewPatchTaskReqBodyBuilder().
 			Task(larktask.NewTaskBuilder().Build()).
 			UpdateFields([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V1.Task.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V1.Task.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

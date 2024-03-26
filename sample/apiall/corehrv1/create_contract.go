@@ -16,37 +16,45 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/contracts
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewCreateContractReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewCreateContractReqBuilder().
 		ClientToken("12454646").
-		Contract(larkcorehr.NewContractBuilder().
+		
+	   Contract(larkcorehr.NewContractBuilder().
 			EffectiveTime("2050-01-01 00:00:00").
+			
 			ExpirationTime("9999-12-31 23:59:59").
+			
 			EmploymentId("6893013238632416776").
+			
 			ContractType(larkcorehr.NewEnumBuilder().Build()).
 			FirstPartyCompanyId("6892686614112241165").
+			
 			PersonId("151515151").
+			
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			DurationType(larkcorehr.NewEnumBuilder().Build()).
 			ContractEndDate("2006-01-02").
+			
 			ContractNumber("6919737965274990093").
+			
 			SigningType(larkcorehr.NewEnumBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.Contract.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.Contract.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,3 +69,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

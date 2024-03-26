@@ -16,27 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // GET /open-apis/approval/v4/approvals/:approval_code
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewGetApprovalReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewGetApprovalReqBuilder().
 		ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
+		
 		Locale("zh-CN").
+		
 		WithAdminId(false).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.Approval.Get(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.Approval.Get(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -51,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

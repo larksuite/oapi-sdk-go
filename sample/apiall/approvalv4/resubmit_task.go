@@ -16,32 +16,39 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 // POST /open-apis/approval/v4/tasks/resubmit
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkapproval.NewResubmitTaskReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkapproval.NewResubmitTaskReqBuilder().
 		UserIdType("user_id").
-		TaskResubmit(larkapproval.NewTaskResubmitBuilder().
+		
+	   TaskResubmit(larkapproval.NewTaskResubmitBuilder().
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
+			
 			InstanceCode("81D31358-93AF-92D6-7425-01A5D67C4E71").
+			
 			UserId("f7cb567e").
+			
 			Comment("OK").
+			
 			TaskId("12345").
+			
 			Form("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Approval.V4.Task.Resubmit(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Approval.V4.Task.Resubmit(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +63,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

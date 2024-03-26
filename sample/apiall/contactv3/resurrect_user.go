@@ -16,30 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // POST /open-apis/contact/v3/users/:user_id/resurrect
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewResurrectUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewResurrectUserReqBuilder().
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
+		
 		UserIdType("open_id").
+		
 		DepartmentIdType("open_department_id").
-		Body(larkcontact.NewResurrectUserReqBodyBuilder().
+		
+	   Body(larkcontact.NewResurrectUserReqBodyBuilder().
 			Departments([]*larkcontact.UserDepartmentInfo{larkcontact.NewUserDepartmentInfoBuilder().Build()}).
 			SubscriptionIds([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.User.Resurrect(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.User.Resurrect(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

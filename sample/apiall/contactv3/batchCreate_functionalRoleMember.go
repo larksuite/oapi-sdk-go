@@ -16,28 +16,30 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // POST /open-apis/contact/v3/functional_roles/:role_id/members/batch_create
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewBatchCreateFunctionalRoleMemberReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewBatchCreateFunctionalRoleMemberReqBuilder().
 		RoleId("7vrj3vk70xk7v5r").
+		
 		UserIdType("open_id").
-		Body(larkcontact.NewBatchCreateFunctionalRoleMemberReqBodyBuilder().
+		
+	   Body(larkcontact.NewBatchCreateFunctionalRoleMemberReqBodyBuilder().
 			Members([]string{}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.FunctionalRoleMember.BatchCreate(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.FunctionalRoleMember.BatchCreate(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,3 +54,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

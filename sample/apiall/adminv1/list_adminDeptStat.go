@@ -16,30 +16,35 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin/v1"
 )
 
 // GET /open-apis/admin/v1/admin_dept_stats
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkadmin.NewListAdminDeptStatReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkadmin.NewListAdminDeptStatReqBuilder().
 		DepartmentIdType("open_department_id").
+		
 		StartDate("2020-02-15").
+		
 		EndDate("2020-02-15").
+		
 		DepartmentId("od-382e2793cfc9471f892e8a672987654c").
+		
 		ContainsChildDept(false).
 		PageSize(10).
 		PageToken("2").
-		Build()
-	// 发起请求
-	resp, err := client.Admin.V1.AdminDeptStat.List(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Admin.V1.AdminDeptStat.List(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +59,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

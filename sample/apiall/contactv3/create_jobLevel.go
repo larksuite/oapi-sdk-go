@@ -16,31 +16,33 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
 // POST /open-apis/contact/v3/job_levels
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcontact.NewCreateJobLevelReqBuilder().
-		JobLevel(larkcontact.NewJobLevelBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcontact.NewCreateJobLevelReqBuilder().
+	   JobLevel(larkcontact.NewJobLevelBuilder().
 			Name("高级专家").
+			
 			Description("公司内部中高级职称，有一定专业技术能力的人员").
+			
 			Order(200).
 			Status(true).
 			I18nName([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			I18nDescription([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Contact.V3.JobLevel.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Contact.V3.JobLevel.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +57,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

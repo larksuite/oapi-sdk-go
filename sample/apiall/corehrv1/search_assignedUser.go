@@ -16,31 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
 
 // POST /open-apis/corehr/v1/assigned_users/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewSearchAssignedUserReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewSearchAssignedUserReqBuilder().
 		UserIdType("people_corehr_id").
-		Body(larkcorehr.NewSearchAssignedUserReqBodyBuilder().
+		
+	   Body(larkcorehr.NewSearchAssignedUserReqBodyBuilder().
 			RoleId("100").
+			
 			ManagementScopeList([]*larkcorehr.ManagementScope{larkcorehr.NewManagementScopeBuilder().Build()}).
 			SearchMethod("1").
+			
 			PageToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9").
+			
 			PageSize("100").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V1.AssignedUser.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V1.AssignedUser.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

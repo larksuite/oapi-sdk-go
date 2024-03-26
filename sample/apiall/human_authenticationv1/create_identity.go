@@ -16,30 +16,35 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
 )
 
 // POST /open-apis/human_authentication/v1/identities
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkhuman_authentication.NewCreateIdentityReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkhuman_authentication.NewCreateIdentityReqBuilder().
 		UserId("ou_2eb5483cb377daa5054bc6f86e2089a5").
+		
 		UserIdType("open_id").
-		Body(larkhuman_authentication.NewCreateIdentityReqBodyBuilder().
+		
+	   Body(larkhuman_authentication.NewCreateIdentityReqBodyBuilder().
 			IdentityName("张三").
+			
 			IdentityCode("4xxxxxxxx").
+			
 			Mobile("13xxxxxxx").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.HumanAuthentication.V1.Identity.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.HumanAuthentication.V1.Identity.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -54,3 +59,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

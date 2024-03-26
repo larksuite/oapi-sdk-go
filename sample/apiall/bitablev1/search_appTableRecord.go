@@ -16,35 +16,40 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
 // POST /open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/search
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkbitable.NewSearchAppTableRecordReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkbitable.NewSearchAppTableRecordReqBuilder().
 		AppToken("NQRxbRkBMa6OnZsjtERcxhNWnNh").
+		
 		TableId("tbl0xe5g8PP3U3cS").
+		
 		UserIdType("open_id").
+		
 		PageToken("").
+		
 		PageSize(20).
-		Body(larkbitable.NewSearchAppTableRecordReqBodyBuilder().
+	   Body(larkbitable.NewSearchAppTableRecordReqBodyBuilder().
 			ViewId("viex").
+			
 			FieldNames([]string{}).
 			Sort([]*larkbitable.Sort{larkbitable.NewSortBuilder().Build()}).
 			Filter(larkbitable.NewFilterInfoBuilder().Build()).
 			AutomaticFields(false).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Bitable.V1.AppTableRecord.Search(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Bitable.V1.AppTableRecord.Search(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -59,3 +64,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

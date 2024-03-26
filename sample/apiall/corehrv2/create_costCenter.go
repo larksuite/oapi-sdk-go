@@ -16,32 +16,36 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v2"
 )
 
 // POST /open-apis/corehr/v2/cost_centers
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcorehr.NewCreateCostCenterReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcorehr.NewCreateCostCenterReqBuilder().
 		UserIdType("people_corehr_id").
-		CostCenter(larkcorehr.NewCostCenterBuilder().
+		
+	   CostCenter(larkcorehr.NewCostCenterBuilder().
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			Code("MDPD00000023").
+			
 			ParentCostCenterId("6862995757234914824").
+			
 			Managers([]string{}).
 			Description([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			EffectiveTime("2020-01-01").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Corehr.V2.CostCenter.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Corehr.V2.CostCenter.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +60,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

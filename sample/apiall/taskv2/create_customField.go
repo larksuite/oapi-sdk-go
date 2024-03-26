@@ -16,24 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // POST /open-apis/task/v2/custom_fields
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateCustomFieldReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateCustomFieldReqBuilder().
 		UserIdType("open_id").
-		InputCustomField(larktask.NewInputCustomFieldBuilder().
+		
+	   InputCustomField(larktask.NewInputCustomFieldBuilder().
 			ResourceType("tasklist").
+			
 			ResourceId("ec5ed63d-a4a9-44de-a935-7ba243471c0a").
+			
 			Name("优先级").
+			
 			Type("number").
+			
 			NumberSetting(larktask.NewNumberSettingBuilder().Build()).
 			MemberSetting(larktask.NewMemberSettingBuilder().Build()).
 			DatetimeSetting(larktask.NewDatetimeSettingBuilder().Build()).
@@ -41,11 +45,12 @@ func main() {
 			MultiSelectSetting(larktask.NewSelectSettingBuilder().Build()).
 			TextSetting(larktask.NewTextSettingBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.CustomField.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.CustomField.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -60,3 +65,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

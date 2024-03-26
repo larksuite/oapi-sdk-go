@@ -16,26 +16,28 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // GET /open-apis/vc/v1/reserves/:reserve_id/get_active_meeting
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewGetActiveMeetingReserveReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewGetActiveMeetingReserveReqBuilder().
 		ReserveId("6911188411932033028").
+		
 		WithParticipants(false).
 		UserIdType("user_id").
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.Reserve.GetActiveMeeting(context.Background(), req)
+		
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.Reserve.GetActiveMeeting(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -50,3 +52,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

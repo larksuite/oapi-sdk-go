@@ -16,32 +16,39 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
 // POST /open-apis/calendar/v4/timeoff_events
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkcalendar.NewCreateTimeoffEventReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkcalendar.NewCreateTimeoffEventReqBuilder().
 		UserIdType("user_id").
-		TimeoffEvent(larkcalendar.NewTimeoffEventBuilder().
+		
+	   TimeoffEvent(larkcalendar.NewTimeoffEventBuilder().
 			UserId("").
+			
 			Timezone("").
+			
 			StartTime("").
+			
 			EndTime("").
+			
 			Title("").
+			
 			Description("").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Calendar.V4.TimeoffEvent.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Calendar.V4.TimeoffEvent.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -56,3 +63,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

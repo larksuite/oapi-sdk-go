@@ -5,14 +5,13 @@ package larkdrive
 import (
 	"bytes"
 	"context"
-	"net/http"
-
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"net/http"
 )
 
 type V1 struct {
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 分片上传
+	File                     *file                     // 异步任务状态
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
@@ -20,7 +19,7 @@ type V1 struct {
 	FileVersion              *fileVersion              // 文档版本
 	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 素材
+	Media                    *media                    // 分片上传
 	Meta                     *meta                     // meta
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置

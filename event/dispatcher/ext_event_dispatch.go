@@ -229,8 +229,9 @@ func (dispatcher *EventDispatcher) OnP1GroupSettingUpdatedV1(handler func(ctx co
 }
 
 // v1消息协议：当租户第一次安装并启用此应用时触发此事件，启用应用包含以下场景：
-//  当租户管理员后台首次开通应用
-//  租户内的普通成员首次安装此应用
+//
+//	当租户管理员后台首次开通应用
+//	租户内的普通成员首次安装此应用
 //
 // 事件描述文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled
 func (dispatcher *EventDispatcher) OnP1AppOpenV6(handler func(ctx context.Context, event *larkapplication.P1AppOpenV6) error) *EventDispatcher {

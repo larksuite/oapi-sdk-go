@@ -96,3 +96,23 @@ func (h *P2ProcessCcUpdatedV2Handler) Event() interface{} {
 func (h *P2ProcessCcUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ProcessCcUpdatedV2))
 }
+
+// 消息处理器定义
+type P2ProcessNodeUpdatedV2Handler struct {
+	handler func(context.Context, *P2ProcessNodeUpdatedV2) error
+}
+
+func NewP2ProcessNodeUpdatedV2Handler(handler func(context.Context, *P2ProcessNodeUpdatedV2) error) *P2ProcessNodeUpdatedV2Handler {
+	h := &P2ProcessNodeUpdatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2ProcessNodeUpdatedV2Handler) Event() interface{} {
+	return &P2ProcessNodeUpdatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2ProcessNodeUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2ProcessNodeUpdatedV2))
+}

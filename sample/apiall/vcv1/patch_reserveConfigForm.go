@@ -16,29 +16,31 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
 // PATCH /open-apis/vc/v1/reserve_configs/:reserve_config_id/form
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larkvc.NewPatchReserveConfigFormReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larkvc.NewPatchReserveConfigFormReqBuilder().
 		ReserveConfigId("omm_3c5dd7e09bac0c1758fcf9511bd1a771").
+		
 		UserIdType("user_id").
-		Body(larkvc.NewPatchReserveConfigFormReqBodyBuilder().
+		
+	   Body(larkvc.NewPatchReserveConfigFormReqBodyBuilder().
 			ScopeType(2).
 			ReserveFormConfig(larkvc.NewReserveFormConfigBuilder().Build()).
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Vc.V1.ReserveConfigForm.Patch(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Vc.V1.ReserveConfigForm.Patch(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,3 +55,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+

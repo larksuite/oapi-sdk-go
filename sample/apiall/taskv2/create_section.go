@@ -16,31 +16,37 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
 // POST /open-apis/task/v2/sections
-func main() {
-	// 创建 Client
-	client := lark.NewClient("appID", "appSecret")
-	// 创建请求对象
-	req := larktask.NewCreateSectionReqBuilder().
+func main(){
+   // 创建 Client
+   client := lark.NewClient("appID", "appSecret")
+   // 创建请求对象
+   req := larktask.NewCreateSectionReqBuilder().
 		UserIdType("open_id").
-		InputSection(larktask.NewInputSectionBuilder().
+		
+	   InputSection(larktask.NewInputSectionBuilder().
 			Name("已经审核过的任务").
+			
 			ResourceType("tasklist").
+			
 			ResourceId("cc371766-6584-cf50-a222-c22cd9055004").
+			
 			InsertBefore("e6e37dcc-f75a-5936-f589-12fb4b5c80c2").
+			
 			InsertAfter("e6e37dcc-f75a-5936-f589-12fb4b5c80c2").
+			
 			Build()).
-		Build()
-	// 发起请求
-	resp, err := client.Task.V2.Section.Create(context.Background(), req)
+	   Build()
+   // 发起请求
+   resp,err := client.Task.V2.Section.Create(context.Background(),req)
 
-	// 处理错误
+
+   // 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,3 +61,4 @@ func main() {
 	// 业务处理
 	fmt.Println(larkcore.Prettify(resp))
 }
+
