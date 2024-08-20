@@ -12405,12 +12405,13 @@ func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
 		return false, nil, nil
 	}
 
-	// 为0则拉取数据
+	// 为0则拉取数据，或者上一页数据读取完成，尝试拉取下一页数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		//没有下一页数据了
+		if iterator.index != 0 && (iterator.nextPageToken == nil || len(*iterator.nextPageToken) == 0) {
 			return false, nil, nil
 		}
-		if iterator.nextPageToken != nil {
+		if iterator.nextPageToken != nil && len(*iterator.nextPageToken) != 0 {
 			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
