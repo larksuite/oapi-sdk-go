@@ -25,7 +25,7 @@ func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 发起请求
-	resp, err := client.Authen.V1.UserInfo.Get(context.Background())
+	resp, err := client.Authen.V1.UserInfo.Get(context.Background(),larkcore.WithUserAccessToken("UserAccessToken"))
 
 	// 处理错误
 	if err != nil {
