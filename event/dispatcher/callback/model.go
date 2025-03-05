@@ -58,9 +58,18 @@ type Toast struct {
 }
 
 type Card struct {
-	// template/raw
+	// 卡片类型, 可选值为 raw 和 template。
+	//
+	// raw: 由 JSON 构建的卡片。
+	// template: 搭建工具构建的卡片，可视为一个卡片模板。
 	Type string `json:"type,omitempty"`
-	// type为raw时：data为larkcard.MessageCard; type为raw时，data为TemplateCard
+	// 卡片的数据，不同的卡片类型所需填写的字段不同。
+	//
+	// 当 type 字段的值为 raw 时，data 中需传入卡片 JSON 的数据。参考卡片 JSON 结构按需传入数据。
+	// 当 type 字段的值为 template 时，data 中可传入的字段:
+	// template_id: 搭建工具中创建的卡片（也称卡片模板）的 ID，如 AAqigYkzabcef。可在搭建工具中通过复制卡片 ID 获取。
+	// template_version_name: 搭建工具中创建的卡片的版本号，如 1.0.0，注意：若不填此字段，系统将默认使用该卡片的最新版本。即在搭建工具发布卡片新版本后，该新版本的卡片内容将立即对卡片 API 调用生效。
+	// template_variable: 如果卡片模板内设置了变量，则可以在此处为变量名（key）赋值（value）。
 	Data interface{} `json:"data,omitempty"`
 }
 
