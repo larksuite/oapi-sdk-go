@@ -105,3 +105,34 @@ type URL struct {
 	PC      string `json:"pc,omitempty"`
 	Web     string `json:"web,omitempty"`
 }
+
+type ProfileViewGetEvent struct {
+	*larkevent.EventV2Base                        // 事件基础数据
+	*larkevent.EventReq                           // 请求原生数据
+	Event                  *ProfileViewGetRequest `json:"event"` // 事件内容
+}
+
+func (m *ProfileViewGetEvent) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type ProfileViewGetRequest struct {
+	ProfileSceneID string                  `json:"profile_scene_id,omitempty"`
+	Observer       *ProfileViewGetOperator `json:"observer,omitempty"`
+	Owner          *ProfileViewGetOperator `json:"owner,omitempty"`
+}
+
+type ProfileViewGetResponse struct {
+	Card *Card `json:"card,omitempty"`
+}
+
+type ProfileViewGetOperator struct {
+	TenantKey *string     `json:"tenant_key,omitempty"`
+	ID        *UserIDList `json:"id,omitempty"`
+}
+
+type UserIDList struct {
+	UserID  *string `json:"user_id,omitempty"`
+	OpenID  string  `json:"open_id,omitempty"`
+	UnionID *string `json:"union_id,omitempty"`
+}
