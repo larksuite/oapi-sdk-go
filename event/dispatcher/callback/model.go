@@ -13,12 +13,13 @@ func (m *CardActionTriggerEvent) RawReq(req *larkevent.EventReq) {
 }
 
 type CardActionTriggerRequest struct {
-	Operator     *Operator       `json:"operator,omitempty"`
-	Token        string          `json:"token,omitempty"` // 更新卡片用的token(凭证)
-	Action       *CallBackAction `json:"action,omitempty"`
-	Host         string          `json:"host,omitempty"`          // 宿主: im_message/im_top_notice
-	DeliveryType string          `json:"delivery_type,omitempty"` // 卡片发送渠道: url_preview/
-	Context      *Context        `json:"context,omitempty"`
+	Operator     *Operator               `json:"operator,omitempty"`
+	Token        string                  `json:"token,omitempty"` // 更新卡片用的token(凭证)
+	Action       *CallBackAction         `json:"action,omitempty"`
+	Host         string                  `json:"host,omitempty"`          // 宿主: im_message/im_top_notice
+	DeliveryType string                  `json:"delivery_type,omitempty"` // 卡片发送渠道: url_preview/
+	Context      *Context                `json:"context,omitempty"`
+	Observer     *ProfileViewGetOperator `json:"observer,omitempty"`
 }
 
 type Operator struct {
@@ -40,10 +41,12 @@ type CallBackAction struct {
 }
 
 type Context struct {
-	URL           string `json:"url,omitempty"`
-	PreviewToken  string `json:"preview_token,omitempty"`
-	OpenMessageID string `json:"open_message_id,omitempty"`
-	OpenChatID    string `json:"open_chat_id,omitempty"`
+	URL            string                  `json:"url,omitempty"`
+	PreviewToken   string                  `json:"preview_token,omitempty"`
+	OpenMessageID  string                  `json:"open_message_id,omitempty"`
+	OpenChatID     string                  `json:"open_chat_id,omitempty"`
+	Owner          *ProfileViewGetOperator `json:"owner,omitempty"`
+	ProfileSceneID *string                 `json:"profile_scene_id,omitempty"`
 }
 
 type CardActionTriggerResponse struct {
