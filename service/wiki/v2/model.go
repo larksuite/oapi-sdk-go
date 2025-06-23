@@ -14,12 +14,11 @@
 package larkwiki
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 const (
@@ -130,8 +129,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -139,8 +136,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -152,11 +147,9 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
 	if builder.departmentIdFlag {
 		req.DepartmentId = &builder.departmentId
-
 	}
 	if builder.openDepartmentIdFlag {
 		req.OpenDepartmentId = &builder.openDepartmentId
-
 	}
 	return req
 }
@@ -230,19 +223,15 @@ func (builder *MemberBuilder) Build() *Member {
 	req := &Member{}
 	if builder.memberTypeFlag {
 		req.MemberType = &builder.memberType
-
 	}
 	if builder.memberIdFlag {
 		req.MemberId = &builder.memberId
-
 	}
 	if builder.memberRoleFlag {
 		req.MemberRole = &builder.memberRole
-
 	}
 	if builder.typeFlag {
 		req.Type = &builder.type_
-
 	}
 	return req
 }
@@ -305,11 +294,9 @@ func (builder *MoveResultBuilder) Build() *MoveResult {
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
-
 	}
 	if builder.statusMsgFlag {
 		req.StatusMsg = &builder.statusMsg
-
 	}
 	return req
 }
@@ -551,67 +538,51 @@ func (builder *NodeBuilder) Build() *Node {
 	req := &Node{}
 	if builder.spaceIdFlag {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.nodeTokenFlag {
 		req.NodeToken = &builder.nodeToken
-
 	}
 	if builder.objTokenFlag {
 		req.ObjToken = &builder.objToken
-
 	}
 	if builder.objTypeFlag {
 		req.ObjType = &builder.objType
-
 	}
 	if builder.parentNodeTokenFlag {
 		req.ParentNodeToken = &builder.parentNodeToken
-
 	}
 	if builder.nodeTypeFlag {
 		req.NodeType = &builder.nodeType
-
 	}
 	if builder.originNodeTokenFlag {
 		req.OriginNodeToken = &builder.originNodeToken
-
 	}
 	if builder.originSpaceIdFlag {
 		req.OriginSpaceId = &builder.originSpaceId
-
 	}
 	if builder.hasChildFlag {
 		req.HasChild = &builder.hasChild
-
 	}
 	if builder.titleFlag {
 		req.Title = &builder.title
-
 	}
 	if builder.objCreateTimeFlag {
 		req.ObjCreateTime = &builder.objCreateTime
-
 	}
 	if builder.objEditTimeFlag {
 		req.ObjEditTime = &builder.objEditTime
-
 	}
 	if builder.nodeCreateTimeFlag {
 		req.NodeCreateTime = &builder.nodeCreateTime
-
 	}
 	if builder.creatorFlag {
 		req.Creator = &builder.creator
-
 	}
 	if builder.ownerFlag {
 		req.Owner = &builder.owner
-
 	}
 	if builder.nodeCreatorFlag {
 		req.NodeCreator = &builder.nodeCreator
-
 	}
 	return req
 }
@@ -783,47 +754,36 @@ func (builder *NodeSearchBuilder) Build() *NodeSearch {
 	req := &NodeSearch{}
 	if builder.nodeIdFlag {
 		req.NodeId = &builder.nodeId
-
 	}
 	if builder.spaceIdFlag {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.parentIdFlag {
 		req.ParentId = &builder.parentId
-
 	}
 	if builder.objTypeFlag {
 		req.ObjType = &builder.objType
-
 	}
 	if builder.titleFlag {
 		req.Title = &builder.title
-
 	}
 	if builder.urlFlag {
 		req.Url = &builder.url
-
 	}
 	if builder.iconFlag {
 		req.Icon = &builder.icon
-
 	}
 	if builder.areaIdFlag {
 		req.AreaId = &builder.areaId
-
 	}
 	if builder.sortIdFlag {
 		req.SortId = &builder.sortId
-
 	}
 	if builder.domainFlag {
 		req.Domain = &builder.domain
-
 	}
 	if builder.objTokenFlag {
 		req.ObjToken = &builder.objToken
-
 	}
 	return req
 }
@@ -883,15 +843,12 @@ func (builder *SettingBuilder) Build() *Setting {
 	req := &Setting{}
 	if builder.createSettingFlag {
 		req.CreateSetting = &builder.createSetting
-
 	}
 	if builder.securitySettingFlag {
 		req.SecuritySetting = &builder.securitySetting
-
 	}
 	if builder.commentSettingFlag {
 		req.CommentSetting = &builder.commentSetting
-
 	}
 	return req
 }
@@ -993,27 +950,21 @@ func (builder *SpaceBuilder) Build() *Space {
 	req := &Space{}
 	if builder.nameFlag {
 		req.Name = &builder.name
-
 	}
 	if builder.descriptionFlag {
 		req.Description = &builder.description
-
 	}
 	if builder.spaceIdFlag {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.spaceTypeFlag {
 		req.SpaceType = &builder.spaceType
-
 	}
 	if builder.visibilityFlag {
 		req.Visibility = &builder.visibility
-
 	}
 	if builder.openSharingFlag {
 		req.OpenSharing = &builder.openSharing
-
 	}
 	return req
 }
@@ -1059,7 +1010,6 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	req := &TaskResult{}
 	if builder.taskIdFlag {
 		req.TaskId = &builder.taskId
-
 	}
 	if builder.moveResultFlag {
 		req.MoveResult = builder.moveResult
@@ -1277,7 +1227,6 @@ func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 type ListSpaceReq struct {
 	apiReq *larkcore.ApiReq
 	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
 }
 
 type ListSpaceRespData struct {
@@ -1510,7 +1459,7 @@ func NewCopySpaceNodeReqBodyBuilder() *CopySpaceNodeReqBodyBuilder {
 
 // 目标父节点token
 //
-//示例值：wikcnKQ1k3p******8Vabce
+// 示例值：wikcnKQ1k3p******8Vabce
 func (builder *CopySpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -1519,7 +1468,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken 
 
 // 目标知识空间id
 //
-//示例值：6946843325487912356
+// 示例值：6946843325487912356
 func (builder *CopySpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1528,7 +1477,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) 
 
 // 复制后的新标题。如果填空，则新标题为空。如果不填，则使用原节点标题。
 //
-//示例值：新标题。
+// 示例值：新标题。
 func (builder *CopySpaceNodeReqBodyBuilder) Title(title string) *CopySpaceNodeReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -1794,7 +1743,6 @@ func (builder *ListSpaceNodeReqBuilder) Build() *ListSpaceNodeReq {
 type ListSpaceNodeReq struct {
 	apiReq *larkcore.ApiReq
 	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
 }
 
 type ListSpaceNodeRespData struct {
@@ -1830,7 +1778,7 @@ func NewMoveSpaceNodeReqBodyBuilder() *MoveSpaceNodeReqBodyBuilder {
 
 // 移动到的父节点token
 //
-//示例值：wikbcd6ydSUyOEzbdlt1BfpA5Yc
+// 示例值：wikbcd6ydSUyOEzbdlt1BfpA5Yc
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -1839,7 +1787,7 @@ func (builder *MoveSpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken 
 
 // 移动到的知识空间ID
 //
-//示例值：7008061636015512345
+// 示例值：7008061636015512345
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
@@ -1988,7 +1936,7 @@ func NewMoveDocsToWikiSpaceNodeReqBodyBuilder() *MoveDocsToWikiSpaceNodeReqBodyB
 
 // 节点的父亲token。;;传空或不传时将移动为知识空间一级节点。
 //
-//示例值：wikcnKQ1k3p******8Vabce
+// 示例值：wikcnKQ1k3p******8Vabce
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ParentWikiToken(parentWikiToken string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.parentWikiToken = parentWikiToken
 	builder.parentWikiTokenFlag = true
@@ -1997,7 +1945,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ParentWikiToken(parentWiki
 
 // 文档类型
 //
-//示例值：doc
+// 示例值：doc
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjType(objType string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.objType = objType
 	builder.objTypeFlag = true
@@ -2006,7 +1954,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjType(objType string) *M
 
 // 文档token
 //
-//示例值：doccnzAaOD******Wabcdef
+// 示例值：doccnzAaOD******Wabcdef
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjToken(objToken string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.objToken = objToken
 	builder.objTokenFlag = true
@@ -2015,7 +1963,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ObjToken(objToken string) 
 
 // 没有权限时，是否申请移动文档。;;如果申请移动，文档将在处理人同意时自动移动至指定位置。
 //
-//示例值：true
+// 示例值：true
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Apply(apply bool) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.apply = apply
 	builder.applyFlag = true
@@ -2189,7 +2137,7 @@ func NewUpdateTitleSpaceNodeReqBodyBuilder() *UpdateTitleSpaceNodeReqBodyBuilder
 
 // 节点新标题
 //
-//示例值：新标题
+// 示例值：新标题
 func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Title(title string) *UpdateTitleSpaceNodeReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -2423,7 +2371,7 @@ func (iterator *ListSpaceIterator) Next() (bool, *Space, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || *iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -2477,7 +2425,7 @@ func (iterator *ListSpaceNodeIterator) Next() (bool, *Node, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || *iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
