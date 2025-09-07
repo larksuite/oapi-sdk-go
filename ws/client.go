@@ -122,7 +122,13 @@ func (c *Client) Start(ctx context.Context) (err error) {
 		}
 	}
 	go c.pingLoop(ctx)
-	select {}
+	<-ctx.Done()
+    c.disconnect(ctx)
+    err = ctx.Err()
+    if err == context.Canceled {
+        err = nil
+    }
+    return
 }
 
 func (c *Client) connect(ctx context.Context) (err error) {
