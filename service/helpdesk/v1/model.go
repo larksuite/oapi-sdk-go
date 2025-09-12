@@ -5352,7 +5352,7 @@ type TicketV2 struct {
 
 	ClosedAt *int64 `json:"closed_at,omitempty"` // the time when the ticket is closed
 
-	DissatisfactionReason *I18n `json:"dissatisfaction_reason,omitempty"` // 不满意原因
+	DissatisfactionReason []*I18n `json:"dissatisfaction_reason,omitempty"` // 不满意原因
 
 	Agents []*TicketUser `json:"agents,omitempty"` // agents of this ticket
 
@@ -5418,7 +5418,7 @@ type TicketV2Builder struct {
 	closedAt     int64 // the time when the ticket is closed
 	closedAtFlag bool
 
-	dissatisfactionReason     *I18n // 不满意原因
+	dissatisfactionReason     []*I18n // 不满意原因
 	dissatisfactionReasonFlag bool
 
 	agents     []*TicketUser // agents of this ticket
@@ -5568,7 +5568,7 @@ func (builder *TicketV2Builder) ClosedAt(closedAt int64) *TicketV2Builder {
 // 不满意原因
 //
 // 示例值：
-func (builder *TicketV2Builder) DissatisfactionReason(dissatisfactionReason *I18n) *TicketV2Builder {
+func (builder *TicketV2Builder) DissatisfactionReason(dissatisfactionReason []*I18n) *TicketV2Builder {
 	builder.dissatisfactionReason = dissatisfactionReason
 	builder.dissatisfactionReasonFlag = true
 	return builder
