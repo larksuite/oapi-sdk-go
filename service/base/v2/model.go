@@ -1088,7 +1088,7 @@ type RecRuleCondition struct {
 
 	Operator *string `json:"operator,omitempty"` // 运算符
 
-	Values []string `json:"values,omitempty"` // 单选或多选字段的选项id
+	Value []string `json:"value,omitempty"` // 单选或多选字段的选项id
 
 	FieldType *int `json:"field_type,omitempty"` // 字段类型
 }
@@ -1100,8 +1100,8 @@ type RecRuleConditionBuilder struct {
 	operator     string // 运算符
 	operatorFlag bool
 
-	values     []string // 单选或多选字段的选项id
-	valuesFlag bool
+	value     []string // 单选或多选字段的选项id
+	valueFlag bool
 
 	fieldType     int // 字段类型
 	fieldTypeFlag bool
@@ -1133,9 +1133,9 @@ func (builder *RecRuleConditionBuilder) Operator(operator string) *RecRuleCondit
 // 单选或多选字段的选项id
 //
 // 示例值：["optbdVHf4q", "optrpd3eIJ"]
-func (builder *RecRuleConditionBuilder) Values(values []string) *RecRuleConditionBuilder {
-	builder.values = values
-	builder.valuesFlag = true
+func (builder *RecRuleConditionBuilder) Value(value []string) *RecRuleConditionBuilder {
+	builder.value = value
+	builder.valueFlag = true
 	return builder
 }
 
@@ -1158,8 +1158,8 @@ func (builder *RecRuleConditionBuilder) Build() *RecRuleCondition {
 		req.Operator = &builder.operator
 
 	}
-	if builder.valuesFlag {
-		req.Values = builder.values
+	if builder.valueFlag {
+		req.Value = builder.value
 	}
 	if builder.fieldTypeFlag {
 		req.FieldType = &builder.fieldType

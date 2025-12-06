@@ -10,6 +10,7 @@ import (
 
 type V1 struct {
 	AcctItem              *acctItem              // acct_item
+	CostAllocationDetail  *costAllocationDetail  // cost_allocation_detail
 	CostAllocationPlan    *costAllocationPlan    // cost_allocation_plan
 	CostAllocationReport  *costAllocationReport  // cost_allocation_report
 	Datasource            *datasource            // datasource
@@ -23,6 +24,7 @@ type V1 struct {
 func New(config *larkcore.Config) *V1 {
 	return &V1{
 		AcctItem:              &acctItem{config: config},
+		CostAllocationDetail:  &costAllocationDetail{config: config},
 		CostAllocationPlan:    &costAllocationPlan{config: config},
 		CostAllocationReport:  &costAllocationReport{config: config},
 		Datasource:            &datasource{config: config},
@@ -35,6 +37,9 @@ func New(config *larkcore.Config) *V1 {
 }
 
 type acctItem struct {
+	config *larkcore.Config
+}
+type costAllocationDetail struct {
 	config *larkcore.Config
 }
 type costAllocationPlan struct {
@@ -94,6 +99,32 @@ func (a *acctItem) ListByIterator(ctx context.Context, req *ListAcctItemReq, opt
 		listFunc: a.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// List
+//
+// - 获取成本分摊报表明细数据
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=payroll&resource=cost_allocation_detail&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/payrollv1/list_costAllocationDetail.go
+func (c *costAllocationDetail) List(ctx context.Context, req *ListCostAllocationDetailReq, options ...larkcore.RequestOptionFunc) (*ListCostAllocationDetailResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/payroll/v1/cost_allocation_details"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListCostAllocationDetailResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // List

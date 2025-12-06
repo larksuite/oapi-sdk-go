@@ -58,8 +58,10 @@ type V1 struct {
 	Note                            *note                            // 备注
 	Offer                           *offer                           // Offer
 	OfferApplicationForm            *offerApplicationForm            // Offer 申请表（灰度租户可见）
+	OfferApprovalTemplate           *offerApprovalTemplate           // Offer 审批流配置（灰度租户可见）
 	OfferCustomField                *offerCustomField                // offer_custom_field
 	OfferSchema                     *offerSchema                     // offer_schema
+	PortalApplySchema               *portalApplySchema               // portal_apply_schema
 	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
 	Referral                        *referral                        // 内推
 	ReferralAccount                 *referralAccount                 // referral_account
@@ -140,8 +142,10 @@ func New(config *larkcore.Config) *V1 {
 		Note:                            &note{config: config},
 		Offer:                           &offer{config: config},
 		OfferApplicationForm:            &offerApplicationForm{config: config},
+		OfferApprovalTemplate:           &offerApprovalTemplate{config: config},
 		OfferCustomField:                &offerCustomField{config: config},
 		OfferSchema:                     &offerSchema{config: config},
+		PortalApplySchema:               &portalApplySchema{config: config},
 		Questionnaire:                   &questionnaire{config: config},
 		Referral:                        &referral{config: config},
 		ReferralAccount:                 &referralAccount{config: config},
@@ -319,10 +323,16 @@ type offer struct {
 type offerApplicationForm struct {
 	config *larkcore.Config
 }
+type offerApprovalTemplate struct {
+	config *larkcore.Config
+}
 type offerCustomField struct {
 	config *larkcore.Config
 }
 type offerSchema struct {
+	config *larkcore.Config
+}
+type portalApplySchema struct {
 	config *larkcore.Config
 }
 type questionnaire struct {
@@ -977,6 +987,32 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	// 反序列响应结果
 	resp := &PreviewAttachmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchQuery
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=background_check_order&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchQuery_backgroundCheckOrder.go
+func (b *backgroundCheckOrder) BatchQuery(ctx context.Context, req *BatchQueryBackgroundCheckOrderReq, options ...larkcore.RequestOptionFunc) (*BatchQueryBackgroundCheckOrderResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/background_check_orders/batch_query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchQueryBackgroundCheckOrderResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
 	if err != nil {
 		return nil, err
 	}
@@ -3625,6 +3661,32 @@ func (o *offerApplicationForm) List(ctx context.Context, req *ListOfferApplicati
 	return resp, err
 }
 
+// List 获取 Offer 审批流配置列表
+//
+// - 获取 Offer 审批流配置列表
+//
+// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_approval_template/list
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_offerApprovalTemplate.go
+func (o *offerApprovalTemplate) List(ctx context.Context, req *ListOfferApprovalTemplateReq, options ...larkcore.RequestOptionFunc) (*ListOfferApprovalTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/offer_approval_templates"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, o.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListOfferApprovalTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, o.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Update 更新 Offer 申请表自定义字段
 //
 // - - 本文档支持通过接口更新「飞书招聘」-「设置」-「Offer 申请表设置」中 Offer 申请表的自定义字段配置；;- 当前修改申请表信息（包括更新自定义字段）后，所有申请表的 schema_id 均会更新，即所有申请表均会新增一个版本，申请表的 schema_id 会在创建 offer、更新 offer 中使用；;- 「飞书招聘」中 Offer 申请表自定义字段创建后，不支持修改字段类型，本接口亦不支持更新字段类型；;- 当前字段类型为「公式」的，不支持通过接口更新
@@ -3675,6 +3737,40 @@ func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options .
 		return nil, err
 	}
 	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=portal_apply_schema&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_portalApplySchema.go
+func (p *portalApplySchema) List(ctx context.Context, req *ListPortalApplySchemaReq, options ...larkcore.RequestOptionFunc) (*ListPortalApplySchemaResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/portal_apply_schemas"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListPortalApplySchemaResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (p *portalApplySchema) ListByIterator(ctx context.Context, req *ListPortalApplySchemaReq, options ...larkcore.RequestOptionFunc) (*ListPortalApplySchemaIterator, error) {
+	return &ListPortalApplySchemaIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: p.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // List 获取面试满意度问卷列表

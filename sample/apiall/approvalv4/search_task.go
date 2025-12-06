@@ -43,6 +43,7 @@ func main() {
 			Locale("zh-CN").
 			TaskStatusList([]string{}).
 			Order(2).
+			WithRevokedInstance(false).
 			Build()).
 		Build()
 	// 发起请求

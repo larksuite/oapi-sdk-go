@@ -570,6 +570,74 @@ func (builder *EventLogBuilder) Build() *EventLog {
 	return req
 }
 
+type FileMetaInfo struct {
+	Id *string `json:"id,omitempty"` // 文件id
+
+	FilenameHash *string `json:"filename_hash,omitempty"` // 文件名（哈希）
+
+	Size *string `json:"size,omitempty"` // 文件大小（byte）
+}
+
+type FileMetaInfoBuilder struct {
+	id     string // 文件id
+	idFlag bool
+
+	filenameHash     string // 文件名（哈希）
+	filenameHashFlag bool
+
+	size     string // 文件大小（byte）
+	sizeFlag bool
+}
+
+func NewFileMetaInfoBuilder() *FileMetaInfoBuilder {
+	builder := &FileMetaInfoBuilder{}
+	return builder
+}
+
+// 文件id
+//
+// 示例值：YQqYbQHoQoDqXjxWKhJbo8Gicjf
+func (builder *FileMetaInfoBuilder) Id(id string) *FileMetaInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 文件名（哈希）
+//
+// 示例值：a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
+func (builder *FileMetaInfoBuilder) FilenameHash(filenameHash string) *FileMetaInfoBuilder {
+	builder.filenameHash = filenameHash
+	builder.filenameHashFlag = true
+	return builder
+}
+
+// 文件大小（byte）
+//
+// 示例值：1024
+func (builder *FileMetaInfoBuilder) Size(size string) *FileMetaInfoBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *FileMetaInfoBuilder) Build() *FileMetaInfo {
+	req := &FileMetaInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.filenameHashFlag {
+		req.FilenameHash = &builder.filenameHash
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
 type Folder struct {
 	Id *string `json:"id,omitempty"` // folder id
 
@@ -914,6 +982,467 @@ func (builder *MailContactBuilder) Build() *MailContact {
 	if builder.positionFlag {
 		req.Position = &builder.position
 
+	}
+	return req
+}
+
+type MailFlowRuleInfo struct {
+	Id *string `json:"id,omitempty"` // 邮件流规则ID
+
+	Name *string `json:"name,omitempty"` // 邮件流规则名称
+
+	ActionCategory *int `json:"action_category,omitempty"` // 规则动作类型
+}
+
+type MailFlowRuleInfoBuilder struct {
+	id     string // 邮件流规则ID
+	idFlag bool
+
+	name     string // 邮件流规则名称
+	nameFlag bool
+
+	actionCategory     int // 规则动作类型
+	actionCategoryFlag bool
+}
+
+func NewMailFlowRuleInfoBuilder() *MailFlowRuleInfoBuilder {
+	builder := &MailFlowRuleInfoBuilder{}
+	return builder
+}
+
+// 邮件流规则ID
+//
+// 示例值：123456789
+func (builder *MailFlowRuleInfoBuilder) Id(id string) *MailFlowRuleInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 邮件流规则名称
+//
+// 示例值：mail flow rule name
+func (builder *MailFlowRuleInfoBuilder) Name(name string) *MailFlowRuleInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 规则动作类型
+//
+// 示例值：1
+func (builder *MailFlowRuleInfoBuilder) ActionCategory(actionCategory int) *MailFlowRuleInfoBuilder {
+	builder.actionCategory = actionCategory
+	builder.actionCategoryFlag = true
+	return builder
+}
+
+func (builder *MailFlowRuleInfoBuilder) Build() *MailFlowRuleInfo {
+	req := &MailFlowRuleInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.actionCategoryFlag {
+		req.ActionCategory = &builder.actionCategory
+
+	}
+	return req
+}
+
+type MailLog struct {
+	Timestamp *string `json:"timestamp,omitempty"` // 日志时间戳
+
+	Id *string `json:"id,omitempty"` // 日志id
+
+	Initiator *UserMailEntity `json:"initiator,omitempty"` // 邮箱实体信息
+
+	Operator *UserMailEntity `json:"operator,omitempty"` // 邮箱实体信息
+
+	MailInfo *MailLogMailInfo `json:"mail_info,omitempty"` // 邮件信息
+
+	RuleInfos []*MailFlowRuleInfo `json:"rule_infos,omitempty"` // 命中的规则信息
+
+	Tags []string `json:"tags,omitempty"` // 日志的标签
+}
+
+type MailLogBuilder struct {
+	timestamp     string // 日志时间戳
+	timestampFlag bool
+
+	id     string // 日志id
+	idFlag bool
+
+	initiator     *UserMailEntity // 邮箱实体信息
+	initiatorFlag bool
+
+	operator     *UserMailEntity // 邮箱实体信息
+	operatorFlag bool
+
+	mailInfo     *MailLogMailInfo // 邮件信息
+	mailInfoFlag bool
+
+	ruleInfos     []*MailFlowRuleInfo // 命中的规则信息
+	ruleInfosFlag bool
+
+	tags     []string // 日志的标签
+	tagsFlag bool
+}
+
+func NewMailLogBuilder() *MailLogBuilder {
+	builder := &MailLogBuilder{}
+	return builder
+}
+
+// 日志时间戳
+//
+// 示例值：123456780
+func (builder *MailLogBuilder) Timestamp(timestamp string) *MailLogBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+
+// 日志id
+//
+// 示例值：123456
+func (builder *MailLogBuilder) Id(id string) *MailLogBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 邮箱实体信息
+//
+// 示例值：
+func (builder *MailLogBuilder) Initiator(initiator *UserMailEntity) *MailLogBuilder {
+	builder.initiator = initiator
+	builder.initiatorFlag = true
+	return builder
+}
+
+// 邮箱实体信息
+//
+// 示例值：
+func (builder *MailLogBuilder) Operator(operator *UserMailEntity) *MailLogBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+
+// 邮件信息
+//
+// 示例值：
+func (builder *MailLogBuilder) MailInfo(mailInfo *MailLogMailInfo) *MailLogBuilder {
+	builder.mailInfo = mailInfo
+	builder.mailInfoFlag = true
+	return builder
+}
+
+// 命中的规则信息
+//
+// 示例值：
+func (builder *MailLogBuilder) RuleInfos(ruleInfos []*MailFlowRuleInfo) *MailLogBuilder {
+	builder.ruleInfos = ruleInfos
+	builder.ruleInfosFlag = true
+	return builder
+}
+
+// 日志的标签
+//
+// 示例值：
+func (builder *MailLogBuilder) Tags(tags []string) *MailLogBuilder {
+	builder.tags = tags
+	builder.tagsFlag = true
+	return builder
+}
+
+func (builder *MailLogBuilder) Build() *MailLog {
+	req := &MailLog{}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.initiatorFlag {
+		req.Initiator = builder.initiator
+	}
+	if builder.operatorFlag {
+		req.Operator = builder.operator
+	}
+	if builder.mailInfoFlag {
+		req.MailInfo = builder.mailInfo
+	}
+	if builder.ruleInfosFlag {
+		req.RuleInfos = builder.ruleInfos
+	}
+	if builder.tagsFlag {
+		req.Tags = builder.tags
+	}
+	return req
+}
+
+type MailLogMailInfo struct {
+	MessageId *string `json:"message_id,omitempty"` // 邮件ID
+
+	Owner *UserMailEntity `json:"owner,omitempty"` // 邮箱实体信息
+
+	EventTypes []string `json:"event_types,omitempty"` // 收发信事件类型
+
+	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // RFC协议id
+
+	Date *string `json:"date,omitempty"` // EML中的事件时间（毫秒）
+
+	Subject *string `json:"subject,omitempty"` // 主题
+
+	HeaderFrom *MailAddress `json:"header_from,omitempty"` // 发件人
+
+	ToRecipients []*MailAddress `json:"to_recipients,omitempty"` // 收件人
+
+	CcRecipients []*MailAddress `json:"cc_recipients,omitempty"` // 抄送
+
+	BccRecipients []*MailAddress `json:"bcc_recipients,omitempty"` // 秘送
+
+	AttachmentNum *string `json:"attachment_num,omitempty"` // 附件数量
+
+	ImageNum *string `json:"image_num,omitempty"` // 图片数量
+
+	Attachments []*FileMetaInfo `json:"attachments,omitempty"` // 附件信息
+
+	Images []*FileMetaInfo `json:"images,omitempty"` // 图片信息
+}
+
+type MailLogMailInfoBuilder struct {
+	messageId     string // 邮件ID
+	messageIdFlag bool
+
+	owner     *UserMailEntity // 邮箱实体信息
+	ownerFlag bool
+
+	eventTypes     []string // 收发信事件类型
+	eventTypesFlag bool
+
+	smtpMessageId     string // RFC协议id
+	smtpMessageIdFlag bool
+
+	date     string // EML中的事件时间（毫秒）
+	dateFlag bool
+
+	subject     string // 主题
+	subjectFlag bool
+
+	headerFrom     *MailAddress // 发件人
+	headerFromFlag bool
+
+	toRecipients     []*MailAddress // 收件人
+	toRecipientsFlag bool
+
+	ccRecipients     []*MailAddress // 抄送
+	ccRecipientsFlag bool
+
+	bccRecipients     []*MailAddress // 秘送
+	bccRecipientsFlag bool
+
+	attachmentNum     string // 附件数量
+	attachmentNumFlag bool
+
+	imageNum     string // 图片数量
+	imageNumFlag bool
+
+	attachments     []*FileMetaInfo // 附件信息
+	attachmentsFlag bool
+
+	images     []*FileMetaInfo // 图片信息
+	imagesFlag bool
+}
+
+func NewMailLogMailInfoBuilder() *MailLogMailInfoBuilder {
+	builder := &MailLogMailInfoBuilder{}
+	return builder
+}
+
+// 邮件ID
+//
+// 示例值：abcdefg
+func (builder *MailLogMailInfoBuilder) MessageId(messageId string) *MailLogMailInfoBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+
+// 邮箱实体信息
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) Owner(owner *UserMailEntity) *MailLogMailInfoBuilder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
+
+// 收发信事件类型
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) EventTypes(eventTypes []string) *MailLogMailInfoBuilder {
+	builder.eventTypes = eventTypes
+	builder.eventTypesFlag = true
+	return builder
+}
+
+// RFC协议id
+//
+// 示例值：ay0azrJDvbs3FJAg@outlook.com
+func (builder *MailLogMailInfoBuilder) SmtpMessageId(smtpMessageId string) *MailLogMailInfoBuilder {
+	builder.smtpMessageId = smtpMessageId
+	builder.smtpMessageIdFlag = true
+	return builder
+}
+
+// EML中的事件时间（毫秒）
+//
+// 示例值：1682377086000
+func (builder *MailLogMailInfoBuilder) Date(date string) *MailLogMailInfoBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 主题
+//
+// 示例值：邮件标题
+func (builder *MailLogMailInfoBuilder) Subject(subject string) *MailLogMailInfoBuilder {
+	builder.subject = subject
+	builder.subjectFlag = true
+	return builder
+}
+
+// 发件人
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) HeaderFrom(headerFrom *MailAddress) *MailLogMailInfoBuilder {
+	builder.headerFrom = headerFrom
+	builder.headerFromFlag = true
+	return builder
+}
+
+// 收件人
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) ToRecipients(toRecipients []*MailAddress) *MailLogMailInfoBuilder {
+	builder.toRecipients = toRecipients
+	builder.toRecipientsFlag = true
+	return builder
+}
+
+// 抄送
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) CcRecipients(ccRecipients []*MailAddress) *MailLogMailInfoBuilder {
+	builder.ccRecipients = ccRecipients
+	builder.ccRecipientsFlag = true
+	return builder
+}
+
+// 秘送
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) BccRecipients(bccRecipients []*MailAddress) *MailLogMailInfoBuilder {
+	builder.bccRecipients = bccRecipients
+	builder.bccRecipientsFlag = true
+	return builder
+}
+
+// 附件数量
+//
+// 示例值：1
+func (builder *MailLogMailInfoBuilder) AttachmentNum(attachmentNum string) *MailLogMailInfoBuilder {
+	builder.attachmentNum = attachmentNum
+	builder.attachmentNumFlag = true
+	return builder
+}
+
+// 图片数量
+//
+// 示例值：1
+func (builder *MailLogMailInfoBuilder) ImageNum(imageNum string) *MailLogMailInfoBuilder {
+	builder.imageNum = imageNum
+	builder.imageNumFlag = true
+	return builder
+}
+
+// 附件信息
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) Attachments(attachments []*FileMetaInfo) *MailLogMailInfoBuilder {
+	builder.attachments = attachments
+	builder.attachmentsFlag = true
+	return builder
+}
+
+// 图片信息
+//
+// 示例值：
+func (builder *MailLogMailInfoBuilder) Images(images []*FileMetaInfo) *MailLogMailInfoBuilder {
+	builder.images = images
+	builder.imagesFlag = true
+	return builder
+}
+
+func (builder *MailLogMailInfoBuilder) Build() *MailLogMailInfo {
+	req := &MailLogMailInfo{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.ownerFlag {
+		req.Owner = builder.owner
+	}
+	if builder.eventTypesFlag {
+		req.EventTypes = builder.eventTypes
+	}
+	if builder.smtpMessageIdFlag {
+		req.SmtpMessageId = &builder.smtpMessageId
+
+	}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.subjectFlag {
+		req.Subject = &builder.subject
+
+	}
+	if builder.headerFromFlag {
+		req.HeaderFrom = builder.headerFrom
+	}
+	if builder.toRecipientsFlag {
+		req.ToRecipients = builder.toRecipients
+	}
+	if builder.ccRecipientsFlag {
+		req.CcRecipients = builder.ccRecipients
+	}
+	if builder.bccRecipientsFlag {
+		req.BccRecipients = builder.bccRecipients
+	}
+	if builder.attachmentNumFlag {
+		req.AttachmentNum = &builder.attachmentNum
+
+	}
+	if builder.imageNumFlag {
+		req.ImageNum = &builder.imageNum
+
+	}
+	if builder.attachmentsFlag {
+		req.Attachments = builder.attachments
+	}
+	if builder.imagesFlag {
+		req.Images = builder.images
 	}
 	return req
 }
@@ -2279,6 +2808,92 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 	}
 	if builder.publicMailboxIdFlag {
 		req.PublicMailboxId = &builder.publicMailboxId
+
+	}
+	return req
+}
+
+type UserMailEntity struct {
+	Type *int `json:"type,omitempty"` // 邮箱类型
+
+	EmailAddress *string `json:"email_address,omitempty"` // 邮箱地址
+
+	EntityId *string `json:"entity_id,omitempty"` // 公共邮箱、邮件组实体ID
+
+	UserId *string `json:"user_id,omitempty"` // 个人邮箱，用户ID
+}
+
+type UserMailEntityBuilder struct {
+	type_    int // 邮箱类型
+	typeFlag bool
+
+	emailAddress     string // 邮箱地址
+	emailAddressFlag bool
+
+	entityId     string // 公共邮箱、邮件组实体ID
+	entityIdFlag bool
+
+	userId     string // 个人邮箱，用户ID
+	userIdFlag bool
+}
+
+func NewUserMailEntityBuilder() *UserMailEntityBuilder {
+	builder := &UserMailEntityBuilder{}
+	return builder
+}
+
+// 邮箱类型
+//
+// 示例值：
+func (builder *UserMailEntityBuilder) Type(type_ int) *UserMailEntityBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 邮箱地址
+//
+// 示例值：user@xxx.xx
+func (builder *UserMailEntityBuilder) EmailAddress(emailAddress string) *UserMailEntityBuilder {
+	builder.emailAddress = emailAddress
+	builder.emailAddressFlag = true
+	return builder
+}
+
+// 公共邮箱、邮件组实体ID
+//
+// 示例值：xxxxx
+func (builder *UserMailEntityBuilder) EntityId(entityId string) *UserMailEntityBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
+}
+
+// 个人邮箱，用户ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad115d62
+func (builder *UserMailEntityBuilder) UserId(userId string) *UserMailEntityBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *UserMailEntityBuilder) Build() *UserMailEntity {
+	req := &UserMailEntity{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.emailAddressFlag {
+		req.EmailAddress = &builder.emailAddress
+
+	}
+	if builder.entityIdFlag {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
 
 	}
 	return req

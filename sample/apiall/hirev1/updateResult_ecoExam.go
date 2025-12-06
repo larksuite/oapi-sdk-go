@@ -28,11 +28,12 @@ func main() {
 	// 创建请求对象
 	req := larkhire.NewUpdateResultEcoExamReqBuilder().
 		ExamId("7178536692385679677").
-		EcoExamResult(larkhire.NewEcoExamResultBuilder().
+		Body(larkhire.NewUpdateResultEcoExamReqBodyBuilder().
 			Result("60.5").
 			ResultTime("1658676234053").
 			ReportList([]*larkhire.EcoExamResultReport{larkhire.NewEcoExamResultReportBuilder().Build()}).
 			DetailList([]*larkhire.EcoExamResultDetail{larkhire.NewEcoExamResultDetailBuilder().Build()}).
+			Status(1).
 			Build()).
 		Build()
 	// 发起请求

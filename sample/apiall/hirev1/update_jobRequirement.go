@@ -33,8 +33,8 @@ func main() {
 		JobLevelIdType("people_admin_job_level_id").
 		JobFamilyIdType("people_admin_job_category_id").
 		EmployeeTypeIdType("people_admin_employee_type_id").
-		JobRequirement(larkhire.NewJobRequirementBuilder().
-			Name("test").
+		Body(larkhire.NewUpdateJobRequirementReqBodyBuilder().
+			Name("HR部门春季招聘需求").
 			DisplayProgress(1).
 			HeadCount(11).
 			RecruitmentTypeId("1618209327096").
@@ -61,7 +61,6 @@ func main() {
 			JobIdList([]string{}).
 			EmploymentJobId("123").
 			PositionId("123").
-			UpdateOption(larkhire.NewJobRequirementUpdateOptionBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

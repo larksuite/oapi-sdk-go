@@ -31,6 +31,7 @@ func main() {
 		WithParticipants(false).
 		WithMeetingAbility(false).
 		UserIdType("user_id").
+		QueryMode(0).
 		Build()
 	// 发起请求
 	resp, err := client.Vc.V1.Meeting.Get(context.Background(), req)

@@ -9,6 +9,7 @@ import (
 )
 
 type V1 struct {
+	App                               *app                               // app
 	ApplicationAuditLog               *applicationAuditLog               // application.audit_log
 	ApplicationEnvironmentVariable    *applicationEnvironmentVariable    // application.environment_variable
 	ApplicationFlow                   *applicationFlow                   // application.flow
@@ -26,6 +27,7 @@ type V1 struct {
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
+		App:                               &app{config: config},
 		ApplicationAuditLog:               &applicationAuditLog{config: config},
 		ApplicationEnvironmentVariable:    &applicationEnvironmentVariable{config: config},
 		ApplicationFlow:                   &applicationFlow{config: config},
@@ -42,6 +44,9 @@ func New(config *larkcore.Config) *V1 {
 	}
 }
 
+type app struct {
+	config *larkcore.Config
+}
 type applicationAuditLog struct {
 	config *larkcore.Config
 }
@@ -80,6 +85,40 @@ type seatAssignment struct {
 }
 type userTask struct {
 	config *larkcore.Config
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=app&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/list_app.go
+func (a *app) List(ctx context.Context, req *ListAppReq, options ...larkcore.RequestOptionFunc) (*ListAppResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/apps"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *app) ListByIterator(ctx context.Context, req *ListAppReq, options ...larkcore.RequestOptionFunc) (*ListAppIterator, error) {
+	return &ListAppIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // AuditLogList

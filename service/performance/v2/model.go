@@ -442,6 +442,10 @@ type CooperationProject struct {
 	Name *I18n `json:"name,omitempty"` // 合作项目的名称
 
 	Roles []*CooperationRole `json:"roles,omitempty"` // 项目角色
+
+	UserRoles []*CooperationUserRole `json:"user_roles,omitempty"` // 评估人项目角色
+
+	UnderlingRoles []*CooperationUserRole `json:"underling_roles,omitempty"` // 被评估人项目角色
 }
 
 type CooperationProjectBuilder struct {
@@ -453,6 +457,12 @@ type CooperationProjectBuilder struct {
 
 	roles     []*CooperationRole // 项目角色
 	rolesFlag bool
+
+	userRoles     []*CooperationUserRole // 评估人项目角色
+	userRolesFlag bool
+
+	underlingRoles     []*CooperationUserRole // 被评估人项目角色
+	underlingRolesFlag bool
 }
 
 func NewCooperationProjectBuilder() *CooperationProjectBuilder {
@@ -487,6 +497,24 @@ func (builder *CooperationProjectBuilder) Roles(roles []*CooperationRole) *Coope
 	return builder
 }
 
+// 评估人项目角色
+//
+// 示例值：
+func (builder *CooperationProjectBuilder) UserRoles(userRoles []*CooperationUserRole) *CooperationProjectBuilder {
+	builder.userRoles = userRoles
+	builder.userRolesFlag = true
+	return builder
+}
+
+// 被评估人项目角色
+//
+// 示例值：
+func (builder *CooperationProjectBuilder) UnderlingRoles(underlingRoles []*CooperationUserRole) *CooperationProjectBuilder {
+	builder.underlingRoles = underlingRoles
+	builder.underlingRolesFlag = true
+	return builder
+}
+
 func (builder *CooperationProjectBuilder) Build() *CooperationProject {
 	req := &CooperationProject{}
 	if builder.idFlag {
@@ -498,6 +526,12 @@ func (builder *CooperationProjectBuilder) Build() *CooperationProject {
 	}
 	if builder.rolesFlag {
 		req.Roles = builder.roles
+	}
+	if builder.userRolesFlag {
+		req.UserRoles = builder.userRoles
+	}
+	if builder.underlingRolesFlag {
+		req.UnderlingRoles = builder.underlingRoles
 	}
 	return req
 }
@@ -666,6 +700,37 @@ func (builder *CustomMetricConfigBuilder) Build() *CustomMetricConfig {
 	return req
 }
 
+type DefaultInvitation struct {
+	Invitations []*Invitation `json:"invitations,omitempty"` // 邀请关系列表
+}
+
+type DefaultInvitationBuilder struct {
+	invitations     []*Invitation // 邀请关系列表
+	invitationsFlag bool
+}
+
+func NewDefaultInvitationBuilder() *DefaultInvitationBuilder {
+	builder := &DefaultInvitationBuilder{}
+	return builder
+}
+
+// 邀请关系列表
+//
+// 示例值：
+func (builder *DefaultInvitationBuilder) Invitations(invitations []*Invitation) *DefaultInvitationBuilder {
+	builder.invitations = invitations
+	builder.invitationsFlag = true
+	return builder
+}
+
+func (builder *DefaultInvitationBuilder) Build() *DefaultInvitation {
+	req := &DefaultInvitation{}
+	if builder.invitationsFlag {
+		req.Invitations = builder.invitations
+	}
+	return req
+}
+
 type Department struct {
 	Id *string `json:"id,omitempty"` // 部门 ID，与入参中的department_id_type类型一致，详情请查看：获取单个部门信息
 
@@ -769,6 +834,10 @@ type DirectProjectLeaderRecordInfo struct {
 	ReviewerId *User `json:"reviewer_id,omitempty"` // 评估人 ID
 
 	CooperationProjects []*CooperationProject `json:"cooperation_projects,omitempty"` // 评估人作为直属项目上级所在的项目
+
+	ReviewDependProjects []*CooperationProject `json:"review_depend_projects,omitempty"` // 评估依据的项目
+
+	ParticipatedProjects []*CooperationProject `json:"participated_projects,omitempty"` // 共同参与的项目
 }
 
 type DirectProjectLeaderRecordInfoBuilder struct {
@@ -777,6 +846,12 @@ type DirectProjectLeaderRecordInfoBuilder struct {
 
 	cooperationProjects     []*CooperationProject // 评估人作为直属项目上级所在的项目
 	cooperationProjectsFlag bool
+
+	reviewDependProjects     []*CooperationProject // 评估依据的项目
+	reviewDependProjectsFlag bool
+
+	participatedProjects     []*CooperationProject // 共同参与的项目
+	participatedProjectsFlag bool
 }
 
 func NewDirectProjectLeaderRecordInfoBuilder() *DirectProjectLeaderRecordInfoBuilder {
@@ -802,6 +877,24 @@ func (builder *DirectProjectLeaderRecordInfoBuilder) CooperationProjects(coopera
 	return builder
 }
 
+// 评估依据的项目
+//
+// 示例值：
+func (builder *DirectProjectLeaderRecordInfoBuilder) ReviewDependProjects(reviewDependProjects []*CooperationProject) *DirectProjectLeaderRecordInfoBuilder {
+	builder.reviewDependProjects = reviewDependProjects
+	builder.reviewDependProjectsFlag = true
+	return builder
+}
+
+// 共同参与的项目
+//
+// 示例值：
+func (builder *DirectProjectLeaderRecordInfoBuilder) ParticipatedProjects(participatedProjects []*CooperationProject) *DirectProjectLeaderRecordInfoBuilder {
+	builder.participatedProjects = participatedProjects
+	builder.participatedProjectsFlag = true
+	return builder
+}
+
 func (builder *DirectProjectLeaderRecordInfoBuilder) Build() *DirectProjectLeaderRecordInfo {
 	req := &DirectProjectLeaderRecordInfo{}
 	if builder.reviewerIdFlag {
@@ -809,6 +902,12 @@ func (builder *DirectProjectLeaderRecordInfoBuilder) Build() *DirectProjectLeade
 	}
 	if builder.cooperationProjectsFlag {
 		req.CooperationProjects = builder.cooperationProjects
+	}
+	if builder.reviewDependProjectsFlag {
+		req.ReviewDependProjects = builder.reviewDependProjects
+	}
+	if builder.participatedProjectsFlag {
+		req.ParticipatedProjects = builder.participatedProjects
 	}
 	return req
 }
@@ -876,6 +975,8 @@ type Field struct {
 	KeyresultTextQustionTitle *I18n `json:"keyresult_text_qustion_title,omitempty"` // KR 的填写项标题
 
 	ParentFieldId *string `json:"parent_field_id,omitempty"` // 关联的父级评估项 ID
+
+	KpiTemplateId *string `json:"kpi_template_id,omitempty"` // 指标模板ID
 }
 
 type FieldBuilder struct {
@@ -899,6 +1000,9 @@ type FieldBuilder struct {
 
 	parentFieldId     string // 关联的父级评估项 ID
 	parentFieldIdFlag bool
+
+	kpiTemplateId     string // 指标模板ID
+	kpiTemplateIdFlag bool
 }
 
 func NewFieldBuilder() *FieldBuilder {
@@ -969,6 +1073,15 @@ func (builder *FieldBuilder) ParentFieldId(parentFieldId string) *FieldBuilder {
 	return builder
 }
 
+// 指标模板ID
+//
+// 示例值：7494252079230222371
+func (builder *FieldBuilder) KpiTemplateId(kpiTemplateId string) *FieldBuilder {
+	builder.kpiTemplateId = kpiTemplateId
+	builder.kpiTemplateIdFlag = true
+	return builder
+}
+
 func (builder *FieldBuilder) Build() *Field {
 	req := &Field{}
 	if builder.fieldIdFlag {
@@ -994,6 +1107,10 @@ func (builder *FieldBuilder) Build() *Field {
 	}
 	if builder.parentFieldIdFlag {
 		req.ParentFieldId = &builder.parentFieldId
+
+	}
+	if builder.kpiTemplateIdFlag {
+		req.KpiTemplateId = &builder.kpiTemplateId
 
 	}
 	return req
@@ -1398,6 +1515,154 @@ func (builder *IndicatorOptionBuilder) Build() *IndicatorOption {
 	}
 	if builder.lableFlag {
 		req.Lable = &builder.lable
+
+	}
+	return req
+}
+
+type Invitation struct {
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID
+
+	Reviewers []*InvitationReviewer `json:"reviewers,omitempty"` // 评估人列表
+}
+
+type InvitationBuilder struct {
+	revieweeUserId     string // 被评估人ID
+	revieweeUserIdFlag bool
+
+	reviewers     []*InvitationReviewer // 评估人列表
+	reviewersFlag bool
+}
+
+func NewInvitationBuilder() *InvitationBuilder {
+	builder := &InvitationBuilder{}
+	return builder
+}
+
+// 被评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b2
+func (builder *InvitationBuilder) RevieweeUserId(revieweeUserId string) *InvitationBuilder {
+	builder.revieweeUserId = revieweeUserId
+	builder.revieweeUserIdFlag = true
+	return builder
+}
+
+// 评估人列表
+//
+// 示例值：
+func (builder *InvitationBuilder) Reviewers(reviewers []*InvitationReviewer) *InvitationBuilder {
+	builder.reviewers = reviewers
+	builder.reviewersFlag = true
+	return builder
+}
+
+func (builder *InvitationBuilder) Build() *Invitation {
+	req := &Invitation{}
+	if builder.revieweeUserIdFlag {
+		req.RevieweeUserId = &builder.revieweeUserId
+
+	}
+	if builder.reviewersFlag {
+		req.Reviewers = builder.reviewers
+	}
+	return req
+}
+
+type InvitationRelation struct {
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID
+
+	ReviewerUserIds []string `json:"reviewer_user_ids,omitempty"` // 评估人ID列表
+}
+
+type InvitationRelationBuilder struct {
+	revieweeUserId     string // 被评估人ID
+	revieweeUserIdFlag bool
+
+	reviewerUserIds     []string // 评估人ID列表
+	reviewerUserIdsFlag bool
+}
+
+func NewInvitationRelationBuilder() *InvitationRelationBuilder {
+	builder := &InvitationRelationBuilder{}
+	return builder
+}
+
+// 被评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b3
+func (builder *InvitationRelationBuilder) RevieweeUserId(revieweeUserId string) *InvitationRelationBuilder {
+	builder.revieweeUserId = revieweeUserId
+	builder.revieweeUserIdFlag = true
+	return builder
+}
+
+// 评估人ID列表
+//
+// 示例值：
+func (builder *InvitationRelationBuilder) ReviewerUserIds(reviewerUserIds []string) *InvitationRelationBuilder {
+	builder.reviewerUserIds = reviewerUserIds
+	builder.reviewerUserIdsFlag = true
+	return builder
+}
+
+func (builder *InvitationRelationBuilder) Build() *InvitationRelation {
+	req := &InvitationRelation{}
+	if builder.revieweeUserIdFlag {
+		req.RevieweeUserId = &builder.revieweeUserId
+
+	}
+	if builder.reviewerUserIdsFlag {
+		req.ReviewerUserIds = builder.reviewerUserIds
+	}
+	return req
+}
+
+type InvitationReviewer struct {
+	ReviewerUserId *string `json:"reviewer_user_id,omitempty"` // 评估人ID
+
+	Source *string `json:"source,omitempty"` // 来源
+}
+
+type InvitationReviewerBuilder struct {
+	reviewerUserId     string // 评估人ID
+	reviewerUserIdFlag bool
+
+	source     string // 来源
+	sourceFlag bool
+}
+
+func NewInvitationReviewerBuilder() *InvitationReviewerBuilder {
+	builder := &InvitationReviewerBuilder{}
+	return builder
+}
+
+// 评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b3
+func (builder *InvitationReviewerBuilder) ReviewerUserId(reviewerUserId string) *InvitationReviewerBuilder {
+	builder.reviewerUserId = reviewerUserId
+	builder.reviewerUserIdFlag = true
+	return builder
+}
+
+// 来源
+//
+// 示例值：openapi
+func (builder *InvitationReviewerBuilder) Source(source string) *InvitationReviewerBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+
+func (builder *InvitationReviewerBuilder) Build() *InvitationReviewer {
+	req := &InvitationReviewer{}
+	if builder.reviewerUserIdFlag {
+		req.ReviewerUserId = &builder.reviewerUserId
+
+	}
+	if builder.sourceFlag {
+		req.Source = &builder.source
 
 	}
 	return req
@@ -5532,6 +5797,72 @@ func (builder *SemesterBuilder) Build() *Semester {
 	return req
 }
 
+type SemesterStage struct {
+	Id *string `json:"id,omitempty"` // 周期环节id
+
+	Name *I18n `json:"name,omitempty"` // 周期环节名称
+
+	Stages []*TemplateStage `json:"stages,omitempty"` // 模板环节列表
+}
+
+type SemesterStageBuilder struct {
+	id     string // 周期环节id
+	idFlag bool
+
+	name     *I18n // 周期环节名称
+	nameFlag bool
+
+	stages     []*TemplateStage // 模板环节列表
+	stagesFlag bool
+}
+
+func NewSemesterStageBuilder() *SemesterStageBuilder {
+	builder := &SemesterStageBuilder{}
+	return builder
+}
+
+// 周期环节id
+//
+// 示例值：7343513161666707459
+func (builder *SemesterStageBuilder) Id(id string) *SemesterStageBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 周期环节名称
+//
+// 示例值：
+func (builder *SemesterStageBuilder) Name(name *I18n) *SemesterStageBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 模板环节列表
+//
+// 示例值：
+func (builder *SemesterStageBuilder) Stages(stages []*TemplateStage) *SemesterStageBuilder {
+	builder.stages = stages
+	builder.stagesFlag = true
+	return builder
+}
+
+func (builder *SemesterStageBuilder) Build() *SemesterStage {
+	req := &SemesterStage{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.stagesFlag {
+		req.Stages = builder.stages
+	}
+	return req
+}
+
 type StageChange struct {
 	StageId *string `json:"stage_id,omitempty"` // 被更新的环节 ID
 
@@ -5919,6 +6250,127 @@ func (builder *TemplateBuilder) Build() *Template {
 	}
 	if builder.reviewStageRoleFlag {
 		req.ReviewStageRole = &builder.reviewStageRole
+
+	}
+	return req
+}
+
+type TemplateStage struct {
+	Id *string `json:"id,omitempty"` // 模板环节ID
+
+	Name *I18n `json:"name,omitempty"` // 环节名称
+
+	TemplateGroupId *string `json:"template_group_id,omitempty"` // 评估模板ID
+
+	StageType *string `json:"stage_type,omitempty"` // 环节类型
+
+	PerformRole *string `json:"perform_role,omitempty"` // 执行角色
+
+	AsFinalResult *bool `json:"as_final_result,omitempty"` // 是否作为终评
+}
+
+type TemplateStageBuilder struct {
+	id     string // 模板环节ID
+	idFlag bool
+
+	name     *I18n // 环节名称
+	nameFlag bool
+
+	templateGroupId     string // 评估模板ID
+	templateGroupIdFlag bool
+
+	stageType     string // 环节类型
+	stageTypeFlag bool
+
+	performRole     string // 执行角色
+	performRoleFlag bool
+
+	asFinalResult     bool // 是否作为终评
+	asFinalResultFlag bool
+}
+
+func NewTemplateStageBuilder() *TemplateStageBuilder {
+	builder := &TemplateStageBuilder{}
+	return builder
+}
+
+// 模板环节ID
+//
+// 示例值：7343513161666707459
+func (builder *TemplateStageBuilder) Id(id string) *TemplateStageBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 环节名称
+//
+// 示例值：
+func (builder *TemplateStageBuilder) Name(name *I18n) *TemplateStageBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 评估模板ID
+//
+// 示例值：7343513161666707459
+func (builder *TemplateStageBuilder) TemplateGroupId(templateGroupId string) *TemplateStageBuilder {
+	builder.templateGroupId = templateGroupId
+	builder.templateGroupIdFlag = true
+	return builder
+}
+
+// 环节类型
+//
+// 示例值：
+func (builder *TemplateStageBuilder) StageType(stageType string) *TemplateStageBuilder {
+	builder.stageType = stageType
+	builder.stageTypeFlag = true
+	return builder
+}
+
+// 执行角色
+//
+// 示例值：
+func (builder *TemplateStageBuilder) PerformRole(performRole string) *TemplateStageBuilder {
+	builder.performRole = performRole
+	builder.performRoleFlag = true
+	return builder
+}
+
+// 是否作为终评
+//
+// 示例值：
+func (builder *TemplateStageBuilder) AsFinalResult(asFinalResult bool) *TemplateStageBuilder {
+	builder.asFinalResult = asFinalResult
+	builder.asFinalResultFlag = true
+	return builder
+}
+
+func (builder *TemplateStageBuilder) Build() *TemplateStage {
+	req := &TemplateStage{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.templateGroupIdFlag {
+		req.TemplateGroupId = &builder.templateGroupId
+
+	}
+	if builder.stageTypeFlag {
+		req.StageType = &builder.stageType
+
+	}
+	if builder.performRoleFlag {
+		req.PerformRole = &builder.performRole
+
+	}
+	if builder.asFinalResultFlag {
+		req.AsFinalResult = &builder.asFinalResult
 
 	}
 	return req

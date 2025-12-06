@@ -4298,6 +4298,12 @@ type DlpExecuteLog struct {
 	FileToken *string `json:"file_token,omitempty"` // 文件token
 
 	TriggerEventType *string `json:"trigger_event_type,omitempty"` // 触发事件类型
+
+	ChatType *string `json:"chat_type,omitempty"` // 会话类型
+
+	GroupOwnerName *string `json:"group_owner_name,omitempty"` // 群主名称
+
+	GroupOwnerId *string `json:"group_owner_id,omitempty"` // 群主ID
 }
 
 type DlpExecuteLogBuilder struct {
@@ -4384,6 +4390,15 @@ type DlpExecuteLogBuilder struct {
 
 	triggerEventType     string // 触发事件类型
 	triggerEventTypeFlag bool
+
+	chatType     string // 会话类型
+	chatTypeFlag bool
+
+	groupOwnerName     string // 群主名称
+	groupOwnerNameFlag bool
+
+	groupOwnerId     string // 群主ID
+	groupOwnerIdFlag bool
 }
 
 func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
@@ -4643,6 +4658,33 @@ func (builder *DlpExecuteLogBuilder) TriggerEventType(triggerEventType string) *
 	return builder
 }
 
+// 会话类型
+//
+// 示例值：1
+func (builder *DlpExecuteLogBuilder) ChatType(chatType string) *DlpExecuteLogBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+
+// 群主名称
+//
+// 示例值：李四
+func (builder *DlpExecuteLogBuilder) GroupOwnerName(groupOwnerName string) *DlpExecuteLogBuilder {
+	builder.groupOwnerName = groupOwnerName
+	builder.groupOwnerNameFlag = true
+	return builder
+}
+
+// 群主ID
+//
+// 示例值：983749203223
+func (builder *DlpExecuteLogBuilder) GroupOwnerId(groupOwnerId string) *DlpExecuteLogBuilder {
+	builder.groupOwnerId = groupOwnerId
+	builder.groupOwnerIdFlag = true
+	return builder
+}
+
 func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	req := &DlpExecuteLog{}
 	if builder.applicableServiceFlag {
@@ -4753,6 +4795,18 @@ func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	}
 	if builder.triggerEventTypeFlag {
 		req.TriggerEventType = &builder.triggerEventType
+
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+
+	}
+	if builder.groupOwnerNameFlag {
+		req.GroupOwnerName = &builder.groupOwnerName
+
+	}
+	if builder.groupOwnerIdFlag {
+		req.GroupOwnerId = &builder.groupOwnerId
 
 	}
 	return req
@@ -6819,6 +6873,280 @@ func (builder *ParamBuilder) Build() *Param {
 	return req
 }
 
+type PolicyEntity struct {
+	PolicyId *string `json:"policy_id,omitempty"` // 策略快照ID
+
+	PolicyName *string `json:"policy_name,omitempty"` // 策略名称
+}
+
+type PolicyEntityBuilder struct {
+	policyId     string // 策略快照ID
+	policyIdFlag bool
+
+	policyName     string // 策略名称
+	policyNameFlag bool
+}
+
+func NewPolicyEntityBuilder() *PolicyEntityBuilder {
+	builder := &PolicyEntityBuilder{}
+	return builder
+}
+
+// 策略快照ID
+//
+// 示例值：123456
+func (builder *PolicyEntityBuilder) PolicyId(policyId string) *PolicyEntityBuilder {
+	builder.policyId = policyId
+	builder.policyIdFlag = true
+	return builder
+}
+
+// 策略名称
+//
+// 示例值：策略名称Demo
+func (builder *PolicyEntityBuilder) PolicyName(policyName string) *PolicyEntityBuilder {
+	builder.policyName = policyName
+	builder.policyNameFlag = true
+	return builder
+}
+
+func (builder *PolicyEntityBuilder) Build() *PolicyEntity {
+	req := &PolicyEntity{}
+	if builder.policyIdFlag {
+		req.PolicyId = &builder.policyId
+
+	}
+	if builder.policyNameFlag {
+		req.PolicyName = &builder.policyName
+
+	}
+	return req
+}
+
+type PolicyLog struct {
+	HasMore *bool `json:"has_more,omitempty"` //
+
+	PageToken *string `json:"page_token,omitempty"` //
+
+	Items []*PolicyLogItem `json:"items,omitempty"` // 策略日志列表
+}
+
+type PolicyLogBuilder struct {
+	hasMore     bool //
+	hasMoreFlag bool
+
+	pageToken     string //
+	pageTokenFlag bool
+
+	items     []*PolicyLogItem // 策略日志列表
+	itemsFlag bool
+}
+
+func NewPolicyLogBuilder() *PolicyLogBuilder {
+	builder := &PolicyLogBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PolicyLogBuilder) HasMore(hasMore bool) *PolicyLogBuilder {
+	builder.hasMore = hasMore
+	builder.hasMoreFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PolicyLogBuilder) PageToken(pageToken string) *PolicyLogBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+// 策略日志列表
+//
+// 示例值：
+func (builder *PolicyLogBuilder) Items(items []*PolicyLogItem) *PolicyLogBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *PolicyLogBuilder) Build() *PolicyLog {
+	req := &PolicyLog{}
+	if builder.hasMoreFlag {
+		req.HasMore = &builder.hasMore
+
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type PolicyLogItem struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	UserName *string `json:"user_name,omitempty"` // 用户名
+
+	Action *string `json:"action,omitempty"` // 操作
+
+	Resource *string `json:"resource,omitempty"` // 场景
+
+	EventTime *string `json:"event_time,omitempty"` // 命中时间
+
+	Condition *string `json:"condition,omitempty"` // 条件
+
+	PolicyInfos []*PolicyEntity `json:"policy_infos,omitempty"` // 策略信息
+
+	SystemAction *string `json:"system_action,omitempty"` // 系统执行动作
+}
+
+type PolicyLogItemBuilder struct {
+	userId     string // 用户ID
+	userIdFlag bool
+
+	userName     string // 用户名
+	userNameFlag bool
+
+	action     string // 操作
+	actionFlag bool
+
+	resource     string // 场景
+	resourceFlag bool
+
+	eventTime     string // 命中时间
+	eventTimeFlag bool
+
+	condition     string // 条件
+	conditionFlag bool
+
+	policyInfos     []*PolicyEntity // 策略信息
+	policyInfosFlag bool
+
+	systemAction     string // 系统执行动作
+	systemActionFlag bool
+}
+
+func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
+	builder := &PolicyLogItemBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) UserId(userId string) *PolicyLogItemBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 用户名
+//
+// 示例值：张三
+func (builder *PolicyLogItemBuilder) UserName(userName string) *PolicyLogItemBuilder {
+	builder.userName = userName
+	builder.userNameFlag = true
+	return builder
+}
+
+// 操作
+//
+// 示例值：Access
+func (builder *PolicyLogItemBuilder) Action(action string) *PolicyLogItemBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+
+// 场景
+//
+// 示例值：飞书
+func (builder *PolicyLogItemBuilder) Resource(resource string) *PolicyLogItemBuilder {
+	builder.resource = resource
+	builder.resourceFlag = true
+	return builder
+}
+
+// 命中时间
+//
+// 示例值：1668700799000
+func (builder *PolicyLogItemBuilder) EventTime(eventTime string) *PolicyLogItemBuilder {
+	builder.eventTime = eventTime
+	builder.eventTimeFlag = true
+	return builder
+}
+
+// 条件
+//
+// 示例值：{\"DEVICE_OWNERSHIP\":\"Unknown\",\"DEVICE_TERMINAL\":\"Web\",\"LSA_CLIENT_BIND_STATUS\":\"Unknown\",\"USER_ID\":7564320266201861655,\"DEVICE_CREDIBILITY\":\"Unknown\",\"DEVICE_OS\":\"macOS\"}
+func (builder *PolicyLogItemBuilder) Condition(condition string) *PolicyLogItemBuilder {
+	builder.condition = condition
+	builder.conditionFlag = true
+	return builder
+}
+
+// 策略信息
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) PolicyInfos(policyInfos []*PolicyEntity) *PolicyLogItemBuilder {
+	builder.policyInfos = policyInfos
+	builder.policyInfosFlag = true
+	return builder
+}
+
+// 系统执行动作
+//
+// 示例值：DENY_WITHOUT_APPROVAL
+func (builder *PolicyLogItemBuilder) SystemAction(systemAction string) *PolicyLogItemBuilder {
+	builder.systemAction = systemAction
+	builder.systemActionFlag = true
+	return builder
+}
+
+func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
+	req := &PolicyLogItem{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userNameFlag {
+		req.UserName = &builder.userName
+
+	}
+	if builder.actionFlag {
+		req.Action = &builder.action
+
+	}
+	if builder.resourceFlag {
+		req.Resource = &builder.resource
+
+	}
+	if builder.eventTimeFlag {
+		req.EventTime = &builder.eventTime
+
+	}
+	if builder.conditionFlag {
+		req.Condition = &builder.condition
+
+	}
+	if builder.policyInfosFlag {
+		req.PolicyInfos = builder.policyInfos
+	}
+	if builder.systemActionFlag {
+		req.SystemAction = &builder.systemAction
+
+	}
+	return req
+}
+
 type SecurityLogError struct {
 	Request *GwRequest `json:"request,omitempty"` // 请求体
 
@@ -7652,7 +7980,7 @@ type VaultTask struct {
 
 	Files []*VaultExportFile `json:"files,omitempty"` // 导出任务文件列表
 
-	Status *TaskStatus `json:"status,omitempty"` // 导出任务状态信息
+	Status *string `json:"status,omitempty"` // 导出任务状态信息
 }
 
 type VaultTaskBuilder struct {
@@ -7680,7 +8008,7 @@ type VaultTaskBuilder struct {
 	files     []*VaultExportFile // 导出任务文件列表
 	filesFlag bool
 
-	status     *TaskStatus // 导出任务状态信息
+	status     string // 导出任务状态信息
 	statusFlag bool
 }
 
@@ -7691,7 +8019,7 @@ func NewVaultTaskBuilder() *VaultTaskBuilder {
 
 // 任务id
 //
-// 示例值：
+// 示例值：123
 func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -7700,7 +8028,7 @@ func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 
 // 任务名
 //
-// 示例值：
+// 示例值：任务名称
 func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -7709,7 +8037,7 @@ func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 
 // 任务文件总大小
 //
-// 示例值：
+// 示例值：10
 func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -7718,7 +8046,7 @@ func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 
 // 任务有效天数
 //
-// 示例值：
+// 示例值：1
 func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 	builder.validDays = validDays
 	builder.validDaysFlag = true
@@ -7727,7 +8055,7 @@ func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 
 // 任务创建时间戳
 //
-// 示例值：
+// 示例值：2025
 func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
@@ -7736,7 +8064,7 @@ func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder
 
 // 文件包解压密码
 //
-// 示例值：
+// 示例值：123
 func (builder *VaultTaskBuilder) ExtractKey(extractKey string) *VaultTaskBuilder {
 	builder.extractKey = extractKey
 	builder.extractKeyFlag = true
@@ -7763,8 +8091,8 @@ func (builder *VaultTaskBuilder) Files(files []*VaultExportFile) *VaultTaskBuild
 
 // 导出任务状态信息
 //
-// 示例值：
-func (builder *VaultTaskBuilder) Status(status *TaskStatus) *VaultTaskBuilder {
+// 示例值：stop
+func (builder *VaultTaskBuilder) Status(status string) *VaultTaskBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
@@ -7803,7 +8131,8 @@ func (builder *VaultTaskBuilder) Build() *VaultTask {
 		req.Files = builder.files
 	}
 	if builder.statusFlag {
-		req.Status = builder.status
+		req.Status = &builder.status
+
 	}
 	return req
 }

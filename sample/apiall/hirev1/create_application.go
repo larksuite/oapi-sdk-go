@@ -34,6 +34,7 @@ func main() {
 			UserId("6930815272790114324").
 			ResumeSourceId("7115289562569591070").
 			ApplicationPreferredCityCodeList([]string{}).
+			DeliveryType(1).
 			Build()).
 		Build()
 	// 发起请求

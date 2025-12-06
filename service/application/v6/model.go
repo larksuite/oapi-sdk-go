@@ -5423,6 +5423,126 @@ func (builder *BotBuilder) Build() *Bot {
 	return req
 }
 
+type BotDisplayInfo struct {
+	Id *string `json:"id,omitempty"` // botID
+
+	Name *string `json:"name,omitempty"` // bot name
+
+	AvatarUrl *string `json:"avatar_url,omitempty"` // bot avatar
+
+	TenantId *string `json:"tenant_id,omitempty"` // 租户信息
+
+	I18nNames map[string]string `json:"i18n_names,omitempty"` // 多语言名称
+
+	I18nDescriptions map[string]string `json:"i18n_descriptions,omitempty"` // 多语言描述
+}
+
+type BotDisplayInfoBuilder struct {
+	id     string // botID
+	idFlag bool
+
+	name     string // bot name
+	nameFlag bool
+
+	avatarUrl     string // bot avatar
+	avatarUrlFlag bool
+
+	tenantId     string // 租户信息
+	tenantIdFlag bool
+
+	i18nNames     map[string]string // 多语言名称
+	i18nNamesFlag bool
+
+	i18nDescriptions     map[string]string // 多语言描述
+	i18nDescriptionsFlag bool
+}
+
+func NewBotDisplayInfoBuilder() *BotDisplayInfoBuilder {
+	builder := &BotDisplayInfoBuilder{}
+	return builder
+}
+
+// botID
+//
+// 示例值：7331683233945616413
+func (builder *BotDisplayInfoBuilder) Id(id string) *BotDisplayInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// bot name
+//
+// 示例值：机器人
+func (builder *BotDisplayInfoBuilder) Name(name string) *BotDisplayInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// bot avatar
+//
+// 示例值：1
+func (builder *BotDisplayInfoBuilder) AvatarUrl(avatarUrl string) *BotDisplayInfoBuilder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+
+// 租户信息
+//
+// 示例值：2
+func (builder *BotDisplayInfoBuilder) TenantId(tenantId string) *BotDisplayInfoBuilder {
+	builder.tenantId = tenantId
+	builder.tenantIdFlag = true
+	return builder
+}
+
+// 多语言名称
+//
+// 示例值：
+func (builder *BotDisplayInfoBuilder) I18nNames(i18nNames map[string]string) *BotDisplayInfoBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+
+// 多语言描述
+//
+// 示例值：
+func (builder *BotDisplayInfoBuilder) I18nDescriptions(i18nDescriptions map[string]string) *BotDisplayInfoBuilder {
+	builder.i18nDescriptions = i18nDescriptions
+	builder.i18nDescriptionsFlag = true
+	return builder
+}
+
+func (builder *BotDisplayInfoBuilder) Build() *BotDisplayInfo {
+	req := &BotDisplayInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
+
+	}
+	if builder.tenantIdFlag {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.i18nDescriptionsFlag {
+		req.I18nDescriptions = builder.i18nDescriptions
+	}
+	return req
+}
+
 type Callback struct {
 	CallbackType *string `json:"callback_type,omitempty"` // 回调类型
 

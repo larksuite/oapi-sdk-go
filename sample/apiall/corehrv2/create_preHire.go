@@ -33,6 +33,7 @@ func main() {
 			EducationInfo([]*larkcorehr.EducationInfo{larkcorehr.NewEducationInfoBuilder().Build()}).
 			WorkExperience([]*larkcorehr.WorkExperience{larkcorehr.NewWorkExperienceBuilder().Build()}).
 			AtsApplicationId("7140946969586010376").
+			Application("7140946969586010376").
 			OutBizId("7140946969586010376").
 			Build()).
 		Build()

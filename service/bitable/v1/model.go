@@ -408,6 +408,74 @@ func (builder *AppBuilder) Build() *App {
 	return req
 }
 
+type AppBlockWorkflow struct {
+	WorkflowId *string `json:"workflow_id,omitempty"` // 工作流唯一键
+
+	Title *string `json:"title,omitempty"` // 工作流标题
+
+	Status *string `json:"status,omitempty"` // 工作流状态
+}
+
+type AppBlockWorkflowBuilder struct {
+	workflowId     string // 工作流唯一键
+	workflowIdFlag bool
+
+	title     string // 工作流标题
+	titleFlag bool
+
+	status     string // 工作流状态
+	statusFlag bool
+}
+
+func NewAppBlockWorkflowBuilder() *AppBlockWorkflowBuilder {
+	builder := &AppBlockWorkflowBuilder{}
+	return builder
+}
+
+// 工作流唯一键
+//
+// 示例值：12412312421312
+func (builder *AppBlockWorkflowBuilder) WorkflowId(workflowId string) *AppBlockWorkflowBuilder {
+	builder.workflowId = workflowId
+	builder.workflowIdFlag = true
+	return builder
+}
+
+// 工作流标题
+//
+// 示例值：工作流
+func (builder *AppBlockWorkflowBuilder) Title(title string) *AppBlockWorkflowBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 工作流状态
+//
+// 示例值：Enable
+func (builder *AppBlockWorkflowBuilder) Status(status string) *AppBlockWorkflowBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *AppBlockWorkflowBuilder) Build() *AppBlockWorkflow {
+	req := &AppBlockWorkflow{}
+	if builder.workflowIdFlag {
+		req.WorkflowId = &builder.workflowId
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
 type AppConnector struct {
 	Token *string `json:"token,omitempty"` // 目标文档token
 

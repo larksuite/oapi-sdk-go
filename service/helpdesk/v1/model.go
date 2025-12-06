@@ -29,39 +29,39 @@ import (
 )
 
 const (
-	MsgTypeText        = "text"        // 普通文本
-	MsgTypePost        = "post"        // 富文本
-	MsgTypeImage       = "image"       // 图片
-	MsgTypeInteractive = "interactive" // 卡片消息
+	BotMessageMsgTypeText        = "text"        // 普通文本
+	BotMessageMsgTypePost        = "post"        // 富文本
+	BotMessageMsgTypeImage       = "image"       // 图片
+	BotMessageMsgTypeInteractive = "interactive" // 卡片消息
 )
 
 const (
-	ReceiveTypeChat = "chat" // 通过服务台专属群发送
-	ReceiveTypeUser = "user" // 通过服务台机器人私聊发送
+	BotMessageReceiveTypeChat = "chat" // 通过服务台专属群发送
+	BotMessageReceiveTypeUser = "user" // 通过服务台机器人私聊发送
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	CreateBotMessageUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateBotMessageUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateBotMessageUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateNotificationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateNotificationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateNotificationOpenId  = "open_id"  // 以open_id来识别用户
+	CreateNotificationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateNotificationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateNotificationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetNotificationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetNotificationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetNotificationOpenId  = "open_id"  // 以open_id来识别用户
+	GetNotificationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetNotificationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetNotificationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchNotificationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchNotificationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchNotificationOpenId  = "open_id"  // 以open_id来识别用户
+	PatchNotificationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchNotificationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchNotificationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Agent struct {
@@ -432,6 +432,8 @@ type AgentSkill struct {
 	IsDefault *bool `json:"is_default,omitempty"` // 默认技能
 
 	Agents []*Agent `json:"agents,omitempty"` // 客服 info
+
+	AgentSkillId *string `json:"agent_skill_id,omitempty"` // agent skill id
 }
 
 type AgentSkillBuilder struct {
@@ -455,6 +457,9 @@ type AgentSkillBuilder struct {
 
 	agents     []*Agent // 客服 info
 	agentsFlag bool
+
+	agentSkillId     string // agent skill id
+	agentSkillIdFlag bool
 }
 
 func NewAgentSkillBuilder() *AgentSkillBuilder {
@@ -525,6 +530,15 @@ func (builder *AgentSkillBuilder) Agents(agents []*Agent) *AgentSkillBuilder {
 	return builder
 }
 
+// agent skill id
+//
+// 示例值：
+func (builder *AgentSkillBuilder) AgentSkillId(agentSkillId string) *AgentSkillBuilder {
+	builder.agentSkillId = agentSkillId
+	builder.agentSkillIdFlag = true
+	return builder
+}
+
 func (builder *AgentSkillBuilder) Build() *AgentSkill {
 	req := &AgentSkill{}
 	if builder.idFlag {
@@ -551,6 +565,10 @@ func (builder *AgentSkillBuilder) Build() *AgentSkill {
 	}
 	if builder.agentsFlag {
 		req.Agents = builder.agents
+	}
+	if builder.agentSkillIdFlag {
+		req.AgentSkillId = &builder.agentSkillId
+
 	}
 	return req
 }
@@ -3387,7 +3405,7 @@ type Ticket struct {
 
 	Guest *TicketUser `json:"guest,omitempty"` // 工单创建用户
 
-	Comments *Comments `json:"comments,omitempty"` // 备注
+	Comments []*Comments `json:"comments,omitempty"` // 备注
 
 	TicketType *int `json:"ticket_type,omitempty"` // 工单阶段：1. 机器人 2. 人工
 
@@ -3444,7 +3462,7 @@ type TicketBuilder struct {
 	guest     *TicketUser // 工单创建用户
 	guestFlag bool
 
-	comments     *Comments // 备注
+	comments     []*Comments // 备注
 	commentsFlag bool
 
 	ticketType     int // 工单阶段：1. 机器人 2. 人工
@@ -3549,7 +3567,7 @@ func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 // 备注
 //
 // 示例值：
-func (builder *TicketBuilder) Comments(comments *Comments) *TicketBuilder {
+func (builder *TicketBuilder) Comments(comments []*Comments) *TicketBuilder {
 	builder.comments = comments
 	builder.commentsFlag = true
 	return builder

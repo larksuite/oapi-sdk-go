@@ -29,7 +29,6 @@ func main() {
 	req := larkwiki.NewListSpaceReqBuilder().
 		PageSize(20).
 		PageToken("1565676577122621").
-		Lang("en").
 		Build()
 	// 发起请求
 	resp, err := client.Wiki.V2.Space.List(context.Background(), req)

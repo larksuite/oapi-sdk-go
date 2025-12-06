@@ -63,7 +63,7 @@ type Toast struct {
 type Card struct {
 	// template/raw
 	Type string `json:"type,omitempty"`
-	// type为raw时：data为larkcard.MessageCard; type为raw时，data为TemplateCard
+	// type为card_json时：data为larkcard.MessageCard; type为template时，data为TemplateCard
 	Data interface{} `json:"data,omitempty"`
 }
 

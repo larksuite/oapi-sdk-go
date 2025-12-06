@@ -29,46 +29,46 @@ import (
 )
 
 const (
-	EmployeeTypeEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	CreateGroupEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateGroupEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	DeptTypeOpenId = "open_id" // 开放openID
+	CreateGroupDeptTypeOpenId = "open_id" // 开放openID
 )
 
 const (
-	EmployeeTypeGetGroupEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeGetGroupEmployeeNo = "employee_no" // 员工工号
+	GetGroupEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetGroupEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	DeptTypeGetGroupOpenId = "open_id" // 开放openID
+	GetGroupDeptTypeOpenId = "open_id" // 开放openID
 )
 
 const (
-	UserIdTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
-	UserIdTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-	UserIdTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
-	UserIdTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
 const (
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的ID来识别用户
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的ID来识别用户
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
 const (
-	EmployeeTypeCreateShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateShiftEmployeeNo = "employee_no" // 员工工号
+	CreateShiftEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateShiftEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeCreateUserApprovalEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateUserApprovalEmployeeNo = "employee_no" // 员工工号
-	EmployeeTypeCreateUserApprovalOpenId     = "open_id"     // 用户在某个应用中的身份
+	CreateApprovalEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateApprovalEmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	CreateApprovalEmployeeTypeOpenId     = "open_id"     // 用户在某个应用中的身份
 )
 
 const (
@@ -87,112 +87,112 @@ const (
 )
 
 const (
-	EmployeeTypeQueryUserApprovalEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserApprovalEmployeeNo = "employee_no" // 员工工号
-	EmployeeTypeQueryUserApprovalOpenId     = "open_id"     // 用户在某个应用中的身份
+	GetApprovedInfoEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetApprovedInfoEmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	GetApprovedInfoEmployeeTypeOpenId     = "open_id"     // 用户在某个应用中的身份
 )
 
 const (
-	EmployeeTypeBatchCreateUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeBatchCreateUserDailyShiftEmployeeNo = "employee_no" // 员工工号
+	SaveGroupScheduleShiftEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	SaveGroupScheduleShiftEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeBatchCreateTempUserDailyShiftEmployeeID = "employee_id" // employee_id
-	EmployeeTypeBatchCreateTempUserDailyShiftEmployeeNo = "employee_no" // employee_no
+	BatchCreateTempUserDailyShiftEmployeeTypeEmployeeID = "employee_id" // employee_id
+	BatchCreateTempUserDailyShiftEmployeeTypeEmployeeNo = "employee_no" // employee_no
 )
 
 const (
-	EmployeeTypeQueryUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserDailyShiftEmployeeNo = "employee_no" // 员工工号
+	QueryUserScheduleShiftsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserScheduleShiftsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeBatchCreateUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeBatchCreateUserFlowEmployeeNo = "employee_no" // 员工工号
+	ImportUserClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	ImportUserClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeGetUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeGetUserFlowEmployeeNo = "employee_no" // 员工工号
+	GetUserClockInFlowDetailEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserClockInFlowDetailEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserFlowEmployeeNo = "employee_no" // 员工工号
+	GetUserClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeModifyUserSettingEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeModifyUserSettingEmployeeNo = "employee_no" // 员工工号
+	ModifyUserSettingEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	ModifyUserSettingEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserSettingEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserSettingEmployeeNo = "employee_no" // 员工工号
+	QueryUserSettingEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserSettingEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleEn = "en" // 英文
-	LocaleJa = "ja" // 日文
-	LocaleZh = "zh" // 中文
+	QueryStatisticsDataLocaleEn = "en" // 英文
+	QueryStatisticsDataLocaleJa = "ja" // 日文
+	QueryStatisticsDataLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeDaily = "daily" // 日度统计
-	StatsTypeMonth = "month" // 月度统计
+	QueryStatisticsDataStatsTypeDaily = "daily" // 日度统计
+	QueryStatisticsDataStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsDataEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsDataEmployeeNo = "employee_no" // 员工工号
+	QueryStatisticsDataEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryStatisticsDataEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleQueryUserStatsFieldEn = "en" // 英文
-	LocaleQueryUserStatsFieldJa = "ja" // 日文
-	LocaleQueryUserStatsFieldZh = "zh" // 中文
+	QueryUserFieldLocaleEn = "en" // 英文
+	QueryUserFieldLocaleJa = "ja" // 日文
+	QueryUserFieldLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeQueryUserStatsFieldDaily = "daily" // 日度统计
-	StatsTypeQueryUserStatsFieldMonth = "month" // 月度统计
+	QueryUserFieldStatsTypeDaily = "daily" // 日度统计
+	QueryUserFieldStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsFieldEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsFieldEmployeeNo = "employee_no" // 员工工号
+	QueryUserFieldEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserFieldEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleQueryUserStatsViewEn = "en" // 英文
-	LocaleQueryUserStatsViewJa = "ja" // 日文
-	LocaleQueryUserStatsViewZh = "zh" // 中文
+	QueryViewLocaleEn = "en" // 英文
+	QueryViewLocaleJa = "ja" // 日文
+	QueryViewLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeQueryUserStatsViewDaily = "daily" // 日度统计
-	StatsTypeQueryUserStatsViewMonth = "month" // 月度统计
+	QueryViewStatsTypeDaily = "daily" // 日度统计
+	QueryViewStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsViewEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsViewEmployeeNo = "employee_no" // 员工工号
+	QueryViewEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryViewEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUpdateUserStatsViewEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUpdateUserStatsViewEmployeeNo = "employee_no" // 员工工号
+	UpdateViewEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	UpdateViewEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserTaskEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserTaskEmployeeNo = "employee_no" // 员工工号
+	GetUserTaskClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserTaskClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeCreateUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	CreateRemedyPunchEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateRemedyPunchEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
@@ -211,13 +211,13 @@ const (
 )
 
 const (
-	EmployeeTypeQueryUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	GetUserRemedyListEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserRemedyListEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	QueryUserAllowedRemedysEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserAllowedRemedysEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 type ClockInAbnormalSettings struct {
@@ -1989,6 +1989,56 @@ func (builder *FlexibleRuleBuilder) Build() *FlexibleRule {
 	return req
 }
 
+type FreeClockSetting struct {
+	ClockMode *int `json:"clock_mode,omitempty"` // 打卡模式
+
+	ClockInternalHhmm *int `json:"clock_internal_hhmm,omitempty"` // 最小打卡间隔
+}
+
+type FreeClockSettingBuilder struct {
+	clockMode     int // 打卡模式
+	clockModeFlag bool
+
+	clockInternalHhmm     int // 最小打卡间隔
+	clockInternalHhmmFlag bool
+}
+
+func NewFreeClockSettingBuilder() *FreeClockSettingBuilder {
+	builder := &FreeClockSettingBuilder{}
+	return builder
+}
+
+// 打卡模式
+//
+// 示例值：0
+func (builder *FreeClockSettingBuilder) ClockMode(clockMode int) *FreeClockSettingBuilder {
+	builder.clockMode = clockMode
+	builder.clockModeFlag = true
+	return builder
+}
+
+// 最小打卡间隔
+//
+// 示例值：100
+func (builder *FreeClockSettingBuilder) ClockInternalHhmm(clockInternalHhmm int) *FreeClockSettingBuilder {
+	builder.clockInternalHhmm = clockInternalHhmm
+	builder.clockInternalHhmmFlag = true
+	return builder
+}
+
+func (builder *FreeClockSettingBuilder) Build() *FreeClockSetting {
+	req := &FreeClockSetting{}
+	if builder.clockModeFlag {
+		req.ClockMode = &builder.clockMode
+
+	}
+	if builder.clockInternalHhmmFlag {
+		req.ClockInternalHhmm = &builder.clockInternalHhmm
+
+	}
+	return req
+}
+
 type FreePunchCfg struct {
 	FreeStartTime *string `json:"free_start_time,omitempty"` // 自由班制打卡开始时间
 
@@ -2001,6 +2051,8 @@ type FreePunchCfg struct {
 	WorkHoursDemand *bool `json:"work_hours_demand,omitempty"` // 工作日出勤是否需满足时长要求
 
 	WorkHours *int `json:"work_hours,omitempty"` // 每日工作时长（分钟),范围[0,1440]
+
+	FreeClockSetting *FreeClockSetting `json:"free_clock_setting,omitempty"` // 自由班制的打卡配置
 }
 
 type FreePunchCfgBuilder struct {
@@ -2021,6 +2073,9 @@ type FreePunchCfgBuilder struct {
 
 	workHours     int // 每日工作时长（分钟),范围[0,1440]
 	workHoursFlag bool
+
+	freeClockSetting     *FreeClockSetting // 自由班制的打卡配置
+	freeClockSettingFlag bool
 }
 
 func NewFreePunchCfgBuilder() *FreePunchCfgBuilder {
@@ -2082,6 +2137,15 @@ func (builder *FreePunchCfgBuilder) WorkHours(workHours int) *FreePunchCfgBuilde
 	return builder
 }
 
+// 自由班制的打卡配置
+//
+// 示例值：
+func (builder *FreePunchCfgBuilder) FreeClockSetting(freeClockSetting *FreeClockSetting) *FreePunchCfgBuilder {
+	builder.freeClockSetting = freeClockSetting
+	builder.freeClockSettingFlag = true
+	return builder
+}
+
 func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
 	req := &FreePunchCfg{}
 	if builder.freeStartTimeFlag {
@@ -2107,6 +2171,9 @@ func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
 	if builder.workHoursFlag {
 		req.WorkHours = &builder.workHours
 
+	}
+	if builder.freeClockSettingFlag {
+		req.FreeClockSetting = builder.freeClockSetting
 	}
 	return req
 }
@@ -5187,6 +5254,563 @@ func (builder *MemberStatusChangeBuilder) Build() *MemberStatusChange {
 	return req
 }
 
+type NormalLeaveBalance struct {
+	BalanceId *string `json:"balance_id,omitempty"` // 假期授予记录ID
+
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期ID
+
+	Quota *string `json:"quota,omitempty"` // 剩余余额
+
+	GrantQuota *string `json:"grant_quota,omitempty"` // 授予额度
+
+	UsedQuota *string `json:"used_quota,omitempty"` // 使用额度
+
+	Unit *string `json:"unit,omitempty"` // 单位
+
+	SubType *string `json:"sub_type,omitempty"` // 子类型
+
+	ExpireTime *int `json:"expire_time,omitempty"` // 有效期结束时间
+
+	EffectiveTime *int `json:"effective_time,omitempty"` // 有效期开始时间
+
+	GrantSource *string `json:"grant_source,omitempty"` // 来源
+
+	Status *string `json:"status,omitempty"` // 状态
+
+	Desc *string `json:"desc,omitempty"` // 备注
+
+	PlanTargetQuota *string `json:"plan_target_quota,omitempty"` // 逐日发放数量
+
+	PlanEndTime *int `json:"plan_end_time,omitempty"` // 逐日发放结束时间
+
+	GrantDaily *bool `json:"grant_daily,omitempty"` // 是否逐日发放
+}
+
+type NormalLeaveBalanceBuilder struct {
+	balanceId     string // 假期授予记录ID
+	balanceIdFlag bool
+
+	userId     string // 用户ID
+	userIdFlag bool
+
+	leaveTypeId     string // 假期ID
+	leaveTypeIdFlag bool
+
+	quota     string // 剩余余额
+	quotaFlag bool
+
+	grantQuota     string // 授予额度
+	grantQuotaFlag bool
+
+	usedQuota     string // 使用额度
+	usedQuotaFlag bool
+
+	unit     string // 单位
+	unitFlag bool
+
+	subType     string // 子类型
+	subTypeFlag bool
+
+	expireTime     int // 有效期结束时间
+	expireTimeFlag bool
+
+	effectiveTime     int // 有效期开始时间
+	effectiveTimeFlag bool
+
+	grantSource     string // 来源
+	grantSourceFlag bool
+
+	status     string // 状态
+	statusFlag bool
+
+	desc     string // 备注
+	descFlag bool
+
+	planTargetQuota     string // 逐日发放数量
+	planTargetQuotaFlag bool
+
+	planEndTime     int // 逐日发放结束时间
+	planEndTimeFlag bool
+
+	grantDaily     bool // 是否逐日发放
+	grantDailyFlag bool
+}
+
+func NewNormalLeaveBalanceBuilder() *NormalLeaveBalanceBuilder {
+	builder := &NormalLeaveBalanceBuilder{}
+	return builder
+}
+
+// 假期授予记录ID
+//
+// 示例值：7476427589584551938
+func (builder *NormalLeaveBalanceBuilder) BalanceId(balanceId string) *NormalLeaveBalanceBuilder {
+	builder.balanceId = balanceId
+	builder.balanceIdFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *NormalLeaveBalanceBuilder) UserId(userId string) *NormalLeaveBalanceBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 假期ID
+//
+// 示例值：7476427589584551938
+func (builder *NormalLeaveBalanceBuilder) LeaveTypeId(leaveTypeId string) *NormalLeaveBalanceBuilder {
+	builder.leaveTypeId = leaveTypeId
+	builder.leaveTypeIdFlag = true
+	return builder
+}
+
+// 剩余余额
+//
+// 示例值：1.54
+func (builder *NormalLeaveBalanceBuilder) Quota(quota string) *NormalLeaveBalanceBuilder {
+	builder.quota = quota
+	builder.quotaFlag = true
+	return builder
+}
+
+// 授予额度
+//
+// 示例值：1.66
+func (builder *NormalLeaveBalanceBuilder) GrantQuota(grantQuota string) *NormalLeaveBalanceBuilder {
+	builder.grantQuota = grantQuota
+	builder.grantQuotaFlag = true
+	return builder
+}
+
+// 使用额度
+//
+// 示例值：0.12
+func (builder *NormalLeaveBalanceBuilder) UsedQuota(usedQuota string) *NormalLeaveBalanceBuilder {
+	builder.usedQuota = usedQuota
+	builder.usedQuotaFlag = true
+	return builder
+}
+
+// 单位
+//
+// 示例值：day
+func (builder *NormalLeaveBalanceBuilder) Unit(unit string) *NormalLeaveBalanceBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+
+// 子类型
+//
+// 示例值：normal
+func (builder *NormalLeaveBalanceBuilder) SubType(subType string) *NormalLeaveBalanceBuilder {
+	builder.subType = subType
+	builder.subTypeFlag = true
+	return builder
+}
+
+// 有效期结束时间
+//
+// 示例值：1757330769
+func (builder *NormalLeaveBalanceBuilder) ExpireTime(expireTime int) *NormalLeaveBalanceBuilder {
+	builder.expireTime = expireTime
+	builder.expireTimeFlag = true
+	return builder
+}
+
+// 有效期开始时间
+//
+// 示例值：1757330769
+func (builder *NormalLeaveBalanceBuilder) EffectiveTime(effectiveTime int) *NormalLeaveBalanceBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 来源
+//
+// 示例值：system
+func (builder *NormalLeaveBalanceBuilder) GrantSource(grantSource string) *NormalLeaveBalanceBuilder {
+	builder.grantSource = grantSource
+	builder.grantSourceFlag = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：active
+func (builder *NormalLeaveBalanceBuilder) Status(status string) *NormalLeaveBalanceBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：补发假期
+func (builder *NormalLeaveBalanceBuilder) Desc(desc string) *NormalLeaveBalanceBuilder {
+	builder.desc = desc
+	builder.descFlag = true
+	return builder
+}
+
+// 逐日发放数量
+//
+// 示例值：1.66
+func (builder *NormalLeaveBalanceBuilder) PlanTargetQuota(planTargetQuota string) *NormalLeaveBalanceBuilder {
+	builder.planTargetQuota = planTargetQuota
+	builder.planTargetQuotaFlag = true
+	return builder
+}
+
+// 逐日发放结束时间
+//
+// 示例值：1757330769
+func (builder *NormalLeaveBalanceBuilder) PlanEndTime(planEndTime int) *NormalLeaveBalanceBuilder {
+	builder.planEndTime = planEndTime
+	builder.planEndTimeFlag = true
+	return builder
+}
+
+// 是否逐日发放
+//
+// 示例值：true
+func (builder *NormalLeaveBalanceBuilder) GrantDaily(grantDaily bool) *NormalLeaveBalanceBuilder {
+	builder.grantDaily = grantDaily
+	builder.grantDailyFlag = true
+	return builder
+}
+
+func (builder *NormalLeaveBalanceBuilder) Build() *NormalLeaveBalance {
+	req := &NormalLeaveBalance{}
+	if builder.balanceIdFlag {
+		req.BalanceId = &builder.balanceId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.leaveTypeIdFlag {
+		req.LeaveTypeId = &builder.leaveTypeId
+
+	}
+	if builder.quotaFlag {
+		req.Quota = &builder.quota
+
+	}
+	if builder.grantQuotaFlag {
+		req.GrantQuota = &builder.grantQuota
+
+	}
+	if builder.usedQuotaFlag {
+		req.UsedQuota = &builder.usedQuota
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.subTypeFlag {
+		req.SubType = &builder.subType
+
+	}
+	if builder.expireTimeFlag {
+		req.ExpireTime = &builder.expireTime
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.grantSourceFlag {
+		req.GrantSource = &builder.grantSource
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.descFlag {
+		req.Desc = &builder.desc
+
+	}
+	if builder.planTargetQuotaFlag {
+		req.PlanTargetQuota = &builder.planTargetQuota
+
+	}
+	if builder.planEndTimeFlag {
+		req.PlanEndTime = &builder.planEndTime
+
+	}
+	if builder.grantDailyFlag {
+		req.GrantDaily = &builder.grantDaily
+
+	}
+	return req
+}
+
+type NormalLeaveType struct {
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID
+
+	Names []*I18nResource `json:"names,omitempty"` // 假期类型多语言名称
+
+	IsBalanceUsed *bool `json:"is_balance_used,omitempty"` // 是否限额
+
+	IsActive *bool `json:"is_active,omitempty"` // 是否启用
+}
+
+type NormalLeaveTypeBuilder struct {
+	leaveTypeId     string // 假期类型ID
+	leaveTypeIdFlag bool
+
+	names     []*I18nResource // 假期类型多语言名称
+	namesFlag bool
+
+	isBalanceUsed     bool // 是否限额
+	isBalanceUsedFlag bool
+
+	isActive     bool // 是否启用
+	isActiveFlag bool
+}
+
+func NewNormalLeaveTypeBuilder() *NormalLeaveTypeBuilder {
+	builder := &NormalLeaveTypeBuilder{}
+	return builder
+}
+
+// 假期类型ID
+//
+// 示例值：7476427589584551938
+func (builder *NormalLeaveTypeBuilder) LeaveTypeId(leaveTypeId string) *NormalLeaveTypeBuilder {
+	builder.leaveTypeId = leaveTypeId
+	builder.leaveTypeIdFlag = true
+	return builder
+}
+
+// 假期类型多语言名称
+//
+// 示例值：
+func (builder *NormalLeaveTypeBuilder) Names(names []*I18nResource) *NormalLeaveTypeBuilder {
+	builder.names = names
+	builder.namesFlag = true
+	return builder
+}
+
+// 是否限额
+//
+// 示例值：
+func (builder *NormalLeaveTypeBuilder) IsBalanceUsed(isBalanceUsed bool) *NormalLeaveTypeBuilder {
+	builder.isBalanceUsed = isBalanceUsed
+	builder.isBalanceUsedFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：
+func (builder *NormalLeaveTypeBuilder) IsActive(isActive bool) *NormalLeaveTypeBuilder {
+	builder.isActive = isActive
+	builder.isActiveFlag = true
+	return builder
+}
+
+func (builder *NormalLeaveTypeBuilder) Build() *NormalLeaveType {
+	req := &NormalLeaveType{}
+	if builder.leaveTypeIdFlag {
+		req.LeaveTypeId = &builder.leaveTypeId
+
+	}
+	if builder.namesFlag {
+		req.Names = builder.names
+	}
+	if builder.isBalanceUsedFlag {
+		req.IsBalanceUsed = &builder.isBalanceUsed
+
+	}
+	if builder.isActiveFlag {
+		req.IsActive = &builder.isActive
+
+	}
+	return req
+}
+
+type NormalLeaveUserAccount struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期ID
+
+	Quota *string `json:"quota,omitempty"` // 数量(保留两位小数)
+
+	Unit *string `json:"unit,omitempty"` // 单位
+
+	SubTypeAccounts []*UserSubTypeAccount `json:"sub_type_accounts,omitempty"` // 子类型账户
+
+	Balances []*NormalLeaveBalance `json:"balances,omitempty"` // 假期余额详情
+}
+
+type NormalLeaveUserAccountBuilder struct {
+	userId     string // 用户ID
+	userIdFlag bool
+
+	leaveTypeId     string // 假期ID
+	leaveTypeIdFlag bool
+
+	quota     string // 数量(保留两位小数)
+	quotaFlag bool
+
+	unit     string // 单位
+	unitFlag bool
+
+	subTypeAccounts     []*UserSubTypeAccount // 子类型账户
+	subTypeAccountsFlag bool
+
+	balances     []*NormalLeaveBalance // 假期余额详情
+	balancesFlag bool
+}
+
+func NewNormalLeaveUserAccountBuilder() *NormalLeaveUserAccountBuilder {
+	builder := &NormalLeaveUserAccountBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *NormalLeaveUserAccountBuilder) UserId(userId string) *NormalLeaveUserAccountBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 假期ID
+//
+// 示例值：7476427589584551938
+func (builder *NormalLeaveUserAccountBuilder) LeaveTypeId(leaveTypeId string) *NormalLeaveUserAccountBuilder {
+	builder.leaveTypeId = leaveTypeId
+	builder.leaveTypeIdFlag = true
+	return builder
+}
+
+// 数量(保留两位小数)
+//
+// 示例值：1.53
+func (builder *NormalLeaveUserAccountBuilder) Quota(quota string) *NormalLeaveUserAccountBuilder {
+	builder.quota = quota
+	builder.quotaFlag = true
+	return builder
+}
+
+// 单位
+//
+// 示例值：day
+func (builder *NormalLeaveUserAccountBuilder) Unit(unit string) *NormalLeaveUserAccountBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+
+// 子类型账户
+//
+// 示例值：
+func (builder *NormalLeaveUserAccountBuilder) SubTypeAccounts(subTypeAccounts []*UserSubTypeAccount) *NormalLeaveUserAccountBuilder {
+	builder.subTypeAccounts = subTypeAccounts
+	builder.subTypeAccountsFlag = true
+	return builder
+}
+
+// 假期余额详情
+//
+// 示例值：
+func (builder *NormalLeaveUserAccountBuilder) Balances(balances []*NormalLeaveBalance) *NormalLeaveUserAccountBuilder {
+	builder.balances = balances
+	builder.balancesFlag = true
+	return builder
+}
+
+func (builder *NormalLeaveUserAccountBuilder) Build() *NormalLeaveUserAccount {
+	req := &NormalLeaveUserAccount{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.leaveTypeIdFlag {
+		req.LeaveTypeId = &builder.leaveTypeId
+
+	}
+	if builder.quotaFlag {
+		req.Quota = &builder.quota
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.subTypeAccountsFlag {
+		req.SubTypeAccounts = builder.subTypeAccounts
+	}
+	if builder.balancesFlag {
+		req.Balances = builder.balances
+	}
+	return req
+}
+
+type NormalLeaveUserFirstWorkTime struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID列表(用户id类型 open_id/union_id/user_id)
+
+	FirstWorkTime *int `json:"first_work_time,omitempty"` // 首次工作时间时间戳(休假展示和使用精确到天，国内取东八，海外0时区)
+}
+
+type NormalLeaveUserFirstWorkTimeBuilder struct {
+	userId     string // 用户ID列表(用户id类型 open_id/union_id/user_id)
+	userIdFlag bool
+
+	firstWorkTime     int // 首次工作时间时间戳(休假展示和使用精确到天，国内取东八，海外0时区)
+	firstWorkTimeFlag bool
+}
+
+func NewNormalLeaveUserFirstWorkTimeBuilder() *NormalLeaveUserFirstWorkTimeBuilder {
+	builder := &NormalLeaveUserFirstWorkTimeBuilder{}
+	return builder
+}
+
+// 用户ID列表(用户id类型 open_id/union_id/user_id)
+//
+// 示例值：
+func (builder *NormalLeaveUserFirstWorkTimeBuilder) UserId(userId string) *NormalLeaveUserFirstWorkTimeBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 首次工作时间时间戳(休假展示和使用精确到天，国内取东八，海外0时区)
+//
+// 示例值：1757330769
+func (builder *NormalLeaveUserFirstWorkTimeBuilder) FirstWorkTime(firstWorkTime int) *NormalLeaveUserFirstWorkTimeBuilder {
+	builder.firstWorkTime = firstWorkTime
+	builder.firstWorkTimeFlag = true
+	return builder
+}
+
+func (builder *NormalLeaveUserFirstWorkTimeBuilder) Build() *NormalLeaveUserFirstWorkTime {
+	req := &NormalLeaveUserFirstWorkTime{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.firstWorkTimeFlag {
+		req.FirstWorkTime = &builder.firstWorkTime
+
+	}
+	return req
+}
+
 type OpenApplyTimeRange struct {
 	OvertimeAttributionDate *string `json:"overtime_attribution_date,omitempty"` // 加班所属日期
 
@@ -5691,6 +6315,8 @@ type OvertimeDetail struct {
 	IsTimeBank *bool `json:"is_time_bank,omitempty"` // 是否是综合工时产生的加班明细
 
 	InstanceId *string `json:"instance_id,omitempty"` // 加班明细对应的审批单ID，如果为空代表改加班明细不是审批转入的
+
+	OvertimeApprovalStatus *int `json:"overtime_approval_status,omitempty"` // 加班明细对应的审批状态
 }
 
 type OvertimeDetailBuilder struct {
@@ -5735,6 +6361,9 @@ type OvertimeDetailBuilder struct {
 
 	instanceId     string // 加班明细对应的审批单ID，如果为空代表改加班明细不是审批转入的
 	instanceIdFlag bool
+
+	overtimeApprovalStatus     int // 加班明细对应的审批状态
+	overtimeApprovalStatusFlag bool
 }
 
 func NewOvertimeDetailBuilder() *OvertimeDetailBuilder {
@@ -5868,6 +6497,15 @@ func (builder *OvertimeDetailBuilder) InstanceId(instanceId string) *OvertimeDet
 	return builder
 }
 
+// 加班明细对应的审批状态
+//
+// 示例值：0
+func (builder *OvertimeDetailBuilder) OvertimeApprovalStatus(overtimeApprovalStatus int) *OvertimeDetailBuilder {
+	builder.overtimeApprovalStatus = overtimeApprovalStatus
+	builder.overtimeApprovalStatusFlag = true
+	return builder
+}
+
 func (builder *OvertimeDetailBuilder) Build() *OvertimeDetail {
 	req := &OvertimeDetail{}
 	if builder.idFlag {
@@ -5924,6 +6562,10 @@ func (builder *OvertimeDetailBuilder) Build() *OvertimeDetail {
 	}
 	if builder.instanceIdFlag {
 		req.InstanceId = &builder.instanceId
+
+	}
+	if builder.overtimeApprovalStatusFlag {
+		req.OvertimeApprovalStatus = &builder.overtimeApprovalStatus
 
 	}
 	return req
@@ -8132,6 +8774,105 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	return req
 }
 
+type TimeRange struct {
+	StartTimeStamp *int `json:"start_time_stamp,omitempty"` // 开始时间
+
+	EndTimeStamp *int `json:"end_time_stamp,omitempty"` // 结束时间
+}
+
+type TimeRangeBuilder struct {
+	startTimeStamp     int // 开始时间
+	startTimeStampFlag bool
+
+	endTimeStamp     int // 结束时间
+	endTimeStampFlag bool
+}
+
+func NewTimeRangeBuilder() *TimeRangeBuilder {
+	builder := &TimeRangeBuilder{}
+	return builder
+}
+
+// 开始时间
+//
+// 示例值：1751385600
+func (builder *TimeRangeBuilder) StartTimeStamp(startTimeStamp int) *TimeRangeBuilder {
+	builder.startTimeStamp = startTimeStamp
+	builder.startTimeStampFlag = true
+	return builder
+}
+
+// 结束时间
+//
+// 示例值：1751385600
+func (builder *TimeRangeBuilder) EndTimeStamp(endTimeStamp int) *TimeRangeBuilder {
+	builder.endTimeStamp = endTimeStamp
+	builder.endTimeStampFlag = true
+	return builder
+}
+
+func (builder *TimeRangeBuilder) Build() *TimeRange {
+	req := &TimeRange{}
+	if builder.startTimeStampFlag {
+		req.StartTimeStamp = &builder.startTimeStamp
+
+	}
+	if builder.endTimeStampFlag {
+		req.EndTimeStamp = &builder.endTimeStamp
+
+	}
+	return req
+}
+
+type TimeRangeList struct {
+	Day *int `json:"day,omitempty"` // 日期day
+
+	TimeRanges []*TimeRange `json:"time_ranges,omitempty"` // 时间范围，是一个list
+}
+
+type TimeRangeListBuilder struct {
+	day     int // 日期day
+	dayFlag bool
+
+	timeRanges     []*TimeRange // 时间范围，是一个list
+	timeRangesFlag bool
+}
+
+func NewTimeRangeListBuilder() *TimeRangeListBuilder {
+	builder := &TimeRangeListBuilder{}
+	return builder
+}
+
+// 日期day
+//
+// 示例值：20220501
+func (builder *TimeRangeListBuilder) Day(day int) *TimeRangeListBuilder {
+	builder.day = day
+	builder.dayFlag = true
+	return builder
+}
+
+// 时间范围，是一个list
+//
+// 示例值：
+func (builder *TimeRangeListBuilder) TimeRanges(timeRanges []*TimeRange) *TimeRangeListBuilder {
+	builder.timeRanges = timeRanges
+	builder.timeRangesFlag = true
+	return builder
+}
+
+func (builder *TimeRangeListBuilder) Build() *TimeRangeList {
+	req := &TimeRangeList{}
+	if builder.dayFlag {
+		req.Day = &builder.day
+
+	}
+	if builder.timeRangesFlag {
+		req.TimeRanges = builder.timeRanges
+	}
+	return req
+}
+
 type UserAllowedRemedy struct {
 	UserId *string `json:"user_id,omitempty"` // 用户 ID
 
@@ -9093,6 +9834,8 @@ type UserLeave struct {
 	ApproveApplyTime *string `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
 
 	IdempotentId *string `json:"idempotent_id,omitempty"` // 唯一幂等键
+
+	LeaveDetailRangeObjs []*TimeRangeList `json:"leave_detail_range_objs,omitempty"` // 根据班次计算出来的请假具体时间，格式为list
 }
 
 type UserLeaveBuilder struct {
@@ -9131,6 +9874,9 @@ type UserLeaveBuilder struct {
 
 	idempotentId     string // 唯一幂等键
 	idempotentIdFlag bool
+
+	leaveDetailRangeObjs     []*TimeRangeList // 根据班次计算出来的请假具体时间，格式为list
+	leaveDetailRangeObjsFlag bool
 }
 
 func NewUserLeaveBuilder() *UserLeaveBuilder {
@@ -9246,6 +9992,15 @@ func (builder *UserLeaveBuilder) IdempotentId(idempotentId string) *UserLeaveBui
 	return builder
 }
 
+// 根据班次计算出来的请假具体时间，格式为list
+//
+// 示例值：
+func (builder *UserLeaveBuilder) LeaveDetailRangeObjs(leaveDetailRangeObjs []*TimeRangeList) *UserLeaveBuilder {
+	builder.leaveDetailRangeObjs = leaveDetailRangeObjs
+	builder.leaveDetailRangeObjsFlag = true
+	return builder
+}
+
 func (builder *UserLeaveBuilder) Build() *UserLeave {
 	req := &UserLeave{}
 	if builder.approvalIdFlag {
@@ -9294,6 +10049,58 @@ func (builder *UserLeaveBuilder) Build() *UserLeave {
 	if builder.idempotentIdFlag {
 		req.IdempotentId = &builder.idempotentId
 
+	}
+	if builder.leaveDetailRangeObjsFlag {
+		req.LeaveDetailRangeObjs = builder.leaveDetailRangeObjs
+	}
+	return req
+}
+
+type UserNormalLeaveType struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID列表(用户id类型 open_id/union_id/user_id)
+
+	LeaveTypeIds []string `json:"leave_type_ids,omitempty"` // 适用假期范围的假期ID
+}
+
+type UserNormalLeaveTypeBuilder struct {
+	userId     string // 用户ID列表(用户id类型 open_id/union_id/user_id)
+	userIdFlag bool
+
+	leaveTypeIds     []string // 适用假期范围的假期ID
+	leaveTypeIdsFlag bool
+}
+
+func NewUserNormalLeaveTypeBuilder() *UserNormalLeaveTypeBuilder {
+	builder := &UserNormalLeaveTypeBuilder{}
+	return builder
+}
+
+// 用户ID列表(用户id类型 open_id/union_id/user_id)
+//
+// 示例值：
+func (builder *UserNormalLeaveTypeBuilder) UserId(userId string) *UserNormalLeaveTypeBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 适用假期范围的假期ID
+//
+// 示例值：
+func (builder *UserNormalLeaveTypeBuilder) LeaveTypeIds(leaveTypeIds []string) *UserNormalLeaveTypeBuilder {
+	builder.leaveTypeIds = leaveTypeIds
+	builder.leaveTypeIdsFlag = true
+	return builder
+}
+
+func (builder *UserNormalLeaveTypeBuilder) Build() *UserNormalLeaveType {
+	req := &UserNormalLeaveType{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.leaveTypeIdsFlag {
+		req.LeaveTypeIds = builder.leaveTypeIds
 	}
 	return req
 }
@@ -10434,6 +11241,56 @@ func (builder *UserStatsViewBuilder) Build() *UserStatsView {
 	return req
 }
 
+type UserSubTypeAccount struct {
+	SubType *string `json:"sub_type,omitempty"` // 假期子类型
+
+	Quota *string `json:"quota,omitempty"` // 假期子类型数量
+}
+
+type UserSubTypeAccountBuilder struct {
+	subType     string // 假期子类型
+	subTypeFlag bool
+
+	quota     string // 假期子类型数量
+	quotaFlag bool
+}
+
+func NewUserSubTypeAccountBuilder() *UserSubTypeAccountBuilder {
+	builder := &UserSubTypeAccountBuilder{}
+	return builder
+}
+
+// 假期子类型
+//
+// 示例值：normal
+func (builder *UserSubTypeAccountBuilder) SubType(subType string) *UserSubTypeAccountBuilder {
+	builder.subType = subType
+	builder.subTypeFlag = true
+	return builder
+}
+
+// 假期子类型数量
+//
+// 示例值：1.51
+func (builder *UserSubTypeAccountBuilder) Quota(quota string) *UserSubTypeAccountBuilder {
+	builder.quota = quota
+	builder.quotaFlag = true
+	return builder
+}
+
+func (builder *UserSubTypeAccountBuilder) Build() *UserSubTypeAccount {
+	req := &UserSubTypeAccount{}
+	if builder.subTypeFlag {
+		req.SubType = &builder.subType
+
+	}
+	if builder.quotaFlag {
+		req.Quota = &builder.quota
+
+	}
+	return req
+}
+
 type UserTask struct {
 	ResultId *string `json:"result_id,omitempty"` // 打卡记录 ID
 
@@ -11310,6 +12167,8 @@ type WorkTime struct {
 	SettlementType *string `json:"settlement_type,omitempty"` // 结算方式,overtime_pay:加班费;compensatory_leave:调休 假;records_only仅记录
 
 	CheckFailReason *string `json:"check_fail_reason,omitempty"` // 请求校验错误原因
+
+	OvertimeDate *string `json:"overtime_date,omitempty"` // 指定加班日期
 }
 
 type WorkTimeBuilder struct {
@@ -11324,6 +12183,9 @@ type WorkTimeBuilder struct {
 
 	checkFailReason     string // 请求校验错误原因
 	checkFailReasonFlag bool
+
+	overtimeDate     string // 指定加班日期
+	overtimeDateFlag bool
 }
 
 func NewWorkTimeBuilder() *WorkTimeBuilder {
@@ -11367,6 +12229,15 @@ func (builder *WorkTimeBuilder) CheckFailReason(checkFailReason string) *WorkTim
 	return builder
 }
 
+// 指定加班日期
+//
+// 示例值：2006-01-02
+func (builder *WorkTimeBuilder) OvertimeDate(overtimeDate string) *WorkTimeBuilder {
+	builder.overtimeDate = overtimeDate
+	builder.overtimeDateFlag = true
+	return builder
+}
+
 func (builder *WorkTimeBuilder) Build() *WorkTime {
 	req := &WorkTime{}
 	if builder.workStartTimeFlag {
@@ -11383,6 +12254,10 @@ func (builder *WorkTimeBuilder) Build() *WorkTime {
 	}
 	if builder.checkFailReasonFlag {
 		req.CheckFailReason = &builder.checkFailReason
+
+	}
+	if builder.overtimeDateFlag {
+		req.OvertimeDate = &builder.overtimeDate
 
 	}
 	return req

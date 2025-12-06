@@ -36,6 +36,7 @@ func main() {
 			Content(larkokr.NewContentBlockBuilder().Build()).
 			SourceUrlPc("open.feishu.cn").
 			SourceUrlMobile("open.feishu.cn").
+			ProgressRate(larkokr.NewProgressRateNewBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

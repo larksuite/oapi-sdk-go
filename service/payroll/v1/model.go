@@ -31,6 +31,13 @@ const (
 
 )
 
+const (
+	ReportTypeListCostAllocationReportDefault = 0 // 默认
+	ReportTypeListCostAllocationReportAccrued = 1 // 计提
+	ReportTypeListCostAllocationReportPaid    = 2 // 实发
+
+)
+
 type AccountingItemValue struct {
 	OriginalValue *string `json:"original_value,omitempty"` // 算薪项数据原始值，当发薪明细的数据来源为「人工导入」时，如果当前算薪项类型为引用类型，那么算薪项原始值可能为空。
 
@@ -4069,6 +4076,160 @@ func (builder *I18nContentBuilder) Build() *I18nContent {
 	return req
 }
 
+type IdWithName struct {
+	Id *string `json:"id,omitempty"` // id
+
+	ZhName *string `json:"zh_name,omitempty"` // 中文名
+
+	EnName *string `json:"en_name,omitempty"` // 英文名
+}
+
+type IdWithNameBuilder struct {
+	id     string // id
+	idFlag bool
+
+	zhName     string // 中文名
+	zhNameFlag bool
+
+	enName     string // 英文名
+	enNameFlag bool
+}
+
+func NewIdWithNameBuilder() *IdWithNameBuilder {
+	builder := &IdWithNameBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：1
+func (builder *IdWithNameBuilder) Id(id string) *IdWithNameBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 中文名
+//
+// 示例值：1
+func (builder *IdWithNameBuilder) ZhName(zhName string) *IdWithNameBuilder {
+	builder.zhName = zhName
+	builder.zhNameFlag = true
+	return builder
+}
+
+// 英文名
+//
+// 示例值：1
+func (builder *IdWithNameBuilder) EnName(enName string) *IdWithNameBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+
+func (builder *IdWithNameBuilder) Build() *IdWithName {
+	req := &IdWithName{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.zhNameFlag {
+		req.ZhName = &builder.zhName
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	return req
+}
+
+type IntRange struct {
+	GreateThan *int `json:"greate_than,omitempty"` // 大于
+
+	GreateEqualThan *int `json:"greate_equal_than,omitempty"` // 大于等于
+
+	LessThan *int `json:"less_than,omitempty"` // 小于
+
+	LessEqualThan *int `json:"less_equal_than,omitempty"` // 小于等于
+}
+
+type IntRangeBuilder struct {
+	greateThan     int // 大于
+	greateThanFlag bool
+
+	greateEqualThan     int // 大于等于
+	greateEqualThanFlag bool
+
+	lessThan     int // 小于
+	lessThanFlag bool
+
+	lessEqualThan     int // 小于等于
+	lessEqualThanFlag bool
+}
+
+func NewIntRangeBuilder() *IntRangeBuilder {
+	builder := &IntRangeBuilder{}
+	return builder
+}
+
+// 大于
+//
+// 示例值：1
+func (builder *IntRangeBuilder) GreateThan(greateThan int) *IntRangeBuilder {
+	builder.greateThan = greateThan
+	builder.greateThanFlag = true
+	return builder
+}
+
+// 大于等于
+//
+// 示例值：1
+func (builder *IntRangeBuilder) GreateEqualThan(greateEqualThan int) *IntRangeBuilder {
+	builder.greateEqualThan = greateEqualThan
+	builder.greateEqualThanFlag = true
+	return builder
+}
+
+// 小于
+//
+// 示例值：1
+func (builder *IntRangeBuilder) LessThan(lessThan int) *IntRangeBuilder {
+	builder.lessThan = lessThan
+	builder.lessThanFlag = true
+	return builder
+}
+
+// 小于等于
+//
+// 示例值：1
+func (builder *IntRangeBuilder) LessEqualThan(lessEqualThan int) *IntRangeBuilder {
+	builder.lessEqualThan = lessEqualThan
+	builder.lessEqualThanFlag = true
+	return builder
+}
+
+func (builder *IntRangeBuilder) Build() *IntRange {
+	req := &IntRange{}
+	if builder.greateThanFlag {
+		req.GreateThan = &builder.greateThan
+
+	}
+	if builder.greateEqualThanFlag {
+		req.GreateEqualThan = &builder.greateEqualThan
+
+	}
+	if builder.lessThanFlag {
+		req.LessThan = &builder.lessThan
+
+	}
+	if builder.lessEqualThanFlag {
+		req.LessEqualThan = &builder.lessEqualThan
+
+	}
+	return req
+}
+
 type PayGroup struct {
 	PayGroupId *string `json:"pay_group_id,omitempty"` // 薪资组ID
 
@@ -4713,6 +4874,2226 @@ func (builder *SegmentValueBuilder) Build() *SegmentValue {
 	return req
 }
 
+type VerifActItemValue struct {
+	ItemId *string `json:"item_id,omitempty"` // item_id
+
+	Value *string `json:"value,omitempty"` // 值
+
+	IsRef *bool `json:"is_ref,omitempty"` // 是否引用项
+
+	Name *IdWithName `json:"name,omitempty"` // 引用项名称
+}
+
+type VerifActItemValueBuilder struct {
+	itemId     string // item_id
+	itemIdFlag bool
+
+	value     string // 值
+	valueFlag bool
+
+	isRef     bool // 是否引用项
+	isRefFlag bool
+
+	name     *IdWithName // 引用项名称
+	nameFlag bool
+}
+
+func NewVerifActItemValueBuilder() *VerifActItemValueBuilder {
+	builder := &VerifActItemValueBuilder{}
+	return builder
+}
+
+// item_id
+//
+// 示例值：1
+func (builder *VerifActItemValueBuilder) ItemId(itemId string) *VerifActItemValueBuilder {
+	builder.itemId = itemId
+	builder.itemIdFlag = true
+	return builder
+}
+
+// 值
+//
+// 示例值：1
+func (builder *VerifActItemValueBuilder) Value(value string) *VerifActItemValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 是否引用项
+//
+// 示例值：
+func (builder *VerifActItemValueBuilder) IsRef(isRef bool) *VerifActItemValueBuilder {
+	builder.isRef = isRef
+	builder.isRefFlag = true
+	return builder
+}
+
+// 引用项名称
+//
+// 示例值：
+func (builder *VerifActItemValueBuilder) Name(name *IdWithName) *VerifActItemValueBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *VerifActItemValueBuilder) Build() *VerifActItemValue {
+	req := &VerifActItemValue{}
+	if builder.itemIdFlag {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.isRefFlag {
+		req.IsRef = &builder.isRef
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	return req
+}
+
+type VerifActProration struct {
+	StartDate *string `json:"start_date,omitempty"` // 开始日期 "2025-05-01"
+
+	EndDate *string `json:"end_date,omitempty"` // 结束日期 "2025-05-01"
+
+	CutoffDate *string `json:"cutoff_date,omitempty"` // 数据锁定日期 "2025-05-01"
+
+	ItemValues []*VerifActItemValue `json:"item_values,omitempty"` // 分段值，数值、金额等类型数据项会保留六位小数
+}
+
+type VerifActProrationBuilder struct {
+	startDate     string // 开始日期 "2025-05-01"
+	startDateFlag bool
+
+	endDate     string // 结束日期 "2025-05-01"
+	endDateFlag bool
+
+	cutoffDate     string // 数据锁定日期 "2025-05-01"
+	cutoffDateFlag bool
+
+	itemValues     []*VerifActItemValue // 分段值，数值、金额等类型数据项会保留六位小数
+	itemValuesFlag bool
+}
+
+func NewVerifActProrationBuilder() *VerifActProrationBuilder {
+	builder := &VerifActProrationBuilder{}
+	return builder
+}
+
+// 开始日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerifActProrationBuilder) StartDate(startDate string) *VerifActProrationBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 结束日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerifActProrationBuilder) EndDate(endDate string) *VerifActProrationBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 数据锁定日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerifActProrationBuilder) CutoffDate(cutoffDate string) *VerifActProrationBuilder {
+	builder.cutoffDate = cutoffDate
+	builder.cutoffDateFlag = true
+	return builder
+}
+
+// 分段值，数值、金额等类型数据项会保留六位小数
+//
+// 示例值：
+func (builder *VerifActProrationBuilder) ItemValues(itemValues []*VerifActItemValue) *VerifActProrationBuilder {
+	builder.itemValues = itemValues
+	builder.itemValuesFlag = true
+	return builder
+}
+
+func (builder *VerifActProrationBuilder) Build() *VerifActProration {
+	req := &VerifActProration{}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.cutoffDateFlag {
+		req.CutoffDate = &builder.cutoffDate
+
+	}
+	if builder.itemValuesFlag {
+		req.ItemValues = builder.itemValues
+	}
+	return req
+}
+
+type VerifDataSourceRule struct {
+	ApiName *string `json:"api_name,omitempty"` // 数据源key
+
+	DatasourceName *IdWithName `json:"datasource_name,omitempty"` // 数据源名称
+
+	ObjectType *int `json:"object_type,omitempty"` // 集成对象
+
+	DatasourceItems []*VerifDatasourceItem `json:"datasource_items,omitempty"` // 数据源明细字段
+}
+
+type VerifDataSourceRuleBuilder struct {
+	apiName     string // 数据源key
+	apiNameFlag bool
+
+	datasourceName     *IdWithName // 数据源名称
+	datasourceNameFlag bool
+
+	objectType     int // 集成对象
+	objectTypeFlag bool
+
+	datasourceItems     []*VerifDatasourceItem // 数据源明细字段
+	datasourceItemsFlag bool
+}
+
+func NewVerifDataSourceRuleBuilder() *VerifDataSourceRuleBuilder {
+	builder := &VerifDataSourceRuleBuilder{}
+	return builder
+}
+
+// 数据源key
+//
+// 示例值：1
+func (builder *VerifDataSourceRuleBuilder) ApiName(apiName string) *VerifDataSourceRuleBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 数据源名称
+//
+// 示例值：
+func (builder *VerifDataSourceRuleBuilder) DatasourceName(datasourceName *IdWithName) *VerifDataSourceRuleBuilder {
+	builder.datasourceName = datasourceName
+	builder.datasourceNameFlag = true
+	return builder
+}
+
+// 集成对象
+//
+// 示例值：1
+func (builder *VerifDataSourceRuleBuilder) ObjectType(objectType int) *VerifDataSourceRuleBuilder {
+	builder.objectType = objectType
+	builder.objectTypeFlag = true
+	return builder
+}
+
+// 数据源明细字段
+//
+// 示例值：
+func (builder *VerifDataSourceRuleBuilder) DatasourceItems(datasourceItems []*VerifDatasourceItem) *VerifDataSourceRuleBuilder {
+	builder.datasourceItems = datasourceItems
+	builder.datasourceItemsFlag = true
+	return builder
+}
+
+func (builder *VerifDataSourceRuleBuilder) Build() *VerifDataSourceRule {
+	req := &VerifDataSourceRule{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.datasourceNameFlag {
+		req.DatasourceName = builder.datasourceName
+	}
+	if builder.objectTypeFlag {
+		req.ObjectType = &builder.objectType
+
+	}
+	if builder.datasourceItemsFlag {
+		req.DatasourceItems = builder.datasourceItems
+	}
+	return req
+}
+
+type VerifDatasourceConfig struct {
+	FilterType *int `json:"filter_type,omitempty"` // 字段类型
+
+	FilterRule *VerifFilterRule `json:"filter_rule,omitempty"` // 筛选条件
+
+	IsCollect *bool `json:"is_collect,omitempty"` // 是否汇总
+
+	IsProration *bool `json:"is_proration,omitempty"` // 是否分段
+
+	IsRetro *bool `json:"is_retro,omitempty"` // 是否追溯
+
+	Items []*VerifItem `json:"items,omitempty"` // 数据项配置
+
+	DataSourceRule *VerifDataSourceRule `json:"data_source_rule,omitempty"` // 数据源配置
+}
+
+type VerifDatasourceConfigBuilder struct {
+	filterType     int // 字段类型
+	filterTypeFlag bool
+
+	filterRule     *VerifFilterRule // 筛选条件
+	filterRuleFlag bool
+
+	isCollect     bool // 是否汇总
+	isCollectFlag bool
+
+	isProration     bool // 是否分段
+	isProrationFlag bool
+
+	isRetro     bool // 是否追溯
+	isRetroFlag bool
+
+	items     []*VerifItem // 数据项配置
+	itemsFlag bool
+
+	dataSourceRule     *VerifDataSourceRule // 数据源配置
+	dataSourceRuleFlag bool
+}
+
+func NewVerifDatasourceConfigBuilder() *VerifDatasourceConfigBuilder {
+	builder := &VerifDatasourceConfigBuilder{}
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *VerifDatasourceConfigBuilder) FilterType(filterType int) *VerifDatasourceConfigBuilder {
+	builder.filterType = filterType
+	builder.filterTypeFlag = true
+	return builder
+}
+
+// 筛选条件
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) FilterRule(filterRule *VerifFilterRule) *VerifDatasourceConfigBuilder {
+	builder.filterRule = filterRule
+	builder.filterRuleFlag = true
+	return builder
+}
+
+// 是否汇总
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) IsCollect(isCollect bool) *VerifDatasourceConfigBuilder {
+	builder.isCollect = isCollect
+	builder.isCollectFlag = true
+	return builder
+}
+
+// 是否分段
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) IsProration(isProration bool) *VerifDatasourceConfigBuilder {
+	builder.isProration = isProration
+	builder.isProrationFlag = true
+	return builder
+}
+
+// 是否追溯
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) IsRetro(isRetro bool) *VerifDatasourceConfigBuilder {
+	builder.isRetro = isRetro
+	builder.isRetroFlag = true
+	return builder
+}
+
+// 数据项配置
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) Items(items []*VerifItem) *VerifDatasourceConfigBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+// 数据源配置
+//
+// 示例值：
+func (builder *VerifDatasourceConfigBuilder) DataSourceRule(dataSourceRule *VerifDataSourceRule) *VerifDatasourceConfigBuilder {
+	builder.dataSourceRule = dataSourceRule
+	builder.dataSourceRuleFlag = true
+	return builder
+}
+
+func (builder *VerifDatasourceConfigBuilder) Build() *VerifDatasourceConfig {
+	req := &VerifDatasourceConfig{}
+	if builder.filterTypeFlag {
+		req.FilterType = &builder.filterType
+
+	}
+	if builder.filterRuleFlag {
+		req.FilterRule = builder.filterRule
+	}
+	if builder.isCollectFlag {
+		req.IsCollect = &builder.isCollect
+
+	}
+	if builder.isProrationFlag {
+		req.IsProration = &builder.isProration
+
+	}
+	if builder.isRetroFlag {
+		req.IsRetro = &builder.isRetro
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	if builder.dataSourceRuleFlag {
+		req.DataSourceRule = builder.dataSourceRule
+	}
+	return req
+}
+
+type VerifDatasourceItem struct {
+	Name *IdWithName `json:"name,omitempty"` // 名称
+
+	FieldId *string `json:"field_id,omitempty"` // id
+
+	FieldType *int `json:"field_type,omitempty"` // 字段类型
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 对象 api_name
+
+	FieldApiName *string `json:"field_api_name,omitempty"` // 字段 api_name
+
+	DecimalPlaces *int `json:"decimal_places,omitempty"` // 小数位
+
+	ObjectType *int `json:"object_type,omitempty"` // 对象类型
+
+	SourceType *int `json:"source_type,omitempty"` // 对象来源
+}
+
+type VerifDatasourceItemBuilder struct {
+	name     *IdWithName // 名称
+	nameFlag bool
+
+	fieldId     string // id
+	fieldIdFlag bool
+
+	fieldType     int // 字段类型
+	fieldTypeFlag bool
+
+	objectApiName     string // 对象 api_name
+	objectApiNameFlag bool
+
+	fieldApiName     string // 字段 api_name
+	fieldApiNameFlag bool
+
+	decimalPlaces     int // 小数位
+	decimalPlacesFlag bool
+
+	objectType     int // 对象类型
+	objectTypeFlag bool
+
+	sourceType     int // 对象来源
+	sourceTypeFlag bool
+}
+
+func NewVerifDatasourceItemBuilder() *VerifDatasourceItemBuilder {
+	builder := &VerifDatasourceItemBuilder{}
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *VerifDatasourceItemBuilder) Name(name *IdWithName) *VerifDatasourceItemBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// id
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) FieldId(fieldId string) *VerifDatasourceItemBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) FieldType(fieldType int) *VerifDatasourceItemBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
+// 对象 api_name
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) ObjectApiName(objectApiName string) *VerifDatasourceItemBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 字段 api_name
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) FieldApiName(fieldApiName string) *VerifDatasourceItemBuilder {
+	builder.fieldApiName = fieldApiName
+	builder.fieldApiNameFlag = true
+	return builder
+}
+
+// 小数位
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) DecimalPlaces(decimalPlaces int) *VerifDatasourceItemBuilder {
+	builder.decimalPlaces = decimalPlaces
+	builder.decimalPlacesFlag = true
+	return builder
+}
+
+// 对象类型
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) ObjectType(objectType int) *VerifDatasourceItemBuilder {
+	builder.objectType = objectType
+	builder.objectTypeFlag = true
+	return builder
+}
+
+// 对象来源
+//
+// 示例值：1
+func (builder *VerifDatasourceItemBuilder) SourceType(sourceType int) *VerifDatasourceItemBuilder {
+	builder.sourceType = sourceType
+	builder.sourceTypeFlag = true
+	return builder
+}
+
+func (builder *VerifDatasourceItemBuilder) Build() *VerifDatasourceItem {
+	req := &VerifDatasourceItem{}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
+
+	}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+
+	}
+	if builder.fieldApiNameFlag {
+		req.FieldApiName = &builder.fieldApiName
+
+	}
+	if builder.decimalPlacesFlag {
+		req.DecimalPlaces = &builder.decimalPlaces
+
+	}
+	if builder.objectTypeFlag {
+		req.ObjectType = &builder.objectType
+
+	}
+	if builder.sourceTypeFlag {
+		req.SourceType = &builder.sourceType
+
+	}
+	return req
+}
+
+type VerifFieldSourceConfig struct {
+	FormulaId *string `json:"formula_id,omitempty"` //  公式id
+
+	FormulaItemId *string `json:"formula_item_id,omitempty"` // 公式数据项id
+
+	FormulaText *string `json:"formula_text,omitempty"` // 公式表达式
+
+	ApiName *string `json:"api_name,omitempty"` // api_name
+
+	SourceAggregationType *int `json:"source_aggregation_type,omitempty"` // 多条数据时计算方式
+
+	RefType *int `json:"ref_type,omitempty"` //  引用类型
+}
+
+type VerifFieldSourceConfigBuilder struct {
+	formulaId     string //  公式id
+	formulaIdFlag bool
+
+	formulaItemId     string // 公式数据项id
+	formulaItemIdFlag bool
+
+	formulaText     string // 公式表达式
+	formulaTextFlag bool
+
+	apiName     string // api_name
+	apiNameFlag bool
+
+	sourceAggregationType     int // 多条数据时计算方式
+	sourceAggregationTypeFlag bool
+
+	refType     int //  引用类型
+	refTypeFlag bool
+}
+
+func NewVerifFieldSourceConfigBuilder() *VerifFieldSourceConfigBuilder {
+	builder := &VerifFieldSourceConfigBuilder{}
+	return builder
+}
+
+//  公式id
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) FormulaId(formulaId string) *VerifFieldSourceConfigBuilder {
+	builder.formulaId = formulaId
+	builder.formulaIdFlag = true
+	return builder
+}
+
+// 公式数据项id
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) FormulaItemId(formulaItemId string) *VerifFieldSourceConfigBuilder {
+	builder.formulaItemId = formulaItemId
+	builder.formulaItemIdFlag = true
+	return builder
+}
+
+// 公式表达式
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) FormulaText(formulaText string) *VerifFieldSourceConfigBuilder {
+	builder.formulaText = formulaText
+	builder.formulaTextFlag = true
+	return builder
+}
+
+// api_name
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) ApiName(apiName string) *VerifFieldSourceConfigBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 多条数据时计算方式
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) SourceAggregationType(sourceAggregationType int) *VerifFieldSourceConfigBuilder {
+	builder.sourceAggregationType = sourceAggregationType
+	builder.sourceAggregationTypeFlag = true
+	return builder
+}
+
+//  引用类型
+//
+// 示例值：1
+func (builder *VerifFieldSourceConfigBuilder) RefType(refType int) *VerifFieldSourceConfigBuilder {
+	builder.refType = refType
+	builder.refTypeFlag = true
+	return builder
+}
+
+func (builder *VerifFieldSourceConfigBuilder) Build() *VerifFieldSourceConfig {
+	req := &VerifFieldSourceConfig{}
+	if builder.formulaIdFlag {
+		req.FormulaId = &builder.formulaId
+
+	}
+	if builder.formulaItemIdFlag {
+		req.FormulaItemId = &builder.formulaItemId
+
+	}
+	if builder.formulaTextFlag {
+		req.FormulaText = &builder.formulaText
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.sourceAggregationTypeFlag {
+		req.SourceAggregationType = &builder.sourceAggregationType
+
+	}
+	if builder.refTypeFlag {
+		req.RefType = &builder.refType
+
+	}
+	return req
+}
+
+type VerifFilterCondition struct {
+	LeftValue *VerifFilterValue `json:"left_value,omitempty"` // 左值
+
+	OperatorType *int `json:"operator_type,omitempty"` // 操作符
+
+	RightValues []*VerifFilterValue `json:"right_values,omitempty"` // 右值
+}
+
+type VerifFilterConditionBuilder struct {
+	leftValue     *VerifFilterValue // 左值
+	leftValueFlag bool
+
+	operatorType     int // 操作符
+	operatorTypeFlag bool
+
+	rightValues     []*VerifFilterValue // 右值
+	rightValuesFlag bool
+}
+
+func NewVerifFilterConditionBuilder() *VerifFilterConditionBuilder {
+	builder := &VerifFilterConditionBuilder{}
+	return builder
+}
+
+// 左值
+//
+// 示例值：
+func (builder *VerifFilterConditionBuilder) LeftValue(leftValue *VerifFilterValue) *VerifFilterConditionBuilder {
+	builder.leftValue = leftValue
+	builder.leftValueFlag = true
+	return builder
+}
+
+// 操作符
+//
+// 示例值：1
+func (builder *VerifFilterConditionBuilder) OperatorType(operatorType int) *VerifFilterConditionBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeFlag = true
+	return builder
+}
+
+// 右值
+//
+// 示例值：
+func (builder *VerifFilterConditionBuilder) RightValues(rightValues []*VerifFilterValue) *VerifFilterConditionBuilder {
+	builder.rightValues = rightValues
+	builder.rightValuesFlag = true
+	return builder
+}
+
+func (builder *VerifFilterConditionBuilder) Build() *VerifFilterCondition {
+	req := &VerifFilterCondition{}
+	if builder.leftValueFlag {
+		req.LeftValue = builder.leftValue
+	}
+	if builder.operatorTypeFlag {
+		req.OperatorType = &builder.operatorType
+
+	}
+	if builder.rightValuesFlag {
+		req.RightValues = builder.rightValues
+	}
+	return req
+}
+
+type VerifFilterRule struct {
+	FilterConditions []*VerifFilterCondition `json:"filter_conditions,omitempty"` // 筛选条件
+
+	FilterRelationship *string `json:"filter_relationship,omitempty"` // 条件之间的关联关系
+}
+
+type VerifFilterRuleBuilder struct {
+	filterConditions     []*VerifFilterCondition // 筛选条件
+	filterConditionsFlag bool
+
+	filterRelationship     string // 条件之间的关联关系
+	filterRelationshipFlag bool
+}
+
+func NewVerifFilterRuleBuilder() *VerifFilterRuleBuilder {
+	builder := &VerifFilterRuleBuilder{}
+	return builder
+}
+
+// 筛选条件
+//
+// 示例值：
+func (builder *VerifFilterRuleBuilder) FilterConditions(filterConditions []*VerifFilterCondition) *VerifFilterRuleBuilder {
+	builder.filterConditions = filterConditions
+	builder.filterConditionsFlag = true
+	return builder
+}
+
+// 条件之间的关联关系
+//
+// 示例值：(1 or 2 and ( 3 or 4 ))
+func (builder *VerifFilterRuleBuilder) FilterRelationship(filterRelationship string) *VerifFilterRuleBuilder {
+	builder.filterRelationship = filterRelationship
+	builder.filterRelationshipFlag = true
+	return builder
+}
+
+func (builder *VerifFilterRuleBuilder) Build() *VerifFilterRule {
+	req := &VerifFilterRule{}
+	if builder.filterConditionsFlag {
+		req.FilterConditions = builder.filterConditions
+	}
+	if builder.filterRelationshipFlag {
+		req.FilterRelationship = &builder.filterRelationship
+
+	}
+	return req
+}
+
+type VerifFilterValue struct {
+	ApiName *string `json:"api_name,omitempty"` // 左值api_name
+
+	FieldType *int `json:"field_type,omitempty"` // 字段类型
+
+	Value *string `json:"value,omitempty"` // 右值
+
+	RefId *string `json:"ref_id,omitempty"` // 外部id（左值为引用项时有值）
+
+	Currency *IdWithName `json:"currency,omitempty"` // 币种
+}
+
+type VerifFilterValueBuilder struct {
+	apiName     string // 左值api_name
+	apiNameFlag bool
+
+	fieldType     int // 字段类型
+	fieldTypeFlag bool
+
+	value     string // 右值
+	valueFlag bool
+
+	refId     string // 外部id（左值为引用项时有值）
+	refIdFlag bool
+
+	currency     *IdWithName // 币种
+	currencyFlag bool
+}
+
+func NewVerifFilterValueBuilder() *VerifFilterValueBuilder {
+	builder := &VerifFilterValueBuilder{}
+	return builder
+}
+
+// 左值api_name
+//
+// 示例值：api_name
+func (builder *VerifFilterValueBuilder) ApiName(apiName string) *VerifFilterValueBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *VerifFilterValueBuilder) FieldType(fieldType int) *VerifFilterValueBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
+// 右值
+//
+// 示例值：1
+func (builder *VerifFilterValueBuilder) Value(value string) *VerifFilterValueBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 外部id（左值为引用项时有值）
+//
+// 示例值：1
+func (builder *VerifFilterValueBuilder) RefId(refId string) *VerifFilterValueBuilder {
+	builder.refId = refId
+	builder.refIdFlag = true
+	return builder
+}
+
+// 币种
+//
+// 示例值：
+func (builder *VerifFilterValueBuilder) Currency(currency *IdWithName) *VerifFilterValueBuilder {
+	builder.currency = currency
+	builder.currencyFlag = true
+	return builder
+}
+
+func (builder *VerifFilterValueBuilder) Build() *VerifFilterValue {
+	req := &VerifFilterValue{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.refIdFlag {
+		req.RefId = &builder.refId
+
+	}
+	if builder.currencyFlag {
+		req.Currency = builder.currency
+	}
+	return req
+}
+
+type VerifItem struct {
+	ItemId *string `json:"item_id,omitempty"` // 数据项id
+
+	ItemName *IdWithName `json:"item_name,omitempty"` // 名称
+
+	FieldType *int `json:"field_type,omitempty"` // 字段类型
+
+	DecimalPlaces *int `json:"decimal_places,omitempty"` // 小数位
+
+	AggregationType *int `json:"aggregation_type,omitempty"` // 分段汇总
+
+	Seq *int `json:"seq,omitempty"` // 顺序
+
+	SourceType *int `json:"source_type,omitempty"` // 字段类型
+
+	SourceConfig *VerifSourceConfig `json:"source_config,omitempty"` // 字段配置
+
+	Status *int `json:"status,omitempty"` // 状态
+}
+
+type VerifItemBuilder struct {
+	itemId     string // 数据项id
+	itemIdFlag bool
+
+	itemName     *IdWithName // 名称
+	itemNameFlag bool
+
+	fieldType     int // 字段类型
+	fieldTypeFlag bool
+
+	decimalPlaces     int // 小数位
+	decimalPlacesFlag bool
+
+	aggregationType     int // 分段汇总
+	aggregationTypeFlag bool
+
+	seq     int // 顺序
+	seqFlag bool
+
+	sourceType     int // 字段类型
+	sourceTypeFlag bool
+
+	sourceConfig     *VerifSourceConfig // 字段配置
+	sourceConfigFlag bool
+
+	status     int // 状态
+	statusFlag bool
+}
+
+func NewVerifItemBuilder() *VerifItemBuilder {
+	builder := &VerifItemBuilder{}
+	return builder
+}
+
+// 数据项id
+//
+// 示例值：1
+func (builder *VerifItemBuilder) ItemId(itemId string) *VerifItemBuilder {
+	builder.itemId = itemId
+	builder.itemIdFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *VerifItemBuilder) ItemName(itemName *IdWithName) *VerifItemBuilder {
+	builder.itemName = itemName
+	builder.itemNameFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *VerifItemBuilder) FieldType(fieldType int) *VerifItemBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
+// 小数位
+//
+// 示例值：1
+func (builder *VerifItemBuilder) DecimalPlaces(decimalPlaces int) *VerifItemBuilder {
+	builder.decimalPlaces = decimalPlaces
+	builder.decimalPlacesFlag = true
+	return builder
+}
+
+// 分段汇总
+//
+// 示例值：1
+func (builder *VerifItemBuilder) AggregationType(aggregationType int) *VerifItemBuilder {
+	builder.aggregationType = aggregationType
+	builder.aggregationTypeFlag = true
+	return builder
+}
+
+// 顺序
+//
+// 示例值：1
+func (builder *VerifItemBuilder) Seq(seq int) *VerifItemBuilder {
+	builder.seq = seq
+	builder.seqFlag = true
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：1
+func (builder *VerifItemBuilder) SourceType(sourceType int) *VerifItemBuilder {
+	builder.sourceType = sourceType
+	builder.sourceTypeFlag = true
+	return builder
+}
+
+// 字段配置
+//
+// 示例值：
+func (builder *VerifItemBuilder) SourceConfig(sourceConfig *VerifSourceConfig) *VerifItemBuilder {
+	builder.sourceConfig = sourceConfig
+	builder.sourceConfigFlag = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：1
+func (builder *VerifItemBuilder) Status(status int) *VerifItemBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *VerifItemBuilder) Build() *VerifItem {
+	req := &VerifItem{}
+	if builder.itemIdFlag {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.itemNameFlag {
+		req.ItemName = builder.itemName
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
+
+	}
+	if builder.decimalPlacesFlag {
+		req.DecimalPlaces = &builder.decimalPlaces
+
+	}
+	if builder.aggregationTypeFlag {
+		req.AggregationType = &builder.aggregationType
+
+	}
+	if builder.seqFlag {
+		req.Seq = &builder.seq
+
+	}
+	if builder.sourceTypeFlag {
+		req.SourceType = &builder.sourceType
+
+	}
+	if builder.sourceConfigFlag {
+		req.SourceConfig = builder.sourceConfig
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+type VerifPayCalendar struct {
+	Id *string `json:"id,omitempty"` // id
+
+	ZhName *string `json:"zh_name,omitempty"` // 中文名称
+
+	EnName *string `json:"en_name,omitempty"` // 英文名称
+
+	CalendarSource *int `json:"calendar_source,omitempty"` // 算薪日历来源
+}
+
+type VerifPayCalendarBuilder struct {
+	id     string // id
+	idFlag bool
+
+	zhName     string // 中文名称
+	zhNameFlag bool
+
+	enName     string // 英文名称
+	enNameFlag bool
+
+	calendarSource     int // 算薪日历来源
+	calendarSourceFlag bool
+}
+
+func NewVerifPayCalendarBuilder() *VerifPayCalendarBuilder {
+	builder := &VerifPayCalendarBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：1
+func (builder *VerifPayCalendarBuilder) Id(id string) *VerifPayCalendarBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 中文名称
+//
+// 示例值：1
+func (builder *VerifPayCalendarBuilder) ZhName(zhName string) *VerifPayCalendarBuilder {
+	builder.zhName = zhName
+	builder.zhNameFlag = true
+	return builder
+}
+
+// 英文名称
+//
+// 示例值：1
+func (builder *VerifPayCalendarBuilder) EnName(enName string) *VerifPayCalendarBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+
+// 算薪日历来源
+//
+// 示例值：1
+func (builder *VerifPayCalendarBuilder) CalendarSource(calendarSource int) *VerifPayCalendarBuilder {
+	builder.calendarSource = calendarSource
+	builder.calendarSourceFlag = true
+	return builder
+}
+
+func (builder *VerifPayCalendarBuilder) Build() *VerifPayCalendar {
+	req := &VerifPayCalendar{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.zhNameFlag {
+		req.ZhName = &builder.zhName
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.calendarSourceFlag {
+		req.CalendarSource = &builder.calendarSource
+
+	}
+	return req
+}
+
+type VerifPlanSnapshot struct {
+	IsRetro *bool `json:"is_retro,omitempty"` // 是否追溯
+
+	IsCollect *bool `json:"is_collect,omitempty"` // 是否汇总
+
+	IsProration *bool `json:"is_proration,omitempty"` // 是否分段
+
+	CountryRegion *IdWithName `json:"country_region,omitempty"` // 国家/地区
+
+	Currency *IdWithName `json:"currency,omitempty"` // 币种
+
+	CalendarType *int `json:"calendar_type,omitempty"` // 核对周期日历类型
+
+	PayCalendars []*VerifPayCalendar `json:"pay_calendars,omitempty"` // 算薪日历
+
+	ScopeType *int `json:"scope_type,omitempty"` // 核对人员范围
+
+	PayGroups []*IdWithName `json:"pay_groups,omitempty"` // 薪资组
+
+	FilterType *int `json:"filter_type,omitempty"` // 数据范围
+
+	FilterRule *VerifFilterRule `json:"filter_rule,omitempty"` // 筛选条件
+
+	ApprovalType *int `json:"approval_type,omitempty"` // 复核类型
+
+	Items []*VerifItem `json:"items,omitempty"` // 数据项配置
+
+	DataSourceRule *VerifDataSourceRule `json:"data_source_rule,omitempty"` // 数据源配置
+}
+
+type VerifPlanSnapshotBuilder struct {
+	isRetro     bool // 是否追溯
+	isRetroFlag bool
+
+	isCollect     bool // 是否汇总
+	isCollectFlag bool
+
+	isProration     bool // 是否分段
+	isProrationFlag bool
+
+	countryRegion     *IdWithName // 国家/地区
+	countryRegionFlag bool
+
+	currency     *IdWithName // 币种
+	currencyFlag bool
+
+	calendarType     int // 核对周期日历类型
+	calendarTypeFlag bool
+
+	payCalendars     []*VerifPayCalendar // 算薪日历
+	payCalendarsFlag bool
+
+	scopeType     int // 核对人员范围
+	scopeTypeFlag bool
+
+	payGroups     []*IdWithName // 薪资组
+	payGroupsFlag bool
+
+	filterType     int // 数据范围
+	filterTypeFlag bool
+
+	filterRule     *VerifFilterRule // 筛选条件
+	filterRuleFlag bool
+
+	approvalType     int // 复核类型
+	approvalTypeFlag bool
+
+	items     []*VerifItem // 数据项配置
+	itemsFlag bool
+
+	dataSourceRule     *VerifDataSourceRule // 数据源配置
+	dataSourceRuleFlag bool
+}
+
+func NewVerifPlanSnapshotBuilder() *VerifPlanSnapshotBuilder {
+	builder := &VerifPlanSnapshotBuilder{}
+	return builder
+}
+
+// 是否追溯
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) IsRetro(isRetro bool) *VerifPlanSnapshotBuilder {
+	builder.isRetro = isRetro
+	builder.isRetroFlag = true
+	return builder
+}
+
+// 是否汇总
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) IsCollect(isCollect bool) *VerifPlanSnapshotBuilder {
+	builder.isCollect = isCollect
+	builder.isCollectFlag = true
+	return builder
+}
+
+// 是否分段
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) IsProration(isProration bool) *VerifPlanSnapshotBuilder {
+	builder.isProration = isProration
+	builder.isProrationFlag = true
+	return builder
+}
+
+// 国家/地区
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) CountryRegion(countryRegion *IdWithName) *VerifPlanSnapshotBuilder {
+	builder.countryRegion = countryRegion
+	builder.countryRegionFlag = true
+	return builder
+}
+
+// 币种
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) Currency(currency *IdWithName) *VerifPlanSnapshotBuilder {
+	builder.currency = currency
+	builder.currencyFlag = true
+	return builder
+}
+
+// 核对周期日历类型
+//
+// 示例值：1
+func (builder *VerifPlanSnapshotBuilder) CalendarType(calendarType int) *VerifPlanSnapshotBuilder {
+	builder.calendarType = calendarType
+	builder.calendarTypeFlag = true
+	return builder
+}
+
+// 算薪日历
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) PayCalendars(payCalendars []*VerifPayCalendar) *VerifPlanSnapshotBuilder {
+	builder.payCalendars = payCalendars
+	builder.payCalendarsFlag = true
+	return builder
+}
+
+// 核对人员范围
+//
+// 示例值：1
+func (builder *VerifPlanSnapshotBuilder) ScopeType(scopeType int) *VerifPlanSnapshotBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 薪资组
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) PayGroups(payGroups []*IdWithName) *VerifPlanSnapshotBuilder {
+	builder.payGroups = payGroups
+	builder.payGroupsFlag = true
+	return builder
+}
+
+// 数据范围
+//
+// 示例值：1
+func (builder *VerifPlanSnapshotBuilder) FilterType(filterType int) *VerifPlanSnapshotBuilder {
+	builder.filterType = filterType
+	builder.filterTypeFlag = true
+	return builder
+}
+
+// 筛选条件
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) FilterRule(filterRule *VerifFilterRule) *VerifPlanSnapshotBuilder {
+	builder.filterRule = filterRule
+	builder.filterRuleFlag = true
+	return builder
+}
+
+// 复核类型
+//
+// 示例值：1
+func (builder *VerifPlanSnapshotBuilder) ApprovalType(approvalType int) *VerifPlanSnapshotBuilder {
+	builder.approvalType = approvalType
+	builder.approvalTypeFlag = true
+	return builder
+}
+
+// 数据项配置
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) Items(items []*VerifItem) *VerifPlanSnapshotBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+// 数据源配置
+//
+// 示例值：
+func (builder *VerifPlanSnapshotBuilder) DataSourceRule(dataSourceRule *VerifDataSourceRule) *VerifPlanSnapshotBuilder {
+	builder.dataSourceRule = dataSourceRule
+	builder.dataSourceRuleFlag = true
+	return builder
+}
+
+func (builder *VerifPlanSnapshotBuilder) Build() *VerifPlanSnapshot {
+	req := &VerifPlanSnapshot{}
+	if builder.isRetroFlag {
+		req.IsRetro = &builder.isRetro
+
+	}
+	if builder.isCollectFlag {
+		req.IsCollect = &builder.isCollect
+
+	}
+	if builder.isProrationFlag {
+		req.IsProration = &builder.isProration
+
+	}
+	if builder.countryRegionFlag {
+		req.CountryRegion = builder.countryRegion
+	}
+	if builder.currencyFlag {
+		req.Currency = builder.currency
+	}
+	if builder.calendarTypeFlag {
+		req.CalendarType = &builder.calendarType
+
+	}
+	if builder.payCalendarsFlag {
+		req.PayCalendars = builder.payCalendars
+	}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+
+	}
+	if builder.payGroupsFlag {
+		req.PayGroups = builder.payGroups
+	}
+	if builder.filterTypeFlag {
+		req.FilterType = &builder.filterType
+
+	}
+	if builder.filterRuleFlag {
+		req.FilterRule = builder.filterRule
+	}
+	if builder.approvalTypeFlag {
+		req.ApprovalType = &builder.approvalType
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	if builder.dataSourceRuleFlag {
+		req.DataSourceRule = builder.dataSourceRule
+	}
+	return req
+}
+
+type VerifSourceConfig struct {
+	FormulaConfig *VerifFieldSourceConfig `json:"formula_config,omitempty"` // 公式数据项，source_type = 2 有值
+
+	RefSourceConfig *VerifFieldSourceConfig `json:"ref_source_config,omitempty"` // 引用数据项，source_type = 1 有值
+}
+
+type VerifSourceConfigBuilder struct {
+	formulaConfig     *VerifFieldSourceConfig // 公式数据项，source_type = 2 有值
+	formulaConfigFlag bool
+
+	refSourceConfig     *VerifFieldSourceConfig // 引用数据项，source_type = 1 有值
+	refSourceConfigFlag bool
+}
+
+func NewVerifSourceConfigBuilder() *VerifSourceConfigBuilder {
+	builder := &VerifSourceConfigBuilder{}
+	return builder
+}
+
+// 公式数据项，source_type = 2 有值
+//
+// 示例值：
+func (builder *VerifSourceConfigBuilder) FormulaConfig(formulaConfig *VerifFieldSourceConfig) *VerifSourceConfigBuilder {
+	builder.formulaConfig = formulaConfig
+	builder.formulaConfigFlag = true
+	return builder
+}
+
+// 引用数据项，source_type = 1 有值
+//
+// 示例值：
+func (builder *VerifSourceConfigBuilder) RefSourceConfig(refSourceConfig *VerifFieldSourceConfig) *VerifSourceConfigBuilder {
+	builder.refSourceConfig = refSourceConfig
+	builder.refSourceConfigFlag = true
+	return builder
+}
+
+func (builder *VerifSourceConfigBuilder) Build() *VerifSourceConfig {
+	req := &VerifSourceConfig{}
+	if builder.formulaConfigFlag {
+		req.FormulaConfig = builder.formulaConfig
+	}
+	if builder.refSourceConfigFlag {
+		req.RefSourceConfig = builder.refSourceConfig
+	}
+	return req
+}
+
+type VerificationActivity struct {
+	ActivityId *string `json:"activity_id,omitempty"` // 活动id
+
+	PlanId *string `json:"plan_id,omitempty"` // 方案id
+
+	VersionId *string `json:"version_id,omitempty"` // 方案版本id
+
+	Name *IdWithName `json:"name,omitempty"` // 名称
+
+	ActivityStatus *int `json:"activity_status,omitempty"` // 状态
+
+	PayPeriodSeq *string `json:"pay_period_seq,omitempty"` // 算薪期间
+
+	RetroPeriodSeq *string `json:"retro_period_seq,omitempty"` // 追溯期间
+
+	PlanSnapshot *VerifPlanSnapshot `json:"plan_snapshot,omitempty"` // 快照
+
+	UpdateTime *int `json:"update_time,omitempty"` // 更新时间，时间戳
+
+	ApproveTime *int `json:"approve_time,omitempty"` // 审批通过时间，时间戳
+}
+
+type VerificationActivityBuilder struct {
+	activityId     string // 活动id
+	activityIdFlag bool
+
+	planId     string // 方案id
+	planIdFlag bool
+
+	versionId     string // 方案版本id
+	versionIdFlag bool
+
+	name     *IdWithName // 名称
+	nameFlag bool
+
+	activityStatus     int // 状态
+	activityStatusFlag bool
+
+	payPeriodSeq     string // 算薪期间
+	payPeriodSeqFlag bool
+
+	retroPeriodSeq     string // 追溯期间
+	retroPeriodSeqFlag bool
+
+	planSnapshot     *VerifPlanSnapshot // 快照
+	planSnapshotFlag bool
+
+	updateTime     int // 更新时间，时间戳
+	updateTimeFlag bool
+
+	approveTime     int // 审批通过时间，时间戳
+	approveTimeFlag bool
+}
+
+func NewVerificationActivityBuilder() *VerificationActivityBuilder {
+	builder := &VerificationActivityBuilder{}
+	return builder
+}
+
+// 活动id
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) ActivityId(activityId string) *VerificationActivityBuilder {
+	builder.activityId = activityId
+	builder.activityIdFlag = true
+	return builder
+}
+
+// 方案id
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) PlanId(planId string) *VerificationActivityBuilder {
+	builder.planId = planId
+	builder.planIdFlag = true
+	return builder
+}
+
+// 方案版本id
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) VersionId(versionId string) *VerificationActivityBuilder {
+	builder.versionId = versionId
+	builder.versionIdFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *VerificationActivityBuilder) Name(name *IdWithName) *VerificationActivityBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) ActivityStatus(activityStatus int) *VerificationActivityBuilder {
+	builder.activityStatus = activityStatus
+	builder.activityStatusFlag = true
+	return builder
+}
+
+// 算薪期间
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) PayPeriodSeq(payPeriodSeq string) *VerificationActivityBuilder {
+	builder.payPeriodSeq = payPeriodSeq
+	builder.payPeriodSeqFlag = true
+	return builder
+}
+
+// 追溯期间
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) RetroPeriodSeq(retroPeriodSeq string) *VerificationActivityBuilder {
+	builder.retroPeriodSeq = retroPeriodSeq
+	builder.retroPeriodSeqFlag = true
+	return builder
+}
+
+// 快照
+//
+// 示例值：
+func (builder *VerificationActivityBuilder) PlanSnapshot(planSnapshot *VerifPlanSnapshot) *VerificationActivityBuilder {
+	builder.planSnapshot = planSnapshot
+	builder.planSnapshotFlag = true
+	return builder
+}
+
+// 更新时间，时间戳
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) UpdateTime(updateTime int) *VerificationActivityBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 审批通过时间，时间戳
+//
+// 示例值：1
+func (builder *VerificationActivityBuilder) ApproveTime(approveTime int) *VerificationActivityBuilder {
+	builder.approveTime = approveTime
+	builder.approveTimeFlag = true
+	return builder
+}
+
+func (builder *VerificationActivityBuilder) Build() *VerificationActivity {
+	req := &VerificationActivity{}
+	if builder.activityIdFlag {
+		req.ActivityId = &builder.activityId
+
+	}
+	if builder.planIdFlag {
+		req.PlanId = &builder.planId
+
+	}
+	if builder.versionIdFlag {
+		req.VersionId = &builder.versionId
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.activityStatusFlag {
+		req.ActivityStatus = &builder.activityStatus
+
+	}
+	if builder.payPeriodSeqFlag {
+		req.PayPeriodSeq = &builder.payPeriodSeq
+
+	}
+	if builder.retroPeriodSeqFlag {
+		req.RetroPeriodSeq = &builder.retroPeriodSeq
+
+	}
+	if builder.planSnapshotFlag {
+		req.PlanSnapshot = builder.planSnapshot
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.approveTimeFlag {
+		req.ApproveTime = &builder.approveTime
+
+	}
+	return req
+}
+
+type VerificationActivityRow struct {
+	RowId *string `json:"row_id,omitempty"` // row id
+
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工 Employment id
+
+	ActivityId *string `json:"activity_id,omitempty"` // 活动id
+
+	EmployeeNumber *string `json:"employee_number,omitempty"` // 新工号
+
+	EmployeeId *string `json:"employee_id,omitempty"` // 旧工号
+
+	WorkingHoursType *IdWithName `json:"working_hours_type,omitempty"` // 工时类型
+
+	PayGroup *IdWithName `json:"pay_group,omitempty"` // 薪资组
+
+	StartDate *string `json:"start_date,omitempty"` // 开始日期 "2025-05-01"
+
+	EndDate *string `json:"end_date,omitempty"` // 结束日期 "2025-05-01"
+
+	CutoffDate *string `json:"cutoff_date,omitempty"` // 数据锁定日期 "2025-05-01"
+
+	ItemValues []*VerifActItemValue `json:"item_values,omitempty"` // 汇总值， 数值、金额等类型数据项会按配置截取小数位
+
+	Prorations []*VerifActProration `json:"prorations,omitempty"` // 分段值，plan.is_proration=true时有值
+}
+
+type VerificationActivityRowBuilder struct {
+	rowId     string // row id
+	rowIdFlag bool
+
+	employmentId     string // 员工 Employment id
+	employmentIdFlag bool
+
+	activityId     string // 活动id
+	activityIdFlag bool
+
+	employeeNumber     string // 新工号
+	employeeNumberFlag bool
+
+	employeeId     string // 旧工号
+	employeeIdFlag bool
+
+	workingHoursType     *IdWithName // 工时类型
+	workingHoursTypeFlag bool
+
+	payGroup     *IdWithName // 薪资组
+	payGroupFlag bool
+
+	startDate     string // 开始日期 "2025-05-01"
+	startDateFlag bool
+
+	endDate     string // 结束日期 "2025-05-01"
+	endDateFlag bool
+
+	cutoffDate     string // 数据锁定日期 "2025-05-01"
+	cutoffDateFlag bool
+
+	itemValues     []*VerifActItemValue // 汇总值， 数值、金额等类型数据项会按配置截取小数位
+	itemValuesFlag bool
+
+	prorations     []*VerifActProration // 分段值，plan.is_proration=true时有值
+	prorationsFlag bool
+}
+
+func NewVerificationActivityRowBuilder() *VerificationActivityRowBuilder {
+	builder := &VerificationActivityRowBuilder{}
+	return builder
+}
+
+// row id
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) RowId(rowId string) *VerificationActivityRowBuilder {
+	builder.rowId = rowId
+	builder.rowIdFlag = true
+	return builder
+}
+
+// 员工 Employment id
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) EmploymentId(employmentId string) *VerificationActivityRowBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 活动id
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) ActivityId(activityId string) *VerificationActivityRowBuilder {
+	builder.activityId = activityId
+	builder.activityIdFlag = true
+	return builder
+}
+
+// 新工号
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) EmployeeNumber(employeeNumber string) *VerificationActivityRowBuilder {
+	builder.employeeNumber = employeeNumber
+	builder.employeeNumberFlag = true
+	return builder
+}
+
+// 旧工号
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) EmployeeId(employeeId string) *VerificationActivityRowBuilder {
+	builder.employeeId = employeeId
+	builder.employeeIdFlag = true
+	return builder
+}
+
+// 工时类型
+//
+// 示例值：
+func (builder *VerificationActivityRowBuilder) WorkingHoursType(workingHoursType *IdWithName) *VerificationActivityRowBuilder {
+	builder.workingHoursType = workingHoursType
+	builder.workingHoursTypeFlag = true
+	return builder
+}
+
+// 薪资组
+//
+// 示例值：
+func (builder *VerificationActivityRowBuilder) PayGroup(payGroup *IdWithName) *VerificationActivityRowBuilder {
+	builder.payGroup = payGroup
+	builder.payGroupFlag = true
+	return builder
+}
+
+// 开始日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) StartDate(startDate string) *VerificationActivityRowBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 结束日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) EndDate(endDate string) *VerificationActivityRowBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 数据锁定日期 "2025-05-01"
+//
+// 示例值：1
+func (builder *VerificationActivityRowBuilder) CutoffDate(cutoffDate string) *VerificationActivityRowBuilder {
+	builder.cutoffDate = cutoffDate
+	builder.cutoffDateFlag = true
+	return builder
+}
+
+// 汇总值， 数值、金额等类型数据项会按配置截取小数位
+//
+// 示例值：
+func (builder *VerificationActivityRowBuilder) ItemValues(itemValues []*VerifActItemValue) *VerificationActivityRowBuilder {
+	builder.itemValues = itemValues
+	builder.itemValuesFlag = true
+	return builder
+}
+
+// 分段值，plan.is_proration=true时有值
+//
+// 示例值：
+func (builder *VerificationActivityRowBuilder) Prorations(prorations []*VerifActProration) *VerificationActivityRowBuilder {
+	builder.prorations = prorations
+	builder.prorationsFlag = true
+	return builder
+}
+
+func (builder *VerificationActivityRowBuilder) Build() *VerificationActivityRow {
+	req := &VerificationActivityRow{}
+	if builder.rowIdFlag {
+		req.RowId = &builder.rowId
+
+	}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.activityIdFlag {
+		req.ActivityId = &builder.activityId
+
+	}
+	if builder.employeeNumberFlag {
+		req.EmployeeNumber = &builder.employeeNumber
+
+	}
+	if builder.employeeIdFlag {
+		req.EmployeeId = &builder.employeeId
+
+	}
+	if builder.workingHoursTypeFlag {
+		req.WorkingHoursType = builder.workingHoursType
+	}
+	if builder.payGroupFlag {
+		req.PayGroup = builder.payGroup
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+
+	}
+	if builder.cutoffDateFlag {
+		req.CutoffDate = &builder.cutoffDate
+
+	}
+	if builder.itemValuesFlag {
+		req.ItemValues = builder.itemValues
+	}
+	if builder.prorationsFlag {
+		req.Prorations = builder.prorations
+	}
+	return req
+}
+
+type VerificationPlan struct {
+	PlanId *string `json:"plan_id,omitempty"` // 方案ID
+
+	VersionId *string `json:"version_id,omitempty"` // 版本ID
+
+	TimeZone *string `json:"time_zone,omitempty"` // 时区，Asia/Shanghai
+
+	IsActive *bool `json:"is_active,omitempty"` // 是否启用
+
+	EffectivePeriodSeq *string `json:"effective_period_seq,omitempty"` // 生效期间，"2006-08"
+
+	Name *IdWithName `json:"name,omitempty"` // 名称
+
+	CountryRegionId *IdWithName `json:"country_region_id,omitempty"` // 国家/地区
+
+	CurrencyId *IdWithName `json:"currency_id,omitempty"` // 币种
+
+	CalendarType *int `json:"calendar_type,omitempty"` // 核对周期日历类型
+
+	PayCalendars []*VerifPayCalendar `json:"pay_calendars,omitempty"` // 算薪日历
+
+	ScopeType *int `json:"scope_type,omitempty"` // 核对人员范围
+
+	PayGroups []*IdWithName `json:"pay_groups,omitempty"` // 薪资组
+
+	DatasourceConfig *VerifDatasourceConfig `json:"datasource_config,omitempty"` // 数据源配置
+
+	ApprovalType *int `json:"approval_type,omitempty"` // 复核类型
+
+	Ovbservers []string `json:"ovbservers,omitempty"` // 观察员 wk employment id
+
+	Admins []string `json:"admins,omitempty"` // 管理员 wk employment id
+
+	Reviewers []string `json:"reviewers,omitempty"` // 复核员 wk employment id
+
+	PlanType *int `json:"plan_type,omitempty"` // 方案类型
+
+	UpdateTime *int `json:"update_time,omitempty"` // 更新时间戳
+}
+
+type VerificationPlanBuilder struct {
+	planId     string // 方案ID
+	planIdFlag bool
+
+	versionId     string // 版本ID
+	versionIdFlag bool
+
+	timeZone     string // 时区，Asia/Shanghai
+	timeZoneFlag bool
+
+	isActive     bool // 是否启用
+	isActiveFlag bool
+
+	effectivePeriodSeq     string // 生效期间，"2006-08"
+	effectivePeriodSeqFlag bool
+
+	name     *IdWithName // 名称
+	nameFlag bool
+
+	countryRegionId     *IdWithName // 国家/地区
+	countryRegionIdFlag bool
+
+	currencyId     *IdWithName // 币种
+	currencyIdFlag bool
+
+	calendarType     int // 核对周期日历类型
+	calendarTypeFlag bool
+
+	payCalendars     []*VerifPayCalendar // 算薪日历
+	payCalendarsFlag bool
+
+	scopeType     int // 核对人员范围
+	scopeTypeFlag bool
+
+	payGroups     []*IdWithName // 薪资组
+	payGroupsFlag bool
+
+	datasourceConfig     *VerifDatasourceConfig // 数据源配置
+	datasourceConfigFlag bool
+
+	approvalType     int // 复核类型
+	approvalTypeFlag bool
+
+	ovbservers     []string // 观察员 wk employment id
+	ovbserversFlag bool
+
+	admins     []string // 管理员 wk employment id
+	adminsFlag bool
+
+	reviewers     []string // 复核员 wk employment id
+	reviewersFlag bool
+
+	planType     int // 方案类型
+	planTypeFlag bool
+
+	updateTime     int // 更新时间戳
+	updateTimeFlag bool
+}
+
+func NewVerificationPlanBuilder() *VerificationPlanBuilder {
+	builder := &VerificationPlanBuilder{}
+	return builder
+}
+
+// 方案ID
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) PlanId(planId string) *VerificationPlanBuilder {
+	builder.planId = planId
+	builder.planIdFlag = true
+	return builder
+}
+
+// 版本ID
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) VersionId(versionId string) *VerificationPlanBuilder {
+	builder.versionId = versionId
+	builder.versionIdFlag = true
+	return builder
+}
+
+// 时区，Asia/Shanghai
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) TimeZone(timeZone string) *VerificationPlanBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) IsActive(isActive bool) *VerificationPlanBuilder {
+	builder.isActive = isActive
+	builder.isActiveFlag = true
+	return builder
+}
+
+// 生效期间，"2006-08"
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) EffectivePeriodSeq(effectivePeriodSeq string) *VerificationPlanBuilder {
+	builder.effectivePeriodSeq = effectivePeriodSeq
+	builder.effectivePeriodSeqFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) Name(name *IdWithName) *VerificationPlanBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 国家/地区
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) CountryRegionId(countryRegionId *IdWithName) *VerificationPlanBuilder {
+	builder.countryRegionId = countryRegionId
+	builder.countryRegionIdFlag = true
+	return builder
+}
+
+// 币种
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) CurrencyId(currencyId *IdWithName) *VerificationPlanBuilder {
+	builder.currencyId = currencyId
+	builder.currencyIdFlag = true
+	return builder
+}
+
+// 核对周期日历类型
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) CalendarType(calendarType int) *VerificationPlanBuilder {
+	builder.calendarType = calendarType
+	builder.calendarTypeFlag = true
+	return builder
+}
+
+// 算薪日历
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) PayCalendars(payCalendars []*VerifPayCalendar) *VerificationPlanBuilder {
+	builder.payCalendars = payCalendars
+	builder.payCalendarsFlag = true
+	return builder
+}
+
+// 核对人员范围
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) ScopeType(scopeType int) *VerificationPlanBuilder {
+	builder.scopeType = scopeType
+	builder.scopeTypeFlag = true
+	return builder
+}
+
+// 薪资组
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) PayGroups(payGroups []*IdWithName) *VerificationPlanBuilder {
+	builder.payGroups = payGroups
+	builder.payGroupsFlag = true
+	return builder
+}
+
+// 数据源配置
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) DatasourceConfig(datasourceConfig *VerifDatasourceConfig) *VerificationPlanBuilder {
+	builder.datasourceConfig = datasourceConfig
+	builder.datasourceConfigFlag = true
+	return builder
+}
+
+// 复核类型
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) ApprovalType(approvalType int) *VerificationPlanBuilder {
+	builder.approvalType = approvalType
+	builder.approvalTypeFlag = true
+	return builder
+}
+
+// 观察员 wk employment id
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) Ovbservers(ovbservers []string) *VerificationPlanBuilder {
+	builder.ovbservers = ovbservers
+	builder.ovbserversFlag = true
+	return builder
+}
+
+// 管理员 wk employment id
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) Admins(admins []string) *VerificationPlanBuilder {
+	builder.admins = admins
+	builder.adminsFlag = true
+	return builder
+}
+
+// 复核员 wk employment id
+//
+// 示例值：
+func (builder *VerificationPlanBuilder) Reviewers(reviewers []string) *VerificationPlanBuilder {
+	builder.reviewers = reviewers
+	builder.reviewersFlag = true
+	return builder
+}
+
+// 方案类型
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) PlanType(planType int) *VerificationPlanBuilder {
+	builder.planType = planType
+	builder.planTypeFlag = true
+	return builder
+}
+
+// 更新时间戳
+//
+// 示例值：1
+func (builder *VerificationPlanBuilder) UpdateTime(updateTime int) *VerificationPlanBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *VerificationPlanBuilder) Build() *VerificationPlan {
+	req := &VerificationPlan{}
+	if builder.planIdFlag {
+		req.PlanId = &builder.planId
+
+	}
+	if builder.versionIdFlag {
+		req.VersionId = &builder.versionId
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.isActiveFlag {
+		req.IsActive = &builder.isActive
+
+	}
+	if builder.effectivePeriodSeqFlag {
+		req.EffectivePeriodSeq = &builder.effectivePeriodSeq
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.countryRegionIdFlag {
+		req.CountryRegionId = builder.countryRegionId
+	}
+	if builder.currencyIdFlag {
+		req.CurrencyId = builder.currencyId
+	}
+	if builder.calendarTypeFlag {
+		req.CalendarType = &builder.calendarType
+
+	}
+	if builder.payCalendarsFlag {
+		req.PayCalendars = builder.payCalendars
+	}
+	if builder.scopeTypeFlag {
+		req.ScopeType = &builder.scopeType
+
+	}
+	if builder.payGroupsFlag {
+		req.PayGroups = builder.payGroups
+	}
+	if builder.datasourceConfigFlag {
+		req.DatasourceConfig = builder.datasourceConfig
+	}
+	if builder.approvalTypeFlag {
+		req.ApprovalType = &builder.approvalType
+
+	}
+	if builder.ovbserversFlag {
+		req.Ovbservers = builder.ovbservers
+	}
+	if builder.adminsFlag {
+		req.Admins = builder.admins
+	}
+	if builder.reviewersFlag {
+		req.Reviewers = builder.reviewers
+	}
+	if builder.planTypeFlag {
+		req.PlanType = &builder.planType
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
 type ListAcctItemReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -4778,6 +7159,92 @@ type ListAcctItemResp struct {
 }
 
 func (resp *ListAcctItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListCostAllocationDetailReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListCostAllocationDetailReqBuilder() *ListCostAllocationDetailReqBuilder {
+	builder := &ListCostAllocationDetailReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：50
+func (builder *ListCostAllocationDetailReqBuilder) PageSize(pageSize int) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍 历;分页查询结果还有更多项时会同时返回新 的page_token,下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *ListCostAllocationDetailReqBuilder) PageToken(pageToken string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 成本分摊方案ID
+//
+// 示例值：72131231231231231
+func (builder *ListCostAllocationDetailReqBuilder) CostAllocationPlanId(costAllocationPlanId string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("cost_allocation_plan_id", fmt.Sprint(costAllocationPlanId))
+	return builder
+}
+
+// 期间
+//
+// 示例值：2024-06
+func (builder *ListCostAllocationDetailReqBuilder) PayPeriod(payPeriod string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("pay_period", fmt.Sprint(payPeriod))
+	return builder
+}
+
+// 报表类型
+//
+// 示例值：0
+func (builder *ListCostAllocationDetailReqBuilder) ReportType(reportType int) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("report_type", fmt.Sprint(reportType))
+	return builder
+}
+
+func (builder *ListCostAllocationDetailReqBuilder) Build() *ListCostAllocationDetailReq {
+	req := &ListCostAllocationDetailReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListCostAllocationDetailReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListCostAllocationDetailRespData struct {
+	CostAllocationReportDatas []*CostAllocationReportData `json:"cost_allocation_report_datas,omitempty"` // 报表明细数据
+
+	CostAllocationReportNames []*I18nContent `json:"cost_allocation_report_names,omitempty"` // 报表名称
+
+	PayPeriod *string `json:"pay_period,omitempty"` // 期间
+
+	PageToken *string `json:"page_token,omitempty"` //
+
+	HasMore *bool `json:"has_more,omitempty"` //
+}
+
+type ListCostAllocationDetailResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListCostAllocationDetailRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListCostAllocationDetailResp) Success() bool {
 	return resp.Code == 0
 }
 

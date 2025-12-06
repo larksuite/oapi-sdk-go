@@ -41,6 +41,7 @@ func main() {
 			CcCreateTimeFrom("1547654251506").
 			CcCreateTimeTo("1547654251506").
 			Locale("zh-CN").
+			WithRevokedInstance(false).
 			Build()).
 		Build()
 	// 发起请求

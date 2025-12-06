@@ -39,6 +39,19 @@ const (
 	LocaleZhcn = "zh-CN" // 中文
 	LocaleEnus = "en-US" // 英文
 	LocaleJajp = "ja-JP" // 日文
+	LocaleZhhk = "zh-HK" // 繁体中文（中国香港）
+	LocaleZhtw = "zh-TW" // 繁体中文（中国台湾）
+	LocaleDede = "de-DE" // 德语
+	LocaleEses = "es-ES" // 西班牙语
+	LocaleFrfr = "fr-FR" // 法语
+	LocaleIdid = "id-ID" // 印度尼西亚语
+	LocaleItit = "it-IT" // 意大利语
+	LocaleKokr = "ko-KR" // 韩语
+	LocalePtbr = "pt-BR" // 葡萄牙语
+	LocaleThth = "th-TH" // 泰语
+	LocaleVivn = "vi-VN" // 越南语
+	LocaleMsmy = "ms-MY" // 马来语
+	LocaleRuru = "ru-RU" // 俄语
 )
 
 const (
@@ -130,6 +143,19 @@ const (
 	LocaleGetInstanceZhcn = "zh-CN" // 中文
 	LocaleGetInstanceEnus = "en-US" // 英文
 	LocaleGetInstanceJajp = "ja-JP" // 日文
+	LocaleGetInstanceZhhk = "zh-HK" // 繁体中文（中国香港）
+	LocaleGetInstanceZhtw = "zh-TW" // 繁体中文（中国台湾）
+	LocaleGetInstanceDede = "de-DE" // 德语
+	LocaleGetInstanceEses = "es-ES" // 西班牙语
+	LocaleGetInstanceFrfr = "fr-FR" // 法语
+	LocaleGetInstanceIdid = "id-ID" // 印度尼西亚语
+	LocaleGetInstanceItit = "it-IT" // 意大利语
+	LocaleGetInstanceKokr = "ko-KR" // 韩语
+	LocaleGetInstancePtbr = "pt-BR" // 葡萄牙语
+	LocaleGetInstanceThth = "th-TH" // 泰语
+	LocaleGetInstanceVivn = "vi-VN" // 越南语
+	LocaleGetInstanceMsmy = "ms-MY" // 马来语
+	LocaleGetInstanceRuru = "ru-RU" // 俄语
 )
 
 const (
@@ -157,6 +183,19 @@ const (
 	LocaleQueryInstanceZhCn = "zh-CN" // 中文
 	LocaleQueryInstanceEnUs = "en-US" // 英文
 	LocaleQueryInstanceJaJp = "ja-JP" // 日文
+	LocaleQueryInstanceZhHk = "zh-HK" // 繁体中文（中国香港）
+	LocaleQueryInstanceZhTw = "zh-TW" // 繁体中文（中国台湾）
+	LocaleQueryInstanceDeDe = "de-DE" // 德语
+	LocaleQueryInstanceEsEs = "es-ES" // 西班牙语
+	LocaleQueryInstanceFrFr = "fr-FR" // 法语
+	LocaleQueryInstanceIdId = "id-ID" // 印度尼西亚语
+	LocaleQueryInstanceItIt = "it-IT" // 意大利语
+	LocaleQueryInstanceKoKr = "ko-KR" // 韩语
+	LocaleQueryInstancePtBr = "pt-BR" // 葡萄牙语
+	LocaleQueryInstanceThTh = "th-TH" // 泰语
+	LocaleQueryInstanceViVn = "vi-VN" // 越南语
+	LocaleQueryInstanceMsMy = "ms-MY" // 马来语
+	LocaleQueryInstanceRuRu = "ru-RU" // 俄语
 )
 
 const (
@@ -175,6 +214,19 @@ const (
 	LocaleSearchCcInstanceZhCn = "zh-CN" // 中文
 	LocaleSearchCcInstanceEnUs = "en-US" // 英文
 	LocaleSearchCcInstanceJaJp = "ja-JP" // 日文
+	LocaleSearchCcInstanceZhHk = "zh-HK" // 繁体中文（中国香港）
+	LocaleSearchCcInstanceZhTw = "zh-TW" // 繁体中文（中国台湾）
+	LocaleSearchCcInstanceDeDe = "de-DE" // 德语
+	LocaleSearchCcInstanceEsEs = "es-ES" // 西班牙语
+	LocaleSearchCcInstanceFrFr = "fr-FR" // 法语
+	LocaleSearchCcInstanceIdId = "id-ID" // 印度尼西亚语
+	LocaleSearchCcInstanceItIt = "it-IT" // 意大利语
+	LocaleSearchCcInstanceKoKr = "ko-KR" // 韩语
+	LocaleSearchCcInstancePtBr = "pt-BR" // 葡萄牙语
+	LocaleSearchCcInstanceThTh = "th-TH" // 泰语
+	LocaleSearchCcInstanceViVn = "vi-VN" // 越南语
+	LocaleSearchCcInstanceMsMy = "ms-MY" // 马来语
+	LocaleSearchCcInstanceRuRu = "ru-RU" // 俄语
 )
 
 const (
@@ -260,6 +312,19 @@ const (
 	LocaleSearchTaskZhCn = "zh-CN" // 中文
 	LocaleSearchTaskEnUs = "en-US" // 英文
 	LocaleSearchTaskJaJp = "ja-JP" // 日文
+	LocaleSearchTaskZhHk = "zh-HK" // 繁体中文（中国香港）
+	LocaleSearchTaskZhTw = "zh-TW" // 繁体中文（中国台湾）
+	LocaleSearchTaskDeDe = "de-DE" // 德语
+	LocaleSearchTaskEsEs = "es-ES" // 西班牙语
+	LocaleSearchTaskFrFr = "fr-FR" // 法语
+	LocaleSearchTaskIdId = "id-ID" // 印度尼西亚语
+	LocaleSearchTaskItIt = "it-IT" // 意大利语
+	LocaleSearchTaskKoKr = "ko-KR" // 韩语
+	LocaleSearchTaskPtBr = "pt-BR" // 葡萄牙语
+	LocaleSearchTaskThTh = "th-TH" // 泰语
+	LocaleSearchTaskViVn = "vi-VN" // 越南语
+	LocaleSearchTaskMsMy = "ms-MY" // 马来语
+	LocaleSearchTaskRuRu = "ru-RU" // 俄语
 )
 
 const (
@@ -2325,6 +2390,8 @@ type CcSearch struct {
 	CcCreateTimeTo *string `json:"cc_create_time_to,omitempty"` // 抄送查询结束时间 (unix毫秒时间戳)
 
 	Locale *string `json:"locale,omitempty"` // 地区
+
+	WithRevokedInstance *bool `json:"with_revoked_instance,omitempty"` // 是否包含撤销申请对应的审批单
 }
 
 type CcSearchBuilder struct {
@@ -2357,6 +2424,9 @@ type CcSearchBuilder struct {
 
 	locale     string // 地区
 	localeFlag bool
+
+	withRevokedInstance     bool // 是否包含撤销申请对应的审批单
+	withRevokedInstanceFlag bool
 }
 
 func NewCcSearchBuilder() *CcSearchBuilder {
@@ -2454,6 +2524,15 @@ func (builder *CcSearchBuilder) Locale(locale string) *CcSearchBuilder {
 	return builder
 }
 
+// 是否包含撤销申请对应的审批单
+//
+// 示例值：false
+func (builder *CcSearchBuilder) WithRevokedInstance(withRevokedInstance bool) *CcSearchBuilder {
+	builder.withRevokedInstance = withRevokedInstance
+	builder.withRevokedInstanceFlag = true
+	return builder
+}
+
 func (builder *CcSearchBuilder) Build() *CcSearch {
 	req := &CcSearch{}
 	if builder.userIdFlag {
@@ -2494,6 +2573,10 @@ func (builder *CcSearchBuilder) Build() *CcSearch {
 	}
 	if builder.localeFlag {
 		req.Locale = &builder.locale
+
+	}
+	if builder.withRevokedInstanceFlag {
+		req.WithRevokedInstance = &builder.withRevokedInstance
 
 	}
 	return req
@@ -6340,6 +6423,8 @@ type InstanceSearch struct {
 	InstanceStartTimeTo *string `json:"instance_start_time_to,omitempty"` // 实例查询结束时间 (unix毫秒时间戳)
 
 	Locale *string `json:"locale,omitempty"` // 地区
+
+	WithRevokedInstance *bool `json:"with_revoked_instance,omitempty"` // 是否包含撤销申请对应的审批单
 }
 
 type InstanceSearchBuilder struct {
@@ -6372,6 +6457,9 @@ type InstanceSearchBuilder struct {
 
 	locale     string // 地区
 	localeFlag bool
+
+	withRevokedInstance     bool // 是否包含撤销申请对应的审批单
+	withRevokedInstanceFlag bool
 }
 
 func NewInstanceSearchBuilder() *InstanceSearchBuilder {
@@ -6469,6 +6557,15 @@ func (builder *InstanceSearchBuilder) Locale(locale string) *InstanceSearchBuild
 	return builder
 }
 
+// 是否包含撤销申请对应的审批单
+//
+// 示例值：false
+func (builder *InstanceSearchBuilder) WithRevokedInstance(withRevokedInstance bool) *InstanceSearchBuilder {
+	builder.withRevokedInstance = withRevokedInstance
+	builder.withRevokedInstanceFlag = true
+	return builder
+}
+
 func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
 	req := &InstanceSearch{}
 	if builder.userIdFlag {
@@ -6509,6 +6606,10 @@ func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
 	}
 	if builder.localeFlag {
 		req.Locale = &builder.locale
+
+	}
+	if builder.withRevokedInstanceFlag {
+		req.WithRevokedInstance = &builder.withRevokedInstance
 
 	}
 	return req
@@ -10697,6 +10798,8 @@ type TaskSearch struct {
 	TaskStatusList []string `json:"task_status_list,omitempty"` // 可选择task_status中的多个状态，当填写此参数时，task_status失效
 
 	Order *int `json:"order,omitempty"` // 按任务时间排序
+
+	WithRevokedInstance *bool `json:"with_revoked_instance,omitempty"` // 是否包含撤销申请对应的审批单
 }
 
 type TaskSearchBuilder struct {
@@ -10735,6 +10838,9 @@ type TaskSearchBuilder struct {
 
 	order     int // 按任务时间排序
 	orderFlag bool
+
+	withRevokedInstance     bool // 是否包含撤销申请对应的审批单
+	withRevokedInstanceFlag bool
 }
 
 func NewTaskSearchBuilder() *TaskSearchBuilder {
@@ -10850,6 +10956,15 @@ func (builder *TaskSearchBuilder) Order(order int) *TaskSearchBuilder {
 	return builder
 }
 
+// 是否包含撤销申请对应的审批单
+//
+// 示例值：false
+func (builder *TaskSearchBuilder) WithRevokedInstance(withRevokedInstance bool) *TaskSearchBuilder {
+	builder.withRevokedInstance = withRevokedInstance
+	builder.withRevokedInstanceFlag = true
+	return builder
+}
+
 func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	req := &TaskSearch{}
 	if builder.userIdFlag {
@@ -10897,6 +11012,10 @@ func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	}
 	if builder.orderFlag {
 		req.Order = &builder.order
+
+	}
+	if builder.withRevokedInstanceFlag {
+		req.WithRevokedInstance = &builder.withRevokedInstance
 
 	}
 	return req

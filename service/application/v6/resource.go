@@ -11,7 +11,7 @@ import (
 type V6 struct {
 	AppBadge                 *appBadge                 // 应用红点
 	AppRecommendRule         *appRecommendRule         // 我的常用推荐规则
-	Application              *application              // 应用
+	Application              *application              // 应用管理
 	ApplicationAppUsage      *applicationAppUsage      // 应用使用情况
 	ApplicationAppVersion    *applicationAppVersion    // 事件
 	ApplicationCollaborators *applicationCollaborators // application.collaborators

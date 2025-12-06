@@ -29,6 +29,7 @@ func main() {
 	req := larkcorehr.NewBatchGetJobFamilyReqBuilder().
 		Body(larkcorehr.NewBatchGetJobFamilyReqBodyBuilder().
 			JobFamilyIds([]string{}).
+			JobFamilyCodes([]string{}).
 			Build()).
 		Build()
 	// 发起请求

@@ -31,6 +31,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkokr.NewUpdateProgressRecordReqBodyBuilder().
 			Content(larkokr.NewContentBlockBuilder().Build()).
+			ProgressRate(larkokr.NewProgressRateNewBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

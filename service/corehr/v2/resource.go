@@ -33,6 +33,7 @@ type V2 struct {
 	Employee                          *employee                          // employee
 	EmployeesAdditionalJob            *employeesAdditionalJob            // employees.additional_job
 	EmployeesBp                       *employeesBp                       // employees.bp
+	EmployeesInternationalAssignment  *employeesInternationalAssignment  // employees.international_assignment
 	EmployeesJobData                  *employeesJobData                  // employees.job_data
 	Enum                              *enum                              // enum
 	Job                               *job                               // job
@@ -43,7 +44,9 @@ type V2 struct {
 	Location                          *location                          // location
 	LocationAddress                   *locationAddress                   // location.address
 	Offboarding                       *offboarding                       // offboarding
+	Pathway                           *pathway                           // pathway
 	Person                            *person                            // person
+	Position                          *position                          // position
 	PreHire                           *preHire                           // 待入职
 	Probation                         *probation                         // probation
 	ProbationAssessment               *probationAssessment               // probation.assessment
@@ -89,6 +92,7 @@ func New(config *larkcore.Config) *V2 {
 		Employee:                          &employee{config: config},
 		EmployeesAdditionalJob:            &employeesAdditionalJob{config: config},
 		EmployeesBp:                       &employeesBp{config: config},
+		EmployeesInternationalAssignment:  &employeesInternationalAssignment{config: config},
 		EmployeesJobData:                  &employeesJobData{config: config},
 		Enum:                              &enum{config: config},
 		Job:                               &job{config: config},
@@ -99,7 +103,9 @@ func New(config *larkcore.Config) *V2 {
 		Location:                          &location{config: config},
 		LocationAddress:                   &locationAddress{config: config},
 		Offboarding:                       &offboarding{config: config},
+		Pathway:                           &pathway{config: config},
 		Person:                            &person{config: config},
+		Position:                          &position{config: config},
 		PreHire:                           &preHire{config: config},
 		Probation:                         &probation{config: config},
 		ProbationAssessment:               &probationAssessment{config: config},
@@ -192,6 +198,9 @@ type employeesAdditionalJob struct {
 type employeesBp struct {
 	config *larkcore.Config
 }
+type employeesInternationalAssignment struct {
+	config *larkcore.Config
+}
 type employeesJobData struct {
 	config *larkcore.Config
 }
@@ -222,7 +231,13 @@ type locationAddress struct {
 type offboarding struct {
 	config *larkcore.Config
 }
+type pathway struct {
+	config *larkcore.Config
+}
 type person struct {
+	config *larkcore.Config
+}
+type position struct {
 	config *larkcore.Config
 }
 type preHire struct {
@@ -1805,7 +1820,7 @@ func (e *employee) Create(ctx context.Context, req *CreateEmployeeReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/employees"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
 	if err != nil {
 		return nil, err
@@ -1991,6 +2006,110 @@ func (e *employeesBp) BatchGet(ctx context.Context, req *BatchGetEmployeesBpReq,
 	return resp, err
 }
 
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Create(ctx context.Context, req *CreateEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*CreateEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Delete(ctx context.Context, req *DeleteEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*DeleteEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/list_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) List(ctx context.Context, req *ListEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*ListEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Patch(ctx context.Context, req *PatchEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*PatchEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // BatchGet
 //
 // -
@@ -2069,6 +2188,32 @@ func (e *enum) Search(ctx context.Context, req *SearchEnumReq, options ...larkco
 	return resp, err
 }
 
+// BatchGet
+//
+// - 批量获取职务信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchGet_job.go
+func (j *job) BatchGet(ctx context.Context, req *BatchGetJobReq, options ...larkcore.RequestOptionFunc) (*BatchGetJobResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/jobs/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetJobResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get
 //
 // - 根据 ID 查询单个职务。
@@ -2114,6 +2259,32 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 	}
 	// 反序列响应结果
 	resp := &ListJobResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的职务
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_job.go
+func (j *job) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineJobReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineJobResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/jobs/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineJobResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, j.config)
 	if err != nil {
 		return nil, err
@@ -2235,7 +2406,7 @@ func (j *jobChange) SearchByIterator(ctx context.Context, req *SearchJobChangeRe
 
 // BatchGet
 //
-// - 通过序列 ID 批量获取序列信息
+// - 批量获取序列信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_family&version=v2
 //
@@ -2252,6 +2423,32 @@ func (j *jobFamily) BatchGet(ctx context.Context, req *BatchGetJobFamilyReq, opt
 	}
 	// 反序列响应结果
 	resp := &BatchGetJobFamilyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的序列
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job_family&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_jobFamily.go
+func (j *jobFamily) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineJobFamilyReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineJobFamilyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/job_families/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineJobFamilyResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, j.config)
 	if err != nil {
 		return nil, err
@@ -2417,7 +2614,7 @@ func (j *jobGrade) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 
 // BatchGet
 //
-// - 通过职级 ID 批量获取职级信息
+// - 批量获取职级信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_level&version=v2
 //
@@ -2727,6 +2924,136 @@ func (o *offboarding) SubmitV2(ctx context.Context, req *SubmitV2OffboardingReq,
 	return resp, err
 }
 
+// Active
+//
+// - 启/停用通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/active_pathway.go
+func (p *pathway) Active(ctx context.Context, req *ActivePathwayReq, options ...larkcore.RequestOptionFunc) (*ActivePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/active"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ActivePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchGet
+//
+// - 通过通道 ID 批量获取通道信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchGet_pathway.go
+func (p *pathway) BatchGet(ctx context.Context, req *BatchGetPathwayReq, options ...larkcore.RequestOptionFunc) (*BatchGetPathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetPathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// - 创建通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_pathway.go
+func (p *pathway) Create(ctx context.Context, req *CreatePathwayReq, options ...larkcore.RequestOptionFunc) (*CreatePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreatePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 删除通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_pathway.go
+func (p *pathway) Delete(ctx context.Context, req *DeletePathwayReq, options ...larkcore.RequestOptionFunc) (*DeletePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/:pathway_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeletePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 更新通道信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_pathway.go
+func (p *pathway) Patch(ctx context.Context, req *PatchPathwayReq, options ...larkcore.RequestOptionFunc) (*PatchPathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/:pathway_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchPathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create
 //
 // - 创建个人信息数据
@@ -2772,6 +3099,32 @@ func (p *person) Patch(ctx context.Context, req *PatchPersonReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &PatchPersonResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query
+//
+// - 查询岗位信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=position&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/query_position.go
+func (p *position) Query(ctx context.Context, req *QueryPositionReq, options ...larkcore.RequestOptionFunc) (*QueryPositionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/positions/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryPositionResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.config)
 	if err != nil {
 		return nil, err

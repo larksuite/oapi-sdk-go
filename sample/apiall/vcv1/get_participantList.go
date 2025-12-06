@@ -35,6 +35,7 @@ func main() {
 		RoomId("omm_eada1d61a550955240c28757e7dec3af").
 		PageSize(20).
 		PageToken("").
+		WebinarUserRole("0").
 		UserIdType("user_id").
 		Build()
 	// 发起请求

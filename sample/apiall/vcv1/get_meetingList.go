@@ -36,6 +36,8 @@ func main() {
 		MeetingType(2).
 		PageSize(20).
 		PageToken("").
+		IncludeExternalMeetings(false).
+		IncludeWebinar(false).
 		UserIdType("user_id").
 		Build()
 	// 发起请求

@@ -58,25 +58,6 @@ const (
 )
 
 const (
-	ShowLanguageListSpaceLangZH   = "zh"    // 简体中文
-	ShowLanguageListSpaceLangID   = "id"    // 印尼语
-	ShowLanguageListSpaceLangDE   = "de"    // 德语
-	ShowLanguageListSpaceLangEN   = "en"    // 英语
-	ShowLanguageListSpaceLangES   = "es"    // 西班牙语
-	ShowLanguageListSpaceLangFR   = "fr"    // 法语
-	ShowLanguageListSpaceLangIT   = "it"    // 意大利语
-	ShowLanguageListSpaceLangPT   = "pt"    // 葡萄牙语
-	ShowLanguageListSpaceLangVI   = "vi"    // 越南语
-	ShowLanguageListSpaceLangRU   = "ru"    // 俄语
-	ShowLanguageListSpaceLangHI   = "hi"    // 印地语
-	ShowLanguageListSpaceLangTH   = "th"    // 泰语
-	ShowLanguageListSpaceLangKO   = "ko"    // 韩语
-	ShowLanguageListSpaceLangJA   = "ja"    // 日语
-	ShowLanguageListSpaceLangZHHK = "zh-HK" // 繁体中文（中国香港）
-	ShowLanguageListSpaceLangZHTW = "zh-TW" // 繁体中文（中国台湾）
-)
-
-const (
 	TypeUser       = "user"       // 用户
 	TypeChat       = "chat"       // 群组
 	TypeDepartment = "department" // 组织架构
@@ -1255,14 +1236,6 @@ func (builder *ListSpaceReqBuilder) PageSize(pageSize int) *ListSpaceReqBuilder 
 // 示例值：1565676577122621
 func (builder *ListSpaceReqBuilder) PageToken(pageToken string) *ListSpaceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-// 当查询个人文档库时，指定返回的文档库名称展示语言。可选值有：zh, id, de, en, es, fr, it, pt, vi, ru, hi, th, ko, ja, zh-HK, zh-TW。
-//
-// 示例值：zh
-func (builder *ListSpaceReqBuilder) Lang(lang string) *ListSpaceReqBuilder {
-	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 

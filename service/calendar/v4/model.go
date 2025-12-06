@@ -31,15 +31,27 @@ const (
 )
 
 const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户id
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户id
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户id
+)
+
+const (
 	EventPermissionsPatchCalendarPrivate          = "private"             // 私密
 	EventPermissionsPatchCalendarShowOnlyFreeBusy = "show_only_free_busy" // 仅展示忙闲信息
 	EventPermissionsPatchCalendarPublic           = "public"              // 他人可查看日程详情
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户id
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户id
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户id
+	UserIdTypePrimaryCalendarUserId  = "user_id"  // 以user_id来识别用户id
+	UserIdTypePrimaryCalendarUnionId = "union_id" // 以union_id来识别用户id
+	UserIdTypePrimaryCalendarOpenId  = "open_id"  // 以open_id来识别用户id
+)
+
+const (
+	UserIdTypePrimarysCalendarUserId  = "user_id"  // 以user_id来识别用户id
+	UserIdTypePrimarysCalendarUnionId = "union_id" // 以union_id来识别用户id
+	UserIdTypePrimarysCalendarOpenId  = "open_id"  // 以open_id来识别用户id
 )
 
 const (
@@ -179,6 +191,12 @@ const (
 	UserIdTypeGetExchangeBindingUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeGetExchangeBindingUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeGetExchangeBindingOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeBatchFreebusyUserId  = "user_id"  // 以user_id来识别用户id
+	UserIdTypeBatchFreebusyUnionId = "union_id" // 以union_id来识别用户id
+	UserIdTypeBatchFreebusyOpenId  = "open_id"  // 以open_id来识别用户id
 )
 
 const (
@@ -1031,6 +1049,8 @@ type CalendarEvent struct {
 	Attachments []*Attachment `json:"attachments,omitempty"` // 日程附件
 
 	EventCheckIn *EventCheckIn `json:"event_check_in,omitempty"` // 日程签到设置，为空则不进行日程签到设置
+
+	Source *string `json:"source,omitempty"` // 日程source
 }
 
 type CalendarEventBuilder struct {
@@ -1111,6 +1131,9 @@ type CalendarEventBuilder struct {
 
 	eventCheckIn     *EventCheckIn // 日程签到设置，为空则不进行日程签到设置
 	eventCheckInFlag bool
+
+	source     string // 日程source
+	sourceFlag bool
 }
 
 func NewCalendarEventBuilder() *CalendarEventBuilder {
@@ -1352,6 +1375,15 @@ func (builder *CalendarEventBuilder) EventCheckIn(eventCheckIn *EventCheckIn) *C
 	return builder
 }
 
+// 日程source
+//
+// 示例值：source
+func (builder *CalendarEventBuilder) Source(source string) *CalendarEventBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+
 func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	req := &CalendarEvent{}
 	if builder.eventIdFlag {
@@ -1447,6 +1479,10 @@ func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	}
 	if builder.eventCheckInFlag {
 		req.EventCheckIn = builder.eventCheckIn
+	}
+	if builder.sourceFlag {
+		req.Source = &builder.source
+
 	}
 	return req
 }
@@ -4322,6 +4358,56 @@ func (builder *FreebusyBuilder) Build() *Freebusy {
 	return req
 }
 
+type I18nMeetingDescription struct {
+	Lang *string `json:"lang,omitempty"` // 语言
+
+	Description *string `json:"description,omitempty"` // 会议描述
+}
+
+type I18nMeetingDescriptionBuilder struct {
+	lang     string // 语言
+	langFlag bool
+
+	description     string // 会议描述
+	descriptionFlag bool
+}
+
+func NewI18nMeetingDescriptionBuilder() *I18nMeetingDescriptionBuilder {
+	builder := &I18nMeetingDescriptionBuilder{}
+	return builder
+}
+
+// 语言
+//
+// 示例值：zh-cn
+func (builder *I18nMeetingDescriptionBuilder) Lang(lang string) *I18nMeetingDescriptionBuilder {
+	builder.lang = lang
+	builder.langFlag = true
+	return builder
+}
+
+// 会议描述
+//
+// 示例值：www.example.com
+func (builder *I18nMeetingDescriptionBuilder) Description(description string) *I18nMeetingDescriptionBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *I18nMeetingDescriptionBuilder) Build() *I18nMeetingDescription {
+	req := &I18nMeetingDescription{}
+	if builder.langFlag {
+		req.Lang = &builder.lang
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
 type Instance struct {
 	EventId *string `json:"event_id,omitempty"` // 日程实例ID
 
@@ -6046,6 +6132,109 @@ func (builder *SystemInfoBuilder) Build() *SystemInfo {
 	return req
 }
 
+type ThirdPartyMeetingSettings struct {
+	MeetingType *string `json:"meeting_type,omitempty"` // 三方会议类型
+
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议ID
+
+	MeetingNo *string `json:"meeting_no,omitempty"` // 会议号
+
+	Password *string `json:"password,omitempty"` // 密码
+
+	MeetingDescriptions []*I18nMeetingDescription `json:"meeting_descriptions,omitempty"` // 多语言会议描述
+}
+
+type ThirdPartyMeetingSettingsBuilder struct {
+	meetingType     string // 三方会议类型
+	meetingTypeFlag bool
+
+	meetingId     string // 会议ID
+	meetingIdFlag bool
+
+	meetingNo     string // 会议号
+	meetingNoFlag bool
+
+	password     string // 密码
+	passwordFlag bool
+
+	meetingDescriptions     []*I18nMeetingDescription // 多语言会议描述
+	meetingDescriptionsFlag bool
+}
+
+func NewThirdPartyMeetingSettingsBuilder() *ThirdPartyMeetingSettingsBuilder {
+	builder := &ThirdPartyMeetingSettingsBuilder{}
+	return builder
+}
+
+// 三方会议类型
+//
+// 示例值：julinker
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingType(meetingType string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingType = meetingType
+	builder.meetingTypeFlag = true
+	return builder
+}
+
+// 会议ID
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingId(meetingId string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdFlag = true
+	return builder
+}
+
+// 会议号
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingNo(meetingNo string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 密码
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) Password(password string) *ThirdPartyMeetingSettingsBuilder {
+	builder.password = password
+	builder.passwordFlag = true
+	return builder
+}
+
+// 多语言会议描述
+//
+// 示例值：
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingDescriptions(meetingDescriptions []*I18nMeetingDescription) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingDescriptions = meetingDescriptions
+	builder.meetingDescriptionsFlag = true
+	return builder
+}
+
+func (builder *ThirdPartyMeetingSettingsBuilder) Build() *ThirdPartyMeetingSettings {
+	req := &ThirdPartyMeetingSettings{}
+	if builder.meetingTypeFlag {
+		req.MeetingType = &builder.meetingType
+
+	}
+	if builder.meetingIdFlag {
+		req.MeetingId = &builder.meetingId
+
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.passwordFlag {
+		req.Password = &builder.password
+
+	}
+	if builder.meetingDescriptionsFlag {
+		req.MeetingDescriptions = builder.meetingDescriptions
+	}
+	return req
+}
+
 type TimeInfo struct {
 	Date *string `json:"date,omitempty"` // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 
@@ -6584,6 +6773,8 @@ type Vchat struct {
 	VcInfo *VcInfo `json:"vc_info,omitempty"` // VC视频会议原生信息。
 
 	MeetingSettings *MeetingSettings `json:"meeting_settings,omitempty"` // VC视频会议的会前设置
+
+	ThirdPartyMeetingSettings *ThirdPartyMeetingSettings `json:"third_party_meeting_settings,omitempty"` // 三方会议设置
 }
 
 type VchatBuilder struct {
@@ -6607,6 +6798,9 @@ type VchatBuilder struct {
 
 	meetingSettings     *MeetingSettings // VC视频会议的会前设置
 	meetingSettingsFlag bool
+
+	thirdPartyMeetingSettings     *ThirdPartyMeetingSettings // 三方会议设置
+	thirdPartyMeetingSettingsFlag bool
 }
 
 func NewVchatBuilder() *VchatBuilder {
@@ -6677,6 +6871,15 @@ func (builder *VchatBuilder) MeetingSettings(meetingSettings *MeetingSettings) *
 	return builder
 }
 
+// 三方会议设置
+//
+// 示例值：
+func (builder *VchatBuilder) ThirdPartyMeetingSettings(thirdPartyMeetingSettings *ThirdPartyMeetingSettings) *VchatBuilder {
+	builder.thirdPartyMeetingSettings = thirdPartyMeetingSettings
+	builder.thirdPartyMeetingSettingsFlag = true
+	return builder
+}
+
 func (builder *VchatBuilder) Build() *Vchat {
 	req := &Vchat{}
 	if builder.vcTypeFlag {
@@ -6704,6 +6907,9 @@ func (builder *VchatBuilder) Build() *Vchat {
 	}
 	if builder.meetingSettingsFlag {
 		req.MeetingSettings = builder.meetingSettings
+	}
+	if builder.thirdPartyMeetingSettingsFlag {
+		req.ThirdPartyMeetingSettings = builder.thirdPartyMeetingSettings
 	}
 	return req
 }
@@ -7080,6 +7286,119 @@ func (resp *ListCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
+type MgetCalendarReqBodyBuilder struct {
+	calendarIds     []string // 日历ID列表
+	calendarIdsFlag bool
+}
+
+func NewMgetCalendarReqBodyBuilder() *MgetCalendarReqBodyBuilder {
+	builder := &MgetCalendarReqBodyBuilder{}
+	return builder
+}
+
+// 日历ID列表
+//
+//示例值：
+func (builder *MgetCalendarReqBodyBuilder) CalendarIds(calendarIds []string) *MgetCalendarReqBodyBuilder {
+	builder.calendarIds = calendarIds
+	builder.calendarIdsFlag = true
+	return builder
+}
+
+func (builder *MgetCalendarReqBodyBuilder) Build() *MgetCalendarReqBody {
+	req := &MgetCalendarReqBody{}
+	if builder.calendarIdsFlag {
+		req.CalendarIds = builder.calendarIds
+	}
+	return req
+}
+
+type MgetCalendarPathReqBodyBuilder struct {
+	calendarIds     []string
+	calendarIdsFlag bool
+}
+
+func NewMgetCalendarPathReqBodyBuilder() *MgetCalendarPathReqBodyBuilder {
+	builder := &MgetCalendarPathReqBodyBuilder{}
+	return builder
+}
+
+// 日历ID列表
+//
+// 示例值：
+func (builder *MgetCalendarPathReqBodyBuilder) CalendarIds(calendarIds []string) *MgetCalendarPathReqBodyBuilder {
+	builder.calendarIds = calendarIds
+	builder.calendarIdsFlag = true
+	return builder
+}
+
+func (builder *MgetCalendarPathReqBodyBuilder) Build() (*MgetCalendarReqBody, error) {
+	req := &MgetCalendarReqBody{}
+	if builder.calendarIdsFlag {
+		req.CalendarIds = builder.calendarIds
+	}
+	return req, nil
+}
+
+type MgetCalendarReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MgetCalendarReqBody
+}
+
+func NewMgetCalendarReqBuilder() *MgetCalendarReqBuilder {
+	builder := &MgetCalendarReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *MgetCalendarReqBuilder) UserIdType(userIdType string) *MgetCalendarReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *MgetCalendarReqBuilder) Body(body *MgetCalendarReqBody) *MgetCalendarReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MgetCalendarReqBuilder) Build() *MgetCalendarReq {
+	req := &MgetCalendarReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MgetCalendarReqBody struct {
+	CalendarIds []string `json:"calendar_ids,omitempty"` // 日历ID列表
+}
+
+type MgetCalendarReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MgetCalendarReqBody `body:""`
+}
+
+type MgetCalendarRespData struct {
+	Calendars []*Calendar `json:"calendars,omitempty"` // 日历列表
+}
+
+type MgetCalendarResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MgetCalendarRespData `json:"data"` // 业务数据
+}
+
+func (resp *MgetCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 type PatchCalendarReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	calendar *Calendar
@@ -7178,6 +7497,119 @@ type PrimaryCalendarResp struct {
 }
 
 func (resp *PrimaryCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PrimarysCalendarReqBodyBuilder struct {
+	userIds     []string // 用户ID列表
+	userIdsFlag bool
+}
+
+func NewPrimarysCalendarReqBodyBuilder() *PrimarysCalendarReqBodyBuilder {
+	builder := &PrimarysCalendarReqBodyBuilder{}
+	return builder
+}
+
+// 用户ID列表
+//
+//示例值：
+func (builder *PrimarysCalendarReqBodyBuilder) UserIds(userIds []string) *PrimarysCalendarReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *PrimarysCalendarReqBodyBuilder) Build() *PrimarysCalendarReqBody {
+	req := &PrimarysCalendarReqBody{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type PrimarysCalendarPathReqBodyBuilder struct {
+	userIds     []string
+	userIdsFlag bool
+}
+
+func NewPrimarysCalendarPathReqBodyBuilder() *PrimarysCalendarPathReqBodyBuilder {
+	builder := &PrimarysCalendarPathReqBodyBuilder{}
+	return builder
+}
+
+// 用户ID列表
+//
+// 示例值：
+func (builder *PrimarysCalendarPathReqBodyBuilder) UserIds(userIds []string) *PrimarysCalendarPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *PrimarysCalendarPathReqBodyBuilder) Build() (*PrimarysCalendarReqBody, error) {
+	req := &PrimarysCalendarReqBody{}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req, nil
+}
+
+type PrimarysCalendarReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PrimarysCalendarReqBody
+}
+
+func NewPrimarysCalendarReqBuilder() *PrimarysCalendarReqBuilder {
+	builder := &PrimarysCalendarReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *PrimarysCalendarReqBuilder) UserIdType(userIdType string) *PrimarysCalendarReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *PrimarysCalendarReqBuilder) Body(body *PrimarysCalendarReqBody) *PrimarysCalendarReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PrimarysCalendarReqBuilder) Build() *PrimarysCalendarReq {
+	req := &PrimarysCalendarReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PrimarysCalendarReqBody struct {
+	UserIds []string `json:"user_ids,omitempty"` // 用户ID列表
+}
+
+type PrimarysCalendarReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PrimarysCalendarReqBody `body:""`
+}
+
+type PrimarysCalendarRespData struct {
+	Calendars []*UserCalendar `json:"calendars,omitempty"` // 主日历列表
+}
+
+type PrimarysCalendarResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PrimarysCalendarRespData `json:"data"` // 业务数据
+}
+
+func (resp *PrimarysCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -9679,6 +10111,243 @@ type GetExchangeBindingResp struct {
 }
 
 func (resp *GetExchangeBindingResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchFreebusyReqBodyBuilder struct {
+	timeMin     string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+	timeMinFlag bool
+
+	timeMax     string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+	timeMaxFlag bool
+
+	userIds     []string // 用户ID列表
+	userIdsFlag bool
+
+	includeExternalCalendar     bool // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+	includeExternalCalendarFlag bool
+
+	onlyBusy     bool // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+	onlyBusyFlag bool
+}
+
+func NewBatchFreebusyReqBodyBuilder() *BatchFreebusyReqBodyBuilder {
+	builder := &BatchFreebusyReqBodyBuilder{}
+	return builder
+}
+
+// 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+//
+//示例值：2020-10-28T12:00:00+08:00
+func (builder *BatchFreebusyReqBodyBuilder) TimeMin(timeMin string) *BatchFreebusyReqBodyBuilder {
+	builder.timeMin = timeMin
+	builder.timeMinFlag = true
+	return builder
+}
+
+// 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+//
+//示例值：2020-10-28T12:00:00+08:00
+func (builder *BatchFreebusyReqBodyBuilder) TimeMax(timeMax string) *BatchFreebusyReqBodyBuilder {
+	builder.timeMax = timeMax
+	builder.timeMaxFlag = true
+	return builder
+}
+
+// 用户ID列表
+//
+//示例值：
+func (builder *BatchFreebusyReqBodyBuilder) UserIds(userIds []string) *BatchFreebusyReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+//
+//示例值：true
+func (builder *BatchFreebusyReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *BatchFreebusyReqBodyBuilder {
+	builder.includeExternalCalendar = includeExternalCalendar
+	builder.includeExternalCalendarFlag = true
+	return builder
+}
+
+// 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+//
+//示例值：true
+func (builder *BatchFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFreebusyReqBodyBuilder {
+	builder.onlyBusy = onlyBusy
+	builder.onlyBusyFlag = true
+	return builder
+}
+
+func (builder *BatchFreebusyReqBodyBuilder) Build() *BatchFreebusyReqBody {
+	req := &BatchFreebusyReqBody{}
+	if builder.timeMinFlag {
+		req.TimeMin = &builder.timeMin
+	}
+	if builder.timeMaxFlag {
+		req.TimeMax = &builder.timeMax
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.includeExternalCalendarFlag {
+		req.IncludeExternalCalendar = &builder.includeExternalCalendar
+	}
+	if builder.onlyBusyFlag {
+		req.OnlyBusy = &builder.onlyBusy
+	}
+	return req
+}
+
+type BatchFreebusyPathReqBodyBuilder struct {
+	timeMin                     string
+	timeMinFlag                 bool
+	timeMax                     string
+	timeMaxFlag                 bool
+	userIds                     []string
+	userIdsFlag                 bool
+	includeExternalCalendar     bool
+	includeExternalCalendarFlag bool
+	onlyBusy                    bool
+	onlyBusyFlag                bool
+}
+
+func NewBatchFreebusyPathReqBodyBuilder() *BatchFreebusyPathReqBodyBuilder {
+	builder := &BatchFreebusyPathReqBodyBuilder{}
+	return builder
+}
+
+// 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+//
+// 示例值：2020-10-28T12:00:00+08:00
+func (builder *BatchFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *BatchFreebusyPathReqBodyBuilder {
+	builder.timeMin = timeMin
+	builder.timeMinFlag = true
+	return builder
+}
+
+// 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+//
+// 示例值：2020-10-28T12:00:00+08:00
+func (builder *BatchFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *BatchFreebusyPathReqBodyBuilder {
+	builder.timeMax = timeMax
+	builder.timeMaxFlag = true
+	return builder
+}
+
+// 用户ID列表
+//
+// 示例值：
+func (builder *BatchFreebusyPathReqBodyBuilder) UserIds(userIds []string) *BatchFreebusyPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+//
+// 示例值：true
+func (builder *BatchFreebusyPathReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *BatchFreebusyPathReqBodyBuilder {
+	builder.includeExternalCalendar = includeExternalCalendar
+	builder.includeExternalCalendarFlag = true
+	return builder
+}
+
+// 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+//
+// 示例值：true
+func (builder *BatchFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFreebusyPathReqBodyBuilder {
+	builder.onlyBusy = onlyBusy
+	builder.onlyBusyFlag = true
+	return builder
+}
+
+func (builder *BatchFreebusyPathReqBodyBuilder) Build() (*BatchFreebusyReqBody, error) {
+	req := &BatchFreebusyReqBody{}
+	if builder.timeMinFlag {
+		req.TimeMin = &builder.timeMin
+	}
+	if builder.timeMaxFlag {
+		req.TimeMax = &builder.timeMax
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.includeExternalCalendarFlag {
+		req.IncludeExternalCalendar = &builder.includeExternalCalendar
+	}
+	if builder.onlyBusyFlag {
+		req.OnlyBusy = &builder.onlyBusy
+	}
+	return req, nil
+}
+
+type BatchFreebusyReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchFreebusyReqBody
+}
+
+func NewBatchFreebusyReqBuilder() *BatchFreebusyReqBuilder {
+	builder := &BatchFreebusyReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BatchFreebusyReqBuilder) UserIdType(userIdType string) *BatchFreebusyReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *BatchFreebusyReqBuilder) Body(body *BatchFreebusyReqBody) *BatchFreebusyReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchFreebusyReqBuilder) Build() *BatchFreebusyReq {
+	req := &BatchFreebusyReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchFreebusyReqBody struct {
+	TimeMin *string `json:"time_min,omitempty"` // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+
+	TimeMax *string `json:"time_max,omitempty"` // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+
+	UserIds []string `json:"user_ids,omitempty"` // 用户ID列表
+
+	IncludeExternalCalendar *bool `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+
+	OnlyBusy *bool `json:"only_busy,omitempty"` // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+}
+
+type BatchFreebusyReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchFreebusyReqBody `body:""`
+}
+
+type BatchFreebusyRespData struct {
+	FreebusyLists []*UserFreebusy `json:"freebusy_lists,omitempty"` // 用户忙闲信息列表
+}
+
+type BatchFreebusyResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchFreebusyRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchFreebusyResp) Success() bool {
 	return resp.Code == 0
 }
 

@@ -29,6 +29,7 @@ func main() {
 	req := larkcorehr.NewBatchGetJobLevelReqBuilder().
 		Body(larkcorehr.NewBatchGetJobLevelReqBodyBuilder().
 			JobLevelIds([]string{}).
+			JobLevelCodes([]string{}).
 			Build()).
 		Build()
 	// 发起请求

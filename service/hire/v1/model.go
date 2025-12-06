@@ -25,16 +25,16 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	BatchQueryAgencyUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchQueryAgencyUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchQueryAgencyUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetAgencyUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetAgencyUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetAgencyOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetAgencyPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	GetAgencyUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetAgencyUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetAgencyUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetAgencyUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
@@ -51,478 +51,500 @@ const (
 )
 
 const (
-	UserIdTypeGetAgencyAccountAgencyUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetAgencyAccountAgencyOpenId  = "open_id"  // 以open_id来识别用户
+	GetAgencyAccountAgencyUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetAgencyAccountAgencyUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	OptionAdd    = 1 // 禁用
-	OptionRemove = 2 // 取消禁用
+	OperateAgencyAccountOptionAdd    = 1 // 禁用
+	OperateAgencyAccountOptionRemove = 2 // 取消禁用
 
 )
 
 const (
-	UserIdTypeProtectAgencyUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeProtectAgencyUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeProtectAgencyOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeProtectAgencyPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ProtectAgencyUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ProtectAgencyUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ProtectAgencyUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ProtectAgencyUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeQueryAgencyUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeQueryAgencyUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeQueryAgencyOpenId  = "open_id"  // 以open_id来识别用户
+	QueryAgencyUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	QueryAgencyUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	QueryAgencyUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TerminationType我们拒绝了候选人 = 1  // 我们拒绝了候选人
-	TerminationType候选人拒绝了我们 = 22 // 候选人拒绝了我们
-	TerminationType其他       = 27 // 其他
+	CancelOnboardApplicationTerminationType我们拒绝了候选人 = 1  // 我们拒绝了候选人
+	CancelOnboardApplicationTerminationType候选人拒绝了我们 = 22 // 候选人拒绝了我们
+	CancelOnboardApplicationTerminationType其他       = 27 // 其他
 
 )
 
 const (
-	UserIdTypeCreateApplicationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateApplicationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateApplicationOpenId  = "open_id"  // 以open_id来识别用户
+	CreateApplicationDeliveryTypeHRVisit           = 1 // HR 寻访
+	CreateApplicationDeliveryTypeCandidateDelivery = 2 // 候选人主动投递
+
+)
+
+const (
+	CreateApplicationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateApplicationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateApplicationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetApplicationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetApplicationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetApplicationOpenId  = "open_id"  // 以open_id来识别用户
+	GetApplicationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetApplicationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetApplicationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetDetailApplicationUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetDetailApplicationUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetDetailApplicationOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetDetailApplicationPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
+	GetDetailApplicationUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetDetailApplicationUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetDetailApplicationUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetDetailApplicationUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
 )
 
 const (
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetDetailApplicationDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetDetailApplicationDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetDetailApplicationJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetDetailApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetDetailApplicationJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetDetailApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	GetDetailApplicationEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetDetailApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeOfferApplicationUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeOfferApplicationUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeOfferApplicationOpenId  = "open_id"  // 以 open_id 来识别用户
+	OfferApplicationUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	OfferApplicationUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	OfferApplicationUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeOfferApplicationOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeOfferApplicationDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	OfferApplicationDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	OfferApplicationDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeOfferApplicationPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeOfferApplicationJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	OfferApplicationJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	OfferApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeOfferApplicationPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeOfferApplicationJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	OfferApplicationJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	OfferApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeOfferApplicationPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeOfferApplicationEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	OfferApplicationEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	OfferApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	TerminationTypeTerminateApplicationWeRejected        = 1  // 我们拒绝了候选人
-	TerminationTypeTerminateApplicationCandidateRejected = 22 // 候选人拒绝了我们
-	TerminationTypeTerminateApplicationOther             = 27 // 其他
+	TerminateApplicationTerminationTypeWeRejected        = 1  // 我们拒绝了候选人
+	TerminateApplicationTerminationTypeCandidateRejected = 22 // 候选人拒绝了我们
+	TerminateApplicationTerminationTypeOther             = 27 // 其他
 
 )
 
 const (
-	TerminateOfferOperateTypeCancelOffer       = 1 // 撤销offer
-	TerminateOfferOperateTypeCandidateRejected = 2 // 标记为候选人拒绝
+	TerminateApplicationTerminateOfferOperateTypeCancelOffer       = 1 // 撤销offer
+	TerminateApplicationTerminateOfferOperateTypeCandidateRejected = 2 // 标记为候选人拒绝
 
 )
 
 const (
-	CancelOfferTerminationTypeWeRejected        = 1  // 我们拒绝了候选人
-	CancelOfferTerminationTypeCandidateRejected = 22 // 候选人拒绝了我们
-	CancelOfferTerminationTypeOther             = 27 // 其他
+	TerminateApplicationCancelOfferTerminationTypeWeRejected        = 1  // 我们拒绝了候选人
+	TerminateApplicationCancelOfferTerminationTypeCandidateRejected = 22 // 候选人拒绝了我们
+	TerminateApplicationCancelOfferTerminationTypeOther             = 27 // 其他
+
+)
 
+const (
+	TransferOnboardApplicationUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	TransferOnboardApplicationUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	TransferOnboardApplicationUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeTransferOnboardApplicationUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeTransferOnboardApplicationUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeTransferOnboardApplicationOpenId  = "open_id"  // 以 open_id 来识别用户
+	TransferOnboardApplicationDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	TransferOnboardApplicationDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	TransferOnboardApplicationDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeTransferOnboardApplicationOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
-	DepartmentIdTypeTransferOnboardApplicationDepartmentId            = "department_id"              // 以 department_id 来标识部门
-	DepartmentIdTypeTransferOnboardApplicationPeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+	TransferOnboardApplicationJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	TransferOnboardApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobLevelIdTypeTransferOnboardApplicationPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeTransferOnboardApplicationJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	TransferOnboardApplicationJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	TransferOnboardApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeTransferOnboardApplicationPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeTransferOnboardApplicationJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	TransferOnboardApplicationEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	TransferOnboardApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeTransferOnboardApplicationPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeTransferOnboardApplicationEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	ListApplicationInterviewUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListApplicationInterviewUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListApplicationInterviewUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListApplicationInterviewUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeListApplicationInterviewUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListApplicationInterviewUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListApplicationInterviewOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListApplicationInterviewPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListApplicationInterviewJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListApplicationInterviewJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobLevelIdTypeListApplicationInterviewPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListApplicationInterviewJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetAttachmentType附件简历  = 1 // 附件简历
+	GetAttachmentType候选人作品 = 2 // 候选人作品
+	GetAttachmentType自定义附件 = 3 // 自定义附件
+
 )
 
 const (
-	Type附件简历  = 1 // 附件简历
-	Type候选人作品 = 2 // 候选人作品
-	Type自定义附件 = 3 // 自定义附件
+	BatchQueryBackgroundCheckOrderOrderStatusHasArrange    = "2" // 已安排
+	BatchQueryBackgroundCheckOrderOrderStatusHasFinish     = "3" // 已完成
+	BatchQueryBackgroundCheckOrderOrderStatusHasTerminated = "4" // 已终止
+	BatchQueryBackgroundCheckOrderOrderStatusApproving     = "5" // 审批中
+	BatchQueryBackgroundCheckOrderOrderStatusWithdrawn     = "6" // 审批已撤回
+	BatchQueryBackgroundCheckOrderOrderStatusApproved      = "8" // 审批通过
+	BatchQueryBackgroundCheckOrderOrderStatusRejected      = "9" // 审批未通过
+)
 
+const (
+	BatchQueryBackgroundCheckOrderUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	BatchQueryBackgroundCheckOrderUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	BatchQueryBackgroundCheckOrderUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeListBackgroundCheckOrderUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeListBackgroundCheckOrderUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeListBackgroundCheckOrderOpenId  = "open_id"  // 以 open_id 来识别用户
+	ListBackgroundCheckOrderUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ListBackgroundCheckOrderUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ListBackgroundCheckOrderUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	Scope背调 = 1 // 背调
-	Scope笔试 = 2 // 笔试
+	BatchDeleteEcoAccountCustomFieldScope背调 = 1 // 背调
+	BatchDeleteEcoAccountCustomFieldScope笔试 = 2 // 笔试
 
 )
 
 const (
-	ScopeBatchUpdateEcoAccountCustomField背调 = 1 // 背调
-	ScopeBatchUpdateEcoAccountCustomField笔试 = 2 // 笔试
+	EcoAccountCustomFieldScope背调 = 1 // 背调
+	EcoAccountCustomFieldScope笔试 = 2 // 笔试
 
 )
 
 const (
-	ScopeCreateEcoAccountCustomField背调 = 1 // 背调
-	ScopeCreateEcoAccountCustomField笔试 = 2 // 笔试
+	EcoAccountCustomFieldScopeCreateEcoAccountCustomField背调 = 1 // 背调
+	EcoAccountCustomFieldScopeCreateEcoAccountCustomField笔试 = 2 // 笔试
 
 )
 
 const (
-	OperatorRole1 = 1 // 供应商
-	OperatorRole2 = 2 // 管理员
+	UpdateProgressEcoBackgroundCheckOperatorRole1 = 1 // 供应商
+	UpdateProgressEcoBackgroundCheckOperatorRole2 = 2 // 管理员
 
 )
 
 const (
-	OperatorRoleUpdateResultEcoBackgroundCheck1 = 1 // 供应商
-	OperatorRoleUpdateResultEcoBackgroundCheck2 = 2 // 管理员
+	UpdateResultEcoBackgroundCheckOperatorRole1 = 1 // 供应商
+	UpdateResultEcoBackgroundCheckOperatorRole2 = 2 // 管理员
 
 )
 
 const (
-	State导入成功 = 1 // 导入成功
-	State导入失败 = 2 // 导入失败
+	EhrImportTaskState导入成功 = 1 // 导入成功
+	EhrImportTaskState导入失败 = 2 // 导入失败
 
 )
 
 const (
-	UserIdTypeGetEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeGetEmployeeUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeGetEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
+	GetEmployeeUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	GetEmployeeUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	GetEmployeeUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeGetEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
-	DepartmentIdTypeGetEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+	GetEmployeeDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	GetEmployeeDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	GetEmployeeDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetEmployeeJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetEmployeeJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeGetEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeGetEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetEmployeeJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetEmployeeJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeGetEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeGetEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	GetEmployeeEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetEmployeeEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeGetByApplicationEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeGetByApplicationEmployeeUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeGetByApplicationEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
+	GetByApplicationEmployeeUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	GetByApplicationEmployeeUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	GetByApplicationEmployeeUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeGetByApplicationEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetByApplicationEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
-	DepartmentIdTypeGetByApplicationEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+	GetByApplicationEmployeeDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	GetByApplicationEmployeeDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	GetByApplicationEmployeeDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetByApplicationEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetByApplicationEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetByApplicationEmployeeJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetByApplicationEmployeeJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeGetByApplicationEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeGetByApplicationEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetByApplicationEmployeeJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetByApplicationEmployeeJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeGetByApplicationEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeGetByApplicationEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	GetByApplicationEmployeeEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetByApplicationEmployeeEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	OperationConvert            = 1 // 转正
-	OperationOverboard          = 2 // 离职
-	OperationCancel             = 3 // 恢复至待入职
-	OperationWithdrawOverboard  = 4 // 撤销离职
-	OperationWithdrawConversion = 5 // 撤销转正
+	ChangeEmployeeStageOperationConvert            = 1 // 转正
+	ChangeEmployeeStageOperationOverboard          = 2 // 离职
+	ChangeEmployeeStageOperationCancel             = 3 // 恢复至待入职
+	ChangeEmployeeStageOperationWithdrawOverboard  = 4 // 撤销离职
+	ChangeEmployeeStageOperationWithdrawConversion = 5 // 撤销转正
 
 )
 
 const (
-	UserIdTypePatchEmployeeUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypePatchEmployeeUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypePatchEmployeeOpenId  = "open_id"  // 以 open_id 来识别用户
+	PatchEmployeeUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	PatchEmployeeUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	PatchEmployeeUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypePatchEmployeeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
-	DepartmentIdTypePatchEmployeeDepartmentId            = "department_id"              // 以 department_id 来标识部门
-	DepartmentIdTypePatchEmployeePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+	PatchEmployeeDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	PatchEmployeeDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	PatchEmployeeDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypePatchEmployeePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypePatchEmployeeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	PatchEmployeeJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	PatchEmployeeJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypePatchEmployeePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypePatchEmployeeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	PatchEmployeeJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	PatchEmployeeJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypePatchEmployeePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypePatchEmployeeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	PatchEmployeeEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	PatchEmployeeEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeListEvaluationUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListEvaluationUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListEvaluationOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListEvaluationPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListEvaluationUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListEvaluationUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListEvaluationUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListEvaluationUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	ActivityStatus待评估  = 1 // 待评估
-	ActivityStatus已评估  = 2 // 已评估
-	ActivityStatus无需评估 = 3 // 无需评估
+	ListEvaluationTaskActivityStatus待评估  = 1 // 待评估
+	ListEvaluationTaskActivityStatus已评估  = 2 // 已评估
+	ListEvaluationTaskActivityStatus无需评估 = 3 // 无需评估
 
 )
 
 const (
-	UserIdTypeListEvaluationTaskUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListEvaluationTaskUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListEvaluationTaskOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListEvaluationTaskPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListEvaluationTaskUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListEvaluationTaskUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListEvaluationTaskUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListEvaluationTaskUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeCreateExamUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeCreateExamUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeCreateExamOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeCreateExamPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	CreateExamUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	CreateExamUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	CreateExamUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	CreateExamUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	ActivityStatusListExamMarkingTask待阅卷 = 1 // 待阅卷
-	ActivityStatusListExamMarkingTask已阅卷 = 2 // 已阅卷
+	ListExamMarkingTaskActivityStatus待阅卷 = 1 // 待阅卷
+	ListExamMarkingTaskActivityStatus已阅卷 = 2 // 已阅卷
 
 )
 
 const (
-	UserIdTypeListExamMarkingTaskUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListExamMarkingTaskUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListExamMarkingTaskOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListExamMarkingTaskPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListExamMarkingTaskUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListExamMarkingTaskUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListExamMarkingTaskUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListExamMarkingTaskUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	JobRecruitmentTypeSocialRecruitment = 1 // 社招
-	JobRecruitmentTypeCampusRecruitment = 2 // 校招
+	ExternalApplicationJobRecruitmentTypeSocialRecruitment = 1 // 社招
+	ExternalApplicationJobRecruitmentTypeCampusRecruitment = 2 // 校招
 
 )
 
 const (
-	DeliveryTypeHRVisit           = 1 // HR 寻访
-	DeliveryTypeCandidateDelivery = 2 // 候选人主动投递
-	DeliveryTypeTalentRecommend   = 3 // 人才推荐
-	DeliveryTypeOthers            = 4 // 其他
+	ExternalApplicationDeliveryTypeHRVisit           = 1 // HR 寻访
+	ExternalApplicationDeliveryTypeCandidateDelivery = 2 // 候选人主动投递
+	ExternalApplicationDeliveryTypeTalentRecommend   = 3 // 人才推荐
+	ExternalApplicationDeliveryTypeOthers            = 4 // 其他
 
 )
 
 const (
-	JobRecruitmentTypeUpdateExternalApplicationSocialRecruitment = 1 // 社招
-	JobRecruitmentTypeUpdateExternalApplicationCampusRecruitment = 2 // 校招
+	ExternalApplicationJobRecruitmentTypeUpdateExternalApplicationSocialRecruitment = 1 // 社招
+	ExternalApplicationJobRecruitmentTypeUpdateExternalApplicationCampusRecruitment = 2 // 校招
 
 )
 
 const (
-	DeliveryTypeUpdateExternalApplicationHRVisit           = 1 // HR 寻访
-	DeliveryTypeUpdateExternalApplicationCandidateDelivery = 2 // 候选人主动投递
-	DeliveryTypeUpdateExternalApplicationTalentRecommend   = 3 // 人才推荐
-	DeliveryTypeUpdateExternalApplicationOthers            = 4 // 其他
+	ExternalApplicationDeliveryTypeUpdateExternalApplicationHRVisit           = 1 // HR 寻访
+	ExternalApplicationDeliveryTypeUpdateExternalApplicationCandidateDelivery = 2 // 候选人主动投递
+	ExternalApplicationDeliveryTypeUpdateExternalApplicationTalentRecommend   = 3 // 人才推荐
+	ExternalApplicationDeliveryTypeUpdateExternalApplicationOthers            = 4 // 其他
 
 )
 
 const (
-	ParticipateStatusNotStart       = 1 // 未参与
-	ParticipateStatusParticipated   = 2 // 参与
-	ParticipateStatusNotPaticipated = 3 // 爽约
+	ExternalInterviewParticipateStatusNotStart       = 1 // 未参与
+	ExternalInterviewParticipateStatusParticipated   = 2 // 参与
+	ExternalInterviewParticipateStatusNotPaticipated = 3 // 爽约
 
 )
 
 const (
-	ParticipateStatusUpdateExternalInterviewNotStart       = 1 // 未参与
-	ParticipateStatusUpdateExternalInterviewParticipated   = 2 // 参与
-	ParticipateStatusUpdateExternalInterviewNotPaticipated = 3 // 爽约
+	ExternalInterviewParticipateStatusUpdateExternalInterviewNotStart       = 1 // 未参与
+	ExternalInterviewParticipateStatusUpdateExternalInterviewParticipated   = 2 // 参与
+	ExternalInterviewParticipateStatusUpdateExternalInterviewNotPaticipated = 3 // 爽约
 
 )
 
 const (
-	ConclusionFail           = 1 // 不通过
-	ConclusionPass           = 2 // 通过
-	ConclusionToBeDetermined = 3 // 待定
+	ExternalInterviewAssessmentConclusionFail           = 1 // 不通过
+	ExternalInterviewAssessmentConclusionPass           = 2 // 通过
+	ExternalInterviewAssessmentConclusionToBeDetermined = 3 // 待定
 
 )
 
 const (
-	ConclusionPatchExternalInterviewAssessmentFail           = 1 // 不通过
-	ConclusionPatchExternalInterviewAssessmentPass           = 2 // 通过
-	ConclusionPatchExternalInterviewAssessmentToBeDetermined = 3 // 待定
+	ExternalInterviewAssessmentConclusionPatchExternalInterviewAssessmentFail           = 1 // 不通过
+	ExternalInterviewAssessmentConclusionPatchExternalInterviewAssessmentPass           = 2 // 通过
+	ExternalInterviewAssessmentConclusionPatchExternalInterviewAssessmentToBeDetermined = 3 // 待定
 
 )
 
 const (
-	RuleTypeOnboard    = 1 // 入职奖励，候选人入职或转正后产生的奖励
-	RuleTypeProcesse   = 2 // 过程奖励，入职奖励外，若候选人有阶段性进展，则给予内推人对应的奖励
-	RuleTypeActive     = 3 // 活动奖励，额外奖励，用于支持内推周期性活动
-	RuleTypeOpenSource = 4 // 开源奖励，若内推候选人首次进入人才库，且在被推荐后一段时间内，入职了规则内的任意职位的奖励
-	RuleTypeOther      = 5 // 其他奖励，以上奖励无法覆盖的奖励
+	ExternalRewardRuleTypeOnboard    = 1 // 入职奖励，候选人入职或转正后产生的奖励
+	ExternalRewardRuleTypeProcesse   = 2 // 过程奖励，入职奖励外，若候选人有阶段性进展，则给予内推人对应的奖励
+	ExternalRewardRuleTypeActive     = 3 // 活动奖励，额外奖励，用于支持内推周期性活动
+	ExternalRewardRuleTypeOpenSource = 4 // 开源奖励，若内推候选人首次进入人才库，且在被推荐后一段时间内，入职了规则内的任意职位的奖励
+	ExternalRewardRuleTypeOther      = 5 // 其他奖励，以上奖励无法覆盖的奖励
 
 )
 
 const (
-	StageToBeConfirmed = 1 // 待确认
-	StageConfirmed     = 2 // 已确认
-	StagePaid          = 3 // 已发放
+	ExternalRewardStageToBeConfirmed = 1 // 待确认
+	ExternalRewardStageConfirmed     = 2 // 已确认
+	ExternalRewardStagePaid          = 3 // 已发放
 
 )
 
 const (
-	UserIdTypeCreateExternalReferralRewardUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateExternalReferralRewardUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateExternalReferralRewardOpenId  = "open_id"  // 以open_id来识别用户
+	CreateExternalReferralRewardUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateExternalReferralRewardUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateExternalReferralRewardUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetByTalentInterviewUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetByTalentInterviewUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetByTalentInterviewOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetByTalentInterviewPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	GetByTalentInterviewUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetByTalentInterviewUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetByTalentInterviewUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetByTalentInterviewUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	JobLevelIdTypeGetByTalentInterviewPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetByTalentInterviewJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetByTalentInterviewJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetByTalentInterviewJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobLevelIdTypeListInterviewPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListInterviewJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListInterviewJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListInterviewJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	UserIdTypeListInterviewUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListInterviewUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListInterviewOpenId  = "open_id"  // 以open_id来识别用户
+	ListInterviewUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListInterviewUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListInterviewUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetInterviewRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetInterviewRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetInterviewRecordOpenId  = "open_id"  // 以open_id来识别用户
+	GetInterviewRecordUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetInterviewRecordUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetInterviewRecordUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListInterviewRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListInterviewRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListInterviewRecordOpenId  = "open_id"  // 以open_id来识别用户
+	ListInterviewRecordsUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListInterviewRecordsUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListInterviewRecordsUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	LanguageZh = 1 // 中文
-	LanguageEn = 2 // 英文
+	GetInterviewRecordAttachmentLanguageZh = 1 // 中文
+	GetInterviewRecordAttachmentLanguageEn = 2 // 英文
 
 )
 
 const (
-	ProcessType社招流程 = 1 // 社招流程
-	ProcessType校招流程 = 2 // 校招流程
+	ListInterviewRoundTypeProcessType社招流程 = 1 // 社招流程
+	ListInterviewRoundTypeProcessType校招流程 = 2 // 校招流程
 
 )
 
 const (
-	ActivityStatusListInterviewTask未开始 = 1 // 未开始
-	ActivityStatusListInterviewTask未评价 = 2 // 未评价
-	ActivityStatusListInterviewTask已评价 = 3 // 已评价
-	ActivityStatusListInterviewTask已终止 = 5 // 已终止
+	ListInterviewTaskActivityStatus未开始 = 1 // 未开始
+	ListInterviewTaskActivityStatus未评价 = 2 // 未评价
+	ListInterviewTaskActivityStatus已评价 = 3 // 已评价
+	ListInterviewTaskActivityStatus已终止 = 5 // 已终止
 
 )
 
 const (
-	UserIdTypeListInterviewTaskUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListInterviewTaskUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListInterviewTaskOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListInterviewTaskPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListInterviewTaskUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListInterviewTaskUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListInterviewTaskUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListInterviewTaskUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
@@ -532,905 +554,911 @@ const (
 )
 
 const (
-	UserIdTypeListInterviewerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListInterviewerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListInterviewerOpenId  = "open_id"  // 以open_id来识别用户
+	ListInterviewerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListInterviewerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListInterviewerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchInterviewerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchInterviewerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchInterviewerOpenId  = "open_id"  // 以open_id来识别用户
+	PatchInterviewerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchInterviewerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchInterviewerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	ExperienceNoLimit         = 1 // 不限
-	ExperienceGraduate        = 2 // 应届毕业生
-	ExperienceUnderOneYear    = 3 // 1年以下
-	ExperienceOneToThreeYear  = 4 // 1-3年
-	ExperienceThreeToFiveYear = 5 // 3-5年
-	ExperienceFiveToSevenYear = 6 // 5-7年
-	ExperienceSevenToTenYear  = 7 // 7-10年
-	ExperienceOverTenYear     = 8 // 10年以上
+	CombinedJobExperienceNoLimit         = 1 // 不限
+	CombinedJobExperienceGraduate        = 2 // 应届毕业生
+	CombinedJobExperienceUnderOneYear    = 3 // 1年以下
+	CombinedJobExperienceOneToThreeYear  = 4 // 1-3年
+	CombinedJobExperienceThreeToFiveYear = 5 // 3-5年
+	CombinedJobExperienceFiveToSevenYear = 6 // 5-7年
+	CombinedJobExperienceSevenToTenYear  = 7 // 7-10年
+	CombinedJobExperienceOverTenYear     = 8 // 10年以上
 
 )
 
 const (
-	ProcessTypeCombinedCreateJobSocialProcess = 1 // 社招
-	ProcessTypeCombinedCreateJobCampusProcess = 2 // 校招
+	CombinedJobProcessTypeSocialProcess = 1 // 社招
+	CombinedJobProcessTypeCampusProcess = 2 // 校招
 
 )
 
 const (
-	RequiredDegreePrimaryEducation            = 1  // 小学及以上
-	RequiredDegreeJuniorMiddleSchoolEducation = 2  // 初中及以上
-	RequiredDegreeSecondary                   = 3  // 专职及以上
-	RequiredDegreeSeniorSchoolGraduates       = 4  // 高中及以上
-	RequiredDegreeAssociate                   = 5  // 大专及以上
-	RequiredDegreeBachelor                    = 6  // 本科及以上
-	RequiredDegreeMaster                      = 7  // 硕士及以上
-	RequiredDegreePhd                         = 8  // 博士及以上
-	RequiredDegreeNoLimit                     = 20 // 不限
+	CombinedJobRequiredDegreePrimaryEducation            = 1  // 小学及以上
+	CombinedJobRequiredDegreeJuniorMiddleSchoolEducation = 2  // 初中及以上
+	CombinedJobRequiredDegreeSecondary                   = 3  // 专职及以上
+	CombinedJobRequiredDegreeSeniorSchoolGraduates       = 4  // 高中及以上
+	CombinedJobRequiredDegreeAssociate                   = 5  // 大专及以上
+	CombinedJobRequiredDegreeBachelor                    = 6  // 本科及以上
+	CombinedJobRequiredDegreeMaster                      = 7  // 硕士及以上
+	CombinedJobRequiredDegreePhd                         = 8  // 博士及以上
+	CombinedJobRequiredDegreeNoLimit                     = 20 // 不限
 
 )
 
 const (
-	JobAttributeConcrete = 1 // 实体职位
-	JobAttributeVirtual  = 2 // 虚拟职位
+	CombinedJobJobAttributeConcrete = 1 // 实体职位
+	CombinedJobJobAttributeVirtual  = 2 // 虚拟职位
 
 )
 
 const (
-	UserIdTypeCombinedCreateJobUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeCombinedCreateJobUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeCombinedCreateJobOpenId  = "open_id"  // 以 open_id 来识别用户
+	CombinedCreateJobUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	CombinedCreateJobUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	CombinedCreateJobUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeCombinedCreateJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeCombinedCreateJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	CombinedCreateJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	CombinedCreateJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeCombinedCreateJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeCombinedCreateJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	CombinedCreateJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CombinedCreateJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeCombinedCreateJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeCombinedCreateJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	CombinedCreateJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CombinedCreateJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	ExperienceCombinedUpdateJobNoLimit         = 1 // 不限
-	ExperienceCombinedUpdateJobGraduate        = 2 // 应届毕业生
-	ExperienceCombinedUpdateJobUnderOneYear    = 3 // 1年以下
-	ExperienceCombinedUpdateJobOneToThreeYear  = 4 // 1-3年
-	ExperienceCombinedUpdateJobThreeToFiveYear = 5 // 3-5年
-	ExperienceCombinedUpdateJobFiveToSevenYear = 6 // 5-7年
-	ExperienceCombinedUpdateJobSevenToTenYear  = 7 // 7-10年
-	ExperienceCombinedUpdateJobOverTenYear     = 8 // 10年以上
+	CombinedJobExperienceCombinedUpdateJobNoLimit         = 1 // 不限
+	CombinedJobExperienceCombinedUpdateJobGraduate        = 2 // 应届毕业生
+	CombinedJobExperienceCombinedUpdateJobUnderOneYear    = 3 // 1年以下
+	CombinedJobExperienceCombinedUpdateJobOneToThreeYear  = 4 // 1-3年
+	CombinedJobExperienceCombinedUpdateJobThreeToFiveYear = 5 // 3-5年
+	CombinedJobExperienceCombinedUpdateJobFiveToSevenYear = 6 // 5-7年
+	CombinedJobExperienceCombinedUpdateJobSevenToTenYear  = 7 // 7-10年
+	CombinedJobExperienceCombinedUpdateJobOverTenYear     = 8 // 10年以上
 
 )
 
 const (
-	RequiredDegreeCombinedUpdateJobPrimaryEducation            = 1  // 小学及以上
-	RequiredDegreeCombinedUpdateJobJuniorMiddleSchoolEducation = 2  // 初中及以上
-	RequiredDegreeCombinedUpdateJobSecondary                   = 3  // 专职及以上
-	RequiredDegreeCombinedUpdateJobSeniorSchoolGraduates       = 4  // 高中及以上
-	RequiredDegreeCombinedUpdateJobAssociate                   = 5  // 大专及以上
-	RequiredDegreeCombinedUpdateJobBachelor                    = 6  // 本科及以上
-	RequiredDegreeCombinedUpdateJobMaster                      = 7  // 硕士及以上
-	RequiredDegreeCombinedUpdateJobPhd                         = 8  // 博士及以上
-	RequiredDegreeCombinedUpdateJobNoLimit                     = 20 // 不限
+	CombinedJobRequiredDegreeCombinedUpdateJobPrimaryEducation            = 1  // 小学及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobJuniorMiddleSchoolEducation = 2  // 初中及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobSecondary                   = 3  // 专职及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobSeniorSchoolGraduates       = 4  // 高中及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobAssociate                   = 5  // 大专及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobBachelor                    = 6  // 本科及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobMaster                      = 7  // 硕士及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobPhd                         = 8  // 博士及以上
+	CombinedJobRequiredDegreeCombinedUpdateJobNoLimit                     = 20 // 不限
 
 )
 
 const (
-	JobAttributeCombinedUpdateJobConcrete = 1 // 实体职位
-	JobAttributeCombinedUpdateJobVirtual  = 2 // 虚拟职位
+	CombinedJobJobAttributeCombinedUpdateJobConcrete = 1 // 实体职位
+	CombinedJobJobAttributeCombinedUpdateJobVirtual  = 2 // 虚拟职位
 
 )
 
 const (
-	UserIdTypeCombinedUpdateJobUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeCombinedUpdateJobUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeCombinedUpdateJobOpenId  = "open_id"  // 以 open_id 来识别用户
+	CombinedUpdateJobUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	CombinedUpdateJobUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	CombinedUpdateJobUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeCombinedUpdateJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeCombinedUpdateJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	CombinedUpdateJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	CombinedUpdateJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeCombinedUpdateJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeCombinedUpdateJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	CombinedUpdateJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CombinedUpdateJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeCombinedUpdateJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeCombinedUpdateJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	CombinedUpdateJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CombinedUpdateJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	UserIdTypeConfigJobUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeConfigJobUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeConfigJobOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeConfigJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ConfigJobUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ConfigJobUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ConfigJobUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ConfigJobUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeGetJobUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetJobUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetJobOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	GetJobUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetJobUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetJobUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetJobUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeGetJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeGetJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	UserIdTypeGetDetailJobUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetDetailJobUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetDetailJobOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetDetailJobPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	GetDetailJobUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetDetailJobUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetDetailJobUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetDetailJobUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetDetailJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetDetailJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetDetailJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetDetailJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetDetailJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetDetailJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetDetailJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetDetailJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeGetDetailJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeGetDetailJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetDetailJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetDetailJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	UserIdTypeListJobUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeListJobUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeListJobOpenId  = "open_id"  // 以 open_id 来识别用户
+	ListJobUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ListJobUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ListJobUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListJobOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeListJobDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	ListJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ListJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeListJobPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListJobJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeListJobPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeListJobJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	ListJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	UserIdTypeRecruiterJobUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeRecruiterJobUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeRecruiterJobOpenId  = "open_id"  // 以open_id来识别用户
+	RecruiterJobUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	RecruiterJobUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	RecruiterJobUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateConfigJobUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateConfigJobUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateConfigJobOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateConfigJobUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateConfigJobUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateConfigJobUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchUpdateJobManagerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchUpdateJobManagerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchUpdateJobManagerOpenId  = "open_id"  // 以open_id来识别用户
+	BatchUpdateJobManagerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchUpdateJobManagerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchUpdateJobManagerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetJobManagerUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetJobManagerUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetJobManagerOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetJobManagerPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	GetJobManagerUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetJobManagerUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetJobManagerUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetJobManagerUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeSearchJobPublishRecordUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeSearchJobPublishRecordUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeSearchJobPublishRecordOpenId  = "open_id"  // 以 open_id 来识别用户
+	SearchJobPublishRecordUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchJobPublishRecordUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchJobPublishRecordUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeSearchJobPublishRecordOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeSearchJobPublishRecordDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	SearchJobPublishRecordDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	SearchJobPublishRecordDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeSearchJobPublishRecordPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeSearchJobPublishRecordJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	SearchJobPublishRecordJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	SearchJobPublishRecordJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeSearchJobPublishRecordPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeSearchJobPublishRecordJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	SearchJobPublishRecordJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	SearchJobPublishRecordJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	DisplayProgressWaitingStart = 1 // 待启动
-	DisplayProgressOnGoing      = 2 // 进行中
-	DisplayProgressCanceled     = 3 // 已取消
-	DisplayProgressSuspended    = 4 // 已暂停
-	DisplayProgressCompleted    = 5 // 已完成
-	DisplayProgressExpired      = 6 // 已超期
+	JobRequirementDisplayProgressWaitingStart = 1 // 待启动
+	JobRequirementDisplayProgressOnGoing      = 2 // 进行中
+	JobRequirementDisplayProgressCanceled     = 3 // 已取消
+	JobRequirementDisplayProgressSuspended    = 4 // 已暂停
+	JobRequirementDisplayProgressCompleted    = 5 // 已完成
+	JobRequirementDisplayProgressExpired      = 6 // 已超期
 
 )
 
 const (
-	CategoryAddition    = 1 // 新增
-	CategoryReplacement = 2 // 替换
+	JobRequirementCategoryAddition    = 1 // 新增
+	JobRequirementCategoryReplacement = 2 // 替换
 
 )
 
 const (
-	PriorityHigh   = 1 // 高
-	PriorityMedium = 2 // 中
-	PriorityLow    = 3 // 低
+	JobRequirementPriorityHigh   = 1 // 高
+	JobRequirementPriorityMedium = 2 // 中
+	JobRequirementPriorityLow    = 3 // 低
 
 )
 
 const (
-	RequiredDegreeCreateJobRequirementPrimaryEducation            = 1  // 小学及以上
-	RequiredDegreeCreateJobRequirementJuniorMiddleSchoolEducation = 2  // 初中及以上
-	RequiredDegreeCreateJobRequirementSecondary                   = 3  // 专职及以上
-	RequiredDegreeCreateJobRequirementSeniorSchoolGraduates       = 4  // 高中及以上
-	RequiredDegreeCreateJobRequirementAssociate                   = 5  // 大专及以上
-	RequiredDegreeCreateJobRequirementBachelor                    = 6  // 本科及以上
-	RequiredDegreeCreateJobRequirementMaster                      = 7  // 硕士及以上
-	RequiredDegreeCreateJobRequirementPhd                         = 8  // 博士及以上
-	RequiredDegreeCreateJobRequirementNoLimit                     = 20 // 不限
+	JobRequirementRequiredDegreePrimaryEducation            = 1  // 小学及以上
+	JobRequirementRequiredDegreeJuniorMiddleSchoolEducation = 2  // 初中及以上
+	JobRequirementRequiredDegreeSecondary                   = 3  // 专职及以上
+	JobRequirementRequiredDegreeSeniorSchoolGraduates       = 4  // 高中及以上
+	JobRequirementRequiredDegreeAssociate                   = 5  // 大专及以上
+	JobRequirementRequiredDegreeBachelor                    = 6  // 本科及以上
+	JobRequirementRequiredDegreeMaster                      = 7  // 硕士及以上
+	JobRequirementRequiredDegreePhd                         = 8  // 博士及以上
+	JobRequirementRequiredDegreeNoLimit                     = 20 // 不限
 
 )
 
 const (
-	ProcessTypeCreateJobRequirementSocial = 1 // 社招
-	ProcessTypeCreateJobRequirementCampus = 2 // 校招
+	JobRequirementProcessTypeSocial = 1 // 社招
+	JobRequirementProcessTypeCampus = 2 // 校招
 
 )
 
 const (
-	UserIdTypeCreateJobRequirementUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateJobRequirementUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
+	CreateJobRequirementUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateJobRequirementUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateJobRequirementUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateJobRequirementOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeCreateJobRequirementDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	CreateJobRequirementDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	CreateJobRequirementDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeCreateJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeCreateJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	CreateJobRequirementJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateJobRequirementJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeCreateJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeCreateJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	CreateJobRequirementJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateJobRequirementJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeCreateJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeCreateJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	CreateJobRequirementEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateJobRequirementEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeListJobRequirementUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListJobRequirementUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
+	ListJobRequirementUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListJobRequirementUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListJobRequirementUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListJobRequirementOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeListJobRequirementDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	ListJobRequirementDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ListJobRequirementDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeListJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListJobRequirementJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListJobRequirementJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeListJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeListJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	ListJobRequirementJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListJobRequirementJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeListJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeListJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	ListJobRequirementEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListJobRequirementEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeListByIdJobRequirementUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListByIdJobRequirementUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListByIdJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
+	ListByIdJobRequirementUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListByIdJobRequirementUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListByIdJobRequirementUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListByIdJobRequirementOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeListByIdJobRequirementDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	ListByIdJobRequirementDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ListByIdJobRequirementDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeListByIdJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListByIdJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListByIdJobRequirementJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListByIdJobRequirementJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeListByIdJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeListByIdJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	ListByIdJobRequirementJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListByIdJobRequirementJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeListByIdJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeListByIdJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	ListByIdJobRequirementEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListByIdJobRequirementEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	DisplayProgressUpdateJobRequirementWaitingStart = 1 // 待启动
-	DisplayProgressUpdateJobRequirementOnGoing      = 2 // 进行中
-	DisplayProgressUpdateJobRequirementCanceled     = 3 // 已取消
-	DisplayProgressUpdateJobRequirementSuspended    = 4 // 已暂停
-	DisplayProgressUpdateJobRequirementCompleted    = 5 // 已完成
-	DisplayProgressUpdateJobRequirementExpired      = 6 // 已超期
+	JobRequirementDisplayProgressUpdateJobRequirementWaitingStart = 1 // 待启动
+	JobRequirementDisplayProgressUpdateJobRequirementOnGoing      = 2 // 进行中
+	JobRequirementDisplayProgressUpdateJobRequirementCanceled     = 3 // 已取消
+	JobRequirementDisplayProgressUpdateJobRequirementSuspended    = 4 // 已暂停
+	JobRequirementDisplayProgressUpdateJobRequirementCompleted    = 5 // 已完成
+	JobRequirementDisplayProgressUpdateJobRequirementExpired      = 6 // 已超期
 
 )
 
 const (
-	CategoryUpdateJobRequirementAddition    = 1 // 新增
-	CategoryUpdateJobRequirementReplacement = 2 // 替换
+	JobRequirementCategoryUpdateJobRequirementAddition    = 1 // 新增
+	JobRequirementCategoryUpdateJobRequirementReplacement = 2 // 替换
 
 )
 
 const (
-	PriorityUpdateJobRequirementHigh   = 1 // 高
-	PriorityUpdateJobRequirementMedium = 2 // 中
-	PriorityUpdateJobRequirementLow    = 3 // 低
+	JobRequirementPriorityUpdateJobRequirementHigh   = 1 // 高
+	JobRequirementPriorityUpdateJobRequirementMedium = 2 // 中
+	JobRequirementPriorityUpdateJobRequirementLow    = 3 // 低
 
 )
 
 const (
-	RequiredDegreeUpdateJobRequirementPrimaryEducation            = 1  // 小学及以上
-	RequiredDegreeUpdateJobRequirementJuniorMiddleSchoolEducation = 2  // 初中及以上
-	RequiredDegreeUpdateJobRequirementSecondary                   = 3  // 专职及以上
-	RequiredDegreeUpdateJobRequirementSeniorSchoolGraduates       = 4  // 高中及以上
-	RequiredDegreeUpdateJobRequirementAssociate                   = 5  // 大专及以上
-	RequiredDegreeUpdateJobRequirementBachelor                    = 6  // 本科及以上
-	RequiredDegreeUpdateJobRequirementMaster                      = 7  // 硕士及以上
-	RequiredDegreeUpdateJobRequirementPhd                         = 8  // 博士及以上
-	RequiredDegreeUpdateJobRequirementNoLimit                     = 20 // 不限
+	JobRequirementRequiredDegreeUpdateJobRequirementPrimaryEducation            = 1  // 小学及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementJuniorMiddleSchoolEducation = 2  // 初中及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementSecondary                   = 3  // 专职及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementSeniorSchoolGraduates       = 4  // 高中及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementAssociate                   = 5  // 大专及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementBachelor                    = 6  // 本科及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementMaster                      = 7  // 硕士及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementPhd                         = 8  // 博士及以上
+	JobRequirementRequiredDegreeUpdateJobRequirementNoLimit                     = 20 // 不限
 
 )
 
 const (
-	ProcessTypeUpdateJobRequirementSocial = 1 // 社招
-	ProcessTypeUpdateJobRequirementCampus = 2 // 校招
+	JobRequirementProcessTypeUpdateJobRequirementSocial = 1 // 社招
+	JobRequirementProcessTypeUpdateJobRequirementCampus = 2 // 校招
 
 )
 
 const (
-	UserIdTypeUpdateJobRequirementUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateJobRequirementUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateJobRequirementOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateJobRequirementUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateJobRequirementUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateJobRequirementUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUpdateJobRequirementOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeUpdateJobRequirementDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	UpdateJobRequirementDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	UpdateJobRequirementDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeUpdateJobRequirementPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeUpdateJobRequirementJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	UpdateJobRequirementJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateJobRequirementJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeUpdateJobRequirementPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeUpdateJobRequirementJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	UpdateJobRequirementJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateJobRequirementJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeUpdateJobRequirementPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeUpdateJobRequirementEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	UpdateJobRequirementEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateJobRequirementEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	Scenario社招 = 1 // 社招
-	Scenario校招 = 2 // 校招
+	ListJobSchemaScenario社招 = 1 // 社招
+	ListJobSchemaScenario校招 = 2 // 校招
 
 )
 
 const (
-	UsagePositionLocation  = "position_location"  // 职位地点
-	UsageInterviewLocation = "interview_location" // 面试地点
-	UsageStoreLocation     = "store_location"     // 门店地点
+	ListLocationUsagePositionLocation  = "position_location"  // 职位地点
+	ListLocationUsageInterviewLocation = "interview_location" // 面试地点
+	ListLocationUsageStoreLocation     = "store_location"     // 门店地点
 )
 
 const (
-	LocationType1 = 1 // 国家类型
-	LocationType2 = 2 // 省份/州类型
-	LocationType3 = 3 // 市类型
-	LocationType4 = 4 // 区类型
+	QueryLocationLocationType1 = 1 // 国家类型
+	QueryLocationLocationType2 = 2 // 省份/州类型
+	QueryLocationLocationType3 = 3 // 市类型
+	QueryLocationLocationType4 = 4 // 区类型
 
 )
 
 const (
-	PrivacyPrivate = 1 // 私密
-	PrivacyPublic  = 2 // 公开
+	NotePrivacyPrivate = 1 // 私密
+	NotePrivacyPublic  = 2 // 公开
 
 )
 
 const (
-	UserIdTypeCreateNoteUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeCreateNoteUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeCreateNoteOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeCreateNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
+	CreateNoteUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	CreateNoteUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	CreateNoteUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	CreateNoteUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
 )
 
 const (
-	UserIdTypeGetNoteUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetNoteUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetNoteOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段，不建议使用
+	GetNoteUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetNoteUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetNoteUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetNoteUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段，不建议使用
 )
 
 const (
-	UserIdTypeListNoteUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListNoteUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListNoteOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
+	ListNoteUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListNoteUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListNoteUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListNoteUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
 )
 
 const (
-	UserIdTypePatchNoteUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypePatchNoteUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypePatchNoteOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypePatchNotePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段，不建议使用
+	PatchNoteUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	PatchNoteUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	PatchNoteUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	PatchNoteUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段，不建议使用
 )
 
 const (
-	OfferType正式Offer = 1 // 正式 Offer
-	OfferType实习Offer = 2 // 实习 Offer
+	OfferInfoOfferType正式Offer = 1 // 正式 Offer
+	OfferInfoOfferType实习Offer = 2 // 实习 Offer
 
 )
 
 const (
-	UserIdTypeCreateOfferUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeCreateOfferUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeCreateOfferOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeCreateOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
+	CreateOfferUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	CreateOfferUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	CreateOfferUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	CreateOfferUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
 )
 
 const (
-	DepartmentIdTypeCreateOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeCreateOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	CreateOfferDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	CreateOfferDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeCreateOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeCreateOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	CreateOfferJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateOfferJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeCreateOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeCreateOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	CreateOfferJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateOfferJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeCreateOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeCreateOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	CreateOfferEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	CreateOfferEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeGetOfferUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetOfferUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetOfferOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
+	GetOfferUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetOfferUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetOfferUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetOfferUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户,即将下线字段,不建议使用
 )
 
 const (
-	DepartmentIdTypeGetOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetOfferDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetOfferDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetOfferJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetOfferJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeGetOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeGetOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetOfferJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetOfferJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeGetOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeGetOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	GetOfferEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetOfferEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	OperationInternOfferStatusOfferConfirmOnboarding = "confirm_onboarding" // 确认入职
-	OperationInternOfferStatusOfferCancelOnboarding  = "cancel_onboarding"  // 放弃入职
-	OperationInternOfferStatusOfferOffboard          = "offboard"           // 操作离职
+	InternOfferStatusOperationConfirmOnboarding = "confirm_onboarding" // 确认入职
+	InternOfferStatusOperationCancelOnboarding  = "cancel_onboarding"  // 放弃入职
+	InternOfferStatusOperationOffboard          = "offboard"           // 操作离职
 )
 
 const (
-	UserIdTypeListOfferUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListOfferUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListOfferOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
+	ListOfferUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListOfferUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListOfferUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListOfferUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户，即将下线字段，不建议使用
 )
 
 const (
-	EmployeeTypeIdTypeListOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeListOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	ListOfferEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListOfferEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	OfferStatusApproving       = 2  // Offer 审批中
-	OfferStatusWithdrawn       = 3  // Offer 审批已撤回
-	OfferStatusApproved        = 4  // Offer 审批通过
-	OfferStatusRejected        = 5  // Offer 审批不通过
-	OfferStatusOfferLetterSent = 6  // Offer 已发出
-	OfferStatusOfferAccepted   = 7  // Offer 被候选人接受
-	OfferStatusOfferRejected   = 8  // Offer 被候选人拒绝
-	OfferStatusObsolete        = 9  // Offer 已失效
-	OfferStatusNoApproval      = 10 // Offer 已创建
+	OfferStatusOfferOfferStatusApproving       = 2  // Offer 审批中
+	OfferStatusOfferOfferStatusWithdrawn       = 3  // Offer 审批已撤回
+	OfferStatusOfferOfferStatusApproved        = 4  // Offer 审批通过
+	OfferStatusOfferOfferStatusRejected        = 5  // Offer 审批不通过
+	OfferStatusOfferOfferStatusOfferLetterSent = 6  // Offer 已发出
+	OfferStatusOfferOfferStatusOfferAccepted   = 7  // Offer 被候选人接受
+	OfferStatusOfferOfferStatusOfferRejected   = 8  // Offer 被候选人拒绝
+	OfferStatusOfferOfferStatusObsolete        = 9  // Offer 已失效
+	OfferStatusOfferOfferStatusNoApproval      = 10 // Offer 已创建
 
 )
 
 const (
-	CancelOfferTerminationTypeOfferStatusOfferWeRejected        = 1  // 我们拒绝了候选人
-	CancelOfferTerminationTypeOfferStatusOfferCandidateRejected = 22 // 候选人拒绝了我们
-	CancelOfferTerminationTypeOfferStatusOfferOther             = 27 // 其他
+	OfferStatusOfferCancelOfferTerminationTypeWeRejected        = 1  // 我们拒绝了候选人
+	OfferStatusOfferCancelOfferTerminationTypeCandidateRejected = 22 // 候选人拒绝了我们
+	OfferStatusOfferCancelOfferTerminationTypeOther             = 27 // 其他
 
 )
 
 const (
-	UserIdTypeUpdateOfferUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeUpdateOfferUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeUpdateOfferOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeUpdateOfferPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	UpdateOfferUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	UpdateOfferUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	UpdateOfferUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	UpdateOfferUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUpdateOfferOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeUpdateOfferDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	UpdateOfferDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	UpdateOfferDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeUpdateOfferPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeUpdateOfferJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	UpdateOfferJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateOfferJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	JobFamilyIdTypeUpdateOfferPeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobFamilyIdTypeUpdateOfferJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	UpdateOfferJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateOfferJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
 )
 
 const (
-	EmployeeTypeIdTypeUpdateOfferPeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	EmployeeTypeIdTypeUpdateOfferEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	UpdateOfferEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	UpdateOfferEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
 )
 
 const (
-	UserIdTypeGetByApplicationReferralUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeGetByApplicationReferralUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeGetByApplicationReferralOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeGetByApplicationReferralPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListOfferApprovalTemplateDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	ListOfferApprovalTemplateDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	ListOfferApprovalTemplateDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
-	UserIdTypeSearchReferralUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeSearchReferralUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeSearchReferralOpenId  = "open_id"  // 以 open_id 来识别用户
+	GetByApplicationReferralUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	GetByApplicationReferralUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	GetByApplicationReferralUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	GetByApplicationReferralUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeCreateReferralAccountUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateReferralAccountUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateReferralAccountOpenId  = "open_id"  // 以open_id来识别用户
+	SearchReferralUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchReferralUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchReferralUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeDeactivateReferralAccountUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeactivateReferralAccountUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeactivateReferralAccountOpenId  = "open_id"  // 以open_id来识别用户
+	CreateReferralAccountUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateReferralAccountUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateReferralAccountUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeEnableReferralAccountUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeEnableReferralAccountUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeEnableReferralAccountOpenId  = "open_id"  // 以open_id来识别用户
+	DeactivateReferralAccountUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	DeactivateReferralAccountUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	DeactivateReferralAccountUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetAccountAssetsReferralAccountUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetAccountAssetsReferralAccountUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetAccountAssetsReferralAccountOpenId  = "open_id"  // 以open_id来识别用户
+	EnableReferralAccountUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	EnableReferralAccountUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	EnableReferralAccountUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetReferralWebsiteJobPostUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeGetReferralWebsiteJobPostUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeGetReferralWebsiteJobPostOpenId  = "open_id"  // 以 open_id 来识别用户
+	GetAccountAssetsReferralAccountUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetAccountAssetsReferralAccountUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetAccountAssetsReferralAccountUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetReferralWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetReferralWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetReferralWebsiteJobPostUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	GetReferralWebsiteJobPostUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	GetReferralWebsiteJobPostUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	JobLevelIdTypeGetReferralWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetReferralWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetReferralWebsiteJobPostDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetReferralWebsiteJobPostDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	ProcessTypeListReferralWebsiteJobPostSocialProcess = 1 // 社招
-	ProcessTypeListReferralWebsiteJobPostCampusProcess = 2 // 校招
+	GetReferralWebsiteJobPostJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetReferralWebsiteJobPostJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+)
+
+const (
+	ListReferralWebsiteJobPostProcessTypeSocialProcess = 1 // 社招
+	ListReferralWebsiteJobPostProcessTypeCampusProcess = 2 // 校招
 
 )
 
 const (
-	UserIdTypeListReferralWebsiteJobPostUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeListReferralWebsiteJobPostUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeListReferralWebsiteJobPostOpenId  = "open_id"  // 以 open_id 来识别用户
+	ListReferralWebsiteJobPostUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ListReferralWebsiteJobPostUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ListReferralWebsiteJobPostUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListReferralWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeListReferralWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	ListReferralWebsiteJobPostDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ListReferralWebsiteJobPostDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeListReferralWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListReferralWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListReferralWebsiteJobPostJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListReferralWebsiteJobPostJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	ScenarioListRegistrationSchemaInterviewRegistration  = 5  // 面试登记表
-	ScenarioListRegistrationSchemaOnboardRegistration    = 6  // 入职登记表
-	ScenarioListRegistrationSchemaInfoUpdateRegistration = 14 // 人才信息登记表
+	ListRegistrationSchemaScenarioInterviewRegistration  = 5  // 面试登记表
+	ListRegistrationSchemaScenarioOnboardRegistration    = 6  // 入职登记表
+	ListRegistrationSchemaScenarioInfoUpdateRegistration = 14 // 人才信息登记表
 
 )
 
 const (
-	UserIdTypeListSubjectUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeListSubjectUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeListSubjectOpenId  = "open_id"  // 以 open_id 来识别用户
+	ListSubjectUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ListSubjectUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ListSubjectUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	CreatorAccountType员工体系 = 1 // 员工体系
-	CreatorAccountType系统   = 3 // 系统
+	CombinedCreateTalentCreatorAccountType员工体系 = 1 // 员工体系
+	CombinedCreateTalentCreatorAccountType系统   = 3 // 系统
 
 )
 
 const (
-	UserIdTypeCombinedCreateTalentUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeCombinedCreateTalentUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeCombinedCreateTalentOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeCombinedCreateTalentPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	CombinedCreateTalentUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	CombinedCreateTalentUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	CombinedCreateTalentUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	CombinedCreateTalentUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	OperatorAccountType员工体系 = 1 // 员工体系
-	OperatorAccountType系统   = 3 // 系统
+	CombinedUpdateTalentOperatorAccountType员工体系 = 1 // 员工体系
+	CombinedUpdateTalentOperatorAccountType系统   = 3 // 系统
 
 )
 
 const (
-	UserIdTypeCombinedUpdateTalentUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeCombinedUpdateTalentUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeCombinedUpdateTalentOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeCombinedUpdateTalentPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	CombinedUpdateTalentUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	CombinedUpdateTalentUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	CombinedUpdateTalentUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	CombinedUpdateTalentUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeGetTalentUserId        = "user_id"         // 以 user_id 来识别用户
-	UserIdTypeGetTalentUnionId       = "union_id"        // 以 union_id 来识别用户
-	UserIdTypeGetTalentOpenId        = "open_id"         // 以 open_id 来识别用户
-	UserIdTypeGetTalentPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
+	GetTalentUserIDTypeUserId        = "user_id"         // 以 user_id 来识别用户
+	GetTalentUserIDTypeUnionId       = "union_id"        // 以 union_id 来识别用户
+	GetTalentUserIDTypeOpenId        = "open_id"         // 以 open_id 来识别用户
+	GetTalentUserIDTypePeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 const (
-	SortBy1 = 1 // 按更新日期降序
-	SortBy2 = 2 // 按相关度降序
-	SortBy3 = 3 // 按投递时间降序
-	SortBy4 = 4 // 按入库时间降序
+	ListTalentSortBy1 = 1 // 按更新日期降序
+	ListTalentSortBy2 = 2 // 按相关度降序
+	ListTalentSortBy3 = 3 // 按投递时间降序
+	ListTalentSortBy4 = 4 // 按入库时间降序
 
 )
 
 const (
-	UserIdTypeListTalentUserId        = "user_id"         // 以 user_id 来识别用户
-	UserIdTypeListTalentUnionId       = "union_id"        // 以 union_id 来识别用户
-	UserIdTypeListTalentOpenId        = "open_id"         // 以 open_id 来识别用户
-	UserIdTypeListTalentPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
+	ListTalentUserIDTypeUserId        = "user_id"         // 以 user_id 来识别用户
+	ListTalentUserIDTypeUnionId       = "union_id"        // 以 union_id 来识别用户
+	ListTalentUserIDTypeOpenId        = "open_id"         // 以 open_id 来识别用户
+	ListTalentUserIDTypePeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 const (
-	QueryOptionIgnoreEmptyError = "ignore_empty_error" // 忽略结果为空时的报错
+	ListTalentQueryOptionIgnoreEmptyError = "ignore_empty_error" // 忽略结果为空时的报错
 )
 
 const (
-	OperationOnboardStatusTalentOnboard   = 1 // 入职
-	OperationOnboardStatusTalentOverboard = 2 // 离职
+	OnboardStatusTalentOperationOnboard   = 1 // 入职
+	OnboardStatusTalentOperationOverboard = 2 // 离职
 
 )
 
 const (
-	OperationTagTalent1 = 1 // 新增
-	OperationTagTalent2 = 2 // 删除
+	OperateTalentTagOperation1 = 1 // 新增
+	OperateTalentTagOperation2 = 2 // 删除
 
 )
 
 const (
-	OptionChangeTalentBlockTalentBlocklistAdd    = 1 // 加入屏蔽名单操作
-	OptionChangeTalentBlockTalentBlocklistRemove = 2 // 从屏蔽名单中移除
+	ChangeTalentBlockTalentBlocklistOptionAdd    = 1 // 加入屏蔽名单操作
+	ChangeTalentBlockTalentBlocklistOptionRemove = 2 // 从屏蔽名单中移除
 
 )
 
 const (
-	UserIdTypeListTalentFolderUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeListTalentFolderUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeListTalentFolderOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeListTalentFolderPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	ListTalentFolderUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	ListTalentFolderUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	ListTalentFolderUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	ListTalentFolderUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeSearchTalentOperationLogUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchTalentOperationLogUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchTalentOperationLogOpenId  = "open_id"  // 以open_id来识别用户
+	SearchTalentOperationLogUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SearchTalentOperationLogUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SearchTalentOperationLogUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	OptionTypeAdd    = 1 // 加入人才库操作
-	OptionTypeRemove = 2 // 从指定人才库移除
+	BatchChangeTalentPollOptionTypeAdd    = 1 // 加入人才库操作
+	BatchChangeTalentPollOptionTypeRemove = 2 // 从指定人才库移除
 
 )
 
 const (
-	AddTypeOnlyAdd                = 1 // 仅加入指定人才库
-	AddTypeAddAndRemoveFromOrigin = 2 // 加入指定人才库并从所有原库移除
+	MoveTalentTalentPoolAddTypeOnlyAdd                = 1 // 仅加入指定人才库
+	MoveTalentTalentPoolAddTypeAddAndRemoveFromOrigin = 2 // 加入指定人才库并从所有原库移除
 
 )
 
 const (
-	TypeListTalentTag1 = 1 // 手动标签
-	TypeListTalentTag2 = 2 // 自动标签
+	ListTalentTagType1 = 1 // 手动标签
+	ListTalentTagType2 = 2 // 自动标签
 
 )
 
 const (
-	UserIdTypeSearchTestUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchTestUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchTestOpenId  = "open_id"  // 以open_id来识别用户
+	SearchTestUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SearchTestUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SearchTestUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListTodoUserId        = "user_id"         // 以 user_id 来识别用户
-	UserIdTypeListTodoUnionId       = "union_id"        // 以 union_id 来识别用户
-	UserIdTypeListTodoOpenId        = "open_id"         // 以 open_id 来识别用户
-	UserIdTypeListTodoPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
+	ListTodoUserIDTypeUserId        = "user_id"         // 以 user_id 来识别用户
+	ListTodoUserIDTypeUnionId       = "union_id"        // 以 union_id 来识别用户
+	ListTodoUserIDTypeOpenId        = "open_id"         // 以 open_id 来识别用户
+	ListTodoUserIDTypePeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 const (
-	TypeListTodoEvaluation = "evaluation" // 评估待办
-	TypeListTodoOffer      = "offer"      // Offer 待办
-	TypeListTodoExam       = "exam"       // 笔试待办
-	TypeListTodoInterview  = "interview"  // 面试待办
+	ListTodoTypeEvaluation = "evaluation" // 评估待办
+	ListTodoTypeOffer      = "offer"      // Offer 待办
+	ListTodoTypeExam       = "exam"       // 笔试待办
+	ListTodoTypeInterview  = "interview"  // 面试待办
 )
 
 const (
-	StateCreateTripartiteAgreementNotStarted            = 1 // 未开始
-	StateCreateTripartiteAgreementApplied               = 2 // 已申请
-	StateCreateTripartiteAgreementStudentProcessing     = 3 // 学生处理中
-	StateCreateTripartiteAgreementCompanyProcessing     = 4 // 公司处理中
-	StateCreateTripartiteAgreementSchoolProcessing      = 5 // 学校处理中
-	StateCreateTripartiteAgreementEnded                 = 6 // 已终止
-	StateCreateTripartiteAgreementCompleted             = 7 // 已完成
-	StateCreateTripartiteAgreementTerminationProcessing = 8 // 解约处理中
-	StateCreateTripartiteAgreementTerminated            = 9 // 已解约
+	TripartiteAgreementInfoStateNotStarted            = 1 // 未开始
+	TripartiteAgreementInfoStateApplied               = 2 // 已申请
+	TripartiteAgreementInfoStateStudentProcessing     = 3 // 学生处理中
+	TripartiteAgreementInfoStateCompanyProcessing     = 4 // 公司处理中
+	TripartiteAgreementInfoStateSchoolProcessing      = 5 // 学校处理中
+	TripartiteAgreementInfoStateEnded                 = 6 // 已终止
+	TripartiteAgreementInfoStateCompleted             = 7 // 已完成
+	TripartiteAgreementInfoStateTerminationProcessing = 8 // 解约处理中
+	TripartiteAgreementInfoStateTerminated            = 9 // 已解约
 
 )
 
 const (
-	StateUpdateTripartiteAgreementNotStarted            = 1 // 未开始
-	StateUpdateTripartiteAgreementApplied               = 2 // 已申请
-	StateUpdateTripartiteAgreementStudentProcessing     = 3 // 学生处理中
-	StateUpdateTripartiteAgreementCompanyProcessing     = 4 // 公司处理中
-	StateUpdateTripartiteAgreementSchoolProcessing      = 5 // 学校处理中
-	StateUpdateTripartiteAgreementEnded                 = 6 // 已终止
-	StateUpdateTripartiteAgreementCompleted             = 7 // 已完成
-	StateUpdateTripartiteAgreementTerminationProcessing = 8 // 解约处理中
-	StateUpdateTripartiteAgreementTerminated            = 9 // 已解约
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementNotStarted            = 1 // 未开始
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementApplied               = 2 // 已申请
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementStudentProcessing     = 3 // 学生处理中
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementCompanyProcessing     = 4 // 公司处理中
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementSchoolProcessing      = 5 // 学校处理中
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementEnded                 = 6 // 已终止
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementCompleted             = 7 // 已完成
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementTerminationProcessing = 8 // 解约处理中
+	TripartiteAgreementInfoStateUpdateTripartiteAgreementTerminated            = 9 // 已解约
 
 )
 
 const (
-	UserIdTypeListUserRoleUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListUserRoleUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListUserRoleOpenId  = "open_id"  // 以open_id来识别用户
+	ListUserRoleUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListUserRoleUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListUserRoleUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateByResumeWebsiteDeliveryUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateByResumeWebsiteDeliveryUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateByResumeWebsiteDeliveryOpenId  = "open_id"  // 以open_id来识别用户
+	CreateByResumeWebsiteDeliveryUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateByResumeWebsiteDeliveryUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateByResumeWebsiteDeliveryUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetWebsiteJobPostUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeGetWebsiteJobPostUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeGetWebsiteJobPostOpenId  = "open_id"  // 以 open_id 来识别用户
+	GetWebsiteJobPostUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	GetWebsiteJobPostUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	GetWebsiteJobPostUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeGetWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetWebsiteJobPostDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	GetWebsiteJobPostDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeGetWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeGetWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetWebsiteJobPostJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	GetWebsiteJobPostJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	UserIdTypeListWebsiteJobPostUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeListWebsiteJobPostUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeListWebsiteJobPostOpenId  = "open_id"  // 以 open_id 来识别用户
+	ListWebsiteJobPostUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ListWebsiteJobPostUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ListWebsiteJobPostUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeListWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeListWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	ListWebsiteJobPostDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ListWebsiteJobPostDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeListWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeListWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	ListWebsiteJobPostJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	ListWebsiteJobPostJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 const (
-	UserIdTypeSearchWebsiteJobPostUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeSearchWebsiteJobPostUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeSearchWebsiteJobPostOpenId  = "open_id"  // 以 open_id 来识别用户
+	SearchWebsiteJobPostUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchWebsiteJobPostUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchWebsiteJobPostUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeSearchWebsiteJobPostOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	DepartmentIdTypeSearchWebsiteJobPostDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	SearchWebsiteJobPostDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	SearchWebsiteJobPostDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	JobLevelIdTypeSearchWebsiteJobPostPeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	JobLevelIdTypeSearchWebsiteJobPostJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	SearchWebsiteJobPostJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
+	SearchWebsiteJobPostJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
 )
 
 type Ability struct {
@@ -5676,6 +5704,8 @@ type ApplicationOfferBasicInfo struct {
 	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID
 
 	CommonAttachmentIdList []string `json:"common_attachment_id_list,omitempty"` // Offer 附件 ID 列表
+
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 }
 
 type ApplicationOfferBasicInfoBuilder struct {
@@ -5750,6 +5780,9 @@ type ApplicationOfferBasicInfoBuilder struct {
 
 	commonAttachmentIdList     []string // Offer 附件 ID 列表
 	commonAttachmentIdListFlag bool
+
+	pathwayId     string // 通道 ID
+	pathwayIdFlag bool
 }
 
 func NewApplicationOfferBasicInfoBuilder() *ApplicationOfferBasicInfoBuilder {
@@ -5973,6 +6006,15 @@ func (builder *ApplicationOfferBasicInfoBuilder) CommonAttachmentIdList(commonAt
 	return builder
 }
 
+// 通道 ID
+//
+// 示例值：123456
+func (builder *ApplicationOfferBasicInfoBuilder) PathwayId(pathwayId string) *ApplicationOfferBasicInfoBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicInfo {
 	req := &ApplicationOfferBasicInfo{}
 	if builder.offerTypeFlag {
@@ -6060,6 +6102,10 @@ func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicI
 	}
 	if builder.commonAttachmentIdListFlag {
 		req.CommonAttachmentIdList = builder.commonAttachmentIdList
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
 	}
 	return req
 }
@@ -17575,6 +17621,8 @@ type Employee struct {
 	EmployeeType *string `json:"employee_type,omitempty"` // 员工类型
 
 	JobRequirementId *string `json:"job_requirement_id,omitempty"` // 招聘需求ID
+
+	ExternalEmploymentId *string `json:"external_employment_id,omitempty"` // 飞书人事的雇佣ID
 }
 
 type EmployeeBuilder struct {
@@ -17625,6 +17673,9 @@ type EmployeeBuilder struct {
 
 	jobRequirementId     string // 招聘需求ID
 	jobRequirementIdFlag bool
+
+	externalEmploymentId     string // 飞书人事的雇佣ID
+	externalEmploymentIdFlag bool
 }
 
 func NewEmployeeBuilder() *EmployeeBuilder {
@@ -17776,6 +17827,15 @@ func (builder *EmployeeBuilder) JobRequirementId(jobRequirementId string) *Emplo
 	return builder
 }
 
+// 飞书人事的雇佣ID
+//
+// 示例值：6969595949493939291
+func (builder *EmployeeBuilder) ExternalEmploymentId(externalEmploymentId string) *EmployeeBuilder {
+	builder.externalEmploymentId = externalEmploymentId
+	builder.externalEmploymentIdFlag = true
+	return builder
+}
+
 func (builder *EmployeeBuilder) Build() *Employee {
 	req := &Employee{}
 	if builder.idFlag {
@@ -17840,6 +17900,10 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	}
 	if builder.jobRequirementIdFlag {
 		req.JobRequirementId = &builder.jobRequirementId
+
+	}
+	if builder.externalEmploymentIdFlag {
+		req.ExternalEmploymentId = &builder.externalEmploymentId
 
 	}
 	return req
@@ -23321,6 +23385,8 @@ type InterviewFeedbackFormDimension struct {
 	DisplayNotEvident *bool `json:"display_not_evident,omitempty"` // 是否展示「无法判断」选项，仅针对「职级建议」的维度类型
 
 	AbilityList []*DimensionAbility `json:"ability_list,omitempty"` // 能力项列表
+
+	RelatedDimensionConfig *RelatedDimensionConfig `json:"related_dimension_config,omitempty"` // 维度间关联配置
 }
 
 type InterviewFeedbackFormDimensionBuilder struct {
@@ -23359,6 +23425,9 @@ type InterviewFeedbackFormDimensionBuilder struct {
 
 	abilityList     []*DimensionAbility // 能力项列表
 	abilityListFlag bool
+
+	relatedDimensionConfig     *RelatedDimensionConfig // 维度间关联配置
+	relatedDimensionConfigFlag bool
 }
 
 func NewInterviewFeedbackFormDimensionBuilder() *InterviewFeedbackFormDimensionBuilder {
@@ -23474,6 +23543,15 @@ func (builder *InterviewFeedbackFormDimensionBuilder) AbilityList(abilityList []
 	return builder
 }
 
+// 维度间关联配置
+//
+// 示例值：
+func (builder *InterviewFeedbackFormDimensionBuilder) RelatedDimensionConfig(relatedDimensionConfig *RelatedDimensionConfig) *InterviewFeedbackFormDimensionBuilder {
+	builder.relatedDimensionConfig = relatedDimensionConfig
+	builder.relatedDimensionConfigFlag = true
+	return builder
+}
+
 func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedbackFormDimension {
 	req := &InterviewFeedbackFormDimension{}
 	if builder.idFlag {
@@ -23518,6 +23596,9 @@ func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedback
 	}
 	if builder.abilityListFlag {
 		req.AbilityList = builder.abilityList
+	}
+	if builder.relatedDimensionConfigFlag {
+		req.RelatedDimensionConfig = builder.relatedDimensionConfig
 	}
 	return req
 }
@@ -29288,7 +29369,7 @@ type JobRequirement struct {
 
 	JobTypeId *string `json:"job_type_id,omitempty"` // 招聘需求中的职位类别
 
-	JobIdList []string `json:"job_id_list,omitempty"` // 关联的职位 ID 列表
+	JobIdList []string `json:"job_id_list,omitempty"` // 关联的职位 ID 列表。注：若企业开启了“招聘需求审批”，未通过审批的需求无法关联职位，请勿传入该字段。
 
 	EmploymentJobId *string `json:"employment_job_id,omitempty"` // 职务 ID
 
@@ -29373,7 +29454,7 @@ type JobRequirementBuilder struct {
 	jobTypeId     string // 招聘需求中的职位类别
 	jobTypeIdFlag bool
 
-	jobIdList     []string // 关联的职位 ID 列表
+	jobIdList     []string // 关联的职位 ID 列表。注：若企业开启了“招聘需求审批”，未通过审批的需求无法关联职位，请勿传入该字段。
 	jobIdListFlag bool
 
 	employmentJobId     string // 职务 ID
@@ -29616,7 +29697,7 @@ func (builder *JobRequirementBuilder) JobTypeId(jobTypeId string) *JobRequiremen
 	return builder
 }
 
-// 关联的职位 ID 列表
+// 关联的职位 ID 列表。注：若企业开启了“招聘需求审批”，未通过审批的需求无法关联职位，请勿传入该字段。
 //
 // 示例值：
 func (builder *JobRequirementBuilder) JobIdList(jobIdList []string) *JobRequirementBuilder {
@@ -30187,6 +30268,8 @@ type JobRequirementDto struct {
 	CompletionTime *string `json:"completion_time,omitempty"` // 完成时间，毫秒级时间戳
 
 	ApprovalStatus *int `json:"approval_status,omitempty"` // 审批状态
+
+	CountData *JrCountDataInfo `json:"count_data,omitempty"` // 招聘需求招聘进展统计数值
 }
 
 type JobRequirementDtoBuilder struct {
@@ -30291,6 +30374,9 @@ type JobRequirementDtoBuilder struct {
 
 	approvalStatus     int // 审批状态
 	approvalStatusFlag bool
+
+	countData     *JrCountDataInfo // 招聘需求招聘进展统计数值
+	countDataFlag bool
 }
 
 func NewJobRequirementDtoBuilder() *JobRequirementDtoBuilder {
@@ -30604,6 +30690,15 @@ func (builder *JobRequirementDtoBuilder) ApprovalStatus(approvalStatus int) *Job
 	return builder
 }
 
+// 招聘需求招聘进展统计数值
+//
+// 示例值：
+func (builder *JobRequirementDtoBuilder) CountData(countData *JrCountDataInfo) *JobRequirementDtoBuilder {
+	builder.countData = countData
+	builder.countDataFlag = true
+	return builder
+}
+
 func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	req := &JobRequirementDto{}
 	if builder.idFlag {
@@ -30728,6 +30823,9 @@ func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	if builder.approvalStatusFlag {
 		req.ApprovalStatus = &builder.approvalStatus
 
+	}
+	if builder.countDataFlag {
+		req.CountData = builder.countData
 	}
 	return req
 }
@@ -31333,6 +31431,74 @@ func (builder *JobUserInfoBuilder) Build() *JobUserInfo {
 	}
 	if builder.nameFlag {
 		req.Name = builder.name
+	}
+	return req
+}
+
+type JrCountDataInfo struct {
+	OfferCount *int `json:"offer_count,omitempty"` // 为 Offer 沟通中的数量
+
+	PreHireCount *int `json:"pre_hire_count,omitempty"` // 待入职中的数量
+
+	CompleteCount *int `json:"complete_count,omitempty"` // 已完成的数量
+}
+
+type JrCountDataInfoBuilder struct {
+	offerCount     int // 为 Offer 沟通中的数量
+	offerCountFlag bool
+
+	preHireCount     int // 待入职中的数量
+	preHireCountFlag bool
+
+	completeCount     int // 已完成的数量
+	completeCountFlag bool
+}
+
+func NewJrCountDataInfoBuilder() *JrCountDataInfoBuilder {
+	builder := &JrCountDataInfoBuilder{}
+	return builder
+}
+
+// 为 Offer 沟通中的数量
+//
+// 示例值：1
+func (builder *JrCountDataInfoBuilder) OfferCount(offerCount int) *JrCountDataInfoBuilder {
+	builder.offerCount = offerCount
+	builder.offerCountFlag = true
+	return builder
+}
+
+// 待入职中的数量
+//
+// 示例值：2
+func (builder *JrCountDataInfoBuilder) PreHireCount(preHireCount int) *JrCountDataInfoBuilder {
+	builder.preHireCount = preHireCount
+	builder.preHireCountFlag = true
+	return builder
+}
+
+// 已完成的数量
+//
+// 示例值：3
+func (builder *JrCountDataInfoBuilder) CompleteCount(completeCount int) *JrCountDataInfoBuilder {
+	builder.completeCount = completeCount
+	builder.completeCountFlag = true
+	return builder
+}
+
+func (builder *JrCountDataInfoBuilder) Build() *JrCountDataInfo {
+	req := &JrCountDataInfo{}
+	if builder.offerCountFlag {
+		req.OfferCount = &builder.offerCount
+
+	}
+	if builder.preHireCountFlag {
+		req.PreHireCount = &builder.preHireCount
+
+	}
+	if builder.completeCountFlag {
+		req.CompleteCount = &builder.completeCount
+
 	}
 	return req
 }
@@ -33757,6 +33923,8 @@ type OfferApplyFormObjectInfo struct {
 
 	ObjectType *int `json:"object_type,omitempty"` // 字段类型枚举
 
+	ObjectTypeV2 *string `json:"object_type_v2,omitempty"` // 字段类型枚举
+
 	Config *OfferApplyFormObjectConfigInfo `json:"config,omitempty"` // 配置信息
 }
 
@@ -33790,6 +33958,9 @@ type OfferApplyFormObjectInfoBuilder struct {
 
 	objectType     int // 字段类型枚举
 	objectTypeFlag bool
+
+	objectTypeV2     string // 字段类型枚举
+	objectTypeV2Flag bool
 
 	config     *OfferApplyFormObjectConfigInfo // 配置信息
 	configFlag bool
@@ -33890,6 +34061,15 @@ func (builder *OfferApplyFormObjectInfoBuilder) ObjectType(objectType int) *Offe
 	return builder
 }
 
+// 字段类型枚举
+//
+// 示例值：default
+func (builder *OfferApplyFormObjectInfoBuilder) ObjectTypeV2(objectTypeV2 string) *OfferApplyFormObjectInfoBuilder {
+	builder.objectTypeV2 = objectTypeV2
+	builder.objectTypeV2Flag = true
+	return builder
+}
+
 // 配置信息
 //
 // 示例值：
@@ -33937,6 +34117,10 @@ func (builder *OfferApplyFormObjectInfoBuilder) Build() *OfferApplyFormObjectInf
 	}
 	if builder.objectTypeFlag {
 		req.ObjectType = &builder.objectType
+
+	}
+	if builder.objectTypeV2Flag {
+		req.ObjectTypeV2 = &builder.objectTypeV2
 
 	}
 	if builder.configFlag {
@@ -34295,6 +34479,8 @@ type OfferBasicInfo struct {
 	JobOffered *string `json:"job_offered,omitempty"` // 入职职位
 
 	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID
+
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 }
 
 type OfferBasicInfoBuilder struct {
@@ -34366,6 +34552,9 @@ type OfferBasicInfoBuilder struct {
 
 	jobGradeId     string // 职等 ID
 	jobGradeIdFlag bool
+
+	pathwayId     string // 通道 ID
+	pathwayIdFlag bool
 }
 
 func NewOfferBasicInfoBuilder() *OfferBasicInfoBuilder {
@@ -34580,6 +34769,15 @@ func (builder *OfferBasicInfoBuilder) JobGradeId(jobGradeId string) *OfferBasicI
 	return builder
 }
 
+// 通道 ID
+//
+// 示例值：6897079709306259719
+func (builder *OfferBasicInfoBuilder) PathwayId(pathwayId string) *OfferBasicInfoBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	req := &OfferBasicInfo{}
 	if builder.departmentIdFlag {
@@ -34669,6 +34867,10 @@ func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	}
 	if builder.jobGradeIdFlag {
 		req.JobGradeId = &builder.jobGradeId
+
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
 
 	}
 	return req
@@ -35624,7 +35826,7 @@ type OfferListInfo struct {
 
 	JobInfo *OfferJobInfo `json:"job_info,omitempty"` // Offer 职位
 
-	CreateTime *string `json:"create_time,omitempty"` // 创建时间
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间
 
 	OfferStatus *int `json:"offer_status,omitempty"` // Offer 状态
 
@@ -35642,7 +35844,7 @@ type OfferListInfoBuilder struct {
 	jobInfo     *OfferJobInfo // Offer 职位
 	jobInfoFlag bool
 
-	createTime     string // 创建时间
+	createTime     int64 // 创建时间
 	createTimeFlag bool
 
 	offerStatus     int // Offer 状态
@@ -35684,7 +35886,7 @@ func (builder *OfferListInfoBuilder) JobInfo(jobInfo *OfferJobInfo) *OfferListIn
 // 创建时间
 //
 // 示例值：1628512038000
-func (builder *OfferListInfoBuilder) CreateTime(createTime string) *OfferListInfoBuilder {
+func (builder *OfferListInfoBuilder) CreateTime(createTime int64) *OfferListInfoBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -39058,6 +39260,122 @@ func (builder *RegistrationSchemaInfoBuilder) Build() *RegistrationSchemaInfo {
 	if builder.nameFlag {
 		req.Name = &builder.name
 
+	}
+	return req
+}
+
+type RelatedDimensionConfig struct {
+	Type *int `json:"type,omitempty"` // 关联配置类型
+
+	RelatedDimensionSettings []*RelatedDimensionSetting `json:"related_dimension_settings,omitempty"` // 关联的维度设置列表
+}
+
+type RelatedDimensionConfigBuilder struct {
+	type_    int // 关联配置类型
+	typeFlag bool
+
+	relatedDimensionSettings     []*RelatedDimensionSetting // 关联的维度设置列表
+	relatedDimensionSettingsFlag bool
+}
+
+func NewRelatedDimensionConfigBuilder() *RelatedDimensionConfigBuilder {
+	builder := &RelatedDimensionConfigBuilder{}
+	return builder
+}
+
+// 关联配置类型
+//
+// 示例值：
+func (builder *RelatedDimensionConfigBuilder) Type(type_ int) *RelatedDimensionConfigBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 关联的维度设置列表
+//
+// 示例值：
+func (builder *RelatedDimensionConfigBuilder) RelatedDimensionSettings(relatedDimensionSettings []*RelatedDimensionSetting) *RelatedDimensionConfigBuilder {
+	builder.relatedDimensionSettings = relatedDimensionSettings
+	builder.relatedDimensionSettingsFlag = true
+	return builder
+}
+
+func (builder *RelatedDimensionConfigBuilder) Build() *RelatedDimensionConfig {
+	req := &RelatedDimensionConfig{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.relatedDimensionSettingsFlag {
+		req.RelatedDimensionSettings = builder.relatedDimensionSettings
+	}
+	return req
+}
+
+type RelatedDimensionSetting struct {
+	DimensionId *string `json:"dimension_id,omitempty"` // 关联维度ID
+
+	RelatedOperatorType *int `json:"related_operator_type,omitempty"` // 关联计算类型
+
+	DimensionOptionIds []string `json:"dimension_option_ids,omitempty"` // 关联维度选项ID列表
+}
+
+type RelatedDimensionSettingBuilder struct {
+	dimensionId     string // 关联维度ID
+	dimensionIdFlag bool
+
+	relatedOperatorType     int // 关联计算类型
+	relatedOperatorTypeFlag bool
+
+	dimensionOptionIds     []string // 关联维度选项ID列表
+	dimensionOptionIdsFlag bool
+}
+
+func NewRelatedDimensionSettingBuilder() *RelatedDimensionSettingBuilder {
+	builder := &RelatedDimensionSettingBuilder{}
+	return builder
+}
+
+// 关联维度ID
+//
+// 示例值：6930815272790114324
+func (builder *RelatedDimensionSettingBuilder) DimensionId(dimensionId string) *RelatedDimensionSettingBuilder {
+	builder.dimensionId = dimensionId
+	builder.dimensionIdFlag = true
+	return builder
+}
+
+// 关联计算类型
+//
+// 示例值：
+func (builder *RelatedDimensionSettingBuilder) RelatedOperatorType(relatedOperatorType int) *RelatedDimensionSettingBuilder {
+	builder.relatedOperatorType = relatedOperatorType
+	builder.relatedOperatorTypeFlag = true
+	return builder
+}
+
+// 关联维度选项ID列表
+//
+// 示例值：
+func (builder *RelatedDimensionSettingBuilder) DimensionOptionIds(dimensionOptionIds []string) *RelatedDimensionSettingBuilder {
+	builder.dimensionOptionIds = dimensionOptionIds
+	builder.dimensionOptionIdsFlag = true
+	return builder
+}
+
+func (builder *RelatedDimensionSettingBuilder) Build() *RelatedDimensionSetting {
+	req := &RelatedDimensionSetting{}
+	if builder.dimensionIdFlag {
+		req.DimensionId = &builder.dimensionId
+
+	}
+	if builder.relatedOperatorTypeFlag {
+		req.RelatedOperatorType = &builder.relatedOperatorType
+
+	}
+	if builder.dimensionOptionIdsFlag {
+		req.DimensionOptionIds = builder.dimensionOptionIds
 	}
 	return req
 }
@@ -54924,6 +55242,9 @@ type CreateApplicationReqBodyBuilder struct {
 
 	applicationPreferredCityCodeList     []string // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
 	applicationPreferredCityCodeListFlag bool
+
+	deliveryType     int // 投递方式
+	deliveryTypeFlag bool
 }
 
 func NewCreateApplicationReqBodyBuilder() *CreateApplicationReqBodyBuilder {
@@ -54976,6 +55297,15 @@ func (builder *CreateApplicationReqBodyBuilder) ApplicationPreferredCityCodeList
 	return builder
 }
 
+// 投递方式
+//
+//示例值：1
+func (builder *CreateApplicationReqBodyBuilder) DeliveryType(deliveryType int) *CreateApplicationReqBodyBuilder {
+	builder.deliveryType = deliveryType
+	builder.deliveryTypeFlag = true
+	return builder
+}
+
 func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBody {
 	req := &CreateApplicationReqBody{}
 	if builder.talentIdFlag {
@@ -54993,6 +55323,9 @@ func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBod
 	if builder.applicationPreferredCityCodeListFlag {
 		req.ApplicationPreferredCityCodeList = builder.applicationPreferredCityCodeList
 	}
+	if builder.deliveryTypeFlag {
+		req.DeliveryType = &builder.deliveryType
+	}
 	return req
 }
 
@@ -55007,6 +55340,8 @@ type CreateApplicationPathReqBodyBuilder struct {
 	resumeSourceIdFlag                   bool
 	applicationPreferredCityCodeList     []string
 	applicationPreferredCityCodeListFlag bool
+	deliveryType                         int
+	deliveryTypeFlag                     bool
 }
 
 func NewCreateApplicationPathReqBodyBuilder() *CreateApplicationPathReqBodyBuilder {
@@ -55059,6 +55394,15 @@ func (builder *CreateApplicationPathReqBodyBuilder) ApplicationPreferredCityCode
 	return builder
 }
 
+// 投递方式
+//
+// 示例值：1
+func (builder *CreateApplicationPathReqBodyBuilder) DeliveryType(deliveryType int) *CreateApplicationPathReqBodyBuilder {
+	builder.deliveryType = deliveryType
+	builder.deliveryTypeFlag = true
+	return builder
+}
+
 func (builder *CreateApplicationPathReqBodyBuilder) Build() (*CreateApplicationReqBody, error) {
 	req := &CreateApplicationReqBody{}
 	if builder.talentIdFlag {
@@ -55075,6 +55419,9 @@ func (builder *CreateApplicationPathReqBodyBuilder) Build() (*CreateApplicationR
 	}
 	if builder.applicationPreferredCityCodeListFlag {
 		req.ApplicationPreferredCityCodeList = builder.applicationPreferredCityCodeList
+	}
+	if builder.deliveryTypeFlag {
+		req.DeliveryType = &builder.deliveryType
 	}
 	return req, nil
 }
@@ -55125,6 +55472,8 @@ type CreateApplicationReqBody struct {
 	ResumeSourceId *string `json:"resume_source_id,omitempty"` // 简历来源 ID，可通过「获取简历来源」接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
 
 	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+
+	DeliveryType *int `json:"delivery_type,omitempty"` // 投递方式
 }
 
 type CreateApplicationReq struct {
@@ -56652,6 +57001,325 @@ type PreviewAttachmentResp struct {
 }
 
 func (resp *PreviewAttachmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchQueryBackgroundCheckOrderReqBodyBuilder struct {
+	backgroundCheckOrderIdList     []string // 背调订单 ID 列表
+	backgroundCheckOrderIdListFlag bool
+
+	updateStartTime     string // 最早更新时间,毫秒级时间戳
+	updateStartTimeFlag bool
+
+	updateEndTime     string // 最晚更新时间,毫秒级时间戳
+	updateEndTimeFlag bool
+
+	beginStartTime     string // 最早创建时间,毫秒级时间戳
+	beginStartTimeFlag bool
+
+	beginEndTime     string // 最晚创建时间,毫秒级时间戳
+	beginEndTimeFlag bool
+
+	applicationId     string // 投递 ID
+	applicationIdFlag bool
+
+	orderStatus     string // 订单状态
+	orderStatusFlag bool
+}
+
+func NewBatchQueryBackgroundCheckOrderReqBodyBuilder() *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder := &BatchQueryBackgroundCheckOrderReqBodyBuilder{}
+	return builder
+}
+
+// 背调订单 ID 列表
+//
+//示例值：
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BackgroundCheckOrderIdList(backgroundCheckOrderIdList []string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.backgroundCheckOrderIdList = backgroundCheckOrderIdList
+	builder.backgroundCheckOrderIdListFlag = true
+	return builder
+}
+
+// 最早更新时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) UpdateStartTime(updateStartTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.updateStartTime = updateStartTime
+	builder.updateStartTimeFlag = true
+	return builder
+}
+
+// 最晚更新时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) UpdateEndTime(updateEndTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.updateEndTime = updateEndTime
+	builder.updateEndTimeFlag = true
+	return builder
+}
+
+// 最早创建时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BeginStartTime(beginStartTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.beginStartTime = beginStartTime
+	builder.beginStartTimeFlag = true
+	return builder
+}
+
+// 最晚创建时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BeginEndTime(beginEndTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.beginEndTime = beginEndTime
+	builder.beginEndTimeFlag = true
+	return builder
+}
+
+// 投递 ID
+//
+//示例值：7398493486516799788
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) ApplicationId(applicationId string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 订单状态
+//
+//示例值：2
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) OrderStatus(orderStatus string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.orderStatus = orderStatus
+	builder.orderStatusFlag = true
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) Build() *BatchQueryBackgroundCheckOrderReqBody {
+	req := &BatchQueryBackgroundCheckOrderReqBody{}
+	if builder.backgroundCheckOrderIdListFlag {
+		req.BackgroundCheckOrderIdList = builder.backgroundCheckOrderIdList
+	}
+	if builder.updateStartTimeFlag {
+		req.UpdateStartTime = &builder.updateStartTime
+	}
+	if builder.updateEndTimeFlag {
+		req.UpdateEndTime = &builder.updateEndTime
+	}
+	if builder.beginStartTimeFlag {
+		req.BeginStartTime = &builder.beginStartTime
+	}
+	if builder.beginEndTimeFlag {
+		req.BeginEndTime = &builder.beginEndTime
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+	}
+	if builder.orderStatusFlag {
+		req.OrderStatus = &builder.orderStatus
+	}
+	return req
+}
+
+type BatchQueryBackgroundCheckOrderPathReqBodyBuilder struct {
+	backgroundCheckOrderIdList     []string
+	backgroundCheckOrderIdListFlag bool
+	updateStartTime                string
+	updateStartTimeFlag            bool
+	updateEndTime                  string
+	updateEndTimeFlag              bool
+	beginStartTime                 string
+	beginStartTimeFlag             bool
+	beginEndTime                   string
+	beginEndTimeFlag               bool
+	applicationId                  string
+	applicationIdFlag              bool
+	orderStatus                    string
+	orderStatusFlag                bool
+}
+
+func NewBatchQueryBackgroundCheckOrderPathReqBodyBuilder() *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder := &BatchQueryBackgroundCheckOrderPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调订单 ID 列表
+//
+// 示例值：
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BackgroundCheckOrderIdList(backgroundCheckOrderIdList []string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.backgroundCheckOrderIdList = backgroundCheckOrderIdList
+	builder.backgroundCheckOrderIdListFlag = true
+	return builder
+}
+
+// 最早更新时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) UpdateStartTime(updateStartTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.updateStartTime = updateStartTime
+	builder.updateStartTimeFlag = true
+	return builder
+}
+
+// 最晚更新时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) UpdateEndTime(updateEndTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.updateEndTime = updateEndTime
+	builder.updateEndTimeFlag = true
+	return builder
+}
+
+// 最早创建时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BeginStartTime(beginStartTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.beginStartTime = beginStartTime
+	builder.beginStartTimeFlag = true
+	return builder
+}
+
+// 最晚创建时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BeginEndTime(beginEndTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.beginEndTime = beginEndTime
+	builder.beginEndTimeFlag = true
+	return builder
+}
+
+// 投递 ID
+//
+// 示例值：7398493486516799788
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) ApplicationId(applicationId string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 订单状态
+//
+// 示例值：2
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) OrderStatus(orderStatus string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.orderStatus = orderStatus
+	builder.orderStatusFlag = true
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) Build() (*BatchQueryBackgroundCheckOrderReqBody, error) {
+	req := &BatchQueryBackgroundCheckOrderReqBody{}
+	if builder.backgroundCheckOrderIdListFlag {
+		req.BackgroundCheckOrderIdList = builder.backgroundCheckOrderIdList
+	}
+	if builder.updateStartTimeFlag {
+		req.UpdateStartTime = &builder.updateStartTime
+	}
+	if builder.updateEndTimeFlag {
+		req.UpdateEndTime = &builder.updateEndTime
+	}
+	if builder.beginStartTimeFlag {
+		req.BeginStartTime = &builder.beginStartTime
+	}
+	if builder.beginEndTimeFlag {
+		req.BeginEndTime = &builder.beginEndTime
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+	}
+	if builder.orderStatusFlag {
+		req.OrderStatus = &builder.orderStatus
+	}
+	return req, nil
+}
+
+type BatchQueryBackgroundCheckOrderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchQueryBackgroundCheckOrderReqBody
+}
+
+func NewBatchQueryBackgroundCheckOrderReqBuilder() *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder := &BatchQueryBackgroundCheckOrderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) UserIdType(userIdType string) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) PageToken(pageToken string) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量
+//
+// 示例值：10
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) PageSize(pageSize int) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+//
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) Body(body *BatchQueryBackgroundCheckOrderReqBody) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) Build() *BatchQueryBackgroundCheckOrderReq {
+	req := &BatchQueryBackgroundCheckOrderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchQueryBackgroundCheckOrderReqBody struct {
+	BackgroundCheckOrderIdList []string `json:"background_check_order_id_list,omitempty"` // 背调订单 ID 列表
+
+	UpdateStartTime *string `json:"update_start_time,omitempty"` // 最早更新时间,毫秒级时间戳
+
+	UpdateEndTime *string `json:"update_end_time,omitempty"` // 最晚更新时间,毫秒级时间戳
+
+	BeginStartTime *string `json:"begin_start_time,omitempty"` // 最早创建时间,毫秒级时间戳
+
+	BeginEndTime *string `json:"begin_end_time,omitempty"` // 最晚创建时间,毫秒级时间戳
+
+	ApplicationId *string `json:"application_id,omitempty"` // 投递 ID
+
+	OrderStatus *string `json:"order_status,omitempty"` // 订单状态
+}
+
+type BatchQueryBackgroundCheckOrderReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchQueryBackgroundCheckOrderReqBody `body:""`
+}
+
+type BatchQueryBackgroundCheckOrderRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	Items []*BackgroundCheckOrder `json:"items,omitempty"` // 背调信息列表
+}
+
+type BatchQueryBackgroundCheckOrderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchQueryBackgroundCheckOrderRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchQueryBackgroundCheckOrderResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -58324,9 +58992,179 @@ func (resp *LoginInfoEcoExamResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateResultEcoExamReqBodyBuilder struct {
+	result     string // 笔试结果
+	resultFlag bool
+
+	resultTime     string // 笔试结果时间
+	resultTimeFlag bool
+
+	reportList     []*EcoExamResultReport // 报告列表
+	reportListFlag bool
+
+	detailList     []*EcoExamResultDetail // 详细评价结果
+	detailListFlag bool
+
+	status     int // 笔试状态
+	statusFlag bool
+}
+
+func NewUpdateResultEcoExamReqBodyBuilder() *UpdateResultEcoExamReqBodyBuilder {
+	builder := &UpdateResultEcoExamReqBodyBuilder{}
+	return builder
+}
+
+// 笔试结果
+//
+//示例值：60.5
+func (builder *UpdateResultEcoExamReqBodyBuilder) Result(result string) *UpdateResultEcoExamReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 笔试结果时间
+//
+//示例值：1658676234053
+func (builder *UpdateResultEcoExamReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoExamReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+//示例值：
+func (builder *UpdateResultEcoExamReqBodyBuilder) ReportList(reportList []*EcoExamResultReport) *UpdateResultEcoExamReqBodyBuilder {
+	builder.reportList = reportList
+	builder.reportListFlag = true
+	return builder
+}
+
+// 详细评价结果
+//
+//示例值：
+func (builder *UpdateResultEcoExamReqBodyBuilder) DetailList(detailList []*EcoExamResultDetail) *UpdateResultEcoExamReqBodyBuilder {
+	builder.detailList = detailList
+	builder.detailListFlag = true
+	return builder
+}
+
+// 笔试状态
+//
+//示例值：1
+func (builder *UpdateResultEcoExamReqBodyBuilder) Status(status int) *UpdateResultEcoExamReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoExamReqBodyBuilder) Build() *UpdateResultEcoExamReqBody {
+	req := &UpdateResultEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportListFlag {
+		req.ReportList = builder.reportList
+	}
+	if builder.detailListFlag {
+		req.DetailList = builder.detailList
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req
+}
+
+type UpdateResultEcoExamPathReqBodyBuilder struct {
+	result         string
+	resultFlag     bool
+	resultTime     string
+	resultTimeFlag bool
+	reportList     []*EcoExamResultReport
+	reportListFlag bool
+	detailList     []*EcoExamResultDetail
+	detailListFlag bool
+	status         int
+	statusFlag     bool
+}
+
+func NewUpdateResultEcoExamPathReqBodyBuilder() *UpdateResultEcoExamPathReqBodyBuilder {
+	builder := &UpdateResultEcoExamPathReqBodyBuilder{}
+	return builder
+}
+
+// 笔试结果
+//
+// 示例值：60.5
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Result(result string) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 笔试结果时间
+//
+// 示例值：1658676234053
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+// 示例值：
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) ReportList(reportList []*EcoExamResultReport) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.reportList = reportList
+	builder.reportListFlag = true
+	return builder
+}
+
+// 详细评价结果
+//
+// 示例值：
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) DetailList(detailList []*EcoExamResultDetail) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.detailList = detailList
+	builder.detailListFlag = true
+	return builder
+}
+
+// 笔试状态
+//
+// 示例值：1
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Status(status int) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Build() (*UpdateResultEcoExamReqBody, error) {
+	req := &UpdateResultEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportListFlag {
+		req.ReportList = builder.reportList
+	}
+	if builder.detailListFlag {
+		req.DetailList = builder.detailList
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req, nil
+}
+
 type UpdateResultEcoExamReqBuilder struct {
-	apiReq        *larkcore.ApiReq
-	ecoExamResult *EcoExamResult
+	apiReq *larkcore.ApiReq
+	body   *UpdateResultEcoExamReqBody
 }
 
 func NewUpdateResultEcoExamReqBuilder() *UpdateResultEcoExamReqBuilder {
@@ -58347,8 +59185,8 @@ func (builder *UpdateResultEcoExamReqBuilder) ExamId(examId string) *UpdateResul
 }
 
 //
-func (builder *UpdateResultEcoExamReqBuilder) EcoExamResult(ecoExamResult *EcoExamResult) *UpdateResultEcoExamReqBuilder {
-	builder.ecoExamResult = ecoExamResult
+func (builder *UpdateResultEcoExamReqBuilder) Body(body *UpdateResultEcoExamReqBody) *UpdateResultEcoExamReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -58356,13 +59194,25 @@ func (builder *UpdateResultEcoExamReqBuilder) Build() *UpdateResultEcoExamReq {
 	req := &UpdateResultEcoExamReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.Body = builder.ecoExamResult
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type UpdateResultEcoExamReqBody struct {
+	Result *string `json:"result,omitempty"` // 笔试结果
+
+	ResultTime *string `json:"result_time,omitempty"` // 笔试结果时间
+
+	ReportList []*EcoExamResultReport `json:"report_list,omitempty"` // 报告列表
+
+	DetailList []*EcoExamResultDetail `json:"detail_list,omitempty"` // 详细评价结果
+
+	Status *int `json:"status,omitempty"` // 笔试状态
+}
+
 type UpdateResultEcoExamReq struct {
-	apiReq        *larkcore.ApiReq
-	EcoExamResult *EcoExamResult `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateResultEcoExamReqBody `body:""`
 }
 
 type UpdateResultEcoExamResp struct {
@@ -63454,9 +64304,822 @@ func (resp *ListByIdJobRequirementResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateJobRequirementReqBodyBuilder struct {
+	name     string // 需求名称
+	nameFlag bool
+
+	displayProgress     int // 需求状态
+	displayProgressFlag bool
+
+	headCount     int // 需求人数
+	headCountFlag bool
+
+	recruitmentTypeId     string // 职位性质 ID
+	recruitmentTypeIdFlag bool
+
+	employeeTypeId     string // 人员类型
+	employeeTypeIdFlag bool
+
+	maxLevelId     string // 最高职级 ID
+	maxLevelIdFlag bool
+
+	minLevelId     string // 最低职级 ID
+	minLevelIdFlag bool
+
+	sequenceId     string // 职位序列 ID
+	sequenceIdFlag bool
+
+	category     int // 需求类型
+	categoryFlag bool
+
+	departmentId     string // 需求部门 ID
+	departmentIdFlag bool
+
+	recruiterIdList     []string // 需求负责人 ID 列表
+	recruiterIdListFlag bool
+
+	jrHiringManagerIdList     []string // 需求用人经理 ID 列表
+	jrHiringManagerIdListFlag bool
+
+	directLeaderIdList     []string // 直属上级 ID
+	directLeaderIdListFlag bool
+
+	startTime     string // 开始日期，毫秒级时间戳
+	startTimeFlag bool
+
+	deadline     string // 预计完成日期，毫秒级时间戳
+	deadlineFlag bool
+
+	priority     int // 招聘优先级
+	priorityFlag bool
+
+	requiredDegree     int // 学历要求
+	requiredDegreeFlag bool
+
+	maxSalary     string // 最高薪资
+	maxSalaryFlag bool
+
+	minSalary     string // 最低薪资
+	minSalaryFlag bool
+
+	addressId     string // 工作地点 ID
+	addressIdFlag bool
+
+	description     string // 需求描述
+	descriptionFlag bool
+
+	customizedDataList     []*JobRequirementCustomizedData // 自定义字段
+	customizedDataListFlag bool
+
+	processType     int // 支持的招聘类型列表
+	processTypeFlag bool
+
+	jobTypeId     string // 招聘需求中的职位类别
+	jobTypeIdFlag bool
+
+	jobIdList     []string // 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+	jobIdListFlag bool
+
+	employmentJobId     string // 职务 ID
+	employmentJobIdFlag bool
+
+	positionId     string // 岗位 ID
+	positionIdFlag bool
+
+	updateOption     *JobRequirementUpdateOption // 招聘需求修改确认控制
+	updateOptionFlag bool
+}
+
+func NewUpdateJobRequirementReqBodyBuilder() *UpdateJobRequirementReqBodyBuilder {
+	builder := &UpdateJobRequirementReqBodyBuilder{}
+	return builder
+}
+
+// 需求名称
+//
+//示例值：HR部门春季招聘需求
+func (builder *UpdateJobRequirementReqBodyBuilder) Name(name string) *UpdateJobRequirementReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 需求状态
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) DisplayProgress(displayProgress int) *UpdateJobRequirementReqBodyBuilder {
+	builder.displayProgress = displayProgress
+	builder.displayProgressFlag = true
+	return builder
+}
+
+// 需求人数
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementReqBodyBuilder {
+	builder.headCount = headCount
+	builder.headCountFlag = true
+	return builder
+}
+
+// 职位性质 ID
+//
+//示例值：1618209327096
+func (builder *UpdateJobRequirementReqBodyBuilder) RecruitmentTypeId(recruitmentTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.recruitmentTypeId = recruitmentTypeId
+	builder.recruitmentTypeIdFlag = true
+	return builder
+}
+
+// 人员类型
+//
+//示例值：6807409776231254285
+func (builder *UpdateJobRequirementReqBodyBuilder) EmployeeTypeId(employeeTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.employeeTypeId = employeeTypeId
+	builder.employeeTypeIdFlag = true
+	return builder
+}
+
+// 最高职级 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) MaxLevelId(maxLevelId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.maxLevelId = maxLevelId
+	builder.maxLevelIdFlag = true
+	return builder
+}
+
+// 最低职级 ID
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) MinLevelId(minLevelId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.minLevelId = minLevelId
+	builder.minLevelIdFlag = true
+	return builder
+}
+
+// 职位序列 ID
+//
+//示例值：111
+func (builder *UpdateJobRequirementReqBodyBuilder) SequenceId(sequenceId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.sequenceId = sequenceId
+	builder.sequenceIdFlag = true
+	return builder
+}
+
+// 需求类型
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) Category(category int) *UpdateJobRequirementReqBodyBuilder {
+	builder.category = category
+	builder.categoryFlag = true
+	return builder
+}
+
+// 需求部门 ID
+//
+//示例值：1111
+func (builder *UpdateJobRequirementReqBodyBuilder) DepartmentId(departmentId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 需求负责人 ID 列表
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) RecruiterIdList(recruiterIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.recruiterIdList = recruiterIdList
+	builder.recruiterIdListFlag = true
+	return builder
+}
+
+// 需求用人经理 ID 列表
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) JrHiringManagerIdList(jrHiringManagerIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jrHiringManagerIdList = jrHiringManagerIdList
+	builder.jrHiringManagerIdListFlag = true
+	return builder
+}
+
+// 直属上级 ID
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) DirectLeaderIdList(directLeaderIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.directLeaderIdList = directLeaderIdList
+	builder.directLeaderIdListFlag = true
+	return builder
+}
+
+// 开始日期，毫秒级时间戳
+//
+//示例值：1625729379000
+func (builder *UpdateJobRequirementReqBodyBuilder) StartTime(startTime string) *UpdateJobRequirementReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 预计完成日期，毫秒级时间戳
+//
+//示例值：1625729379000
+func (builder *UpdateJobRequirementReqBodyBuilder) Deadline(deadline string) *UpdateJobRequirementReqBodyBuilder {
+	builder.deadline = deadline
+	builder.deadlineFlag = true
+	return builder
+}
+
+// 招聘优先级
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) Priority(priority int) *UpdateJobRequirementReqBodyBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+
+// 学历要求
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) RequiredDegree(requiredDegree int) *UpdateJobRequirementReqBodyBuilder {
+	builder.requiredDegree = requiredDegree
+	builder.requiredDegreeFlag = true
+	return builder
+}
+
+// 最高薪资
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) MaxSalary(maxSalary string) *UpdateJobRequirementReqBodyBuilder {
+	builder.maxSalary = maxSalary
+	builder.maxSalaryFlag = true
+	return builder
+}
+
+// 最低薪资
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) MinSalary(minSalary string) *UpdateJobRequirementReqBodyBuilder {
+	builder.minSalary = minSalary
+	builder.minSalaryFlag = true
+	return builder
+}
+
+// 工作地点 ID
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) AddressId(addressId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.addressId = addressId
+	builder.addressIdFlag = true
+	return builder
+}
+
+// 需求描述
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) Description(description string) *UpdateJobRequirementReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedData) *UpdateJobRequirementReqBodyBuilder {
+	builder.customizedDataList = customizedDataList
+	builder.customizedDataListFlag = true
+	return builder
+}
+
+// 支持的招聘类型列表
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) ProcessType(processType int) *UpdateJobRequirementReqBodyBuilder {
+	builder.processType = processType
+	builder.processTypeFlag = true
+	return builder
+}
+
+// 招聘需求中的职位类别
+//
+//示例值：6930815272790114324
+func (builder *UpdateJobRequirementReqBodyBuilder) JobTypeId(jobTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jobTypeId = jobTypeId
+	builder.jobTypeIdFlag = true
+	return builder
+}
+
+// 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) JobIdList(jobIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jobIdList = jobIdList
+	builder.jobIdListFlag = true
+	return builder
+}
+
+// 职务 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) EmploymentJobId(employmentJobId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.employmentJobId = employmentJobId
+	builder.employmentJobIdFlag = true
+	return builder
+}
+
+// 岗位 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) PositionId(positionId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.positionId = positionId
+	builder.positionIdFlag = true
+	return builder
+}
+
+func (builder *UpdateJobRequirementReqBodyBuilder) Build() *UpdateJobRequirementReqBody {
+	req := &UpdateJobRequirementReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.displayProgressFlag {
+		req.DisplayProgress = &builder.displayProgress
+	}
+	if builder.headCountFlag {
+		req.HeadCount = &builder.headCount
+	}
+	if builder.recruitmentTypeIdFlag {
+		req.RecruitmentTypeId = &builder.recruitmentTypeId
+	}
+	if builder.employeeTypeIdFlag {
+		req.EmployeeTypeId = &builder.employeeTypeId
+	}
+	if builder.maxLevelIdFlag {
+		req.MaxLevelId = &builder.maxLevelId
+	}
+	if builder.minLevelIdFlag {
+		req.MinLevelId = &builder.minLevelId
+	}
+	if builder.sequenceIdFlag {
+		req.SequenceId = &builder.sequenceId
+	}
+	if builder.categoryFlag {
+		req.Category = &builder.category
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recruiterIdListFlag {
+		req.RecruiterIdList = builder.recruiterIdList
+	}
+	if builder.jrHiringManagerIdListFlag {
+		req.JrHiringManagerIdList = builder.jrHiringManagerIdList
+	}
+	if builder.directLeaderIdListFlag {
+		req.DirectLeaderIdList = builder.directLeaderIdList
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.deadlineFlag {
+		req.Deadline = &builder.deadline
+	}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+	}
+	if builder.requiredDegreeFlag {
+		req.RequiredDegree = &builder.requiredDegree
+	}
+	if builder.maxSalaryFlag {
+		req.MaxSalary = &builder.maxSalary
+	}
+	if builder.minSalaryFlag {
+		req.MinSalary = &builder.minSalary
+	}
+	if builder.addressIdFlag {
+		req.AddressId = &builder.addressId
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.customizedDataListFlag {
+		req.CustomizedDataList = builder.customizedDataList
+	}
+	if builder.processTypeFlag {
+		req.ProcessType = &builder.processType
+	}
+	if builder.jobTypeIdFlag {
+		req.JobTypeId = &builder.jobTypeId
+	}
+	if builder.jobIdListFlag {
+		req.JobIdList = builder.jobIdList
+	}
+	if builder.employmentJobIdFlag {
+		req.EmploymentJobId = &builder.employmentJobId
+	}
+	if builder.positionIdFlag {
+		req.PositionId = &builder.positionId
+	}
+	return req
+}
+
+type UpdateJobRequirementPathReqBodyBuilder struct {
+	name                      string
+	nameFlag                  bool
+	displayProgress           int
+	displayProgressFlag       bool
+	headCount                 int
+	headCountFlag             bool
+	recruitmentTypeId         string
+	recruitmentTypeIdFlag     bool
+	employeeTypeId            string
+	employeeTypeIdFlag        bool
+	maxLevelId                string
+	maxLevelIdFlag            bool
+	minLevelId                string
+	minLevelIdFlag            bool
+	sequenceId                string
+	sequenceIdFlag            bool
+	category                  int
+	categoryFlag              bool
+	departmentId              string
+	departmentIdFlag          bool
+	recruiterIdList           []string
+	recruiterIdListFlag       bool
+	jrHiringManagerIdList     []string
+	jrHiringManagerIdListFlag bool
+	directLeaderIdList        []string
+	directLeaderIdListFlag    bool
+	startTime                 string
+	startTimeFlag             bool
+	deadline                  string
+	deadlineFlag              bool
+	priority                  int
+	priorityFlag              bool
+	requiredDegree            int
+	requiredDegreeFlag        bool
+	maxSalary                 string
+	maxSalaryFlag             bool
+	minSalary                 string
+	minSalaryFlag             bool
+	addressId                 string
+	addressIdFlag             bool
+	description               string
+	descriptionFlag           bool
+	customizedDataList        []*JobRequirementCustomizedData
+	customizedDataListFlag    bool
+	processType               int
+	processTypeFlag           bool
+	jobTypeId                 string
+	jobTypeIdFlag             bool
+	jobIdList                 []string
+	jobIdListFlag             bool
+	employmentJobId           string
+	employmentJobIdFlag       bool
+	positionId                string
+	positionIdFlag            bool
+	updateOption              *JobRequirementUpdateOption
+	updateOptionFlag          bool
+}
+
+func NewUpdateJobRequirementPathReqBodyBuilder() *UpdateJobRequirementPathReqBodyBuilder {
+	builder := &UpdateJobRequirementPathReqBodyBuilder{}
+	return builder
+}
+
+// 需求名称
+//
+// 示例值：HR部门春季招聘需求
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Name(name string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 需求状态
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DisplayProgress(displayProgress int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.displayProgress = displayProgress
+	builder.displayProgressFlag = true
+	return builder
+}
+
+// 需求人数
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.headCount = headCount
+	builder.headCountFlag = true
+	return builder
+}
+
+// 职位性质 ID
+//
+// 示例值：1618209327096
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RecruitmentTypeId(recruitmentTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.recruitmentTypeId = recruitmentTypeId
+	builder.recruitmentTypeIdFlag = true
+	return builder
+}
+
+// 人员类型
+//
+// 示例值：6807409776231254285
+func (builder *UpdateJobRequirementPathReqBodyBuilder) EmployeeTypeId(employeeTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.employeeTypeId = employeeTypeId
+	builder.employeeTypeIdFlag = true
+	return builder
+}
+
+// 最高职级 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MaxLevelId(maxLevelId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.maxLevelId = maxLevelId
+	builder.maxLevelIdFlag = true
+	return builder
+}
+
+// 最低职级 ID
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MinLevelId(minLevelId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.minLevelId = minLevelId
+	builder.minLevelIdFlag = true
+	return builder
+}
+
+// 职位序列 ID
+//
+// 示例值：111
+func (builder *UpdateJobRequirementPathReqBodyBuilder) SequenceId(sequenceId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.sequenceId = sequenceId
+	builder.sequenceIdFlag = true
+	return builder
+}
+
+// 需求类型
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Category(category int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.category = category
+	builder.categoryFlag = true
+	return builder
+}
+
+// 需求部门 ID
+//
+// 示例值：1111
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DepartmentId(departmentId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 需求负责人 ID 列表
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RecruiterIdList(recruiterIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.recruiterIdList = recruiterIdList
+	builder.recruiterIdListFlag = true
+	return builder
+}
+
+// 需求用人经理 ID 列表
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JrHiringManagerIdList(jrHiringManagerIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jrHiringManagerIdList = jrHiringManagerIdList
+	builder.jrHiringManagerIdListFlag = true
+	return builder
+}
+
+// 直属上级 ID
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DirectLeaderIdList(directLeaderIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.directLeaderIdList = directLeaderIdList
+	builder.directLeaderIdListFlag = true
+	return builder
+}
+
+// 开始日期，毫秒级时间戳
+//
+// 示例值：1625729379000
+func (builder *UpdateJobRequirementPathReqBodyBuilder) StartTime(startTime string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 预计完成日期，毫秒级时间戳
+//
+// 示例值：1625729379000
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Deadline(deadline string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.deadline = deadline
+	builder.deadlineFlag = true
+	return builder
+}
+
+// 招聘优先级
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Priority(priority int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+
+// 学历要求
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RequiredDegree(requiredDegree int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.requiredDegree = requiredDegree
+	builder.requiredDegreeFlag = true
+	return builder
+}
+
+// 最高薪资
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MaxSalary(maxSalary string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.maxSalary = maxSalary
+	builder.maxSalaryFlag = true
+	return builder
+}
+
+// 最低薪资
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MinSalary(minSalary string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.minSalary = minSalary
+	builder.minSalaryFlag = true
+	return builder
+}
+
+// 工作地点 ID
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) AddressId(addressId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.addressId = addressId
+	builder.addressIdFlag = true
+	return builder
+}
+
+// 需求描述
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Description(description string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedData) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.customizedDataList = customizedDataList
+	builder.customizedDataListFlag = true
+	return builder
+}
+
+// 支持的招聘类型列表
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) ProcessType(processType int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.processType = processType
+	builder.processTypeFlag = true
+	return builder
+}
+
+// 招聘需求中的职位类别
+//
+// 示例值：6930815272790114324
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JobTypeId(jobTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jobTypeId = jobTypeId
+	builder.jobTypeIdFlag = true
+	return builder
+}
+
+// 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JobIdList(jobIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jobIdList = jobIdList
+	builder.jobIdListFlag = true
+	return builder
+}
+
+// 职务 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) EmploymentJobId(employmentJobId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.employmentJobId = employmentJobId
+	builder.employmentJobIdFlag = true
+	return builder
+}
+
+// 岗位 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) PositionId(positionId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.positionId = positionId
+	builder.positionIdFlag = true
+	return builder
+}
+
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Build() (*UpdateJobRequirementReqBody, error) {
+	req := &UpdateJobRequirementReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.displayProgressFlag {
+		req.DisplayProgress = &builder.displayProgress
+	}
+	if builder.headCountFlag {
+		req.HeadCount = &builder.headCount
+	}
+	if builder.recruitmentTypeIdFlag {
+		req.RecruitmentTypeId = &builder.recruitmentTypeId
+	}
+	if builder.employeeTypeIdFlag {
+		req.EmployeeTypeId = &builder.employeeTypeId
+	}
+	if builder.maxLevelIdFlag {
+		req.MaxLevelId = &builder.maxLevelId
+	}
+	if builder.minLevelIdFlag {
+		req.MinLevelId = &builder.minLevelId
+	}
+	if builder.sequenceIdFlag {
+		req.SequenceId = &builder.sequenceId
+	}
+	if builder.categoryFlag {
+		req.Category = &builder.category
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recruiterIdListFlag {
+		req.RecruiterIdList = builder.recruiterIdList
+	}
+	if builder.jrHiringManagerIdListFlag {
+		req.JrHiringManagerIdList = builder.jrHiringManagerIdList
+	}
+	if builder.directLeaderIdListFlag {
+		req.DirectLeaderIdList = builder.directLeaderIdList
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.deadlineFlag {
+		req.Deadline = &builder.deadline
+	}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+	}
+	if builder.requiredDegreeFlag {
+		req.RequiredDegree = &builder.requiredDegree
+	}
+	if builder.maxSalaryFlag {
+		req.MaxSalary = &builder.maxSalary
+	}
+	if builder.minSalaryFlag {
+		req.MinSalary = &builder.minSalary
+	}
+	if builder.addressIdFlag {
+		req.AddressId = &builder.addressId
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.customizedDataListFlag {
+		req.CustomizedDataList = builder.customizedDataList
+	}
+	if builder.processTypeFlag {
+		req.ProcessType = &builder.processType
+	}
+	if builder.jobTypeIdFlag {
+		req.JobTypeId = &builder.jobTypeId
+	}
+	if builder.jobIdListFlag {
+		req.JobIdList = builder.jobIdList
+	}
+	if builder.employmentJobIdFlag {
+		req.EmploymentJobId = &builder.employmentJobId
+	}
+	if builder.positionIdFlag {
+		req.PositionId = &builder.positionId
+	}
+	return req, nil
+}
+
 type UpdateJobRequirementReqBuilder struct {
-	apiReq         *larkcore.ApiReq
-	jobRequirement *JobRequirement
+	apiReq *larkcore.ApiReq
+	body   *UpdateJobRequirementReqBody
 }
 
 func NewUpdateJobRequirementReqBuilder() *UpdateJobRequirementReqBuilder {
@@ -63517,8 +65180,8 @@ func (builder *UpdateJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeId
 }
 
 // 更新招聘需求
-func (builder *UpdateJobRequirementReqBuilder) JobRequirement(jobRequirement *JobRequirement) *UpdateJobRequirementReqBuilder {
-	builder.jobRequirement = jobRequirement
+func (builder *UpdateJobRequirementReqBuilder) Body(body *UpdateJobRequirementReqBody) *UpdateJobRequirementReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -63527,13 +65190,71 @@ func (builder *UpdateJobRequirementReqBuilder) Build() *UpdateJobRequirementReq 
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
 	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	req.apiReq.Body = builder.jobRequirement
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type UpdateJobRequirementReqBody struct {
+	Name *string `json:"name,omitempty"` // 需求名称
+
+	DisplayProgress *int `json:"display_progress,omitempty"` // 需求状态
+
+	HeadCount *int `json:"head_count,omitempty"` // 需求人数
+
+	RecruitmentTypeId *string `json:"recruitment_type_id,omitempty"` // 职位性质 ID
+
+	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型
+
+	MaxLevelId *string `json:"max_level_id,omitempty"` // 最高职级 ID
+
+	MinLevelId *string `json:"min_level_id,omitempty"` // 最低职级 ID
+
+	SequenceId *string `json:"sequence_id,omitempty"` // 职位序列 ID
+
+	Category *int `json:"category,omitempty"` // 需求类型
+
+	DepartmentId *string `json:"department_id,omitempty"` // 需求部门 ID
+
+	RecruiterIdList []string `json:"recruiter_id_list,omitempty"` // 需求负责人 ID 列表
+
+	JrHiringManagerIdList []string `json:"jr_hiring_manager_id_list,omitempty"` // 需求用人经理 ID 列表
+
+	DirectLeaderIdList []string `json:"direct_leader_id_list,omitempty"` // 直属上级 ID
+
+	StartTime *string `json:"start_time,omitempty"` // 开始日期，毫秒级时间戳
+
+	Deadline *string `json:"deadline,omitempty"` // 预计完成日期，毫秒级时间戳
+
+	Priority *int `json:"priority,omitempty"` // 招聘优先级
+
+	RequiredDegree *int `json:"required_degree,omitempty"` // 学历要求
+
+	MaxSalary *string `json:"max_salary,omitempty"` // 最高薪资
+
+	MinSalary *string `json:"min_salary,omitempty"` // 最低薪资
+
+	AddressId *string `json:"address_id,omitempty"` // 工作地点 ID
+
+	Description *string `json:"description,omitempty"` // 需求描述
+
+	CustomizedDataList []*JobRequirementCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+
+	ProcessType *int `json:"process_type,omitempty"` // 支持的招聘类型列表
+
+	JobTypeId *string `json:"job_type_id,omitempty"` // 招聘需求中的职位类别
+
+	JobIdList []string `json:"job_id_list,omitempty"` // 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+
+	EmploymentJobId *string `json:"employment_job_id,omitempty"` // 职务 ID
+
+	PositionId *string `json:"position_id,omitempty"` // 岗位 ID
+
+	UpdateOption *JobRequirementUpdateOption `json:"update_option,omitempty"` // 招聘需求修改确认控制
+}
+
 type UpdateJobRequirementReq struct {
-	apiReq         *larkcore.ApiReq
-	JobRequirement *JobRequirement `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateJobRequirementReqBody `body:""`
 }
 
 type UpdateJobRequirementResp struct {
@@ -65244,6 +66965,72 @@ func (resp *ListOfferApplicationFormResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListOfferApprovalTemplateReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListOfferApprovalTemplateReqBuilder() *ListOfferApprovalTemplateReqBuilder {
+	builder := &ListOfferApprovalTemplateReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：1231231987
+func (builder *ListOfferApprovalTemplateReqBuilder) PageToken(pageToken string) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量，最大100
+//
+// 示例值：100
+func (builder *ListOfferApprovalTemplateReqBuilder) PageSize(pageSize int) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *ListOfferApprovalTemplateReqBuilder) DepartmentIdType(departmentIdType string) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+func (builder *ListOfferApprovalTemplateReqBuilder) Build() *ListOfferApprovalTemplateReq {
+	req := &ListOfferApprovalTemplateReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListOfferApprovalTemplateReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListOfferApprovalTemplateRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	Items []*OfferApprovalTemplate `json:"items,omitempty"` // Offer 审批流配置列表
+}
+
+type ListOfferApprovalTemplateResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListOfferApprovalTemplateRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListOfferApprovalTemplateResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdateOfferCustomFieldReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	offerCustomField *OfferCustomField
@@ -65343,6 +67130,74 @@ type GetOfferSchemaResp struct {
 }
 
 func (resp *GetOfferSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListPortalApplySchemaReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListPortalApplySchemaReqBuilder() *ListPortalApplySchemaReqBuilder {
+	builder := &ListPortalApplySchemaReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListPortalApplySchemaReqBuilder) Limit(limit int) *ListPortalApplySchemaReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：20
+func (builder *ListPortalApplySchemaReqBuilder) PageSize(pageSize int) *ListPortalApplySchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6930815272790114324
+func (builder *ListPortalApplySchemaReqBuilder) PageToken(pageToken string) *ListPortalApplySchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListPortalApplySchemaReqBuilder) Build() *ListPortalApplySchemaReq {
+	req := &ListPortalApplySchemaReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListPortalApplySchemaReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListPortalApplySchemaRespData struct {
+	Items []*RegistrationSchema `json:"items,omitempty"` // 官网申请表列表
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否仍有数据
+}
+
+type ListPortalApplySchemaResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListPortalApplySchemaRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListPortalApplySchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -72192,7 +74047,7 @@ type P2ApplicationStageChangedV1Data struct {
 
 	TargetStageId *string `json:"target_stage_id,omitempty"` //
 
-	UpdateTime *int `json:"update_time,omitempty"` //
+	UpdateTime *int64 `json:"update_time,omitempty"` //
 }
 
 type P2ApplicationStageChangedV1 struct {
@@ -73224,6 +75079,60 @@ func (iterator *ListLocationIterator) Next() (bool, *Location, error) {
 }
 
 func (iterator *ListLocationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListPortalApplySchemaIterator struct {
+	nextPageToken *string
+	items         []*RegistrationSchema
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListPortalApplySchemaReq
+	listFunc      func(ctx context.Context, req *ListPortalApplySchemaReq, options ...larkcore.RequestOptionFunc) (*ListPortalApplySchemaResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListPortalApplySchemaIterator) Next() (bool, *RegistrationSchema, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListPortalApplySchemaIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

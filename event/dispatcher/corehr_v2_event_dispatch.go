@@ -412,6 +412,45 @@ func ( dispatcher * EventDispatcher ) OnP2OffboardingUpdatedV2(handler func(ctx 
 // - 
 //
 // - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2PathwayCreatedV2(handler func(ctx context.Context, event *larkcorehr.P2PathwayCreatedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.pathway.created_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.pathway.created_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.pathway.created_v2"] = larkcorehr.NewP2PathwayCreatedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2PathwayDeletedV2(handler func(ctx context.Context, event *larkcorehr.P2PathwayDeletedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.pathway.deleted_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.pathway.deleted_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.pathway.deleted_v2"] = larkcorehr.NewP2PathwayDeletedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2PathwayUpdatedV2(handler func(ctx context.Context, event *larkcorehr.P2PathwayUpdatedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.pathway.updated_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.pathway.updated_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.pathway.updated_v2"] = larkcorehr.NewP2PathwayUpdatedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
 func ( dispatcher * EventDispatcher ) OnP2PreHireOnboardingTaskChangedV2(handler func(ctx context.Context, event *larkcorehr.P2PreHireOnboardingTaskChangedV2) error) * EventDispatcher{
 	_, existed := dispatcher.eventType2EventHandler["corehr.pre_hire.onboarding_task_changed_v2"]
 	if existed {

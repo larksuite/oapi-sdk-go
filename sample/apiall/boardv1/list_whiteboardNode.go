@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkboard.NewListWhiteboardNodeReqBuilder().
 		WhiteboardId("Ru8nwrWFOhEmaFbEU2VbPRsHcxb").
+		UserIdType("user_id").
 		Build()
 	// 发起请求
 	resp, err := client.Board.V1.WhiteboardNode.List(context.Background(), req)

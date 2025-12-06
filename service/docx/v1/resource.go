@@ -242,6 +242,32 @@ func (c *chatAnnouncementBlockChildren) Get(ctx context.Context, req *GetChatAnn
 	return resp, err
 }
 
+// Convert
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=convert&project=docx&resource=document&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/convert_document.go
+func (d *document) Convert(ctx context.Context, req *ConvertDocumentReq, options ...larkcore.RequestOptionFunc) (*ConvertDocumentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/docx/v1/documents/blocks/convert"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ConvertDocumentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create 创建文档
 //
 // - 创建新版文档，文档标题和目录可选。

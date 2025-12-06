@@ -182,6 +182,32 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 	return resp, err
 }
 
+// Mget
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=mget&project=calendar&resource=calendar&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/mget_calendar.go
+func (c *calendar) Mget(ctx context.Context, req *MgetCalendarReq, options ...larkcore.RequestOptionFunc) (*MgetCalendarResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/mget"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &MgetCalendarResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Patch 更新日历信息
 //
 // - 该接口用于以当前身份（应用 / 用户）修改日历信息。;;身份由 Header Authorization 的 Token 类型决定。
@@ -229,6 +255,32 @@ func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options
 	}
 	// 反序列响应结果
 	resp := &PrimaryCalendarResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Primarys
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=primarys&project=calendar&resource=calendar&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/primarys_calendar.go
+func (c *calendar) Primarys(ctx context.Context, req *PrimarysCalendarReq, options ...larkcore.RequestOptionFunc) (*PrimarysCalendarResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/primarys"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PrimarysCalendarResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.config)
 	if err != nil {
 		return nil, err
@@ -1126,6 +1178,32 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 	// 反序列响应结果
 	resp := &GetExchangeBindingResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Batch
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=calendar&resource=freebusy&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/batch_freebusy.go
+func (f *freebusy) Batch(ctx context.Context, req *BatchFreebusyReq, options ...larkcore.RequestOptionFunc) (*BatchFreebusyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/calendar/v4/freebusy/batch"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchFreebusyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.config)
 	if err != nil {
 		return nil, err
 	}
