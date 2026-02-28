@@ -41,6 +41,8 @@ type Client struct {
 	pingInterval      time.Duration // Ping间隔
 	cache             *larkcache.Cache
 	mu                sync.Mutex
+	dialer            *ws.Dialer
+	httpClient        *http.Client
 }
 
 type ClientOption func(cli *Client)
@@ -81,6 +83,32 @@ func WithDomain(domain string) ClientOption {
 	}
 }
 
+func WithClientProxy(proxyUrl string) ClientOption {
+	return func(cli *Client) {
+		if proxyUrl == "" {
+			return
+		}
+		proxy, err := url.Parse(proxyUrl)
+		if err != nil {
+			return
+		}
+
+		cli.dialer.Proxy = http.ProxyURL(proxy)
+
+		var transport *http.Transport
+		if t, ok := http.DefaultTransport.(*http.Transport); ok {
+			transport = t.Clone()
+		} else {
+			transport = &http.Transport{}
+		}
+
+		transport.Proxy = http.ProxyURL(proxy)
+		cli.httpClient = &http.Client{
+			Transport: transport,
+		}
+	}
+}
+
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 	cli := &Client{
 		appID:             appId,
@@ -92,6 +120,11 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		pingInterval:      2 * time.Minute,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
+		dialer: &ws.Dialer{
+			Proxy:            http.ProxyFromEnvironment,
+			HandshakeTimeout: 45 * time.Second,
+		},
+		httpClient: http.DefaultClient,
 	}
 
 	for _, opt := range opts {
@@ -149,7 +182,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
+	conn, resp, err := c.dialer.Dial(connUrl, nil)
 	if err != nil && resp == nil {
 		return
 	}
@@ -249,7 +282,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	}
 
 	req.Header.Add("locale", "zh")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return
 	}
