@@ -154,6 +154,9 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 		}
 		logger.Info(ctx, fmt.Sprintf("req path:%s, server time out,requestId:%s",
 			rawRequest.URL.RequestURI(), logID))
+		if resp.Body != nil {
+			_ = resp.Body.Close()
+		}
 		return nil, &ServerTimeoutError{msg: "server time out error"}
 	}
 	body, err := readResponse(resp)

@@ -2,7 +2,6 @@ output
 *.pyc
 *.sw?
 .idea
-.vscode
 .DS_Store
 coverage
 modules.txt
@@ -11,3 +10,7 @@ modules.txt
 *.sh
 test.go
 .env
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore

@@ -15,7 +15,9 @@ package larkcore
 import (
 	"context"
 	"fmt"
+	"io"
 	"net/http"
+	"sync/atomic"
 	"testing"
 )
 
@@ -36,4 +38,61 @@ func TestSendPost(t *testing.T) {
 	}
 	fmt.Println("ok")
 
+}
+
+type closeTrackingBody struct {
+	closed int32
+}
+
+func (b *closeTrackingBody) Read(p []byte) (int, error) {
+	return 0, io.EOF
+}
+
+func (b *closeTrackingBody) Close() error {
+	atomic.StoreInt32(&b.closed, 1)
+	return nil
+}
+
+type httpClientStub struct {
+	resp *http.Response
+	err  error
+}
+
+func (c httpClientStub) Do(req *http.Request) (*http.Response, error) {
+	return c.resp, c.err
+}
+
+type noopLogger struct{}
+
+func (noopLogger) Debug(context.Context, ...interface{}) {}
+func (noopLogger) Info(context.Context, ...interface{})  {}
+func (noopLogger) Warn(context.Context, ...interface{})  {}
+func (noopLogger) Error(context.Context, ...interface{}) {}
+
+func TestDoSend_CloseBodyOnGatewayTimeout(t *testing.T) {
+	req, err := http.NewRequest(http.MethodGet, "http://example.com/", nil)
+	if err != nil {
+		t.Fatalf("new request failed: %v", err)
+	}
+	body := &closeTrackingBody{}
+	client := httpClientStub{resp: &http.Response{
+		StatusCode: http.StatusGatewayTimeout,
+		Header:     make(http.Header),
+		Body:       body,
+		Request:    req,
+	}}
+
+	resp, err := doSend(context.Background(), req, client, noopLogger{})
+	if resp != nil {
+		t.Fatalf("expect nil resp, got: %#v", resp)
+	}
+	if err == nil {
+		t.Fatalf("expect error, got nil")
+	}
+	if _, ok := err.(*ServerTimeoutError); !ok {
+		t.Fatalf("expect *ServerTimeoutError, got: %T (%v)", err, err)
+	}
+	if atomic.LoadInt32(&body.closed) != 1 {
+		t.Fatalf("expect resp body closed on gateway timeout")
+	}
 }
