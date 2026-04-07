@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"runtime/debug"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -23,25 +24,28 @@ import (
 )
 
 type Client struct {
-	appID             string
-	appSecret         string
-	logLevel          larkcore.LogLevel
-	logger            larkcore.Logger
-	eventHandler      *dispatcher.EventDispatcher
-	cardHandler       *larkcard.CardActionHandler
-	domain            string
-	conn              *ws.Conn
-	connUrl           *url.URL
-	serviceID         string
-	connID            string
-	autoReconnect     bool          // 是否自动重连，默认开启
-	reconnectNonce    int           // 首次重连抖动，单位秒
-	reconnectCount    int           // 重连次数，负数无限次
-	reconnectInterval time.Duration // 重连间隔
-	pingInterval      time.Duration // Ping间隔
-	cache             *larkcache.Cache
-	mu                sync.Mutex
+	appID                   string
+	appSecret               string
+	clientAssertionProvider larkcore.ClientAssertionProvider
+	logLevel                larkcore.LogLevel
+	logger                  larkcore.Logger
+	eventHandler            *dispatcher.EventDispatcher
+	cardHandler             *larkcard.CardActionHandler
+	domain                  string
+	conn                    *ws.Conn
+	connUrl                 *url.URL
+	serviceID               string
+	connID                  string
+	autoReconnect           bool          // 是否自动重连，默认开启
+	reconnectNonce          int           // 首次重连抖动，单位秒
+	reconnectCount          int           // 重连次数，负数无限次
+	reconnectInterval       time.Duration // 重连间隔
+	pingInterval            time.Duration // Ping间隔
+	cache                   *larkcache.Cache
+	mu                      sync.Mutex
 }
+
+var bootstrapHTTPClient = http.DefaultClient
 
 type ClientOption func(cli *Client)
 
@@ -78,6 +82,12 @@ func WithAutoReconnect(b bool) ClientOption {
 func WithDomain(domain string) ClientOption {
 	return func(cli *Client) {
 		cli.domain = domain
+	}
+}
+
+func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
+	return func(cli *Client) {
+		cli.clientAssertionProvider = provider
 	}
 }
 
@@ -234,22 +244,48 @@ func (c *Client) disconnect(ctx context.Context) {
 }
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
-	body := map[string]string{
-		"AppID":     c.appID,
-		"AppSecret": c.appSecret,
+	requestURL := strings.TrimRight(c.domain, "/") + GenEndpointUri
+	body := &BootstrapRequest{AppID: c.appID}
+	headers := make(http.Header)
+
+	if c.clientAssertionProvider != nil {
+		aud, extractErr := extractAudFromWSURL(c.domain)
+		if extractErr != nil {
+			return "", extractErr
+		}
+		clientAssertionToken, retrieveErr := c.clientAssertionProvider.RetrieveToken(ctx, aud)
+		if retrieveErr != nil {
+			return "", retrieveErr
+		}
+		if clientAssertionToken == nil || clientAssertionToken.Value == "" {
+			return "", NewClientError(larkcore.ErrCodeClientAssertionTokenEmpty, "client assertion token is empty")
+		}
+		body.ClientAssertion = clientAssertionToken.Value
+		if clientAssertionToken.TargetInfo != nil {
+			requestURL = buildWSProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, GenEndpointUri)
+			headers.Set(larkcore.HeaderXTargetService, aud)
+		}
+	} else {
+		body.AppSecret = c.appSecret
 	}
+
 	bs, err := json.Marshal(body)
 	if err != nil {
 		return
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.domain+GenEndpointUri, bytes.NewBuffer(bs))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL, bytes.NewBuffer(bs))
 	if err != nil {
 		return
 	}
 
 	req.Header.Add("locale", "zh")
-	resp, err := http.DefaultClient.Do(req)
+	for k, values := range headers {
+		for _, value := range values {
+			req.Header.Add(k, value)
+		}
+	}
+	resp, err := bootstrapHTTPClient.Do(req)
 	if err != nil {
 		return
 	}
@@ -292,6 +328,24 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	}
 
 	return
+}
+
+func extractAudFromWSURL(rawURL string) (string, error) {
+	if !strings.Contains(rawURL, "://") {
+		rawURL = "https://" + rawURL
+	}
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		return "", err
+	}
+	if parsedURL.Host != "" {
+		return parsedURL.Host, nil
+	}
+	return "", fmt.Errorf("invalid url: %s", rawURL)
+}
+
+func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
+	return "https://" + targetService + targetPrefix + apiPath
 }
 
 func (c *Client) pingLoop(ctx context.Context) {

@@ -18,6 +18,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -28,6 +29,10 @@ type TokenManager struct {
 }
 
 func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, appTicket string) (string, error) {
+	if config.ClientAssertionProvider != nil {
+		return "", &CodeError{Code: ErrCodeClientAssertionProviderNotConfigured, Msg: "AppAccessToken is not available in ClientAssertion mode"}
+	}
+
 	token, err := m.get(ctx, appAccessTokenKey(config.AppId))
 	if err != nil {
 		return "", err
@@ -53,6 +58,19 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, ap
 }
 
 func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config, tenantKey, appTicket string) (string, error) {
+	if config.ClientAssertionProvider != nil {
+		if config.EnableTokenCache {
+			token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
+			if err != nil {
+				return "", err
+			}
+			if token != "" {
+				return token, nil
+			}
+		}
+		return m.getTenantTokenByClientAssertion(ctx, config, tenantKey)
+	}
+
 	token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
 	if err != nil {
 		return "", err
@@ -116,6 +134,25 @@ func (t *TenantAccessTokenResp) Success() bool {
 	return t.Code == 0
 }
 
+type OAuthTokenReq struct {
+	GrantType           string `json:"grant_type"`
+	ClientAssertionType string `json:"client_assertion_type"`
+	ClientAssertion     string `json:"client_assertion"`
+	AppID               string `json:"app_id"`
+}
+
+type OAuthTokenResp struct {
+	Code                  int    `json:"code"`
+	Error                 string `json:"error"`
+	ErrorDescription      string `json:"error_description"`
+	AccessToken           string `json:"access_token"`
+	ExpiresIn             int    `json:"expires_in"`
+	RefreshToken          string `json:"refresh_token"`
+	RefreshTokenExpiresIn int    `json:"refresh_token_expires_in"`
+	Scope                 string `json:"scope"`
+	TokenType             string `json:"token_type"`
+}
+
 type MarketplaceAppAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
@@ -134,6 +171,74 @@ func appAccessTokenKey(appID string) string {
 func tenantAccessTokenKey(appID, tenantKey string) string {
 	return fmt.Sprintf("%s-%s-%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
 }
+
+func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
+	aud, err := extractAudFromURL(config.BaseUrl)
+	if err != nil {
+		return "", err
+	}
+
+	clientAssertionToken, err := config.ClientAssertionProvider.RetrieveToken(ctx, aud)
+	if err != nil {
+		return "", &CodeError{Code: ErrCodeClientAssertionRetrieveFailed, Msg: err.Error()}
+	}
+	if clientAssertionToken == nil || clientAssertionToken.Value == "" {
+		return "", &CodeError{Code: ErrCodeClientAssertionTokenEmpty, Msg: "client assertion token is empty"}
+	}
+
+	requestURL := strings.TrimRight(config.BaseUrl, "/") + OAuthTokenUrlPath
+	var options []RequestOptionFunc
+	if clientAssertionToken.TargetInfo != nil {
+		requestURL = buildProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, OAuthTokenUrlPath)
+		headers := make(http.Header)
+		headers.Set(HeaderXTargetService, aud)
+		options = append(options, WithHeaders(headers))
+	}
+
+	rawResp, err := Request(ctx, &ApiReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    requestURL,
+		Body: &OAuthTokenReq{
+			GrantType:           GrantTypeJWTBearer,
+			ClientAssertionType: ClientAssertionTypeJWTBearer,
+			ClientAssertion:     clientAssertionToken.Value,
+			AppID:               config.AppId,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
+	}, config, options...)
+	if err != nil {
+		return "", err
+	}
+
+	oauthTokenResp := &OAuthTokenResp{}
+	if err = json.Unmarshal(rawResp.RawBody, oauthTokenResp); err != nil {
+		return "", err
+	}
+	if oauthTokenResp.AccessToken == "" {
+		msg := oauthTokenResp.ErrorDescription
+		if msg == "" {
+			msg = oauthTokenResp.Error
+		}
+		if msg == "" {
+			msg = "oauth token response missing access token"
+		}
+		return "", &CodeError{Code: oauthTokenResp.Code, Msg: msg}
+	}
+
+	if config.EnableTokenCache {
+		expire := time.Duration(oauthTokenResp.ExpiresIn)*time.Second - expiryDelta
+		if expire < 0 {
+			expire = 0
+		}
+		err = m.cache.Set(ctx, tenantAccessTokenKey(config.AppId, tenantKey), oauthTokenResp.AccessToken, expire)
+		if err != nil {
+			config.Logger.Warn(ctx, fmt.Sprintf("client assertion tenantAccessToken save cache, err:%v", err))
+		}
+	}
+
+	return oauthTokenResp.AccessToken, nil
+}
+
 func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,

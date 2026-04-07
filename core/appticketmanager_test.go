@@ -52,6 +52,7 @@ func mockConfig() *Config {
 		HttpClient:       &http.Client{},
 		AppType:          AppTypeSelfBuilt,
 		BaseUrl:          "https://www.baidu.com",
+		Serializable:     &DefaultSerialization{},
 	}
 	return config
 }

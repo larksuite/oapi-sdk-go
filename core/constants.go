@@ -40,7 +40,14 @@ const (
 	AppAccessTokenUrlPath            string = "/open-apis/auth/v3/app_access_token"
 	TenantAccessTokenInternalUrlPath string = "/open-apis/auth/v3/tenant_access_token/internal"
 	TenantAccessTokenUrlPath         string = "/open-apis/auth/v3/tenant_access_token"
+	OAuthTokenUrlPath                string = "/open-apis/authen/v2/oauth/token"
 	ApplyAppTicketPath               string = "/open-apis/auth/v3/app_ticket/resend"
+)
+
+const (
+	GrantTypeJWTBearer           string = "urn:ietf:params:oauth:grant-type:jwt-bearer"
+	ClientAssertionTypeJWTBearer string = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+	HeaderXTargetService         string = "X-Target-Service"
 )
 
 type AccessTokenType string
@@ -59,8 +66,12 @@ const (
 )
 const expiryDelta = 3 * time.Minute
 const (
-	errCodeAppTicketInvalid         = 10012
-	errCodeAccessTokenInvalid       = 99991671
-	errCodeAppAccessTokenInvalid    = 99991664
-	errCodeTenantAccessTokenInvalid = 99991663
+	errCodeAppTicketInvalid                     = 10012
+	errCodeAccessTokenInvalid                   = 99991671
+	errCodeAppAccessTokenInvalid                = 99991664
+	errCodeTenantAccessTokenInvalid             = 99991663
+	ErrCodeClientAssertionProviderNotConfigured = 7100
+	ErrCodeClientAssertionTokenEmpty            = 7101
+	ErrCodeClientAssertionRetrieveFailed        = 7102
+	ErrCodeClientAssertionModeNotSupported      = 7103
 )

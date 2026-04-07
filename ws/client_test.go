@@ -1,0 +1,124 @@
+package ws
+
+import (
+	"context"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"sync"
+	"testing"
+
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+)
+
+type wsMockClientAssertionProvider struct {
+	mu     sync.Mutex
+	tokens []*larkcore.Token
+	index  int
+	calls  int
+	auds   []string
+}
+
+func (p *wsMockClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	p.calls++
+	p.auds = append(p.auds, aud)
+	token := p.tokens[p.index]
+	if p.index < len(p.tokens)-1 {
+		p.index++
+	}
+	return token, nil
+}
+
+func TestGetConnURLWithAppSecret(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != GenEndpointUri {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		var req BootstrapRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		if req.AppSecret == "" || req.ClientAssertion != "" {
+			t.Fatalf("unexpected bootstrap request: %#v", req)
+		}
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL))
+	connURL, err := client.getConnURL(context.Background())
+	if err != nil {
+		t.Fatalf("get conn url failed: %v", err)
+	}
+	if connURL != "wss://example.com/ws" {
+		t.Fatalf("unexpected conn url: %s", connURL)
+	}
+}
+
+func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/proxy"+GenEndpointUri {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		if r.Header.Get(larkcore.HeaderXTargetService) != "open.feishu.cn" {
+			t.Fatalf("unexpected target service: %s", r.Header.Get(larkcore.HeaderXTargetService))
+		}
+		var req BootstrapRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		if req.ClientAssertion != "assertion" || req.AppSecret != "" {
+			t.Fatalf("unexpected bootstrap request: %#v", req)
+		}
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer proxyServer.Close()
+
+	bootstrapHTTPClient = proxyServer.Client()
+	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}}
+	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
+	if _, err := client.getConnURL(context.Background()); err != nil {
+		t.Fatalf("get conn url failed: %v", err)
+	}
+}
+
+func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	bodyAssertions := make([]string, 0, 2)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var req BootstrapRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		bodyAssertions = append(bodyAssertions, req.ClientAssertion)
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion-1"}, {Value: "assertion-2"}}}
+	client := NewClient("app-id", "", WithDomain(server.URL), WithClientAssertionProvider(provider))
+	if _, err := client.getConnURL(context.Background()); err != nil {
+		t.Fatalf("first get conn url failed: %v", err)
+	}
+	if _, err := client.getConnURL(context.Background()); err != nil {
+		t.Fatalf("second get conn url failed: %v", err)
+	}
+	if provider.calls != 2 {
+		t.Fatalf("expected provider called twice, got %d", provider.calls)
+	}
+	if len(bodyAssertions) != 2 || bodyAssertions[0] != "assertion-1" || bodyAssertions[1] != "assertion-2" {
+		t.Fatalf("unexpected assertions: %#v", bodyAssertions)
+	}
+}

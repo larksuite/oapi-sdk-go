@@ -26,6 +26,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"reflect"
 	"strings"
@@ -187,6 +188,27 @@ func DownloadFile(ctx context.Context, url string) ([]byte, error) {
 	}
 	defer r.Close()
 	return ioutil.ReadAll(r)
+}
+
+func extractAudFromURL(rawURL string) (string, error) {
+	if !strings.Contains(rawURL, "://") {
+		rawURL = "https://" + rawURL
+	}
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		return "", err
+	}
+	if parsedURL.Host != "" {
+		return parsedURL.Host, nil
+	}
+	if parsedURL.Path != "" && !strings.Contains(parsedURL.Path, "/") {
+		return parsedURL.Path, nil
+	}
+	return "", fmt.Errorf("invalid url: %s", rawURL)
+}
+
+func buildProxyURL(targetService, targetPrefix, apiPath string) string {
+	return "https://" + targetService + targetPrefix + apiPath
 }
 
 type DecryptErr struct {

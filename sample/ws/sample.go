@@ -12,6 +12,12 @@ import (
 	larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
 )
 
+type envWSClientAssertionProvider struct{}
+
+func (p *envWSClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
+	return &larkcore.Token{Value: os.Getenv("CLIENT_ASSERTION")}, nil
+}
+
 func main() {
 	// 注册事件回调
 	eventHandler := dispatcher.NewEventDispatcher("", "").
@@ -35,4 +41,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func startWithClientAssertion(ctx context.Context) error {
+	cli := larkws.NewClient(os.Getenv("APP_ID"), "",
+		larkws.WithClientAssertionProvider(&envWSClientAssertionProvider{}),
+	)
+	return cli.Start(ctx)
 }
