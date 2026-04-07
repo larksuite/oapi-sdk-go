@@ -120,11 +120,15 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		return &IllegalParamError{msg: "AppId is empty"}
 	}
 
+	hasManualAccessToken := (accessTokenType == AccessTokenTypeUser && option.UserAccessToken != "") ||
+		(accessTokenType == AccessTokenTypeTenant && option.TenantAccessToken != "") ||
+		(accessTokenType == AccessTokenTypeApp && option.AppAccessToken != "")
+
 	if config.ClientAssertionProvider != nil && config.AppType == AppTypeMarketplace {
 		return &CodeError{Code: ErrCodeClientAssertionProviderNotConfigured, Msg: "ClientAssertion mode is not supported for marketplace apps"}
 	}
 
-	if config.ClientAssertionProvider == nil && config.AppSecret == "" {
+	if config.ClientAssertionProvider == nil && config.AppSecret == "" && !hasManualAccessToken {
 		return &IllegalParamError{msg: "AppSecret is empty"}
 	}
 
@@ -133,9 +137,6 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 			return nil
 		}
 		if option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
-			if config.ClientAssertionProvider != nil && accessTokenType == AccessTokenTypeTenant {
-				return nil
-			}
 			return &IllegalParamError{msg: "accessToken is empty"}
 		}
 	}
@@ -237,9 +238,11 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 		req, err := reqTranslator.translate(ctx, httpReq, accessTokenType, config, option)
 		if err != nil {
 			if ce, ok := err.(*CodeError); ok && ce.Code == ErrCodeClientAssertionRetrieveFailed {
+				config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, retry:%d, err:%v", i+1, err))
 				errResult = err
 				continue
 			}
+			config.Logger.Warn(ctx, fmt.Sprintf("translate request failed, err:%v", err))
 			return nil, err
 		}
 

@@ -115,6 +115,7 @@ func TestDetermineTokenTypeRejectsAppOnlyInClientAssertionMode(t *testing.T) {
 func TestValidateSkipsAppSecretWithClientAssertionProvider(t *testing.T) {
 	config := mockConfig()
 	config.AppSecret = ""
+	config.EnableTokenCache = true
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
 
 	err := validate(config, &RequestOption{}, AccessTokenTypeTenant)
@@ -152,7 +153,7 @@ func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
 	provider := &retryProvider{token: &Token{Value: "assertion"}}
 	config := mockConfig()
 	config.BaseUrl = server.URL
-	config.EnableTokenCache = false
+	config.EnableTokenCache = true
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = provider
 
@@ -166,6 +167,28 @@ func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
 	}
 	if resp == nil || provider.calls != 2 {
 		t.Fatalf("unexpected response/provider calls: resp=%v calls=%d", resp, provider.calls)
+	}
+}
+
+func TestValidateAllowsManualUserAccessTokenWithoutAppSecret(t *testing.T) {
+	config := mockConfig()
+	config.AppSecret = ""
+	config.ClientAssertionProvider = nil
+
+	err := validate(config, &RequestOption{UserAccessToken: "user-token"}, AccessTokenTypeUser)
+	if err != nil {
+		t.Fatalf("validate failed: %v", err)
+	}
+}
+
+func TestValidateAllowsManualTenantAccessTokenWithoutAppSecret(t *testing.T) {
+	config := mockConfig()
+	config.AppSecret = ""
+	config.ClientAssertionProvider = nil
+
+	err := validate(config, &RequestOption{TenantAccessToken: "tenant-token"}, AccessTokenTypeTenant)
+	if err != nil {
+		t.Fatalf("validate failed: %v", err)
 	}
 }
 
