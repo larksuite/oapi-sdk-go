@@ -175,14 +175,17 @@ func tenantAccessTokenKey(appID, tenantKey string) string {
 func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
 	aud, err := extractAudFromURL(config.BaseUrl)
 	if err != nil {
+		config.Logger.Warn(ctx, fmt.Sprintf("extract client assertion audience failed, err:%v", err))
 		return "", err
 	}
 
 	clientAssertionToken, err := config.ClientAssertionProvider.RetrieveToken(ctx, aud)
 	if err != nil {
+		config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, aud:%s, err:%v", aud, err))
 		return "", &CodeError{Code: ErrCodeClientAssertionRetrieveFailed, Msg: err.Error()}
 	}
 	if clientAssertionToken == nil || clientAssertionToken.Value == "" {
+		config.Logger.Warn(ctx, fmt.Sprintf("client assertion token is empty, aud:%s", aud))
 		return "", &CodeError{Code: ErrCodeClientAssertionTokenEmpty, Msg: "client assertion token is empty"}
 	}
 
@@ -207,11 +210,13 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config, options...)
 	if err != nil {
+		config.Logger.Warn(ctx, fmt.Sprintf("request oauth token by client assertion failed, aud:%s, err:%v", aud, err))
 		return "", err
 	}
 
 	oauthTokenResp := &OAuthTokenResp{}
 	if err = json.Unmarshal(rawResp.RawBody, oauthTokenResp); err != nil {
+		config.Logger.Warn(ctx, fmt.Sprintf("unmarshal oauth token response failed, aud:%s, err:%v", aud, err))
 		return "", err
 	}
 	if oauthTokenResp.AccessToken == "" {
@@ -222,6 +227,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		if msg == "" {
 			msg = "oauth token response missing access token"
 		}
+		config.Logger.Warn(ctx, fmt.Sprintf("oauth token response invalid, aud:%s, code:%d, msg:%s", aud, oauthTokenResp.Code, msg))
 		return "", &CodeError{Code: oauthTokenResp.Code, Msg: msg}
 	}
 

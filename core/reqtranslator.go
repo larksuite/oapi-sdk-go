@@ -143,7 +143,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 
 	case AccessTokenTypeTenant:
 		tenantAccessToken := option.TenantAccessToken
-		if tenantAccessToken == "" && (config.EnableTokenCache || config.ClientAssertionProvider != nil) {
+		if tenantAccessToken == "" && config.EnableTokenCache {
 			tenantAccessToken, err = tokenManager.getTenantAccessToken(ctx, config, option.TenantKey, option.AppTicket)
 			if err != nil {
 				return nil, err

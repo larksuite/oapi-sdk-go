@@ -170,6 +170,32 @@ func TestGetTenantAccessTokenByClientAssertionWithoutCache(t *testing.T) {
 	}
 }
 
+func TestGetTenantAccessTokenByClientAssertionManualCallWithoutCache(t *testing.T) {
+	provider := &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200})
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.BaseUrl = server.URL
+	config.EnableTokenCache = false
+	config.HttpClient = server.Client()
+	config.ClientAssertionProvider = provider
+
+	manager := TokenManager{cache: &localCache{}}
+	token, err := manager.getTenantTokenByClientAssertion(context.Background(), config, "tenantKey")
+	if err != nil {
+		t.Fatalf("manual get tenant token failed: %v", err)
+	}
+	if token != "tenant-token" {
+		t.Fatalf("unexpected token: %s", token)
+	}
+	if provider.calls != 1 {
+		t.Fatalf("expected provider called once, got %d", provider.calls)
+	}
+}
+
 func TestGetAppAccessTokenBlockedInClientAssertionMode(t *testing.T) {
 	config := mockConfig()
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
