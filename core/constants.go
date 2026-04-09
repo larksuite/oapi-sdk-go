@@ -74,4 +74,5 @@ const (
 	ErrCodeClientAssertionTokenEmpty            = 7101
 	ErrCodeClientAssertionRetrieveFailed        = 7102
 	ErrCodeClientAssertionModeNotSupported      = 7103
+	ErrCodeAppSecretAndClientAssertionEmpty     = 7104
 )

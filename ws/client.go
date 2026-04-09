@@ -248,6 +248,10 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	body := &BootstrapRequest{AppID: c.appID}
 	headers := make(http.Header)
 
+	if c.clientAssertionProvider == nil && c.appSecret == "" {
+		return "", NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "appSecret and clientAssertionProvider cannot be nil")
+	}
+
 	if c.clientAssertionProvider != nil {
 		aud, extractErr := extractAudFromWSURL(c.domain)
 		if extractErr != nil {
