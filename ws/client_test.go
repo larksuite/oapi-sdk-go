@@ -65,7 +65,7 @@ func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
 
-	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/proxy"+GenEndpointUri {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
@@ -88,6 +88,44 @@ func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
 	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
 	if _, err := client.getConnURL(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
+	}
+}
+
+func TestGetConnURLWithClientAssertionProxyHTTPErrorDescription(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		_ = json.NewEncoder(w).Encode(struct {
+			Code             string `json:"code"`
+			Error            string `json:"error"`
+			ErrorDescription string `json:"error_description"`
+		}{
+			Code:             "20050",
+			Error:            "server_error",
+			ErrorDescription: "An unexpected server error occurred. Please retry your request.",
+		})
+	}))
+	defer proxyServer.Close()
+
+	bootstrapHTTPClient = proxyServer.Client()
+	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}}
+	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
+	_, err := client.getConnURL(context.Background())
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+
+	serverErr, ok := err.(*ServerError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if serverErr.Code != http.StatusInternalServerError {
+		t.Fatalf("unexpected server error code: %d", serverErr.Code)
+	}
+	if serverErr.Msg != "An unexpected server error occurred. Please retry your request." {
+		t.Fatalf("unexpected server error msg: %s", serverErr.Msg)
 	}
 }
 

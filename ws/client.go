@@ -47,6 +47,12 @@ type Client struct {
 
 var bootstrapHTTPClient = http.DefaultClient
 
+type bootstrapErrorResp struct {
+	Code             string `json:"code"`
+	Error            string `json:"error"`
+	ErrorDescription string `json:"error_description"`
+}
+
 type ClientOption func(cli *Client)
 
 func WithEventHandler(handler *dispatcher.EventDispatcher) ClientOption {
@@ -296,15 +302,21 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	if err != nil {
 		return
 	}
-	if resp.StatusCode != http.StatusOK {
-		c.logger.Debug(ctx, "response status code %d", resp.StatusCode)
-		err = NewServerError(resp.StatusCode, "system busy")
-		return
-	}
-
 	defer resp.Body.Close()
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
+		return
+	}
+	if resp.StatusCode != http.StatusOK {
+		c.logger.Debug(ctx, "response status code %d", resp.StatusCode)
+		serverMsg := "system busy"
+		bootstrapErrResp := &bootstrapErrorResp{}
+		if json.Unmarshal(respBody, bootstrapErrResp) == nil {
+			if bootstrapErrResp.ErrorDescription != "" {
+				serverMsg = bootstrapErrResp.ErrorDescription
+			}
+		}
+		err = NewServerError(resp.StatusCode, serverMsg)
 		return
 	}
 
