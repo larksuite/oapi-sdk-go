@@ -269,6 +269,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 			requestURL = buildWSProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, GenEndpointUri)
 			headers.Set(larkcore.HeaderXTargetService, aud)
 		}
+		body.AppSecret = ""
 	} else {
 		body.AppSecret = c.appSecret
 	}
