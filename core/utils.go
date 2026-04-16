@@ -208,7 +208,8 @@ func extractAudFromURL(rawURL string) (string, error) {
 }
 
 func buildProxyURL(targetService, targetPrefix, apiPath string) string {
-	return "https://" + targetService + targetPrefix + apiPath
+	// TODO：BOE 用 http，线上用 https
+	return "http://" + targetService + targetPrefix + apiPath
 }
 
 type DecryptErr struct {
