@@ -65,8 +65,10 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 				return "", err
 			}
 			if token != "" {
+				config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache hit, tenantKey:%s", tenantKey))
 				return token, nil
 			}
+			config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache miss, tenantKey:%s", tenantKey))
 		}
 		return m.getTenantTokenByClientAssertion(ctx, config, tenantKey)
 	}
