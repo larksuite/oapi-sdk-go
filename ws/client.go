@@ -352,7 +352,8 @@ func extractAudFromWSURL(rawURL string) (string, error) {
 }
 
 func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
-	return "https://" + targetService + targetPrefix + apiPath
+	// todo: 上线改为 https
+	return "http://" + targetService + targetPrefix + apiPath
 }
 
 func (c *Client) pingLoop(ctx context.Context) {
