@@ -130,6 +130,8 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	if contentType != "" {
 		httpRequest.Header.Set(contentTypeHeader, contentType)
 	}
+	// todo：上线必须去掉
+	httpRequest.Header.Set("x-tt-env", "boe_client_assertion_auth")
 	switch accessTokenType {
 	case AccessTokenTypeApp:
 		appAccessToken := option.AppAccessToken
