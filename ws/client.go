@@ -48,7 +48,7 @@ type Client struct {
 var bootstrapHTTPClient = http.DefaultClient
 
 type bootstrapErrorResp struct {
-	Code             string `json:"code"`
+	Code             int    `json:"code"`
 	Error            string `json:"error"`
 	ErrorDescription string `json:"error_description"`
 }

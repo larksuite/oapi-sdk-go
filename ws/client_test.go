@@ -98,11 +98,11 @@ func TestGetConnURLWithClientAssertionProxyHTTPErrorDescription(t *testing.T) {
 	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		_ = json.NewEncoder(w).Encode(struct {
-			Code             string `json:"code"`
+			Code             int    `json:"code"`
 			Error            string `json:"error"`
 			ErrorDescription string `json:"error_description"`
 		}{
-			Code:             "20050",
+			Code:             20050,
 			Error:            "server_error",
 			ErrorDescription: "An unexpected server error occurred. Please retry your request.",
 		})
