@@ -266,12 +266,9 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 		}
 		body.ClientAssertion = clientAssertionToken.Value
 		if clientAssertionToken.TargetInfo != nil {
-			// todo: 上线删除
-			c.logger.Debug(ctx, "target client assertion %s", clientAssertionToken.Value)
 			requestURL = buildWSProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, GenEndpointUri)
 			headers.Set(larkcore.HeaderXTargetService, aud)
 		}
-		body.AppSecret = ""
 	} else {
 		body.AppSecret = c.appSecret
 	}
