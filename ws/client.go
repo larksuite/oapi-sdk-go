@@ -285,6 +285,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	}
 
 	req.Header.Add("locale", "zh")
+	req.Header.Add("Content-Type", "application/json")
 	// todo: 临时增加，上线删除
 	req.Header.Add("x-tt-env", "boe_client_assertion_auth")
 	for k, values := range headers {
