@@ -138,7 +138,7 @@ type OAuthTokenReq struct {
 	GrantType           string `json:"grant_type"`
 	ClientAssertionType string `json:"client_assertion_type"`
 	ClientAssertion     string `json:"client_assertion"`
-	AppID               string `json:"app_id"`
+	ClientID            string `json:"client_id"`
 }
 
 type OAuthTokenResp struct {
@@ -205,7 +205,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 			GrantType:           GrantTypeJWTBearer,
 			ClientAssertionType: ClientAssertionTypeJWTBearer,
 			ClientAssertion:     clientAssertionToken.Value,
-			AppID:               config.AppId,
+			ClientID:            config.AppId,
 		},
 		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config, options...)

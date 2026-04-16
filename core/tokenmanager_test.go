@@ -67,12 +67,16 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 		if req.ClientAssertion != "client-assertion" {
 			t.Fatalf("unexpected assertion: %s", req.ClientAssertion)
 		}
+		if req.ClientID != "cli_a" {
+			t.Fatalf("unexpected client id: %s", req.ClientID)
+		}
 		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200})
 	}))
 	defer server.Close()
 
 	config := mockConfig()
 	config.BaseUrl = server.URL
+	config.AppId = "cli_a"
 	config.EnableTokenCache = true
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
