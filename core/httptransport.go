@@ -161,6 +161,17 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	return nil
 }
 
+func shouldSkipCodeErrorPreDecode(apiPath string) bool {
+	if strings.Contains(apiPath, "://") {
+		parsedURL, err := url.Parse(apiPath)
+		if err == nil {
+			apiPath = parsedURL.Path
+		}
+	}
+
+	return strings.HasSuffix(apiPath, OAuthTokenUrlPath)
+}
+
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
@@ -266,6 +277,9 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 
 		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
 		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+			break
+		}
+		if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
 			break
 		}
 

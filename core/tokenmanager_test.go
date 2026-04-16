@@ -170,6 +170,40 @@ func TestGetTenantAccessTokenByClientAssertionWithoutCache(t *testing.T) {
 	}
 }
 
+func TestGetTenantAccessTokenByClientAssertionOAuthErrorResponse(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{
+			Code:             20050,
+			Error:            "server_error",
+			ErrorDescription: "An unexpected server error occurred. Please retry your request.",
+		})
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.BaseUrl = server.URL
+	config.EnableTokenCache = true
+	config.HttpClient = server.Client()
+	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
+
+	manager := TokenManager{cache: &localCache{}}
+	_, err := manager.getTenantAccessToken(context.Background(), config, "tenantKey", "")
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+
+	codeErr, ok := err.(*CodeError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if codeErr.Code != 20050 {
+		t.Fatalf("unexpected error code: %d", codeErr.Code)
+	}
+	if codeErr.Msg != "An unexpected server error occurred. Please retry your request." {
+		t.Fatalf("unexpected error message: %s", codeErr.Msg)
+	}
+}
+
 func TestGetTenantAccessTokenByClientAssertionManualCallWithoutCache(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
