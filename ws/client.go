@@ -48,9 +48,8 @@ type Client struct {
 var bootstrapHTTPClient = http.DefaultClient
 
 type bootstrapErrorResp struct {
-	Code             int    `json:"code"`
-	Error            string `json:"error"`
-	ErrorDescription string `json:"error_description"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 type ClientOption func(cli *Client)
@@ -312,8 +311,8 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 		serverMsg := "system busy"
 		bootstrapErrResp := &bootstrapErrorResp{}
 		if json.Unmarshal(respBody, bootstrapErrResp) == nil {
-			if bootstrapErrResp.ErrorDescription != "" {
-				serverMsg = bootstrapErrResp.ErrorDescription
+			if bootstrapErrResp.Msg != "" {
+				serverMsg = bootstrapErrResp.Msg
 			}
 		}
 		err = NewServerError(resp.StatusCode, serverMsg)

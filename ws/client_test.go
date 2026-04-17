@@ -91,20 +91,18 @@ func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
 	}
 }
 
-func TestGetConnURLWithClientAssertionProxyHTTPErrorDescription(t *testing.T) {
+func TestGetConnURLWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
 
 	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		_ = json.NewEncoder(w).Encode(struct {
-			Code             int    `json:"code"`
-			Error            string `json:"error"`
-			ErrorDescription string `json:"error_description"`
+			Code int    `json:"code"`
+			Msg  string `json:"msg"`
 		}{
-			Code:             20050,
-			Error:            "server_error",
-			ErrorDescription: "An unexpected server error occurred. Please retry your request.",
+			Code: 20050,
+			Msg:  "target service unavailable",
 		})
 	}))
 	defer proxyServer.Close()
@@ -124,7 +122,7 @@ func TestGetConnURLWithClientAssertionProxyHTTPErrorDescription(t *testing.T) {
 	if serverErr.Code != http.StatusInternalServerError {
 		t.Fatalf("unexpected server error code: %d", serverErr.Code)
 	}
-	if serverErr.Msg != "An unexpected server error occurred. Please retry your request." {
+	if serverErr.Msg != "target service unavailable" {
 		t.Fatalf("unexpected server error msg: %s", serverErr.Msg)
 	}
 }
