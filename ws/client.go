@@ -270,6 +270,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 			return "", NewClientError(larkcore.ErrCodeClientAssertionTokenEmpty, "client assertion token is empty")
 		}
 		body.ClientAssertion = clientAssertionToken.Value
+		body.AppSecret = ""
 		if clientAssertionToken.TargetInfo != nil {
 			requestURL = buildWSProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, GenEndpointUri)
 			headers.Set(larkcore.HeaderXTargetService, aud)

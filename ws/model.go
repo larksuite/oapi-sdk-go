@@ -15,8 +15,8 @@ type Endpoint struct {
 
 type BootstrapRequest struct {
 	AppID           string `json:"AppID"`
-	AppSecret       string `json:"AppSecret,omitempty"`
-	ClientAssertion string `json:"ClientAssertion,omitempty"`
+	AppSecret       string `json:"AppSecret"`
+	ClientAssertion string `json:"ClientAssertion"`
 }
 
 // ClientConfig 由服务端下发
