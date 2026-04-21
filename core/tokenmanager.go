@@ -198,6 +198,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		headers := make(http.Header)
 		headers.Set(HeaderXTargetService, aud)
 		options = append(options, WithHeaders(headers))
+		config.Logger.Debug(ctx, fmt.Sprintf("target info is not nil"))
 	}
 
 	rawResp, err := Request(ctx, &ApiReq{
