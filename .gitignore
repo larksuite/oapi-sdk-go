@@ -11,3 +11,4 @@ modules.txt
 *.sh
 test.go
 .env
+test
