@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -20,6 +20,9 @@ const (
 	defaultLarkDomain   = "https://accounts.larksuite.com"
 
 	endpoint = "/oauth/v1/app/registration"
+
+	defaultPollIntervalSeconds = 5
+	defaultExpireInSeconds     = 600
 )
 
 var waitForInterval = func(ctx context.Context, interval time.Duration) error {
@@ -62,16 +65,16 @@ func RegisterApp(ctx context.Context, opts *Options) (*RegisterAppResult, error)
 	}
 	opts.OnQRCode(&QRCodeInfo{
 		URL:      qrURL,
-		ExpireIn: beginResp.ExpireIn,
+		ExpireIn: normalizedExpireIn(beginResp.ExpireIn),
 	})
 
-	pollCtx, cancel := context.WithTimeout(ctx, time.Duration(beginResp.ExpireIn)*time.Second)
+	pollCtx, cancel := context.WithTimeout(ctx, time.Duration(normalizedExpireIn(beginResp.ExpireIn))*time.Second)
 	defer cancel()
 
 	currentDomain := domain
-	interval := beginResp.Interval
+	interval := normalizedInterval(beginResp.Interval)
 	switchedDomain := false
-	waitBeforePoll := true
+	waitBeforePoll := false
 
 	for {
 		if waitBeforePoll {
@@ -92,6 +95,10 @@ func RegisterApp(ctx context.Context, opts *Options) (*RegisterAppResult, error)
 		resp, err := pollRegistration(pollCtx, currentDomain, beginResp.DeviceCode)
 		if err != nil {
 			return nil, err
+		}
+
+		if resp.UserInfo != nil {
+			fmt.Printf("tenant brand: %s\n", resp.UserInfo.TenantBrand)
 		}
 
 		if resp.UserInfo != nil && resp.UserInfo.TenantBrand == "lark" && !switchedDomain {
@@ -134,10 +141,8 @@ func RegisterApp(ctx context.Context, opts *Options) (*RegisterAppResult, error)
 				},
 			}
 		case "":
-			return nil, &RegisterAppError{
-				Code:        "invalid_response",
-				Description: "missing client credentials",
-			}
+			// Keep polling to match the Node SDK behavior when the server
+			// responds without an explicit error or final credentials.
 		default:
 			return nil, &RegisterAppError{
 				Code:        resp.Error,
@@ -198,7 +203,7 @@ func doRegistrationRequest(ctx context.Context, domain string, form url.Values, 
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
@@ -216,6 +221,20 @@ func doRegistrationRequest(ctx context.Context, domain string, form url.Values, 
 
 func buildEndpointURL(domain string) string {
 	return strings.TrimRight(domain, "/") + endpoint
+}
+
+func normalizedInterval(interval int) int {
+	if interval <= 0 {
+		return defaultPollIntervalSeconds
+	}
+	return interval
+}
+
+func normalizedExpireIn(expireIn int) int {
+	if expireIn <= 0 {
+		return defaultExpireInSeconds
+	}
+	return expireIn
 }
 
 func buildQRCodeURL(rawURL, source string) (string, error) {

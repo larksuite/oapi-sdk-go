@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -188,6 +189,137 @@ func TestRegisterAppMockFlowForLocalRun(t *testing.T) {
 	t.Logf("mock registration finished: client_id=%s poll_count=%d", result.ClientID, pollCalled)
 }
 
+func TestRegisterAppPollsImmediatelyThenUsesReturnedInterval(t *testing.T) {
+	getIntervals, restoreWait := stubWaitRecorder()
+	defer restoreWait()
+
+	pollCount := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"device-immediate","verification_uri_complete":"https://qr.example.com/scan","interval":7,"expire_in":60}`)
+		case "poll":
+			pollCount++
+			if pollCount == 1 {
+				writeJSON(w, `{"error":"authorization_pending","error_description":"pending"}`)
+				return
+			}
+			writeJSON(w, `{"client_id":"cli_immediate","client_secret":"sec_immediate"}`)
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	result, err := RegisterApp(context.Background(), &Options{
+		Domain:   server.URL,
+		OnQRCode: func(info *QRCodeInfo) {},
+	})
+	if err != nil {
+		t.Fatalf("register app failed: %v", err)
+	}
+	if result.ClientID != "cli_immediate" {
+		t.Fatalf("unexpected result: %#v", result)
+	}
+	if pollCount != 2 {
+		t.Fatalf("unexpected poll count: %d", pollCount)
+	}
+	intervals := getIntervals()
+	if !reflect.DeepEqual(intervals, []time.Duration{7 * time.Second}) {
+		t.Fatalf("unexpected wait intervals: %#v", intervals)
+	}
+}
+
+func TestRegisterAppUsesDefaultIntervalAndExpireIn(t *testing.T) {
+	getIntervals, restoreWait := stubWaitRecorder()
+	defer restoreWait()
+
+	pollCount := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"device-default","verification_uri_complete":"https://qr.example.com/scan","interval":0,"expire_in":0}`)
+		case "poll":
+			pollCount++
+			writeJSON(w, `{"client_id":"cli_default","client_secret":"sec_default"}`)
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	var qrInfo *QRCodeInfo
+	result, err := RegisterApp(context.Background(), &Options{
+		Domain: server.URL,
+		OnQRCode: func(info *QRCodeInfo) {
+			qrInfo = info
+		},
+	})
+	if err != nil {
+		t.Fatalf("register app failed: %v", err)
+	}
+	if result.ClientID != "cli_default" {
+		t.Fatalf("unexpected result: %#v", result)
+	}
+	if qrInfo == nil || qrInfo.ExpireIn != defaultExpireInSeconds {
+		t.Fatalf("unexpected qr info: %#v", qrInfo)
+	}
+	intervals := getIntervals()
+	if len(intervals) != 0 {
+		t.Fatalf("unexpected wait intervals: %#v", intervals)
+	}
+}
+
+func TestRegisterAppKeepsPollingOnEmptyPollResponse(t *testing.T) {
+	getIntervals, restoreWait := stubWaitRecorder()
+	defer restoreWait()
+
+	pollCount := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"device-empty","verification_uri_complete":"https://qr.example.com/scan","interval":3,"expire_in":60}`)
+		case "poll":
+			pollCount++
+			if pollCount == 1 {
+				writeJSON(w, `{}`)
+				return
+			}
+			writeJSON(w, `{"client_id":"cli_after_empty","client_secret":"sec_after_empty"}`)
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	result, err := RegisterApp(context.Background(), &Options{
+		Domain:   server.URL,
+		OnQRCode: func(info *QRCodeInfo) {},
+	})
+	if err != nil {
+		t.Fatalf("register app failed: %v", err)
+	}
+	if result.ClientID != "cli_after_empty" {
+		t.Fatalf("unexpected result: %#v", result)
+	}
+	if pollCount != 2 {
+		t.Fatalf("unexpected poll count: %d", pollCount)
+	}
+	intervals := getIntervals()
+	if !reflect.DeepEqual(intervals, []time.Duration{3 * time.Second}) {
+		t.Fatalf("unexpected wait intervals: %#v", intervals)
+	}
+}
+
 func TestRegisterAppSwitchesToLarkDomain(t *testing.T) {
 	restoreWait := stubWaitForInterval()
 	defer restoreWait()
@@ -289,7 +421,7 @@ func TestRegisterAppSlowDown(t *testing.T) {
 	if slowDownInfo == nil {
 		t.Fatal("expected slow_down status")
 	}
-	if slowDownInfo.Interval != 5 {
+	if slowDownInfo.Interval != 10 {
 		t.Fatalf("unexpected interval: %d", slowDownInfo.Interval)
 	}
 }
@@ -377,6 +509,25 @@ func stubWaitForInterval() func() {
 	return func() {
 		waitForInterval = original
 	}
+}
+
+func stubWaitRecorder() (func() []time.Duration, func()) {
+	original := waitForInterval
+	intervals := make([]time.Duration, 0, 4)
+	waitForInterval = func(ctx context.Context, intervalDuration time.Duration) error {
+		intervals = append(intervals, intervalDuration)
+		if ctx.Err() != nil {
+			return ctx.Err()
+		}
+		return nil
+	}
+	return func() []time.Duration {
+			copied := make([]time.Duration, len(intervals))
+			copy(copied, intervals)
+			return copied
+		}, func() {
+			waitForInterval = original
+		}
 }
 
 func writeJSON(w http.ResponseWriter, body string) {
