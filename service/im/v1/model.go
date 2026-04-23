@@ -10803,6 +10803,14 @@ func (builder *GetMessageReqBuilder) UserIdType(userIdType string) *GetMessageRe
 	return builder
 }
 
+// 消息内容的类型，默认是不包含卡片内容的，如果需要卡片内容，需要设置为 user_card_content
+//
+// 示例值：user_card_content
+func (builder *GetMessageReqBuilder) CardMsgContentType(cardMsgContentType string) *GetMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("card_msg_content_type", fmt.Sprint(cardMsgContentType))
+	return builder
+}
+
 func (builder *GetMessageReqBuilder) Build() *GetMessageReq {
 	req := &GetMessageReq{}
 	req.apiReq = &larkcore.ApiReq{}

@@ -29,6 +29,7 @@ func main() {
 	req := larkim.NewGetMessageReqBuilder().
 		MessageId("om_dc13264520392913993dd051dba21dcf").
 		UserIdType("open_id").
+		CardMsgContentType("user_card_content").
 		Build()
 	// 发起请求
 	resp, err := client.Im.V1.Message.Get(context.Background(), req)
