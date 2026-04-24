@@ -57,7 +57,8 @@ func main() {
 	ch.OnMessage(func(ctx context.Context, msg *types.NormalizedMessage) error {
 		fmt.Printf("收到来自 %s 的消息: %s\n", msg.UserID, msg.Content)
 
-		if msg.Content == "stream" {
+		switch msg.Content {
+		case "stream":
 			// 测试 Stream (流式响应)
 			stream, err := ch.Stream(ctx, &types.SendInput{
 				ReceiveID: msg.ChatID,
@@ -76,11 +77,72 @@ func main() {
 			stream.Append(ctx, "\n**完成！**")
 			stream.Close(ctx)
 
-		} else {
-			// 测试普通 Send (发送消息)
+		case "markdown":
+			// 测试富文本发送
 			_, err := ch.Send(ctx, &types.SendInput{
 				ReceiveID: msg.ChatID,
-				Text:      "Echo: " + msg.Content,
+				Title:     "测试富文本",
+				Markdown:  "这是第一段\n\n这是第二段，带有 [链接](https://larksuite.com)\n\n<at user_id=\"all\">所有人</at>",
+			})
+			if err != nil {
+				return err
+			}
+
+		case "card":
+			// 测试卡片发送
+			cardJSON := `{
+				"elements": [
+					{
+						"tag": "div",
+						"text": {
+							"content": "这是一个交互卡片示例",
+							"tag": "lark_md"
+						}
+					},
+					{
+						"tag": "action",
+						"actions": [
+							{
+								"tag": "button",
+								"text": {
+									"content": "点我测试",
+									"tag": "plain_text"
+								},
+								"type": "primary",
+								"value": {
+									"action": "test_button_click"
+								}
+							}
+						]
+					}
+				]
+			}`
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID: msg.ChatID,
+				Card:      cardJSON,
+			})
+			if err != nil {
+				return err
+			}
+
+		case "mention":
+			// 测试 @ 提及组合器
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID: msg.ChatID,
+				Text:      "这是通过 Mentions 字段组合的提及消息",
+				Mentions: []types.Mention{
+					{UserID: msg.UserID}, // 自动 @ 发送者
+				},
+			})
+			if err != nil {
+				return err
+			}
+
+		default:
+			// 测试普通 Send (回显消息)
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID: msg.ChatID,
+				Text:      "Echo: " + msg.Content + "\n\n(支持指令: stream, markdown, card, mention)",
 			})
 			if err != nil {
 				return err
