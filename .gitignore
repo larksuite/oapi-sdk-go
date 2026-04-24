@@ -12,3 +12,4 @@ modules.txt
 test.go
 .env
 test
+plan
