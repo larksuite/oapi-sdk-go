@@ -1,0 +1,8 @@
+- [x] 核心结构和 `channel.Channel` 接口已正确定义
+- [x] `NormalizedMessage` 能够正确解析飞书原生的 `P2MessageReceiveV1` 消息结构
+- [x] 提供了 `OnMessage` 等易用的事件绑定方法
+- [x] `Send` 方法能够自动处理带本地文件的媒体类型并发送
+- [x] `Stream` 接口实现了 Markdown 文本的分段推送与自动节流更新
+- [x] 具备消息去重（Dedup）的安全控制机制
+- [x] 所有核心功能均有对应的单元测试验证
+- [x] 提供了一个可运行的 Sample 展示如何使用 `Channel` 进行机器人开发

@@ -529,3 +529,8 @@ func parseErr(resp *http.Response) error {
 		return NewServerError(code, msg)
 	}
 }
+
+// EventHandler returns the configured event dispatcher.
+func (c *Client) EventHandler() *dispatcher.EventDispatcher {
+	return c.eventHandler
+}

@@ -1,0 +1,221 @@
+package channel
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+
+	"github.com/larksuite/oapi-sdk-go/v3/channel/normalize"
+	"github.com/larksuite/oapi-sdk-go/v3/channel/outbound"
+	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+
+	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
+)
+
+func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.SendResult, error) {
+	if input == nil {
+		return nil, fmt.Errorf("input cannot be nil")
+	}
+
+	receiveIDType := "open_id"
+	receiveID := input.UserID
+	if input.ReceiveID != "" {
+		receiveID = input.ReceiveID
+		t, err := outbound.DetectReceiveIdType(receiveID)
+		if err == nil {
+			receiveIDType = string(t)
+		}
+	} else if input.ChatID != "" {
+		receiveIDType = "chat_id"
+		receiveID = input.ChatID
+	}
+
+	if receiveID == "" {
+		return nil, fmt.Errorf("ReceiveID, ChatID, or UserID must be provided")
+	}
+
+	// 1. Process local files first
+	if input.ImagePath != "" && input.ImageKey == "" {
+		// Upload image
+		imageKey, err := c.uploader.UploadImagePath(ctx, "message", input.ImagePath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to upload image: %v", err)
+		}
+		input.ImageKey = imageKey
+	}
+
+	if input.FilePath != "" && input.FileKey == "" {
+		// Upload file
+		fileKey, err := c.uploader.UploadFilePath(ctx, "stream", input.FilePath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to upload file: %v", err)
+		}
+		input.FileKey = fileKey
+	}
+
+	if input.Media != nil && input.AudioKey == "" && input.VideoKey == "" && input.FileKey == "" && input.ImageKey == "" {
+		res, err := c.uploader.UploadMedia(ctx, input.Media, nil) // Assume default SsrfGuardOptions or nil
+		if err != nil {
+			return nil, fmt.Errorf("failed to upload media: %v", err)
+		}
+		if res.Kind == types.MediaKindImage {
+			input.ImageKey = res.FileKey
+		} else if res.Kind == types.MediaKindAudio {
+			input.AudioKey = res.FileKey
+		} else if res.Kind == types.MediaKindVideo {
+			input.VideoKey = res.FileKey
+		} else {
+			input.FileKey = res.FileKey
+		}
+	}
+
+	// 2. Determine MsgType and Content
+	msgType := input.MsgType
+	var content string
+
+	if input.ImageKey != "" {
+		msgType = "image"
+		contentMap := map[string]string{"image_key": input.ImageKey}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.AudioKey != "" {
+		msgType = "audio"
+		contentMap := map[string]string{"file_key": input.AudioKey}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.VideoKey != "" {
+		msgType = "media"
+		contentMap := map[string]string{"file_key": input.VideoKey}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.FileKey != "" {
+		msgType = "file"
+		contentMap := map[string]string{"file_key": input.FileKey}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.Card != "" {
+		msgType = "interactive"
+		content = input.Card
+	} else if input.Markdown != "" {
+		msgType = "post"
+		chunks := outbound.SplitWithCodeFences(input.Markdown, 3500)
+		var ids []string
+		var firstChatID string
+		for i, chunk := range chunks {
+			var mentions []types.Mention
+			if i == 0 {
+				mentions = input.Mentions
+			}
+			postJSON, err := normalize.SimpleMarkdownToPost(input.Title, chunk, mentions)
+			if err != nil {
+				return nil, fmt.Errorf("failed to format markdown: %v", err)
+			}
+			id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, "post", postJSON)
+			if err != nil {
+				return nil, err
+			}
+			ids = append(ids, id)
+			if i == 0 {
+				firstChatID = chatID
+			}
+		}
+		return &types.SendResult{
+			MessageID: ids[0],
+			ChatID:    firstChatID,
+		}, nil
+
+	} else if input.Text != "" {
+		msgType = "text"
+
+		prefix := normalize.ComposeMentionsTextPrefix(input.Mentions)
+		fullText := prefix + input.Text
+
+		// For text, we can also split simply by length
+		chunks := splitPlain(fullText, 3500)
+		var ids []string
+		var firstChatID string
+		for i, chunk := range chunks {
+			contentMap := map[string]string{"text": chunk}
+			b, _ := json.Marshal(contentMap)
+			id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, "text", string(b))
+			if err != nil {
+				return nil, err
+			}
+			ids = append(ids, id)
+			if i == 0 {
+				firstChatID = chatID
+			}
+		}
+		return &types.SendResult{
+			MessageID: ids[0],
+			ChatID:    firstChatID,
+		}, nil
+	}
+
+	if msgType == "" || content == "" {
+		return nil, fmt.Errorf("no valid message content provided")
+	}
+
+	// 3. Send single message for other types
+	id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, msgType, content)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.SendResult{
+		MessageID: id,
+		ChatID:    chatID,
+	}, nil
+}
+
+func splitPlain(text string, limit int) []string {
+	if len(text) <= limit {
+		return []string{text}
+	}
+	var out []string
+	runes := []rune(text)
+	for i := 0; i < len(runes); i += limit {
+		end := i + limit
+		if end > len(runes) {
+			end = len(runes)
+		}
+		out = append(out, string(runes[i:end]))
+	}
+	return out
+}
+
+func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType, content string) (string, string, error) {
+	req := larkim.NewCreateMessageReqBuilder().
+		ReceiveIdType(idType).
+		Body(larkim.NewCreateMessageReqBodyBuilder().
+			ReceiveId(id).
+			MsgType(msgType).
+			Content(content).
+			Build()).
+		Build()
+
+	op := func(attempt int) (interface{}, error) {
+		resp, err := c.client.Im.V1.Message.Create(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+		if !resp.Success() {
+			apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
+			return nil, apiErr
+		}
+		return resp, nil
+	}
+
+	res, err := outbound.Retry(ctx, op, nil)
+	if err != nil {
+		return "", "", err
+	}
+
+	resp := res.(*larkim.CreateMessageResp)
+	chatID := ""
+	if resp.Data.ChatId != nil {
+		chatID = *resp.Data.ChatId
+	}
+	return *resp.Data.MessageId, chatID, nil
+}
