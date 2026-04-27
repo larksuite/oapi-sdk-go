@@ -41,6 +41,9 @@ type Client struct {
 	pingInterval      time.Duration // Ping间隔
 	cache             *larkcache.Cache
 	mu                sync.Mutex
+
+	// alternative ws dialer
+	altDialer *ws.Dialer
 }
 
 type ClientOption func(cli *Client)
@@ -78,6 +81,13 @@ func WithAutoReconnect(b bool) ClientOption {
 func WithDomain(domain string) ClientOption {
 	return func(cli *Client) {
 		cli.domain = domain
+	}
+}
+
+// WithAltWSDialer set customized websocket dialer, can be used with proxy.
+func WithAltWSDialer(dialer *ws.Dialer) ClientOption {
+	return func(cli *Client) {
+		cli.altDialer = dialer
 	}
 }
 
@@ -149,7 +159,16 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
+	var (
+		conn *ws.Conn
+		resp *http.Response
+	)
+	// use customized dialer if provided
+	if c.altDialer != nil {
+		conn, resp, err = c.altDialer.Dial(connUrl, nil)
+	} else {
+		conn, resp, err = ws.DefaultDialer.Dial(connUrl, nil)
+	}
 	if err != nil && resp == nil {
 		return
 	}
