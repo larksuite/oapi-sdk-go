@@ -153,6 +153,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
 	if err != nil {
+		c.logger.Warn(ctx, c.fmtLog("get conn url failed, err: %v", err)...)
 		return
 	}
 
@@ -309,7 +310,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 		return
 	}
 	if resp.StatusCode != http.StatusOK {
-		c.logger.Debug(ctx, "response status code %d", resp.StatusCode)
+		c.logger.Warn(ctx, "response status code %d", resp.StatusCode)
 		serverMsg := "system busy"
 		bootstrapErrResp := &bootstrapErrorResp{}
 		if json.Unmarshal(respBody, bootstrapErrResp) == nil {
