@@ -14,6 +14,93 @@ To address these issues, Feishu Open Platform has developed the Open Interface S
 - [处理卡片回调 / Handle Card Callbacks](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback)
 - [常见问题 / SDK FAQs](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/faq)
 
+## 一键创建应用 / One-Click App Registration
+
+SDK 提供了 `registration.RegisterApp` 方法，基于 OAuth 2.0 Device Authorization Grant（RFC 8628）协议实现一键创建应用。调用后会返回一个验证链接，用户在飞书/Lark 中打开链接或扫码完成授权后，即可自动注册应用并获取 `App ID` 与 `App Secret`，无需手动前往开发者后台创建。
+
+The SDK provides `registration.RegisterApp` for one-click app creation based on OAuth 2.0 Device Authorization Grant (RFC 8628). It returns a verification URL that users can open in Feishu/Lark or render as a QR code. After authorization, the app is created automatically and the SDK returns the `App ID` and `App Secret`.
+
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"time"
+
+	lark "github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/scene/registration"
+)
+
+func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+	defer cancel()
+
+	result, err := registration.RegisterApp(ctx, &registration.Options{
+		OnQRCode: func(info *registration.QRCodeInfo) {
+			fmt.Printf("open or scan this url: %s\n", info.URL)
+			fmt.Printf("the link expires in %d seconds\n", info.ExpireIn)
+		},
+		OnStatusChange: func(info *registration.StatusChangeInfo) {
+			// status: polling | slow_down | domain_switched
+			fmt.Printf("registration status: %s", info.Status)
+			if info.Interval > 0 {
+				fmt.Printf(", next poll after %d seconds", info.Interval)
+			}
+			fmt.Println()
+		},
+	})
+	if err != nil {
+		var regErr *registration.RegisterAppError
+		if errors.As(err, &regErr) {
+			fmt.Printf("register app failed: code=%s, description=%s\n", regErr.Code, regErr.Description)
+			return
+		}
+		panic(err)
+	}
+
+	fmt.Println("App ID:", result.ClientID)
+	fmt.Println("App Secret:", result.ClientSecret)
+
+	client := lark.NewClient(result.ClientID, result.ClientSecret)
+	_ = client
+}
+```
+
+### `registration.RegisterApp` 参数 / Parameters
+
+| 参数 Parameter | 描述 Description | 类型 Type | 必填 Required | 默认值 Default |
+| ---- | ---- | ---- | ---- | ---- |
+| `ctx` | 控制注册流程的超时与取消；取消 `context` 会终止轮询。 Controls timeout and cancellation for the registration flow; canceling the `context` stops polling. | `context.Context` | 是 Yes | - |
+| `Options.Source` | 来源标识，会拼入二维码 URL 的 `source` 参数，格式为 `go-sdk/{source}`。 Source identifier appended to the QR URL as `go-sdk/{source}`. | `string` | 否 No | `go-sdk` |
+| `Options.Domain` | 自定义飞书认证域名，支持传完整前缀，如 `https://accounts.feishu.cn`。 Custom Feishu accounts domain. A full base URL such as `https://accounts.feishu.cn` is supported. | `string` | 否 No | `https://accounts.feishu.cn` |
+| `Options.LarkDomain` | 自定义 Lark 认证域名；检测到 `tenant_brand=lark` 时自动切换。 Custom Lark accounts domain used when `tenant_brand=lark` is detected. | `string` | 否 No | `https://accounts.larksuite.com` |
+| `Options.OnQRCode` | 验证链接就绪时的回调，参数为 `{ URL, ExpireIn }`。可直接展示链接，或将其渲染为二维码供用户扫码。 Callback invoked when the verification URL is ready. | `func(info *registration.QRCodeInfo)` | 是 Yes | - |
+| `Options.OnStatusChange` | 轮询状态变化回调，参数为 `{ Status, Interval }`。`Status` 可能为 `polling`、`slow_down`、`domain_switched`。 Callback for polling status changes. | `func(info *registration.StatusChangeInfo)` | 否 No | - |
+
+### 返回值 / Return Value
+
+| 字段 Field | 类型 Type | 描述 Description |
+| ---- | ---- | ---- |
+| `ClientID` | `string` | 应用的 `App ID` / App ID |
+| `ClientSecret` | `string` | 应用的 `App Secret` / App Secret |
+| `UserInfo` | `*registration.UserInfo` | 扫码用户信息 / Scanning user info |
+| `UserInfo.OpenID` | `string` | 扫码用户的 `open_id` / User `open_id` |
+| `UserInfo.TenantBrand` | `string` | `"feishu"` 或 `"lark"` / `"feishu"` or `"lark"` |
+
+### 错误处理 / Error Handling
+
+返回的错误通常可以通过 `errors.As(err, &registration.RegisterAppError)` 获取 `Code` 与 `Description` 字段。更具体的错误类型还包括 `registration.AccessDeniedError` 和 `registration.ExpiredError`。
+
+Returned errors usually expose `Code` and `Description` through `registration.RegisterAppError`. More specific types include `registration.AccessDeniedError` and `registration.ExpiredError`.
+
+| `Code` | 描述 Description |
+| ---- | ---- |
+| `access_denied` | 用户拒绝授权 / User denied authorization |
+| `expired_token` | 二维码过期或轮询超时 / QR code expired or polling timed out |
+| `invalid_response` | 接口返回缺少必要字段或响应为空 / Response is empty or missing required fields |
+
 ## 扩展示例
 
 我们还基于 SDK 封装了常用的 API 组合调用及业务场景示例，如：
@@ -40,6 +127,5 @@ To address these issues, Feishu Open Platform has developed the Open Interface S
 ## License
 
 使用 MIT
-
 
 
