@@ -45,6 +45,7 @@ type Client struct {
 	onError           func(err error)
 	onReconnecting    func()
 	onReconnected     func()
+	onDisconnected    func()
 }
 
 type ClientOption func(cli *Client)
@@ -107,6 +108,36 @@ func WithOnReconnected(f func()) ClientOption {
 	return func(cli *Client) {
 		cli.onReconnected = f
 	}
+}
+
+func WithOnDisconnected(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onDisconnected = f
+	}
+}
+
+func (c *Client) SetOnReconnecting(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReconnecting = f
+}
+
+func (c *Client) SetOnReconnected(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReconnected = f
+}
+
+func (c *Client) SetOnError(f func(err error)) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onError = f
+}
+
+func (c *Client) SetOnDisconnected(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onDisconnected = f
 }
 
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
@@ -281,6 +312,10 @@ func (c *Client) disconnect(ctx context.Context) {
 
 	_ = c.conn.Close()
 	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+
+	if c.onDisconnected != nil {
+		c.onDisconnected()
+	}
 
 	defer func() {
 		c.conn = nil

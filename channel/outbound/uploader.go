@@ -161,7 +161,7 @@ func (u *uploaderImpl) UploadMedia(ctx context.Context, input *types.UploadInput
 	}
 
 	duration := input.Duration
-	if duration == nil || *duration <= 0 {
+	if (input.Kind == types.MediaKindAudio || input.Kind == types.MediaKindVideo) && (duration == nil || *duration <= 0) {
 		if input.Kind == types.MediaKindAudio {
 			d, err := normalize.ParseOpusDuration(bytes.NewReader(sourceBytes))
 			if err == nil {

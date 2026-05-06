@@ -1,8 +1,11 @@
 package channel
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"sync"
 	"time"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
@@ -11,6 +14,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/channel/pipeline"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/safety"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
 
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -29,11 +33,20 @@ type channelImpl struct {
 	processLock     *safety.ProcessingLock
 	staleWindow     time.Duration
 
+	botIdentity *types.BotIdentity
+	botMu       sync.Mutex
+
 	// Handler registries
-	onMessageHandlers []func(ctx context.Context, msg *types.NormalizedMessage) error
-	onCommentHandlers []func(ctx context.Context, event *types.CommentEvent) error
-	onReactionHandlers []func(ctx context.Context, event *types.ReactionEvent) error
-	onBotAddedHandlers []func(ctx context.Context, event *types.BotAddedEvent) error
+	onMessageHandlers    []func(ctx context.Context, msg *types.NormalizedMessage) error
+	onCommentHandlers    []func(ctx context.Context, event *types.CommentEvent) error
+	onReactionHandlers   []func(ctx context.Context, event *types.ReactionEvent) error
+	onBotAddedHandlers   []func(ctx context.Context, event *types.BotAddedEvent) error
+	onCardActionHandlers []func(ctx context.Context, msg *types.NormalizedMessage) error
+
+	onErrorHandlers        []func(err error)
+	onReconnectingHandlers []func()
+	onReconnectedHandlers  []func()
+	onDisconnectedHandlers []func()
 
 	messageHandlerReg  bool
 	reactionHandlerReg bool
@@ -54,9 +67,89 @@ func NewChannel(client *lark.Client, wsClient *larkws.Client) types.Channel {
 	}
 }
 
+// getBotIdentity fetches and caches the bot's identity from the server.
+func (ch *channelImpl) getBotIdentity(ctx context.Context) *types.BotIdentity {
+	if ch.botIdentity != nil {
+		return ch.botIdentity
+	}
+
+	ch.botMu.Lock()
+	defer ch.botMu.Unlock()
+	if ch.botIdentity != nil {
+		return ch.botIdentity
+	}
+
+	// Fetch bot info using the official SDK raw method since bot/v3/info is not generated
+	resp, err := ch.client.Get(ctx, "/open-apis/bot/v3/info", nil, larkcore.AccessTokenTypeTenant)
+	if err == nil && resp != nil && resp.StatusCode == 200 {
+		var result struct {
+			Code int `json:"code"`
+			Data struct {
+				Bot struct {
+					AppId  string `json:"app_id"`
+					OpenId string `json:"open_id"`
+				} `json:"bot"`
+			} `json:"data"`
+		}
+		if err := json.Unmarshal(resp.RawBody, &result); err == nil && result.Code == 0 {
+			ch.botIdentity = &types.BotIdentity{
+				OpenID: result.Data.Bot.OpenId,
+				AppID:  result.Data.Bot.AppId,
+			}
+		}
+	}
+
+	return ch.botIdentity
+}
+
+// OnError registers a handler for WS error events.
+func (ch *channelImpl) OnError(handler func(err error)) {
+	ch.onErrorHandlers = append(ch.onErrorHandlers, handler)
+}
+
+// OnReconnecting registers a handler for WS reconnecting events.
+func (ch *channelImpl) OnReconnecting(handler func()) {
+	ch.onReconnectingHandlers = append(ch.onReconnectingHandlers, handler)
+}
+
+// OnReconnected registers a handler for WS reconnected events.
+func (ch *channelImpl) OnReconnected(handler func()) {
+	ch.onReconnectedHandlers = append(ch.onReconnectedHandlers, handler)
+}
+
+// OnDisconnected registers a handler for WS disconnected events.
+func (ch *channelImpl) OnDisconnected(handler func()) {
+	ch.onDisconnectedHandlers = append(ch.onDisconnectedHandlers, handler)
+}
+
 // UpdatePolicy updates the policy configuration for the channel.
 func (ch *channelImpl) UpdatePolicy(cfg types.PolicyConfig) {
 	ch.policyGate.UpdateConfig(cfg)
+}
+
+// Start starts the underlying WebSocket client and wires up lifecycle events.
+func (ch *channelImpl) Start(ctx context.Context) error {
+	ch.wsClient.SetOnError(func(err error) {
+		for _, h := range ch.onErrorHandlers {
+			h(err)
+		}
+	})
+	ch.wsClient.SetOnReconnecting(func() {
+		for _, h := range ch.onReconnectingHandlers {
+			h()
+		}
+	})
+	ch.wsClient.SetOnReconnected(func() {
+		for _, h := range ch.onReconnectedHandlers {
+			h()
+		}
+	})
+	ch.wsClient.SetOnDisconnected(func() {
+		for _, h := range ch.onDisconnectedHandlers {
+			h()
+		}
+	})
+	return ch.wsClient.Start(ctx)
 }
 
 // OnMessage registers a handler for NormalizedMessage events.
@@ -83,6 +176,21 @@ func (ch *channelImpl) ensureMessageHandler() {
 			if len(ch.onMessageHandlers) > 0 {
 				normMsg := normalize.ParseMessage(event)
 				if normMsg != nil {
+					botInfo := ch.getBotIdentity(ctx)
+					if botInfo != nil {
+						// 1. Self-reply loop prevention
+						if normMsg.UserID == botInfo.OpenID {
+							return nil
+						}
+						// 2. MentionedBot check
+						for _, m := range normMsg.Mentions {
+							if m.UserID == botInfo.OpenID {
+								normMsg.MentionedBot = true
+								break
+							}
+						}
+					}
+
 					if safety.IsStale(normMsg.CreateTimeMs, ch.staleWindow) {
 						// do nothing
 					} else if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(normMsg.EventID) {
@@ -261,6 +369,53 @@ func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, msg *types
 			})
 		}
 	}
+}
+
+// DownloadFile downloads media by key and type (e.g., "image", "file").
+func (ch *channelImpl) DownloadFile(ctx context.Context, fileKey string, mediaType string) ([]byte, error) {
+	if fileKey == "" {
+		return nil, fmt.Errorf("fileKey cannot be empty")
+	}
+
+	if mediaType == "image" {
+		req := larkim.NewGetImageReqBuilder().
+			ImageKey(fileKey).
+			Build()
+		resp, err := ch.client.Im.V1.Image.Get(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+		if !resp.Success() {
+			return nil, fmt.Errorf("download image API error: %d - %s", resp.Code, resp.Msg)
+		}
+		// Write the stream to byte array
+		var buf bytes.Buffer
+		_, err = buf.ReadFrom(resp.File)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read image stream: %w", err)
+		}
+		return buf.Bytes(), nil
+
+	} else if mediaType == "file" || mediaType == "audio" || mediaType == "video" || mediaType == "media" {
+		req := larkim.NewGetFileReqBuilder().
+			FileKey(fileKey).
+			Build()
+		resp, err := ch.client.Im.V1.File.Get(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+		if !resp.Success() {
+			return nil, fmt.Errorf("download file API error: %d - %s", resp.Code, resp.Msg)
+		}
+		var buf bytes.Buffer
+		_, err = buf.ReadFrom(resp.File)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read file stream: %w", err)
+		}
+		return buf.Bytes(), nil
+	}
+
+	return nil, fmt.Errorf("unsupported mediaType: %s", mediaType)
 }
 
 // Stream initiates a streaming message session. It returns a StreamController to append and flush content.

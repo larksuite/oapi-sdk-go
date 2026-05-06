@@ -71,7 +71,9 @@ func inferCode(err error) FeishuChannelErrorCode {
 	var apiErr *larkcore.CodeError
 	if errors.As(err, &apiErr) {
 		feishuCode := apiErr.Code
-		if feishuCode == 230020 || feishuCode == 230017 {
+		// 230011: The message was withdrawn (target revoked)
+		// 230040: The target message is not in the specified chat (often treated as target revoked in reply fallback)
+		if feishuCode == 230020 || feishuCode == 230017 || feishuCode == 230011 || feishuCode == 230040 {
 			return ErrCodeTargetRevoked
 		}
 		if feishuCode == 99991400 || feishuCode == 99991401 {

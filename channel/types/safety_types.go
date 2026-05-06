@@ -27,8 +27,9 @@ type PolicyDecision struct {
 
 // BotIdentity represents the bot's identity.
 type BotIdentity struct {
-	BotID string
-	AppID string
+	OpenID string
+	UserID string
+	AppID  string
 }
 
 // PolicyConfig configures the PolicyGate.

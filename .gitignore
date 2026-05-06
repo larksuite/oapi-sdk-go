@@ -13,3 +13,4 @@ test.go
 .env
 test
 plan
+/main

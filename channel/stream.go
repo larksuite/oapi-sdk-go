@@ -216,7 +216,7 @@ func (m *MarkdownStreamController) doUpdate(ctx context.Context) error {
 			Build()
 
 		op := func(attempt int) (interface{}, error) {
-			resp, err := m.client.Im.Message.Reply(ctx, req)
+			resp, err := m.client.Im.V1.Message.Reply(ctx, req)
 			if err != nil {
 				return nil, fmt.Errorf("failed to create new message chunk: %w", err)
 			}
@@ -248,7 +248,7 @@ func (m *MarkdownStreamController) doUpdate(ctx context.Context) error {
 		Build()
 
 	op := func(attempt int) (interface{}, error) {
-		resp, err := m.client.Im.Message.Update(ctx, req)
+		resp, err := m.client.Im.V1.Message.Update(ctx, req)
 		if err != nil {
 			return nil, fmt.Errorf("failed to update message: %w", err)
 		}

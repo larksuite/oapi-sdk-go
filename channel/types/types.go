@@ -1,12 +1,8 @@
 package types
 
-import ()
-
-import ()
-
-import ()
-
-import "context"
+import (
+	"context"
+)
 
 // Channel is the core interface for the channel feature, providing high-level
 // abstractions for message receiving, sending, and streaming.
@@ -17,6 +13,18 @@ type Channel interface {
 	OnComment(handler func(ctx context.Context, event *CommentEvent) error)
 	OnBotAdded(handler func(ctx context.Context, event *BotAddedEvent) error)
 	OnCardAction(handler func(ctx context.Context, msg *NormalizedMessage) error)
+
+	// Media download
+	DownloadFile(ctx context.Context, fileKey string, mediaType string) ([]byte, error)
+
+	// Lifecycle hooks
+	OnError(handler func(err error))
+	OnReconnecting(handler func())
+	OnReconnected(handler func())
+	OnDisconnected(handler func())
+
+	// Lifecycle
+	Start(ctx context.Context) error
 	Stream(ctx context.Context, input *SendInput) (StreamController, error)
 	UpdatePolicy(cfg PolicyConfig)
 }
@@ -74,14 +82,18 @@ type SendInput struct {
 	ReplyMessageID string `json:"reply_message_id,omitempty"`
 
 	// Message contents
-	Text     string `json:"text,omitempty"`
-	Markdown string `json:"markdown,omitempty"`
-	Title    string `json:"title,omitempty"` // Used as Post title if Markdown is set
-	ImageKey string `json:"image_key,omitempty"`
-	FileKey  string `json:"file_key,omitempty"`
-	AudioKey string `json:"audio_key,omitempty"`
-	VideoKey string `json:"video_key,omitempty"`
-	Card     string `json:"card,omitempty"` // Stringified JSON of the card
+	Text           string `json:"text,omitempty"`
+	Markdown       string `json:"markdown,omitempty"`
+	Title          string `json:"title,omitempty"` // Used as Post title if Markdown is set
+	ImageKey       string `json:"image_key,omitempty"`
+	FileKey        string `json:"file_key,omitempty"`
+	AudioKey       string `json:"audio_key,omitempty"`
+	VideoKey       string `json:"video_key,omitempty"`
+	Card           string `json:"card,omitempty"` // Stringified JSON of the card
+	Post           string `json:"post,omitempty"` // Stringified JSON of the post
+	ShareChatID    string `json:"share_chat_id,omitempty"`
+	ShareUserID    string `json:"share_user_id,omitempty"`
+	StickerFileKey string `json:"sticker_file_key,omitempty"`
 
 	// Local file paths (Uploader will automatically upload them before sending)
 	ImagePath string `json:"image_path,omitempty"`

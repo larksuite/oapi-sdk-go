@@ -89,7 +89,7 @@ func (c *CardStreamController) UpdateCard(ctx context.Context, card string) erro
 			Build()
 
 		op := func(attempt int) (interface{}, error) {
-			resp, err := c.client.Im.Message.Patch(ctx, req)
+			resp, err := c.client.Im.V1.Message.Patch(ctx, req)
 			if err != nil {
 				return nil, err
 			}

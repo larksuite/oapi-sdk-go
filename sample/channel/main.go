@@ -241,11 +241,42 @@ func main() {
 				return err
 			}
 
+		case strings.HasPrefix(cmd, "/post"):
+			// 测试发送富文本 post
+			postJSON := `{"zh_cn": {"title": "我是一个标题", "content": [[{"tag": "text", "text": "我是富文本内容"}]]}}`
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID: msg.ChatID,
+				Post:      postJSON,
+			})
+			if err != nil {
+				return err
+			}
+
+		case strings.HasPrefix(cmd, "/sharechat"):
+			// 测试发送群名片
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID:   msg.ChatID,
+				ShareChatID: msg.ChatID,
+			})
+			if err != nil {
+				return err
+			}
+
+		case strings.HasPrefix(cmd, "/shareuser"):
+			// 测试发送个人名片
+			_, err := ch.Send(ctx, &types.SendInput{
+				ReceiveID:   msg.ChatID,
+				ShareUserID: msg.UserID,
+			})
+			if err != nil {
+				return err
+			}
+
 		default:
 			// 测试普通 Send (回显消息)
 			_, err := ch.Send(ctx, &types.SendInput{
 				ReceiveID: msg.ChatID,
-				Text:      "Echo: " + msg.Content + "\n\n💡 支持指令:\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image",
+				Text:      "Echo: " + msg.Content + "\n\n💡 支持指令:\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image\n/post\n/sharechat\n/shareuser",
 			})
 			if err != nil {
 				return err
@@ -277,9 +308,23 @@ func main() {
 		return nil
 	})
 
-	// 7. 启动 WebSocket Client，开始监听事件
-	fmt.Println("正在启动 WebSocket Client...")
-	err := wsClient.Start(context.Background())
+	// 8. 注册生命周期钩子
+	ch.OnError(func(err error) {
+		fmt.Printf("[WS] Error occurred: %v\n", err)
+	})
+	ch.OnReconnecting(func() {
+		fmt.Println("[WS] Connection lost, reconnecting...")
+	})
+	ch.OnReconnected(func() {
+		fmt.Println("[WS] Connection re-established!")
+	})
+	ch.OnDisconnected(func() {
+		fmt.Println("[WS] Connection disconnected.")
+	})
+
+	// 9. 启动 WebSocket 客户端
+	fmt.Println("🚀 Starting Feishu Bot via Channel...")
+	err := ch.Start(context.Background())
 	if err != nil {
 		panic(err)
 	}

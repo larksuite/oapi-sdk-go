@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/normalize"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/outbound"
@@ -97,6 +98,24 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 	} else if input.Card != "" {
 		msgType = "interactive"
 		content = input.Card
+	} else if input.Post != "" {
+		msgType = "post"
+		content = input.Post
+	} else if input.ShareChatID != "" {
+		msgType = "share_chat"
+		contentMap := map[string]string{"chat_id": input.ShareChatID}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.ShareUserID != "" {
+		msgType = "share_user"
+		contentMap := map[string]string{"user_id": input.ShareUserID}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
+	} else if input.StickerFileKey != "" {
+		msgType = "sticker"
+		contentMap := map[string]string{"file_key": input.StickerFileKey}
+		b, _ := json.Marshal(contentMap)
+		content = string(b)
 	} else if input.Markdown != "" {
 		msgType = "post"
 		chunks := outbound.SplitWithCodeFences(input.Markdown, 3500)
@@ -170,27 +189,33 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 }
 
 func (c *channelImpl) sendOneWithFallback(ctx context.Context, idType, id, msgType, content string, input *types.SendInput) (string, string, error) {
+	log.Printf("[Channel] Attempting to send message. idType: %s, id: %s, msgType: %s, replyID: %s", idType, id, msgType, input.ReplyMessageID)
 	msgID, chatID, err := c.rawSendWithRetry(ctx, idType, id, msgType, content, input.ReplyMessageID)
 	if err == nil {
+		log.Printf("[Channel] Message sent successfully. msgID: %s, chatID: %s", msgID, chatID)
 		return msgID, chatID, nil
 	}
 
 	fce := types.ClassifyError(err)
+	log.Printf("[Channel] Send failed. Error: %v, ClassifiedCode: %v", err, fce.Code)
 
 	// Fallback 1: Reply target gone -> remove ReplyMessageID and resend
 	if fce.Code == types.ErrCodeTargetRevoked && input.ReplyMessageID != "" {
+		log.Printf("[Channel] Fallback triggered: Reply target revoked. Retrying as new message.")
 		input.ReplyMessageID = "" // downgrade to new message
 		return c.sendOneWithFallback(ctx, idType, id, msgType, content, input)
 	}
 
 	// Fallback 2: Format error -> downgrade to text
 	if fce.Code == types.ErrCodeFormatError && msgType != "text" {
+		log.Printf("[Channel] Fallback triggered: Format error. Downgrading to text message.")
 		fallbackText := ""
 		if input.Markdown != "" {
 			fallbackText = input.Markdown
 		} else if input.Text != "" {
 			fallbackText = input.Text
 		} else {
+			log.Printf("[Channel] Fallback failed: No text fallback available.")
 			return "", "", err
 		}
 
@@ -203,6 +228,7 @@ func (c *channelImpl) sendOneWithFallback(ctx context.Context, idType, id, msgTy
 		return c.rawSendWithRetry(ctx, idType, id, "text", string(b), input.ReplyMessageID)
 	}
 
+	log.Printf("[Channel] No fallback applicable. Returning error.")
 	return "", "", err
 }
 
@@ -235,11 +261,14 @@ func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType,
 			Build()
 
 		op = func(attempt int) (interface{}, error) {
+			log.Printf("[Channel] Sending reply message. Attempt: %d, ReplyID: %s, MsgType: %s", attempt, replyMessageID, msgType)
 			resp, err := c.client.Im.V1.Message.Reply(ctx, req)
 			if err != nil {
+				log.Printf("[Channel] Reply message HTTP error: %v", err)
 				return nil, err
 			}
 			if !resp.Success() {
+				log.Printf("[Channel] Reply message API error: Code=%d, Msg=%s", resp.Code, resp.Msg)
 				apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
 				return nil, apiErr
 			}
@@ -256,11 +285,14 @@ func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType,
 			Build()
 
 		op = func(attempt int) (interface{}, error) {
+			log.Printf("[Channel] Sending create message. Attempt: %d, IDType: %s, ID: %s, MsgType: %s", attempt, idType, id, msgType)
 			resp, err := c.client.Im.V1.Message.Create(ctx, req)
 			if err != nil {
+				log.Printf("[Channel] Create message HTTP error: %v", err)
 				return nil, err
 			}
 			if !resp.Success() {
+				log.Printf("[Channel] Create message API error: Code=%d, Msg=%s", resp.Code, resp.Msg)
 				apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
 				return nil, apiErr
 			}
