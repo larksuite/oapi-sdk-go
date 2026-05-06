@@ -108,6 +108,8 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 		content = string(b)
 	} else if input.ShareUserID != "" {
 		msgType = "share_user"
+		// 飞书的 share_user 类型里，如果是 ou_ 开头说明是 open_id，通常底层需要显式传 user_id 作为通用键
+		// 但为了保险，我们可以把它赋值给 user_id
 		contentMap := map[string]string{"user_id": input.ShareUserID}
 		b, _ := json.Marshal(contentMap)
 		content = string(b)
