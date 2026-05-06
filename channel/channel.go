@@ -127,6 +127,11 @@ func (ch *channelImpl) UpdatePolicy(cfg types.PolicyConfig) {
 	ch.policyGate.UpdateConfig(cfg)
 }
 
+// GetPolicy returns the current policy configuration.
+func (ch *channelImpl) GetPolicy() types.PolicyConfig {
+	return ch.policyGate.GetConfig()
+}
+
 // Start starts the underlying WebSocket client and wires up lifecycle events.
 func (ch *channelImpl) Start(ctx context.Context) error {
 	ch.wsClient.SetOnError(func(err error) {

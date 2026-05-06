@@ -564,6 +564,87 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	checkResult(err)
 
+	// TC-501 to TC-508: Safety Policies Testing
+	fmt.Println("==================================================")
+	fmt.Println("🚀 Starting Automated Tests for TC-501 to TC-508 (Safety Policies)")
+	fmt.Println("==================================================")
+
+	// Helper for testing inbound message policies
+	// We construct a fake NormalizedMessage and pipe it directly to OnMessage handler to see if it gets rejected.
+	testPolicyGate := func(tc string, msg *types.NormalizedMessage, expectedRejectReason string) {
+		fmt.Printf("%s: Testing policy %s... ", tc, expectedRejectReason)
+		tStart := time.Now()
+
+		// Instead of hijacking OnMessage which is async and decoupled from policy gate check in test script scope,
+		// we can directly construct a PolicyGate with the current config to test the evaluation logic.
+		gate := safety.NewPolicyGate(nil, nil)
+		gate.UpdateConfig(ch.GetPolicy())
+
+		decision := gate.Evaluate(msg)
+		rejectedReason := ""
+		if !decision.Allowed {
+			rejectedReason = string(decision.Reason)
+		} else {
+			rejectedReason = "passed"
+		}
+
+		if (expectedRejectReason == "" && rejectedReason == "passed") || strings.Contains(rejectedReason, expectedRejectReason) {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(tStart))
+			checkResult(nil)
+		} else {
+			fmt.Printf("❌ Failed (%v)\nExpected reason containing: '%s', got: '%s'\n", time.Since(tStart), expectedRejectReason, rejectedReason)
+			checkResult(fmt.Errorf("policy check failed"))
+		}
+	}
+
+	// Save original policy
+	originalPolicy := ch.GetPolicy()
+
+	// TC-501: Group Allowlist
+	ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{"oc_allowed_group"}})
+	testPolicyGate("TC-501 (Allowed)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_allowed_group", MentionedBot: true}, "")
+	testPolicyGate("TC-501 (Blocked)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_blocked_group", MentionedBot: true}, "group_not_allowed")
+
+	// TC-502: DM Mode Disabled
+	ch.UpdatePolicy(types.PolicyConfig{DMMode: "disabled"})
+	testPolicyGate("TC-502 (DM Disabled)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "dm_disabled")
+
+	// TC-503: DM Mode Allowlist
+	ch.UpdatePolicy(types.PolicyConfig{DMMode: "allowlist", DMAllowlist: []string{receiveID}})
+	testPolicyGate("TC-503 (DM Allowed)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "")
+	testPolicyGate("TC-503 (DM Blocked)", &types.NormalizedMessage{ChatType: "p2p", UserID: "ou_blocked_user"}, "sender_not_allowed")
+
+	// TC-504: Require Mention in Group
+	var bTrue = true
+	ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{}, RequireMention: &bTrue})
+	testPolicyGate("TC-504 (No Mention)", &types.NormalizedMessage{ChatType: "group", MentionedBot: false}, "no_mention")
+	testPolicyGate("TC-504 (Mentioned)", &types.NormalizedMessage{ChatType: "group", MentionedBot: true}, "")
+
+	// TC-505: Respond to Mention All
+	var bFalse = false
+	ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bFalse, RequireMention: &bFalse})
+	testPolicyGate("TC-505 (Mention All Blocked)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "mention_all_blocked")
+
+	ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bTrue, RequireMention: &bFalse})
+	testPolicyGate("TC-505 (Mention All Allowed)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "")
+
+	// TC-508: Update Policy
+	// We've already been implicitly testing this via ch.UpdatePolicy() calls above,
+	// but let's verify GetPolicy returns the updated one.
+	fmt.Print("TC-508: Dynamic policy update... ")
+	t508 := time.Now()
+	newPol := ch.GetPolicy()
+	if newPol.RespondToMentionAll != nil && *newPol.RespondToMentionAll == true {
+		fmt.Printf("✅ Passed (%v)\n", time.Since(t508))
+		checkResult(nil)
+	} else {
+		fmt.Printf("❌ Failed (%v)\n", time.Since(t508))
+		checkResult(fmt.Errorf("policy did not update"))
+	}
+
+	// Restore original policy
+	ch.UpdatePolicy(originalPolicy)
+
 	// TC-601 & TC-603: Upload and Download Image
 	fmt.Print("TC-601 & TC-603: Upload and Download Image... ")
 	t601 := time.Now()

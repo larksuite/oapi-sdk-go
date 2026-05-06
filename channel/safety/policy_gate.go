@@ -98,8 +98,13 @@ func (pg *PolicyGate) UpdateConfig(partial types.PolicyConfig) {
 	pg.mu.Lock()
 	defer pg.mu.Unlock()
 
+	// Need to clear GroupAllowlist if it is explicitly set to empty to override previous tests
 	if partial.GroupAllowlist != nil {
-		pg.cfg.GroupAllowlist = partial.GroupAllowlist
+		if len(partial.GroupAllowlist) == 0 {
+			pg.cfg.GroupAllowlist = nil
+		} else {
+			pg.cfg.GroupAllowlist = partial.GroupAllowlist
+		}
 	}
 	if partial.RequireMention != nil {
 		pg.cfg.RequireMention = partial.RequireMention
@@ -111,7 +116,11 @@ func (pg *PolicyGate) UpdateConfig(partial types.PolicyConfig) {
 		pg.cfg.DMMode = partial.DMMode
 	}
 	if partial.DMAllowlist != nil {
-		pg.cfg.DMAllowlist = partial.DMAllowlist
+		if len(partial.DMAllowlist) == 0 {
+			pg.cfg.DMAllowlist = nil
+		} else {
+			pg.cfg.DMAllowlist = partial.DMAllowlist
+		}
 	}
 }
 

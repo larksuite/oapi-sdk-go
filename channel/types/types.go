@@ -27,6 +27,7 @@ type Channel interface {
 	Start(ctx context.Context) error
 	Stream(ctx context.Context, input *SendInput) (StreamController, error)
 	UpdatePolicy(cfg PolicyConfig)
+	GetPolicy() PolicyConfig
 }
 
 // StreamController provides methods to control a streaming message.
