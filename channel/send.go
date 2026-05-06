@@ -111,7 +111,7 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 			if err != nil {
 				return nil, fmt.Errorf("failed to format markdown: %v", err)
 			}
-			id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, "post", postJSON)
+			id, chatID, err := c.sendOneWithFallback(ctx, receiveIDType, receiveID, "post", postJSON, input)
 			if err != nil {
 				return nil, err
 			}
@@ -138,7 +138,7 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 		for i, chunk := range chunks {
 			contentMap := map[string]string{"text": chunk}
 			b, _ := json.Marshal(contentMap)
-			id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, "text", string(b))
+			id, chatID, err := c.sendOneWithFallback(ctx, receiveIDType, receiveID, "text", string(b), input)
 			if err != nil {
 				return nil, err
 			}
@@ -158,7 +158,7 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 	}
 
 	// 3. Send single message for other types
-	id, chatID, err := c.rawSendWithRetry(ctx, receiveIDType, receiveID, msgType, content)
+	id, chatID, err := c.sendOneWithFallback(ctx, receiveIDType, receiveID, msgType, content, input)
 	if err != nil {
 		return nil, err
 	}
@@ -167,6 +167,43 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 		MessageID: id,
 		ChatID:    chatID,
 	}, nil
+}
+
+func (c *channelImpl) sendOneWithFallback(ctx context.Context, idType, id, msgType, content string, input *types.SendInput) (string, string, error) {
+	msgID, chatID, err := c.rawSendWithRetry(ctx, idType, id, msgType, content, input.ReplyMessageID)
+	if err == nil {
+		return msgID, chatID, nil
+	}
+
+	fce := types.ClassifyError(err)
+
+	// Fallback 1: Reply target gone -> remove ReplyMessageID and resend
+	if fce.Code == types.ErrCodeTargetRevoked && input.ReplyMessageID != "" {
+		input.ReplyMessageID = "" // downgrade to new message
+		return c.sendOneWithFallback(ctx, idType, id, msgType, content, input)
+	}
+
+	// Fallback 2: Format error -> downgrade to text
+	if fce.Code == types.ErrCodeFormatError && msgType != "text" {
+		fallbackText := ""
+		if input.Markdown != "" {
+			fallbackText = input.Markdown
+		} else if input.Text != "" {
+			fallbackText = input.Text
+		} else {
+			return "", "", err
+		}
+
+		prefix := normalize.ComposeMentionsTextPrefix(input.Mentions)
+		fullText := prefix + fallbackText
+
+		contentMap := map[string]string{"text": fullText}
+		b, _ := json.Marshal(contentMap)
+
+		return c.rawSendWithRetry(ctx, idType, id, "text", string(b), input.ReplyMessageID)
+	}
+
+	return "", "", err
 }
 
 func splitPlain(text string, limit int) []string {
@@ -185,37 +222,69 @@ func splitPlain(text string, limit int) []string {
 	return out
 }
 
-func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType, content string) (string, string, error) {
-	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(idType).
-		Body(larkim.NewCreateMessageReqBodyBuilder().
-			ReceiveId(id).
-			MsgType(msgType).
-			Content(content).
-			Build()).
-		Build()
+func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType, content, replyMessageID string) (string, string, error) {
+	var op func(attempt int) (interface{}, error)
 
-	op := func(attempt int) (interface{}, error) {
-		resp, err := c.client.Im.V1.Message.Create(ctx, req)
-		if err != nil {
-			return nil, err
+	if replyMessageID != "" {
+		req := larkim.NewReplyMessageReqBuilder().
+			MessageId(replyMessageID).
+			Body(larkim.NewReplyMessageReqBodyBuilder().
+				MsgType(msgType).
+				Content(content).
+				Build()).
+			Build()
+
+		op = func(attempt int) (interface{}, error) {
+			resp, err := c.client.Im.V1.Message.Reply(ctx, req)
+			if err != nil {
+				return nil, err
+			}
+			if !resp.Success() {
+				apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
+				return nil, apiErr
+			}
+			return resp, nil
 		}
-		if !resp.Success() {
-			apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
-			return nil, apiErr
+	} else {
+		req := larkim.NewCreateMessageReqBuilder().
+			ReceiveIdType(idType).
+			Body(larkim.NewCreateMessageReqBodyBuilder().
+				ReceiveId(id).
+				MsgType(msgType).
+				Content(content).
+				Build()).
+			Build()
+
+		op = func(attempt int) (interface{}, error) {
+			resp, err := c.client.Im.V1.Message.Create(ctx, req)
+			if err != nil {
+				return nil, err
+			}
+			if !resp.Success() {
+				apiErr := &larkcore.CodeError{Code: resp.Code, Msg: resp.Msg}
+				return nil, apiErr
+			}
+			return resp, nil
 		}
-		return resp, nil
 	}
 
 	res, err := outbound.Retry(ctx, op, nil)
 	if err != nil {
-		return "", "", err
+		return "", "", types.ClassifyError(err)
 	}
 
-	resp := res.(*larkim.CreateMessageResp)
 	chatID := ""
-	if resp.Data.ChatId != nil {
-		chatID = *resp.Data.ChatId
+	if replyMessageID != "" {
+		resp := res.(*larkim.ReplyMessageResp)
+		if resp.Data.ChatId != nil {
+			chatID = *resp.Data.ChatId
+		}
+		return *resp.Data.MessageId, chatID, nil
+	} else {
+		resp := res.(*larkim.CreateMessageResp)
+		if resp.Data.ChatId != nil {
+			chatID = *resp.Data.ChatId
+		}
+		return *resp.Data.MessageId, chatID, nil
 	}
-	return *resp.Data.MessageId, chatID, nil
 }

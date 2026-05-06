@@ -128,7 +128,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 			httpRequest.Header.Add(k, v)
 		}
 	}
-	httpRequest.Header.Set(userAgentHeader, userAgent())
+	httpRequest.Header.Set(userAgentHeader, userAgent(config.Source))
 	if contentType != "" {
 		httpRequest.Header.Set(contentTypeHeader, contentType)
 	}

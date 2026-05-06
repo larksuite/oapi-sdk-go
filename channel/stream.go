@@ -165,6 +165,11 @@ func (m *MarkdownStreamController) Append(ctx context.Context, text string) erro
 	return m.throttle.Trigger(ctx)
 }
 
+// UpdateCard is not supported for MarkdownStreamController.
+func (m *MarkdownStreamController) UpdateCard(ctx context.Context, card string) error {
+	return fmt.Errorf("UpdateCard is not supported for MarkdownStreamController, use Append")
+}
+
 // Flush forces an immediate update of the message.
 func (m *MarkdownStreamController) Flush(ctx context.Context) error {
 	return m.throttle.Flush(ctx)

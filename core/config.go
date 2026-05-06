@@ -35,4 +35,5 @@ type Config struct {
 	Header            http.Header
 	Serializable      Serializable
 	SkipSignVerify    bool
+	Source            string
 }

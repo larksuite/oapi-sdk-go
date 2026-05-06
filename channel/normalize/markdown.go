@@ -2,9 +2,10 @@ package normalize
 
 import (
 	"encoding/json"
-	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	"regexp"
 	"strings"
+
+	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 )
 
 type postContent struct {
@@ -12,7 +13,7 @@ type postContent struct {
 }
 
 type postLanguage struct {
-	Title   string          `json:"title"`
+	Title   string          `json:"title,omitempty"`
 	Content [][]postElement `json:"content"`
 }
 
@@ -32,19 +33,48 @@ func SimpleMarkdownToPost(title, markdown string, mentions []types.Mention) (str
 	content := make([][]postElement, 0, len(lines))
 
 	linkRegex := regexp.MustCompile(`\[([^\]]+)\]\(([^)]+)\)`)
+	atRegex := regexp.MustCompile(`<at user_id="([^"]+)">(.*?)</at>`)
 
 	for _, line := range lines {
 		line = strings.TrimRight(line, "\r")
 
 		var paragraph []postElement
 
-		matches := linkRegex.FindAllStringSubmatchIndex(line, -1)
+		// Find all matches for both links and at tags
+		linkMatches := linkRegex.FindAllStringSubmatchIndex(line, -1)
+		atMatches := atRegex.FindAllStringSubmatchIndex(line, -1)
+
+		// Combine and sort matches by starting index
+		type matchInfo struct {
+			start, end int
+			mType      string // "link" or "at"
+			indices    []int
+		}
+		var allMatches []matchInfo
+		for _, m := range linkMatches {
+			allMatches = append(allMatches, matchInfo{m[0], m[1], "link", m})
+		}
+		for _, m := range atMatches {
+			allMatches = append(allMatches, matchInfo{m[0], m[1], "at", m})
+		}
+
+		// Sort matches by start index
+		for i := 0; i < len(allMatches); i++ {
+			for j := i + 1; j < len(allMatches); j++ {
+				if allMatches[i].start > allMatches[j].start {
+					allMatches[i], allMatches[j] = allMatches[j], allMatches[i]
+				}
+			}
+		}
 
 		lastIndex := 0
-		for _, match := range matches {
-			start, end := match[0], match[1]
-			textStart, textEnd := match[2], match[3]
-			hrefStart, hrefEnd := match[4], match[5]
+		for _, match := range allMatches {
+			start, end := match.start, match.end
+
+			// Prevent overlapping matches
+			if start < lastIndex {
+				continue
+			}
 
 			if start > lastIndex {
 				paragraph = append(paragraph, postElement{
@@ -53,11 +83,23 @@ func SimpleMarkdownToPost(title, markdown string, mentions []types.Mention) (str
 				})
 			}
 
-			paragraph = append(paragraph, postElement{
-				Tag:  "a",
-				Text: line[textStart:textEnd],
-				Href: line[hrefStart:hrefEnd],
-			})
+			if match.mType == "link" {
+				textStart, textEnd := match.indices[2], match.indices[3]
+				hrefStart, hrefEnd := match.indices[4], match.indices[5]
+				paragraph = append(paragraph, postElement{
+					Tag:  "a",
+					Text: line[textStart:textEnd],
+					Href: line[hrefStart:hrefEnd],
+				})
+			} else if match.mType == "at" {
+				userIDStart, userIDEnd := match.indices[2], match.indices[3]
+				userNameStart, userNameEnd := match.indices[4], match.indices[5]
+				paragraph = append(paragraph, postElement{
+					Tag:      "at",
+					UserID:   line[userIDStart:userIDEnd],
+					UserName: line[userNameStart:userNameEnd],
+				})
+			}
 
 			lastIndex = end
 		}
@@ -73,7 +115,7 @@ func SimpleMarkdownToPost(title, markdown string, mentions []types.Mention) (str
 		if len(paragraph) == 0 {
 			paragraph = append(paragraph, postElement{
 				Tag:  "text",
-				Text: "",
+				Text: " ", // Use space instead of empty string to bypass omitempty and Feishu empty check
 			})
 		}
 

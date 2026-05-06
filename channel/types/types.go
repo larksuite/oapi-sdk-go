@@ -13,6 +13,9 @@ import "context"
 type Channel interface {
 	Send(ctx context.Context, input *SendInput) (*SendResult, error)
 	OnMessage(handler func(ctx context.Context, msg *NormalizedMessage) error)
+	OnReaction(handler func(ctx context.Context, event *ReactionEvent) error)
+	OnComment(handler func(ctx context.Context, event *CommentEvent) error)
+	OnBotAdded(handler func(ctx context.Context, event *BotAddedEvent) error)
 	OnCardAction(handler func(ctx context.Context, msg *NormalizedMessage) error)
 	Stream(ctx context.Context, input *SendInput) (StreamController, error)
 	UpdatePolicy(cfg PolicyConfig)
@@ -22,6 +25,8 @@ type Channel interface {
 type StreamController interface {
 	// Append adds text to the end of the streaming message.
 	Append(ctx context.Context, text string) error
+	// UpdateCard updates the message with a new card.
+	UpdateCard(ctx context.Context, card string) error
 	// Flush forces any pending text to be sent immediately.
 	Flush(ctx context.Context) error
 	// Close completes the stream. No further updates can be made.
@@ -62,10 +67,11 @@ type Resource struct {
 
 // SendInput represents the structured parameters for sending a message.
 type SendInput struct {
-	ReceiveID string `json:"receive_id,omitempty"` // High priority, auto-detected
-	ChatID    string `json:"chat_id,omitempty"`    // Fallback
-	UserID    string `json:"user_id,omitempty"`    // Fallback
-	MsgType   string `json:"msg_type,omitempty"`   // text, post, image, file, interactive, etc.
+	ReceiveID      string `json:"receive_id,omitempty"` // High priority, auto-detected
+	ChatID         string `json:"chat_id,omitempty"`    // Fallback
+	UserID         string `json:"user_id,omitempty"`    // Fallback
+	MsgType        string `json:"msg_type,omitempty"`   // text, post, image, file, interactive, etc.
+	ReplyMessageID string `json:"reply_message_id,omitempty"`
 
 	// Message contents
 	Text     string `json:"text,omitempty"`

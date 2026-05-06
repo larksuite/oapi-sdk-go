@@ -41,6 +41,10 @@ type Client struct {
 	pingInterval      time.Duration // Ping间隔
 	cache             *larkcache.Cache
 	mu                sync.Mutex
+	onReady           func()
+	onError           func(err error)
+	onReconnecting    func()
+	onReconnected     func()
 }
 
 type ClientOption func(cli *Client)
@@ -81,6 +85,30 @@ func WithDomain(domain string) ClientOption {
 	}
 }
 
+func WithOnReady(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReady = f
+	}
+}
+
+func WithOnError(f func(err error)) ClientOption {
+	return func(cli *Client) {
+		cli.onError = f
+	}
+}
+
+func WithOnReconnecting(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReconnecting = f
+	}
+}
+
+func WithOnReconnected(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReconnected = f
+	}
+}
+
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 	cli := &Client{
 		appID:             appId,
@@ -109,6 +137,9 @@ func (c *Client) Start(ctx context.Context) (err error) {
 	err = c.connect(ctx)
 	if err != nil {
 		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
+		if c.onError != nil {
+			c.onError(err)
+		}
 		if _, ok := err.(*ClientError); ok {
 			return
 		}
@@ -119,6 +150,10 @@ func (c *Client) Start(ctx context.Context) (err error) {
 			}
 		} else {
 			return err
+		}
+	} else {
+		if c.onReady != nil {
+			c.onReady()
 		}
 	}
 	go c.pingLoop(ctx)
@@ -170,6 +205,10 @@ func (c *Client) connect(ctx context.Context) (err error) {
 }
 
 func (c *Client) reconnect(ctx context.Context) (err error) {
+	if c.onReconnecting != nil {
+		c.onReconnecting()
+	}
+
 	// 首次重连随机抖动
 	if c.reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
@@ -180,7 +219,13 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 	if c.reconnectCount >= 0 {
 		for i := 0; i < c.reconnectCount; i++ {
 			success, err := c.tryConnect(ctx, i)
-			if success || err != nil {
+			if success {
+				if c.onReconnected != nil {
+					c.onReconnected()
+				}
+				return nil
+			}
+			if err != nil {
 				return err
 			}
 			time.Sleep(c.reconnectInterval)
@@ -190,7 +235,13 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 		i := 0
 		for {
 			success, err := c.tryConnect(ctx, i)
-			if success || err != nil {
+			if success {
+				if c.onReconnected != nil {
+					c.onReconnected()
+				}
+				return nil
+			}
+			if err != nil {
 				return err
 			}
 			time.Sleep(c.reconnectInterval)
@@ -205,9 +256,15 @@ func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
 	if err == nil {
 		return true, nil
 	} else if _, ok := err.(*ClientError); ok {
+		if c.onError != nil {
+			c.onError(err)
+		}
 		return false, err
 	} else {
 		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
+		if c.onError != nil {
+			c.onError(err)
+		}
 		return false, nil
 	}
 }
