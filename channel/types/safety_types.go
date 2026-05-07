@@ -1,12 +1,8 @@
 package types
 
-import ()
-
-import ()
-
-import ()
-
-import "time"
+import (
+	"time"
+)
 
 // RejectReason defines why a message was rejected by the policy gate.
 type RejectReason string
@@ -25,11 +21,11 @@ type PolicyDecision struct {
 	Reason  RejectReason
 }
 
-// BotIdentity represents the bot's identity.
+// BotIdentity represents the resolved identity of the bot
 type BotIdentity struct {
 	OpenID string
-	UserID string
-	AppID  string
+	UserID string // Optional
+	Name   string
 }
 
 // PolicyConfig configures the PolicyGate.

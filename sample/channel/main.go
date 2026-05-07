@@ -396,11 +396,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	botInfo := ch.GetBotIdentity(context.Background())
 	if botInfo != nil {
-		displayAppID := botInfo.AppID
-		if displayAppID == "" {
-			displayAppID = appID
-		}
-		fmt.Printf("🤖 Bot Identity Loaded: AppID=%s, OpenID=%s\n", displayAppID, botInfo.OpenID)
+		fmt.Printf("🤖 Bot Identity Loaded: Name=%s, OpenID=%s\n", botInfo.Name, botInfo.OpenID)
 	} else {
 		fmt.Println("⚠️ Failed to load Bot Identity.")
 	}

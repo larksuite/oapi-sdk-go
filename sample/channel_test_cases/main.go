@@ -133,14 +133,13 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	// TC-001: Start Channel and verify connection / BotIdentity
 	fmt.Print("TC-001: Channel connect & BotIdentity... ")
 	t001 := time.Now()
-	if ch.GetBotIdentity(ctx) != nil {
-		// AppID check requires appID variable, which is in main.
-		// Since we just need to ensure it's fetched successfully:
+	botIdentity := ch.GetBotIdentity(ctx)
+	if botIdentity != nil && botIdentity.OpenID != "" && strings.HasPrefix(botIdentity.OpenID, "ou_") {
 		fmt.Printf("✅ Passed (%v)\n", time.Since(t001))
 		checkResult(nil)
 	} else {
-		fmt.Printf("❌ Failed (%v)\n", time.Since(t001))
-		checkResult(fmt.Errorf("bot identity missing or mismatch"))
+		fmt.Printf("❌ Failed (%v) [Invalid or empty OpenID]\n", time.Since(t001))
+		checkResult(fmt.Errorf("bot identity missing or invalid"))
 	}
 
 	// TC-002: Invalid credentials connect (We skip full execution here as we already connected with valid ones,
