@@ -67,8 +67,8 @@ func NewChannel(client *lark.Client, wsClient *larkws.Client) types.Channel {
 	}
 }
 
-// getBotIdentity fetches and caches the bot's identity from the server.
-func (ch *channelImpl) getBotIdentity(ctx context.Context) *types.BotIdentity {
+// GetBotIdentity fetches and caches the bot's identity from the server.
+func (ch *channelImpl) GetBotIdentity(ctx context.Context) *types.BotIdentity {
 	if ch.botIdentity != nil {
 		return ch.botIdentity
 	}
@@ -134,6 +134,10 @@ func (ch *channelImpl) GetPolicy() types.PolicyConfig {
 
 // Start starts the underlying WebSocket client and wires up lifecycle events.
 func (ch *channelImpl) Start(ctx context.Context) error {
+	if ch.wsClient == nil {
+		larkcore.NewEventLogger().Info(ctx, "[Channel] Start called but wsClient is nil, skipping WebSocket connection.")
+		return nil
+	}
 	ch.wsClient.SetOnError(func(err error) {
 		for _, h := range ch.onErrorHandlers {
 			h(err)
@@ -155,6 +159,14 @@ func (ch *channelImpl) Start(ctx context.Context) error {
 		}
 	})
 	return ch.wsClient.Start(ctx)
+}
+
+// Stop gracefully stops the underlying WebSocket client.
+func (ch *channelImpl) Stop(ctx context.Context) error {
+	if ch.wsClient != nil {
+		ch.wsClient.Close()
+	}
+	return nil
 }
 
 // OnMessage registers a handler for NormalizedMessage events.
@@ -181,7 +193,7 @@ func (ch *channelImpl) ensureMessageHandler() {
 			if len(ch.onMessageHandlers) > 0 {
 				normMsg := normalize.ParseMessage(event)
 				if normMsg != nil {
-					botInfo := ch.getBotIdentity(ctx)
+					botInfo := ch.GetBotIdentity(ctx)
 					if botInfo != nil {
 						// 1. Self-reply loop prevention
 						if normMsg.UserID == botInfo.OpenID {

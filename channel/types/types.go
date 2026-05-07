@@ -28,6 +28,12 @@ type Channel interface {
 	Stream(ctx context.Context, input *SendInput) (StreamController, error)
 	UpdatePolicy(cfg PolicyConfig)
 	GetPolicy() PolicyConfig
+
+	// Fetch Bot Identity
+	GetBotIdentity(ctx context.Context) *BotIdentity
+
+	// Lifecycle
+	Stop(ctx context.Context) error
 }
 
 // StreamController provides methods to control a streaming message.

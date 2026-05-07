@@ -140,6 +140,11 @@ func (c *Client) SetOnDisconnected(f func()) {
 	c.onDisconnected = f
 }
 
+func (c *Client) Close() {
+	c.autoReconnect = false
+	c.disconnect(context.Background())
+}
+
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 	cli := &Client{
 		appID:             appId,
