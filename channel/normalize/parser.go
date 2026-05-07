@@ -3,6 +3,7 @@ package normalize
 import (
 	"encoding/json"
 	"strconv"
+	"strings"
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
@@ -54,8 +55,13 @@ func ParseMessage(event *larkim.P2MessageReceiveV1) *types.NormalizedMessage {
 			if m.Id != nil {
 				if m.Id.UserId != nil {
 					mention.UserID = *m.Id.UserId
-				} else if m.Id.OpenId != nil {
-					mention.UserID = *m.Id.OpenId
+				}
+				if m.Id.OpenId != nil {
+					mention.OpenID = *m.Id.OpenId
+					// Backwards compatibility for UserID field if it's empty
+					if mention.UserID == "" {
+						mention.UserID = *m.Id.OpenId
+					}
 				}
 			}
 			if m.Name != nil {
@@ -63,7 +69,7 @@ func ParseMessage(event *larkim.P2MessageReceiveV1) *types.NormalizedMessage {
 			}
 			norm.Mentions = append(norm.Mentions, mention)
 
-			if m.Key != nil && *m.Key == "@all" {
+			if m.Key != nil && (*m.Key == "@_all" || *m.Key == "@all") {
 				norm.MentionAll = true
 			}
 		}
@@ -71,9 +77,13 @@ func ParseMessage(event *larkim.P2MessageReceiveV1) *types.NormalizedMessage {
 
 	// Extract content and resources
 	if msg.Content != nil && msg.MessageType != nil {
+		norm.RawContentType = *msg.MessageType
 		content, resources := ParseContent(*msg.MessageType, *msg.Content)
 		if content != "" {
 			norm.Content = content
+			if strings.Contains(content, "@_all") || strings.Contains(content, "@all") {
+				norm.MentionAll = true
+			}
 		}
 		if len(resources) > 0 {
 			norm.Resources = append(norm.Resources, resources...)

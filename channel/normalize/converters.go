@@ -3,13 +3,19 @@ package normalize
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	"strings"
 	"time"
+
+	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 )
 
 // ParseContent parses the message content based on the message type.
 func ParseContent(msgType string, content string) (string, []types.Resource) {
+	// For merge_forward, the content from API might be just a raw string like "Merged and Forwarded Message", not a JSON.
+	if msgType == "merge_forward" {
+		return content, nil
+	}
+
 	var contentMap map[string]interface{}
 	if err := json.Unmarshal([]byte(content), &contentMap); err != nil {
 		return "[unsupported message]", nil
@@ -380,6 +386,9 @@ func ParseContent(msgType string, content string) (string, []types.Resource) {
 		// Wait, the prompt says "interactive/card".
 		// We could just return the content as-is or "[interactive card]"
 		return "[interactive card]", nil
+
+	case "merge_forward":
+		return "Merged and Forwarded Message", nil
 
 	default:
 		return "[unsupported message]", nil

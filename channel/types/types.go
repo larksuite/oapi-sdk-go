@@ -13,6 +13,7 @@ type Channel interface {
 	OnComment(handler func(ctx context.Context, event *CommentEvent) error)
 	OnBotAdded(handler func(ctx context.Context, event *BotAddedEvent) error)
 	OnCardAction(handler func(ctx context.Context, msg *NormalizedMessage) error)
+	OnReject(handler func(ctx context.Context, event *RejectEvent) error)
 
 	// Media download
 	DownloadFile(ctx context.Context, fileKey string, mediaType string) ([]byte, error)
@@ -51,23 +52,25 @@ type StreamController interface {
 // NormalizedMessage represents a standardized message event extracted from various
 // underlying message types, making it easier to handle common use cases.
 type NormalizedMessage struct {
-	EventID      string      `json:"event_id"` // Unique event ID for deduplication
-	MessageID    string      `json:"message_id"`
-	ChatID       string      `json:"chat_id"`
-	ChatType     string      `json:"chat_type"` // "group" or "p2p"
-	UserID       string      `json:"user_id"`
-	Content      string      `json:"content"`  // Standard text content
-	Mentions     []Mention   `json:"mentions"` // Mentions in the message
-	MentionAll   bool        `json:"mention_all"`
-	MentionedBot bool        `json:"mentioned_bot"`
-	Resources    []Resource  `json:"resources"` // Images, files, etc.
-	CreateTimeMs int64       `json:"create_time_ms"`
-	RawEvent     interface{} `json:"raw_event"` // Original event data
+	EventID        string      `json:"event_id"` // Unique event ID for deduplication
+	MessageID      string      `json:"message_id"`
+	ChatID         string      `json:"chat_id"`
+	ChatType       string      `json:"chat_type"` // "group" or "p2p"
+	UserID         string      `json:"user_id"`
+	Content        string      `json:"content"`          // Standard text content
+	RawContentType string      `json:"raw_content_type"` // Original message type from Lark API
+	Mentions       []Mention   `json:"mentions"`         // Mentions in the message
+	MentionAll     bool        `json:"mention_all"`
+	MentionedBot   bool        `json:"mentioned_bot"`
+	Resources      []Resource  `json:"resources"` // Images, files, etc.
+	CreateTimeMs   int64       `json:"create_time_ms"`
+	RawEvent       interface{} `json:"raw_event"` // Original event data
 }
 
 // Mention represents a user mention in a message.
 type Mention struct {
-	UserID string `json:"user_id"`
+	UserID string `json:"user_id"` // UserID if available
+	OpenID string `json:"open_id"` // OpenID if available
 	Name   string `json:"name"`
 }
 

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -70,11 +71,116 @@ func main() {
 	)
 
 	// 4. 创建 Channel 抽象实例，将 client 和 wsClient 传入
-	ch := channel.NewChannel(client, wsClient)
+	// 为了使 TC-311 (@所有人) 能够通过安全策略，我们需要显式配置 RespondToMentionAll: true
+	// 为了使 TC-502 能够测试单聊拒绝，配置 DMMode: "disabled" (或者你可以在测试时随时修改它)
+	respondToMentionAll := true
+	ch := channel.NewChannel(client, wsClient, types.WithPolicyConfig(types.PolicyConfig{
+		RespondToMentionAll: &respondToMentionAll,
+		DMMode:              "disabled", // 测试 TC-502
+	}))
 
 	// 5. 注册消息处理逻辑
 	ch.OnMessage(func(ctx context.Context, msg *types.NormalizedMessage) error {
 		fmt.Printf("收到来自 %s 的消息: %s\n", msg.UserID, msg.Content)
+
+		// 打印原始事件，便于调试排查和比对结构
+		if rawJSON, err := json.Marshal(msg.RawEvent); err == nil {
+			fmt.Printf("📦 RawEvent: %s\n", string(rawJSON))
+		}
+
+		msgType := msg.RawContentType
+
+		// TC-301
+		if msgType == "text" {
+			if msg.Content != "" && msg.RawContentType == "text" {
+				fmt.Printf("✅ [TC-301 Passed] Received Text Message (Content: %s)\n", msg.Content)
+			} else {
+				fmt.Printf("❌ [TC-301 Failed] Content is empty or RawContentType mismatch\n")
+			}
+		}
+		// TC-302
+		if msgType == "image" {
+			if (strings.Contains(msg.Content, "![image]") || strings.Contains(msg.Content, "![image](")) && len(msg.Resources) > 0 && msg.Resources[0].Type == "image" && msg.RawContentType == "image" {
+				fmt.Printf("✅ [TC-302 Passed] Received Image Message (ImageKey: %s)\n", msg.Resources[0].FileKey)
+			} else {
+				fmt.Printf("❌ [TC-302 Failed] Missing image tag, resource, or RawContentType mismatch\n")
+			}
+		}
+		// TC-303
+		if msgType == "post" {
+			if msg.Content != "" && msg.RawContentType == "post" {
+				fmt.Printf("✅ [TC-303 Passed] Received Post Message (Converted Markdown: %s)\n", msg.Content)
+			} else {
+				fmt.Printf("❌ [TC-303 Failed] Post content is empty or RawContentType mismatch\n")
+			}
+		}
+		// TC-304
+		if msgType == "file" {
+			if strings.Contains(msg.Content, "<file") && len(msg.Resources) > 0 && msg.Resources[0].Type == "file" && msg.RawContentType == "file" {
+				fmt.Printf("✅ [TC-304 Passed] Received File Message (FileKey: %s)\n", msg.Resources[0].FileKey)
+			} else {
+				fmt.Printf("❌ [TC-304 Failed] Missing file tag, resource, or RawContentType mismatch\n")
+			}
+		}
+		// TC-305
+		if msgType == "audio" {
+			if strings.Contains(msg.Content, "<audio") && len(msg.Resources) > 0 && msg.Resources[0].Type == "audio" && msg.RawContentType == "audio" {
+				fmt.Printf("✅ [TC-305 Passed] Received Audio Message (AudioKey: %s)\n", msg.Resources[0].FileKey)
+			} else {
+				fmt.Printf("❌ [TC-305 Failed] Missing audio tag, resource, or RawContentType mismatch\n")
+			}
+		}
+		// TC-306
+		if msgType == "media" {
+			if strings.Contains(msg.Content, "<video") && len(msg.Resources) > 0 && msg.Resources[0].Type == "video" && msg.RawContentType == "media" {
+				fmt.Printf("✅ [TC-306 Passed] Received Video Message (VideoKey: %s)\n", msg.Resources[0].FileKey)
+			} else {
+				fmt.Printf("❌ [TC-306 Failed] Missing video tag, resource, or RawContentType mismatch\n")
+			}
+		}
+		// TC-307
+		if msgType == "share_chat" || msgType == "share_user" {
+			if strings.Contains(msg.Content, "<share_") && (msg.RawContentType == "share_chat" || msg.RawContentType == "share_user") {
+				fmt.Printf("✅ [TC-307 Passed] Received Share Card (Type: %s)\n", msgType)
+			} else {
+				fmt.Printf("❌ [TC-307 Failed] Missing share tag in content or RawContentType mismatch\n")
+			}
+		}
+		// TC-308
+		if msgType == "interactive" {
+			if msg.Content != "" && msg.RawContentType == "interactive" {
+				fmt.Printf("✅ [TC-308 Passed] Received Interactive Card\n")
+			} else {
+				fmt.Printf("❌ [TC-308 Failed] Card content extraction failed or RawContentType mismatch\n")
+			}
+		}
+		// TC-309
+		if msgType == "merge_forward" {
+			if msg.Content != "" && msg.RawContentType == "merge_forward" {
+				fmt.Printf("✅ [TC-309 Passed] Received Merge Forward Message\n")
+			} else {
+				fmt.Printf("❌ [TC-309 Failed] Missing merge forward content or RawContentType mismatch\n")
+			}
+		}
+
+		// TC-310
+		if msg.MentionedBot {
+			if len(msg.Mentions) > 0 {
+				fmt.Printf("✅ [TC-310 Passed] Bot was mentioned (Mentions count: %d)\n", len(msg.Mentions))
+			} else {
+				fmt.Printf("❌ [TC-310 Failed] MentionedBot is true but mentions array is empty\n")
+			}
+		}
+		// TC-311
+		if msg.MentionAll {
+			fmt.Printf("✅ [TC-311 Passed] Received @all message\n")
+		}
+		// TC-312
+		if msg.ChatType == "p2p" || msg.ChatType == "group" {
+			fmt.Printf("✅ [TC-312 Passed] Received message from %s chat\n", msg.ChatType)
+		} else if msg.ChatType != "" {
+			fmt.Printf("❌ [TC-312 Failed] Invalid ChatType %s\n", msg.ChatType)
+		}
 
 		// 尽可能贴近真实的指令解析方式：处理群聊中包含 @机器人的 前缀
 		// 飞书群聊里 @机器人 时，纯文本内容通常会带上 "@_user_1" 或者真实的机器名字
@@ -349,23 +455,58 @@ func main() {
 
 	// 6. 注册边缘事件与生命周期
 	ch.OnBotAdded(func(ctx context.Context, event *types.BotAddedEvent) error {
-		fmt.Printf("[事件] 机器人被添加到群聊: %s (ChatID: %s) by UserID: %s\n", event.ChatName, event.ChatID, event.UserID)
+		if event.ChatID != "" && event.ChatName != "" && event.UserID != "" {
+			fmt.Printf("✅ [TC-316 Passed] 机器人被添加到群聊: %s (ChatID: %s) by UserID: %s\n", event.ChatName, event.ChatID, event.UserID)
+		} else {
+			fmt.Printf("❌ [TC-316 Failed] Bot added event missing chat or operator info\n")
+		}
 		return nil
 	})
 
 	ch.OnReaction(func(ctx context.Context, event *types.ReactionEvent) error {
-		fmt.Printf("[事件] 收到表情回应: %s, action: %s, messageID: %s\n", event.ReactionType, event.Action, event.MessageID)
+		if event.ReactionType == "" || event.UserID == "" {
+			fmt.Printf("❌ [TC-314/315 Failed] Reaction missing type or user ID\n")
+			return nil
+		}
+		if event.Action == "add" || event.Action == "added" {
+			fmt.Printf("✅ [TC-314 Passed] 收到表情回应: %s, User: %s, messageID: %s\n", event.ReactionType, event.UserID, event.MessageID)
+		} else if event.Action == "remove" || event.Action == "removed" || event.Action == "deleted" {
+			fmt.Printf("✅ [TC-315 Passed] 表情回应被移除: %s, User: %s, messageID: %s\n", event.ReactionType, event.UserID, event.MessageID)
+		} else {
+			fmt.Printf("❌ [TC-314/315 Failed] Unknown reaction action %s\n", event.Action)
+		}
 		return nil
 	})
 
 	ch.OnComment(func(ctx context.Context, event *types.CommentEvent) error {
-		fmt.Printf("[事件] 收到文档评论/回复: parentID: %s, commentID: %s\n", event.ParentID, event.MessageID)
+		if event.Content != "" && event.ParentID != "" {
+			fmt.Printf("✅ [TC-317 Passed] 收到文档评论/回复: content: %s, parentID: %s\n", event.Content, event.ParentID)
+		} else {
+			fmt.Printf("❌ [TC-317 Failed] Comment event missing content or parent ID\n")
+		}
+		return nil
+	})
+
+	ch.OnReject(func(ctx context.Context, event *types.RejectEvent) error {
+		if event.MessageID != "" && event.ChatID != "" && event.SenderID != "" && event.Reason != "" {
+			if event.Reason == "dm_disabled" {
+				fmt.Printf("✅ [TC-502 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			} else {
+				fmt.Printf("✅ [TC-318 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			}
+		} else {
+			fmt.Printf("❌ [TC-318/502 Failed] Reject event missing essential fields\n")
+		}
 		return nil
 	})
 
 	// 7. 注册卡片交互处理逻辑 (可选)
 	ch.OnCardAction(func(ctx context.Context, msg *types.NormalizedMessage) error {
-		fmt.Printf("收到来自 %s 的卡片交互，Value: %v\n", msg.UserID, msg.Content)
+		if msg.Content != "" && msg.UserID != "" {
+			fmt.Printf("✅ [TC-313 Passed] 收到来自 %s 的卡片交互，Value: %v\n", msg.UserID, msg.Content)
+		} else {
+			fmt.Printf("❌ [TC-313 Failed] Card action missing value or operator\n")
+		}
 		return nil
 	})
 

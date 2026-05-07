@@ -32,3 +32,12 @@ type BotAddedEvent struct {
 	CreateTimeMs int64       `json:"create_time_ms"`
 	RawEvent     interface{} `json:"raw_event"`
 }
+
+// RejectEvent represents a message rejected by safety policies.
+type RejectEvent struct {
+	MessageID string `json:"message_id"`
+	ChatID    string `json:"chat_id"`
+	SenderID  string `json:"sender_id"`
+	Reason    string `json:"reason"`
+}
+

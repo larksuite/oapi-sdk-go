@@ -52,7 +52,7 @@ func (pg *PolicyGate) evaluateGroup(msg *types.NormalizedMessage) types.PolicyDe
 	if pg.cfg.RequireMention != nil {
 		requireMention = *pg.cfg.RequireMention
 	}
-	if requireMention && !msg.MentionedBot {
+	if requireMention && !msg.MentionedBot && !msg.MentionAll {
 		return types.PolicyDecision{Allowed: false, Reason: types.RejectReasonNoMention}
 	}
 

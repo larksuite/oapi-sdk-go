@@ -43,6 +43,7 @@ type channelImpl struct {
 	onReactionHandlers   []func(ctx context.Context, event *types.ReactionEvent) error
 	onBotAddedHandlers   []func(ctx context.Context, event *types.BotAddedEvent) error
 	onCardActionHandlers []func(ctx context.Context, msg *types.NormalizedMessage) error
+	onRejectHandlers     []func(ctx context.Context, event *types.RejectEvent) error
 
 	onErrorHandlers        []func(err error)
 	onReconnectingHandlers []func()
@@ -214,7 +215,7 @@ func (ch *channelImpl) ensureMessageHandler() {
 						}
 						// 2. MentionedBot check
 						for _, m := range normMsg.Mentions {
-							if m.UserID == botInfo.OpenID {
+							if m.OpenID == botInfo.OpenID || m.UserID == botInfo.OpenID || (botInfo.UserID != "" && m.UserID == botInfo.UserID) {
 								normMsg.MentionedBot = true
 								break
 							}
@@ -227,19 +228,34 @@ func (ch *channelImpl) ensureMessageHandler() {
 						// do nothing
 					} else {
 						decision := ch.policyGate.Evaluate(normMsg)
-						if decision.Allowed && ch.processLock.Acquire(normMsg.MessageID) {
-							dispatchHandler := func(ctx context.Context, batch *types.BatchedDispatch) error {
-								defer func() {
-									for _, id := range batch.SourceIDs {
-										ch.processLock.Release(id)
+						if decision.Allowed {
+							if ch.processLock.Acquire(normMsg.MessageID) {
+								dispatchHandler := func(ctx context.Context, batch *types.BatchedDispatch) error {
+									defer func() {
+										for _, id := range batch.SourceIDs {
+											ch.processLock.Release(id)
+										}
+									}()
+									for _, h := range ch.onMessageHandlers {
+										h(ctx, batch.Message)
 									}
-								}()
-								for _, h := range ch.onMessageHandlers {
-									h(ctx, batch.Message)
+									return nil
 								}
-								return nil
+								ch.pipelineManager.Push(ctx, normMsg.ChatID, normMsg, dispatchHandler)
 							}
-							ch.pipelineManager.Push(ctx, normMsg.ChatID, normMsg, dispatchHandler)
+						} else {
+							// Dispatched reject event
+							if len(ch.onRejectHandlers) > 0 {
+								rejectEvent := &types.RejectEvent{
+									MessageID: normMsg.MessageID,
+									ChatID:    normMsg.ChatID,
+									SenderID:  normMsg.UserID,
+									Reason:    string(decision.Reason),
+								}
+								for _, h := range ch.onRejectHandlers {
+									h(ctx, rejectEvent)
+								}
+							}
 						}
 					}
 				}
@@ -370,6 +386,7 @@ func (ch *channelImpl) OnReaction(handler func(ctx context.Context, event *types
 
 // OnCardAction registers a handler for CardActionTriggerEvent events.
 func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, msg *types.NormalizedMessage) error) {
+	ch.onCardActionHandlers = append(ch.onCardActionHandlers, handler)
 	if ch.wsClient != nil {
 		dispatcher := ch.wsClient.EventHandler()
 		if dispatcher != nil {
@@ -388,7 +405,12 @@ func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, msg *types
 
 					// Queue to serialize per chat
 					err := ch.pipelineManager.Run(ctx, normMsg.ChatID, func() error {
-						return handler(ctx, normMsg)
+						for _, h := range ch.onCardActionHandlers {
+							if err := h(ctx, normMsg); err != nil {
+								return err
+							}
+						}
+						return nil
 					})
 
 					if err != nil {
@@ -399,6 +421,11 @@ func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, msg *types
 			})
 		}
 	}
+}
+
+// OnReject registers a handler for messages rejected by safety policies.
+func (ch *channelImpl) OnReject(handler func(ctx context.Context, event *types.RejectEvent) error) {
+	ch.onRejectHandlers = append(ch.onRejectHandlers, handler)
 }
 
 // DownloadFile downloads media by key and type (e.g., "image", "file").
