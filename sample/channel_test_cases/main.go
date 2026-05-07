@@ -148,7 +148,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	fmt.Print("TC-002: Invalid credentials connect... ")
 	t002 := time.Now()
 	badClient := lark.NewClient("cli_bad", "bad_secret")
-	badWsClient := larkws.NewClient("cli_bad", "bad_secret")
+	badWsClient := larkws.NewClient("cli_bad", "bad_secret", larkws.WithAutoReconnect(false))
 	badCh := channel.NewChannel(badClient, badWsClient)
 	errBad := badCh.Start(context.Background())
 	if errBad != nil {

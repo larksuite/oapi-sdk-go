@@ -385,8 +385,25 @@ func main() {
 
 	// 9. 启动 WebSocket 客户端
 	fmt.Println("🚀 Starting Feishu Bot via Channel...")
-	err := ch.Start(context.Background())
-	if err != nil {
-		panic(err)
+	go func() {
+		err := ch.Start(context.Background())
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	// Give it a moment to connect and fetch bot identity
+	time.Sleep(2 * time.Second)
+	botInfo := ch.GetBotIdentity(context.Background())
+	if botInfo != nil {
+		displayAppID := botInfo.AppID
+		if displayAppID == "" {
+			displayAppID = appID
+		}
+		fmt.Printf("🤖 Bot Identity Loaded: AppID=%s, OpenID=%s\n", displayAppID, botInfo.OpenID)
+	} else {
+		fmt.Println("⚠️ Failed to load Bot Identity.")
 	}
+
+	select {}
 }

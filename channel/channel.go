@@ -84,19 +84,21 @@ func (ch *channelImpl) GetBotIdentity(ctx context.Context) *types.BotIdentity {
 	if err == nil && resp != nil && resp.StatusCode == 200 {
 		var result struct {
 			Code int `json:"code"`
-			Data struct {
-				Bot struct {
-					AppId  string `json:"app_id"`
-					OpenId string `json:"open_id"`
-				} `json:"bot"`
-			} `json:"data"`
+			Bot  struct {
+				OpenId  string `json:"open_id"`
+				AppName string `json:"app_name"`
+			} `json:"bot"`
 		}
 		if err := json.Unmarshal(resp.RawBody, &result); err == nil && result.Code == 0 {
 			ch.botIdentity = &types.BotIdentity{
-				OpenID: result.Data.Bot.OpenId,
-				AppID:  result.Data.Bot.AppId,
+				OpenID: result.Bot.OpenId,
+				AppID:  "", // /open-apis/bot/v3/info does not return app_id
 			}
+		} else {
+			larkcore.NewEventLogger().Error(ctx, fmt.Sprintf("[Channel] Failed to parse bot info. Err: %v, Code: %d, Body: %s", err, result.Code, string(resp.RawBody)))
 		}
+	} else {
+		larkcore.NewEventLogger().Error(ctx, fmt.Sprintf("[Channel] Failed to fetch bot info. Err: %v", err))
 	}
 
 	return ch.botIdentity
