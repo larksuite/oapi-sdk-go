@@ -24,8 +24,13 @@ func main() {
 	// 支持命令行参数
 	var appID string
 	var appSecret string
+	var dmMode string
+	var respondToMentionAll bool
+
 	flag.StringVar(&appID, "app_id", "", "Lark App ID (也可以通过 APP_ID 环境变量传入)")
 	flag.StringVar(&appSecret, "app_secret", "", "Lark App Secret (也可以通过 APP_SECRET 环境变量传入)")
+	flag.StringVar(&dmMode, "dm_mode", "open", "单聊策略模式: open(默认), disabled, allowlist")
+	flag.BoolVar(&respondToMentionAll, "respond_all", true, "群聊策略: 是否响应 @所有人 (默认 true)")
 	flag.Parse()
 
 	// 从环境变量获取配置作 fallback
@@ -71,17 +76,22 @@ func main() {
 	)
 
 	// 4. 创建 Channel 抽象实例，将 client 和 wsClient 传入
-	// 为了使 TC-311 (@所有人) 能够通过安全策略，我们需要显式配置 RespondToMentionAll: true
-	// 为了使 TC-502 能够测试单聊拒绝，配置 DMMode: "disabled" (或者你可以在测试时随时修改它)
-	respondToMentionAll := true
+	// 默认由外部启动参数控制安全策略：
+	// -respond_all=true (测试 TC-311 @所有人)
+	// -dm_mode=disabled (测试 TC-502 单聊拒绝)
 	ch := channel.NewChannel(client, wsClient, types.WithPolicyConfig(types.PolicyConfig{
 		RespondToMentionAll: &respondToMentionAll,
-		DMMode:              "disabled", // 测试 TC-502
+		DMMode:              dmMode,
 	}))
 
 	// 5. 注册消息处理逻辑
 	ch.OnMessage(func(ctx context.Context, msg *types.NormalizedMessage) error {
 		fmt.Printf("收到来自 %s 的消息: %s\n", msg.UserID, msg.Content)
+
+		// 将转换后的归一化消息 (NormalizedMessage) 输出为 JSON 字符串
+		if normJSON, err := json.MarshalIndent(msg, "", "  "); err == nil {
+			fmt.Printf("📝 NormalizedMessage: %s\n", string(normJSON))
+		}
 
 		// 打印原始事件，便于调试排查和比对结构
 		if rawJSON, err := json.Marshal(msg.RawEvent); err == nil {
@@ -441,9 +451,15 @@ func main() {
 
 		default:
 			// 测试普通 Send (回显消息)
+			normJSONStr := ""
+			if normJSON, err := json.MarshalIndent(msg, "", "  "); err == nil {
+				normJSONStr = string(normJSON)
+			}
+
 			_, err := ch.Send(ctx, &types.SendInput{
-				ReceiveID: msg.ChatID,
-				Text:      "Echo: " + msg.Content + "\n\n💡 支持指令:\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image\n/post\n/sharechat\n/shareuser",
+				ReceiveID:      msg.ChatID,
+				ReplyMessageID: msg.MessageID,
+				Text:           "Echo: \n" + normJSONStr + "\n\n💡 支持指令:\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image\n/post\n/sharechat\n/shareuser",
 			})
 			if err != nil {
 				return err
@@ -455,6 +471,9 @@ func main() {
 
 	// 6. 注册边缘事件与生命周期
 	ch.OnBotAdded(func(ctx context.Context, event *types.BotAddedEvent) error {
+		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
+			fmt.Printf("🤖 BotAddedEvent: %s\n", string(normJSON))
+		}
 		if event.ChatID != "" && event.ChatName != "" && event.UserID != "" {
 			fmt.Printf("✅ [TC-316 Passed] 机器人被添加到群聊: %s (ChatID: %s) by UserID: %s\n", event.ChatName, event.ChatID, event.UserID)
 		} else {
@@ -464,13 +483,16 @@ func main() {
 	})
 
 	ch.OnReaction(func(ctx context.Context, event *types.ReactionEvent) error {
+		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
+			fmt.Printf("👍 ReactionEvent: %s\n", string(normJSON))
+		}
 		if event.ReactionType == "" || event.UserID == "" {
 			fmt.Printf("❌ [TC-314/315 Failed] Reaction missing type or user ID\n")
 			return nil
 		}
-		if event.Action == "add" || event.Action == "added" {
+		if event.Action == "added" {
 			fmt.Printf("✅ [TC-314 Passed] 收到表情回应: %s, User: %s, messageID: %s\n", event.ReactionType, event.UserID, event.MessageID)
-		} else if event.Action == "remove" || event.Action == "removed" || event.Action == "deleted" {
+		} else if event.Action == "removed" {
 			fmt.Printf("✅ [TC-315 Passed] 表情回应被移除: %s, User: %s, messageID: %s\n", event.ReactionType, event.UserID, event.MessageID)
 		} else {
 			fmt.Printf("❌ [TC-314/315 Failed] Unknown reaction action %s\n", event.Action)
@@ -479,6 +501,9 @@ func main() {
 	})
 
 	ch.OnComment(func(ctx context.Context, event *types.CommentEvent) error {
+		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
+			fmt.Printf("💬 CommentEvent: %s\n", string(normJSON))
+		}
 		if event.Content != "" && event.ParentID != "" {
 			fmt.Printf("✅ [TC-317 Passed] 收到文档评论/回复: content: %s, parentID: %s\n", event.Content, event.ParentID)
 		} else {
@@ -488,6 +513,9 @@ func main() {
 	})
 
 	ch.OnReject(func(ctx context.Context, event *types.RejectEvent) error {
+		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
+			fmt.Printf("⛔️ RejectEvent: %s\n", string(normJSON))
+		}
 		if event.MessageID != "" && event.ChatID != "" && event.SenderID != "" && event.Reason != "" {
 			if event.Reason == "dm_disabled" {
 				fmt.Printf("✅ [TC-502 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
@@ -502,6 +530,9 @@ func main() {
 
 	// 7. 注册卡片交互处理逻辑 (可选)
 	ch.OnCardAction(func(ctx context.Context, msg *types.NormalizedMessage) error {
+		if normJSON, err := json.MarshalIndent(msg, "", "  "); err == nil {
+			fmt.Printf("🃏 CardActionEvent: %s\n", string(normJSON))
+		}
 		if msg.Content != "" && msg.UserID != "" {
 			fmt.Printf("✅ [TC-313 Passed] 收到来自 %s 的卡片交互，Value: %v\n", msg.UserID, msg.Content)
 		} else {

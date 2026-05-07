@@ -7,7 +7,6 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
-
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
@@ -126,7 +125,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "add"
+			norm.Action = "added"
 		}
 
 	case *larkim.P2MessageReactionDeletedV1:
@@ -152,7 +151,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "remove"
+			norm.Action = "removed"
 		}
 	default:
 		return nil
