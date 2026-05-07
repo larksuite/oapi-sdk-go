@@ -69,9 +69,11 @@ type NormalizedMessage struct {
 
 // Mention represents a user mention in a message.
 type Mention struct {
+	Key    string `json:"key"`
 	UserID string `json:"user_id"` // UserID if available
 	OpenID string `json:"open_id"` // OpenID if available
 	Name   string `json:"name"`
+	IsBot  bool   `json:"is_bot"`
 }
 
 // Resource represents an attached file, image, audio, video, sticker, etc.

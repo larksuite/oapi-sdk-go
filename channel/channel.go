@@ -214,10 +214,11 @@ func (ch *channelImpl) ensureMessageHandler() {
 							return nil
 						}
 						// 2. MentionedBot check
-						for _, m := range normMsg.Mentions {
+						for i := range normMsg.Mentions {
+							m := &normMsg.Mentions[i]
 							if m.OpenID == botInfo.OpenID || m.UserID == botInfo.OpenID || (botInfo.UserID != "" && m.UserID == botInfo.UserID) {
 								normMsg.MentionedBot = true
-								break
+								m.IsBot = true
 							}
 						}
 					}

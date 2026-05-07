@@ -52,6 +52,9 @@ func ParseMessage(event *larkim.P2MessageReceiveV1) *types.NormalizedMessage {
 	if msg.Mentions != nil {
 		for _, m := range msg.Mentions {
 			mention := types.Mention{}
+			if m.Key != nil {
+				mention.Key = *m.Key
+			}
 			if m.Id != nil {
 				if m.Id.UserId != nil {
 					mention.UserID = *m.Id.UserId
