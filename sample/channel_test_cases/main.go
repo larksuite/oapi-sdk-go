@@ -25,10 +25,12 @@ func main() {
 	var appSecret string
 	var receiveID string
 	var email string
+	var runCase string
 
 	flag.StringVar(&appID, "app_id", "", "Lark App ID")
 	flag.StringVar(&appSecret, "app_secret", "", "Lark App Secret")
 	flag.StringVar(&receiveID, "receive_id", "", "Receive ID (User OpenID or Chat ID)")
+	flag.StringVar(&runCase, "case", "", "Specific test case to run (e.g. TC-001)")
 	flag.StringVar(&email, "email", "", "User email (if receive_id is empty, it will fetch open_id by email)")
 	flag.Parse()
 
@@ -92,10 +94,16 @@ func main() {
 	wsClient := larkws.NewClient(appID, appSecret)
 	ch := channel.NewChannel(client, wsClient)
 
-	runTest(ctx, ch, client, receiveID)
+	runTest(ctx, ch, client, receiveID, runCase)
 }
 
-func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receiveID string) {
+func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receiveID string, runCase string) {
+	// Common test variables
+	pngData, _ := base64.StdEncoding.DecodeString("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=")
+	durationMs := 1000
+	bTrue := true
+	bFalse := false
+
 	fmt.Println("==================================================")
 	fmt.Println("🚀 Starting Automated Tests for TC-101 to TC-114")
 	fmt.Println("==================================================")
@@ -103,6 +111,16 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	var total, passed, failed int
 
 	// Helper to track results
+
+	skip := func(name string) bool {
+		if runCase == "" {
+			return false
+		}
+		if strings.HasPrefix(name, "TC-003") {
+			return false // TC-003 always runs
+		}
+		return !strings.HasPrefix(name, runCase)
+	}
 	checkResult := func(err error) {
 		total++
 		if err != nil {
@@ -131,313 +149,347 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	fmt.Println("==================================================")
 
 	// TC-001: Start Channel and verify connection / BotIdentity
-	fmt.Print("TC-001: Channel connect & BotIdentity... ")
-	t001 := time.Now()
-	botIdentity := ch.GetBotIdentity(ctx)
-	if botIdentity != nil && botIdentity.OpenID != "" && strings.HasPrefix(botIdentity.OpenID, "ou_") {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t001))
-		checkResult(nil)
-	} else {
-		fmt.Printf("❌ Failed (%v) [Invalid or empty OpenID]\n", time.Since(t001))
-		checkResult(fmt.Errorf("bot identity missing or invalid"))
-	}
-
-	// TC-002: Invalid credentials connect (We skip full execution here as we already connected with valid ones,
-	// but we can test constructing a bad channel and starting it).
-	fmt.Print("TC-002: Invalid credentials connect... ")
-	t002 := time.Now()
-	badClient := lark.NewClient("cli_bad", "bad_secret")
-	badWsClient := larkws.NewClient("cli_bad", "bad_secret", larkws.WithAutoReconnect(false))
-	badCh := channel.NewChannel(badClient, badWsClient)
-	errBad := badCh.Start(context.Background())
-	if errBad != nil {
-		fmt.Printf("✅ Passed (%v) [Error: %v]\n", time.Since(t002), errBad)
-		checkResult(nil)
-	} else {
-		fmt.Printf("❌ Failed (%v) [Expected error but connected]\n", time.Since(t002))
-		checkResult(fmt.Errorf("expected error on invalid credentials"))
-		badCh.Stop(context.Background())
-	}
-
-	// TC-004: Get Chat Info (using underlying client since it's a standard API call)
-	fmt.Print("TC-004: Get Chat Info... ")
-	t004 := time.Now()
-	if receiveID != "" {
-		chatReq := larkim.NewGetChatReqBuilder().ChatId(receiveID).Build() // assuming receiveID might be a chat_id, or we just try
-		_, errChat := client.Im.V1.Chat.Get(ctx, chatReq)
-		if errChat == nil || strings.Contains(errChat.Error(), "Invalid ChatId") || strings.Contains(errChat.Error(), "chat_id") || strings.Contains(errChat.Error(), "230001") {
-			// We just want to ensure the API call completes or returns a valid typed error, not a panic.
-			fmt.Printf("✅ Passed (%v)\n", time.Since(t004))
+	if !skip("TC-001") {
+		fmt.Print("TC-001: Channel connect & BotIdentity... ")
+		t001 := time.Now()
+		botIdentity := ch.GetBotIdentity(ctx)
+		if botIdentity != nil && botIdentity.OpenID != "" && strings.HasPrefix(botIdentity.OpenID, "ou_") {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t001))
 			checkResult(nil)
 		} else {
-			fmt.Printf("❌ Failed (%v) Error: %v\n", time.Since(t004), errChat)
-			checkResult(errChat)
+			fmt.Printf("❌ Failed (%v) [Invalid or empty OpenID]\n", time.Since(t001))
+			checkResult(fmt.Errorf("bot identity missing or invalid"))
 		}
-	} else {
-		fmt.Printf("⏭️ Skipped (no receiveID)\n")
-	}
 
+	}
+	// TC-002: Invalid credentials connect (We skip full execution here as we already connected with valid ones,
+	if !skip("TC-002") {
+		// but we can test constructing a bad channel and starting it).
+		fmt.Print("TC-002: Invalid credentials connect... ")
+		t002 := time.Now()
+		badClient := lark.NewClient("cli_bad", "bad_secret")
+		badWsClient := larkws.NewClient("cli_bad", "bad_secret", larkws.WithAutoReconnect(false))
+		badCh := channel.NewChannel(badClient, badWsClient)
+		errBad := badCh.Start(context.Background())
+		if errBad != nil {
+			fmt.Printf("✅ Passed (%v) [Error: %v]\n", time.Since(t002), errBad)
+			checkResult(nil)
+		} else {
+			fmt.Printf("❌ Failed (%v) [Expected error but connected]\n", time.Since(t002))
+			checkResult(fmt.Errorf("expected error on invalid credentials"))
+			badCh.Stop(context.Background())
+		}
+
+	}
+	// TC-004: Get Chat Info (using underlying client since it's a standard API call)
+	if !skip("TC-004") {
+		fmt.Print("TC-004: Get Chat Info... ")
+		t004 := time.Now()
+		if receiveID != "" {
+			chatReq := larkim.NewGetChatReqBuilder().ChatId(receiveID).Build() // assuming receiveID might be a chat_id, or we just try
+			_, errChat := client.Im.V1.Chat.Get(ctx, chatReq)
+			if errChat == nil || strings.Contains(errChat.Error(), "Invalid ChatId") || strings.Contains(errChat.Error(), "chat_id") || strings.Contains(errChat.Error(), "230001") {
+				// We just want to ensure the API call completes or returns a valid typed error, not a panic.
+				fmt.Printf("✅ Passed (%v)\n", time.Since(t004))
+				checkResult(nil)
+			} else {
+				fmt.Printf("❌ Failed (%v) Error: %v\n", time.Since(t004), errChat)
+				checkResult(errChat)
+			}
+		} else {
+			fmt.Printf("⏭️ Skipped (no receiveID)\n")
+		}
+
+	}
 	// TC-005: Get Chat History
-	fmt.Print("TC-005: Get Chat History... ")
-	t005 := time.Now()
-	histReq := larkim.NewListMessageReqBuilder().ContainerIdType("chat").ContainerId(receiveID).Build()
-	_, errHist := client.Im.V1.Message.List(ctx, histReq)
-	if errHist == nil || strings.Contains(errHist.Error(), "Invalid ChatId") || strings.Contains(errHist.Error(), "chat_id") || strings.Contains(errHist.Error(), "230001") {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t005))
-		checkResult(nil)
-	} else {
-		fmt.Printf("❌ Failed (%v) Error: %v\n", time.Since(t005), errHist)
-		checkResult(errHist)
+	if !skip("TC-005") {
+		fmt.Print("TC-005: Get Chat History... ")
+		t005 := time.Now()
+		histReq := larkim.NewListMessageReqBuilder().ContainerIdType("chat").ContainerId(receiveID).Build()
+		_, errHist := client.Im.V1.Message.List(ctx, histReq)
+		if errHist == nil || strings.Contains(errHist.Error(), "Invalid ChatId") || strings.Contains(errHist.Error(), "chat_id") || strings.Contains(errHist.Error(), "230001") {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t005))
+			checkResult(nil)
+		} else {
+			fmt.Printf("❌ Failed (%v) Error: %v\n", time.Since(t005), errHist)
+			checkResult(errHist)
+		}
+
 	}
-
 	// TC-006: Error event listener
-	fmt.Print("TC-006: Error event listener registration... ")
-	t006 := time.Now()
-	var errFired bool
-	ch.OnError(func(err error) {
-		errFired = true
-	})
-	_ = errFired
-	// Since WS errors are background events, we just verify registration succeeds without panicking
-	fmt.Printf("✅ Passed (%v)\n", time.Since(t006))
-	checkResult(nil)
+	if !skip("TC-006") {
+		fmt.Print("TC-006: Error event listener registration... ")
+		t006 := time.Now()
+		var errFired bool
+		ch.OnError(func(err error) {
+			errFired = true
+		})
+		_ = errFired
+		// Since WS errors are background events, we just verify registration succeeds without panicking
+		fmt.Printf("✅ Passed (%v)\n", time.Since(t006))
+		checkResult(nil)
 
+	}
 	// TC-007: Reconnect listener (We verify it can be registered, actual trigger is mocked or simulated in library)
-	fmt.Print("TC-007: Reconnect listener registration... ")
-	t007 := time.Now()
-	var reconnected bool
-	ch.OnReconnected(func() {
-		reconnected = true
-	})
-	_ = reconnected
-	// Force a disconnect on underlying ws to trigger reconnect loop
-	// Since we can't easily reach into wsClient internals without exposing it,
-	// we just consider the registration success as passing for blackbox testing.
-	fmt.Printf("✅ Passed (%v)\n", time.Since(t007))
-	checkResult(nil)
+	if !skip("TC-007") {
+		fmt.Print("TC-007: Reconnect listener registration... ")
+		t007 := time.Now()
+		var reconnected bool
+		ch.OnReconnected(func() {
+			reconnected = true
+		})
+		_ = reconnected
+		// Force a disconnect on underlying ws to trigger reconnect loop
+		// Since we can't easily reach into wsClient internals without exposing it,
+		// we just consider the registration success as passing for blackbox testing.
+		fmt.Printf("✅ Passed (%v)\n", time.Since(t007))
+		checkResult(nil)
 
+	}
 	// Note: TC-003 (Graceful Disconnect) will be executed at the very end of the script.
 
 	// TC-101: Text message
-	fmt.Print("TC-101: Sending Text message... ")
-	t01 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Text:      "Hello 测试",
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t01), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t01))
-	}
-	checkResult(err)
-
-	// TC-102: Markdown message
-	fmt.Print("TC-102: Sending Markdown message... ")
-	t02 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Markdown:  "# 标题\n**粗体**\n[链接](https://open.feishu.cn)",
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t02), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t02))
-	}
-	checkResult(err)
-
-	// TC-103: Long Markdown splitting
-	fmt.Print("TC-103: Sending Long Markdown message... ")
-	longMarkdown := "# Very Long Markdown\n\n"
-	for i := 0; i < 500; i++ {
-		longMarkdown += fmt.Sprintf("- Item %d with some text to make it longer.\n", i)
-	}
-	longMarkdown += "```go\nfunc main() {\n  fmt.Println(\"Hello\")\n}\n```\n"
-
-	t1 := time.Now()
-	res103, err103 := ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Markdown:  longMarkdown,
-		Title:     "TC-103 Long Markdown",
-	})
-	if err103 != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), err103)
-		err = err103
-	} else if len(res103.ChunkIDs) <= 1 {
-		errChunk := fmt.Errorf("chunkIds missing or empty, split failed")
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), errChunk)
-		err = errChunk
-	} else {
-		fmt.Printf("✅ Passed (%v) [Chunks: %d]\n", time.Since(t1), len(res103.ChunkIDs))
-		err = nil
-	}
-	checkResult(err)
-
-	// TC-104: Post message
-	fmt.Print("TC-104: Sending Post message... ")
-	postJSON := `{"zh_cn": {"title": "TC-104 富文本", "content": [[{"tag": "text", "text": "我是富文本内容"}]]}}`
-	t2 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Post:      postJSON,
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t2), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t2))
-	}
-	checkResult(err)
-
-	// TC-105: Image message
-	fmt.Print("TC-105: Sending Image message... ")
-	pngData, _ := base64.StdEncoding.DecodeString("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=")
-	t3 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindImage,
-			SourceBytes: pngData,
-			FileName:    "test.png",
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t3), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t3))
-	}
-	checkResult(err)
-
-	// TC-106: File message
-	fmt.Print("TC-106: Sending File message... ")
-	t4 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindFile,
-			SourceBytes: []byte("Hello, this is a test file."),
-			FileName:    "test.txt",
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t4), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t4))
-	}
-	checkResult(err)
-
-	// TC-107: Audio message
-	// To avoid strict duration parsing on empty/dummy files, we set Duration explicitly.
-	fmt.Print("TC-107: Sending Audio message... ")
-	t5 := time.Now()
-	durationMs := 1000
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindAudio,
-			SourceBytes: []byte("dummy audio content to bypass api strict check if possible"),
-			FileName:    "test.opus",
-			Duration:    &durationMs,
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t5), err)
-		if strings.Contains(err.Error(), "status code 400") || strings.Contains(err.Error(), "Invalid media type") {
-			fmt.Println("   (Note: Feishu may strictly validate OPUS format content on backend)")
-		}
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t5))
-	}
-	checkResult(err)
-
-	// TC-108: Video message
-	fmt.Print("TC-108: Sending Video message... ")
-	t6 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindVideo,
-			SourceBytes: []byte("dummy video content to bypass api strict check if possible"),
-			FileName:    "test.mp4",
-			Duration:    &durationMs,
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t6), err)
-		if strings.Contains(err.Error(), "status code 400") || strings.Contains(err.Error(), "Invalid media type") {
-			fmt.Println("   (Note: Feishu may strictly validate MP4 format content on backend)")
-		}
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t6))
-	}
-	checkResult(err)
-
-	// TC-109: Share Chat message
-	fmt.Print("TC-109: Sending Share Chat message... ")
-	t09 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:   receiveID,
-		ShareChatID: "oc_dummy_chat_id", // 模拟群卡片，不校验群有效性时可能成功，校验则失败，但都说明接口已打通
-	})
-	if err != nil {
-		if strings.Contains(err.Error(), "invalid chat_id") || strings.Contains(err.Error(), "230001") {
-			// This is an expected backend validation error since we are using a dummy chat_id,
-			// which proves the payload was correctly assembled and transmitted.
-			fmt.Printf("✅ Passed (%v) [Note: Backend rejected dummy chat_id as expected]\n", time.Since(t09))
-			err = nil // Clear error to mark as passed in stats
+	if !skip("TC-101") {
+		fmt.Print("TC-101: Sending Text message... ")
+		t01 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Text:      "Hello 测试",
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t01), err)
 		} else {
-			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t09), err)
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t01))
 		}
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t09))
-	}
-	checkResult(err)
+		checkResult(err)
 
+	}
+	// TC-102: Markdown message
+	if !skip("TC-102") {
+		fmt.Print("TC-102: Sending Markdown message... ")
+		t02 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Markdown:  "# 标题\n**粗体**\n[链接](https://open.feishu.cn)",
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t02), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t02))
+		}
+		checkResult(err)
+
+	}
+	// TC-103: Long Markdown splitting
+	if !skip("TC-103") {
+		fmt.Print("TC-103: Sending Long Markdown message... ")
+		longMarkdown := "# Very Long Markdown\n\n"
+		for i := 0; i < 500; i++ {
+			longMarkdown += fmt.Sprintf("- Item %d with some text to make it longer.\n", i)
+		}
+		longMarkdown += "```go\nfunc main() {\n  fmt.Println(\"Hello\")\n}\n```\n"
+
+		t1 := time.Now()
+		res103, err103 := ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Markdown:  longMarkdown,
+			Title:     "TC-103 Long Markdown",
+		})
+		if err103 != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), err103)
+			err = err103
+		} else if len(res103.ChunkIDs) <= 1 {
+			errChunk := fmt.Errorf("chunkIds missing or empty, split failed")
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), errChunk)
+			err = errChunk
+		} else {
+			fmt.Printf("✅ Passed (%v) [Chunks: %d]\n", time.Since(t1), len(res103.ChunkIDs))
+			err = nil
+		}
+		checkResult(err)
+
+	}
+	// TC-104: Post message
+	if !skip("TC-104") {
+		fmt.Print("TC-104: Sending Post message... ")
+		postJSON := `{"zh_cn": {"title": "TC-104 富文本", "content": [[{"tag": "text", "text": "我是富文本内容"}]]}}`
+		t2 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Post:      postJSON,
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t2), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t2))
+		}
+		checkResult(err)
+
+	}
+	// TC-105: Image message
+	if !skip("TC-105") {
+		fmt.Print("TC-105: Sending Image message... ")
+		t3 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindImage,
+				SourceBytes: pngData,
+				FileName:    "test.png",
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t3), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t3))
+		}
+		checkResult(err)
+
+	}
+	// TC-106: File message
+	if !skip("TC-106") {
+		fmt.Print("TC-106: Sending File message... ")
+		t4 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindFile,
+				SourceBytes: []byte("Hello, this is a test file."),
+				FileName:    "test.txt",
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t4), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t4))
+		}
+		checkResult(err)
+
+	}
+	// TC-107: Audio message
+	if !skip("TC-107") {
+		// To avoid strict duration parsing on empty/dummy files, we set Duration explicitly.
+		fmt.Print("TC-107: Sending Audio message... ")
+		t5 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindAudio,
+				SourceBytes: []byte("dummy audio content to bypass api strict check if possible"),
+				FileName:    "test.opus",
+				Duration:    &durationMs,
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t5), err)
+			if strings.Contains(err.Error(), "status code 400") || strings.Contains(err.Error(), "Invalid media type") {
+				fmt.Println("   (Note: Feishu may strictly validate OPUS format content on backend)")
+			}
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t5))
+		}
+		checkResult(err)
+
+	}
+	// TC-108: Video message
+	if !skip("TC-108") {
+		fmt.Print("TC-108: Sending Video message... ")
+		t6 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindVideo,
+				SourceBytes: []byte("dummy video content to bypass api strict check if possible"),
+				FileName:    "test.mp4",
+				Duration:    &durationMs,
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t6), err)
+			if strings.Contains(err.Error(), "status code 400") || strings.Contains(err.Error(), "Invalid media type") {
+				fmt.Println("   (Note: Feishu may strictly validate MP4 format content on backend)")
+			}
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t6))
+		}
+		checkResult(err)
+
+	}
+	// TC-109: Share Chat message
+	if !skip("TC-109") {
+		fmt.Print("TC-109: Sending Share Chat message... ")
+		t09 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:   receiveID,
+			ShareChatID: "oc_dummy_chat_id", // 模拟群卡片，不校验群有效性时可能成功，校验则失败，但都说明接口已打通
+		})
+		if err != nil {
+			if strings.Contains(err.Error(), "invalid chat_id") || strings.Contains(err.Error(), "230001") {
+				// This is an expected backend validation error since we are using a dummy chat_id,
+				// which proves the payload was correctly assembled and transmitted.
+				fmt.Printf("✅ Passed (%v) [Note: Backend rejected dummy chat_id as expected]\n", time.Since(t09))
+				err = nil // Clear error to mark as passed in stats
+			} else {
+				fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t09), err)
+			}
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t09))
+		}
+		checkResult(err)
+
+	}
 	// TC-110: Share User message
-	fmt.Print("TC-110: Sending Share User message... ")
-	t10 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:   receiveID,
-		ShareUserID: receiveID,
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t10), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t10))
-	}
-	checkResult(err)
+	if !skip("TC-110") {
+		fmt.Print("TC-110: Sending Share User message... ")
+		t10 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:   receiveID,
+			ShareUserID: receiveID,
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t10), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t10))
+		}
+		checkResult(err)
 
+	}
 	// TC-111: Card message
-	fmt.Print("TC-111: Sending Card message... ")
-	t11 := time.Now()
-	cardJSON := `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "这是一张测试卡片","tag": "lark_md"}}]}`
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Card:      cardJSON,
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t11), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t11))
-	}
-	checkResult(err)
+	if !skip("TC-111") {
+		fmt.Print("TC-111: Sending Card message... ")
+		t11 := time.Now()
+		cardJSON := `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "这是一张测试卡片","tag": "lark_md"}}]}`
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Card:      cardJSON,
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t11), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t11))
+		}
+		checkResult(err)
 
+	}
 	// TC-113: Mention User message
-	fmt.Print("TC-113: Sending Mention message... ")
-	t13 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Text:      "请查看这条@消息",
-		Mentions: []types.Mention{
-			{UserID: receiveID, Name: "Tester"},
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t13), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t13))
-	}
-	checkResult(err)
+	if !skip("TC-113") {
+		fmt.Print("TC-113: Sending Mention message... ")
+		t13 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Text:      "请查看这条@消息",
+			Mentions: []types.Mention{
+				{UserID: receiveID, Name: "Tester"},
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t13), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t13))
+		}
+		checkResult(err)
 
+	}
 	fmt.Println("==================================================")
 	fmt.Println("🚀 Starting Automated Tests for TC-201 to TC-208 (Reply & Update)")
 	fmt.Println("==================================================")
@@ -456,229 +508,251 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	fmt.Printf("✅ Done (MessageID: %s)\n", replyMsgID)
 
 	// TC-201: Reply with Text
-	fmt.Print("TC-201: Replying with Text... ")
-	t201 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:      receiveID,
-		ReplyMessageID: replyMsgID,
-		Text:           "This is a text reply",
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t201), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t201))
-	}
-	checkResult(err)
-
-	// TC-202: Reply with Markdown
-	fmt.Print("TC-202: Replying with Markdown... ")
-	t202 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:      receiveID,
-		ReplyMessageID: replyMsgID,
-		Markdown:       "This is a **Markdown** reply",
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t202), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t202))
-	}
-	checkResult(err)
-
-	// TC-203: Reply with Image
-	fmt.Print("TC-203: Replying with Image... ")
-	t203 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:      receiveID,
-		ReplyMessageID: replyMsgID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindImage,
-			SourceBytes: pngData,
-			FileName:    "reply_test.png",
-		},
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t203), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t203))
-	}
-	checkResult(err)
-
-	// TC-204: Reply in Thread (same as reply)
-	fmt.Print("TC-204: Replying in Thread... ")
-	t204 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID:      receiveID,
-		ReplyMessageID: replyMsgID,
-		Text:           "Thread reply",
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t204), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t204))
-	}
-	checkResult(err)
-
-	// TC-205: Update Card message
-	fmt.Print("TC-205: Updating Card message... ")
-	t205 := time.Now()
-	// Test Update Card via Stream API
-	stream, errStream := ch.Stream(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Card:      `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "原始卡片","tag": "lark_md"}}]}`,
-	})
-	if errStream == nil {
-		err = stream.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "更新后的卡片","tag": "lark_md"}}]}`)
-		stream.Close(ctx)
-	} else {
-		err = errStream
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t205), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t205))
-	}
-	checkResult(err)
-
-	// TC-206: Update message text (Markdown Stream)
-	fmt.Print("TC-206: Updating message text... ")
-	t206 := time.Now()
-	mdStream, errStream := ch.Stream(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Markdown:  "原始消息文本",
-	})
-	if errStream == nil {
-		err = mdStream.Append(ctx, "\n追加的编辑文本")
-		mdStream.Close(ctx)
-	} else {
-		err = errStream
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t206), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t206))
-	}
-	checkResult(err)
-
-	// TC-207: Recall message
-	fmt.Print("TC-207: Recalling message... ")
-	t207 := time.Now()
-	recallRes, err := ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Text:      "This message will be recalled",
-	})
-	if err == nil {
-		// Actually there is no Recall method exposed in the Channel interface yet,
-		// but since the Node SDK might have it, or it's just a raw API call, let's call it via raw SDK for now
-		// or simulate it if it's not strictly part of the Channel port.
-		// For the sake of the test matrix, we use raw SDK client.
-		_, err = client.Im.V1.Message.Delete(ctx, larkim.NewDeleteMessageReqBuilder().
-			MessageId(recallRes.MessageID).
-			Build())
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t207), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t207))
-	}
-	checkResult(err)
-
-	// TC-208: Add Reaction
-	fmt.Print("TC-208: Adding reaction... ")
-	t208 := time.Now()
-	if baselineRes != nil && baselineRes.MessageID != "" {
-		_, err = client.Im.V1.MessageReaction.Create(ctx, larkim.NewCreateMessageReactionReqBuilder().
-			MessageId(baselineRes.MessageID).
-			Body(larkim.NewCreateMessageReactionReqBodyBuilder().
-				ReactionType(larkim.NewEmojiBuilder().EmojiType("THUMBSUP").Build()).
-				Build()).
-			Build())
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t208), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t208))
-	}
-	checkResult(err)
-
-	// TC-401: Markdown 流式发送
-	fmt.Print("TC-401: Streaming Markdown message... ")
-	t401 := time.Now()
-	mdStream401, errStream401 := ch.Stream(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Markdown:  "Streaming started...\n",
-	})
-	if errStream401 == nil {
-		// Simulate streaming text chunks
-		_ = mdStream401.Append(ctx, "Chunk 1: Hello ")
-		time.Sleep(200 * time.Millisecond)
-		_ = mdStream401.Append(ctx, "Chunk 2: World ")
-		time.Sleep(200 * time.Millisecond)
-		_ = mdStream401.Append(ctx, "Chunk 3: !!!")
-		err = mdStream401.Close(ctx)
-	} else {
-		err = errStream401
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t401), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t401))
-	}
-	checkResult(err)
-
-	// TC-402: 卡片流式更新
-	fmt.Print("TC-402: Streaming Card updates... ")
-	t402 := time.Now()
-	cardStream402, errStream402 := ch.Stream(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Card:      `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - 初始状态","tag": "lark_md"}}]}`,
-	})
-	if errStream402 == nil {
-		// Simulate streaming card updates
-		time.Sleep(200 * time.Millisecond)
-		_ = cardStream402.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - 正在处理中... 50%","tag": "lark_md"}}]}`)
-		time.Sleep(200 * time.Millisecond)
-		_ = cardStream402.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - ✅ 处理完成","tag": "lark_md"}}]}`)
-		err = cardStream402.Close(ctx)
-	} else {
-		err = errStream402
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t402), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t402))
-	}
-	checkResult(err)
-
-	// TC-403: 流式发送异常处理
-	fmt.Print("TC-403: Streaming error handling... ")
-	t403 := time.Now()
-	mdStream403, errStream403 := ch.Stream(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Markdown:  "Testing stream error handling...\n",
-	})
-	if errStream403 == nil {
-		_ = mdStream403.Append(ctx, "Valid chunk. ")
-
-		// In Go, if an error happens in user's business logic, they would append an error note manually
-		// Let's simulate a business logic failure appending an error note
-		simulatedBusinessErr := fmt.Errorf("simulated processing error")
-
-		if simulatedBusinessErr != nil {
-			_ = mdStream403.Append(ctx, "\n\n⚠️ 生成中断: "+simulatedBusinessErr.Error())
+	if !skip("TC-201") {
+		fmt.Print("TC-201: Replying with Text... ")
+		t201 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:      receiveID,
+			ReplyMessageID: replyMsgID,
+			Text:           "This is a text reply",
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t201), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t201))
 		}
-		err = mdStream403.Close(ctx)
-	} else {
-		err = errStream403
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t403), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t403))
-	}
-	checkResult(err)
+		checkResult(err)
 
-	// TC-501 to TC-508: Safety Policies Testing
+	}
+	// TC-202: Reply with Markdown
+	if !skip("TC-202") {
+		fmt.Print("TC-202: Replying with Markdown... ")
+		t202 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:      receiveID,
+			ReplyMessageID: replyMsgID,
+			Markdown:       "This is a **Markdown** reply",
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t202), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t202))
+		}
+		checkResult(err)
+
+	}
+	// TC-203: Reply with Image
+	if !skip("TC-203") {
+		fmt.Print("TC-203: Replying with Image... ")
+		t203 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:      receiveID,
+			ReplyMessageID: replyMsgID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindImage,
+				SourceBytes: pngData,
+				FileName:    "reply_test.png",
+			},
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t203), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t203))
+		}
+		checkResult(err)
+
+	}
+	// TC-204: Reply in Thread (same as reply)
+	if !skip("TC-204") {
+		fmt.Print("TC-204: Replying in Thread... ")
+		t204 := time.Now()
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID:      receiveID,
+			ReplyMessageID: replyMsgID,
+			Text:           "Thread reply",
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t204), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t204))
+		}
+		checkResult(err)
+
+	}
+	// TC-205: Update Card message
+	if !skip("TC-205") {
+		fmt.Print("TC-205: Updating Card message... ")
+		t205 := time.Now()
+		// Test Update Card via Stream API
+		stream, errStream := ch.Stream(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Card:      `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "原始卡片","tag": "lark_md"}}]}`,
+		})
+		if errStream == nil {
+			err = stream.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "更新后的卡片","tag": "lark_md"}}]}`)
+			stream.Close(ctx)
+		} else {
+			err = errStream
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t205), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t205))
+		}
+		checkResult(err)
+
+	}
+	// TC-206: Update message text (Markdown Stream)
+	if !skip("TC-206") {
+		fmt.Print("TC-206: Updating message text... ")
+		t206 := time.Now()
+		mdStream, errStream := ch.Stream(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Markdown:  "原始消息文本",
+		})
+		if errStream == nil {
+			err = mdStream.Append(ctx, "\n追加的编辑文本")
+			mdStream.Close(ctx)
+		} else {
+			err = errStream
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t206), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t206))
+		}
+		checkResult(err)
+
+	}
+	// TC-207: Recall message
+	if !skip("TC-207") {
+		fmt.Print("TC-207: Recalling message... ")
+		t207 := time.Now()
+		recallRes, err := ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Text:      "This message will be recalled",
+		})
+		if err == nil {
+			// Actually there is no Recall method exposed in the Channel interface yet,
+			// but since the Node SDK might have it, or it's just a raw API call, let's call it via raw SDK for now
+			// or simulate it if it's not strictly part of the Channel port.
+			// For the sake of the test matrix, we use raw SDK client.
+			_, err = client.Im.V1.Message.Delete(ctx, larkim.NewDeleteMessageReqBuilder().
+				MessageId(recallRes.MessageID).
+				Build())
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t207), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t207))
+		}
+		checkResult(err)
+
+	}
+	// TC-208: Add Reaction
+	if !skip("TC-208") {
+		fmt.Print("TC-208: Adding reaction... ")
+		t208 := time.Now()
+		if baselineRes != nil && baselineRes.MessageID != "" {
+			_, err = client.Im.V1.MessageReaction.Create(ctx, larkim.NewCreateMessageReactionReqBuilder().
+				MessageId(baselineRes.MessageID).
+				Body(larkim.NewCreateMessageReactionReqBodyBuilder().
+					ReactionType(larkim.NewEmojiBuilder().EmojiType("THUMBSUP").Build()).
+					Build()).
+				Build())
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t208), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t208))
+		}
+		checkResult(err)
+
+	}
+	// TC-401: Markdown 流式发送
+	if !skip("TC-401") {
+		fmt.Print("TC-401: Streaming Markdown message... ")
+		t401 := time.Now()
+		mdStream401, errStream401 := ch.Stream(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Markdown:  "Streaming started...\n",
+		})
+		if errStream401 == nil {
+			// Simulate streaming text chunks
+			_ = mdStream401.Append(ctx, "Chunk 1: Hello ")
+			time.Sleep(200 * time.Millisecond)
+			_ = mdStream401.Append(ctx, "Chunk 2: World ")
+			time.Sleep(200 * time.Millisecond)
+			_ = mdStream401.Append(ctx, "Chunk 3: !!!")
+			err = mdStream401.Close(ctx)
+		} else {
+			err = errStream401
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t401), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t401))
+		}
+		checkResult(err)
+
+	}
+	// TC-402: 卡片流式更新
+	if !skip("TC-402") {
+		fmt.Print("TC-402: Streaming Card updates... ")
+		t402 := time.Now()
+		cardStream402, errStream402 := ch.Stream(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Card:      `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - 初始状态","tag": "lark_md"}}]}`,
+		})
+		if errStream402 == nil {
+			// Simulate streaming card updates
+			time.Sleep(200 * time.Millisecond)
+			_ = cardStream402.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - 正在处理中... 50%","tag": "lark_md"}}]}`)
+			time.Sleep(200 * time.Millisecond)
+			_ = cardStream402.UpdateCard(ctx, `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "流式卡片 - ✅ 处理完成","tag": "lark_md"}}]}`)
+			err = cardStream402.Close(ctx)
+		} else {
+			err = errStream402
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t402), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t402))
+		}
+		checkResult(err)
+
+	}
+	// TC-403: 流式发送异常处理
+	if !skip("TC-403") {
+		fmt.Print("TC-403: Streaming error handling... ")
+		t403 := time.Now()
+		mdStream403, errStream403 := ch.Stream(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Markdown:  "Testing stream error handling...\n",
+		})
+		if errStream403 == nil {
+			_ = mdStream403.Append(ctx, "Valid chunk. ")
+
+			// In Go, if an error happens in user's business logic, they would append an error note manually
+			// Let's simulate a business logic failure appending an error note
+			simulatedBusinessErr := fmt.Errorf("simulated processing error")
+
+			if simulatedBusinessErr != nil {
+				_ = mdStream403.Append(ctx, "\n\n⚠️ 生成中断: "+simulatedBusinessErr.Error())
+			}
+			err = mdStream403.Close(ctx)
+		} else {
+			err = errStream403
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t403), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t403))
+		}
+		checkResult(err)
+
+		// TC-501 to TC-508: Safety Policies Testing
+	}
 	fmt.Println("==================================================")
 	fmt.Println("🚀 Starting Automated Tests for TC-501 to TC-508 (Safety Policies)")
 	fmt.Println("==================================================")
@@ -715,199 +789,242 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	originalPolicy := ch.GetPolicy()
 
 	// TC-501: Group Allowlist
-	ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{"oc_allowed_group"}})
-	testPolicyGate("TC-501 (Allowed)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_allowed_group", MentionedBot: true}, "")
-	testPolicyGate("TC-501 (Blocked)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_blocked_group", MentionedBot: true}, "group_not_allowed")
+	if !skip("TC-501") {
+		ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{"oc_allowed_group"}})
+	}
+	if !skip("TC-501") {
+		testPolicyGate("TC-501 (Allowed)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_allowed_group", MentionedBot: true}, "")
+	}
+	if !skip("TC-501") {
+		testPolicyGate("TC-501 (Blocked)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_blocked_group", MentionedBot: true}, "group_not_allowed")
+	}
 
 	// TC-502: DM Mode Disabled
-	ch.UpdatePolicy(types.PolicyConfig{DMMode: "disabled"})
-	testPolicyGate("TC-502 (DM Disabled)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "dm_disabled")
+	if !skip("TC-502") {
+		ch.UpdatePolicy(types.PolicyConfig{DMMode: "disabled"})
+	}
+	if !skip("TC-502") {
+		testPolicyGate("TC-502 (DM Disabled)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "dm_disabled")
+	}
 
 	// TC-503: DM Mode Allowlist
-	ch.UpdatePolicy(types.PolicyConfig{DMMode: "allowlist", DMAllowlist: []string{receiveID}})
-	testPolicyGate("TC-503 (DM Allowed)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "")
-	testPolicyGate("TC-503 (DM Blocked)", &types.NormalizedMessage{ChatType: "p2p", UserID: "ou_blocked_user"}, "sender_not_allowed")
+	if !skip("TC-503") {
+		ch.UpdatePolicy(types.PolicyConfig{DMMode: "allowlist", DMAllowlist: []string{receiveID}})
+	}
+	if !skip("TC-503") {
+		testPolicyGate("TC-503 (DM Allowed)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "")
+	}
+	if !skip("TC-503") {
+		testPolicyGate("TC-503 (DM Blocked)", &types.NormalizedMessage{ChatType: "p2p", UserID: "ou_blocked_user"}, "sender_not_allowed")
+	}
 
 	// TC-504: Require Mention in Group
-	var bTrue = true
-	ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{}, RequireMention: &bTrue})
-	testPolicyGate("TC-504 (No Mention)", &types.NormalizedMessage{ChatType: "group", MentionedBot: false}, "no_mention")
-	testPolicyGate("TC-504 (Mentioned)", &types.NormalizedMessage{ChatType: "group", MentionedBot: true}, "")
+	if !skip("TC-504") {
+		ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{}, RequireMention: &bTrue})
+	}
+	if !skip("TC-504") {
+		testPolicyGate("TC-504 (No Mention)", &types.NormalizedMessage{ChatType: "group", MentionedBot: false}, "no_mention")
+	}
+	if !skip("TC-504") {
+		testPolicyGate("TC-504 (Mentioned)", &types.NormalizedMessage{ChatType: "group", MentionedBot: true}, "")
+	}
 
 	// TC-505: Respond to Mention All
-	var bFalse = false
-	ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bFalse, RequireMention: &bFalse})
-	testPolicyGate("TC-505 (Mention All Blocked)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "mention_all_blocked")
+	if !skip("TC-505") {
+		var bFalse = false
+		ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bFalse, RequireMention: &bFalse})
+	}
+	if !skip("TC-505") {
+		testPolicyGate("TC-505 (Mention All Blocked)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "mention_all_blocked")
+	}
 
 	ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bTrue, RequireMention: &bFalse})
-	testPolicyGate("TC-505 (Mention All Allowed)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "")
+	if !skip("TC-505") {
+		testPolicyGate("TC-505 (Mention All Allowed)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "")
+	}
 
 	// TC-508: Update Policy
-	// We've already been implicitly testing this via ch.UpdatePolicy() calls above,
-	// but let's verify GetPolicy returns the updated one.
-	fmt.Print("TC-508: Dynamic policy update... ")
-	t508 := time.Now()
-	newPol := ch.GetPolicy()
-	if newPol.RespondToMentionAll != nil && *newPol.RespondToMentionAll == true {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t508))
-		checkResult(nil)
-	} else {
-		fmt.Printf("❌ Failed (%v)\n", time.Since(t508))
-		checkResult(fmt.Errorf("policy did not update"))
+	if !skip("TC-508") {
+		// We've already been implicitly testing this via ch.UpdatePolicy() calls above,
+		// but let's verify GetPolicy returns the updated one.
+		fmt.Print("TC-508: Dynamic policy update... ")
+		t508 := time.Now()
+		newPol := ch.GetPolicy()
+		if newPol.RespondToMentionAll != nil && *newPol.RespondToMentionAll == true {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t508))
+			checkResult(nil)
+		} else {
+			fmt.Printf("❌ Failed (%v)\n", time.Since(t508))
+			checkResult(fmt.Errorf("policy did not update"))
+		}
+
+		// Restore original policy
+		ch.UpdatePolicy(originalPolicy)
+
 	}
-
-	// Restore original policy
-	ch.UpdatePolicy(originalPolicy)
-
 	// TC-601 & TC-603: Upload and Download Image
-	fmt.Print("TC-601 & TC-603: Upload and Download Image... ")
-	t601 := time.Now()
-	imgRes, err := ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindImage,
-			SourceBytes: pngData,
-			FileName:    "test_download.png",
-		},
-	})
-	if err == nil && imgRes.MessageID != "" {
-		// Attempt to download the image we just sent by its key.
-		// Note: The Message API response doesn't directly expose the ImageKey in SendResult currently.
-		// For the sake of the test, we simulate the internal download method by directly calling it if we had the key.
-		// Since we don't have the key easily accessible from SendResult, we'll just test the upload part here for 601,
-		// and mock the download call for 603 to ensure the SDK method compiles and runs.
-		_, _ = ch.DownloadFile(ctx, "mock_image_key", "image")
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t601), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t601))
-	}
-	checkResult(err)
-
-	// TC-602 & TC-604: Upload and Download File
-	fmt.Print("TC-602 & TC-604: Upload and Download File... ")
-	t602 := time.Now()
-	fileRes, err := ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Media: &types.UploadInput{
-			Kind:        types.MediaKindFile,
-			SourceBytes: []byte("Hello download test"),
-			FileName:    "test_download.txt",
-		},
-	})
-	if err == nil && fileRes.MessageID != "" {
-		_, _ = ch.DownloadFile(ctx, "mock_file_key", "file")
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t602), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t602))
-	}
-	checkResult(err)
-
-	// TC-605: SSRF Guard Test
-	fmt.Print("TC-605: SSRF Guard Test... ")
-	t605 := time.Now()
-	// Simulate SSRF guard intercepting a malicious URL.
-	// We'll test the internal outbound SSRF guard directly.
-	err = safety.AssertPublicURL(ctx, "http://169.254.169.254/latest/meta-data/", nil)
-	if err != nil && strings.Contains(err.Error(), "blocked") {
-		// Expected SSRF interception
-		err = nil
-	} else if err == nil {
-		err = fmt.Errorf("SSRF guard failed to intercept malicious URL")
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t605), err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t605))
-	}
-	checkResult(err)
-
-	// TC-701: 发送失败自动重试（限流/网络错）
-	// Note: We can't easily mock the server returning 429 in a black-box test, but we can test if the retry mechanism wrapper works
-	// by simulating an operation. For the sake of this end-to-end script, we will just send a bunch of messages rapidly
-	// to see if we hit rate limits and if the SDK recovers, or just verify the code path exists.
-	fmt.Print("TC-701: Retry on rate limit (Simulated burst)... ")
-	t701 := time.Now()
-	var wg sync.WaitGroup
-	var burstErrs []error
-	for i := 0; i < 5; i++ {
-		wg.Add(1)
-		go func(idx int) {
-			defer wg.Done()
-			_, err := ch.Send(ctx, &types.SendInput{
-				ReceiveID: receiveID,
-				Text:      fmt.Sprintf("Burst message %d", idx),
-			})
-			if err != nil {
-				burstErrs = append(burstErrs, err)
-			}
-		}(i)
-	}
-	wg.Wait()
-	if len(burstErrs) > 0 {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t701), burstErrs[0])
-		checkResult(burstErrs[0])
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t701))
-		checkResult(nil)
-	}
-
-	// TC-702: 回复消息目标撤销降级
-	fmt.Print("TC-702: Fallback on revoked reply target... ")
-	t702 := time.Now()
-	// Send a message, delete it, then try to reply to it
-	tempRes, err := ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Text:      "This message will be deleted for TC-702",
-	})
-	if err == nil {
-		_, _ = client.Im.V1.Message.Delete(ctx, larkim.NewDeleteMessageReqBuilder().MessageId(tempRes.MessageID).Build())
-
-		// Now reply to the deleted message
-		_, err = ch.Send(ctx, &types.SendInput{
-			ReceiveID:      receiveID,
-			ReplyMessageID: tempRes.MessageID,
-			Text:           "This reply should fallback to a normal message",
+	if !skip("TC-601") {
+		fmt.Print("TC-601 & TC-603: Upload and Download Image... ")
+		t601 := time.Now()
+		imgRes, err := ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindImage,
+				SourceBytes: pngData,
+				FileName:    "test_download.png",
+			},
 		})
-	}
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t702), err)
-	} else {
-		fmt.Printf("✅ Passed (%v) [Note: Fallback to normal message successful]\n", time.Since(t702))
-	}
-	checkResult(err)
-
-	// TC-703: Post 格式错误降级纯文本
-	fmt.Print("TC-703: Fallback on malformed Post JSON... ")
-	t703 := time.Now()
-	// Intentionally malformed post json that passes SDK struct check but rejected by Feishu API
-	_, err = ch.Send(ctx, &types.SendInput{
-		ReceiveID: receiveID,
-		Post:      `{"zh_cn": {"title": "Bad Post", "content": [[{"tag": "invalid_tag", "text": "bad"}]]}}`,
-		Text:      "This is the fallback text for the bad post", // Need text for fallback to succeed if we rely on input.Text, or it downgrades to raw json string
-	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t703), err)
-	} else {
-		fmt.Printf("✅ Passed (%v) [Note: Fallback to text successful]\n", time.Since(t703))
-	}
-	checkResult(err)
-
-	// TC-003: Graceful Disconnect
-	fmt.Print("TC-003: Graceful Disconnect... ")
-	t003 := time.Now()
-	err = ch.Stop(ctx)
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t003), err)
+		if err == nil && imgRes.MessageID != "" {
+			// Attempt to download the image we just sent by its key.
+			// Note: The Message API response doesn't directly expose the ImageKey in SendResult currently.
+			// For the sake of the test, we simulate the internal download method by directly calling it if we had the key.
+			// Since we don't have the key easily accessible from SendResult, we'll just test the upload part here for 601,
+			// and mock the download call for 603 to ensure the SDK method compiles and runs.
+			_, _ = ch.DownloadFile(ctx, "mock_image_key", "image")
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t601), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t601))
+		}
 		checkResult(err)
-	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t003))
-		checkResult(nil)
-	}
 
+	}
+	// TC-602 & TC-604: Upload and Download File
+	if !skip("TC-602") {
+		fmt.Print("TC-602 & TC-604: Upload and Download File... ")
+		t602 := time.Now()
+		fileRes, err := ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Media: &types.UploadInput{
+				Kind:        types.MediaKindFile,
+				SourceBytes: []byte("Hello download test"),
+				FileName:    "test_download.txt",
+			},
+		})
+		if err == nil && fileRes.MessageID != "" {
+			_, _ = ch.DownloadFile(ctx, "mock_file_key", "file")
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t602), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t602))
+		}
+		checkResult(err)
+
+	}
+	// TC-605: SSRF Guard Test
+	if !skip("TC-605") {
+		fmt.Print("TC-605: SSRF Guard Test... ")
+		t605 := time.Now()
+		// Simulate SSRF guard intercepting a malicious URL.
+		// We'll test the internal outbound SSRF guard directly.
+		err = safety.AssertPublicURL(ctx, "http://169.254.169.254/latest/meta-data/", nil)
+		if err != nil && strings.Contains(err.Error(), "blocked") {
+			// Expected SSRF interception
+			err = nil
+		} else if err == nil {
+			err = fmt.Errorf("SSRF guard failed to intercept malicious URL")
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t605), err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t605))
+		}
+		checkResult(err)
+
+	}
+	// TC-701: 发送失败自动重试（限流/网络错）
+	if !skip("TC-701") {
+		// Note: We can't easily mock the server returning 429 in a black-box test, but we can test if the retry mechanism wrapper works
+		// by simulating an operation. For the sake of this end-to-end script, we will just send a bunch of messages rapidly
+		// to see if we hit rate limits and if the SDK recovers, or just verify the code path exists.
+		fmt.Print("TC-701: Retry on rate limit (Simulated burst)... ")
+		t701 := time.Now()
+		var wg sync.WaitGroup
+		var burstErrs []error
+		for i := 0; i < 5; i++ {
+			wg.Add(1)
+			go func(idx int) {
+				defer wg.Done()
+				_, err := ch.Send(ctx, &types.SendInput{
+					ReceiveID: receiveID,
+					Text:      fmt.Sprintf("Burst message %d", idx),
+				})
+				if err != nil {
+					burstErrs = append(burstErrs, err)
+				}
+			}(i)
+		}
+		wg.Wait()
+		if len(burstErrs) > 0 {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t701), burstErrs[0])
+			checkResult(burstErrs[0])
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t701))
+			checkResult(nil)
+		}
+
+	}
+	// TC-702: 回复消息目标撤销降级
+	if !skip("TC-702") {
+		fmt.Print("TC-702: Fallback on revoked reply target... ")
+		t702 := time.Now()
+		// Send a message, delete it, then try to reply to it
+		tempRes, err := ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Text:      "This message will be deleted for TC-702",
+		})
+		if err == nil {
+			_, _ = client.Im.V1.Message.Delete(ctx, larkim.NewDeleteMessageReqBuilder().MessageId(tempRes.MessageID).Build())
+
+			// Now reply to the deleted message
+			_, err = ch.Send(ctx, &types.SendInput{
+				ReceiveID:      receiveID,
+				ReplyMessageID: tempRes.MessageID,
+				Text:           "This reply should fallback to a normal message",
+			})
+		}
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t702), err)
+		} else {
+			fmt.Printf("✅ Passed (%v) [Note: Fallback to normal message successful]\n", time.Since(t702))
+		}
+		checkResult(err)
+
+	}
+	// TC-703: Post 格式错误降级纯文本
+	if !skip("TC-703") {
+		fmt.Print("TC-703: Fallback on malformed Post JSON... ")
+		t703 := time.Now()
+		// Intentionally malformed post json that passes SDK struct check but rejected by Feishu API
+		_, err = ch.Send(ctx, &types.SendInput{
+			ReceiveID: receiveID,
+			Post:      `{"zh_cn": {"title": "Bad Post", "content": [[{"tag": "invalid_tag", "text": "bad"}]]}}`,
+			Text:      "This is the fallback text for the bad post", // Need text for fallback to succeed if we rely on input.Text, or it downgrades to raw json string
+		})
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t703), err)
+		} else {
+			fmt.Printf("✅ Passed (%v) [Note: Fallback to text successful]\n", time.Since(t703))
+		}
+		checkResult(err)
+
+	}
+	// TC-003: Graceful Disconnect
+	if !skip("TC-003") {
+		fmt.Print("TC-003: Graceful Disconnect... ")
+		t003 := time.Now()
+		err = ch.Stop(ctx)
+		if err != nil {
+			fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t003), err)
+			checkResult(err)
+		} else {
+			fmt.Printf("✅ Passed (%v)\n", time.Since(t003))
+			checkResult(nil)
+		}
+
+	}
 	fmt.Println("==================================================")
 	fmt.Printf("🎉 Automated Tests Completed! [Total: %d | ✅ Passed: %d | ❌ Failed: %d]\n", total, passed, failed)
 	fmt.Println("==================================================")
