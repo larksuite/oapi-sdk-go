@@ -504,10 +504,10 @@ func main() {
 		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
 			fmt.Printf("💬 CommentEvent: %s\n", string(normJSON))
 		}
-		if event.Content != "" && event.ParentID != "" {
-			fmt.Printf("✅ [TC-317 Passed] 收到文档评论/回复: content: %s, parentID: %s\n", event.Content, event.ParentID)
+		if event.CommentID != "" && event.FileToken != "" && event.Operator.OpenID != "" {
+			fmt.Printf("✅ [TC-317 Passed] 收到文档评论/回复: CommentID: %s, FileToken: %s, Operator: %s, MentionedBot: %v\n", event.CommentID, event.FileToken, event.Operator.OpenID, event.MentionedBot)
 		} else {
-			fmt.Printf("❌ [TC-317 Failed] Comment event missing content or parent ID\n")
+			fmt.Printf("❌ [TC-317 Failed] Comment event missing commentId, fileToken or operator\n")
 		}
 		return nil
 	})

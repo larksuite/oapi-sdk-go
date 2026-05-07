@@ -135,6 +135,8 @@ func TestParseReaction(t *testing.T) {
 	userId := "ou_789"
 	reactionType := "SMILE"
 
+	action := "added"
+
 	eventPayload := &larkim.P2MessageReactionCreatedV1{
 		EventV2Base: &larkevent.EventV2Base{
 			Header: &larkevent.EventHeader{
@@ -171,7 +173,7 @@ func TestParseReaction(t *testing.T) {
 	if norm.ReactionType != reactionType {
 		t.Errorf("expected ReactionType %s, got %s", reactionType, norm.ReactionType)
 	}
-	if norm.Action != "add" {
-		t.Errorf("expected Action add, got %s", norm.Action)
+	if norm.Action != action {
+		t.Errorf("expected Action %s, got %s", action, norm.Action)
 	}
 }

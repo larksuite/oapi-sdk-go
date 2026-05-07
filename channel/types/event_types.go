@@ -11,16 +11,24 @@ type ReactionEvent struct {
 	RawEvent     interface{} `json:"raw_event"`
 }
 
-// CommentEvent represents a comment/reply on a message or a thread.
+// OperatorInfo represents the user who triggered the event.
+type OperatorInfo struct {
+	OpenID  string `json:"open_id"`
+	UserID  string `json:"user_id,omitempty"`
+	UnionID string `json:"union_id,omitempty"`
+}
+
+// CommentEvent represents a comment/reply on a drive document.
 type CommentEvent struct {
-	EventID      string      `json:"event_id"`
-	MessageID    string      `json:"message_id"`
-	ParentID     string      `json:"parent_id"`
-	ChatID       string      `json:"chat_id"`
-	UserID       string      `json:"user_id"`
-	Content      string      `json:"content"`
-	CreateTimeMs int64       `json:"create_time_ms"`
-	RawEvent     interface{} `json:"raw_event"`
+	EventID      string       `json:"event_id"`
+	CommentID    string       `json:"comment_id"`
+	FileToken    string       `json:"file_token"`
+	FileType     string       `json:"file_type"`
+	Operator     OperatorInfo `json:"operator"`
+	ReplyID      string       `json:"reply_id"`
+	MentionedBot bool         `json:"mentioned_bot"`
+	Timestamp    int64        `json:"timestamp"`
+	RawEvent     interface{}  `json:"raw_event"`
 }
 
 // BotAddedEvent represents an event when the bot is added to a chat.
@@ -40,4 +48,3 @@ type RejectEvent struct {
 	SenderID  string `json:"sender_id"`
 	Reason    string `json:"reason"`
 }
-

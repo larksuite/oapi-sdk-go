@@ -15,6 +15,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/channel/safety"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
 
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -51,6 +52,7 @@ type channelImpl struct {
 	onDisconnectedHandlers []func()
 
 	messageHandlerReg  bool
+	commentHandlerReg  bool
 	reactionHandlerReg bool
 	botAddedHandlerReg bool
 }
@@ -192,7 +194,42 @@ func (ch *channelImpl) OnMessage(handler func(ctx context.Context, msg *types.No
 // OnComment registers a handler for CommentEvent.
 func (ch *channelImpl) OnComment(handler func(ctx context.Context, event *types.CommentEvent) error) {
 	ch.onCommentHandlers = append(ch.onCommentHandlers, handler)
-	ch.ensureMessageHandler()
+
+	if ch.commentHandlerReg || ch.wsClient == nil {
+		return
+	}
+	ch.commentHandlerReg = true
+	dispatcher := ch.wsClient.EventHandler()
+	if dispatcher != nil {
+		dispatcher.OnCustomizedEvent("drive.notice.comment_add_v1", func(ctx context.Context, event *larkevent.EventReq) error {
+			if len(ch.onCommentHandlers) == 0 {
+				return nil
+			}
+			commentEvent := normalize.ParseComment(event)
+			if commentEvent != nil && commentEvent.CommentID != "" {
+				if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(commentEvent.EventID) {
+					return nil
+				}
+				if ch.processLock.Acquire(commentEvent.EventID) {
+					defer ch.processLock.Release(commentEvent.EventID)
+
+					// Serialize per document file token
+					err := ch.pipelineManager.Run(ctx, commentEvent.FileToken, func() error {
+						for _, h := range ch.onCommentHandlers {
+							if err := h(ctx, commentEvent); err != nil {
+								return err
+							}
+						}
+						return nil
+					})
+					if err != nil {
+						// handle error if needed
+					}
+				}
+			}
+			return nil
+		})
+	}
 }
 
 func (ch *channelImpl) ensureMessageHandler() {
@@ -256,34 +293,6 @@ func (ch *channelImpl) ensureMessageHandler() {
 								for _, h := range ch.onRejectHandlers {
 									h(ctx, rejectEvent)
 								}
-							}
-						}
-					}
-				}
-			}
-
-			// Handle Comment
-			if len(ch.onCommentHandlers) > 0 {
-				commentEvent := normalize.ParseComment(event)
-				// If it's a valid comment (e.g. has ParentID)
-				if commentEvent != nil && commentEvent.ParentID != "" {
-					if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(commentEvent.EventID) {
-						// do nothing
-					} else {
-						if ch.processLock.Acquire(commentEvent.EventID) {
-							defer ch.processLock.Release(commentEvent.EventID)
-
-							// Serialize per chat
-							err := ch.pipelineManager.Run(ctx, commentEvent.ChatID, func() error {
-								for _, h := range ch.onCommentHandlers {
-									if err := h(ctx, commentEvent); err != nil {
-										return err
-									}
-								}
-								return nil
-							})
-							if err != nil {
-								// handle error if needed
 							}
 						}
 					}

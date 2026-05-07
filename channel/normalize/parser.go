@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
@@ -125,7 +126,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "add"
+			norm.Action = "added"
 		}
 
 	case *larkim.P2MessageReactionDeletedV1:
@@ -151,7 +152,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "remove"
+			norm.Action = "removed"
 		}
 	default:
 		return nil
@@ -160,47 +161,119 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 	return norm
 }
 
-// ParseComment normalizes a P2MessageReceiveV1 event as a comment/reply.
-func ParseComment(event *larkim.P2MessageReceiveV1) *types.CommentEvent {
-	if event == nil || event.Event == nil || event.Event.Message == nil {
+// ParseComment normalizes a drive.notice.comment_add_v1 event.
+func ParseComment(event *larkevent.EventReq) *types.CommentEvent {
+	if event == nil || len(event.Body) == 0 {
 		return nil
 	}
 
-	msg := event.Event.Message
-	sender := event.Event.Sender
+	var payload struct {
+		Header struct {
+			EventID    string `json:"event_id"`
+			CreateTime string `json:"create_time"`
+		} `json:"header"`
+		Event struct {
+			CommentID   string `json:"comment_id"`
+			IsMentioned *bool  `json:"is_mentioned"`
+			IsMention   *bool  `json:"is_mention"`
+			ReplyID     string `json:"reply_id"`
+			FileToken   string `json:"file_token"`
+			FileType    string `json:"file_type"`
+			CreateTime  string `json:"create_time"`
+			ActionTime  string `json:"action_time"`
+			UserID      *struct {
+				UserID  string `json:"user_id"`
+				OpenID  string `json:"open_id"`
+				UnionID string `json:"union_id"`
+			} `json:"user_id"`
+			NoticeMeta *struct {
+				FileToken   string `json:"file_token"`
+				FileType    string `json:"file_type"`
+				Timestamp   string `json:"timestamp"`
+				IsMentioned *bool  `json:"is_mentioned"`
+				FromUserID  *struct {
+					UserID  string `json:"user_id"`
+					OpenID  string `json:"open_id"`
+					UnionID string `json:"union_id"`
+				} `json:"from_user_id"`
+			} `json:"notice_meta"`
+		} `json:"event"`
+	}
+
+	if err := json.Unmarshal(event.Body, &payload); err != nil {
+		return nil
+	}
+
+	ev := payload.Event
+
+	fileToken := ev.FileToken
+	if fileToken == "" && ev.NoticeMeta != nil {
+		fileToken = ev.NoticeMeta.FileToken
+	}
+
+	fileType := ev.FileType
+	if fileType == "" && ev.NoticeMeta != nil {
+		fileType = ev.NoticeMeta.FileType
+	}
+
+	commentID := ev.CommentID
+
+	var operatorOpenId, operatorUserId, operatorUnionId string
+	if ev.NoticeMeta != nil && ev.NoticeMeta.FromUserID != nil {
+		operatorOpenId = ev.NoticeMeta.FromUserID.OpenID
+		operatorUserId = ev.NoticeMeta.FromUserID.UserID
+		operatorUnionId = ev.NoticeMeta.FromUserID.UnionID
+	} else if ev.UserID != nil {
+		operatorOpenId = ev.UserID.OpenID
+		operatorUserId = ev.UserID.UserID
+		operatorUnionId = ev.UserID.UnionID
+	}
+
+	if fileToken == "" || fileType == "" || commentID == "" || operatorOpenId == "" {
+		return nil
+	}
+
+	tsStr := ev.CreateTime
+	if tsStr == "" && ev.NoticeMeta != nil {
+		tsStr = ev.NoticeMeta.Timestamp
+	}
+	if tsStr == "" {
+		tsStr = ev.ActionTime
+	}
+	if tsStr == "" {
+		tsStr = payload.Header.CreateTime
+	}
+
+	var timestamp int64
+	if ms, err := strconv.ParseInt(tsStr, 10, 64); err == nil {
+		timestamp = ms
+	} else {
+		timestamp = 0
+	}
+
+	mentionedBot := false
+	if ev.IsMentioned != nil {
+		mentionedBot = *ev.IsMentioned
+	} else if ev.NoticeMeta != nil && ev.NoticeMeta.IsMentioned != nil {
+		mentionedBot = *ev.NoticeMeta.IsMentioned
+	} else if ev.IsMention != nil {
+		mentionedBot = *ev.IsMention
+	}
 
 	norm := &types.CommentEvent{
-		RawEvent: event,
-	}
-
-	if event.EventV2Base != nil && event.EventV2Base.Header != nil {
-		norm.EventID = event.EventV2Base.Header.EventID
-		if event.EventV2Base.Header.CreateTime != "" {
-			if ms, err := strconv.ParseInt(event.EventV2Base.Header.CreateTime, 10, 64); err == nil {
-				norm.CreateTimeMs = ms
-			}
-		}
-	}
-
-	if msg.MessageId != nil {
-		norm.MessageID = *msg.MessageId
-	}
-	if msg.ParentId != nil {
-		norm.ParentID = *msg.ParentId
-	}
-	if msg.ChatId != nil {
-		norm.ChatID = *msg.ChatId
-	}
-	if sender != nil && sender.SenderId != nil {
-		if sender.SenderId.UserId != nil {
-			norm.UserID = *sender.SenderId.UserId
-		} else if sender.SenderId.OpenId != nil {
-			norm.UserID = *sender.SenderId.OpenId
-		}
-	}
-	if msg.Content != nil && msg.MessageType != nil {
-		content, _ := ParseContent(*msg.MessageType, *msg.Content)
-		norm.Content = content
+		RawEvent:  event,
+		EventID:   payload.Header.EventID,
+		CommentID: commentID,
+		FileToken: fileToken,
+		FileType:  fileType,
+		ReplyID:   ev.ReplyID,
+		Operator: types.OperatorInfo{
+			OpenID:  operatorOpenId,
+			UserID:  operatorUserId,
+			UnionID: operatorUnionId,
+		},
+		MentionedBot: mentionedBot,
+		Timestamp:    timestamp,
 	}
 
 	return norm
