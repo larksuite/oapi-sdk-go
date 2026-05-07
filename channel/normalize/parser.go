@@ -125,7 +125,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "added"
+			norm.Action = "add"
 		}
 
 	case *larkim.P2MessageReactionDeletedV1:
@@ -151,7 +151,7 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 					norm.UserID = *ev.Event.UserId.OpenId
 				}
 			}
-			norm.Action = "removed"
+			norm.Action = "remove"
 		}
 	default:
 		return nil
