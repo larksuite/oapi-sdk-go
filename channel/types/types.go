@@ -115,9 +115,10 @@ type SendInput struct {
 
 // SendResult represents the result of sending a message.
 type SendResult struct {
-	MessageID string `json:"message_id"`
-	ChatID    string `json:"chat_id,omitempty"`
-	Error     error  `json:"error,omitempty"`
+	MessageID string   `json:"message_id"`
+	ChunkIDs  []string `json:"chunk_ids,omitempty"` // For messages split into multiple chunks
+	ChatID    string   `json:"chat_id,omitempty"`
+	Error     error    `json:"error,omitempty"`
 }
 
 type MediaKind string

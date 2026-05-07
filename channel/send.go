@@ -120,7 +120,8 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 		content = string(b)
 	} else if input.Markdown != "" {
 		msgType = "post"
-		chunks := outbound.SplitWithCodeFences(input.Markdown, 3500)
+		// For Markdown, we split by code fences and newlines to avoid breaking syntax
+		chunks := outbound.SplitWithCodeFences(input.Markdown, c.config.Outbound.TextChunkLimit)
 		var ids []string
 		var firstChatID string
 		for i, chunk := range chunks {
@@ -141,10 +142,14 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 				firstChatID = chatID
 			}
 		}
-		return &types.SendResult{
+		res := &types.SendResult{
 			MessageID: ids[0],
 			ChatID:    firstChatID,
-		}, nil
+		}
+		if len(ids) > 1 {
+			res.ChunkIDs = ids
+		}
+		return res, nil
 
 	} else if input.Text != "" {
 		msgType = "text"
@@ -153,7 +158,7 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 		fullText := prefix + input.Text
 
 		// For text, we can also split simply by length
-		chunks := splitPlain(fullText, 3500)
+		chunks := splitPlain(fullText, c.config.Outbound.TextChunkLimit)
 		var ids []string
 		var firstChatID string
 		for i, chunk := range chunks {
@@ -168,10 +173,14 @@ func (c *channelImpl) Send(ctx context.Context, input *types.SendInput) (*types.
 				firstChatID = chatID
 			}
 		}
-		return &types.SendResult{
+		res := &types.SendResult{
 			MessageID: ids[0],
 			ChatID:    firstChatID,
-		}, nil
+		}
+		if len(ids) > 1 {
+			res.ChunkIDs = ids
+		}
+		return res, nil
 	}
 
 	if msgType == "" || content == "" {
@@ -302,7 +311,10 @@ func (c *channelImpl) rawSendWithRetry(ctx context.Context, idType, id, msgType,
 		}
 	}
 
-	res, err := outbound.Retry(ctx, op, nil)
+	res, err := outbound.Retry(ctx, op, &outbound.RetryOptions{
+		MaxAttempts: c.config.Outbound.Retry.MaxAttempts,
+		BaseDelay:   c.config.Outbound.Retry.BaseDelayMs,
+	})
 	if err != nil {
 		return "", "", types.ClassifyError(err)
 	}

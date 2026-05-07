@@ -255,15 +255,21 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	longMarkdown += "```go\nfunc main() {\n  fmt.Println(\"Hello\")\n}\n```\n"
 
 	t1 := time.Now()
-	_, err = ch.Send(ctx, &types.SendInput{
+	res103, err103 := ch.Send(ctx, &types.SendInput{
 		ReceiveID: receiveID,
 		Markdown:  longMarkdown,
 		Title:     "TC-103 Long Markdown",
 	})
-	if err != nil {
-		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), err)
+	if err103 != nil {
+		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), err103)
+		err = err103
+	} else if len(res103.ChunkIDs) <= 1 {
+		errChunk := fmt.Errorf("chunkIds missing or empty, split failed")
+		fmt.Printf("❌ Failed (%v)\nError: %v\n", time.Since(t1), errChunk)
+		err = errChunk
 	} else {
-		fmt.Printf("✅ Passed (%v)\n", time.Since(t1))
+		fmt.Printf("✅ Passed (%v) [Chunks: %d]\n", time.Since(t1), len(res103.ChunkIDs))
+		err = nil
 	}
 	checkResult(err)
 

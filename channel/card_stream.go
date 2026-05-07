@@ -7,6 +7,7 @@ import (
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/outbound"
+	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
@@ -56,15 +57,17 @@ func (q *UpdateQueue) Stop() {
 
 type CardStreamController struct {
 	client    *lark.Client
+	config    types.ChannelConfig
 	messageID string
 	queue     *UpdateQueue
 	mu        sync.Mutex
 	isClosed  bool
 }
 
-func NewCardStreamController(client *lark.Client, messageID string) *CardStreamController {
+func NewCardStreamController(client *lark.Client, config types.ChannelConfig, messageID string) *CardStreamController {
 	return &CardStreamController{
 		client:    client,
+		config:    config,
 		messageID: messageID,
 		queue:     NewUpdateQueue(context.Background()),
 	}
@@ -98,8 +101,10 @@ func (c *CardStreamController) UpdateCard(ctx context.Context, card string) erro
 			}
 			return resp, nil
 		}
-
-		_, err := outbound.Retry(ctx, op, nil)
+		_, err := outbound.Retry(ctx, op, &outbound.RetryOptions{
+			MaxAttempts: c.config.Outbound.Retry.MaxAttempts,
+			BaseDelay:   c.config.Outbound.Retry.BaseDelayMs,
+		})
 		errCh <- err
 	})
 

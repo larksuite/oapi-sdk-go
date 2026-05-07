@@ -26,6 +26,7 @@ import (
 type channelImpl struct {
 	client          *lark.Client
 	wsClient        *larkws.Client
+	config          types.ChannelConfig
 	uploader        outbound.Uploader
 	dedupCache      *safety.DedupCache
 	pipelineManager *pipeline.ChatPipelineManager
@@ -54,16 +55,22 @@ type channelImpl struct {
 }
 
 // NewChannel creates a new Channel instance with the provided Lark API client and WebSocket client.
-func NewChannel(client *lark.Client, wsClient *larkws.Client) types.Channel {
+func NewChannel(client *lark.Client, wsClient *larkws.Client, opts ...types.ChannelOption) types.Channel {
+	cfg := types.DefaultChannelConfig()
+	for _, opt := range opts {
+		opt(&cfg)
+	}
+
 	return &channelImpl{
 		client:          client,
 		wsClient:        wsClient,
+		config:          cfg,
 		uploader:        outbound.NewUploader(client),
-		dedupCache:      safety.NewDedupCache(10000, 1*time.Hour),
-		pipelineManager: pipeline.NewChatPipelineManager(types.DefaultBatchConfig()),
-		policyGate:      safety.NewPolicyGate(&types.PolicyConfig{}, nil),
+		dedupCache:      safety.NewDedupCache(cfg.Safety.Dedup.MaxEntries, cfg.Safety.Dedup.SweepIntervalMs),
+		pipelineManager: pipeline.NewChatPipelineManager(cfg.Safety.Batch),
+		policyGate:      safety.NewPolicyGate(&cfg.Policy, nil),
 		processLock:     safety.NewProcessingLock(types.DefaultLockTTL, 1*time.Minute),
-		staleWindow:     types.DefaultStaleWindow,
+		staleWindow:     cfg.Safety.StaleMessageWindowMs,
 	}
 }
 
@@ -452,7 +459,7 @@ func (ch *channelImpl) Stream(ctx context.Context, input *types.SendInput) (type
 		if err != nil {
 			return nil, fmt.Errorf("failed to send initial card message: %w", err)
 		}
-		return NewCardStreamController(ch.client, res.MessageID), nil
+		return NewCardStreamController(ch.client, ch.config, res.MessageID), nil
 	}
 
 	// Ensure we send an initial message to get a MessageID
@@ -466,5 +473,5 @@ func (ch *channelImpl) Stream(ctx context.Context, input *types.SendInput) (type
 		return nil, fmt.Errorf("failed to send initial message for streaming: %w", err)
 	}
 
-	return NewMarkdownStreamController(ch.client, res.MessageID, input.Markdown, input.Title), nil
+	return NewMarkdownStreamController(ch.client, ch.config, res.MessageID, input.Markdown, input.Title), nil
 }

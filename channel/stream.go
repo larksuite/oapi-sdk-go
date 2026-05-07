@@ -10,6 +10,7 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/normalize"
 	"github.com/larksuite/oapi-sdk-go/v3/channel/outbound"
+	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 
 	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
@@ -133,6 +134,7 @@ func (t *throttleController) Close(ctx context.Context) error {
 // MarkdownStreamController is a StreamController for markdown text.
 type MarkdownStreamController struct {
 	client     *lark.Client
+	config     types.ChannelConfig
 	messageID  string
 	title      string
 	content    string
@@ -143,16 +145,17 @@ type MarkdownStreamController struct {
 }
 
 // NewMarkdownStreamController creates a new StreamController for updating markdown messages.
-func NewMarkdownStreamController(client *lark.Client, messageID, initialContent, title string) *MarkdownStreamController {
+func NewMarkdownStreamController(client *lark.Client, config types.ChannelConfig, messageID, initialContent, title string) *MarkdownStreamController {
 	m := &MarkdownStreamController{
 		client:     client,
+		config:     config,
 		messageID:  messageID,
 		title:      title,
 		content:    initialContent,
 		chunkIndex: 0,
 	}
 
-	m.throttle = newThrottleController(defaultThrottleInterval, m.doUpdate)
+	m.throttle = newThrottleController(config.Outbound.StreamThrottleMs, m.doUpdate)
 	return m
 }
 
@@ -187,7 +190,7 @@ func (m *MarkdownStreamController) doUpdate(ctx context.Context) error {
 	currentMessageID := m.messageID
 	m.mu.Unlock()
 
-	chunks := outbound.SplitWithCodeFences(currentContent, 3500)
+	chunks := outbound.SplitWithCodeFences(currentContent, m.config.Outbound.TextChunkLimit)
 	if len(chunks) == 0 {
 		return nil
 	}
@@ -225,7 +228,10 @@ func (m *MarkdownStreamController) doUpdate(ctx context.Context) error {
 			}
 			return resp, nil
 		}
-		res, err := outbound.Retry(ctx, op, nil)
+		res, err := outbound.Retry(ctx, op, &outbound.RetryOptions{
+			MaxAttempts: m.config.Outbound.Retry.MaxAttempts,
+			BaseDelay:   m.config.Outbound.Retry.BaseDelayMs,
+		})
 		if err != nil {
 			return err
 		}
@@ -258,6 +264,9 @@ func (m *MarkdownStreamController) doUpdate(ctx context.Context) error {
 		return resp, nil
 	}
 
-	_, err = outbound.Retry(ctx, op, nil)
+	_, err = outbound.Retry(ctx, op, &outbound.RetryOptions{
+		MaxAttempts: m.config.Outbound.Retry.MaxAttempts,
+		BaseDelay:   m.config.Outbound.Retry.BaseDelayMs,
+	})
 	return err
 }
