@@ -150,7 +150,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 
 	// TC-001: Start Channel and verify connection / BotIdentity
 	if !skip("TC-001") {
-		fmt.Print("TC-001: Channel connect & BotIdentity... ")
+		fmt.Println("TC-001: Channel connect & BotIdentity... ")
 		t001 := time.Now()
 		botIdentity := ch.GetBotIdentity(ctx)
 		if botIdentity != nil && botIdentity.OpenID != "" && strings.HasPrefix(botIdentity.OpenID, "ou_") {
@@ -165,7 +165,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	// TC-002: Invalid credentials connect (We skip full execution here as we already connected with valid ones,
 	if !skip("TC-002") {
 		// but we can test constructing a bad channel and starting it).
-		fmt.Print("TC-002: Invalid credentials connect... ")
+		fmt.Println("TC-002: Invalid credentials connect... ")
 		t002 := time.Now()
 		badClient := lark.NewClient("cli_bad", "bad_secret")
 		badWsClient := larkws.NewClient("cli_bad", "bad_secret", larkws.WithAutoReconnect(false))
@@ -183,7 +183,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-004: Get Chat Info (using underlying client since it's a standard API call)
 	if !skip("TC-004") {
-		fmt.Print("TC-004: Get Chat Info... ")
+		fmt.Println("TC-004: Get Chat Info... ")
 		t004 := time.Now()
 		if receiveID != "" {
 			chatReq := larkim.NewGetChatReqBuilder().ChatId(receiveID).Build() // assuming receiveID might be a chat_id, or we just try
@@ -203,7 +203,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-005: Get Chat History
 	if !skip("TC-005") {
-		fmt.Print("TC-005: Get Chat History... ")
+		fmt.Println("TC-005: Get Chat History... ")
 		t005 := time.Now()
 		histReq := larkim.NewListMessageReqBuilder().ContainerIdType("chat").ContainerId(receiveID).Build()
 		_, errHist := client.Im.V1.Message.List(ctx, histReq)
@@ -218,7 +218,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-006: Error event listener
 	if !skip("TC-006") {
-		fmt.Print("TC-006: Error event listener registration... ")
+		fmt.Println("TC-006: Error event listener registration... ")
 		t006 := time.Now()
 		var errFired bool
 		ch.OnError(func(err error) {
@@ -232,7 +232,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-007: Reconnect listener (We verify it can be registered, actual trigger is mocked or simulated in library)
 	if !skip("TC-007") {
-		fmt.Print("TC-007: Reconnect listener registration... ")
+		fmt.Println("TC-007: Reconnect listener registration... ")
 		t007 := time.Now()
 		var reconnected bool
 		ch.OnReconnected(func() {
@@ -250,7 +250,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 
 	// TC-101: Text message
 	if !skip("TC-101") {
-		fmt.Print("TC-101: Sending Text message... ")
+		fmt.Println("TC-101: Sending Text message... ")
 		t01 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -266,7 +266,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-102: Markdown message
 	if !skip("TC-102") {
-		fmt.Print("TC-102: Sending Markdown message... ")
+		fmt.Println("TC-102: Sending Markdown message... ")
 		t02 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -282,7 +282,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-103: Long Markdown splitting
 	if !skip("TC-103") {
-		fmt.Print("TC-103: Sending Long Markdown message... ")
+		fmt.Println("TC-103: Sending Long Markdown message... ")
 		longMarkdown := "# Very Long Markdown\n\n"
 		for i := 0; i < 500; i++ {
 			longMarkdown += fmt.Sprintf("- Item %d with some text to make it longer.\n", i)
@@ -311,7 +311,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-104: Post message
 	if !skip("TC-104") {
-		fmt.Print("TC-104: Sending Post message... ")
+		fmt.Println("TC-104: Sending Post message... ")
 		postJSON := `{"zh_cn": {"title": "TC-104 富文本", "content": [[{"tag": "text", "text": "我是富文本内容"}]]}}`
 		t2 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
@@ -328,7 +328,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-105: Image message
 	if !skip("TC-105") {
-		fmt.Print("TC-105: Sending Image message... ")
+		fmt.Println("TC-105: Sending Image message... ")
 		t3 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -348,7 +348,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-106: File message
 	if !skip("TC-106") {
-		fmt.Print("TC-106: Sending File message... ")
+		fmt.Println("TC-106: Sending File message... ")
 		t4 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -369,7 +369,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	// TC-107: Audio message
 	if !skip("TC-107") {
 		// To avoid strict duration parsing on empty/dummy files, we set Duration explicitly.
-		fmt.Print("TC-107: Sending Audio message... ")
+		fmt.Println("TC-107: Sending Audio message... ")
 		t5 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -393,7 +393,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-108: Video message
 	if !skip("TC-108") {
-		fmt.Print("TC-108: Sending Video message... ")
+		fmt.Println("TC-108: Sending Video message... ")
 		t6 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -417,7 +417,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-109: Share Chat message
 	if !skip("TC-109") {
-		fmt.Print("TC-109: Sending Share Chat message... ")
+		fmt.Println("TC-109: Sending Share Chat message... ")
 		t09 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:   receiveID,
@@ -440,7 +440,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-110: Share User message
 	if !skip("TC-110") {
-		fmt.Print("TC-110: Sending Share User message... ")
+		fmt.Println("TC-110: Sending Share User message... ")
 		t10 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:   receiveID,
@@ -456,7 +456,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-111: Card message
 	if !skip("TC-111") {
-		fmt.Print("TC-111: Sending Card message... ")
+		fmt.Println("TC-111: Sending Card message... ")
 		t11 := time.Now()
 		cardJSON := `{"config": {"wide_screen_mode": true},"elements": [{"tag": "div","text": {"content": "这是一张测试卡片","tag": "lark_md"}}]}`
 		_, err = ch.Send(ctx, &types.SendInput{
@@ -473,7 +473,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-113: Mention User message
 	if !skip("TC-113") {
-		fmt.Print("TC-113: Sending Mention message... ")
+		fmt.Println("TC-113: Sending Mention message... ")
 		t13 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -509,7 +509,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 
 	// TC-201: Reply with Text
 	if !skip("TC-201") {
-		fmt.Print("TC-201: Replying with Text... ")
+		fmt.Println("TC-201: Replying with Text... ")
 		t201 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:      receiveID,
@@ -526,7 +526,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-202: Reply with Markdown
 	if !skip("TC-202") {
-		fmt.Print("TC-202: Replying with Markdown... ")
+		fmt.Println("TC-202: Replying with Markdown... ")
 		t202 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:      receiveID,
@@ -543,7 +543,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-203: Reply with Image
 	if !skip("TC-203") {
-		fmt.Print("TC-203: Replying with Image... ")
+		fmt.Println("TC-203: Replying with Image... ")
 		t203 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:      receiveID,
@@ -564,7 +564,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-204: Reply in Thread (same as reply)
 	if !skip("TC-204") {
-		fmt.Print("TC-204: Replying in Thread... ")
+		fmt.Println("TC-204: Replying in Thread... ")
 		t204 := time.Now()
 		_, err = ch.Send(ctx, &types.SendInput{
 			ReceiveID:      receiveID,
@@ -581,7 +581,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-205: Update Card message
 	if !skip("TC-205") {
-		fmt.Print("TC-205: Updating Card message... ")
+		fmt.Println("TC-205: Updating Card message... ")
 		t205 := time.Now()
 		// Test Update Card via Stream API
 		stream, errStream := ch.Stream(ctx, &types.SendInput{
@@ -604,7 +604,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-206: Update message text (Markdown Stream)
 	if !skip("TC-206") {
-		fmt.Print("TC-206: Updating message text... ")
+		fmt.Println("TC-206: Updating message text... ")
 		t206 := time.Now()
 		mdStream, errStream := ch.Stream(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -626,7 +626,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-207: Recall message
 	if !skip("TC-207") {
-		fmt.Print("TC-207: Recalling message... ")
+		fmt.Println("TC-207: Recalling message... ")
 		t207 := time.Now()
 		recallRes, err := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -651,7 +651,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-208: Add Reaction
 	if !skip("TC-208") {
-		fmt.Print("TC-208: Adding reaction... ")
+		fmt.Println("TC-208: Adding reaction... ")
 		t208 := time.Now()
 		if baselineRes != nil && baselineRes.MessageID != "" {
 			_, err = client.Im.V1.MessageReaction.Create(ctx, larkim.NewCreateMessageReactionReqBuilder().
@@ -671,7 +671,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-401: Markdown 流式发送
 	if !skip("TC-401") {
-		fmt.Print("TC-401: Streaming Markdown message... ")
+		fmt.Println("TC-401: Streaming Markdown message... ")
 		t401 := time.Now()
 		mdStream401, errStream401 := ch.Stream(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -698,7 +698,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-402: 卡片流式更新
 	if !skip("TC-402") {
-		fmt.Print("TC-402: Streaming Card updates... ")
+		fmt.Println("TC-402: Streaming Card updates... ")
 		t402 := time.Now()
 		cardStream402, errStream402 := ch.Stream(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -724,7 +724,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-403: 流式发送异常处理
 	if !skip("TC-403") {
-		fmt.Print("TC-403: Streaming error handling... ")
+		fmt.Println("TC-403: Streaming error handling... ")
 		t403 := time.Now()
 		mdStream403, errStream403 := ch.Stream(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -847,7 +847,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	if !skip("TC-508") {
 		// We've already been implicitly testing this via ch.UpdatePolicy() calls above,
 		// but let's verify GetPolicy returns the updated one.
-		fmt.Print("TC-508: Dynamic policy update... ")
+		fmt.Println("TC-508: Dynamic policy update... ")
 		t508 := time.Now()
 		newPol := ch.GetPolicy()
 		if newPol.RespondToMentionAll != nil && *newPol.RespondToMentionAll == true {
@@ -864,7 +864,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-601 & TC-603: Upload and Download Image
 	if !skip("TC-601") {
-		fmt.Print("TC-601 & TC-603: Upload and Download Image... ")
+		fmt.Println("TC-601 & TC-603: Upload and Download Image... ")
 		t601 := time.Now()
 		imgRes, err := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -892,7 +892,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-602 & TC-604: Upload and Download File
 	if !skip("TC-602") {
-		fmt.Print("TC-602 & TC-604: Upload and Download File... ")
+		fmt.Println("TC-602 & TC-604: Upload and Download File... ")
 		t602 := time.Now()
 		fileRes, err := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
@@ -915,7 +915,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-605: SSRF Guard Test
 	if !skip("TC-605") {
-		fmt.Print("TC-605: SSRF Guard Test... ")
+		fmt.Println("TC-605: SSRF Guard Test... ")
 		t605 := time.Now()
 		// Simulate SSRF guard intercepting a malicious URL.
 		// We'll test the internal outbound SSRF guard directly.
@@ -939,7 +939,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 		// Note: We can't easily mock the server returning 429 in a black-box test, but we can test if the retry mechanism wrapper works
 		// by simulating an operation. For the sake of this end-to-end script, we will just send a bunch of messages rapidly
 		// to see if we hit rate limits and if the SDK recovers, or just verify the code path exists.
-		fmt.Print("TC-701: Retry on rate limit (Simulated burst)... ")
+		fmt.Println("TC-701: Retry on rate limit (Simulated burst)... ")
 		t701 := time.Now()
 		var wg sync.WaitGroup
 		var burstErrs []error
@@ -968,7 +968,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-702: 回复消息目标撤销降级
 	if !skip("TC-702") {
-		fmt.Print("TC-702: Fallback on revoked reply target... ")
+		fmt.Println("TC-702: Fallback on revoked reply target... ")
 		t702 := time.Now()
 		// Send a message, delete it, then try to reply to it
 		tempRes, err := ch.Send(ctx, &types.SendInput{
@@ -995,7 +995,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-703: Post 格式错误降级纯文本
 	if !skip("TC-703") {
-		fmt.Print("TC-703: Fallback on malformed Post JSON... ")
+		fmt.Println("TC-703: Fallback on malformed Post JSON... ")
 		t703 := time.Now()
 		// Intentionally malformed post json that passes SDK struct check but rejected by Feishu API
 		_, err = ch.Send(ctx, &types.SendInput{
@@ -1013,7 +1013,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// TC-003: Graceful Disconnect
 	if !skip("TC-003") {
-		fmt.Print("TC-003: Graceful Disconnect... ")
+		fmt.Println("TC-003: Graceful Disconnect... ")
 		t003 := time.Now()
 		err = ch.Stop(ctx)
 		if err != nil {
