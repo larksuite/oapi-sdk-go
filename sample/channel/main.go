@@ -20,6 +20,58 @@ import (
 	larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
 )
 
+func buildUserFacingCommandError(action string, err error, detail string) string {
+	fce := types.ClassifyError(err)
+	errMsg := err.Error()
+	code := types.ErrCodeUnknown
+	if fce != nil {
+		code = fce.Code
+		if fce.Message != "" {
+			errMsg = fce.Message
+		}
+	}
+
+	switch code {
+	case types.ErrCodePermissionDenied:
+		if action == "分享群名片" && detail != "" {
+			return fmt.Sprintf("分享群名片失败：我不在该群中，无法分享群名片。\n目标群: %s\n错误: %s", detail, errMsg)
+		}
+		if action == "分享个人名片" && detail != "" {
+			return fmt.Sprintf("分享个人名片失败：当前没有权限分享该用户名片。\n目标用户: %s\n错误: %s", detail, errMsg)
+		}
+		return fmt.Sprintf("%s失败：权限不足，当前操作无法执行。\n错误: %s", action, errMsg)
+	case types.ErrCodeTargetRevoked:
+		return fmt.Sprintf("%s失败：目标消息或上下文已失效，无法继续操作。\n错误: %s", action, errMsg)
+	case types.ErrCodeFormatError:
+		return fmt.Sprintf("%s失败：请求内容格式不正确。\n错误: %s", action, errMsg)
+	case types.ErrCodeRateLimited:
+		return fmt.Sprintf("%s失败：请求过于频繁，请稍后重试。\n错误: %s", action, errMsg)
+	case types.ErrCodeSSRFBlocked:
+		return fmt.Sprintf("%s失败：请求的资源地址不被允许。\n错误: %s", action, errMsg)
+	case types.ErrCodeSendTimeout:
+		return fmt.Sprintf("%s失败：请求超时，请稍后重试。\n错误: %s", action, errMsg)
+	default:
+		return fmt.Sprintf("%s失败：%s", action, errMsg)
+	}
+}
+
+func replyCommandError(ctx context.Context, ch types.Channel, msg *types.NormalizedMessage, action string, err error, detail string) error {
+	if err == nil {
+		return nil
+	}
+
+	_, sendHintErr := ch.Send(ctx, &types.SendInput{
+		ReceiveID:      msg.ChatID,
+		ReplyMessageID: msg.MessageID,
+		Text:           buildUserFacingCommandError(action, err, detail),
+	})
+	if sendHintErr == nil {
+		return nil
+	}
+
+	return err
+}
+
 func main() {
 	// 支持命令行参数
 	var appID string
@@ -255,19 +307,25 @@ func main() {
 				ch.UpdatePolicy(pol)
 				// 打印更新后的配置
 				newPolJSON, _ := json.MarshalIndent(ch.GetPolicy(), "", "  ")
-				_, _ = ch.Send(ctx, &types.SendInput{
+				_, err := ch.Send(ctx, &types.SendInput{
 					ReceiveID:      msg.ChatID,
 					ReplyMessageID: msg.MessageID,
 					Text:           "安全策略已更新: \n" + string(newPolJSON),
 				})
+				if err != nil {
+					return replyCommandError(ctx, ch, msg, "更新安全策略", err, "")
+				}
 			} else {
 				// 打印当前配置
 				curPolJSON, _ := json.MarshalIndent(ch.GetPolicy(), "", "  ")
-				_, _ = ch.Send(ctx, &types.SendInput{
+				_, err := ch.Send(ctx, &types.SendInput{
 					ReceiveID:      msg.ChatID,
 					ReplyMessageID: msg.MessageID,
 					Text:           "当前安全策略: \n" + string(curPolJSON) + "\n\n更新示例:\n/policy dm_mode=disabled\n/policy respond_all=false\n/policy require_mention=true\n/policy group_allowlist=oc_xxx|oc_yyy",
 				})
+				if err != nil {
+					return replyCommandError(ctx, ch, msg, "查询安全策略", err, "")
+				}
 			}
 		case strings.HasPrefix(cmd, "/stream"):
 			// 测试 Stream (流式响应)
@@ -276,7 +334,7 @@ func main() {
 				Markdown:  "正在思考中...\n",
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "流式输出", err, "")
 			}
 
 			// 模拟慢速生成文本
@@ -296,7 +354,7 @@ func main() {
 				Markdown:  "这是第一段\n\n这是第二段，带有 [链接](https://larksuite.com)\n\n<at user_id=\"all\">所有人</at>",
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送 Markdown", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/cardstream"):
@@ -316,7 +374,7 @@ func main() {
 				}`,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "卡片流式更新", err, "")
 			}
 
 			// 模拟多步排队更新卡片状态
@@ -385,7 +443,7 @@ func main() {
 				Card:      cardJSON,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送卡片", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/mention"):
@@ -398,7 +456,7 @@ func main() {
 				},
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送提及消息", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/file"):
@@ -412,7 +470,7 @@ func main() {
 				FilePath:  tmpFile,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送文件", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/image"):
@@ -428,7 +486,7 @@ func main() {
 				ImagePath: tmpImg,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送图片", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/post"):
@@ -439,17 +497,25 @@ func main() {
 				Post:      postJSON,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "发送富文本 Post", err, "")
 			}
 
 		case strings.HasPrefix(cmd, "/sharechat"):
-			// 测试发送群名片
+			// 测试发送群名片，支持 /sharechat 或 /sharechat oc_xxx
+			parts := strings.SplitN(cmd, " ", 2)
+			targetChatID := msg.ChatID // 默认分享当前群
+			if len(parts) == 2 {
+				chatID := strings.TrimSpace(parts[1])
+				if chatID != "" {
+					targetChatID = chatID
+				}
+			}
 			_, err := ch.Send(ctx, &types.SendInput{
 				ReceiveID:   msg.ChatID,
-				ShareChatID: msg.ChatID,
+				ShareChatID: targetChatID,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "分享群名片", err, targetChatID)
 			}
 
 		case strings.HasPrefix(cmd, "/shareuser"):
@@ -508,7 +574,7 @@ func main() {
 				ShareUserID: targetUserID,
 			})
 			if err != nil {
-				return err
+				return replyCommandError(ctx, ch, msg, "分享个人名片", err, targetUserID)
 			}
 
 		default:

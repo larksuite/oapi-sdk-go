@@ -76,10 +76,10 @@ func inferCode(err error) FeishuChannelErrorCode {
 		if feishuCode == 230020 || feishuCode == 230017 || feishuCode == 230011 || feishuCode == 230040 {
 			return ErrCodeTargetRevoked
 		}
-		if feishuCode == 99991400 || feishuCode == 99991401 {
+		if feishuCode == 99991400 || feishuCode == 99991401 || feishuCode == 230002 {
 			return ErrCodePermissionDenied
 		}
-		if feishuCode == 230002 || feishuCode == 230001 {
+		if feishuCode == 230001 {
 			return ErrCodeFormatError
 		}
 

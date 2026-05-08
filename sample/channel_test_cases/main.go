@@ -121,11 +121,8 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 
 	durationMs := 1000
-	bTrue := true
-	bFalse := false
-
 	fmt.Println("==================================================")
-	fmt.Println("🚀 Starting Automated Tests for TC-101 to TC-114")
+	fmt.Println("🚀 Starting Channel Sample Test Cases")
 	fmt.Println("==================================================")
 
 	var total, passed, failed int
@@ -286,6 +283,10 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	}
 	// Note: TC-003 (Graceful Disconnect) will be executed at the very end of the script.
 
+	fmt.Println("==================================================")
+	fmt.Println("🚀 Starting Automated Tests for TC-101 to TC-113 (Message Send)")
+	fmt.Println("==================================================")
+
 	// TC-101: Text message
 	if !skip("TC-101") {
 		fmt.Println("TC-101: Sending Text message... ")
@@ -327,11 +328,13 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	// TC-103: Long Markdown splitting
 	if !skip("TC-103") {
 		fmt.Println("TC-103: Sending Long Markdown message... ")
-		longMarkdown := "# Very Long Markdown\n\n"
+		var markdownBuilder strings.Builder
+		markdownBuilder.WriteString("# Very Long Markdown\n\n")
 		for i := 0; i < 500; i++ {
-			longMarkdown += fmt.Sprintf("- Item %d with some text to make it longer.\n", i)
+			_, _ = fmt.Fprintf(&markdownBuilder, "- Item %d with some text to make it longer.\n", i)
 		}
-		longMarkdown += "```go\nfunc main() {\n  fmt.Println(\"Hello\")\n}\n```\n"
+		markdownBuilder.WriteString("```go\nfunc main() {\n  fmt.Println(\"Hello\")\n}\n```\n")
+		longMarkdown := markdownBuilder.String()
 
 		t1 := time.Now()
 		res103, err103 := ch.Send(ctx, &types.SendInput{
@@ -732,10 +735,11 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	if !skip("TC-207") {
 		fmt.Println("TC-207: Recalling message... ")
 		t207 := time.Now()
-		recallRes, err := ch.Send(ctx, &types.SendInput{
+		recallRes, errLocal := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
 			Text:      "This message will be recalled",
 		})
+		err = errLocal
 		if err == nil {
 			// Actually there is no Recall method exposed in the Channel interface yet,
 			// but since the Node SDK might have it, or it's just a raw API call, let's call it via raw SDK for now
@@ -773,6 +777,9 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 		checkResult(err)
 
 	}
+	fmt.Println("==================================================")
+	fmt.Println("🚀 Starting Automated Tests for TC-401 to TC-403 (Streaming)")
+	fmt.Println("==================================================")
 	// TC-401: Markdown 流式发送
 	if !skip("TC-401") {
 		fmt.Println("TC-401: Streaming Markdown message... ")
@@ -855,121 +862,15 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 		}
 		checkResult(err)
 
-		// TC-501 to TC-508: Safety Policies Testing
 	}
 	fmt.Println("==================================================")
-	fmt.Println("🚀 Starting Automated Tests for TC-501 to TC-508 (Safety Policies)")
+	fmt.Println("🚀 Starting Automated Tests for TC-601 to TC-605 (Files & Safety)")
 	fmt.Println("==================================================")
-
-	// We test policy intercepting by directly sending a mock message to the OnMessage handlers
-	// However, the test script itself is not a running long-term server, and OnMessage is normally called internally.
-	// So here we verify the logic inside `Evaluate` which directly mimics how `OnMessage` filters messages.
-	testPolicyGate := func(tc string, msg *types.NormalizedMessage, expectedRejectReason string) {
-		fmt.Printf("%s: Testing policy %s... ", tc, expectedRejectReason)
-		tStart := time.Now()
-
-		gate := safety.NewPolicyGate(nil, nil)
-		gate.UpdateConfig(ch.GetPolicy())
-
-		decision := gate.Evaluate(msg)
-		rejectedReason := ""
-		if !decision.Allowed {
-			rejectedReason = string(decision.Reason)
-		} else {
-			rejectedReason = "passed"
-		}
-
-		if (expectedRejectReason == "" && rejectedReason == "passed") || strings.Contains(rejectedReason, expectedRejectReason) {
-			fmt.Printf("✅ Passed (%v)\n", time.Since(tStart))
-			checkResult(nil)
-		} else {
-			fmt.Printf("❌ Failed (%v)\nExpected reason containing: '%s', got: '%s'\n", time.Since(tStart), expectedRejectReason, rejectedReason)
-			checkResult(fmt.Errorf("policy check failed"))
-		}
-	}
-
-	// Save original policy
-	originalPolicy := ch.GetPolicy()
-
-	// TC-501: Group Allowlist
-	if !skip("TC-501") {
-		ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{"oc_allowed_group"}})
-	}
-	if !skip("TC-501") {
-		testPolicyGate("TC-501 (Allowed)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_allowed_group", MentionedBot: true}, "")
-	}
-	if !skip("TC-501") {
-		testPolicyGate("TC-501 (Blocked)", &types.NormalizedMessage{ChatType: "group", ChatID: "oc_blocked_group", MentionedBot: true}, "group_not_allowed")
-	}
-
-	// TC-502: DM Mode Disabled
-	if !skip("TC-502") {
-		ch.UpdatePolicy(types.PolicyConfig{DMMode: "disabled"})
-	}
-	if !skip("TC-502") {
-		testPolicyGate("TC-502 (DM Disabled)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "dm_disabled")
-	}
-
-	// TC-503: DM Mode Allowlist
-	if !skip("TC-503") {
-		ch.UpdatePolicy(types.PolicyConfig{DMMode: "allowlist", DMAllowlist: []string{receiveID}})
-	}
-	if !skip("TC-503") {
-		testPolicyGate("TC-503 (DM Allowed)", &types.NormalizedMessage{ChatType: "p2p", UserID: receiveID}, "")
-	}
-	if !skip("TC-503") {
-		testPolicyGate("TC-503 (DM Blocked)", &types.NormalizedMessage{ChatType: "p2p", UserID: "ou_blocked_user"}, "sender_not_allowed")
-	}
-
-	// TC-504: Require Mention in Group
-	if !skip("TC-504") {
-		ch.UpdatePolicy(types.PolicyConfig{GroupAllowlist: []string{}, RequireMention: &bTrue})
-	}
-	if !skip("TC-504") {
-		testPolicyGate("TC-504 (No Mention)", &types.NormalizedMessage{ChatType: "group", MentionedBot: false}, "no_mention")
-	}
-	if !skip("TC-504") {
-		testPolicyGate("TC-504 (Mentioned)", &types.NormalizedMessage{ChatType: "group", MentionedBot: true}, "")
-	}
-
-	// TC-505: Respond to Mention All
-	if !skip("TC-505") {
-		var bFalse = false
-		ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bFalse, RequireMention: &bFalse})
-	}
-	if !skip("TC-505") {
-		testPolicyGate("TC-505 (Mention All Blocked)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "mention_all_blocked")
-	}
-
-	ch.UpdatePolicy(types.PolicyConfig{RespondToMentionAll: &bTrue, RequireMention: &bFalse})
-	if !skip("TC-505") {
-		testPolicyGate("TC-505 (Mention All Allowed)", &types.NormalizedMessage{ChatType: "group", MentionAll: true}, "")
-	}
-
-	// TC-508: Update Policy
-	if !skip("TC-508") {
-		// We've already been implicitly testing this via ch.UpdatePolicy() calls above,
-		// but let's verify GetPolicy returns the updated one.
-		fmt.Println("TC-508: Dynamic policy update... ")
-		t508 := time.Now()
-		newPol := ch.GetPolicy()
-		if newPol.RespondToMentionAll != nil && *newPol.RespondToMentionAll == true {
-			fmt.Printf("✅ Passed (%v)\n", time.Since(t508))
-			checkResult(nil)
-		} else {
-			fmt.Printf("❌ Failed (%v)\n", time.Since(t508))
-			checkResult(fmt.Errorf("policy did not update"))
-		}
-
-		// Restore original policy
-		ch.UpdatePolicy(originalPolicy)
-
-	}
 	// TC-601 & TC-603: Upload and Download Image
 	if !skip("TC-601") {
 		fmt.Println("TC-601 & TC-603: Upload and Download Image... ")
 		t601 := time.Now()
-		imgRes, err := ch.Send(ctx, &types.SendInput{
+		imgRes, errLocal := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
 			Media: &types.UploadInput{
 				Kind:        types.MediaKindImage,
@@ -977,6 +878,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 				FileName:    "test_download.png",
 			},
 		})
+		err = errLocal
 		if err == nil && imgRes.MessageID != "" {
 			// Attempt to download the image we just sent by its key.
 			// Note: The Message API response doesn't directly expose the ImageKey in SendResult currently.
@@ -997,7 +899,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	if !skip("TC-602") {
 		fmt.Println("TC-602 & TC-604: Upload and Download File... ")
 		t602 := time.Now()
-		fileRes, err := ch.Send(ctx, &types.SendInput{
+		fileRes, errLocal := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
 			Media: &types.UploadInput{
 				Kind:        types.MediaKindFile,
@@ -1005,6 +907,7 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 				FileName:    "test_download.txt",
 			},
 		})
+		err = errLocal
 		if err == nil && fileRes.MessageID != "" {
 			_, _ = ch.DownloadFile(ctx, "mock_file_key", "file")
 		}
@@ -1037,6 +940,9 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 		checkResult(err)
 
 	}
+	fmt.Println("==================================================")
+	fmt.Println("🚀 Starting Automated Tests for TC-701 to TC-703 (Fallback & Retry)")
+	fmt.Println("==================================================")
 	// TC-701: 发送失败自动重试（限流/网络错）
 	if !skip("TC-701") {
 		// Note: We can't easily mock the server returning 429 in a black-box test, but we can test if the retry mechanism wrapper works
@@ -1050,12 +956,12 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 			wg.Add(1)
 			go func(idx int) {
 				defer wg.Done()
-				_, err := ch.Send(ctx, &types.SendInput{
+				_, sendErr := ch.Send(ctx, &types.SendInput{
 					ReceiveID: receiveID,
 					Text:      fmt.Sprintf("Burst message %d", idx),
 				})
-				if err != nil {
-					burstErrs = append(burstErrs, err)
+				if sendErr != nil {
+					burstErrs = append(burstErrs, sendErr)
 				}
 			}(i)
 		}
@@ -1074,10 +980,11 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 		fmt.Println("TC-702: Fallback on revoked reply target... ")
 		t702 := time.Now()
 		// Send a message, delete it, then try to reply to it
-		tempRes, err := ch.Send(ctx, &types.SendInput{
+		tempRes, errLocal := ch.Send(ctx, &types.SendInput{
 			ReceiveID: receiveID,
 			Text:      "This message will be deleted for TC-702",
 		})
+		err = errLocal
 		if err == nil {
 			_, _ = client.Im.V1.Message.Delete(ctx, larkim.NewDeleteMessageReqBuilder().MessageId(tempRes.MessageID).Build())
 

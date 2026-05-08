@@ -94,3 +94,49 @@ func TestPolicyGate(t *testing.T) {
 		t.Errorf("Expected DM to be allowed after config update")
 	}
 }
+
+func TestPolicyGateDMDisabled(t *testing.T) {
+	pg := NewPolicyGate(&types.PolicyConfig{
+		DMMode: "disabled",
+	}, nil)
+
+	decision := pg.Evaluate(&types.NormalizedMessage{
+		ChatType: "p2p",
+		UserID:   "user1",
+	})
+
+	if decision.Allowed || decision.Reason != types.RejectReasonDMDisabled {
+		t.Fatalf("expected dm_disabled, got allowed=%v reason=%s", decision.Allowed, decision.Reason)
+	}
+}
+
+func TestPolicyGateUpdateConfigPreservesExistingFields(t *testing.T) {
+	pg := NewPolicyGate(&types.PolicyConfig{
+		GroupAllowlist:      []string{"group1"},
+		RequireMention:      ptrBool(true),
+		RespondToMentionAll: ptrBool(false),
+		DMMode:              "allowlist",
+		DMAllowlist:         []string{"user1"},
+	}, nil)
+
+	pg.UpdateConfig(types.PolicyConfig{
+		DMMode: "open",
+	})
+
+	cfg := pg.GetConfig()
+	if cfg.DMMode != "open" {
+		t.Fatalf("expected DMMode to update to open, got %s", cfg.DMMode)
+	}
+	if len(cfg.GroupAllowlist) != 1 || cfg.GroupAllowlist[0] != "group1" {
+		t.Fatalf("expected GroupAllowlist to be preserved, got %#v", cfg.GroupAllowlist)
+	}
+	if cfg.RequireMention == nil || !*cfg.RequireMention {
+		t.Fatalf("expected RequireMention to be preserved, got %#v", cfg.RequireMention)
+	}
+	if cfg.RespondToMentionAll == nil || *cfg.RespondToMentionAll {
+		t.Fatalf("expected RespondToMentionAll=false to be preserved, got %#v", cfg.RespondToMentionAll)
+	}
+	if len(cfg.DMAllowlist) != 1 || cfg.DMAllowlist[0] != "user1" {
+		t.Fatalf("expected DMAllowlist to be preserved, got %#v", cfg.DMAllowlist)
+	}
+}

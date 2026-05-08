@@ -40,9 +40,18 @@ func TestClassifyError(t *testing.T) {
 			wantRetry: false,
 		},
 		{
-			name: "format error",
+			name: "permission denied for target chat visibility",
 			err: &larkcore.CodeError{
 				Code: 230002,
+				Msg:  "Bot/User can NOT be out of the chat.",
+			},
+			wantCode:  ErrCodePermissionDenied,
+			wantRetry: false,
+		},
+		{
+			name: "format error",
+			err: &larkcore.CodeError{
+				Code: 230001,
 				Msg:  "format error",
 			},
 			wantCode:  ErrCodeFormatError,
