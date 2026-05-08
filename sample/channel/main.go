@@ -207,6 +207,68 @@ func main() {
 		}
 
 		switch {
+		case strings.HasPrefix(cmd, "/policy"):
+			// 动态修改安全策略，方便手工测试拦截 (TC-501~TC-505)
+			// 例如: /policy dm_mode=disabled, respond_all=false, require_mention=true
+			parts := strings.SplitN(cmd, " ", 2)
+			if len(parts) == 2 {
+				args := strings.Split(parts[1], ",")
+				pol := ch.GetPolicy()
+				bTrue := true
+				bFalse := false
+				for _, arg := range args {
+					arg = strings.TrimSpace(arg)
+					kv := strings.SplitN(arg, "=", 2)
+					if len(kv) == 2 {
+						k := strings.TrimSpace(kv[0])
+						v := strings.TrimSpace(kv[1])
+						switch k {
+						case "dm_mode":
+							pol.DMMode = v
+						case "respond_all":
+							if v == "true" {
+								pol.RespondToMentionAll = &bTrue
+							} else {
+								pol.RespondToMentionAll = &bFalse
+							}
+						case "require_mention":
+							if v == "true" {
+								pol.RequireMention = &bTrue
+							} else {
+								pol.RequireMention = &bFalse
+							}
+						case "group_allowlist":
+							if v == "empty" || v == "" {
+								pol.GroupAllowlist = []string{}
+							} else {
+								pol.GroupAllowlist = strings.Split(v, "|")
+							}
+						case "dm_allowlist":
+							if v == "empty" || v == "" {
+								pol.DMAllowlist = []string{}
+							} else {
+								pol.DMAllowlist = strings.Split(v, "|")
+							}
+						}
+					}
+				}
+				ch.UpdatePolicy(pol)
+				// 打印更新后的配置
+				newPolJSON, _ := json.MarshalIndent(ch.GetPolicy(), "", "  ")
+				_, _ = ch.Send(ctx, &types.SendInput{
+					ReceiveID:      msg.ChatID,
+					ReplyMessageID: msg.MessageID,
+					Text:           "安全策略已更新: \n" + string(newPolJSON),
+				})
+			} else {
+				// 打印当前配置
+				curPolJSON, _ := json.MarshalIndent(ch.GetPolicy(), "", "  ")
+				_, _ = ch.Send(ctx, &types.SendInput{
+					ReceiveID:      msg.ChatID,
+					ReplyMessageID: msg.MessageID,
+					Text:           "当前安全策略: \n" + string(curPolJSON) + "\n\n更新示例:\n/policy dm_mode=disabled\n/policy respond_all=false\n/policy require_mention=true\n/policy group_allowlist=oc_xxx|oc_yyy",
+				})
+			}
 		case strings.HasPrefix(cmd, "/stream"):
 			// 测试 Stream (流式响应)
 			stream, err := ch.Stream(ctx, &types.SendInput{
@@ -459,7 +521,7 @@ func main() {
 			_, err := ch.Send(ctx, &types.SendInput{
 				ReceiveID:      msg.ChatID,
 				ReplyMessageID: msg.MessageID,
-				Text:           "Echo: \n" + normJSONStr + "\n\n💡 支持指令:\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image\n/post\n/sharechat\n/shareuser",
+				Text:           "Echo: \n" + normJSONStr + "\n\n💡 支持指令:\n/policy\n/stream\n/markdown\n/card\n/cardstream\n/mention\n/file\n/image\n/post\n/sharechat\n/shareuser",
 			})
 			if err != nil {
 				return err
@@ -517,26 +579,39 @@ func main() {
 			fmt.Printf("⛔️ RejectEvent: %s\n", string(normJSON))
 		}
 		if event.MessageID != "" && event.ChatID != "" && event.SenderID != "" && event.Reason != "" {
-			if event.Reason == "dm_disabled" {
+			switch event.Reason {
+			case "group_not_allowed":
+				fmt.Printf("✅ [TC-501 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			case "dm_disabled":
 				fmt.Printf("✅ [TC-502 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
-			} else {
+			case "sender_not_allowed":
+				fmt.Printf("✅ [TC-503 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			case "no_mention":
+				fmt.Printf("✅ [TC-504 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			case "mention_all_blocked":
+				fmt.Printf("✅ [TC-505 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
+			default:
 				fmt.Printf("✅ [TC-318 Passed] 消息被策略拦截: Reason: %s, MsgID: %s\n", event.Reason, event.MessageID)
 			}
 		} else {
-			fmt.Printf("❌ [TC-318/502 Failed] Reject event missing essential fields\n")
+			fmt.Printf("❌ [TC-318/5xx Failed] Reject event missing essential fields\n")
 		}
 		return nil
 	})
 
 	// 7. 注册卡片交互处理逻辑 (可选)
-	ch.OnCardAction(func(ctx context.Context, msg *types.NormalizedMessage) error {
-		if normJSON, err := json.MarshalIndent(msg, "", "  "); err == nil {
+	ch.OnCardAction(func(ctx context.Context, event *types.CardActionEvent) error {
+		if normJSON, err := json.MarshalIndent(event, "", "  "); err == nil {
 			fmt.Printf("🃏 CardActionEvent: %s\n", string(normJSON))
 		}
-		if msg.Content != "" && msg.UserID != "" {
-			fmt.Printf("✅ [TC-313 Passed] 收到来自 %s 的卡片交互，Value: %v\n", msg.UserID, msg.Content)
+		operatorID := event.Operator.OpenID
+		if operatorID == "" {
+			operatorID = event.Operator.UserID
+		}
+		if operatorID != "" && event.Action.Tag != "" {
+			fmt.Printf("✅ [TC-313 Passed] 收到来自 %s 的卡片交互，Tag: %s, Value: %v\n", operatorID, event.Action.Tag, event.Action.Value)
 		} else {
-			fmt.Printf("❌ [TC-313 Failed] Card action missing value or operator\n")
+			fmt.Printf("❌ [TC-313 Failed] Card action missing operator or action tag\n")
 		}
 		return nil
 	})

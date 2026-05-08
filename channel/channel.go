@@ -23,6 +23,67 @@ import (
 	larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
 )
 
+func commentDedupKey(event *types.CommentEvent) string {
+	return fmt.Sprintf("comment:%s:%s", event.FileToken, event.CommentID)
+}
+
+func reactionDedupKey(event *types.ReactionEvent) string {
+	return fmt.Sprintf(
+		"rx:%s:%s:%s:%s:%d",
+		event.MessageID,
+		event.UserID,
+		event.ReactionType,
+		event.Action,
+		event.CreateTimeMs,
+	)
+}
+
+func cardActionDedupKey(event *types.CardActionEvent) string {
+	if event.EventID != "" {
+		return event.EventID
+	}
+	return fmt.Sprintf(
+		"card:%s:%s:%s",
+		event.MessageID,
+		cardActionActorID(event.Operator),
+		cardActionID(event.Action),
+	)
+}
+
+func cardActionActorID(operator types.CardActionOperator) string {
+	if operator.OpenID != "" {
+		return operator.OpenID
+	}
+	return operator.UserID
+}
+
+func cardActionID(action types.CardActionPayload) string {
+	payload := struct {
+		Tag        string                 `json:"tag,omitempty"`
+		Name       string                 `json:"name,omitempty"`
+		Option     string                 `json:"option,omitempty"`
+		Value      map[string]interface{} `json:"value,omitempty"`
+		FormValue  map[string]interface{} `json:"form_value,omitempty"`
+		InputValue string                 `json:"input_value,omitempty"`
+		Options    []string               `json:"options,omitempty"`
+		Checked    bool                   `json:"checked,omitempty"`
+	}{
+		Tag:        action.Tag,
+		Name:       action.Name,
+		Option:     action.Option,
+		Value:      action.Value,
+		FormValue:  action.FormValue,
+		InputValue: action.InputValue,
+		Options:    action.Options,
+		Checked:    action.Checked,
+	}
+	b, err := json.Marshal(payload)
+	if err != nil {
+		return action.Tag
+	}
+	return string(b)
+}
+
 // channelImpl is the default implementation of the Channel interface.
 type channelImpl struct {
 	client          *lark.Client
@@ -43,7 +104,7 @@ type channelImpl struct {
 	onCommentHandlers    []func(ctx context.Context, event *types.CommentEvent) error
 	onReactionHandlers   []func(ctx context.Context, event *types.ReactionEvent) error
 	onBotAddedHandlers   []func(ctx context.Context, event *types.BotAddedEvent) error
-	onCardActionHandlers []func(ctx context.Context, msg *types.NormalizedMessage) error
+	onCardActionHandlers []func(ctx context.Context, event *types.CardActionEvent) error
 	onRejectHandlers     []func(ctx context.Context, event *types.RejectEvent) error
 
 	onErrorHandlers        []func(err error)
@@ -207,11 +268,12 @@ func (ch *channelImpl) OnComment(handler func(ctx context.Context, event *types.
 			}
 			commentEvent := normalize.ParseComment(event)
 			if commentEvent != nil && commentEvent.CommentID != "" {
-				if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(commentEvent.EventID) {
+				dedupKey := commentDedupKey(commentEvent)
+				if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(dedupKey) {
 					return nil
 				}
-				if ch.processLock.Acquire(commentEvent.EventID) {
-					defer ch.processLock.Release(commentEvent.EventID)
+				if ch.processLock.Acquire(dedupKey) {
+					defer ch.processLock.Release(dedupKey)
 
 					// Serialize per document file token
 					err := ch.pipelineManager.Run(ctx, commentEvent.FileToken, func() error {
@@ -262,7 +324,7 @@ func (ch *channelImpl) ensureMessageHandler() {
 
 					if safety.IsStale(normMsg.CreateTimeMs, ch.staleWindow) {
 						// do nothing
-					} else if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(normMsg.EventID) {
+					} else if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(normMsg.MessageID) {
 						// do nothing
 					} else {
 						decision := ch.policyGate.Evaluate(normMsg)
@@ -355,13 +417,14 @@ func (ch *channelImpl) OnReaction(handler func(ctx context.Context, event *types
 	if dispatcher != nil {
 		handleReaction := func(ctx context.Context, reactionEvent *types.ReactionEvent) error {
 			if reactionEvent != nil {
-				if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(reactionEvent.EventID) {
+				dedupKey := reactionDedupKey(reactionEvent)
+				if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(dedupKey) {
 					return nil
 				}
-				if !ch.processLock.Acquire(reactionEvent.EventID) {
+				if !ch.processLock.Acquire(dedupKey) {
 					return nil
 				}
-				defer ch.processLock.Release(reactionEvent.EventID)
+				defer ch.processLock.Release(dedupKey)
 
 				// Serialize per message
 				err := ch.pipelineManager.Run(ctx, reactionEvent.MessageID, func() error {
@@ -394,29 +457,34 @@ func (ch *channelImpl) OnReaction(handler func(ctx context.Context, event *types
 	}
 }
 
-// OnCardAction registers a handler for CardActionTriggerEvent events.
-func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, msg *types.NormalizedMessage) error) {
+// OnCardAction registers a handler for CardActionEvent events.
+func (ch *channelImpl) OnCardAction(handler func(ctx context.Context, event *types.CardActionEvent) error) {
 	ch.onCardActionHandlers = append(ch.onCardActionHandlers, handler)
 	if ch.wsClient != nil {
 		dispatcher := ch.wsClient.EventHandler()
 		if dispatcher != nil {
 			dispatcher.OnP2CardActionTrigger(func(ctx context.Context, event *callback.CardActionTriggerEvent) (*callback.CardActionTriggerResponse, error) {
-				normMsg := normalize.ParseCardAction(event)
-				if normMsg != nil {
+				cardActionEvent := normalize.ParseCardAction(event)
+				if cardActionEvent != nil {
+					dedupKey := cardActionDedupKey(cardActionEvent)
 					// Card actions don't use batching but we can use queueing and locks.
-					if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(normMsg.EventID) {
+					if ch.dedupCache != nil && ch.dedupCache.IsDuplicate(dedupKey) {
 						return nil, nil
 					}
 
-					if !ch.processLock.Acquire(normMsg.EventID) {
+					if !ch.processLock.Acquire(dedupKey) {
 						return nil, nil
 					}
-					defer ch.processLock.Release(normMsg.EventID)
+					defer ch.processLock.Release(dedupKey)
 
 					// Queue to serialize per chat
-					err := ch.pipelineManager.Run(ctx, normMsg.ChatID, func() error {
+					scope := cardActionEvent.ChatID
+					if scope == "" {
+						scope = cardActionEvent.MessageID
+					}
+					err := ch.pipelineManager.Run(ctx, scope, func() error {
 						for _, h := range ch.onCardActionHandlers {
-							if err := h(ctx, normMsg); err != nil {
+							if err := h(ctx, cardActionEvent); err != nil {
 								return err
 							}
 						}

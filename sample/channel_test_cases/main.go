@@ -861,14 +861,13 @@ func runTest(ctx context.Context, ch types.Channel, client *lark.Client, receive
 	fmt.Println("🚀 Starting Automated Tests for TC-501 to TC-508 (Safety Policies)")
 	fmt.Println("==================================================")
 
-	// Helper for testing inbound message policies
-	// We construct a fake NormalizedMessage and pipe it directly to OnMessage handler to see if it gets rejected.
+	// We test policy intercepting by directly sending a mock message to the OnMessage handlers
+	// However, the test script itself is not a running long-term server, and OnMessage is normally called internally.
+	// So here we verify the logic inside `Evaluate` which directly mimics how `OnMessage` filters messages.
 	testPolicyGate := func(tc string, msg *types.NormalizedMessage, expectedRejectReason string) {
 		fmt.Printf("%s: Testing policy %s... ", tc, expectedRejectReason)
 		tStart := time.Now()
 
-		// Instead of hijacking OnMessage which is async and decoupled from policy gate check in test script scope,
-		// we can directly construct a PolicyGate with the current config to test the evaluation logic.
 		gate := safety.NewPolicyGate(nil, nil)
 		gate.UpdateConfig(ch.GetPolicy())
 

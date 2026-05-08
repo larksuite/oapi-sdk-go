@@ -43,10 +43,10 @@ func ParseMessage(event *larkim.P2MessageReceiveV1) *types.NormalizedMessage {
 		norm.ChatType = *msg.ChatType
 	}
 	if sender != nil && sender.SenderId != nil {
-		if sender.SenderId.UserId != nil {
-			norm.UserID = *sender.SenderId.UserId
-		} else if sender.SenderId.OpenId != nil {
+		if sender.SenderId.OpenId != nil {
 			norm.UserID = *sender.SenderId.OpenId
+		} else if sender.SenderId.UserId != nil {
+			norm.UserID = *sender.SenderId.UserId
 		}
 	}
 	if msg.Mentions != nil {
@@ -116,15 +116,21 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 			if ev.Event.MessageId != nil {
 				norm.MessageID = *ev.Event.MessageId
 			}
+			if ev.Event.OperatorType != nil {
+				norm.OperatorType = *ev.Event.OperatorType
+			}
 			if ev.Event.ReactionType != nil && ev.Event.ReactionType.EmojiType != nil {
 				norm.ReactionType = *ev.Event.ReactionType.EmojiType
 			}
 			if ev.Event.UserId != nil {
-				if ev.Event.UserId.UserId != nil {
-					norm.UserID = *ev.Event.UserId.UserId
-				} else if ev.Event.UserId.OpenId != nil {
+				if ev.Event.UserId.OpenId != nil {
 					norm.UserID = *ev.Event.UserId.OpenId
+				} else if ev.Event.UserId.UserId != nil {
+					norm.UserID = *ev.Event.UserId.UserId
 				}
+			}
+			if norm.UserID == "" && ev.Event.AppId != nil {
+				norm.UserID = *ev.Event.AppId
 			}
 			norm.Action = "added"
 		}
@@ -142,15 +148,21 @@ func ParseReaction(event interface{}) *types.ReactionEvent {
 			if ev.Event.MessageId != nil {
 				norm.MessageID = *ev.Event.MessageId
 			}
+			if ev.Event.OperatorType != nil {
+				norm.OperatorType = *ev.Event.OperatorType
+			}
 			if ev.Event.ReactionType != nil && ev.Event.ReactionType.EmojiType != nil {
 				norm.ReactionType = *ev.Event.ReactionType.EmojiType
 			}
 			if ev.Event.UserId != nil {
-				if ev.Event.UserId.UserId != nil {
-					norm.UserID = *ev.Event.UserId.UserId
-				} else if ev.Event.UserId.OpenId != nil {
+				if ev.Event.UserId.OpenId != nil {
 					norm.UserID = *ev.Event.UserId.OpenId
+				} else if ev.Event.UserId.UserId != nil {
+					norm.UserID = *ev.Event.UserId.UserId
 				}
+			}
+			if norm.UserID == "" && ev.Event.AppId != nil {
+				norm.UserID = *ev.Event.AppId
 			}
 			norm.Action = "removed"
 		}
@@ -305,10 +317,10 @@ func ParseBotAdded(event *larkim.P2ChatMemberBotAddedV1) *types.BotAddedEvent {
 		norm.ChatName = *event.Event.Name
 	}
 	if event.Event.OperatorId != nil {
-		if event.Event.OperatorId.UserId != nil {
-			norm.UserID = *event.Event.OperatorId.UserId
-		} else if event.Event.OperatorId.OpenId != nil {
+		if event.Event.OperatorId.OpenId != nil {
 			norm.UserID = *event.Event.OperatorId.OpenId
+		} else if event.Event.OperatorId.UserId != nil {
+			norm.UserID = *event.Event.OperatorId.UserId
 		}
 	}
 
@@ -316,13 +328,13 @@ func ParseBotAdded(event *larkim.P2ChatMemberBotAddedV1) *types.BotAddedEvent {
 }
 
 // ParseCardAction normalizes a CardActionTriggerEvent.
-func ParseCardAction(event *callback.CardActionTriggerEvent) *types.NormalizedMessage {
+func ParseCardAction(event *callback.CardActionTriggerEvent) *types.CardActionEvent {
 	if event == nil || event.Event == nil {
 		return nil
 	}
 
 	req := event.Event
-	norm := &types.NormalizedMessage{
+	norm := &types.CardActionEvent{
 		RawEvent: event,
 	}
 
@@ -330,22 +342,46 @@ func ParseCardAction(event *callback.CardActionTriggerEvent) *types.NormalizedMe
 		norm.EventID = event.EventV2Base.Header.EventID
 	}
 
+	norm.Token = req.Token
+	norm.Host = req.Host
+	norm.DeliveryType = req.DeliveryType
+
 	if req.Context != nil {
 		norm.MessageID = req.Context.OpenMessageID
 		norm.ChatID = req.Context.OpenChatID
-	}
-
-	if req.Operator != nil {
-		if req.Operator.UserID != nil {
-			norm.UserID = *req.Operator.UserID
-		} else {
-			norm.UserID = req.Operator.OpenID
+		norm.Context = types.CardActionContext{
+			URL:           req.Context.URL,
+			PreviewToken:  req.Context.PreviewToken,
+			OpenMessageID: req.Context.OpenMessageID,
+			OpenChatID:    req.Context.OpenChatID,
 		}
 	}
 
-	if req.Action != nil && req.Action.Value != nil {
-		if valBytes, err := json.Marshal(req.Action.Value); err == nil {
-			norm.Content = string(valBytes)
+	if req.Operator != nil {
+		norm.Operator.OpenID = req.Operator.OpenID
+		if req.Operator.UserID != nil {
+			norm.Operator.UserID = *req.Operator.UserID
+		}
+		if req.Operator.TenantKey != nil {
+			norm.Operator.TenantKey = *req.Operator.TenantKey
+		}
+	}
+
+	if req.Action != nil {
+		norm.Action = types.CardActionPayload{
+			Tag:        req.Action.Tag,
+			Option:     req.Action.Option,
+			Timezone:   req.Action.Timezone,
+			Name:       req.Action.Name,
+			InputValue: req.Action.InputValue,
+			Options:    append([]string(nil), req.Action.Options...),
+			Checked:    req.Action.Checked,
+		}
+		if req.Action.Value != nil {
+			norm.Action.Value = req.Action.Value
+		}
+		if req.Action.FormValue != nil {
+			norm.Action.FormValue = req.Action.FormValue
 		}
 	}
 

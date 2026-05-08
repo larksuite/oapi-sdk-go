@@ -12,7 +12,7 @@ type Channel interface {
 	OnReaction(handler func(ctx context.Context, event *ReactionEvent) error)
 	OnComment(handler func(ctx context.Context, event *CommentEvent) error)
 	OnBotAdded(handler func(ctx context.Context, event *BotAddedEvent) error)
-	OnCardAction(handler func(ctx context.Context, msg *NormalizedMessage) error)
+	OnCardAction(handler func(ctx context.Context, event *CardActionEvent) error)
 	OnReject(handler func(ctx context.Context, event *RejectEvent) error)
 
 	// Media download
@@ -52,7 +52,7 @@ type StreamController interface {
 // NormalizedMessage represents a standardized message event extracted from various
 // underlying message types, making it easier to handle common use cases.
 type NormalizedMessage struct {
-	EventID        string      `json:"event_id"` // Unique event ID for deduplication
+	EventID        string      `json:"event_id"` // Original event ID for tracing/debugging
 	MessageID      string      `json:"message_id"`
 	ChatID         string      `json:"chat_id"`
 	ChatType       string      `json:"chat_type"` // "group" or "p2p"
