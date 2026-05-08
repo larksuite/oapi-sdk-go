@@ -292,9 +292,6 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 
 	req.Header.Add("locale", "zh")
 	req.Header.Add("Content-Type", "application/json")
-	// todo: 临时增加，上线删除
-	req.Header.Add("x-tt-env", "ppe_client_assertion")
-	req.Header.Add("x-use-ppe", "1")
 	for k, values := range headers {
 		for _, value := range values {
 			req.Header.Add(k, value)

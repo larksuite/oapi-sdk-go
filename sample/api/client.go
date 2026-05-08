@@ -104,11 +104,3 @@ func main() {
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
-
-func clientAssertionClient() {
-	var appID = os.Getenv("APP_ID")
-	client := lark.NewClient(appID, "",
-		lark.WithClientAssertionProvider(&envClientAssertionProvider{}),
-	)
-	fmt.Println(client)
-}

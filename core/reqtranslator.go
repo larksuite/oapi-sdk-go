@@ -130,9 +130,6 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	if contentType != "" {
 		httpRequest.Header.Set(contentTypeHeader, contentType)
 	}
-	// todo：上线必须去掉
-	httpRequest.Header.Set("x-tt-env", "ppe_client_assertion")
-	httpRequest.Header.Set("x-use-ppe", "1")
 	switch accessTokenType {
 	case AccessTokenTypeApp:
 		appAccessToken := option.AppAccessToken
