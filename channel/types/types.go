@@ -19,6 +19,7 @@ type Channel interface {
 	DownloadFile(ctx context.Context, fileKey string, mediaType string) ([]byte, error)
 
 	// Lifecycle hooks
+	OnReady(handler func())
 	OnError(handler func(err error))
 	OnReconnecting(handler func())
 	OnReconnected(handler func())

@@ -116,6 +116,12 @@ func WithOnDisconnected(f func()) ClientOption {
 	}
 }
 
+func (c *Client) SetOnReady(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReady = f
+}
+
 func (c *Client) SetOnReconnecting(f func()) {
 	c.mu.Lock()
 	defer c.mu.Unlock()

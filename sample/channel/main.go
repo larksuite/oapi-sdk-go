@@ -617,6 +617,9 @@ func main() {
 	})
 
 	// 8. 注册生命周期钩子
+	ch.OnReady(func() {
+		fmt.Println("[WS] Client is ready and Bot Identity loaded.")
+	})
 	ch.OnError(func(err error) {
 		fmt.Printf("[WS] Error occurred: %v\n", err)
 	})
@@ -638,15 +641,6 @@ func main() {
 			panic(err)
 		}
 	}()
-
-	// Give it a moment to connect and fetch bot identity
-	time.Sleep(2 * time.Second)
-	botInfo := ch.GetBotIdentity(context.Background())
-	if botInfo != nil {
-		fmt.Printf("🤖 Bot Identity Loaded: Name=%s, OpenID=%s\n", botInfo.Name, botInfo.OpenID)
-	} else {
-		fmt.Println("⚠️ Failed to load Bot Identity.")
-	}
 
 	select {}
 }

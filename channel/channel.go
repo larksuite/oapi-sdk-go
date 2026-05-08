@@ -107,6 +107,7 @@ type channelImpl struct {
 	onCardActionHandlers []func(ctx context.Context, event *types.CardActionEvent) error
 	onRejectHandlers     []func(ctx context.Context, event *types.RejectEvent) error
 
+	onReadyHandlers        []func()
 	onErrorHandlers        []func(err error)
 	onReconnectingHandlers []func()
 	onReconnectedHandlers  []func()
@@ -179,6 +180,11 @@ func (ch *channelImpl) GetBotIdentity(ctx context.Context) *types.BotIdentity {
 	return ch.botIdentity
 }
 
+// OnReady registers a handler for WS ready events.
+func (ch *channelImpl) OnReady(handler func()) {
+	ch.onReadyHandlers = append(ch.onReadyHandlers, handler)
+}
+
 // OnError registers a handler for WS error events.
 func (ch *channelImpl) OnError(handler func(err error)) {
 	ch.onErrorHandlers = append(ch.onErrorHandlers, handler)
@@ -215,6 +221,27 @@ func (ch *channelImpl) Start(ctx context.Context) error {
 		larkcore.NewEventLogger().Info(ctx, "[Channel] Start called but wsClient is nil, skipping WebSocket connection.")
 		return nil
 	}
+	ch.wsClient.SetOnReady(func() {
+		botInfo := ch.GetBotIdentity(ctx)
+		botIdentityStr := ""
+		if botInfo != nil {
+			botIdentityStr = fmt.Sprintf("botIdentity: {\n  openId: '%s',\n  name: '%s'\n}", botInfo.OpenID, botInfo.Name)
+		}
+
+		larkcore.NewEventLogger().Info(ctx, fmt.Sprintf("receive events or callbacks through persistent connection only available in self-build & Feishu app, Configured in:\n"+
+			"    Developer Console(开发者后台) \n"+
+			"        ->\n"+
+			"    Events and Callbacks(事件与回调)\n"+
+			"        -> \n"+
+			"    Mode of event/callback subscription(订阅方式)\n"+
+			"        -> \n"+
+			"    Receive events/callbacks through persistent connection(使用长连接接收事件/回调)\n\n"+
+			"WebSocket 连接成功, %s", botIdentityStr))
+
+		for _, h := range ch.onReadyHandlers {
+			h()
+		}
+	})
 	ch.wsClient.SetOnError(func(err error) {
 		for _, h := range ch.onErrorHandlers {
 			h(err)

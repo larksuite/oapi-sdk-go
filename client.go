@@ -261,6 +261,7 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 
 	// 触发重推 appTicket,如果是 ISV 的话
 	resendAppTicketIfNeed(client)
+	config.Logger.Info(context.Background(), "client ready")
 	return client
 }
 
