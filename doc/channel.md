@@ -311,6 +311,19 @@ bot := ch.GetBotIdentity(ctx)
 
 `DownloadFile()` supports `image`, `file`, `audio`, `video`, and `media`.
 
+The returned bot snapshot includes `OpenID`, `Name`, and `ActivateStatus`.
+
+`GetBotIdentity()` uses in-memory caching with a default TTL of `30m`. When the cache is stale, refresh attempts are rate-limited by `MinRefreshInterval`, which defaults to `1m` and is clamped to a minimum of `30s`.
+
+```go
+ch := channel.NewChannel(client, wsClient,
+    types.WithBotIdentityCacheConfig(types.BotIdentityCacheConfig{
+        TTL:                10 * time.Minute,
+        MinRefreshInterval: 2 * time.Minute,
+    }),
+)
+```
+
 ---
 
 ## Error handling

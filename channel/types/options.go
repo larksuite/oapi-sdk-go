@@ -23,11 +23,18 @@ type OutboundConfig struct {
 	}
 }
 
+// BotIdentityCacheConfig controls how bot identity is cached and refreshed.
+type BotIdentityCacheConfig struct {
+	TTL                time.Duration
+	MinRefreshInterval time.Duration
+}
+
 // ChannelConfig is the consolidated configuration for the channel.
 type ChannelConfig struct {
-	Safety   SafetyConfig
-	Policy   PolicyConfig
-	Outbound OutboundConfig
+	Safety           SafetyConfig
+	Policy           PolicyConfig
+	Outbound         OutboundConfig
+	BotIdentityCache BotIdentityCacheConfig
 }
 
 // ChannelOption is a function that modifies the ChannelConfig.
@@ -51,6 +58,13 @@ func WithPolicyConfig(cfg PolicyConfig) ChannelOption {
 func WithOutboundConfig(cfg OutboundConfig) ChannelOption {
 	return func(c *ChannelConfig) {
 		c.Outbound = cfg
+	}
+}
+
+// WithBotIdentityCacheConfig sets the bot identity cache configuration.
+func WithBotIdentityCacheConfig(cfg BotIdentityCacheConfig) ChannelOption {
+	return func(c *ChannelConfig) {
+		c.BotIdentityCache = cfg
 	}
 }
 
@@ -80,6 +94,10 @@ func DefaultChannelConfig() ChannelConfig {
 				MaxAttempts: 3,
 				BaseDelayMs: 500 * time.Millisecond,
 			},
+		},
+		BotIdentityCache: BotIdentityCacheConfig{
+			TTL:                30 * time.Minute,
+			MinRefreshInterval: 1 * time.Minute,
 		},
 	}
 }

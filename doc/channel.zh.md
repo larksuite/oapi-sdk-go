@@ -311,6 +311,19 @@ bot := ch.GetBotIdentity(ctx)
 
 `DownloadFile()` 支持 `image`、`file`、`audio`、`video`、`media`。
 
+返回的 `bot` 信息包含 `OpenID`、`Name` 以及 `ActivateStatus`。
+
+`GetBotIdentity()` 使用内存缓存，默认 TTL 为 `30m`。当缓存过期时，刷新尝试会受 `MinRefreshInterval` 限制；该值默认 `1m`，最小保护为 `30s`。
+
+```go
+ch := channel.NewChannel(client, wsClient,
+    types.WithBotIdentityCacheConfig(types.BotIdentityCacheConfig{
+        TTL:                10 * time.Minute,
+        MinRefreshInterval: 2 * time.Minute,
+    }),
+)
+```
+
 ---
 
 ## 错误处理
