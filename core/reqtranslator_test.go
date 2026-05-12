@@ -13,10 +13,16 @@
 package larkcore
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"mime"
+	"mime/multipart"
 	"net/http"
+	"os"
+	"path/filepath"
 	"testing"
+	"time"
 )
 
 func TestTranslate(t *testing.T) {
@@ -44,4 +50,115 @@ func TestPathUrlEncode(t *testing.T) {
 	if url != "https://open.feishu.comopen-apis/12/sssss/12121wwww/%E5%8A%A0%E5%A4%9A?user_type=open_id" {
 		t.Errorf("TestPathUrlEncode failed ")
 	}
+}
+
+func TestFormdataContentUsesReaderNameAsFilename(t *testing.T) {
+	formData := NewFormdata().
+		AddField("file_type", "stream").
+		AddFile("file", &testNamedReader{
+			Reader: bytes.NewReader([]byte("hello")),
+			name:   "/tmp/report.txt",
+		})
+
+	form, err := readMultipartForm(formData)
+	if err != nil {
+		t.Fatalf("read multipart form failed: %v", err)
+	}
+
+	if got := form.Value["file_type"][0]; got != "stream" {
+		t.Fatalf("field file_type = %q, want %q", got, "stream")
+	}
+	if got := form.File["file"][0].Filename; got != "report.txt" {
+		t.Fatalf("filename = %q, want %q", got, "report.txt")
+	}
+}
+
+func TestFormdataAddFileWithName(t *testing.T) {
+	formData := NewFormdata().
+		AddFileWithName("file", "/tmp/from-nop-closer.txt", testReadCloser{Reader: bytes.NewReader([]byte("hello"))})
+
+	form, err := readMultipartForm(formData)
+	if err != nil {
+		t.Fatalf("read multipart form failed: %v", err)
+	}
+
+	if got := form.File["file"][0].Filename; got != "from-nop-closer.txt" {
+		t.Fatalf("filename = %q, want %q", got, "from-nop-closer.txt")
+	}
+}
+
+func TestFormdataAddFileByPath(t *testing.T) {
+	tempFilePath := filepath.Join(os.TempDir(), fmt.Sprintf("formdata-file-%d.txt", time.Now().UnixNano()))
+	file, err := os.OpenFile(tempFilePath, os.O_RDWR|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		t.Fatalf("create temp file failed: %v", err)
+	}
+	defer os.Remove(file.Name())
+
+	_, err = file.WriteString("hello from path")
+	if err != nil {
+		t.Fatalf("write temp file failed: %v", err)
+	}
+	err = file.Close()
+	if err != nil {
+		t.Fatalf("close temp file failed: %v", err)
+	}
+
+	formData := NewFormdata().AddFileByPath("file", file.Name())
+	form, err := readMultipartForm(formData)
+	if err != nil {
+		t.Fatalf("read multipart form failed: %v", err)
+	}
+
+	fileHeader := form.File["file"][0]
+	if got, want := fileHeader.Filename, filepath.Base(file.Name()); got != want {
+		t.Fatalf("filename = %q, want %q", got, want)
+	}
+
+	uploaded, err := fileHeader.Open()
+	if err != nil {
+		t.Fatalf("open multipart file failed: %v", err)
+	}
+	defer uploaded.Close()
+
+	var content bytes.Buffer
+	_, err = content.ReadFrom(uploaded)
+	if err != nil {
+		t.Fatalf("read multipart file failed: %v", err)
+	}
+	if got := content.String(); got != "hello from path" {
+		t.Fatalf("content = %q, want %q", got, "hello from path")
+	}
+}
+
+type testNamedReader struct {
+	*bytes.Reader
+	name string
+}
+
+func (r *testNamedReader) Name() string {
+	return r.name
+}
+
+type testReadCloser struct {
+	*bytes.Reader
+}
+
+func (r testReadCloser) Close() error {
+	return nil
+}
+
+func readMultipartForm(formData *Formdata) (*multipart.Form, error) {
+	contentType, body, err := formData.content()
+	if err != nil {
+		return nil, err
+	}
+
+	_, params, err := mime.ParseMediaType(contentType)
+	if err != nil {
+		return nil, err
+	}
+
+	reader := multipart.NewReader(bytes.NewReader(body), params["boundary"])
+	return reader.ReadForm(int64(len(body)))
 }
