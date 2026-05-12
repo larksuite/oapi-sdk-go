@@ -248,6 +248,14 @@ func (fd *Formdata) AddFile(field string, r io.Reader) *Formdata {
 	return fd.AddField(field, r)
 }
 
+func (fd *Formdata) AddFileWithName(field, filename string, r io.Reader) *Formdata {
+	return fd.AddField(field, formdataFile{Reader: r, filename: filename})
+}
+
+func (fd *Formdata) AddFileByPath(field, path string) *Formdata {
+	return fd.AddField(field, formdataFilePath{path: path})
+}
+
 func (fd *Formdata) content() (string, []byte, error) {
 	if fd.data != nil {
 		return fd.data.contentType, fd.data.content, nil
@@ -255,17 +263,24 @@ func (fd *Formdata) content() (string, []byte, error) {
 	buf := &bytes.Buffer{}
 	writer := multipart.NewWriter(buf)
 	for key, val := range fd.fields {
-		if r, ok := val.(io.Reader); ok {
-			filename := "unknown-file"
-			if f, ok := val.(*os.File); ok {
-				filename = filepath.Base(f.Name())
-			}
-			part, err := writer.CreateFormFile(key, filename)
+		if filePath, ok := val.(formdataFilePath); ok {
+			file, err := os.Open(filePath.path)
 			if err != nil {
 				return "", nil, err
 			}
-			_, err = io.Copy(part, r)
+			err = fd.writeFormFile(writer, key, filepath.Base(filePath.path), file)
+			closeErr := file.Close()
 			if err != nil {
+				return "", nil, err
+			}
+			if closeErr != nil {
+				return "", nil, closeErr
+			}
+			continue
+		}
+		if r, ok := val.(io.Reader); ok {
+			filename := formdataFilename(val)
+			if err := fd.writeFormFile(writer, key, filename, r); err != nil {
 				return "", nil, err
 			}
 			continue
@@ -285,6 +300,42 @@ func (fd *Formdata) content() (string, []byte, error) {
 		contentType string
 	}{content: buf.Bytes(), contentType: contentType}
 	return fd.data.contentType, fd.data.content, nil
+}
+
+func (fd *Formdata) writeFormFile(writer *multipart.Writer, field, filename string, r io.Reader) error {
+	part, err := writer.CreateFormFile(field, filename)
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(part, r)
+	return err
+}
+
+type namedFile interface {
+	Name() string
+}
+
+type formdataFile struct {
+	io.Reader
+	filename string
+}
+
+func (f formdataFile) Name() string {
+	return f.filename
+}
+
+type formdataFilePath struct {
+	path string
+}
+
+func formdataFilename(val interface{}) string {
+	if f, ok := val.(namedFile); ok {
+		filename := filepath.Base(f.Name())
+		if filename != "." && filename != string(filepath.Separator) {
+			return filename
+		}
+	}
+	return "unknown-file"
 }
 
 type Formdata struct {
