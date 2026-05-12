@@ -13,6 +13,12 @@ type Endpoint struct {
 	ClientConfig *ClientConfig `json:"ClientConfig,omitempty"`
 }
 
+type BootstrapRequest struct {
+	AppID           string `json:"AppID"`
+	AppSecret       string `json:"AppSecret"`
+	ClientAssertion string `json:"ClientAssertion"`
+}
+
 // ClientConfig 由服务端下发
 type ClientConfig struct {
 	ReconnectCount    int `json:"ReconnectCount,omitempty"`

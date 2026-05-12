@@ -57,6 +57,12 @@ func httProxy() {
 type SonicSerialization struct {
 }
 
+type envClientAssertionProvider struct{}
+
+func (p *envClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
+	return &larkcore.Token{Value: os.Getenv("CLIENT_ASSERTION")}, nil
+}
+
 func (d *SonicSerialization) Serialize(v interface{}) ([]byte, error) {
 	return sonic.Marshal(v)
 }

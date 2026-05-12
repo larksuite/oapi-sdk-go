@@ -13,26 +13,42 @@
 package larkcore
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
 
+type TargetInfo struct {
+	TargetService string
+	TargetPrefix  string
+}
+
+type Token struct {
+	Value      string
+	TargetInfo *TargetInfo
+}
+
+type ClientAssertionProvider interface {
+	RetrieveToken(ctx context.Context, aud string) (*Token, error)
+}
+
 type Config struct {
-	BaseUrl           string
-	AppId             string
-	AppSecret         string
-	HelpDeskId        string
-	HelpDeskToken     string
-	HelpdeskAuthToken string
-	ReqTimeout        time.Duration
-	LogLevel          LogLevel
-	HttpClient        HttpClient
-	Logger            Logger
-	AppType           AppType
-	EnableTokenCache  bool
-	TokenCache        Cache
-	LogReqAtDebug     bool
-	Header            http.Header
-	Serializable      Serializable
-	SkipSignVerify    bool
+	BaseUrl                 string
+	AppId                   string
+	AppSecret               string
+	ClientAssertionProvider ClientAssertionProvider
+	HelpDeskId              string
+	HelpDeskToken           string
+	HelpdeskAuthToken       string
+	ReqTimeout              time.Duration
+	LogLevel                LogLevel
+	HttpClient              HttpClient
+	Logger                  Logger
+	AppType                 AppType
+	EnableTokenCache        bool
+	TokenCache              Cache
+	LogReqAtDebug           bool
+	Header                  http.Header
+	Serializable            Serializable
+	SkipSignVerify          bool
 }
