@@ -48,8 +48,16 @@ func TestExtractAudFromURL(t *testing.T) {
 }
 
 func TestBuildProxyURL(t *testing.T) {
-	proxyURL := buildProxyURL("proxy.example.com", "/v1", OAuthTokenUrlPath)
-	if proxyURL != "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token" {
-		t.Fatalf("unexpected proxy url: %s", proxyURL)
+	testCases := map[string]string{
+		"proxy.example.com":         "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
+		"https://proxy.example.com": "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
+		"http://proxy.example.com":  "http://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
+	}
+
+	for targetService, expected := range testCases {
+		proxyURL := buildProxyURL(targetService, "/v1", OAuthTokenUrlPath)
+		if proxyURL != expected {
+			t.Fatalf("unexpected proxy url for %s: %s", targetService, proxyURL)
+		}
 	}
 }

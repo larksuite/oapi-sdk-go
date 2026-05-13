@@ -208,7 +208,10 @@ func extractAudFromURL(rawURL string) (string, error) {
 }
 
 func buildProxyURL(targetService, targetPrefix, apiPath string) string {
-	return "https://" + targetService + targetPrefix + apiPath
+	if !strings.Contains(targetService, "://") {
+		targetService = "https://" + targetService
+	}
+	return targetService + targetPrefix + apiPath
 }
 
 type DecryptErr struct {
