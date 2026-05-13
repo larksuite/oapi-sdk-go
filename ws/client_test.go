@@ -84,7 +84,7 @@ func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
 	defer proxyServer.Close()
 
 	bootstrapHTTPClient = proxyServer.Client()
-	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}}
+	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.URL, TargetPrefix: "/proxy"}}}}
 	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
 	if _, err := client.getConnURL(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
@@ -108,7 +108,7 @@ func TestGetConnURLWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 	defer proxyServer.Close()
 
 	bootstrapHTTPClient = proxyServer.Client()
-	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}}
+	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.URL, TargetPrefix: "/proxy"}}}}
 	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
 	_, err := client.getConnURL(context.Background())
 	if err == nil {
@@ -156,5 +156,20 @@ func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
 	}
 	if len(bodyAssertions) != 2 || bodyAssertions[0] != "assertion-1" || bodyAssertions[1] != "assertion-2" {
 		t.Fatalf("unexpected assertions: %#v", bodyAssertions)
+	}
+}
+
+func TestBuildWSProxyURL(t *testing.T) {
+	testCases := map[string]string{
+		"proxy.example.com":         "https://proxy.example.com/v1" + GenEndpointUri,
+		"https://proxy.example.com": "https://proxy.example.com/v1" + GenEndpointUri,
+		"http://proxy.example.com":  "http://proxy.example.com/v1" + GenEndpointUri,
+	}
+
+	for targetService, expected := range testCases {
+		proxyURL := buildWSProxyURL(targetService, "/v1", GenEndpointUri)
+		if proxyURL != expected {
+			t.Fatalf("unexpected proxy url for %s: %s", targetService, proxyURL)
+		}
 	}
 }

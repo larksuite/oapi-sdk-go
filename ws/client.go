@@ -364,7 +364,10 @@ func extractAudFromWSURL(rawURL string) (string, error) {
 }
 
 func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
-	return "https://" + targetService + targetPrefix + apiPath
+	if !strings.Contains(targetService, "://") {
+		targetService = "https://" + targetService
+	}
+	return targetService + targetPrefix + apiPath
 }
 
 func (c *Client) pingLoop(ctx context.Context) {
