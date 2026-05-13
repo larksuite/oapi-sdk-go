@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"sync/atomic"
 	"testing"
 )
@@ -95,4 +96,126 @@ func TestDoSend_CloseBodyOnGatewayTimeout(t *testing.T) {
 	if atomic.LoadInt32(&body.closed) != 1 {
 		t.Fatalf("expect resp body closed on gateway timeout")
 	}
+}
+
+func TestDetermineTokenTypeRejectsAppOnlyInClientAssertionMode(t *testing.T) {
+	config := mockConfig()
+	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
+
+	_, err := determineTokenType([]AccessTokenType{AccessTokenTypeApp}, &RequestOption{}, config)
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	codeErr, ok := err.(*CodeError)
+	if !ok || codeErr.Code != ErrCodeClientAssertionModeNotSupported {
+		t.Fatalf("unexpected error: %#v", err)
+	}
+}
+
+func TestValidateSkipsAppSecretWithClientAssertionProvider(t *testing.T) {
+	config := mockConfig()
+	config.AppSecret = ""
+	config.EnableTokenCache = true
+	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
+
+	err := validate(config, &RequestOption{}, AccessTokenTypeTenant)
+	if err != nil {
+		t.Fatalf("validate failed: %v", err)
+	}
+}
+
+func TestDetermineTokenTypePrefersTenantInClientAssertionMode(t *testing.T) {
+	config := mockConfig()
+	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
+
+	tokenType, err := determineTokenType([]AccessTokenType{AccessTokenTypeApp, AccessTokenTypeTenant}, &RequestOption{}, config)
+	if err != nil {
+		t.Fatalf("determine token type failed: %v", err)
+	}
+	if tokenType != AccessTokenTypeTenant {
+		t.Fatalf("unexpected token type: %s", tokenType)
+	}
+}
+
+func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == OAuthTokenUrlPath {
+			_, _ = w.Write([]byte(`{"access_token":"tenant-token","expires_in":7200}`))
+			return
+		}
+		if got := r.Header.Get("Authorization"); got != "Bearer tenant-token" {
+			t.Fatalf("unexpected authorization header: %s", got)
+		}
+		_, _ = w.Write([]byte(`{"code":0}`))
+	}))
+	defer server.Close()
+
+	provider := &retryProvider{token: &Token{Value: "assertion"}}
+	config := mockConfig()
+	config.BaseUrl = server.URL
+	config.EnableTokenCache = true
+	config.HttpClient = server.Client()
+	config.ClientAssertionProvider = provider
+
+	resp, err := Request(context.Background(), &ApiReq{
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   "/resource",
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeTenant},
+	}, config)
+	if err != nil {
+		t.Fatalf("request failed: %v", err)
+	}
+	if resp == nil || provider.calls != 2 {
+		t.Fatalf("unexpected response/provider calls: resp=%v calls=%d", resp, provider.calls)
+	}
+}
+
+func TestValidateAllowsManualUserAccessTokenWithoutAppSecret(t *testing.T) {
+	config := mockConfig()
+	config.AppSecret = ""
+	config.ClientAssertionProvider = nil
+
+	err := validate(config, &RequestOption{UserAccessToken: "user-token"}, AccessTokenTypeUser)
+	if err != nil {
+		t.Fatalf("validate failed: %v", err)
+	}
+}
+
+func TestValidateAllowsManualTenantAccessTokenWithoutAppSecret(t *testing.T) {
+	config := mockConfig()
+	config.AppSecret = ""
+	config.ClientAssertionProvider = nil
+
+	err := validate(config, &RequestOption{TenantAccessToken: "tenant-token"}, AccessTokenTypeTenant)
+	if err != nil {
+		t.Fatalf("validate failed: %v", err)
+	}
+}
+
+func TestValidateRejectsMarketplaceClientAssertionMode(t *testing.T) {
+	config := mockConfig()
+	config.AppType = AppTypeMarketplace
+	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
+
+	err := validate(config, &RequestOption{}, AccessTokenTypeTenant)
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	codeErr, ok := err.(*CodeError)
+	if !ok || codeErr.Code != ErrCodeClientAssertionProviderNotConfigured {
+		t.Fatalf("unexpected error: %#v", err)
+	}
+}
+
+type retryProvider struct {
+	calls int
+	token *Token
+}
+
+func (p *retryProvider) RetrieveToken(ctx context.Context, aud string) (*Token, error) {
+	p.calls++
+	if p.calls == 1 {
+		return nil, ErrAppTicketIsEmpty
+	}
+	return p.token, nil
 }

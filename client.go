@@ -182,6 +182,12 @@ func WithTokenCache(cache larkcore.Cache) ClientOptionFunc {
 	}
 }
 
+func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.ClientAssertionProvider = provider
+	}
+}
+
 func WithLogReqAtDebug(printReqRespLog bool) ClientOptionFunc {
 	return func(config *larkcore.Config) {
 		config.LogReqAtDebug = printReqRespLog
@@ -331,6 +337,10 @@ func resendAppTicketIfNeed(client *Client) {
 	}()
 
 	if client.config.AppType == larkcore.AppTypeMarketplace {
+		if client.config.ClientAssertionProvider != nil {
+			client.config.Logger.Error(context.Background(), (&larkcore.CodeError{Code: larkcore.ErrCodeClientAssertionProviderNotConfigured, Msg: "ClientAssertion mode is not supported for marketplace apps"}).Error())
+			return
+		}
 		ctx := context.Background()
 		resp, err := client.ResendAppTicket(ctx, &larkcore.ResendAppTicketReq{
 			AppID:     client.config.AppId,

@@ -55,19 +55,43 @@ func validateTokenType(accessTokenTypes []AccessTokenType, option *RequestOption
 	return nil
 }
 
-func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOption, enableTokenCache bool) AccessTokenType {
-	if !enableTokenCache {
-		if option.UserAccessToken != "" {
-			return AccessTokenTypeUser
-		}
-		if option.TenantAccessToken != "" {
-			return AccessTokenTypeTenant
-		}
-		if option.AppAccessToken != "" {
-			return AccessTokenTypeApp
+func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOption, config *Config) (AccessTokenType, error) {
+	if config.ClientAssertionProvider != nil {
+		accessibleTokenTypeSet := make(map[AccessTokenType]struct{})
+		accessTokenType := accessTokenTypes[0]
+		for _, t := range accessTokenTypes {
+			if t == AccessTokenTypeTenant {
+				accessTokenType = t
+			}
+			accessibleTokenTypeSet[t] = struct{}{}
 		}
 
-		return AccessTokenTypeNone
+		if option.UserAccessToken != "" {
+			if _, ok := accessibleTokenTypeSet[AccessTokenTypeUser]; ok {
+				return AccessTokenTypeUser, nil
+			}
+		}
+		if _, ok := accessibleTokenTypeSet[AccessTokenTypeTenant]; ok {
+			return AccessTokenTypeTenant, nil
+		}
+		if _, ok := accessibleTokenTypeSet[AccessTokenTypeApp]; ok {
+			return AccessTokenTypeNone, &CodeError{Code: ErrCodeClientAssertionModeNotSupported, Msg: "AppAccessToken APIs are not available in ClientAssertion mode"}
+		}
+		return accessTokenType, nil
+	}
+
+	if !config.EnableTokenCache {
+		if option.UserAccessToken != "" {
+			return AccessTokenTypeUser, nil
+		}
+		if option.TenantAccessToken != "" {
+			return AccessTokenTypeTenant, nil
+		}
+		if option.AppAccessToken != "" {
+			return AccessTokenTypeApp, nil
+		}
+
+		return AccessTokenTypeNone, nil
 	}
 	accessibleTokenTypeSet := make(map[AccessTokenType]struct{})
 	accessTokenType := accessTokenTypes[0]
@@ -88,7 +112,7 @@ func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOptio
 		}
 	}
 
-	return accessTokenType
+	return accessTokenType, nil
 }
 
 func validate(config *Config, option *RequestOption, accessTokenType AccessTokenType) error {
@@ -96,7 +120,15 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		return &IllegalParamError{msg: "AppId is empty"}
 	}
 
-	if config.AppSecret == "" {
+	hasManualAccessToken := (accessTokenType == AccessTokenTypeUser && option.UserAccessToken != "") ||
+		(accessTokenType == AccessTokenTypeTenant && option.TenantAccessToken != "") ||
+		(accessTokenType == AccessTokenTypeApp && option.AppAccessToken != "")
+
+	if config.ClientAssertionProvider != nil && config.AppType == AppTypeMarketplace {
+		return &CodeError{Code: ErrCodeClientAssertionProviderNotConfigured, Msg: "ClientAssertion mode is not supported for marketplace apps"}
+	}
+
+	if config.ClientAssertionProvider == nil && config.AppSecret == "" && !hasManualAccessToken {
 		return &IllegalParamError{msg: "AppSecret is empty"}
 	}
 
@@ -127,6 +159,17 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	}
 
 	return nil
+}
+
+func shouldSkipCodeErrorPreDecode(apiPath string) bool {
+	if strings.Contains(apiPath, "://") {
+		parsedURL, err := url.Parse(apiPath)
+		if err == nil {
+			apiPath = parsedURL.Path
+		}
+	}
+
+	return strings.HasSuffix(apiPath, OAuthTokenUrlPath)
 }
 
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
@@ -186,7 +229,10 @@ func Request(ctx context.Context, req *ApiReq, config *Config, options ...Reques
 	if err != nil {
 		return nil, err
 	}
-	accessTokenType := determineTokenType(req.SupportedAccessTokenTypes, option, config.EnableTokenCache)
+	accessTokenType, err := determineTokenType(req.SupportedAccessTokenTypes, option, config)
+	if err != nil {
+		return nil, err
+	}
 	err = validate(config, option, accessTokenType)
 	if err != nil {
 		return nil, err
@@ -202,6 +248,12 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 	for i := 0; i < 2; i++ {
 		req, err := reqTranslator.translate(ctx, httpReq, accessTokenType, config, option)
 		if err != nil {
+			if ce, ok := err.(*CodeError); ok && ce.Code == ErrCodeClientAssertionRetrieveFailed {
+				config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, retry:%d, err:%v", i+1, err))
+				errResult = err
+				continue
+			}
+			config.Logger.Warn(ctx, fmt.Sprintf("translate request failed, err:%v", err))
 			return nil, err
 		}
 
@@ -225,6 +277,9 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 
 		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
 		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+			break
+		}
+		if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
 			break
 		}
 

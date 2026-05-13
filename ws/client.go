@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"runtime/debug"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -25,6 +26,7 @@ import (
 type Client struct {
 	appID             string
 	appSecret         string
+	clientAssertionProvider larkcore.ClientAssertionProvider
 	logLevel          larkcore.LogLevel
 	logger            larkcore.Logger
 	eventHandler      *dispatcher.EventDispatcher
@@ -46,6 +48,13 @@ type Client struct {
 	onReconnecting    func()
 	onReconnected     func()
 	onDisconnected    func()
+}
+
+var bootstrapHTTPClient = http.DefaultClient
+
+type bootstrapErrorResp struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 type ClientOption func(cli *Client)
@@ -85,7 +94,11 @@ func WithDomain(domain string) ClientOption {
 		cli.domain = domain
 	}
 }
-
+func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
+	return func(cli *Client) {
+		cli.clientAssertionProvider = provider
+	}
+}
 func WithOnReady(f func()) ClientOption {
 	return func(cli *Client) {
 		cli.onReady = f
@@ -215,6 +228,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
 	if err != nil {
+		c.logger.Warn(ctx, c.fmtLog("get conn url failed, err: %v", err)...)
 		return
 	}
 
@@ -337,33 +351,72 @@ func (c *Client) disconnect(ctx context.Context) {
 }
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
-	body := map[string]string{
-		"AppID":     c.appID,
-		"AppSecret": c.appSecret,
+	requestURL := strings.TrimRight(c.domain, "/") + GenEndpointUri
+	body := &BootstrapRequest{AppID: c.appID}
+	headers := make(http.Header)
+
+	if c.clientAssertionProvider == nil && c.appSecret == "" {
+		return "", NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "appSecret and clientAssertionProvider cannot be nil")
 	}
+
+	if c.clientAssertionProvider != nil {
+		aud, extractErr := extractAudFromWSURL(c.domain)
+		if extractErr != nil {
+			return "", extractErr
+		}
+		clientAssertionToken, retrieveErr := c.clientAssertionProvider.RetrieveToken(ctx, aud)
+		if retrieveErr != nil {
+			return "", retrieveErr
+		}
+		if clientAssertionToken == nil || clientAssertionToken.Value == "" {
+			return "", NewClientError(larkcore.ErrCodeClientAssertionTokenEmpty, "client assertion token is empty")
+		}
+		body.ClientAssertion = clientAssertionToken.Value
+		body.AppSecret = ""
+		if clientAssertionToken.TargetInfo != nil {
+			requestURL = buildWSProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, GenEndpointUri)
+			headers.Set(larkcore.HeaderXTargetService, aud)
+		}
+	} else {
+		body.AppSecret = c.appSecret
+	}
+
 	bs, err := json.Marshal(body)
 	if err != nil {
 		return
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.domain+GenEndpointUri, bytes.NewBuffer(bs))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL, bytes.NewBuffer(bs))
 	if err != nil {
 		return
 	}
 
 	req.Header.Add("locale", "zh")
-	resp, err := http.DefaultClient.Do(req)
+	req.Header.Add("Content-Type", "application/json")
+	for k, values := range headers {
+		for _, value := range values {
+			req.Header.Add(k, value)
+		}
+	}
+	resp, err := bootstrapHTTPClient.Do(req)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return
 	}
 	if resp.StatusCode != http.StatusOK {
-		err = NewServerError(resp.StatusCode, "system busy")
-		return
-	}
-
-	defer resp.Body.Close()
-	respBody, err := io.ReadAll(resp.Body)
-	if err != nil {
+		c.logger.Warn(ctx, "response status code %d", resp.StatusCode)
+		serverMsg := "system busy"
+		bootstrapErrResp := &bootstrapErrorResp{}
+		if json.Unmarshal(respBody, bootstrapErrResp) == nil {
+			if bootstrapErrResp.Msg != "" {
+				serverMsg = bootstrapErrResp.Msg
+			}
+		}
+		err = NewServerError(resp.StatusCode, serverMsg)
 		return
 	}
 
@@ -395,6 +448,24 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	}
 
 	return
+}
+
+func extractAudFromWSURL(rawURL string) (string, error) {
+	if !strings.Contains(rawURL, "://") {
+		rawURL = "https://" + rawURL
+	}
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		return "", err
+	}
+	if parsedURL.Host != "" {
+		return parsedURL.Host, nil
+	}
+	return "", fmt.Errorf("invalid url: %s", rawURL)
+}
+
+func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
+	return "https://" + targetService + targetPrefix + apiPath
 }
 
 func (c *Client) pingLoop(ctx context.Context) {

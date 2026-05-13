@@ -27,3 +27,29 @@ func TestEncryptedEventMsg(t *testing.T) {
 		t.Errorf("TestEncryptedEventMsg failed ,%v", err)
 	}
 }
+
+func TestExtractAudFromURL(t *testing.T) {
+	testCases := map[string]string{
+		"https://open.feishu.cn/open-apis": "open.feishu.cn",
+		"open.larksuite.com":               "open.larksuite.com",
+		"https://fsopen.bytedance.net":     "fsopen.bytedance.net",
+		"fsopen.bytedance.net/path/to/api": "fsopen.bytedance.net",
+	}
+
+	for rawURL, expected := range testCases {
+		aud, err := extractAudFromURL(rawURL)
+		if err != nil {
+			t.Fatalf("extract aud failed for %s: %v", rawURL, err)
+		}
+		if aud != expected {
+			t.Fatalf("unexpected aud for %s: %s", rawURL, aud)
+		}
+	}
+}
+
+func TestBuildProxyURL(t *testing.T) {
+	proxyURL := buildProxyURL("proxy.example.com", "/v1", OAuthTokenUrlPath)
+	if proxyURL != "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token" {
+		t.Fatalf("unexpected proxy url: %s", proxyURL)
+	}
+}
