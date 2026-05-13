@@ -204,7 +204,7 @@ func extractAudFromURL(rawURL string) (string, error) {
 	if parsedURL.Path != "" && !strings.Contains(parsedURL.Path, "/") {
 		return parsedURL.Path, nil
 	}
-	return "", fmt.Errorf("invalid url: %s", rawURL)
+	return "", fmt.Errorf("invalid url : %s", rawURL)
 }
 
 func buildProxyURL(targetService, targetPrefix, apiPath string) string {
