@@ -24,30 +24,30 @@ import (
 )
 
 type Client struct {
-	appID             string
-	appSecret         string
+	appID                   string
+	appSecret               string
 	clientAssertionProvider larkcore.ClientAssertionProvider
-	logLevel          larkcore.LogLevel
-	logger            larkcore.Logger
-	eventHandler      *dispatcher.EventDispatcher
-	cardHandler       *larkcard.CardActionHandler
-	domain            string
-	conn              *ws.Conn
-	connUrl           *url.URL
-	serviceID         string
-	connID            string
-	autoReconnect     bool          // 是否自动重连，默认开启
-	reconnectNonce    int           // 首次重连抖动，单位秒
-	reconnectCount    int           // 重连次数，负数无限次
-	reconnectInterval time.Duration // 重连间隔
-	pingInterval      time.Duration // Ping间隔
-	cache             *larkcache.Cache
-	mu                sync.Mutex
-	onReady           func()
-	onError           func(err error)
-	onReconnecting    func()
-	onReconnected     func()
-	onDisconnected    func()
+	logLevel                larkcore.LogLevel
+	logger                  larkcore.Logger
+	eventHandler            *dispatcher.EventDispatcher
+	cardHandler             *larkcard.CardActionHandler
+	domain                  string
+	conn                    *ws.Conn
+	connUrl                 *url.URL
+	serviceID               string
+	connID                  string
+	autoReconnect           bool          // 是否自动重连，默认开启
+	reconnectNonce          int           // 首次重连抖动，单位秒
+	reconnectCount          int           // 重连次数，负数无限次
+	reconnectInterval       time.Duration // 重连间隔
+	pingInterval            time.Duration // Ping间隔
+	cache                   *larkcache.Cache
+	mu                      sync.Mutex
+	onReady                 func()
+	onError                 func(err error)
+	onReconnecting          func()
+	onReconnected           func()
+	onDisconnected          func()
 }
 
 var bootstrapHTTPClient = http.DefaultClient
