@@ -88,20 +88,25 @@ func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessToke
 	requestURL := strings.TrimRight(oauthBaseUrl, "/") + larkcore.OAuthTokenUrlPath
 
 	if o.config.ClientAssertionProvider != nil {
-		clientAssertionToken, err := o.config.ClientAssertionProvider.RetrieveToken(ctx, oauthBaseUrl)
+		aud, err := larkcore.ResolveOAuthAud(o.config)
 		if err != nil {
-			o.config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, aud:%s, err:%v", oauthBaseUrl, err))
+			o.config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth aud failed, err:%v", err))
+			return nil, err
+		}
+		clientAssertionToken, err := o.config.ClientAssertionProvider.RetrieveToken(ctx, aud)
+		if err != nil {
+			o.config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, aud:%s, err:%v", aud, err))
 			return nil, &larkcore.CodeError{Code: larkcore.ErrCodeClientAssertionRetrieveFailed, Msg: err.Error()}
 		}
 		if clientAssertionToken == nil || clientAssertionToken.Value == "" {
-			o.config.Logger.Warn(ctx, fmt.Sprintf("client assertion token is empty, aud:%s", oauthBaseUrl))
+			o.config.Logger.Warn(ctx, fmt.Sprintf("client assertion token is empty, aud:%s", aud))
 			return nil, &larkcore.CodeError{Code: larkcore.ErrCodeClientAssertionTokenEmpty, Msg: "client assertion token is empty"}
 		}
 		body.ClientAssertionType = larkcore.ClientAssertionTypeJWTBearer
 		body.ClientAssertion = clientAssertionToken.Value
 		if clientAssertionToken.TargetInfo != nil {
 			requestURL = buildProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, larkcore.OAuthTokenUrlPath)
-			options = append(options, withTargetServiceHeader(oauthBaseUrl))
+			options = append(options, withTargetServiceHeader(aud))
 		}
 	} else if o.config.AppSecret != "" {
 		body.ClientSecret = o.config.AppSecret

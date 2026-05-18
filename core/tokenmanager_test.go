@@ -94,7 +94,11 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 		t.Fatalf("unexpected token: %s", token)
 	}
 	provider := config.ClientAssertionProvider.(*mockClientAssertionProvider)
-	if len(provider.auds) != 1 || provider.auds[0] != server.URL {
+	expectedAud, err := extractAudFromURL(server.URL)
+	if err != nil {
+		t.Fatalf("extract aud failed: %v", err)
+	}
+	if len(provider.auds) != 1 || provider.auds[0] != expectedAud {
 		t.Fatalf("unexpected auds: %#v", provider.auds)
 	}
 }
@@ -104,8 +108,8 @@ func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
 		if r.URL.Path != "/proxy"+OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		if r.Header.Get(HeaderXTargetService) == "" {
-			t.Fatalf("missing target service header")
+		if r.Header.Get(HeaderXTargetService) != "accounts.feishu.cn" {
+			t.Fatalf("unexpected target service header: %s", r.Header.Get(HeaderXTargetService))
 		}
 		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200})
 	}))

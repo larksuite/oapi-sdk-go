@@ -17,6 +17,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
@@ -33,6 +34,15 @@ type mockClientAssertionProvider struct {
 func (p *mockClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
 	p.auds = append(p.auds, aud)
 	return p.token, p.err
+}
+
+func mustURLHost(t *testing.T, rawURL string) string {
+	t.Helper()
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		t.Fatalf("parse url failed: %v", err)
+	}
+	return parsedURL.Host
 }
 
 func newTestConfig(server *httptest.Server, provider larkcore.ClientAssertionProvider) *larkcore.Config {
@@ -96,7 +106,7 @@ func TestAccessTokenAuthorizationCode(t *testing.T) {
 	if !resp.Success() || larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected response: %#v", resp)
 	}
-	if len(provider.auds) != 1 || provider.auds[0] != server.URL {
+	if len(provider.auds) != 1 || provider.auds[0] != mustURLHost(t, server.URL) {
 		t.Fatalf("unexpected auds: %#v", provider.auds)
 	}
 }
@@ -125,6 +135,9 @@ func TestAccessTokenRefreshToken(t *testing.T) {
 	}
 	if larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected access token: %#v", resp.Data.AccessToken)
+	}
+	if len(provider.auds) != 1 || provider.auds[0] != mustURLHost(t, server.URL) {
+		t.Fatalf("unexpected auds: %#v", provider.auds)
 	}
 }
 
@@ -236,8 +249,8 @@ func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
 		if r.URL.Path != "/proxy"+larkcore.OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		if r.Header.Get(larkcore.HeaderXTargetService) == "" {
-			t.Fatalf("missing target service header")
+		if r.Header.Get(larkcore.HeaderXTargetService) != r.Host {
+			t.Fatalf("unexpected target service header: %s", r.Header.Get(larkcore.HeaderXTargetService))
 		}
 		if r.Header.Get("X-Custom") != "custom-value" {
 			t.Fatalf("missing custom header")

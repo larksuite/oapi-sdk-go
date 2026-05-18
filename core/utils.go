@@ -207,6 +207,14 @@ func extractAudFromURL(rawURL string) (string, error) {
 	return "", fmt.Errorf("invalid url : %s", rawURL)
 }
 
+func ResolveOAuthAud(config *Config) (string, error) {
+	oauthBaseUrl, err := ResolveOAuthBaseUrl(config)
+	if err != nil {
+		return "", err
+	}
+	return extractAudFromURL(oauthBaseUrl)
+}
+
 func buildProxyURL(targetService, targetPrefix, apiPath string) string {
 	if !strings.Contains(targetService, "://") {
 		targetService = "https://" + targetService

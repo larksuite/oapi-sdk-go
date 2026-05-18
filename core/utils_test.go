@@ -107,3 +107,32 @@ func TestResolveOAuthBaseUrl(t *testing.T) {
 		}
 	}
 }
+
+func TestResolveOAuthAud(t *testing.T) {
+	testCases := []struct {
+		name     string
+		config   *Config
+		expected string
+	}{
+		{
+			name:     "default feishu account host",
+			config:   &Config{BaseUrl: "https://open.feishu.cn"},
+			expected: "accounts.feishu.cn",
+		},
+		{
+			name:     "explicit boe account host",
+			config:   &Config{BaseUrl: "https://open.feishu-boe.cn", OAuthBaseUrl: "https://accounts.feishu-boe.cn"},
+			expected: "accounts.feishu-boe.cn",
+		},
+	}
+
+	for _, tc := range testCases {
+		got, err := ResolveOAuthAud(tc.config)
+		if err != nil {
+			t.Fatalf("%s: resolve oauth aud failed: %v", tc.name, err)
+		}
+		if got != tc.expected {
+			t.Fatalf("%s: unexpected oauth aud: %s", tc.name, got)
+		}
+	}
+}
