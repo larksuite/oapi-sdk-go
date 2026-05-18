@@ -1804,8 +1804,6 @@ func (builder *AppMessageTrendItemBuilder) MessageType(messageType string) *AppM
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) Trend(trend []*UsageTrendItem) *AppMessageTrendItemBuilder {
 	builder.trend = trend
@@ -5850,8 +5848,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -5859,8 +5855,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -7388,8 +7382,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -7397,8 +7389,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -7406,8 +7396,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -8082,7 +8070,7 @@ func NewDepartmentOverviewApplicationAppUsageReqBodyBuilder() *DepartmentOvervie
 
 // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Date(date string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
@@ -8091,7 +8079,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Date(date st
 
 // 活跃周期的统计类型
 //
-//示例值：1
+// 示例值：1
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeFlag = true
@@ -8100,7 +8088,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) CycleType(cy
 
 // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -8109,7 +8097,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) DepartmentId
 
 // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
 //
-//示例值：0
+// 示例值：0
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Recursion(recursion int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.recursion = recursion
 	builder.recursionFlag = true
@@ -8118,7 +8106,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Recursion(re
 
 // 分页大小，取值范围 1~20
 //
-//示例值：10
+// 示例值：10
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageSize(pageSize int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -8127,7 +8115,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageSize(pag
 
 // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
 //
-//示例值：new-1a8f509162ca3c95405838d05ccded09
+// 示例值：new-1a8f509162ca3c95405838d05ccded09
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageToken(pageToken string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -8354,7 +8342,7 @@ func NewMessagePushOverviewApplicationAppUsageReqBodyBuilder() *MessagePushOverv
 
 // 查询日期，若cycle_type为week，则输入的date必须为周一； 若cycle_type为month，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) Date(date string) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
@@ -8363,7 +8351,7 @@ func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) Date(date s
 
 // 枚举值：day，week，month；week指自然周，返回当前日期所在周的数据；不满一周则从周一到当前日期算。month指自然月，返回当前日期所在月的数据。
 //
-//示例值：1
+// 示例值：1
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeFlag = true
@@ -8372,7 +8360,7 @@ func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) CycleType(c
 
 // 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -8541,7 +8529,7 @@ func NewOverviewApplicationAppUsageReqBodyBuilder() *OverviewApplicationAppUsage
 
 // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
@@ -8550,7 +8538,7 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *Ove
 
 // 活跃周期的统计类型
 //
-//示例值：1
+// 示例值：1
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeFlag = true
@@ -8559,7 +8547,7 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType in
 
 // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -8568,7 +8556,7 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmen
 
 // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 //
-//示例值：app
+// 示例值：app
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Ability(ability string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.ability = ability
 	builder.abilityFlag = true
@@ -9131,7 +9119,7 @@ func NewUpdateApplicationCollaboratorsReqBodyBuilder() *UpdateApplicationCollabo
 
 // 添加人员
 //
-//示例值：
+// 示例值：
 func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Adds(adds []*AppCollaborator) *UpdateApplicationCollaboratorsReqBodyBuilder {
 	builder.adds = adds
 	builder.addsFlag = true
@@ -9140,7 +9128,7 @@ func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Adds(adds []*AppCol
 
 // 移除人员
 //
-//示例值：
+// 示例值：
 func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Removes(removes []string) *UpdateApplicationCollaboratorsReqBodyBuilder {
 	builder.removes = removes
 	builder.removesFlag = true
@@ -9229,7 +9217,6 @@ func (builder *UpdateApplicationCollaboratorsReqBuilder) UserIdType(userIdType s
 	return builder
 }
 
-//
 func (builder *UpdateApplicationCollaboratorsReqBuilder) Body(body *UpdateApplicationCollaboratorsReqBody) *UpdateApplicationCollaboratorsReqBuilder {
 	builder.body = body
 	return builder
@@ -9282,7 +9269,7 @@ func NewPatchApplicationContactsRangeReqBodyBuilder() *PatchApplicationContactsR
 
 // 更新范围方式
 //
-//示例值：some
+// 示例值：some
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) ContactsRangeType(contactsRangeType string) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.contactsRangeType = contactsRangeType
 	builder.contactsRangeTypeFlag = true
@@ -9291,7 +9278,7 @@ func (builder *PatchApplicationContactsRangeReqBodyBuilder) ContactsRangeType(co
 
 // 可见范围新增列表
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) AddVisibleList(addVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.addVisibleList = addVisibleList
 	builder.addVisibleListFlag = true
@@ -9300,7 +9287,7 @@ func (builder *PatchApplicationContactsRangeReqBodyBuilder) AddVisibleList(addVi
 
 // 删除可用名单
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) DelVisibleList(delVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.delVisibleList = delVisibleList
 	builder.delVisibleListFlag = true
@@ -9414,7 +9401,6 @@ func (builder *PatchApplicationContactsRangeReqBuilder) DepartmentIdType(departm
 	return builder
 }
 
-//
 func (builder *PatchApplicationContactsRangeReqBuilder) Body(body *PatchApplicationContactsRangeReqBody) *PatchApplicationContactsRangeReqBuilder {
 	builder.body = body
 	return builder
@@ -9504,8 +9490,6 @@ func (builder *ListApplicationFeedbackReqBuilder) Status(status int) *ListApplic
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *ListApplicationFeedbackReqBuilder) UserIdType(userIdType string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9587,8 +9571,6 @@ func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId string)
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *PatchApplicationFeedbackReqBuilder) UserIdType(userIdType string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9644,7 +9626,7 @@ func NewUpdateApplicationManagementReqBodyBuilder() *UpdateApplicationManagement
 
 // 启用/停用应用
 //
-//示例值：true
+// 示例值：true
 func (builder *UpdateApplicationManagementReqBodyBuilder) Enable(enable bool) *UpdateApplicationManagementReqBodyBuilder {
 	builder.enable = enable
 	builder.enableFlag = true
@@ -9708,7 +9690,6 @@ func (builder *UpdateApplicationManagementReqBuilder) AppId(appId string) *Updat
 	return builder
 }
 
-//
 func (builder *UpdateApplicationManagementReqBuilder) Body(body *UpdateApplicationManagementReqBody) *UpdateApplicationManagementReqBuilder {
 	builder.body = body
 	return builder
@@ -9752,7 +9733,7 @@ func NewUpdateApplicationOwnerReqBodyBuilder() *UpdateApplicationOwnerReqBodyBui
 
 // 新的拥有者用户ID，类型由查询参数中的user_id_type确定
 //
-//示例值：ou_84aad35d084aa403a838cf73ee184670
+// 示例值：ou_84aad35d084aa403a838cf73ee184670
 func (builder *UpdateApplicationOwnerReqBodyBuilder) OwnerId(ownerId string) *UpdateApplicationOwnerReqBodyBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdFlag = true
@@ -9824,7 +9805,6 @@ func (builder *UpdateApplicationOwnerReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
 func (builder *UpdateApplicationOwnerReqBuilder) Body(body *UpdateApplicationOwnerReqBody) *UpdateApplicationOwnerReqBuilder {
 	builder.body = body
 	return builder
@@ -9875,7 +9855,7 @@ func NewCheckWhiteBlackListApplicationVisibilityReqBodyBuilder() *CheckWhiteBlac
 
 // 用户ID列表
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) UserIds(userIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -9884,7 +9864,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) UserIds(u
 
 // 部门ID列表
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) DepartmentIds(departmentIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -9893,7 +9873,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) Departmen
 
 // 用户组ID列表
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) GroupIds(groupIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.groupIds = groupIds
 	builder.groupIdsFlag = true
@@ -10007,7 +9987,6 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) DepartmentIdT
 	return builder
 }
 
-//
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) Body(body *CheckWhiteBlackListApplicationVisibilityReqBody) *CheckWhiteBlackListApplicationVisibilityReqBuilder {
 	builder.body = body
 	return builder
@@ -10077,7 +10056,7 @@ func NewPatchApplicationVisibilityReqBodyBuilder() *PatchApplicationVisibilityRe
 
 // 添加可用人员名单
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) AddVisibleList(addVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.addVisibleList = addVisibleList
 	builder.addVisibleListFlag = true
@@ -10086,7 +10065,7 @@ func (builder *PatchApplicationVisibilityReqBodyBuilder) AddVisibleList(addVisib
 
 // 删除可用人员名单
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) DelVisibleList(delVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.delVisibleList = delVisibleList
 	builder.delVisibleListFlag = true
@@ -10095,7 +10074,7 @@ func (builder *PatchApplicationVisibilityReqBodyBuilder) DelVisibleList(delVisib
 
 // 添加禁用人员名单
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) AddInvisibleList(addInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.addInvisibleList = addInvisibleList
 	builder.addInvisibleListFlag = true
@@ -10104,7 +10083,7 @@ func (builder *PatchApplicationVisibilityReqBodyBuilder) AddInvisibleList(addInv
 
 // 删除禁用人员名单
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) DelInvisibleList(delInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.delInvisibleList = delInvisibleList
 	builder.delInvisibleListFlag = true
@@ -10113,7 +10092,7 @@ func (builder *PatchApplicationVisibilityReqBodyBuilder) DelInvisibleList(delInv
 
 // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
 //
-//示例值：false
+// 示例值：false
 func (builder *PatchApplicationVisibilityReqBodyBuilder) IsVisibleToAll(isVisibleToAll bool) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.isVisibleToAll = isVisibleToAll
 	builder.isVisibleToAllFlag = true
@@ -10261,7 +10240,6 @@ func (builder *PatchApplicationVisibilityReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-//
 func (builder *PatchApplicationVisibilityReqBuilder) Body(body *PatchApplicationVisibilityReqBody) *PatchApplicationVisibilityReqBuilder {
 	builder.body = body
 	return builder

@@ -1373,8 +1373,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1382,8 +1380,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5673,7 +5669,7 @@ func (builder *TicketV2Builder) BotServiceDuration(botServiceDuration int64) *Ti
 	return builder
 }
 
-//  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+//	客服解决时长，关单时间距离客服进入时间的间隔，单位秒
 //
 // 示例值：1741145995
 func (builder *TicketV2Builder) AgentResolutionTime(agentResolutionTime int64) *TicketV2Builder {
@@ -6112,8 +6108,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6121,8 +6115,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6130,8 +6122,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -6300,7 +6290,7 @@ func NewPatchAgentReqBodyBuilder() *PatchAgentReqBodyBuilder {
 
 // agent status
 //
-//示例值：1：在线；2：离线
+// 示例值：1：在线；2：离线
 func (builder *PatchAgentReqBodyBuilder) Status(status int) *PatchAgentReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -6450,7 +6440,7 @@ func NewGetAgentSchedulesReqBuilder() *GetAgentSchedulesReqBuilder {
 	return builder
 }
 
-// 	客服 id
+//	客服 id
 //
 // 示例值：	客服 id
 func (builder *GetAgentSchedulesReqBuilder) AgentId(agentId string) *GetAgentSchedulesReqBuilder {
@@ -6495,7 +6485,7 @@ func NewPatchAgentSchedulesReqBodyBuilder() *PatchAgentSchedulesReqBodyBuilder {
 
 // 工作日程列表
 //
-//示例值：
+// 示例值：
 func (builder *PatchAgentSchedulesReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
 	builder.agentScheduleFlag = true
@@ -6603,7 +6593,7 @@ func NewCreateAgentScheduleReqBodyBuilder() *CreateAgentScheduleReqBodyBuilder {
 
 // 新客服日程
 //
-//示例值：
+// 示例值：
 func (builder *CreateAgentScheduleReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentScheduleReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
 	builder.agentSchedulesFlag = true
@@ -6756,7 +6746,7 @@ func NewCreateAgentSkillReqBodyBuilder() *CreateAgentSkillReqBodyBuilder {
 
 // 技能名
 //
-//示例值：test-skill
+// 示例值：test-skill
 func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSkillReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -6765,7 +6755,7 @@ func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSki
 
 // 技能rules
 //
-//示例值：
+// 示例值：
 func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillReqBodyBuilder {
 	builder.rules = rules
 	builder.rulesFlag = true
@@ -6774,7 +6764,7 @@ func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *C
 
 // 客服 ids
 //
-//示例值：["客服ID"]
+// 示例值：["客服ID"]
 func (builder *CreateAgentSkillReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillReqBodyBuilder {
 	builder.agentIds = agentIds
 	builder.agentIdsFlag = true
@@ -7017,7 +7007,7 @@ func NewPatchAgentSkillReqBodyBuilder() *PatchAgentSkillReqBodyBuilder {
 
 // 更新技能
 //
-//示例值：
+// 示例值：
 func (builder *PatchAgentSkillReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillReqBodyBuilder {
 	builder.agentSkill = agentSkill
 	builder.agentSkillFlag = true
@@ -7447,7 +7437,7 @@ func NewSubscribeEventReqBodyBuilder() *SubscribeEventReqBodyBuilder {
 
 // 可订阅的事件列表
 //
-//示例值：
+// 示例值：
 func (builder *SubscribeEventReqBodyBuilder) Events(events []*Event) *SubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -7546,7 +7536,7 @@ func NewUnsubscribeEventReqBodyBuilder() *UnsubscribeEventReqBodyBuilder {
 
 // event list to unsubscribe
 //
-//示例值：
+// 示例值：
 func (builder *UnsubscribeEventReqBodyBuilder) Events(events []*Event) *UnsubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -7645,7 +7635,7 @@ func NewCreateFaqReqBodyBuilder() *CreateFaqReqBodyBuilder {
 
 // 知识库详情
 //
-//示例值：
+// 示例值：
 func (builder *CreateFaqReqBodyBuilder) Faq(faq *FaqCreateInfo) *CreateFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -7908,7 +7898,7 @@ func (builder *ListFaqReqBuilder) Limit(limit int) *ListFaqReqBuilder {
 	return builder
 }
 
-//  知识库分类ID
+//	知识库分类ID
 //
 // 示例值：6856395522433908739
 func (builder *ListFaqReqBuilder) CategoryId(categoryId string) *ListFaqReqBuilder {
@@ -7996,7 +7986,7 @@ func NewPatchFaqReqBodyBuilder() *PatchFaqReqBodyBuilder {
 
 // 修改的知识库内容
 //
-//示例值：
+// 示例值：
 func (builder *PatchFaqReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -8229,7 +8219,7 @@ func NewCancelSendNotificationReqBodyBuilder() *CancelSendNotificationReqBodyBui
 
 // 是否召回已发送的消息,新人入职消息同样适用
 //
-//示例值：true
+// 示例值：true
 func (builder *CancelSendNotificationReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationReqBodyBuilder {
 	builder.isRecall = isRecall
 	builder.isRecallFlag = true
@@ -8394,7 +8384,7 @@ func NewExecuteSendNotificationReqBodyBuilder() *ExecuteSendNotificationReqBodyB
 
 // 发送时间戳(毫秒)
 //
-//示例值：1624326025000
+// 示例值：1624326025000
 func (builder *ExecuteSendNotificationReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationReqBodyBuilder {
 	builder.sendAt = sendAt
 	builder.sendAtFlag = true
@@ -8659,7 +8649,7 @@ func NewSubmitApproveNotificationReqBodyBuilder() *SubmitApproveNotificationReqB
 
 // 提交审批理由
 //
-//示例值：测试发送消息
+// 示例值：测试发送消息
 func (builder *SubmitApproveNotificationReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -8775,7 +8765,7 @@ func NewAnswerUserQueryTicketReqBodyBuilder() *AnswerUserQueryTicketReqBodyBuild
 
 // 事件ID,可从订阅事件中提取
 //
-//示例值：abcd
+// 示例值：abcd
 func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
@@ -8784,7 +8774,7 @@ func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *Ans
 
 // faq结果列表
 //
-//示例值：
+// 示例值：
 func (builder *AnswerUserQueryTicketReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.faqs = faqs
 	builder.faqsFlag = true
@@ -9194,7 +9184,7 @@ func NewStartServiceTicketReqBodyBuilder() *StartServiceTicketReqBodyBuilder {
 
 // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 //
-//示例值：false
+// 示例值：false
 func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketReqBodyBuilder {
 	builder.humanService = humanService
 	builder.humanServiceFlag = true
@@ -9203,7 +9193,7 @@ func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool)
 
 // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 //
-//示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
+// 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
 	builder.appointedAgentsFlag = true
@@ -9212,7 +9202,7 @@ func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents
 
 // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 //
-//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartServiceTicketReqBodyBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
@@ -9221,7 +9211,7 @@ func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartSer
 
 // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 //
-//示例值：测试自定义字段信息
+// 示例值：测试自定义字段信息
 func (builder *StartServiceTicketReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
 	builder.customizedInfoFlag = true
@@ -9474,7 +9464,7 @@ func NewUpdateTicketReqBodyBuilder() *UpdateTicketReqBodyBuilder {
 
 // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
 //
-//示例值：1
+// 示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -9483,7 +9473,7 @@ func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBo
 
 // 新标签名
 //
-//示例值：abc
+// 示例值：abc
 func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketReqBodyBuilder {
 	builder.tagNames = tagNames
 	builder.tagNamesFlag = true
@@ -9492,7 +9482,7 @@ func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTi
 
 // 新评论
 //
-//示例值：good
+// 示例值：good
 func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicketReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
@@ -9501,7 +9491,7 @@ func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicket
 
 // 自定义字段
 //
-//示例值：
+// 示例值：
 func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketReqBodyBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
@@ -9510,7 +9500,7 @@ func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*
 
 // ticket stage
 //
-//示例值：1
+// 示例值：1
 func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTicketReqBodyBuilder {
 	builder.ticketType = ticketType
 	builder.ticketTypeFlag = true
@@ -9519,7 +9509,7 @@ func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTic
 
 // 工单是否解决，1: 未解决, 2: 已解决
 //
-//示例值：1
+// 示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBodyBuilder {
 	builder.solved = solved
 	builder.solvedFlag = true
@@ -9528,7 +9518,7 @@ func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBo
 
 // 工单来源渠道ID
 //
-//示例值：1
+// 示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Channel(channel int) *UpdateTicketReqBodyBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
@@ -9753,7 +9743,7 @@ func NewCreateTicketMessageReqBodyBuilder() *CreateTicketMessageReqBodyBuilder {
 
 // 消息类型；text：纯文本；post：富文本
 //
-//示例值：post
+// 示例值：post
 func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *CreateTicketMessageReqBodyBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
@@ -9762,7 +9752,7 @@ func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *Creat
 
 // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 //
-//示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
+// 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessageReqBodyBuilder) Content(content string) *CreateTicketMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -10131,7 +10121,7 @@ func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqB
 
 // 是否可见
 //
-//示例值：true
+// 示例值：true
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true

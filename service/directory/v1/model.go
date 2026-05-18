@@ -8188,8 +8188,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -8197,8 +8195,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -9014,8 +9010,8 @@ type EmployeeBaseEntityBuilder struct {
 	backgroundImageKey     string // 自定义背景图
 	backgroundImageKeyFlag bool
 
-	description      string // 个人签名
-	descriptionFlag_ bool
+	description     string // 个人签名
+	descriptionFlag bool
 
 	isSetCustomBackgroundImage     bool // 是否设置自定义背景图
 	isSetCustomBackgroundImageFlag bool
@@ -9047,8 +9043,8 @@ type EmployeeBaseEntityBuilder struct {
 	customFieldValues     []*CustomFieldValue // 自定义字段值
 	customFieldValuesFlag bool
 
-	descriptionFlag     string // 个性签名Flag
-	descriptionFlagFlag bool
+	descriptionFlagValue     string // 个性签名Flag
+	descriptionFlagValueFlag bool
 
 	workStatus     *WorkStatus // 工作状态
 	workStatusFlag bool
@@ -9277,7 +9273,7 @@ func (builder *EmployeeBaseEntityBuilder) BackgroundImageKey(backgroundImageKey 
 // 示例值：新成员请多关照
 func (builder *EmployeeBaseEntityBuilder) Description(description string) *EmployeeBaseEntityBuilder {
 	builder.description = description
-	builder.descriptionFlag_ = true
+	builder.descriptionFlag = true
 	return builder
 }
 
@@ -9375,8 +9371,8 @@ func (builder *EmployeeBaseEntityBuilder) CustomFieldValues(customFieldValues []
 //
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) DescriptionFlag(descriptionFlag string) *EmployeeBaseEntityBuilder {
-	builder.descriptionFlag = descriptionFlag
-	builder.descriptionFlagFlag = true
+	builder.descriptionFlagValue = descriptionFlag
+	builder.descriptionFlagValueFlag = true
 	return builder
 }
 
@@ -9608,7 +9604,7 @@ func (builder *EmployeeBaseEntityBuilder) Build() *EmployeeBaseEntity {
 		req.BackgroundImageKey = &builder.backgroundImageKey
 
 	}
-	if builder.descriptionFlag_ {
+	if builder.descriptionFlag {
 		req.Description = &builder.description
 
 	}
@@ -9649,8 +9645,8 @@ func (builder *EmployeeBaseEntityBuilder) Build() *EmployeeBaseEntity {
 	if builder.customFieldValuesFlag {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.descriptionFlagFlag {
-		req.DescriptionFlag = &builder.descriptionFlag
+	if builder.descriptionFlagValueFlag {
+		req.DescriptionFlag = &builder.descriptionFlagValue
 
 	}
 	if builder.workStatusFlag {
@@ -23163,7 +23159,7 @@ func NewCreateCollaborationRuleReqBodyBuilder() *CreateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
 	builder.subjectsFlag = true
@@ -23172,7 +23168,7 @@ func (builder *CreateCollaborationRuleReqBodyBuilder) Subjects(subjects *Collabo
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
 	builder.objectsFlag = true
@@ -23457,7 +23453,7 @@ func NewUpdateCollaborationRuleReqBodyBuilder() *UpdateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
 	builder.subjectsFlag = true
@@ -23466,7 +23462,7 @@ func (builder *UpdateCollaborationRuleReqBodyBuilder) Subjects(subjects *Collabo
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
 	builder.objectsFlag = true
@@ -23788,7 +23784,7 @@ func NewCreateDepartmentReqBodyBuilder() *CreateDepartmentReqBodyBuilder {
 
 // 创建部门
 //
-//示例值：
+// 示例值：
 func (builder *CreateDepartmentReqBodyBuilder) Department(department *CreateDepartment) *CreateDepartmentReqBodyBuilder {
 	builder.department = department
 	builder.departmentFlag = true
@@ -23997,7 +23993,7 @@ func NewFilterDepartmentReqBodyBuilder() *FilterDepartmentReqBodyBuilder {
 
 // 查询条件
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterDepartmentReqBodyBuilder {
 	builder.filter = filter
 	builder.filterFlag = true
@@ -24006,7 +24002,7 @@ func (builder *FilterDepartmentReqBodyBuilder) Filter(filter *MultiFilterConditi
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *FilterDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -24015,7 +24011,7 @@ func (builder *FilterDepartmentReqBodyBuilder) RequiredFields(requiredFields []s
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestFlag = true
@@ -24197,7 +24193,7 @@ func NewMgetDepartmentReqBodyBuilder() *MgetDepartmentReqBodyBuilder {
 
 // 部门id
 //
-//示例值：
+// 示例值：
 func (builder *MgetDepartmentReqBodyBuilder) DepartmentIds(departmentIds []string) *MgetDepartmentReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -24206,7 +24202,7 @@ func (builder *MgetDepartmentReqBodyBuilder) DepartmentIds(departmentIds []strin
 
 // 字段枚举
 //
-//示例值：
+// 示例值：
 func (builder *MgetDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *MgetDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -24356,7 +24352,7 @@ func NewPatchDepartmentReqBodyBuilder() *PatchDepartmentReqBodyBuilder {
 
 // 更新部门
 //
-//示例值：
+// 示例值：
 func (builder *PatchDepartmentReqBodyBuilder) Department(department *UpdateDepartment) *PatchDepartmentReqBodyBuilder {
 	builder.department = department
 	builder.departmentFlag = true
@@ -24498,7 +24494,7 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 
 // 搜索关键词。支持部门名称的搜索
 //
-//示例值：zhang
+// 示例值：zhang
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -24507,7 +24503,7 @@ func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepart
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestFlag = true
@@ -24516,7 +24512,7 @@ func (builder *SearchDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCond
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *SearchDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -24702,7 +24698,7 @@ func NewCreateEmployeeReqBodyBuilder() *CreateEmployeeReqBodyBuilder {
 
 // 创建员工对象
 //
-//示例值：
+// 示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Employee(employee *CreateEmployee) *CreateEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeFlag = true
@@ -24711,7 +24707,7 @@ func (builder *CreateEmployeeReqBodyBuilder) Employee(employee *CreateEmployee) 
 
 // 接口拓展选项
 //
-//示例值：
+// 示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Options(options *CreateEmployeeOptions) *CreateEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsFlag = true
@@ -24867,7 +24863,7 @@ func NewDeleteEmployeeReqBodyBuilder() *DeleteEmployeeReqBodyBuilder {
 
 // 接口拓展选项
 //
-//示例值：
+// 示例值：
 func (builder *DeleteEmployeeReqBodyBuilder) Options(options *DeleteEmployeeOptions) *DeleteEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsFlag = true
@@ -25006,7 +25002,7 @@ func NewFilterEmployeeReqBodyBuilder() *FilterEmployeeReqBodyBuilder {
 
 // 查询条件
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterEmployeeReqBodyBuilder {
 	builder.filter = filter
 	builder.filterFlag = true
@@ -25015,7 +25011,7 @@ func (builder *FilterEmployeeReqBodyBuilder) Filter(filter *MultiFilterCondition
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *FilterEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -25024,7 +25020,7 @@ func (builder *FilterEmployeeReqBodyBuilder) RequiredFields(requiredFields []str
 
 // 分页参数
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestFlag = true
@@ -25206,7 +25202,7 @@ func NewMgetEmployeeReqBodyBuilder() *MgetEmployeeReqBodyBuilder {
 
 // 员工id
 //
-//示例值：
+// 示例值：
 func (builder *MgetEmployeeReqBodyBuilder) EmployeeIds(employeeIds []string) *MgetEmployeeReqBodyBuilder {
 	builder.employeeIds = employeeIds
 	builder.employeeIdsFlag = true
@@ -25215,7 +25211,7 @@ func (builder *MgetEmployeeReqBodyBuilder) EmployeeIds(employeeIds []string) *Mg
 
 // 字段枚举
 //
-//示例值：
+// 示例值：
 func (builder *MgetEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *MgetEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -25365,7 +25361,7 @@ func NewPatchEmployeeReqBodyBuilder() *PatchEmployeeReqBodyBuilder {
 
 // 更新员工对象
 //
-//示例值：
+// 示例值：
 func (builder *PatchEmployeeReqBodyBuilder) Employee(employee *UpdateEmployee) *PatchEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeFlag = true
@@ -25610,7 +25606,7 @@ func NewResurrectEmployeeReqBodyBuilder() *ResurrectEmployeeReqBodyBuilder {
 
 // 部门信息
 //
-//示例值：
+// 示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *ResurrectEmployeeReqBodyBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
 	builder.employeeOrderInDepartmentsFlag = true
@@ -25619,7 +25615,7 @@ func (builder *ResurrectEmployeeReqBodyBuilder) EmployeeOrderInDepartments(emplo
 
 // 选项
 //
-//示例值：
+// 示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) Options(options *ResurrectEmployeeOptions) *ResurrectEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsFlag = true
@@ -25780,7 +25776,7 @@ func NewSearchEmployeeReqBodyBuilder() *SearchEmployeeReqBodyBuilder {
 
 // 搜索关键词。支持员工ID、员工名称、员工手机号、员工邮箱的搜索。其中员工ID、员工手机号支持精确搜索，员工名称、员工邮箱支持模糊搜索，员工名称支持国际化名称的搜索。
 //
-//示例值：zhang
+// 示例值：zhang
 func (builder *SearchEmployeeReqBodyBuilder) Query(query string) *SearchEmployeeReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -25789,7 +25785,7 @@ func (builder *SearchEmployeeReqBodyBuilder) Query(query string) *SearchEmployee
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestFlag = true
@@ -25798,7 +25794,7 @@ func (builder *SearchEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondit
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *SearchEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsFlag = true
@@ -25981,7 +25977,7 @@ func NewToBeResignedEmployeeReqBodyBuilder() *ToBeResignedEmployeeReqBodyBuilder
 
 // 在职员工流转到待离职
 //
-//示例值：
+// 示例值：
 func (builder *ToBeResignedEmployeeReqBodyBuilder) Employee(employee *SetEmployeePreResigned) *ToBeResignedEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeFlag = true

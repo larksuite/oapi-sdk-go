@@ -35,7 +35,6 @@ func main() {
 	req := larkdocument_ai.NewRecognizeHkmMainlandTravelPermitReqBuilder().
 		Body(larkdocument_ai.NewRecognizeHkmMainlandTravelPermitReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

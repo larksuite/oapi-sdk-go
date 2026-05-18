@@ -45,7 +45,7 @@ func main() {
 	client := lark.NewClient(appID, appSecret, lark.WithHttpClient(httpClient))
 
 	resp, err := client.Application.Application.Get(context.Background(), larkapplication.NewGetApplicationReqBuilder().
-		UserIdType(larkapplication.UserIdTypeUserId).
+		UserIdType(larkapplication.GetApplicationUserIDTypeUserId).
 		AppId("cli_a1eccc36c278900d").Lang("zh_cn").Build())
 	if err != nil {
 		fmt.Println(err)

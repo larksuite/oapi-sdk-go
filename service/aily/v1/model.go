@@ -2988,8 +2988,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2997,8 +2995,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4195,7 +4191,7 @@ func (builder *MessageBuilder) Error(error *MessageError) *MessageBuilder {
 
 // 触发类型
 //
-// 示例值：''
+// 示例值：”
 func (builder *MessageBuilder) TriggerType(triggerType string) *MessageBuilder {
 	builder.triggerType = triggerType
 	builder.triggerTypeFlag = true
@@ -5240,7 +5236,7 @@ func (builder *SenderBuilder) Name(name string) *SenderBuilder {
 
 // 发送者描述
 //
-// 示例值：''
+// 示例值：”
 func (builder *SenderBuilder) Desc(desc string) *SenderBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -6224,7 +6220,7 @@ func NewCreateAilySessionReqBodyBuilder() *CreateAilySessionReqBodyBuilder {
 
 // 渠道上下文
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionReqBodyBuilder) ChannelContext(channelContext string) *CreateAilySessionReqBodyBuilder {
 	builder.channelContext = channelContext
 	builder.channelContextFlag = true
@@ -6233,7 +6229,7 @@ func (builder *CreateAilySessionReqBodyBuilder) ChannelContext(channelContext st
 
 // 其他透传信息
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionReqBodyBuilder) Metadata(metadata string) *CreateAilySessionReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataFlag = true
@@ -6446,7 +6442,7 @@ func NewUpdateAilySessionReqBodyBuilder() *UpdateAilySessionReqBodyBuilder {
 
 // 渠道上下文
 //
-//示例值：{}
+// 示例值：{}
 func (builder *UpdateAilySessionReqBodyBuilder) ChannelContext(channelContext string) *UpdateAilySessionReqBodyBuilder {
 	builder.channelContext = channelContext
 	builder.channelContextFlag = true
@@ -6455,7 +6451,7 @@ func (builder *UpdateAilySessionReqBodyBuilder) ChannelContext(channelContext st
 
 // 其他透传信息
 //
-//示例值：{}
+// 示例值：{}
 func (builder *UpdateAilySessionReqBodyBuilder) Metadata(metadata string) *UpdateAilySessionReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataFlag = true
@@ -6602,7 +6598,7 @@ func NewCreateAilySessionAilyMessageReqBodyBuilder() *CreateAilySessionAilyMessa
 
 // 幂等id，同一 session 下相同的幂等 id 算一条消息，有效期72h
 //
-//示例值：idempotent_id_1
+// 示例值：idempotent_id_1
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) IdempotentId(idempotentId string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.idempotentId = idempotentId
 	builder.idempotentIdFlag = true
@@ -6611,7 +6607,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) IdempotentId(idempote
 
 // 消息内容类型
 //
-//示例值：MDX
+// 示例值：MDX
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) ContentType(contentType string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.contentType = contentType
 	builder.contentTypeFlag = true
@@ -6620,7 +6616,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) ContentType(contentTy
 
 // 消息内容
 //
-//示例值：你好
+// 示例值：你好
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Content(content string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -6629,7 +6625,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Content(content strin
 
 // 消息中包含的文件 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) FileIds(fileIds []string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.fileIds = fileIds
 	builder.fileIdsFlag = true
@@ -6638,7 +6634,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) FileIds(fileIds []str
 
 // 引用的消息 ID
 //
-//示例值：message_4de9bpg70qskh
+// 示例值：message_4de9bpg70qskh
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) QuoteMessageId(quoteMessageId string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.quoteMessageId = quoteMessageId
 	builder.quoteMessageIdFlag = true
@@ -6647,7 +6643,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) QuoteMessageId(quoteM
 
 // 被@的实体
 //
-//示例值：
+// 示例值：
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Mentions(mentions []*AilyMention) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.mentions = mentions
 	builder.mentionsFlag = true
@@ -7065,7 +7061,7 @@ func NewCreateAilySessionRunReqBodyBuilder() *CreateAilySessionRunReqBodyBuilder
 
 // 应用 ID
 //
-//示例值：spring_xxx__c
+// 示例值：spring_xxx__c
 func (builder *CreateAilySessionRunReqBodyBuilder) AppId(appId string) *CreateAilySessionRunReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdFlag = true
@@ -7074,7 +7070,7 @@ func (builder *CreateAilySessionRunReqBodyBuilder) AppId(appId string) *CreateAi
 
 // 技能 ID
 //
-//示例值：skill_6cc6166178ca
+// 示例值：skill_6cc6166178ca
 func (builder *CreateAilySessionRunReqBodyBuilder) SkillId(skillId string) *CreateAilySessionRunReqBodyBuilder {
 	builder.skillId = skillId
 	builder.skillIdFlag = true
@@ -7083,7 +7079,7 @@ func (builder *CreateAilySessionRunReqBodyBuilder) SkillId(skillId string) *Crea
 
 // 指定技能 ID 时可以同时指定技能输入
 //
-//示例值：{"key": "value"}
+// 示例值：{"key": "value"}
 func (builder *CreateAilySessionRunReqBodyBuilder) SkillInput(skillInput string) *CreateAilySessionRunReqBodyBuilder {
 	builder.skillInput = skillInput
 	builder.skillInputFlag = true
@@ -7092,7 +7088,7 @@ func (builder *CreateAilySessionRunReqBodyBuilder) SkillInput(skillInput string)
 
 // 其他透传信息
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionRunReqBodyBuilder) Metadata(metadata string) *CreateAilySessionRunReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataFlag = true
@@ -7402,7 +7398,7 @@ func NewCreateAppDataAssetReqBodyBuilder() *CreateAppDataAssetReqBodyBuilder {
 
 // 连接类型
 //
-//示例值：direct
+// 示例值：direct
 func (builder *CreateAppDataAssetReqBodyBuilder) ConnectType(connectType string) *CreateAppDataAssetReqBodyBuilder {
 	builder.connectType = connectType
 	builder.connectTypeFlag = true
@@ -7411,7 +7407,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) ConnectType(connectType string)
 
 // 数据源类型
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppDataAssetReqBodyBuilder) SourceType(sourceType string) *CreateAppDataAssetReqBodyBuilder {
 	builder.sourceType = sourceType
 	builder.sourceTypeFlag = true
@@ -7420,7 +7416,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) SourceType(sourceType string) *
 
 // 知识导入配置
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppDataAssetReqBodyBuilder) ImportKnowledgeSetting(importKnowledgeSetting *DataAssetImportKnowledgeSetting) *CreateAppDataAssetReqBodyBuilder {
 	builder.importKnowledgeSetting = importKnowledgeSetting
 	builder.importKnowledgeSettingFlag = true
@@ -7429,7 +7425,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) ImportKnowledgeSetting(importKn
 
 // 数据知识描述信息
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppDataAssetReqBodyBuilder) Description(description map[string]string) *CreateAppDataAssetReqBodyBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -7887,7 +7883,7 @@ func NewUploadFileAppDataAssetReqBodyBuilder() *UploadFileAppDataAssetReqBodyBui
 
 // 需要上传的文件
 //
-//示例值：
+// 示例值：
 func (builder *UploadFileAppDataAssetReqBodyBuilder) File(file io.Reader) *UploadFileAppDataAssetReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -8114,7 +8110,7 @@ func NewAskAppKnowledgeReqBodyBuilder() *AskAppKnowledgeReqBodyBuilder {
 
 // 输入消息（当前仅支持纯文本输入）
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) Message(message *AilyKnowledgeMessage) *AskAppKnowledgeReqBodyBuilder {
 	builder.message = message
 	builder.messageFlag = true
@@ -8123,7 +8119,7 @@ func (builder *AskAppKnowledgeReqBodyBuilder) Message(message *AilyKnowledgeMess
 
 // 控制知识问答所依据的数据知识范围
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) DataAssetIds(dataAssetIds []string) *AskAppKnowledgeReqBodyBuilder {
 	builder.dataAssetIds = dataAssetIds
 	builder.dataAssetIdsFlag = true
@@ -8132,7 +8128,7 @@ func (builder *AskAppKnowledgeReqBodyBuilder) DataAssetIds(dataAssetIds []string
 
 // 控制知识问答所依据的数据知识分类范围
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) DataAssetTagIds(dataAssetTagIds []string) *AskAppKnowledgeReqBodyBuilder {
 	builder.dataAssetTagIds = dataAssetTagIds
 	builder.dataAssetTagIdsFlag = true
@@ -8427,7 +8423,7 @@ func NewStartAppSkillReqBodyBuilder() *StartAppSkillReqBodyBuilder {
 
 // 技能的全局变量
 //
-//示例值：
+// 示例值：
 func (builder *StartAppSkillReqBodyBuilder) GlobalVariable(globalVariable *SkillGlobalVariable) *StartAppSkillReqBodyBuilder {
 	builder.globalVariable = globalVariable
 	builder.globalVariableFlag = true
@@ -8436,7 +8432,7 @@ func (builder *StartAppSkillReqBodyBuilder) GlobalVariable(globalVariable *Skill
 
 // 技能的自定义变量
 //
-//示例值：{"custom_s":"text","custom_i":12,"custom_b":true,"custom_f":1.2}
+// 示例值：{"custom_s":"text","custom_i":12,"custom_b":true,"custom_f":1.2}
 func (builder *StartAppSkillReqBodyBuilder) Input(input string) *StartAppSkillReqBodyBuilder {
 	builder.input = input
 	builder.inputFlag = true

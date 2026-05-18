@@ -405,8 +405,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -414,8 +412,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1867,8 +1863,6 @@ func NewDocsBuilder() *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) ObjToken(objToken string) *DocsBuilder {
 	builder.objToken = objToken
@@ -1876,8 +1870,6 @@ func (builder *DocsBuilder) ObjToken(objToken string) *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) ObjType(objType int) *DocsBuilder {
 	builder.objType = objType
@@ -1885,8 +1877,6 @@ func (builder *DocsBuilder) ObjType(objType int) *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) ObjStatus(objStatus int) *DocsBuilder {
 	builder.objStatus = objStatus
@@ -1894,8 +1884,6 @@ func (builder *DocsBuilder) ObjStatus(objStatus int) *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) CreateTime(createTime string) *DocsBuilder {
 	builder.createTime = createTime
@@ -1903,8 +1891,6 @@ func (builder *DocsBuilder) CreateTime(createTime string) *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) EditTime(editTime string) *DocsBuilder {
 	builder.editTime = editTime
@@ -1912,8 +1898,6 @@ func (builder *DocsBuilder) EditTime(editTime string) *DocsBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DocsBuilder) Owner(owner *User) *DocsBuilder {
 	builder.owner = owner
@@ -2306,8 +2290,6 @@ func NewMessageAttachmentBuilder() *MessageAttachmentBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MessageAttachmentBuilder) AttachmentId(attachmentId string) *MessageAttachmentBuilder {
 	builder.attachmentId = attachmentId
@@ -4776,8 +4758,6 @@ func NewUserCommentDocsRecordBuilder() *UserCommentDocsRecordBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserCommentDocsRecordBuilder) Docs(docs *Docs) *UserCommentDocsRecordBuilder {
 	builder.docs = docs
@@ -4785,8 +4765,6 @@ func (builder *UserCommentDocsRecordBuilder) Docs(docs *Docs) *UserCommentDocsRe
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserCommentDocsRecordBuilder) LatestCommentTime(latestCommentTime string) *UserCommentDocsRecordBuilder {
 	builder.latestCommentTime = latestCommentTime
@@ -4825,8 +4803,6 @@ func NewUserEditDocsRecordBuilder() *UserEditDocsRecordBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserEditDocsRecordBuilder) Docs(docs *Docs) *UserEditDocsRecordBuilder {
 	builder.docs = docs
@@ -4834,8 +4810,6 @@ func (builder *UserEditDocsRecordBuilder) Docs(docs *Docs) *UserEditDocsRecordBu
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserEditDocsRecordBuilder) LatestEditTime(latestEditTime string) *UserEditDocsRecordBuilder {
 	builder.latestEditTime = latestEditTime
@@ -4879,8 +4853,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -4888,8 +4860,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -4897,8 +4867,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -5018,8 +4986,6 @@ func (builder *VaultTaskBuilder) UpdateTime(updateTime string) *VaultTaskBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *VaultTaskBuilder) Status(status string) *VaultTaskBuilder {
 	builder.status = status
@@ -5027,8 +4993,6 @@ func (builder *VaultTaskBuilder) Status(status string) *VaultTaskBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *VaultTaskBuilder) FailReason(failReason string) *VaultTaskBuilder {
 	builder.failReason = failReason
@@ -5036,8 +5000,6 @@ func (builder *VaultTaskBuilder) FailReason(failReason string) *VaultTaskBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *VaultTaskBuilder) ExpireTime(expireTime string) *VaultTaskBuilder {
 	builder.expireTime = expireTime
@@ -5054,8 +5016,6 @@ func (builder *VaultTaskBuilder) ExtractKey(extractKey string) *VaultTaskBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *VaultTaskBuilder) Files(files []*VaultTaskFile) *VaultTaskBuilder {
 	builder.files = files
@@ -5063,8 +5023,6 @@ func (builder *VaultTaskBuilder) Files(files []*VaultTaskFile) *VaultTaskBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *VaultTaskBuilder) Creator(creator *User) *VaultTaskBuilder {
 	builder.creator = creator
@@ -5195,7 +5153,7 @@ func NewUpdateDeviceApplyRecordReqBodyBuilder() *UpdateDeviceApplyRecordReqBodyB
 
 // 是否审批通过
 //
-//示例值：true
+// 示例值：true
 func (builder *UpdateDeviceApplyRecordReqBodyBuilder) IsApproved(isApproved bool) *UpdateDeviceApplyRecordReqBodyBuilder {
 	builder.isApproved = isApproved
 	builder.isApprovedFlag = true
@@ -5259,7 +5217,6 @@ func (builder *UpdateDeviceApplyRecordReqBuilder) DeviceApplyRecordId(deviceAppl
 	return builder
 }
 
-//
 func (builder *UpdateDeviceApplyRecordReqBuilder) Body(body *UpdateDeviceApplyRecordReqBody) *UpdateDeviceApplyRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -5313,7 +5270,6 @@ func (builder *CreateDeviceRecordReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
-//
 func (builder *CreateDeviceRecordReqBuilder) DeviceRecord(deviceRecord *DeviceRecord) *CreateDeviceRecordReqBuilder {
 	builder.deviceRecord = deviceRecord
 	return builder
@@ -5726,7 +5682,6 @@ func (builder *UpdateDeviceRecordReqBuilder) UserIdType(userIdType string) *Upda
 	return builder
 }
 
-//
 func (builder *UpdateDeviceRecordReqBuilder) DeviceRecord(deviceRecord *DeviceRecord) *UpdateDeviceRecordReqBuilder {
 	builder.deviceRecord = deviceRecord
 	return builder

@@ -31,6 +31,7 @@ func main() {
 		MemberIdType("open_id").
 		PageSize(10).
 		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
+		CheckSecurityConf(false).
 		Build()
 	// 发起请求
 	resp, err := client.Im.V1.ChatMembers.Get(context.Background(), req)

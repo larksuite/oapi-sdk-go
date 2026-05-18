@@ -760,8 +760,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -769,8 +767,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1152,7 +1148,7 @@ func (builder *KaCardTemplateOldBuilder) Name(name string) *KaCardTemplateOldBui
 	return builder
 }
 
-//  扩展字段
+//	扩展字段
 //
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) BizExt(bizExt string) *KaCardTemplateOldBuilder {
@@ -1720,7 +1716,7 @@ func NewBatchUpdateCardReqBodyBuilder() *BatchUpdateCardReqBodyBuilder {
 
 // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *BatchUpdateCardReqBodyBuilder) Uuid(uuid string) *BatchUpdateCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -1729,7 +1725,7 @@ func (builder *BatchUpdateCardReqBodyBuilder) Uuid(uuid string) *BatchUpdateCard
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *BatchUpdateCardReqBodyBuilder) Sequence(sequence int) *BatchUpdateCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -1738,7 +1734,7 @@ func (builder *BatchUpdateCardReqBodyBuilder) Sequence(sequence int) *BatchUpdat
 
 // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
 //
-//示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
+// 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
 func (builder *BatchUpdateCardReqBodyBuilder) Actions(actions string) *BatchUpdateCardReqBodyBuilder {
 	builder.actions = actions
 	builder.actionsFlag = true
@@ -1887,7 +1883,7 @@ func NewCreateCardReqBodyBuilder() *CreateCardReqBodyBuilder {
 
 // 卡片数据的类型
 //
-//示例值：card_json
+// 示例值：card_json
 func (builder *CreateCardReqBodyBuilder) Type(type_ string) *CreateCardReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -1896,7 +1892,7 @@ func (builder *CreateCardReqBodyBuilder) Type(type_ string) *CreateCardReqBodyBu
 
 // 卡片数据内容，与卡片数据的类型相对应
 //
-//示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
+// 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
 func (builder *CreateCardReqBodyBuilder) Data(data string) *CreateCardReqBodyBuilder {
 	builder.data = data
 	builder.dataFlag = true
@@ -2019,7 +2015,7 @@ func NewIdConvertCardReqBodyBuilder() *IdConvertCardReqBodyBuilder {
 
 // 消息ID
 //
-//示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
+// 示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
 func (builder *IdConvertCardReqBodyBuilder) MessageId(messageId string) *IdConvertCardReqBodyBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -2129,7 +2125,7 @@ func NewSettingsCardReqBodyBuilder() *SettingsCardReqBodyBuilder {
 
 // 卡片设置
 //
-//示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
+// 示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
 func (builder *SettingsCardReqBodyBuilder) Settings(settings string) *SettingsCardReqBodyBuilder {
 	builder.settings = settings
 	builder.settingsFlag = true
@@ -2138,7 +2134,7 @@ func (builder *SettingsCardReqBodyBuilder) Settings(settings string) *SettingsCa
 
 // UUID
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *SettingsCardReqBodyBuilder) Uuid(uuid string) *SettingsCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -2147,7 +2143,7 @@ func (builder *SettingsCardReqBodyBuilder) Uuid(uuid string) *SettingsCardReqBod
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *SettingsCardReqBodyBuilder) Sequence(sequence int) *SettingsCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -2299,7 +2295,7 @@ func NewUpdateCardReqBodyBuilder() *UpdateCardReqBodyBuilder {
 
 // 卡片内容
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCardReqBodyBuilder) Card(card *Card) *UpdateCardReqBodyBuilder {
 	builder.card = card
 	builder.cardFlag = true
@@ -2308,7 +2304,7 @@ func (builder *UpdateCardReqBodyBuilder) Card(card *Card) *UpdateCardReqBodyBuil
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *UpdateCardReqBodyBuilder) Uuid(uuid string) *UpdateCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -2317,7 +2313,7 @@ func (builder *UpdateCardReqBodyBuilder) Uuid(uuid string) *UpdateCardReqBodyBui
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *UpdateCardReqBodyBuilder) Sequence(sequence int) *UpdateCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -2469,7 +2465,7 @@ func NewContentCardElementReqBodyBuilder() *ContentCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *ContentCardElementReqBodyBuilder) Uuid(uuid string) *ContentCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -2478,7 +2474,7 @@ func (builder *ContentCardElementReqBodyBuilder) Uuid(uuid string) *ContentCardE
 
 // 更新后的文本内容
 //
-//示例值：{\"content\":\"更新后的文本内容\"}
+// 示例值：{\"content\":\"更新后的文本内容\"}
 func (builder *ContentCardElementReqBodyBuilder) Content(content string) *ContentCardElementReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -2487,7 +2483,7 @@ func (builder *ContentCardElementReqBodyBuilder) Content(content string) *Conten
 
 // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *ContentCardElementReqBodyBuilder) Sequence(sequence int) *ContentCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -2653,7 +2649,7 @@ func NewCreateCardElementReqBodyBuilder() *CreateCardElementReqBodyBuilder {
 
 // 添加组件的方式
 //
-//示例值：insert_before
+// 示例值：insert_before
 func (builder *CreateCardElementReqBodyBuilder) Type(type_ string) *CreateCardElementReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -2662,7 +2658,7 @@ func (builder *CreateCardElementReqBodyBuilder) Type(type_ string) *CreateCardEl
 
 // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
 //
-//示例值：elem_63529372
+// 示例值：elem_63529372
 func (builder *CreateCardElementReqBodyBuilder) TargetElementId(targetElementId string) *CreateCardElementReqBodyBuilder {
 	builder.targetElementId = targetElementId
 	builder.targetElementIdFlag = true
@@ -2671,7 +2667,7 @@ func (builder *CreateCardElementReqBodyBuilder) TargetElementId(targetElementId 
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *CreateCardElementReqBodyBuilder) Uuid(uuid string) *CreateCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -2680,7 +2676,7 @@ func (builder *CreateCardElementReqBodyBuilder) Uuid(uuid string) *CreateCardEle
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *CreateCardElementReqBodyBuilder) Sequence(sequence int) *CreateCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -2689,7 +2685,7 @@ func (builder *CreateCardElementReqBodyBuilder) Sequence(sequence int) *CreateCa
 
 // 组件列表
 //
-//示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
+// 示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
 func (builder *CreateCardElementReqBodyBuilder) Elements(elements string) *CreateCardElementReqBodyBuilder {
 	builder.elements = elements
 	builder.elementsFlag = true
@@ -2876,7 +2872,7 @@ func NewDeleteCardElementReqBodyBuilder() *DeleteCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *DeleteCardElementReqBodyBuilder) Uuid(uuid string) *DeleteCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -2885,7 +2881,7 @@ func (builder *DeleteCardElementReqBodyBuilder) Uuid(uuid string) *DeleteCardEle
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *DeleteCardElementReqBodyBuilder) Sequence(sequence int) *DeleteCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -3026,7 +3022,7 @@ func NewPatchCardElementReqBodyBuilder() *PatchCardElementReqBodyBuilder {
 
 // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
 //
-//示例值：{\"content\":\"更新后的组件文本\"}
+// 示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *PatchCardElementReqBodyBuilder) PartialElement(partialElement string) *PatchCardElementReqBodyBuilder {
 	builder.partialElement = partialElement
 	builder.partialElementFlag = true
@@ -3035,7 +3031,7 @@ func (builder *PatchCardElementReqBodyBuilder) PartialElement(partialElement str
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *PatchCardElementReqBodyBuilder) Uuid(uuid string) *PatchCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -3044,7 +3040,7 @@ func (builder *PatchCardElementReqBodyBuilder) Uuid(uuid string) *PatchCardEleme
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *PatchCardElementReqBodyBuilder) Sequence(sequence int) *PatchCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true
@@ -3204,7 +3200,7 @@ func NewUpdateCardElementReqBodyBuilder() *UpdateCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：191857678434
 func (builder *UpdateCardElementReqBodyBuilder) Uuid(uuid string) *UpdateCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidFlag = true
@@ -3213,7 +3209,7 @@ func (builder *UpdateCardElementReqBodyBuilder) Uuid(uuid string) *UpdateCardEle
 
 // 新的组件
 //
-//示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
+// 示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
 func (builder *UpdateCardElementReqBodyBuilder) Element(element string) *UpdateCardElementReqBodyBuilder {
 	builder.element = element
 	builder.elementFlag = true
@@ -3222,7 +3218,7 @@ func (builder *UpdateCardElementReqBodyBuilder) Element(element string) *UpdateC
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-//示例值：1712578784
+// 示例值：1712578784
 func (builder *UpdateCardElementReqBodyBuilder) Sequence(sequence int) *UpdateCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceFlag = true

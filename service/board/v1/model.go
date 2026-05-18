@@ -183,8 +183,6 @@ func (builder *AuthInfoBuilder) AuthType(authType string) *AuthInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AuthInfoBuilder) Extra(extra map[string]string) *AuthInfoBuilder {
 	builder.extra = extra
@@ -780,8 +778,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -789,8 +785,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3792,7 +3786,7 @@ func NewUpdateThemeWhiteboardReqBodyBuilder() *UpdateThemeWhiteboardReqBodyBuild
 
 // 主题名称
 //
-//示例值：classic
+// 示例值：classic
 func (builder *UpdateThemeWhiteboardReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardReqBodyBuilder {
 	builder.theme = theme
 	builder.themeFlag = true
@@ -3900,7 +3894,7 @@ func NewCreateWhiteboardNodeReqBodyBuilder() *CreateWhiteboardNodeReqBodyBuilder
 
 // 子节点数据
 //
-//示例值：
+// 示例值：
 func (builder *CreateWhiteboardNodeReqBodyBuilder) Nodes(nodes []*WhiteboardNode) *CreateWhiteboardNodeReqBodyBuilder {
 	builder.nodes = nodes
 	builder.nodesFlag = true
@@ -4047,16 +4041,14 @@ func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNo
 
 // plant uml 代码
 //
-//示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
+// 示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.plantUmlCode = plantUmlCode
 	builder.plantUmlCodeFlag = true
 	return builder
 }
 
-//
-//
-//示例值：1
+// 示例值：1
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.styleType = styleType
 	builder.styleTypeFlag = true
@@ -4065,16 +4057,14 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) StyleType(styleType i
 
 // 语法类型
 //
-//示例值：
+// 示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.syntaxType = syntaxType
 	builder.syntaxTypeFlag = true
 	return builder
 }
 
-//
-//
-//示例值：
+// 示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.diagramType = diagramType
 	builder.diagramTypeFlag = true
@@ -4083,7 +4073,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramTy
 
 // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
 //
-//示例值：
+// 示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.overwrite = overwrite
 	builder.overwriteFlag = true
@@ -4092,7 +4082,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite b
 
 // 解析模式
 //
-//示例值：0
+// 示例值：0
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.parseMode = parseMode
 	builder.parseModeFlag = true
@@ -4151,8 +4141,6 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) PlantUmlCode(plan
 	return builder
 }
 
-//
-//
 // 示例值：1
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.styleType = styleType
@@ -4169,8 +4157,6 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) SyntaxType(syntax
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.diagramType = diagramType

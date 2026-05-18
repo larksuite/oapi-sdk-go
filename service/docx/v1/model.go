@@ -2058,8 +2058,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2067,8 +2065,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -6897,7 +6893,7 @@ func NewBatchUpdateChatAnnouncementBlockReqBodyBuilder() *BatchUpdateChatAnnounc
 
 // 批量更新 Block
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateChatAnnouncementBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateChatAnnouncementBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
@@ -6985,7 +6981,6 @@ func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) UserIdType(userIdType
 	return builder
 }
 
-//
 func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) Body(body *BatchUpdateChatAnnouncementBlockReqBody) *BatchUpdateChatAnnouncementBlockReqBuilder {
 	builder.body = body
 	return builder
@@ -7206,7 +7201,7 @@ func NewBatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder() *BatchDeleteCha
 
 // 删除的起始索引（操作区间左闭右开）
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
@@ -7215,7 +7210,7 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) StartInde
 
 // 删除的末尾索引（操作区间左闭右开）
 //
-//示例值：1
+// 示例值：1
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexFlag = true
@@ -7320,7 +7315,6 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) ClientToken(c
 	return builder
 }
 
-//
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) Body(body *BatchDeleteChatAnnouncementBlockChildrenReqBody) *BatchDeleteChatAnnouncementBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -7377,7 +7371,7 @@ func NewCreateChatAnnouncementBlockChildrenReqBodyBuilder() *CreateChatAnnouncem
 
 // 添加的孩子列表。
 //
-//示例值：
+// 示例值：
 func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -7386,7 +7380,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Children(child
 
 // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Index(index int) *CreateChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true
@@ -7499,7 +7493,6 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) UserIdType(userIdT
 	return builder
 }
 
-//
 func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) Body(body *CreateChatAnnouncementBlockChildrenReqBody) *CreateChatAnnouncementBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -7649,7 +7642,7 @@ func NewConvertDocumentReqBodyBuilder() *ConvertDocumentReqBodyBuilder {
 
 // 内容类型
 //
-//示例值：markdown
+// 示例值：markdown
 func (builder *ConvertDocumentReqBodyBuilder) ContentType(contentType string) *ConvertDocumentReqBodyBuilder {
 	builder.contentType = contentType
 	builder.contentTypeFlag = true
@@ -7658,7 +7651,7 @@ func (builder *ConvertDocumentReqBodyBuilder) ContentType(contentType string) *C
 
 // 文本内容
 //
-//示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
+// 示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
 func (builder *ConvertDocumentReqBodyBuilder) Content(content string) *ConvertDocumentReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -7739,7 +7732,6 @@ func (builder *ConvertDocumentReqBuilder) UserIdType(userIdType string) *Convert
 	return builder
 }
 
-//
 func (builder *ConvertDocumentReqBuilder) Body(body *ConvertDocumentReqBody) *ConvertDocumentReqBuilder {
 	builder.body = body
 	return builder
@@ -7797,7 +7789,7 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 
 // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 //
-//示例值：fldcnqquW1svRIYVT2Np6IuLCKd
+// 示例值：fldcnqquW1svRIYVT2Np6IuLCKd
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -7806,7 +7798,7 @@ func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *Cr
 
 // 文档标题，只支持纯文本
 //
-//示例值：undefined
+// 示例值：undefined
 func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocumentReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -8030,7 +8022,7 @@ func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBod
 
 // 批量更新 Block
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
@@ -8431,7 +8423,7 @@ func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlo
 
 // 删除的起始索引（操作区间左闭右开）
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
@@ -8440,7 +8432,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startI
 
 // 删除的末尾索引（操作区间左闭右开）
 //
-//示例值：1
+// 示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexFlag = true
@@ -8602,7 +8594,7 @@ func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildren
 
 // 添加的孩子列表。
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -8611,7 +8603,7 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*B
 
 // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true
@@ -8895,7 +8887,7 @@ func NewCreateDocumentBlockDescendantReqBodyBuilder() *CreateDocumentBlockDescen
 
 // 添加的孩子 BlockID 列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) ChildrenId(childrenId []string) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.childrenId = childrenId
 	builder.childrenIdFlag = true
@@ -8904,7 +8896,7 @@ func (builder *CreateDocumentBlockDescendantReqBodyBuilder) ChildrenId(childrenI
 
 // 当前 Block 在 Children 中的插入位置，起始值为 0，最大值为原 Children 长度
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) Index(index int) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.index = index
 	builder.indexFlag = true
@@ -8913,7 +8905,7 @@ func (builder *CreateDocumentBlockDescendantReqBodyBuilder) Index(index int) *Cr
 
 // 添加的子孙列表，包括孩子
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) Descendants(descendants []*Block) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.descendants = descendants
 	builder.descendantsFlag = true
@@ -9043,7 +9035,6 @@ func (builder *CreateDocumentBlockDescendantReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-//
 func (builder *CreateDocumentBlockDescendantReqBuilder) Body(body *CreateDocumentBlockDescendantReqBody) *CreateDocumentBlockDescendantReqBuilder {
 	builder.body = body
 	return builder

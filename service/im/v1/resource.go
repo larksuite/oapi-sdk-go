@@ -25,7 +25,7 @@ type V1 struct {
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
 	File             *file             // 消息 - 文件信息
 	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息加急
+	Message          *message          // 消息
 	MessageReaction  *messageReaction  // 消息 - 表情回复
 	MessageResource  *messageResource  // message.resource
 	Pin              *pin              // 消息 - Pin
@@ -216,7 +216,7 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/chats"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
 	if err != nil {
 		return nil, err
@@ -1089,7 +1089,7 @@ func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkco
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/files"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, f.config, options...)
 	if err != nil {
 		return nil, err
@@ -1152,7 +1152,7 @@ func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...lark
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/images"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -1268,7 +1268,7 @@ func (m *message) Forward(ctx context.Context, req *ForwardMessageReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages/:message_id/forward"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -1326,7 +1326,7 @@ func (m *message) List(ctx context.Context, req *ListMessageReq, options ...lark
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -1600,6 +1600,32 @@ func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, optio
 	return resp, err
 }
 
+// BatchQuery
+//
+// - 批量获取消息表情
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=im&resource=message.reaction&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/batchQuery_messageReaction.go
+func (m *messageReaction) BatchQuery(ctx context.Context, req *BatchQueryMessageReactionReq, options ...larkcore.RequestOptionFunc) (*BatchQueryMessageReactionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/messages/reactions/batch_query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchQueryMessageReactionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create 添加消息表情回复
 //
 // - 给指定消息添加指定类型的表情回复（reaction即表情回复，本文档统一用“reaction”代称）。
@@ -1706,7 +1732,7 @@ func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, o
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages/:message_id/resources/:file_key"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -1830,7 +1856,7 @@ func (t *thread) Forward(ctx context.Context, req *ForwardThreadReq, options ...
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/threads/:thread_id/forward"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err

@@ -15,10 +15,10 @@ package larkapaas
 
 import (
 	"fmt"
-	"io"
 
 	"context"
 	"errors"
+	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -201,7 +201,7 @@ func NewAppBuilder() *AppBuilder {
 	return builder
 }
 
-//   aPaaS 产品应用的名称
+//	aPaaS 产品应用的名称
 //
 // 示例值：
 func (builder *AppBuilder) Name(name []*I18n) *AppBuilder {
@@ -520,7 +520,7 @@ func NewAppRolesInfoBuilder() *AppRolesInfoBuilder {
 	return builder
 }
 
-//   aPaaS 产品应用管理员的 ID
+//	aPaaS 产品应用管理员的 ID
 //
 // 示例值：
 func (builder *AppRolesInfoBuilder) Admins(admins []int) *AppRolesInfoBuilder {
@@ -529,7 +529,7 @@ func (builder *AppRolesInfoBuilder) Admins(admins []int) *AppRolesInfoBuilder {
 	return builder
 }
 
-//   aPaaS 产品应用开发者的 ID
+//	aPaaS 产品应用开发者的 ID
 //
 // 示例值：
 func (builder *AppRolesInfoBuilder) Developers(developers []int) *AppRolesInfoBuilder {
@@ -4601,8 +4601,6 @@ func (builder *DatasetFieldBuilder) ApiName(apiName string) *DatasetFieldBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DatasetFieldBuilder) Label(label map[string]string) *DatasetFieldBuilder {
 	builder.label = label
@@ -4619,7 +4617,7 @@ func (builder *DatasetFieldBuilder) DatasetApiId(datasetApiId string) *DatasetFi
 	return builder
 }
 
-//  数据集 API 名称
+//	数据集 API 名称
 //
 // 示例值：myDataset
 func (builder *DatasetFieldBuilder) DatasetApiName(datasetApiName string) *DatasetFieldBuilder {
@@ -4980,8 +4978,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -4989,8 +4985,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5617,7 +5611,7 @@ func (builder *EventSubscriberBuilder) TokenClientSecret(tokenClientSecret strin
 	return builder
 }
 
-//  webook URL，当有事件发生时，会向此URL发送事件信息
+//	webook URL，当有事件发生时，会向此URL发送事件信息
 //
 // 示例值：http://your_domain/your_webhook_url
 func (builder *EventSubscriberBuilder) WebhookUrl(webhookUrl string) *EventSubscriberBuilder {
@@ -5686,8 +5680,6 @@ func NewExternalUserBuilder() *ExternalUserBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ExternalUserBuilder) UserId(userId string) *ExternalUserBuilder {
 	builder.userId = userId
@@ -6024,8 +6016,6 @@ func NewFileBuilder() *FileBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
@@ -6033,8 +6023,6 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *FileBuilder) Content(content io.Reader) *FileBuilder {
 	builder.content = content
@@ -6612,8 +6600,6 @@ func NewKctxBuilder() *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) TenantId(tenantId string) *KctxBuilder {
 	builder.tenantId = tenantId
@@ -6621,8 +6607,6 @@ func (builder *KctxBuilder) TenantId(tenantId string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) UserId(userId string) *KctxBuilder {
 	builder.userId = userId
@@ -6630,8 +6614,6 @@ func (builder *KctxBuilder) UserId(userId string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) TenantDomainName(tenantDomainName string) *KctxBuilder {
 	builder.tenantDomainName = tenantDomainName
@@ -6639,8 +6621,6 @@ func (builder *KctxBuilder) TenantDomainName(tenantDomainName string) *KctxBuild
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) UserSetting(userSetting string) *KctxBuilder {
 	builder.userSetting = userSetting
@@ -6648,8 +6628,6 @@ func (builder *KctxBuilder) UserSetting(userSetting string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) LangId(langId int) *KctxBuilder {
 	builder.langId = langId
@@ -6657,8 +6635,6 @@ func (builder *KctxBuilder) LangId(langId int) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) RequestId(requestId string) *KctxBuilder {
 	builder.requestId = requestId
@@ -6666,8 +6642,6 @@ func (builder *KctxBuilder) RequestId(requestId string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) Host(host string) *KctxBuilder {
 	builder.host = host
@@ -6675,8 +6649,6 @@ func (builder *KctxBuilder) Host(host string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) TenantResourceRouteKey(tenantResourceRouteKey string) *KctxBuilder {
 	builder.tenantResourceRouteKey = tenantResourceRouteKey
@@ -6684,8 +6656,6 @@ func (builder *KctxBuilder) TenantResourceRouteKey(tenantResourceRouteKey string
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) Namespace(namespace string) *KctxBuilder {
 	builder.namespace = namespace
@@ -6693,8 +6663,6 @@ func (builder *KctxBuilder) Namespace(namespace string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) TenantType(tenantType string) *KctxBuilder {
 	builder.tenantType = tenantType
@@ -6702,8 +6670,6 @@ func (builder *KctxBuilder) TenantType(tenantType string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) TransactionId(transactionId string) *KctxBuilder {
 	builder.transactionId = transactionId
@@ -6711,8 +6677,6 @@ func (builder *KctxBuilder) TransactionId(transactionId string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) ConsistencyRetryType(consistencyRetryType string) *KctxBuilder {
 	builder.consistencyRetryType = consistencyRetryType
@@ -6720,8 +6684,6 @@ func (builder *KctxBuilder) ConsistencyRetryType(consistencyRetryType string) *K
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) PsmLink(psmLink string) *KctxBuilder {
 	builder.psmLink = psmLink
@@ -6729,8 +6691,6 @@ func (builder *KctxBuilder) PsmLink(psmLink string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) BreakoutRetryPsm(breakoutRetryPsm string) *KctxBuilder {
 	builder.breakoutRetryPsm = breakoutRetryPsm
@@ -6738,8 +6698,6 @@ func (builder *KctxBuilder) BreakoutRetryPsm(breakoutRetryPsm string) *KctxBuild
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) CredentialId(credentialId string) *KctxBuilder {
 	builder.credentialId = credentialId
@@ -6747,8 +6705,6 @@ func (builder *KctxBuilder) CredentialId(credentialId string) *KctxBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *KctxBuilder) AuthenticationType(authenticationType string) *KctxBuilder {
 	builder.authenticationType = authenticationType
@@ -11962,7 +11918,7 @@ func NewQueryApplicationEnvironmentVariableReqBodyBuilder() *QueryApplicationEnv
 
 // 过滤条件
 //
-//示例值：
+// 示例值：
 func (builder *QueryApplicationEnvironmentVariableReqBodyBuilder) Filter(filter *EnvironmentVariableFilter) *QueryApplicationEnvironmentVariableReqBodyBuilder {
 	builder.filter = filter
 	builder.filterFlag = true
@@ -11971,7 +11927,7 @@ func (builder *QueryApplicationEnvironmentVariableReqBodyBuilder) Filter(filter 
 
 // 限制的条数，默认为 500，不可超过 500
 //
-//示例值：10
+// 示例值：10
 func (builder *QueryApplicationEnvironmentVariableReqBodyBuilder) Limit(limit int) *QueryApplicationEnvironmentVariableReqBodyBuilder {
 	builder.limit = limit
 	builder.limitFlag = true
@@ -11980,7 +11936,7 @@ func (builder *QueryApplicationEnvironmentVariableReqBodyBuilder) Limit(limit in
 
 // 返回记录的偏移量，默认为 0，即从查询到的第一个记录开始返回
 //
-//示例值：0
+// 示例值：0
 func (builder *QueryApplicationEnvironmentVariableReqBodyBuilder) Offset(offset int) *QueryApplicationEnvironmentVariableReqBodyBuilder {
 	builder.offset = offset
 	builder.offsetFlag = true
@@ -12145,7 +12101,7 @@ func NewExecuteApplicationFlowReqBodyBuilder() *ExecuteApplicationFlowReqBodyBui
 
 // 是否异步执行
 //
-//示例值：true
+// 示例值：true
 func (builder *ExecuteApplicationFlowReqBodyBuilder) IsAsync(isAsync bool) *ExecuteApplicationFlowReqBodyBuilder {
 	builder.isAsync = isAsync
 	builder.isAsyncFlag = true
@@ -12154,7 +12110,7 @@ func (builder *ExecuteApplicationFlowReqBodyBuilder) IsAsync(isAsync bool) *Exec
 
 // 幂等信息
 //
-//示例值：123
+// 示例值：123
 func (builder *ExecuteApplicationFlowReqBodyBuilder) IdempotentKey(idempotentKey string) *ExecuteApplicationFlowReqBodyBuilder {
 	builder.idempotentKey = idempotentKey
 	builder.idempotentKeyFlag = true
@@ -12163,7 +12119,7 @@ func (builder *ExecuteApplicationFlowReqBodyBuilder) IdempotentKey(idempotentKey
 
 // 循环信息
 //
-//示例值：
+// 示例值：
 func (builder *ExecuteApplicationFlowReqBodyBuilder) LoopMasks(loopMasks []string) *ExecuteApplicationFlowReqBodyBuilder {
 	builder.loopMasks = loopMasks
 	builder.loopMasksFlag = true
@@ -12172,7 +12128,7 @@ func (builder *ExecuteApplicationFlowReqBodyBuilder) LoopMasks(loopMasks []strin
 
 // 流程入参
 //
-//示例值：123
+// 示例值：123
 func (builder *ExecuteApplicationFlowReqBodyBuilder) Params(params string) *ExecuteApplicationFlowReqBodyBuilder {
 	builder.params = params
 	builder.paramsFlag = true
@@ -12181,7 +12137,7 @@ func (builder *ExecuteApplicationFlowReqBodyBuilder) Params(params string) *Exec
 
 // 操作人
 //
-//示例值：123
+// 示例值：123
 func (builder *ExecuteApplicationFlowReqBodyBuilder) Operator(operator string) *ExecuteApplicationFlowReqBodyBuilder {
 	builder.operator = operator
 	builder.operatorFlag = true
@@ -12386,7 +12342,7 @@ func NewInvokeApplicationFunctionReqBodyBuilder() *InvokeApplicationFunctionReqB
 
 // 函数输入参数（JSON 序列化后的字符串）
 //
-//示例值：{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":1718313981794}
+// 示例值：{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":1718313981794}
 func (builder *InvokeApplicationFunctionReqBodyBuilder) Params(params string) *InvokeApplicationFunctionReqBodyBuilder {
 	builder.params = params
 	builder.paramsFlag = true
@@ -12513,7 +12469,7 @@ func NewOqlQueryApplicationObjectReqBodyBuilder() *OqlQueryApplicationObjectReqB
 
 // 待执行的 OQL 语句（关于支持的关键词及操作符，详见查看）
 //
-//示例值：SELECT _id, _name FROM _user WHERE _type = $1 AND _accountStatus = $user_status LIMIT 10
+// 示例值：SELECT _id, _name FROM _user WHERE _type = $1 AND _accountStatus = $user_status LIMIT 10
 func (builder *OqlQueryApplicationObjectReqBodyBuilder) Query(query string) *OqlQueryApplicationObjectReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -12522,7 +12478,7 @@ func (builder *OqlQueryApplicationObjectReqBodyBuilder) Query(query string) *Oql
 
 // 用于指定 OQL 语句中匿名参数的具体值
 //
-//示例值：[\"_employee\"]
+// 示例值：[\"_employee\"]
 func (builder *OqlQueryApplicationObjectReqBodyBuilder) Args(args string) *OqlQueryApplicationObjectReqBodyBuilder {
 	builder.args = args
 	builder.argsFlag = true
@@ -12531,7 +12487,7 @@ func (builder *OqlQueryApplicationObjectReqBodyBuilder) Args(args string) *OqlQu
 
 // 用于指定 OQL 语句中具名参数的具体值
 //
-//示例值：{\"user_status\" : \"_used\"}
+// 示例值：{\"user_status\" : \"_used\"}
 func (builder *OqlQueryApplicationObjectReqBodyBuilder) NamedArgs(namedArgs string) *OqlQueryApplicationObjectReqBodyBuilder {
 	builder.namedArgs = namedArgs
 	builder.namedArgsFlag = true
@@ -12696,7 +12652,7 @@ func NewSearchApplicationObjectReqBodyBuilder() *SearchApplicationObjectReqBodyB
 
 // 搜索词
 //
-//示例值：搜索关键字
+// 示例值：搜索关键字
 func (builder *SearchApplicationObjectReqBodyBuilder) Q(q string) *SearchApplicationObjectReqBodyBuilder {
 	builder.q = q
 	builder.qFlag = true
@@ -12705,7 +12661,7 @@ func (builder *SearchApplicationObjectReqBodyBuilder) Q(q string) *SearchApplica
 
 // 搜索对象范围
 //
-//示例值：
+// 示例值：
 func (builder *SearchApplicationObjectReqBodyBuilder) SearchObjects(searchObjects []*SearchObjectParam) *SearchApplicationObjectReqBodyBuilder {
 	builder.searchObjects = searchObjects
 	builder.searchObjectsFlag = true
@@ -12714,7 +12670,7 @@ func (builder *SearchApplicationObjectReqBodyBuilder) SearchObjects(searchObject
 
 // 分页参数，第一次搜索时为空，需要分页查询时使用 SearchRecordsResponse 中的结果
 //
-//示例值：eyJvYmplY3RzX3BhZ2VfdG9rZW4iOlt7Im9ial9pZCI6MTc2OTI4NzM5M
+// 示例值：eyJvYmplY3RzX3BhZ2VfdG9rZW4iOlt7Im9ial9pZCI6MTc2OTI4NzM5M
 func (builder *SearchApplicationObjectReqBodyBuilder) PageToken(pageToken string) *SearchApplicationObjectReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -12723,7 +12679,7 @@ func (builder *SearchApplicationObjectReqBodyBuilder) PageToken(pageToken string
 
 // 返回数量，默认为50，最大不超过2000
 //
-//示例值：100
+// 示例值：100
 func (builder *SearchApplicationObjectReqBodyBuilder) PageSize(pageSize string) *SearchApplicationObjectReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -12732,7 +12688,7 @@ func (builder *SearchApplicationObjectReqBodyBuilder) PageSize(pageSize string) 
 
 // 返回元数据枚举值
 //
-//示例值：Label
+// 示例值：Label
 func (builder *SearchApplicationObjectReqBodyBuilder) Metadata(metadata string) *SearchApplicationObjectReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataFlag = true
@@ -12927,7 +12883,7 @@ func NewBatchCreateApplicationObjectRecordReqBodyBuilder() *BatchCreateApplicati
 
 // 记录详情列表，格式为 List<Map<string, ANY>>，操作记录数上限为 500 条
 //
-//示例值：[{\"book_name\":\"name21\",\"book_count\":2}]
+// 示例值：[{\"book_name\":\"name21\",\"book_count\":2}]
 func (builder *BatchCreateApplicationObjectRecordReqBodyBuilder) Records(records string) *BatchCreateApplicationObjectRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -13048,7 +13004,7 @@ func NewBatchDeleteApplicationObjectRecordReqBodyBuilder() *BatchDeleteApplicati
 
 // 记录 ID 列表，操作记录数上限为 500
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteApplicationObjectRecordReqBodyBuilder) Ids(ids []string) *BatchDeleteApplicationObjectRecordReqBodyBuilder {
 	builder.ids = ids
 	builder.idsFlag = true
@@ -13193,7 +13149,7 @@ func NewBatchQueryApplicationObjectRecordReqBodyBuilder() *BatchQueryApplication
 
 // 需要获取的字段，使用字段唯一标识符进行查询，关联字段可使用「.」进行下钻
 //
-//示例值：
+// 示例值：
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Select(select_ []string) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.select_ = select_
 	builder.selectFlag = true
@@ -13202,7 +13158,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Select(select_ [
 
 // 筛选条件，通过 JSON 格式指定条件
 //
-//示例值：
+// 示例值：
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Filter(filter *Criterion) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.filter = filter
 	builder.filterFlag = true
@@ -13211,7 +13167,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Filter(filter *C
 
 // 排序参数，通过 JSON 格式指定条件。其中， field 为参与排序字段，direction 为排序方向，多个条件按其在数组中的顺序生效。
 //
-//示例值：
+// 示例值：
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) OrderBy(orderBy []*Sort) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.orderBy = orderBy
 	builder.orderByFlag = true
@@ -13220,7 +13176,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) OrderBy(orderBy 
 
 // 聚合参数，通过 JSON 格式指定条件。其中， field 为参与聚合的字段。
 //
-//示例值：
+// 示例值：
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) GroupBy(groupBy []*RecordGroupByItem) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.groupBy = groupBy
 	builder.groupByFlag = true
@@ -13229,7 +13185,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) GroupBy(groupBy 
 
 // 分页的 Token 值，由服务端生成，可从 Response 中的 next_page_token 参数中获取。注意：第一页需填写空字符串 ""，且不能与 OFFSET 一起使用。
 //
-//示例值：
+// 示例值：
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) PageToken(pageToken string) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -13238,7 +13194,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) PageToken(pageTo
 
 // 是否使用 page_token 功能。为 True 时将使用 page_token 的值作为起始位置查询记录，并且会在 Response 中返回 next_page_token 。默认为 False 。
 //
-//示例值：false
+// 示例值：false
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) UsePageToken(usePageToken bool) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.usePageToken = usePageToken
 	builder.usePageTokenFlag = true
@@ -13247,7 +13203,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) UsePageToken(use
 
 // 期望服务端返回的记录条数，上限 500 条。不填则取默认值，默认值为 500。
 //
-//示例值：100
+// 示例值：100
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) PageSize(pageSize int) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -13256,7 +13212,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) PageSize(pageSiz
 
 // 返回记录的偏移量，默认为 0 ，即从查询到的第一条记录开始返回。offset 较大时查询性能较差，可能引起接口响应超时，拉取全部记录时建议使用 ID 游标分页，具体见 ID 游标分页说明
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Offset(offset int) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.offset = offset
 	builder.offsetFlag = true
@@ -13265,7 +13221,7 @@ func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) Offset(offset in
 
 // 是否返回符合条件的记录总数（Total）。默认为 False，不返回记录总数。
 //
-//示例值：true
+// 示例值：true
 func (builder *BatchQueryApplicationObjectRecordReqBodyBuilder) NeedTotalCount(needTotalCount bool) *BatchQueryApplicationObjectRecordReqBodyBuilder {
 	builder.needTotalCount = needTotalCount
 	builder.needTotalCountFlag = true
@@ -13544,7 +13500,7 @@ func NewBatchUpdateApplicationObjectRecordReqBodyBuilder() *BatchUpdateApplicati
 
 // 记录详情列表，格式为 List<Map<string, ANY>>，操作记录数上限为 500 条
 //
-//示例值：[{\"_id\":\"1798681438085228\",\"book_count\":\"5\",\"book_name\":\"name4\"}]
+// 示例值：[{\"_id\":\"1798681438085228\",\"book_count\":\"5\",\"book_name\":\"name4\"}]
 func (builder *BatchUpdateApplicationObjectRecordReqBodyBuilder) Records(records string) *BatchUpdateApplicationObjectRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -13665,7 +13621,7 @@ func NewCreateApplicationObjectRecordReqBodyBuilder() *CreateApplicationObjectRe
 
 // 创建对象使用的数据，键为字段 API 名称，值为字段值，格式可参考字段值格式
 //
-//示例值：{\"book_name\":\"test\"}
+// 示例值：{\"book_name\":\"test\"}
 func (builder *CreateApplicationObjectRecordReqBodyBuilder) Record(record string) *CreateApplicationObjectRecordReqBodyBuilder {
 	builder.record = record
 	builder.recordFlag = true
@@ -13843,7 +13799,7 @@ func NewPatchApplicationObjectRecordReqBodyBuilder() *PatchApplicationObjectReco
 
 // 创建对象使用的数据，键为字段 API 名称，值为字段值，格式可参考字段值格式
 //
-//示例值：{\"_id\":\"1798681438085228\",\"book_count\":\"3\",\"book_name\":\"showcase2\"}
+// 示例值：{\"_id\":\"1798681438085228\",\"book_count\":\"3\",\"book_name\":\"showcase2\"}
 func (builder *PatchApplicationObjectRecordReqBodyBuilder) Record(record string) *PatchApplicationObjectRecordReqBodyBuilder {
 	builder.record = record
 	builder.recordFlag = true
@@ -13967,7 +13923,7 @@ func NewQueryApplicationObjectRecordReqBodyBuilder() *QueryApplicationObjectReco
 
 // 需要获取的字段，使用字段唯一标识符进行查询，关联字段可使用 . 进行下钻
 //
-//示例值：
+// 示例值：
 func (builder *QueryApplicationObjectRecordReqBodyBuilder) Select(select_ []string) *QueryApplicationObjectRecordReqBodyBuilder {
 	builder.select_ = select_
 	builder.selectFlag = true
@@ -14096,7 +14052,7 @@ func NewBatchCreateAuthorizationApplicationRecordPermissionMemberReqBodyBuilder(
 
 // 需要新增的用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBodyBuilder) UserIds(userIds []string) *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -14168,7 +14124,6 @@ func (builder *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBuild
 	return builder
 }
 
-//
 func (builder *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBuilder) Body(body *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBody) *BatchCreateAuthorizationApplicationRecordPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -14212,7 +14167,7 @@ func NewBatchRemoveAuthorizationApplicationRecordPermissionMemberReqBodyBuilder(
 
 // 需要删除的用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBodyBuilder) UserIds(userIds []string) *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -14284,7 +14239,6 @@ func (builder *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBuild
 	return builder
 }
 
-//
 func (builder *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBuilder) Body(body *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBody) *BatchRemoveAuthorizationApplicationRecordPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -14331,7 +14285,7 @@ func NewBatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder() *BatchCrea
 
 // 需要新增的用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder) UserIds(userIds []string) *BatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -14340,7 +14294,7 @@ func (builder *BatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder) User
 
 // 需要新增的部门 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder) DepartmentIds(departmentIds []string) *BatchCreateAuthorizationApplicationRoleMemberReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -14478,7 +14432,7 @@ func NewBatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder() *BatchRemo
 
 // 需要删除的用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder) UserIds(userIds []string) *BatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -14487,7 +14441,7 @@ func (builder *BatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder) User
 
 // 需要删除的部门 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder) DepartmentIds(departmentIds []string) *BatchRemoveAuthorizationApplicationRoleMemberReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
@@ -14696,7 +14650,7 @@ func NewCancelApprovalInstanceReqBodyBuilder() *CancelApprovalInstanceReqBodyBui
 
 // 操作用户id
 //
-//示例值：
+// 示例值：
 func (builder *CancelApprovalInstanceReqBodyBuilder) UserId(userId string) *CancelApprovalInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -14705,7 +14659,7 @@ func (builder *CancelApprovalInstanceReqBodyBuilder) UserId(userId string) *Canc
 
 // 撤销原因
 //
-//示例值：撤销了
+// 示例值：撤销了
 func (builder *CancelApprovalInstanceReqBodyBuilder) Opinion(opinion string) *CancelApprovalInstanceReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -14786,7 +14740,6 @@ func (builder *CancelApprovalInstanceReqBuilder) ApprovalInstanceId(approvalInst
 	return builder
 }
 
-//
 func (builder *CancelApprovalInstanceReqBuilder) Body(body *CancelApprovalInstanceReqBody) *CancelApprovalInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -14841,7 +14794,7 @@ func NewAddAssigneeApprovalTaskReqBodyBuilder() *AddAssigneeApprovalTaskReqBodyB
 
 // 操作人id
 //
-//示例值：
+// 示例值：
 func (builder *AddAssigneeApprovalTaskReqBodyBuilder) UserId(userId string) *AddAssigneeApprovalTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -14850,7 +14803,7 @@ func (builder *AddAssigneeApprovalTaskReqBodyBuilder) UserId(userId string) *Add
 
 // 审批人列表
 //
-//示例值：
+// 示例值：
 func (builder *AddAssigneeApprovalTaskReqBodyBuilder) Approvers(approvers []string) *AddAssigneeApprovalTaskReqBodyBuilder {
 	builder.approvers = approvers
 	builder.approversFlag = true
@@ -14859,7 +14812,7 @@ func (builder *AddAssigneeApprovalTaskReqBodyBuilder) Approvers(approvers []stri
 
 // 加签类型
 //
-//示例值：currentAndAddAssign
+// 示例值：currentAndAddAssign
 func (builder *AddAssigneeApprovalTaskReqBodyBuilder) AddAssigneeType(addAssigneeType string) *AddAssigneeApprovalTaskReqBodyBuilder {
 	builder.addAssigneeType = addAssigneeType
 	builder.addAssigneeTypeFlag = true
@@ -14868,7 +14821,7 @@ func (builder *AddAssigneeApprovalTaskReqBodyBuilder) AddAssigneeType(addAssigne
 
 // 加签原因
 //
-//示例值：加签
+// 示例值：加签
 func (builder *AddAssigneeApprovalTaskReqBodyBuilder) Opinion(opinion string) *AddAssigneeApprovalTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -14983,7 +14936,6 @@ func (builder *AddAssigneeApprovalTaskReqBuilder) ApprovalTaskId(approvalTaskId 
 	return builder
 }
 
-//
 func (builder *AddAssigneeApprovalTaskReqBuilder) Body(body *AddAssigneeApprovalTaskReqBody) *AddAssigneeApprovalTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15036,7 +14988,7 @@ func NewAgreeApprovalTaskReqBodyBuilder() *AgreeApprovalTaskReqBodyBuilder {
 
 // 操作人id
 //
-//示例值：
+// 示例值：
 func (builder *AgreeApprovalTaskReqBodyBuilder) UserId(userId string) *AgreeApprovalTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -15045,7 +14997,7 @@ func (builder *AgreeApprovalTaskReqBodyBuilder) UserId(userId string) *AgreeAppr
 
 // 审批意见
 //
-//示例值：同意
+// 示例值：同意
 func (builder *AgreeApprovalTaskReqBodyBuilder) Opinion(opinion string) *AgreeApprovalTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -15126,7 +15078,6 @@ func (builder *AgreeApprovalTaskReqBuilder) ApprovalTaskId(approvalTaskId string
 	return builder
 }
 
-//
 func (builder *AgreeApprovalTaskReqBuilder) Body(body *AgreeApprovalTaskReqBody) *AgreeApprovalTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15175,7 +15126,7 @@ func NewRejectApprovalTaskReqBodyBuilder() *RejectApprovalTaskReqBodyBuilder {
 
 // 操作用户id
 //
-//示例值：
+// 示例值：
 func (builder *RejectApprovalTaskReqBodyBuilder) UserId(userId string) *RejectApprovalTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -15184,7 +15135,7 @@ func (builder *RejectApprovalTaskReqBodyBuilder) UserId(userId string) *RejectAp
 
 // 审批意见
 //
-//示例值：拒绝
+// 示例值：拒绝
 func (builder *RejectApprovalTaskReqBodyBuilder) Opinion(opinion string) *RejectApprovalTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -15265,7 +15216,6 @@ func (builder *RejectApprovalTaskReqBuilder) ApprovalTaskId(approvalTaskId strin
 	return builder
 }
 
-//
 func (builder *RejectApprovalTaskReqBuilder) Body(body *RejectApprovalTaskReqBody) *RejectApprovalTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15320,7 +15270,7 @@ func NewTransferApprovalTaskReqBodyBuilder() *TransferApprovalTaskReqBodyBuilder
 
 // 操作人id
 //
-//示例值：
+// 示例值：
 func (builder *TransferApprovalTaskReqBodyBuilder) UserId(userId string) *TransferApprovalTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -15329,7 +15279,7 @@ func (builder *TransferApprovalTaskReqBodyBuilder) UserId(userId string) *Transf
 
 // 原审批人id
 //
-//示例值：
+// 示例值：
 func (builder *TransferApprovalTaskReqBodyBuilder) FromUserIds(fromUserIds []string) *TransferApprovalTaskReqBodyBuilder {
 	builder.fromUserIds = fromUserIds
 	builder.fromUserIdsFlag = true
@@ -15338,7 +15288,7 @@ func (builder *TransferApprovalTaskReqBodyBuilder) FromUserIds(fromUserIds []str
 
 // 新审批人id
 //
-//示例值：
+// 示例值：
 func (builder *TransferApprovalTaskReqBodyBuilder) ToUserIds(toUserIds []string) *TransferApprovalTaskReqBodyBuilder {
 	builder.toUserIds = toUserIds
 	builder.toUserIdsFlag = true
@@ -15347,7 +15297,7 @@ func (builder *TransferApprovalTaskReqBodyBuilder) ToUserIds(toUserIds []string)
 
 // 审批意见
 //
-//示例值：转交
+// 示例值：转交
 func (builder *TransferApprovalTaskReqBodyBuilder) Opinion(opinion string) *TransferApprovalTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -15462,7 +15412,6 @@ func (builder *TransferApprovalTaskReqBuilder) ApprovalTaskId(approvalTaskId str
 	return builder
 }
 
-//
 func (builder *TransferApprovalTaskReqBuilder) Body(body *TransferApprovalTaskReqBody) *TransferApprovalTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15667,7 +15616,7 @@ func NewCcUserTaskReqBodyBuilder() *CcUserTaskReqBodyBuilder {
 
 // 抄送人的kunlunID列表
 //
-//示例值：
+// 示例值：
 func (builder *CcUserTaskReqBodyBuilder) CcUserIds(ccUserIds []string) *CcUserTaskReqBodyBuilder {
 	builder.ccUserIds = ccUserIds
 	builder.ccUserIdsFlag = true
@@ -15676,7 +15625,7 @@ func (builder *CcUserTaskReqBodyBuilder) CcUserIds(ccUserIds []string) *CcUserTa
 
 // 操作人kunlunUserID
 //
-//示例值：1234
+// 示例值：1234
 func (builder *CcUserTaskReqBodyBuilder) OperatorUserId(operatorUserId string) *CcUserTaskReqBodyBuilder {
 	builder.operatorUserId = operatorUserId
 	builder.operatorUserIdFlag = true
@@ -15757,7 +15706,6 @@ func (builder *CcUserTaskReqBuilder) TaskId(taskId string) *CcUserTaskReqBuilder
 	return builder
 }
 
-//
 func (builder *CcUserTaskReqBuilder) Body(body *CcUserTaskReqBody) *CcUserTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15812,7 +15760,7 @@ func NewChatGroupUserTaskReqBodyBuilder() *ChatGroupUserTaskReqBodyBuilder {
 
 // 操作人kunlunUserID
 //
-//示例值：1234
+// 示例值：1234
 func (builder *ChatGroupUserTaskReqBodyBuilder) OperatorUserId(operatorUserId string) *ChatGroupUserTaskReqBodyBuilder {
 	builder.operatorUserId = operatorUserId
 	builder.operatorUserIdFlag = true
@@ -15821,7 +15769,7 @@ func (builder *ChatGroupUserTaskReqBodyBuilder) OperatorUserId(operatorUserId st
 
 // 要邀请进群用户ID列表
 //
-//示例值：
+// 示例值：
 func (builder *ChatGroupUserTaskReqBodyBuilder) InviteUserIds(inviteUserIds []string) *ChatGroupUserTaskReqBodyBuilder {
 	builder.inviteUserIds = inviteUserIds
 	builder.inviteUserIdsFlag = true
@@ -15830,7 +15778,7 @@ func (builder *ChatGroupUserTaskReqBodyBuilder) InviteUserIds(inviteUserIds []st
 
 // 要拉入的群ID，为空则新建群
 //
-//示例值：oc_1234
+// 示例值：oc_1234
 func (builder *ChatGroupUserTaskReqBodyBuilder) ChatId(chatId string) *ChatGroupUserTaskReqBodyBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -15839,7 +15787,7 @@ func (builder *ChatGroupUserTaskReqBodyBuilder) ChatId(chatId string) *ChatGroup
 
 // 要加入的群名称，当chat_id为空时用该名称创建群聊;
 //
-//示例值：群名称
+// 示例值：群名称
 func (builder *ChatGroupUserTaskReqBodyBuilder) ChatName(chatName string) *ChatGroupUserTaskReqBodyBuilder {
 	builder.chatName = chatName
 	builder.chatNameFlag = true
@@ -15954,7 +15902,6 @@ func (builder *ChatGroupUserTaskReqBuilder) TaskId(taskId string) *ChatGroupUser
 	return builder
 }
 
-//
 func (builder *ChatGroupUserTaskReqBuilder) Body(body *ChatGroupUserTaskReqBody) *ChatGroupUserTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -16015,7 +15962,7 @@ func NewExpeditingUserTaskReqBodyBuilder() *ExpeditingUserTaskReqBodyBuilder {
 
 // 操作人kunlunUserID
 //
-//示例值：123
+// 示例值：123
 func (builder *ExpeditingUserTaskReqBodyBuilder) OperatorUserId(operatorUserId string) *ExpeditingUserTaskReqBodyBuilder {
 	builder.operatorUserId = operatorUserId
 	builder.operatorUserIdFlag = true
@@ -16024,7 +15971,7 @@ func (builder *ExpeditingUserTaskReqBodyBuilder) OperatorUserId(operatorUserId s
 
 // 催办人的kunlunID列表
 //
-//示例值：
+// 示例值：
 func (builder *ExpeditingUserTaskReqBodyBuilder) ExpeditingUserIds(expeditingUserIds []string) *ExpeditingUserTaskReqBodyBuilder {
 	builder.expeditingUserIds = expeditingUserIds
 	builder.expeditingUserIdsFlag = true
@@ -16033,7 +15980,7 @@ func (builder *ExpeditingUserTaskReqBodyBuilder) ExpeditingUserIds(expeditingUse
 
 // 催办理由
 //
-//示例值：催办理由
+// 示例值：催办理由
 func (builder *ExpeditingUserTaskReqBodyBuilder) Opinion(opinion string) *ExpeditingUserTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -16131,7 +16078,6 @@ func (builder *ExpeditingUserTaskReqBuilder) TaskId(taskId string) *ExpeditingUs
 	return builder
 }
 
-//
 func (builder *ExpeditingUserTaskReqBuilder) Body(body *ExpeditingUserTaskReqBody) *ExpeditingUserTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -16200,7 +16146,7 @@ func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
 
 // 类型
 //
-//示例值：pending
+// 示例值：pending
 func (builder *QueryUserTaskReqBodyBuilder) Type(type_ string) *QueryUserTaskReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -16209,7 +16155,7 @@ func (builder *QueryUserTaskReqBodyBuilder) Type(type_ string) *QueryUserTaskReq
 
 // 来源
 //
-//示例值：assignMe
+// 示例值：assignMe
 func (builder *QueryUserTaskReqBodyBuilder) Source(source string) *QueryUserTaskReqBodyBuilder {
 	builder.source = source
 	builder.sourceFlag = true
@@ -16218,7 +16164,7 @@ func (builder *QueryUserTaskReqBodyBuilder) Source(source string) *QueryUserTask
 
 // 获取条数
 //
-//示例值：10
+// 示例值：10
 func (builder *QueryUserTaskReqBodyBuilder) Limit(limit string) *QueryUserTaskReqBodyBuilder {
 	builder.limit = limit
 	builder.limitFlag = true
@@ -16227,7 +16173,7 @@ func (builder *QueryUserTaskReqBodyBuilder) Limit(limit string) *QueryUserTaskRe
 
 // 起始位置
 //
-//示例值：0
+// 示例值：0
 func (builder *QueryUserTaskReqBodyBuilder) Offset(offset string) *QueryUserTaskReqBodyBuilder {
 	builder.offset = offset
 	builder.offsetFlag = true
@@ -16236,7 +16182,7 @@ func (builder *QueryUserTaskReqBodyBuilder) Offset(offset string) *QueryUserTask
 
 // 开始时间
 //
-//示例值：1730208758000
+// 示例值：1730208758000
 func (builder *QueryUserTaskReqBodyBuilder) StartTime(startTime string) *QueryUserTaskReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -16245,7 +16191,7 @@ func (builder *QueryUserTaskReqBodyBuilder) StartTime(startTime string) *QueryUs
 
 // 结束时间
 //
-//示例值：1730208758000
+// 示例值：1730208758000
 func (builder *QueryUserTaskReqBodyBuilder) EndTime(endTime string) *QueryUserTaskReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -16254,7 +16200,7 @@ func (builder *QueryUserTaskReqBodyBuilder) EndTime(endTime string) *QueryUserTa
 
 // 流程apiid列表
 //
-//示例值：
+// 示例值：
 func (builder *QueryUserTaskReqBodyBuilder) ApiIds(apiIds []string) *QueryUserTaskReqBodyBuilder {
 	builder.apiIds = apiIds
 	builder.apiIdsFlag = true
@@ -16263,7 +16209,7 @@ func (builder *QueryUserTaskReqBodyBuilder) ApiIds(apiIds []string) *QueryUserTa
 
 // kunlunUserID;
 //
-//示例值：1234
+// 示例值：1234
 func (builder *QueryUserTaskReqBodyBuilder) KunlunUserId(kunlunUserId string) *QueryUserTaskReqBodyBuilder {
 	builder.kunlunUserId = kunlunUserId
 	builder.kunlunUserIdFlag = true
@@ -16508,7 +16454,7 @@ func NewRollbackUserTaskReqBodyBuilder() *RollbackUserTaskReqBodyBuilder {
 
 // 操作人kunlunUserID
 //
-//示例值：1234
+// 示例值：1234
 func (builder *RollbackUserTaskReqBodyBuilder) OperatorUserId(operatorUserId string) *RollbackUserTaskReqBodyBuilder {
 	builder.operatorUserId = operatorUserId
 	builder.operatorUserIdFlag = true
@@ -16517,7 +16463,7 @@ func (builder *RollbackUserTaskReqBodyBuilder) OperatorUserId(operatorUserId str
 
 // 退回到的任务ID
 //
-//示例值：1234
+// 示例值：1234
 func (builder *RollbackUserTaskReqBodyBuilder) ToTaskId(toTaskId string) *RollbackUserTaskReqBodyBuilder {
 	builder.toTaskId = toTaskId
 	builder.toTaskIdFlag = true
@@ -16526,7 +16472,7 @@ func (builder *RollbackUserTaskReqBodyBuilder) ToTaskId(toTaskId string) *Rollba
 
 // 退回原因
 //
-//示例值：退回原因
+// 示例值：退回原因
 func (builder *RollbackUserTaskReqBodyBuilder) Opinion(opinion string) *RollbackUserTaskReqBodyBuilder {
 	builder.opinion = opinion
 	builder.opinionFlag = true
@@ -16624,7 +16570,6 @@ func (builder *RollbackUserTaskReqBuilder) TaskId(taskId string) *RollbackUserTa
 	return builder
 }
 
-//
 func (builder *RollbackUserTaskReqBuilder) Body(body *RollbackUserTaskReqBody) *RollbackUserTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -16672,7 +16617,7 @@ func NewRollbackPointsUserTaskReqBodyBuilder() *RollbackPointsUserTaskReqBodyBui
 
 // 操作人kunlunUserID;
 //
-//示例值：1234
+// 示例值：1234
 func (builder *RollbackPointsUserTaskReqBodyBuilder) OperatorUserId(operatorUserId string) *RollbackPointsUserTaskReqBodyBuilder {
 	builder.operatorUserId = operatorUserId
 	builder.operatorUserIdFlag = true
@@ -16736,7 +16681,6 @@ func (builder *RollbackPointsUserTaskReqBuilder) TaskId(taskId string) *Rollback
 	return builder
 }
 
-//
 func (builder *RollbackPointsUserTaskReqBuilder) Body(body *RollbackPointsUserTaskReqBody) *RollbackPointsUserTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -16785,7 +16729,7 @@ func NewSqlCommandsWorkspaceReqBodyBuilder() *SqlCommandsWorkspaceReqBodyBuilder
 
 // 要执行的 SQL 语句
 //
-//示例值：SELECT name FROM student
+// 示例值：SELECT name FROM student
 func (builder *SqlCommandsWorkspaceReqBodyBuilder) Sql(sql string) *SqlCommandsWorkspaceReqBodyBuilder {
 	builder.sql = sql
 	builder.sqlFlag = true
@@ -17094,7 +17038,7 @@ func NewRecordsBatchUpdateWorkspaceTableReqBodyBuilder() *RecordsBatchUpdateWork
 
 // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
 //
-//示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
+// 示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
 func (builder *RecordsBatchUpdateWorkspaceTableReqBodyBuilder) Records(records string) *RecordsBatchUpdateWorkspaceTableReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -17374,7 +17318,7 @@ func NewRecordsPatchWorkspaceTableReqBodyBuilder() *RecordsPatchWorkspaceTableRe
 
 // 要更新的数据记录信息
 //
-//示例值：{\"age\":10}
+// 示例值：{\"age\":10}
 func (builder *RecordsPatchWorkspaceTableReqBodyBuilder) Record(record string) *RecordsPatchWorkspaceTableReqBodyBuilder {
 	builder.record = record
 	builder.recordFlag = true
@@ -17504,7 +17448,7 @@ func NewRecordsPostWorkspaceTableReqBodyBuilder() *RecordsPostWorkspaceTableReqB
 
 // 要插入的数据记录列表，单次支持最多 500 条
 //
-//示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
+// 示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
 func (builder *RecordsPostWorkspaceTableReqBodyBuilder) Records(records string) *RecordsPostWorkspaceTableReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
