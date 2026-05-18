@@ -22,7 +22,7 @@ import (
 	"time"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/core/usertoken"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin"
 	"github.com/larksuite/oapi-sdk-go/v3/service/aily"
@@ -136,7 +136,7 @@ type Client struct {
 	Workplace              *workplace.Service
 	Bitable                *bitable.Service
 	Block                  *block.Service
-	OAuthToken             *usertoken.OAuthToken
+	AccessToken            *accesstoken.AccessToken
 	Ext                    *larkext.ExtService
 }
 
@@ -326,7 +326,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Workplace = workplace.NewService(config)
 	client.Bitable = bitable.NewService(config)
 	client.Block = block.NewService(config)
-	client.OAuthToken = usertoken.NewOAuthToken(config)
+	client.AccessToken = accesstoken.NewAccessToken(config)
 	client.Ext = larkext.NewService(config)
 }
 

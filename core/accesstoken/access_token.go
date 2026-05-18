@@ -10,7 +10,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package usertoken
+package accesstoken
 
 import (
 	"context"
@@ -20,17 +20,19 @@ import (
 	"strings"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/authorizationcode"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/refreshtoken"
 )
 
-type OAuthToken struct {
+type AccessToken struct {
 	config *larkcore.Config
 }
 
-func NewOAuthToken(config *larkcore.Config) *OAuthToken {
-	return &OAuthToken{config: config}
+func NewAccessToken(config *larkcore.Config) *AccessToken {
+	return &AccessToken{config: config}
 }
 
-type oauthTokenRequestBody struct {
+type accessTokenRequestBody struct {
 	GrantType           string `json:"grant_type"`
 	ClientAssertionType string `json:"client_assertion_type,omitempty"`
 	ClientAssertion     string `json:"client_assertion,omitempty"`
@@ -43,7 +45,7 @@ type oauthTokenRequestBody struct {
 	RefreshToken        string `json:"refresh_token,omitempty"`
 }
 
-type oauthTokenResponseBody struct {
+type accessTokenResponseBody struct {
 	Code                  int    `json:"code"`
 	Error                 string `json:"error"`
 	ErrorDescription      string `json:"error_description"`
@@ -55,27 +57,27 @@ type oauthTokenResponseBody struct {
 	Scope                 string `json:"scope"`
 }
 
-func (o *OAuthToken) Create(ctx context.Context, req *CreateOAuthTokenReq, options ...larkcore.RequestOptionFunc) (*OAuthTokenResp, error) {
-	body := &oauthTokenRequestBody{GrantType: larkcore.GrantTypeAuthorizationCode}
+func (o *AccessToken) Get(ctx context.Context, req *authorizationcode.TokenRequest, options ...larkcore.RequestOptionFunc) (*AccessTokenResp, error) {
+	body := &accessTokenRequestBody{GrantType: larkcore.GrantTypeAuthorizationCode}
 	if req != nil && req.Body != nil {
 		body.Code = larkcore.StringValue(req.Body.Code)
 		body.RedirectUri = larkcore.StringValue(req.Body.RedirectUri)
 		body.CodeVerifier = larkcore.StringValue(req.Body.CodeVerifier)
 		body.Scope = larkcore.StringValue(req.Body.Scope)
 	}
-	return o.doOAuthTokenRequest(ctx, body, options...)
+	return o.doAccessTokenRequest(ctx, body, options...)
 }
 
-func (o *OAuthToken) Refresh(ctx context.Context, req *RefreshOAuthTokenReq, options ...larkcore.RequestOptionFunc) (*OAuthTokenResp, error) {
-	body := &oauthTokenRequestBody{GrantType: larkcore.GrantTypeRefreshToken}
+func (o *AccessToken) Refresh(ctx context.Context, req *refreshtoken.TokenRequest, options ...larkcore.RequestOptionFunc) (*AccessTokenResp, error) {
+	body := &accessTokenRequestBody{GrantType: larkcore.GrantTypeRefreshToken}
 	if req != nil && req.Body != nil {
 		body.RefreshToken = larkcore.StringValue(req.Body.RefreshToken)
 		body.Scope = larkcore.StringValue(req.Body.Scope)
 	}
-	return o.doOAuthTokenRequest(ctx, body, options...)
+	return o.doAccessTokenRequest(ctx, body, options...)
 }
 
-func (o *OAuthToken) doOAuthTokenRequest(ctx context.Context, body *oauthTokenRequestBody, options ...larkcore.RequestOptionFunc) (*OAuthTokenResp, error) {
+func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessTokenRequestBody, options ...larkcore.RequestOptionFunc) (*AccessTokenResp, error) {
 	oauthBaseUrl, err := larkcore.ResolveOAuthBaseUrl(o.config)
 	if err != nil {
 		o.config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth base url failed, err:%v", err))
@@ -104,7 +106,7 @@ func (o *OAuthToken) doOAuthTokenRequest(ctx context.Context, body *oauthTokenRe
 	} else if o.config.AppSecret != "" {
 		body.ClientSecret = o.config.AppSecret
 	} else {
-		return nil, &larkcore.CodeError{Code: larkcore.ErrCodeAppSecretAndClientAssertionEmpty, Msg: "AppSecret and ClientAssertionProvider cannot both be empty for OAuthToken APIs"}
+		return nil, &larkcore.CodeError{Code: larkcore.ErrCodeAppSecretAndClientAssertionEmpty, Msg: "AppSecret and ClientAssertionProvider cannot both be empty for AccessToken APIs"}
 	}
 
 	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
@@ -117,13 +119,13 @@ func (o *OAuthToken) doOAuthTokenRequest(ctx context.Context, body *oauthTokenRe
 		return nil, err
 	}
 
-	respBody := &oauthTokenResponseBody{}
+	respBody := &accessTokenResponseBody{}
 	if err = json.Unmarshal(rawResp.RawBody, respBody); err != nil {
 		return nil, err
 	}
 
 	if rawResp.StatusCode != http.StatusOK {
-		return nil, &OAuthError{
+		return nil, &AccessTokenError{
 			ApiResp:          rawResp,
 			Code:             respBody.Code,
 			ErrorType:        respBody.Error,
@@ -131,9 +133,9 @@ func (o *OAuthToken) doOAuthTokenRequest(ctx context.Context, body *oauthTokenRe
 		}
 	}
 
-	return &OAuthTokenResp{
+	return &AccessTokenResp{
 		ApiResp: rawResp,
-		Data: &OAuthTokenRespData{
+		Data: &AccessTokenRespData{
 			AccessToken:           stringPtrIfNotEmpty(respBody.AccessToken),
 			TokenType:             stringPtrIfNotEmpty(respBody.TokenType),
 			ExpiresIn:             intPtrIfNotZero(respBody.ExpiresIn),

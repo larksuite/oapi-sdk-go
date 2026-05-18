@@ -10,49 +10,31 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package main
+package accesstoken
 
 import (
-	"context"
 	"fmt"
-	"os"
 
-	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/core/usertoken"
 )
 
-type envClientAssertionProvider struct{}
-
-func (p *envClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
-	return &larkcore.Token{Value: os.Getenv("CLIENT_ASSERTION")}, nil
+type AccessTokenError struct {
+	*larkcore.ApiResp `json:"-"`
+	Code              int    `json:"code,omitempty"`
+	ErrorType         string `json:"error,omitempty"`
+	ErrorDescription  string `json:"error_description,omitempty"`
 }
 
-func main() {
-	client := newClient()
-
-	req := usertoken.NewCreateOAuthTokenReqBuilder().
-		Code(os.Getenv("OAUTH_CODE")).
-		RedirectUri(os.Getenv("REDIRECT_URI")).
-		CodeVerifier(os.Getenv("CODE_VERIFIER")).
-		Build()
-
-	resp, err := client.OAuthToken.Create(context.Background(), req)
-	if err != nil {
-		fmt.Println(err)
-		return
+func (e *AccessTokenError) Error() string {
+	msg := e.ErrorDescription
+	if msg == "" {
+		msg = e.ErrorType
 	}
-	if !resp.Success() {
-		fmt.Println(resp.StatusCode, resp.RequestId())
-		return
+	if msg == "" {
+		msg = "access token request failed"
 	}
-	fmt.Println(larkcore.Prettify(resp.Data))
-}
-
-func newClient() *lark.Client {
-	options := []lark.ClientOptionFunc{}
-	if os.Getenv("CLIENT_ASSERTION") != "" {
-		options = append(options, lark.WithClientAssertionProvider(&envClientAssertionProvider{}))
+	if e.ApiResp != nil {
+		return fmt.Sprintf("statusCode:%d, code:%d, msg:%s", e.ApiResp.StatusCode, e.Code, msg)
 	}
-	return lark.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"), options...)
+	return fmt.Sprintf("code:%d, msg:%s", e.Code, msg)
 }

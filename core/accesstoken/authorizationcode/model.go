@@ -10,31 +10,47 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package usertoken
+package authorizationcode
 
-import (
-	"fmt"
-
-	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-)
-
-type OAuthError struct {
-	*larkcore.ApiResp `json:"-"`
-	Code              int    `json:"code,omitempty"`
-	ErrorType         string `json:"error,omitempty"`
-	ErrorDescription  string `json:"error_description,omitempty"`
+type TokenRequest struct {
+	Body *TokenRequestBody `body:"body"`
 }
 
-func (e *OAuthError) Error() string {
-	msg := e.ErrorDescription
-	if msg == "" {
-		msg = e.ErrorType
-	}
-	if msg == "" {
-		msg = "oauth token request failed"
-	}
-	if e.ApiResp != nil {
-		return fmt.Sprintf("statusCode:%d, code:%d, msg:%s", e.ApiResp.StatusCode, e.Code, msg)
-	}
-	return fmt.Sprintf("code:%d, msg:%s", e.Code, msg)
+type TokenRequestBody struct {
+	Code         *string `json:"code,omitempty"`
+	RedirectUri  *string `json:"redirect_uri,omitempty"`
+	CodeVerifier *string `json:"code_verifier,omitempty"`
+	Scope        *string `json:"scope,omitempty"`
+}
+
+type TokenRequestBuilder struct {
+	body *TokenRequestBody
+}
+
+func NewTokenRequestBuilder() *TokenRequestBuilder {
+	return &TokenRequestBuilder{body: &TokenRequestBody{}}
+}
+
+func (b *TokenRequestBuilder) Code(v string) *TokenRequestBuilder {
+	b.body.Code = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) RedirectUri(v string) *TokenRequestBuilder {
+	b.body.RedirectUri = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) CodeVerifier(v string) *TokenRequestBuilder {
+	b.body.CodeVerifier = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Scope(v string) *TokenRequestBuilder {
+	b.body.Scope = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Build() *TokenRequest {
+	return &TokenRequest{Body: b.body}
 }

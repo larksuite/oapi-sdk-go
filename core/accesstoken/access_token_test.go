@@ -10,7 +10,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package usertoken
+package accesstoken
 
 import (
 	"context"
@@ -20,6 +20,8 @@ import (
 	"testing"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/authorizationcode"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/refreshtoken"
 )
 
 type mockClientAssertionProvider struct {
@@ -53,13 +55,13 @@ func newAppSecretTestConfig(server *httptest.Server) *larkcore.Config {
 	return config
 }
 
-func TestOAuthTokenCreate(t *testing.T) {
+func TestAccessTokenAuthorizationCode(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != larkcore.OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		var req oauthTokenRequestBody
+		var req accessTokenRequestBody
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			t.Fatalf("decode body failed: %v", err)
 		}
@@ -72,7 +74,7 @@ func TestOAuthTokenCreate(t *testing.T) {
 		if req.Code != "code" || req.RedirectUri != "https://example.com/cb" || req.CodeVerifier != "verifier" {
 			t.Fatalf("unexpected request body: %#v", req)
 		}
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{
 			AccessToken:  "user-token",
 			TokenType:    "Bearer",
 			ExpiresIn:    7200,
@@ -82,14 +84,14 @@ func TestOAuthTokenCreate(t *testing.T) {
 	}))
 	defer server.Close()
 
-	oauthToken := NewOAuthToken(newTestConfig(server, provider))
-	resp, err := oauthToken.Create(context.Background(), NewCreateOAuthTokenReqBuilder().
+	accessToken := NewAccessToken(newTestConfig(server, provider))
+	resp, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().
 		Code("code").
 		RedirectUri("https://example.com/cb").
 		CodeVerifier("verifier").
 		Build())
 	if err != nil {
-		t.Fatalf("create oauth token failed: %v", err)
+		t.Fatalf("authorization code access token failed: %v", err)
 	}
 	if !resp.Success() || larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected response: %#v", resp)
@@ -99,10 +101,10 @@ func TestOAuthTokenCreate(t *testing.T) {
 	}
 }
 
-func TestOAuthTokenRefresh(t *testing.T) {
+func TestAccessTokenRefreshToken(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var req oauthTokenRequestBody
+		var req accessTokenRequestBody
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			t.Fatalf("decode body failed: %v", err)
 		}
@@ -112,26 +114,26 @@ func TestOAuthTokenRefresh(t *testing.T) {
 		if req.RefreshToken != "refresh-token" {
 			t.Fatalf("unexpected refresh token: %s", req.RefreshToken)
 		}
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
 	}))
 	defer server.Close()
 
-	oauthToken := NewOAuthToken(newTestConfig(server, provider))
-	resp, err := oauthToken.Refresh(context.Background(), NewRefreshOAuthTokenReqBuilder().RefreshToken("refresh-token").Build())
+	accessToken := NewAccessToken(newTestConfig(server, provider))
+	resp, err := accessToken.Refresh(context.Background(), refreshtoken.NewTokenRequestBuilder().RefreshToken("refresh-token").Build())
 	if err != nil {
-		t.Fatalf("refresh oauth token failed: %v", err)
+		t.Fatalf("refresh token access token failed: %v", err)
 	}
 	if larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected access token: %#v", resp.Data.AccessToken)
 	}
 }
 
-func TestOAuthTokenCreateWithAppSecret(t *testing.T) {
+func TestAccessTokenAuthorizationCodeWithAppSecret(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != larkcore.OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		var req oauthTokenRequestBody
+		var req accessTokenRequestBody
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			t.Fatalf("decode body failed: %v", err)
 		}
@@ -144,23 +146,23 @@ func TestOAuthTokenCreateWithAppSecret(t *testing.T) {
 		if req.GrantType != larkcore.GrantTypeAuthorizationCode || req.Code != "code" {
 			t.Fatalf("unexpected request body: %#v", req)
 		}
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
 	}))
 	defer server.Close()
 
-	oauthToken := NewOAuthToken(newAppSecretTestConfig(server))
-	resp, err := oauthToken.Create(context.Background(), NewCreateOAuthTokenReqBuilder().Code("code").Build())
+	accessToken := NewAccessToken(newAppSecretTestConfig(server))
+	resp, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err != nil {
-		t.Fatalf("create oauth token with app secret failed: %v", err)
+		t.Fatalf("authorization code access token with app secret failed: %v", err)
 	}
 	if larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected access token: %#v", resp.Data.AccessToken)
 	}
 }
 
-func TestOAuthTokenRefreshWithAppSecret(t *testing.T) {
+func TestAccessTokenRefreshTokenWithAppSecret(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var req oauthTokenRequestBody
+		var req accessTokenRequestBody
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			t.Fatalf("decode body failed: %v", err)
 		}
@@ -170,29 +172,29 @@ func TestOAuthTokenRefreshWithAppSecret(t *testing.T) {
 		if req.GrantType != larkcore.GrantTypeRefreshToken || req.RefreshToken != "refresh-token" {
 			t.Fatalf("unexpected request body: %#v", req)
 		}
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
 	}))
 	defer server.Close()
 
-	oauthToken := NewOAuthToken(newAppSecretTestConfig(server))
-	resp, err := oauthToken.Refresh(context.Background(), NewRefreshOAuthTokenReqBuilder().RefreshToken("refresh-token").Build())
+	accessToken := NewAccessToken(newAppSecretTestConfig(server))
+	resp, err := accessToken.Refresh(context.Background(), refreshtoken.NewTokenRequestBuilder().RefreshToken("refresh-token").Build())
 	if err != nil {
-		t.Fatalf("refresh oauth token with app secret failed: %v", err)
+		t.Fatalf("refresh token access token with app secret failed: %v", err)
 	}
 	if larkcore.StringValue(resp.Data.AccessToken) != "user-token" {
 		t.Fatalf("unexpected access token: %#v", resp.Data.AccessToken)
 	}
 }
 
-func TestOAuthTokenRejectsMissingCredentials(t *testing.T) {
+func TestAccessTokenRejectsMissingCredentials(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		t.Fatal("server should not be called")
 	}))
 	defer server.Close()
 
 	config := newTestConfig(server, nil)
-	oauthToken := NewOAuthToken(config)
-	_, err := oauthToken.Create(context.Background(), NewCreateOAuthTokenReqBuilder().Code("code").Build())
+	accessToken := NewAccessToken(config)
+	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -202,11 +204,11 @@ func TestOAuthTokenRejectsMissingCredentials(t *testing.T) {
 	}
 }
 
-func TestOAuthTokenReturnsOAuthErrorForNonOK(t *testing.T) {
+func TestAccessTokenReturnsAccessTokenErrorForNonOK(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{
 			Code:             20001,
 			Error:            "invalid_client",
 			ErrorDescription: "client assertion invalid",
@@ -214,21 +216,21 @@ func TestOAuthTokenReturnsOAuthErrorForNonOK(t *testing.T) {
 	}))
 	defer server.Close()
 
-	oauthToken := NewOAuthToken(newTestConfig(server, provider))
-	_, err := oauthToken.Create(context.Background(), NewCreateOAuthTokenReqBuilder().Code("code").Build())
+	accessToken := NewAccessToken(newTestConfig(server, provider))
+	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
-	oauthErr, ok := err.(*OAuthError)
+	accessTokenErr, ok := err.(*AccessTokenError)
 	if !ok {
 		t.Fatalf("unexpected error type: %#v", err)
 	}
-	if oauthErr.Code != 20001 || oauthErr.ErrorDescription != "client assertion invalid" {
-		t.Fatalf("unexpected oauth error: %#v", oauthErr)
+	if accessTokenErr.Code != 20001 || accessTokenErr.ErrorDescription != "client assertion invalid" {
+		t.Fatalf("unexpected access token error: %#v", accessTokenErr)
 	}
 }
 
-func TestOAuthTokenProxyKeepsCustomHeaders(t *testing.T) {
+func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/proxy"+larkcore.OAuthTokenUrlPath {
@@ -240,17 +242,17 @@ func TestOAuthTokenProxyKeepsCustomHeaders(t *testing.T) {
 		if r.Header.Get("X-Custom") != "custom-value" {
 			t.Fatalf("missing custom header")
 		}
-		_ = json.NewEncoder(w).Encode(&oauthTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{AccessToken: "user-token", ExpiresIn: 7200})
 	}))
 	defer proxyServer.Close()
 	provider.token.TargetInfo = &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}
 
 	config := newTestConfig(proxyServer, provider)
-	oauthToken := NewOAuthToken(config)
+	accessToken := NewAccessToken(config)
 	headers := make(http.Header)
 	headers.Set("X-Custom", "custom-value")
-	_, err := oauthToken.Create(context.Background(), NewCreateOAuthTokenReqBuilder().Code("code").Build(), larkcore.WithHeaders(headers))
+	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build(), larkcore.WithHeaders(headers))
 	if err != nil {
-		t.Fatalf("create oauth token with proxy failed: %v", err)
+		t.Fatalf("authorization code access token with proxy failed: %v", err)
 	}
 }

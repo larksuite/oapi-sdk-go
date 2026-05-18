@@ -19,8 +19,7 @@ import (
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/core/usertoken"
-	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/authorizationcode"
 )
 
 type envClientAssertionProvider struct{}
@@ -30,57 +29,24 @@ func (p *envClientAssertionProvider) RetrieveToken(ctx context.Context, aud stri
 }
 
 func main() {
-	ctx := context.Background()
 	client := newClient()
 
-	tokenResp, err := client.OAuthToken.Create(ctx, usertoken.NewCreateOAuthTokenReqBuilder().
+	req := authorizationcode.NewTokenRequestBuilder().
 		Code(os.Getenv("OAUTH_CODE")).
 		RedirectUri(os.Getenv("REDIRECT_URI")).
 		CodeVerifier(os.Getenv("CODE_VERIFIER")).
-		Build())
+		Build()
+
+	resp, err := client.AccessToken.Get(context.Background(), req)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	if tokenResp.Data == nil || tokenResp.Data.AccessToken == nil {
-		fmt.Println("empty user access token response")
+	if !resp.Success() {
+		fmt.Println(resp.StatusCode, resp.RequestId())
 		return
 	}
-
-	msgResp, err := sendTextMessage(ctx, client, larkcore.StringValue(tokenResp.Data.AccessToken))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	if !msgResp.Success() {
-		fmt.Println(msgResp.Code, msgResp.Msg, msgResp.RequestId())
-		return
-	}
-	fmt.Println(larkcore.Prettify(msgResp))
-}
-
-func sendTextMessage(ctx context.Context, client *lark.Client, userAccessToken string) (*larkim.CreateMessageResp, error) {
-	content := larkim.NewTextMsgBuilder().
-		Text(envOrDefault("MESSAGE_TEXT", "hello from user access token")).
-		Build()
-
-	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
-		Body(larkim.NewCreateMessageReqBodyBuilder().
-			MsgType(larkim.MsgTypeText).
-			ReceiveId(os.Getenv("RECEIVE_ID")).
-			Content(content).
-			Build()).
-		Build()
-
-	return client.Im.Message.Create(ctx, req, larkcore.WithUserAccessToken(userAccessToken))
-}
-
-func envOrDefault(key, defaultValue string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-	return defaultValue
+	fmt.Println(larkcore.Prettify(resp.Data))
 }
 
 func newClient() *lark.Client {
