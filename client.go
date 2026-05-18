@@ -21,7 +21,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/usertoken"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin"
 	"github.com/larksuite/oapi-sdk-go/v3/service/aily"
@@ -48,7 +49,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event"
-	"github.com/larksuite/oapi-sdk-go/v3/service/ext"
+	larkext "github.com/larksuite/oapi-sdk-go/v3/service/ext"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire"
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication"
@@ -135,6 +136,7 @@ type Client struct {
 	Workplace              *workplace.Service
 	Bitable                *bitable.Service
 	Block                  *block.Service
+	OAuthToken             *usertoken.OAuthToken
 	Ext                    *larkext.ExtService
 }
 
@@ -167,6 +169,12 @@ func WithLogger(logger larkcore.Logger) ClientOptionFunc {
 func WithOpenBaseUrl(baseUrl string) ClientOptionFunc {
 	return func(config *larkcore.Config) {
 		config.BaseUrl = baseUrl
+	}
+}
+
+func WithOAuthBaseUrl(oauthBaseUrl string) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.OAuthBaseUrl = oauthBaseUrl
 	}
 }
 
@@ -318,6 +326,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Workplace = workplace.NewService(config)
 	client.Bitable = bitable.NewService(config)
 	client.Block = block.NewService(config)
+	client.OAuthToken = usertoken.NewOAuthToken(config)
 	client.Ext = larkext.NewService(config)
 }
 
@@ -502,3 +511,5 @@ func (cli *Client) ResendAppTicket(ctx context.Context, req *larkcore.ResendAppT
 
 var FeishuBaseUrl = "https://open.feishu.cn"
 var LarkBaseUrl = "https://open.larksuite.com"
+var OAuthBaseUrlFeishu = "https://accounts.feishu.cn"
+var OAuthBaseUrlLark = "https://accounts.larksuite.com"

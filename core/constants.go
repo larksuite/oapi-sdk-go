@@ -40,11 +40,14 @@ const (
 	AppAccessTokenUrlPath            string = "/open-apis/auth/v3/app_access_token"
 	TenantAccessTokenInternalUrlPath string = "/open-apis/auth/v3/tenant_access_token/internal"
 	TenantAccessTokenUrlPath         string = "/open-apis/auth/v3/tenant_access_token"
-	OAuthTokenUrlPath                string = "/open-apis/authen/v2/oauth/token"
+	OAuthTokenUrlPath                string = "/open-apis/authen/v3/oauth/token"
 	ApplyAppTicketPath               string = "/open-apis/auth/v3/app_ticket/resend"
 )
 
 const (
+	GrantTypeClientCredentials   string = "client_credentials"
+	GrantTypeAuthorizationCode   string = "authorization_code"
+	GrantTypeRefreshToken        string = "refresh_token"
 	GrantTypeJWTBearer           string = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 	ClientAssertionTypeJWTBearer string = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
 	HeaderXTargetService         string = "X-Target-Service"

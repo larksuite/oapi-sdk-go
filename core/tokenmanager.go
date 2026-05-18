@@ -175,11 +175,12 @@ func tenantAccessTokenKey(appID, tenantKey string) string {
 }
 
 func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
-	aud, err := extractAudFromURL(config.BaseUrl)
+	oauthBaseUrl, err := ResolveOAuthBaseUrl(config)
 	if err != nil {
-		config.Logger.Warn(ctx, fmt.Sprintf("extract client assertion audience failed, err:%v", err))
+		config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth base url failed, err:%v", err))
 		return "", err
 	}
+	aud := oauthBaseUrl
 
 	clientAssertionToken, err := config.ClientAssertionProvider.RetrieveToken(ctx, aud)
 	if err != nil {
@@ -191,7 +192,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		return "", &CodeError{Code: ErrCodeClientAssertionTokenEmpty, Msg: "client assertion token is empty"}
 	}
 
-	requestURL := strings.TrimRight(config.BaseUrl, "/") + OAuthTokenUrlPath
+	requestURL := strings.TrimRight(oauthBaseUrl, "/") + OAuthTokenUrlPath
 	var options []RequestOptionFunc
 	if clientAssertionToken.TargetInfo != nil {
 		requestURL = buildProxyURL(clientAssertionToken.TargetInfo.TargetService, clientAssertionToken.TargetInfo.TargetPrefix, OAuthTokenUrlPath)
@@ -205,7 +206,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		HttpMethod: http.MethodPost,
 		ApiPath:    requestURL,
 		Body: &OAuthTokenReq{
-			GrantType:           GrantTypeJWTBearer,
+			GrantType:           GrantTypeClientCredentials,
 			ClientAssertionType: ClientAssertionTypeJWTBearer,
 			ClientAssertion:     clientAssertionToken.Value,
 			ClientID:            config.AppId,

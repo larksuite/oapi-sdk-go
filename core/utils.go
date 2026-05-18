@@ -214,6 +214,32 @@ func buildProxyURL(targetService, targetPrefix, apiPath string) string {
 	return targetService + targetPrefix + apiPath
 }
 
+func ResolveOAuthBaseUrl(config *Config) (string, error) {
+	if config.OAuthBaseUrl != "" {
+		return normalizeBaseUrl(config.OAuthBaseUrl), nil
+	}
+
+	aud, err := extractAudFromURL(config.BaseUrl)
+	if err != nil {
+		return "", err
+	}
+	switch aud {
+	case "open.feishu.cn":
+		return "https://accounts.feishu.cn", nil
+	case "open.larksuite.com":
+		return "https://accounts.larksuite.com", nil
+	default:
+		return "", errors.New("OAuthBaseUrl is not configured. When BaseUrl is set to a non-default value (neither open.feishu.cn nor open.larksuite.com), you must explicitly configure OAuthBaseUrl via WithOAuthBaseUrl(...)")
+	}
+}
+
+func normalizeBaseUrl(baseUrl string) string {
+	if !strings.Contains(baseUrl, "://") {
+		baseUrl = "https://" + baseUrl
+	}
+	return strings.TrimRight(baseUrl, "/")
+}
+
 type DecryptErr struct {
 	Message string
 }
