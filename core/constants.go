@@ -40,7 +40,7 @@ const (
 	AppAccessTokenUrlPath            string = "/open-apis/auth/v3/app_access_token"
 	TenantAccessTokenInternalUrlPath string = "/open-apis/auth/v3/tenant_access_token/internal"
 	TenantAccessTokenUrlPath         string = "/open-apis/auth/v3/tenant_access_token"
-	OAuthTokenUrlPath                string = "/open-apis/authen/v3/oauth/token"
+	OAuthTokenUrlPath                string = "/oauth/v3/token"
 	ApplyAppTicketPath               string = "/open-apis/auth/v3/app_ticket/resend"
 )
 

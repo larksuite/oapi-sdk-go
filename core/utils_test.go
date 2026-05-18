@@ -49,9 +49,9 @@ func TestExtractAudFromURL(t *testing.T) {
 
 func TestBuildProxyURL(t *testing.T) {
 	testCases := map[string]string{
-		"proxy.example.com":         "https://proxy.example.com/v1/open-apis/authen/v3/oauth/token",
-		"https://proxy.example.com": "https://proxy.example.com/v1/open-apis/authen/v3/oauth/token",
-		"http://proxy.example.com":  "http://proxy.example.com/v1/open-apis/authen/v3/oauth/token",
+		"proxy.example.com":         "https://proxy.example.com/v1/oauth/v3/token",
+		"https://proxy.example.com": "https://proxy.example.com/v1/oauth/v3/token",
+		"http://proxy.example.com":  "http://proxy.example.com/v1/oauth/v3/token",
 	}
 
 	for targetService, expected := range testCases {
