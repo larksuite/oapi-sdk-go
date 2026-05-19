@@ -55,6 +55,7 @@ func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatc
 	}
 	// 注册app_ticket事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
+	reqDispatcher.Config.Logger.Info(context.Background(), "event-dispatch is ready")
 	return reqDispatcher
 }
 

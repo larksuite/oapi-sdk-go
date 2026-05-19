@@ -229,6 +229,13 @@ func WithHeaders(header http.Header) ClientOptionFunc {
 	}
 }
 
+// 设置 User-Agent 中附加的 source 标识
+func WithSource(source string) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.Source = source
+	}
+}
+
 func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	// 构建配置
 	config := &larkcore.Config{
@@ -260,6 +267,7 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 
 	// 触发重推 appTicket,如果是 ISV 的话
 	resendAppTicketIfNeed(client)
+	config.Logger.Info(context.Background(), "client ready")
 	return client
 }
 

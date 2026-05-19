@@ -13,3 +13,7 @@ test.go
 .env
 test
 plan
+/main
+/sample/channel/channel
+/sample/channel_test_cases/channel_test_cases
+.trae/

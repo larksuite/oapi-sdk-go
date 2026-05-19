@@ -43,6 +43,11 @@ type Client struct {
 	pingInterval            time.Duration // Ping间隔
 	cache                   *larkcache.Cache
 	mu                      sync.Mutex
+	onReady                 func()
+	onError                 func(err error)
+	onReconnecting          func()
+	onReconnected           func()
+	onDisconnected          func()
 }
 
 var bootstrapHTTPClient = http.DefaultClient
@@ -89,11 +94,74 @@ func WithDomain(domain string) ClientOption {
 		cli.domain = domain
 	}
 }
-
 func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
 	return func(cli *Client) {
 		cli.clientAssertionProvider = provider
 	}
+}
+func WithOnReady(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReady = f
+	}
+}
+
+func WithOnError(f func(err error)) ClientOption {
+	return func(cli *Client) {
+		cli.onError = f
+	}
+}
+
+func WithOnReconnecting(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReconnecting = f
+	}
+}
+
+func WithOnReconnected(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onReconnected = f
+	}
+}
+
+func WithOnDisconnected(f func()) ClientOption {
+	return func(cli *Client) {
+		cli.onDisconnected = f
+	}
+}
+
+func (c *Client) SetOnReady(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReady = f
+}
+
+func (c *Client) SetOnReconnecting(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReconnecting = f
+}
+
+func (c *Client) SetOnReconnected(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onReconnected = f
+}
+
+func (c *Client) SetOnError(f func(err error)) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onError = f
+}
+
+func (c *Client) SetOnDisconnected(f func()) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.onDisconnected = f
+}
+
+func (c *Client) Close() {
+	c.autoReconnect = false
+	c.disconnect(context.Background())
 }
 
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
@@ -124,6 +192,9 @@ func (c *Client) Start(ctx context.Context) (err error) {
 	err = c.connect(ctx)
 	if err != nil {
 		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
+		if c.onError != nil {
+			c.onError(err)
+		}
 		if _, ok := err.(*ClientError); ok {
 			return
 		}
@@ -134,6 +205,10 @@ func (c *Client) Start(ctx context.Context) (err error) {
 			}
 		} else {
 			return err
+		}
+	} else {
+		if c.onReady != nil {
+			c.onReady()
 		}
 	}
 	go c.pingLoop(ctx)
@@ -186,6 +261,10 @@ func (c *Client) connect(ctx context.Context) (err error) {
 }
 
 func (c *Client) reconnect(ctx context.Context) (err error) {
+	if c.onReconnecting != nil {
+		c.onReconnecting()
+	}
+
 	// 首次重连随机抖动
 	if c.reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
@@ -196,7 +275,13 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 	if c.reconnectCount >= 0 {
 		for i := 0; i < c.reconnectCount; i++ {
 			success, err := c.tryConnect(ctx, i)
-			if success || err != nil {
+			if success {
+				if c.onReconnected != nil {
+					c.onReconnected()
+				}
+				return nil
+			}
+			if err != nil {
 				return err
 			}
 			time.Sleep(c.reconnectInterval)
@@ -206,7 +291,13 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 		i := 0
 		for {
 			success, err := c.tryConnect(ctx, i)
-			if success || err != nil {
+			if success {
+				if c.onReconnected != nil {
+					c.onReconnected()
+				}
+				return nil
+			}
+			if err != nil {
 				return err
 			}
 			time.Sleep(c.reconnectInterval)
@@ -221,9 +312,15 @@ func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
 	if err == nil {
 		return true, nil
 	} else if _, ok := err.(*ClientError); ok {
+		if c.onError != nil {
+			c.onError(err)
+		}
 		return false, err
 	} else {
 		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
+		if c.onError != nil {
+			c.onError(err)
+		}
 		return false, nil
 	}
 }
@@ -240,6 +337,10 @@ func (c *Client) disconnect(ctx context.Context) {
 
 	_ = c.conn.Close()
 	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+
+	if c.onDisconnected != nil {
+		c.onDisconnected()
+	}
 
 	defer func() {
 		c.conn = nil
@@ -604,4 +705,9 @@ func parseErr(resp *http.Response) error {
 	default:
 		return NewServerError(code, msg)
 	}
+}
+
+// EventHandler returns the configured event dispatcher.
+func (c *Client) EventHandler() *dispatcher.EventDispatcher {
+	return c.eventHandler
 }
