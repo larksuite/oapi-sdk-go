@@ -38,6 +38,15 @@ func StringPtr(v string) *string {
 	return &v
 }
 
+// StringPtrIfNotEmpty returns a pointer to the string value passed in or
+// nil if the value is empty.
+func StringPtrIfNotEmpty(v string) *string {
+	if v == "" {
+		return nil
+	}
+	return &v
+}
+
 // StringValue returns the value of the string pointer passed in or
 // "" if the pointer is nil.
 func StringValue(v *string) string {
@@ -63,6 +72,15 @@ func BoolValue(v *bool) bool {
 
 // IntPtr returns a pointer to the int value passed in.
 func IntPtr(v int) *int {
+	return &v
+}
+
+// IntPtrIfNotZero returns a pointer to the int value passed in or
+// nil if the value is zero.
+func IntPtrIfNotZero(v int) *int {
+	if v == 0 {
+		return nil
+	}
 	return &v
 }
 
@@ -212,6 +230,7 @@ func ResolveOAuthAud(config *Config) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	// The OAuth host, for example accounts.feishu.cn, is used as the client assertion audience.
 	return extractAudFromURL(oauthBaseUrl)
 }
 
