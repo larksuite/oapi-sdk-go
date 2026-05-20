@@ -71,10 +71,15 @@ func mockEventReq(token string) *larkevent.EventReq {
 		TenantKey:     "d32004232",
 		Token:         token,
 		Action: &struct {
-			Value    map[string]interface{} `json:"value"`
-			Tag      string                 `json:"tag"`
-			Option   string                 `json:"option"`
-			Timezone string                 `json:"timezone"`
+			Value      map[string]interface{} `json:"value"`
+			Tag        string                 `json:"tag"`
+			Option     string                 `json:"option"`
+			Timezone   string                 `json:"timezone"`
+			Name       string                 `json:"name"`
+			FormValue  map[string]interface{} `json:"form_value"`
+			InputValue string                 `json:"input_value"`
+			Options    []string               `json:"options"`
+			Checked    bool                   `json:"checked"`
 		}{
 			Value: value,
 			Tag:   "button",
@@ -219,10 +224,15 @@ func mockCardAction() *CardAction {
 		OpenMessageID: "om_abcdefg1234567890",
 		TenantKey:     "d32004232",
 		Action: &struct {
-			Value    map[string]interface{} `json:"value"`
-			Tag      string                 `json:"tag"`
-			Option   string                 `json:"option"`
-			Timezone string                 `json:"timezone"`
+			Value      map[string]interface{} `json:"value"`
+			Tag        string                 `json:"tag"`
+			Option     string                 `json:"option"`
+			Timezone   string                 `json:"timezone"`
+			Name       string                 `json:"name"`
+			FormValue  map[string]interface{} `json:"form_value"`
+			InputValue string                 `json:"input_value"`
+			Options    []string               `json:"options"`
+			Checked    bool                   `json:"checked"`
 		}{
 			Value: value,
 			Tag:   "button",
@@ -245,10 +255,15 @@ func TestDoHandleResultCardOk(t *testing.T) {
 			OpenMessageID: "om_abcdefg1234567890",
 			TenantKey:     "d32004232",
 			Action: &struct {
-				Value    map[string]interface{} `json:"value"`
-				Tag      string                 `json:"tag"`
-				Option   string                 `json:"option"`
-				Timezone string                 `json:"timezone"`
+				Value      map[string]interface{} `json:"value"`
+				Tag        string                 `json:"tag"`
+				Option     string                 `json:"option"`
+				Timezone   string                 `json:"timezone"`
+				Name       string                 `json:"name"`
+				FormValue  map[string]interface{} `json:"form_value"`
+				InputValue string                 `json:"input_value"`
+				Options    []string               `json:"options"`
+				Checked    bool                   `json:"checked"`
 			}{
 				Value: value,
 				Tag:   "button",

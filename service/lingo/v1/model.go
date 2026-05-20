@@ -339,8 +339,6 @@ func NewCorrectErrorBuilder() *CorrectErrorBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 	builder.type_ = type_
@@ -586,8 +584,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -595,8 +591,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3046,7 +3040,6 @@ func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraft
 	return builder
 }
 
-//
 func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3109,7 +3102,6 @@ func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraft
 	return builder
 }
 
-//
 func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3173,7 +3165,6 @@ func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEnti
 	return builder
 }
 
-//
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3347,7 +3338,7 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 
 // 需要被识别实体词内容的一句话（不要超过1000字）
 //
-//示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -3403,7 +3394,6 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
-//
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3543,7 +3533,7 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 
 // 实体词主关键词、全称、别名全匹配
 //
-//示例值：企业百科
+// 示例值：企业百科
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
@@ -3607,7 +3597,6 @@ func (builder *MatchEntityReqBuilder) RepoId(repoId string) *MatchEntityReqBuild
 	return builder
 }
 
-//
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3665,7 +3654,7 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：飞书词典
+// 示例值：飞书词典
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -3674,7 +3663,7 @@ func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqB
 
 // 分类筛选
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
 	builder.classificationFilterFlag = true
@@ -3683,7 +3672,7 @@ func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFi
 
 // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityReqBodyBuilder {
 	builder.sources = sources
 	builder.sourcesFlag = true
@@ -3692,7 +3681,7 @@ func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityR
 
 // 创建者
 //
-//示例值：ou_30b07b63089ea46518789914dac63d36
+// 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityReqBodyBuilder) Creators(creators []string) *SearchEntityReqBodyBuilder {
 	builder.creators = creators
 	builder.creatorsFlag = true
@@ -3838,7 +3827,6 @@ func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEnti
 	return builder
 }
 
-//
 func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3918,7 +3906,6 @@ func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEnti
 	return builder
 }
 
-//
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -4022,7 +4009,6 @@ func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	return builder
 }
 
-//
 func (builder *UploadFileReqBuilder) File(file *File) *UploadFileReqBuilder {
 	builder.file = file
 	return builder

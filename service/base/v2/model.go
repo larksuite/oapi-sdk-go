@@ -316,8 +316,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -325,8 +323,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -840,8 +836,6 @@ func (builder *MetaBuilder) TenantId(tenantId string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) MixState(mixState int) *MetaBuilder {
 	builder.mixState = mixState
@@ -1606,8 +1600,6 @@ func (builder *TemplateInfoBuilder) TemplateType(templateType int) *TemplateInfo
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TemplateInfoBuilder) PublishFlag(publishFlag int) *TemplateInfoBuilder {
 	builder.publishFlag = publishFlag
@@ -1711,16 +1703,12 @@ func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))

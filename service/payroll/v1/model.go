@@ -3113,8 +3113,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3122,8 +3120,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5497,7 +5493,7 @@ func NewVerifFieldSourceConfigBuilder() *VerifFieldSourceConfigBuilder {
 	return builder
 }
 
-//  公式id
+//	公式id
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) FormulaId(formulaId string) *VerifFieldSourceConfigBuilder {
@@ -5542,7 +5538,7 @@ func (builder *VerifFieldSourceConfigBuilder) SourceAggregationType(sourceAggreg
 	return builder
 }
 
-//  引用类型
+//	引用类型
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) RefType(refType int) *VerifFieldSourceConfigBuilder {
@@ -7466,16 +7462,12 @@ func (builder *ListDatasourceReqBuilder) Limit(limit int) *ListDatasourceReqBuil
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageSize(pageSize int) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageToken(pageToken string) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -7532,7 +7524,7 @@ func NewQueryDatasourceRecordReqBodyBuilder() *QueryDatasourceRecordReqBodyBuild
 
 // 数据源编码
 //
-//示例值：test__c
+// 示例值：test__c
 func (builder *QueryDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
 	builder.sourceCodeFlag = true
@@ -7541,7 +7533,7 @@ func (builder *QueryDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string
 
 // 指定查询的数据源字段。如不传，默认返回所有数据源字段
 //
-//示例值：
+// 示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) SelectedFields(selectedFields []string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.selectedFields = selectedFields
 	builder.selectedFieldsFlag = true
@@ -7550,7 +7542,7 @@ func (builder *QueryDatasourceRecordReqBodyBuilder) SelectedFields(selectedField
 
 // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
 //
-//示例值：
+// 示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) FieldFilters(fieldFilters []*DatasourceRecordFieldFilter) *QueryDatasourceRecordReqBodyBuilder {
 	builder.fieldFilters = fieldFilters
 	builder.fieldFiltersFlag = true
@@ -7647,16 +7639,12 @@ func (builder *QueryDatasourceRecordReqBuilder) Limit(limit int) *QueryDatasourc
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageSize(pageSize int) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageToken(pageToken string) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -7726,7 +7714,7 @@ func NewSaveDatasourceRecordReqBodyBuilder() *SaveDatasourceRecordReqBodyBuilder
 
 // 数据源code
 //
-//示例值：test__c
+// 示例值：test__c
 func (builder *SaveDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *SaveDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
 	builder.sourceCodeFlag = true
@@ -7735,7 +7723,7 @@ func (builder *SaveDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string)
 
 // 需保存的记录列表
 //
-//示例值：
+// 示例值：
 func (builder *SaveDatasourceRecordReqBodyBuilder) Records(records []*DatasourceRecord) *SaveDatasourceRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
@@ -7926,7 +7914,7 @@ func NewArchivePaymentActivityReqBodyBuilder() *ArchivePaymentActivityReqBodyBui
 
 // 发薪活动ID
 //
-//示例值：111111
+// 示例值：111111
 func (builder *ArchivePaymentActivityReqBodyBuilder) ActivityId(activityId string) *ArchivePaymentActivityReqBodyBuilder {
 	builder.activityId = activityId
 	builder.activityIdFlag = true
@@ -8222,7 +8210,7 @@ func NewQueryPaymentDetailReqBodyBuilder() *QueryPaymentDetailReqBodyBuilder {
 
 // 页码，第一页从 1 开始
 //
-//示例值：100
+// 示例值：100
 func (builder *QueryPaymentDetailReqBodyBuilder) PageIndex(pageIndex int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageIndex = pageIndex
 	builder.pageIndexFlag = true
@@ -8231,7 +8219,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) PageIndex(pageIndex int) *Query
 
 // 每页大小，范围为：[1, 100]
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) PageSize(pageSize int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -8240,7 +8228,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) PageSize(pageSize int) *QueryPa
 
 // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) AcctItemIds(acctItemIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.acctItemIds = acctItemIds
 	builder.acctItemIdsFlag = true
@@ -8249,7 +8237,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) AcctItemIds(acctItemIds []strin
 
 // 员工的飞书人事雇佣 ID 列表。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) EmployeeIds(employeeIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.employeeIds = employeeIds
 	builder.employeeIdsFlag = true
@@ -8258,7 +8246,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) EmployeeIds(employeeIds []strin
 
 // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
 //
-//示例值：2024-01-01
+// 示例值：2024-01-01
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodStartDate(payPeriodStartDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodStartDate = payPeriodStartDate
 	builder.payPeriodStartDateFlag = true
@@ -8267,7 +8255,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodStartDate(payPeriodSta
 
 // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 //
-//示例值：2024-01-31
+// 示例值：2024-01-31
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodEndDate(payPeriodEndDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodEndDate = payPeriodEndDate
 	builder.payPeriodEndDateFlag = true
@@ -8276,7 +8264,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodEndDate(payPeriodEndDa
 
 // 发薪活动 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) ActivityIds(activityIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsFlag = true
@@ -8285,7 +8273,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) ActivityIds(activityIds []strin
 
 // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) IncludeSegmentData(includeSegmentData bool) *QueryPaymentDetailReqBodyBuilder {
 	builder.includeSegmentData = includeSegmentData
 	builder.includeSegmentDataFlag = true
@@ -8460,7 +8448,6 @@ func NewQueryPaymentDetailReqBuilder() *QueryPaymentDetailReqBuilder {
 	return builder
 }
 
-//
 func (builder *QueryPaymentDetailReqBuilder) Body(body *QueryPaymentDetailReqBody) *QueryPaymentDetailReqBuilder {
 	builder.body = body
 	return builder

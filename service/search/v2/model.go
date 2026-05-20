@@ -1479,8 +1479,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1488,8 +1486,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -8239,7 +8235,7 @@ func NewCreateAppReqBodyBuilder() *CreateAppReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：测试应用
+// 示例值：测试应用
 func (builder *CreateAppReqBodyBuilder) Query(query string) *CreateAppReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -8319,7 +8315,6 @@ func (builder *CreateAppReqBuilder) PageToken(pageToken string) *CreateAppReqBui
 	return builder
 }
 
-//
 func (builder *CreateAppReqBuilder) Body(body *CreateAppReqBody) *CreateAppReqBuilder {
 	builder.body = body
 	return builder
@@ -8602,7 +8597,7 @@ func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
 
 // 数据源的展示名称
 //
-//示例值：客服工单
+// 示例值：客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSourceReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -8611,7 +8606,7 @@ func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSource
 
 // 数据源状态，0-已上线，1-未上线
 //
-//示例值：0
+// 示例值：0
 func (builder *PatchDataSourceReqBodyBuilder) State(state int) *PatchDataSourceReqBodyBuilder {
 	builder.state = state
 	builder.stateFlag = true
@@ -8620,7 +8615,7 @@ func (builder *PatchDataSourceReqBodyBuilder) State(state int) *PatchDataSourceR
 
 // 对于数据源的描述
 //
-//示例值：搜索客服工单
+// 示例值：搜索客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Description(description string) *PatchDataSourceReqBodyBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -8629,7 +8624,7 @@ func (builder *PatchDataSourceReqBodyBuilder) Description(description string) *P
 
 // 数据源在 search tab 上的展示图标路径
 //
-//示例值：https://www.xxx.com/open.jpg
+// 示例值：https://www.xxx.com/open.jpg
 func (builder *PatchDataSourceReqBodyBuilder) IconUrl(iconUrl string) *PatchDataSourceReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlFlag = true
@@ -8638,7 +8633,7 @@ func (builder *PatchDataSourceReqBodyBuilder) IconUrl(iconUrl string) *PatchData
 
 // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameFlag = true
@@ -8647,7 +8642,7 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *Patc
 
 // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nDescription = i18nDescription
 	builder.i18nDescriptionFlag = true
@@ -8656,7 +8651,7 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I
 
 // 修改connector的相关配置
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *ConnectorParam) *PatchDataSourceReqBodyBuilder {
 	builder.connectorParam = connectorParam
 	builder.connectorParamFlag = true
@@ -8665,7 +8660,7 @@ func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *Con
 
 // 是否使用问答服务
 //
-//示例值：false
+// 示例值：false
 func (builder *PatchDataSourceReqBodyBuilder) EnableAnswer(enableAnswer bool) *PatchDataSourceReqBodyBuilder {
 	builder.enableAnswer = enableAnswer
 	builder.enableAnswerFlag = true
@@ -9076,7 +9071,7 @@ func NewSearchDocWikiReqBodyBuilder() *SearchDocWikiReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：飞书文档使用指南
+// 示例值：飞书文档使用指南
 func (builder *SearchDocWikiReqBodyBuilder) Query(query string) *SearchDocWikiReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -9085,7 +9080,7 @@ func (builder *SearchDocWikiReqBodyBuilder) Query(query string) *SearchDocWikiRe
 
 // 文档过滤参数
 //
-//示例值：{"folder_tokens": ["fld_123456"]}
+// 示例值：{"folder_tokens": ["fld_123456"]}
 func (builder *SearchDocWikiReqBodyBuilder) DocFilter(docFilter *DocFilter) *SearchDocWikiReqBodyBuilder {
 	builder.docFilter = docFilter
 	builder.docFilterFlag = true
@@ -9094,7 +9089,7 @@ func (builder *SearchDocWikiReqBodyBuilder) DocFilter(docFilter *DocFilter) *Sea
 
 // Wiki过滤参数
 //
-//示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
+// 示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
 func (builder *SearchDocWikiReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *SearchDocWikiReqBodyBuilder {
 	builder.wikiFilter = wikiFilter
 	builder.wikiFilterFlag = true
@@ -9103,7 +9098,7 @@ func (builder *SearchDocWikiReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
 //
-//示例值：token_1234567890fedcba
+// 示例值：token_1234567890fedcba
 func (builder *SearchDocWikiReqBodyBuilder) PageToken(pageToken string) *SearchDocWikiReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -9112,7 +9107,7 @@ func (builder *SearchDocWikiReqBodyBuilder) PageToken(pageToken string) *SearchD
 
 // 分页大小
 //
-//示例值：15
+// 示例值：15
 func (builder *SearchDocWikiReqBodyBuilder) PageSize(pageSize int) *SearchDocWikiReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -9332,7 +9327,7 @@ func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：测试消息
+// 示例值：测试消息
 func (builder *CreateMessageReqBodyBuilder) Query(query string) *CreateMessageReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -9341,7 +9336,7 @@ func (builder *CreateMessageReqBodyBuilder) Query(query string) *CreateMessageRe
 
 // 消息来自user_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) FromIds(fromIds []string) *CreateMessageReqBodyBuilder {
 	builder.fromIds = fromIds
 	builder.fromIdsFlag = true
@@ -9350,7 +9345,7 @@ func (builder *CreateMessageReqBodyBuilder) FromIds(fromIds []string) *CreateMes
 
 // 消息所在chat_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) ChatIds(chatIds []string) *CreateMessageReqBodyBuilder {
 	builder.chatIds = chatIds
 	builder.chatIdsFlag = true
@@ -9359,7 +9354,7 @@ func (builder *CreateMessageReqBodyBuilder) ChatIds(chatIds []string) *CreateMes
 
 // 消息类型(file/image/media)
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) MessageType(messageType string) *CreateMessageReqBodyBuilder {
 	builder.messageType = messageType
 	builder.messageTypeFlag = true
@@ -9368,7 +9363,7 @@ func (builder *CreateMessageReqBodyBuilder) MessageType(messageType string) *Cre
 
 // at用户user_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) AtChatterIds(atChatterIds []string) *CreateMessageReqBodyBuilder {
 	builder.atChatterIds = atChatterIds
 	builder.atChatterIdsFlag = true
@@ -9377,7 +9372,7 @@ func (builder *CreateMessageReqBodyBuilder) AtChatterIds(atChatterIds []string) 
 
 // 消息来自类型(bot/user)
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) FromType(fromType string) *CreateMessageReqBodyBuilder {
 	builder.fromType = fromType
 	builder.fromTypeFlag = true
@@ -9386,7 +9381,7 @@ func (builder *CreateMessageReqBodyBuilder) FromType(fromType string) *CreateMes
 
 // 会话类型(group_chat/p2p_chat)
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) ChatType(chatType string) *CreateMessageReqBodyBuilder {
 	builder.chatType = chatType
 	builder.chatTypeFlag = true
@@ -9395,7 +9390,7 @@ func (builder *CreateMessageReqBodyBuilder) ChatType(chatType string) *CreateMes
 
 // 消息发送起始时间
 //
-//示例值：1609296809
+// 示例值：1609296809
 func (builder *CreateMessageReqBodyBuilder) StartTime(startTime string) *CreateMessageReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -9404,7 +9399,7 @@ func (builder *CreateMessageReqBodyBuilder) StartTime(startTime string) *CreateM
 
 // 消息发送结束时间
 //
-//示例值：1609296809
+// 示例值：1609296809
 func (builder *CreateMessageReqBodyBuilder) EndTime(endTime string) *CreateMessageReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -9620,7 +9615,6 @@ func (builder *CreateMessageReqBuilder) PageToken(pageToken string) *CreateMessa
 	return builder
 }
 
-//
 func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -9834,7 +9828,7 @@ func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
 
 // 数据展示相关配置
 //
-//示例值：
+// 示例值：
 func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaReqBodyBuilder {
 	builder.display = display
 	builder.displayFlag = true
@@ -9843,7 +9837,7 @@ func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *Patch
 
 // 数据范式的属性定义
 //
-//示例值：
+// 示例值：
 func (builder *PatchSchemaReqBodyBuilder) Properties(properties []*PatchSchemaProperty) *PatchSchemaReqBodyBuilder {
 	builder.properties = properties
 	builder.propertiesFlag = true

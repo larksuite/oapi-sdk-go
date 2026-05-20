@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -826,7 +822,7 @@ func NewCreateAccessTokenReqBodyBuilder() *CreateAccessTokenReqBodyBuilder {
 
 // 授权类型，**固定值**
 //
-//示例值：authorization_code
+// 示例值：authorization_code
 func (builder *CreateAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
 	builder.grantTypeFlag = true
@@ -835,7 +831,7 @@ func (builder *CreateAccessTokenReqBodyBuilder) GrantType(grantType string) *Cre
 
 // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
 //
-//示例值：xMSldislSkdK
+// 示例值：xMSldislSkdK
 func (builder *CreateAccessTokenReqBodyBuilder) Code(code string) *CreateAccessTokenReqBodyBuilder {
 	builder.code = code
 	builder.codeFlag = true
@@ -908,7 +904,6 @@ func NewCreateAccessTokenReqBuilder() *CreateAccessTokenReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateAccessTokenReqBuilder) Body(body *CreateAccessTokenReqBody) *CreateAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -997,7 +992,7 @@ func NewCreateOidcAccessTokenReqBodyBuilder() *CreateOidcAccessTokenReqBodyBuild
 
 // 授权类型，**固定值**
 //
-//示例值：authorization_code
+// 示例值：authorization_code
 func (builder *CreateOidcAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateOidcAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
 	builder.grantTypeFlag = true
@@ -1006,7 +1001,7 @@ func (builder *CreateOidcAccessTokenReqBodyBuilder) GrantType(grantType string) 
 
 // 登录预授权码
 //
-//示例值：xMSldislSkdK
+// 示例值：xMSldislSkdK
 func (builder *CreateOidcAccessTokenReqBodyBuilder) Code(code string) *CreateOidcAccessTokenReqBodyBuilder {
 	builder.code = code
 	builder.codeFlag = true
@@ -1079,7 +1074,6 @@ func NewCreateOidcAccessTokenReqBuilder() *CreateOidcAccessTokenReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateOidcAccessTokenReqBuilder) Body(body *CreateOidcAccessTokenReqBody) *CreateOidcAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -1142,7 +1136,7 @@ func NewCreateOidcRefreshAccessTokenReqBodyBuilder() *CreateOidcRefreshAccessTok
 
 // 授权类型，**固定值**：
 //
-//示例值：refresh_token
+// 示例值：refresh_token
 func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateOidcRefreshAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
 	builder.grantTypeFlag = true
@@ -1151,7 +1145,7 @@ func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) GrantType(grantType s
 
 // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
 //
-//示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
+// 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) RefreshToken(refreshToken string) *CreateOidcRefreshAccessTokenReqBodyBuilder {
 	builder.refreshToken = refreshToken
 	builder.refreshTokenFlag = true
@@ -1224,7 +1218,6 @@ func NewCreateOidcRefreshAccessTokenReqBuilder() *CreateOidcRefreshAccessTokenRe
 	return builder
 }
 
-//
 func (builder *CreateOidcRefreshAccessTokenReqBuilder) Body(body *CreateOidcRefreshAccessTokenReqBody) *CreateOidcRefreshAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -1287,7 +1280,7 @@ func NewCreateRefreshAccessTokenReqBodyBuilder() *CreateRefreshAccessTokenReqBod
 
 // 授权类型，**固定值**：
 //
-//示例值：refresh_token
+// 示例值：refresh_token
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateRefreshAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
 	builder.grantTypeFlag = true
@@ -1296,7 +1289,7 @@ func (builder *CreateRefreshAccessTokenReqBodyBuilder) GrantType(grantType strin
 
 // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
 //
-//示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
+// 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) RefreshToken(refreshToken string) *CreateRefreshAccessTokenReqBodyBuilder {
 	builder.refreshToken = refreshToken
 	builder.refreshTokenFlag = true
@@ -1369,7 +1362,6 @@ func NewCreateRefreshAccessTokenReqBuilder() *CreateRefreshAccessTokenReqBuilder
 	return builder
 }
 
-//
 func (builder *CreateRefreshAccessTokenReqBuilder) Body(body *CreateRefreshAccessTokenReqBody) *CreateRefreshAccessTokenReqBuilder {
 	builder.body = body
 	return builder

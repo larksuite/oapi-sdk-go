@@ -14,6 +14,15 @@ To address these issues, Feishu Open Platform has developed the Open Interface S
 - [处理卡片回调 / Handle Card Callbacks](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback)
 - [常见问题 / SDK FAQs](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/faq)
 
+## 高级封装 Channel 模块 / Channel Module
+
+SDK 提供了一个基于 WebSocket 和 API Client 封装的 Channel 模块。它将飞书机器人接入过程中的事件监听、消息归一化、发送流式回复、上传媒体等操作进行了高层封装，让开发者能更专注业务逻辑。
+
+The SDK provides a `Channel` module built on top of WebSocket and the API Client. It encapsulates event listening, message normalization, streaming replies, and media uploads, allowing developers to focus purely on business logic.
+
+- [Channel 模块文档 / Channel Module Documentation (中文)](./doc/channel.zh.md)
+- [Channel Module Documentation (English)](./doc/channel.md)
+
 ## 一键创建应用 / One-Click App Registration
 
 SDK 提供了 `registration.RegisterApp` 方法，基于 OAuth 2.0 Device Authorization Grant（RFC 8628）协议实现一键创建应用。调用后会返回一个验证链接，用户在飞书/Lark 中打开链接或扫码完成授权后，即可自动注册应用并获取 `App ID` 与 `App Secret`，无需手动前往开发者后台创建。

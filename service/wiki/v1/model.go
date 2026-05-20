@@ -41,8 +41,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -50,8 +48,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -808,7 +804,7 @@ func NewSearchNodeReqBodyBuilder() *SearchNodeReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：123
+// 示例值：123
 func (builder *SearchNodeReqBodyBuilder) Query(query string) *SearchNodeReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -817,7 +813,7 @@ func (builder *SearchNodeReqBodyBuilder) Query(query string) *SearchNodeReqBodyB
 
 // 文档所属的知识空间ID，为空搜索所有 wiki
 //
-//示例值：6967549310762221587
+// 示例值：6967549310762221587
 func (builder *SearchNodeReqBodyBuilder) SpaceId(spaceId string) *SearchNodeReqBodyBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -826,7 +822,7 @@ func (builder *SearchNodeReqBodyBuilder) SpaceId(spaceId string) *SearchNodeReqB
 
 // wiki token，不为空搜索该节点及其所有子节点，为空搜索所有 wiki（根据 space_id 选择 space）
 //
-//示例值：O5UIw9NA8iW308kQQeybWLZqcXc
+// 示例值：O5UIw9NA8iW308kQQeybWLZqcXc
 func (builder *SearchNodeReqBodyBuilder) NodeId(nodeId string) *SearchNodeReqBodyBuilder {
 	builder.nodeId = nodeId
 	builder.nodeIdFlag = true
@@ -939,7 +935,6 @@ func (builder *SearchNodeReqBuilder) PageSize(pageSize int) *SearchNodeReqBuilde
 	return builder
 }
 
-//
 func (builder *SearchNodeReqBuilder) Body(body *SearchNodeReqBody) *SearchNodeReqBuilder {
 	builder.body = body
 	return builder

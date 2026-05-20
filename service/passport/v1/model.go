@@ -125,8 +125,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -134,8 +132,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -367,7 +363,7 @@ func NewLogoutSessionReqBodyBuilder() *LogoutSessionReqBodyBuilder {
 
 // idp 侧的唯一标识
 //
-//示例值：1
+// 示例值：1
 func (builder *LogoutSessionReqBodyBuilder) IdpCredentialId(idpCredentialId string) *LogoutSessionReqBodyBuilder {
 	builder.idpCredentialId = idpCredentialId
 	builder.idpCredentialIdFlag = true
@@ -376,7 +372,7 @@ func (builder *LogoutSessionReqBodyBuilder) IdpCredentialId(idpCredentialId stri
 
 // 登出的方式
 //
-//示例值：1
+// 示例值：1
 func (builder *LogoutSessionReqBodyBuilder) LogoutType(logoutType int) *LogoutSessionReqBodyBuilder {
 	builder.logoutType = logoutType
 	builder.logoutTypeFlag = true
@@ -385,7 +381,7 @@ func (builder *LogoutSessionReqBodyBuilder) LogoutType(logoutType int) *LogoutSe
 
 // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
 //
-//示例值：
+// 示例值：
 func (builder *LogoutSessionReqBodyBuilder) TerminalType(terminalType []int) *LogoutSessionReqBodyBuilder {
 	builder.terminalType = terminalType
 	builder.terminalTypeFlag = true
@@ -394,7 +390,7 @@ func (builder *LogoutSessionReqBodyBuilder) TerminalType(terminalType []int) *Lo
 
 // user_id
 //
-//示例值：1
+// 示例值：1
 func (builder *LogoutSessionReqBodyBuilder) UserId(userId string) *LogoutSessionReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -403,7 +399,7 @@ func (builder *LogoutSessionReqBodyBuilder) UserId(userId string) *LogoutSession
 
 // 登出原因
 //
-//示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
+// 示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
 func (builder *LogoutSessionReqBodyBuilder) LogoutReason(logoutReason int) *LogoutSessionReqBodyBuilder {
 	builder.logoutReason = logoutReason
 	builder.logoutReasonFlag = true
@@ -412,7 +408,7 @@ func (builder *LogoutSessionReqBodyBuilder) LogoutReason(logoutReason int) *Logo
 
 // 需要精确登出的 session 标识符
 //
-//示例值：AAAAAAAAAANll6nQoIAAFA==
+// 示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *LogoutSessionReqBodyBuilder) Sid(sid string) *LogoutSessionReqBodyBuilder {
 	builder.sid = sid
 	builder.sidFlag = true
@@ -561,7 +557,6 @@ func (builder *LogoutSessionReqBuilder) UserIdType(userIdType string) *LogoutSes
 	return builder
 }
 
-//
 func (builder *LogoutSessionReqBuilder) Body(body *LogoutSessionReqBody) *LogoutSessionReqBuilder {
 	builder.body = body
 	return builder
@@ -615,7 +610,7 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 
 // 用户 ID
 //
-//示例值：["47f621ff"]
+// 示例值：["47f621ff"]
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true

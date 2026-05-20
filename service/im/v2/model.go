@@ -527,8 +527,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -536,8 +534,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3071,8 +3067,6 @@ func (builder *UpdateChatPinBuilder) IsFixed(isFixed bool) *UpdateChatPinBuilder
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UpdateChatPinBuilder) UpdateUrlPin(updateUrlPin *UpdateUrlPin) *UpdateChatPinBuilder {
 	builder.updateUrlPin = updateUrlPin
@@ -3238,8 +3232,6 @@ func (builder *UrlPinBuilder) Url(url string) *UrlPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UrlPinBuilder) Icon(icon *ChatPinIcon) *UrlPinBuilder {
 	builder.icon = icon
@@ -3441,7 +3433,7 @@ func NewCreateAppFeedCardReqBodyBuilder() *CreateAppFeedCardReqBodyBuilder {
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) AppFeedCard(appFeedCard *OpenAppFeedCard) *CreateAppFeedCardReqBodyBuilder {
 	builder.appFeedCard = appFeedCard
 	builder.appFeedCardFlag = true
@@ -3450,7 +3442,7 @@ func (builder *CreateAppFeedCardReqBodyBuilder) AppFeedCard(appFeedCard *OpenApp
 
 // 用户 ID
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) UserIds(userIds []string) *CreateAppFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -3531,7 +3523,6 @@ func (builder *CreateAppFeedCardReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-//
 func (builder *CreateAppFeedCardReqBuilder) Body(body *CreateAppFeedCardReqBody) *CreateAppFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -3584,7 +3575,7 @@ func NewDeleteAppFeedCardBatchReqBodyBuilder() *DeleteAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *DeleteAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardDeleter) *DeleteAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
 	builder.feedCardsFlag = true
@@ -3648,7 +3639,6 @@ func (builder *DeleteAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
 func (builder *DeleteAppFeedCardBatchReqBuilder) Body(body *DeleteAppFeedCardBatchReqBody) *DeleteAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -3697,7 +3687,7 @@ func NewUpdateAppFeedCardBatchReqBodyBuilder() *UpdateAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardUpdater) *UpdateAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
 	builder.feedCardsFlag = true
@@ -3761,7 +3751,6 @@ func (builder *UpdateAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
 func (builder *UpdateAppFeedCardBatchReqBuilder) Body(body *UpdateAppFeedCardBatchReqBody) *UpdateAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -3819,7 +3808,7 @@ func NewCreateBizEntityTagRelationReqBodyBuilder() *CreateBizEntityTagRelationRe
 
 // 业务类型
 //
-//示例值：chat
+// 示例值：chat
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
 	builder.tagBizTypeFlag = true
@@ -3828,7 +3817,7 @@ func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType s
 
 // 业务实体id
 //
-//示例值：71616xxxx
+// 示例值：71616xxxx
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdFlag = true
@@ -3837,7 +3826,7 @@ func (builder *CreateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId
 
 // 标签id
 //
-//示例值：
+// 示例值：
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsFlag = true
@@ -3929,7 +3918,6 @@ func NewCreateBizEntityTagRelationReqBuilder() *CreateBizEntityTagRelationReqBui
 	return builder
 }
 
-//
 func (builder *CreateBizEntityTagRelationReqBuilder) Body(body *CreateBizEntityTagRelationReqBody) *CreateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -4049,7 +4037,7 @@ func NewUpdateBizEntityTagRelationReqBodyBuilder() *UpdateBizEntityTagRelationRe
 
 // 业务类型
 //
-//示例值：chat
+// 示例值：chat
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
 	builder.tagBizTypeFlag = true
@@ -4058,7 +4046,7 @@ func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType s
 
 // 业务实体id
 //
-//示例值：7161681111
+// 示例值：7161681111
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdFlag = true
@@ -4067,7 +4055,7 @@ func (builder *UpdateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId
 
 // 标签id
 //
-//示例值：
+// 示例值：
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsFlag = true
@@ -4159,7 +4147,6 @@ func NewUpdateBizEntityTagRelationReqBuilder() *UpdateBizEntityTagRelationReqBui
 	return builder
 }
 
-//
 func (builder *UpdateBizEntityTagRelationReqBuilder) Body(body *UpdateBizEntityTagRelationReqBody) *UpdateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -4217,7 +4204,7 @@ func NewUpdateChatButtonReqBodyBuilder() *UpdateChatButtonReqBodyBuilder {
 
 // 用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) UserIds(userIds []string) *UpdateChatButtonReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -4226,7 +4213,7 @@ func (builder *UpdateChatButtonReqBodyBuilder) UserIds(userIds []string) *Update
 
 // 群 ID
 //
-//示例值：oc_a0553eda9014c201e6969b478895c230
+// 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatButtonReqBodyBuilder) ChatId(chatId string) *UpdateChatButtonReqBodyBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4235,7 +4222,7 @@ func (builder *UpdateChatButtonReqBodyBuilder) ChatId(chatId string) *UpdateChat
 
 // 按钮
 //
-//示例值：
+// 示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) Buttons(buttons *OpenAppFeedCardButtons) *UpdateChatButtonReqBodyBuilder {
 	builder.buttons = buttons
 	builder.buttonsFlag = true
@@ -4335,7 +4322,6 @@ func (builder *UpdateChatButtonReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
-//
 func (builder *UpdateChatButtonReqBuilder) Body(body *UpdateChatButtonReqBody) *UpdateChatButtonReqBuilder {
 	builder.body = body
 	return builder
@@ -4396,7 +4382,7 @@ func NewBotTimeSentiveFeedCardReqBodyBuilder() *BotTimeSentiveFeedCardReqBodyBui
 
 // 临时置顶状态，true-打开，false-关闭
 //
-//示例值：true
+// 示例值：true
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
 	builder.timeSensitiveFlag = true
@@ -4405,7 +4391,7 @@ func (builder *BotTimeSentiveFeedCardReqBodyBuilder) TimeSensitive(timeSensitive
 
 // 用户id 列表
 //
-//示例值：
+// 示例值：
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) UserIds(userIds []string) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -4488,7 +4474,6 @@ func (builder *BotTimeSentiveFeedCardReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
 func (builder *BotTimeSentiveFeedCardReqBuilder) Body(body *BotTimeSentiveFeedCardReqBody) *BotTimeSentiveFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -4544,7 +4529,7 @@ func NewPatchFeedCardReqBodyBuilder() *PatchFeedCardReqBodyBuilder {
 
 // 临时置顶状态，true-打开，false-关闭
 //
-//示例值：true
+// 示例值：true
 func (builder *PatchFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *PatchFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
 	builder.timeSensitiveFlag = true
@@ -4553,7 +4538,7 @@ func (builder *PatchFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *P
 
 // 用户id 列表
 //
-//示例值：
+// 示例值：
 func (builder *PatchFeedCardReqBodyBuilder) UserIds(userIds []string) *PatchFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -4642,7 +4627,6 @@ func (builder *PatchFeedCardReqBuilder) UserIdType(userIdType string) *PatchFeed
 	return builder
 }
 
-//
 func (builder *PatchFeedCardReqBuilder) Body(body *PatchFeedCardReqBody) *PatchFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -4697,7 +4681,7 @@ func NewCreateTagReqBodyBuilder() *CreateTagReqBodyBuilder {
 
 // 创建标签
 //
-//示例值：
+// 示例值：
 func (builder *CreateTagReqBodyBuilder) CreateTag(createTag *CreateTag) *CreateTagReqBodyBuilder {
 	builder.createTag = createTag
 	builder.createTagFlag = true
@@ -4755,7 +4739,6 @@ func NewCreateTagReqBuilder() *CreateTagReqBuilder {
 	return builder
 }
 
-//
 func (builder *CreateTagReqBuilder) Body(body *CreateTagReqBody) *CreateTagReqBuilder {
 	builder.body = body
 	return builder
@@ -4810,7 +4793,7 @@ func NewPatchTagReqBodyBuilder() *PatchTagReqBodyBuilder {
 
 // 编辑标签
 //
-//示例值：
+// 示例值：
 func (builder *PatchTagReqBodyBuilder) PatchTag(patchTag *PatchTag) *PatchTagReqBodyBuilder {
 	builder.patchTag = patchTag
 	builder.patchTagFlag = true
@@ -4876,7 +4859,6 @@ func (builder *PatchTagReqBuilder) TagId(tagId string) *PatchTagReqBuilder {
 	return builder
 }
 
-//
 func (builder *PatchTagReqBuilder) Body(body *PatchTagReqBody) *PatchTagReqBuilder {
 	builder.body = body
 	return builder
@@ -4932,7 +4914,7 @@ func NewBatchUpdateUrlPreviewReqBodyBuilder() *BatchUpdateUrlPreviewReqBodyBuild
 
 // URL预览的token列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.previewTokens = previewTokens
 	builder.previewTokensFlag = true
@@ -4941,7 +4923,7 @@ func (builder *BatchUpdateUrlPreviewReqBodyBuilder) PreviewTokens(previewTokens 
 
 // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) OpenIds(openIds []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.openIds = openIds
 	builder.openIdsFlag = true
@@ -5014,7 +4996,6 @@ func NewBatchUpdateUrlPreviewReqBuilder() *BatchUpdateUrlPreviewReqBuilder {
 	return builder
 }
 
-//
 func (builder *BatchUpdateUrlPreviewReqBuilder) Body(body *BatchUpdateUrlPreviewReqBody) *BatchUpdateUrlPreviewReqBuilder {
 	builder.body = body
 	return builder

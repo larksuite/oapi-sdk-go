@@ -82,7 +82,7 @@ func main() {
 		Build()
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeText).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").

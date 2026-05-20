@@ -1387,8 +1387,6 @@ func NewApprovalEventBuilder() *ApprovalEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEventBuilder {
 	builder.approvalId = approvalId
@@ -1396,8 +1394,6 @@ func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *ApprovalEventBuilder {
 	builder.approvalCode = approvalCode
@@ -1405,8 +1401,6 @@ func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *Approval
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventBuilder {
 	builder.versionId = versionId
@@ -1414,8 +1408,6 @@ func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *ApprovalEventBuilder {
 	builder.widgetGroupType = widgetGroupType
@@ -1423,8 +1415,6 @@ func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *Appro
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *ApprovalEventBuilder {
 	builder.formDefinitionId = formDefinitionId
@@ -1432,8 +1422,6 @@ func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEventBuilder {
 	builder.processObj = processObj
@@ -1441,8 +1429,6 @@ func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventBuilder {
 	builder.timestamp = timestamp
@@ -1450,8 +1436,6 @@ func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Extra(extra string) *ApprovalEventBuilder {
 	builder.extra = extra
@@ -3829,8 +3813,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3838,8 +3820,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -9787,8 +9767,6 @@ func NewRemedyGroupBuilder() *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	builder.type_ = type_
@@ -9796,8 +9774,6 @@ func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -9805,8 +9781,6 @@ func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBuilder {
 	builder.employeeId = employeeId
@@ -9814,8 +9788,6 @@ func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder {
 	builder.startTime = startTime
@@ -9823,8 +9795,6 @@ func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder 
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	builder.endTime = endTime
@@ -9832,8 +9802,6 @@ func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilder {
 	builder.remedyTime = remedyTime
@@ -9841,8 +9809,6 @@ func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilde
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGroupBuilder {
 	builder.remedyReason = remedyReason
@@ -9850,8 +9816,6 @@ func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Status(status string) *RemedyGroupBuilder {
 	builder.status = status
@@ -10287,8 +10251,6 @@ func NewSignGroupBuilder() *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -10296,8 +10258,6 @@ func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	builder.userId = userId
@@ -10305,8 +10265,6 @@ func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuilder {
 	builder.accountCode = accountCode
@@ -10314,8 +10272,6 @@ func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuild
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode string) *SignGroupBuilder {
 	builder.boilerplateUniqueCode = boilerplateUniqueCode
@@ -10323,8 +10279,6 @@ func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode str
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	builder.startTime = startTime
@@ -10332,8 +10286,6 @@ func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	builder.endTime = endTime
@@ -10341,8 +10293,6 @@ func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) Type(type_ string) *SignGroupBuilder {
 	builder.type_ = type_
@@ -12645,8 +12595,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -12654,8 +12602,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -12663,8 +12609,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -13203,7 +13147,7 @@ func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuild
 
 // 校验的实例信息
 //
-//示例值：
+// 示例值：
 func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
 	builder.instances = instances
 	builder.instancesFlag = true
@@ -13364,7 +13308,7 @@ func NewListExternalTaskReqBodyBuilder() *ListExternalTaskReqBodyBuilder {
 
 // 审批定义 Code，用于指定只获取这些定义下的数据
 //
-//示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
+// 示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
 func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []string) *ListExternalTaskReqBodyBuilder {
 	builder.approvalCodes = approvalCodes
 	builder.approvalCodesFlag = true
@@ -13373,7 +13317,7 @@ func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []str
 
 // 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
 //
-//示例值：oa_159160304
+// 示例值：oa_159160304
 func (builder *ListExternalTaskReqBodyBuilder) InstanceIds(instanceIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.instanceIds = instanceIds
 	builder.instanceIdsFlag = true
@@ -13382,7 +13326,7 @@ func (builder *ListExternalTaskReqBodyBuilder) InstanceIds(instanceIds []string)
 
 // 审批人 user_id，用于指定只获取这些用户的数据
 //
-//示例值：112321
+// 示例值：112321
 func (builder *ListExternalTaskReqBodyBuilder) UserIds(userIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -13391,7 +13335,7 @@ func (builder *ListExternalTaskReqBodyBuilder) UserIds(userIds []string) *ListEx
 
 // 审批任务状态，用于指定获取该状态下的数据
 //
-//示例值：PENDING
+// 示例值：PENDING
 func (builder *ListExternalTaskReqBodyBuilder) Status(status string) *ListExternalTaskReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -13604,7 +13548,7 @@ func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 
 // 操作用户id
 //
-//示例值：b16g66e3
+// 示例值：b16g66e3
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -13613,7 +13557,7 @@ func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInst
 
 // 审批定义code
 //
-//示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
+// 示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -13622,7 +13566,7 @@ func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 审批实例code
 //
-//示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
 func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -13631,7 +13575,7 @@ func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 任务id
 //
-//示例值：6955096766400167956
+// 示例值：6955096766400167956
 func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -13640,7 +13584,7 @@ func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInst
 
 // 意见
 //
-//示例值：addSignComment
+// 示例值：addSignComment
 func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignInstanceReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
@@ -13649,7 +13593,7 @@ func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignIn
 
 // 被加签人id
 //
-//示例值：
+// 示例值：
 func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
 	builder.addSignUserIds = addSignUserIds
 	builder.addSignUserIdsFlag = true
@@ -13658,7 +13602,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []st
 
 // 1/2/3分别代表前加签/后加签/并加签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
 	builder.addSignType = addSignType
 	builder.addSignTypeFlag = true
@@ -13667,7 +13611,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddS
 
 // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
 	builder.approvalMethod = approvalMethod
 	builder.approvalMethodFlag = true
@@ -13842,7 +13786,6 @@ func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	return builder
 }
 
-//
 func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -14262,7 +14205,7 @@ func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 
 // 用户id
 //
-//示例值：发起审批用户id，按照user_id_type类型填写
+// 示例值：发起审批用户id，按照user_id_type类型填写
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -14271,7 +14214,7 @@ func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInst
 
 // 审批定义code
 //
-//示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
+// 示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
 func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeFlag = true
@@ -14280,7 +14223,7 @@ func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 部门id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
@@ -14289,7 +14232,7 @@ func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) 
 
 // 表单数据
 //
-//示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
+// 示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
 func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstanceReqBodyBuilder {
 	builder.form = form
 	builder.formFlag = true
@@ -14298,7 +14241,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstance
 
 // 审批实例code
 //
-//示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
+// 示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
 func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeFlag = true
@@ -14307,7 +14250,7 @@ func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 语言类型
 //
-//示例值：zh-CN: 中文 en-US: 英文
+// 示例值：zh-CN: 中文 en-US: 英文
 func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInstanceReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -14316,7 +14259,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInst
 
 // 任务id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -14482,7 +14425,6 @@ func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *Preview
 	return builder
 }
 
-//
 func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *PreviewInstanceReqBuilder {
 	builder.body = body
 	return builder

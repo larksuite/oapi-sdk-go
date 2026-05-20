@@ -272,8 +272,6 @@ func NewCorrectErrorBuilder() *CorrectErrorBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 	builder.type_ = type_
@@ -519,8 +517,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -528,8 +524,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2172,7 +2166,7 @@ func NewExtractEntityReqBodyBuilder() *ExtractEntityReqBodyBuilder {
 
 // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
 //
-//示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+// 示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
 func (builder *ExtractEntityReqBodyBuilder) Text(text string) *ExtractEntityReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -2347,7 +2341,7 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 
 // 需要识别百科词条的内容（不超过1000字）
 //
-//示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
@@ -2533,7 +2527,7 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 
 // 搜索关键词，将与词条名、别名进行精准匹配
 //
-//示例值：企业百科
+// 示例值：企业百科
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
@@ -2646,7 +2640,7 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：百科
+// 示例值：百科
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -2655,7 +2649,7 @@ func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqB
 
 // 分类筛选
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
 	builder.classificationFilterFlag = true
@@ -2664,7 +2658,7 @@ func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFi
 
 // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityReqBodyBuilder {
 	builder.sources = sources
 	builder.sourcesFlag = true
@@ -2673,7 +2667,7 @@ func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityR
 
 // 创建者
 //
-//示例值：ou_30b07b63089ea46518789914dac63d36
+// 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityReqBodyBuilder) Creators(creators []string) *SearchEntityReqBodyBuilder {
 	builder.creators = creators
 	builder.creatorsFlag = true

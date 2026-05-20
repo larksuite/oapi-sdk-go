@@ -1089,8 +1089,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1098,8 +1096,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4116,8 +4112,6 @@ func (builder *MyAiAvPluginPresentInfoBuilder) Body(body string) *MyAiAvPluginPr
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MyAiAvPluginPresentInfoBuilder) CardVariables(cardVariables *MyAiAvPluginCardVariables) *MyAiAvPluginPresentInfoBuilder {
 	builder.cardVariables = cardVariables
@@ -10640,8 +10634,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -10649,8 +10641,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -10658,8 +10648,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -10922,7 +10910,7 @@ func NewMeetingListExportReqBodyBuilder() *MeetingListExportReqBodyBuilder {
 
 // 查询开始时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *MeetingListExportReqBodyBuilder) StartTime(startTime string) *MeetingListExportReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -10931,7 +10919,7 @@ func (builder *MeetingListExportReqBodyBuilder) StartTime(startTime string) *Mee
 
 // 查询结束时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *MeetingListExportReqBodyBuilder) EndTime(endTime string) *MeetingListExportReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -10940,7 +10928,7 @@ func (builder *MeetingListExportReqBodyBuilder) EndTime(endTime string) *Meeting
 
 // 会议状态（不传默认为已结束会议）
 //
-//示例值：2
+// 示例值：2
 func (builder *MeetingListExportReqBodyBuilder) MeetingStatus(meetingStatus int) *MeetingListExportReqBodyBuilder {
 	builder.meetingStatus = meetingStatus
 	builder.meetingStatusFlag = true
@@ -10949,7 +10937,7 @@ func (builder *MeetingListExportReqBodyBuilder) MeetingStatus(meetingStatus int)
 
 // 按9位会议号筛选（最多一个筛选条件）
 //
-//示例值：123456789
+// 示例值：123456789
 func (builder *MeetingListExportReqBodyBuilder) MeetingNo(meetingNo string) *MeetingListExportReqBodyBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
@@ -10958,7 +10946,7 @@ func (builder *MeetingListExportReqBodyBuilder) MeetingNo(meetingNo string) *Mee
 
 // 按参会Lark用户筛选（最多一个筛选条件）
 //
-//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *MeetingListExportReqBodyBuilder) UserId(userId string) *MeetingListExportReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -10967,7 +10955,7 @@ func (builder *MeetingListExportReqBodyBuilder) UserId(userId string) *MeetingLi
 
 // 按参会Rooms筛选（最多一个筛选条件）
 //
-//示例值：omm_eada1d61a550955240c28757e7dec3af
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
 func (builder *MeetingListExportReqBodyBuilder) RoomId(roomId string) *MeetingListExportReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -10976,7 +10964,7 @@ func (builder *MeetingListExportReqBodyBuilder) RoomId(roomId string) *MeetingLi
 
 // 按会议类型筛选（最多一个筛选条件）
 //
-//示例值：2
+// 示例值：2
 func (builder *MeetingListExportReqBodyBuilder) MeetingType(meetingType int) *MeetingListExportReqBodyBuilder {
 	builder.meetingType = meetingType
 	builder.meetingTypeFlag = true
@@ -11218,7 +11206,7 @@ func NewParticipantListExportReqBodyBuilder() *ParticipantListExportReqBodyBuild
 
 // 会议开始时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ParticipantListExportReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantListExportReqBodyBuilder {
 	builder.meetingStartTime = meetingStartTime
 	builder.meetingStartTimeFlag = true
@@ -11227,7 +11215,7 @@ func (builder *ParticipantListExportReqBodyBuilder) MeetingStartTime(meetingStar
 
 // 会议结束时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ParticipantListExportReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantListExportReqBodyBuilder {
 	builder.meetingEndTime = meetingEndTime
 	builder.meetingEndTimeFlag = true
@@ -11236,7 +11224,7 @@ func (builder *ParticipantListExportReqBodyBuilder) MeetingEndTime(meetingEndTim
 
 // 会议状态（不传默认为已结束会议）
 //
-//示例值：2
+// 示例值：2
 func (builder *ParticipantListExportReqBodyBuilder) MeetingStatus(meetingStatus int) *ParticipantListExportReqBodyBuilder {
 	builder.meetingStatus = meetingStatus
 	builder.meetingStatusFlag = true
@@ -11245,7 +11233,7 @@ func (builder *ParticipantListExportReqBodyBuilder) MeetingStatus(meetingStatus 
 
 // 9位会议号
 //
-//示例值：123456789
+// 示例值：123456789
 func (builder *ParticipantListExportReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantListExportReqBodyBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
@@ -11254,7 +11242,7 @@ func (builder *ParticipantListExportReqBodyBuilder) MeetingNo(meetingNo string) 
 
 // 按参会Lark用户筛选（最多一个筛选条件）
 //
-//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ParticipantListExportReqBodyBuilder) UserId(userId string) *ParticipantListExportReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -11263,7 +11251,7 @@ func (builder *ParticipantListExportReqBodyBuilder) UserId(userId string) *Parti
 
 // 按参会Rooms筛选（最多一个筛选条件）
 //
-//示例值：omm_eada1d61a550955240c28757e7dec3af
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
 func (builder *ParticipantListExportReqBodyBuilder) RoomId(roomId string) *ParticipantListExportReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -11486,7 +11474,7 @@ func NewParticipantQualityListExportReqBodyBuilder() *ParticipantQualityListExpo
 
 // 会议开始时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingStartTime(meetingStartTime string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.meetingStartTime = meetingStartTime
 	builder.meetingStartTimeFlag = true
@@ -11495,7 +11483,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingStartTime(meet
 
 // 会议结束时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingEndTime(meetingEndTime string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.meetingEndTime = meetingEndTime
 	builder.meetingEndTimeFlag = true
@@ -11504,7 +11492,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingEndTime(meetin
 
 // 9位会议号
 //
-//示例值：123456789
+// 示例值：123456789
 func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingNo(meetingNo string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.meetingNo = meetingNo
 	builder.meetingNoFlag = true
@@ -11513,7 +11501,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) MeetingNo(meetingNo s
 
 // 参会人入会时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ParticipantQualityListExportReqBodyBuilder) JoinTime(joinTime string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.joinTime = joinTime
 	builder.joinTimeFlag = true
@@ -11522,7 +11510,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) JoinTime(joinTime str
 
 // 参会人为Lark用户时填入，room_id和user_id必须只填一个
 //
-//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ParticipantQualityListExportReqBodyBuilder) UserId(userId string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -11531,7 +11519,7 @@ func (builder *ParticipantQualityListExportReqBodyBuilder) UserId(userId string)
 
 // 参会人为Rooms时填入，room_id和user_id必须只填一个
 //
-//示例值：omm_eada1d61a550955240c28757e7dec3af
+// 示例值：omm_eada1d61a550955240c28757e7dec3af
 func (builder *ParticipantQualityListExportReqBodyBuilder) RoomId(roomId string) *ParticipantQualityListExportReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -11754,7 +11742,7 @@ func NewResourceReservationListExportReqBodyBuilder() *ResourceReservationListEx
 
 // 会议室层级id
 //
-//示例值：omm_608d34d82d531b27fa993902d350a307
+// 示例值：omm_608d34d82d531b27fa993902d350a307
 func (builder *ResourceReservationListExportReqBodyBuilder) RoomLevelId(roomLevelId string) *ResourceReservationListExportReqBodyBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -11763,7 +11751,7 @@ func (builder *ResourceReservationListExportReqBodyBuilder) RoomLevelId(roomLeve
 
 // 是否展示会议主题
 //
-//示例值：true
+// 示例值：true
 func (builder *ResourceReservationListExportReqBodyBuilder) NeedTopic(needTopic bool) *ResourceReservationListExportReqBodyBuilder {
 	builder.needTopic = needTopic
 	builder.needTopicFlag = true
@@ -11772,7 +11760,7 @@ func (builder *ResourceReservationListExportReqBodyBuilder) NeedTopic(needTopic 
 
 // 查询开始时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ResourceReservationListExportReqBodyBuilder) StartTime(startTime string) *ResourceReservationListExportReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -11781,7 +11769,7 @@ func (builder *ResourceReservationListExportReqBodyBuilder) StartTime(startTime 
 
 // 查询结束时间（unix时间，单位sec）
 //
-//示例值：1655276858
+// 示例值：1655276858
 func (builder *ResourceReservationListExportReqBodyBuilder) EndTime(endTime string) *ResourceReservationListExportReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -11790,7 +11778,7 @@ func (builder *ResourceReservationListExportReqBodyBuilder) EndTime(endTime stri
 
 // 待筛选的会议室id列表
 //
-//示例值：["omm_eada1d61a550955240c28757e7dec3af"]
+// 示例值：["omm_eada1d61a550955240c28757e7dec3af"]
 func (builder *ResourceReservationListExportReqBodyBuilder) RoomIds(roomIds []string) *ResourceReservationListExportReqBodyBuilder {
 	builder.roomIds = roomIds
 	builder.roomIdsFlag = true
@@ -11799,7 +11787,7 @@ func (builder *ResourceReservationListExportReqBodyBuilder) RoomIds(roomIds []st
 
 // 若为true表示导出room_ids范围外的会议室，默认为false
 //
-//示例值：false
+// 示例值：false
 func (builder *ResourceReservationListExportReqBodyBuilder) IsExclude(isExclude bool) *ResourceReservationListExportReqBodyBuilder {
 	builder.isExclude = isExclude
 	builder.isExcludeFlag = true
@@ -12120,7 +12108,7 @@ func NewInviteMeetingReqBodyBuilder() *InviteMeetingReqBodyBuilder {
 
 // 被邀请的用户列表
 //
-//示例值：
+// 示例值：
 func (builder *InviteMeetingReqBodyBuilder) Invitees(invitees []*MeetingUser) *InviteMeetingReqBodyBuilder {
 	builder.invitees = invitees
 	builder.inviteesFlag = true
@@ -12242,7 +12230,7 @@ func NewKickoutMeetingReqBodyBuilder() *KickoutMeetingReqBodyBuilder {
 
 // 需移除的用户列表
 //
-//示例值：
+// 示例值：
 func (builder *KickoutMeetingReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingReqBodyBuilder {
 	builder.kickoutUsers = kickoutUsers
 	builder.kickoutUsersFlag = true
@@ -12459,7 +12447,7 @@ func NewSetHostMeetingReqBodyBuilder() *SetHostMeetingReqBodyBuilder {
 
 // 将要设置的主持人
 //
-//示例值：
+// 示例值：
 func (builder *SetHostMeetingReqBodyBuilder) HostUser(hostUser *MeetingUser) *SetHostMeetingReqBodyBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
@@ -12468,7 +12456,7 @@ func (builder *SetHostMeetingReqBodyBuilder) HostUser(hostUser *MeetingUser) *Se
 
 // 当前主持人（CAS并发安全：如果和会中当前主持人不符则会设置失败，可使用返回的最新数据重新设置）
 //
-//示例值：
+// 示例值：
 func (builder *SetHostMeetingReqBodyBuilder) OldHostUser(oldHostUser *MeetingUser) *SetHostMeetingReqBodyBuilder {
 	builder.oldHostUser = oldHostUser
 	builder.oldHostUserFlag = true
@@ -12658,7 +12646,7 @@ func NewSetPermissionMeetingRecordingReqBodyBuilder() *SetPermissionMeetingRecor
 
 // 授权对象列表
 //
-//示例值：
+// 示例值：
 func (builder *SetPermissionMeetingRecordingReqBodyBuilder) PermissionObjects(permissionObjects []*RecordingPermissionObject) *SetPermissionMeetingRecordingReqBodyBuilder {
 	builder.permissionObjects = permissionObjects
 	builder.permissionObjectsFlag = true
@@ -12667,7 +12655,7 @@ func (builder *SetPermissionMeetingRecordingReqBodyBuilder) PermissionObjects(pe
 
 // 授权或者取消授权，默认授权
 //
-//示例值：1
+// 示例值：1
 func (builder *SetPermissionMeetingRecordingReqBodyBuilder) ActionType(actionType int) *SetPermissionMeetingRecordingReqBodyBuilder {
 	builder.actionType = actionType
 	builder.actionTypeFlag = true
@@ -12803,7 +12791,7 @@ func NewStartMeetingRecordingReqBodyBuilder() *StartMeetingRecordingReqBodyBuild
 
 // 录制文件时间显示使用的时区[-12,12]
 //
-//示例值：8
+// 示例值：8
 func (builder *StartMeetingRecordingReqBodyBuilder) Timezone(timezone int) *StartMeetingRecordingReqBodyBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
@@ -13510,7 +13498,7 @@ func NewApplyReserveReqBodyBuilder() *ApplyReserveReqBodyBuilder {
 
 // 预约到期时间（unix时间，单位sec），多人会议必填
 //
-//示例值：1608888867
+// 示例值：1608888867
 func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime string) *ApplyReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -13519,7 +13507,7 @@ func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime string) *ApplyReserve
 
 // 指定会议归属人，使用tenant_access_token时生效且必传，使用user_access_token时不生效，必须指定为同租户下的合法lark用户
 //
-//示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
+// 示例值：ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *ApplyReserveReqBodyBuilder) OwnerId(ownerId string) *ApplyReserveReqBodyBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdFlag = true
@@ -13528,7 +13516,7 @@ func (builder *ApplyReserveReqBodyBuilder) OwnerId(ownerId string) *ApplyReserve
 
 // 会议设置
 //
-//示例值：
+// 示例值：
 func (builder *ApplyReserveReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ApplyReserveReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -13843,7 +13831,7 @@ func NewUpdateReserveReqBodyBuilder() *UpdateReserveReqBodyBuilder {
 
 // 预约到期时间（unix时间，单位sec）
 //
-//示例值：1608888867
+// 示例值：1608888867
 func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime string) *UpdateReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -13852,7 +13840,7 @@ func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime string) *UpdateReser
 
 // 会议设置
 //
-//示例值：
+// 示例值：
 func (builder *UpdateReserveReqBodyBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *UpdateReserveReqBodyBuilder {
 	builder.meetingSettings = meetingSettings
 	builder.meetingSettingsFlag = true
@@ -14004,7 +13992,7 @@ func NewPatchReserveConfigReqBodyBuilder() *PatchReserveConfigReqBodyBuilder {
 
 // 1 代表层级，2 代表会议室
 //
-//示例值：2
+// 示例值：2
 func (builder *PatchReserveConfigReqBodyBuilder) ScopeType(scopeType string) *PatchReserveConfigReqBodyBuilder {
 	builder.scopeType = scopeType
 	builder.scopeTypeFlag = true
@@ -14013,7 +14001,7 @@ func (builder *PatchReserveConfigReqBodyBuilder) ScopeType(scopeType string) *Pa
 
 // 预定审批设置
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigReqBodyBuilder) ApprovalConfig(approvalConfig *ApprovalConfig) *PatchReserveConfigReqBodyBuilder {
 	builder.approvalConfig = approvalConfig
 	builder.approvalConfigFlag = true
@@ -14022,7 +14010,7 @@ func (builder *PatchReserveConfigReqBodyBuilder) ApprovalConfig(approvalConfig *
 
 // 预定时间设置
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigReqBodyBuilder) TimeConfig(timeConfig *TimeConfig) *PatchReserveConfigReqBodyBuilder {
 	builder.timeConfig = timeConfig
 	builder.timeConfigFlag = true
@@ -14031,7 +14019,7 @@ func (builder *PatchReserveConfigReqBodyBuilder) TimeConfig(timeConfig *TimeConf
 
 // 预定范围设置
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigReqBodyBuilder) ReserveScopeConfig(reserveScopeConfig *ReserveScopeConfig) *PatchReserveConfigReqBodyBuilder {
 	builder.reserveScopeConfig = reserveScopeConfig
 	builder.reserveScopeConfigFlag = true
@@ -14337,7 +14325,7 @@ func NewPatchReserveConfigAdminReqBodyBuilder() *PatchReserveConfigAdminReqBodyB
 
 // 1代表层级，2代表会议室
 //
-//示例值：2
+// 示例值：2
 func (builder *PatchReserveConfigAdminReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigAdminReqBodyBuilder {
 	builder.scopeType = scopeType
 	builder.scopeTypeFlag = true
@@ -14346,7 +14334,7 @@ func (builder *PatchReserveConfigAdminReqBodyBuilder) ScopeType(scopeType int) *
 
 // 预定管理员或部门
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigAdminReqBodyBuilder) ReserveAdminConfig(reserveAdminConfig *ReserveAdminConfig) *PatchReserveConfigAdminReqBodyBuilder {
 	builder.reserveAdminConfig = reserveAdminConfig
 	builder.reserveAdminConfigFlag = true
@@ -14435,7 +14423,6 @@ func (builder *PatchReserveConfigAdminReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-//
 func (builder *PatchReserveConfigAdminReqBuilder) Body(body *PatchReserveConfigAdminReqBody) *PatchReserveConfigAdminReqBuilder {
 	builder.body = body
 	return builder
@@ -14548,7 +14535,7 @@ func NewPatchReserveConfigDisableInformReqBodyBuilder() *PatchReserveConfigDisab
 
 // 1表示会议室层级，2表示会议室
 //
-//示例值：2
+// 示例值：2
 func (builder *PatchReserveConfigDisableInformReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigDisableInformReqBodyBuilder {
 	builder.scopeType = scopeType
 	builder.scopeTypeFlag = true
@@ -14557,7 +14544,7 @@ func (builder *PatchReserveConfigDisableInformReqBodyBuilder) ScopeType(scopeTyp
 
 // 禁用通知配置
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigDisableInformReqBodyBuilder) DisableInform(disableInform *DisableInformConfig) *PatchReserveConfigDisableInformReqBodyBuilder {
 	builder.disableInform = disableInform
 	builder.disableInformFlag = true
@@ -14646,7 +14633,6 @@ func (builder *PatchReserveConfigDisableInformReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
-//
 func (builder *PatchReserveConfigDisableInformReqBuilder) Body(body *PatchReserveConfigDisableInformReqBody) *PatchReserveConfigDisableInformReqBuilder {
 	builder.body = body
 	return builder
@@ -14759,7 +14745,7 @@ func NewPatchReserveConfigFormReqBodyBuilder() *PatchReserveConfigFormReqBodyBui
 
 // 1代表层级，2代表会议室
 //
-//示例值：2
+// 示例值：2
 func (builder *PatchReserveConfigFormReqBodyBuilder) ScopeType(scopeType int) *PatchReserveConfigFormReqBodyBuilder {
 	builder.scopeType = scopeType
 	builder.scopeTypeFlag = true
@@ -14768,7 +14754,7 @@ func (builder *PatchReserveConfigFormReqBodyBuilder) ScopeType(scopeType int) *P
 
 // 预定表单设置
 //
-//示例值：
+// 示例值：
 func (builder *PatchReserveConfigFormReqBodyBuilder) ReserveFormConfig(reserveFormConfig *ReserveFormConfig) *PatchReserveConfigFormReqBodyBuilder {
 	builder.reserveFormConfig = reserveFormConfig
 	builder.reserveFormConfigFlag = true
@@ -14857,7 +14843,6 @@ func (builder *PatchReserveConfigFormReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
 func (builder *PatchReserveConfigFormReqBuilder) Body(body *PatchReserveConfigFormReqBody) *PatchReserveConfigFormReqBuilder {
 	builder.body = body
 	return builder
@@ -15257,7 +15242,7 @@ func NewMgetRoomReqBodyBuilder() *MgetRoomReqBodyBuilder {
 
 // 会议室id列表
 //
-//示例值：["omm_4de32cf10a4358788ff4e09e37ebbf9b","omm_3c5dd7e09bac0c1758fcf9511bd1a771"]
+// 示例值：["omm_4de32cf10a4358788ff4e09e37ebbf9b","omm_3c5dd7e09bac0c1758fcf9511bd1a771"]
 func (builder *MgetRoomReqBodyBuilder) RoomIds(roomIds []string) *MgetRoomReqBodyBuilder {
 	builder.roomIds = roomIds
 	builder.roomIdsFlag = true
@@ -15444,7 +15429,7 @@ func NewSearchRoomReqBodyBuilder() *SearchRoomReqBodyBuilder {
 
 // 用于查询指定会议室的租户自定义会议室ID列表，优先使用该字段进行查询
 //
-//示例值：["10001"]
+// 示例值：["10001"]
 func (builder *SearchRoomReqBodyBuilder) CustomRoomIds(customRoomIds []string) *SearchRoomReqBodyBuilder {
 	builder.customRoomIds = customRoomIds
 	builder.customRoomIdsFlag = true
@@ -15453,7 +15438,7 @@ func (builder *SearchRoomReqBodyBuilder) CustomRoomIds(customRoomIds []string) *
 
 // 会议室搜索关键词（当custom_room_ids为空时，使用该字段进行查询）
 //
-//示例值：测试会议室
+// 示例值：测试会议室
 func (builder *SearchRoomReqBodyBuilder) Keyword(keyword string) *SearchRoomReqBodyBuilder {
 	builder.keyword = keyword
 	builder.keywordFlag = true
@@ -15462,7 +15447,7 @@ func (builder *SearchRoomReqBodyBuilder) Keyword(keyword string) *SearchRoomReqB
 
 // 在该会议室层级下进行搜索（当custom_room_ids为空时，使用该字段进行查询）
 //
-//示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
 func (builder *SearchRoomReqBodyBuilder) RoomLevelId(roomLevelId string) *SearchRoomReqBodyBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -15471,7 +15456,7 @@ func (builder *SearchRoomReqBodyBuilder) RoomLevelId(roomLevelId string) *Search
 
 // 搜索会议室是否包括层级名称（当custom_room_ids为空时，使用该字段进行查询）
 //
-//示例值：true
+// 示例值：true
 func (builder *SearchRoomReqBodyBuilder) SearchLevelName(searchLevelName bool) *SearchRoomReqBodyBuilder {
 	builder.searchLevelName = searchLevelName
 	builder.searchLevelNameFlag = true
@@ -15480,7 +15465,7 @@ func (builder *SearchRoomReqBodyBuilder) SearchLevelName(searchLevelName bool) *
 
 // 分页大小，该值默认为10，最大为100（当custom_room_ids为空时，使用该字段进行查询）
 //
-//示例值：10
+// 示例值：10
 func (builder *SearchRoomReqBodyBuilder) PageSize(pageSize int) *SearchRoomReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -15489,7 +15474,7 @@ func (builder *SearchRoomReqBodyBuilder) PageSize(pageSize int) *SearchRoomReqBo
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果（当custom_room_ids为空时，使用该字段进行查询）
 //
-//示例值：0
+// 示例值：0
 func (builder *SearchRoomReqBodyBuilder) PageToken(pageToken string) *SearchRoomReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -15821,7 +15806,7 @@ func NewSetRoomConfigReqBodyBuilder() *SetRoomConfigReqBodyBuilder {
 
 // 设置节点范围
 //
-//示例值：5
+// 示例值：5
 func (builder *SetRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -15830,7 +15815,7 @@ func (builder *SetRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomConfigReqBo
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-//示例值：1
+// 示例值：1
 func (builder *SetRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoomConfigReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
@@ -15839,7 +15824,7 @@ func (builder *SetRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoom
 
 // 城市ID scope为3时需要此参数
 //
-//示例值：2
+// 示例值：2
 func (builder *SetRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRoomConfigReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
@@ -15848,7 +15833,7 @@ func (builder *SetRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRo
 
 // 建筑ID scope为4，5时需要此参数
 //
-//示例值：3
+// 示例值：3
 func (builder *SetRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRoomConfigReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
@@ -15857,7 +15842,7 @@ func (builder *SetRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRo
 
 // 楼层 scope为5时需要此参数
 //
-//示例值：4
+// 示例值：4
 func (builder *SetRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoomConfigReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
@@ -15866,7 +15851,7 @@ func (builder *SetRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoom
 
 // 会议室ID scope为6时需要此参数
 //
-//示例值：67687262867363
+// 示例值：67687262867363
 func (builder *SetRoomConfigReqBodyBuilder) RoomId(roomId string) *SetRoomConfigReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -15875,7 +15860,7 @@ func (builder *SetRoomConfigReqBodyBuilder) RoomId(roomId string) *SetRoomConfig
 
 // 会议室设置
 //
-//示例值：
+// 示例值：
 func (builder *SetRoomConfigReqBodyBuilder) RoomConfig(roomConfig *RoomConfig) *SetRoomConfigReqBodyBuilder {
 	builder.roomConfig = roomConfig
 	builder.roomConfigFlag = true
@@ -16041,7 +16026,6 @@ func (builder *SetRoomConfigReqBuilder) UserIdType(userIdType string) *SetRoomCo
 	return builder
 }
 
-//
 func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoomConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -16115,7 +16099,7 @@ func NewSetCheckboardAccessCodeRoomConfigReqBodyBuilder() *SetCheckboardAccessCo
 
 // 设置节点范围
 //
-//示例值：5
+// 示例值：5
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) Scope(scope int) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -16124,7 +16108,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) Scope(scope int)
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-//示例值：1
+// 示例值：1
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) CountryId(countryId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
@@ -16133,7 +16117,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) CountryId(countr
 
 // 城市ID scope为3时需要此参数
 //
-//示例值：2
+// 示例值：2
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
@@ -16142,7 +16126,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) DistrictId(distr
 
 // 建筑ID scope为4，5时需要此参数
 //
-//示例值：3
+// 示例值：3
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
@@ -16151,7 +16135,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) BuildingId(build
 
 // 楼层 scope为5时需要此参数
 //
-//示例值：4
+// 示例值：4
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) FloorName(floorName string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
@@ -16160,7 +16144,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) FloorName(floorN
 
 // 会议室ID scope为6时需要此参数
 //
-//示例值：67687262867363
+// 示例值：67687262867363
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId string) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -16169,7 +16153,7 @@ func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId st
 
 // 有效天数
 //
-//示例值：1
+// 示例值：1
 func (builder *SetCheckboardAccessCodeRoomConfigReqBodyBuilder) ValidDay(validDay int) *SetCheckboardAccessCodeRoomConfigReqBodyBuilder {
 	builder.validDay = validDay
 	builder.validDayFlag = true
@@ -16327,7 +16311,6 @@ func NewSetCheckboardAccessCodeRoomConfigReqBuilder() *SetCheckboardAccessCodeRo
 	return builder
 }
 
-//
 func (builder *SetCheckboardAccessCodeRoomConfigReqBuilder) Body(body *SetCheckboardAccessCodeRoomConfigReqBody) *SetCheckboardAccessCodeRoomConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -16405,7 +16388,7 @@ func NewSetRoomAccessCodeRoomConfigReqBodyBuilder() *SetRoomAccessCodeRoomConfig
 
 // 设置节点范围
 //
-//示例值：5
+// 示例值：5
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -16414,7 +16397,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) Scope(scope int) *SetR
 
 // 国家/地区ID scope为2，3时需要此参数
 //
-//示例值：1
+// 示例值：1
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) CountryId(countryId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.countryId = countryId
 	builder.countryIdFlag = true
@@ -16423,7 +16406,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) CountryId(countryId st
 
 // 城市ID scope为3时需要此参数
 //
-//示例值：2
+// 示例值：2
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) DistrictId(districtId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.districtId = districtId
 	builder.districtIdFlag = true
@@ -16432,7 +16415,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) DistrictId(districtId 
 
 // 建筑ID scope为4，5时需要此参数
 //
-//示例值：3
+// 示例值：3
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) BuildingId(buildingId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.buildingId = buildingId
 	builder.buildingIdFlag = true
@@ -16441,7 +16424,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) BuildingId(buildingId 
 
 // 楼层 scope为5时需要此参数
 //
-//示例值：4
+// 示例值：4
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) FloorName(floorName string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.floorName = floorName
 	builder.floorNameFlag = true
@@ -16450,7 +16433,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) FloorName(floorName st
 
 // 会议室ID scope为6时需要此参数
 //
-//示例值：67687262867363
+// 示例值：67687262867363
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId string) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -16459,7 +16442,7 @@ func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) RoomId(roomId string) 
 
 // 有效天数
 //
-//示例值：1
+// 示例值：1
 func (builder *SetRoomAccessCodeRoomConfigReqBodyBuilder) ValidDay(validDay int) *SetRoomAccessCodeRoomConfigReqBodyBuilder {
 	builder.validDay = validDay
 	builder.validDayFlag = true
@@ -16617,7 +16600,6 @@ func NewSetRoomAccessCodeRoomConfigReqBuilder() *SetRoomAccessCodeRoomConfigReqB
 	return builder
 }
 
-//
 func (builder *SetRoomAccessCodeRoomConfigReqBuilder) Body(body *SetRoomAccessCodeRoomConfigReqBody) *SetRoomAccessCodeRoomConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -16726,7 +16708,7 @@ func NewDelRoomLevelReqBodyBuilder() *DelRoomLevelReqBodyBuilder {
 
 // 层级ID
 //
-//示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
+// 示例值：omb_4ad1a2c7a2fbc5fc9570f38456931293
 func (builder *DelRoomLevelReqBodyBuilder) RoomLevelId(roomLevelId string) *DelRoomLevelReqBodyBuilder {
 	builder.roomLevelId = roomLevelId
 	builder.roomLevelIdFlag = true
@@ -16735,7 +16717,7 @@ func (builder *DelRoomLevelReqBodyBuilder) RoomLevelId(roomLevelId string) *DelR
 
 // 是否删除所有子层级
 //
-//示例值：false
+// 示例值：false
 func (builder *DelRoomLevelReqBodyBuilder) DeleteChild(deleteChild bool) *DelRoomLevelReqBodyBuilder {
 	builder.deleteChild = deleteChild
 	builder.deleteChildFlag = true
@@ -16975,7 +16957,7 @@ func NewMgetRoomLevelReqBodyBuilder() *MgetRoomLevelReqBodyBuilder {
 
 // 层级ID列表
 //
-//示例值：["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
+// 示例值：["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
 func (builder *MgetRoomLevelReqBodyBuilder) LevelIds(levelIds []string) *MgetRoomLevelReqBodyBuilder {
 	builder.levelIds = levelIds
 	builder.levelIdsFlag = true

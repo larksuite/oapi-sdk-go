@@ -37,7 +37,7 @@ func uploadImage(client *lark.Client) {
 	resp, err := client.Im.Image.Create(context.Background(),
 		larkim.NewCreateImageReqBuilder().
 			Body(larkim.NewCreateImageReqBodyBuilder().
-				ImageType(larkim.ImageTypeMessage).
+				ImageType(larkim.CreateImageImageTypeMessage).
 				Image(pdf).
 				Build()).
 			Build())
@@ -67,7 +67,7 @@ func uploadFile(client *lark.Client) {
 	resp, err := client.Im.File.Create(context.Background(),
 		larkim.NewCreateFileReqBuilder().
 			Body(larkim.NewCreateFileReqBodyBuilder().
-				FileType(larkim.FileTypePdf).
+				FileType(larkim.CreateFileFileTypePdf).
 				FileName("open-redis.pdf").
 				File(file).
 				Build()).
@@ -110,7 +110,7 @@ func downFile(client *lark.Client) {
 func uploadImage2(client *lark.Client) {
 	body, err := larkim.NewCreateImagePathReqBodyBuilder().
 		ImagePath("/Users/bytedance/Downloads/b.jpg").
-		ImageType(larkim.ImageTypeMessage).
+		ImageType(larkim.CreateImageImageTypeMessage).
 		Build()
 	if err != nil {
 		fmt.Println(err)
@@ -190,7 +190,7 @@ func sendTextMsg(client *lark.Client) {
 		Build()
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeChatId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeChatId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeText).
 			ReceiveId("ou_e8daec8c7bd6269852c84239ac85db3e").
@@ -271,7 +271,7 @@ func sendInteractiveMsg(client *lark.Client) {
 	}
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeInteractive).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -437,7 +437,7 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 	}
 
 	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeInteractive).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -468,7 +468,7 @@ func sendImageMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeImage).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -498,7 +498,7 @@ func sendShardChatMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeShareChat).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -529,7 +529,7 @@ func sendShardUserMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeShareUser).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -560,7 +560,7 @@ func sendAudioMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeAudio).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -591,7 +591,7 @@ func sendMediaMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeMedia).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -622,7 +622,7 @@ func sendFileMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeFile).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -653,7 +653,7 @@ func sendStickerMsg(client *lark.Client) {
 		return
 	}
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeSticker).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -694,7 +694,7 @@ func sendPostMsg(client *lark.Client) {
 	}
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypePost).
 			ReceiveId("ou_e8daec8c7bd6269852c84239ac85db3e").
@@ -783,7 +783,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 	}
 
 	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.CreateMessageV1ReceiveIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypePost).
 			ReceiveId("ou_e3f3fca5204cdf7552531c84a32f60d1").

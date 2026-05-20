@@ -18,18 +18,12 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
-	"os"
 )
 
 // POST /open-apis/hire/v1/attachments
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
-	file, err := os.Open("filepath")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
 	// 发起请求
 	resp, err := client.Hire.V1.Attachment.Create(context.Background())
 

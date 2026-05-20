@@ -821,8 +821,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -830,8 +828,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5247,7 +5243,7 @@ func NewRecognizeBankCardReqBodyBuilder() *RecognizeBankCardReqBodyBuilder {
 
 // 识别的银行卡源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBankCardReqBodyBuilder) File(file io.Reader) *RecognizeBankCardReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5307,7 +5303,6 @@ func NewRecognizeBankCardReqBuilder() *RecognizeBankCardReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeBankCardReqBuilder) Body(body *RecognizeBankCardReqBody) *RecognizeBankCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5355,7 +5350,7 @@ func NewRecognizeBusinessCardReqBodyBuilder() *RecognizeBusinessCardReqBodyBuild
 
 // 识别名片的源文件（支持 JPG / PNG / PDF）
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBusinessCardReqBodyBuilder) File(file io.Reader) *RecognizeBusinessCardReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5415,7 +5410,6 @@ func NewRecognizeBusinessCardReqBuilder() *RecognizeBusinessCardReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeBusinessCardReqBuilder) Body(body *RecognizeBusinessCardReqBody) *RecognizeBusinessCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5463,7 +5457,7 @@ func NewRecognizeBusinessLicenseReqBodyBuilder() *RecognizeBusinessLicenseReqBod
 
 // 识别的营业执照源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBusinessLicenseReqBodyBuilder) File(file io.Reader) *RecognizeBusinessLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5523,7 +5517,6 @@ func NewRecognizeBusinessLicenseReqBuilder() *RecognizeBusinessLicenseReqBuilder
 	return builder
 }
 
-//
 func (builder *RecognizeBusinessLicenseReqBuilder) Body(body *RecognizeBusinessLicenseReqBody) *RecognizeBusinessLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5571,7 +5564,7 @@ func NewRecognizeChinesePassportReqBodyBuilder() *RecognizeChinesePassportReqBod
 
 // 识别的中国护照源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeChinesePassportReqBodyBuilder) File(file io.Reader) *RecognizeChinesePassportReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5631,7 +5624,6 @@ func NewRecognizeChinesePassportReqBuilder() *RecognizeChinesePassportReqBuilder
 	return builder
 }
 
-//
 func (builder *RecognizeChinesePassportReqBuilder) Body(body *RecognizeChinesePassportReqBody) *RecognizeChinesePassportReqBuilder {
 	builder.body = body
 	return builder
@@ -5685,7 +5677,7 @@ func NewFieldExtractionContractReqBodyBuilder() *FieldExtractionContractReqBodyB
 
 // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
 //
-//示例值：
+// 示例值：
 func (builder *FieldExtractionContractReqBodyBuilder) File(file io.Reader) *FieldExtractionContractReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5694,7 +5686,7 @@ func (builder *FieldExtractionContractReqBodyBuilder) File(file io.Reader) *Fiel
 
 // pdf页数限制，太长会导致latency增加，最大允许100页
 //
-//示例值：15
+// 示例值：15
 func (builder *FieldExtractionContractReqBodyBuilder) PdfPageLimit(pdfPageLimit int) *FieldExtractionContractReqBodyBuilder {
 	builder.pdfPageLimit = pdfPageLimit
 	builder.pdfPageLimitFlag = true
@@ -5703,7 +5695,7 @@ func (builder *FieldExtractionContractReqBodyBuilder) PdfPageLimit(pdfPageLimit 
 
 // ocr 参数，当前支持force, pdf, unused三种格式
 //
-//示例值：auto
+// 示例值：auto
 func (builder *FieldExtractionContractReqBodyBuilder) OcrMode(ocrMode string) *FieldExtractionContractReqBodyBuilder {
 	builder.ocrMode = ocrMode
 	builder.ocrModeFlag = true
@@ -5797,7 +5789,6 @@ func NewFieldExtractionContractReqBuilder() *FieldExtractionContractReqBuilder {
 	return builder
 }
 
-//
 func (builder *FieldExtractionContractReqBuilder) Body(body *FieldExtractionContractReqBody) *FieldExtractionContractReqBuilder {
 	builder.body = body
 	return builder
@@ -5863,7 +5854,7 @@ func NewRecognizeDrivingLicenseReqBodyBuilder() *RecognizeDrivingLicenseReqBodyB
 
 // 识别的驾驶证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeDrivingLicenseReqBodyBuilder) File(file io.Reader) *RecognizeDrivingLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -5923,7 +5914,6 @@ func NewRecognizeDrivingLicenseReqBuilder() *RecognizeDrivingLicenseReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeDrivingLicenseReqBuilder) Body(body *RecognizeDrivingLicenseReqBody) *RecognizeDrivingLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5971,7 +5961,7 @@ func NewRecognizeFoodManageLicenseReqBodyBuilder() *RecognizeFoodManageLicenseRe
 
 // 识别的食品经营许可证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeFoodManageLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodManageLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6031,7 +6021,6 @@ func NewRecognizeFoodManageLicenseReqBuilder() *RecognizeFoodManageLicenseReqBui
 	return builder
 }
 
-//
 func (builder *RecognizeFoodManageLicenseReqBuilder) Body(body *RecognizeFoodManageLicenseReqBody) *RecognizeFoodManageLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6079,7 +6068,7 @@ func NewRecognizeFoodProduceLicenseReqBodyBuilder() *RecognizeFoodProduceLicense
 
 // 识别的食品生产许可证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeFoodProduceLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodProduceLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6139,7 +6128,6 @@ func NewRecognizeFoodProduceLicenseReqBuilder() *RecognizeFoodProduceLicenseReqB
 	return builder
 }
 
-//
 func (builder *RecognizeFoodProduceLicenseReqBuilder) Body(body *RecognizeFoodProduceLicenseReqBody) *RecognizeFoodProduceLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6187,7 +6175,7 @@ func NewRecognizeHealthCertificateReqBodyBuilder() *RecognizeHealthCertificateRe
 
 // 识别的健康证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeHealthCertificateReqBodyBuilder) File(file io.Reader) *RecognizeHealthCertificateReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6247,7 +6235,6 @@ func NewRecognizeHealthCertificateReqBuilder() *RecognizeHealthCertificateReqBui
 	return builder
 }
 
-//
 func (builder *RecognizeHealthCertificateReqBuilder) Body(body *RecognizeHealthCertificateReqBody) *RecognizeHealthCertificateReqBuilder {
 	builder.body = body
 	return builder
@@ -6295,7 +6282,7 @@ func NewRecognizeHkmMainlandTravelPermitReqBodyBuilder() *RecognizeHkmMainlandTr
 
 // 识别的港澳居民来往内地通行证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeHkmMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeHkmMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6355,7 +6342,6 @@ func NewRecognizeHkmMainlandTravelPermitReqBuilder() *RecognizeHkmMainlandTravel
 	return builder
 }
 
-//
 func (builder *RecognizeHkmMainlandTravelPermitReqBuilder) Body(body *RecognizeHkmMainlandTravelPermitReqBody) *RecognizeHkmMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6403,7 +6389,7 @@ func NewRecognizeIdCardReqBodyBuilder() *RecognizeIdCardReqBodyBuilder {
 
 // 识别身份证的源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeIdCardReqBodyBuilder) File(file io.Reader) *RecognizeIdCardReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6463,7 +6449,6 @@ func NewRecognizeIdCardReqBuilder() *RecognizeIdCardReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeIdCardReqBuilder) Body(body *RecognizeIdCardReqBody) *RecognizeIdCardReqBuilder {
 	builder.body = body
 	return builder
@@ -6511,7 +6496,7 @@ func NewParseResumeReqBodyBuilder() *ParseResumeReqBodyBuilder {
 
 // 简历文件，支持 PDF / DOCX / PNG / JPG
 //
-//示例值：
+// 示例值：
 func (builder *ParseResumeReqBodyBuilder) File(file io.Reader) *ParseResumeReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6571,7 +6556,6 @@ func NewParseResumeReqBuilder() *ParseResumeReqBuilder {
 	return builder
 }
 
-//
 func (builder *ParseResumeReqBuilder) Body(body *ParseResumeReqBody) *ParseResumeReqBuilder {
 	builder.body = body
 	return builder
@@ -6619,7 +6603,7 @@ func NewRecognizeTaxiInvoiceReqBodyBuilder() *RecognizeTaxiInvoiceReqBodyBuilder
 
 // 识别的出租车票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTaxiInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTaxiInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6679,7 +6663,6 @@ func NewRecognizeTaxiInvoiceReqBuilder() *RecognizeTaxiInvoiceReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeTaxiInvoiceReqBuilder) Body(body *RecognizeTaxiInvoiceReqBody) *RecognizeTaxiInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6727,7 +6710,7 @@ func NewRecognizeTrainInvoiceReqBodyBuilder() *RecognizeTrainInvoiceReqBodyBuild
 
 // 识别的火车票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTrainInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTrainInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6787,7 +6770,6 @@ func NewRecognizeTrainInvoiceReqBuilder() *RecognizeTrainInvoiceReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeTrainInvoiceReqBuilder) Body(body *RecognizeTrainInvoiceReqBody) *RecognizeTrainInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6835,7 +6817,7 @@ func NewRecognizeTwMainlandTravelPermitReqBodyBuilder() *RecognizeTwMainlandTrav
 
 // 识别的台湾居民来往大陆通行证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTwMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeTwMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6895,7 +6877,6 @@ func NewRecognizeTwMainlandTravelPermitReqBuilder() *RecognizeTwMainlandTravelPe
 	return builder
 }
 
-//
 func (builder *RecognizeTwMainlandTravelPermitReqBuilder) Body(body *RecognizeTwMainlandTravelPermitReqBody) *RecognizeTwMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6943,7 +6924,7 @@ func NewRecognizeVatInvoiceReqBodyBuilder() *RecognizeVatInvoiceReqBodyBuilder {
 
 // 识别的增值税发票文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVatInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVatInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -7003,7 +6984,6 @@ func NewRecognizeVatInvoiceReqBuilder() *RecognizeVatInvoiceReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeVatInvoiceReqBuilder) Body(body *RecognizeVatInvoiceReqBody) *RecognizeVatInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7051,7 +7031,7 @@ func NewRecognizeVehicleInvoiceReqBodyBuilder() *RecognizeVehicleInvoiceReqBodyB
 
 // 识别的机动车发票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVehicleInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVehicleInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -7111,7 +7091,6 @@ func NewRecognizeVehicleInvoiceReqBuilder() *RecognizeVehicleInvoiceReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeVehicleInvoiceReqBuilder) Body(body *RecognizeVehicleInvoiceReqBody) *RecognizeVehicleInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7159,7 +7138,7 @@ func NewRecognizeVehicleLicenseReqBodyBuilder() *RecognizeVehicleLicenseReqBodyB
 
 // 识别的行驶证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVehicleLicenseReqBodyBuilder) File(file io.Reader) *RecognizeVehicleLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -7219,7 +7198,6 @@ func NewRecognizeVehicleLicenseReqBuilder() *RecognizeVehicleLicenseReqBuilder {
 	return builder
 }
 
-//
 func (builder *RecognizeVehicleLicenseReqBuilder) Body(body *RecognizeVehicleLicenseReqBody) *RecognizeVehicleLicenseReqBuilder {
 	builder.body = body
 	return builder

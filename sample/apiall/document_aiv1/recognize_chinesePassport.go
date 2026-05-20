@@ -35,7 +35,6 @@ func main() {
 	req := larkdocument_ai.NewRecognizeChinesePassportReqBuilder().
 		Body(larkdocument_ai.NewRecognizeChinesePassportReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求
