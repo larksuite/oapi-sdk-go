@@ -10,47 +10,47 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package larkcore
+package authorizationcode
 
-import (
-	"context"
-	"net/http"
-	"time"
-)
-
-type TargetInfo struct {
-	TargetService string
-	TargetPrefix  string
+type TokenRequest struct {
+	Body *TokenRequestBody `body:"body"`
 }
 
-type Token struct {
-	Value      string
-	TargetInfo *TargetInfo
+type TokenRequestBody struct {
+	Code         *string `json:"code,omitempty"`
+	RedirectUri  *string `json:"redirect_uri,omitempty"`
+	CodeVerifier *string `json:"code_verifier,omitempty"`
+	Scope        *string `json:"scope,omitempty"`
 }
 
-type ClientAssertionProvider interface {
-	RetrieveToken(ctx context.Context, aud string) (*Token, error)
+type TokenRequestBuilder struct {
+	body *TokenRequestBody
 }
 
-type Config struct {
-	BaseUrl                 string
-	OAuthBaseUrl            string
-	AppId                   string
-	AppSecret               string
-	ClientAssertionProvider ClientAssertionProvider
-	HelpDeskId              string
-	HelpDeskToken           string
-	HelpdeskAuthToken       string
-	ReqTimeout              time.Duration
-	LogLevel                LogLevel
-	HttpClient              HttpClient
-	Logger                  Logger
-	AppType                 AppType
-	EnableTokenCache        bool
-	TokenCache              Cache
-	LogReqAtDebug           bool
-	Header                  http.Header
-	Serializable            Serializable
-	SkipSignVerify          bool
-	Source                  string
+func NewTokenRequestBuilder() *TokenRequestBuilder {
+	return &TokenRequestBuilder{body: &TokenRequestBody{}}
+}
+
+func (b *TokenRequestBuilder) Code(v string) *TokenRequestBuilder {
+	b.body.Code = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) RedirectUri(v string) *TokenRequestBuilder {
+	b.body.RedirectUri = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) CodeVerifier(v string) *TokenRequestBuilder {
+	b.body.CodeVerifier = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Scope(v string) *TokenRequestBuilder {
+	b.body.Scope = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Build() *TokenRequest {
+	return &TokenRequest{Body: b.body}
 }

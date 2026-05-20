@@ -67,6 +67,12 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 		if req.ClientAssertion != "client-assertion" {
 			t.Fatalf("unexpected assertion: %s", req.ClientAssertion)
 		}
+		if req.GrantType != GrantTypeJWTBearer {
+			t.Fatalf("unexpected grant type: %s", req.GrantType)
+		}
+		if req.ClientAssertionType != ClientAssertionTypeJWTBearer {
+			t.Fatalf("unexpected client assertion type: %s", req.ClientAssertionType)
+		}
 		if req.ClientID != "cli_a" {
 			t.Fatalf("unexpected client id: %s", req.ClientID)
 		}
@@ -75,7 +81,8 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 	defer server.Close()
 
 	config := mockConfig()
-	config.BaseUrl = server.URL
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
 	config.AppId = "cli_a"
 	config.EnableTokenCache = true
 	config.HttpClient = server.Client()
@@ -89,6 +96,14 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 	if token != "tenant-token" {
 		t.Fatalf("unexpected token: %s", token)
 	}
+	provider := config.ClientAssertionProvider.(*mockClientAssertionProvider)
+	expectedAud, err := extractAudFromURL(server.URL)
+	if err != nil {
+		t.Fatalf("extract aud failed: %v", err)
+	}
+	if len(provider.auds) != 1 || provider.auds[0] != expectedAud {
+		t.Fatalf("unexpected auds: %#v", provider.auds)
+	}
 }
 
 func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
@@ -96,8 +111,8 @@ func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
 		if r.URL.Path != "/proxy"+OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		if r.Header.Get(HeaderXTargetService) == "" {
-			t.Fatalf("missing target service header")
+		if r.Header.Get(HeaderXTargetService) != "accounts.feishu.cn" {
+			t.Fatalf("unexpected target service header: %s", r.Header.Get(HeaderXTargetService))
 		}
 		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200})
 	}))
@@ -105,6 +120,7 @@ func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
 
 	config := mockConfig()
 	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = "https://accounts.feishu.cn"
 	config.EnableTokenCache = true
 	config.HttpClient = proxyServer.Client()
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion", TargetInfo: &TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}
@@ -121,6 +137,7 @@ func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
 
 func TestGetTenantAccessTokenByClientAssertionEmptyToken(t *testing.T) {
 	config := mockConfig()
+	config.BaseUrl = "https://open.feishu.cn"
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{}}
 
 	manager := TokenManager{cache: &localCache{}}
@@ -136,6 +153,7 @@ func TestGetTenantAccessTokenByClientAssertionEmptyToken(t *testing.T) {
 
 func TestGetTenantAccessTokenByClientAssertionRetrieveFailed(t *testing.T) {
 	config := mockConfig()
+	config.BaseUrl = "https://open.feishu.cn"
 	config.ClientAssertionProvider = &mockClientAssertionProvider{err: ErrAppTicketIsEmpty}
 
 	manager := TokenManager{cache: &localCache{}}
@@ -157,7 +175,8 @@ func TestGetTenantAccessTokenByClientAssertionWithoutCache(t *testing.T) {
 	defer server.Close()
 
 	config := mockConfig()
-	config.BaseUrl = server.URL
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
 	config.EnableTokenCache = false
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = provider
@@ -185,7 +204,8 @@ func TestGetTenantAccessTokenByClientAssertionOAuthErrorResponse(t *testing.T) {
 	defer server.Close()
 
 	config := mockConfig()
-	config.BaseUrl = server.URL
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
 	config.EnableTokenCache = true
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
@@ -216,7 +236,8 @@ func TestGetTenantAccessTokenByClientAssertionManualCallWithoutCache(t *testing.
 	defer server.Close()
 
 	config := mockConfig()
-	config.BaseUrl = server.URL
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
 	config.EnableTokenCache = false
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = provider

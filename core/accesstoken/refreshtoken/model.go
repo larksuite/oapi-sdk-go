@@ -10,47 +10,35 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package larkcore
+package refreshtoken
 
-import (
-	"context"
-	"net/http"
-	"time"
-)
-
-type TargetInfo struct {
-	TargetService string
-	TargetPrefix  string
+type TokenRequest struct {
+	Body *TokenRequestBody `body:"body"`
 }
 
-type Token struct {
-	Value      string
-	TargetInfo *TargetInfo
+type TokenRequestBody struct {
+	RefreshToken *string `json:"refresh_token,omitempty"`
+	Scope        *string `json:"scope,omitempty"`
 }
 
-type ClientAssertionProvider interface {
-	RetrieveToken(ctx context.Context, aud string) (*Token, error)
+type TokenRequestBuilder struct {
+	body *TokenRequestBody
 }
 
-type Config struct {
-	BaseUrl                 string
-	OAuthBaseUrl            string
-	AppId                   string
-	AppSecret               string
-	ClientAssertionProvider ClientAssertionProvider
-	HelpDeskId              string
-	HelpDeskToken           string
-	HelpdeskAuthToken       string
-	ReqTimeout              time.Duration
-	LogLevel                LogLevel
-	HttpClient              HttpClient
-	Logger                  Logger
-	AppType                 AppType
-	EnableTokenCache        bool
-	TokenCache              Cache
-	LogReqAtDebug           bool
-	Header                  http.Header
-	Serializable            Serializable
-	SkipSignVerify          bool
-	Source                  string
+func NewTokenRequestBuilder() *TokenRequestBuilder {
+	return &TokenRequestBuilder{body: &TokenRequestBody{}}
+}
+
+func (b *TokenRequestBuilder) RefreshToken(v string) *TokenRequestBuilder {
+	b.body.RefreshToken = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Scope(v string) *TokenRequestBuilder {
+	b.body.Scope = &v
+	return b
+}
+
+func (b *TokenRequestBuilder) Build() *TokenRequest {
+	return &TokenRequest{Body: b.body}
 }

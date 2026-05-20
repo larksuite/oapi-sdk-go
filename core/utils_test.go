@@ -49,15 +49,90 @@ func TestExtractAudFromURL(t *testing.T) {
 
 func TestBuildProxyURL(t *testing.T) {
 	testCases := map[string]string{
-		"proxy.example.com":         "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
-		"https://proxy.example.com": "https://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
-		"http://proxy.example.com":  "http://proxy.example.com/v1/open-apis/authen/v2/oauth/token",
+		"proxy.example.com":         "https://proxy.example.com/v1/oauth/v3/token",
+		"https://proxy.example.com": "https://proxy.example.com/v1/oauth/v3/token",
+		"http://proxy.example.com":  "http://proxy.example.com/v1/oauth/v3/token",
 	}
 
 	for targetService, expected := range testCases {
 		proxyURL := buildProxyURL(targetService, "/v1", OAuthTokenUrlPath)
 		if proxyURL != expected {
 			t.Fatalf("unexpected proxy url for %s: %s", targetService, proxyURL)
+		}
+	}
+}
+
+func TestResolveOAuthBaseUrl(t *testing.T) {
+	testCases := []struct {
+		name     string
+		config   *Config
+		expected string
+		wantErr  bool
+	}{
+		{
+			name:     "feishu default",
+			config:   &Config{BaseUrl: "https://open.feishu.cn"},
+			expected: "https://accounts.feishu.cn",
+		},
+		{
+			name:     "lark default",
+			config:   &Config{BaseUrl: "https://open.larksuite.com"},
+			expected: "https://accounts.larksuite.com",
+		},
+		{
+			name:     "explicit oauth base url",
+			config:   &Config{BaseUrl: "https://custom.example.com", OAuthBaseUrl: "accounts.example.com/"},
+			expected: "https://accounts.example.com",
+		},
+		{
+			name:    "custom base url without oauth base url",
+			config:  &Config{BaseUrl: "https://custom.example.com"},
+			wantErr: true,
+		},
+	}
+
+	for _, tc := range testCases {
+		got, err := ResolveOAuthBaseUrl(tc.config)
+		if tc.wantErr {
+			if err == nil {
+				t.Fatalf("%s: expected error, got nil", tc.name)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatalf("%s: resolve oauth base url failed: %v", tc.name, err)
+		}
+		if got != tc.expected {
+			t.Fatalf("%s: unexpected oauth base url: %s", tc.name, got)
+		}
+	}
+}
+
+func TestResolveOAuthAud(t *testing.T) {
+	testCases := []struct {
+		name     string
+		config   *Config
+		expected string
+	}{
+		{
+			name:     "default feishu account host",
+			config:   &Config{BaseUrl: "https://open.feishu.cn"},
+			expected: "accounts.feishu.cn",
+		},
+		{
+			name:     "explicit boe account host",
+			config:   &Config{BaseUrl: "https://open.feishu-boe.cn", OAuthBaseUrl: "https://accounts.feishu-boe.cn"},
+			expected: "accounts.feishu-boe.cn",
+		},
+	}
+
+	for _, tc := range testCases {
+		got, err := ResolveOAuthAud(tc.config)
+		if err != nil {
+			t.Fatalf("%s: resolve oauth aud failed: %v", tc.name, err)
+		}
+		if got != tc.expected {
+			t.Fatalf("%s: unexpected oauth aud: %s", tc.name, got)
 		}
 	}
 }

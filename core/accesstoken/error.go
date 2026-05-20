@@ -10,47 +10,32 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package larkcore
+package accesstoken
 
 import (
-	"context"
-	"net/http"
-	"time"
+	"fmt"
+
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-type TargetInfo struct {
-	TargetService string
-	TargetPrefix  string
+type AccessTokenError struct {
+	*larkcore.ApiResp `json:"-"`
+	Code              int `json:"code,omitempty"`
+	// ErrorType is the OAuth error string from the "error" response field, for example "invalid_grant".
+	ErrorType        string `json:"error,omitempty"`
+	ErrorDescription string `json:"error_description,omitempty"`
 }
 
-type Token struct {
-	Value      string
-	TargetInfo *TargetInfo
-}
-
-type ClientAssertionProvider interface {
-	RetrieveToken(ctx context.Context, aud string) (*Token, error)
-}
-
-type Config struct {
-	BaseUrl                 string
-	OAuthBaseUrl            string
-	AppId                   string
-	AppSecret               string
-	ClientAssertionProvider ClientAssertionProvider
-	HelpDeskId              string
-	HelpDeskToken           string
-	HelpdeskAuthToken       string
-	ReqTimeout              time.Duration
-	LogLevel                LogLevel
-	HttpClient              HttpClient
-	Logger                  Logger
-	AppType                 AppType
-	EnableTokenCache        bool
-	TokenCache              Cache
-	LogReqAtDebug           bool
-	Header                  http.Header
-	Serializable            Serializable
-	SkipSignVerify          bool
-	Source                  string
+func (e *AccessTokenError) Error() string {
+	msg := e.ErrorDescription
+	if msg == "" {
+		msg = e.ErrorType
+	}
+	if msg == "" {
+		msg = "access token request failed"
+	}
+	if e.ApiResp != nil {
+		return fmt.Sprintf("statusCode:%d, code:%d, msg:%s", e.ApiResp.StatusCode, e.Code, msg)
+	}
+	return fmt.Sprintf("code:%d, msg:%s", e.Code, msg)
 }

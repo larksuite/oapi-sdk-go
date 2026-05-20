@@ -38,6 +38,15 @@ func StringPtr(v string) *string {
 	return &v
 }
 
+// StringPtrIfNotEmpty returns a pointer to the string value passed in or
+// nil if the value is empty.
+func StringPtrIfNotEmpty(v string) *string {
+	if v == "" {
+		return nil
+	}
+	return &v
+}
+
 // StringValue returns the value of the string pointer passed in or
 // "" if the pointer is nil.
 func StringValue(v *string) string {
@@ -63,6 +72,15 @@ func BoolValue(v *bool) bool {
 
 // IntPtr returns a pointer to the int value passed in.
 func IntPtr(v int) *int {
+	return &v
+}
+
+// IntPtrIfNotZero returns a pointer to the int value passed in or
+// nil if the value is zero.
+func IntPtrIfNotZero(v int) *int {
+	if v == 0 {
+		return nil
+	}
 	return &v
 }
 
@@ -207,11 +225,46 @@ func extractAudFromURL(rawURL string) (string, error) {
 	return "", fmt.Errorf("invalid url : %s", rawURL)
 }
 
+func ResolveOAuthAud(config *Config) (string, error) {
+	oauthBaseUrl, err := ResolveOAuthBaseUrl(config)
+	if err != nil {
+		return "", err
+	}
+	// The OAuth host, for example accounts.feishu.cn, is used as the client assertion audience.
+	return extractAudFromURL(oauthBaseUrl)
+}
+
 func buildProxyURL(targetService, targetPrefix, apiPath string) string {
 	if !strings.Contains(targetService, "://") {
 		targetService = "https://" + targetService
 	}
 	return targetService + targetPrefix + apiPath
+}
+
+func ResolveOAuthBaseUrl(config *Config) (string, error) {
+	if config.OAuthBaseUrl != "" {
+		return normalizeBaseUrl(config.OAuthBaseUrl), nil
+	}
+
+	aud, err := extractAudFromURL(config.BaseUrl)
+	if err != nil {
+		return "", err
+	}
+	switch aud {
+	case "open.feishu.cn":
+		return "https://accounts.feishu.cn", nil
+	case "open.larksuite.com":
+		return "https://accounts.larksuite.com", nil
+	default:
+		return "", errors.New("OAuthBaseUrl is not configured. When BaseUrl is set to a non-default value (neither open.feishu.cn nor open.larksuite.com), you must explicitly configure OAuthBaseUrl via WithOAuthBaseUrl(...)")
+	}
+}
+
+func normalizeBaseUrl(baseUrl string) string {
+	if !strings.Contains(baseUrl, "://") {
+		baseUrl = "https://" + baseUrl
+	}
+	return strings.TrimRight(baseUrl, "/")
 }
 
 type DecryptErr struct {

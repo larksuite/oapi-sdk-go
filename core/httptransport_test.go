@@ -152,7 +152,8 @@ func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
 
 	provider := &retryProvider{token: &Token{Value: "assertion"}}
 	config := mockConfig()
-	config.BaseUrl = server.URL
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
 	config.EnableTokenCache = true
 	config.HttpClient = server.Client()
 	config.ClientAssertionProvider = provider

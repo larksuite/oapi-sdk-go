@@ -10,47 +10,28 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package larkcore
+package accesstoken
 
 import (
-	"context"
 	"net/http"
-	"time"
+
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-type TargetInfo struct {
-	TargetService string
-	TargetPrefix  string
+type AccessTokenResp struct {
+	*larkcore.ApiResp `json:"-"`
+	Data              *AccessTokenRespData `json:"data,omitempty"`
 }
 
-type Token struct {
-	Value      string
-	TargetInfo *TargetInfo
+type AccessTokenRespData struct {
+	AccessToken           *string `json:"access_token,omitempty"`
+	TokenType             *string `json:"token_type,omitempty"`
+	ExpiresIn             *int    `json:"expires_in,omitempty"`
+	RefreshToken          *string `json:"refresh_token,omitempty"`
+	RefreshTokenExpiresIn *int    `json:"refresh_token_expires_in,omitempty"`
+	Scope                 *string `json:"scope,omitempty"`
 }
 
-type ClientAssertionProvider interface {
-	RetrieveToken(ctx context.Context, aud string) (*Token, error)
-}
-
-type Config struct {
-	BaseUrl                 string
-	OAuthBaseUrl            string
-	AppId                   string
-	AppSecret               string
-	ClientAssertionProvider ClientAssertionProvider
-	HelpDeskId              string
-	HelpDeskToken           string
-	HelpdeskAuthToken       string
-	ReqTimeout              time.Duration
-	LogLevel                LogLevel
-	HttpClient              HttpClient
-	Logger                  Logger
-	AppType                 AppType
-	EnableTokenCache        bool
-	TokenCache              Cache
-	LogReqAtDebug           bool
-	Header                  http.Header
-	Serializable            Serializable
-	SkipSignVerify          bool
-	Source                  string
+func (r *AccessTokenResp) Success() bool {
+	return r.ApiResp != nil && r.ApiResp.StatusCode == http.StatusOK
 }
