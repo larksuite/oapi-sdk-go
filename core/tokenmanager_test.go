@@ -67,8 +67,11 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 		if req.ClientAssertion != "client-assertion" {
 			t.Fatalf("unexpected assertion: %s", req.ClientAssertion)
 		}
-		if req.GrantType != GrantTypeClientCredentials {
+		if req.GrantType != GrantTypeJWTBearer {
 			t.Fatalf("unexpected grant type: %s", req.GrantType)
+		}
+		if req.ClientAssertionType != ClientAssertionTypeJWTBearer {
+			t.Fatalf("unexpected client assertion type: %s", req.ClientAssertionType)
 		}
 		if req.ClientID != "cli_a" {
 			t.Fatalf("unexpected client id: %s", req.ClientID)

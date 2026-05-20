@@ -46,18 +46,18 @@ type accessTokenRequestBody struct {
 }
 
 type accessTokenResponseBody struct {
-	Code                  int    `json:"code"`
-	Error                 string `json:"error"`
-	ErrorDescription      string `json:"error_description"`
-	AccessToken           string `json:"access_token"`
-	TokenType             string `json:"token_type"`
-	ExpiresIn             int    `json:"expires_in"`
-	RefreshToken          string `json:"refresh_token"`
-	RefreshTokenExpiresIn int    `json:"refresh_token_expires_in"`
-	Scope                 string `json:"scope"`
+	Code                  int    `json:"code,omitempty"`
+	Error                 string `json:"error,omitempty"`
+	ErrorDescription      string `json:"error_description,omitempty"`
+	AccessToken           string `json:"access_token,omitempty"`
+	TokenType             string `json:"token_type,omitempty"`
+	ExpiresIn             int    `json:"expires_in,omitempty"`
+	RefreshToken          string `json:"refresh_token,omitempty"`
+	RefreshTokenExpiresIn int    `json:"refresh_token_expires_in,omitempty"`
+	Scope                 string `json:"scope,omitempty"`
 }
 
-func (o *AccessToken) Get(ctx context.Context, req *authorizationcode.TokenRequest, options ...larkcore.RequestOptionFunc) (*AccessTokenResp, error) {
+func (o *AccessToken) RetrieveByAuthorizationCode(ctx context.Context, req *authorizationcode.TokenRequest, options ...larkcore.RequestOptionFunc) (*AccessTokenResp, error) {
 	body := &accessTokenRequestBody{GrantType: larkcore.GrantTypeAuthorizationCode}
 	if req != nil && req.Body != nil {
 		body.Code = larkcore.StringValue(req.Body.Code)
@@ -115,9 +115,10 @@ func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessToke
 	}
 
 	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
-		HttpMethod:                http.MethodPost,
-		ApiPath:                   requestURL,
-		Body:                      body,
+		HttpMethod: http.MethodPost,
+		ApiPath:    requestURL,
+		Body:       body,
+		// OAuth token exchange does not require an app, tenant, or user access token.
 		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
 	}, o.config, options...)
 	if err != nil {
@@ -141,28 +142,14 @@ func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessToke
 	return &AccessTokenResp{
 		ApiResp: rawResp,
 		Data: &AccessTokenRespData{
-			AccessToken:           stringPtrIfNotEmpty(respBody.AccessToken),
-			TokenType:             stringPtrIfNotEmpty(respBody.TokenType),
-			ExpiresIn:             intPtrIfNotZero(respBody.ExpiresIn),
-			RefreshToken:          stringPtrIfNotEmpty(respBody.RefreshToken),
-			RefreshTokenExpiresIn: intPtrIfNotZero(respBody.RefreshTokenExpiresIn),
-			Scope:                 stringPtrIfNotEmpty(respBody.Scope),
+			AccessToken:           larkcore.StringPtrIfNotEmpty(respBody.AccessToken),
+			TokenType:             larkcore.StringPtrIfNotEmpty(respBody.TokenType),
+			ExpiresIn:             larkcore.IntPtrIfNotZero(respBody.ExpiresIn),
+			RefreshToken:          larkcore.StringPtrIfNotEmpty(respBody.RefreshToken),
+			RefreshTokenExpiresIn: larkcore.IntPtrIfNotZero(respBody.RefreshTokenExpiresIn),
+			Scope:                 larkcore.StringPtrIfNotEmpty(respBody.Scope),
 		},
 	}, nil
-}
-
-func stringPtrIfNotEmpty(v string) *string {
-	if v == "" {
-		return nil
-	}
-	return &v
-}
-
-func intPtrIfNotZero(v int) *int {
-	if v == 0 {
-		return nil
-	}
-	return &v
 }
 
 func withTargetServiceHeader(targetService string) larkcore.RequestOptionFunc {

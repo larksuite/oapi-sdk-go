@@ -95,7 +95,7 @@ func TestAccessTokenAuthorizationCode(t *testing.T) {
 	defer server.Close()
 
 	accessToken := NewAccessToken(newTestConfig(server, provider))
-	resp, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().
+	resp, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().
 		Code("code").
 		RedirectUri("https://example.com/cb").
 		CodeVerifier("verifier").
@@ -164,7 +164,7 @@ func TestAccessTokenAuthorizationCodeWithAppSecret(t *testing.T) {
 	defer server.Close()
 
 	accessToken := NewAccessToken(newAppSecretTestConfig(server))
-	resp, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
+	resp, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err != nil {
 		t.Fatalf("authorization code access token with app secret failed: %v", err)
 	}
@@ -207,7 +207,7 @@ func TestAccessTokenRejectsMissingCredentials(t *testing.T) {
 
 	config := newTestConfig(server, nil)
 	accessToken := NewAccessToken(config)
-	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
+	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -230,7 +230,7 @@ func TestAccessTokenReturnsAccessTokenErrorForNonOK(t *testing.T) {
 	defer server.Close()
 
 	accessToken := NewAccessToken(newTestConfig(server, provider))
-	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
+	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -264,7 +264,7 @@ func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
 	accessToken := NewAccessToken(config)
 	headers := make(http.Header)
 	headers.Set("X-Custom", "custom-value")
-	_, err := accessToken.Get(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build(), larkcore.WithHeaders(headers))
+	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build(), larkcore.WithHeaders(headers))
 	if err != nil {
 		t.Fatalf("authorization code access token with proxy failed: %v", err)
 	}

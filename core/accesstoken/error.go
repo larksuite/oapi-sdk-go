@@ -20,9 +20,10 @@ import (
 
 type AccessTokenError struct {
 	*larkcore.ApiResp `json:"-"`
-	Code              int    `json:"code,omitempty"`
-	ErrorType         string `json:"error,omitempty"`
-	ErrorDescription  string `json:"error_description,omitempty"`
+	Code              int `json:"code,omitempty"`
+	// ErrorType is the OAuth error string from the "error" response field, for example "invalid_grant".
+	ErrorType        string `json:"error,omitempty"`
+	ErrorDescription string `json:"error_description,omitempty"`
 }
 
 func (e *AccessTokenError) Error() string {

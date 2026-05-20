@@ -37,7 +37,7 @@ func main() {
 		CodeVerifier(os.Getenv("CODE_VERIFIER")).
 		Build()
 
-	resp, err := client.AccessToken.Get(context.Background(), req)
+	resp, err := client.AccessToken.RetrieveByAuthorizationCode(context.Background(), req)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -210,7 +210,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		HttpMethod: http.MethodPost,
 		ApiPath:    requestURL,
 		Body: &OAuthTokenReq{
-			GrantType:           GrantTypeClientCredentials,
+			GrantType:           GrantTypeJWTBearer,
 			ClientAssertionType: ClientAssertionTypeJWTBearer,
 			ClientAssertion:     clientAssertionToken.Value,
 			ClientID:            config.AppId,

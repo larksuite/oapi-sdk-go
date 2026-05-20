@@ -33,7 +33,7 @@ func main() {
 	ctx := context.Background()
 	client := newClient()
 
-	tokenResp, err := client.AccessToken.Get(ctx, authorizationcode.NewTokenRequestBuilder().
+	tokenResp, err := client.AccessToken.RetrieveByAuthorizationCode(ctx, authorizationcode.NewTokenRequestBuilder().
 		Code(os.Getenv("OAUTH_CODE")).
 		RedirectUri(os.Getenv("REDIRECT_URI")).
 		CodeVerifier(os.Getenv("CODE_VERIFIER")).
