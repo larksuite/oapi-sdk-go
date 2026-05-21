@@ -12,4 +12,50 @@
 
 package larkcore
 
-const version = "v3.0.0"
+import (
+	"runtime/debug"
+	"sync"
+)
+
+const (
+	sdkModulePath   = "github.com/larksuite/oapi-sdk-go/v3"
+	fallbackVersion = "unknown"
+)
+
+var (
+	sdkVersionOnce  sync.Once
+	resolvedVersion string
+)
+
+// SDKVersion returns the SDK module version recorded in the built binary.
+func SDKVersion() string {
+	sdkVersionOnce.Do(func() {
+		resolvedVersion = fallbackVersion
+		info, ok := debug.ReadBuildInfo()
+		if !ok {
+			return
+		}
+		if info.Main.Path == sdkModulePath && validModuleVersion(info.Main.Version) {
+			resolvedVersion = info.Main.Version
+			return
+		}
+		for _, dep := range info.Deps {
+			if dep.Path != sdkModulePath {
+				continue
+			}
+			if validModuleVersion(dep.Version) {
+				resolvedVersion = dep.Version
+				return
+			}
+			if dep.Replace != nil && validModuleVersion(dep.Replace.Version) {
+				resolvedVersion = dep.Replace.Version
+				return
+			}
+		}
+	})
+	return resolvedVersion
+}
+
+func validModuleVersion(version string) bool {
+	return version != "" && version != "(devel)"
+}

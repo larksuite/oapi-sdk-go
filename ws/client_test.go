@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"sync"
 	"testing"
 
@@ -58,6 +59,43 @@ func TestGetConnURLWithAppSecret(t *testing.T) {
 	}
 	if connURL != "wss://example.com/ws" {
 		t.Fatalf("unexpected conn url: %s", connURL)
+	}
+}
+
+func TestGetConnURLWithCustomHeadersAndUserAgent(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("X-Tt-Env") != "ppe_test" {
+			t.Fatalf("missing X-Tt-Env header: %s", r.Header.Get("X-Tt-Env"))
+		}
+		if r.Header.Get("X-Use-Ppe") != "1" {
+			t.Fatalf("missing X-Use-Ppe header: %s", r.Header.Get("X-Use-Ppe"))
+		}
+		userAgent := r.Header.Get("User-Agent")
+		if !strings.HasPrefix(userAgent, "oapi-sdk-go/") {
+			t.Fatalf("unexpected user agent: %s", userAgent)
+		}
+		if !strings.Contains(userAgent, " source/ws-test") {
+			t.Fatalf("missing source in user agent: %s", userAgent)
+		}
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer server.Close()
+
+	headers := make(http.Header)
+	headers.Set("X-Tt-Env", "ppe_test")
+	headers.Set("X-Use-Ppe", "1")
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret",
+		WithDomain(server.URL),
+		WithHeaders(headers),
+		WithSource("ws-test"),
+	)
+	if _, err := client.getConnURL(context.Background()); err != nil {
+		t.Fatalf("get conn url failed: %v", err)
 	}
 }
 

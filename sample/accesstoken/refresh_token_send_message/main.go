@@ -63,7 +63,7 @@ func sendTextMessage(ctx context.Context, client *lark.Client, userAccessToken s
 		Build()
 
 	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		ReceiveIdType(larkim.AddManagersChatManagersMemberIDTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeText).
 			ReceiveId(os.Getenv("RECEIVE_ID")).

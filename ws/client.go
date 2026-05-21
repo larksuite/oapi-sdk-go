@@ -32,6 +32,8 @@ type Client struct {
 	eventHandler            *dispatcher.EventDispatcher
 	cardHandler             *larkcard.CardActionHandler
 	domain                  string
+	headers                 http.Header
+	source                  string
 	conn                    *ws.Conn
 	connUrl                 *url.URL
 	serviceID               string
@@ -94,6 +96,19 @@ func WithDomain(domain string) ClientOption {
 		cli.domain = domain
 	}
 }
+
+func WithHeaders(header http.Header) ClientOption {
+	return func(cli *Client) {
+		cli.headers = header
+	}
+}
+
+func WithSource(source string) ClientOption {
+	return func(cli *Client) {
+		cli.source = source
+	}
+}
+
 func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
 	return func(cli *Client) {
 		cli.clientAssertionProvider = provider
@@ -393,11 +408,18 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 
 	req.Header.Add("locale", "zh")
 	req.Header.Add("Content-Type", "application/json")
-	for k, values := range headers {
+	for k, values := range c.headers {
 		for _, value := range values {
 			req.Header.Add(k, value)
 		}
 	}
+	for k, values := range headers {
+		req.Header.Del(k)
+		for _, value := range values {
+			req.Header.Add(k, value)
+		}
+	}
+	req.Header.Set("User-Agent", larkcore.UserAgent(c.source))
 	resp, err := bootstrapHTTPClient.Do(req)
 	if err != nil {
 		return

@@ -492,11 +492,16 @@ func isEmptyVal(v reflect.Value) bool {
 }
 
 func userAgent(source string) string {
-	ua := fmt.Sprintf("oapi-sdk-go/%s", version)
+	ua := fmt.Sprintf("oapi-sdk-go/%s", SDKVersion())
 	if source != "" {
 		ua = ua + " source/" + source
 	}
 	return ua
+}
+
+// UserAgent returns the SDK User-Agent value.
+func UserAgent(source string) string {
+	return userAgent(source)
 }
 
 func readResponse(resp *http.Response) ([]byte, error) {
