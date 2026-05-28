@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 )
@@ -86,6 +87,158 @@ func TestRegisterAppSuccess(t *testing.T) {
 	}
 	if len(statuses) != 1 || statuses[0] != StatusPolling {
 		t.Fatalf("unexpected statuses: %#v", statuses)
+	}
+}
+
+func TestRegisterAppOmitsAppPresetWhenNil(t *testing.T) {
+	qrURL := captureQRURL(t, Options{})
+	query := qrURL.Query()
+
+	if _, ok := query["avatar"]; ok {
+		t.Fatalf("unexpected avatar param: %s", qrURL.String())
+	}
+	if _, ok := query["name"]; ok {
+		t.Fatalf("unexpected name param: %s", qrURL.String())
+	}
+	if _, ok := query["desc"]; ok {
+		t.Fatalf("unexpected desc param: %s", qrURL.String())
+	}
+	if query.Get("from") != "sdk" || query.Get("source") != "go-sdk" || query.Get("tp") != "sdk" {
+		t.Fatalf("unexpected qr query: %s", query.Encode())
+	}
+}
+
+func TestRegisterAppAppPresetSingleAvatar(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Avatar: []string{"https://example.com/a.png"},
+		},
+	})
+
+	if !reflect.DeepEqual(qrURL.Query()["avatar"], []string{"https://example.com/a.png"}) {
+		t.Fatalf("unexpected avatar params: %#v", qrURL.Query()["avatar"])
+	}
+}
+
+func TestRegisterAppAppPresetMultipleAvatarsPreserveOrder(t *testing.T) {
+	avatars := []string{
+		"https://example.com/a.png",
+		"https://example.com/b.webp",
+		"https://example.com/c.gif",
+	}
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Avatar: avatars,
+		},
+	})
+
+	if !reflect.DeepEqual(qrURL.Query()["avatar"], avatars) {
+		t.Fatalf("unexpected avatar params: %#v", qrURL.Query()["avatar"])
+	}
+}
+
+func TestRegisterAppAppPresetAcceptsExactlySixAvatars(t *testing.T) {
+	avatars := []string{
+		"https://example.com/0.png",
+		"https://example.com/1.png",
+		"https://example.com/2.png",
+		"https://example.com/3.png",
+		"https://example.com/4.png",
+		"https://example.com/5.png",
+	}
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Avatar: avatars,
+		},
+	})
+
+	if !reflect.DeepEqual(qrURL.Query()["avatar"], avatars) {
+		t.Fatalf("unexpected avatar params: %#v", qrURL.Query()["avatar"])
+	}
+}
+
+func TestRegisterAppAppPresetRejectsMoreThanSixAvatars(t *testing.T) {
+	expectAppPresetReject(t, &AppPreset{
+		Avatar: []string{
+			"https://example.com/0.png",
+			"https://example.com/1.png",
+			"https://example.com/2.png",
+			"https://example.com/3.png",
+			"https://example.com/4.png",
+			"https://example.com/5.png",
+			"https://example.com/6.png",
+		},
+	}, "AppPreset.Avatar supports at most 6 URLs, got 7")
+}
+
+func TestRegisterAppAppPresetRejectsEmptyAvatarEntry(t *testing.T) {
+	expectAppPresetReject(t, &AppPreset{
+		Avatar: []string{"https://example.com/a.png", ""},
+	}, "AppPreset.Avatar[1] must be a non-empty string")
+}
+
+func TestRegisterAppAppPresetEncodesNameWithUserPlaceholder(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Name: "{user}的应用",
+		},
+	})
+
+	if got := qrURL.Query().Get("name"); got != "{user}的应用" {
+		t.Fatalf("unexpected name: %s", got)
+	}
+	if !strings.Contains(qrURL.String(), "name=%7Buser%7D%E7%9A%84%E5%BA%94%E7%94%A8") {
+		t.Fatalf("expected encoded name in raw qr url: %s", qrURL.String())
+	}
+}
+
+func TestRegisterAppAppPresetEncodesDesc(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Desc: "由业务平台自动生成",
+		},
+	})
+
+	if got := qrURL.Query().Get("desc"); got != "由业务平台自动生成" {
+		t.Fatalf("unexpected desc: %s", got)
+	}
+}
+
+func TestRegisterAppAppPresetEmitsAllFieldsTogether(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Avatar: []string{"https://example.com/a.png", "https://example.com/b.png"},
+			Name:   "MyApp",
+			Desc:   "demo",
+		},
+	})
+	query := qrURL.Query()
+
+	if !reflect.DeepEqual(query["avatar"], []string{"https://example.com/a.png", "https://example.com/b.png"}) {
+		t.Fatalf("unexpected avatar params: %#v", query["avatar"])
+	}
+	if query.Get("name") != "MyApp" {
+		t.Fatalf("unexpected name: %s", query.Get("name"))
+	}
+	if query.Get("desc") != "demo" {
+		t.Fatalf("unexpected desc: %s", query.Get("desc"))
+	}
+}
+
+func TestRegisterAppAppPresetDoesNotInterfereWithSource(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		Source: "lark-cli",
+		AppPreset: &AppPreset{
+			Name: "X",
+		},
+	})
+	query := qrURL.Query()
+
+	if query.Get("source") != "go-sdk/lark-cli" {
+		t.Fatalf("unexpected source: %s", query.Get("source"))
+	}
+	if query.Get("name") != "X" {
+		t.Fatalf("unexpected name: %s", query.Get("name"))
 	}
 }
 
@@ -528,6 +681,88 @@ func stubWaitRecorder() (func() []time.Duration, func()) {
 		}, func() {
 			waitForInterval = original
 		}
+}
+
+func captureQRURL(t *testing.T, opts Options) *url.URL {
+	t.Helper()
+
+	restoreWait := stubWaitForInterval()
+	defer restoreWait()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"dev-1","verification_uri_complete":"https://accounts.feishu.cn/page/launcher","verification_uri":"https://accounts.feishu.cn/page/launcher","user_code":"uc-1","interval":0,"expire_in":600}`)
+		case "poll":
+			writeJSON(w, `{"client_id":"cli_test","client_secret":"sec_test"}`)
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	var captured string
+	opts.Domain = server.URL
+	if opts.OnQRCode == nil {
+		opts.OnQRCode = func(info *QRCodeInfo) {
+			captured = info.URL
+		}
+	}
+
+	if _, err := RegisterApp(context.Background(), &opts); err != nil {
+		t.Fatalf("register app failed: %v", err)
+	}
+	if captured == "" {
+		t.Fatal("expected qr url")
+	}
+	parsed, err := url.Parse(captured)
+	if err != nil {
+		t.Fatalf("parse qr url failed: %v", err)
+	}
+	return parsed
+}
+
+func expectAppPresetReject(t *testing.T, preset *AppPreset, wantErr string) {
+	t.Helper()
+
+	restoreWait := stubWaitForInterval()
+	defer restoreWait()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"dev-1","verification_uri_complete":"https://accounts.feishu.cn/page/launcher","interval":0,"expire_in":600}`)
+		case "poll":
+			t.Fatal("poll should not be called when preset validation fails")
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	calledQRCode := false
+	_, err := RegisterApp(context.Background(), &Options{
+		Domain:    server.URL,
+		AppPreset: preset,
+		OnQRCode: func(info *QRCodeInfo) {
+			calledQRCode = true
+		},
+	})
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	if !strings.Contains(err.Error(), wantErr) {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if calledQRCode {
+		t.Fatal("OnQRCode should not be called")
+	}
 }
 
 func writeJSON(w http.ResponseWriter, body string) {

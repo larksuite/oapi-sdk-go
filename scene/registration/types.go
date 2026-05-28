@@ -16,6 +16,26 @@ type StatusChangeInfo struct {
 	Interval int
 }
 
+// AppPreset contains values used to pre-fill the app creation page after the
+// user opens the QR code URL. Users can still edit these values on the page;
+// the final app values are whatever the user submits.
+type AppPreset struct {
+	// Avatar contains app avatar URLs. Use one entry for a single avatar, or
+	// 1-6 entries for candidates. The first entry is selected by default.
+	// Values are URL-encoded by the SDK when building the QR URL.
+	Avatar []string
+
+	// Name is the app name shown on the app creation page. It supports the
+	// {user} placeholder, which is resolved by the web page for the scanning
+	// user.
+	Name string
+
+	// Desc is the app description shown on the app creation page. It supports
+	// the {user} placeholder, which is resolved by the web page for the scanning
+	// user.
+	Desc string
+}
+
 type UserInfo struct {
 	OpenID      string
 	TenantBrand string
@@ -31,6 +51,7 @@ type Options struct {
 	Source         string
 	Domain         string
 	LarkDomain     string
+	AppPreset      *AppPreset
 	OnQRCode       func(info *QRCodeInfo)
 	OnStatusChange func(info *StatusChangeInfo)
 }

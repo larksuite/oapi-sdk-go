@@ -85,6 +85,10 @@ func main() {
 | `Options.Source` | 来源标识，会拼入二维码 URL 的 `source` 参数，格式为 `go-sdk/{source}`。 Source identifier appended to the QR URL as `go-sdk/{source}`. | `string` | 否 No | `go-sdk` |
 | `Options.Domain` | 自定义飞书认证域名，支持传完整前缀，如 `https://accounts.feishu.cn`。 Custom Feishu accounts domain. A full base URL such as `https://accounts.feishu.cn` is supported. | `string` | 否 No | `https://accounts.feishu.cn` |
 | `Options.LarkDomain` | 自定义 Lark 认证域名；检测到 `tenant_brand=lark` 时自动切换。 Custom Lark accounts domain used when `tenant_brand=lark` is detected. | `string` | 否 No | `https://accounts.larksuite.com` |
+| `Options.AppPreset` | 预设应用信息，仅用于初始化创建页；用户仍可在页面修改，最终以页面提交为准。 Pre-filled app creation values; users can still edit them on the page. | `*registration.AppPreset` | 否 No | - |
+| `Options.AppPreset.Avatar` | 应用头像 URL，支持 1-6 个；第一个默认选中。传原始 URL，SDK 会编码。头像展示、图片可访问性、GIF 取帧等由创建页处理。 App avatar URLs, 1-6 entries; first entry is selected by default. Pass raw URLs and the SDK encodes them. Page-side display rules are handled by the app creation page. | `[]string` | 否 No | - |
+| `Options.AppPreset.Name` | 应用名称，支持 `{user}` 占位符；传原始值，SDK 会编码。 App name with `{user}` placeholder support; pass raw value and the SDK encodes it. | `string` | 否 No | - |
+| `Options.AppPreset.Desc` | 应用描述，支持 `{user}` 占位符；传原始值，SDK 会编码。 App description with `{user}` placeholder support; pass raw value and the SDK encodes it. | `string` | 否 No | - |
 | `Options.OnQRCode` | 验证链接就绪时的回调，参数为 `{ URL, ExpireIn }`。可直接展示链接，或将其渲染为二维码供用户扫码。 Callback invoked when the verification URL is ready. | `func(info *registration.QRCodeInfo)` | 是 Yes | - |
 | `Options.OnStatusChange` | 轮询状态变化回调，参数为 `{ Status, Interval }`。`Status` 可能为 `polling`、`slow_down`、`domain_switched`。 Callback for polling status changes. | `func(info *registration.StatusChangeInfo)` | 否 No | - |
 
@@ -136,5 +140,4 @@ Returned errors usually expose `Code` and `Description` through `registration.Re
 ## License
 
 使用 MIT
-
 

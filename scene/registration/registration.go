@@ -19,7 +19,8 @@ const (
 	defaultFeishuDomain = "https://accounts.feishu.cn"
 	defaultLarkDomain   = "https://accounts.larksuite.com"
 
-	endpoint = "/oauth/v1/app/registration"
+	endpoint       = "/oauth/v1/app/registration"
+	avatarMaxCount = 6
 
 	defaultPollIntervalSeconds = 5
 	defaultExpireInSeconds     = 600
@@ -59,7 +60,7 @@ func RegisterApp(ctx context.Context, opts *Options) (*RegisterAppResult, error)
 		return nil, err
 	}
 
-	qrURL, err := buildQRCodeURL(beginResp.VerificationURIComplete, opts.Source)
+	qrURL, err := buildQRCodeURL(beginResp.VerificationURIComplete, opts.Source, opts.AppPreset)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +238,7 @@ func normalizedExpireIn(expireIn int) int {
 	return expireIn
 }
 
-func buildQRCodeURL(rawURL, source string) (string, error) {
+func buildQRCodeURL(rawURL, source string, preset *AppPreset) (string, error) {
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
 		return "", err
@@ -251,8 +252,33 @@ func buildQRCodeURL(rawURL, source string) (string, error) {
 	} else {
 		query.Set("source", sdkName+"/"+source)
 	}
+	if err := applyAppPreset(query, preset); err != nil {
+		return "", err
+	}
 	parsedURL.RawQuery = query.Encode()
 	return parsedURL.String(), nil
+}
+
+func applyAppPreset(query url.Values, preset *AppPreset) error {
+	if preset == nil {
+		return nil
+	}
+	if len(preset.Avatar) > avatarMaxCount {
+		return fmt.Errorf("registration: AppPreset.Avatar supports at most %d URLs, got %d", avatarMaxCount, len(preset.Avatar))
+	}
+	for idx, avatar := range preset.Avatar {
+		if avatar == "" {
+			return fmt.Errorf("registration: AppPreset.Avatar[%d] must be a non-empty string", idx)
+		}
+		query.Add("avatar", avatar)
+	}
+	if preset.Name != "" {
+		query.Set("name", preset.Name)
+	}
+	if preset.Desc != "" {
+		query.Set("desc", preset.Desc)
+	}
+	return nil
 }
 
 func emitStatusChange(opts *Options, info *StatusChangeInfo) {
