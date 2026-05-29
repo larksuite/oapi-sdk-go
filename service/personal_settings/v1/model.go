@@ -664,7 +664,7 @@ func (builder *SystemStatusUserOpenParamBuilder) Build() *SystemStatusUserOpenPa
 type SystemStatusUserOpenResultEntity struct {
 	UserId *string `json:"user_id,omitempty"` // 用户ID
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 
 	Result *string `json:"result,omitempty"` // 开启结果
 }
@@ -673,7 +673,7 @@ type SystemStatusUserOpenResultEntityBuilder struct {
 	userId     string // 用户ID
 	userIdFlag bool
 
-	endTime     string // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	endTime     int64 // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 	endTimeFlag bool
 
 	result     string // 开启结果
@@ -697,7 +697,7 @@ func (builder *SystemStatusUserOpenResultEntityBuilder) UserId(userId string) *S
 // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 //
 // 示例值：1665990378
-func (builder *SystemStatusUserOpenResultEntityBuilder) EndTime(endTime string) *SystemStatusUserOpenResultEntityBuilder {
+func (builder *SystemStatusUserOpenResultEntityBuilder) EndTime(endTime int64) *SystemStatusUserOpenResultEntityBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
