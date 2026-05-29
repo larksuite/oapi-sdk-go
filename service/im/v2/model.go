@@ -2237,7 +2237,7 @@ type OpenFailedUserAppFeedCardItem struct {
 
 	UserId *string `json:"user_id,omitempty"` // 用户 ID
 
-	Reason *string `json:"reason,omitempty"` // 原因
+	Reason *int `json:"reason,omitempty"` // 原因
 }
 
 type OpenFailedUserAppFeedCardItemBuilder struct {
@@ -2247,7 +2247,7 @@ type OpenFailedUserAppFeedCardItemBuilder struct {
 	userId     string // 用户 ID
 	userIdFlag bool
 
-	reason     string // 原因
+	reason     int // 原因
 	reasonFlag bool
 }
 
@@ -2277,7 +2277,7 @@ func (builder *OpenFailedUserAppFeedCardItemBuilder) UserId(userId string) *Open
 // 原因
 //
 // 示例值：
-func (builder *OpenFailedUserAppFeedCardItemBuilder) Reason(reason string) *OpenFailedUserAppFeedCardItemBuilder {
+func (builder *OpenFailedUserAppFeedCardItemBuilder) Reason(reason int) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
 	return builder
